@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" role="img" aria-labelledby="t">
+  <title id="t">Map of oxidation and reduction between alcohols and carbonyl compounds. Top row: primary alcohol, R-CH2OH, goes by oxidation with [O] to an aldehyde, R-CHO, which goes by oxidation with [O] to a carboxylic acid, R-COOH. Arrows pointing back the other way, labelled [H], show reduction: carboxylic acid to aldehyde to primary alcohol. Middle row: secondary alcohol, R-CH(OH)-R', goes by oxidation with [O] to a ketone, R-CO-R', and the ketone goes back by reduction with [H]. Bottom row: tertiary alcohol, R3C-OH, has a crossed-out arrow labelled no reaction, because the carbon bonded to OH has no hydrogen atom.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="20" y="22" width="150" height="50" rx="6"/>
+    <rect x="245" y="22" width="150" height="50" rx="6"/>
+    <rect x="470" y="22" width="150" height="50" rx="6"/>
+    <rect x="20" y="117" width="150" height="50" rx="6"/>
+    <rect x="245" y="117" width="150" height="50" rx="6"/>
+    <rect x="20" y="202" width="150" height="50" rx="6"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="95" y="42">primary alcohol</text>
+    <text x="95" y="61" font-size="13">R–CH₂OH</text>
+    <text x="320" y="42">aldehyde</text>
+    <text x="320" y="61" font-size="13">R–CHO</text>
+    <text x="545" y="42">carboxylic acid</text>
+    <text x="545" y="61" font-size="13">R–COOH</text>
+    <text x="95" y="137">secondary alcohol</text>
+    <text x="95" y="156" font-size="13">R–CH(OH)–R′</text>
+    <text x="320" y="137">ketone</text>
+    <text x="320" y="156" font-size="13">R–CO–R′</text>
+    <text x="95" y="222">tertiary alcohol</text>
+    <text x="95" y="241" font-size="13">R₃C–OH</text>
+  </g>
+  <!-- oxidation arrows (forward, upper) -->
+  <g stroke="var(--t1-ink)" stroke-width="1.8" fill="none">
+    <path d="M176 39 H236"/>
+    <path d="M401 39 H461"/>
+    <path d="M176 134 H236"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <path d="M243 39 l-9 -4.5 v9 z"/>
+    <path d="M468 39 l-9 -4.5 v9 z"/>
+    <path d="M243 134 l-9 -4.5 v9 z"/>
+  </g>
+  <g font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">
+    <text x="208" y="31">[O]</text>
+    <text x="433" y="31">[O]</text>
+    <text x="208" y="126">[O]</text>
+  </g>
+  <!-- reduction arrows (backward, lower) -->
+  <g stroke="var(--t2-ink)" stroke-width="1.8" fill="none">
+    <path d="M238 56 H178"/>
+    <path d="M463 56 H403"/>
+    <path d="M238 151 H178"/>
+  </g>
+  <g fill="var(--t2-ink)">
+    <path d="M172 56 l9 -4.5 v9 z"/>
+    <path d="M397 56 l9 -4.5 v9 z"/>
+    <path d="M172 151 l9 -4.5 v9 z"/>
+  </g>
+  <g font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">
+    <text x="208" y="72">[H]</text>
+    <text x="433" y="72">[H]</text>
+    <text x="208" y="167">[H]</text>
+  </g>
+  <!-- tertiary: blocked arrow -->
+  <path d="M176 227 H236" stroke="var(--muted)" stroke-width="1.8" fill="none"/>
+  <path d="M243 227 l-9 -4.5 v9 z" fill="var(--muted)"/>
+  <path d="M199 217 l18 20 M217 217 l-18 20" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="252" y="223">no reaction: the C bonded</text>
+    <text x="252" y="238">to OH has no H atom</text>
+  </g>
+  <!-- legend -->
+  <g font-size="12" font-family="inherit">
+    <path d="M470 128 H500" stroke="var(--t1-ink)" stroke-width="1.8"/>
+    <path d="M507 128 l-9 -4.5 v9 z" fill="var(--t1-ink)"/>
+    <text x="514" y="132" fill="currentColor">oxidation, [O]</text>
+    <path d="M478 152 H508" stroke="var(--t2-ink)" stroke-width="1.8"/>
+    <path d="M471 152 l9 -4.5 v9 z" fill="var(--t2-ink)"/>
+    <text x="514" y="156" fill="currentColor">reduction, [H]</text>
+  </g>
+</svg>

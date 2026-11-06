@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-labelledby="t">
+  <title id="t">Two apparatus set-ups side by side. Left, distillation: a round-bottomed flask of reaction mixture is heated from below. A still head on top holds a thermometer with its bulb level with the side arm. The side arm leads into a condenser that slopes downwards, with cooling water in at the lower end and out at the upper end. The condensed liquid, the aldehyde, drips into a collecting flask standing in an ice bath. Right, reflux: a round-bottomed flask of reaction mixture is heated from below, with a condenser fitted straight up above it and left open at the top. Cooling water enters at the bottom of the condenser jacket and leaves at the top. Vapour rises, condenses and drips back into the flask.</title>
+  <!-- ============ distillation ============ -->
+  <!-- flask -->
+  <path d="M72 150 V190 A40 40 0 1 0 88 190 V150" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M41.5 240 A40 40 0 0 0 118.5 240 Z" fill="var(--t2-ink)" fill-opacity="0.22"/>
+  <!-- still head -->
+  <path d="M72 150 V104 M88 150 V120 M88 104 V108" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="69" y="96" width="22" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <!-- thermometer -->
+  <path d="M80 58 V112" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="80" cy="115" r="3.2" fill="var(--t1-ink)"/>
+  <!-- side arm / inner tube -->
+  <path d="M88 108 L254 188 M88 120 L246 196" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M254 188 V222 M246 196 V222" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <!-- condenser jacket -->
+  <g transform="translate(170 152) rotate(25.7)">
+    <rect x="-62" y="-14" width="124" height="28" rx="3" fill="var(--t3-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M44 14 V28 M-44 -14 V-28" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  </g>
+  <!-- receiver in ice bath -->
+  <rect x="208" y="244" width="92" height="42" rx="3" fill="var(--t2-ink)" fill-opacity="0.1" stroke="var(--muted)" stroke-width="1.2"/>
+  <path d="M242 216 V230 L224 276 H276 L258 230 V216" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M232 262 H268 L273 276 H227 Z" fill="var(--t1-ink)" fill-opacity="0.3"/>
+  <!-- heat -->
+  <path d="M80 304 V282" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M80 276 l-5 9 h10 z" fill="currentColor"/>
+  <!-- labels -->
+  <g fill="none" stroke="var(--muted)" stroke-width="1">
+    <path d="M84 70 H118"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="122" y="74">thermometer</text>
+    <text x="150" y="100">water out</text>
+    <text x="214" y="214" text-anchor="end">water in</text>
+    <text x="306" y="262">aldehyde</text>
+    <text x="306" y="277">collects</text>
+    <text x="214" y="300">ice bath</text>
+    <text x="126" y="258">reaction</text>
+    <text x="126" y="272">mixture</text>
+    <text x="88" y="306">heat</text>
+  </g>
+  <text x="150" y="330" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">Distillation: the aldehyde leaves as it forms</text>
+  <!-- ============ reflux ============ -->
+  <!-- flask -->
+  <path d="M475 150 V190 A40 40 0 1 0 485 190 V150" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M441.5 240 A40 40 0 0 0 518.5 240 Z" fill="var(--t2-ink)" fill-opacity="0.22"/>
+  <!-- inner tube of vertical condenser -->
+  <path d="M475 150 V24 M485 150 V24" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <!-- jacket -->
+  <rect x="463" y="42" width="34" height="98" rx="3" fill="var(--t3-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M497 128 H516 M497 54 H516" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <!-- drips -->
+  <g fill="var(--t1-ink)">
+    <ellipse cx="480" cy="152" rx="2.2" ry="3.2"/>
+    <ellipse cx="480" cy="168" rx="2.2" ry="3.2"/>
+    <ellipse cx="480" cy="184" rx="2.2" ry="3.2"/>
+  </g>
+  <!-- heat -->
+  <path d="M480 304 V282" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M480 276 l-5 9 h10 z" fill="currentColor"/>
+  <!-- labels -->
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="520" y="58">water out</text>
+    <text x="520" y="132">water in</text>
+    <text x="490" y="20">open top</text>
+    <text x="526" y="240">reaction mixture</text>
+    <text x="488" y="306">heat</text>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="456" y="90">vapour condenses</text>
+    <text x="456" y="105">and drips back</text>
+  </g>
+  <path d="M458 100 H472" stroke="var(--muted)" stroke-width="1"/>
+  <text x="480" y="330" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">Reflux: vapour returns to the flask</text>
+</svg>

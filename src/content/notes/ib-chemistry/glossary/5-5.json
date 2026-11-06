@@ -2,37 +2,37 @@
   {
     "id": "reaction-mechanism",
     "term": "reaction mechanism",
-    "definition": "TODO: Sequence of elementary steps in a reaction.",
+    "definition": "The series of elementary steps by which a reaction happens. The steps must add up to the overall equation and agree with the experimental rate equation.",
     "lesson": "5.5"
   },
   {
     "id": "elementary-step",
     "term": "elementary step",
-    "definition": "TODO: A single molecular event in a mechanism.",
+    "definition": "A single event in a reaction mechanism: one collision between particles, or one particle breaking apart or rearranging.",
     "lesson": "5.5"
   },
   {
     "id": "rate-determining-step",
     "term": "rate-determining step",
-    "definition": "TODO: Slowest step in the mechanism; sets the rate equation.",
+    "definition": "The slowest step in a reaction mechanism, with the largest activation energy. It controls the overall rate, and its reactants (or those that form them in earlier fast steps) appear in the rate equation.",
     "lesson": "5.5"
   },
   {
     "id": "reaction-intermediate",
     "term": "reaction intermediate",
-    "definition": "TODO: Species formed and consumed in a mechanism; a real species at a minimum on the profile.",
+    "definition": "A species formed in one step of a mechanism and used up in a later step, so it is not in the overall equation. It is a real species and sits in a dip (a minimum) on the energy profile.",
     "lesson": "5.5"
   },
   {
     "id": "transition-state",
     "term": "transition state",
-    "definition": "TODO: Highest-energy arrangement at a peak; not isolable.",
+    "definition": "The highest-energy arrangement of atoms in an elementary step, with bonds partly broken and partly formed. It sits at a peak of the energy profile and cannot be isolated. Also called the activated complex.",
     "lesson": "5.5"
   },
   {
     "id": "molecularity",
     "term": "molecularity",
-    "definition": "TODO: Number of particles in an elementary step.",
+    "definition": "The number of reacting particles taking part in one elementary step: unimolecular (one), bimolecular (two) or termolecular (three, rare).",
     "lesson": "5.5"
   }
 ]

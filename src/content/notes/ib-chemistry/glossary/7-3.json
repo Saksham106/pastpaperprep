@@ -2,61 +2,61 @@
   {
     "id": "direct-proportionality",
     "term": "direct proportionality",
-    "definition": "TODO: y = kx; straight line through the origin.",
+    "definition": "A relationship $y = kx$ with $k$ constant, so doubling one variable doubles the other; its graph is a straight line through the origin.",
     "lesson": "7.3"
   },
   {
     "id": "inverse-proportionality",
     "term": "inverse proportionality",
-    "definition": "TODO: y = k/x; hyperbola.",
+    "definition": "A relationship $y = \\frac{k}{x}$ with $k$ constant, so doubling one variable halves the other and their product stays the same; its graph is a curve that approaches both axes without touching them.",
     "lesson": "7.3"
   },
   {
     "id": "coefficient-of-determination",
     "term": "coefficient of determination",
-    "definition": "TODO: R^2; closer to 1 means better fit.",
+    "definition": "$R^2$, a value from 0 to 1 showing how well a trend line or curve fits the data; the closer it is to 1, the closer the points lie to the line.",
     "lesson": "7.3"
   },
   {
     "id": "line-of-best-fit",
     "term": "line of best fit",
-    "definition": "TODO: Line through data with points scattered evenly.",
+    "definition": "A single straight line or smooth curve drawn through plotted points so that they are scattered as evenly as possible on both sides of it, ignoring anomalous points.",
     "lesson": "7.3"
   },
   {
     "id": "gradient",
     "term": "gradient",
-    "definition": "TODO: Rate of change; include units.",
+    "definition": "The steepness of a line: the change in the $y$ quantity divided by the change in the $x$ quantity, with units of the $y$ unit per $x$ unit, such as $\\pu{cm3 s-1}$ for a rate.",
     "lesson": "7.3"
   },
   {
     "id": "uncertainty-bar",
     "term": "uncertainty bar",
-    "definition": "TODO: Shows range of the uncertainty on a point.",
+    "definition": "A line drawn through a plotted point, extending by the absolute uncertainty on each side, to show the range in which the true value is likely to lie.",
     "lesson": "7.3"
   },
   {
     "id": "extrapolation",
     "term": "extrapolation",
-    "definition": "TODO: Estimating outside the data range; less reliable.",
+    "definition": "Estimating a value by extending a graph or trend line beyond the range of the measured data; it is less reliable because the trend may not continue.",
     "lesson": "7.3"
   },
   {
     "id": "interpolation",
     "term": "interpolation",
-    "definition": "TODO: Estimating within the data range.",
+    "definition": "Estimating a value from a graph or trend line within the range of the measured data.",
     "lesson": "7.3"
   },
   {
     "id": "independent-variable",
     "term": "independent variable",
-    "definition": "TODO: Deliberately changed.",
+    "definition": "The variable an experimenter changes on purpose; it is plotted on the horizontal axis.",
     "lesson": "7.3"
   },
   {
     "id": "dependent-variable",
     "term": "dependent variable",
-    "definition": "TODO: Measured.",
+    "definition": "The variable that is measured to see how it responds to changes in the independent variable; it is plotted on the vertical axis.",
     "lesson": "7.3"
   }
 ]

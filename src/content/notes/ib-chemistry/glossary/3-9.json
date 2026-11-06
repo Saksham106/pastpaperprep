@@ -2,25 +2,25 @@
   {
     "id": "fragmentation",
     "term": "fragmentation",
-    "definition": "TODO: Molecular ion breaks into fragment ions; fragments identify structure.",
+    "definition": "The breaking of a molecular ion in a mass spectrometer into a smaller positive ion, which is detected, and a neutral piece, which is not; the masses lost show which groups the molecule contains.",
     "lesson": "3.9"
   },
   {
     "id": "molecular-ion",
     "term": "molecular ion",
-    "definition": "TODO: Intact ionized molecule M+; m/z gives molar mass.",
+    "definition": "The positive ion $\\ce{M+}$ formed when a whole molecule loses one electron in a mass spectrometer; its $m/z$ value gives the relative molecular mass.",
     "lesson": "3.9"
   },
   {
     "id": "wavenumber",
     "term": "wavenumber",
-    "definition": "TODO: Reciprocal of wavelength in cm^-1; used to label IR absorptions.",
+    "definition": "The number of waves in one centimetre, $\\frac{1}{\\lambda}$, in $\\pu{cm-1}$; IR absorptions are labelled by wavenumber, and a larger wavenumber means a higher frequency and energy.",
     "lesson": "3.9"
   },
   {
     "id": "infrared-active",
     "term": "infrared active",
-    "definition": "TODO: A vibration that changes the dipole moment; only these absorb IR.",
+    "definition": "Describes a molecular vibration that changes the molecule's dipole moment; only such vibrations absorb infrared radiation.",
     "lesson": "3.9"
   }
 ]

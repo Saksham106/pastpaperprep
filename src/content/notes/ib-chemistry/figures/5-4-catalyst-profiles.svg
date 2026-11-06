@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" role="img" aria-labelledby="t54cat">
+  <title id="t54cat">Two energy profiles, each with an uncatalysed curve and a catalysed curve. Left, exothermic; right, endothermic. In each panel both curves start at the same reactants level and end at the same products level. The catalysed curve, drawn dashed, rises over a much lower hump than the uncatalysed curve. Two upward arrows from the reactants level show the activation energies: the longer one reaches the top of the uncatalysed hump, the shorter one, labelled activation energy catalysed, reaches the top of the catalysed hump. One arrow between the reactants and products levels is labelled delta H, the same for both pathways.</title>
+  <g font-family="inherit" fill="currentColor"><text x="175" y="20" font-size="14" text-anchor="middle" font-weight="bold">Exothermic</text><text x="510" y="20" font-size="14" text-anchor="middle" font-weight="bold">Endothermic</text></g>
+  <path d="M40 260 L40 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="40,36 35.5,45 44.5,45" fill="currentColor"/>
+  <path d="M40 260 L310 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="319,260 310,255.5 310,264.5" fill="currentColor"/>
+  <text x="28" y="152.5" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 28 152.5)">potential energy</text>
+  <text x="175.0" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  <path d="M375 260 L375 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="375,36 370.5,45 379.5,45" fill="currentColor"/>
+  <path d="M375 260 L645 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="654,260 645,255.5 645,264.5" fill="currentColor"/>
+  <text x="363" y="152.5" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 363 152.5)">potential energy</text>
+  <text x="510.0" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  <path d="M55 150 H140 C165 150 175 62 192 62 C210 62 220 220 245 220 H298" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M55 150 H140 C165 150 175 118 192 118 C210 118 220 220 245 220 H298" fill="none" stroke="var(--t4-ink)" stroke-width="2.4" stroke-dasharray="7 5"/>
+  <path d="M55 62 H225" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M112 118 H225" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M180 150 H302" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M64 148 L64 73" fill="none" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <polygon points="64,64 59.5,73 68.5,73" fill="var(--t5-ink)"/>
+  <path d="M122 148 L122 129" fill="none" stroke="var(--t4-ink)" stroke-width="1.8"/>
+  <polygon points="122,120 117.5,129 126.5,129" fill="var(--t4-ink)"/>
+  <path d="M282 152 L282 209" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="282,218 277.5,209 286.5,209" fill="var(--t3-ink)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit"><text x="70" y="111.0" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text><text x="128" y="112" fill="var(--t4-ink)">E<tspan font-size="9" dy="3">a</tspan><tspan dy="-3">(cat)</tspan></text><text x="288" y="189.0" fill="var(--t3-ink)">ΔH &lt; 0</text><text x="55" y="166">reactants</text><text x="240" y="236">products</text></g>
+  <path d="M390 220 H475 C500 220 510 62 527 62 C545 62 555 150 580 150 H633" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <path d="M390 220 H475 C500 220 510 118 527 118 C545 118 555 150 580 150 H633" fill="none" stroke="var(--t4-ink)" stroke-width="2.4" stroke-dasharray="7 5"/>
+  <path d="M390 62 H560" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M447 118 H560" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M515 220 H637" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M399 218 L399 73" fill="none" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <polygon points="399,64 394.5,73 403.5,73" fill="var(--t5-ink)"/>
+  <path d="M457 218 L457 129" fill="none" stroke="var(--t4-ink)" stroke-width="1.8"/>
+  <polygon points="457,120 452.5,129 461.5,129" fill="var(--t4-ink)"/>
+  <path d="M617 218 L617 161" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="617,152 612.5,161 621.5,161" fill="var(--t3-ink)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit"><text x="405" y="146.0" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text><text x="463" y="112" fill="var(--t4-ink)">E<tspan font-size="9" dy="3">a</tspan><tspan dy="-3">(cat)</tspan></text><text x="623" y="189.0" fill="var(--t3-ink)">ΔH &gt; 0</text><text x="390" y="236">reactants</text><text x="575" y="142">products</text></g>
+  <g font-size="12" font-family="inherit"><path d="M200 300 H230" stroke="currentColor" stroke-width="2.4"/><text x="236" y="304" fill="currentColor">without catalyst</text><path d="M380 300 H410" stroke="var(--t4-ink)" stroke-width="2.4" stroke-dasharray="7 5"/><text x="416" y="304" fill="currentColor">with catalyst</text></g>
+  </svg>

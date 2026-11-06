@@ -2,25 +2,25 @@
   {
     "id": "poh",
     "term": "pOH",
-    "definition": "TODO: -log10[OH-]; pH + pOH = 14 at 298 K.",
+    "definition": "A measure of the hydroxide ion concentration of a solution: $\\mathrm{pOH} = -\\log_{10}[\\ce{OH^-}]$, with $[\\ce{OH^-}]$ in $\\pu{mol dm-3}$; it has no units, and at 298 K $\\mathrm{pH} + \\mathrm{pOH} = 14.00$.",
     "lesson": "6.4"
   },
   {
     "id": "acid-dissociation-constant",
     "term": "acid dissociation constant",
-    "definition": "TODO: Ka = [H+][A-]/[HA]; larger Ka means stronger acid.",
+    "definition": "The equilibrium constant $K_\\mathrm{a}$ for a weak acid ionizing in water, $K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{A^-}]}{[\\ce{HA}]}$ (water left out); the larger it is, the stronger the acid, and it changes only with temperature.",
     "lesson": "6.4"
   },
   {
     "id": "base-dissociation-constant",
     "term": "base dissociation constant",
-    "definition": "TODO: Kb for a weak base reacting with water.",
+    "definition": "The equilibrium constant $K_\\mathrm{b}$ for a weak base taking a proton from water, $K_\\mathrm{b} = \\frac{[\\ce{BH^+}][\\ce{OH^-}]}{[\\ce{B}]}$ (water left out); the larger it is, the stronger the base.",
     "lesson": "6.4"
   },
   {
     "id": "pka",
     "term": "pKa",
-    "definition": "TODO: -log10 Ka; smaller means stronger acid.",
+    "definition": "The negative logarithm to base 10 of the acid dissociation constant, $\\mathrm{p}K_\\mathrm{a} = -\\log_{10}K_\\mathrm{a}$; a smaller pKa means a stronger acid.",
     "lesson": "6.4"
   }
 ]

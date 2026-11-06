@@ -1,0 +1,697 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.3",
+  "slug": "rates-of-reaction-and-collision-theory",
+  "title": "Rates of reaction and collision theory",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[rate-of-reaction|rate of reaction]] tells you how fast a reactant is used up or a product forms. You read it from the gradient of a [[tangent|tangent]] to a concentration–time graph. [[collision-theory|Collision theory]] explains it: particles react only when they collide with enough energy and the right orientation, so anything that makes those collisions more frequent speeds the reaction up.",
+  "goals": [
+    {
+      "text": "Calculate a rate of reaction from a change in concentration, volume or mass over time, with correct units.",
+      "bullets": [
+        "R2.2.1"
+      ]
+    },
+    {
+      "text": "Determine the rate at a given time from the gradient of a tangent to a graph.",
+      "bullets": [
+        "R2.2.1"
+      ]
+    },
+    {
+      "text": "Outline ways of following a reaction, with time as either the independent or the dependent variable.",
+      "bullets": [
+        "R2.2.1"
+      ]
+    },
+    {
+      "text": "Explain how the average kinetic energy of particles depends on the [[temperature|temperature]] in [[kelvin|kelvin]], and why a collision needs enough energy and the proper orientation.",
+      "bullets": [
+        "R2.2.2"
+      ]
+    },
+    {
+      "text": "Predict and explain how concentration, pressure, surface area, temperature and a catalyst change the rate.",
+      "bullets": [
+        "R2.2.3"
+      ]
+    },
+    {
+      "text": "Identify the variables to control in a rate investigation, and spot random and systematic error on a graph.",
+      "bullets": [
+        "R2.2.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.8",
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "reaction rate",
+    "speed of reaction",
+    "initial rate",
+    "rate from a tangent",
+    "collision theory",
+    "factors affecting rate",
+    "disappearing cross"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kelvin",
+      "prompt": "A reaction mixture is at $35\\,^{\\circ}\\text{C}$. What is its temperature in kelvin, to the nearest kelvin?",
+      "hint": "Add $273.15$ to the Celsius temperature.",
+      "answer": {
+        "value": 308,
+        "tolerance": 0
+      },
+      "explain": "$35 + 273.15 = 308.15$, so $\\pu{308 K}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "35+273.15",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-concentration",
+      "prompt": "A solution contains $\\pu{0.0150 mol}$ of hydrochloric acid in $\\pu{250.0 cm3}$. What is its [[molar-concentration|molar concentration]], in $\\pu{mol dm-3}$? Give 3 significant figures.",
+      "hint": "Change the volume to $\\pu{dm3}$ first, then use $C = \\frac{n}{V}$.",
+      "answer": {
+        "value": 0.06,
+        "tolerance": 0
+      },
+      "explain": "$V = \\pu{0.2500 dm3}$, so $C = \\frac{0.0150}{0.2500} = \\pu{0.0600 mol dm-3}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0150/(250.0/1000)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kmt",
+      "prompt": "According to the [[kinetic-molecular-theory|kinetic molecular theory]], what happens to the particles of a gas when it is heated?",
+      "hint": "Heating gives the particles more kinetic energy.",
+      "options": [
+        {
+          "text": "They move faster on average.",
+          "correct": true
+        },
+        {
+          "text": "They get larger.",
+          "correct": false
+        },
+        {
+          "text": "They all move at exactly the same, higher speed.",
+          "correct": false
+        },
+        {
+          "text": "They stop colliding with each other.",
+          "correct": false
+        }
+      ],
+      "explain": "The particles gain kinetic energy, so their average speed rises. They still have a range of speeds, and they collide more often, not less. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "They move faster on average."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "measuring-rate",
+      "heading": "Measuring a rate of reaction",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "rate of reaction",
+          "statement": "The increase in a product's concentration, or the decrease in a reactant's concentration, per unit time.",
+          "plain": "How fast a reactant disappears or a product appears."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Square brackets mean concentration, so the usual unit of [[rate-of-reaction|rate of reaction]] is $\\pu{mol dm-3 s-1}$. A reactant's concentration falls, so the minus sign keeps the rate positive. Change over an interval divided by the time taken is the **average rate** for that interval."
+        },
+        {
+          "type": "example",
+          "id": "ex-iodide-average",
+          "question": "Peroxodisulfate ions oxidize iodide ions: $\\ce{S2O8^2-(aq) + 2I-(aq) -> 2SO4^2-(aq) + I2(aq)}$. In the first $\\pu{90 s}$, $[\\ce{I-}]$ falls from $\\pu{0.0500 mol dm-3}$ to $\\pu{0.0320 mol dm-3}$. Calculate the average rate of reaction over this time, in terms of iodide ions.",
+          "steps": [
+            "Change in concentration: $0.0320 - 0.0500 = \\pu{-0.0180 mol dm-3}$, negative because iodide is a reactant.",
+            "Rate $= -\\frac{\\Delta[\\ce{I-}]}{\\Delta t} = \\frac{0.0180}{90} = \\pu{2.00e-4 mol dm-3 s-1}$."
+          ],
+          "answer": "$\\pu{2.00e-4 mol dm-3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(0.0500-0.0320)/90",
+            "unit": "mol dm-3 s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Two iodide ions react for each $\\ce{I2}$ formed, so $[\\ce{I-}]$ falls twice as fast as $[\\ce{I2}]$ rises. Always say which species a rate refers to."
+        },
+        {
+          "type": "text",
+          "text": "Concentrations are rarely measured directly. Instead you follow a property that changes with them: gas volume in a gas syringe, mass lost as a gas escapes from a flask on a balance, gas pressure in a sealed flask, colour in a colorimeter, or pH or conductivity when ions are used up or made. The rate then has that property's unit, such as $\\pu{cm3 s-1}$ or $\\pu{g s-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Usually time is the **independent variable**: you take readings at set times and plot a curve. Sometimes time is the **dependent variable**: you measure how long a fixed change takes, such as a precipitate hiding a cross under the flask. Then $\\frac{1}{t}$ is a measure of the average rate."
+        },
+        {
+          "type": "text",
+          "text": "The rate at one instant is the gradient of the curve at that time. You find it with a [[tangent|tangent]]: a straight line that just touches the curve there. Read two points far apart on the tangent itself. The tangent at $t = 0$ gives the **initial rate**."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-tangent-rate",
+          "alt": "Graph of concentration of reactant A, in mol per cubic decimetre, against time in seconds, from 0 to 150 seconds. The curve starts at 0.80 at time zero and falls, steeply at first and then more gently, reaching about 0.04 at 150 seconds. Tangent 1 touches the curve at time zero and meets the time axis at 50 seconds. Tangent 2 touches the curve at 50 seconds, where the concentration is about 0.29; it crosses the concentration axis at 0.59 and meets the time axis at 100 seconds. Tangent 2 is less steep than tangent 1.",
+          "caption": "Tangent 2 is less steep than tangent 1: the reaction slows as A is used up."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-50s",
+          "question": "Use tangent 2 in the figure to determine the rate of reaction at $\\pu{50 s}$. The tangent passes through $(\\pu{0 s}, \\pu{0.59 mol dm-3})$ and $(\\pu{100 s}, \\pu{0.00 mol dm-3})$.",
+          "steps": [
+            "Gradient $= \\frac{0.00 - 0.59}{100 - 0} = \\pu{-5.9e-3 mol dm-3 s-1}$.",
+            "A is a reactant, so the gradient is negative; the rate is its size. The intercept was read to 2 significant figures, so give 2."
+          ],
+          "answer": "$\\pu{5.9e-3 mol dm-3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(0.59-0.00)/(100-0)",
+            "unit": "mol dm-3 s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Joining two data points with a straight line and calling it a tangent. That gives an average rate. A tangent touches the curve at one time only."
+        },
+        {
+          "type": "mistake",
+          "text": "Quoting a negative rate. Only $\\Delta[\\text{reactant}]$ is negative; the rate is positive."
+        },
+        {
+          "type": "check",
+          "id": "check-iodine-rate",
+          "prompt": "In the example, iodide ions were used up at $\\pu{2.00e-4 mol dm-3 s-1}$. What was the average rate of formation of iodine, $\\ce{I2}$?",
+          "hint": "Compare the coefficients of $\\ce{I-}$ and $\\ce{I2}$.",
+          "options": [
+            {
+              "text": "$\\pu{1.00e-4 mol dm-3 s-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{2.00e-4 mol dm-3 s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{4.00e-4 mol dm-3 s-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{I-}$ react for every $\\ce{I2}$ formed, so $\\ce{I2}$ appears at half the rate.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(0.0500-0.0320)/90/2",
+            "unit": "mol dm-3 s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-initial-rate",
+          "prompt": "Use tangent 1 in the figure to determine the initial rate, in $\\pu{mol dm-3 s-1}$. Give 2 significant figures.",
+          "hint": "Tangent 1 runs from $\\pu{0.80 mol dm-3}$ at $\\pu{0 s}$ down to zero at $\\pu{50 s}$.",
+          "answer": {
+            "value": 0.016,
+            "tolerance": 0
+          },
+          "explain": "Gradient $= \\frac{0 - 0.80}{50} = -0.016$, so the initial rate is $\\pu{0.016 mol dm-3 s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.80/50",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-co2-mol",
+          "prompt": "A flask on a balance loses mass at $\\pu{0.0220 g s-1}$ as carbon dioxide escapes. What is the rate of production of $\\ce{CO2}$ in $\\pu{mol s-1}$? Give 3 significant figures.",
+          "hint": "Divide by the molar mass of $\\ce{CO2}$ (data booklet, section 7).",
+          "answer": {
+            "value": 0.0005,
+            "tolerance": 0
+          },
+          "explain": "$M(\\ce{CO2}) = 12.01 + 2(16.00) = \\pu{44.01 g mol-1}$, so the rate is $\\frac{0.0220}{44.01} = \\pu{5.00e-4 mol s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0220/Mr('CO2')",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cross-times",
+          "prompt": "A cross under a flask disappears after $\\pu{48 s}$ in one run and after $\\pu{16 s}$ in a warmer run. How many times faster is the warmer run?",
+          "hint": "The rate is proportional to $\\frac{1}{t}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1/16}{1/48} = \\frac{48}{16} = 3$. A third of the time means three times the rate.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "48/16",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "collision-theory",
+      "heading": "Collision theory",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[kinetic-molecular-theory|kinetic molecular theory]] says particles are always moving, with a spread of energies. Their average kinetic energy is proportional to the temperature in kelvin: double $T$ in kelvin and the average kinetic energy doubles. This does not work in Celsius, whose zero is not zero energy."
+        },
+        {
+          "type": "definition",
+          "term": "collision theory",
+          "statement": "Reacting particles must collide, and a collision leads to reaction only if it has at least the activation energy and the proper orientation.",
+          "plain": "Particles have to hit each other hard enough and the right way round."
+        },
+        {
+          "type": "text",
+          "text": "[[collision-theory|Collision theory]] explains why most collisions don't cause reaction. The [[activation-energy|activation energy]], $E_\\text{a}$, is the minimum collision energy needed to start breaking bonds; with less, the particles bounce apart. Orientation matters too: bonds can only break and form where the right atoms meet."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-collision-orientation",
+          "alt": "Two rows of space-filling molecules showing carbon monoxide colliding with nitrogen dioxide. Top row, labelled proper orientation: the carbon end of the carbon monoxide molecule moves towards one oxygen atom of the bent nitrogen dioxide molecule, which moves towards it. A reaction arrow leads to a linear carbon dioxide molecule and a nitrogen monoxide molecule. Bottom row, labelled wrong orientation: the oxygen end of the carbon monoxide molecule meets an oxygen atom of the nitrogen dioxide molecule, and an arrow leads to the same two molecules moving apart unchanged, labelled no reaction.",
+          "caption": "In $\\ce{CO + NO2 -> CO2 + NO}$ an oxygen atom moves to the carbon, so C must meet O."
+        },
+        {
+          "type": "definition",
+          "term": "successful collision",
+          "statement": "A collision with energy equal to or greater than the activation energy and with the proper orientation, so that the particles react.",
+          "plain": "A collision that actually makes products."
+        },
+        {
+          "type": "text",
+          "text": "The rate depends on how many [[successful-collision|successful collisions]] happen per unit time."
+        },
+        {
+          "type": "example",
+          "id": "ex-ke-ratio",
+          "question": "A reaction mixture is heated from $25\\,^{\\circ}\\text{C}$ to $100\\,^{\\circ}\\text{C}$. By what factor does the average kinetic energy of its particles increase? Give 3 significant figures.",
+          "steps": [
+            "Convert to kelvin: $\\pu{298.15 K}$ and $\\pu{373.15 K}$.",
+            "Factor $= \\frac{373.15}{298.15} = 1.2515\\ldots$ Using Celsius would give the wrong factor of 4."
+          ],
+          "answer": "$\\approx 1.25$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(100+273.15)/(25+273.15)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-co-no2",
+          "question": "In a mixture of carbon monoxide and nitrogen dioxide, each molecule collides billions of times a second, yet only a tiny fraction of these collisions lead to $\\ce{CO(g) + NO2(g) -> CO2(g) + NO(g)}$. Explain why most collisions do not lead to reaction.",
+          "steps": [
+            "Marking point 1: the energy condition, naming the activation energy.",
+            "Marking point 2: only a small proportion of collisions meet it.",
+            "Marking point 3: the orientation condition, for this reaction."
+          ],
+          "answer": "A collision only leads to reaction if its energy is equal to or greater than the activation energy. Only a small proportion of collisions have this much energy. The molecules must also collide with the proper orientation, with the carbon atom of $\\ce{CO}$ striking an oxygen atom of $\\ce{NO2}$. Other collisions do not break bonds, and the molecules bounce apart.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "need energy at least Ea (few collisions have it) and proper orientation",
+            "requires": [
+              "activation energy",
+              [
+                "small proportion",
+                "small fraction"
+              ],
+              [
+                "proper orientation",
+                "correct orientation"
+              ],
+              "carbon atom"
+            ],
+            "forbids": [
+              "every collision leads to reaction",
+              "all collisions lead to reaction"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ke-celsius",
+          "prompt": "A gas is warmed from $20\\,^{\\circ}\\text{C}$ to $40\\,^{\\circ}\\text{C}$. What happens to the average kinetic energy of its particles?",
+          "hint": "Work in kelvin: $293.15$ and $313.15$.",
+          "options": [
+            {
+              "text": "It rises by about 7%.",
+              "correct": true
+            },
+            {
+              "text": "It doubles.",
+              "correct": false
+            },
+            {
+              "text": "It rises by about 50%.",
+              "correct": false
+            },
+            {
+              "text": "It does not change.",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{313.15}{293.15} \\approx 1.07$. \"Doubles\" comes from using Celsius.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It rises by about 7%."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-collision",
+          "prompt": "Which collision between reactant particles can lead to reaction?",
+          "hint": "Both conditions must hold.",
+          "options": [
+            {
+              "text": "energy at least equal to the activation energy, with the proper orientation",
+              "correct": true
+            },
+            {
+              "text": "energy at least equal to the activation energy, with any orientation",
+              "correct": false
+            },
+            {
+              "text": "energy below the activation energy, with the proper orientation",
+              "correct": false
+            },
+            {
+              "text": "any collision between reactant particles",
+              "correct": false
+            }
+          ],
+          "explain": "A successful collision needs enough energy and the proper orientation. Missing either, the particles bounce apart.",
+          "verify": {
+            "kind": "choice",
+            "truth": "energy at least equal to the activation energy, with the proper orientation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "factors",
+      "heading": "What changes the rate",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "Any change that increases the number of successful collisions per unit time increases the rate.",
+          "why": "Products form only in successful collisions."
+        },
+        {
+          "type": "text",
+          "text": "**Concentration:** more particles per $\\pu{dm3}$, so more frequent collisions."
+        },
+        {
+          "type": "text",
+          "text": "**Pressure:** only for gases. Squeezing a gas into a smaller volume raises its pressure and concentration together (for an [[ideal-gas|ideal gas]] at constant temperature, halving the volume doubles both), so collisions are more frequent. When all the reactants are dissolved, the pressure of the gas above the solution has no effect."
+        },
+        {
+          "type": "text",
+          "text": "**Surface area:** only surface particles of a solid can be hit. A powder exposes more of them than lumps, so collisions with the solid are more frequent."
+        },
+        {
+          "type": "text",
+          "text": "**Temperature:** particles move faster and collide a little more often. Much more important, a greater proportion of collisions have energy $\\geq E_\\text{a}$. That is why, near room temperature, a $\\pu{10 K}$ rise can roughly double a rate although the average kinetic energy rises by only about 3%."
+        },
+        {
+          "type": "text",
+          "text": "**Catalyst:** a [[catalyst|catalyst]] provides an alternative route with lower $E_\\text{a}$, so a greater proportion of collisions succeed. It is not used up; {{lesson:5.4}} explains how."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-gas-curves",
+          "alt": "Graph of volume of hydrogen collected, in cubic centimetres, against time in seconds, from 0 to 240 seconds, with four curves that all start at the origin. The original curve rises and levels off at 60 cubic centimetres by about 160 seconds. Curve P is steeper at the start and levels off sooner at the same 60 cubic centimetres. Curve Q is less steep than the original and is still rising slowly towards 60 cubic centimetres at 240 seconds. Curve R is less steep than the original and levels off at 30 cubic centimetres.",
+          "caption": "Zinc granules with excess dilute sulfuric acid (original) and three changed runs. The final volume is set by the zinc, the [[limiting-reactant|limiting reactant]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-temperature",
+          "question": "Explain why zinc reacts faster with dilute sulfuric acid when the acid is warmed from $18\\,^{\\circ}\\text{C}$ to $38\\,^{\\circ}\\text{C}$.",
+          "steps": [
+            "Particles first: what happens to their energy?",
+            "Link it to the activation energy, the main effect, then add collision frequency."
+          ],
+          "answer": "At the higher temperature the particles have a greater average kinetic energy. So a greater proportion of collisions have energy equal to or greater than the activation energy. The particles also collide more frequently. There are more successful collisions per unit time, so the rate increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "greater KE; greater proportion of collisions with E >= Ea; more frequent collisions; more successful collisions per unit time",
+            "requires": [
+              [
+                "greater average kinetic energy",
+                "higher average kinetic energy"
+              ],
+              [
+                "greater proportion",
+                "higher proportion"
+              ],
+              "activation energy",
+              [
+                "collide more frequently",
+                "more frequent collisions"
+              ],
+              [
+                "per unit time",
+                "per second"
+              ]
+            ],
+            "forbids": [
+              "lowers the activation energy",
+              "activation energy decreases"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-powder",
+          "question": "The original run in the figure is repeated with the same mass of zinc powder instead of granules, with everything else unchanged. Explain the effect on the initial rate and on the final volume of hydrogen.",
+          "steps": [
+            "Marking points 1 and 2: larger surface area, so more frequent collisions and a faster start (curve P).",
+            "Marking point 3: the amount of the limiting reactant is unchanged."
+          ],
+          "answer": "The powder has a larger surface area, so acid particles collide with the zinc more frequently. There are more successful collisions per unit time, so the initial rate increases, as in curve P. The final volume of hydrogen is the same, because the amount of zinc, the limiting reactant, is unchanged.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "larger surface area, more frequent collisions, faster; same final volume as zinc limiting and unchanged",
+            "requires": [
+              "larger surface area",
+              [
+                "collide with the zinc more frequently",
+                "more frequent collisions"
+              ],
+              "per unit time",
+              [
+                "final volume of hydrogen is the same",
+                "same final volume"
+              ],
+              "limiting reactant"
+            ],
+            "forbids": [
+              "more hydrogen",
+              "greater final volume"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"more collisions\". Examiners want more frequent collisions, or more collisions per unit time."
+        },
+        {
+          "type": "mistake",
+          "text": "For temperature, writing only that particles \"have more energy\". Say that a greater proportion of collisions have energy $\\geq E_\\text{a}$."
+        },
+        {
+          "type": "text",
+          "text": "To test one factor fairly, change only that factor. Control the amounts and concentrations of the other reactants, the mass and particle size of any solid, the temperature, stirring and apparatus. Use deionized water, as ions in tap water could react."
+        },
+        {
+          "type": "text",
+          "text": "A graph of results can reveal errors. [[random-error|Random error]] scatters points either side of the best-fit line; repeats reduce it. A [[systematic-error|systematic error]] shifts every point the same way, so, for example, a line that should pass through the origin misses it."
+        },
+        {
+          "type": "check",
+          "id": "check-pressure-solution",
+          "prompt": "Sodium thiosulfate solution reacts with hydrochloric acid. Which change will NOT increase the rate?",
+          "hint": "Which change leaves the collision frequency in the solution unchanged?",
+          "options": [
+            {
+              "text": "raising the pressure of the air above the solution",
+              "correct": true
+            },
+            {
+              "text": "warming both solutions before mixing",
+              "correct": false
+            },
+            {
+              "text": "using more concentrated hydrochloric acid",
+              "correct": false
+            },
+            {
+              "text": "adding a suitable catalyst",
+              "correct": false
+            }
+          ],
+          "explain": "Both reactants are dissolved, so gas pressure above them does not change their concentrations.",
+          "verify": {
+            "kind": "choice",
+            "truth": "raising the pressure of the air above the solution"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-curve-dilute",
+          "prompt": "The zinc run in the figure is repeated with acid of half the concentration, still in excess. Which curve is obtained?",
+          "hint": "Less frequent collisions; which reactant fixes the final volume?",
+          "options": [
+            {
+              "text": "curve Q",
+              "correct": true
+            },
+            {
+              "text": "curve P",
+              "correct": false
+            },
+            {
+              "text": "curve R",
+              "correct": false
+            },
+            {
+              "text": "the original curve",
+              "correct": false
+            }
+          ],
+          "explain": "Dilute acid means less frequent collisions, so a shallower curve. The zinc is unchanged, so the final volume is still $\\pu{60 cm3}$: curve Q. Curve R needs less zinc.",
+          "verify": {
+            "kind": "choice",
+            "truth": "curve Q"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-systematic",
+          "prompt": "Points on a graph of initial rate against acid concentration lie close to a straight line, but the line misses the origin, where it should pass. What does this suggest?",
+          "hint": "Scatter of points, or a shift of all of them?",
+          "options": [
+            {
+              "text": "a systematic error",
+              "correct": true
+            },
+            {
+              "text": "a random error",
+              "correct": false
+            },
+            {
+              "text": "that the rate does not depend on concentration",
+              "correct": false
+            },
+            {
+              "text": "that more repeats are needed",
+              "correct": false
+            }
+          ],
+          "explain": "The points fit a line well, so random error is small. A shift of the whole line is a systematic error, and repeats would not remove it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a systematic error"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rate is always positive, usually in $\\pu{mol dm-3 s-1}$; from gas volume or mass it is in $\\pu{cm3 s-1}$ or $\\pu{g s-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The rate at a given time is the gradient of the tangent there; the tangent at $t = 0$ gives the initial rate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Average kinetic energy is proportional to the temperature in kelvin, not in °C.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A successful collision needs energy $\\geq E_\\text{a}$ and the proper orientation.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher concentration, gas pressure or surface area: more frequent collisions. Higher temperature: mainly a greater proportion of collisions with energy $\\geq E_\\text{a}$. Catalyst: lower $E_\\text{a}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"more collisions\" instead of more frequent collisions, or more collisions per unit time.",
+    "Explaining a temperature rise only by \"particles have more energy\", without the greater proportion of collisions with energy $\\geq E_\\text{a}$.",
+    "Drawing a line through two data points instead of a tangent touching the curve at one time.",
+    "Quoting a negative rate for a reactant whose concentration is falling.",
+    "Taking a ratio of Celsius temperatures when comparing kinetic energies.",
+    "Expecting a powder, a warmer mixture or a catalyst to give more product. For a reaction that goes to completion, they change how fast the product forms, not how much."
+  ],
+  "examTips": [
+    "\"Determine\" a rate from a graph: draw a tangent at the time asked, read two well-separated points on it, show $\\frac{\\Delta y}{\\Delta x}$, and give a positive answer with units.",
+    "\"Explain\" a rate change in three steps: what happens to the particles, how that changes the frequency of successful collisions, and the effect on the rate.",
+    "In Paper 1A pressure options, check whether any reactant is a gas before choosing pressure as a factor.",
+    "In Paper 1B data questions, say which variables were controlled and why, and name the method of measuring the rate."
+  ],
+  "readingMinutes": 22
+}

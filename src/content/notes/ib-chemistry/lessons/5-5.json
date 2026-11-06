@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.5",
+  "slug": "reaction-mechanisms-rate-determining-step",
+  "title": "Reaction mechanisms and the rate-determining step",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Most reactions happen in a series of [[elementary-step|elementary steps]]: the [[reaction-mechanism|reaction mechanism]]. The slowest step, the [[rate-determining-step|rate-determining step]], sets the rate. On an [[energy-profile|energy profile]] each step is a hump with a [[transition-state|transition state]] at its peak, and each [[reaction-intermediate|intermediate]] sits in a dip. The [[molecularity|molecularity]] of a step is how many particles react in it.",
+  "goals": [
+    {
+      "text": "Check that the steps of a mechanism add up to the overall equation, and pick out [[reaction-intermediate|intermediates]] and [[catalyst|catalysts]].",
+      "bullets": [
+        "R2.2.6"
+      ]
+    },
+    {
+      "text": "Deduce the rate equation from the [[rate-determining-step|rate-determining step]], including when it is not the first step, and evaluate proposed mechanisms against kinetic data.",
+      "bullets": [
+        "R2.2.6"
+      ]
+    },
+    {
+      "text": "Construct and interpret energy profiles for multistep reactions, telling [[transition-state|transition states]] from intermediates.",
+      "bullets": [
+        "R2.2.6",
+        "R2.2.7"
+      ]
+    },
+    {
+      "text": "Interpret unimolecular, bimolecular and termolecular for an [[elementary-step|elementary step]].",
+      "bullets": [
+        "R2.2.8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "5.3",
+    "5.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "rate-determining step",
+    "rate-limiting step",
+    "slow step",
+    "reaction intermediate vs transition state",
+    "multistep energy profile",
+    "unimolecular bimolecular termolecular",
+    "mechanism and rate equation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-activation-energy",
+      "prompt": "What is [[activation-energy|activation energy]]?",
+      "hint": "Think about what a collision needs in order to succeed.",
+      "options": [
+        {
+          "text": "The minimum energy colliding particles need to react",
+          "correct": true
+        },
+        {
+          "text": "The energy released when the products form",
+          "correct": false
+        },
+        {
+          "text": "The average kinetic energy of the particles",
+          "correct": false
+        },
+        {
+          "text": "The enthalpy change of the reaction",
+          "correct": false
+        }
+      ],
+      "explain": "Only collisions with at least this energy can react. Revise it in {{lesson:5.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The minimum energy colliding particles need to react"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-catalyst",
+      "prompt": "How does a catalyst increase the rate of a reaction?",
+      "hint": "It changes the route, not the particles' energy.",
+      "options": [
+        {
+          "text": "It provides a pathway with a lower activation energy",
+          "correct": true
+        },
+        {
+          "text": "It gives the particles more kinetic energy",
+          "correct": false
+        },
+        {
+          "text": "It makes the reaction more exothermic",
+          "correct": false
+        }
+      ],
+      "explain": "More collisions now have enough energy to react. The catalyst is not used up. Revise it in {{lesson:5.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It provides a pathway with a lower activation energy"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exothermic-profile",
+      "prompt": "On the energy profile of an exothermic reaction, where are the products?",
+      "hint": "Exothermic means energy is released to the surroundings.",
+      "options": [
+        {
+          "text": "Lower than the reactants",
+          "correct": true
+        },
+        {
+          "text": "Higher than the reactants",
+          "correct": false
+        },
+        {
+          "text": "Level with the reactants",
+          "correct": false
+        }
+      ],
+      "explain": "The products have less energy, so $\\Delta H$ is negative. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Lower than the reactants"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "heading": "Mechanisms and elementary steps",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An overall equation such as $\\ce{2H2O2 -> 2H2O + O2}$ shows what goes in and comes out, not how. Three or more particles rarely meet at the same instant with enough energy and the right orientation, so most reactions happen in a series of simpler steps."
+        },
+        {
+          "type": "definition",
+          "term": "reaction mechanism",
+          "statement": "The series of elementary steps by which a reaction happens.",
+          "plain": "The route from reactants to products, one step at a time."
+        },
+        {
+          "type": "definition",
+          "term": "elementary step",
+          "statement": "A single event in a mechanism: one collision between particles, or one particle breaking apart or rearranging.",
+          "plain": "One thing happening at once."
+        },
+        {
+          "type": "text",
+          "text": "A [[reaction-mechanism|mechanism]] is a model: it is proposed to explain experimental data. Its first test is the stoichiometry. Add the [[elementary-step|elementary steps]] and cancel anything that appears on both sides. The result must be the overall equation."
+        },
+        {
+          "type": "definition",
+          "term": "reaction intermediate",
+          "statement": "A species that is formed in one step of a mechanism and used up in a later step. It is not in the overall equation.",
+          "plain": "Made, then used up along the way."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-steps",
+          "question": "Nitryl chloride, $\\ce{NO2Cl}$, decomposes in two steps. Step 1 (slow): $\\ce{NO2Cl -> NO2 + Cl}$. Step 2 (fast): $\\ce{NO2Cl + Cl -> NO2 + Cl2}$. Deduce the overall equation and identify the [[reaction-intermediate|reaction intermediate]].",
+          "steps": [
+            "Add the left sides: $\\ce{NO2Cl + NO2Cl + Cl}$. Add the right sides: $\\ce{NO2 + Cl + NO2 + Cl2}$.",
+            "A chlorine atom, $\\ce{Cl}$, is on both sides: it is made in step 1 and used in step 2. Cancel it. It is the intermediate.",
+            "Collect what is left and check the atoms: 2 N, 4 O and 2 Cl on each side."
+          ],
+          "answer": "$\\ce{2NO2Cl -> 2NO2 + Cl2}$, with a chlorine atom as the intermediate",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "NO2Cl -> NO2 + Cl2",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[catalyst|catalyst]] can also cancel out, but the other way round. It is used up in an early step and made again in a later one, so it is there at the start and at the end. An intermediate appears only part-way through."
+        },
+        {
+          "type": "example",
+          "id": "ex-catalyst-or-intermediate",
+          "question": "Iodide ions speed up the decomposition of hydrogen peroxide. Step 1 (slow): $\\ce{H2O2 + I^- -> H2O + IO^-}$. Step 2 (fast): $\\ce{H2O2 + IO^- -> H2O + O2 + I^-}$. Explain the roles of $\\ce{I^-}$ and $\\ce{IO^-}$.",
+          "steps": [
+            "Follow each ion. $\\ce{I^-}$: used in step 1, made in step 2.",
+            "$\\ce{IO^-}$: made in step 1, used in step 2."
+          ],
+          "answer": "The iodide ion reacts in step 1 and is formed again in step 2, so it is regenerated: it is a catalyst. The $\\ce{IO^-}$ ion is formed in step 1 and used up in step 2, so it is a reaction intermediate. Neither appears in the overall equation, $\\ce{2H2O2 -> 2H2O + O2}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "I- is used then regenerated: catalyst. IO- is made then used up: intermediate.",
+            "requires": [
+              [
+                "regenerated",
+                "formed again"
+              ],
+              "catalyst",
+              [
+                "used up",
+                "consumed"
+              ],
+              "intermediate"
+            ],
+            "forbids": [
+              "transition state",
+              "IO- is a catalyst"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up a catalyst and an intermediate. Ask which one is present before the reaction starts: that is the catalyst."
+        },
+        {
+          "type": "check",
+          "id": "check-ozone-catalyst",
+          "prompt": "Chlorine atoms destroy ozone in two steps: $\\ce{Cl + O3 -> ClO + O2}$, then $\\ce{ClO + O -> Cl + O2}$. Which species acts as a catalyst?",
+          "hint": "Which species is used in the first step and made again in the second?",
+          "options": [
+            {
+              "text": "The chlorine atom",
+              "correct": true
+            },
+            {
+              "text": "Chlorine monoxide",
+              "correct": false
+            },
+            {
+              "text": "Ozone",
+              "correct": false
+            },
+            {
+              "text": "The oxygen molecule",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Cl}$ is used in step 1 and regenerated in step 2. $\\ce{ClO}$ is the intermediate. Overall: $\\ce{O3 + O -> 2O2}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The chlorine atom"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rds",
+      "heading": "The rate-determining step",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The steps of a mechanism run at different speeds. The reaction can go no faster than its slowest step, as a queue moves only as fast as its one ticket desk."
+        },
+        {
+          "type": "definition",
+          "term": "rate-determining step",
+          "statement": "The slowest elementary step in a mechanism. It controls the overall rate of the reaction.",
+          "plain": "The bottleneck."
+        },
+        {
+          "type": "text",
+          "text": "Kinetic data link to it through the [[rate-equation|rate equation]], found by experiment ({{lesson:5.6}}). For example, $\\text{rate} = k[\\ce{A}]^{2}[\\ce{B}]$: the power on each concentration is the [[order-of-reaction|order]] with respect to that reactant."
+        },
+        {
+          "type": "text",
+          "text": "Only species that take part in the [[rate-determining-step|rate-determining step]], or in fast steps before it, appear in the rate equation. A reactant that joins after the slow step does not: its order is zero."
+        },
+        {
+          "type": "text",
+          "text": "If the slow step is first, read the rate equation off that step: each reactant, to the power of its coefficient in the step. For $\\ce{NO2Cl}$ above, step 1 is slow, so $\\text{rate} = k[\\ce{NO2Cl}]$."
+        },
+        {
+          "type": "text",
+          "text": "If the slow step comes later, the fast steps before it reach a quick equilibrium that makes an intermediate. The intermediate can't go in the rate equation, but its concentration depends on the reactants that form it. So swap it for those reactants."
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-from-mechanism",
+          "question": "A proposed mechanism for $\\ce{2NO + 2H2 -> N2 + 2H2O}$ is: step 1 (fast) $\\ce{2NO <=> N2O2}$; step 2 (slow) $\\ce{N2O2 + H2 -> N2O + H2O}$; step 3 (fast) $\\ce{N2O + H2 -> N2 + H2O}$. Deduce the rate equation it predicts.",
+          "steps": [
+            "Step 2 is the rate-determining step, so the rate depends on $[\\ce{N2O2}][\\ce{H2}]$.",
+            "$\\ce{N2O2}$ is an intermediate, made from two $\\ce{NO}$ in step 1. Swap it for $[\\ce{NO}]^{2}$.",
+            "The $\\ce{H2}$ in step 3 reacts after the slow step, so it adds nothing. The reaction is third order overall."
+          ],
+          "answer": "$\\text{rate} = k[\\ce{NO}]^{2}[\\ce{H2}]$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To evaluate a proposed mechanism, test it twice. Its steps must add up to the overall equation, and the rate equation it predicts must match the experimental one. One mismatch rules it out. A match supports it but can't prove it, because other mechanisms might predict the same rate equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-mechanisms",
+          "question": "For $\\ce{2NO2(g) + F2(g) -> 2NO2F(g)}$, experiments give $\\text{rate} = k[\\ce{NO2}][\\ce{F2}]$. Mechanism A is one step: $\\ce{2NO2 + F2 -> 2NO2F}$. Mechanism B is $\\ce{NO2 + F2 -> NO2F + F}$ (slow), then $\\ce{NO2 + F -> NO2F}$ (fast). Evaluate the two mechanisms.",
+          "steps": [
+            "Stoichiometry: B's steps add up, with $\\ce{F}$ cancelling. A is the equation itself.",
+            "Kinetics: A is a single step with two $\\ce{NO2}$ and one $\\ce{F2}$. B's slow step has one of each."
+          ],
+          "answer": "Both mechanisms add up to the overall equation, so both fit the stoichiometry. Mechanism A is a single step, so it predicts $\\text{rate} = k[\\ce{NO2}]^{2}[\\ce{F2}]$, second order in $\\ce{NO2}$. This does not match the data, so A is ruled out. In mechanism B the slow step is the rate-determining step, with one $\\ce{NO2}$ and one $\\ce{F2}$, so it predicts $\\text{rate} = k[\\ce{NO2}][\\ce{F2}]$, consistent with the data. This supports B but does not prove it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Both add up. A predicts second order in NO2, so it is ruled out; B's slow step gives k[NO2][F2], consistent but not proven.",
+            "requires": [
+              "add up to the overall equation",
+              "rate-determining step",
+              [
+                "ruled out",
+                "does not match"
+              ],
+              "consistent",
+              [
+                "does not prove",
+                "cannot prove"
+              ]
+            ],
+            "forbids": [
+              "proves",
+              "B is proven"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the rate equation from the overall equation's coefficients. Orders come from experiment, or from the slow step of a mechanism."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-equation-no-o2",
+          "prompt": "A proposed mechanism for $\\ce{2NO + O2 -> 2NO2}$ is: $\\ce{NO + O2 <=> NO3}$ (fast), then $\\ce{NO3 + NO -> 2NO2}$ (slow). Which rate equation does it predict?",
+          "hint": "Start from the slow step, then replace the intermediate.",
+          "options": [
+            {
+              "text": "$\\text{rate} = k[\\ce{NO}]^{2}[\\ce{O2}]$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{NO3}][\\ce{NO}]$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{NO}][\\ce{O2}]$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{NO}]^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The slow step gives $[\\ce{NO3}][\\ce{NO}]$. $\\ce{NO3}$ is an intermediate made from $\\ce{NO}$ and $\\ce{O2}$, so the rate depends on $[\\ce{NO}][\\ce{O2}] \\times [\\ce{NO}]$."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-factor",
+          "prompt": "For $\\text{rate} = k[\\ce{NO}]^{2}[\\ce{H2}]$, you triple $[\\ce{NO}]$ and halve $[\\ce{H2}]$. By what factor does the rate change?",
+          "hint": "Square the factor for $\\ce{NO}$.",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0.05
+          },
+          "explain": "$3^{2} \\times \\frac{1}{2} = 4.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3**2 * Rational(1, 2)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "profiles",
+      "heading": "Energy profiles for multistep reactions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On an [[energy-profile|energy profile]], each elementary step is one hump. The peak of each hump is a transition state. The dip between two humps is an intermediate."
+        },
+        {
+          "type": "definition",
+          "term": "transition state",
+          "statement": "The highest-energy arrangement of atoms in one elementary step, with bonds partly broken and partly formed. It sits at a peak of the energy profile and cannot be isolated.",
+          "plain": "The top of the hill, passed in an instant."
+        },
+        {
+          "type": "text",
+          "text": "So a [[transition-state|transition state]] is at a maximum and can't be collected. An intermediate is at a minimum: a real species that lasts long enough to react again, and some can be detected. Two steps means two transition states and one intermediate."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-two-step-profile",
+          "alt": "Energy profile for a two-step exothermic reaction, potential energy against reaction coordinate. From the reactants the curve rises to a first, lower peak labelled TS 1, falls into a dip labelled intermediate, rises to a second, higher peak labelled TS 2, then falls to the products, which are below the reactants. An arrow from the reactants up to TS 1 is labelled activation energy 1. An arrow from the intermediate up to TS 2 is labelled activation energy 2, larger, rate-determining step. A downward arrow from the reactant level to the product level is labelled delta H.",
+          "caption": "Two steps: two transition states, one intermediate. Step 2 has the larger activation energy."
+        },
+        {
+          "type": "text",
+          "text": "Each step has its own [[activation-energy|activation energy]]: the climb from the energy just before that step up to its peak. The rate-determining step is the step with the largest activation energy. $\\Delta H$ for the whole reaction runs from the reactants to the products."
+        },
+        {
+          "type": "example",
+          "id": "ex-profile-ea",
+          "question": "On the energy profile of a two-step reaction, energies relative to the reactants are: first peak $\\pu{+52 kJ mol-1}$, intermediate $\\pu{+30 kJ mol-1}$, second peak $\\pu{+95 kJ mol-1}$, products $\\pu{-40 kJ mol-1}$. Calculate the activation energy of the second step, and deduce which step is rate-determining.",
+          "steps": [
+            "First step: from the reactants (0) to the first peak, $\\pu{52 kJ mol-1}$.",
+            "Second step: from the intermediate to the second peak. Start the climb at the dip, not at the reactants.",
+            "$65 > 52$, so the second step is slower: it is the rate-determining step."
+          ],
+          "answer": "$95 - 30 = \\pu{65 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "95 - 30",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring a later step's activation energy from the reactants. Each climb starts at the dip just before that step."
+        },
+        {
+          "type": "text",
+          "text": "To construct a profile from kinetic data, work out which step is rate-determining, then give that step the bigger climb. Draw one hump per step, an intermediate in each dip, and end the products below the reactants if $\\Delta H$ is negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-construct-profile",
+          "question": "For the iodide-catalysed decomposition of hydrogen peroxide above, $\\text{rate} = k[\\ce{H2O2}][\\ce{I^-}]$ and the reaction is exothermic. Outline the main features of its energy profile.",
+          "steps": [
+            "Two steps, so two humps. $\\ce{IO^-}$ is the intermediate.",
+            "Step 1 has $\\ce{H2O2}$ and $\\ce{I^-}$ as reactants, matching the rate equation, so step 1 is rate-determining."
+          ],
+          "answer": "The profile has two humps, one for each step, with a transition state at each peak. The intermediate, $\\ce{IO^-}$, sits in the dip between them. Step 1 is the rate-determining step because its reactants match the rate equation, so it has the larger activation energy. The products end lower than the reactants because the reaction is exothermic.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Two humps, a transition state at each peak, IO- in the dip; step 1 (matching the rate equation) has the larger Ea; products lower.",
+            "requires": [
+              [
+                "two humps",
+                "two peaks"
+              ],
+              "transition state",
+              "intermediate",
+              "rate-determining step",
+              "larger activation energy",
+              "lower than the reactants"
+            ],
+            "forbids": [
+              "higher than the reactants",
+              "one hump"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dip",
+          "prompt": "On the energy profile of a multistep reaction, what is found at a minimum between two peaks?",
+          "hint": "Is it at the top of a hill or in a valley?",
+          "options": [
+            {
+              "text": "A reaction intermediate",
+              "correct": true
+            },
+            {
+              "text": "A transition state",
+              "correct": false
+            },
+            {
+              "text": "The activated complex of the slow step",
+              "correct": false
+            },
+            {
+              "text": "The catalyst",
+              "correct": false
+            }
+          ],
+          "explain": "Intermediates sit in dips. Transition states (activated complexes) sit at peaks.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A reaction intermediate"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rds-from-ea",
+          "prompt": "A three-step reaction has activation energies of $\\pu{38 kJ mol-1}$ (step 1), $\\pu{81 kJ mol-1}$ (step 2) and $\\pu{24 kJ mol-1}$ (step 3). Which step is rate-determining?",
+          "hint": "Which step is hardest to get over?",
+          "options": [
+            {
+              "text": "Step 2",
+              "correct": true
+            },
+            {
+              "text": "Step 1",
+              "correct": false
+            },
+            {
+              "text": "Step 3",
+              "correct": false
+            }
+          ],
+          "explain": "The largest activation energy means the fewest successful collisions per second, so step 2 is slowest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Step 2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "molecularity",
+      "heading": "Molecularity",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "molecularity",
+          "statement": "The number of reacting particles that take part in one elementary step.",
+          "plain": "How many particles meet in a step."
+        },
+        {
+          "type": "text",
+          "text": "The [[molecularity|molecularity]] of a step can be unimolecular: one particle breaks apart or rearranges, like $\\ce{NO2Cl -> NO2 + Cl}$."
+        },
+        {
+          "type": "text",
+          "text": "It can be bimolecular: two particles collide, like $\\ce{NO2 + F2 -> NO2F + F}$. This is the most common kind."
+        },
+        {
+          "type": "text",
+          "text": "It can be termolecular: three particles collide at once. This is rare, because three particles seldom meet at the same instant with enough energy and the right orientation."
+        },
+        {
+          "type": "text",
+          "text": "The first step of SN1 hydrolysis is unimolecular: a tertiary halogenoalkane breaks into a carbocation, the intermediate, and a halide ion ({{lesson:6.18}})."
+        },
+        {
+          "type": "text",
+          "text": "Molecularity belongs to one elementary step, and is always 1, 2 or 3. For an elementary step only, each reactant's order equals the number of its particles in that step. Order belongs to the whole reaction, is measured, and can be zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-why-not-one-step",
+          "question": "State the molecularity of each step in the $\\ce{NO}$ and $\\ce{H2}$ mechanism above, and explain why the reaction is unlikely to happen in a single step.",
+          "steps": [
+            "Count the reacting particles. Step 1: two $\\ce{NO}$. Step 2: $\\ce{N2O2}$ and $\\ce{H2}$. Step 3: $\\ce{N2O}$ and $\\ce{H2}$.",
+            "One step would need every particle in $\\ce{2NO + 2H2}$ to collide together."
+          ],
+          "answer": "Each step has two reacting particles, so each is bimolecular. A single step would need four particles, two $\\ce{NO}$ and two $\\ce{H2}$, to collide at the same instant with enough energy and the correct orientation. That is extremely unlikely, so the reaction goes by a series of bimolecular steps.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Every step is bimolecular; one step would need a four-particle collision, which is extremely unlikely.",
+            "requires": [
+              "bimolecular",
+              "four particles",
+              [
+                "same instant",
+                "same time"
+              ],
+              [
+                "extremely unlikely",
+                "very unlikely"
+              ]
+            ],
+            "forbids": [
+              "termolecular",
+              "unimolecular"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-elementary-rate-factor",
+          "question": "The step $\\ce{Cl + O3 -> ClO + O2}$ is elementary. Deduce its rate equation, then the factor by which its rate changes when $[\\ce{Cl}]$ is doubled and $[\\ce{O3}]$ is multiplied by 1.5.",
+          "steps": [
+            "It is bimolecular, with one $\\ce{Cl}$ and one $\\ce{O3}$, so $\\text{rate} = k[\\ce{Cl}][\\ce{O3}]$.",
+            "Each concentration is first order, so multiply the factors."
+          ],
+          "answer": "$2 \\times 1.5 = 3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2**1 * Rational(3, 2)**1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-molecularity-n2o4",
+          "prompt": "As an elementary step, what is the molecularity of $\\ce{N2O4 -> 2NO2}$?",
+          "hint": "Count reacting particles, not products.",
+          "options": [
+            {
+              "text": "Unimolecular",
+              "correct": true
+            },
+            {
+              "text": "Bimolecular",
+              "correct": false
+            },
+            {
+              "text": "Termolecular",
+              "correct": false
+            }
+          ],
+          "explain": "One $\\ce{N2O4}$ molecule breaks apart. The two $\\ce{NO2}$ are products, so they don't count.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Unimolecular"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-molecularity-statement",
+          "prompt": "Which statement is correct?",
+          "hint": "Molecularity is about one step; order is measured.",
+          "options": [
+            {
+              "text": "Molecularity applies only to an elementary step",
+              "correct": true
+            },
+            {
+              "text": "The overall order equals the sum of the coefficients in the overall equation",
+              "correct": false
+            },
+            {
+              "text": "Termolecular steps are the most common kind",
+              "correct": false
+            },
+            {
+              "text": "A step can have a molecularity of zero",
+              "correct": false
+            }
+          ],
+          "explain": "Orders come from experiment, bimolecular steps are the most common, and a step needs at least one particle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Molecularity applies only to an elementary step"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A mechanism's elementary steps must add up to the overall equation. Intermediates are made then used up; catalysts are used then regenerated.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The slowest step is rate-determining. The rate equation holds its reactants, each to the power of its coefficient; swap an intermediate for the reactants of the fast equilibrium that makes it. Species reacting after it are zero order.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A mechanism that fits the stoichiometry and the rate equation is consistent, not proven.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy profile: one hump per step; transition state at each peak, intermediate in each dip; the rate-determining step has the largest activation energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Molecularity (elementary steps only): unimolecular 1, bimolecular 2, termolecular 3 (rare).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling an intermediate a transition state. Intermediates sit in dips and can exist; transition states sit at peaks and can't be isolated.",
+    "Leaving an intermediate in the rate equation. Replace it with the reactants that form it.",
+    "Putting a reactant that joins after the slow step into the rate equation.",
+    "Saying the data prove a mechanism. They can only support it or rule it out."
+  ],
+  "examTips": [
+    "\"Evaluate\" a mechanism: check the steps add up to the overall equation, deduce the rate equation from the slow step, compare it with the data and conclude.",
+    "\"Identify\" the intermediate: it is made in one step and used in a later one. A catalyst is used first and made again.",
+    "\"Sketch\" a multistep profile: label each transition state and intermediate, make the rate-determining step the largest climb, and place the products by the sign of $\\Delta H$.",
+    "In Paper 1A, read the molecularity off one step's reactants, never its products or the overall equation."
+  ],
+  "readingMinutes": 24
+}

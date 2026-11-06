@@ -2,49 +2,49 @@
   {
     "id": "system",
     "term": "system",
-    "definition": "TODO: The reaction mixture being studied; the rest is the surroundings.",
+    "definition": "The reactants and products being studied in a reaction; everything outside them, such as the water, container and air, is the surroundings.",
     "lesson": "4.1"
   },
   {
     "id": "endothermic-reaction",
     "term": "endothermic reaction",
-    "definition": "TODO: System absorbs heat; temperature of surroundings falls; delta H positive.",
+    "definition": "A reaction that transfers heat from the surroundings to the system, so the temperature of the surroundings falls and $\\Delta H$ is positive.",
     "lesson": "4.1"
   },
   {
     "id": "exothermic-reaction",
     "term": "exothermic reaction",
-    "definition": "TODO: System releases heat; temperature of surroundings rises; delta H negative.",
+    "definition": "A reaction that transfers heat from the system to the surroundings, so the temperature of the surroundings rises and $\\Delta H$ is negative.",
     "lesson": "4.1"
   },
   {
     "id": "energy-profile",
     "term": "energy profile",
-    "definition": "TODO: Plot of potential energy against reaction coordinate.",
+    "definition": "A graph of potential energy against reaction coordinate that shows the levels of the reactants and products and the energy barrier between them.",
     "lesson": "4.1"
   },
   {
     "id": "enthalpy-change",
     "term": "enthalpy change",
-    "definition": "TODO: Heat transferred at constant pressure; delta H in kJ mol^-1.",
+    "definition": "The heat transferred between a system and its surroundings at constant pressure, $\\Delta H$, usually given in $\\pu{kJ mol-1}$; negative when heat is given out.",
     "lesson": "4.1"
   },
   {
     "id": "standard-enthalpy-change-of-reaction",
     "term": "standard enthalpy change of reaction",
-    "definition": "TODO: At 100 kPa, 298 K (guide standard states), per mole of reaction as written.",
+    "definition": "$\\Delta H^\\ominus$: the enthalpy change for a reaction as written, at $\\pu{100 kPa}$ and a stated temperature (usually $\\pu{298 K}$), with every substance in its standard state.",
     "lesson": "4.1"
   },
   {
     "id": "specific-heat-capacity",
     "term": "specific heat capacity",
-    "definition": "TODO: Energy to raise 1 g by 1 K; Q = mc delta T.",
+    "definition": "The energy needed to raise the temperature of $\\pu{1 g}$ of a substance by $\\pu{1 K}$, $c$, in $\\pu{J g-1 K-1}$; for water it is $\\pu{4.18 J g-1 K-1}$, used in $Q = mc\\Delta T$.",
     "lesson": "4.1"
   },
   {
     "id": "calorimetry",
     "term": "calorimetry",
-    "definition": "TODO: Measures heat by temperature change; heat losses cause systematic error.",
+    "definition": "Measuring the heat released or absorbed by a reaction from the temperature change of a known mass of water or solution; heat loss usually makes the measured value too small.",
     "lesson": "4.1"
   }
 ]

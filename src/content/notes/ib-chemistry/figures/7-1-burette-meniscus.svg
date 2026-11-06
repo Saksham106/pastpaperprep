@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">Close-up of part of a burette scale from 23.0 at the top to 24.0 at the bottom, with a mark every 0.1 cubic centimetres. The liquid surface curves down in the middle, forming a meniscus. The bottom of the meniscus sits exactly halfway between the 23.4 and 23.5 marks. An eye on the left looks along a dashed horizontal line level with the bottom of the meniscus. The reading is 23.45 cubic centimetres.</title>
+  <!-- liquid below the meniscus -->
+  <path d="M170 134 Q190 146 210 134 L210 280 L170 280 Z" fill="var(--t2-ink)" fill-opacity="0.22"/>
+  <!-- meniscus -->
+  <path d="M170 134 Q190 146 210 134" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <!-- tube walls -->
+  <path d="M170 20 V280 M210 20 V280" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <!-- scale marks: every 0.1 cm3, 23.0 at y=50, 24.0 at y=250 -->
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M170 50 H196"/>
+    <path d="M170 70 H182"/>
+    <path d="M170 90 H182"/>
+    <path d="M170 110 H182"/>
+    <path d="M170 130 H182"/>
+    <path d="M170 150 H190"/>
+    <path d="M170 170 H182"/>
+    <path d="M170 190 H182"/>
+    <path d="M170 210 H182"/>
+    <path d="M170 230 H182"/>
+    <path d="M170 250 H196"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="164" y="54">23.0</text>
+    <text x="164" y="134">23.4</text>
+    <text x="164" y="154">23.5</text>
+    <text x="164" y="254">24.0</text>
+  </g>
+  <!-- eye -->
+  <path d="M24 140 Q44 126 64 140 Q44 154 24 140 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="44" cy="140" r="4.5" fill="currentColor"/>
+  <!-- sight line -->
+  <path d="M68 140 H228" stroke="var(--t1-ink)" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="232" y="136">bottom of the</text>
+    <text x="232" y="152">meniscus: 23.45 cm³</text>
+    <text x="20" y="176">eye level with</text>
+    <text x="20" y="192">the meniscus</text>
+  </g>
+  <text x="200" y="296" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">Burette scales read downwards: the numbers grow towards the tap.</text>
+</svg>

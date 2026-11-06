@@ -1,0 +1,686 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.2",
+  "slug": "the-ph-scale-and-kw",
+  "title": "The pH scale and Kw",
+  "level": "SL",
+  "topic": 6,
+  "summary": "[[ph|pH]] tells you how acidic a solution is: $\\mathrm{pH} = -\\log_{10}[\\ce{H^+}]$, so each step of 1 in pH is a factor of 10 in $[\\ce{H^+}]$. In any aqueous solution, $[\\ce{H^+}]$ and $[\\ce{OH^-}]$ are tied together by the [[ion-product-constant-of-water|ion product constant of water]], $K_\\mathrm{w}$. Comparing the two tells you whether a solution is acidic, neutral or basic.",
+  "goals": [
+    {
+      "text": "Calculate pH from $[\\ce{H^+}]$ and $[\\ce{H^+}]$ from pH, and explain why one pH unit is a tenfold change.",
+      "bullets": [
+        "R3.1.4"
+      ]
+    },
+    {
+      "text": "Estimate pH with universal indicator, measure it precisely with a pH meter, and choose between them.",
+      "bullets": [
+        "R3.1.4"
+      ]
+    },
+    {
+      "text": "Use $K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}]$ to find one ion concentration from the other, including the pH of a strong base.",
+      "bullets": [
+        "R3.1.5"
+      ]
+    },
+    {
+      "text": "Classify solutions as acidic, neutral or basic, and explain why $K_\\mathrm{w}$ increases with temperature.",
+      "bullets": [
+        "R3.1.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "5.8",
+    "5.9",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "how to calculate pH",
+    "pH from hydrogen ion concentration",
+    "ionic product of water",
+    "Kw 1.0 x 10^-14",
+    "pH of a strong base",
+    "why pure water pH changes with temperature"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-concentration",
+      "prompt": "$\\pu{0.0150 mol}$ of hydrogen chloride is dissolved in water to make $\\pu{250 cm3}$ of solution. What is its [[molar-concentration|concentration]], in $\\pu{mol dm-3}$? Give 3 s.f.",
+      "hint": "Convert the volume to $\\pu{dm3}$ first, then use $c = \\frac{n}{V}$.",
+      "answer": {
+        "value": 0.06,
+        "tolerance": 5e-05
+      },
+      "explain": "$\\pu{250 cm3} = \\pu{0.250 dm3}$, so $c = \\frac{0.0150}{0.250} = \\pu{0.0600 mol dm-3}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0150/(250/1000)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-amphiprotic",
+      "prompt": "Which species is [[amphiprotic-species|amphiprotic]]?",
+      "hint": "Which one can both donate and accept a proton?",
+      "options": [
+        {
+          "text": "Water",
+          "correct": true
+        },
+        {
+          "text": "Hydrogen chloride",
+          "correct": false
+        },
+        {
+          "text": "The ammonium ion",
+          "correct": false
+        },
+        {
+          "text": "The chloride ion",
+          "correct": false
+        }
+      ],
+      "explain": "Water can gain a proton to become $\\ce{H3O^+}$ or lose one to become $\\ce{OH^-}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Water"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-small-k",
+      "prompt": "A reaction has $K = 3 \\times 10^{-12}$ at 298 K, where $K$ is its [[equilibrium-constant|equilibrium constant]]. What does this tell you?",
+      "hint": "$K$ has the products on top.",
+      "options": [
+        {
+          "text": "The equilibrium mixture is almost all reactants",
+          "correct": true
+        },
+        {
+          "text": "The equilibrium mixture is almost all products",
+          "correct": false
+        },
+        {
+          "text": "The reaction is very slow",
+          "correct": false
+        }
+      ],
+      "explain": "A tiny $K$ means the forward reaction hardly happens. $K$ says nothing about rate. Revise it in {{lesson:5.8}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The equilibrium mixture is almost all reactants"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "ph-scale",
+      "heading": "The pH scale",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Acids give hydrogen ions, $\\ce{H^+(aq)}$, which in water exist as $\\ce{H3O^+}$; $[\\ce{H^+}]$ and $[\\ce{H3O^+}]$ mean the same. Square brackets mean concentration in $\\pu{mol dm-3}$."
+        },
+        {
+          "type": "text",
+          "text": "$[\\ce{H^+}]$ usually runs from about $1$ down to $10^{-14}\\ \\pu{mol dm-3}$. Such numbers are hard to compare, so chemists use a logarithmic scale."
+        },
+        {
+          "type": "definition",
+          "term": "pH",
+          "statement": "The negative logarithm, to base 10, of the hydrogen ion concentration in $\\pu{mol dm-3}$. pH has no units.",
+          "plain": "A small number standing for a tiny $\\ce{H^+}$ concentration."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pH} = -\\log_{10}[\\ce{H3O^+}] \\quad\\text{or}\\quad \\mathrm{pH} = -\\log_{10}[\\ce{H^+}]",
+          "tag": "booklet",
+          "bookletId": "db-ph",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This equation is in the data booklet (section 1). To go back from pH to concentration, undo the log: $[\\ce{H^+}] = 10^{-\\mathrm{pH}}$."
+        },
+        {
+          "type": "text",
+          "text": "A [[strong-acid|strong acid]] with one acidic hydrogen, such as $\\ce{HCl}$ or $\\ce{HNO3}$, ionizes completely ({{lesson:6.3}}). So its $[\\ce{H^+}]$ equals the acid's concentration."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-nitric-acid",
+          "question": "Calculate the pH of $\\pu{0.0350 mol dm-3}$ nitric acid, $\\ce{HNO3(aq)}$, a strong acid.",
+          "steps": [
+            "$\\ce{HNO3}$ ionizes completely, so $[\\ce{H^+}] = \\pu{0.0350 mol dm-3}$.",
+            "Substitute: $\\mathrm{pH} = -\\log_{10}(0.0350) = 1.4559\\ldots$",
+            "Give pH to 2 decimal places, with no unit."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 1.46$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(0.0350, 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-h-from-ph",
+          "question": "A cola drink has a pH of 2.37. Calculate $[\\ce{H^+}]$ in the drink.",
+          "steps": [
+            "Undo the log: $[\\ce{H^+}] = 10^{-\\mathrm{pH}} = 10^{-2.37}$.",
+            "$10^{-2.37} = 0.0042657\\ldots$",
+            "Write it in standard form to 3 s.f., with units."
+          ],
+          "answer": "$[\\ce{H^+}] \\approx \\pu{4.27e-3 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "10**(-2.37)",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The minus sign means a higher $[\\ce{H^+}]$ gives a lower pH. The log means each fall of 1 in pH is a tenfold rise in $[\\ce{H^+}]$."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-ph-against-h",
+          "alt": "Sketch graph of pH on the vertical axis, from 0 to 3, against hydrogen ion concentration on the horizontal axis, from 0 to 1.0 mol per cubic decimetre. The line is a curve, not a straight line. It starts at pH 3 when the concentration is 0.001, falls very steeply to pH 1 at a concentration of 0.1, then flattens out and reaches pH 0 at a concentration of 1.0.",
+          "caption": "pH against $[\\ce{H^+}]$ is a curve that falls steeply, then flattens."
+        },
+        {
+          "type": "text",
+          "text": "So a sketch of pH against $[\\ce{H^+}]$ is a falling curve, not a straight line, reaching pH 0 at $\\pu{1 mol dm-3}$. Against $\\log_{10}[\\ce{H^+}]$, pH is a straight line of gradient $-1$."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading pH as if it were linear. pH 2 is not twice as acidic as pH 4: its $[\\ce{H^+}]$ is $10^{2} = 100$ times higher."
+        },
+        {
+          "type": "check",
+          "id": "check-rain-ratio",
+          "prompt": "Unpolluted rain has pH 5.6; a sample of acid rain has pH 4.1. How many times greater is $[\\ce{H^+}]$ in the acid rain? Give 3 s.f.",
+          "hint": "The ratio is $10^{d}$, where $d$ is the pH difference.",
+          "answer": {
+            "value": 31.6,
+            "tolerance": 0.05
+          },
+          "explain": "$d = 5.6 - 4.1 = 1.5$, so the ratio is $10^{1.5} \\approx 31.6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10**(-4.1)/10**(-5.6)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dilute-tenfold",
+          "prompt": "A strong acid has pH 1.8. It is diluted to ten times its volume. What is the new pH?",
+          "hint": "Dilution divides $[\\ce{H^+}]$ by 10.",
+          "options": [
+            {
+              "text": "$2.8$",
+              "correct": true
+            },
+            {
+              "text": "$0.8$",
+              "correct": false
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$0.18$",
+              "correct": false
+            }
+          ],
+          "explain": "$[\\ce{H^+}]$ falls tenfold, so pH rises by 1, to 2.8.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-log(10**(-1.8)/10, 10)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring",
+      "heading": "Measuring pH",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Universal indicator is a mixture of indicators whose colour changes gradually across the whole pH range. The colour gives an estimate of pH."
+        },
+        {
+          "type": "text",
+          "text": "It runs from red in strong acid, through orange and yellow, to green near pH 7, then blue and purple in strong alkali. You match the colour by eye, so the result is good only to about the nearest whole pH unit."
+        },
+        {
+          "type": "text",
+          "text": "A pH meter, or a pH probe on a data logger, has an electrode that responds to $[\\ce{H^+}]$. It gives a digital reading, usually to 2 decimal places."
+        },
+        {
+          "type": "text",
+          "text": "Calibrate it first in buffer solutions of known pH, such as 4.00 and 7.00. Rinse the electrode with distilled water between solutions."
+        },
+        {
+          "type": "text",
+          "text": "A probe suits precise work, coloured or cloudy samples and continuous logging, as in a titration. Indicator is cheap, quick and needs no calibration, so it suits a rough check."
+        },
+        {
+          "type": "example",
+          "id": "ex-probe-method",
+          "question": "Outline how a student should measure the pH of a sample of pond water precisely, using a pH probe.",
+          "steps": [
+            "Precise means a calibrated digital reading.",
+            "Include calibration, rinsing, a steady reading and the precision recorded."
+          ],
+          "answer": "Calibrate the probe with buffer solutions of known pH. Rinse the electrode with distilled water. Place it in the pond water sample and wait until the reading is steady. Record the pH to 2 decimal places.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Calibrate with buffers of known pH, rinse, immerse, wait for a steady reading, record to 2 d.p.",
+            "requires": [
+              "calibrate",
+              "buffer solutions of known pH",
+              "distilled water",
+              [
+                "steady",
+                "stable"
+              ],
+              "2 decimal places"
+            ],
+            "forbids": [
+              "colour chart"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-meter-vs-indicator",
+          "question": "Two samples of dark blackcurrant juice have pH values of about 3.2 and 3.6. Explain why a pH meter, not universal indicator, should be used to compare them.",
+          "steps": [
+            "The samples are strongly coloured.",
+            "Their pH values differ by less than one unit."
+          ],
+          "answer": "The juice is strongly coloured, so it would hide the indicator's colour. Universal indicator only gives an estimate, to about the nearest whole pH unit, so both juices would look much the same. A calibrated pH meter reads to 2 decimal places, so it can show the difference.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Coloured samples mask the indicator, and indicator only estimates to about 1 pH unit; a meter reads to 2 d.p.",
+            "requires": [
+              "coloured",
+              "estimate",
+              "nearest whole pH unit",
+              "2 decimal places"
+            ],
+            "forbids": [
+              "exact pH"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-indicator-green",
+          "prompt": "Universal indicator turns green in a solution. Which conclusion is justified?",
+          "hint": "How precise is a colour matched by eye?",
+          "options": [
+            {
+              "text": "The pH is roughly 7",
+              "correct": true
+            },
+            {
+              "text": "The pH is exactly 7.00",
+              "correct": false
+            },
+            {
+              "text": "The solution contains no hydrogen ions",
+              "correct": false
+            }
+          ],
+          "explain": "Green means close to neutral, to about a whole pH unit. Every aqueous solution contains some $\\ce{H^+}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The pH is roughly 7"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-when-probe",
+          "prompt": "When is a pH probe clearly better than indicator paper?",
+          "hint": "Which task needs many precise readings?",
+          "options": [
+            {
+              "text": "Recording the pH every second during a titration",
+              "correct": true
+            },
+            {
+              "text": "Checking whether a spilled liquid is acidic or alkaline",
+              "correct": false
+            },
+            {
+              "text": "Sorting household liquids into acids and alkalis",
+              "correct": false
+            }
+          ],
+          "explain": "A probe on a data logger records precise readings continuously. The other tasks need only a rough answer.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Recording the pH every second during a titration"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kw",
+      "heading": "Kw: acidic, neutral and basic",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pure water conducts electricity very slightly, so it holds a few ions. Water is [[amphiprotic-species|amphiprotic]] ({{lesson:6.1}}), and a tiny fraction of molecules pass a proton to each other."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{2H2O(l) <=> H3O^+(aq) + OH^-(aq)}$, often written $\\ce{H2O(l) <=> H^+(aq) + OH^-(aq)}$. Water is the solvent and its concentration hardly changes, so it is left out of the [[equilibrium-constant|equilibrium constant]]."
+        },
+        {
+          "type": "definition",
+          "term": "ion product constant of water",
+          "statement": "The equilibrium constant for the ionization of water, $K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}]$. At 298 K, $K_\\mathrm{w} = \\pu{1.00e-14 mol2 dm-6}$.",
+          "plain": "In any aqueous solution, the two ion concentrations multiply to the same number at a given temperature."
+        },
+        {
+          "type": "formula",
+          "tex": "K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}]",
+          "tag": "booklet",
+          "bookletId": "db-kw",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The equation is in section 1 of the data booklet, the value at 298 K in section 2. It holds in every aqueous solution."
+        },
+        {
+          "type": "text",
+          "text": "The product is fixed, so the two concentrations are inversely related. If $[\\ce{H^+}]$ rises 100 times, $[\\ce{OH^-}]$ falls 100 times. Neither ever reaches zero."
+        },
+        {
+          "type": "result",
+          "statement": "A solution is acidic when $[\\ce{H^+}] > [\\ce{OH^-}]$, neutral when $[\\ce{H^+}] = [\\ce{OH^-}]$, and basic when $[\\ce{OH^-}] > [\\ce{H^+}]$.",
+          "why": "At 298 K, equal concentrations means each is $\\sqrt{1.00 \\times 10^{-14}} = \\pu{1.00e-7 mol dm-3}$, so neutral is pH 7.00."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-ph-scale",
+          "alt": "The pH scale at 298 K drawn as a horizontal bar from pH 0 to pH 14. The part below pH 7 is labelled acidic, pH 7 is marked neutral, and the part above pH 7 is labelled basic. Above the bar, the hydrogen ion concentration falls from 10 to the power 0 at pH 0 to 10 to the minus 14 at pH 14. Below the bar, the hydroxide ion concentration rises from 10 to the minus 14 at pH 0 to 10 to the power 0 at pH 14. At pH 7 both are 10 to the minus 7.",
+          "caption": "At 298 K: as $[\\ce{H^+}]$ falls, $[\\ce{OH^-}]$ rises, and their product stays $10^{-14}$."
+        },
+        {
+          "type": "text",
+          "text": "A [[strong-base|strong base]] with one hydroxide ion, such as $\\ce{NaOH}$, dissociates completely, so $[\\ce{OH^-}]$ equals its concentration. To find its pH, get $[\\ce{H^+}]$ from $K_\\mathrm{w}$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-lithium-hydroxide",
+          "question": "Calculate the pH of $\\pu{0.0420 mol dm-3}$ lithium hydroxide, $\\ce{LiOH(aq)}$, a strong base, at 298 K.",
+          "steps": [
+            "$\\ce{LiOH}$ dissociates completely, so $[\\ce{OH^-}] = \\pu{0.0420 mol dm-3}$.",
+            "$[\\ce{H^+}] = \\frac{K_\\mathrm{w}}{[\\ce{OH^-}]} = \\frac{1.00 \\times 10^{-14}}{0.0420} = 2.380\\ldots \\times 10^{-13}\\ \\pu{mol dm-3}$",
+            "$\\mathrm{pH} = -\\log_{10}(2.380\\ldots \\times 10^{-13}) = 12.623\\ldots$ Use the unrounded $[\\ce{H^+}]$."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 12.62$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(Kw/0.0420, 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet pOH, which gives a second route to the pH of a base.",
+          "lesson": "6.4"
+        },
+        {
+          "type": "example",
+          "id": "ex-oh-from-ph",
+          "question": "A cleaning solution has a pH of 9.25 at 298 K. Calculate $[\\ce{OH^-}]$, and deduce whether the solution is acidic, neutral or basic.",
+          "steps": [
+            "$[\\ce{H^+}] = 10^{-9.25} = 5.623\\ldots \\times 10^{-10}\\ \\pu{mol dm-3}$",
+            "$[\\ce{OH^-}] = \\frac{K_\\mathrm{w}}{[\\ce{H^+}]} = \\frac{1.00 \\times 10^{-14}}{5.623\\ldots \\times 10^{-10}} = 1.778\\ldots \\times 10^{-5}\\ \\pu{mol dm-3}$",
+            "$[\\ce{OH^-}] > [\\ce{H^+}]$, so the solution is basic."
+          ],
+          "answer": "$[\\ce{OH^-}] \\approx \\pu{1.78e-5 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Kw/10**(-9.25)",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $-\\log_{10}[\\ce{OH^-}]$ and calling it the pH of a base. That number is not the pH: find $[\\ce{H^+}] = \\frac{K_\\mathrm{w}}{[\\ce{OH^-}]}$ first."
+        },
+        {
+          "type": "check",
+          "id": "check-classify-solution",
+          "prompt": "At 298 K, a solution has $[\\ce{H^+}] = \\pu{4.0e-11 mol dm-3}$. How is it classified?",
+          "hint": "Find $[\\ce{OH^-}]$ with $K_\\mathrm{w}$, then compare.",
+          "options": [
+            {
+              "text": "Basic",
+              "correct": true
+            },
+            {
+              "text": "Acidic",
+              "correct": false
+            },
+            {
+              "text": "Neutral",
+              "correct": false
+            }
+          ],
+          "explain": "$[\\ce{OH^-}] = \\frac{1.00 \\times 10^{-14}}{4.0 \\times 10^{-11}} = \\pu{2.5e-4 mol dm-3}$, far larger than $[\\ce{H^+}]$. A tiny $[\\ce{H^+}]$ does not make a solution acidic.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Basic"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-sodium-hydroxide",
+          "prompt": "Calculate the pH of $\\pu{0.0060 mol dm-3}$ sodium hydroxide at 298 K. Give 2 decimal places.",
+          "hint": "$[\\ce{OH^-}] = 0.0060$. Find $[\\ce{H^+}]$ with $K_\\mathrm{w}$, then take $-\\log_{10}$.",
+          "answer": {
+            "value": 11.78,
+            "tolerance": 0.005
+          },
+          "explain": "$[\\ce{H^+}] = \\frac{1.00 \\times 10^{-14}}{0.0060} = \\pu{1.67e-12 mol dm-3}$, so $\\mathrm{pH} = -\\log_{10}(1.67 \\times 10^{-12}) \\approx 11.78$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(Kw/0.0060, 10)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "temperature",
+      "heading": "Kw and temperature",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The ionization of water is the reverse of neutralization, $\\ce{H^+(aq) + OH^-(aq) -> H2O(l)}$, which is exothermic. So the ionization of water is endothermic."
+        },
+        {
+          "type": "text",
+          "text": "Raising the temperature favours the endothermic direction ({{lesson:5.9}}). More water ionizes, so $K_\\mathrm{w}$ increases. Like any equilibrium constant, $K_\\mathrm{w}$ changes only with temperature."
+        },
+        {
+          "type": "text",
+          "text": "Pure water always has $[\\ce{H^+}] = [\\ce{OH^-}]$, so $[\\ce{H^+}] = \\sqrt{K_\\mathrm{w}}$. Above 298 K, $K_\\mathrm{w}$ is larger and the pH is below 7, yet the water is still neutral."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-water-333k",
+          "question": "At 333 K, $K_\\mathrm{w} = \\pu{9.6e-14 mol2 dm-6}$. Calculate the pH of pure water at this temperature.",
+          "steps": [
+            "In pure water $[\\ce{H^+}] = [\\ce{OH^-}]$, so $K_\\mathrm{w} = [\\ce{H^+}]^2$.",
+            "$[\\ce{H^+}] = \\sqrt{9.6 \\times 10^{-14}} = 3.098\\ldots \\times 10^{-7}\\ \\pu{mol dm-3}$",
+            "$\\mathrm{pH} = -\\log_{10}(3.098\\ldots \\times 10^{-7}) = 6.508\\ldots$"
+          ],
+          "answer": "$\\mathrm{pH} \\approx 6.51$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(sqrt(9.6*10**(-14)), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-kw-temperature",
+          "question": "Explain why $K_\\mathrm{w}$ is larger at 333 K than at 298 K, and why pure water at 333 K is neutral even though its pH is below 7.",
+          "steps": [
+            "Link the sign of $\\Delta H$ to the direction the equilibrium shifts.",
+            "Neutral is defined by comparing $[\\ce{H^+}]$ with $[\\ce{OH^-}]$, not by the number 7."
+          ],
+          "answer": "The ionization of water, $\\ce{H2O(l) <=> H^+(aq) + OH^-(aq)}$, is endothermic. Increasing the temperature shifts the equilibrium to the right, so more water ionizes and $K_\\mathrm{w}$ increases. Each molecule that ionizes gives one $\\ce{H^+}$ and one $\\ce{OH^-}$, so the concentrations stay equal and the water is neutral. pH 7 means neutral only at 298 K.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ionization is endothermic, so heating shifts it right and Kw rises; [H+] still equals [OH-], so pure water stays neutral.",
+            "requires": [
+              "endothermic",
+              "to the right",
+              "more water ionizes",
+              "concentrations stay equal",
+              "neutral",
+              "only at 298 K"
+            ],
+            "forbids": [
+              "becomes acidic",
+              "water is acidic",
+              "ionization is exothermic"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling hot pure water acidic because its pH is below 7. Neutral means $[\\ce{H^+}] = [\\ce{OH^-}]$; pH 7 is neutral only at 298 K."
+        },
+        {
+          "type": "check",
+          "id": "check-ph-water-313k",
+          "prompt": "At 313 K, $K_\\mathrm{w} = \\pu{2.92e-14 mol2 dm-6}$. Calculate the pH of pure water at this temperature. Give 2 decimal places.",
+          "hint": "In pure water $[\\ce{H^+}] = \\sqrt{K_\\mathrm{w}}$.",
+          "answer": {
+            "value": 6.77,
+            "tolerance": 0.005
+          },
+          "explain": "$[\\ce{H^+}] = \\sqrt{2.92 \\times 10^{-14}} = \\pu{1.71e-7 mol dm-3}$, so $\\mathrm{pH} \\approx 6.77$. Still neutral.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(sqrt(2.92*10**(-14)), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hot-water",
+          "prompt": "Pure water is heated from 298 K to 350 K. Which statement is correct?",
+          "hint": "Ionization of water is endothermic. What stays equal?",
+          "options": [
+            {
+              "text": "Its pH falls and it stays neutral",
+              "correct": true
+            },
+            {
+              "text": "Its pH falls and it becomes acidic",
+              "correct": false
+            },
+            {
+              "text": "Its pH stays at 7.00",
+              "correct": false
+            },
+            {
+              "text": "Its pH rises",
+              "correct": false
+            }
+          ],
+          "explain": "$K_\\mathrm{w}$ increases, so $[\\ce{H^+}]$ rises and pH falls. $[\\ce{OH^-}]$ rises equally, so it stays neutral.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its pH falls and it stays neutral"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$[\\ce{H^+}] = 10^{-\\mathrm{pH}}$. pH has no units. Lower pH means higher $[\\ce{H^+}]$, and each pH unit is a factor of 10.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Universal indicator estimates pH to about a whole unit; a calibrated pH meter measures it to 2 decimal places.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$K_\\mathrm{w} = \\pu{1.00e-14 mol2 dm-6}$ at 298 K. For a strong base, $[\\ce{H^+}] = \\frac{K_\\mathrm{w}}{[\\ce{OH^-}]}$, then take $-\\log_{10}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Acidic: $[\\ce{H^+}] > [\\ce{OH^-}]$. Neutral: equal. Basic: $[\\ce{OH^-}] > [\\ce{H^+}]$. pH 7 is neutral only at 298 K.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Water's ionization is endothermic, so $K_\\mathrm{w}$ rises with temperature. Hot pure water has pH below 7 but stays neutral.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dropping the minus sign in $-\\log_{10}$, which gives a negative pH for a dilute acid.",
+    "Giving pH units. pH is a pure number.",
+    "Rounding $[\\ce{H^+}]$ before taking the log. Round only the final pH.",
+    "Quoting a universal indicator result to 2 decimal places, or using an uncalibrated pH meter."
+  ],
+  "examTips": [
+    "\"Calculate\" pH: show the substitution, $\\mathrm{pH} = -\\log_{10}(\\ldots)$, then the answer to 2 decimal places, no unit.",
+    "For a base, show $[\\ce{H^+}] = \\frac{K_\\mathrm{w}}{[\\ce{OH^-}]}$ before the pH.",
+    "\"Deduce\" acidic, neutral or basic by comparing $[\\ce{H^+}]$ with $[\\ce{OH^-}]$; compare pH with 7 only at 298 K.",
+    "\"Suggest\" a way to measure pH: name the method and the expected result; for a meter, mention calibration."
+  ],
+  "readingMinutes": 20
+}

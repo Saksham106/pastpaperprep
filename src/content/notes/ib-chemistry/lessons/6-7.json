@@ -1,0 +1,641 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.7",
+  "slug": "buffer-solutions",
+  "title": "Buffer solutions",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "A [[buffer-solution|buffer solution]] holds its [[ph|pH]] almost steady when a little acid or alkali is added. It contains a [[weak-acid|weak acid]] and its conjugate base (or a [[weak-base|weak base]] and its conjugate acid), both in large amounts: one partner removes added $\\ce{H^+}$, the other added $\\ce{OH^-}$. Its pH is set by the [[pka|pKa]] and the ratio of the two concentrations.",
+  "goals": [
+    {
+      "text": "State what acidic and basic buffers contain, and make one by partly neutralizing a weak acid or weak base.",
+      "bullets": [
+        "R3.1.16"
+      ]
+    },
+    {
+      "text": "Explain, with equations, how a buffer resists a change in pH, and why it must be made from a weak conjugate pair.",
+      "bullets": [
+        "R3.1.16"
+      ]
+    },
+    {
+      "text": "Calculate the pH of a buffer from its pKa or pKb and the concentration ratio, and the composition needed for a target pH.",
+      "bullets": [
+        "R3.1.17"
+      ]
+    },
+    {
+      "text": "Explain why diluting a buffer leaves its pH almost unchanged.",
+      "bullets": [
+        "R3.1.17"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "5.8",
+    "5.9",
+    "6.1",
+    "6.2",
+    "6.3",
+    "6.4",
+    "6.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "buffer solution",
+    "how buffers work",
+    "pH of a buffer",
+    "Henderson-Hasselbalch equation",
+    "acidic and basic buffers",
+    "effect of dilution on a buffer"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pka-from-ka",
+      "prompt": "A weak acid has $K_\\mathrm{a} = \\pu{1.8e-5 mol dm-3}$ at 298 K. What is its pKa, to 2 decimal places?",
+      "hint": "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10}K_\\mathrm{a}$.",
+      "answer": {
+        "value": 4.74,
+        "tolerance": 0.005
+      },
+      "explain": "$-\\log_{10}(1.8 \\times 10^{-5}) = 4.74$. Revise it in {{lesson:6.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-log(1.8*10**(-5), 10)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-add-product",
+      "prompt": "A system is at equilibrium: $\\ce{A(aq) <=> B(aq) + C(aq)}$. More C is added. What happens?",
+      "hint": "The system responds to oppose the change.",
+      "options": [
+        {
+          "text": "The position shifts left, using up some of the added C",
+          "correct": true
+        },
+        {
+          "text": "The position shifts right, making more C",
+          "correct": false
+        },
+        {
+          "text": "Nothing changes, because the system is already at equilibrium",
+          "correct": false
+        },
+        {
+          "text": "The equilibrium constant increases",
+          "correct": false
+        }
+      ],
+      "explain": "The position moves left to remove some of the added C; the constant itself is unchanged. Revise it in {{lesson:5.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The position shifts left, using up some of the added C"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-weak-base",
+      "prompt": "Which of these is a weak base?",
+      "hint": "A weak base only partly reacts with water to make hydroxide ions.",
+      "options": [
+        {
+          "text": "ammonia",
+          "correct": true
+        },
+        {
+          "text": "sodium hydroxide",
+          "correct": false
+        },
+        {
+          "text": "potassium chloride",
+          "correct": false
+        },
+        {
+          "text": "ethanoic acid",
+          "correct": false
+        }
+      ],
+      "explain": "Ammonia reacts with only a small fraction of water molecules; sodium hydroxide is a strong base. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "ammonia"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "how-buffers-work",
+      "heading": "What a buffer is and how it works",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One drop of concentrated hydrochloric acid takes a litre of pure water from pH 7 to about 3. Blood can't cope with swings like that."
+        },
+        {
+          "type": "definition",
+          "term": "buffer solution",
+          "statement": "A solution whose pH changes very little when a small amount of acid or alkali is added to it.",
+          "plain": "A pH shock absorber."
+        },
+        {
+          "type": "text",
+          "text": "An acidic buffer (usually pH below 7) is a [[weak-acid|weak acid]] mixed with a salt of its conjugate base, such as ethanoic acid with sodium ethanoate. It holds lots of $\\ce{CH3COOH}$ and lots of $\\ce{CH3COO^-}$, a [[conjugate-acid-base-pair|conjugate acid–base pair]] ({{lesson:6.1}})."
+        },
+        {
+          "type": "text",
+          "text": "A basic buffer (usually pH above 7) is a [[weak-base|weak base]] mixed with a salt of its conjugate acid, such as ammonia with ammonium chloride."
+        },
+        {
+          "type": "text",
+          "text": "Write a weak acid as HA: $\\ce{HA(aq) <=> H^+(aq) + A^-(aq)}$. On its own, HA barely ionizes, so there is very little $\\ce{A^-}$. The salt supplies a large amount of it."
+        },
+        {
+          "type": "figure",
+          "id": "6-7-buffer-action",
+          "alt": "Buffer action. At the top is the equilibrium HA, reversible arrow, H plus plus A minus. HA is labelled large amount, H plus is labelled tiny, and A minus is labelled large amount. An arrow runs down from HA to a box on the left headed: add a little OH minus. It shows HA plus OH minus gives A minus plus water, and says the added OH minus is used up. An arrow runs down from A minus to a box on the right headed: add a little H plus. It shows A minus plus H plus gives HA, and says the added H plus is used up.",
+          "caption": "Each partner removes one kind of addition. The ratio of HA to $\\ce{A^-}$ changes only a little, so the pH does too."
+        },
+        {
+          "type": "text",
+          "text": "Add a little acid and the conjugate base removes the $\\ce{H^+}$: $\\ce{A^-(aq) + H^+(aq) -> HA(aq)}$. Add a little alkali and the weak acid removes the $\\ce{OH^-}$: $\\ce{HA(aq) + OH^-(aq) -> A^-(aq) + H2O(l)}$."
+        },
+        {
+          "type": "text",
+          "text": "In terms of [[le-chateliers-principle|Le Châtelier's principle]]: added $\\ce{H^+}$ shifts $\\ce{HA <=> H^+ + A^-}$ to the left, using the large store of $\\ce{A^-}$. Added $\\ce{OH^-}$ removes $\\ce{H^+}$, so the position shifts right and the large store of HA replaces it."
+        },
+        {
+          "type": "text",
+          "text": "In a basic buffer, $\\ce{NH3 + H^+ -> NH4^+}$ removes added acid and $\\ce{NH4^+ + OH^- -> NH3 + H2O}$ removes added alkali."
+        },
+        {
+          "type": "text",
+          "text": "Why weak? A [[strong-acid|strong acid]] such as HCl is fully ionized, and $\\ce{Cl^-}$ is far too weak a base to take back a proton. So nothing in HCl and NaCl removes added $\\ce{H^+}$. Likewise, in a [[strong-base|strong base]] and its salt, $\\ce{Na^+}$ can't give up a proton."
+        },
+        {
+          "type": "text",
+          "text": "A buffer copes with small additions only, and works best when both partners are present in large, similar amounts."
+        },
+        {
+          "type": "text",
+          "text": "You can also add a strong base to an excess of weak acid: part of the acid becomes $\\ce{A^-}$ and the rest stays as HA. This is the [[buffer-region|buffer region]] of a pH curve ({{lesson:6.5}}). A strong acid added to excess weak base makes a basic buffer."
+        },
+        {
+          "type": "example",
+          "id": "ex-equation-propanoate-oh",
+          "question": "A buffer contains propanoic acid, $\\ce{CH3CH2COOH}$, and sodium propanoate. Write the equation for the reaction that removes a small amount of added hydroxide ions.",
+          "steps": [
+            "Pick the partner that reacts with a base: the weak acid, $\\ce{CH3CH2COOH}$.",
+            "It gives its proton to $\\ce{OH^-}$, forming its conjugate base and water.",
+            "Check: atoms and charge balance. Sodium ions are spectators, so leave them out."
+          ],
+          "answer": "$\\ce{CH3CH2COOH + OH^- -> CH3CH2COO^- + H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2COOH + OH^- -> CH3CH2COO^- + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-hcl-nacl",
+          "question": "A student mixes hydrochloric acid with sodium chloride solution and calls it a buffer. Explain why it is not a buffer.",
+          "steps": [
+            "A buffer needs a partner for each kind of addition.",
+            "Ask what in the mixture could remove added $\\ce{H^+}$.",
+            "Finish by saying what a buffer needs instead."
+          ],
+          "answer": "A buffer needs a base to remove added $\\ce{H^+}$ and an acid to remove added $\\ce{OH^-}$. Hydrochloric acid is a strong acid, so it is fully ionized. Its conjugate base, $\\ce{Cl^-}$, is too weak a base to accept a proton. So any added $\\ce{H^+}$ stays in solution, and the pH falls. A buffer needs a weak acid and its conjugate base, both present in large amounts.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "HCl is strong and fully ionized; Cl- is too weak a base to accept H+, so added H+ is not removed; a buffer needs a weak acid and its conjugate base.",
+            "requires": [
+              "strong acid",
+              [
+                "fully ionized",
+                "completely ionized"
+              ],
+              [
+                "too weak a base",
+                "does not accept",
+                "cannot accept"
+              ],
+              [
+                "stays in solution",
+                "is not removed"
+              ],
+              [
+                "weak acid and its conjugate base",
+                "weak acid and its salt"
+              ]
+            ],
+            "forbids": [
+              "Cl- is a strong base",
+              "chloride ions remove"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling any acid plus its salt a buffer. The acid must be weak, so that both it and its conjugate base can react."
+        },
+        {
+          "type": "check",
+          "id": "check-ammonia-buffer-acid",
+          "prompt": "A buffer contains ammonia and ammonium chloride. Which equation shows how it removes a small amount of added acid?",
+          "hint": "Which partner can accept a proton?",
+          "options": [
+            {
+              "text": "$\\ce{NH3 + H^+ -> NH4^+}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{NH4^+ + OH^- -> NH3 + H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cl^- + H^+ -> HCl}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NH3 + H2O -> NH4^+ + OH^-}$",
+              "correct": false
+            }
+          ],
+          "explain": "Ammonia, the weak base, accepts the proton. The second equation removes added alkali, and chloride is too weak a base.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "NH3 + H^+ -> NH4^+",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-mixture",
+          "prompt": "Which mixture is a buffer?",
+          "hint": "A buffer needs weak acid left over, as well as its conjugate base.",
+          "options": [
+            {
+              "text": "30.0 cm³ of 0.200 mol dm⁻³ propanoic acid with 15.0 cm³ of 0.200 mol dm⁻³ KOH",
+              "correct": true
+            },
+            {
+              "text": "30.0 cm³ of 0.200 mol dm⁻³ propanoic acid with 30.0 cm³ of 0.200 mol dm⁻³ KOH",
+              "correct": false
+            },
+            {
+              "text": "30.0 cm³ of 0.200 mol dm⁻³ propanoic acid with 15.0 cm³ of 0.400 mol dm⁻³ KOH",
+              "correct": false
+            },
+            {
+              "text": "30.0 cm³ of 0.200 mol dm⁻³ hydrochloric acid with 15.0 cm³ of 0.200 mol dm⁻³ KOH",
+              "correct": false
+            }
+          ],
+          "explain": "Each has $\\pu{0.00600 mol}$ of acid. Only the first adds less base ($\\pu{0.00300 mol}$), leaving half as HA and half as its conjugate base. The next two neutralize it all, and the last uses a strong acid.",
+          "verify": {
+            "kind": "choice",
+            "truth": "30.0 cm³ of 0.200 mol dm⁻³ propanoic acid with 15.0 cm³ of 0.200 mol dm⁻³ KOH"
+          }
+        }
+      ]
+    },
+    {
+      "id": "buffer-ph",
+      "heading": "Calculating the pH of a buffer",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Start from the [[acid-dissociation-constant|acid dissociation constant]] of the weak acid ({{lesson:6.4}}). It is an [[equilibrium-constant|equilibrium constant]], so it holds in any solution containing HA, including a buffer."
+        },
+        {
+          "type": "formula",
+          "tex": "K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{A^-}]}{[\\ce{HA}]} \\quad\\Rightarrow\\quad [\\ce{H^+}] = K_\\mathrm{a} \\times \\frac{[\\ce{HA}]}{[\\ce{A^-}]}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Take $-\\log_{10}$ of both sides. The log of a product is a sum of logs, and flipping the fraction changes the sign of its log."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} + \\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is the Henderson–Hasselbalch equation. It is not in the data booklet, so learn it, or work from $K_\\mathrm{a}$ each time. Mark schemes accept either route."
+        },
+        {
+          "type": "text",
+          "text": "Use the concentrations you put in. With so much $\\ce{A^-}$ present, HA ionizes even less than usual, and [[salt-hydrolysis|salt hydrolysis]] of $\\ce{A^-}$ is negligible too."
+        },
+        {
+          "type": "text",
+          "text": "Both species share one volume, so the ratio of their [[molar-concentration|molar concentrations]] equals the ratio of their [[mole|moles]]. Amounts can go straight into the fraction."
+        },
+        {
+          "type": "text",
+          "text": "So the pH depends on the pKa and on the ratio $[\\ce{A^-}]:[\\ce{HA}]$. When they are equal, $\\log_{10}1 = 0$ and $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$. For a target pH, choose an acid with a pKa close to it, then adjust the ratio."
+        },
+        {
+          "type": "text",
+          "text": "For a basic buffer of base B and its conjugate acid $\\ce{BH^+}$, use the [[base-dissociation-constant|base dissociation constant]] in the same way: $\\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b} + \\log_{10}\\frac{[\\ce{BH^+}]}{[\\ce{B}]}$. Then $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$ at 298 K, using $K_\\mathrm{w}$ from the data booklet (section 2)."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-benzoate-buffer",
+          "question": "A buffer contains $\\pu{0.150 mol dm-3}$ benzoic acid and $\\pu{0.240 mol dm-3}$ sodium benzoate. The pKa of benzoic acid is 4.20 at 298 K. Calculate the pH of the buffer.",
+          "steps": [
+            "The conjugate base is the benzoate ion, so $[\\ce{A^-}] = \\pu{0.240 mol dm-3}$ and $[\\ce{HA}] = \\pu{0.150 mol dm-3}$.",
+            "$\\mathrm{pH} = 4.20 + \\log_{10}\\frac{0.240}{0.150} = 4.20 + 0.204$.",
+            "Check: more conjugate base than acid, so the pH is a little above the pKa."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 4.40$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.20 + log(0.240/0.150, 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-partial-neutralization",
+          "question": "$\\pu{24.0 cm3}$ of $\\pu{0.125 mol dm-3}$ sodium hydroxide is added to $\\pu{35.0 cm3}$ of $\\pu{0.300 mol dm-3}$ propanoic acid. The pKa of propanoic acid is 4.87 at 298 K. Calculate the pH of the mixture.",
+          "steps": [
+            "Moles: $n(\\ce{OH^-}) = 0.0240 \\times 0.125 = \\pu{0.00300 mol}$ and $n(\\ce{HA}) = 0.0350 \\times 0.300 = \\pu{0.0105 mol}$.",
+            "The hydroxide reacts completely: $\\ce{CH3CH2COOH + OH^- -> CH3CH2COO^- + H2O}$. This leaves $0.0105 - 0.00300 = \\pu{0.00750 mol}$ of acid and makes $\\pu{0.00300 mol}$ of propanoate.",
+            "Weak acid and conjugate base are both present, so this is a buffer. Use moles in the ratio: $\\mathrm{pH} = 4.87 + \\log_{10}\\frac{0.00300}{0.00750} = 4.87 - 0.398$.",
+            "Check: less conjugate base than acid, so the pH is below the pKa."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 4.47$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.87 + log((0.0240*0.125)/(0.0350*0.300 - 0.0240*0.125), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Turning the ratio upside down. The conjugate base goes on top: $\\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}$. Check the direction: more conjugate base means a pH above the pKa."
+        },
+        {
+          "type": "check",
+          "id": "check-ph-methylamine-buffer",
+          "prompt": "A basic buffer contains $\\pu{0.180 mol dm-3}$ methylamine and $\\pu{0.300 mol dm-3}$ methylammonium chloride. The pKb of methylamine is 3.36 at 298 K. What is the pH, to 2 decimal places?",
+          "hint": "Find the pOH with pKb and $\\frac{[\\ce{BH^+}]}{[\\ce{B}]}$, then subtract it from 14.00.",
+          "answer": {
+            "value": 10.42,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{pOH} = 3.36 + \\log_{10}\\frac{0.300}{0.180} = 3.58$, so $\\mathrm{pH} = 14.00 - 3.58 = 10.42$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(Kw, 10) - (3.36 + log(0.300/0.180, 10))",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-from-ph",
+          "prompt": "A buffer is made from a weak acid HA with a pKa of 6.80. Its pH is 7.10. Which statement is correct?",
+          "hint": "Compare the pH with the pKa. What sign must $\\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}$ have?",
+          "options": [
+            {
+              "text": "There is more conjugate base than weak acid",
+              "correct": true
+            },
+            {
+              "text": "There are equal amounts of weak acid and conjugate base",
+              "correct": false
+            },
+            {
+              "text": "There is more weak acid than conjugate base",
+              "correct": false
+            }
+          ],
+          "explain": "The pH is above the pKa, so the log term is positive and $\\frac{[\\ce{A^-}]}{[\\ce{HA}]} > 1$. Equal concentrations would give $\\mathrm{pH} = 6.80$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "There is more conjugate base than weak acid"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lactate-needed",
+          "prompt": "A buffer of pH 4.10 must contain $\\pu{0.0800 mol dm-3}$ lactic acid, which has a pKa of 3.86 at 298 K. What concentration of sodium lactate is needed, in $\\pu{mol dm-3}$ to 3 significant figures?",
+          "hint": "Rearrange: $\\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]} = \\mathrm{pH} - \\mathrm{p}K_\\mathrm{a}$.",
+          "answer": {
+            "value": 0.139,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\log_{10}\\frac{[\\ce{A^-}]}{0.0800} = 4.10 - 3.86 = 0.24$, so $[\\ce{A^-}] = 0.0800 \\times 10^{0.24} = \\pu{0.139 mol dm-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0800*10**(4.10 - 3.86)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "dilution-and-additions",
+      "heading": "Dilution and small additions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Under [[dilution|dilution]] with water, $[\\ce{HA}]$ and $[\\ce{A^-}]$ fall by the same factor, so their ratio is unchanged. $K_\\mathrm{a}$ depends only on temperature, so the pH stays almost the same. A weak acid on its own is different: diluting it tenfold raises its pH by about 0.5."
+        },
+        {
+          "type": "text",
+          "text": "In Le Châtelier terms, dilution favours the side of $\\ce{HA <=> H^+ + A^-}$ with more dissolved particles. The position shifts right, and the extra ionization replaces the $\\ce{H^+}$ that dilution spread out."
+        },
+        {
+          "type": "text",
+          "text": "The cost: each $\\pu{cm3}$ now holds less HA and $\\ce{A^-}$, so it absorbs less added acid or alkali. After enormous dilution the pH drifts towards 7."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-dilution",
+          "question": "A buffer of propanoic acid and sodium propanoate is diluted with an equal volume of water at constant temperature. Explain the effect on its pH.",
+          "steps": [
+            "Start with the concentrations.",
+            "Link the ratio and the constant to the pH, one point per sentence."
+          ],
+          "answer": "Adding water halves both $[\\ce{CH3CH2COOH}]$ and $[\\ce{CH3CH2COO^-}]$, so both fall by the same factor. The ratio of conjugate base to acid is therefore unchanged. At constant temperature $K_\\mathrm{a}$, and so the pKa, does not change. Since $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} + \\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}$, the pH stays almost the same.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Both concentrations fall by the same factor, so the ratio is unchanged; Ka is constant at constant temperature; so the pH stays almost the same.",
+            "requires": [
+              "same factor",
+              "ratio",
+              "unchanged",
+              [
+                "does not change",
+                "is constant"
+              ],
+              [
+                "pH stays almost the same",
+                "pH is almost unchanged"
+              ]
+            ],
+            "forbids": [
+              "pH increases",
+              "pH rises",
+              "pH decreases",
+              "pH falls"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-add-acid-ethanoate",
+          "question": "$\\pu{100.0 cm3}$ of a buffer contains $\\pu{0.150 mol dm-3}$ ethanoic acid and $\\pu{0.150 mol dm-3}$ sodium ethanoate. The pKa of ethanoic acid is 4.76 at 298 K. Calculate the pH after $\\pu{0.500 cm3}$ of $\\pu{2.00 mol dm-3}$ hydrochloric acid is added.",
+          "steps": [
+            "Before: $n(\\ce{CH3COOH}) = n(\\ce{CH3COO^-}) = 0.1000 \\times 0.150 = \\pu{0.0150 mol}$, so $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} = 4.76$.",
+            "Added acid: $n(\\ce{H^+}) = 0.000500 \\times 2.00 = \\pu{0.00100 mol}$.",
+            "It reacts with ethanoate: $\\ce{CH3COO^- + H^+ -> CH3COOH}$. Now $n(\\ce{CH3COO^-}) = \\pu{0.0140 mol}$ and $n(\\ce{CH3COOH}) = \\pu{0.0160 mol}$.",
+            "$\\mathrm{pH} = 4.76 + \\log_{10}\\frac{0.0140}{0.0160} = 4.76 - 0.058$: a fall of only 0.06. In pure water the same acid would drop the pH from 7 to about 2."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 4.70$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.76 + log((0.1000*0.150 - 0.000500*2.00)/(0.1000*0.150 + 0.000500*2.00), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When acid or alkali is added to a buffer, work in moles: react the addition with the right partner first, then put the new amounts into the ratio."
+        },
+        {
+          "type": "check",
+          "id": "check-dilute-tenfold",
+          "prompt": "A buffer of pH 5.20 is diluted with water to ten times its volume at constant temperature. What happens to its pH?",
+          "hint": "What happens to the ratio of the two concentrations?",
+          "options": [
+            {
+              "text": "It stays almost the same",
+              "correct": true
+            },
+            {
+              "text": "It rises by about one unit",
+              "correct": false
+            },
+            {
+              "text": "It falls by about one unit",
+              "correct": false
+            },
+            {
+              "text": "It becomes neutral",
+              "correct": false
+            }
+          ],
+          "explain": "Both concentrations fall tenfold, so the ratio is unchanged and the pH stays about 5.20.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It stays almost the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-add-naoh",
+          "prompt": "A small amount of sodium hydroxide is added to a buffer of ethanoic acid and sodium ethanoate. Which statement is correct?",
+          "hint": "Which partner reacts with hydroxide ions, and what does it make?",
+          "options": [
+            {
+              "text": "The ethanoate ion concentration increases slightly",
+              "correct": true
+            },
+            {
+              "text": "The ethanoic acid concentration increases slightly",
+              "correct": false
+            },
+            {
+              "text": "Hydroxide ions combine with sodium ions to form sodium hydroxide",
+              "correct": false
+            },
+            {
+              "text": "The pH stays exactly the same",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CH3COOH + OH^- -> CH3COO^- + H2O}$ uses up a little acid and makes a little more ethanoate. The pH rises very slightly: a buffer resists change, it doesn't stop it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The ethanoate ion concentration increases slightly"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Acidic buffer: weak acid plus a salt of its conjugate base. Basic buffer: weak base plus a salt of its conjugate acid. Both in large amounts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Buffer action: $\\ce{A^- + H^+ -> HA}$ removes added acid; $\\ce{HA + OH^- -> A^- + H2O}$ removes added alkali. Strong acids and bases can't buffer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} + \\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Basic buffer: $\\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b} + \\log_{10}\\frac{[\\ce{BH^+}]}{[\\ce{B}]}$, then $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$ at 298 K.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$[\\ce{HA}] = [\\ce{A^-}]$ gives $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$. Strong base plus excess weak acid makes a buffer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dilution leaves the ratio, so the pH, almost unchanged.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding too much strong base when making a buffer. If all the weak acid is neutralized, only the salt is left; keep the weak acid in excess.",
+    "Stopping at the pOH for a basic buffer. Finish with pH = 14.00 − pOH.",
+    "Saying a buffer keeps the pH constant. It resists change: the pH moves a little, and a large addition overwhelms it.",
+    "Thinking dilution changes a buffer's pH as it does a weak acid's. The ratio stays the same, so the pH barely moves."
+  ],
+  "examTips": [
+    "\"Describe\" a buffer: name the weak acid (or base) and its conjugate base (or acid), both present in large amounts.",
+    "Equations for buffer action: give one for added $\\ce{H^+}$ and one for added $\\ce{OH^-}$, using the buffer's own species.",
+    "\"Calculate\" a buffer pH: write the expression, substitute, and give the pH to 2 decimal places."
+  ],
+  "readingMinutes": 20
+}

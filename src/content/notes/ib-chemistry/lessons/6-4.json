@@ -1,0 +1,760 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.4",
+  "slug": "poh-ka-and-kb",
+  "title": "pOH, Ka and Kb",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "[[poh|pOH]] does for hydroxide ions what [[ph|pH]] does for hydrogen ions, and at 298 K the two add up to 14.00. The [[acid-dissociation-constant|acid dissociation constant]], $K_\\mathrm{a}$, and the [[base-dissociation-constant|base dissociation constant]], $K_\\mathrm{b}$, put a number on how strong a [[weak-acid|weak acid]] or [[weak-base|weak base]] is. For a conjugate pair, $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$, so a stronger acid always has a weaker conjugate base.",
+  "goals": [
+    {
+      "text": "Convert between $[\\ce{H^+}]$, $[\\ce{OH^-}]$, pH and pOH at 298 K.",
+      "bullets": [
+        "R3.1.9"
+      ]
+    },
+    {
+      "text": "Write $K_\\mathrm{a}$ and $K_\\mathrm{b}$ expressions, and convert them to [[pka|pKa]] and pKb values.",
+      "bullets": [
+        "R3.1.10"
+      ]
+    },
+    {
+      "text": "Rank acids and bases by strength from their $K_\\mathrm{a}$, $K_\\mathrm{b}$, pKa or pKb values.",
+      "bullets": [
+        "R3.1.10"
+      ]
+    },
+    {
+      "text": "Derive $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$ for a conjugate pair, and use it to find one constant from the other.",
+      "bullets": [
+        "R3.1.11"
+      ]
+    },
+    {
+      "text": "Calculate the pH of a weak acid or weak base, or $K_\\mathrm{a}$ from a measured pH, without a quadratic.",
+      "bullets": [
+        "R3.1.10",
+        "R3.1.11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "2.2",
+    "5.8",
+    "5.10",
+    "6.1",
+    "6.2",
+    "6.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "pOH calculation",
+    "Ka and pKa",
+    "Kb and pKb",
+    "Ka x Kb = Kw",
+    "pH of a weak acid",
+    "acid dissociation constant"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ph-from-h",
+      "prompt": "A solution has $[\\ce{H^+}] = \\pu{3.2e-4 mol dm-3}$. What is its pH, to 2 decimal places?",
+      "hint": "$\\mathrm{pH} = -\\log_{10}[\\ce{H^+}]$.",
+      "answer": {
+        "value": 3.49,
+        "tolerance": 0.005
+      },
+      "explain": "$-\\log_{10}(3.2 \\times 10^{-4}) = 3.49$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-log(3.2*10**(-4), 10)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-oh-from-h",
+      "prompt": "At 298 K a solution has $[\\ce{H^+}] = \\pu{2.0e-4 mol dm-3}$. What is $[\\ce{OH^-}]$?",
+      "hint": "$K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}] = \\pu{1.00e-14}$ at 298 K.",
+      "options": [
+        {
+          "text": "$\\pu{5.0e-11 mol dm-3}$",
+          "correct": true
+        },
+        {
+          "text": "$\\pu{2.0e-10 mol dm-3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\pu{5.0e-4 mol dm-3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\pu{1.0e-10 mol dm-3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$[\\ce{OH^-}] = \\frac{1.00 \\times 10^{-14}}{2.0 \\times 10^{-4}} = \\pu{5.0e-11 mol dm-3}$. Divide; don't subtract powers. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "Kw/(2.0*10**(-4))",
+        "sf": 2,
+        "unit": "mol dm-3"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-weak-acid-meaning",
+      "prompt": "Ethanoic acid is a weak acid. What does that mean?",
+      "hint": "Weak and strong describe the acid, not how much water it is in.",
+      "options": [
+        {
+          "text": "It is only partly ionized in water",
+          "correct": true
+        },
+        {
+          "text": "Its solution is dilute",
+          "correct": false
+        },
+        {
+          "text": "It does not ionize in water at all",
+          "correct": false
+        },
+        {
+          "text": "It cannot react with a strong base",
+          "correct": false
+        }
+      ],
+      "explain": "In water only a small fraction of the molecules give up $\\ce{H^+}$; the rest stay as $\\ce{CH3COOH}$. Dilute is about concentration, a different idea. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is only partly ionized in water"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "poh",
+      "heading": "pOH and the four-way conversion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In an alkaline solution, $[\\ce{OH^-}]$ is the concentration that matters, and it can be tiny or large. [[poh|pOH]] puts it on the same log scale that [[ph|pH]] uses for $[\\ce{H^+}]$."
+        },
+        {
+          "type": "definition",
+          "term": "pOH",
+          "statement": "The negative logarithm to base 10 of the hydroxide ion concentration, in $\\pu{mol dm-3}$.",
+          "plain": "A pH-style number for hydroxide ions: the lower the pOH, the more $\\ce{OH^-}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pOH} = -\\log_{10}[\\ce{OH^-}]",
+          "tag": "booklet",
+          "bookletId": "db-poh"
+        },
+        {
+          "type": "text",
+          "text": "This is in the data booklet (section 1). To go back, undo the log: $[\\ce{OH^-}] = 10^{-\\mathrm{pOH}}$. Like pH, pOH has no units, and a change of 1 means a factor of 10 in $[\\ce{OH^-}]$."
+        },
+        {
+          "type": "text",
+          "text": "Now join pH and pOH. In {{lesson:6.2}} you met the [[ion-product-constant-of-water|ion product constant of water]], $K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}]$. Take $-\\log_{10}$ of both sides. A log of a product is a sum of logs, so $-\\log_{10}K_\\mathrm{w} = \\mathrm{pH} + \\mathrm{pOH}$."
+        },
+        {
+          "type": "text",
+          "text": "At 298 K, $K_\\mathrm{w} = 1.00 \\times 10^{-14}$ (data booklet, section 2), so $-\\log_{10}K_\\mathrm{w} = 14.00$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pH} + \\mathrm{pOH} = 14.00 \\quad \\text{at } 298\\text{ K}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So in any aqueous solution at 298 K, a pOH below 7 means alkaline and a pOH above 7 means acidic. At other temperatures $K_\\mathrm{w}$ changes, so the total is no longer 14.00."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-conversions",
+          "alt": "Conversion square for four quantities at 298 K. Top left: hydrogen ion concentration. Top right: hydroxide ion concentration. Bottom left: pH. Bottom right: pOH. A two-way arrow joins the two concentrations, labelled: their product equals Kw, 1.00 times 10 to the minus 14. A two-way arrow joins pH and pOH, labelled: pH plus pOH equals 14.00. On each side a downward arrow from concentration to p-value is labelled minus log base 10, and an upward arrow back is labelled 10 to the power minus pH on the left and 10 to the power minus pOH on the right.",
+          "caption": "Any one of the four values gives you the other three. Pick the shortest route."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-barium-hydroxide",
+          "question": "Barium hydroxide, $\\ce{Ba(OH)2}$, is a strong base. Calculate the pOH and the pH of $\\pu{0.0350 mol dm-3}$ $\\ce{Ba(OH)2(aq)}$ at 298 K.",
+          "steps": [
+            "It ionizes fully: $\\ce{Ba(OH)2(aq) -> Ba^2+(aq) + 2OH^-(aq)}$. Each formula unit gives two $\\ce{OH^-}$.",
+            "$[\\ce{OH^-}] = 2 \\times 0.0350 = \\pu{0.0700 mol dm-3}$.",
+            "$\\mathrm{pOH} = -\\log_{10}(0.0700) = 1.15$ (keep $1.1549\\ldots$ in the calculator).",
+            "$\\mathrm{pH} = 14.00 - 1.1549\\ldots = 12.85$."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 12.85$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(Kw/(2*0.0350), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $[\\ce{OH^-}]$ as the concentration of $\\ce{Ba(OH)2}$. Check the formula: one $\\ce{Ba(OH)2}$ gives two $\\ce{OH^-}$, so double it first."
+        },
+        {
+          "type": "example",
+          "id": "ex-oh-acid-rain",
+          "question": "A sample of acid rain has a pH of 4.62 at 298 K. Calculate its pOH and its hydroxide ion concentration.",
+          "steps": [
+            "$\\mathrm{pOH} = 14.00 - 4.62 = 9.38$.",
+            "$[\\ce{OH^-}] = 10^{-9.38}$.",
+            "Check: $[\\ce{OH^-}]$ should be far below $10^{-7}$, because the rain is acidic."
+          ],
+          "answer": "$[\\ce{OH^-}] \\approx \\pu{4.17e-10 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Kw/10**(-4.62)",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-cleaner",
+          "prompt": "An oven cleaner has $[\\ce{OH^-}] = \\pu{2.5e-4 mol dm-3}$ at 298 K. What is its pH, to 2 decimal places?",
+          "hint": "Find the pOH first, then subtract it from 14.00.",
+          "answer": {
+            "value": 10.4,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{pOH} = -\\log_{10}(2.5 \\times 10^{-4}) = 3.60$, so $\\mathrm{pH} = 14.00 - 3.60 = 10.40$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(Kw/(2.5*10**(-4)), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-poh-meaning",
+          "prompt": "At 298 K a solution has a pOH of 4.5. What kind of solution is it?",
+          "hint": "Work out the pH.",
+          "options": [
+            {
+              "text": "Alkaline",
+              "correct": true
+            },
+            {
+              "text": "Acidic",
+              "correct": false
+            },
+            {
+              "text": "Neutral",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{pH} = 14.00 - 4.5 = 9.5$, above 7. A low pOH means plenty of $\\ce{OH^-}$, so the solution is alkaline.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Alkaline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ka-kb",
+      "heading": "Ka, Kb, pKa and pKb",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[strong-acid|strong acid]] ionizes completely, so its concentration tells you $[\\ce{H^+}]$. A [[weak-acid|weak acid]] only partly ionizes ({{lesson:6.3}}). The extent of [[ionization|ionization]] is set by an equilibrium, so its strength needs an [[equilibrium-constant|equilibrium constant]]."
+        },
+        {
+          "type": "text",
+          "text": "Write the weak acid as $\\ce{HA}$. It is a [[brnsted-lowry-acid|Brønsted–Lowry acid]]: it gives a proton to water. $\\ce{HA(aq) + H2O(l) <=> H3O^+(aq) + A^-(aq)}$, often shortened to $\\ce{HA(aq) <=> H^+(aq) + A^-(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "Apply the [[equilibrium-law|equilibrium law]] from {{lesson:5.8}}, but leave water out. It is the solvent, so its concentration hardly changes and is part of the constant."
+        },
+        {
+          "type": "definition",
+          "term": "acid dissociation constant",
+          "statement": "The equilibrium constant for a weak acid ionizing in water: $K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{A^-}]}{[\\ce{HA}]}$, using equilibrium concentrations.",
+          "plain": "The bigger it is, the further the acid ionizes, so the stronger it is."
+        },
+        {
+          "type": "text",
+          "text": "A [[weak-base|weak base]] $\\ce{B}$ is a [[brnsted-lowry-base|Brønsted–Lowry base]]: it uses a [[lone-pair|lone pair]] to take a proton from water. $\\ce{B(aq) + H2O(l) <=> BH^+(aq) + OH^-(aq)}$. Again, water is left out."
+        },
+        {
+          "type": "definition",
+          "term": "base dissociation constant",
+          "statement": "The equilibrium constant for a weak base reacting with water: $K_\\mathrm{b} = \\frac{[\\ce{BH^+}][\\ce{OH^-}]}{[\\ce{B}]}$, using equilibrium concentrations.",
+          "plain": "The bigger it is, the more hydroxide ions the base makes, so the stronger it is."
+        },
+        {
+          "type": "text",
+          "text": "$K_\\mathrm{a}$ and $K_\\mathrm{b}$ values are often tiny, such as $1.8 \\times 10^{-5}$. So, as with pH, chemists take $-\\log_{10}$ to get a manageable number."
+        },
+        {
+          "type": "definition",
+          "term": "pKa",
+          "statement": "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10}K_\\mathrm{a}$, so $K_\\mathrm{a} = 10^{-\\mathrm{p}K_\\mathrm{a}}$. In the same way, $\\mathrm{p}K_\\mathrm{b} = -\\log_{10}K_\\mathrm{b}$.",
+          "plain": "Flip the scale: a smaller pKa means a stronger acid."
+        },
+        {
+          "type": "text",
+          "text": "So read the data like this. Larger $K_\\mathrm{a}$, or smaller pKa, means a stronger acid. Larger $K_\\mathrm{b}$, or smaller pKb, means a stronger base. A pKa that is 1 lower means a $K_\\mathrm{a}$ that is 10 times larger."
+        },
+        {
+          "type": "text",
+          "text": "Like every $K$, these values change with temperature, so tables quote them at a stated temperature, usually 298 K. Strength is not concentration: $K_\\mathrm{a}$ is fixed for an acid at a given temperature however much you dilute it."
+        },
+        {
+          "type": "example",
+          "id": "ex-kb-methylamine",
+          "question": "Methylamine is a weak base: $\\ce{CH3NH2(aq) + H2O(l) <=> CH3NH3^+(aq) + OH^-(aq)}$. Deduce the expression for $K_\\mathrm{b}$.",
+          "steps": [
+            "Products on top: $[\\ce{CH3NH3^+}][\\ce{OH^-}]$. Each coefficient is 1, so there are no powers.",
+            "Reactants on the bottom: $[\\ce{CH3NH2}]$ only. Water is the solvent, so it is left out.",
+            "Check: square brackets on every species, and the charge stays inside the bracket."
+          ],
+          "answer": "$K_\\mathrm{b} = \\frac{[\\ce{CH3NH3^+}][\\ce{OH^-}]}{[\\ce{CH3NH2}]}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-lactic-butanoic",
+          "question": "At 298 K, lactic acid has $K_\\mathrm{a} = \\pu{1.38e-4 mol dm-3}$ and butanoic acid has $\\mathrm{p}K_\\mathrm{a} = 4.82$. Deduce which is the stronger acid, and explain which of their $\\pu{0.200 mol dm-3}$ solutions has the lower pH.",
+          "steps": [
+            "Put both on the same scale: for lactic acid, $\\mathrm{p}K_\\mathrm{a} = -\\log_{10}(1.38 \\times 10^{-4}) = 3.86$.",
+            "Compare: $3.86 < 4.82$, so lactic acid has the lower pKa.",
+            "Link pKa to the extent of ionization, then to $[\\ce{H^+}]$ and pH, one point per sentence."
+          ],
+          "answer": "Lactic acid has $\\mathrm{p}K_\\mathrm{a} \\approx 3.86$, below 4.82, so lactic acid has the lower pKa and the larger $K_\\mathrm{a}$. A larger $K_\\mathrm{a}$ means the acid ionizes to a greater extent at equilibrium, so lactic acid is the stronger acid. At the same concentration, the lactic acid solution therefore has the higher $[\\ce{H^+}]$. So the lactic acid solution has the lower pH.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Lactic acid: lower pKa, larger Ka, ionizes more, higher [H+], lower pH.",
+            "requires": [
+              "lower pKa",
+              "larger $K_\\mathrm{a}$",
+              [
+                "ionizes to a greater extent",
+                "ionizes more"
+              ],
+              "lactic acid is the stronger acid",
+              "higher $[\\ce{H^+}]$",
+              "lower pH"
+            ],
+            "forbids": [
+              "higher pKa means a stronger",
+              "butanoic acid is the stronger",
+              "fully ionized"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading pKa like $K_\\mathrm{a}$. The minus sign in $-\\log_{10}$ flips the order: the acid with the larger pKa is the weaker one."
+        },
+        {
+          "type": "check",
+          "id": "check-pka-nitrous",
+          "prompt": "Nitrous acid, $\\ce{HNO2}$, has $K_\\mathrm{a} = \\pu{5.6e-4 mol dm-3}$ at 298 K. What is its pKa, to 2 decimal places?",
+          "hint": "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10}K_\\mathrm{a}$.",
+          "answer": {
+            "value": 3.25,
+            "tolerance": 0.005
+          },
+          "explain": "$-\\log_{10}(5.6 \\times 10^{-4}) = 3.25$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(5.6*10**(-4), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ka-ammonium",
+          "prompt": "The ammonium ion is a weak acid: $\\ce{NH4^+(aq) + H2O(l) <=> NH3(aq) + H3O^+(aq)}$. Which is its $K_\\mathrm{a}$ expression?",
+          "hint": "Products over reactants, and leave out the solvent.",
+          "options": [
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{NH3}][\\ce{H3O^+}]}{[\\ce{NH4^+}]}$",
+              "correct": true
+            },
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{NH3}][\\ce{H3O^+}]}{[\\ce{NH4^+}][\\ce{H2O}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{NH4^+}]}{[\\ce{NH3}][\\ce{H3O^+}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K_\\mathrm{b} = \\frac{[\\ce{NH3}][\\ce{H3O^+}]}{[\\ce{NH4^+}]}$",
+              "correct": false
+            }
+          ],
+          "explain": "Water is the solvent, so it is left out, and products go on top. The last option has the right fraction but calls it $K_\\mathrm{b}$: $\\ce{NH4^+}$ is donating a proton here, so it is $K_\\mathrm{a}$."
+        },
+        {
+          "type": "check",
+          "id": "check-strongest-base",
+          "prompt": "At 298 K the pKb values are: ammonia 4.75, methylamine 3.36, phenylamine 9.38. Which is the strongest base?",
+          "hint": "Smaller pKb means larger $K_\\mathrm{b}$.",
+          "options": [
+            {
+              "text": "methylamine",
+              "correct": true
+            },
+            {
+              "text": "phenylamine",
+              "correct": false
+            },
+            {
+              "text": "ammonia",
+              "correct": false
+            }
+          ],
+          "explain": "Methylamine has the smallest pKb, so the largest $K_\\mathrm{b}$. Phenylamine, with the largest pKb, is the weakest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "methylamine"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ka-kb-kw",
+      "heading": "Conjugate pairs: Ka × Kb = Kw",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When $\\ce{HA}$ loses a proton it becomes $\\ce{A^-}$, its conjugate base; together they are a [[conjugate-acid-base-pair|conjugate acid–base pair]] ({{lesson:6.1}}). $\\ce{A^-}$ is a weak base in its own right: $\\ce{A^-(aq) + H2O(l) <=> HA(aq) + OH^-(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "So the pair has two constants: $K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{A^-}]}{[\\ce{HA}]}$ for the acid and $K_\\mathrm{b} = \\frac{[\\ce{HA}][\\ce{OH^-}]}{[\\ce{A^-}]}$ for its conjugate base."
+        },
+        {
+          "type": "text",
+          "text": "Multiply them. $[\\ce{A^-}]$ is on top in one and on the bottom in the other, so it cancels, and so does $[\\ce{HA}]$. What is left is $[\\ce{H^+}][\\ce{OH^-}]$, which is $K_\\mathrm{w}$."
+        },
+        {
+          "type": "result",
+          "statement": "For a conjugate acid–base pair, $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$. Taking $-\\log_{10}$: $\\mathrm{p}K_\\mathrm{a} + \\mathrm{p}K_\\mathrm{b} = 14.00$ at 298 K.",
+          "why": "Multiplying the two expressions cancels $[\\ce{HA}]$ and $[\\ce{A^-}]$, leaving $[\\ce{H^+}][\\ce{OH^-}] = K_\\mathrm{w}$."
+        },
+        {
+          "type": "text",
+          "text": "$K_\\mathrm{w}$ is fixed at a given temperature, so if $K_\\mathrm{a}$ goes up, $K_\\mathrm{b}$ must go down. The stronger the acid, the weaker its conjugate base."
+        },
+        {
+          "type": "text",
+          "text": "The rule only links the two members of one conjugate pair. It says nothing about an unrelated acid and base, such as ethanoic acid and ammonia."
+        },
+        {
+          "type": "example",
+          "id": "ex-derive-hcn",
+          "question": "Hydrocyanic acid, $\\ce{HCN}$, and the cyanide ion, $\\ce{CN^-}$, are a conjugate pair. Show that $K_\\mathrm{a}$ of $\\ce{HCN}$ multiplied by $K_\\mathrm{b}$ of $\\ce{CN^-}$ equals $K_\\mathrm{w}$.",
+          "steps": [
+            "Write the acid equilibrium: $\\ce{HCN(aq) <=> H^+(aq) + CN^-(aq)}$.",
+            "Write the base equilibrium: $\\ce{CN^-(aq) + H2O(l) <=> HCN(aq) + OH^-(aq)}$.",
+            "Write both expressions, multiply, and say what cancels."
+          ],
+          "answer": "For the acid, $K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{CN^-}]}{[\\ce{HCN}]}$. For the conjugate base, $K_\\mathrm{b} = \\frac{[\\ce{HCN}][\\ce{OH^-}]}{[\\ce{CN^-}]}$. Multiplying them, $[\\ce{HCN}]$ and $[\\ce{CN^-}]$ cancel. This leaves $K_\\mathrm{a} \\times K_\\mathrm{b} = [\\ce{H^+}][\\ce{OH^-}]$, which is the ion product of water, so $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ka = [H+][CN-]/[HCN], Kb = [HCN][OH-]/[CN-]; the product cancels to [H+][OH-] = Kw.",
+            "requires": [
+              "$K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{CN^-}]}{[\\ce{HCN}]}$",
+              "$K_\\mathrm{b} = \\frac{[\\ce{HCN}][\\ce{OH^-}]}{[\\ce{CN^-}]}$",
+              "cancel",
+              "$[\\ce{H^+}][\\ce{OH^-}]$",
+              "$K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$"
+            ],
+            "forbids": [
+              "[H2O]"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ka-ethylammonium",
+          "question": "Ethylamine, $\\ce{C2H5NH2}$, has $K_\\mathrm{b} = \\pu{4.47e-4 mol dm-3}$ at 298 K. Calculate $K_\\mathrm{a}$ for its conjugate acid, the ethylammonium ion, $\\ce{C2H5NH3^+}$.",
+          "steps": [
+            "They are a conjugate pair, so $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$.",
+            "$K_\\mathrm{a} = \\frac{1.00 \\times 10^{-14}}{4.47 \\times 10^{-4}}$.",
+            "Check: $K_\\mathrm{b}$ is fairly large, so $K_\\mathrm{a}$ should be very small. It is."
+          ],
+          "answer": "$K_\\mathrm{a} \\approx \\pu{2.24e-11 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Kw/(4.47*10**(-4))",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 1A question you may meet only pKa or pKb values. Use $\\mathrm{p}K_\\mathrm{a} + \\mathrm{p}K_\\mathrm{b} = 14.00$: subtracting is faster than converting both to $K$."
+        },
+        {
+          "type": "check",
+          "id": "check-pkb-benzoate",
+          "prompt": "Benzoic acid has $\\mathrm{p}K_\\mathrm{a} = 4.20$ at 298 K. What is pKb for the benzoate ion, to 2 decimal places?",
+          "hint": "The benzoate ion is the conjugate base of benzoic acid.",
+          "answer": {
+            "value": 9.8,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{p}K_\\mathrm{b} = 14.00 - 4.20 = 9.80$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(Kw, 10) - 4.20",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stronger-conjugate-base",
+          "prompt": "At 298 K, $\\ce{HF}$ has $\\mathrm{p}K_\\mathrm{a} = 3.17$ and $\\ce{HCN}$ has $\\mathrm{p}K_\\mathrm{a} = 9.21$. Which is the stronger base?",
+          "hint": "Use $\\mathrm{p}K_\\mathrm{a} + \\mathrm{p}K_\\mathrm{b} = 14.00$ for each pair.",
+          "options": [
+            {
+              "text": "the cyanide ion",
+              "correct": true
+            },
+            {
+              "text": "the fluoride ion",
+              "correct": false
+            },
+            {
+              "text": "they are equally strong bases",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{HCN}$ is the weaker acid, so $\\ce{CN^-}$ is the stronger conjugate base: its pKb is $14.00 - 9.21 = 4.79$, against $10.83$ for $\\ce{F^-}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the cyanide ion"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weak-calcs",
+      "heading": "Calculating pH with Ka and Kb",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a weak acid $\\ce{HA}$ of starting concentration $c$, let $x$ be the $[\\ce{H^+}]$ at equilibrium. Each $\\ce{HA}$ that ionizes gives one $\\ce{H^+}$ and one $\\ce{A^-}$, so $[\\ce{A^-}] = x$ and $[\\ce{HA}] = c - x$."
+        },
+        {
+          "type": "text",
+          "text": "So $K_\\mathrm{a} = \\frac{x^{2}}{c - x}$. Solving that exactly needs a quadratic, which IB questions don't expect."
+        },
+        {
+          "type": "text",
+          "text": "Instead, use the fact that $K_\\mathrm{a}$ is very small. Only a tiny fraction of $\\ce{HA}$ ionizes, so $x$ is much smaller than $c$ and $c - x \\approx c$."
+        },
+        {
+          "type": "formula",
+          "tex": "K_\\mathrm{a} \\approx \\frac{[\\ce{H^+}]^{2}}{c} \\quad\\Rightarrow\\quad [\\ce{H^+}] \\approx \\sqrt{K_\\mathrm{a} \\times c}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This rests on two assumptions. First, so little acid ionizes that $[\\ce{HA}]$ at equilibrium is about $c$. Second, all the $\\ce{H^+}$ comes from the acid, so the ionization of water itself is ignored."
+        },
+        {
+          "type": "text",
+          "text": "A weak base works the same way with $K_\\mathrm{b}$: $[\\ce{OH^-}] \\approx \\sqrt{K_\\mathrm{b} \\times c}$. Then find the pOH, and subtract it from 14.00 for the pH."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-propanoic",
+          "question": "Propanoic acid has $K_\\mathrm{a} = \\pu{1.35e-5 mol dm-3}$ at 298 K. Calculate the pH of a $\\pu{0.150 mol dm-3}$ solution.",
+          "steps": [
+            "$K_\\mathrm{a} \\approx \\frac{[\\ce{H^+}]^{2}}{0.150}$, so $[\\ce{H^+}]^{2} = 1.35 \\times 10^{-5} \\times 0.150 = 2.025 \\times 10^{-6}$.",
+            "$[\\ce{H^+}] = \\sqrt{2.025 \\times 10^{-6}} = 1.42 \\times 10^{-3}\\ \\pu{mol dm-3}$.",
+            "$\\mathrm{pH} = -\\log_{10}(1.423 \\times 10^{-3}) = 2.85$.",
+            "Check the assumption: $1.42 \\times 10^{-3}$ is under 1% of $0.150$, so $c - x \\approx c$ was fair."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 2.85$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(sqrt(1.35*10**(-5)*0.150), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-hydrazine",
+          "question": "Hydrazine is a weak base: $\\ce{N2H4(aq) + H2O(l) <=> N2H5^+(aq) + OH^-(aq)}$, with $K_\\mathrm{b} = \\pu{1.30e-6 mol dm-3}$ at 298 K. Calculate the pH of $\\pu{0.250 mol dm-3}$ hydrazine.",
+          "steps": [
+            "$K_\\mathrm{b} \\approx \\frac{[\\ce{OH^-}]^{2}}{0.250}$, so $[\\ce{OH^-}] = \\sqrt{1.30 \\times 10^{-6} \\times 0.250} = 5.70 \\times 10^{-4}\\ \\pu{mol dm-3}$.",
+            "$\\mathrm{pOH} = -\\log_{10}(5.70 \\times 10^{-4}) = 3.24$.",
+            "$\\mathrm{pH} = 14.00 - 3.244 = 10.76$. Above 7, as a base should be."
+          ],
+          "answer": "$\\mathrm{pH} \\approx 10.76$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(Kw/sqrt(1.30*10**(-6)*0.250), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the pOH. For a base, $\\sqrt{K_\\mathrm{b} \\times c}$ gives $[\\ce{OH^-}]$, not $[\\ce{H^+}]$, so finish with $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$."
+        },
+        {
+          "type": "text",
+          "text": "You can also run the method backwards. If you measure the pH, you know $x$ exactly, so no approximation is needed: use $c - x$ for $[\\ce{HA}]$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ka-from-ph",
+          "question": "A $\\pu{0.0400 mol dm-3}$ solution of a weak monoprotic acid, $\\ce{HX}$, has a pH of 3.12 at 298 K. Calculate $K_\\mathrm{a}$.",
+          "steps": [
+            "$[\\ce{H^+}] = [\\ce{X^-}] = 10^{-3.12} = 7.59 \\times 10^{-4}\\ \\pu{mol dm-3}$.",
+            "$[\\ce{HX}] = 0.0400 - 7.59 \\times 10^{-4} = 0.0392\\ \\pu{mol dm-3}$ at equilibrium.",
+            "$K_\\mathrm{a} = \\frac{(7.586 \\times 10^{-4})^{2}}{0.03924}$. Keep the unrounded values until the end."
+          ],
+          "answer": "$K_\\mathrm{a} \\approx \\pu{1.47e-5 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(10**(-3.12))**2/(0.0400 - 10**(-3.12))",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When the pH is given, mark schemes expect $[\\ce{HA}] = c - [\\ce{H^+}]$ at equilibrium. Writing the starting concentration there can cost a mark."
+        },
+        {
+          "type": "check",
+          "id": "check-ph-hypochlorous",
+          "prompt": "Hypochlorous acid, $\\ce{HOCl}$, has $K_\\mathrm{a} = \\pu{3.0e-8 mol dm-3}$ at 298 K. What is the pH of a $\\pu{0.0500 mol dm-3}$ solution, to 2 decimal places?",
+          "hint": "$[\\ce{H^+}] \\approx \\sqrt{K_\\mathrm{a} \\times c}$.",
+          "answer": {
+            "value": 4.41,
+            "tolerance": 0.005
+          },
+          "explain": "$[\\ce{H^+}] = \\sqrt{3.0 \\times 10^{-8} \\times 0.0500} = 3.87 \\times 10^{-5}$, so $\\mathrm{pH} = 4.41$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(sqrt(3.0*10**(-8)*0.0500), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-approximate",
+          "prompt": "Why can you use $[\\ce{HA}] \\approx c$ for a weak acid with a very small $K_\\mathrm{a}$?",
+          "hint": "How much of the acid ionizes?",
+          "options": [
+            {
+              "text": "So little of the acid ionizes that its concentration barely falls",
+              "correct": true
+            },
+            {
+              "text": "The acid ionizes completely, so its concentration does not change",
+              "correct": false
+            },
+            {
+              "text": "Water does not ionize, so it cannot affect the equilibrium",
+              "correct": false
+            },
+            {
+              "text": "At equilibrium the concentrations of all species are equal",
+              "correct": false
+            }
+          ],
+          "explain": "A small $K_\\mathrm{a}$ means only a tiny fraction of $\\ce{HA}$ ionizes, so $c - x$ is very close to $c$. Equilibrium does not mean equal concentrations.",
+          "verify": {
+            "kind": "choice",
+            "truth": "So little of the acid ionizes that its concentration barely falls"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pOH} = -\\log_{10}[\\ce{OH^-}]",
+          "tag": "booklet",
+          "bookletId": "db-poh",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At 298 K: $\\mathrm{pH} + \\mathrm{pOH} = 14.00$, because $K_\\mathrm{w} = 1.00 \\times 10^{-14}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{A^-}]}{[\\ce{HA}]}$ and $K_\\mathrm{b} = \\frac{[\\ce{BH^+}][\\ce{OH^-}]}{[\\ce{B}]}$; water is left out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10}K_\\mathrm{a}$. Larger $K_\\mathrm{a}$ or smaller pKa means a stronger acid; the same goes for $K_\\mathrm{b}$, pKb and bases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conjugate pair: $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$, and $\\mathrm{p}K_\\mathrm{a} + \\mathrm{p}K_\\mathrm{b} = 14.00$ at 298 K. Stronger acid, weaker conjugate base.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Weak acid: $[\\ce{H^+}] \\approx \\sqrt{K_\\mathrm{a} \\times c}$. Weak base: $[\\ce{OH^-}] \\approx \\sqrt{K_\\mathrm{b} \\times c}$. From a measured pH, use $c - [\\ce{H^+}]$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting to multiply by the number of $\\ce{OH^-}$ per formula: $\\pu{0.010 mol dm-3}$ $\\ce{Ca(OH)2}$ has $[\\ce{OH^-}] = \\pu{0.020 mol dm-3}$.",
+    "Giving the pOH when the question asks for the pH of a base. Finish with $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$.",
+    "Putting $[\\ce{H2O}]$ into a $K_\\mathrm{a}$ or $K_\\mathrm{b}$ expression. Water is the solvent, so leave it out.",
+    "Thinking a larger pKa means a stronger acid. It is the other way round: smaller pKa, larger $K_\\mathrm{a}$, stronger acid.",
+    "Using $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$ for an acid and a base that are not a conjugate pair.",
+    "Confusing strong with concentrated. Strength is the extent of ionization, set by $K_\\mathrm{a}$, not how much acid is dissolved."
+  ],
+  "examTips": [
+    "\"Calculate\" the pH of a base: show $[\\ce{OH^-}]$, then the pOH, then $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$. Give pH to 2 decimal places.",
+    "\"Deduce\" which acid is stronger from mixed data: convert to one scale first (all pKa or all $K_\\mathrm{a}$), then compare.",
+    "\"Determine\" $K_\\mathrm{a}$ from a pH: find $[\\ce{H^+}] = 10^{-\\mathrm{pH}}$, use $c - [\\ce{H^+}]$ for $[\\ce{HA}]$, and round only at the end.",
+    "In a weak acid or base calculation, state the approximation you use ($[\\ce{HA}] \\approx c$). You are not expected to solve a quadratic."
+  ],
+  "readingMinutes": 24
+}

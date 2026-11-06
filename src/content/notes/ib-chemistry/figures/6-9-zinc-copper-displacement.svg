@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 290" role="img" aria-labelledby="t">
+<title id="t">A zinc strip in blue copper(II) sulfate solution. Later the blue colour has faded and the strip is coated with brown copper. Zinc atoms give two electrons each to copper(II) ions.</title>
+<g font-family="inherit" fill="currentColor" font-size="13" text-anchor="middle">
+<text x="130" y="22" font-weight="600">Start</text>
+<text x="430" y="22" font-weight="600">Some minutes later</text>
+</g>
+<!-- left beaker: blue solution -->
+<rect x="72" y="108" width="116" height="102" fill="var(--t1-ink)" opacity="0.35"/>
+<rect x="118" y="40" width="24" height="160" fill="var(--muted)" opacity="0.6" stroke="currentColor" stroke-width="1"/>
+<path d="M 70 50 L 70 212 L 190 212 L 190 50" fill="none" stroke="currentColor" stroke-width="2"/>
+<!-- right beaker: pale solution, coated strip -->
+<rect x="372" y="108" width="116" height="102" fill="var(--t1-ink)" opacity="0.08"/>
+<rect x="418" y="40" width="24" height="160" fill="var(--muted)" opacity="0.6" stroke="currentColor" stroke-width="1"/>
+<rect x="414" y="108" width="32" height="96" rx="3" fill="var(--t5-ink)" opacity="0.8"/>
+<path d="M 370 50 L 370 212 L 490 212 L 490 50" fill="none" stroke="currentColor" stroke-width="2"/>
+<!-- arrow between -->
+<line x1="220" y1="130" x2="330" y2="130" stroke="currentColor" stroke-width="2"/>
+<polyline points="320,123 332,130 320,137" fill="none" stroke="currentColor" stroke-width="2"/>
+<g font-family="inherit" font-size="12" fill="currentColor">
+<text x="200" y="66">zinc strip</text>
+<text x="196" y="160">blue Cu²⁺(aq)</text>
+<text x="500" y="98">brown copper</text>
+<text x="500" y="114">coats the zinc</text>
+<text x="500" y="160">blue fades</text>
+</g>
+<rect x="20" y="230" width="560" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1"/>
+<g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle">
+<text x="300" y="251">Zn(s) → Zn²⁺(aq) + 2e⁻  (zinc is oxidized)</text>
+<text x="300" y="270">Cu²⁺(aq) + 2e⁻ → Cu(s)  (copper(II) ions are reduced)</text>
+</g>
+</svg>

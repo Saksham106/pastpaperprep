@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 210" role="img" aria-labelledby="t61pt">
+  <title id="t61pt">Hydrogen chloride gives a proton to water. Left: a water molecule, oxygen bonded to two hydrogens with two lone pairs, labelled base, next to a hydrogen chloride molecule, labelled acid, whose chlorine has three lone pairs. A dashed arrow labelled H plus moves runs from the hydrogen of hydrogen chloride to a lone pair on the oxygen. Right of the reaction arrow: the H3O plus ion, oxygen bonded to three hydrogens with one lone pair, in brackets with a plus charge, and a chloride ion with four lone pairs, in brackets with a minus charge.</title>
+  <defs>
+    <marker id="m61pt-move" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m61pt-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="18" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <!-- water -->
+    <text x="48" y="111">H</text>
+    <text x="90" y="111">O</text>
+    <text x="90" y="156">H</text>
+    <text x="133" y="111">+</text>
+    <!-- hydrogen chloride -->
+    <text x="170" y="111" fill="var(--t1-ink)">H</text>
+    <text x="220" y="111">Cl</text>
+    <!-- H3O+ -->
+    <text x="368" y="111">H</text>
+    <text x="410" y="111">O</text>
+    <text x="452" y="111" fill="var(--t1-ink)">H</text>
+    <text x="410" y="156">H</text>
+    <text x="483" y="80" font-size="15">+</text>
+    <text x="508" y="111">+</text>
+    <!-- chloride -->
+    <text x="560" y="111">Cl</text>
+    <text x="600" y="80" font-size="15">−</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="58" y1="105" x2="78" y2="105"/>
+    <line x1="90" y1="117" x2="90" y2="138"/>
+    <line x1="180" y1="105" x2="206" y2="105"/>
+    <line x1="378" y1="105" x2="398" y2="105"/>
+    <line x1="422" y1="105" x2="442" y2="105"/>
+    <line x1="410" y1="117" x2="410" y2="138"/>
+    <path d="M352,70 H346 V170 H352"/>
+    <path d="M468,70 H474 V170 H468"/>
+    <path d="M538,70 H532 V170 H538"/>
+    <path d="M582,70 H588 V170 H582"/>
+    <line x1="264" y1="105" x2="318" y2="105" marker-end="url(#m61pt-react)"/>
+  </g>
+  <g fill="currentColor">
+    <!-- water lone pairs -->
+    <circle cx="85" cy="88" r="2"/><circle cx="95" cy="88" r="2"/>
+    <circle cx="104" cy="100" r="2"/><circle cx="104" cy="110" r="2"/>
+    <!-- Cl lone pairs in HCl -->
+    <circle cx="215" cy="88" r="2"/><circle cx="225" cy="88" r="2"/>
+    <circle cx="215" cy="123" r="2"/><circle cx="225" cy="123" r="2"/>
+    <circle cx="237" cy="100" r="2"/><circle cx="237" cy="110" r="2"/>
+    <!-- H3O+ lone pair -->
+    <circle cx="405" cy="88" r="2"/><circle cx="415" cy="88" r="2"/>
+    <!-- chloride lone pairs -->
+    <circle cx="555" cy="88" r="2"/><circle cx="565" cy="88" r="2"/>
+    <circle cx="555" cy="123" r="2"/><circle cx="565" cy="123" r="2"/>
+    <circle cx="543" cy="100" r="2"/><circle cx="543" cy="110" r="2"/>
+    <circle cx="577" cy="100" r="2"/><circle cx="577" cy="110" r="2"/>
+  </g>
+  <path d="M168,90 Q140,50 109,93" fill="none" stroke="var(--t1-ink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#m61pt-move)"/>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="140" y="50" fill="var(--t1-ink)">H⁺ moves</text>
+    <text x="78" y="196" fill="var(--t2-ink)">base</text>
+    <text x="198" y="196" fill="var(--t1-ink)">acid</text>
+  </g>
+</svg>

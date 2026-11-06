@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.8",
+  "slug": "oxidation-reduction-and-half-equations",
+  "title": "Oxidation, reduction and half-equations",
+  "level": "SL",
+  "topic": 6,
+  "summary": "[[oxidation|Oxidation]] is loss of [[electron|electrons]] and [[reduction|reduction]] is gain, so the two always happen together. You can spot them by electron transfer, by [[oxidation-state|oxidation state]] changes, or by oxygen and hydrogen moving. [[half-equation|Half-equations]] show each half, and adding them gives the redox equation.",
+  "goals": [
+    {
+      "text": "Describe oxidation and reduction by electrons, oxidation states, oxygen and hydrogen.",
+      "bullets": [
+        "R3.2.1"
+      ]
+    },
+    {
+      "text": "Deduce oxidation states and identify the species oxidized and reduced, the [[oxidizing-agent|oxidizing agent]] and the [[reducing-agent|reducing agent]].",
+      "bullets": [
+        "R3.2.1"
+      ]
+    },
+    {
+      "text": "Give examples of variable oxidation states in [[transition-element|transition element]] [[ion|ions]] and non-metals, and use them in names.",
+      "bullets": [
+        "R3.2.1"
+      ]
+    },
+    {
+      "text": "Deduce half-equations in acidic or neutral solution, and combine them.",
+      "bullets": [
+        "R3.2.2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "2.10",
+    "3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "OIL RIG",
+    "oxidizing and reducing agents",
+    "redox half-equations",
+    "balancing redox equations in acid",
+    "what is oxidation and reduction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-phosphate-state",
+      "prompt": "What is the oxidation state of phosphorus in $\\ce{PO4^3-}$?",
+      "hint": "The oxidation states add up to the ion's charge, and oxygen is $-2$.",
+      "options": [
+        {
+          "text": "$+5$",
+          "correct": true
+        },
+        {
+          "text": "$+8$",
+          "correct": false
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        },
+        {
+          "text": "$+11$",
+          "correct": false
+        }
+      ],
+      "explain": "$x + 4(-2) = -3$, so $x = +5$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-3 - 4*(-2)",
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-aq-meaning",
+      "prompt": "Among the [[state-symbols|state symbols]], what does (aq) mean?",
+      "hint": "Think of salt stirred into water.",
+      "options": [
+        {
+          "text": "dissolved in water",
+          "correct": true
+        },
+        {
+          "text": "a pure liquid",
+          "correct": false
+        },
+        {
+          "text": "a gas",
+          "correct": false
+        },
+        {
+          "text": "a damp solid",
+          "correct": false
+        }
+      ],
+      "explain": "(aq) is aqueous: dissolved in water. A pure liquid is (l). Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "dissolved in water"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "four-ways",
+      "heading": "Four ways to spot oxidation and reduction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When magnesium burns, it gains oxygen: $\\ce{2Mg(s) + O2(g) -> 2MgO(s)}$. That is the oldest meaning of oxidation."
+        },
+        {
+          "type": "text",
+          "text": "But $\\ce{MgO}$ is ionic, $\\ce{Mg^2+}$ and $\\ce{O^2-}$: each magnesium atom has lost two electrons. Magnesium burning in chlorine loses them too, with no oxygen involved."
+        },
+        {
+          "type": "definition",
+          "term": "oxidation",
+          "statement": "Loss of electrons, or an increase in oxidation state. In many reactions it shows as gain of oxygen or loss of hydrogen.",
+          "plain": "The species gives electrons away."
+        },
+        {
+          "type": "definition",
+          "term": "reduction",
+          "statement": "Gain of electrons, or a decrease in oxidation state. In many reactions it shows as loss of oxygen or gain of hydrogen.",
+          "plain": "The species takes electrons in."
+        },
+        {
+          "type": "figure",
+          "id": "6-8-four-ways",
+          "alt": "A table with two columns, oxidation and reduction, and four rows. Electrons: oxidation is loss, reduction is gain. Oxidation state: oxidation is an increase, reduction is a decrease. Oxygen: oxidation is gain, reduction is loss. Hydrogen: oxidation is loss, reduction is gain.",
+          "caption": "Four descriptions of the same two processes. Memory aid: OIL RIG, Oxidation Is Loss, Reduction Is Gain (of electrons)."
+        },
+        {
+          "type": "result",
+          "statement": "Oxidation and reduction always happen together, in a redox reaction.",
+          "why": "Electrons lost by one species must be gained by another."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-calcium-sulfide",
+          "question": "Calcium reacts with sulfur to form the ionic compound calcium sulfide, $\\ce{CaS}$. Explain, in terms of electrons, which element is oxidized and which is reduced.",
+          "steps": [
+            "$\\ce{CaS}$ contains $\\ce{Ca^2+}$ and $\\ce{S^2-}$ ions. Compare each ion with its atom."
+          ],
+          "answer": "Each calcium atom loses two electrons to form $\\ce{Ca^2+}$, so calcium is oxidized. Each sulfur atom gains two electrons to form $\\ce{S^2-}$, so sulfur is reduced.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ca loses 2 electrons (oxidized); S gains 2 electrons (reduced).",
+            "requires": [
+              "loses two electrons",
+              "calcium is oxidized",
+              "gains two electrons",
+              "sulfur is reduced"
+            ],
+            "forbids": [
+              "calcium is reduced",
+              "sulfur is oxidized",
+              "gains oxygen"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ethanol-ethanal",
+          "question": "Ethanol, $\\ce{CH3CH2OH}$, can be converted into ethanal, $\\ce{CH3CHO}$. Explain why ethanol is oxidized in this change.",
+          "steps": [
+            "Count H atoms: 6 in ethanol, 4 in ethanal. Both have one O atom."
+          ],
+          "answer": "Ethanol loses two hydrogen atoms, and gains no oxygen. Loss of hydrogen is oxidation, so ethanol is oxidized.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ethanol loses two H atoms; loss of hydrogen is oxidation.",
+            "requires": [
+              "loses two hydrogen atoms",
+              "loss of hydrogen is oxidation",
+              "ethanol is oxidized"
+            ],
+            "forbids": [
+              "gains hydrogen",
+              "ethanol is reduced"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the oxygen description when no oxygen is involved. Electrons and oxidation states work for every redox reaction."
+        },
+        {
+          "type": "check",
+          "id": "check-which-reduction",
+          "prompt": "Which change is a reduction?",
+          "hint": "OIL RIG.",
+          "options": [
+            {
+              "text": "gain of electrons",
+              "correct": true
+            },
+            {
+              "text": "loss of electrons",
+              "correct": false
+            },
+            {
+              "text": "gain of oxygen",
+              "correct": false
+            },
+            {
+              "text": "loss of hydrogen",
+              "correct": false
+            }
+          ],
+          "explain": "Reduction is gain of electrons. The other three describe oxidation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "gain of electrons"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-copper-oxide-reduced",
+          "prompt": "Hot copper(II) oxide reacts with hydrogen: $\\ce{CuO(s) + H2(g) -> Cu(s) + H2O(g)}$. Which reactant is reduced?",
+          "hint": "Which reactant loses oxygen?",
+          "options": [
+            {
+              "text": "$\\ce{CuO}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{H2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cu}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2O}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CuO}$ loses oxygen, so it is reduced; $\\ce{H2}$ gains oxygen, so it is oxidized.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula(\"CuO\")",
+            "given": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "oxidation-states",
+      "heading": "Tracking redox with oxidation states",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In molecules, electrons are shared, so track [[oxidation-state|oxidation states]] instead ({{lesson:3.3}})."
+        },
+        {
+          "type": "text",
+          "text": "In brief: an uncombined element is $0$, and the oxidation states in a species add up to its charge. Oxygen is usually $-2$ and hydrogen usually $+1$."
+        },
+        {
+          "type": "result",
+          "statement": "An atom whose oxidation state increases is oxidized. An atom whose oxidation state decreases is reduced.",
+          "why": "Losing negative electrons makes the charge on paper more positive."
+        },
+        {
+          "type": "definition",
+          "term": "oxidizing agent",
+          "statement": "A species that oxidizes another species by accepting its electrons. The oxidizing agent is itself reduced.",
+          "plain": "The electron taker."
+        },
+        {
+          "type": "definition",
+          "term": "reducing agent",
+          "statement": "A species that reduces another species by giving it electrons. The reducing agent is itself oxidized.",
+          "plain": "The electron giver."
+        },
+        {
+          "type": "example",
+          "id": "ex-agents-hydrogen-sulfide",
+          "question": "Hydrogen sulfide reacts with sulfur dioxide: $\\ce{2H2S(g) + SO2(g) -> 3S(s) + 2H2O(l)}$. Deduce the oxidation states of sulfur, and identify the oxidizing agent and the reducing agent.",
+          "steps": [
+            "$\\ce{H2S}$: $2(+1) + x = 0$, so S is $-2$. $\\ce{SO2}$: $x + 2(-2) = 0$, so S is $+4$. Element $\\ce{S}$: $0$.",
+            "Hydrogen and oxygen do not change."
+          ],
+          "answer": "Sulfur goes from $-2$ to $0$, so $\\ce{H2S}$ is oxidized and is the reducing agent. Sulfur goes from $+4$ to $0$, so $\\ce{SO2}$ is reduced and is the oxidizing agent.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "S: -2 -> 0 in H2S (oxidized, reducing agent); +4 -> 0 in SO2 (reduced, oxidizing agent).",
+            "requires": [
+              "H2S is oxidized",
+              "is the reducing agent",
+              "SO2 is reduced",
+              "is the oxidizing agent"
+            ],
+            "forbids": [
+              "H2S is reduced",
+              "SO2 is oxidized",
+              "SO2 is the reducing agent"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the oxidizing agent is oxidized. It does the oxidizing, so it is the species that is reduced."
+        },
+        {
+          "type": "check",
+          "id": "check-peroxide-agent",
+          "prompt": "Which species is the oxidizing agent in $\\ce{H2O2(aq) + 2Fe^2+(aq) + 2H+(aq) -> 2Fe^3+(aq) + 2H2O(l)}$?",
+          "hint": "Which species has an atom whose oxidation state falls?",
+          "options": [
+            {
+              "text": "$\\ce{H2O2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Fe^2+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Fe^3+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H+}$",
+              "correct": false
+            }
+          ],
+          "explain": "Oxygen falls from $-1$ in $\\ce{H2O2}$ to $-2$ in $\\ce{H2O}$, so $\\ce{H2O2}$ is reduced: the oxidizing agent.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula(\"H2O2\")",
+            "given": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "[[transition-element|Transition elements]] and most non-metals have [[variable-oxidation-state|variable oxidation states]]. Iron is commonly $+2$ or $+3$; manganese is $+2$ in $\\ce{Mn^2+}$, $+4$ in $\\ce{MnO2}$ and $+7$ in $\\ce{MnO4^-}$; chromium is $+3$ in $\\ce{Cr^3+}$ and $+6$ in $\\ce{Cr2O7^2-}$."
+        },
+        {
+          "type": "text",
+          "text": "Non-metals vary too: sulfur from $-2$ in $\\ce{H2S}$ to $+6$ in $\\ce{SO4^2-}$, chlorine from $-1$ to $+7$, nitrogen from $-3$ to $+5$."
+        },
+        {
+          "type": "figure",
+          "id": "6-8-nitrogen-states",
+          "alt": "A number line of the oxidation state of nitrogen from minus 3 to plus 5. Above it: ammonia, NH3, at minus 3; nitrogen gas, N2, at 0; dinitrogen monoxide, N2O, at plus 1; nitrogen monoxide, NO, at plus 2; nitrogen dioxide, NO2, at plus 4; the nitrate ion, NO3 minus, at plus 5. An arrow pointing right is labelled oxidation, oxidation state increases. An arrow pointing left is labelled reduction, oxidation state decreases.",
+          "caption": "Some nitrogen species. Moving right along the line is oxidation; moving left is reduction."
+        },
+        {
+          "type": "text",
+          "text": "So names give the value as a Roman numeral: $\\ce{FeCl2}$ is iron(II) chloride, $\\ce{FeCl3}$ iron(III) chloride and $\\ce{MnO4^-}$ manganate(VII)."
+        },
+        {
+          "type": "example",
+          "id": "ex-ammonia-to-no",
+          "question": "In making nitric acid, ammonia is oxidized: $\\ce{4NH3(g) + 5O2(g) -> 4NO(g) + 6H2O(g)}$. Deduce the change in the oxidation state of nitrogen.",
+          "steps": [
+            "$\\ce{NH3}$: $x + 3(+1) = 0$, so N is $-3$. $\\ce{NO}$: $x - 2 = 0$, so N is $+2$.",
+            "Change: $+2 - (-3) = +5$, an oxidation."
+          ],
+          "answer": "$+5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0 - (-2)) - (0 - 3*1)",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "Oxidation states are bookkeeping, not real charges: carbon in $\\ce{CH4}$ is $-4$ but carries no $4-$ charge. They can even be fractions, such as $+\\tfrac{8}{3}$ for iron in $\\ce{Fe3O4}$."
+        },
+        {
+          "type": "check",
+          "id": "check-manganate-vi",
+          "prompt": "Deduce the oxidation state of manganese in potassium manganate, $\\ce{K2MnO4}$. Include the sign.",
+          "hint": "Potassium is $+1$ and oxygen is $-2$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$2(+1) + x + 4(-2) = 0$, so $x = +6$: potassium manganate(VI).",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0 - 2*1 - 4*(-2)",
+            "dp": 0,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "half-equations",
+      "heading": "Writing half-equations",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "half-equation",
+          "statement": "An equation for only the oxidation or only the reduction in a redox reaction, showing the electrons as $\\ce{e-}$.",
+          "plain": "Who loses electrons, or who gains them."
+        },
+        {
+          "type": "text",
+          "text": "In an oxidation the electrons are products: $\\ce{Zn -> Zn^2+ + 2e-}$. In a reduction they are reactants: $\\ce{Ag^+ + e- -> Ag}$."
+        },
+        {
+          "type": "result",
+          "statement": "A half-equation balances in atoms and in charge.",
+          "why": "The electrons make up the charge difference."
+        },
+        {
+          "type": "example",
+          "id": "ex-half-bromide",
+          "question": "Deduce the half-equation for the oxidation of bromide ions to bromine.",
+          "steps": [
+            "Two bromide ions make one $\\ce{Br2}$: $\\ce{2Br^- -> Br2}$.",
+            "Charge: $2-$ on the left, $0$ on the right, so add $\\ce{2e-}$ on the right."
+          ],
+          "answer": "$\\ce{2Br^- -> Br2 + 2e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Br^- -> Br2 + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "Oxyanions such as $\\ce{Cr2O7^2-}$ also need water and $\\ce{H+}$. In acid, work in this order."
+        },
+        {
+          "type": "text",
+          "text": "1. Balance the atoms that change oxidation state."
+        },
+        {
+          "type": "text",
+          "text": "2. Add $\\ce{H2O}$ to balance oxygen."
+        },
+        {
+          "type": "text",
+          "text": "3. Add $\\ce{H+}$ to balance hydrogen."
+        },
+        {
+          "type": "text",
+          "text": "4. Add $\\ce{e-}$ to balance charge. Check: electrons = change in oxidation state × atoms changing."
+        },
+        {
+          "type": "example",
+          "id": "ex-half-dichromate",
+          "question": "In acid, dichromate(VI) ions, $\\ce{Cr2O7^2-}$, are reduced to $\\ce{Cr^3+}$ ions. Deduce the half-equation.",
+          "steps": [
+            "Cr: $\\ce{Cr2O7^2- -> 2Cr^3+}$. O: add $\\ce{7H2O}$ on the right.",
+            "H: add $\\ce{14H+}$ on the left.",
+            "Charge: left $-2 + 14 = +12$, right $+6$, so add $\\ce{6e-}$ on the left.",
+            "Check: two Cr each fall from $+6$ to $+3$: $6$ electrons."
+          ],
+          "answer": "$\\ce{Cr2O7^2- + 14H+ + 6e- -> 2Cr^3+ + 7H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Cr2O7^2- + H^+ + e- -> Cr^3+ + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Balancing atoms but not charge. Add up the charges on each side before you finish."
+        },
+        {
+          "type": "text",
+          "text": "In neutral solution, water supplies O and H, and $\\ce{OH^-}$ can form. In rusting, iron is oxidized and dissolved oxygen is reduced:"
+        },
+        {
+          "type": "text",
+          "text": "Oxidation: $\\ce{Fe(s) -> Fe^2+(aq) + 2e-}$. Reduction: $\\ce{O2(g) + 2H2O(l) + 4e- -> 4OH^-(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "This surface oxidation of metals is corrosion. It weakens bridges, pipes and car bodies."
+        },
+        {
+          "type": "check",
+          "id": "check-half-nitrate",
+          "prompt": "In acid, nitrate ions are reduced to nitrogen monoxide. Which half-equation is correct?",
+          "hint": "Nitrogen goes from $+5$ to $+2$. Then check the charge on each side.",
+          "options": [
+            {
+              "text": "$\\ce{NO3^- + 4H+ + 3e- -> NO + 2H2O}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{NO3^- + 4H+ + 2e- -> NO + 2H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NO3^- + 4H+ -> NO + 2H2O + 3e-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NO3^- + 2H+ + 3e- -> NO + H2O}$",
+              "correct": false
+            }
+          ],
+          "explain": "Nitrogen gains three electrons, so they go on the left. Charge: $-1 + 4 - 3 = 0$ on both sides.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "NO3^- + H^+ + e- -> NO + H2O"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electrons-sulfate",
+          "prompt": "In acid, $\\ce{SO4^2-}$ is reduced to $\\ce{SO2}$. How many electrons appear in the balanced half-equation?",
+          "hint": "Find sulfur's oxidation state on each side.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "Sulfur goes from $+6$ to $+4$: $\\ce{SO4^2- + 4H+ + 2e- -> SO2 + 2H2O}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-2 - 4*(-2)) - (0 - 2*(-2))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "redox-equations",
+      "heading": "Combining half-equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Electrons lost must equal electrons gained. Multiply the half-equations until the electrons match, add them, and cancel anything on both sides."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-manganate-iron",
+          "question": "In acid, manganate(VII) ions oxidize iron(II) ions to iron(III). The reduction half-equation is $\\ce{MnO4^- + 8H+ + 5e- -> Mn^2+ + 4H2O}$. Deduce the overall redox equation.",
+          "steps": [
+            "Oxidation: $\\ce{Fe^2+ -> Fe^3+ + e-}$. Multiply by $5$ to match the $5$ electrons.",
+            "Add and cancel $\\ce{5e-}$. Check charge: $-1 + 8 + 10 = +17$ on the left, $+2 + 15 = +17$ on the right."
+          ],
+          "answer": "$\\ce{MnO4^- + 8H+ + 5Fe^2+ -> Mn^2+ + 5Fe^3+ + 4H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "MnO4^- + H^+ + Fe^2+ -> Mn^2+ + Fe^3+ + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "This reaction is used in [[titration|titrations]]. $\\ce{MnO4^-}$ is purple and $\\ce{Mn^2+}$ almost colourless, so no indicator is needed: the titration is self-indicating."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-self-indicating",
+          "question": "Acidified potassium manganate(VII) is added from a burette to a solution of iron(II) ions. Explain why no indicator is needed.",
+          "steps": [
+            "Say what happens to the purple colour before and after the end point."
+          ],
+          "answer": "While iron(II) remains, purple manganate(VII) is reduced to almost colourless $\\ce{Mn^2+}$, so the colour disappears. Once all the iron(II) has reacted, the next drop stays unreduced and the solution turns permanently pink: the end point.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "MnO4- (purple) is reduced to colourless Mn2+ until Fe2+ runs out; the first excess drop gives a permanent pink end point.",
+            "requires": [
+              "purple",
+              [
+                "colourless",
+                "colorless"
+              ],
+              "all the iron(II) has reacted",
+              [
+                "permanently pink",
+                "permanent pink"
+              ],
+              "end point"
+            ],
+            "forbids": [
+              "Mn2+ is purple",
+              "manganate(VII) is oxidized"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combine-peroxide-iodide",
+          "prompt": "Which overall equation combines $\\ce{H2O2 + 2H+ + 2e- -> 2H2O}$ and $\\ce{2I^- -> I2 + 2e-}$?",
+          "hint": "The electrons already match. Add, then cancel.",
+          "options": [
+            {
+              "text": "$\\ce{H2O2 + 2H+ + 2I^- -> I2 + 2H2O}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{H2O2 + 2H+ + I^- -> I2 + 2H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2O2 + 2I^- -> I2 + 2H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2O2 + 2H+ + 2I^- + 2e- -> I2 + 2H2O + 2e-}$",
+              "correct": false
+            }
+          ],
+          "explain": "The two electrons cancel. Charge is $0$ on each side.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2O2 + H^+ + I^- -> I2 + H2O"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-titration-moles",
+          "prompt": "Using the manganate(VII) equation above, how many moles of $\\ce{Fe^2+}$ react with $\\pu{2.40e-4 mol}$ of $\\ce{MnO4^-}$? Give 3 s.f.",
+          "hint": "Read the mole ratio from the coefficients.",
+          "answer": {
+            "value": 0.0012,
+            "tolerance": 5e-06
+          },
+          "explain": "The ratio is $1 : 5$, so $5 \\times 2.40 \\times 10^{-4} = \\pu{1.20e-3 mol}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5*2.40*10**(-4)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Oxidation: electrons lost, oxidation state up, oxygen gained or hydrogen lost. Reduction: the reverse. OIL RIG.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Oxidizing agent: accepts electrons, so it is reduced. Reducing agent: donates electrons, so it is oxidized.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Variable oxidation states: Fe $+2$, $+3$; Mn $+2$, $+4$, $+7$; Cr $+3$, $+6$; N $-3$ to $+5$; S $-2$ to $+6$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Half-equation in acid: balance the changing atom, then O with $\\ce{H2O}$, H with $\\ce{H+}$, charge with $\\ce{e-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Redox equation: match the electrons, add the half-equations, cancel the electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing an oxidation state as $3+$ or $3$. Put the sign first: $+3$.",
+    "Putting electrons on the wrong side: products in an oxidation, reactants in a reduction.",
+    "Leaving electrons in the overall equation. Match them so they cancel.",
+    "Using an equilibrium arrow for a redox reaction that goes to completion."
+  ],
+  "examTips": [
+    "\"Deduce\" an oxidation state: show the sum, such as $x + 4(-2) = -1$, and give the sign first.",
+    "Paper 1A agent questions: find each oxidation state change first. The species that is reduced is the oxidizing agent.",
+    "\"Deduce\" a redox equation (Paper 2): half-equations, match electrons, then check atoms and charge."
+  ],
+  "readingMinutes": 19
+}

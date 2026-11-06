@@ -1,0 +1,633 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.14",
+  "slug": "electrolysis-of-aqueous-solutions-and-electroplating",
+  "title": "Electrolysis of aqueous solutions and electroplating",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "In an aqueous [[electrolyte|electrolyte]], water competes with the ions of the dissolved salt. [[standard-electrode-potential|Standard electrode potentials]] tell you which wins: a metal or hydrogen at the [[cathode|cathode]], a halogen or oxygen at the [[anode|anode]]. [[electroplating|Electroplating]] uses the same kind of cell to coat an object with a thin layer of metal.",
+  "goals": [
+    {
+      "text": "Deduce from standard electrode potentials whether a metal or hydrogen forms at the cathode, and whether a halogen or oxygen forms at the anode.",
+      "bullets": [
+        "R3.2.15"
+      ]
+    },
+    {
+      "text": "Write the half-equations for the reduction and the oxidation of water.",
+      "bullets": [
+        "R3.2.15"
+      ]
+    },
+    {
+      "text": "Explain how concentration and the electrode material change the products when water and sodium chloride solution are electrolysed.",
+      "bullets": [
+        "R3.2.15"
+      ]
+    },
+    {
+      "text": "Describe how an [[electrolytic-cell|electrolytic cell]] is set up for electroplating, and deduce the equations at each electrode.",
+      "bullets": [
+        "R3.2.16"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "3.3",
+    "6.2",
+    "6.8",
+    "6.10",
+    "6.11",
+    "6.13"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electrolysis of aqueous solutions",
+    "electrolysis of brine",
+    "electrolysis of water",
+    "which ion is discharged",
+    "electroplating electrode equations",
+    "aqueous sodium chloride electrolysis products"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-strongest-oxidizer",
+      "prompt": "Using section 19 of the data booklet, which ion is the strongest [[oxidizing-agent|oxidizing agent]]?",
+      "hint": "The stronger the oxidizing agent, the more positive its $E^\\ominus$.",
+      "options": [
+        {
+          "text": "Silver ion",
+          "correct": true
+        },
+        {
+          "text": "Copper(II) ion",
+          "correct": false
+        },
+        {
+          "text": "Zinc ion",
+          "correct": false
+        },
+        {
+          "text": "Sodium ion",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{Ag^+}$ has the most positive value, $\\pu{+0.80 V}$, so it gains electrons most readily. $\\ce{Na^+}$, at $\\pu{-2.71 V}$, is the weakest. Revise it in {{lesson:6.13}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Silver ion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-molten-ki",
+      "prompt": "Molten potassium iodide is electrolysed with inert electrodes. What forms at the cathode?",
+      "hint": "Which ion moves to the negative electrode, and what does it become?",
+      "options": [
+        {
+          "text": "Potassium",
+          "correct": true
+        },
+        {
+          "text": "Iodine",
+          "correct": false
+        },
+        {
+          "text": "Hydrogen",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{K^+ + e- -> K}$ at the cathode; iodine forms at the anode. A melt has no water, so no hydrogen. Revise it in {{lesson:6.11}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Potassium"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sulfate-oxidation-state",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of sulfur in the sulfate ion, $\\ce{SO4^2-}$? Give a whole number.",
+      "hint": "Oxygen is $-2$, and the oxidation states add up to the charge on the ion.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$x + 4(-2) = -2$, so $x = +6$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-2 - 4*(-2)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "competing",
+      "heading": "Competing reactions at the electrodes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A molten salt ({{lesson:6.11}}) holds just two kinds of [[ion|ion]]. A solution also holds water, which can be reduced or oxidized too."
+        },
+        {
+          "type": "text",
+          "text": "So at each electrode two reactions compete, and the easier one happens. Standard electrode potentials (data booklet, section 19) tell you which."
+        },
+        {
+          "type": "text",
+          "text": "At the cathode (−), the metal cation competes with water, which is reduced to hydrogen:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{2H2O(l) + 2e- -> H2(g) + 2OH^-(aq)} \\qquad E^\\ominus = \\pu{-0.83 V}",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "At the cathode, the species with the more positive $E^\\ominus$ is reduced. A cation whose $E^\\ominus$ is above $\\pu{-0.83 V}$ is deposited as the metal. Otherwise water is reduced, and hydrogen forms.",
+          "why": "A more positive $E^\\ominus$ means a stronger oxidizing agent: it gains electrons more readily."
+        },
+        {
+          "type": "text",
+          "text": "So $\\ce{Cu^2+}$ and $\\ce{Ag^+}$ give the metal. Group 1 and 2 ions and $\\ce{Al^3+}$ give hydrogen. The $\\ce{OH^-}$ ions made raise the [[ph|pH]] near the cathode."
+        },
+        {
+          "type": "text",
+          "text": "In acidic solution, $\\ce{H^+}$ ions are reduced instead: $\\ce{2H^+(aq) + 2e- -> H2(g)}$. The product is still hydrogen."
+        },
+        {
+          "type": "text",
+          "text": "At the anode (+), the anion competes with water, which is oxidized to oxygen:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{2H2O(l) -> O2(g) + 4H^+(aq) + 4e-} \\qquad E^\\ominus(\\ce{O2}/\\ce{H2O}) = \\pu{+1.23 V}",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "At the anode, the species whose half-equation has the less positive $E^\\ominus$ is oxidized. Bromide ($\\pu{+1.09 V}$) and iodide ($\\pu{+0.54 V}$) give the halogen. Sulfate and nitrate ions are not oxidized, so water is, and oxygen forms.",
+          "why": "The reduced species with the less positive $E^\\ominus$ is the stronger reducing agent: it gives up electrons more readily."
+        },
+        {
+          "type": "text",
+          "text": "Sulfur in $\\ce{SO4^2-}$ ($+6$) and nitrogen in $\\ce{NO3^-}$ ($+5$) are at their highest oxidation states, so they cannot lose more electrons."
+        },
+        {
+          "type": "figure",
+          "id": "6-14-competing-species",
+          "alt": "Two lists of standard electrode potentials, each compared with water. Left, at the cathode, the species with the more positive value is reduced: silver ions at +0.80 V and copper(II) ions at +0.34 V lie above water at −0.83 V, so the metal forms; aluminium, magnesium, sodium and potassium ions, from −1.66 V down to −2.93 V, lie below water, so hydrogen forms. Right, at the anode, the species whose value is less positive is oxidized: bromide at +1.09 V and iodide at +0.54 V lie below water at +1.23 V, so the halogen forms; sulfate and nitrate are not oxidized, so oxygen forms. Chloride at +1.36 V is close to water: dilute chloride gives mainly oxygen, concentrated chloride gives chlorine.",
+          "caption": "Compare each ion with water. Chloride is a close contest, settled by concentration."
+        },
+        {
+          "type": "mistake",
+          "text": "Predicting sodium or potassium at the cathode from a solution. Their $E^\\ominus$ values are far below $\\pu{-0.83 V}$, so water is reduced and hydrogen forms."
+        },
+        {
+          "type": "example",
+          "id": "ex-lino3-cathode",
+          "question": "Aqueous lithium nitrate, $\\ce{LiNO3}$, is electrolysed with inert electrodes. Deduce the half-equation at the cathode, using section 19 of the data booklet.",
+          "steps": [
+            "The competitors are $\\ce{Li^+}$ ($E^\\ominus = \\pu{-3.04 V}$) and water ($E^\\ominus = \\pu{-0.83 V}$).",
+            "Water's value is more positive, so water is reduced: hydrogen forms, not lithium.",
+            "Two $\\ce{H2O}$ give one $\\ce{H2}$ and two $\\ce{OH^-}$. Charge: $2-$ on each side."
+          ],
+          "answer": "$\\ce{2H2O + 2e- -> H2 + 2OH^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2O + e- -> H2 + OH^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cubr2-products",
+          "question": "Aqueous copper(II) bromide, $\\ce{CuBr2}$, is electrolysed with inert electrodes. Deduce the product at each electrode, using section 19 of the data booklet.",
+          "steps": [
+            "Cathode: compare $\\ce{Cu^2+}$/$\\ce{Cu}$ ($\\pu{+0.34 V}$) with water ($\\pu{-0.83 V}$).",
+            "Anode: compare $\\ce{Br2}$/$\\ce{Br^-}$ ($\\pu{+1.09 V}$) with $\\ce{O2}$/$\\ce{H2O}$ ($\\pu{+1.23 V}$)."
+          ],
+          "answer": "At the cathode, copper(II) ions have a more positive $E^\\ominus$ than water, so copper ions are reduced and copper is deposited. At the anode, the bromide half-equation is less positive than that of water, so bromide ions are oxidized and bromine forms.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cu2+ (+0.34 V) beats water (−0.83 V): copper. Br− (+1.09 V) is below water (+1.23 V): bromine.",
+            "requires": [
+              "more positive",
+              "copper ions are reduced",
+              "copper is deposited",
+              "less positive",
+              "bromide ions are oxidized",
+              "bromine forms"
+            ],
+            "forbids": [
+              "hydrogen forms",
+              "oxygen forms",
+              "bromide forms"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-agno3-products",
+          "prompt": "Aqueous silver nitrate is electrolysed with inert electrodes. What forms at each electrode?",
+          "hint": "Compare $\\ce{Ag^+}$ with water at the cathode. Can nitrate ions be oxidized?",
+          "options": [
+            {
+              "text": "Silver at the cathode, oxygen at the anode",
+              "correct": true
+            },
+            {
+              "text": "Hydrogen at the cathode, oxygen at the anode",
+              "correct": false
+            },
+            {
+              "text": "Silver at the cathode, nitrogen at the anode",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen at the cathode, nitrogen dioxide at the anode",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Ag^+}$ ($\\pu{+0.80 V}$) beats water ($\\pu{-0.83 V}$), so silver is deposited. Nitrogen in nitrate is already $+5$, so water is oxidized to oxygen.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Silver at the cathode, oxygen at the anode"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-k2so4-anode",
+          "prompt": "Aqueous potassium sulfate is electrolysed with inert electrodes. Which is the half-equation at the anode?",
+          "hint": "Sulfate cannot be oxidized further. What else in the solution can lose electrons?",
+          "options": [
+            {
+              "text": "$\\ce{2H2O -> O2 + 4H^+ + 4e-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{2H2O + 2e- -> H2 + 2OH^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{O2 + 4H^+ + 4e- -> 2H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{K^+ + e- -> K}$",
+              "correct": false
+            }
+          ],
+          "explain": "Water is oxidized, releasing electrons. The second option happens at the cathode, the third is a reduction, and potassium never forms from a solution.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2O -> O2 + H^+ + e-",
+            "reversible": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-and-brine",
+      "heading": "Water and sodium chloride solution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pure water has too few ions to conduct well. So a little sodium sulfate or dilute sulfuric acid is added; these ions carry the current but do not change the products."
+        },
+        {
+          "type": "text",
+          "text": "Hydrogen forms at the cathode and oxygen at the anode. Make the electrons equal, then add the half-equations."
+        },
+        {
+          "type": "example",
+          "id": "ex-water-overall",
+          "question": "Deduce the overall equation, with state symbols, for the electrolysis of water acidified with dilute sulfuric acid.",
+          "steps": [
+            "Cathode, in acid: $\\ce{2H^+(aq) + 2e- -> H2(g)}$. Anode: $\\ce{2H2O(l) -> O2(g) + 4H^+(aq) + 4e-}$.",
+            "Double the cathode equation so both have $\\ce{4e-}$, then add.",
+            "$\\ce{4H^+(aq)}$ and $\\ce{4e-}$ appear on both sides, so they cancel."
+          ],
+          "answer": "$\\ce{2H2O(l) -> 2H2(g) + O2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2O(l) -> H2(g) + O2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "The equation gives twice as many [[mole|moles]] of hydrogen as oxygen. Equal amounts of gas fill equal volumes at the same temperature and pressure ([[avogadros-law|Avogadro's law]]), so twice the volume of hydrogen collects."
+        },
+        {
+          "type": "check",
+          "id": "check-oxygen-volume",
+          "prompt": "Electrolysing water gives $\\pu{42.0 cm3}$ of hydrogen. What volume of oxygen, in $\\pu{cm3}$, forms at the same temperature and pressure?",
+          "hint": "Use the $2 : 1$ mole ratio of hydrogen to oxygen.",
+          "answer": {
+            "value": 21.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\ce{H2} : \\ce{O2} = 2 : 1$, so $42.0 \\div 2 = \\pu{21.0 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "42.0/2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sodium chloride solution holds $\\ce{Na^+}$, $\\ce{Cl^-}$ and water. At the cathode, $\\ce{Na^+}$ ($\\pu{-2.71 V}$) cannot compete with water, so hydrogen forms."
+        },
+        {
+          "type": "text",
+          "text": "At the anode, $\\ce{Cl2}$/$\\ce{Cl^-}$ ($\\pu{+1.36 V}$) is only a little above $\\ce{O2}$/$\\ce{H2O}$ ($\\pu{+1.23 V}$). $E^\\ominus$ values are for $\\pu{1 mol dm-3}$ solutions, so when two are this close, concentration decides."
+        },
+        {
+          "type": "result",
+          "statement": "Dilute sodium chloride solution gives mainly oxygen at the anode. Concentrated sodium chloride solution (brine) gives mainly chlorine. In between, a mixture of the two gases forms.",
+          "why": "A high chloride concentration makes chloride easier to oxidize. (Beyond the syllabus: oxygen also forms more slowly at the electrode than its $E^\\ominus$ suggests.)"
+        },
+        {
+          "type": "text",
+          "text": "In brine, the $\\ce{Na^+}$ ions and the $\\ce{OH^-}$ ions made at the cathode stay in solution, so sodium hydroxide is a third product: $\\ce{2NaCl(aq) + 2H2O(l) -> 2NaOH(aq) + H2(g) + Cl2(g)}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-brine-explain",
+          "question": "Explain why chlorine is the main product at the anode when concentrated aqueous sodium chloride is electrolysed, but oxygen is the main product when the solution is very dilute.",
+          "steps": [
+            "Name the two species that could be oxidized, with their $E^\\ominus$ values.",
+            "Then say how the chloride concentration tips the balance each way."
+          ],
+          "answer": "Chloride ions and water can both be oxidized at the anode, and their $E^\\ominus$ values are close: $\\pu{+1.36 V}$ and $\\pu{+1.23 V}$. In concentrated solution, the high concentration of chloride ions favours their oxidation, so chlorine is the main product. In very dilute solution there are few chloride ions, so water is oxidized and oxygen forms.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cl− (+1.36 V) and water (+1.23 V) are close; high [Cl−] favours Cl2, few Cl− ions means water is oxidized to O2.",
+            "requires": [
+              "chloride ions",
+              "water",
+              "close",
+              "high concentration of chloride ions",
+              "chlorine is the main product",
+              "water is oxidized",
+              "oxygen forms"
+            ],
+            "forbids": [
+              "sodium is oxidized",
+              "chloride forms",
+              "sodium forms"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The electrode material matters too. Graphite and platinum are inert. A metal anode that is oxidized more easily than anything in the solution reacts itself, and dissolves."
+        },
+        {
+          "type": "text",
+          "text": "With a copper anode in sodium chloride solution, $\\ce{Cu^2+}$/$\\ce{Cu}$ ($\\pu{+0.34 V}$) is far below chloride and water. So $\\ce{Cu -> Cu^2+ + 2e-}$ happens, and no gas forms at the anode."
+        },
+        {
+          "type": "check",
+          "id": "check-copper-anode",
+          "prompt": "Concentrated aqueous sodium chloride is electrolysed with a copper anode and a graphite cathode. What happens at the anode?",
+          "hint": "Compare the $E^\\ominus$ of $\\ce{Cu^2+}$/$\\ce{Cu}$ with those of chloride and water.",
+          "options": [
+            {
+              "text": "Copper atoms are oxidized and the anode dissolves",
+              "correct": true
+            },
+            {
+              "text": "Chloride ions are oxidized to chlorine",
+              "correct": false
+            },
+            {
+              "text": "Water is oxidized to oxygen",
+              "correct": false
+            },
+            {
+              "text": "Sodium ions are reduced to sodium",
+              "correct": false
+            }
+          ],
+          "explain": "The copper half-equation ($\\pu{+0.34 V}$) is the least positive of the three, so copper is oxidized most easily: $\\ce{Cu -> Cu^2+ + 2e-}$. Reduction never happens at the anode.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Copper atoms are oxidized and the anode dissolves"
+          }
+        }
+      ]
+    },
+    {
+      "id": "electroplating",
+      "heading": "Electroplating",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A thin coat of metal can stop steel rusting, or make a cheap object look like silver. Electrolysis puts that coat on."
+        },
+        {
+          "type": "definition",
+          "term": "electroplating",
+          "statement": "Using an electrolytic cell to coat an object with a thin layer of a metal. The object is the cathode, and the electrolyte contains ions of the coating metal.",
+          "plain": "Metal ions in a solution are reduced onto the object's surface."
+        },
+        {
+          "type": "text",
+          "text": "1. The object is the cathode, joined to the negative terminal. Ions of the coating metal are reduced there and coat it."
+        },
+        {
+          "type": "text",
+          "text": "2. The anode is a bar of the coating metal. It is oxidized and dissolves, making new ions of that metal."
+        },
+        {
+          "type": "text",
+          "text": "3. The electrolyte is an aqueous solution of a salt of the coating metal, such as its sulfate or nitrate."
+        },
+        {
+          "type": "figure",
+          "id": "6-14-nickel-plating",
+          "alt": "Electroplating a steel key with nickel. A beaker holds aqueous nickel(II) sulfate. On the left, a nickel bar joined to the positive terminal of a DC power supply is the anode, where Ni gives Ni2+ plus 2 electrons, so the bar slowly dissolves. On the right, the steel key joined to the negative terminal is the cathode, where Ni2+ plus 2 electrons gives Ni, so a thin nickel layer coats the key. Arrows on the wires show electrons moving from the anode to the supply and from the supply to the key. An arrow in the solution shows nickel ions moving towards the key.",
+          "caption": "Nickel-plating a key. The anode supplies $\\ce{Ni^2+}$ ions as fast as the key uses them."
+        },
+        {
+          "type": "text",
+          "text": "So the concentration of $\\ce{Ni^2+}$ stays constant, and so does the green colour. Ideally, the anode loses as much mass as the cathode gains."
+        },
+        {
+          "type": "text",
+          "text": "The rules from the first section explain why this works. The coating metal's $E^\\ominus$ must be above $\\pu{-0.83 V}$, or hydrogen would form. The metal anode is oxidized more easily than water, so it dissolves instead of giving oxygen."
+        },
+        {
+          "type": "mistake",
+          "text": "Making the object the anode. It would be oxidized and dissolve, not be coated. The object is always the cathode."
+        },
+        {
+          "type": "example",
+          "id": "ex-tin-plating-cathode",
+          "question": "A steel food can is plated with tin, using a tin anode and aqueous tin(II) sulfate. Deduce the half-equation at the cathode.",
+          "steps": [
+            "The can is the cathode, so reduction happens on it.",
+            "$\\ce{Sn^2+}$/$\\ce{Sn}$ ($\\pu{-0.14 V}$) is more positive than water ($\\pu{-0.83 V}$), so tin is deposited, not hydrogen.",
+            "At the tin anode the reverse happens: $\\ce{Sn -> Sn^2+ + 2e-}$."
+          ],
+          "answer": "$\\ce{Sn^2+ + 2e- -> Sn}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Sn^2+ + e- -> Sn",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-plating-colour",
+          "question": "A student copper-plates a steel paper clip in aqueous copper(II) sulfate, using a copper anode. Explain why the blue colour of the solution does not fade, and predict what would change with a graphite anode instead.",
+          "steps": [
+            "Write what happens at each electrode, with its half-equation.",
+            "Compare how fast $\\ce{Cu^2+}$ ions are made and used. Then ask what an inert anode would oxidize."
+          ],
+          "answer": "At the cathode, copper(II) ions are reduced to copper, which coats the clip. At the copper anode, copper atoms are oxidized to copper(II) ions. The anode replaces the ions at the same rate as the cathode removes them, so their concentration stays constant and the colour does not fade. With a graphite anode, water would be oxidized to oxygen instead, so the copper(II) ions would be used up and the colour would fade.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cu2+ reduced on the clip, Cu anode oxidized at the same rate, so [Cu2+] is constant; a graphite anode gives O2 and the colour fades.",
+            "requires": [
+              "copper(II) ions are reduced",
+              "coats the clip",
+              "copper atoms are oxidized",
+              "same rate",
+              "stays constant",
+              "oxygen",
+              "colour would fade"
+            ],
+            "forbids": [
+              "clip is the anode",
+              "copper is deposited on the anode"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nickel-setup",
+          "prompt": "A brass door handle is to be nickel-plated. Which set-up is correct?",
+          "hint": "Where are metal ions reduced, and which ions must the solution supply?",
+          "options": [
+            {
+              "text": "Handle as cathode, nickel anode, aqueous nickel(II) sulfate",
+              "correct": true
+            },
+            {
+              "text": "Handle as anode, nickel cathode, aqueous nickel(II) sulfate",
+              "correct": false
+            },
+            {
+              "text": "Handle as cathode, nickel anode, aqueous copper(II) sulfate",
+              "correct": false
+            },
+            {
+              "text": "Handle as cathode, nickel anode, aqueous sodium sulfate",
+              "correct": false
+            }
+          ],
+          "explain": "Nickel ions are reduced onto the cathode, so the handle is the cathode. Copper(II) ions would plate copper, and sodium ions would give hydrogen.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Handle as cathode, nickel anode, aqueous nickel(II) sulfate"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-silver-anode",
+          "prompt": "A spoon is silver-plated using a silver anode. Which is the half-equation at the anode?",
+          "hint": "The anode is oxidized and dissolves.",
+          "options": [
+            {
+              "text": "$\\ce{Ag -> Ag^+ + e-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Ag^+ + e- -> Ag}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2H2O -> O2 + 4H^+ + 4e-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2H2O + 2e- -> H2 + 2OH^-}$",
+              "correct": false
+            }
+          ],
+          "explain": "Silver atoms lose electrons and enter the solution. Silver ions gain them at the spoon, the cathode. A silver anode is oxidized more easily than water, so no oxygen forms.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Ag -> Ag^+ + e-",
+            "reversible": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Cathode: the more positive $E^\\ominus$ is reduced. Cations above $\\pu{-0.83 V}$ (e.g. $\\ce{Cu^2+}$, $\\ce{Ag^+}$) give the metal; otherwise $\\ce{2H2O + 2e- -> H2 + 2OH^-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Anode: the reduced species with the less positive $E^\\ominus$ is oxidized. $\\ce{Br^-}$ and $\\ce{I^-}$ give the halogen; with $\\ce{SO4^2-}$ or $\\ce{NO3^-}$, $\\ce{2H2O -> O2 + 4H^+ + 4e-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Water with a little electrolyte: $\\ce{2H2O(l) -> 2H2(g) + O2(g)}$, hydrogen and oxygen $2 : 1$ by volume.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ce{NaCl(aq)}$: hydrogen at the cathode; at an inert anode, mainly oxygen if dilute, chlorine if concentrated. A copper anode dissolves instead.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electroplating: object = cathode, coating metal = anode, electrolyte = a solution of that metal's ions. E.g. $\\ce{Ni^2+ + 2e- -> Ni}$ at the cathode, $\\ce{Ni -> Ni^2+ + 2e-}$ at the anode; the ion concentration stays constant.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a group 1 or 2 metal, or aluminium, as the cathode product from a solution. Water is reduced instead, so the product is hydrogen.",
+    "Saying sulfate or nitrate ions are oxidized. They cannot be, so water is oxidized and oxygen forms.",
+    "Giving only oxygen, or only chlorine, for sodium chloride solution. State the concentration: concentrated gives chlorine, dilute gives mainly oxygen.",
+    "Putting the object to be plated at the anode. It must be the cathode, where the metal ions are reduced."
+  ],
+  "examTips": [
+    "\"Deduce\" the products of an aqueous electrolysis: quote the section 19 values for both competitors at each electrode, say which is reduced or oxidized, and name the element formed (hydrogen gas, not $\\ce{H^+}$).",
+    "Paper 1A: check for water first. A solution never gives a group 1 or 2 metal, and sulfate or nitrate gives oxygen.",
+    "\"Deduce the equations\" for electroplating: reduction of the metal ion at the cathode, oxidation of the metal at the anode, each balanced in atoms and charge."
+  ],
+  "readingMinutes": 20
+}

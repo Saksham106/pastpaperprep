@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-labelledby="t">
+  <title id="t">Flow chart for reacting-quantity calculations. On the left, three boxes for what you know about substance A: its mass, its gas volume at STP, or its solution concentration C and volume V. Arrows from them point to a central box, amount of A in moles, labelled divide by M, divide by V m, and C times V. A horizontal arrow labelled times b over a, the mole ratio, leads to a second box, amount of B in moles. From there three arrows lead to boxes on the right for what you want about substance B: its mass, labelled times M, its gas volume at STP, labelled times V m, and its solution, labelled divide by V or divide by C.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="10" y="20" width="140" height="50" rx="8"/>
+    <rect x="10" y="105" width="140" height="50" rx="8"/>
+    <rect x="10" y="190" width="140" height="50" rx="8"/>
+    <rect x="610" y="20" width="140" height="50" rx="8"/>
+    <rect x="610" y="105" width="140" height="50" rx="8"/>
+    <rect x="610" y="190" width="140" height="50" rx="8"/>
+    <rect x="230" y="98" width="100" height="64" rx="8" stroke="var(--t1-ink)" stroke-width="2.2"/>
+    <rect x="430" y="98" width="100" height="64" rx="8" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="80" y="42">mass of A</text>
+    <text x="80" y="60" font-size="12" fill="var(--muted)">m, in g</text>
+    <text x="80" y="127">gas A</text>
+    <text x="80" y="145" font-size="12" fill="var(--muted)">volume at STP</text>
+    <text x="80" y="212">solution of A</text>
+    <text x="80" y="230" font-size="12" fill="var(--muted)">C and V</text>
+    <text x="680" y="42">mass of B</text>
+    <text x="680" y="60" font-size="12" fill="var(--muted)">m, in g</text>
+    <text x="680" y="127">gas B</text>
+    <text x="680" y="145" font-size="12" fill="var(--muted)">volume at STP</text>
+    <text x="680" y="212">solution of B</text>
+    <text x="680" y="230" font-size="12" fill="var(--muted)">C or V</text>
+    <text x="280" y="125" fill="var(--t1-ink)">amount of A</text>
+    <text x="280" y="145" font-size="12" fill="var(--muted)">n, in mol</text>
+    <text x="480" y="125" fill="var(--t1-ink)">amount of B</text>
+    <text x="480" y="145" font-size="12" fill="var(--muted)">n, in mol</text>
+  </g>
+  <!-- into amount of A -->
+  <g stroke="var(--t2-ink)" stroke-width="1.8" fill="none">
+    <path d="M152 50 L222 112"/>
+    <path d="M152 130 L220 130"/>
+    <path d="M152 210 L222 148"/>
+  </g>
+  <g fill="var(--t2-ink)">
+    <polygon points="229,118 218.6,115.3 224.6,108.6"/>
+    <polygon points="228,130 219,125.5 219,134.5"/>
+    <polygon points="229,142 224.6,151.4 218.6,144.7"/>
+  </g>
+  <!-- mole ratio -->
+  <path d="M332 130 L420 130" stroke="var(--t3-ink)" stroke-width="2" fill="none"/>
+  <polygon points="428,130 419,125.5 419,134.5" fill="var(--t3-ink)"/>
+  <!-- out of amount of B -->
+  <g stroke="var(--t4-ink)" stroke-width="1.8" fill="none">
+    <path d="M532 112 L602 50"/>
+    <path d="M532 130 L600 130"/>
+    <path d="M532 148 L602 210"/>
+  </g>
+  <g fill="var(--t4-ink)">
+    <polygon points="609,44 598.6,46.7 604.6,53.4"/>
+    <polygon points="608,130 599,125.5 599,134.5"/>
+    <polygon points="609,216 604.6,206.6 598.6,213.3"/>
+  </g>
+  <g font-size="14" font-family="inherit" text-anchor="middle">
+    <text x="208" y="70" fill="var(--t2-ink)">÷ <tspan font-style="italic">M</tspan></text>
+    <text x="188" y="122" fill="var(--t2-ink)">÷ <tspan font-style="italic">V</tspan><tspan baseline-shift="sub" font-size="10">m</tspan></text>
+    <text x="212" y="200" fill="var(--t2-ink)"><tspan font-style="italic">C</tspan> × <tspan font-style="italic">V</tspan></text>
+    <text x="376" y="120" fill="var(--t3-ink)">× <tspan font-style="italic">b</tspan> ÷ <tspan font-style="italic">a</tspan></text>
+    <text x="376" y="152" font-size="12" fill="var(--t3-ink)">mole ratio</text>
+    <text x="556" y="70" fill="var(--t4-ink)">× <tspan font-style="italic">M</tspan></text>
+    <text x="572" y="122" fill="var(--t4-ink)">× <tspan font-style="italic">V</tspan><tspan baseline-shift="sub" font-size="10">m</tspan></text>
+    <text x="548" y="204" fill="var(--t4-ink)">÷ <tspan font-style="italic">V</tspan> or ÷ <tspan font-style="italic">C</tspan></text>
+  </g>
+</svg>

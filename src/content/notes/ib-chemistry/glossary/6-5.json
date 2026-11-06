@@ -2,13 +2,13 @@
   {
     "id": "salt-hydrolysis",
     "term": "salt hydrolysis",
-    "definition": "TODO: Ions of a salt react with water, changing pH; conjugate of weak acid/base only.",
+    "definition": "The reaction of an ion from a dissolved salt with water, forming $\\ce{H3O^+}$ or $\\ce{OH^-}$ ions; only ions whose parent acid or base is weak do this, such as $\\ce{NH4^+}$ (acidic) and $\\ce{CH3COO^-}$ (basic).",
     "lesson": "6.5"
   },
   {
     "id": "buffer-region",
     "term": "buffer region",
-    "definition": "TODO: Flat part of a pH curve around half-equivalence where pH = pKa.",
+    "definition": "The flatter part of a pH curve where a weak acid and its conjugate base (or a weak base and its conjugate acid) are both present, so the pH changes slowly; at its middle, the half-equivalence point, $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$ (or $\\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b}$).",
     "lesson": "6.5"
   }
 ]

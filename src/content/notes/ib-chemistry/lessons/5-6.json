@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.6",
+  "slug": "rate-equations-and-orders-of-reaction",
+  "title": "Rate equations and orders of reaction",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[rate-equation|rate equation]], such as $\\text{rate} = k[\\text{A}][\\text{B}]^{2}$, shows how the [[rate-of-reaction|rate]] depends on each [[molar-concentration|concentration]]. Each power is an [[order-of-reaction|order of reaction]], found only by experiment. $k$ is the [[rate-constant|rate constant]]: it changes with temperature, and its units depend on the overall order.",
+  "goals": [
+    {
+      "text": "Write a rate equation, and state the order with respect to each reactant and the overall order.",
+      "bullets": [
+        "R2.2.10"
+      ]
+    },
+    {
+      "text": "Explain why a rate equation can only be found by experiment, and link orders to the [[rate-determining-step|rate-determining step]].",
+      "bullets": [
+        "R2.2.9",
+        "R2.2.10"
+      ]
+    },
+    {
+      "text": "Deduce a rate equation from initial-rate data.",
+      "bullets": [
+        "R2.2.9"
+      ]
+    },
+    {
+      "text": "Sketch and interpret concentration–time and rate–concentration graphs for zero, first and second order reactions.",
+      "bullets": [
+        "R2.2.10"
+      ]
+    },
+    {
+      "text": "Calculate the rate constant and its units, and explain how temperature affects it.",
+      "bullets": [
+        "R2.2.11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "5.3",
+    "5.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "rate law",
+    "order of reaction",
+    "initial rates method",
+    "units of rate constant k",
+    "zero first second order graphs",
+    "deduce rate equation from data"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-iodide-concentration",
+      "prompt": "$\\pu{0.0300 mol}$ of potassium iodide is dissolved in water and made up to $\\pu{250 cm3}$. What is the [[molar-concentration|concentration]] of the solution, in $\\pu{mol dm-3}$? Give 3 significant figures.",
+      "hint": "Change $\\pu{cm3}$ to $\\pu{dm3}$ first: divide by 1000.",
+      "answer": {
+        "value": 0.12,
+        "tolerance": 0.0005
+      },
+      "explain": "$V = \\pu{0.250 dm3}$, so $c = \\frac{0.0300}{0.250} = \\pu{0.120 mol dm-3}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0300/(250/1000)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-rate",
+      "prompt": "A product's concentration climbs from zero to $\\pu{0.0180 mol dm-3}$ during the first $\\pu{60.0 s}$. Find the mean [[rate-of-reaction|rate of reaction]] for that interval, in $\\pu{mol dm-3 s-1}$, to 3 significant figures.",
+      "hint": "Rate is the change in concentration divided by the time taken.",
+      "answer": {
+        "value": 0.0003,
+        "tolerance": 5e-07
+      },
+      "explain": "$\\frac{0.0180}{60.0} = \\pu{3.00e-4 mol dm-3 s-1}$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0180/60.0",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-slowest-step",
+      "prompt": "A reaction takes place in several [[elementary-step|elementary steps]]. Which step controls the overall rate?",
+      "hint": "A queue moves at the speed of its slowest point.",
+      "options": [
+        {
+          "text": "the slowest step",
+          "correct": true
+        },
+        {
+          "text": "the fastest step",
+          "correct": false
+        },
+        {
+          "text": "the last step",
+          "correct": false
+        },
+        {
+          "text": "the step with the most reactant particles",
+          "correct": false
+        }
+      ],
+      "explain": "The slowest step is the [[rate-determining-step|rate-determining step]]: the reaction can't go faster than it. Revise it in {{lesson:5.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the slowest step"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "rate-equation",
+      "heading": "The rate equation and orders of reaction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A higher [[molar-concentration|concentration]] of a reactant usually makes a reaction faster ({{lesson:5.3}}). A [[rate-equation|rate equation]] says exactly how much faster, reactant by reactant."
+        },
+        {
+          "type": "text",
+          "text": "For a reaction of A with B, the rate equation has the form below. Square brackets mean a concentration in $\\pu{mol dm-3}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{rate} = k[\\text{A}]^{m}[\\text{B}]^{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "rate equation",
+          "statement": "An equation that gives the rate of a reaction as a constant, k, multiplied by the concentration of each reactant raised to a power. It can only be found by experiment.",
+          "plain": "A formula showing how strongly each concentration affects the rate."
+        },
+        {
+          "type": "definition",
+          "term": "order of reaction",
+          "statement": "The order with respect to a reactant is the power to which its concentration is raised in the rate equation. The overall order is the sum of the orders for all the reactants.",
+          "plain": "How sensitive the rate is to the concentration of one reactant."
+        },
+        {
+          "type": "text",
+          "text": "In the equation above, $m$ is the [[order-of-reaction|order]] with respect to A and $n$ the order with respect to B. The overall order is $m + n$. $k$ is the [[rate-constant|rate constant]], covered in the last section."
+        },
+        {
+          "type": "text",
+          "text": "In IB questions every order is a whole number, usually 0, 1 or 2. Zero order means that reactant's concentration has no effect on the rate: $[\\text{A}]^{0} = 1$, so A is left out of the rate equation."
+        },
+        {
+          "type": "result",
+          "statement": "Multiplying a concentration by a factor $x$ multiplies the rate by $x^{n}$, where $n$ is that reactant's order. Doubling it gives $\\times 1$ at zero order, $\\times 2$ at first order and $\\times 4$ at second order.",
+          "why": "The concentration is raised to the power $n$ in the rate equation, so its factor is too."
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-factor-mercury",
+          "question": "Mercury(II) chloride reacts with ethanedioate ions: $\\ce{2HgCl2(aq) + C2O4^2-(aq) -> 2Cl-(aq) + 2CO2(g) + Hg2Cl2(s)}$. The rate equation is $\\text{rate} = k[\\ce{HgCl2}][\\ce{C2O4^2-}]^{2}$. Calculate the factor by which the rate changes when $[\\ce{HgCl2}]$ is halved and $[\\ce{C2O4^2-}]$ is tripled.",
+          "steps": [
+            "Read the orders from the powers: first order in $\\ce{HgCl2}$, second order in $\\ce{C2O4^2-}$, so third order overall.",
+            "Halving $[\\ce{HgCl2}]$ multiplies the rate by $\\left(\\tfrac{1}{2}\\right)^{1} = \\tfrac{1}{2}$.",
+            "Tripling $[\\ce{C2O4^2-}]$ multiplies the rate by $3^{2} = 9$.",
+            "Multiply the two factors: $\\tfrac{1}{2} \\times 9 = 4.5$. Notice the orders do not match the coefficients 2 and 1 in the equation."
+          ],
+          "answer": "$\\text{factor} = 4.5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)**1 * 3**2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The balanced equation shows only the overall change. Most reactions go through several [[elementary-step|elementary steps]], and the slowest, the [[rate-determining-step|rate-determining step]], sets the rate ({{lesson:5.5}})."
+        },
+        {
+          "type": "text",
+          "text": "When the rate-determining step is the first step, each reactant's order is the number of its particles in that step. A reactant that only joins in after the rate-determining step is zero order."
+        },
+        {
+          "type": "result",
+          "statement": "A rate equation can only be found by experiment.",
+          "why": "The orders depend on the mechanism, and the balanced equation does not show the mechanism."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-icl-order",
+          "question": "Hydrogen reacts with iodine monochloride: $\\ce{H2(g) + 2ICl(g) -> I2(g) + 2HCl(g)}$. Experiments give $\\text{rate} = k[\\ce{H2}][\\ce{ICl}]$. A proposed mechanism is step 1, $\\ce{H2(g) + ICl(g) -> HI(g) + HCl(g)}$ (slow), then step 2, $\\ce{HI(g) + ICl(g) -> I2(g) + HCl(g)}$ (fast). Explain why the reaction is first order with respect to $\\ce{ICl}$, even though its coefficient is 2.",
+          "steps": [
+            "Point 1: where orders come from.",
+            "Point 2: which step sets the rate.",
+            "Point 3: how many $\\ce{ICl}$ take part in that step.",
+            "Point 4: where the second $\\ce{ICl}$ reacts."
+          ],
+          "answer": "Orders are found by experiment, not from the coefficients in the balanced equation. The rate depends only on the species in the rate-determining step, which is the slow step 1. Only one $\\ce{ICl}$ and one $\\ce{H2}$ take part in step 1, so the reaction is first order in each. The second $\\ce{ICl}$ reacts in the fast step 2, after the rate-determining step, so it does not affect the rate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "orders come from experiment and reflect the rate-determining step; the second ICl reacts in a later fast step",
+            "requires": [
+              [
+                "experiment",
+                "experimental"
+              ],
+              [
+                "rate-determining step",
+                "slow step"
+              ],
+              [
+                "only one",
+                "one $\\ce{ICl}$"
+              ],
+              [
+                "fast step",
+                "after the rate-determining step"
+              ]
+            ],
+            "forbids": [
+              "orders come from the coefficients",
+              "order is the coefficient"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A proposed mechanism must give the experimental rate equation. Agreement supports it but can't prove it, since another mechanism might fit the same data. So mechanisms are only ever possible mechanisms."
+        },
+        {
+          "type": "mistake",
+          "text": "Taking orders from the coefficients in the balanced equation. In the example above, $\\ce{ICl}$ has coefficient 2 but order 1. Orders come only from experimental data."
+        },
+        {
+          "type": "check",
+          "id": "check-overall-order-no2f",
+          "prompt": "Nitrogen dioxide reacts with fluorine: $\\ce{2NO2(g) + F2(g) -> 2NO2F(g)}$. Experiments give $\\text{rate} = k[\\ce{NO2}][\\ce{F2}]$. What is the overall order of the reaction?",
+          "hint": "Add the powers in the rate equation. Ignore the coefficients in the balanced equation.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "Each concentration has power 1, so the overall order is $1 + 1 = 2$. The answer 3 adds the coefficients in the balanced equation, which don't give orders.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rds-peroxide",
+          "prompt": "Iodide ions catalyse the decomposition of hydrogen peroxide, $\\ce{2H2O2(aq) -> 2H2O(l) + O2(g)}$. A possible mechanism is step 1, $\\ce{H2O2(aq) + I-(aq) -> H2O(l) + IO-(aq)}$ (slow), then step 2, $\\ce{H2O2(aq) + IO-(aq) -> H2O(l) + O2(g) + I-(aq)}$ (fast). Which rate equation fits this mechanism?",
+          "hint": "Only the particles in the slow first step appear in the rate equation.",
+          "options": [
+            {
+              "text": "$\\text{rate} = k[\\ce{H2O2}][\\ce{I-}]$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{H2O2}]^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{H2O2}]^{2}[\\ce{I-}]$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{H2O2}][\\ce{IO-}]$",
+              "correct": false
+            }
+          ],
+          "explain": "Step 1 is rate-determining, with one $\\ce{H2O2}$ and one $\\ce{I-}$. The catalyst $\\ce{I-}$ appears in the rate equation even though it is missing from the overall equation. $\\ce{IO-}$ is an intermediate, not a reactant, so it is never in the rate equation."
+        }
+      ]
+    },
+    {
+      "id": "initial-rates",
+      "heading": "Deducing a rate equation from data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find the order with respect to one reactant, change its concentration and keep everything else the same: the other concentrations, the temperature and any catalyst."
+        },
+        {
+          "type": "text",
+          "text": "Then measure the initial rate, the rate at the very start, when you know every concentration. It is the gradient of the tangent to the concentration–time curve at $t = 0$, taken as positive."
+        },
+        {
+          "type": "text",
+          "text": "Or put every other reactant in large excess, so only one concentration changes. Follow it over time and read its order from the graph's shape (next section)."
+        },
+        {
+          "type": "text",
+          "text": "1. Find two experiments in which only one concentration changes."
+        },
+        {
+          "type": "text",
+          "text": "2. Work out the factor that concentration changes by, and the factor the rate changes by."
+        },
+        {
+          "type": "text",
+          "text": "3. Match them using rate factor $=$ (concentration factor)$^{\\text{order}}$. For example, $\\times 2 \\to \\times 4$ and $\\times 3 \\to \\times 9$ are both second order. An unchanged rate means zero order."
+        },
+        {
+          "type": "text",
+          "text": "4. Repeat for each reactant. Write the rate equation, leaving out any zero-order reactant."
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-persulfate",
+          "question": "Peroxodisulfate ions oxidize iodide ions: $\\ce{S2O8^2-(aq) + 2I-(aq) -> 2SO4^2-(aq) + I2(aq)}$. Initial rates were measured at constant temperature. Experiment 1: $[\\ce{S2O8^2-}] = \\pu{0.0125 mol dm-3}$, $[\\ce{I-}] = \\pu{0.0350 mol dm-3}$, rate $= \\pu{1.75e-6 mol dm-3 s-1}$. Experiment 2: $\\pu{0.0250}$, $\\pu{0.0350}$, $\\pu{3.50e-6}$. Experiment 3: $\\pu{0.0125}$, $\\pu{0.105}$, $\\pu{5.25e-6}$. Deduce the rate equation.",
+          "steps": [
+            "Experiments 1 and 2: only $[\\ce{S2O8^2-}]$ changes, by $\\times 2$. The rate goes from $1.75$ to $3.50$, also $\\times 2$. So the reaction is first order in $\\ce{S2O8^2-}$.",
+            "Experiments 1 and 3: only $[\\ce{I-}]$ changes, by $\\times 3$. The rate goes from $1.75$ to $5.25$, also $\\times 3$. So it is first order in $\\ce{I-}$.",
+            "The coefficient of $\\ce{I-}$ is 2, but its order is 1: the data decide, not the equation."
+          ],
+          "answer": "$\\text{rate} = k[\\ce{S2O8^2-}][\\ce{I-}]$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-bromate",
+          "question": "Bromate ions react with bromide ions in acid: $\\ce{BrO3-(aq) + 5Br-(aq) + 6H+(aq) -> 3Br2(aq) + 3H2O(l)}$. Initial rates at constant temperature, with concentrations $[\\ce{BrO3-}]$, $[\\ce{Br-}]$, $[\\ce{H+}]$ in $\\pu{mol dm-3}$ and rate in $\\pu{mol dm-3 s-1}$: experiment 1: $0.0350$, $0.0750$, $0.120$, rate $5.67 \\times 10^{-4}$. Experiment 2: $0.105$, $0.0750$, $0.120$, rate $1.70 \\times 10^{-3}$. Experiment 3: $0.0350$, $0.225$, $0.120$, rate $1.70 \\times 10^{-3}$. Experiment 4: $0.0350$, $0.0750$, $0.240$, rate $2.27 \\times 10^{-3}$. Deduce the rate equation.",
+          "steps": [
+            "Experiments 1 and 2: $[\\ce{BrO3-}] \\times 3$, rate $\\times 3$ (to 3 s.f.). First order in $\\ce{BrO3-}$.",
+            "Experiments 1 and 3: $[\\ce{Br-}] \\times 3$, rate $\\times 3$. First order in $\\ce{Br-}$.",
+            "Experiments 1 and 4: $[\\ce{H+}] \\times 2$, rate $\\times 4$, and $4 = 2^{2}$. Second order in $\\ce{H+}$.",
+            "Overall order $1 + 1 + 2 = 4$. The orders of $\\ce{Br-}$ and $\\ce{H+}$ (1 and 2) don't match their coefficients (5 and 6), so the reaction can't happen in a single step."
+          ],
+          "answer": "$\\text{rate} = k[\\ce{BrO3-}][\\ce{Br-}][\\ce{H+}]^{2}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Comparing two experiments in which two concentrations change at once. Pick a pair where only one changes, or first allow for the effect of the other."
+        },
+        {
+          "type": "check",
+          "id": "check-deduce-chlorine-dioxide",
+          "prompt": "Chlorine dioxide reacts with hydroxide ions: $\\ce{2ClO2(aq) + 2OH-(aq) -> ClO3-(aq) + ClO2-(aq) + H2O(l)}$. Experiment 1: $[\\ce{ClO2}] = \\pu{0.0120 mol dm-3}$, $[\\ce{OH-}] = \\pu{0.0280 mol dm-3}$, rate $= \\pu{1.30e-3 mol dm-3 s-1}$. Experiment 2: $\\pu{0.0360}$, $\\pu{0.0280}$, $\\pu{1.17e-2}$. Experiment 3: $\\pu{0.0120}$, $\\pu{0.0560}$, $\\pu{2.60e-3}$. Which is the rate equation?",
+          "hint": "Compare experiments 1 and 2 for $\\ce{ClO2}$, then 1 and 3 for $\\ce{OH-}$.",
+          "options": [
+            {
+              "text": "$\\text{rate} = k[\\ce{ClO2}]^{2}[\\ce{OH-}]$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{ClO2}]^{2}[\\ce{OH-}]^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{ClO2}]^{4}[\\ce{OH-}]$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{rate} = k[\\ce{ClO2}][\\ce{OH-}]$",
+              "correct": false
+            }
+          ],
+          "explain": "Tripling $[\\ce{ClO2}]$ makes the rate 9 times faster, and $9 = 3^{2}$, so it is second order. Doubling $[\\ce{OH-}]$ doubles the rate, so it is first order. The power is 2, not 9 or 4, and the coefficients play no part."
+        },
+        {
+          "type": "check",
+          "id": "check-predict-rate-clo2",
+          "prompt": "For chlorine dioxide and hydroxide, $\\text{rate} = k[\\ce{ClO2}]^{2}[\\ce{OH-}]$. When $[\\ce{ClO2}] = \\pu{0.0120 mol dm-3}$ and $[\\ce{OH-}] = \\pu{0.0280 mol dm-3}$, the rate is $\\pu{1.30e-3 mol dm-3 s-1}$. Predict the rate, in $\\pu{mol dm-3 s-1}$, when $[\\ce{ClO2}] = \\pu{0.0240 mol dm-3}$ and $[\\ce{OH-}] = \\pu{0.0700 mol dm-3}$. Give 3 significant figures.",
+          "hint": "Find the factor for each concentration, raise it to that reactant's order, then multiply.",
+          "answer": {
+            "value": 0.013,
+            "tolerance": 5e-05
+          },
+          "explain": "$[\\ce{ClO2}]$ is doubled: $2^{2} = 4$. $[\\ce{OH-}]$ rises by $\\times 2.5$. New rate $= 1.30 \\times 10^{-3} \\times 4 \\times 2.5 = \\pu{0.0130 mol dm-3 s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.30*10**(-3) * (0.0240/0.0120)**2 * (0.0700/0.0280)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Graphs of zero, first and second order reactions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two graphs show the [[order-of-reaction|order]] with respect to a reactant A: $[\\text{A}]$ against time, and rate against $[\\text{A}]$."
+        },
+        {
+          "type": "figure",
+          "id": "5-6-order-graphs",
+          "alt": "Six graphs in three columns: zero, first and second order. Top row, concentration of A against time. Zero order: a straight line down to zero. First order: a curve that keeps flattening, with two equal half-lives marked. Second order: a curve that drops more steeply at first, then levels into a long tail. Bottom row, rate against concentration of A. Zero order: a horizontal line, rate equals k. First order: a straight line through the origin. Second order: an upward curve through the origin, rate proportional to A squared.",
+          "caption": "Top: $[\\text{A}]$ against time. Bottom: rate against $[\\text{A}]$."
+        },
+        {
+          "type": "text",
+          "text": "Zero order, $\\text{rate} = k$: the rate stays the same as A is used up. So $[\\text{A}]$ falls in a straight line, and rate against $[\\text{A}]$ is a horizontal line."
+        },
+        {
+          "type": "text",
+          "text": "First order, $\\text{rate} = k[\\text{A}]$: rate against $[\\text{A}]$ is a straight line through the origin. Against time, $[\\text{A}]$ falls in a curve that keeps slowing. It always takes the same time to halve: the half-life is constant."
+        },
+        {
+          "type": "text",
+          "text": "Second order, $\\text{rate} = k[\\text{A}]^{2}$: rate against $[\\text{A}]$ is an upward curve through the origin. Against time, $[\\text{A}]$ drops steeply at first, then trails off slowly, and each half-life is longer than the one before."
+        },
+        {
+          "type": "text",
+          "text": "On a concentration–time graph, the rate at any moment is the gradient of the tangent, taken as positive. For a zero-order reaction the gradient is the same everywhere, and it equals $k$."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-first-order",
+          "question": "Benzenediazonium chloride decomposes in warm water: $\\ce{C6H5N2Cl(aq) + H2O(l) -> C6H5OH(aq) + N2(g) + HCl(aq)}$. A plot of initial rate against $[\\ce{C6H5N2Cl}]$ is a straight line through the origin. Deduce the order with respect to $\\ce{C6H5N2Cl}$, and describe the shape of its concentration–time graph.",
+          "steps": [
+            "Straight line through the origin: rate is proportional to concentration, so $\\text{rate} = k[\\ce{C6H5N2Cl}]$. Water is in huge excess, so its concentration hardly changes.",
+            "As the concentration falls, so does the rate, so the concentration–time graph curves and flattens."
+          ],
+          "answer": "The rate is directly proportional to $[\\ce{C6H5N2Cl}]$, so the reaction is first order with respect to $\\ce{C6H5N2Cl}$. The concentration–time graph is a curve that gets less steep as the concentration falls. Its half-life is constant: the concentration halves in equal intervals of time.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rate proportional to concentration, so first order; curved concentration-time graph with constant half-life",
+            "requires": [
+              [
+                "directly proportional",
+                "proportional"
+              ],
+              "first order",
+              "curve",
+              [
+                "less steep",
+                "gradient decreases"
+              ],
+              [
+                "half-life is constant",
+                "constant half-life"
+              ]
+            ],
+            "forbids": [
+              "zero order",
+              "second order",
+              "straight line sloping"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-zero-order-ammonia",
+          "question": "Ammonia decomposes on a hot tungsten wire: $\\ce{2NH3(g) -> N2(g) + 3H2(g)}$. A graph of $[\\ce{NH3}]$ against time is a straight line, falling from $\\pu{2.40e-3 mol dm-3}$ at $t = 0$ to $\\pu{1.50e-3 mol dm-3}$ at $t = \\pu{250 s}$. Deduce the order with respect to ammonia and calculate $k$.",
+          "steps": [
+            "A straight concentration–time line has a constant gradient, so the rate doesn't change as $[\\ce{NH3}]$ falls. The reaction is zero order: $\\text{rate} = k$.",
+            "Why: the wire's surface is fully covered with ammonia, so extra ammonia can't react any faster.",
+            "$k$ is the rate, the gradient taken as positive: $k = \\frac{(2.40 - 1.50) \\times 10^{-3}}{250}$.",
+            "For zero order, $k$ has the same units as rate. Give 3 significant figures."
+          ],
+          "answer": "$k \\approx \\pu{3.60e-6 mol dm-3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(2.40*10**(-3) - 1.50*10**(-3))/250",
+            "sf": 3,
+            "unit": "mol dm-3 s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a straight-line concentration–time graph first order. A straight line there means zero order. First order gives the straight line on the rate–concentration graph."
+        },
+        {
+          "type": "check",
+          "id": "check-second-order-shape",
+          "prompt": "A reaction is second order with respect to A. What does a graph of rate against $[\\text{A}]$ look like?",
+          "hint": "Rate is proportional to $[\\text{A}]^{2}$. What happens to the rate when $[\\text{A}]$ doubles?",
+          "options": [
+            {
+              "text": "an upward curve through the origin, getting steeper",
+              "correct": true
+            },
+            {
+              "text": "a straight line through the origin",
+              "correct": false
+            },
+            {
+              "text": "a horizontal straight line",
+              "correct": false
+            },
+            {
+              "text": "a straight line sloping downwards",
+              "correct": false
+            }
+          ],
+          "explain": "Doubling $[\\text{A}]$ makes the rate 4 times faster, so the graph curves upwards from the origin. A straight line through the origin is first order, and a horizontal line is zero order.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an upward curve through the origin, getting steeper"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zero-order-rate",
+          "prompt": "A reaction is zero order with respect to Y. As Y is used up during the reaction, what happens to the rate?",
+          "hint": "With order 0, $[\\text{Y}]^{0} = 1$ for every concentration.",
+          "options": [
+            {
+              "text": "It stays the same until Y runs out.",
+              "correct": true
+            },
+            {
+              "text": "It falls in proportion to the concentration of Y.",
+              "correct": false
+            },
+            {
+              "text": "It falls in proportion to the square of the concentration of Y.",
+              "correct": false
+            },
+            {
+              "text": "It rises as Y is used up.",
+              "correct": false
+            }
+          ],
+          "explain": "The concentration of Y has no effect on the rate, so the rate is constant. That is why its concentration–time graph is a straight line.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It stays the same until Y runs out."
+          }
+        }
+      ]
+    },
+    {
+      "id": "rate-constant",
+      "heading": "The rate constant and its units",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[rate-constant|rate constant]], $k$, turns concentrations into a rate. At a fixed temperature it has one value for a reaction, whatever the concentrations."
+        },
+        {
+          "type": "definition",
+          "term": "rate constant",
+          "statement": "The constant k in the rate equation. Its value depends on temperature, and its units depend on the overall order of the reaction.",
+          "plain": "The number that converts concentrations into a rate for one reaction at one temperature."
+        },
+        {
+          "type": "result",
+          "statement": "Raising the temperature almost always increases $k$, so the rate rises even though the concentrations are the same. A catalyst also increases $k$.",
+          "why": "More collisions have at least the activation energy ({{lesson:5.4}}). A catalyst gives a route with a lower activation energy. {{lesson:5.7}} puts numbers on the temperature effect."
+        },
+        {
+          "type": "text",
+          "text": "To find $k$, rearrange the rate equation and substitute the data from one experiment. Its units come from the same rearrangement: rate is in $\\pu{mol dm-3 s-1}$, and each concentration is in $\\pu{mol dm-3}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{units of } k = \\frac{\\pu{mol dm-3 s-1}}{(\\pu{mol dm-3})^{\\text{overall order}}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Overall order 0: $\\pu{mol dm-3 s-1}$. Order 1: $\\pu{s-1}$. Order 2: $\\pu{mol-1 dm3 s-1}$. Order 3: $\\pu{mol-2 dm6 s-1}$. Each extra order adds $\\pu{mol-1 dm3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-k-persulfate",
+          "question": "For peroxodisulfate and iodide ions, $\\text{rate} = k[\\ce{S2O8^2-}][\\ce{I-}]$. When $[\\ce{S2O8^2-}] = \\pu{0.0125 mol dm-3}$ and $[\\ce{I-}] = \\pu{0.0350 mol dm-3}$, the initial rate is $\\pu{1.75e-6 mol dm-3 s-1}$. Calculate $k$, including its units.",
+          "steps": [
+            "Rearrange: $k = \\frac{\\text{rate}}{[\\ce{S2O8^2-}][\\ce{I-}]}$.",
+            "Substitute: $k = \\frac{1.75 \\times 10^{-6}}{0.0125 \\times 0.0350}$.",
+            "Units: second order overall, so $\\frac{\\pu{mol dm-3 s-1}}{(\\pu{mol dm-3})^{2}} = \\pu{mol-1 dm3 s-1}$."
+          ],
+          "answer": "$k \\approx \\pu{4.00e-3 mol-1 dm3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.75*10**(-6)/(0.0125*0.0350)",
+            "sf": 3,
+            "unit": "mol-1 dm3 s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-k-bromate",
+          "question": "For bromate, bromide and hydrogen ions, $\\text{rate} = k[\\ce{BrO3-}][\\ce{Br-}][\\ce{H+}]^{2}$. In one experiment $[\\ce{BrO3-}] = \\pu{0.0350 mol dm-3}$, $[\\ce{Br-}] = \\pu{0.0750 mol dm-3}$, $[\\ce{H+}] = \\pu{0.240 mol dm-3}$ and the initial rate is $\\pu{2.27e-3 mol dm-3 s-1}$. Calculate $k$, including its units.",
+          "steps": [
+            "Rearrange: $k = \\frac{\\text{rate}}{[\\ce{BrO3-}][\\ce{Br-}][\\ce{H+}]^{2}}$.",
+            "Substitute, squaring $[\\ce{H+}]$: $k = \\frac{2.27 \\times 10^{-3}}{0.0350 \\times 0.0750 \\times 0.240^{2}} = \\frac{2.27 \\times 10^{-3}}{1.512 \\times 10^{-4}}$.",
+            "Units: overall order 4, so $\\frac{\\pu{mol dm-3 s-1}}{(\\pu{mol dm-3})^{4}} = \\pu{mol-3 dm9 s-1}$."
+          ],
+          "answer": "$k \\approx \\pu{15.0 mol-3 dm9 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.27*10**(-3)/(0.0350*0.0750*0.240**2)",
+            "sf": 3,
+            "unit": "mol-3 dm9 s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The same rules apply to halogenoalkanes reacting with hydroxide ions ({{lesson:6.18}}). A primary halogenoalkane, RX, has $\\text{rate} = k[\\text{RX}][\\ce{OH-}]$: second order, with $k$ in $\\pu{mol-1 dm3 s-1}$. A tertiary one has $\\text{rate} = k[\\text{RX}]$: first order, with $k$ in $\\pu{s-1}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving k the units of rate, or no units at all. Work the units out from the overall order every time."
+        },
+        {
+          "type": "check",
+          "id": "check-k-chlorine-dioxide",
+          "prompt": "For chlorine dioxide and hydroxide ions, $\\text{rate} = k[\\ce{ClO2}]^{2}[\\ce{OH-}]$. When $[\\ce{ClO2}] = \\pu{0.0120 mol dm-3}$ and $[\\ce{OH-}] = \\pu{0.0280 mol dm-3}$, the rate is $\\pu{1.30e-3 mol dm-3 s-1}$. What is $k$?",
+          "hint": "Square $[\\ce{ClO2}]$. The overall order is 3, which fixes the units.",
+          "options": [
+            {
+              "text": "$k \\approx \\pu{322 mol-2 dm6 s-1}$",
+              "correct": true
+            },
+            {
+              "text": "$k \\approx \\pu{322 mol-1 dm3 s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$k \\approx \\pu{322 mol2 dm-6 s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$k \\approx \\pu{3.87 mol-1 dm3 s-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$k = \\frac{1.30 \\times 10^{-3}}{0.0120^{2} \\times 0.0280} \\approx 322$. Third order overall, so the units are $\\frac{\\pu{mol dm-3 s-1}}{(\\pu{mol dm-3})^{3}} = \\pu{mol-2 dm6 s-1}$. $3.87$ forgets to square $[\\ce{ClO2}]$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.30*10**(-3)/(0.0120**2*0.0280)",
+            "sf": 3,
+            "unit": "mol-2 dm6 s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-k-tertiary",
+          "prompt": "2-Bromo-2-methylpropane is hydrolysed with $\\text{rate} = k[\\ce{(CH3)3CBr}]$. When $[\\ce{(CH3)3CBr}] = \\pu{0.0250 mol dm-3}$, the initial rate is $\\pu{5.20e-6 mol dm-3 s-1}$. Calculate $k$, in $\\pu{s-1}$. Give 3 significant figures.",
+          "hint": "Divide the rate by the concentration.",
+          "answer": {
+            "value": 0.000208,
+            "tolerance": 5e-07
+          },
+          "explain": "$k = \\frac{5.20 \\times 10^{-6}}{0.0250} = \\pu{2.08e-4 s-1}$. First order, so the units are $\\pu{s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.20*10**(-6)/0.0250",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{rate} = k[\\text{A}]^{m}[\\text{B}]^{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Orders ($m$, $n$) come only from experiment, never from the balanced equation. The overall order is $m + n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Doubling a concentration multiplies the rate by 1 at zero order, 2 at first order and 4 at second order.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reactants in the rate-determining step appear in the rate equation. A reactant that joins in after it is zero order.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$[\\text{A}]$ against time: zero order is a straight line; first order is a curve with a constant half-life. Rate against $[\\text{A}]$: zero order is horizontal, first order a straight line through the origin, second order an upward curve through the origin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{units of } k = \\frac{\\pu{mol dm-3 s-1}}{(\\pu{mol dm-3})^{\\text{overall order}}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Units of $k$: order 0 $\\pu{mol dm-3 s-1}$, order 1 $\\pu{s-1}$, order 2 $\\pu{mol-1 dm3 s-1}$, order 3 $\\pu{mol-2 dm6 s-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$k$ changes with temperature (and with a catalyst), not with concentration.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking orders from the coefficients in the balanced equation. Orders come only from experiment: in $\\ce{S2O8^2- + 2I-}$ the order in $\\ce{I-}$ is 1, not 2.",
+    "Reading a rate that rises 4 times as order 4. The order is the power: $\\times 2$ in concentration giving $\\times 4$ in rate means $2^{2}$, second order.",
+    "Calling a straight-line concentration–time graph first order. It is zero order; first order gives a straight line through the origin on a rate–concentration graph.",
+    "Leaving out the units of k, or giving it the units of rate. Work them out from the overall order."
+  ],
+  "examTips": [
+    "\"Deduce\" an order from data: name the two experiments you compare, and state the concentration factor and the rate factor before the order.",
+    "\"Calculate\" $k$: write the rearranged rate equation, substitute one experiment's values, then give the answer with its units.",
+    "\"Sketch\" a rate–concentration or concentration–time graph: label both axes, and make the shape clear (straight or curved, through the origin or not)."
+  ],
+  "readingMinutes": 27
+}

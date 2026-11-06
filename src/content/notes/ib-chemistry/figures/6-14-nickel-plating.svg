@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t614ni">
+  <title id="t614ni">Electroplating a steel key with nickel. A beaker holds aqueous nickel(II) sulfate. On the left, a nickel bar is joined to the positive terminal of a DC power supply: it is the anode, where nickel atoms are oxidized, Ni gives Ni2+ plus 2 electrons, so the bar slowly dissolves. On the right, the steel key is joined to the negative terminal: it is the cathode, where nickel ions are reduced, Ni2+ plus 2 electrons gives Ni, so a thin nickel layer coats the key. Arrows on the wires show electrons moving from the anode to the power supply and from the power supply to the key. An arrow in the solution shows nickel ions moving from the anode towards the key.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M140 170 L140 340 Q140 350 150 350 L490 350 Q500 350 500 340 L500 170"/>
+  </g>
+  <rect x="141" y="190" width="358" height="159" fill="var(--t2-ink)" fill-opacity="0.14"/>
+  <rect x="198" y="110" width="26" height="190" fill="var(--muted)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.2"/>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M429 110 L429 196" fill="none"/>
+    <circle cx="429" cy="214" r="18" fill="var(--t5-ink)" fill-opacity="0.25"/>
+    <rect x="423" y="230" width="12" height="58" fill="var(--t5-ink)" fill-opacity="0.25"/>
+    <path d="M435 252 L446 252 L446 260 L435 260 M435 270 L443 270 L443 278 L435 278" fill="none"/>
+  </g>
+  <circle cx="429" cy="214" r="21" fill="none" stroke="var(--muted)" stroke-width="2.5"/>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M211 110 L211 60 L300 60"/>
+    <path d="M316 60 L429 60 L429 110"/>
+  </g>
+  <path d="M300 38 L300 82" stroke="currentColor" stroke-width="2"/>
+  <path d="M316 48 L316 72" stroke="currentColor" stroke-width="5"/>
+  <text x="288" y="40" font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">+</text>
+  <text x="329" y="46" font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">−</text>
+  <text x="308" y="102" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">DC power supply</text>
+  <path d="M232 46 L270 46" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="278,46 268,41 268,51" fill="var(--t4-ink)"/>
+  <text x="252" y="36" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <path d="M352 46 L390 46" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="398,46 388,41 388,51" fill="var(--t4-ink)"/>
+  <text x="372" y="36" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <text x="160" y="150" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">nickel bar</text>
+  <text x="480" y="150" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">steel key</text>
+  <path d="M250 245 L385 245" stroke="var(--t2-ink)" stroke-width="2"/>
+  <polygon points="393,245 383,240 383,250" fill="var(--t2-ink)"/>
+  <text x="318" y="236" font-size="13" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">Ni²⁺</text>
+  <text x="320" y="335" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">NiSO₄(aq)</text>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="190" y="374">anode (+): nickel dissolves</text>
+    <text x="190" y="394">Ni → Ni²⁺ + 2e⁻</text>
+    <text x="450" y="374">cathode (−): nickel coats the key</text>
+    <text x="450" y="394">Ni²⁺ + 2e⁻ → Ni</text>
+  </g>
+</svg>

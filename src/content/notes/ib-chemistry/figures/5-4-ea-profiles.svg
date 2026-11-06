@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" role="img" aria-labelledby="t54ea">
+  <title id="t54ea">Two energy profiles, potential energy against reaction coordinate. Left, exothermic: the curve starts at a reactants level, rises over a hump and falls to a products level below the reactants. An upward arrow from the reactants level to the top of the hump is labelled activation energy, and a downward arrow from reactants to products is labelled delta H, negative. Right, endothermic: the products level is above the reactants level. An upward arrow from the reactants level to the top of the hump is labelled activation energy, and an upward arrow from reactants to products is labelled delta H, positive. In both, the activation energy is measured from the reactants up to the peak.</title>
+  <g font-family="inherit" fill="currentColor"><text x="175" y="20" font-size="14" text-anchor="middle" font-weight="bold">Exothermic</text><text x="505" y="20" font-size="14" text-anchor="middle" font-weight="bold">Endothermic</text></g>
+  <path d="M40 260 L40 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="40,36 35.5,45 44.5,45" fill="currentColor"/>
+  <path d="M40 260 L305 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="314,260 305,255.5 305,264.5" fill="currentColor"/>
+  <text x="28" y="152.5" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 28 152.5)">potential energy</text>
+  <text x="172.5" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  <path d="M370 260 L370 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="370,36 365.5,45 374.5,45" fill="currentColor"/>
+  <path d="M370 260 L635 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="644,260 635,255.5 635,264.5" fill="currentColor"/>
+  <text x="358" y="152.5" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 358 152.5)">potential energy</text>
+  <text x="502.5" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  <path d="M55 140 H105 C135 140 145 65 165 65 C185 65 195 215 225 215 H295" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M55 65 H200" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M145 140 H302" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M78 138 L78 76" fill="none" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <polygon points="78,67 73.5,76 82.5,76" fill="var(--t5-ink)"/>
+  <path d="M275 142 L275 204" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="275,213 270.5,204 279.5,204" fill="var(--t3-ink)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit"><text x="85" y="106" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text><text x="282" y="182" fill="var(--t3-ink)">ΔH &lt; 0</text><text x="55" y="156">reactants</text><text x="230" y="232">products</text></g>
+  <path d="M385 215 H435 C465 215 475 65 495 65 C515 65 525 140 555 140 H625" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <path d="M385 65 H530" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M475 215 H632" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M408 213 L408 76" fill="none" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <polygon points="408,67 403.5,76 412.5,76" fill="var(--t5-ink)"/>
+  <path d="M605 213 L605 151" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="605,142 600.5,151 609.5,151" fill="var(--t3-ink)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit"><text x="415" y="146" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text><text x="612" y="182" fill="var(--t3-ink)">ΔH &gt; 0</text><text x="385" y="232">reactants</text><text x="560" y="132">products</text></g>
+  </svg>

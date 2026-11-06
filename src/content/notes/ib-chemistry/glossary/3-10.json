@@ -2,31 +2,31 @@
   {
     "id": "proton-nmr-spectroscopy",
     "term": "proton NMR spectroscopy",
-    "definition": "TODO: Gives information on distinct hydrogen environments.",
+    "definition": "A technique that places a sample in a strong magnetic field and records the radio waves its hydrogen nuclei absorb, showing how many different hydrogen environments a molecule has and how they are arranged.",
     "lesson": "3.10"
   },
   {
     "id": "chemical-environment",
     "term": "chemical environment",
-    "definition": "TODO: Set of hydrogens in the same surroundings; each gives one signal.",
+    "definition": "The surroundings of a hydrogen atom in a molecule; hydrogens with identical surroundings are equivalent and give one NMR signal between them.",
     "lesson": "3.10"
   },
   {
     "id": "chemical-shift",
     "term": "chemical shift",
-    "definition": "TODO: Position of a signal in ppm relative to the reference.",
+    "definition": "The position of an NMR signal, $\\delta$, in parts per million (ppm) measured from the tetramethylsilane (TMS) signal at $\\delta = 0$; it shows what kind of group a hydrogen is near.",
     "lesson": "3.10"
   },
   {
     "id": "integration-trace",
     "term": "integration trace",
-    "definition": "TODO: Area under each signal is proportional to the number of equivalent hydrogens.",
+    "definition": "A stepped line on an NMR spectrum whose step heights are in the ratio of the areas under the signals, and so of the numbers of hydrogens in each environment.",
     "lesson": "3.10"
   },
   {
     "id": "splitting-pattern",
     "term": "splitting pattern",
-    "definition": "TODO: Singlet, doublet, triplet, quartet from n+1 neighbouring hydrogens.",
+    "definition": "The cluster of peaks a high-resolution NMR signal splits into: $n$ non-equivalent hydrogens on the adjacent carbon atoms give $n + 1$ peaks (singlet, doublet, triplet, quartet).",
     "lesson": "3.10"
   }
 ]

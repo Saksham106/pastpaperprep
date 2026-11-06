@@ -1,0 +1,765 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.1",
+  "slug": "measuring-enthalpy-changes",
+  "title": "Measuring enthalpy changes",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Every reaction moves energy between the [[system|system]] (the reacting chemicals) and its surroundings. An [[exothermic-reaction|exothermic reaction]] gives heat out and warms the surroundings; an [[endothermic-reaction|endothermic reaction]] takes heat in and cools them. You find the [[enthalpy-change|enthalpy change]], $\\Delta H$, from the [[temperature|temperature]] change of a known mass of water.",
+  "goals": [
+    {
+      "text": "Describe a reaction in terms of the system and its surroundings, and tell heat apart from temperature.",
+      "bullets": [
+        "R1.1.1"
+      ]
+    },
+    {
+      "text": "Classify a reaction as exothermic or endothermic from its temperature change, and give the sign of $\\Delta H$.",
+      "bullets": [
+        "R1.1.2"
+      ]
+    },
+    {
+      "text": "Sketch and interpret [[energy-profile|energy profiles]], and use them to compare the stability of reactants and products.",
+      "bullets": [
+        "R1.1.3"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta H$ from a temperature change using $Q = mc\\Delta T$ and $\\Delta H = -\\frac{Q}{n}$.",
+      "bullets": [
+        "R1.1.4"
+      ]
+    },
+    {
+      "text": "Explain why [[calorimetry|calorimetry]] usually measures a smaller temperature change than expected, and suggest improvements.",
+      "bullets": [
+        "R1.1.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.6",
+    "1.8",
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "exothermic and endothermic",
+    "calorimetry calculation",
+    "Q = mcΔT",
+    "energy profile diagram",
+    "enthalpy of combustion experiment",
+    "heat and temperature difference"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-warm-gas",
+      "prompt": "A sample of gas is warmed from $20\\,^\\circ\\text{C}$ to $60\\,^\\circ\\text{C}$. What happens to its particles?",
+      "hint": "Temperature is linked to how fast the particles move.",
+      "options": [
+        {
+          "text": "Their average kinetic energy increases.",
+          "correct": true
+        },
+        {
+          "text": "Each particle gets bigger.",
+          "correct": false
+        },
+        {
+          "text": "The number of particles increases.",
+          "correct": false
+        },
+        {
+          "text": "Their average kinetic energy stays the same.",
+          "correct": false
+        }
+      ],
+      "explain": "Higher temperature means faster particles on average, so a higher average kinetic energy. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Their average kinetic energy increases."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-nacl",
+      "prompt": "How many [[mole|moles]] of sodium chloride, $\\ce{NaCl}$, are in $\\pu{2.63 g}$? Give 3 significant figures.",
+      "hint": "Use $n = \\frac{m}{M}$ with $A_\\text{r}$ values from the data booklet.",
+      "answer": {
+        "value": 0.045,
+        "tolerance": 5e-05
+      },
+      "explain": "$M = 22.99 + 35.45 = \\pu{58.44 g mol-1}$, so $n = \\frac{2.63}{58.44} \\approx \\pu{0.0450 mol}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.63/Mr('NaCl')",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-hcl",
+      "prompt": "How many moles of $\\ce{HCl}$ are in $\\pu{40.0 cm3}$ of $\\pu{0.750 mol dm-3}$ hydrochloric acid? Give 3 significant figures.",
+      "hint": "Change the volume to $\\pu{dm3}$ first, then use $n = CV$.",
+      "answer": {
+        "value": 0.03,
+        "tolerance": 5e-05
+      },
+      "explain": "$V = \\frac{40.0}{1000} = \\pu{0.0400 dm3}$, so $n = 0.750 \\times 0.0400 = \\pu{0.0300 mol}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.750*40.0/1000",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "energy-transfer",
+      "heading": "System, surroundings and heat",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[system|system]] is the chemicals that react. The surroundings are everything else: the water, the beaker, the thermometer and the air."
+        },
+        {
+          "type": "definition",
+          "term": "system",
+          "statement": "The reactants and products being studied. Everything outside them is the surroundings.",
+          "plain": "The chemicals you are watching react."
+        },
+        {
+          "type": "text",
+          "text": "Energy is never created or destroyed. In a reaction, energy moves between the system and the surroundings, and the total stays the same."
+        },
+        {
+          "type": "text",
+          "text": "Heat is energy transferred from a hotter object to a colder one, in joules (J). [[temperature|Temperature]] measures the average kinetic energy of the particles, in kelvin (K) or degrees Celsius. A hot spark has a high temperature but holds little energy, because it has so few particles."
+        },
+        {
+          "type": "definition",
+          "term": "exothermic reaction",
+          "statement": "A reaction that transfers heat from the system to the surroundings. The surroundings get warmer, and $\\Delta H$ is negative.",
+          "plain": "A reaction that gives out heat, like a burning fuel."
+        },
+        {
+          "type": "definition",
+          "term": "endothermic reaction",
+          "statement": "A reaction that transfers heat from the surroundings to the system. The surroundings get colder, and $\\Delta H$ is positive.",
+          "plain": "A reaction that takes in heat, like a cold pack."
+        },
+        {
+          "type": "text",
+          "text": "An [[exothermic-reaction|exothermic reaction]] loses energy from the system, so its [[enthalpy-change|enthalpy change]], $\\Delta H$, is negative. An [[endothermic-reaction|endothermic reaction]] gains energy, so $\\Delta H$ is positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-cold-pack",
+          "question": "A cold pack holds solid ammonium nitrate, $\\ce{NH4NO3}$, and a pouch of water. When the solid dissolves, the pack feels cold. Explain this, and state the sign of $\\Delta H$.",
+          "steps": [
+            "The system is the dissolving solid. The water, the pack and your hand are the surroundings.",
+            "The temperature falls, so energy moves into the system: endothermic, with $\\Delta H$ positive."
+          ],
+          "answer": "The ammonium nitrate dissolving absorbs heat from the surroundings, which include the water and your hand. The surroundings lose energy, so their temperature falls. The process is endothermic, so $\\Delta H$ is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "system absorbs heat from surroundings; temperature falls; endothermic; positive",
+            "requires": [
+              [
+                "absorbs heat",
+                "absorbs energy"
+              ],
+              "surroundings",
+              [
+                "temperature falls",
+                "temperature decreases"
+              ],
+              "endothermic",
+              "positive"
+            ],
+            "forbids": [
+              "releases cold",
+              "gives out cold",
+              "releases heat"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spark-tea",
+          "question": "A sparkler spark at about $1000\\,^\\circ\\text{C}$ barely hurts your hand, but spilled tea at $80\\,^\\circ\\text{C}$ can scald. Explain the difference using heat and temperature.",
+          "steps": [
+            "Temperature is an average per particle. It says nothing about how many particles there are.",
+            "Compare the masses: the heat passed on depends on both temperature and mass."
+          ],
+          "answer": "Temperature is a measure of the average kinetic energy of the particles. The spark has the higher temperature, but it has a tiny mass, so it has very few particles and transfers little heat. The tea has a much larger mass, so it transfers far more heat to your skin.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "temperature is average kinetic energy; heat transferred depends on mass too",
+            "requires": [
+              "average kinetic energy",
+              "higher temperature",
+              [
+                "tiny mass",
+                "small mass"
+              ],
+              "particles",
+              [
+                "far more heat",
+                "more heat"
+              ]
+            ],
+            "forbids": [
+              "heat is a measure of",
+              "temperature is the total energy"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-endo-sign",
+          "prompt": "Two solutions are mixed in a test tube. Which observation shows that the reaction is endothermic?",
+          "hint": "Which way does heat move between the tube and your hand?",
+          "options": [
+            {
+              "text": "The test tube feels colder than before.",
+              "correct": true
+            },
+            {
+              "text": "Bubbles of gas are given off.",
+              "correct": false
+            },
+            {
+              "text": "The test tube feels warmer than before.",
+              "correct": false
+            },
+            {
+              "text": "The solution changes colour.",
+              "correct": false
+            }
+          ],
+          "explain": "An endothermic reaction takes heat from its surroundings, so the tube feels colder. Bubbles and colour changes show a reaction, not the direction of energy flow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The test tube feels colder than before."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-heat-temperature",
+          "prompt": "Which statement about heat and temperature is correct?",
+          "hint": "One is a transfer of energy; the other is an average.",
+          "options": [
+            {
+              "text": "Temperature measures the average kinetic energy of the particles; heat is energy transferred.",
+              "correct": true
+            },
+            {
+              "text": "Heat and temperature are the same quantity in different units.",
+              "correct": false
+            },
+            {
+              "text": "Temperature is the total kinetic energy of all the particles.",
+              "correct": false
+            },
+            {
+              "text": "Two samples at the same temperature hold the same energy.",
+              "correct": false
+            }
+          ],
+          "explain": "Temperature is an average, so it doesn't depend on the amount of substance. A larger sample at the same temperature holds more energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Temperature measures the average kinetic energy of the particles; heat is energy transferred."
+          }
+        }
+      ]
+    },
+    {
+      "id": "profiles",
+      "heading": "Energy profiles and stability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every substance has potential energy that depends on its bonds: stronger bonds mean lower potential energy. The lower a substance's potential energy, the more stable it is."
+        },
+        {
+          "type": "definition",
+          "term": "energy profile",
+          "statement": "A graph of potential energy against reaction coordinate, showing the reactants, the products and the energy barrier between them.",
+          "plain": "A picture of the energy journey from reactants to products."
+        },
+        {
+          "type": "text",
+          "text": "The reaction coordinate runs from reactants (left) to products (right) and has no units. The hump is the [[activation-energy|activation energy]] barrier, covered in {{lesson:5.4}}."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-energy-profiles",
+          "alt": "Two energy profiles side by side, each with potential energy on the vertical axis and reaction coordinate on the horizontal axis. Left, exothermic: the reactants level is high, the curve rises over a hump, then falls to a products level below the reactants. A downward arrow from the reactants level to the products level is labelled delta H negative, and the products are labelled more stable. Right, endothermic: the reactants level is low, the curve rises over a hump, then falls to a products level above the reactants. An upward arrow from the reactants level to the products level is labelled delta H positive, and the reactants are labelled more stable.",
+          "caption": "An [[energy-profile|energy profile]] for each type. The $\\Delta H$ arrow runs from the reactants' level to the products' level."
+        },
+        {
+          "type": "result",
+          "statement": "$\\Delta H = H(\\text{products}) - H(\\text{reactants})$. Lower-energy products are more stable: exothermic. Higher-energy products mean the reactants are more stable: endothermic.",
+          "why": "Energy the system loses by dropping to a lower level goes to the surroundings as heat, because total energy is conserved."
+        },
+        {
+          "type": "text",
+          "text": "$H$ is the enthalpy, the energy stored in the chemicals. Only the start and finish levels set $\\Delta H$, not the hump."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-profile",
+          "question": "An energy profile shows the reactants at $\\pu{140 kJ mol-1}$, the top of the hump at $\\pu{230 kJ mol-1}$ and the products at $\\pu{55 kJ mol-1}$. Determine $\\Delta H$, and state which side is more stable.",
+          "steps": [
+            "$\\Delta H$ is finish minus start; the hump doesn't enter it.",
+            "$\\Delta H = 55 - 140 = \\pu{-85 kJ mol-1}$. The products are lower, so they are more stable."
+          ],
+          "answer": "$\\Delta H = \\pu{-85 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "55 - 140",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nitrogen-oxide",
+          "question": "Most combustions are exothermic, but $\\ce{N2(g) + O2(g) -> 2NO(g)}$ is endothermic. Explain this in terms of stability.",
+          "steps": [
+            "Endothermic means the products sit higher in energy than the reactants.",
+            "The reactants are low because the $\\ce{N#N}$ triple bond is very strong (see {{lesson:2.2}})."
+          ],
+          "answer": "The products are less stable than the reactants. Nitrogen is very stable because its triple bond is very strong. So the products have a higher potential energy than the reactants, and energy is absorbed from the surroundings. The reaction is endothermic and $\\Delta H$ is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "products less stable; strong N triple bond; products higher potential energy; endothermic",
+            "requires": [
+              "less stable",
+              "triple bond",
+              "higher potential energy",
+              "absorbed",
+              "endothermic",
+              "positive"
+            ],
+            "forbids": [
+              "products are more stable",
+              "releases heat",
+              "released to the surroundings"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing $\\Delta H$ from the top of the hump. It runs from the reactants' level to the products' level."
+        },
+        {
+          "type": "check",
+          "id": "check-stability-sign",
+          "prompt": "A reaction has $\\Delta H = \\pu{+62 kJ mol-1}$. Which statement is correct?",
+          "hint": "Positive means the system gained energy.",
+          "options": [
+            {
+              "text": "The products are less stable than the reactants.",
+              "correct": true
+            },
+            {
+              "text": "The products are more stable than the reactants.",
+              "correct": false
+            },
+            {
+              "text": "The products have lower potential energy than the reactants.",
+              "correct": false
+            },
+            {
+              "text": "The temperature of the surroundings rises.",
+              "correct": false
+            }
+          ],
+          "explain": "Positive $\\Delta H$ puts the products above the reactants, so they are less stable, and the surroundings cool.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The products are less stable than the reactants."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-profile-dh",
+          "prompt": "On an energy profile, the reactants are at $\\pu{70 kJ mol-1}$, the hump at $\\pu{165 kJ mol-1}$ and the products at $\\pu{108 kJ mol-1}$. What is $\\Delta H$, in $\\pu{kJ mol-1}$? Include the sign.",
+          "hint": "Ignore the hump.",
+          "answer": {
+            "value": 38,
+            "tolerance": 0
+          },
+          "explain": "$\\Delta H = 108 - 70 = \\pu{+38 kJ mol-1}$. The $95$ from reactants to hump is the activation energy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "108 - 70",
+            "dp": 0,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "calorimetry",
+      "heading": "Calculating $\\Delta H$ from a temperature change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't measure stored chemical energy directly. Instead, the reaction heats or cools a known mass of water, a pure substance, and you measure its temperature change. This is [[calorimetry|calorimetry]]."
+        },
+        {
+          "type": "definition",
+          "term": "enthalpy change",
+          "statement": "The heat transferred between a system and its surroundings at constant pressure, $\\Delta H$, in $\\pu{kJ mol-1}$.",
+          "plain": "The heat a reaction gives out or takes in, per mole."
+        },
+        {
+          "type": "text",
+          "text": "An open beaker stays at constant pressure, so the heat exchanged is the [[enthalpy-change|enthalpy change]], given per [[mole|mole]] of reaction as written."
+        },
+        {
+          "type": "definition",
+          "term": "standard enthalpy change of reaction",
+          "statement": "$\\Delta H^\\ominus$: the enthalpy change at $\\pu{100 kPa}$ and a stated temperature, usually $\\pu{298 K}$, with every substance in its standard state.",
+          "plain": "The enthalpy change under agreed conditions, so values can be compared."
+        },
+        {
+          "type": "text",
+          "text": "A standard state is the pure, most stable form at $\\pu{100 kPa}$, or $\\pu{1 mol dm-3}$ for a solution. This $\\pu{298 K}$ for the [[standard-enthalpy-change-of-reaction|standard enthalpy change]] is not [[standard-temperature-and-pressure|STP]] ($\\pu{273.15 K}$), which is for gas volumes."
+        },
+        {
+          "type": "definition",
+          "term": "specific heat capacity",
+          "statement": "The energy needed to raise the temperature of $\\pu{1 g}$ of a substance by $\\pu{1 K}$, $c$, in $\\pu{J g-1 K-1}$.",
+          "plain": "How much energy each gram takes in per degree of warming."
+        },
+        {
+          "type": "formula",
+          "tex": "Q = mc\\Delta T",
+          "tag": "booklet",
+          "bookletId": "db-heat-energy"
+        },
+        {
+          "type": "text",
+          "text": "$Q$ is the heat gained by the water (J), $m$ its mass (g), and $\\Delta T$ the final minus initial temperature. For water, the [[specific-heat-capacity|specific heat capacity]] is $c = \\pu{4.18 J g-1 K-1}$ (data booklet, section 2). The formula is in section 1."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H = -\\frac{Q}{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$n$ is the amount, in mol, of the reactant used up (the [[limiting-reactant|limiting reactant]]). Divide $Q$ by 1000 first, to get kJ. A change of $\\pu{1 K}$ equals $1\\,^\\circ\\text{C}$, so Celsius readings give $\\Delta T$ directly."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign does the bookkeeping: water warming ($Q$ positive) means the system lost energy, so $\\Delta H$ is negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-copper",
+          "question": "Excess zinc powder is added to $\\pu{30.0 cm3}$ of $\\pu{0.400 mol dm-3}$ copper(II) sulfate solution in an insulated cup: $\\ce{Zn(s) + CuSO4(aq) -> ZnSO4(aq) + Cu(s)}$. The temperature rises from $19.4\\,^\\circ\\text{C}$ to $40.1\\,^\\circ\\text{C}$. Calculate $\\Delta H$, in $\\pu{kJ mol-1}$.",
+          "steps": [
+            "Treat the solution as water, so $m = \\pu{30.0 g}$.",
+            "$Q = 30.0 \\times 4.18 \\times (40.1 - 19.4) = \\pu{2595.78 J} = \\pu{2.59578 kJ}$.",
+            "Zinc is in excess, so all the copper(II) sulfate reacts: $n = 0.400 \\times \\frac{30.0}{1000} = \\pu{0.0120 mol}$.",
+            "$\\Delta H = -\\frac{2.59578}{0.0120} = \\pu{-216.3 kJ mol-1}$. The solution warmed, so a negative value fits."
+          ],
+          "answer": "$\\Delta H \\approx \\pu{-216 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-(30.0*c_water*(40.1 - 19.4)/1000)/(0.400*30.0/1000)",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-potassium-nitrate",
+          "question": "Dissolving $\\pu{6.36 g}$ of potassium nitrate, $\\ce{KNO3}$, in $\\pu{50.0 g}$ of water lowers the temperature from $23.6\\,^\\circ\\text{C}$ to $13.1\\,^\\circ\\text{C}$. Calculate $\\Delta H$ for dissolving, in $\\pu{kJ mol-1}$.",
+          "steps": [
+            "$Q = 50.0 \\times 4.18 \\times (13.1 - 23.6) = \\pu{-2194.5 J} = \\pu{-2.1945 kJ}$. The water lost heat.",
+            "$M = 39.10 + 14.01 + 3(16.00) = \\pu{101.11 g mol-1}$ ($A_\\text{r}$ values, data booklet section 7), so $n = \\frac{6.36}{101.11} = \\pu{0.06290 mol}$.",
+            "$\\Delta H = -\\frac{-2.1945}{0.06290} = \\pu{+34.89 kJ mol-1}$. The water cooled, so a positive value fits."
+          ],
+          "answer": "$\\Delta H \\approx \\pu{+34.9 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-(50.0*c_water*(13.1 - 23.6)/1000)/(6.36/Mr('KNO3'))",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the mass of the solid or the fuel as $m$. It is the mass of the water that changes temperature."
+        },
+        {
+          "type": "check",
+          "id": "check-heat-water",
+          "prompt": "How much heat, in J, does $\\pu{150.0 g}$ of water absorb when it warms by $\\pu{12.0 K}$? Give 3 significant figures.",
+          "hint": "Use $Q = mc\\Delta T$.",
+          "answer": {
+            "value": 7520,
+            "tolerance": 5
+          },
+          "explain": "$Q = 150.0 \\times 4.18 \\times 12.0 = \\pu{7524 J} \\approx \\pu{7520 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "150.0*c_water*12.0",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-oxide",
+          "prompt": "Adding $\\pu{0.0250 mol}$ of magnesium oxide to excess hydrochloric acid raises the temperature of $\\pu{40.0 g}$ of solution by $\\pu{21.5 K}$. What is $\\Delta H$?",
+          "hint": "Find $Q$ in kJ, divide by $n$, then decide the sign.",
+          "options": [
+            {
+              "text": "$\\Delta H \\approx \\pu{-144 kJ mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\Delta H \\approx \\pu{+144 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\Delta H \\approx \\pu{-3.59 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\Delta H \\approx \\pu{-144000 kJ mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$Q = 40.0 \\times 4.18 \\times 21.5 = \\pu{3.5948 kJ}$, so $\\Delta H = -\\frac{3.5948}{0.0250} \\approx \\pu{-144 kJ mol-1}$. The others have the wrong sign, skip dividing by $n$, or leave $Q$ in J.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "-(40.0*c_water*21.5/1000)/0.0250",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "heading": "Calorimetry in practice",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a solution, react it in a polystyrene cup with a lid. For a fuel, burn it in a spirit burner under a can of water, weighing the burner before and after."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-combustion-calorimeter",
+          "alt": "Apparatus for measuring an enthalpy of combustion. A spirit burner containing the liquid fuel sits on the bench, with a flame at its wick. Directly above the flame is a copper can holding a measured mass of water, covered by a lid. A thermometer passes through the lid into the water. Two upright panels either side form a draught shield around the flame and the can.",
+          "caption": "The lid and the draught shield cut heat loss."
+        },
+        {
+          "type": "text",
+          "text": "Measured temperature changes are usually smaller than theory predicts. Heat escapes to the air or warms the can instead of the water, and incomplete combustion releases less energy."
+        },
+        {
+          "type": "text",
+          "text": "These are [[systematic-error|systematic errors]]: repeats don't remove them. The measured $\\Delta H$ is smaller in size than the true value, so less negative for an exothermic reaction."
+        },
+        {
+          "type": "text",
+          "text": "To cut heat loss, use a lid, insulation and a draught shield, and stir. For a slow reaction, extrapolate the cooling curve back to the time of mixing to estimate the true maximum."
+        },
+        {
+          "type": "example",
+          "id": "ex-butanol-burner",
+          "question": "A burner of butan-1-ol, $\\ce{C4H9OH}$, goes from $\\pu{85.214 g}$ to $\\pu{84.594 g}$ while heating $\\pu{250.0 g}$ of water from $19.6\\,^\\circ\\text{C}$ to $31.4\\,^\\circ\\text{C}$. Calculate the enthalpy change of combustion of butan-1-ol, per mole.",
+          "steps": [
+            "Fuel burned: $85.214 - 84.594 = \\pu{0.620 g}$. $M = 4(12.01) + 10(1.01) + 16.00 = \\pu{74.14 g mol-1}$, so $n = \\pu{0.008363 mol}$.",
+            "$Q = 250.0 \\times 4.18 \\times (31.4 - 19.6) = \\pu{12.331 kJ}$.",
+            "$\\Delta H = -\\frac{12.331}{0.008363} = \\pu{-1474.6 kJ mol-1}$. The data booklet (section 14) gives $\\pu{-2676 kJ mol-1}$, so much heat was lost."
+          ],
+          "answer": "$\\Delta H \\approx \\pu{-1.47e3 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-(250.0*c_water*(31.4 - 19.6)/1000)/((85.214 - 84.594)/Mr('C4H9OH'))",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-heat-loss",
+          "question": "Explain why the butan-1-ol result is less negative than $\\pu{-2676 kJ mol-1}$, and suggest one improvement.",
+          "steps": [
+            "Say where the missing energy went, then link it to the temperature rise.",
+            "Suggest a change that reduces heat loss, not one that only improves precision."
+          ],
+          "answer": "Heat is lost to the surroundings, such as the air and the can, instead of heating the water. Incomplete combustion also releases less energy. So the temperature rise of the water is smaller than expected, and the calculated value is less negative. Putting a lid on the can and a draught shield round the flame would reduce heat loss.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "heat loss; incomplete combustion; smaller temperature rise; less negative; lid or draught shield",
+            "requires": [
+              [
+                "heat is lost",
+                "heat loss"
+              ],
+              "surroundings",
+              "incomplete combustion",
+              [
+                "temperature rise of the water is smaller",
+                "smaller temperature rise"
+              ],
+              "less negative",
+              [
+                "lid",
+                "draught shield",
+                "insulat"
+              ]
+            ],
+            "forbids": [
+              "random error",
+              "more precise thermometer",
+              "more negative than"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Fixing heat loss with a more precise thermometer or more repeats. Neither stops heat escaping; a lid or insulation does."
+        },
+        {
+          "type": "check",
+          "id": "check-low-value",
+          "prompt": "A student measures $\\pu{-940 kJ mol-1}$ for the combustion of ethanol; the data booklet gives $\\pu{-1367 kJ mol-1}$. What is the most likely reason?",
+          "hint": "Is the student's value more or less negative?",
+          "options": [
+            {
+              "text": "Heat was lost to the air, so the water warmed less.",
+              "correct": true
+            },
+            {
+              "text": "Breaking bonds in ethanol released extra energy.",
+              "correct": false
+            },
+            {
+              "text": "More heat reached the water than the fuel released.",
+              "correct": false
+            },
+            {
+              "text": "The combustion of ethanol is really endothermic.",
+              "correct": false
+            }
+          ],
+          "explain": "Less negative means the water received less energy than the fuel released, which heat loss explains. Breaking bonds absorbs energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Heat was lost to the air, so the water warmed less."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-expected-rise",
+          "prompt": "Methanol, $\\ce{CH3OH}$, has $\\Delta H_\\text{c}^\\ominus = \\pu{-726 kJ mol-1}$ (data booklet, section 14). If burning $\\pu{0.480 g}$ of it heated $\\pu{400.0 g}$ of water with no heat loss, what would $\\Delta T$ be, in K? Give 3 significant figures.",
+          "hint": "Find $n$, then $Q$ in J, then rearrange $Q = mc\\Delta T$.",
+          "answer": {
+            "value": 6.5,
+            "tolerance": 0.005
+          },
+          "explain": "$n = \\frac{0.480}{32.05} = \\pu{0.01498 mol}$, $Q = \\pu{10.87 kJ}$, so $\\Delta T = \\frac{10870}{400.0 \\times 4.18} \\approx \\pu{6.50 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-Hc('methanol')*1000*0.480/Mr('CH3OH'))/(400.0*c_water)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Exothermic: heat flows to the surroundings, their temperature rises, $\\Delta H$ is negative and the products are more stable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Endothermic: heat flows into the system from the surroundings, their temperature falls, $\\Delta H$ is positive and the reactants are more stable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy profile: potential energy against reaction coordinate; $\\Delta H$ runs from the reactants' level to the products' level.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "Q = mc\\Delta T",
+          "tag": "booklet",
+          "bookletId": "db-heat-energy",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H = -\\frac{Q}{n}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta H^\\ominus$: $\\pu{100 kPa}$, usually $\\pu{298 K}$, standard states, in $\\pu{kJ mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Heat loss makes a calorimetry $\\Delta H$ smaller in size than the data-booklet value.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Getting the sign backwards. Temperature up means $\\Delta H$ negative; temperature down means $\\Delta H$ positive.",
+    "Using the mass of the fuel or solid in $Q = mc\\Delta T$ instead of the mass of the water.",
+    "Leaving $Q$ in joules. Divide by 1000 so $\\Delta H$ is in $\\pu{kJ mol-1}$.",
+    "Dividing by the amount of a reactant in excess. Use the amount used up or burned.",
+    "Saying heat loss makes $\\Delta H$ more negative. It makes the measured value less negative."
+  ],
+  "examTips": [
+    "\"Calculate\" $\\Delta H$: show $Q = mc\\Delta T$ with numbers, then $n$, then $\\Delta H$ with its sign and unit. Each line earns credit.",
+    "\"Sketch\" an energy profile: label the axes potential energy and reaction coordinate, and draw $\\Delta H$ from reactants to products.",
+    "In Paper 1A calorimetry questions, options often differ only in sign or by a factor of 1000. Settle both first.",
+    "\"Explain\" a low result: heat loss to the surroundings, so a smaller temperature rise. \"Suggest\" a fix that cuts heat loss, not a more precise instrument."
+  ],
+  "readingMinutes": 24
+}

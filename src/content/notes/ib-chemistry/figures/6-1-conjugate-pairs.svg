@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 205" role="img" aria-labelledby="t61cp">
+  <title id="t61cp">The equilibrium NH3 plus H2O, reversible arrow, NH4 plus plus OH minus. Labels under each species: NH3 base, H2O acid, NH4 plus conjugate acid, OH minus conjugate base. A bracket above joins NH3 and NH4 plus as one conjugate pair. A bracket below joins H2O and OH minus as the other conjugate pair.</title>
+  <g font-size="20" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="80" y="104">NH<tspan baseline-shift="sub" font-size="13">3</tspan></text>
+    <text x="140" y="104">+</text>
+    <text x="200" y="104">H<tspan baseline-shift="sub" font-size="13">2</tspan>O</text>
+    <text x="340" y="104">NH<tspan baseline-shift="sub" font-size="13">4</tspan><tspan baseline-shift="super" font-size="13">+</tspan></text>
+    <text x="400" y="104">+</text>
+    <text x="460" y="104">OH<tspan baseline-shift="super" font-size="13">−</tspan></text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M250,94 H290 L283,88"/>
+    <path d="M290,102 H250 L257,108"/>
+  </g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="80" y="130" fill="var(--t1-ink)">base</text>
+    <text x="200" y="130" fill="var(--t2-ink)">acid</text>
+    <text x="340" y="130" fill="var(--t1-ink)">conjugate acid</text>
+    <text x="460" y="130" fill="var(--t2-ink)">conjugate base</text>
+  </g>
+  <path d="M80,76 V44 H340 V76" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M200,142 V170 H460 V142" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="210" y="36" fill="var(--t1-ink)">conjugate pair (differ by one H⁺)</text>
+    <text x="330" y="190" fill="var(--t2-ink)">conjugate pair (differ by one H⁺)</text>
+  </g>
+</svg>

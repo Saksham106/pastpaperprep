@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 230" role="img" aria-labelledby="t" font-family="inherit">
+<title id="t">A table with two columns, oxidation and reduction, and four rows. Electrons: oxidation is loss, reduction is gain. Oxidation state: oxidation is an increase, reduction is a decrease. Oxygen: oxidation is gain, reduction is loss. Hydrogen: oxidation is loss, reduction is gain.</title>
+<text x="270" y="34" text-anchor="middle" font-size="17" font-weight="600" fill="var(--t1-ink)">Oxidation</text>
+<text x="430" y="34" text-anchor="middle" font-size="17" font-weight="600" fill="var(--t3-ink)">Reduction</text>
+<line x1="20" y1="50" x2="500" y2="50" stroke="var(--muted)" stroke-width="1.2"/>
+<text x="30" y="84" font-size="15" fill="currentColor">Electrons</text>
+<text x="270" y="84" text-anchor="middle" font-size="15" fill="var(--t1-ink)">lost</text>
+<text x="430" y="84" text-anchor="middle" font-size="15" fill="var(--t3-ink)">gained</text>
+<line x1="20" y1="100" x2="500" y2="100" stroke="var(--muted)" stroke-width="0.6"/>
+<text x="30" y="128" font-size="15" fill="currentColor">Oxidation state</text>
+<text x="270" y="128" text-anchor="middle" font-size="15" fill="var(--t1-ink)">increases</text>
+<text x="430" y="128" text-anchor="middle" font-size="15" fill="var(--t3-ink)">decreases</text>
+<line x1="20" y1="144" x2="500" y2="144" stroke="var(--muted)" stroke-width="0.6"/>
+<text x="30" y="172" font-size="15" fill="currentColor">Oxygen</text>
+<text x="270" y="172" text-anchor="middle" font-size="15" fill="var(--t1-ink)">gained</text>
+<text x="430" y="172" text-anchor="middle" font-size="15" fill="var(--t3-ink)">lost</text>
+<line x1="20" y1="188" x2="500" y2="188" stroke="var(--muted)" stroke-width="0.6"/>
+<text x="30" y="216" font-size="15" fill="currentColor">Hydrogen</text>
+<text x="270" y="216" text-anchor="middle" font-size="15" fill="var(--t1-ink)">lost</text>
+<text x="430" y="216" text-anchor="middle" font-size="15" fill="var(--t3-ink)">gained</text>
+</svg>

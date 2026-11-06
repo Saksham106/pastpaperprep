@@ -1,0 +1,703 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.10",
+  "slug": "the-reaction-quotient-and-equilibrium-calculations",
+  "title": "The reaction quotient and equilibrium calculations",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "The [[reaction-quotient|reaction quotient]], $Q$, is the equilibrium expression filled in with the concentrations a mixture has right now. Comparing $Q$ with $K$ tells you which way the mixture will react. The [[equilibrium-law|equilibrium law]] also lets you work out an equilibrium mixture from its starting amounts, and $\\Delta G^\\ominus = -RT\\ln K$ links the position of equilibrium to [[gibbs-energy|Gibbs energy]].",
+  "goals": [
+    {
+      "text": "Calculate the [[reaction-quotient|reaction quotient]] $Q$ for a mixture and compare it with $K$ to predict which way the mixture reacts.",
+      "bullets": [
+        "R2.3.5"
+      ]
+    },
+    {
+      "text": "Use an ICE table and the [[equilibrium-law|equilibrium law]] to find $K$, or an unknown equilibrium concentration, from initial amounts.",
+      "bullets": [
+        "R2.3.6"
+      ]
+    },
+    {
+      "text": "Explain and use the approximation $[\\text{reactant}]_{\\text{initial}} \\approx [\\text{reactant}]_{\\text{eqm}}$ when $K$ is very small.",
+      "bullets": [
+        "R2.3.6"
+      ]
+    },
+    {
+      "text": "Convert between $\\Delta G^\\ominus$ and $K$ with $\\Delta G^\\ominus = -RT\\ln K$, and use the sign of $\\Delta G$ to explain which way a mixture reacts.",
+      "bullets": [
+        "R2.3.7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "4.7",
+    "5.4",
+    "5.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "reaction quotient Q",
+    "Q vs K",
+    "ICE table",
+    "equilibrium concentration calculation",
+    "small K approximation",
+    "delta G and K"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-moles-to-concentration",
+      "prompt": "A $\\pu{3.00 dm3}$ flask holds $\\pu{0.450 mol}$ of hydrogen. What is the concentration of hydrogen in $\\pu{mol dm-3}$?",
+      "hint": "Divide the amount in [[mole|moles]] by the volume in $\\pu{dm3}$.",
+      "answer": {
+        "value": 0.15,
+        "tolerance": 0.0005
+      },
+      "explain": "$c = \\frac{n}{V} = \\frac{0.450}{3.00} = \\pu{0.150 mol dm-3}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.450/3.00",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-k-phosgene",
+      "prompt": "For $\\ce{CO(g) + Cl2(g) <=> COCl2(g)}$ at equilibrium, $[\\ce{CO}] = \\pu{0.0200 mol dm-3}$, $[\\ce{Cl2}] = \\pu{0.0300 mol dm-3}$ and $[\\ce{COCl2}] = \\pu{0.150 mol dm-3}$. Calculate $K$.",
+      "hint": "$K = \\frac{[\\ce{COCl2}]}{[\\ce{CO}][\\ce{Cl2}]}$.",
+      "answer": {
+        "value": 250,
+        "tolerance": 0.5
+      },
+      "explain": "$K = \\frac{0.150}{0.0200 \\times 0.0300} = 250$. Revise it in {{lesson:5.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.150/(0.0200*0.0300)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gibbs-sign",
+      "prompt": "At constant temperature and pressure, a reaction has a negative $\\Delta G$. What does this tell you?",
+      "hint": "The sign of $\\Delta G$ decides whether a change happens on its own.",
+      "options": [
+        {
+          "text": "The reaction is spontaneous.",
+          "correct": true
+        },
+        {
+          "text": "The reaction is fast.",
+          "correct": false
+        },
+        {
+          "text": "The reaction is at equilibrium.",
+          "correct": false
+        },
+        {
+          "text": "The reaction is endothermic.",
+          "correct": false
+        }
+      ],
+      "explain": "Negative $\\Delta G$ means spontaneous. It says nothing about rate, and $\\Delta G = 0$ at equilibrium. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The reaction is spontaneous."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "quotient",
+      "heading": "The reaction quotient, Q",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$K$ only describes a mixture at [[dynamic-equilibrium|dynamic equilibrium]]. But most mixtures you make in a flask are not at equilibrium yet. You need a way to tell which way such a mixture will go."
+        },
+        {
+          "type": "text",
+          "text": "The trick is to fill in the [[equilibrium-constant|equilibrium constant]] expression with the concentrations the mixture has at that moment. The number you get is called $Q$."
+        },
+        {
+          "type": "definition",
+          "term": "reaction quotient",
+          "statement": "The value of the equilibrium expression worked out from the concentrations present in a mixture at one moment, whether or not that mixture has reached equilibrium.",
+          "plain": "The same fraction as $K$, but for the mixture as it is right now."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{aA + bB <=> cC + dD} \\qquad Q = \\frac{[\\ce{C}]^{c}\\,[\\ce{D}]^{d}}{[\\ce{A}]^{a}\\,[\\ce{B}]^{b}} \\text{ (concentrations at that moment)}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$K$ is fixed at a given temperature. $Q$ changes as the mixture reacts. A mixture always reacts so that $Q$ moves towards $K$, and it stops changing when $Q = K$."
+        },
+        {
+          "type": "result",
+          "statement": "If $Q < K$, there is a net forward reaction until $Q = K$. If $Q > K$, there is a net backward reaction until $Q = K$. If $Q = K$, the mixture is already at equilibrium.",
+          "why": "Products are on top of $Q$. If $Q$ is too small, the mixture has too little product, so more forms; if $Q$ is too large, it has too much, so some turns back into reactants."
+        },
+        {
+          "type": "figure",
+          "id": "5-10-q-versus-k",
+          "alt": "A horizontal arrow labelled value of Q, running from more reactants on the left to more products on the right. A vertical line in the middle is labelled Q equals K, at equilibrium, no net change. On the left, labelled Q less than K, an arrow points right towards the line: net forward reaction, products form, Q rises. On the right, labelled Q greater than K, an arrow points left towards the line: net backward reaction, reactants form, Q falls.",
+          "caption": "Whichever side it starts on, a mixture reacts so that $Q$ moves towards $K$."
+        },
+        {
+          "type": "example",
+          "id": "ex-q-hydrogen-iodide",
+          "question": "For $\\ce{H2(g) + I2(g) <=> 2HI(g)}$, $K = 46.0$ at $\\pu{764 K}$. A mixture at $\\pu{764 K}$ contains $[\\ce{H2}] = \\pu{0.0250 mol dm-3}$, $[\\ce{I2}] = \\pu{0.0100 mol dm-3}$ and $[\\ce{HI}] = \\pu{0.150 mol dm-3}$. Calculate $Q$ and determine the direction in which the mixture reacts.",
+          "steps": [
+            "Write the expression from the equation: $Q = \\frac{[\\ce{HI}]^{2}}{[\\ce{H2}][\\ce{I2}]}$.",
+            "Substitute the concentrations at this moment: $Q = \\frac{0.150^{2}}{0.0250 \\times 0.0100} = \\frac{0.0225}{0.000250}$.",
+            "So $Q = 90.0$.",
+            "Compare: $90.0 > 46.0$, so $Q > K$. The mixture has too much $\\ce{HI}$ for equilibrium, so there is a net backward reaction: $\\ce{HI}$ decomposes until $Q$ falls to $46.0$."
+          ],
+          "answer": "$Q = 90.0$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.150**2/(0.0250*0.0100)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "$Q$ also explains what [[le-chateliers-principle|Le Châtelier's principle]] predicts ({{lesson:5.9}}). Adding or removing a substance changes $Q$ but not $K$, so the mixture reacts until $Q$ equals $K$ again."
+        },
+        {
+          "type": "example",
+          "id": "ex-q-add-hydrogen",
+          "question": "The hydrogen iodide mixture above is left until it reaches equilibrium at $\\pu{764 K}$. Then more hydrogen is injected, at constant volume and temperature. Explain, in terms of $Q$ and $K$, how the mixture responds.",
+          "steps": [
+            "\"Explain\" needs the reason, so say what happens to $Q$ first, then what follows.",
+            "$[\\ce{H2}]$ is on the bottom of $Q = \\frac{[\\ce{HI}]^{2}}{[\\ce{H2}][\\ce{I2}]}$, so raising it makes $Q$ smaller.",
+            "The temperature has not changed, so $K$ is still $46.0$."
+          ],
+          "answer": "Hydrogen is in the denominator of the expression, so adding it makes Q smaller than K. The temperature is unchanged, so K stays the same. Because Q is less than K, there is a net forward reaction and more hydrogen iodide forms. As it forms, Q increases until it equals K again, and a new equilibrium is reached.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Adding H2 lowers Q below K (K fixed at fixed T), so net forward reaction until Q = K again.",
+            "requires": [
+              "denominator",
+              [
+                "Q smaller than K",
+                "Q is less than K"
+              ],
+              [
+                "temperature is unchanged",
+                "K stays the same"
+              ],
+              "net forward reaction",
+              [
+                "Q increases",
+                "Q rises"
+              ]
+            ],
+            "forbids": [
+              "K increases",
+              "K decreases",
+              "net backward reaction"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the comparison back to front. $Q < K$ means too little product, so the forward reaction wins. Check by asking whether the top of $Q$ needs to grow or shrink."
+        },
+        {
+          "type": "check",
+          "id": "check-q-direction",
+          "prompt": "For a reaction at $\\pu{600 K}$, $K = 2.4 \\times 10^{-2}$. A mixture at $\\pu{600 K}$ has $Q = 5.0 \\times 10^{-3}$. What happens?",
+          "hint": "Is $Q$ smaller or larger than $K$?",
+          "options": [
+            {
+              "text": "There is a net forward reaction until Q equals K.",
+              "correct": true
+            },
+            {
+              "text": "There is a net backward reaction until Q equals K.",
+              "correct": false
+            },
+            {
+              "text": "Nothing happens: the mixture is at equilibrium.",
+              "correct": false
+            },
+            {
+              "text": "K falls until it equals Q.",
+              "correct": false
+            }
+          ],
+          "explain": "$5.0 \\times 10^{-3} < 2.4 \\times 10^{-2}$, so $Q < K$: products form until $Q$ rises to $K$. $K$ itself is fixed at $\\pu{600 K}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "There is a net forward reaction until Q equals K."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-q-nitrosyl-bromide",
+          "prompt": "For $\\ce{2NOBr(g) <=> 2NO(g) + Br2(g)}$, a mixture contains $[\\ce{NOBr}] = \\pu{0.0400 mol dm-3}$, $[\\ce{NO}] = \\pu{0.0100 mol dm-3}$ and $[\\ce{Br2}] = \\pu{0.0200 mol dm-3}$. Calculate $Q$ to 3 significant figures.",
+          "hint": "Products on top. Two of the species have a coefficient of 2.",
+          "answer": {
+            "value": 0.00125,
+            "tolerance": 5e-06
+          },
+          "explain": "$Q = \\frac{[\\ce{NO}]^{2}[\\ce{Br2}]}{[\\ce{NOBr}]^{2}} = \\frac{0.0100^{2} \\times 0.0200}{0.0400^{2}} = 1.25 \\times 10^{-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0100**2*0.0200/0.0400**2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "composition",
+      "heading": "Working out an equilibrium mixture",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[equilibrium-law|equilibrium law]] links the equilibrium concentrations through $K$. So if you know enough of them, you can find the rest, or $K$ itself."
+        },
+        {
+          "type": "text",
+          "text": "The tool is an ICE table: one row each for Initial amounts, the Change, and Equilibrium amounts, with one column per species."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the balanced equation and fill in the initial amounts. A product not added at the start has $0$."
+        },
+        {
+          "type": "text",
+          "text": "2. Fill in the changes. They must be in the mole ratio of the equation: if $x$ of a reactant with coefficient 1 is used up, $2x$ of one with coefficient 2 is used up. Reactants go down; products go up."
+        },
+        {
+          "type": "text",
+          "text": "3. Add each change to the initial amount to get the equilibrium amount."
+        },
+        {
+          "type": "text",
+          "text": "4. Divide each equilibrium [[mole|amount in moles]] by the volume to get its [[molar-concentration|molar concentration]], then substitute into the expression for $K$."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting amounts in moles straight into $K$. Unless the volume is $\\pu{1 dm3}$, divide each amount by the volume first."
+        },
+        {
+          "type": "example",
+          "id": "ex-ice-methanol",
+          "question": "$\\pu{0.600 mol}$ of $\\ce{CO}$ and $\\pu{1.40 mol}$ of $\\ce{H2}$ are sealed in a $\\pu{2.50 dm3}$ vessel and heated: $\\ce{CO(g) + 2H2(g) <=> CH3OH(g)}$. At equilibrium the vessel contains $\\pu{0.180 mol}$ of $\\ce{CH3OH}$. Calculate $K$ at this temperature.",
+          "steps": [
+            "Initial (mol): $\\ce{CO}$ $0.600$, $\\ce{H2}$ $1.40$, $\\ce{CH3OH}$ $0$.",
+            "Change (mol): $\\ce{CH3OH}$ rises by $0.180$, so $\\ce{CO}$ falls by $0.180$ and $\\ce{H2}$ by $2 \\times 0.180 = 0.360$.",
+            "Equilibrium (mol): $\\ce{CO}$ $0.420$, $\\ce{H2}$ $1.04$, $\\ce{CH3OH}$ $0.180$.",
+            "Divide by $\\pu{2.50 dm3}$: $[\\ce{CO}] = 0.168$, $[\\ce{H2}] = 0.416$, $[\\ce{CH3OH}] = 0.0720$, all in $\\pu{mol dm-3}$.",
+            "$K = \\frac{[\\ce{CH3OH}]}{[\\ce{CO}][\\ce{H2}]^{2}} = \\frac{0.0720}{0.168 \\times 0.416^{2}} = 2.4765\\ldots$ Give 3 significant figures."
+          ],
+          "answer": "$K \\approx 2.48$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.180/2.50)/(((0.600 - 0.180)/2.50)*((1.40 - 2*0.180)/2.50)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you know $K$ and the starting mixture, and need the equilibrium mixture. Then the change is an unknown, $x$. Exam questions avoid quadratic equations, so they are set up to give a simple equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-ice-hydrogen-iodide-square-root",
+          "question": "Hydrogen and iodine, each at $\\pu{0.200 mol dm-3}$, are heated to $\\pu{764 K}$ in a sealed flask: $\\ce{H2(g) + I2(g) <=> 2HI(g)}$, $K = 46.0$. Calculate $[\\ce{HI}]$ at equilibrium.",
+          "steps": [
+            "Let $x$ be the fall in $[\\ce{H2}]$. Then $[\\ce{H2}] = [\\ce{I2}] = 0.200 - x$ and $[\\ce{HI}] = 2x$ at equilibrium.",
+            "$K = \\frac{(2x)^{2}}{(0.200 - x)^{2}} = 46.0$. Both sides are perfect squares, so take the square root: $\\frac{2x}{0.200 - x} = \\sqrt{46.0} = 6.7823\\ldots$",
+            "Rearrange: $2x = 6.7823(0.200 - x)$, so $8.7823x = 1.3565$ and $x = 0.15446\\ldots$",
+            "$[\\ce{HI}] = 2x = 0.30891\\ldots$ Check: $[\\ce{H2}] = 0.0455$, and $\\frac{0.30891^{2}}{0.0455^{2}} \\approx 46$."
+          ],
+          "answer": "$[\\ce{HI}] \\approx \\pu{0.309 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*(0.200*sqrt(46.0)/(2 + sqrt(46.0)))",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ice-ammonia-change",
+          "prompt": "In $\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$, $[\\ce{N2}]$ falls by $\\pu{0.040 mol dm-3}$ on the way to equilibrium. By how much, in $\\pu{mol dm-3}$, does $[\\ce{NH3}]$ rise?",
+          "hint": "Use the mole ratio of $\\ce{N2}$ to $\\ce{NH3}$.",
+          "options": [
+            {
+              "text": "$0.080$",
+              "correct": true
+            },
+            {
+              "text": "$0.040$",
+              "correct": false
+            },
+            {
+              "text": "$0.12$",
+              "correct": false
+            },
+            {
+              "text": "$0.020$",
+              "correct": false
+            }
+          ],
+          "explain": "$1$ mol of $\\ce{N2}$ gives $2$ mol of $\\ce{NH3}$, so $[\\ce{NH3}]$ rises by $2 \\times 0.040 = 0.080$. $0.12$ is the fall in $[\\ce{H2}]$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*0.040"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ice-missing-methanol",
+          "prompt": "For $\\ce{CO(g) + 2H2(g) <=> CH3OH(g)}$, $K = 14.5$ at a lower temperature. At equilibrium, $[\\ce{CO}] = \\pu{0.0500 mol dm-3}$ and $[\\ce{H2}] = \\pu{0.120 mol dm-3}$. Calculate $[\\ce{CH3OH}]$ in $\\pu{mol dm-3}$ to 3 significant figures.",
+          "hint": "Rearrange $K = \\frac{[\\ce{CH3OH}]}{[\\ce{CO}][\\ce{H2}]^{2}}$ to make $[\\ce{CH3OH}]$ the subject.",
+          "answer": {
+            "value": 0.0104,
+            "tolerance": 5e-05
+          },
+          "explain": "$[\\ce{CH3OH}] = K[\\ce{CO}][\\ce{H2}]^{2} = 14.5 \\times 0.0500 \\times 0.120^{2} = \\pu{0.0104 mol dm-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "14.5*0.0500*0.120**2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "small-k",
+      "heading": "When K is very small",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If $K \\ll 1$, the position of equilibrium lies far to the left. Only a tiny fraction of each reactant reacts."
+        },
+        {
+          "type": "text",
+          "text": "So $x$, the amount that reacts, is negligible next to the initial concentration. For a reactant that starts at $\\pu{0.0100 mol dm-3}$, you can write $0.0100 - x \\approx 0.0100$, which turns a hard equation into an easy one."
+        },
+        {
+          "type": "result",
+          "statement": "When $K$ is very small, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
+          "why": "So little reactant is used up that subtracting it makes no difference at the precision of the data."
+        },
+        {
+          "type": "text",
+          "text": "Only make this approximation for reactants. You still solve for the products, which start from zero and are what you are looking for."
+        },
+        {
+          "type": "example",
+          "id": "ex-small-k-nitrogen-monoxide",
+          "question": "Air in a hot engine contains $[\\ce{N2}] = \\pu{0.0520 mol dm-3}$ and $[\\ce{O2}] = \\pu{0.0140 mol dm-3}$ before any reaction. For $\\ce{N2(g) + O2(g) <=> 2NO(g)}$, $K = 6.40 \\times 10^{-5}$ at $\\pu{1700 K}$. Calculate $[\\ce{NO}]$ at equilibrium at $\\pu{1700 K}$.",
+          "steps": [
+            "ICE: $[\\ce{N2}] = 0.0520 - x$, $[\\ce{O2}] = 0.0140 - x$, $[\\ce{NO}] = 2x$.",
+            "$K$ is very small, so take $[\\ce{N2}] \\approx 0.0520$ and $[\\ce{O2}] \\approx 0.0140$.",
+            "$K = \\frac{[\\ce{NO}]^{2}}{[\\ce{N2}][\\ce{O2}]}$, so $[\\ce{NO}]^{2} = 6.40 \\times 10^{-5} \\times 0.0520 \\times 0.0140 = 4.6592 \\times 10^{-8}$.",
+            "$[\\ce{NO}] = \\sqrt{4.6592 \\times 10^{-8}} = 2.1585\\ldots \\times 10^{-4}$.",
+            "Check: $x = \\frac{[\\ce{NO}]}{2} \\approx 1.08 \\times 10^{-4}$, under 1% of $0.0140$, so the approximation was fair."
+          ],
+          "answer": "$[\\ce{NO}] \\approx \\pu{2.16e-4 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "sqrt(6.40*10**(-5)*0.0520*0.0140)",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-small-k-justify",
+          "question": "Explain why the approximation $[\\ce{O2}]_{\\text{eqm}} \\approx [\\ce{O2}]_{\\text{initial}}$ was justified in the last example, and why it could not be used for the hydrogen iodide mixture, where $K = 46.0$.",
+          "steps": [
+            "Link the size of $K$ to how much reactant is used up.",
+            "Use the numbers: $x$ was about $1.08 \\times 10^{-4}$ against $0.0140$.",
+            "For hydrogen iodide, $x$ was about $0.154$ against $0.200$."
+          ],
+          "answer": "K is very small, so the position of equilibrium lies far to the left. Only a tiny amount of oxygen reacts, less than 1% of the initial concentration. Subtracting it changes the concentration by a negligible amount, so the equilibrium concentration is approximately equal to the initial concentration. For hydrogen iodide, K is greater than 1, so most of the reactants react and the change is far too large to ignore.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "K very small: equilibrium far left, tiny x, so [O2] barely changes. HI has K > 1, so x is large.",
+            "requires": [
+              "very small",
+              "far to the left",
+              "tiny amount",
+              "negligible",
+              "greater than 1",
+              [
+                "too large to ignore",
+                "cannot be ignored"
+              ]
+            ],
+            "forbids": [
+              "no reaction",
+              "does not react at all",
+              "no oxygen reacts"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-small-k-which",
+          "prompt": "Each reaction below starts with only reactants. For which value of $K$ is $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$ a fair approximation?",
+          "hint": "The approximation needs almost no reactant to be used up.",
+          "options": [
+            {
+              "text": "$3 \\times 10^{-9}$",
+              "correct": true
+            },
+            {
+              "text": "$0.85$",
+              "correct": false
+            },
+            {
+              "text": "$52$",
+              "correct": false
+            },
+            {
+              "text": "$6.0 \\times 10^{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Only a very small $K$ means hardly any reactant reacts. With $K$ near or above 1, a large share of the reactants is used up.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*10**(-9)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-small-k-hydrogen-bromide",
+          "prompt": "$[\\ce{HBr}]$ starts at $\\pu{0.0600 mol dm-3}$, with no products. For $\\ce{2HBr(g) <=> H2(g) + Br2(g)}$, $K = 2.50 \\times 10^{-11}$. Calculate $[\\ce{H2}]$ at equilibrium, in $\\pu{mol dm-3}$, to 3 significant figures.",
+          "hint": "Let $[\\ce{H2}] = [\\ce{Br2}] = x$, and take $[\\ce{HBr}] \\approx 0.0600$.",
+          "answer": {
+            "value": 3e-07,
+            "tolerance": 5e-10
+          },
+          "explain": "$K = \\frac{x^{2}}{0.0600^{2}}$, so $x = 0.0600 \\times \\sqrt{2.50 \\times 10^{-11}} = 3.00 \\times 10^{-7}$. That is tiny next to $0.0600$, so the approximation holds.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0600*sqrt(2.50*10**(-11))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "gibbs",
+      "heading": "K and Gibbs energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.7}} you met the standard [[gibbs-energy|Gibbs energy]] change, $\\Delta G^\\ominus$. Like $K$, it measures the position of equilibrium, and one can be calculated from the other."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = -RT\\ln K",
+          "tag": "booklet",
+          "bookletId": "db-gibbs-k"
+        },
+        {
+          "type": "text",
+          "text": "This is in section 1 of the data booklet, so you don't need to memorise it. $R$ is the [[gas-constant|gas constant]], $\\pu{8.31 J K-1 mol-1}$ (section 2), so $\\Delta G^\\ominus$ comes out in $\\pu{J mol-1}$. $T$ is in kelvin, and $\\ln$ is the natural log."
+        },
+        {
+          "type": "text",
+          "text": "To find $K$ from $\\Delta G^\\ominus$, rearrange: $K = \\mathrm{e}^{-\\Delta G^\\ominus/RT}$, with $\\Delta G^\\ominus$ in joules."
+        },
+        {
+          "type": "result",
+          "statement": "$\\Delta G^\\ominus < 0$ gives $K > 1$: products are favoured. $\\Delta G^\\ominus > 0$ gives $K < 1$: reactants are favoured. $\\Delta G^\\ominus = 0$ gives $K = 1$.",
+          "why": "$\\ln K$ is positive when $K > 1$ and negative when $K < 1$, and the minus sign in $-RT\\ln K$ flips it."
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-water-gas-shift",
+          "question": "Use section 13 of the data booklet to calculate $K$ at $\\pu{298 K}$ for $\\ce{CO(g) + H2O(g) <=> CO2(g) + H2(g)}$.",
+          "steps": [
+            "$\\Delta G^\\ominus = \\sum \\Delta G_{\\text{f}}^\\ominus(\\text{products}) - \\sum \\Delta G_{\\text{f}}^\\ominus(\\text{reactants})$. $\\Delta G_{\\text{f}}^\\ominus$ of an element such as $\\ce{H2}$ is $0$.",
+            "$\\Delta G^\\ominus = (-394 + 0) - (-137 + (-229)) = \\pu{-28 kJ mol-1} = \\pu{-28000 J mol-1}$.",
+            "$\\ln K = \\frac{-\\Delta G^\\ominus}{RT} = \\frac{28000}{8.31 \\times 298} = 11.307\\ldots$",
+            "$K = \\mathrm{e}^{11.307} = 8.14 \\ldots \\times 10^{4}$. $\\Delta G^\\ominus$ is only known to 2 significant figures, so give $K$ to 2.",
+            "$K \\gg 1$, so products are strongly favoured at $\\pu{298 K}$. The reaction is still slow at this temperature: industry heats it and adds a [[catalyst|catalyst]], which speeds it up but does not change $K$."
+          ],
+          "answer": "$K \\approx 8.1 \\times 10^{4}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "exp(-((Gf('CO2(g)') + 0) - (Gf('CO(g)') + Gf('H2O(g)')))*1000/(R*298))",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "The booklet's other equation, $\\Delta G = \\Delta G^\\ominus + RT\\ln Q$, gives $\\Delta G$ for a mixture that is not at equilibrium. It connects $Q$ and $K$ to the direction of reaction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G = \\Delta G^\\ominus + RT\\ln Q",
+          "tag": "booklet",
+          "bookletId": "db-gibbs-q"
+        },
+        {
+          "type": "text",
+          "text": "Substitute $\\Delta G^\\ominus = -RT\\ln K$ and combine the logs: $\\Delta G = RT\\ln Q - RT\\ln K = RT\\ln\\frac{Q}{K}$. So the sign of $\\Delta G$ depends only on whether $Q$ is below or above $K$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-q-greater-than-k",
+          "question": "Use the two Gibbs energy equations in the data booklet to explain why a mixture with $Q > K$ undergoes a net backward reaction.",
+          "steps": [
+            "Combine the equations: $\\Delta G = RT\\ln\\frac{Q}{K}$.",
+            "Decide the sign of $\\ln\\frac{Q}{K}$ when $Q > K$, then link the sign of $\\Delta G$ to spontaneity."
+          ],
+          "answer": "Substituting the second equation into the first gives the Gibbs energy change as RT ln(Q/K). If Q is greater than K, then Q/K is greater than 1, so ln(Q/K) is positive. RT is positive, so the Gibbs energy change is positive. The forward reaction is not spontaneous, but the backward reaction is, so there is a net backward reaction. This continues until Q equals K, when the Gibbs energy change is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Delta G = RT ln(Q/K); Q > K makes ln(Q/K) > 0, so Delta G > 0 and the backward reaction is spontaneous until Q = K.",
+            "requires": [
+              "ln(Q/K)",
+              "greater than 1",
+              "Gibbs energy change is positive",
+              [
+                "backward reaction is",
+                "net backward reaction"
+              ],
+              "until Q equals K"
+            ],
+            "forbids": [
+              "forward reaction is spontaneous",
+              "K decreases",
+              "K changes"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing units or logs. $R$ is in joules, so convert $\\Delta G^\\ominus$ from kJ to J, and use $\\ln$, not $\\log_{10}$."
+        },
+        {
+          "type": "check",
+          "id": "check-gibbs-from-k",
+          "prompt": "For a reaction at $\\pu{650 K}$, $K = 3.60 \\times 10^{-3}$. Calculate $\\Delta G^\\ominus$ in $\\pu{kJ mol-1}$, with its sign, to 3 significant figures.",
+          "hint": "$\\Delta G^\\ominus = -RT\\ln K$, then divide by 1000.",
+          "answer": {
+            "value": 30.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta G^\\ominus = -8.31 \\times 650 \\times \\ln(3.60 \\times 10^{-3}) = \\pu{+30392 J mol-1} \\approx \\pu{+30.4 kJ mol-1}$. Positive, as it must be for $K < 1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-R*650*log(3.60*10**(-3))/1000",
+            "sf": 3,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gibbs-sign-k",
+          "prompt": "A reaction has a positive $\\Delta G^\\ominus$ at $\\pu{400 K}$. Which statement about its equilibrium at $\\pu{400 K}$ is correct?",
+          "hint": "What sign must $\\ln K$ have?",
+          "options": [
+            {
+              "text": "K is less than 1, so reactants are favoured.",
+              "correct": true
+            },
+            {
+              "text": "K is greater than 1, so products are favoured.",
+              "correct": false
+            },
+            {
+              "text": "K is negative.",
+              "correct": false
+            },
+            {
+              "text": "K is zero, so no products form.",
+              "correct": false
+            }
+          ],
+          "explain": "Positive $\\Delta G^\\ominus$ needs $\\ln K < 0$, so $0 < K < 1$. $K$ is never negative or zero: some products always form.",
+          "verify": {
+            "kind": "choice",
+            "truth": "K is less than 1, so reactants are favoured."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$Q$ is the equilibrium expression with the concentrations at that moment. $Q < K$: net forward. $Q > K$: net backward. $Q = K$: at equilibrium.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "ICE table: initial amounts, changes in the mole ratio of the equation, equilibrium amounts. Divide by the volume before substituting into $K$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When $K$ is very small, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = -RT\\ln K",
+          "tag": "booklet",
+          "bookletId": "db-gibbs-k",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta G^\\ominus < 0$: $K > 1$. $\\Delta G^\\ominus > 0$: $K < 1$. For any mixture, $\\Delta G = RT\\ln\\frac{Q}{K}$, so $\\Delta G < 0$ exactly when $Q < K$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Reading the comparison back to front. $Q < K$ means too little product, so the net reaction is forward.",
+    "Substituting amounts in moles into $K$ when the volume is not $\\pu{1 dm3}$. Convert every amount to a concentration first.",
+    "Writing changes that ignore the equation. If $x$ of $\\ce{CO}$ reacts in $\\ce{CO + 2H2 <=> CH3OH}$, then $2x$ of $\\ce{H2}$ reacts.",
+    "Using $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$ when $K$ is not very small.",
+    "Leaving $\\Delta G^\\ominus$ in kJ next to $R$ in J, or using $\\log_{10}$ instead of $\\ln$.",
+    "Saying that adding a reactant changes $K$. It changes $Q$; only temperature changes $K$."
+  ],
+  "examTips": [
+    "\"Determine the direction\" a mixture reacts: calculate $Q$, compare it with $K$ in words or symbols ($Q < K$), then state the net direction. The comparison earns the mark, not the conclusion alone.",
+    "\"Calculate $K$\" from starting amounts: show the equilibrium amounts, the concentrations and the substituted expression. A wrong earlier value used correctly can still earn later marks.",
+    "With $\\Delta G^\\ominus = -RT\\ln K$, write the substitution with $\\Delta G^\\ominus$ in J, and give $\\Delta G^\\ominus$ with its sign and units.",
+    "If a question would seem to need a quadratic, look again: either $K$ is very small, so the approximation applies, or both sides are perfect squares."
+  ],
+  "readingMinutes": 23
+}

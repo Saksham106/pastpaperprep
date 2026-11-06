@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" role="img" aria-labelledby="t">
+  <title id="t">The greenhouse effect. Sunlight, mostly visible light, passes through the atmosphere and warms the Earth's surface. The warm surface emits infrared radiation upwards. A carbon dioxide molecule in the atmosphere absorbs the infrared and re-emits it in all directions: some escapes to space and some goes back down to the surface, which keeps the lower atmosphere warmer.</title>
+  <circle cx="60" cy="50" r="24" fill="none" stroke="var(--t4-ink)" stroke-width="2.5"/>
+  <g stroke="var(--t4-ink)" stroke-width="2">
+    <path d="M60 14 L60 4"/><path d="M60 86 L60 96"/><path d="M24 50 L14 50"/><path d="M96 50 L106 50"/>
+    <path d="M35 25 L28 18"/><path d="M85 25 L92 18"/><path d="M35 75 L28 82"/><path d="M85 75 L92 82"/>
+  </g>
+  <rect x="0" y="120" width="560" height="140" fill="var(--t3-ink)" fill-opacity="0.08"/>
+  <text x="548" y="140" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="end">atmosphere</text>
+  <rect x="0" y="260" width="560" height="60" fill="var(--t5-ink)" fill-opacity="0.25"/>
+  <text x="280" y="300" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">Earth's surface</text>
+  <path d="M90 82 L176 248" stroke="var(--t4-ink)" stroke-width="2.5" fill="none"/>
+  <polygon points="181,257 172,250 180,246" fill="var(--t4-ink)"/>
+  <text x="150" y="110" font-size="12" fill="currentColor" font-family="inherit">sunlight passes through</text>
+  <path d="M240.0,255.0 L242.7,256.1 L245.3,256.8 L247.3,256.6 L248.9,255.5 L250.0,253.5 L250.7,250.9 L251.2,247.9 L251.8,245.1 L252.8,242.9 L254.2,241.6 L256.1,241.2 L258.5,241.7 L261.2,242.7 L264.0,243.8 L266.6,244.6 L268.8,244.8 L270.5,243.9 L271.7,242.2 L272.5,239.6 L273.0,236.7 L273.6,233.8 L274.5,231.4 L275.7,229.8 L277.6,229.2 L279.8,229.5 L282.5,230.4 L285.3,231.5 L287.9,232.5 L290.3,232.8 L292.1,232.3 L293.4,230.7 L294.3,228.4 L294.9,225.5 L295.5,222.6 L296.2,220.0 L297.4,218.2 L299.0,217.3 L301.2,217.3 L303.8,218.1 L306.5,219.2 L309.2,220.3 L311.7,220.8 L313.7,220.5 L315.1,219.2 L316.1,217.1 L316.8,214.3 L317.3,211.4 L318.0,208.7 L319.0,206.6 L320.5,205.4 L322.5,205.2 L325.0,205.8 L327.8,206.9 L330.5,208.0 L333.1,208.7 L335.2,208.7 L336.8,207.7 L337.9,205.7 L338.6,203.1 L339.1,200.2" stroke="var(--t1-ink)" stroke-width="2.2" fill="none"/>
+  <polygon points="350.0,195.0 341.9,205.1 337.1,196.4" fill="var(--t1-ink)"/>
+  <text x="180" y="190" font-size="12" fill="var(--t1-ink)" font-family="inherit">infrared from the surface</text>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="380" y="185">O=C=O</text>
+  </g>
+  <text x="420" y="200" font-size="11" fill="var(--muted)" font-family="inherit">absorbs, then re-emits</text>
+  <g stroke="var(--t1-ink)" stroke-width="2" fill="none">
+    <path d="M380 168 L380 70"/>
+    <path d="M380 212 L380 250"/>
+    <path d="M410 172 L470 120"/>
+    <path d="M352 170 L322 141"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <polygon points="380,60 375,72 385,72"/>
+    <polygon points="380,258 375,246 385,246"/>
+    <polygon points="477,114 465,118 472,126"/>
+    <polygon points="314,134 319,146 327,138"/>
+  </g>
+  <text x="390" y="78" font-size="12" fill="currentColor" font-family="inherit">some escapes to space</text>
+  <text x="390" y="246" font-size="12" fill="currentColor" font-family="inherit">some returns to the surface</text>
+</svg>

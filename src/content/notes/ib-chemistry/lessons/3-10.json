@@ -1,0 +1,661 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.10",
+  "slug": "proton-nmr-and-combined-structural-analysis",
+  "title": "Proton NMR and combined structural analysis",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "[[proton-nmr-spectroscopy|Proton NMR spectroscopy]] shows how the hydrogens in a molecule are arranged. Signals count the hydrogen environments, the [[chemical-shift|chemical shift]] shows what each is near, the [[integration-trace|integration trace]] how many there are, and the [[splitting-pattern|splitting pattern]] their neighbours. With mass and infrared spectra, it usually identifies one structure.",
+  "goals": [
+    {
+      "text": "Count the hydrogen [[chemical-environment|chemical environments]] in a molecule and predict its number of signals.",
+      "bullets": [
+        "S3.2.10"
+      ]
+    },
+    {
+      "text": "Use booklet chemical shifts and the integration trace to deduce groups and their hydrogen counts.",
+      "bullets": [
+        "S3.2.10"
+      ]
+    },
+    {
+      "text": "Use the $n + 1$ rule to predict and interpret singlets, doublets, triplets and quartets.",
+      "bullets": [
+        "S3.2.11"
+      ]
+    },
+    {
+      "text": "Combine mass, infrared and NMR data to deduce the structure of an organic compound.",
+      "bullets": [
+        "S3.2.12"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "3.6",
+    "3.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "H NMR",
+    "proton NMR",
+    "n+1 rule",
+    "NMR splitting patterns",
+    "integration trace",
+    "identify a compound from spectra"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-bromine-isotopes",
+      "prompt": "Bromine is about half $^{79}\\ce{Br}$ and half $^{81}\\ce{Br}$. How does the [[molecular-ion|molecular ion]] of a compound with one bromine atom appear in its mass spectrum?",
+      "hint": "Each molecule holds one bromine atom, of either [[isotope|isotope]].",
+      "options": [
+        {
+          "text": "two peaks of about equal height, 2 units apart",
+          "correct": true
+        },
+        {
+          "text": "one peak at the mean mass of the two forms",
+          "correct": false
+        },
+        {
+          "text": "two peaks in a 3 : 1 height ratio, 2 units apart",
+          "correct": false
+        }
+      ],
+      "explain": "Half the molecules hold each isotope, so two nearly equal molecular ions appear, 2 units apart. A 3 : 1 pair means chlorine. Revise it in {{lesson:3.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "two peaks of about equal height, 2 units apart"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-propanal-group",
+      "prompt": "Which [[functional-group|functional group]] does propanal, $\\ce{CH3CH2CHO}$, contain?",
+      "hint": "$\\ce{-CHO}$ is C=O with an H on the same carbon.",
+      "options": [
+        {
+          "text": "aldehyde",
+          "correct": true
+        },
+        {
+          "text": "ketone",
+          "correct": false
+        },
+        {
+          "text": "carboxyl",
+          "correct": false
+        }
+      ],
+      "explain": "A C=O at the end of a chain is an aldehyde; a ketone has it inside the chain. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "aldehyde"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ir-broad-band",
+      "prompt": "An infrared spectrum shows a very broad band from $2500$ to $\\pu{3000 cm-1}$. Which bond gives it?",
+      "hint": "Data booklet section 20 lists two kinds of O–H.",
+      "options": [
+        {
+          "text": "the O–H of a carboxylic acid",
+          "correct": true
+        },
+        {
+          "text": "the O–H of an alcohol",
+          "correct": false
+        },
+        {
+          "text": "a C–H bond in an alkane",
+          "correct": false
+        }
+      ],
+      "explain": "Acid O–H absorbs at $2500$–$\\pu{3000 cm-1}$, very broad; alcohol O–H at $3200$–$\\pu{3600 cm-1}$. Revise it in {{lesson:3.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the O–H of a carboxylic acid"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "environments",
+      "heading": "Hydrogen environments and the number of signals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Mass spectra give a molar mass, and infrared spectra show bonds. Neither shows how the atoms are joined. [[proton-nmr-spectroscopy|Proton NMR spectroscopy]] does: it shows where each hydrogen sits."
+        },
+        {
+          "type": "text",
+          "text": "A $^{1}\\ce{H}$ nucleus acts like a tiny magnet. In a strong magnetic field it absorbs radio waves of one frequency. The atoms around the hydrogen shift that frequency slightly."
+        },
+        {
+          "type": "definition",
+          "term": "chemical environment",
+          "statement": "The surroundings of a hydrogen atom in a molecule. Hydrogens with identical surroundings are equivalent and share one environment.",
+          "plain": "Two hydrogens share an environment if swapping them leaves the molecule looking the same."
+        },
+        {
+          "type": "result",
+          "statement": "Each [[chemical-environment|chemical environment]] gives one signal, so the number of signals equals the number of hydrogen environments.",
+          "why": "Equivalent hydrogens have identical surroundings, so they absorb at the same frequency."
+        },
+        {
+          "type": "text",
+          "text": "To count environments, draw the full structure. The hydrogens of one $\\ce{CH3}$ or $\\ce{CH2}$ group in a chain are equivalent, and so are groups the molecule's symmetry swaps. In propane, $\\ce{CH3CH2CH3}$, the two $\\ce{CH3}$ groups are one environment, so it has two."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-chloropropanes",
+          "question": "1-chloropropane and 2-chloropropane are isomers, $\\ce{C3H7Cl}$. Deduce how many signals each gives in its $^{1}\\ce{H}$ NMR spectrum.",
+          "steps": [
+            "1-chloropropane, $\\ce{CH3-CH2-CH2Cl}$: each carbon has different surroundings, so three environments.",
+            "2-chloropropane, $\\ce{CH3-CHCl-CH3}$: the Cl is in the middle, so symmetry swaps the two $\\ce{CH3}$ groups. Two environments: $\\ce{CH3}$ (6 H) and $\\ce{CHCl}$ (1 H).",
+            "The different signal counts tell the isomers apart."
+          ],
+          "answer": "$3 \\text{ signals and } 2 \\text{ signals}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-count-pentan-2-one",
+          "prompt": "How many signals does pentan-2-one, $\\ce{CH3COCH2CH2CH3}$, give in its $^{1}\\ce{H}$ NMR spectrum?",
+          "hint": "Go carbon by carbon. Does symmetry swap any two groups?",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "The C=O is off-centre, so nothing is symmetrical: two $\\ce{CH3}$ groups and two $\\ce{CH2}$ groups, all different."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-propanone-one-signal",
+          "question": "Explain why propanone, $\\ce{CH3COCH3}$, gives only one signal in its $^{1}\\ce{H}$ NMR spectrum.",
+          "steps": [
+            "Draw it: a $\\ce{C=O}$ carbon with a $\\ce{CH3}$ on each side.",
+            "Symmetry swaps the two methyl groups, so all their hydrogens have the same surroundings."
+          ],
+          "answer": "Propanone is symmetrical: both $\\ce{CH3}$ groups are bonded to the same carbonyl carbon. So all six hydrogens are in the same chemical environment. Hydrogens in one environment absorb at the same frequency, so they give one signal.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Symmetrical molecule: all six H in one environment, so one signal.",
+            "requires": [
+              [
+                "symmetrical",
+                "symmetry"
+              ],
+              "six hydrogens",
+              [
+                "same chemical environment",
+                "same environment"
+              ],
+              "one signal"
+            ],
+            "forbids": [
+              "two signals",
+              "no hydrogens"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-signals",
+          "prompt": "Which compound gives exactly two signals in its proton NMR spectrum?",
+          "hint": "Draw each structure in full and look for groups symmetry makes equivalent.",
+          "options": [
+            {
+              "text": "propane",
+              "correct": true
+            },
+            {
+              "text": "ethanol",
+              "correct": false
+            },
+            {
+              "text": "propanone",
+              "correct": false
+            },
+            {
+              "text": "propan-1-ol",
+              "correct": false
+            }
+          ],
+          "explain": "Propane has two environments. Ethanol has three ($\\ce{CH3}$, $\\ce{CH2}$, $\\ce{OH}$), propanone one and propan-1-ol four.",
+          "verify": {
+            "kind": "choice",
+            "truth": "propane"
+          }
+        }
+      ]
+    },
+    {
+      "id": "shift-integration",
+      "heading": "Chemical shift and integration",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "chemical shift",
+          "statement": "The position of a signal, $\\delta$, in parts per million (ppm), measured from the signal of tetramethylsilane (TMS) at $\\delta = 0$.",
+          "plain": "Where a signal sits on the scale, which shows what the hydrogen is near."
+        },
+        {
+          "type": "text",
+          "text": "The [[chemical-shift|chemical shift]] scale runs from high $\\delta$ on the left to $0$ on the right. TMS, $\\ce{Si(CH3)4}$, is the reference: its 12 equivalent hydrogens give one strong signal, to the right of almost every other."
+        },
+        {
+          "type": "text",
+          "text": "A hydrogen near O, a halogen or a C=O group has less electron density around it, so it absorbs at a higher $\\delta$. Data booklet section 21 gives typical ranges. These are typical, not exact, so pick the closest match."
+        },
+        {
+          "type": "text",
+          "text": "Useful ones: alkyl $\\ce{CH3}$ $0.9$–$1.0$; H on a carbon next to the C=O of a ketone or aldehyde $2.2$–$2.7$; $\\ce{CH2}$ next to a halogen $3.5$–$4.4$; aldehyde $\\ce{CHO}$ $9.4$–$10.0$; $\\ce{COOH}$ $9.0$–$13.0$ ppm."
+        },
+        {
+          "type": "definition",
+          "term": "integration trace",
+          "statement": "A stepped line over the spectrum. Each step's height is proportional to the area under the signal below it, and so to the number of hydrogens in that environment.",
+          "plain": "Taller step, more hydrogens."
+        },
+        {
+          "type": "text",
+          "text": "The [[integration-trace|integration trace]] gives a ratio, not actual numbers. Scale it to the number of hydrogens in the molecular formula."
+        },
+        {
+          "type": "figure",
+          "id": "3-10-ethanol-low-res",
+          "alt": "Low-resolution proton NMR spectrum of ethanol, with chemical shift running from 5 ppm on the left to 0 ppm on the right. There are three peaks: CH2 at 3.7 ppm, OH at 2.6 ppm and CH3 at 1.2 ppm, plus a small TMS reference peak at 0 ppm. An integration trace above the peaks rises in three steps whose heights are in the ratio 2 to 1 to 3.",
+          "caption": "Ethanol, $\\ce{CH3CH2OH}$: three environments, three signals, trace ratio $2:1:3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-3-methylbutan-2-one",
+          "question": "Predict the number of signals in the $^{1}\\ce{H}$ NMR spectrum of 3-methylbutan-2-one, $\\ce{CH3COCH(CH3)2}$, and the ratio of their areas.",
+          "steps": [
+            "Draw it: $\\ce{CH3-CO-CH(CH3)-CH3}$.",
+            "The two $\\ce{CH3}$ groups on the $\\ce{CH}$ are equivalent: 6 H. The $\\ce{CH}$: 1 H. The $\\ce{CH3}$ on the C=O carbon: 3 H.",
+            "Check: $6 + 1 + 3 = 10$, the H count of $\\ce{C5H10O}$."
+          ],
+          "answer": "$3 \\text{ signals, ratio } 6:1:3$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-trace-butanal",
+          "question": "An aldehyde, $\\ce{C4H8O}$, gives four signals at $\\delta = 9.8$, $2.4$, $1.7$ and $0.9$ ppm. Their integration steps are $\\pu{17 mm}$, $\\pu{34 mm}$, $\\pu{34 mm}$ and $\\pu{51 mm}$ high, in that order. How many hydrogens give the signal at $0.9$ ppm? Suggest the structure.",
+          "steps": [
+            "All 8 hydrogens: $17 + 34 + 34 + 51 = \\pu{136 mm}$, so one hydrogen is $\\frac{136}{8} = \\pu{17 mm}$.",
+            "The $0.9$ ppm step is $\\pu{51 mm}$, so $\\frac{51}{17} = 3$ hydrogens: a $\\ce{CH3}$.",
+            "The ratio is $1:2:2:3$. $9.8$ ppm (1 H) is $\\ce{CHO}$, $2.4$ ppm (2 H) is the $\\ce{CH2}$ next to C=O, and $1.7$ ppm (2 H) is the middle $\\ce{CH2}$. So it is butanal, $\\ce{CH3CH2CH2CHO}$."
+          ],
+          "answer": "$\\text{hydrogens} = 3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "8*51/(17 + 34 + 34 + 51)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-dimethylpropanol",
+          "prompt": "Give the relative areas of the $^{1}\\ce{H}$ NMR signals of 2,2-dimethylpropan-1-ol, $\\ce{(CH3)3CCH2OH}$.",
+          "hint": "Count the environments. Don't forget the hydrogen on the oxygen.",
+          "options": [
+            {
+              "text": "$9:2:1$",
+              "correct": true
+            },
+            {
+              "text": "$9:2$",
+              "correct": false
+            },
+            {
+              "text": "$3:3:3:2:1$",
+              "correct": false
+            },
+            {
+              "text": "$12:1$",
+              "correct": false
+            }
+          ],
+          "explain": "The three $\\ce{CH3}$ groups are equivalent (9 H), then $\\ce{CH2}$ (2 H) and $\\ce{OH}$ (1 H)."
+        },
+        {
+          "type": "check",
+          "id": "check-shift-ketone",
+          "prompt": "A ketone shows a signal at $\\delta = 2.4$ ppm. Using data booklet section 21, which hydrogens most likely give it?",
+          "hint": "Find the range in section 21 that contains 2.4 ppm and fits a ketone.",
+          "options": [
+            {
+              "text": "hydrogens on a carbon next to the C=O group",
+              "correct": true
+            },
+            {
+              "text": "hydrogens of a methyl group at the end of an alkyl chain",
+              "correct": false
+            },
+            {
+              "text": "hydrogens on a carbon next to a halogen atom",
+              "correct": false
+            }
+          ],
+          "explain": "H next to a ketone C=O appears at $2.2$–$2.7$ ppm. An end methyl is near $0.9$–$1.0$, and H next to a halogen $3.5$–$4.4$ ppm.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydrogens on a carbon next to the C=O group"
+          }
+        }
+      ]
+    },
+    {
+      "id": "splitting",
+      "heading": "Splitting patterns",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A high-resolution spectrum shows more than one peak per environment: many signals split into a small cluster of peaks."
+        },
+        {
+          "type": "text",
+          "text": "The hydrogens on neighbouring carbons cause it. Their tiny magnetic fields add to or subtract from the field a hydrogen feels, and each arrangement gives a slightly different frequency."
+        },
+        {
+          "type": "definition",
+          "term": "splitting pattern",
+          "statement": "The cluster of peaks a signal splits into. A hydrogen with $n$ non-equivalent hydrogens on the adjacent carbon atoms gives $n + 1$ peaks.",
+          "plain": "Count the hydrogens next door and add one."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of peaks} = n + 1",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "3-10-splitting-patterns",
+          "alt": "Four splitting patterns side by side. A singlet is one line, from no hydrogens on the neighbouring carbon. A doublet is two lines of equal height, from 1 neighbouring hydrogen. A triplet is three lines with heights in the ratio 1 to 2 to 1, from 2 neighbouring hydrogens. A quartet is four lines with heights in the ratio 1 to 3 to 3 to 1, from 3 neighbouring hydrogens.",
+          "caption": "The four [[splitting-pattern|splitting patterns]] you need, with their peak-height ratios."
+        },
+        {
+          "type": "text",
+          "text": "1. $n$ counts the hydrogens on the carbons bonded to this carbon, not the hydrogens on the carbon itself."
+        },
+        {
+          "type": "text",
+          "text": "2. Equivalent hydrogens do not split each other, and a neighbour with no hydrogens (O, Cl, a ketone's C=O carbon) adds nothing to $n$."
+        },
+        {
+          "type": "text",
+          "text": "3. In exam spectra an O–H hydrogen is usually a singlet and does not split its neighbours, because it swaps rapidly between molecules."
+        },
+        {
+          "type": "text",
+          "text": "Neighbours on both sides add up, which can give five or more peaks. Exam questions ask you to name singlets, doublets, triplets and quartets."
+        },
+        {
+          "type": "example",
+          "id": "ex-splitting-chloroethane",
+          "question": "Deduce the splitting pattern of each signal in the high-resolution $^{1}\\ce{H}$ NMR spectrum of chloroethane, $\\ce{CH3CH2Cl}$, with the number of hydrogens in each.",
+          "steps": [
+            "Two environments: $\\ce{CH3}$ (3 H) and $\\ce{CH2Cl}$ (2 H).",
+            "$\\ce{CH3}$: the $\\ce{CH2}$ next door has 2 H, so $n = 2$ and $3$ peaks, a triplet.",
+            "$\\ce{CH2}$: the $\\ce{CH3}$ has 3 H and Cl has none, so $n = 3$ and $4$ peaks, a quartet, at higher $\\delta$ (next to Cl)."
+          ],
+          "answer": "$\\text{triplet (3H), quartet (2H)}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ethoxyethane",
+          "question": "Predict and explain the high-resolution $^{1}\\ce{H}$ NMR spectrum of ethoxyethane, $\\ce{CH3CH2OCH2CH3}$: the number of signals, their area ratio and their splitting.",
+          "steps": [
+            "Symmetry about the oxygen makes the two ethyl groups identical.",
+            "So: two $\\ce{CH2}$ (4 H) and two $\\ce{CH3}$ (6 H). Write one sentence per marking point."
+          ],
+          "answer": "The two ethyl groups are identical, so there are two signals. Their areas are 4 for $\\ce{CH2}$ and 6 for $\\ce{CH3}$, a ratio of $2:3$. The $\\ce{CH2}$ hydrogens have three hydrogens on the neighbouring carbon, so their signal is a quartet. The $\\ce{CH3}$ hydrogens have two hydrogens on the neighbouring carbon, so their signal is a triplet. The quartet is at higher chemical shift because that carbon is bonded to oxygen.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Two signals, 2:3; CH2 quartet (3 neighbours), CH3 triplet (2 neighbours).",
+            "requires": [
+              "two signals",
+              "2:3",
+              "quartet",
+              "triplet",
+              "three hydrogens on the neighbouring carbon",
+              "two hydrogens on the neighbouring carbon"
+            ],
+            "forbids": [
+              "four signals",
+              "sextet"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-identify-doublet-quartet",
+          "prompt": "A compound's high-resolution spectrum has two signals: a quartet (1H) at $\\delta = 9.8$ ppm and a doublet (3H) at $\\delta = 2.2$ ppm. Which compound is it?",
+          "hint": "9.8 ppm points to one functional group. Which hydrogens have 3 neighbours, and which have 1?",
+          "options": [
+            {
+              "text": "ethanal",
+              "correct": true
+            },
+            {
+              "text": "propanone",
+              "correct": false
+            },
+            {
+              "text": "chloroethane",
+              "correct": false
+            },
+            {
+              "text": "ethanol",
+              "correct": false
+            }
+          ],
+          "explain": "In $\\ce{CH3CHO}$ the $\\ce{CHO}$ hydrogen has three neighbours (quartet) and the $\\ce{CH3}$ one (doublet)."
+        },
+        {
+          "type": "check",
+          "id": "check-peaks-propanoic-ch3",
+          "prompt": "How many peaks make up the $\\ce{CH3}$ signal of propanoic acid, $\\ce{CH3CH2COOH}$?",
+          "hint": "Count the hydrogens on the carbon next to the $\\ce{CH3}$, then add one.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The neighbour is a $\\ce{CH2}$, so $n = 2$ and $2 + 1 = 3$ peaks, a triplet.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2 + 1",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "combined",
+      "heading": "Combining MS, IR and NMR",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each technique answers a different question. Together they usually pin down one structure."
+        },
+        {
+          "type": "text",
+          "text": "1. Mass spectrum: the [[molecular-ion|molecular ion]] gives the molar mass. [[fragmentation|Fragmentation]] peaks show pieces lost (data booklet section 22), such as $15$ for $\\ce{CH3}$ or $29$ for $\\ce{C2H5}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Infrared spectrum: bands show bonds, and so the [[functional-group|functional group]] (section 20)."
+        },
+        {
+          "type": "text",
+          "text": "3. NMR spectrum: signals, shifts, integration and splitting show how the hydrogens are arranged."
+        },
+        {
+          "type": "text",
+          "text": "4. Propose a structure, then check it against every piece of data. The hydrogens must add up to the formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-identify-c4h9br",
+          "question": "Compound Y, $\\ce{C4H9Br}$, has molecular ion peaks of equal height at $m/z$ $136$ and $138$. Its infrared spectrum has a strong band at $\\pu{560 cm-1}$. Its $^{1}\\ce{H}$ NMR spectrum is a single singlet. Identify Y.",
+          "steps": [
+            "MS: two equal peaks 2 apart are the two bromine isotopes; $48 + 9 + 79 = 136$ and $48 + 9 + 81 = 138$ fit.",
+            "IR: $\\pu{560 cm-1}$ is in the C–Br range, $500$–$\\pu{600 cm-1}$.",
+            "NMR: one signal means all 9 H are equivalent. 1-bromobutane and 2-bromobutane give four signals, and 1-bromo-2-methylpropane three.",
+            "Only $\\ce{(CH3)3CBr}$ fits: three equivalent $\\ce{CH3}$ groups on a carbon with no hydrogens, so the signal is not split."
+          ],
+          "answer": "$\\text{2-bromo-2-methylpropane}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-ethyl-propanoate",
+          "question": "Compound X contains C, H and O only. Its molecular ion is at $m/z = 102$, with a fragment at $m/z = 73$. Its infrared spectrum shows strong bands at $\\pu{1735 cm-1}$ and $\\pu{1190 cm-1}$, and nothing broad from $2500$ to $\\pu{3600 cm-1}$. Its $^{1}\\ce{H}$ NMR spectrum: $\\delta = 4.1$ (quartet, 2H), $2.3$ (quartet, 2H), $1.2$ (triplet, 3H), $1.1$ (triplet, 3H). Deduce the structure of X, explaining the evidence.",
+          "steps": [
+            "$\\ce{C5H10O2}$: $5(12) + 10(1) + 2(16) = 102$.",
+            "$4.1$ ppm is in the $3.7$–$4.8$ range for $\\ce{CH2}$ on an ester oxygen; $2.3$ ppm is in the $2.0$–$2.5$ range for $\\ce{CH2}$ next to an ester C=O.",
+            "$102 - 73 = 29$, an ethyl group lost."
+          ],
+          "answer": "The molecular ion gives a molar mass of $\\pu{102 g mol-1}$, which fits $\\ce{C5H10O2}$. The $\\pu{1735 cm-1}$ band is C=O and the $\\pu{1190 cm-1}$ band is C–O. There is no O–H band, so X is an ester. There are four signals, ratio $2:2:3:3$, so 10 hydrogens. Each quartet–triplet pair is a $\\ce{CH2CH3}$, so X has two ethyl groups. One $\\ce{CH2}$ ($4.1$ ppm) is on the ester oxygen and the other ($2.3$ ppm) is next to the C=O. The fragment at $73$ is the loss of an ethyl group. So X is ethyl propanoate, $\\ce{CH3CH2COOCH2CH3}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "M = 102 fits C5H10O2; C=O and C–O but no O–H: ester; two ethyl groups (q/t pairs), CH2 at 4.1 on O: ethyl propanoate.",
+            "requires": [
+              "molar mass",
+              "C=O",
+              "no O-H",
+              "ester",
+              "four signals",
+              "two ethyl groups",
+              "ethyl propanoate"
+            ],
+            "forbids": [
+              "propyl ethanoate",
+              "methyl butanoate",
+              "carboxylic acid group"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-identify-c5h10o",
+          "prompt": "A compound $\\ce{C5H10O}$ has a strong infrared band at $\\pu{1730 cm-1}$. Its $^{1}\\ce{H}$ NMR spectrum has two singlets, area ratio $9:1$, the smaller at $\\delta = 9.5$ ppm. Which compound is it?",
+          "hint": "A 9 H singlet means three equivalent $\\ce{CH3}$ groups on a carbon with no hydrogens.",
+          "options": [
+            {
+              "text": "2,2-dimethylpropanal",
+              "correct": true
+            },
+            {
+              "text": "pentanal",
+              "correct": false
+            },
+            {
+              "text": "pentan-2-one",
+              "correct": false
+            },
+            {
+              "text": "3-methylbutan-2-one",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{(CH3)3CCHO}$: a $\\ce{C(CH3)3}$ (9 H) and a $\\ce{CHO}$ (1 H). Neither has hydrogens next door, so both are singlets. The other isomers give three or more signals."
+        },
+        {
+          "type": "check",
+          "id": "check-combined-acid",
+          "prompt": "A compound has a molecular ion at $m/z = 74$, a very broad infrared band from $2500$ to $\\pu{3000 cm-1}$ and a strong band at $\\pu{1710 cm-1}$. Which compound is it?",
+          "hint": "Which group gives both bands? Then check the molar mass.",
+          "options": [
+            {
+              "text": "propanoic acid",
+              "correct": true
+            },
+            {
+              "text": "methyl ethanoate",
+              "correct": false
+            },
+            {
+              "text": "butan-1-ol",
+              "correct": false
+            },
+            {
+              "text": "propan-1-ol",
+              "correct": false
+            }
+          ],
+          "explain": "Very broad O–H plus C=O means a carboxylic acid, and $\\ce{CH3CH2COOH}$ has $M = 74$. Methyl ethanoate has no O–H, butan-1-ol no C=O, and propan-1-ol $M = 60$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "propanoic acid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Number of signals = number of hydrogen environments; symmetry-equivalent hydrogens share one signal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chemical shift $\\delta$ in ppm from TMS ($\\delta = 0$), typical values in booklet section 21; H near O, halogen or C=O has higher $\\delta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Integration step heights are a ratio of hydrogens: scale it to the molecular formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$n$ non-equivalent H on adjacent carbons give $n + 1$ peaks: singlet, doublet ($1:1$), triplet ($1:2:1$), quartet ($1:3:3:1$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "MS gives molar mass, IR the bonds, NMR the hydrogen arrangement. Check the structure against all of them.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Counting carbons or methyl groups as signals. Count environments: groups that symmetry swaps give one signal.",
+    "Reading integration steps as actual hydrogen numbers. They are a ratio; scale it to the formula.",
+    "Counting the hydrogens on the carbon itself in $n$. Count only those on adjacent carbons.",
+    "Quoting the alcohol O–H range for an acid. Acid O–H absorbs very broadly at 2500–3000 cm⁻¹.",
+    "Leaving hydrogens off the final structure. Show every H and check each carbon has four bonds."
+  ],
+  "examTips": [
+    "\"Deduce the structure\" (Paper 2): draw the structure with every hydrogen, then link each datum to a feature: molecular ion to molar mass, IR band to bond, NMR signal to hydrogens.",
+    "\"Predict\" an NMR spectrum: give the number of signals, the area ratio and, if asked, each splitting with its neighbour count.",
+    "Paper 1A: count environments by symmetry before reading the options, and check the ratio adds up to the formula's hydrogens."
+  ],
+  "readingMinutes": 24
+}

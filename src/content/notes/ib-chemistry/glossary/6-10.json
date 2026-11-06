@@ -2,31 +2,31 @@
   {
     "id": "anode",
     "term": "anode",
-    "definition": "TODO: Oxidation occurs here; negative in voltaic, positive in electrolytic cells.",
+    "definition": "The electrode where oxidation takes place. It is negative in a voltaic cell and positive in an electrolytic cell.",
     "lesson": "6.10"
   },
   {
     "id": "cathode",
     "term": "cathode",
-    "definition": "TODO: Reduction occurs here.",
+    "definition": "The electrode where reduction takes place. It is positive in a voltaic cell and negative in an electrolytic cell.",
     "lesson": "6.10"
   },
   {
     "id": "salt-bridge",
     "term": "salt bridge",
-    "definition": "TODO: Allows ion flow, completing the circuit.",
+    "definition": "A tube or strip of filter paper holding a solution of an unreactive salt, such as potassium nitrate, that joins two half-cells. Its ions move between them to keep each solution electrically neutral, so the current keeps flowing.",
     "lesson": "6.10"
   },
   {
     "id": "primary-voltaic-cell",
     "term": "primary (voltaic) cell",
-    "definition": "TODO: Spontaneous redox to electrical energy; not rechargeable.",
+    "definition": "An electrochemical cell that converts the energy of a spontaneous redox reaction into electrical energy. A primary cell is used until its reactants run out and cannot be recharged.",
     "lesson": "6.10"
   },
   {
     "id": "secondary-cell",
     "term": "secondary cell",
-    "definition": "TODO: Rechargeable; reaction reversed by electrical energy.",
+    "definition": "A rechargeable cell: a spontaneous redox reaction produces electrical energy on discharge, and an external electrical supply reverses that reaction to recharge it.",
     "lesson": "6.10"
   }
 ]

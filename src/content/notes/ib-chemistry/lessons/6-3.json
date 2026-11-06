@@ -1,0 +1,756 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.3",
+  "slug": "strong-and-weak-acids-neutralization-and-ph-curves",
+  "title": "Strong and weak acids, neutralization and pH curves",
+  "level": "SL",
+  "topic": 6,
+  "summary": "A [[strong-acid|strong acid]] ionizes completely in water; a [[weak-acid|weak acid]] only partly. Strength is about the extent of [[ionization|ionization]], not concentration. Acids and bases react in [[neutralization|neutralization]], and a [[titration|titration]] tracks it on a [[ph|pH]] curve that jumps steeply at the [[equivalence-point|equivalence point]].",
+  "goals": [
+    {
+      "text": "Tell strong acids and bases from weak ones by the extent of ionization, and strength from concentration.",
+      "bullets": [
+        "R3.1.6"
+      ]
+    },
+    {
+      "text": "Use the position of an acid–base equilibrium to compare the strengths of conjugate acids and bases.",
+      "bullets": [
+        "R3.1.6"
+      ]
+    },
+    {
+      "text": "Write equations for acids reacting with metal oxides, hydroxides, carbonates, hydrogencarbonates, ammonia and [[amine|amines]], and identify a salt's parent acid and base.",
+      "bullets": [
+        "R3.1.7"
+      ]
+    },
+    {
+      "text": "Sketch and interpret the pH curve for a strong acid and a [[strong-base|strong base]], including its intercept and equivalence point.",
+      "bullets": [
+        "R3.1.8"
+      ]
+    },
+    {
+      "text": "Use a titration result to calculate an unknown concentration.",
+      "bullets": [
+        "R3.1.8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "3.2",
+    "3.6",
+    "4.1",
+    "5.8",
+    "6.1",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "strong vs weak acid",
+    "strong vs concentrated acid",
+    "neutralisation equations",
+    "acid and carbonate reaction",
+    "titration curve strong acid strong base",
+    "equivalence point vs end point"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-conjugate-nitrate",
+      "prompt": "In $\\ce{HNO3 + H2O -> H3O^+ + NO3^-}$, which species is the conjugate base of $\\ce{HNO3}$?",
+      "hint": "The two members of a [[conjugate-acid-base-pair|conjugate acid–base pair]] differ by one proton.",
+      "options": [
+        {
+          "text": "The nitrate ion",
+          "correct": true
+        },
+        {
+          "text": "The hydronium ion",
+          "correct": false
+        },
+        {
+          "text": "Water",
+          "correct": false
+        },
+        {
+          "text": "Nitrogen dioxide",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{HNO3}$ loses $\\ce{H^+}$ to become $\\ce{NO3^-}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The nitrate ion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ph-from-h",
+      "prompt": "A solution has $[\\ce{H^+}] = \\pu{2.5e-3 mol dm-3}$. What is its pH, to 2 decimal places?",
+      "hint": "$\\mathrm{pH} = -\\log_{10}[\\ce{H^+}]$.",
+      "answer": {
+        "value": 2.6,
+        "tolerance": 0.005
+      },
+      "explain": "$-\\log_{10}(2.5 \\times 10^{-3}) = 2.60$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-log(2.5*10**(-3), 10)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-amount-cv",
+      "prompt": "What amount, in mol, of $\\ce{NaOH}$ is in $\\pu{15.0 cm3}$ of $\\pu{0.200 mol dm-3}$ solution?",
+      "hint": "Convert $\\pu{cm3}$ to $\\pu{dm3}$ first, then use $n = cV$.",
+      "answer": {
+        "value": 0.003,
+        "tolerance": 5e-06
+      },
+      "explain": "$0.200 \\times \\frac{15.0}{1000} = \\pu{0.00300 mol}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.200*15.0/1000",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "strength",
+      "heading": "Strong and weak acids and bases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hydrochloric acid and ethanoic acid can have the same concentration. Yet the hydrochloric acid has a lower pH, conducts electricity better and fizzes faster with magnesium. The difference is how much of each acid splits into ions."
+        },
+        {
+          "type": "text",
+          "text": "A [[brnsted-lowry-acid|Brønsted–Lowry acid]] donates a proton to water, forming $\\ce{H3O^+}$ ({{lesson:6.1}}). How completely this happens sets the acid's strength."
+        },
+        {
+          "type": "definition",
+          "term": "strong acid",
+          "statement": "An acid that is completely ionized in aqueous solution.",
+          "plain": "Every acid molecule gives its proton to water."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{HCl(aq) + H2O(l) -> H3O^+(aq) + Cl^-(aq)}$. The one-way arrow shows complete ionization: no $\\ce{HCl}$ molecules are left."
+        },
+        {
+          "type": "text",
+          "text": "Learn these strong acids: hydrochloric acid $\\ce{HCl}$, nitric acid $\\ce{HNO3}$ and sulfuric acid $\\ce{H2SO4}$. Hydrobromic acid $\\ce{HBr}$ and hydroiodic acid $\\ce{HI}$ are strong too. Sulfuric acid loses its first proton completely."
+        },
+        {
+          "type": "definition",
+          "term": "weak acid",
+          "statement": "An acid that is only partially ionized in aqueous solution, so its solution holds an equilibrium mixture of un-ionized molecules and ions.",
+          "plain": "At typical concentrations, only a small fraction of the molecules give up their proton at any moment."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{CH3COOH(aq) + H2O(l) <=> CH3COO^-(aq) + H3O^+(aq)}$. The equilibrium arrow shows a [[dynamic-equilibrium|dynamic equilibrium]] that lies well to the left. Ethanoic acid and the other [[carboxylic-acid|carboxylic acids]] are weak."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a weak acid does not ionize. It does, but only partially, so its solution still contains $\\ce{H3O^+}$ ions."
+        },
+        {
+          "type": "definition",
+          "term": "strong base",
+          "statement": "A base that is completely ionized in aqueous solution.",
+          "plain": "Every unit releases its hydroxide ion."
+        },
+        {
+          "type": "text",
+          "text": "The group 1 hydroxides are strong bases: $\\ce{KOH(s) -> K^+(aq) + OH^-(aq)}$ in water. They are soluble, so they are [[alkali|alkalis]]."
+        },
+        {
+          "type": "definition",
+          "term": "weak base",
+          "statement": "A base that is only partially ionized in aqueous solution.",
+          "plain": "Only a small fraction of the base takes a proton from water."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{NH3(aq) + H2O(l) <=> NH4^+(aq) + OH^-(aq)}$. Ammonia and the [[amine|amines]], such as methylamine $\\ce{CH3NH2}$, are weak bases."
+        },
+        {
+          "type": "text",
+          "text": "Strength and concentration are different ideas. Concentration is the amount of acid dissolved per $\\pu{dm3}$, its [[molar-concentration|molar concentration]]. Strength is the fraction of it that ionizes."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-strength-concentration",
+          "alt": "Four boxes of acid solution in a two by two grid, water not shown. Columns: concentrated on the left, dilute on the right. Rows: strong acid on top, weak acid below. Strong and concentrated: eight hydronium ions and eight anions, no acid molecules. Strong and dilute: three hydronium ions and three anions, no acid molecules. Weak and concentrated: seven un-ionized HA molecules with one hydronium ion and one anion. Weak and dilute: two HA molecules with one hydronium ion and one anion.",
+          "caption": "Concentration is how many acid particles there are. Strength is what fraction of them have ionized."
+        },
+        {
+          "type": "text",
+          "text": "So $\\pu{5 mol dm-3}$ ethanoic acid is concentrated but weak. And $\\pu{0.001 mol dm-3}$ nitric acid is dilute but strong."
+        },
+        {
+          "type": "examTip",
+          "text": "Asked to distinguish strong from concentrated? Define both: strong is the extent of ionization, concentrated is the amount of acid per $\\pu{dm3}$."
+        },
+        {
+          "type": "text",
+          "text": "Every acid–base reaction has an acid and a base on each side. The position of equilibrium tells you which pair is stronger."
+        },
+        {
+          "type": "result",
+          "statement": "An acid–base equilibrium lies on the side of the weaker acid and the weaker base.",
+          "why": "The stronger acid gives up its proton more readily, so its proton ends up on the weaker acid's side."
+        },
+        {
+          "type": "text",
+          "text": "For ethanoic acid, $\\ce{H3O^+}$ is a stronger acid than $\\ce{CH3COOH}$, and $\\ce{CH3COO^-}$ is a stronger base than $\\ce{H2O}$. So the equilibrium lies to the left. For $\\ce{HCl}$, $\\ce{Cl^-}$ is so weak a base that the reverse reaction is negligible."
+        },
+        {
+          "type": "text",
+          "text": "So the weaker the acid, the stronger its conjugate base. In terms of the [[equilibrium-constant|equilibrium constant]] ({{lesson:5.8}}), a strong acid's ionization has $K \\gg 1$ and a weak acid's has $K \\ll 1$."
+        },
+        {
+          "type": "text",
+          "text": "At the same concentration, a strong acid has a higher $[\\ce{H3O^+}]$ than a weak one. So it has a lower pH, conducts better (more ions) and reacts faster with magnesium or a carbonate."
+        },
+        {
+          "type": "text",
+          "text": "Strength does not change how much base an acid needs. Equal amounts of a strong and a weak monoprotic acid neutralize the same amount of $\\ce{NaOH}$: the weak acid keeps ionizing as its $\\ce{H3O^+}$ is used up."
+        },
+        {
+          "type": "example",
+          "id": "ex-percent-ionized-propanoic",
+          "question": "A $\\pu{0.0800 mol dm-3}$ solution of propanoic acid, $\\ce{CH3CH2COOH}$, has a pH of $2.98$. Calculate the percentage of propanoic acid molecules that are ionized.",
+          "steps": [
+            "Each ionized molecule gives one $\\ce{H3O^+}$, so $[\\ce{H3O^+}]$ is the concentration that has ionized.",
+            "$[\\ce{H3O^+}] = 10^{-2.98} = \\pu{1.047e-3 mol dm-3}$. Keep the full value.",
+            "Percentage ionized $= \\frac{1.047 \\times 10^{-3}}{0.0800} \\times 100$.",
+            "About 1 molecule in 76 has ionized, so propanoic acid is a weak acid."
+          ],
+          "answer": "$\\text{ionized} \\approx 1.31\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "10**(-2.98)/0.0800*100",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-conductivity",
+          "question": "$\\pu{0.100 mol dm-3}$ nitric acid conducts electricity much better than $\\pu{0.100 mol dm-3}$ ethanoic acid. Explain why.",
+          "steps": [
+            "The concentrations are equal, so the difference must be strength.",
+            "Conductivity depends on the concentration of mobile ions."
+          ],
+          "answer": "Nitric acid is a strong acid, so it is completely ionized in water. Ethanoic acid is a weak acid, so it is only partially ionized. So the nitric acid solution has a higher concentration of ions to carry the current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Same concentration: nitric acid is fully ionized, ethanoic acid only partially, so nitric acid has more ions.",
+            "requires": [
+              "strong acid",
+              [
+                "completely ionized",
+                "fully ionized"
+              ],
+              "weak acid",
+              [
+                "partially ionized",
+                "partly ionized"
+              ],
+              [
+                "higher concentration of ions",
+                "more ions"
+              ]
+            ],
+            "forbids": [
+              "more concentrated",
+              "does not ionize"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strong-concentrated",
+          "prompt": "A bottle holds $\\pu{6.0 mol dm-3}$ ethanoic acid. How is it best described?",
+          "hint": "Ask two questions: how much acid is dissolved, and how much of it ionizes?",
+          "options": [
+            {
+              "text": "Concentrated and weak",
+              "correct": true
+            },
+            {
+              "text": "Concentrated and strong",
+              "correct": false
+            },
+            {
+              "text": "Dilute and weak",
+              "correct": false
+            },
+            {
+              "text": "Dilute and strong",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pu{6.0 mol dm-3}$ is a lot of acid per $\\pu{dm3}$, so it is concentrated. Ethanoic acid only partially ionizes, so it is weak.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Concentrated and weak"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equilibrium-side",
+          "prompt": "For methanoic acid, $\\ce{HCOOH + H2O <=> HCOO^- + H3O^+}$, the equilibrium lies to the left. Which statement is correct?",
+          "hint": "The equilibrium lies on the side of the weaker acid and weaker base.",
+          "options": [
+            {
+              "text": "Methanoate ions are a stronger base than water",
+              "correct": true
+            },
+            {
+              "text": "Methanoic acid is a stronger acid than hydronium ions",
+              "correct": false
+            },
+            {
+              "text": "Water is a stronger base than methanoate ions",
+              "correct": false
+            },
+            {
+              "text": "Methanoic acid does not ionize",
+              "correct": false
+            }
+          ],
+          "explain": "The left side holds the weaker pair, so $\\ce{H2O}$ is a weaker base than $\\ce{HCOO^-}$, and $\\ce{HCOOH}$ is a weaker acid than $\\ce{H3O^+}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Methanoate ions are a stronger base than water"
+          }
+        }
+      ]
+    },
+    {
+      "id": "neutralization",
+      "heading": "Neutralization reactions",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "neutralization",
+          "statement": "A reaction in which an acid reacts with a base to form a salt, often with water.",
+          "plain": "The acid and the base cancel each other out."
+        },
+        {
+          "type": "text",
+          "text": "With aqueous strong acids and hydroxides, the reaction is between ions: $\\ce{H^+(aq) + OH^-(aq) -> H2O(l)}$. The other ions are spectators. Neutralization is an [[exothermic-reaction|exothermic reaction]], so the mixture warms up."
+        },
+        {
+          "type": "text",
+          "text": "The products depend on the type of base:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} \\text{acid} + \\text{metal oxide} &\\to \\text{salt} + \\text{water} \\\\ \\text{acid} + \\text{metal hydroxide} &\\to \\text{salt} + \\text{water} \\\\ \\text{acid} + \\text{carbonate} &\\to \\text{salt} + \\text{water} + \\text{carbon dioxide} \\\\ \\text{acid} + \\text{hydrogencarbonate} &\\to \\text{salt} + \\text{water} + \\text{carbon dioxide} \\\\ \\text{acid} + \\text{ammonia} &\\to \\text{ammonium salt} \\end{aligned}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The salt takes its positive ion from the base and its negative ion from the acid. Hydrochloric acid gives chlorides, nitric acid nitrates, sulfuric acid sulfates, and ethanoic acid ethanoates."
+        },
+        {
+          "type": "text",
+          "text": "Metal oxides such as $\\ce{CuO}$ are basic, so they neutralize acids. Contrast an [[acidic-oxide|acidic oxide]] such as $\\ce{CO2}$ ({{lesson:3.2}}), which neutralizes bases."
+        },
+        {
+          "type": "text",
+          "text": "Ammonia and amines accept a proton from the acid, so no water forms: $\\ce{NH3(aq) + HNO3(aq) -> NH4NO3(aq)}$ and $\\ce{CH3NH2(aq) + HCl(aq) -> CH3NH3Cl(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "Organic acids react in the same way, through the H of their [[carboxyl-group|carboxyl group]]: $\\ce{CH3COOH(aq) + NaOH(aq) -> CH3COONa(aq) + H2O(l)}$ gives sodium ethanoate."
+        },
+        {
+          "type": "text",
+          "text": "To find a salt's parent acid and base, split it into its ions. Add $\\ce{H^+}$ ions to the negative ion until it is neutral to get the acid. A metal ion comes from a metal hydroxide (or oxide or carbonate), and $\\ce{NH4^+}$ comes from ammonia."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\ce{H2CO3}$ as a product of an acid and a carbonate. It breaks down at once, so write $\\ce{H2O + CO2}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling acid plus metal a neutralization. $\\ce{Zn + 2HCl -> ZnCl2 + H2}$ has no base: it is a redox reaction, in which zinc is oxidized ({{lesson:6.8}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-carbonate-nitric",
+          "question": "Write a balanced equation, with state symbols, for calcium carbonate powder reacting with dilute nitric acid.",
+          "steps": [
+            "Acid + carbonate gives salt + water + carbon dioxide.",
+            "Nitric acid gives a nitrate. $\\ce{Ca^2+}$ needs two $\\ce{NO3^-}$, so the salt is $\\ce{Ca(NO3)2}$.",
+            "Two $\\ce{HNO3}$ supply both nitrate ions and the two H atoms in water. Check: 1 Ca, 2 N, 2 H, 1 C and 9 O on each side.",
+            "States: the carbonate is a solid, the salt dissolves, water is a liquid and $\\ce{CO2}$ is a gas."
+          ],
+          "answer": "$\\ce{CaCO3(s) + 2HNO3(aq) -> Ca(NO3)2(aq) + H2O(l) + CO2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CaCO3(s) + HNO3(aq) -> Ca(NO3)2(aq) + H2O(l) + CO2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parent-sodium-propanoate",
+          "question": "Sodium propanoate, $\\ce{CH3CH2COONa}$, is a food preservative. Identify its parent acid and base, and write an equation for the neutralization that makes it.",
+          "steps": [
+            "Its ions are $\\ce{Na^+}$ and $\\ce{CH3CH2COO^-}$.",
+            "Adding $\\ce{H^+}$ to the negative ion gives the parent acid, propanoic acid $\\ce{CH3CH2COOH}$.",
+            "$\\ce{Na^+}$ comes from the parent base, sodium hydroxide.",
+            "Acid + metal hydroxide gives salt + water, with all coefficients 1."
+          ],
+          "answer": "$\\ce{CH3CH2COOH + NaOH -> CH3CH2COONa + H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2COOH + NaOH -> CH3CH2COONa + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mgo-hcl",
+          "prompt": "Which equation shows magnesium oxide neutralizing hydrochloric acid?",
+          "hint": "Metal oxide + acid gives salt + water. Then balance.",
+          "options": [
+            {
+              "text": "$\\ce{MgO + 2HCl -> MgCl2 + H2O}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{MgO + HCl -> MgCl2 + H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{MgO + 2HCl -> MgCl2 + H2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{MgO + 2HCl -> MgCl2 + H2O + CO2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The salt is $\\ce{MgCl2}$ and the other product is water. Two $\\ce{HCl}$ balance the Cl and H. Hydrogen gas forms only with a metal, and $\\ce{CO2}$ only with a carbonate.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "MgO + HCl -> MgCl2 + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parent-ammonium-sulfate",
+          "prompt": "Which acid and base react to form ammonium sulfate, $\\ce{(NH4)2SO4}$?",
+          "hint": "Split the salt into its ions. Which acid gives sulfate, and which base gives $\\ce{NH4^+}$?",
+          "options": [
+            {
+              "text": "Sulfuric acid and ammonia",
+              "correct": true
+            },
+            {
+              "text": "Sulfuric acid and sodium hydroxide",
+              "correct": false
+            },
+            {
+              "text": "Nitric acid and ammonia",
+              "correct": false
+            },
+            {
+              "text": "Sulfur dioxide and ammonia",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{SO4^2-}$ plus two $\\ce{H^+}$ gives sulfuric acid, $\\ce{H2SO4}$, and $\\ce{NH4^+}$ comes from ammonia.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Sulfuric acid and ammonia"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ph-curves",
+      "heading": "Titration and pH curves",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "titration",
+          "statement": "A technique in which one solution is added from a burette to a measured volume of another until the reaction is just complete.",
+          "plain": "Add one solution bit by bit until there is exactly enough."
+        },
+        {
+          "type": "text",
+          "text": "With a [[standard-solution|standard solution]] of known concentration in the burette, a titration finds the concentration of the other solution."
+        },
+        {
+          "type": "definition",
+          "term": "equivalence point",
+          "statement": "The point in a titration at which the amounts of acid and base added are in the exact ratio of the balanced equation.",
+          "plain": "Exactly enough base has been added to react with all the acid."
+        },
+        {
+          "type": "text",
+          "text": "It is also called the stoichiometric point, because the amounts match the stoichiometry of the equation."
+        },
+        {
+          "type": "definition",
+          "term": "end point",
+          "statement": "The point in a titration at which the indicator changes colour.",
+          "plain": "What you see, not what has happened."
+        },
+        {
+          "type": "text",
+          "text": "An indicator is a dye whose colour depends on pH. A good one changes colour very close to the equivalence point. But the end point is an observation, while the equivalence point is a fixed amount of reactant."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you choose an indicator whose colour change matches the pH at the equivalence point.",
+          "lesson": "6.6"
+        },
+        {
+          "type": "text",
+          "text": "A pH meter can log the pH as the base goes in. A graph of pH against volume added is a pH curve."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-ph-curve",
+          "alt": "pH curve for adding 0.100 mol per cubic decimetre sodium hydroxide to 25.0 cubic centimetres of 0.100 mol per cubic decimetre hydrochloric acid. pH from 0 to 14 on the vertical axis, volume added from 0 to 50 cubic centimetres on the horizontal axis. The curve starts at pH 1.00 on the pH axis, rises slowly, then rises almost vertically from about pH 3 to about pH 11 around 25.0 cubic centimetres. The equivalence point is marked at 25.0 cubic centimetres and pH 7.00. After it the curve levels off, at about pH 12.5 by 50 cubic centimetres.",
+          "caption": "$\\pu{0.100 mol dm-3}$ $\\ce{NaOH}$ added to $\\pu{25.0 cm3}$ of $\\pu{0.100 mol dm-3}$ $\\ce{HCl}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Intercept. The curve meets the pH axis at the pH of the acid alone. A strong monoprotic acid is fully ionized, so $[\\ce{H^+}]$ equals its concentration: $-\\log_{10} 0.100 = 1.00$."
+        },
+        {
+          "type": "text",
+          "text": "2. Slow rise. At first most of the $\\ce{H^+}$ is still there. Because pH is a log scale, the pH has risen by less than 1 even when half of it has gone."
+        },
+        {
+          "type": "text",
+          "text": "3. Steep jump. Near the equivalence point, a fraction of a $\\pu{cm3}$ removes the last $\\ce{H^+}$ and then leaves $\\ce{OH^-}$ in excess. The pH leaps from about 3 to about 11."
+        },
+        {
+          "type": "text",
+          "text": "4. Equivalence point. It sits in the middle of the steep part. The salt $\\ce{NaCl}$ is neutral, so the pH there is 7.00 at $\\pu{298 K}$. Read the equivalence volume off the horizontal axis."
+        },
+        {
+          "type": "text",
+          "text": "5. Levelling off. Excess $\\ce{OH^-}$ takes the pH towards that of the alkali itself: about 12.5 by $\\pu{50 cm3}$, heading towards 13."
+        },
+        {
+          "type": "text",
+          "text": "Adding acid to alkali gives the mirror image. The curve starts high, falls slowly, then drops steeply through pH 7 at the equivalence point."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet pH curves involving weak acids or weak bases, whose equivalence points are not at pH 7.",
+          "lesson": "6.5"
+        },
+        {
+          "type": "text",
+          "text": "To find an unknown concentration ({{lesson:1.8}}): work out $n = cV$ for the solution you know, use the equation's [[mole|mole]] ratio, then divide by the volume of the unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-curve-features",
+          "question": "$\\pu{0.0400 mol dm-3}$ potassium hydroxide is added to $\\pu{30.0 cm3}$ of $\\pu{0.0400 mol dm-3}$ nitric acid until $\\pu{60 cm3}$ has been added. Describe the key features of the pH curve.",
+          "steps": [
+            "Intercept: the acid is strong and monoprotic, so $[\\ce{H^+}] = 0.0400$ and $\\mathrm{pH} = -\\log_{10} 0.0400 = 1.40$.",
+            "Equivalence: the ratio is $1:1$ and the concentrations are equal, so equal volumes react: $\\pu{30.0 cm3}$.",
+            "Excess $\\ce{KOH}$: at $\\pu{60 cm3}$, $\\pu{1.20e-3 mol}$ $\\ce{OH^-}$ is left in $\\pu{90 cm3}$, so $[\\ce{OH^-}] = \\pu{0.0133 mol dm-3}$ and the pH is about 12.1. It heads towards 12.6, the pH of the alkali itself."
+          ],
+          "answer": "The curve meets the pH axis at pH 1.40. The pH rises slowly until close to 30.0 cm³ of $\\ce{KOH}$. It then rises steeply, almost vertically, through pH 7. The equivalence point is at 30.0 cm³ and pH 7, in the middle of the steep section. After it the curve levels off, reaching about pH 12.1 at 60 cm³.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Starts at pH 1.40, slow rise, steep jump through pH 7 with the equivalence point at 30.0 cm3, then levels off at about pH 12.1 by 60 cm3.",
+            "requires": [
+              "1.40",
+              [
+                "rises slowly",
+                "slow rise"
+              ],
+              [
+                "steeply",
+                "vertically"
+              ],
+              "equivalence point",
+              "30.0",
+              "pH 7",
+              [
+                "levels off",
+                "flattens"
+              ]
+            ],
+            "forbids": [
+              "starts at pH 7",
+              "starts at pH 0"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-titration-concentration",
+          "question": "$\\pu{25.0 cm3}$ of nitric acid is titrated with $\\pu{0.120 mol dm-3}$ potassium hydroxide. The pH curve shows the equivalence point at $\\pu{21.35 cm3}$. Calculate the concentration of the nitric acid.",
+          "steps": [
+            "$\\ce{HNO3 + KOH -> KNO3 + H2O}$, a $1:1$ ratio.",
+            "$n(\\ce{KOH}) = 0.120 \\times \\frac{21.35}{1000} = \\pu{2.562e-3 mol}$, so $n(\\ce{HNO3}) = \\pu{2.562e-3 mol}$.",
+            "$c(\\ce{HNO3}) = \\frac{2.562 \\times 10^{-3}}{25.0 / 1000}$.",
+            "Give 3 significant figures, the precision of the data."
+          ],
+          "answer": "$c \\approx \\pu{0.102 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.120*21.35/25.0",
+            "sf": 3,
+            "unit": "mol dm-3"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-intercept-nitric",
+            "prompt": "Now calculate the pH where this curve meets the pH axis, to 2 decimal places.",
+            "hint": "The acid is strong and monoprotic, so $[\\ce{H^+}]$ is its concentration. Use the unrounded value.",
+            "answer": {
+              "value": 0.99,
+              "tolerance": 0.005
+            },
+            "explain": "$-\\log_{10}(0.10248) = 0.99$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "-log(0.120*21.35/25.0, 10)",
+              "dp": 2
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Assuming every equivalence point is at pH 7. That holds for a strong acid with a strong base at $\\pu{298 K}$."
+        },
+        {
+          "type": "check",
+          "id": "check-equivalence-volume",
+          "prompt": "$\\pu{18.0 cm3}$ of $\\pu{0.150 mol dm-3}$ $\\ce{HCl}$ is titrated with $\\pu{0.200 mol dm-3}$ $\\ce{NaOH}$. At what volume of $\\ce{NaOH}$, in $\\pu{cm3}$, is the equivalence point?",
+          "hint": "Find the amount of $\\ce{HCl}$. The ratio is $1:1$.",
+          "answer": {
+            "value": 13.5,
+            "tolerance": 0.05
+          },
+          "explain": "$n(\\ce{HCl}) = 0.150 \\times 0.0180 = \\pu{2.70e-3 mol}$, and $\\frac{2.70 \\times 10^{-3}}{0.200} = \\pu{0.0135 dm3} = \\pu{13.5 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18.0*0.150/0.200",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-end-vs-equivalence",
+          "prompt": "Which statement about an acid–base titration is correct?",
+          "hint": "One point is defined by the indicator, the other by the equation.",
+          "options": [
+            {
+              "text": "The end point is where the indicator changes colour",
+              "correct": true
+            },
+            {
+              "text": "The end point and the equivalence point are always identical",
+              "correct": false
+            },
+            {
+              "text": "The equivalence point is where the indicator changes colour",
+              "correct": false
+            },
+            {
+              "text": "The pH is 7 at every equivalence point",
+              "correct": false
+            }
+          ],
+          "explain": "The end point is the colour change you see. The equivalence point is where the amounts match the equation; a good indicator makes the two nearly coincide.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The end point is where the indicator changes colour"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Strong acids ($\\ce{HCl}$, $\\ce{HNO3}$, $\\ce{H2SO4}$) and group 1 hydroxides ionize completely. Weak acids (carboxylic acids) and weak bases ($\\ce{NH3}$, amines) ionize partially.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Strong or weak is the extent of ionization. Concentrated or dilute is the amount dissolved per $\\pu{dm3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An acid–base equilibrium lies towards the weaker acid and weaker base. The weaker the acid, the stronger its conjugate base.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Acid + metal oxide or hydroxide gives salt + water. Acid + carbonate or hydrogencarbonate gives salt + water + $\\ce{CO2}$. Acid + ammonia gives an ammonium salt.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Strong acid and strong base pH curve: starts at the acid's pH, rises slowly, jumps steeply, equivalence point at pH 7 ($\\pu{298 K}$), then levels off.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "End point: the indicator changes colour. Equivalence point: the amounts are in the equation's ratio.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"strong\" when you mean \"concentrated\". Strength is the extent of ionization; concentration is the amount dissolved per $\\pu{dm3}$.",
+    "Using $\\ce{->}$ for a weak acid's ionization or $\\ce{<=>}$ for a strong acid's. The arrow shows whether ionization is complete.",
+    "Thinking a weak acid needs less base. Equal amounts of monoprotic acid need equal amounts of base, whatever their strength.",
+    "Leaving out $\\ce{CO2}$ when an acid reacts with a carbonate or hydrogencarbonate, or writing $\\ce{H2CO3}$ in its place.",
+    "Starting a strong acid's pH curve at pH 7. It starts on the pH axis, at the pH of the acid alone."
+  ],
+  "examTips": [
+    "\"Distinguish\" strong from weak acids: state complete versus partial ionization, then give one difference you could observe at equal concentration (pH, conductivity or rate of bubbling).",
+    "\"Sketch\" a pH curve: pH on the vertical axis and volume on the horizontal axis, never the other way round. Start at the acid's pH, show the steep section, and mark the equivalence volume and pH 7.",
+    "On Paper 1A, check that neutralization products include $\\ce{CO2}$ for carbonates and no water for ammonia. On Paper 2, give state symbols when the question asks for them."
+  ],
+  "readingMinutes": 23
+}

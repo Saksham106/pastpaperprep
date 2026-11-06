@@ -1,0 +1,829 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.12",
+  "slug": "oxidation-and-reduction-of-organic-compounds",
+  "title": "Oxidation and reduction of organic compounds",
+  "level": "SL",
+  "topic": 6,
+  "summary": "In organic chemistry, [[oxidation|oxidation]] adds oxygen or removes hydrogen, and [[reduction|reduction]] does the reverse. Primary [[alcohol|alcohols]] oxidize to [[aldehyde|aldehydes]] and then [[carboxylic-acid|carboxylic acids]], secondary alcohols to [[ketone|ketones]], and tertiary alcohols not at all. Hydride ions reverse these changes, and hydrogen adds across $\\ce{C=C}$ and $\\ce{C#C}$ bonds.",
+  "goals": [
+    {
+      "text": "Classify an organic change as oxidation or reduction, using [[oxidation-state|oxidation states]] or the gain and loss of O and H.",
+      "bullets": [
+        "R3.2.9",
+        "R3.2.10"
+      ]
+    },
+    {
+      "text": "Write equations with $\\ce{[O]}$ for oxidizing primary alcohols (two steps) and secondary alcohols, and explain why tertiary alcohols do not react.",
+      "bullets": [
+        "R3.2.9"
+      ]
+    },
+    {
+      "text": "Explain why [[distillation|distillation]] gives the aldehyde and [[reflux|reflux]] gives the carboxylic acid.",
+      "bullets": [
+        "R3.2.9"
+      ]
+    },
+    {
+      "text": "Write equations with $\\ce{[H]}$ for reducing carboxylic acids, via aldehydes, to primary alcohols and ketones to secondary alcohols, and outline the hydride ion's role.",
+      "bullets": [
+        "R3.2.10"
+      ]
+    },
+    {
+      "text": "Deduce the products of [[hydrogenation|hydrogenation]] of [[alkene|alkenes]] and [[alkyne|alkynes]].",
+      "bullets": [
+        "R3.2.11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.12",
+    "3.3",
+    "3.6",
+    "3.7",
+    "6.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "oxidation of alcohols",
+    "primary secondary tertiary alcohol oxidation",
+    "reflux vs distillation",
+    "reduction of ketones and carboxylic acids",
+    "hydrogenation of alkenes",
+    "acidified dichromate alcohol"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ox-state-chcl3",
+      "prompt": "What is the oxidation state of carbon in trichloromethane, $\\ce{CHCl3}$?",
+      "hint": "H is $+1$ and Cl is $-1$ here. The oxidation states add up to $0$.",
+      "answer": {
+        "value": 2,
+        "tolerance": 0
+      },
+      "explain": "$(+1) + 3(-1) + x = 0$, so $x = +2$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0 - (1 + 3*(-1))",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-classify-pentan-3-ol",
+      "prompt": "How is pentan-3-ol, $\\ce{CH3CH2CH(OH)CH2CH3}$, classified?",
+      "hint": "Count the carbons bonded to the carbon that carries OH.",
+      "options": [
+        {
+          "text": "Secondary",
+          "correct": true
+        },
+        {
+          "text": "Primary",
+          "correct": false
+        },
+        {
+          "text": "Tertiary",
+          "correct": false
+        }
+      ],
+      "explain": "That carbon is bonded to two other carbons: secondary. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Secondary"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-propanal-group",
+      "prompt": "Which [[functional-group|functional group]] does propanal, $\\ce{CH3CH2CHO}$, contain?",
+      "hint": "Look for a carbon double-bonded to oxygen.",
+      "options": [
+        {
+          "text": "Carbonyl",
+          "correct": true
+        },
+        {
+          "text": "Hydroxyl",
+          "correct": false
+        },
+        {
+          "text": "Carboxyl",
+          "correct": false
+        }
+      ],
+      "explain": "The $\\ce{-CHO}$ end holds a $\\ce{C=O}$, the [[carbonyl-group|carbonyl group]]. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Carbonyl"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "organic-redox",
+      "heading": "What oxidation and reduction mean in organic chemistry",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.8}} redox was electron transfer. In organic chemistry it is easier to watch oxygen and hydrogen atoms."
+        },
+        {
+          "type": "result",
+          "statement": "An organic compound is oxidized when it gains oxygen or loses hydrogen. It is reduced when it gains hydrogen or loses oxygen.",
+          "why": "Oxygen is more electronegative than carbon and hydrogen is less, so the carbon's oxidation state goes up for oxidation and down for reduction."
+        },
+        {
+          "type": "text",
+          "text": "In equations, $\\ce{[O]}$ is an oxygen atom from the [[oxidizing-agent|oxidizing agent]] and $\\ce{[H]}$ a hydrogen atom from the [[reducing-agent|reducing agent]]. Balance O and H as usual, adding $\\ce{H2O}$ where needed."
+        },
+        {
+          "type": "text",
+          "text": "For carbon's oxidation state, count H as $+1$ and O as $-2$; a neutral molecule totals $0$. In one-carbon compounds, each step swaps a C–H bond for a bond to oxygen, raising carbon by 2."
+        },
+        {
+          "type": "formula",
+          "tex": "\\underset{-4}{\\ce{CH4}} \\;\\to\\; \\underset{-2}{\\ce{CH3OH}} \\;\\to\\; \\underset{0}{\\ce{HCHO}} \\;\\to\\; \\underset{+2}{\\ce{HCOOH}} \\;\\to\\; \\underset{+4}{\\ce{CO2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-methanol-to-methanal",
+          "question": "Methanol, $\\ce{CH3OH}$, is converted into methanal, $\\ce{HCHO}$. Deduce the change in the oxidation state of carbon, and state whether methanol is oxidized or reduced.",
+          "steps": [
+            "Methanol: $4(+1) + (-2) + x = 0$, so $x = -2$.",
+            "Methanal: $2(+1) + (-2) + x = 0$, so $x = 0$.",
+            "Change $= 0 - (-2) = +2$. The oxidation state rises, so methanol is oxidized. It has lost two H atoms, which agrees."
+          ],
+          "answer": "$\\text{change} = +2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0 - (2*1 + (-2))) - (0 - (4*1 + (-2)))",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "Complete [[combustion|combustion]] is oxidation taken all the way: every carbon atom ends up in $\\ce{CO2}$. The oxidations in this lesson are controlled: only the [[functional-group|functional group]] changes."
+        },
+        {
+          "type": "example",
+          "id": "ex-combustion-vs-oxidation",
+          "question": "Outline the difference between burning propan-1-ol in air and oxidizing it to propanoic acid.",
+          "steps": [
+            "Ask what happens to the carbon chain in each case."
+          ],
+          "answer": "Complete combustion breaks up the whole molecule: every carbon atom is oxidized to carbon dioxide. Controlled oxidation changes only the functional group, turning the [[hydroxyl-group|hydroxyl group]] into a [[carboxyl-group|carboxyl group]]. The three-carbon chain stays intact.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Combustion oxidizes every carbon to CO2; controlled oxidation changes only the functional group and keeps the carbon chain.",
+            "requires": [
+              "carbon dioxide",
+              "every carbon atom",
+              "only the functional group",
+              [
+                "stays intact",
+                "unchanged"
+              ]
+            ],
+            "forbids": [
+              "chain breaks"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-reduction",
+          "prompt": "Which change is a reduction?",
+          "hint": "Which one gains hydrogen without gaining oxygen?",
+          "options": [
+            {
+              "text": "Propanone to propan-2-ol",
+              "correct": true
+            },
+            {
+              "text": "Ethanal to ethanoic acid",
+              "correct": false
+            },
+            {
+              "text": "Propan-2-ol to propanone",
+              "correct": false
+            },
+            {
+              "text": "Ethanol to carbon dioxide",
+              "correct": false
+            }
+          ],
+          "explain": "Propanone gains two H atoms. The others gain O, lose H, or burn: all oxidations.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Propanone to propan-2-ol"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ox-state-methanoic",
+          "prompt": "What is the oxidation state of carbon in methanoic acid, $\\ce{HCOOH}$?",
+          "hint": "There are two H atoms and two O atoms.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$2(+1) + 2(-2) + x = 0$, so $x = +2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0 - (2*1 + 2*(-2))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "alcohol-oxidation",
+      "heading": "Oxidizing alcohols",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To oxidize an alcohol, the carbon carrying the [[hydroxyl-group|hydroxyl group]] must lose an H atom. So first ask: is the alcohol [[primary-secondary-and-tertiary|primary, secondary or tertiary]]?"
+        },
+        {
+          "type": "text",
+          "text": "A common oxidizing agent is acidified potassium dichromate(VI), which turns from orange to green as it reacts. You won't be asked to name oxidizing agents."
+        },
+        {
+          "type": "figure",
+          "id": "6-12-redox-map",
+          "alt": "Map of oxidation and reduction between alcohols and carbonyl compounds. Top row: primary alcohol, R-CH2OH, goes by oxidation with [O] to an aldehyde, R-CHO, which goes by oxidation with [O] to a carboxylic acid, R-COOH. Arrows back the other way, labelled [H], show reduction: carboxylic acid to aldehyde to primary alcohol. Middle row: secondary alcohol, R-CH(OH)-R', goes by oxidation with [O] to a ketone, R-CO-R', and the ketone goes back by reduction with [H]. Bottom row: tertiary alcohol, R3C-OH, has a crossed-out arrow labelled no reaction, because the carbon bonded to OH has no hydrogen atom.",
+          "caption": "Oxidation runs left to right with $\\ce{[O]}$; reduction runs back with $\\ce{[H]}$. R and R′ are carbon chains."
+        },
+        {
+          "type": "text",
+          "text": "1. A primary alcohol loses two H atoms to give an aldehyde: $\\ce{RCH2OH + [O] -> RCHO + H2O}$."
+        },
+        {
+          "type": "text",
+          "text": "2. The aldehyde gains an O atom to give a carboxylic acid, with the [[carboxyl-group|carboxyl group]]: $\\ce{RCHO + [O] -> RCOOH}$. Overall, $\\ce{RCH2OH + 2[O] -> RCOOH + H2O}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing water as a product of aldehyde to acid. That step only adds an O atom, so the acid is the only product."
+        },
+        {
+          "type": "text",
+          "text": "A secondary alcohol loses two H atoms to give a ketone: $\\ce{RCH(OH)R' + [O] -> RCOR' + H2O}$. The ketone is not oxidized further, since that would break a C–C bond."
+        },
+        {
+          "type": "text",
+          "text": "A tertiary alcohol has no H atom on the carbon bonded to OH. So it is not oxidized under the same conditions: the dichromate stays orange."
+        },
+        {
+          "type": "example",
+          "id": "ex-pentanol-to-acid",
+          "question": "Write an equation, using $\\ce{[O]}$, for the complete oxidation of pentan-1-ol to pentanoic acid.",
+          "steps": [
+            "Pentan-1-ol is $\\ce{CH3CH2CH2CH2CH2OH}$ and pentanoic acid is $\\ce{CH3CH2CH2CH2COOH}$: same five carbons.",
+            "Step 1 needs one $\\ce{[O]}$ and makes $\\ce{H2O}$; step 2 needs another $\\ce{[O]}$.",
+            "Check O: $1 + 2 = 3$ on the left, $2 + 1 = 3$ on the right. H: $12 = 10 + 2$."
+          ],
+          "answer": "$\\ce{CH3CH2CH2CH2CH2OH + 2[O] -> CH3CH2CH2CH2COOH + H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2CH2CH2CH2OH + [O] -> CH3CH2CH2CH2COOH + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hexan-2-ol-ketone",
+          "question": "Hexan-2-ol is heated with acidified potassium dichromate(VI). Deduce the organic product and write an equation using $\\ce{[O]}$.",
+          "steps": [
+            "Carbon 2 carries OH, one H and two carbons: secondary, so it gives a ketone, hexan-2-one.",
+            "The H atoms from O–H and C–H leave as $\\ce{H2O}$ with the $\\ce{[O]}$."
+          ],
+          "answer": "$\\ce{CH3CH(OH)CH2CH2CH2CH3 + [O] -> CH3COCH2CH2CH2CH3 + H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH(OH)CH2CH2CH2CH3 + [O] -> CH3COCH2CH2CH2CH3 + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-oxidized",
+          "prompt": "Which alcohol is not oxidized when warmed with acidified potassium dichromate(VI)?",
+          "hint": "Which has no H on the carbon carrying OH?",
+          "options": [
+            {
+              "text": "3-methylpentan-3-ol",
+              "correct": true
+            },
+            {
+              "text": "pentan-3-ol",
+              "correct": false
+            },
+            {
+              "text": "3-methylpentan-2-ol",
+              "correct": false
+            },
+            {
+              "text": "3-methylpentan-1-ol",
+              "correct": false
+            }
+          ],
+          "explain": "Carbon 3 of 3-methylpentan-3-ol carries OH, a methyl and two ethyl groups: tertiary. The others are secondary or primary.",
+          "verify": {
+            "kind": "choice",
+            "truth": "3-methylpentan-3-ol"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ketone-product",
+          "prompt": "What is the organic product when pentan-2-ol is oxidized?",
+          "hint": "Pentan-2-ol is secondary.",
+          "options": [
+            {
+              "text": "Pentan-2-one",
+              "correct": true
+            },
+            {
+              "text": "Pentanal",
+              "correct": false
+            },
+            {
+              "text": "Pentanoic acid",
+              "correct": false
+            },
+            {
+              "text": "Pentan-3-one",
+              "correct": false
+            }
+          ],
+          "explain": "A secondary alcohol gives a ketone, with $\\ce{C=O}$ on carbon 2. Aldehydes and acids come from primary alcohols.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Pentan-2-one"
+          }
+        }
+      ]
+    },
+    {
+      "id": "distil-or-reflux",
+      "heading": "Distillation or reflux: aldehyde or acid",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A primary alcohol can stop at the aldehyde or go on to the acid. The apparatus decides which, and boiling points explain why."
+        },
+        {
+          "type": "text",
+          "text": "Aldehyde molecules have no H on an O atom, so they cannot [[hydrogen-bond|hydrogen bond]] to each other. Alcohol and acid molecules can, so the aldehyde boils lowest."
+        },
+        {
+          "type": "text",
+          "text": "For the aldehyde, use [[distillation|distillation]] with a limited amount of oxidizing agent. The aldehyde boils off as soon as it forms, down the sloping condenser, before it can be oxidized again."
+        },
+        {
+          "type": "definition",
+          "term": "reflux",
+          "statement": "Heating a reaction mixture in a flask with a vertical condenser, so that vapour condenses and drips back and nothing escapes.",
+          "plain": "Boil it for a long time without boiling it away."
+        },
+        {
+          "type": "text",
+          "text": "For the carboxylic acid, heat under reflux with excess oxidizing agent. The aldehyde cannot escape, so it is oxidized to the acid, which is distilled out afterwards."
+        },
+        {
+          "type": "figure",
+          "id": "6-12-distillation-reflux",
+          "alt": "Two apparatus set-ups side by side. Left, distillation: a round-bottomed flask of reaction mixture is heated from below. A still head on top holds a thermometer with its bulb level with the side arm. The side arm leads into a condenser that slopes downwards, with cooling water in at the lower end and out at the upper end. The condensed liquid, the aldehyde, drips into a collecting flask standing in an ice bath. Right, reflux: a round-bottomed flask of reaction mixture is heated from below, with a condenser fitted straight up above it and left open at the top. Cooling water enters at the bottom of the condenser jacket and leaves at the top. Vapour rises, condenses and drips back into the flask.",
+          "caption": "Cooling water enters at the lower end. Neither set-up is sealed: a heated closed flask could burst."
+        },
+        {
+          "type": "example",
+          "id": "ex-why-distil-propanal",
+          "question": "Propanal is made by oxidizing propan-1-ol. Explain why the propanal is distilled off as the reaction happens.",
+          "steps": [
+            "Compare boiling points, then say what distillation prevents."
+          ],
+          "answer": "Propanal molecules cannot form hydrogen bonds with each other, so propanal has a lower boiling point than propan-1-ol and propanoic acid. It vaporizes as soon as it forms and leaves the flask, so it is not oxidized further to propanoic acid.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "No hydrogen bonding between aldehyde molecules, so lower boiling point; it distils off as it forms and escapes further oxidation.",
+            "requires": [
+              "hydrogen bonds",
+              "lower boiling point",
+              [
+                "as soon as it forms",
+                "as it forms"
+              ],
+              "not oxidized further"
+            ],
+            "forbids": [
+              "higher boiling point"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-plan-hexanoic-acid",
+          "question": "A student wants to make hexanoic acid from hexan-1-ol. Outline the conditions and the apparatus they should use.",
+          "steps": [
+            "The aldehyde formed first must not escape."
+          ],
+          "answer": "Use excess oxidizing agent and heat the mixture under reflux, with the condenser vertical. Vapour condenses and drips back, so the hexanal formed first stays with the oxidizing agent. It is oxidized further to hexanoic acid, which is then separated by distillation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Excess oxidizing agent, heat under reflux so the aldehyde returns and is oxidized to the acid.",
+            "requires": [
+              "excess",
+              "reflux",
+              [
+                "drips back",
+                "runs back",
+                "returns"
+              ],
+              "oxidized further"
+            ],
+            "forbids": [
+              "limited oxidizing agent"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reflux-purpose",
+          "prompt": "What does the vertical condenser do in reflux?",
+          "hint": "Where does cooled vapour go?",
+          "options": [
+            {
+              "text": "Returns vapour to the flask as liquid",
+              "correct": true
+            },
+            {
+              "text": "Removes the product as it forms",
+              "correct": false
+            },
+            {
+              "text": "Cools the mixture to slow the reaction",
+              "correct": false
+            },
+            {
+              "text": "Seals the flask from the air",
+              "correct": false
+            }
+          ],
+          "explain": "Vapour condenses and drips back. Removing the product is distillation, and the top stays open.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Returns vapour to the flask as liquid"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-conditions-pentanal",
+          "prompt": "Which conditions give the best yield of pentanal from pentan-1-ol?",
+          "hint": "The aldehyde must leave before it meets more oxidizing agent.",
+          "options": [
+            {
+              "text": "Limited oxidizing agent, distil off as it forms",
+              "correct": true
+            },
+            {
+              "text": "Excess oxidizing agent, heat under reflux",
+              "correct": false
+            },
+            {
+              "text": "Limited oxidizing agent, heat under reflux",
+              "correct": false
+            }
+          ],
+          "explain": "Distilling removes pentanal at once, and a limited oxidizing agent stops it reaching the acid. Reflux keeps pentanal in the flask.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Limited oxidizing agent, distil off as it forms"
+          }
+        }
+      ]
+    },
+    {
+      "id": "carbonyl-reduction",
+      "heading": "Reducing carboxylic acids and ketones",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Reduction runs the oxidations backwards: follow the $\\ce{[H]}$ arrows in the map above."
+        },
+        {
+          "type": "text",
+          "text": "1. A carboxylic acid is reduced to an aldehyde: $\\ce{RCOOH + 2[H] -> RCHO + H2O}$."
+        },
+        {
+          "type": "text",
+          "text": "2. The aldehyde is reduced to a primary alcohol: $\\ce{RCHO + 2[H] -> RCH2OH}$. It reacts faster than the acid, so it does not build up. Overall, $\\ce{RCOOH + 4[H] -> RCH2OH + H2O}$."
+        },
+        {
+          "type": "text",
+          "text": "A ketone is reduced to a secondary alcohol: $\\ce{RCOR' + 2[H] -> RCH(OH)R'}$."
+        },
+        {
+          "type": "definition",
+          "term": "hydride ion",
+          "statement": "The ion $\\ce{H^-}$: a hydrogen atom with an extra electron, giving it a lone pair and a negative charge.",
+          "plain": "A hydrogen with a spare pair of electrons to give."
+        },
+        {
+          "type": "text",
+          "text": "The reducing agents here supply hydride ions. In the [[carbonyl-group|carbonyl group]], oxygen is more electronegative, so carbon is δ+. The hydride ion acts as a [[nucleophile|nucleophile]] ({{lesson:6.16}}), donating its electron pair to that carbon to form a C–H bond."
+        },
+        {
+          "type": "text",
+          "text": "The oxygen then gains $\\ce{H^+}$ from water or dilute acid and becomes –OH. You need the role of $\\ce{H^-}$, not reagent names or the mechanism."
+        },
+        {
+          "type": "example",
+          "id": "ex-propanoic-acid-reduction",
+          "question": "Propanoic acid, $\\ce{CH3CH2COOH}$, is reduced to propan-1-ol. Name the intermediate and write the overall equation using $\\ce{[H]}$.",
+          "steps": [
+            "Step 1: $\\ce{2[H]}$ removes an O atom as water, giving propanal, $\\ce{CH3CH2CHO}$.",
+            "Step 2: $\\ce{2[H]}$ more gives propan-1-ol, $\\ce{CH3CH2CH2OH}$.",
+            "Add the steps; propanal cancels. Check O: $2 = 1 + 1$."
+          ],
+          "answer": "$\\ce{CH3CH2COOH + 4[H] -> CH3CH2CH2OH + H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2COOH + [H] -> CH3CH2CH2OH + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hydride-role",
+          "question": "Outline the role of the hydride ion when propanone is reduced to propan-2-ol.",
+          "steps": [
+            "Say why the carbonyl carbon attracts $\\ce{H^-}$, then which bond forms."
+          ],
+          "answer": "The carbonyl carbon is δ+, because oxygen is more electronegative than carbon. The hydride ion, $\\ce{H^-}$, acts as a nucleophile: it donates its lone pair of electrons to this carbon, forming a C–H bond. The oxygen then gains a hydrogen ion, giving the hydroxyl group of propan-2-ol.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H- is a nucleophile: it donates its electron pair to the δ+ carbonyl carbon, forming a C–H bond; O is then protonated.",
+            "requires": [
+              "carbonyl",
+              "more electronegative",
+              "nucleophile",
+              [
+                "lone pair",
+                "electron pair"
+              ],
+              "C-H bond"
+            ],
+            "forbids": [
+              "electrophile"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reduce-to-pentan-2-ol",
+          "prompt": "Which compound is reduced to pentan-2-ol?",
+          "hint": "Pentan-2-ol is a secondary alcohol.",
+          "options": [
+            {
+              "text": "Pentan-2-one",
+              "correct": true
+            },
+            {
+              "text": "Pentanal",
+              "correct": false
+            },
+            {
+              "text": "Pentanoic acid",
+              "correct": false
+            },
+            {
+              "text": "Pent-2-ene",
+              "correct": false
+            }
+          ],
+          "explain": "Secondary alcohols come from ketones. Pentanal and pentanoic acid give pentan-1-ol; pent-2-ene gives pentane.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Pentan-2-one"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-h-count-hexanoic",
+          "prompt": "How many $\\ce{[H]}$ are needed to reduce one molecule of hexanoic acid to hexan-1-ol?",
+          "hint": "Two steps, via hexanal.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$\\ce{2[H]}$ to hexanal, then $\\ce{2[H]}$ to hexan-1-ol: $4$ in total.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2 + 2",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "hydrogenation",
+      "heading": "Adding hydrogen to alkenes and alkynes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[alkene|Alkenes]] and [[alkyne|alkynes]] are [[unsaturated|unsaturated]]: they hold $\\ce{C=C}$ or $\\ce{C#C}$ bonds. Hydrogen adds across these in an [[addition-reaction|addition reaction]]."
+        },
+        {
+          "type": "definition",
+          "term": "hydrogenation",
+          "statement": "The addition of hydrogen, $\\ce{H2}$, across a carbon–carbon double or triple bond, usually with a nickel catalyst and heat.",
+          "plain": "Filling a multiple bond with hydrogen atoms."
+        },
+        {
+          "type": "text",
+          "text": "Conditions: hydrogen gas, a nickel [[catalyst|catalyst]] and about $\\pu{150 ^\\circ C}$. An alkene gives a [[saturated|saturated]] alkane: $\\ce{CH3CH=CH2 + H2 -> CH3CH2CH3}$."
+        },
+        {
+          "type": "text",
+          "text": "An alkyne adds $\\ce{H2}$ twice. One mole gives the alkene; excess gives the alkane: $\\ce{HC#CH + H2 -> H2C=CH2}$, then $\\ce{H2C=CH2 + H2 -> CH3CH3}$."
+        },
+        {
+          "type": "text",
+          "text": "Each $\\ce{H2}$ lowers the degree of unsaturation by one. The carbon chain does not change."
+        },
+        {
+          "type": "text",
+          "text": "Hydrogenation is a reduction: each carbon of the multiple bond gains H, so its oxidation state falls. Adding HBr or $\\ce{H2O}$ is different: one carbon gains H and the other Br or OH, so overall there is no reduction. These are [[electrophilic-addition|electrophilic additions]] ({{lesson:6.16}})."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you draw the curly-arrow mechanism of electrophilic addition to alkenes.",
+          "lesson": "6.19"
+        },
+        {
+          "type": "example",
+          "id": "ex-pent-2-yne-products",
+          "question": "Deduce the products when pent-2-yne, $\\ce{CH3C#CCH2CH3}$, reacts over a nickel catalyst with (a) one mole of hydrogen and (b) excess hydrogen.",
+          "steps": [
+            "(a) One $\\ce{H2}$ adds across the triple bond; the double bond stays at carbon 2.",
+            "(b) A second $\\ce{H2}$ leaves only single bonds. The chain stays five carbons, unbranched."
+          ],
+          "answer": "With one mole of hydrogen, $\\ce{H2}$ adds across the triple bond to give pent-2-ene, $\\ce{CH3CH=CHCH2CH3}$. With excess hydrogen, a second $\\ce{H2}$ adds across the double bond to give pentane, $\\ce{CH3CH2CH2CH2CH3}$, which is saturated.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "One H2 gives pent-2-ene; excess H2 gives pentane.",
+            "requires": [
+              "pent-2-ene",
+              "pentane",
+              "saturated"
+            ],
+            "forbids": [
+              "pent-1-ene",
+              "methylbutane"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-h2-moles-enyne",
+          "question": "A compound has the structure $\\ce{HC#C-CH2-CH=CH-CH3}$. How many moles of $\\ce{H2}$ react with one mole of it for complete hydrogenation?",
+          "steps": [
+            "Count the multiple bonds: one $\\ce{C#C}$ and one $\\ce{C=C}$.",
+            "A triple bond takes $2$ mol of $\\ce{H2}$ and a double bond takes $1$ mol.",
+            "Total $= 2 + 1$. The product is hexane, $\\ce{C6H14}$."
+          ],
+          "answer": "$n(\\ce{H2}) = \\pu{3 mol}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1*2 + 1*1",
+            "unit": "mol"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hex-3-yne-excess",
+          "prompt": "What forms when hex-3-yne reacts with excess hydrogen over a nickel catalyst?",
+          "hint": "Excess hydrogen saturates every multiple bond.",
+          "options": [
+            {
+              "text": "Hexane",
+              "correct": true
+            },
+            {
+              "text": "Hex-3-ene",
+              "correct": false
+            },
+            {
+              "text": "3-methylpentane",
+              "correct": false
+            },
+            {
+              "text": "Cyclohexane",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{H2}$ add across the triple bond. Hex-3-ene forms with only one mole of $\\ce{H2}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Hexane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-reduction",
+          "prompt": "Why is adding hydrogen to an alkene a reduction?",
+          "hint": "Think about carbon's oxidation state.",
+          "options": [
+            {
+              "text": "The carbons gain H, so their oxidation states fall",
+              "correct": true
+            },
+            {
+              "text": "The carbons lose H, so their oxidation states rise",
+              "correct": false
+            },
+            {
+              "text": "The alkene loses electrons to hydrogen",
+              "correct": false
+            },
+            {
+              "text": "A nickel catalyst is used",
+              "correct": false
+            }
+          ],
+          "explain": "From ethene to ethane, each carbon goes from $-2$ to $-3$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The carbons gain H, so their oxidation states fall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Organic oxidation: gain O or lose H, written with $\\ce{[O]}$. Reduction: gain H or lose O, written with $\\ce{[H]}$. Carbon's oxidation state runs from $-4$ in $\\ce{CH4}$ to $+4$ in $\\ce{CO2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Primary alcohol $\\to$ aldehyde (distil off as it forms) $\\to$ carboxylic acid (excess oxidizing agent, reflux). Secondary alcohol $\\to$ ketone. Tertiary: not oxidized.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hydride ions ($\\ce{H^-}$) reduce: carboxylic acid $\\to$ aldehyde $\\to$ primary alcohol; ketone $\\to$ secondary alcohol.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hydrogenation ($\\ce{H2}$, Ni, about $\\pu{150 ^\\circ C}$): alkyne $\\to$ alkene $\\to$ alkane.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Oxidizing a secondary alcohol to a carboxylic acid. Secondary alcohols stop at the ketone.",
+    "Leaving water out of alcohol to aldehyde or ketone, or adding it to aldehyde to acid. Balance O and H after writing $\\ce{[O]}$.",
+    "Saying tertiary alcohols cannot be oxidized at all. They burn; they just resist the oxidizing agent under the same conditions.",
+    "Calling the $\\ce{C=O}$ group \"aldehyde\". The group is carbonyl; aldehyde and ketone are classes of compound.",
+    "Mixing up the apparatus. Reflux has a vertical condenser; distillation slopes down and collects what boils off."
+  ],
+  "examTips": [
+    "\"Deduce an equation\": show organic species as condensed or structural formulas, use $\\ce{[O]}$ or $\\ce{[H]}$, and balance O and H.",
+    "\"Explain the set-up\": name distillation or reflux, say what the condenser does, and link it to the aldehyde's low boiling point or further oxidation.",
+    "In structural formulas, bond the OH or $\\ce{C=O}$ to the right atom: mark schemes penalize wrong connectivity, such as a bond to the H of OH."
+  ],
+  "readingMinutes": 25
+}

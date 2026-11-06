@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.15",
+  "slug": "radicals",
+  "title": "Radicals",
+  "level": "SL",
+  "topic": 6,
+  "summary": "A [[radical|radical]] has an [[unpaired-electron|unpaired electron]], so it reacts fast. UV light splits a [[halogen|halogen]] molecule into two radicals by [[homolytic-fission|homolytic fission]]. Those radicals start a [[chain-reaction|chain reaction]] that swaps the hydrogen atoms of an [[alkane|alkane]] for halogen atoms: a [[substitution-reaction|substitution reaction]] that gives a mixture of products.",
+  "goals": [
+    {
+      "text": "Identify a radical, show its unpaired electron with a dot, and explain why radicals are so reactive.",
+      "bullets": [
+        "R3.3.1"
+      ]
+    },
+    {
+      "text": "Explain, with an equation and fish-hook arrows, how UV light or heat splits a halogen molecule into radicals.",
+      "bullets": [
+        "R3.3.2"
+      ]
+    },
+    {
+      "text": "Explain why alkanes are unreactive, and write the initiation, propagation and termination steps for an alkane and a halogen.",
+      "bullets": [
+        "R3.3.3"
+      ]
+    },
+    {
+      "text": "Explain why the reaction gives a mixture of products.",
+      "bullets": [
+        "R3.3.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "3.1",
+    "3.6",
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "free radicals",
+    "free radical substitution",
+    "initiation propagation termination",
+    "fish hook arrow",
+    "chlorination of methane",
+    "homolytic fission halogens"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-unpaired-chlorine",
+      "prompt": "A chlorine atom is $\\mathrm{[Ne]\\,3s^{2}\\,3p^{5}}$. How many unpaired electrons does it have?",
+      "hint": "Fill the three 3p orbitals one electron at a time before pairing.",
+      "options": [
+        {
+          "text": "One",
+          "correct": true
+        },
+        {
+          "text": "Three",
+          "correct": false
+        },
+        {
+          "text": "Five",
+          "correct": false
+        },
+        {
+          "text": "Seven",
+          "correct": false
+        }
+      ],
+      "explain": "Five 3p electrons fill the three orbitals as two pairs and one single electron. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "One"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pick-halogen",
+      "prompt": "Which element is a halogen?",
+      "hint": "Halogens are in group 17.",
+      "options": [
+        {
+          "text": "Bromine",
+          "correct": true
+        },
+        {
+          "text": "Sulfur",
+          "correct": false
+        },
+        {
+          "text": "Argon",
+          "correct": false
+        },
+        {
+          "text": "Sodium",
+          "correct": false
+        }
+      ],
+      "explain": "Bromine is in group 17 with fluorine, chlorine and iodine. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Bromine"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-alkane-hydrogens",
+      "prompt": "An alkane molecule has 7 carbon atoms. How many hydrogen atoms does it have?",
+      "hint": "Alkanes follow $\\ce{C_{n}H_{2n+2}}$.",
+      "answer": {
+        "value": 16,
+        "tolerance": 0
+      },
+      "explain": "$2 \\times 7 + 2 = 16$, so the formula is $\\ce{C7H16}$ (heptane). Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*7 + 2",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-radicals",
+      "heading": "What a radical is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In most molecules every electron is paired: in bonds or in lone pairs. A paired electron is in a low-energy, settled state."
+        },
+        {
+          "type": "definition",
+          "term": "radical",
+          "statement": "A species with at least one unpaired electron. It can be an atom, a molecule or an ion.",
+          "plain": "Something with an electron that has no partner."
+        },
+        {
+          "type": "text",
+          "text": "Show the unpaired electron as a dot on the atom that carries it: $\\ce{Cl\\bullet}$ (a chlorine atom) or $\\ce{\\bullet CH3}$ (a methyl radical, with the dot on carbon). The dot is one electron, not a charge."
+        },
+        {
+          "type": "text",
+          "text": "A quick test: count the total electrons. If the number is odd, at least one electron must be unpaired, so the species is a radical. (An even count does not rule it out: $\\ce{O2}$ has two unpaired electrons.)"
+        },
+        {
+          "type": "text",
+          "text": "Radicals come in every type: atoms such as $\\ce{H\\bullet}$, molecules such as nitrogen monoxide, $\\ce{NO}$ (15 electrons), cations such as the molecular ion from a mass spectrometer, and anions such as superoxide, $\\ce{O2^-}$."
+        },
+        {
+          "type": "text",
+          "text": "Radicals are highly reactive. A radical pairs its electron by forming a new covalent bond, and bond formation releases energy. So these reactions have very low activation energies and happen fast."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-no2",
+          "question": "Nitrogen dioxide, $\\ce{NO2}$, is a brown gas in car exhaust. Count its total electrons and deduce whether it is a radical.",
+          "steps": [
+            "Atomic numbers (data booklet, section 7): N is 7, O is 8.",
+            "Total electrons: $7 + 8 + 8$.",
+            "The total is odd, so one electron is unpaired: $\\ce{NO2}$ is a radical."
+          ],
+          "answer": "$7 + 8 + 8 = 23$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "7 + 2*8"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-chlorine-atom-reactive",
+          "question": "Explain why a chlorine atom, $\\ce{Cl\\bullet}$, is a radical, and why it is highly reactive.",
+          "steps": [
+            "Count the electrons, then look at the outer sublevel.",
+            "Say what the atom gains by reacting."
+          ],
+          "answer": "A chlorine atom has 17 electrons, an odd number. Its $\\mathrm{3p^{5}}$ sublevel holds one unpaired electron, so it is a radical. It pairs that electron by forming a covalent bond with another species. Forming the bond releases energy, so the reaction has a low activation energy and happens quickly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "17 electrons, one unpaired 3p electron; forming a bond pairs it and releases energy, so activation energy is low.",
+            "requires": [
+              [
+                "17 electrons",
+                "odd number"
+              ],
+              "unpaired electron",
+              [
+                "forming a covalent bond",
+                "forms a covalent bond",
+                "forming the bond"
+              ],
+              "releases energy",
+              "low activation energy"
+            ],
+            "forbids": [
+              "ion",
+              "charge",
+              "absorbs energy"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hydroxyl-radical",
+          "prompt": "Which species is a radical?",
+          "hint": "Count the electrons in each: O has 8, H has 1. Then allow for any charge.",
+          "options": [
+            {
+              "text": "$\\ce{\\bullet OH}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{OH^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H3O^+}$",
+              "correct": false
+            }
+          ],
+          "explain": "The hydroxyl radical has $8 + 1 = 9$ electrons, an odd number. $\\ce{OH^-}$, $\\ce{H2O}$ and $\\ce{H3O^+}$ each have 10, all paired."
+        },
+        {
+          "type": "check",
+          "id": "check-superoxide-electrons",
+          "prompt": "The superoxide ion, $\\ce{O2^-}$, forms in living cells. How many electrons does it have in total?",
+          "hint": "Add the electrons of two O atoms, then one more for the $1-$ charge.",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "$8 + 8 + 1 = 17$. That is odd, so superoxide is a radical anion.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*8 + 1",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "homolytic",
+      "heading": "Making radicals: homolytic fission",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A covalent bond is a shared pair of electrons. To make radicals, break the bond evenly, so each atom keeps one of the pair."
+        },
+        {
+          "type": "definition",
+          "term": "homolytic fission",
+          "statement": "The breaking of a covalent bond in which each atom keeps one of the two bonding electrons, forming two radicals.",
+          "plain": "The bond splits down the middle."
+        },
+        {
+          "type": "text",
+          "text": "Compare [[heterolytic-fission|heterolytic fission]] ({{lesson:6.16}}): one atom takes both electrons, so ions form instead of radicals."
+        },
+        {
+          "type": "text",
+          "text": "Breaking a bond always absorbs energy. Halogen–halogen bonds are weak (data booklet, section 12): Cl–Cl is $\\pu{242 kJ mol-1}$ and Br–Br is $\\pu{193 kJ mol-1}$. UV light, or heating, supplies enough energy to break them."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{Cl2 ->[UV] 2Cl\\bullet}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Show the movement of one electron with a single-barbed arrow, called a fish-hook arrow. Draw two: each starts at the bond and ends at one atom. A full double-barbed arrow would mean a pair of electrons moving."
+        },
+        {
+          "type": "figure",
+          "id": "6-15-fish-hook-fission",
+          "alt": "Homolytic fission of chlorine. Left: two chlorine atoms with the shared pair drawn as two dots between them. Two fish-hook arrows, each with a single barb, start at the shared pair: one curves to the left chlorine atom and the other to the right chlorine atom. A reaction arrow labelled UV light leads to two chlorine atoms, each with one dot, separated by a plus sign. Labels: the bond, one shared pair; two chlorine radicals.",
+          "caption": "One fish-hook arrow per electron."
+        },
+        {
+          "type": "text",
+          "text": "This step makes the radicals that start the reaction, so it is called initiation. The reverse, two radicals joining to form a bond, releases the same energy. You will meet it as termination."
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-fission",
+          "question": "Bromine vapour is exposed to UV light. Write the equation for the homolytic fission of bromine, and describe the fish-hook arrows.",
+          "steps": [
+            "Each Br atom keeps one electron of the Br–Br pair, so each becomes a radical with a dot.",
+            "Arrows: one fish-hook from the bond to each Br atom.",
+            "Check: two Br atoms on each side, no charges."
+          ],
+          "answer": "$\\ce{Br2 ->[UV] 2Br\\bullet}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out the dots. $\\ce{Br}$ on its own does not show a radical, and mark schemes penalize a missing radical dot. Write $\\ce{Br\\bullet}$ every time."
+        },
+        {
+          "type": "example",
+          "id": "ex-cfc-bond-breaks",
+          "question": "In the stratosphere, UV light breaks one bond in dichlorodifluoromethane, $\\ce{CCl2F2}$. Use section 12 of the data booklet to explain why a chlorine radical forms, not a fluorine radical.",
+          "steps": [
+            "Look up C–Cl and C–F.",
+            "The weaker bond needs less energy, so it breaks more readily."
+          ],
+          "answer": "The C–Cl bond enthalpy is $\\pu{324 kJ mol-1}$ and the C–F bond enthalpy is $\\pu{492 kJ mol-1}$, so the C–Cl bond is weaker. Less energy is needed to break it, so UV light breaks the C–Cl bond by homolytic fission. Each atom keeps one bonding electron, giving $\\ce{Cl\\bullet}$ and $\\ce{\\bullet CClF2}$. The stronger C–F bond stays intact.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C–Cl (324) is weaker than C–F (492), so UV breaks C–Cl homolytically to give Cl•.",
+            "requires": [
+              [
+                "C-Cl bond is weaker",
+                "weaker C-Cl bond"
+              ],
+              [
+                "stronger C-F bond",
+                "C-F bond is stronger"
+              ],
+              "homolytic fission",
+              "one bonding electron"
+            ],
+            "forbids": [
+              "C-Cl bond is stronger",
+              "heterolytic",
+              "Cl^-"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-iodine-fission",
+          "prompt": "Which equation shows the homolytic fission of iodine, $\\ce{I2}$?",
+          "hint": "Each atom keeps one electron, and no ions form.",
+          "options": [
+            {
+              "text": "$\\ce{I2 -> 2I\\bullet}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{I2 -> I^+ + I^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{I2 -> 2I}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{I2 -> 2I^-}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two iodine radicals, each with a dot. $\\ce{I^+ + I^-}$ is heterolytic fission; $\\ce{2I}$ hides the radicals; $\\ce{2I^-}$ creates charge from nothing."
+        },
+        {
+          "type": "check",
+          "id": "check-fish-hook-meaning",
+          "prompt": "What does a single-barbed (fish-hook) arrow show in a mechanism?",
+          "hint": "Count the barbs: one barb, one of something.",
+          "options": [
+            {
+              "text": "The movement of one electron",
+              "correct": true
+            },
+            {
+              "text": "The movement of an electron pair",
+              "correct": false
+            },
+            {
+              "text": "The movement of a whole atom",
+              "correct": false
+            },
+            {
+              "text": "The transfer of a proton",
+              "correct": false
+            }
+          ],
+          "explain": "One barb, one electron. A double-barbed arrow moves an electron pair.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The movement of one electron"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain",
+      "heading": "Alkanes and halogens: the chain mechanism",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Alkanes react with very little. Their C–C and C–H bonds are strong (section 12: $346$ and $414$ in $\\pu{kJ mol-1}$)."
+        },
+        {
+          "type": "text",
+          "text": "Those bonds are also almost non-polar. Carbon (2.6) and hydrogen (2.2) have similar electronegativities (section 9). So an alkane has no δ+ or δ− site to attract an ion or a polar reagent."
+        },
+        {
+          "type": "text",
+          "text": "Alkanes are still thermodynamically unstable in air: [[combustion|combustion]] of methane releases $\\pu{891 kJ mol-1}$ (section 14). But they are kinetically stable: methane does not burn until a spark supplies the activation energy."
+        },
+        {
+          "type": "text",
+          "text": "A radical needs no polar site. It is reactive enough to pull a hydrogen atom off an alkane. So in UV light an alkane and a halogen react."
+        },
+        {
+          "type": "definition",
+          "term": "substitution reaction",
+          "statement": "A reaction in which one atom or group in a molecule is replaced by another atom or group.",
+          "plain": "Swap one part out, put another in."
+        },
+        {
+          "type": "text",
+          "text": "Here a hydrogen atom of the alkane is replaced by a halogen atom. For methane and chlorine the overall change is $\\ce{CH4 + Cl2 -> CH3Cl + HCl}$. It happens through a series of radical steps."
+        },
+        {
+          "type": "definition",
+          "term": "chain reaction",
+          "statement": "A reaction in which each propagation step uses up one radical and makes another, so the cycle repeats. It has three stages: initiation, propagation and termination.",
+          "plain": "One radical keeps passing the job on."
+        },
+        {
+          "type": "text",
+          "text": "1. Initiation: UV light splits the halogen, $\\ce{Cl2 -> 2Cl\\bullet}$. Radicals are made."
+        },
+        {
+          "type": "text",
+          "text": "2. Propagation: a radical reacts with a molecule and makes a new radical. The chlorine radical takes a hydrogen atom, $\\ce{CH4 + Cl\\bullet -> \\bullet CH3 + HCl}$. The methyl radical then takes a chlorine atom, $\\ce{\\bullet CH3 + Cl2 -> CH3Cl + Cl\\bullet}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Termination: two radicals join, so radicals are used up. Any pair can meet: $\\ce{Cl\\bullet + Cl\\bullet -> Cl2}$, $\\ce{\\bullet CH3 + Cl\\bullet -> CH3Cl}$ or $\\ce{\\bullet CH3 + \\bullet CH3 -> C2H6}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-15-chain-cycle",
+          "alt": "Flow diagram of the chain reaction of methane and chlorine. At the top, initiation: chlorine splits into two chlorine radicals in UV light. An arrow leads down to a loop of two boxes. Box 1, propagation 1: methane plus a chlorine radical gives a methyl radical plus hydrogen chloride. A curved arrow on the right, labelled methyl radical passes on, leads to box 2, propagation 2: a methyl radical plus chlorine gives chloromethane plus a chlorine radical. A curved arrow on the left, labelled chlorine radical made again, leads back up to box 1. A dashed arrow leads down from the loop to termination: two radicals join, for example a methyl radical plus a chlorine radical gives chloromethane.",
+          "caption": "The two propagation steps form a loop: the chlorine radical used in step 1 is made again in step 2."
+        },
+        {
+          "type": "text",
+          "text": "How to tell the steps apart: count radicals. Initiation has none on the left and two on the right. Propagation has one on each side. Termination has two on the left and none on the right."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\ce{CH4 + Cl\\bullet -> CH3Cl + H\\bullet}$. The chlorine radical takes a hydrogen atom and makes $\\ce{HCl}$; a hydrogen radical is never formed."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethane-propagation",
+          "question": "Ethane reacts with chlorine in UV light. Write the propagation step in which a chlorine radical attacks an ethane molecule.",
+          "steps": [
+            "The chlorine radical removes a hydrogen atom, forming $\\ce{HCl}$.",
+            "Ethane is left one hydrogen short, with the unpaired electron on carbon: the ethyl radical, $\\ce{CH3CH2\\bullet}$.",
+            "Check: one radical on each side, and 2 C, 6 H and 1 Cl on each side.",
+            "The second propagation step follows: $\\ce{CH3CH2\\bullet + Cl2 -> CH3CH2Cl + Cl\\bullet}$."
+          ],
+          "answer": "$\\ce{CH3CH3 + Cl\\bullet -> CH3CH2\\bullet + HCl}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bromination-step-enthalpy",
+          "question": "In the bromination of ethane, one propagation step is $\\ce{CH3CH2\\bullet + Br2 -> CH3CH2Br + Br\\bullet}$. Use section 12 of the data booklet to calculate its enthalpy change.",
+          "steps": [
+            "Bonds broken: one Br–Br, $\\pu{193 kJ mol-1}$.",
+            "Bonds formed: one C–Br, $\\pu{285 kJ mol-1}$.",
+            "$\\Delta H = \\sum(\\text{bonds broken}) - \\sum(\\text{bonds formed})$, from {{lesson:4.2}}.",
+            "The step is exothermic, which helps keep the chain going."
+          ],
+          "answer": "$\\Delta H = 193 - 285 = \\pu{-92 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "BE('Br-Br') - BE('C-Br')",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-alkane-unreactive",
+          "prompt": "Why are alkanes unreactive towards most ions and polar reagents?",
+          "hint": "Think about bond strength and bond polarity.",
+          "options": [
+            {
+              "text": "Their C–C and C–H bonds are strong and almost non-polar",
+              "correct": true
+            },
+            {
+              "text": "Their C–H bonds are very polar",
+              "correct": false
+            },
+            {
+              "text": "Their C–H bonds are weak",
+              "correct": false
+            },
+            {
+              "text": "Their combustion is endothermic",
+              "correct": false
+            }
+          ],
+          "explain": "Strong bonds need a lot of energy to break, and with no δ+ or δ− site nothing polar is attracted. Combustion is very exothermic; alkanes are only kinetically stable.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Their C–C and C–H bonds are strong and almost non-polar"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-termination-bromoethane",
+          "prompt": "Which equation is a termination step in the bromination of ethane?",
+          "hint": "Termination: two radicals in, none out.",
+          "options": [
+            {
+              "text": "$\\ce{CH3CH2\\bullet + Br\\bullet -> CH3CH2Br}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Br2 -> 2Br\\bullet}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH3 + Br\\bullet -> CH3CH2\\bullet + HBr}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH2\\bullet + Br2 -> CH3CH2Br + Br\\bullet}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two radicals join and none are left. The others are initiation and the two propagation steps."
+        }
+      ]
+    },
+    {
+      "id": "mixture",
+      "heading": "Why you get a mixture of products",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Radical substitution is hard to control. A chlorine radical takes almost any hydrogen atom it collides with, in whichever molecule."
+        },
+        {
+          "type": "text",
+          "text": "Three things give a mixture. First, the product still has C–H bonds, so further substitution follows: $\\ce{CH3Cl}$ goes on to $\\ce{CH2Cl2}$, $\\ce{CHCl3}$ and $\\ce{CCl4}$."
+        },
+        {
+          "type": "text",
+          "text": "Second, in a longer alkane the hydrogens sit on different carbons. Replacing different ones gives structural isomers ({{lesson:3.7}}): butane gives both 1-chlorobutane and 2-chlorobutane."
+        },
+        {
+          "type": "text",
+          "text": "Third, termination joins any two radicals. Two alkyl radicals give a longer alkane, such as ethane from two methyl radicals."
+        },
+        {
+          "type": "text",
+          "text": "Using a large excess of the alkane makes a halogen radical more likely to meet an alkane molecule than a product molecule. That favours one substitution, but a mixture still forms."
+        },
+        {
+          "type": "example",
+          "id": "ex-termination-butane",
+          "question": "During the chlorination of ethane, a little butane forms. Write the termination step that produces it.",
+          "steps": [
+            "Butane has 4 carbons, so two 2-carbon radicals must join.",
+            "The ethyl radical is $\\ce{CH3CH2\\bullet}$. The two unpaired electrons pair up to form a C–C bond.",
+            "Check: two radicals on the left, none on the right; 4 C and 10 H on each side."
+          ],
+          "answer": "$\\ce{2CH3CH2\\bullet -> CH3CH2CH2CH3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-mixture",
+          "question": "Ethane and chlorine react in UV light. Explain why the organic product is a mixture rather than pure chloroethane.",
+          "steps": [
+            "Give the reasons that apply to ethane: further substitution and termination. (All six hydrogens of ethane are equivalent, so there is only one monochloro product.)",
+            "Write one marking point per sentence."
+          ],
+          "answer": "Chloroethane still has C–H bonds, so chlorine radicals can attack it too. Further substitution replaces more hydrogen atoms and gives dichloroethanes and more highly substituted products. The chlorine radical attacks whichever molecule it collides with, so the reaction cannot be stopped after one substitution. Termination steps join any two radicals, so two ethyl radicals give butane as a by-product.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Further substitution of chloroethane, random attack by Cl•, and termination products such as butane.",
+            "requires": [
+              "C-H bonds",
+              "further substitution",
+              [
+                "whichever molecule",
+                "any molecule"
+              ],
+              "termination",
+              "butane"
+            ],
+            "forbids": [
+              "hydrogen radical",
+              "H\\bullet"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pentane-isomers",
+          "prompt": "Pentane, $\\ce{CH3CH2CH2CH2CH3}$, reacts with chlorine in UV light. How many structural isomers of $\\ce{C5H11Cl}$ can form?",
+          "hint": "Number the carbons. Which positions are the same by symmetry?",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "Carbons 1 and 5 are equivalent, and so are 2 and 4. So the products are 1-chloropentane, 2-chloropentane and 3-chloropentane.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling(Rational(5, 2))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-a-product",
+          "prompt": "Which substance does NOT form when methane reacts with chlorine in UV light?",
+          "hint": "Which product would need a hydrogen radical?",
+          "options": [
+            {
+              "text": "Hydrogen",
+              "correct": true
+            },
+            {
+              "text": "Ethane",
+              "correct": false
+            },
+            {
+              "text": "Dichloromethane",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen chloride",
+              "correct": false
+            }
+          ],
+          "explain": "No step makes $\\ce{H\\bullet}$, so $\\ce{H2}$ cannot form. Ethane comes from termination, dichloromethane from further substitution, and $\\ce{HCl}$ from propagation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Hydrogen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A radical has an unpaired electron, shown as a dot ($\\ce{Cl\\bullet}$, $\\ce{\\bullet CH3}$). An odd electron count means a radical. Radicals are highly reactive.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Homolytic fission: each atom keeps one bonding electron. Initiation: $\\ce{Cl2 ->[UV] 2Cl\\bullet}$, drawn with two fish-hook (single-barbed) arrows.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Propagation: $\\ce{CH4 + Cl\\bullet -> \\bullet CH3 + HCl}$, then $\\ce{\\bullet CH3 + Cl2 -> CH3Cl + Cl\\bullet}$. Termination: any two radicals join.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alkanes are unreactive because C–C and C–H bonds are strong and almost non-polar.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mixture of products: further substitution, different hydrogen positions (isomers) and termination products.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the dot off a radical. Every radical in every step needs its dot.",
+    "Making a hydrogen radical in propagation. The halogen radical takes a hydrogen atom to form the hydrogen halide.",
+    "Writing ions such as $\\ce{Cl^+}$ and $\\ce{Cl^-}$ for initiation. That is heterolytic fission; UV light gives two radicals.",
+    "Drawing a double-barbed arrow for homolytic fission. Use two fish-hook arrows, one per electron.",
+    "Saying breaking the halogen bond releases energy. Bond breaking absorbs energy, which is why UV light or heat is needed."
+  ],
+  "examTips": [
+    "\"Explain, using equations\" the mechanism: write one equation per step, name each step (initiation, propagation, termination), give UV light for initiation and put a dot on every radical.",
+    "\"State\" a termination step: any two radicals joining earns the mark. Check that it balances and has two radicals on the left, none on the right.",
+    "\"Explain\" a mixture of products: give further substitution and termination products, and for longer alkanes the different hydrogen positions."
+  ],
+  "readingMinutes": 23
+}

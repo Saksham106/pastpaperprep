@@ -2,13 +2,13 @@
   {
     "id": "gibbs-energy",
     "term": "Gibbs energy",
-    "definition": "TODO: Delta G = delta H - T delta S; combines enthalpy and entropy.",
+    "definition": "A quantity whose change, $\\Delta G = \\Delta H - T\\Delta S$ (in $\\pu{kJ mol-1}$), weighs a reaction's enthalpy change against its entropy change at absolute temperature $T$; a negative $\\Delta G$ means the change is spontaneous.",
     "lesson": "4.7"
   },
   {
     "id": "spontaneous-reaction",
     "term": "spontaneous reaction",
-    "definition": "TODO: Delta G < 0 at constant pressure; says nothing about rate.",
+    "definition": "A change that, once started, continues on its own under the stated conditions; at constant temperature and pressure its $\\Delta G$ is negative, though it may still be very slow.",
     "lesson": "4.7"
   }
 ]

@@ -1,0 +1,623 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.7",
+  "slug": "gibbs-energy-and-spontaneity",
+  "title": "Gibbs energy and spontaneity",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Whether a reaction can happen on its own depends on two things: the [[enthalpy-change|enthalpy change]] and the [[entropy|entropy]] change. The change in [[gibbs-energy|Gibbs energy]], $\\Delta G = \\Delta H - T\\Delta S$, combines them into one number. A negative $\\Delta G$ means the change is spontaneous, and $\\Delta G$ rises to zero as the reaction reaches equilibrium.",
+  "goals": [
+    {
+      "text": "Calculate $\\Delta G^\\ominus$ from $\\Delta H^\\ominus$, $\\Delta S^\\ominus$ and $T$, with consistent units, using data from the data booklet.",
+      "bullets": [
+        "R1.4.2"
+      ]
+    },
+    {
+      "text": "Explain how $\\Delta G$ accounts for the entropy change of both the [[system|system]] and the surroundings.",
+      "bullets": [
+        "R1.4.2",
+        "R1.4.3"
+      ]
+    },
+    {
+      "text": "Use the sign of $\\Delta G$ to decide whether a change is spontaneous, and find the crossover temperature where the sign changes.",
+      "bullets": [
+        "R1.4.3"
+      ]
+    },
+    {
+      "text": "Describe how $\\Delta G$ changes as a reaction approaches equilibrium, and calculate with $\\Delta G = \\Delta G^\\ominus + RT\\ln Q$ and $\\Delta G^\\ominus = -RT\\ln K$.",
+      "bullets": [
+        "R1.4.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.9",
+    "4.1",
+    "4.3",
+    "4.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Gibbs free energy",
+    "free energy change",
+    "delta G",
+    "spontaneity",
+    "feasibility of a reaction",
+    "delta G equals minus RT ln K"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kelvin",
+      "prompt": "A reaction is carried out at $\\pu{45 ^\\circ C}$. What is this temperature in [[kelvin|kelvin]], to the nearest kelvin?",
+      "hint": "Add $273.15$ to the Celsius temperature.",
+      "answer": {
+        "value": 318,
+        "tolerance": 0
+      },
+      "explain": "$T = 45 + 273.15 = 318.15$, so $\\pu{318 K}$. Every $T$ in this lesson must be in kelvin. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45 + 273.15",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-entropy-sign",
+      "prompt": "Which change has a positive entropy change, $\\Delta S$?",
+      "hint": "Look for the side with more moles of gas.",
+      "options": [
+        {
+          "text": "a solid breaking down into another solid and a gas",
+          "correct": true
+        },
+        {
+          "text": "two gases combining to form a solid",
+          "correct": false
+        },
+        {
+          "text": "a gas condensing to a liquid",
+          "correct": false
+        }
+      ],
+      "explain": "Making a gas from a solid spreads matter and energy out much more, so entropy rises. The other two changes reduce the amount of gas, so $\\Delta S$ is negative. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a solid breaking down into another solid and a gas"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-delta-s",
+      "prompt": "Methanoic acid can decompose: $\\ce{HCOOH(l) -> CO(g) + H2O(l)}$. Use the $S^\\ominus$ values in section 13 of the data booklet to calculate $\\Delta S^\\ominus$, in $\\pu{J K-1 mol-1}$. Include the sign.",
+      "hint": "$\\Delta S^\\ominus = \\sum S^\\ominus(\\text{products}) - \\sum S^\\ominus(\\text{reactants})$.",
+      "answer": {
+        "value": 139,
+        "tolerance": 0
+      },
+      "explain": "$\\Delta S^\\ominus = (198 + 70) - 129 = \\pu{+139 J K-1 mol-1}$. A gas forms from a liquid, so a positive value makes sense. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "S('CO(g)') + S('H2O(l)') - S('HCOOH(l)')",
+        "dp": 0,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "gibbs",
+      "heading": "Gibbs energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two things push a change forward. Releasing heat (a negative $\\Delta H$) helps, and so does an increase in entropy (a positive $\\Delta S$). In {{lesson:4.6}} you met entropy; now you put the two together."
+        },
+        {
+          "type": "text",
+          "text": "Often they pull in opposite directions. Ice melting is an [[endothermic-reaction|endothermic]] change, yet it happens on its own above $\\pu{0 ^\\circ C}$ because the entropy increase wins. Temperature decides which effect matters more."
+        },
+        {
+          "type": "definition",
+          "term": "Gibbs energy change",
+          "statement": "$\\Delta G = \\Delta H - T\\Delta S$, where $T$ is the absolute temperature. Under standard conditions it is written $\\Delta G^\\ominus$.",
+          "plain": "One number that weighs the enthalpy change against the entropy change at a given temperature."
+        },
+        {
+          "type": "text",
+          "text": "The change in [[gibbs-energy|Gibbs energy]] also measures useful energy. When $\\Delta G$ is negative, its size is the most energy the reaction can supply as useful work, such as electrical energy from a cell."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus",
+          "tag": "booklet",
+          "bookletId": "db-gibbs"
+        },
+        {
+          "type": "text",
+          "text": "This equation is in section 1 of the data booklet. Watch the units: $\\Delta H^\\ominus$ and $\\Delta G^\\ominus$ are in $\\pu{kJ mol-1}$, but $\\Delta S^\\ominus$ is in $\\pu{J K-1 mol-1}$. Divide $\\Delta S^\\ominus$ by 1000 before you substitute, and always put $T$ in kelvin."
+        },
+        {
+          "type": "example",
+          "id": "ex-n2o4-gibbs",
+          "question": "For $\\ce{N2O4(g) -> 2NO2(g)}$, $\\Delta H^\\ominus = \\pu{+57.2 kJ mol-1}$ and $\\Delta S^\\ominus = \\pu{+176 J K-1 mol-1}$. Calculate $\\Delta G^\\ominus$ at $\\pu{298 K}$.",
+          "steps": [
+            "Convert $\\Delta S^\\ominus$ to kJ: $\\pu{+0.176 kJ K-1 mol-1}$.",
+            "Substitute: $\\Delta G^\\ominus = 57.2 - 298 \\times 0.176$.",
+            "$= 57.2 - 52.448 = \\pu{+4.752 kJ mol-1}$, so $\\pu{+4.75 kJ mol-1}$ to 3 significant figures.",
+            "The positive value means the forward reaction is not spontaneous under standard conditions at $\\pu{298 K}$."
+          ],
+          "answer": "$\\Delta G^\\ominus \\approx \\pu{+4.75 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "57.2 - 298*176/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ethene-hydration",
+          "question": "Ethanol is made industrially from ethene and steam: $\\ce{C2H4(g) + H2O(g) -> C2H5OH(l)}$. Use section 13 of the data booklet to calculate $\\Delta G^\\ominus$ at $\\pu{298 K}$.",
+          "steps": [
+            "$\\Delta H^\\ominus$ from enthalpies of formation ({{lesson:4.3}}): $-278 - (52 + (-242)) = \\pu{-88 kJ mol-1}$.",
+            "$\\Delta S^\\ominus$ from standard entropies: $161 - (220 + 189) = \\pu{-248 J K-1 mol-1}$, which is $\\pu{-0.248 kJ K-1 mol-1}$.",
+            "$\\Delta G^\\ominus = -88 - 298 \\times (-0.248) = -88 + 73.904 = \\pu{-14.096 kJ mol-1}$.",
+            "Sense check: the $\\Delta G_\\text{f}^\\ominus$ column of section 13 gives $-175 - (68 + (-229)) = \\pu{-14 kJ mol-1}$, which agrees."
+          ],
+          "answer": "$\\Delta G^\\ominus \\approx \\pu{-14.1 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Hf('C2H5OH(l)') - (Hf('C2H4(g)') + Hf('H2O(g)'))) - 298*(S('C2H5OH(l)') - (S('C2H4(g)') + S('H2O(g)')))/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting $\\Delta S^\\ominus$ in joules next to $\\Delta H^\\ominus$ in kilojoules gives an answer that is off by thousands. Convert $\\Delta S^\\ominus$ to $\\pu{kJ K-1 mol-1}$ first."
+        },
+        {
+          "type": "check",
+          "id": "check-gibbs-400k",
+          "prompt": "A reaction has $\\Delta H^\\ominus = \\pu{-46.0 kJ mol-1}$ and $\\Delta S^\\ominus = \\pu{-99.0 J K-1 mol-1}$. Calculate $\\Delta G^\\ominus$, in $\\pu{kJ mol-1}$, at $\\pu{400 K}$. Give 3 significant figures and include the sign.",
+          "hint": "$-T\\Delta S^\\ominus$ is positive here, because $\\Delta S^\\ominus$ is negative.",
+          "answer": {
+            "value": -6.4,
+            "tolerance": 0.005
+          },
+          "explain": "$\\Delta G^\\ominus = -46.0 - 400 \\times (-0.0990) = -46.0 + 39.6 = \\pu{-6.40 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-46.0 - 400*(-99.0)/1000",
+            "sf": 3,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gibbs-units",
+          "prompt": "A reaction has $\\Delta H^\\ominus = \\pu{+31.0 kJ mol-1}$ and $\\Delta S^\\ominus = \\pu{+92.5 J K-1 mol-1}$. What is $\\Delta G^\\ominus$ at $\\pu{360 K}$?",
+          "hint": "Put $\\Delta S^\\ominus$ in kJ before you multiply by $T$.",
+          "options": [
+            {
+              "text": "$\\Delta G^\\ominus \\approx \\pu{-2.30 kJ mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\Delta G^\\ominus \\approx \\pu{+64.3 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\Delta G^\\ominus \\approx \\pu{+2.30 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\Delta G^\\ominus \\approx \\pu{-33300 kJ mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta G^\\ominus = 31.0 - 360 \\times 0.0925 = 31.0 - 33.3 = \\pu{-2.30 kJ mol-1}$. $+64.3$ adds the $T\\Delta S$ term, $+2.30$ subtracts the wrong way round, and $-33300$ leaves $\\Delta S^\\ominus$ in joules.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "31.0 - 360*92.5/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "spontaneity",
+      "heading": "The sign of $\\Delta G$ and spontaneity",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "spontaneous reaction",
+          "statement": "A change that, once started, continues on its own under the stated conditions. At constant temperature and pressure, a change is spontaneous when $\\Delta G$ is negative.",
+          "plain": "A change that can carry on by itself without a continuous supply of energy from outside."
+        },
+        {
+          "type": "result",
+          "statement": "At constant temperature and pressure: $\\Delta G < 0$, the change is spontaneous; $\\Delta G > 0$, it is not spontaneous (but the reverse change is); $\\Delta G = 0$, the system is at equilibrium.",
+          "why": "$\\Delta G$ is $-T$ times the total entropy change of the system and surroundings, and a change happens on its own only if total entropy increases."
+        },
+        {
+          "type": "text",
+          "text": "Where does the surroundings' entropy come in? A reaction that releases heat warms its surroundings, so their entropy rises by $-\\frac{\\Delta H}{T}$. Heat taken in lowers it by the same amount. This is the indirect entropy change."
+        },
+        {
+          "type": "text",
+          "text": "The direct change is $\\Delta S$ of the system itself. The total is $\\Delta S_\\text{total} = \\Delta S - \\frac{\\Delta H}{T}$. Multiply by $-T$ and you get $\\Delta H - T\\Delta S$, which is $\\Delta G$. So a negative $\\Delta G$ means total entropy increases."
+        },
+        {
+          "type": "text",
+          "text": "A [[spontaneous-reaction|spontaneous reaction]] need not be fast. Methane and oxygen have a very negative $\\Delta G^\\ominus$, but a mixture of them sits unchanged until a spark supplies the activation energy. $\\Delta G$ tells you whether a change can happen, not how quickly."
+        },
+        {
+          "type": "figure",
+          "id": "4-7-gibbs-temperature",
+          "alt": "Graph of standard Gibbs energy change against absolute temperature for four kinds of reaction. Each line starts at the delta H value on the left axis and has gradient minus delta S. Above the zero line is non-spontaneous, below it spontaneous. Delta H negative and delta S positive: always below zero, always spontaneous. Delta H positive and delta S negative: always above zero, never spontaneous. Delta H positive and delta S positive: falls through zero at a crossover temperature, spontaneous above it. Delta H negative and delta S negative: rises through zero at a crossover temperature, spontaneous below it.",
+          "caption": "$\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus$ is a straight line in $T$. As $T$ rises, the $T\\Delta S^\\ominus$ term matters more."
+        },
+        {
+          "type": "text",
+          "text": "Read the four cases from the graph. If $\\Delta H$ is negative and $\\Delta S$ positive, $\\Delta G$ is negative at every temperature. If $\\Delta H$ is positive and $\\Delta S$ negative, it is never negative."
+        },
+        {
+          "type": "text",
+          "text": "If $\\Delta H$ and $\\Delta S$ have the same sign, there is a crossover temperature where $\\Delta G = 0$. Both positive: spontaneous above it. Both negative: spontaneous below it."
+        },
+        {
+          "type": "text",
+          "text": "To find the crossover, set $\\Delta G^\\ominus = 0$, so $T = \\frac{\\Delta H^\\ominus}{\\Delta S^\\ominus}$. This assumes $\\Delta H^\\ominus$ and $\\Delta S^\\ominus$ barely change with temperature, which is close enough for IB calculations."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ammonium-nitrate",
+          "question": "Ammonium nitrate dissolves in water at room temperature, and the solution gets colder. Explain why it dissolves spontaneously.",
+          "steps": [
+            "The solution cools, so the change is endothermic: give the sign of $\\Delta H$.",
+            "Solid ions spread out through the water: give the sign of $\\Delta S$.",
+            "Compare the size of $T\\Delta S$ with $\\Delta H$, then conclude with the sign of $\\Delta G$."
+          ],
+          "answer": "Dissolving is endothermic, so $\\Delta H$ is positive, which on its own works against the change. The ions leave the ordered lattice and spread through the solution, so the entropy of the system increases and $\\Delta S$ is positive. At room temperature the $T\\Delta S$ term is larger than $\\Delta H$. So $\\Delta G = \\Delta H - T\\Delta S$ is negative and the dissolving is spontaneous.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "endothermic but entropy increases; T delta S exceeds delta H so delta G is negative",
+            "requires": [
+              "endothermic",
+              [
+                "entropy of the system increases",
+                "entropy increases"
+              ],
+              "larger than",
+              "is negative",
+              "spontaneous"
+            ],
+            "forbids": [
+              "entropy decreases",
+              "exothermic"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-carbonate-crossover",
+          "question": "For $\\ce{ZnCO3(s) -> ZnO(s) + CO2(g)}$, $\\Delta H^\\ominus = \\pu{+68.8 kJ mol-1}$ and $\\Delta S^\\ominus = \\pu{+175 J K-1 mol-1}$. Determine the temperature above which the decomposition is spontaneous.",
+          "steps": [
+            "Both values are positive, so the reaction becomes spontaneous above a crossover temperature.",
+            "Set $\\Delta G^\\ominus = 0$: $T = \\frac{\\Delta H^\\ominus}{\\Delta S^\\ominus}$.",
+            "Use matching units: $T = \\frac{68.8}{0.175} = \\pu{393.14 K}$.",
+            "Above about $\\pu{393 K}$ ($\\pu{120 ^\\circ C}$), $T\\Delta S^\\ominus$ is larger than $\\Delta H^\\ominus$, so $\\Delta G^\\ominus$ is negative."
+          ],
+          "answer": "$T \\approx \\pu{393 K}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "68.8/(175/1000)",
+            "sf": 3,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reporting a negative temperature. If $\\Delta H$ and $\\Delta S$ have opposite signs, $\\frac{\\Delta H}{\\Delta S}$ is negative and there is no crossover: the reaction is spontaneous at all temperatures or at none."
+        },
+        {
+          "type": "check",
+          "id": "check-both-negative",
+          "prompt": "A reaction has $\\Delta H^\\ominus < 0$ and $\\Delta S^\\ominus < 0$. Under which conditions is it spontaneous?",
+          "hint": "The $-T\\Delta S^\\ominus$ term is positive, and it grows as $T$ rises.",
+          "options": [
+            {
+              "text": "only below a certain temperature",
+              "correct": true
+            },
+            {
+              "text": "only above a certain temperature",
+              "correct": false
+            },
+            {
+              "text": "at every temperature",
+              "correct": false
+            },
+            {
+              "text": "at no temperature",
+              "correct": false
+            }
+          ],
+          "explain": "At low $T$ the negative $\\Delta H^\\ominus$ dominates and $\\Delta G^\\ominus < 0$. As $T$ rises, $-T\\Delta S^\\ominus$ grows until $\\Delta G^\\ominus$ becomes positive.",
+          "verify": {
+            "kind": "choice",
+            "truth": "only below a certain temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-water-boiling",
+          "prompt": "Use section 13 of the data booklet to find the temperature, in K, above which $\\ce{H2O(l) -> H2O(g)}$ is spontaneous at $\\pu{100 kPa}$. Give 3 significant figures.",
+          "hint": "Find $\\Delta H^\\ominus$ and $\\Delta S^\\ominus$ first, then use $T = \\frac{\\Delta H^\\ominus}{\\Delta S^\\ominus}$ with $\\Delta S^\\ominus$ in kJ.",
+          "answer": {
+            "value": 370,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta H^\\ominus = -242 - (-286) = \\pu{+44 kJ mol-1}$ and $\\Delta S^\\ominus = 189 - 70 = \\pu{+119 J K-1 mol-1}$. $T = \\frac{44}{0.119} \\approx \\pu{370 K}$, close to the real boiling point of $\\pu{373 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Hf('H2O(g)') - Hf('H2O(l)'))/((S('H2O(g)') - S('H2O(l)'))/1000)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spontaneous-rate",
+          "prompt": "A reaction has $\\Delta G^\\ominus = \\pu{-210 kJ mol-1}$ at $\\pu{298 K}$, but no change is seen when the reactants are mixed. Which statement is correct?",
+          "hint": "What does $\\Delta G$ tell you, and what does it not tell you?",
+          "options": [
+            {
+              "text": "The reaction is spontaneous but very slow at this temperature.",
+              "correct": true
+            },
+            {
+              "text": "The value must be wrong, because spontaneous reactions are fast.",
+              "correct": false
+            },
+            {
+              "text": "The reaction is spontaneous only at temperatures above 298 K.",
+              "correct": false
+            }
+          ],
+          "explain": "A negative $\\Delta G^\\ominus$ says the reaction can happen on its own. It says nothing about rate: a high activation energy can make it too slow to notice.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The reaction is spontaneous but very slow at this temperature."
+          }
+        }
+      ]
+    },
+    {
+      "id": "equilibrium",
+      "heading": "$\\Delta G$ and equilibrium",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\Delta G^\\ominus$ is a single value for standard conditions. A real mixture is rarely standard, and its composition changes as it reacts. The value of $\\Delta G$ for the actual mixture changes too."
+        },
+        {
+          "type": "figure",
+          "id": "4-7-gibbs-extent",
+          "alt": "Graph of the Gibbs energy of a reaction mixture against its composition, from pure reactants on the left to pure products on the right. The curve falls from the left to a minimum about two thirds of the way across, then rises a little to the right end, which is lower than the left end. The minimum is labelled equilibrium, slope zero, delta G equals zero. Left of it the slope is labelled delta G negative, forward reaction spontaneous; right of it, delta G positive, reverse spontaneous. The drop from the left end to the right end is labelled delta G standard.",
+          "caption": "$\\Delta G$ is the slope of the curve. It is negative on the way down to the minimum and zero at the minimum."
+        },
+        {
+          "type": "result",
+          "statement": "As a reaction approaches equilibrium, $\\Delta G$ becomes less negative and reaches zero at equilibrium. There is then no further net change.",
+          "why": "Gibbs energy of the mixture falls to a minimum, and at the minimum nothing can lower it further in either direction."
+        },
+        {
+          "type": "text",
+          "text": "The data booklet (section 1) links $\\Delta G$ to the [[reaction-quotient|reaction quotient]] $Q$, which is the equilibrium expression filled in with the mixture's actual concentrations: $\\Delta G = \\Delta G^\\ominus + RT\\ln Q$. Here $R$ is the [[gas-constant|gas constant]], $\\pu{8.31 J K-1 mol-1}$ (section 2)."
+        },
+        {
+          "type": "text",
+          "text": "At equilibrium $\\Delta G = 0$ and $Q$ equals the [[equilibrium-constant|equilibrium constant]] $K$. Substituting gives $\\Delta G^\\ominus = -RT\\ln K$, also in section 1. Use the natural log, and divide $RT$ by 1000 to get kJ."
+        },
+        {
+          "type": "text",
+          "text": "The sign of $\\Delta G^\\ominus$ tells you where equilibrium lies. If $\\Delta G^\\ominus < 0$, $K > 1$ and products are favoured. If $\\Delta G^\\ominus > 0$, $K < 1$ and reactants are favoured, though some product still forms. If $\\Delta G^\\ominus = 0$, $K = 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-from-k",
+          "question": "An esterification has $K = 4.20$ at $\\pu{298 K}$. Calculate $\\Delta G^\\ominus$ for the reaction.",
+          "steps": [
+            "Use $\\Delta G^\\ominus = -RT\\ln K$ with $R = \\pu{8.31 J K-1 mol-1}$.",
+            "$\\Delta G^\\ominus = -8.31 \\times 298 \\times \\ln 4.20 = -8.31 \\times 298 \\times 1.4351 = \\pu{-3553.8 J mol-1}$.",
+            "Divide by 1000: $\\pu{-3.5538 kJ mol-1}$.",
+            "$K$ is just above 1, so a small negative $\\Delta G^\\ominus$ fits: products are slightly favoured."
+          ],
+          "answer": "$\\Delta G^\\ominus \\approx \\pu{-3.55 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-R*298*log(4.20)/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-with-q",
+          "question": "For $\\ce{N2O4(g) <=> 2NO2(g)}$, $\\Delta G^\\ominus = \\pu{+4.75 kJ mol-1}$ at $\\pu{298 K}$. A mixture at $\\pu{298 K}$ has $Q = 0.0100$. Calculate $\\Delta G$ for this mixture and deduce which way it reacts.",
+          "steps": [
+            "Use $\\Delta G = \\Delta G^\\ominus + RT\\ln Q$, with $RT$ in kJ.",
+            "$RT\\ln Q = \\frac{8.31 \\times 298}{1000} \\times \\ln 0.0100 = 2.4764 \\times (-4.6052) = \\pu{-11.404 kJ mol-1}$.",
+            "$\\Delta G = 4.75 + (-11.404) = \\pu{-6.654 kJ mol-1}$.",
+            "$\\Delta G$ is negative, so the forward reaction is spontaneous: more $\\ce{NO2}$ forms. As it does, $Q$ rises and $\\Delta G$ climbs towards zero."
+          ],
+          "answer": "$\\Delta G \\approx \\pu{-6.65 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.75 + R*298*log(0.0100)/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\log_{10}$ instead of $\\ln$, or leaving $RT$ in joules next to $\\Delta G^\\ominus$ in kilojoules. Both equations need the natural log, and every term in the same units."
+        },
+        {
+          "type": "check",
+          "id": "check-positive-gibbs-mixture",
+          "prompt": "A reaction has $\\Delta G^\\ominus = \\pu{+25 kJ mol-1}$ at $\\pu{298 K}$. Which best describes its equilibrium mixture at this temperature?",
+          "hint": "A positive $\\Delta G^\\ominus$ means $K < 1$. Does $K < 1$ mean $K = 0$?",
+          "options": [
+            {
+              "text": "mostly reactants, with a small amount of products",
+              "correct": true
+            },
+            {
+              "text": "reactants only, with no products at all",
+              "correct": false
+            },
+            {
+              "text": "mostly products, with a small amount of reactants",
+              "correct": false
+            },
+            {
+              "text": "equal concentrations of reactants and products",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta G^\\ominus > 0$ gives $K < 1$, so reactants are favoured. $K$ is small but not zero, so some products are always present.",
+          "verify": {
+            "kind": "choice",
+            "truth": "mostly reactants, with a small amount of products"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-k-from-gibbs",
+          "prompt": "A reaction has $\\Delta G^\\ominus = \\pu{-12.0 kJ mol-1}$ at $\\pu{310 K}$. Calculate $K$ to 3 significant figures.",
+          "hint": "Rearrange to $K = \\mathrm{e}^{-\\Delta G^\\ominus / RT}$, with $\\Delta G^\\ominus$ in J.",
+          "answer": {
+            "value": 105,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{-\\Delta G^\\ominus}{RT} = \\frac{12000}{8.31 \\times 310} = 4.658$, so $K = \\mathrm{e}^{4.658} \\approx 105$. Negative $\\Delta G^\\ominus$, so $K > 1$, as expected.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp(12.0*1000/(R*310))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-approach-equilibrium",
+          "prompt": "A mixture of pure reactants starts to react. What happens to $\\Delta G$ as the mixture approaches equilibrium?",
+          "hint": "Think about the slope of the curve as it nears the minimum.",
+          "options": [
+            {
+              "text": "It becomes less negative and reaches zero.",
+              "correct": true
+            },
+            {
+              "text": "It becomes more negative and reaches a minimum.",
+              "correct": false
+            },
+            {
+              "text": "It stays equal to the standard value throughout.",
+              "correct": false
+            },
+            {
+              "text": "It becomes positive once equilibrium is reached.",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta G$ is the slope of the Gibbs energy curve. The slope flattens as the mixture nears the minimum, so $\\Delta G$ rises towards zero and is exactly zero at equilibrium.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It becomes less negative and reaches zero."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus",
+          "tag": "booklet",
+          "bookletId": "db-gibbs",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Divide $\\Delta S^\\ominus$ (in $\\pu{J K-1 mol-1}$) by 1000 before using it with $\\Delta H^\\ominus$ (in $\\pu{kJ mol-1}$). $T$ is always in kelvin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At constant temperature and pressure, $\\Delta G < 0$ means spontaneous, $\\Delta G > 0$ non-spontaneous, and $\\Delta G = 0$ at equilibrium. Spontaneous says nothing about rate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta H < 0$, $\\Delta S > 0$: always spontaneous. $\\Delta H > 0$, $\\Delta S < 0$: never. Same signs: spontaneous above ($+,+$) or below ($-,-$) the crossover $T = \\frac{\\Delta H}{\\Delta S}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta G = \\Delta G^\\ominus + RT\\ln Q$, and at equilibrium $\\Delta G^\\ominus = -RT\\ln K$ (data booklet, section 1).",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta G^\\ominus < 0$: $K > 1$, products favoured. $\\Delta G^\\ominus > 0$: $K < 1$, reactants favoured but some products still form.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Mixing kJ and J. $\\Delta S^\\ominus$ is given in $\\pu{J K-1 mol-1}$, so divide it by 1000 before combining it with $\\Delta H^\\ominus$.",
+    "Using a Celsius temperature in $T\\Delta S$ or $RT\\ln K$. Convert to kelvin first.",
+    "Giving a negative temperature as the crossover. When $\\Delta H$ and $\\Delta S$ have opposite signs, there is no crossover temperature at all.",
+    "Saying a spontaneous reaction is fast. $\\Delta G$ shows whether a change can happen on its own; the rate depends on the activation energy.",
+    "Thinking a positive $\\Delta G^\\ominus$ means no products form. It means $K < 1$, so reactants are favoured but some products are present."
+  ],
+  "examTips": [
+    "\"Calculate\" $\\Delta G^\\ominus$: write $\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus$, substitute with $\\Delta S^\\ominus$ already in kJ, and give the answer with its sign and $\\pu{kJ mol-1}$.",
+    "\"Determine\" the crossover temperature: set $\\Delta G^\\ominus = 0$, show $T = \\frac{\\Delta H^\\ominus}{\\Delta S^\\ominus}$ with matching units, and give $T$ in K.",
+    "\"Explain\" spontaneity: state the signs of $\\Delta H$ and $\\Delta S$, compare $T\\Delta S$ with $\\Delta H$, then conclude with the sign of $\\Delta G$, one point per sentence.",
+    "In Paper 1A sign questions, picture the straight line $\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus$: at low $T$ the $\\Delta H$ term decides, at high $T$ the $T\\Delta S$ term does."
+  ],
+  "readingMinutes": 20
+}

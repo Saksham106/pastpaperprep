@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.5",
+  "slug": "salt-solutions-and-ph-curves",
+  "title": "Salt solutions and pH curves",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "A salt solution is neutral only when its parent acid and base are both strong. An ion from a weak parent reacts with water ([[salt-hydrolysis|salt hydrolysis]]), so ammonium salts are acidic and carboxylates and carbonates are basic. The same idea shapes [[ph|pH]] curves: a weak partner moves the equivalence pH away from 7 and adds a [[buffer-region|buffer region]], where the pH at half-equivalence equals the [[pka|pKa]].",
+  "goals": [
+    {
+      "text": "Predict whether a salt solution is acidic, neutral or basic from the strengths of its parent acid and base.",
+      "bullets": [
+        "R3.1.12"
+      ]
+    },
+    {
+      "text": "Write equations for the reactions of $\\ce{NH4^+}$, carboxylate, $\\ce{CO3^2-}$ and $\\ce{HCO3^-}$ ions with water.",
+      "bullets": [
+        "R3.1.12"
+      ]
+    },
+    {
+      "text": "Explain the start, [[equivalence-point|equivalence point]] and buffer region of each pH curve, whether the acid and the base are strong or weak.",
+      "bullets": [
+        "R3.1.13"
+      ]
+    },
+    {
+      "text": "Read $\\mathrm{p}K_\\mathrm{a}$ or $\\mathrm{p}K_\\mathrm{b}$ from the half-equivalence point of a pH curve.",
+      "bullets": [
+        "R3.1.13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.1",
+    "2.12",
+    "5.8",
+    "6.2",
+    "6.3",
+    "6.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "pH of salt solutions",
+    "salt hydrolysis equations",
+    "acidic and basic salts",
+    "weak acid strong base titration curve",
+    "half-equivalence point pH = pKa",
+    "titration curves strong and weak"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kb-fluoride",
+      "prompt": "Hydrofluoric acid has $K_\\mathrm{a} = 6.8 \\times 10^{-4}$ at 298 K. What is $K_\\mathrm{b}$ of the fluoride ion?",
+      "hint": "For a conjugate pair, $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$.",
+      "options": [
+        {
+          "text": "$K_\\mathrm{b} \\approx 1.5 \\times 10^{-11}$",
+          "correct": true
+        },
+        {
+          "text": "$K_\\mathrm{b} \\approx 6.8 \\times 10^{-18}$",
+          "correct": false
+        },
+        {
+          "text": "$K_\\mathrm{b} \\approx 1.5 \\times 10^{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$K_\\mathrm{b} = \\frac{1.00 \\times 10^{-14}}{6.8 \\times 10^{-4}} \\approx 1.5 \\times 10^{-11}$. Revise it in {{lesson:6.4}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "Kw/(6.8*10**(-4))",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-weak-vs-strong",
+      "prompt": "Hydrochloric acid and ethanoic acid are both $\\pu{0.10 mol dm-3}$. Which statement is correct?",
+      "hint": "How much of each acid is ionized?",
+      "options": [
+        {
+          "text": "Ethanoic acid has the higher pH, because it is only partly ionized.",
+          "correct": true
+        },
+        {
+          "text": "Ethanoic acid has the lower pH, because it is more concentrated.",
+          "correct": false
+        },
+        {
+          "text": "Both have the same pH, because their concentrations are equal.",
+          "correct": false
+        }
+      ],
+      "explain": "Hydrochloric acid is a [[strong-acid|strong acid]], fully ionized. Ethanoic acid is a [[weak-acid|weak acid]], so it makes far less $\\ce{H3O^+}$. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Ethanoic acid has the higher pH, because it is only partly ionized."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-titre-nitric",
+      "prompt": "In a [[titration|titration]], what volume, in $\\pu{cm3}$, of $\\pu{0.200 mol dm-3}$ sodium hydroxide reacts exactly with $\\pu{15.0 cm3}$ of $\\pu{0.120 mol dm-3}$ nitric acid? Give 3 significant figures.",
+      "hint": "They react 1 : 1. Find the amount of acid with $n = CV$.",
+      "answer": {
+        "value": 9.0,
+        "tolerance": 0.005
+      },
+      "explain": "$n = 0.120 \\times 0.0150 = \\pu{1.80e-3 mol}$, so $V = \\frac{1.80 \\times 10^{-3}}{0.200} = \\pu{9.00e-3 dm3} = \\pu{9.00 cm3}$. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.120*15.0/0.200",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "salts",
+      "heading": "Salt solutions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.3}} you made salts by [[neutralization|neutralization]]. At 298 K a sodium chloride solution has pH 7. But $\\pu{0.10 mol dm-3}$ ammonium chloride has a pH of about 5, and sodium ethanoate about 9."
+        },
+        {
+          "type": "text",
+          "text": "A salt's anion comes from its parent acid, and its cation from its parent base. Ethanoate, $\\ce{CH3COO^-}$, is the conjugate base of ethanoic acid. Ammonium, $\\ce{NH4^+}$, is the conjugate acid of ammonia."
+        },
+        {
+          "type": "text",
+          "text": "Since $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$ for a [[conjugate-acid-base-pair|conjugate pair]], the weaker the parent, the stronger its conjugate. Ions from strong parents, such as $\\ce{Cl^-}$, $\\ce{NO3^-}$, $\\ce{Na^+}$ and $\\ce{K^+}$, don't react with water at all."
+        },
+        {
+          "type": "definition",
+          "term": "salt hydrolysis",
+          "statement": "The reaction of an ion from a dissolved salt with water, in which the ion donates or accepts a proton, producing $\\ce{H3O^+}$ or $\\ce{OH^-}$ ions.",
+          "plain": "Some ions in a salt react with water and make it acidic or basic."
+        },
+        {
+          "type": "result",
+          "statement": "[[strong-acid|Strong acid]] + [[strong-base|strong base]]: neutral (pH 7 at 298 K). Strong acid + [[weak-base|weak base]]: acidic. Weak acid + strong base: basic. Weak acid + weak base: acidic if $K_\\mathrm{a}$ of the acid is larger than $K_\\mathrm{b}$ of the base, basic if it is smaller, about neutral if they are equal.",
+          "why": "Only ions from weak parents react with water. When both parents are weak, the solution leans towards the stronger parent."
+        },
+        {
+          "type": "text",
+          "text": "Write each reaction with the $\\ce{<=>}$ arrow, as only a few ions react. An acidic ion gives water a proton and makes $\\ce{H3O^+}$: $\\ce{NH4^+(aq) + H2O(l) <=> NH3(aq) + H3O^+(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "A basic ion takes a proton from water and leaves $\\ce{OH^-}$. A carboxylate, with R an alkyl group: $\\ce{RCOO^-(aq) + H2O(l) <=> RCOOH(aq) + OH^-(aq)}$. Carbonate: $\\ce{CO3^2-(aq) + H2O(l) <=> HCO3^-(aq) + OH^-(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "Hydrogencarbonate is [[amphiprotic-species|amphiprotic]]: $\\ce{HCO3^-(aq) + H2O(l) <=> H2CO3(aq) + OH^-(aq)}$ or $\\ce{HCO3^-(aq) + H2O(l) <=> CO3^2-(aq) + H3O^+(aq)}$. Its $K_\\mathrm{b}$ (about $2 \\times 10^{-8}$) beats its $K_\\mathrm{a}$ (about $5 \\times 10^{-11}$), so its solutions are weakly basic."
+        },
+        {
+          "type": "example",
+          "id": "ex-ammonium-bromide",
+          "question": "Explain why a solution of ammonium bromide, $\\ce{NH4Br}$, has a pH below 7.",
+          "steps": [
+            "Name the parents: hydrobromic acid is strong, ammonia is weak.",
+            "Bromide comes from a strong acid, so it has no effect.",
+            "Ammonium comes from a weak base, so it gives water a proton."
+          ],
+          "answer": "Ammonium bromide is the salt of a strong acid and a weak base. The bromide ion does not react with water. The ammonium ion is the conjugate acid of a weak base, so it donates a proton to water: $\\ce{NH4^+(aq) + H2O(l) <=> NH3(aq) + H3O^+(aq)}$. This raises $[\\ce{H3O^+}]$, so the pH is below 7.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "NH4+ from a weak base donates a proton to water; Br- from a strong acid does not react",
+            "requires": [
+              "strong acid",
+              "weak base",
+              "does not react with water",
+              "conjugate acid of a weak base",
+              "donates a proton",
+              "below 7"
+            ],
+            "forbids": [
+              "bromide ion reacts",
+              "bromide ion donates"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-propanoate-equation",
+          "question": "A solution of sodium propanoate, $\\ce{CH3CH2COONa}$, is basic. Write an equation for the reaction of the propanoate ion with water.",
+          "steps": [
+            "$\\ce{Na^+}$ comes from a strong base, so leave it out.",
+            "Propanoate is the conjugate base of a weak acid, so it accepts a proton from water.",
+            "Products: propanoic acid and $\\ce{OH^-}$. Check the charge: $-1$ on each side."
+          ],
+          "answer": "$\\ce{CH3CH2COO^-(aq) + H2O(l) <=> CH3CH2COOH(aq) + OH^-(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CH2COO^- + H2O <=> CH3CH2COOH + OH^-",
+            "reversible": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-carbonate-equation",
+          "prompt": "Which equation shows why a solution of sodium carbonate is basic?",
+          "hint": "A basic ion takes a proton from water.",
+          "options": [
+            {
+              "text": "$\\ce{CO3^2-(aq) + H2O(l) <=> HCO3^-(aq) + OH^-(aq)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CO3^2-(aq) + H2O(l) <=> HCO3^-(aq) + H3O^+(aq)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Na^+(aq) + H2O(l) <=> NaOH(aq) + H^+(aq)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CO3^2-(aq) + H2O(l) <=> CO2(g) + 2OH^-(aq)}$",
+              "correct": false
+            }
+          ],
+          "explain": "Carbonate takes a proton from water, leaving $\\ce{OH^-}$. The $\\ce{H3O^+}$ version doesn't balance, $\\ce{Na^+}$ is a spectator, and carbon dioxide forms only with an acid.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CO3^2- + H2O <=> HCO3^- + OH^-",
+            "reversible": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ammonium-fluoride",
+          "prompt": "Hydrofluoric acid has $K_\\mathrm{a} = 6.8 \\times 10^{-4}$ and ammonia has $K_\\mathrm{b} = 1.8 \\times 10^{-5}$. What is a solution of ammonium fluoride like?",
+          "hint": "Both parents are weak. Which is stronger?",
+          "options": [
+            {
+              "text": "acidic",
+              "correct": true
+            },
+            {
+              "text": "neutral",
+              "correct": false
+            },
+            {
+              "text": "basic",
+              "correct": false
+            }
+          ],
+          "explain": "The acid is the stronger parent ($6.8 \\times 10^{-4} > 1.8 \\times 10^{-5}$), so $\\ce{NH4^+}$ is a stronger acid than $\\ce{F^-}$ is a base.",
+          "verify": {
+            "kind": "choice",
+            "truth": "acidic"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weak-acid-curve",
+      "heading": "A weak acid with a strong base",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.3}} you met the curve for a strong acid with a strong base. Now titrate a weak acid with sodium hydroxide."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-weak-acid-curve",
+          "alt": "pH curve for adding 0.100 mol per cubic decimetre sodium hydroxide to 20.0 cubic centimetres of a 0.100 mol per cubic decimetre weak acid with pKa 4.20. The curve starts at pH 2.6, rises quickly at first, then climbs slowly through a shaded buffer region. At the half-equivalence point, 10.0 cubic centimetres, the pH is 4.20, equal to the pKa. The curve then rises steeply from about pH 7 to about pH 10.5 around the equivalence point at 20.0 cubic centimetres, where the pH is 8.45, above 7. After that it levels off near pH 12.5 as sodium hydroxide is in excess.",
+          "caption": "A weak acid ($\\mathrm{p}K_\\mathrm{a} = 4.20$) titrated with sodium hydroxide, both $\\pu{0.100 mol dm-3}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Start: pH 2.6, not 1.0, because the weak acid is only partly ionized."
+        },
+        {
+          "type": "text",
+          "text": "2. Buffer region: the base turns $\\ce{HA}$ into $\\ce{A^-}$, and the mixture resists pH change. It is a [[buffer-solution|buffer solution]] ({{lesson:6.7}})."
+        },
+        {
+          "type": "text",
+          "text": "3. Equivalence point: the same volume as for a strong acid, but the pH is above 7, because $\\ce{A^-}$ reacts with water to make $\\ce{OH^-}$."
+        },
+        {
+          "type": "text",
+          "text": "4. The steep section is shorter, about pH 7 to 10.5. Afterwards the curve levels off, as the base is in excess."
+        },
+        {
+          "type": "definition",
+          "term": "buffer region",
+          "statement": "The flatter part of a pH curve where a weak acid and its conjugate base (or a weak base and its conjugate acid) are both present, so the pH changes only slowly.",
+          "plain": "The nearly flat stretch before the steep jump."
+        },
+        {
+          "type": "result",
+          "statement": "At the half-equivalence point of a weak acid titrated with a strong base, $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$.",
+          "why": "Half the acid has become $\\ce{A^-}$, so $[\\ce{HA}] = [\\ce{A^-}]$. They cancel in $K_\\mathrm{a} = \\frac{[\\ce{H3O^+}][\\ce{A^-}]}{[\\ce{HA}]}$, leaving $K_\\mathrm{a} = [\\ce{H3O^+}]$."
+        },
+        {
+          "type": "text",
+          "text": "Collecting your own data? Add the titrant in small portions near the equivalence point, where the pH changes fastest, or you miss the steep section."
+        },
+        {
+          "type": "example",
+          "id": "ex-ka-from-curve",
+          "question": "A weak monoprotic acid is titrated with sodium hydroxide. The equivalence point is at $\\pu{23.6 cm3}$, and the pH after $\\pu{11.8 cm3}$ is 3.86. Determine the [[acid-dissociation-constant|acid dissociation constant]], $K_\\mathrm{a}$.",
+          "steps": [
+            "$\\frac{23.6}{2} = \\pu{11.8 cm3}$, so this reading is at half-equivalence.",
+            "There, $\\mathrm{p}K_\\mathrm{a} = \\mathrm{pH} = 3.86$.",
+            "$K_\\mathrm{a} = 10^{-3.86} = 1.38 \\times 10^{-4}$. A pH to 2 decimal places justifies 2 significant figures."
+          ],
+          "answer": "$K_\\mathrm{a} \\approx 1.4 \\times 10^{-4}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "10**(-3.86)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-equivalence-above-7",
+          "question": "Methanoic acid is titrated with potassium hydroxide. Explain why the pH at the equivalence point is above 7.",
+          "steps": [
+            "At equivalence the flask holds potassium methanoate, with nothing in excess.",
+            "$\\ce{K^+}$ comes from a strong base: no effect. Methanoate comes from a weak acid: it reacts with water."
+          ],
+          "answer": "At the equivalence point the solution contains potassium methanoate. The methanoate ion is the conjugate base of a weak acid, so it reacts with water: $\\ce{HCOO^-(aq) + H2O(l) <=> HCOOH(aq) + OH^-(aq)}$. This produces hydroxide ions, so the pH is above 7.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the methanoate ion, conjugate base of a weak acid, reacts with water to form OH-",
+            "requires": [
+              "conjugate base of a weak acid",
+              "reacts with water",
+              "hydroxide ions",
+              "above 7"
+            ],
+            "forbids": [
+              "excess base",
+              "base is in excess"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-half-volume",
+          "prompt": "A weak acid titration has its equivalence point at $\\pu{27.4 cm3}$. At what volume of base, in $\\pu{cm3}$, do you read the pH to find $\\mathrm{p}K_\\mathrm{a}$? Give 1 decimal place.",
+          "hint": "Half the acid must have reacted.",
+          "answer": {
+            "value": 13.7,
+            "tolerance": 0.05
+          },
+          "explain": "Half-equivalence is at $\\frac{27.4}{2} = \\pu{13.7 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "27.4/2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-half-propanoic",
+          "prompt": "Propanoic acid has $K_\\mathrm{a} = 1.3 \\times 10^{-5}$. What is the pH at the half-equivalence point of its titration with sodium hydroxide? Give 2 decimal places.",
+          "hint": "$\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} = -\\log_{10} K_\\mathrm{a}$.",
+          "answer": {
+            "value": 4.89,
+            "tolerance": 0.005
+          },
+          "explain": "$-\\log_{10}(1.3 \\times 10^{-5}) = 4.886 \\approx 4.89$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-log(1.3*10**(-5), 10)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "four-curves",
+      "heading": "The four combinations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Make each partner strong or weak and you get four curves. Here base is always added to acid."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-four-curves",
+          "alt": "Four small pH curves, each for adding 0.100 mol per cubic decimetre base to 20.0 cubic centimetres of 0.100 mol per cubic decimetre acid, with pH from 0 to 14 against volume from 0 to 40 cubic centimetres and a dotted line at pH 7. Top left, strong acid with strong base, hydrochloric acid and sodium hydroxide: starts at pH 1.0, long vertical section from about pH 3 to 11, equivalence point at 20 cubic centimetres and pH 7.00. Top right, weak acid with strong base, ethanoic acid and sodium hydroxide: starts at pH 2.9, flatter buffer region, shorter vertical section from about pH 7 to 11, equivalence point at pH 8.73. Bottom left, strong acid with weak base, hydrochloric acid and ammonia: starts at pH 1.0, short vertical section from about pH 3 to 7, equivalence point at pH 5.28, then levels off near pH 9. Bottom right, weak acid with weak base, ethanoic acid and ammonia: starts at pH 2.9 and changes gradually through pH 7.00 at 20 cubic centimetres with no vertical section.",
+          "caption": "Base added to the same amount of acid each time, so every equivalence point is at $\\pu{20.0 cm3}$."
+        },
+        {
+          "type": "text",
+          "text": "Each equivalence pH matches the salt formed there: neutral for strong + strong, basic for weak acid + strong base, acidic for strong acid + weak base."
+        },
+        {
+          "type": "text",
+          "text": "With a weak base, the steep section sits below pH 7, and the curve then levels off near pH 9, as the excess base is weak. With both partners weak there is no steep section, so the equivalence point is hard to see. Its pH depends on $K_\\mathrm{a}$ against $K_\\mathrm{b}$, as for the salt."
+        },
+        {
+          "type": "text",
+          "text": "Acid can also be added to a weak base such as ammonia. At half-equivalence $[\\ce{NH3}] = [\\ce{NH4^+}]$, which cancel in the [[base-dissociation-constant|base dissociation constant]] expression."
+        },
+        {
+          "type": "result",
+          "statement": "At the half-equivalence point of a weak base titrated with a strong acid, $\\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b}$, so $\\mathrm{pH} = 14.00 - \\mathrm{p}K_\\mathrm{b}$ at 298 K.",
+          "why": "With $[\\ce{B}] = [\\ce{BH^+}]$, $K_\\mathrm{b} = \\frac{[\\ce{BH^+}][\\ce{OH^-}]}{[\\ce{B}]}$ becomes $K_\\mathrm{b} = [\\ce{OH^-}]$."
+        },
+        {
+          "type": "figure",
+          "id": "6-5-weak-base-curve",
+          "alt": "pH curve for adding 0.100 mol per cubic decimetre hydrochloric acid to 20.0 cubic centimetres of 0.100 mol per cubic decimetre aqueous ammonia, pKb 4.75. The curve starts at pH 11.1 and falls slowly through a shaded buffer region. At the half-equivalence point, 10.0 cubic centimetres, the pH is 9.25, so the pOH is 4.75, equal to the pKb. The curve then drops steeply from about pH 7 to about pH 3.5 around the equivalence point at 20.0 cubic centimetres, where the pH is 5.28, below 7. After that it levels off near pH 1.5 as hydrochloric acid is in excess.",
+          "caption": "Ammonia titrated with hydrochloric acid. At half-equivalence, [[poh|pOH]] $= 14.00 - 9.25 = 4.75 = \\mathrm{p}K_\\mathrm{b}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pkb-methylamine",
+          "question": "Hydrochloric acid is added to aqueous methylamine, $\\ce{CH3NH2}$, at 298 K. The equivalence point is at $\\pu{16.4 cm3}$, and the pH after $\\pu{8.2 cm3}$ is 10.64. Determine $\\mathrm{p}K_\\mathrm{b}$ of methylamine.",
+          "steps": [
+            "$\\frac{16.4}{2} = \\pu{8.2 cm3}$: half-equivalence, where $\\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b}$.",
+            "$\\mathrm{pOH} = 14.00 - 10.64 = 3.36$.",
+            "Sense check: smaller than ammonia's 4.75, so methylamine is the stronger base."
+          ],
+          "answer": "$\\mathrm{p}K_\\mathrm{b} = 3.36$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "14.00 - 10.64"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-curves",
+          "question": "Sodium hydroxide is added to equal volumes of $\\pu{0.100 mol dm-3}$ hydrochloric acid and $\\pu{0.100 mol dm-3}$ propanoic acid. Compare and contrast the two pH curves.",
+          "steps": [
+            "Same: what depends only on the amount of acid?",
+            "Different: go along the curve from the start to the steep section, with a reason for each point."
+          ],
+          "answer": "Both curves reach equivalence at the same volume of sodium hydroxide, because both contain the same amount of acid. The propanoic acid curve starts at a higher pH, because propanoic acid is only partly ionized. It has a buffer region. Its equivalence point is above 7, because the propanoate ion reacts with water to form hydroxide ions. Its steep section is shorter.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same equivalence volume; weak acid starts higher, has a buffer region, equivalence pH above 7, shorter steep section",
+            "requires": [
+              "same volume",
+              "higher pH",
+              "partly ionized",
+              "buffer region",
+              "above 7",
+              "shorter"
+            ],
+            "forbids": [
+              "more sodium hydroxide",
+              "less sodium hydroxide"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-identify-curve",
+          "prompt": "A pH curve starts at pH 11, falls slowly, then drops steeply to an equivalence point at pH 5.5. Which titration gave it?",
+          "hint": "A start at pH 11 means a base is in the flask. Which partner is weak?",
+          "options": [
+            {
+              "text": "a strong acid added to a weak base",
+              "correct": true
+            },
+            {
+              "text": "a strong acid added to a strong base",
+              "correct": false
+            },
+            {
+              "text": "a weak acid added to a weak base",
+              "correct": false
+            }
+          ],
+          "explain": "Acid is being added to a base. The slow fall and acidic equivalence point mean the base is weak and the acid strong.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a strong acid added to a weak base"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-same-for-both",
+          "prompt": "Equal amounts of hydrochloric acid and ethanoic acid are each titrated with the same sodium hydroxide. What is the same for both curves?",
+          "hint": "Both need the same amount of base.",
+          "options": [
+            {
+              "text": "the volume of base at the equivalence point",
+              "correct": true
+            },
+            {
+              "text": "the pH at the start",
+              "correct": false
+            },
+            {
+              "text": "the pH at the equivalence point",
+              "correct": false
+            }
+          ],
+          "explain": "Same amount of monoprotic acid, same amount of base. The pH values all differ.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the volume of base at the equivalence point"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Salts: strong acid + strong base, neutral; strong acid + weak base, acidic; weak acid + strong base, basic; weak + weak, compare $K_\\mathrm{a}$ with $K_\\mathrm{b}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$\\ce{NH4^+}$ makes $\\ce{H3O^+}$; $\\ce{RCOO^-}$, $\\ce{CO3^2-}$ and $\\ce{HCO3^-}$ make $\\ce{OH^-}$ (use $\\ce{<=>}$)."
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "cheatSheet": true,
+          "tex": "\\text{weak acid + strong base, at half-equivalence: } \\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}"
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "cheatSheet": true,
+          "tex": "\\text{weak base + strong acid, at half-equivalence: } \\mathrm{pOH} = \\mathrm{p}K_\\mathrm{b}"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Compared with a strong acid of the same amount, a weak acid curve starts higher, has a buffer region, an equivalence pH above 7 and a shorter steep section, at the same equivalence volume."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling every salt solution neutral. Only the salt of a strong acid and a strong base is; check the parent of each ion.",
+    "Writing an equation for $\\ce{Na^+}$ or $\\ce{Cl^-}$ with water. Ions from strong parents don't react with water.",
+    "Giving a basic ion such as $\\ce{CO3^2-}$ the product $\\ce{H3O^+}$. A basic ion takes a proton from water, leaving $\\ce{OH^-}$.",
+    "Reading $\\mathrm{p}K_\\mathrm{a}$ at the equivalence point. It is the pH at half the equivalence volume.",
+    "Blaming a basic equivalence point on \"excess base\". At equivalence nothing is in excess: the conjugate base of the weak acid reacts with water."
+  ],
+  "examTips": [
+    "\"Sketch\" a pH curve: label both axes, start at a sensible pH, put the equivalence point at the right volume and on the right side of pH 7, show any buffer region, and level the curve off afterwards.",
+    "\"Write an equation\" for a salt ion: ion + water, the $\\ce{<=>}$ arrow, and $\\ce{H3O^+}$ for an acidic ion or $\\ce{OH^-}$ for a basic one.",
+    "\"Determine\" $\\mathrm{p}K_\\mathrm{a}$ from a curve: read the equivalence volume, halve it, and read the pH there. Write the half volume down."
+  ],
+  "readingMinutes": 19
+}

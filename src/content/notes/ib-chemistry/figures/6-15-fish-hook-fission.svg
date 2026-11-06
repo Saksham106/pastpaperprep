@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 170" role="img" aria-labelledby="t615fish">
+  <title id="t615fish">Homolytic fission of a chlorine molecule: two fish-hook arrows move one electron of the shared pair to each chlorine atom, giving two chlorine radicals</title>
+  <defs>
+    <marker id="m615fish-hook" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,5 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m615fish-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="20" fill="currentColor" font-family="inherit">
+    <text x="62" y="112">Cl</text>
+    <text x="132" y="112">Cl</text>
+    <!-- shared pair -->
+    <circle cx="100" cy="105" r="2.6"/>
+    <circle cx="112" cy="105" r="2.6"/>
+    <!-- products -->
+    <text x="340" y="112">Cl</text>
+    <circle cx="368" cy="105" r="2.6"/>
+    <text x="398" y="112">+</text>
+    <circle cx="436" cy="105" r="2.6"/>
+    <text x="444" y="112">Cl</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="210" y1="105" x2="316" y2="105" marker-end="url(#m615fish-react)"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="1.8" fill="none">
+    <path d="M99,100 Q86,48 70,86" marker-end="url(#m615fish-hook)"/>
+    <path d="M113,100 Q126,48 144,86" marker-end="url(#m615fish-hook)"/>
+  </g>
+  <g font-size="13" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="263" y="94">UV light</text>
+    <text x="106" y="150">the bond: one shared pair</text>
+    <text x="400" y="150">two chlorine radicals</text>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-labelledby="t619route">
+  <title id="t619route">Propene and hydrogen bromide can form two carbocations. Hydrogen adding to the end carbon gives a secondary carbocation, which is more stable and leads to 2-bromopropane, the major product. Hydrogen adding to the middle carbon gives a primary carbocation, which is less stable and leads to 1-bromopropane, the minor product</title>
+  <defs>
+    <marker id="m619route-curly" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m619route-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g fill="currentColor" font-family="inherit">
+
+<text x="10" y="156" font-size="16">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CH=CH</tspan><tspan font-size="11" dy="4">2</tspan></text>
+<text x="10" y="180" font-size="14">+ HBr</text>
+<line x1="110" y1="140" x2="190" y2="80" stroke="currentColor" stroke-width="1.6" marker-end="url(#m619route-react)"/>
+<line x1="110" y1="162" x2="190" y2="222" stroke="currentColor" stroke-width="1.6" marker-end="url(#m619route-react)"/>
+<text x="145" y="104" font-size="12" text-anchor="end" fill="var(--muted)">H adds to the CH₂ end</text>
+<text x="145" y="206" font-size="12" text-anchor="end" fill="var(--muted)">H adds to the middle C</text>
+<text x="205" y="86" font-size="16" fill="var(--t2-ink)">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CHCH</tspan><tspan font-size="11" dy="4">3</tspan></text>
+<text x="240" y="72" font-size="15" fill="var(--t2-ink)">+</text>
+<text x="250" y="112" font-size="12" text-anchor="middle" fill="var(--muted)">secondary carbocation</text>
+<text x="250" y="128" font-size="12" text-anchor="middle" fill="var(--muted)">two alkyl groups: more stable</text>
+<line x1="320" y1="80" x2="380" y2="80" stroke="currentColor" stroke-width="1.6" marker-end="url(#m619route-react)"/>
+<text x="350.0" y="70" font-size="12" text-anchor="middle" fill="var(--muted)">Br⁻</text>
+<text x="392" y="86" font-size="16" fill="var(--t2-ink)">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CHBrCH</tspan><tspan font-size="11" dy="4">3</tspan></text>
+<text x="450" y="112" font-size="12" text-anchor="middle" fill="var(--muted)">2-bromopropane: major</text>
+<text x="205" y="228" font-size="16" fill="var(--muted)">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan></text>
+<text x="287" y="214" font-size="15" fill="var(--muted)">+</text>
+<text x="250" y="254" font-size="12" text-anchor="middle" fill="var(--muted)">primary carbocation</text>
+<text x="250" y="270" font-size="12" text-anchor="middle" fill="var(--muted)">one alkyl group: less stable</text>
+<line x1="320" y1="222" x2="380" y2="222" stroke="currentColor" stroke-width="1.6" marker-end="url(#m619route-react)"/>
+<text x="350.0" y="212" font-size="12" text-anchor="middle" fill="var(--muted)">Br⁻</text>
+<text x="392" y="228" font-size="16" fill="var(--muted)">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">Br</tspan></text>
+<text x="452" y="254" font-size="12" text-anchor="middle" fill="var(--muted)">1-bromopropane: minor</text>
+<text x="570" y="150" font-size="12" text-anchor="middle" fill="var(--muted)">stability of carbocations:</text>
+<text x="570" y="168" font-size="12" text-anchor="middle" fill="var(--muted)">tertiary > secondary > primary</text>
+  </g>
+</svg>

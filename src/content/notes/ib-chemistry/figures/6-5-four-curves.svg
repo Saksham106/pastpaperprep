@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 440" role="img" aria-labelledby="t">
+<title id="t">Four small pH curves, each for adding 0.100 mol per cubic decimetre base to 20.0 cubic centimetres of 0.100 mol per cubic decimetre acid, pH 0 to 14 against volume 0 to 40 cubic centimetres. strong acid + strong base, HCl + NaOH: starts at pH 1.0, equivalence point at 20 cubic centimetres with pH 7.00. weak acid + strong base, CH3COOH + NaOH: starts at pH 2.9, equivalence point at 20 cubic centimetres with pH 8.73. strong acid + weak base, HCl + NH3: starts at pH 1.0, equivalence point at 20 cubic centimetres with pH 5.28. weak acid + weak base, CH3COOH + NH3: starts at pH 2.9, equivalence point at 20 cubic centimetres with pH 7.00. The strong acid with strong base curve has the longest vertical section, from about pH 3 to 11. Weak acid with strong base has a flatter buffer region before a shorter vertical section from about pH 7 to 11. Strong acid with weak base has a short vertical section from about pH 3 to 7 and levels off near pH 9. Weak acid with weak base has no vertical section at all, only a gradual change through pH 7.</title>
+<path d="M60 180 H260" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M60 180 V40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<g stroke="currentColor" stroke-width="1.2">
+<path d="M60.0 180 v5"/>
+<path d="M160.0 180 v5"/>
+<path d="M260.0 180 v5"/>
+<path d="M60 180.0 h-5"/>
+<path d="M60 110.0 h-5"/>
+<path d="M60 40.0 h-5"/>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">
+<text x="60.0" y="198">0</text>
+<text x="160.0" y="198">20</text>
+<text x="260.0" y="198">40</text>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="end">
+<text x="51" y="184.0">0</text>
+<text x="51" y="114.0">7</text>
+<text x="51" y="44.0">14</text>
+</g>
+<text x="160.0" y="18" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">strong acid + strong base</text>
+<text x="160.0" y="32" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">HCl + NaOH</text>
+<path d="M60 110.0 H260" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<path d="M60.0 170.0 L62.5 169.8 L65.0 169.6 L67.5 169.3 L70.0 169.1 L72.5 168.9 L75.0 168.7 L77.5 168.5 L80.0 168.2 L82.5 168.0 L85.0 167.8 L87.5 167.5 L90.0 167.3 L92.5 167.1 L95.0 166.8 L97.5 166.6 L100.0 166.3 L102.5 166.1 L105.0 165.8 L107.5 165.5 L110.0 165.2 L112.5 164.9 L115.0 164.6 L117.5 164.3 L120.0 164.0 L122.5 163.6 L125.0 163.3 L127.5 162.9 L130.0 162.5 L132.5 162.0 L135.0 161.5 L137.5 161.0 L140.0 160.5 L142.5 159.8 L145.0 159.1 L147.5 158.2 L150.0 157.2 L152.5 155.9 L155.0 154.1 L156.2 152.8 L157.5 151.0 L158.5 148.8 L159.0 147.0 L159.5 144.0 L159.8 141.0 L159.9 137.0 L160.0 110.0 L160.1 83.0 L160.2 79.0 L160.5 76.0 L161.0 73.0 L161.5 71.3 L162.5 69.1 L163.8 67.4 L165.0 66.1 L167.5 64.4 L170.0 63.2 L172.5 62.3 L175.0 61.6 L177.5 60.9 L180.0 60.4 L182.5 60.0 L185.0 59.5 L187.5 59.2 L190.0 58.8 L192.5 58.5 L195.0 58.3 L197.5 58.0 L200.0 57.8 L202.5 57.6 L205.0 57.4 L207.5 57.2 L210.0 57.0 L212.5 56.8 L215.0 56.7 L217.5 56.5 L220.0 56.4 L222.5 56.2 L225.0 56.1 L227.5 56.0 L230.0 55.9 L232.5 55.8 L235.0 55.6 L237.5 55.5 L240.0 55.4 L242.5 55.3 L245.0 55.3 L247.5 55.2 L250.0 55.1 L252.5 55.0 L255.0 54.9 L257.5 54.8 L260.0 54.8" fill="none" stroke="var(--t1-ink)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="160.0" cy="110.0" r="4" fill="var(--t2-ink)"/>
+<text x="168.0" y="126.0" font-size="11" fill="var(--t2-ink)" font-family="inherit">pH 7.00</text>
+<path d="M330 180 H530" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M330 180 V40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<g stroke="currentColor" stroke-width="1.2">
+<path d="M330.0 180 v5"/>
+<path d="M430.0 180 v5"/>
+<path d="M530.0 180 v5"/>
+<path d="M330 180.0 h-5"/>
+<path d="M330 110.0 h-5"/>
+<path d="M330 40.0 h-5"/>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">
+<text x="330.0" y="198">0</text>
+<text x="430.0" y="198">20</text>
+<text x="530.0" y="198">40</text>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="end">
+<text x="321" y="184.0">0</text>
+<text x="321" y="114.0">7</text>
+<text x="321" y="44.0">14</text>
+</g>
+<text x="430.0" y="18" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">weak acid + strong base</text>
+<text x="430.0" y="32" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">CH₃COOH + NaOH</text>
+<path d="M330 110.0 H530" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<path d="M330.0 151.2 L332.5 147.4 L335.0 144.9 L337.5 143.2 L340.0 141.9 L342.5 140.8 L345.0 139.9 L347.5 139.1 L350.0 138.4 L352.5 137.8 L355.0 137.2 L357.5 136.6 L360.0 136.1 L362.5 135.6 L365.0 135.1 L367.5 134.6 L370.0 134.2 L372.5 133.7 L375.0 133.3 L377.5 132.8 L380.0 132.4 L382.5 132.0 L385.0 131.5 L387.5 131.1 L390.0 130.6 L392.5 130.2 L395.0 129.7 L397.5 129.2 L400.0 128.7 L402.5 128.2 L405.0 127.6 L407.5 127.0 L410.0 126.4 L412.5 125.7 L415.0 124.9 L417.5 123.9 L420.0 122.9 L422.5 121.5 L425.0 119.6 L426.2 118.3 L427.5 116.5 L428.5 114.2 L429.0 112.4 L429.5 109.4 L429.8 106.4 L429.9 102.5 L430.0 92.7 L430.1 83.0 L430.2 79.0 L430.5 76.0 L431.0 73.0 L431.5 71.3 L432.5 69.1 L433.8 67.4 L435.0 66.1 L437.5 64.4 L440.0 63.2 L442.5 62.3 L445.0 61.6 L447.5 60.9 L450.0 60.4 L452.5 60.0 L455.0 59.5 L457.5 59.2 L460.0 58.8 L462.5 58.5 L465.0 58.3 L467.5 58.0 L470.0 57.8 L472.5 57.6 L475.0 57.4 L477.5 57.2 L480.0 57.0 L482.5 56.8 L485.0 56.7 L487.5 56.5 L490.0 56.4 L492.5 56.2 L495.0 56.1 L497.5 56.0 L500.0 55.9 L502.5 55.8 L505.0 55.6 L507.5 55.5 L510.0 55.4 L512.5 55.3 L515.0 55.3 L517.5 55.2 L520.0 55.1 L522.5 55.0 L525.0 54.9 L527.5 54.8 L530.0 54.8" fill="none" stroke="var(--t1-ink)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="430.0" cy="92.7" r="4" fill="var(--t2-ink)"/>
+<text x="438.0" y="106.7" font-size="11" fill="var(--t2-ink)" font-family="inherit">pH 8.73</text>
+<path d="M60 395 H260" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M60 395 V255" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<g stroke="currentColor" stroke-width="1.2">
+<path d="M60.0 395 v5"/>
+<path d="M160.0 395 v5"/>
+<path d="M260.0 395 v5"/>
+<path d="M60 395.0 h-5"/>
+<path d="M60 325.0 h-5"/>
+<path d="M60 255.0 h-5"/>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">
+<text x="60.0" y="413">0</text>
+<text x="160.0" y="413">20</text>
+<text x="260.0" y="413">40</text>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="end">
+<text x="51" y="399.0">0</text>
+<text x="51" y="329.0">7</text>
+<text x="51" y="259.0">14</text>
+</g>
+<text x="160.0" y="233" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">strong acid + weak base</text>
+<text x="160.0" y="247" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">HCl + NH₃</text>
+<path d="M60 325.0 H260" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<path d="M60.0 385.0 L62.5 384.8 L65.0 384.6 L67.5 384.3 L70.0 384.1 L72.5 383.9 L75.0 383.7 L77.5 383.5 L80.0 383.2 L82.5 383.0 L85.0 382.8 L87.5 382.5 L90.0 382.3 L92.5 382.1 L95.0 381.8 L97.5 381.6 L100.0 381.3 L102.5 381.1 L105.0 380.8 L107.5 380.5 L110.0 380.2 L112.5 379.9 L115.0 379.6 L117.5 379.3 L120.0 379.0 L122.5 378.6 L125.0 378.3 L127.5 377.9 L130.0 377.5 L132.5 377.0 L135.0 376.5 L137.5 376.0 L140.0 375.5 L142.5 374.8 L145.0 374.1 L147.5 373.2 L150.0 372.2 L152.5 370.9 L155.0 369.1 L156.2 367.8 L157.5 366.0 L158.5 363.8 L159.0 362.0 L159.5 359.0 L159.8 356.0 L159.9 352.0 L160.0 342.2 L160.1 332.5 L160.2 328.5 L160.5 325.5 L161.0 322.5 L161.5 320.7 L162.5 318.5 L163.8 316.8 L165.0 315.5 L167.5 313.8 L170.0 312.5 L172.5 311.5 L175.0 310.7 L177.5 310.1 L180.0 309.5 L182.5 309.0 L185.0 308.5 L187.5 308.1 L190.0 307.7 L192.5 307.4 L195.0 307.1 L197.5 306.8 L200.0 306.5 L202.5 306.2 L205.0 306.0 L207.5 305.7 L210.0 305.5 L212.5 305.3 L215.0 305.1 L217.5 304.9 L220.0 304.7 L222.5 304.5 L225.0 304.4 L227.5 304.2 L230.0 304.1 L232.5 303.9 L235.0 303.8 L237.5 303.6 L240.0 303.5 L242.5 303.3 L245.0 303.2 L247.5 303.1 L250.0 303.0 L252.5 302.8 L255.0 302.7 L257.5 302.6 L260.0 302.5" fill="none" stroke="var(--t1-ink)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="160.0" cy="342.2" r="4" fill="var(--t2-ink)"/>
+<text x="168.0" y="346.2" font-size="11" fill="var(--t2-ink)" font-family="inherit">pH 5.28</text>
+<path d="M330 395 H530" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M330 395 V255" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<g stroke="currentColor" stroke-width="1.2">
+<path d="M330.0 395 v5"/>
+<path d="M430.0 395 v5"/>
+<path d="M530.0 395 v5"/>
+<path d="M330 395.0 h-5"/>
+<path d="M330 325.0 h-5"/>
+<path d="M330 255.0 h-5"/>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">
+<text x="330.0" y="413">0</text>
+<text x="430.0" y="413">20</text>
+<text x="530.0" y="413">40</text>
+</g>
+<g font-size="10" fill="currentColor" font-family="inherit" text-anchor="end">
+<text x="321" y="399.0">0</text>
+<text x="321" y="329.0">7</text>
+<text x="321" y="259.0">14</text>
+</g>
+<text x="430.0" y="233" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">weak acid + weak base</text>
+<text x="430.0" y="247" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">CH₃COOH + NH₃</text>
+<path d="M330 325.0 H530" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<path d="M330.0 366.2 L332.5 362.4 L335.0 359.9 L337.5 358.2 L340.0 356.9 L342.5 355.8 L345.0 354.9 L347.5 354.1 L350.0 353.4 L352.5 352.8 L355.0 352.2 L357.5 351.6 L360.0 351.1 L362.5 350.6 L365.0 350.1 L367.5 349.6 L370.0 349.2 L372.5 348.7 L375.0 348.3 L377.5 347.8 L380.0 347.4 L382.5 347.0 L385.0 346.5 L387.5 346.1 L390.0 345.6 L392.5 345.2 L395.0 344.7 L397.5 344.2 L400.0 343.7 L402.5 343.2 L405.0 342.6 L407.5 342.0 L410.0 341.4 L412.5 340.7 L415.0 339.9 L417.5 339.0 L420.0 337.9 L422.5 336.5 L425.0 334.7 L426.2 333.4 L427.5 331.7 L428.5 329.7 L429.0 328.4 L429.5 326.8 L429.8 325.9 L429.9 325.3 L430.0 325.0 L430.1 324.6 L430.2 324.0 L430.5 323.1 L431.0 321.5 L431.5 320.2 L432.5 318.3 L433.8 316.7 L435.0 315.5 L437.5 313.7 L440.0 312.5 L442.5 311.5 L445.0 310.7 L447.5 310.1 L450.0 309.5 L452.5 309.0 L455.0 308.5 L457.5 308.1 L460.0 307.7 L462.5 307.4 L465.0 307.1 L467.5 306.8 L470.0 306.5 L472.5 306.2 L475.0 306.0 L477.5 305.7 L480.0 305.5 L482.5 305.3 L485.0 305.1 L487.5 304.9 L490.0 304.7 L492.5 304.5 L495.0 304.4 L497.5 304.2 L500.0 304.1 L502.5 303.9 L505.0 303.8 L507.5 303.6 L510.0 303.5 L512.5 303.3 L515.0 303.2 L517.5 303.1 L520.0 303.0 L522.5 302.8 L525.0 302.7 L527.5 302.6 L530.0 302.5" fill="none" stroke="var(--t1-ink)" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="430.0" cy="325.0" r="4" fill="var(--t2-ink)"/>
+<text x="438.0" y="341.0" font-size="11" fill="var(--t2-ink)" font-family="inherit">pH 7.00</text>
+<text x="280" y="432" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">volume of base added / cm³ (pH on each vertical axis, 0 to 14; dotted line at pH 7)</text>
+</svg>

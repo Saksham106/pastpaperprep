@@ -1,0 +1,617 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.4",
+  "slug": "born-haber-cycles",
+  "title": "Born–Haber cycles",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "A [[born-haber-cycle|Born–Haber cycle]] is [[hesss-law|Hess's law]] applied to making an ionic solid. Forming the solid from its elements in one step has the same [[enthalpy-change|enthalpy change]] as turning the elements into gaseous atoms, then gaseous ions, then a lattice. So you can find any one value, often the [[lattice-enthalpy|lattice enthalpy]], from all the others.",
+  "goals": [
+    {
+      "text": "Name each step in a Born–Haber cycle and write its equation with state symbols.",
+      "bullets": [
+        "R1.2.5"
+      ]
+    },
+    {
+      "text": "Explain the sign of each step, including why a second [[electron-affinity|electron affinity]] is positive.",
+      "bullets": [
+        "R1.2.5"
+      ]
+    },
+    {
+      "text": "Determine a lattice enthalpy, an enthalpy of formation or another missing value from a cycle for a compound of univalent ions.",
+      "bullets": [
+        "R1.2.5"
+      ]
+    },
+    {
+      "text": "Do the same for compounds of divalent ions, counting second [[ionization-energy|ionization energies]], second electron affinities and every atom in the formula.",
+      "bullets": [
+        "R1.2.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "3.1",
+    "4.1",
+    "4.2",
+    "4.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Born-Haber cycle",
+    "Born Haber calculation",
+    "lattice enthalpy calculation",
+    "enthalpy of atomization",
+    "second electron affinity",
+    "enthalpy cycle for an ionic compound"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-lattice-equation",
+      "prompt": "Which equation represents the lattice enthalpy of potassium bromide?",
+      "hint": "Lattice enthalpy is the energy needed to pull the solid apart.",
+      "options": [
+        {
+          "text": "$\\ce{KBr(s) -> K^+(g) + Br^-(g)}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{K^+(g) + Br^-(g) -> KBr(s)}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{KBr(s) -> K(g) + Br(g)}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{KBr(s) -> K^+(aq) + Br^-(aq)}$",
+          "correct": false
+        }
+      ],
+      "explain": "Lattice enthalpy separates one mole of the solid into gaseous ions, so the solid is on the left and the ions, each with (g), are on the right. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "chem-equation",
+        "truth": "KBr(s) -> K^+(g) + Br^-(g)",
+        "states": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-formation-equation",
+      "prompt": "Which equation represents the [[standard-enthalpy-change-of-formation|standard enthalpy change of formation]] of calcium bromide, $\\ce{CaBr2}$? Bromine is a liquid at $\\pu{298 K}$.",
+      "hint": "Start from each element in its standard state.",
+      "options": [
+        {
+          "text": "$\\ce{Ca(s) + Br2(l) -> CaBr2(s)}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{Ca(g) + Br2(g) -> CaBr2(s)}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{Ca^2+(g) + 2Br^-(g) -> CaBr2(s)}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{Ca(s) + 2Br(g) -> CaBr2(s)}$",
+          "correct": false
+        }
+      ],
+      "explain": "Formation starts from the elements in their standard states, solid calcium and liquid bromine, and makes one mole of the compound. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "chem-equation",
+        "truth": "Ca(s) + Br2(l) -> CaBr2(s)",
+        "states": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hess-reverse",
+      "prompt": "For $\\text{X} \\to \\text{Y}$, $\\Delta H = \\pu{+215 kJ mol-1}$. For $\\text{Z} \\to \\text{Y}$, $\\Delta H = \\pu{+530 kJ mol-1}$. What is $\\Delta H$, in $\\pu{kJ mol-1}$, for $\\text{X} \\to \\text{Z}$? Include the sign.",
+      "hint": "Go from X to Y, then from Y back to Z. Reversing a step changes the sign of its $\\Delta H$.",
+      "answer": {
+        "value": -315,
+        "tolerance": 0
+      },
+      "explain": "$\\Delta H = +215 + (-530) = \\pu{-315 kJ mol-1}$. Revise it in {{lesson:4.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "215 - 530",
+        "dp": 0,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "cycle",
+      "heading": "The steps of the cycle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't measure a [[lattice-enthalpy|lattice enthalpy]] directly: no experiment pulls a crystal apart into gaseous ions."
+        },
+        {
+          "type": "text",
+          "text": "Picture two routes from the elements to an ionic solid. The direct route is the [[standard-enthalpy-change-of-formation|standard enthalpy change of formation]], $\\Delta H_\\text{f}^\\ominus$. The long route goes via gaseous atoms and gaseous ions."
+        },
+        {
+          "type": "text",
+          "text": "By [[hesss-law|Hess's law]], both routes have the same total, so the cycle gives the one step you can't measure."
+        },
+        {
+          "type": "definition",
+          "term": "Born–Haber cycle",
+          "statement": "An enthalpy cycle applying Hess's law to the formation of an ionic compound: $\\Delta H_\\text{f}^\\ominus$ equals the sum of the steps that turn the elements into gaseous ions and then into the solid.",
+          "plain": "Making an ionic solid in one step, or in many small steps, gives the same total energy change."
+        },
+        {
+          "type": "definition",
+          "term": "enthalpy of atomization",
+          "statement": "The enthalpy change when one mole of gaseous atoms is formed from an element in its standard state.",
+          "plain": "The energy needed to turn an element into separate gas atoms, per mole of atoms made."
+        },
+        {
+          "type": "text",
+          "text": "The [[enthalpy-of-atomization|enthalpy of atomization]], $\\Delta H_\\text{atom}$, is positive, because bonds or metallic bonding must be broken. For a metal it is the enthalpy of sublimation, such as $\\ce{K(s) -> K(g)}$."
+        },
+        {
+          "type": "text",
+          "text": "For a diatomic gas it is half the bond enthalpy, because one bond gives two atoms. For chlorine, $\\ce{1/2Cl2(g) -> Cl(g)}$ has $\\Delta H_\\text{atom} = \\frac{1}{2} \\times 242 = \\pu{+121 kJ mol-1}$ (data booklet, section 12)."
+        },
+        {
+          "type": "text",
+          "text": "Bromine is a liquid and iodine a solid at $\\pu{298 K}$, so their atomization also includes making a gas. A question gives you the value."
+        },
+        {
+          "type": "text",
+          "text": "The long route for potassium chloride has five steps. 1. Atomize the metal: $\\ce{K(s) -> K(g)}$. Endothermic."
+        },
+        {
+          "type": "text",
+          "text": "2. Atomize the non-metal: $\\ce{1/2Cl2(g) -> Cl(g)}$. Endothermic."
+        },
+        {
+          "type": "text",
+          "text": "3. Ionize the metal atom: $\\ce{K(g) -> K^+(g) + e-}$. This is the first [[ionization-energy|ionization energy]] of potassium (data booklet, section 9). Endothermic."
+        },
+        {
+          "type": "text",
+          "text": "4. Add the electron to the non-metal atom: $\\ce{Cl(g) + e- -> Cl^-(g)}$. This is the [[electron-affinity|electron affinity]] of chlorine (section 9). Exothermic for chlorine."
+        },
+        {
+          "type": "text",
+          "text": "5. Let the gaseous ions form the lattice: $\\ce{K^+(g) + Cl^-(g) -> KCl(s)}$. This is the reverse of the lattice enthalpy (section 16), so its enthalpy change is $-\\Delta H_\\text{lattice}$. Exothermic."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-kcl-cycle",
+          "alt": "Born-Haber cycle for potassium chloride, not to scale, values in kilojoules per mole. The elements, solid potassium plus half a mole of chlorine gas, sit at the starting level. Upward arrows climb in a staircase: atomization of potassium, plus 89, to gaseous potassium atoms; atomization of chlorine, plus 121, to gaseous potassium and chlorine atoms; first ionization energy of potassium, plus 419, to the top level, a gaseous potassium ion, an electron and a gaseous chlorine atom. A downward arrow, electron affinity of chlorine, minus 349, falls to gaseous potassium ions and chloride ions. The lowest level is solid potassium chloride. A long upward arrow from solid potassium chloride to the gaseous ions is labelled lattice enthalpy, plus 720. A downward arrow from the elements to solid potassium chloride is labelled standard enthalpy change of formation, minus 440.",
+          "caption": "The cycle for $\\ce{KCl}$, in $\\pu{kJ mol-1}$ (not to scale). Upward arrows are endothermic. $\\Delta H_\\text{f}^\\ominus = 89 + 121 + 419 + (-349) - 720 = -440$."
+        },
+        {
+          "type": "result",
+          "statement": "$\\Delta H_\\text{f}^\\ominus = \\Delta H_\\text{atom}(\\ce{K}) + \\Delta H_\\text{atom}(\\ce{Cl}) + \\text{IE}_1(\\ce{K}) + \\text{EA}(\\ce{Cl}) - \\Delta H_\\text{lattice}(\\ce{KCl})$",
+          "why": "Both routes start at the elements and end at the solid, so they have the same total. The lattice term is subtracted because the cycle runs it in reverse."
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-atomization",
+          "question": "A Born–Haber cycle for sodium bromide includes the atomization of bromine. Write the equation for this step, with state symbols.",
+          "steps": [
+            "Atomization makes one mole of gaseous atoms, so the product is $\\ce{Br(g)}$ with coefficient 1.",
+            "Start from bromine in its standard state, the liquid $\\ce{Br2(l)}$.",
+            "Each molecule gives two atoms, so half a mole of $\\ce{Br2}$ is needed."
+          ],
+          "answer": "$\\ce{1/2Br2(l) -> Br(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Br2(l) -> Br(g)",
+            "states": true,
+            "fractions": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-negative-formation",
+          "question": "In the cycle for potassium chloride above, making the gaseous ions from the elements absorbs energy. Explain why $\\Delta H_\\text{f}^\\ominus$ of $\\ce{KCl}$ is still negative.",
+          "steps": [
+            "Add the steps that make the gaseous ions: $89 + 121 + 419 + (-349) = \\pu{+280 kJ mol-1}$.",
+            "Forming the lattice from those ions releases $\\pu{720 kJ mol-1}$.",
+            "Compare the two amounts, and say why the lattice step releases so much."
+          ],
+          "answer": "Atomizing potassium and chlorine and ionizing potassium absorb more energy than the electron affinity of chlorine releases, so forming the gaseous ions absorbs energy overall. When the gaseous ions come together to form the lattice, a large amount of energy is released. This is because of the strong electrostatic attraction between the oppositely charged ions. The energy released forming the lattice is greater than the energy absorbed forming the ions, so $\\Delta H_\\text{f}^\\ominus$ is negative.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "lattice formation releases more energy than forming the gaseous ions absorbs",
+            "requires": [
+              "absorbs energy overall",
+              [
+                "energy is released",
+                "releases energy"
+              ],
+              "electrostatic attraction",
+              "oppositely charged ions",
+              "greater than",
+              "negative"
+            ],
+            "forbids": [
+              "breaking bonds releases",
+              "lattice enthalpy is negative"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-step",
+          "prompt": "Which of these enthalpy changes for potassium chloride and its elements is negative?",
+          "hint": "Lattice enthalpy is defined for pulling the solid apart.",
+          "options": [
+            {
+              "text": "the electron affinity of chlorine",
+              "correct": true
+            },
+            {
+              "text": "the lattice enthalpy of potassium chloride",
+              "correct": false
+            },
+            {
+              "text": "the first ionization energy of potassium",
+              "correct": false
+            },
+            {
+              "text": "the enthalpy of atomization of chlorine",
+              "correct": false
+            }
+          ],
+          "explain": "The chlorine nucleus attracts the incoming electron, releasing $\\pu{349 kJ mol-1}$. Atomizing and ionizing absorb energy, and lattice enthalpy is positive because it separates the ions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the electron affinity of chlorine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oxygen-atomization",
+          "prompt": "Which equation represents the enthalpy of atomization of oxygen?",
+          "hint": "Atomization is per mole of atoms formed.",
+          "options": [
+            {
+              "text": "$\\ce{1/2O2(g) -> O(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{O2(g) -> 2O(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{O(g) + e- -> O^-(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "One mole of oxygen atoms comes from half a mole of $\\ce{O2}$. $\\ce{O2(g) -> 2O(g)}$ makes two moles of atoms, so its value is twice the atomization.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "O2(g) -> O(g)",
+            "states": true,
+            "fractions": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "missing-value",
+      "heading": "Finding a missing value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[born-haber-cycle|Born–Haber cycle]] question gives you every value but one. Rearrange the Hess's law sum so the unknown is on its own."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H_\\text{lattice} = \\sum \\Delta H_\\text{atom} + \\sum \\text{IE} + \\sum \\text{EA} - \\Delta H_\\text{f}^\\ominus",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Each sum covers every atom and every electron moved. For a compound of univalent ions, such as $\\ce{KCl}$, each sum has one term."
+        },
+        {
+          "type": "text",
+          "text": "Put each value in with its own sign, in brackets if negative. Ionization energies and electron affinities are in section 9 of the data booklet, lattice enthalpies in section 16."
+        },
+        {
+          "type": "example",
+          "id": "ex-lithium-chloride-lattice",
+          "question": "Lithium chloride has $\\Delta H_\\text{f}^\\ominus = \\pu{-409 kJ mol-1}$, and the enthalpy of atomization of lithium is $\\pu{+159 kJ mol-1}$. Use these values and the data booklet to determine the lattice enthalpy of lithium chloride.",
+          "steps": [
+            "From section 9: $\\text{IE}_1(\\ce{Li}) = \\pu{+520 kJ mol-1}$ and $\\text{EA}(\\ce{Cl}) = \\pu{-349 kJ mol-1}$. From section 12: $\\Delta H_\\text{atom}(\\ce{Cl}) = \\frac{1}{2}(242) = \\pu{+121 kJ mol-1}$.",
+            "Substitute: $\\Delta H_\\text{lattice} = 159 + 121 + 520 + (-349) - (-409)$.",
+            "$\\Delta H_\\text{lattice} = \\pu{+860 kJ mol-1}$.",
+            "Sense check: section 16 gives $\\pu{864 kJ mol-1}$. Values from different sources rarely agree exactly, so this is close enough."
+          ],
+          "answer": "$\\Delta H_\\text{lattice} = \\pu{+860 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "159 + BE('Cl-Cl')/2 + IE1('Li') + EA('Cl') - (-409)",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rubidium-iodide-formation",
+          "question": "The enthalpy of atomization of rubidium is $\\pu{+81 kJ mol-1}$ and of iodine $\\pu{+107 kJ mol-1}$. Use these values and the data booklet to determine $\\Delta H_\\text{f}^\\ominus$ of rubidium iodide, $\\ce{RbI}$.",
+          "steps": [
+            "From section 9: $\\text{IE}_1(\\ce{Rb}) = \\pu{+403 kJ mol-1}$ and $\\text{EA}(\\ce{I}) = \\pu{-295 kJ mol-1}$. From section 16: $\\Delta H_\\text{lattice}(\\ce{RbI}) = \\pu{+632 kJ mol-1}$.",
+            "Iodine is a solid, so use the atomization value given, not half the $\\ce{I-I}$ bond enthalpy.",
+            "$\\Delta H_\\text{f}^\\ominus = 81 + 107 + 403 + (-295) - 632$.",
+            "$\\Delta H_\\text{f}^\\ominus = \\pu{-336 kJ mol-1}$. Negative, as expected for a stable ionic solid made from a reactive metal and a halogen."
+          ],
+          "answer": "$\\Delta H_\\text{f}^\\ominus = \\pu{-336 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "81 + 107 + IE1('Rb') + EA('I') - lattice('RbI')",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the lattice enthalpy when you find $\\Delta H_\\text{f}^\\ominus$. Forming the solid from the ions releases energy, so the lattice term enters as $-\\Delta H_\\text{lattice}$."
+        },
+        {
+          "type": "check",
+          "id": "check-caesium-atomization",
+          "prompt": "Caesium bromide has $\\Delta H_\\text{f}^\\ominus = \\pu{-406 kJ mol-1}$, and the enthalpy of atomization of bromine is $\\pu{+112 kJ mol-1}$. Take the other values from the data booklet. Calculate the enthalpy of atomization of caesium, in $\\pu{kJ mol-1}$.",
+          "hint": "Write $\\Delta H_\\text{f}^\\ominus$ as the sum of all the steps, then rearrange for the one you don't know.",
+          "answer": {
+            "value": 78,
+            "tolerance": 0
+          },
+          "explain": "$-406 = \\Delta H_\\text{atom}(\\ce{Cs}) + 112 + 376 + (-325) - 647$, so $\\Delta H_\\text{atom}(\\ce{Cs}) = -406 - 112 - 376 + 325 + 647 = \\pu{+78 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-406 - 112 - IE1('Cs') - EA('Br') + lattice('CsBr')",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lattice-expression",
+          "prompt": "For sodium fluoride, the enthalpies of atomization of sodium and fluorine are $a$ and $b$, the first ionization energy of sodium is $c$, and the electron affinity of fluorine is $d$. $\\Delta H_\\text{f}^\\ominus$ of $\\ce{NaF}$ is $h$. Which expression gives the lattice enthalpy of sodium fluoride?",
+          "hint": "Each symbol already carries its own sign, so the electron affinity is added as it is.",
+          "options": [
+            {
+              "text": "$a + b + c + d - h$",
+              "correct": true
+            },
+            {
+              "text": "$h - a - b - c - d$",
+              "correct": false
+            },
+            {
+              "text": "$a + b + c - d - h$",
+              "correct": false
+            },
+            {
+              "text": "$a + b + c + d + h$",
+              "correct": false
+            }
+          ],
+          "explain": "Hess's law gives $h = a + b + c + d - \\Delta H_\\text{lattice}$, so $\\Delta H_\\text{lattice} = a + b + c + d - h$. The option $h - a - b - c - d$ is the enthalpy change for forming the solid from the ions, which is negative.",
+          "verify": {
+            "kind": "expression",
+            "truth": "a + b + c + d - h"
+          }
+        }
+      ]
+    },
+    {
+      "id": "divalent",
+      "heading": "Compounds with divalent ions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Ions with a $2+$ or $2-$ charge add steps, but the method is the same."
+        },
+        {
+          "type": "text",
+          "text": "A $2+$ ion needs the first and second [[ionization-energy|ionization energies]]: $\\ce{Ca(g) -> Ca^+(g) + e-}$, then $\\ce{Ca^+(g) -> Ca^2+(g) + e-}$. The booklet gives only first ionization energies, so a question gives you the second."
+        },
+        {
+          "type": "text",
+          "text": "The second is larger: a positive ion attracts the electron more strongly than a neutral atom does."
+        },
+        {
+          "type": "text",
+          "text": "An oxide ion needs two electrons added. The first [[electron-affinity|electron affinity]], $\\ce{O(g) + e- -> O^-(g)}$, is $\\pu{-141 kJ mol-1}$. The second, $\\ce{O^-(g) + e- -> O^2-(g)}$, is $\\pu{+753 kJ mol-1}$. Both are in section 9."
+        },
+        {
+          "type": "result",
+          "statement": "A second electron affinity is positive (endothermic).",
+          "why": "The incoming electron is repelled by the negative ion, so energy must be absorbed to add it."
+        },
+        {
+          "type": "text",
+          "text": "Count steps twice for two atoms. $\\ce{CaCl2}$ needs $2 \\times \\Delta H_\\text{atom}(\\ce{Cl})$, the whole $\\ce{Cl-Cl}$ bond enthalpy, and $2 \\times \\text{EA}(\\ce{Cl})$."
+        },
+        {
+          "type": "text",
+          "text": "Making $\\ce{Ca^2+}$ or $\\ce{O^2-}$ costs a lot of energy. These compounds still form because ions with higher charges attract more strongly, giving very large lattice enthalpies. {{lesson:2.1}} shows how charge and [[ionic-radius|ionic radius]] set their size."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-second-ea",
+          "question": "The first electron affinity of oxygen is negative, but the second is positive. Explain why.",
+          "steps": [
+            "First electron affinity: the electron joins a neutral atom.",
+            "Second electron affinity: the electron joins an $\\ce{O^-}$ ion.",
+            "Link each to attraction or repulsion, then to energy released or absorbed."
+          ],
+          "answer": "In the first electron affinity, the electron is added to a neutral oxygen atom. The incoming electron is attracted by the nucleus, so energy is released. In the second electron affinity, the electron is added to an $\\ce{O^-}$ ion, which is already negatively charged. The negative ion repels the incoming electron. Energy must be absorbed to overcome this repulsion, so the second electron affinity is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "first: attraction to the nucleus releases energy; second: repulsion by the negative ion must be overcome",
+            "requires": [
+              "neutral",
+              [
+                "attracted by the nucleus",
+                "attraction to the nucleus"
+              ],
+              [
+                "negatively charged",
+                "negative ion"
+              ],
+              [
+                "repels",
+                "repulsion"
+              ],
+              [
+                "absorbed",
+                "absorbs"
+              ],
+              "overcome"
+            ],
+            "forbids": [
+              "energy is released to overcome",
+              "second electron affinity is negative"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-barium-oxide-ea2",
+          "question": "Barium oxide, $\\ce{BaO}$, has $\\Delta H_\\text{f}^\\ominus = \\pu{-548 kJ mol-1}$. The enthalpy of atomization of barium is $\\pu{+180 kJ mol-1}$ and its second ionization energy is $\\pu{+965 kJ mol-1}$. Use these values and the data booklet to determine the second electron affinity of oxygen.",
+          "steps": [
+            "From section 9: $\\text{IE}_1(\\ce{Ba}) = +503$ and $\\text{EA}_1(\\ce{O}) = -141$. From section 12: $\\Delta H_\\text{atom}(\\ce{O}) = \\frac{1}{2}(498) = +249$. From section 16: $\\Delta H_\\text{lattice}(\\ce{BaO}) = +3054$. All are in $\\pu{kJ mol-1}$.",
+            "Hess's law: $-548 = 180 + 503 + 965 + 249 + (-141) + \\text{EA}_2 - 3054$.",
+            "The known terms on the right add up to $-1298$, so $\\text{EA}_2 = -548 + 1298 = \\pu{+750 kJ mol-1}$.",
+            "Sense check: it is positive, as a second electron affinity must be, and close to the booklet's $+753$."
+          ],
+          "answer": "$\\text{EA}_2(\\ce{O}) = \\pu{+750 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-548 - (180 + IE1('Ba') + 965 + BE('O=O')/2 + EA('O') - lattice('BaO'))",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using only the first ionization energy for a $2+$ ion. $\\ce{Mg^2+}$ needs $\\text{IE}_1 + \\text{IE}_2$, and $\\ce{O^2-}$ needs $\\text{EA}_1 + \\text{EA}_2$."
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-chloride-lattice",
+          "prompt": "Magnesium chloride has $\\Delta H_\\text{f}^\\ominus = \\pu{-641 kJ mol-1}$. The enthalpy of atomization of magnesium is $\\pu{+148 kJ mol-1}$ and its second ionization energy is $\\pu{+1451 kJ mol-1}$. Take the other values from the data booklet. Calculate the lattice enthalpy of $\\ce{MgCl2}$, in $\\pu{kJ mol-1}$.",
+          "hint": "There are two chlorine atoms: use the whole $\\ce{Cl-Cl}$ bond enthalpy and two electron affinities.",
+          "answer": {
+            "value": 2522,
+            "tolerance": 0
+          },
+          "explain": "$\\Delta H_\\text{lattice} = 148 + 738 + 1451 + 242 + 2(-349) - (-641) = \\pu{+2522 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "148 + IE1('Mg') + 1451 + BE('Cl-Cl') + 2*EA('Cl') - (-641)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mgo-exothermic-step",
+          "prompt": "In the Born–Haber cycle for magnesium oxide, which of these steps releases energy?",
+          "hint": "Only one of them adds an electron to a neutral atom.",
+          "options": [
+            {
+              "text": "the first electron affinity of oxygen",
+              "correct": true
+            },
+            {
+              "text": "the second electron affinity of oxygen",
+              "correct": false
+            },
+            {
+              "text": "the second ionization energy of magnesium",
+              "correct": false
+            },
+            {
+              "text": "the atomization of oxygen",
+              "correct": false
+            }
+          ],
+          "explain": "A neutral oxygen atom attracts an extra electron, releasing $\\pu{141 kJ mol-1}$. The other three steps all absorb energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the first electron affinity of oxygen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A Born–Haber cycle is Hess's law: forming an ionic solid from its elements directly, or via gaseous atoms and ions, gives the same total.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H_\\text{lattice} = \\sum \\Delta H_\\text{atom} + \\sum \\text{IE} + \\sum \\text{EA} - \\Delta H_\\text{f}^\\ominus",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Enthalpy of atomization is per mole of gaseous atoms formed. For a diatomic gas such as $\\ce{Cl2}$ it is half the bond enthalpy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Atomization, ionization and lattice enthalpy are positive. A first electron affinity is usually negative; a second electron affinity is positive.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Divalent ions: add $\\text{IE}_1 + \\text{IE}_2$ for $\\ce{M^2+}$ and $\\text{EA}_1 + \\text{EA}_2$ for $\\ce{O^2-}$. Count steps twice for two atoms, as for the chlorines in $\\ce{CaCl2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the whole $\\ce{Cl-Cl}$ bond enthalpy for one mole of chlorine atoms. Atomization is per mole of atoms, so halve it.",
+    "Forgetting to count steps twice: $\\ce{CaCl2}$ needs two chlorine atomizations and two electron affinities.",
+    "Getting the sign of the lattice term wrong. Lattice enthalpy is positive and separates the ions; forming the solid from the ions is $-\\Delta H_\\text{lattice}$.",
+    "Treating a second electron affinity as exothermic. Adding an electron to a negative ion absorbs energy.",
+    "Taking half the bond enthalpy for bromine or iodine. They are not gases at $\\pu{298 K}$, so use the atomization value the question gives."
+  ],
+  "examTips": [
+    "\"Determine\" a value from a cycle: write the Hess's law sum with every value and its sign, then give the answer with its sign and $\\pu{kJ mol-1}$.",
+    "In Paper 1A, the options are often sums of signed values. Check the sign on the lattice term, and whether each atomization is halved or doubled.",
+    "\"Explain\" why a second electron affinity is positive: say the negative ion repels the incoming electron, and that energy is absorbed to overcome the repulsion.",
+    "You must read cycles and find missing values from them, but you won't be asked to build a whole cycle from scratch."
+  ],
+  "readingMinutes": 20
+}

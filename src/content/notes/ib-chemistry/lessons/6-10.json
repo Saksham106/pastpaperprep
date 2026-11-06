@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.10",
+  "slug": "primary-and-secondary-cells",
+  "title": "Primary and secondary cells",
+  "level": "SL",
+  "topic": 6,
+  "summary": "In every electrochemical cell, [[oxidation|oxidation]] happens at the [[anode|anode]] and [[reduction|reduction]] at the [[cathode|cathode]]. A [[primary-voltaic-cell|primary (voltaic) cell]] turns a spontaneous redox reaction into electricity, with a [[salt-bridge|salt bridge]] joining its two half-cells. A [[secondary-cell|secondary cell]] can be recharged: electrical energy runs its reaction backwards.",
+  "goals": [
+    {
+      "text": "Identify the anode and cathode, and give their signs in voltaic and electrolytic cells.",
+      "bullets": [
+        "R3.2.5"
+      ]
+    },
+    {
+      "text": "Describe how to build a primary cell from two metal/metal [[ion|ion]] half-cells, and explain the [[electron|electron]] flow in the wire and the ion movement in the salt bridge.",
+      "bullets": [
+        "R3.2.6"
+      ]
+    },
+    {
+      "text": "Deduce the charging reactions of a secondary cell from its discharge reactions, and the reverse.",
+      "bullets": [
+        "R3.2.7"
+      ]
+    },
+    {
+      "text": "Discuss the advantages and disadvantages of primary cells, secondary cells and [[fuel-cell|fuel cells]].",
+      "bullets": [
+        "R3.2.7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "2.1",
+    "3.3",
+    "4.5",
+    "6.8",
+    "6.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "voltaic cell",
+    "galvanic cell",
+    "electrochemical cell",
+    "anode and cathode",
+    "salt bridge",
+    "rechargeable battery",
+    "lead-acid battery",
+    "lithium-ion battery"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-oxidation-meaning",
+      "prompt": "Which change is oxidation?",
+      "hint": "OIL RIG.",
+      "options": [
+        {
+          "text": "Loss of electrons",
+          "correct": true
+        },
+        {
+          "text": "Gain of electrons",
+          "correct": false
+        },
+        {
+          "text": "Decrease in oxidation state",
+          "correct": false
+        },
+        {
+          "text": "Loss of oxygen",
+          "correct": false
+        }
+      ],
+      "explain": "Oxidation is loss of electrons, so the [[oxidation-state|oxidation state]] goes up. Revise it in {{lesson:6.8}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Loss of electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-nickel-state",
+      "prompt": "What is the oxidation state of nickel in $\\ce{NiSO4}$? The sulfate ion is $\\ce{SO4^2-}$.",
+      "hint": "The compound is neutral.",
+      "answer": {
+        "value": 2,
+        "tolerance": 0
+      },
+      "explain": "The charges add to zero, so nickel is $+2$, as in $\\ce{Ni^2+}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0 - (-2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-more-reactive",
+      "prompt": "Which metal loses electrons most easily?",
+      "hint": "Think of the [[reactivity-series|reactivity series]].",
+      "options": [
+        {
+          "text": "Magnesium",
+          "correct": true
+        },
+        {
+          "text": "Iron",
+          "correct": false
+        },
+        {
+          "text": "Copper",
+          "correct": false
+        },
+        {
+          "text": "Silver",
+          "correct": false
+        }
+      ],
+      "explain": "Magnesium is highest of these in the reactivity series, so it is oxidized most easily. Revise it in {{lesson:6.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Magnesium"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "electrodes",
+      "heading": "Anode and cathode",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An electrochemical cell has two electrodes in contact with an electrolyte. It keeps the two halves of a redox reaction apart: one electrode hands [[electron|electrons]] to the external circuit, and the other takes them back."
+        },
+        {
+          "type": "definition",
+          "term": "anode",
+          "statement": "The electrode where oxidation takes place.",
+          "plain": "Electrons leave the reacting species here."
+        },
+        {
+          "type": "definition",
+          "term": "cathode",
+          "statement": "The electrode where reduction takes place.",
+          "plain": "Electrons are taken up by the reacting species here."
+        },
+        {
+          "type": "text",
+          "text": "The name comes from the reaction, so it is the same in every cell. The sign depends on the type of cell."
+        },
+        {
+          "type": "text",
+          "text": "**Voltaic cell** (it makes electricity): the anode is negative and the cathode is positive. Oxidation at the anode releases electrons, which pile up there and make it negative."
+        },
+        {
+          "type": "text",
+          "text": "**Electrolytic cell** (it uses electricity, {{lesson:6.11}}): the anode is positive and the cathode is negative. The power supply pulls electrons out of the anode and pushes them into the cathode."
+        },
+        {
+          "type": "example",
+          "id": "ex-cathode-half-equation",
+          "question": "A voltaic cell is made from a magnesium electrode in $\\ce{Mg^2+(aq)}$ and an iron electrode in $\\ce{Fe^2+(aq)}$. Magnesium is more reactive than iron. Write the [[half-equation|half-equation]] at the cathode.",
+          "steps": [
+            "The more reactive metal, magnesium, is oxidized, so the magnesium electrode is the anode.",
+            "Reduction happens at the iron electrode, the cathode: $\\ce{Fe^2+}$ ions gain two electrons.",
+            "Check the charge: $(+2) + (-2) = 0$ on the left, $0$ on the right."
+          ],
+          "answer": "$\\ce{Fe^2+(aq) + 2e- -> Fe(s)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Fe^2+ + e- -> Fe",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-electrolytic-anode-sign",
+          "question": "Molten lithium chloride is electrolysed, and chlorine gas forms at one electrode. Identify this electrode, and deduce its sign.",
+          "steps": [
+            "$\\ce{2Cl^- -> Cl2 + 2e-}$: the chloride ions lose electrons.",
+            "Name the electrode from the reaction, then give the sign for an electrolytic cell."
+          ],
+          "answer": "The chloride ions lose electrons, so this is oxidation and the electrode is the anode. In an electrolytic cell the anode is connected to the positive terminal of the power supply, so it is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cl- loses electrons (oxidation), so anode; electrolytic anode is positive.",
+            "requires": [
+              [
+                "lose electrons",
+                "loses electrons"
+              ],
+              "oxidation",
+              "anode",
+              "positive terminal",
+              "it is positive"
+            ],
+            "forbids": [
+              "negative",
+              "reduction",
+              "cathode"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Naming the electrode from its sign. \"Anode\" means oxidation in every cell; only the sign changes between voltaic and electrolytic cells."
+        },
+        {
+          "type": "check",
+          "id": "check-voltaic-cathode",
+          "prompt": "Which describes the cathode of a voltaic cell?",
+          "hint": "The name comes from the reaction; the sign from the cell type.",
+          "options": [
+            {
+              "text": "Positive, where reduction happens",
+              "correct": true
+            },
+            {
+              "text": "Negative, where reduction happens",
+              "correct": false
+            },
+            {
+              "text": "Positive, where oxidation happens",
+              "correct": false
+            },
+            {
+              "text": "Negative, where oxidation happens",
+              "correct": false
+            }
+          ],
+          "explain": "Reduction always happens at the cathode. In a voltaic cell it is positive; the negative cathode belongs to an electrolytic cell.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Positive, where reduction happens"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electrolytic-anode",
+          "prompt": "Which describes the anode of an electrolytic cell?",
+          "hint": "Which terminal of the power supply pulls electrons away?",
+          "options": [
+            {
+              "text": "Positive, where oxidation happens",
+              "correct": true
+            },
+            {
+              "text": "Negative, where oxidation happens",
+              "correct": false
+            },
+            {
+              "text": "Positive, where reduction happens",
+              "correct": false
+            },
+            {
+              "text": "Negative, where reduction happens",
+              "correct": false
+            }
+          ],
+          "explain": "Oxidation always happens at the anode. In an electrolytic cell it is joined to the positive terminal, so it is positive.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Positive, where oxidation happens"
+          }
+        }
+      ]
+    },
+    {
+      "id": "voltaic",
+      "heading": "Building a primary (voltaic) cell",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "primary (voltaic) cell",
+          "statement": "An electrochemical cell that converts the energy of a spontaneous redox reaction into electrical energy. A primary cell is used until its reactants run out; it is not recharged.",
+          "plain": "A battery that makes electricity from a reaction that goes by itself."
+        },
+        {
+          "type": "text",
+          "text": "A simple voltaic cell is built from two half-cells. Each is a metal electrode dipped in a solution of its own [[ion|ions]], such as nickel in $\\ce{NiSO4(aq)}$. A wire joins the two electrodes through a voltmeter or a lamp: this is the external circuit. A salt bridge joins the two solutions."
+        },
+        {
+          "type": "definition",
+          "term": "salt bridge",
+          "statement": "A tube or strip of filter paper filled with a solution of an unreactive salt, such as $\\ce{KNO3(aq)}$, that dips into both half-cells. Its ions move to keep each solution electrically neutral.",
+          "plain": "An ion path between the two beakers."
+        },
+        {
+          "type": "figure",
+          "id": "6-10-nickel-copper-cell",
+          "alt": "Nickel–copper voltaic cell. Left beaker: a nickel electrode in nickel(II) sulfate solution, labelled anode, negative, oxidation, Ni gives Ni2+ plus 2 electrons. Right beaker: a copper electrode in copper(II) sulfate solution, labelled cathode, positive, reduction, Cu2+ plus 2 electrons gives Cu. A wire joins the electrodes through a voltmeter, and arrows show electrons moving through the wire from nickel to copper. A salt bridge of potassium nitrate solution dips into both beakers; arrows show nitrate ions moving towards the nickel beaker and potassium ions moving towards the copper beaker.",
+          "caption": "Electrons travel through the wire; ions travel through the salt bridge."
+        },
+        {
+          "type": "text",
+          "text": "**Which electrode is which?** The metal higher in the [[reactivity-series|reactivity series]] loses electrons more easily, so it is oxidized: it is the anode. Nickel is more reactive than copper, so nickel is the anode, $\\ce{Ni(s) -> Ni^2+(aq) + 2e-}$. At the copper cathode, $\\ce{Cu^2+(aq) + 2e- -> Cu(s)}$."
+        },
+        {
+          "type": "text",
+          "text": "**Electrons** flow through the external wire from the anode to the cathode: from negative to positive. They never travel through the solutions or the salt bridge."
+        },
+        {
+          "type": "text",
+          "text": "**Ions** carry the charge inside the cell. The anode solution gains $\\ce{Ni^2+}$ [[cation|cations]], and the cathode solution loses $\\ce{Cu^2+}$. So [[anion|anions]] ($\\ce{NO3^-}$) move out of the salt bridge towards the anode, and cations ($\\ce{K^+}$) move towards the cathode. Without the salt bridge, charge would build up in each beaker and the current would stop."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying only that the salt bridge \"completes the circuit\". Mark schemes want the reason: ions move through it, keeping each half-cell electrically neutral."
+        },
+        {
+          "type": "example",
+          "id": "ex-al-sn-overall",
+          "question": "A voltaic cell is made from an $\\ce{Al}$/$\\ce{Al^3+}$ half-cell and a $\\ce{Sn}$/$\\ce{Sn^2+}$ half-cell. Aluminium is more reactive than tin. Deduce the equation for the overall cell reaction.",
+          "steps": [
+            "Aluminium is the anode: $\\ce{Al -> Al^3+ + 3e-}$. Tin is the cathode: $\\ce{Sn^2+ + 2e- -> Sn}$.",
+            "Make the electrons equal, 6: multiply the anode equation by 2 and the cathode equation by 3.",
+            "Add them and cancel the $\\ce{6e-}$. Charge: $3 \\times (+2) = +6$ on the left, $2 \\times (+3) = +6$ on the right."
+          ],
+          "answer": "$\\ce{2Al(s) + 3Sn^2+(aq) -> 2Al^3+(aq) + 3Sn(s)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Al + Sn^2+ -> Al^3+ + Sn",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ni-cu-flow",
+          "question": "For the nickel–copper cell in the figure, explain the direction of electron flow in the external circuit and the movement of ions in the $\\ce{KNO3}$ salt bridge.",
+          "steps": [
+            "Use the reactivity series to find the anode.",
+            "Electrons go through the wire; ions go through the salt bridge to balance the charge in each beaker."
+          ],
+          "answer": "Nickel is more reactive than copper, so nickel atoms are oxidized and the nickel electrode is the anode. Electrons flow through the external wire from the nickel anode to the copper cathode, where copper(II) ions are reduced. In the salt bridge, nitrate ions move towards the nickel half-cell, balancing the charge of the nickel(II) ions formed. Potassium ions move towards the copper half-cell, replacing the charge of the copper(II) ions removed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ni more reactive so anode; e- in wire Ni to Cu; NO3- to Ni half-cell, K+ to Cu half-cell, balancing charge.",
+            "requires": [
+              "more reactive",
+              "anode",
+              "from the nickel anode to the copper cathode",
+              "nitrate ions move towards the nickel",
+              "potassium ions move towards the copper",
+              [
+                "balancing",
+                "replacing the charge"
+              ]
+            ],
+            "forbids": [
+              "electrons flow through the salt bridge",
+              "electrons move through the solution",
+              "copper is the anode"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Burning a fuel and running a cell are both exothermic redox reactions ({{lesson:4.5}}). In combustion the fuel and oxygen meet, electrons pass directly between them, and the energy comes out as heat; a power station must then turn that heat into electricity, losing much of it. A cell keeps oxidation and reduction apart, so the electrons are forced through the wire: chemical energy becomes electrical energy directly."
+        },
+        {
+          "type": "check",
+          "id": "check-zn-pb-negative",
+          "prompt": "A voltaic cell is made from $\\ce{Zn}$/$\\ce{Zn^2+}$ and $\\ce{Pb}$/$\\ce{Pb^2+}$ half-cells. Zinc is more reactive than lead. Which describes the negative electrode?",
+          "hint": "The more reactive metal is oxidized.",
+          "options": [
+            {
+              "text": "Zinc, the anode",
+              "correct": true
+            },
+            {
+              "text": "Zinc, the cathode",
+              "correct": false
+            },
+            {
+              "text": "Lead, the anode",
+              "correct": false
+            },
+            {
+              "text": "Lead, the cathode",
+              "correct": false
+            }
+          ],
+          "explain": "Zinc is oxidized, so it is the anode, and in a voltaic cell the anode is negative. Electrons flow from zinc to lead.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Zinc, the anode"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-salt-bridge-role",
+          "prompt": "What does the salt bridge do in a voltaic cell?",
+          "hint": "What moves through it: electrons or ions?",
+          "options": [
+            {
+              "text": "Lets ions move between the half-cells, keeping each solution neutral",
+              "correct": true
+            },
+            {
+              "text": "Carries electrons from the anode to the cathode",
+              "correct": false
+            },
+            {
+              "text": "Lets the two solutions mix completely",
+              "correct": false
+            },
+            {
+              "text": "Supplies the electrons for reduction",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons only travel through the wire. The salt bridge passes ions, which balance the charge in each half-cell. If the solutions mixed, the metal ions of the cathode half-cell would reach the anode metal and react with it directly, so the electrons would not need to pass through the wire.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Lets ions move between the half-cells, keeping each solution neutral"
+          }
+        }
+      ]
+    },
+    {
+      "id": "secondary",
+      "heading": "Secondary (rechargeable) cells",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "secondary cell",
+          "statement": "A rechargeable cell. On discharge, a spontaneous redox reaction produces electrical energy; on charging, an external electrical supply reverses that reaction.",
+          "plain": "A battery you can recharge."
+        },
+        {
+          "type": "text",
+          "text": "Discharging, a secondary cell is a voltaic cell. Charging, it is an electrolytic cell: the charger pushes electrons back the other way. So each charging half-equation is a discharge half-equation written in reverse."
+        },
+        {
+          "type": "text",
+          "text": "A **lead–acid** battery (in petrol cars) has plates of lead, $\\ce{Pb}$, and lead(IV) oxide, $\\ce{PbO2}$, in sulfuric acid. On discharge both plates turn into lead(II) sulfate. In [[oxidation-state|oxidation states]], lead goes from $0$ to $+2$ at one plate and from $+4$ to $+2$ at the other."
+        },
+        {
+          "type": "figure",
+          "id": "6-10-lead-acid-charge-discharge",
+          "alt": "Lead–acid cell, discharging on the left and charging on the right. Each cell has a lead plate on the left, marked negative, and a lead(IV) oxide plate on the right, marked positive, in sulfuric acid. Discharging: the plates are joined through a lamp, and electrons flow through the wire from the lead plate to the lead(IV) oxide plate. The lead plate is the anode, where lead is oxidized to lead(II) sulfate, and the lead(IV) oxide plate is the cathode, where it is reduced to lead(II) sulfate. Charging: the plates are joined to a power supply, negative terminal to the lead plate, and electrons flow the other way, into the lead plate. Now the lead plate is the cathode, where lead(II) sulfate is reduced back to lead, and the lead(IV) oxide plate is the anode, where lead(II) sulfate is oxidized back to lead(IV) oxide. The signs of the plates do not change.",
+          "caption": "Charging reverses each half-equation. The names anode and cathode swap; the signs stay."
+        },
+        {
+          "type": "text",
+          "text": "The lead plate stays negative throughout. On discharge it is the anode (oxidation); on charging it is the cathode (reduction), joined to the charger's negative terminal. This fits the signs from the first section."
+        },
+        {
+          "type": "text",
+          "text": "Why can these reactions be reversed? The discharge products stay where they formed: $\\ce{PbSO4}$ is insoluble and sticks to the plates, so charging can turn it back. If a product escaped as a gas or dissolved and drifted away, the cell would be hard to recharge."
+        },
+        {
+          "type": "text",
+          "text": "In a **lithium-ion** cell (phones, laptops, electric cars), lithium is oxidized at the negative electrode on discharge. $\\ce{Li^+}$ ions travel through the electrolyte to the positive electrode while electrons travel through the external circuit. Charging drives both back."
+        },
+        {
+          "type": "example",
+          "id": "ex-lead-plate-charging",
+          "question": "On discharge, the negative plate of a lead–acid battery reacts as $\\ce{Pb(s) + SO4^2-(aq) -> PbSO4(s) + 2e-}$. Deduce the half-equation at this plate during charging, and state whether it is oxidation or reduction.",
+          "steps": [
+            "Charging reverses the discharge reaction: swap the two sides.",
+            "Electrons are now on the left, so they are gained: reduction."
+          ],
+          "answer": "$\\ce{PbSO4(s) + 2e- -> Pb(s) + SO4^2-(aq)}$: reduction.",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "PbSO4 + e- -> Pb + SO4^2-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nife-charging",
+          "question": "A nickel–iron cell discharges by these half-equations. Negative electrode: $\\ce{Fe + 2OH^- -> Fe(OH)2 + 2e-}$. Positive electrode: $\\ce{NiO(OH) + H2O + e- -> Ni(OH)2 + OH^-}$. Deduce the overall equation for charging.",
+          "steps": [
+            "Reverse both: $\\ce{Fe(OH)2 + 2e- -> Fe + 2OH^-}$ and $\\ce{Ni(OH)2 + OH^- -> NiO(OH) + H2O + e-}$.",
+            "Double the second to match the 2 electrons, then add.",
+            "Cancel the $\\ce{2e-}$ and the $\\ce{2OH^-}$ on both sides."
+          ],
+          "answer": "$\\ce{Fe(OH)2 + 2Ni(OH)2 -> Fe + 2NiO(OH) + 2H2O}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Fe(OH)2 + Ni(OH)2 -> Fe + NiO(OH) + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping the electrode names when the cell charges. The names follow the reaction, so the anode on discharge becomes the cathode on charging."
+        },
+        {
+          "type": "check",
+          "id": "check-pbo2-state",
+          "prompt": "What is the oxidation state of lead in $\\ce{PbO2}$?",
+          "hint": "Oxygen is $-2$ here, and the compound is neutral.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$x + 2(-2) = 0$, so $x = +4$. On discharge it falls to $+2$ in $\\ce{PbSO4}$: reduction.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0 - 2*(-2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charging-cell-type",
+          "prompt": "While a secondary cell is being charged, what type of cell is it?",
+          "hint": "Is the reaction spontaneous while charging?",
+          "options": [
+            {
+              "text": "An electrolytic cell",
+              "correct": true
+            },
+            {
+              "text": "A voltaic cell",
+              "correct": false
+            },
+            {
+              "text": "A fuel cell",
+              "correct": false
+            },
+            {
+              "text": "A primary cell",
+              "correct": false
+            }
+          ],
+          "explain": "Charging drives the non-spontaneous reverse reaction with electrical energy, which is what an electrolytic cell does.",
+          "verify": {
+            "kind": "choice",
+            "truth": "An electrolytic cell"
+          }
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "heading": "Primary cells, secondary cells and fuel cells",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "**Primary cells** (such as alkaline cells in a remote control). Advantages: cheap, ready to use, and they keep their charge for years in storage. Disadvantages: used once, then thrown away, which wastes materials and can release metals from landfill; expensive per unit of energy."
+        },
+        {
+          "type": "text",
+          "text": "**Secondary cells** (lead–acid, lithium-ion). Advantages: recharged hundreds of times, so less waste and a lower cost over their life. Disadvantages: higher cost to buy; charging takes time; capacity fades with each cycle; some contain toxic lead or cadmium, and lithium-ion cells can catch fire if damaged. The charging electricity may itself come from fossil fuels."
+        },
+        {
+          "type": "text",
+          "text": "**[[fuel-cell|Fuel cells]]** ({{lesson:4.5}}). Advantages: they run for as long as fuel and oxygen are supplied, with no recharging; a hydrogen–oxygen cell gives only water; they are more efficient than burning the fuel. Disadvantages: hydrogen is hard to store and transport, the electrodes need expensive catalysts such as platinum, and most hydrogen is still made from fossil fuels."
+        },
+        {
+          "type": "example",
+          "id": "ex-fuel-cell-vs-battery",
+          "question": "Outline one advantage and one disadvantage of a hydrogen fuel cell compared with a lithium-ion battery for powering a bus.",
+          "steps": [
+            "Advantage: think about how each is refilled.",
+            "Disadvantage: think about the hydrogen itself."
+          ],
+          "answer": "Advantage: the fuel cell does not need recharging; it runs as long as hydrogen is supplied, so refuelling is quick. Disadvantage: hydrogen is difficult to store and transport, because the gas must be compressed in strong tanks.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Advantage: no recharging, quick refuelling. Disadvantage: hydrogen is hard to store and transport.",
+            "requires": [
+              "does not need recharging",
+              "refuelling is quick",
+              "difficult to store"
+            ],
+            "forbids": [
+              "produces carbon dioxide",
+              "easy to store"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-smoke-alarm-phone",
+          "question": "Suggest why a smoke alarm usually runs on a primary cell but a mobile phone uses a secondary cell.",
+          "steps": [
+            "Compare how much energy each device uses.",
+            "Match each need to an advantage from the lists above."
+          ],
+          "answer": "A smoke alarm draws a tiny current, so a primary cell lasts for years; its long shelf life, low price and no need for charging suit the alarm. A phone uses far more energy each day, so a primary cell would run out quickly and be thrown away. A secondary cell can be recharged hundreds of times, which costs less over its life and creates less waste.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Alarm: tiny current, primary cell lasts years. Phone: high use, rechargeable secondary cell cheaper and less waste.",
+            "requires": [
+              "primary cell lasts for years",
+              [
+                "recharged",
+                "rechargeable"
+              ],
+              "less waste",
+              [
+                "costs less",
+                "cheaper"
+              ]
+            ],
+            "forbids": [
+              "primary cell can be recharged",
+              "secondary cell cannot be recharged"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-primary-disadvantage",
+          "prompt": "Which is a disadvantage of a primary cell compared with a secondary cell?",
+          "hint": "What happens when the reactants run out?",
+          "options": [
+            {
+              "text": "It is thrown away after one use",
+              "correct": true
+            },
+            {
+              "text": "Its reaction is not spontaneous",
+              "correct": false
+            },
+            {
+              "text": "It must be charged before first use",
+              "correct": false
+            },
+            {
+              "text": "It loses its charge within days in storage",
+              "correct": false
+            }
+          ],
+          "explain": "A primary cell cannot be recharged, so it becomes waste. Its reaction is spontaneous, it comes ready to use, and it has a long shelf life.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is thrown away after one use"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fuel-cell-advantage",
+          "prompt": "Which is an advantage of a hydrogen–oxygen fuel cell over a lead–acid battery?",
+          "hint": "Where do the fuel cell's reactants come from?",
+          "options": [
+            {
+              "text": "It runs as long as fuel is supplied, and its only product is water",
+              "correct": true
+            },
+            {
+              "text": "Hydrogen is easy to store and transport",
+              "correct": false
+            },
+            {
+              "text": "It needs no catalyst at its electrodes",
+              "correct": false
+            },
+            {
+              "text": "It is recharged by reversing its reaction",
+              "correct": false
+            }
+          ],
+          "explain": "A fuel cell is fed continuously and makes only water. Storing hydrogen is hard, the electrodes need catalysts, and it is refuelled, not recharged.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It runs as long as fuel is supplied, and its only product is water"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Anode: oxidation. Cathode: reduction. Voltaic cell: anode $-$, cathode $+$. Electrolytic cell: anode $+$, cathode $-$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cell of two metal/metal ion half-cells: the more reactive metal is the anode. Electrons flow anode → cathode through the wire; in the salt bridge anions move to the anode, cations to the cathode.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Secondary cell: charging reverses each discharge half-equation, so anode and cathode swap names but keep their signs.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying electrons flow through the salt bridge or the solutions. Electrons use the wire; ions use the salt bridge.",
+    "Making the anode negative in every cell. It is negative only in a voltaic cell.",
+    "Choosing the less reactive metal as the anode. The more reactive metal is oxidized.",
+    "Writing a charging half-equation in the same direction as discharge, or forgetting to balance the electrons before adding."
+  ],
+  "examTips": [
+    "\"Identify\" an electrode: name it from the reaction (oxidation means anode), then give the sign for that type of cell.",
+    "\"Explain\" ion movement in a salt bridge: state which ions move to which half-cell, and say they keep the solutions neutral. \"Completes the circuit\" alone does not score.",
+    "\"Deduce\" charging reactions: reverse each discharge half-equation, keep the electrons, and balance the charge.",
+    "Paper 1A often asks for anode, cathode and both signs in one option: check all four."
+  ],
+  "readingMinutes": 25
+}

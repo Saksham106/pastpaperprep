@@ -55,6 +55,8 @@ NAMES = {
     "hexan-2-one": "CCCCC(C)=O",
     "4-methylpentan-2-one": "CC(C)CC(C)=O",
     "hexanal": "CCCCCC=O",
+    "2,2-dimethylpropanal": "CC(C)(C)C=O",
+    "pentanal": "CCCCC=O",
 }
 
 
@@ -179,7 +181,7 @@ CHECKS = {
     "ex-splitting-chloroethane": {"mode": "splitting", "smiles": "CCCl"},
     "check-identify-doublet-quartet": {"mode": "identify", "target": [(3, "doublet"), (1, "quartet")], "formula": None},
     "ex-identify-c4h9br": {"mode": "identify", "target": [(9, "singlet")], "formula": "C4H9Br"},
-    "check-identify-c6h12o": {"mode": "identify", "target": [(9, "singlet"), (3, "singlet")], "formula": "C6H12O"},
+    "check-identify-c5h10o": {"mode": "identify", "target": [(9, "singlet"), (1, "singlet")], "formula": "C5H10O"},
 }
 NUMERIC = {"check-count-pentan-2-one": {"dp": 0}}
 

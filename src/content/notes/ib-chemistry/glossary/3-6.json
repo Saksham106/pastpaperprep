@@ -2,115 +2,115 @@
   {
     "id": "structural-formula",
     "term": "structural formula",
-    "definition": "TODO: Shows how atoms are connected; full (every bond) or condensed.",
+    "definition": "A formula that shows which atom is bonded to which: a full structural formula draws every atom and bond, and a condensed one groups the atoms on each carbon, as in $\\ce{CH3CH2OH}$.",
     "lesson": "3.6"
   },
   {
     "id": "skeletal-formula",
     "term": "skeletal formula",
-    "definition": "TODO: Zig-zag line diagram with carbon at vertices; H on C not shown.",
+    "definition": "A line drawing of a molecule in which every corner and line end is a carbon atom, hydrogens on carbon are left out, and all other atoms are written in.",
     "lesson": "3.6"
   },
   {
     "id": "functional-group",
     "term": "functional group",
-    "definition": "TODO: Atom or group giving a compound its characteristic reactions.",
+    "definition": "An atom or group of atoms in a molecule, such as $\\ce{-OH}$ or $\\ce{C=O}$, that gives the compound its characteristic reactions and strongly affects its physical properties.",
     "lesson": "3.6"
   },
   {
     "id": "hydroxyl-group",
     "term": "hydroxyl group",
-    "definition": "TODO: -OH group; alcohols (not an ionic hydroxide ion).",
+    "definition": "The $\\ce{-OH}$ group covalently bonded to carbon, found in alcohols; it is not the hydroxide ion, $\\ce{OH-}$.",
     "lesson": "3.6"
   },
   {
     "id": "carbonyl-group",
     "term": "carbonyl group",
-    "definition": "TODO: C=O group; aldehydes and ketones.",
+    "definition": "A carbon atom double-bonded to an oxygen atom, $\\ce{C=O}$; at the end of a chain it makes an aldehyde, and inside a chain a ketone.",
     "lesson": "3.6"
   },
   {
     "id": "carboxyl-group",
     "term": "carboxyl group",
-    "definition": "TODO: -COOH group; carboxylic acids.",
+    "definition": "The $\\ce{-COOH}$ group, a carbon with both a $\\ce{C=O}$ and an $\\ce{O-H}$, found in carboxylic acids.",
     "lesson": "3.6"
   },
   {
     "id": "halogeno-group",
     "term": "halogeno group",
-    "definition": "TODO: Halogen atom bonded to carbon (-F, -Cl, -Br, -I).",
+    "definition": "A halogen atom (F, Cl, Br or I) covalently bonded to a carbon atom, as in a halogenoalkane.",
     "lesson": "3.6"
   },
   {
     "id": "saturated",
     "term": "saturated",
-    "definition": "TODO: Only single C-C bonds; no further addition possible.",
+    "definition": "Describes an organic compound with only single bonds between its carbon atoms.",
     "lesson": "3.6"
   },
   {
     "id": "unsaturated",
     "term": "unsaturated",
-    "definition": "TODO: Contains C=C or C triple C bonds; can undergo addition.",
+    "definition": "Describes an organic compound with at least one carbon–carbon double or triple bond, across which other atoms can add.",
     "lesson": "3.6"
   },
   {
     "id": "homologous-series",
     "term": "homologous series",
-    "definition": "TODO: Compounds with same functional group and general formula, differing by CH2.",
+    "definition": "A family of compounds with the same functional group and general formula, in which each member has one more $\\ce{CH2}$ unit than the one before.",
     "lesson": "3.6"
   },
   {
     "id": "alkane",
     "term": "alkane",
-    "definition": "TODO: Saturated hydrocarbons, CnH2n+2.",
+    "definition": "A saturated hydrocarbon, containing only carbon and hydrogen and only single bonds, with the general formula $\\ce{C_{n}H_{2n+2}}$ for open chains.",
     "lesson": "3.6"
   },
   {
     "id": "alkene",
     "term": "alkene",
-    "definition": "TODO: Hydrocarbons with a C=C bond, CnH2n.",
+    "definition": "A hydrocarbon containing one carbon–carbon double bond, with the general formula $\\ce{C_{n}H_{2n}}$ for open chains.",
     "lesson": "3.6"
   },
   {
     "id": "alkyne",
     "term": "alkyne",
-    "definition": "TODO: Hydrocarbons with a C triple C bond, CnH2n-2.",
+    "definition": "A hydrocarbon containing one carbon–carbon triple bond, with the general formula $\\ce{C_{n}H_{2n-2}}$ for open chains.",
     "lesson": "3.6"
   },
   {
     "id": "halogenoalkane",
     "term": "halogenoalkane",
-    "definition": "TODO: Alkane with one or more halogen atoms replacing hydrogen.",
+    "definition": "A compound in which one or more hydrogen atoms of an alkane have been replaced by halogen atoms, such as chloroethane, $\\ce{CH3CH2Cl}$.",
     "lesson": "3.6"
   },
   {
     "id": "alcohol",
     "term": "alcohol",
-    "definition": "TODO: Contains -OH on a saturated carbon.",
+    "definition": "A compound with a hydroxyl group, $\\ce{-OH}$, bonded to a saturated carbon atom, such as ethanol, $\\ce{CH3CH2OH}$.",
     "lesson": "3.6"
   },
   {
     "id": "aldehyde",
     "term": "aldehyde",
-    "definition": "TODO: C=O at the end of a chain; -CHO.",
+    "definition": "A compound with a carbonyl group at the end of a carbon chain, written $\\ce{-CHO}$, such as ethanal, $\\ce{CH3CHO}$.",
     "lesson": "3.6"
   },
   {
     "id": "ketone",
     "term": "ketone",
-    "definition": "TODO: C=O within the chain.",
+    "definition": "A compound with a carbonyl group inside a carbon chain, bonded to a carbon on each side, such as propanone, $\\ce{CH3COCH3}$.",
     "lesson": "3.6"
   },
   {
     "id": "carboxylic-acid",
     "term": "carboxylic acid",
-    "definition": "TODO: Contains -COOH; weak acids.",
+    "definition": "A compound containing the carboxyl group, $\\ce{-COOH}$, such as ethanoic acid; carboxylic acids are weak acids.",
     "lesson": "3.6"
   },
   {
     "id": "amine",
     "term": "amine",
-    "definition": "TODO: Derivative of ammonia; N bonded to carbon; weak base.",
+    "definition": "A compound derived from ammonia in which a nitrogen atom is bonded to one or more carbon atoms, such as methanamine, $\\ce{CH3NH2}$; amines are weak bases.",
     "lesson": "3.6"
   }
 ]

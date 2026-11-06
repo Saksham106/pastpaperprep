@@ -1,0 +1,811 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.6",
+  "slug": "organic-formulas-functional-groups-and-homologous-series",
+  "title": "Organic formulas, functional groups and homologous series",
+  "level": "SL",
+  "topic": 3,
+  "summary": "An organic molecule can be written several ways, from a [[molecular-formula|molecular formula]] to a [[skeletal-formula|skeletal formula]], and you need to switch between them. A [[functional-group|functional group]] decides how a compound behaves. Compounds with the same group form a [[homologous-series|homologous series]]: one general formula, and boiling points that rise steadily along it.",
+  "goals": [
+    {
+      "text": "Recognise empirical, molecular, structural, skeletal and stereochemical formulas, and convert between molecular, structural and skeletal formulas.",
+      "bullets": [
+        "S3.2.1"
+      ]
+    },
+    {
+      "text": "Name and recognise the nine functional groups the course lists, and decide whether a compound is [[saturated|saturated]] or [[unsaturated|unsaturated]].",
+      "bullets": [
+        "S3.2.2"
+      ]
+    },
+    {
+      "text": "Place a compound in its homologous series and use general formulas to find molecular formulas.",
+      "bullets": [
+        "S3.2.3"
+      ]
+    },
+    {
+      "text": "Describe and explain how boiling and melting points change along a series, and how branching and the functional group change them.",
+      "bullets": [
+        "S3.2.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7",
+    "2.2",
+    "2.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "functional groups list",
+    "skeletal formula",
+    "condensed structural formula",
+    "homologous series general formula",
+    "boiling point trend alkanes",
+    "saturated and unsaturated"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-empirical-hexene",
+      "prompt": "Hex-1-ene has the molecular formula $\\ce{C6H12}$. What is its [[empirical-formula|empirical formula]]?",
+      "hint": "Divide both numbers by the largest number that goes into both.",
+      "options": [
+        {
+          "text": "$\\ce{CH2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{C3H6}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{C6H12}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{CH}$",
+          "correct": false
+        }
+      ],
+      "explain": "6 and 12 share a factor of 6, so the simplest ratio is $\\ce{CH2}$. Revise it in {{lesson:1.7}}."
+    },
+    {
+      "type": "check",
+      "id": "before-boiling-forces",
+      "prompt": "Pentane, $\\ce{C5H12}$, boils at $36\\,^{\\circ}\\text{C}$. What is overcome when it boils?",
+      "hint": "Do the pentane molecules themselves change when the liquid turns to gas?",
+      "options": [
+        {
+          "text": "London forces between the molecules",
+          "correct": true
+        },
+        {
+          "text": "covalent bonds inside the molecules",
+          "correct": false
+        },
+        {
+          "text": "hydrogen bonds between the molecules",
+          "correct": false
+        },
+        {
+          "text": "ionic bonds between the molecules",
+          "correct": false
+        }
+      ],
+      "explain": "Boiling separates whole molecules, so only [[intermolecular-force|intermolecular forces]] are overcome: in non-polar pentane, [[london-dispersion-force|London (dispersion) forces]]. Revise it in {{lesson:2.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "London forces between the molecules"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-carbon-bonds",
+      "prompt": "How many [[covalent-bond|covalent bonds]] does a carbon atom form in a neutral molecule such as methane or ethanol?",
+      "hint": "Carbon has four outer electrons and needs eight in its outer shell.",
+      "options": [
+        {
+          "text": "four",
+          "correct": true
+        },
+        {
+          "text": "two",
+          "correct": false
+        },
+        {
+          "text": "three",
+          "correct": false
+        },
+        {
+          "text": "six",
+          "correct": false
+        }
+      ],
+      "explain": "Carbon shares its four outer electrons in four bonds to reach an octet; a double bond counts as two. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "four"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "formulas",
+      "heading": "Kinds of organic formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Carbon forms four [[covalent-bond|covalent bonds]] and bonds strongly to itself, so it builds chains, branches and rings of almost any size. Each kind of formula shows a different amount of detail."
+        },
+        {
+          "type": "text",
+          "text": "1. Empirical formula: the simplest whole-number ratio of atoms. Ethane, $\\ce{C2H6}$, has the empirical formula $\\ce{CH3}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Molecular formula: the actual number of each kind of atom in one molecule, such as $\\ce{C3H8O}$."
+        },
+        {
+          "type": "text",
+          "text": "3. [[structural-formula|Structural formula]]: shows which atom is bonded to which. A full one draws every bond; a condensed one groups the atoms on each carbon: $\\ce{CH3CH2CH2OH}$."
+        },
+        {
+          "type": "text",
+          "text": "4. [[skeletal-formula|Skeletal formula]]: a zig-zag line drawing. Every corner and line end is a carbon, and hydrogens on carbon are left out. Other atoms, and any H on them, are written in."
+        },
+        {
+          "type": "text",
+          "text": "5. Stereochemical formula: shows the 3D shape with wedges (towards you) and dashes (away). Recognise one; draw one only when asked."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-formula-types",
+          "alt": "Propan-1-ol shown five ways. Top left, the full structural formula: three carbon atoms in a row, each with a hydrogen above and below, a fourth hydrogen on the left-hand carbon, and the right-hand carbon bonded to an oxygen, which is bonded to a hydrogen. Top right, the condensed structural formula CH3CH2CH2OH. Bottom left, the skeletal formula: a zig-zag of two lines meeting at a corner, with a third line from the right-hand end to OH. Bottom right, the stereochemical formula: the same chain, with each carbon's hydrogens drawn as one solid wedge and one dashed wedge, and an extra hydrogen in the plane on the end carbon. Below: molecular formula C3H8O and empirical formula C3H8O.",
+          "caption": "Propan-1-ol. Its empirical and molecular formulas match, because 3, 8 and 1 share no common factor."
+        },
+        {
+          "type": "result",
+          "statement": "To turn a skeletal formula into a molecular formula, count a carbon at every corner and line end, give each carbon enough H for four bonds, then add the atoms written in.",
+          "why": "Carbon always forms four bonds, so every bond left out is a $\\ce{C-H}$ bond."
+        },
+        {
+          "type": "example",
+          "id": "ex-condensed-molecular",
+          "question": "Pentan-3-one has the condensed structural formula $\\ce{CH3CH2COCH2CH3}$. Deduce its molecular formula.",
+          "steps": [
+            "Read the groups from left to right: $\\ce{CH3}$, $\\ce{CH2}$, $\\ce{CO}$, $\\ce{CH2}$, $\\ce{CH3}$.",
+            "Carbon: one in each group, so 5.",
+            "Hydrogen: $3 + 2 + 0 + 2 + 3 = 10$.",
+            "Oxygen: one, in the $\\ce{CO}$ group. Write C first, then H, then the other elements."
+          ],
+          "answer": "$\\ce{C5H10O}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "formula(\"CH3CH2COCH2CH3\")",
+            "given": true
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-6-skeletal-alcohol",
+          "alt": "Skeletal formula: an HO group on the left joined to a zig-zag chain of four carbon atoms, with a one-carbon branch pointing down from the third carbon of the chain.",
+          "caption": "3-methylbutan-1-ol, which smells of bananas."
+        },
+        {
+          "type": "example",
+          "id": "ex-skeletal-to-molecular",
+          "question": "Deduce the molecular formula of 3-methylbutan-1-ol from the skeletal formula above.",
+          "steps": [
+            "Carbons: four in the zig-zag chain plus one at the end of the branch, so 5.",
+            "H on each carbon makes four bonds: the two chain $\\ce{CH2}$ carbons have 2 each, the branch point has 1, and the two line ends have 3 each.",
+            "H: $2 + 2 + 1 + 3 + 3 = 11$ on carbon, plus 1 in $\\ce{OH}$, so 12. One O."
+          ],
+          "answer": "$\\ce{C5H12O}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the hydrogen on an O or N atom. A skeletal formula hides only the hydrogens on carbon, so the $\\ce{OH}$ hydrogen still counts."
+        },
+        {
+          "type": "examTip",
+          "text": "In a full structural formula, check every connection: a carbon bonded to the H of an $\\ce{OH}$, instead of to the O, loses the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-formula-type",
+          "prompt": "What type of formula is $\\ce{CH3CH2CH(OH)CH3}$?",
+          "hint": "Does it show how the atoms are joined, carbon by carbon?",
+          "options": [
+            {
+              "text": "condensed structural formula",
+              "correct": true
+            },
+            {
+              "text": "molecular formula",
+              "correct": false
+            },
+            {
+              "text": "empirical formula",
+              "correct": false
+            },
+            {
+              "text": "skeletal formula",
+              "correct": false
+            }
+          ],
+          "explain": "It lists the atoms on each carbon in order, with the $\\ce{OH}$ on the second carbon of the chain (butan-2-ol). Its molecular formula is $\\ce{C4H10O}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "condensed structural formula"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diol-empirical",
+          "prompt": "Butane-1,4-diol, $\\ce{HOCH2CH2CH2CH2OH}$, is used to make plastics. What is its empirical formula?",
+          "hint": "Find the molecular formula first, then look for a common factor.",
+          "options": [
+            {
+              "text": "$\\ce{C2H5O}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C4H10O2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C2H4O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C4H8O2}$",
+              "correct": false
+            }
+          ],
+          "explain": "It is $\\ce{C4H10O2}$ (count the two $\\ce{OH}$ hydrogens). Dividing by 2 gives $\\ce{C2H5O}$."
+        }
+      ]
+    },
+    {
+      "id": "groups",
+      "heading": "Functional groups",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most of an organic molecule is an unreactive chain of carbon and hydrogen. The reactive part is usually small: a $\\ce{C=C}$, or a group containing O, N or a halogen."
+        },
+        {
+          "type": "definition",
+          "term": "functional group",
+          "statement": "An atom or group of atoms in a molecule that gives the compound its characteristic chemical reactions and strongly affects its physical properties.",
+          "plain": "The part of the molecule that decides how it behaves."
+        },
+        {
+          "type": "text",
+          "text": "A [[functional-group|functional group]] reacts in much the same way on any chain, so compounds are sorted into classes by their groups."
+        },
+        {
+          "type": "text",
+          "text": "Learn the nine groups below by name and structure, and the class each makes. Questions ask for one or the other."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-functional-groups",
+          "alt": "Table of functional groups with their structures and the class of compound each gives. Alkenyl, C=C, in alkenes. Alkynyl, C triple bond C, in alkynes. Halogeno, a halogen atom X equal to F, Cl, Br or I, in halogenoalkanes. Hydroxyl, OH, in alcohols. Carbonyl, either CHO at the end of a chain or CO between two carbons, in aldehydes or ketones. Carboxyl, COOH, in carboxylic acids. Alkoxy, O bonded to a carbon chain R, in ethers. Amino, NH2, in amines. Amido, CONH2 or CONH, in amides. Ester, COO, in esters. Phenyl, C6H5, in aromatic compounds.",
+          "caption": "[[alkene|Alkenes]] and [[alkyne|alkynes]] are listed too: their $\\ce{C=C}$ and $\\ce{C#C}$ bonds are what react."
+        },
+        {
+          "type": "text",
+          "text": "The [[hydroxyl-group|hydroxyl group]], $\\ce{-OH}$, is covalently bonded to carbon. It is not the hydroxide ion, $\\ce{OH-}$, so [[alcohol|alcohols]] are not bases."
+        },
+        {
+          "type": "text",
+          "text": "The [[carbonyl-group|carbonyl group]] is $\\ce{C=O}$. At the end of a chain, written $\\ce{-CHO}$, it makes an [[aldehyde|aldehyde]]. Inside the chain, with a carbon on each side, it makes a [[ketone|ketone]]."
+        },
+        {
+          "type": "text",
+          "text": "The [[carboxyl-group|carboxyl group]], $\\ce{-COOH}$, has $\\ce{C=O}$ and $\\ce{O-H}$ on one carbon. It is one group, not a carbonyl plus a hydroxyl, and it makes a [[carboxylic-acid|carboxylic acid]]."
+        },
+        {
+          "type": "text",
+          "text": "A [[halogeno-group|halogeno group]] is a halogen bonded to carbon, as in the [[halogenoalkane|halogenoalkanes]]. Phenyl, $\\ce{-C6H5}$, is a benzene ring, drawn as a hexagon with a circle inside."
+        },
+        {
+          "type": "text",
+          "text": "Two pairs look alike. Amino, $\\ce{-NH2}$, makes an [[amine|amine]]; amido, $\\ce{-CONH2}$, has the N on a $\\ce{C=O}$ carbon. Alkoxy is an O between two carbons; an ester, $\\ce{-COO-}$, also has a $\\ce{C=O}$ beside that O."
+        },
+        {
+          "type": "text",
+          "text": "A compound with only single bonds between its carbon atoms is [[saturated|saturated]]. One with at least one $\\ce{C=C}$ or $\\ce{C#C}$ bond is [[unsaturated|unsaturated]]: other atoms can add across the multiple bond."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-paracetamol",
+          "alt": "Skeletal formula of paracetamol: a benzene ring drawn as a hexagon with a circle inside. An OH group is bonded to the top of the ring. An NH group is bonded to the bottom of the ring. The N is also bonded to a carbon that has a double bond to an oxygen atom and a single bond to a line end, a methyl group.",
+          "caption": "Paracetamol, a common painkiller."
+        },
+        {
+          "type": "example",
+          "id": "ex-paracetamol-groups",
+          "question": "Identify the three functional groups in paracetamol, shown above.",
+          "steps": [
+            "The hexagon with a circle is a benzene ring: a phenyl group.",
+            "The $\\ce{OH}$ is covalently bonded to the ring: hydroxyl, not hydroxide.",
+            "The N sits next to a $\\ce{C=O}$, so the whole unit is amido. It is not amino, and the $\\ce{C=O}$ is not a separate ketone."
+          ],
+          "answer": "Paracetamol contains a hydroxyl group, $\\ce{-OH}$. It contains an amido group, $\\ce{-NHCO-}$. It contains a phenyl group, the benzene ring.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hydroxyl, amido and phenyl (benzene ring)",
+            "requires": [
+              "hydroxyl",
+              "amido",
+              [
+                "phenyl",
+                "benzene ring"
+              ]
+            ],
+            "forbids": [
+              "hydroxide",
+              "amino group",
+              "carboxyl",
+              "ketone"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-saturation",
+          "question": "Hex-1-ene, $\\ce{CH2=CHCH2CH2CH2CH3}$, and cyclohexane, a ring of six $\\ce{CH2}$ groups, both have the molecular formula $\\ce{C6H12}$. Deduce, giving a reason, which of them is unsaturated.",
+          "steps": [
+            "The same molecular formula hides different structures, so look at the bonds.",
+            "Hex-1-ene has a $\\ce{C=C}$.",
+            "Cyclohexane closes into a ring and has only single carbon–carbon bonds."
+          ],
+          "answer": "Hex-1-ene is unsaturated because it contains a carbon–carbon double bond. Cyclohexane is saturated because it has only single bonds between its carbon atoms, which form a ring.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hex-1-ene has a C=C; cyclohexane has only single C-C bonds in a ring",
+            "requires": [
+              "hex-1-ene is unsaturated",
+              [
+                "double bond",
+                "C=C"
+              ],
+              "cyclohexane is saturated",
+              [
+                "only single bonds",
+                "single bonds"
+              ],
+              "ring"
+            ],
+            "forbids": [
+              "cyclohexane is unsaturated",
+              "hex-1-ene is saturated"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Asked for the functional group? Give the group (carbonyl). Asked for the class or series? Give the class (ketone)."
+        },
+        {
+          "type": "check",
+          "id": "check-amido",
+          "prompt": "A molecule contains the group $\\ce{-CONH2}$. Which functional group is this?",
+          "hint": "Look at what the nitrogen is bonded to.",
+          "options": [
+            {
+              "text": "amido",
+              "correct": true
+            },
+            {
+              "text": "amino",
+              "correct": false
+            },
+            {
+              "text": "carbonyl",
+              "correct": false
+            },
+            {
+              "text": "carboxyl",
+              "correct": false
+            }
+          ],
+          "explain": "The N is on a carbon that also carries $\\ce{=O}$, so it is amido. Amino is $\\ce{-NH2}$ on a carbon with no $\\ce{C=O}$, and carboxyl is $\\ce{-COOH}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "amido"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hydroxyl",
+          "prompt": "Propan-2-ol is $\\ce{CH3CH(OH)CH3}$. What is the name of its functional group?",
+          "hint": "The $\\ce{OH}$ is covalently bonded to carbon.",
+          "options": [
+            {
+              "text": "hydroxyl",
+              "correct": true
+            },
+            {
+              "text": "hydroxide",
+              "correct": false
+            },
+            {
+              "text": "alkoxy",
+              "correct": false
+            },
+            {
+              "text": "carboxyl",
+              "correct": false
+            }
+          ],
+          "explain": "A covalently bonded $\\ce{-OH}$ is hydroxyl. Hydroxide is the ion $\\ce{OH-}$, alkoxy is O between two carbons, and carboxyl needs a $\\ce{C=O}$ too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydroxyl"
+          }
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "heading": "Homologous series and general formulas",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Methanol, ethanol and propan-1-ol are like the rungs of a ladder. Each has one $\\ce{OH}$ group, and each is one $\\ce{CH2}$ unit longer than the one before."
+        },
+        {
+          "type": "definition",
+          "term": "homologous series",
+          "statement": "A family of compounds with the same functional group and general formula, each member one $\\ce{CH2}$ unit longer than the last.",
+          "plain": "A ladder of similar molecules, one $\\ce{CH2}$ apart."
+        },
+        {
+          "type": "text",
+          "text": "Members of a [[homologous-series|homologous series]] share a functional group, so they react alike. Physical properties such as boiling point change gradually along it."
+        },
+        {
+          "type": "text",
+          "text": "The simplest series is the [[alkane|alkanes]]: saturated hydrocarbons, $\\ce{C_{n}H_{2n+2}}$, where $n$ is the number of carbon atoms. Methane is $\\ce{CH4}$ and ethane is $\\ce{C2H6}$."
+        },
+        {
+          "type": "text",
+          "text": "A $\\ce{C=C}$ bond removes two hydrogens, giving the [[alkene|alkenes]], $\\ce{C_{n}H_{2n}}$. A $\\ce{C#C}$ bond removes four, giving the [[alkyne|alkynes]], $\\ce{C_{n}H_{2n-2}}$."
+        },
+        {
+          "type": "text",
+          "text": "Other series swap a group into an alkane. A halogenoalkane replaces one H by a halogen, $\\ce{C_{n}H_{2n+1}X}$; an alcohol puts O between a C and an H, $\\ce{C_{n}H_{2n+1}OH}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-homologous-series",
+          "alt": "Table of twelve homologous series with general formula and first member, where n is the number of carbon atoms. Alkanes, CnH2n+2, methane CH4. Alkenes, CnH2n, ethene C2H4. Alkynes, CnH2n minus 2, ethyne C2H2. Halogenoalkanes, CnH2n+1X, chloromethane CH3Cl. Alcohols, CnH2n+1OH, methanol CH3OH. Aldehydes, CnH2nO, methanal HCHO. Ketones, CnH2nO, propanone CH3COCH3. Carboxylic acids, CnH2nO2, methanoic acid HCOOH. Ethers, CnH2n+2O, methoxymethane CH3OCH3. Amines, CnH2n+3N, methanamine CH3NH2. Amides, CnH2n+1NO, methanamide HCONH2. Esters, CnH2nO2, methyl methanoate HCOOCH3.",
+          "caption": "The twelve series in the course, for open-chain members with one functional group."
+        },
+        {
+          "type": "text",
+          "text": "Some series share a general formula: aldehydes and ketones are both $\\ce{C_{n}H_{2n}O}$, acids and esters both $\\ce{C_{n}H_{2n}O2}$. Only a structural formula tells them apart ({{lesson:3.7}})."
+        },
+        {
+          "type": "text",
+          "text": "A series starts with its smallest possible molecule: one carbon for alkanes, alcohols and acids; two for alkenes, alkynes, ethers and esters; three for ketones."
+        },
+        {
+          "type": "example",
+          "id": "ex-fifth-alcohol",
+          "question": "Deduce the molecular formula of the fifth member of the alcohols.",
+          "steps": [
+            "The first alcohol is methanol, with one carbon, so the fifth has $n = 5$.",
+            "Use $\\ce{C_{n}H_{2n+1}OH}$: $2n + 1 = 2(5) + 1 = 11$.",
+            "Check: each step up the series adds $\\ce{CH2}$. Methanol is $\\ce{CH3OH}$; four more $\\ce{CH2}$ units give $\\ce{C5H11OH}$."
+          ],
+          "answer": "$\\ce{C5H11OH}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-acid-series",
+          "question": "Butanoic acid, $\\ce{CH3CH2CH2COOH}$, and pentanoic acid, $\\ce{CH3CH2CH2CH2COOH}$, are in the same homologous series. Outline three features that show this.",
+          "steps": [
+            "Compare the functional groups: both end in $\\ce{-COOH}$.",
+            "Compare the formulas: pentanoic acid has one more $\\ce{CH2}$.",
+            "Test a general formula: $\\ce{C4H8O2}$ and $\\ce{C5H10O2}$ both fit $\\ce{C_{n}H_{2n}O2}$."
+          ],
+          "answer": "Both contain the same functional group, the carboxyl group. They differ by one $\\ce{CH2}$ unit. Both fit the same general formula, $\\ce{C_{n}H_{2n}O2}$, with $n = 4$ and $n = 5$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same functional group (carboxyl), differ by CH2, same general formula",
+            "requires": [
+              "same functional group",
+              "carboxyl",
+              "CH2",
+              "general formula"
+            ],
+            "forbids": [
+              "hydroxyl",
+              "same molecular formula"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting members from the wrong start. The first alkene is ethene, $\\ce{C2H4}$, because a $\\ce{C=C}$ needs two carbons. So the third alkene has four carbons, not three."
+        },
+        {
+          "type": "check",
+          "id": "check-alkane-hydrogens",
+          "prompt": "An alkane molecule has 16 carbon atoms. How many hydrogen atoms does it have?",
+          "hint": "Use the general formula of the alkanes.",
+          "answer": {
+            "value": 34,
+            "tolerance": 0
+          },
+          "explain": "$\\ce{C_{n}H_{2n+2}}$ with $n = 16$ gives $2(16) + 2 = 34$, so the formula is $\\ce{C16H34}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*16 + 2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-alkyne-formula",
+          "prompt": "What is the molecular formula of an alkyne with seven carbon atoms?",
+          "hint": "A triple bond takes away four hydrogens compared with the alkane.",
+          "options": [
+            {
+              "text": "$\\ce{C7H12}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C7H14}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C7H16}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C7H10}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{C_{n}H_{2n-2}}$ with $n = 7$ gives $14 - 2 = 12$. $\\ce{C7H14}$ is an alkene and $\\ce{C7H16}$ is the alkane."
+        }
+      ]
+    },
+    {
+      "id": "trends",
+      "heading": "Trends in boiling and melting points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each extra $\\ce{CH2}$ adds eight electrons and lengthens the molecule. The functional group stays the same, so the main change is in the [[london-dispersion-force|London (dispersion) forces]]."
+        },
+        {
+          "type": "text",
+          "text": "More electrons give a cloud that distorts more easily, and a longer chain has more surface contact with its neighbours. Both strengthen London forces."
+        },
+        {
+          "type": "result",
+          "statement": "Along a homologous series, boiling points rise as the chain gets longer. Melting points generally rise too, less smoothly.",
+          "why": "Each extra $\\ce{CH2}$ strengthens the London forces. Melting also depends on how the molecules pack, so its trend is less regular."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-boiling-points",
+          "alt": "Graph of boiling point in degrees Celsius against number of carbon atoms, 1 to 6, for straight-chain alkanes and alcohols. Alkanes: minus 162, minus 89, minus 42, minus 1, 36 and 69. Alcohols with the OH on the end carbon: 65, 78, 97, 118, 138 and 157. Both lines rise steadily, and the alcohol line lies well above the alkane line throughout. A dashed line marks 25 degrees Celsius: the first four alkanes lie below it and are gases at room temperature, while every alcohol shown lies above it.",
+          "caption": "Both rise with chain length. The alcohols are higher because they also form [[hydrogen-bond|hydrogen bonds]]."
+        },
+        {
+          "type": "text",
+          "text": "So the first four straight-chain alkanes are gases at room temperature, the next are liquids, and long ones are waxy solids. Fractional [[distillation|distillation]] of crude oil uses this trend."
+        },
+        {
+          "type": "text",
+          "text": "Branching lowers the boiling point: compact molecules touch over less area, so London forces are weaker. Pentane boils at $36\\,^{\\circ}\\text{C}$, its isomer 2,2-dimethylpropane at $10\\,^{\\circ}\\text{C}$."
+        },
+        {
+          "type": "text",
+          "text": "The functional group can add stronger [[intermolecular-force|intermolecular forces]]: $\\ce{OH}$ allows hydrogen bonding, and $\\ce{C=O}$ adds [[dipole-dipole-force|dipole–dipole forces]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-length",
+          "question": "Explain why octane, $\\ce{C8H18}$, has a higher boiling point than hexane, $\\ce{C6H14}$.",
+          "steps": [
+            "Name the forces: both are non-polar, so London forces only.",
+            "Compare: octane has two more $\\ce{CH2}$ units, so more electrons and a longer chain.",
+            "Link stronger forces to more energy."
+          ],
+          "answer": "Both are non-polar alkanes, so only London (dispersion) forces act between their molecules. Octane molecules have more electrons and a longer chain, giving more surface contact. So the London forces between octane molecules are stronger, and more energy is needed to overcome them.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more electrons and surface contact give stronger London forces, needing more energy to overcome",
+            "requires": [
+              "London",
+              [
+                "more electrons",
+                "greater number of electrons"
+              ],
+              [
+                "surface contact",
+                "surface area"
+              ],
+              "stronger",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "breaking covalent",
+              "hydrogen bond"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-alcohol-vs-alkane",
+          "question": "Propan-1-ol, $\\ce{CH3CH2CH2OH}$, boils at $97\\,^{\\circ}\\text{C}$. Butane, $\\ce{CH3CH2CH2CH3}$, boils at $-1\\,^{\\circ}\\text{C}$. Both molecules have 34 electrons. Explain the difference in boiling points.",
+          "steps": [
+            "Same electrons, so similar London forces: they can't explain a gap of nearly $100\\,^{\\circ}\\text{C}$.",
+            "Propan-1-ol has H on O, so it hydrogen bonds. Butane has no H on N, O or F.",
+            "Link the stronger forces to more energy."
+          ],
+          "answer": "Both molecules have the same number of electrons, so their London forces are similar. Propan-1-ol has a hydroxyl group, so its molecules also form hydrogen bonds. Butane has no H on N, O or F, so it has only London forces. Hydrogen bonds are much stronger, so more energy is needed to separate propan-1-ol molecules.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "similar London forces; propan-1-ol also hydrogen bonds, which are stronger, so more energy is needed",
+            "requires": [
+              [
+                "same number of electrons",
+                "similar London forces",
+                "London forces are similar"
+              ],
+              "hydrogen bonds",
+              "only London forces",
+              "stronger",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "butane forms hydrogen bonds"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Explaining a higher boiling point by \"more bonds to break\". Boiling a molecular liquid only overcomes the forces between molecules; the molecules stay intact."
+        },
+        {
+          "type": "check",
+          "id": "check-branching",
+          "prompt": "Which isomer of $\\ce{C6H14}$ has the highest boiling point?",
+          "hint": "Which shape gives the most contact between neighbouring molecules?",
+          "options": [
+            {
+              "text": "hexane",
+              "correct": true
+            },
+            {
+              "text": "2-methylpentane",
+              "correct": false
+            },
+            {
+              "text": "3-methylpentane",
+              "correct": false
+            },
+            {
+              "text": "2,2-dimethylbutane",
+              "correct": false
+            }
+          ],
+          "explain": "All four have the same electrons. Unbranched hexane has the most surface contact, so the strongest London forces; more branching means a lower boiling point.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hexane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trend-reason",
+          "prompt": "Why do boiling points rise from propane to butane to pentane?",
+          "hint": "What kind of force acts between alkane molecules, and what makes it stronger?",
+          "options": [
+            {
+              "text": "London forces get stronger as the molecules gain electrons and surface area.",
+              "correct": true
+            },
+            {
+              "text": "More covalent bonds must be broken in longer molecules.",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen bonding gets stronger as the chain gets longer.",
+              "correct": false
+            },
+            {
+              "text": "Longer alkane molecules are more polar.",
+              "correct": false
+            }
+          ],
+          "explain": "Alkanes are non-polar and cannot hydrogen bond, and boiling breaks no covalent bonds. Each extra $\\ce{CH2}$ adds electrons and surface contact, so the London forces grow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "London forces get stronger as the molecules gain electrons and surface area."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Formulas: empirical (simplest ratio), molecular (actual atoms), structural (full or condensed), skeletal (C at corners, H on C omitted), stereochemical (wedges).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Functional groups: hydroxyl $\\ce{-OH}$, carbonyl $\\ce{C=O}$, carboxyl $\\ce{-COOH}$, halogeno $\\ce{-X}$, amino $\\ce{-NH2}$, amido $\\ce{-CONH2}$, alkoxy $\\ce{-O-R}$, ester $\\ce{-COO-}$, phenyl $\\ce{-C6H5}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Saturated: only single bonds between carbon atoms. Unsaturated: at least one $\\ce{C=C}$ or $\\ce{C#C}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A homologous series shares one functional group and one general formula; neighbouring members differ by $\\ce{CH2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "General formulas: alkanes $\\ce{C_{n}H_{2n+2}}$, alkenes $\\ce{C_{n}H_{2n}}$, alkynes $\\ce{C_{n}H_{2n-2}}$, alcohols $\\ce{C_{n}H_{2n+1}OH}$, carboxylic acids $\\ce{C_{n}H_{2n}O2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Boiling point rises with chain length, falls with branching, and is raised by hydrogen-bonding groups such as $\\ce{-OH}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"hydroxide\" for an alcohol's $\\ce{-OH}$. It is a hydroxyl group, covalently bonded to carbon.",
+    "Calling a $\\ce{C=O}$ inside a chain an aldehyde. It is a carbonyl group in a ketone; aldehydes have it at the chain end.",
+    "Mixing up amino ($\\ce{-NH2}$) and amido ($\\ce{-CONH2}$, N on a $\\ce{C=O}$ carbon).",
+    "Saying covalent bonds break when an alkane boils. Only the forces between molecules are overcome."
+  ],
+  "examTips": [
+    "\"Identify\" a functional group: give its name, such as hydroxyl, and its class only if asked.",
+    "\"Deduce\" a molecular formula from a skeletal one: count C, then H on carbon, then other atoms with their H.",
+    "\"Explain\" a boiling point difference: name the forces in each, say which are stronger and why, then link to the energy needed."
+  ],
+  "readingMinutes": 25
+}

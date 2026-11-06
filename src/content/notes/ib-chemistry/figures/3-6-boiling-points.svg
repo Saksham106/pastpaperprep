@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 360" role="img" aria-labelledby="t36boilingpoints">
+<title id="t36boilingpoints">Graph of boiling point in degrees Celsius against number of carbon atoms, 1 to 6, for straight-chain alkanes and alcohols. Alkanes: minus 162, minus 89, minus 42, minus 1, 36 and 69. Alcohols with the OH on the end carbon: 65, 78, 97, 118, 138 and 157. Both lines rise steadily, and the alcohol line lies well above the alkane line throughout. A dashed line marks 25 degrees Celsius: the first four alkanes lie below it and are gases at room temperature, while every alcohol shown lies above it</title>
+<line x1="90.0" y1="300.0" x2="530.0" y2="300.0" stroke="currentColor" stroke-width="1.6"/>
+<line x1="90.0" y1="300.0" x2="90.0" y2="25.0" stroke="currentColor" stroke-width="1.6"/>
+<line x1="90.0" y1="300.0" x2="90.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="90.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">1</text>
+<line x1="176.0" y1="300.0" x2="176.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="176.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">2</text>
+<line x1="262.0" y1="300.0" x2="262.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="262.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">3</text>
+<line x1="348.0" y1="300.0" x2="348.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="348.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">4</text>
+<line x1="434.0" y1="300.0" x2="434.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="434.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">5</text>
+<line x1="520.0" y1="300.0" x2="520.0" y2="306.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="520.0" y="322.0" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">6</text>
+<line x1="84.0" y1="300.0" x2="90.0" y2="300.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="304.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">−180</text>
+<line x1="84.0" y1="255.0" x2="90.0" y2="255.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="259.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">−120</text>
+<line x1="84.0" y1="210.0" x2="90.0" y2="210.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="214.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">−60</text>
+<line x1="84.0" y1="165.0" x2="90.0" y2="165.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="169.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">0</text>
+<line x1="84.0" y1="120.0" x2="90.0" y2="120.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="124.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">60</text>
+<line x1="84.0" y1="75.0" x2="90.0" y2="75.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="79.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">120</text>
+<line x1="84.0" y1="30.0" x2="90.0" y2="30.0" stroke="currentColor" stroke-width="1.2"/>
+<text x="80.0" y="34.0" font-size="12" text-anchor="end" fill="currentColor" font-family="inherit">180</text>
+<text x="305.0" y="344.0" font-size="13" text-anchor="middle" fill="currentColor" font-family="inherit">number of carbon atoms</text>
+<text x="28" y="165.0" font-size="13" text-anchor="middle" fill="currentColor" font-family="inherit" transform="rotate(-90 28 165.0)">boiling point / °C</text>
+<line x1="90.0" y1="146.2" x2="530.0" y2="146.2" stroke="var(--muted)" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="534.0" y="150.2" font-size="12" text-anchor="start" fill="var(--muted)" font-family="inherit">25 °C</text>
+<polyline points="90.0,286.5 176.0,231.8 262.0,196.5 348.0,165.8 434.0,138.0 520.0,113.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<circle cx="90.0" cy="286.5" r="4.5" fill="var(--t1-ink)"/>
+<circle cx="176.0" cy="231.8" r="4.5" fill="var(--t1-ink)"/>
+<circle cx="262.0" cy="196.5" r="4.5" fill="var(--t1-ink)"/>
+<circle cx="348.0" cy="165.8" r="4.5" fill="var(--t1-ink)"/>
+<circle cx="434.0" cy="138.0" r="4.5" fill="var(--t1-ink)"/>
+<circle cx="520.0" cy="113.2" r="4.5" fill="var(--t1-ink)"/>
+<text x="534.0" y="118.2" font-size="13" text-anchor="start" fill="var(--t1-ink)" font-family="inherit">alkanes</text>
+<polyline points="90.0,116.2 176.0,106.5 262.0,92.2 348.0,76.5 434.0,61.5 520.0,47.2" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<circle cx="90.0" cy="116.2" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="176.0" cy="106.5" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="262.0" cy="92.2" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="348.0" cy="76.5" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="434.0" cy="61.5" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="520.0" cy="47.2" r="4.5" fill="var(--t3-ink)"/>
+<text x="534.0" y="52.2" font-size="13" text-anchor="start" fill="var(--t3-ink)" font-family="inherit">alcohols (-1-ol)</text>
+</svg>

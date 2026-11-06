@@ -2,19 +2,19 @@
   {
     "id": "rate-equation",
     "term": "rate equation",
-    "definition": "TODO: Rate = k[A]^m[B]^n; found only by experiment.",
+    "definition": "An equation giving the rate of a reaction as the rate constant multiplied by each reactant concentration raised to its order, such as $\\text{rate} = k[\\text{A}]^{m}[\\text{B}]^{n}$; it can only be found by experiment.",
     "lesson": "5.6"
   },
   {
     "id": "order-of-reaction",
     "term": "order of reaction",
-    "definition": "TODO: Exponent of a reactant concentration in the rate equation.",
+    "definition": "The power to which a reactant's concentration is raised in the rate equation; the overall order is the sum of the orders for all the reactants.",
     "lesson": "5.6"
   },
   {
     "id": "rate-constant",
     "term": "rate constant",
-    "definition": "TODO: k; depends on temperature; units depend on overall order.",
+    "definition": "The constant $k$ in a rate equation: it changes with temperature but not with concentration, and its units depend on the overall order of the reaction.",
     "lesson": "5.6"
   }
 ]

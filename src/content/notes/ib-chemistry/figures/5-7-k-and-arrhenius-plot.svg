@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img" aria-labelledby="t57kp">
+  <title id="t57kp">Two graphs side by side. Left: rate constant k against temperature T in kelvin; a curve starts low and rises more and more steeply. Right: the Arrhenius plot, ln k against 1 over T; a straight line slopes downwards from top left to bottom right. A right-angled triangle under the line marks its gradient, labelled gradient equals minus Ea over R. The line is extended as a dashed line up to the vertical axis at 1 over T equals zero, where the intercept is labelled ln A.</title>
+  <defs>
+    <marker id="m57kp-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- Left panel: k against T -->
+  <g>
+    <g stroke="currentColor" stroke-width="1.4" fill="none">
+      <line x1="50" y1="230" x2="50" y2="28" marker-end="url(#m57kp-head)"/>
+      <line x1="50" y1="230" x2="290" y2="230" marker-end="url(#m57kp-head)"/>
+    </g>
+    <path d="M62,222 C140,218 200,200 236,150 C256,120 268,85 276,48" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g font-size="13" fill="currentColor" font-family="inherit">
+      <text x="160" y="16" text-anchor="middle" font-size="14">k rises more and more steeply</text>
+      <text x="36" y="40" text-anchor="middle" font-style="italic">k</text>
+      <text x="282" y="252" text-anchor="middle"><tspan font-style="italic">T</tspan> / K</text>
+    </g>
+  </g>
+
+  <!-- Right panel: ln k against 1/T -->
+  <g transform="translate(330,0)">
+    <g stroke="currentColor" stroke-width="1.4" fill="none">
+      <line x1="50" y1="230" x2="50" y2="28" marker-end="url(#m57kp-head)"/>
+      <line x1="50" y1="230" x2="290" y2="230" marker-end="url(#m57kp-head)"/>
+    </g>
+    <line x1="50" y1="52" x2="140" y2="97" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 5"/>
+    <line x1="140" y1="97" x2="270" y2="162" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g fill="var(--t1-ink)">
+      <circle cx="150" cy="102" r="3.5"/>
+      <circle cx="185" cy="119.5" r="3.5"/>
+      <circle cx="220" cy="137" r="3.5"/>
+      <circle cx="255" cy="154.5" r="3.5"/>
+    </g>
+    <g stroke="var(--t5-ink)" stroke-width="1.5" fill="none">
+      <line x1="160" y1="107" x2="160" y2="157"/>
+      <line x1="160" y1="157" x2="260" y2="157"/>
+    </g>
+    <circle cx="50" cy="52" r="4" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+    <g font-size="13" fill="currentColor" font-family="inherit">
+      <text x="160" y="16" text-anchor="middle" font-size="14">Arrhenius plot: a straight line</text>
+      <text x="36" y="40" text-anchor="middle">ln <tspan font-style="italic">k</tspan></text>
+      <text x="270" y="252" text-anchor="middle">1/<tspan font-style="italic">T</tspan> / K<tspan font-size="9" dy="-5">−1</tspan></text>
+      <text x="44" y="246" text-anchor="middle" fill="var(--muted)">0</text>
+      <text x="60" y="44" fill="var(--t3-ink)">intercept = ln <tspan font-style="italic">A</tspan></text>
+      <text x="168" y="195" fill="var(--t5-ink)">gradient = −<tspan font-style="italic">E</tspan><tspan font-size="9" dy="3">a</tspan><tspan dy="-3">/</tspan><tspan font-style="italic">R</tspan></text>
+    </g>
+  </g>
+</svg>

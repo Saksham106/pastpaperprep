@@ -1,0 +1,597 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.7",
+  "slug": "arrhenius-equation",
+  "title": "The Arrhenius equation",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Warm a reaction and its [[rate-constant|rate constant]], $k$, rises steeply. The [[arrhenius-equation|Arrhenius equation]] links $k$ to temperature, so measuring $k$ at a few temperatures gives the [[activation-energy|activation energy]]. A plot of $\\ln k$ against $1/T$ is a straight line: its gradient gives $E_\\text{a}$ and its intercept gives the [[arrhenius-factor|Arrhenius factor]], $A$.",
+  "goals": [
+    {
+      "text": "Describe and explain how the [[rate-constant|rate constant]] changes with temperature.",
+      "bullets": [
+        "R2.2.12"
+      ]
+    },
+    {
+      "text": "Use the [[arrhenius-equation|Arrhenius equation]] to calculate $k$ at a given temperature.",
+      "bullets": [
+        "R2.2.12"
+      ]
+    },
+    {
+      "text": "Analyse a plot of $\\ln k$ against $1/T$ and find the activation energy from its gradient.",
+      "bullets": [
+        "R2.2.12",
+        "R2.2.13"
+      ]
+    },
+    {
+      "text": "Explain what the [[arrhenius-factor|Arrhenius factor]] stands for, and find it from experimental data.",
+      "bullets": [
+        "R2.2.13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.9",
+    "5.3",
+    "5.4",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Arrhenius plot",
+    "ln k against 1/T graph",
+    "activation energy from a graph",
+    "frequency factor A",
+    "pre-exponential factor",
+    "effect of temperature on rate constant"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-celsius-to-kelvin",
+      "prompt": "A reaction is run at $37\\,^{\\circ}\\text{C}$. What is this temperature in [[kelvin|kelvin]], to the nearest kelvin?",
+      "hint": "Add $273.15$ to the Celsius value.",
+      "answer": {
+        "value": 310,
+        "tolerance": 0.5
+      },
+      "explain": "$37 + 273.15 = 310.15$, so about $\\pu{310 K}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "37 + 273.15",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-overall-order",
+      "prompt": "A reaction has $\\text{rate} = k[\\ce{X}][\\ce{Y}]^{2}$. What is the overall [[order-of-reaction|order of reaction]]?",
+      "hint": "Add the powers of all the concentrations.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "First order in $\\ce{X}$ plus second order in $\\ce{Y}$: $1 + 2 = 3$. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 + 2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mb-hotter",
+      "prompt": "What happens to the Maxwell–Boltzmann distribution of a gas when the temperature rises?",
+      "hint": "Think about the tail of the curve, beyond $E_\\text{a}$.",
+      "options": [
+        {
+          "text": "A larger fraction of particles has at least the activation energy",
+          "correct": true
+        },
+        {
+          "text": "The activation energy becomes smaller",
+          "correct": false
+        },
+        {
+          "text": "The total area under the curve increases",
+          "correct": false
+        },
+        {
+          "text": "The peak moves to lower energy",
+          "correct": false
+        }
+      ],
+      "explain": "The curve flattens and shifts right, so more of the area lies beyond $E_\\text{a}$. The area stays the same, and $E_\\text{a}$ does not change. Revise it in {{lesson:5.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "A larger fraction of particles has at least the activation energy"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "temperature",
+      "heading": "How temperature changes the rate constant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[rate-equation|rate equation]] such as $\\text{rate} = k[\\ce{A}][\\ce{B}]$ has two parts: the concentrations and the [[rate-constant|rate constant]], $k$. Warming the mixture barely changes the concentrations, yet the rate rises sharply. So temperature acts through $k$."
+        },
+        {
+          "type": "text",
+          "text": "Over a normal temperature range the [[order-of-reaction|orders of reaction]] do not change. Only the value of $k$ does."
+        },
+        {
+          "type": "text",
+          "text": "[[collision-theory|Collision theory]] says why. At a higher temperature the particles have more kinetic energy. The [[maxwell-boltzmann-distribution|Maxwell–Boltzmann distribution]] spreads out, so a larger fraction of collisions has energy greater than or equal to the [[activation-energy|activation energy]], $E_\\text{a}$."
+        },
+        {
+          "type": "definition",
+          "term": "Arrhenius equation",
+          "statement": "The equation that relates the rate constant of a reaction to the absolute temperature, the activation energy and the Arrhenius factor.",
+          "plain": "It tells you how much faster a reaction gets when you heat it."
+        },
+        {
+          "type": "formula",
+          "tex": "k = A\\mathrm{e}^{-\\frac{E_\\text{a}}{RT}}",
+          "tag": "booklet",
+          "bookletId": "db-arrhenius"
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise it: it is in the data booklet, section 1. You do need to know what each symbol means."
+        },
+        {
+          "type": "text",
+          "text": "$k$ is the rate constant. $A$ is the [[arrhenius-factor|Arrhenius factor]], with the same units as $k$. $E_\\text{a}$ is the activation energy in $\\pu{J mol-1}$. $R$ is the [[gas-constant|gas constant]], $\\pu{8.31 J K-1 mol-1}$ (data booklet, section 2). $T$ is the temperature in [[kelvin|kelvin]]."
+        },
+        {
+          "type": "text",
+          "text": "The term $\\mathrm{e}^{-E_\\text{a}/RT}$ can be read as the fraction of collisions with enough energy. It is always between 0 and 1. As $T$ rises, $E_\\text{a}/RT$ gets smaller, so the fraction grows and $k$ grows."
+        },
+        {
+          "type": "text",
+          "text": "$k$ does not rise in a straight line. Over the temperatures used in a laboratory, it rises more and more steeply as $T$ increases. For the same $A$, a larger $E_\\text{a}$ makes $k$ smaller. It also makes $k$ more sensitive to temperature."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $E_\\text{a}$ in kJ. $R$ is in joules, so $\\pu{84.0 kJ mol-1}$ goes in as $\\pu{84.0e3 J mol-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-k-at-330k",
+          "question": "A second-order reaction has $A = \\pu{3.60e10 dm3 mol-1 s-1}$ and $E_\\text{a} = \\pu{84.0 kJ mol-1}$. Calculate $k$ at $\\pu{330 K}$.",
+          "steps": [
+            "Convert $E_\\text{a}$ to joules: $\\pu{84.0e3 J mol-1}$.",
+            "Work out the exponent: $\\frac{E_\\text{a}}{RT} = \\frac{84.0 \\times 10^{3}}{8.31 \\times 330} = \\frac{84\\,000}{2742.3} \\approx 30.63$.",
+            "So $\\mathrm{e}^{-30.63} \\approx 4.98 \\times 10^{-14}$. Only about 5 collisions in $10^{14}$ have enough energy.",
+            "Multiply by $A$: $k = (3.60 \\times 10^{10}) \\times (4.98 \\times 10^{-14})$. Keep the full calculator value and round only at the end. $k$ has the units of $A$."
+          ],
+          "answer": "$k \\approx \\pu{1.79e-3 dm3 mol-1 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.60*10**10*exp(-84.0*10**3/(R*330))",
+            "sf": 3,
+            "unit": "dm3 mol-1 s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-k-rises",
+          "question": "Explain, using collision theory and the Arrhenius equation, why the rate constant of a reaction is larger at $\\pu{320 K}$ than at $\\pu{300 K}$.",
+          "steps": [
+            "Start from the particles: what happens to their energy?",
+            "Link energy to $E_\\text{a}$, then to the term $\\mathrm{e}^{-E_\\text{a}/RT}$."
+          ],
+          "answer": "At the higher temperature the particles have greater average kinetic energy. A greater proportion of particles has energy greater than or equal to the activation energy. So a greater proportion of collisions are successful. In the Arrhenius equation, $E_\\text{a}/RT$ is smaller at $\\pu{320 K}$, so $\\mathrm{e}^{-E_\\text{a}/RT}$ is larger. $A$ and $E_\\text{a}$ stay the same, so the rate constant increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Higher T: more particles have E >= Ea, so more successful collisions; e^(-Ea/RT) grows while A and Ea stay constant.",
+            "requires": [
+              "kinetic energy",
+              [
+                "greater proportion",
+                "larger fraction"
+              ],
+              [
+                "greater than or equal to the activation energy",
+                "at least the activation energy"
+              ],
+              [
+                "successful",
+                "enough energy"
+              ],
+              "rate constant increases"
+            ],
+            "forbids": [
+              "activation energy decreases",
+              "lowers the activation energy",
+              "activation energy is lower"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-raises-k",
+          "prompt": "Which change increases the rate constant, $k$, of a reaction?",
+          "hint": "Which quantities appear in $k = A\\mathrm{e}^{-E_\\text{a}/RT}$?",
+          "options": [
+            {
+              "text": "Raising the temperature",
+              "correct": true
+            },
+            {
+              "text": "Raising the concentration of a reactant",
+              "correct": false
+            },
+            {
+              "text": "Lowering the temperature",
+              "correct": false
+            },
+            {
+              "text": "Using a pathway with a higher activation energy",
+              "correct": false
+            }
+          ],
+          "explain": "Concentrations change the rate, not $k$. A higher $T$ or a lower $E_\\text{a}$ increases $k$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Raising the temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-factor-ten-kelvin",
+          "prompt": "A reaction has $E_\\text{a} = \\pu{55.0 kJ mol-1}$. By what factor does $k$ increase when the temperature rises from $\\pu{300 K}$ to $\\pu{310 K}$? Give 3 significant figures.",
+          "hint": "$A$ cancels when you divide $k$ at $\\pu{310 K}$ by $k$ at $\\pu{300 K}$. Work out $\\mathrm{e}^{-E_\\text{a}/RT}$ at each temperature.",
+          "answer": {
+            "value": 2.04,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{-55\\,000/(8.31 \\times 310)} \\div \\mathrm{e}^{-55\\,000/(8.31 \\times 300)} \\approx 2.04$. A 10 K rise roughly doubles $k$ for this $E_\\text{a}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp(-55.0*10**3/(R*310))/exp(-55.0*10**3/(R*300))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrhenius-plot",
+      "heading": "The Arrhenius plot",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A curve is hard to read a value from. So take the natural log ($\\ln$, your calculator's ln key) of both sides of the [[arrhenius-equation|Arrhenius equation]]. This gives its linear form, also in the data booklet, section 1."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ln k = -\\frac{E_\\text{a}}{RT} + \\ln A",
+          "tag": "booklet",
+          "bookletId": "db-arrhenius-log"
+        },
+        {
+          "type": "text",
+          "text": "Compare it with $y = mx + c$. Plot $y = \\ln k$ against $x = 1/T$. The gradient is $m = -E_\\text{a}/R$ and the intercept is $c = \\ln A$."
+        },
+        {
+          "type": "text",
+          "text": "The gradient is always negative: a larger $1/T$ means a lower temperature and a smaller $k$. Rearranging gives the activation energy."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{a} = -R \\times \\text{gradient}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "5-7-k-and-arrhenius-plot",
+          "alt": "Two graphs side by side. Left: rate constant k against temperature T in kelvin; a curve starts low and rises more and more steeply. Right: the Arrhenius plot, ln k against 1 over T; four data points lie on a straight line that slopes downwards. A right-angled triangle under the line marks its gradient, labelled gradient equals minus Ea over R. The line is extended as a dashed line to the vertical axis at 1 over T equals zero, where the intercept is labelled ln A.",
+          "caption": "Left: $k$ against $T$ is a curve. Right: $\\ln k$ against $1/T$ is a straight line."
+        },
+        {
+          "type": "text",
+          "text": "Units: $\\ln k$ has none, and $1/T$ is in $\\pu{K-1}$, so the gradient is in K. Then $R \\times \\text{gradient}$ is in $\\pu{J mol-1}$; divide by 1000 for $\\pu{kJ mol-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ea-from-gradient",
+          "question": "An Arrhenius plot for a reaction has a gradient of $\\pu{-1.08e4 K}$. Calculate the activation energy in $\\pu{kJ mol-1}$.",
+          "steps": [
+            "Use gradient $= -E_\\text{a}/R$, so $E_\\text{a} = -R \\times \\text{gradient}$.",
+            "$E_\\text{a} = -8.31 \\times (-1.08 \\times 10^{4}) = \\pu{8.97e4 J mol-1}$.",
+            "Divide by 1000 for kJ. The two minus signs cancel, so $E_\\text{a}$ is positive, as it must be."
+          ],
+          "answer": "$E_\\text{a} \\approx \\pu{89.7 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-R*(-1.08*10**4)/1000",
+            "sf": 3,
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In an experiment you measure $k$ at several temperatures. Work out $1/T$ and $\\ln k$ for each, plot them, and draw the best-fit line. Read the gradient from two points on the line that are far apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-ea-from-data",
+          "question": "The rate constant of a reaction was measured at four temperatures. $\\pu{295 K}$: $\\pu{1.60e-3 dm3 mol-1 s-1}$. $\\pu{305 K}$: $\\pu{3.42e-3 dm3 mol-1 s-1}$. $\\pu{315 K}$: $\\pu{6.98e-3 dm3 mol-1 s-1}$. $\\pu{325 K}$: $\\pu{1.37e-2 dm3 mol-1 s-1}$. The points lie on a straight Arrhenius plot. Determine $E_\\text{a}$.",
+          "steps": [
+            "Convert the first and last points. $\\pu{295 K}$: $1/T = \\pu{3.390e-3 K-1}$, $\\ln k = -6.438$. $\\pu{325 K}$: $1/T = \\pu{3.077e-3 K-1}$, $\\ln k = -4.290$.",
+            "Gradient $= \\frac{-4.290 - (-6.438)}{(3.077 - 3.390) \\times 10^{-3}} = \\frac{2.147}{-3.129 \\times 10^{-4}} \\approx \\pu{-6.86e3 K}$. Use unrounded calculator values here.",
+            "$E_\\text{a} = -R \\times \\text{gradient} = 8.31 \\times 6.863 \\times 10^{3} \\approx \\pu{5.70e4 J mol-1}$.",
+            "Check: the middle points ($1/T = 3.279 \\times 10^{-3}$, $\\ln k = -5.678$, and so on) lie on the same line."
+          ],
+          "answer": "$E_\\text{a} \\approx \\pu{57.0 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "R*(log(1.37*10**(-2)) - log(1.60*10**(-3)))/(1/Integer(295) - 1/Integer(325))/1000",
+            "sf": 3,
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Two lines on one plot compare two reactions. The steeper line has the more negative gradient, so the larger $E_\\text{a}$. Its $k$ changes more for each kelvin of heating."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-two-lines",
+          "alt": "Arrhenius plot, ln k against 1 over T, with two straight lines that both slope downwards over the same range of 1 over T and cross near the middle. The line for reaction P is steeper than the line for reaction Q. P is labelled steeper, larger activation energy, and Q is labelled shallower, smaller activation energy.",
+          "caption": "The steeper line belongs to the reaction with the larger $E_\\text{a}$."
+        },
+        {
+          "type": "check",
+          "id": "check-steeper-line",
+          "prompt": "On one Arrhenius plot, the line for reaction P is steeper than the line for reaction Q. What can you deduce?",
+          "hint": "The gradient is $-E_\\text{a}/R$.",
+          "options": [
+            {
+              "text": "P has the larger activation energy",
+              "correct": true
+            },
+            {
+              "text": "Q has the larger activation energy",
+              "correct": false
+            },
+            {
+              "text": "P has the larger Arrhenius factor",
+              "correct": false
+            },
+            {
+              "text": "P and Q have the same activation energy",
+              "correct": false
+            }
+          ],
+          "explain": "A steeper line has a more negative gradient, so a larger $E_\\text{a}$. The gradient alone says nothing about $A$, which comes from the intercept.",
+          "verify": {
+            "kind": "choice",
+            "truth": "P has the larger activation energy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ea-from-gradient",
+          "prompt": "An Arrhenius plot has a gradient of $\\pu{-7.45e3 K}$. Calculate $E_\\text{a}$ in $\\pu{kJ mol-1}$, to 3 significant figures.",
+          "hint": "Multiply the gradient by $-R$, then divide by 1000.",
+          "answer": {
+            "value": 61.9,
+            "tolerance": 0.05
+          },
+          "explain": "$8.31 \\times 7.45 \\times 10^{3} = \\pu{6.19e4 J mol-1} = \\pu{61.9 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-R*(-7.45*10**3)/1000",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrhenius-factor",
+      "heading": "The Arrhenius factor",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[collision-theory|Collision theory]] needs two things for a reaction: enough energy and the proper orientation. The Arrhenius equation has a part for each."
+        },
+        {
+          "type": "definition",
+          "term": "Arrhenius factor",
+          "statement": "The constant $A$ in the Arrhenius equation. It accounts for how often the reactant particles collide with an orientation that can lead to reaction.",
+          "plain": "How many collisions point the right way, before energy is considered."
+        },
+        {
+          "type": "text",
+          "text": "So $k = A \\times \\mathrm{e}^{-E_\\text{a}/RT}$ reads as (collisions with a proper orientation) $\\times$ (fraction with enough energy). $A$ has the same units as $k$."
+        },
+        {
+          "type": "text",
+          "text": "Small, simple particles can react however they meet, so most collisions have a suitable orientation and $A$ is large. When a particle must hit one particular atom of a large molecule, most collisions point the wrong way, so $A$ is smaller."
+        },
+        {
+          "type": "text",
+          "text": "At IB level, treat $A$ as constant over the temperature range of an experiment, just like $E_\\text{a}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-orientation-a",
+          "question": "Reactions P and Q have the same activation energy and run at the same temperature. In P, two small, nearly spherical molecules react whichever way they meet. In Q, a small ion reacts only if it strikes one particular atom of a large molecule. Explain which reaction has the larger rate constant.",
+          "steps": [
+            "Same $E_\\text{a}$ and $T$, so the energy term $\\mathrm{e}^{-E_\\text{a}/RT}$ is the same for both.",
+            "So any difference in $k$ comes from $A$. Think about orientation."
+          ],
+          "answer": "Reaction P has the larger rate constant. The activation energy and temperature are the same, so the same fraction of collisions has enough energy. The Arrhenius factor accounts for the frequency of collisions with the proper orientation. In Q, most collisions do not hit the reactive atom, so fewer collisions have the proper orientation. So A is smaller for Q, and $k = A\\mathrm{e}^{-E_\\text{a}/RT}$ is larger for P.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Same Ea and T give the same energy term; A (frequency of properly oriented collisions) is smaller for Q, so k is larger for P.",
+            "requires": [
+              "P has the larger rate constant",
+              [
+                "same fraction",
+                "same proportion"
+              ],
+              "Arrhenius factor",
+              "orientation",
+              [
+                "A is smaller for Q",
+                "smaller A"
+              ]
+            ],
+            "forbids": [
+              "higher activation energy",
+              "lower activation energy",
+              "Q has the larger rate constant"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "To find $A$ from experimental data, use the intercept of the Arrhenius plot: $\\ln A$ is the value of $\\ln k$ where $1/T = 0$. That point is far from any real data, so calculate it rather than reading it off."
+        },
+        {
+          "type": "text",
+          "text": "Put the gradient and one point on the line into $\\ln A = \\ln k - \\text{gradient} \\times \\frac{1}{T}$, which is $y = mx + c$ rearranged. Then $A = \\mathrm{e}^{\\ln A}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-a-from-line",
+          "question": "The Arrhenius plot for a first-order reaction ($k$ in $\\pu{s-1}$) has a gradient of $\\pu{-9.35e3 K}$. The line passes through $1/T = \\pu{3.20e-3 K-1}$, $\\ln k = -4.62$. Determine the Arrhenius factor, $A$.",
+          "steps": [
+            "Use $c = y - mx$ with $y = \\ln k$ and $x = 1/T$.",
+            "$\\ln A = -4.62 - (-9.35 \\times 10^{3}) \\times (3.20 \\times 10^{-3}) = -4.62 + 29.92 = 25.30$.",
+            "$A = \\mathrm{e}^{25.30}$. It has the units of $k$, which are $\\pu{s-1}$ here."
+          ],
+          "answer": "$A \\approx \\pu{9.72e10 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "exp(-4.62 - (-9.35*10**3)*(3.20*10**(-3)))",
+            "sf": 3,
+            "unit": "s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-a-describes",
+          "prompt": "In $k = A\\mathrm{e}^{-E_\\text{a}/RT}$, which part of collision theory does $A$ describe?",
+          "hint": "The exponential term already deals with energy.",
+          "options": [
+            {
+              "text": "How often particles collide with the proper orientation",
+              "correct": true
+            },
+            {
+              "text": "The fraction of collisions with at least the activation energy",
+              "correct": false
+            },
+            {
+              "text": "The minimum energy needed for a reaction",
+              "correct": false
+            },
+            {
+              "text": "The average kinetic energy of the particles",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{e}^{-E_\\text{a}/RT}$ is the fraction with enough energy, and $E_\\text{a}$ is the minimum energy. $A$ covers collision frequency and orientation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "How often particles collide with the proper orientation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-a-from-intercept",
+          "prompt": "An Arrhenius plot has a $y$-intercept (at $1/T = 0$) of $21.6$, with $k$ in $\\pu{dm3 mol-1 s-1}$. Calculate $A$, to 3 significant figures.",
+          "hint": "The intercept is $\\ln A$.",
+          "answer": {
+            "value": 2400000000.0,
+            "tolerance": 5000000.0
+          },
+          "explain": "$A = \\mathrm{e}^{21.6} \\approx \\pu{2.40e9 dm3 mol-1 s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp(21.6)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "k = A\\mathrm{e}^{-\\frac{E_\\text{a}}{RT}}",
+          "tag": "booklet",
+          "bookletId": "db-arrhenius",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\ln k = -\\frac{E_\\text{a}}{RT} + \\ln A",
+          "tag": "booklet",
+          "bookletId": "db-arrhenius-log",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$k$ increases with temperature, more and more steeply over laboratory temperatures. $E_\\text{a}$ and $A$ stay constant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plot $\\ln k$ against $1/T$: gradient $= -E_\\text{a}/R$, so $E_\\text{a} = -R \\times \\text{gradient}$; intercept $= \\ln A$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$A$: frequency of collisions with the proper orientation, same units as $k$. $\\mathrm{e}^{-E_\\text{a}/RT}$: fraction of collisions with enough energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use $E_\\text{a}$ in $\\pu{J mol-1}$, $T$ in K and $R = \\pu{8.31 J K-1 mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting $E_\\text{a}$ in $\\pu{kJ mol-1}$ next to $R = \\pu{8.31 J K-1 mol-1}$. Convert $E_\\text{a}$ to $\\pu{J mol-1}$ first, then convert the answer back to kJ.",
+    "Using a Celsius temperature. $T$ in the Arrhenius equation is always in kelvin.",
+    "Dropping the minus sign. The gradient is $-E_\\text{a}/R$, so $E_\\text{a} = -R \\times \\text{gradient}$, which is positive.",
+    "Plotting $k$ against $T$, or using $\\log_{10}$. Only $\\ln k$ against $1/T$ gives the straight line whose gradient is $-E_\\text{a}/R$.",
+    "Writing only \"more collisions\". The mark is for a larger fraction of collisions having energy greater than or equal to $E_\\text{a}$.",
+    "Saying a higher temperature lowers $E_\\text{a}$ or changes $A$. Both stay the same; only $k$ changes."
+  ],
+  "examTips": [
+    "\"Describe\" how $k$ depends on temperature: $k$ increases as $T$ increases, and not in a straight line. \"Explain\" adds the reason: a larger fraction of collisions has energy of at least $E_\\text{a}$.",
+    "\"Outline\" how to find $E_\\text{a}$: measure $k$ at several temperatures, plot $\\ln k$ against $1/T$, and use gradient $= -E_\\text{a}/R$. Using two Arrhenius equations at two temperatures also earns the marks.",
+    "\"Determine\" $E_\\text{a}$ from a graph (often Paper 1B): read the gradient from two far-apart points on the best-fit line, show $E_\\text{a} = -R \\times \\text{gradient}$, and give units.",
+    "\"Determine\" $A$: the intercept at $1/T = 0$ is $\\ln A$, so $A = \\mathrm{e}^{\\text{intercept}}$. $A$ has the same units as $k$."
+  ],
+  "readingMinutes": 19
+}

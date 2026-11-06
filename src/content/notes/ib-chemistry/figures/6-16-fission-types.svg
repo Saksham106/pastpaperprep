@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="t616fis">
+  <title id="t616fis">Homolytic and heterolytic fission of the H–Cl bond, with fish-hook arrows and a full curly arrow</title>
+  <defs>
+    <marker id="m616fis-half" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,5 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m616fis-full" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m616fis-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="13" fill="var(--muted)" font-family="inherit">
+    <text x="20" y="30">Homolytic fission</text>
+    <text x="20" y="135">Heterolytic fission</text>
+    <text x="270" y="68" text-anchor="middle">UV light</text>
+    <text x="460" y="88">each atom keeps one</text>
+    <text x="460" y="104">electron: two radicals</text>
+    <text x="460" y="188">Cl keeps both electrons:</text>
+    <text x="460" y="204">two ions</text>
+  </g>
+  <g font-size="16" fill="currentColor" font-family="inherit">
+    <!-- homolytic -->
+    <text x="128" y="98">H</text>
+    <text x="190" y="98">Cl</text>
+    <text x="330" y="98">H</text>
+    <circle cx="346" cy="86" r="2.2"/>
+    <text x="364" y="98">+</text>
+    <text x="390" y="98">Cl</text>
+    <circle cx="412" cy="86" r="2.2"/>
+    <!-- heterolytic -->
+    <text x="128" y="190">H</text>
+    <text x="190" y="190">Cl</text>
+    <text x="130" y="168" font-size="12" fill="var(--t5-ink)">δ+</text>
+    <text x="194" y="168" font-size="12" fill="var(--t5-ink)">δ−</text>
+    <text x="330" y="190">H</text>
+    <text x="343" y="179" font-size="13">+</text>
+    <text x="364" y="190">+</text>
+    <text x="390" y="190">Cl</text>
+    <text x="409" y="179" font-size="14">−</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="144" y1="93" x2="186" y2="93"/>
+    <line x1="144" y1="185" x2="186" y2="185"/>
+    <line x1="240" y1="93" x2="300" y2="93" marker-end="url(#m616fis-react)"/>
+    <line x1="240" y1="185" x2="300" y2="185" marker-end="url(#m616fis-react)"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="1.8" fill="none">
+    <path d="M162,90 Q150,58 136,78" marker-end="url(#m616fis-half)"/>
+    <path d="M168,90 Q182,58 197,78" marker-end="url(#m616fis-half)"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="1.8" fill="none">
+    <path d="M165,189 Q182,218 201,197" marker-end="url(#m616fis-full)"/>
+  </g>
+</svg>

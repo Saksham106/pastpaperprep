@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 380" role="img" aria-labelledby="t">
+  <title id="t">Lead–acid cell, discharging on the left and charging on the right. Each cell has a lead plate on the left, marked negative, and a lead(IV) oxide plate on the right, marked positive, in sulfuric acid. Discharging: the plates are joined through a lamp, and electrons flow through the wire from the lead plate to the lead(IV) oxide plate. The lead plate is the anode, where lead is oxidized to lead(II) sulfate, and the lead(IV) oxide plate is the cathode, where it is reduced to lead(II) sulfate. Charging: the plates are joined to a power supply, negative terminal to the lead plate, and electrons flow the other way, into the lead plate. Now the lead plate is the cathode, where lead(II) sulfate is reduced back to lead, and the lead(IV) oxide plate is the anode, where lead(II) sulfate is oxidized back to lead(IV) oxide. The signs of the plates do not change.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">
+    <text x="165" y="20">Discharging (voltaic)</text>
+    <text x="495" y="20">Charging (electrolytic)</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <rect x="45" y="130" width="240" height="160"/>
+    <rect x="375" y="130" width="240" height="160"/>
+  </g>
+  <rect x="46" y="150" width="238" height="139" fill="var(--t3-ink)" fill-opacity="0.1"/>
+  <rect x="376" y="150" width="238" height="139" fill="var(--t3-ink)" fill-opacity="0.1"/>
+  <text x="165" y="280" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">H₂SO₄(aq)</text>
+  <text x="495" y="280" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">H₂SO₄(aq)</text>
+  <g stroke="currentColor" stroke-width="1.2">
+    <rect x="85" y="110" width="20" height="150" fill="var(--t1-ink)" fill-opacity="0.45"/>
+    <rect x="225" y="110" width="20" height="150" fill="var(--t2-ink)" fill-opacity="0.45"/>
+    <rect x="415" y="110" width="20" height="150" fill="var(--t1-ink)" fill-opacity="0.45"/>
+    <rect x="555" y="110" width="20" height="150" fill="var(--t2-ink)" fill-opacity="0.45"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="95" y="104">Pb (−)</text>
+    <text x="235" y="104">PbO₂ (+)</text>
+    <text x="425" y="104">Pb (−)</text>
+    <text x="565" y="104">PbO₂ (+)</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M95 90 L95 60 L147 60"/>
+    <path d="M183 60 L235 60 L235 90"/>
+    <circle cx="165" cy="60" r="18"/>
+    <path d="M152 47 L178 73"/><path d="M178 47 L152 73"/>
+    <path d="M425 90 L425 60 L489 60"/>
+    <path d="M501 60 L565 60 L565 90"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2.4">
+    <path d="M489 52 L489 68"/>
+    <path d="M501 44 L501 76"/>
+  </g>
+  <text x="477" y="42" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">−</text>
+  <text x="513" y="42" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">+</text>
+  <text x="495" y="94" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">power supply</text>
+  <text x="165" y="94" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">lamp</text>
+  <path d="M105 42 L135 42" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="143,42 133,37 133,47" fill="var(--t4-ink)"/>
+  <path d="M195 42 L225 42" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="233,42 223,37 223,47" fill="var(--t4-ink)"/>
+  <text x="165" y="36" font-size="11" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <path d="M555 42 L525 42" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="517,42 527,37 527,47" fill="var(--t4-ink)"/>
+  <path d="M465 42 L435 42" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="427,42 437,37 437,47" fill="var(--t4-ink)"/>
+  <text x="450" y="36" font-size="11" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <g font-size="11" fill="currentColor" font-family="inherit">
+    <text x="20" y="312">Pb plate: anode, oxidation</text>
+    <text x="20" y="328">Pb + SO₄²⁻ → PbSO₄ + 2e⁻</text>
+    <text x="20" y="348">PbO₂ plate: cathode, reduction</text>
+    <text x="20" y="364">PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ → PbSO₄ + 2H₂O</text>
+    <text x="350" y="312">Pb plate: cathode, reduction</text>
+    <text x="350" y="328">PbSO₄ + 2e⁻ → Pb + SO₄²⁻</text>
+    <text x="350" y="348">PbO₂ plate: anode, oxidation</text>
+    <text x="350" y="364">PbSO₄ + 2H₂O → PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻</text>
+  </g>
+</svg>
