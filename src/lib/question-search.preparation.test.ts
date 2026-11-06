@@ -80,3 +80,31 @@ describe("ID-only search preparation", () => {
     }
   });
 });
+
+describe("prebuilt search corpus", () => {
+  // The oracle is the delivery projection (legacy above), not searchQuestionIds: both search
+  // functions share matchIds, so comparing them to each other could hide a shared regression.
+  it("matches the delivery projection for every access and date boundary", async () => {
+    const { buildSearchCorpus } = await import("@/lib/question-search-corpus-build");
+    const { searchCorpusIds } = await import("@/lib/question-search");
+    const rows = [row(), row({ id: "0580-2016-march-22-q1", year: 2016 }),
+      row({ id: "2024-may-hl-q1", bankSlug: "ib-economics-hl" }),
+      row({ id: "0620-2024-may-22-q1", bankSlug: "igcse-chemistry-0620" })];
+    // The corpus is written to JSON at build time, so search a serialized round trip.
+    const corpus = JSON.parse(JSON.stringify(buildSearchCorpus(rows)));
+    const grants: AccessEntitlement[][] = [[], [paid], [{ ...paid, status: "trialing" }],
+      [{ ...paid, status: "expired" }], [{ ...paid, status: "revoked" }],
+      [{ ...paid, startsAt: null }], [{ ...paid, startsAt: "invalid" }], [{ ...paid, expiresAt: "invalid" }],
+      [{ ...paid, productId: "bundle_all" }], [{ ...paid, productId: "lifetime_all_access", expiresAt: null }],
+      [{ ...paid, productId: "bundle_igcse" }],
+      [{ ...paid, productId: "bundle_custom", selectedBankIds: ["igcse-chemistry-0620"] }],
+      [{ ...paid, productId: "bundle_custom", selectedBankIds: [] }]];
+    const times = [new Date("2025-12-31T23:59:59.999Z"), new Date(paid.startsAt!), now,
+      new Date("2026-10-24T23:59:59.999Z"), new Date(paid.expiresAt!), new Date("2026-10-25T00:00:00.001Z")];
+    for (const access of grants) for (const at of times) {
+      for (const query of ["private", " PRIVATE phrase ", "AlGeBrA", "2024", "2016", "TZ1", "graphs solve", "private  phrase", "", " \t ", "missing"]) {
+        expect(searchCorpusIds(corpus, query, access, at)).toEqual(legacy(rows, query, access, at));
+      }
+    }
+  });
+});

@@ -1,6 +1,7 @@
 import { fullPaperHrefs } from "@/lib/paper-question-links";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { notFound } from "next/navigation";
 import { BankQuestionExplorer } from "@/components/BankQuestionExplorer";
 import { BankSeoContent } from "@/components/BankSeoContent";
@@ -128,7 +129,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
             <p className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong></span>{updated ? <span>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></span> : null}</p>
             <div className="bank-hero-actions">
               {fullPapers ? <Link className="button secondary" href={`/past-papers/${subjectSlugForBank(slug)}`}>Full past papers</Link> : null}
-              <Link className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</Link>
+              <IntentPrefetchLink className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</IntentPrefetchLink>
             </div>
           </div>
           <Testimonial testimonial={bankTestimonial(slug)} variant="inline" signedOutOnly />

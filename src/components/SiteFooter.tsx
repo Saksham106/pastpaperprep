@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { BookOpenText } from "@phosphor-icons/react/dist/ssr";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
@@ -8,7 +8,7 @@ import { FooterSkyline } from "@/components/FooterSkyline";
 import { GooglePreferredSourceButton } from "@/components/GooglePreferredSourceButton";
 
 function FooterGroup({ title, links }: { title: string; links: readonly (readonly [string, string])[] }) {
-  return <section className="footer-group"><h2>{title}</h2><div>{links.map(([href, label]) => <Link href={href} key={href}>{label}</Link>)}</div></section>;
+  return <section className="footer-group"><h2>{title}</h2><div>{links.map(([href, label]) => <IntentPrefetchLink href={href} key={href}>{label}</IntentPrefetchLink>)}</div></section>;
 }
 
 export function SiteFooter() {
@@ -23,7 +23,7 @@ export function SiteFooter() {
   }
   return (
     <footer className="site-footer">
-      <div className="footer-brand"><Link href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></Link><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
+      <div className="footer-brand"><IntentPrefetchLink href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></IntentPrefetchLink><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
         <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"], ["/banks/ib-economics/exam-style", "IB Economics"]]} />
@@ -31,7 +31,7 @@ export function SiteFooter() {
       </nav>
       {/* The skyline stands behind the wordmark, on the same ground line. */}
       <div className="footer-mark" aria-hidden="true"><FooterSkyline /><p className="footer-wordmark" aria-hidden="true">PastPaperPrep</p></div>
-      <div className="footer-base"><small>Independent practice platform. Exam-board names identify the relevant qualifications.</small><div className="footer-policy-links"><Link href="/terms">Terms</Link><Link href="/privacy">Privacy</Link><Link href="/refund-policy">Refunds</Link><CookieSettingsLink /><a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></div></div>
+      <div className="footer-base"><small>Independent practice platform. Exam-board names identify the relevant qualifications.</small><div className="footer-policy-links"><IntentPrefetchLink href="/terms">Terms</IntentPrefetchLink><IntentPrefetchLink href="/privacy">Privacy</IntentPrefetchLink><IntentPrefetchLink href="/refund-policy">Refunds</IntentPrefetchLink><CookieSettingsLink /><a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a></div></div>
     </footer>
   );
 }

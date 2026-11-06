@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { formatUpdateDate, lastUpdated, type UpdateNews } from "@/lib/updates";
 import { BuildSite } from "@/components/BuildSite";
 import Image from "next/image";
@@ -51,15 +52,15 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
   return <div className={`${styles.home} landing-editorial`}>
     <section className={styles.hero} data-home-section="hero">
       <div className={styles.stage}>
-        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" quality={85} />
+        <Image className={styles.back} src="/artwork/landing-gothic.webp" alt="" fill preload sizes="100vw" />
         <h1 className={styles.headline}><span>Past papers,</span> <em>by topic.</em></h1>
-        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" quality={85} />
+        <Image className={styles.front} src="/artwork/landing-gothic-front.webp" alt="" fill loading="eager" sizes="100vw" />
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
         <p className={styles.definition}>PastPaperPrep sorts real Cambridge IGCSE and IB past-paper questions by topic, with the mark scheme for every question.</p>
         <SmartSearch />
-        <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><Link href="/pricing">Plans</Link></p>
+        <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><IntentPrefetchLink href="/pricing">Plans</IntentPrefetchLink></p>
         <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span>{updated && <span>Updated <b><time dateTime={updated}>{formatUpdateDate(updated)}</time></b></span>}</p>
       </div>
     </section>
@@ -107,7 +108,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
           <p className={styles.tierName}>Plan</p>
           <p className={styles.tierPrice}><small>from </small>{formatPrice(priceForBankCount("monthly", 1))}<small>/mo</small></p>
           <ul><li>{years ? `Topical questions up to ${years.latestYear}` : "Full available topical bank"}</li><li>Saved sets and custom PDF worksheets</li><li>Cancel any time</li></ul>
-          <Link className="button primary" href="/pricing">See plans <ArrowRight weight="bold" /></Link>
+          <IntentPrefetchLink className="button primary" href="/pricing">See plans <ArrowRight weight="bold" /></IntentPrefetchLink>
         </div>
       </div>
     </section>

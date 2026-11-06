@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     "/api/assets/sign": ["./generated/asset-manifest/**"],
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
+    "/api/questions/search": ["./generated/question-search/**"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },
@@ -54,9 +55,9 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_BUILD_REVISION: process.env.NEXT_PUBLIC_BUILD_REVISION || process.env.VERCEL_GIT_COMMIT_SHA || "local",
   },
   images: {
-    // Artwork ships as pre-compressed WebP, so the optimizer must pass quality 90 through
-    // instead of clamping to the default 75 and re-encoding the hero on every request.
-    qualities: [75, 90],
+    // One quality for everything. The landing artwork at 75 looks the same as 90 at display
+    // size and is 30-45% smaller (it was asking for 85, which Next coerced up to 90).
+    qualities: [75],
     remotePatterns: [
       {
         protocol: "https",

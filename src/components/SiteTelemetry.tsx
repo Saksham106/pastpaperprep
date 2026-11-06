@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
@@ -218,7 +217,8 @@ export function SiteTelemetry() {
   const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* optional */ } setBannerOpen(false); setRequested(false); };
 
   return <>
-    <><Analytics /><SpeedInsights /></>
+    {/* PostHog covers pageviews; Vercel Web Analytics was a duplicate billed per event. Speed Insights stays for Core Web Vitals. */}
+    <SpeedInsights />
     {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
   </>;
 }

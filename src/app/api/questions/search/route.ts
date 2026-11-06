@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import type { AccessEntitlement } from "@/lib/access";
 import { getBank, isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { loadBankQuestions } from "@/lib/question-loader";
-import { searchQuestionIds } from "@/lib/question-search";
+import { searchCorpusIds, searchQuestionIds } from "@/lib/question-search";
+import { loadBankSearchCorpus } from "@/lib/question-search-corpus";
 import { createClient } from "@/lib/supabase/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 
@@ -28,6 +28,8 @@ async function handleGET(request: Request) {
   }
 
   if (isLocalEconomicsPreviewEnabled() && isLocalEconomicsBank(bankParam)) {
+    // Local preview only: these banks have no prebuilt corpus in this mode.
+    const { loadBankQuestions } = await import("@/lib/question-loader");
     const ids = searchQuestionIds(await loadBankQuestions(bankParam), query, [], new Date(), true);
     return response({ ids });
   }
@@ -43,7 +45,7 @@ async function handleGET(request: Request) {
     entitlements = result.rows as AccessEntitlement[];
   }
 
-  const ids = searchQuestionIds(await loadBankQuestions(bankParam as BankSlug), query, entitlements);
+  const ids = searchCorpusIds(await loadBankSearchCorpus(bankParam as BankSlug), query, entitlements);
   return response({ ids });
 }
 

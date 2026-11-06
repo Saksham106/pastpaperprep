@@ -52,7 +52,7 @@ describe("bank route fail-closed behaviour", () => {
   it("links each bank to the paper builder with the bank preselected", () => {
     const source = readFileSync(join(process.cwd(), "src/app/banks/[slug]/page.tsx"), "utf8");
     expect(source).toContain("href={`/worksheets/build?bank=${slug}`}");
-    expect(source).toContain(">Build a paper</Link>");
+    expect(source).toContain(">Build a paper</IntentPrefetchLink>");
   });
 
   it("keeps the hero to title, stats and actions: no restated description or extra paragraphs", () => {
@@ -64,6 +64,6 @@ describe("bank route fail-closed behaviour", () => {
     // Full papers is a button beside Build a paper, so it shows on phones too.
     const actions = hero.slice(hero.indexOf('className="bank-hero-actions"'));
     expect(actions).toContain(">Full past papers</Link>");
-    expect(actions).toContain(">Build a paper</Link>");
+    expect(actions).toContain(">Build a paper</IntentPrefetchLink>");
   });
 });

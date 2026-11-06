@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { BookOpenText, SquaresFour } from "@phosphor-icons/react/dist/ssr";
 import { useEffect, useRef, useState } from "react";
@@ -38,14 +38,14 @@ export function SiteHeader({ authenticated = false, pastPapers = false, notes = 
   return <>
     <span ref={sentinelRef} className="header-scroll-sentinel" aria-hidden="true" />
     <header ref={headerRef} className={`site-header${scrolled ? " is-scrolled" : ""}${menuOpen ? " menu-open" : ""}`}>
-      <Link transitionTypes={PAGE_NAVIGATION} className="brand" href="/" aria-label="PastPaperPrep home">
+      <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className="brand" href="/" aria-label="PastPaperPrep home">
         <span className="brand-mark"><BookOpenText weight="bold" /></span>
         <span>PastPaperPrep</span>
-      </Link>
+      </IntentPrefetchLink>
       <div className="header-actions">
         <HeaderNavigation authenticated={authenticated} pastPapers={pastPapers} notes={notes} menuOpen={menuOpen} onNavigate={() => setMenuOpen(false)} workspaceIcon={<SquaresFour data-testid="workspace-icon" aria-hidden="true" weight="bold" />} trailing={<ThemeToggle showLabel />} />
         {/* Phones: the bar keeps the one action that matters, opening the question banks. */}
-        <Link transitionTypes={PAGE_NAVIGATION} className="nav-quick" href="/dashboard" aria-label="Open question banks" title="Open question banks" onClick={() => setMenuOpen(false)}><SquaresFour aria-hidden="true" weight="bold" /></Link>
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className="nav-quick" href="/dashboard" aria-label="Open question banks" title="Open question banks" onClick={() => setMenuOpen(false)}><SquaresFour aria-hidden="true" weight="bold" /></IntentPrefetchLink>
         <button ref={menuToggleRef} className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>
           <span className="menu-toggle-bars" aria-hidden="true"><i /><i /></span>
         </button>

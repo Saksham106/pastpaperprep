@@ -1,16 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { loadBankQuestions as loadFixtureQuestions } from "@/lib/question-fixtures";
+import { buildSearchCorpus } from "@/lib/question-search-corpus-build";
 
-const { createClient, getClaims, from, rpc, loadBankQuestions } = vi.hoisted(() => ({
+const { createClient, getClaims, from, rpc, loadBankQuestions, loadBankSearchCorpus } = vi.hoisted(() => ({
   createClient: vi.fn(),
   getClaims: vi.fn(),
   from: vi.fn(),
   rpc: vi.fn(),
   loadBankQuestions: vi.fn(),
+  loadBankSearchCorpus: vi.fn(),
 }));
 
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/question-loader", () => ({ loadBankQuestions }));
+vi.mock("@/lib/question-search-corpus", () => ({ loadBankSearchCorpus }));
 
 import { GET } from "@/app/api/questions/search/route";
 
@@ -24,7 +27,7 @@ describe("GET /api/questions/search", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    loadBankQuestions.mockResolvedValue([richQuestion]);
+    loadBankSearchCorpus.mockResolvedValue(buildSearchCorpus([richQuestion]));
     getClaims.mockResolvedValue({ data: { claims: {} } });
     const entitlementQuery = {
       select: vi.fn(() => entitlementQuery),
@@ -60,6 +63,7 @@ describe("GET /api/questions/search", () => {
 
     expect(empty.status).toBe(400);
     expect(invalid.status).toBe(400);
+    expect(loadBankSearchCorpus).not.toHaveBeenCalled();
     expect(loadBankQuestions).not.toHaveBeenCalled();
   });
 });

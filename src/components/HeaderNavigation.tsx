@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
@@ -26,16 +26,16 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
       {/* Desktop: page links sit in the bar's center column, account actions on the right. The phone menu lists both. */}
       <div className="nav-pages">
-        {pastPapers && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</Link>}
-        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</Link>
-        {notes && <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_HOME_HREF}>Notes</Link>}
-        <Link transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</Link>
-        <Link transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</Link>
+        {pastPapers && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</IntentPrefetchLink>}
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</IntentPrefetchLink>
+        {notes && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_HOME_HREF}>Notes</IntentPrefetchLink>}
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</IntentPrefetchLink>
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={`nav-pricing${current(pathname, "pricing") ? " nav-active" : ""}`} aria-current={current(pathname, "pricing") ? "page" : undefined} href="/pricing">Pricing</IntentPrefetchLink>
       </div>
       <div className="nav-actions">
-        {authenticated && <Link transitionTypes={PAGE_NAVIGATION} className={`nav-worksheets${current(pathname, "worksheets") ? " nav-active" : ""}`} aria-current={current(pathname, "worksheets") ? "page" : undefined} href="/worksheets">My worksheets</Link>}
-        <Link transitionTypes={PAGE_NAVIGATION} className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</Link>
-        <Link transitionTypes={PAGE_NAVIGATION}
+        {authenticated && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={`nav-worksheets${current(pathname, "worksheets") ? " nav-active" : ""}`} aria-current={current(pathname, "worksheets") ? "page" : undefined} href="/worksheets">My worksheets</IntentPrefetchLink>}
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={`${authenticated ? "" : "nav-login "}${current(pathname, authenticated ? "account" : "login") ? "nav-active" : ""}`.trim() || undefined} aria-current={current(pathname, authenticated ? "account" : "login") ? "page" : undefined} href={authenticated ? "/account" : "/login?next=/pricing"}>{authenticated ? "My account" : "Log in"}</IntentPrefetchLink>
+        <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION}
           className={`nav-cta${current(pathname, "dashboard") ? " nav-active" : ""}`}
           aria-current={current(pathname, "dashboard") ? "page" : undefined}
           href="/dashboard"
@@ -43,7 +43,7 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
         >
           <span className="nav-cta-label">{authenticated ? "Dashboard" : "Start practising"}</span>
           {workspaceIcon}
-        </Link>
+        </IntentPrefetchLink>
         {trailing}
       </div>
     </nav>
