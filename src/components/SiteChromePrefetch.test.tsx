@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 
 // Header and footer links sit on every page; viewport prefetch turned each page view into
 // dozens of route fetches (and a server render for /login, /pricing, /dashboard, /account).
-vi.mock("next/link", () => ({ default: ({ prefetch, transitionTypes: _t, ...props }: Omit<ComponentProps<typeof Link>, "href"> & { href: string; transitionTypes?: unknown }) => <a {...props} data-prefetch={String(prefetch)} /> }));
+vi.mock("next/link", () => ({ default: ({ prefetch, ...props }: Omit<ComponentProps<typeof Link>, "href"> & { href: string; transitionTypes?: unknown }) => { const { transitionTypes, ...anchor } = props; void transitionTypes; return <a {...anchor} data-prefetch={String(prefetch)} />; } }));
 vi.mock("next/navigation", () => ({ usePathname: () => "/", useRouter: () => ({ push: vi.fn() }) }));
 
 describe("site chrome prefetch", () => {
