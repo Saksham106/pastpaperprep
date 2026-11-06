@@ -26,7 +26,7 @@ describe("loadBankSearchCorpus", () => {
   });
 
   it("reads a separate file when the bank's runtime mode changes", async () => {
-    const read = vi.fn(async () => "[]");
+    const read = vi.fn(async (path: string) => { void path; return "[]"; });
     await loadBankSearchCorpus("igcse-biology-0610", read);
     vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true");
     vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true");

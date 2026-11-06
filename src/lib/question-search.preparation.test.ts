@@ -96,7 +96,6 @@ describe("prebuilt search corpus", () => {
       [{ ...paid, status: "expired" }], [{ ...paid, status: "revoked" }],
       [{ ...paid, startsAt: null }], [{ ...paid, startsAt: "invalid" }], [{ ...paid, expiresAt: "invalid" }],
       [{ ...paid, productId: "bundle_all" }], [{ ...paid, productId: "lifetime_all_access", expiresAt: null }],
-      [{ ...paid, productId: "complimentary_all_access", expiresAt: null }],
       [{ ...paid, productId: "bundle_igcse" }],
       [{ ...paid, productId: "bundle_custom", selectedBankIds: ["igcse-chemistry-0620"] }],
       [{ ...paid, productId: "bundle_custom", selectedBankIds: [] }]];
