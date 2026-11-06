@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 230" role="img" aria-labelledby="t">
+  <title id="t">A temperature axis from minus 60 to plus 100 degrees Celsius with three molecules of similar molar mass marked on it by their boiling points. Propane, which has only London forces, boils at minus 42 degrees Celsius. Ethanal, which has London and dipole-dipole forces, boils at 20 degrees Celsius. Ethanol, which has London forces, dipole-dipole forces and hydrogen bonding, boils at 78 degrees Celsius.</title>
+  <!-- axis: x = 60 + (T + 60) * 2.75 ; -60 -> 60, 100 -> 500 -->
+  <path d="M60 185 H500" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M60 185 V191"/><path d="M115 185 V191"/><path d="M170 185 V191"/><path d="M225 185 V191"/>
+    <path d="M280 185 V191"/><path d="M335 185 V191"/><path d="M390 185 V191"/><path d="M445 185 V191"/><path d="M500 185 V191"/>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="60" y="205">−60</text><text x="115" y="205">−40</text><text x="170" y="205">−20</text><text x="225" y="205">0</text>
+    <text x="280" y="205">20</text><text x="335" y="205">40</text><text x="390" y="205">60</text><text x="445" y="205">80</text><text x="500" y="205">100</text>
+    <text x="280" y="224">boiling point / °C</text>
+  </g>
+  <!-- propane -42 -> 109.5 ; ethanal 20 -> 280 ; ethanol 78 -> 439.5 -->
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3">
+    <path d="M109.5 150 V185"/><path d="M280 105 V185"/><path d="M439.5 60 V185"/>
+  </g>
+  <circle cx="109.5" cy="150" r="6" fill="var(--t1-ink)"/>
+  <circle cx="280" cy="105" r="6" fill="var(--t2-ink)"/>
+  <circle cx="439.5" cy="60" r="6" fill="var(--t3-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="120" y="146" fill="var(--t1-ink)">propane, −42 °C</text>
+    <text x="120" y="162" fill="currentColor">London only</text>
+    <text x="291" y="101" fill="var(--t2-ink)">ethanal, 20 °C</text>
+    <text x="291" y="117" fill="currentColor">London + dipole–dipole</text>
+    <text x="428" y="40" fill="var(--t3-ink)" text-anchor="end">ethanol, 78 °C</text>
+    <text x="428" y="56" fill="currentColor" text-anchor="end">London + dipole–dipole + hydrogen bonding</text>
+  </g>
+</svg>

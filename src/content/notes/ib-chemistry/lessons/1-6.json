@@ -1,0 +1,591 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.6",
+  "slug": "the-mole-and-molar-mass",
+  "title": "The mole and molar mass",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Atoms are far too small to count one by one, so chemists count them in [[mole|moles]]. One mole is about $6.02 \\times 10^{23}$ particles, the number set by the [[avogadro-constant|Avogadro constant]]. The [[molar-mass|molar mass]] turns that count into a mass you can weigh, through $n = \\frac{m}{M}$.",
+  "goals": [
+    {
+      "text": "Convert between an amount in moles and a number of atoms, molecules, [[ion|ions]] or electrons, using the Avogadro constant.",
+      "bullets": [
+        "S1.4.1"
+      ]
+    },
+    {
+      "text": "Explain what relative atomic mass and [[relative-formula-mass|relative formula mass]] compare, and why they have no units.",
+      "bullets": [
+        "S1.4.2"
+      ]
+    },
+    {
+      "text": "Calculate $M_\\text{r}$ for any formula, including ionic compounds and hydrates, from the data booklet's $A_\\text{r}$ values.",
+      "bullets": [
+        "S1.4.2"
+      ]
+    },
+    {
+      "text": "Solve problems linking mass, amount in moles and number of particles, using $n = \\frac{m}{M}$ with $M$ in $\\pu{g mol-1}$.",
+      "bullets": [
+        "S1.4.3",
+        "S1.4.1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "moles calculation",
+    "number of particles",
+    "Avogadro's number",
+    "relative molecular mass",
+    "n = m/M",
+    "grams to moles"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-element",
+      "prompt": "Which of these substances is an [[element|element]]?",
+      "hint": "An element contains atoms of only one kind, even if they are joined together.",
+      "options": [
+        {
+          "text": "oxygen gas",
+          "correct": true
+        },
+        {
+          "text": "water",
+          "correct": false
+        },
+        {
+          "text": "carbon dioxide",
+          "correct": false
+        },
+        {
+          "text": "sodium chloride",
+          "correct": false
+        }
+      ],
+      "explain": "Oxygen gas, $\\ce{O2}$, contains only oxygen atoms, joined in pairs. The other three each contain two elements bonded together, so they are [[compound|compounds]]. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "oxygen gas"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-chlorine-mean",
+      "prompt": "Chlorine has two [[isotope|isotopes]], chlorine-35 and chlorine-37. Why is its [[relative-atomic-mass|relative atomic mass]] not a whole number?",
+      "hint": "A sample of chlorine is a mixture of both isotopes.",
+      "options": [
+        {
+          "text": "It is a weighted mean of the isotope masses, based on their abundances.",
+          "correct": true
+        },
+        {
+          "text": "Chlorine atoms contain a fraction of a neutron.",
+          "correct": false
+        },
+        {
+          "text": "It is the simple average of the two mass numbers.",
+          "correct": false
+        },
+        {
+          "text": "Chlorine-37 is the more common isotope.",
+          "correct": false
+        }
+      ],
+      "explain": "Each isotope has a whole number of protons and [[neutron|neutrons]]. A natural sample holds about three chlorine-35 atoms for every chlorine-37 atom, so the weighted mean lies between 35 and 37, nearer 35. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is a weighted mean of the isotope masses, based on their abundances."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-count-atoms",
+      "prompt": "How many atoms are in one formula unit of magnesium hydroxide, $\\ce{Mg(OH)2}$?",
+      "hint": "The 2 after the bracket multiplies everything inside it.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "One magnesium, two oxygens and two hydrogens: $1 + 2 + 2 = 5$ atoms. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 + 2*(1 + 1)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "mole",
+      "heading": "Counting particles: the mole",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Atoms and molecules are tiny. One drop of water holds about $2 \\times 10^{21}$ molecules, far too many to count one at a time."
+        },
+        {
+          "type": "text",
+          "text": "So chemists count particles in fixed bundles, the way shops sell eggs by the dozen. The chemist's bundle is the mole, symbol $\\text{mol}$. It is huge, because particles are so small."
+        },
+        {
+          "type": "definition",
+          "term": "mole",
+          "statement": "The unit of amount of substance, $n$, in the SI system. A mole of any substance holds exactly $N_\\text{A}$ elementary entities, where $N_\\text{A}$ is the Avogadro constant.",
+          "plain": "A mole is a count, like a dozen, but of about 602 thousand billion billion particles."
+        },
+        {
+          "type": "text",
+          "text": "The data booklet (section 2) gives $N_\\text{A} = \\pu{6.02e23 mol-1}$. The unit $\\pu{mol-1}$ reads \"per mole\": there are $6.02 \\times 10^{23}$ particles in every mole."
+        },
+        {
+          "type": "text",
+          "text": "Amount of substance is a count of particles. It is not a mass and not a volume, even though you will often work it out from one."
+        },
+        {
+          "type": "text",
+          "text": "Always say what you are counting. The counted particle, the elementary entity, can be atoms, molecules, ions, electrons, or a fixed group such as one formula unit of $\\ce{NaCl}$."
+        },
+        {
+          "type": "formula",
+          "tex": "N = n \\times N_\\text{A}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $N$ is the number of particles and $n$ is the amount in moles. To go the other way, divide: $n = \\frac{N}{N_\\text{A}}$."
+        },
+        {
+          "type": "text",
+          "text": "One mole of molecules can hold several moles of atoms. One mole of $\\ce{H2O}$ holds $\\pu{2 mol}$ of hydrogen atoms and $\\pu{1 mol}$ of oxygen atoms. Multiply by how many of that particle one formula contains."
+        },
+        {
+          "type": "example",
+          "id": "ex-co2-molecules",
+          "question": "A balloon holds $\\pu{0.0450 mol}$ of carbon dioxide, $\\ce{CO2}$. Calculate the number of $\\ce{CO2}$ molecules, using section 2 of the data booklet.",
+          "steps": [
+            "The particle is the $\\ce{CO2}$ molecule, so use $N = n \\times N_\\text{A}$ directly.",
+            "$N = 0.0450 \\times 6.02 \\times 10^{23} = 2.709 \\times 10^{22}$.",
+            "Round to 3 significant figures, matching $0.0450$."
+          ],
+          "answer": "$N \\approx 2.71 \\times 10^{22}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.0450*NA",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-alum-sulfate-ions",
+          "question": "Calculate the total number of ions in $\\pu{0.0160 mol}$ of aluminium sulfate, $\\ce{Al2(SO4)3}$.",
+          "steps": [
+            "Count the ions in one formula unit: two $\\ce{Al^3+}$ and three $\\ce{SO4^2-}$, so five ions.",
+            "Amount of ions: $n = 5 \\times 0.0160 = \\pu{0.0800 mol}$.",
+            "$N = 0.0800 \\times 6.02 \\times 10^{23} = 4.816 \\times 10^{22}$, which rounds to 3 significant figures.",
+            "Sense check: five ions per unit, so the answer is five times the number of formula units."
+          ],
+          "answer": "$N \\approx 4.82 \\times 10^{22}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "5*0.0160*NA",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the amount of the compound when the question asks about one kind of particle. One mole of $\\ce{Al2(SO4)3}$ holds $\\pu{2 mol}$ of $\\ce{Al^3+}$ and $\\pu{5 mol}$ of ions in total."
+        },
+        {
+          "type": "check",
+          "id": "check-neon-moles",
+          "prompt": "A sample of neon contains $1.505 \\times 10^{24}$ atoms. What amount of neon is this, in mol? Give 3 significant figures.",
+          "hint": "Going from particles to moles, divide by $N_\\text{A}$.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0.005
+          },
+          "explain": "$n = \\frac{N}{N_\\text{A}} = \\frac{1.505 \\times 10^{24}}{6.02 \\times 10^{23}} = \\pu{2.50 mol}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.505*10**24/NA",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-so3-oxygen",
+          "prompt": "How many oxygen atoms are in $\\pu{0.500 mol}$ of sulfur trioxide, $\\ce{SO3}$?",
+          "hint": "First find the amount of oxygen atoms, then multiply by $N_\\text{A}$.",
+          "options": [
+            {
+              "text": "$9.03 \\times 10^{23}$",
+              "correct": true
+            },
+            {
+              "text": "$3.01 \\times 10^{23}$",
+              "correct": false
+            },
+            {
+              "text": "$1.20 \\times 10^{24}$",
+              "correct": false
+            },
+            {
+              "text": "$1.50$",
+              "correct": false
+            }
+          ],
+          "explain": "Each $\\ce{SO3}$ has three oxygen atoms, so there are $3 \\times 0.500 = \\pu{1.50 mol}$ of them. $1.50 \\times 6.02 \\times 10^{23} = 9.03 \\times 10^{23}$. The other options forget the 3, count all four atoms, or stop at moles.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3*0.500*NA"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relative-mass",
+      "heading": "Relative atomic and formula masses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One carbon-12 atom has a mass of about $\\pu{2e-23 g}$. Numbers that small are awkward, so chemists compare the masses of atoms with each other instead."
+        },
+        {
+          "type": "text",
+          "text": "The standard is the carbon-12 atom, $\\ce{^{12}C}$, given a mass of exactly 12 on this scale. One-twelfth of its mass is the unit every other atom is measured against."
+        },
+        {
+          "type": "text",
+          "text": "Relative atomic mass, $A_\\text{r}$, is the weighted mean mass of an element's atoms on that scale. Use the values in section 7 of the data booklet, to two decimal places: $\\ce{H}$ $1.01$, $\\ce{C}$ $12.01$, $\\ce{O}$ $16.00$."
+        },
+        {
+          "type": "text",
+          "text": "Carbon's $A_\\text{r}$ is $12.01$, not 12, because natural carbon contains a little carbon-13."
+        },
+        {
+          "type": "definition",
+          "term": "relative formula mass",
+          "statement": "$M_\\text{r}$: the sum of the relative atomic masses of all the atoms in a formula, on the scale where one carbon-12 atom has a mass of exactly 12.",
+          "plain": "How heavy one formula unit is compared with one-twelfth of a carbon-12 atom."
+        },
+        {
+          "type": "result",
+          "statement": "$A_\\text{r}$ and $M_\\text{r}$ have no units.",
+          "why": "Each is a mass divided by a mass (one-twelfth of a carbon-12 atom), so the units cancel."
+        },
+        {
+          "type": "text",
+          "text": "$M_\\text{r}$ works for every formula. That includes ionic compounds such as $\\ce{NaCl}$, which are lattices of ions, not molecules. For them, the formula describes one formula unit."
+        },
+        {
+          "type": "text",
+          "text": "To find $M_\\text{r}$, count the atoms of each element, multiply each count by its $A_\\text{r}$, then add. A bracket multiplies everything inside it. In a hydrate, the dot means \"plus\": add the water molecules too."
+        },
+        {
+          "type": "text",
+          "text": "Atoms get heavier down the periodic table. Down a group, each atom has more protons and neutrons than the one above, so $A_\\text{r}$ rises."
+        },
+        {
+          "type": "example",
+          "id": "ex-mr-copper-nitrate",
+          "question": "Determine the relative formula mass of copper(II) nitrate, $\\ce{Cu(NO3)2}$, using section 7 of the data booklet.",
+          "steps": [
+            "Count the atoms. The bracket doubles $\\ce{NO3}$: one $\\ce{Cu}$, two $\\ce{N}$ and six $\\ce{O}$.",
+            "Look up $A_\\text{r}$: $\\ce{Cu}$ $63.55$, $\\ce{N}$ $14.01$, $\\ce{O}$ $16.00$.",
+            "$M_\\text{r} = 63.55 + 2(14.01) + 6(16.00) = 187.57$.",
+            "Give it with no units: it is a relative mass."
+          ],
+          "answer": "$M_\\text{r} = 187.57$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Mr('Cu(NO3)2')"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-no-units",
+          "question": "The relative atomic mass of magnesium is $24.31$. Explain why this value has no units.",
+          "steps": [
+            "Marking point 1: say what the value is compared with, one-twelfth of the mass of a carbon-12 atom.",
+            "Marking point 2: a mass divided by a mass is a ratio, so the units cancel.",
+            "Interpret the number in words to show you understand the scale."
+          ],
+          "answer": "Relative atomic mass compares the mean mass of an atom with one-twelfth of the mass of a carbon-12 atom. It is a ratio of two masses. The units cancel, so the value has no units. A magnesium atom is on average $24.31$ times heavier than one-twelfth of a carbon-12 atom.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a ratio of the atom's mass to one-twelfth of a carbon-12 atom, so the units cancel",
+            "requires": [
+              [
+                "one-twelfth",
+                "1/12"
+              ],
+              "carbon-12",
+              "ratio",
+              "cancel"
+            ],
+            "forbids": [
+              "measured in grams",
+              "grams per mole"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing units on $A_\\text{r}$ or $M_\\text{r}$, such as \"$M_\\text{r} = \\pu{44.01 g}$\". Relative masses are plain numbers."
+        },
+        {
+          "type": "check",
+          "id": "check-hydrate-mr",
+          "prompt": "What is the relative formula mass of iron(II) sulfate heptahydrate, $\\ce{FeSO4.7H2O}$?",
+          "hint": "Work out $\\ce{FeSO4}$ and $\\ce{H2O}$ separately, then add seven waters.",
+          "options": [
+            {
+              "text": "$278.06$",
+              "correct": true
+            },
+            {
+              "text": "$169.94$",
+              "correct": false
+            },
+            {
+              "text": "$151.92$",
+              "correct": false
+            },
+            {
+              "text": "$1189.58$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{FeSO4}$: $55.85 + 32.07 + 4(16.00) = 151.92$. Seven waters: $7 \\times 18.02 = 126.14$. Total $278.06$. $169.94$ adds only one water, $151.92$ leaves the water out, and $1189.58$ multiplies the whole formula by 7.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Mr('FeSO4·7H2O')"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mr-statement",
+          "prompt": "Which statement about carbon dioxide, $\\ce{CO2}$, is correct?",
+          "hint": "Count both oxygen atoms, and think about whether a relative mass has units.",
+          "options": [
+            {
+              "text": "Its relative formula mass is 44.01, with no units.",
+              "correct": true
+            },
+            {
+              "text": "Its relative formula mass is 44.01 g.",
+              "correct": false
+            },
+            {
+              "text": "Its relative formula mass is 44.01 g mol⁻¹.",
+              "correct": false
+            },
+            {
+              "text": "Its relative formula mass is 28.01, with no units.",
+              "correct": false
+            }
+          ],
+          "explain": "$M_\\text{r} = 12.01 + 2(16.00) = 44.01$, and relative masses have no units. The unit $\\pu{g mol-1}$ belongs to the molar mass, $M$. $28.01$ counts only one oxygen atom.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its relative formula mass is 44.01, with no units."
+          }
+        }
+      ]
+    },
+    {
+      "id": "molar-mass",
+      "heading": "Molar mass and $n = \\frac{m}{M}$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The size of the mole was chosen so the two scales line up. One mole of carbon-12 atoms has a mass of 12 g, correct to better than one part in a billion."
+        },
+        {
+          "type": "text",
+          "text": "So one mole of any substance has a mass in grams equal to its $M_\\text{r}$. One mole of water molecules is $\\pu{18.02 g}$, a little more than a tablespoon."
+        },
+        {
+          "type": "definition",
+          "term": "molar mass",
+          "statement": "$M$: the mass of one mole of a substance, in $\\pu{g mol-1}$. It has the same value as $M_\\text{r}$, or $A_\\text{r}$ for atoms.",
+          "plain": "How many grams one mole weighs."
+        },
+        {
+          "type": "text",
+          "text": "So $M_\\text{r}(\\ce{H2O}) = 18.02$ with no units, but $M(\\ce{H2O}) = \\pu{18.02 g mol-1}$. Same number, different quantity: always give $M$ its units."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{m}{M}",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-mass"
+        },
+        {
+          "type": "text",
+          "text": "This is in section 1 of the data booklet. Use $m$ in grams, $M$ in $\\pu{g mol-1}$, and you get $n$ in mol. Rearranged, $m = nM$ and $M = \\frac{m}{n}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-mass-moles-particles",
+          "alt": "Three boxes in a row. Left: mass, m, in grams. Middle: amount, n, in moles. Right: number of particles, N. An arrow from mass to amount is labelled divide by M; an arrow back from amount to mass is labelled multiply by M. An arrow from amount to particles is labelled multiply by N A; an arrow back from particles to amount is labelled divide by N A.",
+          "caption": "Every route between mass and particles goes through moles."
+        },
+        {
+          "type": "example",
+          "id": "ex-urea-moles",
+          "question": "Calculate the amount, in mol, of urea, $\\ce{CO(NH2)2}$, in $\\pu{4.50 g}$ of the solid.",
+          "steps": [
+            "Molar mass, from the $A_\\text{r}$ values in section 7: one C, one O, two N and four H. $M = 12.01 + 16.00 + 2(14.01) + 4(1.01) = \\pu{60.07 g mol-1}$.",
+            "Substitute into $n = \\frac{m}{M}$: $n = \\frac{4.50}{60.07} = 0.074912\\ldots$",
+            "Round to 3 significant figures, matching $\\pu{4.50 g}$, and give the unit."
+          ],
+          "answer": "$n \\approx \\pu{0.0749 mol}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.50/Mr('CO(NH2)2')",
+            "sf": 3,
+            "unit": "mol"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-aspirin-molecules",
+          "question": "A tablet contains $\\pu{0.325 g}$ of aspirin, $\\ce{C9H8O4}$. Determine the number of aspirin molecules in the tablet.",
+          "steps": [
+            "Molar mass: $M = 9(12.01) + 8(1.01) + 4(16.00) = \\pu{180.17 g mol-1}$.",
+            "Amount: $n = \\frac{0.325}{180.17} = \\pu{1.8039e-3 mol}$. Keep this value in your calculator.",
+            "Molecules: $N = n \\times N_\\text{A} = 1.8039 \\times 10^{-3} \\times 6.02 \\times 10^{23} = 1.0859 \\times 10^{21}$.",
+            "Round only now, to 3 significant figures."
+          ],
+          "answer": "$N \\approx 1.09 \\times 10^{21}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.325/Mr('C9H8O4')*NA",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a multi-step calculation, carry the unrounded value forward and round only the final answer. Rounding $n$ early can change the last figure and cost the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-sodium-carbonate-mass",
+          "prompt": "What is the mass, in g, of $\\pu{0.0400 mol}$ of sodium carbonate, $\\ce{Na2CO3}$? Give 3 significant figures.",
+          "hint": "Rearrange $n = \\frac{m}{M}$ to $m = nM$.",
+          "answer": {
+            "value": 4.24,
+            "tolerance": 0.005
+          },
+          "explain": "$M = 2(22.99) + 12.01 + 3(16.00) = \\pu{105.99 g mol-1}$. $m = 0.0400 \\times 105.99 = \\pu{4.24 g}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0400*Mr('Na2CO3')",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gold-atom-mass",
+          "prompt": "What is the mass of one gold atom? Use $A_\\text{r}(\\ce{Au}) = 196.97$ from the data booklet.",
+          "hint": "One mole of gold atoms has a mass of $\\pu{196.97 g}$. Share that between $N_\\text{A}$ atoms.",
+          "options": [
+            {
+              "text": "$\\approx \\pu{3.27e-22 g}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx \\pu{1.19e26 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{3.06e21 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{1.97e2 g}$",
+              "correct": false
+            }
+          ],
+          "explain": "Mass of one atom $= \\frac{M}{N_\\text{A}} = \\frac{196.97}{6.02 \\times 10^{23}} \\approx \\pu{3.27e-22 g}$. Multiplying instead gives the huge value, $\\frac{N_\\text{A}}{M}$ gives the third, and $\\pu{197 g}$ is the mass of a whole mole.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Ar('Au')/NA",
+            "sf": 3,
+            "unit": "g"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Amount of substance, $n$, is counted in moles. A mole of anything holds $N_\\text{A}$ elementary entities, about $6.02 \\times 10^{23}$: always say which entity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "N = n \\times N_\\text{A}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$A_\\text{r}$ and $M_\\text{r}$ compare masses with one-twelfth of a carbon-12 atom, so they have no units. $M_\\text{r}$ is the sum of the $A_\\text{r}$ values in the formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Molar mass $M$ has the same number as $M_\\text{r}$, in $\\pu{g mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{m}{M}",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-mass",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving $A_\\text{r}$ or $M_\\text{r}$ a unit. They are ratios with no units; only the molar mass $M$ has $\\pu{g mol-1}$.",
+    "Forgetting how many of a particle one formula holds: $\\pu{1 mol}$ of $\\ce{CaCl2}$ contains $\\pu{2 mol}$ of $\\ce{Cl^-}$ ions and $\\pu{3 mol}$ of ions in all.",
+    "Using a mass number, such as 35 for chlorine, instead of the data booklet's $A_\\text{r}$ of $35.45$.",
+    "Applying a bracket's number to only the last atom: $\\ce{Mg(OH)2}$ has two oxygen and two hydrogen atoms.",
+    "Dividing the wrong way round. Check the units: $\\pu{g} \\div \\pu{g mol-1}$ gives $\\pu{mol}$, so $n = \\frac{m}{M}$."
+  ],
+  "examTips": [
+    "\"Calculate\" on Paper 2: write $n = \\frac{m}{M}$ with the numbers substituted, then the answer to 3 significant figures with its unit. A correct final answer usually earns full marks, but the working rescues marks after a slip.",
+    "Use the data booklet's $A_\\text{r}$ values to two decimal places (section 7). Rounded values such as $35.5$ for chlorine can change the final figure.",
+    "In Paper 1A, count the particles per formula unit before you look at the options. The wrong options are usually built from skipping that step.",
+    "\"State\" the units of molar mass as $\\pu{g mol-1}$, and write $A_\\text{r}$ and $M_\\text{r}$ as plain numbers."
+  ],
+  "readingMinutes": 19
+}

@@ -2,25 +2,25 @@
   {
     "id": "ideal-gas",
     "term": "ideal gas",
-    "definition": "TODO: Negligible particle volume, no intermolecular forces, elastic collisions.",
+    "definition": "A model gas whose particles move randomly, have negligible volume, have no intermolecular forces between them and collide elastically.",
     "lesson": "1.9"
   },
   {
     "id": "molar-volume",
     "term": "molar volume",
-    "definition": "TODO: Volume per mole of an ideal gas at a given T and P; value at STP in the data booklet.",
+    "definition": "The volume one mole of an ideal gas occupies at a stated temperature and pressure; at STP it is $\\pu{22.7 dm3 mol-1}$ (data booklet).",
     "lesson": "1.9"
   },
   {
     "id": "standard-temperature-and-pressure",
     "term": "standard temperature and pressure",
-    "definition": "TODO: STP as defined in the data booklet; do not confuse with standard conditions in thermochemistry.",
+    "definition": "STP: $\\pu{273.15 K}$ and $\\pu{100 kPa}$, the conditions for the data-booklet molar volume; not the $\\pu{298.15 K}$ standard state used for thermochemical data.",
     "lesson": "1.9"
   },
   {
     "id": "gas-constant",
     "term": "gas constant",
-    "definition": "TODO: R = 8.31 J K^-1 mol^-1; given in the data booklet.",
+    "definition": "The constant $R$ in the ideal gas equation $PV = nRT$, equal to $\\pu{8.31 J K-1 mol-1}$ (data booklet).",
     "lesson": "1.9"
   }
 ]

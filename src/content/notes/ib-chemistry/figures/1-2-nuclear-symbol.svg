@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 490 200" role="img" aria-labelledby="t">
+  <title id="t">The nuclear symbol of a sodium ion. The symbol Na is in the centre. The mass number 23 is written top left, labelled mass number A equals protons plus neutrons. The atomic number 11 is written bottom left, labelled atomic number Z equals protons. The charge 1 plus is written top right, labelled charge, here one electron lost. Below, the counts are 11 protons, 23 minus 11 equals 12 neutrons, and 11 minus 1 equals 10 electrons.</title>
+  <g font-family="inherit" fill="currentColor">
+    <text x="196" y="78" font-size="22" text-anchor="end">23</text>
+    <text x="196" y="122" font-size="22" text-anchor="end">11</text>
+    <text x="200" y="115" font-size="52">Na</text>
+    <text x="270" y="78" font-size="22">+</text>
+  </g>
+  <g stroke-width="1.4" fill="none">
+    <path d="M170 70 L110 40" stroke="var(--t1-ink)"/>
+    <path d="M170 118 L110 150" stroke="var(--t2-ink)"/>
+    <path d="M284 70 L330 40" stroke="var(--t3-ink)"/>
+  </g>
+  <g font-size="13" font-family="inherit">
+    <text x="104" y="32" text-anchor="end" fill="var(--t1-ink)">mass number A</text>
+    <text x="104" y="48" text-anchor="end" fill="var(--t1-ink)">= protons + neutrons</text>
+    <text x="104" y="156" text-anchor="end" fill="var(--t2-ink)">atomic number Z</text>
+    <text x="104" y="172" text-anchor="end" fill="var(--t2-ink)">= protons</text>
+    <text x="336" y="32" fill="var(--t3-ink)">charge</text>
+    <text x="336" y="48" fill="var(--t3-ink)">(1 electron lost)</text>
+  </g>
+  <g font-size="13" font-family="inherit" fill="currentColor">
+    <text x="250" y="160">protons = 11</text>
+    <text x="250" y="176">neutrons = 23 − 11 = 12</text>
+    <text x="250" y="192">electrons = 11 − 1 = 10</text>
+  </g>
+</svg>

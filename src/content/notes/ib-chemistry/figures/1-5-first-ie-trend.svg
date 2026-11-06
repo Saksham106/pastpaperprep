@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 310" role="img" aria-labelledby="t">
+<title id="t">Line graph of first ionization energy against atomic number from hydrogen to calcium, with peaks at the noble gases, troughs at the group 1 metals, and small dips at boron, oxygen, aluminium and sulfur</title>
+<line x1="60" y1="255" x2="460" y2="255" stroke="currentColor" stroke-width="1.2"/>
+<line x1="60" y1="255" x2="60" y2="30" stroke="currentColor" stroke-width="1.2"/>
+<line x1="56" y1="255.0" x2="60" y2="255.0" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="259.0" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">0</text>
+<line x1="56" y1="212.5" x2="60" y2="212.5" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="216.5" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">500</text>
+<line x1="56" y1="170.0" x2="60" y2="170.0" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="174.0" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">1000</text>
+<line x1="56" y1="127.5" x2="60" y2="127.5" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="131.5" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">1500</text>
+<line x1="56" y1="85.0" x2="60" y2="85.0" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="89.0" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">2000</text>
+<line x1="56" y1="42.5" x2="60" y2="42.5" stroke="currentColor" stroke-width="1"/>
+<text x="52" y="46.5" font-size="11" text-anchor="end" fill="currentColor" font-family="inherit">2500</text>
+<text x="16" y="142" font-size="12" text-anchor="middle" transform="rotate(-90 16 142)" fill="currentColor" font-family="inherit">first IE / kJ mol⁻¹</text>
+<text x="260" y="300" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">atomic number (1 to 20)</text>
+<polyline points="70,143.5 90,53.4 110,210.8 130,178.5 150,186.9 170,162.7 190,135.8 210,143.3 230,112.1 250,78.1 270,212.8 290,192.3 310,205.9 330,188.1 350,169.0 370,170.0 390,148.7 410,125.8 430,219.4 450,204.8" fill="none" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<circle cx="70" cy="143.5" r="3.2" fill="var(--t2-ink)"/>
+<text x="70" y="135.5" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">H</text>
+<circle cx="90" cy="53.4" r="3.2" fill="var(--t2-ink)"/>
+<text x="90" y="45.4" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">He</text>
+<circle cx="110" cy="210.8" r="3.2" fill="var(--t2-ink)"/>
+<text x="110" y="226.8" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Li</text>
+<circle cx="130" cy="178.5" r="3.2" fill="var(--t2-ink)"/>
+<text x="130" y="194.5" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Be</text>
+<circle cx="150" cy="186.9" r="3.2" fill="var(--t1-ink)"/>
+<text x="150" y="202.9" font-size="11" text-anchor="middle" fill="var(--t1-ink)" font-family="inherit">B</text>
+<circle cx="170" cy="162.7" r="3.2" fill="var(--t2-ink)"/>
+<text x="170" y="154.7" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">C</text>
+<circle cx="190" cy="135.8" r="3.2" fill="var(--t2-ink)"/>
+<text x="190" y="127.8" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">N</text>
+<circle cx="210" cy="143.3" r="3.2" fill="var(--t1-ink)"/>
+<text x="210" y="159.3" font-size="11" text-anchor="middle" fill="var(--t1-ink)" font-family="inherit">O</text>
+<circle cx="230" cy="112.1" r="3.2" fill="var(--t2-ink)"/>
+<text x="230" y="104.1" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">F</text>
+<circle cx="250" cy="78.1" r="3.2" fill="var(--t2-ink)"/>
+<text x="250" y="70.1" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Ne</text>
+<circle cx="270" cy="212.8" r="3.2" fill="var(--t2-ink)"/>
+<text x="270" y="228.8" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Na</text>
+<circle cx="290" cy="192.3" r="3.2" fill="var(--t2-ink)"/>
+<text x="290" y="208.3" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Mg</text>
+<circle cx="310" cy="205.9" r="3.2" fill="var(--t1-ink)"/>
+<text x="310" y="221.9" font-size="11" text-anchor="middle" fill="var(--t1-ink)" font-family="inherit">Al</text>
+<circle cx="330" cy="188.1" r="3.2" fill="var(--t2-ink)"/>
+<text x="330" y="180.1" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Si</text>
+<circle cx="350" cy="169.0" r="3.2" fill="var(--t2-ink)"/>
+<text x="350" y="161.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">P</text>
+<circle cx="370" cy="170.0" r="3.2" fill="var(--t1-ink)"/>
+<text x="370" y="186.0" font-size="11" text-anchor="middle" fill="var(--t1-ink)" font-family="inherit">S</text>
+<circle cx="390" cy="148.7" r="3.2" fill="var(--t2-ink)"/>
+<text x="390" y="140.7" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Cl</text>
+<circle cx="410" cy="125.8" r="3.2" fill="var(--t2-ink)"/>
+<text x="410" y="117.8" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Ar</text>
+<circle cx="430" cy="219.4" r="3.2" fill="var(--t2-ink)"/>
+<text x="430" y="235.4" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">K</text>
+<circle cx="450" cy="204.8" r="3.2" fill="var(--t2-ink)"/>
+<text x="450" y="220.8" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">Ca</text>
+</svg>

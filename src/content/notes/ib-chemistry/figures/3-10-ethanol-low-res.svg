@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 280" role="img" aria-labelledby="t">
+  <title id="t">Sketch of the low-resolution proton NMR spectrum of ethanol. The chemical shift axis runs from 5 ppm on the left to 0 ppm on the right. There are three peaks: a CH2 peak at 3.7 ppm, an OH peak at 2.6 ppm and a CH3 peak at 1.2 ppm, plus a small TMS reference peak at 0 ppm. Above the peaks, an integration trace climbs in three steps whose heights are in the ratio 2 to 1 to 3.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M60 220 H520"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <path d="M75 220 v6 M160 220 v6 M245 220 v6 M330 220 v6 M415 220 v6 M500 220 v6"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="75" y="240">5</text>
+    <text x="160" y="240">4</text>
+    <text x="245" y="240">3</text>
+    <text x="330" y="240">2</text>
+    <text x="415" y="240">1</text>
+    <text x="500" y="240">0</text>
+    <text x="288" y="268">chemical shift, δ / ppm</text>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="1.8" fill="var(--t1-ink)" fill-opacity="0.25">
+    <path d="M181 220 L185.5 140 L190 220 Z"/>
+    <path d="M274.5 220 L279 180 L283.5 220 Z"/>
+    <path d="M393.5 220 L398 100 L402.5 220 Z"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.8" fill="var(--muted)" fill-opacity="0.25">
+    <path d="M496 220 L500 175 L504 220 Z"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t1-ink)" text-anchor="middle">
+    <text x="185.5" y="132">CH₂</text>
+    <text x="279" y="172">OH</text>
+    <text x="398" y="92">CH₃</text>
+  </g>
+  <text x="500" y="168" font-size="12" font-family="inherit" fill="var(--muted)" text-anchor="middle">TMS</text>
+  <path d="M75 92 H180 L191 68 H273 L285 56 H392 L404 20 H470" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <g font-size="12" font-family="inherit" fill="var(--t2-ink)">
+    <text x="78" y="84">integration trace</text>
+    <text x="197" y="84">2</text>
+    <text x="291" y="66">1</text>
+    <text x="410" y="44">3</text>
+  </g>
+</svg>

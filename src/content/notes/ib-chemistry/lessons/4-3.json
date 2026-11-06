@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.3",
+  "slug": "enthalpies-of-formation-and-combustion",
+  "title": "Enthalpies of formation and combustion",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "The [[standard-enthalpy-change-of-formation|standard enthalpy change of formation]] of a substance is the [[enthalpy-change|enthalpy change]] when one mole of it forms from its elements. With a table of these values, or of [[standard-enthalpy-change-of-combustion|standard enthalpy changes of combustion]], [[hesss-law|Hess's law]] gives $\\Delta H^\\ominus$ for almost any reaction in one line, using two equations from the data booklet.",
+  "goals": [
+    {
+      "text": "Deduce the equation for the standard enthalpy change of formation or combustion of a substance, with state symbols.",
+      "bullets": [
+        "R1.2.3"
+      ]
+    },
+    {
+      "text": "Explain why an element in its standard state has $\\Delta H_\\text{f}^\\ominus = 0$, and why [[allotrope|allotropes]] such as graphite and diamond have different values.",
+      "bullets": [
+        "R1.2.3"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta H^\\ominus$ for a reaction from $\\Delta H_\\text{f}^\\ominus$ data, and work back to an unknown $\\Delta H_\\text{f}^\\ominus$.",
+      "bullets": [
+        "R1.2.3",
+        "R1.2.4"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta H^\\ominus$ for a reaction from $\\Delta H_\\text{c}^\\ominus$ data.",
+      "bullets": [
+        "R1.2.3",
+        "R1.2.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "4.1",
+    "4.2",
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "enthalpy of formation calculation",
+    "enthalpy of combustion Hess cycle",
+    "products minus reactants",
+    "delta Hf",
+    "formation equation",
+    "standard enthalpy of formation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hess-route",
+      "prompt": "Reaction 1 turns A into B with $\\Delta H = \\pu{-120 kJ mol-1}$. Reaction 2 turns B into C with $\\Delta H = \\pu{+35 kJ mol-1}$. What is $\\Delta H$, in $\\pu{kJ mol-1}$, for turning A straight into C? Include the sign.",
+      "hint": "The route through B starts at A and ends at C, so add the two steps.",
+      "answer": {
+        "value": -85,
+        "tolerance": 0
+      },
+      "explain": "By Hess's law the direct route and the route through B have the same total: $-120 + 35 = \\pu{-85 kJ mol-1}$. Revise it in {{lesson:4.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-120 + 35",
+        "dp": 0,
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-allotrope",
+      "prompt": "Which pair are allotropes?",
+      "hint": "Allotropes are forms of the same element in the same state, with the atoms bonded differently.",
+      "options": [
+        {
+          "text": "diamond and graphite",
+          "correct": true
+        },
+        {
+          "text": "carbon-12 and carbon-14",
+          "correct": false
+        },
+        {
+          "text": "carbon monoxide and carbon dioxide",
+          "correct": false
+        },
+        {
+          "text": "ice and liquid water",
+          "correct": false
+        }
+      ],
+      "explain": "Diamond and graphite are both pure carbon, bonded in different structures. Carbon-12 and carbon-14 are isotopes, the oxides are two different compounds, and ice and water are two states of one compound. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "diamond and graphite"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-complete-combustion",
+      "prompt": "What forms when propan-1-ol burns completely in plenty of oxygen?",
+      "hint": "Complete combustion takes every carbon atom as far as it can go.",
+      "options": [
+        {
+          "text": "carbon dioxide and water",
+          "correct": true
+        },
+        {
+          "text": "carbon monoxide and water",
+          "correct": false
+        },
+        {
+          "text": "carbon dioxide and hydrogen",
+          "correct": false
+        }
+      ],
+      "explain": "In complete combustion, carbon ends up as carbon dioxide and hydrogen as water. Carbon monoxide only forms when oxygen runs short. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "carbon dioxide and water"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "definitions",
+      "heading": "Formation and combustion values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No data table can list $\\Delta H$ for every reaction. Instead, it lists one value per substance, measured from a fixed starting point. [[hesss-law|Hess's law]] then turns those values into $\\Delta H^\\ominus$ for any reaction you like."
+        },
+        {
+          "type": "text",
+          "text": "The $\\ominus$ sign means standard conditions, $\\pu{100 kPa}$ and usually $\\pu{298 K}$, with every substance in its standard state: its pure, most stable form under those conditions. Like any [[standard-enthalpy-change-of-reaction|standard enthalpy change of reaction]], the values are in $\\pu{kJ mol-1}$ ({{lesson:4.1}})."
+        },
+        {
+          "type": "definition",
+          "term": "standard enthalpy change of formation",
+          "statement": "The enthalpy change when one mole of a substance is formed from its elements in their standard states, under standard conditions. Symbol: $\\Delta H_\\text{f}^\\ominus$.",
+          "plain": "The energy taken in or given out when you build one mole of a compound from its elements."
+        },
+        {
+          "type": "text",
+          "text": "The fixed starting point is the elements, each in its standard state. For oxygen that is $\\ce{O2(g)}$, for bromine $\\ce{Br2(l)}$, and for carbon, graphite, $\\ce{C(s)}$."
+        },
+        {
+          "type": "result",
+          "statement": "An element in its standard state has $\\Delta H_\\text{f}^\\ominus = 0$.",
+          "why": "Forming an element from itself, in the same form, is no change at all, so there is no [[enthalpy-change|enthalpy change]]."
+        },
+        {
+          "type": "text",
+          "text": "Only the standard-state form gets zero. Carbon has two common [[allotrope|allotropes]], and graphite is the more stable at $\\pu{298 K}$, so it is the reference. Diamond sits slightly higher in energy, so its $\\Delta H_\\text{f}^\\ominus$ is small and positive. Ozone, $\\ce{O3(g)}$, is not zero either."
+        },
+        {
+          "type": "text",
+          "text": "A formation equation makes exactly one mole of the substance, from elements in their standard states, with state symbols on every species. Fractions on the left are fine."
+        },
+        {
+          "type": "text",
+          "text": "The [[standard-enthalpy-change-of-combustion|standard enthalpy change of combustion]], $\\Delta H_\\text{c}^\\ominus$, is the same idea for burning. One mole of the substance burns completely in oxygen under standard conditions. Carbon ends up as $\\ce{CO2(g)}$ and hydrogen as $\\ce{H2O(l)}$, since water is a liquid at $\\pu{298 K}$."
+        },
+        {
+          "type": "text",
+          "text": "Values of $\\Delta H_\\text{f}^\\ominus$ are in section 13 of the data booklet, and values of $\\Delta H_\\text{c}^\\ominus$ in section 14."
+        },
+        {
+          "type": "example",
+          "id": "ex-formation-propanone",
+          "question": "Deduce the equation that represents the standard enthalpy change of formation of propanone, $\\ce{CH3COCH3(l)}$.",
+          "steps": [
+            "Propanone contains 3 C, 6 H and 1 O atom, so its elements are carbon, hydrogen and oxygen.",
+            "Their standard states at $\\pu{298 K}$: graphite, $\\ce{C(s)}$, and the gases $\\ce{H2(g)}$ and $\\ce{O2(g)}$.",
+            "Make exactly one mole of propanone: $\\ce{3C}$, $\\ce{3H2}$ for six H atoms, and $\\ce{1/2O2}$ for one O atom.",
+            "Put a state symbol on every species, including $\\text{(l)}$ on propanone."
+          ],
+          "answer": "$\\ce{3C(s) + 3H2(g) + 1/2O2(g) -> CH3COCH3(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C(s) + H2(g) + O2(g) -> CH3COCH3(l)",
+            "states": true,
+            "fractions": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-bromine",
+          "question": "Explain why $\\Delta H_\\text{f}^\\ominus$ is zero for $\\ce{Br2(l)}$ but positive for $\\ce{Br2(g)}$.",
+          "steps": [
+            "Marking point 1: liquid bromine is the standard state of bromine at $\\pu{298 K}$ and $\\pu{100 kPa}$.",
+            "Marking point 2: forming an element in its standard state from itself is no change, so the value is zero.",
+            "Marking point 3: $\\ce{Br2(g)}$ is not the standard state; making it from the liquid means overcoming the forces between molecules, which absorbs energy."
+          ],
+          "answer": "Liquid bromine is the standard state of bromine at $\\pu{298 K}$ and $\\pu{100 kPa}$. Forming an element in its standard state from itself is no change, so its standard enthalpy change of formation is zero by definition. Gaseous bromine is not the standard state. Making it from the liquid means overcoming the London forces between the bromine molecules, which absorbs energy. So the value for gaseous bromine is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Br2(l) is the standard state so zero; Br2(g) needs London forces overcome, endothermic, positive",
+            "requires": [
+              "standard state",
+              [
+                "no change",
+                "from itself"
+              ],
+              "zero",
+              "not the standard state",
+              [
+                "London forces",
+                "intermolecular forces",
+                "forces between the bromine molecules"
+              ],
+              [
+                "absorbs energy",
+                "endothermic"
+              ],
+              "positive"
+            ],
+            "forbids": [
+              "covalent bond",
+              "Br–Br bond breaks"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\ce{2H2(g) + O2(g) -> 2H2O(l)}$ for the formation of water. That makes two moles. The formation equation makes one: $\\ce{H2(g) + 1/2O2(g) -> H2O(l)}$."
+        },
+        {
+          "type": "check",
+          "id": "check-zero-formation",
+          "prompt": "Which of these has $\\Delta H_\\text{f}^\\ominus = 0$?",
+          "hint": "Look for an element in the form it takes at $\\pu{298 K}$ and $\\pu{100 kPa}$.",
+          "options": [
+            {
+              "text": "liquid mercury",
+              "correct": true
+            },
+            {
+              "text": "mercury vapour",
+              "correct": false
+            },
+            {
+              "text": "liquid water",
+              "correct": false
+            },
+            {
+              "text": "ozone gas",
+              "correct": false
+            }
+          ],
+          "explain": "Mercury is a liquid at $\\pu{298 K}$, so $\\ce{Hg(l)}$ is its standard state. Mercury vapour is not the standard state, water is a compound, and ozone is not oxygen's standard state, $\\ce{O2(g)}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "liquid mercury"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combustion-ethanal",
+          "prompt": "Which equation represents the standard enthalpy change of combustion of ethanal, $\\ce{CH3CHO(g)}$?",
+          "hint": "One mole of ethanal, complete combustion, and the state of water at $\\pu{298 K}$.",
+          "options": [
+            {
+              "text": "$\\ce{CH3CHO(g) + 5/2O2(g) -> 2CO2(g) + 2H2O(l)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{2CH3CHO(g) + 5O2(g) -> 4CO2(g) + 4H2O(l)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CHO(g) + 5/2O2(g) -> 2CO2(g) + 2H2O(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CHO(g) + 3/2O2(g) -> 2CO(g) + 2H2O(l)}$",
+              "correct": false
+            }
+          ],
+          "explain": "The equation burns exactly one mole of ethanal completely, to $\\ce{CO2}$ and liquid water. The second burns two moles, the third makes steam, and the fourth is incomplete combustion.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3CHO(g) + O2(g) -> CO2(g) + H2O(l)",
+            "states": true,
+            "fractions": true,
+            "per": "CH3CHO",
+            "reversible": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "formation-data",
+      "heading": "$\\Delta H^\\ominus$ from formation data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The reactants and products of a reaction are made of the same elements. So picture a route that goes down from the reactants to their elements, then up to the products."
+        },
+        {
+          "type": "text",
+          "text": "Going down undoes the formation of the reactants: $-\\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants})$. Going up forms the products: $+\\sum \\Delta H_\\text{f}^\\ominus(\\text{products})$. By [[hesss-law|Hess's law]], the direct route has the same total."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H^\\ominus = \\sum \\Delta H_\\text{f}^\\ominus(\\text{products}) - \\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants})",
+          "tag": "booklet",
+          "bookletId": "db-enthalpy-from-formation"
+        },
+        {
+          "type": "text",
+          "text": "This equation is in the data booklet, so you don't need to memorise it. You do need to multiply each value by its coefficient, and to give every element in its standard state zero."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-formation-cycle",
+          "alt": "Energy cycle through the elements. Top left: ethene gas plus hydrogen chloride gas. Top right: chloroethane gas. An arrow from top left to top right is labelled delta H standard, unknown. Bottom centre: the elements, 2 carbon solid plus five halves hydrogen gas plus one half chlorine gas. An arrow from the elements up to the top left is labelled 52 plus minus 92, equals minus 40 kilojoules per mole. An arrow from the elements up to the top right is labelled minus 137 kilojoules per mole. Below: delta H standard equals minus 137 minus minus 40, equals minus 97 kilojoules per mole.",
+          "caption": "Both routes from the reactants to the products have the same total. Going via the elements: $-(-40) + (-137) = \\pu{-97 kJ mol-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-chloroethane",
+          "question": "Ethene reacts with hydrogen chloride to make chloroethane: $\\ce{C2H4(g) + HCl(g) -> C2H5Cl(g)}$. Calculate $\\Delta H^\\ominus$ using section 13 of the data booklet.",
+          "steps": [
+            "Look up the values, in $\\pu{kJ mol-1}$: $\\ce{C2H4(g)}$ $+52$, $\\ce{HCl(g)}$ $-92$ and $\\ce{C2H5Cl(g)}$ $-137$.",
+            "Products: $\\sum \\Delta H_\\text{f}^\\ominus = -137$.",
+            "Reactants: $\\sum \\Delta H_\\text{f}^\\ominus = 52 + (-92) = -40$.",
+            "$\\Delta H^\\ominus = -137 - (-40) = \\pu{-97 kJ mol-1}$. Bracket the reactant total, so the minus sign applies to all of it."
+          ],
+          "answer": "$\\Delta H^\\ominus = \\pu{-97 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Hf('C2H5Cl(g)') - (Hf('C2H4(g)') + Hf('HCl(g)'))",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-methylamine",
+          "question": "Methylamine burns in oxygen: $\\ce{4CH3NH2(g) + 9O2(g) -> 4CO2(g) + 10H2O(l) + 2N2(g)}$. Use $\\Delta H_\\text{f}^\\ominus$ values from the data booklet to determine the enthalpy change per mole of methylamine.",
+          "steps": [
+            "Oxygen and nitrogen are elements in their standard states, so they count as zero.",
+            "Products: $4(-394) + 10(-286) + 2(0) = \\pu{-4436 kJ mol-1}$.",
+            "Reactants: $4(-23) + 9(0) = \\pu{-92 kJ mol-1}$.",
+            "For the equation as written: $\\Delta H^\\ominus = -4436 - (-92) = \\pu{-4344 kJ mol-1}$. That is for four moles of methylamine.",
+            "Per mole of methylamine: $\\frac{-4344}{4} = \\pu{-1086 kJ mol-1}$. This matches $\\Delta H_\\text{c}^\\ominus$ of methylamine in section 14, a good sense check."
+          ],
+          "answer": "$\\Delta H^\\ominus = \\pu{-1086 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "((4*Hf('CO2(g)') + 10*Hf('H2O(l)') + 2*0) - (4*Hf('CH3NH2(g)') + 9*0))/4",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $-242$ for water when the equation shows $\\ce{H2O(l)}$. Liquid water is $\\pu{-286 kJ mol-1}$ and steam is $\\pu{-242 kJ mol-1}$, so match the state symbol."
+        },
+        {
+          "type": "check",
+          "id": "check-methanoic-acid",
+          "prompt": "Methanoic acid can decompose: $\\ce{HCOOH(l) -> CO(g) + H2O(l)}$. Calculate $\\Delta H^\\ominus$, in $\\pu{kJ mol-1}$, from section 13 of the data booklet. Include the sign.",
+          "hint": "Products minus reactants, and check the state of the water.",
+          "answer": {
+            "value": 28,
+            "tolerance": 0
+          },
+          "explain": "Products: $-111 + (-286) = -397$. Reactants: $-425$. $\\Delta H^\\ominus = -397 - (-425) = \\pu{+28 kJ mol-1}$, so the reaction is endothermic.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Hf('CO(g)') + Hf('H2O(l)')) - Hf('HCOOH(l)')",
+            "dp": 0,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethanol-gas",
+          "prompt": "Ethene and steam react: $\\ce{C2H4(g) + H2O(g) -> C2H5OH(g)}$, $\\Delta H^\\ominus = \\pu{-45 kJ mol-1}$. Use section 13 for the other values. What is $\\Delta H_\\text{f}^\\ominus$ of gaseous ethanol?",
+          "hint": "Write products minus reactants with $x$ for ethanol, then solve for $x$.",
+          "options": [
+            {
+              "text": "$\\pu{-235 kJ mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{-279 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{-145 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{-339 kJ mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$-45 = x - (52 + (-242))$, so $x = -45 + 52 - 242 = \\pu{-235 kJ mol-1}$. $-279$ uses liquid water, $-145$ flips the sign of $-45$, and $-339$ gets the sign of ethene wrong.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-45 + Hf('C2H4(g)') + Hf('H2O(g)')",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "combustion-data",
+      "heading": "$\\Delta H^\\ominus$ from combustion data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many compounds can't be made directly from their elements: mixing carbon, hydrogen and oxygen will never give you glucose. But almost every organic compound burns, and its $\\Delta H_\\text{c}^\\ominus$ is easy to measure."
+        },
+        {
+          "type": "text",
+          "text": "So route the reaction through the combustion products instead. Burn the reactants: $+\\sum \\Delta H_\\text{c}^\\ominus(\\text{reactants})$. Then climb back up to the products, the reverse of burning them: $-\\sum \\Delta H_\\text{c}^\\ominus(\\text{products})$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H^\\ominus = \\sum \\Delta H_\\text{c}^\\ominus(\\text{reactants}) - \\sum \\Delta H_\\text{c}^\\ominus(\\text{products})",
+          "tag": "booklet",
+          "bookletId": "db-enthalpy-from-combustion"
+        },
+        {
+          "type": "result",
+          "statement": "With combustion data it is reactants minus products: the other way round from formation data.",
+          "why": "In a combustion cycle the arrows point down, away from the reactants and products; in a formation cycle they point up, towards them."
+        },
+        {
+          "type": "text",
+          "text": "Substances that don't burn, such as $\\ce{O2}$, $\\ce{CO2}$ and $\\ce{H2O}$, count as zero. Elements that do burn, such as carbon and hydrogen, have real values."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-combustion-cycle",
+          "alt": "Energy cycle through the combustion products. Top left: 6 carbon solid plus 3 hydrogen gas. Top right: liquid benzene. An arrow from top left to top right is labelled delta H standard, unknown. Under each top label: plus fifteen halves oxygen gas. Bottom centre: 6 carbon dioxide gas plus 3 liquid water. An arrow from the top left down to the bottom is labelled 6 times minus 394 plus 3 times minus 286, equals minus 3222 kilojoules per mole. An arrow from the top right down to the bottom is labelled minus 3268 kilojoules per mole. Below: delta H standard equals minus 3222 minus minus 3268, equals plus 46 kilojoules per mole.",
+          "caption": "Both sides burn to the same products with the same oxygen, so $\\Delta H^\\ominus + (-3268) = -3222$."
+        },
+        {
+          "type": "example",
+          "id": "ex-benzene-formation",
+          "question": "Use section 14 of the data booklet to calculate $\\Delta H_\\text{f}^\\ominus$ of benzene, $\\ce{C6H6(l)}$, from combustion data.",
+          "steps": [
+            "Write the formation equation: $\\ce{6C(s) + 3H2(g) -> C6H6(l)}$. It can't be measured directly, because the elements don't react this way.",
+            "Reactants: $6(-394) + 3(-286) = \\pu{-3222 kJ mol-1}$.",
+            "Product: $\\pu{-3268 kJ mol-1}$.",
+            "Reactants minus products: $\\Delta H^\\ominus = -3222 - (-3268) = \\pu{+46 kJ mol-1}$.",
+            "Section 13 gives $+49$. The two tables come from separate measurements, so they agree only to within a few $\\pu{kJ mol-1}$."
+          ],
+          "answer": "$\\Delta H_\\text{f}^\\ominus = \\pu{+46 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(6*Hc('C') + 3*Hc('H2')) - Hc('C6H6(l)')",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ethanol-oxidation",
+          "question": "Ethanol can be oxidized to ethanoic acid: $\\ce{C2H5OH(l) + O2(g) -> CH3COOH(l) + H2O(l)}$. Determine $\\Delta H^\\ominus$ from $\\Delta H_\\text{c}^\\ominus$ values in the data booklet.",
+          "steps": [
+            "Oxygen and water don't burn, so they count as zero.",
+            "Reactants: $-1367 + 0 = \\pu{-1367 kJ mol-1}$.",
+            "Products: $-874 + 0 = \\pu{-874 kJ mol-1}$.",
+            "Reactants minus products: $\\Delta H^\\ominus = -1367 - (-874) = \\pu{-493 kJ mol-1}$.",
+            "Check with formation data: $(-484 - 286) - (-278) = \\pu{-492 kJ mol-1}$. The two routes agree, as Hess's law says they should."
+          ],
+          "answer": "$\\Delta H^\\ominus = \\pu{-493 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Hc('C2H5OH(l)') - Hc('CH3COOH(l)')",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using products minus reactants with combustion data. That flips the sign. Write the booklet equation down first and check which way round it goes."
+        },
+        {
+          "type": "check",
+          "id": "check-ethene-hydrogenation",
+          "prompt": "Calculate $\\Delta H^\\ominus$, in $\\pu{kJ mol-1}$, for the hydrogenation of ethene, $\\ce{C2H4(g) + H2(g) -> C2H6(g)}$, using combustion data from the data booklet. Include the sign.",
+          "hint": "Hydrogen burns, so it is not zero here. Use reactants minus products.",
+          "answer": {
+            "value": -136,
+            "tolerance": 0
+          },
+          "explain": "Reactants: $-1411 + (-286) = -1697$. Product: $-1561$. $\\Delta H^\\ominus = -1697 - (-1561) = \\pu{-136 kJ mol-1}$. Formation data give the same answer: $-84 - 52 = -136$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Hc('C2H4(g)') + Hc('H2')) - Hc('C2H6(g)')",
+            "dp": 0,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diamond",
+          "prompt": "Graphite has $\\Delta H_\\text{c}^\\ominus = \\pu{-393.5 kJ mol-1}$ and diamond has $\\Delta H_\\text{c}^\\ominus = \\pu{-395.4 kJ mol-1}$. What is $\\Delta H^\\ominus$ for turning graphite into diamond, which is also $\\Delta H_\\text{f}^\\ominus$ of diamond?",
+          "hint": "Graphite is the reactant and diamond the product. Use reactants minus products.",
+          "options": [
+            {
+              "text": "$\\pu{+1.9 kJ mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{-1.9 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{-788.9 kJ mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$-393.5 - (-395.4) = \\pu{+1.9 kJ mol-1}$. Diamond is higher in energy than graphite, so it is not the standard state of carbon and its value isn't zero. $-1.9$ is products minus reactants, and $-788.9$ adds the two values.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-393.5 - (-395.4)",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\Delta H_\\text{f}^\\ominus$: one mole of a substance formed from its elements in their standard states, under standard conditions ($\\pu{100 kPa}$, $\\pu{298 K}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An element in its standard state has $\\Delta H_\\text{f}^\\ominus = 0$. Other forms, such as diamond or ozone, do not.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta H_\\text{c}^\\ominus$: one mole burns completely in oxygen under standard conditions. $\\ce{O2}$, $\\ce{CO2}$ and $\\ce{H2O}$ have no combustion value, so they count as zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H^\\ominus = \\sum \\Delta H_\\text{f}^\\ominus(\\text{products}) - \\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants})",
+          "tag": "booklet",
+          "bookletId": "db-enthalpy-from-formation",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H^\\ominus = \\sum \\Delta H_\\text{c}^\\ominus(\\text{reactants}) - \\sum \\Delta H_\\text{c}^\\ominus(\\text{products})",
+          "tag": "booklet",
+          "bookletId": "db-enthalpy-from-combustion",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply every value by its coefficient, and match the state symbol: $\\ce{H2O(l)}$ is $-286$ and $\\ce{H2O(g)}$ is $\\pu{-242 kJ mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using products minus reactants with combustion data. With $\\Delta H_\\text{c}^\\ominus$ it is reactants minus products, so check the booklet line before you substitute.",
+    "Mixing up which things count as zero. Elements in their standard states are zero for formation, but carbon and hydrogen burn, so they have real combustion values.",
+    "Writing a formation or combustion equation for two moles. Give the substance a coefficient of 1 and use fractions, such as $\\ce{1/2O2}$, where needed.",
+    "Forgetting coefficients: $\\ce{10H2O(l)}$ means ten times $-286$, not $-286$ once.",
+    "Taking the wrong value for water. Use $-286$ for $\\ce{H2O(l)}$ and $-242$ for $\\ce{H2O(g)}$, whichever the equation shows.",
+    "Leaving out state symbols in a formation or combustion equation. They are part of the definition, so carbon must be shown as $\\ce{C(s)}$."
+  ],
+  "examTips": [
+    "\"Deduce\" the equation for $\\Delta H_\\text{f}^\\ominus$ or $\\Delta H_\\text{c}^\\ominus$: one mole of the substance, elements in their standard states, and a state symbol on every species.",
+    "\"Calculate\" or \"determine\" $\\Delta H^\\ominus$: write the booklet expression with the numbers substituted, then give the answer with its sign and $\\pu{kJ mol-1}$. The substitution line shows your method if the arithmetic slips.",
+    "In a Paper 1A question, the options often differ only in sign or in which total is subtracted. Decide first whether you have formation or combustion data.",
+    "\"Explain\" why an element has $\\Delta H_\\text{f}^\\ominus = 0$: name its standard state, then say that forming it from itself is no change."
+  ],
+  "readingMinutes": 19
+}

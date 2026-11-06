@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.1",
+  "slug": "the-ionic-model",
+  "title": "The ionic model",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A metal atom gives [[electron|electrons]] to a non-metal atom, and both become charged [[ion|ions]]. The opposite charges attract in every direction, so the ions pack into a huge lattice. That picture explains the formulas and names of ionic [[compound|compounds]], and why they melt so high, conduct only when molten or dissolved, and often dissolve in water.",
+  "goals": [
+    {
+      "text": "Use an atom's [[electron-configuration|electron configuration]] to deduce the charge on its ion, including the different ions of a transition element.",
+      "bullets": [
+        "S2.1.1"
+      ]
+    },
+    {
+      "text": "Deduce the formula of an ionic compound from its ions, including the seven [[polyatomic-ion|polyatomic ions]] you must know.",
+      "bullets": [
+        "S2.1.2"
+      ]
+    },
+    {
+      "text": "Name a binary ionic compound from its formula, and write the formula from its name.",
+      "bullets": [
+        "S2.1.2"
+      ]
+    },
+    {
+      "text": "Describe an ionic lattice and compare [[lattice-enthalpy|lattice enthalpies]] using ion charge and ion size.",
+      "bullets": [
+        "S2.1.3"
+      ]
+    },
+    {
+      "text": "Explain the volatility, [[electrical-conductivity|electrical conductivity]] and [[solubility|solubility]] of ionic compounds.",
+      "bullets": [
+        "S2.1.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "ionic bonding",
+    "cations and anions",
+    "formulas of ionic compounds",
+    "naming ionic compounds",
+    "polyatomic ions list",
+    "properties of ionic compounds"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-oxygen-valence",
+      "prompt": "Oxygen has atomic number 8. How many [[valence-electron|valence electrons]] does an oxygen atom have?",
+      "hint": "Write its configuration and count the electrons in the outer main level.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "Oxygen is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{4}}$, so level 2 holds $2 + 4 = 6$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8 - 2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-aluminium-ion",
+      "prompt": "Aluminium has atomic number 13. How many electrons are in an $\\ce{Al^3+}$ ion?",
+      "hint": "A $3+$ charge means three more protons than electrons.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "13 protons and a $3+$ charge leave $13 - 3 = 10$ electrons. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "13 - 3",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-which-compound",
+      "prompt": "Which of these is a compound?",
+      "hint": "A compound has two or more elements chemically bonded.",
+      "options": [
+        {
+          "text": "carbon dioxide",
+          "correct": true
+        },
+        {
+          "text": "oxygen",
+          "correct": false
+        },
+        {
+          "text": "air",
+          "correct": false
+        },
+        {
+          "text": "iron",
+          "correct": false
+        }
+      ],
+      "explain": "Carbon dioxide has carbon and oxygen bonded together. Oxygen and iron are elements; air is a mixture. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "carbon dioxide"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "ions",
+      "heading": "Forming ions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An atom has equal numbers of protons and electrons. If it loses or gains electrons, it becomes an ion."
+        },
+        {
+          "type": "text",
+          "text": "Metal atoms have few [[valence-electron|valence electrons]] and lose them. Non-metal atoms have nearly full outer levels and gain electrons to fill them."
+        },
+        {
+          "type": "definition",
+          "term": "cation",
+          "statement": "A positive ion, formed when an atom (usually a metal) loses one or more electrons.",
+          "plain": "A particle with fewer electrons than protons."
+        },
+        {
+          "type": "definition",
+          "term": "anion",
+          "statement": "A negative ion, formed when an atom (usually a non-metal) gains one or more electrons.",
+          "plain": "A particle with more electrons than protons."
+        },
+        {
+          "type": "text",
+          "text": "Sodium, $\\mathrm{[Ne]\\,3s^{1}}$, loses its 3s electron to form the [[cation|cation]] $\\ce{Na^+}$. Chlorine, $\\mathrm{[Ne]\\,3s^{2}\\,3p^{5}}$, gains one electron to form the [[anion|anion]] $\\ce{Cl^-}$. Both ions now have a noble gas [[electron-configuration|electron configuration]]."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-electron-transfer",
+          "alt": "Dot-and-cross shell diagrams for sodium and chlorine. Top row: a sodium atom with electrons 2, 8, 1 shown as dots, and a chlorine atom with electrons 2, 8, 7 shown as crosses. A curved arrow carries sodium's single outer electron to chlorine's outer shell. Bottom row, after the transfer: a sodium ion in square brackets with a plus charge and shells 2, 8, and a chloride ion in square brackets with a minus charge and shells 2, 8, 8, whose outer shell now holds seven crosses and one dot.",
+          "caption": "One electron moves from sodium to chlorine, leaving $\\ce{Na^+}$ (2, 8) and $\\ce{Cl^-}$ (2, 8, 8)."
+        },
+        {
+          "type": "result",
+          "statement": "Main-group elements that form simple ions usually take these charges: groups 1, 2 and 13 form $1+$, $2+$ and $3+$ ions; groups 15, 16 and 17 form $3-$, $2-$ and $1-$ ions.",
+          "why": "Moving that many electrons reaches the nearest noble gas configuration with the fewest electrons moved."
+        },
+        {
+          "type": "text",
+          "text": "Group 14 elements such as carbon and silicon rarely form simple ions; they usually bond covalently. Noble gases already have full outer levels, so they don't form ionic compounds. A simple anion's name ends in \"-ide\": oxide, sulfide, nitride."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-mg-f",
+          "question": "Explain, using electron configurations, how a magnesium atom and a fluorine atom each form an ion.",
+          "steps": [
+            "Magnesium (12 electrons) has two electrons in level 3. Fluorine (9) is one short of a full level 2.",
+            "Say what each atom does, the ion it forms and its final configuration."
+          ],
+          "answer": "Magnesium, $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}}$, loses its two 3s electrons. It forms $\\ce{Mg^2+}$, $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$. Fluorine, $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{5}}$, gains one electron into 2p. It forms $\\ce{F^-}$, also $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$. Both ions have the configuration of neon.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Mg loses two 3s electrons to give Mg2+; F gains one electron to give F-; both 1s2 2s2 2p6 like neon",
+            "requires": [
+              [
+                "loses its two 3s electrons",
+                "loses two electrons"
+              ],
+              "gains one electron",
+              [
+                "Mg^2+",
+                "Mg2+"
+              ],
+              [
+                "F^-",
+                "F-"
+              ],
+              "neon"
+            ],
+            "forbids": [
+              "shares",
+              "fluorine loses",
+              "magnesium gains"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-phosphide-ion",
+          "question": "Phosphorus has atomic number 15. Deduce the charge on a phosphide ion and write its full electron configuration.",
+          "steps": [
+            "The atom is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{3}}$: 5 valence electrons.",
+            "Gaining 3 fills 3p, which is far easier than losing 5. So the ion is $\\ce{P^3-}$.",
+            "Add 3 electrons to 3p: 18 electrons, like argon."
+          ],
+          "answer": "$\\ce{P^3-}$: $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Transition elements can form ions with different charges. Iron, $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$, loses its two 4s electrons to form $\\ce{Fe^2+}$, $\\mathrm{[Ar]\\,3d^{6}}$. Losing one 3d electron as well gives $\\ce{Fe^3+}$, $\\mathrm{[Ar]\\,3d^{5}}$."
+        },
+        {
+          "type": "text",
+          "text": "When a period 4 transition element forms an ion, the 4s electrons go first. A Roman numeral in the name gives the charge: iron(II) contains $\\ce{Fe^2+}$, iron(III) contains $\\ce{Fe^3+}$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, successive ionization energies show why transition elements have several oxidation states.",
+          "lesson": "3.4"
+        },
+        {
+          "type": "check",
+          "id": "check-ion-charge",
+          "prompt": "An atom of element Q has the configuration $\\mathrm{[Ne]\\,3s^{2}\\,3p^{1}}$. What is the charge on its ion?",
+          "hint": "Is it easier to lose the outer electrons or to gain enough to fill the level?",
+          "options": [
+            {
+              "text": "$+3$",
+              "correct": true
+            },
+            {
+              "text": "$-3$",
+              "correct": false
+            },
+            {
+              "text": "$-5$",
+              "correct": false
+            },
+            {
+              "text": "$+1$",
+              "correct": false
+            }
+          ],
+          "explain": "Q has 13 electrons, 3 of them in level 3. It loses all three, leaving 10 electrons and 13 protons: a $3+$ ion.",
+          "verify": {
+            "kind": "exact",
+            "truth": "13 - 10",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-copper-ion",
+          "prompt": "Copper (atomic number 29) is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$. What is the configuration of the copper(II) ion?",
+          "hint": "Remove the 4s electron first, then one from 3d.",
+          "options": [
+            {
+              "text": "$\\mathrm{[Ar]\\,3d^{9}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{8}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{7}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,3d^{10}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Cu^2+}$ loses the 4s electron and one 3d electron: $\\mathrm{[Ar]\\,3d^{9}}$. $\\mathrm{[Ar]\\,3d^{10}}$ is copper(I), $\\ce{Cu^+}$."
+        }
+      ]
+    },
+    {
+      "id": "formulas",
+      "heading": "Ionic bonds, formulas and names",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "ionic bond",
+          "statement": "The electrostatic attraction between positive ions and negative ions.",
+          "plain": "The pull between a cation and an anion."
+        },
+        {
+          "type": "text",
+          "text": "An [[ionic-bond|ionic bond]] has no direction: each ion attracts every oppositely charged ion around it. Forming the ions is also redox: the metal loses electrons and the non-metal gains them ({{lesson:6.8}})."
+        },
+        {
+          "type": "result",
+          "statement": "An ionic compound has no overall charge. Its formula is the smallest whole-number ratio of ions whose charges cancel, cation first.",
+          "why": "Every electron a metal atom loses is gained by a non-metal atom."
+        },
+        {
+          "type": "example",
+          "id": "ex-chromium-oxide",
+          "question": "Deduce the formula of chromium(III) oxide.",
+          "steps": [
+            "The ions are $\\ce{Cr^3+}$ and $\\ce{O^2-}$.",
+            "The lowest common multiple of 3 and 2 is 6: two $\\ce{Cr^3+}$ give $+6$, three $\\ce{O^2-}$ give $-6$."
+          ],
+          "answer": "$\\ce{Cr2O3}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "ionic_formula('Cr3+', 'O2-')"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "polyatomic ion",
+          "statement": "An ion made of two or more covalently bonded atoms, with an overall charge.",
+          "plain": "A group of joined atoms that carries a charge as a whole."
+        },
+        {
+          "type": "text",
+          "text": "Learn these seven [[polyatomic-ion|polyatomic ions]]: ammonium $\\ce{NH4^+}$, hydroxide $\\ce{OH^-}$, nitrate $\\ce{NO3^-}$, hydrogencarbonate $\\ce{HCO3^-}$, carbonate $\\ce{CO3^2-}$, sulfate $\\ce{SO4^2-}$, phosphate $\\ce{PO4^3-}$."
+        },
+        {
+          "type": "text",
+          "text": "Each stays together as a unit. If you need more than one, use brackets: $\\ce{Mg(OH)2}$. Never change the numbers inside the ion."
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-phosphate",
+          "question": "Deduce the formula of calcium phosphate.",
+          "steps": [
+            "The ions are $\\ce{Ca^2+}$ (group 2) and $\\ce{PO4^3-}$.",
+            "Three $\\ce{Ca^2+}$ give $+6$ and two $\\ce{PO4^3-}$ give $-6$.",
+            "Bracket the phosphate, with the 2 outside."
+          ],
+          "answer": "$\\ce{Ca3(PO4)2}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "ionic_formula('Ca2+', 'PO4 3-')"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To name a binary compound (two elements), give the cation, then the anion ending in \"-ide\": $\\ce{K2S}$ is potassium sulfide."
+        },
+        {
+          "type": "text",
+          "text": "For a transition element, work out its charge from the anions. In $\\ce{FeCl3}$, three $\\ce{Cl^-}$ make $-3$, so it is iron(III) chloride."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the element's name for the anion: $\\ce{NaBr}$ is sodium bromide, not sodium bromine."
+        },
+        {
+          "type": "check",
+          "id": "check-ammonium-sulfate",
+          "prompt": "What is the formula of ammonium sulfate?",
+          "hint": "How many $\\ce{NH4^+}$ balance one $\\ce{SO4^2-}$?",
+          "options": [
+            {
+              "text": "$\\ce{(NH4)2SO4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{NH4SO4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NH4(SO4)2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{(NH4)3SO4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{NH4^+}$ balance one $\\ce{SO4^2-}$, with ammonium in brackets.",
+          "verify": {
+            "kind": "formula",
+            "truth": "ionic_formula('NH4+', 'SO4 2-')"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-name-cubr2",
+          "prompt": "What is the name of $\\ce{CuBr2}$?",
+          "hint": "Two bromide ions total $-2$. What charge must copper have?",
+          "options": [
+            {
+              "text": "copper(II) bromide",
+              "correct": true
+            },
+            {
+              "text": "copper(I) bromide",
+              "correct": false
+            },
+            {
+              "text": "copper(II) bromine",
+              "correct": false
+            },
+            {
+              "text": "copper(II) dibromide",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{Br^-}$ give $-2$, so copper is $\\ce{Cu^2+}$. Ion numbers don't go in the name.",
+          "verify": {
+            "kind": "choice",
+            "truth": "copper(II) bromide"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lattice",
+      "heading": "Ionic lattices and lattice enthalpy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Because ionic bonds act in every direction, the ions pack into a regular three-dimensional lattice, each ion surrounded by ions of opposite charge."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-nacl-lattice",
+          "alt": "One layer of a sodium chloride lattice: a 5 by 4 grid of ions in which small sodium ions, marked plus, alternate with larger chloride ions, marked minus, along every row and column. One sodium ion near the centre is highlighted with dashed lines to its four nearest chloride ions in this layer; a note says one more chloride ion sits directly above it and one directly below, making six.",
+          "caption": "One layer of sodium chloride. In 3D, each $\\ce{Na^+}$ touches six $\\ce{Cl^-}$ and each $\\ce{Cl^-}$ six $\\ce{Na^+}$."
+        },
+        {
+          "type": "text",
+          "text": "A lattice has no separate molecules. So $\\ce{NaCl}$ is an empirical formula: the ratio of ions, not a molecule."
+        },
+        {
+          "type": "definition",
+          "term": "lattice enthalpy",
+          "statement": "The enthalpy change when one mole of an ionic solid is separated into its gaseous ions, infinitely far apart.",
+          "plain": "The energy needed to break a mole of an ionic solid into free ions."
+        },
+        {
+          "type": "text",
+          "text": "For $\\ce{NaCl(s) -> Na^+(g) + Cl^-(g)}$ it is $\\pu{+790 kJ mol-1}$ (data booklet, section 16). [[lattice-enthalpy|Lattice enthalpy]] is always positive, and a larger value means stronger ionic bonding."
+        },
+        {
+          "type": "text",
+          "text": "The [[ionic-radius|ionic radius]] is the radius of an ion (data booklet, section 10, in $\\pu{10^{-12} m}$). A cation is smaller than its atom. Sodium, for example, loses its whole outer level: $\\ce{Na}$ $160$, $\\ce{Na^+}$ $102$."
+        },
+        {
+          "type": "text",
+          "text": "An anion is larger than its atom: the same nuclear charge holds more electrons, which repel each other. $\\ce{Cl}$ is $100$ and $\\ce{Cl^-}$ is $181$."
+        },
+        {
+          "type": "result",
+          "statement": "Lattice enthalpy is larger when the ions have higher charges and smaller radii.",
+          "why": "Higher charges attract more strongly, and smaller ions bring their centres closer together."
+        },
+        {
+          "type": "example",
+          "id": "ex-lattice-sro-rbcl",
+          "question": "The lattice enthalpy of strontium oxide is $\\pu{3223 kJ mol-1}$ and of rubidium chloride $\\pu{695 kJ mol-1}$. Explain the difference, using section 10 of the data booklet.",
+          "steps": [
+            "Charges: $\\ce{Sr^2+}$ and $\\ce{O^2-}$ against $\\ce{Rb^+}$ and $\\ce{Cl^-}$.",
+            "Radii: $\\ce{Sr^2+}$ 118, $\\ce{O^2-}$ 140, against $\\ce{Rb^+}$ 152, $\\ce{Cl^-}$ 181.",
+            "Make the charge and radius points separately, then link them to attraction."
+          ],
+          "answer": "The ions in strontium oxide, $\\ce{Sr^2+}$ and $\\ce{O^2-}$, have higher charges than $\\ce{Rb^+}$ and $\\ce{Cl^-}$. They also have smaller radii, so their centres are closer together. Both give a stronger electrostatic attraction between the ions. So more energy is needed to separate strontium oxide into gaseous ions.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "SrO ions have higher charges and smaller radii, so stronger attraction",
+            "requires": [
+              "higher charges",
+              "smaller radii",
+              [
+                "stronger electrostatic attraction",
+                "stronger attraction"
+              ],
+              [
+                "more energy",
+                "larger lattice enthalpy"
+              ]
+            ],
+            "forbids": [
+              "intermolecular",
+              "molecules",
+              "covalent bond"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lattice-lithium-halides",
+          "question": "Section 16 gives these lattice enthalpies, in $\\pu{kJ mol-1}$: $\\ce{LiF}$ $1049$, $\\ce{LiCl}$ $864$, $\\ce{LiBr}$ $820$, $\\ce{LiI}$ $764$. Explain the trend.",
+          "steps": [
+            "The cation and the charges are the same throughout.",
+            "The halide ion grows: $\\ce{F^-}$ 133, $\\ce{Cl^-}$ 181, $\\ce{Br^-}$ 196, $\\ce{I^-}$ 220."
+          ],
+          "answer": "The ionic charges are the same in all four compounds. The radius of the halide ion increases from fluoride to iodide, so the distance between the centres of the ions increases. The electrostatic attraction between the ions gets weaker, so the lattice enthalpy decreases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same charges; halide radius increases so attraction weaker and lattice enthalpy decreases",
+            "requires": [
+              [
+                "charges are the same",
+                "same charge"
+              ],
+              [
+                "radius of the halide ion increases",
+                "ionic radius increases"
+              ],
+              [
+                "distance between the centres",
+                "further apart"
+              ],
+              [
+                "attraction between the ions gets weaker",
+                "weaker attraction"
+              ],
+              "lattice enthalpy decreases"
+            ],
+            "forbids": [
+              "more shells so stronger",
+              "intermolecular"
+            ]
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you find lattice enthalpies from Born–Haber cycles.",
+          "lesson": "4.4"
+        },
+        {
+          "type": "check",
+          "id": "check-largest-lattice",
+          "prompt": "Which compound has the largest lattice enthalpy?",
+          "hint": "Which compound has the highest ion charges?",
+          "options": [
+            {
+              "text": "barium oxide",
+              "correct": true
+            },
+            {
+              "text": "sodium fluoride",
+              "correct": false
+            },
+            {
+              "text": "caesium iodide",
+              "correct": false
+            },
+            {
+              "text": "potassium chloride",
+              "correct": false
+            }
+          ],
+          "explain": "Only barium oxide has $2+$ and $2-$ ions. Section 16: $\\ce{BaO}$ $3054$, $\\ce{NaF}$ $930$, $\\ce{KCl}$ $720$, $\\ce{CsI}$ $613$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "barium oxide"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chloride-radius",
+          "prompt": "Which statement about a chlorine atom and a chloride ion is correct?",
+          "hint": "The gained electron goes into 3p. Is that a new level?",
+          "options": [
+            {
+              "text": "The chloride ion is larger, because the extra electron adds repulsion while the nuclear charge stays the same.",
+              "correct": true
+            },
+            {
+              "text": "The chloride ion is smaller, because the gained electron pulls the electrons in.",
+              "correct": false
+            },
+            {
+              "text": "The chloride ion is larger, because the gained electron starts a new main level.",
+              "correct": false
+            },
+            {
+              "text": "They are the same size, because they have the same nucleus.",
+              "correct": false
+            }
+          ],
+          "explain": "The electron joins level 3. With 18 electrons and 17 protons, the electrons repel more and spread out.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The chloride ion is larger, because the extra electron adds repulsion while the nuclear charge stays the same."
+          }
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "heading": "Properties of ionic compounds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Volatility is how easily a substance becomes a gas. Ionic compounds have low volatility and high melting points, because many strong ionic bonds must be overcome throughout the lattice."
+        },
+        {
+          "type": "text",
+          "text": "Higher lattice enthalpy usually means a higher melting point: magnesium oxide melts near $\\pu{2800 ^\\circ C}$, sodium chloride near $\\pu{800 ^\\circ C}$."
+        },
+        {
+          "type": "definition",
+          "term": "electrical conductivity",
+          "statement": "The ability of a substance to carry an electric current, which needs charged particles that are free to move.",
+          "plain": "How well electricity flows through something."
+        },
+        {
+          "type": "text",
+          "text": "[[electrical-conductivity|Electrical conductivity]]: in the solid the ions are fixed, so it does not conduct. Molten or dissolved, the ions move and carry the current. In the liquid, ions carry the charge, not electrons."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-kbr-conduct",
+          "question": "Explain why solid potassium bromide does not conduct electricity, but molten potassium bromide does.",
+          "steps": [
+            "The charged particles are $\\ce{K^+}$ and $\\ce{Br^-}$ ions.",
+            "Compare what the ions can do in the solid and in the liquid."
+          ],
+          "answer": "Potassium bromide is made of $\\ce{K^+}$ and $\\ce{Br^-}$ ions. In the solid, the ions are held in fixed positions in the lattice and cannot move. When it melts, the ions are free to move. Moving ions carry the charge, so the molten compound conducts.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "solid: ions fixed in the lattice cannot move; molten: ions free to move and carry charge",
+            "requires": [
+              "ions",
+              [
+                "fixed positions",
+                "cannot move"
+              ],
+              [
+                "free to move",
+                "mobile"
+              ],
+              [
+                "carry the charge",
+                "carry charge"
+              ]
+            ],
+            "forbids": [
+              "electrons are free",
+              "free electrons",
+              "delocalized electrons",
+              "electrons move"
+            ]
+          }
+        },
+        {
+          "type": "definition",
+          "term": "solubility",
+          "statement": "The amount of a substance that dissolves in a given amount of a liquid at a stated temperature.",
+          "plain": "How much of something will dissolve."
+        },
+        {
+          "type": "text",
+          "text": "[[solubility|Solubility]]: in water, oxygen pulls the shared electrons towards itself, so oxygen is slightly negative ($\\delta-$) and hydrogen slightly positive ($\\delta+$). More on this in {{lesson:2.4}}."
+        },
+        {
+          "type": "text",
+          "text": "The $\\delta-$ oxygen atoms attract cations and the $\\delta+$ hydrogen atoms attract anions. This pulls ions off the lattice and water molecules surround them."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-hydrated-ions",
+          "alt": "Ions dissolved in water. Left: a sodium ion, plus, surrounded by four water molecules, each turned so that its oxygen atom, labelled delta minus, points at the ion. Right: a chloride ion, minus, surrounded by four water molecules, each turned so that one hydrogen atom, labelled delta plus, points at the ion.",
+          "caption": "Water turns oxygen ($\\delta-$) towards a cation and hydrogen ($\\delta+$) towards an anion."
+        },
+        {
+          "type": "text",
+          "text": "A non-polar [[solvent|solvent]] such as hexane can't attract the ions strongly, so ionic compounds don't dissolve in it. Some ionic compounds, such as calcium carbonate, barely dissolve even in water."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-dissolve",
+          "question": "Potassium nitrate dissolves well in water but not in hexane. Explain why.",
+          "steps": [
+            "Water is polar; hexane is non-polar.",
+            "Say which end of a water molecule attracts which ion."
+          ],
+          "answer": "Water molecules are polar, with a partial negative charge on oxygen and a partial positive charge on hydrogen. The oxygen atoms attract the $\\ce{K^+}$ ions and the hydrogen atoms attract the $\\ce{NO3^-}$ ions. These attractions pull the ions out of the lattice, and water molecules surround them. Hexane is non-polar, so it cannot attract the ions strongly enough to separate them.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "polar water attracts the ions (O to K+, H to NO3-) and surrounds them; non-polar hexane cannot",
+            "requires": [
+              "polar",
+              [
+                "oxygen atoms attract the K^+",
+                "oxygen atoms attract the K+"
+              ],
+              [
+                "hydrogen atoms attract the NO3^-",
+                "hydrogen atoms attract the NO3-"
+              ],
+              "non-polar",
+              "cannot attract the ions"
+            ],
+            "forbids": [
+              "hydrogen atoms attract the K",
+              "oxygen atoms attract the NO3",
+              "react with water"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-molten-conducts",
+          "prompt": "Why does molten lithium chloride conduct electricity?",
+          "hint": "Which charged particles does it contain?",
+          "options": [
+            {
+              "text": "Its ions are free to move.",
+              "correct": true
+            },
+            {
+              "text": "Its delocalized electrons are free to move.",
+              "correct": false
+            },
+            {
+              "text": "Its molecules are polar.",
+              "correct": false
+            },
+            {
+              "text": "Its covalent bonds break when it melts.",
+              "correct": false
+            }
+          ],
+          "explain": "Melting frees the $\\ce{Li^+}$ and $\\ce{Cl^-}$ ions to move and carry current. It has no delocalized electrons, molecules or covalent bonds.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its ions are free to move."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-low-volatility",
+          "prompt": "Sodium oxide has very low volatility. Which is the best explanation?",
+          "hint": "What holds an ionic solid together, and where?",
+          "options": [
+            {
+              "text": "Strong electrostatic attractions between its ions act throughout the lattice.",
+              "correct": true
+            },
+            {
+              "text": "It has strong covalent bonds within its molecules.",
+              "correct": false
+            },
+            {
+              "text": "It has strong intermolecular forces between its molecules.",
+              "correct": false
+            },
+            {
+              "text": "Its delocalized electrons hold the ions together.",
+              "correct": false
+            }
+          ],
+          "explain": "Sodium oxide is a lattice of $\\ce{Na^+}$ and $\\ce{O^2-}$ ions with no molecules, held by ionic bonds everywhere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Strong electrostatic attractions between its ions act throughout the lattice."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Metals lose electrons to form cations; non-metals gain electrons to form anions. Main-group ions usually have a noble gas configuration; transition element ions usually don't.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Usual simple ions: groups 1, 2, 13 form $1+$, $2+$, $3+$; groups 15, 16, 17 form $3-$, $2-$, $1-$. Transition metal ions lose 4s electrons first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ce{NH4^+}$, $\\ce{OH^-}$, $\\ce{NO3^-}$, $\\ce{HCO3^-}$, $\\ce{CO3^2-}$, $\\ce{SO4^2-}$, $\\ce{PO4^3-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Formula: smallest whole-number ratio with charges cancelling. Name: cation, then anion ending \"-ide\"; Roman numeral for a transition metal's charge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lattice enthalpy (positive) is larger for higher ion charges and smaller ions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ionic compounds: low volatility; conduct only molten or dissolved (mobile ions); often soluble in water, not in non-polar solvents.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the ions move in solid ionic compounds, or that electrons carry the current. Only molten or dissolved ionic compounds conduct, by moving ions.",
+    "Writing that melting breaks intermolecular forces or covalent bonds. There are no molecules: melting overcomes ionic bonds.",
+    "Changing the numbers inside a polyatomic ion, or leaving out brackets. Calcium nitrate is $\\ce{Ca(NO3)2}$.",
+    "Removing 3d electrons before 4s: $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$."
+  ],
+  "examTips": [
+    "\"Explain, using electron configurations\": give both atoms' configurations, the electrons lost or gained, and both ions' configurations.",
+    "\"Deduce\" a formula in Paper 1A: write the ion charges and balance them before reading the options.",
+    "\"Explain\" conductivity: ions fixed in the solid, free to move when molten or dissolved. Mentioning moving electrons loses the mark.",
+    "Lattice enthalpy or melting point: make the charge point and the radius point separately, then link both to attraction."
+  ],
+  "readingMinutes": 24
+}

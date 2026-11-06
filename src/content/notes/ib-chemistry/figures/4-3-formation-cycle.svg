@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 265" role="img" aria-labelledby="t">
+  <title id="t">Energy cycle through the elements. Top left: C2H4(g) plus HCl(g). Top right: C2H5Cl(g). An arrow from top left to top right is labelled delta H standard, unknown. Bottom centre: the elements, 2C(s) plus five halves H2(g) plus one half Cl2(g). An arrow from the elements up to the top left is labelled 52 plus minus 92, equals minus 40 kilojoules per mole. An arrow from the elements up to the top right is labelled minus 137 kilojoules per mole. Below: delta H standard equals minus 137 minus minus 40, equals minus 97 kilojoules per mole.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="95" y="52">C<tspan baseline-shift="sub" font-size="10">2</tspan>H<tspan baseline-shift="sub" font-size="10">4</tspan>(g) + HCl(g)</text>
+    <text x="365" y="52">C<tspan baseline-shift="sub" font-size="10">2</tspan>H<tspan baseline-shift="sub" font-size="10">5</tspan>Cl(g)</text>
+    <text x="228" y="210">2C(s) + 5/2 H<tspan baseline-shift="sub" font-size="10">2</tspan>(g) + ½Cl<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+  </g>
+  <path d="M165.0 47.0 L315.0 47.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="324.0,47.0 315.0,42.5 315.0,51.5" fill="var(--t3-ink)"/>
+  <path d="M180.0 190.0 L104.9 73.6" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="100.0,66.0 108.7,71.2 101.1,76.0" fill="var(--t1-ink)"/>
+  <path d="M276.0 190.0 L351.1 73.6" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <polygon points="356.0,66.0 354.9,76.0 347.3,71.2" fill="var(--t2-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="245" y="36" text-anchor="middle" fill="var(--t3-ink)">ΔH⦵ = ?</text>
+    <text x="130" y="128" text-anchor="end" fill="var(--t1-ink)">52 + (−92)</text>
+    <text x="130" y="144" text-anchor="end" fill="var(--t1-ink)">= −40 kJ mol⁻¹</text>
+    <text x="326" y="140" fill="var(--t2-ink)">−137 kJ mol⁻¹</text>
+  </g>
+  <text x="228" y="250" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">ΔH⦵ = −137 − (−40) = −97 kJ mol⁻¹</text>
+</svg>

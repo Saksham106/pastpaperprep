@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.8",
+  "slug": "stereoisomers",
+  "title": "Stereoisomers",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "[[stereoisomer|Stereoisomers]] have the same atoms joined in the same order, but arranged differently in space. Restricted rotation about a C=C bond or in a small ring gives [[cis-trans-isomerism|cis-trans isomers]]. A [[chiral-carbon|chiral carbon]] gives a pair of [[enantiomer|enantiomers]], which show [[optical-activity|optical activity]] in opposite directions.",
+  "goals": [
+    {
+      "text": "Tell stereoisomers apart from [[structural-isomer|structural isomers]].",
+      "bullets": [
+        "S3.2.7"
+      ]
+    },
+    {
+      "text": "Describe and explain cis-trans isomerism, and recognize it in open-chain [[alkene|alkenes]] and in cyclopropanes and cyclobutanes.",
+      "bullets": [
+        "S3.2.7"
+      ]
+    },
+    {
+      "text": "Identify chiral carbons and draw a pair of enantiomers with wedge and hashed bonds.",
+      "bullets": [
+        "S3.2.7"
+      ]
+    },
+    {
+      "text": "Explain optical activity and racemic mixtures, and state how enantiomers differ.",
+      "bullets": [
+        "S3.2.7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.6",
+    "3.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "cis trans isomers",
+    "geometric isomerism",
+    "optical isomers",
+    "chiral centre",
+    "enantiomers mirror images",
+    "racemic mixture"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-structural-isomers",
+      "prompt": "Which pair are [[structural-isomer|structural isomers]]?",
+      "hint": "Structural isomers share a molecular formula but have their atoms joined differently.",
+      "options": [
+        {
+          "text": "propan-1-ol and propan-2-ol",
+          "correct": true
+        },
+        {
+          "text": "propan-1-ol and propanal",
+          "correct": false
+        },
+        {
+          "text": "propan-1-ol and butan-1-ol",
+          "correct": false
+        }
+      ],
+      "explain": "Both alcohols are $\\ce{C3H8O}$, with the OH on a different carbon. Propanal is $\\ce{C3H6O}$, and butan-1-ol has an extra $\\ce{CH2}$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "propan-1-ol and propan-2-ol"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pick-alkene",
+      "prompt": "Which compound is an [[alkene|alkene]]?",
+      "hint": "Look for a carbon–carbon double bond, not just the formula $\\ce{C4H8}$.",
+      "options": [
+        {
+          "text": "but-1-ene",
+          "correct": true
+        },
+        {
+          "text": "cyclobutane",
+          "correct": false
+        },
+        {
+          "text": "butane",
+          "correct": false
+        },
+        {
+          "text": "butan-1-ol",
+          "correct": false
+        }
+      ],
+      "explain": "But-1-ene has a C=C bond. Cyclobutane is also $\\ce{C4H8}$, but all its bonds are single. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "but-1-ene"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-name-pentene",
+      "prompt": "What is the name of $\\ce{CH3CH=CHCH2CH3}$?",
+      "hint": "Number the chain from the end that gives the C=C the lower locant.",
+      "options": [
+        {
+          "text": "pent-2-ene",
+          "correct": true
+        },
+        {
+          "text": "pent-3-ene",
+          "correct": false
+        },
+        {
+          "text": "pent-1-ene",
+          "correct": false
+        },
+        {
+          "text": "but-2-ene",
+          "correct": false
+        }
+      ],
+      "explain": "The [[parent-chain|parent chain]] has five carbons. Numbered from the left, the double bond starts at carbon 2. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "pent-2-ene"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "cis-trans",
+      "heading": "Stereoisomers and cis-trans isomerism",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[structural-isomer|Structural isomers]] ({{lesson:3.7}}) share a molecular formula, but their atoms are joined in a different order. Stereoisomers go one step further: the same atoms, joined in the same order by the same bonds. Only their arrangement in space differs."
+        },
+        {
+          "type": "definition",
+          "term": "stereoisomers",
+          "statement": "Compounds with the same molecular formula, the same sequence of bonded atoms and the same bond types (single, double), but a different three-dimensional arrangement of atoms.",
+          "plain": "Same structural formula, different shape in 3D."
+        },
+        {
+          "type": "text",
+          "text": "A single bond lets atoms rotate freely. A C=C bond also contains a π bond: sideways overlap of p orbitals above and below the bond axis ({{lesson:2.9}}). Twisting one end would break that overlap, so there is no rotation about C=C."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-but-2-ene-cis-trans",
+          "alt": "Two displayed formulas side by side. Left, cis-but-2-ene: two carbons joined by a double bond along a horizontal dashed line. The left carbon has a methyl group up and a hydrogen down; the right carbon also has a methyl group up and a hydrogen down, so both methyl groups are on the same side of the line. Right, trans-but-2-ene: the left carbon has a methyl group up and a hydrogen down, but the right carbon has a hydrogen up and a methyl group down, so the methyl groups are on opposite sides.",
+          "caption": "But-2-ene has two stereoisomers. Neither can turn into the other without breaking the π bond."
+        },
+        {
+          "type": "definition",
+          "term": "cis-trans isomerism",
+          "statement": "Stereoisomerism caused by restricted rotation about a C=C bond or within a ring, when each of the two carbon atoms carries two different groups. In the cis isomer the matching groups are on the same side; in the trans isomer they are on opposite sides.",
+          "plain": "Locked in place, the groups can sit on the same side or across from each other."
+        },
+        {
+          "type": "result",
+          "statement": "An alkene shows cis-trans isomerism only if both carbons of the C=C bond carry two different groups.",
+          "why": "If one carbon has two identical groups (for example $\\ce{=CH2}$), swapping them gives the same molecule, so no second isomer exists."
+        },
+        {
+          "type": "example",
+          "id": "ex-pentene-cis-trans",
+          "question": "Explain why pent-2-ene, $\\ce{CH3CH=CHCH2CH3}$, exists as cis and trans isomers, but pent-1-ene, $\\ce{CH2=CHCH2CH2CH3}$, does not.",
+          "steps": [
+            "In pent-2-ene, carbon 2 carries H and $\\ce{CH3}$; carbon 3 carries H and $\\ce{CH2CH3}$. Each has two different groups.",
+            "In pent-1-ene, carbon 1 carries two H atoms."
+          ],
+          "answer": "The π bond in C=C prevents rotation, so restricted rotation fixes the groups in place. In pent-2-ene each carbon of the double bond has two different groups (H and an alkyl group), so the alkyl groups can be on the same side (cis) or on opposite sides (trans). In pent-1-ene carbon 1 carries two hydrogen atoms, so no cis-trans isomers exist.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Restricted rotation about C=C; pent-2-ene has two different groups on each double-bond carbon, pent-1-ene has two H on carbon 1.",
+            "requires": [
+              "restricted rotation",
+              [
+                "π bond",
+                "pi bond"
+              ],
+              "two different groups",
+              "same side",
+              "opposite sides",
+              [
+                "two hydrogen atoms",
+                "identical groups"
+              ]
+            ],
+            "forbids": [
+              "free rotation about the C=C",
+              "can rotate about the C=C"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Rings restrict rotation too. A ring carbon can't spin without breaking the ring, so each substituent stays above or below it. Treat the near-flat C3 and C4 rings of cyclopropane and cyclobutane as a plane with two faces."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-dimethylcyclobutane-cis-trans",
+          "alt": "Two skeletal formulas of 1,2-dimethylcyclobutane, each a square ring in the plane of the page with methyl groups on two neighbouring corners. Left, cis: both methyl groups are drawn on solid wedges, so both point towards the viewer, on the same face of the ring. Right, trans: one methyl group is on a solid wedge and the other on a hashed bond, so they point to opposite faces. Hydrogen atoms on the ring are not shown.",
+          "caption": "A substituent on a wedge is above the ring; one on a hashed bond is below it."
+        },
+        {
+          "type": "text",
+          "text": "The rule matches the alkene rule: two ring carbons must each carry two different groups (often a substituent and H)."
+        },
+        {
+          "type": "example",
+          "id": "ex-dichlorocyclobutane",
+          "question": "Deduce which of 1,1-dichlorocyclobutane and 1,3-dichlorocyclobutane shows cis-trans isomerism. Explain your answer.",
+          "steps": [
+            "1,1-: carbon 1 has Cl and Cl; the other ring carbons have H and H.",
+            "1,3-: carbons 1 and 3 each have Cl and H."
+          ],
+          "answer": "1,3-Dichlorocyclobutane shows cis-trans isomerism. The ring prevents rotation, and carbons 1 and 3 each carry two different groups (Cl and H). So the Cl atoms can be on the same face of the ring (cis) or on opposite faces (trans). In 1,1-dichlorocyclobutane both Cl atoms are on the same carbon, so there are no cis-trans isomers.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "1,3-dichlorocyclobutane: ring prevents rotation, C1 and C3 each carry Cl and H; 1,1- has both Cl on one carbon.",
+            "requires": [
+              "1,3-Dichlorocyclobutane shows cis-trans isomerism",
+              [
+                "ring prevents rotation",
+                "restricted rotation"
+              ],
+              "two different groups",
+              "same face",
+              "opposite faces",
+              "same carbon"
+            ],
+            "forbids": [
+              "1,1-dichlorocyclobutane shows cis-trans isomerism"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-cis-trans",
+          "prompt": "Which compound shows cis-trans isomerism?",
+          "hint": "Check what is attached to each carbon of the C=C bond, or to each substituted ring carbon.",
+          "options": [
+            {
+              "text": "hept-3-ene",
+              "correct": true
+            },
+            {
+              "text": "hept-1-ene",
+              "correct": false
+            },
+            {
+              "text": "2-methylhex-2-ene",
+              "correct": false
+            },
+            {
+              "text": "1,1-dimethylcyclopropane",
+              "correct": false
+            }
+          ],
+          "explain": "In hept-3-ene each C=C carbon has H and an alkyl group. Hept-1-ene has $\\ce{=CH2}$, 2-methylhex-2-ene has two $\\ce{CH3}$ groups on carbon 2, and 1,1-dimethylcyclopropane has both methyls on one carbon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hept-3-ene"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dichloroethene-count",
+          "prompt": "How many different compounds (structural isomers and stereoisomers together) have the formula $\\ce{C2H2Cl2}$ and a C=C bond?",
+          "hint": "Put both Cl atoms on one carbon, then one Cl on each carbon. Can the second arrangement be cis and trans?",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "1,1-Dichloroethene is one compound. 1,2-Dichloroethene has H and Cl on each carbon, so it exists as cis and trans. That makes $1 + 2 = 3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 + 2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To \"describe and explain\" cis-trans isomerism, give both features: restricted rotation (π bond or ring) and two different groups on each of the two carbons. Use cis and trans; E-Z naming is not assessed."
+        }
+      ]
+    },
+    {
+      "id": "chirality",
+      "heading": "Chiral carbons and enantiomers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your hands are mirror images, yet you can't lay one exactly on top of the other. Some molecules are like this."
+        },
+        {
+          "type": "text",
+          "text": "A carbon with four single bonds is tetrahedral, with bond angles of about 109.5° ({{lesson:2.3}}). If its four groups are all different, the arrangement around it and its mirror image can't be superimposed."
+        },
+        {
+          "type": "definition",
+          "term": "chiral carbon",
+          "statement": "A carbon atom with four different atoms or groups attached to it.",
+          "plain": "A carbon with four different things attached."
+        },
+        {
+          "type": "text",
+          "text": "A molecule with one chiral carbon is chiral: it is not superimposable on its mirror image. Chemists often mark a chiral carbon with an asterisk, C*."
+        },
+        {
+          "type": "definition",
+          "term": "enantiomers",
+          "statement": "A pair of stereoisomers that are mirror images of each other and cannot be superimposed.",
+          "plain": "Left-handed and right-handed versions of the same molecule."
+        },
+        {
+          "type": "text",
+          "text": "On paper, use wedge-dash bonds. A plain line lies in the page, a solid tapered wedge points towards you and a hashed tapered wedge points away. The narrow end touches the chiral carbon."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-enantiomers-wedge-dash",
+          "alt": "The two enantiomers of 2-hydroxypropanoic acid drawn either side of a dashed vertical mirror line. In the left molecule the central carbon has COOH straight up on a plain bond, a methyl group down to the left on a plain bond, an OH group down to the right on a solid wedge, and an H atom below on a hashed wedge. The right molecule is its reflection: COOH up, methyl down to the right, OH down to the left on a solid wedge, and H below on a hashed wedge.",
+          "caption": "The enantiomers of 2-hydroxypropanoic acid (lactic acid). Its chiral carbon carries H, $\\ce{CH3}$, OH and COOH."
+        },
+        {
+          "type": "text",
+          "text": "To draw a pair, add a mirror line and reflect every bond. With 3D models, real or virtual, try to fit one onto the other: line up any two groups, and the other two are always swapped."
+        },
+        {
+          "type": "text",
+          "text": "To find chiral carbons, skip any $\\ce{CH3}$ or $\\ce{CH2}$ carbon (two identical H atoms) and any C=C carbon. Compare whole groups, not just the first atom: $\\ce{CH3}$ and $\\ce{CH2CH3}$ are different."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-chiral-carbons",
+          "question": "How many chiral carbons does 2-chloro-3-methylpentane, $\\ce{CH3CHClCH(CH3)CH2CH3}$, contain?",
+          "steps": [
+            "Carbons 1 and 5 are $\\ce{CH3}$, and carbon 4 is $\\ce{CH2}$: not chiral.",
+            "Carbon 2 carries H, Cl, $\\ce{CH3}$ and $\\ce{CH(CH3)CH2CH3}$: four different groups, so chiral.",
+            "Carbon 3 carries H, $\\ce{CH3}$, $\\ce{CH2CH3}$ and $\\ce{CHClCH3}$: four different groups, so chiral.",
+            "The methyl branch on carbon 3 is $\\ce{CH3}$: not chiral."
+          ],
+          "answer": "$\\text{chiral carbons} = 2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-alanine-glycine",
+          "question": "Explain why 2-aminopropanoic acid, $\\ce{CH3CH(NH2)COOH}$, exists as a pair of enantiomers, but 2-aminoethanoic acid, $\\ce{H2NCH2COOH}$, does not.",
+          "steps": [
+            "List the four groups on carbon 2 of each compound.",
+            "2-Aminopropanoic acid: H, $\\ce{CH3}$, $\\ce{NH2}$, COOH. 2-Aminoethanoic acid: H, H, $\\ce{NH2}$, COOH."
+          ],
+          "answer": "In 2-aminopropanoic acid, carbon 2 is bonded to four different groups (H, $\\ce{CH3}$, $\\ce{NH2}$ and COOH), so it is a chiral carbon. The molecule and its mirror image are non-superimposable, so they are a pair of enantiomers. In 2-aminoethanoic acid, carbon 2 carries two hydrogen atoms, so it is not chiral.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Alanine's C2 has four different groups (chiral), so non-superimposable mirror images; glycine's C2 has two H atoms.",
+            "requires": [
+              "four different groups",
+              "chiral carbon",
+              [
+                "non-superimposable",
+                "cannot be superimposed"
+              ],
+              "mirror image",
+              "two hydrogen atoms"
+            ],
+            "forbids": [
+              "rotates plane-polarized light so it is chiral"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-chiral",
+          "prompt": "Which compound contains a chiral carbon?",
+          "hint": "For each candidate carbon, write out the four groups in full.",
+          "options": [
+            {
+              "text": "3-methylhexane",
+              "correct": true
+            },
+            {
+              "text": "3-methylpentane",
+              "correct": false
+            },
+            {
+              "text": "2-methylbutane",
+              "correct": false
+            },
+            {
+              "text": "pentan-3-ol",
+              "correct": false
+            }
+          ],
+          "explain": "Carbon 3 of 3-methylhexane carries H, $\\ce{CH3}$, $\\ce{CH2CH3}$ and $\\ce{CH2CH2CH3}$. The others each have two identical groups: two ethyls in 3-methylpentane and pentan-3-ol, two methyls in 2-methylbutane.",
+          "verify": {
+            "kind": "choice",
+            "truth": "3-methylhexane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-enantiomer-meaning",
+          "prompt": "Which statement describes a pair of enantiomers?",
+          "hint": "Think of your left and right hands.",
+          "options": [
+            {
+              "text": "Mirror images that cannot be superimposed",
+              "correct": true
+            },
+            {
+              "text": "Mirror images that can be superimposed",
+              "correct": false
+            },
+            {
+              "text": "Isomers with groups on opposite sides of a C=C bond",
+              "correct": false
+            },
+            {
+              "text": "Isomers with different functional groups",
+              "correct": false
+            }
+          ],
+          "explain": "A superimposable mirror image is the same molecule. Groups across a C=C describe a trans isomer; different functional groups make structural isomers.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Mirror images that cannot be superimposed"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To \"draw\" enantiomers, show each chiral carbon as a tetrahedron (two plain bonds, one solid and one hashed tapered wedge), and draw the second as a true mirror image."
+        }
+      ]
+    },
+    {
+      "id": "optical",
+      "heading": "Optical activity and racemic mixtures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Enantiomers have the same melting point, boiling point and density. One physical property tells them apart: what they do to plane-polarized light."
+        },
+        {
+          "type": "text",
+          "text": "Ordinary light vibrates in every plane. A polarizing filter passes only one plane: plane-polarized light."
+        },
+        {
+          "type": "definition",
+          "term": "optical activity",
+          "statement": "The rotation of the plane of plane-polarized light by a substance. Two enantiomers, at the same concentration and path length, rotate the plane by the same angle in opposite directions.",
+          "plain": "One enantiomer twists the light clockwise, the other anticlockwise."
+        },
+        {
+          "type": "text",
+          "text": "A polarimeter measures the rotation. A second filter, the analyser, is turned to find the angle the sample rotated the light through."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-polarimeter",
+          "alt": "Polarimeter, left to right: a lamp gives light vibrating in all planes; a polarizer passes light vibrating in one vertical plane; this plane-polarized light passes through a tube holding a solution of one enantiomer; the plane comes out rotated by an angle alpha; an analyser is turned to find alpha, and an observer looks through it.",
+          "caption": "The analyser turns through the same angle that the sample rotated the light."
+        },
+        {
+          "type": "definition",
+          "term": "racemic mixture",
+          "statement": "A mixture of equal amounts of two enantiomers. It is optically inactive, because the two rotations cancel.",
+          "plain": "Half left-handed, half right-handed: no overall twist."
+        },
+        {
+          "type": "example",
+          "id": "ex-polarimeter-racemic",
+          "question": "Describe how a polarimeter could distinguish a sample of one pure enantiomer of a compound from a racemic mixture of the same compound.",
+          "steps": [
+            "Use the same concentration and the same tube for both samples.",
+            "Say what each sample does to the light, and why."
+          ],
+          "answer": "Pass plane-polarized light through each sample in turn. The pure enantiomer rotates the plane of polarization, so it is optically active. The racemic mixture contains equal amounts of the two enantiomers, which rotate the plane by equal angles in opposite directions. The rotations cancel, so there is no net rotation and the mixture is optically inactive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Pure enantiomer rotates plane-polarized light; racemic mixture has equal amounts rotating in opposite directions, so no net rotation.",
+            "requires": [
+              "plane-polarized light",
+              [
+                "rotates the plane",
+                "rotate the plane"
+              ],
+              "optically active",
+              "equal amounts",
+              "opposite directions",
+              [
+                "cancel",
+                "no net rotation"
+              ]
+            ],
+            "forbids": [
+              "absorbs",
+              "different boiling point"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Chemically, enantiomers react identically with non-chiral reagents. They differ only in a chiral environment, such as an enzyme or a receptor in the body, which is itself built from chiral molecules."
+        },
+        {
+          "type": "example",
+          "id": "ex-chiral-drug",
+          "question": "Only one enantiomer of a chiral drug relieves pain. Outline how the two enantiomers of the drug compare in their physical and chemical properties.",
+          "steps": [
+            "Physical properties: think of melting point and the polarimeter.",
+            "Chemical properties: think of non-chiral reagents, then of the chiral receptor the drug binds to."
+          ],
+          "answer": "The enantiomers have identical physical properties, except that they rotate plane-polarized light in opposite directions. They react in the same way with non-chiral reagents. They behave differently in a chiral environment: the receptor in the body is chiral, so only one enantiomer fits it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Same physical properties except direction of rotation; same reactions with non-chiral reagents; differ in a chiral environment such as a receptor.",
+            "requires": [
+              "identical physical properties",
+              "opposite directions",
+              "non-chiral reagents",
+              "chiral environment",
+              "receptor"
+            ],
+            "forbids": [
+              "different boiling points",
+              "different melting points"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-other-enantiomer-rotation",
+          "prompt": "A solution of one enantiomer of compound Z rotates plane-polarized light by $+12.8^{\\circ}$. What rotation, in degrees and with its sign, does a solution of the other enantiomer give, at the same concentration in the same tube?",
+          "hint": "Same angle, opposite direction.",
+          "answer": {
+            "value": -12.8,
+            "tolerance": 0.05
+          },
+          "explain": "Enantiomers rotate the plane by equal angles in opposite directions, so $-12.8^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-1*12.8",
+            "dp": 1,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-enantiomer-difference",
+          "prompt": "Which property differs between the two enantiomers of a compound?",
+          "hint": "Think about physical properties, and remember that sodium hydroxide is not chiral.",
+          "options": [
+            {
+              "text": "The direction they rotate plane-polarized light",
+              "correct": true
+            },
+            {
+              "text": "Boiling point",
+              "correct": false
+            },
+            {
+              "text": "Molar mass",
+              "correct": false
+            },
+            {
+              "text": "Rate of reaction with aqueous sodium hydroxide",
+              "correct": false
+            }
+          ],
+          "explain": "All physical properties match except the direction of rotation. Sodium hydroxide is not chiral, so both react at the same rate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The direction they rotate plane-polarized light"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-racemic-inactive",
+          "prompt": "Which mixture of the two enantiomers of a compound is optically inactive?",
+          "hint": "The two rotations must cancel exactly.",
+          "options": [
+            {
+              "text": "0.5 mol of each enantiomer",
+              "correct": true
+            },
+            {
+              "text": "0.7 mol of one enantiomer and 0.3 mol of the other",
+              "correct": false
+            },
+            {
+              "text": "1.0 mol of a single enantiomer",
+              "correct": false
+            }
+          ],
+          "explain": "Equal amounts make a racemic mixture, so the rotations cancel. Any other mix leaves a net rotation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "0.5 mol of each enantiomer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Stereoisomers: same atoms, same order of bonding, same bond types; different arrangement in space.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cis-trans isomerism needs restricted rotation (C=C, or a C3 or C4 ring) and two different groups on each of the two carbons. Cis: same side; trans: opposite sides.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chiral carbon: four different atoms or groups. It gives two enantiomers, non-superimposable mirror images, drawn with tapered wedge and hashed bonds.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Enantiomers rotate plane-polarized light equally in opposite directions; a racemic (50:50) mixture is inactive. Otherwise they differ only in chiral environments.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Defining a chiral carbon by optical activity. Define it by structure: four different atoms or groups.",
+    "Claiming cis-trans isomers for an alkene with two identical groups, such as $\\ce{=CH2}$, on one end of the C=C.",
+    "Forgetting that small rings lock substituents: 1,2-disubstituted cyclopropanes and cyclobutanes, and 1,3-disubstituted cyclobutanes, have cis and trans forms (when each substituted carbon also carries H).",
+    "Drawing enantiomers flat with no wedges, or drawing the same molecule twice in a different orientation.",
+    "Saying enantiomers have different boiling points. They differ only in the direction of rotation and in chiral environments."
+  ],
+  "examTips": [
+    "\"Outline what is meant by a chiral carbon\": four different atoms or groups on one carbon. Optical activity alone doesn't earn the mark.",
+    "In Paper 1A isomer counts, a cis-trans pair counts as two compounds, and one chiral carbon gives two enantiomers."
+  ],
+  "readingMinutes": 21
+}

@@ -1,0 +1,771 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.1",
+  "slug": "the-periodic-table-and-periodicity",
+  "title": "The periodic table and periodicity",
+  "level": "SL",
+  "topic": 3,
+  "summary": "The periodic table lists the [[element|elements]] in order of [[atomic-number|atomic number]], in periods, groups and blocks. An element's position tells you its [[electron-configuration|electron configuration]], and the configuration tells you the position. Across a period and down a group, size, [[ionization-energy|ionization energy]], [[electron-affinity|electron affinity]] and [[electronegativity|electronegativity]] change in repeating patterns: this is [[periodicity|periodicity]].",
+  "goals": [
+    {
+      "text": "Locate periods, groups, blocks, metals, metalloids and non-metals.",
+      "bullets": [
+        "S3.1.1"
+      ]
+    },
+    {
+      "text": "Recognize the [[alkali-metal|alkali metals]], [[halogen|halogens]], [[transition-element|transition elements]] and [[noble-gas|noble gases]].",
+      "bullets": [
+        "S3.1.2"
+      ]
+    },
+    {
+      "text": "Deduce a configuration (up to $Z = 36$) from a position in the table, and the reverse.",
+      "bullets": [
+        "S3.1.2"
+      ]
+    },
+    {
+      "text": "Explain how [[atomic-radius|atomic radius]] and [[ionic-radius|ionic radius]] change across a period and down a group.",
+      "bullets": [
+        "S3.1.3"
+      ]
+    },
+    {
+      "text": "Explain how first ionization energy, electron affinity and electronegativity change across a period and down a group.",
+      "bullets": [
+        "S3.1.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "2.1",
+    "2.4",
+    "2.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "periodic table blocks",
+    "periodic trends",
+    "atomic radius trend",
+    "ionization energy trend",
+    "electron affinity trend",
+    "metals and non-metals periodic table"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sulfur-config",
+      "prompt": "Which is the full electron configuration of a sulfur atom, $Z = 16$?",
+      "hint": "Fill 1s, 2s, 2p, 3s and 3p in that order, and check that the superscripts add up to 16.",
+      "options": [
+        {
+          "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{4}}$",
+          "correct": true
+        },
+        {
+          "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3p^{6}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3d^{4}}$",
+          "correct": false
+        }
+      ],
+      "explain": "Twelve electrons fill 1s to 3s, and the last four go into 3p. The second option has 18 electrons. Revise it in {{lesson:1.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-calcium-ion",
+      "prompt": "How many electrons does a calcium [[ion|ion]], $\\ce{Ca^2+}$, have? Calcium's atomic number is 20.",
+      "hint": "A 2+ ion has lost two electrons.",
+      "answer": {
+        "value": 18,
+        "tolerance": 0
+      },
+      "explain": "The atom has 20 electrons; losing two leaves $20 - 2 = 18$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "20 - 2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-most-electronegative",
+      "prompt": "Which atom attracts the shared pair in a covalent bond most strongly?",
+      "hint": "Think about which element has the highest value in section 9 of the data booklet.",
+      "options": [
+        {
+          "text": "fluorine",
+          "correct": true
+        },
+        {
+          "text": "oxygen",
+          "correct": false
+        },
+        {
+          "text": "chlorine",
+          "correct": false
+        },
+        {
+          "text": "nitrogen",
+          "correct": false
+        }
+      ],
+      "explain": "Fluorine is the most electronegative element, at 4.0. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "fluorine"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "layout",
+      "heading": "Periods, groups and blocks",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The periodic table lists the elements in order of atomic number (data booklet, section 7). The rows are periods, numbered 1 to 7. The columns are groups, numbered 1 to 18."
+        },
+        {
+          "type": "text",
+          "text": "The table also splits into four blocks, named after the [[sublevel|sublevel]] that the highest-energy electrons are filling."
+        },
+        {
+          "type": "text",
+          "text": "s-block: groups 1 and 2, plus helium. p-block: groups 13 to 18, apart from helium. d-block: groups 3 to 12. f-block: the two rows printed below the main table, which belong in periods 6 and 7."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-blocks",
+          "alt": "Periodic table outline with every element symbol, groups 1 to 18 across the top and periods 1 to 7 down the side. It is shaded into four blocks. The s-block is groups 1 and 2 plus helium at the top of group 18. The d-block is groups 3 to 12, from period 4 down. The p-block is groups 13 to 18, apart from helium. The f-block is two separate rows printed below the table, cerium to lutetium and thorium to lawrencium.",
+          "caption": "The four blocks. Helium sits in group 18 but is an s-block element: its two electrons are in 1s."
+        },
+        {
+          "type": "text",
+          "text": "Most elements are metals. They fill the left and centre of the table. Non-metals sit at the top right, and hydrogen is a non-metal too."
+        },
+        {
+          "type": "text",
+          "text": "Between them runs a staircase of metalloids, usually B, Si, Ge, As, Sb and Te, with properties in between. Silicon is shiny like a metal, but brittle and a poor conductor."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-metals-nonmetals",
+          "alt": "The same periodic table shaded by type of element. Metals fill the left and centre: groups 1 and 2 except hydrogen, the whole d-block and f-block, and the lower left of the p-block, such as aluminium, tin, lead and bismuth. A thick staircase line runs from between boron and aluminium down to between polonium and astatine. Along it sit the metalloids boron, silicon, germanium, arsenic, antimony and tellurium. Non-metals are on the upper right: hydrogen, helium, carbon, nitrogen, oxygen, fluorine, neon, phosphorus, sulfur, chlorine, argon, selenium, bromine, krypton, iodine, xenon and radon. Astatine and elements 113 to 118 are left unshaded with dashed outlines, because their properties are uncertain.",
+          "caption": "Metals, metalloids and non-metals. The staircase line separates the metals from the rest."
+        },
+        {
+          "type": "text",
+          "text": "You need four names. [[alkali-metal|Alkali metals]]: group 1, except hydrogen. [[halogen|Halogens]]: group 17. [[noble-gas|Noble gases]]: group 18."
+        },
+        {
+          "type": "text",
+          "text": "[[transition-element|Transition elements]] are in the d-block: scandium to copper in period 4. Zinc is in the d-block but is not a transition element, because its d sublevel is full in both the atom and the $\\ce{Zn^2+}$ ion."
+        },
+        {
+          "type": "example",
+          "id": "ex-germanium-position",
+          "question": "Germanium has atomic number 32. Use the periodic table to state its period, group and block, and whether it is a metal, a metalloid or a non-metal.",
+          "steps": [
+            "Element 32 is in the fourth row, so period 4, and in the column below carbon and silicon, group 14.",
+            "Groups 13 to 18 make up the p-block.",
+            "It sits on the staircase between metals and non-metals, so it is a metalloid."
+          ],
+          "answer": "Period 4, group 14, p-block; a metalloid.",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrogen-not-alkali",
+          "question": "Hydrogen is often printed at the top of group 1. Explain why it is not an alkali metal.",
+          "steps": [
+            "Say what hydrogen shares with group 1: one [[valence-electron|valence electron]], the reason it is placed there.",
+            "Then say how it differs."
+          ],
+          "answer": "Hydrogen has one valence electron, like the alkali metals, which is why it is placed above group 1. But hydrogen is a non-metal. It exists as $\\ce{H2}$ molecules and is a gas at room temperature, whereas the alkali metals are reactive solid metals.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "one valence electron like group 1, but hydrogen is a non-metal gas of H2 molecules",
+            "requires": [
+              [
+                "one valence electron",
+                "one electron"
+              ],
+              "non-metal",
+              [
+                "molecules",
+                "diatomic"
+              ],
+              "gas"
+            ],
+            "forbids": [
+              "hydrogen is a metal",
+              "hydrogen is an alkali metal"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-d-block",
+          "prompt": "Which of these elements belongs to the d-block?",
+          "hint": "Find each element's group. The d-block is groups 3 to 12.",
+          "options": [
+            {
+              "text": "vanadium",
+              "correct": true
+            },
+            {
+              "text": "calcium",
+              "correct": false
+            },
+            {
+              "text": "gallium",
+              "correct": false
+            },
+            {
+              "text": "tellurium",
+              "correct": false
+            }
+          ],
+          "explain": "Vanadium is in group 5. Calcium (group 2) is s-block; gallium (13) and tellurium (16) are p-block.",
+          "verify": {
+            "kind": "choice",
+            "truth": "vanadium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-period-4-halogen",
+          "prompt": "Which element is the halogen in period 4?",
+          "hint": "Halogens are in group 17. Look along the fourth row.",
+          "options": [
+            {
+              "text": "bromine",
+              "correct": true
+            },
+            {
+              "text": "selenium",
+              "correct": false
+            },
+            {
+              "text": "krypton",
+              "correct": false
+            },
+            {
+              "text": "potassium",
+              "correct": false
+            }
+          ],
+          "explain": "Bromine is in group 17. Selenium is in group 16, krypton is a noble gas and potassium is an alkali metal.",
+          "verify": {
+            "kind": "choice",
+            "truth": "bromine"
+          }
+        }
+      ]
+    },
+    {
+      "id": "configurations",
+      "heading": "Position and electron configuration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The period number is the highest main [[energy-level|energy level]] that holds electrons. Sodium is in period 3, and its outer electron is in level 3: $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{1}}$."
+        },
+        {
+          "type": "text",
+          "text": "Elements in the same group have the same number of [[valence-electron|valence electrons]]. That shared outer arrangement is why they react in similar ways."
+        },
+        {
+          "type": "result",
+          "statement": "The period number is the outer occupied main energy level. In groups 1 and 2 the number of valence electrons is the group number. In groups 13 to 18 it is the group number minus 10, except helium, which has two.",
+          "why": "Each period starts a new main level. The ten d-block columns fill an inner d sublevel, so they add no valence electrons."
+        },
+        {
+          "type": "text",
+          "text": "To write a configuration from the table, walk from hydrogen to the element, period by period. In period $n$, crossing the s-block fills $n$s, the d-block fills $(n-1)$d and the p-block fills $n$p."
+        },
+        {
+          "type": "text",
+          "text": "So period 4 fills 4s (potassium and calcium), then 3d (scandium to zinc), then 4p (gallium to krypton). Chromium and copper are the two exceptions, with $\\mathrm{4s^{1}}$; revise them in {{lesson:1.4}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-config-from-position",
+          "question": "An element is in period 4 and group 13. Deduce its full electron configuration and identify the element.",
+          "steps": [
+            "Periods 1 to 3 are complete, which is argon's 18 electrons: $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}}$.",
+            "Walk along period 4. The s-block gives $\\mathrm{4s^{2}}$. The whole d-block comes next, giving $\\mathrm{3d^{10}}$.",
+            "Group 13 is the first p-block column, so add $\\mathrm{4p^{1}}$.",
+            "Check: $18 + 2 + 10 + 1 = 31$ electrons, and element 31 is gallium."
+          ],
+          "answer": "Gallium: $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{6}\\,4s^{2}\\,3d^{10}\\,4p^{1}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out 3d for gallium to krypton. The walk along period 4 crosses the whole d-block before reaching 4p, so each of these has $\\mathrm{3d^{10}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-position-from-config",
+          "question": "An atom has the configuration $\\mathrm{[Ar]\\,4s^{2}\\,3d^{5}}$. Deduce its period, group and block, and identify the element.",
+          "steps": [
+            "The highest main level occupied is $n = 4$, so it is in period 4.",
+            "The last electrons went into 3d, so it is in the d-block.",
+            "Count along period 4: two s-block columns, then five d-block columns. That is group $2 + 5 = 7$.",
+            "Check: $18 + 2 + 5 = 25$ electrons, so $Z = 25$, which is manganese."
+          ],
+          "answer": "Manganese: period 4, group 7, d-block.",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-position-from-config",
+          "prompt": "An atom has the configuration $\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{4}}$. Where is it in the periodic table?",
+          "hint": "The highest level gives the period. For the group, count every column crossed in that period, d-block included.",
+          "options": [
+            {
+              "text": "period 4, group 16",
+              "correct": true
+            },
+            {
+              "text": "period 4, group 6",
+              "correct": false
+            },
+            {
+              "text": "period 3, group 16",
+              "correct": false
+            },
+            {
+              "text": "period 4, group 4",
+              "correct": false
+            }
+          ],
+          "explain": "Level 4 is the highest, so period 4. It has crossed 2 s-block, 10 d-block and 4 p-block columns: group 16. Group 6 forgets the d-block."
+        },
+        {
+          "type": "check",
+          "id": "check-config-group-5",
+          "prompt": "Which is the electron configuration of the element in period 4, group 5?",
+          "hint": "Group 5 is in the d-block. How many d-block columns do you cross to reach it?",
+          "options": [
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{3}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{3}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{5}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,4p^{3}}$",
+              "correct": false
+            }
+          ],
+          "explain": "After $\\mathrm{4s^{2}}$, three d-block columns reach group 5: $\\mathrm{3d^{3}}$, vanadium. The 4p options are group 15."
+        }
+      ]
+    },
+    {
+      "id": "radius",
+      "heading": "Atomic and ionic radius",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every trend in this lesson comes from a tug of war. The positive nucleus pulls on the outer electrons, and the inner electrons get in the way."
+        },
+        {
+          "type": "definition",
+          "term": "shielding",
+          "statement": "The reduction in the attraction between the nucleus and an outer electron, caused by repulsion from electrons in inner energy levels.",
+          "plain": "Inner electrons partly block the nucleus."
+        },
+        {
+          "type": "definition",
+          "term": "effective nuclear charge",
+          "statement": "The net positive charge felt by an outer electron: the full nuclear charge reduced by shielding.",
+          "plain": "The nucleus's pull after shielding."
+        },
+        {
+          "type": "text",
+          "text": "A rough estimate is the number of protons minus the number of inner electrons. Sodium gives $11 - 10 = +1$ and chlorine, in the same period, gives $17 - 10 = +7$."
+        },
+        {
+          "type": "definition",
+          "term": "atomic radius",
+          "statement": "Half the distance between the nuclei of two atoms of the same element joined by a single covalent bond.",
+          "plain": "How big an atom is."
+        },
+        {
+          "type": "result",
+          "statement": "Atomic radius generally decreases across a period, from group 1 to group 17, and increases down a group.",
+          "why": "Across a period the effective nuclear charge rises while the outer electrons stay in the same level, so they are pulled closer. Down a group each element has one more occupied level, so the outer electrons are further out and more shielded."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-atomic-radii",
+          "alt": "Atoms drawn as circles to scale, with atomic radii in units of ten to the minus twelve metres. Left, group 1 from top to bottom: lithium 130, sodium 160, potassium 200, rubidium 215 and caesium 238; the circles grow down the group. Right, period 3 from left to right: sodium 160, magnesium 140, aluminium 124, silicon 114, phosphorus 109, sulfur 104 and chlorine 100; the circles shrink across the period.",
+          "caption": "Atomic radii from section 10 of the data booklet, drawn to scale."
+        },
+        {
+          "type": "text",
+          "text": "The booklet shows small exceptions, such as copper (122) after nickel (117) in period 4, and gallium (123) just below aluminium (124). Exam questions ask you to explain the general trend."
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-mg-s",
+          "question": "The atomic radius of sulfur is $\\pu{104e-12 m}$ and that of magnesium is $\\pu{140e-12 m}$. Explain why sulfur's atoms are smaller.",
+          "steps": [
+            "Compare nuclear charge (16 and 12 protons), outer level (both level 3) and shielding.",
+            "Link them to the pull on the outer electrons."
+          ],
+          "answer": "Sulfur has more protons than magnesium, so its nuclear charge is greater. Its outer electrons are in the same main energy level as magnesium's, the third, and the shielding by inner electrons is about the same. So the effective nuclear charge is greater in sulfur, and its outer electrons are pulled closer to the nucleus.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more protons, same energy level and similar shielding, so outer electrons pulled closer",
+            "requires": [
+              [
+                "more protons",
+                "greater nuclear charge"
+              ],
+              [
+                "same main energy level",
+                "same energy level",
+                "same shell"
+              ],
+              "shielding",
+              [
+                "pulled closer",
+                "stronger attraction"
+              ]
+            ],
+            "forbids": [
+              "fewer shells",
+              "fewer energy levels",
+              "more shells"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A positive ion is smaller than its atom: $\\ce{Na^+}$ ($102$) has lost sodium's only level-3 electron, so it is much smaller than Na ($160$; data booklet, section 10)."
+        },
+        {
+          "type": "text",
+          "text": "A negative ion is larger. The extra electrons repel each other but the nuclear charge is unchanged, so $\\ce{Cl^-}$ is $181$ against $100$ for Cl."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{Na^+}$, $\\ce{Mg^2+}$ and $\\ce{Al^3+}$ all have the configuration $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$. More protons pull the same electrons closer, so the [[ionic-radius|ionic radius]] falls: $102$, $72$, $54$."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{S^2-}$ and $\\ce{Cl^-}$ have an extra occupied level, so they are far larger. Down a group, ionic radius increases: $\\ce{F^-}$ $133$, $\\ce{Cl^-}$ $181$, $\\ce{Br^-}$ $196$."
+        },
+        {
+          "type": "example",
+          "id": "ex-oxide-vs-magnesium-ion",
+          "question": "The oxide ion, $\\ce{O^2-}$, has an ionic radius of $\\pu{140e-12 m}$, but $\\ce{Mg^2+}$ is only $\\pu{72e-12 m}$. Both have the configuration $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$. Explain the difference.",
+          "steps": [
+            "The electrons are identical, so only the nucleus differs."
+          ],
+          "answer": "Both ions have the same number of electrons in the same levels, so the shielding is the same. Magnesium has 12 protons but oxygen has 8 protons. So $\\ce{Mg^2+}$ pulls its electrons closer and is smaller.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same electrons, but Mg has 12 protons and O has 8, so Mg2+ electrons pulled closer",
+            "requires": [
+              [
+                "same number of electrons",
+                "same electron configuration"
+              ],
+              "12 protons",
+              "8 protons",
+              [
+                "pulls its electrons closer",
+                "pulls the electrons closer",
+                "pulled closer",
+                "stronger attraction"
+              ]
+            ],
+            "forbids": [
+              "more shells",
+              "fewer shells"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zeff-phosphorus",
+          "prompt": "Use the rough estimate to find the effective nuclear charge on a valence electron of phosphorus, $Z = 15$.",
+          "hint": "Levels 1 and 2 are inner levels. How many electrons do they hold?",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "Phosphorus has 15 protons and 10 inner electrons ($\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}}$), so about $15 - 10 = +5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15 - 10",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest-species",
+          "prompt": "These four species all have 18 electrons. Which has the largest radius?",
+          "hint": "Same electrons, so compare the number of protons.",
+          "options": [
+            {
+              "text": "$\\ce{S^2-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Cl^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{K^+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Ca^2+}$",
+              "correct": false
+            }
+          ],
+          "explain": "Sulfur has the fewest protons (16), so it pulls the 18 electrons in least: $\\ce{S^2-}$ $184$, $\\ce{Cl^-}$ $181$, $\\ce{K^+}$ $138$, $\\ce{Ca^2+}$ $100$."
+        }
+      ]
+    },
+    {
+      "id": "energies",
+      "heading": "Ionization energy, electron affinity and electronegativity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The same tug of war decides how easily an atom loses or gains an electron."
+        },
+        {
+          "type": "definition",
+          "term": "first ionization energy",
+          "statement": "The energy needed to remove one mole of electrons from one mole of gaseous atoms in their ground state, forming one mole of gaseous 1+ ions.",
+          "plain": "The energy to pull one electron off each atom."
+        },
+        {
+          "type": "text",
+          "text": "For sodium, $\\ce{Na(g) -> Na^+(g) + e-}$ needs $\\pu{496 kJ mol-1}$ (data booklet, section 9). Removing an electron always takes in energy, so ionization energies are positive."
+        },
+        {
+          "type": "result",
+          "statement": "First ionization energy generally increases across a period and decreases down a group.",
+          "why": "Across a period the greater effective nuclear charge and smaller radius hold the outer electron more tightly. Down a group the outer electron is further away and more shielded, so less energy removes it."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also explain the small dips in this trend, after groups 2 and 15.",
+          "lesson": "3.4"
+        },
+        {
+          "type": "example",
+          "id": "ex-magnesium-ie-equation",
+          "question": "Write the equation for the first ionization energy of magnesium, including state symbols.",
+          "steps": [
+            "The definition starts from gaseous atoms, so magnesium is $\\ce{Mg(g)}$, not $\\ce{Mg(s)}$.",
+            "One electron is removed, leaving a gaseous 1+ ion.",
+            "Check the charge: $0$ on the left, $+1 - 1 = 0$ on the right."
+          ],
+          "answer": "$\\ce{Mg(g) -> Mg^+(g) + e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Mg(g) -> Mg^+(g) + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-chlorine-bromine-ie",
+          "question": "The first ionization energy of chlorine is $\\pu{1251 kJ mol-1}$ and that of bromine is $\\pu{1140 kJ mol-1}$. Explain why bromine's value is lower.",
+          "steps": [
+            "Bromine's outer electron is in level 4, chlorine's in level 3.",
+            "Say why bromine's extra protons don't win, then link to the energy needed."
+          ],
+          "answer": "Bromine's outer electron is in the fourth main energy level, so it is further from the nucleus than chlorine's. It is also shielded by more inner electrons. Bromine has more protons, but the extra distance and shielding outweigh this. So the outer electron is attracted less strongly, and less energy is needed to remove it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "further from nucleus and more shielded, outweighing extra protons, so weaker attraction and less energy",
+            "requires": [
+              "further from the nucleus",
+              [
+                "more inner electrons",
+                "more shielding"
+              ],
+              [
+                "attracted less strongly",
+                "weaker attraction"
+              ],
+              "less energy"
+            ],
+            "forbids": [
+              "smaller nuclear charge",
+              "fewer protons"
+            ]
+          }
+        },
+        {
+          "type": "definition",
+          "term": "electron affinity",
+          "statement": "The energy change when one mole of electrons is added to one mole of gaseous atoms, forming one mole of gaseous 1− ions.",
+          "plain": "The energy change when each atom gains one electron."
+        },
+        {
+          "type": "text",
+          "text": "For chlorine, $\\ce{Cl(g) + e- -> Cl^-(g)}$ has $\\Delta H = \\pu{-349 kJ mol-1}$. Most values in the booklet are negative: the nucleus attracts the incoming electron, so energy is released."
+        },
+        {
+          "type": "text",
+          "text": "Electron affinity generally becomes more negative across a period, as the effective nuclear charge rises, and less negative down a group, as the new electron lands further out. The halogens have the most negative values."
+        },
+        {
+          "type": "text",
+          "text": "The pattern is less regular than for ionization energy. Fluorine ($-328$) is less negative than chlorine ($-349$), because its small, crowded 2p sublevel repels the extra electron. Noble gases have no booklet value: their 1− ions are not stable."
+        },
+        {
+          "type": "text",
+          "text": "Electronegativity, from {{lesson:2.4}}, follows the ionization energy pattern for the same reasons. It increases across a period and decreases down a group, and fluorine has the highest value, $4.0$ (data booklet, section 9)."
+        },
+        {
+          "type": "check",
+          "id": "check-highest-ie",
+          "prompt": "Which atom has the highest first ionization energy?",
+          "hint": "Three of these are in group 15. Then compare across period 3 for the fourth.",
+          "options": [
+            {
+              "text": "$\\ce{N}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{P}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{As}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Si}$",
+              "correct": false
+            }
+          ],
+          "explain": "It falls down group 15: N $1402$, P $1012$, As $944$. Silicon ($787$) is left of phosphorus, so lower still."
+        },
+        {
+          "type": "check",
+          "id": "check-oxygen-ea-equation",
+          "prompt": "Which equation represents the first electron affinity of oxygen?",
+          "hint": "Start from one gaseous atom, and add one electron.",
+          "options": [
+            {
+              "text": "$\\ce{O(g) + e- -> O^-(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{O(g) -> O^+(g) + e-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{O(g) + 2e- -> O^2-(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{1/2O2(g) + e- -> O^-(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "One electron is added to a gaseous atom. The others show ionization, two electrons, and a molecule.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "O(g) + e- -> O^-(g)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Blocks: s (groups 1, 2 and helium), d (groups 3 to 12), p (groups 13 to 18, apart from helium), f (the two rows below).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alkali metals: group 1 except hydrogen. Halogens: group 17. Noble gases: group 18. Metalloids: B, Si, Ge, As, Sb, Te.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Period = outer occupied main energy level. Valence electrons = group number (groups 1, 2) or group number − 10 (groups 13 to 18; helium has 2).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Across a period: greater effective nuclear charge. In general, atomic radius falls; first ionization energy and electronegativity rise; electron affinity becomes more negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Down a group: one more occupied level and more shielding. In general, radii rise; first ionization energy and electronegativity fall; electron affinity becomes less negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cations are smaller than their atoms and anions are larger. For ions with the same configuration, more protons means a smaller ion.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing a condensed configuration when the question asks for the full one. Write every sublevel from 1s unless [Ar] is allowed.",
+    "Explaining the fall in radius across a period by \"fewer shells\". The number of occupied levels is the same; the rising nuclear charge with similar shielding is the reason.",
+    "Explaining a trend down a group by nuclear charge alone. Nuclear charge rises down a group too; the extra level and extra shielding decide it.",
+    "Writing ionization or electron affinity equations from solids or molecules. Every species is a single gaseous atom or ion, (g)."
+  ],
+  "examTips": [
+    "\"Explain\" a trend: name the nuclear charge, the energy level or distance, and the shielding, then link them to the attraction on the outer electrons. Each link can be a marking point.",
+    "\"Deduce\" a configuration from a position: count every block you cross, and write the full form unless the question accepts a noble-gas core.",
+    "\"State\" a classification needs only the name: alkali metal, halogen, transition element or noble gas."
+  ],
+  "readingMinutes": 25
+}

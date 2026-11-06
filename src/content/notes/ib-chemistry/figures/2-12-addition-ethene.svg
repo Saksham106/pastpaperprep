@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 210" role="img" aria-labelledby="t">
+  <title id="t">Addition polymerization of ethene. On the left, n molecules of ethene: two carbon atoms joined by a double bond, each carbon also bonded to two hydrogen atoms, one above and one below. An arrow points right to the repeating unit of poly(ethene): the same two carbon atoms, now joined by a single bond, each still bonded to two hydrogen atoms. An open bond leaves each end of the unit and crosses a square bracket, and a subscript n follows the right bracket.</title>
+  <g font-size="18" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="40" y="106" font-style="italic">n</text>
+    <text x="85" y="106">C</text>
+    <text x="145" y="106">C</text>
+    <text x="85" y="52">H</text>
+    <text x="145" y="52">H</text>
+    <text x="85" y="160">H</text>
+    <text x="145" y="160">H</text>
+    <text x="345" y="106">C</text>
+    <text x="405" y="106">C</text>
+    <text x="345" y="52">H</text>
+    <text x="405" y="52">H</text>
+    <text x="345" y="160">H</text>
+    <text x="405" y="160">H</text>
+    <text x="300" y="118" font-size="54" font-weight="300">[</text>
+    <text x="450" y="118" font-size="54" font-weight="300">]</text>
+    <text x="466" y="136" font-size="16" font-style="italic">n</text>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <path d="M85 58 V84"/>
+    <path d="M145 58 V84"/>
+    <path d="M85 112 V140"/>
+    <path d="M145 112 V140"/>
+    <path d="M345 58 V84"/>
+    <path d="M405 58 V84"/>
+    <path d="M345 112 V140"/>
+    <path d="M405 112 V140"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2.4" fill="none">
+    <path d="M96 95 H134"/>
+    <path d="M96 103 H134"/>
+  </g>
+  <g stroke="var(--t2-ink)" stroke-width="2.4" fill="none">
+    <path d="M356 99 H394"/>
+    <path d="M284 99 H334"/>
+    <path d="M416 99 H470"/>
+  </g>
+  <path d="M190 99 H252" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="262,99 251,93.5 251,104.5" fill="currentColor"/>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="115" y="196" fill="var(--t1-ink)">ethene: C=C opens</text>
+    <text x="375" y="196" fill="var(--t2-ink)">repeating unit of poly(ethene)</text>
+  </g>
+</svg>

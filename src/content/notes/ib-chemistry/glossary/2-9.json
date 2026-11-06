@@ -2,31 +2,31 @@
   {
     "id": "sigma-bond",
     "term": "sigma bond",
-    "definition": "TODO: Head-on overlap of orbitals; density along the bond axis; first bond between two atoms.",
+    "definition": "A covalent bond made by head-on overlap of two orbitals, so the shared electron density lies on the line between the two nuclei; the first bond between any two atoms is a sigma bond.",
     "lesson": "2.9"
   },
   {
     "id": "pi-bond",
     "term": "pi bond",
-    "definition": "TODO: Sideways overlap of p orbitals; density above and below the axis.",
+    "definition": "A covalent bond made by sideways overlap of two parallel p orbitals, so the shared electron density lies in two regions, above and below the line between the nuclei; it forms only alongside a sigma bond.",
     "lesson": "2.9"
   },
   {
     "id": "hybridization",
     "term": "hybridization",
-    "definition": "TODO: Mixing atomic orbitals to give equivalent hybrid orbitals.",
+    "definition": "The mixing of atomic orbitals on one atom to make a set of new, identical hybrid orbitals that point in the directions the atom's bonds and lone pairs take.",
     "lesson": "2.9"
   },
   {
     "id": "sp3-hybridization",
     "term": "sp3 hybridization",
-    "definition": "TODO: Four sigma domains, tetrahedral, 109.5 degrees.",
+    "definition": "Mixing one s and three p orbitals into four sp³ orbitals, found on an atom with four electron domains: tetrahedral, with angles of about $109.5^{\\circ}$.",
     "lesson": "2.9"
   },
   {
     "id": "sp2-hybridization",
     "term": "sp2 hybridization",
-    "definition": "TODO: Three domains, trigonal planar, one unhybridized p orbital forms a pi bond.",
+    "definition": "Mixing one s and two p orbitals into three sp² orbitals, found on an atom with three electron domains: trigonal planar, $120^{\\circ}$ apart, with one p orbital left over that can form a pi bond.",
     "lesson": "2.9"
   }
 ]

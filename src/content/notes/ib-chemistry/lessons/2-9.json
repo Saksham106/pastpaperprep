@@ -1,0 +1,674 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.9",
+  "slug": "sigma-and-pi-bonds-and-hybridization",
+  "title": "Sigma and pi bonds, and hybridization",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A covalent bond forms where two orbitals overlap. Head-on overlap gives a [[sigma-bond|sigma bond]]; sideways overlap of p orbitals gives a weaker [[pi-bond|pi bond]]. [[hybridization|Hybridization]] links the [[electron-domain|electron domains]] around an atom to the orbitals it bonds with, so each one predicts the other.",
+  "goals": [
+    {
+      "text": "Describe how sigma bonds and pi bonds form, and where their electron density lies.",
+      "bullets": [
+        "S2.2.15"
+      ]
+    },
+    {
+      "text": "Deduce the number of sigma and pi bonds in a molecule or ion from its Lewis formula.",
+      "bullets": [
+        "S2.2.15"
+      ]
+    },
+    {
+      "text": "Explain sp³, sp² and sp hybridization, including which orbitals mix and which are left over.",
+      "bullets": [
+        "S2.2.16"
+      ]
+    },
+    {
+      "text": "Link Lewis formula, electron domains, geometry and hybridization, and predict each one from the others.",
+      "bullets": [
+        "S2.2.16"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.3",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sigma and pi bonds",
+    "counting sigma and pi bonds",
+    "sp3 sp2 sp hybridisation",
+    "hybrid orbitals",
+    "orbital overlap",
+    "hybridization and molecular shape"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-unpaired-carbon",
+      "prompt": "How many unpaired electrons does a carbon atom have in its ground state?",
+      "hint": "Fill the 2p orbitals one electron each first.",
+      "options": [
+        {
+          "text": "two",
+          "correct": true
+        },
+        {
+          "text": "four",
+          "correct": false
+        },
+        {
+          "text": "none",
+          "correct": false
+        }
+      ],
+      "explain": "Carbon is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{2}}$. The two 2p electrons sit in separate orbitals, so two are unpaired. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "two"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-domains-ocs",
+      "prompt": "Carbonyl sulfide has the Lewis formula $\\ce{O=C=S}$, with no lone pairs on carbon. How many electron domains are there around the carbon atom?",
+      "hint": "A double bond counts as one domain.",
+      "options": [
+        {
+          "text": "two",
+          "correct": true
+        },
+        {
+          "text": "four",
+          "correct": false
+        },
+        {
+          "text": "three",
+          "correct": false
+        }
+      ],
+      "explain": "Each double bond is one domain and carbon has no lone pair, so there are two. Revise it in {{lesson:2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "two"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-polar-h2s",
+      "prompt": "Which of these is a [[polar-molecule|polar molecule]]?",
+      "hint": "Polar bonds are not enough: the shape must stop the dipoles cancelling.",
+      "options": [
+        {
+          "text": "hydrogen sulfide (bent)",
+          "correct": true
+        },
+        {
+          "text": "carbon dioxide (linear)",
+          "correct": false
+        },
+        {
+          "text": "silicon tetrafluoride (tetrahedral)",
+          "correct": false
+        },
+        {
+          "text": "boron trichloride (trigonal planar)",
+          "correct": false
+        }
+      ],
+      "explain": "All four have polar bonds, but only in the bent shape do the dipoles not cancel. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "hydrogen sulfide (bent)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sigma-pi",
+      "heading": "Sigma and pi bonds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[covalent-bond|covalent bond]] is a shared pair of electrons. Each atom offers an [[atomic-orbital|atomic orbital]] holding one electron, the two orbitals overlap, and the pair sits in the overlap."
+        },
+        {
+          "type": "text",
+          "text": "The line through the two nuclei is the bond axis. Orbitals can overlap head-on, along that axis, or sideways, beside it."
+        },
+        {
+          "type": "definition",
+          "term": "sigma bond",
+          "statement": "A covalent bond formed by head-on overlap of two orbitals, with most of its electron density on the bond axis, between the nuclei.",
+          "plain": "The orbitals point straight at each other, and the pair sits between the atoms."
+        },
+        {
+          "type": "definition",
+          "term": "pi bond",
+          "statement": "A covalent bond formed by sideways overlap of two parallel p orbitals, with its electron density on opposite sides of the bond axis.",
+          "plain": "Two side-by-side p orbitals merge above and below the line joining the atoms."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-overlap",
+          "alt": "Three rows, each with a dashed horizontal bond axis through two nuclei. Top row: two spherical s orbitals overlap on the axis between the nuclei, labelled sigma bond, s and s overlap, head-on along the axis. Middle row: two dumbbell-shaped p orbitals lie along the axis and their inner lobes overlap between the nuclei, labelled sigma bond, p and p overlap, head-on along the axis. Bottom row: two p orbitals stand upright, parallel to each other and at right angles to the axis; they overlap in one region above the axis and one below it, labelled pi bond, parallel p orbitals, sideways, above and below the axis.",
+          "caption": "Head-on overlap puts the shared pair on the axis ($\\sigma$). Sideways overlap puts it above and below the axis ($\\pi$)."
+        },
+        {
+          "type": "text",
+          "text": "Any two orbitals can overlap head-on: s with s in $\\ce{H2}$, s with p in $\\ce{HCl}$, p with p in $\\ce{Cl2}$. So the first bond between two atoms is always a [[sigma-bond|sigma bond]] ($\\sigma$)."
+        },
+        {
+          "type": "text",
+          "text": "A [[pi-bond|pi bond]], written $\\pi$, needs two parallel p orbitals at right angles to the axis. They only get close enough once a $\\sigma$ bond holds the atoms together."
+        },
+        {
+          "type": "result",
+          "statement": "A single bond is one $\\sigma$ bond. A double bond is one $\\sigma$ bond and one $\\pi$ bond. A triple bond is one $\\sigma$ bond and two $\\pi$ bonds.",
+          "why": "Only one head-on overlap fits on the axis, so extra bonds overlap sideways, at right angles to each other."
+        },
+        {
+          "type": "text",
+          "text": "Sideways overlap is less effective, so a $\\pi$ bond is usually weaker than a $\\sigma$ bond. Its exposed electrons are why alkenes react at the double bond."
+        },
+        {
+          "type": "example",
+          "id": "ex-pi-bond-energy",
+          "question": "Use the carbon–carbon bond enthalpies in section 12 of the data booklet to estimate the energy needed to break the $\\pi$ bond in $\\ce{C=C}$.",
+          "steps": [
+            "$\\ce{C-C}$ is one $\\sigma$ bond: $\\pu{346 kJ mol-1}$. $\\ce{C=C}$ is one $\\sigma$ plus one $\\pi$: $\\pu{614 kJ mol-1}$.",
+            "Take away the $\\sigma$ bond: $614 - 346 = \\pu{268 kJ mol-1}$.",
+            "Sense check: $268 < 346$, so the $\\pi$ bond is the weaker one. It is an estimate, because bond enthalpies are averages."
+          ],
+          "answer": "$E_{\\pi} = \\pu{268 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "BE('C=C') - BE('C-C')",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-count-propenal",
+          "question": "Propenal, $\\ce{CH2=CHCHO}$, is an aldehyde with a $\\ce{C=C}$ double bond. Deduce the number of $\\sigma$ and $\\pi$ bonds in one molecule.",
+          "steps": [
+            "Draw every bond: $\\ce{H2C=CH-CH=O}$, with one hydrogen on each of carbons 2 and 3.",
+            "Single bonds, one $\\sigma$ each: four $\\ce{C-H}$ and one $\\ce{C-C}$, so 5 $\\sigma$.",
+            "Double bonds, $\\sigma + \\pi$ each: $\\ce{C=C}$ and $\\ce{C=O}$, so 2 $\\sigma$ and 2 $\\pi$.",
+            "Check: 8 atoms with no ring need $8 - 1 = 7$ $\\sigma$ bonds to join them."
+          ],
+          "answer": "Propenal has 7 σ bonds and 2 π bonds.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "7 sigma and 2 pi",
+            "requires": [
+              [
+                "7 σ bonds",
+                "seven σ bonds"
+              ],
+              [
+                "2 π bonds",
+                "two π bonds"
+              ]
+            ],
+            "forbids": [
+              "9 σ",
+              "4 π"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Missing the $\\ce{C-H}$ bonds when counting from a condensed or skeletal formula. Draw every bond first: each $\\ce{C-H}$ is one $\\sigma$ bond."
+        },
+        {
+          "type": "check",
+          "id": "check-hcn-bonds",
+          "prompt": "How many $\\sigma$ and $\\pi$ bonds are there in one molecule of hydrogen cyanide, $\\ce{HCN}$?",
+          "hint": "Draw $\\ce{H-C#N}$. A triple bond holds only one $\\sigma$ bond.",
+          "options": [
+            {
+              "text": "2 σ and 2 π",
+              "correct": true
+            },
+            {
+              "text": "1 σ and 3 π",
+              "correct": false
+            },
+            {
+              "text": "4 σ and 0 π",
+              "correct": false
+            },
+            {
+              "text": "2 σ and 1 π",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{H-C}$ is one $\\sigma$; $\\ce{C#N}$ is one $\\sigma$ and two $\\pi$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "2 σ and 2 π"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pi-density",
+          "prompt": "Where is the electron density of a $\\pi$ bond concentrated?",
+          "hint": "Picture two upright p orbitals side by side.",
+          "options": [
+            {
+              "text": "above and below the bond axis",
+              "correct": true
+            },
+            {
+              "text": "on the bond axis, between the nuclei",
+              "correct": false
+            },
+            {
+              "text": "around one nucleus only",
+              "correct": false
+            }
+          ],
+          "explain": "The parallel p orbitals overlap above and below the axis. Density on the axis is a $\\sigma$ bond.",
+          "verify": {
+            "kind": "choice",
+            "truth": "above and below the bond axis"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hybrid",
+      "heading": "Hybrid orbitals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Carbon, $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{2}}$, has only two unpaired electrons. Yet methane has four identical $\\ce{C-H}$ bonds, $109.5^{\\circ}$ apart, and the 2p orbitals are only $90^{\\circ}$ apart."
+        },
+        {
+          "type": "text",
+          "text": "The model fixes this in two steps. One 2s electron is promoted into the empty 2p orbital. Then the 2s and three 2p orbitals mix into four identical orbitals."
+        },
+        {
+          "type": "definition",
+          "term": "hybridization",
+          "statement": "The mixing of atomic orbitals on one atom to give a set of new, equivalent hybrid orbitals that the atom uses for bonding.",
+          "plain": "An atom blends its s and p orbitals into identical orbitals that point where its bonds go."
+        },
+        {
+          "type": "text",
+          "text": "In [[hybridization|hybridization]], the number of hybrid orbitals equals the number of orbitals mixed: sp³ is one s and three p."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-carbon-hybrids",
+          "alt": "Orbital boxes for carbon's valence electrons, five rows. Ground state: 2s box with an up and a down arrow, then three 2p boxes with one up arrow in each of the first two and the third empty. Below that, 2s electron promoted: 2s box with one up arrow, and three 2p boxes each with one up arrow. A dashed line separates the hybrid rows. sp3, four domains: four hybrid boxes, each with one up arrow. sp2, three domains: three hybrid boxes with one up arrow each, then one separate p box with one up arrow. sp, two domains: two hybrid boxes with one up arrow each, then two separate p boxes with one up arrow each.",
+          "caption": "Promotion gives carbon four unpaired electrons. Mixing four, three or two of its orbitals gives the sp³, sp² or sp set; any p orbitals left over can form $\\pi$ bonds."
+        },
+        {
+          "type": "text",
+          "text": "[[sp3-hybridization|sp³ hybridization]]: one s and three p orbitals give four sp³ orbitals, pointing to the corners of a tetrahedron, $109.5^{\\circ}$ apart. Each forms a $\\sigma$ bond or holds a lone pair."
+        },
+        {
+          "type": "text",
+          "text": "[[sp2-hybridization|sp² hybridization]]: one s and two p orbitals give three sp² orbitals in a plane, $120^{\\circ}$ apart. The leftover p orbital, at right angles to the plane, can form one $\\pi$ bond."
+        },
+        {
+          "type": "text",
+          "text": "sp hybridization: one s and one p orbital give two sp orbitals in a line, $180^{\\circ}$ apart. The two leftover p orbitals can form two $\\pi$ bonds."
+        },
+        {
+          "type": "text",
+          "text": "Lone pairs sit in hybrid orbitals too: ammonia's nitrogen is sp³, with three $\\sigma$ bonds and a lone pair. Only sp, sp² and sp³ are needed in this course."
+        },
+        {
+          "type": "example",
+          "id": "ex-methane-hybrid",
+          "question": "Explain how hybridization accounts for the four identical $\\ce{C-H}$ bonds in methane, $\\ce{CH4}$.",
+          "steps": [
+            "Promotion: carbon gets four unpaired electrons.",
+            "Mixing: 2s and three 2p give four equivalent sp³ orbitals.",
+            "Shape: tetrahedral, $109.5^{\\circ}$.",
+            "Bonds: each sp³ orbital overlaps head-on with a hydrogen 1s orbital."
+          ],
+          "answer": "One 2s electron of carbon is promoted to the empty 2p orbital, giving four unpaired electrons. The 2s orbital and the three 2p orbitals mix to form four equivalent sp³ hybrid orbitals. These point to the corners of a tetrahedron, $109.5^{\\circ}$ apart. Each sp³ orbital overlaps head-on with a hydrogen 1s orbital, so methane has four identical σ bonds.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "promotion, mixing into four equivalent sp3 orbitals, tetrahedral 109.5, four sigma bonds",
+            "requires": [
+              [
+                "promoted",
+                "promotion"
+              ],
+              "2s",
+              "2p",
+              [
+                "four equivalent sp³",
+                "four identical sp³"
+              ],
+              [
+                "tetrahedron",
+                "tetrahedral"
+              ],
+              "109.5",
+              "head-on",
+              [
+                "σ bonds",
+                "sigma bonds"
+              ]
+            ],
+            "forbids": [
+              "π bond",
+              "pi bond"
+            ]
+          }
+        },
+        {
+          "type": "figure",
+          "id": "2-9-ethene-pi",
+          "alt": "Ethene drawn on a flat tilted plane. Two carbon atoms joined by a single line labelled sigma lie in the plane; each carbon also bonds to two hydrogen atoms in the same plane. One sausage-shaped cloud sits above the plane over both carbons, labelled pi bond above the plane, and a matching cloud sits below it, labelled pi bond below the plane. A note reads: each carbon is sp2, three sigma bonds at 120 degrees, one p orbital in the pi bond.",
+          "caption": "In ethene the $\\sigma$ framework is flat. The $\\pi$ bond is one bond with two halves, above and below the plane."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethene-bonding",
+          "question": "Describe the bonding between the two carbon atoms in ethene, $\\ce{C2H4}$, in terms of hybridization and $\\sigma$ and $\\pi$ bonds.",
+          "steps": [
+            "Each carbon has three domains and no lone pair, so it is sp².",
+            "$\\sigma$ bond: head-on overlap of an sp² orbital from each carbon.",
+            "$\\pi$ bond: sideways overlap of the two parallel unhybridized p orbitals."
+          ],
+          "answer": "Each carbon atom is sp² hybridized, with three sp² orbitals in a plane at $120^{\\circ}$ and one unhybridized p orbital. One sp² orbital on each carbon overlaps head-on to form the σ bond between the carbons. The two unhybridized p orbitals are parallel and overlap sideways to form a π bond. The π electron density lies above and below the plane of the molecule.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "sp2 carbons; sp2-sp2 head-on sigma; sideways p-p pi above and below the plane",
+            "requires": [
+              "sp² hybridized",
+              "unhybridized p orbital",
+              "head-on",
+              "σ bond",
+              "sideways",
+              "π bond",
+              "above and below"
+            ],
+            "forbids": [
+              "two σ bonds between the carbons",
+              "sp³ hybridized"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sp-leftover",
+          "prompt": "How many unhybridized p orbitals does an sp hybridized carbon atom have?",
+          "hint": "Carbon has three 2p orbitals. How many of them went into the sp set?",
+          "options": [
+            {
+              "text": "two",
+              "correct": true
+            },
+            {
+              "text": "one",
+              "correct": false
+            },
+            {
+              "text": "three",
+              "correct": false
+            },
+            {
+              "text": "none",
+              "correct": false
+            }
+          ],
+          "explain": "sp uses one s and one p orbital, leaving two 2p orbitals for two $\\pi$ bonds.",
+          "verify": {
+            "kind": "choice",
+            "truth": "two"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ammonia-hybrid",
+          "prompt": "What is the hybridization of the nitrogen atom in ammonia, $\\ce{NH3}$?",
+          "hint": "Count the lone pair as well as the three bonds.",
+          "options": [
+            {
+              "text": "sp³",
+              "correct": true
+            },
+            {
+              "text": "sp²",
+              "correct": false
+            },
+            {
+              "text": "sp",
+              "correct": false
+            }
+          ],
+          "explain": "Three bonds and one lone pair make four domains, so sp³. sp² comes from forgetting the lone pair.",
+          "verify": {
+            "kind": "choice",
+            "truth": "sp³"
+          }
+        }
+      ]
+    },
+    {
+      "id": "predict",
+      "heading": "From Lewis formula to hybridization, and back",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hybridization follows from the [[electron-domain|electron domains]] you count for the [[vsepr-model|VSEPR model]] in {{lesson:2.3}}."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw the Lewis formula, with every lone pair."
+        },
+        {
+          "type": "text",
+          "text": "2. Count the electron domains on the atom: each lone pair and each bond is one domain, whether single, double or triple."
+        },
+        {
+          "type": "text",
+          "text": "3. Read off the hybridization: four domains, sp³; three domains, sp²; two domains, sp."
+        },
+        {
+          "type": "text",
+          "text": "4. The [[electron-domain-geometry|electron domain geometry]] matches the hybrid set: tetrahedral for sp³, trigonal planar for sp², linear for sp. Lone pairs then set the [[molecular-geometry|molecular geometry]], as in VSEPR."
+        },
+        {
+          "type": "result",
+          "statement": "For an atom with two, three or four electron domains: number of hybrid orbitals = number of electron domains = $\\sigma$ bonds + lone pairs on that atom. $\\pi$ bonds are not counted.",
+          "why": "Each $\\sigma$ bond and each lone pair needs its own hybrid orbital, but a $\\pi$ bond is made from a leftover p orbital."
+        },
+        {
+          "type": "text",
+          "text": "It works backwards too. An sp² atom has trigonal planar domains, about $120^{\\circ}$ apart, and one p orbital free for a $\\pi$ bond."
+        },
+        {
+          "type": "example",
+          "id": "ex-pentenyne",
+          "question": "Pent-1-en-4-yne is $\\ce{CH2=CH-CH2-C#CH}$. Number its carbon atoms 1 to 5 from the left, and deduce the hybridization of each one.",
+          "steps": [
+            "Carbon 1: two $\\ce{C-H}$ and the double bond, three domains.",
+            "Carbon 2: one $\\ce{C-H}$, the double bond and a single bond, three domains.",
+            "Carbon 3: four single bonds, four domains.",
+            "Carbons 4 and 5: the triple bond and one single bond each, two domains."
+          ],
+          "answer": "Carbons 1 and 2 are sp², carbon 3 is sp³, and carbons 4 and 5 are sp.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C1 sp2, C2 sp2, C3 sp3, C4 sp, C5 sp",
+            "requires": [
+              "carbons 1 and 2 are sp²",
+              "carbon 3 is sp³",
+              "carbons 4 and 5 are sp"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-carbonate-ion",
+          "question": "For the carbonate ion, $\\ce{CO3^2-}$, deduce the number of $\\sigma$ and $\\pi$ bonds in one Lewis formula, the hybridization of carbon and the shape of the ion.",
+          "steps": [
+            "$4 + 3(6) + 2 = 24$ valence electrons: one $\\ce{C=O}$ and two $\\ce{C-O^-}$ in one Lewis formula.",
+            "Each carbon–oxygen bond has one $\\sigma$; the double bond adds one $\\pi$.",
+            "Carbon has three domains and no lone pair. Resonance spreads the $\\pi$ electrons ({{lesson:2.8}}), but carbon stays sp²."
+          ],
+          "answer": "One Lewis formula has 3 σ bonds and 1 π bond. Carbon has three electron domains and no lone pairs, so it is sp² hybridized. The ion is trigonal planar, with bond angles of $120^{\\circ}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "3 sigma, 1 pi, sp2, trigonal planar, 120",
+            "requires": [
+              [
+                "3 σ bonds",
+                "three σ bonds"
+              ],
+              [
+                "1 π bond",
+                "one π bond"
+              ],
+              "three electron domains",
+              "sp² hybridized",
+              "trigonal planar",
+              "120"
+            ],
+            "forbids": [
+              "sp³",
+              "trigonal pyramidal"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Hybridization gives the shape, and the shape settles polarity. Boron in $\\ce{BF3}$ has three domains and no lone pair: sp², trigonal planar. Its leftover p orbital is empty, so there is no $\\pi$ bond."
+        },
+        {
+          "type": "text",
+          "text": "The three polar $\\ce{B-F}$ bonds cancel, so $\\ce{BF3}$ is not a [[polar-molecule|polar molecule]]."
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"deduce\" a hybridization, write the domain count first: \"four electron domains, so sp³\". It shows your reasoning and catches lone pairs."
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-sp",
+          "prompt": "An atom is sp hybridized and has no lone pairs. What are its molecular geometry and bond angle?",
+          "hint": "How many hybrid orbitals does sp give, and how far apart are they?",
+          "options": [
+            {
+              "text": "linear, 180°",
+              "correct": true
+            },
+            {
+              "text": "bent, 104.5°",
+              "correct": false
+            },
+            {
+              "text": "trigonal planar, 120°",
+              "correct": false
+            },
+            {
+              "text": "tetrahedral, 109.5°",
+              "correct": false
+            }
+          ],
+          "explain": "sp gives two hybrid orbitals, so two domains. With no lone pairs they point opposite ways: linear, $180^{\\circ}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "linear, 180°"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nitrite-hybrid",
+          "prompt": "One Lewis formula of the nitrite ion, $\\ce{NO2^-}$, has one $\\ce{N=O}$ bond, one $\\ce{N-O}$ bond and a lone pair on nitrogen. What is the hybridization of nitrogen?",
+          "hint": "The double bond is one domain. Don't forget the lone pair.",
+          "options": [
+            {
+              "text": "sp²",
+              "correct": true
+            },
+            {
+              "text": "sp",
+              "correct": false
+            },
+            {
+              "text": "sp³",
+              "correct": false
+            }
+          ],
+          "explain": "Two bonds and a lone pair make three domains: sp², and a bent ion. sp forgets the lone pair; sp³ counts the double bond twice.",
+          "verify": {
+            "kind": "choice",
+            "truth": "sp²"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\sigma$ bond: head-on overlap, electron density on the bond axis. $\\pi$ bond: sideways overlap of parallel p orbitals, density above and below the axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Single bond = 1 $\\sigma$. Double bond = 1 $\\sigma$ + 1 $\\pi$. Triple bond = 1 $\\sigma$ + 2 $\\pi$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A $\\pi$ bond is usually weaker than a $\\sigma$ bond, because sideways overlap is less effective.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "sp³: 4 domains, tetrahedral, $109.5^{\\circ}$. sp²: 3 domains, trigonal planar, $120^{\\circ}$, one spare p. sp: 2 domains, linear, $180^{\\circ}$, two spare p.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For sp, sp² and sp³ atoms: hybrid orbitals = $\\sigma$ bonds + lone pairs. Lone pairs count; $\\pi$ bonds don't.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Counting a double bond as two $\\sigma$ bonds. Only the first bond between two atoms is $\\sigma$; the others are $\\pi$.",
+    "Ignoring lone pairs when deducing hybridization. Count every domain: water's oxygen is sp³, not sp.",
+    "Counting a $\\pi$ bond as an extra domain. A double bond is one domain, so the carbon in $\\ce{CO2}$ is sp.",
+    "Putting $\\pi$ density between the nuclei. That is the $\\sigma$ bond; $\\pi$ density is above and below the axis."
+  ],
+  "examTips": [
+    "\"Deduce\" the number of $\\sigma$ and $\\pi$ bonds: draw the full structure and count bond by bond. Paper 1A options often match a miscount.",
+    "\"Explain\" a hybridization on Paper 2: which orbitals mix, how many hybrids, their shape and the bonds they form, one point per sentence.",
+    "\"Describe\" a $\\pi$ bond: sideways overlap of p orbitals, density above and below the axis."
+  ],
+  "readingMinutes": 21
+}

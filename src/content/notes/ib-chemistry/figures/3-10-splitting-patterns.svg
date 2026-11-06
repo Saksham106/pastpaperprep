@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 200" role="img" aria-labelledby="t">
+  <title id="t">Four splitting patterns side by side. A singlet is one line, from 0 hydrogens on the neighbouring carbon. A doublet is two lines of equal height, from 1 neighbouring hydrogen. A triplet is three lines with heights in the ratio 1 to 2 to 1, from 2 neighbouring hydrogens. A quartet is four lines with heights in the ratio 1 to 3 to 3 to 1, from 3 neighbouring hydrogens.</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <path d="M25 140 H115 M165 140 H255 M305 140 H395 M445 140 H535"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="3" fill="none">
+    <path d="M70 140 V80"/>
+    <path d="M203 140 V80 M217 140 V80"/>
+    <path d="M336 140 V110 M350 140 V80 M364 140 V110"/>
+    <path d="M469 140 V120 M483 140 V80 M497 140 V80 M511 140 V120"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t1-ink)" text-anchor="middle">
+    <text x="70" y="68">1</text>
+    <text x="210" y="68">1 : 1</text>
+    <text x="350" y="68">1 : 2 : 1</text>
+    <text x="490" y="68">1 : 3 : 3 : 1</text>
+  </g>
+  <g font-size="13" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="70" y="162">singlet</text>
+    <text x="210" y="162">doublet</text>
+    <text x="350" y="162">triplet</text>
+    <text x="490" y="162">quartet</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--muted)" text-anchor="middle">
+    <text x="70" y="182">n = 0</text>
+    <text x="210" y="182">n = 1</text>
+    <text x="350" y="182">n = 2</text>
+    <text x="490" y="182">n = 3</text>
+  </g>
+</svg>

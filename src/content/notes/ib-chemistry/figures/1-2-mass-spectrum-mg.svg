@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="t">
+  <title id="t">Mass spectrum of magnesium. The horizontal axis is m over z, from 23 to 27. The vertical axis is relative abundance, from 0 to 100. There are three vertical lines: at m over z 24 with height 100, at 25 with height 12.66, and at 26 with height 13.94.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M60 220 H400"/>
+    <path d="M60 220 V20"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <path d="M100 220 v6 M170 220 v6 M240 220 v6 M310 220 v6 M380 220 v6"/>
+    <path d="M60 220 h-6 M60 175 h-6 M60 130 h-6 M60 85 h-6 M60 40 h-6"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="3 4" fill="none">
+    <path d="M60 175 H400 M60 130 H400 M60 85 H400 M60 40 H400"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="100" y="240">23</text>
+    <text x="170" y="240">24</text>
+    <text x="240" y="240">25</text>
+    <text x="310" y="240">26</text>
+    <text x="380" y="240">27</text>
+    <text x="230" y="257">m/z</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="end">
+    <text x="50" y="224">0</text>
+    <text x="50" y="179">25</text>
+    <text x="50" y="134">50</text>
+    <text x="50" y="89">75</text>
+    <text x="50" y="44">100</text>
+  </g>
+  <text x="18" y="130" font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle" transform="rotate(-90 18 130)">relative abundance</text>
+  <g stroke="var(--t1-ink)" stroke-width="5" fill="none">
+    <path d="M170 220 V40"/>
+    <path d="M240 220 V197.2"/>
+    <path d="M310 220 V194.9"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t1-ink)" text-anchor="middle">
+    <text x="170" y="33">100</text>
+    <text x="240" y="190">12.66</text>
+    <text x="310" y="187">13.94</text>
+  </g>
+</svg>

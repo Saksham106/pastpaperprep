@@ -1,0 +1,753 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.10",
+  "slug": "the-metallic-model",
+  "title": "The metallic model",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A metal is a lattice of positive ions held together by a shared sea of [[delocalized-electrons|delocalized electrons]]. The pull between them is the [[metallic-bond|metallic bond]]. This one picture explains why metals conduct, why they bend instead of shattering, and why some melt far higher than others.",
+  "goals": [
+    {
+      "text": "Describe the [[metallic-bond|metallic bond]] in terms of cations and delocalized electrons.",
+      "bullets": [
+        "S2.3.1"
+      ]
+    },
+    {
+      "text": "Explain why metals conduct electricity and heat and why they are malleable, and link these properties to their uses.",
+      "bullets": [
+        "S2.3.1"
+      ]
+    },
+    {
+      "text": "Explain how the charge and radius of the metal ion change the strength of metallic bonding.",
+      "bullets": [
+        "S2.3.2"
+      ]
+    },
+    {
+      "text": "Explain melting-point trends down a group and across a period for s-block and p-block metals.",
+      "bullets": [
+        "S2.3.2"
+      ]
+    },
+    {
+      "text": "Explain why a [[transition-element|transition element]] has a high melting point and conducts electricity, using its delocalized d electrons.",
+      "bullets": [
+        "S2.3.3"
+      ],
+      "level": "AHL"
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.1",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "metallic bonding",
+    "sea of electrons",
+    "why metals conduct electricity",
+    "why metals are malleable",
+    "melting points of metals trend",
+    "transition metals high melting point"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-magnesium-ion",
+      "prompt": "Magnesium is in group 2. Which ion does a magnesium atom form?",
+      "hint": "Count the outer electrons of a group 2 atom.",
+      "options": [
+        {
+          "text": "a positive ion, by losing two electrons",
+          "correct": true
+        },
+        {
+          "text": "a positive ion, by losing one electron",
+          "correct": false
+        },
+        {
+          "text": "a negative ion, by gaining two electrons",
+          "correct": false
+        }
+      ],
+      "explain": "A group 2 atom loses its two outer electrons, giving $\\ce{Mg^2+}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a positive ion, by losing two electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-graphite-conducts",
+      "prompt": "Why does graphite conduct electricity when diamond does not?",
+      "hint": "Count the covalent bonds each carbon atom makes.",
+      "options": [
+        {
+          "text": "Each carbon makes three bonds, leaving one electron free to move.",
+          "correct": true
+        },
+        {
+          "text": "Graphite contains ions that can move.",
+          "correct": false
+        },
+        {
+          "text": "Its layers can slide over each other.",
+          "correct": false
+        }
+      ],
+      "explain": "In diamond all four outer electrons are in bonds. In graphite one electron per carbon is delocalized and can carry charge. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Each carbon makes three bonds, leaving one electron free to move."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-after-4s",
+      "prompt": "In period 4, which sublevel fills straight after 4s?",
+      "hint": "It is just above 4s in energy.",
+      "options": [
+        {
+          "text": "the 3d sublevel",
+          "correct": true
+        },
+        {
+          "text": "the 4p sublevel",
+          "correct": false
+        },
+        {
+          "text": "the 4d sublevel",
+          "correct": false
+        }
+      ],
+      "explain": "The 3d sublevel fills next, from scandium to zinc, then 4p. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the 3d sublevel"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "bond",
+      "heading": "What holds a metal together",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Metal atoms hold their outer electrons loosely. In a solid metal, each atom lets them go, and they spread through the whole piece of metal."
+        },
+        {
+          "type": "text",
+          "text": "What is left of each atom is a positive ion, a [[cation|cation]]. The cations pack in a regular, repeating pattern called a lattice. The freed electrons move through the spaces between them: a sea of [[delocalized-electrons|delocalized electrons]]."
+        },
+        {
+          "type": "definition",
+          "term": "metallic bond",
+          "statement": "The electrostatic attraction between the positive ions in a metal lattice and the sea of delocalized electrons around them.",
+          "plain": "Positive ions held together by a shared cloud of negative electrons."
+        },
+        {
+          "type": "text",
+          "text": "Each cation attracts the electrons on every side. So a [[metallic-bond|metallic bond]] has no fixed direction, unlike a covalent bond between two particular atoms: it is non-directional."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-metallic-lattice",
+          "alt": "Model of solid magnesium: a regular grid of 15 magnesium ions, each a circle marked 2+, in three rows of five. Thirty small dots marked e minus are scattered in the spaces between the ions, two for every ion, showing the sea of delocalized electrons that belongs to the whole lattice. A key labels the circles as Mg2+ ions and the dots as delocalized electrons.",
+          "caption": "Solid magnesium: two delocalized electrons for every $\\ce{Mg^2+}$ ion, so the metal is neutral."
+        },
+        {
+          "type": "text",
+          "text": "A cation's charge equals the number of electrons its atom gave to the sea: sodium gives one ($\\ce{Na+}$), aluminium three ($\\ce{Al^3+}$)."
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-electrons",
+          "question": "Calcium is in group 2. Write a half-equation showing how one calcium atom provides a cation and delocalized electrons in solid calcium.",
+          "steps": [
+            "Both outer electrons join the sea, leaving a 2+ cation.",
+            "Check the charge: $0$ on the left, $+2 + 2(-1) = 0$ on the right."
+          ],
+          "answer": "$\\ce{Ca -> Ca^2+ + 2e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Ca -> Ca^2+ + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-sodium",
+          "question": "Describe the structure of solid sodium and the bonding that holds it together.",
+          "steps": [
+            "Structure: what the particles are and how they are arranged.",
+            "Bonding: name the attraction and what it acts between."
+          ],
+          "answer": "Solid sodium is a lattice of sodium cations, $\\ce{Na+}$, in a regular arrangement. Each atom has given its outer electron to a sea of delocalized electrons that spreads through the lattice. The metallic bond is the electrostatic attraction between the cations and this sea of electrons. It acts in all directions, so it is non-directional.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "lattice of cations in a sea of delocalized electrons, held by electrostatic attraction",
+            "requires": [
+              "lattice",
+              [
+                "cations",
+                "positive ions"
+              ],
+              "delocalized electrons",
+              "electrostatic attraction"
+            ],
+            "forbids": [
+              "nuclei",
+              "anions",
+              "negative ions",
+              "molecules"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the positive particles nuclei or atoms. They are cations: each keeps its inner electrons."
+        },
+        {
+          "type": "check",
+          "id": "check-what-attracts",
+          "prompt": "Which attraction is a metallic bond?",
+          "hint": "Where did the metal atoms' outer electrons go?",
+          "options": [
+            {
+              "text": "between cations and the delocalized electrons around them",
+              "correct": true
+            },
+            {
+              "text": "between a shared pair of electrons and two nuclei",
+              "correct": false
+            },
+            {
+              "text": "between oppositely charged ions",
+              "correct": false
+            }
+          ],
+          "explain": "The atoms become cations and their outer electrons are delocalized; the attraction between them is the metallic bond. A shared pair is covalent; oppositely charged ions are ionic.",
+          "verify": {
+            "kind": "choice",
+            "truth": "between cations and the delocalized electrons around them"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-aluminium-sea",
+          "prompt": "Each aluminium atom gives three electrons to the sea. How many moles of delocalized electrons are in $\\pu{4.05 g}$ of aluminium? Give 3 significant figures.",
+          "hint": "Find the moles of atoms with $A_\\text{r}$ from section 7 of the data booklet, then multiply by 3.",
+          "answer": {
+            "value": 0.45,
+            "tolerance": 0.0005
+          },
+          "explain": "$n(\\ce{Al}) = \\frac{4.05}{26.98} = \\pu{0.1501 mol}$, so $n(\\ce{e-}) = 3 \\times 0.1501 \\approx \\pu{0.450 mol}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*4.05/Ar('Al')",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "heading": "Conductivity, malleability and uses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Connect a metal to a cell and its [[delocalized-electrons|delocalized electrons]] drift towards the positive terminal. Electrons enter at one end and leave at the other: an electric current. The cations stay put. This [[electrical-conductivity|electrical conductivity]] works in the solid and the liquid."
+        },
+        {
+          "type": "text",
+          "text": "Metals conduct heat well too. The fast-moving electrons carry kinetic energy quickly from hot to cold, and the closely packed cations pass vibrations along."
+        },
+        {
+          "type": "text",
+          "text": "Metals are malleable (they can be hammered into shape) and ductile (drawn into wires). A force makes layers of cations slide over each other. The electron sea moves with them, so each cation is still attracted to electrons in its new position."
+        },
+        {
+          "type": "text",
+          "text": "Because the bonding is non-directional, no bond breaks as the shape changes. In an ionic lattice, sliding a layer puts ions of the same charge side by side. They repel, and the crystal shatters."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-sliding-layers",
+          "alt": "Two rows of diagrams compare a metal and an ionic solid when a force pushes the top layer sideways. Top row, metal: before, two layers of positive ions with electron dots between them; after, the top layer has moved one place to the right, and the ions are still surrounded by electron dots, labelled bonding still holds. Bottom row, ionic solid: before, two layers in which positive and negative ions alternate so opposite charges are next to each other; after, the top layer has moved one place, so positive sits next to positive and negative next to negative, labelled like charges repel and the crystal shatters.",
+          "caption": "A sideways push: the metal keeps its bonding; the ionic solid lines up like charges."
+        },
+        {
+          "type": "text",
+          "text": "Uses follow from these properties. Copper is ductile and conducts electricity, so it makes wires. Aluminium conducts heat, so it makes saucepans. Gold is so malleable it can be beaten into leaf. Mixing in other atoms makes an [[alloy|alloy]], which you meet in {{lesson:2.11}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-copper-wire",
+          "question": "Explain why solid copper conducts electricity.",
+          "steps": [
+            "Name the mobile charged particles, then say what they do in a potential difference."
+          ],
+          "answer": "Copper contains delocalized electrons that are not held by any one atom. When a potential difference is applied, these electrons move through the lattice towards the positive terminal, which is an electric current. The copper cations stay in fixed positions.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "delocalized electrons move through the lattice when a potential difference is applied",
+            "requires": [
+              "delocalized electrons",
+              [
+                "move",
+                "mobile"
+              ],
+              [
+                "potential difference",
+                "voltage"
+              ],
+              "fixed positions"
+            ],
+            "forbids": [
+              "ions move",
+              "cations move",
+              "ions carry"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-tin-sheet",
+          "question": "Tin can be rolled into a thin sheet, but a crystal of potassium bromide shatters when hit with a hammer. Explain this difference in terms of bonding.",
+          "steps": [
+            "Tin: what moves, and why the bonding survives.",
+            "Potassium bromide: what lines up when a layer moves, and what that causes."
+          ],
+          "answer": "In tin, layers of cations slide over each other when a force is applied. The delocalized electrons move with them, so the cations are still attracted to the electrons in their new positions. Metallic bonding is non-directional, so the metal changes shape without breaking. In potassium bromide, moving a layer brings ions of the same charge next to each other. These ions repel, so the crystal shatters.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "metal layers slide with non-directional bonding kept; ionic layers bring like charges together and repel",
+            "requires": [
+              [
+                "layers of cations",
+                "layers of positive ions"
+              ],
+              "slide",
+              "non-directional",
+              [
+                "same charge",
+                "like charges"
+              ],
+              "repel"
+            ],
+            "forbids": [
+              "bonds are weak",
+              "free to move"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Explaining malleability with mobile electrons. That explains conductivity. Say the layers of cations slide and the non-directional bonding holds."
+        },
+        {
+          "type": "check",
+          "id": "check-saucepan",
+          "prompt": "Which property lets heat pass quickly through the base of an aluminium saucepan?",
+          "hint": "The question is about heat moving through the metal.",
+          "options": [
+            {
+              "text": "high thermal conductivity",
+              "correct": true
+            },
+            {
+              "text": "high electrical conductivity",
+              "correct": false
+            },
+            {
+              "text": "malleability",
+              "correct": false
+            }
+          ],
+          "explain": "Heat moving through the base is thermal conductivity: the delocalized electrons carry kinetic energy quickly through the metal.",
+          "verify": {
+            "kind": "choice",
+            "truth": "high thermal conductivity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gold-leaf",
+          "prompt": "Which statement best explains why gold can be beaten into very thin sheets?",
+          "hint": "Which one is about changing shape, not carrying charge?",
+          "options": [
+            {
+              "text": "Layers of cations slide, and the non-directional bonding holds in the new positions.",
+              "correct": true
+            },
+            {
+              "text": "The delocalized electrons can move and carry charge.",
+              "correct": false
+            },
+            {
+              "text": "The metallic bonds are weak, so the atoms separate easily.",
+              "correct": false
+            }
+          ],
+          "explain": "Malleability needs layers to move without the bonding breaking. Mobile electrons explain conductivity, and gold's metallic bonding is strong.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Layers of cations slide, and the non-directional bonding holds in the new positions."
+          }
+        }
+      ]
+    },
+    {
+      "id": "strength",
+      "heading": "What makes metallic bonding stronger",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Melting a metal means giving the cations enough energy to move past each other. The stronger the [[metallic-bond|metallic bond]], the more energy this takes, so the higher the melting point."
+        },
+        {
+          "type": "text",
+          "text": "Two things about the cation decide the strength. Charge: a 3+ ion gives three electrons to the sea, so the sea is denser and more strongly attracted. Size: around a smaller ion the electrons get closer to its centre, and the ions pack more tightly."
+        },
+        {
+          "type": "result",
+          "statement": "Metallic bonding is stronger when the cations have a higher charge and a smaller ionic radius.",
+          "why": "Both raise the electron density around each cation, so the electrostatic attraction is greater."
+        },
+        {
+          "type": "text",
+          "text": "Down group 1 every ion is 1+, but the [[ionic-radius|ionic radius]] grows: $\\ce{Li+}$ $76$, $\\ce{Na+}$ $102$, $\\ce{K+}$ $138$, in $\\pu{10^{-12} m}$ (data booklet, section 10). The bonding weakens and melting points fall."
+        },
+        {
+          "type": "text",
+          "text": "Across period 3 the charge rises from $\\ce{Na+}$ to $\\ce{Mg^2+}$ to $\\ce{Al^3+}$, and the radius falls from $102$ to $72$ to $54$. Both strengthen the bonding, so melting points rise."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-melting-points",
+          "alt": "Bar chart of melting points in degrees Celsius, from section 8 of the data booklet, on an axis from 0 to 700. Left group, group 1 going down: lithium 180.5, sodium 97.79, potassium 63.38, rubidium 39.30 and caesium 28.44, so the bars get shorter down the group. Right group, period 3 going across: sodium 97.79, magnesium 650.0 and aluminium 660.3, so the bars get taller across the period.",
+          "caption": "Melting points in $\\pu{°C}$ (data booklet, section 8)."
+        },
+        {
+          "type": "text",
+          "text": "Liquid metals still have metallic bonding; boiling separates the atoms completely. So boiling points show the trend even more clearly: $882.9$, $1090$ and $\\pu{2519 °C}$ across period 3."
+        },
+        {
+          "type": "text",
+          "text": "The model compares bond strength, not every melting point. How the ions pack matters too, so group 2 is irregular: magnesium ($650.0$) melts below calcium ($842.0$). For bond strength, use charge and radius."
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-rubidium",
+          "question": "Predict whether rubidium or sodium has the lower melting point. Explain your answer.",
+          "steps": [
+            "Same group, so the same charge; rubidium is lower down, so its ion is larger.",
+            "The booklet agrees: rubidium melts at $39.30$, sodium at $\\pu{97.79 °C}$."
+          ],
+          "answer": "Rubidium has the lower melting point. Both metals form 1+ ions, so each atom gives one electron to the sea. The rubidium ion is larger, so the delocalized electrons are further from the centre of each cation and the electrostatic attraction is weaker. Less energy is needed to overcome it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rubidium: same 1+ charge but larger ion, weaker attraction, less energy to melt",
+            "requires": [
+              "rubidium has the lower melting point",
+              [
+                "1+ ions",
+                "same charge"
+              ],
+              [
+                "larger",
+                "bigger"
+              ],
+              "weaker",
+              "less energy"
+            ],
+            "forbids": [
+              "intermolecular",
+              "covalent bonds"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-potassium",
+          "question": "Calcium melts at $\\pu{842.0 °C}$ and potassium at $\\pu{63.38 °C}$. Explain why calcium has the much higher melting point.",
+          "steps": [
+            "Charge: $\\ce{Ca^2+}$ against $\\ce{K+}$. Radius (section 10): $100$ against $138$.",
+            "Turn both into a statement about attraction, then energy, naming both metals."
+          ],
+          "answer": "Calcium forms 2+ ions but potassium forms 1+ ions, so calcium has a denser sea of delocalized electrons. The calcium ion is also smaller than the potassium ion. The higher charge and smaller radius give a stronger electrostatic attraction between the cations and the electrons in calcium. More energy is needed to overcome it, so calcium has the higher melting point.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ca2+ has higher charge and smaller radius than K+, so stronger metallic bonding",
+            "requires": [
+              "2+",
+              "1+",
+              "smaller",
+              "stronger",
+              "electrostatic attraction",
+              "more energy"
+            ],
+            "forbids": [
+              "intermolecular",
+              "covalent bonds"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strongest-beryllium",
+          "prompt": "Which metal has the strongest metallic bonding?",
+          "hint": "Highest charge first, then the smallest ion.",
+          "options": [
+            {
+              "text": "beryllium",
+              "correct": true
+            },
+            {
+              "text": "lithium",
+              "correct": false
+            },
+            {
+              "text": "sodium",
+              "correct": false
+            },
+            {
+              "text": "potassium",
+              "correct": false
+            }
+          ],
+          "explain": "Only beryllium forms a 2+ ion, and $\\ce{Be^2+}$ is also the smallest ($\\pu{45 \\times 10^{-12} m}$). It melts at $\\pu{1287 °C}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "beryllium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-order-melting",
+          "prompt": "Which list puts these metals in order of increasing melting point?",
+          "hint": "Rubidium and sodium share a group; sodium, magnesium and aluminium share a period.",
+          "options": [
+            {
+              "text": "rubidium < sodium < magnesium < aluminium",
+              "correct": true
+            },
+            {
+              "text": "aluminium < magnesium < sodium < rubidium",
+              "correct": false
+            },
+            {
+              "text": "sodium < rubidium < magnesium < aluminium",
+              "correct": false
+            }
+          ],
+          "explain": "Rubidium's ion is larger than sodium's, so it melts lower. Across period 3 the charge rises and the radius falls.",
+          "verify": {
+            "kind": "choice",
+            "truth": "rubidium < sodium < magnesium < aluminium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transition",
+      "heading": "Transition elements",
+      "level": "AHL",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Iron melts at $\\pu{1538 °C}$, far above calcium in the same period. The metallic model explains why, once you count which electrons join the sea."
+        },
+        {
+          "type": "text",
+          "text": "A [[transition-element|transition element]] has a partly filled d [[sublevel|sublevel]] in its atom or in a common ion. From scandium to copper, the 3d and 4s sublevels are very close in energy. So in the solid, the 4s electrons and some 3d electrons are delocalized."
+        },
+        {
+          "type": "result",
+          "statement": "Transition elements delocalize d electrons as well as s electrons. Their metallic bonding is strong, so they have high melting points, and their many mobile electrons make them good electrical conductors.",
+          "why": "More delocalized electrons per atom, around small ions, give a dense sea and a strong attraction."
+        },
+        {
+          "type": "text",
+          "text": "Size helps too. The [[atomic-radius|atomic radius]] of iron is $124$, against $174$ for calcium, in $\\pu{10^{-12} m}$ (section 10)."
+        },
+        {
+          "type": "text",
+          "text": "Across the d-block, melting points do not climb steadily as from sodium to aluminium. Each extra electron goes into the inner 3d sublevel, so the number of electrons in the sea does not simply rise by one each time. From scandium to nickel, every melting point lies between $1246$ and $\\pu{1910 °C}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-titanium-conducts",
+          "question": "Titanium is a transition element. Explain why solid titanium conducts electricity.",
+          "steps": [
+            "Say which electrons are delocalized, then what they do in a potential difference."
+          ],
+          "answer": "In titanium the 3d and 4s sublevels are close in energy, so electrons from both are delocalized through the lattice. When a potential difference is applied, these electrons move through the metal, carrying the current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "3d and 4s electrons are delocalized and move when a potential difference is applied",
+            "requires": [
+              "3d",
+              "4s",
+              "delocalized",
+              "move",
+              [
+                "potential difference",
+                "voltage"
+              ]
+            ],
+            "forbids": [
+              "ions move",
+              "free ions"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-calcium",
+          "question": "Explain why iron has a much higher melting point than calcium.",
+          "steps": [
+            "Electrons: iron, $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$, delocalizes some 3d electrons; calcium, $\\mathrm{[Ar]\\,4s^{2}}$, has only two 4s electrons.",
+            "Size: iron atoms are smaller. Link both to attraction and energy."
+          ],
+          "answer": "Iron is a transition element, so its 4s electrons and some of its 3d electrons are delocalized. Each iron atom gives more electrons to the sea than a calcium atom, which has only its two 4s electrons. Iron atoms are also smaller. So the electron density is higher and the electrostatic attraction between the cations and the electrons is stronger in iron. More energy is needed to overcome it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "iron delocalizes 3d as well as 4s electrons and is smaller, so stronger metallic bonding",
+            "requires": [
+              "3d electrons",
+              "delocalized",
+              "more electrons",
+              "smaller",
+              "stronger",
+              "more energy"
+            ],
+            "forbids": [
+              "intermolecular",
+              "covalent bonds"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-iron-electrons",
+          "prompt": "Iron is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$. Which electrons are delocalized in solid iron?",
+          "hint": "Two sublevels are close in energy.",
+          "options": [
+            {
+              "text": "the 4s electrons and some of the 3d electrons",
+              "correct": true
+            },
+            {
+              "text": "the 4s electrons only",
+              "correct": false
+            },
+            {
+              "text": "the 3s and 3p electrons",
+              "correct": false
+            }
+          ],
+          "explain": "The 3d and 4s sublevels are close in energy, so both contribute. The 3s and 3p electrons are in the inner core and stay with each ion.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the 4s electrons and some of the 3d electrons"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-highest-period4",
+          "prompt": "Which period 4 metal has the highest melting point?",
+          "hint": "Which one delocalizes d electrons?",
+          "options": [
+            {
+              "text": "vanadium",
+              "correct": true
+            },
+            {
+              "text": "potassium",
+              "correct": false
+            },
+            {
+              "text": "calcium",
+              "correct": false
+            },
+            {
+              "text": "gallium",
+              "correct": false
+            }
+          ],
+          "explain": "Vanadium is a transition element and melts at $\\pu{1910 °C}$, against $63.38$ for potassium, $842.0$ for calcium and $29.77$ for gallium (section 8).",
+          "verify": {
+            "kind": "choice",
+            "truth": "vanadium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Metallic bond: electrostatic attraction between the cations of a metal lattice and the delocalized electrons. It is non-directional.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mobile delocalized electrons make metals conduct electricity and heat, solid or liquid.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Malleable and ductile: layers of cations slide and the non-directional bonding holds.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher cation charge and smaller ionic radius give stronger bonding and a higher melting point: falling down group 1, rising from $\\ce{Na}$ to $\\ce{Mg}$ to $\\ce{Al}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Transition elements delocalize 3d as well as 4s electrons: high melting points and good electrical conductors.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the lattice is nuclei or atoms. It is cations surrounded by delocalized electrons.",
+    "Calling a metal ionic, or the electron sea anions. A pure metal has no negative ions.",
+    "Explaining malleability by \"electrons free to move\" or \"weak bonds\". Say the layers of cations slide and the bonding still holds.",
+    "Getting the radius effect backwards. A larger cation gives weaker bonding, so melting points fall down a group."
+  ],
+  "examTips": [
+    "\"Describe\" a metal's structure and bonding in two parts: a lattice of cations in a sea of delocalized electrons, and the electrostatic attraction between them.",
+    "\"Explain\" a melting-point comparison with comparative words for both metals: higher charge, smaller ion, stronger attraction, more energy needed. \"Stronger bonds\" alone earns nothing.",
+    "In a Paper 1A ordering question, rank by cation charge first, then by size."
+  ],
+  "readingMinutes": 24
+}

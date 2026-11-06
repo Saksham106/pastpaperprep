@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.5",
+  "slug": "coloured-transition-element-complexes",
+  "title": "Coloured transition element complexes",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A [[complex-ion|complex ion]] of a [[transition-element|transition element]] is coloured because its [[ligand|ligands]] split the 3d orbitals into two sets with different energies. An electron absorbs visible light to jump the gap, and you see the [[complementary-colour|complementary colour]] of the light absorbed. The colour wheel in the data booklet turns one colour into the other.",
+  "goals": [
+    {
+      "text": "Explain why transition element complexes are coloured, using [[d-orbital-splitting|d orbital splitting]] and the promotion of an electron.",
+      "bullets": [
+        "S3.1.10"
+      ]
+    },
+    {
+      "text": "Explain why ions with an empty or a full 3d sublevel form colourless compounds.",
+      "bullets": [
+        "S3.1.10"
+      ]
+    },
+    {
+      "text": "Use the colour wheel to go from the colour absorbed to the [[complementary-colour|complementary colour]] observed, and back, with [[wavelength|wavelengths]].",
+      "bullets": [
+        "S3.1.10"
+      ]
+    },
+    {
+      "text": "Calculate the frequency and energy of the light absorbed, and compare the splitting in complexes from their colours.",
+      "bullets": [
+        "S3.1.10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "1.4",
+    "2.2",
+    "2.10",
+    "3.3",
+    "3.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "why are transition metal complexes coloured",
+    "d-d transition",
+    "colour wheel complementary colour",
+    "split d orbitals colour",
+    "wavelength absorbed by a complex",
+    "colourless zinc and scandium ions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ligand-donates",
+      "prompt": "In a complex ion, what does each ligand give to the central metal ion to form its bond?",
+      "hint": "Ligands are Lewis bases.",
+      "options": [
+        {
+          "text": "A lone pair of electrons",
+          "correct": true
+        },
+        {
+          "text": "A single unpaired electron",
+          "correct": false
+        },
+        {
+          "text": "A proton",
+          "correct": false
+        },
+        {
+          "text": "A positive charge",
+          "correct": false
+        }
+      ],
+      "explain": "The ligand donates a whole lone pair, so both electrons of the coordination bond come from the ligand. Revise it in {{lesson:3.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "A lone pair of electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-d-count-iron",
+      "prompt": "Iron has atomic number 26. How many 3d electrons does an $\\ce{Fe^3+}$ ion have?",
+      "hint": "Fe is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$. Remove the 4s electrons first.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "Remove both 4s electrons, then one 3d electron: $\\mathrm{[Ar]\\,3d^{5}}$, so 5. Revise it in {{lesson:3.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "26 - 18 - 3",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-photon-energy",
+      "prompt": "Light P has a wavelength of 430 nm and light Q a wavelength of 690 nm. Which has [[photon|photons]] of higher energy?",
+      "hint": "Shorter wavelength means higher frequency.",
+      "options": [
+        {
+          "text": "Light P",
+          "correct": true
+        },
+        {
+          "text": "Light Q",
+          "correct": false
+        },
+        {
+          "text": "They have equal energy",
+          "correct": false
+        }
+      ],
+      "explain": "P has the shorter wavelength, so a higher frequency, and $E = hf$ gives it more energy per photon. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Light P"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "split",
+      "heading": "Why complexes are coloured",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A solution of hydrated copper(II) ions looks blue, but a solution of zinc ions is colourless. The difference lies in the 3d electrons of the metal ion, and in what the ligands do to them."
+        },
+        {
+          "type": "text",
+          "text": "In a [[complex-ion|complex ion]], each [[ligand|ligand]] ($\\ce{H2O}$, $\\ce{NH3}$, $\\ce{Cl^-}$ …) donates a lone pair to the central [[transition-element|transition element]] ion. This forms a [[coordination-bond|coordination bond]] ({{lesson:3.4}})."
+        },
+        {
+          "type": "definition",
+          "term": "coordination number",
+          "statement": "The number of coordination bonds from ligands to the central metal ion in a complex.",
+          "plain": "How many ligand bonds the metal ion holds."
+        },
+        {
+          "type": "text",
+          "text": "In $\\ce{[Fe(H2O)6]^2+}$ six water molecules each form one bond, so the [[coordination-number|coordination number]] is 6."
+        },
+        {
+          "type": "text",
+          "text": "In an isolated ion, all five 3d orbitals have the same energy. In a complex, the ligands' lone pairs repel the d electrons. The d orbitals that point most directly at the ligands are pushed up in energy more than the others."
+        },
+        {
+          "type": "definition",
+          "term": "d orbital splitting",
+          "statement": "In a complex, the ligands split the five d orbitals of the central ion into two sets of slightly different energy, separated by an energy gap $\\Delta E$.",
+          "plain": "The ligands turn one level of d orbitals into two."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-d-splitting",
+          "alt": "Energy diagram. Left: an isolated ion with five 3d orbital boxes at one energy, one holding an electron. Right: the same ion in a complex with six ligands. The five boxes have split into a lower set of three, holding the electron, and an upper set of two, separated by an energy gap labelled delta E. A wavy arrow shows a photon of visible light, with energy equal to delta E, being absorbed. A dashed curved arrow shows the electron being promoted from the lower set to the upper set.",
+          "caption": "This pattern is for six ligands. Other numbers of ligands give other patterns, which you don't need to learn."
+        },
+        {
+          "type": "text",
+          "text": "An electron in the lower set can absorb a [[photon|photon]] whose energy exactly equals $\\Delta E$. The electron is promoted to the upper set. For most complexes, $\\Delta E$ matches the energy of photons of visible light."
+        },
+        {
+          "type": "text",
+          "text": "So the complex removes some visible [[wavelength|wavelengths]] from white light. The rest pass through the solution (or reflect off the solid) and reach your eye. You see the colour of the light that is left."
+        },
+        {
+          "type": "definition",
+          "term": "complementary colour",
+          "statement": "The colour observed when a substance absorbs light of the colour directly opposite it on the colour wheel.",
+          "plain": "Absorb orange light and the substance looks blue."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the colour is light given out as electrons fall back down. A complex is coloured because it absorbs light; you see what it does not absorb."
+        },
+        {
+          "type": "text",
+          "text": "Colour from promoting a d electron needs a partially filled 3d sublevel, from $\\mathrm{3d^{1}}$ to $\\mathrm{3d^{9}}$. Write the ion's [[electron-configuration|electron configuration]] to check, removing 4s electrons before 3d."
+        },
+        {
+          "type": "text",
+          "text": "With no 3d electrons ($\\mathrm{3d^{0}}$, as in $\\ce{Sc^3+}$), there is nothing to promote. With a full sublevel ($\\mathrm{3d^{10}}$, as in $\\ce{Zn^2+}$ and $\\ce{Cu^+}$), the upper set has no space. Either way no visible light is absorbed, so their complexes are white or colourless."
+        },
+        {
+          "type": "text",
+          "text": "Beyond the syllabus: a few $\\mathrm{3d^{0}}$ species are still coloured, such as purple $\\ce{MnO4^-}$, because they absorb light in a different way, not by promoting a d electron. Exam questions on d orbital splitting use ions like $\\ce{Sc^3+}$ and $\\ce{Zn^2+}$."
+        },
+        {
+          "type": "text",
+          "text": "The gap must also match visible light. In anhydrous copper(II) sulfate, $\\ce{CuSO4}$, the $\\ce{Cu^2+}$ ions are surrounded by sulfate ions, not water. The gap these ligands make does not match visible light, so the solid is white. Add water and it turns blue."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-iron-ii-colour",
+          "question": "A solution containing $\\ce{[Fe(H2O)6]^2+}$ is pale green. Explain why this complex ion is coloured.",
+          "steps": [
+            "Fe is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$. Remove the two 4s electrons: $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, a partially filled sublevel.",
+            "Then give the four marking points in order: split orbitals, absorption with promotion, visible region, colour seen."
+          ],
+          "answer": "Iron(II) is $\\mathrm{[Ar]\\,3d^{6}}$, so it has a partially filled 3d sublevel. The water ligands split the 3d orbitals into two sets of different energy. An electron absorbs a photon and is promoted from the lower set to the upper set. The energy gap corresponds to light in the visible region, so some visible light is absorbed. The light transmitted is the complementary colour, which is seen as green.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Partially filled 3d; ligands split the d orbitals; an electron absorbs visible light and is promoted; the complementary colour is seen.",
+            "requires": [
+              "partially filled",
+              "split",
+              [
+                "absorbs",
+                "absorbed"
+              ],
+              "promoted",
+              "visible region",
+              "complementary colour"
+            ],
+            "forbids": [
+              "emits",
+              "emitted",
+              "falls back"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-copper-i-white",
+          "question": "Copper(I) chloride, $\\ce{CuCl}$, is white, but most copper(II) compounds are coloured. Explain this difference using electron configurations.",
+          "steps": [
+            "Cu is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$. Losing the 4s electron gives $\\ce{Cu^+}$: $\\mathrm{[Ar]\\,3d^{10}}$.",
+            "Losing one more, a 3d electron, gives $\\ce{Cu^2+}$: $\\mathrm{[Ar]\\,3d^{9}}$.",
+            "Ask for each ion: is there an electron to promote, and a space to promote it into?"
+          ],
+          "answer": "Copper(I) is $\\mathrm{[Ar]\\,3d^{10}}$, so its 3d sublevel is full. Even when ligands split the d orbitals, the upper set has no space, so no electron can be promoted and no visible light is absorbed. Copper(II) is $\\mathrm{[Ar]\\,3d^{9}}$, a partially filled sublevel with a vacancy in the upper set. An electron can absorb visible light and be promoted, so copper(II) compounds are coloured.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cu+ is 3d10 (full: no space to promote into); Cu2+ is 3d9 (vacancy: an electron can absorb visible light).",
+            "requires": [
+              "3d10",
+              "3d9",
+              "full",
+              "no electron can be promoted",
+              [
+                "vacancy",
+                "space"
+              ],
+              "absorb visible light"
+            ],
+            "forbids": [
+              "emits",
+              "4s electron is promoted"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-d-count-vanadium",
+          "prompt": "Vanadium has atomic number 23. How many 3d electrons does a $\\ce{V^3+}$ ion have?",
+          "hint": "V is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{3}}$. The 4s electrons go first.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "Remove the two 4s electrons and one 3d electron: $\\mathrm{[Ar]\\,3d^{2}}$. With two d electrons, vanadium(III) complexes are coloured.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "23 - 18 - 3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-colourless-ion",
+          "prompt": "Which ion forms colourless complexes?",
+          "hint": "Find the number of 3d electrons in each ion.",
+          "options": [
+            {
+              "text": "scandium(III)",
+              "correct": true
+            },
+            {
+              "text": "titanium(III)",
+              "correct": false
+            },
+            {
+              "text": "iron(II)",
+              "correct": false
+            },
+            {
+              "text": "nickel(II)",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Sc^3+}$ is $\\mathrm{[Ar]\\,3d^{0}}$: no d electron to promote. $\\ce{Ti^3+}$ ($\\mathrm{3d^{1}}$), $\\ce{Fe^2+}$ ($\\mathrm{3d^{6}}$) and $\\ce{Ni^2+}$ ($\\mathrm{3d^{8}}$) are partially filled, so they are coloured.",
+          "verify": {
+            "kind": "choice",
+            "truth": "scandium(III)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "colour-wheel",
+      "heading": "Using the colour wheel",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The data booklet (section 15) gives a colour wheel with a [[wavelength|wavelength]] range for each colour. Colours directly opposite each other are complementary: red and green, orange and blue, yellow and violet."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-colour-wheel",
+          "alt": "Colour wheel divided into six equal sectors. Going clockwise from the top: red, 647 to 700 nanometres; orange, 585 to 647 nanometres; yellow, 575 to 585 nanometres; green, 491 to 575 nanometres; blue, 424 to 491 nanometres; violet, 400 to 424 nanometres. Red is opposite green, orange is opposite blue, and yellow is opposite violet.",
+          "caption": "The colour wheel, as in section 15 of the data booklet. Absorb one colour and you see the [[complementary-colour|complementary colour]] opposite it."
+        },
+        {
+          "type": "text",
+          "text": "Absorbed to observed: find the absorbed wavelength in its sector, then go straight across the wheel. Observed to absorbed works the same way. The opposite sector also gives you the range of wavelengths absorbed."
+        },
+        {
+          "type": "text",
+          "text": "To turn a wavelength into a frequency, use the wave equation from section 1 of the data booklet, as in {{lesson:1.3}}. Here $c = \\pu{3.00e8 m s-1}$ (section 2), and $\\lambda$ must be in metres: $\\pu{1 nm} = \\pu{1e-9 m}$."
+        },
+        {
+          "type": "formula",
+          "tex": "c = f\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-wave-speed"
+        },
+        {
+          "type": "example",
+          "id": "ex-wheel-615-frequency",
+          "question": "A transition element complex absorbs light most strongly at 615 nm. Deduce the colour of the complex, and calculate the frequency of the light absorbed.",
+          "steps": [
+            "615 nm lies in the orange sector (585–647 nm), so orange light is absorbed.",
+            "Opposite orange is blue, so the complex looks blue.",
+            "Convert: $\\lambda = 615 \\times 10^{-9}\\ \\text{m}$.",
+            "$f = \\frac{c}{\\lambda} = \\frac{3.00 \\times 10^{8}}{615 \\times 10^{-9}}$. Give 3 s.f., in $\\pu{s-1}$ (hertz)."
+          ],
+          "answer": "$f \\approx \\pu{4.88e14 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c_light/(615*10**(-9))",
+            "sf": 3,
+            "unit": "s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wheel-orange-range",
+          "question": "A complex appears orange. Use the colour wheel to deduce the range of wavelengths it absorbs. Then calculate the frequency at the short-wavelength end of that range.",
+          "steps": [
+            "Observed orange, so the absorbed colour is the one opposite: blue.",
+            "Blue covers 424–491 nm. The short-wavelength end is 424 nm.",
+            "$f = \\frac{3.00 \\times 10^{8}}{424 \\times 10^{-9}}$. This is the highest frequency in the band absorbed."
+          ],
+          "answer": "$f \\approx \\pu{7.08e14 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c_light/(424*10**(-9))",
+            "sf": 3,
+            "unit": "s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving $\\lambda$ in nanometres. A frequency near $10^{5}$ or $10^{6}\\ \\pu{s-1}$ means the $10^{-9}$ is missing; visible light is around $10^{14}\\ \\pu{s-1}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the absorbed colour as the colour seen. A complex that absorbs blue light looks orange, not blue."
+        },
+        {
+          "type": "check",
+          "id": "check-wheel-455",
+          "prompt": "A complex absorbs light most strongly at 455 nm. What colour does it appear?",
+          "hint": "Find the sector for 455 nm, then go straight across.",
+          "options": [
+            {
+              "text": "orange",
+              "correct": true
+            },
+            {
+              "text": "blue",
+              "correct": false
+            },
+            {
+              "text": "yellow",
+              "correct": false
+            },
+            {
+              "text": "red",
+              "correct": false
+            }
+          ],
+          "explain": "455 nm is in the blue sector (424–491 nm). Blue is absorbed, so the complex looks orange. \"Blue\" is the absorbed colour.",
+          "verify": {
+            "kind": "choice",
+            "truth": "orange"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-frequency-530",
+          "prompt": "Calculate the frequency of light of wavelength 530 nm. Give your answer in units of $10^{14}\\ \\pu{s-1}$, to 3 s.f.",
+          "hint": "$f = \\frac{c}{\\lambda}$, with $\\lambda$ in metres.",
+          "answer": {
+            "value": 5.66,
+            "tolerance": 0.005
+          },
+          "explain": "$f = \\frac{3.00 \\times 10^{8}}{530 \\times 10^{-9}} = 5.66 \\times 10^{14}\\ \\pu{s-1}$. This green light would make a complex look red.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "c_light/(530*10**(-9))/10**14",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "gap-size",
+      "heading": "Bigger gap, different colour",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The photon absorbed has energy $\\Delta E = hf$ (data booklet, section 1), with $h = \\pu{6.63e-34 J s}$ (section 2). A larger gap needs a higher-energy photon. That means a higher frequency and a shorter wavelength."
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-photon-energy"
+        },
+        {
+          "type": "text",
+          "text": "Combining $E = hf$ with $c = f\\lambda$ gives $\\Delta E = \\frac{hc}{\\lambda}$ for one ion. Multiply by $N_\\text{A}$ for a mole of ions."
+        },
+        {
+          "type": "text",
+          "text": "The size of the gap depends on the metal, its [[oxidation-state|oxidation state]] and the ligands. So swapping one ligand for another changes the colour. You deduce which gap is larger from the colours or wavelengths, not from a list."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-chromium-splitting",
+          "question": "$\\ce{[Cr(H2O)6]^3+}$ is violet and $\\ce{[Cr(NH3)6]^3+}$ is yellow. Deduce, with reasons, which complex has the larger d orbital splitting.",
+          "steps": [
+            "Use the wheel for each complex: violet observed means yellow absorbed; yellow observed means violet absorbed.",
+            "Compare the absorbed wavelengths, then link them to frequency and energy."
+          ],
+          "answer": "$\\ce{[Cr(NH3)6]^3+}$ is yellow, so it absorbs violet light, 400–424 nm. $\\ce{[Cr(H2O)6]^3+}$ is violet, so it absorbs yellow light, 575–585 nm. The ammonia complex absorbs the shorter wavelength, which has the higher frequency. By $E = hf$, its photons have more energy, so its energy gap is larger. So $\\ce{[Cr(NH3)6]^3+}$ has the larger d orbital splitting.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "The yellow ammine complex absorbs violet (shorter wavelength, higher frequency, higher energy), so its gap is larger.",
+            "requires": [
+              "absorbs violet",
+              "absorbs yellow",
+              "shorter wavelength",
+              "higher frequency",
+              [
+                "gap is larger",
+                "larger d orbital splitting"
+              ]
+            ],
+            "forbids": [
+              "emits",
+              "longer wavelength, which has the higher"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gap-energy-505",
+          "question": "A complex absorbs light most strongly at 505 nm. Calculate the energy gap $\\Delta E$, in J, between the two sets of d orbitals in one ion.",
+          "steps": [
+            "$\\Delta E = hf = \\frac{hc}{\\lambda}$, with $\\lambda = 505 \\times 10^{-9}\\ \\text{m}$.",
+            "$\\Delta E = \\frac{(6.63 \\times 10^{-34}) \\times (3.00 \\times 10^{8})}{505 \\times 10^{-9}}$. Give 3 s.f.",
+            "Check: 505 nm is green, so the complex looks red."
+          ],
+          "answer": "$\\Delta E \\approx \\pu{3.94e-19 J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h_planck*c_light/(505*10**(-9))",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-larger-gap-wavelength",
+          "prompt": "Changing the ligand makes the d orbital splitting in a complex larger. What happens to the wavelength of light it absorbs?",
+          "hint": "Larger gap, higher-energy photon.",
+          "options": [
+            {
+              "text": "It decreases",
+              "correct": true
+            },
+            {
+              "text": "It increases",
+              "correct": false
+            },
+            {
+              "text": "It stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "A larger $\\Delta E$ needs a higher frequency, and by $c = f\\lambda$ a higher frequency is a shorter wavelength.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gap-ratio",
+          "prompt": "Complex A absorbs most strongly at 440 nm and complex B at 620 nm. Calculate $\\Delta E_\\text{A} / \\Delta E_\\text{B}$, to 3 s.f.",
+          "hint": "$\\Delta E = \\frac{hc}{\\lambda}$, so $h$ and $c$ cancel.",
+          "answer": {
+            "value": 1.41,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\Delta E_\\text{A}}{\\Delta E_\\text{B}} = \\frac{620}{440} \\approx 1.41$. A absorbs the shorter wavelength, so its gap is larger.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(h_planck*c_light/(440*10**(-9)))/(h_planck*c_light/(620*10**(-9)))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Ligands split the 3d orbitals into two sets. An electron absorbs a visible photon of energy $\\Delta E$ and is promoted to the upper set; you see the complementary colour.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Colour from promoting a d electron needs a partially filled 3d sublevel and a gap in the visible region. $\\mathrm{3d^{0}}$ ($\\ce{Sc^3+}$) and $\\mathrm{3d^{10}}$ ($\\ce{Zn^2+}$, $\\ce{Cu^+}$) ions form colourless complexes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Colour wheel (section 15): opposite colours are complementary, red–green, orange–blue, yellow–violet.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Larger splitting: higher frequency, shorter wavelength absorbed. $\\Delta E = hf = \\frac{hc}{\\lambda}$, with $\\lambda$ in metres.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a complex emits its colour. It absorbs some visible light and you see the rest.",
+    "Swapping absorbed and observed. Go straight across the colour wheel before you name the colour seen.",
+    "Calling $\\ce{Zn^2+}$ or $\\ce{Cu^+}$ coloured because they are d-block ions. A full 3d sublevel leaves no space to promote an electron into.",
+    "Ending an explanation with \"the complementary colour is seen\" but never saying the gap matches visible light. That point earns its own mark.",
+    "Using $\\lambda$ in nanometres in $c = f\\lambda$. Convert to metres first."
+  ],
+  "examTips": [
+    "\"Explain why a complex is coloured\" (often 3 marks): partially filled d orbitals; ligands split the d orbitals; an electron absorbs light and is promoted; the gap matches visible light. Write one point per sentence.",
+    "\"Deduce\" a colour or wavelength: name the absorbed colour and its range from section 15, then the colour observed opposite it.",
+    "\"Calculate\" a frequency or energy: show $f = \\frac{c}{\\lambda}$ with $\\lambda$ in metres, then give 3 s.f. with units ($\\pu{s-1}$ or J).",
+    "In Paper 1A, read each option for absorbed or emitted and for which colour is absorbed: those are the usual traps."
+  ],
+  "readingMinutes": 20
+}

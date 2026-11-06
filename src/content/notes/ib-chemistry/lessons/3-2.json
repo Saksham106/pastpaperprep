@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.2",
+  "slug": "group-trends-and-the-oxides-of-elements",
+  "title": "Group trends and the oxides of elements",
+  "level": "SL",
+  "topic": 3,
+  "summary": "Down group 1 the outer electron is lost more easily, so the [[alkali-metal|alkali metals]] react with water more violently. Down group 17 the [[halogen|halogens]] gain electrons less readily, so a higher halogen displaces a lower one. Across a period, oxides change from basic to acidic.",
+  "goals": [
+    {
+      "text": "Explain why group 1 metals react more vigorously with water down the group, and write the equations.",
+      "bullets": [
+        "S3.1.4"
+      ]
+    },
+    {
+      "text": "Explain why group 17 reactivity falls down the group, and predict halogen and halide reactions.",
+      "bullets": [
+        "S3.1.4"
+      ]
+    },
+    {
+      "text": "Classify oxides as basic, amphoteric or acidic, and link this to their bonding.",
+      "bullets": [
+        "S3.1.5"
+      ]
+    },
+    {
+      "text": "Write equations for group 1 and 2 oxides, and for carbon and sulfur oxides, reacting with water.",
+      "bullets": [
+        "S3.1.5"
+      ]
+    },
+    {
+      "text": "Explain the causes of [[acid-rain|acid rain]] and ocean acidification.",
+      "bullets": [
+        "S3.1.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.4",
+    "2.5",
+    "2.11",
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "alkali metals with water",
+    "halogen displacement reactions",
+    "metallic character down a group",
+    "acidic and basic oxides",
+    "amphoteric oxide",
+    "acid rain and ocean acidification"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-potassium-valence",
+      "prompt": "How many [[valence-electron|valence electrons]] does potassium, $1\\text{s}^2\\,2\\text{s}^2\\,2\\text{p}^6\\,3\\text{s}^2\\,3\\text{p}^6\\,4\\text{s}^1$, have?",
+      "hint": "Count only the outer level.",
+      "options": [
+        {
+          "text": "one",
+          "correct": true
+        },
+        {
+          "text": "two",
+          "correct": false
+        },
+        {
+          "text": "eight",
+          "correct": false
+        },
+        {
+          "text": "nineteen",
+          "correct": false
+        }
+      ],
+      "explain": "The outer level, the fourth, holds one electron. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "one"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ie-down-group",
+      "prompt": "How does first [[ionization-energy|ionization energy]] change down group 1?",
+      "hint": "How far is the outer electron from the nucleus?",
+      "options": [
+        {
+          "text": "It decreases.",
+          "correct": true
+        },
+        {
+          "text": "It increases.",
+          "correct": false
+        },
+        {
+          "text": "It stays the same.",
+          "correct": false
+        }
+      ],
+      "explain": "Each atom has one more shell, so the outer electron is further away and more shielded. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It decreases."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-most-ionic-oxide",
+      "prompt": "Using [[electronegativity|electronegativity]] values (data booklet, section 9), which element forms the most ionic bond with oxygen?",
+      "hint": "The bigger the difference, the more ionic the bond.",
+      "options": [
+        {
+          "text": "sodium",
+          "correct": true
+        },
+        {
+          "text": "magnesium",
+          "correct": false
+        },
+        {
+          "text": "carbon",
+          "correct": false
+        },
+        {
+          "text": "sulfur",
+          "correct": false
+        }
+      ],
+      "explain": "O is 3.4 and Na 0.9: a difference of 2.5. Mg gives 2.1; C and S give 0.8. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "sodium"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "group-1",
+      "heading": "Group 1: more metallic down the group",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An alkali metal atom loses its one valence electron to form a $1+$ ion. How readily an element loses electrons is its metallic character."
+        },
+        {
+          "type": "text",
+          "text": "Down group 1, each atom has one more occupied shell. The outer electron is further from the nucleus and more shielded. Nuclear charge rises too, but distance and shielding win."
+        },
+        {
+          "type": "result",
+          "statement": "Metallic character and reactivity increase down group 1.",
+          "why": "The outer electron is held less tightly, so it is lost more easily. First ionization energy falls from $520$ (Li) to $\\pu{376 kJ mol-1}$ (Cs) (data booklet, section 9)."
+        },
+        {
+          "type": "text",
+          "text": "Alkali metals react with cold water to give hydrogen and an alkaline hydroxide solution."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{2M(s) + 2H2O(l) -> 2MOH(aq) + H2(g)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Lithium fizzes steadily. Sodium melts into a ball and skims across the water. Potassium ignites the hydrogen, which burns with a lilac flame."
+        },
+        {
+          "type": "example",
+          "id": "ex-rubidium-water",
+          "question": "Rubidium is below potassium in group 1. Write the equation, with state symbols, for its reaction with water.",
+          "steps": [
+            "Products: $\\ce{RbOH}$ and $\\ce{H2}$.",
+            "$\\ce{H2}$ takes an H atom from each of two waters, so two $\\ce{Rb}$ and two $\\ce{RbOH}$.",
+            "Add state symbols."
+          ],
+          "answer": "$\\ce{2Rb(s) + 2H2O(l) -> 2RbOH(aq) + H2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Rb(s) + H2O(l) -> RbOH(aq) + H2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-k-vs-li",
+          "question": "Explain why potassium reacts more vigorously with water than lithium does.",
+          "steps": [
+            "Point 1: more shells, so the outer electron is further from the nucleus.",
+            "Point 2: more shielding by inner electrons.",
+            "Point 3: weaker attraction, so the electron is lost more easily."
+          ],
+          "answer": "Potassium has more occupied shells, so its outer electron is further from the nucleus. It is also more shielded by inner electrons. So the attraction between the nucleus and the outer electron is weaker. The electron is lost more easily, so potassium reacts more vigorously.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "larger atom, more shielding, weaker attraction, outer electron lost more easily",
+            "requires": [
+              [
+                "more occupied shells",
+                "more shells",
+                "larger atomic radius"
+              ],
+              "further from the nucleus",
+              [
+                "more shielded",
+                "greater shielding"
+              ],
+              [
+                "attraction",
+                "attracted"
+              ],
+              [
+                "more easily",
+                "less energy"
+              ]
+            ],
+            "forbids": [
+              "fewer protons",
+              "smaller nuclear charge"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-caesium-water",
+          "prompt": "Which equation shows caesium reacting with water?",
+          "hint": "A hydroxide and hydrogen molecules form. Then balance.",
+          "options": [
+            {
+              "text": "$\\ce{2Cs(s) + 2H2O(l) -> 2CsOH(aq) + H2(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Cs(s) + H2O(l) -> CsOH(aq) + H(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cs(s) + H2O(l) -> CsOH(aq) + H2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2Cs(s) + H2O(l) -> Cs2O(s) + H2(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "Hydrogen is $\\ce{H2}$, so two waters and two caesium atoms are needed.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Cs(s) + H2O(l) -> CsOH(aq) + H2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-group1-trend",
+          "prompt": "Which increases from lithium to caesium?",
+          "hint": "Which property explains the rise in reactivity?",
+          "options": [
+            {
+              "text": "the ease of losing the outer electron",
+              "correct": true
+            },
+            {
+              "text": "the first ionization energy",
+              "correct": false
+            },
+            {
+              "text": "the attraction between the nucleus and the outer electron",
+              "correct": false
+            },
+            {
+              "text": "the electronegativity",
+              "correct": false
+            }
+          ],
+          "explain": "The outer electron is further away and more shielded, so it is lost more easily. The others all fall.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the ease of losing the outer electron"
+          }
+        }
+      ]
+    },
+    {
+      "id": "group-17",
+      "heading": "Group 17: less non-metallic down the group",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Halogens are diatomic molecules, such as $\\ce{Cl2}$. Each atom has seven valence electrons and gains one to form a halide ion, such as $\\ce{Cl^-}$."
+        },
+        {
+          "type": "text",
+          "text": "Down the group the atoms get larger. An incoming electron is further from the nucleus and more shielded, so it is attracted less strongly."
+        },
+        {
+          "type": "result",
+          "statement": "Non-metallic character and reactivity decrease down group 17.",
+          "why": "Larger atoms attract an extra electron less strongly."
+        },
+        {
+          "type": "definition",
+          "term": "displacement reaction",
+          "statement": "A reaction in which a more reactive element replaces a less reactive one in a compound.",
+          "plain": "The stronger element pushes the weaker one out."
+        },
+        {
+          "type": "text",
+          "text": "A halogen takes electrons from the halide ions of any halogen below it. Chlorine water turns potassium bromide solution orange: $\\ce{Cl2(aq) + 2Br^-(aq) -> 2Cl^-(aq) + Br2(aq)}$. Spectator $\\ce{K^+}$ ions are left out."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-halogen-displacement",
+          "alt": "A three by three grid. Rows are the halogen added: chlorine, which is very pale green; bromine, which is orange; and iodine, which is brown. Columns are the halide solution: chloride, bromide and iodide, all colourless. Chlorine added to bromide reacts and turns orange as bromine forms. Chlorine added to iodide reacts and turns brown as iodine forms. Bromine added to chloride gives no reaction. Bromine added to iodide reacts and turns brown. Iodine added to chloride or to bromide gives no reaction. The diagonal, a halogen with its own halide, is left blank.",
+          "caption": "A halogen displaces only the halogens below it."
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-iodide",
+          "question": "Bromine water turns sodium iodide solution brown. Write the ionic equation, with state symbols.",
+          "steps": [
+            "Bromine is above iodine, so it oxidizes iodide ions to brown iodine.",
+            "Leave out $\\ce{Na^+}$. One $\\ce{Br2}$ gives two $\\ce{Br^-}$; two $\\ce{I^-}$ give one $\\ce{I2}$.",
+            "Charge check: $2-$ on each side."
+          ],
+          "answer": "$\\ce{Br2(aq) + 2I^-(aq) -> 2Br^-(aq) + I2(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Br2(aq) + I^-(aq) -> Br^-(aq) + I2(aq)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-iodine-chloride",
+          "question": "Iodine solution is added to potassium chloride solution. Predict and explain what happens.",
+          "steps": [
+            "Predict: iodine is below chlorine, so no reaction.",
+            "Explain using atomic size and shielding."
+          ],
+          "answer": "There is no reaction. Iodine atoms are larger, so an extra electron is further from the nucleus and more shielded. Iodine attracts electrons less strongly, so it is less reactive than chlorine. It cannot take electrons from chloride ions, so it does not displace chlorine.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "no reaction; iodine is larger so attracts electrons less strongly than chlorine",
+            "requires": [
+              "no reaction",
+              "less reactive",
+              [
+                "larger",
+                "bigger"
+              ],
+              "further from the nucleus",
+              "shielded",
+              [
+                "does not displace",
+                "cannot displace"
+              ]
+            ],
+            "forbids": [
+              "iodine displaces chlorine",
+              "turns colourless"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-colour-change",
+          "prompt": "Which mixture shows no colour change?",
+          "hint": "A halogen only reacts with halides below it.",
+          "options": [
+            {
+              "text": "bromine water and potassium chloride solution",
+              "correct": true
+            },
+            {
+              "text": "chlorine water and potassium iodide solution",
+              "correct": false
+            },
+            {
+              "text": "bromine water and potassium iodide solution",
+              "correct": false
+            },
+            {
+              "text": "chlorine water and potassium bromide solution",
+              "correct": false
+            }
+          ],
+          "explain": "Bromine is below chlorine, so it can't displace it. The others all make bromine or iodine.",
+          "verify": {
+            "kind": "choice",
+            "truth": "bromine water and potassium chloride solution"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chlorine-iodide",
+          "prompt": "Which is the ionic equation for chlorine reacting with iodide ions?",
+          "hint": "Both halogens are diatomic.",
+          "options": [
+            {
+              "text": "$\\ce{Cl2 + 2I^- -> 2Cl^- + I2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Cl2 + I^- -> Cl^- + I2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cl2 + 2I^- -> 2Cl^- + 2I}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{I2 + 2Cl^- -> 2I^- + Cl2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{I^-}$ make one $\\ce{I2}$. The last option runs backwards: iodine can't displace chlorine.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Cl2 + I^- -> Cl^- + I2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "oxides",
+      "heading": "From basic to acidic oxides",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Across period 3 the elements change gradually from metals to non-metals, and so do their oxides."
+        },
+        {
+          "type": "text",
+          "text": "A [[basic-oxide|basic oxide]] reacts with acids; if soluble, it gives an alkaline solution. An [[acidic-oxide|acidic oxide]] reacts with bases; if soluble, it gives an acidic solution. An [[amphoteric-oxide|amphoteric oxide]] reacts with both."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-period-3-oxides",
+          "alt": "Six oxides of period 3 in a row: sodium oxide, magnesium oxide, aluminium oxide, silicon dioxide, phosphorus(V) oxide and sulfur trioxide. Sodium oxide and magnesium oxide are labelled basic: they react with acids, give alkaline solutions and are ionic, containing oxide ions. Aluminium oxide is labelled amphoteric: it reacts with acids and with bases, and is ionic with some covalent character. Silicon dioxide, phosphorus(V) oxide and sulfur trioxide are labelled acidic: they react with bases and give acidic solutions, except silicon dioxide, which is insoluble. Silicon dioxide is a covalent network; the other two are covalent molecules. An arrow along the bottom shows the electronegativity of the element rising towards oxygen's, from metal to non-metal.",
+          "caption": "Period 3 oxides: basic and ionic on the left, acidic and covalent on the right."
+        },
+        {
+          "type": "text",
+          "text": "Sodium and magnesium have low electronegativity, so their oxides are ionic. The oxide ion takes a proton from water, $\\ce{O^2- + H2O -> 2OH^-}$, making the solution alkaline."
+        },
+        {
+          "type": "text",
+          "text": "Phosphorus and sulfur are much closer to oxygen in electronegativity, so their oxides are covalent molecules that form acids with water."
+        },
+        {
+          "type": "text",
+          "text": "Aluminium oxide is ionic with strong covalent character, so it is amphoteric. Silicon dioxide, a [[covalent-network-structure|covalent network structure]], is insoluble but reacts with hot alkali, so it is acidic."
+        },
+        {
+          "type": "result",
+          "statement": "Across a period, oxides change from basic through amphoteric to acidic.",
+          "why": "Bonding changes from ionic to covalent as the element's electronegativity approaches oxygen's."
+        },
+        {
+          "type": "text",
+          "text": "Equations to know: $\\ce{Na2O(s) + H2O(l) -> 2NaOH(aq)}$ and $\\ce{CaO(s) + H2O(l) -> Ca(OH)2(aq)}$. Magnesium hydroxide is only slightly soluble, so it is only weakly alkaline."
+        },
+        {
+          "type": "text",
+          "text": "Non-metal oxides: $\\ce{CO2(g) + H2O(l) <=> H2CO3(aq)}$ (weak carbonic acid), $\\ce{SO2(g) + H2O(l) -> H2SO3(aq)}$ (sulfurous acid) and $\\ce{SO3(g) + H2O(l) -> H2SO4(aq)}$ (sulfuric acid)."
+        },
+        {
+          "type": "example",
+          "id": "ex-strontium-oxide",
+          "question": "Strontium is in group 2. Write the equation, with state symbols, for strontium oxide reacting with water.",
+          "steps": [
+            "Strontium forms $\\ce{Sr^2+}$, so the hydroxide needs two $\\ce{OH^-}$: $\\ce{Sr(OH)2}$.",
+            "Count: one Sr, two O, two H on each side. It balances."
+          ],
+          "answer": "$\\ce{SrO(s) + H2O(l) -> Sr(OH)2(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "SrO(s) + H2O(l) -> Sr(OH)2(aq)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-li2o-so3",
+          "question": "Explain, in terms of bonding, why lithium oxide gives an alkaline solution with water but sulfur trioxide gives an acidic one.",
+          "steps": [
+            "Lithium oxide: ionic. Say what the oxide ion does in water.",
+            "Sulfur trioxide: covalent. Name the acid and the ion it releases."
+          ],
+          "answer": "Lithium oxide is ionic and contains oxide ions. These react with water to form hydroxide ions, so the solution is alkaline. Sulfur trioxide is made of covalent molecules. It reacts with water to form sulfuric acid, which releases hydrogen ions, so the solution is acidic.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Li2O is ionic, O2- gives OH- (alkaline); SO3 is covalent, forms H2SO4 which releases H+ (acidic)",
+            "requires": [
+              "ionic",
+              "oxide ions",
+              "hydroxide ions",
+              "alkaline",
+              "covalent",
+              "sulfuric acid",
+              "hydrogen ions",
+              "acidic"
+            ],
+            "forbids": [
+              "sulfur trioxide is ionic",
+              "lithium oxide is covalent"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling every non-metal oxide acidic: $\\ce{CO}$ and $\\ce{NO}$ are neutral."
+        },
+        {
+          "type": "check",
+          "id": "check-amphoteric",
+          "prompt": "Which oxide reacts with both hydrochloric acid and sodium hydroxide solution?",
+          "hint": "Which period 3 oxide sits between the metals and non-metals?",
+          "options": [
+            {
+              "text": "aluminium oxide",
+              "correct": true
+            },
+            {
+              "text": "magnesium oxide",
+              "correct": false
+            },
+            {
+              "text": "sodium oxide",
+              "correct": false
+            },
+            {
+              "text": "sulfur dioxide",
+              "correct": false
+            }
+          ],
+          "explain": "Aluminium oxide is amphoteric. The other oxides react with only one of the two.",
+          "verify": {
+            "kind": "choice",
+            "truth": "aluminium oxide"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-k2o-water",
+          "prompt": "Which equation shows potassium oxide reacting with water?",
+          "hint": "A metal oxide gives only the hydroxide.",
+          "options": [
+            {
+              "text": "$\\ce{K2O + H2O -> 2KOH}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{K2O + H2O -> 2KOH + H2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{K2O + H2O -> K(OH)2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{K2O + H2O -> KOH}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{K^+}$ needs one $\\ce{OH^-}$, so two $\\ce{KOH}$ form. Hydrogen forms only when the metal itself reacts with water.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "K2O + H2O -> KOH"
+          }
+        }
+      ]
+    },
+    {
+      "id": "environment",
+      "heading": "Acid rain and ocean acidification",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Clean rain is already about pH 5.6, because dissolved $\\ce{CO2}$ forms carbonic acid. Acid rain is more acidic, because oxides of sulfur and nitrogen end up as stronger acids, such as sulfuric and nitric acid."
+        },
+        {
+          "type": "text",
+          "text": "Burning coal containing sulfur makes $\\ce{SO2}$, which is partly oxidized in air to $\\ce{SO3}$. Hot engines make $\\ce{NO}$ from air, which is oxidized to $\\ce{NO2}$: $\\ce{2NO2(g) + H2O(l) -> HNO3(aq) + HNO2(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "Acid rain corrodes limestone buildings and harms lakes and soils. Low-sulfur fuels and catalytic converters reduce it."
+        },
+        {
+          "type": "example",
+          "id": "ex-volcano-so2",
+          "question": "A volcano releases sulfur dioxide, which dissolves in cloud droplets. Write the equation and name the acid formed.",
+          "steps": [
+            "$\\ce{SO2 + H2O}$ gives $\\ce{H2SO3}$: one S, three O, two H each side.",
+            "This is sulfurous acid, not sulfuric acid, which comes from $\\ce{SO3}$."
+          ],
+          "answer": "$\\ce{SO2(g) + H2O(l) -> H2SO3(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "SO2 + H2O -> H2SO3",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "The oceans absorb much of the extra $\\ce{CO2}$ from fossil fuels. Carbonic acid partly ionizes, $\\ce{H2CO3(aq) <=> H^+(aq) + HCO3^-(aq)}$, so the pH falls. Surface sea water has gone from about 8.2 to 8.1: still alkaline, but less so."
+        },
+        {
+          "type": "text",
+          "text": "The extra $\\ce{H^+}$ removes carbonate ions, $\\ce{H^+ + CO3^2- -> HCO3^-}$. Corals and shellfish need carbonate to build calcium carbonate, so they grow more slowly."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-coral",
+          "question": "Explain how rising atmospheric carbon dioxide makes it harder for corals to build calcium carbonate skeletons.",
+          "steps": [
+            "Carbon dioxide dissolves and forms an acid that releases hydrogen ions.",
+            "Link the hydrogen ions to the carbonate ions corals need."
+          ],
+          "answer": "More carbon dioxide dissolves in sea water and forms carbonic acid. This releases hydrogen ions, so the pH decreases. The hydrogen ions react with carbonate ions to form hydrogencarbonate ions. So less carbonate is available for corals to make calcium carbonate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "CO2 dissolves, forms H2CO3, releases H+, pH falls; H+ removes carbonate ions",
+            "requires": [
+              "dissolves",
+              "carbonic acid",
+              "hydrogen ions",
+              [
+                "pH decreases",
+                "pH falls"
+              ],
+              "carbonate ions",
+              "hydrogencarbonate",
+              [
+                "fewer carbonate ions",
+                "less carbonate"
+              ]
+            ],
+            "forbids": [
+              "ocean becomes acidic",
+              "acid rain"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-clean-rain",
+          "prompt": "Which gas makes unpolluted rain about pH 5.6?",
+          "hint": "It is in all air, far from any factory.",
+          "options": [
+            {
+              "text": "carbon dioxide",
+              "correct": true
+            },
+            {
+              "text": "sulfur dioxide",
+              "correct": false
+            },
+            {
+              "text": "nitrogen dioxide",
+              "correct": false
+            },
+            {
+              "text": "nitrogen",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CO2}$ forms weak carbonic acid. Sulfur and nitrogen oxides push the pH lower.",
+          "verify": {
+            "kind": "choice",
+            "truth": "carbon dioxide"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reduce-acid-rain",
+          "prompt": "Which change at a coal-fired power station would most reduce acid rain?",
+          "hint": "Which gas from coal ends up as a strong acid?",
+          "options": [
+            {
+              "text": "removing sulfur dioxide from the waste gases",
+              "correct": true
+            },
+            {
+              "text": "removing carbon dioxide from the waste gases",
+              "correct": false
+            },
+            {
+              "text": "releasing the waste gases from taller chimneys",
+              "correct": false
+            }
+          ],
+          "explain": "Sulfur dioxide ends up as sulfuric acid, a strong acid. Carbon dioxide barely acidifies rain, and tall chimneys just move pollution.",
+          "verify": {
+            "kind": "choice",
+            "truth": "removing sulfur dioxide from the waste gases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Down group 1 the outer electron is further away and more shielded, so it is lost more easily: reactivity increases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Down group 17 an extra electron is attracted less strongly: reactivity decreases. A halogen displaces only those below it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Across a period, oxides go from basic and ionic, through amphoteric $\\ce{Al2O3}$, to acidic and covalent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ce{SO2}$ gives $\\ce{H2SO3}$; $\\ce{SO3}$ gives $\\ce{H2SO4}$; $\\ce{CO2}$ gives $\\ce{H2CO3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Acid rain comes from sulfur and nitrogen oxides. More dissolved $\\ce{CO2}$ lowers ocean pH and removes carbonate ions.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Explaining group 1 reactivity with \"fewer protons\". Heavier atoms have more; distance and shielding are the reason.",
+    "Writing halogens as atoms or halides without charges. Use $\\ce{Cl2}$ and $\\ce{Br^-}$.",
+    "Giving hydrogen as a product of a metal oxide with water. Only the metal itself releases hydrogen.",
+    "Blaming acid rain on $\\ce{CO2}$, or saying the oceans are now acidic. Their pH is falling but still above 7."
+  ],
+  "examTips": [
+    "\"Explain\" a group trend: radius, shielding and attraction to the nucleus, each in its own sentence, then link to reactivity.",
+    "\"Write\" an equation: check each formula, balance, and add state symbols if asked. For displacement, give the ionic equation."
+  ],
+  "readingMinutes": 21
+}

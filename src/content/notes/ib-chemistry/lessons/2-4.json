@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.4",
+  "slug": "bond-and-molecular-polarity",
+  "title": "Bond and molecular polarity",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Atoms pull on shared electrons with different strengths. When two bonded atoms differ in [[electronegativity|electronegativity]], the bond is polar: one end is slightly negative and the other slightly positive. A molecule is a [[polar-molecule|polar molecule]] only if its bond dipoles do not cancel, and that depends on its shape.",
+  "goals": [
+    {
+      "text": "Use electronegativity values from the data booklet to deduce whether a [[covalent-bond|covalent bond]] is polar, and which atom is $\\delta^{-}$.",
+      "bullets": [
+        "S2.2.5"
+      ]
+    },
+    {
+      "text": "Show a bond dipole with [[partial-charge|partial charges]] or with a dipole arrow.",
+      "bullets": [
+        "S2.2.5"
+      ]
+    },
+    {
+      "text": "Explain how [[bond-polarity|bond polarity]] and [[molecular-geometry|molecular geometry]] together decide whether a molecule has a net [[dipole-moment|dipole moment]].",
+      "bullets": [
+        "S2.2.6"
+      ]
+    },
+    {
+      "text": "Deduce whether a molecule or ion has a net dipole, including species whose bond dipoles cancel.",
+      "bullets": [
+        "S2.2.6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.2",
+    "2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "polar and nonpolar molecules",
+    "electronegativity difference",
+    "bond dipole",
+    "delta plus delta minus partial charges",
+    "net dipole moment",
+    "why is CO2 nonpolar"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ionic-bond-attraction",
+      "prompt": "What holds the ions together in an [[ionic-bond|ionic bond]]?",
+      "hint": "Think about the charges on the two kinds of ion.",
+      "options": [
+        {
+          "text": "electrostatic attraction between oppositely charged ions",
+          "correct": true
+        },
+        {
+          "text": "a shared pair of electrons",
+          "correct": false
+        },
+        {
+          "text": "attraction between neutral molecules",
+          "correct": false
+        },
+        {
+          "text": "a sea of delocalized electrons",
+          "correct": false
+        }
+      ],
+      "explain": "Positive and negative ions attract each other. A shared pair is a covalent bond. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "electrostatic attraction between oppositely charged ions"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-lone-pairs-nf3",
+      "prompt": "In the [[lewis-formula|Lewis formula]] of $\\ce{NF3}$, nitrogen forms a single [[covalent-bond|covalent bond]] to each fluorine atom. How many [[lone-pair|lone pairs]] are on the nitrogen atom?",
+      "hint": "Nitrogen has five valence electrons, and it puts one into each bond.",
+      "options": [
+        {
+          "text": "1",
+          "correct": true
+        },
+        {
+          "text": "0",
+          "correct": false
+        },
+        {
+          "text": "2",
+          "correct": false
+        },
+        {
+          "text": "3",
+          "correct": false
+        }
+      ],
+      "explain": "Nitrogen uses 3 of its 5 valence electrons in the bonds. The other 2 form 1 lone pair. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(5 - 3)/2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-shape-pbr3",
+      "prompt": "In $\\ce{PBr3}$, phosphorus has three bonding pairs and one lone pair. What is its molecular geometry?",
+      "hint": "Four electron domains, but atoms sit at only three corners.",
+      "options": [
+        {
+          "text": "trigonal pyramidal",
+          "correct": true
+        },
+        {
+          "text": "trigonal planar",
+          "correct": false
+        },
+        {
+          "text": "tetrahedral",
+          "correct": false
+        },
+        {
+          "text": "bent",
+          "correct": false
+        }
+      ],
+      "explain": "Four domains are tetrahedral. With one lone pair, the atoms form a pyramid. Revise it in {{lesson:2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "trigonal pyramidal"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "bond-polarity",
+      "heading": "Electronegativity and polar bonds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a [[covalent-bond|covalent bond]], two nuclei share a pair of electrons. In $\\ce{Cl2}$ the two atoms are identical, so they pull equally and the pair sits midway between them."
+        },
+        {
+          "type": "text",
+          "text": "Two different atoms pull with different strengths, like an uneven tug of war. The stronger atom draws the shared pair towards itself. How strongly an atom pulls is its [[electronegativity|electronegativity]]."
+        },
+        {
+          "type": "definition",
+          "term": "electronegativity",
+          "statement": "The ability of an atom to attract the shared pair of electrons in a covalent bond towards itself.",
+          "plain": "How hard an atom pulls on the electrons it shares."
+        },
+        {
+          "type": "text",
+          "text": "Electronegativity has no units. The data booklet (section 9) gives values from 0.7 for francium up to 4.0 for fluorine. Fluorine is followed by oxygen (3.4), chlorine (3.2), then nitrogen and bromine (3.0)."
+        },
+        {
+          "type": "text",
+          "text": "Electronegativity rises across a period: the nuclear charge grows while the bonding pair stays in the same shell. It falls down a group: the bonding pair sits in a shell further from the nucleus, with more shielding. You meet these trends again in {{lesson:3.1}}."
+        },
+        {
+          "type": "definition",
+          "term": "bond polarity",
+          "statement": "Uneven sharing of the electron pair in a covalent bond, caused by a difference in electronegativity between the two bonded atoms.",
+          "plain": "The shared electrons spend more time near one atom than the other."
+        },
+        {
+          "type": "text",
+          "text": "So [[bond-polarity|bond polarity]] comes from the electronegativity difference. We write it $\\Delta\\chi$ ($\\chi$, the Greek letter chi, stands for electronegativity)."
+        },
+        {
+          "type": "result",
+          "statement": "The more electronegative atom gets a [[partial-charge|partial charge]] $\\delta^{-}$ and the other atom gets $\\delta^{+}$. The larger $\\Delta\\chi$, the more polar the bond. When $\\Delta\\chi = 0$, the bond is nonpolar.",
+          "why": "The shared pair is pulled closer to the atom that attracts it more strongly, so that end has a little extra negative charge."
+        },
+        {
+          "type": "text",
+          "text": "The symbol $\\delta$ (delta) means a small amount. A partial charge is less than the full charge on an ion, because no electron has been transferred."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-bond-dipole",
+          "alt": "Two drawings of the hydrogen chloride bond. Left: H joined to Cl, with delta plus written above H and delta minus above Cl, and the electronegativity values 2.2 under H and 3.2 under Cl. Right: the same bond with an arrow drawn above it. The arrow has a short crossed line at its tail above H and its head points at Cl, the delta minus end.",
+          "caption": "Two ways to show the same bond dipole in $\\ce{H-Cl}$. The crossed tail of the arrow looks like a plus sign at the $\\delta^{+}$ end."
+        },
+        {
+          "type": "text",
+          "text": "You can show a bond dipole in either way. Partial charges go above the atoms. A dipole arrow points along the bond towards the $\\delta^{-}$ atom."
+        },
+        {
+          "type": "example",
+          "id": "ex-difference-of",
+          "question": "Oxygen difluoride, $\\ce{OF2}$, contains two $\\ce{O-F}$ bonds. Use data booklet values to calculate $\\Delta\\chi$ for the $\\ce{O-F}$ bond, and deduce which atom carries the partial negative charge.",
+          "steps": [
+            "Look up the values (data booklet, section 9): oxygen 3.4, fluorine 4.0.",
+            "Subtract the smaller value from the larger: $4.0 - 3.4 = 0.6$.",
+            "Fluorine is more electronegative, so fluorine is $\\delta^{-}$ and oxygen is $\\delta^{+}$.",
+            "Check: oxygen is usually the $\\delta^{-}$ atom, but fluorine is the one element that out-pulls it."
+          ],
+          "answer": "$\\Delta\\chi = 4.0 - 3.4 = 0.6$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "EN('F') - EN('O')"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nh-vs-ph",
+          "question": "Use electronegativity values to explain why the $\\ce{N-H}$ bond is polar but the $\\ce{P-H}$ bond is not.",
+          "steps": [
+            "Values: nitrogen 3.0, phosphorus 2.2, hydrogen 2.2.",
+            "$\\ce{N-H}$: $3.0 - 2.2 = 0.8$, so the pair is pulled towards nitrogen.",
+            "$\\ce{P-H}$: $2.2 - 2.2 = 0$, so neither atom pulls harder."
+          ],
+          "answer": "Nitrogen (3.0) is more electronegative than hydrogen (2.2), so the electronegativity difference is 0.8. The shared pair is pulled towards nitrogen, which carries a partial negative charge, so the N–H bond is polar. Phosphorus and hydrogen both have an electronegativity of 2.2, so the difference is zero. The pair is shared equally, so the P–H bond is nonpolar.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "N-H difference 0.8, polar; P-H difference 0, nonpolar",
+            "requires": [
+              [
+                "difference is 0.8"
+              ],
+              [
+                "towards nitrogen"
+              ],
+              [
+                "difference is zero",
+                "difference is 0"
+              ],
+              [
+                "shared equally"
+              ],
+              [
+                "nonpolar",
+                "non-polar"
+              ]
+            ],
+            "forbids": [
+              "hydrogen is always positive",
+              "phosphorus is more electronegative"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Assuming hydrogen is always $\\delta^{+}$. Look up both values: hydrogen (2.2) is $\\delta^{+}$ next to oxygen, but $\\delta^{-}$ next to silicon (1.9)."
+        },
+        {
+          "type": "text",
+          "text": "A bigger $\\Delta\\chi$ means more ionic character. In $\\ce{NaF}$, $\\Delta\\chi = 3.1$: the electron is in effect transferred and an [[ionic-bond|ionic bond]] forms ({{lesson:2.1}}). Bonding is a continuum, which {{lesson:2.11}} maps onto the bonding triangle."
+        },
+        {
+          "type": "text",
+          "text": "So a compound with very polar covalent bonds can behave a little like an ionic one. Hydrogen chloride, for example, dissolves well in water and forms ions there."
+        },
+        {
+          "type": "check",
+          "id": "check-most-polar-bond",
+          "prompt": "Use the data booklet to decide which bond is the most polar.",
+          "hint": "Work out $\\Delta\\chi$ for each bond. Carbon is 2.6.",
+          "options": [
+            {
+              "text": "carbon–oxygen",
+              "correct": true
+            },
+            {
+              "text": "carbon–chlorine",
+              "correct": false
+            },
+            {
+              "text": "carbon–nitrogen",
+              "correct": false
+            },
+            {
+              "text": "carbon–sulfur",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta\\chi$: $\\ce{C-O}$ 0.8, $\\ce{C-Cl}$ 0.6, $\\ce{C-N}$ 0.4, $\\ce{C-S}$ 0. Carbon and sulfur both have 2.6, so $\\ce{C-S}$ is nonpolar.",
+          "verify": {
+            "kind": "choice",
+            "truth": "carbon–oxygen"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-si-h-partial",
+          "prompt": "Which atom carries the partial negative charge in an $\\ce{Si-H}$ bond in silane, $\\ce{SiH4}$?",
+          "hint": "Compare the two data booklet values. Don't assume.",
+          "options": [
+            {
+              "text": "hydrogen",
+              "correct": true
+            },
+            {
+              "text": "silicon",
+              "correct": false
+            },
+            {
+              "text": "neither, because the bond is nonpolar",
+              "correct": false
+            }
+          ],
+          "explain": "Hydrogen (2.2) is more electronegative than silicon (1.9), so hydrogen is $\\delta^{-}$ here.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydrogen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "molecular-polarity",
+      "heading": "Polar and nonpolar molecules",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A molecule with one bond is polar if that bond is polar. $\\ce{HCl}$ is a polar molecule, but $\\ce{Cl2}$ is not."
+        },
+        {
+          "type": "text",
+          "text": "With several bonds, each polar bond has its own bond dipole. Picture each one as a rope pulling on the central atom. Equal ropes pulling in balanced directions go nowhere."
+        },
+        {
+          "type": "definition",
+          "term": "dipole moment",
+          "statement": "A measure of the separation of charge in a bond or molecule: the size of the partial charges multiplied by the distance between them. It has a direction, so it is a vector.",
+          "plain": "How strongly, and in which direction, the charge is lopsided."
+        },
+        {
+          "type": "text",
+          "text": "Add the bond dipoles as vectors, taking account of their directions. What is left over is the molecule's net [[dipole-moment|dipole moment]]."
+        },
+        {
+          "type": "definition",
+          "term": "polar molecule",
+          "statement": "A molecule with a net dipole moment, because its bond dipoles do not cancel.",
+          "plain": "One end of the whole molecule is slightly negative and the other slightly positive."
+        },
+        {
+          "type": "result",
+          "statement": "A molecule is a [[polar-molecule|polar molecule]] only if it has polar bonds and a [[molecular-geometry|molecular geometry]] in which the bond dipoles do not cancel.",
+          "why": "Polar bonds give the dipoles. The shape decides whether they point in balanced directions and add to zero."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-dipoles-cancel",
+          "alt": "Four molecules with their bond dipoles drawn as small arrows pointing from the less electronegative atom to the more electronegative one. Left column, nonpolar: carbon dioxide, linear, two arrows pointing in opposite directions away from carbon; boron trifluoride, trigonal planar, three arrows pointing out from boron 120 degrees apart. Right column, polar: water, bent, with two lone pairs on oxygen and both arrows pointing up towards oxygen, and a larger net arrow beside it pointing up; ammonia, trigonal pyramidal, with one lone pair on nitrogen, a dashed third bond pointing back, and arrows on the two front bonds pointing towards nitrogen, and a larger net arrow pointing up towards nitrogen.",
+          "caption": "Symmetric shapes cancel the bond dipoles. Lone pairs on the central atom bend the molecule, so the dipoles add up instead."
+        },
+        {
+          "type": "text",
+          "text": "1. No [[lone-pair|lone pairs]] on the central atom and identical outer atoms: linear, trigonal planar or tetrahedral. The dipoles cancel, so the molecule is nonpolar, even though its bonds are polar."
+        },
+        {
+          "type": "text",
+          "text": "2. With polar bonds and up to four electron domains, lone pairs on the central atom give a bent or trigonal pyramidal shape. The dipoles all lean one way, so the molecule is polar."
+        },
+        {
+          "type": "text",
+          "text": "3. Different outer atoms give bond dipoles of different sizes. In a tetrahedral molecule such as $\\ce{CH2F2}$, they no longer balance, so it is polar."
+        },
+        {
+          "type": "text",
+          "text": "The same reasoning works for ions. In $\\ce{NH4^+}$, four identical $\\ce{N-H}$ dipoles point to the corners of a tetrahedron and cancel, so the ion has no net dipole."
+        },
+        {
+          "type": "example",
+          "id": "ex-sicl4-nonpolar",
+          "question": "Silicon tetrachloride, $\\ce{SiCl4}$, is a tetrahedral molecule. Use electronegativity values to deduce whether its bonds are polar and whether the molecule is polar. Explain your answer.",
+          "steps": [
+            "Bonds: chlorine 3.2, silicon 1.9, so $\\Delta\\chi = 1.3$. Each bond is polar, chlorine $\\delta^{-}$.",
+            "Shape: four identical bonds, no lone pairs on silicon, at $109.5^{\\circ}$ to each other.",
+            "The four dipoles point symmetrically outwards, so their vector sum is zero."
+          ],
+          "answer": "Chlorine (3.2) is more electronegative than silicon (1.9), so each Si–Cl bond is polar, with chlorine carrying a partial negative charge. The molecule is tetrahedral and the four bonds are identical. The four bond dipoles point symmetrically away from silicon, so they cancel. Silicon tetrachloride has no net dipole moment, so it is nonpolar.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "polar Si-Cl bonds, tetrahedral, dipoles cancel, nonpolar",
+            "requires": [
+              [
+                "bond is polar",
+                "bonds are polar"
+              ],
+              [
+                "tetrahedral"
+              ],
+              [
+                "cancel"
+              ],
+              [
+                "no net dipole"
+              ],
+              [
+                "nonpolar",
+                "non-polar"
+              ]
+            ],
+            "forbids": [
+              "is polar because its bonds are polar",
+              "is a polar molecule"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bf3-vs-nf3",
+          "question": "Boron trifluoride, $\\ce{BF3}$, and nitrogen trifluoride, $\\ce{NF3}$, each have three bonds to fluorine. Explain why $\\ce{BF3}$ is nonpolar but $\\ce{NF3}$ is polar.",
+          "steps": [
+            "Bonds: fluorine (4.0) is more electronegative than boron (2.0) and nitrogen (3.0). All six bonds are polar, fluorine $\\delta^{-}$.",
+            "$\\ce{BF3}$: three bonding domains, no lone pairs on boron, so trigonal planar. Three equal dipoles at $120^{\\circ}$ cancel.",
+            "$\\ce{NF3}$: three bonding pairs and one lone pair on nitrogen, so trigonal pyramidal. The three dipoles all lean below nitrogen and do not cancel.",
+            "Check: same polar bonds in both, so the difference must come from the shape."
+          ],
+          "answer": "Fluorine is more electronegative than both boron and nitrogen, so the B–F and N–F bonds are all polar. Boron has three bonding domains and no lone pairs, so $\\ce{BF3}$ is trigonal planar. Its three identical bond dipoles are $120^{\\circ}$ apart and cancel, so it has no net dipole. Nitrogen has three bonding pairs and one lone pair, so $\\ce{NF3}$ is trigonal pyramidal. Its bond dipoles do not cancel, so $\\ce{NF3}$ has a net dipole moment and is polar.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both have polar bonds; BF3 trigonal planar so dipoles cancel; NF3 trigonal pyramidal with a lone pair so they do not",
+            "requires": [
+              [
+                "bonds are all polar",
+                "bonds are polar"
+              ],
+              [
+                "trigonal planar"
+              ],
+              [
+                "cancel"
+              ],
+              [
+                "lone pair"
+              ],
+              [
+                "trigonal pyramidal"
+              ],
+              [
+                "do not cancel",
+                "don't cancel"
+              ],
+              [
+                "net dipole"
+              ]
+            ],
+            "forbids": [
+              "BF3 is polar",
+              "bonds in BF3 are nonpolar"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a molecule polar because its bonds are polar. $\\ce{CO2}$ has two polar $\\ce{C=O}$ bonds, but it is linear, so the dipoles cancel and it is nonpolar."
+        },
+        {
+          "type": "check",
+          "id": "check-which-polar",
+          "prompt": "Which molecule is polar?",
+          "hint": "Find the shape of each. Which one has lone pairs on its central atom?",
+          "options": [
+            {
+              "text": "$\\ce{H2S}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{SiF4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{BCl3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CS2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{H2S}$ is bent (two lone pairs on sulfur), so its $\\ce{S-H}$ dipoles do not cancel. $\\ce{SiF4}$ (tetrahedral) and $\\ce{BCl3}$ (trigonal planar) cancel. $\\ce{CS2}$ is linear, and its bonds are nonpolar anyway.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula('H2S')",
+            "given": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-net-dipole-ion",
+          "prompt": "Which species has no net dipole moment?",
+          "hint": "Which one has no lone pair on the central atom?",
+          "options": [
+            {
+              "text": "$\\ce{NH4^+}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{H3O^+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NH3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2O}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{NH4^+}$ is tetrahedral with four identical bonds, so its dipoles cancel. The other three have lone pairs on the central atom, so they are trigonal pyramidal or bent.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula('NH4^+')",
+            "given": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chf3-polar",
+          "prompt": "Tetrafluoromethane, $\\ce{CF4}$, is nonpolar, but trifluoromethane, $\\ce{CHF3}$, is polar. Both are tetrahedral. Why is $\\ce{CHF3}$ polar?",
+          "hint": "Compare $\\Delta\\chi$ for $\\ce{C-H}$ and $\\ce{C-F}$.",
+          "options": [
+            {
+              "text": "The C–H bond dipole is much smaller than a C–F dipole, so the dipoles no longer cancel.",
+              "correct": true
+            },
+            {
+              "text": "Carbon in trifluoromethane has a lone pair.",
+              "correct": false
+            },
+            {
+              "text": "The C–F bonds in tetrafluoromethane are nonpolar.",
+              "correct": false
+            },
+            {
+              "text": "Trifluoromethane is trigonal pyramidal, not tetrahedral.",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta\\chi$ is 0.4 for $\\ce{C-H}$ but 1.4 for $\\ce{C-F}$. With one bond different, the four dipoles are unequal and leave a net dipole.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The C–H bond dipole is much smaller than a C–F dipole, so the dipoles no longer cancel."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Electronegativity: how strongly an atom attracts the shared pair in a covalent bond. It rises across a period and falls down a group; fluorine is highest (4.0).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Different electronegativities give a polar bond. The more electronegative atom is $\\delta^{-}$, and a larger $\\Delta\\chi$ means a more polar bond.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Show a bond dipole with $\\delta^{+}$ and $\\delta^{-}$, or with an arrow pointing towards the $\\delta^{-}$ end.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A polar molecule needs polar bonds and a shape in which the bond dipoles do not cancel.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No lone pairs on the central atom and identical outer atoms (linear, trigonal planar, tetrahedral): the dipoles cancel and the molecule is nonpolar. Lone pairs on the central atom, or different outer atoms, usually leave a net dipole.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Deciding a molecule is polar from its bonds alone. $\\ce{CCl4}$ and $\\ce{CO2}$ have polar bonds but no net dipole: always check the shape too.",
+    "Putting $\\delta^{+}$ on hydrogen without looking. Compare the two data booklet values every time; hydrogen is $\\delta^{-}$ next to silicon or boron.",
+    "Drawing the dipole arrow the wrong way round. It points towards the more electronegative, $\\delta^{-}$ atom, with the crossed tail at the $\\delta^{+}$ end.",
+    "Leaving the lone pair off the central atom. Without it, $\\ce{NF3}$ looks trigonal planar and you wrongly decide its dipoles cancel."
+  ],
+  "examTips": [
+    "To deduce a bond's polarity, quote both electronegativity values from the data booklet and say which atom is $\\delta^{-}$.",
+    "To explain whether a molecule is polar, give three things: the bonds are polar (with the reason), the name of the shape, and whether the bond dipoles cancel.",
+    "In Paper 1A, work out the shape of every option before judging polarity. A lone pair on the central atom, or mixed outer atoms, is the usual sign of a polar molecule."
+  ],
+  "readingMinutes": 18
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 190" role="img" aria-labelledby="t">
+  <title id="t">Three vibrations of a linear carbon dioxide molecule, O=C=O. Left, symmetric stretch: both oxygen atoms move outwards at the same time; the dipole stays zero, so it is IR inactive. Middle, asymmetric stretch: both oxygen atoms move to the right while the carbon atom moves to the left, so one bond lengthens as the other shortens; the dipole changes, so it is IR active. Right, bend: both oxygen atoms move up while the carbon atom moves down, so the molecule is no longer straight; the dipole changes, so it is IR active.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none"><path d="M73.0 67.0 L52.0 67.0 M73.0 73.0 L52.0 73.0"/><path d="M97.0 73.0 L118.0 73.0 M97.0 67.0 L118.0 67.0"/></g>
+  <g stroke="currentColor" stroke-width="1.4" fill="var(--t5-ink)" fill-opacity="0.15"><circle cx="40" cy="70" r="12"/><circle cx="85" cy="70" r="12"/><circle cx="130" cy="70" r="12"/></g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle"><text x="40" y="74">O</text><text x="85" y="74">C</text><text x="130" y="74">O</text></g>
+  <g stroke="var(--t3-ink)" stroke-width="2" fill="var(--t3-ink)"><path d="M28.0 70.0 L15.0 70.0"/><polygon points="8.0,70.0 15.0,66.0 15.0,74.0"/><path d="M142.0 70.0 L155.0 70.0"/><polygon points="162.0,70.0 155.0,74.0 155.0,66.0"/></g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="85" y="140" fill="currentColor" font-weight="600">symmetric stretch</text>
+    <text x="85" y="158" fill="currentColor">dipole stays zero</text>
+    <text x="85" y="176" fill="var(--muted)">IR inactive</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none"><path d="M233.0 67.0 L212.0 67.0 M233.0 73.0 L212.0 73.0"/><path d="M257.0 73.0 L278.0 73.0 M257.0 67.0 L278.0 67.0"/></g>
+  <g stroke="currentColor" stroke-width="1.4" fill="var(--t5-ink)" fill-opacity="0.15"><circle cx="200" cy="70" r="12"/><circle cx="245" cy="70" r="12"/><circle cx="290" cy="70" r="12"/></g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle"><text x="200" y="74">O</text><text x="245" y="74">C</text><text x="290" y="74">O</text></g>
+  <g stroke="var(--t3-ink)" stroke-width="2" fill="var(--t3-ink)"><path d="M200.0 50.0 L215.0 50.0"/><polygon points="222.0,50.0 215.0,54.0 215.0,46.0"/><path d="M245.0 50.0 L230.0 50.0"/><polygon points="223.0,50.0 230.0,46.0 230.0,54.0"/><path d="M290.0 50.0 L305.0 50.0"/><polygon points="312.0,50.0 305.0,54.0 305.0,46.0"/></g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="245" y="140" fill="currentColor" font-weight="600">asymmetric stretch</text>
+    <text x="245" y="158" fill="currentColor">dipole changes</text>
+    <text x="245" y="176" fill="var(--t1-ink)">IR active</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none"><path d="M393.0 67.0 L372.0 67.0 M393.0 73.0 L372.0 73.0"/><path d="M417.0 73.0 L438.0 73.0 M417.0 67.0 L438.0 67.0"/></g>
+  <g stroke="currentColor" stroke-width="1.4" fill="var(--t5-ink)" fill-opacity="0.15"><circle cx="360" cy="70" r="12"/><circle cx="405" cy="70" r="12"/><circle cx="450" cy="70" r="12"/></g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle"><text x="360" y="74">O</text><text x="405" y="74">C</text><text x="450" y="74">O</text></g>
+  <g stroke="var(--t3-ink)" stroke-width="2" fill="var(--t3-ink)"><path d="M360.0 58.0 L360.0 43.0"/><polygon points="360.0,36.0 364.0,43.0 356.0,43.0"/><path d="M405.0 82.0 L405.0 97.0"/><polygon points="405.0,104.0 401.0,97.0 409.0,97.0"/><path d="M450.0 58.0 L450.0 43.0"/><polygon points="450.0,36.0 454.0,43.0 446.0,43.0"/></g>
+  <g font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="405" y="140" fill="currentColor" font-weight="600">bend</text>
+    <text x="405" y="158" fill="currentColor">dipole changes</text>
+    <text x="405" y="176" fill="var(--t1-ink)">IR active</text>
+  </g>
+</svg>

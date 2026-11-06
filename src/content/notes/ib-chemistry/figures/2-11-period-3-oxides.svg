@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 350" role="img" aria-labelledby="t">
+  <title id="t">The bonding triangle with the six period 3 oxides plotted. Sodium oxide, at an average electronegativity of 2.15 and a difference of 2.5, and magnesium oxide, at 2.35 and 2.1, sit well inside the ionic region. Aluminium oxide, at 2.5 and 1.8, sits right on the border between the ionic and covalent regions. Silicon dioxide, at 2.65 and 1.5, phosphorus(V) oxide, P4O10, at 2.8 and 1.2, and sulfur trioxide, at 3.0 and 0.8, sit in the covalent region. The points fall on a straight line running down to the right, from ionic to covalent.</title>
+  <path d="M70.0 300.0 H488.9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M70.0 300.0 V28.0" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M117.2 300.0 v5"/>
+    <path d="M176.2 300.0 v5"/>
+    <path d="M235.2 300.0 v5"/>
+    <path d="M294.2 300.0 v5"/>
+    <path d="M353.2 300.0 v5"/>
+    <path d="M412.2 300.0 v5"/>
+    <path d="M471.2 300.0 v5"/>
+    <path d="M70.0 260.0 h-5"/>
+    <path d="M70.0 220.0 h-5"/>
+    <path d="M70.0 180.0 h-5"/>
+    <path d="M70.0 140.0 h-5"/>
+    <path d="M70.0 100.0 h-5"/>
+    <path d="M70.0 60.0 h-5"/>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="117.2" y="318.0">1.0</text>
+    <text x="176.2" y="318.0">1.5</text>
+    <text x="235.2" y="318.0">2.0</text>
+    <text x="294.2" y="318.0">2.5</text>
+    <text x="353.2" y="318.0">3.0</text>
+    <text x="412.2" y="318.0">3.5</text>
+    <text x="471.2" y="318.0">4.0</text>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="62.0" y="304.0">0</text>
+    <text x="62.0" y="264.0">0.5</text>
+    <text x="62.0" y="224.0">1.0</text>
+    <text x="62.0" y="184.0">1.5</text>
+    <text x="62.0" y="144.0">2.0</text>
+    <text x="62.0" y="104.0">2.5</text>
+    <text x="62.0" y="64.0">3.0</text>
+  </g>
+  <text x="276.5" y="338.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">average electronegativity, Σχ</text>
+  <text x="18" y="172.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 172.0)">electronegativity difference, Δχ</text>
+  <path d="M92.4 300.0 L281.2 44.8 L332.0 112.8 L192.7 300.0 Z" fill="var(--t1-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M192.7 300.0 L332.0 112.8 L471.2 300.0 Z" fill="var(--t3-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M92.4 300.0 L163.2 204.8 L234.0 300.0 Z" fill="var(--bg, white)" fill-opacity="1" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M92.4 300.0 L163.2 204.8 L234.0 300.0 Z" fill="var(--t2-ink)" fill-opacity="0.30" stroke="currentColor" stroke-width="1.2"/>
+  <text x="235.2" y="180.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">ionic</text>
+  <text x="412.2" y="276.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">covalent</text>
+  <text x="152.6" y="276.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">metallic</text>
+  <circle cx="252.9" cy="100.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="261.9" y="104.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">Na₂O</text>
+  <circle cx="276.5" cy="132.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="285.5" y="136.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">MgO</text>
+  <circle cx="294.2" cy="156.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="303.2" y="160.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">Al₂O₃</text>
+  <circle cx="311.9" cy="180.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="320.9" y="184.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">SiO₂</text>
+  <circle cx="329.6" cy="204.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="338.6" y="208.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">P₄O₁₀</text>
+  <circle cx="353.2" cy="236.0" r="4.5" fill="var(--t5-ink)"/>
+  <text x="362.2" y="240.0" font-size="12" fill="var(--t5-ink)" font-family="inherit" text-anchor="start">SO₃</text>
+</svg>

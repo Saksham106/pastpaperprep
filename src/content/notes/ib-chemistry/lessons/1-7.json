@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.7",
+  "slug": "empirical-and-molecular-formulas",
+  "title": "Empirical and molecular formulas",
+  "level": "SL",
+  "topic": 1,
+  "summary": "An [[empirical-formula|empirical formula]] gives the simplest whole-number ratio of atoms in a [[compound|compound]]. A [[molecular-formula|molecular formula]] gives the actual number of each atom in one molecule. You can work out the empirical formula from percentages by mass or from measured masses, then use the [[molar-mass|molar mass]] to find the molecular formula.",
+  "goals": [
+    {
+      "text": "State what an empirical formula and a molecular formula show, and deduce the empirical formula from a molecular formula.",
+      "bullets": [
+        "S1.4.4"
+      ]
+    },
+    {
+      "text": "Calculate the percentage by mass of each element in a compound from its formula.",
+      "bullets": [
+        "S1.4.4"
+      ]
+    },
+    {
+      "text": "Determine an empirical formula from percentage composition by mass or from experimental masses.",
+      "bullets": [
+        "S1.4.4"
+      ]
+    },
+    {
+      "text": "Determine a molecular formula from an empirical formula and a molar mass.",
+      "bullets": [
+        "S1.4.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "simplest formula",
+    "empirical formula calculation",
+    "percentage composition by mass",
+    "percent by mass",
+    "find the molecular formula",
+    "combustion analysis"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-compound",
+      "prompt": "Which of these is a [[compound|compound]]?",
+      "hint": "A compound contains two or more different elements, chemically bonded in a fixed ratio.",
+      "options": [
+        {
+          "text": "carbon dioxide",
+          "correct": true
+        },
+        {
+          "text": "oxygen",
+          "correct": false
+        },
+        {
+          "text": "air",
+          "correct": false
+        },
+        {
+          "text": "copper",
+          "correct": false
+        }
+      ],
+      "explain": "Carbon dioxide, $\\ce{CO2}$, has carbon and oxygen bonded in a fixed 1 : 2 ratio. Oxygen and copper are elements, and air is a mixture. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "carbon dioxide"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mr-magnesium-hydroxide",
+      "prompt": "Use [[relative-atomic-mass|relative atomic masses]] from the data booklet to calculate the [[relative-formula-mass|relative formula mass]] of magnesium hydroxide, $\\ce{Mg(OH)2}$. Give 2 decimal places.",
+      "hint": "The 2 after the bracket doubles both the O and the H.",
+      "answer": {
+        "value": 58.33,
+        "tolerance": 0.005
+      },
+      "explain": "$M_\\text{r} = 24.31 + 2(16.00 + 1.01) = 58.33$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Mr('Mg(OH)2')",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-sodium-hydroxide",
+      "prompt": "How many [[mole|moles]] are in $\\pu{2.50 g}$ of sodium hydroxide, $\\ce{NaOH}$? Give 3 significant figures.",
+      "hint": "Find $M$ from the $A_\\text{r}$ values, then use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.0625,
+        "tolerance": 5e-05
+      },
+      "explain": "$M = 22.99 + 16.00 + 1.01 = \\pu{40.00 g mol-1}$, so $n = \\frac{2.50}{40.00} = 0.0625$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.50/Mr('NaOH')",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "two-formulas",
+      "heading": "What the two formulas tell you",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Ethyne, $\\ce{C2H2}$, is a welding gas. Benzene, $\\ce{C6H6}$, is a liquid solvent. Both have exactly one hydrogen atom for every carbon atom."
+        },
+        {
+          "type": "text",
+          "text": "So a formula can show either the ratio of atoms or the actual number of atoms in one molecule."
+        },
+        {
+          "type": "definition",
+          "term": "empirical formula",
+          "statement": "The formula that gives the simplest whole-number ratio of the atoms of each element in a compound.",
+          "plain": "The atom ratio cut down as far as it will go."
+        },
+        {
+          "type": "definition",
+          "term": "molecular formula",
+          "statement": "The formula that shows how many atoms of each element one molecule of the substance really contains.",
+          "plain": "A full head count of the atoms in one molecule."
+        },
+        {
+          "type": "text",
+          "text": "Ethyne and benzene share the [[empirical-formula|empirical formula]] $\\ce{CH}$. Their [[molecular-formula|molecular formulas]] are $\\ce{C2H2}$ and $\\ce{C6H6}$: two and six times $\\ce{CH}$."
+        },
+        {
+          "type": "result",
+          "statement": "The molecular formula is always a whole-number multiple of the empirical formula. The multiple can be 1, as in $\\ce{H2O}$ or $\\ce{CH4}$, where the two formulas are the same.",
+          "why": "Dividing every number in a molecular formula by their highest common factor gives the simplest ratio; multiplying back gives the molecule."
+        },
+        {
+          "type": "example",
+          "id": "ex-ribose-empirical",
+          "question": "Ribose, a sugar found in RNA, has the molecular formula $\\ce{C5H10O5}$. Deduce its empirical formula.",
+          "steps": [
+            "The numbers of atoms are 5, 10 and 5.",
+            "Their highest common factor is 5. Divide each by 5: $1, 2, 1$.",
+            "Check: $1, 2, 1$ share no common factor, so the ratio can't be cut further."
+          ],
+          "answer": "Empirical formula: $\\ce{CH2O}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "empirical_formula({\"C\": 5*Ar(\"C\"), \"H\": 10*Ar(\"H\"), \"O\": 5*Ar(\"O\")})"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Ionic compounds are not made of molecules. Sodium chloride is a giant lattice of $\\ce{Na+}$ and $\\ce{Cl-}$ ions, so $\\ce{NaCl}$ can only be a ratio: an empirical formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-magnesium-chloride",
+          "question": "Explain why the formula $\\ce{MgCl2}$ for magnesium chloride is an empirical formula and not a molecular formula.",
+          "steps": [
+            "Marking point 1: magnesium chloride is ionic, a lattice of ions.",
+            "Marking point 2: there are no separate molecules, so there is nothing to count atoms in.",
+            "Marking point 3: the formula gives only the simplest ratio of the ions."
+          ],
+          "answer": "Magnesium chloride is an ionic compound. It is a giant lattice of $\\ce{Mg^2+}$ and $\\ce{Cl-}$ ions, so it is not made of separate molecules. A molecular formula needs a molecule to count the atoms in, and there is none. $\\ce{MgCl2}$ gives the simplest ratio of the ions, one $\\ce{Mg^2+}$ to two $\\ce{Cl-}$, so it is an empirical formula.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ionic lattice with no molecules, so the formula is only the simplest ratio of ions",
+            "requires": [
+              "ionic",
+              "lattice",
+              [
+                "not made of separate molecules",
+                "no molecules",
+                "no separate molecules"
+              ],
+              "simplest ratio"
+            ],
+            "forbids": [
+              "a molecule of magnesium chloride",
+              "MgCl2 molecule"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-octane-empirical",
+          "prompt": "Octane, a compound in petrol, has the molecular formula $\\ce{C8H18}$. What is its empirical formula?",
+          "hint": "Find the largest number that divides both 8 and 18.",
+          "options": [
+            {
+              "text": "$\\ce{C4H9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C8H18}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C2H5}$",
+              "correct": false
+            }
+          ],
+          "explain": "8 and 18 share a factor of 2, giving $\\ce{C4H9}$. 4 and 9 share no factor, so it stops there. $\\ce{CH2}$ and $\\ce{C2H5}$ are close but give the wrong ratio.",
+          "verify": {
+            "kind": "formula",
+            "truth": "empirical_formula({\"C\": 8*Ar(\"C\"), \"H\": 18*Ar(\"H\")})"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-molecular-always",
+          "prompt": "Which statement about a molecular formula is always true?",
+          "hint": "Think about ethyne and benzene, and about water.",
+          "options": [
+            {
+              "text": "It is a whole-number multiple of the empirical formula.",
+              "correct": true
+            },
+            {
+              "text": "It contains more atoms than the empirical formula.",
+              "correct": false
+            },
+            {
+              "text": "It shows how the atoms are bonded to each other.",
+              "correct": false
+            },
+            {
+              "text": "It gives the simplest ratio of atoms in the compound.",
+              "correct": false
+            }
+          ],
+          "explain": "The molecular formula is $n$ times the empirical formula. For water $n = 1$, so it need not contain more atoms. A molecular formula shows no bonds, and the simplest ratio is the empirical formula.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is a whole-number multiple of the empirical formula."
+          }
+        }
+      ]
+    },
+    {
+      "id": "percent-composition",
+      "heading": "Percentage composition and the empirical formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Percentage composition by mass is the share of a compound's mass that comes from each element. Use [[relative-atomic-mass|relative atomic masses]] from the data booklet (section 7) and the [[relative-formula-mass|relative formula mass]], $M_\\text{r}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\%\\ \\text{by mass of an element} = \\frac{\\text{number of its atoms} \\times A_\\text{r}}{M_\\text{r}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-urea-nitrogen",
+          "question": "Urea, $\\ce{CO(NH2)2}$, is used as a fertiliser. Calculate the percentage by mass of nitrogen in urea. Give 3 significant figures.",
+          "steps": [
+            "Count the atoms: 1 C, 1 O, 2 N and 4 H.",
+            "$M_\\text{r} = 12.01 + 16.00 + 2(14.01) + 4(1.01) = 60.07$.",
+            "Mass of nitrogen per formula: $2 \\times 14.01 = 28.02$.",
+            "$\\%\\,\\ce{N} = \\frac{28.02}{60.07} \\times 100 = 46.645\\ldots$, which is $46.6\\%$ to 3 significant figures."
+          ],
+          "answer": "$\\%\\,\\ce{N} \\approx 46.6\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*Ar('N')/Mr('CO(NH2)2')*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "To go from percentages to a formula, you need the ratio of atoms. Atoms are counted in [[mole|moles]], not grams."
+        },
+        {
+          "type": "text",
+          "text": "1. Take a $\\pu{100 g}$ sample, so each percentage becomes a mass in grams. If one element's percentage is missing, subtract the others from 100."
+        },
+        {
+          "type": "text",
+          "text": "2. Divide each mass by that element's $A_\\text{r}$ to get the amount in moles."
+        },
+        {
+          "type": "text",
+          "text": "3. Divide every amount by the smallest one."
+        },
+        {
+          "type": "text",
+          "text": "4. Round values that are very close to whole numbers. If a value ends near .5, near .33 or .67, or near .25 or .75, multiply all of them by 2, 3 or 4 instead."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-formula-route",
+          "alt": "Flow chart from data to formulas, five boxes in a column joined by downward arrows. Box 1: mass of each element in grams; for percentages, take a 100 gram sample. Arrow labelled divide by Ar. Box 2: amount of each element in moles. Arrow labelled divide by the smallest amount. Box 3: mole ratio. Arrow labelled round, or multiply by 2, 3 or 4, to whole numbers. Box 4: empirical formula. Arrow labelled multiply by n, where n is the molar mass divided by the molar mass of the empirical formula. Box 5: molecular formula.",
+          "caption": "The route from masses or percentages to the empirical formula, and on to the molecular formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-cho-percent",
+          "question": "A compound contains $54.5\\%$ carbon, $9.2\\%$ hydrogen and $36.3\\%$ oxygen by mass. Determine its empirical formula.",
+          "steps": [
+            "In $\\pu{100 g}$: $\\pu{54.5 g}$ C, $\\pu{9.2 g}$ H, $\\pu{36.3 g}$ O.",
+            "Moles: C $\\frac{54.5}{12.01} = 4.538$, H $\\frac{9.2}{1.01} = 9.109$, O $\\frac{36.3}{16.00} = 2.269$.",
+            "Divide by the smallest, $2.269$: C $2.000$, H $4.015$, O $1$.",
+            "All are close to whole numbers, so the ratio C : H : O is $2 : 4 : 1$."
+          ],
+          "answer": "Empirical formula: $\\ce{C2H4O}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "empirical_formula({\"C\": 54.5, \"H\": 9.2, \"O\": 36.3})"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Experimental ratios are rarely exact. A value such as $2.03$ is $2$ within experimental error. But $1.50$ is too far from 1 and from 2 to round: it is a real fraction, so double everything."
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-oxide",
+          "question": "A red-brown iron oxide pigment contains $69.9\\%$ iron by mass. The rest is oxygen. Determine the empirical formula of the oxide.",
+          "steps": [
+            "Oxygen: $100 - 69.9 = 30.1\\%$.",
+            "Moles in $\\pu{100 g}$: Fe $\\frac{69.9}{55.85} = 1.252$, O $\\frac{30.1}{16.00} = 1.881$.",
+            "Divide by $1.252$: Fe $1$, O $1.503$.",
+            "$1.503$ is close to $1.5$, not to a whole number. Multiply both by 2: Fe $2$, O $3.006$, so the ratio is $2 : 3$."
+          ],
+          "answer": "Empirical formula: $\\ce{Fe2O3}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "empirical_formula({\"Fe\": 69.9, \"O\": 100 - 69.9})"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $1.5$ up to 2, or $1.33$ down to 1. That changes the compound. Multiply every value by 2 or 3 until all of them are whole."
+        },
+        {
+          "type": "text",
+          "text": "The same method works for measured masses. If you heat a metal in air until its mass stops rising, the gain is the mass of oxygen that combined with it."
+        },
+        {
+          "type": "check",
+          "id": "check-tin-oxide",
+          "prompt": "A student heats $\\pu{2.50 g}$ of tin in air until the mass stops changing. The tin oxide formed has a mass of $\\pu{3.17 g}$. What is the empirical formula of the oxide?",
+          "hint": "The oxygen's mass is the mass gained. Convert both masses to moles.",
+          "options": [
+            {
+              "text": "$\\ce{SnO2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{SnO}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Sn2O3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Sn2O}$",
+              "correct": false
+            }
+          ],
+          "explain": "Oxygen: $3.17 - 2.50 = \\pu{0.67 g}$. Sn: $\\frac{2.50}{118.71} = 0.0211$ mol; O: $\\frac{0.67}{16.00} = 0.0419$ mol. The ratio is $1 : 1.99$, so $\\ce{SnO2}$.",
+          "verify": {
+            "kind": "formula",
+            "truth": "empirical_formula({\"Sn\": 2.50, \"O\": 3.17 - 2.50})"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calcium-nitrate-oxygen",
+          "prompt": "Calculate the percentage by mass of oxygen in calcium nitrate, $\\ce{Ca(NO3)2}$. Give 3 significant figures.",
+          "hint": "The 2 outside the bracket means there are 6 oxygen atoms.",
+          "answer": {
+            "value": 58.5,
+            "tolerance": 0.05
+          },
+          "explain": "$M_\\text{r} = 40.08 + 2(14.01) + 6(16.00) = 164.10$. $\\%\\,\\ce{O} = \\frac{96.00}{164.10} \\times 100 = 58.5\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*Ar('O')/Mr('Ca(NO3)2')*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "molecular-formula",
+      "heading": "From empirical to molecular formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Percentages can't tell $\\ce{CH}$, $\\ce{C2H2}$ and $\\ce{C6H6}$ apart, because all three have the same composition. To find the molecule you also need its [[molar-mass|molar mass]], $M$, often measured with a mass spectrometer."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{M}{M(\\text{empirical formula})} \\qquad \\text{molecular formula} = (\\text{empirical formula})_n",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$n$ must be a whole number. A rounded molar mass gives a value very close to a whole number, such as $2.998$."
+        },
+        {
+          "type": "example",
+          "id": "ex-c2h4o-molecular",
+          "question": "The compound from the previous section, empirical formula $\\ce{C2H4O}$, has a molar mass of $\\pu{88.1 g mol-1}$. Determine its molecular formula.",
+          "steps": [
+            "Molar mass of the empirical formula: $2(12.01) + 4(1.01) + 16.00 = \\pu{44.06 g mol-1}$.",
+            "$n = \\frac{88.1}{44.06} = 2.00$.",
+            "Multiply every subscript in $\\ce{C2H4O}$ by 2."
+          ],
+          "answer": "Molecular formula: $\\ce{C4H8O2}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "molecular_formula(\"C2H4O\", 88.1)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To analyse a compound of carbon and hydrogen, burn a weighed sample in excess oxygen. All the carbon ends up in $\\ce{CO2}$ and all the hydrogen in $\\ce{H2O}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-combustion-hydrocarbon",
+          "question": "A $\\pu{0.600 g}$ sample of a liquid containing only carbon and hydrogen burns completely, giving $\\pu{1.883 g}$ of $\\ce{CO2}$ and $\\pu{0.771 g}$ of $\\ce{H2O}$. Its molar mass is $\\pu{84.2 g mol-1}$. Determine its molecular formula.",
+          "steps": [
+            "Moles of C = moles of $\\ce{CO2}$: $\\frac{1.883}{44.01} = 0.04279$.",
+            "Each $\\ce{H2O}$ holds two H atoms: moles of H $= 2 \\times \\frac{0.771}{18.02} = 0.08557$.",
+            "Check: C $0.04279 \\times 12.01 = \\pu{0.514 g}$ and H $0.08557 \\times 1.01 = \\pu{0.086 g}$ add up to $\\pu{0.600 g}$, so there is no oxygen in the sample.",
+            "Ratio C : H $= 0.04279 : 0.08557 = 1 : 2.00$. Empirical formula $\\ce{CH2}$, with $M = \\pu{14.03 g mol-1}$.",
+            "$n = \\frac{84.2}{14.03} = 6.00$, so multiply $\\ce{CH2}$ by 6."
+          ],
+          "answer": "Molecular formula: $\\ce{C6H12}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "molecular_formula(empirical_formula({\"C\": 1.883*Ar(\"C\")/Mr(\"CO2\"), \"H\": 0.771*2*Ar(\"H\")/Mr(\"H2O\")}), 84.2)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting one hydrogen per water molecule. Each $\\ce{H2O}$ holds two H atoms, so double the moles of water."
+        },
+        {
+          "type": "check",
+          "id": "check-ch-molecular",
+          "prompt": "A hydrocarbon has the empirical formula $\\ce{CH}$ and a molar mass of $\\pu{78.1 g mol-1}$. What is its molecular formula?",
+          "hint": "Work out the molar mass of $\\ce{CH}$ first, then divide.",
+          "options": [
+            {
+              "text": "$\\ce{C6H6}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C3H3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C12H12}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH}$",
+              "correct": false
+            }
+          ],
+          "explain": "$M(\\ce{CH}) = 12.01 + 1.01 = \\pu{13.02 g mol-1}$, and $n = \\frac{78.1}{13.02} = 6.00$. So the formula is $\\ce{C6H6}$.",
+          "verify": {
+            "kind": "formula",
+            "truth": "molecular_formula(\"CH\", 78.1)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dichlorobenzene-n",
+          "prompt": "Dichlorobenzene has the empirical formula $\\ce{C3H2Cl}$ and a molar mass of $\\pu{147.0 g mol-1}$. Its molecular formula is $(\\ce{C3H2Cl})_n$. What is $n$?",
+          "hint": "Use $A_\\text{r}(\\ce{Cl}) = 35.45$ from the data booklet.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$M(\\ce{C3H2Cl}) = 3(12.01) + 2(1.01) + 35.45 = \\pu{73.50 g mol-1}$. $n = \\frac{147.0}{73.50} = 2$, so the molecular formula is $\\ce{C6H4Cl2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "147.0/Mr('C3H2Cl')",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Empirical formula: the simplest whole-number ratio of atoms of each element. Molecular formula: the actual number of each atom in one molecule.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The molecular formula is $n$ times the empirical formula, where $n$ is a whole number (sometimes 1). Ionic compounds have only an empirical formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\%\\ \\text{by mass of an element} = \\frac{\\text{number of its atoms} \\times A_\\text{r}}{M_\\text{r}} \\times 100",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Empirical formula from data: grams (100 g sample for percentages) $\\to$ moles ($\\div A_\\text{r}$) $\\to$ divide by the smallest $\\to$ whole numbers (multiply by 2 for .5, by 3 for .33 or .67, by 4 for .25 or .75).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{M}{M(\\text{empirical formula})}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing percentages by the atomic number, or by 32.00 for oxygen. Divide each mass by the element's $A_\\text{r}$: 16.00 for O.",
+    "Rounding a ratio such as $1.5$ or $1.33$ to the nearest whole number. Multiply all the values by 2 or 3 instead.",
+    "Rounding mole amounts too early. Keep 3 or more significant figures until you have the ratio.",
+    "Forgetting an element whose percentage is not given. Find it by subtracting the others from 100, or from the sample mass.",
+    "Using the mass of $\\ce{CO2}$ or $\\ce{H2O}$ as the mass of carbon or hydrogen. Convert to moles of product, then to moles of C and of H."
+  ],
+  "examTips": [
+    "\"Determine the empirical formula\": show the amount in moles of each element, the ratio after dividing by the smallest, then the formula. A formula with no working may not earn full marks.",
+    "\"Calculate\" a percentage by mass: show $M_\\text{r}$ and the division, and give the number of significant figures the question asks for.",
+    "\"Deduce the molecular formula\": show $n = \\frac{M}{M(\\text{empirical formula})}$, then multiply every subscript by $n$.",
+    "In a Paper 1A question that offers empirical formulas, rule out any option whose subscripts share a common factor: it is not the simplest ratio."
+  ],
+  "readingMinutes": 19
+}

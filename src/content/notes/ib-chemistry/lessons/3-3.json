@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.3",
+  "slug": "oxidation-states",
+  "title": "Oxidation states",
+  "level": "SL",
+  "topic": 3,
+  "summary": "An [[oxidation-state|oxidation state]] is the charge an atom would have if every bond in its compound were ionic. A few fixed values and one sum find it for any atom. You need it to name compounds such as copper(II) oxide and to follow electrons in redox reactions.",
+  "goals": [
+    {
+      "text": "Explain what an oxidation state is, and why it is zero in an uncombined [[element|element]].",
+      "bullets": ["S3.1.6"]
+    },
+    {
+      "text": "Deduce the oxidation state of an atom in a compound or an [[ion|ion]].",
+      "bullets": ["S3.1.6"]
+    },
+    {
+      "text": "Use $-1$ for hydrogen in metal hydrides and for oxygen in peroxides.",
+      "bullets": ["S3.1.6"]
+    },
+    {
+      "text": "Read and write names such as iron(III) and sulfate(VI), and their generic forms.",
+      "bullets": ["S3.1.6"]
+    }
+  ],
+  "prerequisites": ["1.1", "1.2", "1.4", "2.1", "2.4"],
+  "papers": ["P1", "P2"],
+  "synonyms": [
+    "oxidation number",
+    "how to work out oxidation states",
+    "oxidation state rules",
+    "Roman numerals in chemical names",
+    "sulfate(VI) and nitrate(V) names"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-which-element",
+      "prompt": "Which of these substances is an element?",
+      "hint": "An element contains only one kind of atom.",
+      "options": [
+        { "text": "nitrogen", "correct": true },
+        { "text": "water", "correct": false },
+        { "text": "methane", "correct": false },
+        { "text": "sodium chloride", "correct": false }
+      ],
+      "explain": "Nitrogen contains only nitrogen atoms. The others are compounds. Revise it in {{lesson:1.1}}.",
+      "verify": { "kind": "choice", "truth": "nitrogen" }
+    },
+    {
+      "type": "check",
+      "id": "before-aluminium-ion",
+      "prompt": "How does an aluminium atom form its ion?",
+      "hint": "Aluminium is a metal in group 13.",
+      "options": [
+        { "text": "It loses three electrons.", "correct": true },
+        { "text": "It gains three electrons.", "correct": false },
+        { "text": "It loses two electrons.", "correct": false },
+        { "text": "It gains five electrons.", "correct": false }
+      ],
+      "explain": "It loses its three outer electrons to form $\\ce{Al^3+}$. Revise it in {{lesson:2.1}}.",
+      "verify": { "kind": "choice", "truth": "It loses three electrons." }
+    },
+    {
+      "type": "check",
+      "id": "before-chlorine-valence",
+      "prompt": "Chlorine's [[electron-configuration|electron configuration]] is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{5}}$. How many electrons are in its outer shell?",
+      "hint": "Add the electrons with the highest $n$.",
+      "options": [
+        { "text": "$7$", "correct": true },
+        { "text": "$5$", "correct": false },
+        { "text": "$17$", "correct": false },
+        { "text": "$2$", "correct": false }
+      ],
+      "explain": "Shell $n = 3$ holds $2 + 5 = 7$ electrons. Revise it in {{lesson:1.4}}.",
+      "verify": { "kind": "exact", "truth": "2 + 5" }
+    }
+  ],
+  "sections": [
+    {
+      "id": "meaning",
+      "heading": "What an oxidation state is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In sodium chloride the [[ion|ions]] are real: each sodium atom has lost an electron and each chlorine atom has gained one."
+        },
+        {
+          "type": "text",
+          "text": "Most substances are not ionic, so chemists pretend. Give each shared pair to the more [[electronegativity|electronegative]] atom, and see what charge each atom would carry."
+        },
+        {
+          "type": "definition",
+          "term": "oxidation state",
+          "statement": "The charge an atom would have if every bond in the substance were ionic. Positive means electrons lost in this picture; negative means electrons gained.",
+          "plain": "An electron count on paper: how many electrons an atom has, in effect, given away or taken."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-bookkeeping",
+          "alt": "Two panels. Left, hydrogen chloride: the shared pair of electrons is drawn next to chlorine inside a dashed outline, because chlorine is more electronegative. Hydrogen is labelled plus 1 and chlorine minus 1. Right, a chlorine molecule: the shared pair is split by a dashed line, one electron to each chlorine atom. Both atoms are labelled 0.",
+          "caption": "In $\\ce{HCl}$ the pair goes to chlorine, the more electronegative atom. In $\\ce{Cl2}$ it is split equally."
+        },
+        {
+          "type": "text",
+          "text": "Write the sign first: $+2$, $-1$. An ion's charge goes the other way round, as in $\\ce{Mg^2+}$. \"Oxidation number\" means the same thing."
+        },
+        {
+          "type": "result",
+          "statement": "Every atom in an uncombined [[element|element]] has oxidation state $0$, as in $\\ce{Fe}$ and $\\ce{O2}$.",
+          "why": "Identical atoms attract a bonding pair equally, so no atom gains or loses electrons."
+        },
+        {
+          "type": "text",
+          "text": "The number counts electrons: magnesium in $\\ce{MgO}$ is $+2$ because each atom lost two. A change in oxidation state during a reaction means electrons moved, as {{lesson:6.8}} shows."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-p4",
+          "question": "White phosphorus is made of $\\ce{P4}$ molecules. Explain why the oxidation state of phosphorus in $\\ce{P4}$ is zero.",
+          "steps": [
+            "Every bond joins two phosphorus atoms, with the same electronegativity.",
+            "So no atom is given the pair: nothing is gained or lost."
+          ],
+          "answer": "Every bond joins two phosphorus atoms, which have the same electronegativity. So each bonding pair is shared equally. No atom gains or loses electrons, so the oxidation state is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "identical atoms share bonding pairs equally, so no electrons are gained or lost",
+            "requires": [
+              "same electronegativity",
+              "shared equally",
+              "gains or loses",
+              "zero"
+            ],
+            "forbids": ["electrons are transferred"]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pcl3",
+          "question": "Deduce the oxidation state of phosphorus in $\\ce{PCl3}$. Use section 9 of the data booklet.",
+          "steps": [
+            "Chlorine ($3.2$) is more electronegative than phosphorus ($2.2$), so each chlorine takes a pair: $-1$.",
+            "Phosphorus loses one electron to each of three chlorines: $+3$.",
+            "Check: $+3 + 3(-1) = 0$."
+          ],
+          "answer": "$+3$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "0 - 3*(-1)", "signed": true }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $3+$ or $3$. Neither scores: put the sign first, $+3$."
+        },
+        {
+          "type": "check",
+          "id": "check-sign-first",
+          "prompt": "Which statement about oxidation states is correct?",
+          "hint": "Compare how an oxidation state and an ion charge are written.",
+          "options": [
+            { "text": "The sign is written before the number.", "correct": true },
+            { "text": "The number is written before the sign, like an ion charge.", "correct": false },
+            { "text": "A positive value is written without a sign.", "correct": false }
+          ],
+          "explain": "Magnesium in $\\ce{MgO}$ is $+2$, while the ion is $\\ce{Mg^2+}$.",
+          "verify": { "kind": "choice", "truth": "The sign is written before the number." }
+        },
+        {
+          "type": "check",
+          "id": "check-ozone",
+          "prompt": "What is the oxidation state of each oxygen atom in ozone, $\\ce{O3}$?",
+          "hint": "Which atoms are bonded together in ozone?",
+          "options": [
+            { "text": "$0$", "correct": true },
+            { "text": "$-2$", "correct": false },
+            { "text": "$+2$", "correct": false },
+            { "text": "$-6$", "correct": false }
+          ],
+          "explain": "Ozone is uncombined oxygen: every bond joins two oxygen atoms, so each atom is $0$.",
+          "verify": { "kind": "exact", "truth": "0/3", "signed": true }
+        }
+      ]
+    },
+    {
+      "id": "deducing",
+      "heading": "Deducing oxidation states",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "The oxidation states add up to the overall charge: zero for a compound, the ion's charge for a [[polyatomic-ion|polyatomic ion]].",
+          "why": "They are charges on paper, so together they give the real charge."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum \\text{oxidation states} = \\text{overall charge}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "1. A simple ion has its charge: $\\ce{S^2-}$ is $-2$."
+        },
+        {
+          "type": "text",
+          "text": "2. Fixed in compounds: fluorine $-1$, group 1 $+1$, group 2 $+2$, aluminium $+3$."
+        },
+        {
+          "type": "text",
+          "text": "3. Usually: hydrogen $+1$ and oxygen $-2$ (exceptions in the next section)."
+        },
+        {
+          "type": "text",
+          "text": "4. Call the unknown $x$, multiply each value by its number of atoms, and solve the sum."
+        },
+        {
+          "type": "example",
+          "id": "ex-dichromate",
+          "question": "Deduce the oxidation state of chromium in $\\ce{Cr2O7^2-}$.",
+          "steps": [
+            "Seven oxygens give $7(-2) = -14$.",
+            "The sum equals the ion's charge: $2x - 14 = -2$, so $2x = +12$.",
+            "Two chromiums share $+12$, so each is $+6$."
+          ],
+          "answer": "$+6$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "(-2 - 7*(-2))/2", "signed": true }
+        },
+        {
+          "type": "text",
+          "text": "Sense check: a positive value can't exceed the electrons outside the noble-gas core. Chlorine's [[electron-configuration|electron configuration]] is $\\mathrm{[Ne]\\,3s^{2}\\,3p^{5}}$, so it reaches $+7$ in $\\ce{ClO4^-}$, never $+8$."
+        },
+        {
+          "type": "example",
+          "id": "ex-vanadate",
+          "question": "Deduce the oxidation state of vanadium in ammonium vanadate, $\\ce{NH4VO3}$.",
+          "steps": [
+            "Split it into ions: $\\ce{NH4^+}$ and $\\ce{VO3^-}$.",
+            "In $\\ce{VO3^-}$: $x + 3(-2) = -1$, so $x = +5$.",
+            "Sense check: vanadium, $\\mathrm{[Ar]\\,4s^{2}\\,3d^{3}}$, has five electrons outside its core, so $+5$ is its maximum."
+          ],
+          "answer": "$+5$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "-1 - 3*(-2)", "signed": true }
+        },
+        {
+          "type": "check",
+          "id": "check-metabisulfite",
+          "prompt": "Find the oxidation state of sulfur in the preservative $\\ce{Na2S2O5}$. Include the sign.",
+          "hint": "There are two sulfur atoms.",
+          "answer": { "value": 4, "tolerance": 0 },
+          "explain": "$2(+1) + 2x + 5(-2) = 0$, so each sulfur is $+4$.",
+          "verify": { "kind": "numeric", "truth": "(0 - 2*1 - 5*(-2))/2", "dp": 0, "signed": true }
+        },
+        {
+          "type": "check",
+          "id": "check-hydrazine",
+          "prompt": "Hydrazine, $\\ce{N2H4}$, is a rocket fuel. Deduce nitrogen's oxidation state in it.",
+          "hint": "Hydrogen is $+1$ here.",
+          "options": [
+            { "text": "$-2$", "correct": true },
+            { "text": "$+2$", "correct": false },
+            { "text": "$-4$", "correct": false },
+            { "text": "$-3$", "correct": false }
+          ],
+          "explain": "$2x + 4 = 0$, so $x = -2$. $-4$ is the total for both nitrogens.",
+          "verify": { "kind": "exact", "truth": "(0 - 4*1)/2", "signed": true }
+        }
+      ]
+    },
+    {
+      "id": "exceptions",
+      "heading": "Metal hydrides, peroxides and fluorine",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a metal hydride, hydrogen is bonded to a less electronegative metal. It takes the electrons as the hydride ion, $\\ce{H^-}$, so it is $-1$."
+        },
+        {
+          "type": "text",
+          "text": "A peroxide has an $\\ce{O-O}$ bond, as in $\\ce{H2O2}$ and the $\\ce{O2^2-}$ ion. That pair is shared equally, so each oxygen gains only one electron: $-1$."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-peroxide",
+          "alt": "Hydrogen peroxide drawn as H, O, O, H in a row joined by single bonds. Above each oxygen to hydrogen bond: pair given to O. Above the oxygen to oxygen bond: shared equally. Below the atoms the oxidation states are plus 1, minus 1, minus 1, plus 1.",
+          "caption": "Each oxygen gains one electron from its $\\ce{O-H}$ bond and none from $\\ce{O-O}$."
+        },
+        {
+          "type": "text",
+          "text": "Fluorine, the most electronegative element, is $-1$ in all its compounds, so oxygen bonded to it is positive. When rules clash, fluorine wins, then group 1, group 2 and aluminium, then hydrogen, then oxygen."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-hydride",
+          "question": "Explain why hydrogen is $-1$ in $\\ce{LiH}$ but $+1$ in $\\ce{CH4}$. Use section 9 of the data booklet.",
+          "steps": [
+            "Electronegativities: lithium $1.0$, hydrogen $2.2$, carbon $2.6$.",
+            "Compare hydrogen with its partner in each compound."
+          ],
+          "answer": "Hydrogen is more electronegative than lithium, so in $\\ce{LiH}$ it takes the bonding pair and gains one electron: $-1$. Carbon is more electronegative than hydrogen, so in $\\ce{CH4}$ each hydrogen loses one electron: $+1$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H is more electronegative than Li but less than C",
+            "requires": [
+              "more electronegative than lithium",
+              "gains one electron",
+              "more electronegative than hydrogen",
+              "loses one electron"
+            ],
+            "forbids": ["hydrogen is always", "lithium is more electronegative"]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-barium-peroxide",
+          "question": "Deduce the oxidation state of oxygen in barium peroxide, $\\ce{BaO2}$.",
+          "steps": [
+            "Barium, in group 2, is $+2$, which outranks the oxygen rule.",
+            "$+2 + 2x = 0$, so $x = -1$.",
+            "Sense check: with oxygen at $-2$, barium would be $+4$, impossible for group 2."
+          ],
+          "answer": "$-1$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "(0 - 2)/2", "signed": true }
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-hydride",
+          "prompt": "What is the oxidation state of hydrogen in $\\ce{MgH2}$?",
+          "hint": "Which ranks higher: group 2 metals or hydrogen?",
+          "options": [
+            { "text": "$-1$", "correct": true },
+            { "text": "$+1$", "correct": false },
+            { "text": "$-2$", "correct": false },
+            { "text": "$+2$", "correct": false }
+          ],
+          "explain": "Magnesium is $+2$, so $2 + 2x = 0$ and $x = -1$.",
+          "verify": { "kind": "exact", "truth": "(0 - 2)/2", "signed": true }
+        },
+        {
+          "type": "check",
+          "id": "check-why-peroxide",
+          "prompt": "Why is oxygen $-1$ in $\\ce{H2O2}$?",
+          "hint": "What is each oxygen bonded to?",
+          "options": [
+            { "text": "The oxygen–oxygen bonding pair is shared equally.", "correct": true },
+            { "text": "Oxygen is less electronegative than hydrogen.", "correct": false },
+            { "text": "Hydrogen is −1 in hydrogen peroxide.", "correct": false }
+          ],
+          "explain": "Each oxygen gains one electron from $\\ce{O-H}$ and none from $\\ce{O-O}$. Hydrogen stays $+1$.",
+          "verify": { "kind": "choice", "truth": "The oxygen–oxygen bonding pair is shared equally." }
+        }
+      ]
+    },
+    {
+      "id": "names",
+      "heading": "Oxidation states in names",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A Roman numeral in a name gives the oxidation state: copper(I) oxide is $\\ce{Cu2O}$ and copper(II) oxide is $\\ce{CuO}$."
+        },
+        {
+          "type": "text",
+          "text": "An oxyanion (oxygen bonded to another element) ends in -ate plus that element's numeral: $\\ce{SO4^2-}$ is sulfate(VI), $\\ce{SO3^2-}$ sulfate(IV), $\\ce{NO3^-}$ nitrate(V), $\\ce{NO2^-}$ nitrate(III)."
+        },
+        {
+          "type": "text",
+          "text": "Generic names are also accepted: sulfate, sulfite, nitrate and nitrite. The -ite ion has one oxygen fewer and the lower oxidation state."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up -ide, -ite and -ate. Sulfide, $\\ce{S^2-}$, has no oxygen."
+        },
+        {
+          "type": "example",
+          "id": "ex-name-bleach",
+          "question": "Bleach contains $\\ce{NaClO}$. Deduce chlorine's oxidation state and name the compound.",
+          "steps": [
+            "$+1 + x + (-2) = 0$, so $x = +1$.",
+            "$\\ce{ClO^-}$ is an oxyanion, so the name ends -ate(I). Sodium hypochlorite is the generic name."
+          ],
+          "answer": "Chlorine is $+1$, so the compound is sodium chlorate(I).",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cl is +1, so sodium chlorate(I)",
+            "requires": ["+1", "sodium chlorate(I)"],
+            "forbids": ["chloride", "chlorate(V)"]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tin-sulfate",
+          "question": "Deduce the formula of tin(IV) sulfate.",
+          "steps": [
+            "Tin(IV) is $\\ce{Sn^4+}$; sulfate is $\\ce{SO4^2-}$.",
+            "Two sulfates balance one tin: $+4 + 2(-2) = 0$."
+          ],
+          "answer": "$\\ce{Sn(SO4)2}$",
+          "video": null,
+          "verify": { "kind": "formula", "truth": "ionic_formula(\"Sn4+\", \"SO4 2-\")" }
+        },
+        {
+          "type": "check",
+          "id": "check-name-kno2",
+          "prompt": "Which is a correct name for $\\ce{KNO2}$?",
+          "hint": "Find nitrogen's oxidation state in $\\ce{NO2^-}$.",
+          "options": [
+            { "text": "potassium nitrate(III)", "correct": true },
+            { "text": "potassium nitrate(V)", "correct": false },
+            { "text": "potassium nitride", "correct": false },
+            { "text": "potassium nitrate(II)", "correct": false }
+          ],
+          "explain": "$x + 2(-2) = -1$, so nitrogen is $+3$: nitrate(III), or nitrite.",
+          "verify": { "kind": "choice", "truth": "potassium nitrate(III)" }
+        },
+        {
+          "type": "check",
+          "id": "check-periodate",
+          "prompt": "$\\ce{IO3^-}$ is iodate(V). What is the name of $\\ce{IO4^-}$?",
+          "hint": "Remember the ion's charge.",
+          "options": [
+            { "text": "iodate(VII)", "correct": true },
+            { "text": "iodate(VIII)", "correct": false },
+            { "text": "iodate(V)", "correct": false },
+            { "text": "iodide(VII)", "correct": false }
+          ],
+          "explain": "$x + 4(-2) = -1$, so iodine is $+7$. Iodate(VIII) forgets the charge.",
+          "verify": { "kind": "choice", "truth": "iodate(VII)" }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Oxidation state: the charge an atom would have if every bond were ionic, sign first ($+2$). Zero in an uncombined element.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum \\text{oxidation states} = \\text{overall charge}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "F $-1$; group 1 $+1$; group 2 $+2$; Al $+3$; H $+1$ ($-1$ in metal hydrides); O $-2$ ($-1$ in peroxides, positive with F).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sulfate(VI) $\\ce{SO4^2-}$, sulfate(IV) or sulfite $\\ce{SO3^2-}$, nitrate(V) $\\ce{NO3^-}$, nitrate(III) or nitrite $\\ce{NO2^-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the total for several atoms. Two chromiums sharing $+12$ are $+6$ each.",
+    "Setting the sum to zero for an ion. For an ion it equals the ion's charge.",
+    "Using $-2$ for oxygen in a peroxide or $+1$ for hydrogen in a metal hydride. Both are $-1$ there."
+  ],
+  "examTips": [
+    "\"Deduce\": write the sum, such as $2x + 7(-2) = -2$, then the answer with its sign.",
+    "\"Explain why\" an element is zero: identical atoms, so pairs are shared equally, so no electrons are gained or lost.",
+    "\"Oxidation number\" and generic names such as nitrite are accepted."
+  ],
+  "readingMinutes": 18
+}

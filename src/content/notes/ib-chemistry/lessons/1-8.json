@@ -1,0 +1,654 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.8",
+  "slug": "concentration-and-avogadros-law",
+  "title": "Concentration and Avogadro's law",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[molar-concentration|Molar concentration]] tells you how many [[mole|moles]] of [[solute|solute]] are in each cubic decimetre of solution, and $n = CV$ links amount, concentration and volume. [[avogadros-law|Avogadro's law]] does the same job for gases: at one temperature and pressure, equal gas volumes hold equal numbers of molecules, so gases react in volume ratios that match the equation.",
+  "goals": [
+    {
+      "text": "Calculate the amount, concentration or volume of a solution with $n = CV$, writing concentrations in square brackets.",
+      "bullets": [
+        "S1.4.5"
+      ]
+    },
+    {
+      "text": "Convert concentrations between $\\pu{g dm-3}$ and $\\pu{mol dm-3}$.",
+      "bullets": [
+        "S1.4.5"
+      ]
+    },
+    {
+      "text": "Describe how to make a [[standard-solution|standard solution]] and a [[dilution|dilution]], choose the right glassware, and read a concentration from a calibration curve.",
+      "bullets": [
+        "S1.4.5"
+      ]
+    },
+    {
+      "text": "State Avogadro's law and use mole ratios to find the volumes of gases that react or form.",
+      "bullets": [
+        "S1.4.6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "molarity",
+    "n = CV",
+    "mol dm-3 to g dm-3",
+    "dilution calculation",
+    "making a standard solution",
+    "gas volume ratios"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solute-sugar",
+      "prompt": "Sugar is stirred into tea until it dissolves. Which substance is the solute?",
+      "hint": "The solute is the substance that dissolves; the liquid it dissolves in is the other one.",
+      "options": [
+        {
+          "text": "the sugar",
+          "correct": true
+        },
+        {
+          "text": "the water in the tea",
+          "correct": false
+        },
+        {
+          "text": "the sweet tea that forms",
+          "correct": false
+        }
+      ],
+      "explain": "Sugar is the solute, water is the [[solvent|solvent]], and the sweet tea is the solution. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the sugar"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-nacl",
+      "prompt": "How many moles are in $\\pu{5.85 g}$ of sodium chloride, $\\ce{NaCl}$? Give 3 significant figures.",
+      "hint": "Find the [[molar-mass|molar mass]] from the $A_\\text{r}$ values, then use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.1,
+        "tolerance": 0.0005
+      },
+      "explain": "$M = 22.99 + 35.45 = \\pu{58.44 g mol-1}$, so $n = \\frac{5.85}{58.44} \\approx \\pu{0.100 mol}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "5.85/Mr('NaCl')",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-molecules-co2",
+      "prompt": "How many molecules are in $\\pu{0.400 mol}$ of carbon dioxide?",
+      "hint": "Multiply the amount by the [[avogadro-constant|Avogadro constant]], $\\pu{6.02e23 mol-1}$.",
+      "options": [
+        {
+          "text": "$N \\approx 2.41 \\times 10^{23}$",
+          "correct": true
+        },
+        {
+          "text": "$N \\approx 7.22 \\times 10^{23}$",
+          "correct": false
+        },
+        {
+          "text": "$N \\approx 1.51 \\times 10^{24}$",
+          "correct": false
+        },
+        {
+          "text": "$N \\approx 6.64 \\times 10^{-25}$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.400 \\times 6.02 \\times 10^{23} \\approx 2.41 \\times 10^{23}$ molecules. $7.22 \\times 10^{23}$ counts atoms, and the other two divide instead of multiplying. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "0.400*NA",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "concentration",
+      "heading": "Molar concentration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stir a spoon of salt into a cup of water, and another into a bucket. The cup tastes far saltier: the same amount of salt is spread through less volume."
+        },
+        {
+          "type": "definition",
+          "term": "molar concentration",
+          "statement": "The amount of solute, in moles, per cubic decimetre of solution. Its unit is $\\pu{mol dm-3}$.",
+          "plain": "How many moles of the dissolved substance are in each litre of the solution."
+        },
+        {
+          "type": "text",
+          "text": "Square brackets mean molar concentration: $[\\ce{NaOH}] = \\pu{0.50 mol dm-3}$. Exams expect the brackets."
+        },
+        {
+          "type": "text",
+          "text": "The volume is that of the whole solution, not of the [[solvent|solvent]] you started with."
+        },
+        {
+          "type": "formula",
+          "tex": "n = CV",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-concentration"
+        },
+        {
+          "type": "text",
+          "text": "Here $n$ is the amount in $\\pu{mol}$, $C$ the concentration in $\\pu{mol dm-3}$ and $V$ the volume in $\\pu{dm3}$. It is in the data booklet (section 1)."
+        },
+        {
+          "type": "text",
+          "text": "Volumes are usually measured in $\\pu{cm3}$. Divide by 1000 to get $\\pu{dm3}$: $\\pu{25.0 cm3} = \\pu{0.0250 dm3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-naoh-concentration",
+          "question": "A student dissolves $\\pu{3.20 g}$ of sodium hydroxide, $\\ce{NaOH}$, in water and makes the solution up to $\\pu{200.0 cm3}$. Calculate $[\\ce{NaOH}]$.",
+          "steps": [
+            "Molar mass from the periodic table (data booklet, section 7): $M = 22.99 + 16.00 + 1.01 = \\pu{40.00 g mol-1}$.",
+            "Amount: $n = \\frac{m}{M} = \\frac{3.20}{40.00} = \\pu{0.0800 mol}$.",
+            "Volume in $\\pu{dm3}$: $\\frac{200.0}{1000} = \\pu{0.2000 dm3}$.",
+            "Concentration: $C = \\frac{n}{V} = \\frac{0.0800}{0.2000} = \\pu{0.400 mol dm-3}$."
+          ],
+          "answer": "$[\\ce{NaOH}] = \\pu{0.400 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "3.20/Mr('NaOH')/(200.0/1000)",
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Concentration can also be a mass per volume, in $\\pu{g dm-3}$. Multiply by the [[molar-mass|molar mass]] $M$ to go from $\\pu{mol dm-3}$ to $\\pu{g dm-3}$, and divide by $M$ to go back."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{concentration in g dm}^{-3} = \\text{concentration in mol dm}^{-3} \\times M",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-sodium-sulfate-mass",
+          "question": "A technician needs $\\pu{500.0 cm3}$ of sodium sulfate solution with $[\\ce{Na2SO4}] = \\pu{0.0600 mol dm-3}$. Calculate the mass of $\\ce{Na2SO4}$ to weigh out.",
+          "steps": [
+            "Amount needed: $n = CV = 0.0600 \\times \\frac{500.0}{1000} = \\pu{0.0300 mol}$.",
+            "Molar mass: $M = 2(22.99) + 32.07 + 4(16.00) = \\pu{142.05 g mol-1}$.",
+            "Mass: $m = nM = 0.0300 \\times 142.05 = 4.2615$, which is $\\pu{4.26 g}$ to 3 significant figures.",
+            "Sense check: $\\pu{0.0600 mol dm-3}$ is $0.0600 \\times 142.05 \\approx \\pu{8.52 g dm-3}$, and half a cubic decimetre needs half of that."
+          ],
+          "answer": "$m \\approx \\pu{4.26 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.0600*(500.0/1000)*Mr('Na2SO4')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $\\pu{cm3}$ straight into $n = CV$. The answer comes out 1000 times too big, so convert to $\\pu{dm3}$ first."
+        },
+        {
+          "type": "text",
+          "text": "An ionic solute splits into its ions. Each $\\ce{Mg(NO3)2}$ gives one $\\ce{Mg^2+}$ and two $\\ce{NO3^-}$, so in $\\pu{0.10 mol dm-3}$ magnesium nitrate, $[\\ce{NO3^-}] = \\pu{0.20 mol dm-3}$."
+        },
+        {
+          "type": "check",
+          "id": "check-chloride-ions",
+          "prompt": "A solution has $[\\ce{CaCl2}] = \\pu{0.150 mol dm-3}$. What is the concentration of chloride ions?",
+          "hint": "How many chloride ions does one $\\ce{CaCl2}$ release?",
+          "options": [
+            {
+              "text": "$\\pu{0.300 mol dm-3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.150 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.0750 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.450 mol dm-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CaCl2 -> Ca^2+ + 2Cl^-}$, so $[\\ce{Cl^-}] = 2 \\times 0.150 = \\pu{0.300 mol dm-3}$. $0.450$ counts every ion, calcium included.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*0.150",
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-kno3-mol-dm3",
+          "prompt": "A solution of potassium nitrate, $\\ce{KNO3}$, contains $\\pu{20.2 g dm-3}$. Calculate $[\\ce{KNO3}]$ in $\\pu{mol dm-3}$ to 3 significant figures.",
+          "hint": "Divide the mass concentration by the molar mass.",
+          "answer": {
+            "value": 0.2,
+            "tolerance": 0.0005
+          },
+          "explain": "$M = 39.10 + 14.01 + 3(16.00) = \\pu{101.11 g mol-1}$, so $[\\ce{KNO3}] = \\frac{20.2}{101.11} \\approx \\pu{0.200 mol dm-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "20.2/Mr('KNO3')",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "standard-solutions",
+      "heading": "Standard solutions and dilution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Titrations and similar experiments compare an unknown solution with one whose concentration you know accurately."
+        },
+        {
+          "type": "definition",
+          "term": "standard solution",
+          "statement": "A solution whose concentration is known accurately.",
+          "plain": "A solution made so carefully that you can rely on its concentration to several significant figures."
+        },
+        {
+          "type": "text",
+          "text": "To make a [[standard-solution|standard solution]] from a solid, follow these steps."
+        },
+        {
+          "type": "text",
+          "text": "1. Calculate the mass you need, then weigh it accurately on an analytical balance."
+        },
+        {
+          "type": "text",
+          "text": "2. Dissolve the solid in a small volume of distilled (or deionised) water in a beaker."
+        },
+        {
+          "type": "text",
+          "text": "3. Pour the solution into a volumetric flask. Rinse the beaker and stirring rod with distilled water, and add every rinsing to the flask, so no solute is left behind."
+        },
+        {
+          "type": "text",
+          "text": "4. Add distilled water until the bottom of the meniscus sits on the graduation mark, at eye level. Then stopper the flask and invert it several times to mix."
+        },
+        {
+          "type": "text",
+          "text": "A volumetric flask holds one volume very precisely, and a volumetric pipette or burette measures a sample precisely. Beakers and measuring cylinders are too imprecise."
+        },
+        {
+          "type": "example",
+          "id": "ex-prepare-copper-sulfate",
+          "question": "Outline how to prepare $\\pu{500.0 cm3}$ of a standard solution of copper(II) sulfate with a concentration of $\\pu{0.0500 mol dm-3}$, starting from solid $\\ce{CuSO4.5H2O}$.",
+          "steps": [
+            "Amount needed: $n = 0.0500 \\times 0.5000 = \\pu{0.0250 mol}$.",
+            "Mass: the water of crystallisation counts, so $M = 159.62 + 5(18.02) = \\pu{249.72 g mol-1}$ and $m = 0.0250 \\times 249.72 \\approx \\pu{6.24 g}$.",
+            "Then give one marking point per sentence: weigh, dissolve, transfer with rinsings, make up to the mark, mix."
+          ],
+          "answer": "Calculate the mass needed: $0.0250 \\times 249.72 \\approx \\pu{6.24 g}$ of the hydrated solid. Weigh this accurately on an analytical balance. Dissolve it in a small volume of distilled water in a beaker. Transfer the solution to a $\\pu{500.0 cm3}$ volumetric flask, and add the rinsings of the beaker to the flask. Add distilled water until the bottom of the meniscus is on the graduation mark. Stopper the flask and invert it several times to mix.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "weigh accurately, dissolve in distilled water, transfer with rinsings to a volumetric flask, make up to the mark, mix",
+            "requires": [
+              [
+                "analytical balance",
+                "weigh this accurately"
+              ],
+              [
+                "distilled water",
+                "deionised water",
+                "deionized water"
+              ],
+              "volumetric flask",
+              "rinsings",
+              "graduation mark",
+              [
+                "invert",
+                "to mix"
+              ]
+            ],
+            "forbids": [
+              "measuring cylinder",
+              "graduated cylinder",
+              "tap water"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing just \"water\", or reaching for a measuring cylinder. Say distilled or deionised water, and use a volumetric flask for the final volume."
+        },
+        {
+          "type": "text",
+          "text": "[[dilution|Dilution]] means adding more solvent to a solution. The concentration falls, but the amount of solute stays exactly the same, because nothing is added or taken away."
+        },
+        {
+          "type": "text",
+          "text": "Since $n = CV$ is unchanged, the starting concentration times volume equals the final concentration times volume."
+        },
+        {
+          "type": "formula",
+          "tex": "C_1V_1 = C_2V_2",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$C_1$ and $V_1$ are for the starting solution, $C_2$ and $V_2$ for the diluted one. Use the same volume unit on both sides."
+        },
+        {
+          "type": "example",
+          "id": "ex-dilute-stock-acid",
+          "question": "A stock solution of nitric acid has $[\\ce{HNO3}] = \\pu{1.50 mol dm-3}$. What volume of it is needed to make $\\pu{250.0 cm3}$ of $\\pu{0.120 mol dm-3}$ nitric acid?",
+          "steps": [
+            "Write $C_1V_1 = C_2V_2$ with the stock as solution 1: $1.50 \\times V_1 = 0.120 \\times 250.0$.",
+            "Rearrange: $V_1 = \\frac{0.120 \\times 250.0}{1.50} = \\pu{20.0 cm3}$.",
+            "In the lab: pipette $\\pu{20.0 cm3}$ of stock into a $\\pu{250.0 cm3}$ volumetric flask, then make up to the mark with distilled water.",
+            "Sense check: the concentration drops by a factor of $12.5$, and $250.0 \\div 20.0 = 12.5$."
+          ],
+          "answer": "$V_1 = \\pu{20.0 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.120*250.0/1.50",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A serial dilution repeats one dilution step. Pipetting $\\pu{10.00 cm3}$ into a $\\pu{100.0 cm3}$ volumetric flask and making it up divides the concentration by 10; repeat for another factor of 10. This makes very dilute solutions accurately, where one big dilution would need too small a volume."
+        },
+        {
+          "type": "text",
+          "text": "Serial dilutions give standards for a calibration curve. A colorimeter measures how much light a coloured solution absorbs (its absorbance). Plot the absorbance of each standard against concentration."
+        },
+        {
+          "type": "text",
+          "text": "For dilute solutions the points usually lie on a straight line through the origin. Read across from the unknown's absorbance to the line, then down to its concentration."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-calibration-curve",
+          "alt": "Calibration curve. Absorbance on the vertical axis, from 0 to 0.400, against concentration in moles per cubic decimetre on the horizontal axis, from 0 to 0.0500. Five standard solutions, 0.0100 to 0.0500, lie on a straight line through the origin; the 0.0500 standard has absorbance 0.360. A dashed line runs across from an absorbance of 0.270 to the line, then down to the concentration axis at 0.0375.",
+          "caption": "An unknown with absorbance $0.270$ reads off at $\\pu{0.0375 mol dm-3}$."
+        },
+        {
+          "type": "check",
+          "id": "check-pipette-choice",
+          "prompt": "Which piece of glassware measures out exactly $\\pu{25.00 cm3}$ of a solution most precisely?",
+          "hint": "You want the item made to deliver one fixed volume.",
+          "options": [
+            {
+              "text": "volumetric pipette",
+              "correct": true
+            },
+            {
+              "text": "measuring cylinder",
+              "correct": false
+            },
+            {
+              "text": "beaker",
+              "correct": false
+            },
+            {
+              "text": "conical flask",
+              "correct": false
+            }
+          ],
+          "explain": "A volumetric pipette delivers one volume to two decimal places. A measuring cylinder is much less precise, and beakers and conical flasks only have rough markings.",
+          "verify": {
+            "kind": "choice",
+            "truth": "volumetric pipette"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-serial-dilution",
+          "prompt": "A solution with a concentration of $\\pu{0.200 mol dm-3}$ is diluted tenfold, three times in a row. What is the final concentration?",
+          "hint": "Each step divides the concentration by 10.",
+          "options": [
+            {
+              "text": "$\\pu{2.00e-4 mol dm-3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{2.00e-3 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{6.67e-2 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{2.00e-5 mol dm-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.200 \\div 10 \\div 10 \\div 10 = \\pu{2.00e-4 mol dm-3}$. Dividing by 3 instead of $10^3$ gives $6.67 \\times 10^{-2}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.200/10**3",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calibration-read",
+          "prompt": "A calibration line passes through the origin, and a $\\pu{0.0800 mol dm-3}$ standard has absorbance $0.640$. A sample has absorbance $0.200$. Calculate its concentration in $\\pu{mol dm-3}$ to 3 significant figures.",
+          "hint": "On a straight line through the origin, concentration is proportional to absorbance.",
+          "answer": {
+            "value": 0.025,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\frac{0.200}{0.640} \\times 0.0800 = \\pu{0.0250 mol dm-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.200/0.640*0.0800",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "avogadro",
+      "heading": "Avogadro's law and gas volumes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a gas, the molecules are tiny compared with the gaps between them, so almost all of the volume is empty space."
+        },
+        {
+          "type": "text",
+          "text": "The size of the molecules hardly matters. At a given temperature and pressure, the volume depends only on how many molecules there are."
+        },
+        {
+          "type": "definition",
+          "term": "Avogadro's law",
+          "statement": "At the same temperature and pressure, equal volumes of any gases contain the same number of molecules.",
+          "plain": "A balloon of hydrogen and a balloon of carbon dioxide of the same size, side by side, hold the same number of molecules."
+        },
+        {
+          "type": "text",
+          "text": "Equal numbers of molecules means equal amounts in moles, so for gases at fixed temperature and pressure, volume is proportional to amount."
+        },
+        {
+          "type": "result",
+          "statement": "For gases at the same temperature and pressure, the ratio of volumes equals the ratio of amounts, which is the ratio of coefficients in the balanced equation.",
+          "why": "By [[avogadros-law|Avogadro's law]], each mole of any gas takes up the same volume under the same conditions."
+        },
+        {
+          "type": "text",
+          "text": "This only works for gases. Leave liquids and solids, such as water at room temperature, out of gas volume totals."
+        },
+        {
+          "type": "text",
+          "text": "Strictly, the law describes ideal gases. Real gases follow it closely except at high pressure and low temperature (see {{lesson:1.9}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethyne-oxygen",
+          "question": "Ethyne burns completely in oxygen: $\\ce{2C2H2(g) + 5O2(g) -> 4CO2(g) + 2H2O(l)}$. Calculate the volume of oxygen needed to burn $\\pu{24.0 cm3}$ of ethyne. All volumes are measured at the same temperature and pressure.",
+          "steps": [
+            "The mole ratio $\\ce{C2H2}:\\ce{O2}$ is $2:5$, so the volume ratio is also $2:5$.",
+            "Volume of oxygen: $24.0 \\times \\frac{5}{2} = \\pu{60.0 cm3}$.",
+            "The same ratio gives the carbon dioxide formed: $24.0 \\times \\frac{4}{2} = \\pu{48.0 cm3}$. The water is liquid, so it adds no gas volume."
+          ],
+          "answer": "$V(\\ce{O2}) = \\pu{60.0 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "24.0*5/2",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nitrogen-monoxide-mixture",
+          "question": "$\\pu{44.0 cm3}$ of nitrogen monoxide is mixed with $\\pu{35.0 cm3}$ of oxygen, and they react: $\\ce{2NO(g) + O2(g) -> 2NO2(g)}$. Determine the total volume of gas after the reaction, at the starting temperature and pressure.",
+          "steps": [
+            "Find the limiting reactant. $\\pu{44.0 cm3}$ of $\\ce{NO}$ needs $\\frac{44.0}{2} = \\pu{22.0 cm3}$ of $\\ce{O2}$. There is $\\pu{35.0 cm3}$, so oxygen is in excess and $\\ce{NO}$ is used up.",
+            "Oxygen left over: $35.0 - 22.0 = \\pu{13.0 cm3}$.",
+            "Nitrogen dioxide formed: the ratio $\\ce{NO}:\\ce{NO2}$ is $2:2$, so $\\pu{44.0 cm3}$.",
+            "Total gas: $13.0 + 44.0 = \\pu{57.0 cm3}$. Sense check: three volumes of gas become two, so the total shrinks from $\\pu{79.0 cm3}$."
+          ],
+          "answer": "$V_\\text{total} = \\pu{57.0 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(35.0 - 44.0/2) + 44.0*2/2",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a gas-volume question, list each gas's volume at the end: left-over reactant plus products. Paper 1A distractors often forget the excess reactant."
+        },
+        {
+          "type": "check",
+          "id": "check-helium-oxygen",
+          "prompt": "A $\\pu{1.0 dm3}$ flask of helium, $\\ce{He}$, and a $\\pu{1.0 dm3}$ flask of oxygen, $\\ce{O2}$, are at the same temperature and pressure. Which statement is correct?",
+          "hint": "Avogadro's law is about molecules. Helium exists as single atoms.",
+          "options": [
+            {
+              "text": "They contain equal numbers of molecules.",
+              "correct": true
+            },
+            {
+              "text": "They contain equal numbers of atoms.",
+              "correct": false
+            },
+            {
+              "text": "They contain equal masses of gas.",
+              "correct": false
+            },
+            {
+              "text": "The oxygen flask contains more molecules, because its molecules are bigger.",
+              "correct": false
+            }
+          ],
+          "explain": "Equal volumes hold equal numbers of molecules; for helium, each \"molecule\" is a single atom. Each $\\ce{O2}$ has two atoms, so the oxygen has twice as many atoms, and it also has the greater mass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "They contain equal numbers of molecules."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ammonia-volume",
+          "prompt": "Nitrogen and hydrogen react: $\\ce{N2(g) + 3H2(g) -> 2NH3(g)}$. $\\pu{45.0 cm3}$ of hydrogen reacts completely. What volume of ammonia, in $\\pu{cm3}$, forms at the same temperature and pressure?",
+          "hint": "Use the ratio of the coefficients of $\\ce{H2}$ and $\\ce{NH3}$.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0.05
+          },
+          "explain": "$\\ce{H2}:\\ce{NH3}$ is $3:2$, so $45.0 \\times \\frac{2}{3} = \\pu{30.0 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "45.0*2/3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Molar concentration is moles of solute per $\\pu{dm3}$ of solution, in $\\pu{mol dm-3}$, written in square brackets: $[\\ce{X}]$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = CV",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-concentration",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Convert $\\pu{cm3}$ to $\\pu{dm3}$ by dividing by 1000. Multiply $\\pu{mol dm-3}$ by $M$ to get $\\pu{g dm-3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dilution keeps the amount of solute the same: $C_1V_1 = C_2V_2$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A standard solution: weigh accurately, dissolve in distilled water, transfer with rinsings to a volumetric flask, make up to the mark, invert to mix.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Avogadro's law: equal volumes of gases at the same temperature and pressure hold equal numbers of molecules, so gas volume ratios equal mole ratios.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $\\pu{cm3}$ in $n = CV$. Divide by 1000 first, or the amount is 1000 times too big.",
+    "Forgetting that an ionic solute gives more than one ion. In $\\ce{CaCl2}$ solution, $[\\ce{Cl^-}]$ is twice $[\\ce{CaCl2}]$.",
+    "Describing a standard solution with just \"water\" or a measuring cylinder. Name distilled or deionised water and a volumetric flask.",
+    "Leaving the hydrate water out of the molar mass when weighing a hydrated solid such as $\\ce{CuSO4.5H2O}$.",
+    "Counting a liquid product, such as water at room temperature, in a total gas volume, or forgetting the excess reactant that is left over."
+  ],
+  "examTips": [
+    "\"Calculate\" a concentration: show $n$, the volume in $\\pu{dm3}$, then $[\\ce{X}]$ with $\\pu{mol dm-3}$. Use square brackets when you write a concentration.",
+    "\"Outline\" or \"describe\" how to make a standard solution: one step per sentence, naming the analytical balance, distilled water, rinsings, volumetric flask and graduation mark.",
+    "\"Determine\" a final gas volume: find the limiting reactant, then add the excess reactant left over to the gaseous products only."
+  ],
+  "readingMinutes": 20
+}

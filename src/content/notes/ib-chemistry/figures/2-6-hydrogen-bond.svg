@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 230" role="img" aria-labelledby="t">
+  <title id="t">Two water molecules side by side. In the left molecule, oxygen is joined to two hydrogen atoms by solid lines, one of which is labelled covalent bond. That hydrogen atom, marked delta plus, points to the right towards the oxygen atom of the second water molecule, which is marked delta minus and shows its two lone pairs as pairs of dots. A dashed line from the delta plus hydrogen to one lone pair on the second oxygen is labelled hydrogen bond. The oxygen, hydrogen and oxygen atoms along the hydrogen bond lie almost in a straight line.</title>
+  <!-- left water: O1 (130,110), H (190,120) and (108,160) -->
+  <g stroke="currentColor" stroke-width="2.2">
+    <path d="M139 112 L180 119"/>
+    <path d="M126 119 L112 151"/>
+    <!-- right water: O2 (300,125), H (334,82) and (334,169) -->
+    <path d="M306 117 L328 90"/>
+    <path d="M306 133 L328 161"/>
+  </g>
+  <!-- hydrogen bond -->
+  <path d="M199 120 L277 112" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 5" fill="none"/>
+  <g font-size="16" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="130" y="116">O</text>
+    <text x="190" y="126">H</text>
+    <text x="108" y="166">H</text>
+    <text x="300" y="131">O</text>
+    <text x="336" y="86">H</text>
+    <text x="336" y="174">H</text>
+  </g>
+  <!-- lone pairs on left O (above/left) -->
+  <g fill="currentColor">
+    <circle cx="112" cy="94" r="2.2"/>
+    <circle cx="119" cy="89" r="2.2"/>
+    <circle cx="140" cy="88" r="2.2"/>
+    <circle cx="148" cy="92" r="2.2"/>
+    <!-- lone pairs on right O, facing left -->
+    <circle cx="283" cy="110" r="2.2"/>
+    <circle cx="287" cy="104" r="2.2"/>
+    <circle cx="283" cy="140" r="2.2"/>
+    <circle cx="287" cy="146" r="2.2"/>
+  </g>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="196" y="102" fill="var(--t1-ink)">δ+</text>
+    <text x="300" y="168" fill="var(--t1-ink)">δ−</text>
+    <text x="130" y="140" fill="var(--t1-ink)">δ−</text>
+  </g>
+  <g font-size="12" font-family="inherit">
+    <path d="M160 116 L150 195" stroke="var(--muted)" stroke-width="1" fill="none"/>
+    <text x="150" y="210" fill="currentColor" text-anchor="middle">covalent bond (inside a molecule)</text>
+    <path d="M238 116 L250 50" stroke="var(--muted)" stroke-width="1" fill="none"/>
+    <text x="250" y="40" fill="var(--t2-ink)" text-anchor="middle">hydrogen bond (between molecules)</text>
+  </g>
+</svg>

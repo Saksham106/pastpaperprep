@@ -1,0 +1,807 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.1",
+  "slug": "particulate-nature-of-matter",
+  "title": "The particulate nature of matter",
+  "level": "SL",
+  "topic": 1,
+  "summary": "All matter is built from [[element|elements]]: alone, bonded into [[compound|compounds]], or physically mixed in [[mixture|mixtures]] that you can separate again. The [[kinetic-molecular-theory|kinetic molecular theory]] explains solids, liquids, gases and changes of state. [[temperature|Temperature]] in [[kelvin|kelvin]] measures the average kinetic energy of the particles.",
+  "goals": [
+    {
+      "text": "Classify a substance as an element, a compound or a mixture, and a mixture as homogeneous or heterogeneous.",
+      "bullets": [
+        "S1.1.1"
+      ]
+    },
+    {
+      "text": "Choose and outline a separation: solvation, filtration, evaporation, [[recrystallization|recrystallization]], [[distillation|distillation]] or paper chromatography.",
+      "bullets": [
+        "S1.1.1"
+      ]
+    },
+    {
+      "text": "Explain the properties of solids, liquids and gases with the particle model, name every change of state, and use [[state-symbols|state symbols]].",
+      "bullets": [
+        "S1.1.2"
+      ]
+    },
+    {
+      "text": "Convert between degrees Celsius and kelvin, link temperature to average kinetic energy, and interpret a heating curve.",
+      "bullets": [
+        "S1.1.3"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "elements compounds and mixtures",
+    "kinetic molecular theory",
+    "states of matter",
+    "separation techniques",
+    "Celsius to kelvin",
+    "heating curve"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chemical-change",
+      "prompt": "Which of these is a chemical change?",
+      "hint": "A chemical change makes a new substance.",
+      "options": [
+        {
+          "text": "An iron nail rusting",
+          "correct": true
+        },
+        {
+          "text": "A candle melting",
+          "correct": false
+        },
+        {
+          "text": "Sugar dissolving in tea",
+          "correct": false
+        },
+        {
+          "text": "Water boiling",
+          "correct": false
+        }
+      ],
+      "explain": "Rust, iron oxide, is a new substance. The others only rearrange the same particles.",
+      "verify": {
+        "kind": "choice",
+        "truth": "An iron nail rusting"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-count-atoms",
+      "prompt": "How many atoms are in one molecule of glucose, $\\ce{C6H12O6}$?",
+      "hint": "Add the small numbers after each symbol.",
+      "answer": {
+        "value": 24,
+        "tolerance": 0
+      },
+      "explain": "$6 + 12 + 6 = 24$: six carbon, twelve hydrogen and six oxygen atoms.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6 + 12 + 6",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fills-container",
+      "prompt": "Which state of matter always spreads out to fill its whole container?",
+      "hint": "Think of a smell spreading across a room.",
+      "options": [
+        {
+          "text": "Gas",
+          "correct": true
+        },
+        {
+          "text": "Liquid",
+          "correct": false
+        },
+        {
+          "text": "Solid",
+          "correct": false
+        }
+      ],
+      "explain": "Gas particles move freely in every direction, so a gas fills any space.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Gas"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "matter",
+      "heading": "Elements, compounds and mixtures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Everything is built from about a hundred kinds of atom. A substance with only one kind is an [[element|element]]."
+        },
+        {
+          "type": "definition",
+          "term": "element",
+          "statement": "A substance that no chemical reaction can split into simpler substances. All its atoms have the same [[atomic-number|atomic number]].",
+          "plain": "One kind of atom only, such as copper or oxygen."
+        },
+        {
+          "type": "definition",
+          "term": "compound",
+          "statement": "A substance made of two or more elements whose atoms are held together by chemical bonds, always in the same ratio.",
+          "plain": "Water is always two hydrogen atoms to every oxygen atom."
+        },
+        {
+          "type": "definition",
+          "term": "mixture",
+          "statement": "Two or more elements or compounds together, not bonded to each other, in any proportions. Physical methods can separate them.",
+          "plain": "Sand stirred into salt: each keeps its own identity."
+        },
+        {
+          "type": "text",
+          "text": "A compound has new properties. Sodium is a reactive metal and chlorine a toxic gas, yet sodium chloride is table salt. A mixture keeps its parts' properties: iron filings stirred into sulfur are still magnetic."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-particle-diagrams",
+          "alt": "Four boxes of particles. Box 1, an element made of atoms: separate circles, all the same colour. Box 2, an element made of molecules: pairs of joined circles, all the same colour. Box 3, a compound: identical particles, each one large circle joined to two small circles of a different colour. Box 4, a mixture: some single circles and some joined pairs of a different colour, mixed together and not joined to each other.",
+          "caption": "Every particle of a compound is the same. A mixture holds different particles that are not bonded to each other."
+        },
+        {
+          "type": "text",
+          "text": "A homogeneous mixture has the same composition throughout, in one phase: air or salt water. A heterogeneous mixture has parts you can tell apart, such as sand in water."
+        },
+        {
+          "type": "text",
+          "text": "An [[alloy|alloy]] such as brass is a mixture, even though metallic bonding holds it together ({{lesson:2.11}}). Its copper and zinc can be in any proportions, so it has no fixed formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-sodium-chlorine-equation",
+          "question": "Sodium reacts with chlorine gas to form sodium chloride. Write the balanced equation, then identify each substance as an element or a compound.",
+          "steps": [
+            "Chlorine is $\\ce{Cl2}$, so two Cl atoms need $\\ce{2NaCl}$ and so $\\ce{2Na}$.",
+            "Sodium and chlorine each have one kind of atom: elements. Sodium chloride has both, bonded $1 : 1$: a compound."
+          ],
+          "answer": "$\\ce{2Na + Cl2 -> 2NaCl}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Na + Cl2 -> NaCl",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-classify-three",
+          "question": "Classify ozone, $\\ce{O3}$, ammonia, $\\ce{NH3}$, and air as an element, a compound or a mixture. Give a reason for each.",
+          "steps": [
+            "Ask: how many kinds of atom, and are they bonded in a fixed ratio?"
+          ],
+          "answer": "Ozone is an element: all its atoms are oxygen. Ammonia is a compound: nitrogen and hydrogen are bonded in a fixed $1 : 3$ ratio. Air is a mixture: its gases are not bonded to each other and their proportions can vary.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "O3 element (one kind of atom); NH3 compound (fixed ratio, bonded); air mixture (not bonded, variable).",
+            "requires": [
+              "ozone is an element",
+              "ammonia is a compound",
+              "air is a mixture",
+              "fixed",
+              [
+                "not bonded",
+                "not chemically bonded"
+              ]
+            ],
+            "forbids": [
+              "ozone is a compound",
+              "air is a compound"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-homogeneous-mixture",
+          "prompt": "Which is a homogeneous mixture?",
+          "hint": "Rule out the pure substances first. Then look for one uniform phase.",
+          "options": [
+            {
+              "text": "Brass",
+              "correct": true
+            },
+            {
+              "text": "Sand in water",
+              "correct": false
+            },
+            {
+              "text": "Sodium chloride",
+              "correct": false
+            },
+            {
+              "text": "Copper",
+              "correct": false
+            }
+          ],
+          "explain": "Brass is copper and zinc, uniform throughout. Sodium chloride and copper are pure substances. Sand in water has visible parts.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Brass"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-every-mixture",
+          "prompt": "Which statement is true of every mixture?",
+          "hint": "Homogeneous and heterogeneous mixtures must both fit.",
+          "options": [
+            {
+              "text": "Its components are not chemically bonded",
+              "correct": true
+            },
+            {
+              "text": "Its components are in a fixed ratio",
+              "correct": false
+            },
+            {
+              "text": "It has the same composition throughout",
+              "correct": false
+            },
+            {
+              "text": "Only a chemical reaction can separate it",
+              "correct": false
+            }
+          ],
+          "explain": "A fixed ratio means a compound. Only homogeneous mixtures are uniform.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its components are not chemically bonded"
+          }
+        }
+      ]
+    },
+    {
+      "id": "separation",
+      "heading": "Separating mixtures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The parts of a [[mixture|mixture]] are not bonded, so differences in physical properties can pull them apart: whether each one dissolves, its boiling point, or how far it travels on paper."
+        },
+        {
+          "type": "text",
+          "text": "A [[solute|solute]] dissolves in a [[solvent|solvent]] to give a solution, a homogeneous mixture. In solvation, solvent particles surround the solute particles. Dissolving one part lets you split it from parts that do not dissolve."
+        },
+        {
+          "type": "text",
+          "text": "Filtration separates an insoluble solid from a liquid. The solid stays on the filter paper as the residue. The liquid that passes through is the filtrate."
+        },
+        {
+          "type": "text",
+          "text": "Evaporation heats a solution to drive off the solvent, leaving the dissolved solid behind. The solvent is lost to the air."
+        },
+        {
+          "type": "definition",
+          "term": "recrystallization",
+          "statement": "Purifying a solid: dissolve it in as little hot solvent as possible, filter while hot, cool so pure crystals form, then filter them off and rinse with a little cold solvent.",
+          "plain": "Insoluble impurities are filtered off hot; soluble ones stay in the cold solution."
+        },
+        {
+          "type": "text",
+          "text": "The solvent for recrystallization must dissolve the solid well when hot but poorly when cold. Otherwise little solid crystallizes out on cooling."
+        },
+        {
+          "type": "definition",
+          "term": "distillation",
+          "statement": "Separating a liquid from a solution, or liquids from each other, by boiling the mixture and cooling the vapour in a condenser so it turns back into liquid.",
+          "plain": "The liquid with the lowest boiling point comes over first."
+        },
+        {
+          "type": "text",
+          "text": "Distillation keeps the solvent, which evaporation throws away. Liquids that mix completely and have close boiling points, such as ethanol and water, need fractional distillation, with a fractionating column above the flask."
+        },
+        {
+          "type": "text",
+          "text": "[[chromatography|Paper chromatography]] separates dissolved substances, such as the dyes in an ink. The solvent rises up the paper and carries each substance a different distance ({{lesson:2.7}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-separate-nitrate-charcoal",
+          "question": "Powdered charcoal is mixed with potassium nitrate. Potassium nitrate dissolves in water; charcoal does not. Outline how to obtain dry samples of both.",
+          "steps": [
+            "Use the property that differs, solubility in water, and say what each step removes."
+          ],
+          "answer": "Add water and stir so the potassium nitrate dissolves. Filter: the charcoal stays on the filter paper as the residue. Rinse the charcoal with water and dry it in a warm oven. Evaporate water from the filtrate until potassium nitrate crystallizes, then dry the crystals.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Dissolve the nitrate, filter off the charcoal and dry it, evaporate the filtrate for the nitrate.",
+            "requires": [
+              [
+                "dissolves",
+                "dissolve"
+              ],
+              [
+                "filter",
+                "filtration"
+              ],
+              "residue",
+              [
+                "evaporate",
+                "evaporation"
+              ],
+              [
+                "dry",
+                "dried"
+              ]
+            ],
+            "forbids": [
+              "sieve",
+              "particle size",
+              "magnet"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rock-salt-percentage",
+          "question": "A $\\pu{12.50 g}$ sample of rock salt is stirred with water and filtered. The filtrate is evaporated to dryness, leaving $\\pu{9.86 g}$ of dry salt. Calculate the percentage by mass of salt in the rock salt.",
+          "steps": [
+            "Percentage by mass $= \\dfrac{9.86}{12.50} \\times 100 = 78.88\\ldots$",
+            "Give 3 s.f., as the data allow. Damp salt would make the result too high."
+          ],
+          "answer": "$\\text{salt} \\approx 78.9\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "9.86/12.50*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"evaporate\" when the liquid is needed. Evaporation loses the solvent. To collect it, distil and condense the vapour."
+        },
+        {
+          "type": "check",
+          "id": "check-ethanol-water",
+          "prompt": "Which method best separates ethanol from water? Both are liquids that mix completely.",
+          "hint": "You need to keep both liquids.",
+          "options": [
+            {
+              "text": "Fractional distillation",
+              "correct": true
+            },
+            {
+              "text": "Filtration",
+              "correct": false
+            },
+            {
+              "text": "Evaporation",
+              "correct": false
+            },
+            {
+              "text": "Recrystallization",
+              "correct": false
+            }
+          ],
+          "explain": "Filtration and evaporation cannot keep both liquids. Their boiling points are close, so use a fractionating column.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Fractional distillation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-recrystallization-solvent",
+          "prompt": "Which solvent is best for recrystallizing a solid?",
+          "hint": "The solid must dissolve, then come back out on cooling.",
+          "options": [
+            {
+              "text": "Dissolves it well hot, poorly cold",
+              "correct": true
+            },
+            {
+              "text": "Dissolves it well hot and cold",
+              "correct": false
+            },
+            {
+              "text": "Does not dissolve it at all",
+              "correct": false
+            },
+            {
+              "text": "Dissolves it poorly hot, well cold",
+              "correct": false
+            }
+          ],
+          "explain": "The solid must dissolve hot, then crystallize on cooling. If it stays soluble cold, most is lost.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Dissolves it well hot, poorly cold"
+          }
+        }
+      ]
+    },
+    {
+      "id": "states",
+      "heading": "States of matter and the kinetic molecular theory",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[kinetic-molecular-theory|kinetic molecular theory]] is a model: matter is made of particles that are always moving. Their spacing, motion and attractions explain the three states."
+        },
+        {
+          "type": "text",
+          "text": "Solid: the particles are packed closely in a regular pattern and vibrate about fixed positions. Strong attractions hold them in place, so a solid keeps its shape and volume."
+        },
+        {
+          "type": "text",
+          "text": "Liquid: the particles are still close and mostly touching, but they can slide past each other. So a liquid flows and takes the shape of its container, yet its volume stays fixed."
+        },
+        {
+          "type": "text",
+          "text": "Gas: the particles are far apart and move fast and randomly, with very weak attractions between them. So a gas fills its container and is easy to compress."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-states-changes",
+          "alt": "Three boxes of particles arranged in a triangle. Bottom left, solid: circles packed closely in regular rows. Bottom right, liquid: circles still close together and mostly touching, but in an irregular arrangement. Top centre, gas: a few circles far apart. Pairs of arrows join each pair of boxes. Solid to liquid is melting and liquid to solid is freezing. Liquid to gas is vaporization and gas to liquid is condensation. Solid to gas is sublimation and gas to solid is deposition. The three arrows towards the gas or liquid, melting, vaporization and sublimation, are one colour and marked energy absorbed. The three reverse arrows, freezing, condensation and deposition, are another colour and marked energy released.",
+          "caption": "The six changes of state come in pairs. Each one is the reverse of its partner."
+        },
+        {
+          "type": "text",
+          "text": "Melting, vaporization and sublimation (solid straight to gas) absorb energy to overcome the attractions between particles: they are endothermic. Freezing, condensation and deposition (gas straight to solid) release it: they are exothermic ({{lesson:4.1}})."
+        },
+        {
+          "type": "text",
+          "text": "Vaporization happens in two ways. Evaporation happens only at the surface, at any temperature. Boiling happens all through the liquid, at the boiling point."
+        },
+        {
+          "type": "text",
+          "text": "[[state-symbols|State symbols]] give each substance's state in an equation: (s) solid, (l) liquid, (g) gas and (aq) aqueous, which means dissolved in water. So $\\ce{H2O(l)}$ is pure liquid water, while $\\ce{NaCl(aq)}$ is salt in solution."
+        },
+        {
+          "type": "example",
+          "id": "ex-frost-deposition",
+          "question": "On a cold night, water vapour in the air turns straight into frost on a car window. Name this change of state and write its equation with state symbols.",
+          "steps": [
+            "Gas to solid with no liquid stage is deposition. Only the state symbols change."
+          ],
+          "answer": "$\\ce{H2O(g) -> H2O(s)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2O(g) -> H2O(s)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compress-gas-liquid",
+          "question": "Use the kinetic molecular theory to explain why a gas is easy to compress but a liquid is not.",
+          "steps": [
+            "Compare the space between particles in each state."
+          ],
+          "answer": "In a gas the particles are far apart, with mostly empty space between them, so they can be pushed much closer together. In a liquid the particles are already close together and mostly touching, so there is almost no space to remove.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Gas particles are far apart (space to remove); liquid particles already touch.",
+            "requires": [
+              "far apart",
+              [
+                "empty space",
+                "space between"
+              ],
+              "close together",
+              [
+                "touching",
+                "no space"
+              ]
+            ],
+            "forbids": [
+              "particles get smaller",
+              "particles shrink"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up sublimation and deposition. Sublimation is solid to gas. Deposition is gas to solid, as when frost forms."
+        },
+        {
+          "type": "check",
+          "id": "check-name-sublimation",
+          "prompt": "Naphthalene mothballs slowly disappear from a wardrobe without leaving any liquid: $\\ce{C10H8(s) -> C10H8(g)}$. What is this change of state?",
+          "hint": "Read the state symbols on both sides.",
+          "options": [
+            {
+              "text": "Sublimation",
+              "correct": true
+            },
+            {
+              "text": "Deposition",
+              "correct": false
+            },
+            {
+              "text": "Evaporation",
+              "correct": false
+            },
+            {
+              "text": "Melting",
+              "correct": false
+            }
+          ],
+          "explain": "Solid goes straight to gas, so it is sublimation. Evaporation starts from a liquid, and deposition is the reverse change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Sublimation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-marble-acid-states",
+          "prompt": "Marble, $\\ce{CaCO3}$, reacts with hydrochloric acid. Which equation has the correct state symbols?",
+          "hint": "Anything dissolved in water is (aq). Pure water is (l).",
+          "options": [
+            {
+              "text": "$\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CaCO3(s) + 2HCl(l) -> CaCl2(aq) + H2O(l) + CO2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(aq) + CO2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(s) + H2O(l) + CO2(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "The acid and calcium chloride are dissolved in water, so (aq). Water itself is (l).",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CaCO3(s) + HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)",
+            "states": true,
+            "reversible": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "temperature",
+      "heading": "Temperature, kelvin and changes of state",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The particles in a sample do not all move at the same speed: some are fast, some slow ({{lesson:5.4}} shows the spread). [[temperature|Temperature]] tracks their average."
+        },
+        {
+          "type": "definition",
+          "term": "temperature",
+          "statement": "A measure of the average kinetic energy, $E_\\text{k}$, of the particles in a substance. In [[kelvin|kelvin]], $T$ is proportional to the average $E_\\text{k}$.",
+          "plain": "Hotter means the particles move faster on average."
+        },
+        {
+          "type": "text",
+          "text": "Temperature is not heat, which is energy transferred because of a temperature difference. A warm bath holds more thermal energy than a cup of boiling water, at a lower temperature."
+        },
+        {
+          "type": "text",
+          "text": "The SI unit of temperature is the kelvin, K. A change of $\\pu{1 K}$ equals a change of $1\\,^{\\circ}\\text{C}$, but the scale starts at absolute zero, $\\pu{0 K}$, where particles have the least kinetic energy possible."
+        },
+        {
+          "type": "formula",
+          "tex": "T\\ (\\text{K}) = t\\ ({}^{\\circ}\\text{C}) + 273.15",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This conversion is in the data booklet, section 4. Many mark schemes round it to $273$, so $25\\,^{\\circ}\\text{C}$ becomes $\\pu{298 K}$. A kelvin temperature never takes a degree sign."
+        },
+        {
+          "type": "check",
+          "id": "check-gallium-kelvin",
+          "prompt": "Gallium melts at $29.77\\,^{\\circ}\\text{C}$ (data booklet, section 8). What is this in kelvin? Give 2 decimal places.",
+          "hint": "Add $273.15$.",
+          "answer": {
+            "value": 302.92,
+            "tolerance": 0.005
+          },
+          "explain": "$29.77 + 273.15 = \\pu{302.92 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "29.77 + 273.15",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-neon-energy-factor",
+          "question": "A sample of neon is heated from $27\\,^{\\circ}\\text{C}$ to $327\\,^{\\circ}\\text{C}$. By what factor does the average kinetic energy of its atoms increase? Give 3 s.f.",
+          "steps": [
+            "Average $E_\\text{k}$ is proportional to the kelvin temperature, so convert both: $27 + 273.15 = \\pu{300.15 K}$ and $327 + 273.15 = \\pu{600.15 K}$.",
+            "Factor $= \\dfrac{600.15}{300.15} = 1.9995\\ldots$",
+            "Not $\\tfrac{327}{27} \\approx 12$: zero on the Celsius scale is not zero energy."
+          ],
+          "answer": "$\\text{factor} \\approx 2.00$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(327 + 273.15)/(27 + 273.15)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-warm-gas-factor",
+          "prompt": "A gas is warmed from $20\\,^{\\circ}\\text{C}$ to $40\\,^{\\circ}\\text{C}$. By what factor does the average kinetic energy of its particles increase? Give 3 s.f.",
+          "hint": "Convert both temperatures to kelvin first.",
+          "answer": {
+            "value": 1.07,
+            "tolerance": 0.005
+          },
+          "explain": "$\\dfrac{313.15}{293.15} \\approx 1.07$. Doubling the Celsius value does not double the energy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(40 + 273.15)/(20 + 273.15)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Heat a pure solid at a steady rate and record its temperature. The temperature rises, stays flat while the solid melts, rises again, then stays flat while the liquid boils."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-heating-curve",
+          "alt": "Heating curve: temperature on the vertical axis against time on the horizontal axis, for a pure solid heated at a steady rate. The line rises steeply while the substance is a solid, then runs flat at the melting point, labelled melting, solid and liquid present. It rises again while the substance is a liquid, then runs flat for longer at the higher boiling point, labelled boiling, liquid and gas present. Finally it rises again while the substance is a gas. Dashed lines join the two flat parts to the temperature axis, marked melting point and boiling point.",
+          "caption": "On each flat part, two states are present together."
+        },
+        {
+          "type": "text",
+          "text": "On a flat part, the energy supplied overcomes the attractions between particles instead of speeding them up. So the average kinetic energy, and the temperature, stay the same until the change of state is complete."
+        },
+        {
+          "type": "text",
+          "text": "A pure substance melts at one sharp temperature; an impure one melts over a lower range. So a melting point tests purity."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethanol-boiling-plateau",
+          "question": "Pure ethanol is heated at a steady rate. Its temperature stays at about $78\\,^{\\circ}\\text{C}$ for several minutes while it boils. Explain why.",
+          "steps": [
+            "Say where the energy goes, then link average kinetic energy to temperature."
+          ],
+          "answer": "While the ethanol boils, liquid and gas are both present. The energy supplied is used to overcome the attractions between the molecules, not to make them move faster. So the average kinetic energy stays the same, and the temperature stays constant until all the liquid has boiled.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Energy overcomes attractions between molecules, average Ek unchanged, so T constant.",
+            "requires": [
+              [
+                "overcome the attractions",
+                "overcome attractions",
+                "overcome the intermolecular forces"
+              ],
+              [
+                "average kinetic energy of the molecules stays the same",
+                "average kinetic energy stays the same",
+                "average kinetic energy is constant"
+              ],
+              [
+                "temperature stays constant",
+                "temperature stays the same"
+              ]
+            ],
+            "forbids": [
+              "covalent bonds",
+              "bonds break",
+              "breaks bonds"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying ethanol boils because its covalent bonds break. Boiling a molecular substance overcomes the attractions between molecules. The bonds inside each molecule stay intact."
+        },
+        {
+          "type": "check",
+          "id": "check-upper-plateau",
+          "prompt": "On a heating curve, what is happening along the higher flat part?",
+          "hint": "Which change happens at the higher temperature?",
+          "options": [
+            {
+              "text": "The liquid is boiling",
+              "correct": true
+            },
+            {
+              "text": "The solid is melting",
+              "correct": false
+            },
+            {
+              "text": "The particles are speeding up",
+              "correct": false
+            },
+            {
+              "text": "No energy is absorbed",
+              "correct": false
+            }
+          ],
+          "explain": "Boiling comes after melting, at the higher temperature. The energy absorbed overcomes attractions, so the average kinetic energy is unchanged.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The liquid is boiling"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Element: one kind of atom, cannot be split chemically. Compound: elements bonded in a fixed ratio, with new properties. Mixture: not bonded, any ratio, separable by physical methods.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Homogeneous mixture: uniform composition, one phase. Heterogeneous mixture: parts you can tell apart.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Filtration: insoluble solid. Evaporation: dissolved solid. Recrystallization: purify a solid. Distillation: liquids by boiling point. Paper chromatography: dissolved substances.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Endothermic: melting, vaporization, sublimation. Exothermic: freezing, condensation, deposition. State symbols: (s), (l), (g), (aq) = dissolved in water.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$T\\ (\\text{K}) = t\\ ({}^{\\circ}\\text{C}) + 273.15$. Average $E_\\text{k}$ is proportional to $T$ in kelvin, never in $^{\\circ}\\text{C}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "While a pure substance changes state, its temperature stays constant: the energy overcomes attractions between particles.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing (l) for a dissolved substance. Salt water is $\\ce{NaCl(aq)}$; (l) is only for a pure liquid such as $\\ce{H2O(l)}$.",
+    "Calling gas to solid \"condensation\". Gas to liquid is condensation; gas to solid is deposition.",
+    "Taking ratios of Celsius temperatures. Convert to kelvin first.",
+    "Suggesting a sieve to split salt from sand. Dissolve the salt, filter off the sand, then evaporate the filtrate.",
+    "Calling an alloy a compound. Its metals mix in variable proportions, so it is a mixture."
+  ],
+  "examTips": [
+    "\"Distinguish\" element, compound and mixture: give a clear difference, such as bonded in a fixed ratio versus not bonded.",
+    "\"State and explain\" a property with the kinetic molecular theory: pair what you see (a liquid flows) with the particle reason (particles slide past each other).",
+    "\"Suggest\" a separation: give the steps in order and what each removes. A bare method name earns little.",
+    "Paper 1A often asks you to name a change of state from an equation. Read the state symbols on both sides."
+  ],
+  "readingMinutes": 24
+}

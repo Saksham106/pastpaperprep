@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 228" role="img" aria-labelledby="t">
+<title id="t">Left: an ammonia molecule, nitrogen bonded to three hydrogen atoms with a lone pair, next to a hydrogen ion H plus. A curved arrow goes from the lone pair to the H plus. After a reaction arrow, the ammonium ion: nitrogen bonded to four hydrogen atoms inside square brackets with a plus charge, one bond drawn as an arrow from nitrogen to hydrogen. Right: carbon monoxide, carbon and oxygen joined by a triple bond with one lone pair on each atom; one of the three bonds is an arrow pointing from oxygen to carbon.</title>
+<defs><marker id="f22-ch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/></marker><marker id="f22-cb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<text x="70.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">N</text>
+<text x="25.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="56.0" y1="100.0" x2="39.0" y2="100.0" stroke="currentColor" stroke-width="2"/>
+<text x="70.0" y="156.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="70.0" y1="114.0" x2="70.0" y2="136.0" stroke="currentColor" stroke-width="2"/>
+<text x="70.0" y="56.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="70.0" y1="86.0" x2="70.0" y2="64.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="88.0" cy="95.8" r="2.3" fill="var(--t2-ink)"/><circle cx="88.0" cy="104.2" r="2.3" fill="var(--t2-ink)"/>
+<text x="150.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H⁺</text>
+<path d="M92 88 Q118 62 142 84" fill="none" stroke="var(--t3-ink)" stroke-width="1.8" marker-end="url(#f22-ch)"/>
+<text x="190.0" y="106.0" text-anchor="middle" font-size="20" fill="currentColor" font-family="inherit">→</text>
+<text x="300.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">N</text>
+<text x="255.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="286.0" y1="100.0" x2="269.0" y2="100.0" stroke="currentColor" stroke-width="2"/>
+<text x="300.0" y="156.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="300.0" y1="114.0" x2="300.0" y2="136.0" stroke="currentColor" stroke-width="2"/>
+<text x="300.0" y="56.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="300.0" y1="86.0" x2="300.0" y2="64.0" stroke="currentColor" stroke-width="2"/>
+<text x="350.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">H</text>
+<line x1="314" y1="100" x2="338" y2="100" stroke="currentColor" stroke-width="2" marker-end="url(#f22-cb)"/>
+<path d="M238 42 h-8 v118 h8" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M362 42 h8 v118 h-8" fill="none" stroke="currentColor" stroke-width="2"/>
+<text x="380.0" y="46.0" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">+</text>
+<text x="190.0" y="196.0" text-anchor="middle" font-size="13" fill="currentColor" font-family="inherit">N gives its lone pair to H⁺, forming NH₄⁺</text>
+<text x="480.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">C</text>
+<text x="550.0" y="106.5" text-anchor="middle" font-size="18" fill="currentColor" font-family="inherit">O</text>
+<line x1="494.0" y1="94.0" x2="536.0" y2="94.0" stroke="currentColor" stroke-width="2"/>
+<line x1="494" y1="100" x2="536" y2="100" stroke="currentColor" stroke-width="2"/>
+<line x1="536" y1="106" x2="497" y2="106" stroke="currentColor" stroke-width="2" marker-end="url(#f22-cb)"/>
+<circle cx="462.0" cy="104.2" r="2.3" fill="var(--t2-ink)"/><circle cx="462.0" cy="95.8" r="2.3" fill="var(--t2-ink)"/>
+<circle cx="568.0" cy="95.8" r="2.3" fill="var(--t2-ink)"/><circle cx="568.0" cy="104.2" r="2.3" fill="var(--t2-ink)"/>
+<text x="515.0" y="196.0" text-anchor="middle" font-size="13" fill="currentColor" font-family="inherit">CO: O supplies one pair</text>
+<text x="515.0" y="214.0" text-anchor="middle" font-size="13" fill="currentColor" font-family="inherit">of the triple bond (arrow)</text>
+</svg>

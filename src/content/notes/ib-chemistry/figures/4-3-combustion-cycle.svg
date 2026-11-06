@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 265" role="img" aria-labelledby="t">
+  <title id="t">Energy cycle through the combustion products. Top left: 6C(s) plus 3H2(g). Top right: C6H6(l). An arrow from top left to top right is labelled delta H standard, unknown. Under each top label: plus fifteen halves O2. Bottom centre: 6CO2(g) plus 3H2O(l). An arrow from the top left down to the bottom is labelled 6 times minus 394 plus 3 times minus 286, equals minus 3222 kilojoules per mole. An arrow from the top right down to the bottom is labelled minus 3268 kilojoules per mole. Below: delta H standard equals minus 3222 minus minus 3268, equals plus 46 kilojoules per mole.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="95" y="52">6C(s) + 3H<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="365" y="52">C<tspan baseline-shift="sub" font-size="10">6</tspan>H<tspan baseline-shift="sub" font-size="10">6</tspan>(l)</text>
+    <text x="228" y="210">6CO<tspan baseline-shift="sub" font-size="10">2</tspan>(g) + 3H<tspan baseline-shift="sub" font-size="10">2</tspan>O(l)</text>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="95" y="70">+ 15/2 O₂(g)</text>
+    <text x="365" y="70">+ 15/2 O₂(g)</text>
+  </g>
+  <path d="M155.0 47.0 L320.0 47.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="329.0,47.0 320.0,42.5 320.0,51.5" fill="var(--t3-ink)"/>
+  <path d="M100.0 80.0 L174.8 184.7" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="180.0,192.0 171.1,187.3 178.5,182.1" fill="var(--t1-ink)"/>
+  <path d="M356.0 80.0 L281.2 184.7" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <polygon points="276.0,192.0 284.9,187.3 277.5,182.1" fill="var(--t2-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="242" y="36" text-anchor="middle" fill="var(--t3-ink)">ΔH⦵ = ?</text>
+    <text x="128" y="138" text-anchor="end" fill="var(--t1-ink)">6(−394) + 3(−286)</text>
+    <text x="128" y="154" text-anchor="end" fill="var(--t1-ink)">= −3222 kJ mol⁻¹</text>
+    <text x="330" y="146" fill="var(--t2-ink)">−3268 kJ mol⁻¹</text>
+  </g>
+  <text x="228" y="250" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">ΔH⦵ = −3222 − (−3268) = +46 kJ mol⁻¹</text>
+</svg>

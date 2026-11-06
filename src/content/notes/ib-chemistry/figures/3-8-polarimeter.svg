@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 225" role="img" aria-labelledby="t38polarimeter">
+<title id="t38polarimeter">Polarimeter, left to right: a lamp gives light vibrating in all planes; a polarizer passes light vibrating in one vertical plane; this plane-polarized light passes through a tube holding a solution of one enantiomer; the plane comes out rotated by an angle alpha; an analyser is turned to find alpha, and an observer looks through it</title>
+<rect x="15" y="75" width="70" height="50" rx="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text x="50" y="104" font-size="12" text-anchor="middle" fill="currentColor" font-family="inherit">lamp</text>
+<line x1="87" y1="100" x2="595" y2="100" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<line x1="117.0" y1="100.0" x2="153.0" y2="100.0" stroke="currentColor" stroke-width="1.6"/>
+<line x1="122.3" y1="87.3" x2="147.7" y2="112.7" stroke="currentColor" stroke-width="1.6"/>
+<line x1="135.0" y1="82.0" x2="135.0" y2="118.0" stroke="currentColor" stroke-width="1.6"/>
+<line x1="147.7" y1="87.3" x2="122.3" y2="112.7" stroke="currentColor" stroke-width="1.6"/>
+<rect x="179" y="55" width="12" height="90" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.4"/>
+<line x1="240.0" y1="76.0" x2="240.0" y2="124.0" stroke="currentColor" stroke-width="2"/>
+<rect x="285" y="78" width="150" height="44" rx="10" fill="var(--t4-ink)" fill-opacity="0.15" stroke="var(--t4-ink)" stroke-width="1.4"/>
+<line x1="490" y1="70" x2="490" y2="130" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="478.0" y1="120.8" x2="502.0" y2="79.2" stroke="currentColor" stroke-width="2"/>
+<path d="M490,64 A36,36 0 0,1 508.0,68.8" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<text x="500" y="58" font-size="14" fill="var(--t1-ink)" font-family="inherit">α</text>
+<rect x="539" y="55" width="12" height="90" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.4"/>
+<circle cx="615" cy="100" r="16" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="615" cy="100" r="5" fill="currentColor"/>
+<text x="135" y="168" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">light vibrating</text>
+<text x="135" y="181" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">in all planes</text>
+<text x="240" y="168" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">plane-polarized</text>
+<text x="240" y="181" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">light</text>
+<text x="490" y="168" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">plane rotated</text>
+<text x="490" y="181" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">by angle α</text>
+<text x="615" y="168" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">observer</text>
+<text x="185" y="202" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">polarizer</text>
+<text x="360" y="202" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">tube: solution of</text>
+<text x="360" y="215" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">one enantiomer</text>
+<text x="545" y="202" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">analyser, turned</text>
+<text x="545" y="215" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="inherit">to find α</text>
+</svg>

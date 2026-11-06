@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 400" role="img" aria-labelledby="t">
+  <title id="t">Flow chart from data to formulas, five boxes in a column joined by downward arrows. Box 1: mass of each element in grams; for percentages, take a 100 gram sample. Arrow labelled divide by Ar. Box 2: amount of each element in moles. Arrow labelled divide by the smallest amount. Box 3: mole ratio. Arrow labelled round, or multiply by 2, 3 or 4, to whole numbers. Box 4: empirical formula. Arrow labelled multiply by n, where n is the molar mass divided by the molar mass of the empirical formula. Box 5: molecular formula.</title>
+  <g fill="none" stroke-width="1.6">
+    <rect x="20" y="14" width="200" height="44" rx="8" stroke="var(--t1-ink)"/>
+    <rect x="20" y="96" width="200" height="44" rx="8" stroke="var(--t1-ink)"/>
+    <rect x="20" y="178" width="200" height="44" rx="8" stroke="var(--t1-ink)"/>
+    <rect x="20" y="260" width="200" height="44" rx="8" stroke="var(--t2-ink)"/>
+    <rect x="20" y="342" width="200" height="44" rx="8" stroke="var(--t3-ink)"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="120" y="41">mass of each element (g)</text>
+    <text x="120" y="123">amount of each element (mol)</text>
+    <text x="120" y="205">mole ratio</text>
+    <text x="120" y="287" fill="var(--t2-ink)">empirical formula</text>
+    <text x="120" y="369" fill="var(--t3-ink)">molecular formula</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M120 58 L120 88"/>
+    <path d="M120 140 L120 170"/>
+    <path d="M120 222 L120 252"/>
+    <path d="M120 304 L120 334"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="120,95 115.5,86 124.5,86"/>
+    <polygon points="120,177 115.5,168 124.5,168"/>
+    <polygon points="120,259 115.5,250 124.5,250"/>
+    <polygon points="120,341 115.5,332 124.5,332"/>
+  </g>
+  <g font-size="12" fill="var(--muted)" font-family="inherit">
+    <text x="232" y="32">percentages: take a</text>
+    <text x="232" y="47">100 g sample</text>
+    <text x="134" y="80">÷ A<tspan baseline-shift="sub" font-size="9">r</tspan> of the element</text>
+    <text x="134" y="162">÷ the smallest amount</text>
+    <text x="134" y="238">round, or × 2, 3 or 4,</text>
+    <text x="134" y="252">to whole numbers</text>
+    <text x="134" y="320">× n, where n = M ÷ M(empirical formula)</text>
+  </g>
+</svg>

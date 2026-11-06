@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 190" role="img" aria-labelledby="t" font-family="inherit">
+<title id="t">Two panels. Left, hydrogen chloride: the shared pair of electrons is drawn next to chlorine inside a dashed outline, because chlorine is more electronegative. Hydrogen is labelled plus 1 and chlorine minus 1. Right, a chlorine molecule: the shared pair is split by a dashed line, one electron to each chlorine atom. Both atoms are labelled 0.</title>
+<text x="130" y="26" text-anchor="middle" font-size="13" fill="currentColor">H–Cl: chlorine is more electronegative</text>
+<text x="70" y="104" text-anchor="middle" font-size="22" font-weight="600" fill="currentColor">H</text>
+<text x="200" y="104" text-anchor="middle" font-size="22" font-weight="600" fill="currentColor">Cl</text>
+<circle cx="168" cy="90" r="3.4" fill="var(--t2-ink)"/>
+<circle cx="168" cy="104" r="3.4" fill="var(--t2-ink)"/>
+<ellipse cx="190" cy="97" rx="38" ry="28" fill="none" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="130" y="62" text-anchor="middle" font-size="12" fill="var(--t2-ink)">shared pair given to Cl</text>
+<text x="70" y="156" text-anchor="middle" font-size="18" font-weight="600" fill="var(--t1-ink)">+1</text>
+<text x="200" y="156" text-anchor="middle" font-size="18" font-weight="600" fill="var(--t3-ink)">−1</text>
+<line x1="260" y1="16" x2="260" y2="176" stroke="var(--muted)" stroke-width="1"/>
+<text x="390" y="26" text-anchor="middle" font-size="13" fill="currentColor">Cl–Cl: two identical atoms</text>
+<text x="330" y="104" text-anchor="middle" font-size="22" font-weight="600" fill="currentColor">Cl</text>
+<text x="450" y="104" text-anchor="middle" font-size="22" font-weight="600" fill="currentColor">Cl</text>
+<circle cx="380" cy="97" r="3.4" fill="var(--t2-ink)"/>
+<circle cx="400" cy="97" r="3.4" fill="var(--t2-ink)"/>
+<line x1="390" y1="72" x2="390" y2="122" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="390" y="62" text-anchor="middle" font-size="12" fill="var(--t2-ink)">pair split equally</text>
+<text x="330" y="156" text-anchor="middle" font-size="18" font-weight="600" fill="var(--t4-ink)">0</text>
+<text x="450" y="156" text-anchor="middle" font-size="18" font-weight="600" fill="var(--t4-ink)">0</text>
+</svg>
