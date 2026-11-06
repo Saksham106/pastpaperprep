@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     "/api/assets/sign": ["./generated/asset-manifest/**"],
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
+    "/api/questions/search": ["./generated/question-search/**"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },

@@ -80,3 +80,21 @@ describe("ID-only search preparation", () => {
     }
   });
 });
+
+describe("prebuilt search corpus", () => {
+  it("matches loader-backed search for every access and date boundary", async () => {
+    const { buildSearchCorpus } = await import("@/lib/question-search-corpus-build");
+    const { searchCorpusIds } = await import("@/lib/question-search");
+    const rows = [row(), row({ id: "0580-2016-march-22-q1", year: 2016 }),
+      row({ id: "0620-2024-may-22-q1", bankSlug: "igcse-chemistry-0620" })];
+    // The corpus is written to JSON at build time, so search a serialized round trip.
+    const corpus = JSON.parse(JSON.stringify(buildSearchCorpus(rows)));
+    const grants: AccessEntitlement[][] = [[], [paid], [{ ...paid, status: "expired" }],
+      [{ ...paid, productId: "bundle_custom", selectedBankIds: ["igcse-chemistry-0620"] }]];
+    for (const access of grants) for (const at of [now, new Date(paid.expiresAt!)]) {
+      for (const query of ["private", "AlGeBrA", "2016", "graphs solve", "", "missing"]) {
+        expect(searchCorpusIds(corpus, query, access, at)).toEqual(searchQuestionIds(rows, query, access, at));
+      }
+    }
+  });
+});

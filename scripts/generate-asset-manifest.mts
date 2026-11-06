@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 // Prebuild: one server-only asset manifest per bank (see src/lib/asset-manifest.ts), so the
-// signing routes stop normalizing a whole bank on every cold start. Each bank runs in its own
+// signing routes stop normalizing a whole bank on every cold start. The same pass writes each
+// bank's server-only search corpus (src/lib/question-search-corpus.ts) for /api/questions/search. Each bank runs in its own
 // child process because the question loader caches every bank for the life of a process.
 import { spawn } from "node:child_process";
 import { mkdir, readdir, unlink, writeFile } from "node:fs/promises";
@@ -10,8 +11,10 @@ import { assetManifestFileName } from "@/lib/asset-manifest";
 import { buildBankAssetManifest } from "@/lib/asset-manifest-build";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { buildSearchCorpus } from "@/lib/question-search-corpus-build";
 
 const ASSET_MANIFEST_DIRECTORY = join(process.cwd(), "generated", "asset-manifest");
+const SEARCH_CORPUS_DIRECTORY = join(process.cwd(), "generated", "question-search");
 
 const single = process.argv.indexOf("--bank");
 if (single >= 0) {
@@ -29,12 +32,15 @@ if (single >= 0) {
   const mcqAnswers = await loadBankMcqAnswers(slug);
   const file = join(ASSET_MANIFEST_DIRECTORY, assetManifestFileName(slug));
   await writeFile(file, JSON.stringify(buildBankAssetManifest(questions, mcqAnswers)));
+  await writeFile(join(SEARCH_CORPUS_DIRECTORY, assetManifestFileName(slug)), JSON.stringify(buildSearchCorpus(questions)));
   console.log(`${slug}: ${questions.length} questions${mcqAnswers.size ? `, ${mcqAnswers.size} MCQ letters` : ""} -> ${assetManifestFileName(slug)}`);
   process.exit(0);
 }
 
-await mkdir(ASSET_MANIFEST_DIRECTORY, { recursive: true });
-for (const name of await readdir(ASSET_MANIFEST_DIRECTORY)) await unlink(join(ASSET_MANIFEST_DIRECTORY, name));
+for (const directory of [ASSET_MANIFEST_DIRECTORY, SEARCH_CORPUS_DIRECTORY]) {
+  await mkdir(directory, { recursive: true });
+  for (const name of await readdir(directory)) await unlink(join(directory, name));
+}
 const queue: string[] = getAvailableBanks().map((bank) => bank.slug);
 const run = (slug: string) => new Promise<void>((resolve, reject) => {
   const child = spawn(process.execPath, [...process.execArgv, process.argv[1], "--bank", slug], { stdio: "inherit", env: process.env });
