@@ -69,9 +69,9 @@ describe("site motion", () => {
     expect(source("src/components/PageTransition.tsx")).toMatch(/update=\{\{ "page-nav": "page-fade", default: "none" \}\}/);
     for (const file of ["src/components/HeaderNavigation.tsx", "src/components/SiteHeader.tsx", "src/components/Breadcrumbs.tsx", "src/components/DashboardContent.tsx", "src/components/SearchLanding.tsx"]) {
       const text = source(file);
-      const links = (text.match(/<Link\b/g) ?? []).length;
+      const links = (text.match(/<(?:IntentPrefetch)?Link\b/g) ?? []).length;
       expect(links, file).toBeGreaterThan(0);
-      expect((text.match(/<Link transitionTypes=\{PAGE_NAVIGATION\}/g) ?? []).length, file).toBe(links);
+      expect((text.match(/<(?:IntentPrefetch)?Link transitionTypes=\{PAGE_NAVIGATION\}/g) ?? []).length, file).toBe(links);
     }
   });
 });
