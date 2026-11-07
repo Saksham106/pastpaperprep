@@ -43,13 +43,13 @@ function TopicButton({ bank, topic }: { bank: string; topic: PaperTopic }) {
 
 const percent = (part: number, whole: number) => `${Math.round((part / whole) * 100)}%`;
 
-/** One plain sentence: size of the paper and where its marks are. Every number comes from the question list. */
-function GlanceSentence({ questions, maxMarks }: { questions: NonNullable<PaperView['questions']>; maxMarks: number | null }) {
-  const { topics, total } = paperTopicMarks(questions);
-  if (!topics.length || !total) return null;
-  const marks = maxMarks ?? total;
-  const top = topics.slice(0, 3).map(t => `${t.topic} (${t.marks} ${t.marks === 1 ? 'mark' : 'marks'}, ${percent(t.marks, total)})`);
-  const lead = `${questions.length} questions, ${marks} marks, across ${topics.length} ${topics.length === 1 ? 'topic' : 'topics'}.`;
+/** One plain sentence: size of the paper and where its marks are. Only for a complete question list
+ * (completeInventory), so the counts and shares are of the whole paper, not of a partial import. */
+function GlanceSentence({ questions, maxMarks }: { questions: NonNullable<PaperView['questions']>; maxMarks: number }) {
+  const { topics } = paperTopicMarks(questions);
+  if (!topics.length) return null;
+  const top = topics.slice(0, 3).map(t => `${t.topic} (${t.marks} ${t.marks === 1 ? 'mark' : 'marks'}, ${percent(t.marks, maxMarks)})`);
+  const lead = `${questions.length} questions, ${maxMarks} marks, across ${topics.length} ${topics.length === 1 ? 'topic' : 'topics'}.`;
   return <p>{lead} Most marks: {top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.</p>;
 }
 
@@ -91,6 +91,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const paperNumber = p.paper.toUpperCase();
   const threshold = p.qualification === 'Cambridge IGCSE' ? paperThreshold(subject, p) : null;
   const worked = view.workedAnswers ?? [];
+  const glance = view.complete && p.maxMarks !== null ? p.maxMarks : null;
   return <article className={`${shell.page} ${styles.page}`} data-subject-tone={courseToneForBank(bank)}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <JsonLd data={paperJsonLd(bank, p, path)} />
@@ -128,9 +129,9 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         </div>
       </section>}
     </PaperWorkspace>
-    {(questions.length > 0 || threshold) && <section className={styles.questions} aria-labelledby="paper-glance">
+    {(glance !== null || threshold) && <section className={styles.questions} aria-labelledby="paper-glance">
       <h2 id="paper-glance">At a glance</h2>
-      {questions.length > 0 && <GlanceSentence questions={questions} maxMarks={p.maxMarks} />}
+      {glance !== null && <GlanceSentence questions={questions} maxMarks={glance} />}
       {threshold && <ThresholdTable threshold={threshold} />}
     </section>}
     {questions.length > 0 && <section className={styles.questions} aria-labelledby="paper-questions">
@@ -140,7 +141,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         <div className={styles.topicList}>{topics.map(t => <TopicButton key={t.topic} bank={bank.slug} topic={t} />)}</div>
         <h3>Question by question</h3>
       </>}
-      <p className={styles.count}>{questions.length} questions{p.maxMarks !== null && ` · ${p.maxMarks} marks`}</p>
+      <p className={styles.count}>{view.complete ? `${questions.length} questions${p.maxMarks !== null ? ` · ${p.maxMarks} marks` : ''}` : p.questionCount > questions.length ? `${questions.length} of ${p.questionCount} questions listed` : `${questions.length} questions listed`}</p>
       <ol aria-label="Questions in this paper">{questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.map((topic, i) => <span key={topic}>{i > 0 && ', '}{practice ? <Link href={topicFilterHref(bank.slug, topic)}>{topic}</Link> : topic}</span>)}</span>{q.marks !== null && <em>{q.marks} {q.marks === 1 ? 'mark' : 'marks'}</em>}</li>)}</ol>
     </section>}
     {worked.length > 0 && <section className={`${styles.questions} ${styles.worked}`} aria-labelledby="worked-answers">

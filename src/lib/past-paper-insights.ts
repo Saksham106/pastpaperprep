@@ -11,6 +11,15 @@ export function mainTopic(topics: readonly string[]): string | null {
   return topics.find(topic => !STATUS_TOPIC.test(topic)) ?? null;
 }
 
+/** Whether a question list is the whole paper: the archive knows the paper's question count and the list
+ * matches it, and the marks add up to the paper total. Held papers fall back to a partial bank import, and
+ * optional-choice papers list more marks than a candidate sits, so neither passes. */
+export function completeInventory(p: Pick<WholePaperSummary, 'questionCount' | 'maxMarks'>, questions: readonly PaperQuestion[]): boolean {
+  if (p.questionCount <= 0 || p.maxMarks === null || questions.some(q => q.marks === null)) return false;
+  const numbers = new Set(questions.map(q => q.number));
+  return numbers.size === questions.length && numbers.size === p.questionCount && questions.reduce((sum, q) => sum + (q.marks ?? 0), 0) === p.maxMarks;
+}
+
 export type TopicMarks = { topic: string; marks: number; numbers: number[] };
 /** Marks per main topic, most marks first. Each question counts once, so the shares add up to the paper. */
 export function paperTopicMarks(questions: readonly PaperQuestion[]): { topics: TopicMarks[]; total: number } {
@@ -29,7 +38,8 @@ export function paperTopicMarks(questions: readonly PaperQuestion[]): { topics: 
 }
 
 export type TopicFrequency = { topic: string; papers: number; share: number; averageMarks: number };
-/** How often each main topic appears across a set of papers (one paper number), and its typical weight. */
+/** How often each main topic appears across a set of papers (one paper number), and its typical weight.
+ * Pass only complete inventories (completeInventory), or partial imports undercount both. */
 export function topicFrequency(papers: readonly (readonly PaperQuestion[])[]): { papers: number; topics: TopicFrequency[] } {
   const counted = papers.filter(questions => questions.length > 0);
   const stats = new Map<string, { papers: number; marks: number }>();
@@ -46,8 +56,8 @@ export function topicFrequency(papers: readonly (readonly PaperQuestion[])[]): {
   return { papers: counted.length, topics };
 }
 
-/** Cambridge names threshold tables by month: May/June papers are "June", Feb/March "March", Oct/Nov "November". */
-const SERIES_MONTH: Record<string, string> = { 'May/June': 'June', 'Feb/March': 'March', 'Oct/Nov': 'November' };
+/** Cambridge names threshold tables by month. Keys are the archive's canonical session names. */
+const SERIES_MONTH: Record<string, string> = { 'May/June': 'June', 'February/March': 'March', 'October/November': 'November' };
 export const thresholdSeries = (p: Pick<WholePaperSummary, 'session' | 'year'>) => SERIES_MONTH[p.session] ? `${SERIES_MONTH[p.session]} ${p.year}` : null;
 
 export type ComponentThreshold = { series: string; component: string; maxMark: number; headings: readonly string[]; values: readonly (number | null)[]; sourceUrl: string };

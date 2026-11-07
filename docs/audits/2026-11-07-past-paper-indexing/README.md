@@ -47,7 +47,7 @@ Why `/past-papers` now asks Google to index only some pages, and how to check wh
 - The `/past-papers` hub, the IGCSE and IB hubs, and every subject page.
 - Every paper-number page. These now include "What Paper N tests" and, for IGCSE, Cambridge's grade thresholds for that paper.
 - A single-paper page that either:
-  - prints worked explanations for at least 80% of its questions (free years only, fetched at prebuild from the public free bucket), or
+  - prints worked explanations for at least 80% of its questions, counted against the archive's whole-paper question count rather than a partial bank import. Papers whose question count is unknown never qualify this way. Explanations are free years only, fetched at prebuild from the public free bucket. Or:
   - is from its subject's latest exam year.
 
 **`noindex, follow`, still live and linked:**
@@ -55,20 +55,23 @@ Why `/past-papers` now asks Google to index only some pages, and how to check wh
 - Every other single-paper page.
 
 Measured on a production build on 2026-11-07:
-- The sitemap drops from 3,491 to 1,672 URLs.
-- `/past-papers` now lists 1,237 of them:
+- The sitemap drops from 3,491 to 1,652 URLs.
+- `/past-papers` now lists 1,217 of them:
   - 25 hubs and subject pages.
   - 83 paper-number pages.
-  - 1,129 single papers. Of those, 864 print worked answers (3,800–9,800 words each); the rest are from each subject's latest year.
-- About 1,820 pages turn `noindex, follow`.
+  - 1,109 single papers. Of those, about 845 print worked answers (3,800–9,800 words each); the rest are from each subject's latest year.
+- About 1,840 pages turn `noindex, follow`.
 
-Every paper page also gains an "At a glance" section: question count, marks per topic, and that paper's grade thresholds where Cambridge publishes them.
+Every paper page also gains an "At a glance" section: question count, marks per topic, and that paper's grade thresholds where Cambridge publishes them (548 papers).
+- Whole-paper figures appear only when the question list is the whole paper (`completeInventory`): the count matches the archive and the marks add up to the total.
+- Partial imports and optional-choice papers get no figures, and their list says "N of M questions listed".
+- The topic table on paper-number pages uses complete papers only.
 
 Paid explanations never appear in the HTML. `scripts/generate-free-explanations.mts` fetches only questions listed in the free asset index, and `src/lib/free-explanations.ts` re-checks `isPreviewQuestion` before rendering.
 
 ## How to check it (weekly, in GSC for `sc-domain:pastpaperprep.com`)
 
-1. **Pages → Not indexed → "Excluded by 'noindex' tag"** should climb towards about 1,800 as Google re-crawls.
+1. **Pages → Not indexed → "Excluded by 'noindex' tag"** should climb towards about 1,840 as Google re-crawls.
 2. **Performance, non-brand queries** (filter out queries containing "pastpaperprep" or "past paper prep"): watch whether impressions return.
 3. **Performance by page:** paper-number pages and worked-answer pages should start earning impressions.
 

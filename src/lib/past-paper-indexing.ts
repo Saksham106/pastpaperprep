@@ -15,8 +15,10 @@ export const WORKED_ANSWER_COVERAGE = 0.8;
 
 export type PaperIndexing = { indexed: boolean; reason: 'worked-answers' | 'latest-year' | null };
 
-export function paperIndexing({ year, latestYear, questionCount, workedAnswers }: { year: number; latestYear: number; questionCount: number; workedAnswers: number }): PaperIndexing {
-  if (questionCount > 0 && workedAnswers / questionCount >= WORKED_ANSWER_COVERAGE) return { indexed: true, reason: 'worked-answers' };
+/** `questionCount` is the whole paper's count from the archive, never the length of a partial bank import;
+ * null when the archive doesn't know it, and then worked answers alone never qualify a page. */
+export function paperIndexing({ year, latestYear, questionCount, workedAnswers }: { year: number; latestYear: number; questionCount: number | null; workedAnswers: number }): PaperIndexing {
+  if (questionCount !== null && questionCount > 0 && workedAnswers / questionCount >= WORKED_ANSWER_COVERAGE) return { indexed: true, reason: 'worked-answers' };
   if (year === latestYear) return { indexed: true, reason: 'latest-year' };
   return { indexed: false, reason: null };
 }
