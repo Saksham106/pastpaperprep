@@ -50,7 +50,7 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
 export type Neighbour = { item: string; title: string; href: string; level: string };
 
 export const REPORT_ISSUES = [
-  { issue: "maths_error", label: "A maths error" },
+  { issue: "maths_error", label: "A mistake in the notes" },
   { issue: "unclear", label: "Hard to follow" },
   { issue: "typo", label: "A typo" },
   { issue: "broken", label: "Something is broken" },
