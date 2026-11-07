@@ -283,7 +283,7 @@
         },
         {
           "type": "text",
-          "text": "Then it falls in a long tail that approaches the energy axis but never touches it. The area under the curve is the total number of particles."
+          "text": "Then it falls in a long tail that approaches the energy axis but never touches it. The area under the curve stands for all the particles in the sample."
         },
         {
           "type": "figure",
@@ -383,7 +383,7 @@
               "correct": false
             }
           ],
-          "explain": "The area is the number of particles, which heating doesn't change. Only the shape changes.",
+          "explain": "The area stands for all the particles, and heating doesn't change. Only the shape changes.",
           "verify": {
             "kind": "choice",
             "truth": "It stays the same."
@@ -608,7 +608,7 @@
         },
         {
           "type": "fact",
-          "text": "Maxwell–Boltzmann curve: fraction of particles against kinetic energy; starts at the origin; tail never touches the axis; area is the number of particles.",
+          "text": "Maxwell–Boltzmann curve: fraction of particles against kinetic energy; starts at the origin; tail never touches the axis; the area stands for all the particles.",
           "tag": "learn",
           "cheatSheet": true
         },

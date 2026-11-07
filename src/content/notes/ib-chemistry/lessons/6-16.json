@@ -129,7 +129,7 @@
         },
         {
           "type": "text",
-          "text": "The fragment that takes the pair gains an electron, so it becomes negative. The other fragment loses its share, so it becomes positive. Heterolytic fission makes ions."
+          "text": "When a neutral molecule breaks this way, the fragment that takes the pair gains an electron, so it becomes negative. The other fragment loses its share, so it becomes positive. So heterolytic fission of a neutral molecule makes ions."
         },
         {
           "type": "text",
@@ -429,7 +429,7 @@
         {
           "type": "definition",
           "term": "nucleophilic substitution",
-          "statement": "A reaction in which a nucleophile donates an electron pair to a carbon atom to form a new bond, while the carbon's bond to another group breaks and that group leaves.",
+          "statement": "A reaction in which a nucleophile donates an electron pair to a carbon atom to form a new bond, and the carbon's bond to another group breaks so that group leaves.",
           "plain": "The nucleophile swaps in and the halide swaps out."
         },
         {
@@ -565,7 +565,7 @@
         },
         {
           "type": "mistake",
-          "text": "Drawing only one arrow. The C–X bond breaks as the new bond forms, so draw a second arrow from that bond to X."
+          "text": "Drawing only one arrow. The C–X bond breaks too, so draw a second arrow from that bond to X."
         }
       ]
     },
@@ -728,7 +728,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Heterolytic fission: one fragment (usually the more electronegative atom) keeps both bonding electrons, so ions form. Homolytic fission gives radicals.",
+          "text": "Heterolytic fission: one fragment (usually the more electronegative atom) keeps both bonding electrons, so a neutral molecule gives ions. Homolytic fission gives radicals.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -763,13 +763,13 @@
     "Starting the substitution arrow at the H of $\\ce{OH^-}$. The new bond is C–O, so the arrow starts at a lone pair on the oxygen.",
     "Writing the leaving halogen as an atom, Br. It leaves as the ion $\\ce{Br^-}$, so show its charge.",
     "Putting both new atoms on the same carbon in an addition. One goes on each carbon of the old double bond, so propene and bromine give 1,2-dibromopropane.",
-    "Saying alkanes turn bromine water colourless in the dark. They react with bromine only in UV light, by radical substitution.",
+    "Saying alkanes turn bromine water colourless in the dark. They react with bromine only by radical substitution, which needs UV light or a high temperature.",
     "Giving a molecular formula such as $\\ce{C3H7Br}$ for an organic product. A structural formula shows where the halogen is."
   ],
   "examTips": [
     "To \"deduce\" a substitution equation with curly arrows, earn a mark for each arrow (from the nucleophile's lone pair or charge to the carbon, and from C–X to X) and one for the correct products with their charges.",
     "\"Explain, with an equation\" heterolytic fission: write the equation with the ions' charges, and say which atom keeps both electrons and why (electronegativity).",
-    "Paper 1A often asks for the nucleophile or electrophile in an equation. Find the species that donates a lone pair first; its partner is the electrophile.",
+    "Paper 1A often asks for the nucleophile or electrophile in an equation. Find the species that donates an electron pair first (a lone pair, or the π pair of a C=C bond); its partner is the electrophile.",
     "\"Explain\" bromine water results: link the colour change to the C=C bond's high electron density and electrophilic addition, and say alkanes need UV light for radical substitution."
   ],
   "readingMinutes": 26

@@ -340,11 +340,11 @@
         },
         {
           "type": "examTip",
-          "text": "You don't need to learn the order of metals: the exam supplies it as a series or a results table. A metal reduces the ions of any metal below it, and none above it."
+          "text": "You don't need to learn the order of metals: the exam supplies it as a series or a results table. A metal reduces the ions of any metal below it, and none above it. The exception is a metal so reactive, such as sodium, that it reacts with the water instead."
         },
         {
           "type": "hlNote",
-          "text": "At HL, standard electrode potentials put a number on how easily each metal is oxidized and each halogen is reduced.",
+          "text": "At HL, standard electrode potentials put a number on how easily each metal is oxidized and each halogen is reduced in solution. Lithium's value is the most negative in group 1, an exception explained there.",
           "lesson": "6.13"
         },
         {
@@ -457,7 +457,7 @@
         },
         {
           "type": "result",
-          "statement": "Reactive metal + dilute acid → salt + hydrogen. Hydrochloric acid gives a chloride; sulfuric acid gives a sulfate.",
+          "statement": "Reactive metal + dilute hydrochloric or sulfuric acid → salt + hydrogen. Hydrochloric acid gives a chloride; sulfuric acid gives a sulfate.",
           "why": "The metal is oxidized and the hydrogen ions are reduced: $\\ce{2H^+(aq) + 2e- -> H2(g)}$."
         },
         {
@@ -466,11 +466,11 @@
         },
         {
           "type": "text",
-          "text": "Build the salt from its ions: $\\ce{Zn^2+}$ and $\\ce{SO4^2-}$ give $\\ce{ZnSO4}$; $\\ce{Al^3+}$ gives $\\ce{Al2(SO4)3}$. Iron gives iron(II) salts with dilute acids, such as $\\ce{FeCl2}$."
+          "text": "Build the salt from its ions: $\\ce{Zn^2+}$ and $\\ce{SO4^2-}$ give $\\ce{ZnSO4}$; $\\ce{Al^3+}$ gives $\\ce{Al2(SO4)3}$. Iron gives iron(II) salts with these acids, such as $\\ce{FeCl2}$."
         },
         {
           "type": "text",
-          "text": "Only metals oxidized more easily than hydrogen react: those above it in a series. Copper, silver and gold don't react with dilute hydrochloric or sulfuric acid."
+          "text": "Only metals oxidized more easily than hydrogen give hydrogen: those above it in a series. Copper, silver and gold don't react with dilute hydrochloric or sulfuric acid."
         },
         {
           "type": "text",
@@ -578,7 +578,7 @@
         },
         {
           "type": "fact",
-          "text": "A metal reduces the ions of any metal below it in a supplied series. A halogen oxidizes the halide ions of any halogen below it in group 17.",
+          "text": "A metal reduces the ions of any metal below it in a supplied series (group 1 metals react with the water instead). A halogen oxidizes the halide ions of any halogen below it in group 17.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -590,7 +590,7 @@
         },
         {
           "type": "fact",
-          "text": "Reactive metal + dilute acid → salt + hydrogen, e.g. $\\ce{Zn(s) + 2H^+(aq) -> Zn^2+(aq) + H2(g)}$. Metals below hydrogen don't react with dilute hydrochloric or sulfuric acid.",
+          "text": "Reactive metal + dilute hydrochloric or sulfuric acid → salt + hydrogen, e.g. $\\ce{Zn(s) + 2H^+(aq) -> Zn^2+(aq) + H2(g)}$. Metals below hydrogen don't react with dilute hydrochloric or sulfuric acid.",
           "tag": "learn",
           "cheatSheet": true
         }

@@ -700,7 +700,7 @@
     "Treating coefficients as a mass ratio. Convert every mass to moles before using the equation.",
     "Putting a volume in $\\pu{cm3}$ into $n = CV$. Divide by 1000 to get $\\pu{dm3}$ first.",
     "Using $\\pu{22.7 dm3 mol-1}$ away from STP, or for a liquid such as water.",
-    "Writing (aq) for water itself or for a solid product. Water is (l); a solid is (s).",
+    "Writing (aq) for water itself or for a solid product. Liquid water is (l), steam is (g); a solid is (s).",
     "Rounding part-way through. Round only the final answer."
   ],
   "examTips": [
@@ -709,5 +709,5 @@
     "Before using $\\pu{22.7 dm3 mol-1}$, check the question says STP and the substance is a gas.",
     "In Paper 1A, gases at the same conditions react in the coefficient ratio: no molar masses needed."
   ],
-  "readingMinutes": 20
+  "readingMinutes": 21
 }

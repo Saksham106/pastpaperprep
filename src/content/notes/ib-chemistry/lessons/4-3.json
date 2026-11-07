@@ -303,11 +303,11 @@
       "blocks": [
         {
           "type": "text",
-          "text": "The reactants and products of a reaction are made of the same elements. So picture a route that goes down from the reactants to their elements, then up to the products."
+          "text": "The reactants and products of a reaction are made of the same elements. So picture a route that goes from the reactants back to their elements, then on to the products."
         },
         {
           "type": "text",
-          "text": "Going down undoes the formation of the reactants: $-\\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants})$. Going up forms the products: $+\\sum \\Delta H_\\text{f}^\\ominus(\\text{products})$. By [[hesss-law|Hess's law]], the direct route has the same total."
+          "text": "The first step undoes the formation of the reactants: $-\\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants})$. The second forms the products: $+\\sum \\Delta H_\\text{f}^\\ominus(\\text{products})$. By [[hesss-law|Hess's law]], the direct route has the same total."
         },
         {
           "type": "formula",
@@ -439,7 +439,7 @@
         {
           "type": "result",
           "statement": "With combustion data it is reactants minus products: the other way round from formation data.",
-          "why": "In a combustion cycle the arrows point down, away from the reactants and products; in a formation cycle they point up, towards them."
+          "why": "In a combustion cycle the arrows point from the reactants and the products to the combustion products; in a formation cycle they point from the elements to the reactants and the products."
         },
         {
           "type": "text",

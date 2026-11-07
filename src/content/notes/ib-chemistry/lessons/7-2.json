@@ -154,7 +154,7 @@
         },
         {
           "type": "result",
-          "statement": "When you multiply or divide, give the answer to the fewest significant figures in the data. When you add or subtract, give it to the fewest decimal places.",
+          "statement": "When you multiply or divide, give the answer to the fewest significant figures in the data. When you add or subtract, give it to the fewest decimal places. Exact numbers, such as the 1000 in a unit conversion or a mole ratio, don't limit the answer.",
           "why": "An answer can't be more precise than the least precise measurement that went into it."
         },
         {
@@ -251,7 +251,7 @@
         },
         {
           "type": "text",
-          "text": "$12.35 \\pm \\pu{0.05 cm3}$ means the true reading lies between $12.30$ and $\\pu{12.40 cm3}$."
+          "text": "$12.35 \\pm \\pu{0.05 cm3}$ means the true reading is expected to lie between $12.30$ and $\\pu{12.40 cm3}$."
         },
         {
           "type": "text",
@@ -416,11 +416,11 @@
         },
         {
           "type": "text",
-          "text": "Here the titres are $0.4\\%$ and $5\\%$ uncertain. So small measurements carry large percentage uncertainties, which is why you use larger masses, volumes and temperature changes where you can."
+          "text": "Here the titres are $0.4\\%$ and $5\\%$ uncertain. So, for the same absolute uncertainty, small measurements carry large percentage uncertainties, which is why you use larger masses, volumes and temperature changes where you can."
         },
         {
           "type": "text",
-          "text": "Give absolute and percentage uncertainties to 1 significant figure, or 2 if you need them for a later step."
+          "text": "Give absolute and percentage uncertainties to 1 significant figure, or 2 if you need them for a later step or to keep an instrument's decimal place, as in a titre of $23.45 \\pm \\pu{0.10 cm3}$."
         },
         {
           "type": "example",
@@ -660,7 +660,7 @@
         },
         {
           "type": "text",
-          "text": "Treat exact numbers and data-booklet values, such as $A_\\text{r}$ or $c = \\pu{4.18 J g-1 K-1}$, as having no uncertainty unless the question gives one."
+          "text": "Treat exact numbers and data-booklet values, such as $A_\\text{r}$ or the specific heat capacity of water, $\\pu{4.18 J g-1 K-1}$, as having no uncertainty unless the question gives one."
         },
         {
           "type": "example",
@@ -690,7 +690,7 @@
         },
         {
           "type": "text",
-          "text": "The largest percentage uncertainty controls the result. To improve an experiment, make that measurement larger or use a more precise instrument for it; improving the others barely helps."
+          "text": "The largest percentage uncertainty usually dominates the result. To improve an experiment, make that measurement larger or use a more precise instrument for it; improving the others barely helps."
         },
         {
           "type": "text",
@@ -896,7 +896,7 @@
   ],
   "examTips": [
     "\"Calculate\" a processed value with its uncertainty: show each percentage uncertainty, their sum, then the value $\\pm$ its absolute uncertainty with units.",
-    "\"Evaluate\" or \"comment on\" a result: compare the percentage error with the total percentage uncertainty, then say whether random errors alone explain it.",
+    "\"Evaluate\" a result: compare the percentage error with the total percentage uncertainty, then say whether random errors alone explain it.",
     "In a Paper 1B data table, record each reading to the precision of the instrument, with the same decimal places down a column."
   ],
   "readingMinutes": 30

@@ -147,7 +147,7 @@
         {
           "type": "definition",
           "term": "bond enthalpy",
-          "statement": "The energy needed to break one mole of a particular covalent bond in gaseous molecules, giving gaseous atoms.",
+          "statement": "The energy needed to break one mole of a particular covalent bond in gaseous molecules, giving gaseous atoms or groups of atoms.",
           "plain": "How tightly a bond holds its two atoms, measured as the energy to pull them apart."
         },
         {
@@ -361,7 +361,7 @@
         },
         {
           "type": "text",
-          "text": "Down group 17 the carbon–halogen bond gets longer and weaker: $\\ce{C-F}$ $492$, $\\ce{C-Cl}$ $324$, $\\ce{C-Br}$ $285$, $\\ce{C-I}$ $228$. That is why iodoalkanes react fastest in substitution reactions: the $\\ce{C-I}$ bond is the easiest to break."
+          "text": "Down group 17 the carbon–halogen bond gets longer and weaker: $\\ce{C-F}$ $492$, $\\ce{C-Cl}$ $324$, $\\ce{C-Br}$ $285$, $\\ce{C-I}$ $228$. That is why iodoalkanes react fastest in nucleophilic substitution: the $\\ce{C-I}$ bond is the easiest to break."
         },
         {
           "type": "text",
@@ -451,7 +451,7 @@
         },
         {
           "type": "text",
-          "text": "3. Add equations: add their $\\Delta H$ values. Species that appear on both sides cancel."
+          "text": "3. Add equations: add their $\\Delta H$ values. The same species in the same state on both sides cancels."
         },
         {
           "type": "figure",

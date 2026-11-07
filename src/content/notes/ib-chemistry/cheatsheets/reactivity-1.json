@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Temperature change in a calorimeter, $\\Delta H$ asked → $Q = mc\\Delta T$ with the mass of the water, then $\\Delta H = -\\frac{Q}{n}$ in kJ, with $n$ the amount of reactant used up; the water warming means $\\Delta H$ is negative ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$\\Delta H$ from an energy profile → products' level minus reactants' level, ignoring the hump; lower products mean exothermic and more stable products ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$\\Delta H$ from bond enthalpies → bonds broken minus bonds formed (data booklet, section 12), each bond times its coefficient; an estimate, because the values are averages for gases ({{lesson:4.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$\\Delta H$ for a target equation from given equations → Hess's law: reverse an equation and change the sign, multiply it and multiply $\\Delta H$, then add ({{lesson:4.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Compare fuels → energy per gram $= |\\Delta H_\\text{c}^\\ominus| \\div M$; $\\ce{CO2}$ per kJ from the moles of $\\ce{CO2}$ in the combustion equation ({{lesson:4.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Fuel cell half-equations → fuel oxidized at the negative anode, oxygen reduced at the positive cathode; in acid, balance O with $\\ce{H2O}$, H with $\\ce{H+}$, then charge with $\\ce{e-}$ ({{lesson:4.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$\\Delta H^\\ominus$ from $\\Delta H_\\text{f}^\\ominus$ data → $\\sum$ products $-$ $\\sum$ reactants, times coefficients; elements in their standard states are zero, and match $\\ce{H2O(l)}$ or $\\ce{H2O(g)}$ ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "$\\Delta H^\\ominus$ from $\\Delta H_\\text{c}^\\ominus$ data → $\\sum$ reactants $-$ $\\sum$ products; $\\ce{O2}$, $\\ce{CO2(g)}$ and $\\ce{H2O(l)}$ count as zero ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Missing value in a Born–Haber cycle → $\\Delta H_\\text{f}^\\ominus = \\sum \\Delta H_\\text{atom} + \\sum \\text{IE} + \\sum \\text{EA} - \\Delta H_\\text{lattice}$; half the bond enthalpy for a diatomic gas, and count steps twice for two atoms or a $2+$/$2-$ ion ({{lesson:4.4}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Sign of $\\Delta S$ → compare the moles of gas on each side; value of $\\Delta S^\\ominus$ → $\\sum S^\\ominus$(products) $-$ $\\sum S^\\ominus$(reactants), elements included ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Is it spontaneous? → $\\Delta G^\\ominus = \\Delta H^\\ominus - T\\Delta S^\\ominus$ with $\\Delta S^\\ominus$ in kJ and $T$ in K, negative means spontaneous; when $\\Delta H^\\ominus$ and $\\Delta S^\\ominus$ have the same sign, the crossover is $T = \\frac{\\Delta H^\\ominus}{\\Delta S^\\ominus}$ ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "$K$ or which way a mixture reacts, from $\\Delta G^\\ominus$ → $\\Delta G^\\ominus = -RT\\ln K$ with $\\Delta G^\\ominus$ in J, so negative $\\Delta G^\\ominus$ gives $K > 1$; for an actual mixture, $\\Delta G = \\Delta G^\\ominus + RT\\ln Q$, negative means it reacts forwards ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

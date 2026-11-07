@@ -570,7 +570,7 @@
         },
         {
           "type": "result",
-          "statement": "Metallic bonding is non-directional. The delocalized electrons attract every cation equally, whichever atoms surround it.",
+          "statement": "Metallic bonding is non-directional. The delocalized electrons attract every cation, whichever atoms surround it.",
           "why": "A covalent bond links two particular atoms, but the electron sea belongs to the whole lattice."
         },
         {
@@ -687,7 +687,7 @@
               "correct": false
             }
           ],
-          "explain": "The electron sea attracts every cation equally, whatever its neighbours, so a different atom in the lattice is still bonded. There are no fixed bonds between particular atoms.",
+          "explain": "The electron sea attracts every cation, whatever its neighbours, so a different atom in the lattice is still bonded. There are no fixed bonds between particular atoms.",
           "verify": {
             "kind": "choice",
             "truth": "Metallic bonding is non-directional."
@@ -766,7 +766,7 @@
         },
         {
           "type": "fact",
-          "text": "Metallic bonding is non-directional, so other atoms fit into the lattice. Different-sized atoms disrupt the layers, so alloys are harder and stronger than the pure metal.",
+          "text": "Metallic bonding is non-directional, so other atoms fit into the lattice. Different-sized atoms disrupt the layers, so alloys are usually harder and stronger than the pure metal.",
           "tag": "learn",
           "cheatSheet": true
         }

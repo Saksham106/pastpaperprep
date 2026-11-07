@@ -290,7 +290,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Every substance has potential energy that depends on its bonds: stronger bonds mean lower potential energy. The lower a substance's potential energy, the more stable it is."
+          "text": "Every substance has potential energy that depends on its bonds: for the same atoms, stronger bonds mean lower potential energy. The lower a substance's potential energy, the more stable it is."
         },
         {
           "type": "definition",
@@ -580,7 +580,7 @@
         },
         {
           "type": "text",
-          "text": "Measured temperature changes are usually smaller than theory predicts. Heat escapes to the air or warms the can instead of the water, and incomplete combustion releases less energy."
+          "text": "Measured temperature changes are usually smaller than theory predicts. Heat escapes to the air or warms the can instead of the water, and incomplete combustion releases less energy. In an endothermic reaction, heat flowing in from the surroundings makes the fall smaller in the same way."
         },
         {
           "type": "text",
@@ -588,7 +588,7 @@
         },
         {
           "type": "text",
-          "text": "To cut heat loss, use a lid, insulation and a draught shield, and stir. For a slow reaction, extrapolate the cooling curve back to the time of mixing to estimate the true maximum."
+          "text": "To cut heat loss, use a lid, insulation and a draught shield, and stir. For a slow reaction, extrapolate the later part of the temperature–time graph back to the time of mixing to estimate the true maximum (or, if the reaction is endothermic, the true minimum)."
         },
         {
           "type": "example",
@@ -749,7 +749,7 @@
     }
   ],
   "mistakes": [
-    "Getting the sign backwards. Temperature up means $\\Delta H$ negative; temperature down means $\\Delta H$ positive.",
+    "Getting the sign backwards. The water or solution warming means $\\Delta H$ negative; cooling means $\\Delta H$ positive.",
     "Using the mass of the fuel or solid in $Q = mc\\Delta T$ instead of the mass of the water.",
     "Leaving $Q$ in joules. Divide by 1000 so $\\Delta H$ is in $\\pu{kJ mol-1}$.",
     "Dividing by the amount of a reactant in excess. Use the amount used up or burned.",

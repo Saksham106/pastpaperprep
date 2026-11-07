@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Separate a mixture → use the property that differs: filter off an insoluble solid, evaporate to recover a dissolved solid, recrystallize to purify one, distil to keep a liquid (fractional for close boiling points), paper chromatography for dyes ({{lesson:1.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Protons, neutrons and electrons from $\\ce{^{A}_{Z}X}$ → protons $= Z$, neutrons $= A - Z$, electrons $= Z$ minus the charge ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$A_\\text{r}$ from isotope masses and abundances → weighted mean, $\\frac{\\sum(\\text{mass} \\times \\%)}{100}$; for an unknown abundance, call it $x$ and the other $100 - x$ ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$A_\\text{r}$ from a mass spectrum → $\\frac{\\sum(m/z \\times \\text{height})}{\\sum \\text{heights}}$; divide by 100 only when the heights total 100 ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Photon energy, or the gap between two levels, from a wavelength → $\\lambda$ in m, $f = \\frac{c}{\\lambda}$, then $E = hf$ ({{lesson:1.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Electron configuration up to $Z = 36$ → fill 1s 2s 2p 3s 3p 4s 3d 4p, singly before pairing; Cr is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{5}}$ and Cu $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$; a d-block positive ion loses 4s before 3d ({{lesson:1.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "First ionization energy from a convergence limit → $E = hf$ (find $f = \\frac{c}{\\lambda}$ first for a wavelength), $\\times N_\\text{A}$, $\\div 1000$ for $\\pu{kJ mol-1}$ ({{lesson:1.5}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Group of a main-group element from successive ionization energies → find the first very large jump; 1 or 2 electrons before it means group 1 or 2, 3 to 8 means add 10 ({{lesson:1.5}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Link mass, number of particles and a solution → go through moles: $n = \\frac{m}{M}$, $N = nN_\\text{A}$, $n = CV$ with $V$ in $\\pu{dm3}$; for a dilution $C_1V_1 = C_2V_2$ ({{lesson:1.6}}, {{lesson:1.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Empirical formula from percentages or masses → divide each mass by $A_\\text{r}$, divide by the smallest, make whole numbers; molecular formula → multiply by $n = \\frac{M}{M(\\text{empirical formula})}$ ({{lesson:1.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Volumes of gases that react or form, all at the same $T$ and $P$ → volume ratio $=$ coefficient ratio, gases only ({{lesson:1.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Gas amount, volume or molar mass → at STP $n = \\frac{V}{V_\\text{m}}$ with $\\pu{22.7 dm3 mol-1}$; otherwise $PV = nRT$ in Pa, $\\pu{m3}$ and K, with $M = \\frac{mRT}{PV}$; a fixed amount changing conditions → $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$, $T$ in kelvin ({{lesson:1.9}})",
+      "tag": "learn",
+      "level": "SL"
+    }
+  ]
+}

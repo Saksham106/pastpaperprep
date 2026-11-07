@@ -506,7 +506,7 @@
         },
         {
           "type": "mistake",
-          "text": "Taking the 3d electrons off first because 3d was filled last. For an ion, always remove the 4s electrons first: $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$."
+          "text": "Taking the 3d electrons off first because 3d was filled last. For a transition-element ion, always remove the 4s electrons before the 3d: $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$."
         },
         {
           "type": "text",
@@ -716,7 +716,7 @@
         },
         {
           "type": "fact",
-          "text": "Variable oxidation states arise because the 4s and 3d electrons are close in energy, so successive ionization energies rise gradually with no large jump.",
+          "text": "In transition elements, variable oxidation states arise because the 4s and 3d electrons are close in energy, so successive ionization energies rise gradually with no large jump.",
           "tag": "learn",
           "cheatSheet": true
         }

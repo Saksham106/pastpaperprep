@@ -282,7 +282,7 @@
         },
         {
           "type": "text",
-          "text": "2. Fill in the changes. They must be in the mole ratio of the equation: if $x$ of a reactant with coefficient 1 is used up, $2x$ of one with coefficient 2 is used up. Reactants go down; products go up."
+          "text": "2. Fill in the changes. They must be in the mole ratio of the equation: if $x$ of a reactant with coefficient 1 is used up, $2x$ of one with coefficient 2 is used up. For a net forward reaction, reactants go down and products go up; if products are present at the start, check the direction with $Q$ first."
         },
         {
           "type": "text",
@@ -699,5 +699,5 @@
     "With $\\Delta G^\\ominus = -RT\\ln K$, write the substitution with $\\Delta G^\\ominus$ in J, and give $\\Delta G^\\ominus$ with its sign and units.",
     "If a question would seem to need a quadratic, look again: either $K$ is very small, so the approximation applies, or both sides are perfect squares."
   ],
-  "readingMinutes": 23
+  "readingMinutes": 24
 }

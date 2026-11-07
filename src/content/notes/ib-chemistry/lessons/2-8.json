@@ -138,7 +138,7 @@
         {
           "type": "definition",
           "term": "resonance structure",
-          "statement": "One of two or more Lewis formulas for the same species with the same arrangement of atoms but different positions of double bonds and lone pairs.",
+          "statement": "One of two or more Lewis formulas for the same species with the same arrangement of atoms but different positions of multiple bonds and lone pairs.",
           "plain": "Another equally good drawing, with the double bond in a different place."
         },
         {
@@ -429,7 +429,7 @@
         },
         {
           "type": "text",
-          "text": "To count domains on a central atom bonded to halogens: take its valence electrons, adding one per negative charge. Each single bond uses one. Halve the rest for lone pairs. Domains = bonded atoms + lone pairs; then apply the [[vsepr-model|VSEPR model]]."
+          "text": "To count domains on a central atom bonded to halogens: take its valence electrons, adding one per negative charge or taking one away per positive charge. Each single bond uses one. Halve the rest for lone pairs. Domains = bonded atoms + lone pairs; then apply the [[vsepr-model|VSEPR model]]."
         },
         {
           "type": "text",
@@ -453,7 +453,7 @@
         },
         {
           "type": "text",
-          "text": "Lone pairs repel more than bonding pairs, so angles next to them close slightly below $90^{\\circ}$ or $120^{\\circ}$."
+          "text": "Lone pairs repel more than bonding pairs, so angles next to them close slightly below $90^{\\circ}$ or $120^{\\circ}$. Lone pairs placed symmetrically, as in linear and square planar shapes, leave the angles at $180^{\\circ}$ and $90^{\\circ}$."
         },
         {
           "type": "example",
@@ -706,7 +706,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Resonance structures differ only in the positions of double bonds and lone pairs. The real species is a hybrid with delocalized electrons; bonds that are equivalent in it, such as the three in carbonate, have equal length.",
+          "text": "Resonance structures differ only in the positions of multiple bonds and lone pairs. The real species is a hybrid with delocalized electrons; bonds that are equivalent in it, such as the three in carbonate, have equal length.",
           "tag": "learn",
           "cheatSheet": true
         },

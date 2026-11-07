@@ -6,7 +6,7 @@
   "title": "Oxidation and reduction of organic compounds",
   "level": "SL",
   "topic": 6,
-  "summary": "In organic chemistry, [[oxidation|oxidation]] adds oxygen or removes hydrogen, and [[reduction|reduction]] does the reverse. Primary [[alcohol|alcohols]] oxidize to [[aldehyde|aldehydes]] and then [[carboxylic-acid|carboxylic acids]], secondary alcohols to [[ketone|ketones]], and tertiary alcohols not at all. Hydride ions reverse these changes, and hydrogen adds across $\\ce{C=C}$ and $\\ce{C#C}$ bonds.",
+  "summary": "In organic chemistry, [[oxidation|oxidation]] adds oxygen or removes hydrogen, and [[reduction|reduction]] does the reverse. Primary [[alcohol|alcohols]] oxidize to [[aldehyde|aldehydes]] and then [[carboxylic-acid|carboxylic acids]], secondary alcohols to [[ketone|ketones]], while tertiary alcohols resist oxidation. Hydride ions reverse these changes, and hydrogen adds across $\\ce{C=C}$ and $\\ce{C#C}$ bonds.",
   "goals": [
     {
       "text": "Classify an organic change as oxidation or reduction, using [[oxidation-state|oxidation states]] or the gain and loss of O and H.",
@@ -139,7 +139,7 @@
         },
         {
           "type": "result",
-          "statement": "An organic compound is oxidized when it gains oxygen or loses hydrogen. It is reduced when it gains hydrogen or loses oxygen.",
+          "statement": "An organic compound is oxidized when it gains oxygen or loses hydrogen. It is reduced when it gains hydrogen or loses oxygen. Adding $\\ce{H2O}$ or $\\ce{HBr}$ across $\\ce{C=C}$ is neither: one carbon's oxidation state rises as the other's falls.",
           "why": "Oxygen is more electronegative than carbon and hydrogen is less, so the carbon's oxidation state goes up for oxidation and down for reduction."
         },
         {
@@ -390,7 +390,7 @@
         },
         {
           "type": "text",
-          "text": "Aldehyde molecules have no H on an O atom, so they cannot [[hydrogen-bond|hydrogen bond]] to each other. Alcohol and acid molecules can, so the aldehyde boils lowest."
+          "text": "Aldehyde molecules have no H on an O atom, so they cannot [[hydrogen-bond|hydrogen bond]] to each other. Alcohol and acid molecules can, so for the same carbon chain the aldehyde boils lowest."
         },
         {
           "type": "text",
@@ -794,7 +794,7 @@
         },
         {
           "type": "fact",
-          "text": "Primary alcohol $\\to$ aldehyde (distil off as it forms) $\\to$ carboxylic acid (excess oxidizing agent, reflux). Secondary alcohol $\\to$ ketone. Tertiary: not oxidized.",
+          "text": "Primary alcohol $\\to$ aldehyde (distil off as it forms) $\\to$ carboxylic acid (excess oxidizing agent, reflux). Secondary alcohol $\\to$ ketone. Tertiary: not oxidized under the same conditions (no H on the carbon bonded to OH).",
           "tag": "learn",
           "cheatSheet": true
         },

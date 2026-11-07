@@ -142,7 +142,7 @@
         {
           "type": "definition",
           "term": "mixture",
-          "statement": "Two or more elements or compounds together, not bonded to each other, in proportions that can vary. Physical methods can separate them.",
+          "statement": "Two or more elements or compounds together, not chemically combined, in proportions that can vary. Physical methods can separate them.",
           "plain": "Sand stirred into salt: each keeps its own identity."
         },
         {
@@ -243,7 +243,7 @@
           "hint": "Homogeneous and heterogeneous mixtures must both fit.",
           "options": [
             {
-              "text": "Its components are not chemically bonded",
+              "text": "Its components are not chemically combined",
               "correct": true
             },
             {
@@ -262,7 +262,7 @@
           "explain": "A fixed ratio means a compound. Only homogeneous mixtures are uniform.",
           "verify": {
             "kind": "choice",
-            "truth": "Its components are not chemically bonded"
+            "truth": "Its components are not chemically combined"
           }
         }
       ]
@@ -273,7 +273,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "The parts of a [[mixture|mixture]] are not bonded, so differences in physical properties can pull them apart: whether each one dissolves, its boiling point, or how far it travels on paper."
+          "text": "The parts of a [[mixture|mixture]] are not chemically combined, so differences in physical properties can pull them apart: whether each one dissolves, its boiling point, or how far it travels on paper."
         },
         {
           "type": "text",
@@ -675,7 +675,7 @@
         },
         {
           "type": "text",
-          "text": "A pure substance melts at one sharp temperature; an impure one melts over a lower range. So a melting point tests purity."
+          "text": "A pure substance melts at one sharp temperature; an impure one usually melts over a lower range. So a melting point tests purity."
         },
         {
           "type": "example",
@@ -753,7 +753,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Element: one kind of atom, cannot be split chemically. Compound: elements bonded in a fixed ratio, with new properties. Mixture: not bonded, variable ratio, separable by physical methods.",
+          "text": "Element: one kind of atom, cannot be split chemically. Compound: elements bonded in a fixed ratio, with new properties. Mixture: not chemically combined, variable ratio, separable by physical methods.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -783,7 +783,7 @@
         },
         {
           "type": "fact",
-          "text": "While a pure substance changes state, its temperature stays constant: the energy overcomes attractions between particles.",
+          "text": "At constant pressure, a pure substance's temperature stays constant while it changes state: the energy overcomes attractions between particles.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -795,10 +795,10 @@
     "Calling gas to solid \"condensation\". Gas to liquid is condensation; gas to solid is deposition.",
     "Taking ratios of Celsius temperatures. Convert to kelvin first.",
     "Suggesting a sieve to split salt from sand. Dissolve the salt, filter off the sand, then evaporate the filtrate.",
-    "Calling an alloy a compound. Its metals mix in variable proportions, so it is a mixture."
+    "Calling an alloy a compound. Its elements mix in variable proportions, so it is a mixture."
   ],
   "examTips": [
-    "\"Distinguish\" element, compound and mixture: give a clear difference, such as bonded in a fixed ratio versus not bonded.",
+    "\"Distinguish\" element, compound and mixture: give a clear difference, such as bonded in a fixed ratio versus not chemically combined, in a variable ratio.",
     "\"State and explain\" a property with the kinetic molecular theory: pair what you see (a liquid flows) with the particle reason (particles slide past each other).",
     "\"Suggest\" a separation: give the steps in order and what each removes. A bare method name earns little.",
     "Paper 1A often asks you to name a change of state from an equation. Read the state symbols on both sides."

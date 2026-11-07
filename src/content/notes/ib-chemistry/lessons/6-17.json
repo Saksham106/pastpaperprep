@@ -425,7 +425,7 @@
         },
         {
           "type": "text",
-          "text": "Charges simply add. A neutral ligand ($\\ce{H2O}$, $\\ce{NH3}$, $\\ce{CO}$) adds $0$. An anionic ligand ($\\ce{Cl^-}$, $\\ce{OH^-}$, $\\ce{CN^-}$) adds $-1$ each."
+          "text": "Charges simply add. A neutral ligand ($\\ce{H2O}$, $\\ce{NH3}$, $\\ce{CO}$) adds $0$. An anionic ligand adds its own charge: $-1$ each for $\\ce{Cl^-}$, $\\ce{OH^-}$ and $\\ce{CN^-}$."
         },
         {
           "type": "formula",
@@ -567,7 +567,7 @@
   ],
   "mistakes": [
     "Calling a species a Brønsted–Lowry acid because it accepts electrons. Brønsted–Lowry is about protons; electron pairs are Lewis theory.",
-    "Saying $\\ce{BF3}$ or a metal ion is a base. A species with no lone pair to give, but room for one, is a Lewis acid.",
+    "Saying $\\ce{BF3}$ or a metal ion is a base. Each has an atom with room for an electron pair and accepts one, so it is a Lewis acid.",
     "Drawing the coordination arrow from the acceptor to the donor. It points from the lone pair's atom to the atom that receives it.",
     "Writing a complex's charge without adding the ligand charges, or writing it inside the square brackets."
   ],

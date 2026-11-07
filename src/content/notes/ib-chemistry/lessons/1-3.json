@@ -177,7 +177,7 @@
             "Ultraviolet lies beyond violet, at a shorter wavelength than any visible colour.",
             "Use $c = f\\lambda$ for frequency and $E = hf$ for energy, one comparison per sentence."
           ],
-          "answer": "The ultraviolet radiation has a shorter wavelength than the yellow light. All electromagnetic waves travel at the same speed, so the ultraviolet radiation has a higher frequency. Since $E = hf$, each ultraviolet photon has more energy than a photon of yellow light.",
+          "answer": "The ultraviolet radiation has a shorter wavelength than the yellow light. All electromagnetic waves travel at the same speed in a vacuum, so the ultraviolet radiation has a higher frequency. Since $E = hf$, each ultraviolet photon has more energy than a photon of yellow light.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -426,7 +426,7 @@
               "correct": false
             }
           ],
-          "explain": "A line's energy equals a gap between two levels, and each element has different levels. All light travels at the same speed.",
+          "explain": "A line's energy equals a gap between two levels, and each element has different levels. All light travels at the same speed in a vacuum.",
           "verify": {
             "kind": "choice",
             "truth": "Each element has its own set of energy levels, so its own energy gaps."

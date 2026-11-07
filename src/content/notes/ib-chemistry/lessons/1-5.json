@@ -226,7 +226,7 @@
           "question": "The emission spectrum of rubidium converges at a wavelength of 297 nm. Calculate the first ionization energy of rubidium, in $\\pu{kJ mol-1}$, to 3 significant figures.",
           "steps": [
             "Convert the wavelength to metres: $297 \\text{ nm} = 2.97 \\times 10^{-7}$ m.",
-            "Find the frequency from $c = \\lambda f$: $f = \\dfrac{3.00 \\times 10^{8}}{2.97 \\times 10^{-7}} = 1.0101 \\times 10^{15}$ s⁻¹.",
+            "Find the frequency from $c = f\\lambda$: $f = \\dfrac{3.00 \\times 10^{8}}{2.97 \\times 10^{-7}} = 1.0101 \\times 10^{15}$ s⁻¹.",
             "Energy for one atom: $E = hf = (6.63 \\times 10^{-34}) \\times (1.0101 \\times 10^{15}) = 6.6970 \\times 10^{-19}$ J.",
             "Per mole, in kJ: $6.6970 \\times 10^{-19} \\times 6.02 \\times 10^{23} \\div 1000 = 403.16$ kJ mol⁻¹."
           ],
@@ -462,7 +462,7 @@
         },
         {
           "type": "text",
-          "text": "A huge jump appears when the next electron comes from a new main energy level, closer to the nucleus and much less shielded."
+          "text": "In a main-group element, a huge jump appears when the next electron comes from a new main energy level, closer to the nucleus and much less shielded."
         },
         {
           "type": "figure",
@@ -613,7 +613,7 @@
         },
         {
           "type": "fact",
-          "text": "Successive IEs always rise. The first big jump comes after the last outer-level electron: count the electrons before it to find the group.",
+          "text": "Successive IEs always rise. For a main-group element, the first big jump comes after the last outer-level electron: count the electrons before it to find the group.",
           "tag": "learn",
           "cheatSheet": true
         }

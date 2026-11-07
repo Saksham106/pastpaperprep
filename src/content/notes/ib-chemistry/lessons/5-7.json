@@ -554,7 +554,7 @@
         },
         {
           "type": "fact",
-          "text": "$k$ increases with temperature, more and more steeply over laboratory temperatures. $E_\\text{a}$ and $A$ stay constant.",
+          "text": "$k$ increases with temperature, more and more steeply over laboratory temperatures. $E_\\text{a}$ and $A$ are treated as constant.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -585,7 +585,7 @@
     "Dropping the minus sign. The gradient is $-E_\\text{a}/R$, so $E_\\text{a} = -R \\times \\text{gradient}$, which is positive.",
     "Plotting $k$ against $T$, or using $\\log_{10}$. Only $\\ln k$ against $1/T$ gives the straight line whose gradient is $-E_\\text{a}/R$.",
     "Writing only \"more collisions\". The mark is for a larger fraction of collisions having energy greater than or equal to $E_\\text{a}$.",
-    "Saying a higher temperature lowers $E_\\text{a}$ or changes $A$. Both stay the same; only $k$ changes."
+    "Saying a higher temperature lowers $E_\\text{a}$ or changes $A$. Both are treated as constant; only $k$ changes."
   ],
   "examTips": [
     "\"Describe\" how $k$ depends on temperature: $k$ increases as $T$ increases, and not in a straight line. \"Explain\" adds the reason: a larger fraction of collisions has energy of at least $E_\\text{a}$.",

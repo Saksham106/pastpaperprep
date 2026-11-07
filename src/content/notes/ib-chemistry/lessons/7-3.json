@@ -156,15 +156,15 @@
           "type": "figure",
           "id": "7-3-relationship-shapes",
           "alt": "Four sketch graphs of y against x, with labelled but unscaled axes. First, direct proportionality: a straight line rising from the origin. Second, inverse proportionality: a curve that starts high near the y-axis and falls ever more slowly, approaching both axes without touching them. Third, positive correlation: points scattered about a rising straight line that starts above the origin. Fourth, negative correlation: points scattered about a falling straight line.",
-          "caption": "Direct proportionality is a special positive correlation; [[inverse-proportionality|inverse proportionality]] is a special negative one."
+          "caption": "With $k$ positive, direct proportionality is a special positive correlation and [[inverse-proportionality|inverse proportionality]] a special negative one."
         },
         {
           "type": "example",
           "id": "ex-gas-inverse",
           "question": "A fixed amount of gas is kept at constant temperature. Pressure and volume readings: $\\pu{40 kPa}$, $\\pu{189 cm3}$; $\\pu{54 kPa}$, $\\pu{140 cm3}$; $\\pu{70 kPa}$, $\\pu{108 cm3}$; $\\pu{108 kPa}$, $\\pu{70.0 cm3}$. Deduce the relationship, and calculate the volume at $\\pu{126 kPa}$.",
           "steps": [
-            "$V$ falls as $p$ rises. $\\frac{V}{p}$ is $4.7$ then $2.6$, so it is not direct proportionality.",
-            "$pV$: $40 \\times 189 = 7560$, $54 \\times 140 = 7560$, $70 \\times 108 = 7560$, $108 \\times 70.0 = 7560$. Constant, so $V$ is inversely proportional to $p$.",
+            "$V$ falls as $P$ rises. $\\frac{V}{P}$ is $4.7$ then $2.6$, so it is not direct proportionality.",
+            "$PV$: $40 \\times 189 = 7560$, $54 \\times 140 = 7560$, $70 \\times 108 = 7560$, $108 \\times 70.0 = 7560$. Constant, so $V$ is inversely proportional to $P$.",
             "At $\\pu{126 kPa}$: $V = \\frac{7560}{126} = \\pu{60.0 cm3}$."
           ],
           "answer": "$V = \\pu{60.0 cm3}$",
@@ -180,7 +180,7 @@
           "id": "ex-solubility-correlation",
           "question": "The solubility of potassium nitrate, in g per $\\pu{100 g}$ of water, is $13$ at $\\pu{0 °C}$, $26$ at $\\pu{15 °C}$, $55$ at $\\pu{35 °C}$ and $95$ at $\\pu{55 °C}$. A student says solubility is directly proportional to temperature. Evaluate this claim.",
           "steps": [
-            "Ratios: $\\frac{26}{15} \\approx 1.7$, $\\frac{55}{35} \\approx 1.6$, $\\frac{95}{55} \\approx 1.7$. Not constant.",
+            "Ratios: $\\frac{26}{15} \\approx 1.7$, $\\frac{55}{35} \\approx 1.6$, $\\frac{95}{55} \\approx 1.7$. Not constant, and the ratios in kelvin aren't constant either.",
             "At $\\pu{0 °C}$ the solubility is $\\pu{13 g}$, not zero.",
             "So the trend is a correlation only."
           ],
@@ -447,11 +447,11 @@
           "id": "ex-r-squared-scatter",
           "question": "Two groups plot absorbance against concentration for the same standard solutions. Group A's line has $R^2 = 0.999$; group B's has $R^2 = 0.962$. Outline what these values show.",
           "steps": [
-            "Both are near 1, so both sets are linear.",
+            "Absorbance should be proportional to concentration, so a straight line is the right shape. Both values are close to 1, so it fits both sets well.",
             "B's points scatter more.",
             "Neither value tells you about accuracy."
           ],
-          "answer": "Both data sets are linear, but group A's points lie closer to its line. Group B's points are more scattered, which suggests larger random errors and lower precision. $R^2$ cannot show accuracy, because a systematic error could shift every point without changing $R^2$.",
+          "answer": "A straight line fits both data sets well, but group A's points lie closer to its line. Group B's points are more scattered, which suggests larger random errors and lower precision. $R^2$ cannot show accuracy, because a systematic error could shift every point without changing $R^2$.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -493,7 +493,7 @@
               "correct": false
             }
           ],
-          "explain": "$R^2$ measures only fit. A systematic error can give a perfect fit to wrong values, and a value near 0 means no clear trend.",
+          "explain": "$R^2$ measures only fit. A systematic error can give a perfect fit to wrong values, and a value near 0 means the line accounts for almost none of the variation: no trend of that shape.",
           "verify": {
             "kind": "choice",
             "truth": "A value of 1 means every point lies on the trend line."
@@ -551,7 +551,7 @@
         },
         {
           "type": "text",
-          "text": "Find a [[gradient|gradient]] from two points far apart on the line itself. On a curve, use the [[tangent|tangent]] at that point ({{lesson:5.3}}). A curve getting less steep means the rate is falling; a flat section means it is zero."
+          "text": "Find a [[gradient|gradient]] from two points far apart on the line itself. On a curve, use the [[tangent|tangent]] at that point ({{lesson:5.3}}). On a graph against time, a curve getting less steep means the rate is falling; a flat section means it is zero."
         },
         {
           "type": "text",
@@ -675,7 +675,7 @@
           "type": "figure",
           "id": "7-3-uncertainty-bars",
           "alt": "Graph of initial rate in cubic centimetres per second, from 0 to 2.50, against concentration of acid in moles per cubic decimetre, from 0 to 1.00. Five points, at 0.20, 0.40, 0.60, 0.80 and 1.00 moles per cubic decimetre, have rates of 0.42, 0.76, 1.26, 1.55 and 2.05. Each point has a vertical uncertainty bar of plus or minus 0.15 above and below it. A straight line of best fit from the origin, through 2.00 at 1.00, passes through every uncertainty bar.",
-          "caption": "The line passes through every bar, so the data fit direct proportionality."
+          "caption": "The line passes through every bar, so the data are consistent with direct proportionality."
         },
         {
           "type": "result",
@@ -700,7 +700,7 @@
         },
         {
           "type": "text",
-          "text": "In [[calorimetry|calorimetry]], extend the cooling line back to the moment of mixing. That estimates the temperature reached with no heat loss."
+          "text": "In [[calorimetry|calorimetry]], extend the cooling line back to the moment of mixing (for an endothermic reaction, the warming line). That estimates the maximum (or minimum) temperature with no heat exchange with the surroundings."
         },
         {
           "type": "figure",
@@ -839,7 +839,7 @@
         },
         {
           "type": "fact",
-          "text": "If the line passes through every uncertainty bar, the data fit the trend. Interpolation is more reliable than extrapolation.",
+          "text": "If the line passes through every uncertainty bar, the data are consistent with the trend. Interpolation is more reliable than extrapolation.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -858,5 +858,5 @@
     "\"Determine\" a rate: show the two points used and the subtraction, then the value with its unit.",
     "In Paper 1B data questions, say whether the line passes through the uncertainty bars, and name any anomaly."
   ],
-  "readingMinutes": 28
+  "readingMinutes": 29
 }

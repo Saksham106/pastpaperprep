@@ -206,11 +206,11 @@
         },
         {
           "type": "text",
-          "text": "3. Give outer atoms lone pairs until each has an octet, then put any pairs left on the central atom."
+          "text": "3. Give outer atoms other than H lone pairs until each has an octet, then put any pairs left on the central atom."
         },
         {
           "type": "text",
-          "text": "4. If the central atom has fewer than eight, make a multiple bond (next section). Put an ion in square brackets with its charge."
+          "text": "4. If the central atom has fewer than eight, share a lone pair from an outer atom to make a multiple bond (next section). Be and B are the exceptions: they keep fewer than eight. Put an ion in square brackets with its charge."
         },
         {
           "type": "figure",
@@ -319,7 +319,7 @@
           "type": "figure",
           "id": "2-2-bond-lengths",
           "alt": "Three pairs of carbon atoms drawn to scale. Single bond, one line: 154 picometres, bond enthalpy 346 kilojoules per mole. Double bond, two lines: 134 picometres, 614 kilojoules per mole. Triple bond, three lines: 120 picometres, 839 kilojoules per mole. An arrow pointing down the list is labelled shorter and stronger.",
-          "caption": "[[bond-enthalpy|Bond enthalpies]] from the data booklet (section 12); lengths are typical values."
+          "caption": "[[bond-enthalpy|Bond enthalpies]] from the data booklet (section 12); lengths from section 11."
         },
         {
           "type": "mistake",
@@ -375,7 +375,7 @@
         },
         {
           "type": "text",
-          "text": "A double bond is not twice as strong as a single bond: $614 < 2 \\times 346$. The second pair of $\\ce{C=C}$ breaks more easily, so alkenes undergo addition reactions that alkanes cannot. The very strong $\\ce{N#N}$ bond ($\\pu{945 kJ mol-1}$) makes nitrogen gas unreactive."
+          "text": "A $\\ce{C=C}$ bond is less than twice as strong as $\\ce{C-C}$: $614 < 2 \\times 346$. This is not true of every element: $\\ce{N-N}$ ($158$) and $\\ce{O-O}$ ($144$) are unusually weak, so $\\ce{N=N}$ ($470$) is more than twice $\\ce{N-N}$. The second pair of $\\ce{C=C}$ breaks more easily, so alkenes undergo addition reactions that alkanes cannot. The very strong $\\ce{N#N}$ bond ($\\pu{945 kJ mol-1}$) makes nitrogen gas unreactive."
         },
         {
           "type": "hlNote",
@@ -558,7 +558,7 @@
         },
         {
           "type": "fact",
-          "text": "Lewis formula: count valence electrons (± charge), single bonds, octets on outer atoms, leftovers on the centre, then multiple bonds. Show every lone pair; ions in brackets.",
+          "text": "Lewis formula: count valence electrons (± charge), single bonds, octets on outer atoms, leftovers on the centre, then multiple bonds (not for Be or B). Show every lone pair; ions in brackets.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -581,12 +581,12 @@
     "Leaving lone pairs off outer atoms, such as the three on each Cl. Check every atom has 8 (H: 2).",
     "Miscounting electrons for an ion. Add one per negative charge, remove one per positive charge, and draw brackets and the charge.",
     "Giving C, N, O or F more than eight electrons. Make a multiple bond or recount.",
-    "Calling a double bond twice as strong as a single bond. It is stronger, but less than twice."
+    "Calling $\\ce{C=C}$ twice as strong as $\\ce{C-C}$. It is stronger, but less than twice: $614$ against $2 \\times 346$."
   ],
   "examTips": [
     "Draw or deduce a Lewis formula: every bonding pair and lone pair, as dots, crosses or lines. Missing lone pairs or hydrogens lose the mark.",
     "Explain bond length or strength as a chain: shared pairs, then attraction to the nuclei, then shorter and stronger.",
-    "Identify a coordination bond (often Paper 1A): find the atom with one bond more than usual and say it supplies both electrons."
+    "Identify a coordination bond (often Paper 1A): find the atom with one bond more than usual, or an acceptor short of an octet such as B or Al, and say the donor supplies both electrons."
   ],
-  "readingMinutes": 24
+  "readingMinutes": 25
 }

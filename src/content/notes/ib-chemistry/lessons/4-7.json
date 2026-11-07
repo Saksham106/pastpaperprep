@@ -6,7 +6,7 @@
   "title": "Gibbs energy and spontaneity",
   "level": "AHL",
   "topic": 4,
-  "summary": "Whether a reaction can happen on its own depends on two things: the [[enthalpy-change|enthalpy change]] and the [[entropy|entropy]] change. The change in [[gibbs-energy|Gibbs energy]], $\\Delta G = \\Delta H - T\\Delta S$, combines them into one number. A negative $\\Delta G$ means the change is spontaneous, and $\\Delta G$ rises to zero as the reaction reaches equilibrium.",
+  "summary": "Whether a reaction can happen on its own depends on two things: the [[enthalpy-change|enthalpy change]] and the [[entropy|entropy]] change. The change in [[gibbs-energy|Gibbs energy]], $\\Delta G = \\Delta H - T\\Delta S$, combines them into one number. A negative $\\Delta G$ means the change is spontaneous, and as reactants react, $\\Delta G$ rises to zero at equilibrium.",
   "goals": [
     {
       "text": "Calculate $\\Delta G^\\ominus$ from $\\Delta H^\\ominus$, $\\Delta S^\\ominus$ and $T$, with consistent units, using data from the data booklet.",
@@ -134,7 +134,7 @@
         },
         {
           "type": "text",
-          "text": "The change in [[gibbs-energy|Gibbs energy]] also measures useful energy. When $\\Delta G$ is negative, its size is the most energy the reaction can supply as useful work, such as electrical energy from a cell."
+          "text": "The change in [[gibbs-energy|Gibbs energy]] also measures useful energy. When $\\Delta G$ is negative, at constant temperature and pressure, its size is the most energy the reaction can supply as useful work, such as electrical energy from a cell."
         },
         {
           "type": "formula",
@@ -427,7 +427,7 @@
         },
         {
           "type": "result",
-          "statement": "As a reaction approaches equilibrium, $\\Delta G$ becomes less negative and reaches zero at equilibrium. There is then no further net change.",
+          "statement": "As a reaction runs forwards towards equilibrium, $\\Delta G$ becomes less negative and reaches zero at equilibrium. There is then no further net change. A mixture with too much product has a positive $\\Delta G$, reacts backwards, and its $\\Delta G$ falls to zero.",
           "why": "Gibbs energy of the mixture falls to a minimum, and at the minimum nothing can lower it further in either direction."
         },
         {

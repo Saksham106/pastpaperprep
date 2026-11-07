@@ -350,7 +350,7 @@
         {
           "type": "result",
           "statement": "A molecule is a [[polar-molecule|polar molecule]] only if it has polar bonds and a [[molecular-geometry|molecular geometry]] in which the bond dipoles do not cancel.",
-          "why": "Polar bonds give the dipoles. The shape decides whether they point in balanced directions and add to zero."
+          "why": "Polar bonds give the dipoles. The shape decides whether they point in balanced directions and add to zero. (Beyond the syllabus, ozone, $\\ce{O3}$, is a rare exception: its bonds join identical atoms, yet it is slightly polar.)"
         },
         {
           "type": "figure",
@@ -365,6 +365,11 @@
         {
           "type": "text",
           "text": "2. With polar bonds and up to four electron domains, lone pairs on the central atom give a bent or trigonal pyramidal shape. The dipoles all lean one way, so the molecule is polar."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, some shapes with lone pairs and five or six domains, such as square planar $\\ce{XeF4}$, still cancel.",
+          "lesson": "2.8"
         },
         {
           "type": "text",

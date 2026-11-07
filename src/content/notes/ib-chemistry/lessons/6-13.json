@@ -290,7 +290,7 @@
           "type": "figure",
           "id": "6-13-potential-ladder",
           "alt": "A table of selected standard reduction potentials in three columns: oxidized species, E standard in volts, reduced species. From top to bottom: F2 and F- at +2.87; MnO4- with H+ and Mn2+ at +1.51; Cl2 and Cl- at +1.36; Ag+ and Ag at +0.80; Cu2+ and Cu at +0.34; H+ and H2 at 0.00, in bold; Pb2+ and Pb at -0.13; Zn2+ and Zn at -0.76; Al3+ and Al at -1.66; Mg2+ and Mg at -2.37; Li+ and Li at -3.04. An arrow on the left points up, labelled stronger oxidizing agent. An arrow on the right points down, labelled stronger reducing agent.",
-          "caption": "Oxidizing agents sit on the left and get stronger going up. Reducing agents sit on the right and get stronger going down."
+          "caption": "Oxidizing agents sit on the left and get stronger going up. Reducing agents sit on the right and get stronger going down. The data booklet prints the same lines the other way up, most negative first."
         },
         {
           "type": "result",
@@ -299,7 +299,7 @@
         },
         {
           "type": "text",
-          "text": "So the strongest oxidizing agent in section 19 is $\\ce{F2}$, with the most positive value, and the strongest reducing agent is $\\ce{Li}$, with the most negative. Metals with very negative values sit high in the [[reactivity-series|reactivity series]] ({{lesson:6.9}})."
+          "text": "So the strongest oxidizing agent in section 19 is $\\ce{F2}$, with the most positive value, and the strongest reducing agent is $\\ce{Li}$, with the most negative. Metals with very negative values sit high in the [[reactivity-series|reactivity series]] ({{lesson:6.9}}), but the orders don't match exactly. Lithium has the most negative value, yet it reacts with water more slowly than sodium or potassium: $E^\\ominus$ shows how favourable a change is, not how fast it goes."
         },
         {
           "type": "mistake",
@@ -685,7 +685,7 @@
         },
         {
           "type": "fact",
-          "text": "$E^\\ominus_\\text{cell} > 0$: spontaneous as written. $E^\\ominus_\\text{cell} < 0$: the reverse is spontaneous. Never multiply $E^\\ominus$ by coefficients.",
+          "text": "Under standard conditions, $E^\\ominus_\\text{cell} > 0$: spontaneous as written. $E^\\ominus_\\text{cell} < 0$: the reverse is spontaneous. Never multiply $E^\\ominus$ by coefficients.",
           "tag": "learn",
           "cheatSheet": true
         },

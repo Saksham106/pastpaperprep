@@ -277,7 +277,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A [[strong-acid|strong acid]] ionizes completely, so its concentration tells you $[\\ce{H^+}]$. A [[weak-acid|weak acid]] only partly ionizes ({{lesson:6.3}}). The extent of [[ionization|ionization]] is set by an equilibrium, so its strength needs an [[equilibrium-constant|equilibrium constant]]."
+          "text": "A [[strong-acid|strong acid]] with one acidic hydrogen ionizes completely, so its concentration tells you $[\\ce{H^+}]$. A [[weak-acid|weak acid]] only partly ionizes ({{lesson:6.3}}). The extent of [[ionization|ionization]] is set by an equilibrium, so its strength needs an [[equilibrium-constant|equilibrium constant]]."
         },
         {
           "type": "text",
@@ -571,7 +571,7 @@
         },
         {
           "type": "text",
-          "text": "Instead, use the fact that $K_\\mathrm{a}$ is very small. Only a tiny fraction of $\\ce{HA}$ ionizes, so $x$ is much smaller than $c$ and $c - x \\approx c$."
+          "text": "Instead, use the fact that $K_\\mathrm{a}$ is very small. Unless the solution is very dilute, only a tiny fraction of $\\ce{HA}$ ionizes, so $x$ is much smaller than $c$ and $c - x \\approx c$."
         },
         {
           "type": "formula",
@@ -584,7 +584,7 @@
         },
         {
           "type": "text",
-          "text": "A weak base works the same way with $K_\\mathrm{b}$: $[\\ce{OH^-}] \\approx \\sqrt{K_\\mathrm{b} \\times c}$. Then find the pOH, and subtract it from 14.00 for the pH."
+          "text": "A weak base works the same way with $K_\\mathrm{b}$: $[\\ce{OH^-}] \\approx \\sqrt{K_\\mathrm{b} \\times c}$. Then find the pOH, and subtract it from 14.00 for the pH at 298 K."
         },
         {
           "type": "example",
@@ -627,7 +627,7 @@
         },
         {
           "type": "text",
-          "text": "You can also run the method backwards. If you measure the pH, you know $x$ exactly, so no approximation is needed: use $c - x$ for $[\\ce{HA}]$."
+          "text": "You can also run the method backwards. If you measure the pH, you know $x$, so you don't need $c - x \\approx c$: use $c - x$ for $[\\ce{HA}]$."
         },
         {
           "type": "example",

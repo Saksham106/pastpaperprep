@@ -460,7 +460,7 @@
         },
         {
           "type": "text",
-          "text": "1. Strong acid, strong base: neutral salt, pH 7. The jump runs from about pH 3 to 11, so phenolphthalein, phenol red or bromothymol blue all work."
+          "text": "1. Strong acid, strong base: neutral salt, pH 7. Bromothymol blue and phenol red include pH 7. The jump runs from about pH 3 to 11, so phenolphthalein, whose range lies inside it, also works."
         },
         {
           "type": "text",
@@ -482,7 +482,7 @@
         },
         {
           "type": "mistake",
-          "text": "Picking an indicator with a pKa near 7 for every titration. The equivalence point is at pH 7 only when both the acid and the base are strong."
+          "text": "Picking an indicator with a pKa near 7 for every titration. Only a strong acid with a strong base reliably gives an equivalence point at pH 7 (at 298 K)."
         },
         {
           "type": "example",
@@ -614,7 +614,7 @@
         },
         {
           "type": "fact",
-          "text": "Choose an indicator whose range includes the equivalence-point pH. Strong–strong: pH 7, most indicators. Weak acid–strong base: above 7, phenolphthalein. Strong acid–weak base: below 7, methyl red or bromocresol green. Weak–weak: none.",
+          "text": "Choose an indicator whose range includes the equivalence-point pH. Strong–strong: pH 7, bromothymol blue or phenol red (phenolphthalein also works in the long jump). Weak acid–strong base: above 7, phenolphthalein. Strong acid–weak base: below 7, methyl red or bromocresol green. Weak–weak: none.",
           "tag": "learn",
           "cheatSheet": true
         }

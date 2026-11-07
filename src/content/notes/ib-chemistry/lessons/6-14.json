@@ -173,7 +173,7 @@
         },
         {
           "type": "result",
-          "statement": "At the anode, the species whose half-equation has the less positive $E^\\ominus$ is oxidized. Bromide ($\\pu{+1.09 V}$) and iodide ($\\pu{+0.54 V}$) give the halogen. Sulfate and nitrate ions are not oxidized, so water is, and oxygen forms.",
+          "statement": "At an inert anode, the species whose half-equation has the less positive $E^\\ominus$ is oxidized. Bromide ($\\pu{+1.09 V}$) and iodide ($\\pu{+0.54 V}$) give the halogen. Sulfate and nitrate ions are not oxidized, so water is, and oxygen forms. Chloride is the exception that concentration decides (next section).",
           "why": "The reduced species with the less positive $E^\\ominus$ is the stronger reducing agent: it gives up electrons more readily."
         },
         {
@@ -268,7 +268,7 @@
           "type": "check",
           "id": "check-k2so4-anode",
           "prompt": "Aqueous potassium sulfate is electrolysed with inert electrodes. Which is the half-equation at the anode?",
-          "hint": "Sulfate cannot be oxidized further. What else in the solution can lose electrons?",
+          "hint": "Sulfur in sulfate is already $+6$. What else in the solution can lose electrons?",
           "options": [
             {
               "text": "$\\ce{2H2O -> O2 + 4H^+ + 4e-}$",
@@ -593,7 +593,7 @@
         },
         {
           "type": "fact",
-          "text": "Anode: the reduced species with the less positive $E^\\ominus$ is oxidized. $\\ce{Br^-}$ and $\\ce{I^-}$ give the halogen; with $\\ce{SO4^2-}$ or $\\ce{NO3^-}$, $\\ce{2H2O -> O2 + 4H^+ + 4e-}$.",
+          "text": "Inert anode: the reduced species with the less positive $E^\\ominus$ is oxidized. $\\ce{Br^-}$ and $\\ce{I^-}$ give the halogen; with $\\ce{SO4^2-}$ or $\\ce{NO3^-}$, $\\ce{2H2O -> O2 + 4H^+ + 4e-}$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -611,7 +611,7 @@
         },
         {
           "type": "fact",
-          "text": "Electroplating: object = cathode, coating metal = anode, electrolyte = a solution of that metal's ions. E.g. $\\ce{Ni^2+ + 2e- -> Ni}$ at the cathode, $\\ce{Ni -> Ni^2+ + 2e-}$ at the anode; the ion concentration stays constant.",
+          "text": "Electroplating: object = cathode, electrolyte = a solution of the coating metal's ions, anode usually a bar of that metal. E.g. $\\ce{Ni^2+ + 2e- -> Ni}$ at the cathode, $\\ce{Ni -> Ni^2+ + 2e-}$ at a nickel anode, so the ion concentration stays constant.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -620,7 +620,7 @@
   ],
   "mistakes": [
     "Giving a group 1 or 2 metal, or aluminium, as the cathode product from a solution. Water is reduced instead, so the product is hydrogen.",
-    "Saying sulfate or nitrate ions are oxidized. They cannot be, so water is oxidized and oxygen forms.",
+    "Saying sulfate or nitrate ions are oxidized. Water is oxidized far more easily, so oxygen forms.",
     "Giving only oxygen, or only chlorine, for sodium chloride solution. State the concentration: concentrated gives chlorine, dilute gives mainly oxygen.",
     "Putting the object to be plated at the anode. It must be the cathode, where the metal ions are reduced."
   ],

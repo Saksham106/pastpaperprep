@@ -197,7 +197,7 @@
         },
         {
           "type": "text",
-          "text": "5. Unreactive: $\\ce{C-C}$ and $\\ce{C-H}$ bonds are strong and non-polar, so few substances attack them."
+          "text": "5. Unreactive: $\\ce{C-C}$ and $\\ce{C-H}$ bonds are strong and non-polar or nearly so, so few substances attack them."
         },
         {
           "type": "text",
@@ -283,7 +283,7 @@
             "Say what kind of bonds they are: strong and non-polar.",
             "Link this to microorganisms: their enzymes break down polar links, and there are none."
           ],
-          "answer": "Poly(ethene) chains contain only carbon–carbon and carbon–hydrogen bonds. These covalent bonds are strong. They are also non-polar, so there is no partially charged site for water or enzymes to attack. So microorganisms cannot break the chains down, and the plastic is not biodegradable.",
+          "answer": "Poly(ethene) chains contain only carbon–carbon and carbon–hydrogen bonds. These covalent bonds are strong. They are also non-polar or nearly so ($\\Delta\\chi$ for $\\ce{C-H}$ is only 0.4), so there is no strongly polar site for water or enzymes to attack. So microorganisms cannot break the chains down, and the plastic is not biodegradable.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -636,7 +636,7 @@
         },
         {
           "type": "text",
-          "text": "All biological macromolecules form by condensation: proteins from amino acids (amide links, called peptide bonds), starch and cellulose from glucose, and DNA from nucleotides."
+          "text": "The biological macromolecules in this course form by condensation: proteins from amino acids (amide links, called peptide bonds), starch and cellulose from glucose, and DNA from nucleotides."
         },
         {
           "type": "definition",

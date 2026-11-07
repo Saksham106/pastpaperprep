@@ -141,7 +141,7 @@
         {
           "type": "definition",
           "term": "rate equation",
-          "statement": "An equation that gives the rate of a reaction as a constant, k, multiplied by the concentration of each reactant raised to a power. It can only be found by experiment.",
+          "statement": "An equation that gives the rate of a reaction as a constant, k, multiplied by the concentration of each reactant (and sometimes a catalyst) raised to a power. It can only be found by experiment.",
           "plain": "A formula showing how strongly each concentration affects the rate."
         },
         {
@@ -186,7 +186,7 @@
         },
         {
           "type": "text",
-          "text": "When the rate-determining step is the first step, each reactant's order is the number of its particles in that step. A reactant that only joins in after the rate-determining step is zero order."
+          "text": "When the rate-determining step is the first step, each reactant's order is the number of its particles in that step. A reactant that only joins in after the rate-determining step is zero order. A catalyst that takes part in or before that step appears in the rate equation too, though it is not in the balanced equation."
         },
         {
           "type": "result",
@@ -424,7 +424,7 @@
         },
         {
           "type": "text",
-          "text": "On a concentration–time graph, the rate at any moment is the gradient of the tangent, taken as positive. For a zero-order reaction the gradient is the same everywhere, and it equals $k$."
+          "text": "On a concentration–time graph, the rate at any moment is the gradient of the tangent, taken as positive. For a zero-order reaction the gradient is the same everywhere, and its size equals $k$."
         },
         {
           "type": "example",

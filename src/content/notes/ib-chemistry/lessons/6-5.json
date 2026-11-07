@@ -6,7 +6,7 @@
   "title": "Salt solutions and pH curves",
   "level": "AHL",
   "topic": 6,
-  "summary": "A salt solution is neutral only when its parent acid and base are both strong. An ion from a weak parent reacts with water ([[salt-hydrolysis|salt hydrolysis]]), so ammonium salts are acidic and carboxylates and carbonates are basic. The same idea shapes [[ph|pH]] curves: a weak partner moves the equivalence pH away from 7 and adds a [[buffer-region|buffer region]], where the pH at half-equivalence equals the [[pka|pKa]].",
+  "summary": "A salt of a [[strong-acid|strong acid]] and a [[strong-base|strong base]] gives a neutral solution. An ion from a weak parent reacts with water ([[salt-hydrolysis|salt hydrolysis]]), so ammonium salts are acidic and carboxylates and carbonates are basic. The same idea shapes [[ph|pH]] curves: a weak partner moves the equivalence pH away from 7 and adds a [[buffer-region|buffer region]], where the pH at half-equivalence equals the [[pka|pKa]].",
   "goals": [
     {
       "text": "Predict whether a salt solution is acidic, neutral or basic from the strengths of its parent acid and base.",
@@ -138,7 +138,7 @@
         },
         {
           "type": "text",
-          "text": "Since $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$ for a [[conjugate-acid-base-pair|conjugate pair]], the weaker the parent, the stronger its conjugate. Ions from strong parents, such as $\\ce{Cl^-}$, $\\ce{NO3^-}$, $\\ce{Na^+}$ and $\\ce{K^+}$, don't react with water at all."
+          "text": "Since $K_\\mathrm{a} \\times K_\\mathrm{b} = K_\\mathrm{w}$ for a [[conjugate-acid-base-pair|conjugate pair]], the weaker the parent, the stronger its conjugate. Ions from strong parents, such as $\\ce{Cl^-}$, $\\ce{NO3^-}$, $\\ce{Na^+}$ and $\\ce{K^+}$, don't react with water at all. An anion that still has an acidic hydrogen is the exception: $\\ce{HSO4^-}$ comes from a strong acid but is itself a weak acid, so sodium hydrogensulfate solution is acidic."
         },
         {
           "type": "definition",
@@ -149,7 +149,7 @@
         {
           "type": "result",
           "statement": "[[strong-acid|Strong acid]] + [[strong-base|strong base]]: neutral (pH 7 at 298 K). Strong acid + [[weak-base|weak base]]: acidic. Weak acid + strong base: basic. Weak acid + weak base: acidic if $K_\\mathrm{a}$ of the acid is larger than $K_\\mathrm{b}$ of the base, basic if it is smaller, about neutral if they are equal.",
-          "why": "Only ions from weak parents react with water. When both parents are weak, the solution leans towards the stronger parent."
+          "why": "Only ions from weak parents react with water, unless the anion still holds an acidic hydrogen. When both parents are weak, the solution leans towards the stronger parent."
         },
         {
           "type": "text",
@@ -550,13 +550,13 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Compared with a strong acid of the same amount, a weak acid curve starts higher, has a buffer region, an equivalence pH above 7 and a shorter steep section, at the same equivalence volume."
+          "text": "Compared with a strong acid of the same concentration and volume, a weak acid curve starts higher, has a buffer region, an equivalence pH above 7 and a shorter steep section, at the same equivalence volume."
         }
       ]
     }
   ],
   "mistakes": [
-    "Calling every salt solution neutral. Only the salt of a strong acid and a strong base is; check the parent of each ion.",
+    "Calling every salt solution neutral. Only a salt of a strong acid and a strong base is reliably neutral; check the parent of each ion.",
     "Writing an equation for $\\ce{Na^+}$ or $\\ce{Cl^-}$ with water. Ions from strong parents don't react with water.",
     "Giving a basic ion such as $\\ce{CO3^2-}$ the product $\\ce{H3O^+}$. A basic ion takes a proton from water, leaving $\\ce{OH^-}$.",
     "Reading $\\mathrm{p}K_\\mathrm{a}$ at the equivalence point. It is the pH at half the equivalence volume.",
