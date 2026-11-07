@@ -8,7 +8,7 @@ import type { WholePaperSummary } from './whole-paper-types';
 export const SITE_URL = 'https://pastpaperprep.com';
 /** Last change to the past-paper page templates or copy; the sitemap's lastmod for every library page.
  * Bump it with any change to what these pages say, so search engines re-crawl them. */
-export const PAST_PAPER_PAGES_UPDATED = '2026-10-13';
+export const PAST_PAPER_PAGES_UPDATED = '2026-11-07';
 /** Titles longer than this drop the " | PastPaperPrep" suffix, so search results show the whole title. */
 const TITLE_LIMIT = 60;
 export type PageCopy = { title: string; description: string; h1: string; answer: string };
@@ -198,12 +198,14 @@ export function pageTitle(title: string): string | { absolute: string } {
 }
 
 /** Page metadata with the layout's full social card. A page-level openGraph replaces the layout's object, so rebuild it. */
-export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>, path: string, qualification?: PastPaperQualification): Metadata {
+/** `indexed: false` keeps the page reachable and its links followed, but out of search results (see past-paper-indexing.ts). */
+export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>, path: string, qualification?: PastPaperQualification, indexed = true): Metadata {
   const preview = socialPreview(qualification);
   return {
     title: pageTitle(copy.title),
     description: copy.description,
     alternates: { canonical: path },
+    ...(indexed ? {} : { robots: { index: false, follow: true } }),
     openGraph: { siteName: 'PastPaperPrep', type: 'website', locale: 'en_US', url: path, title: copy.title, description: copy.description, ...preview },
     twitter: { card: 'summary_large_image', title: copy.title, description: copy.description, images: [preview.images[0].url] },
   };

@@ -84,4 +84,17 @@ describe('free past-paper routes', () => {
     expect(all[3]).toMatchObject({ title: { absolute: '0580/42 May/June 2024: IGCSE Maths Paper 4 & Mark Scheme' }, alternates: { canonical: '/past-papers/igcse-maths-0580/2024-may-june-42' } });
     for (const m of all) expect(m).toMatchObject({ openGraph: { siteName: 'PastPaperPrep', type: 'website', images: [expect.objectContaining({ url: expect.any(String) })] }, twitter: { card: 'summary_large_image', title: text(m.title) } });
   });
+
+  it('asks search engines to index only hubs, paper-number pages and qualifying papers', async () => {
+    const entry = (e: string) => entryMetadata(params({ slug: 'igcse-maths-0580', entry: e }));
+    pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper], practice: true, indexing: { indexed: true, reason: 'latest-year' } });
+    expect((await entry('2024-may-june-42')).robots).toBeUndefined();
+    pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper], practice: true, indexing: { indexed: false, reason: null } });
+    expect((await entry('2024-may-june-42')).robots).toEqual({ index: false, follow: true });
+    pages.resolveEntry.mockResolvedValue({ kind: 'year', bank, year: 2024, papers: [paper], all: [paper], practice: true });
+    expect((await entry('2024')).robots).toEqual({ index: false, follow: true });
+    pages.resolveEntry.mockResolvedValue({ kind: 'paperNumber', bank, paper: '4', papers: [paper], all: [paper], practice: true });
+    expect((await entry('paper-4')).robots).toBeUndefined();
+    expect((await slugMetadata(params({ slug: 'igcse-maths-0580' }))).robots).toBeUndefined();
+  });
 });

@@ -9,6 +9,9 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PUBLIC_BANK_INDEX_FILES } from './bank-index-manifest';
 import { archiveQuestions, archivePaperKey, questionPaperKey, type PaperQuestion } from './paper-question-links';
+import type { Explanation } from './explanation-format';
+import { freeExplanations } from './free-explanations';
+import { paperIndexing, type PaperIndexing } from './past-paper-indexing';
 
 /** Resolves public /past-papers URLs for pages, static params and the sitemap.
  * Everything is empty while the archive gate is closed, so no page is built or linked. */
@@ -16,8 +19,11 @@ export type HubBank = { bankSlug: BankSlug; subjectSlug: string; name: string; q
 /** `practice` is false for banks whose /banks page isn't published yet, so no link points at a 404. */
 export type SubjectView = { kind: 'subject'; bank: CatalogBank; papers: WholePaperSummary[]; practice: boolean };
 export type YearView = { kind: 'year'; bank: CatalogBank; year: number; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean };
-export type PaperNumberView = { kind: 'paperNumber'; bank: CatalogBank; paper: string; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean };
-export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[]; practice: boolean; questions?: PaperQuestion[] };
+/** `questionSets` holds each listed paper's questions, for the topic table. */
+export type PaperNumberView = { kind: 'paperNumber'; bank: CatalogBank; paper: string; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean; questionSets?: PaperQuestion[][] };
+/** A free-year question with its worked explanation, printed in the page. */
+export type WorkedAnswer = { number: number; marks: number | null; topics: readonly string[]; explanation: Explanation };
+export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[]; practice: boolean; questions?: PaperQuestion[]; workedAnswers?: WorkedAnswer[]; indexing?: PaperIndexing };
 export type ListView = SubjectView | YearView | PaperNumberView;
 
 async function availableBanks(): Promise<{ bank: CatalogBank; papers: WholePaperSummary[] }[]> {
@@ -50,10 +56,26 @@ export async function resolveEntry(slug: string, entry: string): Promise<YearVie
   const number = /^paper-([0-9a-z]+)$/.exec(entry)?.[1];
   if (number) {
     const papers = all.filter(p => p.paper.toLowerCase() === number);
-    return papers.length ? { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all, practice } : null;
+    if (!papers.length) return null;
+    const questionSets = papers.map(p => { const d = findWholePaperBySlug(bank.slug, paperSlug(p)); return d ? paperQuestions(bank.slug, d) : []; });
+    return { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all, practice, questionSets };
   }
   const detail = findWholePaperBySlug(bank.slug, entry);
-  return detail ? { kind: 'paper', bank, detail, all, practice, questions: paperQuestions(bank.slug, detail) } : null;
+  if (!detail) return null;
+  const questions = paperQuestions(bank.slug, detail);
+  const workedAnswers = paperWorkedAnswers(bank.slug, questions);
+  return { kind: 'paper', bank, detail, all, practice, questions, workedAnswers, indexing: indexingFor(detail.summary, all, questions, workedAnswers) };
+}
+
+const latestYear = (papers: readonly WholePaperSummary[]) => Math.max(...papers.map(p => p.year));
+
+function paperWorkedAnswers(slug: BankSlug, questions: readonly PaperQuestion[]): WorkedAnswer[] {
+  const explanations = freeExplanations(slug);
+  return questions.flatMap(q => { const explanation = explanations.get(q.id); return explanation ? [{ number: q.number, marks: q.marks, topics: q.topics, explanation }] : []; });
+}
+
+function indexingFor(p: WholePaperSummary, all: readonly WholePaperSummary[], questions: readonly PaperQuestion[], workedAnswers: readonly WorkedAnswer[]): PaperIndexing {
+  return paperIndexing({ year: p.year, latestYear: latestYear(all), questionCount: questions.length, workedAnswers: workedAnswers.length });
 }
 
 /** Where an unknown entry under a real subject should go: the paper's real URL, else that year's or the subject's list. */
@@ -77,10 +99,22 @@ export async function pastPaperParams(): Promise<{ slugs: string[]; entries: { s
   };
 }
 
+/** Only the pages that ask to be indexed (see past-paper-indexing.ts); the rest stay reachable by links. */
 export async function pastPaperSitemapPaths(): Promise<string[]> {
-  const { slugs, entries } = await pastPaperParams();
-  if (!slugs.length) return [];
-  return ['/past-papers', ...slugs.map(slug => `/past-papers/${slug}`), ...entries.map(({ slug, entry }) => `/past-papers/${slug}/${entry}`)];
+  const banks = await availableBanks();
+  if (!banks.length) return [];
+  const qualifications = [...new Set(banks.map(({ bank }) => qualificationOfBank(bank.slug)))];
+  return ['/past-papers', ...qualifications.map(q => `/past-papers/${q}`), ...banks.flatMap(({ bank, papers }) => {
+    const subject = subjectSlugForBank(bank.slug);
+    const numbers = [...new Set(papers.map(p => paperNumberSlug(p.paper)))];
+    const indexedPapers = papers.filter(p => {
+      const detail = findWholePaperBySlug(bank.slug, paperSlug(p));
+      if (!detail) return false;
+      const questions = paperQuestions(bank.slug, detail);
+      return indexingFor(p, papers, questions, paperWorkedAnswers(bank.slug, questions)).indexed;
+    });
+    return [`/past-papers/${subject}`, ...numbers.map(n => `/past-papers/${subject}/${n}`), ...indexedPapers.map(p => `/past-papers/${subject}/${paperSlug(p)}`)];
+  })];
 }
 
 type IndexQuestion = { id: string; number: number; marks: number | null; primaryTopic: string; secondaryTopics: string[] };

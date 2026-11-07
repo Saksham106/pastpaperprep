@@ -10,7 +10,40 @@ import { PaperLibraryTools } from './PaperLibraryTools';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
+import { paperNumberThresholds, topicFrequency } from '@/lib/past-paper-insights';
 import styles from './PastPaperPages.module.css';
+
+const TOPIC_ROWS = 12;
+
+/** What this paper number tests, from our question lists: how often each topic appears and its usual weight. */
+function PaperNumberTopics({ label, view }: { label: string; view: Extract<ListView, { kind: 'paperNumber' }> }) {
+  const { papers, topics } = topicFrequency(view.questionSets ?? []);
+  if (papers < 2 || !topics.length) return null;
+  const counted = view.papers.filter((_, i) => (view.questionSets?.[i]?.length ?? 0) > 0);
+  const range = `${Math.min(...counted.map(p => p.year))}–${Math.max(...counted.map(p => p.year))}`;
+  return <section className={styles.insight} aria-labelledby="paper-topics">
+    <h2 id="paper-topics">What Paper {label} tests</h2>
+    <p>Across {papers} Paper {label} papers from {range}, by each question&rsquo;s main topic.</p>
+    <table>
+      <thead><tr><th scope="col">Topic</th><th scope="col">Papers it appears in</th><th scope="col">Typical marks</th></tr></thead>
+      <tbody>{topics.slice(0, TOPIC_ROWS).map(t => <tr key={t.topic}><th scope="row">{t.topic}</th><td>{t.papers} of {papers} ({Math.round(t.share * 100)}%)</td><td>{t.averageMarks}</td></tr>)}</tbody>
+    </table>
+  </section>;
+}
+
+function PaperNumberThresholds({ label, subject, papers }: { label: string; subject: string; papers: ListView['papers'] }) {
+  const rows = paperNumberThresholds(subject, papers);
+  if (!rows.length) return null;
+  const headings = [...new Set(rows.flatMap(r => r.headings))];
+  return <section className={styles.insight} aria-labelledby="paper-thresholds">
+    <h2 id="paper-thresholds">Paper {label} grade thresholds</h2>
+    <p>Marks needed for each grade, from Cambridge&rsquo;s published tables. A dash means that grade isn&rsquo;t available on the paper.</p>
+    <div className={styles.tableScroll}><table>
+      <thead><tr><th scope="col">Series</th><th scope="col">Paper</th><th scope="col">Out of</th>{headings.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
+      <tbody>{rows.map(r => <tr key={`${r.series}-${r.component}`}><th scope="row">{r.series}</th><td>{r.component}</td><td>{r.maxMark}</td>{headings.map(h => <td key={h}>{r.values[r.headings.indexOf(h)] ?? '–'}</td>)}</tr>)}</tbody>
+    </table></div>
+  </section>;
+}
 
 const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' } } as const;
 
@@ -49,6 +82,8 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
     </header>
     <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all} />
+    {view.kind === 'paperNumber' && <PaperNumberTopics label={view.paper.toUpperCase()} view={view} />}
+    {view.kind === 'paperNumber' && <PaperNumberThresholds label={view.paper.toUpperCase()} subject={subject} papers={view.papers} />}
     {view.kind === 'year' && <nav aria-label="Neighbouring years" className={styles.pager}>
       {previous ? <Link href={`${subjectPath}/${previous}`}><ArrowLeft aria-hidden="true" /><span>Previous year: {previous}</span></Link> : <span />}
       {next ? <Link href={`${subjectPath}/${next}`}><span>Next year: {next}</span><ArrowRight aria-hidden="true" /></Link> : <span />}

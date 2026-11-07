@@ -47,6 +47,26 @@
 .aliases { margin: 28px 0 0; color: var(--muted); font: 500 .8rem/1.5 var(--font-mono); }
 .aliases span { margin-right: 10px; font-family: var(--font-body); font-weight: 650; }
 
+/* At a glance: one sentence and, for IGCSE, the paper's own grade thresholds. */
+.thresholds { margin: 14px 0 0; overflow-x: auto; }
+.thresholds table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.thresholds caption { padding-bottom: 8px; text-align: left; color: var(--ink-soft); font-weight: 650; font-size: .9rem; }
+.thresholds th, .thresholds td { min-width: 44px; padding: 7px 10px; border: 1px solid var(--line); text-align: center; font-size: .9rem; }
+.thresholds th { color: var(--muted); font: 600 .8rem/1.2 var(--font-mono); background: var(--surface-raised); }
+.thresholds figcaption { margin-top: 8px; color: var(--muted); font-size: .8rem; }
+.thresholds figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Worked answers: one closed row per question; the full solution is in the HTML either way. */
+.worked details { border-bottom: 1px solid var(--line); }
+.worked summary { padding: 12px 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; cursor: pointer; list-style: none; font-size: .92rem; }
+.worked summary::-webkit-details-marker { display: none; }
+.worked summary b { color: var(--muted); font: 600 .84rem/1.4 var(--font-mono); }
+.worked summary em { color: var(--muted); font: 500 .8rem/1.5 var(--font-mono); font-style: normal; white-space: nowrap; }
+.worked summary:hover span { color: var(--course-accent, var(--cobalt)); }
+.worked details[open] summary span { font-weight: 650; }
+.worked details > div { padding: 0 0 18px 54px; }
+
 @media (max-width: 760px) {
+  .worked details > div { padding-left: 0; }
   .questions ol { grid-template-columns: 1fr; }
 }
