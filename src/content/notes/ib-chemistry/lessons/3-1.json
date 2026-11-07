@@ -290,7 +290,7 @@
         },
         {
           "type": "text",
-          "text": "Elements in the same group have the same number of [[valence-electron|valence electrons]]. That shared outer arrangement is why they react in similar ways."
+          "text": "Elements in the same main group (groups 1, 2 and 13 to 18) have the same number of [[valence-electron|valence electrons]], apart from helium. That shared outer arrangement is why they react in similar ways."
         },
         {
           "type": "result",
@@ -414,7 +414,7 @@
         {
           "type": "definition",
           "term": "atomic radius",
-          "statement": "Half the distance between the nuclei of two atoms of the same element joined by a single covalent bond.",
+          "statement": "Half the distance between the nuclei of two bonded atoms of the same element.",
           "plain": "How big an atom is."
         },
         {
@@ -655,7 +655,7 @@
         },
         {
           "type": "text",
-          "text": "Electronegativity, from {{lesson:2.4}}, follows the ionization energy pattern for the same reasons. It increases across a period and decreases down a group, and fluorine has the highest value, $4.0$ (data booklet, section 9)."
+          "text": "Electronegativity, from {{lesson:2.4}}, follows the general ionization energy trend for the same reasons. It increases across a period and decreases down a group, and fluorine has the highest value, $4.0$ (data booklet, section 9)."
         },
         {
           "type": "check",
@@ -767,5 +767,5 @@
     "\"Deduce\" a configuration from a position: count every block you cross, and write the full form unless the question accepts a noble-gas core.",
     "\"State\" a classification needs only the name: alkali metal, halogen, transition element or noble gas."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

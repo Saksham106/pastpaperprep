@@ -452,7 +452,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Most elements are a mixture of isotopes, so their average atomic mass lies between the isotope masses, closest to the commonest one."
+          "text": "Most elements are a mixture of isotopes, so their average atomic mass lies between the isotope masses. With two isotopes, it lies closer to the commoner one."
         },
         {
           "type": "text",
@@ -716,7 +716,7 @@
         },
         {
           "type": "fact",
-          "text": "In a mass spectrum, each peak is an isotope: $m/z$ gives its mass and the height its abundance. If the heights don't total 100, divide by their sum.",
+          "text": "In an element's mass spectrum, each single-atom peak is an isotope: $m/z$ gives its mass and the height its abundance. If the heights don't total 100, divide by their sum.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "AHL"

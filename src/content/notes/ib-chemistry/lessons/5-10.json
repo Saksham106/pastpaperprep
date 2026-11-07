@@ -391,7 +391,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "If $K \\ll 1$, the position of equilibrium lies far to the left. Only a tiny fraction of each reactant reacts."
+          "text": "If $K \\ll 1$, the position of equilibrium lies far to the left. Starting from reactants only, a tiny fraction of each reactant reacts."
         },
         {
           "type": "text",
@@ -399,7 +399,7 @@
         },
         {
           "type": "result",
-          "statement": "When $K$ is very small, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
+          "statement": "When $K$ is very small and the mixture starts as reactants only, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
           "why": "So little reactant is used up that subtracting it makes no difference at the precision of the data."
         },
         {
@@ -665,7 +665,7 @@
         },
         {
           "type": "fact",
-          "text": "When $K$ is very small, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
+          "text": "When $K$ is very small and the mixture starts as reactants only, $[\\text{reactant}]_{\\text{eqm}} \\approx [\\text{reactant}]_{\\text{initial}}$.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -173,7 +173,7 @@
         {
           "type": "result",
           "statement": "To turn a skeletal formula into a molecular formula, count a carbon at every corner and line end, give each carbon enough H for four bonds, then add the atoms written in.",
-          "why": "Carbon always forms four bonds, so every bond left out is a $\\ce{C-H}$ bond."
+          "why": "In a neutral molecule carbon always forms four bonds, so every bond left out is a $\\ce{C-H}$ bond."
         },
         {
           "type": "example",
@@ -480,7 +480,7 @@
         },
         {
           "type": "text",
-          "text": "The simplest series is the [[alkane|alkanes]]: saturated hydrocarbons, $\\ce{C_{n}H_{2n+2}}$, where $n$ is the number of carbon atoms. Methane is $\\ce{CH4}$ and ethane is $\\ce{C2H6}$."
+          "text": "The simplest series is the [[alkane|alkanes]]: saturated hydrocarbons. Open-chain alkanes are $\\ce{C_{n}H_{2n+2}}$, where $n$ is the number of carbon atoms; closing a ring, as in cyclohexane, removes two hydrogens. Methane is $\\ce{CH4}$ and ethane is $\\ce{C2H6}$."
         },
         {
           "type": "text",
@@ -783,13 +783,13 @@
         },
         {
           "type": "fact",
-          "text": "General formulas: alkanes $\\ce{C_{n}H_{2n+2}}$, alkenes $\\ce{C_{n}H_{2n}}$, alkynes $\\ce{C_{n}H_{2n-2}}$, alcohols $\\ce{C_{n}H_{2n+1}OH}$, carboxylic acids $\\ce{C_{n}H_{2n}O2}$.",
+          "text": "General formulas (open chains, one functional group): alkanes $\\ce{C_{n}H_{2n+2}}$, alkenes $\\ce{C_{n}H_{2n}}$, alkynes $\\ce{C_{n}H_{2n-2}}$, alcohols $\\ce{C_{n}H_{2n+1}OH}$, carboxylic acids $\\ce{C_{n}H_{2n}O2}$.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Boiling point rises with chain length, falls with branching, and is raised by hydrogen-bonding groups such as $\\ce{-OH}$.",
+          "text": "Boiling point rises with chain length along a series and falls with branching among isomers. At similar molar mass, hydrogen-bonding groups such as $\\ce{-OH}$ raise it.",
           "tag": "learn",
           "cheatSheet": true
         }

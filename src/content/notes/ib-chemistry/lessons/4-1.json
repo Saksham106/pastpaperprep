@@ -141,7 +141,7 @@
         },
         {
           "type": "text",
-          "text": "Heat is energy transferred from a hotter object to a colder one, in joules (J). [[temperature|Temperature]] measures the average kinetic energy of the particles, in kelvin (K) or degrees Celsius. A hot spark has a high temperature but holds little energy, because it has so few particles."
+          "text": "Heat is energy transferred from a hotter object to a colder one, in joules (J). [[temperature|Temperature]] measures the average kinetic energy of the particles. It is read in degrees Celsius or kelvin (K), but only the kelvin value is proportional to that energy. A hot spark has a high temperature but holds little energy, because it has so few particles."
         },
         {
           "type": "definition",
@@ -337,7 +337,7 @@
         {
           "type": "example",
           "id": "ex-nitrogen-oxide",
-          "question": "Most combustions are exothermic, but $\\ce{N2(g) + O2(g) -> 2NO(g)}$ is endothermic. Explain this in terms of stability.",
+          "question": "Most reactions with oxygen are exothermic, but $\\ce{N2(g) + O2(g) -> 2NO(g)}$ is endothermic. Explain this in terms of stability.",
           "steps": [
             "Endothermic means the products sit higher in energy than the reactants.",
             "The reactants are low because the $\\ce{N#N}$ triple bond is very strong (see {{lesson:2.2}})."
@@ -465,7 +465,7 @@
         },
         {
           "type": "text",
-          "text": "$n$ is the amount, in mol, of the reactant used up (the [[limiting-reactant|limiting reactant]]). Divide $Q$ by 1000 first, to get kJ. A change of $\\pu{1 K}$ equals $1\\,^\\circ\\text{C}$, so Celsius readings give $\\Delta T$ directly."
+          "text": "$n$ is the amount, in mol, of the reactant used up (the [[limiting-reactant|limiting reactant]]). This gives $\\Delta H$ per mole of that reactant, which is per mole of reaction only when its coefficient in the equation is 1. Divide $Q$ by 1000 first, to get kJ. A change of $\\pu{1 K}$ equals $1\\,^\\circ\\text{C}$, so Celsius readings give $\\Delta T$ directly."
         },
         {
           "type": "text",
@@ -741,7 +741,7 @@
         },
         {
           "type": "fact",
-          "text": "Heat loss makes a calorimetry $\\Delta H$ smaller in size than the data-booklet value.",
+          "text": "Heat exchange with the surroundings makes a calorimetry $\\Delta H$ smaller in size than the true value: less negative for an exothermic reaction.",
           "tag": "learn",
           "cheatSheet": true
         }

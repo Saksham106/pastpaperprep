@@ -358,7 +358,7 @@
         },
         {
           "type": "text",
-          "text": "The same method works for measured masses. If you heat a metal in air until its mass stops rising, the gain is the mass of oxygen that combined with it."
+          "text": "The same method works for measured masses. If you heat a metal in air until its mass stops rising, the gain is the mass of oxygen that combined with it, provided the metal reacts only with oxygen."
         },
         {
           "type": "check",
@@ -422,7 +422,7 @@
         },
         {
           "type": "text",
-          "text": "$n$ must be a whole number. A rounded molar mass gives a value very close to a whole number, such as $2.998$."
+          "text": "Here $n$ is a whole-number multiplier, not an amount in moles. A rounded molar mass gives a value very close to a whole number, such as $2.998$."
         },
         {
           "type": "example",
@@ -525,7 +525,7 @@
         },
         {
           "type": "fact",
-          "text": "The molecular formula is $n$ times the empirical formula, where $n$ is a whole number (sometimes 1). Ionic compounds have only an empirical formula.",
+          "text": "The molecular formula is $n$ times the empirical formula, where $n$ is a whole number (sometimes 1). Ionic compounds are not made of molecules, so they have no molecular formula.",
           "tag": "learn",
           "cheatSheet": true
         },

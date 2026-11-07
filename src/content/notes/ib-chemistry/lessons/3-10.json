@@ -79,7 +79,7 @@
     {
       "type": "check",
       "id": "before-propanal-group",
-      "prompt": "Which [[functional-group|functional group]] does propanal, $\\ce{CH3CH2CHO}$, contain?",
+      "prompt": "Propanal, $\\ce{CH3CH2CHO}$, contains a carbonyl [[functional-group|functional group]]. Which class of compound is it?",
       "hint": "$\\ce{-CHO}$ is C=O with an H on the same carbon.",
       "options": [
         {
@@ -91,11 +91,11 @@
           "correct": false
         },
         {
-          "text": "carboxyl",
+          "text": "carboxylic acid",
           "correct": false
         }
       ],
-      "explain": "A C=O at the end of a chain is an aldehyde; a ketone has it inside the chain. Revise it in {{lesson:3.6}}.",
+      "explain": "A C=O at the end of the chain, as $\\ce{-CHO}$, makes an aldehyde; a ketone has it inside the chain, and an acid has $\\ce{-COOH}$. Revise it in {{lesson:3.6}}.",
       "verify": {
         "kind": "choice",
         "truth": "aldehyde"
@@ -373,7 +373,7 @@
         {
           "type": "definition",
           "term": "splitting pattern",
-          "statement": "The cluster of peaks a signal splits into. A hydrogen with $n$ non-equivalent hydrogens on the adjacent carbon atoms gives $n + 1$ peaks.",
+          "statement": "The cluster of peaks a signal splits into. The $n$ hydrogens on the adjacent carbon atoms, not counting any equivalent to the hydrogen giving the signal, split it into $n + 1$ peaks.",
           "plain": "Count the hydrogens next door and add one."
         },
         {
@@ -632,7 +632,7 @@
         },
         {
           "type": "fact",
-          "text": "$n$ non-equivalent H on adjacent carbons give $n + 1$ peaks: singlet, doublet ($1:1$), triplet ($1:2:1$), quartet ($1:3:3:1$).",
+          "text": "$n$ H on adjacent carbons (not equivalent to the H giving the signal) give $n + 1$ peaks: singlet, doublet ($1:1$), triplet ($1:2:1$), quartet ($1:3:3:1$). An O–H is usually a singlet.",
           "tag": "learn",
           "cheatSheet": true
         },

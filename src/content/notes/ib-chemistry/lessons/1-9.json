@@ -316,7 +316,7 @@
         },
         {
           "type": "text",
-          "text": "Helium and hydrogen, with very weak [[london-dispersion-force|London (dispersion) forces]], are almost ideal. Molecules that form [[hydrogen-bond|hydrogen bonds]], such as $\\ce{NH3}$ and $\\ce{H2O}$, deviate most. Larger molecules deviate more too: they have more electrons and take up more space."
+          "text": "Helium and hydrogen, with very weak [[london-dispersion-force|London (dispersion) forces]], are almost ideal. Among molecules of similar size, those that form [[hydrogen-bond|hydrogen bonds]], such as $\\ce{NH3}$ and $\\ce{H2O}$, deviate most. Larger molecules deviate more too: they have more electrons and take up more space."
         },
         {
           "type": "example",
@@ -637,7 +637,7 @@
         },
         {
           "type": "text",
-          "text": "Conversions (data booklet section 4): $\\pu{1 kPa} = \\pu{1000 Pa}$; $\\pu{1 dm3} = \\pu{1e-3 m3}$; $\\pu{1 cm3} = \\pu{1e-6 m3}$; $T(\\text{K}) = T(\\pu{\\degree C}) + 273.15$."
+          "text": "Conversions (data booklet section 4): $\\pu{1 kPa} = \\pu{1000 Pa}$; $\\pu{1 dm3} = \\pu{1e-3 m3}$; $\\pu{1 cm3} = \\pu{1e-6 m3}$; $T(\\text{K}) = t(\\pu{\\degree C}) + 273.15$."
         },
         {
           "type": "text",
@@ -741,7 +741,7 @@
         },
         {
           "type": "fact",
-          "text": "Real gases deviate most at high pressure and low temperature. Stronger intermolecular forces mean bigger deviations.",
+          "text": "Real gases deviate most at high pressure and low temperature. Under the same conditions, stronger intermolecular forces mean bigger deviations.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -782,7 +782,7 @@
   ],
   "mistakes": [
     "Using Celsius in a gas calculation. Add $273.15$ first: $\\pu{0 \\degree C}$ is $\\pu{273.15 K}$, not zero.",
-    "Putting kPa or $\\pu{dm3}$ into $PV = nRT$ with $R = 8.31$. Convert to Pa and $\\pu{m3}$ first, or the answer is out by a factor of 1000.",
+    "Mixing units in $PV = nRT$ with $R = 8.31$, such as kPa with $\\pu{m3}$ or Pa with $\\pu{dm3}$. The answer is out by a factor of 1000, so convert to Pa and $\\pu{m3}$ first.",
     "Using $\\pu{22.7 dm3 mol-1}$ when the gas is not at STP. Use $PV = nRT$ instead.",
     "Saying real gases deviate most at high temperature. Faster particles feel attractions less: deviation is greatest at low temperature and high pressure."
   ],

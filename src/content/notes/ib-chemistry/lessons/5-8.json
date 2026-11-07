@@ -6,7 +6,7 @@
   "title": "Dynamic equilibrium and the equilibrium constant",
   "level": "SL",
   "topic": 5,
-  "summary": "A [[reversible-reaction|reversible reaction]] in a closed system settles into [[dynamic-equilibrium|dynamic equilibrium]]: both reactions keep going at the same rate, so nothing seems to change. The [[equilibrium-constant|equilibrium constant]], $K$, comes straight from the balanced equation. Its size tells you how far the reaction goes, and only a change of [[temperature|temperature]] changes it.",
+  "summary": "A [[reversible-reaction|reversible reaction]] in a closed system settles into [[dynamic-equilibrium|dynamic equilibrium]]: both reactions keep going at the same rate, so nothing seems to change. The expression for the [[equilibrium-constant|equilibrium constant]], $K$, comes straight from the balanced equation. Its size tells you how far the reaction goes, and only a change of [[temperature|temperature]] changes it.",
   "goals": [
     {
       "text": "Describe what is true of a physical or chemical system at [[dynamic-equilibrium|dynamic equilibrium]].",
@@ -157,7 +157,7 @@
         },
         {
           "type": "text",
-          "text": "5. You reach the same equilibrium from either side: starting with the reactants, or with the products."
+          "text": "5. Equilibrium can be reached from either side. At the same temperature, starting with the reactants or with the equivalent amounts of products gives the same equilibrium mixture."
         },
         {
           "type": "mistake",
@@ -331,7 +331,7 @@
         },
         {
           "type": "text",
-          "text": "\"Homogeneous\" means every species is in the same phase, such as all gases or all in one solution. Every species then appears in the expression. In IB Chemistry, $K$ is written without units."
+          "text": "\"Homogeneous\" means every species is in the same phase, such as all gases or all in one solution. Every species then appears in the expression, except water when it is the solvent. In IB Chemistry, $K$ is written without units."
         },
         {
           "type": "example",
@@ -444,7 +444,7 @@
         },
         {
           "type": "text",
-          "text": "The same idea measures acid strength. For an acid ionizing in water, a larger $K$ means more of the acid has ionized at equilibrium, so it is a stronger acid. A [[weak-acid|weak acid]] has $K \\ll 1$. You'll use this in {{lesson:6.3}}."
+          "text": "The same idea measures acid strength. For an acid ionizing in water, a larger $K$ means more of the acid has ionized at equilibrium, so it is a stronger acid. A [[weak-acid|weak acid]] has a small $K$, usually much less than 1. You'll use this in {{lesson:6.3}}."
         },
         {
           "type": "text",
@@ -606,7 +606,7 @@
         },
         {
           "type": "fact",
-          "text": "In $K$, square brackets are equilibrium concentrations in $\\pu{mol dm-3}$. Every species of a homogeneous reaction appears; $K$ has no units in IB Chemistry.",
+          "text": "In $K$, square brackets are equilibrium concentrations in $\\pu{mol dm-3}$. Every species of a homogeneous reaction appears, except water as the solvent; $K$ has no units in IB Chemistry.",
           "tag": "learn",
           "cheatSheet": true
         },

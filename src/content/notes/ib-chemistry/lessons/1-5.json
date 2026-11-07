@@ -147,7 +147,7 @@
         },
         {
           "type": "text",
-          "text": "Take the series of lines made by electrons falling to $n = 1$, the ground state. The levels crowd together as $n$ increases, so the lines crowd together at higher frequency until they merge: this is [[convergence|convergence]]."
+          "text": "Take hydrogen's series of lines made by electrons falling to $n = 1$, its ground state. The levels crowd together as $n$ increases, so the lines crowd together at higher frequency until they merge: this is [[convergence|convergence]]."
         },
         {
           "type": "figure",
@@ -157,7 +157,7 @@
         },
         {
           "type": "text",
-          "text": "The convergence limit is the fall from $n = \\infty$ to $n = 1$. Reversed, the electron goes from the ground state to $n = \\infty$, free of the atom: ionization. So the photon energy at the limit is the energy to ionize one atom."
+          "text": "The convergence limit is the fall from $n = \\infty$ to $n = 1$. Reversed, the electron goes from the ground state to $n = \\infty$, free of the atom: ionization. So the photon energy at the limit is the energy to ionize one atom. For other elements, use the series that ends at the atom's ground state."
         },
         {
           "type": "text",
@@ -171,7 +171,7 @@
         },
         {
           "type": "formula",
-          "tex": "c = \\lambda f",
+          "tex": "c = f\\lambda",
           "tag": "booklet",
           "bookletId": "db-wave-speed"
         },
@@ -294,7 +294,7 @@
         },
         {
           "type": "text",
-          "text": "Down a group, the outer electron is in a higher main energy level. It is further from the nucleus and shielded by more inner electrons. The extra protons don't make up for this, so the first ionization energy falls."
+          "text": "Down a group, the outer electron is in a higher main energy level. It is further from the nucleus and shielded by more inner electrons. The extra protons don't make up for this, so the first ionization energy generally falls."
         },
         {
           "type": "text",
@@ -484,7 +484,7 @@
         },
         {
           "type": "text",
-          "text": "2. Count the electrons removed before the jump. These are the outer-level electrons. For a main-group element, one or two means group 1 or 2. Three to eight means groups 13 to 18, so add 10."
+          "text": "2. Count the electrons removed before the jump. These are the outer-level electrons. For a main-group element other than helium, one or two means group 1 or 2. Three to eight means groups 13 to 18, so add 10."
         },
         {
           "type": "example",
@@ -595,13 +595,13 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "First ionization energy: $\\ce{X(g) -> X^+(g) + e-}$. The convergence limit of the series ending at the ground state ($n = \\infty$ to $n = 1$) corresponds to ionization.",
+          "text": "First ionization energy: $\\ce{X(g) -> X^+(g) + e-}$. The convergence limit of the series ending at the ground state ($n = \\infty$ to $n = 1$ for hydrogen) corresponds to ionization.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Across a period first IE generally rises (more protons, similar shielding). Down a group it falls (outer electron further away and more shielded).",
+          "text": "Across a period first IE generally rises (more protons, similar shielding). Down a group it generally falls (outer electron further away and more shielded).",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -631,5 +631,5 @@
     "\"Deduce\" the group from successive data (often Paper 1A): say between which ionization energies the big jump falls, then give the group.",
     "\"Explain\" a trend or dip: give the cause (nuclear charge, distance, shielding, sublevel or paired electrons), then link it to how strongly the outer electron is held."
   ],
-  "readingMinutes": 20
+  "readingMinutes": 21
 }

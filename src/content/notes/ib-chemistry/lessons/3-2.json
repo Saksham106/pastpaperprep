@@ -154,7 +154,7 @@
         },
         {
           "type": "text",
-          "text": "Down group 1, each atom has one more occupied shell. The outer electron is further from the nucleus and more shielded. Nuclear charge rises too, but distance and shielding win."
+          "text": "Down group 1, each atom has one more occupied main energy level (shell). The outer electron is further from the nucleus and more shielded. Nuclear charge rises too, but distance and shielding win."
         },
         {
           "type": "result",
@@ -310,7 +310,7 @@
         {
           "type": "result",
           "statement": "Non-metallic character and reactivity decrease down group 17.",
-          "why": "Larger atoms attract an extra electron less strongly."
+          "why": "Larger atoms attract electrons less strongly: electronegativity falls from $4.0$ (F) to $2.7$ (I). Fluorine is still the most reactive, although its electron affinity is less negative than chlorine's ({{lesson:3.1}}), partly because its $\\ce{F-F}$ bond is weak."
         },
         {
           "type": "definition",
@@ -740,7 +740,7 @@
         },
         {
           "type": "fact",
-          "text": "Across a period, oxides go from basic and ionic, through amphoteric $\\ce{Al2O3}$, to acidic and covalent.",
+          "text": "Across period 3, oxides go from basic and ionic, through amphoteric $\\ce{Al2O3}$, to acidic and covalent.",
           "tag": "learn",
           "cheatSheet": true
         },

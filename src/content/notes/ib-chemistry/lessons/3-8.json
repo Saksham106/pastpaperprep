@@ -151,7 +151,7 @@
         },
         {
           "type": "text",
-          "text": "A single bond lets atoms rotate freely. A C=C bond also contains a π bond: sideways overlap of p orbitals above and below the bond axis ({{lesson:2.9}}). Twisting one end would break that overlap, so there is no rotation about C=C."
+          "text": "In an open chain, a single bond lets atoms rotate freely. A C=C bond also contains a π bond: sideways overlap of p orbitals above and below the bond axis ({{lesson:2.9}}). Twisting one end would break that overlap, so there is no rotation about C=C."
         },
         {
           "type": "figure",
@@ -341,7 +341,7 @@
         },
         {
           "type": "text",
-          "text": "To find chiral carbons, skip any $\\ce{CH3}$ or $\\ce{CH2}$ carbon (two identical H atoms) and any C=C carbon. Compare whole groups, not just the first atom: $\\ce{CH3}$ and $\\ce{CH2CH3}$ are different."
+          "text": "To find chiral carbons, skip any $\\ce{CH3}$ or $\\ce{CH2}$ carbon (two identical H atoms) and any carbon in a double bond (C=C or C=O). Compare whole groups, not just the first atom: $\\ce{CH3}$ and $\\ce{CH2CH3}$ are different."
         },
         {
           "type": "example",
@@ -634,7 +634,7 @@
         },
         {
           "type": "fact",
-          "text": "Cis-trans isomerism needs restricted rotation (C=C, or a C3 or C4 ring) and two different groups on each of the two carbons. Cis: same side; trans: opposite sides.",
+          "text": "Cis-trans isomerism needs restricted rotation (C=C, or a ring such as cyclopropane or cyclobutane) and two different groups on each of the two carbons. Cis: same side; trans: opposite sides.",
           "tag": "learn",
           "cheatSheet": true
         },

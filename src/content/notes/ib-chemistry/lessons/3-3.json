@@ -6,7 +6,7 @@
   "title": "Oxidation states",
   "level": "SL",
   "topic": 3,
-  "summary": "An [[oxidation-state|oxidation state]] is the charge an atom would have if every bond in its compound were ionic. A few fixed values and one sum find it for any atom. You need it to name compounds such as copper(II) oxide and to follow electrons in redox reactions.",
+  "summary": "An [[oxidation-state|oxidation state]] is the charge an atom would have if every bond in its compound were ionic, apart from bonds between identical atoms. A few fixed values and one sum find it for any atom. You need it to name compounds such as copper(II) oxide and to follow electrons in redox reactions.",
   "goals": [
     {
       "text": "Explain what an oxidation state is, and why it is zero in an uncombined [[element|element]].",
@@ -94,7 +94,7 @@
         {
           "type": "definition",
           "term": "oxidation state",
-          "statement": "The charge an atom would have if every bond in the substance were ionic. Positive means electrons lost in this picture; negative means electrons gained.",
+          "statement": "The charge an atom would have if every bond between different elements in the substance were ionic; a bond between identical atoms is shared equally. Positive means electrons lost in this picture; negative means electrons gained.",
           "plain": "An electron count on paper: how many electrons an atom has, in effect, given away or taken."
         },
         {
@@ -440,7 +440,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Oxidation state: the charge an atom would have if every bond were ionic, sign first ($+2$). Zero in an uncombined element.",
+          "text": "Oxidation state: the charge an atom would have if every bond between different elements were ionic, sign first ($+2$). Zero in an uncombined element.",
           "tag": "learn",
           "cheatSheet": true
         },

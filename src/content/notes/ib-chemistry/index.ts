@@ -4,6 +4,7 @@ import type { CourseConfig } from "@/lib/course-notes/config";
 import type { CalculatorSnippets, CheatSheetFile, CommandTerm, GlossaryTerm, ItemsFile, Lesson } from "@/lib/course-notes/types";
 import courseJson from "./course.json";
 import itemsJson from "@/content/notes/ib-chemistry/items.json";
+import commandTermsJson from "./command-terms.json";
 import lesson_1_1 from "./lessons/1-1.json";
 import lesson_1_2 from "./lessons/1-2.json";
 import lesson_1_3 from "./lessons/1-3.json";
@@ -151,7 +152,7 @@ export const course = courseJson as CourseConfig;
 
 export const items = itemsJson as ItemsFile;
 
-export const commandTerms: CommandTerm[] = [];
+export const commandTerms: CommandTerm[] = commandTermsJson as CommandTerm[];
 
 export const calculatorSnippets: CalculatorSnippets = {};
 

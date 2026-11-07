@@ -139,12 +139,12 @@
         },
         {
           "type": "formula",
-          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
+          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} \\quad \\text{or} \\quad \\text{rate} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
           "tag": "learn"
         },
         {
           "type": "text",
-          "text": "Square brackets mean concentration, so the usual unit of [[rate-of-reaction|rate of reaction]] is $\\pu{mol dm-3 s-1}$. A reactant's concentration falls, so the minus sign keeps the rate positive. Change over an interval divided by the time taken is the **average rate** for that interval."
+          "text": "Square brackets mean concentration, so the usual unit of [[rate-of-reaction|rate of reaction]] is $\\pu{mol dm-3 s-1}$. A reactant's concentration falls, so the minus sign keeps the rate positive. Change over an interval divided by the time taken is the **average rate** for that interval. The two forms give the same number only when the reactant and product have equal coefficients."
         },
         {
           "type": "example",
@@ -642,7 +642,7 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
+          "tex": "\\text{rate} = \\frac{\\Delta[\\text{product}]}{\\Delta t} \\quad \\text{or} \\quad \\text{rate} = -\\frac{\\Delta[\\text{reactant}]}{\\Delta t}",
           "tag": "learn",
           "cheatSheet": true
         },

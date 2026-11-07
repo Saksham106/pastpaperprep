@@ -26,7 +26,7 @@
   {
     "id": "splitting-pattern",
     "term": "splitting pattern",
-    "definition": "The cluster of peaks a high-resolution NMR signal splits into: $n$ non-equivalent hydrogens on the adjacent carbon atoms give $n + 1$ peaks (singlet, doublet, triplet, quartet).",
+    "definition": "The cluster of peaks a high-resolution NMR signal splits into: $n$ hydrogens on the adjacent carbon atoms, not equivalent to the hydrogen giving the signal, split it into $n + 1$ peaks (singlet, doublet, triplet, quartet); an O–H hydrogen is usually a singlet.",
     "lesson": "3.10"
   }
 ]

@@ -443,7 +443,7 @@
         },
         {
           "type": "text",
-          "text": "Substances that don't burn, such as $\\ce{O2}$, $\\ce{CO2}$ and $\\ce{H2O}$, count as zero. Elements that do burn, such as carbon and hydrogen, have real values."
+          "text": "Oxygen and the combustion products themselves, $\\ce{CO2(g)}$ and $\\ce{H2O(l)}$, count as zero: they burn no further. Elements that do burn, such as carbon and hydrogen, have real values. Steam, $\\ce{H2O(g)}$, is not zero, and a compound that doesn't burn, such as $\\ce{CaCO3}$, has no value, so use formation data instead."
         },
         {
           "type": "figure",
@@ -551,7 +551,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "$\\Delta H_\\text{f}^\\ominus$: one mole of a substance formed from its elements in their standard states, under standard conditions ($\\pu{100 kPa}$, $\\pu{298 K}$).",
+          "text": "$\\Delta H_\\text{f}^\\ominus$: one mole of a substance formed from its elements in their standard states, under standard conditions ($\\pu{100 kPa}$, usually $\\pu{298 K}$).",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -563,7 +563,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\Delta H_\\text{c}^\\ominus$: one mole burns completely in oxygen under standard conditions. $\\ce{O2}$, $\\ce{CO2}$ and $\\ce{H2O}$ have no combustion value, so they count as zero.",
+          "text": "$\\Delta H_\\text{c}^\\ominus$: one mole burns completely in oxygen under standard conditions. $\\ce{O2(g)}$, $\\ce{CO2(g)}$ and $\\ce{H2O(l)}$ burn no further, so they count as zero.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -599,10 +599,10 @@
     "Leaving out state symbols in a formation or combustion equation. They are part of the definition, so carbon must be shown as $\\ce{C(s)}$."
   ],
   "examTips": [
-    "\"Deduce\" the equation for $\\Delta H_\\text{f}^\\ominus$ or $\\Delta H_\\text{c}^\\ominus$: one mole of the substance, elements in their standard states, and a state symbol on every species.",
+    "\"Deduce\" the equation for $\\Delta H_\\text{f}^\\ominus$ or $\\Delta H_\\text{c}^\\ominus$: one mole of the substance, made from elements in their standard states (formation) or burned completely to $\\ce{CO2(g)}$ and $\\ce{H2O(l)}$ (combustion), and a state symbol on every species.",
     "\"Calculate\" or \"determine\" $\\Delta H^\\ominus$: write the booklet expression with the numbers substituted, then give the answer with its sign and $\\pu{kJ mol-1}$. The substitution line shows your method if the arithmetic slips.",
     "In a Paper 1A question, the options often differ only in sign or in which total is subtracted. Decide first whether you have formation or combustion data.",
     "\"Explain\" why an element has $\\Delta H_\\text{f}^\\ominus = 0$: name its standard state, then say that forming it from itself is no change."
   ],
-  "readingMinutes": 19
+  "readingMinutes": 20
 }

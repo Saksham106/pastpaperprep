@@ -151,7 +151,7 @@
         },
         {
           "type": "text",
-          "text": "An equation must balance because atoms are neither created nor destroyed. Every atom of each [[element|element]] on the left is still there on the right."
+          "text": "An equation must balance because atoms are neither created nor destroyed. Every atom of each [[element|element]] on the left is still there on the right. In an ionic equation the total charge must balance too."
         },
         {
           "type": "text",
@@ -167,7 +167,7 @@
         },
         {
           "type": "text",
-          "text": "3. Balance elements on their own, such as $\\ce{O2}$, last. If you need half a molecule, double everything."
+          "text": "3. Balance elements on their own, such as $\\ce{O2}$, last. If you need half a molecule, double everything, unless the equation must be per mole of one substance, as for an enthalpy change of combustion."
         },
         {
           "type": "text",
@@ -704,7 +704,7 @@
     "Rounding part-way through. Round only the final answer."
   ],
   "examTips": [
-    "\"Deduce\" an equation: correct formulas, smallest whole-number coefficients, and state symbols when asked. State symbols often earn their own mark.",
+    "\"Deduce\" an equation: correct formulas, smallest whole-number coefficients (fractions only when it must be per mole of one substance), and state symbols when asked. State symbols often earn their own mark.",
     "\"Calculate\" a reacting quantity: show the starting moles, the moles after the ratio, then the answer to 3 significant figures with its unit.",
     "Before using $\\pu{22.7 dm3 mol-1}$, check the question says STP and the substance is a gas.",
     "In Paper 1A, gases at the same conditions react in the coefficient ratio: no molar masses needed."

@@ -104,7 +104,7 @@
         {
           "type": "definition",
           "term": "sublevel",
-          "statement": "A subdivision of a main energy level. Sublevels are labelled s, p, d and f, and within one main level their energies increase in that order.",
+          "statement": "A subdivision of a main energy level. Sublevels are labelled s, p, d and f. In atoms with more than one electron, their energies within one main level increase in that order.",
           "plain": "Each main level is split into smaller groups of electrons with slightly different energies."
         },
         {
@@ -119,7 +119,7 @@
         },
         {
           "type": "text",
-          "text": "Every sublevel is a set of orbitals of equal energy. An s sublevel has 1 orbital, a p sublevel 3, a d sublevel 5 and an f sublevel 7. At two electrons per orbital, they hold 2, 6, 10 and 14 electrons."
+          "text": "In an isolated atom, every sublevel is a set of orbitals of equal energy. An s sublevel has 1 orbital, a p sublevel 3, a d sublevel 5 and an f sublevel 7. At two electrons per orbital, they hold 2, 6, 10 and 14 electrons."
         },
         {
           "type": "text",
@@ -128,8 +128,7 @@
         {
           "type": "formula",
           "tex": "\\text{maximum electrons in level } n = 2n^{2}",
-          "tag": "learn",
-          "cheatSheet": true
+          "tag": "learn"
         },
         {
           "type": "text",
@@ -147,7 +146,7 @@
         },
         {
           "type": "text",
-          "text": "The sublevels also shape the periodic table. Groups 1 and 2 (and helium) form the s-block, groups 13 to 18 the p-block and groups 3 to 12 the d-block. An element's block names the sublevel its last electron enters. More in {{lesson:3.1}}."
+          "text": "The sublevels also shape the periodic table. Groups 1 and 2 (and helium) form the s-block, groups 13 to 18 (apart from helium) the p-block and groups 3 to 12 the d-block. An element's block names the sublevel its last electron enters. More in {{lesson:3.1}}."
         },
         {
           "type": "example",
@@ -311,7 +310,7 @@
         },
         {
           "type": "text",
-          "text": "The [[valence-electron|valence electrons]] are those in the outermost main level, the highest $n$. Phosphorus has five: two in 3s and three in 3p. Its three 3p electrons are [[unpaired-electron|unpaired electrons]], alone in their orbitals."
+          "text": "For a main-group element, the [[valence-electron|valence electrons]] are those in the outermost main level, the highest $n$. Phosphorus has five: two in 3s and three in 3p. Its three 3p electrons are [[unpaired-electron|unpaired electrons]], alone in their orbitals."
         },
         {
           "type": "example",

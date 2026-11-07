@@ -419,7 +419,7 @@
           "type": "figure",
           "id": "4-5-fuel-comparison",
           "alt": "Two bar charts side by side for five fuels. Left: energy released per gram, in kilojoules per gram: hydrogen 141.6, methane 55.5, octane 47.9, ethanol 29.7, carbon as a model for coal 32.8. Right: mass of carbon dioxide released per megajoule, in grams: hydrogen 0, methane 49.4, octane 64.4, ethanol 64.4, carbon 111.7.",
-          "caption": "From booklet $\\Delta H_\\text{c}^\\ominus$ values. More hydrogen per carbon means more energy per gram and less $\\ce{CO2}$ per MJ."
+          "caption": "From booklet $\\Delta H_\\text{c}^\\ominus$ values. Among the hydrocarbons, more hydrogen per carbon means more energy per gram and less $\\ce{CO2}$ per MJ. Ethanol already contains oxygen, so it releases less energy per gram."
         },
         {
           "type": "text",
@@ -431,7 +431,7 @@
         },
         {
           "type": "text",
-          "text": "Larger hydrocarbons burn incompletely more easily. Each molecule needs more $\\ce{O2}$ (octane needs $\\frac{25}{2}$) and has a higher proportion of carbon, so more carbon ends up as $\\ce{CO}$ or soot."
+          "text": "Larger alkanes burn incompletely more easily. Each molecule needs more $\\ce{O2}$ (octane needs $\\frac{25}{2}$), and the proportion of carbon rises with chain length, so more carbon ends up as $\\ce{CO}$ or soot."
         },
         {
           "type": "definition",
