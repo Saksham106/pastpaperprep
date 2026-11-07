@@ -1,105 +1,54 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { execFileSync, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
+import { shouldSkipBuild } from "./vercel-ignore-build.mjs";
 
 const script = resolve(dirname(fileURLToPath(import.meta.url)), "vercel-ignore-build.mjs");
-const fixtures = [];
-function fixture() {
-  const cwd = mkdtempSync(join(tmpdir(), "preview-ignore-"));
-  fixtures.push(cwd);
-  const git = (...args) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
-  git("init", "--quiet");
-  git("config", "user.name", "Fixture");
-  git("config", "user.email", "fixture@example.invalid");
-  const commit = (name, text = "prose\n") => {
-    mkdirSync(dirname(join(cwd, name)), { recursive: true });
-    writeFileSync(join(cwd, name), text);
-    git("add", "--", name);
-    git("commit", "--quiet", "-m", "fixture");
-    return git("rev-parse", "HEAD");
-  };
-  const previous = commit("src/app/page.tsx", "export default function Page() { return null; }\n");
-  return { cwd, git, commit, previous };
+const sha = "a".repeat(40);
+const preview = (message, extra = {}) => ({ VERCEL_ENV: "preview", VERCEL_GIT_COMMIT_SHA: sha, VERCEL_GIT_COMMIT_MESSAGE: message, ...extra });
+function run(env) {
+  const base = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith("VERCEL_")));
+  return spawnSync(process.execPath, [script], { env: { ...base, ...env }, encoding: "utf8" });
 }
-function run(f, env = {}) {
-  return spawnSync(process.execPath, [script], { cwd: f.cwd, env: { ...process.env, VERCEL_ENV: "preview", VERCEL_GIT_PREVIOUS_SHA: f.previous, VERCEL_GIT_COMMIT_SHA: f.git("rev-parse", "HEAD"), ...env }, encoding: "utf8" });
-}
-afterEach(() => { for (const cwd of fixtures.splice(0)) rmSync(cwd, { recursive: true, force: true }); });
 
-describe("preview build ignore command", () => {
-  it("wires the safe command without enabling explanation deployment branches", () => {
+describe("Vercel ignore command", () => {
+  it("is wired in vercel.json and keeps explanation branches undeployed", () => {
     const config = JSON.parse(readFileSync(resolve(dirname(script), "..", "vercel.json"), "utf8"));
     expect(config.ignoreCommand).toBe("node scripts/vercel-ignore-build.mjs");
     expect(config.git.deploymentEnabled["feat/explanations-*"]).toBe(false);
-  });
-  it("skips a prose-only preview compared with its previous deployment", () => {
-    const f = fixture();
-    f.commit("docs/operations.md");
-    const result = run(f);
-    expect(result.status, result.stdout + result.stderr).toBe(0);
+    // Dependabot branches never create a deployment at all (CI still builds their PRs).
+    expect(config.git.deploymentEnabled["dependabot/**"]).toBe(false);
   });
 
-  it("does not classify symlinks with prose filenames as documentation", () => {
-    const f = fixture();
-    mkdirSync(join(f.cwd, "docs"));
-    symlinkSync("../src/app/page.tsx", join(f.cwd, "docs", "linked.md"));
-    f.git("add", "docs/linked.md");
-    f.git("commit", "--quiet", "-m", "symlink");
-    expect(run(f).status).toBe(1);
+  it("skips Git preview builds by default, including Dependabot updates", () => {
+    expect(shouldSkipBuild(preview("perf: cut wasted work"))).toBe(true);
+    expect(shouldSkipBuild(preview("Bump next from 16.3.7 to 16.3.8"))).toBe(true);
+    expect(shouldSkipBuild(preview(""))).toBe(true);
+    expect(shouldSkipBuild(preview(undefined))).toBe(true);
   });
 
-  it.each(["production", "development", ""]) ("always builds outside preview (%s)", environment => {
-    const f = fixture();
-    f.commit("docs/operations.md");
-    expect(run(f, { VERCEL_ENV: environment }).status).toBe(1);
+  it.each(["[preview]", "fix: layout [preview]", "chore: [Preview] for review", "body line\n\n[PREVIEW]"])("builds a requested preview (%j)", (message) => {
+    expect(shouldSkipBuild(preview(message))).toBe(false);
   });
 
-  it.each(["docs/runtime.json", "data/storage/receipt.json", "public/robots.txt", "src/lib/access.ts", "vercel.json", "docs/example.md.js"]) ("builds for non-prose input %s", path => {
-    const f = fixture();
-    f.commit(path);
-    expect(run(f).status).toBe(1);
+  it("does not treat lookalike words as a request", () => {
+    expect(shouldSkipBuild(preview("feat: preview page for free papers"))).toBe(true);
+    expect(shouldSkipBuild(preview("preview: tweak"))).toBe(true);
   });
 
-  it("compares all commits since the previous deployment, not only the last prose commit", () => {
-    const f = fixture();
-    f.commit("src/app/page.tsx", "export default function Page() { return 'changed'; }\n");
-    f.commit("docs/operations.md");
-    expect(run(f).status).toBe(1);
+  it.each(["production", "development", "", undefined])("always builds outside preview (%s)", (environment) => {
+    expect(shouldSkipBuild({ VERCEL_ENV: environment, VERCEL_GIT_COMMIT_SHA: sha, VERCEL_GIT_COMMIT_MESSAGE: "docs only" })).toBe(false);
   });
 
-  it.each([undefined, "", "not-a-sha", "0".repeat(40)])("builds if previous-deployment metadata is unavailable (%s)", previous => {
-    const f = fixture();
-    f.commit("docs/operations.md");
-    expect(run(f, { VERCEL_GIT_PREVIOUS_SHA: previous }).status).toBe(1);
+  it("builds CLI preview deployments, which carry no Git commit", () => {
+    expect(shouldSkipBuild({ VERCEL_ENV: "preview" })).toBe(false);
   });
 
-  it("builds when the supplied commit does not match the checked-out source", () => {
-    const f = fixture();
-    f.commit("docs/operations.md");
-    expect(run(f, { VERCEL_GIT_COMMIT_SHA: f.previous }).status).toBe(1);
-  });
-
-  it("builds if runtime input was renamed into the docs directory", () => {
-    const f = fixture();
-    mkdirSync(join(f.cwd, "docs"));
-    f.git("mv", "src/app/page.tsx", "docs/page.md");
-    f.git("commit", "--quiet", "-m", "rename");
-    expect(run(f).status).toBe(1);
-  });
-
-  it("skips a deleted regular prose file", () => {
-    const f = fixture();
-    const previous = f.commit("docs/retired.md");
-    f.git("rm", "docs/retired.md");
-    f.git("commit", "--quiet", "-m", "remove prose");
-    expect(run(f, { VERCEL_GIT_PREVIOUS_SHA: previous }).status).toBe(0);
-  });
-
-  it("does not skip a same-commit rebuild", () => {
-    const f = fixture();
-    expect(run(f).status).toBe(1);
+  it("exits 0 to skip and 1 to build when Vercel runs it", () => {
+    expect(run(preview("perf: change")).status).toBe(0);
+    expect(run(preview("perf: change [preview]")).status).toBe(1);
+    expect(run({ VERCEL_ENV: "production", VERCEL_GIT_COMMIT_SHA: sha, VERCEL_GIT_COMMIT_MESSAGE: "x" }).status).toBe(1);
   });
 });

@@ -22,7 +22,7 @@ Production (https://pastpaperprep.com) has paying customers. Vercel deploys `mai
 
 Next.js 16 (App Router), React 19, TypeScript, Tailwind 4, Supabase, Stripe, Cloudflare R2, PostHog; npm and Vitest.
 
-Before opening a PR: `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build` must pass. CI runs lint, typecheck, and tests on every PR; Vercel builds a preview.
+Before opening a PR: `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build` must pass. CI runs lint, typecheck, tests, and the full production build on every PR. Vercel preview deployments are opt-in because Pro bills every build: push a commit whose message contains `[preview]` (for example `git commit --allow-empty -m "[preview]"`) when a reviewer needs one.
 
 ## Needs explicit owner approval
 
