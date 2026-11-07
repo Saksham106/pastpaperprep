@@ -446,7 +446,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\text{accepted value}} \\times 100",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100",
           "tag": "learn"
         },
         {
@@ -855,7 +855,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\text{accepted value}} \\times 100",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100",
           "tag": "learn",
           "cheatSheet": true
         },

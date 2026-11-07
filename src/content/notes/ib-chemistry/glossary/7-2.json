@@ -44,7 +44,7 @@
   {
     "id": "percentage-error",
     "term": "percentage error",
-    "definition": "The difference between an experimental value and the accepted value, divided by the accepted value and multiplied by 100.",
+    "definition": "The size of the difference between an experimental value and the accepted value, divided by the size of the accepted value (ignore any minus sign) and multiplied by 100.",
     "lesson": "7.2"
   },
   {

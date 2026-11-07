@@ -6,7 +6,7 @@
   "title": "Acid–base indicators",
   "level": "AHL",
   "topic": 6,
-  "summary": "An [[acid-base-indicator|acid–base indicator]] is a weak acid, HInd, whose two forms have different colours. It changes colour at a [[ph|pH]] close to its [[pka|pKa]]. For a [[titration|titration]], choose the indicator whose colour-change range includes the pH at the [[equivalence-point|equivalence point]].",
+  "summary": "An [[acid-base-indicator|acid–base indicator]] is a weak acid, HInd, whose two forms have different colours. It changes colour at a [[ph|pH]] close to its [[pka|pKa]]. For a [[titration|titration]], choose an indicator that changes colour in the steep part of the pH curve, ideally around the pH at the [[equivalence-point|equivalence point]].",
   "goals": [
     {
       "text": "Write the equilibrium and the $K_\\mathrm{a}$ expression for an indicator, HInd, and use them to explain why its colour changes with pH.",
@@ -420,8 +420,8 @@
         },
         {
           "type": "result",
-          "statement": "A suitable indicator has a colour-change range that includes the pH at the equivalence point and lies within the steep part of the pH curve.",
-          "why": "Then the end point and the equivalence point happen within a drop or two of each other."
+          "statement": "A suitable indicator changes colour within the steep, near-vertical part of the pH curve. The best choice has a range around the equivalence-point pH, with its pKa close to that pH.",
+          "why": "Then the end point falls within a drop or so of the equivalence point. A range outside the equivalence pH can still work if it sits inside a long steep jump, as phenolphthalein does for a strong acid and strong base."
         },
         {
           "type": "example",
@@ -528,7 +528,7 @@
           "type": "check",
           "id": "check-ethylamine-indicator",
           "prompt": "Ethylamine, a weak base, is titrated with hydrochloric acid. A pH meter shows the equivalence point at pH 5.8. Using section 18 of the data booklet, which indicator is most suitable?",
-          "hint": "Which range includes pH 5.8?",
+          "hint": "Which range sits around pH 5.8?",
           "options": [
             {
               "text": "methyl red",
@@ -547,7 +547,7 @@
               "correct": false
             }
           ],
-          "explain": "Only methyl red's range, 4.4 to 6.2, includes 5.8. Bromocresol green stops at 5.6 and bromothymol blue starts at 6.0; phenolphthalein changes far too early.",
+          "explain": "Methyl red's range, 4.4 to 6.2, spans 5.8, so it changes colour right at the equivalence point. Bromocresol green has finished changing just before 5.8 and bromothymol blue only starts after it; phenolphthalein changes far too early, before the acid is added.",
           "verify": {
             "kind": "choice",
             "truth": "methyl red"
@@ -614,7 +614,7 @@
         },
         {
           "type": "fact",
-          "text": "Choose an indicator whose range includes the equivalence-point pH. Strong–strong: pH 7, bromothymol blue or phenol red (phenolphthalein also works in the long jump). Weak acid–strong base: above 7, phenolphthalein. Strong acid–weak base: below 7, methyl red or bromocresol green. Weak–weak: none.",
+          "text": "Choose an indicator whose range falls in the steep part of the curve, ideally around the equivalence-point pH. Strong–strong: pH 7, bromothymol blue or phenol red (phenolphthalein also works in the long jump). Weak acid–strong base: above 7, phenolphthalein. Strong acid–weak base: below 7, methyl red or bromocresol green. Weak–weak: none.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -624,7 +624,7 @@
   "mistakes": [
     "Saying every indicator changes colour at pH 7. Each changes near its own pKa.",
     "Treating the end point and the equivalence point as the same. One is seen; the other is set by the mole ratio.",
-    "Naming an indicator without a reason. Link its range to the equivalence-point pH.",
+    "Naming an indicator without a reason. Link its range to the steep part of the curve around the equivalence-point pH.",
     "Saying alkali shifts the indicator equilibrium left. Hydroxide removes $\\ce{H^+}$, so it shifts right."
   ],
   "examTips": [
@@ -632,5 +632,5 @@
     "\"Distinguish\" end point and equivalence point: define each in one sentence, then link them.",
     "In Paper 1A, given indicators with pKa values, choose the pKa closest to the equivalence-point pH."
   ],
-  "readingMinutes": 19
+  "readingMinutes": 20
 }
