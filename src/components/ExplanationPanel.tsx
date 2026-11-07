@@ -1,5 +1,5 @@
-"use client";
-
+// No "use client": pure markup, so past-paper pages render worked answers on the server with no client JS,
+// while QuestionExplorer still loads it on demand in the browser.
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import type { Explanation } from "@/lib/explanation-format";

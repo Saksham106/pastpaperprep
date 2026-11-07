@@ -78,3 +78,14 @@
 }
 @media (prefers-reduced-motion: reduce) { .bankRow, .faq summary svg { transition: none; } }
 .hubHead > p.updated, .listHead > p.updated { margin-top: 10px; color: var(--muted); font: 600 .72rem/1.5 var(--font-mono); }
+
+/* Paper-number pages: what the paper tests and its grade thresholds, as plain tables. */
+.insight { max-width: 920px; margin-top: 40px; }
+.insight h2 { margin: 0; font: 400 1.6rem/1.2 var(--font-serif); }
+.insight > p { margin: 6px 0 14px; color: var(--muted); font-size: .9rem; }
+.insight table { width: 100%; border-collapse: collapse; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.insight th, .insight td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+.insight thead th { color: var(--muted); font: 600 .72rem/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.insight tbody th { font-weight: 650; }
+.tableScroll { overflow-x: auto; }
+.tableScroll td, .tableScroll th { white-space: nowrap; }

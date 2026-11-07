@@ -14,6 +14,8 @@ Each question can carry a worked explanation: an "Explanation" button beside "Sh
 
 The public bank index carries `hasExplanation: true` for listed IDs. The explanation itself is signed by `/api/assets/sign` (paid) or `/api/assets/free` (free years) with the same access rule as the mark scheme, always from R2. Explanation signing does not spend the daily download allowance. Instead each member can open at most 200 paid explanations a day (`consume_explanation_allowance`, migration `20261012000000_explanation_daily_cap.sql`); free-year explanations and accounts with a download exemption are not capped. R2 CORS (`config/r2-cors.json`) already allows `GET` from the site, which the browser needs to fetch the JSON.
 
+Free-year explanations are also printed as HTML on free past-paper pages (the "Worked answers" section), so search engines can read them. `npm run generate:free-explanations` (part of prebuild) downloads only the questions the free asset index lists from free.pastpaperprep.com into `generated/free-explanations/` (ignored), and fails the build if more than 2% are missing. Paid explanations never reach page HTML. See docs/audits/2026-11-07-past-paper-indexing/README.md.
+
 Explanations sit under their own top-level prefix, outside every bank's image prefix, so `npm run r2:verify` is unaffected.
 
 ## Pipeline

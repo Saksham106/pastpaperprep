@@ -34,7 +34,7 @@ function filterableTopics(question: UnifiedQuestion): string[] {
 }
 
 // "Earlier syllabus" and "needs review" labels group questions by status, not by content.
-const STATUS_TOPIC = /earlier syllabus|needing section review/i;
+export const STATUS_TOPIC = /earlier syllabus|needing section review/i;
 
 /** Whether the question is mainly on this topic, not just tagged with it for one of its parts. */
 export function isMainTopic(question: Pick<UnifiedQuestion, "bankSlug" | "primaryTopic" | "secondaryTopics" | "subtopics">, topic: string): boolean {

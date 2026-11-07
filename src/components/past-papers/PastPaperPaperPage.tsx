@@ -11,6 +11,9 @@ import { archiveQuestions, paperTopicSummary, questionPages, type PaperTopic } f
 import { topicFilterHref } from '@/lib/search-landing';
 import { breadcrumbJsonLd, formatDuration, paperCodes, paperCopy, paperCourseTitle, paperJsonLd, subjectSearchName } from '@/lib/past-paper-seo';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
+import ExplanationPanel from '@/components/ExplanationPanel';
+import { paperThreshold, paperTopicMarks, type ComponentThreshold } from '@/lib/past-paper-insights';
+import { STATUS_TOPIC } from '@/lib/question-filter';
 import { PaperWorkspace } from './PaperWorkspace';
 import shell from './PastPaperPages.module.css';
 import styles from './PastPaperPaperPage.module.css';
@@ -38,6 +41,29 @@ function TopicButton({ bank, topic }: { bank: string; topic: PaperTopic }) {
   return <Link className={styles.topic} href={topicFilterHref(bank, topic.topic)} title={`Practise ${topic.topic} (${questions} in this paper)`}>{topic.topic}<ArrowRight aria-hidden="true" weight="bold" /></Link>;
 }
 
+const percent = (part: number, whole: number) => `${Math.round((part / whole) * 100)}%`;
+
+/** One plain sentence: size of the paper and where its marks are. Only for a complete question list
+ * (completeInventory), so the counts and shares are of the whole paper, not of a partial import. */
+function GlanceSentence({ questions, maxMarks }: { questions: NonNullable<PaperView['questions']>; maxMarks: number }) {
+  const { topics } = paperTopicMarks(questions);
+  if (!topics.length) return null;
+  const top = topics.slice(0, 3).map(t => `${t.topic} (${t.marks} ${t.marks === 1 ? 'mark' : 'marks'}, ${percent(t.marks, maxMarks)})`);
+  const lead = `${questions.length} questions, ${maxMarks} marks, across ${topics.length} ${topics.length === 1 ? 'topic' : 'topics'}.`;
+  return <p>{lead} Most marks: {top.length > 1 ? `${top.slice(0, -1).join(', ')} and ${top.at(-1)}` : top[0]}.</p>;
+}
+
+function ThresholdTable({ threshold }: { threshold: ComponentThreshold }) {
+  return <figure className={styles.thresholds}>
+    <table>
+      <caption>Grade thresholds, {threshold.series} (out of {threshold.maxMark})</caption>
+      <thead><tr>{threshold.headings.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
+      <tbody><tr>{threshold.values.map((v, i) => <td key={threshold.headings[i]}>{v ?? '–'}</td>)}</tr></tbody>
+    </table>
+    <figcaption>Source: <a href={threshold.sourceUrl} rel="noopener">Cambridge grade threshold table</a>. A dash means that grade isn&rsquo;t available on this paper.</figcaption>
+  </figure>;
+}
+
 export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const { bank, detail, all, practice } = view;
   const questions = view.questions ?? archiveQuestions(detail);
@@ -63,6 +89,9 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable, questionPages: questionPages(questions) };
   const marking = p.reportAvailable && p.maxMarks !== null ? { id: p.id, version: detail.version, bankSlug: bank.slug, title: copy.h1, maxMarks: p.maxMarks, questions: detail.questions } : null;
   const paperNumber = p.paper.toUpperCase();
+  const threshold = p.qualification === 'Cambridge IGCSE' ? paperThreshold(subject, p) : null;
+  const worked = view.workedAnswers ?? [];
+  const glance = view.complete && p.maxMarks !== null ? p.maxMarks : null;
   return <article className={`${shell.page} ${styles.page}`} data-subject-tone={courseToneForBank(bank)}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <JsonLd data={paperJsonLd(bank, p, path)} />
@@ -100,6 +129,11 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         </div>
       </section>}
     </PaperWorkspace>
+    {(glance !== null || threshold) && <section className={styles.questions} aria-labelledby="paper-glance">
+      <h2 id="paper-glance">At a glance</h2>
+      {glance !== null && <GlanceSentence questions={questions} maxMarks={glance} />}
+      {threshold && <ThresholdTable threshold={threshold} />}
+    </section>}
     {questions.length > 0 && <section className={styles.questions} aria-labelledby="paper-questions">
       <h2 id="paper-questions">{topics.length ? 'Practise by topic' : 'What\u2019s in this paper'}</h2>
       {topics.length > 0 && <>
@@ -107,8 +141,16 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
         <div className={styles.topicList}>{topics.map(t => <TopicButton key={t.topic} bank={bank.slug} topic={t} />)}</div>
         <h3>Question by question</h3>
       </>}
-      <p className={styles.count}>{questions.length} questions{p.maxMarks !== null && ` · ${p.maxMarks} marks`}</p>
+      <p className={styles.count}>{view.complete ? `${questions.length} questions${p.maxMarks !== null ? ` · ${p.maxMarks} marks` : ''}` : p.questionCount > questions.length ? `${questions.length} of ${p.questionCount} questions listed` : `${questions.length} questions listed`}</p>
       <ol aria-label="Questions in this paper">{questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.map((topic, i) => <span key={topic}>{i > 0 && ', '}{practice ? <Link href={topicFilterHref(bank.slug, topic)}>{topic}</Link> : topic}</span>)}</span>{q.marks !== null && <em>{q.marks} {q.marks === 1 ? 'mark' : 'marks'}</em>}</li>)}</ol>
+    </section>}
+    {worked.length > 0 && <section className={`${styles.questions} ${styles.worked}`} aria-labelledby="worked-answers">
+      <h2 id="worked-answers">Worked answers</h2>
+      <p>Step-by-step solutions, with the mark-scheme points each step earns.</p>
+      {worked.map(w => <details key={w.number} id={`worked-q${w.number}`}>
+        <summary><b>Q{w.number}</b><span>{w.topics.filter(t => !STATUS_TOPIC.test(t)).join(', ')}</span>{w.marks !== null && <em>{w.marks} {w.marks === 1 ? 'mark' : 'marks'}</em>}</summary>
+        <ExplanationPanel explanation={w.explanation} />
+      </details>)}
     </section>}
     <p className={styles.aliases}><span>Also listed as</span>{codes.join(' · ')}</p>
   </article>;
