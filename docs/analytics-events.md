@@ -12,6 +12,8 @@ Without consent, server conversions are still counted, anonymously:
 
 No email, name or account ID is ever sent without consent.
 
+Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous client as `$web_vitals`. It is switched on by PostHog's project setting (Web vitals autocapture), not in code, and nested URLs are scrubbed by `sanitizeAnalyticsEvent`. Vercel Web Analytics and Speed Insights were removed in November 2026: they duplicated PostHog and bill per event on Vercel Pro.
+
 ## Browser events (`trackProductEvent`)
 
 | Event | Where | Properties |

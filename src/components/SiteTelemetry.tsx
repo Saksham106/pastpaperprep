@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
 import { createClient } from "@/lib/supabase/browser";
 import { ANALYTICS_CONSENT_VERSION, analyticsChoiceMaxAgeSeconds, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
@@ -216,9 +215,9 @@ export function SiteTelemetry() {
   };
   const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch { /* optional */ } setBannerOpen(false); setRequested(false); };
 
+  // Pageviews and Web Vitals come from PostHog (Web Vitals via its remote project setting), so no Vercel
+  // Web Analytics or Speed Insights script: both duplicated PostHog and bill per event on Pro.
   return <>
-    {/* PostHog covers pageviews; Vercel Web Analytics was a duplicate billed per event. Speed Insights stays for Core Web Vitals. */}
-    <SpeedInsights />
     {showBanner && <AnalyticsConsentBanner initialAnalytics={resolvedChoice === true} onChoice={accepted => void choose(accepted)} onDismiss={dismiss} busy={saving} error={error} />}
   </>;
 }
