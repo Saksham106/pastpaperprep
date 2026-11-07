@@ -67,7 +67,7 @@ export const INTERACTIVE_PROPS: Record<InteractiveId, InteractivePropSpec> = {
  * list of alternatives).
  */
 export type VerifyPhrases = (string | string[])[];
-export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean | VerifyPhrases>;
+export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean | VerifyPhrases | Record<string, string[]>>;
 
 /** Strings marked "inline" accept `$tex$`, `[[term-id|label]]` and `{{lesson:5.15}}`. */
 export type CheckBlock = {

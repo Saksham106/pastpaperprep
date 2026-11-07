@@ -150,8 +150,11 @@ def _parse_group(text, i, original, elements):
         ch = text[i]
         if ch in "([":
             inner, i = _parse_group(text, i + 1, original, elements)
+            closer = ")" if ch == "(" else "]"
             if i >= len(text) or text[i] not in ")]":
                 raise ValueError(f"unclosed bracket in {original!r}")
+            if text[i] != closer:
+                raise ValueError(f"mismatched brackets in {original!r}: {ch!r} closed by {text[i]!r}")
             i += 1
         elif ch in ")]":
             return counts, i

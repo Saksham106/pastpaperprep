@@ -305,6 +305,9 @@ describe("chemistry verify kinds", () => {
     expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", states: "yes" }))).toEqual([expect.stringContaining("chem-equation.states must be true or false")]);
     expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", fractions: true, allowMultiple: true }))).toEqual([expect.stringContaining("allowMultiple or fractions, not both")]);
     expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", per: "H2O" }))).toEqual([expect.stringContaining("per needs fractions: true")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "CH3COOH + NaOH -> CH3COONa + H2O", aliases: { CH3COOH: ["CH3CO2H"] } }, "$\\ce{CH3COOH + NaOH -> CH3COONa + H2O}$"))).toEqual([]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", aliases: ["H2O"] }))).toEqual([expect.stringContaining("chem-equation.aliases must map")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", aliases: { H2O: [] } }))).toEqual([expect.stringContaining("chem-equation.aliases must map")]);
     expect(withBlock(example({ kind: "formula", truth: 'formula("C2H5OH")' }))).toEqual([expect.stringContaining("with given: true")]);
     expect(withBlock(example({ kind: "formula", truth: 'ionic_formula("Na+", "Cl-")', given: true }))).toEqual([expect.stringContaining("formula.given is only for")]);
     expect(withBlock(example({ kind: "formula", truth: "Mr('CH4')" }))).toEqual([expect.stringContaining("formula truth must call")]);

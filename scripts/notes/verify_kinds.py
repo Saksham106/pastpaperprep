@@ -76,7 +76,7 @@ KINDS = {
     "expression": {"optional": ["form", "scale"], "on": ["example", "choice"]},
     "antiderivative": {"optional": ["var"], "on": ["example", "choice"]},
     "choice": {"on": ["choice"]},
-    "chem-equation": {"optional": ["states", "reversible", "allowMultiple", "fractions", "per"], "on": ["example", "choice"]},
+    "chem-equation": {"optional": ["states", "reversible", "allowMultiple", "fractions", "per", "aliases"], "on": ["example", "choice"]},
     "formula": {"optional": ["match", "given"], "on": ["example", "choice"]},
     "explanation": {"required": ["requires"], "optional": ["forbids"], "on": ["example"]},
 }
@@ -986,7 +986,9 @@ def k_chem_equation(tex, truth, opts):
     use the smallest whole-number coefficients, unless `allowMultiple: true` (any whole-number multiple) or
     `fractions: true` (per mole: the species `per`, by default the only product or else the first reactant, has
     coefficient 1, and the others may be fractions such as ½ / \\frac{1}{2} / 1/2).
-    `reversible: true` requires ⇌ and rejects →; `reversible: false` requires →; without it either arrow is accepted."""
+    `reversible: true` requires ⇌ and rejects →; `reversible: false` requires →; without it either arrow is accepted.
+    Species are matched by composition for balancing, then by their written formula: a structural isomer of a truth
+    species fails. `aliases: {"CH3COOH": ["CH3CO2H"]}` lists other writings of the same compound that are accepted."""
     true_left, _, true_right = cp.parse_equation(truth)
     if any(written for *_, written in true_left + true_right):
         if cp.imbalance(true_left, true_right):
@@ -1005,6 +1007,13 @@ def k_chem_equation(tex, truth, opts):
     for name, have, need in zip(("reactants", "products"), got, want):
         if set(have) != set(need):
             raise AssertionError(f"{tex!r}: the {name} are {_names(have)}, not {_names(need)}")
+    # Composition balances the equation; the written formula identifies the compound (CH3COOCH3 is not CH3CH2COOH).
+    aliases = {cp.parse_formula(k).text: {cp.parse_formula(v).text for v in vs} for k, vs in (opts.get("aliases") or {}).items()}
+    for have, need in zip(got, want):
+        for key, (formula, _, _) in have.items():
+            expected = need[key][0].text
+            if formula.text != expected and formula.text not in aliases.get(expected, set()):
+                raise AssertionError(f"{tex!r}: {formula.text} has the right atoms but is not {expected}; write the compound as the question does (or list a vetted alias)")
     problems = cp.imbalance(left, right)
     if problems:
         detail = "; ".join(f"{name} {float(lhs):g} on the left, {float(rhs):g} on the right" for name, lhs, rhs in problems)

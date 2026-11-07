@@ -52,7 +52,7 @@ export const VERIFY_KINDS: Record<string, KindSpec> = {
   antiderivative: { optional: ["var"], on: ANSWER },
   choice: { on: ["choice"] },
   // Chemistry: a balanced equation (the truth is the skeleton, balanced by the gate), a formula, and prose marking points.
-  "chem-equation": { optional: ["states", "reversible", "allowMultiple", "fractions", "per"], on: ANSWER },
+  "chem-equation": { optional: ["states", "reversible", "allowMultiple", "fractions", "per", "aliases"], on: ANSWER },
   formula: { optional: ["match", "given"], on: ANSWER },
   explanation: { required: ["requires"], optional: ["forbids"], on: ["example"] },
 };
@@ -124,6 +124,11 @@ export function verifyErrors(verify: Verify | undefined, on: "example" | "choice
   if (kind === "chem-equation") {
     if (verify.allowMultiple && verify.fractions) errors.push("verify chem-equation: give allowMultiple or fractions, not both");
     if ("per" in verify && verify.fractions !== true) errors.push("verify chem-equation.per needs fractions: true");
+    if ("aliases" in verify) {
+      const value = verify.aliases as unknown;
+      const ok = !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0 && Object.values(value as Record<string, unknown>).every((list) => Array.isArray(list) && list.length > 0 && list.every(phrase));
+      if (!ok) errors.push('verify chem-equation.aliases must map a formula to a list of other writings, e.g. {"CH3COOH": ["CH3CO2H"]}');
+    }
   }
   if (kind === "formula" && typeof verify.truth === "string") {
     const helper = /^\s*([A-Za-z_]+)\s*\(/.exec(verify.truth)?.[1];

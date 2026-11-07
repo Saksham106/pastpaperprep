@@ -316,7 +316,11 @@ def BE(bond):
 
 
 def _lookup(table, column, key, helper):
-    """A row of THERMO / COMBUSTION by name, or by formula with an optional state (composition-compared)."""
+    """A row of THERMO / COMBUSTION by booklet name, or by the formula exactly as the booklet writes it (state optional).
+
+    Formulas are matched by their written form, not their composition: CH3CH(OH)CH3 is not the booklet's propan-1-ol,
+    and CH3CH2CHO is not propanone. A formula the booklet does not write is refused, naming the rows with the same
+    composition so a truth can use the right name."""
     from chemparse import parse_species  # noqa: PLC0415
 
     text = _text(key, helper)
@@ -326,10 +330,11 @@ def _lookup(table, column, key, helper):
             formula, state = parse_species(text)
         except ValueError:
             raise _unknown(helper, text, [row[0] for row in table] + [f"{row[1]}({row[2]})" for row in table]) from None
-        named = [row for row in table if parse_species(row[1])[0] == formula and (state is None or row[2] == state)]
-        written = [row for row in named if row[1] == re.sub(r"\(\s*(?:s|l|g|aq)\s*\)$", "", text).strip()]
-        if len(named) > 1 and len(written) == 1:
-            named = written  # C2H5OH, not dimethyl ether
+        same = [row for row in table if parse_species(row[1])[0] == formula and (state is None or row[2] == state)]
+        named = [row for row in same if parse_species(row[1])[0].text == formula.text]
+        if not named and same:
+            options = ", ".join(f"{row[0]!r} ({row[1]})" for row in same)
+            raise ValueError(f"{helper}({text!r}): the booklet does not list this compound as written; same composition: {options}. Use the booklet's name or formula for the compound you mean")
     if not named:
         raise _unknown(helper, text, [f"{row[1]}({row[2]})" for row in table])
     if len(named) > 1:

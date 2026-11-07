@@ -402,6 +402,32 @@ def test_kind_explanation():
     vk.check_spec({"kind": "explanation", "truth": "a summary in words", "requires": ["a", ["b", "c"]]})  # truth is text
 
 
+def rejects_with(fn, text):
+    try:
+        fn()
+    except (AssertionError, ValueError) as error:
+        assert text in str(error), f"rejected, but the message lacks {text!r}: {error}"
+        return
+    raise AssertionError("expected a rejection, but it was accepted")
+
+
+def test_review_471_identity_and_brackets():
+    # A structural isomer of a truth species has the right atoms but is a different compound.
+    truth = "CH3CH2COOH + NaOH -> CH3CH2COONa + H2O"
+    passes("chem-equation", truth, r"$\ce{CH3CH2COOH + NaOH -> CH3CH2COONa + H2O}$")
+    wrong("chem-equation", truth, r"$\ce{CH3COOCH3 + NaOH -> CH3CH2COONa + H2O}$")
+    passes("chem-equation", "CH3COOH + NaOH -> CH3COONa + H2O", r"$\ce{CH3CO2H + NaOH -> CH3COONa + H2O}$", aliases={"CH3COOH": ["CH3CO2H"]})
+    wrong("chem-equation", "CH3COOH + NaOH -> CH3COONa + H2O", r"$\ce{CH3CO2H + NaOH -> CH3COONa + H2O}$")
+    # Booklet lookups match the written formula, never another isomer's row.
+    rejects_with(lambda: cd.Hc("CH3CH(OH)CH3(l)"), "propan-1-ol")
+    rejects_with(lambda: cd.Hf("CH3CH2CHO(l)"), "propanone")
+    assert cd.Hf("propanone") == -248 and cd.Hc("propan-1-ol") == -2021 and cd.Hf("CH4(g)") == -74
+    # Brackets close with their own kind.
+    rejects_with(lambda: cp.parse_formula("Ca(NO3]2"), "mismatched")
+    rejects_with(lambda: cp.parse_formula("[Cu(H2O)6)^2+"), "mismatched")
+    assert cp.parse_formula("[Cu(H2O)6]^2+").charge == 2
+
+
 if __name__ == "__main__":
     failed = 0
     tests = [(name, fn) for name, fn in sorted(globals().items()) if name.startswith("test_") and callable(fn)]
