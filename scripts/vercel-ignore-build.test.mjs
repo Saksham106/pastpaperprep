@@ -18,6 +18,8 @@ describe("Vercel ignore command", () => {
     const config = JSON.parse(readFileSync(resolve(dirname(script), "..", "vercel.json"), "utf8"));
     expect(config.ignoreCommand).toBe("node scripts/vercel-ignore-build.mjs");
     expect(config.git.deploymentEnabled["feat/explanations-*"]).toBe(false);
+    // Dependabot branches never create a deployment at all (CI still builds their PRs).
+    expect(config.git.deploymentEnabled["dependabot/**"]).toBe(false);
   });
 
   it("skips Git preview builds by default, including Dependabot updates", () => {

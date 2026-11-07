@@ -3,7 +3,8 @@
   "ignoreCommand": "node scripts/vercel-ignore-build.mjs",
   "git": {
     "deploymentEnabled": {
-      "feat/explanations-*": false
+      "feat/explanations-*": false,
+      "dependabot/**": false
     }
   }
 }
