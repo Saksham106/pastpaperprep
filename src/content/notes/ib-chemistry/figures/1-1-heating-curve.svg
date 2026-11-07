@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t">
+  <title id="t">Heating curve: temperature on the vertical axis against time on the horizontal axis, for a pure solid heated at a steady rate. The line rises steeply while the substance is a solid, then runs flat at the melting point, labelled melting, solid and liquid present. It rises again while the substance is a liquid, then runs flat for longer at the higher boiling point, labelled boiling, liquid and gas present. Finally it rises again while the substance is a gas. Dashed lines join the two flat parts to the temperature axis, marked melting point and boiling point.</title>
+  <path d="M95 262 L95 30" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="95,21 90.5,30 99.5,30" fill="currentColor"/>
+  <path d="M93 260 L456 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="465,260 456,255.5 456,264.5" fill="currentColor"/>
+  <text x="22" y="145" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 22 145)">temperature</text>
+  <text x="280" y="285" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">time (heated at a steady rate)</text>
+  <g stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none">
+    <path d="M95 185 H160"/>
+    <path d="M95 105 H280"/>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="89" y="182">melting</text>
+    <text x="89" y="195">point</text>
+    <text x="89" y="102">boiling</text>
+    <text x="89" y="115">point</text>
+  </g>
+  <path d="M105 240 L160 185 L225 185 L280 105 L390 105 L450 50" fill="none" stroke="var(--t1-ink)" stroke-width="2.4" stroke-linejoin="round"/>
+  <g font-size="12" font-family="inherit" fill="currentColor">
+    <text x="140" y="228">solid</text>
+    <text x="192" y="172" text-anchor="middle">melting</text>
+    <text x="192" y="204" text-anchor="middle" font-size="11" fill="var(--muted)">solid + liquid</text>
+    <text x="262" y="160">liquid</text>
+    <text x="335" y="92" text-anchor="middle">boiling</text>
+    <text x="335" y="124" text-anchor="middle" font-size="11" fill="var(--muted)">liquid + gas</text>
+    <text x="428" y="95">gas</text>
+  </g>
+</svg>

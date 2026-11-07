@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="t">
+<title id="t">Graph of mass of magnesium oxide in grams, from 0 to 0.60, against mass of magnesium in grams, from 0 to 0.40. Five points are plotted as crosses. Four of them, at 0.08, 0.16, 0.24 and 0.40 grams of magnesium, lie on a straight line of best fit drawn from the origin; the 0.40 gram point is at 0.663. The point at 0.32 grams of magnesium, 0.452, lies well below the line and is circled and labelled anomalous: left out.</title>
+<path d="M70 260 H460" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70 260 V30" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="70.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0</text>
+<path d="M142.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="142.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.08</text>
+<path d="M214.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="214.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.16</text>
+<path d="M286.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="286.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.24</text>
+<path d="M358.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="358.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.32</text>
+<path d="M430.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="430.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.40</text>
+<path d="M70 260.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="264.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0</text>
+<path d="M70 200.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="204.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.20</text>
+<path d="M70 140.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="144.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.40</text>
+<path d="M70 80.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="84.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.60</text>
+<text x="265.0" y="302.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">mass of magnesium / g</text>
+<text x="18.0" y="145.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 145.0)">mass of magnesium oxide / g</text>
+<path d="M70 260 L448.0 51.2" stroke="var(--t1-ink)" stroke-width="2" fill="none"/>
+<path d="M138.0 216.1 L146.0 224.1 M138.0 224.1 L146.0 216.1" stroke="currentColor" stroke-width="1.8"/>
+<path d="M210.0 176.5 L218.0 184.5 M210.0 184.5 L218.0 176.5" stroke="currentColor" stroke-width="1.8"/>
+<path d="M282.0 136.6 L290.0 144.6 M282.0 144.6 L290.0 136.6" stroke="currentColor" stroke-width="1.8"/>
+<path d="M354.0 120.4 L362.0 128.4 M354.0 128.4 L362.0 120.4" stroke="currentColor" stroke-width="1.8"/>
+<path d="M426.0 57.1 L434.0 65.1 M426.0 65.1 L434.0 57.1" stroke="currentColor" stroke-width="1.8"/>
+<circle cx="358.0" cy="124.4" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<text x="362.0" y="154.4" font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">anomalous: left out</text>
+<text x="187.0" y="161.0" font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">line of best fit</text>
+</svg>

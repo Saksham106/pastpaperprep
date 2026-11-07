@@ -1,0 +1,736 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "7.1",
+  "slug": "experimental-techniques-and-safety",
+  "title": "Experimental techniques and safety",
+  "level": "SL",
+  "topic": 7,
+  "summary": "Good practical chemistry means working safely, reading each instrument to the right precision, and knowing why each standard technique is used. This lesson covers all three, from making a [[standard-solution|standard solution]] to [[colorimetry|colorimetry]].",
+  "goals": [
+    {
+      "text": "Identify the hazards in an investigation and address its safety, ethical and environmental issues.",
+      "bullets": [
+        "T1.1"
+      ]
+    },
+    {
+      "text": "Choose and read the right instrument for mass, volume, time, temperature, length, [[ph|pH]], current and potential difference.",
+      "bullets": [
+        "T1.2"
+      ]
+    },
+    {
+      "text": "Describe how to make standard solutions and [[dilution|dilutions]], dry a solid to constant mass, carry out [[titration|titrations]] and [[calorimetry|calorimetry]], and set up electrochemical cells.",
+      "bullets": [
+        "T1.3"
+      ]
+    },
+    {
+      "text": "Outline how to separate a [[mixture|mixture]], and the purpose of [[distillation|distillation]], [[reflux|reflux]], [[chromatography|chromatography]], [[recrystallization|recrystallization]], melting points, colorimetry and molecular modelling.",
+      "bullets": [
+        "T1.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.6",
+    "1.8",
+    "2.7",
+    "4.1",
+    "6.2",
+    "6.3",
+    "6.12"
+  ],
+  "papers": [
+    "P1"
+  ],
+  "synonyms": [
+    "practical skills chemistry",
+    "lab safety risk assessment",
+    "how to read a burette",
+    "making a standard solution",
+    "recrystallization and melting point",
+    "colorimetry calibration curve"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-moles-in-solution",
+      "prompt": "How many [[mole|moles]] of solute are in $\\pu{20.0 cm3}$ of a $\\pu{0.150 mol dm-3}$ solution? Give 3 significant figures.",
+      "hint": "Change the volume to $\\pu{dm3}$ first, then use $n = CV$.",
+      "answer": {
+        "value": 0.003,
+        "tolerance": 5e-06
+      },
+      "explain": "$V = \\pu{0.0200 dm3}$, so $n = 0.150 \\times 0.0200 = \\pu{0.00300 mol}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.150*20.0/1000",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mobile-phase",
+      "prompt": "In paper chromatography, what is the [[mobile-phase|mobile phase]]?",
+      "hint": "Which part moves, and which part stays where it is?",
+      "options": [
+        {
+          "text": "the solvent that moves up the paper",
+          "correct": true
+        },
+        {
+          "text": "the paper that the solvent soaks through",
+          "correct": false
+        },
+        {
+          "text": "the spot of sample on the baseline",
+          "correct": false
+        }
+      ],
+      "explain": "The solvent moves and carries the components with it. The paper, with the water held in its fibres, is the [[stationary-phase|stationary phase]]. Revise it in {{lesson:2.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the solvent that moves up the paper"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-phenolphthalein",
+      "prompt": "Sodium hydroxide solution is added from a burette to hydrochloric acid containing phenolphthalein. What colour change marks the [[end-point|end point]]?",
+      "hint": "Phenolphthalein is colourless in acid and pink in alkali. Which one is in the flask at the start?",
+      "options": [
+        {
+          "text": "colourless to pink",
+          "correct": true
+        },
+        {
+          "text": "pink to colourless",
+          "correct": false
+        },
+        {
+          "text": "red to yellow",
+          "correct": false
+        }
+      ],
+      "explain": "The flask starts acidic, so the indicator is colourless. The first drop of excess alkali turns it pink. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "colourless to pink"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "safety",
+      "heading": "Safety, ethics and the environment",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "hazard and risk",
+          "statement": "A hazard is anything with the potential to cause harm, such as a flammable or toxic substance. Risk is how likely that harm is, and how serious it would be, under the conditions actually used.",
+          "plain": "Acid in a bottle is a hazard; how risky it is depends on how you handle it."
+        },
+        {
+          "type": "text",
+          "text": "A risk assessment lists each hazard, judges its risk and gives a control measure that reduces it. Hazard pictograms and the supplier's safety data sheet show what each substance can do."
+        },
+        {
+          "type": "text",
+          "text": "Match the control to the hazard. Use a fume cupboard for toxic gases and vapours. Heat flammable liquids with a water bath, never a naked flame. For corrosive substances, wear eye protection and use the most dilute solution that works."
+        },
+        {
+          "type": "text",
+          "text": "To protect the environment, use small quantities and less hazardous reagents. Collect heavy-metal and organic waste in labelled containers; never pour it down the sink."
+        },
+        {
+          "type": "text",
+          "text": "Ethical issues are about honesty. Report all your data, including results that don't fit. Credit your sources, and get consent if people are involved."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclohexane-precautions",
+          "question": "A student dissolves a solid in hot cyclohexane, which is highly flammable and gives off a harmful vapour. Suggest two precautions, each with a reason.",
+          "steps": [
+            "Name each hazard: a flammable liquid and a harmful vapour.",
+            "Flammable: remove the ignition source, so heat with a water bath.",
+            "Harmful vapour: a fume cupboard draws it away from you."
+          ],
+          "answer": "Heat the cyclohexane in a water bath, not over a Bunsen flame, because its vapour could catch fire from a naked flame. Work in a fume cupboard, because the vapour is harmful if breathed in.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water bath because flammable; fume cupboard because harmful vapour",
+            "requires": [
+              [
+                "water bath",
+                "heating mantle"
+              ],
+              [
+                "naked flame",
+                "catch fire"
+              ],
+              "fume cupboard",
+              [
+                "breathed in",
+                "inhaled"
+              ]
+            ],
+            "forbids": [
+              "heat it over a Bunsen",
+              "open window is enough"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lead-waste",
+          "question": "After an experiment, a student has some solution containing lead(II) ions, $\\ce{Pb^2+(aq)}$. Outline why it must not go down the sink, and state how it should be disposed of.",
+          "steps": [
+            "Be specific about the harm: \"it pollutes water\" is too vague.",
+            "Lead is a toxic heavy metal that is not broken down, so it builds up along food chains.",
+            "Then give the safe route: a labelled waste container."
+          ],
+          "answer": "Lead(II) ions are toxic to aquatic life and to people. Lead is not broken down, so it builds up along food chains. Collect the solution in a labelled heavy-metal waste container.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "toxic heavy metal that accumulates in food chains; labelled waste container",
+            "requires": [
+              "toxic",
+              [
+                "accumulates",
+                "builds up"
+              ],
+              [
+                "waste container",
+                "labelled container"
+              ]
+            ],
+            "forbids": [
+              "dilute it with plenty of water",
+              "safe once diluted"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-toxic-gas-control",
+          "prompt": "A reaction gives off chlorine, a toxic gas. Which control measure deals with this hazard?",
+          "hint": "The hazard is breathing the gas in.",
+          "options": [
+            {
+              "text": "carry out the reaction in a fume cupboard",
+              "correct": true
+            },
+            {
+              "text": "wear gloves",
+              "correct": false
+            },
+            {
+              "text": "use a larger beaker",
+              "correct": false
+            },
+            {
+              "text": "wear a lab coat",
+              "correct": false
+            }
+          ],
+          "explain": "A fume cupboard carries the gas away. Gloves and a lab coat protect skin, not lungs.",
+          "verify": {
+            "kind": "choice",
+            "truth": "carry out the reaction in a fume cupboard"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethical-issue",
+          "prompt": "Which of these is an ethical issue, rather than a safety or environmental one?",
+          "hint": "Ethics here is about honesty with your data.",
+          "options": [
+            {
+              "text": "leaving out results that do not fit the trend",
+              "correct": true
+            },
+            {
+              "text": "pouring a solvent down the sink",
+              "correct": false
+            },
+            {
+              "text": "heating ethanol with a naked flame",
+              "correct": false
+            },
+            {
+              "text": "working without eye protection",
+              "correct": false
+            }
+          ],
+          "explain": "Dropping data that don't fit misrepresents your results. The others are environmental or safety issues.",
+          "verify": {
+            "kind": "choice",
+            "truth": "leaving out results that do not fit the trend"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring",
+      "heading": "Measuring to the right precision",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Record each reading to the instrument's precision, with its unit: every digit of a digital display, or to the nearest half division of a scale you read by eye. Keep trailing zeros: a balance showing $\\pu{2.50 g}$ is recorded as $\\pu{2.50 g}$. Uncertainties follow in {{lesson:7.2}}."
+        },
+        {
+          "type": "text",
+          "text": "For mass, zero (tare) the balance first. To transfer a solid, weigh by difference: weigh the container with the solid, tip the solid out, and weigh the container again."
+        },
+        {
+          "type": "text",
+          "text": "For volume, pipettes and volumetric flasks give one fixed volume very precisely. A burette gives any volume; a burette marked every $\\pu{0.1 cm3}$ is read to $\\pu{0.05 cm3}$. Measuring cylinders are quick but much less precise."
+        },
+        {
+          "type": "text",
+          "text": "Read each scale at the bottom of the meniscus (the curved liquid surface), with your eye level with it. Reading from above or below gives a parallax error. For a dark solution, such as manganate(VII), read the top instead."
+        },
+        {
+          "type": "figure",
+          "id": "7-1-burette-meniscus",
+          "alt": "Close-up of part of a burette scale from 23.0 at the top to 24.0 at the bottom, with a mark every 0.1 cubic centimetres. The liquid surface curves down in the middle, forming a meniscus. The bottom of the meniscus sits exactly halfway between the 23.4 and 23.5 marks. An eye on the left looks along a dashed horizontal line level with the bottom of the meniscus. The reading is 23.45 cubic centimetres.",
+          "caption": "Burette numbers increase downwards. Halfway between two marks is recorded as $\\pu{23.45 cm3}$."
+        },
+        {
+          "type": "text",
+          "text": "For time, a stopwatch shows $\\pu{0.01 s}$, but when timing by hand, your reaction time of a few tenths of a second is the real limit."
+        },
+        {
+          "type": "text",
+          "text": "For temperature, read a thermometer to half its smallest division, or use a digital probe. Keep the bulb in the liquid, stir, and wait for a steady reading."
+        },
+        {
+          "type": "text",
+          "text": "For length, a ruler reads to the nearest millimetre."
+        },
+        {
+          "type": "text",
+          "text": "For pH, universal indicator gives only a rough value. A pH meter is more precise, and accurate once calibrated with buffer solutions of known pH."
+        },
+        {
+          "type": "text",
+          "text": "For current, an ammeter goes in series. A voltmeter goes in parallel, across the cell. Its high resistance means it draws almost no current."
+        },
+        {
+          "type": "example",
+          "id": "ex-titre-from-readings",
+          "question": "In a titration, the burette reads $\\pu{3.85 cm3}$ at the start and $\\pu{27.40 cm3}$ at the end. Calculate the titre (the volume added).",
+          "steps": [
+            "Titre = final reading $-$ initial reading = $27.40 - 3.85$.",
+            "Keep two decimal places: write $23.55$, not $23.6$."
+          ],
+          "answer": "$\\text{titre} = \\pu{23.55 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "27.40 - 3.85",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-meter-method",
+          "question": "Outline how a student should use a pH meter to measure the pH of a sample of lemon juice accurately.",
+          "steps": [
+            "A meter must be checked against known values before you trust it.",
+            "Rinse the electrode between solutions, and wait for the reading to settle."
+          ],
+          "answer": "Calibrate the pH meter using buffer solutions of known pH. Rinse the electrode with deionized water before placing it in the lemon juice. Wait until the reading is steady before recording it. Record the temperature too, because pH depends on temperature.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "calibrate with buffers, rinse with deionized water, record a steady reading",
+            "requires": [
+              [
+                "calibrate",
+                "calibration"
+              ],
+              "buffer",
+              "rinse",
+              [
+                "deionized",
+                "distilled"
+              ],
+              [
+                "steady",
+                "stable"
+              ]
+            ],
+            "forbids": [
+              "universal indicator"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-burette-record",
+          "prompt": "The bottom of the meniscus in a burette is exactly halfway between the $18.3$ and $18.4$ marks. What reading, in $\\pu{cm3}$, should be recorded?",
+          "hint": "A burette is read to the nearest $\\pu{0.05 cm3}$.",
+          "explain": "Halfway between marks $\\pu{0.1 cm3}$ apart gives a reading ending in 5: $\\pu{18.35 cm3}$, to two decimal places.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(18.3 + 18.4)/2",
+            "dp": 2
+          },
+          "answer": {
+            "value": 18.35,
+            "tolerance": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-voltmeter",
+          "prompt": "How should a voltmeter be connected to measure the potential difference of a voltaic cell?",
+          "hint": "A voltmeter compares two points, and it should not let the cell's current flow through it.",
+          "options": [
+            {
+              "text": "in parallel across the cell, with a high resistance",
+              "correct": true
+            },
+            {
+              "text": "in series with the cell, with a low resistance",
+              "correct": false
+            },
+            {
+              "text": "in parallel across the cell, with a low resistance",
+              "correct": false
+            },
+            {
+              "text": "in series with the cell, with a high resistance",
+              "correct": false
+            }
+          ],
+          "explain": "It goes across the cell, in parallel. Its high resistance lets almost no current flow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in parallel across the cell, with a high resistance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "solutions",
+      "heading": "Solutions, titrations and cells",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[standard-solution|standard solution]] has an accurately known concentration ({{lesson:1.8}})."
+        },
+        {
+          "type": "text",
+          "text": "For a [[dilution|dilution]], pipette a known volume of stock solution into a volumetric flask and make it up to the mark. The amount of solute is unchanged, so $C_1V_1 = C_2V_2$."
+        },
+        {
+          "type": "text",
+          "text": "Drying to constant mass makes sure all the water is gone. Heat, cool in a desiccator (so the solid can't reabsorb water), and weigh. Repeat until two successive masses agree within the balance's precision."
+        },
+        {
+          "type": "text",
+          "text": "In a [[titration|titration]], one solution is added from a burette to a pipetted volume of another. Do a rough titre, then accurate ones, adding dropwise near the [[end-point|end point]] and swirling over a white tile."
+        },
+        {
+          "type": "text",
+          "text": "Repeat until you have concordant titres, within $\\pu{0.10 cm3}$ of each other, and average only those."
+        },
+        {
+          "type": "text",
+          "text": "Acid–base titrations use an indicator, or a pH probe. Redox titrations may not need one: purple manganate(VII), $\\ce{MnO4^-}$, added from the burette is decolourized as it reacts, so the first lasting pale pink marks the end point."
+        },
+        {
+          "type": "text",
+          "text": "In [[calorimetry|calorimetry]], a reaction changes the temperature of a known mass of water or solution, in an insulated, lidded cup or, for a fuel, a can above the flame. $Q = mc\\Delta T$ then uses the [[specific-heat-capacity|specific heat capacity]] of water ({{lesson:4.1}})."
+        },
+        {
+          "type": "text",
+          "text": "A voltaic cell has two half-cells joined by a wire and a salt bridge. Clean the metal electrodes with sandpaper and use a high-resistance voltmeter. An electrolytic cell needs a DC power supply, often with an ammeter in series."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrate-mass",
+          "question": "A student needs $\\pu{100.0 cm3}$ of $\\pu{0.0600 mol dm-3}$ copper(II) sulfate solution, made from blue crystals of $\\ce{CuSO4*5H2O}$. Calculate the mass of crystals to weigh out, to three significant figures.",
+          "steps": [
+            "Amount needed: $n = CV = 0.0600 \\times 0.1000 = \\pu{0.00600 mol}$.",
+            "The crystals contain water, so use the hydrate's molar mass. With $A_\\text{r}$ values from the data booklet (section 7), $M = \\pu{249.72 g mol-1}$.",
+            "$m = nM = 0.00600 \\times 249.72 = \\pu{1.498 g}$.",
+            "The anhydrous molar mass, $\\pu{159.62 g mol-1}$, would give $\\pu{0.958 g}$: too little solute."
+          ],
+          "answer": "$m \\approx \\pu{1.50 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.0600*100.0/1000*Mr('CuSO4·5H2O')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-solution-method",
+          "question": "Outline how the student should turn the weighed crystals into $\\pu{100.0 cm3}$ of standard solution.",
+          "steps": [
+            "Every step must keep all the solute and give exactly $\\pu{100.0 cm3}$.",
+            "Name the water (deionized or distilled) and the glassware (a volumetric flask)."
+          ],
+          "answer": "Dissolve the crystals in a little deionized water in a beaker. Transfer the solution to a $\\pu{100.0 cm3}$ volumetric flask. Rinse the beaker and stirring rod with deionized water into the flask so no solute is lost. Add deionized water until the bottom of the meniscus is on the mark. Stopper the flask and invert it several times to mix.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "dissolve, transfer with rinsings to a volumetric flask, make up to the mark with deionized water, invert",
+            "requires": [
+              [
+                "deionized",
+                "distilled"
+              ],
+              "volumetric flask",
+              "rinse",
+              "mark",
+              "invert"
+            ],
+            "forbids": [
+              "tap water",
+              "measuring cylinder"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dilution-volume",
+          "prompt": "What volume of $\\pu{0.0600 mol dm-3}$ copper(II) sulfate solution, in $\\pu{cm3}$, must be diluted to make $\\pu{100.0 cm3}$ of $\\pu{0.0150 mol dm-3}$ solution? Give 3 significant figures.",
+          "hint": "Use $C_1V_1 = C_2V_2$ and solve for $V_1$.",
+          "answer": {
+            "value": 25.0,
+            "tolerance": 0.05
+          },
+          "explain": "$V_1 = \\frac{0.0150 \\times 100.0}{0.0600} = \\pu{25.0 cm3}$. Pipette it into a $\\pu{100.0 cm3}$ volumetric flask and make up to the mark.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0150*100.0/0.0600",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-concordant-mean",
+          "prompt": "A student's titres are $\\pu{22.80 cm3}$ (rough), $\\pu{22.15 cm3}$, $\\pu{22.40 cm3}$ and $\\pu{22.25 cm3}$. Calculate the mean of the concordant titres, in $\\pu{cm3}$, to 2 decimal places.",
+          "hint": "Leave out the rough titre, and any titre more than $\\pu{0.10 cm3}$ from the others.",
+          "answer": {
+            "value": 22.2,
+            "tolerance": 0.005
+          },
+          "explain": "$22.15$ and $22.25$ agree within $\\pu{0.10 cm3}$; $22.40$ does not. Mean $= \\frac{22.15 + 22.25}{2} = \\pu{22.20 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(22.15 + 22.25)/2",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "separating",
+      "heading": "Separating, purifying and identifying",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To separate a [[mixture|mixture]], use a property its parts don't share. Filtration removes an insoluble solid from a liquid; evaporation recovers a dissolved solid."
+        },
+        {
+          "type": "text",
+          "text": "[[distillation|Distillation]] separates liquids with different boiling points, or a solvent from a solution. The vapour condenses in a sloping condenser and is collected."
+        },
+        {
+          "type": "text",
+          "text": "[[reflux|Reflux]] heats a reaction for a long time. The condenser stands upright, so volatile substances condense and drip back instead of escaping ({{lesson:6.12}})."
+        },
+        {
+          "type": "text",
+          "text": "Paper or thin-layer [[chromatography|chromatography]] separates and identifies components. Spot the sample on a pencil baseline above the solvent, and cover the container. Compare each [[retardation-factor|retardation factor]], $R_\\text{F}$, with known substances run in the same conditions."
+        },
+        {
+          "type": "text",
+          "text": "[[recrystallization|Recrystallization]] purifies a solid. Choose a solvent that dissolves it well when hot but poorly when cold. Dissolve it in the minimum of hot solvent, and let it cool slowly. The product crystallizes while soluble impurities stay dissolved. Filter, wash with a little cold solvent, and dry."
+        },
+        {
+          "type": "text",
+          "text": "Melting point determination tests purity. A pure solid melts sharply at its data value. Impurities lower the melting point and widen the range."
+        },
+        {
+          "type": "definition",
+          "term": "colorimetry",
+          "statement": "Measuring the absorbance of a coloured solution for light of a chosen colour, then using a calibration curve of standard solutions to find its concentration.",
+          "plain": "The more strongly coloured the solution, the more light it absorbs."
+        },
+        {
+          "type": "text",
+          "text": "Use light of the colour the solution absorbs most, such as orange-red light for a blue solution. Zero the instrument with a blank of solvent, measure the standards, then the sample. A spectrophotometer does the same at one exact wavelength."
+        },
+        {
+          "type": "text",
+          "text": "Molecular modelling, with ball-and-stick kits or software, shows molecules in three dimensions. Use it to see shapes and bond angles and to compare isomers."
+        },
+        {
+          "type": "example",
+          "id": "ex-melting-point-purity",
+          "question": "A student recrystallizes benzoic acid from water. Explain how measuring its melting point shows whether the product is pure.",
+          "steps": [
+            "Compare the measured melting point with the data value.",
+            "Give what a pure solid does, then both effects of impurities."
+          ],
+          "answer": "Measure the melting point and compare it with the literature value. A pure solid melts sharply, over a narrow range, at that value. Impurities lower the melting point and make the solid melt over a wider range. So a sharp melting point matching the literature value suggests the product is pure.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pure: sharp, at the literature value; impure: lower and over a wider range",
+            "requires": [
+              [
+                "literature value",
+                "data value"
+              ],
+              [
+                "sharply",
+                "narrow range"
+              ],
+              "lower the melting point",
+              [
+                "wider range",
+                "broader range"
+              ]
+            ],
+            "forbids": [
+              "raise the melting point",
+              "higher melting point"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-colorimetry-concentration",
+          "question": "A plating bath's copper(II) ion concentration is found by colorimetry. $\\pu{10.00 cm3}$ of bath liquid is diluted to $\\pu{100.0 cm3}$. The calibration line is $A = 11.6c$ ($c$ in $\\pu{mol dm-3}$), and the diluted solution has $A = 0.348$. Calculate the concentration in the bath.",
+          "steps": [
+            "Diluted solution: $c = \\frac{0.348}{11.6} = \\pu{0.0300 mol dm-3}$.",
+            "The bath liquid was diluted from $\\pu{10.00 cm3}$ to $\\pu{100.0 cm3}$, a factor of 10, so multiply by 10.",
+            "$c = 0.0300 \\times 10 = \\pu{0.300 mol dm-3}$. Diluting first keeps the absorbance within the range of the standards."
+          ],
+          "answer": "$c \\approx \\pu{0.300 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.348/11.6)*(100.0/10.00)",
+            "sf": 3,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-water-from-salt",
+          "prompt": "Which technique recovers pure water from salt solution?",
+          "hint": "The salt is dissolved, so it passes through filter paper. What property of water could you use?",
+          "options": [
+            {
+              "text": "distillation",
+              "correct": true
+            },
+            {
+              "text": "filtration",
+              "correct": false
+            },
+            {
+              "text": "recrystallization",
+              "correct": false
+            },
+            {
+              "text": "reflux",
+              "correct": false
+            }
+          ],
+          "explain": "Water boils off and condenses, leaving the salt behind. Filtration fails because dissolved salt passes through the paper, and reflux returns the vapour, so it separates nothing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "distillation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rf-ruler",
+          "prompt": "On a chromatogram, a spot is $\\pu{3.6 cm}$ from the baseline and the solvent front is $\\pu{8.0 cm}$ from the baseline. Calculate $R_\\text{F}$ to 2 decimal places.",
+          "hint": "$R_\\text{F}$ is the spot's distance divided by the solvent front's distance, both from the baseline.",
+          "answer": {
+            "value": 0.45,
+            "tolerance": 0.005
+          },
+          "explain": "$R_\\text{F} = \\frac{3.6}{8.0} = 0.45$. It has no unit, because the two lengths divide.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.6/8.0",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Hazard: what could cause harm. Risk: how likely and serious it is, the way you work. Match each control measure to its hazard.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Read at the bottom of the meniscus (the top for dark solutions), eye level. Burettes: two decimal places, to the nearest $\\pu{0.05 cm3}$. Calibrate pH meters with buffers. Ammeter in series, voltmeter in parallel.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Standard solution: weigh, dissolve in deionized water, transfer with rinsings to a volumetric flask, make up to the mark, invert.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Average only concordant titres (within $\\pu{0.10 cm3}$). Dry to constant mass: repeat until two masses agree.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Distillation collects the vapour; reflux returns it. Impurities lower a melting point and widen its range.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Colorimetry: zero with a blank, plot a calibration curve from standards, read the unknown's concentration from its absorbance.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing just \"water\" in a method. Tap water adds ions, so say deionized or distilled water.",
+    "Giving a burette or pipette only a water rinse before filling it. Water left inside dilutes the solution, so finish by rinsing each with the solution it will hold.",
+    "Vague environmental answers such as \"it pollutes water\". Name the specific harm.",
+    "Saying impurities raise the melting point. They lower it and widen the melting range.",
+    "Using the anhydrous molar mass for a hydrated solid. Include the water of crystallization in $M$."
+  ],
+  "examTips": [
+    "\"Suggest\" a precaution: name the specific hazard and the measure that controls it, such as a fume cupboard for a toxic gas. \"Wear goggles\" alone is too general.",
+    "\"Outline\" a method: give the steps in order, name the apparatus (volumetric flask, pipette, burette) and the key detail, such as making up to the mark with deionized water.",
+    "Record each reading to the instrument's precision, with its unit. Trailing zeros count: $\\pu{25.00 cm3}$ from a pipette, not $\\pu{25 cm3}$."
+  ],
+  "readingMinutes": 25
+}

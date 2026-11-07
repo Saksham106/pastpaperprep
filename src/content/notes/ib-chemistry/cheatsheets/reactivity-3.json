@@ -1,0 +1,79 @@
+{
+  "lines": [
+    {
+      "text": "Asked for the pH of a strong base → $[\\ce{OH^-}]$ from its formula, $[\\ce{H^+}] = K_\\mathrm{w}/[\\ce{OH^-}]$, then $\\mathrm{pH} = -\\log_{10}[\\ce{H^+}]$ ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Titre given, unknown concentration asked → $n = cV$ for the known solution, use the mole ratio, divide by the unknown's volume ({{lesson:6.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "pH of a weak acid from $K_\\mathrm{a}$ and $c$ → $[\\ce{H^+}] \\approx \\sqrt{K_\\mathrm{a} \\times c}$; for a weak base find $[\\ce{OH^-}]$ the same way, then $\\mathrm{pH} = 14.00 - \\mathrm{pOH}$ at 298 K ({{lesson:6.4}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Choose an indicator for a titration → predict the equivalence-point pH from the salt formed, then pick an indicator whose range falls in the steep part of the curve, ideally around that pH ({{lesson:6.5}}, {{lesson:6.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "pH of a buffer, or after acid or alkali is added to one → react the addition first in moles, then $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} + \\log_{10}\\frac{[\\ce{A^-}]}{[\\ce{HA}]}$ ({{lesson:6.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Asked to balance a redox half-equation in acid → balance the atom that changes oxidation state, then O with $\\ce{H2O}$, H with $\\ce{H+}$, and charge with $\\ce{e-}$ ({{lesson:6.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Asked to identify an electrode or give its sign → name it from the reaction (oxidation = anode, reduction = cathode), then the sign from the cell type: anode $-$ in a voltaic cell, $+$ in an electrolytic cell ({{lesson:6.10}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Asked for the product of oxidizing an alcohol → classify it first: primary gives an aldehyde (distil off) then a carboxylic acid (reflux, excess oxidizing agent); secondary gives a ketone; tertiary resists oxidation ({{lesson:6.12}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Asked whether a redox reaction is spontaneous → find the species reduced as written, take its half-cell as the cathode, and use $E^\\ominus_\\text{cell} = E^\\ominus_\\text{cathode} - E^\\ominus_\\text{anode}$; positive means spontaneous under standard conditions ({{lesson:6.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Asked for the products of electrolysing a solution with inert electrodes → compare each ion with water: at the cathode the more positive $E^\\ominus$ is reduced (water $\\pu{-0.83 V}$), at the anode the less positive is oxidized (water $\\pu{+1.23 V}$); concentrated chloride gives chlorine ({{lesson:6.14}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Asked whether a species is a radical → count its electrons, allowing for charge; an odd total means an unpaired electron ({{lesson:6.15}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Asked to identify the nucleophile and electrophile → find the species that donates an electron pair (a lone pair or a $\\ce{C=C}$ π pair); the species that accepts it is the electrophile ({{lesson:6.16}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Asked for the charge on a complex ion → charge of the metal ion plus the sum of the ligand charges ({{lesson:6.17}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Halogenoalkane rate data → rate independent of $[\\ce{Nu^-}]$ means SN1, rate $= k[\\text{RX}]$; first order in both means SN2, rate $= k[\\text{RX}][\\ce{Nu^-}]$ ({{lesson:6.18}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Major product of HX or water adding to an unsymmetrical alkene → compare the two possible carbocations; the more stable one (tertiary > secondary > primary) gives the major product ({{lesson:6.19}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

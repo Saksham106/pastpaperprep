@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t">
+  <title id="t">Graph of the Gibbs energy of a reaction mixture against its composition, from pure reactants on the left to pure products on the right. The curve starts high on the left, falls to a minimum about two thirds of the way across, then rises a little to the right end, which is lower than the left end. The minimum is labelled equilibrium, where the slope is zero and delta G equals zero. Left of the minimum the curve slopes down towards it, labelled delta G negative, forward reaction spontaneous. Right of the minimum it slopes up away from it, labelled delta G positive, reverse reaction spontaneous. The drop from the left end to the right end is labelled delta G standard.</title>
+  <path d="M60 265 V29" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="60,20 55.5,29 64.5,29" fill="currentColor"/>
+  <path d="M60 265 H450" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="22" y="145" text-anchor="middle" transform="rotate(-90 22 145)">Gibbs energy of the mixture, G</text>
+    <text x="70" y="282" text-anchor="middle">pure reactants</text>
+    <text x="430" y="282" text-anchor="middle">pure products</text>
+    <text x="250" y="296" text-anchor="middle">composition of the mixture</text>
+  </g>
+  <g fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4">
+    <path d="M70 70 H475"/>
+    <path d="M430 150 H475"/>
+    <path d="M300 200 V265"/>
+  </g>
+  <path d="M70 70 C150 170 230 200 300 200 C360 200 400 185 430 150" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <circle cx="300" cy="200" r="4.5" fill="var(--t3-ink)"/>
+  <path d="M468 74 V141" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+  <polygon points="468,148 463.5,139 472.5,139" fill="var(--t2-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="478" y="115" fill="var(--t2-ink)">ΔG⦵</text>
+    <text x="308" y="224" fill="var(--t3-ink)">equilibrium</text>
+    <text x="308" y="240" fill="var(--t3-ink)">slope 0, ΔG = 0</text>
+    <text x="160" y="104" fill="currentColor">ΔG &lt; 0:</text>
+    <text x="160" y="120" fill="currentColor">forward reaction</text>
+    <text x="160" y="136" fill="currentColor">spontaneous</text>
+    <text x="330" y="104" fill="currentColor">ΔG &gt; 0:</text>
+    <text x="330" y="120" fill="currentColor">reverse</text>
+    <text x="330" y="136" fill="currentColor">spontaneous</text>
+  </g>
+</svg>

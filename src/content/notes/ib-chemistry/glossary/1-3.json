@@ -1,0 +1,44 @@
+[
+  {
+    "id": "photon",
+    "term": "photon",
+    "definition": "A single packet of electromagnetic radiation; its energy depends only on its frequency, $E = hf$, so higher-frequency light comes in more energetic photons.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "wavelength",
+    "term": "wavelength",
+    "definition": "The distance from one peak of a wave to the next, symbol $\\lambda$; for electromagnetic radiation a longer wavelength means a lower frequency and less energy per photon.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "line-spectrum",
+    "term": "line spectrum",
+    "definition": "A spectrum made of separate lines at only certain wavelengths, with gaps between them, instead of an unbroken band of colours.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "emission-spectrum",
+    "term": "emission spectrum",
+    "definition": "The wavelengths of light given out by excited atoms as their electrons fall to lower energy levels; for a gaseous element it is a line spectrum that identifies the element.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "excited-state",
+    "term": "excited state",
+    "definition": "An atom in which an electron has absorbed energy and moved up to a higher energy level than it occupies in the lowest-energy (ground) state.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "energy-level",
+    "term": "energy level",
+    "definition": "One of the fixed energies an electron in an atom can have; the main energy levels are numbered $n = 1, 2, 3, \\dots$ outwards from the nucleus, and level $n$ holds at most $2n^{2}$ electrons.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "convergence",
+    "term": "convergence",
+    "definition": "The way the lines in an emission spectrum get closer and closer together towards higher frequency (shorter wavelength), until they merge at a limit.",
+    "lesson": "1.3"
+  }
+]

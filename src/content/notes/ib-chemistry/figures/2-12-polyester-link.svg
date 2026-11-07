@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 260" role="img" aria-labelledby="t">
+  <title id="t">Forming a polyester. Top row: a dicarboxylic acid, HO, then a carbon with a double-bonded oxygen, then a group R, then a second carbon with a double-bonded oxygen, then OH, plus a diol, H, O, a group R prime, O, H. The OH at each end of the acid and the H at each end of the diol are highlighted as the atoms that leave. A downward arrow labelled minus 2 water molecules leads to the bottom row: the repeating unit, an open bond, a carbon with a double-bonded oxygen, R, a carbon with a double-bonded oxygen, an oxygen, R prime, an oxygen and an open bond, plus 2 water molecules. The carbon with its double-bonded oxygen and the oxygen next to it are boxed and labelled ester link.</title>
+  <g font-size="18" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="76" y="90">C</text>
+    <text x="76" y="44">O</text>
+    <text x="114" y="90">R</text>
+    <text x="152" y="90">C</text>
+    <text x="152" y="44">O</text>
+    <text x="232" y="90">+</text>
+    <text x="296" y="90">O</text>
+    <text x="338" y="90">R′</text>
+    <text x="380" y="90">O</text>
+    <text x="70" y="215">C</text>
+    <text x="70" y="169">O</text>
+    <text x="108" y="215">R</text>
+    <text x="146" y="215">C</text>
+    <text x="146" y="169">O</text>
+    <text x="226" y="215">R′</text>
+    <text x="268" y="215">O</text>
+  </g>
+  <g font-size="18" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">
+    <text x="34" y="90">HO</text>
+    <text x="194" y="90">OH</text>
+    <text x="262" y="90">H</text>
+    <text x="416" y="90">H</text>
+    <text x="390" y="215">+ 2H<tspan baseline-shift="sub" font-size="13">2</tspan>O</text>
+  </g>
+  <text x="184" y="215" font-size="18" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">O</text>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <path d="M50 84 H66"/>
+    <path d="M86 84 H104"/>
+    <path d="M124 84 H142"/>
+    <path d="M162 84 H178"/>
+    <path d="M270 84 H286"/>
+    <path d="M306 84 H324"/>
+    <path d="M352 84 H370"/>
+    <path d="M390 84 H406"/>
+    <path d="M73 72 V50"/>
+    <path d="M79 72 V50"/>
+    <path d="M149 72 V50"/>
+    <path d="M155 72 V50"/>
+    <path d="M22 209 H60"/>
+    <path d="M80 209 H98"/>
+    <path d="M118 209 H136"/>
+    <path d="M156 209 H174"/>
+    <path d="M194 209 H212"/>
+    <path d="M240 209 H258"/>
+    <path d="M278 209 H316"/>
+    <path d="M67 197 V175"/>
+    <path d="M73 197 V175"/>
+    <path d="M143 197 V175"/>
+    <path d="M149 197 V175"/>
+  </g>
+  <rect x="128" y="148" width="72" height="76" rx="8" fill="none" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <path d="M232 110 V140" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="232,150 226.5,139 237.5,139" fill="currentColor"/>
+  <g font-size="13" font-family="inherit">
+    <text x="244" y="134" fill="var(--t1-ink)">− 2H<tspan baseline-shift="sub" font-size="10">2</tspan>O</text>
+    <text x="114" y="118" fill="var(--muted)" text-anchor="middle">dicarboxylic acid</text>
+    <text x="338" y="118" fill="var(--muted)" text-anchor="middle">diol</text>
+    <text x="164" y="244" fill="var(--t2-ink)" text-anchor="middle">ester link</text>
+  </g>
+</svg>

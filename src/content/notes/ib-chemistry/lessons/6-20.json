@@ -1,0 +1,605 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.20",
+  "slug": "electrophilic-substitution-of-benzene",
+  "title": "Electrophilic substitution of benzene",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "Benzene's ring of [[delocalized-electrons|delocalized electrons]] attracts [[electrophile|electrophiles]], but benzene does not add them as alkenes do. It undergoes [[electrophilic-substitution|electrophilic substitution]]: an electrophile replaces a hydrogen atom, so the stable ring survives. The mechanism has two steps, through a [[carbocation|carbocation]] intermediate.",
+  "goals": [
+    {
+      "text": "Explain why benzene reacts with electrophiles by substitution, not addition.",
+      "bullets": [
+        "R3.4.13"
+      ]
+    },
+    {
+      "text": "Draw and explain the two-step mechanism for benzene and an electrophile $\\ce{E^+}$, with [[curly-arrow|curly arrows]] and the intermediate.",
+      "bullets": [
+        "R3.4.13"
+      ]
+    },
+    {
+      "text": "Describe the acid–base role of nitric acid in the nitrating mixture that makes $\\ce{NO2^+}$.",
+      "bullets": [
+        "R3.4.13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "2.8",
+    "6.15",
+    "6.16",
+    "6.17",
+    "6.18"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "benzene mechanism",
+    "nitration of benzene",
+    "electrophilic aromatic substitution",
+    "why benzene does not undergo addition",
+    "nitronium ion",
+    "arenium ion intermediate"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-benzene-electrons",
+      "prompt": "How many electrons are delocalized in one benzene ring?",
+      "hint": "Each Kekulé structure has three $\\ce{C=C}$ bonds, and each π bond holds two electrons.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "Three π bonds of two electrons each: six electrons, spread over all six carbons. Revise it in {{lesson:2.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-electrophile-role",
+      "prompt": "What does an electrophile do when it reacts?",
+      "hint": "Electrophile means electron-loving.",
+      "options": [
+        {
+          "text": "Accepts an electron pair",
+          "correct": true
+        },
+        {
+          "text": "Donates an electron pair",
+          "correct": false
+        },
+        {
+          "text": "Donates a proton",
+          "correct": false
+        },
+        {
+          "text": "Gives away an unpaired electron",
+          "correct": false
+        }
+      ],
+      "explain": "An electrophile accepts a pair of electrons to form a new bond. Donating a pair is what a nucleophile does. Revise it in {{lesson:6.16}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Accepts an electron pair"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-carbocation-bonds",
+      "prompt": "How many bonds does the positive carbon in a carbocation have?",
+      "hint": "It is a carbon short of one electron pair.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "It has three bonds and a positive charge. Revise it in {{lesson:6.18}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4-1",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "why-substitution",
+      "heading": "Why benzene substitutes rather than adds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.8}} you met benzene, $\\ce{C6H6}$, the simplest [[aromatic-compound|aromatic compound]]. It is a flat ring of six carbons, each bonded to one hydrogen atom."
+        },
+        {
+          "type": "text",
+          "text": "Its real structure is a hybrid of two [[resonance-structure|resonance structures]]. Six electrons are shared by all six carbons, above and below the ring. So we draw benzene as a hexagon with a circle."
+        },
+        {
+          "type": "text",
+          "text": "This cloud of negative charge attracts an [[electrophile|electrophile]]: a species that accepts an electron pair. Here it is a positive ion, written $\\ce{E^+}$."
+        },
+        {
+          "type": "text",
+          "text": "An alkene adds an electrophile across its $\\ce{C=C}$ bond ({{lesson:6.19}}). Benzene's formula looks just as unsaturated, yet it does not usually add. Addition would use up ring electrons for good, and the delocalized ring is far more stable than three separate $\\ce{C=C}$ bonds."
+        },
+        {
+          "type": "definition",
+          "term": "electrophilic substitution",
+          "statement": "A reaction in which an electrophile replaces a hydrogen atom on a benzene ring. The product keeps the delocalized ring.",
+          "plain": "Swap one H for E, and keep the ring."
+        },
+        {
+          "type": "text",
+          "text": "It is a [[substitution-reaction|substitution reaction]] because one atom swaps for another: $\\ce{C6H6 + E^+ -> C6H5E + H^+}$. The product still has its ring of six delocalized electrons."
+        },
+        {
+          "type": "example",
+          "id": "ex-why-not-addition",
+          "question": "Cyclohexene, $\\ce{C6H10}$, reacts with electrophiles by addition. Explain why benzene, $\\ce{C6H6}$, reacts with electrophiles by substitution instead.",
+          "steps": [
+            "Start from the structure: what is special about benzene's electrons?",
+            "Say what addition would do to them, and what substitution does."
+          ],
+          "answer": "Benzene has a ring of six delocalized electrons, shared over all six carbons. This delocalization makes the ring especially stable. Addition would use some of these electrons to make new bonds, so the delocalized ring would be lost. Substitution replaces a hydrogen atom and keeps the delocalized ring, so benzene keeps its stability. Cyclohexene has a localized $\\ce{C=C}$ bond, with no delocalization to lose.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Delocalized ring is extra stable; addition would destroy it, substitution keeps it.",
+            "requires": [
+              "delocalized",
+              [
+                "stable",
+                "stability"
+              ],
+              [
+                "would be lost",
+                "destroyed",
+                "disrupted"
+              ],
+              [
+                "keeps the delocalized ring",
+                "retains the delocalized ring"
+              ],
+              "replaces a hydrogen"
+            ],
+            "forbids": [
+              "benzene is saturated",
+              "has no double bonds so"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-chlorination-enthalpy",
+          "question": "With an aluminium chloride catalyst, benzene reacts with chlorine: $\\ce{C6H6(l) + Cl2(g) -> C6H5Cl(l) + HCl(g)}$. Calculate $\\Delta H^\\ominus$, in $\\pu{kJ mol-1}$, using section 13 of the data booklet.",
+          "steps": [
+            "$\\Delta H_\\text{f}^\\ominus$ values (data booklet, section 13), in $\\pu{kJ mol-1}$: $\\ce{C6H6(l)}$ $+49$, $\\ce{C6H5Cl(l)}$ $+11$, $\\ce{HCl(g)}$ $-92$. $\\ce{Cl2(g)}$ is an element, so $0$.",
+            "$\\Delta H^\\ominus = \\sum \\Delta H_\\text{f}^\\ominus(\\text{products}) - \\sum \\Delta H_\\text{f}^\\ominus(\\text{reactants}) = (11 + (-92)) - (49 + 0)$.",
+            "The answer is negative, so this substitution is exothermic."
+          ],
+          "answer": "$\\Delta H^\\ominus = \\pu{-130 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Hf('C6H5Cl(l)') + Hf('HCl(g)')) - (Hf('C6H6(l)') + 0)",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-is-replaced",
+          "prompt": "When benzene reacts with an electrophile, what does the electrophile replace?",
+          "hint": "Compare $\\ce{C6H6}$ with the product $\\ce{C6H5E}$.",
+          "options": [
+            {
+              "text": "A hydrogen atom",
+              "correct": true
+            },
+            {
+              "text": "A carbon atom",
+              "correct": false
+            },
+            {
+              "text": "Nothing: it adds across a double bond",
+              "correct": false
+            },
+            {
+              "text": "The whole delocalized ring",
+              "correct": false
+            }
+          ],
+          "explain": "One H leaves as $\\ce{H^+}$ and E takes its place. The six-carbon ring and its delocalized electrons stay.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A hydrogen atom"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-addition-loses",
+          "prompt": "If bromine added across benzene's ring, as it does to an alkene, what would be lost?",
+          "hint": "What makes benzene unusually stable?",
+          "options": [
+            {
+              "text": "The delocalized ring of electrons",
+              "correct": true
+            },
+            {
+              "text": "All six C–H bonds",
+              "correct": false
+            },
+            {
+              "text": "The ring of six carbon atoms",
+              "correct": false
+            },
+            {
+              "text": "The C–C σ bonds",
+              "correct": false
+            }
+          ],
+          "explain": "Addition would turn some delocalized electrons into ordinary single bonds, so the stable delocalized ring would go. The carbon ring, its σ bonds and all six C–H bonds would remain.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The delocalized ring of electrons"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mechanism",
+      "heading": "The mechanism with $\\ce{E^+}$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You need to draw how a positive electrophile, $\\ce{E^+}$, attacks benzene. It happens in two steps."
+        },
+        {
+          "type": "text",
+          "text": "Step 1. A [[curly-arrow|curly arrow]] starts at the circle and ends at E. Two of the six delocalized electrons form a new C–E bond."
+        },
+        {
+          "type": "text",
+          "text": "That carbon now has four single bonds: to E, to H and to two ring carbons. It drops out of the delocalized system. The other four electrons spread over five carbons, which share the positive charge."
+        },
+        {
+          "type": "text",
+          "text": "This positive ion is a [[carbocation|carbocation]] intermediate. Draw its ring as a broken circle (a horseshoe) over five carbons, open towards the carbon with H and E, and put a + inside."
+        },
+        {
+          "type": "text",
+          "text": "Step 2. A curly arrow goes from the C–H bond into the ring. Those two electrons rejoin the delocalized system, which is complete again, and $\\ce{H^+}$ leaves."
+        },
+        {
+          "type": "figure",
+          "id": "6-20-mechanism",
+          "alt": "Two-step mechanism. Left: benzene drawn as a hexagon with a circle, and an electrophile E plus. A curly arrow goes from the circle to E. A reaction arrow labelled step 1, slow, leads to the intermediate in square brackets: a hexagon whose top carbon is bonded to both H and E, with a broken circle covering the other five carbons and a plus sign inside it. A curly arrow goes from the C–H bond into the ring. A reaction arrow labelled step 2, fast, leads to the product: a hexagon with a full circle and E on the top carbon, plus H plus.",
+          "caption": "Electrophilic substitution of benzene by $\\ce{E^+}$."
+        },
+        {
+          "type": "text",
+          "text": "Step 1 is slow, because the ring loses its delocalization. Step 2 is fast, because the stable ring comes back."
+        },
+        {
+          "type": "text",
+          "text": "In step 1 benzene donates an electron pair, so it acts as a [[lewis-base|Lewis base]]. $\\ce{E^+}$ accepts the pair, so it acts as a [[lewis-acid|Lewis acid]] ({{lesson:6.17}})."
+        },
+        {
+          "type": "mistake",
+          "text": "Closing the circle in the intermediate. The carbon bonded to H and E is outside the delocalized system, so the broken ring covers only five carbons."
+        },
+        {
+          "type": "example",
+          "id": "ex-nitration-mechanism",
+          "question": "Benzene reacts with the nitronium ion, $\\ce{NO2^+}$, to give nitrobenzene, $\\ce{C6H5NO2}$. Describe the mechanism, including the curly arrows and the intermediate.",
+          "steps": [
+            "Here E is the $\\ce{NO2}$ group, and the ring bonds to its nitrogen atom.",
+            "Give each step: where each arrow starts and ends, then what forms."
+          ],
+          "answer": "In step 1, a curly arrow goes from the delocalized ring of benzene to the nitrogen atom of $\\ce{NO2^+}$, and a C–N bond forms. This gives a carbocation intermediate: the carbon bonded to H and $\\ce{NO2}$ is outside the delocalized system, and a broken ring with a positive charge covers the other five carbons. In step 2, a curly arrow goes from the C–H bond into the ring. A hydrogen ion is lost, the delocalized ring is restored and nitrobenzene forms.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Arrow from ring to N of NO2+; carbocation with broken ring and + over five carbons; arrow from C–H into ring; H+ lost, ring restored.",
+            "requires": [
+              "delocalized ring",
+              "nitrogen atom",
+              "carbocation intermediate",
+              "positive charge",
+              "C-H bond",
+              [
+                "hydrogen ion is lost",
+                "loses a hydrogen ion"
+              ],
+              "restored"
+            ],
+            "forbids": [
+              "radical",
+              "from the hydrogen atom",
+              "addition"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bromination-step1",
+          "question": "Benzene reacts with the electrophile $\\ce{Br^+}$. Write an equation for step 1, giving the formula of the intermediate.",
+          "steps": [
+            "In step 1 nothing leaves: $\\ce{Br^+}$ bonds to the ring, and all six H atoms are still there.",
+            "The intermediate holds 6 C, 6 H and 1 Br, and carries the $+1$ charge."
+          ],
+          "answer": "$\\ce{C6H6 + Br^+ -> C6H6Br^+}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C6H6 + Br^+ -> C6H6Br^+",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-step2-arrow",
+          "prompt": "Where does the curly arrow in step 2 start?",
+          "hint": "Which bond breaks, and where do its electrons go?",
+          "options": [
+            {
+              "text": "At the C–H bond",
+              "correct": true
+            },
+            {
+              "text": "At the H atom",
+              "correct": false
+            },
+            {
+              "text": "At the positive charge",
+              "correct": false
+            },
+            {
+              "text": "At the C–E bond",
+              "correct": false
+            }
+          ],
+          "explain": "The C–H bond pair moves into the ring to restore it, and the H leaves as $\\ce{H^+}$. Arrows start at electrons (a bond or a lone pair), never at the H atom or the + sign.",
+          "verify": {
+            "kind": "choice",
+            "truth": "At the C–H bond"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-intermediate-electrons",
+          "prompt": "How many delocalized electrons does the carbocation intermediate have?",
+          "hint": "Benzene had six. How many did step 1 use for the new bond?",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "Two of the six went into the C–E bond, so four are left, spread over five carbons.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6-2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-benzene-lewis-base",
+          "prompt": "In step 1, what is benzene's role?",
+          "hint": "Benzene gives the electrons for the new bond.",
+          "options": [
+            {
+              "text": "Lewis base",
+              "correct": true
+            },
+            {
+              "text": "Lewis acid",
+              "correct": false
+            },
+            {
+              "text": "Electrophile",
+              "correct": false
+            },
+            {
+              "text": "Radical",
+              "correct": false
+            }
+          ],
+          "explain": "Benzene donates an electron pair to $\\ce{E^+}$, so it is a Lewis base. $\\ce{E^+}$ is the Lewis acid and the electrophile.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Lewis base"
+          }
+        }
+      ]
+    },
+    {
+      "id": "electrophile-source",
+      "heading": "Where the electrophile comes from",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You won't be asked for the mechanism that forms $\\ce{E^+}$. This section shows it so the mechanism makes sense, and because the acid–base roles in it can still be asked."
+        },
+        {
+          "type": "text",
+          "text": "To nitrate benzene, it is warmed with concentrated $\\ce{HNO3}$ and concentrated $\\ce{H2SO4}$. Sulfuric acid is the stronger acid, so it gives a proton to nitric acid."
+        },
+        {
+          "type": "text",
+          "text": "So here $\\ce{HNO3}$ acts as a [[brnsted-lowry-base|Brønsted–Lowry base]] ({{lesson:6.1}}). The protonated nitric acid, $\\ce{H2NO3^+}$, then loses water, leaving $\\ce{NO2^+}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-nitrating-mixture",
+          "question": "Write one overall equation for making $\\ce{NO2^+}$ from nitric and sulfuric acids, giving $\\ce{H3O^+}$ and $\\ce{HSO4^-}$ as the other products.",
+          "steps": [
+            "Proton transfer: $\\ce{HNO3 + H2SO4 -> H2NO3^+ + HSO4^-}$.",
+            "Loss of water: $\\ce{H2NO3^+ -> NO2^+ + H2O}$.",
+            "A second $\\ce{H2SO4}$ protonates that water: $\\ce{H2O + H2SO4 -> H3O^+ + HSO4^-}$. Add the three steps.",
+            "Check: 5 H, 1 N, 11 O and 2 S on each side; charge $0$ on each side."
+          ],
+          "answer": "$\\ce{HNO3 + 2H2SO4 -> NO2^+ + H3O^+ + 2HSO4^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HNO3 + H2SO4 -> NO2^+ + H3O^+ + HSO4^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nitric-acid-role",
+          "question": "Outline the acid–base role of nitric acid in the nitrating mixture, and how this produces the electrophile.",
+          "steps": [
+            "Decide which acid is stronger, and so which one donates the proton.",
+            "Follow the protonated nitric acid to $\\ce{NO2^+}$."
+          ],
+          "answer": "Sulfuric acid is a stronger acid than nitric acid, so it donates a proton to nitric acid. Nitric acid accepts the proton, so it acts as a Brønsted–Lowry base. The protonated nitric acid, $\\ce{H2NO3^+}$, then loses a water molecule to give the nitronium ion, $\\ce{NO2^+}$, which is the electrophile.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H2SO4 is the stronger acid and protonates HNO3, which acts as a base; H2NO3+ loses water to give NO2+.",
+            "requires": [
+              "stronger acid",
+              [
+                "accepts the proton",
+                "accepts a proton"
+              ],
+              [
+                "Lowry base",
+                "acts as a base"
+              ],
+              [
+                "loses a water molecule",
+                "loses water"
+              ],
+              "electrophile"
+            ],
+            "forbids": [
+              "nitric acid donates a proton",
+              "nitric acid acts as an acid"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The $\\ce{H^+}$ lost in step 2 joins $\\ce{HSO4^-}$, so the sulfuric acid is made again. It acts as a catalyst."
+        },
+        {
+          "type": "text",
+          "text": "For halogenation, a halogen carrier such as $\\ce{FeBr3}$ or $\\ce{AlCl3}$ is used. It accepts a lone pair from the halogen molecule, and the halogen–halogen bond breaks heterolytically: $\\ce{Br2 + FeBr3 -> Br^+ + FeBr4^-}$."
+        },
+        {
+          "type": "check",
+          "id": "check-febr3-role",
+          "prompt": "In $\\ce{Br2 + FeBr3 -> Br^+ + FeBr4^-}$, what is the role of $\\ce{FeBr3}$?",
+          "hint": "Which way does the electron pair move?",
+          "options": [
+            {
+              "text": "Lewis acid: it accepts an electron pair from bromine",
+              "correct": true
+            },
+            {
+              "text": "Lewis base: it donates an electron pair to bromine",
+              "correct": false
+            },
+            {
+              "text": "It splits Br–Br into two bromine radicals",
+              "correct": false
+            },
+            {
+              "text": "Brønsted–Lowry acid: it donates a proton",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{FeBr3}$ takes a lone pair from one Br atom to form $\\ce{FeBr4^-}$. The split is heterolytic, giving $\\ce{Br^+}$, not radicals. $\\ce{FeBr3}$ has no proton to give.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Lewis acid: it accepts an electron pair from bromine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sulfuric-catalyst",
+          "prompt": "In nitration, the $\\ce{H^+}$ lost in step 2 reacts with $\\ce{HSO4^-}$. What does this show about sulfuric acid?",
+          "hint": "Is sulfuric acid used up overall?",
+          "options": [
+            {
+              "text": "It is a catalyst",
+              "correct": true
+            },
+            {
+              "text": "It is the electrophile",
+              "correct": false
+            },
+            {
+              "text": "It is used up in the reaction",
+              "correct": false
+            },
+            {
+              "text": "It acts as a base",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{H^+ + HSO4^- -> H2SO4}$ remakes the acid used to form $\\ce{NO2^+}$, so it is a catalyst. The electrophile is $\\ce{NO2^+}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is a catalyst"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Benzene's delocalized ring attracts electrophiles. It undergoes substitution, not addition, because substitution keeps the stable ring.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Step 1: arrow from the ring to $\\ce{E^+}$; carbocation intermediate with a broken ring over five carbons and a + inside.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Step 2: arrow from C–H into the ring; $\\ce{H^+}$ lost, ring restored. Overall $\\ce{C6H6 + E^+ -> C6H5E + H^+}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Nitration: concentrated $\\ce{HNO3}$ and $\\ce{H2SO4}$ give $\\ce{NO2^+}$; nitric acid acts as a Brønsted–Lowry base.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving an addition product, such as a dibromo compound, for benzene. Benzene substitutes: one H is replaced and the ring stays.",
+    "Closing the circle in the intermediate, or leaving out its + charge. Draw a broken ring over five carbons with + inside.",
+    "Starting the step 2 arrow at the H atom or the + sign. It starts at the C–H bond and ends in the ring.",
+    "Forgetting $\\ce{H^+}$ as a product. Charge must balance: $\\ce{E^+}$ in, $\\ce{H^+}$ out.",
+    "Treating $\\ce{Cl2}$ or a chlorine radical as the species that attacks benzene. It is a cation, such as $\\ce{Cl^+}$, that accepts the pair."
+  ],
+  "examTips": [
+    "\"Describe and explain\" the mechanism: marks go to the arrow from the ring to $\\ce{E^+}$, the intermediate with a broken ring and a + charge, the arrow from C–H into the ring, and the products including $\\ce{H^+}$.",
+    "\"Explain\" substitution rather than addition: name the delocalized electrons and their stability, then say addition would disrupt them while substitution keeps them.",
+    "Paper 1A may ask which species substitutes into benzene: choose the cation, such as $\\ce{Cl^+}$ or $\\ce{NO2^+}$, not $\\ce{Cl2}$, a radical or an anion. An electrophile in general is any electron-pair acceptor, and it can be neutral."
+  ],
+  "readingMinutes": 19
+}

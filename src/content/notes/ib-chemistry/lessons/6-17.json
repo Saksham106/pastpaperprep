@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.17",
+  "slug": "lewis-acids-bases-complex-ions",
+  "title": "Lewis acids and bases, and complex ions",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "A [[lewis-acid|Lewis acid]] accepts an electron pair and a [[lewis-base|Lewis base]] donates one. When they react, the shared pair forms a [[coordination-bond|coordination bond]]. [[ligand|Ligands]] bond to transition element ions in exactly this way, making a [[complex-ion|complex ion]] whose charge you can deduce.",
+  "goals": [
+    {
+      "text": "Identify the Lewis acid and the Lewis base in inorganic and organic reactions, and link them to Brønsted–Lowry acids and bases.",
+      "bullets": [
+        "R3.4.6"
+      ]
+    },
+    {
+      "text": "Draw and interpret [[lewis-formula|Lewis formulas]] that show the coordination bond formed in a Lewis acid–base reaction.",
+      "bullets": [
+        "R3.4.7"
+      ]
+    },
+    {
+      "text": "Recognise [[nucleophile|nucleophiles]] as Lewis bases and [[electrophile|electrophiles]] as Lewis acids.",
+      "bullets": [
+        "R3.4.7"
+      ]
+    },
+    {
+      "text": "Explain how ligands bond to transition element cations, and deduce the charge on a complex ion.",
+      "bullets": [
+        "R3.4.8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "3.3",
+    "3.4",
+    "3.5",
+    "6.1",
+    "6.16"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Lewis acid base theory",
+    "electron pair acceptor and donor",
+    "dative covalent bond",
+    "coordinate bond",
+    "charge on a complex ion",
+    "ligands and transition metal ions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-bl-base",
+      "prompt": "What does a [[brnsted-lowry-base|Brønsted–Lowry base]] accept?",
+      "hint": "Brønsted–Lowry theory is about one particle moving from acid to base.",
+      "options": [
+        {
+          "text": "A proton",
+          "correct": true
+        },
+        {
+          "text": "An electron",
+          "correct": false
+        },
+        {
+          "text": "A hydroxide ion",
+          "correct": false
+        },
+        {
+          "text": "A neutron",
+          "correct": false
+        }
+      ],
+      "explain": "A Brønsted–Lowry base accepts a proton, $\\ce{H^+}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "A proton"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-dative-species",
+      "prompt": "Which species contains a bond in which one atom supplied both shared electrons?",
+      "hint": "Look for a species made when a [[lone-pair|lone pair]] bonds to $\\ce{H^+}$.",
+      "options": [
+        {
+          "text": "The ammonium ion",
+          "correct": true
+        },
+        {
+          "text": "Methane",
+          "correct": false
+        },
+        {
+          "text": "Water",
+          "correct": false
+        },
+        {
+          "text": "Chlorine",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{NH4^+}$ forms when the lone pair on nitrogen bonds to $\\ce{H^+}$. In the others, each atom gives one electron to each bond. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The ammonium ion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-iron-oxidation-state",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of iron in $\\ce{[Fe(H2O)6]^3+}$? Give the sign.",
+      "hint": "Water molecules carry no charge.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$x + 6(0) = +3$, so $x = +3$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3 - 6*0",
+        "dp": 0,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "lewis-theory",
+      "heading": "Lewis acids and bases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.1}} an acid donated a proton and a base accepted it. Now follow the electrons instead. When $\\ce{NH3}$ meets $\\ce{H^+}$, the [[lone-pair|lone pair]] on nitrogen becomes the new N–H bond. Ammonia gives an electron pair, and $\\ce{H^+}$ takes it."
+        },
+        {
+          "type": "definition",
+          "term": "Lewis acid",
+          "statement": "A species that accepts an electron pair to form a new bond.",
+          "plain": "It has room for a pair of electrons."
+        },
+        {
+          "type": "definition",
+          "term": "Lewis base",
+          "statement": "A species that donates an electron pair to form a new bond.",
+          "plain": "It has an electron pair to give, usually a lone pair."
+        },
+        {
+          "type": "text",
+          "text": "To identify the roles, find the new bond. The species whose electron pair becomes that bond is the Lewis base. The species that receives the pair is the Lewis acid."
+        },
+        {
+          "type": "text",
+          "text": "Most Lewis bases donate a lone pair: $\\ce{H2O}$, $\\ce{NH3}$, $\\ce{OH^-}$, $\\ce{Cl^-}$ and $\\ce{CN^-}$, for example. An alkene can instead donate the electron pair of its C=C π bond. Lewis acids have room for a pair. Examples are $\\ce{H^+}$, metal cations, and molecules whose central atom has fewer than eight outer electrons, such as $\\ce{BF3}$ and $\\ce{AlCl3}$."
+        },
+        {
+          "type": "text",
+          "text": "How do the two theories fit together? A Brønsted–Lowry base must use an electron pair to hold the proton, so it is also a Lewis base. In a Brønsted–Lowry reaction the proton itself is the electron-pair acceptor. So every Brønsted–Lowry acid–base reaction is also a Lewis one."
+        },
+        {
+          "type": "text",
+          "text": "Lewis theory is wider. $\\ce{BF3}$ has no hydrogen, so it cannot donate a proton, yet it accepts an electron pair. It is a Lewis acid but not a Brønsted–Lowry acid."
+        },
+        {
+          "type": "example",
+          "id": "ex-alcl3-chloride",
+          "question": "Aluminium chloride, $\\ce{AlCl3}$, reacts with a chloride ion to form the ion $\\ce{AlCl4^-}$. Write the equation, and identify the Lewis acid and the Lewis base.",
+          "steps": [
+            "Aluminium has 3 outer electrons. In $\\ce{AlCl3}$ it shares them in three bonds, so it has only 6 outer electrons: room for one more pair.",
+            "$\\ce{Cl^-}$ has four lone pairs. One of them becomes the new Al–Cl bond.",
+            "So $\\ce{AlCl3}$ is the Lewis acid and $\\ce{Cl^-}$ is the Lewis base. Charge: $1-$ on each side."
+          ],
+          "answer": "$\\ce{AlCl3 + Cl^- -> AlCl4^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "AlCl3 + Cl^- -> AlCl4^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bcl3-not-bl-acid",
+          "question": "Explain why boron trichloride, $\\ce{BCl3}$, can act as a Lewis acid but not as a Brønsted–Lowry acid.",
+          "steps": [
+            "Count boron's outer electrons in $\\ce{BCl3}$: 3 of its own plus 3 shared from chlorine.",
+            "Check the formula for hydrogen."
+          ],
+          "answer": "Boron in $\\ce{BCl3}$ has only six outer electrons, an incomplete octet. So it can accept an electron pair from a Lewis base, which makes it a Lewis acid. $\\ce{BCl3}$ contains no hydrogen, so it cannot donate a proton. So it is not a Brønsted–Lowry acid.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "B has six outer electrons so accepts a pair (Lewis acid); no H, so no proton to donate (not Brønsted–Lowry).",
+            "requires": [
+              [
+                "six outer electrons",
+                "6 outer electrons"
+              ],
+              "incomplete octet",
+              [
+                "accept an electron pair",
+                "accepts an electron pair"
+              ],
+              "no hydrogen",
+              "cannot donate a proton"
+            ],
+            "forbids": [
+              "accepts a proton",
+              "donates an electron pair"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the theories. A Brønsted–Lowry acid donates a proton; a Lewis acid accepts an electron pair. Answer with the theory the question names."
+        },
+        {
+          "type": "check",
+          "id": "check-water-roles",
+          "prompt": "In $\\ce{H2O + H^+ -> H3O^+}$, which describes water?",
+          "hint": "Water gives a lone pair, and the thing it receives is a proton.",
+          "options": [
+            {
+              "text": "Lewis base and Brønsted–Lowry base",
+              "correct": true
+            },
+            {
+              "text": "Lewis acid and Brønsted–Lowry base",
+              "correct": false
+            },
+            {
+              "text": "Lewis base and Brønsted–Lowry acid",
+              "correct": false
+            },
+            {
+              "text": "Lewis acid and Brønsted–Lowry acid",
+              "correct": false
+            }
+          ],
+          "explain": "Oxygen donates a lone pair (Lewis base) to $\\ce{H^+}$, so water gains a proton (Brønsted–Lowry base). A Brønsted–Lowry base is always a Lewis base.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Lewis base and Brønsted–Lowry base"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-lewis-base",
+          "prompt": "Which species cannot act as a Lewis base?",
+          "hint": "A Lewis base needs an electron pair to donate.",
+          "options": [
+            {
+              "text": "Boron trifluoride",
+              "correct": true
+            },
+            {
+              "text": "The hydroxide ion",
+              "correct": false
+            },
+            {
+              "text": "Ammonia",
+              "correct": false
+            },
+            {
+              "text": "The bromide ion",
+              "correct": false
+            }
+          ],
+          "explain": "Boron in $\\ce{BF3}$ has no lone pair; it is short of a pair, so it is a Lewis acid. The other three all have lone pairs.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Boron trifluoride"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coordination",
+      "heading": "The new bond is a coordination bond",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a Lewis acid–base reaction, both electrons of the new bond come from the base. That makes it a coordination bond ({{lesson:2.2}})."
+        },
+        {
+          "type": "text",
+          "text": "To show it in a Lewis formula, draw the lone pair on the base and the atom of the acid that is short of electrons. In the product, draw the new bond as an arrow from the donor atom to the acceptor atom. The product's overall charge is the sum of the reactants' charges."
+        },
+        {
+          "type": "figure",
+          "id": "6-17-bf4-formation",
+          "alt": "Left: a BF3 molecule. Boron sits in the middle with single bonds to three F atoms, and every F carries three lone pairs; boron has no lone pair and only six outer electrons. Next to it a fluoride ion with four lone pairs and a negative charge. A curved arrow goes from one lone pair of the fluoride ion to the boron atom. After a reaction arrow: the tetrafluoroborate ion, boron bonded to four fluorine atoms, each with three lone pairs. The bond to the fluorine on the right is drawn as an arrow pointing from fluorine to boron. The ion is in square brackets with a negative charge outside.",
+          "caption": "$\\ce{BF3}$ (Lewis acid) accepts a pair from $\\ce{F^-}$ (Lewis base). The arrow in $\\ce{BF4^-}$ is the coordination bond."
+        },
+        {
+          "type": "text",
+          "text": "Once it has formed, a coordination bond is the same as any other covalent bond: a shared pair between two nuclei. In $\\ce{BF4^-}$ all four B–F bonds have the same length and strength. In $\\ce{NH4^+}$ you cannot tell which N–H bond came from the lone pair. The arrow only records where the electrons came from."
+        },
+        {
+          "type": "text",
+          "text": "The same idea covers organic reactions ({{lesson:6.16}}). A nucleophile donates an electron pair (a lone pair, or the π bond pair of an alkene), so it is a Lewis base. An electrophile accepts that pair, so it is a Lewis acid. A curly arrow from a lone pair or bond to an electron-poor atom is a Lewis base giving its pair to a Lewis acid."
+        },
+        {
+          "type": "example",
+          "id": "ex-methylamine-proton",
+          "question": "Methylamine, $\\ce{CH3NH2}$, reacts with a hydrogen ion. Write the equation, and state which reactant is the Lewis base.",
+          "steps": [
+            "Nitrogen in $\\ce{CH3NH2}$ has one lone pair. $\\ce{H^+}$ has no electrons at all.",
+            "The lone pair on nitrogen forms a fourth N–H bond, a coordination bond.",
+            "Charge: $0 + (1+) = 1+$ on the left, so the product carries $1+$."
+          ],
+          "answer": "$\\ce{CH3NH2 + H^+ -> CH3NH3^+}$, with $\\ce{CH3NH2}$ as the Lewis base",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3NH2 + H^+ -> CH3NH3^+",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-carbocation-cyanide",
+          "question": "The [[carbocation|carbocation]] $\\ce{(CH3)3C^+}$ reacts with a cyanide ion to form $\\ce{(CH3)3CCN}$. Identify the Lewis acid and the Lewis base, and explain how the new C–C bond forms.",
+          "steps": [
+            "The positive carbon has only three bonds: six outer electrons.",
+            "The cyanide ion has a lone pair on its carbon atom. Name each role twice: Lewis acid or base, and nucleophile or electrophile."
+          ],
+          "answer": "The cyanide ion is the Lewis base: it donates the lone pair on its carbon atom, so it acts as a nucleophile. The carbocation is the Lewis acid: its positive carbon has only six outer electrons and accepts an electron pair, so it acts as an electrophile. Both electrons of the new C–C bond come from the cyanide ion, so it is a coordination bond.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "CN- donates its lone pair (Lewis base, nucleophile); the carbocation accepts it (Lewis acid, electrophile); both electrons from CN-, so a coordination bond.",
+            "requires": [
+              "cyanide ion is the Lewis base",
+              "lone pair",
+              "nucleophile",
+              "carbocation is the Lewis acid",
+              [
+                "accepts an electron pair",
+                "accepts the electron pair"
+              ],
+              "electrophile",
+              "coordination bond"
+            ],
+            "forbids": [
+              "carbocation is the Lewis base",
+              "cyanide ion is the Lewis acid"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Pointing the coordination arrow the wrong way. It starts at the atom that gives the pair and points to the atom that receives it."
+        },
+        {
+          "type": "check",
+          "id": "check-boron-electrons",
+          "prompt": "How many electrons are in the outer shell of boron in $\\ce{BF4^-}$?",
+          "hint": "Count the bonding pairs around boron.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "Boron has four bonding pairs: $4 \\times 2 = 8$. It had 6 in $\\ce{BF3}$; the fluoride ion gave the extra pair.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4*2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electrophile-role",
+          "prompt": "When a nucleophile attacks an electrophile, which one is the Lewis acid?",
+          "hint": "Which one receives the electron pair?",
+          "options": [
+            {
+              "text": "The electrophile",
+              "correct": true
+            },
+            {
+              "text": "The nucleophile",
+              "correct": false
+            },
+            {
+              "text": "Both of them",
+              "correct": false
+            },
+            {
+              "text": "Neither of them",
+              "correct": false
+            }
+          ],
+          "explain": "The nucleophile donates the pair (Lewis base) and the electrophile accepts it (Lewis acid).",
+          "verify": {
+            "kind": "choice",
+            "truth": "The electrophile"
+          }
+        }
+      ]
+    },
+    {
+      "id": "complex-ions",
+      "heading": "Complex ions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Transition element cations, such as $\\ce{Fe^3+}$ and $\\ce{Cu^2+}$, are small and highly charged, and they have empty orbitals that can take electron pairs. Molecules and ions with lone pairs, the ligands, bond to them ({{lesson:3.4}})."
+        },
+        {
+          "type": "text",
+          "text": "Each ligand donates a lone pair to the metal ion, forming a coordination bond. So the ligand is a Lewis base and the metal ion is a Lewis acid. The product is a complex ion, written in square brackets with its overall charge outside."
+        },
+        {
+          "type": "figure",
+          "id": "6-17-cobalt-ammine",
+          "alt": "A cobalt 3 plus ion at the centre with six ammonia molecules around it, drawn flat: two on the left, two on the right, one above and one below. An arrow points from the nitrogen atom of each ammonia molecule to the cobalt ion, showing a coordination bond. The whole complex is in square brackets with a 3 plus charge outside. Labels below say that cobalt 3 plus is the Lewis acid and accepts six electron pairs, that each ammonia is a Lewis base donating the lone pair on nitrogen, and that the charge is plus 3 plus six times zero, which is 3 plus.",
+          "caption": "$\\ce{[Co(NH3)6]^3+}$: six coordination bonds, so its [[coordination-number|coordination number]] is 6."
+        },
+        {
+          "type": "text",
+          "text": "Charges simply add. A neutral ligand ($\\ce{H2O}$, $\\ce{NH3}$, $\\ce{CO}$) adds $0$. An anionic ligand adds its own charge: $-1$ each for $\\ce{Cl^-}$, $\\ce{OH^-}$ and $\\ce{CN^-}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{charge of complex} = \\text{charge of metal ion} + \\text{sum of ligand charges}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-cyanide-charge",
+          "question": "An iron(II) ion bonds to six cyanide ions. Deduce the charge on the complex ion formed.",
+          "steps": [
+            "Iron(II) is $\\ce{Fe^2+}$: charge $+2$. Each $\\ce{CN^-}$ ligand is $-1$.",
+            "Add them: $(+2) + 6(-1)$.",
+            "The complex is $\\ce{[Fe(CN)6]^4-}$, with the $4-$ written outside the brackets."
+          ],
+          "answer": "$\\text{charge} = (+2) + 6(-1) = -4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2 + 6*(-1)",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-manganese-aqua-explain",
+          "question": "Explain, using Lewis acid–base theory, how water molecules bond to the manganese ion in $\\ce{[Mn(H2O)6]^2+}$.",
+          "steps": [
+            "Find the lone pairs: each water oxygen has two.",
+            "Say which species gives pairs and which takes them, and name the bond."
+          ],
+          "answer": "Each water molecule is a ligand and acts as a Lewis base: its oxygen atom donates a lone pair to the $\\ce{Mn^2+}$ ion. The $\\ce{Mn^2+}$ ion is a Lewis acid: it accepts electron pairs into its empty orbitals. Both electrons in each bond come from oxygen, so each is a coordination bond. Six water molecules bond in this way.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Water's O donates a lone pair (Lewis base, ligand); Mn2+ accepts pairs (Lewis acid); six coordination bonds.",
+            "requires": [
+              "Lewis base",
+              "oxygen atom donates a lone pair",
+              "Lewis acid",
+              [
+                "accepts electron pairs",
+                "accepts the electron pairs"
+              ],
+              "coordination bond",
+              [
+                "Six water molecules",
+                "six"
+              ]
+            ],
+            "forbids": [
+              "hydrogen atom donates",
+              "ionic bond"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting ligands instead of adding their charges. Six water ligands add $0$, so $\\ce{[Ni(H2O)6]^2+}$ keeps the $2+$ of the nickel ion."
+        },
+        {
+          "type": "check",
+          "id": "check-cobalt-chloro-charge",
+          "prompt": "A cobalt(III) ion bonds to five ammonia molecules and one chloride ion. What is the charge on the complex ion, with its sign?",
+          "hint": "Start from $+3$ and add each ligand's charge.",
+          "options": [
+            {
+              "text": "$+2$",
+              "correct": true
+            },
+            {
+              "text": "$+3$",
+              "correct": false
+            },
+            {
+              "text": "$+4$",
+              "correct": false
+            },
+            {
+              "text": "$-3$",
+              "correct": false
+            }
+          ],
+          "explain": "$(+3) + 5(0) + 1(-1) = +2$, so the complex is $\\ce{[Co(NH3)5Cl]^2+}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3 + 5*0 + 1*(-1)",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-platinum-charge",
+          "prompt": "A platinum(II) ion bonds to two ammonia molecules and two chloride ions. What is the overall charge of the complex?",
+          "hint": "Ammonia is neutral; chloride is $-1$.",
+          "answer": {
+            "value": 0,
+            "tolerance": 0
+          },
+          "explain": "$(+2) + 2(0) + 2(-1) = 0$. The complex $\\ce{[Pt(NH3)2Cl2]}$ is a neutral molecule.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2 + 2*0 + 2*(-1)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Lewis acid: electron-pair acceptor ($\\ce{H^+}$, $\\ce{BF3}$, $\\ce{AlCl3}$, metal ions, carbocations). Lewis base: electron-pair donor, usually via a lone pair.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every Brønsted–Lowry acid–base reaction is a Lewis one ($\\ce{H^+}$ accepts the pair). Lewis acids need not contain hydrogen.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lewis base + Lewis acid gives a coordination bond, the same as any covalent bond once formed. Nucleophiles are Lewis bases; electrophiles are Lewis acids.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Complex ion: ligands (Lewis bases) donate lone pairs to a transition element cation (Lewis acid). Charge = metal ion charge + ligand charges.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling a species a Brønsted–Lowry acid because it accepts electrons. Brønsted–Lowry is about protons; electron pairs are Lewis theory.",
+    "Saying $\\ce{BF3}$ or a metal ion is a base. Each has an atom with room for an electron pair and accepts one, so it is a Lewis acid.",
+    "Drawing the coordination arrow from the acceptor to the donor. It points from the lone pair's atom to the atom that receives it.",
+    "Writing a complex's charge without adding the ligand charges, or writing it inside the square brackets."
+  ],
+  "examTips": [
+    "\"Identify\" the Lewis acid and base: name each species and say which donates and which accepts the electron pair.",
+    "\"Draw\" a Lewis formula with a coordination bond: show every lone pair, mark the new bond (an arrow from donor to acceptor) and give the overall charge.",
+    "\"Deduce\" a complex ion's charge: write the sum of the metal ion and ligand charges, then the charge as a superscript outside the brackets, such as $4-$."
+  ],
+  "readingMinutes": 19
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" role="img" aria-labelledby="t">
+  <title id="t">Three boxes in a row. Left: mass, m, in grams. Middle: amount, n, in moles. Right: number of particles, N. An arrow from mass to amount is labelled divide by M; an arrow back from amount to mass is labelled multiply by M. An arrow from amount to particles is labelled multiply by N A; an arrow back from particles to amount is labelled divide by N A.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="10" y="45" width="120" height="70" rx="8"/>
+    <rect x="210" y="45" width="120" height="70" rx="8" stroke="var(--t1-ink)" stroke-width="2.2"/>
+    <rect x="410" y="45" width="120" height="70" rx="8"/>
+  </g>
+  <g font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="70" y="76">mass, <tspan font-style="italic">m</tspan></text>
+    <text x="70" y="98" font-size="13" fill="var(--muted)">in g</text>
+    <text x="270" y="76" fill="var(--t1-ink)">amount, <tspan font-style="italic">n</tspan></text>
+    <text x="270" y="98" font-size="13" fill="var(--muted)">in mol</text>
+    <text x="470" y="76">particles, <tspan font-style="italic">N</tspan></text>
+    <text x="470" y="98" font-size="13" fill="var(--muted)">a count</text>
+  </g>
+  <!-- forward arrows (top) -->
+  <path d="M134 65 L198 65" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <polygon points="206,65 197,60.5 197,69.5" fill="var(--t2-ink)"/>
+  <path d="M334 65 L398 65" stroke="var(--t3-ink)" stroke-width="1.8" fill="none"/>
+  <polygon points="406,65 397,60.5 397,69.5" fill="var(--t3-ink)"/>
+  <!-- backward arrows (bottom) -->
+  <path d="M206 95 L142 95" stroke="var(--t2-ink)" stroke-width="1.8" fill="none"/>
+  <polygon points="134,95 143,90.5 143,99.5" fill="var(--t2-ink)"/>
+  <path d="M406 95 L342 95" stroke="var(--t3-ink)" stroke-width="1.8" fill="none"/>
+  <polygon points="334,95 343,90.5 343,99.5" fill="var(--t3-ink)"/>
+  <g font-size="14" font-family="inherit" text-anchor="middle">
+    <text x="170" y="35" fill="var(--t2-ink)">÷ <tspan font-style="italic">M</tspan></text>
+    <text x="170" y="135" fill="var(--t2-ink)">× <tspan font-style="italic">M</tspan></text>
+    <text x="370" y="35" fill="var(--t3-ink)">× <tspan font-style="italic">N</tspan><tspan baseline-shift="sub" font-size="10">A</tspan></text>
+    <text x="370" y="135" fill="var(--t3-ink)">÷ <tspan font-style="italic">N</tspan><tspan baseline-shift="sub" font-size="10">A</tspan></text>
+  </g>
+</svg>

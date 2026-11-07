@@ -1,0 +1,623 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.11",
+  "slug": "electrolytic-cells",
+  "title": "Electrolytic cells",
+  "level": "SL",
+  "topic": 6,
+  "summary": "An [[electrolytic-cell|electrolytic cell]] uses electrical energy from a DC power supply to force a redox reaction that would not happen on its own. Electrons carry the current in the wires; moving [[ion|ions]] carry it in the [[electrolyte|electrolyte]]. In a molten salt, the metal forms at the [[cathode|cathode]] and the non-metal at the [[anode|anode]].",
+  "goals": [
+    {
+      "text": "Describe an [[electrolytic-cell|electrolytic cell]] as a cell that converts electrical energy into chemical energy by driving a non-spontaneous reaction.",
+      "bullets": [
+        "R3.2.8"
+      ]
+    },
+    {
+      "text": "Name the parts of an electrolytic cell, and say which electrode is the anode and which the cathode.",
+      "bullets": [
+        "R3.2.8"
+      ]
+    },
+    {
+      "text": "Explain how current is conducted, and when an ionic compound can act as an [[electrolyte|electrolyte]].",
+      "bullets": [
+        "R3.2.8"
+      ]
+    },
+    {
+      "text": "Deduce the products of electrolysing a molten salt, and write the half-equations.",
+      "bullets": [
+        "R3.2.8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "2.1",
+    "3.3",
+    "6.8",
+    "6.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electrolysis of molten salts",
+    "electrolysis anode and cathode",
+    "how does electrolysis work",
+    "electrolytic vs voltaic cell",
+    "products of electrolysis",
+    "molten electrolyte"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solid-mgo",
+      "prompt": "Why does solid magnesium oxide not conduct electricity?",
+      "hint": "Magnesium oxide is ionic. What must charged particles be able to do to carry a current?",
+      "options": [
+        {
+          "text": "Its ions are held in fixed positions",
+          "correct": true
+        },
+        {
+          "text": "It contains no ions",
+          "correct": false
+        },
+        {
+          "text": "Its delocalized electrons are held in fixed positions",
+          "correct": false
+        },
+        {
+          "text": "Its molecules have no overall charge",
+          "correct": false
+        }
+      ],
+      "explain": "Solid magnesium oxide is a lattice of $\\ce{Mg^2+}$ and $\\ce{O^2-}$ ions. They are charged but cannot move, so no current flows. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Its ions are held in fixed positions"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mn-oxidation-state",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of manganese in $\\ce{MnO2}$? Give a whole number.",
+      "hint": "Oxygen is $-2$, and the oxidation states in a neutral compound add up to zero.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "$x + 2(-2) = 0$, so $x = +4$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0 - 2*(-2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-anode-process",
+      "prompt": "In any electrochemical cell, what happens at the anode?",
+      "hint": "The two words start with the same letter: anode and ...",
+      "options": [
+        {
+          "text": "Oxidation",
+          "correct": true
+        },
+        {
+          "text": "Reduction",
+          "correct": false
+        },
+        {
+          "text": "Neither: it only conducts",
+          "correct": false
+        }
+      ],
+      "explain": "Oxidation always happens at the anode and reduction at the cathode. Revise it in {{lesson:6.10}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Oxidation"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "cell",
+      "heading": "What an electrolytic cell does",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a [[primary-voltaic-cell|voltaic cell]] ({{lesson:6.10}}), a spontaneous redox reaction pushes electrons round a circuit. Chemical energy becomes electrical energy."
+        },
+        {
+          "type": "text",
+          "text": "Some reactions are non-spontaneous: they do not happen on their own. To force one, a power supply pushes electrons in."
+        },
+        {
+          "type": "definition",
+          "term": "electrolytic cell",
+          "statement": "An electrochemical cell in which an external power supply brings about a non-spontaneous redox reaction, converting electrical energy into chemical energy.",
+          "plain": "Electricity goes in and forces a reaction that would not happen by itself."
+        },
+        {
+          "type": "text",
+          "text": "Driving a reaction this way is called electrolysis. The products store the energy put in. Every electrolytic cell has three parts."
+        },
+        {
+          "type": "text",
+          "text": "1. A DC (direct current) power supply, such as a battery. It pushes electrons one way only."
+        },
+        {
+          "type": "text",
+          "text": "2. Two electrodes, usually inert graphite or platinum: they conduct but do not react. The [[anode|anode]] is joined to the positive terminal, and the [[cathode|cathode]] to the negative terminal."
+        },
+        {
+          "type": "text",
+          "text": "3. An [[electrolyte|electrolyte]] that both electrodes dip into."
+        },
+        {
+          "type": "definition",
+          "term": "electrolyte",
+          "statement": "A liquid or solution that conducts electricity because it contains ions that are free to move. An ionic compound acts as one when molten or dissolved in water.",
+          "plain": "A liquid with charged particles that can move."
+        },
+        {
+          "type": "figure",
+          "id": "6-11-molten-zinc-chloride",
+          "alt": "Electrolytic cell for molten zinc chloride. Two graphite electrodes dip into the melt. The left one, joined to the positive terminal of a DC power supply, is the anode: 2Cl minus gives Cl2 plus 2 electrons. The right one, joined to the negative terminal, is the cathode: Zn2+ plus 2 electrons gives Zn. Arrows on the wires show electrons moving from the anode to the supply, then to the cathode. In the liquid, chloride ions move to the anode and zinc ions to the cathode.",
+          "caption": "Electrolysis of molten $\\ce{ZnCl2}$. Electrons flow in the wires; ions flow in the liquid."
+        },
+        {
+          "type": "text",
+          "text": "The electrode rule is the same as in every electrochemical cell: oxidation at the anode, reduction at the cathode. Only the signs differ: here the anode is positive, while in a voltaic cell it is negative."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the anode negative in electrolysis. It is joined to the positive terminal, so it is positive. Oxidation still happens there."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-cells",
+          "question": "Compare and contrast a voltaic cell and an electrolytic cell, in terms of the energy change and the type of reaction.",
+          "steps": [
+            "Similarity: the electrode rule is the same in both.",
+            "Differences: the direction of the energy change, and whether the reaction goes by itself."
+          ],
+          "answer": "In both cells, oxidation happens at the anode and reduction at the cathode. A voltaic cell converts chemical energy into electrical energy. Its redox reaction is spontaneous, so the cell itself supplies a current. An electrolytic cell converts electrical energy into chemical energy. Its reaction is non-spontaneous, so an external DC power supply must drive it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Both: oxidation at anode. Voltaic: chemical to electrical, spontaneous. Electrolytic: electrical to chemical, non-spontaneous, needs a power supply.",
+            "requires": [
+              "oxidation happens at the anode",
+              "reduction at the cathode",
+              "chemical energy into electrical energy",
+              "electrical energy into chemical energy",
+              "spontaneous",
+              "non-spontaneous",
+              "power supply"
+            ],
+            "forbids": [
+              "reduction happens at the anode",
+              "oxidation at the cathode"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-set-up-sncl2",
+          "question": "Outline how to set up a cell to electrolyse tin(II) chloride, $\\ce{SnCl2}$, and identify its anode.",
+          "steps": [
+            "The salt must be liquid, so heat it until it melts (about 250 °C).",
+            "Name each of the three parts, then use the terminals to name the electrodes."
+          ],
+          "answer": "Heat solid tin(II) chloride in a crucible until it melts, in a fume cupboard because chlorine forms. Dip two inert graphite electrodes into the molten salt, not touching each other. Connect them to a DC power supply. The electrode joined to the positive terminal is the anode, and the one joined to the negative terminal is the cathode.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Melt the salt; inert graphite electrodes; DC supply; anode on the positive terminal, cathode on the negative.",
+            "requires": [
+              [
+                "melts",
+                "molten"
+              ],
+              [
+                "inert",
+                "graphite"
+              ],
+              "DC power supply",
+              "positive terminal is the anode",
+              "negative terminal is the cathode"
+            ],
+            "forbids": [
+              "negative terminal is the anode",
+              "positive terminal is the cathode"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-anode-sign",
+          "prompt": "Which statement about the anode of an electrolytic cell is correct?",
+          "hint": "Which terminal of the power supply is the anode joined to?",
+          "options": [
+            {
+              "text": "It is positive, and oxidation happens there",
+              "correct": true
+            },
+            {
+              "text": "It is negative, and oxidation happens there",
+              "correct": false
+            },
+            {
+              "text": "It is positive, and reduction happens there",
+              "correct": false
+            },
+            {
+              "text": "It is negative, and reduction happens there",
+              "correct": false
+            }
+          ],
+          "explain": "The anode is joined to the positive terminal, and oxidation happens at the anode in every cell. A negative anode belongs to a voltaic cell.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is positive, and oxidation happens there"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conduction",
+      "heading": "How the current flows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A current is a flow of charge. In an electrolytic cell, a different particle carries it in each part of the circuit."
+        },
+        {
+          "type": "text",
+          "text": "In the wires and electrodes, [[delocalized-electrons|delocalized electrons]] move, as in any metal or graphite. In the [[electrolyte|electrolyte]], [[ion|ions]] move. Electrons do not travel through the electrolyte."
+        },
+        {
+          "type": "text",
+          "text": "Opposite charges attract. [[cation|Cations]] (positive) move to the negative [[cathode|cathode]]. [[anion|Anions]] (negative) move to the positive [[anode|anode]]."
+        },
+        {
+          "type": "text",
+          "text": "At the electrode surfaces the two flows join up. Cations take electrons from the cathode and are [[reduction|reduced]]. Anions give electrons to the anode and are [[oxidation|oxidized]]. The power supply pumps those electrons through the wires from the anode to the cathode."
+        },
+        {
+          "type": "result",
+          "statement": "Electrons carry the current in the external circuit. Mobile ions carry it in the electrolyte. Electron transfer at the electrodes links the two.",
+          "why": "Metals and graphite have mobile electrons but no mobile ions; a molten salt has mobile ions but no delocalized electrons."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying electrons flow through the electrolyte. In the liquid, moving ions carry the charge; electrons stay in the wires and electrodes."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ki-current",
+          "question": "Molten potassium iodide is electrolysed with graphite electrodes. Explain how the current is conducted through the whole circuit.",
+          "steps": [
+            "Name the carrier in each part: wires and electrodes, then the molten salt.",
+            "Say where each ion goes, and what happens to it at the electrode."
+          ],
+          "answer": "In the wires and graphite electrodes, delocalized electrons carry the current. In the molten salt, the ions carry it: $\\ce{K^+}$ ions move to the negative cathode and $\\ce{I^-}$ ions move to the positive anode. At the cathode, $\\ce{K^+}$ ions gain electrons and are reduced. At the anode, $\\ce{I^-}$ ions lose electrons and are oxidized. The power supply moves electrons through the external circuit from the anode to the cathode.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Electrons in the wires and electrodes; ions in the melt (K+ to cathode, I- to anode); reduction and oxidation at the electrodes.",
+            "requires": [
+              "delocalized electrons",
+              [
+                "ions carry",
+                "ions move"
+              ],
+              "to the negative cathode",
+              "to the positive anode",
+              "gain electrons",
+              "lose electrons",
+              "from the anode to the cathode"
+            ],
+            "forbids": [
+              "electrons flow through the electrolyte",
+              "electrons move through the molten",
+              "electrons through the liquid"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charge-carriers",
+          "prompt": "What carries the current through a molten electrolyte?",
+          "hint": "What is a molten ionic compound made of?",
+          "options": [
+            {
+              "text": "Ions moving towards the electrodes",
+              "correct": true
+            },
+            {
+              "text": "Delocalized electrons moving towards the anode",
+              "correct": false
+            },
+            {
+              "text": "Electrons moving through the liquid from anode to cathode",
+              "correct": false
+            },
+            {
+              "text": "Molecules moving towards the electrodes",
+              "correct": false
+            }
+          ],
+          "explain": "A molten salt has mobile ions and no delocalized electrons. Electrons move only in the wires and electrodes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Ions moving towards the electrodes"
+          }
+        },
+        {
+          "type": "text",
+          "text": "So when can an ionic compound act as an electrolyte? Its ions must be free to move, the condition for [[electrical-conductivity|electrical conductivity]] ({{lesson:2.1}})."
+        },
+        {
+          "type": "text",
+          "text": "In the solid, the ions are fixed in a lattice. Molten or dissolved in water, they can move. A liquid made only of neutral molecules, such as $\\ce{CCl4}$, has no ions, so it is not an electrolyte. (Pure water ionizes very slightly, so it conducts only very weakly.)"
+        },
+        {
+          "type": "hlNote",
+          "text": "In aqueous solutions, water can be oxidized or reduced too, which changes the products.",
+          "lesson": "6.14"
+        },
+        {
+          "type": "example",
+          "id": "ex-cacl2-vs-ccl4",
+          "question": "Explain why molten calcium chloride can be electrolysed, but liquid tetrachloromethane, $\\ce{CCl4}$, cannot.",
+          "steps": [
+            "Classify each substance: ionic or molecular?",
+            "Ask whether each liquid has charged particles that can move."
+          ],
+          "answer": "Calcium chloride is an ionic compound. When it melts, its $\\ce{Ca^2+}$ and $\\ce{Cl^-}$ ions are free to move, so they carry the charge to the electrodes and the liquid conducts. Tetrachloromethane is made of neutral covalent molecules. It has no ions and no delocalized electrons, so there are no charged particles to carry a current, and it is not an electrolyte.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Molten CaCl2 has mobile ions; CCl4 is neutral molecules with no ions, so no charged particles move.",
+            "requires": [
+              "ionic",
+              "free to move",
+              "carry the charge",
+              "molecules",
+              "no ions",
+              "no charged particles"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "electrons move through the liquid"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-electrolyte",
+          "prompt": "Which of these can act as an electrolyte?",
+          "hint": "An electrolyte needs ions that can move.",
+          "options": [
+            {
+              "text": "Molten calcium fluoride",
+              "correct": true
+            },
+            {
+              "text": "Solid calcium fluoride",
+              "correct": false
+            },
+            {
+              "text": "Liquid bromine",
+              "correct": false
+            },
+            {
+              "text": "Copper wire",
+              "correct": false
+            }
+          ],
+          "explain": "Melting frees the ions of calcium fluoride. In the solid they are fixed, and liquid bromine is neutral molecules. Copper conducts by delocalized electrons, so it is a conductor, not an electrolyte.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Molten calcium fluoride"
+          }
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "heading": "Products from a molten salt",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A molten salt of a metal and a non-metal holds just two kinds of [[ion|ion]], so there is one product at each electrode."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the ions and their charges."
+        },
+        {
+          "type": "text",
+          "text": "2. At the [[cathode|cathode]] (−), the metal cation gains electrons and forms the metal."
+        },
+        {
+          "type": "text",
+          "text": "3. At the [[anode|anode]] (+), the non-metal anion loses electrons and forms the element. Halide ions give diatomic halogens, such as $\\ce{Cl2}$; oxide ions give $\\ce{O2}$."
+        },
+        {
+          "type": "text",
+          "text": "4. Write each [[half-equation|half-equation]], balanced in atoms and charge. To get the overall equation, make the electrons equal, then add."
+        },
+        {
+          "type": "text",
+          "text": "[[oxidation-state|Oxidation states]] confirm it. For molten $\\ce{ZnCl2}$, zinc goes from $+2$ to $0$, so it is reduced. Chlorine goes from $-1$ to $0$, so it is oxidized."
+        },
+        {
+          "type": "mistake",
+          "text": "Naming the anode product as the ion, \"bromide\" or $\\ce{Br^-}$. The product is the element: bromine, $\\ce{Br2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-libr-anode",
+          "question": "Molten lithium bromide, $\\ce{LiBr}$, is electrolysed with inert electrodes. Deduce the product at each electrode, and write the half-equation at the anode.",
+          "steps": [
+            "The ions are $\\ce{Li^+}$ and $\\ce{Br^-}$.",
+            "Cathode: $\\ce{Li^+ + e- -> Li}$, so lithium forms there.",
+            "Anode: each bromide ion loses one electron. Two Br atoms join as $\\ce{Br2}$, so two ions release two electrons, and bromine forms there.",
+            "Check the charge: $2-$ on the left, and $0 + 2(-1) = 2-$ on the right."
+          ],
+          "answer": "$\\ce{2Br^- -> Br2 + 2e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Br^- -> Br2 + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pbbr2-overall",
+          "question": "Molten lead(II) bromide is electrolysed with inert electrodes at about 400 °C, where lead is a liquid and bromine is a gas. Write the overall equation, with state symbols.",
+          "steps": [
+            "Cathode: $\\ce{Pb^2+ + 2e- -> Pb}$.",
+            "Anode: $\\ce{2Br^- -> Br2 + 2e-}$.",
+            "Both half-equations already use $\\ce{2e-}$, so add them. The electrons cancel, and the ions recombine as $\\ce{PbBr2}$.",
+            "States at 400 °C: lead(II) bromide and lead are liquids; bromine is a gas."
+          ],
+          "answer": "$\\ce{PbBr2(l) -> Pb(l) + Br2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "PbBr2(l) -> Pb(l) + Br2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-srcl2-products",
+          "prompt": "Molten strontium chloride, $\\ce{SrCl2}$, is electrolysed with inert electrodes. What forms at each electrode?",
+          "hint": "Which ion goes to the negative electrode, and what does it become?",
+          "options": [
+            {
+              "text": "Strontium at the cathode, chlorine at the anode",
+              "correct": true
+            },
+            {
+              "text": "Chlorine at the cathode, strontium at the anode",
+              "correct": false
+            },
+            {
+              "text": "Strontium at the cathode, chloride ions at the anode",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen at the cathode, chlorine at the anode",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Sr^2+}$ is reduced to strontium at the cathode; $\\ce{Cl^-}$ is oxidized to $\\ce{Cl2}$ at the anode. There is no water in a melt, so no hydrogen forms.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Strontium at the cathode, chlorine at the anode"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-li2o-anode",
+          "prompt": "Molten lithium oxide, $\\ce{Li2O}$, is electrolysed. Which is the half-equation at the anode?",
+          "hint": "Oxide ions are oxidized to oxygen molecules. Balance the atoms, then the charge.",
+          "options": [
+            {
+              "text": "$\\ce{2O^2- -> O2 + 4e-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{O^2- -> O2 + 2e-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2O^2- + 4e- -> O2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Li^+ + e- -> Li}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{O^2-}$ ions make one $\\ce{O2}$ and release four electrons, so the charge is $4-$ on each side. Oxidation releases electrons, and the lithium equation is the cathode.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "O^2- -> O2 + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-crcl3-electrons",
+          "prompt": "Molten chromium(III) chloride is electrolysed. How many moles of electrons does the cathode supply to form one mole of chromium?",
+          "hint": "What is the oxidation state of chromium in the ion, and in the metal?",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$\\ce{Cr^3+ + 3e- -> Cr}$: the oxidation state falls from $+3$ to $0$, so each ion gains 3 electrons.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3 - 0",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Electrolytic cell: electrical energy → chemical energy, driving a non-spontaneous reaction. Parts: DC power supply, anode (+), cathode (−), electrolyte.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Current: electrons in the wires and electrodes; mobile ions in the electrolyte. Cations → cathode, anions → anode.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An ionic compound is an electrolyte only when molten or dissolved: its ions must be free to move.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Molten binary salt: metal at the cathode (reduction), non-metal element at the anode (oxidation), e.g. $\\ce{2Cl^- -> Cl2 + 2e-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying electrons flow through the molten electrolyte. Ions carry the charge there; electrons stay in the wires and electrodes.",
+    "Making the anode negative, as in a voltaic cell. In electrolysis it is joined to the positive terminal, and oxidation still happens there.",
+    "Giving the ion as the anode product (\"chloride\", $\\ce{Cl^-}$). The product is the element, $\\ce{Cl2}$.",
+    "Putting the metal at the anode. Metal cations are positive, so they move to the negative cathode."
+  ],
+  "examTips": [
+    "\"Annotate\" a cell diagram: label the anode (+) and cathode (−) from the terminal each is joined to, and draw arrows for cations moving to the cathode and anions to the anode.",
+    "\"Explain how current is conducted\": name both carriers (electrons in the external circuit, ions in the electrolyte) and say what happens at each electrode.",
+    "\"Deduce\" the products of a molten salt: name the element at each electrode (bromine, not bromide), and give half-equations balanced in atoms and charge."
+  ],
+  "readingMinutes": 20
+}

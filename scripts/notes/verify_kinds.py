@@ -10,7 +10,17 @@ form: an unsimplified ratio, 24 x 10^2, 4 s.f. where 3 are required) and ValueEr
 cannot be read. Both FAIL the gate; a multiple-choice distractor must raise AssertionError (it is wrong, not unreadable).
 
 Each kind is one function below; KINDS lists them with their options (validate.ts keeps the same table, and
-mathparse.test.ts compares the two). Property-style kinds reject degenerate answers by construction: an equation
+mathparse.test.ts compares the two).
+
+Chemistry (IB Chemistry lessons): the data booklet helpers of chem_data.py are available in every truth (Ar("Cl"),
+Mr("CuSO4·5H2O"), BE("C=O"), Hf("CH4(g)"), Gf(...), S("CH4(g)"), Hc(...), lattice("NaCl"), E0("Cu2+/Cu"),
+pKa_ind("methyl orange"), IE1, EA, EA2, EN, empirical_formula, molecular_formula, ionic_formula, formula). Text is
+allowed only as the argument of these helpers. S(...) with text is the booklet entropy; with a number it is SymPy's S.
+The booklet constants R, NA, F, Kw, c_water, Vm, T_STP, T_SATP, P_std, h_planck, c_light and e_charge are names only in a
+chemistry course (check(..., chemistry=True); check-math.py turns it on for course.json gate.chemistry or an
+"ib-chemistry" edition), so a maths truth keeps R or F as an ordinary symbol. Number kinds accept a trailing unit
+(\\text{}, \\pu{}, `kJ mol⁻¹`), and `unit` / `signed` check it and the sign. chem-equation, formula and explanation
+are the chemistry kinds (see their docstrings). Property-style kinds reject degenerate answers by construction: an equation
 must equal the true one up to a NON-ZERO constant factor (so 0 = 0 and a squared equation fail), `expression` with
 `scale` needs a non-zero constant ratio (so 0 or a constant is not an integrating factor), sets must be equal (not
 contained). Identities are proved symbolically, never by agreeing at sample points.
@@ -33,6 +43,8 @@ from sympy.core.relational import Relational
 from sympy.parsing.latex import parse_latex
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import chem_data  # noqa: E402
+import chemparse as cp  # noqa: E402
 import mathparse as mp  # noqa: E402
 
 parse_latex("x")  # load the parser now: importing it under evaluate(False) breaks sympy.physics
@@ -43,9 +55,9 @@ PRECISION = ("sf", "dp")
 #: kind -> {"required": options that must be present, "oneOf": exactly one of these, "optional": other allowed options,
 #:          "on": which blocks may use it ("example", "choice" = multiple-choice check, "numeric" = numeric check)}
 KINDS = {
-    "exact": {"optional": ["unit"], "on": ["example", "choice"]},
-    "rounded": {"oneOf": list(PRECISION), "optional": ["unit"], "on": ["example", "choice"]},
-    "numeric": {"oneOf": list(PRECISION), "optional": ["reading", "maxTolerance"], "on": ["numeric"]},
+    "exact": {"optional": ["unit", "signed"], "on": ["example", "choice"]},
+    "rounded": {"oneOf": list(PRECISION), "optional": ["unit", "signed"], "on": ["example", "choice"]},
+    "numeric": {"oneOf": list(PRECISION), "optional": ["reading", "maxTolerance", "signed"], "on": ["numeric"]},
     "list": {"optional": list(PRECISION), "on": ["example", "choice"]},
     "assignments": {"on": ["example", "choice"]},
     "solutions": {"optional": list(PRECISION), "on": ["example", "choice"]},
@@ -55,7 +67,7 @@ KINDS = {
     "inequality": {"optional": ["var"], "on": ["example", "choice"]},
     "set": {"optional": ["var"], "on": ["example", "choice"]},
     "ratio": {"on": ["example", "choice"]},
-    "standard-form": {"optional": ["sf", "unit"], "on": ["example", "choice"]},
+    "standard-form": {"optional": ["sf", "unit", "signed"], "on": ["example", "choice"]},
     "money": {"optional": ["dp"], "on": ["example", "choice"]},
     "time": {"required": ["form"], "on": ["example", "choice"]},
     "bearing": {"optional": ["dp"], "on": ["example", "choice"]},
@@ -64,9 +76,22 @@ KINDS = {
     "expression": {"optional": ["form", "scale"], "on": ["example", "choice"]},
     "antiderivative": {"optional": ["var"], "on": ["example", "choice"]},
     "choice": {"on": ["choice"]},
+    "chem-equation": {"optional": ["states", "reversible", "allowMultiple", "fractions", "per", "aliases"], "on": ["example", "choice"]},
+    "formula": {"optional": ["match", "given"], "on": ["example", "choice"]},
+    "explanation": {"required": ["requires"], "optional": ["forbids"], "on": ["example"]},
 }
-ENUMS = {"time.form": ["clock", "duration"], "fraction.form": ["mixed", "improper"], "expression.form": ["factorised", "expanded", "simplified"]}
-BOOLEANS = {"fraction.simplest", "expression.scale"}
+ENUMS = {
+    "time.form": ["clock", "duration"], "fraction.form": ["mixed", "improper"], "expression.form": ["factorised", "expanded", "simplified"],
+    "formula.match": ["composition", "exact"],
+}
+BOOLEANS = {
+    "fraction.simplest", "expression.scale", "exact.signed", "rounded.signed", "numeric.signed", "standard-form.signed",
+    "chem-equation.states", "chem-equation.reversible", "chem-equation.allowMultiple", "chem-equation.fractions", "formula.given",
+}
+#: Options that are lists of phrases. An entry of `requires` may itself be a list of alternatives.
+ARRAYS = {"explanation.requires", "explanation.forbids"}
+#: Kinds whose truth is text, not a SymPy computation: the literal-truth rule does not apply.
+TEXT_TRUTH = {"choice", "explanation", "chem-equation"}
 
 
 def check_spec(verify: dict):
@@ -101,8 +126,10 @@ def check_spec(verify: dict):
             raise ValueError(f"{name} must be one of {', '.join(ENUMS[name])}")
         if name in BOOLEANS and not isinstance(value, bool):
             raise ValueError(f"{name} must be true or false")
-        if key in ("unit", "var") and not (isinstance(value, str) and value.strip()):
+        if key in ("unit", "var", "per") and not (isinstance(value, str) and value.strip()):
             raise ValueError(f"{name} must be a non-empty string")
+        if name in ARRAYS:
+            _check_phrases(name, value)
     if kind == "numeric" and ("reading" in options or "maxTolerance" in options):
         if options.get("reading") is not True:
             raise ValueError("numeric.reading must be true (and is only for estimates read from a graph)")
@@ -111,8 +138,43 @@ def check_spec(verify: dict):
             raise ValueError("numeric.reading needs maxTolerance, a positive number")
     if kind == "money" and options.get("dp", 2) not in (0, 2):
         raise ValueError("money.dp must be 2 (or 0 for whole amounts)")
-    if kind != "choice":
+    if kind == "chem-equation":
+        if options.get("allowMultiple") and options.get("fractions"):
+            raise ValueError("chem-equation: give allowMultiple or fractions, not both")
+        if "per" in options and not options.get("fractions"):
+            raise ValueError("chem-equation.per names the species with coefficient 1, so it needs fractions: true")
+    if kind == "explanation" and len(options.get("requires", [])) < 2:
+        raise ValueError("explanation.requires needs at least 2 phrases (the marking points)")
+    if kind == "formula":
+        _check_formula_truth(truth, options)
+    elif kind not in TEXT_TRUTH:
         require_computed(truth)
+
+
+def _check_phrases(name, value):
+    """`requires`: non-empty phrases, each a string or a non-empty list of alternative strings. `forbids`: strings."""
+    if not isinstance(value, list) or not value:
+        raise ValueError(f"{name} must be a non-empty list of phrases")
+    for entry in value:
+        alternatives = entry if isinstance(entry, list) and name.endswith("requires") else [entry]
+        if not alternatives or not all(isinstance(text, str) and _normal_prose(text) for text in alternatives):
+            raise ValueError(f"{name}: every entry must be a non-empty phrase" + (" or a list of alternative phrases" if name.endswith("requires") else ""))
+
+
+def _check_formula_truth(truth, options):
+    """A formula truth calls a formula helper. formula("...") (a formula typed in) is only for a formula the question
+    itself states, and must say so with given: true."""
+    try:
+        tree = ast.parse(str(truth).strip(), mode="eval").body
+    except SyntaxError:
+        return  # evaluate_truth reports unreadable text
+    name = tree.func.id if isinstance(tree, ast.Call) and isinstance(tree.func, ast.Name) else None
+    if name not in chem_data.FORMULA_HELPERS:
+        raise ValueError(f"formula truth {truth!r} must call {', '.join(sorted(chem_data.FORMULA_HELPERS))}")
+    if name == "formula" and options.get("given") is not True:
+        raise ValueError("formula(\"...\") types the formula in; use it only for a formula stated in the question, with given: true")
+    if name != "formula" and "given" in options:
+        raise ValueError("formula.given is only for a formula(\"...\") truth stated in the question")
 
 
 # ---------------------------------------------------------------------------------------------------------- the truth
@@ -152,6 +214,28 @@ _DENIED = {
 }
 NAMESPACE = {name: getattr(sympy, name) for name in sympy.__all__ if name not in _DENIED and not name.startswith("_")}
 
+
+class _EntropyOrS:
+    """S("CH4(g)") is the booklet standard entropy; S(1)/3, S.Reals are SymPy's S. Text never reaches sympify."""
+
+    def __call__(self, value, *args, **kwargs):
+        if isinstance(value, str):
+            return chem_data.S_std(value)
+        return sympy.S(value, *args, **kwargs)
+
+    def __getattr__(self, name):
+        return getattr(sympy.S, name)
+
+
+_CHEM_FUNCTIONS = {name: value for name, value in chem_data.namespace().items() if callable(value)}
+_CHEM_CONSTANTS = {name: value for name, value in chem_data.namespace().items() if not callable(value)}
+NAMESPACE.update(_CHEM_FUNCTIONS)
+NAMESPACE["S"] = _EntropyOrS()
+
+
+def _namespace(chemistry=False):
+    return {**NAMESPACE, **_CHEM_CONSTANTS} if chemistry else NAMESPACE
+
 _ALLOWED_NODES = (
     ast.Expression, ast.BinOp, ast.UnaryOp, ast.Call, ast.Name, ast.Load, ast.Constant, ast.Tuple, ast.List, ast.Dict,
     ast.keyword, ast.Attribute, ast.Subscript, ast.Compare, ast.Slice,
@@ -163,6 +247,9 @@ _IDENTIFIER = re.compile(r"[A-Za-z][A-Za-z0-9]*\Z")
 
 class _Exact(ast.NodeTransformer):
     """Whole numbers -> Integer(n), decimals -> Rational("12.5"), unknown names -> Symbol("x")."""
+
+    def __init__(self, namespace=None):
+        self.namespace = NAMESPACE if namespace is None else namespace
 
     def visit_Constant(self, node):
         if isinstance(node.value, bool) or node.value is None:
@@ -179,13 +266,15 @@ class _Exact(ast.NodeTransformer):
         return self.generic_visit(node)
 
     def visit_Name(self, node):
-        if node.id in NAMESPACE:
+        if node.id in self.namespace:
             return node
         return ast.copy_location(ast.Call(ast.Name("Symbol", ast.Load()), [ast.Constant(node.id)], []), node)
 
 
-def evaluate_truth(source: str):
-    """The SymPy value of a verify.truth string, evaluated with SymPy names only (see the module docstring)."""
+def evaluate_truth(source: str, chemistry=False):
+    """The SymPy value of a verify.truth string, evaluated with SymPy names (and the chemistry helpers) only (see the module
+    docstring). chemistry=True adds the data booklet constants R, NA, F, Kw, c_water, Vm, ..."""
+    namespace = _namespace(chemistry)
     if not isinstance(source, str) or not source.strip():
         raise ValueError("truth is empty")
     try:
@@ -195,7 +284,7 @@ def evaluate_truth(source: str):
     for node in ast.walk(tree):
         if not isinstance(node, _ALLOWED_NODES):
             raise ValueError(f"truth {source!r} uses {type(node).__name__}, which is not allowed")
-        if isinstance(node, ast.Name) and not _IDENTIFIER.match(node.id) and node.id not in NAMESPACE:
+        if isinstance(node, ast.Name) and not _IDENTIFIER.match(node.id) and node.id not in namespace:
             raise ValueError(f"truth {source!r} uses the name {node.id!r}")
         if isinstance(node, ast.Name) and node.id.startswith("_"):
             raise ValueError(f"truth {source!r} uses the name {node.id!r}")
@@ -203,14 +292,17 @@ def evaluate_truth(source: str):
             raise ValueError(f"truth {source!r} uses the attribute {node.attr!r}")
         if isinstance(node, ast.Call) and not isinstance(node.func, (ast.Name, ast.Attribute)):
             raise ValueError(f"truth {source!r} calls something that is not a SymPy name")
-    # String constants only as identifier keys of a dict ({"x": 2, "y": -1}), never as an argument SymPy could parse.
+    # String constants only as identifier keys of a dict ({"x": 2, "y": -1}) or as the argument of a data booklet helper
+    # (Mr("H2SO4")), never as an argument SymPy could parse.
     keys = {id(key) for node in ast.walk(tree) if isinstance(node, ast.Dict) for key in node.keys}
+    helper_args = {id(arg) for node in ast.walk(tree) if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                   and node.func.id in chem_data.TEXT_HELPERS for arg in node.args}
     for node in ast.walk(tree):
-        if isinstance(node, ast.Constant) and isinstance(node.value, str) and not (id(node) in keys and _IDENTIFIER.match(node.value)):
-            raise ValueError(f"truth {source!r}: text is allowed only as a variable name key, as in {{\"x\": 2}}")
-    tree = ast.fix_missing_locations(_Exact().visit(tree))
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and not (id(node) in keys and _IDENTIFIER.match(node.value)) and id(node) not in helper_args:
+            raise ValueError(f"truth {source!r}: text is allowed only as a variable name key, as in {{\"x\": 2}}, or as a data booklet helper's argument, as in Mr(\"H2O\")")
+    tree = ast.fix_missing_locations(_Exact(namespace).visit(tree))
     try:
-        return eval(compile(tree, "<truth>", "eval"), {"__builtins__": {}}, dict(NAMESPACE))  # noqa: S307 - restricted above
+        return eval(compile(tree, "<truth>", "eval"), {"__builtins__": {}}, dict(namespace))  # noqa: S307 - restricted above
     except Exception as error:  # noqa: BLE001
         raise ValueError(f"truth {source!r} could not be evaluated: {type(error).__name__}: {error}") from error
 
@@ -290,17 +382,54 @@ def _reduced_fraction_errors(expr):
 
 # ------------------------------------------------------------------------------------------------------------ kinds
 
+def _without_unit(tex, opts, plain):
+    """The published TeX without its trailing unit. With `unit`, the unit must be there and match (else the answer is
+    wrong); without it, a trailing unit is allowed and ignored (plain=False: only a \\text / \\mathrm / \\pu / % unit, so a
+    letter in an expression is never taken for a unit)."""
+    if "unit" in opts:
+        stripped, published = mp.split_unit(tex, plain=True)
+        if published is None:
+            raise AssertionError(f"{tex!r} has no unit; expected {opts['unit']!r}")
+        if published != mp._normal_unit(opts["unit"]):
+            raise AssertionError(f"{tex!r} has unit {published!r}, expected {mp._normal_unit(opts['unit'])!r}")
+        return stripped
+    return mp.split_unit(tex, plain=plain)[0]
+
+
+def _check_signed(text, truth, tex):
+    """signed: true: a positive answer carries an explicit + (oxidation states, ΔH, E⦵), as in +3 or +52 kJ mol-1."""
+    value = _number(truth, "signed")
+    rhs, _ = _rhs(text)
+    if value > 0 and not rhs.lstrip().startswith("+"):
+        raise AssertionError(f"{tex!r}: the sign is part of the answer here; write it with +")
+
+
 def k_exact(tex, truth, opts):
-    published = mp.parse_answer(mp.parse_with_unit(tex, opts["unit"]) if "unit" in opts else tex)
+    """An exact value. `unit`: the published unit must match it (\\text{kJ mol}^{-1}, \\pu{-890 kJ mol-1}, kJ mol⁻¹ are
+    all "kJ mol-1"); without `unit` a \\text / \\pu unit after the value is ignored. `signed: true`: a positive value is
+    written with + (oxidation state +3)."""
+    text = _without_unit(tex, opts, plain=False)
+    if opts.get("signed"):
+        _check_signed(text, truth, tex)
+    published = mp.parse_answer(text)
     if not _same(published, truth):
         raise AssertionError(f"published {published} is not {truth}")
 
 
 def k_rounded(tex, truth, opts):
-    mp.check_rounded(tex, _number(truth, "rounded"), sf=opts.get("sf"), dp=opts.get("dp"), unit=opts.get("unit"))
+    """A rounded value to exactly `sf` figures or `dp` places, written with \\approx. A trailing unit is allowed (`unit`
+    checks it, as for exact); `signed: true` requires the + of a positive value (ΔH = +52 kJ mol-1)."""
+    text = _without_unit(tex, opts, plain=True)
+    if opts.get("signed"):
+        _check_signed(text, truth, tex)
+    mp.check_rounded(text, _number(truth, "rounded"), sf=opts.get("sf"), dp=opts.get("dp"))
 
 
 def k_numeric(value, truth, opts, tolerance=None):
+    """A numeric check's value. A JSON number has no + sign, so `signed: true` only requires the value's sign to be the
+    truth's (no rounding to 0); the check's prompt should ask for the sign."""
+    if opts.get("signed") and _number(truth, "numeric") != 0 and (float(value) > 0) != (_number(truth, "numeric") > 0):
+        raise AssertionError(f"published {value} has the wrong sign")
     if opts.get("reading"):
         # A value read off a graph: the truth must sit inside the declared band, and the band within the declared cap.
         tolerance = 0 if tolerance is None else float(tolerance)
@@ -563,12 +692,16 @@ def k_ratio(tex, truth, opts):
         raise AssertionError(f"{tex!r} is not the ratio {' : '.join(str(t) for t in truths)}")
 
 
-_STANDARD = re.compile(r"(-?)\s*(\d+(?:\.\d+)?)\s*(?:\\times|\\cdot)\s*10\s*\^\s*\{?\s*(-?\d+)\s*\}?")
+_STANDARD = re.compile(r"([-+]?)\s*(\d+(?:\.\d+)?)\s*(?:\\times|\\cdot)\s*10\s*\^\s*\{?\s*(-?\d+)\s*\}?")
 
 
 def k_standard_form(tex, truth, opts):
+    """a x 10^k with 1 <= a < 10 (`sf`: exactly that many figures, and then \\approx). A trailing unit is allowed
+    (\\pu{2.50e-3 mol} reads as 2.50 x 10^{-3} mol); `unit` and `signed` as for exact."""
     value = _number(truth, "standard-form")
-    text = mp.parse_with_unit(tex, opts["unit"]) if "unit" in opts else tex
+    text = _without_unit(tex, opts, plain=True)
+    if opts.get("signed"):
+        _check_signed(text, truth, tex)
     rhs, relation = _rhs(text)
     rhs = re.sub(r"\\(?:text|mathrm)\{\s*\([^}]*\)\s*\}", " ", rhs).strip()
     match = _STANDARD.fullmatch(rhs)
@@ -822,27 +955,207 @@ def k_antiderivative(tex, truth, opts):
 
 
 def k_choice(text, truth, opts):
+    """A word answer in multiple choice ("exothermic", "trigonal planar", "sp²"): the option text equals the truth."""
     normal = lambda value: re.sub(r"\s+", " ", str(value)).strip()  # noqa: E731
     if normal(text) != normal(truth):
         raise AssertionError(f"{text!r} is not the correct option {truth!r}")
+
+
+def _side_map(side):
+    """{species key: (Formula, total coefficient, states)} for one side; a species written twice is summed."""
+    out = {}
+    for coefficient, formula, state, _ in side:
+        _, total, states = out.get(formula.key(), (formula, 0, set()))
+        out[formula.key()] = (formula, total + coefficient, states | {state})
+    return out
+
+
+def _names(mapping):
+    return " + ".join(formula.text for formula, _, _ in mapping.values())
+
+
+def k_chem_equation(tex, truth, opts):
+    """A chemical equation, in mhchem ($\\ce{2H2(g) + O2(g) -> 2H2O(l)}$) or plain (2H2 + O2 → 2H2O), with -> / → or
+    <=> / ⇌ / \\rightleftharpoons. Ions carry ^ charges (Fe^{3+}, \\ce{SO4^2-}, OH-), electrons are e- (charge 1-).
+
+    `truth` is the skeleton, e.g. "Fe2O3 + CO -> Fe + CO2" (or a half-equation "MnO4^- + H^+ + e- -> Mn^2+ + H2O"); the
+    gate balances it (atoms and charge, SymPy nullspace). A skeleton that balances in more than one independent way is
+    refused: give the truth with its coefficients, and the answer must then be proportional to it.
+    The published equation must: balance in atoms and charge; have exactly the truth's species on each side (state
+    symbols ignored unless `states: true`, which needs one on every species, matching the truth's where it gives them);
+    use the smallest whole-number coefficients, unless `allowMultiple: true` (any whole-number multiple) or
+    `fractions: true` (per mole: the species `per`, by default the only product or else the first reactant, has
+    coefficient 1, and the others may be fractions such as ½ / \\frac{1}{2} / 1/2).
+    `reversible: true` requires ⇌ and rejects →; `reversible: false` requires →; without it either arrow is accepted.
+    Species are matched by composition for balancing, then by their written formula: a structural isomer of a truth
+    species fails. `aliases: {"CH3COOH": ["CH3CO2H"]}` lists other writings of the same compound that are accepted."""
+    true_left, _, true_right = cp.parse_equation(truth)
+    if any(written for *_, written in true_left + true_right):
+        if cp.imbalance(true_left, true_right):
+            raise ValueError(f"truth {truth!r} has coefficients but does not balance")
+        target = [coefficient for coefficient, *_ in true_left + true_right]
+    else:
+        target = cp.balance(true_left, true_right)
+    left, arrow, right = cp.parse_equation(tex)
+    reversible = opts.get("reversible")
+    if reversible is True and arrow != "<=>":
+        raise AssertionError(f"{tex!r}: this is an equilibrium; use the ⇌ arrow")
+    if reversible is False and arrow != "->":
+        raise AssertionError(f"{tex!r}: this reaction goes one way; use the → arrow")
+    want = [_side_map(true_left), _side_map(true_right)]
+    got = [_side_map(left), _side_map(right)]
+    # The written formula identifies the compound (CH3COOCH3 is not CH3CH2COOH). Check every species as written, before
+    # same-composition species are merged, so a wrong isomer can't hide behind a right one on the same side.
+    aliases = {cp.parse_formula(k).text: {cp.parse_formula(v).text for v in vs} for k, vs in (opts.get("aliases") or {}).items()}
+    for side, truth_side in ((left, true_left), (right, true_right)):
+        allowed = {}
+        for _, formula, _, _ in truth_side:
+            allowed.setdefault(formula.key(), set()).update({formula.text} | aliases.get(formula.text, set()))
+        for _, formula, _, _ in side:
+            names = allowed.get(formula.key())
+            if names and formula.text not in names:
+                raise AssertionError(f"{tex!r}: {formula.text} has the right atoms but is not {' or '.join(sorted(names))}; write the compound as the question does (or list a vetted alias)")
+    for name, have, need in zip(("reactants", "products"), got, want):
+        if set(have) != set(need):
+            raise AssertionError(f"{tex!r}: the {name} are {_names(have)}, not {_names(need)}")
+    problems = cp.imbalance(left, right)
+    if problems:
+        detail = "; ".join(f"{name} {float(lhs):g} on the left, {float(rhs):g} on the right" for name, lhs, rhs in problems)
+        raise AssertionError(f"{tex!r} is not balanced ({detail})")
+    # The truth's coefficient for each species (its balanced skeleton, or its own coefficients).
+    true_coefficient = {}
+    for side, index in ((true_left, 0), (true_right, 1)):
+        for (_, formula, _, _), value in zip(side, target[:len(true_left)] if index == 0 else target[len(true_left):]):
+            key = (index, formula.key())
+            true_coefficient[key] = true_coefficient.get(key, 0) + value
+    published = {(index, key): total for index, mapping in enumerate(got) for key, (_, total, _) in mapping.items()}
+    ratios = {published[key] / value for key, value in true_coefficient.items()}
+    if len(ratios) != 1:
+        raise AssertionError(f"{tex!r} balances, but not with the truth's coefficients {' : '.join(str(v) for v in true_coefficient.values())}")
+    ratio = ratios.pop()
+    whole = all(value.denominator == 1 for value in published.values())
+    if opts.get("fractions"):
+        per = cp.parse_formula(opts["per"]).key() if "per" in opts else (next(iter(want[1])) if len(want[1]) == 1 else next(iter(want[0])))
+        sides = [index for index in (0, 1) if per in want[index]]
+        if not sides:
+            raise ValueError(f"chem-equation.per {opts['per']!r} is not a species of the equation")
+        if published[(sides[0], per)] != 1:
+            raise AssertionError(f"{tex!r}: per mole of {want[sides[0]][per][0].text}, its coefficient must be 1 (fractions allowed elsewhere)")
+    elif opts.get("allowMultiple"):
+        if not whole:
+            raise AssertionError(f"{tex!r}: use whole-number coefficients")
+    else:
+        if not whole:
+            raise AssertionError(f"{tex!r}: use the smallest whole-number coefficients, not fractions")
+        if ratio != 1:
+            raise AssertionError(f"{tex!r}: the coefficients are not the smallest whole numbers (all divide by {ratio})")
+    if opts.get("states"):
+        for name, have, need in zip(("reactant", "product"), got, want):
+            for key, (formula, _, states) in have.items():
+                if None in states:
+                    raise AssertionError(f"{tex!r}: the {name} {formula.text} needs a state symbol")
+                truth_states = need[key][2] - {None}
+                if truth_states and states != truth_states:
+                    raise AssertionError(f"{tex!r}: {formula.text} is ({'/'.join(sorted(states))}), not ({'/'.join(sorted(truth_states))})")
+
+
+def _published_formula(tex):
+    """The formula in an answer: the last \\ce{...}, else the text after the last = or :."""
+    block = cp.last_block(tex)
+    if block is None:
+        block = re.split(r"=|:|\\approx", tex.replace("$", " "))[-1]
+    return cp.parse_species(f"\\ce{{{block}}}")[0]
+
+
+def k_formula(tex, truth, opts):
+    """A chemical formula, mhchem ($\\ce{C2H4}$, $\\ce{Al2(SO4)3}$, $\\ce{SO4^2-}$) or plain. `match: "composition"` (the
+    default) compares element counts and charge; `match: "exact"` compares the formula as written (after normalising
+    mhchem and spacing), for condensed structural formulas such as CH3CH2OH vs C2H6O.
+
+    The truth calls a helper: empirical_formula({"C": 85.7, "H": 14.3}) (percentages or masses, booklet Ar values;
+    ratios near 1.5 / 1.33 / 1.25 are scaled by 2 / 3 / 4, other non-whole ratios are refused as ambiguous),
+    molecular_formula("CH2", 56.1), ionic_formula("Al3+", "SO4 2-"), or formula("C2H5OH") with given: true when the
+    question itself states the formula."""
+    if not isinstance(truth, cp.Formula):
+        raise ValueError(f"formula truth must be a formula helper's result, got {truth}")
+    published = _published_formula(tex)
+    if published != truth:
+        raise AssertionError(f"{tex!r} is {published.hill()}, not {truth.hill()}")
+    if opts.get("match") == "exact" and published.text != truth.text:
+        raise AssertionError(f"{tex!r} is written {published.text}, not {truth.text}")
+
+
+_PROSE_GREEK = {name: chr(code) for name, code in (
+    ("Delta", 0x394), ("delta", 0x3B4), ("alpha", 0x3B1), ("beta", 0x3B2), ("gamma", 0x3B3), ("lambda", 0x3BB),
+    ("mu", 0x3BC), ("nu", 0x3BD), ("pi", 0x3C0), ("sigma", 0x3C3), ("theta", 0x3B8), ("ominus", 0x29B5),
+    ("circ", 0xB0), ("times", 0xD7), ("pm", 0xB1))}
+
+
+def _math_prose(segment):
+    """Maths as it reads: \\text{} keeps its spaces, other spaces vanish (TeX ignores them), commands become symbols."""
+    segment = re.sub(r"\\(?:text|textrm|mathrm)\s*\{([^{}]*)\}", lambda m: "\\text{" + m.group(1).replace(" ", "\x00") + "}", segment)
+    segment = re.sub(r"\\([A-Za-z]+)", lambda m: _PROSE_GREEK.get(m.group(1), m.group(0)), segment)
+    segment = cp.normalise(segment)
+    segment = re.sub(r"\\[A-Za-z]+", "", segment)
+    return re.sub(r"\s+", "", segment).replace("\x00", " ")
+
+
+def _normal_prose(text):
+    """Text compared case-, space-, KaTeX/mhchem-, dash- and sub/superscript-insensitively ("ΔH" = "$\\Delta H$",
+    "H₂O" = "$\\ce{H2O}$", "sp²" = "sp^2", "–" = "-")."""
+    pieces = str(text).split("$")
+    joined = " ".join(_math_prose(piece) if index % 2 else piece for index, piece in enumerate(pieces))
+    joined = cp.normalise(joined).replace("^", "").replace("_", "").casefold()
+    joined = re.sub(r"\s+", " ", joined).strip()
+    return re.sub(r"\s*([^\w\s])\s*", r"\1", joined)
+
+
+def _contains(text, phrase):
+    phrase = _normal_prose(phrase)
+    before = r"(?<!\w)" if phrase[:1].isalnum() else ""
+    after = r"(?!\w)" if phrase[-1:].isalnum() else ""
+    return re.search(before + re.escape(phrase) + after, text) is not None
+
+
+def k_explanation(text, truth, opts):
+    """A prose answer ("Explain why ...", "Outline ..."), on worked examples only (checks stay multiple choice or
+    numeric). `truth` is a one-line summary of the expected answer (text; the literal-truth rule does not apply).
+    `requires` (at least 2): the marking points, each a phrase that must appear, or a list of alternative phrases (any one
+    will do). `forbids` (optional): misconception phrases that must not appear ("energy is released when bonds break").
+    Matching ignores case, spacing, KaTeX/mhchem markup, Unicode dashes and sub/superscripts, and is by whole words."""
+    if not isinstance(text, str):
+        raise ValueError("explanation checks published text")
+    answer = _normal_prose(text)
+    for entry in opts["requires"]:
+        alternatives = entry if isinstance(entry, list) else [entry]
+        if not any(_contains(answer, phrase) for phrase in alternatives):
+            raise AssertionError(f"the answer does not state {' / '.join(repr(phrase) for phrase in alternatives)}")
+    for phrase in opts.get("forbids", []):
+        if _contains(answer, phrase):
+            raise AssertionError(f"the answer says {phrase!r}, a misconception")
 
 
 CHECKERS = {
     "exact": k_exact, "rounded": k_rounded, "list": k_list, "assignments": k_assignments, "solutions": k_solutions, "point": k_point, "vector": k_vector,
     "equation": k_equation, "inequality": k_set, "set": k_set, "ratio": k_ratio, "standard-form": k_standard_form, "money": k_money,
     "time": k_time, "bearing": k_bearing, "angle": k_angle, "fraction": k_fraction, "expression": k_expression,
-    "antiderivative": k_antiderivative, "choice": k_choice,
+    "antiderivative": k_antiderivative, "choice": k_choice, "formula": k_formula,
 }
 
 
-def check(verify: dict, published, tolerance=None):
-    """Raise AssertionError if `published` (an answer's TeX, an option's text, or a numeric check's value) is wrong."""
+def check(verify: dict, published, tolerance=None, chemistry=False):
+    """Raise AssertionError if `published` (an answer's TeX, an option's text, or a numeric check's value) is wrong.
+    chemistry=True makes the data booklet constants (R, NA, F, ...) names in the truth."""
     check_spec(verify)
     kind = verify["kind"]
     opts = {key: value for key, value in verify.items() if key not in ("kind", "truth")}
     if kind == "choice":
         return k_choice(published, verify["truth"], opts)
-    truth = evaluate_truth(verify["truth"])
+    if kind in ("explanation", "chem-equation"):
+        if not isinstance(published, str):
+            raise ValueError(f"{kind} checks published text, got {published!r}")
+        return (k_explanation if kind == "explanation" else k_chem_equation)(published, verify["truth"], opts)
+    truth = evaluate_truth(verify["truth"], chemistry=chemistry)
     if kind != "antiderivative":
         with mp.keep_constant():
             return _check_kind(verify, kind, opts, truth, published, tolerance)
@@ -861,7 +1174,7 @@ def _check_kind(verify, kind, opts, truth, published, tolerance):
 
 if __name__ == "__main__":
     if sys.argv[1:] == ["--spec"]:
-        print(json.dumps({"kinds": KINDS, "enums": ENUMS, "booleans": sorted(BOOLEANS)}, sort_keys=True))
+        print(json.dumps({"kinds": KINDS, "enums": ENUMS, "booleans": sorted(BOOLEANS), "arrays": sorted(ARRAYS)}, sort_keys=True))
     else:
         print("Usage: verify_kinds.py --spec", file=sys.stderr)
         sys.exit(2)

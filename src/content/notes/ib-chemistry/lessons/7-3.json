@@ -1,0 +1,862 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "7.3",
+  "slug": "graphs-and-data-processing",
+  "title": "Graphs and data processing",
+  "level": "SL",
+  "topic": 7,
+  "summary": "A graph turns a table of results into a pattern you can read. You'll spot [[direct-proportionality|direct]] and [[inverse-proportionality|inverse proportionality]], draw a [[line-of-best-fit|line of best fit]], judge the fit with $R^2$, and read rates from it. [[uncertainty-bar|Uncertainty bars]] show how far each point could move.",
+  "goals": [
+    {
+      "text": "Recognise direct and inverse proportionality, and positive and negative correlation.",
+      "bullets": [
+        "T3.10"
+      ]
+    },
+    {
+      "text": "Sketch graphs with labelled axes, and plot graphs with sensible scales and a line or curve of best fit.",
+      "bullets": [
+        "T3.12",
+        "T3.13",
+        "T3.14"
+      ]
+    },
+    {
+      "text": "Use $R^2$ to judge how well a trend line or curve fits.",
+      "bullets": [
+        "T3.11"
+      ]
+    },
+    {
+      "text": "Find rates from tables, and interpret the [[gradient|gradient]], intercepts, maxima, minima and areas of graphs.",
+      "bullets": [
+        "T3.9",
+        "T3.15"
+      ]
+    },
+    {
+      "text": "Draw and interpret uncertainty bars, and use [[interpolation|interpolation]] and [[extrapolation|extrapolation]].",
+      "bullets": [
+        "T3.16",
+        "T3.17"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.3",
+    "7.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "line of best fit",
+    "R squared value",
+    "rate from a table",
+    "error bars",
+    "extrapolating a graph",
+    "direct and inverse proportion"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-tangent-rate",
+      "prompt": "How do you find the rate of reaction at one exact moment from a concentration–time curve?",
+      "hint": "The rate at one instant is how steep the curve is there.",
+      "options": [
+        {
+          "text": "the gradient of a tangent drawn at that time",
+          "correct": true
+        },
+        {
+          "text": "the gradient of a line from the start to that point",
+          "correct": false
+        },
+        {
+          "text": "the concentration at that time divided by the time",
+          "correct": false
+        }
+      ],
+      "explain": "Use the gradient of the [[tangent|tangent]]. A line between two points gives only an average rate. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the gradient of a tangent drawn at that time"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percentage-uncertainty",
+      "prompt": "A temperature rise is $\\pu{8.0 K}$ with an [[absolute-uncertainty|absolute uncertainty]] of $\\pm \\pu{0.2 K}$. What is its [[percentage-uncertainty|percentage uncertainty]]? Give 2 [[significant-figures|significant figures]].",
+      "hint": "Divide the uncertainty by the value, then multiply by 100.",
+      "answer": {
+        "value": 2.5,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{0.2}{8.0} \\times 100 = 2.5\\%$. Revise it in {{lesson:7.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.2/8.0*100",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-scatter-error",
+      "prompt": "Repeated readings land above and below the true value by different amounts. Which type of error causes this?",
+      "hint": "One type shifts every reading the same way; the other scatters them.",
+      "options": [
+        {
+          "text": "random error",
+          "correct": true
+        },
+        {
+          "text": "systematic error",
+          "correct": false
+        }
+      ],
+      "explain": "A [[random-error|random error]] scatters readings either side of the true value. A [[systematic-error|systematic error]] shifts them all one way. Revise it in {{lesson:7.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "random error"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "relationships",
+      "heading": "Variables, proportionality and correlation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[independent-variable|independent variable]] is the one you change on purpose. The [[dependent-variable|dependent variable]] is the one you measure. Everything else that could affect the result is kept the same."
+        },
+        {
+          "type": "definition",
+          "term": "direct proportionality",
+          "statement": "Two variables are directly proportional when $y = kx$, where $k$ is a constant: doubling $x$ doubles $y$.",
+          "plain": "$\\frac{y}{x}$ never changes, so the graph is a straight line through the origin."
+        },
+        {
+          "type": "definition",
+          "term": "inverse proportionality",
+          "statement": "Two variables are inversely proportional when $y = \\frac{k}{x}$, where $k$ is a constant: doubling $x$ halves $y$.",
+          "plain": "$xy$ never changes, so the graph is a curve that never touches either axis."
+        },
+        {
+          "type": "text",
+          "text": "To test a table, check whether $\\frac{y}{x}$ or $xy$ is constant. A straight line that misses the origin, such as $y = 3x + 2$, is linear but not [[direct-proportionality|directly proportional]]."
+        },
+        {
+          "type": "text",
+          "text": "A correlation is a looser link. In a positive correlation $y$ tends to rise as $x$ rises; in a negative one it tends to fall. A correlation alone doesn't prove that one variable causes the other to change."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-relationship-shapes",
+          "alt": "Four sketch graphs of y against x, with labelled but unscaled axes. First, direct proportionality: a straight line rising from the origin. Second, inverse proportionality: a curve that starts high near the y-axis and falls ever more slowly, approaching both axes without touching them. Third, positive correlation: points scattered about a rising straight line that starts above the origin. Fourth, negative correlation: points scattered about a falling straight line.",
+          "caption": "With $k$ positive, direct proportionality is a special positive correlation and [[inverse-proportionality|inverse proportionality]] a special negative one."
+        },
+        {
+          "type": "example",
+          "id": "ex-gas-inverse",
+          "question": "A fixed amount of gas is kept at constant temperature. Pressure and volume readings: $\\pu{40 kPa}$, $\\pu{189 cm3}$; $\\pu{54 kPa}$, $\\pu{140 cm3}$; $\\pu{70 kPa}$, $\\pu{108 cm3}$; $\\pu{108 kPa}$, $\\pu{70.0 cm3}$. Deduce the relationship, and calculate the volume at $\\pu{126 kPa}$.",
+          "steps": [
+            "$V$ falls as $P$ rises. $\\frac{V}{P}$ is $4.7$ then $2.6$, so it is not direct proportionality.",
+            "$PV$: $40 \\times 189 = 7560$, $54 \\times 140 = 7560$, $70 \\times 108 = 7560$, $108 \\times 70.0 = 7560$. Constant, so $V$ is inversely proportional to $P$.",
+            "At $\\pu{126 kPa}$: $V = \\frac{7560}{126} = \\pu{60.0 cm3}$."
+          ],
+          "answer": "$V = \\pu{60.0 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "40*189/126",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-solubility-correlation",
+          "question": "The solubility of potassium nitrate, in g per $\\pu{100 g}$ of water, is $13$ at $\\pu{0 °C}$, $26$ at $\\pu{15 °C}$, $55$ at $\\pu{35 °C}$ and $95$ at $\\pu{55 °C}$. A student says solubility is directly proportional to temperature. Evaluate this claim.",
+          "steps": [
+            "Ratios: $\\frac{26}{15} \\approx 1.7$, $\\frac{55}{35} \\approx 1.6$, $\\frac{95}{55} \\approx 1.7$. Not constant, and the ratios in kelvin aren't constant either.",
+            "At $\\pu{0 °C}$ the solubility is $\\pu{13 g}$, not zero.",
+            "So the trend is a correlation only."
+          ],
+          "answer": "There is a positive correlation: solubility increases as temperature increases. It is not direct proportionality, because the ratio of solubility to temperature is not constant. The solubility at 0 °C is 13 g, not zero, so the graph does not pass through the origin.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "positive correlation, but the ratio is not constant and the line misses the origin",
+            "requires": [
+              "positive correlation",
+              [
+                "not constant",
+                "ratio changes"
+              ],
+              [
+                "origin",
+                "not zero"
+              ],
+              [
+                "not direct proportionality",
+                "not directly proportional"
+              ]
+            ],
+            "forbids": [
+              "is directly proportional to temperature"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hydrogen-volume",
+          "prompt": "The volume of hydrogen from magnesium and excess acid is directly proportional to the mass of magnesium. $\\pu{0.120 g}$ gives $\\pu{118 cm3}$. What volume, in $\\pu{cm3}$, does $\\pu{0.300 g}$ give? Give 3 significant figures.",
+          "hint": "Scale the volume by $\\frac{0.300}{0.120}$.",
+          "answer": {
+            "value": 295,
+            "tolerance": 0.5
+          },
+          "explain": "$118 \\times \\frac{0.300}{0.120} = \\pu{295 cm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "118*0.300/0.120",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-alcohol-correlation",
+          "prompt": "Solubility in water falls as the carbon chain of an alcohol gets longer. With no numbers, which description can you be sure of?",
+          "hint": "Proportionality needs numbers to test.",
+          "options": [
+            {
+              "text": "a negative correlation",
+              "correct": true
+            },
+            {
+              "text": "a positive correlation",
+              "correct": false
+            },
+            {
+              "text": "inverse proportionality",
+              "correct": false
+            }
+          ],
+          "explain": "One rises as the other falls, so the correlation is negative. Inverse proportionality needs $xy$ constant, which you can't test without numbers.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a negative correlation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plotting",
+      "heading": "Sketching, plotting and lines of best fit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sketch shows the shape of a trend: both axes labelled, no scale. Show what matters, such as where the line starts, whether it curves, and any maximum."
+        },
+        {
+          "type": "text",
+          "text": "A plot is drawn to scale. Put the [[independent-variable|independent variable]] on the $x$-axis. Label each axis \"quantity / unit\", such as \"time / s\"."
+        },
+        {
+          "type": "text",
+          "text": "Choose scales so the points cover at least half the grid each way, using easy steps (1, 2 or 5 units per square, times a power of ten). An axis need not start at zero."
+        },
+        {
+          "type": "definition",
+          "term": "line of best fit",
+          "statement": "A single straight line or smooth curve drawn through plotted points so that they are scattered as evenly as possible on both sides of it.",
+          "plain": "The trend the data would follow with no random scatter."
+        },
+        {
+          "type": "text",
+          "text": "Don't join the dots: the scatter comes from [[random-error|random errors]]. If the points curve, draw one smooth curve. Go through the origin only if $(0, 0)$ is a real result."
+        },
+        {
+          "type": "text",
+          "text": "A point far from the trend is anomalous. Circle it and leave it out of the [[line-of-best-fit|line of best fit]]."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-magnesium-oxide",
+          "alt": "Graph of mass of magnesium oxide in grams, from 0 to 0.60, against mass of magnesium in grams, from 0 to 0.40. Five points are plotted as crosses. Four of them, at 0.08, 0.16, 0.24 and 0.40 grams of magnesium, lie on a straight line of best fit drawn from the origin; the 0.40 gram point is at 0.663. The point at 0.32 grams of magnesium, 0.452, lies well below the line and is circled and labelled anomalous: left out.",
+          "caption": "No magnesium gives no oxide, so the line starts at the origin."
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-gas-temperature",
+          "question": "Sketch a graph of the volume of a fixed amount of gas against its temperature in kelvin, at constant pressure. Describe your sketch.",
+          "steps": [
+            "Temperature is changed, so it goes on the horizontal axis.",
+            "\"Sketch\" means labelled axes, no scale.",
+            "Volume is directly proportional to kelvin temperature."
+          ],
+          "answer": "Volume is on the vertical axis and temperature / K on the horizontal axis, labelled with no scale. The graph is a straight line rising from the origin, because volume is directly proportional to temperature in kelvin.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "labelled unscaled axes; straight line through the origin",
+            "requires": [
+              "vertical axis",
+              "horizontal axis",
+              [
+                "no scale",
+                "unscaled"
+              ],
+              "straight line",
+              "origin",
+              "directly proportional"
+            ],
+            "forbids": [
+              "degrees celsius"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-anomaly-magnesium-oxide",
+          "question": "Magnesium was heated in a crucible until it had all turned to oxide. Results (magnesium / g, oxide / g): $0.08$, $0.133$; $0.16$, $0.265$; $0.24$, $0.398$; $0.32$, $0.452$; $0.40$, $0.663$. Identify the anomalous result, and determine the mass of oxide expected from $\\pu{0.32 g}$ of magnesium.",
+          "steps": [
+            "Ratio of oxide to magnesium: $1.66$, $1.66$, $1.66$, $1.41$, $1.66$. The $\\pu{0.32 g}$ result is anomalous.",
+            "The good points lie on a line through the origin with gradient $\\frac{0.663}{0.40} = 1.6575$.",
+            "Expected mass $= 1.6575 \\times 0.32 = 0.5304$, so about $\\pu{0.530 g}$.",
+            "A likely cause: oxide escaped as smoke when the lid was lifted."
+          ],
+          "answer": "$m \\approx \\pu{0.530 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.663/0.40*0.32",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-x-axis",
+          "prompt": "A student measures how the time for a reaction to finish changes with acid concentration. What goes on the horizontal axis?",
+          "hint": "Which quantity does the student choose?",
+          "options": [
+            {
+              "text": "concentration, the independent variable",
+              "correct": true
+            },
+            {
+              "text": "time, the dependent variable",
+              "correct": false
+            },
+            {
+              "text": "time, because time always goes on the horizontal axis",
+              "correct": false
+            }
+          ],
+          "explain": "The student chooses the concentration, so it goes on the $x$-axis. Time is what is measured here.",
+          "verify": {
+            "kind": "choice",
+            "truth": "concentration, the independent variable"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-best-fit",
+          "prompt": "Which describes a correct line of best fit?",
+          "hint": "It shows the trend, not each result.",
+          "options": [
+            {
+              "text": "one smooth line with points evenly on both sides",
+              "correct": true
+            },
+            {
+              "text": "a line joining each point to the next",
+              "correct": false
+            },
+            {
+              "text": "a straight line through the first and last points",
+              "correct": false
+            }
+          ],
+          "explain": "A line of best fit balances all the good points, with about as many above it as below.",
+          "verify": {
+            "kind": "choice",
+            "truth": "one smooth line with points evenly on both sides"
+          }
+        }
+      ]
+    },
+    {
+      "id": "r-squared",
+      "heading": "How well a trend line fits: $R^2$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Spreadsheets can add a trend line or curve to data. They also give $R^2$, a number that measures how closely the points follow it."
+        },
+        {
+          "type": "definition",
+          "term": "coefficient of determination",
+          "statement": "$R^2$, a number from 0 to 1 giving the fraction of the variation in $y$ that a trend line or curve accounts for.",
+          "plain": "The closer $R^2$ is to 1, the closer the points lie to the line."
+        },
+        {
+          "type": "result",
+          "statement": "$R^2 = 1$ means every point lies exactly on the trend line. The closer the [[coefficient-of-determination|coefficient of determination]] is to 1, the better the fit.",
+          "why": "$R^2$ compares the spread of the points about the line with their spread about the mean of $y$; no spread about the line gives 1."
+        },
+        {
+          "type": "text",
+          "text": "Use $R^2$ to compare trend lines for the same data: the one with $R^2$ nearer 1 fits better. For a trend of the right shape, a low value means scattered points, usually from random errors, so poorer [[precision|precision]]."
+        },
+        {
+          "type": "text",
+          "text": "A high $R^2$ doesn't prove cause, and it doesn't show [[accuracy|accuracy]]. A [[systematic-error|systematic error]] moves every point the same way and can leave $R^2$ unchanged."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-trend",
+          "question": "A student fits two trend lines to data on a fading dye: a straight line with $R^2 = 0.914$ and an exponential curve with $R^2 = 0.996$. The points lie above the straight line at both ends and below it in the middle. Deduce which fits better, and explain.",
+          "steps": [
+            "Compare each $R^2$ with 1.",
+            "Points above the line at both ends and below it in the middle mean the data bend."
+          ],
+          "answer": "The exponential curve fits better. Its $R^2$ of 0.996 is closer to 1 than 0.914, so the points lie closer to it. The pattern of points about the straight line shows the data are curved.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the curve: R squared closer to 1, and the data are curved",
+            "requires": [
+              "exponential curve fits better",
+              "closer to 1",
+              [
+                "curved",
+                "not linear"
+              ]
+            ],
+            "forbids": [
+              "straight line fits better"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-r-squared-scatter",
+          "question": "Two groups plot absorbance against concentration for the same standard solutions. Group A's line has $R^2 = 0.999$; group B's has $R^2 = 0.962$. Outline what these values show.",
+          "steps": [
+            "Absorbance should be proportional to concentration, so a straight line is the right shape. Both values are close to 1, so it fits both sets well.",
+            "B's points scatter more.",
+            "Neither value tells you about accuracy."
+          ],
+          "answer": "A straight line fits both data sets well, but group A's points lie closer to its line. Group B's points are more scattered, which suggests larger random errors and lower precision. $R^2$ cannot show accuracy, because a systematic error could shift every point without changing $R^2$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "A less scatter; B larger random errors, lower precision; R squared says nothing about systematic error",
+            "requires": [
+              "closer to its line",
+              [
+                "more scattered",
+                "more scatter"
+              ],
+              "random errors",
+              [
+                "lower precision",
+                "less precise"
+              ],
+              "systematic error"
+            ],
+            "forbids": [
+              "more accurate"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-r-squared-meaning",
+          "prompt": "Which statement about $R^2$ is correct?",
+          "hint": "$R^2$ compares the points with the trend line, nothing else.",
+          "options": [
+            {
+              "text": "A value of 1 means every point lies on the trend line.",
+              "correct": true
+            },
+            {
+              "text": "A value of 1 means the results are accurate.",
+              "correct": false
+            },
+            {
+              "text": "A value near 0 means a negative correlation.",
+              "correct": false
+            }
+          ],
+          "explain": "$R^2$ measures only fit. A systematic error can give a perfect fit to wrong values, and a value near 0 means the line accounts for almost none of the variation: no trend of that shape.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A value of 1 means every point lies on the trend line."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-best-r-squared",
+          "prompt": "Four trend lines are fitted to the same data, giving $R^2$ values of $0.899$, $0.950$, $0.991$ and $0.919$. Which value shows the best fit?",
+          "hint": "Which is closest to 1?",
+          "options": [
+            {
+              "text": "$0.991$",
+              "correct": true
+            },
+            {
+              "text": "$0.950$",
+              "correct": false
+            },
+            {
+              "text": "$0.919$",
+              "correct": false
+            },
+            {
+              "text": "$0.899$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.991$ is closest to 1, so those points lie closest to their line.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(0.899, 0.950, 0.991, 0.919)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gradients",
+      "heading": "Rates, gradients and other features",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rate of change is how fast one quantity changes, usually per unit time. From a table, subtract two rows. This gives the average rate over that interval, not the rate at one instant."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{average rate} = \\frac{\\text{change in quantity}}{\\text{time taken}}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "gradient",
+          "statement": "The change in the $y$ quantity divided by the change in the $x$ quantity between two points on a line, in $y$ units per $x$ unit.",
+          "plain": "How fast $y$ changes as $x$ changes."
+        },
+        {
+          "type": "text",
+          "text": "Find a [[gradient|gradient]] from two points far apart on the line itself. On a curve, use the [[tangent|tangent]] at that point ({{lesson:5.3}}). On a graph against time, a curve getting less steep means the rate is falling; a flat section means it is zero."
+        },
+        {
+          "type": "text",
+          "text": "The $y$-intercept is $y$ when $x = 0$, such as a starting temperature. A maximum or minimum marks where a trend turns round, such as the peak temperature in a [[neutralization|neutralization]]."
+        },
+        {
+          "type": "text",
+          "text": "The area under a graph is the $y$ quantity times the $x$ quantity, added up. Under a [[maxwell-boltzmann-distribution|Maxwell–Boltzmann distribution]] curve it is the total number of particles."
+        },
+        {
+          "type": "example",
+          "id": "ex-average-rate-oxygen",
+          "question": "Hydrogen peroxide decomposes with a catalyst. Total oxygen collected: $\\pu{0 s}$, $\\pu{0.0 cm3}$; $\\pu{12 s}$, $\\pu{18.5 cm3}$; $\\pu{36 s}$, $\\pu{41.0 cm3}$; $\\pu{60 s}$, $\\pu{52.5 cm3}$; $\\pu{84 s}$, $\\pu{56.0 cm3}$. Determine the average rate between $\\pu{12 s}$ and $\\pu{36 s}$.",
+          "steps": [
+            "Change in volume: $41.0 - 18.5 = \\pu{22.5 cm3}$. Time: $36 - 12 = \\pu{24 s}$.",
+            "Average rate $= \\frac{22.5}{24} = 0.9375$, so about $\\pu{0.938 cm3 s-1}$.",
+            "The next $\\pu{24 s}$ give only $\\pu{11.5 cm3}$: the rate falls as the peroxide is used up."
+          ],
+          "answer": "$\\text{rate} \\approx \\pu{0.938 cm3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(41.0 - 18.5)/(36 - 12)",
+            "sf": 3,
+            "unit": "cm3 s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-thermometric-maximum",
+          "question": "Alkali is added in portions to an acid in an insulated cup. The temperature rises to a maximum at $\\pu{18.0 cm3}$ added, then falls. Explain this shape.",
+          "steps": [
+            "Neutralization is exothermic.",
+            "The peak is where the acid runs out.",
+            "After that, nothing reacts."
+          ],
+          "answer": "Neutralization is exothermic, so the temperature rises while the alkali reacts with the acid. The maximum is reached when all the acid has reacted, so 18.0 cm³ is the equivalence point. After this no more heat is released, and the added cooler solution and heat loss make the temperature fall.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "exothermic neutralization; maximum at the equivalence point; then no reaction, cooler solution and heat loss",
+            "requires": [
+              "exothermic",
+              [
+                "all the acid has reacted",
+                "acid has been neutralized"
+              ],
+              "equivalence point",
+              [
+                "no further reaction",
+                "no more heat is released"
+              ],
+              [
+                "cooler solution",
+                "heat loss"
+              ]
+            ],
+            "forbids": [
+              "endothermic"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-units",
+          "prompt": "A straight line on a graph of mass of product / g against time / min passes through $(2.0, 0.35)$ and $(10.0, 1.95)$. Calculate its gradient, in $\\pu{g min-1}$. Give 3 significant figures.",
+          "hint": "Subtract the $y$ values, then the $x$ values in the same order.",
+          "answer": {
+            "value": 0.2,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{1.95 - 0.35}{10.0 - 2.0} = \\pu{0.200 g min-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1.95 - 0.35)/(10.0 - 2.0)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-flat-section",
+          "prompt": "A gas volume–time curve becomes horizontal. What does this show?",
+          "hint": "What is the gradient of a horizontal line?",
+          "options": [
+            {
+              "text": "The reaction has stopped.",
+              "correct": true
+            },
+            {
+              "text": "The reaction is at its fastest.",
+              "correct": false
+            },
+            {
+              "text": "The rate is constant and above zero.",
+              "correct": false
+            }
+          ],
+          "explain": "Gradient zero means no more gas is made. A constant non-zero rate would give a sloping straight line.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The reaction has stopped."
+          }
+        }
+      ]
+    },
+    {
+      "id": "bars-and-estimates",
+      "heading": "Uncertainty bars, interpolation and extrapolation",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "uncertainty bar",
+          "statement": "A line through a plotted point that extends by the absolute uncertainty on each side, showing where the true value is likely to lie.",
+          "plain": "How far the point could really be from where it is plotted."
+        },
+        {
+          "type": "text",
+          "text": "A $y$ value of $1.26 \\pm 0.15$ gets an [[uncertainty-bar|uncertainty bar]] from $1.11$ to $1.41$. Convert a [[percentage-uncertainty|percentage uncertainty]] to an [[absolute-uncertainty|absolute]] one first."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-uncertainty-bars",
+          "alt": "Graph of initial rate in cubic centimetres per second, from 0 to 2.50, against concentration of acid in moles per cubic decimetre, from 0 to 1.00. Five points, at 0.20, 0.40, 0.60, 0.80 and 1.00 moles per cubic decimetre, have rates of 0.42, 0.76, 1.26, 1.55 and 2.05. Each point has a vertical uncertainty bar of plus or minus 0.15 above and below it. A straight line of best fit from the origin, through 2.00 at 1.00, passes through every uncertainty bar.",
+          "caption": "The line passes through every bar, so the data are consistent with direct proportionality."
+        },
+        {
+          "type": "result",
+          "statement": "If the line of best fit passes through every uncertainty bar, the uncertainties alone explain the scatter. A bar the line misses marks a likely anomaly; missing many suggests the wrong trend.",
+          "why": "Each bar marks where that point's true value probably lies, so the true trend should cross them all."
+        },
+        {
+          "type": "definition",
+          "term": "interpolation",
+          "statement": "Estimating a value from a graph within the range of the measured data.",
+          "plain": "Reading between your points."
+        },
+        {
+          "type": "definition",
+          "term": "extrapolation",
+          "statement": "Estimating a value by extending a graph beyond the range of the measured data.",
+          "plain": "Reading past your points, assuming the trend continues."
+        },
+        {
+          "type": "text",
+          "text": "[[interpolation|Interpolation]] is usually reliable. [[extrapolation|Extrapolation]] is less so: a calibration line, for example, often curves at high concentration."
+        },
+        {
+          "type": "text",
+          "text": "In [[calorimetry|calorimetry]], extend the cooling line back to the moment of mixing (for an endothermic reaction, the warming line). That estimates the maximum (or minimum) temperature with no heat exchange with the surroundings."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-cooling-extrapolation",
+          "alt": "Graph of temperature in degrees Celsius, from 18 to 36, against time in minutes, from 0 to 10. Readings at 0, 1 and 2 minutes are steady at 21.0. A dashed vertical line at 3 minutes is labelled mixing. Readings from 4 to 10 minutes fall slowly in a straight line from 34.1 to 33.4. The cooling line is extended back, dashed, to 3 minutes, where it reaches 34.2. An arrow labelled delta T runs from 21.0 up to 34.2.",
+          "caption": "The axis starts at $\\pu{18 °C}$ so the points fill the grid."
+        },
+        {
+          "type": "example",
+          "id": "ex-bar-from-percentage",
+          "question": "An initial rate is $\\pu{1.60 cm3 s-1}$ with a percentage uncertainty of $12.5\\%$. Determine the value at the top of its uncertainty bar.",
+          "steps": [
+            "Absolute uncertainty: $\\frac{12.5}{100} \\times 1.60 = \\pu{0.20 cm3 s-1}$.",
+            "The bar runs from $1.40$ to $1.80$."
+          ],
+          "answer": "$\\text{top} = \\pu{1.80 cm3 s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.60*(1 + 12.5/100)",
+            "unit": "cm3 s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cooling-correction",
+          "question": "The temperature of an acid is steady at $\\pu{21.0 °C}$ until alkali is added at $t = \\pu{3.0 min}$. The line of best fit through the later, cooling readings is $T = 34.6 - 0.12t$ ($T$ in $\\pu{°C}$, $t$ in minutes). Determine the temperature change, corrected for heat loss.",
+          "steps": [
+            "Extrapolate to $t = 3.0$: $T = 34.6 - 0.12 \\times 3.0 = \\pu{34.24 °C}$.",
+            "$\\Delta T = 34.24 - 21.0 = 13.24$. A change of $\\pu{1 °C}$ is a change of $\\pu{1 K}$."
+          ],
+          "answer": "$\\Delta T \\approx \\pu{13.2 K}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "34.6 - 0.12*3.0 - 21.0",
+            "dp": 1,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpolate-calibration",
+          "prompt": "A calibration line is $A = 12.4c + 0.002$, with $c$ in $\\pu{mol dm-3}$, from standards of $\\pu{0.0050 mol dm-3}$ to $\\pu{0.0400 mol dm-3}$. A sample has $A = 0.375$. Calculate $c$, in $\\pu{mol dm-3}$, to 3 significant figures.",
+          "hint": "$c = \\frac{A - 0.002}{12.4}$.",
+          "answer": {
+            "value": 0.0301,
+            "tolerance": 5e-05
+          },
+          "explain": "$c = \\frac{0.373}{12.4} \\approx \\pu{0.0301 mol dm-3}$, inside the range of the standards: interpolation.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.375 - 0.002)/12.4",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-extrapolation-reliability",
+          "prompt": "Why is extrapolation usually less reliable than interpolation?",
+          "hint": "Where was the trend actually measured?",
+          "options": [
+            {
+              "text": "It assumes the trend continues where it was never measured.",
+              "correct": true
+            },
+            {
+              "text": "It always gives fewer significant figures.",
+              "correct": false
+            },
+            {
+              "text": "Interpolation removes all random error.",
+              "correct": false
+            }
+          ],
+          "explain": "Between the points, the data show what the trend does. Beyond them, the trend might bend or stop, and nothing shows whether it does.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It assumes the trend continues where it was never measured."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-missed-bar",
+          "prompt": "A line of best fit passes through every uncertainty bar except one. What is the best conclusion?",
+          "hint": "One point disagrees with all the others.",
+          "options": [
+            {
+              "text": "That point is probably anomalous.",
+              "correct": true
+            },
+            {
+              "text": "The line should pass through that point.",
+              "correct": false
+            },
+            {
+              "text": "The trend is the wrong shape.",
+              "correct": false
+            }
+          ],
+          "explain": "The other points agree with the line, so the trend is sound. One point outside its bar is most likely a faulty measurement: repeat it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "That point is probably anomalous."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Direct proportionality: $y = kx$, a straight line through the origin. Inverse proportionality: $xy$ is constant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Independent variable on the $x$-axis; label axes \"quantity / unit\". Sketch: no scale. Plot: scales that fill at least half the grid.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$R^2$ near 1 means a good fit. It says nothing about accuracy or cause.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\Delta y}{\\Delta x}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If the line passes through every uncertainty bar, the data are consistent with the trend. Interpolation is more reliable than extrapolation.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Joining the dots. Draw one line or smooth curve with the points evenly on both sides.",
+    "Forcing a line through the origin when $(0, 0)$ is not a real result.",
+    "Calling a rising straight line directly proportional when it misses the origin.",
+    "Giving a gradient with no unit, or using data points that sit off the line.",
+    "Reading a high $R^2$ as proof of accurate results or of cause and effect."
+  ],
+  "examTips": [
+    "\"Sketch\": right shape, labelled axes, no scale. \"Plot\": scaled axes with units, accurate points and a line of best fit.",
+    "\"Determine\" a rate: show the two points used and the subtraction, then the value with its unit.",
+    "In Paper 1B data questions, say whether the line passes through the uncertainty bars, and name any anomaly."
+  ],
+  "readingMinutes": 29
+}

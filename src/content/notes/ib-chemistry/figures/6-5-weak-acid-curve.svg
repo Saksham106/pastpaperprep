@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t">
+<title id="t">pH curve for adding 0.100 mol per cubic decimetre sodium hydroxide to 20.0 cubic centimetres of a 0.100 mol per cubic decimetre weak acid with pKa 4.20. The curve starts at pH 2.6, rises quickly at first, then climbs slowly through a flatter buffer region. At the half-equivalence point, 10.0 cubic centimetres, the pH is 4.20, equal to the pKa. The curve then rises steeply from about pH 7 to about pH 10.5 around the equivalence point at 20.0 cubic centimetres, where the pH is 8.45, above 7. After that it levels off near pH 12.5 as sodium hydroxide is in excess.</title>
+<path d="M60 250 H440" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M60 250 V40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<g stroke="currentColor" stroke-width="1.2">
+<path d="M60.0 250 v5"/>
+<path d="M155.0 250 v5"/>
+<path d="M250.0 250 v5"/>
+<path d="M345.0 250 v5"/>
+<path d="M440.0 250 v5"/>
+<path d="M60 250.0 h-5"/>
+<path d="M60 220.0 h-5"/>
+<path d="M60 190.0 h-5"/>
+<path d="M60 160.0 h-5"/>
+<path d="M60 130.0 h-5"/>
+<path d="M60 100.0 h-5"/>
+<path d="M60 70.0 h-5"/>
+<path d="M60 40.0 h-5"/>
+</g>
+<g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">
+<text x="60.0" y="268">0</text>
+<text x="155.0" y="268">10</text>
+<text x="250.0" y="268">20</text>
+<text x="345.0" y="268">30</text>
+<text x="440.0" y="268">40</text>
+</g>
+<g font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">
+<text x="51" y="254.0">0</text>
+<text x="51" y="224.0">2</text>
+<text x="51" y="194.0">4</text>
+<text x="51" y="164.0">6</text>
+<text x="51" y="134.0">8</text>
+<text x="51" y="104.0">10</text>
+<text x="51" y="74.0">12</text>
+<text x="51" y="44.0">14</text>
+</g>
+<text x="250" y="292" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">volume of NaOH(aq) added / cm³</text>
+<text x="18" y="145" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 145)">pH</text>
+<rect x="98.0" y="166.0" width="114.0" height="39.0" fill="var(--t4-ink)" opacity="0.12"/>
+<path d="M60 187.0 H155.0 V250" fill="none" stroke="var(--t3-ink)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<path d="M60 123.3 H250.0 V250" fill="none" stroke="var(--t2-ink)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<path d="M60 145.0 H440" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 4"/>
+<path d="M60.0 210.9 L64.8 207.6 L69.5 204.9 L74.2 202.7 L79.0 200.9 L83.8 199.4 L88.5 198.1 L93.2 196.9 L98.0 195.9 L102.8 195.0 L107.5 194.1 L112.2 193.2 L117.0 192.5 L121.8 191.7 L126.5 191.0 L131.2 190.3 L136.0 189.6 L140.8 188.9 L145.5 188.3 L150.2 187.6 L155.0 187.0 L159.8 186.3 L164.5 185.7 L169.2 185.0 L174.0 184.3 L178.8 183.7 L183.5 183.0 L188.2 182.2 L193.0 181.5 L197.8 180.7 L202.5 179.8 L207.2 178.9 L212.0 178.0 L216.8 176.9 L221.5 175.7 L226.2 174.3 L231.0 172.7 L235.8 170.6 L240.5 167.8 L242.9 165.9 L245.2 163.1 L247.2 159.7 L248.1 157.1 L249.0 152.5 L249.5 148.0 L249.8 142.0 L250.0 123.3 L250.2 104.5 L250.5 98.6 L251.0 94.0 L251.9 89.5 L252.8 86.9 L254.8 83.6 L257.1 81.0 L259.5 79.2 L264.2 76.6 L269.0 74.8 L273.8 73.5 L278.5 72.3 L283.2 71.4 L288.0 70.6 L292.8 69.9 L297.5 69.3 L302.2 68.8 L307.0 68.3 L311.8 67.8 L316.5 67.4 L321.2 67.0 L326.0 66.7 L330.8 66.3 L335.5 66.0 L340.2 65.8 L345.0 65.5 L349.8 65.2 L354.5 65.0 L359.2 64.8 L364.0 64.6 L368.8 64.3 L373.5 64.2 L378.2 64.0 L383.0 63.8 L387.8 63.6 L392.5 63.5 L397.2 63.3 L402.0 63.2 L406.8 63.0 L411.5 62.9 L416.2 62.7 L421.0 62.6 L425.8 62.5 L430.5 62.4 L435.2 62.3 L440.0 62.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+<circle cx="60.0" cy="210.8" r="4" fill="var(--t5-ink)"/>
+<circle cx="155.0" cy="187.0" r="4.5" fill="var(--t3-ink)"/>
+<circle cx="250.0" cy="123.3" r="4.5" fill="var(--t2-ink)"/>
+<g font-size="12" font-family="inherit">
+<text x="70" y="232.0" fill="var(--t5-ink)">start: pH 2.6</text>
+<text x="102.0" y="158.5" fill="var(--t4-ink)">buffer region</text>
+<text x="163.0" y="200.5" fill="var(--t3-ink)">half-equivalence, 10.0 cm³:</text>
+<text x="163.0" y="215.5" fill="var(--t3-ink)">pH = pKa = 4.20</text>
+<text x="260.0" y="128.5" fill="var(--t2-ink)">equivalence point</text>
+<text x="260.0" y="143.5" fill="var(--t2-ink)">20.0 cm³, pH 8.45</text>
+<text x="335.5" y="55.0" fill="currentColor">excess NaOH</text>
+<text x="436" y="141.0" fill="var(--muted)" text-anchor="end" font-size="11">pH 7</text>
+</g></svg>

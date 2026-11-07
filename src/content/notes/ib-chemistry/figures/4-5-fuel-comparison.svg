@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" role="img" aria-labelledby="t">
+  <title id="t">Two bar charts side by side for five fuels. Left: energy released per gram, in kilojoules per gram: hydrogen 141.6, methane 55.5, octane 47.9, ethanol 29.7, carbon as a model for coal 32.8. Right: mass of carbon dioxide released per megajoule, in grams: hydrogen 0, methane 49.4, octane 64.4, ethanol 64.4, carbon 111.7.</title>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="275" y="28" text-anchor="middle" font-weight="bold">Energy per gram / kJ g⁻¹</text>
+    <text x="530" y="28" text-anchor="middle" font-weight="bold">CO₂ per MJ / g</text>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="118" y="68">hydrogen</text>
+    <text x="118" y="113">methane</text>
+    <text x="118" y="158">octane</text>
+    <text x="118" y="203">ethanol</text>
+    <text x="118" y="248">carbon (coal)</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M128 42 L128 268"/>
+    <path d="M425 42 L425 268"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <rect x="128" y="50" width="170" height="24"/>
+    <rect x="128" y="95" width="66.6" height="24"/>
+    <rect x="128" y="140" width="57.5" height="24"/>
+    <rect x="128" y="185" width="35.6" height="24"/>
+    <rect x="128" y="230" width="39.4" height="24"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="304" y="67">141.6</text>
+    <text x="200" y="112">55.5</text>
+    <text x="191" y="157">47.9</text>
+    <text x="169" y="202">29.7</text>
+    <text x="173" y="247">32.8</text>
+  </g>
+  <g fill="var(--t2-ink)">
+    <rect x="425" y="95" width="74.1" height="24"/>
+    <rect x="425" y="140" width="96.6" height="24"/>
+    <rect x="425" y="185" width="96.6" height="24"/>
+    <rect x="425" y="230" width="167.6" height="24"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="431" y="67">0</text>
+    <text x="505" y="112">49.4</text>
+    <text x="527" y="157">64.4</text>
+    <text x="527" y="202">64.4</text>
+    <text x="598" y="247">111.7</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 270" role="img" aria-labelledby="t">
+  <title id="t">Buffer action. At the top is the equilibrium HA, reversible arrow, H plus plus A minus. HA is labelled large amount, H plus is labelled tiny, and A minus is labelled large amount. An arrow runs down from HA to a box on the left headed: add a little OH minus. It shows HA plus OH minus gives A minus plus water, and says the added OH minus is used up. An arrow runs down from A minus to a box on the right headed: add a little H plus. It shows A minus plus H plus gives HA, and says the added H plus is used up.</title>
+  <g font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="130" y="48" font-size="22">HA</text>
+    <text x="200" y="48" font-size="22">⇌</text>
+    <text x="260" y="48" font-size="22">H<tspan baseline-shift="super" font-size="14">+</tspan></text>
+    <text x="320" y="48" font-size="22">+</text>
+    <text x="390" y="48" font-size="22">A<tspan baseline-shift="super" font-size="14">−</tspan></text>
+  </g>
+  <g font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="middle">
+    <text x="130" y="70">large amount</text>
+    <text x="260" y="70">tiny</text>
+    <text x="390" y="70">large amount</text>
+  </g>
+  <g fill="none" stroke-width="1.8">
+    <path d="M130 80 V132" stroke="var(--t2-ink)"/>
+    <path d="M390 80 V132" stroke="var(--t1-ink)"/>
+  </g>
+  <polygon points="130,141 125.5,132 134.5,132" fill="var(--t2-ink)"/>
+  <polygon points="390,141 385.5,132 394.5,132" fill="var(--t1-ink)"/>
+  <g fill="none" stroke-width="1.6">
+    <rect x="20" y="146" width="220" height="104" rx="8" stroke="var(--t2-ink)"/>
+    <rect x="280" y="146" width="220" height="104" rx="8" stroke="var(--t1-ink)"/>
+  </g>
+  <g font-family="inherit" text-anchor="middle">
+    <text x="130" y="172" font-size="14" fill="var(--t2-ink)">add a little OH<tspan baseline-shift="super" font-size="10">−</tspan></text>
+    <text x="130" y="204" font-size="15" fill="currentColor">HA + OH<tspan baseline-shift="super" font-size="10">−</tspan> → A<tspan baseline-shift="super" font-size="10">−</tspan> + H<tspan baseline-shift="sub" font-size="10">2</tspan>O</text>
+    <text x="130" y="234" font-size="12" fill="var(--muted)">added OH<tspan baseline-shift="super" font-size="9">−</tspan> is used up</text>
+    <text x="390" y="172" font-size="14" fill="var(--t1-ink)">add a little H<tspan baseline-shift="super" font-size="10">+</tspan></text>
+    <text x="390" y="204" font-size="15" fill="currentColor">A<tspan baseline-shift="super" font-size="10">−</tspan> + H<tspan baseline-shift="super" font-size="10">+</tspan> → HA</text>
+    <text x="390" y="234" font-size="12" fill="var(--muted)">added H<tspan baseline-shift="super" font-size="9">+</tspan> is used up</text>
+  </g>
+</svg>

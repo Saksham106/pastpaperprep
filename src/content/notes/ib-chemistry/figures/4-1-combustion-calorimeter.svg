@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" role="img" aria-labelledby="t">
+  <title id="t">Apparatus for measuring an enthalpy of combustion. A spirit burner containing the liquid fuel sits on the bench, with a flame at its wick. Directly above the flame is a copper can holding a measured mass of water, covered by a lid. A thermometer passes through the lid into the water. Two upright panels either side form a draught shield around the flame and the can.</title>
+  <path d="M30 300 H490" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <g stroke="var(--muted)" stroke-width="3" fill="none">
+    <path d="M150 300 V110"/>
+    <path d="M330 300 V110"/>
+  </g>
+  <rect x="185" y="110" width="110" height="105" rx="4" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <rect x="187" y="140" width="106" height="73" rx="3" fill="var(--t1-ink)" fill-opacity="0.18" stroke="none"/>
+  <path d="M187 140 q8 -4 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t10 0" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <path d="M175 104 H305" stroke="currentColor" stroke-width="3" fill="none"/>
+  <rect x="236" y="30" width="8" height="160" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="240" cy="194" r="7" fill="var(--t5-ink)" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M240 186 V120" stroke="var(--t5-ink)" stroke-width="3" fill="none"/>
+  <path d="M240 222 C228 236 230 250 240 258 C250 250 252 236 240 222 Z" fill="var(--t4-ink)" fill-opacity="0.85" stroke="var(--t4-ink)" stroke-width="1.2"/>
+  <rect x="236" y="258" width="8" height="10" fill="currentColor"/>
+  <path d="M205 300 V278 Q205 268 222 268 H258 Q275 268 275 278 V300" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M207 300 V286 H273 V300" fill="var(--t3-ink)" fill-opacity="0.25" stroke="none"/>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <path d="M248 50 H360"/>
+    <path d="M305 104 H360"/>
+    <path d="M295 128 H360"/>
+    <path d="M290 175 H360"/>
+    <path d="M250 240 H360"/>
+    <path d="M275 290 H360"/>
+    <path d="M150 140 H110"/>
+  </g>
+  <g font-size="13" font-family="inherit" fill="currentColor">
+    <text x="366" y="54">thermometer</text>
+    <text x="366" y="108">lid</text>
+    <text x="366" y="132">copper can</text>
+    <text x="366" y="179">water</text>
+    <text x="366" y="244">flame</text>
+    <text x="366" y="294">spirit burner with fuel</text>
+    <text x="104" y="136" text-anchor="end">draught</text>
+    <text x="104" y="152" text-anchor="end">shield</text>
+  </g>
+</svg>

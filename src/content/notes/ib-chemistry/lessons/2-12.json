@@ -1,0 +1,729 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.12",
+  "slug": "polymers",
+  "title": "Polymers",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[polymer|polymer]] is a huge molecule made by joining thousands of small molecules, called monomers, into a chain. Alkenes join into [[addition-polymer|addition polymers]] when their double bonds open, and you'll learn to draw the repeating unit and work back to the monomer. At HL, monomers with two functional groups join into [[condensation-polymer|condensation polymers]], such as polyesters and polyamides.",
+  "goals": [
+    {
+      "text": "Describe polymers as macromolecules made from monomers, and give natural and synthetic examples.",
+      "bullets": [
+        "S2.4.4"
+      ]
+    },
+    {
+      "text": "Explain the properties of plastics, including biodegradability, from their structure.",
+      "bullets": [
+        "S2.4.4"
+      ]
+    },
+    {
+      "text": "Draw an addition polymer's repeating unit from its monomer, and deduce the monomer from a chain.",
+      "bullets": [
+        "S2.4.5"
+      ]
+    },
+    {
+      "text": "Explain why addition polymerization has an atom economy of 100%.",
+      "bullets": [
+        "S2.4.5"
+      ]
+    },
+    {
+      "text": "Draw the repeating unit of a polyester or polyamide from its monomers, and identify the small molecule released.",
+      "bullets": [
+        "S2.4.6"
+      ],
+      "level": "AHL"
+    },
+    {
+      "text": "Explain that biological macromolecules form by [[condensation-reaction|condensation reactions]] and break down by [[hydrolysis|hydrolysis]].",
+      "bullets": [
+        "S2.4.6"
+      ],
+      "level": "AHL"
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "addition polymerization",
+    "repeating unit",
+    "monomer from polymer",
+    "polyester and polyamide",
+    "condensation polymerization",
+    "properties of plastics"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ethene-bonding",
+      "prompt": "Draw the Lewis formula of ethene, $\\ce{C2H4}$. How are its two carbon atoms joined?",
+      "hint": "Each carbon makes four bonds, and two of them go to hydrogen atoms.",
+      "options": [
+        {
+          "text": "by a double bond: two shared pairs of electrons",
+          "correct": true
+        },
+        {
+          "text": "by a single bond: one shared pair of electrons",
+          "correct": false
+        },
+        {
+          "text": "by a triple bond: three shared pairs of electrons",
+          "correct": false
+        },
+        {
+          "text": "by an ionic bond",
+          "correct": false
+        }
+      ],
+      "explain": "Each carbon has two bonds left after bonding to hydrogen, so the carbons share two pairs: $\\ce{C=C}$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "by a double bond: two shared pairs of electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-london-size",
+      "prompt": "Which alkane has the strongest [[london-dispersion-force|London (dispersion) forces]] between its molecules?",
+      "hint": "London forces grow with the number of electrons in a molecule.",
+      "options": [
+        {
+          "text": "decane",
+          "correct": true
+        },
+        {
+          "text": "methane",
+          "correct": false
+        },
+        {
+          "text": "butane",
+          "correct": false
+        },
+        {
+          "text": "hexane",
+          "correct": false
+        }
+      ],
+      "explain": "Decane, $\\ce{C10H22}$, has the largest molecules with the most electrons, so its London forces are the strongest. Revise it in {{lesson:2.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "decane"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hbond",
+      "prompt": "Molecules of which compound can form [[hydrogen-bond|hydrogen bonds]] with each other?",
+      "hint": "Look for a hydrogen atom bonded directly to N, O or F.",
+      "options": [
+        {
+          "text": "methanol",
+          "correct": true
+        },
+        {
+          "text": "methane",
+          "correct": false
+        },
+        {
+          "text": "chloromethane",
+          "correct": false
+        },
+        {
+          "text": "methanal",
+          "correct": false
+        }
+      ],
+      "explain": "Only methanol, $\\ce{CH3OH}$, has an $\\ce{O-H}$ bond. In methanal, $\\ce{HCHO}$, every hydrogen is on carbon. Revise it in {{lesson:2.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "methanol"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "polymers",
+      "heading": "Monomers, polymers and plastics",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a chain of paper clips thousands long. It behaves very differently from one clip, yet it is made of nothing else."
+        },
+        {
+          "type": "definition",
+          "term": "polymer",
+          "statement": "A macromolecule made by joining a very large number of small molecules, called monomers, with covalent bonds.",
+          "plain": "A very long molecule built by linking thousands of small molecules end to end."
+        },
+        {
+          "type": "text",
+          "text": "The repeating unit is the smallest piece of the chain that, repeated over and over, gives the whole polymer."
+        },
+        {
+          "type": "text",
+          "text": "Natural polymers include starch and cellulose (from glucose), proteins (from amino acids), DNA and rubber. Synthetic polymers, made in industry, include poly(ethene), PVC, PTFE, nylon and polyesters. Most plastics are synthetic polymers."
+        },
+        {
+          "type": "text",
+          "text": "The chains in a sample have different lengths, so a plastic softens over a range of temperatures, not at one sharp point. Its other properties also come from its structure."
+        },
+        {
+          "type": "text",
+          "text": "1. Strong solids: long chains tangle, and the [[intermolecular-force|intermolecular forces]] between them add up."
+        },
+        {
+          "type": "text",
+          "text": "2. Mouldable when hot (most plastics): heating overcomes the forces between chains, so they slide past each other. Thermosets, whose chains are cross-linked by covalent bonds, do not soften."
+        },
+        {
+          "type": "text",
+          "text": "3. Insulators: there are no ions or delocalized electrons, so no charged particles can move."
+        },
+        {
+          "type": "text",
+          "text": "4. Low density: they are made of light atoms, mainly carbon and hydrogen."
+        },
+        {
+          "type": "text",
+          "text": "5. Unreactive: $\\ce{C-C}$ and $\\ce{C-H}$ bonds are strong and non-polar or nearly so, so few substances attack them."
+        },
+        {
+          "type": "text",
+          "text": "Poly(ethene) chains attract only by [[london-dispersion-force|London forces]], which grow as chains lengthen. Chains with $\\ce{N-H}$ or $\\ce{O-H}$ groups, such as proteins and nylon, also form [[hydrogen-bond|hydrogen bonds]] between chains."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ethene-polyethene",
+          "question": "Ethene is a gas at room temperature, but poly(ethene) is a solid. Explain this difference in terms of structure and intermolecular forces.",
+          "steps": [
+            "Both substances are non-polar, so only London (dispersion) forces act between their molecules.",
+            "Compare the sizes: a poly(ethene) chain contains thousands of ethene units, so it has far more electrons.",
+            "Link size to force strength, and force strength to the energy needed to separate the molecules."
+          ],
+          "answer": "Ethene and poly(ethene) are both non-polar, so only London (dispersion) forces act between their molecules. Poly(ethene) chains are much larger than ethene molecules and have many more electrons. So the London forces between poly(ethene) chains are much stronger. More energy is needed to overcome them, so poly(ethene) is a solid at room temperature. No covalent bonds are broken when either substance changes state.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "larger chains with more electrons have stronger London forces, which need more energy to overcome",
+            "requires": [
+              [
+                "non-polar",
+                "nonpolar"
+              ],
+              "London",
+              [
+                "many more electrons",
+                "more electrons"
+              ],
+              "stronger",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "breaks covalent bonds",
+              "breaking covalent bonds"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a plastic melts because covalent bonds break. Only the forces between chains are overcome."
+        },
+        {
+          "type": "check",
+          "id": "check-natural-polymer",
+          "prompt": "Which of these is a natural polymer?",
+          "hint": "It must be made by living things, and it must be a long chain, not one small molecule.",
+          "options": [
+            {
+              "text": "cellulose",
+              "correct": true
+            },
+            {
+              "text": "glucose",
+              "correct": false
+            },
+            {
+              "text": "poly(ethene)",
+              "correct": false
+            },
+            {
+              "text": "nylon",
+              "correct": false
+            }
+          ],
+          "explain": "Plants make cellulose from glucose. Glucose is the monomer, and poly(ethene) and nylon are synthetic.",
+          "verify": {
+            "kind": "choice",
+            "truth": "cellulose"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A biodegradable material is one that microorganisms, such as bacteria, can break down."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-not-biodegradable",
+          "question": "Poly(ethene) bags can last for hundreds of years in the environment. Explain, with reference to its structure, why poly(ethene) is not biodegradable.",
+          "steps": [
+            "Name the bonds in the chain: poly(ethene) is a long chain of $\\ce{CH2}$ groups.",
+            "Say what kind of bonds they are: strong and non-polar.",
+            "Link this to microorganisms: their enzymes break down polar links, and there are none."
+          ],
+          "answer": "Poly(ethene) chains contain only carbon–carbon and carbon–hydrogen bonds. These covalent bonds are strong. They are also non-polar or nearly so ($\\Delta\\chi$ for $\\ce{C-H}$ is only 0.4), so there is no strongly polar site for water or enzymes to attack. So microorganisms cannot break the chains down, and the plastic is not biodegradable.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "only strong non-polar C-C and C-H bonds, so microorganisms cannot break the chains",
+            "requires": [
+              [
+                "carbon–carbon and carbon–hydrogen",
+                "C-C and C-H"
+              ],
+              "strong",
+              [
+                "non-polar",
+                "nonpolar"
+              ],
+              [
+                "microorganisms cannot",
+                "enzymes cannot"
+              ]
+            ],
+            "forbids": [
+              "environmentally friendly"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Chains with polar links containing oxygen or nitrogen, as in starch and proteins, can be split by water and enzymes. So they biodegrade."
+        },
+        {
+          "type": "check",
+          "id": "check-insulator",
+          "prompt": "Why does poly(ethene) insulate electrical cables?",
+          "hint": "A current needs charged particles that can move.",
+          "options": [
+            {
+              "text": "It has no mobile charged particles.",
+              "correct": true
+            },
+            {
+              "text": "Its covalent bonds are too weak to carry electrons.",
+              "correct": false
+            },
+            {
+              "text": "Its ions cannot move in the solid.",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen bonds between chains block the current.",
+              "correct": false
+            }
+          ],
+          "explain": "Poly(ethene) has no ions and no delocalized electrons, so nothing can carry a current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It has no mobile charged particles."
+          }
+        }
+      ]
+    },
+    {
+      "id": "addition",
+      "heading": "Addition polymers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[alkene|Alkenes]], such as ethene, contain a $\\ce{C=C}$ double bond. One of its two bonds can break, freeing each carbon to bond to another molecule."
+        },
+        {
+          "type": "definition",
+          "term": "addition reaction",
+          "statement": "A reaction in which two reactant molecules combine to form a single product, with nothing else formed.",
+          "plain": "Molecules add together and nothing is left over."
+        },
+        {
+          "type": "text",
+          "text": "In an [[addition-reaction|addition reaction]] of an alkene, the $\\ce{C=C}$ becomes a single bond. In addition polymerization, thousands of alkene molecules add to each other in a long chain."
+        },
+        {
+          "type": "definition",
+          "term": "addition polymer",
+          "statement": "A polymer formed when monomers containing a $\\ce{C=C}$ double bond join together, each double bond becoming a single bond in the chain.",
+          "plain": "Alkene molecules clip together by opening their double bonds."
+        },
+        {
+          "type": "text",
+          "text": "For ethene: $\\ce{n CH2=CH2 -> -[CH2-CH2]_{n}-}$, where $n$ is large."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-addition-ethene",
+          "alt": "On the left, n molecules of ethene: two carbon atoms joined by a double bond, each also bonded to two hydrogen atoms. An arrow points to the repeating unit of poly(ethene): the same two carbons joined by a single bond, each still with two hydrogen atoms, with an open bond leaving each end through square brackets and a subscript n.",
+          "caption": "The double bond opens, and each carbon uses its freed bond to link to the next unit."
+        },
+        {
+          "type": "text",
+          "text": "To draw the repeating unit, join the two carbons of the $\\ce{C=C}$ by a single bond. Keep every group on its own carbon, as a side group, and add an open bond at each end. Brackets and $n$ are optional."
+        },
+        {
+          "type": "example",
+          "id": "ex-repeat-propenenitrile",
+          "question": "Propenenitrile, $\\ce{CH2=CHCN}$, is the monomer of a polymer used in acrylic fibres. Represent the repeating unit of poly(propenenitrile).",
+          "steps": [
+            "The double bond is between the $\\ce{CH2}$ carbon and the $\\ce{CH}$ carbon. These two carbons form the chain.",
+            "The first carbon keeps its two H atoms. The second keeps one H and the $\\ce{CN}$ group, written as a side group: $\\ce{CH(CN)}$.",
+            "Join the two carbons by a single bond and add an open bond at each end."
+          ],
+          "answer": "$\\ce{-CH2-CH(CN)-}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To deduce the monomer, work backwards: find the two-carbon repeat and put the double bond back."
+        },
+        {
+          "type": "example",
+          "id": "ex-monomer-dichloroethene",
+          "question": "Part of an addition polymer chain is $\\ce{-CH2-CCl2-CH2-CCl2-CH2-CCl2-}$. Deduce the monomer.",
+          "steps": [
+            "Find the repeat: the pattern $\\ce{CH2}$, $\\ce{CCl2}$ repeats, so the repeating unit is $\\ce{-CH2-CCl2-}$.",
+            "Both chlorine atoms sit on the same carbon. Keep them there.",
+            "Put a double bond between the two carbons and remove the open bonds.",
+            "Check: the monomer, 1,1-dichloroethene, has the same atoms as the repeating unit, $\\ce{C2H2Cl2}$."
+          ],
+          "answer": "$\\ce{CH2=CCl2}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "[[atom-economy|Atom economy]] compares the mass of the wanted product with the total mass of reactants. In addition polymerization the polymer is the only product, so it is 100%."
+        },
+        {
+          "type": "check",
+          "id": "check-atom-economy-addition",
+          "prompt": "Why is the atom economy of an addition polymerization 100%?",
+          "hint": "Atom economy is about where the atoms go, not how much product you collect.",
+          "options": [
+            {
+              "text": "The polymer is the only product.",
+              "correct": true
+            },
+            {
+              "text": "The yield is always 100%.",
+              "correct": false
+            },
+            {
+              "text": "Water is released at every link.",
+              "correct": false
+            },
+            {
+              "text": "Breaking the double bond releases energy.",
+              "correct": false
+            }
+          ],
+          "explain": "With no by-product, every monomer atom ends up in the polymer. Yield is different: some monomer may not react.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The polymer is the only product."
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ptfe-chain-length",
+          "question": "A sample of poly(tetrafluoroethene), PTFE, has an average relative molecular mass of $2.40 \\times 10^{5}$. Its monomer is $\\ce{CF2=CF2}$. Calculate the average number of monomer units in each chain. Give 3 significant figures.",
+          "steps": [
+            "$M_\\text{r}(\\ce{C2F4}) = 2(12.01) + 4(19.00) = 100.02$, using $A_\\text{r}$ values from the data booklet (section 7).",
+            "No atoms are lost in addition polymerization, so each monomer adds its full mass to the chain.",
+            "Number of units $= \\frac{2.40 \\times 10^{5}}{100.02} = 2399.5\\ldots$",
+            "Round to 3 significant figures."
+          ],
+          "answer": "$n \\approx 2.40 \\times 10^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.40*10**5/Mr('C2F4')",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-repeat-ethenyl-ethanoate",
+          "prompt": "Ethenyl ethanoate, $\\ce{CH2=CH(OOCCH3)}$, forms a polymer used in wood glue. Which is its repeating unit?",
+          "hint": "Only the two carbons of the double bond form the chain, and the double bond does not survive.",
+          "options": [
+            {
+              "text": "$\\ce{-CH2-CH(OOCCH3)-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{-CH2=CH(OOCCH3)-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH2-CH(OOCCH3)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{-CH2-CH2-OOCCH3-}$",
+              "correct": false
+            }
+          ],
+          "explain": "The $\\ce{C=C}$ opens, the $\\ce{OOCCH3}$ group stays on its carbon, and open bonds show the chain continues."
+        },
+        {
+          "type": "check",
+          "id": "check-monomer-trifluoroethene",
+          "prompt": "Part of an addition polymer chain is $\\ce{-CF2-CHF-CF2-CHF-CF2-CHF-}$. Which is the monomer?",
+          "hint": "Find the two carbons that repeat and keep every atom on its own carbon.",
+          "options": [
+            {
+              "text": "$\\ce{CF2=CHF}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CHF=CHF}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CF2=CF2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CF3CH2F}$",
+              "correct": false
+            }
+          ],
+          "explain": "The unit $\\ce{-CF2-CHF-}$ repeats, so the monomer is $\\ce{CF2=CHF}$, trifluoroethene. $\\ce{CF3CH2F}$ has the right atoms but no double bond, so it cannot polymerize."
+        }
+      ]
+    },
+    {
+      "id": "condensation",
+      "heading": "Condensation polymers",
+      "level": "AHL",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some monomers have no $\\ce{C=C}$. Instead, each has two [[functional-group|functional groups]], usually one at each end. A group on one monomer reacts with a group on the next, releasing a small molecule."
+        },
+        {
+          "type": "definition",
+          "term": "condensation reaction",
+          "statement": "A reaction in which two molecules join together and a small molecule, such as water, is released.",
+          "plain": "Two molecules link up and give off a small molecule like water."
+        },
+        {
+          "type": "definition",
+          "term": "condensation polymer",
+          "statement": "A polymer formed by [[condensation-reaction|condensation reactions]] between monomers that each have two functional groups, with a small molecule released at every link.",
+          "plain": "Monomers join end to end, giving off a small molecule each time they link."
+        },
+        {
+          "type": "text",
+          "text": "With only one functional group, a monomer could join one neighbour and the chain would stop."
+        },
+        {
+          "type": "text",
+          "text": "A polyester forms from a diol, with two $\\ce{-OH}$ groups, and a dicarboxylic acid, with two $\\ce{-COOH}$ groups. Each $\\ce{-COOH}$ reacts with an $\\ce{-OH}$ to form an ester link, $\\ce{-COO-}$, and a water molecule."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-polyester-link",
+          "alt": "Top row: a dicarboxylic acid, HO, a carbon with a double-bonded oxygen, a group R, a second carbon with a double-bonded oxygen, OH, plus a diol, H, O, a group R prime, O, H. The OH at each end of the acid and the H at each end of the diol are highlighted. An arrow labelled minus 2 water molecules leads to the repeating unit: an open bond, carbon with double-bonded oxygen, R, carbon with double-bonded oxygen, oxygen, R prime, oxygen, open bond, plus 2 water molecules. The carbon, its double-bonded oxygen and the next oxygen are boxed as the ester link.",
+          "caption": "Each acid group loses $\\ce{OH}$ and each alcohol group loses $\\ce{H}$. One repeating unit has two ester links, so two water molecules form per unit."
+        },
+        {
+          "type": "text",
+          "text": "A polyamide forms from a diamine, with two $\\ce{-NH2}$ groups, and a dicarboxylic acid. Each $\\ce{-COOH}$ reacts with an $\\ce{-NH2}$ to form an amide link, $\\ce{-CONH-}$, and a water molecule."
+        },
+        {
+          "type": "text",
+          "text": "One monomer with an $\\ce{-NH2}$ (or $\\ce{-OH}$) at one end and a $\\ce{-COOH}$ at the other can polymerize on its own."
+        },
+        {
+          "type": "text",
+          "text": "For the repeating unit, remove $\\ce{OH}$ from each acid group and $\\ce{H}$ from each alcohol or amine group, then join what is left. Inside a condensed chain, $\\ce{CO}$ means $\\ce{C=O}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-polyester-unit",
+          "question": "Butanedioic acid, $\\ce{HOOC-CH2CH2-COOH}$, reacts with ethane-1,2-diol, $\\ce{HO-CH2CH2-OH}$, to form a polyester. Represent the repeating unit of the polymer.",
+          "steps": [
+            "Remove $\\ce{OH}$ from both acid groups: $\\ce{-CO-CH2CH2-CO-}$.",
+            "Remove $\\ce{H}$ from both alcohol groups: $\\ce{-O-CH2CH2-O-}$.",
+            "Join the two pieces through an ester link, $\\ce{-CO-O-}$, and leave an open bond at each end.",
+            "Check: one acid and one diol lose two water molecules, so the unit is $\\ce{C4H6O4} + \\ce{C2H6O2} - 2\\ce{H2O} = \\ce{C6H8O4}$."
+          ],
+          "answer": "$\\ce{-CO-CH2CH2-CO-O-CH2CH2-O-}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-polyamide-unit",
+          "question": "4-Aminobutanoic acid, $\\ce{H2N-CH2CH2CH2-COOH}$, forms a polyamide on its own. Represent the repeating unit of the polymer.",
+          "steps": [
+            "The monomer has an amine group at one end and a carboxyl group at the other, so each molecule joins the next by an amide link.",
+            "Remove $\\ce{H}$ from the $\\ce{-NH2}$ and $\\ce{OH}$ from the $\\ce{-COOH}$. That is one water molecule per unit.",
+            "Write what is left with an open bond at each end. The open bonds join to form the amide link with the next unit."
+          ],
+          "answer": "$\\ce{-NH-CH2CH2CH2-CO-}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving an $\\ce{-OH}$ or an $\\ce{-H}$ on the ends of a condensation repeating unit. Those atoms left as water; end the unit with an open bond instead."
+        },
+        {
+          "type": "check",
+          "id": "check-condensation-pair",
+          "prompt": "Which pair of monomers can form a condensation polymer?",
+          "hint": "Each monomer needs two groups that can react with the other monomer's groups.",
+          "options": [
+            {
+              "text": "a diamine and a dicarboxylic acid",
+              "correct": true
+            },
+            {
+              "text": "ethene and propene",
+              "correct": false
+            },
+            {
+              "text": "ethanol and a dicarboxylic acid",
+              "correct": false
+            },
+            {
+              "text": "a diol and an alkene",
+              "correct": false
+            }
+          ],
+          "explain": "Both monomers have a reacting group at each end. Ethanol has only one $\\ce{-OH}$, so the chain stops, and alkenes form addition polymers.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a diamine and a dicarboxylic acid"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-atom-economy-polyamide",
+          "prompt": "Butane-1,4-diamine, $\\ce{C4H12N2}$, and decanedioic acid, $\\ce{C10H18O4}$, form a polyamide. Each repeating unit forms from one molecule of each and releases two water molecules. Calculate the atom economy, in %, for making the polymer. Give 3 significant figures.",
+          "hint": "Atom economy $= \\frac{\\text{mass of repeating unit}}{\\text{mass of the two monomers}} \\times 100$. The repeating unit is the two monomers minus two waters.",
+          "answer": {
+            "value": 87.6,
+            "tolerance": 0.05
+          },
+          "explain": "$M_\\text{r}$: diamine $88.18$, acid $202.28$, water $18.02$. Repeating unit $= 290.46 - 2(18.02) = 254.42$. Atom economy $= \\frac{254.42}{290.46} \\times 100 \\approx 87.6\\%$. It is below 100% because water is a by-product.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "100*(Mr('C4H12N2') + Mr('C10H18O4') - 2*Mr('H2O'))/(Mr('C4H12N2') + Mr('C10H18O4'))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "The biological macromolecules in this course form by condensation: proteins from amino acids (amide links, called peptide bonds), starch and cellulose from glucose, and DNA from nucleotides."
+        },
+        {
+          "type": "definition",
+          "term": "hydrolysis",
+          "statement": "The breaking of a bond in a compound by reaction with water.",
+          "plain": "Water splits a molecule into smaller pieces."
+        },
+        {
+          "type": "text",
+          "text": "[[hydrolysis|Hydrolysis]] reverses condensation: water adds across each link and the polymer breaks into monomers. Digestion and biodegradable plastics both depend on it."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrolysis-dipeptide",
+          "question": "The dipeptide $\\ce{H2NCH2CONHCH(CH3)COOH}$ is made of two amino acids. Write an equation for its hydrolysis into those amino acids.",
+          "steps": [
+            "Find the amide link, $\\ce{-CONH-}$, between the two halves.",
+            "Add $\\ce{H2O}$ across it: $\\ce{OH}$ goes to the carbon and $\\ce{H}$ goes to the nitrogen.",
+            "The products are glycine, $\\ce{H2NCH2COOH}$, and alanine, $\\ce{H2NCH(CH3)COOH}$.",
+            "Check: each side contains $\\ce{C5H12N2O4}$ in total."
+          ],
+          "answer": "$\\ce{H2NCH2CONHCH(CH3)COOH + H2O -> H2NCH2COOH + H2NCH(CH3)COOH}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2NCH2CONHCH(CH3)COOH + H2O -> H2NCH2COOH + H2NCH(CH3)COOH",
+            "reversible": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A polymer is a macromolecule of many repeating units joined by covalent bonds. Natural: starch, cellulose, proteins, DNA, rubber. Synthetic: poly(ethene), PVC, PTFE, nylon, polyesters."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Plastics are long chains held by intermolecular forces. Most soften on heating, and they insulate, have low density and resist attack. Chains of only $\\ce{C-C}$ and $\\ce{C-H}$ bonds are not biodegradable."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Addition repeating unit: the two carbons of the $\\ce{C=C}$, now singly bonded, with all their groups and an open bond at each end. Monomer from a polymer: find the two-carbon repeat and put the $\\ce{C=C}$ back."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Addition polymerization has only one product, so its atom economy is 100%."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL",
+          "text": "Condensation polymers: monomers with two functional groups join and release a small molecule, usually water. Polyester: diol + dicarboxylic acid, ester link $\\ce{-COO-}$. Polyamide: diamine + dicarboxylic acid, amide link $\\ce{-CONH-}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL",
+          "text": "Biological macromolecules (proteins, starch, cellulose, DNA) form by condensation and break down by hydrolysis."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the double bond in the repeating unit. The $\\ce{C=C}$ becomes a single bond when the chain forms.",
+    "Leaving out the open bonds at each end of a repeating unit. Brackets and $n$ are optional; the open bonds are not.",
+    "Putting a side group into the main chain, as in $\\ce{-CH2-CH2-CN-}$. Only the two carbons of the double bond form the chain.",
+    "Putting groups on the wrong carbons of a monomer. $\\ce{-CH2-CCl2-}$ comes from $\\ce{CH2=CCl2}$, not $\\ce{CHCl=CHCl}$.",
+    "Writing \"environmentally friendly\" for biodegradable. Say whether microorganisms can break the chains down, and why."
+  ],
+  "examTips": [
+    "\"Draw\" or \"represent\" a repeating unit: show the two-carbon chain with every atom and group, and an open bond at each end. Brackets and $n$ earn nothing extra.",
+    "\"Deduce\" the monomer: a chain section may show several repeating units. Mark off two carbons at a time, then put the double bond back.",
+    "\"Explain\" a property of a plastic: name the force between chains, say how chain length or polarity affects its strength, then link that to the property."
+  ],
+  "readingMinutes": 25
+}

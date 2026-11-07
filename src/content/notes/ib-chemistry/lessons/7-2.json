@@ -1,0 +1,903 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "7.2",
+  "slug": "uncertainties-errors-and-significant-figures",
+  "title": "Uncertainties, errors and significant figures",
+  "level": "SL",
+  "topic": 7,
+  "summary": "No measurement is exact. You record each one with its uncertainty, as a range such as $12.35 \\pm \\pu{0.05 cm3}$, and to the right number of [[significant-figures|significant figures]]. Then you carry them through calculations and compare the result with the accepted value.",
+  "goals": [
+    {
+      "text": "Use SI units and prefixes, and convert between them.",
+      "bullets": [
+        "T3.1"
+      ]
+    },
+    {
+      "text": "Give measured and calculated values to a sensible number of significant figures or decimal places.",
+      "bullets": [
+        "T3.2",
+        "T3.8"
+      ]
+    },
+    {
+      "text": "Record a measurement as a range ($\\pm$) and tell [[random-error|random errors]] from [[systematic-error|systematic errors]].",
+      "bullets": [
+        "T3.5",
+        "T3.6"
+      ]
+    },
+    {
+      "text": "Calculate and interpret [[percentage-uncertainty|percentage uncertainty]], [[percentage-error|percentage error]], [[percentage-change|percentage change]] and [[percentage-difference|percentage difference]].",
+      "bullets": [
+        "T3.3",
+        "T3.4",
+        "T3.8"
+      ]
+    },
+    {
+      "text": "Propagate uncertainties through a calculation and judge what they mean for the final result.",
+      "bullets": [
+        "T3.5",
+        "T3.7",
+        "T3.8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "percentage uncertainty",
+    "error propagation",
+    "random and systematic errors",
+    "precision vs accuracy",
+    "sig figs chemistry",
+    "percentage error calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-percentage-yield",
+      "prompt": "A preparation should give $\\pu{8.40 g}$ of product, but you collect $\\pu{6.72 g}$. What is the [[percentage-yield|percentage yield]]? Give 3 s.f.",
+      "hint": "Divide the [[experimental-yield|experimental yield]] by the theoretical yield, then multiply by 100.",
+      "answer": {
+        "value": 80,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{6.72}{8.40} \\times 100 = 80.0\\%$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.72/8.40*100",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-standard-form",
+      "prompt": "Which is $0.000470$ written in standard form?",
+      "hint": "Move the decimal point until one non-zero digit is in front of it, and count the moves.",
+      "options": [
+        {
+          "text": "$4.70 \\times 10^{-4}$",
+          "correct": true
+        },
+        {
+          "text": "$4.70 \\times 10^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$4.70 \\times 10^{-3}$",
+          "correct": false
+        },
+        {
+          "text": "$47.0 \\times 10^{-5}$",
+          "correct": false
+        }
+      ],
+      "explain": "The point moves 4 places right, so the power is $-4$. $47.0 \\times 10^{-5}$ is not standard form: the number in front must be from 1 to below 10.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "470/1000000"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "units",
+      "heading": "SI units, prefixes and significant figures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Chemists use SI units: kilograms, metres, seconds, kelvin and moles. Volumes are usually in $\\pu{dm3}$ or $\\pu{cm3}$."
+        },
+        {
+          "type": "text",
+          "text": "A prefix scales a unit by a power of ten: kilo (k) is $10^{3}$, centi (c) is $10^{-2}$, milli (m) is $10^{-3}$ and micro ($\\mu$) is $10^{-6}$. The full list is in the data booklet, section 3."
+        },
+        {
+          "type": "text",
+          "text": "For areas and volumes, the prefix is squared or cubed too. $\\pu{1 cm} = \\pu{10^{-2} m}$, so $\\pu{1 cm3} = (10^{-2})^{3} = \\pu{10^{-6} m3}$. Likewise $\\pu{1 dm3} = \\pu{1000 cm3} = \\pu{10^{-3} m3}$ (data booklet, section 4)."
+        },
+        {
+          "type": "example",
+          "id": "ex-syringe-m3",
+          "question": "A gas syringe holds $\\pu{85.0 cm3}$ of gas. The ideal gas equation needs the volume in $\\pu{m3}$. Convert it, in standard form.",
+          "steps": [
+            "$\\pu{1 cm3} = \\pu{10^{-6} m3}$, because each centimetre is $10^{-2}$ metres and a volume has three lengths.",
+            "$85.0 \\times 10^{-6} = 8.50 \\times 10^{-5}$.",
+            "Keep 3 significant figures, as in $85.0$. Sense check: a syringe is far smaller than one cubic metre."
+          ],
+          "answer": "$V = \\pu{8.50e-5 m3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "85.0*10**-6",
+            "sf": 3,
+            "unit": "m3"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "significant figures",
+          "statement": "The digits of a value that carry meaning about how finely it was measured: every non-zero digit, zeros between them, and zeros at the end of a number that has a decimal point. Zeros in front of the first non-zero digit only place the decimal point.",
+          "plain": "The digits you actually measured, plus the first uncertain one."
+        },
+        {
+          "type": "text",
+          "text": "So $0.0250$ has 3 significant figures: the leading zeros don't count, the final zero does. $250.0$ has 4, because both zeros come at the end of a number with a decimal point. A whole number such as $2500$ is ambiguous, so write $2.50 \\times 10^{3}$ to show 3."
+        },
+        {
+          "type": "result",
+          "statement": "When you multiply or divide, give the answer to the fewest significant figures in the data. When you add or subtract, give it to the fewest decimal places. Exact numbers, such as the 1000 in a unit conversion or a mole ratio, don't limit the answer.",
+          "why": "An answer can't be more precise than the least precise measurement that went into it."
+        },
+        {
+          "type": "example",
+          "id": "ex-koh-concentration",
+          "question": "A student dissolves $\\pu{2.8 g}$ of potassium hydroxide, $\\ce{KOH}$, and makes the solution up to $\\pu{250.0 cm3}$. Calculate its concentration, to an appropriate number of significant figures.",
+          "steps": [
+            "$M(\\ce{KOH}) = 39.10 + 16.00 + 1.01 = \\pu{56.11 g mol-1}$ (data booklet, section 7).",
+            "$n = \\frac{2.8}{56.11} = \\pu{0.049902 mol}$. Keep every digit for now.",
+            "$V = \\pu{0.2500 dm3}$, so $c = \\frac{0.049902}{0.2500} = \\pu{0.19961 mol dm-3}$.",
+            "The mass has 2 significant figures and the volume has 4. Round to the fewer: 2."
+          ],
+          "answer": "$c \\approx \\pu{0.20 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.8/Mr('KOH')/(250.0/1000)",
+            "sf": 2,
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding in the middle of a calculation. Carry the full value through every step and round only the final answer."
+        },
+        {
+          "type": "check",
+          "id": "check-count-sf",
+          "prompt": "How many significant figures does $\\pu{0.04050 g}$ have?",
+          "hint": "Leading zeros only place the decimal point. A zero at the end after the point was measured.",
+          "options": [
+            {
+              "text": "four",
+              "correct": true
+            },
+            {
+              "text": "three",
+              "correct": false
+            },
+            {
+              "text": "five",
+              "correct": false
+            },
+            {
+              "text": "six",
+              "correct": false
+            }
+          ],
+          "explain": "The digits 4, 0, 5 and the final 0 count. The two zeros in front, $0.0$, don't.",
+          "verify": {
+            "kind": "choice",
+            "truth": "four"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cm3-to-dm3",
+          "prompt": "A flask holds $\\pu{750 cm3}$ of solution. What is this volume in $\\pu{dm3}$?",
+          "hint": "There are $\\pu{1000 cm3}$ in $\\pu{1 dm3}$.",
+          "options": [
+            {
+              "text": "$\\pu{0.750 dm3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{7.50 dm3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.0750 dm3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{750000 dm3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Divide by 1000: $\\frac{750}{1000} = \\pu{0.750 dm3}$. Multiplying by 1000 instead gives the last option.",
+          "verify": {
+            "kind": "exact",
+            "truth": "750/1000",
+            "unit": "dm3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recording",
+      "heading": "Recording uncertainty, and random vs systematic errors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every reading has an [[absolute-uncertainty|absolute uncertainty]]: how far the true value could be from what you wrote. You record it after the value with $\\pm$ and the same unit."
+        },
+        {
+          "type": "text",
+          "text": "$12.35 \\pm \\pu{0.05 cm3}$ means the true reading is expected to lie between $12.30$ and $\\pu{12.40 cm3}$."
+        },
+        {
+          "type": "text",
+          "text": "For a scale you read by eye, such as a burette or thermometer, the uncertainty is usually half the smallest division. For a digital display it is one unit in the last digit. If the glassware has a tolerance printed on it, use that."
+        },
+        {
+          "type": "result",
+          "statement": "Write a measurement to the same decimal place as its uncertainty.",
+          "why": "The last digit you write is the uncertain one, so $12.350 \\pm 0.05$ claims a digit you never read."
+        },
+        {
+          "type": "example",
+          "id": "ex-burette-reading",
+          "question": "A burette is marked every $\\pu{0.1 cm3}$. The bottom of the meniscus sits exactly halfway between the $12.3$ and $12.4$ marks. Record the reading with its uncertainty.",
+          "steps": [
+            "Smallest division: $\\pu{0.1 cm3}$. Half of it is $\\pm \\pu{0.05 cm3}$.",
+            "Halfway between the marks is $\\pu{12.35 cm3}$.",
+            "The uncertainty ends in the second decimal place, and so does the value."
+          ],
+          "answer": "$V = 12.35 \\pm \\pu{0.05 cm3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Errors come in two kinds. A [[random-error|random error]] scatters readings unpredictably, sometimes high and sometimes low: judging a colour change, or a reading that flickers."
+        },
+        {
+          "type": "text",
+          "text": "A [[systematic-error|systematic error]] shifts every reading the same way: a balance that isn't zeroed, or heat lost from a calorimeter in every trial."
+        },
+        {
+          "type": "definition",
+          "term": "precision",
+          "statement": "How close repeated measurements of the same quantity are to each other.",
+          "plain": "Tightly grouped results are precise, whether or not they are right."
+        },
+        {
+          "type": "definition",
+          "term": "accuracy",
+          "statement": "How close a measurement, or the mean of several, is to the true or accepted value.",
+          "plain": "Accurate results are on target."
+        },
+        {
+          "type": "text",
+          "text": "Random errors lower [[precision|precision]]. Repeating and averaging reduces their effect. Systematic errors lower [[accuracy|accuracy]], and averaging does nothing to them: you must change the method or calibrate."
+        },
+        {
+          "type": "figure",
+          "id": "7-2-precision-accuracy",
+          "alt": "Four targets in a row. The centre of each target is the true value and each dot is one repeated measurement. Target 1: dots tightly grouped on the centre, precise and accurate. Target 2: dots tightly grouped but away from the centre, precise but not accurate, caused by a systematic error. Target 3: dots spread widely around the centre, accurate on average but not precise, caused by random error. Target 4: dots spread widely and off centre, neither."
+        },
+        {
+          "type": "example",
+          "id": "ex-unzeroed-balance",
+          "question": "A balance reads $\\pu{0.15 g}$ with nothing on it, but a student doesn't zero it. They weigh the same sample three times and get $4.62$, $4.63$ and $\\pu{4.62 g}$. Explain whether these results are precise and accurate, and whether weighing more times would help.",
+          "steps": [
+            "Spread: the readings agree closely. Offset: each is too high by the same amount.",
+            "Name the error type, say why averaging fails, then give the fix."
+          ],
+          "answer": "The three readings are very close together, so the results are precise. Every reading is 0.15 g too high, so the results are not accurate. This is a systematic error. Repeating and averaging does not reduce a systematic error, because every reading is shifted the same way. The student should zero (tare) the balance before weighing.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "precise but not accurate; systematic error; averaging doesn't help; zero the balance",
+            "requires": [
+              "precise",
+              "not accurate",
+              "systematic error",
+              [
+                "does not reduce",
+                "doesn't reduce",
+                "will not reduce"
+              ],
+              [
+                "zero",
+                "tare"
+              ]
+            ],
+            "forbids": [
+              "random error",
+              "reduces the systematic error"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-heat-loss-error",
+          "prompt": "In every trial of a calorimetry experiment, some heat escapes to the surroundings. What kind of error is this, and what does it mainly affect?",
+          "hint": "Does the heat loss push the result the same way every time?",
+          "options": [
+            {
+              "text": "a systematic error, which affects accuracy",
+              "correct": true
+            },
+            {
+              "text": "a random error, which affects precision",
+              "correct": false
+            },
+            {
+              "text": "a random error, which affects accuracy",
+              "correct": false
+            },
+            {
+              "text": "a systematic error, which affects precision only",
+              "correct": false
+            }
+          ],
+          "explain": "Heat is always lost, so the temperature rise is always too small. That one-way shift is systematic and moves the result off the true value.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a systematic error, which affects accuracy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-digital-balance",
+          "prompt": "A digital balance shows $\\pu{3.071 g}$. What is the absolute uncertainty of this reading?",
+          "hint": "For a digital display, look at the place of the last digit.",
+          "options": [
+            {
+              "text": "$\\pu{0.001 g}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.0005 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.01 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.1 g}$",
+              "correct": false
+            }
+          ],
+          "explain": "The last digit is in the thousandths place, so the uncertainty is one unit there: $\\pm \\pu{0.001 g}$. Halving is for scales you read by eye.",
+          "verify": {
+            "kind": "exact",
+            "truth": "10**-3",
+            "unit": "g"
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentage-uncertainty",
+      "heading": "Percentage uncertainty and percentage error",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An uncertainty of $\\pm \\pu{0.10 cm3}$ is small for a $\\pu{25.00 cm3}$ titre but large for a $\\pu{2.00 cm3}$ one. To compare them, divide by the value."
+        },
+        {
+          "type": "text",
+          "text": "The [[fractional-uncertainty|fractional uncertainty]] is the absolute uncertainty divided by the value. Multiply it by 100 for the [[percentage-uncertainty|percentage uncertainty]]. Neither has a unit."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage uncertainty} = \\frac{\\text{absolute uncertainty}}{\\text{measured value}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here the titres are $0.4\\%$ and $5\\%$ uncertain. So, for the same absolute uncertainty, small measurements carry large percentage uncertainties, which is why you use larger masses, volumes and temperature changes where you can."
+        },
+        {
+          "type": "text",
+          "text": "Give absolute and percentage uncertainties to 1 significant figure, or 2 if you need them for a later step or to keep an instrument's decimal place, as in a titre of $23.45 \\pm \\pu{0.10 cm3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-percentage-uncertainty",
+          "question": "A student weighs $0.150 \\pm \\pu{0.001 g}$ of zinc powder. Calculate the percentage uncertainty in the mass.",
+          "steps": [
+            "Fractional uncertainty: $\\frac{0.001}{0.150} = 0.00667$.",
+            "Percentage: $0.00667 \\times 100 = 0.667\\%$.",
+            "Round to 1 significant figure. For comparison, $\\pu{1.500 g}$ on the same balance would be only $0.07\\%$."
+          ],
+          "answer": "$\\text{percentage uncertainty} \\approx 0.7\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.001/0.150*100",
+            "sf": 1,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Uncertainty describes your measurements. [[percentage-error|Percentage error]] compares your result with the accepted value, such as a data-booklet value."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-butanol-percentage-error",
+          "question": "A student burns butan-1-ol in a spirit burner under a can of water and finds $\\Delta H_\\text{c} = \\pu{-2150 kJ mol-1}$. Calculate the percentage error, using section 14 of the data booklet.",
+          "steps": [
+            "Accepted value: $\\Delta H_\\text{c}^\\ominus = \\pu{-2676 kJ mol-1}$.",
+            "Difference: $\\lvert -2150 - (-2676) \\rvert = 526$.",
+            "$\\frac{526}{2676} \\times 100 = 19.66\\%$, which is $19.7\\%$ to 3 significant figures.",
+            "The value is less negative than the booklet's: some energy never reached the water."
+          ],
+          "answer": "$\\text{percentage error} \\approx 19.7\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(-2150 - Hc('butan-1-ol'))/Abs(Hc('butan-1-ol'))*100",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by your own experimental value in a percentage error. The accepted value goes on the bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-temperature-rise-uncertainty",
+          "prompt": "A temperature rise is measured as $8.0 \\pm \\pu{0.2 ^\\circ C}$. What is its percentage uncertainty? Give 2 s.f.",
+          "hint": "Divide the uncertainty by the value, then multiply by 100.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{0.2}{8.0} \\times 100 = 2.5\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.2/8.0*100",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-argon-percentage-error",
+          "prompt": "A student's experiment gives a molar mass of $\\pu{41.5 g mol-1}$ for argon. Using $A_\\text{r}(\\ce{Ar})$ from the data booklet, what is the percentage error?",
+          "hint": "The data booklet gives $A_\\text{r}(\\ce{Ar}) = 39.95$. Which value goes on the bottom?",
+          "options": [
+            {
+              "text": "$\\approx 3.9\\%$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 3.7\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 1.6\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 104\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{41.5 - 39.95}{39.95} \\times 100 = 3.9\\%$. $3.7\\%$ divides by the experimental value, $1.6\\%$ is the difference with no division, and $104\\%$ is the ratio of the two values.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(41.5 - Ar('Ar'))/Ar('Ar')*100",
+            "sf": 2,
+            "unit": "%"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change-difference",
+      "heading": "Percentage change and percentage difference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[percentage-change|Percentage change]] tells you how much a value has grown or shrunk, compared with where it started. A positive answer is an increase and a negative one is a decrease."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage change} = \\frac{\\text{final value} - \\text{initial value}}{\\text{initial value}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "[[percentage-difference|Percentage difference]] compares two values when neither is the reference, such as results from two methods. Divide the difference by their mean."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage difference} = \\frac{\\lvert a - b \\rvert}{\\tfrac{1}{2}(a + b)} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So choose by the question: an accepted value means percentage error, a before and after means percentage change, and two equal-status values mean percentage difference."
+        },
+        {
+          "type": "example",
+          "id": "ex-oxygen-change",
+          "question": "The dissolved oxygen in a river falls from $\\pu{9.2 mg dm-3}$ upstream of a factory outlet to $\\pu{6.9 mg dm-3}$ below it. Calculate the percentage change.",
+          "steps": [
+            "Initial value $9.2$, final value $6.9$.",
+            "$\\frac{6.9 - 9.2}{9.2} \\times 100 = \\frac{-2.3}{9.2} \\times 100 = -25\\%$.",
+            "The minus sign shows a decrease. Give it to 2 significant figures, as the data have."
+          ],
+          "answer": "$\\text{percentage change} = -25\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(6.9 - 9.2)/9.2*100",
+            "sf": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-two-methods-difference",
+          "question": "Two students find the concentration of the same acid. One titrates and gets $\\pu{0.1043 mol dm-3}$. The other uses a pH method and gets $\\pu{0.1018 mol dm-3}$. Calculate the percentage difference.",
+          "steps": [
+            "Difference: $0.1043 - 0.1018 = 0.0025$.",
+            "Mean: $\\frac{0.1043 + 0.1018}{2} = 0.10305$.",
+            "$\\frac{0.0025}{0.10305} \\times 100 = 2.43\\%$.",
+            "The difference has only 2 significant figures, so give 2."
+          ],
+          "answer": "$\\text{percentage difference} \\approx 2.4\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(0.1043 - 0.1018)/((0.1043 + 0.1018)/2)*100",
+            "sf": 2,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-batch-change",
+          "prompt": "A process improvement raises the mass of product per batch from $\\pu{62.5 g}$ to $\\pu{70.0 g}$. What is the percentage change? Give 3 s.f.",
+          "hint": "Divide the change by the starting value.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{70.0 - 62.5}{62.5} \\times 100 = +12.0\\%$, an increase.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(70.0 - 62.5)/62.5*100",
+            "sf": 3,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-percentage",
+          "prompt": "Two students measure the same enthalpy change by different methods. Neither result is known to be correct. Which calculation compares them?",
+          "hint": "Is there a reference value, or a before and after?",
+          "options": [
+            {
+              "text": "percentage difference",
+              "correct": true
+            },
+            {
+              "text": "percentage error",
+              "correct": false
+            },
+            {
+              "text": "percentage change",
+              "correct": false
+            },
+            {
+              "text": "percentage uncertainty",
+              "correct": false
+            }
+          ],
+          "explain": "With no accepted value and no starting value, compare the gap between them with their mean: a percentage difference.",
+          "verify": {
+            "kind": "choice",
+            "truth": "percentage difference"
+          }
+        }
+      ]
+    },
+    {
+      "id": "propagation",
+      "heading": "Propagating uncertainties",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most results are [[processed-data|processed data]]: calculated from several raw readings. Each reading's uncertainty feeds into the result. Working out the result's uncertainty is called [[propagation-of-uncertainty|propagation of uncertainty]]."
+        },
+        {
+          "type": "text",
+          "text": "Below, $\\Delta a$ means the absolute uncertainty in a quantity $a$. (It is not a change, as in $\\Delta T$.)"
+        },
+        {
+          "type": "formula",
+          "tex": "y = a + b \\text{ or } y = a - b: \\quad \\Delta y = \\Delta a + \\Delta b",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "y = ab \\text{ or } y = \\frac{a}{b}: \\quad \\frac{\\Delta y}{y} = \\frac{\\Delta a}{a} + \\frac{\\Delta b}{b}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In words: for adding and subtracting, add the absolute uncertainties. For multiplying and dividing, add the percentage uncertainties. Uncertainties always add, even when the values are subtracted."
+        },
+        {
+          "type": "text",
+          "text": "Treat exact numbers and data-booklet values, such as $A_\\text{r}$ or the specific heat capacity of water, $\\pu{4.18 J g-1 K-1}$, as having no uncertainty unless the question gives one."
+        },
+        {
+          "type": "example",
+          "id": "ex-titre-range",
+          "question": "A burette reads $0.85 \\pm \\pu{0.05 cm3}$ at the start of a titration and $24.30 \\pm \\pu{0.05 cm3}$ at the end. Find the titre with its uncertainty.",
+          "steps": [
+            "Titre: $24.30 - 0.85 = \\pu{23.45 cm3}$.",
+            "A subtraction, so add the absolute uncertainties: $0.05 + 0.05 = \\pm \\pu{0.10 cm3}$.",
+            "Keep it as $0.10$ rather than $0.1$, so the titre keeps the burette's second decimal place."
+          ],
+          "answer": "$\\text{titre} = 23.45 \\pm \\pu{0.10 cm3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-solution",
+          "question": "A student dissolves $1.325 \\pm \\pu{0.001 g}$ of anhydrous sodium carbonate, $\\ce{Na2CO3}$, and makes the solution up to $250.0 \\pm \\pu{0.2 cm3}$. Calculate the concentration with its absolute uncertainty.",
+          "steps": [
+            "$M(\\ce{Na2CO3}) = \\pu{105.99 g mol-1}$, so $n = \\frac{1.325}{105.99} = \\pu{0.012501 mol}$ and $c = \\frac{0.012501}{0.2500} = \\pu{0.050005 mol dm-3}$.",
+            "Percentage uncertainties: mass $\\frac{0.001}{1.325} \\times 100 = 0.075\\%$; volume $\\frac{0.2}{250.0} \\times 100 = 0.08\\%$. $M$ is a data-booklet value, so treat it as exact.",
+            "$c$ comes from a division, so add them: $0.075\\% + 0.080\\% = 0.155\\%$.",
+            "Absolute: $0.050005 \\times \\frac{0.155}{100} = 0.000078$, which is $0.00008$ to 1 significant figure.",
+            "Round the value to the same decimal place as the uncertainty: the fifth."
+          ],
+          "answer": "$c = 0.05000 \\pm \\pu{0.00008 mol dm-3}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The largest percentage uncertainty usually dominates the result. To improve an experiment, make that measurement larger or use a more precise instrument for it; improving the others barely helps."
+        },
+        {
+          "type": "text",
+          "text": "You can also judge a result. If the percentage error is smaller than the total percentage uncertainty, random errors can explain it. If it is larger, there must be systematic errors too."
+        },
+        {
+          "type": "example",
+          "id": "ex-error-vs-uncertainty",
+          "question": "In the butan-1-ol experiment above, the percentage error was $19.7\\%$. The student's measurements give a total percentage uncertainty of $4\\%$. Explain what this comparison shows about the errors in the method.",
+          "steps": [
+            "Compare the two percentages.",
+            "Say what the uncertainty can account for, and what must cause the rest.",
+            "Give a likely systematic error for burning a fuel under a can, and say why repeats won't fix it."
+          ],
+          "answer": "The percentage error is much larger than the total percentage uncertainty. Random errors in the measurements can only account for about 4%. So the rest must come from systematic errors in the method. For example, heat is lost to the surroundings, and some of the fuel burns incompletely. Repeating the experiment would not remove these errors; the method must be changed, for example by insulating the can.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "% error >> % uncertainty, so systematic errors such as heat loss dominate",
+            "requires": [
+              [
+                "larger than",
+                "greater than"
+              ],
+              "random errors",
+              "systematic errors",
+              [
+                "heat is lost",
+                "heat loss"
+              ],
+              [
+                "would not remove",
+                "does not remove",
+                "will not remove"
+              ]
+            ],
+            "forbids": [
+              "human error",
+              "repeating the experiment would remove"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "At HL you also propagate through powers. Raising a value to the power $n$ multiplies its percentage uncertainty by $\\lvert n \\rvert$.",
+          "level": "AHL"
+        },
+        {
+          "type": "formula",
+          "tex": "y = a^{n}: \\quad \\frac{\\Delta y}{y} = \\lvert n \\rvert \\frac{\\Delta a}{a}",
+          "tag": "learn",
+          "level": "AHL"
+        },
+        {
+          "type": "example",
+          "id": "ex-hl-squared-concentration",
+          "level": "AHL",
+          "question": "In a rate experiment, $[\\ce{NO}] = 0.0120 \\pm \\pu{0.0003 mol dm-3}$. The rate depends on $[\\ce{NO}]^{2}$. Calculate the percentage uncertainty in $[\\ce{NO}]^{2}$.",
+          "steps": [
+            "Percentage uncertainty in $[\\ce{NO}]$: $\\frac{0.0003}{0.0120} \\times 100 = 2.5\\%$.",
+            "Squaring is a power of 2, so double it: $2 \\times 2.5\\% = 5\\%$.",
+            "This is the same as adding $2.5\\% + 2.5\\%$ for $[\\ce{NO}] \\times [\\ce{NO}]$."
+          ],
+          "answer": "$\\text{percentage uncertainty} = 5\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*0.0003/0.0120*100",
+            "sf": 1,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-titre-range",
+          "prompt": "A burette reads $3.20 \\pm \\pu{0.05 cm3}$ before a titration and $27.65 \\pm \\pu{0.05 cm3}$ after. Which is the titre with its uncertainty?",
+          "hint": "The titre is a subtraction of two readings, each with its own uncertainty.",
+          "options": [
+            {
+              "text": "$24.45 \\pm \\pu{0.10 cm3}$",
+              "correct": true
+            },
+            {
+              "text": "$24.45 \\pm \\pu{0.05 cm3}$",
+              "correct": false
+            },
+            {
+              "text": "$30.85 \\pm \\pu{0.10 cm3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$27.65 - 3.20 = \\pu{24.45 cm3}$, and both readings are uncertain, so $0.05 + 0.05 = \\pm \\pu{0.10 cm3}$. $30.85$ adds the readings instead of subtracting them."
+        },
+        {
+          "type": "check",
+          "id": "check-mass-volume-percent",
+          "prompt": "A concentration is calculated from a mass of $0.500 \\pm \\pu{0.001 g}$ and a volume of $100.0 \\pm \\pu{0.1 cm3}$. What is the percentage uncertainty in the concentration? Give 1 s.f.",
+          "hint": "A division: find each percentage uncertainty first.",
+          "answer": {
+            "value": 0.3,
+            "tolerance": 0.05
+          },
+          "explain": "Mass: $\\frac{0.001}{0.500} \\times 100 = 0.2\\%$. Volume: $\\frac{0.1}{100.0} \\times 100 = 0.1\\%$. Add them: $0.3\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.001/0.500 + 0.1/100.0)*100",
+            "sf": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hl-cubed",
+          "level": "AHL",
+          "prompt": "The radius of a spherical crystal is measured with a percentage uncertainty of $1.5\\%$. Its volume is $\\frac{4}{3}\\pi r^{3}$. What is the percentage uncertainty in the volume? Give 2 s.f.",
+          "hint": "$\\frac{4}{3}\\pi$ is exact. What does the power 3 do?",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0.05
+          },
+          "explain": "$3 \\times 1.5\\% = 4.5\\%$. The exact factor $\\frac{4}{3}\\pi$ adds nothing.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*1.5",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Volume conversions: $\\pu{1 dm3} = \\pu{1000 cm3} = \\pu{10^{-3} m3}$; $\\pu{1 cm3} = \\pu{10^{-6} m3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply or divide: answer to the fewest significant figures in the data. Add or subtract: to the fewest decimal places.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Record a reading as value $\\pm$ uncertainty, both ending at the same decimal place. Scale read by eye: half the smallest division. Digital: one unit in the last digit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Random error: unpredictable scatter, lowers precision, reduced by repeats. Systematic error: one-way shift, lowers accuracy, not reduced by repeats.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage uncertainty} = \\frac{\\text{absolute uncertainty}}{\\text{measured value}} \\times 100",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Percentage change $= \\frac{\\text{final} - \\text{initial}}{\\text{initial}} \\times 100$; percentage difference $= \\frac{\\lvert a - b \\rvert}{\\text{mean}} \\times 100$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add or subtract: add absolute uncertainties. Multiply or divide: add percentage uncertainties.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A power $n$ multiplies the percentage uncertainty by $\\lvert n \\rvert$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL"
+        },
+        {
+          "type": "fact",
+          "text": "Percentage error larger than the total percentage uncertainty means systematic errors are present.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting uncertainties when the values are subtracted. A titre or a temperature change has two readings, so add their uncertainties: $\\pm 0.05 + 0.05 = \\pm \\pu{0.10 cm3}$.",
+    "Adding absolute uncertainties in a multiplication or division. Convert each to a percentage first, then add the percentages.",
+    "Writing the value and its uncertainty to different decimal places, such as $23.450 \\pm 0.05$. Write $23.45 \\pm 0.05$.",
+    "Giving a calculated answer to more significant figures than the data. Round to the least precise datum.",
+    "Saying that repeating an experiment removes a systematic error. Repeats only reduce random error; a systematic error needs a change of method or calibration."
+  ],
+  "examTips": [
+    "\"Calculate\" a processed value with its uncertainty: show each percentage uncertainty, their sum, then the value $\\pm$ its absolute uncertainty with units.",
+    "\"Evaluate\" a result: compare the percentage error with the total percentage uncertainty, then say whether random errors alone explain it.",
+    "In a Paper 1B data table, record each reading to the precision of the instrument, with the same decimal places down a column."
+  ],
+  "readingMinutes": 30
+}

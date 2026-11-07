@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" role="img" aria-labelledby="t">
+  <title id="t">Two energy profiles side by side, each with potential energy on the vertical axis and reaction coordinate on the horizontal axis. Left, exothermic: the reactants level is high, the curve rises over a hump, then falls to a products level below the reactants. A downward arrow from the reactants level to the products level is labelled delta H negative, and the products are labelled more stable. Right, endothermic: the reactants level is low, the curve rises over a hump, then falls to a products level above the reactants. An upward arrow from the reactants level to the products level is labelled delta H positive, and the reactants are labelled more stable.</title>
+  <g font-family="inherit" fill="currentColor">
+    <text x="175" y="20" font-size="14" text-anchor="middle" font-weight="bold">Exothermic</text>
+    <text x="505" y="20" font-size="14" text-anchor="middle" font-weight="bold">Endothermic</text>
+  </g>
+  <g id="axes-left">
+    <path d="M40 260 L40 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <polygon points="40,36 35.5,45 44.5,45" fill="currentColor"/>
+    <path d="M40 260 L305 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <polygon points="314,260 305,255.5 305,264.5" fill="currentColor"/>
+    <text x="28" y="150" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 28 150)">potential energy</text>
+    <text x="175" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  </g>
+  <g id="axes-right">
+    <path d="M370 260 L370 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <polygon points="370,36 365.5,45 374.5,45" fill="currentColor"/>
+    <path d="M370 260 L635 260" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <polygon points="644,260 635,255.5 635,264.5" fill="currentColor"/>
+    <text x="358" y="150" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 358 150)">potential energy</text>
+    <text x="505" y="282" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reaction coordinate</text>
+  </g>
+  <path d="M55 120 H105 C135 120 145 60 165 60 C185 60 195 200 225 200 H295" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <path d="M385 200 H435 C465 200 475 60 495 60 C515 60 525 120 555 120 H625" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+  <path d="M105 120 H285" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M435 200 H615" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <path d="M275 122 L275 189" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="275,198 270.5,189 279.5,189" fill="var(--t3-ink)"/>
+  <path d="M605 198 L605 131" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="605,122 600.5,131 609.5,131" fill="var(--t3-ink)"/>
+  <g font-size="12" font-family="inherit" fill="currentColor">
+    <text x="80" y="112" text-anchor="middle">reactants</text>
+    <text x="240" y="218" text-anchor="middle">products</text>
+    <text x="240" y="234" text-anchor="middle" fill="var(--muted)">(more stable)</text>
+    <text x="410" y="218" text-anchor="middle">reactants</text>
+    <text x="410" y="234" text-anchor="middle" fill="var(--muted)">(more stable)</text>
+    <text x="570" y="112" text-anchor="middle">products</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t3-ink)">
+    <text x="268" y="152" text-anchor="end">ΔH</text>
+    <text x="268" y="168" text-anchor="end">negative</text>
+    <text x="598" y="152" text-anchor="end">ΔH</text>
+    <text x="598" y="168" text-anchor="end">positive</text>
+  </g>
+</svg>

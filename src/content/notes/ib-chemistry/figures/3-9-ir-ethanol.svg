@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 290" role="img" aria-labelledby="t">
+  <title id="t">Simplified infrared spectrum of ethanol. The horizontal axis is wavenumber in reciprocal centimetres, decreasing from 4000 on the left to 500 on the right; the vertical axis is transmittance from 0 to 100 percent. The line runs near 90 percent and dips at absorptions: a broad, rounded dip centred near 3340, labelled O-H, alcohol, broad; a sharp dip near 2975, labelled C-H; small dips between 1450 and 1350; and several dips below 1150, the deepest near 1050, labelled C-O. A dashed line at 1500 separates the functional group region on the left from the fingerprint region on the right.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M60 230 H460"/>
+    <path d="M60 230 V25"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <path d="M60.0 230 v6 M174.3 230 v6 M288.6 230 v6 M345.7 230 v6 M402.9 230 v6 M460.0 230 v6"/>
+    <path d="M60 230 h-6 M60 130 h-6 M60 30 h-6"/>
+  </g>
+  <path d="M345.7 230 V20" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <g font-size="11" font-family="inherit" fill="var(--muted)" text-anchor="middle">
+    <text x="202.9" y="16">functional group region</text>
+    <text x="402.9" y="16">fingerprint region</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="60.0" y="250">4000</text><text x="174.3" y="250">3000</text><text x="288.6" y="250">2000</text><text x="345.7" y="250">1500</text><text x="402.9" y="250">1000</text><text x="460.0" y="250">500</text>
+    <text x="260" y="280">wavenumber / cm⁻¹</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="end">
+    <text x="50" y="234">0</text>
+    <text x="50" y="134">50</text>
+    <text x="50" y="34">100</text>
+  </g>
+  <text x="18" y="130" font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle" transform="rotate(-90 18 130)">transmittance / %</text>
+  <path d="M60.0 50.0 L94.3 52.0 L105.7 58.0 L117.1 90.0 L126.3 150.0 L135.4 178.0 L144.6 150.0 L157.1 90.0 L165.1 66.0 L173.1 80.0 L177.1 190.0 L181.1 140.0 L185.7 160.0 L190.3 90.0 L197.1 58.0 L242.9 54.0 L288.6 52.0 L322.9 54.0 L340.0 58.0 L348.0 90.0 L351.4 126.0 L354.9 86.0 L358.9 114.0 L362.9 82.0 L368.6 70.0 L374.3 90.0 L380.0 66.0 L389.1 90.0 L392.6 170.0 L395.4 140.0 L397.1 206.0 L399.4 150.0 L405.1 70.0 L414.3 90.0 L416.6 150.0 L418.9 86.0 L425.7 62.0 L437.1 70.0 L448.6 66.0 L460.0 62.0" stroke="var(--t2-ink)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+  <g font-size="12" font-family="inherit" fill="var(--t3-ink)" text-anchor="middle">
+    <text x="135.4" y="196.0">O–H (alcohol)</text>
+    <text x="135.4" y="210.0">broad</text>
+    <text x="191.1" y="208.0">C–H</text>
+    <text x="397.1" y="222.0">C–O</text>
+  </g>
+</svg>

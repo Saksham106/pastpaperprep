@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.5",
+  "slug": "covalent-network-structures",
+  "title": "Covalent network structures",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Diamond, silicon and sand are not made of small molecules. In a [[covalent-network-structure|covalent network structure]], strong [[covalent-bond|covalent bonds]] run through the whole solid, so it is very hard to melt. Carbon has several [[allotrope|allotropes]], and how their atoms are joined decides how they behave.",
+  "goals": [
+    {
+      "text": "Describe the structures of diamond, silicon and silicon dioxide, and explain their properties.",
+      "bullets": [
+        "S2.2.7"
+      ]
+    },
+    {
+      "text": "Explain why silicon–silicon bonds are weaker than carbon–carbon bonds.",
+      "bullets": [
+        "S2.2.7"
+      ]
+    },
+    {
+      "text": "Explain the properties of graphite and graphene using their layers and [[delocalized-electrons|delocalized electrons]].",
+      "bullets": [
+        "S2.2.7"
+      ]
+    },
+    {
+      "text": "Describe the fullerene $\\ce{C60}$, and explain why allotropes have different physical and chemical properties.",
+      "bullets": [
+        "S2.2.7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "giant covalent structure",
+    "macromolecular structure",
+    "diamond and graphite",
+    "silicon dioxide structure",
+    "carbon allotropes",
+    "buckminsterfullerene"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-covalent-attraction",
+      "prompt": "What holds the atoms together in a covalent bond?",
+      "hint": "Nothing is transferred. Something is shared.",
+      "options": [
+        {
+          "text": "both nuclei attracting a shared pair of electrons",
+          "correct": true
+        },
+        {
+          "text": "a positive ion attracting a negative ion",
+          "correct": false
+        },
+        {
+          "text": "weak forces between molecules",
+          "correct": false
+        }
+      ],
+      "explain": "Each nucleus attracts the shared pair, and that pulls the two atoms together. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "both nuclei attracting a shared pair of electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-carbon-bonds",
+      "prompt": "Carbon has 4 valence electrons. How many covalent bonds does it usually form?",
+      "hint": "Each bond adds one electron towards an octet.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "Carbon needs $8 - 4 = 4$ more electrons, one per bond. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8 - 4",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-why-conduct",
+      "prompt": "Why does molten potassium bromide conduct electricity when the solid does not?",
+      "hint": "A current needs charged particles that can move.",
+      "options": [
+        {
+          "text": "Its ions can move.",
+          "correct": true
+        },
+        {
+          "text": "Melting frees electrons.",
+          "correct": false
+        },
+        {
+          "text": "Melting breaks covalent bonds.",
+          "correct": false
+        }
+      ],
+      "explain": "In the solid the ions are fixed in the lattice. In the melt they can move. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Its ions can move."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "networks",
+      "heading": "Diamond, silicon and silicon dioxide",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Water and carbon dioxide are small molecules, so they melt and boil easily. Some substances have no separate molecules at all."
+        },
+        {
+          "type": "definition",
+          "term": "covalent network structure",
+          "statement": "A solid in which atoms are joined by covalent bonds in a continuous network through the whole structure, with no discrete molecules.",
+          "plain": "One crystal is, in effect, one giant structure held together by covalent bonds."
+        },
+        {
+          "type": "text",
+          "text": "To melt a [[covalent-network-structure|covalent network structure]], you must break many strong covalent bonds. So its melting point is very high and it does not dissolve in water. Where the bonds run in all three directions, as in diamond, silicon and silicon dioxide, it is also very hard."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-diamond-silica",
+          "alt": "Two ball-and-stick fragments. Left, diamond: a central carbon atom bonded to four carbon atoms arranged tetrahedrally, each of which has dashed bonds leading on to three more atoms, so the network continues in every direction. Silicon has the same structure. Right, silicon dioxide: a central silicon atom bonded tetrahedrally to four oxygen atoms, and each oxygen atom also bonded to a second silicon atom, which leads on to more oxygen atoms.",
+          "caption": "Diamond and silicon: 4 tetrahedral bonds per atom. Silicon dioxide: each O bridges 2 Si."
+        },
+        {
+          "type": "text",
+          "text": "In diamond, each carbon atom is bonded to four others, tetrahedrally at $109.5^\\circ$, in three dimensions. All four outer electrons are held in bonds and none can move, so diamond does not conduct electricity."
+        },
+        {
+          "type": "text",
+          "text": "Silicon, below carbon in group 14, has the same structure. It is a semiconductor: it conducts poorly, and better when hot. It melts at about $1410\\,^\\circ\\text{C}$, far below diamond, because $\\ce{Si-Si}$ ($\\pu{226 kJ mol-1}$) is weaker than $\\ce{C-C}$ ($\\pu{346 kJ mol-1}$) (data booklet, section 12)."
+        },
+        {
+          "type": "result",
+          "statement": "$\\ce{Si-Si}$ bonds are weaker than $\\ce{C-C}$ bonds because silicon atoms are larger.",
+          "why": "The shared pair is in the third shell, further from both nuclei, so the bond is longer and the pair is attracted less strongly."
+        },
+        {
+          "type": "text",
+          "text": "In silicon dioxide (quartz), each Si atom is bonded to four O atoms tetrahedrally, and each O atom to two Si atoms. Each O counts as half, so $\\text{Si}:\\text{O} = 1:2$. The formula $\\ce{SiO2}$ is a ratio, not a molecule. Like diamond, it has no ions or mobile electrons, so it does not conduct."
+        },
+        {
+          "type": "example",
+          "id": "ex-diamond-bond-energy",
+          "question": "Estimate the energy, in kJ, needed to break every bond in $\\pu{1.00 mol}$ of diamond. Use section 12 of the data booklet.",
+          "steps": [
+            "Each carbon atom forms four $\\ce{C-C}$ bonds, but each bond joins two atoms. Counting four per atom counts every bond twice.",
+            "So there are $\\frac{4}{2} = 2$ bonds per atom, and $\\pu{2.00 mol}$ of $\\ce{C-C}$ bonds in $\\pu{1.00 mol}$ of diamond.",
+            "Energy $= 2 \\times 346 = \\pu{692 kJ}$, absorbed, since breaking bonds always absorbs energy."
+          ],
+          "answer": "$E = \\pu{692 kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4/2)*BE('C-C')",
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-silicon-bond-energy",
+          "prompt": "Estimate the energy, in kJ, needed to break every bond in $\\pu{1.00 mol}$ of silicon.",
+          "hint": "Same structure as diamond, so the same number of bonds per atom.",
+          "answer": {
+            "value": 452,
+            "tolerance": 0
+          },
+          "explain": "Two bonds per Si atom: $2 \\times 226 = \\pu{452 kJ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(4/2)*BE('Si-Si')",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Carbon dioxide is a gas, though. A small carbon atom forms strong double bonds to two oxygen atoms, giving separate $\\ce{CO2}$ molecules. A larger silicon atom does not form stable double bonds to oxygen, so it forms four single bonds and a network builds up."
+        },
+        {
+          "type": "example",
+          "id": "ex-silica-vs-co2",
+          "question": "Quartz, $\\ce{SiO2}$, melts at about $1700\\,^\\circ\\text{C}$, but solid $\\ce{CO2}$ turns to gas at $-78\\,^\\circ\\text{C}$. Explain the difference in terms of structure and bonding.",
+          "steps": [
+            "Name each structure, then say what must be overcome in each.",
+            "In $\\ce{CO2}$ the $\\ce{C=O}$ bonds stay intact: only the forces between molecules are overcome."
+          ],
+          "answer": "Silicon dioxide has a covalent network structure. Melting it means strong covalent bonds must be broken, which needs a lot of energy. Carbon dioxide is made of separate small molecules held by weak intermolecular forces. Only these weak forces are overcome; the covalent bonds inside the molecules do not break. So far less energy is needed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "SiO2 network: strong covalent bonds broken; CO2 molecular: weak intermolecular forces overcome",
+            "requires": [
+              [
+                "covalent network",
+                "giant covalent"
+              ],
+              "strong covalent bonds must be broken",
+              [
+                "separate small molecules",
+                "simple molecular",
+                "discrete molecules"
+              ],
+              "weak intermolecular forces",
+              "do not break"
+            ],
+            "forbids": [
+              "ionic",
+              "covalent bonds in carbon dioxide break"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-silica-bond-energy",
+          "prompt": "Using section 12 of the data booklet, estimate the energy needed to break every bond in $\\pu{1.00 mol}$ of $\\ce{SiO2}$.",
+          "hint": "Every $\\ce{Si-O}$ bond has exactly one Si atom at one end. Count from the Si atoms.",
+          "options": [
+            {
+              "text": "$\\pu{1864 kJ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{932 kJ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{466 kJ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{3728 kJ}$",
+              "correct": false
+            }
+          ],
+          "explain": "Each Si has four $\\ce{Si-O}$ bonds and no bond joins two Si atoms, so nothing is counted twice: $4 \\times 466 = \\pu{1864 kJ}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*BE('Si-O')",
+            "unit": "kJ"
+          }
+        }
+      ]
+    },
+    {
+      "id": "graphite-graphene",
+      "heading": "Graphite and graphene",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Graphite, the 'lead' in pencils, is also pure carbon. Yet it is soft and conducts electricity, because its atoms are joined differently."
+        },
+        {
+          "type": "text",
+          "text": "In graphite, each carbon atom is bonded to three others at $120^\\circ$, in flat layers of hexagons stacked on each other. The fourth outer electron of each atom spreads over its layer as [[delocalized-electrons|delocalized electrons]]."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-graphite-layers",
+          "alt": "Three flat layers of graphite stacked one above another, drawn in perspective. Each layer is a sheet of joined hexagons of carbon atoms, with every carbon atom covalently bonded to three others at 120 degrees. Dashed lines between the layers are labelled weak London forces between layers. A note says one electron from each carbon atom is delocalized along its layer.",
+          "caption": "Strong covalent bonds within each layer; weak forces between layers."
+        },
+        {
+          "type": "definition",
+          "term": "delocalized electrons",
+          "statement": "Electrons that are not confined to one atom or one bond, but are shared over several or many atoms.",
+          "plain": "Electrons free to move over a whole region of a structure."
+        },
+        {
+          "type": "text",
+          "text": "So graphite has [[electrical-conductivity|electrical conductivity]] along its layers: the delocalized electrons move when a voltage is applied. Diamond has none."
+        },
+        {
+          "type": "text",
+          "text": "Only weak [[london-dispersion-force|London (dispersion) forces]] hold the layers together (see {{lesson:2.6}}), so the layers slide and graphite is soft. Melting it breaks the strong bonds within the layers, so its melting point is very high."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing 'graphite is soft because its bonds are weak'. Its covalent bonds are strong. Say the forces between the layers are weak, so the layers slide."
+        },
+        {
+          "type": "example",
+          "id": "ex-graphite-vs-diamond",
+          "question": "Electric motors use graphite blocks that carry current while rubbing against a spinning part. Explain why graphite conducts and slides smoothly, but diamond does neither.",
+          "steps": [
+            "Count bonds per atom: three in graphite leaves one delocalized electron per atom; four in diamond leaves none.",
+            "Then compare layers held by weak forces with bonding in all three directions."
+          ],
+          "answer": "In graphite each carbon atom is bonded to three others, so one electron per atom is delocalized. These electrons can move along the layers, so graphite conducts. In diamond each carbon atom is bonded to four others, so no electrons are free to move. Graphite's layers are held by weak London forces, so they slide over each other. Diamond is a network of strong covalent bonds in three dimensions, with no layers to slide.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "graphite: 3 bonds, delocalized electrons move, layers slide; diamond: 4 bonds, no mobile electrons, 3D network",
+            "requires": [
+              "bonded to three",
+              "delocalized",
+              "can move",
+              "bonded to four",
+              [
+                "no electrons are free",
+                "no delocalized",
+                "no mobile"
+              ],
+              "weak London forces",
+              "slide"
+            ],
+            "forbids": [
+              "bonds are weak",
+              "free ions"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-graphite-conducts",
+          "prompt": "What carries the current when graphite conducts?",
+          "hint": "Graphite has no ions. What is left after three bonds?",
+          "options": [
+            {
+              "text": "delocalized electrons moving along the layers",
+              "correct": true
+            },
+            {
+              "text": "carbon ions moving between the layers",
+              "correct": false
+            },
+            {
+              "text": "the electrons in the carbon–carbon bonds",
+              "correct": false
+            }
+          ],
+          "explain": "One electron per carbon atom is not in a $\\ce{C-C}$ bond. These delocalized electrons move along a layer.",
+          "verify": {
+            "kind": "choice",
+            "truth": "delocalized electrons moving along the layers"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Graphene is a single layer of graphite, one atom thick. Its delocalized electrons make it an excellent conductor. Its strong covalent network makes it very strong, with a very high melting point, and it is also flexible and almost transparent."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-graphene-c60",
+          "alt": "Left: graphene, a flat sheet of joined hexagons of carbon atoms, one atom thick, with every carbon atom bonded to three others. Right: a fullerene C60 molecule, a hollow ball-shaped cage of 60 carbon atoms made of 12 pentagons and 20 hexagons, with every carbon atom bonded to three others. Bonds on the far side of the cage are drawn faintly.",
+          "caption": "Graphene is a network in two dimensions. $\\ce{C60}$ is a single molecule."
+        },
+        {
+          "type": "example",
+          "id": "ex-graphene-screen",
+          "question": "Flexible touch screens need a strong film that conducts. Explain why graphene is both.",
+          "steps": [
+            "Start from the structure, then give one reason for each property."
+          ],
+          "answer": "Graphene is a single layer of carbon atoms, each bonded to three others. One electron per atom is delocalized, and these electrons can move across the sheet, so it conducts. The sheet is a continuous network of strong covalent bonds, so a lot of energy is needed to break it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "single layer, each C bonded to three; delocalized electrons move; network of strong covalent bonds",
+            "requires": [
+              "single layer",
+              "bonded to three",
+              "delocalized",
+              "can move",
+              "strong covalent bonds"
+            ],
+            "forbids": [
+              "free ions",
+              "bonded to four"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-carbon-bonds-count",
+          "prompt": "How many carbon atoms is each carbon atom bonded to in diamond, graphite and graphene?",
+          "hint": "Only one of them uses all four outer electrons in bonds.",
+          "options": [
+            {
+              "text": "4, 3 and 3",
+              "correct": true
+            },
+            {
+              "text": "4, 3 and 4",
+              "correct": false
+            },
+            {
+              "text": "3, 4 and 3",
+              "correct": false
+            },
+            {
+              "text": "4, 4 and 3",
+              "correct": false
+            }
+          ],
+          "explain": "Diamond uses all four outer electrons in bonds. Graphene is one layer of graphite, so both have three bonds and one delocalized electron per atom.",
+          "verify": {
+            "kind": "choice",
+            "truth": "4, 3 and 3"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you describe these carbon atoms by hybridization: $\\text{sp}^3$ in diamond, $\\text{sp}^2$ in graphite, graphene and fullerenes.",
+          "lesson": "2.9"
+        }
+      ]
+    },
+    {
+      "id": "fullerenes-allotropes",
+      "heading": "Fullerenes, and why allotropes differ",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Close a small piece of a graphite layer into a ball and you have a fullerene. The best known, $\\ce{C60}$, is a hollow cage of 60 carbon atoms in 12 pentagons and 20 hexagons."
+        },
+        {
+          "type": "text",
+          "text": "Each atom is bonded to three others, but $\\ce{C60}$ is a molecule, not a network. Only weak London forces hold the balls together. So it sublimes far more easily than graphite, conducts poorly because electrons cannot pass between balls, and dissolves in some non-polar solvents such as methylbenzene."
+        },
+        {
+          "type": "example",
+          "id": "ex-c60-bonds",
+          "question": "Calculate the number of carbon–carbon bonds in one $\\ce{C60}$ molecule.",
+          "steps": [
+            "Each of the 60 atoms forms three bonds: $60 \\times 3 = 180$.",
+            "Each bond joins two atoms, so it was counted twice: $\\frac{180}{2} = 90$."
+          ],
+          "answer": "$N = 90$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "60*3/2"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "allotrope",
+          "statement": "One of two or more different structural forms of the same element in the same physical state.",
+          "plain": "The same element with its atoms bonded or arranged differently."
+        },
+        {
+          "type": "text",
+          "text": "Diamond, graphite, graphene and fullerenes are [[allotrope|allotropes]] of carbon. Oxygen's best-known allotropes are $\\ce{O2}$ and ozone, $\\ce{O3}$. Allotropes are not isotopes, which differ in neutron number."
+        },
+        {
+          "type": "result",
+          "statement": "Allotropes differ in bonding and structure, so they have different physical and chemical properties.",
+          "why": "Properties come from how the atoms are bonded and arranged, which is what changes between allotropes."
+        },
+        {
+          "type": "text",
+          "text": "The chemical differences are smaller but real. $\\ce{C60}$ undergoes addition reactions that diamond and graphite do not, and ozone is far more reactive than $\\ce{O2}$. In excess oxygen, every carbon allotrope burns to carbon dioxide alone, but diamond releases slightly more energy per mole than graphite."
+        },
+        {
+          "type": "example",
+          "id": "ex-c60-combustion",
+          "question": "Write the equation, with state symbols, for the complete combustion of solid $\\ce{C60}$.",
+          "steps": [
+            "The only product is carbon dioxide: 60 C atoms give $\\ce{60CO2}$.",
+            "$\\ce{60CO2}$ holds 120 O atoms, which is $\\ce{60O2}$. Add the states."
+          ],
+          "answer": "$\\ce{C60(s) + 60O2(g) -> 60CO2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C60(s) + O2(g) -> CO2(g)",
+            "states": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-allotropes",
+          "prompt": "Which pair are allotropes?",
+          "hint": "One element, one state, different structures.",
+          "options": [
+            {
+              "text": "graphene and buckminsterfullerene",
+              "correct": true
+            },
+            {
+              "text": "carbon-12 and carbon-14",
+              "correct": false
+            },
+            {
+              "text": "carbon monoxide and carbon dioxide",
+              "correct": false
+            },
+            {
+              "text": "liquid water and ice",
+              "correct": false
+            }
+          ],
+          "explain": "Both are solid carbon with different structures. The others are isotopes, two compounds, and one compound in two states.",
+          "verify": {
+            "kind": "choice",
+            "truth": "graphene and buckminsterfullerene"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-c60-properties",
+          "prompt": "Which properties fit solid $\\ce{C60}$?",
+          "hint": "What holds one ball to the next?",
+          "options": [
+            {
+              "text": "low sublimation point, poor conductor, soluble in some non-polar solvents",
+              "correct": true
+            },
+            {
+              "text": "very high melting point, good conductor, insoluble",
+              "correct": false
+            },
+            {
+              "text": "very high melting point, poor conductor, insoluble",
+              "correct": false
+            }
+          ],
+          "explain": "Weak London forces between molecules give the low sublimation point and solubility. Electrons cannot easily pass between balls. The other options describe graphite and diamond.",
+          "verify": {
+            "kind": "choice",
+            "truth": "low sublimation point, poor conductor, soluble in some non-polar solvents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Covalent network: strong covalent bonds throughout, no molecules. Melting breaks covalent bonds, so melting points are very high.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Diamond and silicon: 4 tetrahedral bonds per atom. Diamond does not conduct electricity; silicon is a semiconductor.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ce{SiO2}$: each Si bonded to 4 O, each O to 2 Si. $\\ce{Si-Si}$ is weaker than $\\ce{C-C}$ because Si atoms are larger.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Graphite and graphene: 3 bonds per C and one delocalized electron, so they conduct (graphite along its layers). Graphite's layers slide over weak London forces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ce{C60}$ is a molecule: low sublimation point, poor conductor, soluble in some non-polar solvents.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Allotropes: forms of one element in one state with different structures, so different physical and chemical properties.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that melting diamond or silicon dioxide overcomes intermolecular forces. There are no molecules: strong covalent bonds break.",
+    "Calling silicon dioxide ionic, or drawing $\\ce{O=Si=O}$ molecules. It is a covalent network.",
+    "Explaining graphite's conductivity with 'free ions'. Say one electron per carbon atom is delocalized and moves along the layers.",
+    "Treating $\\ce{C60}$ like graphite. It is a molecule, so it sublimes easily and conducts poorly."
+  ],
+  "examTips": [
+    "\"Explain\" a property: name the structure, name the bonds or forces, say whether they are broken or overcome, then link to the property.",
+    "\"Compare and contrast\" diamond and graphite with matched pairs: bonds per atom, delocalized electrons, layers.",
+    "In Paper 1A, count bonds per atom first: 4 in diamond and silicon, 3 in graphite, graphene and $\\ce{C60}$."
+  ],
+  "readingMinutes": 20
+}

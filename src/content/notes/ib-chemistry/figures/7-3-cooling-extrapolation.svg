@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="t">
+<title id="t">Graph of temperature in degrees Celsius, from 18 to 36, against time in minutes, from 0 to 10. Readings at 0, 1 and 2 minutes are steady at 21.0. A dashed vertical line at 3 minutes is labelled mixing. Readings from 4 to 10 minutes fall slowly in a straight line from 34.1 to 33.4. The cooling line is extended back, dashed, to 3 minutes, where it reaches 34.2. An arrow labelled delta T runs from 21.0 up to 34.2.</title>
+<path d="M70 260 H460" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70 260 V20" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="70.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0</text>
+<path d="M146.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="146.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">2</text>
+<path d="M222.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="222.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">4</text>
+<path d="M298.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="298.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">6</text>
+<path d="M374.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="374.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">8</text>
+<path d="M450.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="450.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10</text>
+<path d="M70 260.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="264.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">18</text>
+<path d="M70 210.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="214.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">22</text>
+<path d="M70 160.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="164.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">26</text>
+<path d="M70 110.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="114.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">30</text>
+<path d="M70 60.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="64.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">34</text>
+<text x="265.0" y="302.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">time / min</text>
+<text x="18.0" y="140.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 140.0)">temperature / °C</text>
+<path d="M184.0 260.0 V35.0" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+<text x="188.0" y="42.5" font-size="11" fill="currentColor" font-family="inherit" text-anchor="start">mixing</text>
+<path d="M70.0 222.5 H184.0" stroke="var(--t1-ink)" stroke-width="2" fill="none"/>
+<path d="M184.0 57.0 L222.0 58.5" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+<path d="M222.0 58.5 L450.0 67.5" stroke="var(--t1-ink)" stroke-width="2" fill="none"/>
+<path d="M66.0 218.5 L74.0 226.5 M66.0 226.5 L74.0 218.5" stroke="currentColor" stroke-width="1.6"/>
+<path d="M104.0 218.5 L112.0 226.5 M104.0 226.5 L112.0 218.5" stroke="currentColor" stroke-width="1.6"/>
+<path d="M142.0 218.5 L150.0 226.5 M142.0 226.5 L150.0 218.5" stroke="currentColor" stroke-width="1.6"/>
+<path d="M218.0 54.7 L226.0 62.7 M218.0 62.7 L226.0 54.7" stroke="currentColor" stroke-width="1.6"/>
+<path d="M256.0 56.0 L264.0 64.0 M256.0 64.0 L264.0 56.0" stroke="currentColor" stroke-width="1.6"/>
+<path d="M294.0 57.3 L302.0 65.3 M294.0 65.3 L302.0 57.3" stroke="currentColor" stroke-width="1.6"/>
+<path d="M332.0 59.7 L340.0 67.7 M332.0 67.7 L340.0 59.7" stroke="currentColor" stroke-width="1.6"/>
+<path d="M370.0 59.7 L378.0 67.7 M370.0 67.7 L378.0 59.7" stroke="currentColor" stroke-width="1.6"/>
+<path d="M408.0 62.2 L416.0 70.2 M408.0 70.2 L416.0 62.2" stroke="currentColor" stroke-width="1.6"/>
+<path d="M446.0 63.5 L454.0 71.5 M446.0 71.5 L454.0 63.5" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="184.0" cy="57.0" r="4" fill="var(--t2-ink)"/>
+<text x="176.0" y="51.0" font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="end">34.2</text>
+<path d="M127.0 219.5 V66.0" stroke="var(--t2-ink)" stroke-width="1.6" fill="none"/><polygon points="127.0,58.0 123.0,66.0 131.0,66.0" fill="var(--t2-ink)"/>
+<text x="121.0" y="140.0" font-size="13" fill="var(--t2-ink)" font-family="inherit" text-anchor="end">ΔT</text>
+<text x="317.0" y="90.0" font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">cooling line, extended back</text>
+</svg>

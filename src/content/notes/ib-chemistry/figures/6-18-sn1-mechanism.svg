@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 330" role="img" aria-labelledby="t618sn1">
+  <title id="t618sn1">SN1 mechanism for 2-bromo-2-methylpropane and the hydroxide ion: a slow step that forms a carbocation, then a fast step in which the hydroxide ion bonds to it</title>
+  <defs>
+    <marker id="m618sn1-curly" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m618sn1-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="13" font-family="inherit" fill="var(--muted)">
+    <text x="10" y="18">Step 1 (slow, rate-determining): the C–Br bond breaks</text>
+    <text x="10" y="186">Step 2 (fast): the hydroxide ion bonds to the carbocation</text>
+  </g>
+
+  <!-- Step 1 -->
+  <g font-size="16" fill="currentColor" font-family="inherit">
+    <text x="100" y="96">C</text>
+    <text x="95" y="54">CH<tspan font-size="11" dy="4">3</tspan></text>
+    <text x="38" y="96">H<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">C</tspan></text>
+    <text x="95" y="138">CH<tspan font-size="11" dy="4">3</tspan></text>
+    <text x="154" y="96">Br</text>
+    <text x="340" y="96">C</text>
+    <text x="352" y="82" font-size="14">+</text>
+    <text x="335" y="52">CH<tspan font-size="11" dy="4">3</tspan></text>
+    <text x="284" y="128">H<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">C</tspan></text>
+    <text x="370" y="128">CH<tspan font-size="11" dy="4">3</tspan></text>
+    <text x="418" y="96">+ Br</text>
+    <text x="450" y="85" font-size="14">−</text>
+    <text x="236" y="80" font-size="12" text-anchor="middle">slow</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="106" y1="80" x2="106" y2="60"/>
+    <line x1="97" y1="90" x2="72" y2="90"/>
+    <line x1="106" y1="101" x2="106" y2="121"/>
+    <line x1="117" y1="90" x2="151" y2="90"/>
+    <line x1="346" y1="80" x2="346" y2="58"/>
+    <line x1="339" y1="97" x2="318" y2="112"/>
+    <line x1="353" y1="97" x2="374" y2="112"/>
+    <line x1="200" y1="90" x2="272" y2="90" marker-end="url(#m618sn1-react)"/>
+  </g>
+  <path d="M133,87 Q152,58 167,80" stroke="var(--t1-ink)" stroke-width="1.8" fill="none" marker-end="url(#m618sn1-curly)"/>
+  <g font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="105" y="160">2-bromo-2-methylpropane</text>
+    <text x="346" y="160">tertiary carbocation (trigonal planar)</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g transform="translate(0,160)">
+    <g font-size="16" fill="currentColor" font-family="inherit">
+      <text x="100" y="96">C</text>
+      <text x="112" y="82" font-size="14">+</text>
+      <text x="95" y="52">CH<tspan font-size="11" dy="4">3</tspan></text>
+      <text x="44" y="128">H<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">C</tspan></text>
+      <text x="130" y="128">CH<tspan font-size="11" dy="4">3</tspan></text>
+      <circle cx="191" cy="87" r="1.8"/>
+      <circle cx="191" cy="94" r="1.8"/>
+      <text x="196" y="96">OH</text>
+      <text x="227" y="84" font-size="14">−</text>
+      <g transform="translate(40,0)">
+        <text x="345" y="96">C</text>
+        <text x="340" y="54">CH<tspan font-size="11" dy="4">3</tspan></text>
+        <text x="283" y="96">H<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">C</tspan></text>
+        <text x="340" y="138">CH<tspan font-size="11" dy="4">3</tspan></text>
+        <text x="399" y="96">OH</text>
+      </g>
+      <text x="272" y="80" font-size="12" text-anchor="middle">fast</text>
+    </g>
+    <g stroke="currentColor" stroke-width="1.6" fill="none">
+      <line x1="106" y1="80" x2="106" y2="58"/>
+      <line x1="99" y1="97" x2="78" y2="112"/>
+      <line x1="113" y1="97" x2="134" y2="112"/>
+      <g transform="translate(40,0)">
+        <line x1="351" y1="80" x2="351" y2="60"/>
+        <line x1="342" y1="90" x2="317" y2="90"/>
+        <line x1="351" y1="101" x2="351" y2="121"/>
+        <line x1="362" y1="90" x2="396" y2="90"/>
+      </g>
+      <line x1="244" y1="90" x2="304" y2="90" marker-end="url(#m618sn1-react)"/>
+    </g>
+    <path d="M188,84 Q160,58 124,84" stroke="var(--t1-ink)" stroke-width="1.8" fill="none" marker-end="url(#m618sn1-curly)"/>
+    <g font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+      <text x="390" y="160">2-methylpropan-2-ol</text>
+    </g>
+  </g>
+</svg>

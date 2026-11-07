@@ -1,0 +1,718 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.7",
+  "slug": "naming-organic-compounds-and-structural-isomers",
+  "title": "Naming organic compounds and structural isomers",
+  "level": "SL",
+  "topic": 3,
+  "summary": "[[iupac-nomenclature|IUPAC nomenclature]] gives each organic compound one systematic name, built from its [[parent-chain|parent chain]], its branches and its [[functional-group|functional group]]. Learn the rules and you can turn a structure into a name, and a name back into a structure. [[structural-isomer|Structural isomers]] share a [[molecular-formula|molecular formula]] but join their atoms differently, so each one gets its own name.",
+  "goals": [
+    {
+      "text": "Name [[alkane|alkanes]] and [[halogenoalkane|halogenoalkanes]] with up to six carbons in the parent chain, straight or branched.",
+      "bullets": [
+        "S3.2.5"
+      ]
+    },
+    {
+      "text": "Name [[alcohol|alcohols]], aldehydes, ketones, carboxylic acids and [[alkene|alkenes]], and draw a structure from its name.",
+      "bullets": [
+        "S3.2.5"
+      ]
+    },
+    {
+      "text": "Recognise chain, position and functional group isomers, and find every structural isomer of a small molecule.",
+      "bullets": [
+        "S3.2.6"
+      ]
+    },
+    {
+      "text": "Classify alcohols, halogenoalkanes and [[amine|amines]] as [[primary-secondary-and-tertiary|primary, secondary or tertiary]].",
+      "bullets": [
+        "S3.2.6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7",
+    "2.6",
+    "3.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "IUPAC naming organic compounds",
+    "how to name alkanes",
+    "parent chain numbering",
+    "chain position and functional group isomers",
+    "primary secondary tertiary alcohols",
+    "how many structural isomers"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-chlorobutane-formula",
+      "prompt": "What is the molecular formula of $\\ce{CH3CHClCH2CH3}$?",
+      "hint": "Count the hydrogens on every carbon.",
+      "options": [
+        {
+          "text": "$\\ce{C4H9Cl}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{C4H10Cl}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{C4H8Cl}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{C3H9Cl}$",
+          "correct": false
+        }
+      ],
+      "explain": "Four carbons; hydrogens $3 + 1 + 2 + 3 = 9$; one chlorine. So the formula is $\\ce{C4H9Cl}$. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "formula",
+        "truth": "formula(\"CH3CHClCH2CH3\")",
+        "given": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-acid-group",
+      "prompt": "Which functional group is in $\\ce{CH3CH2COOH}$?",
+      "hint": "Look at the end of the formula: one carbon carries both oxygen atoms.",
+      "options": [
+        {
+          "text": "carboxyl",
+          "correct": true
+        },
+        {
+          "text": "carbonyl",
+          "correct": false
+        },
+        {
+          "text": "hydroxyl",
+          "correct": false
+        },
+        {
+          "text": "halogeno",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{COOH}$ is the [[carboxyl-group|carboxyl group]] of a [[carboxylic-acid|carboxylic acid]]. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "carboxyl"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-alkane-forces",
+      "prompt": "Which [[intermolecular-force|intermolecular force]] acts between the molecules of every alkane?",
+      "hint": "Alkanes are non-polar.",
+      "options": [
+        {
+          "text": "London (dispersion) forces",
+          "correct": true
+        },
+        {
+          "text": "hydrogen bonds",
+          "correct": false
+        },
+        {
+          "text": "dipole–dipole forces",
+          "correct": false
+        },
+        {
+          "text": "covalent bonds",
+          "correct": false
+        }
+      ],
+      "explain": "Alkanes are non-polar, so only [[london-dispersion-force|London (dispersion) forces]] act between their molecules. Revise it in {{lesson:2.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "London (dispersion) forces"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "alkane-names",
+      "heading": "Naming alkanes and halogenoalkanes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Butane, $\\ce{CH3CH2CH2CH3}$, has a branched partner, $\\ce{CH3CH(CH3)CH3}$. Each needs its own name, and a systematic name lets you work it out from the structure."
+        },
+        {
+          "type": "definition",
+          "term": "IUPAC nomenclature",
+          "statement": "The system of naming rules set by IUPAC (International Union of Pure and Applied Chemistry), which gives each compound one name that describes its structure.",
+          "plain": "A shared naming code, so a name tells every chemist exactly which structure you mean."
+        },
+        {
+          "type": "text",
+          "text": "Questions give condensed [[structural-formula|structural formulas]] or drawings. A name has three parts: prefixes for branches and halogens, a stem for the chain length, and an ending for the family."
+        },
+        {
+          "type": "definition",
+          "term": "parent chain",
+          "statement": "The longest continuous chain of carbon atoms that contains the main functional group, and any C=C bond.",
+          "plain": "The backbone the name is built on."
+        },
+        {
+          "type": "text",
+          "text": "The stem counts the carbons in the [[parent-chain|parent chain]]: meth- 1, eth- 2, prop- 3, but- 4, pent- 5, hex- 6. An [[alkane|alkane]] ends in -ane, so hexane has six carbons in a row."
+        },
+        {
+          "type": "text",
+          "text": "A branch is named from its stem with -yl: methyl is $\\ce{CH3}$, ethyl is $\\ce{CH2CH3}$. In a [[halogenoalkane|halogenoalkane]], each [[halogeno-group|halogeno group]] is a prefix too: fluoro, chloro, bromo or iodo."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the longest continuous carbon chain. It can turn corners, so trace every path."
+        },
+        {
+          "type": "text",
+          "text": "2. Number from the end that gives the prefixes the lowest numbers (locants). Compare at the first difference: 2,2,4 beats 2,4,4."
+        },
+        {
+          "type": "text",
+          "text": "3. If both ends give the same set, the prefix first in the alphabet takes the lower number."
+        },
+        {
+          "type": "text",
+          "text": "4. Write the prefixes alphabetically before the stem. Use di- or tri- for repeats, but ignore them when sorting. Commas go between numbers, hyphens between numbers and letters."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-parent-chain",
+          "alt": "Condensed structure of 2,4-dimethylhexane. Six carbon groups in a row, CH3, CH, CH2, CH, CH2, CH3, are joined by bonds and numbered 1 to 6 from the left. A CH3 branch hangs below carbon 2 and another below carbon 4. Labels read: parent chain, six carbons, so the stem is hex-; methyl branches on carbons 2 and 4.",
+          "caption": "From the left the branches are on 2 and 4; from the right, 3 and 5. The left end wins."
+        },
+        {
+          "type": "example",
+          "id": "ex-name-branched-alkane",
+          "question": "State the IUPAC name of $\\ce{CH3CH(CH3)CH2CH(CH3)CH2CH3}$.",
+          "steps": [
+            "Parent chain: six carbons, since each branch is a single carbon. The stem is hexane.",
+            "The two bracketed $\\ce{CH3}$ groups are methyl branches, on carbons 2 and 4 from the left (3 and 5 from the right).",
+            "Two methyls make dimethyl, each with its own locant."
+          ],
+          "answer": "2,4-dimethylhexane",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-name-bromo-tie",
+          "question": "State the IUPAC name of $\\ce{CH3CHBrCH2CH(CH3)CH3}$.",
+          "steps": [
+            "Parent chain: five carbons, so pentane, with a methyl branch.",
+            "From the left: bromo 2, methyl 4. From the right: methyl 2, bromo 4. Both give 2,4, a tie.",
+            "Bromo comes first in the alphabet, so it takes carbon 2 and is listed first."
+          ],
+          "answer": "2-bromo-4-methylpentane",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing 4-methyl-2-bromopentane. Prefixes go in alphabetical order, bromo before methyl, whatever their numbers."
+        },
+        {
+          "type": "check",
+          "id": "check-name-longest-chain",
+          "prompt": "What is the IUPAC name of $\\ce{CH3CH(CH2CH3)CH2CH3}$?",
+          "hint": "The bracketed ethyl group can be part of the longest chain.",
+          "options": [
+            {
+              "text": "3-methylpentane",
+              "correct": true
+            },
+            {
+              "text": "2-ethylbutane",
+              "correct": false
+            },
+            {
+              "text": "3-ethylbutane",
+              "correct": false
+            },
+            {
+              "text": "2-methylpentane",
+              "correct": false
+            }
+          ],
+          "explain": "Run the chain through the ethyl group: five carbons, with a methyl on carbon 3. An ethyl on carbon 2 means a longer chain was missed."
+        },
+        {
+          "type": "check",
+          "id": "check-name-chloro",
+          "prompt": "What is the IUPAC name of $\\ce{CH3CHClCH(CH3)CH2CH3}$?",
+          "hint": "Find the lower set of locants first, then put the prefixes in alphabetical order.",
+          "options": [
+            {
+              "text": "2-chloro-3-methylpentane",
+              "correct": true
+            },
+            {
+              "text": "3-methyl-2-chloropentane",
+              "correct": false
+            },
+            {
+              "text": "4-chloro-3-methylpentane",
+              "correct": false
+            },
+            {
+              "text": "2-chloro-3-ethylbutane",
+              "correct": false
+            }
+          ],
+          "explain": "Five carbons. The left end gives 2,3, lower than 3,4. Chloro comes before methyl alphabetically."
+        }
+      ]
+    },
+    {
+      "id": "group-names",
+      "heading": "Names with a functional group",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each [[homologous-series|homologous series]] has its own ending, and the parent chain must contain the [[functional-group|functional group]]."
+        },
+        {
+          "type": "text",
+          "text": "[[alkene|Alkenes]] ($\\ce{C=C}$) end in -ene. [[alcohol|Alcohols]], with the [[hydroxyl-group|hydroxyl group]] $\\ce{OH}$, end in -ol."
+        },
+        {
+          "type": "text",
+          "text": "The [[carbonyl-group|carbonyl group]], $\\ce{C=O}$, gives -al at a chain end (an [[aldehyde|aldehyde]]) and -one inside it (a [[ketone|ketone]]). $\\ce{COOH}$ gives -oic acid."
+        },
+        {
+          "type": "text",
+          "text": "A halogen stays a prefix, so a halogenoalkane keeps the -ane ending."
+        },
+        {
+          "type": "text",
+          "text": "Give the suffix group (OH, C=O, COOH) the lowest locant first, then the C=C, then branches and halogens. Its number goes before the ending: pentan-2-ol, hex-1-ene."
+        },
+        {
+          "type": "text",
+          "text": "The carbon of $\\ce{CHO}$ or $\\ce{COOH}$ is in the chain and is always carbon 1, so no number is written: butanal, propanoic acid."
+        },
+        {
+          "type": "text",
+          "text": "With a C=C bond as well, the group still sets the numbering: prop-2-en-1-ol is $\\ce{CH2=CHCH2OH}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-name-ketone",
+          "question": "State the IUPAC name of $\\ce{CH3COCH2CH(CH3)CH3}$.",
+          "steps": [
+            "The $\\ce{CO}$ has a carbon on each side, so it is a ketone: -one.",
+            "Parent chain: five carbons, including the C=O carbon.",
+            "Number from the left so C=O is on 2, not 4. The methyl is then on 4."
+          ],
+          "answer": "4-methylpentan-2-one",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-name-acid",
+          "question": "State the IUPAC name of $\\ce{CH3CH2CH(CH3)COOH}$.",
+          "steps": [
+            "$\\ce{COOH}$ makes it a carboxylic acid: -oic acid.",
+            "The $\\ce{COOH}$ carbon is carbon 1, giving a four-carbon chain: butanoic acid.",
+            "The methyl branch is on carbon 2."
+          ],
+          "answer": "2-methylbutanoic acid",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the $\\ce{COOH}$ carbon out of the count. $\\ce{CH3CH2COOH}$ is propanoic acid, not ethanoic acid."
+        },
+        {
+          "type": "examTip",
+          "text": "Asked for the functional group, name the group (carbonyl, hydroxyl), not the family (aldehyde, alcohol). Mark schemes often reject the family name."
+        },
+        {
+          "type": "check",
+          "id": "check-name-alkene",
+          "prompt": "What is the IUPAC name of $\\ce{CH2=CHCH(CH3)CH3}$?",
+          "hint": "The C=C bond gets the lowest number, even if the branch then gets a higher one.",
+          "options": [
+            {
+              "text": "3-methylbut-1-ene",
+              "correct": true
+            },
+            {
+              "text": "2-methylbut-3-ene",
+              "correct": false
+            },
+            {
+              "text": "2-methylbut-1-ene",
+              "correct": false
+            },
+            {
+              "text": "pent-1-ene",
+              "correct": false
+            }
+          ],
+          "explain": "Four carbons including the C=C. Numbering from that end puts the C=C at 1 and the methyl at 3."
+        },
+        {
+          "type": "check",
+          "id": "check-structure-from-name",
+          "prompt": "Which condensed structural formula is pentan-3-ol?",
+          "hint": "Pent- means five carbons, -an- means no C=C, and -3-ol puts the OH on carbon 3.",
+          "options": [
+            {
+              "text": "$\\ce{CH3CH2CH(OH)CH2CH3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CH3CH2CH2CH2CH2OH}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH2COCH2CH3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH(OH)CH2CH3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Five carbons, single bonds, OH on the middle carbon. $\\ce{CH3CH2COCH2CH3}$ is a ketone, and the last option has four carbons."
+        }
+      ]
+    },
+    {
+      "id": "isomers",
+      "heading": "Structural isomers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Butane and 2-methylpropane are both $\\ce{C4H10}$, but they are different substances. The atoms are joined in a different order."
+        },
+        {
+          "type": "definition",
+          "term": "structural isomer",
+          "statement": "One of two or more compounds with the same molecular formula whose atoms are joined in a different order.",
+          "plain": "Same atoms, different connections, so a different compound."
+        },
+        {
+          "type": "text",
+          "text": "[[structural-isomer|Structural isomers]] come in three types. Chain isomers have different carbon skeletons, straight-chain or branched, like butane and 2-methylpropane."
+        },
+        {
+          "type": "text",
+          "text": "Position isomers have the same skeleton and the same group, but the group sits on a different carbon, like 1-chlorobutane and 2-chlorobutane."
+        },
+        {
+          "type": "text",
+          "text": "Functional group isomers belong to different families, like ethanol, $\\ce{CH3CH2OH}$, and methoxymethane, $\\ce{CH3OCH3}$, an ether."
+        },
+        {
+          "type": "text",
+          "text": "Isomers can differ a lot. Ethanol forms [[hydrogen-bond|hydrogen bonds]] between its molecules, but methoxymethane has no H on oxygen, so it boils far lower."
+        },
+        {
+          "type": "text",
+          "text": "To find every isomer, start with the straight chain. Shorten it by one and put the spare carbon on each inner carbon in turn, then repeat. Name each one: a repeated name is a repeated compound."
+        },
+        {
+          "type": "example",
+          "id": "ex-isomers-c5h12",
+          "question": "Deduce the names of all the structural isomers of $\\ce{C5H12}$.",
+          "steps": [
+            "Five in a row: pentane.",
+            "Four in a row plus a methyl: 2-methylbutane. On carbon 3 it is the same molecule numbered from the other end.",
+            "Three in a row plus two methyls, both on carbon 2: 2,2-dimethylpropane.",
+            "A methyl on an end carbon just lengthens the chain, so there are no others."
+          ],
+          "answer": "pentane, 2-methylbutane and 2,2-dimethylpropane",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-butanal-butanone",
+          "question": "Butanal is $\\ce{CH3CH2CH2CHO}$ and butanone is $\\ce{CH3COCH2CH3}$. Explain why they are structural isomers, and state which type.",
+          "steps": [
+            "Count the atoms: both are $\\ce{C4H8O}$.",
+            "Compare where the C=O sits, then the families."
+          ],
+          "answer": "Both compounds have the same molecular formula, $\\ce{C4H8O}$. Their atoms are connected differently: the carbonyl group is at the end of the chain in butanal but inside the chain in butanone. So they are structural isomers. Butanal is an aldehyde and butanone is a ketone, so they are functional group isomers.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Same molecular formula C4H8O, different connectivity (C=O at chain end vs inside); aldehyde vs ketone, so functional group isomers.",
+            "requires": [
+              "same molecular formula",
+              "$\\ce{C4H8O}$",
+              [
+                "connected differently",
+                "different connectivity"
+              ],
+              "end of the chain",
+              "inside the chain",
+              "aldehyde",
+              "ketone",
+              "functional group isomers"
+            ],
+            "forbids": [
+              "different molecular formula",
+              "chain isomers",
+              "position isomers"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting a bent drawing of one molecule as a new isomer. Same longest chain and branches means the same compound."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet stereoisomers, which have the same connectivity but a different arrangement in space.",
+          "lesson": "3.8"
+        },
+        {
+          "type": "check",
+          "id": "check-isomer-type",
+          "prompt": "What type of structural isomers are pent-1-ene, $\\ce{CH2=CHCH2CH2CH3}$, and pent-2-ene, $\\ce{CH3CH=CHCH2CH3}$?",
+          "hint": "Compare the carbon skeleton, then the family, then where the C=C sits.",
+          "options": [
+            {
+              "text": "position isomers",
+              "correct": true
+            },
+            {
+              "text": "chain isomers",
+              "correct": false
+            },
+            {
+              "text": "functional group isomers",
+              "correct": false
+            }
+          ],
+          "explain": "Same unbranched chain, same family. Only the C=C position changes."
+        },
+        {
+          "type": "check",
+          "id": "check-count-c6h14",
+          "prompt": "How many structural isomers have the molecular formula $\\ce{C6H14}$?",
+          "hint": "Work down from six in a row, then five, then four.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "Hexane, 2-methylpentane, 3-methylpentane, 2,2-dimethylbutane and 2,3-dimethylbutane: five in all."
+        },
+        {
+          "type": "check",
+          "id": "check-isomer-of",
+          "prompt": "Which compound is a structural isomer of pentan-2-one, $\\ce{CH3COCH2CH2CH3}$?",
+          "hint": "An isomer must also be $\\ce{C5H10O}$.",
+          "options": [
+            {
+              "text": "pentan-3-one",
+              "correct": true
+            },
+            {
+              "text": "pentan-2-ol",
+              "correct": false
+            },
+            {
+              "text": "pent-3-en-2-one",
+              "correct": false
+            },
+            {
+              "text": "butanone",
+              "correct": false
+            }
+          ],
+          "explain": "Pentan-3-one is $\\ce{C5H10O}$, a position isomer. Pentan-2-ol has two more H atoms, pent-3-en-2-one two fewer, and butanone one carbon fewer."
+        }
+      ]
+    },
+    {
+      "id": "classes",
+      "heading": "Primary, secondary and tertiary",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Position isomers of an alcohol often react differently. What matters is how many carbons surround the carbon holding the group."
+        },
+        {
+          "type": "definition",
+          "term": "primary, secondary and tertiary",
+          "statement": "For an alcohol or halogenoalkane: one carbon (or none) bonded to the carbon holding the OH or halogen is primary, two is secondary, three is tertiary. For an amine, count the carbons bonded to the nitrogen.",
+          "plain": "Count the carbon neighbours of the group's carbon."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-alcohol-classes",
+          "alt": "Three alcohols, each drawn around the carbon atom that holds the OH group. Ethanol: that carbon is bonded to one CH3 group, two hydrogen atoms and the OH, labelled one carbon, primary. Propan-2-ol: it is bonded to two CH3 groups, one hydrogen atom and the OH, labelled two carbons, secondary. 2-Methylpropan-2-ol: it is bonded to three CH3 groups and the OH, labelled three carbons, tertiary.",
+          "caption": "Count only the carbon atoms joined to the carbon that holds the OH. Hydrogen atoms don't count."
+        },
+        {
+          "type": "text",
+          "text": "[[amine|Amines]] are classified at the nitrogen: one carbon on N is primary ($\\ce{CH3NH2}$), two secondary, three tertiary ($\\ce{(CH3)3N}$)."
+        },
+        {
+          "type": "mistake",
+          "text": "Classifying an amine by a carbon. $\\ce{(CH3)3CNH2}$ is a primary amine: only one carbon is bonded to N."
+        },
+        {
+          "type": "example",
+          "id": "ex-name-classify",
+          "question": "State the IUPAC name of $\\ce{CH3CH2C(CH3)2Br}$, and classify it as a primary, secondary or tertiary halogenoalkane.",
+          "steps": [
+            "Parent chain: four carbons. One bracketed $\\ce{CH3}$ ends the chain; the other is a methyl branch.",
+            "Number from the right so bromo and methyl both get 2, then list them alphabetically.",
+            "The carbon holding Br is bonded to three carbons, so it is tertiary."
+          ],
+          "answer": "2-bromo-2-methylbutane, a tertiary halogenoalkane",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-hexanol-classes",
+          "question": "Hexan-3-ol and 3-methylpentan-3-ol are both $\\ce{C6H14O}$. Explain why hexan-3-ol is a secondary alcohol but 3-methylpentan-3-ol is a tertiary alcohol.",
+          "steps": [
+            "Hexan-3-ol is $\\ce{CH3CH2CH(OH)CH2CH2CH3}$: carbon 3 is bonded to carbons 2 and 4.",
+            "3-Methylpentan-3-ol is $\\ce{CH3CH2C(OH)(CH3)CH2CH3}$: carbon 3 also carries the methyl."
+          ],
+          "answer": "In hexan-3-ol, the carbon bonded to the OH group is bonded to two other carbon atoms, so it is a secondary alcohol. In 3-methylpentan-3-ol, the carbon bonded to the OH group is bonded to three other carbon atoms, so it is a tertiary alcohol.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Count carbons bonded to the C-OH carbon: two in hexan-3-ol (secondary), three in 3-methylpentan-3-ol (tertiary).",
+            "requires": [
+              "carbon bonded to the OH group",
+              [
+                "two other carbon atoms",
+                "two carbon atoms"
+              ],
+              "secondary",
+              [
+                "three other carbon atoms",
+                "three carbon atoms"
+              ],
+              "tertiary"
+            ],
+            "forbids": [
+              "two OH groups",
+              "three OH groups",
+              "hydrogen atoms"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-secondary-alcohol",
+          "prompt": "Which alcohol is secondary?",
+          "hint": "Count the carbons bonded to the OH carbon.",
+          "options": [
+            {
+              "text": "3-methylbutan-2-ol",
+              "correct": true
+            },
+            {
+              "text": "2-methylbutan-2-ol",
+              "correct": false
+            },
+            {
+              "text": "3-methylbutan-1-ol",
+              "correct": false
+            },
+            {
+              "text": "2-methylbutan-1-ol",
+              "correct": false
+            }
+          ],
+          "explain": "In 3-methylbutan-2-ol the OH carbon has two carbon neighbours. 2-Methylbutan-2-ol is tertiary; the other two have the OH on carbon 1, so they are primary."
+        },
+        {
+          "type": "check",
+          "id": "check-amine-class",
+          "prompt": "Classify the amine $\\ce{CH3CH2NHCH3}$.",
+          "hint": "Look at the nitrogen, not at a carbon.",
+          "options": [
+            {
+              "text": "secondary",
+              "correct": true
+            },
+            {
+              "text": "primary",
+              "correct": false
+            },
+            {
+              "text": "tertiary",
+              "correct": false
+            }
+          ],
+          "explain": "The nitrogen is bonded to two carbons, one ethyl and one methyl, so it is secondary."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Name = prefixes (alphabetical) + stem (parent-chain carbons) + ending (family)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Stems: meth 1, eth 2, prop 3, but 4, pent 5, hex 6."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Endings: -ane alkane, -ene alkene, -ol alcohol, -al aldehyde, -one ketone, -oic acid carboxylic acid. Halogens are prefixes: fluoro, chloro, bromo, iodo."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Lowest locant to the suffix group (OH, C=O, COOH), then the C=C, then all prefixes (halogens, branches). Ties go alphabetically."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Structural isomers: same molecular formula, different connectivity. Types: chain, position, functional group."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Primary, secondary, tertiary: 1 (or 0), 2 or 3 carbons on the carbon holding the OH or halogen; for amines, carbons on N."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Numbering for the branches before the functional group. The OH, C=O or C=C gets the lowest number first: 3-methylbut-1-ene, not 2-methylbut-3-ene.",
+    "Calling two drawings of one molecule isomers. Name both: the same name means the same compound.",
+    "Missing a longer parent chain that turns a corner. An ethyl branch on carbon 2 is the warning sign."
+  ],
+  "examTips": [
+    "\"State\" the IUPAC name: the name alone earns the mark, so check the spelling, commas and hyphens.",
+    "\"Draw\" a structural isomer: if a full structural formula is asked for, show every bond and hydrogen. Then check the molecular formula matches.",
+    "In a Paper 1A isomer question, write each option's molecular formula first. A different formula rules it out.",
+    "To classify an alcohol, say which carbon holds the OH and how many carbons are bonded to it."
+  ],
+  "readingMinutes": 22
+}

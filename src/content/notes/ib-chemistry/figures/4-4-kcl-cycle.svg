@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 480" role="img" aria-labelledby="t">
+  <title id="t">Born-Haber cycle for potassium chloride, not to scale, values in kilojoules per mole. The elements, solid potassium plus half a mole of chlorine gas, sit at the starting level. Upward arrows climb in a staircase: atomization of potassium, plus 89, to gaseous potassium atoms; atomization of chlorine, plus 121, to gaseous potassium and chlorine atoms; first ionization energy of potassium, plus 419, to the top level, a gaseous potassium ion, an electron and a gaseous chlorine atom. A downward arrow, electron affinity of chlorine, minus 349, falls to gaseous potassium ions and chloride ions. The lowest level is solid potassium chloride. A long upward arrow from solid potassium chloride to the gaseous ions is labelled lattice enthalpy, plus 720. A downward arrow from the elements to solid potassium chloride is labelled standard enthalpy change of formation, minus 440.</title>
+  <path d="M20 470 L20 40" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="20,30 15.5,40 24.5,40" fill="currentColor"/>
+  <text x="12" y="250" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 12 250)">enthalpy</text>
+  <g stroke="currentColor" stroke-width="2.2">
+    <path d="M35 330 H200"/>
+    <path d="M140 270 H300"/>
+    <path d="M240 210 H400"/>
+    <path d="M340 60 H600"/>
+    <path d="M440 150 H620"/>
+    <path d="M35 440 H620"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="110" y="322">K(s) + ½Cl<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="205" y="262">K(g) + ½Cl<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="305" y="202">K(g) + Cl(g)</text>
+    <text x="470" y="50">K⁺(g) + e⁻ + Cl(g)</text>
+    <text x="500" y="170">K⁺(g) + Cl⁻(g)</text>
+    <text x="320" y="462">KCl(s)</text>
+  </g>
+  <path d="M55 332 L55 429" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="55,438 50.5,429 59.5,429" fill="var(--t3-ink)"/>
+  <path d="M170 328 L170 281" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="170,272 165.5,281 174.5,281" fill="var(--t1-ink)"/>
+  <path d="M270 268 L270 221" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="270,212 265.5,221 274.5,221" fill="var(--t1-ink)"/>
+  <path d="M370 208 L370 71" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <polygon points="370,62 365.5,71 374.5,71" fill="var(--t2-ink)"/>
+  <path d="M560 62 L560 139" fill="none" stroke="var(--t4-ink)" stroke-width="1.8"/>
+  <polygon points="560,148 555.5,139 564.5,139" fill="var(--t4-ink)"/>
+  <path d="M590 438 L590 161" fill="none" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <polygon points="590,152 585.5,161 594.5,161" fill="var(--t5-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="63" y="385" fill="var(--t3-ink)">ΔH<tspan baseline-shift="sub" font-size="9">f</tspan><tspan baseline-shift="super" font-size="9">⦵</tspan> = −440</text>
+    <text x="178" y="298" fill="var(--t1-ink)">atomization of K</text>
+    <text x="178" y="313" fill="var(--t1-ink)">+89</text>
+    <text x="278" y="238" fill="var(--t1-ink)">atomization of Cl</text>
+    <text x="278" y="253" fill="var(--t1-ink)">+121</text>
+    <text x="378" y="115" fill="var(--t2-ink)">first ionization</text>
+    <text x="378" y="130" fill="var(--t2-ink)">energy of K, +419</text>
+    <text x="568" y="95" fill="var(--t4-ink)">EA of Cl</text>
+    <text x="568" y="110" fill="var(--t4-ink)">−349</text>
+    <text x="582" y="290" text-anchor="end" fill="var(--t5-ink)">lattice</text>
+    <text x="582" y="305" text-anchor="end" fill="var(--t5-ink)">enthalpy</text>
+    <text x="582" y="320" text-anchor="end" fill="var(--t5-ink)">+720</text>
+  </g>
+</svg>

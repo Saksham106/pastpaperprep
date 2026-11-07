@@ -1,0 +1,636 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.6",
+  "slug": "acid-base-indicators",
+  "title": "Acid–base indicators",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "An [[acid-base-indicator|acid–base indicator]] is a weak acid, HInd, whose two forms have different colours. It changes colour at a [[ph|pH]] close to its [[pka|pKa]]. For a [[titration|titration]], choose an indicator that changes colour in the steep part of the pH curve, ideally around the pH at the [[equivalence-point|equivalence point]].",
+  "goals": [
+    {
+      "text": "Write the equilibrium and the $K_\\mathrm{a}$ expression for an indicator, HInd, and use them to explain why its colour changes with pH.",
+      "bullets": [
+        "R3.1.14"
+      ]
+    },
+    {
+      "text": "Explain why an indicator changes colour near its pKa, and describe universal indicator as a mixture of indicators.",
+      "bullets": [
+        "R3.1.14"
+      ]
+    },
+    {
+      "text": "Distinguish the [[end-point|end point]] from the equivalence point of a titration.",
+      "bullets": [
+        "R3.1.15"
+      ]
+    },
+    {
+      "text": "Choose an indicator for a titration from the salt formed and the indicator's pH range.",
+      "bullets": [
+        "R3.1.15"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "3.5",
+    "5.8",
+    "5.9",
+    "6.2",
+    "6.3",
+    "6.4",
+    "6.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "choosing an indicator for a titration",
+    "indicator pKa and end point",
+    "HInd equilibrium colour change",
+    "end point vs equivalence point",
+    "phenolphthalein or methyl orange",
+    "universal indicator"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pka-from-ka",
+      "prompt": "A weak acid has $K_\\mathrm{a} = \\pu{1.0e-4}$. What is its pKa? Give 2 decimal places.",
+      "hint": "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10} K_\\mathrm{a}$.",
+      "answer": {
+        "value": 4.0,
+        "tolerance": 0.005
+      },
+      "explain": "$-\\log_{10}(1.0 \\times 10^{-4}) = 4.00$. Revise it in {{lesson:6.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-log(1.0*10**(-4), 10)",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-shift-remove-h",
+      "prompt": "In the equilibrium $\\ce{HA(aq) <=> H^+(aq) + A^-(aq)}$, hydroxide ions are added. They remove $\\ce{H^+}$ ions. Which way does the position of equilibrium shift?",
+      "hint": "The system tries to replace what was removed.",
+      "options": [
+        {
+          "text": "To the right",
+          "correct": true
+        },
+        {
+          "text": "To the left",
+          "correct": false
+        },
+        {
+          "text": "It does not move",
+          "correct": false
+        }
+      ],
+      "explain": "Removing a product shifts the position to the right, which makes more $\\ce{H^+}$. Revise it in {{lesson:5.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "To the right"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-salt-ph",
+      "prompt": "Is a solution of sodium ethanoate acidic, neutral or basic at 298 K?",
+      "hint": "Ethanoate is the conjugate base of a weak acid.",
+      "options": [
+        {
+          "text": "Basic",
+          "correct": true
+        },
+        {
+          "text": "Neutral",
+          "correct": false
+        },
+        {
+          "text": "Acidic",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{CH3COO^-}$ takes a proton from water and forms $\\ce{OH^-}$, so the pH is above 7. Revise it in {{lesson:6.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Basic"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "equilibrium",
+      "heading": "Why an indicator changes colour",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.3}} you stopped a [[titration|titration]] at the [[end-point|end point]], when the indicator changed colour. Now you'll see why it changes."
+        },
+        {
+          "type": "definition",
+          "term": "acid–base indicator",
+          "statement": "A weak acid, HInd, whose undissociated form and conjugate base have different colours, so its colour depends on the pH of the solution.",
+          "plain": "A dye that is one colour in acid and another in alkali."
+        },
+        {
+          "type": "text",
+          "text": "HInd stands for any indicator; Ind is the rest of the molecule. Like any [[weak-acid|weak acid]], it ionizes only partly."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{HInd(aq) <=> H^+(aq) + Ind^-(aq)}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "HInd and $\\ce{Ind^-}$ are a [[conjugate-acid-base-pair|conjugate acid–base pair]] that absorb different wavelengths of light. You see the [[complementary-colour|complementary colour]] of the light absorbed (data booklet, section 15)."
+        },
+        {
+          "type": "text",
+          "text": "You see the colour of whichever form is in excess. [[le-chateliers-principle|Le Châtelier's principle]] tells you which."
+        },
+        {
+          "type": "text",
+          "text": "1. Add acid: $[\\ce{H^+}]$ rises, the position shifts left, and HInd's colour shows."
+        },
+        {
+          "type": "text",
+          "text": "2. Add alkali: $\\ce{OH^-}$ removes $\\ce{H^+}$ as water. The position shifts right, and the colour of $\\ce{Ind^-}$ shows."
+        },
+        {
+          "type": "example",
+          "id": "ex-methyl-orange-alkali",
+          "question": "Methyl orange is red as HInd and yellow as $\\ce{Ind^-}$ (data booklet, section 18). It is added to dilute sulfuric acid, then excess potassium hydroxide solution is added. Explain the colour change.",
+          "steps": [
+            "Write the equilibrium, then say where it lies in acid.",
+            "Say what hydroxide does to $[\\ce{H^+}]$, which way the position shifts, and the new colour."
+          ],
+          "answer": "Methyl orange is a weak acid: $\\ce{HInd(aq) <=> H^+(aq) + Ind^-(aq)}$. In the acid, $[\\ce{H^+}]$ is high, so the position lies to the left and red HInd is in excess. Hydroxide ions react with $\\ce{H^+}$ ions, lowering $[\\ce{H^+}]$. The position shifts to the right, so yellow $\\ce{Ind^-}$ is in excess and the solution turns yellow.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "HInd <=> H+ + Ind-: high [H+] keeps it left (red); OH- removes H+, so it shifts right (yellow).",
+            "requires": [
+              "weak acid",
+              [
+                "lies to the left",
+                "to the left"
+              ],
+              "red",
+              [
+                "react with",
+                "remove"
+              ],
+              [
+                "shifts to the right",
+                "shift to the right"
+              ],
+              "yellow"
+            ],
+            "forbids": [
+              "turns red",
+              "shifts to the left when"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The acid dissociation constant, $K_\\mathrm{a}$ ({{lesson:6.4}}), is the [[equilibrium-constant|equilibrium constant]] for this ionization."
+        },
+        {
+          "type": "example",
+          "id": "ex-ka-hind-hydronium",
+          "question": "An indicator donates a proton to water: $\\ce{HInd(aq) + H2O(l) <=> H3O^+(aq) + Ind^-(aq)}$. Deduce its $K_\\mathrm{a}$ expression.",
+          "steps": [
+            "Products go on top: $[\\ce{H3O^+}][\\ce{Ind^-}]$.",
+            "Water is the solvent: its concentration is effectively constant and part of $K_\\mathrm{a}$, so leave it out.",
+            "$[\\ce{HInd}]$ goes underneath. Every coefficient is 1, so there are no powers."
+          ],
+          "answer": "$K_\\mathrm{a} = \\frac{[\\ce{H3O^+}][\\ce{Ind^-}]}{[\\ce{HInd}]}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, with $[\\ce{H^+}]$ for $[\\ce{H3O^+}]$, it gives the ratio of the two coloured forms."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{[\\ce{Ind^-}]}{[\\ce{HInd}]} = \\frac{K_\\mathrm{a}}{[\\ce{H^+}]}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$K_\\mathrm{a}$ is fixed at a given temperature. So as the pH rises, $[\\ce{H^+}]$ falls, the ratio grows, and the alkali colour takes over."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $[\\ce{H2O}]$ into $K_\\mathrm{a}$, or turning the fraction upside down. Products go on top, and water, the solvent, is left out."
+        },
+        {
+          "type": "check",
+          "id": "check-ka-hind",
+          "prompt": "Which is the $K_\\mathrm{a}$ expression for $\\ce{HInd(aq) <=> H^+(aq) + Ind^-(aq)}$?",
+          "hint": "Products over reactants.",
+          "options": [
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{Ind^-}]}{[\\ce{HInd}]}$",
+              "correct": true
+            },
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{HInd}]}{[\\ce{H^+}][\\ce{Ind^-}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{H^+}] + [\\ce{Ind^-}]}{[\\ce{HInd}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{Ind^-}]}{[\\ce{HInd}][\\ce{H2O}]}$",
+              "correct": false
+            }
+          ],
+          "explain": "The products, $\\ce{H^+}$ and $\\ce{Ind^-}$, are multiplied on top, and HInd goes underneath. Water does not appear."
+        },
+        {
+          "type": "check",
+          "id": "check-phenolphthalein-acid",
+          "prompt": "Phenolphthalein is colourless as HInd and pink as $\\ce{Ind^-}$. Excess acid is added to a pink solution of it. What happens?",
+          "hint": "Adding acid raises $[\\ce{H^+}]$.",
+          "options": [
+            {
+              "text": "The position shifts left and the solution turns colourless",
+              "correct": true
+            },
+            {
+              "text": "The position shifts right and the solution turns colourless",
+              "correct": false
+            },
+            {
+              "text": "The position shifts left and the solution stays pink",
+              "correct": false
+            },
+            {
+              "text": "Ka decreases and the solution turns colourless",
+              "correct": false
+            }
+          ],
+          "explain": "Extra $\\ce{H^+}$ pushes the position left, so colourless HInd is in excess. $K_\\mathrm{a}$ changes only with temperature.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The position shifts left and the solution turns colourless"
+          }
+        }
+      ]
+    },
+    {
+      "id": "end-point-pka",
+      "heading": "The end point and pKa",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Halfway through the colour change, $[\\ce{HInd}] = [\\ce{Ind^-}]$. In the $K_\\mathrm{a}$ expression these cancel, so $K_\\mathrm{a} = [\\ce{H^+}]$. Take $-\\log_{10}$ of both sides."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a} \\quad \\text{when } [\\ce{HInd}] = [\\ce{Ind^-}]",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So an indicator's [[end-point|end point]], the [[ph|pH]] where it changes colour, is close to its [[pka|pKa]]. Different indicators change at different pH values."
+        },
+        {
+          "type": "text",
+          "text": "Your eye sees one clear colour only once that form is roughly ten times the other. So the change spreads over a range of about 1 to 2 pH units that contains the pKa."
+        },
+        {
+          "type": "text",
+          "text": "Section 18 of the data booklet gives the pKa, range and colours of common indicators."
+        },
+        {
+          "type": "figure",
+          "id": "6-6-indicator-ranges",
+          "alt": "Colour-change ranges of seven indicators on a pH scale from 0 to 14, with a tick at each pKa. Methyl orange, pKa 3.7, range 3.1 to 4.4, red to yellow. Bromophenol blue, pKa 4.2, range 3.0 to 4.6, yellow to blue. Bromocresol green, pKa 4.7, range 4.0 to 5.6, yellow to blue. Methyl red, pKa 5.1, range 4.4 to 6.2, red to yellow. Bromothymol blue, pKa 7.0, range 6.0 to 7.6, yellow to blue. Phenol red, pKa 7.9, range 6.4 to 8.0, yellow to red. Phenolphthalein, pKa 9.6, range 8.0 to 10.0, colourless to pink. Every pKa tick lies inside its range.",
+          "caption": "Indicator ranges from section 18 of the data booklet. Acid colour on the left, alkali colour on the right."
+        },
+        {
+          "type": "example",
+          "id": "ex-end-point-from-ka",
+          "question": "A flower dye acts as an indicator with $K_\\mathrm{a} = \\pu{3.2e-9 mol dm-3}$ at 298 K. Calculate its pKa, and hence estimate the pH of its end point.",
+          "steps": [
+            "$\\mathrm{p}K_\\mathrm{a} = -\\log_{10}(3.2 \\times 10^{-9}) = 8.49$ to 2 d.p.",
+            "The end point is near $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$, so about pH 8.5, in weakly alkaline solution."
+          ],
+          "answer": "$\\mathrm{p}K_\\mathrm{a} \\approx 8.49$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(3.2*10**(-9), 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ratio-bromothymol",
+          "question": "Bromothymol blue is yellow as HInd and blue as $\\ce{Ind^-}$. Using section 18 of the data booklet, calculate $[\\ce{Ind^-}]:[\\ce{HInd}]$ at pH 8.0, and deduce the colour.",
+          "steps": [
+            "Section 18: $\\mathrm{p}K_\\mathrm{a} = 7.0$, so $K_\\mathrm{a} = 10^{-7.0}$. At pH 8.0, $[\\ce{H^+}] = 10^{-8.0}$.",
+            "$\\frac{[\\ce{Ind^-}]}{[\\ce{HInd}]} = \\frac{K_\\mathrm{a}}{[\\ce{H^+}]} = \\frac{10^{-7.0}}{10^{-8.0}} = 10$.",
+            "$\\ce{Ind^-}$ outnumbers HInd ten to one, so it is blue, as expected above its range (6.0 to 7.6)."
+          ],
+          "answer": "$\\frac{[\\ce{Ind^-}]}{[\\ce{HInd}]} = 10$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "10**(-pKa_ind('bromothymol blue')) / 10**(-8.0)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Universal indicator is a mixture of indicators with different pKa values. Their changes overlap, giving a series of colours from about pH 1 to 14. Match the colour to a chart to estimate pH."
+        },
+        {
+          "type": "text",
+          "text": "Its colour changes gradually, with no sharp end point, so it is not used in titrations."
+        },
+        {
+          "type": "check",
+          "id": "check-methyl-red-pka",
+          "prompt": "Using section 18 of the data booklet, at what pH are $[\\ce{HInd}]$ and $[\\ce{Ind^-}]$ equal for methyl red? Give 1 decimal place.",
+          "hint": "Equal amounts means $\\mathrm{pH} = \\mathrm{p}K_\\mathrm{a}$.",
+          "answer": {
+            "value": 5.1,
+            "tolerance": 0.05
+          },
+          "explain": "When the two forms are equal, $[\\ce{H^+}] = K_\\mathrm{a}$, so the pH equals the pKa: 5.1 for methyl red.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "pKa_ind('methyl red')",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-universal-titration",
+          "prompt": "Why is universal indicator not used to find the end point of a titration?",
+          "hint": "Think about how its colour changes as the pH rises.",
+          "options": [
+            {
+              "text": "Its colour changes gradually over a wide pH range, so there is no sharp end point",
+              "correct": true
+            },
+            {
+              "text": "It is a strong acid, so it reacts with the titrant",
+              "correct": false
+            },
+            {
+              "text": "It only changes colour at pH 7",
+              "correct": false
+            },
+            {
+              "text": "Its colours do not depend on pH",
+              "correct": false
+            }
+          ],
+          "explain": "It shows many colours across the pH scale, so no single drop gives a sudden change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its colour changes gradually over a wide pH range, so there is no sharp end point"
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Choosing an indicator for a titration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[equivalence-point|equivalence point]] ({{lesson:6.3}}) is where acid and base have reacted in the mole ratio of the equation. The [[end-point|end point]] is what you see: the colour change."
+        },
+        {
+          "type": "text",
+          "text": "Near the equivalence point, the pH jumps several units for a drop or two of titrant. An indicator whose range lies inside that jump changes colour in that same drop or two."
+        },
+        {
+          "type": "result",
+          "statement": "A suitable indicator changes colour within the steep, near-vertical part of the pH curve. The best choice has a range around the equivalence-point pH, with its pKa close to that pH.",
+          "why": "Then the end point falls within a drop or so of the equivalence point. A range outside the equivalence pH can still work if it sits inside a long steep jump, as phenolphthalein does for a strong acid and strong base."
+        },
+        {
+          "type": "example",
+          "id": "ex-distinguish-end-equivalence",
+          "question": "Distinguish between the end point and the equivalence point of an acid–base titration.",
+          "steps": [
+            "One is set by the equation, the other by what you observe. Define each, then link them."
+          ],
+          "answer": "The equivalence point is where the titrant added has reacted exactly with the substance in the flask, in the mole ratio of the equation. The end point is where the indicator changes colour, which you observe. With a suitable indicator the end point is very close to the equivalence point, but they are different things.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Equivalence point: amounts react in the equation's mole ratio. End point: indicator changes colour. A suitable indicator makes them nearly coincide.",
+            "requires": [
+              "equivalence point",
+              [
+                "mole ratio",
+                "stoichiometric"
+              ],
+              "end point",
+              "indicator changes colour",
+              [
+                "very close",
+                "nearly coincide"
+              ]
+            ],
+            "forbids": [
+              "always at pH 7",
+              "are the same thing"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "First predict the equivalence-point pH from the salt formed ([[salt-hydrolysis|salt hydrolysis]], {{lesson:6.5}}). Values are typical for about $\\pu{0.1 mol dm-3}$ solutions."
+        },
+        {
+          "type": "text",
+          "text": "1. Strong acid, strong base: neutral salt, pH 7. Bromothymol blue and phenol red include pH 7. The jump runs from about pH 3 to 11, so phenolphthalein, whose range lies inside it, also works."
+        },
+        {
+          "type": "text",
+          "text": "2. Weak acid, strong base: the anion is a weak base, so pH 8 to 9. Use phenolphthalein."
+        },
+        {
+          "type": "text",
+          "text": "3. Strong acid, weak base: the cation, such as $\\ce{NH4^+}$, is a weak acid, so pH 5 to 6. Use methyl red or bromocresol green."
+        },
+        {
+          "type": "text",
+          "text": "4. Weak acid, weak base: no steep jump, so no indicator works. Use a pH meter or conductivity meter."
+        },
+        {
+          "type": "figure",
+          "id": "6-6-choosing-indicator",
+          "alt": "pH curve for a weak acid titrated with a strong base. pH starts near 3, rises slowly, then jumps steeply from about 7 to 11 at the equivalence point, 25 cubic centimetres and pH 8.8, then levels off near 12.5. A shaded band for phenolphthalein, pH 8.0 to 10.0, lies inside the steep jump. A shaded band for methyl orange, pH 3.1 to 4.4, is crossed by the curve during the first few cubic centimetres, long before the equivalence point.",
+          "caption": "Weak acid with strong base. Phenolphthalein changes within the jump; methyl orange changes far too early."
+        },
+        {
+          "type": "mistake",
+          "text": "Picking an indicator with a pKa near 7 for every titration. Only a strong acid with a strong base reliably gives an equivalence point at pH 7 (at 298 K)."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-propanoic",
+          "question": "Propanoic acid is titrated with sodium hydroxide solution. Identify a suitable indicator from section 18 of the data booklet, and justify your choice.",
+          "steps": [
+            "Propanoic acid is weak; sodium hydroxide is strong. Is sodium propanoate solution acidic, neutral or basic?",
+            "Match the equivalence-point pH to a range in section 18."
+          ],
+          "answer": "The salt, sodium propanoate, contains the propanoate ion, the conjugate base of a weak acid. It reacts with water to form hydroxide ions, so the equivalence point is above 7, about pH 8 to 9. Phenolphthalein is suitable: its range, pH 8.0 to 10.0, includes this pH and lies within the steep part of the curve.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Weak acid + strong base: propanoate hydrolyses to give OH-, equivalence pH above 7, so phenolphthalein (8.0-10.0).",
+            "requires": [
+              "phenolphthalein",
+              [
+                "conjugate base",
+                "weak base"
+              ],
+              "hydroxide ions",
+              [
+                "above 7",
+                "greater than 7"
+              ],
+              [
+                "steep part",
+                "vertical"
+              ],
+              "equivalence point"
+            ],
+            "forbids": [
+              "methyl orange is suitable",
+              "neutral salt"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"State, with a reason\" which indicator to use: name it, then link its range or pKa to the pH at the equivalence point. The name alone usually earns nothing."
+        },
+        {
+          "type": "check",
+          "id": "check-ethylamine-indicator",
+          "prompt": "Ethylamine, a weak base, is titrated with hydrochloric acid. A pH meter shows the equivalence point at pH 5.8. Using section 18 of the data booklet, which indicator is most suitable?",
+          "hint": "Which range sits around pH 5.8?",
+          "options": [
+            {
+              "text": "methyl red",
+              "correct": true
+            },
+            {
+              "text": "bromocresol green",
+              "correct": false
+            },
+            {
+              "text": "bromothymol blue",
+              "correct": false
+            },
+            {
+              "text": "phenolphthalein",
+              "correct": false
+            }
+          ],
+          "explain": "Methyl red's range, 4.4 to 6.2, spans 5.8, so it changes colour right at the equivalence point. Bromocresol green has finished changing just before 5.8 and bromothymol blue only starts after it; phenolphthalein changes far too early, before the acid is added.",
+          "verify": {
+            "kind": "choice",
+            "truth": "methyl red"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-weak-weak",
+          "prompt": "For which titration is there no suitable indicator?",
+          "hint": "Which pair gives no steep jump in pH?",
+          "options": [
+            {
+              "text": "Ethanoic acid with aqueous ammonia",
+              "correct": true
+            },
+            {
+              "text": "Ethanoic acid with sodium hydroxide",
+              "correct": false
+            },
+            {
+              "text": "Hydrochloric acid with aqueous ammonia",
+              "correct": false
+            },
+            {
+              "text": "Nitric acid with potassium hydroxide",
+              "correct": false
+            }
+          ],
+          "explain": "Both are weak, so the pH changes only gradually. Every other pair has a strong reactant and a steep jump.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Ethanoic acid with aqueous ammonia"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "An indicator is a weak acid: $\\ce{HInd(aq) <=> H^+(aq) + Ind^-(aq)}$, and HInd and $\\ce{Ind^-}$ have different colours. Acid shifts the position left; alkali shifts it right.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$K_\\mathrm{a} = \\frac{[\\ce{H^+}][\\ce{Ind^-}]}{[\\ce{HInd}]}$. At the end point $[\\ce{HInd}] = [\\ce{Ind^-}]$, so $\\mathrm{pH} \\approx \\mathrm{p}K_\\mathrm{a}$; the change spans about 1 to 2 pH units (section 18).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Universal indicator: a mixture of indicators with many colours from about pH 1 to 14. Use it to estimate pH, not for titrations.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Equivalence point: amounts react in the equation's mole ratio. End point: the indicator changes colour.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Choose an indicator whose range falls in the steep part of the curve, ideally around the equivalence-point pH. Strong–strong: pH 7, bromothymol blue or phenol red (phenolphthalein also works in the long jump). Weak acid–strong base: above 7, phenolphthalein. Strong acid–weak base: below 7, methyl red or bromocresol green. Weak–weak: none.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying every indicator changes colour at pH 7. Each changes near its own pKa.",
+    "Treating the end point and the equivalence point as the same. One is seen; the other is set by the mole ratio.",
+    "Naming an indicator without a reason. Link its range to the steep part of the curve around the equivalence-point pH.",
+    "Saying alkali shifts the indicator equilibrium left. Hydroxide removes $\\ce{H^+}$, so it shifts right."
+  ],
+  "examTips": [
+    "\"Explain\" a colour change: write the HInd equilibrium, then say what changes $[\\ce{H^+}]$, which way the position shifts and which coloured form is in excess.",
+    "\"Distinguish\" end point and equivalence point: define each in one sentence, then link them.",
+    "In Paper 1A, given indicators with pKa values, choose the pKa closest to the equivalence-point pH."
+  ],
+  "readingMinutes": 20
+}

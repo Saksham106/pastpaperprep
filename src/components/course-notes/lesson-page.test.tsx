@@ -110,7 +110,7 @@ describe("LessonPage", () => {
     expect(screen.getByRole("link", { name: "hello@pastpaperprep.com" }).getAttribute("href")).toBe("mailto:hello@pastpaperprep.com");
     await user.click(screen.getByText("Report a problem"));
     expect(within(document.getElementById("report-menu") as HTMLElement).getAllByRole("button").length).toBe(5);
-    await user.click(screen.getByText("A maths error"));
+    await user.click(screen.getByText("A mistake in the notes"));
     expect(track).toHaveBeenCalledWith("notes_report", { lesson: "2.5", level: "HL", issue: "maths_error" });
     expect(screen.getByText(/Thanks/)).toBeTruthy();
   });

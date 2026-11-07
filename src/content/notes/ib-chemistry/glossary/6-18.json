@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sn1-mechanism",
+    "term": "SN1 mechanism",
+    "definition": "A nucleophilic substitution in two steps: the carbon–halogen bond breaks first to give a carbocation (the slow, rate-determining step), then the nucleophile bonds to it; typical of tertiary halogenoalkanes, with rate $= k[\\text{halogenoalkane}]$.",
+    "lesson": "6.18"
+  },
+  {
+    "id": "sn2-mechanism",
+    "term": "SN2 mechanism",
+    "definition": "A nucleophilic substitution in one concerted step: the nucleophile bonds to carbon from the side opposite the halogen as the carbon–halogen bond breaks; typical of primary halogenoalkanes, with rate $= k[\\text{halogenoalkane}][\\text{nucleophile}]$.",
+    "lesson": "6.18"
+  },
+  {
+    "id": "carbocation",
+    "term": "carbocation",
+    "definition": "An ion with a positive charge on a carbon atom that has only three bonds and six outer electrons, such as $\\ce{(CH3)3C^+}$.",
+    "lesson": "6.18"
+  },
+  {
+    "id": "inversion-of-configuration",
+    "term": "inversion of configuration",
+    "definition": "The flip of the three other groups on a carbon atom to the opposite side in an SN2 reaction, because the nucleophile attacks from the side opposite the leaving group.",
+    "lesson": "6.18"
+  }
+]

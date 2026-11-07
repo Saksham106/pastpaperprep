@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { glossaryFixture, lessonFixture } from "./__fixtures__/lesson";
 import { itemsFixture } from "./__fixtures__/items";
 import type { Block, CalculatorSnippets, CheckBlock, ItemsFile, Lesson } from "./types";
-import { validateLesson } from "./validate";
+import { numericLookingOption, validateLesson } from "./validate";
 
 const ctx = { items: itemsFixture, glossary: glossaryFixture, lessonItems: new Set(["2.5", "2.13"]), levels: { base: "SL", extension: "AHL" } };
 const clone = (): Lesson => structuredClone(lessonFixture);
@@ -284,6 +284,69 @@ describe("verify blocks", () => {
     const before = clone();
     before.before[0].verify = { kind: "numeric", truth: "1", sf: 1 };
     expect(run(before)).toEqual([expect.stringContaining("before[0]: b1: verify kind numeric cannot be used on a multiple-choice check")]);
+  });
+});
+
+describe("chemistry verify kinds", () => {
+  const example = (verify: Record<string, unknown>, answer = "$\\ce{2H2 + O2 -> 2H2O}$") => ({ type: "example", id: "ev", question: "q", steps: ["s"], answer, video: null, verify }) as Block;
+  const choice = (verify: Record<string, unknown>, options = ["$\\ce{CH2}$", "$\\ce{C2H4}$"]) => ({ type: "check", id: "mv", prompt: "p", hint: "h", options: options.map((text, i) => ({ text, correct: i === 0 })), explain: "e", verify }) as Block;
+  const words = (truth: string, options: string[]) => choice({ kind: "choice", truth }, [truth, ...options]);
+
+  it("accepts chem-equation and formula with their options, on examples and multiple-choice checks", () => {
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O" }))).toEqual([]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "C2H6 + O2 -> CO2 + H2O", fractions: true, states: true, per: "C2H6" }))).toEqual([]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "N2 + H2 -> NH3", reversible: true, allowMultiple: true }))).toEqual([]);
+    expect(withBlock(choice({ kind: "formula", truth: 'empirical_formula({"C": 85.7, "H": 14.3})' }))).toEqual([]);
+    expect(withBlock(choice({ kind: "formula", truth: 'formula("CH3CH2OH")', given: true, match: "exact" }))).toEqual([]);
+    expect(withBlock(example({ kind: "rounded", truth: "0.250*Mr('NaOH')", sf: 3, unit: "g", signed: true }, "$\\approx \\pu{10.0 g}$"))).toEqual([]);
+  });
+
+  it("rejects bad chemistry options", () => {
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", states: "yes" }))).toEqual([expect.stringContaining("chem-equation.states must be true or false")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", fractions: true, allowMultiple: true }))).toEqual([expect.stringContaining("allowMultiple or fractions, not both")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", per: "H2O" }))).toEqual([expect.stringContaining("per needs fractions: true")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "CH3COOH + NaOH -> CH3COONa + H2O", aliases: { CH3COOH: ["CH3CO2H"] } }, "$\\ce{CH3COOH + NaOH -> CH3COONa + H2O}$"))).toEqual([]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", aliases: ["H2O"] }))).toEqual([expect.stringContaining("chem-equation.aliases must map")]);
+    expect(withBlock(example({ kind: "chem-equation", truth: "H2 + O2 -> H2O", aliases: { H2O: [] } }))).toEqual([expect.stringContaining("chem-equation.aliases must map")]);
+    expect(withBlock(example({ kind: "formula", truth: 'formula("C2H5OH")' }))).toEqual([expect.stringContaining("with given: true")]);
+    expect(withBlock(example({ kind: "formula", truth: 'ionic_formula("Na+", "Cl-")', given: true }))).toEqual([expect.stringContaining("formula.given is only for")]);
+    expect(withBlock(example({ kind: "formula", truth: "Mr('CH4')" }))).toEqual([expect.stringContaining("formula truth must call")]);
+    expect(withBlock(example({ kind: "formula", truth: 'formula("C2H6O")', given: true, match: "structural" }))).toEqual([expect.stringContaining("formula.match must be one of composition, exact")]);
+    expect(withBlock(example({ kind: "exact", truth: "2*4 - 5", signed: "+" }))).toEqual([expect.stringContaining("exact.signed must be true or false")]);
+  });
+
+  it("takes explanation on examples only, with at least two marking points", () => {
+    const prose = "Bond breaking is endothermic, so $\\Delta H$ is positive.";
+    const ok = { kind: "explanation", truth: "bond breaking absorbs energy", requires: [["endothermic", "absorbs energy"], "$\\Delta H$ is positive"], forbids: ["energy is released when bonds break"] };
+    expect(withBlock(example(ok, prose))).toEqual([]);
+    expect(withBlock(choice(ok, ["endothermic", "exothermic"]))).toEqual([expect.stringContaining("verify kind explanation cannot be used on a multiple-choice check")]);
+    expect(withBlock({ type: "check", id: "nv", prompt: "p", hint: "h", answer: { value: 1, tolerance: 0 }, explain: "e", verify: ok } as Block)).toEqual([expect.stringContaining("cannot be used on a numeric check")]);
+    expect(withBlock(example({ ...ok, requires: ["endothermic"] }, prose))).toEqual([expect.stringContaining("needs at least 2 phrases")]);
+    expect(withBlock(example({ ...ok, requires: ["endothermic", ""] }, prose))).toEqual([expect.stringContaining("every entry must be a non-empty phrase or a list of alternative phrases")]);
+    expect(withBlock(example({ ...ok, requires: ["endothermic", []] }, prose))).toEqual([expect.stringContaining("every entry must be a non-empty phrase")]);
+    expect(withBlock(example({ ...ok, forbids: [["a", "b"]] }, prose))).toEqual([expect.stringContaining("explanation.forbids: every entry must be a non-empty phrase")]);
+    expect(withBlock(example({ kind: "explanation", truth: "x" }, prose))).toEqual([expect.stringContaining("explanation needs requires")]);
+  });
+
+  it("counts typical chemistry word options as words for verify kind choice", () => {
+    for (const [truth, others] of [
+      ["exothermic", ["endothermic"]],
+      ["London (dispersion) forces", ["hydrogen bonding", "covalent bonds"]],
+      ["trigonal planar", ["tetrahedral", "bent"]],
+      ["sp²", ["sp³", "sp"]],
+      ["sp^2", ["sp^3", "sp^{3}", "sp2"]],
+      ["the equilibrium shifts to the right", ["the equilibrium shifts to the left", "no change"]],
+    ] as const) expect(withBlock(words(truth, [...others])), truth).toEqual([]);
+    expect(numericLookingOption("sp^2")).toBe(false);
+    expect(numericLookingOption("sp^{3}")).toBe(false);
+    expect(numericLookingOption("x^2")).toBe(true);
+    expect(numericLookingOption("+3")).toBe(true);
+  });
+
+  it("validates lessons that use mhchem \\ce{} and \\pu{}", () => {
+    expect(withBlock(example({ kind: "chem-equation", truth: "N2 + H2 -> NH3", reversible: true }, "$\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$"))).toEqual([]);
+    expect(withBlock({ type: "text", text: "Sulfate is $\\ce{SO4^2-}$; $R = \\pu{8.31 J K-1 mol-1}$ and $\\Delta H = \\pu{-890 kJ mol-1}$." })).toEqual([]);
+    expect(withBlock({ type: "text", text: "Broken: $\\ce{H2O$." }).join()).toMatch(/KaTeX|\$/);
   });
 });
 

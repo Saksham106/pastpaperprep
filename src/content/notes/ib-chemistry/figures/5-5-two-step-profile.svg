@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280" role="img" aria-labelledby="t55tsp">
+  <title id="t55tsp">Energy profile for a two-step exothermic reaction: two peaks, each a transition state, with the intermediate in the dip between them; step 2 has the larger activation energy, so it is rate-determining</title>
+  <defs>
+    <marker id="m55tsp-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="m55tsp-dh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="50" y1="20" x2="50" y2="240"/>
+    <line x1="50" y1="240" x2="500" y2="240"/>
+  </g>
+
+  <!-- profile: reactants 150, TS1 98, intermediate 128, TS2 55, products 196 -->
+  <path d="M60,150 L110,150 C140,150 150,98 175,98 C200,98 205,128 230,128 C258,128 268,55 300,55 C335,55 350,196 395,196 L485,196" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="70" y1="98" x2="170" y2="98"/>
+    <line x1="230" y1="128" x2="262" y2="128"/>
+    <line x1="245" y1="55" x2="295" y2="55"/>
+    <line x1="110" y1="150" x2="440" y2="150"/>
+  </g>
+
+  <!-- Ea step 1: reactants to TS1 -->
+  <line x1="80" y1="148" x2="80" y2="101" stroke="var(--t5-ink)" stroke-width="1.5" marker-end="url(#m55tsp-head)"/>
+  <!-- Ea step 2: intermediate to TS2 -->
+  <line x1="252" y1="126" x2="252" y2="58" stroke="var(--t5-ink)" stroke-width="1.5" marker-end="url(#m55tsp-head)"/>
+  <!-- Delta H: reactants to products -->
+  <line x1="430" y1="152" x2="430" y2="193" stroke="var(--t3-ink)" stroke-width="1.5" marker-end="url(#m55tsp-dh)"/>
+
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="175" y="88" text-anchor="middle">TS 1</text>
+    <text x="300" y="45" text-anchor="middle">TS 2</text>
+    <text x="230" y="146" text-anchor="middle">intermediate</text>
+    <text x="58" y="168">reactants</text>
+    <text x="440" y="214" text-anchor="middle">products</text>
+    <text x="86" y="130" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a1</tspan></text>
+    <text x="246" y="68" fill="var(--t5-ink)" text-anchor="end">E<tspan font-size="9" dy="3">a2</tspan><tspan dy="-3"> (larger: RDS)</tspan></text>
+    <text x="438" y="177" fill="var(--t3-ink)">ΔH</text>
+    <text x="275" y="262" text-anchor="middle" fill="var(--muted)">reaction coordinate</text>
+    <text x="0" y="0" transform="translate(36,200) rotate(-90)" fill="var(--muted)">potential energy</text>
+  </g>
+</svg>

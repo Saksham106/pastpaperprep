@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.8",
+  "slug": "dynamic-equilibrium-and-the-equilibrium-constant",
+  "title": "Dynamic equilibrium and the equilibrium constant",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[reversible-reaction|reversible reaction]] in a closed system settles into [[dynamic-equilibrium|dynamic equilibrium]]: both reactions keep going at the same rate, so nothing seems to change. The expression for the [[equilibrium-constant|equilibrium constant]], $K$, comes straight from the balanced equation. Its size tells you how far the reaction goes, and only a change of [[temperature|temperature]] changes it.",
+  "goals": [
+    {
+      "text": "Describe what is true of a physical or chemical system at [[dynamic-equilibrium|dynamic equilibrium]].",
+      "bullets": [
+        "R2.3.1"
+      ]
+    },
+    {
+      "text": "Deduce the expression for $K$ from the equation of a homogeneous reaction, using the [[equilibrium-law|equilibrium law]].",
+      "bullets": [
+        "R2.3.2"
+      ]
+    },
+    {
+      "text": "Use the size of $K$ to say how far a reaction has gone at equilibrium, from $K \\ll 1$ to $K \\gg 1$.",
+      "bullets": [
+        "R2.3.3"
+      ]
+    },
+    {
+      "text": "Find $K$ for the reverse reaction, and explain why only temperature changes the value of $K$.",
+      "bullets": [
+        "R2.3.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "dynamic equilibrium",
+    "equilibrium constant expression",
+    "Kc expression",
+    "equilibrium law",
+    "what does K tell you",
+    "K for the reverse reaction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-concentration",
+      "prompt": "A flask of volume $\\pu{1.50 dm3}$ contains $\\pu{0.360 mol}$ of a gas. What is its concentration in $\\pu{mol dm-3}$?",
+      "hint": "Concentration is amount in moles divided by volume in $\\pu{dm3}$.",
+      "answer": {
+        "value": 0.24,
+        "tolerance": 0.0005
+      },
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.360/1.50",
+        "sf": 3
+      },
+      "explain": "$c = \\frac{n}{V} = \\frac{0.360}{1.50} = \\pu{0.240 mol dm-3}$. Revise it in {{lesson:1.8}}."
+    },
+    {
+      "type": "check",
+      "id": "before-temperature",
+      "prompt": "What does the temperature of a gas measure?",
+      "hint": "Think about how the particles move when you heat the gas.",
+      "options": [
+        {
+          "text": "the average kinetic energy of its particles",
+          "correct": true
+        },
+        {
+          "text": "the total number of its particles",
+          "correct": false
+        },
+        {
+          "text": "the mass of each of its particles",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "choice",
+        "truth": "the average kinetic energy of its particles"
+      },
+      "explain": "Heating makes particles move faster on average, so temperature (in K) measures their average kinetic energy. Revise it in {{lesson:1.1}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "dynamic",
+      "heading": "Dynamic equilibrium",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Seal propanoic acid and ethanol in a flask with a little acid catalyst and keep it warm. Ethyl propanoate and water form. But the reaction never uses up all the acid, however long you wait."
+        },
+        {
+          "type": "text",
+          "text": "The reason is that the products also react with each other to re-form the reactants. A reaction that can go both ways is a [[reversible-reaction|reversible reaction]]. You write it with the $\\rightleftharpoons$ arrow: $\\ce{CH3CH2COOH(l) + C2H5OH(l) <=> CH3CH2COOC2H5(l) + H2O(l)}$."
+        },
+        {
+          "type": "definition",
+          "term": "reversible reaction",
+          "statement": "A reaction in which the products can react to re-form the reactants, so the forward and backward reactions can both happen.",
+          "plain": "A reaction that can run in both directions."
+        },
+        {
+          "type": "text",
+          "text": "At the start there is no ester, so only the forward reaction happens, and it is fast. As the reactants are used up, the forward rate falls. As products build up, the backward rate rises."
+        },
+        {
+          "type": "text",
+          "text": "Sooner or later the two rates become equal. From then on, each second, the ester forms exactly as fast as it breaks down. The concentrations stop changing, even though both reactions are still going."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-reaching-equilibrium",
+          "alt": "Two graphs against time for a closed system that starts with only reactant. Left graph, rates: the forward rate starts high and falls, the backward rate starts at zero and rises, and the two curves meet and stay level and equal from the dashed line marked equilibrium. Right graph, concentrations: the reactant concentration falls and the product concentration rises from zero, then both level off at different constant values after the dashed equilibrium line.",
+          "caption": "At equilibrium the two rates are equal (left). The concentrations are then constant, but not equal to each other (right)."
+        },
+        {
+          "type": "definition",
+          "term": "dynamic equilibrium",
+          "statement": "The state of a reversible reaction in a closed system in which the rates of the forward and backward reactions are equal, so the concentrations of reactants and products stay constant.",
+          "plain": "Both reactions keep going at the same speed, so the amounts never change overall."
+        },
+        {
+          "type": "text",
+          "text": "\"Dynamic\" means the particles are still reacting. Swap a little of the ethanol at equilibrium for ethanol made with a heavy oxygen isotope. The concentrations stay the same, yet the heavy oxygen soon turns up in the ester."
+        },
+        {
+          "type": "text",
+          "text": "A system at equilibrium has these features:"
+        },
+        {
+          "type": "text",
+          "text": "1. It is closed: no substance enters or leaves. If a product escapes, such as a gas from an open tube, the backward reaction can't keep up and equilibrium is never reached."
+        },
+        {
+          "type": "text",
+          "text": "2. The forward and backward rates are equal, and both are greater than zero."
+        },
+        {
+          "type": "text",
+          "text": "3. The concentrations of reactants and products stay constant. They are usually not equal to each other."
+        },
+        {
+          "type": "text",
+          "text": "4. Macroscopic properties, the ones you can measure, such as colour, pressure and density, stay constant at constant temperature."
+        },
+        {
+          "type": "text",
+          "text": "5. Equilibrium can be reached from either side. At the same temperature, starting with the reactants or with the equivalent amounts of products gives the same equilibrium mixture."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that the concentrations of reactants and products are equal at equilibrium. It is the rates that are equal; the concentrations are only constant."
+        },
+        {
+          "type": "text",
+          "text": "Physical changes reach equilibrium too. In a sealed bottle half full of water, molecules leave the liquid and others return to it. Once evaporation and condensation happen at the same rate, the water level stops falling."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-ester-equilibrium",
+          "question": "A sealed flask holds propanoic acid, ethanol, ethyl propanoate and water at $\\pu{345 K}$. The concentration of ethyl propanoate has stopped changing. Describe the characteristics of this system at equilibrium.",
+          "steps": [
+            "\"Describe\" asks for a detailed account. Give one feature per sentence, each one a marking point.",
+            "Start with the condition: the flask is sealed, so the system is closed.",
+            "Then the rates, the heart of the definition, and say both reactions continue.",
+            "Then what you can observe: the concentrations, and the measurable properties."
+          ],
+          "answer": "The system is closed, so no substance enters or leaves. The forward and backward reactions both continue. The rate of the forward reaction equals the rate of the backward reaction. So the concentrations of all four substances remain constant, although they are not equal. Macroscopic properties, such as density, also remain constant.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "Closed system; both reactions continue at equal rates; concentrations and macroscopic properties constant.",
+            "requires": [
+              "closed",
+              "both continue",
+              [
+                "rate of the forward reaction equals the rate of the backward reaction",
+                "rates are equal"
+              ],
+              [
+                "concentrations of all four substances remain constant",
+                "concentrations remain constant",
+                "concentrations stay constant"
+              ]
+            ],
+            "forbids": [
+              "reactions stop",
+              "reaction has stopped",
+              "concentrations are equal"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-hexane-vapour",
+          "question": "Some liquid hexane is sealed in a flask at constant temperature. After a while the volume of liquid stops falling. Explain, in terms of particles, why the volume of liquid then stays constant even though molecules are still leaving the liquid.",
+          "steps": [
+            "\"Explain\" needs the reasons, not just the observation. Say what is still happening and why the totals don't change.",
+            "Name the two opposing processes: evaporation and condensation.",
+            "Give the condition that lets vapour build up: the flask is sealed.",
+            "Link equal rates to constant amounts."
+          ],
+          "answer": "The flask is sealed, so the vapour cannot escape. Molecules still evaporate from the liquid, and vapour molecules still condense back into it. The rate of evaporation equals the rate of condensation. So the amount of liquid and of vapour stays constant: the system is in dynamic equilibrium.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "Sealed so vapour stays; evaporation and condensation continue at equal rates; amounts constant.",
+            "requires": [
+              [
+                "sealed",
+                "closed"
+              ],
+              "rate of evaporation equals the rate of condensation",
+              "stays constant",
+              "dynamic equilibrium"
+            ],
+            "forbids": [
+              "evaporation stops",
+              "evaporation has stopped",
+              "no molecules evaporate"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-at-equilibrium",
+          "prompt": "Which statement is true for every reaction at dynamic equilibrium?",
+          "hint": "\"Dynamic\" tells you whether the reactions are still happening.",
+          "options": [
+            {
+              "text": "The forward and backward rates are equal.",
+              "correct": true
+            },
+            {
+              "text": "The concentrations of reactants and products are equal.",
+              "correct": false
+            },
+            {
+              "text": "The forward and backward reactions have stopped.",
+              "correct": false
+            },
+            {
+              "text": "The forward rate is greater than the backward rate.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "The forward and backward rates are equal."
+          },
+          "explain": "Both reactions continue at the same rate, so the concentrations are constant. They are almost never equal to each other."
+        },
+        {
+          "type": "check",
+          "id": "check-open-tube",
+          "prompt": "Calcium carbonate is heated strongly in an open test tube: $\\ce{CaCO3(s) <=> CaO(s) + CO2(g)}$. Why does this system never reach equilibrium?",
+          "hint": "What does an equilibrium need, and what happens to the gas?",
+          "options": [
+            {
+              "text": "Carbon dioxide escapes, so the system is not closed.",
+              "correct": true
+            },
+            {
+              "text": "The forward reaction is too slow to reach equilibrium.",
+              "correct": false
+            },
+            {
+              "text": "Solids can never take part in an equilibrium.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "Carbon dioxide escapes, so the system is not closed."
+          },
+          "explain": "The carbon dioxide leaves the tube, so it cannot react to re-form calcium carbonate. The backward reaction can't match the forward one, and the calcium carbonate keeps decomposing."
+        }
+      ]
+    },
+    {
+      "id": "equilibrium-law",
+      "heading": "The equilibrium law and K",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Run the ester experiment several times at the same temperature, each time from a different starting mixture. The equilibrium concentrations come out different every time."
+        },
+        {
+          "type": "text",
+          "text": "But one combination of them is always the same, about 4: $\\frac{[\\ce{CH3CH2COOC2H5}][\\ce{H2O}]}{[\\ce{CH3CH2COOH}][\\ce{C2H5OH}]}$. Square brackets mean an equilibrium [[molar-concentration|molar concentration]] in $\\pu{mol dm-3}$."
+        },
+        {
+          "type": "text",
+          "text": "That fixed value is the [[equilibrium-constant|equilibrium constant]], $K$. The [[equilibrium-law|equilibrium law]] tells you how to build its expression from the balanced equation."
+        },
+        {
+          "type": "definition",
+          "term": "equilibrium law",
+          "statement": "For a homogeneous reaction $\\ce{aA + bB <=> cC + dD}$ at equilibrium, the product concentrations raised to the powers of their coefficients, divided by the reactant concentrations raised to the powers of theirs, has a constant value $K$ at a given temperature.",
+          "plain": "Products on top, reactants underneath, each to the power of its number in the equation."
+        },
+        {
+          "type": "formula",
+          "tex": "K = \\frac{[\\ce{C}]^{c}\\,[\\ce{D}]^{d}}{[\\ce{A}]^{a}\\,[\\ce{B}]^{b}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "1. Write the product concentrations on top and the reactant concentrations underneath, each in square brackets."
+        },
+        {
+          "type": "text",
+          "text": "2. Raise each concentration to the power of its coefficient in the balanced equation. A coefficient of 1 gives power 1, which you don't write."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply the terms on each line. Never add them, and never write a coefficient in front of a bracket."
+        },
+        {
+          "type": "text",
+          "text": "\"Homogeneous\" means every species is in the same phase, such as all gases or all in one solution. Every species then appears in the expression, except water when it is the solvent. In IB Chemistry, $K$ is written without units."
+        },
+        {
+          "type": "example",
+          "id": "ex-k-nocl",
+          "question": "Nitrogen monoxide and chlorine form nitrosyl chloride: $\\ce{2NO(g) + Cl2(g) <=> 2NOCl(g)}$. Deduce the equilibrium constant expression, $K$.",
+          "steps": [
+            "The product is $\\ce{NOCl}$, with coefficient 2, so the top is $[\\ce{NOCl}]^{2}$.",
+            "The reactants are $\\ce{NO}$, coefficient 2, and $\\ce{Cl2}$, coefficient 1, so the bottom is $[\\ce{NO}]^{2}[\\ce{Cl2}]$.",
+            "Check: each species appears once, products are on top, and each power matches its coefficient."
+          ],
+          "answer": "$K = \\frac{[\\ce{NOCl}]^{2}}{[\\ce{NO}]^{2}[\\ce{Cl2}]}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-k-ammonia-oxidation",
+          "question": "In nitric acid manufacture, ammonia is oxidized over a hot catalyst: $\\ce{4NH3(g) + 5O2(g) <=> 4NO(g) + 6H2O(g)}$. Deduce the equilibrium constant expression, $K$.",
+          "steps": [
+            "All four species are gases, so the reaction is homogeneous and every species goes in, including the water vapour.",
+            "Products on top, with their coefficients as powers: $[\\ce{NO}]^{4}[\\ce{H2O}]^{6}$.",
+            "Reactants underneath: $[\\ce{NH3}]^{4}[\\ce{O2}]^{5}$.",
+            "The catalyst does not appear: it is not a reactant or product in the equation."
+          ],
+          "answer": "$K = \\frac{[\\ce{NO}]^{4}[\\ce{H2O}]^{6}}{[\\ce{NH3}]^{4}[\\ce{O2}]^{5}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $4[\\ce{NO}]$ or adding the terms, as in $[\\ce{NO}] + [\\ce{H2O}]$. A coefficient becomes a power, and the terms on each line are multiplied."
+        },
+        {
+          "type": "check",
+          "id": "check-k-cs2",
+          "prompt": "Carbon disulfide can be made by $\\ce{CH4(g) + 2H2S(g) <=> CS2(g) + 4H2(g)}$. Which is the equilibrium constant expression?",
+          "hint": "Products go on top. Each coefficient becomes a power.",
+          "options": [
+            {
+              "text": "$K = \\frac{[\\ce{CS2}][\\ce{H2}]^{4}}{[\\ce{CH4}][\\ce{H2S}]^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$K = \\frac{[\\ce{CH4}][\\ce{H2S}]^{2}}{[\\ce{CS2}][\\ce{H2}]^{4}}$",
+              "correct": false
+            },
+            {
+              "text": "$K = \\frac{[\\ce{CS2}]4[\\ce{H2}]}{[\\ce{CH4}]2[\\ce{H2S}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K = \\frac{[\\ce{CS2}][\\ce{H2}]}{[\\ce{CH4}][\\ce{H2S}]}$",
+              "correct": false
+            }
+          ],
+          "explain": "Products $\\ce{CS2}$ and $\\ce{H2}$ go on top, with $\\ce{H2}$ to the power 4. Reactants go underneath, with $\\ce{H2S}$ to the power 2. The second option is upside down, the third uses coefficients as multipliers, and the last leaves out the powers."
+        },
+        {
+          "type": "check",
+          "id": "check-k-thiocyanate",
+          "prompt": "Iron(III) ions and thiocyanate ions form a blood-red complex in solution: $\\ce{Fe^3+(aq) + SCN-(aq) <=> FeSCN^2+(aq)}$. Which is the equilibrium constant expression?",
+          "hint": "Charges stay inside the brackets. All three species are in the same solution.",
+          "options": [
+            {
+              "text": "$K = \\frac{[\\ce{FeSCN^2+}]}{[\\ce{Fe^3+}][\\ce{SCN-}]}$",
+              "correct": true
+            },
+            {
+              "text": "$K = \\frac{[\\ce{Fe^3+}][\\ce{SCN-}]}{[\\ce{FeSCN^2+}]}$",
+              "correct": false
+            },
+            {
+              "text": "$K = \\frac{[\\ce{FeSCN^2+}]^{2}}{[\\ce{Fe^3+}]^{3}[\\ce{SCN-}]}$",
+              "correct": false
+            }
+          ],
+          "explain": "Each coefficient is 1, so there are no powers to write. The charges are part of each species' formula, not powers: don't turn the 3+ into a cube."
+        }
+      ]
+    },
+    {
+      "id": "magnitude",
+      "heading": "What the size of K tells you",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$K$ is a ratio of products to reactants at equilibrium. A large $K$ means the top of the fraction is large, so the equilibrium mixture is mostly products. A small $K$ means it is mostly reactants."
+        },
+        {
+          "type": "text",
+          "text": "The size of $K$ shows the extent of reaction: how far it has gone by the time equilibrium is reached. It says nothing about how fast equilibrium is reached."
+        },
+        {
+          "type": "text",
+          "text": "$K \\gg 1$ (very large, such as $10^{10}$): the reaction goes almost to completion. Hardly any reactant is left."
+        },
+        {
+          "type": "text",
+          "text": "$K > 1$: products are favoured. The position of equilibrium lies to the right."
+        },
+        {
+          "type": "text",
+          "text": "$K = 1$: neither side is favoured. Reactants and products are present in comparable amounts."
+        },
+        {
+          "type": "text",
+          "text": "$K < 1$: reactants are favoured. The position of equilibrium lies to the left."
+        },
+        {
+          "type": "text",
+          "text": "$K \\ll 1$ (very small, such as $10^{-10}$): the reaction hardly happens. The mixture is almost all reactants."
+        },
+        {
+          "type": "text",
+          "text": "The same idea measures acid strength. For an acid ionizing in water, a larger $K$ means that, at the same concentration, more of the acid has ionized at equilibrium, so it is a stronger acid. A [[weak-acid|weak acid]] has a small $K$, usually much less than 1. You'll use this in {{lesson:6.3}}."
+        },
+        {
+          "type": "text",
+          "text": "Now reverse the reaction. Writing $\\ce{2NO(g) + Cl2(g) <=> 2NOCl(g)}$ backwards swaps the top and bottom of $K$. So the new constant is the reciprocal of the old one."
+        },
+        {
+          "type": "result",
+          "statement": "At the same temperature, the equilibrium constant of the reverse reaction is the reciprocal of the forward one: $K_{\\text{reverse}} = \\frac{1}{K_{\\text{forward}}}$.",
+          "why": "Reversing the equation turns products into reactants, so the expression for $K$ is turned upside down."
+        },
+        {
+          "type": "text",
+          "text": "For a given equation, $K$ depends on temperature and on nothing else. Changing a concentration or the pressure moves the mixture, but it settles back to the same $K$. A [[catalyst|catalyst]] speeds up both reactions equally, so it doesn't change $K$ either."
+        },
+        {
+          "type": "text",
+          "text": "For an endothermic forward reaction, $K$ increases as temperature rises. For an exothermic one, $K$ decreases. You'll see why in {{lesson:5.9}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-k",
+          "question": "At $\\pu{523 K}$, $K = 0.0420$ for $\\ce{PCl5(g) <=> PCl3(g) + Cl2(g)}$. Calculate $K$ for $\\ce{PCl3(g) + Cl2(g) <=> PCl5(g)}$ at $\\pu{523 K}$, and state which side that reaction favours.",
+          "steps": [
+            "The second equation is the first one reversed, at the same temperature. So $K_{\\text{reverse}} = \\frac{1}{K_{\\text{forward}}}$.",
+            "Substitute: $K_{\\text{reverse}} = \\frac{1}{0.0420} = 23.809\\ldots$",
+            "Round to 3 significant figures, the precision of the data: $23.8$.",
+            "Since $23.8 > 1$, the reverse reaction favours its own product, $\\ce{PCl5}$: the position of equilibrium lies to the right of this equation. That fits the first $K$ being less than 1."
+          ],
+          "answer": "$K \\approx 23.8$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1/0.0420",
+            "sf": 3
+          },
+          "check": {
+            "type": "check",
+            "id": "check-reverse-k",
+            "prompt": "At $\\pu{500 K}$, $K = 80.0$ for a reaction. What is $K$ for the reverse reaction at $\\pu{500 K}$? Give your answer to 3 significant figures.",
+            "hint": "Reversing the equation turns the expression upside down.",
+            "answer": {
+              "value": 0.0125,
+              "tolerance": 5e-05
+            },
+            "verify": {
+              "kind": "numeric",
+              "truth": "1/80.0",
+              "sf": 3
+            },
+            "explain": "$K_{\\text{reverse}} = \\frac{1}{80.0} = 0.0125$. It is below 1, as it must be when the forward $K$ is above 1."
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-extent-two-temperatures",
+          "question": "For $\\ce{H2(g) + CO2(g) <=> H2O(g) + CO(g)}$, $K = 0.11$ at $\\pu{700 K}$ and $K = 1.4$ at $\\pu{1200 K}$. Outline what each value shows about the equilibrium mixture, and deduce whether the forward reaction is exothermic or endothermic.",
+          "steps": [
+            "\"Outline\" needs a brief account; \"deduce\" needs a conclusion that follows from the data. Treat each value, then the trend.",
+            "At $\\pu{700 K}$, $0.11 < 1$, so the equilibrium mixture contains more reactants than products.",
+            "At $\\pu{1200 K}$, $1.4 > 1$, so products are slightly favoured.",
+            "Only temperature changed, and $K$ increased as temperature rose. That is the behaviour of an endothermic forward reaction."
+          ],
+          "answer": "At 700 K, K is less than 1, so reactants are favoured and the position of equilibrium lies to the left. At 1200 K, K is greater than 1, so products are favoured. K increases as the temperature increases, so the forward reaction is endothermic.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "K < 1 at 700 K: reactants favoured; K > 1 at 1200 K: products favoured; K rises with T, so endothermic.",
+            "requires": [
+              "less than 1",
+              "reactants are favoured",
+              "greater than 1",
+              "products are favoured",
+              [
+                "K increases as the temperature increases",
+                "K increases with temperature"
+              ],
+              "endothermic"
+            ],
+            "forbids": [
+              "exothermic",
+              "faster"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-largest-extent",
+          "prompt": "Four reactions are at equilibrium at the same temperature. Which value of $K$ shows the greatest proportion of products?",
+          "hint": "$K$ has the products on top.",
+          "options": [
+            {
+              "text": "$3.5 \\times 10^{-6}$",
+              "correct": false
+            },
+            {
+              "text": "$0.92$",
+              "correct": false
+            },
+            {
+              "text": "$1.0$",
+              "correct": false
+            },
+            {
+              "text": "$4.7 \\times 10^{5}$",
+              "correct": true
+            }
+          ],
+          "verify": {
+            "kind": "exact",
+            "truth": "47*10**4"
+          },
+          "explain": "The largest $K$ has the most products relative to reactants. $4.7 \\times 10^{5}$ is far above 1, so products are strongly favoured."
+        },
+        {
+          "type": "check",
+          "id": "check-what-changes-k",
+          "prompt": "A reaction is at equilibrium in a sealed container. Which change alters the value of $K$?",
+          "hint": "Only one condition changes $K$ itself; the others only move the mixture.",
+          "options": [
+            {
+              "text": "changing the temperature",
+              "correct": true
+            },
+            {
+              "text": "adding a catalyst",
+              "correct": false
+            },
+            {
+              "text": "increasing the pressure",
+              "correct": false
+            },
+            {
+              "text": "adding more of a reactant",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "changing the temperature"
+          },
+          "explain": "$K$ depends only on temperature. A catalyst speeds up both reactions equally, and changes of pressure or concentration shift the mixture until the same $K$ is restored."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use the reaction quotient, $Q$, to predict which way a mixture will shift, and calculate equilibrium concentrations from $K$.",
+          "lesson": "5.10"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Dynamic equilibrium needs a closed system. Forward and backward rates are equal, so concentrations stay constant (but usually not equal).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $K$, square brackets are equilibrium concentrations in $\\pu{mol dm-3}$. Every species of a homogeneous reaction appears, except water as the solvent; $K$ has no units in IB Chemistry.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$K \\gg 1$: almost complete. $K > 1$: products favoured. $K = 1$: neither favoured. $K < 1$: reactants favoured. $K \\ll 1$: hardly reacts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reverse reaction at the same temperature: $K_{\\text{reverse}} = \\frac{1}{K_{\\text{forward}}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a given equation, only temperature changes $K$. Concentration, pressure and catalysts do not.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the concentrations are equal at equilibrium. The rates are equal; the concentrations are only constant.",
+    "Saying the reactions stop at equilibrium. Both continue at the same rate, which is why it is called dynamic.",
+    "Writing coefficients as multipliers, as in $2[\\ce{SO3}]$. Each coefficient becomes a power: $[\\ce{SO3}]^{2}$.",
+    "Leaving out the square brackets, or using round ones. Mark schemes require square brackets for every concentration in $K$.",
+    "Thinking a catalyst or a pressure change alters $K$. Only temperature does.",
+    "Taking $K$ for the reverse reaction as $-K$. It is the reciprocal, $\\frac{1}{K}$."
+  ],
+  "examTips": [
+    "\"Deduce the equilibrium constant expression\": products over reactants, square brackets on every species, coefficients as powers. One mark, and a missing bracket or power loses it.",
+    "\"Describe the characteristics\" of an equilibrium: give separate points, such as closed system, equal forward and backward rates, constant concentrations and constant macroscopic properties.",
+    "\"State the effect on K\": only a temperature change has one. For a catalyst, pressure or concentration change, write that $K$ stays the same.",
+    "Paper 1A often tests $K$ for a reversed equation. Turn the expression upside down and take the reciprocal; don't change the sign."
+  ],
+  "readingMinutes": 23
+}

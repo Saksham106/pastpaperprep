@@ -1,0 +1,630 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.6",
+  "slug": "entropy",
+  "title": "Entropy",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "[[entropy|Entropy]], $S$, measures how spread out the matter and energy of a system are. Gases have far more of it than liquids, and liquids more than solids, so you can usually predict whether a change increases or decreases entropy by watching the gases. Standard entropy values in the data booklet then give $\\Delta S^\\ominus$ for a reaction in one line.",
+  "goals": [
+    {
+      "text": "Describe entropy as a measure of how dispersed matter and energy are, and link a higher entropy to more ways of arranging them.",
+      "bullets": [
+        "R1.4.1"
+      ]
+    },
+    {
+      "text": "Compare the entropy of a solid, a liquid and a gas, and explain why a perfect crystal at $\\pu{0 K}$ has zero entropy.",
+      "bullets": [
+        "R1.4.1"
+      ]
+    },
+    {
+      "text": "Predict the sign of the entropy change for a physical or chemical change, with a reason.",
+      "bullets": [
+        "R1.4.1"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta S^\\ominus$ for a reaction from standard entropy values in the data booklet.",
+      "bullets": [
+        "R1.4.1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "entropy change",
+    "delta S",
+    "standard entropy",
+    "sign of entropy change",
+    "disorder chemistry",
+    "entropy calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammonium-nitrate",
+      "prompt": "Ammonium nitrate dissolves in water and the beaker becomes colder. Which pair describes the dissolving?",
+      "hint": "The surroundings lose heat to the system.",
+      "options": [
+        {
+          "text": "endothermic, with a positive enthalpy change",
+          "correct": true
+        },
+        {
+          "text": "endothermic, with a negative enthalpy change",
+          "correct": false
+        },
+        {
+          "text": "exothermic, with a negative enthalpy change",
+          "correct": false
+        },
+        {
+          "text": "exothermic, with a positive enthalpy change",
+          "correct": false
+        }
+      ],
+      "explain": "The water cools because the system takes in heat from it. That makes the change endothermic, and the system's enthalpy rises, so $\\Delta H$ is positive. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "endothermic, with a positive enthalpy change"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-liquid-particles",
+      "prompt": "Which statement describes the particles in a liquid?",
+      "hint": "Think about how close the particles are, and whether they stay in one place.",
+      "options": [
+        {
+          "text": "close together, and able to move past one another",
+          "correct": true
+        },
+        {
+          "text": "far apart, and moving quickly in all directions",
+          "correct": false
+        },
+        {
+          "text": "close together, and fixed in place where they can only vibrate",
+          "correct": false
+        }
+      ],
+      "explain": "Liquid particles are about as close as in a solid, but they can slide past one another. Far apart and fast describes a gas; fixed in place describes a solid. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "close together, and able to move past one another"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-is-entropy",
+      "heading": "What entropy measures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A drop of ink in water spreads until the colour is even. A hot pan cools as its energy spreads into the room. Neither change runs backwards on its own: matter and energy tend to spread out."
+        },
+        {
+          "type": "text",
+          "text": "Picture the energy of a substance as small packets shared among its particles. Every extra particle, and every extra way a particle can move, multiplies the number of ways to share them out."
+        },
+        {
+          "type": "definition",
+          "term": "entropy",
+          "statement": "Entropy, $S$, is a measure of how dispersed the matter and energy of a system are. The greater the number of ways the particles and their energy can be arranged, the greater the entropy.",
+          "plain": "How spread out a system is: the more ways its particles and energy can be shuffled, the higher its entropy."
+        },
+        {
+          "type": "text",
+          "text": "[[entropy|Entropy]] has units of $\\pu{J K-1 mol-1}$: joules, not kilojoules. The standard entropy, $S^\\ominus$, is the entropy of one mole of a substance at $\\pu{100 kPa}$, usually listed at $\\pu{298 K}$. Values are in section 13 of the data booklet."
+        },
+        {
+          "type": "result",
+          "statement": "At a given temperature and pressure, a substance has more entropy as a liquid than as a solid, and more as a gas than as a liquid: $S(\\text{s}) < S(\\text{l}) < S(\\text{g})$.",
+          "why": "Solid particles can only vibrate in fixed places. Liquid particles can also move past one another, and gas particles move freely through the whole volume, so each state has far more possible arrangements than the one before."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-states-entropy",
+          "alt": "Three boxes side by side showing the particles of one substance as a solid, a liquid and a gas. Left, solid: particles packed in a regular grid, touching, each only vibrating in place. Middle, liquid: particles still close together, but in an irregular arrangement with small gaps, with small curved arrows showing they move past one another. Right, gas: a few particles far apart, spread through the whole box, each with a straight arrow showing fast movement in a random direction. Under the liquid box: water, standard entropy 70 joules per kelvin per mole. Under the gas box: steam, standard entropy 189 joules per kelvin per mole. A long arrow under all three boxes points from left to right and is labelled entropy increases: more ways to arrange the particles and their energy.",
+          "caption": "Water shows the jump from liquid to gas: $S^\\ominus$ rises from $\\pu{70 J K-1 mol-1}$ for $\\ce{H2O(l)}$ to $\\pu{189 J K-1 mol-1}$ for $\\ce{H2O(g)}$."
+        },
+        {
+          "type": "text",
+          "text": "Within one state, more complex particles usually have more entropy. They have more atoms that can vibrate and rotate. Among the gaseous alkanes, $S^\\ominus$ rises from methane ($186$) through ethane ($230$) and propane ($270$) to butane ($310$)."
+        },
+        {
+          "type": "text",
+          "text": "Raising the [[temperature|temperature]] increases entropy too. The particles have more energy to share out, so there are more ways to arrange it."
+        },
+        {
+          "type": "text",
+          "text": "In a perfect crystal at $\\pu{0 K}$ there is only one way to arrange the particles and their energy, so the entropy is zero. Every substance above $\\pu{0 K}$ has a positive entropy."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-steam",
+          "question": "Explain why the standard entropy of steam is much greater than that of liquid water.",
+          "steps": [
+            "Compare how the molecules are arranged and move in each state.",
+            "Link that to the number of ways to arrange the molecules and their energy, then conclude."
+          ],
+          "answer": "In liquid water the molecules are close together and can only move past one another. In steam the molecules are far apart and move freely and randomly through the whole container. So there are many more ways to arrange the molecules and their energy in the gas. The matter and energy are more dispersed, so steam has the greater entropy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gas particles far apart and moving freely; many more ways to arrange matter and energy",
+            "requires": [
+              [
+                "close together",
+                "closely packed"
+              ],
+              [
+                "move freely",
+                "move randomly"
+              ],
+              [
+                "more ways",
+                "greater number of ways"
+              ],
+              [
+                "more dispersed",
+                "more spread out"
+              ],
+              "greater entropy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "bonds are broken"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-zero-kelvin",
+          "question": "A perfect crystal of a metal is cooled to $\\pu{0 K}$. Explain why its entropy is predicted to be zero.",
+          "steps": [
+            "Describe the arrangement of the particles, then their energy at $\\pu{0 K}$.",
+            "Link both to the number of possible arrangements, then conclude."
+          ],
+          "answer": "In a perfect crystal every particle is in a fixed position in a regular lattice, so there is only one way to arrange the particles. At $\\pu{0 K}$ the particles have the lowest possible energy, so there is only one way to distribute the energy. With only one possible arrangement, the matter and energy are not dispersed at all, so the entropy is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "perfect order and lowest energy give a single arrangement, so S = 0",
+            "requires": [
+              [
+                "fixed position",
+                "regular lattice"
+              ],
+              [
+                "lowest possible energy",
+                "minimum energy"
+              ],
+              [
+                "only one way",
+                "one possible arrangement"
+              ],
+              [
+                "entropy is zero",
+                "zero entropy"
+              ]
+            ],
+            "forbids": [
+              "no movement at all because the particles have no energy",
+              "entropy is negative"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a gas has more entropy because its bonds are broken. For a molecular substance, changing state overcomes the forces between molecules; the covalent bonds inside them stay intact."
+        },
+        {
+          "type": "check",
+          "id": "check-highest-entropy",
+          "prompt": "Which substance has the greatest standard entropy at $\\pu{298 K}$?",
+          "hint": "Look at the state first, then at how many atoms each particle has.",
+          "options": [
+            {
+              "text": "butane gas",
+              "correct": true
+            },
+            {
+              "text": "methane gas",
+              "correct": false
+            },
+            {
+              "text": "liquid benzene",
+              "correct": false
+            },
+            {
+              "text": "solid benzoic acid",
+              "correct": false
+            }
+          ],
+          "explain": "Both gases beat the liquid and the solid. Butane has more atoms per molecule than methane, so more ways to vibrate and rotate: $S^\\ominus$ is $\\pu{310 J K-1 mol-1}$ against $186$ (data booklet, section 13).",
+          "verify": {
+            "kind": "choice",
+            "truth": "butane gas"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cooling-gas",
+          "prompt": "A sample of nitrogen gas is cooled from $\\pu{350 K}$ to $\\pu{300 K}$. It stays a gas. What happens to its entropy?",
+          "hint": "Less energy means fewer ways of sharing it out.",
+          "options": [
+            {
+              "text": "It decreases.",
+              "correct": true
+            },
+            {
+              "text": "It increases.",
+              "correct": false
+            },
+            {
+              "text": "It stays the same, because the substance does not change state.",
+              "correct": false
+            }
+          ],
+          "explain": "Cooling lowers the energy the molecules have to share, so there are fewer ways to arrange it. Entropy depends on temperature, not only on the state.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It decreases."
+          }
+        }
+      ]
+    },
+    {
+      "id": "predicting",
+      "heading": "Predicting the sign of $\\Delta S$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The entropy change of a system is $\\Delta S = S_\\text{final} - S_\\text{initial}$. A positive $\\Delta S$ means the matter and energy end up more dispersed. A negative $\\Delta S$ means they end up less dispersed."
+        },
+        {
+          "type": "text",
+          "text": "1. Gases have by far the most entropy, so count the moles of gas on each side first. More gas in the products: $\\Delta S$ is positive. Less gas: negative."
+        },
+        {
+          "type": "text",
+          "text": "2. If the amount of gas does not change, look at the other states. Solid to liquid, or a solid dissolving, usually increases entropy. A solid forming from a solution usually decreases it."
+        },
+        {
+          "type": "text",
+          "text": "3. If neither step decides it, $\\Delta S$ is small and hard to predict: calculate it from data."
+        },
+        {
+          "type": "result",
+          "statement": "An increase in the amount of gas gives a positive $\\Delta S$. A decrease in the amount of gas gives a negative $\\Delta S$.",
+          "why": "Each mole of gas has far more possible arrangements than a mole of liquid or solid, so the change in gas outweighs everything else."
+        },
+        {
+          "type": "text",
+          "text": "Physical changes follow the same rule. Melting, boiling and sublimation have a positive $\\Delta S$; freezing, condensing and deposition have a negative one."
+        },
+        {
+          "type": "text",
+          "text": "Entropy also explains why some [[endothermic-reaction|endothermic reactions]] happen on their own, although the [[enthalpy-change|enthalpy change]] is unfavourable. You will weigh the two against each other in {{lesson:4.7}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-chlorate",
+          "question": "Heating potassium chlorate releases oxygen: $\\ce{2KClO3(s) -> 2KCl(s) + 3O2(g)}$. Predict, with a reason, the sign of $\\Delta S$ for this reaction.",
+          "steps": [
+            "Count the gas: the reactants have no gas. The products have $\\pu{3 mol}$ of $\\ce{O2(g)}$.",
+            "The amount of gas increases, and gases have far more entropy than solids.",
+            "So the products are more dispersed than the reactants."
+          ],
+          "answer": "The reactants contain no gas, but the products contain three moles of gas. Gas particles move freely, so they have many more possible arrangements than particles in a solid. The amount of gas increases, so $\\Delta S$ is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "0 mol gas to 3 mol gas, so entropy increases",
+            "requires": [
+              [
+                "no gas",
+                "zero moles of gas"
+              ],
+              [
+                "three moles of gas",
+                "3 mol of gas"
+              ],
+              [
+                "amount of gas increases",
+                "more gas"
+              ],
+              "positive"
+            ],
+            "forbids": [
+              "negative"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-precipitate",
+          "question": "Adding sodium chloride solution to silver nitrate solution forms a white precipitate: $\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)}$. Predict, with a reason, the sign of $\\Delta S$.",
+          "steps": [
+            "No gas is involved, so look at the states instead.",
+            "Two moles of aqueous ions become one mole of solid.",
+            "Ions free to move through the solution become fixed in a lattice."
+          ],
+          "answer": "No gas is involved. Two moles of aqueous ions, which move freely through the solution, become one mole of solid. In the solid the ions are fixed in a lattice, so there are fewer ways to arrange them. So $\\Delta S$ is negative.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "aqueous ions become a solid lattice, so entropy decreases",
+            "requires": [
+              [
+                "no gas",
+                "not involve a gas"
+              ],
+              [
+                "two moles of aqueous ions",
+                "2 mol of ions"
+              ],
+              [
+                "one mole of solid",
+                "a solid"
+              ],
+              [
+                "fewer ways",
+                "less dispersed"
+              ],
+              "negative"
+            ],
+            "forbids": [
+              "positive"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting every species when you compare moles. Only the gases matter in step 1: in $\\ce{2KClO3(s) -> 2KCl(s) + 3O2(g)}$ the change is $0 \\to 3$ moles of gas, not $2 \\to 5$ moles of substance."
+        },
+        {
+          "type": "check",
+          "id": "check-positive-change",
+          "prompt": "Which change has a positive entropy change?",
+          "hint": "Look for the option where a gas appears.",
+          "options": [
+            {
+              "text": "iodine subliming",
+              "correct": true
+            },
+            {
+              "text": "nitrogen monoxide reacting with oxygen to form nitrogen dioxide gas",
+              "correct": false
+            },
+            {
+              "text": "water freezing",
+              "correct": false
+            },
+            {
+              "text": "carbon dioxide gas dissolving in water",
+              "correct": false
+            }
+          ],
+          "explain": "Sublimation turns a solid into a gas, so entropy increases. The $\\ce{NO}$ reaction goes from 3 to 2 moles of gas, freezing makes a solid, and dissolving a gas traps it in the liquid: all three decrease entropy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "iodine subliming"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest-decrease",
+          "prompt": "Which reaction has the largest decrease in entropy? Ethane combustion: $\\ce{2C2H6(g) + 7O2(g) -> 4CO2(g) + 6H2O(l)}$. Methane combustion: $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(g)}$. Ethene hydrogenation: $\\ce{C2H4(g) + H2(g) -> C2H6(g)}$. Peroxide decomposition: $\\ce{2H2O2(l) -> 2H2O(l) + O2(g)}$.",
+          "hint": "Count only the moles of gas on each side. Water is a gas in only some of the equations.",
+          "options": [
+            {
+              "text": "ethane combustion",
+              "correct": true
+            },
+            {
+              "text": "methane combustion",
+              "correct": false
+            },
+            {
+              "text": "ethene hydrogenation",
+              "correct": false
+            },
+            {
+              "text": "peroxide decomposition",
+              "correct": false
+            }
+          ],
+          "explain": "Ethane combustion goes from 9 to 4 moles of gas, a drop of 5, because its water is liquid. Methane combustion keeps 3 moles of gas, hydrogenation loses 1 and the peroxide gains 1.",
+          "verify": {
+            "kind": "choice",
+            "truth": "ethane combustion"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculating",
+      "heading": "Calculating $\\Delta S^\\ominus$ from data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Entropy is measured up from zero at $\\pu{0 K}$, so every substance has its own $S^\\ominus$. Look up each one and subtract."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta S^\\ominus = \\sum S^\\ominus(\\text{products}) - \\sum S^\\ominus(\\text{reactants})",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Multiply each $S^\\ominus$ by its coefficient in the equation. Take the value for the right state: $\\ce{H2O(l)}$ is $70$ but $\\ce{H2O(g)}$ is $189$."
+        },
+        {
+          "type": "text",
+          "text": "An element in its standard state has $\\Delta H_\\text{f}^\\ominus = 0$, but its $S^\\ominus$ is not zero. The data booklet lists only compounds, so a question gives you values for elements such as $\\ce{O2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-methanoic-acid",
+          "question": "Warm concentrated sulfuric acid breaks methanoic acid down: $\\ce{HCOOH(l) -> CO(g) + H2O(l)}$. Calculate $\\Delta S^\\ominus$ for this reaction using section 13 of the data booklet.",
+          "steps": [
+            "Products: $S^\\ominus(\\ce{CO(g)}) + S^\\ominus(\\ce{H2O(l)}) = 198 + 70 = \\pu{268 J K-1 mol-1}$.",
+            "Reactants: $S^\\ominus(\\ce{HCOOH(l)}) = \\pu{129 J K-1 mol-1}$.",
+            "$\\Delta S^\\ominus = 268 - 129 = \\pu{+139 J K-1 mol-1}$.",
+            "Sense check: one mole of gas forms from a liquid, so a positive value fits."
+          ],
+          "answer": "$\\Delta S^\\ominus = \\pu{+139 J K-1 mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(S('CO(g)') + S('H2O(l)')) - S('HCOOH(l)')",
+            "unit": "J K-1 mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-methane-combustion",
+          "question": "Natural gas burns: $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l)}$. The standard entropy of oxygen, $\\ce{O2(g)}$, is $\\pu{205 J K-1 mol-1}$. Calculate $\\Delta S^\\ominus$ for the reaction, using section 13 of the data booklet for the other values.",
+          "steps": [
+            "Products: $214 + 2(70) = \\pu{354 J K-1 mol-1}$. Use liquid water, as in the equation.",
+            "Reactants: $186 + 2(205) = \\pu{596 J K-1 mol-1}$. Include oxygen: an element's $S^\\ominus$ is not zero.",
+            "$\\Delta S^\\ominus = 354 - 596 = \\pu{-242 J K-1 mol-1}$.",
+            "Sense check: 3 moles of gas become 1, so a negative value fits."
+          ],
+          "answer": "$\\Delta S^\\ominus = \\pu{-242 J K-1 mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(S('CO2(g)') + 2*S('H2O(l)')) - (S('CH4(g)') + 2*205)",
+            "unit": "J K-1 mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out an element because its enthalpy of formation is zero. Its entropy is not zero, so its $S^\\ominus$ goes into the sum like any other species."
+        },
+        {
+          "type": "examTip",
+          "text": "Keep $\\Delta S^\\ominus$ in $\\pu{J K-1 mol-1}$ with its sign. When you later combine it with $\\Delta H$ in $\\pu{kJ mol-1}$, divide it by 1000 first."
+        },
+        {
+          "type": "check",
+          "id": "check-ethene-hydration",
+          "prompt": "Ethanol is made by hydrating ethene: $\\ce{C2H4(g) + H2O(g) -> C2H5OH(l)}$. Use section 13 of the data booklet to calculate $\\Delta S^\\ominus$, in $\\pu{J K-1 mol-1}$. Include the sign.",
+          "hint": "Water is a gas here, so use the value for steam.",
+          "answer": {
+            "value": -248,
+            "tolerance": 0
+          },
+          "explain": "Products: $161$. Reactants: $220 + 189 = 409$. $\\Delta S^\\ominus = 161 - 409 = \\pu{-248 J K-1 mol-1}$. Two moles of gas become a liquid, so the negative sign fits.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "S('C2H5OH(l)') - (S('C2H4(g)') + S('H2O(g)'))",
+            "dp": 0,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-methanol-combustion",
+          "prompt": "Methanol burns: $\\ce{2CH3OH(l) + 3O2(g) -> 2CO2(g) + 4H2O(l)}$. $S^\\ominus$ of $\\ce{O2(g)}$ is $\\pu{205 J K-1 mol-1}$; take the other values from section 13 of the data booklet. What is $\\Delta S^\\ominus$?",
+          "hint": "Multiply every value by its coefficient, and keep oxygen in the reactants.",
+          "options": [
+            {
+              "text": "$\\pu{-161 J K-1 mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{+161 J K-1 mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{+454 J K-1 mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{-48 J K-1 mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Products: $2(214) + 4(70) = 708$. Reactants: $2(127) + 3(205) = 869$. $\\Delta S^\\ominus = 708 - 869 = \\pu{-161 J K-1 mol-1}$. $+161$ is reactants $-$ products, $+454$ leaves out oxygen and $-48$ ignores the coefficients.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2*S('CO2(g)') + 4*S('H2O(l)')) - (2*S('CH3OH(l)') + 3*205)",
+            "unit": "J K-1 mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Entropy, $S$, measures how dispersed matter and energy are: more ways to arrange them means higher entropy. Units: $\\pu{J K-1 mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At the same temperature and pressure, $S(\\text{s}) < S(\\text{l}) < S(\\text{g})$. Entropy also rises with temperature and with more complex particles.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A perfect crystal at $\\pu{0 K}$ has zero entropy: there is only one way to arrange its particles and energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To predict the sign of $\\Delta S$, compare the moles of gas: more gas gives positive, less gas gives negative. If they balance, look at changes of state and dissolving.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta S^\\ominus = \\sum S^\\ominus(\\text{products}) - \\sum S^\\ominus(\\text{reactants})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply each $S^\\ominus$ by its coefficient, use the right state, and include elements: their $S^\\ominus$ is not zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating an element's $S^\\ominus$ as zero, as if it were $\\Delta H_\\text{f}^\\ominus$. Include elements in the sum.",
+    "Mixing joules and kilojoules. $S^\\ominus$ and $\\Delta S^\\ominus$ are in $\\pu{J K-1 mol-1}$; divide by 1000 before combining with a $\\Delta H$ in $\\pu{kJ mol-1}$.",
+    "Counting solids and liquids when you compare moles. Count only the gases first.",
+    "Working out reactants $-$ products, which flips the sign. Check the sign against your prediction."
+  ],
+  "examTips": [
+    "\"Predict\" the sign of $\\Delta S$: give the sign and the reason, such as \"the moles of gas fall from 3 to 1, so $\\Delta S$ is negative\".",
+    "\"Calculate\" $\\Delta S^\\ominus$: write the products total, the reactants total, then the answer with its sign and $\\pu{J K-1 mol-1}$.",
+    "\"Explain\" a difference in entropy: describe how the particles are arranged and move in each state, then link that to the number of ways matter and energy can be arranged."
+  ],
+  "readingMinutes": 20
+}

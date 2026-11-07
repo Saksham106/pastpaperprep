@@ -1,0 +1,637 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.19",
+  "slug": "electrophilic-addition",
+  "title": "Electrophilic addition",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "The electron-rich $\\ce{C=C}$ bond of an [[alkene|alkene]] attracts an [[electrophile|electrophile]], giving a [[carbocation|carbocation]] that then gains a negative ion or water: [[electrophilic-addition|electrophilic addition]]. With an unsymmetrical alkene, the more stable carbocation decides the major product: [[markovnikovs-rule|Markovnikov's rule]].",
+  "goals": [
+    {
+      "text": "Explain why alkenes readily undergo electrophilic addition.",
+      "bullets": [
+        "R3.4.11"
+      ]
+    },
+    {
+      "text": "Draw the mechanisms for hydrogen halides and halogens adding to symmetrical alkenes, with [[curly-arrow|curly arrows]].",
+      "bullets": [
+        "R3.4.11"
+      ]
+    },
+    {
+      "text": "Describe and explain the acid-catalysed addition of water.",
+      "bullets": [
+        "R3.4.11"
+      ]
+    },
+    {
+      "text": "Predict and explain the major product with an unsymmetrical alkene, using carbocation stability.",
+      "bullets": [
+        "R3.4.12"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.12",
+    "3.7",
+    "3.8",
+    "5.5",
+    "6.15",
+    "6.16",
+    "6.17",
+    "6.18"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "alkene addition mechanism",
+    "HBr and alkene mechanism",
+    "bromine and alkene mechanism",
+    "hydration of alkenes",
+    "Markovnikov's rule",
+    "carbocation stability"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hcl-fission",
+      "prompt": "The H–Cl bond breaks by [[heterolytic-fission|heterolytic fission]], with both electrons going to Cl. What forms?",
+      "hint": "Chlorine keeps the bonding pair, so it gains a negative charge.",
+      "options": [
+        {
+          "text": "A hydrogen ion and a chloride ion",
+          "correct": true
+        },
+        {
+          "text": "A hydrogen atom and a chlorine atom, both radicals",
+          "correct": false
+        },
+        {
+          "text": "A hydride ion and a positive chlorine ion",
+          "correct": false
+        }
+      ],
+      "explain": "Cl keeps the pair and becomes $\\ce{Cl^-}$, leaving $\\ce{H^+}$. One electron each way is homolytic fission. Revise it in {{lesson:6.16}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "A hydrogen ion and a chloride ion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-classify-tertiary",
+      "prompt": "In 2-methylbutan-2-ol, $\\ce{(CH3)2C(OH)CH2CH3}$, how is the carbon bonded to OH classified?",
+      "hint": "Count the carbon atoms bonded to that carbon.",
+      "options": [
+        {
+          "text": "Tertiary",
+          "correct": true
+        },
+        {
+          "text": "Secondary",
+          "correct": false
+        },
+        {
+          "text": "Primary",
+          "correct": false
+        }
+      ],
+      "explain": "That carbon is bonded to three other carbons, so it is tertiary. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Tertiary"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "hydrogen-halides",
+      "heading": "Why alkenes add electrophiles: hydrogen halides",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An alkene's $\\ce{C=C}$ bond is a [[sigma-bond|σ bond]] plus a [[pi-bond|π bond]]. The π electrons sit above and below the plane of the molecule, exposed. So the double bond is a region of high electron density."
+        },
+        {
+          "type": "text",
+          "text": "An [[electrophile|electrophile]] is attracted to it, and the π bond, weaker than the σ bond, breaks easily. The π pair acts as a [[lewis-base|Lewis base]]; the electrophile is a [[lewis-acid|Lewis acid]]."
+        },
+        {
+          "type": "text",
+          "text": "The result is [[electrophilic-addition|electrophilic addition]], a kind of [[addition-reaction|addition reaction]]: the double bond becomes single and each of its carbons gains a new atom or group."
+        },
+        {
+          "type": "text",
+          "text": "In hydrogen bromide, Br is more electronegative, so H is δ+: this H is the electrophile."
+        },
+        {
+          "type": "text",
+          "text": "1. A [[curly-arrow|curly arrow]] goes from the $\\ce{C=C}$ bond to the H atom. A second goes from the H–Br bond to Br, which breaks by [[heterolytic-fission|heterolytic fission]]. One carbon gains H; the other is left positive: a [[carbocation|carbocation]], plus $\\ce{Br^-}$."
+        },
+        {
+          "type": "text",
+          "text": "2. A lone pair on $\\ce{Br^-}$ forms a bond to the positive carbon."
+        },
+        {
+          "type": "text",
+          "text": "The carbocation is a [[reaction-intermediate|reaction intermediate]] of this [[reaction-mechanism|reaction mechanism]]: step 1 makes it and step 2 uses it up."
+        },
+        {
+          "type": "figure",
+          "id": "6-19-hbr-ethene",
+          "alt": "Mechanism for ethene and hydrogen bromide. Left: ethene, two carbons joined by a double bond, each with two hydrogens. Hydrogen bromide sits to the right, with the hydrogen labelled delta plus and the bromine delta minus. One curly arrow goes from the double bond to the hydrogen of hydrogen bromide. A second curly arrow goes from the hydrogen–bromine bond to the bromine. Step 1 gives a carbocation: a CH3 group bonded to a carbon with two hydrogens and a positive charge, plus a bromide ion with a lone pair and a negative charge. In step 2 a curly arrow goes from the lone pair on the bromide ion to the positive carbon, giving bromoethane, CH3CH2Br.",
+          "caption": "HBr adding to ethene. HI and HCl react the same way."
+        },
+        {
+          "type": "example",
+          "id": "ex-hbr-but-2-ene",
+          "question": "But-2-ene, $\\ce{CH3CH=CHCH3}$, reacts with hydrogen bromide. Write the equation with condensed structural formulas, and name the product.",
+          "steps": [
+            "H adds to one double-bond carbon and Br to the other. The alkene is symmetrical, so there is one product.",
+            "Br is on carbon 2: 2-bromobutane."
+          ],
+          "answer": "$\\ce{CH3CH=CHCH3 + HBr -> CH3CH2CHBrCH3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-why-alkenes-react",
+          "question": "Explain why but-2-ene reacts with hydrogen bromide at room temperature but butane does not.",
+          "steps": [
+            "Say what the alkene has that the alkane lacks, and what the δ+ H does."
+          ],
+          "answer": "But-2-ene has a $\\ce{C=C}$ double bond, a region of high electron density from the π bond. The partially positive H of HBr is an electrophile, so it is attracted to the double bond and accepts an electron pair from it. The π bond is weaker than a σ bond, so it breaks easily. Butane has only σ bonds and no region of high electron density.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "The C=C pi bond is electron-rich and weak, so it attracts the electrophilic H of HBr; butane has only sigma bonds.",
+            "requires": [
+              [
+                "high electron density"
+              ],
+              [
+                "π bond",
+                "pi bond"
+              ],
+              "electrophile",
+              [
+                "weaker than a σ bond",
+                "weaker than a sigma bond"
+              ],
+              [
+                "only σ bonds",
+                "only sigma bonds"
+              ]
+            ],
+            "forbids": [
+              "radical",
+              "homolytic"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-first-arrow",
+          "prompt": "In step 1 of the reaction between ethene and HBr, where does the first curly arrow start?",
+          "hint": "An arrow starts where the electron pair is.",
+          "options": [
+            {
+              "text": "At the carbon–carbon double bond",
+              "correct": true
+            },
+            {
+              "text": "At the H atom of HBr",
+              "correct": false
+            },
+            {
+              "text": "At the Br atom of HBr",
+              "correct": false
+            },
+            {
+              "text": "At the H–Br bond",
+              "correct": false
+            }
+          ],
+          "explain": "The π pair moves to the δ+ H. The H–Br arrow comes second.",
+          "verify": {
+            "kind": "choice",
+            "truth": "At the carbon–carbon double bond"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hi-ethene",
+          "prompt": "Which is the product of ethene and hydrogen iodide?",
+          "hint": "One H and one I add across the double bond.",
+          "options": [
+            {
+              "text": "$\\ce{CH3CH2I}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CH2ICH2I}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH2=CHI}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Iodoethane. Two I atoms would need $\\ce{I2}$."
+        }
+      ]
+    },
+    {
+      "id": "halogens",
+      "heading": "Adding a halogen",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Bromine has no permanent dipole. Near the $\\ce{C=C}$ bond, the high electron density repels the Br–Br bonding pair towards the far Br. This induces a dipole: the near Br becomes δ+."
+        },
+        {
+          "type": "text",
+          "text": "The δ+ Br is now the [[electrophile|electrophile]], and the [[curly-arrow|curly arrows]] match HBr. The Br–Br bond breaks by [[heterolytic-fission|heterolytic fission]], giving a [[carbocation|carbocation]] and $\\ce{Br^-}$."
+        },
+        {
+          "type": "text",
+          "text": "Then $\\ce{Br^-}$ bonds to the positive carbon: one Br ends on each carbon. Chlorine and iodine add the same way."
+        },
+        {
+          "type": "figure",
+          "id": "6-19-bromine-ethene",
+          "alt": "Mechanism for ethene and bromine. Left: ethene, two carbons joined by a double bond, each with two hydrogens. A bromine molecule sits to the right; the nearer bromine is labelled delta plus and the further one delta minus. One curly arrow goes from the double bond to the nearer bromine. A second curly arrow goes from the bromine–bromine bond to the further bromine. Step 1 gives a carbocation, BrCH2 bonded to a carbon with two hydrogens and a positive charge, plus a bromide ion with a lone pair. In step 2 a curly arrow goes from the lone pair on the bromide ion to the positive carbon, giving 1,2-dibromoethane, BrCH2CH2Br.",
+          "caption": "The $\\ce{C=C}$ bond itself polarises the bromine molecule."
+        },
+        {
+          "type": "text",
+          "text": "Alkanes have no π bond, so they react with halogens only by [[radical|radical]] substitution, which needs UV light or a high temperature ({{lesson:6.15}}). Alkenes decolourise orange-brown bromine water at room temperature."
+        },
+        {
+          "type": "example",
+          "id": "ex-chlorine-hex-3-ene",
+          "question": "Hex-3-ene, $\\ce{CH3CH2CH=CHCH2CH3}$, reacts with chlorine. Write the equation with condensed structural formulas, and name the product.",
+          "steps": [
+            "One Cl adds to each double-bond carbon, carbons 3 and 4: 3,4-dichlorohexane.",
+            "Both [[cis-trans-isomerism|cis-trans isomers]] of hex-3-ene give this structural product."
+          ],
+          "answer": "$\\ce{CH3CH2CH=CHCH2CH3 + Cl2 -> CH3CH2CHClCHClCH2CH3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-electrophile",
+          "question": "Bromine molecules are non-polar. Explain how bromine acts as an electrophile towards ethene, and outline the mechanism.",
+          "steps": [
+            "Start with how the dipole forms, then follow each electron pair."
+          ],
+          "answer": "As bromine approaches, the $\\ce{C=C}$ bond's high electron density repels the Br–Br bonding electrons. This induces a dipole, so the nearer bromine atom becomes δ+ and acts as the electrophile. An electron pair from the $\\ce{C=C}$ bond bonds to it, and the Br–Br bond breaks by heterolytic fission, giving a carbocation and a bromide ion. The bromide ion donates a lone pair to the positive carbon, forming 1,2-dibromoethane.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "The C=C electron density induces a dipole in Br2; the delta+ Br accepts the pi pair, Br-Br breaks heterolytically, and Br- bonds to the carbocation.",
+            "requires": [
+              [
+                "induces a dipole",
+                "induced dipole"
+              ],
+              "electron density",
+              "heterolytic fission",
+              "carbocation",
+              "bromide ion",
+              "lone pair",
+              "1,2-dibromoethane"
+            ],
+            "forbids": [
+              "homolytic",
+              "radical",
+              "bromine is polar"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-br2-fission",
+          "prompt": "When bromine adds to an alkene, how does the Br–Br bond break?",
+          "hint": "Step 1 gives two ions.",
+          "options": [
+            {
+              "text": "Heterolytically: both electrons go to one Br",
+              "correct": true
+            },
+            {
+              "text": "Homolytically: one electron goes to each Br",
+              "correct": false
+            },
+            {
+              "text": "It does not break: Br2 adds to one carbon",
+              "correct": false
+            }
+          ],
+          "explain": "The far Br leaves as $\\ce{Br^-}$. Homolytic fission belongs to alkanes in UV light.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Heterolytically: both electrons go to one Br"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bromine-dimethylbutene",
+          "prompt": "Which is the product of 2,3-dimethylbut-2-ene, $\\ce{(CH3)2C=C(CH3)2}$, and bromine?",
+          "hint": "Each carbon of the double bond gains one Br.",
+          "options": [
+            {
+              "text": "$\\ce{(CH3)2CBrCBr(CH3)2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{(CH3)2CBrCH(CH3)2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{(CH3)2CHCH(CH3)2}$",
+              "correct": false
+            }
+          ],
+          "explain": "One Br adds to each double-bond carbon. The other two options need HBr or hydrogen."
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "heading": "Adding water: an acid catalyst",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Water alone supplies almost no $\\ce{H^+}$, so it does not add. An acid catalyst supplies $\\ce{H^+}$, the [[electrophile|electrophile]]. Industrially, ethene and steam are heated with a phosphoric acid catalyst."
+        },
+        {
+          "type": "text",
+          "text": "1. A [[curly-arrow|curly arrow]] goes from the $\\ce{C=C}$ bond to $\\ce{H^+}$. One carbon gains H, giving a [[carbocation|carbocation]]."
+        },
+        {
+          "type": "text",
+          "text": "2. A lone pair on the O of water bonds to the positive carbon, giving a protonated alcohol with + on oxygen."
+        },
+        {
+          "type": "text",
+          "text": "3. An O–H bond breaks, both electrons going to O. The alcohol forms and $\\ce{H^+}$ is released, so the acid is a catalyst."
+        },
+        {
+          "type": "figure",
+          "id": "6-19-hydration-ethene",
+          "alt": "Acid-catalysed hydration of ethene in two rows. Row 1, step 1: a curly arrow goes from the double bond of ethene to a hydrogen ion, giving a carbocation, CH3 bonded to a carbon with two hydrogens and a positive charge. Step 2: a curly arrow goes from a lone pair on the oxygen of a water molecule to the positive carbon. Row 2: the protonated alcohol, CH3CH2 bonded to an oxygen that carries two hydrogens and a positive charge. Step 3: a curly arrow goes from one oxygen–hydrogen bond to the oxygen, giving ethanol, CH3CH2OH, and a hydrogen ion.",
+          "caption": "The $\\ce{H^+}$ released in step 3 starts the cycle again."
+        },
+        {
+          "type": "mistake",
+          "text": "Joining the OH to carbon through its H. The new bond is C–O, made from a lone pair on the oxygen of water."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydration-ethene",
+          "question": "Write the equation, with condensed structural formulas and state symbols, for the industrial hydration of ethene by steam.",
+          "steps": [
+            "H adds to one carbon and OH to the other; the catalyst is left out. At the high temperature used, all are gases."
+          ],
+          "answer": "$\\ce{CH2=CH2(g) + H2O(g) -> CH3CH2OH(g)}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-hydration-but-2-ene",
+          "question": "But-2-ene reacts with water in the presence of an acid catalyst. Outline the mechanism, and explain why the acid is described as a catalyst.",
+          "steps": [
+            "Follow three steps: attack on $\\ce{H^+}$, attack by water, loss of $\\ce{H^+}$."
+          ],
+          "answer": "The $\\ce{C=C}$ bond donates an electron pair to $\\ce{H^+}$, the electrophile, forming a carbocation. A lone pair on the oxygen of water bonds to the positive carbon. The protonated alcohol then loses $\\ce{H^+}$, giving butan-2-ol. The $\\ce{H^+}$ is regenerated, so the acid is not used up: it is a catalyst.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H+ adds to C=C giving a carbocation; water's lone pair bonds to C+; H+ is lost, giving butan-2-ol and regenerating the catalyst.",
+            "requires": [
+              [
+                "$\\ce{H^+}$",
+                "hydrogen ion"
+              ],
+              "electrophile",
+              "carbocation",
+              "lone pair",
+              "butan-2-ol",
+              "regenerated"
+            ],
+            "forbids": [
+              "hydroxide ion",
+              "butan-1-ol"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-acid-role",
+          "prompt": "Why is an acid needed when water adds to an alkene?",
+          "hint": "What does the $\\ce{C=C}$ bond attack first?",
+          "options": [
+            {
+              "text": "It supplies hydrogen ions, the electrophile, and gets them back",
+              "correct": true
+            },
+            {
+              "text": "It supplies hydroxide ions, which attack the double bond",
+              "correct": false
+            },
+            {
+              "text": "It is used up as it adds hydrogen ions to the alkene",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{H^+}$ is the electrophile in step 1 and is released in step 3.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It supplies hydrogen ions, the electrophile, and gets them back"
+          }
+        }
+      ]
+    },
+    {
+      "id": "markovnikov",
+      "heading": "Unsymmetrical alkenes: which product?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Propene, $\\ce{CH3CH=CH2}$, is unsymmetrical: with HBr it could give 2-bromopropane or 1-bromopropane."
+        },
+        {
+          "type": "text",
+          "text": "It depends on the [[carbocation|carbocation]]. H on the end $\\ce{CH2}$ leaves a secondary one, $\\ce{CH3CHCH3^+}$; H on the middle carbon leaves a primary one, $\\ce{CH3CH2CH2^+}$."
+        },
+        {
+          "type": "result",
+          "statement": "Carbocation stability: tertiary > secondary > primary.",
+          "why": "Alkyl groups push electron density through their σ bonds onto the positive carbon (a positive inductive effect). More alkyl groups spread the charge more, which stabilises the ion."
+        },
+        {
+          "type": "text",
+          "text": "Count the alkyl groups on the positive carbon to classify it as [[primary-secondary-and-tertiary|primary, secondary or tertiary]]. The step forming the more stable carbocation has the lower activation energy, so it is faster and gives the major product."
+        },
+        {
+          "type": "figure",
+          "id": "6-19-propene-routes",
+          "alt": "Propene and hydrogen bromide, with two routes. Upper route: hydrogen adds to the CH2 end, giving the secondary carbocation CH3 C plus H CH3, labelled two alkyl groups, more stable. Bromide then adds to give 2-bromopropane, labelled major. Lower route: hydrogen adds to the middle carbon, giving the primary carbocation CH3CH2CH2 plus, labelled one alkyl group, less stable. Bromide then adds to give 1-bromopropane, labelled minor. A note reads: stability of carbocations, tertiary greater than secondary greater than primary.",
+          "caption": "The route through the more stable carbocation gives the major product."
+        },
+        {
+          "type": "definition",
+          "term": "Markovnikov's rule",
+          "statement": "When a hydrogen halide or water adds to an unsymmetrical alkene, H bonds mainly to the double-bond carbon that already has more H atoms. The other carbon, which held the charge in the more stable carbocation, gains the halogen or OH.",
+          "plain": "H goes where H already is."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the rule as the explanation. Markovnikov's rule predicts the product; carbocation stability explains it."
+        },
+        {
+          "type": "example",
+          "id": "ex-hi-pent-1-ene",
+          "question": "Deduce the major product of pent-1-ene, $\\ce{CH2=CHCH2CH2CH3}$, and hydrogen iodide. Write the equation with condensed structural formulas.",
+          "steps": [
+            "Carbon 1 has two H atoms, carbon 2 has one, so H adds to carbon 1.",
+            "That leaves a secondary carbocation on carbon 2, not a primary one, so I bonds to carbon 2: 2-iodopentane."
+          ],
+          "answer": "$\\ce{CH2=CHCH2CH2CH3 + HI -> CH3CHICH2CH2CH3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-methylbut-2-ene-hbr",
+          "question": "2-Methylbut-2-ene, $\\ce{(CH3)2C=CHCH3}$, reacts with hydrogen bromide. Predict and explain the major product.",
+          "steps": [
+            "H on the CH carbon leaves a tertiary carbocation; H on the other carbon leaves a secondary one.",
+            "Compare their stabilities, then name the product."
+          ],
+          "answer": "The major product is 2-bromo-2-methylbutane. H adds to the CH carbon, giving a tertiary carbocation rather than a secondary one. Its three alkyl groups push electron density onto the positive carbon, so it is more stable and forms faster. The bromide ion then bonds to that carbon.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H adds to the CH carbon, giving the more stable tertiary carbocation; Br- bonds there: 2-bromo-2-methylbutane.",
+            "requires": [
+              "2-bromo-2-methylbutane",
+              "tertiary carbocation",
+              [
+                "more stable"
+              ],
+              [
+                "push electron density",
+                "electron-releasing",
+                "inductive"
+              ],
+              "bromide ion"
+            ],
+            "forbids": [
+              "2-bromo-3-methylbutane is the major",
+              "primary carbocation is more stable"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hcl-methylbut-1-ene",
+          "prompt": "What is the major product of 2-methylbut-1-ene, $\\ce{CH2=C(CH3)CH2CH3}$, and HCl?",
+          "hint": "Which possible carbocation is more stable?",
+          "options": [
+            {
+              "text": "$\\ce{(CH3)2CClCH2CH3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{ClCH2CH(CH3)CH2CH3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{(CH3)2CHCHClCH3}$",
+              "correct": false
+            }
+          ],
+          "explain": "H adds to the $\\ce{CH2}$ end, leaving a tertiary carbocation, so Cl goes on carbon 2: 2-chloro-2-methylbutane."
+        },
+        {
+          "type": "check",
+          "id": "check-water-methylpropene",
+          "prompt": "2-Methylpropene, $\\ce{(CH3)2C=CH2}$, reacts with steam and an acid catalyst. What is the major product?",
+          "hint": "OH goes where the more stable carbocation was.",
+          "options": [
+            {
+              "text": "$\\ce{(CH3)3COH}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{(CH3)2CHCH2OH}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3CH2CH2CH2OH}$",
+              "correct": false
+            }
+          ],
+          "explain": "A tertiary carbocation forms on the middle carbon, so the product is 2-methylpropan-2-ol."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Alkenes undergo electrophilic addition: the electron-rich, weak π bond attacks an electrophile, giving a carbocation."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "HX: arrows from $\\ce{C=C}$ to δ+ H and from H–X to X; then $\\ce{X^-}$ bonds to $\\ce{C^+}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$\\ce{X2}$: the $\\ce{C=C}$ bond induces a dipole; one X ends on each carbon."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Water needs an acid catalyst: $\\ce{H^+}$ adds first and is regenerated at the end."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Carbocations: tertiary > secondary > primary, as alkyl groups push electron density. The more stable one gives the major product (Markovnikov's rule)."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing the first arrow from H to the double bond. It starts at the $\\ce{C=C}$ bond.",
+    "Leaving off the + on the carbocation, or the − and lone pair on $\\ce{Br^-}$.",
+    "Bonding OH to carbon through H. The C–O bond comes from a lone pair on the oxygen of water.",
+    "Calling a primary carbocation the most stable, or putting the halogen on the carbon with more H atoms. Alkyl groups stabilise the charge."
+  ],
+  "examTips": [
+    "\"Describe and explain\" a mechanism: draw each curly arrow from an electron pair, the carbocation with its charge, the anion with a lone pair, and the product.",
+    "\"Predict and explain\" a major product: name it, compare the two possible carbocations, and say why alkyl groups stabilise one more.",
+    "Paper 1A: when the two possible carbocations differ in stability, such as secondary and primary, an unsymmetrical alkene gives major and minor products, not equal amounts."
+  ],
+  "readingMinutes": 21
+}

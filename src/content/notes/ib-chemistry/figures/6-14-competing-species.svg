@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" role="img" aria-labelledby="t614cmp">
+  <title id="t614cmp">Two lists of standard electrode potentials, compared with water. Left, at the cathode, the species with the more positive value is reduced: silver ions at +0.80 V and copper(II) ions at +0.34 V lie above water at −0.83 V, so the metal forms; aluminium, magnesium, sodium and potassium ions, from −1.66 V down to −2.93 V, lie below water, so hydrogen forms instead. Right, at the anode, the species whose row is less positive is oxidized: bromide at +1.09 V and iodide at +0.54 V lie below water at +1.23 V, so the halogen forms; sulfate and nitrate ions cannot be oxidized, so oxygen forms. Chloride at +1.36 V is close to water: dilute chloride gives mainly oxygen, concentrated chloride gives chlorine.</title>
+  <g font-family="inherit" fill="currentColor">
+    <text x="170" y="30" font-size="14" text-anchor="middle" font-weight="bold">Cathode (−): reduction</text>
+    <text x="170" y="50" font-size="12" text-anchor="middle" fill="var(--muted)">more positive E⦵ is reduced</text>
+    <text x="520" y="30" font-size="14" text-anchor="middle" font-weight="bold">Anode (+): oxidation</text>
+    <text x="520" y="50" font-size="12" text-anchor="middle" fill="var(--muted)">less positive E⦵ is oxidized</text>
+
+    <g font-size="13">
+      <text x="110" y="90" text-anchor="end">Ag⁺</text><text x="125" y="90">+0.80</text>
+      <text x="110" y="120" text-anchor="end">Cu²⁺</text><text x="125" y="120">+0.34</text>
+      <text x="110" y="155" text-anchor="end" font-weight="bold" fill="var(--t1-ink)">H₂O</text><text x="125" y="155" font-weight="bold" fill="var(--t1-ink)">−0.83</text>
+      <text x="110" y="190" text-anchor="end">Al³⁺</text><text x="125" y="190">−1.66</text>
+      <text x="110" y="215" text-anchor="end">Mg²⁺</text><text x="125" y="215">−2.37</text>
+      <text x="110" y="240" text-anchor="end">Na⁺</text><text x="125" y="240">−2.71</text>
+      <text x="110" y="265" text-anchor="end">K⁺</text><text x="125" y="265">−2.93</text>
+    </g>
+    <path d="M40 160 L300 160" stroke="var(--t1-ink)" stroke-width="1.6" stroke-dasharray="6 4" fill="none"/>
+    <path d="M190 78 L196 78 L196 126 L190 126" stroke="var(--t2-ink)" stroke-width="1.6" fill="none"/>
+    <text x="206" y="107" font-size="13" fill="var(--t2-ink)">metal forms</text>
+    <path d="M190 178 L196 178 L196 270 L190 270" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+    <text x="206" y="222" font-size="13" fill="var(--t3-ink)">H₂ forms</text>
+    <text x="206" y="238" font-size="11" fill="var(--muted)">water is reduced</text>
+
+    <g font-size="13">
+      <text x="460" y="90" text-anchor="end">SO₄²⁻, NO₃⁻</text><text x="475" y="90">not oxidized</text>
+      <text x="460" y="120" text-anchor="end">Cl⁻</text><text x="475" y="120">+1.36</text>
+      <text x="460" y="155" text-anchor="end" font-weight="bold" fill="var(--t1-ink)">H₂O</text><text x="475" y="155" font-weight="bold" fill="var(--t1-ink)">+1.23</text>
+      <text x="460" y="190" text-anchor="end">Br⁻</text><text x="475" y="190">+1.09</text>
+      <text x="460" y="215" text-anchor="end">I⁻</text><text x="475" y="215">+0.54</text>
+    </g>
+    <path d="M380 160 L690 160" stroke="var(--t1-ink)" stroke-width="1.6" stroke-dasharray="6 4" fill="none"/>
+    <path d="M565 78 L571 78 L571 126 L565 126" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+    <text x="580" y="103" font-size="13" fill="var(--t3-ink)">O₂ forms</text>
+    <text x="580" y="119" font-size="11" fill="var(--muted)">water is oxidized</text>
+    <path d="M565 178 L571 178 L571 221 L565 221" stroke="var(--t2-ink)" stroke-width="1.6" fill="none"/>
+    <text x="580" y="204" font-size="13" fill="var(--t2-ink)">halogen forms</text>
+
+    <text x="520" y="300" font-size="12" text-anchor="middle" fill="var(--muted)">Cl⁻ and H₂O are close:</text>
+    <text x="520" y="318" font-size="12" text-anchor="middle" fill="var(--muted)">dilute Cl⁻ gives mainly O₂, concentrated Cl⁻ gives Cl₂</text>
+    <text x="170" y="300" font-size="12" text-anchor="middle" fill="var(--muted)">values from data booklet section 19</text>
+  </g>
+</svg>

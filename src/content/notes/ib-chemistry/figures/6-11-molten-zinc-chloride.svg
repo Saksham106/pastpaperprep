@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t">
+  <title id="t">Electrolytic cell for molten zinc chloride. A beaker holds molten zinc chloride. Two graphite electrodes dip into it. The left electrode is joined to the positive terminal of a DC power supply and is the anode, where chloride ions are oxidized: 2Cl minus gives Cl2 plus 2 electrons. The right electrode is joined to the negative terminal and is the cathode, where zinc ions are reduced: Zn2+ plus 2 electrons gives Zn. Arrows on the wires show electrons moving from the anode to the power supply and from the power supply to the cathode. Arrows in the liquid show chloride ions moving towards the anode and zinc ions moving towards the cathode.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M140 170 L140 340 Q140 350 150 350 L490 350 Q500 350 500 340 L500 170"/>
+  </g>
+  <rect x="141" y="200" width="358" height="149" fill="var(--t1-ink)" fill-opacity="0.14"/>
+  <rect x="200" y="110" width="22" height="190" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/>
+  <rect x="418" y="110" width="22" height="190" fill="currentColor" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M211 110 L211 60 L300 60"/>
+    <path d="M316 60 L429 60 L429 110"/>
+  </g>
+  <path d="M300 38 L300 82" stroke="currentColor" stroke-width="2"/>
+  <path d="M316 48 L316 72" stroke="currentColor" stroke-width="5"/>
+  <text x="288" y="40" font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">+</text>
+  <text x="329" y="46" font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">−</text>
+  <text x="308" y="102" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">DC power supply</text>
+  <path d="M232 46 L270 46" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="278,46 268,41 268,51" fill="var(--t4-ink)"/>
+  <text x="252" y="36" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <path d="M352 46 L390 46" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="398,46 388,41 388,51" fill="var(--t4-ink)"/>
+  <text x="372" y="36" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">e⁻</text>
+  <text x="320" y="160" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">graphite electrodes</text>
+  <path d="M340 245 L250 245" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polygon points="242,245 252,240 252,250" fill="var(--t3-ink)"/>
+  <text x="295" y="236" font-size="13" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">Cl⁻</text>
+  <path d="M300 290 L390 290" stroke="var(--t2-ink)" stroke-width="2"/>
+  <polygon points="398,290 388,285 388,295" fill="var(--t2-ink)"/>
+  <text x="345" y="281" font-size="13" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">Zn²⁺</text>
+  <text x="320" y="335" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">molten ZnCl₂(l)</text>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="190" y="374">anode (+): oxidation</text>
+    <text x="190" y="394">2Cl⁻ → Cl₂ + 2e⁻</text>
+    <text x="450" y="374">cathode (−): reduction</text>
+    <text x="450" y="394">Zn²⁺ + 2e⁻ → Zn</text>
+  </g>
+</svg>

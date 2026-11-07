@@ -1,0 +1,720 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.13",
+  "slug": "standard-electrode-potentials",
+  "title": "Standard electrode potentials",
+  "level": "AHL",
+  "topic": 6,
+  "summary": "Every half-cell has a [[standard-electrode-potential|standard electrode potential]], $E^\\ominus$, measured against the [[standard-hydrogen-electrode|standard hydrogen electrode]], which is set at zero. The more positive $E^\\ominus$, the more easily a species is reduced. Two values give the [[standard-cell-potential|standard cell potential]]: positive means the reaction is spontaneous, and $\\Delta G^\\ominus = -nFE^\\ominus$ turns it into a [[gibbs-energy|Gibbs energy]] change.",
+  "goals": [
+    {
+      "text": "Describe the standard hydrogen electrode and how it is used to measure $E^\\ominus$.",
+      "bullets": [
+        "R3.2.12"
+      ]
+    },
+    {
+      "text": "Use $E^\\ominus$ values to rank how easily species are oxidized or reduced.",
+      "bullets": [
+        "R3.2.12"
+      ]
+    },
+    {
+      "text": "Calculate $E^\\ominus_\\text{cell}$ and predict whether a reaction is spontaneous forwards or in reverse.",
+      "bullets": [
+        "R3.2.13"
+      ]
+    },
+    {
+      "text": "Determine $\\Delta G^\\ominus$ from $E^\\ominus_\\text{cell}$ with $\\Delta G^\\ominus = -nFE^\\ominus$ and the [[faraday-constant|Faraday constant]].",
+      "bullets": [
+        "R3.2.14"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "3.3",
+    "4.7",
+    "5.8",
+    "5.10",
+    "6.8",
+    "6.9",
+    "6.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electrode potential",
+    "E cell calculation",
+    "standard hydrogen electrode",
+    "SHE",
+    "delta G = -nFE",
+    "is the reaction spontaneous E value"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ox-state-chromium",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of chromium in $\\ce{Cr2O7^2-}$?",
+      "hint": "Oxygen is $-2$, and the states add up to the ion's charge, $-2$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$2x + 7(-2) = -2$, so $x = +6$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(-2 - 7*(-2))/2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-oxidizing-agent",
+      "prompt": "In $\\ce{Sn(s) + Cu^2+(aq) -> Sn^2+(aq) + Cu(s)}$, which species is the [[oxidizing-agent|oxidizing agent]]?",
+      "hint": "The oxidizing agent gains electrons.",
+      "options": [
+        {
+          "text": "Copper(II) ions",
+          "correct": true
+        },
+        {
+          "text": "Tin atoms",
+          "correct": false
+        },
+        {
+          "text": "Tin(II) ions",
+          "correct": false
+        },
+        {
+          "text": "Copper atoms",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{Cu^2+}$ gains electrons, so it is reduced and it oxidizes the tin. Revise it in {{lesson:6.8}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Copper(II) ions"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gibbs-sign",
+      "prompt": "At $\\pu{298 K}$ a reaction has a standard [[gibbs-energy|Gibbs energy]] change of $\\pu{-38 kJ mol-1}$. What does this tell you?",
+      "hint": "Think about the sign of $\\Delta G^\\ominus$.",
+      "options": [
+        {
+          "text": "It is spontaneous as written",
+          "correct": true
+        },
+        {
+          "text": "It is non-spontaneous as written",
+          "correct": false
+        },
+        {
+          "text": "It is at equilibrium",
+          "correct": false
+        },
+        {
+          "text": "It must be fast",
+          "correct": false
+        }
+      ],
+      "explain": "A negative $\\Delta G^\\ominus$ means spontaneous. It says nothing about speed. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is spontaneous as written"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "she",
+      "heading": "The standard hydrogen electrode",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a voltaic cell ({{lesson:6.10}}), two half-cells are joined by a wire and a [[salt-bridge|salt bridge]]. The voltmeter shows how much harder one half-cell pulls electrons than the other. It only ever reads that difference."
+        },
+        {
+          "type": "text",
+          "text": "So you can't measure one half-cell on its own. Instead, chemists choose one reference half-cell, call its potential zero, and measure every other half-cell against it."
+        },
+        {
+          "type": "definition",
+          "term": "standard hydrogen electrode",
+          "statement": "The reference half-cell: hydrogen gas at $\\pu{100 kPa}$ bubbles over a platinum electrode in a solution with $\\ce{H^+(aq)}$ at $\\pu{1.00 mol dm-3}$, at $\\pu{298 K}$. Its potential is $\\pu{0.00 V}$ by convention.",
+          "plain": "The zero on the ruler that every other half-cell is measured with."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{H^+(aq) + e- <=> 1/2H2(g)} \\qquad E^\\ominus = \\pu{0.00 V}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Platinum is inert, so it does not react. It carries electrons in and out, and its surface is where $\\ce{H2}$ and $\\ce{H^+}$ swap electrons."
+        },
+        {
+          "type": "figure",
+          "id": "6-13-she-silver-cell",
+          "alt": "Two beakers. Left: the standard hydrogen electrode, a glass tube dipping into 1.00 mol dm-3 H+(aq). Hydrogen gas at 100 kPa enters the tube from the side and bubbles over a platinum plate at the bottom. Right: a silver rod in 1.00 mol dm-3 Ag+(aq). A wire joins the platinum and the silver through a voltmeter reading +0.80 V. Arrows on the wire show electrons flowing from the hydrogen electrode to the silver. The platinum is marked negative and the silver positive. A salt bridge dips into both solutions.",
+          "caption": "Measuring $E^\\ominus$ for $\\ce{Ag^+/Ag}$ against the standard hydrogen electrode."
+        },
+        {
+          "type": "definition",
+          "term": "standard electrode potential",
+          "statement": "The potential of a half-cell under standard conditions, measured against the standard hydrogen electrode. It is written for the reduction, so it is also called a standard reduction potential.",
+          "plain": "How strongly a half-cell pulls electrons in, compared with hydrogen."
+        },
+        {
+          "type": "text",
+          "text": "Standard conditions are $\\pu{298 K}$, $\\pu{100 kPa}$ for gases and $\\pu{1.00 mol dm-3}$ for each ion in solution. The symbol is $E^\\ominus$, in volts."
+        },
+        {
+          "type": "text",
+          "text": "The sign tells you which way electrons flow. If the half-cell's electrode is the positive terminal, it takes electrons from the hydrogen electrode, so $E^\\ominus$ is positive. If it is the negative terminal, it gives electrons away, so $E^\\ominus$ is negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-she-silver-sign",
+          "question": "A silver rod in $\\pu{1.00 mol dm-3}$ $\\ce{Ag^+(aq)}$ is joined to a standard hydrogen electrode at $\\pu{298 K}$. The voltmeter reads $\\pu{0.80 V}$, and the silver is the positive terminal. Deduce $E^\\ominus$ for the silver half-cell.",
+          "steps": [
+            "The reading is the difference between the two half-cells, and the hydrogen electrode is $\\pu{0.00 V}$.",
+            "Silver is positive, so silver ions are reduced there: they pull electrons harder than $\\ce{H^+}$ does.",
+            "So $E^\\ominus = 0.00 + 0.80$, with a plus sign. This is the value in section 19 of the data booklet."
+          ],
+          "answer": "$E^\\ominus = \\pu{+0.80 V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.00 + 0.80",
+            "unit": "V",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-she-describe",
+          "question": "Describe the standard hydrogen electrode, and explain why its potential is zero.",
+          "steps": [
+            "List the parts: electrode, gas, solution and conditions.",
+            "Then say where the zero comes from."
+          ],
+          "answer": "A platinum electrode dips into a solution of $\\pu{1.00 mol dm-3}$ $\\ce{H^+(aq)}$, such as hydrochloric acid. Hydrogen gas at $\\pu{100 kPa}$ bubbles over the platinum, at $\\pu{298 K}$. A voltmeter can only measure a potential difference between two half-cells. So this half-cell's potential is set at zero by convention, and every other half-cell is measured against it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Pt in 1 mol dm-3 H+, H2 at 100 kPa, 298 K; zero by convention because only differences can be measured.",
+            "requires": [
+              "platinum",
+              "$\\pu{100 kPa}$",
+              [
+                "$\\pu{1.00 mol dm-3}$",
+                "$\\pu{1 mol dm-3}$"
+              ],
+              "$\\pu{298 K}$",
+              "potential difference",
+              [
+                "by convention",
+                "arbitrarily"
+              ]
+            ],
+            "forbids": [
+              "measured to be zero",
+              "measured as zero"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-she-zero",
+          "prompt": "Why is $E^\\ominus$ of the standard hydrogen electrode $\\pu{0.00 V}$?",
+          "hint": "Can a voltmeter measure one half-cell alone?",
+          "options": [
+            {
+              "text": "Chemists agreed to use it as the zero",
+              "correct": true
+            },
+            {
+              "text": "Careful measurement showed it is zero",
+              "correct": false
+            },
+            {
+              "text": "Hydrogen ions do not gain electrons",
+              "correct": false
+            },
+            {
+              "text": "Platinum takes no part in the reaction",
+              "correct": false
+            }
+          ],
+          "explain": "Only differences can be measured, so one half-cell had to be chosen as zero. Platinum is inert, but that is not why the value is zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Chemists agreed to use it as the zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tin-sign",
+          "prompt": "A tin rod in $\\pu{1.00 mol dm-3}$ $\\ce{Sn^2+(aq)}$ is joined to a standard hydrogen electrode. The voltmeter reads $\\pu{0.14 V}$, and the tin is the negative terminal. Give $E^\\ominus$ for the tin half-cell, in V, with its sign.",
+          "hint": "Negative terminal: does the tin take electrons or give them away?",
+          "answer": {
+            "value": -0.14,
+            "tolerance": 0
+          },
+          "explain": "Tin gives electrons to the hydrogen electrode, so it is oxidized more easily than hydrogen: $E^\\ominus = \\pu{-0.14 V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.00 - 0.14",
+            "dp": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "heading": "Reading the table: oxidizing and reducing strength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Section 19 of the data booklet lists $E^\\ominus$ values from most negative to most positive. Each line is a reduction [[half-equation|half-equation]]: the oxidized species is on the left, the reduced species on the right."
+        },
+        {
+          "type": "figure",
+          "id": "6-13-potential-ladder",
+          "alt": "A table of selected standard reduction potentials in three columns: oxidized species, E standard in volts, reduced species. From top to bottom: F2 and F- at +2.87; MnO4- with H+ and Mn2+ at +1.51; Cl2 and Cl- at +1.36; Ag+ and Ag at +0.80; Cu2+ and Cu at +0.34; H+ and H2 at 0.00, in bold; Pb2+ and Pb at -0.13; Zn2+ and Zn at -0.76; Al3+ and Al at -1.66; Mg2+ and Mg at -2.37; Li+ and Li at -3.04. An arrow on the left points up, labelled stronger oxidizing agent. An arrow on the right points down, labelled stronger reducing agent.",
+          "caption": "Oxidizing agents sit on the left and get stronger going up. Reducing agents sit on the right and get stronger going down. The data booklet prints the same lines the other way up, most negative first."
+        },
+        {
+          "type": "result",
+          "statement": "The more positive $E^\\ominus$, the more easily the species on the left is reduced: it is a stronger [[oxidizing-agent|oxidizing agent]]. The more negative $E^\\ominus$, the more easily the species on the right is oxidized: it is a stronger [[reducing-agent|reducing agent]].",
+          "why": "A positive $E^\\ominus$ means the half-cell pulls electrons in harder than hydrogen does. A negative one means it gives them up more readily."
+        },
+        {
+          "type": "text",
+          "text": "So the strongest oxidizing agent in section 19 is $\\ce{F2}$, with the most positive value, and the strongest reducing agent is $\\ce{Li}$, with the most negative. Metals with very negative values sit high in the [[reactivity-series|reactivity series]] ({{lesson:6.9}}), but the orders don't match exactly. Lithium has the most negative value, yet it reacts with water more slowly than sodium or potassium: $E^\\ominus$ shows how favourable a change is, not how fast it goes."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the wrong side of a line. $\\ce{F2}$ is the strongest oxidizing agent, but $\\ce{F^-}$, on the right of the same line, is the weakest reducing agent. Name the species on the correct side."
+        },
+        {
+          "type": "example",
+          "id": "ex-halogen-oxidizing",
+          "question": "Using section 19 of the data booklet, explain why chlorine is a stronger oxidizing agent than iodine.",
+          "steps": [
+            "Find both lines: $\\ce{1/2Cl2(g) + e- <=> Cl^-(aq)}$ is $\\pu{+1.36 V}$, and $\\ce{1/2I2(s) + e- <=> I^-(aq)}$ is $\\pu{+0.54 V}$.",
+            "Both halogens are on the left, so compare how easily each is reduced."
+          ],
+          "answer": "$E^\\ominus$ for chlorine, $\\pu{+1.36 V}$, is more positive than for iodine, $\\pu{+0.54 V}$. So chlorine is more easily reduced: it gains electrons more readily. So chlorine is the stronger oxidizing agent.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "E for Cl2 (+1.36 V) is more positive than for I2 (+0.54 V), so Cl2 is more easily reduced.",
+            "requires": [
+              "$\\pu{+1.36 V}$",
+              "$\\pu{+0.54 V}$",
+              "more positive",
+              "more easily reduced",
+              [
+                "gains electrons more readily",
+                "stronger oxidizing agent"
+              ]
+            ],
+            "forbids": [
+              "more easily oxidized",
+              "more negative"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-strongest-reducer",
+          "question": "Of aluminium, tin and silver, use section 19 to identify the strongest reducing agent. Write the half-equation for its oxidation.",
+          "steps": [
+            "$E^\\ominus$: $\\ce{Al^3+/Al}$ is $\\pu{-1.66 V}$, $\\ce{Sn^2+/Sn}$ is $\\pu{-0.14 V}$ and $\\ce{Ag^+/Ag}$ is $\\pu{+0.80 V}$.",
+            "The most negative value is aluminium's, so aluminium gives up electrons most easily.",
+            "Oxidation is the booklet line reversed, so the electrons go on the right. Check the charge: $0$ on the left, $(+3) + 3(-1) = 0$ on the right."
+          ],
+          "answer": "$\\ce{Al(s) -> Al^3+(aq) + 3e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Al -> Al^3+ + e-"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strongest-oxidizer",
+          "prompt": "Which is the strongest oxidizing agent under standard conditions?",
+          "hint": "Find the most positive $E^\\ominus$. The oxidizing agent is on the left of its line.",
+          "options": [
+            {
+              "text": "Acidified manganate(VII) ions",
+              "correct": true
+            },
+            {
+              "text": "Acidified dichromate(VI) ions",
+              "correct": false
+            },
+            {
+              "text": "Iron(III) ions",
+              "correct": false
+            },
+            {
+              "text": "Fluoride ions",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{MnO4^-}$ with $\\ce{H^+}$ is $\\pu{+1.51 V}$, above dichromate(VI) at $\\pu{+1.36 V}$ and $\\ce{Fe^3+}$ at $\\pu{+0.77 V}$. $\\ce{F^-}$ is on the right of its line: it can't be reduced at all.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Acidified manganate(VII) ions"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hardest-reduce",
+          "prompt": "Which metal ion is the hardest to reduce to its metal?",
+          "hint": "Hardest to reduce means the most negative $E^\\ominus$.",
+          "options": [
+            {
+              "text": "Potassium ions",
+              "correct": true
+            },
+            {
+              "text": "Lead(II) ions",
+              "correct": false
+            },
+            {
+              "text": "Silver ions",
+              "correct": false
+            },
+            {
+              "text": "Zinc ions",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{K^+}$ is $\\pu{-2.93 V}$, the most negative of the four, so it gains electrons least readily.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Potassium ions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cell",
+      "heading": "Cell potential and spontaneity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Join two half-cells and the one with the more positive $E^\\ominus$ wins the tug of war for electrons. Reduction happens there, at the [[cathode|cathode]]. The other half-cell runs in reverse: oxidation happens at the [[anode|anode]]."
+        },
+        {
+          "type": "definition",
+          "term": "standard cell potential",
+          "statement": "The potential difference between the two half-cells of a voltaic cell under standard conditions, $E^\\ominus_\\text{cell}$, in volts.",
+          "plain": "How hard the cell pushes electrons round the circuit."
+        },
+        {
+          "type": "formula",
+          "tex": "E^\\ominus_\\text{cell} = E^\\ominus_\\text{cathode} - E^\\ominus_\\text{anode}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use the booklet values exactly as printed, signs included. The cathode is the half-cell where reduction happens, so a working voltaic cell always gives a positive value."
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying $E^\\ominus$ by the number in front of a half-equation. Doubling it doubles the amount that reacts, not the push on each electron, so $E^\\ominus$ stays the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-cell-mn-pb",
+          "question": "A cell is made from a $\\ce{Mn^2+/Mn}$ half-cell and a $\\ce{Pb^2+/Pb}$ half-cell under standard conditions. Calculate $E^\\ominus_\\text{cell}$.",
+          "steps": [
+            "Section 19: $\\ce{Mn^2+/Mn}$ is $\\pu{-1.18 V}$ and $\\ce{Pb^2+/Pb}$ is $\\pu{-0.13 V}$.",
+            "$\\pu{-0.13 V}$ is more positive, so $\\ce{Pb^2+}$ is reduced (cathode) and $\\ce{Mn}$ is oxidized (anode).",
+            "$E^\\ominus_\\text{cell} = (-0.13) - (-1.18)$."
+          ],
+          "answer": "$E^\\ominus_\\text{cell} = \\pu{+1.05 V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "E0('Pb2+/Pb') - E0('Mn2+/Mn')",
+            "unit": "V",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "The same sum tests any redox equation. Find the species that is reduced in the equation as written, and treat its half-cell as the cathode."
+        },
+        {
+          "type": "text",
+          "text": "If $E^\\ominus_\\text{cell}$ is positive, the reaction is a [[spontaneous-reaction|spontaneous reaction]] as written. If it is negative, the reverse reaction is the spontaneous one."
+        },
+        {
+          "type": "text",
+          "text": "Spontaneous does not mean fast: $E^\\ominus$ says a reaction can happen, not how quickly. It also holds only under standard conditions."
+        },
+        {
+          "type": "example",
+          "id": "ex-silver-acid",
+          "question": "Use section 19 of the data booklet to deduce whether $\\ce{2Ag(s) + 2H^+(aq) -> 2Ag^+(aq) + H2(g)}$ is spontaneous under standard conditions.",
+          "steps": [
+            "In the equation $\\ce{H^+}$ gains electrons, so the hydrogen half-cell is the cathode. Silver is oxidized.",
+            "$E^\\ominus_\\text{cell} = E^\\ominus(\\ce{H^+/H2}) - E^\\ominus(\\ce{Ag^+/Ag})$. The 2s in the equation do not change $E^\\ominus$."
+          ],
+          "answer": "$E^\\ominus_\\text{cell} = 0.00 - (+0.80) = \\pu{-0.80 V}$. The value is negative, so the forward reaction is not spontaneous under standard conditions: silver does not react with the acid. The reverse reaction, hydrogen reducing silver ions to silver, is spontaneous, with $E^\\ominus_\\text{cell} = \\pu{+0.80 V}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "E cell = 0.00 - 0.80 = -0.80 V: negative, so not spontaneous forwards; the reverse is spontaneous.",
+            "requires": [
+              "$\\pu{-0.80 V}$",
+              "negative",
+              [
+                "not spontaneous",
+                "non-spontaneous"
+              ],
+              "reverse reaction"
+            ],
+            "forbids": [
+              "1.60"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fe-iodide-ecell",
+          "prompt": "Iron(III) ions oxidize iodide ions: $\\ce{2Fe^3+(aq) + 2I^-(aq) -> 2Fe^2+(aq) + I2(s)}$. Use section 19 to find $E^\\ominus_\\text{cell}$, in V, with its sign.",
+          "hint": "Which species is reduced? Don't multiply by 2.",
+          "answer": {
+            "value": 0.23,
+            "tolerance": 0
+          },
+          "explain": "$\\ce{Fe^3+}$ is reduced, so $E^\\ominus_\\text{cell} = 0.77 - 0.54 = \\pu{+0.23 V}$. It is positive, so the reaction is spontaneous.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "E0('Fe3+/Fe2+') - E0('I2/I-')",
+            "dp": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spontaneous-pair",
+          "prompt": "Which pair reacts spontaneously under standard conditions?",
+          "hint": "The species that is reduced must have the more positive $E^\\ominus$.",
+          "options": [
+            {
+              "text": "Tin and silver ions",
+              "correct": true
+            },
+            {
+              "text": "Silver and tin(II) ions",
+              "correct": false
+            },
+            {
+              "text": "Lead and magnesium ions",
+              "correct": false
+            },
+            {
+              "text": "Iodine and bromide ions",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Ag^+}$ ($\\pu{+0.80 V}$) is reduced by tin ($\\pu{-0.14 V}$): $E^\\ominus_\\text{cell} = \\pu{+0.94 V}$. Each other pair gives a negative $E^\\ominus_\\text{cell}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Tin and silver ions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gibbs",
+      "heading": "Cell potential and Gibbs energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.7}}, a negative standard [[gibbs-energy|Gibbs energy]] change, $\\Delta G^\\ominus$, meant a reaction is spontaneous. A positive $E^\\ominus_\\text{cell}$ means the same, and one equation links the two."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = -nFE^\\ominus",
+          "tag": "booklet",
+          "bookletId": "db-gibbs-cell"
+        },
+        {
+          "type": "text",
+          "text": "You don't need to memorise it: it is in section 1 of the data booklet. Here $E^\\ominus$ is $E^\\ominus_\\text{cell}$, and $n$ is the number of [[mole|moles]] of electrons transferred in the equation as written."
+        },
+        {
+          "type": "definition",
+          "term": "Faraday constant",
+          "statement": "The charge carried by one mole of electrons, $F = \\pu{9.65e4 C mol-1}$.",
+          "plain": "The charge on a mole of electrons."
+        },
+        {
+          "type": "text",
+          "text": "$F$ is in section 2 of the data booklet. Coulombs times volts gives joules, so $nFE^\\ominus$ comes out in $\\pu{J mol-1}$. Divide by 1000 for $\\pu{kJ mol-1}$."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign makes the two tests agree: a positive $E^\\ominus_\\text{cell}$ gives a negative $\\Delta G^\\ominus$. A negative $\\Delta G^\\ominus$ also means the [[equilibrium-constant|equilibrium constant]] is greater than 1, because $\\Delta G^\\ominus = -RT\\ln K$ ({{lesson:5.10}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-mn-pb",
+          "question": "For the manganese–lead cell, $\\ce{Mn(s) + Pb^2+(aq) -> Mn^2+(aq) + Pb(s)}$, $E^\\ominus_\\text{cell} = \\pu{+1.05 V}$. Determine $\\Delta G^\\ominus$ in $\\pu{kJ mol-1}$.",
+          "steps": [
+            "Each Mn atom gives 2 electrons to one $\\ce{Pb^2+}$ ion, so $n = 2$.",
+            "$\\Delta G^\\ominus = -nFE^\\ominus = -2 \\times (9.65 \\times 10^{4}) \\times 1.05 = \\pu{-202650 J mol-1}$.",
+            "Divide by 1000 and give 3 s.f. It is negative, as a positive $E^\\ominus_\\text{cell}$ requires."
+          ],
+          "answer": "$\\Delta G^\\ominus \\approx \\pu{-203 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-2*F*1.05/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gibbs-al-ag",
+          "question": "Aluminium displaces silver: $\\ce{Al(s) + 3Ag^+(aq) -> Al^3+(aq) + 3Ag(s)}$. Use section 19 to determine $\\Delta G^\\ominus$, in $\\pu{kJ mol-1}$.",
+          "steps": [
+            "$\\ce{Ag^+}$ is reduced: $E^\\ominus_\\text{cell} = (+0.80) - (-1.66) = \\pu{+2.46 V}$. The 3 in front of $\\ce{Ag^+}$ does not change it.",
+            "One Al atom loses 3 electrons, gained by 3 $\\ce{Ag^+}$ ions, so $n = 3$.",
+            "$\\Delta G^\\ominus = -3 \\times (9.65 \\times 10^{4}) \\times 2.46 = \\pu{-712170 J mol-1}$.",
+            "Divide by 1000 and give 3 s.f."
+          ],
+          "answer": "$\\Delta G^\\ominus \\approx \\pu{-712 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-3*F*(E0('Ag+/Ag') - E0('Al3+/Al'))/1000",
+            "sf": 3,
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gibbs-fe-iodide",
+          "prompt": "For $\\ce{2Fe^3+(aq) + 2I^-(aq) -> 2Fe^2+(aq) + I2(s)}$, $E^\\ominus_\\text{cell} = \\pu{+0.23 V}$. Calculate $\\Delta G^\\ominus$ in $\\pu{kJ mol-1}$, with its sign, to 2 s.f.",
+          "hint": "Two $\\ce{I^-}$ ions each lose one electron. Then divide by 1000.",
+          "answer": {
+            "value": -44,
+            "tolerance": 0.5
+          },
+          "explain": "$n = 2$: $-2 \\times (9.65 \\times 10^{4}) \\times 0.23 = \\pu{-44390 J mol-1} \\approx \\pu{-44 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-2*F*0.23/1000",
+            "sf": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-ecell",
+          "prompt": "A redox reaction has $E^\\ominus_\\text{cell} = \\pu{-0.40 V}$. Which is correct under standard conditions?",
+          "hint": "Put a negative $E^\\ominus$ into $-nFE^\\ominus$.",
+          "options": [
+            {
+              "text": "ΔG⦵ positive and K less than 1",
+              "correct": true
+            },
+            {
+              "text": "ΔG⦵ negative and K greater than 1",
+              "correct": false
+            },
+            {
+              "text": "ΔG⦵ positive and K greater than 1",
+              "correct": false
+            },
+            {
+              "text": "ΔG⦵ negative and K less than 1",
+              "correct": false
+            }
+          ],
+          "explain": "A negative $E^\\ominus_\\text{cell}$ makes $-nFE^\\ominus$ positive. A positive $\\Delta G^\\ominus$ means $\\ln K < 0$, so $K < 1$: the reverse reaction is favoured.",
+          "verify": {
+            "kind": "choice",
+            "truth": "ΔG⦵ positive and K less than 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Standard hydrogen electrode: Pt, $\\ce{H2}$ at $\\pu{100 kPa}$, $\\pu{1.00 mol dm-3}$ $\\ce{H^+}$, $\\pu{298 K}$. $E^\\ominus = \\pu{0.00 V}$ by convention; every other $E^\\ominus$ is measured against it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "More positive $E^\\ominus$: the left-hand species is a stronger oxidizing agent. More negative: the right-hand species is a stronger reducing agent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E^\\ominus_\\text{cell} = E^\\ominus_\\text{cathode} - E^\\ominus_\\text{anode}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Under standard conditions, $E^\\ominus_\\text{cell} > 0$: spontaneous as written. $E^\\ominus_\\text{cell} < 0$: the reverse is spontaneous. Never multiply $E^\\ominus$ by coefficients.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta G^\\ominus = -nFE^\\ominus",
+          "tag": "booklet",
+          "bookletId": "db-gibbs-cell",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$n$ is the moles of electrons in the equation; $F = \\pu{9.65e4 C mol-1}$ (section 2). The answer is in $\\pu{J mol-1}$, so divide by 1000 for $\\pu{kJ mol-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting the wrong way round. Take $E^\\ominus$ of the half-cell where reduction happens, then subtract the one where oxidation happens.",
+    "Multiplying $E^\\ominus$ by the coefficients when a half-equation is doubled or tripled. Only $n$ in $\\Delta G^\\ominus = -nFE^\\ominus$ changes.",
+    "Leaving $\\Delta G^\\ominus$ in $\\pu{J mol-1}$ when $\\pu{kJ mol-1}$ is asked for, or dropping its minus sign.",
+    "Saying the hydrogen electrode's $\\pu{0.00 V}$ was measured. It is a convention."
+  ],
+  "examTips": [
+    "\"Deduce\" or \"predict\" whether a reaction is spontaneous: quote both $E^\\ominus$ values from section 19, calculate $E^\\ominus_\\text{cell}$ with its sign, then state the conclusion.",
+    "\"Determine\" $\\Delta G^\\ominus$: state $n$, substitute into $-nFE^\\ominus$, and give the answer with its sign and units. A spontaneous reaction must give a negative value.",
+    "In Paper 1A, wrong options often subtract the wrong way or multiply $E^\\ominus$ by a coefficient. Decide which species is reduced before you calculate."
+  ],
+  "readingMinutes": 22
+}

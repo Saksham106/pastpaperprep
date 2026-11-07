@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" role="img" aria-labelledby="t616add">
+  <title id="t616add">Electrophilic addition reactions of ethene with bromine, hydrogen bromide and steam</title>
+  <defs>
+    <marker id="m616add-react" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="16" fill="currentColor" font-family="inherit">
+    <!-- row 1: bromine -->
+    <text x="20" y="56">CH<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">=CH</tspan><tspan font-size="11" dy="4">2</tspan></text>
+    <text x="108" y="56">+ Br<tspan font-size="11" dy="4">2</tspan></text>
+    <text x="345" y="56">CH<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">BrCH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">Br</tspan></text>
+    <!-- row 2: hydrogen bromide -->
+    <text x="20" y="141">CH<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">=CH</tspan><tspan font-size="11" dy="4">2</tspan></text>
+    <text x="108" y="141">+ HBr</text>
+    <text x="345" y="141">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">Br</tspan></text>
+    <!-- row 3: steam -->
+    <text x="20" y="226">CH<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">=CH</tspan><tspan font-size="11" dy="4">2</tspan></text>
+    <text x="108" y="226">+ H<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">O(g)</tspan></text>
+    <text x="345" y="226">CH<tspan font-size="11" dy="4">3</tspan><tspan dy="-4">CH</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4">OH</tspan></text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="190" y1="51" x2="330" y2="51" marker-end="url(#m616add-react)"/>
+    <line x1="190" y1="136" x2="330" y2="136" marker-end="url(#m616add-react)"/>
+    <line x1="190" y1="221" x2="330" y2="221" marker-end="url(#m616add-react)"/>
+  </g>
+  <g font-size="12" fill="var(--muted)" font-family="inherit">
+    <text x="258" y="42" text-anchor="middle">room temperature</text>
+    <text x="258" y="127" text-anchor="middle">room temperature</text>
+    <text x="258" y="212" text-anchor="middle">H₃PO₄ catalyst</text>
+    <text x="258" y="240" text-anchor="middle">heat and pressure</text>
+    <text x="345" y="76">1,2-dibromoethane</text>
+    <text x="345" y="161">bromoethane</text>
+    <text x="345" y="246">ethanol</text>
+  </g>
+</svg>

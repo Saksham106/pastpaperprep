@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" role="img" aria-labelledby="t">
+  <title id="t">Two panels, each showing two neighbouring non-polar diatomic molecules drawn as ovals with two nuclei. Panel 1, an instantaneous dipole: in the left molecule the electron cloud has drifted to its left end, which is marked delta minus, leaving its right end delta plus. The right molecule's cloud is still even. Panel 2, an induced dipole: the delta plus end of the left molecule pulls the right molecule's electrons towards it, so the right molecule's near end becomes delta minus and its far end delta plus. A double-headed arrow between the delta plus end of the left molecule and the delta minus end of the right molecule is labelled attraction.</title>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="135" y="24">1. An instantaneous dipole</text>
+    <text x="405" y="24">2. It induces a dipole</text>
+  </g>
+  <path d="M270 40 V230" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <!-- panel 1, left molecule: cloud shifted left -->
+  <ellipse cx="75" cy="120" rx="55" ry="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="58" cy="120" rx="36" ry="28" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <circle cx="58" cy="120" r="4" fill="currentColor"/>
+  <circle cx="92" cy="120" r="4" fill="currentColor"/>
+  <!-- panel 1, right molecule: even cloud -->
+  <ellipse cx="195" cy="120" rx="55" ry="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="195" cy="120" rx="46" ry="26" fill="var(--t1-ink)" fill-opacity="0.12" stroke="none"/>
+  <circle cx="178" cy="120" r="4" fill="currentColor"/>
+  <circle cx="212" cy="120" r="4" fill="currentColor"/>
+  <g font-size="14" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">
+    <text x="38" y="78">δ−</text>
+    <text x="112" y="78">δ+</text>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="75" y="182">electrons drift</text>
+    <text x="75" y="197">to one end</text>
+    <text x="195" y="182">electrons still</text>
+    <text x="195" y="197">spread evenly</text>
+  </g>
+  <!-- panel 2, left molecule: same instantaneous dipole -->
+  <ellipse cx="345" cy="120" rx="55" ry="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="328" cy="120" rx="36" ry="28" fill="var(--t1-ink)" fill-opacity="0.25" stroke="none"/>
+  <circle cx="328" cy="120" r="4" fill="currentColor"/>
+  <circle cx="362" cy="120" r="4" fill="currentColor"/>
+  <!-- panel 2, right molecule: induced dipole, cloud pulled left -->
+  <ellipse cx="475" cy="120" rx="55" ry="34" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="458" cy="120" rx="36" ry="28" fill="var(--t2-ink)" fill-opacity="0.25" stroke="none"/>
+  <circle cx="458" cy="120" r="4" fill="currentColor"/>
+  <circle cx="492" cy="120" r="4" fill="currentColor"/>
+  <g font-size="14" font-family="inherit" text-anchor="middle">
+    <text x="308" y="78" fill="var(--t1-ink)">δ−</text>
+    <text x="382" y="78" fill="var(--t1-ink)">δ+</text>
+    <text x="438" y="78" fill="var(--t2-ink)">δ−</text>
+    <text x="512" y="78" fill="var(--t2-ink)">δ+</text>
+  </g>
+  <path d="M390 160 H420" stroke="var(--t3-ink)" stroke-width="1.8" fill="none"/>
+  <polygon points="384,160 392,156 392,164" fill="var(--t3-ink)"/>
+  <polygon points="426,160 418,156 418,164" fill="var(--t3-ink)"/>
+  <text x="405" y="182" font-size="12" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">attraction</text>
+  <text x="475" y="215" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">induced dipole</text>
+</svg>

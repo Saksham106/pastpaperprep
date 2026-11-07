@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t">
+  <title id="t">Nickel–copper voltaic cell. Left beaker: a nickel electrode in nickel(II) sulfate solution, labelled anode, negative, oxidation, Ni gives Ni2+ plus 2 electrons. Right beaker: a copper electrode in copper(II) sulfate solution, labelled cathode, positive, reduction, Cu2+ plus 2 electrons gives Cu. A wire joins the electrodes through a voltmeter, and arrows show electrons moving through the wire from nickel to copper. A salt bridge of potassium nitrate solution dips into both beakers; arrows show nitrate ions moving towards the nickel beaker and potassium ions moving towards the copper beaker.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M60 150 L60 300 Q60 310 70 310 L240 310 Q250 310 250 300 L250 150"/>
+    <path d="M390 150 L390 300 Q390 310 400 310 L570 310 Q580 310 580 300 L580 150"/>
+  </g>
+  <rect x="61" y="175" width="188" height="134" fill="var(--t1-ink)" fill-opacity="0.12"/>
+  <rect x="391" y="175" width="188" height="134" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <rect x="115" y="100" width="22" height="180" fill="var(--t1-ink)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.2"/>
+  <rect x="503" y="100" width="22" height="180" fill="var(--t2-ink)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.2"/>
+  <text x="110" y="94" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">Ni</text>
+  <text x="530" y="94" font-size="13" fill="currentColor" font-family="inherit" text-anchor="start">Cu</text>
+  <path d="M195 215 L195 125 L445 125 L445 215" stroke="var(--t3-ink)" stroke-opacity="0.45" stroke-width="16" fill="none"/>
+  <text x="320" y="146" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">salt bridge, KNO₃(aq)</text>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M126 100 L126 50 L298 50"/>
+    <path d="M342 50 L514 50 L514 100"/>
+    <circle cx="320" cy="50" r="22"/>
+  </g>
+  <text x="320" y="55" font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">V</text>
+  <path d="M170 36 L250 36" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="258,36 248,31 248,41" fill="var(--t4-ink)"/>
+  <path d="M390 36 L470 36" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="478,36 468,31 468,41" fill="var(--t4-ink)"/>
+  <text x="210" y="24" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">electrons, e⁻</text>
+  <text x="430" y="24" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">electrons, e⁻</text>
+  <path d="M300 100 L230 100" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polygon points="222,100 232,95 232,105" fill="var(--t3-ink)"/>
+  <text x="265" y="92" font-size="12" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">NO₃⁻</text>
+  <path d="M340 100 L410 100" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polygon points="418,100 408,95 408,105" fill="var(--t3-ink)"/>
+  <text x="375" y="92" font-size="12" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">K⁺</text>
+  <text x="165" y="265" font-size="12" fill="currentColor" font-family="inherit">Ni²⁺(aq)</text>
+  <text x="420" y="265" font-size="12" fill="currentColor" font-family="inherit">Cu²⁺(aq)</text>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="155" y="334">nickel: anode (−)</text>
+    <text x="155" y="352">oxidation</text>
+    <text x="155" y="372">Ni → Ni²⁺ + 2e⁻</text>
+    <text x="485" y="334">copper: cathode (+)</text>
+    <text x="485" y="352">reduction</text>
+    <text x="485" y="372">Cu²⁺ + 2e⁻ → Cu</text>
+  </g>
+</svg>

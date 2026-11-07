@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="t" font-family="inherit">
+<title id="t">Three electron domain geometries: two domains linear at 180 degrees, three domains trigonal planar at 120 degrees, four domains tetrahedral at 109.5 degrees</title>
+<path d="M122.0,110.0 A22,22 0 0 0 78.0,110.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<line x1="100.0" y1="110.0" x2="158.0" y2="110.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="158.0" cy="110.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<line x1="100.0" y1="110.0" x2="42.0" y2="110.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="42.0" cy="110.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="100.0" cy="110.0" r="12" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1.5"/>
+<text x="100.0" y="80.0" text-anchor="middle" font-size="13" fill="var(--t3-ink)">180°</text>
+<text x="100.0" y="200.0" text-anchor="middle" font-size="13" fill="currentColor">2 domains</text>
+<text x="100.0" y="218.0" text-anchor="middle" font-size="13" fill="currentColor">linear</text>
+<path d="M279.2,127.0 A24,24 0 0 0 320.8,127.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<line x1="300.0" y1="115.0" x2="300.0" y2="57.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="300.0" cy="57.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<line x1="300.0" y1="115.0" x2="249.8" y2="144.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="249.8" cy="144.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<line x1="300.0" y1="115.0" x2="350.2" y2="144.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="350.2" cy="144.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="300.0" cy="115.0" r="12" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1.5"/>
+<text x="300.0" y="159.0" text-anchor="middle" font-size="13" fill="var(--t3-ink)">120°</text>
+<text x="300.0" y="200.0" text-anchor="middle" font-size="13" fill="currentColor">3 domains</text>
+<text x="300.0" y="218.0" text-anchor="middle" font-size="13" fill="currentColor">trigonal planar</text>
+<path d="M500.0,86.0 A24,24 0 0 0 478.2,120.1" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<line x1="500.0" y1="110.0" x2="500.0" y2="52.0" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="500.0" cy="52.0" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<line x1="500.0" y1="110.0" x2="447.4" y2="134.5" stroke="currentColor" stroke-width="2.5"/>
+<circle cx="447.4" cy="134.5" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<polygon points="500.0,110.0 520.0,164.7 529.0,160.5" fill="currentColor"/>
+<circle cx="524.5" cy="162.6" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<line x1="500.0" y1="110.0" x2="554.5" y2="129.8" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 3"/>
+<circle cx="554.5" cy="129.8" r="12" fill="var(--surface, white)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="500.0" cy="110.0" r="12" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1.5"/>
+<text x="460.0" y="84.0" text-anchor="end" font-size="13" fill="var(--t3-ink)">109.5°</text>
+<text x="500.0" y="200.0" text-anchor="middle" font-size="13" fill="currentColor">4 domains</text>
+<text x="500.0" y="218.0" text-anchor="middle" font-size="13" fill="currentColor">tetrahedral</text>
+</svg>

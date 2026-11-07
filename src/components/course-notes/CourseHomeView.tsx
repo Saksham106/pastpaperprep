@@ -8,7 +8,8 @@ import { useCourse } from "./notes-context";
 import { useNotesProgress } from "./useNotesProgress";
 import styles from "./course-notes.module.css";
 
-type TopicInfo = { n: number; name: string; href: string; cheatSheetHref: string };
+/** `label`: the syllabus's own name for the topic number ("Structure 1"); absent, the page says "Topic n". */
+type TopicInfo = { n: number; name: string; label?: string; href: string; cheatSheetHref: string };
 
 function Row({ entry, done, next }: { entry: HomeItem; done: boolean; next: boolean }) {
   const { levels } = useCourse();
@@ -89,7 +90,7 @@ export function CourseHomeView({ name, base, crumbs, guide, topics, items }: { n
           return (
             <section key={topic.n} className={`${styles.topic} ${open ? styles.open : ""}`} style={{ "--tone": `var(--t${topic.n})`, "--tone-ink": `var(--t${topic.n}-ink)` } as CSSProperties} aria-labelledby={headingId}>
               <div className={styles.head}>
-                <div className={styles.tn}>TOPIC {topic.n}</div>
+                <div className={styles.tn}>{topic.label ? topic.label.toUpperCase() : <>TOPIC {topic.n}</>}</div>
                 <h2 id={headingId}><Link href={topic.href}>{topic.name}</Link></h2>
                 <div className={styles.dots} aria-hidden="true">
                   {shown.map((entry) => (

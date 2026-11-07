@@ -24,23 +24,25 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
   // An item with nothing at this level (an extension-only item in the base view, AA: HL only in SL) points at the other bank instead.
   const bankLevel = count === 0 && practice.counts[other] > 0 ? other : level;
   const shown = practice.counts[bankLevel];
+  // What the band practises: the item (AA, 0580) or the bank subtopic it shares with other lessons (IB Chemistry).
+  const topic = practice.name ?? practice.items;
   return (
     <section id="practise" className={styles.practise} data-practise>
       <div>
         <h2>Practise this</h2>
         {shown === 0 ? (
-          <p>No past-paper questions on {practice.items} yet.</p>
+          <p>No past-paper questions on {topic} yet.</p>
         ) : bankLevel !== level ? (
           practice.extensionOnly ? (
-            <p>{practice.items}{` is ${course.levels.labels.extensionOnly}. `}<b>{plural(shown)}</b>{` in the ${bankPrefix} `}{course.levels.labels[bankLevel]} bank, each with a mark scheme and a worked explanation.</p>
+            <p>{practice.items}{` is ${course.levels.labels.extensionOnly}. `}<b>{plural(shown)}</b>{practice.name ? <> on {practice.name}</> : null}{` in the ${bankPrefix} `}{course.levels.labels[bankLevel]} bank, each with a mark scheme and a worked explanation.</p>
           ) : (
-            <p>{`No ${course.levels.labels[level]} questions on ${practice.items} yet; `}<b>{shown}</b>{` ${course.bankPhrase.replace("{level}", course.levels.labels[bankLevel])}.`}</p>
+            <p>{`No ${course.levels.labels[level]} questions on ${topic} yet; `}<b>{shown}</b>{` ${course.bankPhrase.replace("{level}", course.levels.labels[bankLevel])}.`}</p>
           )
         ) : (
-          <p><b>{plural(shown)}</b> on {practice.items}{` in the ${bankPrefix} `}{course.levels.labels[level]} bank, each with a mark scheme and a worked explanation.</p>
+          <p><b>{plural(shown)}</b> on {topic}{` in the ${bankPrefix} `}{course.levels.labels[level]} bank, each with a mark scheme and a worked explanation.</p>
         )}
       </div>
-      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, course.banks[bankLevel], practice.group)}>Practise {practice.items} →</Link>}
+      {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, course.banks[bankLevel], practice.group)}>Practise {topic} →</Link>}
     </section>
   );
 }
@@ -48,7 +50,7 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
 export type Neighbour = { item: string; title: string; href: string; level: string };
 
 export const REPORT_ISSUES = [
-  { issue: "maths_error", label: "A maths error" },
+  { issue: "maths_error", label: "A mistake in the notes" },
   { issue: "unclear", label: "Hard to follow" },
   { issue: "typo", label: "A typo" },
   { issue: "broken", label: "Something is broken" },

@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.6",
+  "slug": "intermolecular-forces",
+  "title": "Intermolecular forces",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Molecules attract each other through [[intermolecular-force|intermolecular forces]], which are far weaker than the [[covalent-bond|covalent bonds]] inside them. Which forces act depends on a molecule's size and polarity. Their strength explains boiling points, volatility, [[solubility|solubility]] and why molecular substances don't conduct.",
+  "goals": [
+    {
+      "text": "Explain the difference between the covalent bonds inside molecules and the intermolecular forces between them.",
+      "bullets": [
+        "S2.2.8"
+      ]
+    },
+    {
+      "text": "Deduce which intermolecular forces act between molecules (London, dipole–induced dipole, dipole–dipole, hydrogen bonding) from their structure.",
+      "bullets": [
+        "S2.2.8"
+      ]
+    },
+    {
+      "text": "Compare the strengths of intermolecular forces, for molecules of similar molar mass and for molecules of different size.",
+      "bullets": [
+        "S2.2.9"
+      ]
+    },
+    {
+      "text": "Explain the volatility, electrical conductivity and solubility of covalent substances from their structure.",
+      "bullets": [
+        "S2.2.9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1",
+    "2.2",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "IMF",
+    "London dispersion forces",
+    "van der Waals forces",
+    "hydrogen bonding",
+    "dipole-dipole forces",
+    "boiling point trends"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-boiling-particles",
+      "prompt": "When liquid water boils, what happens to its particles?",
+      "hint": "Boiling is a change of state, not a reaction.",
+      "options": [
+        {
+          "text": "They gain enough energy to overcome the attractions between them and move far apart.",
+          "correct": true
+        },
+        {
+          "text": "They break apart into hydrogen and oxygen atoms.",
+          "correct": false
+        },
+        {
+          "text": "They get bigger as they are heated.",
+          "correct": false
+        }
+      ],
+      "explain": "The particles escape their neighbours, but each water molecule stays whole. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "They gain enough energy to overcome the attractions between them and move far apart."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-polar-dichloromethane",
+      "prompt": "Which of these molecules is polar?",
+      "hint": "A [[polar-molecule|polar molecule]] needs polar bonds in a shape that doesn't cancel them.",
+      "options": [
+        {
+          "text": "dichloromethane",
+          "correct": true
+        },
+        {
+          "text": "tetrachloromethane",
+          "correct": false
+        },
+        {
+          "text": "carbon dioxide",
+          "correct": false
+        }
+      ],
+      "explain": "In tetrahedral $\\ce{CH2Cl2}$ the bond dipoles don't cancel. In $\\ce{CCl4}$ and $\\ce{CO2}$ the symmetry cancels them. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "dichloromethane"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "london",
+      "heading": "Bonds inside molecules, forces between them",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In liquid bromine, a covalent bond joins the two atoms of each $\\ce{Br2}$ molecule. Much weaker attractions between the molecules hold the liquid together."
+        },
+        {
+          "type": "definition",
+          "term": "intermolecular force",
+          "statement": "An attraction between separate molecules (or noble-gas atoms). It is much weaker than a covalent bond.",
+          "plain": "The stickiness between molecules that holds a molecular liquid or solid together."
+        },
+        {
+          "type": "result",
+          "statement": "When a molecular substance melts or boils, only its intermolecular forces are overcome. The covalent bonds inside the molecules do not break.",
+          "why": "Breaking $\\ce{Br-Br}$ takes $\\pu{193 kJ mol-1}$ (data booklet, section 12), but boiling bromine takes only about $\\pu{30 kJ mol-1}$, and the vapour is still $\\ce{Br2}$ molecules."
+        },
+        {
+          "type": "text",
+          "text": "Even non-polar $\\ce{Br2}$ attracts its neighbours. Its electrons keep moving, so at any instant one end may have more of them: an instantaneous dipole."
+        },
+        {
+          "type": "text",
+          "text": "That dipole pulls on the electrons of the next molecule and induces a dipole there. The two attract, and a moment later the pattern shifts."
+        },
+        {
+          "type": "definition",
+          "term": "London (dispersion) force",
+          "statement": "The attraction between an instantaneous dipole in one molecule and the dipole it induces in a neighbouring molecule.",
+          "plain": "A weak, flickering attraction that every molecule has, because electrons keep moving."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-london-forces",
+          "alt": "Two panels, each showing two neighbouring non-polar diatomic molecules drawn as ovals with two nuclei. Panel 1, an instantaneous dipole: in the left molecule the electron cloud has drifted to its left end, marked delta minus, leaving its right end delta plus; the right molecule's cloud is still even. Panel 2, an induced dipole: the delta plus end of the left molecule pulls the right molecule's electrons towards it, so the right molecule's near end becomes delta minus and its far end delta plus. A double-headed arrow between these two ends is labelled attraction."
+        },
+        {
+          "type": "text",
+          "text": "[[london-dispersion-force|London (dispersion) forces]] act between all molecules, polar or not. They get stronger with more electrons (a bigger cloud distorts more easily) and with more surface contact (long chains touch more than compact, branched molecules)."
+        },
+        {
+          "type": "example",
+          "id": "ex-halogen-boiling",
+          "question": "Chlorine boils at $-34.04\\,^{\\circ}\\text{C}$, bromine at $58.78\\,^{\\circ}\\text{C}$ and iodine at $184.4\\,^{\\circ}\\text{C}$ (data booklet, section 8). Explain this trend.",
+          "steps": [
+            "All three are non-polar, so only London forces act.",
+            "Electrons: $\\ce{Cl2}$ 34, $\\ce{Br2}$ 70, $\\ce{I2}$ 106.",
+            "More electrons give stronger London forces, which need more energy to overcome."
+          ],
+          "answer": "The halogens are non-polar, so only London (dispersion) forces act between their molecules. The number of electrons increases from chlorine to iodine, so the London forces become stronger. More energy is needed to overcome them, so the boiling point increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "non-polar, London forces only; more electrons down the group, stronger London forces, more energy to overcome",
+            "requires": [
+              "London",
+              [
+                "number of electrons increases",
+                "more electrons"
+              ],
+              "stronger",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "bond enthalpy",
+              "hydrogen bond"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pentane-isomers",
+          "question": "Pentane, $\\ce{CH3CH2CH2CH2CH3}$, boils at $36\\,^{\\circ}\\text{C}$. Its isomer 2,2-dimethylpropane, $\\ce{C(CH3)4}$, boils at $10\\,^{\\circ}\\text{C}$. Explain the difference.",
+          "steps": [
+            "Both are $\\ce{C5H12}$, so electron count can't be the reason.",
+            "Compare shapes: a long chain against a compact, nearly spherical molecule."
+          ],
+          "answer": "Both molecules have the same number of electrons, and only London forces act between them. Pentane is a long unbranched chain, so neighbouring molecules have a larger surface area of contact. 2,2-Dimethylpropane is compact, so its London forces are weaker and need less energy to overcome, giving a lower boiling point.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same electrons; branched isomer has less surface contact, so weaker London forces and lower boiling point",
+            "requires": [
+              "same number of electrons",
+              "surface area of contact",
+              "weaker",
+              "less energy"
+            ],
+            "forbids": [
+              "hydrogen bond",
+              "covalent bonds break"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-highest-london",
+          "prompt": "Argon ($\\ce{Ar}$), fluorine ($\\ce{F2}$), ethane ($\\ce{C2H6}$) and tetrachloromethane ($\\ce{CCl4}$) have only London forces. Which has the highest boiling point?",
+          "hint": "Count the electrons in each particle.",
+          "options": [
+            {
+              "text": "tetrachloromethane",
+              "correct": true
+            },
+            {
+              "text": "argon",
+              "correct": false
+            },
+            {
+              "text": "fluorine",
+              "correct": false
+            },
+            {
+              "text": "ethane",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CCl4}$ has $6 + 4 \\times 17 = 74$ electrons; the others have 18 each. So it has the strongest London forces.",
+          "verify": {
+            "kind": "choice",
+            "truth": "tetrachloromethane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-boiling-breaks",
+          "prompt": "What is overcome when liquid tetrachloromethane boils?",
+          "hint": "Is the vapour still made of $\\ce{CCl4}$ molecules?",
+          "options": [
+            {
+              "text": "London forces between the molecules",
+              "correct": true
+            },
+            {
+              "text": "carbon–chlorine covalent bonds",
+              "correct": false
+            },
+            {
+              "text": "hydrogen bonds between the molecules",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CCl4}$ is non-polar with no hydrogen, so only London forces act between its molecules. The $\\ce{C-Cl}$ bonds stay intact.",
+          "verify": {
+            "kind": "choice",
+            "truth": "London forces between the molecules"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dipoles",
+      "heading": "Dipole forces and hydrogen bonds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[polar-molecule|polar molecule]] has a permanent [[dipole-moment|dipole moment]], from [[bond-polarity|bond polarity]] in a shape that doesn't cancel it ({{lesson:2.4}}). One end carries a [[partial-charge|partial charge]] $\\delta-$, the other $\\delta+$."
+        },
+        {
+          "type": "definition",
+          "term": "dipole–dipole force",
+          "statement": "The attraction between the permanent dipoles of neighbouring polar molecules, acting on top of their London forces.",
+          "plain": "Opposite ends of polar molecules attract."
+        },
+        {
+          "type": "text",
+          "text": "A polar molecule can also induce a dipole in a non-polar one, as water does with dissolved oxygen. That is a dipole–induced dipole force."
+        },
+        {
+          "type": "text",
+          "text": "Hydrogen bonding is the strongest case. Nitrogen, oxygen and fluorine are very electronegative (3.0, 3.4 and 4.0, against 2.2 for H; data booklet, section 9). A hydrogen bonded to one of them is left strongly $\\delta+$, with no inner electrons to shield its nucleus."
+        },
+        {
+          "type": "definition",
+          "term": "hydrogen bond",
+          "statement": "The attraction between a hydrogen atom covalently bonded to N, O or F and a lone pair on a nearby N, O or F atom, usually in a neighbouring molecule.",
+          "plain": "An extra-strong dipole attraction that only hydrogen on N, O or F can make."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-hydrogen-bond",
+          "alt": "Two water molecules side by side. In the left molecule, oxygen is joined to two hydrogen atoms by solid lines, one labelled covalent bond. That hydrogen atom, marked delta plus, points right towards the oxygen atom of the second water molecule, which is marked delta minus and shows its two lone pairs as pairs of dots. A dashed line from the delta plus hydrogen to one lone pair on the second oxygen is labelled hydrogen bond. The oxygen, hydrogen and oxygen atoms along the hydrogen bond lie almost in a straight line.",
+          "caption": "The solid $\\ce{O-H}$ line is a covalent bond; the dashed line is a [[hydrogen-bond|hydrogen bond]]."
+        },
+        {
+          "type": "text",
+          "text": "[[van-der-waals-forces|Van der Waals forces]] is the umbrella term for London, dipole–induced dipole and [[dipole-dipole-force|dipole–dipole forces]], but not hydrogen bonds. In answers, name the specific force: mark schemes can refuse \"van der Waals\" when they want \"London\"."
+        },
+        {
+          "type": "text",
+          "text": "To deduce the forces: 1. London forces are always present. 2. If the molecule is polar, add dipole–dipole. 3. If H is bonded directly to N, O or F, add hydrogen bonding."
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-forces",
+          "question": "Deduce the intermolecular forces between molecules of (a) propanone, $\\ce{CH3COCH3}$, and (b) methylamine, $\\ce{CH3NH2}$.",
+          "steps": [
+            "Both have London forces, like every molecule.",
+            "Propanone: polar $\\ce{C=O}$, not cancelled, so dipole–dipole. All its H atoms are on C.",
+            "Methylamine: polar, so dipole–dipole. Two H atoms are on N, and N has a lone pair."
+          ],
+          "answer": "Propanone has London forces and dipole–dipole forces, but no hydrogen bonding, because no hydrogen is bonded to oxygen. Methylamine has London forces, dipole–dipole forces and hydrogen bonding, because hydrogen is bonded directly to nitrogen, which has a lone pair.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "propanone: London + dipole-dipole; methylamine: London + dipole-dipole + hydrogen bonding",
+            "requires": [
+              "propanone has London forces and dipole-dipole forces",
+              "no hydrogen is bonded to oxygen",
+              "methylamine has London forces, dipole-dipole forces and hydrogen bonding",
+              "bonded directly to nitrogen",
+              "lone pair"
+            ],
+            "forbids": [
+              "van der Waals",
+              "propanone has hydrogen bonding"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hf-hcl",
+          "question": "Hydrogen fluoride, $\\ce{HF}$, boils at $20\\,^{\\circ}\\text{C}$. Hydrogen chloride, $\\ce{HCl}$, has more electrons but boils at $-85\\,^{\\circ}\\text{C}$. Explain why.",
+          "steps": [
+            "$\\ce{HCl}$ (18 electrons) beats $\\ce{HF}$ (10) on London forces, so something else must win.",
+            "Fluorine is one of N, O or F; chlorine is not."
+          ],
+          "answer": "$\\ce{HCl}$ has more electrons, so it has stronger London forces. However, hydrogen in $\\ce{HF}$ is bonded to the highly electronegative fluorine atom, so $\\ce{HF}$ molecules form hydrogen bonds with each other. $\\ce{HCl}$ cannot form hydrogen bonds; it has only dipole–dipole and London forces. Hydrogen bonds are much stronger, so more energy is needed to separate $\\ce{HF}$ molecules.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "HCl has stronger London forces, but HF forms hydrogen bonds (H on F), which are much stronger",
+            "requires": [
+              "stronger London forces",
+              "bonded to the highly electronegative fluorine",
+              "form hydrogen bonds",
+              "cannot form hydrogen bonds",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "bond enthalpy",
+              "H-F bond is stronger"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-own-hbonds",
+          "prompt": "Which forms hydrogen bonds between its own molecules: hydrazine $\\ce{H2N-NH2}$, hydrogen sulfide $\\ce{H2S}$, methoxymethane $\\ce{CH3OCH3}$ or trifluoromethane $\\ce{CHF3}$?",
+          "hint": "Look for H bonded directly to N, O or F.",
+          "options": [
+            {
+              "text": "hydrazine",
+              "correct": true
+            },
+            {
+              "text": "hydrogen sulfide",
+              "correct": false
+            },
+            {
+              "text": "methoxymethane",
+              "correct": false
+            },
+            {
+              "text": "trifluoromethane",
+              "correct": false
+            }
+          ],
+          "explain": "Only hydrazine has H on N. In $\\ce{H2S}$ the H is on sulfur; the other two have O or F, but every H is on carbon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydrazine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-forces-chcl3",
+          "prompt": "Which forces act between molecules of trichloromethane, $\\ce{CHCl3}$?",
+          "hint": "Ask the three questions in turn.",
+          "options": [
+            {
+              "text": "London and dipole–dipole forces only",
+              "correct": true
+            },
+            {
+              "text": "London forces only",
+              "correct": false
+            },
+            {
+              "text": "London forces, dipole–dipole forces and hydrogen bonding",
+              "correct": false
+            }
+          ],
+          "explain": "London forces always act, and $\\ce{CHCl3}$ is polar. Its one H is on carbon, so there is no hydrogen bonding.",
+          "verify": {
+            "kind": "choice",
+            "truth": "London and dipole–dipole forces only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "heading": "Strength, volatility, conductivity and solubility",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "For molecules of comparable molar mass, intermolecular forces generally increase in strength: London (dispersion) < dipole–dipole < hydrogen bonding.",
+          "why": "Similar molar mass means similar London forces, so the extra forces decide."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-boiling-points",
+          "alt": "A temperature axis from minus 60 to plus 100 degrees Celsius with three molecules of similar molar mass marked by their boiling points. Propane, with only London forces, boils at minus 42 degrees Celsius. Ethanal, with London and dipole-dipole forces, boils at 20 degrees Celsius. Ethanol, with London forces, dipole-dipole forces and hydrogen bonding, boils at 78 degrees Celsius.",
+          "caption": "Propane, ethanal and ethanol have molar masses of about $\\pu{44-46 g mol-1}$."
+        },
+        {
+          "type": "text",
+          "text": "A volatile substance evaporates easily: the weaker its intermolecular forces, the lower its boiling point and the more volatile it is. Of the three above, propane is the most volatile."
+        },
+        {
+          "type": "text",
+          "text": "The condition matters. Iodine has only London forces, yet with 106 electrons it boils at $184.4\\,^{\\circ}\\text{C}$, far above water."
+        },
+        {
+          "type": "text",
+          "text": "[[covalent-network-structure|Covalent network structures]] such as diamond ({{lesson:2.5}}) are different: melting them breaks covalent bonds, so they are not volatile."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethanol-ether",
+          "question": "Ethanol, $\\ce{CH3CH2OH}$, and methoxymethane, $\\ce{CH3OCH3}$, both have $M = \\pu{46.08 g mol-1}$. Ethanol boils at $78\\,^{\\circ}\\text{C}$ and methoxymethane at $-24\\,^{\\circ}\\text{C}$. Explain the difference.",
+          "steps": [
+            "Isomers: same electrons, similar London forces. Both are polar.",
+            "Only ethanol has H on O."
+          ],
+          "answer": "The two isomers have the same number of electrons and similar London forces. In ethanol a hydrogen atom is bonded to oxygen, so ethanol molecules form hydrogen bonds with each other. Methoxymethane has no hydrogen bonded to oxygen, so its strongest force is dipole–dipole. Hydrogen bonds are stronger, so more energy is needed to separate ethanol molecules.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same electrons; ethanol hydrogen bonds (H on O), methoxymethane only dipole-dipole; hydrogen bonds stronger",
+            "requires": [
+              "same number of electrons",
+              "hydrogen atom is bonded to oxygen",
+              "form hydrogen bonds",
+              "no hydrogen bonded to oxygen",
+              "dipole-dipole",
+              "more energy"
+            ],
+            "forbids": [
+              "covalent bonds break",
+              "methoxymethane forms hydrogen bonds"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "[[electrical-conductivity|Electrical conductivity]] needs mobile charged particles. Molecular substances have no ions, and no electrons free to move from molecule to molecule. Partial charges are fixed on neutral molecules, so they don't conduct. A few react with water to form ions."
+        },
+        {
+          "type": "example",
+          "id": "ex-hbr-ions",
+          "question": "Liquid hydrogen bromide does not conduct, but its solution in water does. Write an equation, with state symbols, for the reaction of gaseous $\\ce{HBr}$ with water that explains this.",
+          "steps": [
+            "$\\ce{HBr}$ gives its H to a water molecule, forming two ions.",
+            "Check: 3 H, 1 O, 1 Br and zero total charge on each side. The ions are free to move."
+          ],
+          "answer": "$\\ce{HBr(g) + H2O(l) -> H3O^+(aq) + Br^-(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HBr(g) + H2O(l) -> H3O^+(aq) + Br^-(aq)",
+            "states": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "For [[solubility|solubility]], like dissolves like. Small molecules with $\\ce{O-H}$ or $\\ce{N-H}$, or a lone pair on N or O, hydrogen bond to water and dissolve. Non-polar molecules can't replace water's hydrogen bonds, so they dissolve in a non-polar [[solvent|solvent]] such as hexane instead."
+        },
+        {
+          "type": "mistake",
+          "text": "Assuming an $\\ce{O-H}$ group makes any molecule water-soluble. A long non-polar chain, as in decan-1-ol, outweighs it."
+        },
+        {
+          "type": "check",
+          "id": "check-highest-bp-58",
+          "prompt": "Butane, propanone and propan-1-ol ($\\ce{CH3CH2CH2OH}$) have molar masses of about $\\pu{58-60 g mol-1}$. Which is least volatile?",
+          "hint": "Least volatile means strongest intermolecular forces.",
+          "options": [
+            {
+              "text": "propan-1-ol",
+              "correct": true
+            },
+            {
+              "text": "propanone",
+              "correct": false
+            },
+            {
+              "text": "butane",
+              "correct": false
+            }
+          ],
+          "explain": "Propan-1-ol has H on O, so it hydrogen bonds. Propanone has dipole–dipole forces; butane has only London forces.",
+          "verify": {
+            "kind": "choice",
+            "truth": "propan-1-ol"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dissolve-water",
+          "prompt": "Which substance is most soluble in water?",
+          "hint": "Look for a small molecule that can hydrogen bond with water.",
+          "options": [
+            {
+              "text": "propanone",
+              "correct": true
+            },
+            {
+              "text": "decan-1-ol",
+              "correct": false
+            },
+            {
+              "text": "tetrachloromethane",
+              "correct": false
+            }
+          ],
+          "explain": "Propanone accepts hydrogen bonds from water and is small. Decan-1-ol's long chain makes it almost insoluble, and tetrachloromethane is non-polar.",
+          "verify": {
+            "kind": "choice",
+            "truth": "propanone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Boiling a molecular substance overcomes intermolecular forces; covalent bonds don't break.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "London forces act between all molecules, and grow with electron number and surface contact.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dipole–dipole forces need polar molecules. Hydrogen bonding needs H on N, O or F, and a lone pair on N, O or F nearby.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At comparable molar mass: London < dipole–dipole < hydrogen bonding.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Van der Waals = London + dipole–induced dipole + dipole–dipole (not hydrogen bonds).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stronger forces: higher boiling point, less volatile. Pure molecular substances don't conduct; like dissolves like.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying boiling breaks covalent bonds. Only the forces between molecules are overcome.",
+    "Giving hydrogen bonding to any molecule with H. The H must be on N, O or F: ethanal, $\\ce{CH3CHO}$, has none.",
+    "Writing \"van der Waals\" when the question wants the specific force, such as London (dispersion).",
+    "Ranking by type of force without checking molar mass. The order only holds for molecules of similar size."
+  ],
+  "examTips": [
+    "\"Deduce\" the forces: list every one, London first, and link each to the structure (polar bonds and shape; H on N, O or F).",
+    "\"Explain\" a boiling-point difference: name the forces in each substance, say which are stronger and why, then that more energy is needed to overcome them.",
+    "\"Compare and contrast\" needs a similarity and a difference, such as similar London forces but hydrogen bonding in only one."
+  ],
+  "readingMinutes": 19
+}

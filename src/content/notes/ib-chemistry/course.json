@@ -1,0 +1,83 @@
+{
+  "slug": "ib-chemistry",
+  "name": "IB Chemistry",
+  "published": false,
+  "levels": {
+    "base": "SL",
+    "extension": "AHL",
+    "labels": {
+      "base": "SL",
+      "extension": "HL",
+      "extensionOnly": "HL only"
+    }
+  },
+  "banks": {
+    "SL": "ib-chemistry-sl",
+    "HL": "ib-chemistry-hl"
+  },
+  "items": "src/content/notes/ib-chemistry/items.json",
+  "practice": {
+    "kind": "bank-subtopics"
+  },
+  "gate": {
+    "sidecars": "scripts/notes/sidecars/ib-chemistry",
+    "packs": "course-notes-chemistry/packs",
+    "glossaryPlan": "course-notes-chemistry/glossary-plan.json"
+  },
+  "calculators": [],
+  "copy": {
+    "crumbs": [
+      "IB",
+      "Chemistry"
+    ],
+    "guide": "Follows the IB Chemistry guide for exams from May 2025.",
+    "sheetFooter": "Follows the IB Chemistry guide (first assessment 2025). Not affiliated with the IB.",
+    "board": "IB",
+    "educationalLevel": "IB Diploma",
+    "bankPrefix": "Chemistry",
+    "bankPhrase": "in the Chemistry {level} bank"
+  },
+  "topics": [
+    {
+      "n": 1,
+      "slug": "structure-1",
+      "label": "Structure 1",
+      "name": "Models of the particulate nature of matter"
+    },
+    {
+      "n": 2,
+      "slug": "structure-2",
+      "label": "Structure 2",
+      "name": "Models of bonding and structure"
+    },
+    {
+      "n": 3,
+      "slug": "structure-3",
+      "label": "Structure 3",
+      "name": "Classification of matter"
+    },
+    {
+      "n": 4,
+      "slug": "reactivity-1",
+      "label": "Reactivity 1",
+      "name": "What drives chemical reactions?"
+    },
+    {
+      "n": 5,
+      "slug": "reactivity-2",
+      "label": "Reactivity 2",
+      "name": "How much, how fast and how far?"
+    },
+    {
+      "n": 6,
+      "slug": "reactivity-3",
+      "label": "Reactivity 3",
+      "name": "Mechanisms of chemical change"
+    },
+    {
+      "n": 7,
+      "slug": "practical-skills",
+      "name": "Practical skills"
+    }
+  ]
+}

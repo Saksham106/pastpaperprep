@@ -1,0 +1,1549 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-chemistry-2025",
+ "source": "IB Chemistry guide, first assessment 2025 (published February 2023)",
+ "items": [
+  {
+   "item": "1.1",
+   "topic": 1,
+   "level": "SL",
+   "name": "The particulate nature of matter",
+   "practice": "Particles, states, mixtures and separation",
+   "bullets": [
+    {
+     "id": "S1.1.1",
+     "text": "Elements are the primary constituents of matter, which cannot be chemically broken down into simpler substances."
+    },
+    {
+     "id": "S1.1.2",
+     "text": "The kinetic molecular theory is a model to explain physical properties of matter (solids, liquids and gases) and changes of state."
+    },
+    {
+     "id": "S1.1.3",
+     "text": "The temperature, T , in Kelvin (K) is a measure of average kinetic energy Ek  of particles."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.2",
+   "topic": 1,
+   "level": "SL",
+   "name": "The nuclear atom and isotopes",
+   "practice": "Nuclear atom, isotopes and mass spectra",
+   "bullets": [
+    {
+     "id": "S1.2.1",
+     "text": "Atoms contain a positively charged, dense nucleus composed of protons and neutrons (nucleons). Negatively charged electrons occupy the space outside the nucleus."
+    },
+    {
+     "id": "S1.2.2",
+     "text": "Isotopes are atoms of the same element with different numbers of neutrons."
+    },
+    {
+     "id": "S1.2.3",
+     "text": "Mass spectra are used to determine the relative atomic masses of elements from their isotopic composition.",
+     "level": "AHL"
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.3",
+   "topic": 1,
+   "level": "SL",
+   "name": "Emission spectra and energy levels",
+   "practice": "Electron configurations and emission spectra",
+   "bullets": [
+    {
+     "id": "S1.3.1",
+     "text": "Emission spectra are produced by atoms emitting photons when electrons in excited states return to lower energy levels."
+    },
+    {
+     "id": "S1.3.2",
+     "text": "The line emission spectrum of hydrogen provides evidence for the existence of electrons in discrete energy levels, which converge at higher energies."
+    },
+    {
+     "id": "S1.3.3",
+     "text": "The main energy level is given an integer number, n, and can hold a maximum of 2n2 electrons."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-wave-speed",
+     "label": "c = fλ"
+    },
+    {
+     "id": "db-photon-energy",
+     "label": "E = hf"
+    }
+   ]
+  },
+  {
+   "item": "1.4",
+   "topic": 1,
+   "level": "SL",
+   "name": "Sublevels, orbitals and electron configurations",
+   "practice": "Electron configurations and emission spectra",
+   "bullets": [
+    {
+     "id": "S1.3.4",
+     "text": "A more detailed model of the atom describes the division of the main energy level into s, p, d and f sublevels of successively higher energies."
+    },
+    {
+     "id": "S1.3.5",
+     "text": "Each orbital has a defined energy state for a given electron configuration and chemical environment, and can hold two electrons of opposite spin."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.5",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Ionization energy",
+   "practice": "Electron configurations and emission spectra",
+   "bullets": [
+    {
+     "id": "S1.3.6",
+     "text": "In an emission spectrum, the limit of convergence at higher frequency corresponds to ionization."
+    },
+    {
+     "id": "S1.3.7",
+     "text": "Successive ionization energy (IE) data for an element give information about its electron configuration."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.6",
+   "topic": 1,
+   "level": "SL",
+   "name": "The mole and molar mass",
+   "practice": "The mole and reacting quantities",
+   "bullets": [
+    {
+     "id": "S1.4.1",
+     "text": "The mole (mol) is the SI unit of amount of substance. One mole contains exactly the number of elementary entities given by the Avogadro constant."
+    },
+    {
+     "id": "S1.4.2",
+     "text": "Masses of atoms are compared on a scale relative to 12C and are expressed as relative atomic mass Ar  and relative formula mass Mr ."
+    },
+    {
+     "id": "S1.4.3",
+     "text": "Molar mass M  has the units g mol–1."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-amount-from-mass",
+     "label": "n = m/M"
+    }
+   ]
+  },
+  {
+   "item": "1.7",
+   "topic": 1,
+   "level": "SL",
+   "name": "Empirical and molecular formulas",
+   "practice": "Formulae and equations",
+   "bullets": [
+    {
+     "id": "S1.4.4",
+     "text": "The empirical formula of a compound gives the simplest ratio of atoms of each element present in that compound. The molecular formula gives the actual number of atoms of each element present in a molecule."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.8",
+   "topic": 1,
+   "level": "SL",
+   "name": "Concentration and Avogadro's law",
+   "practice": "Solutions and gases",
+   "bullets": [
+    {
+     "id": "S1.4.5",
+     "text": "The molar concentration is determined by the amount of solute and the volume of solution."
+    },
+    {
+     "id": "S1.4.6",
+     "text": "Avogadro’s law states that equal volumes of all gases measured under the same conditions of temperature and pressure contain equal numbers of molecules."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-amount-from-concentration",
+     "label": "n = CV"
+    }
+   ]
+  },
+  {
+   "item": "1.9",
+   "topic": 1,
+   "level": "SL",
+   "name": "Ideal gases",
+   "practice": "Solutions and gases",
+   "bullets": [
+    {
+     "id": "S1.5.1",
+     "text": "An ideal gas consists of moving particles with negligible volume and no intermolecular forces. All collisions between particles are considered elastic."
+    },
+    {
+     "id": "S1.5.2",
+     "text": "Real gases deviate from the ideal gas model, particularly at low temperature and high pressure."
+    },
+    {
+     "id": "S1.5.3",
+     "text": "The molar volume of an ideal gas is a constant at a specific temperature and pressure."
+    },
+    {
+     "id": "S1.5.4",
+     "text": "The relationship between the pressure, volume, temperature and amount of an ideal gas is shown in the ideal gas equation PV = nRT and the combined gas law P1V1 T1 = P2V2 T2 ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-ideal-gas",
+     "label": "PV = nRT"
+    },
+    {
+     "id": "db-combined-gas-law",
+     "label": "P1V1/T1 = P2V2/T2"
+    }
+   ]
+  },
+  {
+   "item": "2.1",
+   "topic": 2,
+   "level": "SL",
+   "name": "The ionic model",
+   "practice": "Ionic, covalent and metallic bonding",
+   "bullets": [
+    {
+     "id": "S2.1.1",
+     "text": "When metal atoms lose electrons, they form positive ions called cations."
+    },
+    {
+     "id": "S2.1.2",
+     "text": "The ionic bond is formed by electrostatic attractions between oppositely charged ions."
+    },
+    {
+     "id": "S2.1.3",
+     "text": "Ionic compounds exist as three-dimensional lattice structures, represented by empirical formulas."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.2",
+   "topic": 2,
+   "level": "SL",
+   "name": "Covalent bonds and Lewis formulas",
+   "practice": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+   "bullets": [
+    {
+     "id": "S2.2.1",
+     "text": "A covalent bond is formed by the electrostatic attraction between a shared pair of electrons and the positively charged nuclei."
+    },
+    {
+     "id": "S2.2.2",
+     "text": "Single, double and triple bonds involve one, two and three shared pairs of electrons respectively."
+    },
+    {
+     "id": "S2.2.3",
+     "text": "A coordination bond is a covalent bond in which both the electrons of the shared pair originate from the same atom."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.3",
+   "topic": 2,
+   "level": "SL",
+   "name": "Shapes of molecules (VSEPR)",
+   "practice": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+   "bullets": [
+    {
+     "id": "S2.2.4",
+     "text": "The valence shell electron pair repulsion (VSEPR) model enables the shapes of molecules to be predicted from the repulsion of electron domains around a central atom."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.4",
+   "topic": 2,
+   "level": "SL",
+   "name": "Bond and molecular polarity",
+   "practice": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+   "bullets": [
+    {
+     "id": "S2.2.5",
+     "text": "Bond polarity results from the difference in electronegativities of the bonded atoms."
+    },
+    {
+     "id": "S2.2.6",
+     "text": "Molecular polarity depends on both bond polarity and molecular geometry."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.5",
+   "topic": 2,
+   "level": "SL",
+   "name": "Covalent network structures",
+   "practice": "Ionic, covalent and metallic bonding",
+   "bullets": [
+    {
+     "id": "S2.2.7",
+     "text": "Carbon and silicon form covalent network structures."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.6",
+   "topic": 2,
+   "level": "SL",
+   "name": "Intermolecular forces",
+   "practice": "Intermolecular forces and solids",
+   "bullets": [
+    {
+     "id": "S2.2.8",
+     "text": "The nature of the force that exists between molecules is determined by the size and polarity of the molecules. Intermolecular forces include London (dispersion), dipole-induced dipole, dipole–dipole and hydrogen bonding."
+    },
+    {
+     "id": "S2.2.9",
+     "text": "Given comparable molar mass, the relative strengths of intermolecular forces are generally: London (dispersion) forces < dipole–dipole forces < hydrogen bonding."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.7",
+   "topic": 2,
+   "level": "SL",
+   "name": "Chromatography",
+   "practice": "Mass spectrometry, IR, NMR and chromatography",
+   "bullets": [
+    {
+     "id": "S2.2.10",
+     "text": "Chromatography is a technique used to separate the components of a mixture based on their relative attractions involving intermolecular forces to mobile and stationary phases."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.8",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Resonance, expanded octets and formal charge",
+   "practice": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+   "bullets": [
+    {
+     "id": "S2.2.11",
+     "text": "Resonance structures occur when there is more than one possible position for a double bond in a molecule."
+    },
+    {
+     "id": "S2.2.12",
+     "text": "Benzene, C6H6, is an important example of a molecule that has resonance."
+    },
+    {
+     "id": "S2.2.13",
+     "text": "Some atoms can form molecules in which they have an expanded octet of electrons."
+    },
+    {
+     "id": "S2.2.14",
+     "text": "Formal charge values can be calculated for each atom in a species and used to determine which of several possible Lewis formulas is preferred."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.9",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Sigma and pi bonds, and hybridization",
+   "practice": "Lewis structures, VSEPR, hybridization, formal charge and resonance",
+   "bullets": [
+    {
+     "id": "S2.2.15",
+     "text": "Sigma bonds σ  form by the head-on combination of atomic orbitals where the electron density is concentrated along the bond axis."
+    },
+    {
+     "id": "S2.2.16",
+     "text": "Hybridization is the concept of mixing atomic orbitals to form new hybrid orbitals for bonding."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.10",
+   "topic": 2,
+   "level": "SL",
+   "name": "The metallic model",
+   "practice": "Ionic, covalent and metallic bonding",
+   "bullets": [
+    {
+     "id": "S2.3.1",
+     "text": "A metallic bond is the electrostatic attraction between a lattice of cations and delocalized electrons."
+    },
+    {
+     "id": "S2.3.2",
+     "text": "The strength of a metallic bond depends on the charge of the ions and the radius of the metal ion."
+    },
+    {
+     "id": "S2.3.3",
+     "text": "Transition elements have delocalized d-electrons.",
+     "level": "AHL"
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.11",
+   "topic": 2,
+   "level": "SL",
+   "name": "The bonding triangle and alloys",
+   "practice": "Polymers, materials, alloys and nanotechnology",
+   "bullets": [
+    {
+     "id": "S2.4.1",
+     "text": "Bonding is best described as a continuum between the ionic, covalent and metallic models, and can be represented by a bonding triangle."
+    },
+    {
+     "id": "S2.4.2",
+     "text": "The position of a compound in the bonding triangle is determined by the relative contributions of the three bonding types to the overall bond."
+    },
+    {
+     "id": "S2.4.3",
+     "text": "Alloys are mixtures of a metal and other metals or non-metals. They have enhanced properties."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.12",
+   "topic": 2,
+   "level": "SL",
+   "name": "Polymers",
+   "practice": "Polymers, materials, alloys and nanotechnology",
+   "bullets": [
+    {
+     "id": "S2.4.4",
+     "text": "Polymers are large molecules, or macromolecules, made from repeating subunits called monomers."
+    },
+    {
+     "id": "S2.4.5",
+     "text": "Addition polymers form by the breaking of a double bond in each monomer."
+    },
+    {
+     "id": "S2.4.6",
+     "text": "Condensation polymers form by the reaction between functional groups in each monomer with the release of a small molecule.",
+     "level": "AHL"
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.1",
+   "topic": 3,
+   "level": "SL",
+   "name": "The periodic table and periodicity",
+   "practice": "Periodic table and trends",
+   "bullets": [
+    {
+     "id": "S3.1.1",
+     "text": "The periodic table consists of periods, groups and blocks."
+    },
+    {
+     "id": "S3.1.2",
+     "text": "The period number shows the outer energy level that is occupied by electrons."
+    },
+    {
+     "id": "S3.1.3",
+     "text": "Periodicity refers to trends in properties of elements across a period and down a group."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.2",
+   "topic": 3,
+   "level": "SL",
+   "name": "Group trends and the oxides of elements",
+   "practice": "Periodic table and trends",
+   "bullets": [
+    {
+     "id": "S3.1.4",
+     "text": "Trends in properties of elements down a group include the increasing metallic character of group 1 elements and decreasing non-metallic character of group 17 elements."
+    },
+    {
+     "id": "S3.1.5",
+     "text": "Metallic and non-metallic properties show a continuum. This includes the trend from basic metal oxides through amphoteric to acidic non-metal oxides."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.3",
+   "topic": 3,
+   "level": "SL",
+   "name": "Oxidation states",
+   "practice": "Oxidation states and half-equations",
+   "bullets": [
+    {
+     "id": "S3.1.6",
+     "text": "The oxidation state is a number assigned to an atom to show the number of electrons transferred in forming a bond. It is the charge that atom would have if the compound were composed of ions."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.4",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Ionization energy trends and transition elements",
+   "practice": "Transition elements and complexes",
+   "bullets": [
+    {
+     "id": "S3.1.7",
+     "text": "Discontinuities occur in the trend of increasing first ionization energy across a period."
+    },
+    {
+     "id": "S3.1.8",
+     "text": "Transition elements have incomplete d-sublevels that give them characteristic properties."
+    },
+    {
+     "id": "S3.1.9",
+     "text": "The formation of variable oxidation states in transition elements can be explained by the fact that their successive ionization energies are close in value."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.5",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Coloured transition element complexes",
+   "practice": "Transition elements and complexes",
+   "bullets": [
+    {
+     "id": "S3.1.10",
+     "text": "Transition element complexes are coloured due to the absorption of light when an electron is promoted between the orbitals in the split d-sublevels. The colour absorbed is complementary to the colour observed."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.6",
+   "topic": 3,
+   "level": "SL",
+   "name": "Organic formulas, functional groups and homologous series",
+   "practice": "Functional groups and reactions",
+   "bullets": [
+    {
+     "id": "S3.2.1",
+     "text": "Organic compounds can be represented by different types of formulas. These include empirical, molecular, structural (full and condensed), stereochemical and skeletal."
+    },
+    {
+     "id": "S3.2.2",
+     "text": "Functional groups give characteristic physical and chemical properties to a compound. Organic compounds are divided into classes according to the functional groups present in their molecules."
+    },
+    {
+     "id": "S3.2.3",
+     "text": "A homologous series is a family of compounds in which successive members differ by a common structural unit, typically CH2. Each homologous series can be described by a general formula."
+    },
+    {
+     "id": "S3.2.4",
+     "text": "Successive members of a homologous series show a trend in physical properties."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.7",
+   "topic": 3,
+   "level": "SL",
+   "name": "Naming organic compounds and structural isomers",
+   "practice": "Representations, nomenclature and isomerism",
+   "bullets": [
+    {
+     "id": "S3.2.5",
+     "text": "“IUPAC nomenclature” refers to a set of rules used by the International Union of Pure and Applied Chemistry to apply systematic names to organic and inorganic compounds."
+    },
+    {
+     "id": "S3.2.6",
+     "text": "Structural isomers are molecules that have the same molecular formula but different connectivities."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.8",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Stereoisomers",
+   "practice": "Representations, nomenclature and isomerism",
+   "bullets": [
+    {
+     "id": "S3.2.7",
+     "text": "Stereoisomers have the same constitution (atom identities, connectivities and bond multiplicities) but different spatial arrangements of atoms."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.9",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Mass spectrometry and infrared spectroscopy",
+   "practice": "Mass spectrometry, IR, NMR and chromatography",
+   "bullets": [
+    {
+     "id": "S3.2.8",
+     "text": "Mass spectrometry (MS) of organic compounds can cause fragmentation of molecules."
+    },
+    {
+     "id": "S3.2.9",
+     "text": "Infrared (IR) spectra can be used to identify the type of bond present in a molecule."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.10",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Proton NMR and combined structural analysis",
+   "practice": "Mass spectrometry, IR, NMR and chromatography",
+   "bullets": [
+    {
+     "id": "S3.2.10",
+     "text": "Proton nuclear magnetic resonance spectroscopy (1H NMR) gives information on the different chemical environments of hydrogen atoms in a molecule."
+    },
+    {
+     "id": "S3.2.11",
+     "text": "Individual signals can be split into clusters of peaks."
+    },
+    {
+     "id": "S3.2.12",
+     "text": "Data from different techniques are often combined in structural analysis."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.1",
+   "topic": 4,
+   "level": "SL",
+   "name": "Measuring enthalpy changes",
+   "practice": "Calorimetry and enthalpy",
+   "bullets": [
+    {
+     "id": "R1.1.1",
+     "text": "Chemical reactions involve a transfer of energy between the system and the surroundings, while total energy is conserved."
+    },
+    {
+     "id": "R1.1.2",
+     "text": "Reactions are described as endothermic or exothermic, depending on the direction of energy transfer between the system and the surroundings."
+    },
+    {
+     "id": "R1.1.3",
+     "text": "The relative stability of reactants and products determines whether reactions are endothermic or exothermic."
+    },
+    {
+     "id": "R1.1.4",
+     "text": "The standard enthalpy change for a chemical reaction, ΔH⦵, refers to the heat transferred at constant pressure under standard conditions and states. It can be determined from the change in temperature of a pure substance."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-heat-energy",
+     "label": "Q = mcΔT"
+    }
+   ]
+  },
+  {
+   "item": "4.2",
+   "topic": 4,
+   "level": "SL",
+   "name": "Bond enthalpies and Hess's law",
+   "practice": "Hess cycles, Born-Haber cycles and bond enthalpy",
+   "bullets": [
+    {
+     "id": "R1.2.1",
+     "text": "Bond-breaking absorbs and bond-forming releases energy."
+    },
+    {
+     "id": "R1.2.2",
+     "text": "Hess’s law states that the enthalpy change for a reaction is independent of the pathway between the initial and final states."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.3",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Enthalpies of formation and combustion",
+   "practice": "Hess cycles, Born-Haber cycles and bond enthalpy",
+   "bullets": [
+    {
+     "id": "R1.2.3",
+     "text": "Standard enthalpy changes of combustion, ΔHc⦵, and formation, ΔHf⦵, data are used in thermodynamic calculations."
+    },
+    {
+     "id": "R1.2.4",
+     "text": "An application of Hess’s law uses enthalpy of formation data or enthalpy of combustion data to calculate the enthalpy change of a reaction."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-enthalpy-from-formation",
+     "label": "ΔH⦵ = Σ(ΔHf⦵ products) − Σ(ΔHf⦵ reactants)"
+    },
+    {
+     "id": "db-enthalpy-from-combustion",
+     "label": "ΔH⦵ = Σ(ΔHc⦵ reactants) − Σ(ΔHc⦵ products)"
+    }
+   ]
+  },
+  {
+   "item": "4.4",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Born–Haber cycles",
+   "practice": "Hess cycles, Born-Haber cycles and bond enthalpy",
+   "bullets": [
+    {
+     "id": "R1.2.5",
+     "text": "A Born–Haber cycle is an application of Hess’s law, used to show energy changes in the formation of an ionic compound."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.5",
+   "topic": 4,
+   "level": "SL",
+   "name": "Energy from fuels",
+   "practice": "Combustion, fuels, biofuels and energy technologies",
+   "bullets": [
+    {
+     "id": "R1.3.1",
+     "text": "Reactive metals, non-metals and organic compounds undergo combustion reactions when heated in oxygen."
+    },
+    {
+     "id": "R1.3.2",
+     "text": "Incomplete combustion of organic compounds, especially hydrocarbons, leads to the production of carbon monoxide and carbon."
+    },
+    {
+     "id": "R1.3.3",
+     "text": "Fossil fuels include coal, crude oil and natural gas, which have different advantages and disadvantages."
+    },
+    {
+     "id": "R1.3.4",
+     "text": "Biofuels are produced from the biological fixation of carbon over a short period of time through photosynthesis."
+    },
+    {
+     "id": "R1.3.5",
+     "text": "A fuel cell can be used to convert chemical energy from a fuel directly to electrical energy."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.6",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Entropy",
+   "practice": "Entropy, Gibbs energy and spontaneity",
+   "bullets": [
+    {
+     "id": "R1.4.1",
+     "text": "Entropy, S, is a measure of the dispersal or distribution of matter and/or energy in a system. The more ways the energy can be distributed, the higher the entropy. Under the same conditions, the entropy of a gas is greater than that of a liquid, which in turn is greater than that of a solid."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.7",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Gibbs energy and spontaneity",
+   "practice": "Entropy, Gibbs energy and spontaneity",
+   "bullets": [
+    {
+     "id": "R1.4.2",
+     "text": "Change in Gibbs energy, ΔG, relates the energy that can be obtained from a chemical reaction to the change in enthalpy, ΔH , change in entropy, ΔS, and absolute temperature, T ."
+    },
+    {
+     "id": "R1.4.3",
+     "text": "At constant pressure, a change is spontaneous if the change in Gibbs energy, ΔG, is negative."
+    },
+    {
+     "id": "R1.4.4",
+     "text": "As a reaction approaches equilibrium, ΔG becomes less negative and finally reaches zero."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-gibbs",
+     "label": "ΔG⦵ = ΔH⦵ − TΔS⦵"
+    }
+   ]
+  },
+  {
+   "item": "5.1",
+   "topic": 5,
+   "level": "SL",
+   "name": "Chemical equations and reacting quantities",
+   "practice": "The mole and reacting quantities",
+   "bullets": [
+    {
+     "id": "R2.1.1",
+     "text": "Chemical equations show the ratio of reactants and products in a reaction."
+    },
+    {
+     "id": "R2.1.2",
+     "text": "The mole ratio of an equation can be used to determine: • the masses and/or volumes of reactants and products • the concentrations of reactants and products for reactions occurring in solution."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.2",
+   "topic": 5,
+   "level": "SL",
+   "name": "Limiting reactants, yield and atom economy",
+   "practice": "Yield and atom economy",
+   "bullets": [
+    {
+     "id": "R2.1.3",
+     "text": "The limiting reactant determines the theoretical yield."
+    },
+    {
+     "id": "R2.1.4",
+     "text": "The percentage yield is calculated from the ratio of experimental yield to theoretical yield."
+    },
+    {
+     "id": "R2.1.5",
+     "text": "The atom economy is a measure of efficiency in green chemistry."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-atom-economy",
+     "label": "% atom economy = molar mass of desired product / molar mass of all reactants × 100"
+    }
+   ]
+  },
+  {
+   "item": "5.3",
+   "topic": 5,
+   "level": "SL",
+   "name": "Rates of reaction and collision theory",
+   "practice": "Collision theory and rate factors",
+   "bullets": [
+    {
+     "id": "R2.2.1",
+     "text": "The rate of reaction is expressed as the change in concentration of a particular reactant/product per unit time."
+    },
+    {
+     "id": "R2.2.2",
+     "text": "Species react as a result of collisions of sufficient energy and proper orientation."
+    },
+    {
+     "id": "R2.2.3",
+     "text": "Factors that influence the rate of a reaction include pressure, concentration, surface area, temperature and the presence of a catalyst."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.4",
+   "topic": 5,
+   "level": "SL",
+   "name": "Activation energy and catalysts",
+   "practice": "Energy profiles and catalysts",
+   "bullets": [
+    {
+     "id": "R2.2.4",
+     "text": "Activation energy, Ea, is the minimum energy that colliding particles need for a successful collision leading to a reaction."
+    },
+    {
+     "id": "R2.2.5",
+     "text": "Catalysts increase the rate of reaction by providing an alternative reaction pathway with lower Ea."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.5",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Reaction mechanisms and the rate-determining step",
+   "practice": "Rate laws, orders, Arrhenius and mechanisms",
+   "bullets": [
+    {
+     "id": "R2.2.6",
+     "text": "Many reactions occur in a series of elementary steps. The slowest step determines the rate of the reaction."
+    },
+    {
+     "id": "R2.2.7",
+     "text": "Energy profiles can be used to show the activation energy and transition state of the rate-determining step in a multistep reaction."
+    },
+    {
+     "id": "R2.2.8",
+     "text": "The molecularity of an elementary step is the number of reacting particles taking part in that step."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.6",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Rate equations and orders of reaction",
+   "practice": "Rate laws, orders, Arrhenius and mechanisms",
+   "bullets": [
+    {
+     "id": "R2.2.9",
+     "text": "Rate equations depend on the mechanism of the reaction and can only be determined experimentally."
+    },
+    {
+     "id": "R2.2.10",
+     "text": "The order of a reaction with respect to a reactant is the exponent to which the concentration of the reactant is raised in the rate equation."
+    },
+    {
+     "id": "R2.2.11",
+     "text": "The rate constant, k, is temperature dependent and its units are determined from the overall order of the reaction."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.7",
+   "topic": 5,
+   "level": "AHL",
+   "name": "The Arrhenius equation",
+   "practice": "Rate laws, orders, Arrhenius and mechanisms",
+   "bullets": [
+    {
+     "id": "R2.2.12",
+     "text": "The Arrhenius equation uses the temperature dependence of the rate constant to determine the activation energy."
+    },
+    {
+     "id": "R2.2.13",
+     "text": "The Arrhenius factor, A, takes into account the frequency of collisions with proper orientations."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-arrhenius",
+     "label": "k = Ae^(−Ea/RT)"
+    },
+    {
+     "id": "db-arrhenius-log",
+     "label": "ln k = −Ea/(RT) + ln A"
+    }
+   ]
+  },
+  {
+   "item": "5.8",
+   "topic": 5,
+   "level": "SL",
+   "name": "Dynamic equilibrium and the equilibrium constant",
+   "practice": "Equilibrium constants and reaction quotient",
+   "bullets": [
+    {
+     "id": "R2.3.1",
+     "text": "A state of dynamic equilibrium is reached in a closed system when the rates of forward and backward reactions are equal."
+    },
+    {
+     "id": "R2.3.2",
+     "text": "The equilibrium law describes how the equilibrium constant, K , can be determined from the stoichiometry of a reaction."
+    },
+    {
+     "id": "R2.3.3",
+     "text": "The magnitude of the equilibrium constant indicates the extent of a reaction at equilibrium and is temperature dependent."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.9",
+   "topic": 5,
+   "level": "SL",
+   "name": "Le Châtelier's principle",
+   "practice": "Le Chatelier's principle",
+   "bullets": [
+    {
+     "id": "R2.3.4",
+     "text": "Le Châtelier’s principle enables the prediction of the qualitative effects of changes in concentration, temperature and pressure to a system at equilibrium."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.10",
+   "topic": 5,
+   "level": "AHL",
+   "name": "The reaction quotient and equilibrium calculations",
+   "practice": "Equilibrium calculations and composition",
+   "bullets": [
+    {
+     "id": "R2.3.5",
+     "text": "The reaction quotient, Q, is calculated using the equilibrium expression with non- equilibrium concentrations of reactants and products."
+    },
+    {
+     "id": "R2.3.6",
+     "text": "The equilibrium law is the basis for quantifying the composition of an equilibrium mixture."
+    },
+    {
+     "id": "R2.3.7",
+     "text": "The equilibrium constant and Gibbs energy change, ΔG, can both be used to measure the position of an equilibrium reaction."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-gibbs-q",
+     "label": "ΔG = ΔG⦵ + RT ln Q"
+    },
+    {
+     "id": "db-gibbs-k",
+     "label": "ΔG⦵ = −RT ln K"
+    }
+   ]
+  },
+  {
+   "item": "6.1",
+   "topic": 6,
+   "level": "SL",
+   "name": "Brønsted–Lowry acids and bases",
+   "practice": "Acid-base theories",
+   "bullets": [
+    {
+     "id": "R3.1.1",
+     "text": "Brønsted–Lowry acid is a proton donor and a Brønsted–Lowry base is a proton acceptor."
+    },
+    {
+     "id": "R3.1.2",
+     "text": "A pair of species differing by a single proton is called a conjugate acid–base pair."
+    },
+    {
+     "id": "R3.1.3",
+     "text": "Some species can act as both Brønsted–Lowry acids and bases."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.2",
+   "topic": 6,
+   "level": "SL",
+   "name": "The pH scale and Kw",
+   "practice": "pH, strong and weak acids and bases, Ka and Kb",
+   "bullets": [
+    {
+     "id": "R3.1.4",
+     "text": "The pH scale can be used to describe the [H+] of a solution: pH = –log10[H+]; [H+] = 10–pH Perform calculations involving the logarithmic relationship between pH and [H+]."
+    },
+    {
+     "id": "R3.1.5",
+     "text": "The ion product constant of water, Kw, shows an inverse relationship between [H+] and [OH–]. Kw = [H+] [OH–] Recognize solutions as acidic, neutral and basic from the relative values of [H+] and [OH–]."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-ph",
+     "label": "pH = −log10[H3O+] or pH = −log10[H+]"
+    },
+    {
+     "id": "db-kw",
+     "label": "Kw = [H+][OH−]"
+    }
+   ]
+  },
+  {
+   "item": "6.3",
+   "topic": 6,
+   "level": "SL",
+   "name": "Strong and weak acids, neutralization and pH curves",
+   "practice": "pH, strong and weak acids and bases, Ka and Kb",
+   "bullets": [
+    {
+     "id": "R3.1.6",
+     "text": "Strong and weak acids and bases differ in the extent of ionization."
+    },
+    {
+     "id": "R3.1.7",
+     "text": "Acids react with bases in neutralization reactions."
+    },
+    {
+     "id": "R3.1.8",
+     "text": "pH curves for neutralization reactions involving strong acids and bases have characteristic shapes and features."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.4",
+   "topic": 6,
+   "level": "AHL",
+   "name": "pOH, Ka and Kb",
+   "practice": "pH, strong and weak acids and bases, Ka and Kb",
+   "bullets": [
+    {
+     "id": "R3.1.9",
+     "text": "The pOH scale describes the [OH–] of a solution. pOH = –log10[OH–]; [OH–] = 10–pOH Interconvert [H+], [OH–], pH and pOH values."
+    },
+    {
+     "id": "R3.1.10",
+     "text": "The strengths of weak acids and bases are described by their Ka, Kb, pKa or pKb values."
+    },
+    {
+     "id": "R3.1.11",
+     "text": "For a conjugate acid–base pair, the relationship Ka × Kb = Kw can be derived from the expressions for Ka and Kb."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-poh",
+     "label": "pOH = −log10[OH−]"
+    }
+   ]
+  },
+  {
+   "item": "6.5",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Salt solutions and pH curves",
+   "practice": "Buffers and salt hydrolysis",
+   "bullets": [
+    {
+     "id": "R3.1.12",
+     "text": "The pH of a salt solution depends on the relative strengths of the parent acid and base."
+    },
+    {
+     "id": "R3.1.13",
+     "text": "pH curves of different combinations of strong and weak monoprotic acids and bases have characteristic shapes and features."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.6",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Acid–base indicators",
+   "practice": "Titrations, curves and indicators",
+   "bullets": [
+    {
+     "id": "R3.1.14",
+     "text": "Acid–base indicators are weak acids, where the components of the conjugate acid–base pair have different colours. The pH of the end point of an indicator, where it changes colour, approximately corresponds to its pKa value."
+    },
+    {
+     "id": "R3.1.15",
+     "text": "An appropriate indicator for a titration has an end point range that coincides with the pH at the equivalence point."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.7",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Buffer solutions",
+   "practice": "Buffers and salt hydrolysis",
+   "bullets": [
+    {
+     "id": "R3.1.16",
+     "text": "A buffer solution is one that resists change in pH on the addition of small amounts of acid or alkali."
+    },
+    {
+     "id": "R3.1.17",
+     "text": "The pH of a buffer solution depends on both: • the pKa or pKb of its acid or base • the ratio of the concentration of acid or base to the concentration of the conjugate base or acid."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.8",
+   "topic": 6,
+   "level": "SL",
+   "name": "Oxidation, reduction and half-equations",
+   "practice": "Oxidation states and half-equations",
+   "bullets": [
+    {
+     "id": "R3.2.1",
+     "text": "Oxidation and reduction can be described in terms of electron transfer, change in oxidation state, oxygen gain/loss or hydrogen loss/gain."
+    },
+    {
+     "id": "R3.2.2",
+     "text": "Half-equations separate the processes of oxidation and reduction, showing the loss or gain of electrons."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.9",
+   "topic": 6,
+   "level": "SL",
+   "name": "Reactivity of metals and halogens",
+   "practice": "Oxidation states and half-equations",
+   "bullets": [
+    {
+     "id": "R3.2.3",
+     "text": "The relative ease of oxidation and reduction of an element in a group can be predicted from its position in the periodic table."
+    },
+    {
+     "id": "R3.2.4",
+     "text": "Acids react with reactive metals to release hydrogen."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.10",
+   "topic": 6,
+   "level": "SL",
+   "name": "Primary and secondary cells",
+   "practice": "Electrochemical cells and potentials",
+   "bullets": [
+    {
+     "id": "R3.2.5",
+     "text": "Oxidation occurs at the anode and reduction occurs at the cathode in electrochemical cells."
+    },
+    {
+     "id": "R3.2.6",
+     "text": "A primary (voltaic) cell is an electrochemical cell that converts energy from spontaneous redox reactions to electrical energy."
+    },
+    {
+     "id": "R3.2.7",
+     "text": "Secondary (rechargeable) cells involve redox reactions that can be reversed using electrical energy."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.11",
+   "topic": 6,
+   "level": "SL",
+   "name": "Electrolytic cells",
+   "practice": "Electrolysis, batteries and fuel cells",
+   "bullets": [
+    {
+     "id": "R3.2.8",
+     "text": "An electrolytic cell is an electrochemical cell that converts electrical energy to chemical energy by bringing about non-spontaneous reactions."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.12",
+   "topic": 6,
+   "level": "SL",
+   "name": "Oxidation and reduction of organic compounds",
+   "practice": "Functional groups and reactions",
+   "bullets": [
+    {
+     "id": "R3.2.9",
+     "text": "Functional groups in organic compounds may undergo oxidation."
+    },
+    {
+     "id": "R3.2.10",
+     "text": "Functional groups in organic compounds may undergo reduction."
+    },
+    {
+     "id": "R3.2.11",
+     "text": "Reduction of unsaturated compounds by the addition of hydrogen lowers the degree of unsaturation."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.13",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Standard electrode potentials",
+   "practice": "Electrochemical cells and potentials",
+   "bullets": [
+    {
+     "id": "R3.2.12",
+     "text": "The hydrogen half-cell H+(aq) + e− ⇌ 12 H2(g) is assigned a standard electrode potential of zero by convention. It is used in the measurement of standard electrode potential, E⦵."
+    },
+    {
+     "id": "R3.2.13",
+     "text": "Standard cell potential, E⦵cell, can be calculated from standard electrode potentials. E⦵cell has a positive value for a spontaneous reaction."
+    },
+    {
+     "id": "R3.2.14",
+     "text": "The equation ΔG⦵ = − nFE⦵cell shows the relationship between standard change in Gibbs energy and standard cell potential for a reaction."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-gibbs-cell",
+     "label": "ΔG⦵ = −nFE⦵"
+    }
+   ]
+  },
+  {
+   "item": "6.14",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Electrolysis of aqueous solutions and electroplating",
+   "practice": "Electrolysis, batteries and fuel cells",
+   "bullets": [
+    {
+     "id": "R3.2.15",
+     "text": "During electrolysis of aqueous solutions, competing reactions can occur at the anode and cathode, including the oxidation and reduction of water."
+    },
+    {
+     "id": "R3.2.16",
+     "text": "Electroplating involves the electrolytic coating of an object with a metallic thin layer."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.15",
+   "topic": 6,
+   "level": "SL",
+   "name": "Radicals",
+   "practice": "Synthesis and mechanisms",
+   "bullets": [
+    {
+     "id": "R3.3.1",
+     "text": "A radical is a molecular entity that has an unpaired electron. Radicals are highly reactive."
+    },
+    {
+     "id": "R3.3.2",
+     "text": "Radicals are produced by homolytic fission, e.g. of halogens, in the presence of ultraviolet (UV) light or heat."
+    },
+    {
+     "id": "R3.3.3",
+     "text": "Radicals take part in substitution reactions with alkanes, producing a mixture of products."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.16",
+   "topic": 6,
+   "level": "SL",
+   "name": "Nucleophiles and electrophiles",
+   "practice": "Synthesis and mechanisms",
+   "bullets": [
+    {
+     "id": "R3.4.1",
+     "text": "A nucleophile is a reactant that forms a bond to its reaction partner (the electrophile) by donating both bonding electrons."
+    },
+    {
+     "id": "R3.4.2",
+     "text": "In a nucleophilic substitution reaction, a nucleophile donates an electron pair to form a new bond, as another bond breaks producing a leaving group."
+    },
+    {
+     "id": "R3.4.3",
+     "text": "Heterolytic fission is the breakage of a covalent bond when both bonding electrons remain with one of the two fragments formed."
+    },
+    {
+     "id": "R3.4.4",
+     "text": "An electrophile is a reactant that forms a bond to its reaction partner (the nucleophile) by accepting both bonding electrons from that reaction partner."
+    },
+    {
+     "id": "R3.4.5",
+     "text": "Alkenes are susceptible to electrophilic attack because of the high electron density of the carbon–carbon double bond. These reactions lead to electrophilic addition."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.17",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Lewis acids and bases, and complex ions",
+   "practice": "Acid-base theories",
+   "bullets": [
+    {
+     "id": "R3.4.6",
+     "text": "A Lewis acid is an electron-pair acceptor and a Lewis base is an electron-pair donor."
+    },
+    {
+     "id": "R3.4.7",
+     "text": "When a Lewis base reacts with a Lewis acid, a coordination bond is formed."
+    },
+    {
+     "id": "R3.4.8",
+     "text": "Coordination bonds are formed when ligands donate an electron pair to transition element cations, forming complex ions."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.18",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Nucleophilic substitution mechanisms",
+   "practice": "Synthesis and mechanisms",
+   "bullets": [
+    {
+     "id": "R3.4.9",
+     "text": "Nucleophilic substitution reactions include the reactions between halogenoalkanes and nucleophiles."
+    },
+    {
+     "id": "R3.4.10",
+     "text": "The rate of the substitution reactions is influenced by the identity of the leaving group."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.19",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Electrophilic addition",
+   "practice": "Synthesis and mechanisms",
+   "bullets": [
+    {
+     "id": "R3.4.11",
+     "text": "Alkenes readily undergo electrophilic addition reactions."
+    },
+    {
+     "id": "R3.4.12",
+     "text": "The relative stability of carbocations in the addition reactions between hydrogen halides and unsymmetrical alkenes can be used to explain the reaction mechanism."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.20",
+   "topic": 6,
+   "level": "AHL",
+   "name": "Electrophilic substitution of benzene",
+   "practice": "Synthesis and mechanisms",
+   "bullets": [
+    {
+     "id": "R3.4.13",
+     "text": "Electrophilic substitution reactions include the reactions of benzene with electrophiles."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "7.1",
+   "topic": 7,
+   "level": "SL",
+   "name": "Experimental techniques and safety",
+   "practice": "Experimental design, safety and evaluation",
+   "bullets": [
+    {
+     "id": "T1.1",
+     "text": "Recognize and address relevant safety, ethical or environmental issues in an investigation."
+    },
+    {
+     "id": "T1.2",
+     "text": "Understand how to accurately measure the following to an appropriate level of precision: mass, volume, time, temperature, length, pH of a solution, electric current, electric potential difference."
+    },
+    {
+     "id": "T1.3",
+     "text": "Show awareness of the purpose and practice of: preparing a standard solution; carrying out dilutions; drying to constant mass; distillation and reflux; paper or thin layer chromatography; separation of mixtures; calorimetry; acid–base and redox titration; electrochemical cells; colorimetry or spectrophotometry; physical and digital molecular modelling; recrystallization; melting point determination."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "7.2",
+   "topic": 7,
+   "level": "SL",
+   "name": "Uncertainties, errors and significant figures",
+   "practice": "Uncertainty and error",
+   "bullets": [
+    {
+     "id": "T3.1",
+     "text": "Apply and use International System of Units (SI) prefixes and units."
+    },
+    {
+     "id": "T3.2",
+     "text": "Express quantities and uncertainties to an appropriate number of significant figures or decimal places."
+    },
+    {
+     "id": "T3.3",
+     "text": "Calculate and interpret percentage change and percentage difference."
+    },
+    {
+     "id": "T3.4",
+     "text": "Calculate and interpret percentage error and percentage uncertainty."
+    },
+    {
+     "id": "T3.5",
+     "text": "Understand the significance of uncertainties in raw and processed data."
+    },
+    {
+     "id": "T3.6",
+     "text": "Record uncertainties in measurements as a range (±) to an appropriate level of precision."
+    },
+    {
+     "id": "T3.7",
+     "text": "Propagate uncertainties in processed data, in calculations involving addition, subtraction, multiplication, division and (HL only) exponents."
+    },
+    {
+     "id": "T3.8",
+     "text": "Express measurement and processed uncertainties—absolute, fractional (relative), percentage—to an appropriate number of significant figures or level of precision."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "7.3",
+   "topic": 7,
+   "level": "SL",
+   "name": "Graphs and data processing",
+   "practice": "Graphical and data processing",
+   "bullets": [
+    {
+     "id": "T3.9",
+     "text": "Determine rates of change from tabulated data."
+    },
+    {
+     "id": "T3.10",
+     "text": "Understand direct and inverse proportionality, as well as positive and negative correlations between variables."
+    },
+    {
+     "id": "T3.11",
+     "text": "Apply the coefficient of determination (R2) to evaluate the fit of a trend line or curve."
+    },
+    {
+     "id": "T3.12",
+     "text": "Sketch graphs, with labelled but unscaled axes, to qualitatively describe trends."
+    },
+    {
+     "id": "T3.13",
+     "text": "Plot linear and non-linear graphs showing the relationship between two variables with appropriate scales and axes."
+    },
+    {
+     "id": "T3.14",
+     "text": "Draw lines or curves of best fit."
+    },
+    {
+     "id": "T3.15",
+     "text": "Interpret features of graphs including gradient, changes in gradient, intercepts, maxima and minima, and areas."
+    },
+    {
+     "id": "T3.16",
+     "text": "Draw and interpret uncertainty bars."
+    },
+    {
+     "id": "T3.17",
+     "text": "Extrapolate and interpolate graphs."
+    }
+   ],
+   "booklet": []
+  }
+ ]
+}

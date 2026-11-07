@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.4",
+  "slug": "activation-energy-and-catalysts",
+  "title": "Activation energy and catalysts",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Most collisions don't lead to a reaction, because the particles don't hit hard enough. The [[activation-energy|activation energy]] is the energy barrier a [[successful-collision|successful collision]] must get over. A higher [[temperature|temperature]] gives more particles enough energy, as the [[maxwell-boltzmann-distribution|Maxwell–Boltzmann distribution]] shows. A [[catalyst|catalyst]] lowers the barrier instead.",
+  "goals": [
+    {
+      "text": "Define activation energy and mark it on [[energy-profile|energy profiles]] for exothermic and endothermic reactions.",
+      "bullets": [
+        "R2.2.4"
+      ]
+    },
+    {
+      "text": "Use Maxwell–Boltzmann curves to explain why a higher temperature makes successful collisions more likely.",
+      "bullets": [
+        "R2.2.4"
+      ]
+    },
+    {
+      "text": "Explain how a catalyst increases the rate, using an energy profile and a Maxwell–Boltzmann curve.",
+      "bullets": [
+        "R2.2.5"
+      ]
+    },
+    {
+      "text": "State what a catalyst leaves unchanged: $\\Delta H$, the particles' energies and the position of equilibrium.",
+      "bullets": [
+        "R2.2.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "4.1",
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "activation energy",
+    "Maxwell-Boltzmann curve",
+    "Boltzmann distribution",
+    "energy profile with catalyst",
+    "how catalysts work",
+    "effect of temperature on rate"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-heating-gas",
+      "prompt": "A sealed sample of gas is heated. What happens to its particles?",
+      "hint": "Temperature measures one property of the particles.",
+      "options": [
+        {
+          "text": "Their average kinetic energy increases.",
+          "correct": true
+        },
+        {
+          "text": "They all move at the same, higher speed.",
+          "correct": false
+        },
+        {
+          "text": "The particles get bigger.",
+          "correct": false
+        }
+      ],
+      "explain": "Temperature is proportional to the average kinetic energy. The particles still have many different speeds. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Their average kinetic energy increases."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exo-profile",
+      "prompt": "On an energy profile for an exothermic reaction, where are the products?",
+      "hint": "Exothermic reactions give energy out.",
+      "options": [
+        {
+          "text": "below the reactants, with a negative enthalpy change",
+          "correct": true
+        },
+        {
+          "text": "above the reactants, with a positive enthalpy change",
+          "correct": false
+        },
+        {
+          "text": "below the reactants, with a positive enthalpy change",
+          "correct": false
+        }
+      ],
+      "explain": "Energy leaves the system, so the products end lower and $\\Delta H$ is negative. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "below the reactants, with a negative enthalpy change"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-two-conditions",
+      "prompt": "According to [[collision-theory|collision theory]], what must a collision have to lead to a reaction?",
+      "hint": "One is about how hard the particles hit, the other about which way round.",
+      "options": [
+        {
+          "text": "enough energy and the correct orientation",
+          "correct": true
+        },
+        {
+          "text": "enough energy and a high concentration",
+          "correct": false
+        },
+        {
+          "text": "the correct orientation and a catalyst",
+          "correct": false
+        }
+      ],
+      "explain": "Enough energy and the right orientation. Concentration changes how often collisions happen, not what makes one successful. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "enough energy and the correct orientation"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "activation-energy",
+      "heading": "Activation energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Methane and air can sit mixed for years without reacting, though burning methane releases a lot of energy. A spark starts it at once."
+        },
+        {
+          "type": "text",
+          "text": "Something holds the reaction back: an energy barrier. Bonds must start to break before new ones form, and that costs energy. Colliding particles react only if they bring enough energy to get over it."
+        },
+        {
+          "type": "definition",
+          "term": "activation energy",
+          "statement": "Activation energy, $E_\\text{a}$, is the least energy colliding particles must have between them for the collision to cause a reaction.",
+          "plain": "The height of the energy hill the reactants climb before they can roll down to products."
+        },
+        {
+          "type": "text",
+          "text": "On an [[energy-profile|energy profile]], $E_\\text{a}$ is the rise from the reactants to the top of the hump, the transition state. The [[enthalpy-change|enthalpy change]], $\\Delta H$, runs from reactants to products."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-ea-profiles",
+          "alt": "Two energy profiles, potential energy against reaction coordinate. Left, exothermic: the curve starts at a reactants level, rises over a hump and falls to a products level below the reactants. An upward arrow from the reactants level to the top of the hump is labelled activation energy, and a downward arrow from reactants to products is labelled delta H, negative. Right, endothermic: the products level is above the reactants level. An upward arrow from the reactants level to the top of the hump is labelled activation energy, and an upward arrow from reactants to products is labelled delta H, positive. In both, the activation energy is measured from the reactants up to the peak.",
+          "caption": "$E_\\text{a}$ is always measured up from the reactants, and it is always positive. Only $\\Delta H$ changes sign."
+        },
+        {
+          "type": "text",
+          "text": "The size of $\\Delta H$ says nothing about speed. A very exothermic reaction can be very slow if $E_\\text{a}$ is large."
+        },
+        {
+          "type": "result",
+          "statement": "For the reverse reaction, $E_\\text{a}(\\text{reverse}) = E_\\text{a}(\\text{forward}) - \\Delta H$, where $\\Delta H$ is for the forward reaction.",
+          "why": "The reverse reaction climbs to the same peak, but starts from the products."
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-from-profile",
+          "question": "An energy profile is drawn on a scale in $\\pu{kJ mol-1}$. The reactants are at $30$, the top of the hump is at $215$ and the products are at $140$. Determine the activation energy of the reverse reaction.",
+          "steps": [
+            "Forward $E_\\text{a}$: reactants to peak, $215 - 30 = \\pu{185 kJ mol-1}$.",
+            "$\\Delta H$: reactants to products, $140 - 30 = \\pu{+110 kJ mol-1}$ (endothermic).",
+            "The reverse reaction climbs from the products to the same peak: $215 - 140 = \\pu{75 kJ mol-1}$.",
+            "Check with the rule: $185 - (+110) = 75$."
+          ],
+          "answer": "$E_\\text{a}(\\text{reverse}) = \\pu{75 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "215 - 140",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-spark",
+          "question": "A methane–air mixture does not react at room temperature, though methane combustion is very exothermic. Lit by a spark, it keeps burning. Explain this.",
+          "steps": [
+            "Name the barrier: $E_\\text{a}$ is high.",
+            "Say why that matters at room temperature: few collisions have enough energy.",
+            "Say what the spark and the released energy do."
+          ],
+          "answer": "The reaction has a high activation energy. At room temperature very few colliding molecules have energy greater than or equal to the activation energy, so almost no collisions are successful. The spark gives some molecules enough energy to react. The reaction is exothermic, so the energy it releases lets more molecules reach the activation energy, and the burning continues.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "high activation energy; few collisions have E >= Ea at room temperature; spark supplies Ea; energy released sustains it",
+            "requires": [
+              "high activation energy",
+              "very few",
+              [
+                "greater than or equal to the activation energy",
+                "at least the activation energy"
+              ],
+              "spark",
+              [
+                "exothermic",
+                "energy it releases"
+              ]
+            ],
+            "forbids": [
+              "exothermic reactions are fast",
+              "breaking bonds releases"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-is-ea",
+          "prompt": "On an energy profile, which difference is the forward activation energy?",
+          "hint": "The forward reaction starts at the reactants.",
+          "options": [
+            {
+              "text": "reactants up to the top of the hump",
+              "correct": true
+            },
+            {
+              "text": "reactants to products",
+              "correct": false
+            },
+            {
+              "text": "products up to the top of the hump",
+              "correct": false
+            },
+            {
+              "text": "zero up to the top of the hump",
+              "correct": false
+            }
+          ],
+          "explain": "Reactants to products is $\\Delta H$, and products to the peak is the reverse $E_\\text{a}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "reactants up to the top of the hump"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-ea",
+          "prompt": "A reaction has $\\Delta H = \\pu{-64 kJ mol-1}$ and $E_\\text{a} = \\pu{38 kJ mol-1}$. Calculate the activation energy, in $\\pu{kJ mol-1}$, of the reverse reaction.",
+          "hint": "Sketch it. The products sit $64$ below the reactants.",
+          "answer": {
+            "value": 102,
+            "tolerance": 0
+          },
+          "explain": "$E_\\text{a}(\\text{reverse}) = 38 - (-64) = \\pu{102 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "38 - (-64)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "maxwell-boltzmann",
+      "heading": "The Maxwell–Boltzmann distribution and temperature",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The particles in a gas don't all have the same energy. Collisions keep passing energy around, so some are slow, most are middling and a few are very fast."
+        },
+        {
+          "type": "definition",
+          "term": "Maxwell–Boltzmann distribution",
+          "statement": "The Maxwell–Boltzmann distribution shows how the kinetic energies of the particles in a sample are spread at a given temperature.",
+          "plain": "How many particles have each amount of kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "Draw four features. The curve starts at the origin: no particle has zero energy. It rises to a peak at the most likely energy."
+        },
+        {
+          "type": "text",
+          "text": "Then it falls in a long tail that approaches the energy axis but never touches it. The area under the curve stands for all the particles in the sample."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-mb-temperature",
+          "alt": "Maxwell-Boltzmann distribution, fraction of particles against kinetic energy, at two temperatures. Both curves start at the origin, rise to a peak and then fall away in a long tail that gets closer to the energy axis without touching it. The curve at the lower temperature T1 has a taller, narrower peak at lower energy. The curve at the higher temperature T2 has a lower peak further to the right and a fatter tail. The two curves cross once, to the right of both peaks. A vertical dashed line marks the activation energy, well out in the tail. The area under each curve beyond the activation energy is shaded, and the shaded area is much larger for T2 than for T1.",
+          "caption": "Only particles right of $E_\\text{a}$ can react on collision. At the higher temperature, $T_2$, that area is much larger."
+        },
+        {
+          "type": "text",
+          "text": "At a higher temperature the average kinetic energy is higher. The peak moves right and gets lower, and the curve spreads. The area stays the same: the number of particles hasn't changed."
+        },
+        {
+          "type": "result",
+          "statement": "Raising the temperature increases the proportion of particles with $E \\ge E_\\text{a}$. So a greater proportion of collisions are successful, and the [[rate-of-reaction|rate of reaction]] increases.",
+          "why": "The tail beyond $E_\\text{a}$ grows a lot, and $E_\\text{a}$ itself doesn't move."
+        },
+        {
+          "type": "text",
+          "text": "Hotter particles also collide a little more often, but that is the smaller effect."
+        },
+        {
+          "type": "mistake",
+          "text": "Letting the tail touch or cross the energy axis, or starting the curve above zero. Start at the origin and keep the tail off the axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-temperature",
+          "question": "Nitrogen dioxide gas decomposes faster at $\\pu{650 K}$ than at $\\pu{600 K}$. Explain why, with reference to the Maxwell–Boltzmann distribution.",
+          "steps": [
+            "Say what temperature does to the particles.",
+            "Say what that does to the curve, compared with $E_\\text{a}$.",
+            "Link to successful collisions per unit time."
+          ],
+          "answer": "At the higher temperature the particles have a greater average kinetic energy. The Maxwell–Boltzmann curve shifts to higher energy, so a greater proportion of particles have energy greater than or equal to the activation energy. So a greater proportion of collisions are successful. There are more successful collisions per unit time, so the rate increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "higher average kinetic energy; greater proportion of particles with E >= Ea; more successful collisions per unit time",
+            "requires": [
+              "average kinetic energy",
+              [
+                "greater proportion of particles",
+                "more particles"
+              ],
+              [
+                "greater than or equal to the activation energy",
+                "at least the activation energy"
+              ],
+              [
+                "more successful collisions per unit time",
+                "greater frequency of successful collisions"
+              ]
+            ],
+            "forbids": [
+              "lowers the activation energy",
+              "activation energy decreases"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tail-factor",
+          "question": "For one reaction, the fraction of collisions with at least $E_\\text{a}$ is $2.0 \\times 10^{-9}$ at $\\pu{300 K}$ and $6.8 \\times 10^{-9}$ at $\\pu{320 K}$. Calculate how many times larger the fraction is at $\\pu{320 K}$. Give 2 significant figures.",
+          "steps": [
+            "Divide: $\\frac{6.8 \\times 10^{-9}}{2.0 \\times 10^{-9}} = 3.4$, to 2 significant figures like the data.",
+            "The temperature rose by under $7\\%$, yet the fraction more than tripled. A small temperature rise can speed a reaction up a lot."
+          ],
+          "answer": "$\\text{factor} \\approx 3.4$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.8/2.0",
+            "sf": 2
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you link $E_\\text{a}$, temperature and the rate constant with the Arrhenius equation.",
+          "lesson": "5.7"
+        },
+        {
+          "type": "check",
+          "id": "check-mb-area",
+          "prompt": "A sealed sample of gas is heated. What happens to the area under its Maxwell–Boltzmann curve?",
+          "hint": "What does the area stand for?",
+          "options": [
+            {
+              "text": "It stays the same.",
+              "correct": true
+            },
+            {
+              "text": "It increases.",
+              "correct": false
+            },
+            {
+              "text": "It decreases.",
+              "correct": false
+            }
+          ],
+          "explain": "The area stands for all the particles, and heating doesn't change. Only the shape changes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It stays the same."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mb-cooler",
+          "prompt": "How does the Maxwell–Boltzmann curve of a gas at $\\pu{350 K}$ compare with its curve at $\\pu{400 K}$?",
+          "hint": "Lower average kinetic energy, same area.",
+          "options": [
+            {
+              "text": "higher peak at lower energy, fewer particles beyond the activation energy",
+              "correct": true
+            },
+            {
+              "text": "lower peak at higher energy, more particles beyond the activation energy",
+              "correct": false
+            },
+            {
+              "text": "higher peak at the same energy, larger area",
+              "correct": false
+            },
+            {
+              "text": "same curve, activation energy moved higher",
+              "correct": false
+            }
+          ],
+          "explain": "Cooler: the curve moves left and gets taller and narrower, with the same area. Fewer particles reach $E_\\text{a}$, which doesn't move.",
+          "verify": {
+            "kind": "choice",
+            "truth": "higher peak at lower energy, fewer particles beyond the activation energy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "catalysts",
+      "heading": "Catalysts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To cross a mountain, you can give more people the energy to climb it, or find a lower pass. Heating does the first. A catalyst is the lower pass."
+        },
+        {
+          "type": "definition",
+          "term": "catalyst",
+          "statement": "A catalyst is a substance that speeds up a reaction by offering a different route, one with a lower activation energy. It is not used up.",
+          "plain": "A helper that gives the reaction an easier route and comes out unchanged."
+        },
+        {
+          "type": "text",
+          "text": "A [[catalyst|catalyst]] takes part but is made again by the end, so it isn't in the overall equation. Biological catalysts are called enzymes."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-catalyst-profiles",
+          "alt": "Two energy profiles, each with an uncatalysed curve and a catalysed curve. Left, exothermic; right, endothermic. In each panel both curves start at the same reactants level and end at the same products level. The catalysed curve, drawn dashed, rises over a much lower hump than the uncatalysed curve. Two upward arrows from the reactants level show the activation energies: the longer one reaches the top of the uncatalysed hump, the shorter one, labelled activation energy catalysed, reaches the top of the catalysed hump. One arrow between the reactants and products levels is labelled delta H, the same for both pathways.",
+          "caption": "Same start, same finish, lower hump. The catalyst changes $E_\\text{a}$ but not $\\Delta H$."
+        },
+        {
+          "type": "result",
+          "statement": "A catalyst lowers $E_\\text{a}$. It does not change $\\Delta H$, and it does not give the particles any extra energy.",
+          "why": "The reactants and products are unchanged; only the route between them is new."
+        },
+        {
+          "type": "text",
+          "text": "On a Maxwell–Boltzmann curve, a catalyst leaves the curve alone, because the temperature is the same. It moves $E_\\text{a}$ to lower energy."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-mb-catalyst",
+          "alt": "One Maxwell-Boltzmann distribution, fraction of particles against kinetic energy, at a single temperature. Two vertical dashed lines cross the tail. The left line, at lower energy, is the activation energy with a catalyst. The right line, at higher energy, is the activation energy without a catalyst. The area under the curve to the right of the catalysed line is shaded, and it is much larger than the darker shaded area to the right of the uncatalysed line. The curve itself is the same in both cases.",
+          "caption": "With a catalyst, every particle right of the lower $E_\\text{a}$ line can react."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-catalyst",
+          "question": "Ammonia is made from nitrogen and hydrogen over iron. Explain how the iron increases the rate, with reference to the Maxwell–Boltzmann distribution.",
+          "steps": [
+            "Say what the catalyst does to the route and to $E_\\text{a}$.",
+            "Say what happens on the curve, which itself doesn't change.",
+            "Link to successful collisions per unit time."
+          ],
+          "answer": "The iron provides an alternative reaction pathway with a lower activation energy. On the Maxwell–Boltzmann distribution the activation energy moves to a lower energy, while the curve stays the same. So a greater proportion of particles have energy greater than or equal to the activation energy. There are more successful collisions per unit time, so the rate increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "alternative pathway with lower Ea; greater proportion of particles with E >= Ea; more successful collisions per unit time",
+            "requires": [
+              "alternative reaction pathway",
+              "lower activation energy",
+              [
+                "greater proportion of particles",
+                "more particles"
+              ],
+              [
+                "greater than or equal to the activation energy",
+                "at least the activation energy"
+              ],
+              [
+                "more successful collisions per unit time",
+                "greater frequency of successful collisions"
+              ]
+            ],
+            "forbids": [
+              "increases the kinetic energy",
+              "gives the particles more energy",
+              "shifts the equilibrium"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-catalysed-reverse",
+          "question": "A reaction has $\\Delta H = \\pu{-58 kJ mol-1}$ and $E_\\text{a} = \\pu{132 kJ mol-1}$. A catalyst lowers the activation energy of the forward reaction to $\\pu{87 kJ mol-1}$. Calculate the activation energy of the catalysed reverse reaction.",
+          "steps": [
+            "The catalyst doesn't move the products: $\\Delta H$ is still $\\pu{-58 kJ mol-1}$.",
+            "$E_\\text{a}(\\text{reverse}) = 87 - (-58) = \\pu{145 kJ mol-1}$.",
+            "Without the catalyst it was $132 + 58 = 190$. Both barriers fell by $\\pu{45 kJ mol-1}$."
+          ],
+          "answer": "$E_\\text{a}(\\text{reverse}) = \\pu{145 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "87 - (-58)",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "So a catalyst lowers both barriers equally and speeds up both directions equally. Equilibrium is reached sooner, but its position and $K$ don't change ({{lesson:5.9}})."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a catalyst \"gives the particles more energy\" or \"changes $\\Delta H$\". It offers a route with lower $E_\\text{a}$."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Sketch\" profiles with and without a catalyst: same reactants and products levels, both $E_\\text{a}$ arrows up from the reactants, $\\Delta H$ labelled once."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you see why transition elements make good catalysts.",
+          "lesson": "3.4"
+        },
+        {
+          "type": "check",
+          "id": "check-catalyst-changes",
+          "prompt": "A catalyst is added at constant temperature. Which of these changes?",
+          "hint": "A catalyst changes the route, not the start or finish.",
+          "options": [
+            {
+              "text": "the activation energy",
+              "correct": true
+            },
+            {
+              "text": "the enthalpy change",
+              "correct": false
+            },
+            {
+              "text": "the average kinetic energy",
+              "correct": false
+            },
+            {
+              "text": "the equilibrium constant",
+              "correct": false
+            }
+          ],
+          "explain": "Only $E_\\text{a}$. $\\Delta H$ depends on the reactants and products, kinetic energy on temperature, and $K$ stays put because both directions speed up equally.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the activation energy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mb-with-catalyst",
+          "prompt": "How does a catalyst change the Maxwell–Boltzmann picture?",
+          "hint": "Has the temperature changed?",
+          "options": [
+            {
+              "text": "same curve, activation energy lower",
+              "correct": true
+            },
+            {
+              "text": "curve shifts right, same activation energy",
+              "correct": false
+            },
+            {
+              "text": "taller peak, same activation energy",
+              "correct": false
+            },
+            {
+              "text": "flatter curve, activation energy lower",
+              "correct": false
+            }
+          ],
+          "explain": "The curve depends only on temperature. The catalyst lowers $E_\\text{a}$, so more of the tail lies beyond it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same curve, activation energy lower"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$E_\\text{a}$: the minimum energy colliding particles need to react, measured from the reactants up to the peak.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{a}(\\text{reverse}) = E_\\text{a}(\\text{forward}) - \\Delta H",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Maxwell–Boltzmann curve: fraction of particles against kinetic energy; starts at the origin; tail never touches the axis; the area stands for all the particles.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher temperature: lower peak further right, same area, more particles with $E \\ge E_\\text{a}$, more successful collisions per unit time.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A catalyst gives an alternative pathway with lower $E_\\text{a}$ and is not used up. Enzymes are biological catalysts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A catalyst doesn't change $\\Delta H$, the Maxwell–Boltzmann curve, the equilibrium position or $K$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring $E_\\text{a}$ from zero or from the products. The forward $E_\\text{a}$ starts at the reactants.",
+    "Labelling the Maxwell–Boltzmann energy axis \"potential energy\". It is kinetic energy.",
+    "Giving the hotter curve a bigger area or a higher peak. Same area, lower peak, further right.",
+    "Saying a higher temperature lowers $E_\\text{a}$. Temperature changes the curve; a catalyst changes $E_\\text{a}$."
+  ],
+  "examTips": [
+    "\"Explain\" a rate change with the Maxwell–Boltzmann curve: what changes (the curve, or $E_\\text{a}$), then more particles with $E \\ge E_\\text{a}$, then more successful collisions per unit time.",
+    "In Paper 1A, an option saying a catalyst changes $\\Delta H$, $K$ or the particles' energy is wrong."
+  ],
+  "readingMinutes": 19
+}

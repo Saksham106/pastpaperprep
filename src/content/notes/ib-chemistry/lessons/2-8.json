@@ -1,0 +1,759 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.8",
+  "slug": "resonance-expanded-octets-and-formal-charge",
+  "title": "Resonance, expanded octets and formal charge",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "When a double bond could sit in more than one place, each drawing is a [[resonance-structure|resonance structure]] and the real species is an average, with [[delocalized-electrons|delocalized electrons]]. Atoms in period 3 and below can break the [[octet-rule|octet rule]] with an [[expanded-octet|expanded octet]] of five or six [[electron-domain|electron domains]]. [[formal-charge|Formal charge]] picks the preferred [[lewis-formula|Lewis formula]].",
+  "goals": [
+    {
+      "text": "Deduce resonance structures of molecules and ions, and explain delocalization.",
+      "bullets": [
+        "S2.2.11"
+      ]
+    },
+    {
+      "text": "Discuss the evidence for benzene's delocalized ring.",
+      "bullets": [
+        "S2.2.12"
+      ]
+    },
+    {
+      "text": "Draw expanded-octet Lewis formulas and deduce their shapes with VSEPR.",
+      "bullets": [
+        "S2.2.13"
+      ]
+    },
+    {
+      "text": "Use formal charges to choose the preferred Lewis formula.",
+      "bullets": [
+        "S2.2.14"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.3",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "resonance structures",
+    "delocalization",
+    "benzene structure evidence",
+    "Kekulé structure",
+    "expanded octet shapes",
+    "formal charge calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammonia-lone-pairs",
+      "prompt": "In the Lewis formula of ammonia, $\\ce{NH3}$, how many lone pairs are on the nitrogen atom?",
+      "hint": "Each $\\ce{N-H}$ bond uses one of nitrogen's five valence electrons.",
+      "answer": {
+        "value": 1,
+        "tolerance": 0
+      },
+      "explain": "Three bonds use three electrons; the other two form one lone pair. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(5 - 3)/2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-bcl3-shape",
+      "prompt": "What is the [[molecular-geometry|molecular geometry]] of boron trichloride, $\\ce{BCl3}$?",
+      "hint": "Boron has three valence electrons, all used in bonds.",
+      "options": [
+        {
+          "text": "trigonal planar",
+          "correct": true
+        },
+        {
+          "text": "trigonal pyramidal",
+          "correct": false
+        },
+        {
+          "text": "tetrahedral",
+          "correct": false
+        },
+        {
+          "text": "bent",
+          "correct": false
+        }
+      ],
+      "explain": "Three domains, no lone pairs: flat, at $120^{\\circ}$. Revise it in {{lesson:2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "trigonal planar"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-graphite-electron",
+      "prompt": "Each carbon in graphite forms three bonds. Where is its fourth valence electron?",
+      "hint": "Graphite conducts along its layers.",
+      "options": [
+        {
+          "text": "It is delocalized across the layer.",
+          "correct": true
+        },
+        {
+          "text": "It bonds to the next layer.",
+          "correct": false
+        },
+        {
+          "text": "It is lost, forming a carbon ion.",
+          "correct": false
+        }
+      ],
+      "explain": "It spreads over the whole layer, so graphite conducts. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is delocalized across the layer."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "resonance",
+      "heading": "Resonance structures and delocalization",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw the carbonate ion, $\\ce{CO3^2-}$. Carbon needs a double bond to one oxygen, but any of the three could take it. Which drawing is right?"
+        },
+        {
+          "type": "text",
+          "text": "None of them alone. All three carbon–oxygen bonds in carbonate are measured to be identical, but each drawing has one short bond and two long ones."
+        },
+        {
+          "type": "definition",
+          "term": "resonance structure",
+          "statement": "One of two or more Lewis formulas for the same species with the same arrangement of atoms but different positions of multiple bonds and lone pairs.",
+          "plain": "Another equally good drawing, with the double bond in a different place."
+        },
+        {
+          "type": "text",
+          "text": "The real species is a resonance hybrid, an average of all the [[resonance-structure|resonance structures]]. It does not flip between them. The double-bond electrons are [[delocalized-electrons|delocalized]]: spread over three or more atoms, which makes the species more stable."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-carbonate-resonance",
+          "alt": "Three resonance structures of the carbonate ion, joined by double-headed arrows. Each is in square brackets with a 2 minus charge. In each, carbon is bonded to three oxygens: one by a double bond, with two lone pairs on that oxygen, and two by single bonds, with three lone pairs on each of those oxygens. The double bond goes to a different oxygen in each structure. To the right, the resonance hybrid shows three identical bonds, each drawn as a solid line with a dashed line beside it, and a charge of minus two thirds on each oxygen.",
+          "caption": "The resonance structures of $\\ce{CO3^2-}$ and the hybrid. Only electrons move; the atoms stay put."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw one [[lewis-formula|Lewis formula]], with every lone pair and the charge."
+        },
+        {
+          "type": "text",
+          "text": "2. Move the double bond to each other atom that could take it, moving lone pairs so every atom keeps an octet. Never move an atom."
+        },
+        {
+          "type": "text",
+          "text": "3. Join the structures with $\\leftrightarrow$, each ion in square brackets with its charge."
+        },
+        {
+          "type": "text",
+          "text": "The hybrid's bond order is the number of bonds shared out divided by the positions sharing them."
+        },
+        {
+          "type": "example",
+          "id": "ex-carbonate-bond-order",
+          "question": "Deduce the number of resonance structures of the carbonate ion, and calculate the bond order of each carbon–oxygen bond.",
+          "steps": [
+            "Valence electrons: $4 + 3(6) + 2 = 24$. One structure has one $\\ce{C=O}$ and two $\\ce{C-O^-}$.",
+            "The double bond can go to any of the three oxygens: three resonance structures.",
+            "Bond order $= \\frac{2 + 1 + 1}{3} = \\frac{4}{3}$, so each bond is between $\\ce{C=O}$ ($\\pu{122 pm}$) and $\\ce{C-O}$ ($\\pu{143 pm}$) in length (data booklet, section 11)."
+          ],
+          "answer": "$\\text{bond order} = \\frac{4}{3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(2 + 1 + 1)/3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-methanoate-bonds",
+          "question": "Explain why the two carbon–oxygen bonds in the methanoate ion, $\\ce{HCOO^-}$, are the same length, and compare that length with the booklet's $\\ce{C-O}$ and $\\ce{C=O}$ values.",
+          "steps": [
+            "One structure has $\\ce{C=O}$ and $\\ce{C-O^-}$; the double bond could go to either oxygen.",
+            "Marking points: delocalization, hybrid, bond order, comparison."
+          ],
+          "answer": "Two resonance structures can be drawn, with the double bond to either oxygen. The electrons are delocalized over both bonds, so the ion is a resonance hybrid. Each bond has a bond order of 1.5, so the bonds are identical. Their length is between the $\\ce{C=O}$ ($\\pu{122 pm}$) and $\\ce{C-O}$ ($\\pu{143 pm}$) lengths.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "two resonance structures; delocalized electrons; hybrid with bond order 1.5; length between C=O and C-O",
+            "requires": [
+              [
+                "two resonance structures",
+                "2 resonance structures"
+              ],
+              "delocalized",
+              "hybrid",
+              "1.5",
+              "between"
+            ],
+            "forbids": [
+              "flips between",
+              "alternates between"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Moving an atom to make a new resonance structure. That is a different compound."
+        },
+        {
+          "type": "check",
+          "id": "check-has-resonance",
+          "prompt": "Which species has resonance structures?",
+          "hint": "Could its double bond sit in more than one place without moving an atom?",
+          "options": [
+            {
+              "text": "the nitrite ion",
+              "correct": true
+            },
+            {
+              "text": "ethene",
+              "correct": false
+            },
+            {
+              "text": "the ammonium ion",
+              "correct": false
+            }
+          ],
+          "explain": "In $\\ce{NO2^-}$ the double bond can go to either oxygen. Ethene's double bond has only one possible place, and $\\ce{NH4^+}$ has only single bonds.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the nitrite ion"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ozone-wavelength",
+          "prompt": "Ozone, $\\ce{O3}$, has two resonance structures. Why is it dissociated by longer-wavelength ultraviolet than oxygen, $\\ce{O2}$?",
+          "hint": "Longer wavelength means lower energy.",
+          "options": [
+            {
+              "text": "Its bonds have order 1.5, so they are weaker than the double bond in oxygen.",
+              "correct": true
+            },
+            {
+              "text": "Its bonds are shorter and stronger than the bond in oxygen.",
+              "correct": false
+            },
+            {
+              "text": "It has more atoms, so it absorbs more energy.",
+              "correct": false
+            }
+          ],
+          "explain": "A bond of order 1.5 is weaker than $\\ce{O=O}$, so less energy, and a longer wavelength, breaks it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its bonds have order 1.5, so they are weaker than the double bond in oxygen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "benzene",
+      "heading": "Benzene",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Benzene, $\\ce{C6H6}$, is a ring of six carbons, each bonded to one hydrogen. A Lewis formula needs three $\\ce{C=C}$ bonds alternating with single bonds, and there are two ways to place them: the Kekulé structures."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-benzene-resonance",
+          "alt": "Two Kekulé structures of benzene, each a hexagon with alternating single and double bonds, the double bonds in different positions, joined by a double-headed arrow. To the right, the resonance hybrid: a hexagon with a circle inside, labelled six delocalized electrons and all carbon-carbon bonds 140 picometres.",
+          "caption": "Benzene's two resonance structures and the hybrid, drawn as a circle in a hexagon."
+        },
+        {
+          "type": "text",
+          "text": "In the hybrid, six electrons are delocalized around the ring, above and below its plane. All six carbon–carbon bonds are identical, with bond order 1.5."
+        },
+        {
+          "type": "definition",
+          "term": "aromatic compound",
+          "statement": "A compound containing a benzene ring, or a similar flat ring with a delocalized system of electrons.",
+          "plain": "A compound built on a benzene-type ring, such as phenol."
+        },
+        {
+          "type": "text",
+          "text": "Benzene is the simplest [[aromatic-compound|aromatic compound]]. The evidence for its structure:"
+        },
+        {
+          "type": "text",
+          "text": "1. Physical: X-ray diffraction shows a flat regular hexagon, angles $120^{\\circ}$, with six bonds of $\\pu{140 pm}$. Kekulé structures predict three of $\\pu{154 pm}$ and three of $\\pu{134 pm}$ (data booklet, section 11)."
+        },
+        {
+          "type": "text",
+          "text": "2. Physical: adding hydrogen releases far less energy than three $\\ce{C=C}$ bonds would, so benzene is more stable than a Kekulé structure. The difference is its resonance energy."
+        },
+        {
+          "type": "text",
+          "text": "3. Chemical: benzene does not decolourize bromine water by addition, as alkenes do. Addition would destroy the stable delocalized ring, so benzene undergoes substitution instead ({{lesson:6.20}})."
+        },
+        {
+          "type": "text",
+          "text": "4. Chemical: only one 1,2-dichlorobenzene exists. Fixed alternating bonds would give two, with $\\ce{C=C}$ or $\\ce{C-C}$ between the chlorinated carbons."
+        },
+        {
+          "type": "example",
+          "id": "ex-benzene-stability",
+          "question": "$\\ce{C6H10(l) + H2(g) -> C6H12(l)}$, $\\Delta H = \\pu{-120 kJ mol-1}$ (cyclohexene, one $\\ce{C=C}$). $\\ce{C6H6(l) + 3H2(g) -> C6H12(l)}$, $\\Delta H = \\pu{-208 kJ mol-1}$. Calculate how much more stable benzene is than a structure with three $\\ce{C=C}$ bonds.",
+          "steps": [
+            "Three $\\ce{C=C}$ bonds: expect $3 \\times (-120) = \\pu{-360 kJ mol-1}$.",
+            "Difference: $-208 - (-360) = \\pu{152 kJ mol-1}$.",
+            "Both reactions end at cyclohexane, so benzene starts $\\pu{152 kJ mol-1}$ lower in energy."
+          ],
+          "answer": "$\\pu{152 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-208 - 3*(-120)",
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-benzene-evidence",
+          "question": "Discuss one piece of physical and one piece of chemical evidence that benzene does not have alternating single and double bonds.",
+          "steps": [
+            "For each piece of evidence, say what alternating bonds would predict."
+          ],
+          "answer": "All six carbon–carbon bonds in benzene have the same length, $\\pu{140 pm}$, between $\\ce{C-C}$ ($\\pu{154 pm}$) and $\\ce{C=C}$ ($\\pu{134 pm}$). Alternating bonds would give three long and three short bonds. Benzene does not readily undergo addition reactions, as alkenes do. It undergoes substitution, which keeps its stable ring of delocalized electrons.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "equal bond lengths between single and double; substitution not addition keeps the delocalized ring",
+            "requires": [
+              "same length",
+              "between",
+              "addition",
+              "substitution",
+              "delocalized"
+            ],
+            "forbids": [
+              "benzene has three double bonds"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying benzene has three double bonds. It has six identical bonds."
+        },
+        {
+          "type": "check",
+          "id": "check-benzene-length",
+          "prompt": "Which best describes the carbon–carbon bonds in benzene?",
+          "hint": "Its bond order is 1.5.",
+          "options": [
+            {
+              "text": "six equal bonds of about 140 pm",
+              "correct": true
+            },
+            {
+              "text": "six equal bonds of 154 pm",
+              "correct": false
+            },
+            {
+              "text": "three of 134 pm and three of 154 pm",
+              "correct": false
+            }
+          ],
+          "explain": "Delocalization makes all six bonds equal, between $\\ce{C=C}$ and $\\ce{C-C}$. Three short and three long is the Kekulé prediction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "six equal bonds of about 140 pm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dichlorobenzene",
+          "prompt": "Only one 1,2-dichlorobenzene exists. What does this show?",
+          "hint": "With fixed alternating bonds, the bond between the two chlorinated carbons could be single or double.",
+          "options": [
+            {
+              "text": "All six carbon–carbon bonds are identical.",
+              "correct": true
+            },
+            {
+              "text": "Benzene has three fixed double bonds.",
+              "correct": false
+            },
+            {
+              "text": "Benzene undergoes addition reactions.",
+              "correct": false
+            }
+          ],
+          "explain": "Fixed alternating bonds would give two isomers. One means the bonds are all the same.",
+          "verify": {
+            "kind": "choice",
+            "truth": "All six carbon–carbon bonds are identical."
+          }
+        }
+      ]
+    },
+    {
+      "id": "expanded-octets",
+      "heading": "Expanded octets: five and six electron domains",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Nitrogen forms $\\ce{NCl3}$ but never $\\ce{NCl5}$. Phosphorus, in the same group, forms both. In $\\ce{PCl5}$, phosphorus has ten electrons around it."
+        },
+        {
+          "type": "definition",
+          "term": "expanded octet",
+          "statement": "More than eight electrons in the valence shell of an atom in a molecule or ion, possible only for atoms in period 3 and below.",
+          "plain": "A central atom holding more than eight electrons."
+        },
+        {
+          "type": "text",
+          "text": "Atoms in period 3 and below have a d sublevel in their outer shell, with room for more than four electron pairs. They are also larger, so more atoms fit around them. Period 2 atoms have only 2s and 2p: at most eight electrons, so no [[expanded-octet|expanded octet]]."
+        },
+        {
+          "type": "text",
+          "text": "To count domains on a central atom bonded to halogens: take its valence electrons, adding one per negative charge or taking one away per positive charge. Each single bond uses one. Halve the rest for lone pairs. Domains = bonded atoms + lone pairs; then apply the [[vsepr-model|VSEPR model]]."
+        },
+        {
+          "type": "text",
+          "text": "Five domains form a trigonal bipyramid: three equatorial positions in a triangle at $120^{\\circ}$, and two axial ones at $90^{\\circ}$ to it. Lone pairs go equatorial, where fewer domains are $90^{\\circ}$ away."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-five-domains",
+          "alt": "Four shapes with five electron domains, each drawn on a trigonal bipyramid with two axial positions, up and down, and three equatorial positions around the middle. Phosphorus pentachloride has five chlorines: trigonal bipyramidal, with angles of 90, 120 and 180 degrees. Selenium tetrafluoride has one lone pair in an equatorial position: seesaw. Bromine trifluoride has two lone pairs in equatorial positions: T-shaped, with angles slightly under 90 degrees. The triiodide ion has three lone pairs, all equatorial: linear, 180 degrees.",
+          "caption": "Five domains with 0, 1, 2 and 3 lone pairs: trigonal bipyramidal ($\\ce{PCl5}$), seesaw ($\\ce{SeF4}$), T-shaped ($\\ce{BrF3}$), linear ($\\ce{I3^-}$)."
+        },
+        {
+          "type": "text",
+          "text": "Six domains form an octahedron, all angles $90^{\\circ}$. One lone pair gives a square pyramid. A second lone pair goes opposite the first, giving a square plane."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-six-domains",
+          "alt": "Three shapes with six electron domains, each drawn on an octahedron. Sulfur hexafluoride has six fluorines: octahedral, all angles 90 degrees. Chlorine pentafluoride has one lone pair: square pyramidal, angles slightly under 90 degrees. Xenon tetrafluoride has two lone pairs opposite each other, above and below: square planar, 90 degrees.",
+          "caption": "Six domains with 0, 1 and 2 lone pairs: octahedral ($\\ce{SF6}$), square pyramidal ($\\ce{ClF5}$), square planar ($\\ce{XeF4}$)."
+        },
+        {
+          "type": "text",
+          "text": "Lone pairs repel more than bonding pairs, so angles next to them close slightly below $90^{\\circ}$ or $120^{\\circ}$. Lone pairs placed symmetrically, as in linear and square planar shapes, leave the angles at $180^{\\circ}$ and $90^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-clf3-shape",
+          "question": "For chlorine trifluoride, $\\ce{ClF3}$, deduce the [[electron-domain-geometry|electron domain geometry]], then the [[molecular-geometry|molecular geometry]], and estimate the bond angle.",
+          "steps": [
+            "Chlorine: 7 valence electrons, 3 used in bonds, 4 left: two lone pairs. Each fluorine has three lone pairs.",
+            "Domains: $3 + 2 = 5$, an expanded octet of 10 electrons."
+          ],
+          "answer": "Chlorine has five electron domains, so the electron domain geometry is trigonal bipyramidal. The two lone pairs are equatorial, so the molecular geometry is T-shaped. The axial–equatorial F–Cl–F angles are slightly less than 90°, because lone pairs repel more strongly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "5 domains: trigonal bipyramidal domain geometry; T-shaped; slightly less than 90 degrees",
+            "requires": [
+              [
+                "five electron domains",
+                "5 electron domains"
+              ],
+              "trigonal bipyramidal",
+              "T-shaped",
+              "less than 90"
+            ],
+            "forbids": [
+              "trigonal planar",
+              "lone pairs are axial"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-icl4-shape",
+          "question": "Deduce the shape of the tetrachloroiodate ion, $\\ce{ICl4^-}$: give its electron domain geometry and its molecular geometry.",
+          "steps": [
+            "Iodine: $7 + 1 = 8$ electrons (one for the charge). Four bonds use 4, leaving two lone pairs.",
+            "Domains: $4 + 2 = 6$."
+          ],
+          "answer": "Iodine has six electron domains, so the electron domain geometry is octahedral. The two lone pairs are opposite each other, so the molecular geometry is square planar, with 90° bond angles.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "6 domains: octahedral domain geometry; lone pairs opposite; square planar",
+            "requires": [
+              [
+                "six electron domains",
+                "6 electron domains"
+              ],
+              "octahedral",
+              "square planar",
+              "opposite"
+            ],
+            "forbids": [
+              "tetrahedral",
+              "square pyramidal"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting an ion's charge. Add one electron per negative charge before counting lone pairs."
+        },
+        {
+          "type": "check",
+          "id": "check-tecl4-shape",
+          "prompt": "Tellurium is in group 16. What is the molecular geometry of $\\ce{TeCl4}$?",
+          "hint": "Six valence electrons, four used in bonds.",
+          "options": [
+            {
+              "text": "seesaw",
+              "correct": true
+            },
+            {
+              "text": "tetrahedral",
+              "correct": false
+            },
+            {
+              "text": "square planar",
+              "correct": false
+            }
+          ],
+          "explain": "One lone pair makes five domains. It goes equatorial: a seesaw. Tetrahedral ignores the lone pair.",
+          "verify": {
+            "kind": "choice",
+            "truth": "seesaw"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-ncl5",
+          "prompt": "Why does nitrogen not form $\\ce{NCl5}$, when phosphorus does?",
+          "hint": "Compare their outer shells.",
+          "options": [
+            {
+              "text": "Its outer shell has only s and p orbitals.",
+              "correct": true
+            },
+            {
+              "text": "It has fewer valence electrons than phosphorus.",
+              "correct": false
+            },
+            {
+              "text": "Nitrogen–chlorine bonds are too weak.",
+              "correct": false
+            }
+          ],
+          "explain": "Both have five valence electrons. Nitrogen's $n = 2$ shell holds at most eight; phosphorus's $n = 3$ shell has a d sublevel.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its outer shell has only s and p orbitals."
+          }
+        }
+      ]
+    },
+    {
+      "id": "formal-charge",
+      "heading": "Formal charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes several Lewis formulas look reasonable: an octet or an expanded one, or atoms in a different order. Formal charge helps you choose."
+        },
+        {
+          "type": "definition",
+          "term": "formal charge",
+          "statement": "The charge an atom would have in a Lewis formula if every bond's electrons were shared equally between the two bonded atoms.",
+          "plain": "A bookkeeping charge for each atom in a drawing."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{FC} = (\\text{valence electrons}) - \\tfrac{1}{2}(\\text{bonding electrons}) - (\\text{non-bonding electrons})",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use only the electrons around that atom. The [[formal-charge|formal charges]] in a species add up to its overall charge, a useful check."
+        },
+        {
+          "type": "example",
+          "id": "ex-fc-carbon-monoxide",
+          "question": "In carbon monoxide, carbon and oxygen share a triple bond and each has one lone pair. Calculate the formal charge on carbon.",
+          "steps": [
+            "Carbon: 4 valence electrons, 6 bonding electrons, 2 non-bonding.",
+            "$\\text{FC} = 4 - \\frac{1}{2}(6) - 2 = -1$.",
+            "Check: oxygen is $6 - 3 - 2 = +1$, and $-1 + 1 = 0$."
+          ],
+          "answer": "$\\text{FC} = -1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4 - 6/2 - 2",
+            "signed": true
+          }
+        },
+        {
+          "type": "result",
+          "statement": "The preferred Lewis formula has formal charges closest to zero. In a tie, prefer the one with any negative formal charge on the more electronegative atom.",
+          "why": "Separating charge costs energy, and an electronegative atom best holds extra electrons."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-pocl3-formal-charge",
+          "alt": "Two Lewis formulas of phosphoryl chloride. In each, phosphorus is in the centre, bonded to an oxygen above and three chlorines to the left, right and below, and each chlorine has three lone pairs. Structure A has a phosphorus-oxygen single bond with three lone pairs on oxygen; the formal charge is plus 1 on phosphorus and minus 1 on oxygen. Structure B has a phosphorus-oxygen double bond with two lone pairs on oxygen; every formal charge is zero, so B is labelled preferred.",
+          "caption": "Two Lewis formulas of $\\ce{POCl3}$. B has an expanded octet on phosphorus."
+        },
+        {
+          "type": "example",
+          "id": "ex-pocl3-preferred",
+          "question": "For phosphoryl chloride, $\\ce{POCl3}$, structure A has a $\\ce{P-O}$ single bond and structure B a $\\ce{P=O}$ double bond. Use formal charges to deduce which is preferred.",
+          "steps": [
+            "A: phosphorus $5 - 4 - 0 = +1$; oxygen $6 - 1 - 6 = -1$.",
+            "B: phosphorus $5 - 5 - 0 = 0$; oxygen $6 - 2 - 4 = 0$. Each chlorine is $7 - 1 - 6 = 0$ in both."
+          ],
+          "answer": "In structure A, phosphorus has a formal charge of +1 and oxygen −1. In structure B, every formal charge is 0. Structure B is preferred because its formal charges are closer to zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "A: P +1, O -1; B: all 0; B preferred because formal charges closest to zero",
+            "requires": [
+              "+1",
+              "-1",
+              [
+                "structure B is preferred",
+                "B is preferred"
+              ],
+              [
+                "closer to zero",
+                "closest to zero"
+              ]
+            ],
+            "forbids": [
+              "structure A is preferred"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Formal charge treats every bond as shared equally (purely covalent). An [[oxidation-state|oxidation state]] ({{lesson:3.3}}) gives the bonding electrons to the more electronegative atom (purely ionic). So in $\\ce{CO}$, carbon's formal charge is $-1$ but its oxidation state is $+2$."
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting all the bonding electrons. Subtract half of them."
+        },
+        {
+          "type": "check",
+          "id": "check-fc-nitronium",
+          "prompt": "In the nitronium ion, $\\ce{NO2^+}$, nitrogen has two double bonds and no lone pairs. Calculate its formal charge, with the sign.",
+          "hint": "Eight bonding electrons surround nitrogen.",
+          "answer": {
+            "value": 1,
+            "tolerance": 0
+          },
+          "explain": "$5 - \\frac{1}{2}(8) - 0 = +1$, matching the ion's charge, since each oxygen is 0.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5 - 8/2 - 0",
+            "dp": 0,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cyanate-negative",
+          "prompt": "The cyanate ion can be drawn as $\\ce{[O=C=N]^-}$, $\\ce{[O-C#N]^-}$ or $\\ce{[O#C-N]^-}$. In the preferred structure, which atom has a formal charge of $-1$?",
+          "hint": "Two structures tie, so use electronegativity.",
+          "options": [
+            {
+              "text": "oxygen",
+              "correct": true
+            },
+            {
+              "text": "nitrogen",
+              "correct": false
+            },
+            {
+              "text": "carbon",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{[O=C=N]^-}$ puts $-1$ on nitrogen and $\\ce{[O-C#N]^-}$ puts it on oxygen; $\\ce{[O#C-N]^-}$ has $+1$ and $-2$. Oxygen is more electronegative, so $\\ce{[O-C#N]^-}$ is preferred.",
+          "verify": {
+            "kind": "choice",
+            "truth": "oxygen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Resonance structures differ only in the positions of multiple bonds and lone pairs. The real species is a hybrid with delocalized electrons; bonds that are equivalent in it, such as the three in carbonate, have equal length.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Benzene: six identical $\\ce{C-C}$ bonds of $\\pu{140 pm}$ and a delocalized ring. It is about $\\pu{150 kJ mol-1}$ more stable than a Kekulé structure and prefers substitution to addition.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only atoms in period 3 and below can expand their octet.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Five domains (lone pairs equatorial): trigonal bipyramidal, seesaw, T-shaped, linear. Six domains: octahedral, square pyramidal, square planar.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{FC} = (\\text{valence electrons}) - \\tfrac{1}{2}(\\text{bonding electrons}) - (\\text{non-bonding electrons})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Preferred Lewis formula: formal charges closest to zero, with any negative charge on the most electronegative atom.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing the dashed hybrid when asked for a Lewis formula. Draw one resonance structure with every lone pair and charge.",
+    "Leaving out lone pairs on outer atoms: each halogen in $\\ce{PCl5}$ needs three.",
+    "Saying a species flips between resonance structures. It is always the hybrid.",
+    "Putting five-domain lone pairs axial. They go equatorial."
+  ],
+  "examTips": [
+    "\"Deduce\" resonance structures: draw each one with lone pairs, brackets and charge, joined by $\\leftrightarrow$.",
+    "\"Discuss\" benzene: give physical and chemical evidence, each against what alternating bonds predict.",
+    "Paper 1A shapes: count domains first, then check which geometry the question asks for.",
+    "\"Apply\" formal charge: give the formal charge of every atom in each structure, then the choice with its reason."
+  ],
+  "readingMinutes": 24
+}

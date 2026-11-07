@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 205" role="img" aria-labelledby="t">
+  <title id="t">Four targets in a row. The centre of each target is the true value and each dot is one repeated measurement. Target 1: five dots tightly grouped on the centre, labelled precise and accurate. Target 2: five dots tightly grouped but well away from the centre, labelled precise, not accurate, systematic error. Target 3: five dots spread widely, scattered evenly around the centre, labelled accurate on average, not precise, random error. Target 4: five dots spread widely and away from the centre, labelled neither.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle cx="80" cy="80" r="60"/>
+    <circle cx="80" cy="80" r="38"/>
+    <circle cx="80" cy="80" r="16"/>
+    <circle cx="240" cy="80" r="60"/>
+    <circle cx="240" cy="80" r="38"/>
+    <circle cx="240" cy="80" r="16"/>
+    <circle cx="400" cy="80" r="60"/>
+    <circle cx="400" cy="80" r="38"/>
+    <circle cx="400" cy="80" r="16"/>
+    <circle cx="560" cy="80" r="60"/>
+    <circle cx="560" cy="80" r="38"/>
+    <circle cx="560" cy="80" r="16"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <circle cx="78" cy="78" r="4"/>
+    <circle cx="85" cy="82" r="4"/>
+    <circle cx="80" cy="87" r="4"/>
+    <circle cx="74" cy="84" r="4"/>
+    <circle cx="84" cy="74" r="4"/>
+  </g>
+  <g fill="var(--t2-ink)">
+    <circle cx="268" cy="52" r="4"/>
+    <circle cx="275" cy="56" r="4"/>
+    <circle cx="270" cy="61" r="4"/>
+    <circle cx="263" cy="58" r="4"/>
+    <circle cx="274" cy="48" r="4"/>
+  </g>
+  <g fill="var(--t3-ink)">
+    <circle cx="372" cy="62" r="4"/>
+    <circle cx="430" cy="70" r="4"/>
+    <circle cx="410" cy="118" r="4"/>
+    <circle cx="378" cy="104" r="4"/>
+    <circle cx="410" cy="46" r="4"/>
+  </g>
+  <g fill="var(--t4-ink)">
+    <circle cx="590" cy="44" r="4"/>
+    <circle cx="530" cy="40" r="4"/>
+    <circle cx="604" cy="92" r="4"/>
+    <circle cx="566" cy="30" r="4"/>
+    <circle cx="582" cy="66" r="4"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="80" y="165">precise and</text>
+    <text x="80" y="181">accurate</text>
+    <text x="240" y="165">precise, not accurate</text>
+    <text x="240" y="181" fill="var(--muted)">systematic error</text>
+    <text x="400" y="165">accurate on average,</text>
+    <text x="400" y="181">not precise</text>
+    <text x="400" y="197" fill="var(--muted)">random error</text>
+    <text x="560" y="165">neither</text>
+  </g>
+</svg>

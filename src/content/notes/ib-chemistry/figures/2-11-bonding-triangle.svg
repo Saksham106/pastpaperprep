@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 350" role="img" aria-labelledby="t">
+  <title id="t">The bonding triangle. Average electronegativity runs along the horizontal axis from about 0.8 to 4.0, and electronegativity difference runs up the vertical axis from 0 to about 3.2. The triangle's bottom left corner is caesium, Cs, its bottom right corner is fluorine, F2, and its top corner is caesium fluoride, CsF. The top part of the triangle is the ionic region. A small triangle in the bottom left corner is the metallic region. The bottom right part is the covalent region, labelled polar covalent higher up and covalent near the base. The border between the ionic and covalent regions is a sloping line, parallel to the left edge, running from the right edge at a difference of about 2.3 down to the edge of the metallic region at an average of about 1.8.</title>
+  <path d="M70.0 300.0 H488.9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M70.0 300.0 V28.0" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M117.2 300.0 v5"/>
+    <path d="M176.2 300.0 v5"/>
+    <path d="M235.2 300.0 v5"/>
+    <path d="M294.2 300.0 v5"/>
+    <path d="M353.2 300.0 v5"/>
+    <path d="M412.2 300.0 v5"/>
+    <path d="M471.2 300.0 v5"/>
+    <path d="M70.0 260.0 h-5"/>
+    <path d="M70.0 220.0 h-5"/>
+    <path d="M70.0 180.0 h-5"/>
+    <path d="M70.0 140.0 h-5"/>
+    <path d="M70.0 100.0 h-5"/>
+    <path d="M70.0 60.0 h-5"/>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="117.2" y="318.0">1.0</text>
+    <text x="176.2" y="318.0">1.5</text>
+    <text x="235.2" y="318.0">2.0</text>
+    <text x="294.2" y="318.0">2.5</text>
+    <text x="353.2" y="318.0">3.0</text>
+    <text x="412.2" y="318.0">3.5</text>
+    <text x="471.2" y="318.0">4.0</text>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="62.0" y="304.0">0</text>
+    <text x="62.0" y="264.0">0.5</text>
+    <text x="62.0" y="224.0">1.0</text>
+    <text x="62.0" y="184.0">1.5</text>
+    <text x="62.0" y="144.0">2.0</text>
+    <text x="62.0" y="104.0">2.5</text>
+    <text x="62.0" y="64.0">3.0</text>
+  </g>
+  <text x="276.5" y="338.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">average electronegativity, Σχ</text>
+  <text x="18" y="172.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 172.0)">electronegativity difference, Δχ</text>
+  <path d="M92.4 300.0 L281.2 44.8 L332.0 112.8 L192.7 300.0 Z" fill="var(--t1-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M192.7 300.0 L332.0 112.8 L471.2 300.0 Z" fill="var(--t3-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M92.4 300.0 L163.2 204.8 L234.0 300.0 Z" fill="var(--bg, white)" fill-opacity="1" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M92.4 300.0 L163.2 204.8 L234.0 300.0 Z" fill="var(--t2-ink)" fill-opacity="0.30" stroke="currentColor" stroke-width="1.2"/>
+  <text x="270.6" y="124.0" font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">ionic</text>
+  <text x="347.3" y="216.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">polar covalent</text>
+  <text x="376.8" y="276.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">covalent</text>
+  <text x="163.2" y="276.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="600">metallic</text>
+  <text x="281.2" y="38.4" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">CsF</text>
+  <text x="92.4" y="290.4" font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">Cs</text>
+  <text x="475.9" y="290.4" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">F₂</text>
+  <circle cx="92.4" cy="300.0" r="4" fill="currentColor"/>
+  <circle cx="281.2" cy="44.8" r="4" fill="currentColor"/>
+  <circle cx="471.2" cy="300.0" r="4" fill="currentColor"/>
+</svg>

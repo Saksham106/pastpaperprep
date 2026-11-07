@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.1",
+  "slug": "bronsted-lowry-acids-and-bases",
+  "title": "Brønsted–Lowry acids and bases",
+  "level": "SL",
+  "topic": 6,
+  "summary": "In Brønsted–Lowry theory, an acid–base reaction is a [[proton|proton]] handover. A [[brnsted-lowry-acid|Brønsted–Lowry acid]] gives an $\\ce{H^+}$ away and a [[brnsted-lowry-base|Brønsted–Lowry base]] takes it. Spot who gives and who takes, and you can name the acid, the base and each [[conjugate-acid-base-pair|conjugate acid–base pair]] in any equation.",
+  "goals": [
+    {
+      "text": "Identify which species donates a proton and which accepts one in an acid–base reaction, writing an aqueous proton as $\\ce{H^+(aq)}$ or $\\ce{H3O^+(aq)}$.",
+      "bullets": [
+        "R3.1.1"
+      ]
+    },
+    {
+      "text": "Explain the difference between a base and an [[alkali|alkali]].",
+      "bullets": [
+        "R3.1.1"
+      ]
+    },
+    {
+      "text": "Work out the conjugate acid or conjugate base of a species, and find the conjugate pairs in an equation.",
+      "bullets": [
+        "R3.1.2"
+      ]
+    },
+    {
+      "text": "Identify species that can act as both acid and base, and write equations showing each behaviour.",
+      "bullets": [
+        "R3.1.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "2.1",
+    "2.2",
+    "3.2",
+    "5.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "proton donor and acceptor",
+    "Bronsted Lowry theory",
+    "conjugate acid and base",
+    "amphiprotic",
+    "base vs alkali",
+    "hydronium ion"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-lone-pairs-ammonia",
+      "prompt": "How many [[lone-pair|lone pairs]] does the nitrogen atom have in ammonia, $\\ce{NH3}$?",
+      "hint": "Nitrogen has five valence electrons, and three of them are used in the bonds to hydrogen.",
+      "answer": {
+        "value": 1,
+        "tolerance": 0
+      },
+      "explain": "Three of nitrogen's five valence electrons pair with the hydrogens. The two left over form one lone pair. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(5 - 3)/2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hydrogencarbonate-charge",
+      "prompt": "What is the formula of the hydrogencarbonate [[ion|ion]]?",
+      "hint": "Start from the carbonate ion and add one hydrogen ion.",
+      "options": [
+        {
+          "text": "$\\ce{HCO3^-}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{HCO3^2-}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{CO3^2-}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{H2CO3}$",
+          "correct": false
+        }
+      ],
+      "explain": "Carbonate is $\\ce{CO3^2-}$. Adding one $\\ce{H^+}$ adds one hydrogen and cancels one negative charge, giving $\\ce{HCO3^-}$. Revise it in {{lesson:2.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-equilibrium-arrow",
+      "prompt": "What does the arrow $\\ce{<=>}$ in an equation tell you?",
+      "hint": "Think about which directions the reaction can go.",
+      "options": [
+        {
+          "text": "The reaction goes both forwards and backwards.",
+          "correct": true
+        },
+        {
+          "text": "The reaction goes to completion.",
+          "correct": false
+        },
+        {
+          "text": "The reactants and products have equal concentrations.",
+          "correct": false
+        }
+      ],
+      "explain": "The double arrow marks a [[reversible-reaction|reversible reaction]]. Products turn back into reactants as well as the other way round. Revise it in {{lesson:5.8}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The reaction goes both forwards and backwards."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "acids-and-bases",
+      "heading": "Proton donors and proton acceptors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A hydrogen atom is one [[proton|proton]] and one electron. Take the electron away and the hydrogen [[ion|ion]], $\\ce{H^+}$, is just a bare proton. So in acid–base chemistry, \"proton\" and \"$\\ce{H^+}$\" mean the same thing."
+        },
+        {
+          "type": "definition",
+          "term": "Brønsted–Lowry acid",
+          "statement": "A species that donates a proton ($\\ce{H^+}$) to another species.",
+          "plain": "An acid is something that gives away an $\\ce{H^+}$."
+        },
+        {
+          "type": "definition",
+          "term": "Brønsted–Lowry base",
+          "statement": "A species that accepts a proton ($\\ce{H^+}$) from another species.",
+          "plain": "A base is something that grabs an $\\ce{H^+}$."
+        },
+        {
+          "type": "text",
+          "text": "The two always come together. An acid can only give a proton away if a base is there to take it, so every Brønsted–Lowry acid–base reaction is a proton transfer."
+        },
+        {
+          "type": "text",
+          "text": "To accept a proton, a base needs a [[lone-pair|lone pair]]. The proton has no electrons of its own, so the lone pair forms the new bond to it. That is why $\\ce{NH3}$, $\\ce{H2O}$ and $\\ce{OH^-}$ can all act as bases."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-proton-transfer",
+          "alt": "Hydrogen chloride gives a proton to water. On the left, a water molecule labelled base, with two lone pairs on oxygen, sits next to a hydrogen chloride molecule labelled acid. A dashed arrow shows the hydrogen ion moving from hydrogen chloride to a lone pair on the oxygen. On the right, the products are the H3O plus ion, with three hydrogens and one lone pair on oxygen, and a chloride ion with four lone pairs.",
+          "caption": "$\\ce{HCl}$ donates a proton; a lone pair on water accepts it. Chlorine keeps the bonding pair, so it leaves as $\\ce{Cl^-}$."
+        },
+        {
+          "type": "text",
+          "text": "A bare proton never floats free in water. It bonds at once to a lone pair on a water molecule, making $\\ce{H3O^+}$, often called the hydronium ion."
+        },
+        {
+          "type": "result",
+          "statement": "A proton in aqueous solution can be written as $\\ce{H^+(aq)}$ or as $\\ce{H3O^+(aq)}$. Both mean the same thing, and both are accepted in the exam.",
+          "why": "$\\ce{H3O^+}$ shows the water molecule the proton is attached to; $\\ce{H^+(aq)}$ leaves it out for short."
+        },
+        {
+          "type": "text",
+          "text": "When hydrogen chloride dissolves, its covalent molecules turn into ions. This [[ionization|ionization]] is itself a proton transfer: $\\ce{HCl(g) + H2O(l) -> H3O^+(aq) + Cl^-(aq)}$. Here water is the base."
+        },
+        {
+          "type": "example",
+          "id": "ex-nitric-acid-water",
+          "question": "Nitric acid, $\\ce{HNO3}$, ionizes completely in water. Write an equation, with [[state-symbols|state symbols]], showing nitric acid acting as a Brønsted–Lowry acid with water. Show the proton as $\\ce{H3O^+}$.",
+          "steps": [
+            "The acid gives one $\\ce{H^+}$ away. $\\ce{HNO3}$ minus $\\ce{H^+}$ leaves $\\ce{NO3^-}$: one hydrogen fewer and one negative charge more.",
+            "Water accepts that $\\ce{H^+}$ on a lone pair and becomes $\\ce{H3O^+}$.",
+            "Check the balance: 3 H, 1 N and 4 O atoms on each side, and total charge $0$ on the left and $-1 + 1 = 0$ on the right."
+          ],
+          "answer": "$\\ce{HNO3(aq) + H2O(l) -> NO3^-(aq) + H3O^+(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HNO3(aq) + H2O(l) -> NO3^-(aq) + H3O^+(aq)",
+            "states": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-ethanoic-ammonia",
+          "question": "Deduce which species is the Brønsted–Lowry acid and which is the Brønsted–Lowry base in this reaction: $\\ce{CH3COOH(aq) + NH3(aq) -> CH3COO^-(aq) + NH4^+(aq)}$. Explain your answer.",
+          "steps": [
+            "Follow the hydrogens. $\\ce{CH3COOH}$ becomes $\\ce{CH3COO^-}$: it has lost one $\\ce{H^+}$.",
+            "$\\ce{NH3}$ becomes $\\ce{NH4^+}$: it has gained that $\\ce{H^+}$, using the lone pair on nitrogen.",
+            "The loser of the proton is the acid; the gainer is the base. Say which is which, and why, in one sentence each."
+          ],
+          "answer": "Ethanoic acid is the Brønsted–Lowry acid because it donates a proton to ammonia. Ammonia is the Brønsted–Lowry base because it accepts the proton, using the lone pair on its nitrogen atom, and becomes $\\ce{NH4^+}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ethanoic acid donates a proton (acid); ammonia accepts it (base)",
+            "requires": [
+              "ethanoic acid is the Brønsted–Lowry acid",
+              [
+                "donates a proton",
+                "donates an H+"
+              ],
+              "ammonia is the Brønsted–Lowry base",
+              [
+                "accepts the proton",
+                "accepts a proton"
+              ]
+            ],
+            "forbids": [
+              "ammonia donates",
+              "ethanoic acid accepts",
+              "accepts an electron"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the proton a hydrogen atom. The species that moves is $\\ce{H^+}$, a proton with no electron, so the donor's charge goes down by one and the acceptor's goes up by one."
+        },
+        {
+          "type": "check",
+          "id": "check-identify-base-methylamine",
+          "prompt": "In $\\ce{HF(aq) + CH3NH2(aq) <=> F^-(aq) + CH3NH3^+(aq)}$, which reactant acts as the Brønsted–Lowry base?",
+          "hint": "Find the reactant that ends up with one extra hydrogen and one extra positive charge.",
+          "options": [
+            {
+              "text": "$\\ce{CH3NH2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{HF}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{F^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3NH3^+}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{CH3NH2}$ gains a proton on its nitrogen lone pair and becomes $\\ce{CH3NH3^+}$, so it is the base. $\\ce{HF}$ loses the proton, so it is the acid. $\\ce{F^-}$ and $\\ce{CH3NH3^+}$ are products, not reactants.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula('CH3NH2')",
+            "given": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "The word \"base\" is wider than the everyday word \"alkali\". An [[alkali|alkali]] is a base that dissolves in water and gives hydroxide ions, $\\ce{OH^-(aq)}$. Sodium hydroxide, potassium hydroxide and aqueous ammonia are alkalis."
+        },
+        {
+          "type": "result",
+          "statement": "Every alkali is a base, but not every base is an alkali.",
+          "why": "Insoluble bases such as copper(II) oxide still accept protons from acids, but they cannot make $\\ce{OH^-(aq)}$ in water."
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-oxide-not-alkali",
+          "question": "Copper(II) oxide, $\\ce{CuO}$, is insoluble in water but reacts with dilute sulfuric acid to form a blue solution. Explain why copper(II) oxide is a base but not an alkali.",
+          "steps": [
+            "Base: in the reaction, the oxide ion $\\ce{O^2-}$ takes protons from the acid, $\\ce{O^2- + 2H^+ -> H2O}$.",
+            "Alkali: an alkali must dissolve in water and release $\\ce{OH^-(aq)}$.",
+            "Copper(II) oxide fails the second test, because it does not dissolve."
+          ],
+          "answer": "Copper(II) oxide is a base because its oxide ions accept protons from the acid, forming water. It is not an alkali because it does not dissolve in water, so it cannot release hydroxide ions into solution.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "accepts protons, so a base; insoluble, so gives no OH- and is not an alkali",
+            "requires": [
+              "is a base",
+              [
+                "accept protons",
+                "accepts protons",
+                "accept H+"
+              ],
+              "not an alkali",
+              [
+                "does not dissolve",
+                "insoluble"
+              ],
+              [
+                "hydroxide ions",
+                "OH-"
+              ]
+            ],
+            "forbids": [
+              "every base is an alkali",
+              "donates protons"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The meaning of \"acid\" has changed as chemists learned more. Lavoisier thought every acid contained oxygen, until $\\ce{HCl}$ proved him wrong. Arrhenius then said acids give $\\ce{H^+}$ in water and bases give $\\ce{OH^-}$."
+        },
+        {
+          "type": "text",
+          "text": "Brønsted and Lowry widened this in 1923. Their theory needs no water and no hydroxide, so it covers $\\ce{NH3}$ as a base and reactions between gases, such as $\\ce{NH3(g) + HCl(g) -> NH4Cl(s)}$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the Lewis theory widens the idea again: a base donates an electron pair and an acid accepts one.",
+          "lesson": "6.17"
+        },
+        {
+          "type": "check",
+          "id": "check-base-alkali-statement",
+          "prompt": "Which statement about bases and alkalis is correct?",
+          "hint": "An alkali has one extra condition beyond accepting protons.",
+          "options": [
+            {
+              "text": "Every alkali is a base, but not every base is an alkali.",
+              "correct": true
+            },
+            {
+              "text": "Every base is an alkali, but not every alkali is a base.",
+              "correct": false
+            },
+            {
+              "text": "A base must contain hydroxide ions.",
+              "correct": false
+            },
+            {
+              "text": "The two words mean exactly the same thing.",
+              "correct": false
+            }
+          ],
+          "explain": "An alkali is a base that dissolves in water to give $\\ce{OH^-(aq)}$. Bases such as $\\ce{CuO}$ or $\\ce{NH3}$ gas accept protons without needing to contain hydroxide ions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Every alkali is a base, but not every base is an alkali."
+          }
+        }
+      ]
+    },
+    {
+      "id": "conjugate-pairs",
+      "heading": "Conjugate acid–base pairs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many acid–base reactions are reversible. Once an acid has lost its proton, the species left behind can take a proton back, so it is a base. That leftover is the acid's conjugate base."
+        },
+        {
+          "type": "definition",
+          "term": "conjugate acid–base pair",
+          "statement": "Two species whose formulas differ by exactly one proton ($\\ce{H^+}$).",
+          "plain": "An acid and the base it turns into when it loses one $\\ce{H^+}$."
+        },
+        {
+          "type": "result",
+          "statement": "Conjugate base: remove one $\\ce{H}$ and lower the charge by one. Conjugate acid: add one $\\ce{H}$ and raise the charge by one.",
+          "why": "Gaining or losing $\\ce{H^+}$ moves one hydrogen and one positive charge together."
+        },
+        {
+          "type": "text",
+          "text": "Examples: $\\ce{H2SO3}$ and $\\ce{HSO3^-}$, $\\ce{NH4^+}$ and $\\ce{NH3}$, $\\ce{H2O}$ and $\\ce{OH^-}$, $\\ce{H3O^+}$ and $\\ce{H2O}$. In each pair, the acid has the extra proton."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-conjugate-pairs",
+          "alt": "The equilibrium ammonia plus water, reversible arrow, ammonium ion plus hydroxide ion. Labels under each: ammonia base, water acid, ammonium conjugate acid, hydroxide conjugate base. A bracket above joins ammonia and ammonium as one conjugate pair. A bracket below joins water and hydroxide as the other.",
+          "caption": "Each conjugate pair has one member on each side of the equation. Pair the species that differ by one $\\ce{H^+}$."
+        },
+        {
+          "type": "text",
+          "text": "Six of the seven [[polyatomic-ion|polyatomic ions]] you met in {{lesson:2.1}} are [[anion|anions]], and each has a conjugate acid. $\\ce{OH^-}$ gives $\\ce{H2O}$, $\\ce{NO3^-}$ gives $\\ce{HNO3}$, $\\ce{CO3^2-}$ gives $\\ce{HCO3^-}$, $\\ce{HCO3^-}$ gives $\\ce{H2CO3}$, $\\ce{SO4^2-}$ gives $\\ce{HSO4^-}$ and $\\ce{PO4^3-}$ gives $\\ce{HPO4^2-}$. The one [[cation|cation]], $\\ce{NH4^+}$, is already an acid; its conjugate base is $\\ce{NH3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-conjugate-base-sulfuric",
+          "question": "Deduce the formula of the conjugate base of sulfuric acid, $\\ce{H2SO4}$.",
+          "steps": [
+            "A conjugate base has one proton fewer than its acid.",
+            "Remove one $\\ce{H}$: $\\ce{H2SO4}$ becomes $\\ce{HSO4}$.",
+            "Lower the charge by one: $0$ becomes $-1$.",
+            "Check: the two differ by exactly one $\\ce{H^+}$, not two. $\\ce{SO4^2-}$ would be two protons away."
+          ],
+          "answer": "$\\ce{HSO4^-}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-pairs-hydrogen-sulfide",
+          "question": "Hydrogen sulfide reacts with carbonate ions: $\\ce{H2S(aq) + CO3^2-(aq) <=> HS^-(aq) + HCO3^-(aq)}$. Identify the two conjugate acid–base pairs, stating which member of each is the acid.",
+          "steps": [
+            "Match each reactant with the product that differs from it by one $\\ce{H^+}$.",
+            "$\\ce{H2S}$ loses a proton and becomes $\\ce{HS^-}$. In this pair $\\ce{H2S}$ is the acid.",
+            "$\\ce{CO3^2-}$ gains that proton and becomes $\\ce{HCO3^-}$. In this pair $\\ce{HCO3^-}$ is the acid.",
+            "Each pair has one member on each side, so never pair the two reactants together."
+          ],
+          "answer": "One pair is $\\ce{H2S}$ and $\\ce{HS^-}$, with $\\ce{H2S}$ as the acid. The other pair is $\\ce{HCO3^-}$ and $\\ce{CO3^2-}$, with $\\ce{HCO3^-}$ as the acid and $\\ce{CO3^2-}$ as its conjugate base.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H2S/HS- (acid H2S) and HCO3-/CO3^2- (acid HCO3-)",
+            "requires": [
+              "$\\ce{H2S}$ and $\\ce{HS^-}$",
+              "$\\ce{H2S}$ as the acid",
+              "$\\ce{HCO3^-}$ and $\\ce{CO3^2-}$",
+              "$\\ce{HCO3^-}$ as the acid"
+            ],
+            "forbids": [
+              "$\\ce{H2S}$ and $\\ce{CO3^2-}$",
+              "$\\ce{CO3^2-}$ as the acid"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Changing the hydrogen count but not the charge, such as writing $\\ce{HSO4}$ for the conjugate base of $\\ce{H2SO4}$. Every proton carries a $+1$ charge, so the charge must change too."
+        },
+        {
+          "type": "check",
+          "id": "check-conjugate-acid-carbonate",
+          "prompt": "What is the conjugate acid of the carbonate ion, $\\ce{CO3^2-}$?",
+          "hint": "Add one $\\ce{H}$ and raise the charge by one.",
+          "options": [
+            {
+              "text": "$\\ce{HCO3^-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{H2CO3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{HCO3^2-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CO3^-}$",
+              "correct": false
+            }
+          ],
+          "explain": "One $\\ce{H^+}$ added to $\\ce{CO3^2-}$ gives $\\ce{HCO3^-}$. $\\ce{H2CO3}$ is two protons away, $\\ce{HCO3^2-}$ forgets the charge, and $\\ce{CO3^-}$ changes the charge without adding a hydrogen."
+        },
+        {
+          "type": "check",
+          "id": "check-conjugate-base-methylammonium",
+          "prompt": "What is the conjugate base of the methylammonium ion, $\\ce{CH3NH3^+}$?",
+          "hint": "Remove one $\\ce{H}$ and lower the charge by one.",
+          "options": [
+            {
+              "text": "$\\ce{CH3NH2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{CH3NH3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3NH^-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CH3NH4^2+}$",
+              "correct": false
+            }
+          ],
+          "explain": "Taking one $\\ce{H^+}$ from $\\ce{CH3NH3^+}$ leaves the neutral molecule $\\ce{CH3NH2}$, methylamine. $\\ce{CH3NH3}$ removes only the charge, $\\ce{CH3NH^-}$ removes two protons and $\\ce{CH3NH4^2+}$ adds one."
+        }
+      ]
+    },
+    {
+      "id": "amphiprotic",
+      "heading": "Species that act as acid and base",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Water was the base when $\\ce{HCl}$ dissolved. With ammonia it does the opposite and gives a proton away: $\\ce{NH3(aq) + H2O(l) <=> NH4^+(aq) + OH^-(aq)}$. So whether a species acts as an acid or a base depends on what it reacts with."
+        },
+        {
+          "type": "definition",
+          "term": "amphiprotic species",
+          "statement": "A species that can act as a Brønsted–Lowry acid or as a Brønsted–Lowry base, depending on what it reacts with.",
+          "plain": "Something that can either give or take a proton."
+        },
+        {
+          "type": "text",
+          "text": "An [[amphiprotic-species|amphiprotic species]] needs two things: a hydrogen it can lose as $\\ce{H^+}$, and a lone pair to accept one. Water, $\\ce{HCO3^-}$, $\\ce{HSO4^-}$, $\\ce{H2PO4^-}$ and $\\ce{HPO4^2-}$ all have both."
+        },
+        {
+          "type": "text",
+          "text": "$\\ce{PO4^3-}$ and $\\ce{CO3^2-}$ have no hydrogen left to donate, so they act only as bases. $\\ce{NH4^+}$ has no lone pair, so it acts only as an acid."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrogencarbonate-acid",
+          "question": "The hydrogencarbonate ion, $\\ce{HCO3^-}$, is amphiprotic. Formulate an equation, with state symbols, for its reaction as a Brønsted–Lowry acid with hydroxide ions.",
+          "steps": [
+            "As an acid, $\\ce{HCO3^-}$ donates one $\\ce{H^+}$, leaving its conjugate base $\\ce{CO3^2-}$.",
+            "$\\ce{OH^-}$ accepts that $\\ce{H^+}$ and becomes $\\ce{H2O}$.",
+            "Check the charge: $-1 + (-1) = -2$ on the left and $-2 + 0 = -2$ on the right."
+          ],
+          "answer": "$\\ce{HCO3^-(aq) + OH^-(aq) -> CO3^2-(aq) + H2O(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HCO3^-(aq) + OH^-(aq) -> CO3^2-(aq) + H2O(l)",
+            "states": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-water-amphiprotic",
+          "question": "Explain, using two equations, why water is described as amphiprotic.",
+          "steps": [
+            "Marking point 1: say what amphiprotic means, in terms of protons.",
+            "Marking point 2: an equation with water donating a proton, for example to ammonia.",
+            "Marking point 3: an equation with water accepting a proton, for example from nitric acid."
+          ],
+          "answer": "Water is amphiprotic because it can both donate and accept a proton. With ammonia, water donates a proton and acts as an acid: $\\ce{H2O(l) + NH3(aq) <=> OH^-(aq) + NH4^+(aq)}$. With nitric acid, water accepts a proton and acts as a base: $\\ce{H2O(l) + HNO3(aq) -> H3O^+(aq) + NO3^-(aq)}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water both donates (to NH3) and accepts (from HNO3) a proton",
+            "requires": [
+              "both donate and accept a proton",
+              "donates a proton and acts as an acid",
+              "accepts a proton and acts as a base",
+              "OH-(aq)",
+              "H3O+(aq)"
+            ],
+            "forbids": [
+              "amphoteric",
+              "accepts an electron"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Amphiprotic\" is about donating and accepting protons. \"Amphoteric\" is the wider word for anything that reacts as an acid and as a base, and is used for oxides such as $\\ce{Al2O3}$, which have no hydrogen to donate."
+        },
+        {
+          "type": "text",
+          "text": "The same ideas explain the oxides in {{lesson:3.2}}. A [[basic-oxide|basic oxide]] such as $\\ce{Na2O}$ contains $\\ce{O^2-}$, a strong proton acceptor. An [[acidic-oxide|acidic oxide]] such as $\\ce{SO3}$ reacts with water to make an acid that donates protons. An [[amphoteric-oxide|amphoteric oxide]] such as $\\ce{Al2O3}$ reacts with both acids and bases."
+        },
+        {
+          "type": "text",
+          "text": "That is also why oxides of sulfur and nitrogen cause acid rain. Dissolved in rain, they form acids such as $\\ce{H2SO3}$, $\\ce{H2SO4}$ and $\\ce{HNO3}$, which donate protons to water and raise $[\\ce{H3O^+}]$."
+        },
+        {
+          "type": "check",
+          "id": "check-amphiprotic-species",
+          "prompt": "Which of these species is amphiprotic?",
+          "hint": "It needs a hydrogen it can lose and a lone pair to accept a proton.",
+          "options": [
+            {
+              "text": "$\\ce{H2PO4^-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{PO4^3-}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{NH4^+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cl^-}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{H2PO4^-}$ can lose a proton to give $\\ce{HPO4^2-}$ or gain one to give $\\ce{H3PO4}$. $\\ce{PO4^3-}$ has no hydrogen to donate, $\\ce{NH4^+}$ has no lone pair, and $\\ce{Cl^-}$ has no hydrogen to donate.",
+          "verify": {
+            "kind": "formula",
+            "truth": "formula('H2PO4^-')",
+            "given": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hydrogenphosphate-base",
+          "prompt": "Which equation shows the hydrogenphosphate ion, $\\ce{HPO4^2-}$, acting as a Brønsted–Lowry base?",
+          "hint": "As a base it gains a proton, so its charge rises by one.",
+          "options": [
+            {
+              "text": "$\\ce{HPO4^2- + H3O^+ -> H2PO4^- + H2O}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{HPO4^2- + OH^- -> PO4^3- + H2O}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{HPO4^2- + H2O -> PO4^3- + H3O^+}$",
+              "correct": false
+            }
+          ],
+          "explain": "In the first equation $\\ce{HPO4^2-}$ takes a proton from $\\ce{H3O^+}$ and becomes $\\ce{H2PO4^-}$. In the other two it loses a proton and becomes $\\ce{PO4^3-}$, so it acts as an acid there.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HPO4^2- + H3O^+ -> H2PO4^- + H2O"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Brønsted–Lowry acid: proton ($\\ce{H^+}$) donor. Brønsted–Lowry base: proton acceptor, using a lone pair.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A proton in water can be written $\\ce{H^+(aq)}$ or $\\ce{H3O^+(aq)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An alkali is a base that dissolves in water to give $\\ce{OH^-(aq)}$. Every alkali is a base; not every base is an alkali.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conjugate pair: differs by one $\\ce{H^+}$. Conjugate base: one $\\ce{H}$ fewer, charge one lower. Conjugate acid: one $\\ce{H}$ more, charge one higher.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Amphiprotic species both donate and accept protons: $\\ce{H2O}$, $\\ce{HCO3^-}$, $\\ce{HSO4^-}$, $\\ce{H2PO4^-}$, $\\ce{HPO4^2-}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating the proton as a hydrogen atom. $\\ce{H^+}$ has no electron, so a species that gains one becomes one charge more positive.",
+    "Pairing the two reactants as a conjugate pair. A conjugate pair has one member on each side of the equation and differs by exactly one $\\ce{H^+}$.",
+    "Removing two protons, or none, when asked for a conjugate base. Change the formula by one $\\ce{H}$ and one charge only.",
+    "Calling any base an alkali. An alkali must also dissolve in water and give $\\ce{OH^-(aq)}$, so insoluble oxides such as $\\ce{CuO}$ are bases but not alkalis.",
+    "Classifying $\\ce{HCO3^-}$ or $\\ce{H2PO4^-}$ as an acid only. Each has a hydrogen to lose and a lone pair to accept a proton, so it is amphiprotic."
+  ],
+  "examTips": [
+    "\"Deduce\" which species is the acid and which is the base: name each one and say what it does with the proton, donates or accepts. A name without the reason rarely earns the mark.",
+    "\"State\" or \"deduce\" a conjugate formula: write it with its charge. A missing or wrong charge loses the mark.",
+    "\"Formulate\" an equation for an amphiprotic species: show it gaining a proton with an acid such as $\\ce{H3O^+}$, or losing one to a base such as $\\ce{OH^-}$, and check the charges balance.",
+    "In Paper 1A, a pair in an option is only conjugate if the two formulas differ by exactly one $\\ce{H^+}$. Check the charge as well as the hydrogens."
+  ],
+  "readingMinutes": 23
+}

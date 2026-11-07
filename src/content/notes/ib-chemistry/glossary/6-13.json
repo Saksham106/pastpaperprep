@@ -1,0 +1,26 @@
+[
+  {
+    "id": "standard-electrode-potential",
+    "term": "standard electrode potential",
+    "definition": "The potential, $E^\\ominus$ in volts, of a half-cell under standard conditions measured against the standard hydrogen electrode, written for the reduction; the more positive it is, the more easily the oxidized species is reduced.",
+    "lesson": "6.13"
+  },
+  {
+    "id": "standard-hydrogen-electrode",
+    "term": "standard hydrogen electrode",
+    "definition": "The reference half-cell, hydrogen gas at $\\pu{100 kPa}$ over platinum in $\\pu{1.00 mol dm-3}$ $\\ce{H^+(aq)}$ at $\\pu{298 K}$, whose potential is set at $\\pu{0.00 V}$ by convention.",
+    "lesson": "6.13"
+  },
+  {
+    "id": "standard-cell-potential",
+    "term": "standard cell potential",
+    "definition": "The potential difference of a cell under standard conditions, $E^\\ominus_\\text{cell} = E^\\ominus_\\text{cathode} - E^\\ominus_\\text{anode}$; a positive value means the reaction is spontaneous as written under standard conditions.",
+    "lesson": "6.13"
+  },
+  {
+    "id": "faraday-constant",
+    "term": "Faraday constant",
+    "definition": "The charge carried by one mole of electrons, $F = \\pu{9.65e4 C mol-1}$ (data booklet, section 2).",
+    "lesson": "6.13"
+  }
+]

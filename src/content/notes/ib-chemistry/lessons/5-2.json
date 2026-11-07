@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.2",
+  "slug": "limiting-reactants-yield-and-atom-economy",
+  "title": "Limiting reactants, yield and atom economy",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[limiting-reactant|limiting reactant]] runs out first, so it decides the [[theoretical-yield|theoretical yield]]: the most product you could make. Real reactions give less, and the [[percentage-yield|percentage yield]] compares the [[experimental-yield|experimental yield]] with that maximum. [[atom-economy|Atom economy]] asks a different question: how much of the reactants' mass ends up in the product you want, rather than as waste.",
+  "goals": [
+    {
+      "text": "Identify the limiting and excess reactants from masses or solution concentrations.",
+      "bullets": [
+        "R2.1.3"
+      ]
+    },
+    {
+      "text": "Use the limiting reactant to calculate the theoretical yield of a product.",
+      "bullets": [
+        "R2.1.3"
+      ]
+    },
+    {
+      "text": "Distinguish theoretical from experimental yield, and suggest errors that make a yield too low or too high.",
+      "bullets": [
+        "R2.1.3"
+      ]
+    },
+    {
+      "text": "Calculate a percentage yield, including problems where you first find the limiting reactant.",
+      "bullets": [
+        "R2.1.4"
+      ]
+    },
+    {
+      "text": "Calculate atom economy from an equation and explain why a low atom economy means more waste.",
+      "bullets": [
+        "R2.1.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.8",
+    "2.12",
+    "5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "limiting reagent",
+    "reactant in excess",
+    "theoretical yield calculation",
+    "percent yield",
+    "atom economy calculation",
+    "green chemistry efficiency"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-moles-kcl",
+      "prompt": "How many [[mole|moles]] of potassium chloride, $\\ce{KCl}$, are in $\\pu{7.45 g}$? Give 3 significant figures.",
+      "hint": "Add the $A_\\text{r}$ values to get the [[molar-mass|molar mass]], then use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.0999,
+        "tolerance": 0.00005
+      },
+      "explain": "$M = 39.10 + 35.45 = \\pu{74.55 g mol-1}$, so $n = \\frac{7.45}{74.55} = 0.09993\\ldots \\approx \\pu{0.0999 mol}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "7.45/Mr('KCl')",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ammonia-ratio",
+      "prompt": "In $\\ce{N2(g) + 3H2(g) -> 2NH3(g)}$, how many moles of hydrogen react with $\\pu{0.250 mol}$ of nitrogen?",
+      "hint": "Read the mole ratio of $\\ce{N2}$ to $\\ce{H2}$ from the coefficients.",
+      "answer": {
+        "value": 0.75,
+        "tolerance": 0.0005
+      },
+      "explain": "The [[stoichiometry|stoichiometry]] is $1 : 3$, so $n(\\ce{H2}) = 3 \\times 0.250 = \\pu{0.750 mol}$. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.250*3",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-solution",
+      "prompt": "How many moles of solute are in $\\pu{25.0 cm3}$ of a solution whose [[molar-concentration|molar concentration]] is $\\pu{0.120 mol dm-3}$?",
+      "hint": "Change $\\pu{cm3}$ to $\\pu{dm3}$ by dividing by 1000, then use $n = CV$.",
+      "answer": {
+        "value": 0.003,
+        "tolerance": 0.000005
+      },
+      "explain": "$V = \\pu{0.0250 dm3}$, so $n = 0.120 \\times 0.0250 = \\pu{0.00300 mol}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0250*0.120",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "limiting",
+      "heading": "Limiting and excess reactants",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bike needs one frame and two wheels. With 10 frames and 14 wheels you can build only 7 bikes. The wheels run out first, and 3 frames are left over."
+        },
+        {
+          "type": "text",
+          "text": "Reactions work the same way. Reactants are rarely mixed in exactly the ratio of the equation, so one of them runs out first and the reaction stops."
+        },
+        {
+          "type": "definition",
+          "term": "limiting reactant",
+          "statement": "The reactant that is completely used up first in a reaction. It sets the maximum amount of product that can form.",
+          "plain": "The ingredient you run out of first."
+        },
+        {
+          "type": "text",
+          "text": "Any other reactant is in excess: some of it is still there when the reaction stops. For a reaction that goes to completion, adding more of an excess reactant makes no more product."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-limiting-particles",
+          "alt": "Particle diagram for hydrogen reacting with oxygen to make water. The left box, before, holds six hydrogen molecules and five oxygen molecules. An arrow leads to the right box, after, which holds six water molecules and two oxygen molecules that did not react, ringed and labelled excess. Hydrogen ran out first, so it is the limiting reactant.",
+          "caption": "In $\\ce{2H2 + O2 -> 2H2O}$, six $\\ce{H2}$ need only three $\\ce{O2}$. Hydrogen is limiting and two $\\ce{O2}$ are left in excess."
+        },
+        {
+          "type": "text",
+          "text": "Notice that there were fewer oxygen molecules than hydrogen molecules, yet oxygen was in excess. The smaller amount is not always the limiting one: the equation's ratio decides."
+        },
+        {
+          "type": "text",
+          "text": "1. Work out the amount, in [[mole|moles]], of each reactant."
+        },
+        {
+          "type": "text",
+          "text": "2. Divide each amount by that reactant's coefficient in the balanced equation."
+        },
+        {
+          "type": "text",
+          "text": "3. The smallest result belongs to the [[limiting-reactant|limiting reactant]]. Use its amount, with the mole ratio, to find the amount of product."
+        },
+        {
+          "type": "result",
+          "statement": "The limiting reactant has the smallest value of $\\dfrac{n}{\\text{coefficient}}$. The amount of product is calculated from the limiting reactant, never from a reactant in excess.",
+          "why": "Dividing by the coefficient tells you how many times each reactant could run the equation as written. The reaction can only run as many times as the scarcest one allows."
+        },
+        {
+          "type": "text",
+          "text": "The mass of product you would get if all of the limiting reactant turned into it, with nothing lost, is the [[theoretical-yield|theoretical yield]]."
+        },
+        {
+          "type": "definition",
+          "term": "theoretical yield",
+          "statement": "The maximum amount of product that could form, calculated from the amount of the limiting reactant and the balanced equation.",
+          "plain": "What you would get if everything went perfectly."
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-sulfur",
+          "question": "A mixture of $\\pu{3.25 g}$ of zinc powder and $\\pu{2.00 g}$ of sulfur is heated: $\\ce{Zn(s) + S(s) -> ZnS(s)}$. Determine the limiting reactant and the theoretical yield, in g, of zinc sulfide.",
+          "steps": [
+            "Amounts, using $A_\\text{r}$ values from the data booklet (section 7): $n(\\ce{Zn}) = \\frac{3.25}{65.38} = \\pu{0.04971 mol}$ and $n(\\ce{S}) = \\frac{2.00}{32.07} = \\pu{0.06236 mol}$.",
+            "Both coefficients are 1, so compare the amounts directly. Zinc has the smaller value, so zinc is the limiting reactant and sulfur is in excess.",
+            "The ratio $\\ce{Zn} : \\ce{ZnS}$ is $1 : 1$, so $n(\\ce{ZnS}) = \\pu{0.04971 mol}$.",
+            "$M(\\ce{ZnS}) = 65.38 + 32.07 = \\pu{97.45 g mol-1}$, so $m = 0.04971 \\times 97.45 = 4.844\\ldots$ g. Round to 3 significant figures, matching the data."
+          ],
+          "answer": "$m(\\ce{ZnS}) \\approx \\pu{4.84 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.25/Ar('Zn')*Mr('ZnS')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-silver-chloride",
+          "question": "$\\pu{25.0 cm3}$ of $\\pu{0.200 mol dm-3}$ silver nitrate solution is mixed with $\\pu{20.0 cm3}$ of $\\pu{0.150 mol dm-3}$ calcium chloride solution: $\\ce{2AgNO3(aq) + CaCl2(aq) -> 2AgCl(s) + Ca(NO3)2(aq)}$. Determine the limiting reactant and the theoretical yield, in g, of silver chloride.",
+          "steps": [
+            "Amounts from $n = CV$: $n(\\ce{AgNO3}) = 0.200 \\times 0.0250 = \\pu{0.00500 mol}$ and $n(\\ce{CaCl2}) = 0.150 \\times 0.0200 = \\pu{0.00300 mol}$.",
+            "Divide by the coefficients: $\\ce{AgNO3}$ gives $\\frac{0.00500}{2} = 0.00250$ and $\\ce{CaCl2}$ gives $\\frac{0.00300}{1} = 0.00300$.",
+            "$0.00250$ is smaller, so silver nitrate is limiting, even though there are more moles of it. Calcium chloride is in excess: $0.00300 - 0.00250 = \\pu{0.00050 mol}$ is left over.",
+            "The ratio $\\ce{AgNO3} : \\ce{AgCl}$ is $2 : 2$, so $n(\\ce{AgCl}) = \\pu{0.00500 mol}$.",
+            "$M(\\ce{AgCl}) = 107.87 + 35.45 = \\pu{143.32 g mol-1}$, so $m = 0.00500 \\times 143.32 = 0.7166$ g."
+          ],
+          "answer": "$m(\\ce{AgCl}) \\approx \\pu{0.717 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.0250*0.200*Mr('AgCl')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the reactant with fewer moles the limiting one. Divide each amount by its coefficient first: in the silver chloride example, the reactant with more moles ran out first."
+        },
+        {
+          "type": "text",
+          "text": "For gases at the same temperature and pressure, equal volumes hold equal amounts, so you can compare volumes divided by coefficients in the same way."
+        },
+        {
+          "type": "check",
+          "id": "check-aluminium-chlorine",
+          "prompt": "$\\pu{2.70 g}$ of aluminium reacts with $\\pu{7.10 g}$ of chlorine: $\\ce{2Al(s) + 3Cl2(g) -> 2AlCl3(s)}$. Which reactant is limiting?",
+          "hint": "Both amounts come out at about $\\pu{0.100 mol}$. Now divide each by its coefficient.",
+          "options": [
+            {
+              "text": "chlorine",
+              "correct": true
+            },
+            {
+              "text": "aluminium",
+              "correct": false
+            },
+            {
+              "text": "neither: they are in the exact ratio of the equation",
+              "correct": false
+            }
+          ],
+          "explain": "$n(\\ce{Al}) = \\frac{2.70}{26.98} = 0.100$ and $n(\\ce{Cl2}) = \\frac{7.10}{70.90} = 0.100$. Divided by the coefficients: $\\ce{Al}$ gives $0.0500$ and $\\ce{Cl2}$ gives $0.0334$, so chlorine runs out first.",
+          "verify": {
+            "kind": "choice",
+            "truth": "chlorine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-methane-oxygen",
+          "prompt": "$\\pu{3.20 g}$ of methane is burned with $\\pu{9.60 g}$ of oxygen: $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l)}$. Calculate the theoretical yield, in g, of carbon dioxide. Give 3 significant figures.",
+          "hint": "Find both amounts and divide by the coefficients. Then use the limiting reactant's amount and its ratio to $\\ce{CO2}$.",
+          "answer": {
+            "value": 6.60,
+            "tolerance": 0.005
+          },
+          "explain": "$n(\\ce{CH4}) = \\frac{3.20}{16.05} = 0.1994$ and $n(\\ce{O2}) = \\frac{9.60}{32.00} = 0.300$, which gives $0.150$ after dividing by 2. Oxygen is limiting, so $n(\\ce{CO2}) = \\frac{0.300}{2} = 0.150$ and $m = 0.150 \\times 44.01 = \\pu{6.60 g}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9.60/Mr('O2')/2*Mr('CO2')",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "yield",
+      "heading": "Experimental and percentage yield",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The theoretical yield is a calculation. What you actually collect and weigh at the end of the practical is the [[experimental-yield|experimental yield]]. It is almost always smaller."
+        },
+        {
+          "type": "definition",
+          "term": "experimental yield",
+          "statement": "The amount of product actually obtained in a reaction, measured as a mass or an amount in moles.",
+          "plain": "What you really end up with."
+        },
+        {
+          "type": "text",
+          "text": "The [[percentage-yield|percentage yield]] compares the two. Both yields must be for the same substance and in the same units, either both in grams or both in moles."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage yield} = \\frac{\\text{experimental yield}}{\\text{theoretical yield}} \\times 100",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This formula is not in the data booklet, so learn it."
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-carbonate",
+          "question": "A student heats $\\pu{6.18 g}$ of copper(II) carbonate until it has fully decomposed: $\\ce{CuCO3(s) -> CuO(s) + CO2(g)}$. They collect $\\pu{3.62 g}$ of copper(II) oxide. Calculate the percentage yield.",
+          "steps": [
+            "Amount of the reactant: $M(\\ce{CuCO3}) = 63.55 + 12.01 + 3(16.00) = \\pu{123.56 g mol-1}$, so $n = \\frac{6.18}{123.56} = \\pu{0.05002 mol}$.",
+            "The ratio $\\ce{CuCO3} : \\ce{CuO}$ is $1 : 1$, so the theoretical amount of $\\ce{CuO}$ is $\\pu{0.05002 mol}$.",
+            "Theoretical yield: $M(\\ce{CuO}) = \\pu{79.55 g mol-1}$, so $m = 0.05002 \\times 79.55 = \\pu{3.979 g}$. Keep the unrounded value.",
+            "Percentage yield $= \\frac{3.62}{3.979} \\times 100 = 90.98\\ldots$, which is $91.0\\%$ to 3 significant figures."
+          ],
+          "answer": "$\\text{percentage yield} \\approx 91.0\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.62/(6.18/Mr('CuCO3')*Mr('CuO'))*100",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the mass of product by the mass of reactant. $\\frac{3.62}{6.18}$ gives $58.6\\%$, which compares two different substances. Always turn the reactant into a theoretical mass of product first."
+        },
+        {
+          "type": "example",
+          "id": "ex-titanium",
+          "question": "Titanium is made by reducing titanium(IV) chloride with molten magnesium: $\\ce{TiCl4(g) + 2Mg(l) -> Ti(s) + 2MgCl2(l)}$. In a trial run, $\\pu{375 g}$ of $\\ce{TiCl4}$ reacts with $\\pu{105 g}$ of magnesium and $\\pu{82.4 g}$ of titanium is obtained. Determine the percentage yield.",
+          "steps": [
+            "Amounts: $M(\\ce{TiCl4}) = 47.87 + 4(35.45) = \\pu{189.67 g mol-1}$, so $n(\\ce{TiCl4}) = \\frac{375}{189.67} = \\pu{1.977 mol}$. $n(\\ce{Mg}) = \\frac{105}{24.31} = \\pu{4.319 mol}$.",
+            "Divide by the coefficients: $\\ce{TiCl4}$ gives $1.977$ and $\\ce{Mg}$ gives $\\frac{4.319}{2} = 2.160$. So $\\ce{TiCl4}$ is limiting.",
+            "The ratio $\\ce{TiCl4} : \\ce{Ti}$ is $1 : 1$, so the theoretical yield is $1.977 \\times 47.87 = \\pu{94.64 g}$ of titanium.",
+            "Percentage yield $= \\frac{82.4}{94.64} \\times 100 = 87.06\\ldots$, which is $87.1\\%$."
+          ],
+          "answer": "$\\text{percentage yield} \\approx 87.1\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "82.4/(375/Mr('TiCl4')*Ar('Ti'))*100",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Why is the experimental yield usually lower? The reaction may not go to completion, side reactions may make other products, and some product is lost when it is transferred, filtered or purified."
+        },
+        {
+          "type": "text",
+          "text": "A yield above $100\\%$ is impossible for pure product, so it points to an error. The usual cause is a product that is still wet or contains impurities, which adds to the mass weighed."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-yield",
+          "question": "A student makes crystals of a salt and weighs them. Explain why the experimental yield is usually less than the theoretical yield. Suggest one error that could make it appear greater than the theoretical yield.",
+          "steps": [
+            "Lower, reason 1: the reaction is incomplete (reversible, too slow, or stopped too early).",
+            "Lower, reason 2: side reactions use up reactant to make other products.",
+            "Lower, reason 3: product is lost in practical steps such as transferring, filtering and crystallising.",
+            "Higher: something other than the product is weighed with it, such as water or an impurity."
+          ],
+          "answer": "The reaction may not go to completion, for example if it is reversible or slow, so some reactant is left unreacted. Side reactions can turn some of the reactant into other products. Some product is lost during transfer, filtration and crystallisation, for example crystals left on the filter paper or salt still dissolved in the solution. The yield can appear too high if the crystals are weighed before they are completely dry, because the water adds to their mass.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "incomplete reaction, side reactions and losses lower the yield; a wet or impure product raises it",
+            "requires": [
+              [
+                "not go to completion",
+                "incomplete"
+              ],
+              [
+                "side reactions",
+                "side reaction"
+              ],
+              [
+                "lost during",
+                "lost when",
+                "is lost"
+              ],
+              [
+                "completely dry",
+                "still wet",
+                "impurities"
+              ],
+              [
+                "adds to their mass",
+                "adds to the mass",
+                "increases the mass"
+              ]
+            ],
+            "forbids": [
+              "mass is destroyed",
+              "atoms are destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zinc-copper",
+          "prompt": "$\\pu{1.31 g}$ of zinc is added to excess copper(II) sulfate solution: $\\ce{Zn(s) + CuSO4(aq) -> ZnSO4(aq) + Cu(s)}$. The dried copper has a mass of $\\pu{1.12 g}$. Calculate the percentage yield to 3 significant figures.",
+          "hint": "Zinc is limiting. Find the theoretical mass of copper first.",
+          "answer": {
+            "value": 88.0,
+            "tolerance": 0.05
+          },
+          "explain": "$n(\\ce{Zn}) = \\frac{1.31}{65.38} = 0.02004$, so the theoretical yield is $0.02004 \\times 63.55 = \\pu{1.273 g}$ of copper. Percentage yield $= \\frac{1.12}{1.273} \\times 100 = 88.0\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.12/(1.31/Ar('Zn')*Ar('Cu'))*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-over-100",
+          "prompt": "A student reports a percentage yield of $112\\%$ for a solid product. Which error best explains this?",
+          "hint": "Which error adds extra mass to what is weighed?",
+          "options": [
+            {
+              "text": "The product was weighed before it was fully dry.",
+              "correct": true
+            },
+            {
+              "text": "Some product was left behind on the filter paper.",
+              "correct": false
+            },
+            {
+              "text": "The reaction did not go to completion.",
+              "correct": false
+            },
+            {
+              "text": "A side reaction made a different product.",
+              "correct": false
+            }
+          ],
+          "explain": "Water left in the solid is weighed as if it were product, so the mass is too high. The other three errors all make the yield too low.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The product was weighed before it was fully dry."
+          }
+        }
+      ]
+    },
+    {
+      "id": "atom-economy",
+      "heading": "Atom economy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A $100\\%$ yield can still waste a lot. Most reactions make by-products as well as the product you want, and atoms that end up in by-products are often waste."
+        },
+        {
+          "type": "definition",
+          "term": "atom economy",
+          "statement": "The molar mass of the desired product as a percentage of the total molar mass of all the reactants, from the balanced equation.",
+          "plain": "The share of the reactants' mass that ends up in the product you want."
+        },
+        {
+          "type": "formula",
+          "tex": "\\%\\ \\text{atom economy} = \\frac{\\text{molar mass of desired product}}{\\text{molar mass of all reactants}} \\times 100",
+          "tag": "booklet",
+          "bookletId": "db-atom-economy"
+        },
+        {
+          "type": "text",
+          "text": "This equation is in the data booklet. Use the balanced equation and multiply each [[molar-mass|molar mass]] by its coefficient. Because mass is conserved, the reactants' total equals the products' total."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-atom-economy-bar",
+          "alt": "Two bars of equal length for the reaction of iron(III) oxide with carbon monoxide to make iron. The top bar is the reactants: 159.70 grams of iron(III) oxide plus 84.03 grams of carbon monoxide, 243.73 grams in total. The bottom bar is the same 243.73 grams split into products: 111.70 grams of iron, the desired product, taking 45.8 percent of the bar, and 132.03 grams of carbon dioxide, waste, taking the other 54.2 percent.",
+          "caption": "Every gram of reactant ends up in a product. Only the iron is wanted, so the atom economy is $45.8\\%$."
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-atom-economy",
+          "question": "In a blast furnace, iron is made by $\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(l) + 3CO2(g)}$. Calculate the atom economy for making iron.",
+          "steps": [
+            "Desired product: $2\\ce{Fe}$, so $2 \\times 55.85 = \\pu{111.70 g mol-1}$.",
+            "All reactants: $M(\\ce{Fe2O3}) = 2(55.85) + 3(16.00) = 159.70$ and $3 \\times M(\\ce{CO}) = 3 \\times 28.01 = 84.03$. Total $= \\pu{243.73 g mol-1}$.",
+            "Atom economy $= \\frac{111.70}{243.73} \\times 100 = 45.83\\ldots$, which is $45.8\\%$."
+          ],
+          "answer": "$\\text{atom economy} \\approx 45.8\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*Ar('Fe')/(Mr('Fe2O3') + 3*Mr('CO'))*100",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The higher the atom economy, the less waste. If no by-product is used, $100 - \\text{atom economy}$ is the percentage of the reactant mass that ends up as by-product waste. Selling or using a by-product cuts the waste."
+        },
+        {
+          "type": "text",
+          "text": "When the desired product is the only product, the atom economy is $100\\%$. Addition reactions do this, and so does making an [[addition-polymer|addition polymer]], where every monomer ends up in the chain."
+        },
+        {
+          "type": "example",
+          "id": "ex-propanol-routes",
+          "question": "Propan-2-ol can be made by two routes. Route A: $\\ce{CH2=CHCH3 + H2O -> CH3CH(OH)CH3}$. Route B: $\\ce{CH3CHBrCH3 + NaOH -> CH3CH(OH)CH3 + NaBr}$. Explain which route is greener in terms of atom economy.",
+          "steps": [
+            "Route A: propan-2-ol is the only product, so the atom economy is $100\\%$.",
+            "Route B: $M(\\ce{CH3CH(OH)CH3}) = 60.11$ and the reactants total $123.00 + 40.00 = 163.00$, so the atom economy is $\\frac{60.11}{163.00} \\times 100 = 36.9\\%$.",
+            "Link the number to waste: the rest of route B's reactant mass ends up as sodium bromide."
+          ],
+          "answer": "Route A is greener. Its atom economy is $100\\%$ because propan-2-ol is the only product, so all the atoms in the reactants end up in the desired product. Route B also makes sodium bromide, so its atom economy is only $36.9\\%$. The lower the atom economy, the more of the reactant mass ends up as waste, so route B wastes more material.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "route A has 100% atom economy because propan-2-ol is the only product; route B makes sodium bromide waste",
+            "requires": [
+              "only product",
+              "all the atoms",
+              "sodium bromide",
+              [
+                "lower the atom economy",
+                "higher atom economy"
+              ],
+              "waste"
+            ],
+            "forbids": [
+              "higher yield",
+              "lower yield"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Atom economy and percentage yield measure different things. Yield tells you how well the reaction worked in practice. Atom economy is fixed by the equation, before you do anything."
+        },
+        {
+          "type": "text",
+          "text": "Neither tells the whole story about how efficient or green a process is. Chemists also weigh the energy needed, the rate, the cost of the raw materials, the hazards of the chemicals and solvents, and whether the by-products can be used."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out the coefficients. In the blast furnace example the desired product is $2\\ce{Fe}$ and the reactants include $3\\ce{CO}$, so multiply before you add."
+        },
+        {
+          "type": "check",
+          "id": "check-hydrogen-atom-economy",
+          "prompt": "Hydrogen is made from methane and steam: $\\ce{CH4(g) + H2O(g) -> CO(g) + 3H2(g)}$. Calculate the atom economy for making hydrogen, to 3 significant figures.",
+          "hint": "The desired product is $3\\ce{H2}$, not one $\\ce{H2}$.",
+          "answer": {
+            "value": 17.8,
+            "tolerance": 0.05
+          },
+          "explain": "Desired: $3 \\times 2.02 = 6.06$. Reactants: $16.05 + 18.02 = 34.07$. Atom economy $= \\frac{6.06}{34.07} \\times 100 = 17.8\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*Mr('H2')/(Mr('CH4') + Mr('H2O'))*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ae-100",
+          "prompt": "A reaction has an atom economy of $100\\%$. Which statement must be true?",
+          "hint": "Atom economy is worked out from the equation alone.",
+          "options": [
+            {
+              "text": "The desired product is the only product.",
+              "correct": true
+            },
+            {
+              "text": "The percentage yield is 100%.",
+              "correct": false
+            },
+            {
+              "text": "None of the reactants is in excess.",
+              "correct": false
+            },
+            {
+              "text": "No energy is wasted in the process.",
+              "correct": false
+            }
+          ],
+          "explain": "A $100\\%$ atom economy means every reactant atom appears in the desired product, so there is no by-product. It says nothing about the yield, the amounts mixed or the energy used.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The desired product is the only product."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To find the limiting reactant, divide each reactant's amount in mol by its coefficient. The smallest value is limiting.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The theoretical yield is calculated from the limiting reactant, never from a reactant in excess.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage yield} = \\frac{\\text{experimental yield}}{\\text{theoretical yield}} \\times 100",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Yields are lowered by incomplete reaction, side reactions and losses of product. A wet or impure product makes the yield look too high.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\%\\ \\text{atom economy} = \\frac{\\text{molar mass of desired product}}{\\text{molar mass of all reactants}} \\times 100",
+          "tag": "booklet",
+          "bookletId": "db-atom-economy",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The lower the atom economy, the more waste. A reaction with one product, such as an addition reaction, has $100\\%$ atom economy. Atom economy is not the same as yield.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing the reactant with fewer moles as limiting. Divide each amount by its coefficient before you compare.",
+    "Calculating the theoretical yield from the reactant in excess. Only the limiting reactant sets how much product can form.",
+    "Finding percentage yield as product mass over reactant mass. Compare experimental and theoretical yields of the same product.",
+    "Rounding the theoretical yield before dividing. Carry the unrounded value and round only the final percentage.",
+    "Forgetting coefficients in atom economy, or leaving a reactant out of the bottom line. Use every reactant in the balanced equation.",
+    "Treating atom economy as a yield. It comes from the equation alone and doesn't change with how well the practical went."
+  ],
+  "examTips": [
+    "\"Determine the limiting reactant\": show the amount of each reactant in mol, divide by the coefficients, then name the limiting one. A name with no working earns little.",
+    "\"Calculate the percentage yield\": write the theoretical yield as a separate line, then experimental over theoretical times 100, to 3 significant figures.",
+    "In Paper 1A atom economy questions, multiply by the coefficients before you add; the wrong options are often what you get without them.",
+    "\"Suggest\" why a yield is low or above 100%: name a specific practical error and say which way it moves the mass."
+  ],
+  "readingMinutes": 23
+}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 385" role="img" aria-labelledby="t">
+<title id="t">Atoms drawn as circles to scale, with atomic radii in units of ten to the minus twelve metres. Left, group 1 from top to bottom: lithium 130, sodium 160, potassium 200, rubidium 215 and caesium 238; the circles grow down the group. Right, period 3 from left to right: sodium 160, magnesium 140, aluminium 124, silicon 114, phosphorus 109, sulfur 104 and chlorine 100; the circles shrink across the period.</title>
+<text x="70" y="18" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">group 1</text>
+<circle cx="62" cy="52.2" r="18.2" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text x="62" y="56.2" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Li</text>
+<text x="86.2" y="56.2" font-size="10" fill="currentColor" font-family="inherit">130</text>
+<circle cx="62" cy="102.8" r="22.4" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text x="62" y="106.8" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Na</text>
+<text x="90.4" y="106.8" font-size="10" fill="currentColor" font-family="inherit">160</text>
+<circle cx="62" cy="163.2" r="28.0" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text x="62" y="167.2" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">K</text>
+<text x="96.0" y="167.2" font-size="10" fill="currentColor" font-family="inherit">200</text>
+<circle cx="62" cy="231.3" r="30.1" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text x="62" y="235.3" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Rb</text>
+<text x="98.1" y="235.3" font-size="10" fill="currentColor" font-family="inherit">215</text>
+<circle cx="62" cy="304.7" r="33.3" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text x="62" y="308.7" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Cs</text>
+<text x="101.3" y="308.7" font-size="10" fill="currentColor" font-family="inherit">238</text>
+<path d="M128 40 V370" stroke="currentColor" stroke-width="1.4" fill="none"/>
+<path d="M123 362 L128 372 L133 362" stroke="currentColor" stroke-width="1.4" fill="none"/>
+<text x="144" y="205" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(90 144 205)">radius increases down the group</text>
+<text x="370" y="110" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">period 3</text>
+<circle cx="212.4" cy="170" r="22.4" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="212.4" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Na</text>
+<text x="212.4" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">160</text>
+<circle cx="268.4" cy="170" r="19.6" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="268.4" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Mg</text>
+<text x="268.4" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">140</text>
+<circle cx="319.4" cy="170" r="17.4" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="319.4" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Al</text>
+<text x="319.4" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">124</text>
+<circle cx="366.7" cy="170" r="16.0" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="366.7" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Si</text>
+<text x="366.7" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">114</text>
+<circle cx="411.9" cy="170" r="15.3" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="411.9" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">P</text>
+<text x="411.9" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">109</text>
+<circle cx="455.7" cy="170" r="14.6" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="455.7" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">S</text>
+<text x="455.7" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">104</text>
+<circle cx="498.3" cy="170" r="14.0" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text x="498.3" y="174" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">Cl</text>
+<text x="498.3" y="206" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">100</text>
+<path d="M190 230 H516" stroke="currentColor" stroke-width="1.4" fill="none"/>
+<path d="M508 225 L518 230 L508 235" stroke="currentColor" stroke-width="1.4" fill="none"/>
+<text x="358" y="250" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">radius decreases across the period</text>
+<text x="370" y="320" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">atomic radius / 10⁻¹² m (data booklet, section 10)</text>
+</svg>

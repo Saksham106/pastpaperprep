@@ -1,0 +1,635 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.5",
+  "slug": "ionization-energy",
+  "title": "Ionization energy",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "The first [[ionization-energy|ionization energy]] is the energy needed to pull one mole of [[electron|electrons]] off one mole of gaseous atoms. You can calculate it from where the lines of an [[emission-spectrum|emission spectrum]] merge, explain its rises and dips across the periodic table, and use [[successive-ionization-energy|successive ionization energies]] to find an element's group.",
+  "goals": [
+    {
+      "text": "Explain why the [[convergence|convergence]] limit of an emission spectrum matches ionization, and calculate a first ionization energy from its frequency or [[wavelength|wavelength]].",
+      "bullets": [
+        "S1.3.6"
+      ]
+    },
+    {
+      "text": "Explain the general trends in first ionization energy across a period and down a group, and the dips after groups 2 and 15.",
+      "bullets": [
+        "S1.3.6"
+      ]
+    },
+    {
+      "text": "Explain why successive ionization energies always rise, and why large jumps appear.",
+      "bullets": [
+        "S1.3.7"
+      ]
+    },
+    {
+      "text": "Work out an element's group from a list of its successive ionization energies.",
+      "bullets": [
+        "S1.3.7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "1.4",
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "first ionisation energy",
+    "successive ionisation energies",
+    "convergence limit calculation",
+    "ionization energy trends across a period",
+    "deduce group from ionization energies",
+    "why does ionization energy drop from nitrogen to oxygen"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-photon-energy",
+      "prompt": "Calculate the energy, in J, of one [[photon|photon]] of frequency $\\pu{7.50e14 s-1}$.",
+      "hint": "Use $E = hf$ with $h = \\pu{6.63e-34 J s}$. Give 3 significant figures.",
+      "answer": {
+        "value": 4.97e-19,
+        "tolerance": 5e-22
+      },
+      "explain": "$E = (6.63 \\times 10^{-34}) \\times (7.50 \\times 10^{14}) = 4.97 \\times 10^{-19}$ J. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "h_planck*7.50*10**14",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-outer-sublevel",
+      "prompt": "In a ground-state aluminium atom ($Z = 13$), which [[sublevel|sublevel]] holds the highest-energy electron?",
+      "hint": "Fill 13 electrons in the order 1s, 2s, 2p, 3s, 3p.",
+      "options": [
+        {
+          "text": "the 3p sublevel",
+          "correct": true
+        },
+        {
+          "text": "the 3s sublevel",
+          "correct": false
+        },
+        {
+          "text": "the 2p sublevel",
+          "correct": false
+        },
+        {
+          "text": "the 3d sublevel",
+          "correct": false
+        }
+      ],
+      "explain": "Aluminium is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}\\,3p^{1}}$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the 3p sublevel"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-shielding",
+      "prompt": "Why does sodium's outer electron feel much less than the pull of all 11 [[proton|protons]]?",
+      "hint": "What lies between it and the nucleus?",
+      "options": [
+        {
+          "text": "The 10 inner electrons shield it from the nucleus",
+          "correct": true
+        },
+        {
+          "text": "The neutrons in the nucleus repel it",
+          "correct": false
+        },
+        {
+          "text": "It shares its orbital with another electron",
+          "correct": false
+        }
+      ],
+      "explain": "The inner electrons cancel much of the nuclear charge. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The 10 inner electrons shield it from the nucleus"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "convergence-limit",
+      "heading": "Ionization energy from the convergence limit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.1}} you met [[ionization-energy|ionization energy]]. The first ionization energy of an element is the energy needed to remove one mole of [[electron|electrons]] from one mole of gaseous atoms in their ground state."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{X(g) -> X^+(g) + e-}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The atoms must be gaseous. Ionization energy is always positive, because the electron is attracted to the nucleus. Its unit is $\\pu{kJ mol-1}$."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:1.3}} you saw that hydrogen's [[emission-spectrum|emission spectrum]] is a [[line-spectrum|line spectrum]]. Each line is a [[photon|photon]] given out as an electron falls to a lower [[energy-level|energy level]]."
+        },
+        {
+          "type": "text",
+          "text": "Take hydrogen's series of lines made by electrons falling to $n = 1$, its ground state. The levels crowd together as $n$ increases, so the lines crowd together at higher frequency until they merge: this is [[convergence|convergence]]."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-convergence-limit",
+          "alt": "Left: horizontal energy levels for n equals 1, 2, 3 and higher, getting closer together towards a dashed level at n equals infinity. Arrows show electrons falling from each level to n equals 1, and a dashed arrow falls from n equals infinity to n equals 1. Right: the matching emission lines, spaced widely at low frequency and getting closer together as frequency increases, until they meet at a dashed line labelled convergence limit.",
+          "caption": "The longest fall, from $n = \\infty$ to $n = 1$, gives the convergence limit."
+        },
+        {
+          "type": "text",
+          "text": "The convergence limit is the fall from $n = \\infty$ to $n = 1$. Reversed, the electron goes from the ground state to $n = \\infty$, free of the atom: ionization. So the photon energy at the limit is the energy to ionize one atom. For other elements, use the series that ends at the atom's ground state."
+        },
+        {
+          "type": "text",
+          "text": "Two data booklet equations (section 1) turn a frequency or [[wavelength|wavelength]] into an energy. Use $h = \\pu{6.63e-34 J s}$ and $c = \\pu{3.00e8 m s-1}$ (data booklet, section 2)."
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-photon-energy"
+        },
+        {
+          "type": "formula",
+          "tex": "c = f\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-wave-speed"
+        },
+        {
+          "type": "text",
+          "text": "$E = hf$ gives joules for one atom. Multiply by $N_{\\mathrm{A}} = \\pu{6.02e23 mol-1}$ (section 2) for one mole, then divide by 1000 for $\\pu{kJ mol-1}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{first IE in kJ mol}^{-1} = \\frac{h f N_{\\mathrm{A}}}{1000}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-sodium-frequency",
+          "question": "In the emission spectrum of sodium, the convergence limit of the series ending at the ground state is at a frequency of $\\pu{1.24e15 s-1}$. Calculate the first ionization energy of sodium, in $\\pu{kJ mol-1}$, to 3 significant figures.",
+          "steps": [
+            "Energy for one atom: $E = hf = (6.63 \\times 10^{-34}) \\times (1.24 \\times 10^{15}) = 8.2212 \\times 10^{-19}$ J.",
+            "Energy for one mole: $8.2212 \\times 10^{-19} \\times 6.02 \\times 10^{23} = 4.9492 \\times 10^{5}$ J mol⁻¹.",
+            "Convert to kJ: $4.9492 \\times 10^{5} \\div 1000 = 494.92$ kJ mol⁻¹.",
+            "Round to 3 s.f. The booklet value (section 9) is $496$ kJ mol⁻¹, so this is sensible."
+          ],
+          "answer": "$\\text{first IE} \\approx \\pu{495 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h_planck*1.24*10**15*NA/1000",
+            "sf": 3,
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-frequency",
+          "prompt": "The convergence limit for magnesium is at a frequency of $\\pu{1.85e15 s-1}$. Calculate its first ionization energy in $\\pu{kJ mol-1}$, to 3 significant figures.",
+          "hint": "Find $hf$ for one atom, multiply by $N_{\\mathrm{A}}$, then divide by 1000.",
+          "answer": {
+            "value": 738,
+            "tolerance": 0.5
+          },
+          "explain": "$(6.63 \\times 10^{-34}) \\times (1.85 \\times 10^{15}) \\times (6.02 \\times 10^{23}) \\div 1000 = 738$ kJ mol⁻¹.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h_planck*1.85*10**15*NA/1000",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rubidium-wavelength",
+          "question": "The emission spectrum of rubidium converges at a wavelength of 297 nm. Calculate the first ionization energy of rubidium, in $\\pu{kJ mol-1}$, to 3 significant figures.",
+          "steps": [
+            "Convert the wavelength to metres: $297 \\text{ nm} = 2.97 \\times 10^{-7}$ m.",
+            "Find the frequency from $c = f\\lambda$: $f = \\dfrac{3.00 \\times 10^{8}}{2.97 \\times 10^{-7}} = 1.0101 \\times 10^{15}$ s⁻¹.",
+            "Energy for one atom: $E = hf = (6.63 \\times 10^{-34}) \\times (1.0101 \\times 10^{15}) = 6.6970 \\times 10^{-19}$ J.",
+            "Per mole, in kJ: $6.6970 \\times 10^{-19} \\times 6.02 \\times 10^{23} \\div 1000 = 403.16$ kJ mol⁻¹."
+          ],
+          "answer": "$\\text{first IE} \\approx \\pu{403 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h_planck*(c_light/(297*10**(-9)))*NA/1000",
+            "sf": 3,
+            "unit": "kJ mol-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-convergence-transition",
+          "prompt": "In hydrogen's emission spectrum, which electron transition produces the convergence limit used to find the first ionization energy?",
+          "hint": "Ionization starts from the ground state and ends with the electron completely free.",
+          "options": [
+            {
+              "text": "an electron falling from n = ∞ to n = 1",
+              "correct": true
+            },
+            {
+              "text": "an electron falling from n = 2 to n = 1",
+              "correct": false
+            },
+            {
+              "text": "an electron falling from n = ∞ to n = 2",
+              "correct": false
+            },
+            {
+              "text": "an electron rising from n = 1 to n = 2",
+              "correct": false
+            }
+          ],
+          "explain": "The limit is the fall from $n = \\infty$ to the ground state, $n = 1$. The fall from 2 to 1 is the lowest-frequency line of this series.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an electron falling from n = ∞ to n = 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-ie-trends",
+      "heading": "Trends in first ionization energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Plot the first ionization energies from hydrogen to calcium (data booklet, section 9). Each period starts low at group 1 and climbs to a peak at the noble gas, with two small dips."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-first-ie-trend",
+          "alt": "Line graph of first ionization energy in kilojoules per mole against atomic number from 1 to 20. Helium is highest at 2372, then neon at 2081 and argon at 1520. Lithium, sodium and potassium sit at the bottom of each drop. Within periods 2 and 3 the values rise overall, with small dips at boron and oxygen in period 2 and at aluminium and sulfur in period 3.",
+          "caption": "First ionization energies from the data booklet. B, O, Al and S are the dips."
+        },
+        {
+          "type": "text",
+          "text": "Across a period, each element has one more [[proton|proton]], so the nuclear charge rises. The new electron goes into the same main energy level, so [[shielding|shielding]] by the inner electrons stays about the same."
+        },
+        {
+          "type": "text",
+          "text": "So the [[effective-nuclear-charge|effective nuclear charge]] increases and the [[atomic-radius|atomic radius]] decreases. The outer electrons are held more tightly, and the first ionization energy rises."
+        },
+        {
+          "type": "text",
+          "text": "Down a group, the outer electron is in a higher main energy level. It is further from the nucleus and shielded by more inner electrons. The extra protons don't make up for this, so the first ionization energy generally falls."
+        },
+        {
+          "type": "text",
+          "text": "Dip 1, from group 2 to group 13 (Be to B, Mg to Al). Magnesium loses a 3s electron, but aluminium loses its single 3p electron. A 3p electron is higher in energy than a 3s electron and is partly shielded by the 3s pair, so less energy removes it."
+        },
+        {
+          "type": "text",
+          "text": "Dip 2, from group 15 to group 16 (N to O, P to S). In phosphorus the three 3p electrons sit in separate orbitals. In sulfur the fourth 3p electron has to share an orbital. The two paired electrons repel each other, so one of them is easier to remove."
+        },
+        {
+          "type": "example",
+          "id": "ex-period3-rise",
+          "question": "Explain the general increase in first ionization energy from sodium to argon.",
+          "steps": [
+            "Say what changes across the period (protons), what stays the same (main energy level and shielding), and the effect on the outer electrons."
+          ],
+          "answer": "Across period 3 the nuclear charge increases by one proton from each element to the next. The electrons are added to the same main energy level, so shielding by the inner electrons stays about the same. The effective nuclear charge increases and the atomic radius decreases. The outer electrons are attracted more strongly, so more energy is needed to remove one.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "nuclear charge increases; same main level so similar shielding; outer electrons attracted more strongly",
+            "requires": [
+              [
+                "nuclear charge increases",
+                "more protons"
+              ],
+              [
+                "same main energy level",
+                "same energy level",
+                "same shell"
+              ],
+              [
+                "shielding by the inner electrons stays about the same",
+                "similar shielding",
+                "same shielding"
+              ],
+              [
+                "attracted more strongly",
+                "held more strongly",
+                "stronger attraction"
+              ],
+              "more energy"
+            ],
+            "forbids": [
+              "shielding increases",
+              "more shielding"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-period3-dip",
+          "prompt": "Between which pair of neighbouring period 3 elements does the first ionization energy go down?",
+          "hint": "Where does the electron leave a new, higher-energy sublevel?",
+          "options": [
+            {
+              "text": "magnesium to aluminium",
+              "correct": true
+            },
+            {
+              "text": "silicon to phosphorus",
+              "correct": false
+            },
+            {
+              "text": "sodium to magnesium",
+              "correct": false
+            },
+            {
+              "text": "chlorine to argon",
+              "correct": false
+            }
+          ],
+          "explain": "Aluminium's outer electron is in 3p, higher in energy than magnesium's 3s. The other period 3 dip is from phosphorus to sulfur.",
+          "verify": {
+            "kind": "choice",
+            "truth": "magnesium to aluminium"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-arsenic-selenium",
+          "question": "Selenium has one more proton than arsenic, yet its first ionization energy is lower ($941$ against $944$ kJ mol⁻¹). Explain why, using [[electron-configuration|electron configurations]].",
+          "steps": [
+            "Write the outer sublevels: arsenic is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{3}}$ and selenium is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}\\,4p^{4}}$.",
+            "Draw the 4p boxes: arsenic $[\\uparrow][\\uparrow][\\uparrow]$, selenium $[\\uparrow\\downarrow][\\uparrow][\\uparrow]$.",
+            "Then say what the pair does."
+          ],
+          "answer": "In arsenic the three 4p electrons each occupy a separate orbital. In selenium one 4p orbital holds a pair of electrons. The two electrons in that orbital repel each other. So less energy is needed to remove one of them, and this outweighs selenium's extra proton.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "As has three unpaired 4p electrons; Se has one paired 4p orbital; repulsion between the pair makes one easier to remove",
+            "requires": [
+              [
+                "separate orbital",
+                "singly"
+              ],
+              [
+                "pair of electrons",
+                "paired"
+              ],
+              [
+                "repel",
+                "repulsion"
+              ],
+              [
+                "less energy",
+                "easier to remove"
+              ]
+            ],
+            "forbids": [
+              "half-filled",
+              "more stable"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-potassium-sodium",
+          "prompt": "Why is the first ionization energy of potassium lower than that of sodium?",
+          "hint": "Potassium has more protons, so it isn't the nuclear charge.",
+          "options": [
+            {
+              "text": "Its outer electron is in a higher main energy level, further from the nucleus and more shielded",
+              "correct": true
+            },
+            {
+              "text": "Potassium has a smaller nuclear charge than sodium",
+              "correct": false
+            },
+            {
+              "text": "Its outer electron is in a p orbital, which is higher in energy than an s orbital",
+              "correct": false
+            },
+            {
+              "text": "Its outer electron is paired, so it is repelled by its partner",
+              "correct": false
+            }
+          ],
+          "explain": "Potassium's outer electron is in 4s, not 3s. The extra distance and shielding outweigh the 8 extra protons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its outer electron is in a higher main energy level, further from the nucleus and more shielded"
+          }
+        }
+      ]
+    },
+    {
+      "id": "successive-ie",
+      "heading": "Successive ionization energies",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "successive ionization energies",
+          "statement": "The energies needed to remove an atom's electrons one after another. The $n$th ionization energy is the energy to remove one mole of electrons from one mole of gaseous ions with charge $(n - 1)+$.",
+          "plain": "Pull the electrons off one by one and record the energy each time."
+        },
+        {
+          "type": "text",
+          "text": "For example, the second ionization energy of magnesium is the energy change for $\\ce{Mg^+(g) -> Mg^2+(g) + e-}$, and the third is for $\\ce{Mg^2+(g) -> Mg^3+(g) + e-}$."
+        },
+        {
+          "type": "text",
+          "text": "Each ionization energy is larger than the one before, because each electron leaves an ion that is more positive than the last. The remaining electrons also repel each other less."
+        },
+        {
+          "type": "text",
+          "text": "In a main-group element, a huge jump appears when the next electron comes from a new main energy level, closer to the nucleus and much less shielded."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-sodium-successive-ie",
+          "alt": "Graph of log to base 10 of ionization energy, from 2.5 to 5.5, against the number of the electron removed, from 1 to 11, for sodium. Electron 1 is low, at about 2.7, labelled 1 from n equals 3. Electrons 2 to 9 rise gradually from about 3.7 to 4.5, labelled 8 from n equals 2. Electrons 10 and 11 jump to about 5.2, labelled 2 from n equals 1.",
+          "caption": "All 11 successive ionization energies of sodium. The groups of 1, 8 and 2 are its electron arrangement, read from the outside in."
+        },
+        {
+          "type": "text",
+          "text": "The values run from about 500 to 160 000 kJ mol⁻¹, so the graph plots $\\log_{10}$ of each one. On a log scale the small values aren't squashed flat."
+        },
+        {
+          "type": "text",
+          "text": "The three groups give the number of electrons in each main level: evidence for the [[electron-configuration|electron configuration]]."
+        },
+        {
+          "type": "text",
+          "text": "1. To find an element's group, find the first very large jump. Dividing each value by the one before makes it stand out."
+        },
+        {
+          "type": "text",
+          "text": "2. Count the electrons removed before the jump. These are the outer-level electrons. For a main-group element other than helium, one or two means group 1 or 2. Three to eight means groups 13 to 18, so add 10."
+        },
+        {
+          "type": "example",
+          "id": "ex-group-from-data",
+          "question": "The first six ionization energies of element Q, in kJ mol⁻¹, are 787, 1577, 3232, 4356, 16 091 and 19 805. Deduce the group of Q in the periodic table.",
+          "steps": [
+            "Compare each value with the one before: $\\tfrac{1577}{787} \\approx 2.0$, $\\tfrac{3232}{1577} \\approx 2.0$, $\\tfrac{4356}{3232} \\approx 1.3$, $\\tfrac{16\\,091}{4356} \\approx 3.7$, $\\tfrac{19\\,805}{16\\,091} \\approx 1.2$.",
+            "The large jump is between the 4th and the 5th ionization energies.",
+            "So Q has 4 electrons in its outer main energy level.",
+            "Four outer electrons means group $4 + 10 = 14$. (Q is silicon.)"
+          ],
+          "answer": "$\\text{group} = 14$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4 + 10"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-group-calcium-data",
+          "prompt": "The first five ionization energies of element X, in kJ mol⁻¹, are 590, 1145, 4912, 6491 and 8153. Which group is X in?",
+          "hint": "Find where one value is several times the one before it.",
+          "options": [
+            {
+              "text": "group 2",
+              "correct": true
+            },
+            {
+              "text": "group 1",
+              "correct": false
+            },
+            {
+              "text": "group 13",
+              "correct": false
+            },
+            {
+              "text": "group 15",
+              "correct": false
+            }
+          ],
+          "explain": "The big jump is from the 2nd ($1145$) to the 3rd ($4912$). So X has 2 outer electrons: group 2.",
+          "verify": {
+            "kind": "choice",
+            "truth": "group 2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-magnesium-jump",
+          "question": "The first three ionization energies of magnesium are 738, 1451 and 7733 kJ mol⁻¹. Explain why the second is larger than the first, and why the third is much larger than the second.",
+          "steps": [
+            "Magnesium is $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{6}\\,3s^{2}}$. Say where each electron comes from, then why the energy rises."
+          ],
+          "answer": "The second electron is removed from a positive ion, so it is attracted more strongly to the nucleus and there is less repulsion from other electrons. The first two electrons both come from the 3s sublevel, in the third main energy level. The third electron comes from the second main energy level, which is closer to the nucleus and less shielded. So much more energy is needed to remove it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "2nd from a positive ion; 3rd from a new, inner main level closer to the nucleus and less shielded",
+            "requires": [
+              "positive ion",
+              [
+                "less repulsion",
+                "fewer electrons"
+              ],
+              [
+                "second main energy level",
+                "inner main energy level",
+                "lower main energy level"
+              ],
+              "closer to the nucleus",
+              [
+                "less shielded",
+                "less shielding"
+              ]
+            ],
+            "forbids": [
+              "same main energy level as the first two",
+              "more shielded"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sulfur-jump",
+          "prompt": "Sulfur is in group 16. Its successive ionization energies show the first very large jump between the $n$th and the $(n + 1)$th. What is $n$?",
+          "hint": "How many electrons does a group 16 atom have in its outer main energy level?",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "Group 16 has $16 - 10 = 6$ outer electrons ($\\mathrm{3s^{2}\\,3p^{4}}$), so the jump is between the 6th and 7th.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "16 - 10",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "In transition elements the 4s and 3d electrons are close in energy, so there is no big jump between them. This helps explain their several oxidation states ({{lesson:3.4}})."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "First ionization energy: $\\ce{X(g) -> X^+(g) + e-}$. The convergence limit of the series ending at the ground state ($n = \\infty$ to $n = 1$ for hydrogen) corresponds to ionization.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Across a period first IE generally rises (more protons, similar shielding). Down a group it generally falls (outer electron further away and more shielded).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dips: group 2 to 13 (electron leaves a higher-energy p sublevel) and group 15 to 16 (paired p electrons repel).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Successive IEs always rise. For a main-group element, the first big jump comes after the last outer-level electron: count the electrons before it to find the group.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the first line of the series. Only the convergence limit, where the lines merge, matches ionization.",
+    "Leaving the answer in joules per atom. Multiply $hf$ by $N_{\\mathrm{A}}$, then divide by 1000 for kJ mol⁻¹.",
+    "Saying potassium's first ionization energy is lower than sodium's because of a smaller nuclear charge. Potassium has more protons: distance and extra shielding are the reasons.",
+    "Taking the number of electrons before the jump as the group number for groups 13 to 18. Add 10: four outer electrons is group 14."
+  ],
+  "examTips": [
+    "\"Calculate\" from a convergence limit: write $E = hf$ with numbers substituted (find $f = c/\\lambda$ first for a wavelength), then the per-mole step, then 3 s.f. in kJ mol⁻¹.",
+    "\"Deduce\" the group from successive data (often Paper 1A): say between which ionization energies the big jump falls, then give the group.",
+    "\"Explain\" a trend or dip: give the cause (nuclear charge, distance, shielding, sublevel or paired electrons), then link it to how strongly the outer electron is held."
+  ],
+  "readingMinutes": 21
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-labelledby="t2">
+  <title id="t2">The pH scale at 298 K drawn as a horizontal bar from pH 0 to pH 14. The left part, below pH 7, is labelled acidic; pH 7 is marked neutral; the right part, above pH 7, is labelled basic. Above the bar, the hydrogen ion concentration falls from 10 to the power 0 at pH 0 to 10 to the minus 14 at pH 14, a factor of ten for each pH unit. Below the bar, the hydroxide ion concentration rises from 10 to the minus 14 at pH 0 to 10 to the power 0 at pH 14. At pH 7 both are 10 to the minus 7.</title>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="end" transform="translate(10 0)">
+    <text x="58" y="40">[H<tspan font-size="8" dy="-5">+</tspan><tspan dy="5">]</tspan></text>
+    <text x="58" y="166">[OH<tspan font-size="8" dy="-5">−</tspan><tspan dy="5">]</tspan></text>
+    <text x="58" y="122">pH</text>
+  </g>
+  <g transform="translate(40 0)">
+  <rect x="70" y="70" width="226" height="30" rx="4" fill="var(--t1-ink)" fill-opacity="0.25"/>
+  <rect x="304" y="70" width="226" height="30" rx="4" fill="var(--t4-ink)" fill-opacity="0.25"/>
+  <path d="M300 62 V108" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="185" y="90" fill="var(--t1-ink)">acidic</text>
+    <text x="415" y="90" fill="var(--t4-ink)">basic</text>
+    <text x="300" y="56" fill="var(--t3-ink)">neutral, pH 7</text>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle"><text x="70" y="122">0</text><text x="70" y="40">10<tspan font-size="9" dy="-6">0</tspan></text><text x="70" y="166">10<tspan font-size="9" dy="-6">−14</tspan></text><text x="136" y="122">2</text><text x="136" y="40">10<tspan font-size="9" dy="-6">−2</tspan></text><text x="136" y="166">10<tspan font-size="9" dy="-6">−12</tspan></text><text x="201" y="122">4</text><text x="201" y="40">10<tspan font-size="9" dy="-6">−4</tspan></text><text x="201" y="166">10<tspan font-size="9" dy="-6">−10</tspan></text><text x="267" y="122">6</text><text x="267" y="40">10<tspan font-size="9" dy="-6">−6</tspan></text><text x="267" y="166">10<tspan font-size="9" dy="-6">−8</tspan></text><text x="333" y="122">8</text><text x="333" y="40">10<tspan font-size="9" dy="-6">−8</tspan></text><text x="333" y="166">10<tspan font-size="9" dy="-6">−6</tspan></text><text x="399" y="122">10</text><text x="399" y="40">10<tspan font-size="9" dy="-6">−10</tspan></text><text x="399" y="166">10<tspan font-size="9" dy="-6">−4</tspan></text><text x="464" y="122">12</text><text x="464" y="40">10<tspan font-size="9" dy="-6">−12</tspan></text><text x="464" y="166">10<tspan font-size="9" dy="-6">−2</tspan></text><text x="530" y="122">14</text><text x="530" y="40">10<tspan font-size="9" dy="-6">−14</tspan></text><text x="530" y="166">10<tspan font-size="9" dy="-6">0</tspan></text>
+  </g>
+  <text x="300" y="194" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">concentrations in mol dm<tspan font-size="8" dy="-5">−3</tspan><tspan dy="5">; at 298 K, [H</tspan><tspan font-size="8" dy="-5">+</tspan><tspan dy="5">][OH</tspan><tspan font-size="8" dy="-5">−</tspan><tspan dy="5">] = 10</tspan><tspan font-size="8" dy="-5">−14</tspan></text>
+
+</g>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 260" role="img" aria-labelledby="t618ep">
+  <title id="t618ep">Energy profiles: SN2 has one hump and one transition state; SN1 has two humps with the carbocation intermediate in the dip between them, and the first hump is the higher one</title>
+  <defs>
+    <marker id="m618ep-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- SN2 panel -->
+  <g>
+    <g stroke="currentColor" stroke-width="1.2" fill="none">
+      <line x1="40" y1="22" x2="40" y2="220"/>
+      <line x1="40" y1="220" x2="300" y2="220"/>
+    </g>
+    <path d="M48,140 L85,140 C120,140 140,50 170,50 C200,50 220,175 255,175 L292,175" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+      <line x1="62" y1="50" x2="165" y2="50"/>
+    </g>
+    <line x1="62" y1="138" x2="62" y2="53" stroke="var(--t5-ink)" stroke-width="1.5" marker-end="url(#m618ep-head)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="170" y="14" text-anchor="middle" font-size="14">S<tspan font-size="10" dy="3">N</tspan><tspan dy="-3">2: one step</tspan></text>
+      <text x="170" y="40" text-anchor="middle">transition state</text>
+      <text x="48" y="156">reactants</text>
+      <text x="262" y="192" text-anchor="middle">products</text>
+      <text x="68" y="100" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text>
+      <text x="170" y="240" text-anchor="middle" fill="var(--muted)">reaction coordinate</text>
+      <text x="0" y="0" transform="translate(28,190) rotate(-90)" fill="var(--muted)">potential energy</text>
+    </g>
+  </g>
+
+  <!-- SN1 panel -->
+  <g transform="translate(320,0)">
+    <g stroke="currentColor" stroke-width="1.2" fill="none">
+      <line x1="40" y1="22" x2="40" y2="220"/>
+      <line x1="40" y1="220" x2="300" y2="220"/>
+    </g>
+    <path d="M48,150 L78,150 C105,150 120,45 140,45 C160,45 170,108 190,108 C205,108 215,82 230,82 C245,82 255,182 272,182 L294,182" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+      <line x1="62" y1="45" x2="135" y2="45"/>
+    </g>
+    <line x1="62" y1="148" x2="62" y2="48" stroke="var(--t5-ink)" stroke-width="1.5" marker-end="url(#m618ep-head)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="170" y="14" text-anchor="middle" font-size="14">S<tspan font-size="10" dy="3">N</tspan><tspan dy="-3">1: two steps</tspan></text>
+      <text x="140" y="36" text-anchor="middle">TS 1</text>
+      <text x="232" y="73" text-anchor="middle">TS 2</text>
+      <text x="190" y="126" text-anchor="middle">carbocation</text>
+      <text x="190" y="140" text-anchor="middle">intermediate</text>
+      <text x="48" y="166">reactants</text>
+      <text x="272" y="199" text-anchor="middle">products</text>
+      <text x="68" y="98" fill="var(--t5-ink)">E<tspan font-size="9" dy="3">a</tspan></text>
+      <text x="170" y="240" text-anchor="middle" fill="var(--muted)">reaction coordinate</text>
+      <text x="0" y="0" transform="translate(28,190) rotate(-90)" fill="var(--muted)">potential energy</text>
+    </g>
+  </g>
+</svg>

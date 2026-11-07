@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.9",
+  "slug": "le-chateliers-principle",
+  "title": "Le Châtelier's principle",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Change the conditions of a system at [[dynamic-equilibrium|dynamic equilibrium]] and the mixture shifts to partly undo the change. That is [[le-chateliers-principle|Le Châtelier's principle]]. It predicts the effect of concentration, pressure and [[temperature|temperature]] changes, and only temperature changes the [[equilibrium-constant|equilibrium constant]], $K$.",
+  "goals": [
+    {
+      "text": "Predict and explain how the position of equilibrium shifts when a concentration changes, and why $K$ stays the same.",
+      "bullets": [
+        "R2.3.4"
+      ]
+    },
+    {
+      "text": "Predict the effect of a pressure change on a gaseous equilibrium by counting moles of gas.",
+      "bullets": [
+        "R2.3.4"
+      ]
+    },
+    {
+      "text": "Use the sign of $\\Delta H$ to predict how a temperature change moves the equilibrium and changes $K$.",
+      "bullets": [
+        "R2.3.4"
+      ]
+    },
+    {
+      "text": "Explain why a [[catalyst|catalyst]] changes neither $K$ nor the equilibrium composition, and apply the principle to a gas dissolving in a liquid.",
+      "bullets": [
+        "R2.3.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "5.4",
+    "5.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Le Chatelier",
+    "position of equilibrium",
+    "effect of pressure on equilibrium",
+    "effect of temperature on K",
+    "catalyst and equilibrium",
+    "equilibrium shift"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exothermic",
+      "prompt": "A reaction has $\\Delta H = \\pu{-75 kJ mol-1}$. Which describes the forward reaction?",
+      "hint": "A negative $\\Delta H$ means the system loses heat.",
+      "options": [
+        {
+          "text": "exothermic",
+          "correct": true
+        },
+        {
+          "text": "endothermic",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "choice",
+        "truth": "exothermic"
+      },
+      "explain": "Heat goes to the surroundings, so the forward reaction is exothermic and the backward one endothermic. Revise it in {{lesson:4.1}}."
+    },
+    {
+      "type": "check",
+      "id": "before-equilibrium-rates",
+      "prompt": "Which is true of a reaction at dynamic equilibrium?",
+      "hint": "\"Dynamic\" means both reactions are still going.",
+      "options": [
+        {
+          "text": "The forward and backward rates are equal.",
+          "correct": true
+        },
+        {
+          "text": "Both reactions have stopped.",
+          "correct": false
+        },
+        {
+          "text": "Reactant and product concentrations are equal.",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "choice",
+        "truth": "The forward and backward rates are equal."
+      },
+      "explain": "Both reactions continue at the same rate, so the concentrations stay constant, but usually not equal. Revise it in {{lesson:5.8}}."
+    },
+    {
+      "type": "check",
+      "id": "before-catalyst",
+      "prompt": "How does a catalyst increase the rate of a reaction?",
+      "hint": "Picture the energy profile with and without it.",
+      "options": [
+        {
+          "text": "It provides a pathway with a lower activation energy.",
+          "correct": true
+        },
+        {
+          "text": "It gives the particles more kinetic energy.",
+          "correct": false
+        },
+        {
+          "text": "It makes the reaction more exothermic.",
+          "correct": false
+        }
+      ],
+      "verify": {
+        "kind": "choice",
+        "truth": "It provides a pathway with a lower activation energy."
+      },
+      "explain": "A catalyst opens a route with a lower activation energy. It changes neither the temperature nor $\\Delta H$. Revise it in {{lesson:5.4}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "concentration",
+      "heading": "The principle, and changing a concentration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[reversible-reaction|reversible reaction]] at equilibrium looks still, but both reactions run at the same rate. Disturb it and the rates are no longer equal. The mixture changes until they match again, and one rule tells you which way."
+        },
+        {
+          "type": "definition",
+          "term": "Le Châtelier's principle",
+          "statement": "If a system at dynamic equilibrium is disturbed by a change in conditions, the position of equilibrium shifts in the direction that partly opposes the change.",
+          "plain": "The system pushes back against whatever you do to it."
+        },
+        {
+          "type": "text",
+          "text": "The position of equilibrium is how far the mixture lies towards products. \"Shifts right\" means more products form; \"shifts left\" means more reactants."
+        },
+        {
+          "type": "text",
+          "text": "Yellow chromate and orange dichromate ions are in equilibrium in water: $\\ce{2CrO4^2-(aq) + 2H+(aq) <=> Cr2O7^2-(aq) + H2O(l)}$. Add acid and $[\\ce{H+}]$ rises. The system uses up some of the extra $\\ce{H+}$: the position shifts right and the solution turns orange."
+        },
+        {
+          "type": "text",
+          "text": "Why, in terms of rates? More $\\ce{H+}$ speeds up the forward reaction, and dichromate builds up until the backward rate matches it."
+        },
+        {
+          "type": "text",
+          "text": "1. Add a reactant or remove a product: the position shifts right."
+        },
+        {
+          "type": "text",
+          "text": "2. Add a product or remove a reactant: the position shifts left. Both rules are for gases and dissolved species: adding more of a pure solid or liquid does not change its concentration, so it does not shift the position. Adding water to a solution is different: it dilutes every dissolved species, which can shift the position."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-adding-reactant",
+          "alt": "Graph of concentration against time for the equilibrium A to B. At first both lines are flat, with B above A. At the dashed line labelled A added, the A line jumps straight up. It then curves down and levels off, ending higher than before the addition. The B line rises gradually from the same moment and levels off higher than before. Both lines are flat again from the second dashed line, labelled new equilibrium.",
+          "caption": "Adding A shifts the position right. The ratio $\\frac{[\\ce{B}]}{[\\ce{A}]}$, which is $K$, ends the same as before."
+        },
+        {
+          "type": "text",
+          "text": "The shift only partly opposes the change: A settles above its old value. And $K$ does not change. The mixture shifts until the ratio in $K$ is back to its old value, at the same temperature."
+        },
+        {
+          "type": "example",
+          "id": "ex-dichromate-acid",
+          "question": "A yellow solution of potassium chromate is at equilibrium: $\\ce{2CrO4^2-(aq) + 2H+(aq) <=> Cr2O7^2-(aq) + H2O(l)}$. Dilute sulfuric acid is added at constant temperature, and the solution turns orange. Explain this observation, and state the effect on the value of $K$.",
+          "steps": [
+            "Adding acid increases $[\\ce{H+}]$, a reactant. The system opposes this by using up some $\\ce{H+}$.",
+            "So the position shifts right and more orange $\\ce{Cr2O7^2-}$ forms. The temperature is constant, so $K$ is unchanged."
+          ],
+          "answer": "Adding acid increases the concentration of $\\ce{H+}$. The system opposes this change by using up some of the added $\\ce{H+}$, so the position of equilibrium shifts to the right. More orange $\\ce{Cr2O7^2-}$ forms. The temperature is constant, so the value of $K$ does not change.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "[H+] rises; system uses up H+; shifts right; more orange dichromate; K unchanged at constant temperature.",
+            "requires": [
+              [
+                "increases the concentration of $\\ce{H+}$",
+                "concentration of H+ increases"
+              ],
+              [
+                "opposes",
+                "using up"
+              ],
+              "shifts to the right",
+              "orange",
+              [
+                "value of $K$ does not change",
+                "K is unchanged"
+              ]
+            ],
+            "forbids": [
+              "K increases",
+              "K decreases",
+              "shifts to the left"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-k-unchanged-steam",
+          "question": "At $\\pu{1100 K}$, a sealed vessel holds $\\ce{CO(g) + H2O(g) <=> CO2(g) + H2(g)}$ at equilibrium, with each gas at $\\pu{0.150 mol dm-3}$. Extra steam is added at constant temperature. At the new equilibrium, $[\\ce{CO}] = \\pu{0.100 mol dm-3}$, $[\\ce{H2O}] = \\pu{0.400 mol dm-3}$ and $[\\ce{CO2}] = [\\ce{H2}] = \\pu{0.200 mol dm-3}$. Calculate $K$ at the new equilibrium and compare it with $K$ before.",
+          "steps": [
+            "From the equation: $K = \\frac{[\\ce{CO2}][\\ce{H2}]}{[\\ce{CO}][\\ce{H2O}]}$.",
+            "Before: $K = \\frac{0.150 \\times 0.150}{0.150 \\times 0.150} = 1.00$.",
+            "After: $K = \\frac{0.200 \\times 0.200}{0.100 \\times 0.400} = 1.00$.",
+            "The position shifted right ($\\ce{CO2}$ and $\\ce{H2}$ rose), yet $K$ is the same."
+          ],
+          "answer": "$K = 1.00$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.200*0.200)/(0.100*0.400)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-alkali-dichromate",
+          "prompt": "Sodium hydroxide solution is added to the orange mixture $\\ce{2CrO4^2-(aq) + 2H+(aq) <=> Cr2O7^2-(aq) + H2O(l)}$. The $\\ce{OH-}$ ions react with $\\ce{H+}$ ions. What happens?",
+          "hint": "Hydroxide removes $\\ce{H+}$. Which side is it on?",
+          "options": [
+            {
+              "text": "The position shifts left and the solution turns yellow.",
+              "correct": true
+            },
+            {
+              "text": "The position shifts right and the solution turns more orange.",
+              "correct": false
+            },
+            {
+              "text": "Nothing changes, because hydroxide is not in the equation.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "The position shifts left and the solution turns yellow."
+          },
+          "explain": "Hydroxide removes $\\ce{H+}$, a reactant. The system replaces some of it by shifting left, so more yellow $\\ce{CrO4^2-}$ forms."
+        },
+        {
+          "type": "check",
+          "id": "check-remove-water-ester",
+          "prompt": "Ethyl ethanoate is made by $\\ce{CH3COOH(l) + C2H5OH(l) <=> CH3COOC2H5(l) + H2O(l)}$. Water is removed as it forms, at constant temperature. What is the effect?",
+          "hint": "Water is a product. Treat the position and $K$ separately.",
+          "options": [
+            {
+              "text": "The position shifts right; K is unchanged.",
+              "correct": true
+            },
+            {
+              "text": "The position shifts right; K increases.",
+              "correct": false
+            },
+            {
+              "text": "The position shifts left; K is unchanged.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "The position shifts right; K is unchanged."
+          },
+          "explain": "Removing a product makes the system replace some of it, so more ester forms. The temperature hasn't changed, so $K$ hasn't either."
+        }
+      ]
+    },
+    {
+      "id": "pressure-temperature",
+      "heading": "Changing the pressure or the temperature",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Squeeze a gas mixture into a smaller volume and its pressure rises. The system opposes this by shifting towards the side with fewer gas molecules, which lowers the pressure a little."
+        },
+        {
+          "type": "text",
+          "text": "1. Higher pressure, from a smaller volume: the position shifts towards fewer moles of gas. Lower pressure: towards more moles of gas."
+        },
+        {
+          "type": "text",
+          "text": "2. Equal moles of gas on both sides: pressure has no effect on the position."
+        },
+        {
+          "type": "text",
+          "text": "Count only gases, using the coefficients. Solids and liquids barely change volume when squeezed. At constant temperature, $K$ stays the same."
+        },
+        {
+          "type": "text",
+          "text": "The [[enthalpy-change|enthalpy change]], $\\Delta H$, given with an equation is for the forward reaction. The backward reaction has the same size of $\\Delta H$ with the opposite sign."
+        },
+        {
+          "type": "text",
+          "text": "Heat the system and it opposes the rise by absorbing heat: the endothermic direction is favoured. Cool it and the exothermic direction is favoured. Now the ratio of products to reactants really changes, so $K$ changes."
+        },
+        {
+          "type": "result",
+          "statement": "Endothermic forward reaction ($\\Delta H > 0$): raising the temperature shifts the position right and increases $K$. Exothermic forward reaction ($\\Delta H < 0$): raising the temperature shifts the position left and decreases $K$. Cooling does the opposite.",
+          "why": "A temperature rise favours the direction that absorbs heat, and $K$ follows the new ratio of products to reactants."
+        },
+        {
+          "type": "example",
+          "id": "ex-n2o4-heating",
+          "question": "Colourless dinitrogen tetroxide and brown nitrogen dioxide are at equilibrium in a sealed tube: $\\ce{N2O4(g) <=> 2NO2(g)}$, $\\Delta H = \\pu{+57 kJ mol-1}$. The tube is put in hot water and the gas turns darker brown. Explain this observation, and state the effect on $K$.",
+          "steps": [
+            "$\\Delta H$ is positive, so the forward reaction is endothermic.",
+            "A temperature rise favours the endothermic direction, which absorbs heat.",
+            "So the position shifts right: more brown $\\ce{NO2}$, less $\\ce{N2O4}$, and a larger $K$."
+          ],
+          "answer": "The forward reaction is endothermic. Increasing the temperature favours the endothermic direction, which absorbs heat and so opposes the change. The position of equilibrium shifts to the right, so more brown $\\ce{NO2}$ forms and the colour darkens. The value of $K$ increases.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "Forward endothermic; higher T favours endothermic direction; shifts right, more brown NO2; K increases.",
+            "requires": [
+              "forward reaction is endothermic",
+              "favours the endothermic direction",
+              "shifts to the right",
+              "more brown",
+              "value of $K$ increases"
+            ],
+            "forbids": [
+              "K is unchanged",
+              "K decreases",
+              "exothermic direction"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-methanol-conditions",
+          "question": "Methanol is made by $\\ce{CO(g) + 2H2(g) <=> CH3OH(g)}$, $\\Delta H = \\pu{-91 kJ mol-1}$. Predict and explain the effect on the equilibrium yield of methanol, and on $K$, of (a) increasing the pressure and (b) increasing the temperature.",
+          "steps": [
+            "\"Predict and explain\": give each direction with its reason.",
+            "(a) Moles of gas: $1 + 2 = 3$ on the left, 1 on the right. Higher pressure favours the right. Temperature is unchanged, so $K$ is too.",
+            "(b) $\\Delta H < 0$, so the backward reaction is endothermic. Heating favours it, so the position shifts left and $K$ falls."
+          ],
+          "answer": "(a) There are 3 moles of gas on the left and 1 on the right. Higher pressure shifts the position of equilibrium to the right, towards fewer moles of gas, so the yield of methanol increases. $K$ is unchanged. (b) The forward reaction is exothermic, so higher temperature favours the endothermic backward reaction. The position shifts to the left, the yield of methanol decreases, and $K$ decreases.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "(a) 3 to 1 mol gas: shifts right, yield up, K unchanged. (b) forward exothermic: shifts left, yield down, K decreases.",
+            "requires": [
+              "3 moles of gas on the left",
+              "fewer moles of gas",
+              "yield of methanol increases",
+              "$K$ is unchanged",
+              "forward reaction is exothermic",
+              "favours the endothermic backward reaction",
+              "yield of methanol decreases",
+              "$K$ decreases"
+            ],
+            "forbids": [
+              "K increases",
+              "more moles of gas"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a higher temperature favours the products because the reaction goes faster. Heating speeds up both directions; the sign of $\\Delta H$ decides which way the position moves."
+        },
+        {
+          "type": "check",
+          "id": "check-no-pressure-effect",
+          "prompt": "For which equilibrium does increasing the pressure have no effect on the position of equilibrium?",
+          "hint": "Count moles of gas on each side, and ignore solids.",
+          "options": [
+            {
+              "text": "$\\ce{N2(g) + O2(g) <=> 2NO(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{2SO2(g) + O2(g) <=> 2SO3(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CaCO3(s) <=> CaO(s) + CO2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{PCl5(g) <=> PCl3(g) + Cl2(g)}$",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "N2(g) + O2(g) -> NO(g)",
+            "reversible": true
+          },
+          "explain": "$\\ce{N2 + O2 <=> 2NO}$ has 2 moles of gas on each side. The carbonate has no gas on the left and 1 mole on the right, so pressure does affect it."
+        },
+        {
+          "type": "check",
+          "id": "check-two-changes-no2",
+          "prompt": "For $\\ce{2NO(g) + O2(g) <=> 2NO2(g)}$, $\\Delta H = \\pu{-114 kJ mol-1}$. Which pair of changes shifts the position of equilibrium furthest to the right?",
+          "hint": "Take each change on its own: moles of gas for pressure, the sign of $\\Delta H$ for temperature.",
+          "options": [
+            {
+              "text": "increase pressure, decrease temperature",
+              "correct": true
+            },
+            {
+              "text": "increase pressure, increase temperature",
+              "correct": false
+            },
+            {
+              "text": "decrease pressure, decrease temperature",
+              "correct": false
+            },
+            {
+              "text": "decrease pressure, increase temperature",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "increase pressure, decrease temperature"
+          },
+          "explain": "There are 3 moles of gas on the left and 2 on the right, so higher pressure shifts right. The forward reaction is exothermic, so cooling also shifts right."
+        },
+        {
+          "type": "check",
+          "id": "check-cool-exothermic",
+          "prompt": "A reaction with an exothermic forward reaction is at equilibrium. The mixture is cooled. What happens to $K$?",
+          "hint": "Cooling favours the direction that releases heat.",
+          "options": [
+            {
+              "text": "K increases",
+              "correct": true
+            },
+            {
+              "text": "K decreases",
+              "correct": false
+            },
+            {
+              "text": "K stays the same",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "K increases"
+          },
+          "explain": "Cooling favours the exothermic forward reaction, so the new mixture has more products. The ratio of products to reactants rises, so $K$ increases."
+        }
+      ]
+    },
+    {
+      "id": "catalysts-heterogeneous",
+      "heading": "Catalysts, and gases dissolving",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[catalyst|catalyst]] lowers the activation energy of the forward and backward reactions by the same amount. Both rates rise by the same factor, so they stay equal. The position and $K$ don't change: equilibrium is just reached sooner."
+        },
+        {
+          "type": "example",
+          "id": "ex-catalyst-no-shift",
+          "question": "Iron is used as a catalyst for $\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$. Explain why it does not increase the amount of ammonia at equilibrium.",
+          "steps": [
+            "Say what the catalyst does to each direction: it lowers both activation energies by the same amount.",
+            "Both rates rise equally, so the equilibrium composition is the same.",
+            "Then say what does change: the time taken to reach equilibrium."
+          ],
+          "answer": "The catalyst lowers the activation energy of the forward and backward reactions by the same amount. It increases the rates of both reactions equally. So the position of equilibrium does not change, and $K$ is unchanged. Equilibrium is reached faster, but the amount of ammonia at equilibrium is the same.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "Lowers Ea of both directions equally; both rates rise equally; position and K unchanged; equilibrium reached faster.",
+            "requires": [
+              "forward and backward",
+              [
+                "increases the rates of both reactions equally",
+                "both rates increase equally"
+              ],
+              "position of equilibrium does not change",
+              "reached faster"
+            ],
+            "forbids": [
+              "shifts to the right",
+              "K increases",
+              "only the forward"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The principle also applies to heterogeneous equilibria, with species in different phases. A gas dissolving in a liquid is one: $\\ce{X(g) <=> X(aq)}$."
+        },
+        {
+          "type": "text",
+          "text": "Raise the pressure of the gas above the liquid and more dissolves; lower it and gas comes out of solution. Dissolving most gases is exothermic, so warmer water holds less dissolved gas."
+        },
+        {
+          "type": "example",
+          "id": "ex-co2-bottle",
+          "question": "A sealed bottle of sparkling water holds carbon dioxide gas above the liquid and carbon dioxide dissolved in it. Write the equation, with state symbols, for this equilibrium, then predict what happens when the cap is removed.",
+          "steps": [
+            "One substance in two phases: gas, and dissolved (aqueous).",
+            "It goes both ways, so use the equilibrium arrow: $\\ce{CO2(g) <=> CO2(aq)}$.",
+            "With the cap off, gas escapes and the pressure of $\\ce{CO2(g)}$ above the liquid falls.",
+            "The position shifts left: dissolved $\\ce{CO2}$ comes out as bubbles."
+          ],
+          "answer": "$\\ce{CO2(g) <=> CO2(aq)}$",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CO2(g) -> CO2(aq)",
+            "reversible": true,
+            "states": true
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-oxygen-warm-water",
+          "prompt": "Dissolving oxygen in water is exothermic: $\\ce{O2(g) <=> O2(aq)}$. A lake warms up in summer. What happens to the concentration of dissolved oxygen at equilibrium?",
+          "hint": "A temperature rise favours the endothermic direction.",
+          "options": [
+            {
+              "text": "It decreases.",
+              "correct": true
+            },
+            {
+              "text": "It increases.",
+              "correct": false
+            },
+            {
+              "text": "It stays the same.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "It decreases."
+          },
+          "explain": "Coming out of solution is the endothermic direction. Warming favours it, so the position shifts left and less oxygen stays dissolved."
+        },
+        {
+          "type": "check",
+          "id": "check-catalyst-effects",
+          "prompt": "A catalyst is added to a reaction mixture before it reaches equilibrium. Which statement is correct?",
+          "hint": "A catalyst affects how fast, not how far.",
+          "options": [
+            {
+              "text": "Equilibrium is reached sooner, with the same composition.",
+              "correct": true
+            },
+            {
+              "text": "Equilibrium is reached sooner, with more products.",
+              "correct": false
+            },
+            {
+              "text": "The value of K increases.",
+              "correct": false
+            }
+          ],
+          "verify": {
+            "kind": "choice",
+            "truth": "Equilibrium is reached sooner, with the same composition."
+          },
+          "explain": "The catalyst speeds up both reactions equally, so the same equilibrium is reached, just faster."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you use the reaction quotient, $Q$, to explain each shift and to calculate the new equilibrium composition.",
+          "lesson": "5.10"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Le Châtelier's principle: a system at equilibrium shifts its position to partly oppose a change in conditions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add a reactant or remove a product: shifts right. Add a product or remove a reactant: shifts left (gases and dissolved species only). $K$ unchanged.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher pressure (smaller volume): towards fewer moles of gas (count gases only). Equal moles of gas: no effect. $K$ unchanged.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Higher temperature favours the endothermic direction. $\\Delta H > 0$: $K$ rises with temperature. $\\Delta H < 0$: $K$ falls.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A catalyst speeds up both reactions equally: equilibrium comes sooner, but the position and $K$ don't change.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying $K$ changes when a concentration or the pressure changes. The position moves, but only temperature changes $K$.",
+    "Thinking the shift fully cancels the change. It only partly opposes it: an added reactant ends above its old concentration.",
+    "Saying a catalyst increases the equilibrium yield. It speeds up both reactions equally, so only the time to reach equilibrium changes.",
+    "Counting solids and liquids when predicting the effect of pressure. Count moles of gas only."
+  ],
+  "examTips": [
+    "\"Predict and explain\" earns marks for the direction and for the reason. Write both: \"shifts right AND fewer moles of gas on the right\".",
+    "\"State the effect on $K$\": write \"no change\" for a concentration, pressure or catalyst change. For temperature, use the sign of $\\Delta H$.",
+    "Paper 1A often pairs two changes in a table. Decide each change separately, then pick the row where both push the same way."
+  ],
+  "readingMinutes": 21
+}

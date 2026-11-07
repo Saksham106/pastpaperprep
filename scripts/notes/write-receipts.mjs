@@ -3,7 +3,8 @@
 //
 //   node scripts/notes/write-receipts.mjs [--course <slug>]     (default ib-math-aa)
 //
-// sha256 covers the lesson bytes (including its verify blocks), its sidecar bytes, mathparse.py, check-math.py and verify_kinds.py
+// sha256 covers the lesson bytes (including its verify blocks), its sidecar bytes, mathparse.py, check-math.py, verify_kinds.py
+// and the chemistry modules it imports (chemparse.py, chem_data.py)
 // together, so weakening a sidecar, a verify block or the checker invalidates the receipt.
 // An unchanged hash keeps its existing passedAt.
 // Python: AA_NOTES_PYTHON, else the venv at ../research/aa-course-notes/.venv (sibling of the main checkout).
@@ -20,7 +21,7 @@ export function receiptHash(item, course = DEFAULT_COURSE) {
   const { lessonsDir, sidecarsDir } = courseFiles(course);
   const dashed = item.replace(".", "-");
   const hash = createHash("sha256");
-  for (const file of [join(lessonsDir, `${dashed}.json`), join(sidecarsDir, `${dashed}.py`), join(notesDir, "mathparse.py"), join(notesDir, "check-math.py"), join(notesDir, "verify_kinds.py")]) {
+  for (const file of [join(lessonsDir, `${dashed}.json`), join(sidecarsDir, `${dashed}.py`), join(notesDir, "mathparse.py"), join(notesDir, "check-math.py"), join(notesDir, "verify_kinds.py"), join(notesDir, "chemparse.py"), join(notesDir, "chem_data.py")]) {
     hash.update(existsSync(file) ? readFileSync(file) : "missing");
     hash.update("\0");
   }

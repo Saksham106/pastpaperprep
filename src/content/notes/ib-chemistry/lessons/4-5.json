@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.5",
+  "slug": "energy-from-fuels",
+  "title": "Energy from fuels",
+  "level": "SL",
+  "topic": 4,
+  "summary": "[[combustion|Combustion]] releases a fuel's energy by reacting it with oxygen. Plenty of oxygen turns its carbon into $\\ce{CO2}$; too little gives toxic $\\ce{CO}$ or soot. You'll compare fossil fuels and [[biofuel|biofuels]], link $\\ce{CO2}$ to the [[greenhouse-effect|greenhouse effect]], and see how a [[fuel-cell|fuel cell]] turns fuel straight into electricity.",
+  "goals": [
+    {
+      "text": "Deduce equations for the complete combustion of metals, non-metals, hydrocarbons and alcohols.",
+      "bullets": [
+        "R1.3.1"
+      ]
+    },
+    {
+      "text": "Deduce equations for [[incomplete-combustion|incomplete combustion]] and explain its health risks.",
+      "bullets": [
+        "R1.3.2"
+      ]
+    },
+    {
+      "text": "Compare fossil fuels by energy per gram and $\\ce{CO2}$ released, and explain how $\\ce{CO2}$ warms the Earth.",
+      "bullets": [
+        "R1.3.3"
+      ]
+    },
+    {
+      "text": "Explain how biofuels come from photosynthesis, and weigh their pros and cons.",
+      "bullets": [
+        "R1.3.4"
+      ]
+    },
+    {
+      "text": "Deduce half-equations for hydrogen and methanol fuel cells.",
+      "bullets": [
+        "R1.3.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "3.2",
+    "3.6",
+    "4.1",
+    "4.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "combustion equations",
+    "incomplete combustion carbon monoxide",
+    "fossil fuels and global warming",
+    "biofuels advantages and disadvantages",
+    "hydrogen fuel cell half-equations",
+    "energy per gram of fuel"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exo-burning",
+      "prompt": "A camping stove burns gas to heat a pan of water. Which describes this [[exothermic-reaction|exothermic reaction]]?",
+      "hint": "Ask which way the energy flows: out of the chemicals, or into them.",
+      "options": [
+        {
+          "text": "The products have less enthalpy than the reactants; the enthalpy change is negative.",
+          "correct": true
+        },
+        {
+          "text": "The products have more enthalpy than the reactants; the enthalpy change is positive.",
+          "correct": false
+        },
+        {
+          "text": "The products have less enthalpy than the reactants; the enthalpy change is positive.",
+          "correct": false
+        }
+      ],
+      "explain": "Energy leaves the chemicals and warms the pan, so the products are lower in enthalpy and $\\Delta H < 0$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The products have less enthalpy than the reactants; the enthalpy change is negative."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-octane",
+      "prompt": "How many [[mole|moles]] are in $\\pu{11.4 g}$ of octane, $\\ce{C8H18}$? Give 3 significant figures.",
+      "hint": "Use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.0998,
+        "tolerance": 5e-05
+      },
+      "explain": "$M = 8(12.01) + 18(1.01) = \\pu{114.26 g mol-1}$, so $n = \\frac{11.4}{114.26} \\approx 0.0998$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "11.4/Mr('C8H18')",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sulfur-oxide",
+      "prompt": "Coal contains some sulfur, which burns to sulfur dioxide. Why does this matter?",
+      "hint": "Think about what this oxide does in rainwater.",
+      "options": [
+        {
+          "text": "It forms acid rain.",
+          "correct": true
+        },
+        {
+          "text": "It makes rain alkaline.",
+          "correct": false
+        },
+        {
+          "text": "It thickens the ozone layer.",
+          "correct": false
+        }
+      ],
+      "explain": "Sulfur dioxide is an acidic oxide. With water and oxygen in the air it forms sulfuric acid: [[acid-rain|acid rain]]. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It forms acid rain."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "complete",
+      "heading": "Complete combustion",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "combustion",
+          "statement": "An exothermic reaction in which a substance reacts with oxygen, usually when heated, to form oxides.",
+          "plain": "Burning: a substance joins with oxygen and gives out energy."
+        },
+        {
+          "type": "text",
+          "text": "[[combustion|Combustion]] is an [[exothermic-reaction|exothermic reaction]], so its [[enthalpy-change|enthalpy change]] is negative. For a hydrocarbon, the strong $\\ce{C=O}$ and $\\ce{O-H}$ bonds formed release more energy than breaking the fuel's bonds and the $\\ce{O=O}$ bonds absorbs ([[bond-enthalpy|bond enthalpy]], {{lesson:4.2}})."
+        },
+        {
+          "type": "text",
+          "text": "Reactive metals burn to metal oxides: $\\ce{2Mg(s) + O2(g) -> 2MgO(s)}$. Non-metals give non-metal oxides: $\\ce{S(s) + O2(g) -> SO2(g)}$."
+        },
+        {
+          "type": "text",
+          "text": "Compounds of carbon and hydrogen, with or without oxygen, burn completely to $\\ce{CO2}$ and $\\ce{H2O}$. That covers every [[alkane|alkane]] and alcohol. Balance carbon first, then hydrogen, then oxygen last, remembering any oxygen already in the fuel."
+        },
+        {
+          "type": "definition",
+          "term": "standard enthalpy change of combustion",
+          "statement": "The enthalpy change when one mole of a substance burns completely in oxygen, with everything in its standard state at $\\pu{100 kPa}$ (usually quoted at $\\pu{298 K}$). Symbol: $\\Delta H_\\text{c}^\\ominus$.",
+          "plain": "The energy given out when one mole of a fuel burns completely."
+        },
+        {
+          "type": "text",
+          "text": "The [[standard-enthalpy-change-of-combustion|standard enthalpy change of combustion]] is always negative. Values are in the data booklet, section 14. Its equation has one mole of fuel, so other coefficients may be fractions."
+        },
+        {
+          "type": "example",
+          "id": "ex-butanol-complete",
+          "question": "Deduce the equation, with state symbols, for the complete combustion of butan-1-ol, $\\ce{C4H9OH(l)}$, that matches its $\\Delta H_\\text{c}^\\ominus$.",
+          "steps": [
+            "Four C atoms give $\\ce{4CO2}$. Ten H atoms give $\\ce{5H2O}$.",
+            "Oxygen on the right: $4 \\times 2 + 5 = 13$ atoms. The fuel brings 1, so $\\ce{6O2}$ supplies 12.",
+            "At 298 K the alcohol and water are liquids."
+          ],
+          "answer": "$\\ce{C4H9OH(l) + 6O2(g) -> 4CO2(g) + 5H2O(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C4H9OH(l) + O2(g) -> CO2(g) + H2O(l)",
+            "states": true,
+            "fractions": true,
+            "per": "C4H9OH",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hexane-whole",
+          "question": "Deduce the equation, with the smallest whole-number coefficients, for the complete combustion of hexane, $\\ce{C6H14}$.",
+          "steps": [
+            "Per mole: $\\ce{6CO2}$ and $\\ce{7H2O}$ hold $12 + 7 = 19$ oxygen atoms, so $\\frac{19}{2}$ $\\ce{O2}$.",
+            "Double every coefficient to clear the fraction."
+          ],
+          "answer": "$\\ce{2C6H14(l) + 19O2(g) -> 12CO2(g) + 14H2O(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C6H14 + O2 -> CO2 + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "Oxygen is the oxidizing agent in every combustion and the fuel is the reducing agent ({{lesson:6.8}}). A good fuel also has a high activation energy, so it doesn't ignite until you supply a spark or flame. That makes it safe to store."
+        },
+        {
+          "type": "check",
+          "id": "check-propanol-oxygen",
+          "prompt": "One mole of propan-1-ol, $\\ce{C3H7OH}$, burns completely to $\\ce{3CO2}$ and $\\ce{4H2O}$. How many moles of $\\ce{O2}$ does it need? Give 1 decimal place.",
+          "hint": "Count oxygen atoms in the products, then subtract the fuel's.",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0.05
+          },
+          "explain": "Products: $6 + 4 = 10$ oxygen atoms. The fuel supplies 1, so $\\ce{O2}$ supplies 9 atoms: $4.5$ mol.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2*3 + 8/2 - 1)/2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lithium-burns",
+          "prompt": "Lithium burns in oxygen to give an oxide of $\\ce{Li^+}$ and $\\ce{O^2-}$ ions. Which equation is correct?",
+          "hint": "Get the oxide's formula from the ion charges, then balance.",
+          "options": [
+            {
+              "text": "$\\ce{4Li(s) + O2(g) -> 2Li2O(s)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Li(s) + O2(g) -> LiO2(s)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2Li(s) + O2(g) -> Li2O(s)}$",
+              "correct": false
+            }
+          ],
+          "explain": "Two $\\ce{Li^+}$ balance one $\\ce{O^2-}$, so the oxide is $\\ce{Li2O}$. One $\\ce{O2}$ makes two of them, which needs four lithium atoms.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Li(s) + O2(g) -> Li2O(s)",
+            "states": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "incomplete",
+      "heading": "Incomplete combustion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Close the air hole of a Bunsen burner and the blue flame turns yellow and smoky, leaving black soot. The fuel is now short of oxygen."
+        },
+        {
+          "type": "definition",
+          "term": "incomplete combustion",
+          "statement": "Burning of a carbon-containing fuel in a limited supply of oxygen, so that some carbon forms carbon monoxide or carbon (soot) instead of carbon dioxide.",
+          "plain": "Burning without enough oxygen, which makes carbon monoxide and soot."
+        },
+        {
+          "type": "text",
+          "text": "In [[incomplete-combustion|incomplete combustion]] the hydrogen still becomes water. Less energy is released, and the yellow glow comes from hot soot particles. Write the products the question names and balance oxygen last."
+        },
+        {
+          "type": "example",
+          "id": "ex-propane-monoxide",
+          "question": "Deduce the equation, with the smallest whole-number coefficients, for propane, $\\ce{C3H8}$, burning to carbon monoxide and water.",
+          "steps": [
+            "Three C give $\\ce{3CO}$. Eight H give $\\ce{4H2O}$.",
+            "Oxygen on the right: $3 + 4 = 7$ atoms, so $\\frac{7}{2}$ $\\ce{O2}$ per propane. Double everything."
+          ],
+          "answer": "$\\ce{2C3H8(g) + 7O2(g) -> 6CO(g) + 8H2O(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C3H8 + O2 -> CO + H2O",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "Carbon monoxide has no colour or smell. It binds to haemoglobin far more strongly than oxygen does, so the blood carries less oxygen. Soot damages the lungs."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-limited-oxygen",
+          "question": "Explain how limiting the oxygen supply to a burning hydrocarbon changes the products and increases health risks.",
+          "steps": [
+            "Say why the products change, name them, then give the harm each one does: four marking points."
+          ],
+          "answer": "With a limited supply of oxygen there is not enough oxygen to convert all the carbon into carbon dioxide. Carbon monoxide and carbon (soot) form instead. Carbon monoxide is toxic because it binds to haemoglobin, so the blood carries less oxygen. Soot particles are breathed in and cause respiratory problems.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "not enough O2, so CO and soot form; CO binds haemoglobin, soot harms lungs",
+            "requires": [
+              [
+                "not enough oxygen",
+                "insufficient oxygen"
+              ],
+              "carbon monoxide",
+              [
+                "soot",
+                "carbon particles"
+              ],
+              "haemoglobin",
+              [
+                "respiratory",
+                "lungs"
+              ]
+            ],
+            "forbids": [
+              "carbon dioxide is toxic",
+              "carbon monoxide is a greenhouse gas"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethanol-soot",
+          "prompt": "Ethanol burns in very little oxygen to give carbon and water only. Which equation is correct?",
+          "hint": "Count the oxygen atoms on each side, including ethanol's own.",
+          "options": [
+            {
+              "text": "$\\ce{C2H5OH(l) + O2(g) -> 2C(s) + 3H2O(l)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C2H5OH(l) + 2O2(g) -> 2CO(g) + 3H2O(l)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C2H5OH(l) + 2O2(g) -> 2C(s) + 3H2O(l)}$",
+              "correct": false
+            }
+          ],
+          "explain": "Three water molecules hold 3 oxygen atoms and ethanol brings 1, so one $\\ce{O2}$ is enough. The second equation makes $\\ce{CO}$, not carbon.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C2H5OH(l) + O2(g) -> C(s) + H2O(l)",
+            "states": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-flame-observation",
+          "prompt": "Which observation shows a hydrocarbon burning incompletely?",
+          "hint": "What does unburned carbon look like?",
+          "options": [
+            {
+              "text": "a yellow, smoky flame leaving black soot",
+              "correct": true
+            },
+            {
+              "text": "a blue flame leaving no soot",
+              "correct": false
+            },
+            {
+              "text": "water droplets on a cold surface above the flame",
+              "correct": false
+            }
+          ],
+          "explain": "Glowing soot makes the flame yellow. Water forms in complete combustion too, so it proves nothing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a yellow, smoky flame leaving black soot"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fossil-fuels",
+      "heading": "Fossil fuels and the greenhouse effect",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fossil fuels formed over millions of years from buried living things, so they are non-renewable. Coal is mostly carbon, crude oil is a mixture of hydrocarbons, and natural gas is mostly methane."
+        },
+        {
+          "type": "text",
+          "text": "To compare fuels, use $\\Delta H_\\text{c}^\\ominus$. Energy per gram is $|\\Delta H_\\text{c}^\\ominus|$ divided by $M$ ($A_\\text{r}$ values from section 7). $\\ce{CO2}$ per kJ is the moles of $\\ce{CO2}$ in the equation divided by $|\\Delta H_\\text{c}^\\ominus|$."
+        },
+        {
+          "type": "example",
+          "id": "ex-propane-per-gram",
+          "question": "Calculate the energy released per gram when propane, $\\ce{C3H8(g)}$, burns completely.",
+          "steps": [
+            "Section 14: $\\Delta H_\\text{c}^\\ominus = \\pu{-2219 kJ mol-1}$, so one mole releases $\\pu{2219 kJ}$.",
+            "$M = 3(12.01) + 8(1.01) = \\pu{44.11 g mol-1}$, so energy per gram $= \\frac{2219}{44.11} = \\pu{50.31 kJ g-1}$."
+          ],
+          "answer": "$\\text{energy per gram} \\approx \\pu{50.3 kJ g-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-Hc('C3H8(g)')/Mr('C3H8')",
+            "sf": 3,
+            "unit": "kJ g-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-co2-octane-methane",
+          "question": "Calculate the mass of $\\ce{CO2}$ released per $\\pu{1000 kJ}$ when octane, $\\ce{C8H18(l)}$, burns completely. Hence deduce whether octane or methane, $\\ce{CH4(g)}$, adds more $\\ce{CO2}$ for the same energy.",
+          "steps": [
+            "Octane: one mole releases $\\pu{5470 kJ}$ and makes $\\ce{8CO2}$. Per $\\pu{1000 kJ}$: $\\frac{8 \\times 1000}{5470} = \\pu{1.4625 mol}$.",
+            "Mass: $1.4625 \\times 44.01 = \\pu{64.37 g}$.",
+            "Methane makes one $\\ce{CO2}$ per $\\pu{891 kJ}$: $\\frac{1000}{891} \\times 44.01 = \\pu{49.39 g}$. Octane, with more carbon per hydrogen, adds about 30% more."
+          ],
+          "answer": "$m(\\ce{CO2}) \\approx \\pu{64.4 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "8*Mr('CO2')*1000/(-Hc('C8H18(l)'))",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-5-fuel-comparison",
+          "alt": "Two bar charts side by side for five fuels. Left: energy released per gram, in kilojoules per gram: hydrogen 141.6, methane 55.5, octane 47.9, ethanol 29.7, carbon as a model for coal 32.8. Right: mass of carbon dioxide released per megajoule, in grams: hydrogen 0, methane 49.4, octane 64.4, ethanol 64.4, carbon 111.7.",
+          "caption": "From booklet $\\Delta H_\\text{c}^\\ominus$ values. Among the hydrocarbons, more hydrogen per carbon means more energy per gram and less $\\ce{CO2}$ per MJ. Ethanol already contains oxygen, so it releases less energy per gram."
+        },
+        {
+          "type": "text",
+          "text": "Of the three fossil fuels, natural gas gives the most energy per gram and the least $\\ce{CO2}$ per kJ, and burns with little soot. But it needs pipelines or pressurized tanks, and leaked methane is a strong greenhouse gas."
+        },
+        {
+          "type": "text",
+          "text": "Oil gives liquids that are easy to store and carry. Coal is plentiful and cheap, but releases the most $\\ce{CO2}$ per kJ, plus soot and $\\ce{SO2}$ from its sulfur, a cause of [[acid-rain|acid rain]]."
+        },
+        {
+          "type": "text",
+          "text": "Larger alkanes burn incompletely more easily. Each molecule needs more $\\ce{O2}$ (octane needs $\\frac{25}{2}$), and the proportion of carbon rises with chain length, so more carbon ends up as $\\ce{CO}$ or soot."
+        },
+        {
+          "type": "definition",
+          "term": "greenhouse effect",
+          "statement": "The warming of the Earth's surface and lower atmosphere because atmospheric gases absorb the infrared radiation emitted by the surface and re-emit some of it back towards the surface.",
+          "plain": "Some gases hold back infrared, keeping the Earth warmer."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-greenhouse-effect",
+          "alt": "The greenhouse effect. Sunlight, mostly visible light, passes through the atmosphere and warms the Earth's surface. The warm surface emits infrared radiation upwards. A carbon dioxide molecule in the atmosphere absorbs the infrared and re-emits it in all directions: some escapes to space and some goes back down to the surface, which keeps the lower atmosphere warmer."
+        },
+        {
+          "type": "text",
+          "text": "The [[greenhouse-effect|greenhouse effect]] keeps Earth habitable. Burning fossil fuels has raised $\\ce{CO2}$ from about 280 to over 400 parts per million since the 1800s. More $\\ce{CO2}$ absorbs more infrared, so global temperatures rise."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you learn why $\\ce{CO2}$ absorbs infrared: some of its bond vibrations change its dipole.",
+          "lesson": "3.9"
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-greenhouse",
+          "question": "Explain how burning fossil fuels raises the Earth's average temperature.",
+          "steps": [
+            "Link the fuel to more $\\ce{CO2}$, then follow the infrared: emitted by the surface, absorbed and re-emitted by $\\ce{CO2}$. Write \"absorbs\", not \"traps\"."
+          ],
+          "answer": "Burning fossil fuels releases carbon dioxide, which increases its concentration in the atmosphere. The Earth's surface, warmed by sunlight, emits infrared radiation. Carbon dioxide molecules absorb this infrared radiation and re-emit it in all directions, some of it back towards the Earth. So less energy escapes to space and the average temperature rises.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more CO2; surface emits IR; CO2 absorbs and re-emits IR back to Earth",
+            "requires": [
+              [
+                "increases its concentration",
+                "higher concentration"
+              ],
+              "emits infrared",
+              "absorb",
+              "re-emit",
+              [
+                "back towards the Earth",
+                "back to the Earth"
+              ]
+            ],
+            "forbids": [
+              "traps heat",
+              "reflects",
+              "ozone"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-butane-per-gram",
+          "prompt": "Calculate the energy released per gram, in $\\pu{kJ g-1}$, when butane, $\\ce{C4H10(g)}$, burns completely. Give three significant figures.",
+          "hint": "Divide the size of $\\Delta H_\\text{c}^\\ominus$ by the molar mass.",
+          "answer": {
+            "value": 49.5,
+            "tolerance": 0.05
+          },
+          "explain": "$M = 4(12.01) + 10(1.01) = \\pu{58.14 g mol-1}$, and $\\frac{2878}{58.14} \\approx \\pu{49.5 kJ g-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-Hc('C4H10(g)')/Mr('C4H10')",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-greenhouse-mechanism",
+          "prompt": "How does carbon dioxide contribute to the greenhouse effect?",
+          "hint": "Think about the radiation the warm surface gives out.",
+          "options": [
+            {
+              "text": "It absorbs infrared emitted by the surface and re-emits it.",
+              "correct": true
+            },
+            {
+              "text": "It absorbs most of the visible light from the Sun.",
+              "correct": false
+            },
+            {
+              "text": "It reflects infrared back to the surface like a mirror.",
+              "correct": false
+            }
+          ],
+          "explain": "Sunlight passes through the air. The warmed surface emits infrared, which $\\ce{CO2}$ absorbs and re-emits, partly back down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It absorbs infrared emitted by the surface and re-emits it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "biofuels",
+      "heading": "Biofuels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A renewable energy source is replaced as fast as we use it, like sunlight, wind or a crop. A non-renewable source, like a fossil fuel, runs out."
+        },
+        {
+          "type": "text",
+          "text": "In photosynthesis, plants use sunlight to turn carbon dioxide and water into glucose and oxygen. This fixes carbon from the air:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\ce{6CO2(g) + 6H2O(l) -> C6H12O6(aq) + 6O2(g)}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "biofuel",
+          "statement": "A fuel made from living or recently living material, whose carbon was fixed from atmospheric carbon dioxide by photosynthesis over a short time.",
+          "plain": "A fuel grown in plants, or made from their waste, within the last few years."
+        },
+        {
+          "type": "text",
+          "text": "Each [[biofuel|biofuel]], such as bioethanol from fermented sugar cane, biodiesel from plant oils or biogas from waste, returns carbon that plants took from the air recently. Fossil fuels release carbon locked away for millions of years."
+        },
+        {
+          "type": "example",
+          "id": "ex-photosynthesis",
+          "question": "Deduce the balanced equation, with state symbols, for photosynthesis forming glucose, $\\ce{C6H12O6}$.",
+          "steps": [
+            "Six C give $\\ce{6CO2}$; twelve H give $\\ce{6H2O}$.",
+            "Oxygen on the left: $12 + 6 = 18$ atoms. Glucose holds 6, so $\\ce{6O2}$ holds the other 12."
+          ],
+          "answer": "$\\ce{6CO2(g) + 6H2O(l) -> C6H12O6(aq) + 6O2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CO2(g) + H2O(l) -> C6H12O6(aq) + O2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-bioethanol",
+          "question": "Explain why bioethanol made from sugar cane is renewable, and why it is not carbon neutral in practice.",
+          "steps": [
+            "Give the regrowth, link the carbon to photosynthesis, then name where fossil fuels are used."
+          ],
+          "answer": "Bioethanol is renewable because sugar cane can be grown again each year. Its carbon was fixed from atmospheric carbon dioxide by photosynthesis, so fermenting and burning it return the same amount of carbon dioxide the plants absorbed. However, fossil fuels are burned to run farm machinery, make fertiliser and transport the crop. So overall more carbon dioxide is released, and bioethanol is not carbon neutral.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "regrown each year; carbon fixed by photosynthesis; fossil fuels used in production",
+            "requires": [
+              [
+                "grown again",
+                "regrown"
+              ],
+              "photosynthesis",
+              "same amount of carbon dioxide",
+              [
+                "fertiliser",
+                "farm machinery",
+                "transport"
+              ],
+              "not carbon neutral"
+            ],
+            "forbids": [
+              "releases no carbon dioxide",
+              "non-renewable"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Advantages: renewable, less $\\ce{CO2}$ overall, almost no sulfur, and waste can be used. Disadvantages: crops take land and water from food, forests may be cleared, and ethanol releases less energy per gram than petrol (about $30$ against $\\pu{48 kJ g-1}$)."
+        },
+        {
+          "type": "check",
+          "id": "check-glucose-cycle",
+          "prompt": "Fermenting one mole of glucose gives two moles of ethanol and two moles of $\\ce{CO2}$. Each mole of ethanol burns to two moles of $\\ce{CO2}$. How many moles of $\\ce{CO2}$ are released in total?",
+          "hint": "Add the fermentation $\\ce{CO2}$ to the $\\ce{CO2}$ from both moles of ethanol.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$2 + 2 \\times 2 = 6$ mol: exactly the $\\ce{CO2}$ photosynthesis used to make that glucose.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2 + 2*2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-biofuel-drawback",
+          "prompt": "Which is a disadvantage of biofuels compared with fossil fuels?",
+          "hint": "Think about what growing the crop needs.",
+          "options": [
+            {
+              "text": "Growing the crops uses land that could produce food.",
+              "correct": true
+            },
+            {
+              "text": "Burning them releases more sulfur dioxide.",
+              "correct": false
+            },
+            {
+              "text": "They are non-renewable.",
+              "correct": false
+            }
+          ],
+          "explain": "Biofuel crops compete with food for land. Biofuels contain little sulfur and are renewable.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Growing the crops uses land that could produce food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fuel-cells",
+      "heading": "Fuel cells",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A power station burns fuel to make steam that drives a generator, losing heat at every stage. A fuel cell skips the burning and takes electrons from the fuel directly."
+        },
+        {
+          "type": "definition",
+          "term": "fuel cell",
+          "statement": "A cell that converts the chemical energy of a fuel directly into electrical energy, with the fuel and oxygen supplied continuously.",
+          "plain": "A battery that keeps working as long as you feed it fuel and air."
+        },
+        {
+          "type": "text",
+          "text": "A [[fuel-cell|fuel cell]] runs a redox reaction. Oxidation (loss of electrons) happens at the negative electrode, the anode, where the fuel reacts. Reduction (gain of electrons) happens at the positive electrode, the cathode, where oxygen reacts."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-hydrogen-fuel-cell",
+          "alt": "Hydrogen fuel cell with an acidic electrolyte. Hydrogen gas flows in on the left to the negative electrode, the anode, where it is oxidized: H2 gives 2H plus and 2 electrons. Electrons travel through an external wire and a lamp to the positive electrode, the cathode, on the right. Hydrogen ions move through the electrolyte from the anode side to the cathode side. Oxygen flows in on the right, and at the cathode O2 plus 4H plus plus 4 electrons gives 2H2O. Water leaves on the right.",
+          "caption": "Electrons flow through the wire; $\\ce{H^+}$ ions flow through the electrolyte. Overall: $\\ce{2H2(g) + O2(g) -> 2H2O(l)}$."
+        },
+        {
+          "type": "text",
+          "text": "To write a half-equation in acid: balance atoms other than O and H, add $\\ce{H2O}$ for O, add $\\ce{H^+}$ for H, then add $\\ce{e-}$ to balance charge. In an alkaline cell, $\\ce{OH^-}$ ions carry the charge instead."
+        },
+        {
+          "type": "example",
+          "id": "ex-methanol-anode",
+          "question": "Deduce the anode half-equation for a methanol fuel cell with an acidic electrolyte, where $\\ce{CH3OH(aq)}$ is oxidized to $\\ce{CO2(g)}$.",
+          "steps": [
+            "Carbon balances. One O on the left, two on the right: add $\\ce{H2O}$ to the left.",
+            "Hydrogen: $4 + 2 = 6$, so add $\\ce{6H^+}$ to the right.",
+            "Charge: 0 on the left, $+6$ on the right, so add $\\ce{6e-}$ to the right. Electrons lost: oxidation."
+          ],
+          "answer": "$\\ce{CH3OH(aq) + H2O(l) -> CO2(g) + 6H^+(aq) + 6e-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "CH3OH + H2O -> CO2 + H^+ + e-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "The cathode takes $\\ce{3/2O2 + 6H^+ + 6e- -> 3H2O}$, so overall $\\ce{CH3OH + 3/2O2 -> CO2 + 2H2O}$. Methanol is easy to store as a liquid, but its cell releases $\\ce{CO2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-alkaline-cathode",
+          "question": "In a hydrogen fuel cell with an alkaline electrolyte, oxygen is reduced to hydroxide ions. Deduce the cathode half-equation.",
+          "steps": [
+            "Water supplies the hydrogen: $\\ce{O2 + 2H2O -> 4OH^-}$.",
+            "Charge: 0 on the left, $-4$ on the right, so add $\\ce{4e-}$ to the left."
+          ],
+          "answer": "$\\ce{O2(g) + 2H2O(l) + 4e- -> 4OH^-(aq)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "O2 + H2O + e- -> OH^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "The alkaline anode reaction is $\\ce{H2(g) + 2OH^-(aq) -> 2H2O(l) + 2e-}$. A hydrogen cell gives only water where it is used, but hydrogen is hard to store and is mostly made from fossil fuels."
+        },
+        {
+          "type": "text",
+          "text": "A primary cell, such as a torch battery, also makes electricity from redox. But its reactants are sealed inside and it stops when they run out ({{lesson:6.10}})."
+        },
+        {
+          "type": "check",
+          "id": "check-hydrogen-anode",
+          "prompt": "Which half-equation happens at the anode of an acidic hydrogen fuel cell?",
+          "hint": "The fuel loses electrons there. Check atoms and charge.",
+          "options": [
+            {
+              "text": "$\\ce{H2(g) -> 2H^+(aq) + 2e-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{O2(g) + 4H^+(aq) + 4e- -> 2H2O(l)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{H2(g) + 2e- -> 2H^+(aq)}$",
+              "correct": false
+            }
+          ],
+          "explain": "Hydrogen is oxidized, so electrons are products. The oxygen equation is the cathode, and the third doesn't balance in charge.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "H2 -> H^+ + e-"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fuel-primary",
+          "prompt": "What is the main difference between a fuel cell and a primary cell?",
+          "hint": "Where does each get its reactants?",
+          "options": [
+            {
+              "text": "A fuel cell's reactants are supplied continuously from outside.",
+              "correct": true
+            },
+            {
+              "text": "A fuel cell turns electrical energy into chemical energy.",
+              "correct": false
+            },
+            {
+              "text": "Only a primary cell uses a redox reaction.",
+              "correct": false
+            }
+          ],
+          "explain": "Both use redox to make electricity. A primary cell holds a fixed store of reactants; a fuel cell is fed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A fuel cell's reactants are supplied continuously from outside."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Complete combustion of a C, H (and O) fuel gives $\\ce{CO2}$ and $\\ce{H2O}$; for $\\Delta H_\\text{c}^\\ominus$, one mole of fuel.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Limited oxygen gives $\\ce{CO}$ and/or soot. $\\ce{CO}$ is toxic: it binds to haemoglobin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy per gram $= |\\Delta H_\\text{c}^\\ominus| \\div M$. Of the fossil fuels, natural gas: most energy per gram, least $\\ce{CO2}$ per kJ. Coal: most $\\ce{CO2}$ per kJ.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Greenhouse gases absorb infrared emitted by the surface and re-emit it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Biofuels are renewable but not carbon neutral in practice.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fuel cell: fuel oxidized at the anode ($-$), oxygen reduced at the cathode ($+$).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting the fuel's own oxygen when balancing an alcohol. Ethanol needs $\\ce{3O2}$, not $\\ce{7/2O2}$.",
+    "Doubling a $\\Delta H_\\text{c}^\\ominus$ equation to clear fractions. Keep one mole of fuel.",
+    "Calling $\\ce{CO2}$ the toxic product of incomplete combustion. It is carbon monoxide.",
+    "Saying greenhouse gases \"trap heat\". Say they absorb infrared and re-emit it.",
+    "Putting oxygen at the anode of a fuel cell. The fuel is oxidized at the anode."
+  ],
+  "examTips": [
+    "\"Deduce\" a combustion equation: balance C, H, then O; for $\\Delta H_\\text{c}^\\ominus$ keep one mole of fuel and add state symbols.",
+    "\"Outline\" a fuel's advantages with specific comparisons, such as \"less $\\ce{SO2}$ than coal, so less acid rain\". \"Cleaner\" earns nothing.",
+    "\"Explain\" the greenhouse effect in three steps: surface emits infrared, gas absorbs it, gas re-emits it towards the Earth."
+  ],
+  "readingMinutes": 29
+}

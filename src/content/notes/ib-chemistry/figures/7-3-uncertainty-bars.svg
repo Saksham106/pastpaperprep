@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="t">
+<title id="t">Graph of initial rate in cubic centimetres per second, from 0 to 2.50, against concentration of acid in moles per cubic decimetre, from 0 to 1.00. Five points, at 0.20, 0.40, 0.60, 0.80 and 1.00 moles per cubic decimetre, have rates of 0.42, 0.76, 1.26, 1.55 and 2.05. Each point has a vertical uncertainty bar of plus or minus 0.15 above and below it. A straight line of best fit from the origin, through 2.00 at 1.00, passes through every uncertainty bar.</title>
+<path d="M70 260 H460" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70 260 V20" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M70.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="70.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0</text>
+<path d="M144.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="144.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.20</text>
+<path d="M218.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="218.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.40</text>
+<path d="M292.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="292.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.60</text>
+<path d="M366.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="366.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0.80</text>
+<path d="M440.0 260 v5" stroke="currentColor" stroke-width="1.2"/>
+<text x="440.0" y="278.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">1.00</text>
+<path d="M70 260.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="264.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0</text>
+<path d="M70 212.5 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="216.5" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.50</text>
+<path d="M70 165.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="169.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">1.00</text>
+<path d="M70 117.5 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="121.5" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">1.50</text>
+<path d="M70 70.0 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="74.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">2.00</text>
+<path d="M70 22.5 h-5" stroke="currentColor" stroke-width="1.2"/>
+<text x="61.0" y="26.5" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">2.50</text>
+<text x="265.0" y="302.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">concentration of acid / mol dm⁻³</text>
+<text x="18.0" y="140.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 18 140.0)">initial rate / cm³ s⁻¹</text>
+<path d="M70 260 L458.5 60.5" stroke="var(--t1-ink)" stroke-width="2" fill="none"/>
+<path d="M144.0 205.8 V234.3 M139.0 205.8 h10 M139.0 234.3 h10" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+<circle cx="144.0" cy="220.1" r="3.5" fill="currentColor"/>
+<path d="M218.0 173.6 V202.1 M213.0 173.6 h10 M213.0 202.1 h10" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+<circle cx="218.0" cy="187.8" r="3.5" fill="currentColor"/>
+<path d="M292.0 126.1 V154.6 M287.0 126.1 h10 M287.0 154.6 h10" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+<circle cx="292.0" cy="140.3" r="3.5" fill="currentColor"/>
+<path d="M366.0 98.5 V127.0 M361.0 98.5 h10 M361.0 127.0 h10" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+<circle cx="366.0" cy="112.8" r="3.5" fill="currentColor"/>
+<path d="M440.0 51.0 V79.5 M435.0 51.0 h10 M435.0 79.5 h10" stroke="var(--t3-ink)" stroke-width="1.6" fill="none"/>
+<circle cx="440.0" cy="65.3" r="3.5" fill="currentColor"/>
+<text x="282.0" y="132.3" font-size="12" fill="var(--t3-ink)" font-family="inherit" text-anchor="end">± 0.15</text>
+</svg>

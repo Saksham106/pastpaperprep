@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 196" role="img" aria-labelledby="t">
+<title id="t">Two positive nuclei, each inside a dashed circle for its atom. The two circles overlap in the middle, where a shared pair of electrons sits as two dots. A two-headed arrow labelled attraction joins the pair to each nucleus: both nuclei attract the same pair.</title>
+<defs><marker id="f22-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/></marker></defs>
+<circle cx="140" cy="85" r="80" fill="var(--t1-ink)" fill-opacity="0.08" stroke="var(--t1-ink)" stroke-width="1.2" stroke-dasharray="4 4"/>
+<circle cx="280" cy="85" r="80" fill="var(--t1-ink)" fill-opacity="0.08" stroke="var(--t1-ink)" stroke-width="1.2" stroke-dasharray="4 4"/>
+<circle cx="140" cy="85" r="15" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1.5"/>
+<text x="140" y="91" text-anchor="middle" font-size="18" fill="var(--surface, white)" font-family="inherit">+</text>
+<circle cx="280" cy="85" r="15" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1.5"/>
+<text x="280" y="91" text-anchor="middle" font-size="18" fill="var(--surface, white)" font-family="inherit">+</text>
+<ellipse cx="210" cy="85" rx="19" ry="13" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<circle cx="204" cy="85" r="3.2" fill="var(--t2-ink)"/><circle cx="216" cy="85" r="3.2" fill="var(--t2-ink)"/>
+<line x1="158" y1="85" x2="188" y2="85" stroke="var(--t3-ink)" stroke-width="1.8" marker-start="url(#f22-ah)" marker-end="url(#f22-ah)"/>
+<line x1="232" y1="85" x2="262" y2="85" stroke="var(--t3-ink)" stroke-width="1.8" marker-start="url(#f22-ah)" marker-end="url(#f22-ah)"/>
+<text x="165.0" y="62.0" text-anchor="middle" font-size="12" fill="var(--t3-ink)" font-family="inherit">attraction</text>
+<text x="255.0" y="62.0" text-anchor="middle" font-size="12" fill="var(--t3-ink)" font-family="inherit">attraction</text>
+<text x="210.0" y="116.0" text-anchor="middle" font-size="13" fill="var(--t2-ink)" font-family="inherit">shared pair</text>
+<text x="140.0" y="186.0" text-anchor="middle" font-size="13" fill="currentColor" font-family="inherit">nucleus (+)</text>
+<text x="280.0" y="186.0" text-anchor="middle" font-size="13" fill="currentColor" font-family="inherit">nucleus (+)</text>
+</svg>

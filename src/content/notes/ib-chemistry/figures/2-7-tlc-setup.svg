@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 320" role="img" aria-labelledby="t">
+  <title id="t">A thin-layer chromatography plate standing upright in a glass tank with a lid. A shallow layer of solvent covers the bottom of the tank. A pencil baseline is drawn across the plate just above the solvent surface. Two small pencil crosses on the baseline mark where a sample and a reference were spotted. The solvent has soaked up the plate to a dashed line, the solvent front, and the spots have moved up from the baseline: the sample has split into two spots, and the reference spot sits level with the upper sample spot.</title>
+  <g transform="translate(50 0)">
+  <rect x="120" y="44" width="200" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M130 60 V290 H310 V60" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="131" y="258" width="178" height="31" fill="var(--t2-ink)" fill-opacity="0.22"/>
+  <path d="M131 258 H309" fill="none" stroke="var(--t2-ink)" stroke-width="1.4"/>
+  <rect x="180" y="72" width="80" height="210" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="181" y="122" width="78" height="159" fill="var(--t2-ink)" fill-opacity="0.08"/>
+  <path d="M181 122 H259" fill="none" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <path d="M184 244 H256" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g stroke="currentColor" stroke-width="1.2">
+    <path d="M200 240 l-4 8 M196 240 l4 8"/>
+    <path d="M240 240 l-4 8 M236 240 l4 8"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <ellipse cx="200" cy="208" rx="7" ry="5"/>
+    <ellipse cx="200" cy="158" rx="7" ry="5"/>
+    <ellipse cx="240" cy="158" rx="7" ry="5"/>
+  </g>
+  <g fill="none" stroke="var(--muted)" stroke-width="1">
+    <path d="M322 50 H340"/>
+    <path d="M262 122 H340"/>
+    <path d="M247 158 H340"/>
+    <path d="M258 244 H340"/>
+    <path d="M300 272 H340"/>
+    <path d="M178 100 H110"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="345" y="54">lid</text>
+    <text x="345" y="126">solvent front</text>
+    <text x="345" y="162">separated spots</text>
+    <text x="345" y="248">pencil baseline</text>
+    <text x="345" y="276">solvent (mobile phase)</text>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">
+    <text x="106" y="96">plate coated with</text>
+    <text x="106" y="111">silica (stationary phase)</text>
+  </g>
+  <g font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="200" y="306">sample</text>
+    <text x="240" y="306">reference</text>
+  </g>
+  </g>
+</svg>

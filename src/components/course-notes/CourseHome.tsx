@@ -28,7 +28,7 @@ export function CourseHome({ course }: { course: Course }) {
       base={base}
       crumbs={course.copy.crumbs}
       guide={course.copy.guide}
-      topics={course.topics.map((topic) => ({ n: topic.n, name: topic.name, href: `${base}/${topic.slug}`, cheatSheetHref: `${base}/${topic.slug}/cheat-sheet` }))}
+      topics={course.topics.map((topic) => ({ n: topic.n, name: topic.name, ...(topic.label ? { label: topic.label } : {}), href: `${base}/${topic.slug}`, cheatSheetHref: `${base}/${topic.slug}/cheat-sheet` }))}
       items={homeItems(course)}
     />
   );

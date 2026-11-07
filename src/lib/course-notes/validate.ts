@@ -1,5 +1,6 @@
 // Server/build-time only: imports katex. Never import this from a client component.
 import katex from "katex";
+import "katex/contrib/mhchem"; // \ce{} and \pu{} in chemistry lessons, as render.ts loads it
 import { AA_CALCULATOR_IDS, calculatorErrors, calculatorSteps } from "./calculators";
 import { parseInline } from "./inline";
 import { INTERACTIVE_IDS, INTERACTIVE_PROPS, type Block, type CalculatorSnippets, type CheckBlock, type CourseLevels, type GlossaryTerm, type ItemsFile, type Lesson, type Verify } from "./types";
@@ -29,9 +30,9 @@ type KindSpec = { required?: string[]; oneOf?: string[]; optional?: string[]; on
 const ANSWER: KindSpec["on"] = ["example", "choice"];
 const PRECISION = ["sf", "dp"];
 export const VERIFY_KINDS: Record<string, KindSpec> = {
-  exact: { optional: ["unit"], on: ANSWER },
-  rounded: { oneOf: PRECISION, optional: ["unit"], on: ANSWER },
-  numeric: { oneOf: PRECISION, optional: ["reading", "maxTolerance"], on: ["numeric"] },
+  exact: { optional: ["unit", "signed"], on: ANSWER },
+  rounded: { oneOf: PRECISION, optional: ["unit", "signed"], on: ANSWER },
+  numeric: { oneOf: PRECISION, optional: ["reading", "maxTolerance", "signed"], on: ["numeric"] },
   list: { optional: PRECISION, on: ANSWER },
   assignments: { on: ANSWER },
   solutions: { optional: PRECISION, on: ANSWER },
@@ -41,7 +42,7 @@ export const VERIFY_KINDS: Record<string, KindSpec> = {
   inequality: { optional: ["var"], on: ANSWER },
   set: { optional: ["var"], on: ANSWER },
   ratio: { on: ANSWER },
-  "standard-form": { optional: ["sf", "unit"], on: ANSWER },
+  "standard-form": { optional: ["sf", "unit", "signed"], on: ANSWER },
   money: { optional: ["dp"], on: ANSWER },
   time: { required: ["form"], on: ANSWER },
   bearing: { optional: ["dp"], on: ANSWER },
@@ -50,20 +51,38 @@ export const VERIFY_KINDS: Record<string, KindSpec> = {
   expression: { optional: ["form", "scale"], on: ANSWER },
   antiderivative: { optional: ["var"], on: ANSWER },
   choice: { on: ["choice"] },
+  // Chemistry: a balanced equation (the truth is the skeleton, balanced by the gate), a formula, and prose marking points.
+  "chem-equation": { optional: ["states", "reversible", "allowMultiple", "fractions", "per", "aliases"], on: ANSWER },
+  formula: { optional: ["match", "given"], on: ANSWER },
+  explanation: { required: ["requires"], optional: ["forbids"], on: ["example"] },
 };
 export const VERIFY_ENUMS: Record<string, string[]> = {
   "time.form": ["clock", "duration"],
   "fraction.form": ["mixed", "improper"],
   "expression.form": ["factorised", "expanded", "simplified"],
+  "formula.match": ["composition", "exact"],
 };
-export const VERIFY_BOOLEANS = ["expression.scale", "fraction.simplest"];
+export const VERIFY_BOOLEANS = [
+  "expression.scale", "fraction.simplest", "exact.signed", "rounded.signed", "numeric.signed", "standard-form.signed",
+  "chem-equation.states", "chem-equation.reversible", "chem-equation.allowMultiple", "chem-equation.fractions", "formula.given",
+];
+/** Options that are lists of phrases; an entry of `requires` may itself be a list of alternatives. */
+export const VERIFY_ARRAYS = ["explanation.forbids", "explanation.requires"];
+/** The truth helpers that build a formula (verify kind `formula`); formula("...") is the typed-in one. */
+const FORMULA_HELPERS = ["empirical_formula", "molecular_formula", "ionic_formula", "formula"];
+
+const phrase = (value: unknown) => typeof value === "string" && value.replace(/[\s$]/g, "") !== "";
 
 const GRAPH_READING = /\b(estimate|from the graph|from your graph|from the curve|read)\b/i;
 
-/** True when a multiple-choice option (with $ removed) is a number, fraction, decimal, percentage, ratio, coordinate or expression, not words. */
+/**
+ * True when a multiple-choice option (with $ removed) is a number, fraction, decimal, percentage, ratio, coordinate or
+ * expression, not words. Hybridisation labels (sp, sp2, sp^2, sp^{3}, sp³) are words.
+ */
 export function numericLookingOption(option: string): boolean {
   const text = option.replace(/\$/g, "").trim();
   if (!text) return false;
+  if (/^sp(?:\^?\{?[23]\}?|[²³])?$/.test(text)) return false;
   const words = text.replace(/\\[A-Za-z]+/g, " ");
   if (/[A-Za-z]{3,}/.test(words)) return false;
   return /\d/.test(text) || /\\[A-Za-z]+/.test(text) || /[+*/^=<>%:]/.test(text) || /\S-\S/.test(text);
@@ -93,7 +112,29 @@ export function verifyErrors(verify: Verify | undefined, on: "example" | "choice
     const name = `${kind}.${key}`;
     if (VERIFY_ENUMS[name] && !VERIFY_ENUMS[name].includes(verify[key] as string)) errors.push(`verify ${name} must be one of ${VERIFY_ENUMS[name].join(", ")}`);
     if (VERIFY_BOOLEANS.includes(name) && typeof verify[key] !== "boolean") errors.push(`verify ${name} must be true or false`);
-    if ((key === "unit" || key === "var") && !(typeof verify[key] === "string" && (verify[key] as string).trim())) errors.push(`verify ${name} must be non-empty text`);
+    if ((key === "unit" || key === "var" || key === "per") && !(typeof verify[key] === "string" && (verify[key] as string).trim())) errors.push(`verify ${name} must be non-empty text`);
+    if (VERIFY_ARRAYS.includes(name)) {
+      const value = verify[key];
+      const alternatives = name === "explanation.requires";
+      if (!Array.isArray(value) || !value.length) errors.push(`verify ${name} must be a non-empty list of phrases`);
+      else if (!value.every((entry) => (alternatives && Array.isArray(entry) ? entry.length > 0 && entry.every(phrase) : phrase(entry)))) errors.push(`verify ${name}: every entry must be a non-empty phrase${alternatives ? " or a list of alternative phrases" : ""}`);
+    }
+  }
+  if (kind === "explanation" && Array.isArray(verify.requires) && verify.requires.length < 2) errors.push("verify explanation.requires needs at least 2 phrases (the marking points)");
+  if (kind === "chem-equation") {
+    if (verify.allowMultiple && verify.fractions) errors.push("verify chem-equation: give allowMultiple or fractions, not both");
+    if ("per" in verify && verify.fractions !== true) errors.push("verify chem-equation.per needs fractions: true");
+    if ("aliases" in verify) {
+      const value = verify.aliases as unknown;
+      const ok = !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0 && Object.values(value as Record<string, unknown>).every((list) => Array.isArray(list) && list.length > 0 && list.every(phrase));
+      if (!ok) errors.push('verify chem-equation.aliases must map a formula to a list of other writings, e.g. {"CH3COOH": ["CH3CO2H"]}');
+    }
+  }
+  if (kind === "formula" && typeof verify.truth === "string") {
+    const helper = /^\s*([A-Za-z_]+)\s*\(/.exec(verify.truth)?.[1];
+    if (!helper || !FORMULA_HELPERS.includes(helper)) errors.push(`verify formula truth must call ${FORMULA_HELPERS.join(", ")}`);
+    else if (helper === "formula" && verify.given !== true) errors.push('verify formula: formula("...") types the formula in; use it only for a formula stated in the question, with given: true');
+    else if (helper !== "formula" && "given" in verify) errors.push('verify formula.given is only for a formula("...") truth stated in the question');
   }
   if (kind === "numeric" && ("reading" in verify || "maxTolerance" in verify)) {
     if (verify.reading !== true) errors.push("verify numeric.reading must be true");

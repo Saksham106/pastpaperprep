@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.4",
+  "slug": "ionization-energy-trends-and-transition-elements",
+  "title": "Ionization energy trends and transition elements",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "The dips in first [[ionization-energy|ionization energy]] across a period show that each main energy level is split into [[sublevel|sublevels]]. In the [[transition-element|transition elements]] the 3d sublevel is only partly filled. That gives them [[variable-oxidation-state|variable oxidation states]], coloured compounds, catalytic and magnetic properties, high melting points and [[complex-ion|complex ions]].",
+  "goals": [
+    {
+      "text": "Explain how the dips in first ionization energy across a period are evidence for sublevels, using the energy of the electron removed.",
+      "bullets": [
+        "S3.1.7"
+      ]
+    },
+    {
+      "text": "Recognize the characteristic properties of transition elements and link them to the incomplete d sublevel.",
+      "bullets": [
+        "S3.1.8"
+      ]
+    },
+    {
+      "text": "Describe a complex ion using [[ligand|ligands]] and [[coordination-bond|coordination bonds]], and find its charge or the metal's [[oxidation-state|oxidation state]]; argue for and against counting scandium and zinc.",
+      "bullets": [
+        "S3.1.8"
+      ]
+    },
+    {
+      "text": "Write the [[electron-configuration|electron configuration]] of a period 4 transition-metal [[ion|ion]], removing 4s before 3d.",
+      "bullets": [
+        "S3.1.9"
+      ]
+    },
+    {
+      "text": "Explain variable oxidation states using successive ionization energies that rise without a large jump.",
+      "bullets": [
+        "S3.1.9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "1.5",
+    "2.2",
+    "2.10",
+    "3.1",
+    "3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "d-block elements",
+    "transition metals",
+    "properties of transition metals",
+    "complex ions and ligands",
+    "electron configuration of transition metal ions",
+    "why transition metals have variable oxidation states",
+    "ionization energy dips",
+    "evidence for sublevels"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-iron-atom",
+      "prompt": "Iron has atomic number 26. Which is the condensed [[electron-configuration|electron configuration]] of an iron atom?",
+      "hint": "Fill 4s before 3d, and count to 26 from the argon core of 18.",
+      "options": [
+        {
+          "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{6}}$",
+          "correct": true
+        },
+        {
+          "text": "$\\mathrm{[Ar]\\,3d^{8}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{7}}$",
+          "correct": false
+        },
+        {
+          "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}\\,4p^{2}}$",
+          "correct": false
+        }
+      ],
+      "explain": "After the argon core, 2 electrons go into 4s and the remaining 6 into 3d: $18 + 2 + 6 = 26$. Revise it in {{lesson:1.4}}."
+    },
+    {
+      "type": "check",
+      "id": "before-coordination",
+      "prompt": "In a [[coordination-bond|coordination bond]], where do the two shared electrons come from?",
+      "hint": "Think of the bond between ammonia and $\\ce{H^+}$ in the ammonium ion.",
+      "options": [
+        {
+          "text": "both from the same atom",
+          "correct": true
+        },
+        {
+          "text": "one from each atom",
+          "correct": false
+        },
+        {
+          "text": "transferred from one atom to the other",
+          "correct": false
+        }
+      ],
+      "explain": "One atom supplies a lone pair and the other accepts it, so both electrons come from the same atom. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "both from the same atom"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mno2",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of manganese in manganese dioxide, $\\ce{MnO2}$? Include the sign.",
+      "hint": "Oxygen is $-2$ here, and the compound has no overall charge.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "$x + 2(-2) = 0$, so $x = +4$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0 - 2*(-2)",
+        "dp": 0,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "ie-evidence",
+      "heading": "Dips in first ionization energy: evidence for sublevels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Across a period the nuclear charge rises by one each time, while the outer electrons stay in the same main energy level with similar [[shielding|shielding]]. So the first ionization energy generally rises."
+        },
+        {
+          "type": "text",
+          "text": "If every electron in a main energy level had the same energy, the rise would be smooth. Instead period 2 has two dips, at boron and at oxygen (data booklet, section 9)."
+        },
+        {
+          "type": "text",
+          "text": "To explain a dip, look at **which electron is removed**. The higher its energy, the less energy is needed to remove it."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-period2-electron-removed",
+          "alt": "Orbital diagrams of the 2s and 2p sublevels for four atoms. Beryllium has a pair in 2s and empty 2p boxes; the electron removed is from 2s. Boron has a pair in 2s and one electron in the first 2p box; that single 2p electron is the one removed. Nitrogen has a pair in 2s and one electron in each of the three 2p boxes; a 2p electron is removed. Oxygen has a pair in 2s, a pair in the first 2p box and single electrons in the other two; one electron of the 2p pair is removed. The 2p boxes are drawn higher than the 2s box.",
+          "caption": "The electron removed (highlighted) in the first ionization of Be, B, N and O."
+        },
+        {
+          "type": "text",
+          "text": "**Beryllium to boron.** Beryllium loses a 2s electron, but boron loses a 2p electron. The 2p [[sublevel|sublevel]] is higher in energy than 2s, and the 2p electron is partly shielded by the 2s pair. So boron's electron needs less energy to remove: $\\pu{801 kJ mol-1}$ against $\\pu{900 kJ mol-1}$."
+        },
+        {
+          "type": "text",
+          "text": "**Nitrogen to oxygen.** In nitrogen each 2p electron is alone in its [[atomic-orbital|atomic orbital]], as [[hunds-rule|Hund's rule]] predicts. In oxygen the fourth 2p electron must share an orbital. Repulsion between the paired electrons raises their energy, so one is removed more easily: $\\pu{1314 kJ mol-1}$ against $\\pu{1402 kJ mol-1}$."
+        },
+        {
+          "type": "result",
+          "statement": "The dips after groups 2 and 15 show that each main energy level is split into sublevels of different energy, and that electrons pair up only once each orbital in a sublevel holds one.",
+          "why": "A smooth rise would be expected if all electrons in a level had the same energy. The dips appear exactly where the electron removed is in a higher sublevel (p after s) or is paired."
+        },
+        {
+          "type": "example",
+          "id": "ex-be-b-evidence",
+          "question": "The first ionization energy of boron is lower than that of beryllium, although boron has one more proton. Explain how this provides evidence for sublevels.",
+          "steps": [
+            "Say which electron each atom loses: beryllium $\\mathrm{1s^{2}\\,2s^{2}}$ loses a 2s electron; boron $\\mathrm{1s^{2}\\,2s^{2}\\,2p^{1}}$ loses a 2p electron.",
+            "Compare the energies of those two electrons, then say what the drop tells you about level 2."
+          ],
+          "answer": "Beryllium loses an electron from the 2s sublevel, but boron loses an electron from the 2p sublevel. The 2p electron is higher in energy than a 2s electron and is partly shielded by the 2s electrons. So less energy is needed to remove it, even though boron has a greater nuclear charge. If all electrons in the second energy level had the same energy, boron's value would be higher. So the second energy level must be split into sublevels of different energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Be loses 2s, B loses 2p; 2p higher in energy, so less energy to remove; so level 2 is split into sublevels",
+            "requires": [
+              [
+                "2s sublevel",
+                "2s"
+              ],
+              [
+                "2p sublevel",
+                "2p"
+              ],
+              [
+                "higher in energy",
+                "higher energy"
+              ],
+              [
+                "less energy",
+                "easier to remove"
+              ],
+              [
+                "sublevels of different energy",
+                "split into sublevels"
+              ]
+            ],
+            "forbids": [
+              "more stable",
+              "special stability",
+              "full 2s sublevel is stable"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-n-o-pairing",
+          "question": "Explain why the first ionization energy of oxygen is lower than that of nitrogen. Base your answer on the electron removed.",
+          "steps": [
+            "Draw the 2p boxes: nitrogen $[\\uparrow][\\uparrow][\\uparrow]$, oxygen $[\\uparrow\\downarrow][\\uparrow][\\uparrow]$.",
+            "Say which electron oxygen loses and why its energy is higher."
+          ],
+          "answer": "In nitrogen each of the three 2p electrons occupies a separate orbital. In oxygen the electron removed comes from a 2p orbital that holds a pair of electrons. Repulsion between the two electrons in that orbital raises the energy of the electron removed. So less energy is needed to remove it, which outweighs oxygen's extra proton.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "O loses an electron from a paired 2p orbital; repulsion raises its energy; less energy needed",
+            "requires": [
+              [
+                "separate orbital",
+                "singly"
+              ],
+              [
+                "holds a pair",
+                "paired"
+              ],
+              [
+                "repulsion",
+                "repel"
+              ],
+              [
+                "less energy",
+                "easier to remove"
+              ]
+            ],
+            "forbids": [
+              "half-filled",
+              "more stable",
+              "special stability"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zn-ga",
+          "prompt": "The first ionization energy falls from zinc ($\\pu{906 kJ mol-1}$) to gallium ($\\pu{579 kJ mol-1}$). Which is the best explanation?",
+          "hint": "Write the outer sublevels: zinc ends $\\mathrm{4s^{2}\\,3d^{10}}$ and gallium adds $\\mathrm{4p^{1}}$.",
+          "options": [
+            {
+              "text": "Gallium's electron is removed from 4p, which is higher in energy than 4s",
+              "correct": true
+            },
+            {
+              "text": "Gallium has a smaller nuclear charge than zinc",
+              "correct": false
+            },
+            {
+              "text": "Zinc's full 3d sublevel is especially stable",
+              "correct": false
+            },
+            {
+              "text": "Gallium's electron is removed from a paired orbital",
+              "correct": false
+            }
+          ],
+          "explain": "Zinc loses a 4s electron, gallium its single 4p electron. The 4p electron is higher in energy, so it needs less energy to remove. It is the same pattern as beryllium to boron.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Gallium's electron is removed from 4p, which is higher in energy than 4s"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-evidence",
+          "prompt": "Which observation is evidence that the second main energy level is split into sublevels?",
+          "hint": "Which comparison involves two electrons in the same main energy level but different sublevels?",
+          "options": [
+            {
+              "text": "The first ionization energy of boron is lower than that of beryllium",
+              "correct": true
+            },
+            {
+              "text": "The first ionization energy of sodium is much lower than that of neon",
+              "correct": false
+            },
+            {
+              "text": "The first ionization energy of neon is higher than that of fluorine",
+              "correct": false
+            },
+            {
+              "text": "Successive ionization energies of an atom always increase",
+              "correct": false
+            }
+          ],
+          "explain": "Beryllium and boron both lose a level-2 electron, but from 2s and 2p. The sodium–neon drop is evidence for main energy levels (3s against 2p), and the other two follow the general trends.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The first ionization energy of boron is lower than that of beryllium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transition-properties",
+      "heading": "Transition elements and their properties",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[transition-element|transition element]] has an incomplete d sublevel in its atom or in one of its common [[ion|ions]]. In period 4 this covers scandium to copper, although scandium is a borderline case (see below)."
+        },
+        {
+          "type": "text",
+          "text": "1. **Variable oxidation states.** Iron forms $\\ce{Fe^2+}$ and $\\ce{Fe^3+}$; the next section explains why."
+        },
+        {
+          "type": "text",
+          "text": "2. **High melting points.** Both the 4s and 3d electrons can be delocalized, so the metallic bonding is strong (see {{lesson:2.10}})."
+        },
+        {
+          "type": "text",
+          "text": "3. **Magnetic properties.** Unpaired d electrons make many transition-element compounds attracted into a magnetic field. Iron, cobalt and nickel metals are strongly magnetic. You don't need to name the types of magnetism."
+        },
+        {
+          "type": "text",
+          "text": "4. **Catalytic properties.** Iron catalyses the Haber process, nickel the hydrogenation of alkenes and manganese(IV) oxide the decomposition of hydrogen peroxide. Variable oxidation states let a catalyst pass electrons to and from reactants."
+        },
+        {
+          "type": "text",
+          "text": "5. **Coloured compounds.** Hydrated copper(II) sulfate is blue and aqueous nickel(II) chloride green; {{lesson:3.5}} explains why."
+        },
+        {
+          "type": "text",
+          "text": "6. **Complex ions.** A transition-element ion can accept lone pairs from several molecules or ions at once."
+        },
+        {
+          "type": "definition",
+          "term": "ligand",
+          "statement": "A molecule or ion that donates a lone pair of electrons to a central metal ion, forming a coordination bond. A ligand is a Lewis base.",
+          "plain": "Something with a spare lone pair that it can share with a metal ion."
+        },
+        {
+          "type": "definition",
+          "term": "complex ion",
+          "statement": "A central metal ion bonded to a number of ligands by coordination bonds.",
+          "plain": "A metal ion with a ring of ligands attached to it, written inside square brackets."
+        },
+        {
+          "type": "text",
+          "text": "Common [[ligand|ligands]] are $\\ce{H2O}$, $\\ce{NH3}$, $\\ce{Cl^-}$, $\\ce{OH^-}$ and $\\ce{CN^-}$. Each has at least one lone pair. In a [[complex-ion|complex ion]] the ligands are written inside square brackets with the overall charge outside, as in $\\ce{[Ni(H2O)6]^2+}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-nickel-aqua-complex",
+          "alt": "Diagram of the complex ion with a nickel 2+ ion at the centre and six water molecules around it: above, below, left, right and two diagonally. An arrow points from each water molecule to the nickel ion, showing a coordination bond. The whole complex is in square brackets with a 2+ charge outside.",
+          "caption": "$\\ce{[Ni(H2O)6]^2+}$: each arrow is a coordination bond, the lone pair coming from the oxygen of a water ligand."
+        },
+        {
+          "type": "text",
+          "text": "The charge of a complex is the charge of the metal ion plus the charges of the ligands. Neutral ligands such as $\\ce{H2O}$ and $\\ce{NH3}$ add nothing."
+        },
+        {
+          "type": "example",
+          "id": "ex-chromium-complex",
+          "question": "A green complex of chromium has the formula $\\ce{[Cr(H2O)4Cl2]^+}$. Deduce the oxidation state of chromium in it.",
+          "steps": [
+            "Let the oxidation state of chromium be $x$. Water ligands are neutral; each chloride ligand is $-1$.",
+            "The charges add up to the overall charge: $x + 4(0) + 2(-1) = +1$.",
+            "So $x = +3$."
+          ],
+          "answer": "$+3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 4*0 - 2*(-1)",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "Zinc sits in the d-block but is not a transition element. Scandium is a borderline case: its atom, $\\mathrm{[Ar]\\,4s^{2}\\,3d^{1}}$, has an incomplete d sublevel, so it meets the definition. Against that, its only ion, $\\ce{Sc^3+}$, has no d electrons at all. So scandium has one oxidation state and colourless compounds, and lacks most of the characteristic properties."
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-not-transition",
+          "question": "Explain why zinc is not considered a transition element, although it is in the d-block.",
+          "steps": [
+            "Write the atom and its only ion: $\\ce{Zn}$ is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}}$ and $\\ce{Zn^2+}$ is $\\mathrm{[Ar]\\,3d^{10}}$.",
+            "Compare both with the definition."
+          ],
+          "answer": "A zinc atom is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{10}}$, so its 3d sublevel is full. Zinc forms only one ion, $\\ce{Zn^2+}$, which is $\\mathrm{[Ar]\\,3d^{10}}$, so the 3d sublevel is still full. A transition element must have an incomplete d sublevel in its atom or in one of its ions. So zinc is not a transition element.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Zn atom and its only ion Zn2+ both have a full 3d sublevel; transition elements need an incomplete d sublevel",
+            "requires": [
+              [
+                "3d sublevel is full",
+                "full 3d"
+              ],
+              [
+                "only one ion",
+                "only ion"
+              ],
+              [
+                "still full"
+              ],
+              [
+                "incomplete d sublevel"
+              ]
+            ],
+            "forbids": [
+              "zinc has no d electrons",
+              "3d sublevel is empty"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-property",
+          "prompt": "Which is **not** a characteristic property of transition elements?",
+          "hint": "Think about how strong the metallic bonding is when 3d electrons are delocalized too.",
+          "options": [
+            {
+              "text": "low melting points",
+              "correct": true
+            },
+            {
+              "text": "variable oxidation states",
+              "correct": false
+            },
+            {
+              "text": "coloured compounds",
+              "correct": false
+            },
+            {
+              "text": "catalytic activity",
+              "correct": false
+            }
+          ],
+          "explain": "Transition metals have high melting points, because both 4s and 3d electrons are delocalized. The other three are characteristic properties.",
+          "verify": {
+            "kind": "choice",
+            "truth": "low melting points"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ligand",
+          "prompt": "Which molecule cannot act as a ligand?",
+          "hint": "A ligand must have a lone pair to donate.",
+          "options": [
+            {
+              "text": "methane",
+              "correct": true
+            },
+            {
+              "text": "ammonia",
+              "correct": false
+            },
+            {
+              "text": "water",
+              "correct": false
+            },
+            {
+              "text": "carbon monoxide",
+              "correct": false
+            }
+          ],
+          "explain": "All four of carbon's electron pairs in methane are bonding pairs to hydrogen, so it has no lone pair. Ammonia, water and carbon monoxide each have a lone pair to donate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "methane"
+          }
+        }
+      ]
+    },
+    {
+      "id": "variable-oxidation",
+      "heading": "Ions of transition elements and variable oxidation states",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a neutral atom 4s fills before 3d. But once the atom is ionized, the 4s electrons are the outermost and highest in energy, so **4s electrons are removed before 3d electrons**."
+        },
+        {
+          "type": "text",
+          "text": "So most period 4 transition elements form a $+2$ ion by losing both 4s electrons."
+        },
+        {
+          "type": "example",
+          "id": "ex-vanadium-ion",
+          "question": "Vanadium has atomic number 23. Deduce the [[electron-configuration|electron configuration]] of the $\\ce{V^3+}$ ion.",
+          "steps": [
+            "Write the atom first: 23 electrons give $\\mathrm{[Ar]\\,4s^{2}\\,3d^{3}}$.",
+            "Remove 3 electrons: both 4s electrons go first, then one 3d electron.",
+            "Check: $18 + 2 = 20 = 23 - 3$."
+          ],
+          "answer": "$\\mathrm{[Ar]\\,3d^{2}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the 3d electrons off first because 3d was filled last. For a transition-element ion, always remove the 4s electrons before the 3d: $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, not $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$."
+        },
+        {
+          "type": "text",
+          "text": "Chromium and copper keep their atom exceptions: $\\ce{Cr}$ is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{5}}$ and $\\ce{Cu}$ is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$. The 4s electron still leaves first."
+        },
+        {
+          "type": "text",
+          "text": "Why can transition elements lose different numbers of electrons? Compare the [[successive-ionization-energy|successive ionization energies]] of calcium and manganese."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-successive-ie-ca-mn",
+          "alt": "Line graph of the first eight successive ionization energies, in kilojoules per mole, against the number of electrons removed, for calcium and manganese. Calcium's values rise from about 590 and 1150 for the first two to about 4910 for the third, a big jump, then climb steadily to about 14200. Manganese's values rise gradually and fairly evenly from about 720 through about 3250, 4940, 6990 and 9220 to about 11500 for the seventh electron, then jump sharply to about 18800 for the eighth.",
+          "caption": "Calcium jumps after 2 electrons (both $\\mathrm{4s}$ electrons gone). Manganese rises steadily through all seven 4s and 3d electrons, then jumps."
+        },
+        {
+          "type": "text",
+          "text": "Calcium's third electron would come from the full 3p sublevel of a lower main energy level, so the energy jumps. Calcium only ever forms $\\ce{Ca^2+}$."
+        },
+        {
+          "type": "text",
+          "text": "In manganese the 4s and 3d sublevels are close in energy. Its successive ionization energies rise gradually across all seven 4s and 3d electrons, with no large jump. The energy for each extra electron can be repaid by stronger bonding in the compound."
+        },
+        {
+          "type": "definition",
+          "term": "variable oxidation state",
+          "statement": "The ability of an element to form compounds in which it has two or more different oxidation states.",
+          "plain": "The same metal can lose different numbers of electrons, such as iron in $\\ce{FeCl2}$ and $\\ce{FeCl3}$."
+        },
+        {
+          "type": "text",
+          "text": "So a [[variable-oxidation-state|variable oxidation state]] is characteristic of transition elements. Manganese shows $+2$ in $\\ce{MnCl2}$, $+4$ in $\\ce{MnO2}$ and $+7$ in $\\ce{MnO4^-}$, the highest, using all seven 4s and 3d electrons."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-variable",
+          "question": "Calcium forms only $\\ce{Ca^2+}$, but manganese forms compounds with oxidation states from $+2$ to $+7$. Explain this difference using successive ionization energies.",
+          "steps": [
+            "Calcium: where does the third electron come from, and what happens to the ionization energy?",
+            "Manganese: how do the energies of the 4s and 3d electrons compare, and what does the graph look like?"
+          ],
+          "answer": "In calcium the first two electrons are removed from the 4s sublevel. The third electron would come from the full 3p sublevel, which is closer to the nucleus and less shielded, so there is a very large jump in ionization energy. In manganese the 4s and 3d sublevels are close in energy. So its successive ionization energies increase gradually, with no large jump, across all seven 4s and 3d electrons. Different numbers of electrons can therefore be lost, giving variable oxidation states.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ca: 3rd electron from inner 3p, large jump; Mn: 4s and 3d close in energy, successive IEs rise gradually, variable oxidation states",
+            "requires": [
+              [
+                "3p sublevel",
+                "inner"
+              ],
+              [
+                "very large jump",
+                "large jump"
+              ],
+              [
+                "close in energy"
+              ],
+              [
+                "increase gradually",
+                "no large jump"
+              ],
+              "variable oxidation states"
+            ],
+            "forbids": [
+              "3d electrons are removed first",
+              "4s is higher in energy in the atom"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-copper1-config",
+          "prompt": "Copper has atomic number 29. Which is the electron configuration of the $\\ce{Cu^+}$ ion?",
+          "hint": "Start from the copper atom, which is one of the two exceptions, and remove the 4s electron first.",
+          "options": [
+            {
+              "text": "$\\mathrm{[Ar]\\,3d^{10}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{9}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{2}\\,3d^{8}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$",
+              "correct": false
+            }
+          ],
+          "explain": "Copper is $\\mathrm{[Ar]\\,4s^{1}\\,3d^{10}}$. Removing the single 4s electron leaves $\\mathrm{[Ar]\\,3d^{10}}$."
+        },
+        {
+          "type": "check",
+          "id": "check-same-as-mn2",
+          "prompt": "Which ion has the same electron configuration as $\\ce{Mn^2+}$? (Atomic numbers: Cr 24, Mn 25, Fe 26, Co 27.)",
+          "hint": "$\\ce{Mn^2+}$ has $25 - 2 = 23$ electrons. Which other ion has 23, with no 4s electrons left?",
+          "options": [
+            {
+              "text": "$\\ce{Fe^3+}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Fe^2+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Cr^3+}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Co^2+}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Mn^2+}$ and $\\ce{Fe^3+}$ both have 23 electrons, $\\mathrm{[Ar]\\,3d^{5}}$. $\\ce{Fe^2+}$ is $\\mathrm{[Ar]\\,3d^{6}}$, $\\ce{Cr^3+}$ is $\\mathrm{[Ar]\\,3d^{3}}$ and $\\ce{Co^2+}$ is $\\mathrm{[Ar]\\,3d^{7}}$."
+        },
+        {
+          "type": "check",
+          "id": "check-unpaired-fe3",
+          "prompt": "How many unpaired electrons does a gaseous $\\ce{Fe^3+}$ ion have? Iron has atomic number 26.",
+          "hint": "Find the number of 3d electrons, then fill five 3d orbitals singly first.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$\\ce{Fe^3+}$ has $26 - 3 = 23$ electrons, $\\mathrm{[Ar]\\,3d^{5}}$. Five electrons in five 3d orbitals all stay unpaired, which is why many $\\ce{Fe^3+}$ compounds are strongly attracted into a magnetic field.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "26 - 3 - 18",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-permanganate",
+          "prompt": "In the $\\ce{MnO4^-}$ ion manganese has an oxidation state of $+7$. Which of manganese's electrons are involved?",
+          "hint": "Manganese is $\\mathrm{[Ar]\\,4s^{2}\\,3d^{5}}$.",
+          "options": [
+            {
+              "text": "both 4s electrons and all five 3d electrons",
+              "correct": true
+            },
+            {
+              "text": "the five 3d electrons only",
+              "correct": false
+            },
+            {
+              "text": "the two 4s electrons only",
+              "correct": false
+            },
+            {
+              "text": "seven 3d electrons",
+              "correct": false
+            }
+          ],
+          "explain": "$+7$ means seven electrons beyond the argon core are used: the two 4s and the five 3d electrons. There are only five 3d electrons, so \"seven 3d electrons\" is impossible.",
+          "verify": {
+            "kind": "choice",
+            "truth": "both 4s electrons and all five 3d electrons"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The drops in first ionization energy from group 2 to 13 (a p electron is higher in energy than an s electron) and from group 15 to 16 (a paired p electron is raised by repulsion) are evidence for sublevels.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Explain ionization energy dips by the energy of the electron removed, never by the \"special stability\" of full or half-full sublevels.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Transition elements have an incomplete d sublevel in the atom or a common ion. Properties: variable oxidation states, high melting points, magnetic properties, catalytic activity, coloured compounds and complex ions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Zinc is not a transition element: $\\ce{Zn}$ and $\\ce{Zn^2+}$ both have a full 3d sublevel. Scandium is borderline: $\\ce{Sc^3+}$ has no d electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A ligand donates a lone pair to a metal ion through a coordination bond. A complex ion's charge is the metal ion's charge plus the ligands' charges.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ions of first-row transition elements lose their 4s electrons before their 3d electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In transition elements, variable oxidation states arise because the 4s and 3d electrons are close in energy, so successive ionization energies rise gradually with no large jump.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Explaining the boron or oxygen dip by the stability of a full 2s or half-full 2p sublevel. Use the energy of the electron removed.",
+    "Removing 3d electrons before 4s when writing a transition-metal ion. The 4s electrons always leave first.",
+    "Writing $\\mathrm{[Ar]\\,4s^{2}\\,3d^{4}}$ for chromium or $\\mathrm{[Ar]\\,4s^{2}\\,3d^{9}}$ for copper. Both atoms have only one 4s electron.",
+    "Saying a ligand gains or accepts electrons. A ligand donates a lone pair; the metal ion accepts it.",
+    "Saying zinc has no d electrons. It has ten; the 3d sublevel is full in the atom and in $\\ce{Zn^2+}$."
+  ],
+  "examTips": [
+    "\"Explain\" an ionization energy dip: name the sublevel (or paired orbital) the electron comes from, say its energy is higher, then say less energy is needed. One marking point per sentence.",
+    "\"Deduce\" the configuration of a transition-metal ion: write the atom first, then remove 4s electrons before 3d. Either the full form or the $\\mathrm{[Ar]}$ form earns the mark.",
+    "In Paper 1A questions on complexes, add up the metal ion's charge and each ligand's charge, remembering that $\\ce{H2O}$ and $\\ce{NH3}$ are neutral.",
+    "\"Outline\" the bond between a ligand and a metal ion: a coordination bond, with both electrons of the pair coming from the ligand."
+  ],
+  "readingMinutes": 24
+}

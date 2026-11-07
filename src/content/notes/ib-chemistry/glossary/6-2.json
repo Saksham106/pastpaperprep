@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ph",
+    "term": "pH",
+    "definition": "A measure of how acidic a solution is: $\\mathrm{pH} = -\\log_{10}[\\ce{H^+}]$, with $[\\ce{H^+}]$ in $\\pu{mol dm-3}$; it has no units, and because the scale is logarithmic a fall of 1 in pH means ten times more $\\ce{H^+}$.",
+    "lesson": "6.2"
+  },
+  {
+    "id": "ion-product-constant-of-water",
+    "term": "ion product constant of water",
+    "definition": "The equilibrium constant for the ionization of water, $K_\\mathrm{w} = [\\ce{H^+}][\\ce{OH^-}]$, which holds in every aqueous solution; it is $\\pu{1.00e-14 mol2 dm-6}$ at 298 K and increases with temperature because the ionization is endothermic.",
+    "lesson": "6.2"
+  }
+]

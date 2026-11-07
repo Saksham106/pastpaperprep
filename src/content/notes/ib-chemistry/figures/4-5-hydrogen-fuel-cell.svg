@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-labelledby="t">
+  <title id="t">Hydrogen fuel cell with an acidic electrolyte. Hydrogen gas flows in on the left to the negative electrode, the anode, where it is oxidized: H2 gives 2H plus and 2 electrons. Electrons travel through an external wire and a lamp to the positive electrode, the cathode, on the right. Hydrogen ions move through the electrolyte from the anode side to the cathode side. Oxygen flows in on the right, and at the cathode O2 plus 4H plus plus 4 electrons gives 2H2O. Water leaves on the right.</title>
+  <rect x="150" y="110" width="300" height="150" fill="var(--t3-ink)" fill-opacity="0.1" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="180" y="110" width="22" height="150" fill="var(--t1-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/>
+  <rect x="398" y="110" width="22" height="150" fill="var(--t2-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/>
+  <text x="300" y="200" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">acidic electrolyte</text>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M191 110 L191 50 L280 50"/>
+    <path d="M320 50 L409 50 L409 110"/>
+    <circle cx="300" cy="50" r="20"/>
+    <path d="M286 36 L314 64"/><path d="M314 36 L286 64"/>
+  </g>
+  <text x="300" y="20" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">lamp</text>
+  <path d="M215 72 L265 72" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="273,72 263,67 263,77" fill="var(--t4-ink)"/>
+  <path d="M335 72 L385 72" stroke="var(--t4-ink)" stroke-width="2"/>
+  <polygon points="393,72 383,67 383,77" fill="var(--t4-ink)"/>
+  <text x="300" y="95" font-size="12" fill="var(--t4-ink)" font-family="inherit" text-anchor="middle">electrons, e⁻</text>
+  <path d="M225 165 L370 165" stroke="var(--t3-ink)" stroke-width="2"/>
+  <polygon points="380,165 370,160 370,170" fill="var(--t3-ink)"/>
+  <text x="300" y="155" font-size="13" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">H⁺</text>
+  <path d="M40 150 L168 150" stroke="var(--t1-ink)" stroke-width="2"/>
+  <polygon points="178,150 168,145 168,155" fill="var(--t1-ink)"/>
+  <text x="40" y="140" font-size="13" fill="currentColor" font-family="inherit">H₂ in</text>
+  <path d="M560 150 L432 150" stroke="var(--t2-ink)" stroke-width="2"/>
+  <polygon points="422,150 432,145 432,155" fill="var(--t2-ink)"/>
+  <text x="560" y="140" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">O₂ in</text>
+  <path d="M432 230 L560 230" stroke="var(--t2-ink)" stroke-width="2"/>
+  <polygon points="570,230 560,225 560,235" fill="var(--t2-ink)"/>
+  <text x="560" y="220" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">H₂O out</text>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="191" y="282">anode (−)</text>
+    <text x="191" y="300">oxidation</text>
+    <text x="191" y="322">H₂ → 2H⁺ + 2e⁻</text>
+    <text x="409" y="282">cathode (+)</text>
+    <text x="409" y="300">reduction</text>
+    <text x="409" y="322">O₂ + 4H⁺ + 4e⁻ → 2H₂O</text>
+  </g>
+</svg>

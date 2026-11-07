@@ -52,7 +52,8 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
   const ctx = { items, glossary: course.glossary, lessonItems, levels: course.levels, calculators, calculatorSnippets: course.calculatorSnippets };
 
   it("every lesson file passes validateLesson", () => {
-    expect(course.lessons.length).toBeGreaterThan(0);
+    // A new course starts with no lessons (IB Chemistry did); a published one has them all (checked below).
+    if (course.published) expect(course.lessons.length).toBeGreaterThan(0);
     // Report every failing lesson at once, keyed by item, so a writer can find the errors for their own lesson.
     const failures = Object.fromEntries(course.lessons.map((lesson) => [lesson.item, validateLesson(lesson, ctx)]).filter(([, errors]) => errors.length));
     expect(failures).toEqual({});
@@ -64,8 +65,9 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
   });
 
   it("names its calculators once each, and its calculator.json snippets give steps for exactly those", () => {
-    expect(calculators.length, slug).toBeGreaterThan(0);
+    // No calculators (IB Chemistry) is valid: such a course has no calculator blocks and no calculator.json.
     expect(new Set(calculators).size).toBe(calculators.length);
+    if (!calculators.length) expect(existsSync(join(root, "calculator.json")), slug).toBe(false);
     expect(snippetFileErrors(course.calculatorSnippets, calculators)).toEqual([]);
   });
 
@@ -151,7 +153,7 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
     for (const lesson of course.lessons)
       for (const section of lesson.sections)
         for (const block of section.blocks) if (block.type === "figure") expect(block.id, block.id).toMatch(new RegExp(`^${lesson.item.replace(".", "-")}-`));
-    const files = readdirSync(join(root, "lessons")).filter((name) => name.endsWith(".json")).sort();
+    const files = existsSync(join(root, "lessons")) ? readdirSync(join(root, "lessons")).filter((name) => name.endsWith(".json")).sort() : [];
     expect(files).toEqual(course.lessons.map((lesson) => `${lesson.item.replace(".", "-")}.json`).sort());
   });
 

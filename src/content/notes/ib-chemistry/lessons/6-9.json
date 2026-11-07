@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.9",
+  "slug": "reactivity-of-metals-and-halogens",
+  "title": "Reactivity of metals and halogens",
+  "level": "SL",
+  "topic": 6,
+  "summary": "Metals react by losing electrons, so a reactive metal undergoes [[oxidation|oxidation]] easily. A reactive [[halogen|halogen]] undergoes [[reduction|reduction]] easily, because halogens gain electrons. Position in a group predicts both, [[displacement-reaction|displacement reactions]] show the order, and reactive metals release hydrogen from dilute acids.",
+  "goals": [
+    {
+      "text": "Predict and explain how easily metals in a group are oxidized and halogens in group 17 are reduced.",
+      "bullets": [
+        "R3.2.3"
+      ]
+    },
+    {
+      "text": "Describe metal/metal ion and halogen/halide displacement reactions as redox, with observations and ionic equations.",
+      "bullets": [
+        "R3.2.3"
+      ]
+    },
+    {
+      "text": "Interpret supplied data to put metals in order of how easily they are oxidized.",
+      "bullets": [
+        "R3.2.3"
+      ]
+    },
+    {
+      "text": "Deduce equations for reactive metals with dilute hydrochloric and sulfuric acid.",
+      "bullets": [
+        "R3.2.4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "3.2",
+    "3.3",
+    "6.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "reactivity series",
+    "activity series of metals",
+    "metal displacement reactions",
+    "halogen displacement redox",
+    "metal and acid reactions",
+    "metals reacting with hydrochloric acid"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-iron-oxidation-state",
+      "prompt": "What is the [[oxidation-state|oxidation state]] of iron in $\\ce{Fe2O3}$?",
+      "hint": "Each oxygen is $-2$, and the compound has no overall charge.",
+      "options": [
+        {
+          "text": "+3",
+          "correct": true
+        },
+        {
+          "text": "+6",
+          "correct": false
+        },
+        {
+          "text": "+2",
+          "correct": false
+        },
+        {
+          "text": "-2",
+          "correct": false
+        }
+      ],
+      "explain": "Three oxygens give $-6$, so two irons give $+6$: each iron is $+3$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(0 - 3*(-2))/2",
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-oxidation-half-equation",
+      "prompt": "Which half-equation shows oxidation?",
+      "hint": "Oxidation is loss of electrons. Which side are the electrons on?",
+      "options": [
+        {
+          "text": "$\\ce{Li -> Li^+ + e-}$",
+          "correct": true
+        },
+        {
+          "text": "$\\ce{Li^+ + e- -> Li}$",
+          "correct": false
+        },
+        {
+          "text": "$\\ce{Br2 + 2e- -> 2Br^-}$",
+          "correct": false
+        }
+      ],
+      "explain": "Lithium loses an electron, which appears on the right. The other two gain electrons: reduction. Revise it in {{lesson:6.8}}.",
+      "verify": {
+        "kind": "chem-equation",
+        "truth": "Li -> Li^+ + e-"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-group1-outer-electron",
+      "prompt": "Going down group 1, what happens to the outer electron?",
+      "hint": "Each element down the group has one more occupied shell.",
+      "options": [
+        {
+          "text": "It is further from the nucleus and more shielded",
+          "correct": true
+        },
+        {
+          "text": "It is closer to the nucleus and less shielded",
+          "correct": false
+        },
+        {
+          "text": "It is held more strongly because the nuclear charge rises",
+          "correct": false
+        }
+      ],
+      "explain": "Extra shells put the outer electron further out, with more inner electrons shielding it. That outweighs the rise in nuclear charge. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is further from the nucleus and more shielded"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "group-trends",
+      "heading": "Down a group: metals oxidize more easily, halogens reduce less easily",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a metal reacts, its atoms lose valence electrons to form positive ions. The metal undergoes [[oxidation|oxidation]] and acts as a [[reducing-agent|reducing agent]]. The more easily it is oxidized, the more reactive it is."
+        },
+        {
+          "type": "definition",
+          "term": "reactivity series",
+          "statement": "A list of metals in order of how easily they are oxidized to positive ions, with the most easily oxidized (the strongest reducing agent) at the top.",
+          "plain": "A league table of metals by how readily they give away electrons."
+        },
+        {
+          "type": "text",
+          "text": "Down group 1 (the [[alkali-metal|alkali metals]]) and group 2, each atom has one more occupied shell. The valence electrons are further from the nucleus and more shielded, so they are lost more easily."
+        },
+        {
+          "type": "result",
+          "statement": "Down groups 1 and 2, metals are oxidized more easily: they become stronger reducing agents and more reactive.",
+          "why": "Larger atoms hold valence electrons less strongly, even though nuclear charge rises."
+        },
+        {
+          "type": "text",
+          "text": "A [[halogen|halogen]] reacts the other way. A $\\ce{Cl2}$ molecule gains two electrons to become two $\\ce{Cl^-}$ ions, so the halogen undergoes [[reduction|reduction]]. It acts as an [[oxidizing-agent|oxidizing agent]]."
+        },
+        {
+          "type": "text",
+          "text": "Down group 17 the atoms get larger. An incoming electron is further from the nucleus and more shielded, so it is attracted less strongly."
+        },
+        {
+          "type": "result",
+          "statement": "Down group 17, halogens are reduced less easily: fluorine is the strongest oxidizing agent and iodine the weakest of the four.",
+          "why": "A larger atom attracts an extra electron less strongly."
+        },
+        {
+          "type": "text",
+          "text": "Halide ions show the reverse: $\\ce{I^-}$ gives up an electron most easily, so it is the strongest reducing agent of the halide ions."
+        },
+        {
+          "type": "figure",
+          "id": "6-9-group-trends",
+          "alt": "Two columns. Left, group 1 metals from lithium down to caesium, with a downward arrow labelled oxidized more easily, stronger reducing agent, more reactive. Right, group 17 halogens from fluorine down to iodine, with a downward arrow labelled reduced less easily, weaker oxidizing agent, less reactive. A box underneath says that down both groups the atoms get larger, so outer electrons are further from the nucleus, more shielded and held less strongly.",
+          "caption": "The same cause gives opposite trends: metals lose electrons, halogens gain them."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the most reactive halogen is the most easily oxidized. Halogens gain electrons, so the most reactive one, fluorine, is the most easily reduced."
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-vs-magnesium",
+          "question": "Explain why calcium is oxidized more easily than magnesium.",
+          "steps": [
+            "Both are in group 2; each atom loses two valence electrons when oxidized.",
+            "Calcium has one more occupied shell. Link distance and shielding to attraction."
+          ],
+          "answer": "Calcium and magnesium are both in group 2, and each loses two valence electrons when it is oxidized. A calcium atom has one more occupied shell, so its valence electrons are further from the nucleus. They are also more shielded by inner electrons. So they are attracted less strongly and are lost more easily, which makes calcium the stronger reducing agent.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ca has one more shell: valence electrons further out and more shielded, so held less strongly and lost more easily.",
+            "requires": [
+              [
+                "one more occupied shell",
+                "more shells"
+              ],
+              "further from the nucleus",
+              [
+                "more shielded",
+                "more shielding"
+              ],
+              [
+                "attracted less strongly",
+                "weaker attraction"
+              ],
+              "lost more easily"
+            ],
+            "forbids": [
+              "smaller nuclear charge",
+              "gains electrons"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-vs-iodine-oxidizing",
+          "question": "Predict whether bromine or iodine is the stronger oxidizing agent. Explain your answer.",
+          "steps": [
+            "An oxidizing agent gains electrons, so ask which halogen is reduced more easily.",
+            "Bromine is above iodine, so its atoms are smaller."
+          ],
+          "answer": "Bromine is the stronger oxidizing agent. A halogen acts as an oxidizing agent by gaining electrons, so it is reduced to halide ions. A bromine atom is smaller than an iodine atom, so an incoming electron is closer to the nucleus and less shielded. It is attracted more strongly, so bromine is reduced more easily.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Bromine: smaller atom, so an extra electron is attracted more strongly and Br2 is reduced more easily.",
+            "requires": [
+              "bromine is the stronger oxidizing agent",
+              "gaining electrons",
+              "smaller",
+              [
+                "attracted more strongly",
+                "stronger attraction"
+              ],
+              "reduced more easily"
+            ],
+            "forbids": [
+              "iodine is the stronger",
+              "bromine is oxidized"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-group2-easiest-oxidized",
+          "prompt": "Which group 2 metal is oxidized most easily?",
+          "hint": "Which atom holds its valence electrons least strongly?",
+          "options": [
+            {
+              "text": "Barium",
+              "correct": true
+            },
+            {
+              "text": "Beryllium",
+              "correct": false
+            },
+            {
+              "text": "Magnesium",
+              "correct": false
+            },
+            {
+              "text": "Calcium",
+              "correct": false
+            }
+          ],
+          "explain": "Barium is lowest of the four, with the largest atoms. Its valence electrons are held least strongly, so it is the strongest reducing agent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Barium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strongest-halide-reducer",
+          "prompt": "Which ion is the strongest reducing agent?",
+          "hint": "A reducing agent gives electrons away. Which halide ion lets go most easily?",
+          "options": [
+            {
+              "text": "The iodide ion",
+              "correct": true
+            },
+            {
+              "text": "The fluoride ion",
+              "correct": false
+            },
+            {
+              "text": "The chloride ion",
+              "correct": false
+            },
+            {
+              "text": "The bromide ion",
+              "correct": false
+            }
+          ],
+          "explain": "The iodide ion is the largest, so its outer electrons are held least strongly. $\\ce{F^-}$ holds on hardest, which is why $\\ce{F2}$ is the strongest oxidizing agent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The iodide ion"
+          }
+        }
+      ]
+    },
+    {
+      "id": "displacement",
+      "heading": "Displacement reactions show the order",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a metal into a solution of another metal's ions. If the solid metal is oxidized more easily, it gives its electrons to those ions. This is a [[displacement-reaction|displacement reaction]], and it is redox."
+        },
+        {
+          "type": "figure",
+          "id": "6-9-zinc-copper-displacement",
+          "alt": "Two beakers. Left, at the start: a zinc strip stands in blue copper(II) sulfate solution. Right, some minutes later: the blue colour has faded and the part of the strip under the solution is coated with brown copper. A box underneath gives two half-equations: zinc solid gives zinc 2 plus ions and two electrons, so zinc is oxidized; copper 2 plus ions gain two electrons to give copper solid, so the copper ions are reduced.",
+          "caption": "Zinc is oxidized more easily than copper, so it reduces copper(II) ions."
+        },
+        {
+          "type": "text",
+          "text": "Zinc in copper(II) sulfate solution: $\\ce{Zn(s) + Cu^2+(aq) -> Zn^2+(aq) + Cu(s)}$. Zinc is the reducing agent, and $\\ce{Cu^2+}$ is the oxidizing agent. The sulfate ions don't change, so they are left out of the ionic equation."
+        },
+        {
+          "type": "text",
+          "text": "What you see: a coating or crystals on the metal, and a coloured solution may fade or change colour. If the solid metal is the less reactive one, nothing happens."
+        },
+        {
+          "type": "text",
+          "text": "Halogens and halide ions work the same way ({{lesson:3.2}}). Bromine water added to potassium iodide solution turns it brown: $\\ce{Br2(aq) + 2I^-(aq) -> 2Br^-(aq) + I2(aq)}$. Bromine is reduced and iodide ions are oxidized."
+        },
+        {
+          "type": "text",
+          "text": "A halogen oxidizes the halide ions of any halogen below it. In water, chlorine is very pale green, bromine orange to yellow and iodine brown; halide solutions are colourless."
+        },
+        {
+          "type": "examTip",
+          "text": "You don't need to learn the order of metals: the exam supplies it as a series or a results table. A metal reduces the ions of any metal below it, and none above it. The exception is a metal so reactive, such as sodium, that it reacts with the water instead."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, standard electrode potentials put a number on how easily each metal is oxidized and each halogen is reduced in solution. Lithium's value is the most negative in group 1, an exception explained there.",
+          "lesson": "6.13"
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-silver-nitrate",
+          "question": "A coil of copper wire is placed in colourless silver nitrate solution. Grey crystals grow on the wire and the solution slowly turns blue. Write the ionic equation, with state symbols.",
+          "steps": [
+            "Grey crystals are silver; blue is $\\ce{Cu^2+(aq)}$. So copper reduced the silver ions.",
+            "Half-equations: $\\ce{Cu(s) -> Cu^2+(aq) + 2e-}$ and $\\ce{Ag^+(aq) + e- -> Ag(s)}$.",
+            "Each copper atom reduces two $\\ce{Ag^+}$ ions. Leave out the nitrate spectator ions; check the charge is $2+$ on each side."
+          ],
+          "answer": "$\\ce{Cu(s) + 2Ag^+(aq) -> Cu^2+(aq) + 2Ag(s)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Cu(s) + Ag^+(aq) -> Cu^2+(aq) + Ag(s)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-order-three-metals",
+          "question": "Metals X, Y and Z each form $2+$ ions. Each metal is added to solutions of the other two metals' nitrates. X reacts with the solutions of Y and Z. Y reacts with the solution of Z only. Z reacts with neither. Deduce the order of the metals from most to least easily oxidized, and identify which of the three ions is the strongest oxidizing agent.",
+          "steps": [
+            "A reaction means the solid metal is oxidized more easily than the metal in solution.",
+            "The least easily oxidized metal has the ions that accept electrons most readily."
+          ],
+          "answer": "X reduces the ions of both Y and Z, so X is oxidized most easily. Y reduces only the ions of Z, so it comes next, and Z is oxidized least easily. The order is X, then Y, then Z. Z is the least reactive metal, so its ions gain electrons most readily: $\\ce{Z^2+}$ is the strongest oxidizing agent.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "X > Y > Z by ease of oxidation; Z2+ is the strongest oxidizing agent.",
+            "requires": [
+              "X is oxidized most easily",
+              "Z is oxidized least easily",
+              "X, then Y, then Z",
+              "strongest oxidizing agent",
+              "Z2+"
+            ],
+            "forbids": [
+              "X2+ is the strongest",
+              "Z is oxidized most easily"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-recover-silver",
+          "prompt": "A reactivity series reads, from most to least easily oxidized: magnesium, zinc, iron, copper, silver. Which metal reacts with silver nitrate solution but not with zinc sulfate solution?",
+          "hint": "A metal reduces the ions of metals below it only.",
+          "options": [
+            {
+              "text": "Copper",
+              "correct": true
+            },
+            {
+              "text": "Magnesium",
+              "correct": false
+            },
+            {
+              "text": "Silver",
+              "correct": false
+            }
+          ],
+          "explain": "Copper is above silver but below zinc. Magnesium is above both, so it reacts with both solutions; silver reacts with neither.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Copper"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-iodine-formed",
+          "prompt": "In which mixture is iodine formed?",
+          "hint": "A halogen oxidizes only the halide ions of halogens below it.",
+          "options": [
+            {
+              "text": "Chlorine water and potassium iodide solution",
+              "correct": true
+            },
+            {
+              "text": "Iodine solution and potassium bromide solution",
+              "correct": false
+            },
+            {
+              "text": "Bromine water and potassium chloride solution",
+              "correct": false
+            },
+            {
+              "text": "Chlorine water and potassium bromide solution",
+              "correct": false
+            }
+          ],
+          "explain": "Chlorine is above iodine, so it oxidizes $\\ce{I^-}$ to $\\ce{I2}$. Iodine can't oxidize $\\ce{Br^-}$, bromine can't oxidize $\\ce{Cl^-}$, and chlorine with bromide gives bromine.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Chlorine water and potassium iodide solution"
+          }
+        }
+      ]
+    },
+    {
+      "id": "acids",
+      "heading": "Reactive metals with dilute acids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Dilute acids contain $\\ce{H^+(aq)}$ ions. A reactive metal gives them electrons, so they become hydrogen gas and the metal forms a salt."
+        },
+        {
+          "type": "result",
+          "statement": "Reactive metal + dilute hydrochloric or sulfuric acid → salt + hydrogen. Hydrochloric acid gives a chloride; sulfuric acid gives a sulfate.",
+          "why": "The metal is oxidized and the hydrogen ions are reduced: $\\ce{2H^+(aq) + 2e- -> H2(g)}$."
+        },
+        {
+          "type": "text",
+          "text": "Magnesium with hydrochloric acid: $\\ce{Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)}$. The chloride ions don't change, so the ionic equation is $\\ce{Mg(s) + 2H^+(aq) -> Mg^2+(aq) + H2(g)}$."
+        },
+        {
+          "type": "text",
+          "text": "Build the salt from its ions: $\\ce{Zn^2+}$ and $\\ce{SO4^2-}$ give $\\ce{ZnSO4}$; $\\ce{Al^3+}$ gives $\\ce{Al2(SO4)3}$. Iron gives iron(II) salts with these acids, such as $\\ce{FeCl2}$."
+        },
+        {
+          "type": "text",
+          "text": "Only metals oxidized more easily than hydrogen give hydrogen: those above it in a series. Copper, silver and gold don't react with dilute hydrochloric or sulfuric acid."
+        },
+        {
+          "type": "text",
+          "text": "What you see: bubbles, the metal gets smaller and the mixture warms. A lighted splint gives a squeaky pop with hydrogen. Group 1 metals react far too violently to add to acids."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing water as a product. A metal and an acid give a salt and hydrogen; water forms when an acid reacts with a base."
+        },
+        {
+          "type": "example",
+          "id": "ex-aluminium-sulfuric",
+          "question": "Aluminium powder reacts with dilute sulfuric acid. Deduce the equation, with state symbols.",
+          "steps": [
+            "Aluminium forms $\\ce{Al^3+}$ and sulfate is $\\ce{SO4^2-}$, so the salt is $\\ce{Al2(SO4)3}$.",
+            "Two Al need three $\\ce{H2SO4}$, which release three $\\ce{H2}$. Check: Al 2, S 3, O 12, H 6 on each side."
+          ],
+          "answer": "$\\ce{2Al(s) + 3H2SO4(aq) -> Al2(SO4)3(aq) + 3H2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Al(s) + H2SO4(aq) -> Al2(SO4)3(aq) + H2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-hydrochloric-ionic",
+          "question": "Iron filings are added to dilute hydrochloric acid and bubbles form. Deduce the ionic equation, with state symbols, and state which species is reduced.",
+          "steps": [
+            "Oxidation: $\\ce{Fe(s) -> Fe^2+(aq) + 2e-}$. Reduction: $\\ce{2H^+(aq) + 2e- -> H2(g)}$.",
+            "Add them; the electrons cancel and chloride ions are spectators. $\\ce{H^+}$ gains electrons, so the hydrogen ions are reduced."
+          ],
+          "answer": "$\\ce{Fe(s) + 2H^+(aq) -> Fe^2+(aq) + H2(g)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Fe(s) + H^+(aq) -> Fe^2+(aq) + H2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-pair-hydrogen",
+          "prompt": "A series reads, from most to least easily oxidized: magnesium, zinc, iron, hydrogen, copper, silver. Which pair produces hydrogen gas?",
+          "hint": "Only metals above hydrogen reduce $\\ce{H^+}$ ions.",
+          "options": [
+            {
+              "text": "Zinc and dilute sulfuric acid",
+              "correct": true
+            },
+            {
+              "text": "Copper and dilute hydrochloric acid",
+              "correct": false
+            },
+            {
+              "text": "Silver and dilute sulfuric acid",
+              "correct": false
+            }
+          ],
+          "explain": "Zinc is above hydrogen, so it reduces $\\ce{H^+}$ to $\\ce{H2}$. Copper and silver are below hydrogen, so nothing happens.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Zinc and dilute sulfuric acid"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-sulfuric",
+          "prompt": "Which equation shows magnesium reacting with dilute sulfuric acid?",
+          "hint": "Metal + acid gives a salt and one other product. Magnesium forms $\\ce{Mg^2+}$.",
+          "options": [
+            {
+              "text": "$\\ce{Mg(s) + H2SO4(aq) -> MgSO4(aq) + H2(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Mg(s) + H2SO4(aq) -> MgSO4(aq) + H2O(l)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2Mg(s) + H2SO4(aq) -> Mg2SO4(aq) + H2(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Mg^2+}$ and $\\ce{SO4^2-}$ pair one to one in $\\ce{MgSO4}$, and the gas is hydrogen. Water forms only when an acid meets a base.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Mg(s) + H2SO4(aq) -> MgSO4(aq) + H2(g)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Down groups 1 and 2, metals are oxidized more easily: stronger reducing agents. Down group 17, halogens are reduced less easily: weaker oxidizing agents. Cause: larger atoms hold electrons less strongly.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A metal reduces the ions of any metal below it in a supplied series (group 1 metals react with the water instead). A halogen oxidizes the halide ions of any halogen below it in group 17.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Halogens in water: chlorine very pale green, bromine orange to yellow, iodine brown.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reactive metal + dilute hydrochloric or sulfuric acid → salt + hydrogen, e.g. $\\ce{Zn(s) + 2H^+(aq) -> Zn^2+(aq) + H2(g)}$. Metals below hydrogen don't react with dilute hydrochloric or sulfuric acid.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling the metal ion the reducing agent. The metal atom gives the electrons; the ion accepting them is the oxidizing agent.",
+    "Leaving spectator ions, such as sulfate or nitrate, in an ionic equation.",
+    "Using an equilibrium arrow for a displacement or metal–acid reaction. These go one way: use →.",
+    "Naming a product instead of an observation. Write \"the solution turns brown\", not just \"iodine forms\"."
+  ],
+  "examTips": [
+    "\"Explain\" a group trend: marks go to atomic size, shielding, how strongly the electron is attracted, and a conclusion in redox words.",
+    "\"Deduce\" a metal–acid equation: correct salt formula and $\\ce{H2}$, balanced, with state symbols if asked. Drop the spectator anions for the ionic equation.",
+    "Paper 1B practical questions: an observation is what you see (colour change, solid forming, bubbles)."
+  ],
+  "readingMinutes": 19
+}

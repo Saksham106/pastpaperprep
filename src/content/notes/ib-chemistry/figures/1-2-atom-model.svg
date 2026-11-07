@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 240" role="img" aria-labelledby="t">
+  <title id="t">Model of a lithium-7 atom, not to scale. A tiny nucleus in the centre holds 3 protons, each marked plus, and 4 neutrons, each marked with no charge. Around it, a large shaded region of mostly empty space holds 3 electrons, each marked minus. Labels say the nucleus is positive, dense and very small, and the electrons occupy the space outside the nucleus.</title>
+  <circle cx="150" cy="120" r="105" fill="var(--t3-ink)" fill-opacity="0.08" stroke="var(--muted)" stroke-dasharray="4 4"/>
+  <g stroke="currentColor" stroke-width="1">
+    <circle cx="142" cy="112" r="9" fill="var(--t1-ink)" fill-opacity="0.35"/>
+    <circle cx="160" cy="114" r="9" fill="var(--muted)" fill-opacity="0.35"/>
+    <circle cx="151" cy="128" r="9" fill="var(--t1-ink)" fill-opacity="0.35"/>
+    <circle cx="134" cy="128" r="9" fill="var(--muted)" fill-opacity="0.35"/>
+    <circle cx="167" cy="130" r="9" fill="var(--muted)" fill-opacity="0.35"/>
+    <circle cx="151" cy="99" r="9" fill="var(--muted)" fill-opacity="0.35"/>
+    <circle cx="168" cy="99" r="9" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  </g>
+  <g font-size="11" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="142" y="116">+</text>
+    <text x="151" y="132">+</text>
+    <text x="168" y="103">+</text>
+  </g>
+  <g fill="var(--t2-ink)">
+    <circle cx="80" cy="70" r="5"/>
+    <circle cx="225" cy="160" r="5"/>
+    <circle cx="105" cy="200" r="5"/>
+  </g>
+  <g font-size="11" font-family="inherit" fill="var(--t2-ink)">
+    <text x="88" y="66">e⁻</text>
+    <text x="233" y="156">e⁻</text>
+    <text x="113" y="196">e⁻</text>
+  </g>
+  <path d="M176 114 L290 60" stroke="currentColor" stroke-width="1" fill="none"/>
+  <path d="M242 175 L290 175" stroke="currentColor" stroke-width="1" fill="none"/>
+  <g font-size="13" font-family="inherit" fill="currentColor">
+    <text x="296" y="50">nucleus: 3 protons (+)</text>
+    <text x="296" y="66">and 4 neutrons (no charge)</text>
+    <text x="296" y="82">tiny, dense and positive</text>
+    <text x="296" y="170">3 electrons (−) in the</text>
+    <text x="296" y="186">space outside the nucleus</text>
+    <text x="296" y="225" fill="var(--muted)">not to scale</text>
+  </g>
+</svg>

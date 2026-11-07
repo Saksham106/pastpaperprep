@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" role="img" aria-labelledby="t">
+<title id="t">Graph of concentration of reactant A, in mol per cubic decimetre, against time in seconds, from 0 to 150 seconds. The curve starts at 0.80 at time zero and falls, steeply at first and then more gently, reaching about 0.04 at 150 seconds. Tangent 1 touches the curve at time zero and meets the time axis at 50 seconds. Tangent 2 touches the curve at 50 seconds, where the concentration is about 0.29; it crosses the concentration axis at 0.59 and meets the time axis at 100 seconds. Tangent 2 is less steep than tangent 1.</title>
+<path d="M70 270 L70 30" fill="none" stroke="currentColor" stroke-width="1.8"/><polygon points="70,21 65.5,30 74.5,30" fill="currentColor"/><path d="M70 270 L560 270" fill="none" stroke="currentColor" stroke-width="1.8"/><polygon points="569,270 560,265.5 560,274.5" fill="currentColor"/><text x="26" y="150.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 26 150.0)">[A] / mol dm⁻³</text><text x="315.0" y="308" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">time / s</text>
+<path d="M70.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="70.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">0</text>
+<path d="M150.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="150.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">25</text>
+<path d="M230.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="230.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">50</text>
+<path d="M310.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="310.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">75</text>
+<path d="M390.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="390.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">100</text>
+<path d="M470.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="470.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">125</text>
+<path d="M550.0 270 V276" stroke="currentColor" stroke-width="1.2"/><text x="550.0" y="290" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">150</text>
+<path d="M64 220.0 H70" stroke="currentColor" stroke-width="1.2"/><text x="60" y="224.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.20</text>
+<path d="M64 170.0 H70" stroke="currentColor" stroke-width="1.2"/><text x="60" y="174.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.40</text>
+<path d="M64 120.0 H70" stroke="currentColor" stroke-width="1.2"/><text x="60" y="124.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.60</text>
+<path d="M64 70.0 H70" stroke="currentColor" stroke-width="1.2"/><text x="60" y="74.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="end">0.80</text>
+<polyline points="70.0 70.0 79.6 81.6 89.2 92.6 98.8 102.9 108.4 112.7 118.0 121.8 127.6 130.5 137.2 138.6 146.8 146.2 156.4 153.5 166.0 160.2 175.6 166.6 185.2 172.6 194.8 178.3 204.4 183.7 214.0 188.7 223.6 193.4 233.2 197.9 242.8 202.1 252.4 206.0 262.0 209.8 271.6 213.3 281.2 216.6 290.8 219.7 300.4 222.6 310.0 225.4 319.6 228.0 329.2 230.4 338.8 232.7 348.4 234.9 358.0 236.9 367.6 238.9 377.2 240.7 386.8 242.4 396.4 244.0 406.0 245.5 415.6 246.9 425.2 248.3 434.8 249.5 444.4 250.7 454.0 251.9 463.6 252.9 473.2 253.9 482.8 254.8 492.4 255.7 502.0 256.6 511.6 257.3 521.2 258.1 530.8 258.8 540.4 259.4 550.0 260.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<path d="M70.0 70.0 L230.0 270.0" stroke="var(--t2-ink)" stroke-width="1.8" stroke-dasharray="6 4" fill="none"/>
+<path d="M70.0 122.8 L390.0 270.0" stroke="var(--t3-ink)" stroke-width="1.8" stroke-dasharray="6 4" fill="none"/>
+<circle cx="230.0" cy="196.4" r="4" fill="var(--t3-ink)"/>
+<circle cx="70.0" cy="70.0" r="4" fill="var(--t2-ink)"/>
+<text x="82.0" y="64.0" font-size="12" font-family="inherit" fill="var(--t2-ink)">tangent 1 (at 0 s)</text>
+<text x="244.0" y="188.4" font-size="12" font-family="inherit" fill="var(--t3-ink)">tangent 2 (at 50 s)</text>
+<text x="80.0" y="138" font-size="11" font-family="inherit" fill="var(--t3-ink)">0.59</text>
+<text x="236.0" y="258" font-size="11" font-family="inherit" fill="var(--t2-ink)" text-anchor="start">50</text>
+<text x="396.0" y="258" font-size="11" font-family="inherit" fill="var(--t3-ink)" text-anchor="start">100</text>
+</svg>

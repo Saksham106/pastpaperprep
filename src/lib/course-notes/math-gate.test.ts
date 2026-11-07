@@ -231,3 +231,62 @@ describe.skipIf(!python)("check-math.py checks distractors, tolerances and stale
     expect(run.status).toBe(1);
   });
 });
+
+describe.skipIf(!python)("check-math.py checks chemistry lessons", () => {
+  // A small chemistry lesson (edition ib-chemistry-2025, so the booklet constants R, NA, ... are names in its truths).
+  const chemFixtures = resolve(process.cwd(), "scripts/notes/__fixtures__/gate-chem");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the fixture lesson is mutated freely
+  const chem = (mutate?: (lesson: any) => void) => {
+    const dir = mkdtempSync(join(tmpdir(), "chem-gate-"));
+    const lesson = JSON.parse(readFileSync(join(chemFixtures, "9-98.json"), "utf8"));
+    mutate?.(lesson);
+    writeFileSync(join(dir, "9-98.json"), JSON.stringify(lesson));
+    return spawnSync(python!, [script, "9.98"], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: dir, AA_NOTES_SIDECARS_DIR: dir } });
+  };
+  const probe = (id: string, tex: string) =>
+    spawnSync(python!, [script, "--verify", "9.98", id, tex], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: chemFixtures, AA_NOTES_SIDECARS_DIR: chemFixtures } });
+
+  it("passes the fixture, rejecting every equation, formula and word distractor", () => {
+    const run = chem();
+    expect(run.stdout).toMatch(/^PASS check-half distractor 3 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-empirical distractor 2 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-moles tolerance 5e-05$/m);
+    expect(run.stdout, run.stdout + run.stderr).not.toMatch(/FAIL/);
+    expect(run.status).toBe(0);
+  });
+
+  it("checks units and signs on number answers", () => {
+    expect(probe("ex-bond-enthalpy", String.raw`\Delta H = -808\ \text{kJ mol}^{-1}`).status).toBe(0);
+    expect(probe("ex-bond-enthalpy", "ΔH = −808 kJ mol⁻¹").status).toBe(0);
+    expect(probe("ex-bond-enthalpy", String.raw`\Delta H = \pu{-808 kJ}`).stdout).toMatch(/^FAIL ex-bond-enthalpy \(AssertionError: .*unit/);
+    expect(probe("ex-bond-enthalpy", String.raw`\Delta H = \pu{808 kJ mol-1}`).stdout).toMatch(/^FAIL ex-bond-enthalpy/);
+    expect(probe("ex-mass", String.raw`m \approx \pu{62.43 g}`).stdout).toMatch(/^FAIL ex-mass \(.*significant figures/);
+  });
+
+  it("fails an unbalanced equation, a wrong charge, a non-minimal set, a wrong arrow or a missing state", () => {
+    for (const tex of [
+      String.raw`$\ce{C2H5OH(l) + 3O2(g) -> 2CO2(g) + 2H2O(l)}$`,
+      String.raw`$\ce{2C2H5OH(l) + 6O2(g) -> 4CO2(g) + 6H2O(l)}$`,
+      String.raw`$\ce{C2H5OH(l) + 3O2(g) <=> 2CO2(g) + 3H2O(l)}$`,
+      String.raw`$\ce{C2H5OH + 3O2(g) -> 2CO2(g) + 3H2O(l)}$`,
+    ]) expect(probe("ex-equation", tex).stdout, tex).toMatch(/^FAIL ex-equation \(AssertionError/);
+    expect(probe("check-half", String.raw`$\ce{Fe^3+(aq) + e- -> Fe^+(aq)}$`).stdout).toMatch(/^FAIL check-half \(AssertionError/);
+  });
+
+  it("fails an explanation that misses a marking point or states a misconception", () => {
+    expect(probe("ex-explain", "Bond breaking absorbs energy, so it is endothermic.").stdout).toMatch(/does not state 'attraction'/);
+    expect(probe("ex-explain", "Energy is released when bonds break; bond breaking absorbs energy to overcome attraction, so it is endothermic.").stdout).toMatch(/misconception/);
+  });
+
+  it("fails an equivalent distractor and a non-chemistry lesson's use of R as a booklet constant", () => {
+    const same = chem((lesson) => {
+      lesson.sections[0].blocks[5].options[1].text = String.raw`$\ce{H2C}$`;
+    });
+    expect(same.stdout).toMatch(/^FAIL check-empirical distractor 1 rejected \(accepted as correct/m);
+    const maths = chem((lesson) => {
+      lesson.edition = "aa-2021";
+    });
+    expect(maths.stdout).toMatch(/^FAIL check-moles /m);
+    expect(maths.status).toBe(1);
+  });
+});

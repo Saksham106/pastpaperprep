@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 240" role="img" aria-labelledby="t">
+<title id="t">Grid of results when each aqueous halogen is added to each halide solution. Chlorine displaces bromine and iodine. Bromine displaces iodine only. Iodine displaces neither.</title>
+<g font-family="inherit" fill="currentColor" font-size="13">
+<text x="345" y="22" text-anchor="middle" font-weight="600">added to a solution of</text>
+<text x="20" y="54" font-weight="600">halogen added</text>
+<text x="230" y="54" text-anchor="middle">Cl⁻(aq)</text>
+<text x="350" y="54" text-anchor="middle">Br⁻(aq)</text>
+<text x="465" y="54" text-anchor="middle">I⁻(aq)</text>
+<text x="20" y="98">Cl₂(aq)</text>
+<text x="20" y="116" font-size="11" fill="var(--muted)">very pale green</text>
+<text x="20" y="157">Br₂(aq)</text>
+<text x="20" y="175" font-size="11" fill="var(--muted)">orange</text>
+<text x="20" y="211">I₂(aq)</text>
+<text x="20" y="229" font-size="11" fill="var(--muted)">brown</text>
+</g>
+<g fill="none" stroke="currentColor" stroke-width="1">
+<rect x="170" y="66" width="350" height="170" rx="4"/>
+<line x1="290" y1="66" x2="290" y2="236"/>
+<line x1="410" y1="66" x2="410" y2="236"/>
+<line x1="170" y1="128" x2="520" y2="128"/>
+<line x1="170" y1="186" x2="520" y2="186"/>
+</g>
+<g font-family="inherit" font-size="12" text-anchor="middle">
+<text x="230" y="102" fill="var(--muted)">—</text>
+<text x="350" y="92" fill="var(--t2-ink)" font-weight="600">reacts</text>
+<text x="350" y="112" fill="currentColor">turns orange (Br₂)</text>
+<text x="465" y="92" fill="var(--t2-ink)" font-weight="600">reacts</text>
+<text x="465" y="112" fill="currentColor">turns brown (I₂)</text>
+<text x="230" y="162" fill="var(--muted)">no reaction</text>
+<text x="350" y="162" fill="var(--muted)">—</text>
+<text x="465" y="152" fill="var(--t2-ink)" font-weight="600">reacts</text>
+<text x="465" y="172" fill="currentColor">turns brown (I₂)</text>
+<text x="230" y="216" fill="var(--muted)">no reaction</text>
+<text x="350" y="216" fill="var(--muted)">no reaction</text>
+<text x="465" y="216" fill="var(--muted)">—</text>
+</g>
+</svg>

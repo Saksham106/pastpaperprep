@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 350" role="img" aria-labelledby="t">
+<title id="t">Colour wheel with six sectors and their wavelength ranges. Opposite sectors are complementary: red and green, orange and blue, yellow and violet.</title>
+<path d="M210 175 L145.0 62.4 A130 130 0 0 1 275.0 62.4 Z" fill="#e5484d" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<path d="M210 175 L275.0 62.4 A130 130 0 0 1 340.0 175.0 Z" fill="#f76b15" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<path d="M210 175 L340.0 175.0 A130 130 0 0 1 275.0 287.6 Z" fill="#ffc53d" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<path d="M210 175 L275.0 287.6 A130 130 0 0 1 145.0 287.6 Z" fill="#30a46c" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<path d="M210 175 L145.0 287.6 A130 130 0 0 1 80.0 175.0 Z" fill="#0090ff" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<path d="M210 175 L80.0 175.0 A130 130 0 0 1 145.0 62.4 Z" fill="#8e4ec6" fill-opacity="0.32" stroke="currentColor" stroke-width="1.3"/>
+<text x="210.0" y="88.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Red</text>
+<text x="210.0" y="105.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">647–700 nm</text>
+<text x="282.7" y="130.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Orange</text>
+<text x="282.7" y="147.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">585–647 nm</text>
+<text x="282.7" y="214.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Yellow</text>
+<text x="282.7" y="231.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">575–585 nm</text>
+<text x="210.0" y="256.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Green</text>
+<text x="210.0" y="273.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">491–575 nm</text>
+<text x="137.3" y="214.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Blue</text>
+<text x="137.3" y="231.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">424–491 nm</text>
+<text x="137.3" y="130.0" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor" font-family="inherit">Violet</text>
+<text x="137.3" y="147.0" font-size="11" text-anchor="middle" fill="currentColor" font-family="inherit">400–424 nm</text>
+<circle cx="210" cy="175" r="4" fill="currentColor"/>
+<text x="210" y="340" font-size="12" text-anchor="middle" fill="var(--muted)" font-family="inherit">Complementary colours sit directly opposite each other</text>
+</svg>

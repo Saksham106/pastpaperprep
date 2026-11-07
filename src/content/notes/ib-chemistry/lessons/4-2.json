@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "4.2",
+  "slug": "bond-enthalpies-and-hesss-law",
+  "title": "Bond enthalpies and Hess's law",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Breaking a bond absorbs energy and making one releases it. Add the [[bond-enthalpy|bond enthalpies]] of the bonds broken, take away those of the bonds formed, and you have an estimate of the [[enthalpy-change|enthalpy change]]. [[hesss-law|Hess's law]] then lets you find $\\Delta H$ for a reaction you can't measure, by adding up reactions you can.",
+  "goals": [
+    {
+      "text": "Explain why breaking bonds absorbs energy and making bonds releases it.",
+      "bullets": [
+        "R1.2.1"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta H$ for a reaction from average bond enthalpies in the data booklet.",
+      "bullets": [
+        "R1.2.1"
+      ]
+    },
+    {
+      "text": "Explain why bond-enthalpy values are averages and why they can disagree with measured values.",
+      "bullets": [
+        "R1.2.1"
+      ]
+    },
+    {
+      "text": "State Hess's law and use it to combine equations and find $\\Delta H$ for a reaction that takes several steps.",
+      "bullets": [
+        "R1.2.2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "2.2",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "bond energy calculation",
+    "average bond enthalpy",
+    "bonds broken minus bonds formed",
+    "Hess cycle",
+    "enthalpy cycle",
+    "Hess's law calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exo-sign",
+      "prompt": "A reaction gives out heat, and the temperature of the surroundings rises. Which pair describes it?",
+      "hint": "Think about where the energy goes: into the surroundings or into the system.",
+      "options": [
+        {
+          "text": "exothermic, with a negative enthalpy change",
+          "correct": true
+        },
+        {
+          "text": "exothermic, with a positive enthalpy change",
+          "correct": false
+        },
+        {
+          "text": "endothermic, with a negative enthalpy change",
+          "correct": false
+        },
+        {
+          "text": "endothermic, with a positive enthalpy change",
+          "correct": false
+        }
+      ],
+      "explain": "Heat leaving the system makes the reaction exothermic, and the system's enthalpy falls, so $\\Delta H$ is negative. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "exothermic, with a negative enthalpy change"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-methanal-bonds",
+      "prompt": "Draw the Lewis formula of methanal, $\\ce{HCHO}$. Which bonds does it contain?",
+      "hint": "Carbon makes four bonds and oxygen makes two.",
+      "options": [
+        {
+          "text": "two carbon–hydrogen single bonds and one carbon–oxygen double bond",
+          "correct": true
+        },
+        {
+          "text": "two carbon–hydrogen single bonds and one carbon–oxygen single bond",
+          "correct": false
+        },
+        {
+          "text": "two carbon–hydrogen single bonds and one carbon–oxygen triple bond",
+          "correct": false
+        }
+      ],
+      "explain": "Carbon uses two of its four bonds on the hydrogens, so the other two go to oxygen as a double bond. Oxygen then has two bonds and two lone pairs. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "two carbon–hydrogen single bonds and one carbon–oxygen double bond"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-methanol",
+      "prompt": "How many [[mole|moles]] of molecules are in $\\pu{6.40 g}$ of methanol, $\\ce{CH3OH}$? Give 3 significant figures.",
+      "hint": "Work out $M$ from the $A_\\text{r}$ values, then use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.2,
+        "tolerance": 0.0005
+      },
+      "explain": "$M = 12.01 + 4(1.01) + 16.00 = \\pu{32.05 g mol-1}$, so $n = \\frac{6.40}{32.05} \\approx 0.200$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.40/Mr('CH3OH')",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "bond-enthalpy",
+      "heading": "Bond enthalpies and $\\Delta H$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A covalent bond holds two atoms together because both nuclei attract the shared electrons. Pulling them apart takes energy to overcome that attraction."
+        },
+        {
+          "type": "text",
+          "text": "When two atoms join, the reverse happens: they settle at lower energy and the difference is given out."
+        },
+        {
+          "type": "result",
+          "statement": "Breaking a bond always absorbs energy (endothermic). Making a bond always releases energy (exothermic).",
+          "why": "Breaking a bond works against the attraction between the nuclei and the shared pair. Making the same bond releases the same amount."
+        },
+        {
+          "type": "text",
+          "text": "A reaction breaks bonds in the reactants and makes bonds in the products. Its [[enthalpy-change|enthalpy change]] is the balance. More released than absorbed gives an [[exothermic-reaction|exothermic reaction]]; more absorbed gives an [[endothermic-reaction|endothermic reaction]]."
+        },
+        {
+          "type": "definition",
+          "term": "bond enthalpy",
+          "statement": "The energy needed to break one mole of a particular covalent bond in gaseous molecules, giving gaseous atoms or groups of atoms.",
+          "plain": "How tightly a bond holds its two atoms, measured as the energy to pull them apart."
+        },
+        {
+          "type": "text",
+          "text": "A [[bond-enthalpy|bond enthalpy]] is always positive. Average values are in the data booklet (section 12), in $\\pu{kJ mol-1}$. A $\\Delta H$ worked out from them is per [[mole|mole]] of reaction as written."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H = \\sum \\text{BE}(\\text{bonds broken}) - \\sum \\text{BE}(\\text{bonds formed})",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "4-2-bond-cycle",
+          "alt": "Energy level diagram for hydrogen plus chlorine forming hydrogen chloride. From the reactants level, H2 plus Cl2, an upward arrow labelled bonds broken, plus 678 kilojoules per mole, rises to a high level of separate gaseous atoms, 2H plus 2Cl. From there a longer downward arrow labelled bonds formed, minus 862 kilojoules per mole, falls to the products level, 2HCl, which sits below the reactants. A short downward arrow from reactants to products is labelled delta H equals minus 184 kilojoules per mole.",
+          "caption": "For $\\ce{H2 + Cl2 -> 2HCl}$: up to atoms ($436 + 242 = 678$), then down to products ($2 \\times 431 = 862$). $\\Delta H = 678 - 862 = \\pu{-184 kJ mol-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-hf",
+          "question": "Hydrogen reacts explosively with fluorine: $\\ce{H2(g) + F2(g) -> 2HF(g)}$. Explain, in terms of bonds, why this reaction is exothermic.",
+          "steps": [
+            "Broken: $\\ce{H-H}$ and $\\ce{F-F}$, absorbing $436 + 159 = \\pu{595 kJ mol-1}$.",
+            "Formed: two $\\ce{H-F}$, releasing $2 \\times 567 = \\pu{1134 kJ mol-1}$.",
+            "Compare the two, then conclude with the sign of $\\Delta H$."
+          ],
+          "answer": "Energy is absorbed to break the $\\ce{H-H}$ and $\\ce{F-F}$ bonds. Energy is released when the $\\ce{H-F}$ bonds form. More energy is released forming the new bonds than is absorbed breaking the old ones. So the reaction is exothermic and $\\Delta H$ is negative.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "bond forming releases more energy than bond breaking absorbs",
+            "requires": [
+              [
+                "absorbed to break",
+                "absorbs energy"
+              ],
+              [
+                "released when",
+                "releases energy"
+              ],
+              "more energy is released",
+              "exothermic",
+              "negative"
+            ],
+            "forbids": [
+              "energy is released to break",
+              "breaking bonds releases"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "For bigger molecules, draw every structure first, then multiply each bond by its coefficient. Bonds that appear unchanged on both sides may be left out of both totals."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrazine-combustion",
+          "question": "Hydrazine, $\\ce{H2N-NH2}$, reacts with oxygen: $\\ce{N2H4(g) + O2(g) -> N2(g) + 2H2O(g)}$. Determine $\\Delta H$ using section 12 of the data booklet.",
+          "steps": [
+            "Bonds broken: one $\\ce{N-N}$, four $\\ce{N-H}$ and one $\\ce{O=O}$. $158 + 4(391) + 498 = \\pu{2220 kJ mol-1}$.",
+            "Bonds formed: one $\\ce{N#N}$ and four $\\ce{O-H}$ (two in each water). $945 + 4(463) = \\pu{2797 kJ mol-1}$.",
+            "$\\Delta H = 2220 - 2797 = \\pu{-577 kJ mol-1}$.",
+            "Sense check: the very strong $\\ce{N#N}$ bond forms, so a large negative value fits a rocket fuel."
+          ],
+          "answer": "$\\Delta H = \\pu{-577 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(BE('N-N') + 4*BE('N-H') + BE('O=O')) - (BE('N#N') + 4*BE('O-H'))",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting coefficients. $\\ce{2H2O}$ has four $\\ce{O-H}$ bonds and each $\\ce{CO2}$ has two $\\ce{C=O}$, so multiply before you add."
+        },
+        {
+          "type": "check",
+          "id": "check-hbr",
+          "prompt": "Use bond enthalpies to calculate $\\Delta H$, in $\\pu{kJ mol-1}$, for $\\ce{H2(g) + Br2(g) -> 2HBr(g)}$. Include the sign.",
+          "hint": "Two $\\ce{H-Br}$ bonds form, not one.",
+          "answer": {
+            "value": -103,
+            "tolerance": 0
+          },
+          "explain": "Broken: $436 + 193 = 629$. Formed: $2 \\times 366 = 732$. $\\Delta H = 629 - 732 = \\pu{-103 kJ mol-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(BE('H-H') + BE('Br-Br')) - 2*BE('H-Br')",
+            "dp": 0,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethene-bromine",
+          "prompt": "What is $\\Delta H$ from bond enthalpies for $\\ce{C2H4(g) + Br2(g) -> CH2BrCH2Br(g)}$?",
+          "hint": "The $\\ce{C=C}$ breaks and a $\\ce{C-C}$ forms in its place. Two $\\ce{C-Br}$ bonds form.",
+          "options": [
+            {
+              "text": "$\\pu{-109 kJ mol-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{+109 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{+176 kJ mol-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{+237 kJ mol-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Broken: $614 + 193 = 807$. Formed: $346 + 2(285) = 916$. $\\Delta H = 807 - 916 = \\pu{-109 kJ mol-1}$. $+109$ is formed $-$ broken, $+176$ counts one $\\ce{C-Br}$ and $+237$ forgets the new $\\ce{C-C}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(BE('C=C') + BE('Br-Br')) - (BE('C-C') + 2*BE('C-Br'))",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "averages",
+      "heading": "Why the answers are estimates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A $\\ce{C-H}$ bond in methane differs slightly from one in ethanol, because nearby atoms change it. So the booklet's $\\pu{414 kJ mol-1}$ is an average over many compounds. Only a bond found in a single molecule, such as $\\ce{H-H}$ in $\\ce{H2}$, has an exact value."
+        },
+        {
+          "type": "text",
+          "text": "Bond enthalpies also refer to gases. For a liquid or solid, the calculation misses the energy of overcoming its intermolecular forces."
+        },
+        {
+          "type": "result",
+          "statement": "A $\\Delta H$ from bond enthalpies is an estimate. It can differ from the measured value because the values are averages, and because they only apply when every species is a gas.",
+          "why": "Real bonds are not exactly average, and a change of state involves energy that no bond enthalpy includes."
+        },
+        {
+          "type": "example",
+          "id": "ex-methane-combustion",
+          "question": "Calculate $\\Delta H$ for the combustion of methane, $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(g)}$, using bond enthalpies.",
+          "steps": [
+            "Bonds broken: four $\\ce{C-H}$ and two $\\ce{O=O}$. $4(414) + 2(498) = \\pu{2652 kJ mol-1}$.",
+            "Bonds formed: two $\\ce{C=O}$ and four $\\ce{O-H}$. $2(804) + 4(463) = \\pu{3460 kJ mol-1}$.",
+            "$\\Delta H = 2652 - 3460 = \\pu{-808 kJ mol-1}$."
+          ],
+          "answer": "$\\Delta H = \\pu{-808 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4*BE('C-H') + 2*BE('O=O')) - (2*BE('C=O') + 4*BE('O-H'))",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-difference",
+          "question": "The measured enthalpy change for burning methane to carbon dioxide and liquid water is $\\pu{-891 kJ mol-1}$. Explain why the bond-enthalpy value of $\\pu{-808 kJ mol-1}$ is different.",
+          "steps": [
+            "Marking point 1: the values are averages, so they are not the exact bond strengths in these molecules.",
+            "Marking point 2: bond enthalpies apply to gases, but the measured reaction makes liquid water.",
+            "Link the second point to the direction of the difference: condensing steam releases energy, which makes the measured value more negative."
+          ],
+          "answer": "The bond enthalpies are average values taken from many different compounds, so they are not the exact values for the bonds in methane, oxygen, carbon dioxide and water. Bond enthalpies only apply to substances in the gaseous state, but the measured value forms liquid water. Energy is released when the water condenses, so the measured value is more negative than the calculated one.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "averages over many compounds; bond enthalpies are for gases but water is liquid",
+            "requires": [
+              [
+                "average values",
+                "averages"
+              ],
+              [
+                "many different compounds",
+                "different compounds",
+                "range of compounds"
+              ],
+              [
+                "gaseous state",
+                "gases",
+                "gas phase"
+              ],
+              "liquid",
+              [
+                "more negative",
+                "released when the water condenses"
+              ]
+            ],
+            "forbids": [
+              "bond breaking releases",
+              "heat loss"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Bond enthalpy also tracks [[bond-length|bond length]]. A shorter bond holds the shared electrons closer to both nuclei, so it is usually stronger."
+        },
+        {
+          "type": "text",
+          "text": "Carbon–carbon bonds show this: $\\ce{C-C}$ is $\\pu{346 kJ mol-1}$, $\\ce{C=C}$ is $614$ and $\\ce{C#C}$ is $839$, and the bonds get shorter in that order."
+        },
+        {
+          "type": "text",
+          "text": "Down group 17 the carbon–halogen bond gets longer and weaker: $\\ce{C-F}$ $492$, $\\ce{C-Cl}$ $324$, $\\ce{C-Br}$ $285$, $\\ce{C-I}$ $228$. That is why iodoalkanes react fastest in nucleophilic substitution: the $\\ce{C-I}$ bond is the easiest to break."
+        },
+        {
+          "type": "text",
+          "text": "Polarity can add strength as well. In $\\ce{H-F}$ ($567$) the large electronegativity difference adds an extra attraction, on top of the bond being short."
+        },
+        {
+          "type": "check",
+          "id": "check-weakest-cx",
+          "prompt": "Which carbon–halogen bond needs the least energy to break?",
+          "hint": "The bigger the halogen atom, the longer the bond.",
+          "options": [
+            {
+              "text": "carbon–iodine",
+              "correct": true
+            },
+            {
+              "text": "carbon–fluorine",
+              "correct": false
+            },
+            {
+              "text": "carbon–chlorine",
+              "correct": false
+            },
+            {
+              "text": "carbon–bromine",
+              "correct": false
+            }
+          ],
+          "explain": "Iodine is the largest of these atoms, so $\\ce{C-I}$ is the longest and weakest bond, at $\\pu{228 kJ mol-1}$ in the data booklet.",
+          "verify": {
+            "kind": "choice",
+            "truth": "carbon–iodine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-estimate",
+          "prompt": "A student calculates $\\Delta H$ for burning liquid hexane from bond enthalpies. The result differs from the data-booklet value. Which is the best reason?",
+          "hint": "Think about what the booklet's bond enthalpies are, and what state they refer to.",
+          "options": [
+            {
+              "text": "Bond enthalpies are averages and apply only to gases.",
+              "correct": true
+            },
+            {
+              "text": "Breaking bonds releases energy, so the sign is wrong.",
+              "correct": false
+            },
+            {
+              "text": "Bond enthalpies are exact for each compound but are measured at a different temperature.",
+              "correct": false
+            }
+          ],
+          "explain": "Bond enthalpies are averages over many compounds and refer to gaseous molecules. Liquid hexane must first be turned into a gas, and no bond enthalpy includes that energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Bond enthalpies are averages and apply only to gases."
+          }
+        }
+      ]
+    },
+    {
+      "id": "hess",
+      "heading": "Hess's law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Climbing from a valley to a hilltop, your height gain is the same by the steep path or the winding one. Enthalpy works the same way, so you can find $\\Delta H$ for a reaction by going round it through reactions you know."
+        },
+        {
+          "type": "definition",
+          "term": "Hess's law",
+          "statement": "The enthalpy change of a reaction depends only on its starting and finishing states, not on the route taken between them.",
+          "plain": "However you get from the reactants to the products, the total energy change is the same."
+        },
+        {
+          "type": "text",
+          "text": "[[hesss-law|Hess's law]] is why the bond-enthalpy method works: going via gaseous atoms is just another route. To combine equations, use three rules."
+        },
+        {
+          "type": "text",
+          "text": "1. Reverse an equation: change the sign of its $\\Delta H$."
+        },
+        {
+          "type": "text",
+          "text": "2. Multiply an equation by a number: multiply its $\\Delta H$ by the same number."
+        },
+        {
+          "type": "text",
+          "text": "3. Add equations: add their $\\Delta H$ values. The same species in the same state on both sides cancels."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-hess-cycle",
+          "alt": "Triangular energy cycle. Top left: C(s) plus O2(g). Top right: CO(g) plus one half O2(g). Bottom centre: CO2(g). An arrow from top left to top right is labelled delta H, the unknown. An arrow from top left down to CO2 is labelled minus 394 kilojoules per mole. An arrow from top right down to CO2 is labelled minus 283 kilojoules per mole. Under the cycle: delta H plus minus 283 equals minus 394.",
+          "caption": "Both routes from the top left to $\\ce{CO2}$ must give the same total, so $\\Delta H + (-283) = -394$."
+        },
+        {
+          "type": "example",
+          "id": "ex-carbon-monoxide",
+          "question": "Carbon monoxide can't be made cleanly from carbon, because some carbon dioxide always forms too. Use (1) $\\ce{C(s) + O2(g) -> CO2(g)}$, $\\Delta H = \\pu{-394 kJ mol-1}$, and (2) $\\ce{CO(g) + 1/2O2(g) -> CO2(g)}$, $\\Delta H = \\pu{-283 kJ mol-1}$, to find $\\Delta H$ for $\\ce{C(s) + 1/2O2(g) -> CO(g)}$.",
+          "steps": [
+            "Target: carbon on the left and $\\ce{CO}$ on the right. Equation (1) has carbon on the left, so keep it.",
+            "$\\ce{CO}$ must be a product, but it is a reactant in (2). Reverse it: $\\ce{CO2(g) -> CO(g) + 1/2O2(g)}$, $\\Delta H = \\pu{+283 kJ mol-1}$.",
+            "Add: $\\ce{CO2}$ cancels and half of the $\\ce{O2}$ cancels, leaving the target. $\\Delta H = -394 + 283 = \\pu{-111 kJ mol-1}$."
+          ],
+          "answer": "$\\Delta H = \\pu{-111 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-394 - (-283)",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rocket-fuel",
+          "question": "Rocket engines can burn liquid hydrazine with hydrogen peroxide: $\\ce{N2H4(l) + 2H2O2(l) -> N2(g) + 4H2O(l)}$. Calculate $\\Delta H$ for this reaction from these equations. (1) $\\ce{N2H4(l) + O2(g) -> N2(g) + 2H2O(l)}$, $\\Delta H = \\pu{-622 kJ mol-1}$. (2) $\\ce{H2(g) + 1/2O2(g) -> H2O(l)}$, $\\Delta H = \\pu{-286 kJ mol-1}$. (3) $\\ce{H2(g) + O2(g) -> H2O2(l)}$, $\\Delta H = \\pu{-188 kJ mol-1}$.",
+          "steps": [
+            "Hydrazine is a reactant in the target and in (1), once each. Keep (1): $\\pu{-622 kJ mol-1}$.",
+            "$\\ce{H2O2}$ is a reactant in the target, with coefficient 2, but a product in (3). Reverse (3) and double it: $\\ce{2H2O2(l) -> 2H2(g) + 2O2(g)}$, $2 \\times (+188) = \\pu{+376 kJ mol-1}$.",
+            "That leaves $\\ce{2H2}$ to remove and two more $\\ce{H2O}$ to make. Double (2): $\\ce{2H2(g) + O2(g) -> 2H2O(l)}$, $2 \\times (-286) = \\pu{-572 kJ mol-1}$.",
+            "Add the three: $\\ce{2H2}$ and $\\ce{2O2}$ cancel, giving the target equation. $\\Delta H = -622 + 376 - 572 = \\pu{-818 kJ mol-1}$."
+          ],
+          "answer": "$\\Delta H = \\pu{-818 kJ mol-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-622 + 2*(-286) - 2*(-188)",
+            "unit": "kJ mol-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reversing or doubling an equation but leaving its $\\Delta H$ alone. Change the $\\Delta H$ at the same moment you change the equation."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also build Hess cycles from standard enthalpies of formation and of combustion.",
+          "lesson": "4.3"
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-double",
+          "prompt": "A reaction has enthalpy change $\\Delta H = a$. What is $\\Delta H$ for twice the reverse reaction?",
+          "hint": "Apply the two rules one at a time.",
+          "options": [
+            {
+              "text": "$-2a$",
+              "correct": true
+            },
+            {
+              "text": "$2a$",
+              "correct": false
+            },
+            {
+              "text": "$-a$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{a}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Reversing changes the sign to $-a$. Doubling then gives $-2a$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "-2*a"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-copper-oxide",
+          "prompt": "Use $\\ce{2Cu(s) + O2(g) -> 2CuO(s)}$, $\\Delta H = \\pu{-314 kJ mol-1}$, and $\\ce{2Cu(s) + 1/2O2(g) -> Cu2O(s)}$, $\\Delta H = \\pu{-169 kJ mol-1}$. Find $\\Delta H$, in $\\pu{kJ mol-1}$, for $\\ce{Cu2O(s) + 1/2O2(g) -> 2CuO(s)}$. Include the sign.",
+          "hint": "$\\ce{Cu2O}$ is a reactant in the target but a product in the second equation.",
+          "answer": {
+            "value": -145,
+            "tolerance": 0
+          },
+          "explain": "Keep the first equation and reverse the second: $\\Delta H = -314 + 169 = \\pu{-145 kJ mol-1}$. The $\\ce{2Cu}$ and half the $\\ce{O2}$ cancel.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-314 - (-169)",
+            "dp": 0,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Breaking bonds absorbs energy; making bonds releases energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta H = \\sum \\text{BE}(\\text{bonds broken}) - \\sum \\text{BE}(\\text{bonds formed})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Bond enthalpies are averages over many compounds and apply to gases, so a bond-enthalpy $\\Delta H$ is an estimate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Shorter bonds are usually stronger: $\\ce{C-C} < \\ce{C=C} < \\ce{C#C}$ in bond enthalpy, and $\\ce{C-I}$ is the weakest carbon–halogen bond.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hess's law: $\\Delta H$ for a reaction is the same whichever route links the reactants and products.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reverse an equation: change the sign of $\\Delta H$. Multiply it by $n$: multiply $\\Delta H$ by $n$. Add equations: add their $\\Delta H$ values.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Working out formed $-$ broken. That flips the sign: $\\Delta H$ = bonds broken $-$ bonds formed.",
+    "Missing bonds when counting. Draw every structure, and multiply by the coefficients: $\\ce{2H2O}$ has four $\\ce{O-H}$ bonds.",
+    "Using the wrong bond type, such as $\\ce{C-O}$ ($358$) for the $\\ce{C=O}$ in $\\ce{CO2}$ ($804$). Check single, double or triple in your structure.",
+    "Expecting a bond-enthalpy answer to match the measured value exactly. It is an estimate: the values are averages and refer to gases.",
+    "In a Hess calculation, reversing or scaling an equation without doing the same to its $\\Delta H$."
+  ],
+  "examTips": [
+    "\"Calculate\" or \"determine\" $\\Delta H$ from bond enthalpies: show the bonds broken total, the bonds formed total, then the answer with its sign and $\\pu{kJ mol-1}$.",
+    "\"Explain\" why a bond-enthalpy value differs from a measured one: give two separate points, averages over many compounds and the gaseous state, each in its own sentence.",
+    "In a Paper 1A Hess question, write the target equation first, then match each given equation to it by side and coefficient.",
+    "\"State\" Hess's law in one sentence: the enthalpy change is independent of the route, as long as the start and finish are the same."
+  ],
+  "readingMinutes": 19
+}

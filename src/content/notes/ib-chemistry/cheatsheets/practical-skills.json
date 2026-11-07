@@ -1,0 +1,54 @@
+{
+  "lines": [
+    {
+      "text": "Record a reading or its uncertainty → scale read by eye: $\\pm$ half the smallest division (a burette marked every $\\pu{0.1 cm3}$: $\\pm \\pu{0.05 cm3}$); digital display: $\\pm$ one unit in the last digit; write the value to the same decimal place as its uncertainty ({{lesson:7.1}}, {{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "How many significant figures in a calculated answer? → multiply or divide: the fewest significant figures in the data; add or subtract: the fewest decimal places; exact numbers don't count, and round only at the end ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Uncertainty in a titre, a temperature change or another difference → add the absolute uncertainties, so two burette readings give $\\pm 0.05 + 0.05 = \\pm \\pu{0.10 cm3}$ ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Uncertainty in a concentration, $\\Delta H$ or another product or quotient → add the percentage uncertainties, then convert the total back to an absolute uncertainty; data-booklet values count as exact ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Uncertainty in a quantity raised to a power, such as a squared concentration in a rate expression → multiply its percentage uncertainty by the power ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Which percentage? → an accepted or data-booklet value: percentage error, the size of the accepted value on the bottom; a before and after: percentage change, initial value on the bottom; two results of equal status: percentage difference, divided by their mean ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Evaluate a result → percentage error larger than the total percentage uncertainty means systematic errors are present; results that are precise but not accurate also point to a systematic error, which repeats don't reduce ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Is $y$ proportional to $x$? → direct: $\\frac{y}{x}$ constant, a straight line through the origin; inverse: $xy$ constant. A straight line that misses the origin is linear, not proportional ({{lesson:7.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Rate from a table → change in quantity divided by the time between two rows, which is an average rate; the rate at one instant is the gradient of a tangent ({{lesson:7.3}}, {{lesson:5.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Temperature change in calorimetry with heat loss → extrapolate the cooling line (the warming line if endothermic) back to the time of mixing; concentration by colorimetry → read the sample's absorbance off a calibration line of standards, interpolating within their range ({{lesson:7.3}}, {{lesson:7.1}})",
+      "tag": "learn",
+      "level": "SL"
+    }
+  ]
+}

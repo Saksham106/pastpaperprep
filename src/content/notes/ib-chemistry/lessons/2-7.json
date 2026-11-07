@@ -1,0 +1,653 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.7",
+  "slug": "chromatography",
+  "title": "Chromatography",
+  "level": "SL",
+  "topic": 2,
+  "summary": "[[chromatography|Chromatography]] separates a [[mixture|mixture]]. Each component is carried by a moving [[mobile-phase|mobile phase]] and held back by a fixed [[stationary-phase|stationary phase]], so components held back less travel further. The [[retardation-factor|retardation factor]], $R_\\text{F}$, turns that distance into a number that helps identify each component.",
+  "goals": [
+    {
+      "text": "Explain how chromatography separates the components of a mixture by their relative attractions to the mobile and stationary phases.",
+      "bullets": [
+        "S2.2.10"
+      ]
+    },
+    {
+      "text": "Use polarity and [[intermolecular-force|intermolecular forces]] to predict which component moves further.",
+      "bullets": [
+        "S2.2.10"
+      ]
+    },
+    {
+      "text": "Describe how to run a paper or thin-layer chromatogram, and explain each precaution.",
+      "bullets": [
+        "S2.2.10"
+      ]
+    },
+    {
+      "text": "Calculate and interpret $R_\\text{F}$ values, and use them to identify the components of a mixture.",
+      "bullets": [
+        "S2.2.10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1",
+    "2.2",
+    "2.4",
+    "2.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "paper chromatography",
+    "thin layer chromatography",
+    "TLC",
+    "Rf value",
+    "calculate Rf",
+    "mobile and stationary phase"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-which-mixture",
+      "prompt": "Which of these is a [[mixture|mixture]]?",
+      "hint": "A mixture holds two or more substances that are not chemically joined.",
+      "options": [
+        {
+          "text": "sea water",
+          "correct": true
+        },
+        {
+          "text": "distilled water",
+          "correct": false
+        },
+        {
+          "text": "copper",
+          "correct": false
+        },
+        {
+          "text": "carbon dioxide",
+          "correct": false
+        }
+      ],
+      "explain": "Sea water holds dissolved salts as well as water. The others are single substances. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "sea water"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-methanol-imf",
+      "prompt": "What is the strongest [[intermolecular-force|intermolecular force]] between molecules of methanol, $\\ce{CH3OH}$?",
+      "hint": "Look for a hydrogen atom bonded directly to nitrogen, oxygen or fluorine.",
+      "options": [
+        {
+          "text": "hydrogen bonding",
+          "correct": true
+        },
+        {
+          "text": "London (dispersion) forces",
+          "correct": false
+        },
+        {
+          "text": "dipole-dipole forces",
+          "correct": false
+        },
+        {
+          "text": "covalent bonds",
+          "correct": false
+        }
+      ],
+      "explain": "Methanol has an $\\ce{O-H}$ bond, so it forms [[hydrogen-bond|hydrogen bonds]]. [[london-dispersion-force|London (dispersion) forces]] and [[dipole-dipole-force|dipole-dipole forces]] are weaker. [[covalent-bond|Covalent bonds]] are inside molecules, not between them. Revise it in {{lesson:2.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "hydrogen bonding"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-non-polar",
+      "prompt": "Which of these liquids is made of non-polar molecules?",
+      "hint": "A hydrocarbon has only carbon and hydrogen, with very similar electronegativities.",
+      "options": [
+        {
+          "text": "hexane",
+          "correct": true
+        },
+        {
+          "text": "water",
+          "correct": false
+        },
+        {
+          "text": "ethanol",
+          "correct": false
+        },
+        {
+          "text": "propanone",
+          "correct": false
+        }
+      ],
+      "explain": "Hexane, $\\ce{C6H14}$, is a hydrocarbon with almost non-polar bonds. The others have a polar bond to oxygen in an asymmetric molecule. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "hexane"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "phases",
+      "heading": "How chromatography separates a mixture",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a crowd walking down a street of shops. People who keep stopping to look fall behind; people who ignore the shops get furthest. Chromatography separates molecules the same way."
+        },
+        {
+          "type": "text",
+          "text": "The \"street\" is a [[mobile-phase|mobile phase]], a liquid [[solvent|solvent]] that moves through the paper or up the plate. The \"shops\" are the [[stationary-phase|stationary phase]], which stays still."
+        },
+        {
+          "type": "definition",
+          "term": "chromatography",
+          "statement": "A technique that separates the components of a mixture by the difference in how strongly each one is attracted, through intermolecular forces, to a stationary phase and to a mobile phase.",
+          "plain": "Each substance is carried along by a moving solvent but held back by a fixed surface, so they spread out."
+        },
+        {
+          "type": "text",
+          "text": "Each molecule keeps switching between the two phases. It moves only while it is in the mobile phase."
+        },
+        {
+          "type": "result",
+          "statement": "A component that is more strongly attracted to the mobile phase, relative to the stationary phase, spends more time moving and travels further.",
+          "why": "Distance travelled depends on the fraction of time a molecule spends in the moving phase."
+        },
+        {
+          "type": "text",
+          "text": "The attractions are [[intermolecular-force|intermolecular forces]]. They form and break as a component moves, but no covalent bonds break, so the components come out unchanged."
+        },
+        {
+          "type": "text",
+          "text": "In thin-layer chromatography (TLC), the stationary phase is silica, $\\ce{SiO2}$, on a plate. Its surface is covered in $\\ce{-OH}$ groups, so it is very polar. In paper chromatography, it is water held in the paper's fibres, which is also polar."
+        },
+        {
+          "type": "text",
+          "text": "So with a polar stationary phase and a non-polar solvent, polar components are held back most and non-polar components move furthest."
+        },
+        {
+          "type": "example",
+          "id": "ex-hexadecane-alcohol",
+          "question": "A TLC plate coated with silica is run with hexane as the mobile phase. The sample is a mixture of hexadecane, $\\ce{C16H34}$, and hexadecan-1-ol, $\\ce{C16H33OH}$. Explain which compound moves further up the plate.",
+          "steps": [
+            "Silica is polar, with $\\ce{-OH}$ groups.",
+            "The alcohol can hydrogen bond to it; the alkane forms only London forces.",
+            "Stronger attraction to the stationary phase means less time moving."
+          ],
+          "answer": "The silica stationary phase is polar. Hexadecan-1-ol has an $\\ce{-OH}$ group, so it forms hydrogen bonds to the silica. Hexadecane is non-polar and is held only by weak London forces. So hexadecan-1-ol is more strongly attracted to the stationary phase. Hexadecane spends more time in the mobile phase, so hexadecane moves further up the plate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the alcohol hydrogen bonds to polar silica and is held back; the alkane stays in the mobile phase and moves further",
+            "requires": [
+              "polar",
+              "hydrogen bonds",
+              "London",
+              "more strongly attracted to the stationary phase",
+              "spends more time in the mobile phase",
+              "hexadecane moves further"
+            ],
+            "forbids": [
+              "hexadecan-1-ol moves further",
+              "covalent bonds break"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-more-polar-solvent",
+          "question": "The plate from the previous example is run again with a more polar mobile phase: a mixture of hexane and ethyl ethanoate. Predict and explain how the distance moved by hexadecan-1-ol changes.",
+          "steps": [
+            "Ethyl ethanoate has polar bonds to oxygen, so the new solvent is more polar.",
+            "The alcohol is now attracted to the solvent as well as to the silica."
+          ],
+          "answer": "Hexadecan-1-ol moves further than before. The more polar mobile phase attracts it more strongly, through dipole–dipole forces and hydrogen bonds to the oxygen atoms of ethyl ethanoate. So it spends more time in the mobile phase and less time held on the silica.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a more polar mobile phase attracts the alcohol more strongly, so it spends more time moving and goes further",
+            "requires": [
+              "moves further",
+              "more polar",
+              [
+                "attracts it more strongly",
+                "more strongly attracted to the mobile phase"
+              ],
+              "more time",
+              "mobile phase"
+            ],
+            "forbids": [
+              "moves less far",
+              "shorter distance"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"polar compounds move further\". It depends on the phases. On a polar stationary phase with a non-polar solvent, the more polar compound moves less."
+        },
+        {
+          "type": "check",
+          "id": "check-furthest-component",
+          "prompt": "A mixture is separated on a silica TLC plate using a non-polar solvent. Which component moves furthest?",
+          "hint": "Silica is polar. Which component is held back least?",
+          "options": [
+            {
+              "text": "the least polar component",
+              "correct": true
+            },
+            {
+              "text": "the most polar component",
+              "correct": false
+            },
+            {
+              "text": "the component with the most covalent bonds",
+              "correct": false
+            },
+            {
+              "text": "all components move the same distance",
+              "correct": false
+            }
+          ],
+          "explain": "Polar silica holds polar components back. The least polar component is most attracted to the non-polar solvent, so it travels furthest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the least polar component"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-short-distance",
+          "prompt": "One component of a mixture hardly moves from where it was spotted. What is the best explanation?",
+          "hint": "A molecule only moves while it is in the mobile phase.",
+          "options": [
+            {
+              "text": "It is much more strongly attracted to the stationary phase than to the mobile phase.",
+              "correct": true
+            },
+            {
+              "text": "It is much more strongly attracted to the mobile phase than to the stationary phase.",
+              "correct": false
+            },
+            {
+              "text": "Its covalent bonds are too strong to break.",
+              "correct": false
+            },
+            {
+              "text": "It reacts with the solvent to form a new compound.",
+              "correct": false
+            }
+          ],
+          "explain": "It spends almost no time in the mobile phase, so it stays near the start. No covalent bonds break, and nothing reacts.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is much more strongly attracted to the stationary phase than to the mobile phase."
+          }
+        }
+      ]
+    },
+    {
+      "id": "practical",
+      "heading": "Running a paper or TLC chromatogram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The method is the same for paper and TLC. TLC is faster and gives sharper spots."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw a pencil line, the baseline, about $\\pu{1 cm}$ above the bottom of the paper or plate."
+        },
+        {
+          "type": "text",
+          "text": "2. Put a small, concentrated spot of each sample on the line, with known reference substances beside it."
+        },
+        {
+          "type": "text",
+          "text": "3. Stand the plate in a tank of solvent, with the solvent below the baseline. Put the lid on to keep solvent from evaporating off the plate."
+        },
+        {
+          "type": "text",
+          "text": "4. Let the solvent rise. Take the plate out before the solvent reaches the top."
+        },
+        {
+          "type": "text",
+          "text": "5. Mark the solvent front in pencil straight away, before the solvent evaporates."
+        },
+        {
+          "type": "text",
+          "text": "6. Mark each spot. Colourless compounds need an extra step to show them, which you don't need to know."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-tlc-setup",
+          "alt": "A thin-layer chromatography plate standing upright in a glass tank with a lid. A shallow layer of solvent, the mobile phase, covers the bottom of the tank. A pencil baseline is drawn across the plate just above the solvent surface, with two pencil crosses where a sample and a reference were spotted. The solvent has soaked up the silica-coated plate to a dashed line, the solvent front. The sample has split into two spots, and the reference spot sits level with the upper sample spot.",
+          "caption": "The sample's upper spot is level with the reference, so the sample probably contains that substance. The lower spot is something else."
+        },
+        {
+          "type": "example",
+          "id": "ex-pencil-baseline",
+          "question": "Explain why the baseline is drawn in pencil and not in ink.",
+          "steps": [
+            "Ink is itself a mixture.",
+            "Ask what the solvent would do to it."
+          ],
+          "answer": "Ink is a mixture of dyes. The dyes would dissolve in the solvent and move up the plate, giving extra spots. Pencil is graphite, which is insoluble in the solvent, so the line stays put.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ink dyes would dissolve and move, giving extra spots; graphite is insoluble",
+            "requires": [
+              [
+                "ink is a mixture",
+                "mixture of dyes"
+              ],
+              "dissolve in the solvent",
+              "extra spots",
+              "graphite",
+              "insoluble"
+            ],
+            "forbids": [
+              "pencil dissolves"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-baseline-above-solvent",
+          "question": "Explain why the solvent in the tank must be below the baseline.",
+          "steps": [
+            "Picture the spots under the solvent surface.",
+            "Compare that with solvent soaking up to them from below."
+          ],
+          "answer": "Spots under the solvent surface would dissolve into the solvent in the tank. They would be washed off the plate, so the components would not separate. With the baseline above the solvent, the solvent soaks up to the spots and carries each component up the plate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spots under the solvent dissolve into the tank instead of being carried up the plate",
+            "requires": [
+              "dissolve into the solvent",
+              "washed off",
+              [
+                "no separation",
+                "not separate"
+              ],
+              "carries each component up"
+            ],
+            "forbids": [
+              "spots evaporate"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mark-front",
+          "prompt": "Why must the solvent front be marked as soon as the plate is taken out of the tank?",
+          "hint": "What happens to a thin film of a volatile liquid in air?",
+          "options": [
+            {
+              "text": "The solvent evaporates, so the front soon can't be seen.",
+              "correct": true
+            },
+            {
+              "text": "The solvent front keeps rising after the plate is removed.",
+              "correct": false
+            },
+            {
+              "text": "The pencil baseline fades as the plate dries.",
+              "correct": false
+            },
+            {
+              "text": "The spots dissolve in the air once the plate is out.",
+              "correct": false
+            }
+          ],
+          "explain": "The solvent evaporates quickly and the wet edge disappears. You need the front to calculate $R_\\text{F}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The solvent evaporates, so the front soon can't be seen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "rf-values",
+      "heading": "Retardation factor, $R_\\text{F}$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How far a spot moves depends on how long the plate runs. Dividing by the solvent's distance removes that."
+        },
+        {
+          "type": "definition",
+          "term": "retardation factor",
+          "statement": "The distance a component moves from the baseline divided by the distance the solvent front moves from the baseline.",
+          "plain": "The fraction of the solvent's journey that a component manages to keep up with."
+        },
+        {
+          "type": "formula",
+          "tex": "R_\\text{F} = \\frac{\\text{distance moved by component}}{\\text{distance moved by solvent front}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Measure both distances from the baseline: to the centre of the spot, and to the solvent front."
+        },
+        {
+          "type": "text",
+          "text": "A component can't outrun the solvent carrying it, so $R_\\text{F}$ lies between 0 and 1. It has no units."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-rf-measurement",
+          "alt": "A developed chromatogram with a pencil baseline near the bottom and a dashed solvent front near the top. One blue spot sits partway up. A measuring arrow from the baseline to the centre of the spot is labelled 5.7 centimetres. A longer arrow from the baseline to the solvent front is labelled 9.2 centimetres.",
+          "caption": "Both distances start at the baseline. The spot's distance ends at its centre."
+        },
+        {
+          "type": "example",
+          "id": "ex-rf-blue-dye",
+          "question": "A student runs a TLC of a purple ink. The solvent front is $\\pu{9.2 cm}$ above the baseline. The centre of the blue spot is $\\pu{5.7 cm}$ above the baseline. Calculate $R_\\text{F}$ for the blue dye.",
+          "steps": [
+            "$R_\\text{F} = \\frac{5.7}{9.2} = 0.6196\\ldots$",
+            "The data have 2 significant figures, so give 2. No units."
+          ],
+          "answer": "$R_\\text{F} \\approx 0.62$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "5.7/9.2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "A bigger $R_\\text{F}$ means more attraction to the mobile phase, relative to the stationary phase."
+        },
+        {
+          "type": "text",
+          "text": "A compound's $R_\\text{F}$ only repeats under the same conditions: same stationary phase, solvent and temperature. So compare a sample with references run on the same plate."
+        },
+        {
+          "type": "text",
+          "text": "A mixture gives more than one spot. One spot does not prove purity: two compounds can share an $R_\\text{F}$ in one solvent, so run it again in another."
+        },
+        {
+          "type": "example",
+          "id": "ex-green-colouring",
+          "question": "A green food colouring is run on a TLC plate. The solvent front is $\\pu{8.0 cm}$ above the baseline. Two spots appear, with centres $\\pu{1.6 cm}$ and $\\pu{5.2 cm}$ above the baseline. Under the same conditions, three food dyes have these $R_\\text{F}$ values: brilliant blue $0.20$, carmoisine $0.42$, tartrazine $0.65$. Deduce which dyes the colouring contains.",
+          "steps": [
+            "Calculate $R_\\text{F}$ for each spot.",
+            "Match each value to the table, and look for a dye with no matching spot."
+          ],
+          "answer": "The lower spot has $R_\\text{F} = \\frac{1.6}{8.0} = 0.20$, which matches brilliant blue. The upper spot has $R_\\text{F} = \\frac{5.2}{8.0} = 0.65$, which matches tartrazine. No spot has $R_\\text{F} = 0.42$, so carmoisine is absent. The colouring contains brilliant blue and tartrazine.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "R_F values 0.20 and 0.65 match brilliant blue and tartrazine; carmoisine is absent",
+            "requires": [
+              "0.20",
+              "0.65",
+              "brilliant blue",
+              "tartrazine",
+              "carmoisine is absent"
+            ],
+            "forbids": [
+              "carmoisine is present"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the solvent front's distance by the spot's distance. That gives a value above 1, which is impossible for $R_\\text{F}$."
+        },
+        {
+          "type": "check",
+          "id": "check-rf-paper",
+          "prompt": "On a paper chromatogram, the solvent front is $\\pu{6.8 cm}$ above the baseline. A spot's centre is $\\pu{2.3 cm}$ above the baseline. Calculate $R_\\text{F}$ to 2 decimal places.",
+          "hint": "Put the spot's distance on top.",
+          "answer": {
+            "value": 0.34,
+            "tolerance": 0.005
+          },
+          "explain": "$R_\\text{F} = \\frac{2.3}{6.8} = 0.338\\ldots \\approx 0.34$, with no units.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.3/6.8",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rf-choose",
+          "prompt": "A TLC plate has its baseline $\\pu{1.5 cm}$ above the bottom edge. After the run, the solvent front is $\\pu{8.6 cm}$ above the baseline and a spot's centre is $\\pu{4.9 cm}$ above the baseline. What is $R_\\text{F}$ for the spot?",
+          "hint": "Both distances are measured from the baseline, not from the edge of the plate.",
+          "options": [
+            {
+              "text": "$R_\\text{F} \\approx 0.57$",
+              "correct": true
+            },
+            {
+              "text": "$R_\\text{F} \\approx 0.63$",
+              "correct": false
+            },
+            {
+              "text": "$R_\\text{F} \\approx 0.43$",
+              "correct": false
+            },
+            {
+              "text": "$R_\\text{F} \\approx 1.76$",
+              "correct": false
+            }
+          ],
+          "explain": "$R_\\text{F} = \\frac{4.9}{8.6} \\approx 0.57$. $0.63$ measures from the edge, $0.43$ uses the spot-to-front gap, and $1.76$ divides the wrong way.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.9/8.6",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rf-interpret",
+          "prompt": "On a silica plate with a non-polar solvent, spot X has $R_\\text{F} = 0.12$ and spot Y has $R_\\text{F} = 0.81$. Which statement is correct?",
+          "hint": "A low $R_\\text{F}$ means the component spent little time moving.",
+          "options": [
+            {
+              "text": "X is more strongly attracted to the stationary phase than Y.",
+              "correct": true
+            },
+            {
+              "text": "Y is more strongly attracted to the stationary phase than X.",
+              "correct": false
+            },
+            {
+              "text": "X is less polar than Y.",
+              "correct": false
+            },
+            {
+              "text": "X is more strongly attracted to the mobile phase than Y.",
+              "correct": false
+            }
+          ],
+          "explain": "X has the lower $R_\\text{F}$, so the silica holds it more. Here that also makes X the more polar compound.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X is more strongly attracted to the stationary phase than Y."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Chromatography separates components by their relative attraction, through intermolecular forces, to the stationary and mobile phases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "More attraction to the mobile phase means further travel. On polar silica or paper with a non-polar solvent, the least polar component moves furthest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "R_\\text{F} = \\frac{\\text{distance moved by component}}{\\text{distance moved by solvent front}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Measure both distances from the baseline, to the centre of the spot. $R_\\text{F}$ has no units and lies between 0 and 1.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare $R_\\text{F}$ values only under the same conditions. One spot does not prove a substance is pure.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Practical: pencil baseline above the solvent level, lid on the tank, mark the solvent front at once.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing the wrong way round. $R_\\text{F}$ is the spot's distance over the solvent front's, so it is never above 1.",
+    "Measuring from the plate's edge or to the top of a spot. Measure from the baseline to the spot's centre.",
+    "Saying \"polar compounds move further\". On silica with a non-polar solvent, polar compounds move less.",
+    "Comparing $R_\\text{F}$ values from different solvents or plates. They only match under identical conditions.",
+    "Saying covalent bonds break as a component moves. Only intermolecular forces form and break."
+  ],
+  "examTips": [
+    "\"Calculate\" $R_\\text{F}$: show the division with both distances from the baseline, then the value with no units.",
+    "\"Explain\" which component moves further: name the forces with each phase, say which phase attracts it more, then link to distance. One point per sentence.",
+    "In Paper 1A, rule out any $R_\\text{F}$ above 1 first.",
+    "For a practical precaution, give the action and the reason: \"pencil, because graphite does not dissolve in the solvent\"."
+  ],
+  "readingMinutes": 20
+}

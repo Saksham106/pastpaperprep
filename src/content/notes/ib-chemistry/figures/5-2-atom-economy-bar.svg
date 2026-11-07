@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="t">
+  <title id="t">Two bars of equal length for the reaction of iron(III) oxide with carbon monoxide to make iron. The top bar is the reactants: 159.70 grams of iron(III) oxide plus 84.03 grams of carbon monoxide, 243.73 grams in total. The bottom bar is the same 243.73 grams split into products: 111.70 grams of iron, the desired product, taking 45.8 percent of the bar, and 132.03 grams of carbon dioxide, waste, taking the other 54.2 percent.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="20" y="40">Reactants</text>
+    <text x="20" y="150">Products</text>
+  </g>
+  <!-- reactants bar: total 243.73 g over 600 px; Fe2O3 159.70 -> 393 px, 3CO 84.03 -> 207 px -->
+  <rect x="140" y="20" width="393" height="36" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.6"/>
+  <rect x="533" y="20" width="207" height="36" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.6"/>
+  <!-- products bar: 2Fe 111.70 -> 275 px, 3CO2 132.03 -> 325 px -->
+  <rect x="140" y="130" width="275" height="36" fill="var(--t1-ink)" fill-opacity="0.35" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <rect x="415" y="130" width="325" height="36" fill="none" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <g font-size="14" font-family="inherit" text-anchor="middle" fill="currentColor">
+    <text x="336" y="43">Fe<tspan baseline-shift="sub" font-size="10">2</tspan>O<tspan baseline-shift="sub" font-size="10">3</tspan>: 159.70 g</text>
+    <text x="636" y="43">3CO: 84.03 g</text>
+    <text x="277" y="153">2Fe: 111.70 g</text>
+    <text x="577" y="153">3CO<tspan baseline-shift="sub" font-size="10">2</tspan>: 132.03 g</text>
+  </g>
+  <g font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="440" y="80" fill="var(--muted)">total 243.73 g in, 243.73 g out</text>
+    <text x="277" y="190" fill="var(--t1-ink)">desired product: 45.8%</text>
+    <text x="577" y="190" fill="var(--muted)">waste: 54.2%</text>
+  </g>
+  <path d="M440 90 L440 118" stroke="var(--muted)" stroke-width="1.6" fill="none"/>
+  <polygon points="440,126 435,116 445,116" fill="var(--muted)"/>
+</svg>

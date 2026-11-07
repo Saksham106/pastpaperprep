@@ -1,0 +1,80 @@
+[
+  {
+    "id": "random-error",
+    "term": "random error",
+    "definition": "An unpredictable error that makes repeated readings scatter above and below the true value; repeating and averaging reduces its effect, and it lowers precision.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "systematic-error",
+    "term": "systematic error",
+    "definition": "An error that shifts every reading the same way, such as an unzeroed balance or heat loss; repeating does not reduce it, and it lowers accuracy.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "precision",
+    "term": "precision",
+    "definition": "How close repeated measurements of the same quantity are to each other.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "accuracy",
+    "term": "accuracy",
+    "definition": "How close a measurement, or the mean of several, is to the true or accepted value.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "absolute-uncertainty",
+    "term": "absolute uncertainty",
+    "definition": "The range either side of a value within which the true value is expected to lie, written with $\\pm$ and the same unit as the value, as in $12.35 \\pm \\pu{0.05 cm3}$.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "fractional-uncertainty",
+    "term": "fractional uncertainty",
+    "definition": "The absolute uncertainty divided by the measured value; it has no unit and is also called the relative uncertainty.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-uncertainty",
+    "term": "percentage uncertainty",
+    "definition": "The fractional uncertainty multiplied by 100, which lets you compare the uncertainties of different measurements.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-error",
+    "term": "percentage error",
+    "definition": "The size of the difference between an experimental value and the accepted value, divided by the size of the accepted value (ignore any minus sign) and multiplied by 100.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-change",
+    "term": "percentage change",
+    "definition": "The change in a value divided by its initial value and multiplied by 100; positive for an increase and negative for a decrease.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "percentage-difference",
+    "term": "percentage difference",
+    "definition": "The difference between two values divided by their mean and multiplied by 100, used when neither value is a reference.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "significant-figures",
+    "term": "significant figures",
+    "definition": "The digits of a value that carry meaning: all non-zero digits, zeros between them, and zeros at the end of a number that has a decimal point, but not leading zeros.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "propagation-of-uncertainty",
+    "term": "propagation of uncertainty",
+    "definition": "Working out the uncertainty of a calculated result from its raw data: add absolute uncertainties when adding or subtracting, and add percentage uncertainties when multiplying or dividing.",
+    "lesson": "7.2"
+  },
+  {
+    "id": "processed-data",
+    "term": "processed data",
+    "definition": "Values calculated from raw measurements, such as a titre, a concentration or an enthalpy change; they carry the uncertainties of the readings they came from.",
+    "lesson": "7.2"
+  }
+]

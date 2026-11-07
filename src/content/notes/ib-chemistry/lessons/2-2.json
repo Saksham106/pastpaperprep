@@ -1,0 +1,592 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.2",
+  "slug": "covalent-bonds-and-lewis-formulas",
+  "title": "Covalent bonds and Lewis formulas",
+  "level": "SL",
+  "topic": 2,
+  "summary": "In a [[covalent-bond|covalent bond]], two atoms share a pair of [[electron|electrons]] and both nuclei attract it. A [[lewis-formula|Lewis formula]] shows every outer electron in a molecule or [[ion|ion]], as bonds and [[lone-pair|lone pairs]]. More shared pairs make a bond shorter and stronger, and in a [[coordination-bond|coordination bond]] one atom supplies both electrons.",
+  "goals": [
+    {
+      "text": "Explain what holds a covalent bond together, and why atoms of the same element can form one.",
+      "bullets": ["S2.2.1"]
+    },
+    {
+      "text": "Use the [[octet-rule|octet rule]], and recognise molecules that break it.",
+      "bullets": ["S2.2.1"]
+    },
+    {
+      "text": "Deduce Lewis formulas of molecules and ions in which no atom has more than four electron pairs.",
+      "bullets": ["S2.2.1"]
+    },
+    {
+      "text": "Explain how the number of shared pairs affects [[bond-length|bond length]] and strength.",
+      "bullets": ["S2.2.2"]
+    },
+    {
+      "text": "Identify coordination bonds in molecules and ions.",
+      "bullets": ["S2.2.3"]
+    }
+  ],
+  "prerequisites": ["1.1", "1.2", "1.4", "2.1"],
+  "papers": ["P1", "P2"],
+  "synonyms": [
+    "covalent bonding",
+    "Lewis structures",
+    "electron dot diagrams",
+    "dot and cross diagrams",
+    "dative covalent bond",
+    "octet rule exceptions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-valence-oxygen",
+      "prompt": "Oxygen is $1\\text{s}^{2}\\,2\\text{s}^{2}\\,2\\text{p}^{4}$. How many [[valence-electron|valence electrons]] does it have?",
+      "hint": "Count every electron in the outer shell, $n = 2$.",
+      "options": [
+        { "text": "6", "correct": true },
+        { "text": "4", "correct": false },
+        { "text": "8", "correct": false }
+      ],
+      "explain": "The outer shell holds $2 + 4 = 6$. Counting only the 2p electrons gives 4. Revise it in {{lesson:1.4}}.",
+      "verify": { "kind": "exact", "truth": "2 + 4" }
+    },
+    {
+      "type": "check",
+      "id": "before-ionic-attraction",
+      "prompt": "What holds solid potassium bromide together?",
+      "hint": "A metal reacts with a non-metal. What forms?",
+      "options": [
+        { "text": "attraction between oppositely charged ions", "correct": true },
+        { "text": "shared pairs of electrons", "correct": false },
+        { "text": "attraction between positive ions and delocalized electrons", "correct": false }
+      ],
+      "explain": "Potassium gives an electron to bromine, forming $\\ce{K^+}$ and $\\ce{Br^-}$ ions. Revise it in {{lesson:2.1}}.",
+      "verify": { "kind": "choice", "truth": "attraction between oppositely charged ions" }
+    }
+  ],
+  "sections": [
+    {
+      "id": "covalent",
+      "heading": "What holds a covalent bond together",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Non-metal atoms hold their electrons tightly, so neither can pull electrons off the other. Instead they share a pair: a [[covalent-bond|covalent bond]]. It holds together non-metal elements such as $\\ce{Cl2}$ and covalent [[compound|compounds]] such as $\\ce{CH4}$."
+        },
+        {
+          "type": "text",
+          "text": "Two hydrogen atoms each have one [[unpaired-electron|unpaired electron]]. As the atoms meet, their [[atomic-orbital|atomic orbitals]] overlap and the two electrons pair up between the nuclei."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-shared-pair",
+          "alt": "Two positive nuclei, each inside a dashed circle for its atom. The two circles overlap in the middle, where a shared pair of electrons sits as two dots. A two-headed arrow labelled attraction joins the pair to each nucleus: both nuclei attract the same pair.",
+          "caption": "Both nuclei pull on the same pair."
+        },
+        {
+          "type": "definition",
+          "term": "covalent bond",
+          "statement": "A bond in which two atoms share a pair of electrons. Both positive nuclei attract the shared pair, and this electrostatic attraction holds the atoms together.",
+          "plain": "Two nuclei pulling on the same electrons."
+        },
+        {
+          "type": "text",
+          "text": "The two nuclei repel each other. The pair between them is what holds them together."
+        },
+        {
+          "type": "text",
+          "text": "Atoms of the same element can share, but they cannot form an [[ionic-bond|ionic bond]]: that needs one atom to lose electrons and the other to gain them, and identical atoms pull on electrons equally."
+        },
+        {
+          "type": "definition",
+          "term": "octet rule",
+          "statement": "Atoms tend to lose, gain or share electrons until their valence shell holds eight, like a noble gas. Hydrogen needs only two.",
+          "plain": "Most atoms bond until they have eight outer electrons."
+        },
+        {
+          "type": "text",
+          "text": "The [[octet-rule|octet rule]] counts both electrons of every shared pair for each atom. So an atom with $n$ [[valence-electron|valence electrons]] in groups 14 to 17 usually forms $8 - n$ bonds."
+        },
+        {
+          "type": "example",
+          "id": "ex-covalent-fluorine",
+          "question": "Explain how a covalent bond holds the atoms together in $\\ce{F2}$.",
+          "steps": [
+            "Each F atom has 7 valence electrons and needs one more.",
+            "Each puts one electron into a shared pair. Name the attraction and what it acts between."
+          ],
+          "answer": "Each fluorine atom contributes one electron to a shared pair. Both positive nuclei attract the shared pair. This electrostatic attraction is the covalent bond, and each atom now has an octet.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "one shared pair; both nuclei attract it electrostatically; each F has an octet",
+            "requires": [
+              ["shared pair"],
+              ["nuclei"],
+              ["electrostatic attraction"],
+              ["octet"]
+            ],
+            "forbids": ["transfer", "attraction between the two nuclei"]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-octet-silane",
+          "question": "Silicon is in group 14. Use the octet rule to deduce how many hydrogen atoms bond to one silicon atom.",
+          "steps": [
+            "Silicon has 4 valence electrons, so it needs $8 - 4 = 4$ more.",
+            "Each H shares one electron, so four are needed: $\\ce{SiH4}$. Check: Si has 8 electrons, each H has 2."
+          ],
+          "answer": "$\\text{H atoms per Si} = 4$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "8 - 4" }
+        },
+        {
+          "type": "check",
+          "id": "check-covalent-attraction",
+          "prompt": "What holds the two atoms together in a covalent bond?",
+          "hint": "The nuclei are positive. What is negative?",
+          "options": [
+            { "text": "both nuclei attracting a shared pair of electrons", "correct": true },
+            { "text": "the two nuclei attracting each other", "correct": false },
+            { "text": "two oppositely charged ions attracting each other", "correct": false }
+          ],
+          "explain": "Nuclei repel each other; ions belong to ionic bonding. The shared pair between the nuclei holds them.",
+          "verify": { "kind": "choice", "truth": "both nuclei attracting a shared pair of electrons" }
+        },
+        {
+          "type": "check",
+          "id": "check-octet-phosphorus",
+          "prompt": "Phosphorus is in group 15. How many bonds does it form with hydrogen if it obeys the octet rule?",
+          "hint": "How many electrons short of eight is it?",
+          "options": [
+            { "text": "3", "correct": true },
+            { "text": "5", "correct": false },
+            { "text": "4", "correct": false }
+          ],
+          "explain": "$8 - 5 = 3$, so $\\ce{PH3}$. Five is the number of valence electrons, not bonds.",
+          "verify": { "kind": "exact", "truth": "8 - 5" }
+        },
+        {
+          "type": "text",
+          "text": "Noble gases already have a full valence shell and very high ionization energies. They gain nothing by sharing, so they rarely bond; only heavier ones such as xenon form a few compounds."
+        }
+      ]
+    },
+    {
+      "id": "lewis",
+      "heading": "Drawing Lewis formulas",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[lewis-formula|Lewis formula]] shows every valence electron: bonding pairs between atoms, and [[lone-pair|lone pairs]] on one atom only. Draw a pair as two dots, two crosses or a line."
+        },
+        {
+          "type": "definition",
+          "term": "Lewis formula",
+          "statement": "A diagram of a molecule or ion showing all its valence electrons, as bonding pairs and non-bonding (lone) pairs.",
+          "plain": "Every outer electron, drawn in its place."
+        },
+        {
+          "type": "definition",
+          "term": "lone pair",
+          "statement": "A pair of valence electrons on one atom that is not shared in a bond.",
+          "plain": "Two outer electrons that stay on one atom."
+        },
+        {
+          "type": "text",
+          "text": "1. Add up the valence electrons. For an [[ion|ion]], add one per negative charge or take one away per positive charge. Halve to get pairs."
+        },
+        {
+          "type": "text",
+          "text": "2. Join the outer atoms to the central atom (never H) with single bonds."
+        },
+        {
+          "type": "text",
+          "text": "3. Give outer atoms other than H lone pairs until each has an octet, then put any pairs left on the central atom."
+        },
+        {
+          "type": "text",
+          "text": "4. If the central atom has fewer than eight, share a lone pair from an outer atom to make a multiple bond (next section). Be and B are the exceptions: they keep fewer than eight. Put an ion in square brackets with its charge."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-lewis-examples",
+          "alt": "Three Lewis formulas with bonds as lines and lone pairs as pairs of dots. Methanol: carbon joined to three H atoms and to oxygen, which is joined to the fourth H; oxygen carries two lone pairs. Hypochlorite ion: chlorine singly bonded to oxygen, each with three lone pairs, inside square brackets with a minus charge at the top right. Beryllium chloride: beryllium singly bonded to two chlorines, each chlorine with three lone pairs and beryllium with none, so beryllium has only four electrons around it.",
+          "caption": "An organic molecule, an inorganic ion and an incomplete octet."
+        },
+        {
+          "type": "example",
+          "id": "ex-lewis-methanol",
+          "question": "Deduce the Lewis formula of methanol, $\\ce{CH3OH}$, and state the number of lone pairs.",
+          "steps": [
+            "C 4 + four H 4 + O 6 $= 14$ electrons, so 7 pairs.",
+            "C bonds to three H and to O; O bonds to the last H. Five bonds use 5 pairs.",
+            "The 2 pairs left go on O. Check: C and O have 8 electrons each, each H has 2."
+          ],
+          "answer": "$\\text{lone pairs} = 2$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "(4 + 4*1 + 6)/2 - 5" }
+        },
+        {
+          "type": "example",
+          "id": "ex-lewis-hypochlorite",
+          "question": "Deduce and describe the Lewis formula of the hypochlorite ion, $\\ce{ClO^-}$.",
+          "steps": [
+            "Cl 7 + O 6 + 1 for the charge $= 14$ electrons, so 7 pairs.",
+            "One single bond uses 1 pair; the other 6 go as 3 lone pairs on each atom."
+          ],
+          "answer": "The ion has 14 valence electrons, including one from the charge. Chlorine and oxygen share a single bond. Each atom has three lone pairs, so each has an octet. The formula goes in square brackets with the 1− charge outside.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "14 electrons; Cl-O single bond; three lone pairs on each atom; brackets and charge",
+            "requires": [
+              ["14 valence electrons"],
+              ["single bond"],
+              ["three lone pairs"],
+              ["octet"],
+              ["square brackets"]
+            ],
+            "forbids": ["13 valence electrons", "double bond"]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lewis-amide",
+          "prompt": "In the amide ion, $\\ce{NH2^-}$, how many lone pairs are on the nitrogen atom?",
+          "hint": "Count the valence electrons, including the charge, then take away the two bonds.",
+          "options": [
+            { "text": "2", "correct": true },
+            { "text": "1", "correct": false },
+            { "text": "3", "correct": false }
+          ],
+          "explain": "$5 + 2 + 1 = 8$ electrons, 4 pairs; two are bonds. Forgetting the charge gives 1.",
+          "verify": { "kind": "exact", "truth": "(5 + 2*1 + 1)/2 - 2" }
+        },
+        {
+          "type": "text",
+          "text": "The octet rule is a tendency, not a law. Beryllium and boron have too few valence electrons to reach eight: in $\\ce{BeCl2}$ beryllium has 4, in $\\ce{BF3}$ boron has 6. Odd-electron molecules such as $\\ce{NO}$ (11) cannot give every atom eight."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, atoms from period 3 onwards can hold more than eight electrons.",
+          "lesson": "2.8"
+        },
+        {
+          "type": "check",
+          "id": "check-incomplete-aluminium",
+          "prompt": "An $\\ce{AlCl3}$ molecule has three single bonds and no lone pairs on aluminium. How many electrons surround aluminium?",
+          "hint": "Each bond is one shared pair.",
+          "options": [
+            { "text": "6", "correct": true },
+            { "text": "8", "correct": false },
+            { "text": "3", "correct": false }
+          ],
+          "explain": "$3 \\times 2 = 6$: an incomplete octet. Counting only aluminium's own electrons gives 3.",
+          "verify": { "kind": "exact", "truth": "3*2" }
+        }
+      ]
+    },
+    {
+      "id": "multiple",
+      "heading": "Single, double and triple bonds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $\\ce{O2}$, a single bond would leave each oxygen with seven electrons, so they share two pairs: a double bond. In $\\ce{N2}$, the atoms share three pairs: a triple bond."
+        },
+        {
+          "type": "result",
+          "statement": "Single, double and triple bonds have 1, 2 and 3 shared pairs: 2, 4 and 6 electrons.",
+          "why": "Each shared pair is two electrons between the same two nuclei."
+        },
+        {
+          "type": "definition",
+          "term": "bond length",
+          "statement": "The distance between the nuclei of two covalently bonded atoms.",
+          "plain": "How far apart two bonded atoms sit."
+        },
+        {
+          "type": "result",
+          "statement": "Between the same two elements, more shared pairs give a shorter [[bond-length|bond length]] and a stronger bond.",
+          "why": "More electrons between the nuclei attract both nuclei more strongly, pulling them closer."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-bond-lengths",
+          "alt": "Three pairs of carbon atoms drawn to scale. Single bond, one line: 154 picometres, bond enthalpy 346 kilojoules per mole. Double bond, two lines: 134 picometres, 614 kilojoules per mole. Triple bond, three lines: 120 picometres, 839 kilojoules per mole. An arrow pointing down the list is labelled shorter and stronger.",
+          "caption": "[[bond-enthalpy|Bond enthalpies]] from the data booklet (section 12); lengths from section 11."
+        },
+        {
+          "type": "mistake",
+          "text": "Comparing different elements. $\\ce{N=N}$ ($\\pu{470 kJ mol-1}$) is weaker than $\\ce{C-F}$ ($\\pu{492 kJ mol-1}$), so compare only bonds between the same two elements."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiple-ethyne",
+          "question": "Ethyne, $\\ce{C2H2}$, has the skeleton H–C–C–H. Deduce how many electron pairs the carbon atoms share.",
+          "steps": [
+            "2 C 8 + 2 H 2 $= 10$ electrons, so 5 pairs. Single bonds use 3.",
+            "As lone pairs, the 2 pairs left would give each C only 6 electrons. Put both into the C–C bond: each C now has 8."
+          ],
+          "answer": "$\\text{shared pairs between the C atoms} = 3$",
+          "video": null,
+          "verify": { "kind": "exact", "truth": "(2*4 + 2*1)/2 - 2" }
+        },
+        {
+          "type": "example",
+          "id": "ex-multiple-carbon-oxygen",
+          "question": "A $\\ce{C-O}$ bond is about $\\pu{143 pm}$ long and a $\\ce{C=O}$ bond about $\\pu{122 pm}$. Use section 12 of the data booklet to compare their strengths, and explain the differences.",
+          "steps": [
+            "Booklet: $\\ce{C-O}$ $\\pu{358 kJ mol-1}$, $\\ce{C=O}$ $\\pu{804 kJ mol-1}$.",
+            "Link shared pairs to attraction, then to length and strength."
+          ],
+          "answer": "$\\ce{C=O}$ has two shared pairs and $\\ce{C-O}$ has one. More shared electrons attract both nuclei more strongly. So $\\ce{C=O}$ is shorter ($\\pu{122 pm}$) and stronger ($\\pu{804 kJ mol-1}$) than $\\ce{C-O}$ ($\\pu{143 pm}$, $\\pu{358 kJ mol-1}$).",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C=O has two shared pairs, more attraction to the nuclei, so shorter and stronger",
+            "requires": [
+              ["two shared pairs"],
+              ["attract both nuclei more strongly"],
+              ["shorter"],
+              ["stronger"],
+              ["$\\pu{804 kJ mol-1}$"]
+            ],
+            "forbids": ["longer", "weaker"]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nitrogen-lengths",
+          "prompt": "Which nitrogen–nitrogen bond is the shortest?",
+          "hint": "More shared pairs pull the nuclei closer.",
+          "options": [
+            { "text": "the triple bond", "correct": true },
+            { "text": "the single bond", "correct": false },
+            { "text": "the double bond", "correct": false }
+          ],
+          "explain": "$\\ce{N#N}$ has the most shared electrons, so it is shortest; $\\ce{N-N}$ is longest.",
+          "verify": { "kind": "choice", "truth": "the triple bond" }
+        },
+        {
+          "type": "text",
+          "text": "A $\\ce{C=C}$ bond is less than twice as strong as $\\ce{C-C}$: $614 < 2 \\times 346$. This is not true of every element: $\\ce{N-N}$ ($158$) and $\\ce{O-O}$ ($144$) are unusually weak, so $\\ce{N=N}$ ($470$) is more than twice $\\ce{N-N}$. The second pair of $\\ce{C=C}$ breaks more easily, so alkenes undergo addition reactions that alkanes cannot. The very strong $\\ce{N#N}$ bond ($\\pu{945 kJ mol-1}$) makes nitrogen gas unreactive."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, the extra pairs of a multiple bond are pi bonds.",
+          "lesson": "2.9"
+        },
+        {
+          "type": "check",
+          "id": "check-double-not-twice",
+          "prompt": "$\\ce{C-C}$ is $\\pu{346 kJ mol-1}$ and $\\ce{C=C}$ is $\\pu{614 kJ mol-1}$. Which statement is correct?",
+          "hint": "Compare 614 with $2 \\times 346$.",
+          "options": [
+            { "text": "The second shared pair adds less energy than the first.", "correct": true },
+            { "text": "A double bond is twice as strong as a single bond.", "correct": false },
+            { "text": "A double bond is weaker than a single bond.", "correct": false }
+          ],
+          "explain": "$614 - 346 = 268$, less than 346.",
+          "verify": { "kind": "choice", "truth": "The second shared pair adds less energy than the first." }
+        }
+      ]
+    },
+    {
+      "id": "coordination",
+      "heading": "Coordination bonds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes one atom supplies both electrons of a pair. Ammonia's nitrogen has a lone pair, and $\\ce{H^+}$ is a [[cation|cation]] with no electrons. The lone pair bonds to $\\ce{H^+}$, giving $\\ce{NH4^+}$: a [[coordination-bond|coordination bond]]."
+        },
+        {
+          "type": "definition",
+          "term": "coordination bond",
+          "statement": "A covalent bond in which one atom supplies both electrons of the shared pair. Also called a dative or coordinate bond.",
+          "plain": "One atom brings the pair; the other brings an empty space."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-coordination",
+          "alt": "Left: an ammonia molecule, nitrogen bonded to three hydrogen atoms with a lone pair, next to a hydrogen ion H plus. A curved arrow goes from the lone pair to the H plus. After a reaction arrow, the ammonium ion: nitrogen bonded to four hydrogen atoms inside square brackets with a plus charge, one bond drawn as an arrow from nitrogen to hydrogen. Right: carbon monoxide, carbon and oxygen joined by a triple bond with one lone pair on each atom; one of the three bonds is an arrow pointing from oxygen to carbon.",
+          "caption": "An arrow from donor to acceptor marks a coordination bond."
+        },
+        {
+          "type": "text",
+          "text": "Once formed, it is an ordinary covalent bond: all four N–H bonds in $\\ce{NH4^+}$ are identical. To spot one, look for an atom with one bond more than usual (N with four, O with three), or an atom like B or Al that was short of an octet."
+        },
+        {
+          "type": "example",
+          "id": "ex-coord-tetrachloroaluminate",
+          "question": "$\\ce{AlCl3}$ reacts with a chloride ion to form $\\ce{AlCl4^-}$. Explain how the new bond forms.",
+          "steps": [
+            "Al in $\\ce{AlCl3}$ has only 6 electrons, so it can accept a pair.",
+            "$\\ce{Cl^-}$ has four lone pairs; one becomes the bond."
+          ],
+          "answer": "Aluminium has an incomplete octet, so it can accept an electron pair. The chloride ion shares one lone pair with aluminium. Both electrons come from the chloride ion, so this is a coordination bond.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Cl- donates a lone pair into aluminium's incomplete octet: a coordination bond",
+            "requires": [
+              ["incomplete octet"],
+              ["lone pair"],
+              ["both electrons"],
+              ["coordination bond"]
+            ],
+            "forbids": ["aluminium donates", "ionic bond"]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-coord-carbon-monoxide",
+          "question": "Deduce the Lewis formula of carbon monoxide, $\\ce{CO}$, and identify its coordination bond.",
+          "steps": [
+            "C 4 + O 6 $= 10$ electrons, 5 pairs. Both reach eight only with a triple bond and one lone pair each.",
+            "C keeps 2 electrons as its lone pair and gives 2 to bonding; O gives 4. So one bonding pair comes from O alone."
+          ],
+          "answer": "$\\ce{CO}$ has a triple bond and one lone pair on each atom. Oxygen supplies four of the six bonding electrons and carbon two. So one of the three bonds is a coordination bond: oxygen supplies both electrons.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "triple bond, one lone pair on each atom; one bond is a coordination bond from O",
+            "requires": [
+              ["triple bond"],
+              ["one lone pair on each atom"],
+              ["coordination bond"],
+              ["oxygen supplies both electrons"]
+            ],
+            "forbids": ["carbon supplies both electrons", "double bond"]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coord-species",
+          "prompt": "Which species contains a coordination bond?",
+          "hint": "Look for an atom with one bond more than usual.",
+          "options": [
+            { "text": "$\\ce{PH4^+}$", "correct": true },
+            { "text": "$\\ce{PH3}$", "correct": false },
+            { "text": "$\\ce{CH4}$", "correct": false }
+          ],
+          "explain": "Phosphorus usually forms three bonds. In $\\ce{PH4^+}$ its lone pair has bonded to $\\ce{H^+}$.",
+          "verify": { "kind": "formula", "truth": "formula(\"PH4+\")", "given": true }
+        },
+        {
+          "type": "check",
+          "id": "check-ammonium-bonds",
+          "prompt": "Which is true of the four N–H bonds in $\\ce{NH4^+}$?",
+          "hint": "Does a bond remember where its electrons came from?",
+          "options": [
+            { "text": "All four are identical.", "correct": true },
+            { "text": "One is ionic.", "correct": false },
+            { "text": "One is longer than the others.", "correct": false }
+          ],
+          "explain": "Each is one shared pair between N and H; the origin of the electrons makes no difference.",
+          "verify": { "kind": "choice", "truth": "All four are identical." }
+        },
+        {
+          "type": "text",
+          "level": "AHL",
+          "text": "A [[transition-element|transition element]] ion forms [[complex-ion|complex ions]]. Each [[ligand|ligand]], such as $\\ce{H2O}$, $\\ce{NH3}$ or $\\ce{Cl^-}$, donates a lone pair to the metal ion, forming a coordination bond. The formula goes in square brackets: $\\ce{[Cu(NH3)4(H2O)2]^2+}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-coord-hexaaquairon",
+          "level": "AHL",
+          "question": "Identify the coordination bonds in $\\ce{[Fe(H2O)6]^3+}$ and the atom that supplies their electrons.",
+          "steps": [
+            "Six water molecules each bond once to $\\ce{Fe^3+}$.",
+            "In water only oxygen has lone pairs, so oxygen is the donor."
+          ],
+          "answer": "There are six coordination bonds, one from each water molecule to $\\ce{Fe^3+}$. In each, the oxygen atom donates a lone pair, so oxygen supplies both electrons.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "six coordination bonds, each from an O lone pair to Fe3+",
+            "requires": [
+              ["six coordination bonds"],
+              ["oxygen"],
+              ["lone pair"],
+              ["both electrons"]
+            ],
+            "forbids": ["hydrogen atom donates", "iron supplies"]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coord-tetrachlorocuprate",
+          "level": "AHL",
+          "prompt": "In $\\ce{[CuCl4]^2-}$, what supplies the electron pairs of the coordination bonds?",
+          "hint": "Which species has lone pairs?",
+          "options": [
+            { "text": "the chloride ions", "correct": true },
+            { "text": "the copper(II) ion", "correct": false },
+            { "text": "both, one electron each", "correct": false }
+          ],
+          "explain": "Each chloride ligand donates a lone pair to $\\ce{Cu^2+}$. One electron each would not be a coordination bond.",
+          "verify": { "kind": "choice", "truth": "the chloride ions" }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, the lone-pair donor is a Lewis base and the acceptor a Lewis acid.",
+          "lesson": "6.17"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Covalent bond: both nuclei electrostatically attract a shared pair of electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Octet rule: atoms tend to reach 8 valence electrons (H: 2). Exceptions include $\\ce{BeCl2}$ and $\\ce{BF3}$ (fewer than 8) and odd-electron molecules such as $\\ce{NO}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lewis formula: count valence electrons (± charge), single bonds, octets on outer atoms, leftovers on the centre, then multiple bonds (not for Be or B). Show every lone pair; ions in brackets.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Single, double, triple: 1, 2, 3 shared pairs. Same two elements: more pairs, shorter and stronger.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Coordination bond: one atom supplies both electrons; once formed, it is like any covalent bond.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving lone pairs off outer atoms, such as the three on each Cl. Check every atom has 8 (H: 2).",
+    "Miscounting electrons for an ion. Add one per negative charge, remove one per positive charge, and draw brackets and the charge.",
+    "Giving C, N, O or F more than eight electrons. Make a multiple bond or recount.",
+    "Calling $\\ce{C=C}$ twice as strong as $\\ce{C-C}$. It is stronger, but less than twice: $614$ against $2 \\times 346$."
+  ],
+  "examTips": [
+    "Draw or deduce a Lewis formula: every bonding pair and lone pair, as dots, crosses or lines. Missing lone pairs or hydrogens lose the mark.",
+    "Explain bond length or strength as a chain: shared pairs, then attraction to the nuclei, then shorter and stronger.",
+    "Identify a coordination bond (often Paper 1A): find the atom with one bond more than usual, or an acceptor short of an octet such as B or Al, and say the donor supplies both electrons."
+  ],
+  "readingMinutes": 25
+}

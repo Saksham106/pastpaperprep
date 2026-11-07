@@ -33,6 +33,19 @@ describe("notes home", () => {
     expect(row().notes).toEqual({ href: "/revision-notes/igcse-maths-0580", label: `${lessonCount} lessons` });
   });
 
+  it("keeps IB Chemistry 'Coming soon' while its course is unpublished, and links it once visible", () => {
+    const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"))[0];
+    expect(getCourse("ib-chemistry")!.published).toBe(false);
+    expect(row().notes).toBeUndefined();
+    const restore = setCoursePublishedForTests(true, "ib-chemistry");
+    try {
+      const lessons = getCourse("ib-chemistry")!.lessons.length;
+      expect(row().notes).toEqual({ href: "/revision-notes/ib-chemistry", label: `${lessons} lesson${lessons === 1 ? "" : "s"}` });
+    } finally {
+      restore();
+    }
+  });
+
   it("links IGCSE Chemistry 0620 to its existing topic summaries", () => {
     const [row] = notesRows(banks.filter((bank) => bank.slug === "igcse-chemistry-0620"));
     expect(row.notes?.href).toBe("/revision-notes/igcse-chemistry-0620");

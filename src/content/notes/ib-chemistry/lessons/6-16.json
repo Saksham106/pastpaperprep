@@ -1,0 +1,776 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "6.16",
+  "slug": "nucleophiles-and-electrophiles",
+  "title": "Nucleophiles and electrophiles",
+  "level": "SL",
+  "topic": 6,
+  "summary": "Many organic reactions are one species giving an electron pair to another. A [[nucleophile|nucleophile]] donates the pair and an [[electrophile|electrophile]] accepts it. [[halogenoalkane|Halogenoalkanes]] swap their halogen for a nucleophile, and [[alkene|alkenes]] add electrophiles across their C=C double bond.",
+  "goals": [
+    {
+      "text": "Explain, with equations and [[curly-arrow|curly arrows]], how [[heterolytic-fission|heterolytic fission]] forms ions, and how it differs from [[homolytic-fission|homolytic fission]].",
+      "bullets": [
+        "R3.4.3"
+      ]
+    },
+    {
+      "text": "Recognize nucleophiles and electrophiles in an equation, both charged and neutral.",
+      "bullets": [
+        "R3.4.1",
+        "R3.4.4"
+      ]
+    },
+    {
+      "text": "Deduce equations for [[nucleophilic-substitution|nucleophilic substitution]] and describe how the electron pairs move.",
+      "bullets": [
+        "R3.4.2"
+      ]
+    },
+    {
+      "text": "Explain why alkenes undergo [[electrophilic-addition|electrophilic addition]], and deduce equations for their reactions with water, halogens and hydrogen halides.",
+      "bullets": [
+        "R3.4.5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2",
+    "2.4",
+    "2.12",
+    "3.6",
+    "6.15"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "nucleophile vs electrophile",
+    "heterolytic vs homolytic fission",
+    "curly arrows organic chemistry",
+    "halogenoalkane and hydroxide ion",
+    "alkene addition reactions",
+    "bromine water test for alkenes"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammonia-lone-pair",
+      "prompt": "How many [[lone-pair|lone pairs]] does the nitrogen atom in ammonia, $\\ce{NH3}$, have?",
+      "hint": "Nitrogen has five outer electrons. How many are used in the three N–H bonds?",
+      "answer": {
+        "value": 1,
+        "tolerance": 0
+      },
+      "explain": "Three of nitrogen's five outer electrons pair up with hydrogen. The other two form one lone pair. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(5 - 3)/2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-c-cl-difference",
+      "prompt": "Using section 9 of the data booklet, find the difference in [[electronegativity|electronegativity]] between carbon and chlorine.",
+      "hint": "Look up both values and subtract the smaller from the larger.",
+      "answer": {
+        "value": 0.6,
+        "tolerance": 0
+      },
+      "explain": "$3.2 - 2.6 = 0.6$. Chlorine pulls the bonding pair towards itself, so the C–Cl bond is polar. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "EN('Cl') - EN('C')",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-chlorine-uv",
+      "prompt": "UV light breaks the Cl–Cl bond in $\\ce{Cl2}$ by homolytic fission. What forms?",
+      "hint": "In homolytic fission the bonding pair is shared out evenly.",
+      "options": [
+        {
+          "text": "Two chlorine atoms, each with an unpaired electron",
+          "correct": true
+        },
+        {
+          "text": "Two chloride ions",
+          "correct": false
+        },
+        {
+          "text": "A chloride ion and a chlorine cation",
+          "correct": false
+        }
+      ],
+      "explain": "Each atom keeps one electron of the pair, so each is a [[radical|radical]]. Ions would need one atom to keep both electrons. Revise it in {{lesson:6.15}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Two chlorine atoms, each with an unpaired electron"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "fission",
+      "heading": "Heterolytic fission and curly arrows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:6.15}} a bond broke evenly: in [[homolytic-fission|homolytic fission]] each atom keeps one electron of the bonding pair. A bond can also break unevenly."
+        },
+        {
+          "type": "definition",
+          "term": "heterolytic fission",
+          "statement": "A covalent bond breaks and one fragment keeps both bonding electrons.",
+          "plain": "One atom walks off with the whole bonding pair."
+        },
+        {
+          "type": "text",
+          "text": "When a neutral molecule breaks this way, the fragment that takes the pair gains an electron, so it becomes negative. The other fragment loses its share, so it becomes positive. So heterolytic fission of a neutral molecule makes ions."
+        },
+        {
+          "type": "text",
+          "text": "Usually the more [[electronegativity|electronegative]] atom takes the pair. In H–Cl, chlorine ($3.2$) attracts electrons more strongly than hydrogen ($2.2$) (data booklet, section 9), so the bond breaks to give $\\ce{H^+}$ and $\\ce{Cl^-}$."
+        },
+        {
+          "type": "definition",
+          "term": "curly arrow",
+          "statement": "A curved arrow with a full head that shows an electron pair moving. It starts at a lone pair or a bond, and ends at the atom or bond where the pair goes.",
+          "plain": "Curly arrows follow the electrons, not the atoms."
+        },
+        {
+          "type": "figure",
+          "id": "6-16-fission-types",
+          "alt": "Two rows comparing ways the H–Cl bond can break. Top row, homolytic fission in UV light: two half-headed fish-hook arrows start at the middle of the H–Cl bond, one curving to H and one to Cl. The products are a hydrogen atom and a chlorine atom, each drawn with a single dot for its unpaired electron. Note: each atom keeps one electron, two radicals. Bottom row, heterolytic fission: H is labelled delta plus and Cl delta minus. One full-headed curly arrow starts at the H–Cl bond and ends on Cl. The products are H plus and Cl minus. Note: Cl keeps both electrons, two ions.",
+          "caption": "One electron each gives radicals; both electrons to one atom gives ions."
+        },
+        {
+          "type": "text",
+          "text": "A half-headed (fish-hook) arrow moves one electron, so homolytic fission needs two. Heterolytic fission needs one full arrow, from the bond to the atom that keeps the pair."
+        },
+        {
+          "type": "example",
+          "id": "ex-fission-hbr",
+          "question": "The H–Br bond breaks heterolytically when hydrogen bromide dissolves in water. Use section 9 of the data booklet to decide which atom keeps the bonding pair, then write the equation for the fission.",
+          "steps": [
+            "Electronegativity: Br is $3.0$ and H is $2.2$. Bromine attracts the pair more strongly.",
+            "The curly arrow goes from the H–Br bond to Br. Bromine takes both electrons and becomes $\\ce{Br^-}$, which leaves $\\ce{H^+}$.",
+            "Check the charge: $0$ on the left and $(+1) + (-1) = 0$ on the right."
+          ],
+          "answer": "$\\ce{HBr -> H^+ + Br^-}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "HBr -> H^+ + Br^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-fission",
+          "question": "Distinguish between the breaking of the Cl–Cl bond in UV light and the heterolytic fission of the H–Cl bond. Refer to the electrons, the products and the arrows used.",
+          "steps": [
+            "Say where the two bonding electrons go in each case.",
+            "Name what forms, and the arrow that shows it."
+          ],
+          "answer": "In UV light the Cl–Cl bond breaks by homolytic fission: each chlorine atom keeps one electron of the bonding pair. This gives two radicals, each with an unpaired electron, and is shown with two fish-hook arrows. In the heterolytic fission of H–Cl, chlorine keeps both bonding electrons because it is more electronegative. This gives ions, $\\ce{H^+}$ and $\\ce{Cl^-}$, and is shown with one full curly arrow.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Homolytic: one electron each, two radicals, fish-hook arrows. Heterolytic: Cl keeps both electrons (more electronegative), ions, one full curly arrow.",
+            "requires": [
+              "homolytic fission",
+              "one electron",
+              "radicals",
+              "both bonding electrons",
+              "more electronegative",
+              "ions",
+              "fish-hook",
+              "curly arrow"
+            ],
+            "forbids": [
+              "chlorine keeps one electron",
+              "two ions from Cl2",
+              "releases energy"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fission-fragments",
+          "prompt": "The C–Br bond in 2-bromo-2-methylpropane, $\\ce{(CH3)3CBr}$, breaks heterolytically. Which fragments form?",
+          "hint": "Which atom is more electronegative? It keeps the pair.",
+          "options": [
+            {
+              "text": "A positive carbon ion (carbocation) and a bromide ion",
+              "correct": true
+            },
+            {
+              "text": "A negative carbon ion and a positive bromine ion",
+              "correct": false
+            },
+            {
+              "text": "Two radicals, each with one unpaired electron",
+              "correct": false
+            },
+            {
+              "text": "Two neutral molecules",
+              "correct": false
+            }
+          ],
+          "explain": "Bromine ($3.0$) is more electronegative than carbon ($2.6$), so it keeps both electrons: $\\ce{(CH3)3C^+}$ and $\\ce{Br^-}$ form. Two radicals would mean homolytic fission.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A positive carbon ion (carbocation) and a bromide ion"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-curly-arrow-meaning",
+          "prompt": "What does a curly arrow with a full head show?",
+          "hint": "Compare it with the half-headed fish-hook arrow.",
+          "options": [
+            {
+              "text": "The movement of an electron pair",
+              "correct": true
+            },
+            {
+              "text": "The movement of one electron",
+              "correct": false
+            },
+            {
+              "text": "The movement of an atom",
+              "correct": false
+            },
+            {
+              "text": "The movement of a proton",
+              "correct": false
+            }
+          ],
+          "explain": "A full head moves two electrons; a fish-hook moves one. Arrows never show atoms or protons moving, only electrons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The movement of an electron pair"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing the arrow from the atom that gains the electrons. Start the arrow where the pair is now (a bond or lone pair) and end it where the pair goes."
+        }
+      ]
+    },
+    {
+      "id": "nucleophiles-electrophiles",
+      "heading": "Nucleophiles and electrophiles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a new covalent bond forms, one partner can supply both of its electrons. The two partners get names."
+        },
+        {
+          "type": "definition",
+          "term": "nucleophile",
+          "statement": "A reactant that donates an electron pair to make a new covalent bond with its partner, the electrophile.",
+          "plain": "Nucleophile means nucleus-loving: it seeks out positive, electron-poor sites."
+        },
+        {
+          "type": "definition",
+          "term": "electrophile",
+          "statement": "A reactant that accepts an electron pair from its partner, the nucleophile, to make a new covalent bond.",
+          "plain": "Electrophile means electron-loving: it seeks out electron-rich sites."
+        },
+        {
+          "type": "text",
+          "text": "A nucleophile needs a [[lone-pair|lone pair]] (or another electron-rich region) to donate. It can be negative, such as $\\ce{OH^-}$, $\\ce{CN^-}$ and $\\ce{Cl^-}$, or neutral, such as $\\ce{H2O}$ and $\\ce{NH3}$."
+        },
+        {
+          "type": "text",
+          "text": "An electrophile has an electron-poor site that can take a pair. It can be positive, such as $\\ce{H^+}$ and $\\ce{NO2^+}$, or neutral. Neutral examples are $\\ce{Br2}$, which becomes polarized near a C=C bond, and a carbon atom with a [[partial-charge|partial positive charge]] (δ+)."
+        },
+        {
+          "type": "text",
+          "text": "They always come as a pair. In $\\ce{H2O + H^+ -> H3O^+}$, a lone pair on the oxygen of water forms the new O–H bond. Water is the nucleophile and $\\ce{H^+}$ is the electrophile."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, nucleophiles are also called Lewis bases and electrophiles Lewis acids.",
+          "lesson": "6.17"
+        },
+        {
+          "type": "example",
+          "id": "ex-identify-cyanide-proton",
+          "question": "Hydrogen cyanide forms in the reaction $\\ce{CN^- + H^+ -> HCN}$. Identify the nucleophile and the electrophile, and explain your choice.",
+          "steps": [
+            "Look for a lone pair: the carbon atom of $\\ce{CN^-}$ has one.",
+            "Look for a site with room for a pair: $\\ce{H^+}$ has no electrons at all."
+          ],
+          "answer": "The cyanide ion is the nucleophile: it donates a lone pair, from its carbon atom, to form the new C–H bond. The hydrogen ion is the electrophile: it accepts that electron pair.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "CN- donates a lone pair (nucleophile); H+ accepts it (electrophile).",
+            "requires": [
+              "cyanide ion is the nucleophile",
+              "donates a lone pair",
+              "hydrogen ion is the electrophile",
+              "accepts"
+            ],
+            "forbids": [
+              "cyanide ion is the electrophile",
+              "hydrogen ion is the nucleophile"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ammonia-chlorobutane",
+          "question": "Ammonia reacts with 1-chlorobutane. Explain why ammonia can act as a nucleophile, and why it attacks the carbon atom bonded to chlorine.",
+          "steps": [
+            "Ammonia: the nitrogen atom has one lone pair.",
+            "1-Chlorobutane: chlorine ($3.2$) is more electronegative than carbon ($2.6$), so the C–Cl bond is polar."
+          ],
+          "answer": "Ammonia is a neutral nucleophile because the nitrogen atom has a lone pair it can donate. Chlorine is more electronegative than carbon, so the carbon bonded to chlorine carries a partial positive charge (δ+). This electron-poor carbon is the electrophilic site, so the nitrogen lone pair attacks it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "N has a lone pair to donate; Cl is more electronegative, so the carbon bonded to Cl is δ+ and electron-poor.",
+            "requires": [
+              "lone pair",
+              "nitrogen",
+              "donate",
+              "more electronegative",
+              [
+                "partial positive charge",
+                "δ+"
+              ],
+              "carbon bonded to chlorine"
+            ],
+            "forbids": [
+              "attacks the chlorine",
+              "ammonia is the electrophile"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutral-electrophile",
+          "prompt": "Which species can act as an electrophile even though it is neutral?",
+          "hint": "An electrophile accepts a pair. Which neutral species can do that?",
+          "options": [
+            {
+              "text": "Bromine",
+              "correct": true
+            },
+            {
+              "text": "Water",
+              "correct": false
+            },
+            {
+              "text": "The hydrogen ion",
+              "correct": false
+            },
+            {
+              "text": "The cyanide ion",
+              "correct": false
+            }
+          ],
+          "explain": "Near a C=C bond, $\\ce{Br2}$ is polarized and its δ+ end accepts a pair. Water is neutral but donates pairs, $\\ce{H^+}$ accepts but is charged, and $\\ce{CN^-}$ donates.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Bromine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-only-nucleophiles",
+          "prompt": "Which list contains only nucleophiles?",
+          "hint": "Every species in the list needs a lone pair to donate.",
+          "options": [
+            {
+              "text": "Hydroxide ion, ammonia, water",
+              "correct": true
+            },
+            {
+              "text": "Hydroxide ion, hydrogen ion, ammonia",
+              "correct": false
+            },
+            {
+              "text": "Chloride ion, methane, water",
+              "correct": false
+            },
+            {
+              "text": "Ammonia, bromine, cyanide ion",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{OH^-}$, $\\ce{NH3}$ and $\\ce{H2O}$ each have a lone pair to donate. $\\ce{H^+}$ and $\\ce{Br2}$ act as electrophiles, and $\\ce{CH4}$ has no lone pair.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Hydroxide ion, ammonia, water"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a nucleophile must be negative. Water and ammonia are neutral nucleophiles: what matters is a lone pair to donate."
+        }
+      ]
+    },
+    {
+      "id": "substitution",
+      "heading": "Nucleophilic substitution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[halogenoalkane|halogenoalkane]] has a [[halogeno-group|halogeno group]], X, on a carbon atom. Chlorine and bromine are more electronegative than carbon, so that carbon is δ+ and attracts nucleophiles."
+        },
+        {
+          "type": "definition",
+          "term": "nucleophilic substitution",
+          "statement": "A reaction in which a nucleophile donates an electron pair to a carbon atom to form a new bond, and the carbon's bond to another group breaks so that group leaves.",
+          "plain": "The nucleophile swaps in and the halide swaps out."
+        },
+        {
+          "type": "text",
+          "text": "It is a [[substitution-reaction|substitution reaction]]: one group replaces another on the same carbon."
+        },
+        {
+          "type": "definition",
+          "term": "leaving group",
+          "statement": "The atom or group that breaks away from the carbon, taking both electrons of its old bond with it.",
+          "plain": "In a halogenoalkane it leaves as a halide ion, such as $\\ce{Cl^-}$ or $\\ce{Br^-}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-16-substitution-arrows",
+          "alt": "Nucleophilic substitution. Left: a hydroxide ion, HO with a negative charge and a lone pair, and 1-chloropropane, drawn as a carbon bonded to an ethyl group, two hydrogens and a chlorine. The carbon is labelled delta plus and the chlorine delta minus. One curly arrow goes from the lone pair on oxygen to the carbon. A second curly arrow goes from the carbon–chlorine bond to the chlorine. A reaction arrow leads to propan-1-ol, the same carbon now bonded to OH, plus a chloride ion with a negative charge.",
+          "caption": "Two curly arrows: the new C–O bond forms as the C–Cl bond breaks."
+        },
+        {
+          "type": "text",
+          "text": "1. Arrow from a lone pair on the nucleophile to the δ+ carbon: the new bond forms."
+        },
+        {
+          "type": "text",
+          "text": "2. Arrow from the C–X bond to X: the bond breaks by heterolytic fission, and X leaves as $\\ce{X^-}$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you draw the full SN1 and SN2 mechanisms and compare how fast chloro-, bromo- and iodoalkanes react.",
+          "lesson": "6.18"
+        },
+        {
+          "type": "example",
+          "id": "ex-substitution-chlorobutane",
+          "question": "2-Chlorobutane is warmed with aqueous sodium hydroxide. Deduce the ionic equation for the nucleophilic substitution.",
+          "steps": [
+            "The nucleophile is $\\ce{OH^-}$. A lone pair on its oxygen attacks carbon 2, the δ+ carbon bonded to Cl.",
+            "The C–Cl bond breaks and $\\ce{Cl^-}$ leaves. OH takes the place of Cl on the same carbon.",
+            "The product is butan-2-ol, $\\ce{CH3CH(OH)CH2CH3}$. Check: each side has a charge of $1-$. The $\\ce{Na^+}$ ion is a spectator, so it is left out."
+          ],
+          "answer": "$\\ce{CH3CHClCH2CH3 + OH^- -> CH3CH(OH)CH2CH3 + Cl^-}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cyanide-bromoethane",
+          "question": "Bromoethane reacts with cyanide ions, $\\ce{CN^-}$. Describe the movement of electron pairs, and write the equation.",
+          "steps": [
+            "The nucleophile is $\\ce{CN^-}$, which donates the lone pair on its carbon atom.",
+            "Describe both arrows, then give the products with their charges."
+          ],
+          "answer": "The cyanide ion donates the lone pair on its carbon atom to the δ+ carbon bonded to bromine. A curly arrow goes from that lone pair to the carbon, and a new C–C bond forms. At the same time the C–Br bond breaks by heterolytic fission: a curly arrow goes from the bond to the bromine atom, which keeps both bonding electrons. Bromine leaves as a bromide ion, the leaving group: $\\ce{CH3CH2Br + CN^- -> CH3CH2CN + Br^-}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Lone pair on C of CN- to the δ+ carbon (new C–C bond); C–Br breaks heterolytically, Br- leaves.",
+            "requires": [
+              "lone pair",
+              [
+                "δ+",
+                "partial positive"
+              ],
+              "new C-C bond",
+              "heterolytic fission",
+              "both bonding electrons",
+              "bromide ion",
+              "leaving group"
+            ],
+            "forbids": [
+              "homolytic",
+              "bromine atom leaves"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-leaving-group",
+          "prompt": "1-Iodopentane reacts with aqueous hydroxide ions. What is the leaving group?",
+          "hint": "What breaks away from the carbon, and with how many electrons?",
+          "options": [
+            {
+              "text": "The iodide ion",
+              "correct": true
+            },
+            {
+              "text": "The hydroxide ion",
+              "correct": false
+            },
+            {
+              "text": "An iodine atom",
+              "correct": false
+            },
+            {
+              "text": "Pentan-1-ol",
+              "correct": false
+            }
+          ],
+          "explain": "Iodine leaves with both electrons of the C–I bond, so it is an ion, not an atom. $\\ce{OH^-}$ is the nucleophile and pentan-1-ol is the product.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The iodide ion"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-substitution",
+          "prompt": "Which equation shows a nucleophilic substitution?",
+          "hint": "Look for a nucleophile replacing a group that leaves as an ion.",
+          "options": [
+            {
+              "text": "$\\ce{C2H5I + CN^- -> C2H5CN + I^-}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{C2H6 + Cl2 -> C2H5Cl + HCl}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{C2H4 + HI -> C2H5I}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{CN^- + H^+ -> HCN}$",
+              "correct": false
+            }
+          ],
+          "explain": "In the first, $\\ce{CN^-}$ replaces iodine, which leaves as $\\ce{I^-}$. The second is radical substitution in UV light, the third is an addition, and the last replaces nothing.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C2H5I + CN^- -> C2H5CN + I^-",
+            "reversible": false
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing only one arrow. The C–X bond breaks too, so draw a second arrow from that bond to X."
+        }
+      ]
+    },
+    {
+      "id": "addition",
+      "heading": "Electrophilic addition to alkenes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[alkene|alkene]] has a C=C double bond: four electrons shared between two carbon atoms. This region of high electron density attracts electrophiles."
+        },
+        {
+          "type": "text",
+          "text": "Alkenes are [[unsaturated|unsaturated]], so they undergo [[addition-reaction|addition reactions]]. One of the two bonds in C=C opens, and two new atoms or groups join, one on each carbon. The product is saturated."
+        },
+        {
+          "type": "definition",
+          "term": "electrophilic addition",
+          "statement": "An addition reaction in which an electrophile attacks the electron-rich C=C bond, so that each carbon of the double bond gains a new bond.",
+          "plain": "Something electron-poor adds across the double bond."
+        },
+        {
+          "type": "figure",
+          "id": "6-16-ethene-additions",
+          "alt": "Three rows, each starting with ethene, CH2=CH2. Row 1: plus Br2, at room temperature, gives CH2BrCH2Br, 1,2-dibromoethane. Row 2: plus HBr, at room temperature, gives CH3CH2Br, bromoethane. Row 3: plus steam, H2O as a gas, with a phosphoric acid catalyst, heat and pressure, gives CH3CH2OH, ethanol.",
+          "caption": "The three additions you must know, shown for ethene."
+        },
+        {
+          "type": "text",
+          "text": "1. Halogens, at room temperature: $\\ce{CH2=CH2 + Br2 -> CH2BrCH2Br}$ (1,2-dibromoethane)."
+        },
+        {
+          "type": "text",
+          "text": "2. Hydrogen halides, at room temperature: $\\ce{CH2=CH2 + HBr -> CH3CH2Br}$ (bromoethane)."
+        },
+        {
+          "type": "text",
+          "text": "3. Water, as steam with a phosphoric acid catalyst at high temperature and pressure: $\\ce{CH2=CH2 + H2O -> CH3CH2OH}$ (ethanol)."
+        },
+        {
+          "type": "text",
+          "text": "The two new groups always go on the two carbons of the old double bond. With an unsymmetrical alkene such as propene, HBr or water can add either way round, so two products are possible."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you draw the mechanism, through a carbocation, and predict which product is the major one.",
+          "lesson": "6.19"
+        },
+        {
+          "type": "text",
+          "text": "Because C=C reacts so readily, cheap alkenes such as ethene are starting molecules for industry. Addition turns them into alcohols, halogenoalkanes and polymers ({{lesson:2.12}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-but2ene-hbr",
+          "question": "But-2-ene, $\\ce{CH3CH=CHCH3}$, reacts with hydrogen bromide at room temperature. Deduce the equation, using structural formulas.",
+          "steps": [
+            "HBr adds across the C=C bond: H goes to one carbon of the double bond and Br to the other.",
+            "But-2-ene is symmetrical, so either way round gives the same product, 2-bromobutane.",
+            "Check the atoms: $\\ce{C4H8}$ plus $\\ce{HBr}$ gives $\\ce{C4H9Br}$."
+          ],
+          "answer": "$\\ce{CH3CH=CHCH3 + HBr -> CH3CHBrCH2CH3}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bromine-water-dark",
+          "question": "In the dark, a student shakes bromine water with hex-1-ene in one tube and with hexane in another. Explain what the student sees in each tube.",
+          "steps": [
+            "Hex-1-ene has a C=C bond; hexane has only single bonds.",
+            "Link each result to the type of reaction, and to whether it needs light."
+          ],
+          "answer": "With hex-1-ene, the orange-brown bromine water turns colourless. The C=C double bond is a region of high electron density, so bromine acts as an electrophile and adds across it by electrophilic addition, which needs no light. With hexane, the colour stays orange-brown. Hexane has no C=C bond, so it can react with bromine only by radical substitution, which needs UV light to break the Br–Br bond.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Alkene: high electron density at C=C, Br2 is an electrophile, electrophilic addition decolourizes it in the dark. Alkane: only radical substitution, which needs UV, so no change.",
+            "requires": [
+              "turns colourless",
+              "high electron density",
+              "electrophile",
+              "electrophilic addition",
+              "stays orange-brown",
+              "radical substitution",
+              "UV light"
+            ],
+            "forbids": [
+              "hexane turns colourless",
+              "hexane is unsaturated"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-propene-bromine",
+          "prompt": "Propene, $\\ce{CH2=CHCH3}$, reacts with bromine at room temperature. What is the product?",
+          "hint": "Both bromine atoms join the carbons of the double bond.",
+          "options": [
+            {
+              "text": "1,2-dibromopropane",
+              "correct": true
+            },
+            {
+              "text": "1,3-dibromopropane",
+              "correct": false
+            },
+            {
+              "text": "1-bromopropane",
+              "correct": false
+            },
+            {
+              "text": "2-bromopropane",
+              "correct": false
+            }
+          ],
+          "explain": "The double bond is between carbons 1 and 2, so one Br goes on each: 1,2-dibromopropane. A product with one Br comes from HBr, not $\\ce{Br2}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "1,2-dibromopropane"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-butene-steam",
+          "prompt": "But-2-ene reacts with steam over a phosphoric acid catalyst. Which product forms?",
+          "hint": "H adds to one carbon of the C=C, OH to the other.",
+          "options": [
+            {
+              "text": "Butan-2-ol",
+              "correct": true
+            },
+            {
+              "text": "Butan-1-ol",
+              "correct": false
+            },
+            {
+              "text": "Butane-2,3-diol",
+              "correct": false
+            },
+            {
+              "text": "Butane",
+              "correct": false
+            }
+          ],
+          "explain": "The double bond joins carbons 2 and 3, so the OH lands on one of them: butan-2-ol either way round. One water adds one OH, not two.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Butan-2-ol"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"deduce\" the equation for an addition, write structural formulas such as $\\ce{CH3CHBrCH2CH3}$, not $\\ce{C4H9Br}$, so the position of each atom is clear."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Heterolytic fission: one fragment (usually the more electronegative atom) keeps both bonding electrons, so a neutral molecule gives ions. Homolytic fission gives radicals.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Full-headed curly arrow: an electron pair moves, from a lone pair or bond to an atom or bond.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Nucleophile: electron-pair donor, negative ($\\ce{OH^-}$, $\\ce{CN^-}$) or neutral ($\\ce{H2O}$, $\\ce{NH3}$). Electrophile: electron-pair acceptor, positive ($\\ce{H^+}$) or neutral ($\\ce{Br2}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Nucleophilic substitution, e.g. $\\ce{R-X + OH^- -> R-OH + X^-}$: arrows from the nucleophile's lone pair to the δ+ carbon, and from C–X to X.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electrophilic addition to C=C: $\\ce{Br2}$ or HBr at room temperature; steam with a phosphoric acid catalyst gives an alcohol. Bromine water turns colourless: the test for C=C.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Starting the substitution arrow at the H of $\\ce{OH^-}$. The new bond is C–O, so the arrow starts at a lone pair on the oxygen.",
+    "Writing the leaving halogen as an atom, Br. It leaves as the ion $\\ce{Br^-}$, so show its charge.",
+    "Putting both new atoms on the same carbon in an addition. One goes on each carbon of the old double bond, so propene and bromine give 1,2-dibromopropane.",
+    "Saying alkanes turn bromine water colourless in the dark. They react with bromine only by radical substitution, which needs UV light or a high temperature.",
+    "Giving a molecular formula such as $\\ce{C3H7Br}$ for an organic product. A structural formula shows where the halogen is."
+  ],
+  "examTips": [
+    "To \"deduce\" a substitution equation with curly arrows, earn a mark for each arrow (from the nucleophile's lone pair or charge to the carbon, and from C–X to X) and one for the correct products with their charges.",
+    "\"Explain, with an equation\" heterolytic fission: write the equation with the ions' charges, and say which atom keeps both electrons and why (electronegativity).",
+    "Paper 1A often asks for the nucleophile or electrophile in an equation. Find the species that donates an electron pair first (a lone pair, or the π pair of a C=C bond); its partner is the electrophile.",
+    "\"Explain\" bromine water results: link the colour change to the C=C bond's high electron density and electrophilic addition, and say alkanes need UV light for radical substitution."
+  ],
+  "readingMinutes": 26
+}

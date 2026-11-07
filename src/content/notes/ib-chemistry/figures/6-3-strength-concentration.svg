@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 330" role="img" aria-labelledby="t">
+  <title id="t">Four boxes of acid solution in a two by two grid, water molecules not shown. Columns: concentrated on the left, dilute on the right. Rows: strong acid on top, weak acid below. Strong and concentrated: eight hydronium ions and eight anions, no acid molecules left. Strong and dilute: three hydronium ions and three anions, no acid molecules left. Weak and concentrated: seven un-ionized acid molecules, labelled HA, with only one hydronium ion and one anion. Weak and dilute: two HA molecules with one hydronium ion and one anion. Key: plus in a circle is a hydronium ion, minus in a circle is the anion A minus, HA is an un-ionized acid molecule.</title>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="187" y="28">concentrated</text>
+    <text x="392" y="28">dilute</text>
+    <text x="44" y="96">strong</text>
+    <text x="44" y="110">acid</text>
+    <text x="44" y="226">weak</text>
+    <text x="44" y="240">acid</text>
+  </g>
+  <g font-size="15" font-family="inherit" text-anchor="middle" font-weight="bold">
+    <rect x="90" y="40" width="195" height="120" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <circle cx="112" cy="64" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="112" y="68.5" fill="var(--t1-ink)">+</text>
+    <circle cx="142" cy="64" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="142" y="68.5" fill="var(--t2-ink)">−</text>
+    <circle cx="172" cy="64" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="172" y="68.5" fill="var(--t1-ink)">+</text>
+    <circle cx="202" cy="64" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="202" y="68.5" fill="var(--t2-ink)">−</text>
+    <circle cx="232" cy="64" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="232" y="68.5" fill="var(--t1-ink)">+</text>
+    <circle cx="262" cy="64" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="262" y="68.5" fill="var(--t2-ink)">−</text>
+    <circle cx="112" cy="100" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="112" y="104.5" fill="var(--t1-ink)">+</text>
+    <circle cx="142" cy="100" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="142" y="104.5" fill="var(--t2-ink)">−</text>
+    <circle cx="172" cy="100" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="172" y="104.5" fill="var(--t1-ink)">+</text>
+    <circle cx="202" cy="100" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="202" y="104.5" fill="var(--t2-ink)">−</text>
+    <circle cx="232" cy="100" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="232" y="104.5" fill="var(--t1-ink)">+</text>
+    <circle cx="262" cy="100" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="262" y="104.5" fill="var(--t2-ink)">−</text>
+    <circle cx="112" cy="136" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="112" y="140.5" fill="var(--t1-ink)">+</text>
+    <circle cx="142" cy="136" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="142" y="140.5" fill="var(--t2-ink)">−</text>
+    <circle cx="172" cy="136" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="172" y="140.5" fill="var(--t1-ink)">+</text>
+    <circle cx="202" cy="136" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="202" y="140.5" fill="var(--t2-ink)">−</text>
+    <rect x="295" y="40" width="195" height="120" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <circle cx="317" cy="64" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="317" y="68.5" fill="var(--t1-ink)">+</text>
+    <circle cx="437" cy="64" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="437" y="68.5" fill="var(--t2-ink)">−</text>
+    <circle cx="347" cy="100" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="347" y="104.5" fill="var(--t1-ink)">+</text>
+    <circle cx="407" cy="100" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="407" y="104.5" fill="var(--t2-ink)">−</text>
+    <circle cx="377" cy="136" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="377" y="140.5" fill="var(--t1-ink)">+</text>
+    <circle cx="467" cy="136" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="467" y="140.5" fill="var(--t2-ink)">−</text>
+    <rect x="90" y="170" width="195" height="120" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="97" y="184" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="112" y="198" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="157" y="184" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="172" y="198" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="217" y="184" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="232" y="198" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="127" y="220" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="142" y="234" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="187" y="220" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="202" y="234" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="247" y="220" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="262" y="234" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="127" y="256" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="142" y="270" fill="var(--t3-ink)" font-size="11">HA</text>
+    <circle cx="202" cy="266" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="202" y="270.5" fill="var(--t1-ink)">+</text>
+    <circle cx="232" cy="266" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="232" y="270.5" fill="var(--t2-ink)">−</text>
+    <rect x="295" y="170" width="195" height="120" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="332" y="184" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="347" y="198" fill="var(--t3-ink)" font-size="11">HA</text>
+    <rect x="362" y="220" width="30" height="20" rx="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><text x="377" y="234" fill="var(--t3-ink)" font-size="11">HA</text>
+    <circle cx="437" cy="230" r="11" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><text x="437" y="234.5" fill="var(--t1-ink)">+</text>
+    <circle cx="407" cy="266" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><text x="407" y="270.5" fill="var(--t2-ink)">−</text>
+  </g>
+  <g font-size="11" font-family="inherit">
+    <circle cx="40" cy="310" r="9" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+    <text x="40" y="314" fill="var(--t1-ink)" text-anchor="middle" font-weight="bold">+</text>
+    <text x="54" y="314" fill="currentColor">H₃O⁺ ion</text>
+    <circle cx="150" cy="310" r="9" fill="none" stroke="var(--t2-ink)" stroke-width="1.4"/>
+    <text x="150" y="314" fill="var(--t2-ink)" text-anchor="middle" font-weight="bold">−</text>
+    <text x="164" y="314" fill="currentColor">A⁻ ion</text>
+    <rect x="240" y="301" width="30" height="18" rx="9" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/>
+    <text x="255" y="314" fill="var(--t3-ink)" text-anchor="middle">HA</text>
+    <text x="278" y="314" fill="currentColor">un-ionized acid molecule</text>
+  </g>
+</svg>

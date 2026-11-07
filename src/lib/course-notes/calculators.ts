@@ -31,6 +31,7 @@ const sameIds = (keys: string[], ids: readonly string[]) => keys.length === ids.
 export function calculatorErrors(block: CalculatorBlock, ids: readonly string[], snippets: CalculatorSnippets = {}): string[] {
   const errors: string[] = [];
   const raw = block as Record<string, unknown>;
+  if (!ids.length) return ["this course names no calculators (course.json calculators), so it has no calculator blocks"];
   if ("steps" in raw && "snippet" in raw) return ["calculator block has both steps and a snippet; use one"];
   if ("steps" in block) {
     const keys = Object.keys(block.steps ?? {});

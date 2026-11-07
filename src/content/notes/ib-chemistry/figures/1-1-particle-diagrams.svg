@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 180" role="img" aria-labelledby="t">
+  <title id="t">Four boxes of particles. Box 1, an element made of atoms: separate circles, all the same colour. Box 2, an element made of molecules: pairs of joined circles, all the same colour. Box 3, a compound: identical particles, each one large circle joined to two small circles of a different colour. Box 4, a mixture: some single circles and some joined pairs of a different colour, mixed together and not joined to each other.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="15" y="15" width="120" height="125" rx="6"/>
+    <rect x="155" y="15" width="120" height="125" rx="6"/>
+    <rect x="295" y="15" width="120" height="125" rx="6"/>
+    <rect x="435" y="15" width="120" height="125" rx="6"/>
+  </g>
+  <g>
+    <circle cx="40" cy="45" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="82" cy="40" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="115" cy="62" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="45" cy="92" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="90" cy="88" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="70" cy="122" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="180" cy="45" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="196" cy="45" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="230" cy="60" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="246" cy="60" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="175" cy="105" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="191" cy="105" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="225" cy="118" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="241" cy="118" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="200" cy="85" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="216" cy="85" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="316" cy="45" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="344" cy="45" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="330" cy="45" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="371" cy="50" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="399" cy="50" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="385" cy="50" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="356" cy="90" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="384" cy="90" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="370" cy="90" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="316" cy="120" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="344" cy="120" r="6" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="330" cy="120" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="460" cy="40" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="520" cy="100" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="470" cy="122" r="9" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="500" cy="45" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="516" cy="45" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="455" cy="82" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="471" cy="82" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="520" cy="70" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+    <circle cx="536" cy="70" r="9" fill="var(--t2-ink)" stroke="currentColor" stroke-width="1"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="75" y="165">element (atoms)</text>
+    <text x="215" y="165">element (molecules)</text>
+    <text x="355" y="165">compound</text>
+    <text x="495" y="165">mixture</text>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "proton-nmr-spectroscopy",
+    "term": "proton NMR spectroscopy",
+    "definition": "A technique that places a sample in a strong magnetic field and records the radio waves its hydrogen nuclei absorb, showing how many different hydrogen environments a molecule has and how they are arranged.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "chemical-environment",
+    "term": "chemical environment",
+    "definition": "The surroundings of a hydrogen atom in a molecule; hydrogens with identical surroundings are equivalent and give one NMR signal between them.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "chemical-shift",
+    "term": "chemical shift",
+    "definition": "The position of an NMR signal, $\\delta$, in parts per million (ppm) measured from the tetramethylsilane (TMS) signal at $\\delta = 0$; it shows what kind of group a hydrogen is near.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "integration-trace",
+    "term": "integration trace",
+    "definition": "A stepped line on an NMR spectrum whose step heights are in the ratio of the areas under the signals, and so of the numbers of hydrogens in each environment.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "splitting-pattern",
+    "term": "splitting pattern",
+    "definition": "The cluster of peaks a high-resolution NMR signal splits into: $n$ hydrogens on the adjacent carbon atoms, not equivalent to the hydrogen giving the signal, split it into $n + 1$ peaks (singlet, doublet, triplet, quartet); an O–H hydrogen is usually a singlet.",
+    "lesson": "3.10"
+  }
+]

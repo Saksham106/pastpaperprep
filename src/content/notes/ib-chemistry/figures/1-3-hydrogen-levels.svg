@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 320" role="img" aria-labelledby="t">
+<title id="t">Energy levels of the hydrogen atom, getting closer together towards the top, with downward transitions to n = 1, n = 2 and n = 3</title>
+<line x1="40" y1="305" x2="40" y2="22" stroke="currentColor" stroke-width="1.4"/>
+<path d="M34 34 L40 22 L46 34" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text x="28" y="165" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 28 165)">Energy</text>
+<line x1="70" y1="30" x2="470" y2="30" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/>
+<line x1="70" y1="37.2" x2="470" y2="37.2" stroke="currentColor" stroke-width="1"/>
+<line x1="70" y1="40.4" x2="470" y2="40.4" stroke="currentColor" stroke-width="1"/>
+<line x1="70" y1="46.25" x2="470" y2="46.25" stroke="currentColor" stroke-width="1.2"/>
+<line x1="70" y1="58.9" x2="470" y2="58.9" stroke="currentColor" stroke-width="1.2"/>
+<line x1="70" y1="95" x2="470" y2="95" stroke="currentColor" stroke-width="1.2"/>
+<line x1="70" y1="290" x2="470" y2="290" stroke="currentColor" stroke-width="1.4"/>
+<text x="478" y="27" font-size="11" fill="currentColor" font-family="inherit">n = ∞</text>
+<text x="478" y="50" font-size="11" fill="currentColor" font-family="inherit">n = 4</text>
+<text x="478" y="63" font-size="11" fill="currentColor" font-family="inherit">n = 3</text>
+<text x="478" y="99" font-size="11" fill="currentColor" font-family="inherit">n = 2</text>
+<text x="478" y="294" font-size="11" fill="currentColor" font-family="inherit">n = 1</text>
+<g stroke="var(--t1-ink)" stroke-width="1.6" fill="none">
+<line x1="110" y1="95" x2="110" y2="289"/><path d="M106 281 L110 289 L114 281"/>
+<line x1="130" y1="58.9" x2="130" y2="289"/><path d="M126 281 L130 289 L134 281"/>
+<line x1="150" y1="46.25" x2="150" y2="289"/><path d="M146 281 L150 289 L154 281"/>
+</g>
+<text x="162" y="196" font-size="12" fill="var(--t1-ink)" font-family="inherit">falls to n = 1:</text>
+<text x="162" y="212" font-size="12" fill="var(--t1-ink)" font-family="inherit">ultraviolet</text>
+<g stroke="var(--t2-ink)" stroke-width="1.6" fill="none">
+<line x1="230" y1="58.9" x2="230" y2="94"/><path d="M226 86 L230 94 L234 86"/>
+<line x1="250" y1="46.25" x2="250" y2="94"/><path d="M246 86 L250 94 L254 86"/>
+<line x1="270" y1="40.4" x2="270" y2="94"/><path d="M266 86 L270 94 L274 86"/>
+<line x1="290" y1="37.2" x2="290" y2="94"/><path d="M286 86 L290 94 L294 86"/>
+</g>
+<text x="260" y="114" font-size="12" text-anchor="middle" fill="var(--t2-ink)" font-family="inherit">falls to n = 2: visible</text>
+<g stroke="var(--t3-ink)" stroke-width="1.6" fill="none">
+<line x1="380" y1="46.25" x2="380" y2="58"/><path d="M377 52 L380 58 L383 52"/>
+<line x1="400" y1="40.4" x2="400" y2="58"/><path d="M397 52 L400 58 L403 52"/>
+</g>
+<text x="390" y="78" font-size="12" text-anchor="middle" fill="var(--t3-ink)" font-family="inherit">falls to n = 3: infrared</text>
+</svg>

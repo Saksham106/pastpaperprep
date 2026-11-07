@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" role="img" aria-labelledby="t56og">
+  <title id="t56og">Concentration against time (top row) and rate against concentration (bottom row) for zero, first and second order reactions</title>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="150" y="18" text-anchor="middle" font-size="14">Zero order</text>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="70" y1="55" x2="70" y2="180"/><line x1="70" y1="180" x2="235" y2="180"/></g>
+    <text x="152" y="198" text-anchor="middle" fill="var(--muted)">time</text>
+    <text x="0" y="0" transform="translate(60,160) rotate(-90)" fill="var(--muted)">[A]</text>
+    <path d="M70.0,70.0 L195.0,180.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="70" y1="275" x2="70" y2="400"/><line x1="70" y1="400" x2="235" y2="400"/></g>
+    <text x="152" y="418" text-anchor="middle" fill="var(--muted)">[A]</text>
+    <text x="0" y="0" transform="translate(60,380) rotate(-90)" fill="var(--muted)">rate</text>
+    <path d="M70.0,340.0 L220.0,340.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+    <text x="150" y="270" text-anchor="middle" fill="var(--t2-ink)">rate = k</text>
+    <text x="370" y="18" text-anchor="middle" font-size="14">First order</text>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="290" y1="55" x2="290" y2="180"/><line x1="290" y1="180" x2="455" y2="180"/></g>
+    <text x="372" y="198" text-anchor="middle" fill="var(--muted)">time</text>
+    <text x="0" y="0" transform="translate(280,160) rotate(-90)" fill="var(--muted)">[A]</text>
+    <path d="M290.0,70.0 L294.0,79.4 L298.0,87.9 L302.0,95.7 L306.0,102.9 L310.0,109.5 L314.0,115.5 L318.0,121.0 L322.0,126.0 L326.0,130.6 L330.0,134.8 L334.0,138.6 L338.0,142.1 L342.0,145.4 L346.0,148.3 L350.0,151.0 L354.0,153.5 L358.0,155.7 L362.0,157.8 L366.0,159.7 L370.0,161.4 L374.0,163.0 L378.0,164.4 L382.0,165.8 L386.0,167.0 L390.0,168.1 L394.0,169.1 L398.0,170.0 L402.0,170.9 L406.0,171.6 L410.0,172.4 L414.0,173.0 L418.0,173.6 L422.0,174.1 L426.0,174.6 L430.0,175.1 L434.0,175.5 L438.0,175.9 L442.0,176.2 L446.0,176.6 L450.0,176.9" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"><line x1="321.2" y1="125.0" x2="321.2" y2="180"/><line x1="352.4" y1="152.5" x2="352.4" y2="180"/></g>
+    <text x="305.6" y="174" text-anchor="middle" font-size="11" fill="var(--t5-ink)">t<tspan font-size="8" dy="3">½</tspan></text>
+    <text x="336.8" y="174" text-anchor="middle" font-size="11" fill="var(--t5-ink)">t<tspan font-size="8" dy="3">½</tspan></text>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="290" y1="275" x2="290" y2="400"/><line x1="290" y1="400" x2="455" y2="400"/></g>
+    <text x="372" y="418" text-anchor="middle" fill="var(--muted)">[A]</text>
+    <text x="0" y="0" transform="translate(280,380) rotate(-90)" fill="var(--muted)">rate</text>
+    <path d="M290.0,400.0 L440.0,290.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+    <text x="370" y="270" text-anchor="middle" fill="var(--t2-ink)">rate ∝ [A]</text>
+    <text x="590" y="18" text-anchor="middle" font-size="14">Second order</text>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="510" y1="55" x2="510" y2="180"/><line x1="510" y1="180" x2="675" y2="180"/></g>
+    <text x="592" y="198" text-anchor="middle" fill="var(--muted)">time</text>
+    <text x="0" y="0" transform="translate(500,160) rotate(-90)" fill="var(--muted)">[A]</text>
+    <path d="M510.0,70.0 L514.0,88.3 L518.0,101.4 L522.0,111.2 L526.0,118.9 L530.0,125.0 L534.0,130.0 L538.0,134.2 L542.0,137.7 L546.0,140.7 L550.0,143.3 L554.0,145.6 L558.0,147.6 L562.0,149.4 L566.0,151.1 L570.0,152.5 L574.0,153.8 L578.0,155.0 L582.0,156.1 L586.0,157.1 L590.0,158.0 L594.0,158.8 L598.0,159.6 L602.0,160.4 L606.0,161.0 L610.0,161.7 L614.0,162.3 L618.0,162.8 L622.0,163.3 L626.0,163.8 L630.0,164.3 L634.0,164.7 L638.0,165.1 L642.0,165.5 L646.0,165.9 L650.0,166.2 L654.0,166.6 L658.0,166.9 L662.0,167.2 L666.0,167.5 L670.0,167.8" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+    <g stroke="currentColor" stroke-width="1.2" fill="none"><line x1="510" y1="275" x2="510" y2="400"/><line x1="510" y1="400" x2="675" y2="400"/></g>
+    <text x="592" y="418" text-anchor="middle" fill="var(--muted)">[A]</text>
+    <text x="0" y="0" transform="translate(500,380) rotate(-90)" fill="var(--muted)">rate</text>
+    <path d="M510.0,400.0 L515.0,399.9 L520.0,399.5 L525.0,398.9 L530.0,398.0 L535.0,396.9 L540.0,395.6 L545.0,394.0 L550.0,392.2 L555.0,390.1 L560.0,387.8 L565.0,385.2 L570.0,382.4 L575.0,379.3 L580.0,376.0 L585.0,372.5 L590.0,368.7 L595.0,364.7 L600.0,360.4 L605.0,355.9 L610.0,351.1 L615.0,346.1 L620.0,340.8 L625.0,335.3 L630.0,329.6 L635.0,323.6 L640.0,317.4 L645.0,310.9 L650.0,304.2 L655.0,297.2 L660.0,290.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+    <text x="590" y="270" text-anchor="middle" fill="var(--t2-ink)">rate ∝ [A]²</text>
+  </g>
+</svg>

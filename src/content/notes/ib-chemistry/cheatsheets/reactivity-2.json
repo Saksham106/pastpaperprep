@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Mass, gas volume or solution of one substance given, another asked for → change to moles, multiply by the mole ratio $\\frac{b}{a}$, then change back; gases at the same temperature and pressure react in the volume ratio of their coefficients ({{lesson:5.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Amounts of two reactants given → divide each amount in mol by its coefficient; the smallest is limiting and sets the theoretical yield ({{lesson:5.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Percentage yield → experimental over theoretical yield of the same product, × 100; atom economy → molar mass of the desired product over the total molar mass of all reactants, coefficients included, × 100 ({{lesson:5.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Rate at a given time from a concentration–time curve → gradient of the tangent at that time, given as positive; the tangent at $t = 0$ gives the initial rate ({{lesson:5.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Explain how a change affects the rate → what happens to the particles, then the frequency of successful collisions; for temperature or a catalyst, a greater proportion of collisions with energy $\\geq E_\\text{a}$ on the Maxwell–Boltzmann curve ({{lesson:5.3}}, {{lesson:5.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Activation energy of the reverse reaction → $E_\\text{a}(\\text{reverse}) = E_\\text{a}(\\text{forward}) - \\Delta H$, with $\\Delta H$ for the forward reaction ({{lesson:5.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Effect of a change on an equilibrium → Le Châtelier: a concentration change, or a pressure change from a smaller volume (towards fewer moles of gas), moves the position but not $K$; a temperature rise favours the endothermic direction and changes $K$; a catalyst changes neither ({{lesson:5.8}}, {{lesson:5.9}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Evaluate a proposed mechanism → the steps must add up to the overall equation, and the rate equation predicted from the slow step (intermediates swapped for the reactants that form them) must match the experimental one ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Initial-rate table → pick two runs where only one concentration changes; rate factor = (concentration factor)$^{\\text{order}}$; units of $k$ from the overall order ({{lesson:5.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "$k$ at several temperatures, $E_\\text{a}$ asked → plot $\\ln k$ against $\\frac{1}{T}$ ($T$ in K); $E_\\text{a} = -R \\times \\text{gradient}$ in $\\pu{J mol-1}$, intercept $= \\ln A$ ({{lesson:5.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Which way will a mixture react? → calculate $Q$ and compare with $K$: $Q < K$ net forward, $Q > K$ net backward; from starting amounts, use an ICE table with changes in the mole ratio and divide by the volume before substituting ({{lesson:5.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "$K$ from $\\Delta G^\\ominus$, or the reverse → $\\Delta G^\\ominus = -RT\\ln K$ with $\\Delta G^\\ominus$ in J and $T$ in K; $\\Delta G^\\ominus < 0$ means $K > 1$ ({{lesson:5.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

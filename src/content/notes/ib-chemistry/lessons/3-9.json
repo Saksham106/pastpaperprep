@@ -1,0 +1,644 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "3.9",
+  "slug": "mass-spectrometry-and-infrared-spectroscopy",
+  "title": "Mass spectrometry and infrared spectroscopy",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A mass spectrometer turns molecules into positive ions. The [[molecular-ion|molecular ion]] gives the relative molecular mass, and its [[fragmentation|fragmentation]] shows which groups the molecule contains. An infrared spectrum shows which bonds are present, because each bond absorbs at its own [[wavenumber|wavenumber]].",
+  "goals": [
+    {
+      "text": "Find the relative molecular mass from the molecular ion peak in a [[mass-spectrum|mass spectrum]].",
+      "bullets": [
+        "S3.2.8"
+      ]
+    },
+    {
+      "text": "Deduce structural features of a compound from its fragment peaks, using the mass losses in the data booklet.",
+      "bullets": [
+        "S3.2.8"
+      ]
+    },
+    {
+      "text": "Use the data booklet's wavenumber table to identify the bonds, and so the [[functional-group|functional groups]], behind IR absorptions.",
+      "bullets": [
+        "S3.2.9"
+      ]
+    },
+    {
+      "text": "Explain why a vibration absorbs IR only if it changes the [[dipole-moment|dipole moment]], and why this makes some gases greenhouse gases.",
+      "bullets": [
+        "S3.2.9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "2.4",
+    "3.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "mass spec fragmentation",
+    "molecular ion peak",
+    "IR spectroscopy",
+    "infrared spectrum wavenumber table",
+    "IR active greenhouse gases",
+    "M+ peak"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mz-charge-one",
+      "prompt": "In a [[mass-spectrum|mass spectrum]], where does an ion with a 1+ charge appear?",
+      "hint": "$m/z$ means mass divided by charge.",
+      "options": [
+        {
+          "text": "at an m/z equal to its relative mass",
+          "correct": true
+        },
+        {
+          "text": "at an m/z equal to its number of protons",
+          "correct": false
+        },
+        {
+          "text": "at an m/z equal to half its relative mass",
+          "correct": false
+        }
+      ],
+      "explain": "With $z = 1$, $m/z$ is just the ion's mass. Half the mass would need a 2+ charge. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "at an m/z equal to its relative mass"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ethanal-group",
+      "prompt": "Which [[functional-group|functional group]] does ethanal, $\\ce{CH3CHO}$, contain?",
+      "hint": "Where is the $\\ce{C=O}$: at the end of the chain or inside it?",
+      "options": [
+        {
+          "text": "carbonyl, as an aldehyde",
+          "correct": true
+        },
+        {
+          "text": "carbonyl, as a ketone",
+          "correct": false
+        },
+        {
+          "text": "hydroxyl, as an alcohol",
+          "correct": false
+        },
+        {
+          "text": "carboxyl, as a carboxylic acid",
+          "correct": false
+        }
+      ],
+      "explain": "The $\\ce{C=O}$ is at the end of the chain, with an H on the same carbon, so ethanal is an aldehyde. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "carbonyl, as an aldehyde"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-polar-molecule",
+      "prompt": "Which molecule has a permanent [[dipole-moment|dipole moment]]?",
+      "hint": "It needs polar bonds and a shape that doesn't cancel them.",
+      "options": [
+        {
+          "text": "hydrogen chloride",
+          "correct": true
+        },
+        {
+          "text": "carbon dioxide",
+          "correct": false
+        },
+        {
+          "text": "methane",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ce{CO2}$ and $\\ce{CH4}$ have polar bonds, but their symmetrical shapes cancel them. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "hydrogen chloride"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "mass-spec",
+      "heading": "Mass spectrometry and fragmentation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.2}} a [[mass-spectrum|mass spectrum]] showed the [[isotope|isotopes]] of an element. For an organic compound it tells you two things: the mass of the molecule, and the pieces it breaks into."
+        },
+        {
+          "type": "text",
+          "text": "In the spectrometer, a high-energy electron knocks one electron out of a molecule. This leaves a positive ion with almost exactly the molecule's mass."
+        },
+        {
+          "type": "definition",
+          "term": "molecular ion",
+          "statement": "The positive ion formed when a whole molecule loses one electron, written $\\ce{M+}$. Its $m/z$ value gives the compound's relative molecular mass, $M_\\text{r}$, as a whole number.",
+          "plain": "The whole molecule, minus one electron."
+        },
+        {
+          "type": "text",
+          "text": "The [[molecular-ion|molecular ion]] has a 1+ charge, so its $m/z$ is its mass. Its peak is usually the one at the highest $m/z$. (A tiny peak one unit higher comes from carbon-13; ignore it. A compound with one Cl or Br atom has a second molecular ion peak 2 units higher, from the heavier isotope: about $3:1$ in height for Cl and $1:1$ for Br.)"
+        },
+        {
+          "type": "text",
+          "text": "The bombarding electron also leaves $\\ce{M+}$ with spare energy, so many molecular ions break apart."
+        },
+        {
+          "type": "definition",
+          "term": "fragmentation",
+          "statement": "The breaking of a molecular ion into a smaller positive ion and a neutral fragment, such as a radical or a small molecule.",
+          "plain": "The molecular ion snaps in two, and only the charged piece is detected."
+        },
+        {
+          "type": "text",
+          "text": "Only ions are detected. So each fragment peak is the positive piece, and the gap between it and $\\ce{M+}$ is the mass of the neutral piece that was lost."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{mass lost} = m/z(\\mathrm{M}^{+}) - m/z(\\text{fragment ion})",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use whole-number masses here: C = 12, H = 1, O = 16. Each peak comes from ions of particular isotopes, so averaged $A_\\text{r}$ values such as 12.01 don't apply."
+        },
+        {
+          "type": "text",
+          "text": "Section 22 of the data booklet lists common losses: 15 is $\\ce{CH3}$, 17 is $\\ce{OH}$, 18 is $\\ce{H2O}$, 28 is $\\ce{C2H4}$ or $\\ce{CO}$, 29 is $\\ce{C2H5}$ or $\\ce{CHO}$, 31 is $\\ce{OCH3}$ and 45 is $\\ce{COOH}$."
+        },
+        {
+          "type": "text",
+          "text": "Each loss points to a group in the molecule. Losing 45 suggests a carboxylic acid, and losing 31 an $\\ce{OCH3}$ group, as in a methyl ester."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-ms-butanone",
+          "alt": "Simplified mass spectrum of butanone. The horizontal axis is m over z from 0 to 80; the vertical axis is relative abundance from 0 to 100. Peaks: m over z 15, height 6; 29, height 18; 43, height 100, the tallest; 57, height 6; 72, height 22, labelled M plus, the molecular ion. The peak at 57 is labelled M minus 15 and the peak at 43 is labelled M minus 29.",
+          "caption": "Butanone, $\\ce{CH3COCH2CH3}$: $\\ce{M+}$ is at 72. Losing $\\ce{CH3}$ (15) gives 57. Losing $\\ce{C2H5}$ (29) gives $\\ce{CH3CO+}$ at 43, the tallest peak."
+        },
+        {
+          "type": "example",
+          "id": "ex-ms-lactic-acid",
+          "question": "Lactic acid forms when milk turns sour. Its empirical formula is $\\ce{CH2O}$, and its molecular ion peak is at $m/z = 90$. Deduce its molecular formula.",
+          "steps": [
+            "The molecular ion peak gives $M_\\text{r} = 90$.",
+            "One $\\ce{CH2O}$ unit: $12 + 2(1) + 16 = 30$.",
+            "Units per molecule: $\\frac{90}{30} = 3$, so multiply every subscript by 3."
+          ],
+          "answer": "$\\ce{C3H6O3}$",
+          "video": null,
+          "verify": {
+            "kind": "formula",
+            "truth": "molecular_formula(\"CH2O\", 90)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ms-ester-or-acid",
+          "question": "Methyl butanoate, $\\ce{CH3CH2CH2COOCH3}$, and pentanoic acid, $\\ce{CH3CH2CH2CH2COOH}$, both have $M_\\text{r} = 102$. A sample of one of them gives a strong peak at $m/z = 71$. Deduce which compound it is.",
+          "steps": [
+            "Mass lost: $102 - 71 = 31$, which section 22 gives as $\\ce{OCH3}$.",
+            "Pentanoic acid has no $\\ce{OCH3}$. It would lose $\\ce{OH}$ (17) or $\\ce{COOH}$ (45) instead."
+          ],
+          "answer": "The peak at 71 is 31 below the molecular ion at 102. A loss of 31 is an $\\ce{OCH3}$ group. Only methyl butanoate contains $\\ce{OCH3}$, so the sample is methyl butanoate, and the fragment ion is $\\ce{CH3CH2CH2CO+}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a loss of 31 is OCH3, found only in the methyl ester",
+            "requires": [
+              "31",
+              "OCH3",
+              "methyl butanoate",
+              "CH3CH2CH2CO+"
+            ],
+            "forbids": [
+              "sample is pentanoic acid",
+              "71 is the molecular ion"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ms-mass-lost",
+          "prompt": "A compound's molecular ion is at $m/z = 116$, with a strong fragment peak at $m/z = 99$. What mass was lost?",
+          "hint": "Subtract the fragment's $m/z$ from the molecular ion's.",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "$116 - 99 = 17$: an $\\ce{OH}$ group (section 22), so perhaps an alcohol or a carboxylic acid.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "116 - 99",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ms-loss-31",
+          "prompt": "A mass spectrum has a fragment peak 31 below the molecular ion. Which compound could give it?",
+          "hint": "Look up a loss of 31 in section 22 of the data booklet.",
+          "options": [
+            {
+              "text": "methyl pentanoate",
+              "correct": true
+            },
+            {
+              "text": "pentanoic acid",
+              "correct": false
+            },
+            {
+              "text": "hexan-2-one",
+              "correct": false
+            },
+            {
+              "text": "hexan-3-ol",
+              "correct": false
+            }
+          ],
+          "explain": "A loss of 31 is $\\ce{OCH3}$, and only methyl pentanoate, $\\ce{CH3CH2CH2CH2COOCH3}$, has one.",
+          "verify": {
+            "kind": "choice",
+            "truth": "methyl pentanoate"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ir-spectra",
+      "heading": "Reading an infrared spectrum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Covalent bonds behave like springs: they stretch and bend all the time. Each type of bond vibrates at its own frequency, set by the masses of its atoms and the strength of the bond."
+        },
+        {
+          "type": "text",
+          "text": "A bond absorbs infrared (IR) radiation only at frequencies that match its vibrations. So the frequencies a compound absorbs tell you which bonds it contains."
+        },
+        {
+          "type": "definition",
+          "term": "wavenumber",
+          "statement": "The number of waves in one centimetre: $\\frac{1}{\\lambda}$, the reciprocal of the [[wavelength|wavelength]], in $\\pu{cm-1}$.",
+          "plain": "A bigger wavenumber means a higher frequency and more energy."
+        },
+        {
+          "type": "text",
+          "text": "IR spectra are plotted against [[wavenumber|wavenumber]], from $\\pu{4000 cm-1}$ on the left to about $\\pu{500 cm-1}$ on the right. The vertical axis is transmittance, the percentage of radiation that gets through, so each absorption is a dip."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-ir-ethanol",
+          "alt": "Simplified infrared spectrum of ethanol. The horizontal axis is wavenumber in reciprocal centimetres, decreasing from 4000 on the left to 500 on the right; the vertical axis is transmittance from 0 to 100 percent. The line runs near 90 percent and dips at absorptions: a broad, rounded dip centred near 3340, labelled O-H, alcohol, broad; a sharp dip near 2975, labelled C-H; small dips between 1450 and 1350; and several dips below 1150, the deepest near 1050, labelled C-O. A dashed line at 1500 separates the functional group region on the left from the fingerprint region on the right.",
+          "caption": "Ethanol: a broad $\\ce{O-H}$ dip near $\\pu{3340 cm-1}$, $\\ce{C-H}$ near $\\pu{2975 cm-1}$ and $\\ce{C-O}$ near $\\pu{1050 cm-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Above about $\\pu{1500 cm-1}$ is the functional group region, where each dip can be matched to one bond with section 20 of the data booklet. Below it, the fingerprint region gives a pattern unique to each compound, used to confirm an identity against a database."
+        },
+        {
+          "type": "text",
+          "text": "The bands you will use most, in $\\pu{cm-1}$: $\\ce{O-H}$ in alcohols, 3200–3600, broad. $\\ce{O-H}$ in carboxylic acids, 2500–3000, very broad. $\\ce{C-H}$, 2850–3090. $\\ce{C=O}$, 1700–1750, strong. $\\ce{C=C}$, 1620–1680."
+        },
+        {
+          "type": "result",
+          "statement": "Hydrogen bonding makes $\\ce{O-H}$ bands broad. In carboxylic acids it also moves the band down to 2500–3000 $\\pu{cm-1}$, where it overlaps the $\\ce{C-H}$ band.",
+          "why": "Each $\\ce{O-H}$ is hydrogen bonded to a slightly different extent, so the sample absorbs over a spread of wavenumbers."
+        },
+        {
+          "type": "text",
+          "text": "Nearly every organic molecule has $\\ce{C-H}$, so look first for $\\ce{O-H}$, $\\ce{N-H}$ and $\\ce{C=O}$. IR shows which bonds are present, not where they are: pentan-1-ol and pentan-2-ol look almost the same in the functional group region, and only the fingerprint region tells them apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-ir-cyclohexanol-oxidation",
+          "question": "Cyclohexanol, $\\ce{C6H11OH}$, is oxidized to cyclohexanone, $\\ce{C6H10O}$. Explain how the IR spectrum of the product shows that no cyclohexanol is left.",
+          "steps": [
+            "Cyclohexanol has an $\\ce{O-H}$ bond; cyclohexanone has a $\\ce{C=O}$ bond instead.",
+            "A new band shows the product. A missing band shows the reactant has gone."
+          ],
+          "answer": "The spectrum has a strong absorption at 1700–1750 $\\pu{cm-1}$, due to the $\\ce{C=O}$ bond in cyclohexanone. The broad absorption at 3200–3600 $\\pu{cm-1}$, due to the alcohol's $\\ce{O-H}$ bond, is absent. So no cyclohexanol is left.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C=O band at 1700-1750 appears; broad alcohol O-H band at 3200-3600 is absent",
+            "requires": [
+              "1700",
+              "C=O",
+              "3200",
+              "O-H",
+              [
+                "absent",
+                "no longer"
+              ]
+            ],
+            "forbids": [
+              "hydroxide"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ir-unknown-acid",
+          "question": "An unknown liquid absorbs very broadly between 2500 and 3000 $\\pu{cm-1}$, and strongly at 1710 $\\pu{cm-1}$. Deduce its functional group, explaining each absorption.",
+          "steps": [
+            "Very broad and below $\\pu{3000 cm-1}$: the $\\ce{O-H}$ of an acid, not an alcohol, whose band is at 3200–3600.",
+            "1710 lies in the $\\ce{C=O}$ range, 1700–1750."
+          ],
+          "answer": "The very broad absorption at 2500–3000 $\\pu{cm-1}$ is due to a hydrogen-bonded $\\ce{O-H}$ bond in a carboxylic acid. The absorption at 1710 $\\pu{cm-1}$ is due to a $\\ce{C=O}$ bond. Together they show a carboxyl group, so the compound is a carboxylic acid.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "very broad O-H at 2500-3000 and C=O at 1710: carboxylic acid",
+            "requires": [
+              "2500",
+              "O-H",
+              "1710",
+              "C=O",
+              "carboxylic acid"
+            ],
+            "forbids": [
+              "3200"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ir-band-1720",
+          "prompt": "A compound absorbs strongly at about 1720 $\\pu{cm-1}$. Which bond causes it?",
+          "hint": "Find 1720 in section 20 of the data booklet.",
+          "options": [
+            {
+              "text": "carbon–oxygen double bond",
+              "correct": true
+            },
+            {
+              "text": "carbon–carbon double bond",
+              "correct": false
+            },
+            {
+              "text": "carbon–oxygen single bond",
+              "correct": false
+            },
+            {
+              "text": "oxygen–hydrogen bond",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{C=O}$ absorbs at 1700–1750 $\\pu{cm-1}$. $\\ce{C=C}$ absorbs at 1620–1680, $\\ce{C-O}$ at 1050–1410 and $\\ce{O-H}$ above 2500.",
+          "verify": {
+            "kind": "choice",
+            "truth": "carbon–oxygen double bond"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ir-pentene-pentane",
+          "prompt": "Which observation distinguishes the IR spectrum of pent-1-ene from that of pentane?",
+          "hint": "Which bond does pent-1-ene have that pentane does not?",
+          "options": [
+            {
+              "text": "Only pent-1-ene absorbs at 1620–1680 cm⁻¹.",
+              "correct": true
+            },
+            {
+              "text": "Only pentane absorbs at 2850–3090 cm⁻¹.",
+              "correct": false
+            },
+            {
+              "text": "Only pent-1-ene absorbs at 1700–1750 cm⁻¹.",
+              "correct": false
+            }
+          ],
+          "explain": "Only pent-1-ene has a $\\ce{C=C}$ bond. Both have $\\ce{C-H}$, and neither has $\\ce{C=O}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Only pent-1-ene absorbs at 1620–1680 cm⁻¹."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ir-active",
+      "heading": "IR-active vibrations and greenhouse gases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Not every vibration absorbs IR. IR radiation is an oscillating electric field, so it can only drive a vibration that changes the molecule's [[dipole-moment|dipole moment]]."
+        },
+        {
+          "type": "definition",
+          "term": "infrared active",
+          "statement": "Describes a vibration that changes the dipole moment of the molecule. Only infrared-active vibrations absorb infrared radiation.",
+          "plain": "The vibration makes the molecule's charges swing back and forth."
+        },
+        {
+          "type": "text",
+          "text": "In $\\ce{N2}$ or $\\ce{O2}$, two identical atoms share the bond equally. Stretching it leaves the dipole at zero, so they absorb no IR. In polar $\\ce{HCl}$, stretching changes the dipole, so that vibration is [[infrared-active|infrared active]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-co2-vibrations",
+          "alt": "Three vibrations of a linear carbon dioxide molecule, O=C=O. Left, symmetric stretch: both oxygen atoms move outwards at the same time; the dipole stays zero, so it is IR inactive. Middle, asymmetric stretch: both oxygen atoms move to the right while the carbon atom moves to the left, so one bond lengthens as the other shortens; the dipole changes, so it is IR active. Right, bend: both oxygen atoms move up while the carbon atom moves down, so the molecule is no longer straight; the dipole changes, so it is IR active.",
+          "caption": "Three vibrations of $\\ce{CO2}$. Only the symmetric stretch keeps the dipole moment at zero."
+        },
+        {
+          "type": "text",
+          "text": "Linear $\\ce{CO2}$ is non-polar: its bond dipoles cancel, and they still cancel in the symmetric stretch. In the asymmetric stretch and the bend they don't, so those vibrations absorb IR. Bent, polar $\\ce{H2O}$ absorbs in all three of its vibrations."
+        },
+        {
+          "type": "result",
+          "statement": "A molecule absorbs IR if at least one vibration changes its dipole moment. So a non-polar molecule, such as $\\ce{CO2}$ or $\\ce{CH4}$, can still be IR active.",
+          "why": "The change in dipole during the vibration matters, not the dipole at rest."
+        },
+        {
+          "type": "text",
+          "text": "The Earth's surface, warmed by sunlight, gives out IR. Gases such as $\\ce{H2O}$, $\\ce{CO2}$, $\\ce{CH4}$ and $\\ce{N2O}$ absorb some of it, then re-emit IR in all directions, partly back to the surface. This is the [[greenhouse-effect|greenhouse effect]] ({{lesson:4.5}})."
+        },
+        {
+          "type": "text",
+          "text": "A gas's global warming potential compares the warming from 1 kg of it with that from 1 kg of $\\ce{CO2}$ over a set time. It depends on how strongly the gas absorbs IR and how long it stays in the atmosphere."
+        },
+        {
+          "type": "example",
+          "id": "ex-nitrogen-not-greenhouse",
+          "question": "Nitrogen makes up about 78% of dry air. Explain why it is not a greenhouse gas.",
+          "steps": [
+            "$\\ce{N2}$ has two identical atoms, and its only vibration is the $\\ce{N#N}$ stretch.",
+            "Link the dipole moment to IR absorption."
+          ],
+          "answer": "$\\ce{N2}$ has two identical atoms, so its dipole moment is zero. When its bond stretches, the molecule stays symmetrical and the dipole moment does not change. So the vibration is infrared inactive, and $\\ce{N2}$ cannot absorb the IR given out by the Earth's surface.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "N2 vibration does not change the dipole moment, so it is IR inactive and cannot absorb IR",
+            "requires": [
+              "dipole moment is zero",
+              "does not change",
+              [
+                "infrared inactive",
+                "IR inactive"
+              ],
+              [
+                "cannot absorb",
+                "does not absorb"
+              ]
+            ],
+            "forbids": [
+              "traps",
+              "nitrogen is polar"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-methane-greenhouse",
+          "question": "Methane, $\\ce{CH4}$, is non-polar. Explain why it is still a greenhouse gas.",
+          "steps": [
+            "Tetrahedral methane's bond dipoles cancel at rest.",
+            "Find a vibration that breaks the symmetry, then say what happens to the energy absorbed."
+          ],
+          "answer": "In an asymmetric stretch, the $\\ce{C-H}$ bonds lengthen and shorten unequally, so the dipole moment changes. This vibration is infrared active, so methane absorbs IR given out by the Earth's surface. It then re-emits IR in all directions, partly back towards the surface, which warms the lower atmosphere.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "an asymmetric stretch changes the dipole moment, so CH4 absorbs IR from the Earth and re-emits it",
+            "requires": [
+              "asymmetric stretch",
+              "dipole moment changes",
+              [
+                "infrared active",
+                "IR active"
+              ],
+              [
+                "absorbs infrared",
+                "absorbs IR"
+              ],
+              "re-emits"
+            ],
+            "forbids": [
+              "traps",
+              "methane is polar"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that greenhouse gases \"trap\" heat. Say that they absorb IR from the Earth's surface and re-emit it."
+        },
+        {
+          "type": "check",
+          "id": "check-gas-no-ir",
+          "prompt": "Which gas has no vibrations that absorb infrared radiation?",
+          "hint": "Whose dipole moment stays zero however its bond stretches?",
+          "options": [
+            {
+              "text": "chlorine",
+              "correct": true
+            },
+            {
+              "text": "hydrogen chloride",
+              "correct": false
+            },
+            {
+              "text": "water vapour",
+              "correct": false
+            },
+            {
+              "text": "methane",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ce{Cl2}$ has two identical atoms, so its dipole moment never changes from zero. Each of the others, even non-polar methane, has a vibration that changes its dipole.",
+          "verify": {
+            "kind": "choice",
+            "truth": "chlorine"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-co2-inactive-mode",
+          "prompt": "Which vibration of carbon dioxide does not absorb infrared radiation?",
+          "hint": "In which vibration do the two bond dipoles still cancel?",
+          "options": [
+            {
+              "text": "the symmetric stretch",
+              "correct": true
+            },
+            {
+              "text": "the asymmetric stretch",
+              "correct": false
+            },
+            {
+              "text": "the bend",
+              "correct": false
+            }
+          ],
+          "explain": "Both $\\ce{C=O}$ bonds lengthen together, so the molecule stays linear and its dipole moment stays zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the symmetric stretch"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The molecular ion, $\\ce{M+}$, is the molecule minus one electron. Its peak, usually at the highest $m/z$, gives $M_\\text{r}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mass lost $= m/z(\\ce{M+}) - m/z(\\text{fragment})$. Match it to section 22 of the data booklet: 15 $\\ce{CH3}$, 17 $\\ce{OH}$, 31 $\\ce{OCH3}$, 45 $\\ce{COOH}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "IR bands, in $\\pu{cm-1}$: $\\ce{O-H}$ alcohol 3200–3600 (broad); $\\ce{O-H}$ acid 2500–3000 (very broad); $\\ce{C=O}$ 1700–1750. IR shows bonds, not their positions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A vibration absorbs IR only if it changes the dipole moment: $\\ce{CO2}$, $\\ce{H2O}$ and $\\ce{CH4}$ do, $\\ce{N2}$ and $\\ce{O2}$ don't.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the tallest peak as the molecular ion. The tallest is the commonest ion; $\\ce{M+}$ is usually at the highest $m/z$.",
+    "Naming the lost piece as the fragment ion. The peak is the positive ion that remains; the neutral piece is never detected.",
+    "Giving 3200–3600 $\\pu{cm-1}$ for a carboxylic acid's $\\ce{O-H}$. The acid band is 2500–3000 $\\pu{cm-1}$.",
+    "Using a $\\ce{C-O}$ band as proof of an alcohol. Esters and ethers have $\\ce{C-O}$ too; look for the broad $\\ce{O-H}$."
+  ],
+  "examTips": [
+    "\"Deduce\" from a mass spectrum: for each peak you use, give the $m/z$, the mass lost and the fragment.",
+    "\"Identify\" the bond behind an IR band: name the bond, such as $\\ce{C=O}$, and quote its range from section 20.",
+    "\"Explain\" a greenhouse gas: a vibration that changes the dipole moment, absorption of IR from the Earth, then re-emission."
+  ],
+  "readingMinutes": 21
+}

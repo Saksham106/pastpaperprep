@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 270" role="img" aria-labelledby="t">
+  <title id="t">Simplified mass spectrum of butanone. The horizontal axis is m over z from 0 to 80; the vertical axis is relative abundance from 0 to 100. Peaks: m over z 15, height 6; 29, height 18; 43, height 100, the tallest; 57, height 6; 72, height 22, labelled M plus, the molecular ion. The peak at 57 is labelled M minus 15 and the peak at 43 is labelled M minus 29.</title>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <path d="M60 220 H430"/>
+    <path d="M60 220 V30"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <path d="M60.0 220 v6 M105.0 220 v6 M150.0 220 v6 M195.0 220 v6 M240.0 220 v6 M285.0 220 v6 M330.0 220 v6 M375.0 220 v6 M420.0 220 v6"/>
+    <path d="M60 220 h-6 M60 175 h-6 M60 130 h-6 M60 85 h-6 M60 40 h-6"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="3 4" fill="none">
+    <path d="M60 175 H430 M60 130 H430 M60 85 H430 M60 40 H430"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle">
+    <text x="60.0" y="240">0</text><text x="105.0" y="240">10</text><text x="150.0" y="240">20</text><text x="195.0" y="240">30</text><text x="240.0" y="240">40</text><text x="285.0" y="240">50</text><text x="330.0" y="240">60</text><text x="375.0" y="240">70</text><text x="420.0" y="240">80</text>
+    <text x="245" y="262">m/z</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="currentColor" text-anchor="end">
+    <text x="50" y="224">0</text>
+    <text x="50" y="179">25</text>
+    <text x="50" y="134">50</text>
+    <text x="50" y="89">75</text>
+    <text x="50" y="44">100</text>
+  </g>
+  <text x="18" y="130" font-size="12" font-family="inherit" fill="currentColor" text-anchor="middle" transform="rotate(-90 18 130)">relative abundance</text>
+  <g stroke="var(--t1-ink)" stroke-width="5" fill="none">
+    <path d="M127.5 220 V209.2 M190.5 220 V187.6 M253.5 220 V40.0 M316.5 220 V209.2 M384.0 220 V180.4"/>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t1-ink)" text-anchor="middle">
+    <text x="127.5" y="202.2">15</text><text x="190.5" y="180.6">29</text><text x="253.5" y="33.0">43</text><text x="316.5" y="202.2">57</text><text x="384.0" y="173.4">72</text>
+  </g>
+  <g font-size="12" font-family="inherit" fill="var(--t3-ink)" text-anchor="middle">
+    <text x="384.0" y="158.4">M⁺</text>
+    <text x="316.5" y="187.2">M − 15</text>
+    <text x="291.5" y="62">M − 29</text>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 270" role="img" aria-labelledby="t">
+  <title id="t">Energy level diagram for hydrogen plus chlorine forming hydrogen chloride. An upward arrow labelled bonds broken, plus 678 kilojoules per mole, rises from the reactants H2 plus Cl2 to separate gaseous atoms 2H plus 2Cl. A longer downward arrow labelled bonds formed, minus 862 kilojoules per mole, falls to the products 2HCl, below the reactants. A short downward arrow from the reactants level to the products level is labelled delta H equals minus 184 kilojoules per mole.</title>
+  <path d="M24.0 262.0 L24.0 33.0" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="24.0,24.0 19.5,33.0 28.5,33.0" fill="currentColor"/>
+  <text x="16" y="150" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" transform="rotate(-90 16 150)">enthalpy</text>
+  <g stroke="currentColor" stroke-width="2.2">
+    <path d="M50 170 H190"/>
+    <path d="M130 40 H350"/>
+    <path d="M280 205 H455"/>
+  </g>
+  <path d="M190 170 H455" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="120" y="190">H<tspan baseline-shift="sub" font-size="10">2</tspan>(g) + Cl<tspan baseline-shift="sub" font-size="10">2</tspan>(g)</text>
+    <text x="240" y="30">2H(g) + 2Cl(g)</text>
+    <text x="368" y="225">2HCl(g)</text>
+  </g>
+  <path d="M150.0 168.0 L150.0 52.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <polygon points="150.0,43.0 145.5,52.0 154.5,52.0" fill="var(--t1-ink)"/>
+  <path d="M300.0 42.0 L300.0 193.0" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+  <polygon points="300.0,202.0 304.5,193.0 295.5,193.0" fill="var(--t2-ink)"/>
+  <path d="M445.0 171.0 L445.0 196.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+  <polygon points="445.0,203.0 448.5,196.0 441.5,196.0" fill="var(--t3-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="142" y="100" text-anchor="end" fill="var(--t1-ink)">bonds broken</text>
+    <text x="142" y="116" text-anchor="end" fill="var(--t1-ink)">+678 kJ mol⁻¹</text>
+    <text x="308" y="110" fill="var(--t2-ink)">bonds formed</text>
+    <text x="308" y="126" fill="var(--t2-ink)">−862 kJ mol⁻¹</text>
+    <text x="455" y="160" text-anchor="end" fill="var(--t3-ink)">ΔH = −184 kJ mol⁻¹</text>
+  </g>
+</svg>

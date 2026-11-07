@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.3",
+  "slug": "emission-spectra-and-energy-levels",
+  "title": "Emission spectra and energy levels",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Atoms give out light when their [[electron|electrons]] drop from a higher [[energy-level|energy level]] to a lower one. Each drop releases one [[photon|photon]] of a fixed energy, so a glowing gas gives an [[emission-spectrum|emission spectrum]] of sharp lines, not a full rainbow. Hydrogen's lines are the evidence that electrons in atoms can only have certain energies.",
+  "goals": [
+    {
+      "text": "Describe how colour, [[wavelength|wavelength]], frequency and photon energy are linked across the electromagnetic spectrum.",
+      "bullets": [
+        "S1.3.1"
+      ]
+    },
+    {
+      "text": "Distinguish a continuous spectrum from a [[line-spectrum|line spectrum]], and explain how excited atoms emit lines.",
+      "bullets": [
+        "S1.3.1"
+      ]
+    },
+    {
+      "text": "Describe the hydrogen spectrum and link its lines to falls to the first, second and third levels.",
+      "bullets": [
+        "S1.3.2"
+      ]
+    },
+    {
+      "text": "Explain why the lines converge at higher energy, and why they are evidence for fixed energy levels.",
+      "bullets": [
+        "S1.3.2"
+      ]
+    },
+    {
+      "text": "Deduce the most electrons a main energy level can hold, using $2n^{2}$.",
+      "bullets": [
+        "S1.3.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "hydrogen emission spectrum",
+    "continuous vs line spectrum",
+    "E = hf calculation",
+    "electron transitions between energy levels",
+    "2n squared electrons per shell",
+    "convergence of spectral lines"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sulfide-electrons",
+      "prompt": "How many electrons are in a sulfide ion, $\\ce{^{32}S^2-}$? Sulfur has [[atomic-number|atomic number]] 16.",
+      "hint": "A neutral atom has one electron for each [[proton|proton]]. What does the 2− charge add?",
+      "answer": {
+        "value": 18,
+        "tolerance": 0
+      },
+      "explain": "The atom has 16 electrons; a 2− ion has gained two more, so $16 + 2 = 18$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "16 + 2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-electron-location",
+      "prompt": "Which statement about the electrons in an atom is correct?",
+      "hint": "Where is each subatomic particle found, and what is its charge?",
+      "options": [
+        {
+          "text": "They are outside the nucleus and are negatively charged.",
+          "correct": true
+        },
+        {
+          "text": "They are inside the nucleus, next to the protons.",
+          "correct": false
+        },
+        {
+          "text": "They have about the same mass as a proton.",
+          "correct": false
+        },
+        {
+          "text": "They are positively charged.",
+          "correct": false
+        }
+      ],
+      "explain": "The nucleus holds the protons and neutrons. Electrons move around it, each with a relative charge of $-1$ and almost no mass. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "They are outside the nucleus and are negatively charged."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "light",
+      "heading": "Light: wavelength, frequency and energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Visible light is one small part of the electromagnetic spectrum. Radio waves, microwaves, infrared, ultraviolet, X-rays and gamma rays are the same kind of wave, with different [[wavelength|wavelengths]]."
+        },
+        {
+          "type": "text",
+          "text": "The wavelength, $\\lambda$, is the distance from one wave peak to the next. The frequency, $f$, is the number of waves passing a point each second, in $\\pu{s-1}$ (hertz, Hz)."
+        },
+        {
+          "type": "text",
+          "text": "All electromagnetic waves travel through a vacuum at $c = \\pu{3.00e8 m s-1}$ (data booklet, section 2). Longer waves mean fewer pass each second: a lower frequency."
+        },
+        {
+          "type": "formula",
+          "tex": "c = f\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-wave-speed"
+        },
+        {
+          "type": "text",
+          "text": "Light also comes in tiny packets of energy called [[photon|photons]]. A photon's energy depends only on its frequency."
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-photon-energy"
+        },
+        {
+          "type": "text",
+          "text": "$E$ is the energy of one photon in joules, and $h$ is the Planck constant, $\\pu{6.63e-34 J s}$ (data booklet, section 2). Both equations are in the data booklet (section 1)."
+        },
+        {
+          "type": "result",
+          "statement": "Across the electromagnetic spectrum, a shorter wavelength means a higher frequency and a higher energy per photon.",
+          "why": "The speed $c$ is fixed, so $f = \\frac{c}{\\lambda}$ rises as $\\lambda$ falls. Then $E = hf$ rises with $f$."
+        },
+        {
+          "type": "text",
+          "text": "From lowest to highest energy, the regions are radio waves, microwaves, infrared, visible, ultraviolet, X-rays and gamma rays (data booklet, section 5)."
+        },
+        {
+          "type": "text",
+          "text": "Visible light runs from about $\\pu{700 nm}$ (red) to $\\pu{400 nm}$ (violet), where $\\pu{1 nm} = \\pu{1e-9 m}$. The colours in order are red, orange, yellow, green, blue, violet, so violet photons carry the most energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-lithium-photon",
+          "question": "Lithium compounds give a red flame, with a strong line at a wavelength of $\\pu{671 nm}$. Calculate the energy, in J, of one photon of this light. Use sections 1 and 2 of the data booklet.",
+          "steps": [
+            "Convert to metres: $\\lambda = 671 \\times 10^{-9} = \\pu{6.71e-7 m}$.",
+            "$f = \\frac{c}{\\lambda} = \\frac{3.00 \\times 10^{8}}{6.71 \\times 10^{-7}} \\approx \\pu{4.47e14 s-1}$. Keep the full value in your calculator.",
+            "$E = hf = 6.63 \\times 10^{-34} \\times 4.4709 \\times 10^{14}$, rounded at the end to 3 significant figures."
+          ],
+          "answer": "$E \\approx \\pu{2.96e-19 J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h_planck*c_light/(671*10**(-9))",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-uv-yellow",
+          "question": "A sodium street lamp gives out yellow light. A sunbed lamp gives out ultraviolet radiation. Compare the wavelength, frequency and photon energy of the ultraviolet radiation with those of the yellow light.",
+          "steps": [
+            "Ultraviolet lies beyond violet, at a shorter wavelength than any visible colour.",
+            "Use $c = f\\lambda$ for frequency and $E = hf$ for energy, one comparison per sentence."
+          ],
+          "answer": "The ultraviolet radiation has a shorter wavelength than the yellow light. All electromagnetic waves travel at the same speed in a vacuum, so the ultraviolet radiation has a higher frequency. Since $E = hf$, each ultraviolet photon has more energy than a photon of yellow light.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "UV: shorter wavelength, higher frequency, more energy per photon",
+            "requires": [
+              "shorter wavelength",
+              "higher frequency",
+              [
+                "more energy",
+                "greater energy",
+                "higher energy"
+              ]
+            ],
+            "forbids": [
+              "lower frequency",
+              "longer wavelength",
+              "less energy"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-energy-order",
+          "prompt": "Which list is in order of increasing photon energy?",
+          "hint": "Higher energy goes with shorter wavelength. Where does each region sit compared with visible light?",
+          "options": [
+            {
+              "text": "infrared, visible, ultraviolet",
+              "correct": true
+            },
+            {
+              "text": "ultraviolet, visible, infrared",
+              "correct": false
+            },
+            {
+              "text": "visible, infrared, ultraviolet",
+              "correct": false
+            },
+            {
+              "text": "infrared, ultraviolet, visible",
+              "correct": false
+            }
+          ],
+          "explain": "Infrared is beyond red and ultraviolet beyond violet. Shorter wavelength means more energy, so infrared, visible, ultraviolet.",
+          "verify": {
+            "kind": "choice",
+            "truth": "infrared, visible, ultraviolet"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-violet-laser",
+          "prompt": "A violet laser pointer emits light of wavelength $\\pu{405 nm}$. What is the frequency of this light?",
+          "hint": "Rearrange $c = f\\lambda$ for $f$, and convert nanometres to metres first.",
+          "options": [
+            {
+              "text": "$\\approx \\pu{7.41e14 s-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx \\pu{7.41e5 s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{1.35e-15 s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{1.22e2 s-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f = \\frac{3.00 \\times 10^{8}}{4.05 \\times 10^{-7}} \\approx \\pu{7.41e14 s-1}$. The others come from leaving $\\lambda$ in nm, dividing $\\lambda$ by $c$, or multiplying them.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c_light/(405*10**(-9))",
+            "sf": 3,
+            "unit": "s-1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-spectra",
+      "heading": "Continuous and line spectra",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "White light through a prism spreads into every colour, with no gaps: a continuous spectrum. A hot solid, such as a lamp filament, gives one too."
+        },
+        {
+          "type": "text",
+          "text": "In a gas discharge tube, an electric current makes a low-pressure gas glow. Through a prism or spectroscope, the glow splits into a few bright lines on a dark background."
+        },
+        {
+          "type": "definition",
+          "term": "line spectrum",
+          "statement": "A spectrum that contains only certain specific wavelengths, seen as separate lines.",
+          "plain": "A few sharp colours with gaps between them."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-continuous-vs-line",
+          "alt": "Two bands above a wavelength axis from 400 to 700 nanometres. The top band, labelled continuous spectrum, is filled across its whole width, with the colours violet, blue, green, yellow, orange and red named from left to right. The bottom band, labelled line emission spectrum of hydrogen, is empty except for four thin lines at 410, 434, 486 and 656 nanometres. Shorter wavelength and higher energy are to the left.",
+          "caption": "A continuous spectrum contains every wavelength. A [[line-spectrum|line spectrum]] contains only a few, here the four visible lines of hydrogen."
+        },
+        {
+          "type": "text",
+          "text": "The lines come from the [[electron|electrons]]. An electron in an atom can only have certain fixed energies, called [[energy-level|energy levels]]. In the ground state, every electron is in the lowest levels available to it."
+        },
+        {
+          "type": "definition",
+          "term": "excited state",
+          "statement": "An atom in which an electron has absorbed energy and moved to a higher energy level than in the ground state.",
+          "plain": "An atom with an electron pushed up to a higher energy."
+        },
+        {
+          "type": "text",
+          "text": "Heat or electricity can push an electron up to a higher level, giving an [[excited-state|excited state]]. The excited state is unstable. The electron soon falls back to a lower level and gives out the energy it loses as one [[photon|photon]]."
+        },
+        {
+          "type": "formula",
+          "tex": "E_{\\text{photon}} = E_{\\text{upper}} - E_{\\text{lower}} = hf",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The levels are fixed, so the gaps are fixed. Only photons matching a gap are emitted, so only certain wavelengths appear, each as a line."
+        },
+        {
+          "type": "text",
+          "text": "Each element has its own energy levels, so its [[emission-spectrum|emission spectrum]], the light its excited atoms give out, is its own fingerprint. In 1868 a yellow line in light from the Sun matched no known element; it revealed a new one, helium."
+        },
+        {
+          "type": "example",
+          "id": "ex-distinguish-spectra",
+          "question": "Distinguish between a continuous spectrum and a line spectrum.",
+          "steps": [
+            "\"Distinguish\" means give the difference: say what each spectrum contains."
+          ],
+          "answer": "A continuous spectrum contains all wavelengths over a range, so the colours merge into each other with no gaps. A line spectrum contains only certain specific wavelengths, seen as separate lines with gaps between them.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "continuous: all wavelengths, no gaps; line: only specific wavelengths",
+            "requires": [
+              [
+                "all wavelengths",
+                "all colours",
+                "every wavelength"
+              ],
+              [
+                "only certain",
+                "only specific"
+              ],
+              [
+                "separate lines",
+                "discrete lines"
+              ]
+            ],
+            "forbids": [
+              "black lines"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-neon-line",
+          "question": "A neon sign glows orange-red. Explain how a single line in the emission spectrum of neon is produced.",
+          "steps": [
+            "Say how the atom gains energy, where the electron goes, and where it returns.",
+            "Link the photon's energy to the gap between the two levels."
+          ],
+          "answer": "The electric current gives energy to a neon atom, and an electron absorbs energy and moves to a higher energy level. This is an excited state. The electron then falls back to a lower energy level. It emits a photon whose energy equals the energy difference between the two levels. That energy fixes the frequency and wavelength of the photon, so it appears as one line.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "electron excited to higher level, falls to lower level, emits photon of energy equal to the gap",
+            "requires": [
+              [
+                "absorbs energy",
+                "gains energy"
+              ],
+              "higher energy level",
+              [
+                "falls back to a lower energy level",
+                "returns to a lower energy level",
+                "falls to a lower energy level"
+              ],
+              [
+                "emits a photon",
+                "photon is emitted"
+              ],
+              [
+                "energy difference",
+                "difference in energy"
+              ]
+            ],
+            "forbids": [
+              "moves to a higher energy level and emits",
+              "absorbs a photon as it falls"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-filament-lamp",
+          "prompt": "Light from a glowing filament lamp passes through a prism. What do you see?",
+          "hint": "A hot solid gives out light of every wavelength in the visible range.",
+          "options": [
+            {
+              "text": "a continuous spectrum of colours from red to violet",
+              "correct": true
+            },
+            {
+              "text": "a few bright coloured lines on a dark background",
+              "correct": false
+            },
+            {
+              "text": "a single line of white light",
+              "correct": false
+            }
+          ],
+          "explain": "A hot solid emits every visible wavelength, so you see an unbroken band. Separate lines come from excited atoms in a glowing low-pressure gas.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a continuous spectrum of colours from red to violet"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-element-fingerprint",
+          "prompt": "Why does each element have its own pattern of lines in its emission spectrum?",
+          "hint": "What decides which photon energies an atom can give out?",
+          "options": [
+            {
+              "text": "Each element has its own set of energy levels, so its own energy gaps.",
+              "correct": true
+            },
+            {
+              "text": "Each element has a different mass, so its light travels at a different speed.",
+              "correct": false
+            },
+            {
+              "text": "Each element emits every energy, but only some lines are bright.",
+              "correct": false
+            }
+          ],
+          "explain": "A line's energy equals a gap between two levels, and each element has different levels. All light travels at the same speed in a vacuum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Each element has its own set of energy levels, so its own energy gaps."
+          }
+        }
+      ]
+    },
+    {
+      "id": "hydrogen",
+      "heading": "The hydrogen emission spectrum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hydrogen atoms have just one [[electron|electron]], so hydrogen has the simplest spectrum. Its visible part has four lines: red at $\\pu{656 nm}$, blue-green at $\\pu{486 nm}$, blue-violet at $\\pu{434 nm}$ and violet at $\\pu{410 nm}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-hydrogen-levels",
+          "alt": "Energy level diagram for hydrogen with energy increasing upwards. Level n equals 1 is far below the rest. Levels n equals 2, 3, 4, 5 and 6 get closer and closer together going up, approaching a dashed line labelled n equals infinity. Three downward arrows end on n equals 1, from n equals 2, 3 and 4, labelled ultraviolet. Four shorter arrows end on n equals 2, from n equals 3, 4, 5 and 6, labelled visible. Two very short arrows end on n equals 3, from n equals 4 and 5, labelled infrared.",
+          "caption": "Each line in the spectrum is one downward jump. Jumps to $n = 1$ are the largest, so they give ultraviolet; jumps to $n = 3$ are the smallest shown, so they give infrared."
+        },
+        {
+          "type": "text",
+          "text": "Each line is an electron falling from a higher [[energy-level|energy level]] to a lower one. The size of the fall decides the photon's energy, and so the region of the spectrum."
+        },
+        {
+          "type": "text",
+          "text": "Falls to $n = 1$ are the biggest and give ultraviolet lines. Falls to $n = 2$ give the visible lines; the red line is $n = 3$ to $n = 2$. Falls to $n = 3$ give infrared. (The names of these groups are not assessed.)"
+        },
+        {
+          "type": "text",
+          "text": "The levels get closer together as $n$ increases, so falls from neighbouring high levels give almost equal energies and their lines crowd together. This is [[convergence|convergence]]."
+        },
+        {
+          "type": "result",
+          "statement": "In each group, the lines get closer together towards higher frequency, higher energy and shorter wavelength, and finally merge at a limit.",
+          "why": "The energy levels themselves converge as $n$ increases, so the gaps between the photon energies shrink."
+        },
+        {
+          "type": "text",
+          "text": "This is the evidence for energy levels. An electron with any energy could emit any photon, giving a continuous spectrum. Hydrogen gives only certain lines, so its electron has only certain energies."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also learn that the convergence limit at high frequency corresponds to ionization, and use it to calculate the first ionization energy.",
+          "lesson": "1.5"
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-hydrogen",
+          "question": "Describe the emission spectrum of hydrogen, and explain how it shows that electrons in atoms occupy discrete energy levels.",
+          "steps": [
+            "Describe what is seen and the pattern, then explain one line, then conclude about the levels."
+          ],
+          "answer": "The spectrum is a series of separate lines, not a continuous spectrum. The lines converge at higher frequency and higher energy. Each line forms when an electron falls to a lower energy level and emits a photon. The photon's energy equals the energy difference between the two levels. Only certain energies are emitted, so the energy levels are discrete.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "separate lines converging at high frequency; each line is a fall between levels; fixed photon energies mean discrete levels",
+            "requires": [
+              [
+                "separate lines",
+                "series of lines",
+                "discrete lines"
+              ],
+              [
+                "converge",
+                "closer together"
+              ],
+              [
+                "higher frequency",
+                "higher energy",
+                "shorter wavelength"
+              ],
+              [
+                "falls from a higher energy level to a lower",
+                "falls to a lower energy level"
+              ],
+              [
+                "difference between the two levels",
+                "energy difference"
+              ],
+              [
+                "discrete",
+                "certain fixed energies"
+              ]
+            ],
+            "forbids": [
+              "converge at longer wavelength",
+              "converge at lower frequency",
+              "converge at lower energy"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrogen-red-line",
+          "question": "The red line in the visible spectrum of hydrogen has a wavelength of $\\pu{656 nm}$. Calculate the energy difference, in J, between the two levels involved.",
+          "steps": [
+            "The energy difference is the photon energy: $\\Delta E = hf = \\frac{hc}{\\lambda}$, with $\\lambda = \\pu{6.56e-7 m}$.",
+            "$\\Delta E = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{6.56 \\times 10^{-7}}$."
+          ],
+          "answer": "$\\Delta E \\approx \\pu{3.03e-19 J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h_planck*c_light/(656*10**(-9))",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest-transition",
+          "prompt": "Which electron transition in a hydrogen atom emits the photon with the highest frequency?",
+          "hint": "Highest frequency means highest energy: find the biggest fall on the diagram.",
+          "options": [
+            {
+              "text": "from the fourth level to the first",
+              "correct": true
+            },
+            {
+              "text": "from the second level to the first",
+              "correct": false
+            },
+            {
+              "text": "from the sixth level to the second",
+              "correct": false
+            },
+            {
+              "text": "from the fifth level to the third",
+              "correct": false
+            }
+          ],
+          "explain": "Any fall to $n = 1$ beats a fall to $n = 2$ or $n = 3$, because $n = 1$ lies so far below. Starting at $n = 4$ makes it bigger than starting at $n = 2$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from the fourth level to the first"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-region-n1",
+          "prompt": "In which region of the electromagnetic spectrum are the lines produced when electrons in hydrogen atoms fall to the first energy level?",
+          "hint": "Falls to $n = 2$ give visible light. Are falls to $n = 1$ bigger or smaller?",
+          "options": [
+            {
+              "text": "ultraviolet",
+              "correct": true
+            },
+            {
+              "text": "visible",
+              "correct": false
+            },
+            {
+              "text": "infrared",
+              "correct": false
+            }
+          ],
+          "explain": "Falls to $n = 1$ release more energy than the visible falls to $n = 2$, so they are ultraviolet.",
+          "verify": {
+            "kind": "choice",
+            "truth": "ultraviolet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "capacity",
+      "heading": "How many electrons each main level holds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each main [[energy-level|energy level]] has a whole-number label, $n = 1, 2, 3, \\dots$. Level $n = 1$ is closest to the nucleus and lowest in energy."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{maximum electrons in level } n = 2n^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the first four levels hold at most 2, 8, 18 and 32 [[electron|electrons]]."
+        },
+        {
+          "type": "text",
+          "text": "That is a maximum. In potassium the third level holds only 8, because the fourth starts filling first; {{lesson:1.4}} explains why."
+        },
+        {
+          "type": "text",
+          "text": "The period number equals the highest occupied main level (palladium is the one exception). Sodium is in period 3, so its electrons occupy $n = 1$, $2$ and $3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fifth-level",
+          "question": "Deduce the maximum number of electrons that the fifth main energy level can hold.",
+          "steps": [
+            "The fifth level has $n = 5$.",
+            "Square $n$ first, then double: $2n^{2} = 2 \\times 5^{2} = 2 \\times 25$."
+          ],
+          "answer": "$2n^{2} = 50$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*5**2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-first-three-levels",
+          "question": "Deduce the total number of electrons needed to fill the first three main energy levels completely.",
+          "steps": [
+            "Apply $2n^{2}$ to each level: $2$, $8$ and $18$.",
+            "No ground-state atom has exactly this arrangement: the fourth level starts filling before the third is full."
+          ],
+          "answer": "$2 + 8 + 18 = 28$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*1**2 + 2*2**2 + 2*3**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sixth-level",
+          "prompt": "How many electrons, at most, can the main energy level with $n = 6$ hold?",
+          "hint": "Square 6 before you double it.",
+          "answer": {
+            "value": 72,
+            "tolerance": 0
+          },
+          "explain": "$2 \\times 6^{2} = 2 \\times 36 = 72$. Doubling first, $(2 \\times 6)^{2} = 144$, is the usual slip.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*6**2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phosphorus-levels",
+          "prompt": "Phosphorus is in period 3 and group 15. Which main energy levels contain its electrons?",
+          "hint": "The period number, not the group number, tells you the highest occupied main level.",
+          "options": [
+            {
+              "text": "the first, second and third levels",
+              "correct": true
+            },
+            {
+              "text": "the third level only",
+              "correct": false
+            },
+            {
+              "text": "the first to the fifth levels",
+              "correct": false
+            },
+            {
+              "text": "the first and second levels",
+              "correct": false
+            }
+          ],
+          "explain": "Period 3 means the highest occupied level is $n = 3$, and the levels below it hold electrons too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the first, second and third levels"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "c = f\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-wave-speed",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-photon-energy",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Shorter wavelength means higher frequency and more energy per photon. Visible light runs from red (about $\\pu{700 nm}$, least energy) to violet (about $\\pu{400 nm}$, most energy).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A continuous spectrum contains all wavelengths in a range; a line spectrum contains only certain wavelengths.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Emission line: an excited electron falls to a lower energy level and emits a photon whose energy equals the gap, $E_{\\text{upper}} - E_{\\text{lower}} = hf$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hydrogen: falls to $n = 1$ give ultraviolet, falls to $n = 2$ give the visible lines, falls to $n = 3$ give infrared. The lines converge at higher frequency because the levels converge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{maximum electrons in level } n = 2n^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying light is emitted when an electron moves up a level. Moving up absorbs energy; an emission line is a fall to a lower level.",
+    "Saying the hydrogen lines converge at longer wavelength or lower energy. They converge at higher frequency and energy.",
+    "Calling an emission spectrum a rainbow crossed by dark lines. That is an absorption spectrum; emission gives bright lines on a dark background.",
+    "Leaving a wavelength in nanometres in $c = f\\lambda$. Multiply by $10^{-9}$ to get metres first.",
+    "Giving 8 as the capacity of the third level. Level $n$ holds up to $2n^{2}$, so $n = 3$ holds up to 18."
+  ],
+  "examTips": [
+    "\"Describe\" the hydrogen spectrum: separate lines, converging at higher frequency, each from a fall between levels.",
+    "\"Explain\" an emission line one point per sentence: energy absorbed, electron promoted, electron falls, photon emitted with energy equal to the gap.",
+    "\"Distinguish\" continuous from line spectra by what each contains: all wavelengths, or only certain ones.",
+    "In a calculation, show the substitution with $\\lambda$ in metres, then give 3 significant figures and the unit."
+  ],
+  "readingMinutes": 24
+}

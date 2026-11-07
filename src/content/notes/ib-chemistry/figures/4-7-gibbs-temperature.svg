@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-labelledby="t">
+  <title id="t">Graph of standard Gibbs energy change against absolute temperature for four kinds of reaction. Each line starts at the left axis at the value of delta H and slopes with gradient minus delta S. The horizontal line through zero divides the non-spontaneous region above from the spontaneous region below. Delta H negative, delta S positive: starts below zero and falls further, so it is always spontaneous. Delta H positive, delta S negative: starts above zero and rises, so it is never spontaneous. Delta H positive, delta S positive: starts above zero and falls, crossing zero at a crossover temperature, so it is spontaneous above that temperature. Delta H negative, delta S negative: starts below zero and rises, crossing zero at a crossover temperature, so it is spontaneous below that temperature.</title>
+  <path d="M60 280 V29" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="60,20 55.5,29 64.5,29" fill="currentColor"/>
+  <path d="M60 150 H431" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="440,150 431,145.5 431,154.5" fill="currentColor"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="20" y="150" text-anchor="middle" transform="rotate(-90 20 150)">ΔG⦵ / kJ mol⁻¹</text>
+    <text x="52" y="154" text-anchor="end">0</text>
+    <text x="440" y="142" text-anchor="end">T / K</text>
+  </g>
+  <g font-size="11" fill="var(--muted)" font-family="inherit">
+    <text x="70" y="34">non-spontaneous (ΔG⦵ &gt; 0)</text>
+    <text x="70" y="278">spontaneous (ΔG⦵ &lt; 0)</text>
+  </g>
+  <g fill="none" stroke-width="2.2">
+    <path d="M60 215 L420 265" stroke="var(--t1-ink)"/>
+    <path d="M60 110 L420 35" stroke="var(--t2-ink)"/>
+    <path d="M60 90 L420 180" stroke="var(--t3-ink)"/>
+    <path d="M60 195 L420 60" stroke="var(--t4-ink)"/>
+  </g>
+  <circle cx="180" cy="150" r="4" fill="var(--t4-ink)"/>
+  <circle cx="300" cy="150" r="4" fill="var(--t3-ink)"/>
+  <g font-size="12" font-family="inherit">
+    <text x="428" y="269" fill="var(--t1-ink)">ΔH &lt; 0, ΔS &gt; 0: always</text>
+    <text x="428" y="39" fill="var(--t2-ink)">ΔH &gt; 0, ΔS &lt; 0: never</text>
+    <text x="428" y="184" fill="var(--t3-ink)">ΔH &gt; 0, ΔS &gt; 0: above crossover</text>
+    <text x="428" y="64" fill="var(--t4-ink)">ΔH &lt; 0, ΔS &lt; 0: below crossover</text>
+  </g>
+  <g font-size="11" font-family="inherit">
+    <text x="186" y="167" text-anchor="start" fill="var(--t4-ink)">crossover</text>
+    <text x="294" y="167" text-anchor="end" fill="var(--t3-ink)">crossover</text>
+  </g>
+</svg>

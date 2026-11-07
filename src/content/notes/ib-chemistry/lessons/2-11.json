@@ -1,0 +1,789 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "2.11",
+  "slug": "the-bonding-triangle-and-alloys",
+  "title": "The bonding triangle and alloys",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Most bonds are not purely ionic, covalent or metallic but a blend. The [[bonding-triangle|bonding triangle]] maps that blend from two [[electronegativity|electronegativity]] values, so you can predict a compound's properties. An [[alloy|alloy]] mixes a metal with other elements, and its non-directional metallic bonding explains why it is harder and stronger.",
+  "goals": [
+    {
+      "text": "Describe real bonds as a blend of the three bonding models, and show this on the bonding triangle.",
+      "bullets": [
+        "S2.4.1"
+      ]
+    },
+    {
+      "text": "Explain a substance's properties from its bonding, and say why fixed bonding categories fall short.",
+      "bullets": [
+        "S2.4.1"
+      ]
+    },
+    {
+      "text": "Calculate $\\Delta\\chi$ and $\\Sigma\\chi$ for a binary compound and place it on the bonding triangle.",
+      "bullets": [
+        "S2.4.2"
+      ]
+    },
+    {
+      "text": "Predict the properties of a compound from its position on the triangle.",
+      "bullets": [
+        "S2.4.2"
+      ]
+    },
+    {
+      "text": "Explain why an alloy is a [[mixture|mixture]], and explain its properties using non-directional metallic bonding.",
+      "bullets": [
+        "S2.4.3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1",
+    "2.4",
+    "2.5",
+    "2.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "van Arkel-Ketelaar triangle",
+    "triangular bonding diagram",
+    "bonding continuum",
+    "percentage ionic character",
+    "why alloys are harder",
+    "brass bronze steel"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-most-electronegative",
+      "prompt": "Using section 9 of the data booklet, which of these elements is the most electronegative?",
+      "hint": "Electronegativity rises across a period and falls down a group.",
+      "options": [
+        {
+          "text": "oxygen",
+          "correct": true
+        },
+        {
+          "text": "chlorine",
+          "correct": false
+        },
+        {
+          "text": "nitrogen",
+          "correct": false
+        },
+        {
+          "text": "sulfur",
+          "correct": false
+        }
+      ],
+      "explain": "Oxygen is $3.4$, chlorine $3.2$, nitrogen $3.0$ and sulfur $2.6$. Only fluorine ($4.0$) is higher. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "oxygen"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-metallic-model",
+      "prompt": "Which description fits the bonding in a metal?",
+      "hint": "Think about what is left when each metal atom gives up its outer electrons.",
+      "options": [
+        {
+          "text": "electrostatic attraction between a lattice of cations and delocalized electrons",
+          "correct": true
+        },
+        {
+          "text": "electrostatic attraction between positive ions and negative ions",
+          "correct": false
+        },
+        {
+          "text": "a shared pair of electrons between two neighbouring atoms",
+          "correct": false
+        },
+        {
+          "text": "attraction between neutral atoms packed closely together",
+          "correct": false
+        }
+      ],
+      "explain": "Metal atoms lose their outer electrons, which spread through the whole lattice. The cations and this sea of electrons attract each other. Revise it in {{lesson:2.10}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "electrostatic attraction between a lattice of cations and delocalized electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ionic-conduction",
+      "prompt": "When does potassium iodide conduct electricity?",
+      "hint": "Charge can only flow if charged particles can move.",
+      "options": [
+        {
+          "text": "only when molten or dissolved in water",
+          "correct": true
+        },
+        {
+          "text": "as a solid, a liquid and in solution",
+          "correct": false
+        },
+        {
+          "text": "as a solid only",
+          "correct": false
+        },
+        {
+          "text": "never, because it contains no electrons that can move",
+          "correct": false
+        }
+      ],
+      "explain": "In the solid the ions are held in fixed positions. Melting or dissolving frees them to move and carry charge. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "only when molten or dissolved in water"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "continuum",
+      "heading": "Bonding as a continuum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You have met three bonding models. In the ionic model, oppositely charged ions attract: an [[ionic-bond|ionic bond]] ({{lesson:2.1}}). In the covalent model, two atoms share a pair of electrons ({{lesson:2.2}}). In the metallic model, a lattice of cations is held together by delocalized electrons: a [[metallic-bond|metallic bond]] ({{lesson:2.10}})."
+        },
+        {
+          "type": "text",
+          "text": "Real bonds rarely fit one model exactly. In $\\ce{H-Cl}$, chlorine pulls the shared pair towards itself, and that [[bond-polarity|bond polarity]] gives the bond some ionic character ({{lesson:2.4}})."
+        },
+        {
+          "type": "result",
+          "statement": "Bonding is a continuum. Ionic, covalent and metallic bonding are three extremes, and most real bonds are a blend of them in different proportions.",
+          "why": "How evenly electrons are shared, or how fully they are transferred, depends on how strongly each atom attracts them, and that changes gradually."
+        },
+        {
+          "type": "definition",
+          "term": "bonding triangle",
+          "statement": "A triangular diagram with ionic, covalent and metallic bonding at its corners. Where a substance sits shows how much each type contributes to its bonding.",
+          "plain": "A map of bonding: the nearer a substance is to a corner, the more its bonding is like that model."
+        },
+        {
+          "type": "text",
+          "text": "The data booklet prints the [[bonding-triangle|bonding triangle]] in section 17 (the van Arkel–Ketelaar triangle). Each corner is an extreme substance."
+        },
+        {
+          "type": "text",
+          "text": "Bottom left is caesium, $\\ce{Cs}$, which holds its outer electron weakly: pure metallic bonding."
+        },
+        {
+          "type": "text",
+          "text": "Bottom right is fluorine, $\\ce{F2}$: two identical, strongly attracting atoms share a pair evenly, so the bonding is purely covalent."
+        },
+        {
+          "type": "text",
+          "text": "At the top is caesium fluoride, $\\ce{CsF}$. Its elements differ so much in [[electronegativity|electronegativity]] that an electron is in effect transferred: the most ionic bonding."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-bonding-triangle",
+          "alt": "The bonding triangle. Average electronegativity runs along the horizontal axis from about 0.8 to 4.0, and electronegativity difference runs up the vertical axis from 0 to about 3.2. The bottom left corner is caesium, Cs, the bottom right corner is fluorine, F2, and the top corner is caesium fluoride, CsF. The top part of the triangle is the ionic region. A small triangle in the bottom left corner is the metallic region. The bottom right part is the covalent region, labelled polar covalent higher up and covalent near the base. The border between the ionic and covalent regions is a sloping line, parallel to the left edge, running from the right edge at a difference of about 2.3 down to the edge of the metallic region at an average of about 1.8.",
+          "caption": "The bonding triangle, redrawn from section 17 of the data booklet. The borders between regions are drawn as lines, but the bonding changes gradually across them."
+        },
+        {
+          "type": "text",
+          "text": "Every element sits on the bottom edge, because a bond between identical atoms has no electronegativity difference. Along that edge, bonding changes from metallic on the left to covalent on the right."
+        },
+        {
+          "type": "text",
+          "text": "Silicon and germanium sit near the metallic–covalent border. That fits their in-between behaviour: shiny, brittle solids that conduct only weakly."
+        },
+        {
+          "type": "text",
+          "text": "Each model explains a set of properties. 1. Ionic: a lattice of ions. High melting point, brittle, conducts only when molten or dissolved."
+        },
+        {
+          "type": "text",
+          "text": "2. Covalent: no ions or delocalized electrons, so most do not conduct. Small molecules melt easily, but a [[covalent-network-structure|covalent network structure]] melts at a very high temperature."
+        },
+        {
+          "type": "text",
+          "text": "3. Metallic: conducts as a solid and a liquid, and is malleable and ductile."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-mg-mgo",
+          "question": "Magnesium and magnesium oxide both have high melting points, but only magnesium conducts electricity as a solid. Explain this using bonding models.",
+          "steps": [
+            "Name each bonding type: magnesium is metallic, magnesium oxide is ionic.",
+            "Conduction needs charged particles that can move. Say which move in each solid."
+          ],
+          "answer": "Magnesium has metallic bonding: a lattice of $\\ce{Mg^2+}$ cations in a sea of delocalized electrons. The delocalized electrons can move through the structure, so solid magnesium conducts electricity. Magnesium oxide has ionic bonding: a lattice of $\\ce{Mg^2+}$ and $\\ce{O^2-}$ ions. In the solid the ions are fixed in position and there are no delocalized electrons, so it does not conduct. Both melting points are high because strong electrostatic attractions act throughout each lattice.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "metal has mobile delocalized electrons; ionic solid has fixed ions; both have strong electrostatic attractions",
+            "requires": [
+              "metallic",
+              "delocalized electrons",
+              [
+                "can move",
+                "mobile"
+              ],
+              "ionic",
+              [
+                "ions are fixed",
+                "fixed in position"
+              ],
+              [
+                "electrostatic attractions",
+                "electrostatic attraction"
+              ]
+            ],
+            "forbids": [
+              "intermolecular forces",
+              "free ions in the solid",
+              "molecules of magnesium oxide"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Fixed categories are a simplification. A substance near a border has properties of both neighbouring models."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-alcl3",
+          "question": "Aluminium chloride is made from a metal and a non-metal. Yet it turns straight from a solid to a gas at about $\\pu{180 \\degree C}$, and when melted under pressure it barely conducts electricity. Use section 9 of the data booklet to explain why calling its bonding \"ionic\" shows a limitation of discrete bonding categories.",
+          "steps": [
+            "Section 9: aluminium $1.6$, chlorine $3.2$. The difference is $1.6$ and the average is $2.4$, on the ionic–polar covalent border.",
+            "Low sublimation temperature and almost no conduction when molten fit covalent molecules, not a lattice of ions."
+          ],
+          "answer": "The electronegativity difference between aluminium and chlorine is only 1.6, so the electron is not completely transferred and the bonding has a large covalent contribution. Aluminium chloride sits on the border between the ionic and polar covalent regions of the bonding triangle. Its low sublimation temperature and very poor conduction when molten are properties of covalent molecules. So the label ionic misleads: bonding is a continuum, and aluminium chloride lies between the models.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "small electronegativity difference; partly covalent; on the border of the triangle; covalent properties; continuum",
+            "requires": [
+              [
+                "1.6"
+              ],
+              "not completely transferred",
+              [
+                "covalent contribution",
+                "covalent character"
+              ],
+              "border",
+              [
+                "low sublimation temperature",
+                "sublimes at a low temperature"
+              ],
+              "continuum"
+            ],
+            "forbids": [
+              "aluminium chloride is ionic",
+              "intermolecular forces are broken by melting the ions"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Deciding the bond type from \"metal plus non-metal\" alone. That rule of thumb fails near the borders, so check the electronegativity values."
+        },
+        {
+          "type": "check",
+          "id": "check-top-corner",
+          "prompt": "Which substance sits at the top corner of the bonding triangle?",
+          "hint": "The top corner has the largest electronegativity difference.",
+          "options": [
+            {
+              "text": "caesium fluoride",
+              "correct": true
+            },
+            {
+              "text": "fluorine",
+              "correct": false
+            },
+            {
+              "text": "caesium",
+              "correct": false
+            },
+            {
+              "text": "sodium chloride",
+              "correct": false
+            }
+          ],
+          "explain": "Caesium ($0.8$) is one of the least electronegative elements and fluorine ($4.0$) is the most, so $\\ce{CsF}$ has about the biggest difference and the most ionic bonding. Caesium and fluorine themselves are the bottom corners.",
+          "verify": {
+            "kind": "choice",
+            "truth": "caesium fluoride"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-elements-base",
+          "prompt": "Why does every element lie on the bottom edge of the bonding triangle?",
+          "hint": "What is the electronegativity difference between two identical atoms?",
+          "options": [
+            {
+              "text": "The electronegativity difference between identical atoms is zero.",
+              "correct": true
+            },
+            {
+              "text": "Elements have the lowest average electronegativity of any substance.",
+              "correct": false
+            },
+            {
+              "text": "Every element has purely metallic bonding.",
+              "correct": false
+            },
+            {
+              "text": "Every element has purely covalent bonding.",
+              "correct": false
+            }
+          ],
+          "explain": "The height on the triangle is the electronegativity difference, which is zero for identical atoms. Along the bottom edge, elements range from metallic (left) to covalent (right).",
+          "verify": {
+            "kind": "choice",
+            "truth": "The electronegativity difference between identical atoms is zero."
+          }
+        }
+      ]
+    },
+    {
+      "id": "position",
+      "heading": "Placing a compound on the triangle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To place a binary compound (two elements, $a$ and $b$) on the triangle, you need two numbers, both from the electronegativities in section 9 of the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\chi = \\lvert \\chi_a - \\chi_b \\rvert",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The electronegativity difference, $\\Delta\\chi$, goes up the vertical axis. The higher a point, the more ionic the bonding."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Sigma\\chi = \\frac{\\chi_a + \\chi_b}{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The average electronegativity, which the booklet writes $\\Sigma\\chi$, goes along the horizontal axis. When $\\Delta\\chi$ is small, a low average means both atoms hold electrons weakly (metallic), and a high one means both hold them strongly (covalent)."
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are printed beside the triangle in section 17, and its axis labels show which value goes on which axis."
+        },
+        {
+          "type": "text",
+          "text": "Go across to $\\Sigma\\chi$, then up to $\\Delta\\chi$, mark the point and read the region."
+        },
+        {
+          "type": "text",
+          "text": "The booklet also shows a rough percentage ionic character beside each height. Calculating it is not required."
+        },
+        {
+          "type": "example",
+          "id": "ex-calcium-chloride",
+          "question": "Determine the position of calcium chloride, $\\ce{CaCl2}$, on the bonding triangle, and predict whether it conducts electricity as a solid.",
+          "steps": [
+            "Section 9: calcium $1.0$, chlorine $3.2$.",
+            "$\\Delta\\chi = |1.0 - 3.2| = 2.2$.",
+            "$\\Sigma\\chi = \\frac{1.0 + 3.2}{2} = 2.1$.",
+            "The point $(2.1, 2.2)$ lies well inside the ionic region.",
+            "Prediction: the ions are fixed in the solid, so it does not conduct until molten or dissolved."
+          ],
+          "answer": "$(\\Sigma\\chi, \\Delta\\chi) = (2.1, 2.2)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "((EN('Ca') + EN('Cl'))/2, Abs(EN('Ca') - EN('Cl')))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The triangle gives the bonding type, not the structure. A covalent substance can be small molecules (low melting point) or a network (very high), and graphite is a network that conducts ({{lesson:2.5}})."
+        },
+        {
+          "type": "text",
+          "text": "The period 3 oxides show the whole continuum. Across the period, the element's electronegativity rises towards oxygen's, so $\\Delta\\chi$ falls and the points move from ionic to covalent."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-period-3-oxides",
+          "alt": "The bonding triangle with the six period 3 oxides plotted. Sodium oxide, at an average electronegativity of 2.15 and a difference of 2.5, and magnesium oxide, at 2.35 and 2.1, sit well inside the ionic region. Aluminium oxide, at 2.5 and 1.8, sits right on the border between the ionic and covalent regions. Silicon dioxide, at 2.65 and 1.5, phosphorus(V) oxide, P4O10, at 2.8 and 1.2, and sulfur trioxide, at 3.0 and 0.8, sit in the covalent region. The points fall on a straight line running down to the right, from ionic to covalent.",
+          "caption": "The period 3 oxides run from ionic ($\\ce{Na2O}$, $\\ce{MgO}$) through the border ($\\ce{Al2O3}$) to covalent ($\\ce{SiO2}$, $\\ce{P4O10}$, $\\ce{SO3}$)."
+        },
+        {
+          "type": "text",
+          "text": "Sodium and magnesium oxides are ionic lattices with high melting points. Aluminium oxide also melts high, but its bonding is partly covalent."
+        },
+        {
+          "type": "text",
+          "text": "Silicon dioxide is a covalent network with a very high melting point. Phosphorus(V) oxide and sulfur trioxide are molecular and melt far lower. More period 3 trends are in {{lesson:3.1}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-pcl3",
+          "question": "Phosphorus trichloride, $\\ce{PCl3}$, is made of small molecules. Use its position on the bonding triangle to predict its melting point and electrical conductivity, giving reasons.",
+          "steps": [
+            "Section 9: phosphorus $2.2$, chlorine $3.2$. $\\Delta\\chi = 1.0$ and $\\Sigma\\chi = 2.7$.",
+            "The point $(2.7, 1.0)$ lies in the polar covalent region.",
+            "Melting overcomes only the forces between molecules, not the covalent bonds."
+          ],
+          "answer": "Phosphorus trichloride has $\\Delta\\chi = 1.0$ and $\\Sigma\\chi = 2.7$, so it lies in the polar covalent region of the bonding triangle. It is made of small molecules, and melting only overcomes the weak intermolecular forces between them, so it has a low melting point. It has no ions and no delocalized electrons, so it does not conduct electricity.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "polar covalent region; molecular so weak intermolecular forces and low melting point; no ions or delocalized electrons so no conduction",
+            "requires": [
+              "polar covalent",
+              [
+                "intermolecular forces",
+                "forces between the molecules"
+              ],
+              "low melting point",
+              [
+                "no ions"
+              ],
+              [
+                "no delocalized electrons"
+              ],
+              "does not conduct"
+            ],
+            "forbids": [
+              "covalent bonds break when it melts",
+              "breaking covalent bonds"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the axes. The average goes across and the difference goes up, as the labels in section 17 show."
+        },
+        {
+          "type": "check",
+          "id": "check-bn-average",
+          "prompt": "Boron nitride, $\\ce{BN}$, is a hard binary compound. Calculate its average electronegativity, $\\Sigma\\chi$, using section 9. Give 2 decimal places.",
+          "hint": "Add the two electronegativities, then halve.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0.005
+          },
+          "explain": "Boron $2.0$ and nitrogen $3.0$: $\\Sigma\\chi = \\frac{2.0 + 3.0}{2} = 2.50$. With $\\Delta\\chi = 1.0$, it sits in the covalent region, which fits a hard covalent network.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(EN('B') + EN('N'))/2",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-small-difference",
+          "prompt": "A substance of magnesium and zinc has $\\Delta\\chi = 0.3$. Nitrogen trichloride has $\\Delta\\chi = 0.2$. Which value tells you that their bonding types are different?",
+          "hint": "Both are near the bottom edge. What separates the bottom left from the bottom right?",
+          "options": [
+            {
+              "text": "the average electronegativity",
+              "correct": true
+            },
+            {
+              "text": "the electronegativity difference",
+              "correct": false
+            },
+            {
+              "text": "the number of atoms in the formula",
+              "correct": false
+            },
+            {
+              "text": "the charge on the ions",
+              "correct": false
+            }
+          ],
+          "explain": "Magnesium with zinc averages $1.45$, in the metallic region. Nitrogen with chlorine averages $3.1$, in the covalent region. The differences are both small, so they can't separate them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the average electronegativity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-predict-ionic",
+          "prompt": "A binary compound has $\\Sigma\\chi = 2.2$ and $\\Delta\\chi = 2.4$. Which property do you predict?",
+          "hint": "Find the region first. Then think about which particles can move.",
+          "options": [
+            {
+              "text": "It conducts electricity when molten but not as a solid.",
+              "correct": true
+            },
+            {
+              "text": "It conducts electricity as a solid.",
+              "correct": false
+            },
+            {
+              "text": "It has a low melting point.",
+              "correct": false
+            },
+            {
+              "text": "It is malleable.",
+              "correct": false
+            }
+          ],
+          "explain": "The point $(2.2, 2.4)$ is high in the ionic region. Its ions are fixed in the solid but free to move when molten. A low melting point and malleability belong to small molecules and metals.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It conducts electricity when molten but not as a solid."
+          }
+        }
+      ]
+    },
+    {
+      "id": "alloys",
+      "heading": "Alloys",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "alloy",
+          "statement": "A mixture of a metal with one or more other metals or non-metals, with properties different from those of the pure metal.",
+          "plain": "A metal with something else blended in to make it better for a job."
+        },
+        {
+          "type": "text",
+          "text": "Examples: brass (copper and zinc), bronze (copper and tin), steel (iron and carbon) and stainless steel (iron, chromium, nickel and carbon). You needn't learn them."
+        },
+        {
+          "type": "text",
+          "text": "An [[alloy|alloy]] is a mixture, not a compound. Brass can have a range of copper-to-zinc ratios, so it has no fixed composition and no formula."
+        },
+        {
+          "type": "text",
+          "text": "Every atom in an alloy is held by the same metallic bonding, so an alloy still conducts electricity and heat."
+        },
+        {
+          "type": "result",
+          "statement": "Metallic bonding is non-directional. The delocalized electrons attract every cation, whichever atoms surround it.",
+          "why": "A covalent bond links two particular atoms, but the electron sea belongs to the whole lattice."
+        },
+        {
+          "type": "text",
+          "text": "So atoms of another element can replace some metal atoms, or fit into the gaps, and still be bonded."
+        },
+        {
+          "type": "text",
+          "text": "In a pure metal, identical cations sit in regular layers. A force slides one layer over the next and the bonding holds, so metals are malleable."
+        },
+        {
+          "type": "figure",
+          "id": "2-11-alloy-layers",
+          "alt": "Two side-by-side diagrams of metal cations in layers. Left, a pure metal: four rows of identical cations packed in regular layers, with a dashed line between the second and third rows and an arrow showing the top layers sliding over the ones below when a force is applied. Labelled: pure metal, layers slide easily. Right, an alloy: the same rows, but three larger atoms of a second element are scattered through them, so the rows are no longer flat. The force arrow is crossed out. Labelled: alloy, layers slide less easily.",
+          "caption": "Atoms of a different size break up the regular layers, so a force can't slide them as easily."
+        },
+        {
+          "type": "result",
+          "statement": "Alloys are usually harder and stronger, and less malleable, than the pure metal.",
+          "why": "Atoms of a different size disrupt the regular layers of cations, so the layers slide over each other less easily."
+        },
+        {
+          "type": "text",
+          "text": "Alloys can improve other properties too: stainless steel resists corrosion, for example."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-bronze",
+          "question": "Bronze, an alloy of copper and tin, is harder than pure copper. Tin atoms are larger than copper atoms. Explain why bronze is harder, in terms of its structure and bonding.",
+          "steps": [
+            "Bonding: non-directional metallic bonding, so tin atoms fit into the copper lattice.",
+            "Structure, then effect: different-sized atoms, irregular layers, less sliding."
+          ],
+          "answer": "Bronze has metallic bonding, which is non-directional, so tin atoms are held in the copper lattice by the same attraction to the delocalized electrons. The tin atoms are a different size from the copper atoms, so they disrupt the regular layers of cations. The layers cannot slide over each other as easily, so bronze is harder than pure copper.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "non-directional metallic bonding; different-sized atoms disrupt layers; layers slide less easily",
+            "requires": [
+              "non-directional",
+              [
+                "different size",
+                "different sizes"
+              ],
+              [
+                "disrupt",
+                "distort"
+              ],
+              [
+                "slide",
+                "sliding"
+              ],
+              "harder"
+            ],
+            "forbids": [
+              "bronze is a compound",
+              "covalent bonds between",
+              "stronger intermolecular forces"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-mixture",
+          "question": "Brass is described as a mixture rather than a compound. Explain why.",
+          "steps": [
+            "A compound always has a fixed ratio of elements, and so a formula.",
+            "Brass can be made with different proportions of copper and zinc."
+          ],
+          "answer": "Brass can be made with different proportions of copper and zinc, so it has no fixed composition and no chemical formula. A compound always contains its elements in a fixed ratio. In brass, all the atoms are held by the same metallic bonding, so no new substance with a fixed ratio forms. So brass is a mixture.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "variable composition and no formula, unlike a compound's fixed ratio; same metallic bonding throughout",
+            "requires": [
+              [
+                "different proportions",
+                "no fixed composition"
+              ],
+              "fixed ratio",
+              "metallic bonding",
+              "mixture"
+            ],
+            "forbids": [
+              "brass is a compound",
+              "the atoms are not bonded"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying an alloy is harder because its bonds are stronger. The marks are for different-sized atoms that disrupt the layers, so the layers slide less easily."
+        },
+        {
+          "type": "check",
+          "id": "check-why-atoms-fit",
+          "prompt": "Why can atoms of a second element join a metal's lattice and still be held in place?",
+          "hint": "Think about how the delocalized electrons attract the cations.",
+          "options": [
+            {
+              "text": "Metallic bonding is non-directional.",
+              "correct": true
+            },
+            {
+              "text": "The two elements form ionic bonds with each other.",
+              "correct": false
+            },
+            {
+              "text": "Each added atom forms covalent bonds in fixed directions.",
+              "correct": false
+            },
+            {
+              "text": "The added atoms are held by intermolecular forces.",
+              "correct": false
+            }
+          ],
+          "explain": "The electron sea attracts every cation, whatever its neighbours, so a different atom in the lattice is still bonded. There are no fixed bonds between particular atoms.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Metallic bonding is non-directional."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steel-harder",
+          "prompt": "Steel is harder than pure iron. Which is the best explanation?",
+          "hint": "Compare the sizes of the atoms in steel with those in pure iron.",
+          "options": [
+            {
+              "text": "Carbon atoms of a different size disrupt the layers, so they slide less easily.",
+              "correct": true
+            },
+            {
+              "text": "Carbon forms a compound with iron that has a fixed formula.",
+              "correct": false
+            },
+            {
+              "text": "Carbon adds extra delocalized electrons, so every metallic bond is much stronger.",
+              "correct": false
+            },
+            {
+              "text": "Carbon atoms make the iron layers perfectly regular.",
+              "correct": false
+            }
+          ],
+          "explain": "The small carbon atoms sit in gaps between the iron atoms and break up the regular layers. Steel is a mixture with no fixed formula.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Carbon atoms of a different size disrupt the layers, so they slide less easily."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Bonding is a continuum. The bonding triangle (data booklet, section 17) has metallic ($\\ce{Cs}$), covalent ($\\ce{F2}$) and ionic ($\\ce{CsF}$) corners.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\chi = \\lvert \\chi_a - \\chi_b \\rvert",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Sigma\\chi = \\frac{\\chi_a + \\chi_b}{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Across: average $\\Sigma\\chi$. Up: difference $\\Delta\\chi$. Large $\\Delta\\chi$ is ionic; small $\\Delta\\chi$ is metallic with a low average and covalent with a high one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The triangle gives the type of bonding, not the structure: a covalent substance can be molecular (low melting point) or a network (very high).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An alloy is a mixture of a metal with other metals or non-metals. It has no fixed composition, so it is not a compound.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Metallic bonding is non-directional, so other atoms fit into the lattice. Different-sized atoms disrupt the layers, so alloys are usually harder and stronger than the pure metal.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Placing a substance from $\\Delta\\chi$ alone. A small difference can mean metallic or covalent bonding, so use the average electronegativity too.",
+    "Calling an alloy a compound. It has no fixed composition and no formula, so it is a mixture.",
+    "Explaining an alloy's hardness with \"stronger bonds\". Say that atoms of a different size disrupt the layers, so they slide less easily.",
+    "Describing a metal as positive nuclei in a sea of electrons. The lattice is made of cations (positive ions), not bare nuclei."
+  ],
+  "examTips": [
+    "\"Determine\" a position on the triangle: quote both electronegativities from section 9, show $\\Delta\\chi$ and $\\Sigma\\chi$, then name the region.",
+    "\"Predict\" properties: name the bonding type first, then link each property to it.",
+    "\"Explain\" why an alloy is harder than the pure metal in three linked steps: atoms of a different size, disrupted layers, layers slide less easily.",
+    "In Paper 1A, never judge the bonding from \"metal plus non-metal\" alone: work out both values."
+  ],
+  "readingMinutes": 25
+}

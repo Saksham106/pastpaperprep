@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 384" role="img" aria-labelledby="t613lad">
+  <title id="t613lad">Selected standard reduction potentials from fluorine at +2.87 V at the top to lithium at −3.04 V at the bottom; oxidizing agents on the left get stronger going up, and reducing agents on the right get stronger going down</title>
+  <defs>
+    <marker id="m613lad-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="200" y="40" text-anchor="end" fill="var(--muted)">oxidized species</text>
+    <text x="280" y="40" text-anchor="middle" fill="var(--muted)">E⦵ / V</text>
+    <text x="360" y="40" text-anchor="start" fill="var(--muted)">reduced species</text>
+    <text x="200" y="78" text-anchor="end" fill="var(--t1-ink)">F₂</text>
+    <text x="280" y="78" text-anchor="middle">+2.87</text>
+    <text x="360" y="78" text-anchor="start" fill="var(--t2-ink)">F⁻</text>
+    <text x="200" y="104" text-anchor="end" fill="var(--t1-ink)">MnO₄⁻ + H⁺</text>
+    <text x="280" y="104" text-anchor="middle">+1.51</text>
+    <text x="360" y="104" text-anchor="start" fill="var(--t2-ink)">Mn²⁺</text>
+    <text x="200" y="130" text-anchor="end" fill="var(--t1-ink)">Cl₂</text>
+    <text x="280" y="130" text-anchor="middle">+1.36</text>
+    <text x="360" y="130" text-anchor="start" fill="var(--t2-ink)">Cl⁻</text>
+    <text x="200" y="156" text-anchor="end" fill="var(--t1-ink)">Ag⁺</text>
+    <text x="280" y="156" text-anchor="middle">+0.80</text>
+    <text x="360" y="156" text-anchor="start" fill="var(--t2-ink)">Ag</text>
+    <text x="200" y="182" text-anchor="end" fill="var(--t1-ink)">Cu²⁺</text>
+    <text x="280" y="182" text-anchor="middle">+0.34</text>
+    <text x="360" y="182" text-anchor="start" fill="var(--t2-ink)">Cu</text>
+    <text x="200" y="208" text-anchor="end" fill="var(--t1-ink)" font-weight="bold">H⁺</text>
+    <text x="280" y="208" text-anchor="middle" font-weight="bold">0.00</text>
+    <text x="360" y="208" text-anchor="start" fill="var(--t2-ink)" font-weight="bold">H₂</text>
+    <text x="200" y="234" text-anchor="end" fill="var(--t1-ink)">Pb²⁺</text>
+    <text x="280" y="234" text-anchor="middle">−0.13</text>
+    <text x="360" y="234" text-anchor="start" fill="var(--t2-ink)">Pb</text>
+    <text x="200" y="260" text-anchor="end" fill="var(--t1-ink)">Zn²⁺</text>
+    <text x="280" y="260" text-anchor="middle">−0.76</text>
+    <text x="360" y="260" text-anchor="start" fill="var(--t2-ink)">Zn</text>
+    <text x="200" y="286" text-anchor="end" fill="var(--t1-ink)">Al³⁺</text>
+    <text x="280" y="286" text-anchor="middle">−1.66</text>
+    <text x="360" y="286" text-anchor="start" fill="var(--t2-ink)">Al</text>
+    <text x="200" y="312" text-anchor="end" fill="var(--t1-ink)">Mg²⁺</text>
+    <text x="280" y="312" text-anchor="middle">−2.37</text>
+    <text x="360" y="312" text-anchor="start" fill="var(--t2-ink)">Mg</text>
+    <text x="200" y="338" text-anchor="end" fill="var(--t1-ink)">Li⁺</text>
+    <text x="280" y="338" text-anchor="middle">−3.04</text>
+    <text x="360" y="338" text-anchor="start" fill="var(--t2-ink)">Li</text>
+  </g>
+  <line x1="214" y1="204" x2="250" y2="204" stroke="var(--muted)" stroke-dasharray="3 3"/>
+  <line x1="310" y1="204" x2="346" y2="204" stroke="var(--muted)" stroke-dasharray="3 3"/>
+  <line x1="60" y1="338" x2="60" y2="70" stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#m613lad-head)"/>
+  <line x1="500" y1="70" x2="500" y2="338" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m613lad-head)"/>
+  <g font-size="13" font-family="inherit">
+    <text x="0" y="0" transform="translate(46,204.0) rotate(-90)" text-anchor="middle" fill="var(--t1-ink)">stronger oxidizing agent</text>
+    <text x="0" y="0" transform="translate(522,204.0) rotate(90)" text-anchor="middle" fill="var(--t2-ink)">stronger reducing agent</text>
+    <text x="280" y="372" text-anchor="middle" fill="var(--muted)">Selected values from section 19 of the data booklet; spacing not to scale</text>
+  </g>
+</svg>

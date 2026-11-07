@@ -4,7 +4,8 @@ import { COURSES, isCourseVisible, lessonPath, lessonsForTopic, type Course } fr
 import { GROUPS } from "./groups";
 import { compareItems } from "./items";
 import type { PracticeLevel } from "./practice";
-import type { ViewLevel } from "./types";
+import { subtopicPracticeFile } from "./subtopic-practice";
+import type { Lesson, ViewLevel } from "./types";
 
 export type LessonLink = { href: string; label: string };
 
@@ -61,6 +62,30 @@ function codeLinks(course: Course): Record<string, LessonLink> {
   return links;
 }
 
+/** The view a bank belongs to in a course: the extension level's bank sees every lesson, the base level's only base lessons. */
+const bankView = (course: Course, bankSlug: string): ViewLevel => (course.banks[course.levels.labels.extension] === bankSlug ? "extension" : "base");
+
+/**
+ * Bank-subtopics course: each practice label with a written lesson, in item order, and the first such lesson (the
+ * base level's bank only links base lessons). `shared` when more items than one practise the label.
+ */
+function subtopicLessons(course: Course, bankSlug: string): { label: string; lesson: Lesson; shared: boolean }[] {
+  const view = bankView(course, bankSlug);
+  const entries = [...course.items.items].sort((a, b) => a.topic - b.topic || compareItems(a.item, b.item));
+  const found = new Map<string, { label: string; lesson: Lesson; shared: boolean }>();
+  for (const entry of entries) {
+    if (!entry.practice || found.has(entry.practice)) continue;
+    const lesson = course.lessons.find((candidate) => candidate.item === entry.item && (view === "extension" || candidate.level === course.levels.base));
+    if (lesson) found.set(entry.practice, { label: entry.practice, lesson, shared: entries.filter((other) => other.practice === entry.practice).length > 1 });
+  }
+  return [...found.values()];
+}
+
+/** Bank-subtopics bank: keys are the subtopic labels questions carry. A label several lessons share is the link's text. */
+function subtopicLinks(course: Course, bankSlug: string): Record<string, LessonLink> {
+  return Object.fromEntries(subtopicLessons(course, bankSlug).map(({ label, lesson, shared }) => [label, { href: lessonPath(course, lesson), label: shared ? label : lesson.title }]));
+}
+
 /** Visible courses practised in that bank. */
 const coursesForBank = (bankSlug: string) => COURSES.filter((course) => isCourseVisible(course) && Object.values(course.banks).includes(bankSlug));
 
@@ -74,7 +99,8 @@ export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> 
     if (course.practice.kind === "aa-items") {
       const level = BANK_LEVELS[bankSlug];
       if (level) Object.assign(links, aaLinks(course, level));
-    } else Object.assign(links, codeLinks(course));
+    } else if (course.practice.kind === "bank-subtopics") Object.assign(links, subtopicLinks(course, bankSlug));
+    else Object.assign(links, codeLinks(course));
   }
   return Object.keys(links).length ? links : undefined;
 }
@@ -83,6 +109,16 @@ export function notesLinksForBank(bankSlug: string): Record<string, LessonLink> 
 export function notesTopicLinksForBank(bankSlug: string): Record<string, LessonLink> | undefined {
   const course = coursesForBank(bankSlug)[0];
   if (!course) return undefined;
+  if (course.practice.kind === "bank-subtopics") {
+    // The bank's topics are not the course's: each opens the first lesson practising one of its subtopics.
+    const parents = subtopicPracticeFile(course).parents;
+    const links: Record<string, LessonLink> = {};
+    for (const { label, lesson } of subtopicLessons(course, bankSlug)) {
+      const topic = parents[label];
+      if (topic && !links[topic]) links[topic] = { href: lessonPath(course, lesson), label: lesson.title };
+    }
+    return Object.keys(links).length ? links : undefined;
+  }
   return Object.fromEntries(course.topics.filter((topic) => lessonsForTopic(course, topic.n).length).map((topic) => [topic.name, { href: `/revision-notes/${course.slug}/${topic.slug}`, label: `${topic.name} notes` }]));
 }
 
@@ -115,6 +151,10 @@ export function syllabusNotesForBank(bankSlug: string): SyllabusNote[] {
     if (course.practice.kind === "aa-items") {
       const level = BANK_LEVELS[bankSlug];
       return level ? aaSyllabusNotes(course, level) : [];
+    }
+    if (course.practice.kind === "bank-subtopics") {
+      const parents = subtopicPracticeFile(course).parents;
+      return subtopicLessons(course, bankSlug).map(({ label, lesson }) => ({ name: label, topic: parents[label] ?? "", href: lessonPath(course, lesson), label: lesson.title }));
     }
     return sectionSyllabusNotes(course);
   });

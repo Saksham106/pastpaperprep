@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "5.1",
+  "slug": "chemical-equations-and-reacting-quantities",
+  "title": "Chemical equations and reacting quantities",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A balanced equation gives the ratio in which substances react, counted in [[mole|moles]]. Turn what you know into moles, use that ratio, then turn moles into grams, gas volumes or concentrations. This is [[stoichiometry|stoichiometry]].",
+  "goals": [
+    {
+      "text": "Deduce a balanced equation, with [[state-symbols|state symbols]], when you are told the reactants and products.",
+      "bullets": [
+        "R2.1.1"
+      ]
+    },
+    {
+      "text": "Use the mole ratio in an equation to calculate the masses that react and form.",
+      "bullets": [
+        "R2.1.2"
+      ]
+    },
+    {
+      "text": "Calculate the volumes of gases that react and form, from volume ratios or the [[molar-volume|molar volume]] at STP.",
+      "bullets": [
+        "R2.1.2"
+      ]
+    },
+    {
+      "text": "Calculate the concentrations and volumes of solutions that react, including from titration results.",
+      "bullets": [
+        "R2.1.2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.6",
+    "1.8",
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "balancing equations",
+    "reacting masses",
+    "mole ratio calculation",
+    "stoichiometry calculation",
+    "gas volume calculation",
+    "titration calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-water-moles",
+      "prompt": "How many moles of water, $\\ce{H2O}$, are in $\\pu{9.00 g}$ of water? Give 3 significant figures.",
+      "hint": "Work out the [[molar-mass|molar mass]] from $A_\\text{r}(\\ce{H}) = 1.01$ and $A_\\text{r}(\\ce{O}) = 16.00$, then use $n = \\frac{m}{M}$.",
+      "answer": {
+        "value": 0.499,
+        "tolerance": 0.0005
+      },
+      "explain": "$M = 2(1.01) + 16.00 = \\pu{18.02 g mol-1}$, so $n = \\frac{9.00}{18.02} \\approx \\pu{0.499 mol}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "9.00/Mr('H2O')",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-moles-in-solution",
+      "prompt": "How many moles of solute are in $\\pu{40.0 cm3}$ of a $\\pu{0.125 mol dm-3}$ solution?",
+      "hint": "Change the volume to $\\pu{dm3}$ first: divide by 1000.",
+      "options": [
+        {
+          "text": "$\\pu{0.00500 mol}$",
+          "correct": true
+        },
+        {
+          "text": "$\\pu{5.00 mol}$",
+          "correct": false
+        },
+        {
+          "text": "$\\pu{0.320 mol}$",
+          "correct": false
+        }
+      ],
+      "explain": "$n = CV = 0.125 \\times \\frac{40.0}{1000} = \\pu{0.00500 mol}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "0.125*40.0/1000",
+        "unit": "mol"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-dissolved-state",
+      "prompt": "Potassium nitrate is dissolved in water. Which state symbol describes the potassium nitrate in the solution?",
+      "hint": "There is a special symbol for substances dissolved in water.",
+      "options": [
+        {
+          "text": "(aq)",
+          "correct": true
+        },
+        {
+          "text": "(l)",
+          "correct": false
+        },
+        {
+          "text": "(s)",
+          "correct": false
+        },
+        {
+          "text": "(g)",
+          "correct": false
+        }
+      ],
+      "explain": "(aq) means dissolved in water; (l) is for a pure liquid. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "(aq)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "equations",
+      "heading": "Balanced equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A chemical equation is like a recipe: it says how many particles of each substance react, and how many form."
+        },
+        {
+          "type": "text",
+          "text": "In $\\ce{2H2 + O2 -> 2H2O}$, two hydrogen molecules react with one oxygen molecule. Scale up by $6.02 \\times 10^{23}$ and the ratio holds for moles too."
+        },
+        {
+          "type": "definition",
+          "term": "stoichiometry",
+          "statement": "The quantitative relationship between the amounts of reactants and products, given by the mole ratio in the balanced equation.",
+          "plain": "How much of each substance reacts and forms."
+        },
+        {
+          "type": "result",
+          "statement": "The coefficients in a balanced equation give the ratio of the amounts, in moles, that react and form. They do not give the ratio of masses.",
+          "why": "Coefficients count particles, and different particles have different masses."
+        },
+        {
+          "type": "text",
+          "text": "An equation must balance because atoms are neither created nor destroyed. Every atom of each [[element|element]] on the left is still there on the right. In an ionic equation the total charge must balance too."
+        },
+        {
+          "type": "text",
+          "text": "To deduce an equation:"
+        },
+        {
+          "type": "text",
+          "text": "1. Write the correct formula of every reactant and product. For an ionic [[compound|compound]], balance the charges on the ions."
+        },
+        {
+          "type": "text",
+          "text": "2. Balance one element at a time by putting numbers (coefficients) in front of formulas. Never change a formula to make it balance."
+        },
+        {
+          "type": "text",
+          "text": "3. Balance elements on their own, such as $\\ce{O2}$, last. If you need half a molecule, double everything, unless the equation must be per mole of one substance, as for an enthalpy change of combustion."
+        },
+        {
+          "type": "text",
+          "text": "4. Add [[state-symbols|state symbols]]: (s) solid, (l) liquid, (g) gas and (aq) dissolved in water. Use the states at the conditions of the reaction."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-magnesium-oxide",
+          "question": "Magnesium burns in oxygen to form magnesium oxide. A student writes $\\ce{Mg + O2 -> MgO}$. Explain why this equation is not acceptable, and how to correct it.",
+          "steps": [
+            "Count each type of atom on both sides: $\\ce{Mg}$ 1 and 1; $\\ce{O}$ 2 and 1.",
+            "State the principle that requires the counts to match.",
+            "Say what must not change (the formula), then what does (the coefficients)."
+          ],
+          "answer": "Atoms are neither created nor destroyed in a chemical reaction, so there must be the same number of atoms of each element on both sides. The left side has two oxygen atoms but the right side has only one. The formula of magnesium oxide is fixed, so you must not change it. Instead, put coefficients in front: a 2 before $\\ce{MgO}$ and then a 2 before $\\ce{Mg}$, giving $\\ce{2Mg + O2 -> 2MgO}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "atoms are conserved; oxygen atoms do not match; balance with coefficients, never by changing formulas",
+            "requires": [
+              "neither created nor destroyed",
+              [
+                "same number of atoms",
+                "same number of each"
+              ],
+              "two oxygen atoms",
+              [
+                "must not change it",
+                "cannot change the formula"
+              ],
+              "coefficients"
+            ],
+            "forbids": [
+              "atoms are created",
+              "change the subscript"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-butane-combustion",
+          "question": "Butane, $\\ce{C4H10}$, burns completely in oxygen to form carbon dioxide and water. Deduce the balanced equation, with state symbols, at room temperature.",
+          "steps": [
+            "Formulas: $\\ce{C4H10 + O2 -> CO2 + H2O}$.",
+            "Carbon: 4 on the left, so $\\ce{4CO2}$. Hydrogen: 10 on the left, so $\\ce{5H2O}$.",
+            "Oxygen: the right has $4(2) + 5 = 13$ atoms, which needs $\\frac{13}{2}$ $\\ce{O2}$. Double everything to clear the half.",
+            "States: butane, oxygen and carbon dioxide are gases; water is a liquid. Check: $\\ce{C}$ 8 and 8, $\\ce{H}$ 20 and 20, $\\ce{O}$ 26 and 26."
+          ],
+          "answer": "$\\ce{2C4H10(g) + 13O2(g) -> 8CO2(g) + 10H2O(l)}$",
+          "video": null,
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "C4H10(g) + O2(g) -> CO2(g) + H2O(l)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "text",
+          "text": "Redox reactions can also be split into [[half-equation|half-equations]], one for each electron transfer. You write these in {{lesson:6.8}}."
+        },
+        {
+          "type": "check",
+          "id": "check-lithium-water",
+          "prompt": "Lithium reacts with water to form lithium hydroxide solution and hydrogen gas. Which equation is correct?",
+          "hint": "Balance hydrogen carefully, then check that each state symbol fits the substance.",
+          "options": [
+            {
+              "text": "$\\ce{2Li(s) + 2H2O(l) -> 2LiOH(aq) + H2(g)}$",
+              "correct": true
+            },
+            {
+              "text": "$\\ce{Li(s) + H2O(l) -> LiOH(aq) + H2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{2Li(s) + 2H2O(aq) -> 2LiOH(aq) + H2(g)}$",
+              "correct": false
+            },
+            {
+              "text": "$\\ce{Li(s) + H2O(l) -> LiOH(aq) + H(g)}$",
+              "correct": false
+            }
+          ],
+          "explain": "One of each leaves three hydrogen atoms on the right and two on the left, so double lithium, water and hydroxide. Water is (l), not (aq), and hydrogen gas is $\\ce{H2}$.",
+          "verify": {
+            "kind": "chem-equation",
+            "truth": "Li(s) + H2O(l) -> LiOH(aq) + H2(g)",
+            "states": true,
+            "reversible": false
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ammonia-ratio",
+          "prompt": "Ammonia burns in oxygen: $\\ce{4NH3(g) + 5O2(g) -> 4NO(g) + 6H2O(g)}$. How much oxygen reacts with $\\pu{2 mol}$ of ammonia?",
+          "hint": "The ratio $\\ce{NH3}:\\ce{O2}$ is $4:5$.",
+          "options": [
+            {
+              "text": "$\\pu{2.5 mol}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{1.6 mol}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{5 mol}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{10 mol}$",
+              "correct": false
+            }
+          ],
+          "explain": "$n(\\ce{O2}) = 2 \\times \\frac{5}{4} = \\pu{2.5 mol}$. $1.6$ uses the ratio upside down.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*5/4",
+            "unit": "mol"
+          }
+        }
+      ]
+    },
+    {
+      "id": "masses",
+      "heading": "Reacting masses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An equation compares moles, but a balance measures grams. So every reacting-mass calculation goes through moles:"
+        },
+        {
+          "type": "text",
+          "text": "1. Change what you know into moles of substance A."
+        },
+        {
+          "type": "text",
+          "text": "2. Use the mole ratio from the equation to get moles of substance B."
+        },
+        {
+          "type": "text",
+          "text": "3. Change moles of B into what the question asks for."
+        },
+        {
+          "type": "formula",
+          "tex": "n_\\text{B} = n_\\text{A} \\times \\frac{b}{a}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $a$ and $b$ are the coefficients of A and B in the balanced equation. For masses, use $n = \\frac{m}{M}$, which is in the data booklet (section 1)."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{m}{M}",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-mass"
+        },
+        {
+          "type": "text",
+          "text": "Take each $M$ from the [[relative-atomic-mass|relative atomic masses]] in the periodic table (data booklet, section 7), to two decimal places."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-mole-route",
+          "alt": "Flow chart. On the left, three ways to know substance A: its mass, its gas volume at STP, or its solution concentration C and volume V. Each leads to amount of A in moles by dividing by M, dividing by V m, or multiplying C by V. An arrow labelled times b over a, the mole ratio, leads to amount of B in moles. From there, multiply by M for the mass of B, multiply by V m for its gas volume at STP, or divide by V or by C for a solution of B.",
+          "caption": "Every route goes through moles. Only the middle step uses the equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-magnesium-oxide-mass",
+          "question": "Calculate the mass of magnesium oxide formed when $\\pu{2.50 g}$ of magnesium burns completely: $\\ce{2Mg(s) + O2(g) -> 2MgO(s)}$.",
+          "steps": [
+            "Moles of magnesium: $n = \\frac{2.50}{24.31} = \\pu{0.10284 mol}$.",
+            "Mole ratio $\\ce{Mg}:\\ce{MgO}$ is $2:2$, so $n(\\ce{MgO}) = \\pu{0.10284 mol}$.",
+            "$M(\\ce{MgO}) = 24.31 + 16.00 = \\pu{40.31 g mol-1}$, so $m = 0.10284 \\times 40.31 = \\pu{4.145 g}$.",
+            "Round only at the end, to 3 significant figures. Sense check: the oxide is heavier than the metal."
+          ],
+          "answer": "$m(\\ce{MgO}) \\approx \\pu{4.15 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.50/Ar('Mg')*Mr('MgO')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ethanol-oxygen",
+          "question": "Ethanol burns completely: $\\ce{C2H5OH(l) + 3O2(g) -> 2CO2(g) + 3H2O(l)}$. Calculate the mass of oxygen needed to burn $\\pu{6.90 g}$ of ethanol.",
+          "steps": [
+            "$M(\\ce{C2H5OH}) = 2(12.01) + 6(1.01) + 16.00 = \\pu{46.08 g mol-1}$, so $n = \\frac{6.90}{46.08} = \\pu{0.14974 mol}$.",
+            "Mole ratio $\\ce{C2H5OH}:\\ce{O2}$ is $1:3$, so $n(\\ce{O2}) = 0.14974 \\times 3 = \\pu{0.44922 mol}$.",
+            "$m = 0.44922 \\times 32.00 = \\pu{14.375 g}$, which is $\\pu{14.4 g}$ to 3 significant figures."
+          ],
+          "answer": "$m(\\ce{O2}) \\approx \\pu{14.4 g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.90/Mr('C2H5OH')*3*Mr('O2')",
+            "sf": 3,
+            "unit": "g"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the coefficients as a mass ratio, e.g. 3 g of oxygen for every 1 g of ethanol. Convert to moles first."
+        },
+        {
+          "type": "check",
+          "id": "check-methane-water",
+          "prompt": "Methane burns: $\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l)}$. Calculate the mass of water, in $\\pu{g}$, formed from $\\pu{0.800 g}$ of methane. Give 3 significant figures.",
+          "hint": "Moles of methane first, then double it for water.",
+          "answer": {
+            "value": 1.8,
+            "tolerance": 0.005
+          },
+          "explain": "$n(\\ce{CH4}) = \\frac{0.800}{16.05} = 0.049844$, so $n(\\ce{H2O}) = 0.099688$ and $m = 0.099688 \\times 18.02 \\approx \\pu{1.80 g}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.800/Mr('CH4')*2*Mr('H2O')",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-aluminium-copper",
+          "prompt": "Aluminium displaces copper: $\\ce{2Al(s) + 3CuSO4(aq) -> Al2(SO4)3(aq) + 3Cu(s)}$. What mass of copper forms from $\\pu{4.00 g}$ of aluminium, with copper(II) sulfate in excess?",
+          "hint": "The ratio $\\ce{Al}:\\ce{Cu}$ is $2:3$, so you get more moles of copper than of aluminium.",
+          "options": [
+            {
+              "text": "$\\approx \\pu{14.1 g}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx \\pu{9.42 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{6.28 g}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{6.00 g}$",
+              "correct": false
+            }
+          ],
+          "explain": "$n(\\ce{Al}) = \\frac{4.00}{26.98} = 0.14826$, so $n(\\ce{Cu}) = 0.22239$ and $m = 0.22239 \\times 63.55 \\approx \\pu{14.1 g}$. $9.42$ ignores the ratio, $6.28$ inverts it and $6.00$ treats it as a mass ratio.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.00/Ar('Al')*Rational(3, 2)*Ar('Cu')",
+            "sf": 3,
+            "unit": "g"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gases",
+      "heading": "Reacting gas volumes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "By [[avogadros-law|Avogadro's law]], equal volumes of gases at the same temperature and pressure hold equal numbers of molecules."
+        },
+        {
+          "type": "result",
+          "statement": "For gases measured at the same temperature and pressure, the ratio of their volumes equals the ratio of their coefficients in the balanced equation.",
+          "why": "Volume is proportional to amount in moles when temperature and pressure are fixed."
+        },
+        {
+          "type": "text",
+          "text": "This only works for gases: leave out any liquid or solid, such as water at room temperature."
+        },
+        {
+          "type": "text",
+          "text": "To link a gas volume to a mass, use the [[molar-volume|molar volume]]. At [[standard-temperature-and-pressure|standard temperature and pressure]] (STP, $\\pu{273.15 K}$ and $\\pu{100 kPa}$), $V_\\text{m} = \\pu{22.7 dm3 mol-1}$ (data booklet, section 2)."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{V}{V_\\text{m}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The molar volume grows with temperature and shrinks with pressure. Away from STP, use $PV = nRT$ instead (see {{lesson:1.9}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrogen-sulfide-volumes",
+          "question": "Hydrogen sulfide burns: $\\ce{2H2S(g) + 3O2(g) -> 2SO2(g) + 2H2O(l)}$. Calculate the volume of oxygen that reacts with $\\pu{30.0 cm3}$ of hydrogen sulfide. All volumes are measured at the same temperature and pressure.",
+          "steps": [
+            "Both are gases at the same conditions, so the volume ratio $\\ce{H2S}:\\ce{O2}$ is the mole ratio, $2:3$.",
+            "$V(\\ce{O2}) = 30.0 \\times \\frac{3}{2} = \\pu{45.0 cm3}$. The water is liquid, so it adds no gas volume."
+          ],
+          "answer": "$V(\\ce{O2}) = \\pu{45.0 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "30.0*3/2",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-baking-soda-gas",
+          "question": "Heating sodium hydrogencarbonate releases carbon dioxide: $\\ce{2NaHCO3(s) -> Na2CO3(s) + H2O(g) + CO2(g)}$. Calculate the volume of carbon dioxide, measured at STP, formed from $\\pu{5.00 g}$ of sodium hydrogencarbonate.",
+          "steps": [
+            "$M(\\ce{NaHCO3}) = 22.99 + 1.01 + 12.01 + 3(16.00) = \\pu{84.01 g mol-1}$, so $n = \\frac{5.00}{84.01} = \\pu{0.059517 mol}$.",
+            "Mole ratio $\\ce{NaHCO3}:\\ce{CO2}$ is $2:1$, so $n(\\ce{CO2}) = \\frac{0.059517}{2} = \\pu{0.029758 mol}$.",
+            "At STP, $V = nV_\\text{m} = 0.029758 \\times 22.7 = \\pu{0.6755 dm3}$.",
+            "Give 3 significant figures: $\\pu{0.676 dm3}$, or $\\pu{676 cm3}$."
+          ],
+          "answer": "$V(\\ce{CO2}) \\approx \\pu{0.676 dm3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "5.00/Mr('NaHCO3')/2*Vm",
+            "sf": 3,
+            "unit": "dm3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethane-oxygen",
+          "prompt": "Ethane burns: $\\ce{2C2H6(g) + 7O2(g) -> 4CO2(g) + 6H2O(l)}$. What volume of oxygen burns $\\pu{16.0 cm3}$ of ethane, with all gases at the same temperature and pressure?",
+          "hint": "Gas volumes react in the ratio of the coefficients.",
+          "options": [
+            {
+              "text": "$\\pu{56.0 cm3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{112 cm3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{28.0 cm3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{4.57 cm3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$V(\\ce{O2}) = 16.0 \\times \\frac{7}{2} = \\pu{56.0 cm3}$. $112$ ignores the 2 before ethane, $28.0$ uses the carbon dioxide coefficient and $4.57$ inverts the ratio.",
+          "verify": {
+            "kind": "exact",
+            "truth": "16.0*7/2",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnesium-hydrogen",
+          "prompt": "Magnesium reacts with excess acid: $\\ce{Mg(s) + 2HCl(aq) -> MgCl2(aq) + H2(g)}$. Calculate the volume of hydrogen, in $\\pu{dm3}$ at STP, formed from $\\pu{0.486 g}$ of magnesium. Give 3 significant figures.",
+          "hint": "Moles of magnesium, then the $1:1$ ratio, then multiply by $V_\\text{m}$.",
+          "answer": {
+            "value": 0.454,
+            "tolerance": 0.0005
+          },
+          "explain": "$n(\\ce{H2}) = n(\\ce{Mg}) = \\frac{0.486}{24.31} = 0.019992$, so $V = 0.019992 \\times 22.7 \\approx \\pu{0.454 dm3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.486/Ar('Mg')*Vm",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "solutions",
+      "heading": "Reactions in solution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a solution, the amount comes from its [[molar-concentration|molar concentration]] and its volume. This formula is in the data booklet (section 1)."
+        },
+        {
+          "type": "formula",
+          "tex": "n = CV",
+          "tag": "booklet",
+          "bookletId": "db-amount-from-concentration"
+        },
+        {
+          "type": "text",
+          "text": "$V$ must be in $\\pu{dm3}$, so divide a volume in $\\pu{cm3}$ by 1000. Then use the same three steps."
+        },
+        {
+          "type": "text",
+          "text": "In a [[titration|titration]], you measure the exact volume of one solution that reacts with a known volume of another. The mole ratio then links their concentrations."
+        },
+        {
+          "type": "example",
+          "id": "ex-sulfuric-acid-volume",
+          "question": "Calculate the volume of $\\pu{0.150 mol dm-3}$ sulfuric acid that exactly neutralizes $\\pu{22.0 cm3}$ of $\\pu{0.120 mol dm-3}$ sodium hydroxide: $\\ce{H2SO4(aq) + 2NaOH(aq) -> Na2SO4(aq) + 2H2O(l)}$.",
+          "steps": [
+            "Moles of $\\ce{NaOH}$: $n = 0.120 \\times \\frac{22.0}{1000} = \\pu{0.00264 mol}$.",
+            "Mole ratio $\\ce{H2SO4}:\\ce{NaOH}$ is $1:2$, so $n(\\ce{H2SO4}) = \\pu{0.00132 mol}$.",
+            "$V = \\frac{n}{C} = \\frac{0.00132}{0.150} = \\pu{0.00880 dm3}$, which is $\\pu{8.80 cm3}$.",
+            "The same moles give a product's concentration: $\\pu{0.00132 mol}$ of $\\ce{Na2SO4}$ in $\\pu{30.8 cm3}$ of the final [[mixture|mixture]] is $\\frac{0.00132}{0.0308} \\approx \\pu{0.0429 mol dm-3}$."
+          ],
+          "answer": "$V = \\pu{8.80 cm3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.120*22.0/1000)/2/0.150*1000",
+            "unit": "cm3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-carbonate-titration",
+          "question": "$\\pu{25.0 cm3}$ of sodium carbonate solution needs a mean titre of $\\pu{21.40 cm3}$ of $\\pu{0.100 mol dm-3}$ hydrochloric acid: $\\ce{Na2CO3(aq) + 2HCl(aq) -> 2NaCl(aq) + H2O(l) + CO2(g)}$. Determine the concentration of the sodium carbonate solution.",
+          "steps": [
+            "Start from the solution you know both values for: $n(\\ce{HCl}) = 0.100 \\times \\frac{21.40}{1000} = \\pu{0.002140 mol}$.",
+            "Mole ratio $\\ce{Na2CO3}:\\ce{HCl}$ is $1:2$, so $n(\\ce{Na2CO3}) = \\frac{0.002140}{2} = \\pu{0.001070 mol}$.",
+            "$C = \\frac{n}{V} = \\frac{0.001070}{0.0250} = \\pu{0.0428 mol dm-3}$.",
+            "Sense check: the carbonate needs twice its moles of acid, so its concentration is a bit under half the acid's."
+          ],
+          "answer": "$[\\ce{Na2CO3}] = \\pu{0.0428 mol dm-3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.100*(21.40/1000)/2/(25.0/1000)",
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-potassium-hydroxide",
+          "prompt": "$\\pu{24.0 cm3}$ of potassium hydroxide solution is neutralized by $\\pu{15.0 cm3}$ of $\\pu{0.200 mol dm-3}$ sulfuric acid: $\\ce{2KOH(aq) + H2SO4(aq) -> K2SO4(aq) + 2H2O(l)}$. What is the concentration of the potassium hydroxide?",
+          "hint": "Each mole of the acid reacts with two moles of the alkali.",
+          "options": [
+            {
+              "text": "$\\pu{0.250 mol dm-3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.125 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.0625 mol dm-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.400 mol dm-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$n(\\ce{H2SO4}) = 0.200 \\times 0.0150 = 0.00300$, so $n(\\ce{KOH}) = 0.00600$ and $C = \\frac{0.00600}{0.0240} = \\pu{0.250 mol dm-3}$. $0.125$ ignores the ratio, $0.0625$ inverts it, $0.400$ uses the acid's volume.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(0.200*15.0/1000)/(24.0/1000)",
+            "unit": "mol dm-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zinc-oxide-acid",
+          "prompt": "Zinc oxide dissolves in nitric acid: $\\ce{ZnO(s) + 2HNO3(aq) -> Zn(NO3)2(aq) + H2O(l)}$. Calculate the mass of zinc oxide, in $\\pu{g}$, that reacts with $\\pu{35.0 cm3}$ of $\\pu{0.600 mol dm-3}$ nitric acid. Give 3 significant figures.",
+          "hint": "Use $n = CV$ for the acid, halve it, then multiply by $M(\\ce{ZnO})$.",
+          "answer": {
+            "value": 0.854,
+            "tolerance": 0.0005
+          },
+          "explain": "$n(\\ce{HNO3}) = 0.600 \\times 0.0350 = 0.0210$, so $n(\\ce{ZnO}) = 0.0105$. $m = 0.0105 \\times 81.38 \\approx \\pu{0.854 g}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.600*(35.0/1000)/2*Mr('ZnO')",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Balance an equation with coefficients only, never by changing a formula. Add state symbols: (s), (l), (g), (aq).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Coefficients give the mole ratio of the substances, not their mass ratio.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n_\\text{B} = n_\\text{A} \\times \\frac{b}{a}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Method: change what you know into moles, use the mole ratio, then change moles into what you want.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gases at the same temperature and pressure react in the volume ratio of their coefficients.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{V}{V_\\text{m}}, \\quad V_\\text{m} = \\pu{22.7 dm3 mol-1} \\text{ at STP}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For solutions, $n = CV$ with $V$ in $\\pu{dm3}$: divide $\\pu{cm3}$ by 1000.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Changing a formula to balance an equation, such as $\\ce{H2O2}$ for water. Only the coefficients may change.",
+    "Treating coefficients as a mass ratio. Convert every mass to moles before using the equation.",
+    "Putting a volume in $\\pu{cm3}$ into $n = CV$. Divide by 1000 to get $\\pu{dm3}$ first.",
+    "Using $\\pu{22.7 dm3 mol-1}$ away from STP, or for a liquid such as water.",
+    "Writing (aq) for water itself or for a solid product. Liquid water is (l), steam is (g); a solid is (s).",
+    "Rounding part-way through. Round only the final answer."
+  ],
+  "examTips": [
+    "\"Deduce\" an equation: correct formulas, smallest whole-number coefficients (fractions only when it must be per mole of one substance), and state symbols when asked. State symbols often earn their own mark.",
+    "\"Calculate\" a reacting quantity: show the starting moles, the moles after the ratio, then the answer to 3 significant figures with its unit.",
+    "Before using $\\pu{22.7 dm3 mol-1}$, check the question says STP and the substance is a gas.",
+    "In Paper 1A, gases at the same conditions react in the coefficient ratio: no molar masses needed."
+  ],
+  "readingMinutes": 21
+}

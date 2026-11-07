@@ -1,0 +1,741 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-chemistry-2025",
+  "item": "1.2",
+  "slug": "the-nuclear-atom-and-isotopes",
+  "title": "The nuclear atom and isotopes",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Every atom has a tiny, dense, positive nucleus made of [[proton|protons]] and [[neutron|neutrons]], with [[electron|electrons]] in the space around it. All atoms of one [[element|element]] have the same number of protons, but [[isotope|isotopes]] of it have different numbers of neutrons. That is why most [[relative-atomic-mass|relative atomic masses]] are not whole numbers.",
+  "goals": [
+    {
+      "text": "Describe the nuclear atom, and state the relative mass and charge of the proton, neutron and electron.",
+      "bullets": [
+        "S1.2.1"
+      ]
+    },
+    {
+      "text": "Read a nuclear symbol $\\ce{^{A}_{Z}X}$ to count the protons, neutrons and electrons in an atom or an [[ion|ion]].",
+      "bullets": [
+        "S1.2.1"
+      ]
+    },
+    {
+      "text": "Explain why isotopes of an element have the same chemical properties but different physical properties.",
+      "bullets": [
+        "S1.2.2"
+      ]
+    },
+    {
+      "text": "Calculate a relative atomic mass from isotope masses and abundances, and work backwards to an abundance or an isotope mass.",
+      "bullets": [
+        "S1.2.2"
+      ]
+    },
+    {
+      "text": "Interpret a [[mass-spectrum|mass spectrum]] to identify the isotopes of an element, their relative abundances and its relative atomic mass.",
+      "bullets": [
+        "S1.2.3"
+      ],
+      "level": "AHL"
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "subatomic particles",
+    "protons neutrons and electrons",
+    "nuclear symbol",
+    "isotopes",
+    "relative atomic mass calculation",
+    "mass spectrum of an element"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-element",
+      "prompt": "Which of these substances is an element?",
+      "hint": "An element cannot be broken down chemically into anything simpler.",
+      "options": [
+        {
+          "text": "copper",
+          "correct": true
+        },
+        {
+          "text": "brass",
+          "correct": false
+        },
+        {
+          "text": "water",
+          "correct": false
+        },
+        {
+          "text": "carbon dioxide",
+          "correct": false
+        }
+      ],
+      "explain": "Copper cannot be broken down chemically. Water and carbon dioxide are [[compound|compounds]], and brass is a [[mixture|mixture]] of copper and zinc. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "copper"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-compound",
+      "prompt": "Electrolysis splits water into hydrogen and oxygen, but no chemical reaction splits hydrogen into anything simpler. What does this show?",
+      "hint": "Ask which substance can be broken down chemically.",
+      "options": [
+        {
+          "text": "water is a compound and hydrogen is an element",
+          "correct": true
+        },
+        {
+          "text": "water is an element and hydrogen is a compound",
+          "correct": false
+        },
+        {
+          "text": "water and hydrogen are both mixtures",
+          "correct": false
+        }
+      ],
+      "explain": "Water breaks down chemically into two elements, so it is a compound. Hydrogen cannot be broken down, so it is an element. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "water is a compound and hydrogen is an element"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "atom",
+      "heading": "Inside the atom",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Almost all of an atom's mass sits in a tiny centre called the nucleus. The rest of the atom is mostly empty space."
+        },
+        {
+          "type": "text",
+          "text": "The nucleus holds two kinds of particle: [[proton|protons]], which are positive, and [[neutron|neutrons]], which have no charge. [[electron|Electrons]] are negative, and they occupy the space outside the nucleus."
+        },
+        {
+          "type": "definition",
+          "term": "nucleon",
+          "statement": "A proton or a neutron: either of the two particles found in the nucleus.",
+          "plain": "The particles the nucleus is built from."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-atom-model",
+          "alt": "Model of a lithium-7 atom, not to scale. A tiny nucleus in the centre holds 3 protons, each marked plus, and 4 neutrons with no charge. Around it, a large shaded region of mostly empty space holds 3 electrons, each marked minus.",
+          "caption": "A lithium-7 atom. Real nuclei are far smaller than this."
+        },
+        {
+          "type": "text",
+          "text": "Learn the relative masses and charges. Proton: mass 1, charge $+1$. Neutron: mass 1, charge 0. Electron: mass about $\\tfrac{1}{1836}$, charge $-1$."
+        },
+        {
+          "type": "text",
+          "text": "The actual values are in section 2 of the data booklet. The electron's mass is negligible, so an atom's mass is in effect the mass of its nucleus. With that mass packed into a tiny volume, the nucleus is extremely dense."
+        },
+        {
+          "type": "text",
+          "text": "An atom has as many electrons as protons, so the charges cancel and the atom is neutral."
+        },
+        {
+          "type": "definition",
+          "term": "atomic number",
+          "statement": "The number of protons in the nucleus of an atom, symbol $Z$.",
+          "plain": "Every atom with 6 protons is carbon."
+        },
+        {
+          "type": "text",
+          "text": "The [[atomic-number|atomic number]] fixes the element. Each element's $Z$ is printed in the periodic table (data booklet, section 7)."
+        },
+        {
+          "type": "definition",
+          "term": "mass number",
+          "statement": "The total number of protons and neutrons in the nucleus of an atom, symbol $A$.",
+          "plain": "Count the heavy particles in the nucleus."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of neutrons} = A - Z",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A nuclear symbol puts both numbers on the element's symbol: $\\ce{^{A}_{Z}X}$. The mass number goes top left, the atomic number bottom left, and any charge top right."
+        },
+        {
+          "type": "definition",
+          "term": "ion",
+          "statement": "An atom or group of atoms with an overall charge, because its number of electrons differs from its number of protons.",
+          "plain": "A positive ion has lost electrons; a negative ion has gained them."
+        },
+        {
+          "type": "text",
+          "text": "Forming an [[ion|ion]] changes only the electrons. A $2+$ ion has 2 fewer electrons than protons, and a $3-$ ion has 3 more."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-nuclear-symbol",
+          "alt": "The nuclear symbol of a sodium ion: Na with 23 at the top left, labelled mass number A equals protons plus neutrons, 11 at the bottom left, labelled atomic number Z equals protons, and a plus sign at the top right, labelled charge, one electron lost. Beside it: protons 11, neutrons 23 minus 11 equals 12, electrons 11 minus 1 equals 10."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-fluorine",
+          "question": "An atom of fluorine has the nuclear symbol $\\ce{^{19}_{9}F}$. Describe its structure, including the number, position and charge of each type of particle.",
+          "steps": [
+            "Protons: $Z = 9$.",
+            "Neutrons: $A - Z = 19 - 9 = 10$.",
+            "Electrons: the atom is neutral, so 9.",
+            "Then say where each particle is and its charge."
+          ],
+          "answer": "The atom has a small, dense nucleus that contains 9 protons and 10 neutrons. Each proton has a charge of +1 and each neutron has no charge, so the nucleus is positive. 9 electrons, each with a charge of -1, occupy the space outside the nucleus. The 9 positive and 9 negative charges cancel, so the atom is neutral.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "nucleus of 9 protons and 10 neutrons; 9 electrons outside the nucleus; neutral",
+            "requires": [
+              "nucleus",
+              [
+                "9 protons",
+                "nine protons"
+              ],
+              [
+                "10 neutrons",
+                "ten neutrons"
+              ],
+              [
+                "9 electrons",
+                "nine electrons"
+              ],
+              [
+                "outside the nucleus",
+                "around the nucleus"
+              ],
+              "neutral"
+            ],
+            "forbids": [
+              "electrons in the nucleus",
+              "electrons inside the nucleus",
+              "neutrons are negative"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-count-chromium-ion",
+          "question": "State the numbers of protons ($p$), neutrons ($n$) and electrons ($e$) in the ion $\\ce{^{52}_{24}Cr^3+}$.",
+          "steps": [
+            "Protons: $p = Z = 24$.",
+            "Neutrons: $n = A - Z = 52 - 24 = 28$.",
+            "The charge is $3+$, so the atom has lost 3 electrons: $e = 24 - 3 = 21$.",
+            "Check: $p - e = 24 - 21 = 3$, which matches the charge."
+          ],
+          "answer": "$p = 24, \\; n = 28, \\; e = 21$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'p': 24, 'n': 52 - 24, 'e': 24 - 3}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phosphide-electrons",
+          "prompt": "How many electrons are in the ion $\\ce{^{31}_{15}P^3-}$?",
+          "hint": "A negative charge means electrons were gained.",
+          "answer": {
+            "value": 18,
+            "tolerance": 0
+          },
+          "explain": "Phosphorus has $Z = 15$, so the atom has 15 electrons. A $3-$ ion has gained 3 more: $15 + 3 = 18$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15 + 3",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nuclear-symbol",
+          "prompt": "A species has 20 protons, 22 neutrons and 18 electrons. Its nuclear symbol is $\\ce{^{A}_{Z}X}$ with charge $q$. Which values are correct?",
+          "hint": "Protons give $Z$. Protons plus neutrons give $A$. Compare protons with electrons for the charge.",
+          "options": [
+            {
+              "text": "$A = 42, \\; Z = 20, \\; q = +2$",
+              "correct": true
+            },
+            {
+              "text": "$A = 42, \\; Z = 20, \\; q = -2$",
+              "correct": false
+            },
+            {
+              "text": "$A = 22, \\; Z = 20, \\; q = +2$",
+              "correct": false
+            },
+            {
+              "text": "$A = 42, \\; Z = 22, \\; q = +2$",
+              "correct": false
+            }
+          ],
+          "explain": "$Z = 20$, so it is calcium. $A = 20 + 22 = 42$. It has 2 fewer electrons than protons, so $q = +2$: $\\ce{^{42}_{20}Ca^2+}$.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 20 + 22, 'Z': 20, 'q': 20 - 18}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "isotopes",
+      "heading": "Isotopes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most carbon atoms have 6 neutrons, but about 1 in 100 has 7. Both are carbon, because both have 6 protons."
+        },
+        {
+          "type": "definition",
+          "term": "isotope",
+          "statement": "Atoms of the same element, so with the same number of protons, that have different numbers of neutrons.",
+          "plain": "Same element, different mass."
+        },
+        {
+          "type": "text",
+          "text": "So [[isotope|isotopes]] share an [[atomic-number|atomic number]] but not a mass number. Carbon-12 is $\\ce{^{12}_{6}C}$ and carbon-13 is $\\ce{^{13}_{6}C}$."
+        },
+        {
+          "type": "text",
+          "text": "Reactions involve electrons. Isotopes have the same number of electrons in the same arrangement, so they react in the same way."
+        },
+        {
+          "type": "text",
+          "text": "Properties that depend on mass differ. A substance made with a heavier isotope is denser, and at the same temperature its particles move and diffuse more slowly. Melting and boiling points can differ slightly, and some isotopes are radioactive."
+        },
+        {
+          "type": "text",
+          "text": "You don't need to learn particular isotopes: questions give you the data."
+        },
+        {
+          "type": "result",
+          "statement": "Isotopes of an element have the same chemical properties but different physical properties.",
+          "why": "Chemistry depends on the electrons, which isotopes share. Mass depends on the neutrons, which they don't."
+        },
+        {
+          "type": "example",
+          "id": "ex-oxygen-neutrons",
+          "question": "Oxygen has three stable isotopes: $\\ce{^{16}_{8}O}$, $\\ce{^{17}_{8}O}$ and $\\ce{^{18}_{8}O}$. State the number of neutrons in each, in that order.",
+          "steps": [
+            "All three have $Z = 8$: 8 protons, and 8 electrons in the atom.",
+            "Neutrons $= A - Z$: $16 - 8 = 8$, $17 - 8 = 9$ and $18 - 8 = 10$.",
+            "Only the neutron count changes. That is exactly what makes them isotopes."
+          ],
+          "answer": "$n = 8, 9, 10$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[16 - 8, 17 - 8, 18 - 8]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-methane-isotopes",
+          "question": "Methane can be made with carbon-12 or with carbon-13. Explain why both kinds of methane burn in oxygen to give the same products, but have different densities.",
+          "steps": [
+            "Chemistry: same electrons, so the same reactions.",
+            "Density: one more neutron, so a greater mass."
+          ],
+          "answer": "Carbon-12 and carbon-13 both have 6 protons and 6 electrons, so they have the same electron configuration. Chemical reactions depend on the electrons, so both kinds of methane react with oxygen in the same way and give the same products. A carbon-13 atom has one more neutron than a carbon-12 atom, so methane made from carbon-13 has a greater molecular mass. Density depends on mass, so the carbon-13 methane is denser.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same electrons so same chemistry; extra neutron so greater mass and density",
+            "requires": [
+              [
+                "same electron configuration",
+                "same number of electrons"
+              ],
+              [
+                "depend on the electrons",
+                "depends on electrons",
+                "involve electrons"
+              ],
+              [
+                "one more neutron",
+                "different number of neutrons",
+                "more neutrons"
+              ],
+              [
+                "greater molecular mass",
+                "greater mass",
+                "heavier"
+              ],
+              [
+                "denser",
+                "higher density"
+              ]
+            ],
+            "forbids": [
+              "different chemical properties",
+              "different number of protons",
+              "more protons"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-isotope-pair",
+          "prompt": "Which pair are isotopes of each other?",
+          "hint": "Isotopes are the same element with different mass numbers.",
+          "options": [
+            {
+              "text": "neon-20 and neon-22",
+              "correct": true
+            },
+            {
+              "text": "argon-40 and calcium-40",
+              "correct": false
+            },
+            {
+              "text": "a sodium-23 atom and a sodium-23 ion",
+              "correct": false
+            }
+          ],
+          "explain": "Both are neon, with 10 protons, but they have 10 and 12 neutrons. Argon-40 and calcium-40 are different elements. A sodium atom and its ion differ only in electrons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "neon-20 and neon-22"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-isotope-property",
+          "prompt": "Nitrogen gas can be made from nitrogen-14 or from nitrogen-15. Which property is different for the two gases?",
+          "hint": "Which properties depend on electrons, and which on mass?",
+          "options": [
+            {
+              "text": "the density of the gas",
+              "correct": true
+            },
+            {
+              "text": "the number of electrons in each molecule",
+              "correct": false
+            },
+            {
+              "text": "the number of bonds between the two atoms",
+              "correct": false
+            },
+            {
+              "text": "the product formed when it reacts with hydrogen",
+              "correct": false
+            }
+          ],
+          "explain": "Same electrons means the same bonding and reactions. Nitrogen-15 molecules are heavier, so that gas is denser.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the density of the gas"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relative-atomic-mass",
+      "heading": "Relative atomic mass",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most elements are a mixture of isotopes, so their average atomic mass lies between the isotope masses. With two isotopes, it lies closer to the commoner one."
+        },
+        {
+          "type": "text",
+          "text": "Masses are measured against carbon-12, set at exactly 12. On this scale an isotope's mass is its relative isotopic mass, very close to its mass number."
+        },
+        {
+          "type": "definition",
+          "term": "relative atomic mass",
+          "statement": "The weighted mean mass of the atoms of an element, relative to one twelfth of the mass of an atom of carbon-12. Symbol $A_\\text{r}$.",
+          "plain": "The average mass of the element's atoms, counting each isotope by how common it is."
+        },
+        {
+          "type": "text",
+          "text": "[[relative-atomic-mass|Relative atomic mass]] has no units, because it compares two masses. Because it averages the isotopes, it is rarely a whole number. The data booklet lists it in section 7."
+        },
+        {
+          "type": "formula",
+          "tex": "A_\\text{r} = \\frac{\\sum (\\text{relative isotopic mass} \\times \\text{percentage abundance})}{100}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Multiply each mass by its abundance, add, then divide by 100. The answer must lie between the lightest and heaviest isotope masses."
+        },
+        {
+          "type": "example",
+          "id": "ex-ar-gallium",
+          "question": "A sample of gallium is 60.11% gallium-69 (relative isotopic mass 68.93) and 39.89% gallium-71 (relative isotopic mass 70.92). Calculate the relative atomic mass of gallium, to two decimal places.",
+          "steps": [
+            "Multiply each mass by its abundance: $68.93 \\times 60.11 = 4143.3823$ and $70.92 \\times 39.89 = 2829.0988$.",
+            "Add and divide by 100: $A_\\text{r} = \\frac{4143.3823 + 2829.0988}{100} = 69.724811$.",
+            "Round only at the end. It is nearer 69 than 71, as gallium-69 is commoner."
+          ],
+          "answer": "$A_\\text{r} \\approx 69.72$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(68.93*60.11 + 70.92*39.89)/100",
+            "dp": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "To work backwards from $A_\\text{r}$, call one abundance $x\\%$. The other is then $(100 - x)\\%$."
+        },
+        {
+          "type": "example",
+          "id": "ex-abundance-rubidium",
+          "question": "Rubidium has two isotopes: rubidium-85 (relative isotopic mass 84.912) and rubidium-87 (relative isotopic mass 86.909). Use the $A_\\text{r}$ of rubidium in section 7 of the data booklet to calculate the percentage abundance of rubidium-87, to 3 significant figures.",
+          "steps": [
+            "From the data booklet (section 7), $A_\\text{r}(\\ce{Rb}) = 85.47$.",
+            "Let rubidium-87 be $x\\%$, so rubidium-85 is $(100 - x)\\%$.",
+            "Set up the weighted mean: $\\frac{84.912(100 - x) + 86.909x}{100} = 85.47$.",
+            "Multiply out: $8491.2 + 1.997x = 8547$, so $1.997x = 55.8$ and $x = 27.941...$",
+            "Check: rubidium-85 is then $72.1\\%$, which fits $A_\\text{r}$ being nearer 85."
+          ],
+          "answer": "$x \\approx 27.9\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "100*(Ar('Rb') - 84.912)/(86.909 - 84.912)",
+            "sf": 3,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-antimony-mass",
+          "prompt": "Antimony has $A_\\text{r} = 121.76$ and two isotopes. Antimony-121 has relative isotopic mass 120.90 and abundance 57.21%. Calculate the relative isotopic mass of the other isotope, to two decimal places.",
+          "hint": "The other isotope makes up $100 - 57.21 = 42.79\\%$. Call its mass $m$ and set up the weighted mean.",
+          "answer": {
+            "value": 122.91,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{120.90 \\times 57.21 + 42.79m}{100} = 121.76$, so $42.79m = 12176 - 6916.689 = 5259.311$ and $m = 122.9098... \\approx 122.91$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(121.76*100 - 120.90*57.21)/(100 - 57.21)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-silicon-ar",
+          "prompt": "Silicon is 92.23% silicon-28 (relative isotopic mass 27.98), 4.68% silicon-29 (28.98) and 3.09% silicon-30 (29.97). What is its relative atomic mass?",
+          "hint": "Weight each mass by its abundance. Don't just average the three masses.",
+          "options": [
+            {
+              "text": "$A_\\text{r} \\approx 28.09$",
+              "correct": true
+            },
+            {
+              "text": "$A_\\text{r} \\approx 28.98$",
+              "correct": false
+            },
+            {
+              "text": "$A_\\text{r} \\approx 2808.83$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{27.98(92.23) + 28.98(4.68) + 29.97(3.09)}{100} \\approx 28.09$. $28.98$ is the unweighted mean; $2808.83$ forgets the $\\div 100$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(27.98*92.23 + 28.98*4.68 + 29.97*3.09)/100",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "mass-spectra",
+      "heading": "Mass spectra",
+      "level": "AHL",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A mass spectrometer turns atoms into positive ions and sorts them by mass-to-charge ratio, $m/z$. How it works is not assessed."
+        },
+        {
+          "type": "text",
+          "text": "The output is a [[mass-spectrum|mass spectrum]]: relative abundance against $m/z$. Most ions carry a $1+$ charge, so $m/z$ is the ion's relative mass."
+        },
+        {
+          "type": "result",
+          "statement": "In the mass spectrum of an element, each peak from a single-atom ion is one isotope. Its $m/z$ gives the isotope's relative mass, and its height gives the isotope's relative abundance.",
+          "why": "Ions of equal charge are sorted by mass alone, and a commoner isotope makes more ions."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-mass-spectrum-mg",
+          "alt": "Mass spectrum of magnesium. The horizontal axis is m over z, from 23 to 27; the vertical axis is relative abundance, from 0 to 100. Three vertical lines: at 24 with height 100, at 25 with height 12.66, and at 26 with height 13.94.",
+          "caption": "Magnesium: three isotopes, scaled so the tallest peak is 100."
+        },
+        {
+          "type": "text",
+          "text": "Percentage abundances add up to 100. Heights scaled to a tallest peak of 100 add up to more, so divide by their total."
+        },
+        {
+          "type": "formula",
+          "tex": "A_\\text{r} = \\frac{\\sum (m/z \\times \\text{peak height})}{\\sum \\text{peak height}}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-spectrum-copper",
+          "question": "The mass spectrum of an element shows two peaks: $m/z = 63$ with abundance 69.2% and $m/z = 65$ with abundance 30.8%. Calculate its $A_\\text{r}$ to two decimal places, and use section 7 of the data booklet to identify the element.",
+          "steps": [
+            "The abundances add up to 100, so divide by 100: $A_\\text{r} = \\frac{63 \\times 69.2 + 65 \\times 30.8}{100} = \\frac{4359.6 + 2002}{100} = 63.616$.",
+            "Section 7: copper is 63.55 and zinc 65.38, so the element is copper. Using mass numbers explains the small difference."
+          ],
+          "answer": "$A_\\text{r} \\approx 63.62$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(63*69.2 + 65*30.8)/100",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spectrum-magnesium",
+          "question": "The figure shows the mass spectrum of magnesium, scaled so the tallest peak is 100. Determine the relative atomic mass of magnesium, to two decimal places.",
+          "steps": [
+            "Read the peaks: $m/z$ 24 (height 100), 25 (12.66) and 26 (13.94).",
+            "The heights do not add up to 100. Their total is $100 + 12.66 + 13.94 = 126.60$.",
+            "$A_\\text{r} = \\frac{24(100) + 25(12.66) + 26(13.94)}{126.60} = \\frac{3078.94}{126.60} = 24.3202...$",
+            "Check: about 79% of the atoms are magnesium-24, so just above 24 makes sense."
+          ],
+          "answer": "$A_\\text{r} \\approx 24.32$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(24*100 + 25*12.66 + 26*13.94)/(100 + 12.66 + 13.94)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 1A spectrum question, add up the peak heights before you divide. Divide by 100 only if they total 100."
+        },
+        {
+          "type": "text",
+          "text": "Diatomic elements, such as the halogens, also show molecule peaks at higher $m/z$, one for each pair of isotopes. With two equally common isotopes, a mixed molecule forms two ways (light–heavy or heavy–light), so the three peaks are $1:2:1$."
+        },
+        {
+          "type": "check",
+          "id": "check-lithium-spectrum",
+          "prompt": "The mass spectrum of lithium has a peak at $m/z = 6$ of height 8.1 and a peak at $m/z = 7$ of height 100. Calculate the relative atomic mass of lithium, to two decimal places.",
+          "hint": "The heights add up to $108.1$, not 100.",
+          "answer": {
+            "value": 6.93,
+            "tolerance": 0.005
+          },
+          "explain": "$A_\\text{r} = \\frac{6(8.1) + 7(100)}{108.1} = \\frac{748.6}{108.1} = 6.9250... \\approx 6.93$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(6*8.1 + 7*100)/(8.1 + 100)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diatomic-peaks",
+          "prompt": "Element Q has two isotopes, of mass numbers $a$ and $a + 2$, in equal amounts. It forms $\\ce{Q2}$ molecules. What do the molecular peaks in its mass spectrum look like?",
+          "hint": "List every way to pick two atoms, one after the other. How many ways give the mixed molecule?",
+          "options": [
+            {
+              "text": "three peaks, with the middle one twice as tall as the others",
+              "correct": true
+            },
+            {
+              "text": "two peaks of equal height",
+              "correct": false
+            },
+            {
+              "text": "three peaks of equal height",
+              "correct": false
+            }
+          ],
+          "explain": "The molecules are light–light ($2a$), light–heavy or heavy–light ($2a + 2$), and heavy–heavy ($2a + 4$). The middle mass forms in two ways, so its peak is twice as tall.",
+          "verify": {
+            "kind": "choice",
+            "truth": "three peaks, with the middle one twice as tall as the others"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Proton: relative mass 1, charge $+1$. Neutron: relative mass 1, charge 0. Electron: negligible mass, charge $-1$. Protons and neutrons are in the tiny, dense nucleus; electrons are outside it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of neutrons} = A - Z",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $\\ce{^{A}_{Z}X}$, protons $= Z$. In an ion, electrons $= Z -$ charge: subtract for a positive ion, add for a negative one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Isotopes have the same number of protons and electrons but different numbers of neutrons. They have the same chemical properties but different physical properties.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A_\\text{r} = \\frac{\\sum (\\text{relative isotopic mass} \\times \\text{percentage abundance})}{100}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In an element's mass spectrum, each single-atom peak is an isotope: $m/z$ gives its mass and the height its abundance. If the heights don't total 100, divide by their sum.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting the wrong atomic number in a nuclear symbol. Take $Z$ from the periodic table (data booklet, section 7) and write it bottom left.",
+    "Adding electrons for a positive ion. A $2+$ ion has lost two electrons: subtract the charge from $Z$.",
+    "Writing the data-booklet $A_\\text{r}$ when asked to calculate it from given data. Show the weighted mean; the booklet value alone earns nothing.",
+    "Averaging isotope masses without weighting. Multiply each mass by its abundance first.",
+    "Saying isotopes have different chemical properties. Same electrons means the same reactions.",
+    "In mass spectra (HL), dividing by 100 when the peak heights don't total 100. Divide by their sum."
+  ],
+  "examTips": [
+    "\"State\" the numbers of protons, neutrons and electrons: no working needed, but check that protons minus electrons equals the charge.",
+    "\"Calculate\" $A_\\text{r}$: write the weighted mean with the numbers substituted, then the answer to the precision asked.",
+    "\"Distinguish\" between two isotopes in one sentence: the same number of protons, but a different number of neutrons."
+  ],
+  "readingMinutes": 24
+}
