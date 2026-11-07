@@ -416,6 +416,9 @@ def test_review_471_identity_and_brackets():
     truth = "CH3CH2COOH + NaOH -> CH3CH2COONa + H2O"
     passes("chem-equation", truth, r"$\ce{CH3CH2COOH + NaOH -> CH3CH2COONa + H2O}$")
     wrong("chem-equation", truth, r"$\ce{CH3COOCH3 + NaOH -> CH3CH2COONa + H2O}$")
+    # Split isomer: in either order, half the acid replaced by the ester must fail (identity checked before merging).
+    wrong("chem-equation", truth, r"$\ce{1/2CH3COOCH3 + 1/2CH3CH2COOH + NaOH -> CH3CH2COONa + H2O}$")
+    wrong("chem-equation", truth, r"$\ce{1/2CH3CH2COOH + 1/2CH3COOCH3 + NaOH -> CH3CH2COONa + H2O}$")
     passes("chem-equation", "CH3COOH + NaOH -> CH3COONa + H2O", r"$\ce{CH3CO2H + NaOH -> CH3COONa + H2O}$", aliases={"CH3COOH": ["CH3CO2H"]})
     wrong("chem-equation", "CH3COOH + NaOH -> CH3COONa + H2O", r"$\ce{CH3CO2H + NaOH -> CH3COONa + H2O}$")
     # Booklet lookups match the written formula, never another isomer's row.

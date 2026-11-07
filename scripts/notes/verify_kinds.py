@@ -1004,16 +1004,20 @@ def k_chem_equation(tex, truth, opts):
         raise AssertionError(f"{tex!r}: this reaction goes one way; use the → arrow")
     want = [_side_map(true_left), _side_map(true_right)]
     got = [_side_map(left), _side_map(right)]
+    # The written formula identifies the compound (CH3COOCH3 is not CH3CH2COOH). Check every species as written, before
+    # same-composition species are merged, so a wrong isomer can't hide behind a right one on the same side.
+    aliases = {cp.parse_formula(k).text: {cp.parse_formula(v).text for v in vs} for k, vs in (opts.get("aliases") or {}).items()}
+    for side, truth_side in ((left, true_left), (right, true_right)):
+        allowed = {}
+        for _, formula, _, _ in truth_side:
+            allowed.setdefault(formula.key(), set()).update({formula.text} | aliases.get(formula.text, set()))
+        for _, formula, _, _ in side:
+            names = allowed.get(formula.key())
+            if names and formula.text not in names:
+                raise AssertionError(f"{tex!r}: {formula.text} has the right atoms but is not {' or '.join(sorted(names))}; write the compound as the question does (or list a vetted alias)")
     for name, have, need in zip(("reactants", "products"), got, want):
         if set(have) != set(need):
             raise AssertionError(f"{tex!r}: the {name} are {_names(have)}, not {_names(need)}")
-    # Composition balances the equation; the written formula identifies the compound (CH3COOCH3 is not CH3CH2COOH).
-    aliases = {cp.parse_formula(k).text: {cp.parse_formula(v).text for v in vs} for k, vs in (opts.get("aliases") or {}).items()}
-    for have, need in zip(got, want):
-        for key, (formula, _, _) in have.items():
-            expected = need[key][0].text
-            if formula.text != expected and formula.text not in aliases.get(expected, set()):
-                raise AssertionError(f"{tex!r}: {formula.text} has the right atoms but is not {expected}; write the compound as the question does (or list a vetted alias)")
     problems = cp.imbalance(left, right)
     if problems:
         detail = "; ".join(f"{name} {float(lhs):g} on the left, {float(rhs):g} on the right" for name, lhs, rhs in problems)
