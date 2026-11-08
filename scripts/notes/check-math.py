@@ -9,6 +9,8 @@ Usage:
 sidecars from the folder its course.json names in gate.sidecars (AA: scripts/notes/sidecars).
 A chemistry lesson (course.json gate.chemistry: true, or a lesson edition starting "ib-chemistry") evaluates truths with
 the data booklet constants R, NA, F, Kw, c_water, Vm, ... as names (verify_kinds.check(..., chemistry=True)).
+A physics lesson (course.json gate.physics: true, or a lesson edition starting "ib-physics") evaluates truths with the
+physics data booklet constants g, G, c, h, e, me, ... and sind / cosd / ... as names (verify_kinds.check(..., physics=True)).
 
 Each example and check is verified by its sidecar entry if there is one, else by its declarative `verify` block
 ({ kind, truth, ...options }, implemented once in scripts/notes/verify_kinds.py); a block with neither FAILS.
@@ -44,12 +46,12 @@ import verify_kinds  # noqa: E402
 REPO = HERE.parents[1]
 DEFAULT_COURSE = "ib-math-aa"
 LESSONS = SIDECARS = None
-CHEMISTRY = False
+CHEMISTRY = PHYSICS = False
 
 
 def use_course(slug):
     """Point LESSONS and SIDECARS at a course's folders (environment overrides win, as the tests rely on)."""
-    global LESSONS, SIDECARS, CHEMISTRY
+    global LESSONS, SIDECARS, CHEMISTRY, PHYSICS
     root = REPO / "src" / "content" / "notes" / slug
     config_file = root / "course.json"
     if not config_file.exists():
@@ -58,10 +60,15 @@ def use_course(slug):
     LESSONS = Path(os.environ.get("AA_NOTES_LESSONS_DIR") or root / "lessons")
     SIDECARS = Path(os.environ.get("AA_NOTES_SIDECARS_DIR") or REPO / config["gate"]["sidecars"])
     CHEMISTRY = bool(config["gate"].get("chemistry"))
+    PHYSICS = bool(config["gate"].get("physics"))
 
 
 def is_chemistry(lesson):
     return CHEMISTRY or str(lesson.get("edition", "")).startswith("ib-chemistry")
+
+
+def is_physics(lesson):
+    return PHYSICS or str(lesson.get("edition", "")).startswith("ib-physics")
 
 
 def take_course(argv):
@@ -123,13 +130,13 @@ def sidecar_checks(namespace):
     return checks if isinstance(checks, dict) else {}
 
 
-def checker_for(entry, namespace, chemistry=False):
+def checker_for(entry, namespace, chemistry=False, physics=False):
     """(verify function, source) for one example/check: its sidecar entry if there is one, else its verify block."""
     if namespace is not None and entry["id"] in sidecar_checks(namespace):
         return namespace["verify"], "sidecar"
     if entry.get("verify"):
         spec = entry["verify"]
-        return (lambda _id, value, tolerance=None: verify_kinds.check(spec, value, tolerance, chemistry=chemistry)), "verify"
+        return (lambda _id, value, tolerance=None: verify_kinds.check(spec, value, tolerance, chemistry=chemistry, physics=physics)), "verify"
     return None, None
 
 
@@ -173,7 +180,7 @@ def main():
     if argv[:1] == ["--verify"] and len(argv) == 4:
         lesson, namespace, _ = load(argv[1])
         entry = next((e for e in published_items(lesson) if e["id"] == argv[2]), {"id": argv[2]})
-        verify, source = checker_for(entry, namespace, is_chemistry(lesson))
+        verify, source = checker_for(entry, namespace, is_chemistry(lesson), is_physics(lesson))
         if verify is None:
             print(f"FAIL {argv[2]} (no assertion for {argv[2]}: no sidecar entry and no verify block)")
             return 1
@@ -200,7 +207,7 @@ def main():
     items = published_items(lesson)
     numeric_spec = namespace.get("NUMERIC", {}) if namespace is not None else {}
     for entry in items:
-        verify, source = checker_for(entry, namespace, is_chemistry(lesson))
+        verify, source = checker_for(entry, namespace, is_chemistry(lesson), is_physics(lesson))
         if verify is None:
             report(False, f"{entry['id']} (no assertion for {entry['id']}: add a verify block, or a sidecar entry in {sidecar.name})")
             continue

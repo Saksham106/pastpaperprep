@@ -65,6 +65,10 @@ export const INTERACTIVE_PROPS: Record<InteractiveId, InteractivePropSpec> = {
  * Chemistry kinds: `chem-equation` (truth: the skeleton equation), `formula` (truth: a formula helper) and
  * `explanation` (truth: a one-line summary; `requires` / `forbids` are lists of phrases, a `requires` entry may be a
  * list of alternatives).
+ * Number kinds take `unit` (kJ mol-1, m s-2, kΩ, MeV, ...) and `signed`. In a chemistry course truths can use the
+ * chemistry data booklet constants (R, NA, F, ...); in a physics course (course.json gate.physics or an "ib-physics"
+ * edition) the physics ones (g, G, c, h, e, me, ...) and degree trigonometry (sind, cosd, tand, asind, acosd, atand).
+ * scripts/notes/verify_kinds.py documents every name and unit.
  */
 export type VerifyPhrases = (string | string[])[];
 export type Verify = { kind: string; truth: string } & Record<string, string | number | boolean | VerifyPhrases | Record<string, string[]>>;
