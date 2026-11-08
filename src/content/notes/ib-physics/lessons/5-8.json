@@ -345,7 +345,7 @@
         },
         {
           "type": "text",
-          "text": "Radioactive dating works the other way round. If a rock had none of the stable product when it formed, the ratio of product to parent nuclei tells you how many half-lives have passed. The parent's half-life must be similar in size to the age you want to measure."
+          "text": "Radioactive dating works the other way round. If a rock had none of the stable product when it formed, and none has escaped since, the ratio of product to parent nuclei tells you how many half-lives have passed. The parent's half-life must be similar in size to the age you want to measure."
         },
         {
           "type": "check",
@@ -540,7 +540,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Activity is the number of decays per second, in becquerels ($\\pu{1 Bq}$ = one decay per second). The count rate is the number detected per unit time, and it is less than the activity.",
+          "text": "Activity is the number of decays per second, in becquerels ($\\pu{1 Bq}$ = one decay per second). The count rate is the number detected per unit time; background aside, it is less than the activity.",
           "tag": "learn",
           "cheatSheet": true
         },

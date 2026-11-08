@@ -161,7 +161,7 @@
         },
         {
           "type": "text",
-          "text": "Boiling happens throughout the liquid, at one temperature for a given pressure: the boiling point. Evaporation happens only at the surface, at any temperature. The particles in a liquid have a range of speeds, and the fastest ones near the surface can escape. You will see what happens to the energy during these changes in {{lesson:2.2}}."
+          "text": "Boiling happens throughout the liquid and, for a pure liquid, at one temperature for a given pressure: the boiling point. Evaporation happens only at the surface, at any temperature. The particles in a liquid have a range of speeds, and the fastest ones near the surface can escape. You will see what happens to the energy during these changes in {{lesson:2.2}}."
         },
         {
           "type": "mistake",
@@ -319,7 +319,7 @@
         },
         {
           "type": "text",
-          "text": "The particle model explains the numbers. Solids and liquids have similar densities, because their particles are close together in both. A gas is roughly a thousand times less dense than its liquid, because its particles are far apart. Water is about $\\pu{1000 kg m-3}$; air is about $\\pu{1.2 kg m-3}$."
+          "text": "The particle model explains the numbers. Solids and liquids have similar densities, because their particles are close together in both. At everyday pressures, a gas is roughly a thousand times less dense than its liquid, because its particles are far apart. Water is about $\\pu{1000 kg m-3}$; air is about $\\pu{1.2 kg m-3}$."
         },
         {
           "type": "text",
@@ -567,7 +567,7 @@
         {
           "type": "definition",
           "term": "temperature",
-          "statement": "A measure of the average random kinetic energy of the particles of a substance. Thermal energy flows from a region of higher temperature to one of lower temperature.",
+          "statement": "A measure of the average random kinetic energy of the particles of a substance. Net thermal energy flows from a region of higher temperature to one of lower temperature.",
           "plain": "How hot something is: the hotter it is, the faster its particles move on average."
         },
         {
@@ -757,5 +757,5 @@
     "In Paper 1A ratio questions, convert every temperature to kelvin before any multiplying or dividing; a temperature difference can stay in $^{\\circ}\\text{C}$.",
     "\"State what is meant by\" temperature: say it is a measure of the average random kinetic energy of the particles. \"Energy\" on its own is too vague."
   ],
-  "readingMinutes": 26
+  "readingMinutes": 27
 }

@@ -361,7 +361,7 @@
         },
         {
           "type": "text",
-          "text": "Every material has $\\varepsilon > \\varepsilon_0$, so $F$ is smaller than in a vacuum, and $F \\propto \\frac{1}{\\varepsilon}$. Rough values: paper $3\\,\\varepsilon_0$, glass $5$ to $10\\,\\varepsilon_0$, water $80\\,\\varepsilon_0$. A question gives the value it needs."
+          "text": "Every material has $\\varepsilon > \\varepsilon_0$, so $F$ is smaller than in a vacuum, and $F \\propto \\frac{1}{\\varepsilon}$. Rough values: paper $3\\,\\varepsilon_0$, glass $5$ to $10\\,\\varepsilon_0$, water $80\\,\\varepsilon_0$."
         },
         {
           "type": "example",
@@ -729,7 +729,7 @@
         },
         {
           "type": "text",
-          "text": "He adjusted the potential difference $V$ across the plates until a drop hung still, so the electric force $qE$ balanced its weight $mg$. Between plates a distance $d$ apart, $E = \\frac{V}{d}$ (more in {{lesson:4.5}}). The drop's mass came from how fast it fell with the plates switched off."
+          "text": "He adjusted the potential difference $V$ across the plates until a drop hung still, so the electric force $qE$ balanced its weight $mg$ (ignoring the air's tiny upthrust). Between plates a distance $d$ apart, $E = \\frac{V}{d}$ (more in {{lesson:4.5}}). The drop's mass came from how fast it fell with the plates switched off."
         },
         {
           "type": "formula",
@@ -893,7 +893,7 @@
   "mistakes": [
     "Leaving charges in nC or µC, or $r$ in cm. Convert to coulombs and metres first.",
     "Forgetting to square $r$. Halve the distance and the force becomes four times bigger.",
-    "Adding the sizes of charges that touch. Add them with signs, then share: $+8$ and $-2$ give $+3$ each.",
+    "Adding the sizes of charges that touch. Add them with signs, then share: identical spheres with $+8$ and $-2$ end with $+3$ each.",
     "Using $\\varepsilon_0$ for charges in a material instead of the material's permittivity.",
     "In charging by induction, removing the rod before breaking the earth connection."
   ],

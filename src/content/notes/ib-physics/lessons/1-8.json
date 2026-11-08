@@ -283,7 +283,7 @@
         {
           "type": "definition",
           "term": "centripetal acceleration",
-          "statement": "The acceleration of a body moving along a circular path, directed along the radius towards the centre of the circle.",
+          "statement": "The acceleration of a body moving along a circular path at constant speed, directed along the radius towards the centre of the circle. If the speed changes, it is the component of the acceleration towards the centre.",
           "plain": "The centre-seeking acceleration that keeps turning the velocity."
         },
         {
@@ -406,7 +406,7 @@
         {
           "type": "definition",
           "term": "centripetal force",
-          "statement": "The resultant force on a body moving in a circle. It is directed towards the centre of the circle, perpendicular to the body's velocity, and has size $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$.",
+          "statement": "The resultant force on a body moving in a circle at constant speed; if the speed changes, the component of the resultant force towards the centre. It is directed towards the centre of the circle, perpendicular to the body's velocity, and has size $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$.",
           "plain": "Whatever real pull or push keeps turning the body towards the centre."
         },
         {
@@ -564,12 +564,12 @@
         {
           "type": "figure",
           "id": "1-8-vertical-circle",
-          "alt": "A small mass on a string moves in a vertical circle, shown dashed, around a fixed centre. At the top of the circle, two arrows point straight down from the mass, towards the centre: a short arrow labelled tension T and a longer arrow labelled weight mg. The label reads T plus mg equals m v squared over r. At the bottom of the circle, a long arrow labelled tension T points straight up towards the centre, and a shorter arrow labelled weight mg points straight down. The label reads T minus mg equals m v squared over r. The weight arrows are the same length. The tension arrow at the bottom is much longer than the one at the top.",
+          "alt": "A small mass on a string moves in a vertical circle, shown dashed, around a fixed centre. At the top of the circle, two arrows point straight down from the mass, towards the centre: a short arrow labelled tension F T and a longer arrow labelled weight mg. The label reads F T plus mg equals m v squared over r. At the bottom of the circle, a long arrow labelled tension F T points straight up towards the centre, and a shorter arrow labelled weight mg points straight down. The label reads F T minus mg equals m v squared over r. The weight arrows are the same length. The tension arrow at the bottom is much longer than the one at the top.",
           "caption": "At the bottom the [[tension|tension]] must beat the weight; at the top the tension and the weight both point towards the centre."
         },
         {
           "type": "text",
-          "text": "At the bottom: $T - mg = \\frac{mv^{2}}{r}$, so the tension is larger than the weight. At the top: $T + mg = \\frac{mv^{2}}{r}$."
+          "text": "Write the tension as $F_\\text{T}$, since $T$ here is the period. At the bottom: $F_\\text{T} - mg = \\frac{mv^{2}}{r}$, so the tension is larger than the weight. At the top: $F_\\text{T} + mg = \\frac{mv^{2}}{r}$."
         },
         {
           "type": "text",
@@ -642,7 +642,7 @@
               "correct": false
             }
           ],
-          "explain": "At the bottom $T = mg + \\frac{mv^{2}}{r}$, and the speed is greatest there. At the top the weight helps, so $T = \\frac{mv^{2}}{r} - mg$.",
+          "explain": "At the bottom $F_\\text{T} = mg + \\frac{mv^{2}}{r}$, and the speed there is at least as large as at the top. At the top the weight helps, so $F_\\text{T} = \\frac{mv^{2}}{r} - mg$.",
           "verify": {
             "kind": "choice",
             "truth": "at the bottom of the circle"
@@ -698,13 +698,13 @@
         },
         {
           "type": "fact",
-          "text": "Centripetal force $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$ is the resultant of real forces, towards the centre and perpendicular to the velocity. It changes direction, not speed, and does no work.",
+          "text": "Centripetal force $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$ is provided by real forces: their resultant at constant speed, or its component towards the centre if the speed changes. It is perpendicular to the velocity, so it changes direction, not speed, and does no work.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Vertical circle, towards the centre positive: bottom $T - mg = \\frac{mv^{2}}{r}$; top $T + mg = \\frac{mv^{2}}{r}$. Minimum speed at the top: $\\sqrt{gr}$.",
+          "text": "Vertical circle on a string, towards the centre positive: bottom $F_\\text{T} - mg = \\frac{mv^{2}}{r}$; top $F_\\text{T} + mg = \\frac{mv^{2}}{r}$. Minimum speed at the top: $\\sqrt{gr}$.",
           "tag": "learn",
           "cheatSheet": true
         }

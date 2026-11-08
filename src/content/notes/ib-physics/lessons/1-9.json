@@ -444,7 +444,7 @@
         },
         {
           "type": "text",
-          "text": "3. $\\theta > 90^{\\circ}$: the work is negative. The force takes energy from the body. Friction on a sliding body acts at $\\theta = 180^{\\circ}$, so it does work $W = -Fs$."
+          "text": "3. $\\theta > 90^{\\circ}$: the work is negative. The force takes energy from the body. Friction on a body sliding over a fixed surface acts at $\\theta = 180^{\\circ}$, so it does work $W = -Fs$."
         },
         {
           "type": "example",
@@ -751,7 +751,7 @@
         },
         {
           "type": "fact",
-          "text": "Work done by a force is energy transferred, in J. $\\theta$ is the angle between force and displacement: positive work for $\\theta < 90^{\\circ}$, none at $90^{\\circ}$, negative above. For a varying force, work = area under the force-distance graph.",
+          "text": "Work done by a force is energy transferred, in J. $\\theta$ is the angle between force and displacement: positive work for $\\theta < 90^{\\circ}$, none at $90^{\\circ}$, negative above. For a varying force, work = area under the graph of the force along the motion against distance.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -763,7 +763,7 @@
         },
         {
           "type": "fact",
-          "text": "Change in mechanical energy = work done by non-conservative forces (friction, air resistance, pushes). Friction on a sliding body and air resistance do negative work and turn mechanical energy into thermal energy.",
+          "text": "Change in mechanical energy = work done by non-conservative forces (friction, air resistance, pushes). Friction on a body sliding over a fixed surface, and air resistance, do negative work and turn mechanical energy into thermal energy.",
           "tag": "learn",
           "cheatSheet": true
         }

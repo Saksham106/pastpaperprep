@@ -148,7 +148,7 @@
         {
           "type": "definition",
           "term": "Doppler effect",
-          "statement": "The change in the observed frequency, and wavelength, of a wave when the source and the observer move relative to each other.",
+          "statement": "The change in the observed frequency of a wave when the source and the observer move towards or away from each other. For a moving source, and for light, the observed wavelength changes too.",
           "plain": "Coming closer raises the frequency you receive; moving apart lowers it."
         },
         {
@@ -165,7 +165,7 @@
         },
         {
           "type": "text",
-          "text": "[[electromagnetic-wave|Electromagnetic waves]] need no medium, and every observer measures the same [[speed-of-light|speed of light]], $c$. So for light only the relative velocity matters."
+          "text": "[[electromagnetic-wave|Electromagnetic waves]] need no medium, and every inertial observer measures the same [[speed-of-light|speed of light]], $c$. So for light only the relative velocity matters."
         },
         {
           "type": "text",
@@ -729,7 +729,7 @@
         },
         {
           "type": "text",
-          "text": "Only one of source and observer moves in a problem. To find a speed, rearrange for $u_\\text{s}$ or $u_\\text{o}$ first."
+          "text": "IB problems never have the source and the observer both moving. To find a speed, rearrange for $u_\\text{s}$ or $u_\\text{o}$ first."
         },
         {
           "type": "example",

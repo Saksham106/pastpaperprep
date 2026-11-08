@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Is this motion simple harmonic? → check that the acceleration (or resultant force) is proportional to the displacement and directed towards equilibrium, $a = -\\omega^2 x$ ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Period of a mass on a spring or a pendulum → $T = 2\\pi\\sqrt{\\frac{m}{k}}$ (no $g$) or $T = 2\\pi\\sqrt{\\frac{l}{g}}$ (no mass, small angles only); from timings, divide the time for many oscillations by their number ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Displacement or velocity at a given time → find $\\phi$ from the starting position and direction, then $x = x_0\\sin(\\omega t + \\phi)$ and $v = \\omega x_0\\cos(\\omega t + \\phi)$ in radian mode; at a given position instead, $v = \\pm\\omega\\sqrt{x_0^2 - x^2}$ ({{lesson:3.2}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Energy of an oscillator → $E_\\text{T} = \\frac{1}{2}m\\omega^2x_0^2$ with $x_0$ in metres, $E_\\text{p} = \\frac{1}{2}m\\omega^2x^2$, then $E_\\text{k} = E_\\text{T} - E_\\text{p}$ ({{lesson:3.2}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Wave speed from graphs → read $\\lambda$ off a displacement–position graph and $T$ off a displacement–time graph, then $v = f\\lambda = \\frac{\\lambda}{T}$ ({{lesson:3.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Wave crossing a boundary → $f$ stays the same; use $n_1\\sin\\theta_1 = n_2\\sin\\theta_2$ with angles from the normal; heading into a smaller $n$ beyond $C$, where $\\sin C = \\frac{n_2}{n_1}$, gives total internal reflection ({{lesson:3.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Maximum or minimum at a point from two in-phase coherent sources → work out $\\frac{\\text{path difference}}{\\lambda}$: a whole number is constructive, a whole number plus a half is destructive ({{lesson:3.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Wavelength or fringe spacing from a double slit → $s = \\frac{\\lambda D}{d}$ with every length in metres; take $s$ as the distance across many fringes divided by the number of gaps ({{lesson:3.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Single slit or grating → first single-slit minimum at $\\theta = \\frac{\\lambda}{b}$ in radians; grating maxima at $n\\lambda = d\\sin\\theta$ with $d = \\frac{1}{\\text{lines per metre}}$; highest order is the whole number below $\\frac{d}{\\lambda}$ ({{lesson:3.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Harmonic frequency of a string or pipe → sketch it first: fixed or closed end is a node, free or open end an antinode; matching ends $f_n = \\frac{nv}{2L}$ for every $n$, unlike ends $f_n = \\frac{nv}{4L}$ for odd $n$ only ({{lesson:3.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Speed of a star or galaxy from a spectral line → $v = c\\,\\frac{\\Delta\\lambda}{\\lambda}$ with $\\Delta\\lambda$ = observed minus emitted, valid for $v \\ll c$; redshift means moving away, blueshift moving towards ({{lesson:3.9}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Sound from a moving source or heard by a moving observer → $f' = f\\,\\frac{v}{v \\pm u_\\text{s}}$ or $f' = f\\,\\frac{v \\pm u_\\text{o}}{v}$, speeds relative to the air; choose the sign so that approaching raises $f'$ ({{lesson:3.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

@@ -291,15 +291,15 @@
         },
         {
           "type": "text",
-          "text": "Oscillations are in phase when the phase difference is zero, or a whole number of cycles. They are in antiphase when it is half a cycle, $\\pi$ rad or $180^\\circ$: one at a crest when the other is at a trough."
+          "text": "Oscillations are in phase when the phase difference is zero, or a whole number of cycles. They are in antiphase when it is half a cycle, $\\pi$ rad or $180^\\circ$ (plus any whole number of cycles): one at a crest when the other is at a trough."
         },
         {
           "type": "text",
-          "text": "Along a wave, one wavelength is one whole cycle. So two points a distance $\\Delta x$ apart, or two waves whose paths differ by $\\Delta x$, have this phase difference $\\phi$:"
+          "text": "Along a wave, one wavelength is one whole cycle. So two points a distance $\\Delta x$ apart, or two waves whose paths differ by $\\Delta x$, have this phase difference $\\Delta\\phi$:"
         },
         {
           "type": "formula",
-          "tex": "\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
+          "tex": "\\Delta\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
           "tag": "learn"
         },
         {
@@ -308,10 +308,10 @@
           "question": "Two corks float on a water wave. They are $\\pu{0.15 m}$ apart along the direction the wave travels, and the wavelength is $\\pu{0.60 m}$. Calculate the phase difference between their oscillations, in radians.",
           "steps": [
             "One wavelength is one cycle, $2\\pi$ rad.",
-            "$\\phi = \\frac{0.15}{0.60} \\times 2\\pi = \\frac{\\pi}{2}$ rad, a quarter of a cycle.",
+            "$\\Delta\\phi = \\frac{0.15}{0.60} \\times 2\\pi = \\frac{\\pi}{2}$ rad, a quarter of a cycle.",
             "$\\frac{\\pi}{2} = 1.5707\\ldots$, so give 3 s.f."
           ],
-          "answer": "$\\phi \\approx 1.57\\text{ rad}$",
+          "answer": "$\\Delta\\phi \\approx 1.57\\text{ rad}$",
           "video": null,
           "verify": {
             "kind": "rounded",
@@ -412,7 +412,7 @@
             "value": 135,
             "tolerance": 0.5
           },
-          "explain": "$\\phi = \\frac{0.90}{2.4} \\times 360^\\circ = 135^\\circ$, three-eighths of a cycle.",
+          "explain": "$\\Delta\\phi = \\frac{0.90}{2.4} \\times 360^\\circ = 135^\\circ$, three-eighths of a cycle.",
           "verify": {
             "kind": "numeric",
             "truth": "0.90/2.4*360",
@@ -869,7 +869,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
+          "tex": "\\Delta\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -888,7 +888,7 @@
         },
         {
           "type": "fact",
-          "text": "Fringes spread out for larger $\\lambda$ or $D$ and smaller $d$. White light gives a white central fringe with coloured fringes either side, red outermost.",
+          "text": "Fringes spread out for larger $\\lambda$ or $D$ and smaller $d$. White light gives a white central fringe with coloured fringes either side, each with violet nearest the centre and red furthest out.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -914,5 +914,5 @@
     "\"Determine\" a wavelength from fringes: show $s$ (distance ÷ number of gaps), the rearranged equation, then the answer with its unit.",
     "In Paper 1A, for a change to the set-up, multiply $s$ by the factor each change makes."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }

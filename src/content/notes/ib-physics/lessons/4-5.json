@@ -277,7 +277,7 @@
         },
         {
           "type": "text",
-          "text": "3. Lines meet the surface of a conductor at right angles."
+          "text": "3. Lines meet the surface of a conductor at right angles, once its charges have stopped moving."
         },
         {
           "type": "text",
@@ -309,11 +309,11 @@
         },
         {
           "type": "text",
-          "text": "$k = 8.99 \\times 10^{9}\\ \\text{N m}^{2}\\ \\text{C}^{-2}$ is the Coulomb constant. This is an inverse square law: at three times the distance, the field is $\\frac{1}{9}$ as strong."
+          "text": "This is an inverse square law: at three times the distance, the field is $\\frac{1}{9}$ as strong."
         },
         {
           "type": "text",
-          "text": "A charged conducting sphere holds its charge on its surface. Outside, its field is the same as a point charge at its centre, so measure $r$ from the centre."
+          "text": "An isolated charged conducting sphere holds its charge on its surface. Outside, its field is the same as a point charge at its centre, so measure $r$ from the centre."
         },
         {
           "type": "text",
@@ -419,7 +419,7 @@
               "correct": false
             }
           ],
-          "explain": "Inside a charged conductor $E = 0$. The charge sits on the outer surface.",
+          "explain": "Inside a conductor at rest $E = 0$, even in a hollow one. The charge sits on the outer surface.",
           "verify": {
             "kind": "choice",
             "truth": "zero"
@@ -433,7 +433,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "When two charges are near each other, the field at any point is the vector sum of their separate fields. The field lines show the combined pattern."
+          "text": "When two charges are near each other, the field at any point is the vector sum of their separate fields."
         },
         {
           "type": "figure",
@@ -575,10 +575,6 @@
         },
         {
           "type": "text",
-          "text": "Equal spacing means equal strength, so a charge feels the same force anywhere between the plates."
-        },
-        {
-          "type": "text",
           "text": "For plates a distance $d$ apart, with a [[potential-difference|potential difference]] $V$ between them, the field strength is:"
         },
         {
@@ -589,7 +585,7 @@
         },
         {
           "type": "text",
-          "text": "So $E$ can also be given in volts per metre, and $1\\ \\text{V m}^{-1} = 1\\ \\text{N C}^{-1}$. Double the potential difference and the field doubles. Double the gap and it halves."
+          "text": "So $E$ can also be given in volts per metre, and $1\\ \\text{V m}^{-1} = 1\\ \\text{N C}^{-1}$."
         },
         {
           "type": "text",
@@ -737,7 +733,7 @@
         },
         {
           "type": "text",
-          "text": "A solenoid is a long coil. Inside, the lines are straight, parallel and equally spaced, so the field is uniform. Outside, it looks like a bar magnet's field, with lines leaving the north end."
+          "text": "A solenoid is a long coil. Inside, away from the ends, the lines are straight, parallel and equally spaced, so the field is uniform. Outside, it looks like a bar magnet's field, with lines leaving the north end."
         },
         {
           "type": "text",
@@ -893,19 +889,19 @@
         },
         {
           "type": "fact",
-          "text": "Electric field lines start on $+$, end on $-$, never cross and meet conductors at right angles. Closer lines mean a stronger field.",
+          "text": "Electric field lines start on $+$, end on $-$ (or run to or from infinity), never cross and meet conductors at right angles. Closer lines mean a stronger field.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Inside a charged conductor $E = 0$. Outside a charged sphere, treat its charge as a point charge at the centre.",
+          "text": "Inside a conductor whose charges are at rest, $E = 0$. Outside an isolated charged conducting sphere, treat its charge as a point charge at the centre.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Between like charges there is a neutral point, closer to the smaller charge. Between unlike charges there is none.",
+          "text": "Between like charges there is a neutral point, closer to the smaller charge. Between unlike charges there is none (if their sizes differ, one lies outside them, beyond the smaller charge).",
           "tag": "learn",
           "cheatSheet": true
         },

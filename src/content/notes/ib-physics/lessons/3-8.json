@@ -157,7 +157,7 @@
         },
         {
           "type": "text",
-          "text": "Once settled, a [[forced-oscillation|forced oscillation]] has the driving frequency, not the natural frequency. The natural frequency controls the size of the motion: the closer the two frequencies, the larger the amplitude."
+          "text": "Once settled, a [[forced-oscillation|forced oscillation]] has the driving frequency, not the natural frequency. The natural frequency controls the size of the motion: for light damping, the closer the two frequencies, the larger the amplitude."
         },
         {
           "type": "example",
@@ -277,7 +277,7 @@
         },
         {
           "type": "text",
-          "text": "Why? Driven at its natural frequency, the force always pushes in the direction of motion, so it transfers energy to the system every cycle. At other frequencies some pushes act against the motion and take energy back."
+          "text": "Why? Driven at its natural frequency, the force always pushes in the direction of motion, so it transfers energy to the system every cycle. At other frequencies some pushes act against the motion and take energy back, so less energy is transferred each cycle."
         },
         {
           "type": "text",
@@ -704,7 +704,7 @@
         },
         {
           "type": "fact",
-          "text": "At resonance the driving force does positive work every cycle; the amplitude stops growing when energy lost per cycle equals energy supplied per cycle.",
+          "text": "At resonance the driving force pushes in the direction of motion throughout each cycle, so the energy transfer per cycle is greatest; the amplitude stops growing when energy lost per cycle equals energy supplied per cycle.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -730,9 +730,9 @@
     "Saying resonance happens at \"high frequency\". It happens where the driving frequency equals the natural frequency, whatever that is."
   ],
   "examTips": [
-    "\"Explain\" resonance: driving frequency equals natural frequency, so energy is transferred to the system every cycle and the amplitude is large. Name both frequencies.",
+    "\"Explain\" resonance: driving frequency equals natural frequency, so the energy transferred to the system each cycle is greatest and the amplitude is largest. Name both frequencies.",
     "\"Sketch\" or \"draw\" the effect of more damping on a resonance curve: a lower peak at the same or a slightly lower frequency, with the new curve below the old one and never crossing it.",
     "\"Describe\" light, critical or heavy damping: say whether the system oscillates and how quickly it returns to equilibrium."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

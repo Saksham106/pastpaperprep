@@ -266,7 +266,7 @@
         },
         {
           "type": "text",
-          "text": "On a graph of $\\Phi$ against $t$, the emf is $N$ times the gradient. A steep part means a large emf; a flat part means zero emf."
+          "text": "On a graph of $\\Phi$ against $t$, the size of the emf is $N$ times the gradient. A steep part means a large emf; a flat part means zero emf."
         },
         {
           "type": "example",
@@ -399,7 +399,7 @@
         },
         {
           "type": "text",
-          "text": "$L$ is the rod's length and $v$ its speed. This [[motional-emf|motional emf]] needs a uniform field, with rod, velocity and field all at right angles. A rod sliding along the field, or along its own length, has none."
+          "text": "$L$ is the rod's length and $v$ its speed. For this [[motional-emf|motional emf]], $\\varepsilon = BvL$ needs a uniform field, with rod, velocity and field all at right angles. A rod sliding along the field, or along its own length, has none."
         },
         {
           "type": "figure",
@@ -653,7 +653,7 @@
               "correct": false
             }
           ],
-          "explain": "Induced currents in the pipe oppose the fall. At steady speed the kinetic energy is constant, so the lost potential energy becomes thermal energy in the copper.",
+          "explain": "Induced currents in the pipe oppose the fall. Ignoring air resistance, at steady speed the kinetic energy is constant, so the lost potential energy becomes thermal energy in the copper.",
           "verify": {
             "kind": "choice",
             "truth": "thermal energy in the pipe, via induced currents"
@@ -687,7 +687,7 @@
         },
         {
           "type": "fact",
-          "text": "An emf is induced only when the flux linkage changes. A steady flux, however large, induces nothing.",
+          "text": "An emf is induced only when the flux linkage changes (for a moving rod, the flux it sweeps through). A steady flux, however large, induces nothing.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -718,7 +718,7 @@
     "\"Explain\" why an emf is induced: state that the flux linked with the coil changes, say why it changes, then quote Faraday's law linking the rate of change to the emf.",
     "\"Show that\" $\\varepsilon = BvL$: distance $v\\Delta t$, then area, then change in flux, then divide by $\\Delta t$ with $N = 1$.",
     "In Paper 1A direction questions, decide first whether the flux is rising or falling, then oppose that change.",
-    "On a flux–time graph, the emf is $N$ times the gradient."
+    "On a flux–time graph, the size of the emf is $N$ times the gradient."
   ],
   "readingMinutes": 24
 }

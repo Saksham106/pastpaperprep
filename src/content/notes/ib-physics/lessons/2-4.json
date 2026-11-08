@@ -128,7 +128,7 @@
         },
         {
           "type": "text",
-          "text": "Two things set how much power a surface radiates: its area and its absolute temperature. A bigger surface emits more, and a hotter one emits far more."
+          "text": "For a given kind of surface, two things set how much power it radiates: its area and its absolute temperature. A bigger surface emits more, and a hotter one emits far more."
         },
         {
           "type": "definition",
@@ -431,13 +431,13 @@
         },
         {
           "type": "text",
-          "text": "A black body emits a continuous range of wavelengths. Its [[emission-spectrum|emission spectrum]], a graph of intensity against wavelength, is a smooth curve with a single peak. A hot gas is different: its atoms emit only certain wavelengths, giving a line spectrum."
+          "text": "A black body emits a continuous range of wavelengths. Its [[emission-spectrum|emission spectrum]], a graph of intensity against wavelength, is a smooth curve with a single peak. A hot, low-density gas is different: its atoms emit only certain wavelengths, giving a line spectrum."
         },
         {
           "type": "figure",
           "id": "2-4-black-body-spectra",
           "alt": "Graph of intensity, in arbitrary units, against wavelength from 0 to 1600 nanometres, with the visible band from 400 to 700 nanometres shaded. Three smooth single-peaked curves are drawn for 5000 K, 4500 K and 4000 K. The 5000 K curve is the highest at every wavelength and peaks at 580 nanometres. The 4500 K curve is lower and peaks at 644 nanometres. The 4000 K curve is the lowest and peaks at 725 nanometres. A dashed line drops from each peak to the wavelength axis.",
-          "caption": "Hotter means higher at every wavelength, with the peak further left. The area under each curve is proportional to the total power emitted."
+          "caption": "Hotter means higher at every wavelength, with the peak further left. The area under each curve is proportional to the power emitted per square metre."
         },
         {
           "type": "text",
@@ -691,7 +691,7 @@
         },
         {
           "type": "fact",
-          "text": "Use absolute temperature in every radiation law: $T$ in K $= T$ in $^{\\circ}\\text{C} + 273$.",
+          "text": "Use absolute temperature in every radiation law: $T$ in K $= \\theta$ in $^{\\circ}\\text{C} + 273$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -709,7 +709,7 @@
         },
         {
           "type": "fact",
-          "text": "Brightness falls as $\\frac{1}{d^{2}}$: double the distance and the brightness falls to a quarter.",
+          "text": "For a source radiating equally in all directions, with no absorption on the way, brightness falls as $\\frac{1}{d^{2}}$: double the distance and the brightness falls to a quarter.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -728,7 +728,7 @@
     "\"Calculate\" or \"determine\": write the equation, substitute, then give the answer with its unit, to the significant figures of the least precise datum (usually 2 or 3).",
     "Paper 1A ratio questions (a radius doubled, a temperature halved): divide the two equations so the constants cancel, then apply each power, $R^{2}$ and $T^{4}$ for luminosity and $\\frac{1}{d^{2}}$ for brightness.",
     "\"Explain\" why a star that looks brighter need not be more luminous: say that $b$ depends on both $L$ and $d$, and name the inverse square law. Put each point in its own sentence.",
-    "\"State\" Wien's law in one precise sentence: the peak wavelength is inversely proportional to the absolute temperature."
+    "\"State\" Wien's law in one precise sentence: the peak wavelength of a black body's spectrum is inversely proportional to its absolute temperature."
   ],
   "readingMinutes": 25
 }

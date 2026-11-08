@@ -117,7 +117,7 @@
    "blocks": [
     {
      "type": "text",
-     "text": "Picture a gas sealed in a cylinder by a piston. You can raise its [[internal-energy|internal energy]] in two ways: heat it with a flame, or push the piston in. It loses internal energy if it cools, or if it pushes the piston out. The first law keeps track of both kinds of transfer."
+     "text": "Picture a gas sealed in a cylinder by a piston. You can raise its [[internal-energy|internal energy]] in two ways: heat it with a flame, or push the piston in. It loses internal energy if thermal energy flows out of it, or if it pushes the piston out. The first law keeps track of both kinds of transfer."
     },
     {
      "type": "definition",
@@ -600,7 +600,7 @@
     },
     {
      "type": "fact",
-     "text": "Constant volume: $W = 0$, so $Q = \\Delta U$. Constant temperature: $\\Delta U = 0$, so $Q = W$.",
+     "text": "Constant volume: $W = 0$, so $Q = \\Delta U$. Ideal gas at constant temperature: $\\Delta U = 0$, so $Q = W$.",
      "tag": "learn",
      "cheatSheet": true
     }
@@ -609,7 +609,7 @@
  ],
  "mistakes": [
   "Getting the sign of $W$ wrong. Work done by the gas (expansion) is positive; work done on it (compression) is negative.",
-  "Saying no heat flows because the temperature stays constant. Constant temperature means $\\Delta U = 0$, so $Q = W$, which is usually not zero.",
+  "Saying no heat flows because the temperature stays constant. For an ideal gas, constant temperature means $\\Delta U = 0$, so $Q = W$, which is usually not zero.",
   "Using $W = P\\Delta V$ with one pressure when the pressure changes. Find the area under the pressure–volume graph instead.",
   "Power-of-ten slips with volumes in cm³ or litres, or pressures in kPa. Convert to m³ and Pa before multiplying.",
   "Using $\\Delta U = \\frac{3}{2}nR\\Delta T$ as if it gave the heat supplied. It is the change in internal energy; add the work done to get $Q$."

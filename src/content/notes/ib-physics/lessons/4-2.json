@@ -834,7 +834,7 @@
     "Dropping the minus sign. Potential and potential energy are zero at infinity and negative everywhere else; a positive answer is wrong.",
     "Treating potential as a vector. It is a scalar: add the values from each body, signs included, with no directions.",
     "Using $mg\\Delta h$ for a change in height comparable to the planet's radius. Use $W = m\\Delta V_\\text{g}$ with $V_\\text{g} = -\\frac{GM}{r}$ at each point.",
-    "Getting $\\Delta V_\\text{g}$ backwards. It is final minus initial, so moving away from a planet gives positive work done on the mass."
+    "Getting $\\Delta V_\\text{g}$ backwards. It is final minus initial, so moving away from a planet gives positive work done by whatever moves the mass."
   ],
   "examTips": [
     "\"Define\" gravitational potential: the work needed per kilogram to move a small mass to the point from infinity. Leaving out \"per unit mass\" or \"from infinity\" loses the mark.",

@@ -616,11 +616,11 @@
    "blocks": [
     {
      "type": "text",
-     "text": "Most systems are not isolated. A closed system can exchange energy with its surroundings, as heat or as work, but no mass can enter or leave it. Its entropy can go down."
+     "text": "Most systems are not isolated. A closed system can exchange energy with its surroundings, as heat or as work, but no mass can enter or leave it; an open system, such as a living cell, exchanges mass too. The entropy of a system that is not isolated can go down."
     },
     {
      "type": "text",
-     "text": "Water freezing in a freezer, the cold inside of a fridge, a growing crystal and a living cell all become more ordered. None of them breaks the second law. Each one passes thermal energy to its surroundings, and the surroundings gain at least as much entropy as the system loses."
+     "text": "Water freezing in a freezer, the cold inside of a fridge, a growing crystal and a living cell all become more ordered. None of them breaks the second law. Each one passes thermal energy (and a cell also waste matter) to its surroundings, and the surroundings gain at least as much entropy as the system loses."
     },
     {
      "type": "text",
@@ -741,7 +741,7 @@
    "blocks": [
     {
      "type": "fact",
-     "text": "Entropy $S$ measures the disorder of the particles in a system, in $\\text{J K}^{-1}$. Gas > liquid > solid; heating raises it.",
+     "text": "Entropy $S$ measures the disorder of the particles in a system, in $\\text{J K}^{-1}$. For the same substance, gas > liquid > solid; heating raises it.",
      "tag": "learn",
      "cheatSheet": true
     },
@@ -767,7 +767,7 @@
     },
     {
      "type": "fact",
-     "text": "All microstates are equally likely, so the macrostate with the most microstates is the most probable and has the highest entropy.",
+     "text": "In an isolated system all microstates are equally likely, so the macrostate with the most microstates is the most probable and has the highest entropy.",
      "tag": "learn",
      "cheatSheet": true
     },

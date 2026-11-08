@@ -165,7 +165,7 @@
         },
         {
           "type": "text",
-          "text": "Energy transferred in time $t$ (in seconds): $E = Pt$."
+          "text": "Energy transferred in time $t$ (in seconds) at a steady power: $E = Pt$."
         },
         {
           "type": "example",
@@ -293,7 +293,7 @@
         {
           "type": "result",
           "statement": "The combined resistance of resistors in parallel is less than the smallest of the individual resistances.",
-          "why": "Each extra branch gives the charge another path, so the same pd drives a bigger total current."
+          "why": "The smallest resistor on its own would draw a current $\\frac{V}{R_\\text{min}}$. Every other branch adds more current at the same pd, so the total current is bigger and the combined resistance is smaller than $R_\\text{min}$."
         },
         {
           "type": "text",
@@ -648,7 +648,7 @@
           "type": "figure",
           "id": "2-14-potential-divider",
           "alt": "Potential divider. A supply of potential difference V in, with negligible internal resistance, on the left, positive terminal at the top. On the right, a fixed resistor R1 on top and a thermistor R2 below it are joined in series between the top and bottom wires. Output wires run from the junction between them and from the bottom wire to two open terminals, so the output potential difference V out is the pd across the thermistor. A note says the same current passes through R1 and R2, so the pd divides in the ratio R1 to R2.",
-          "caption": "As the thermistor warms, $R_2$ falls, so it takes a smaller share of $V_\\text{in}$ and $V_\\text{out}$ falls."
+          "caption": "As the NTC thermistor warms, $R_2$ falls, so it takes a smaller share of $V_\\text{in}$ and $V_\\text{out}$ falls."
         },
         {
           "type": "text",
@@ -824,7 +824,7 @@
     "“Explain” a change in a meter reading: give the chain, one link per sentence: resistance, current, pd, reading. A bald “it increases” earns nothing.",
     "“Show that”: write the equation and substitution, and give one more significant figure than the stated value.",
     "Advantages and disadvantages of cells: give physics reasons (portability, no emissions where used, internal resistance, stored energy). Cost earns no marks.",
-    "In Paper 1A, use limits: a parallel combination is below its smallest resistor, and a terminal pd can't exceed the emf."
+    "In Paper 1A, use limits: a parallel combination is below its smallest resistor, and while a cell supplies current, its terminal pd is less than its emf."
   ],
   "readingMinutes": 26
 }

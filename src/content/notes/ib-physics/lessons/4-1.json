@@ -117,7 +117,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "In the early 1600s, Johannes Kepler found three rules in years of measurements of the planets. They describe the orbits but do not explain them."
+          "text": "In the early 1600s, Johannes Kepler found three rules in measurements of the planets. They describe the orbits but do not explain them."
         },
         {
           "type": "text",
@@ -125,7 +125,7 @@
         },
         {
           "type": "text",
-          "text": "Planetary orbits are very nearly circles, and in calculations you treat every orbit as a circle."
+          "text": "Planetary orbits are nearly circles; in calculations, treat them as circles."
         },
         {
           "type": "text",
@@ -317,7 +317,7 @@
         },
         {
           "type": "text",
-          "text": "The moon's mass cancels, leaving Kepler's third law with a constant that depends only on $M$."
+          "text": "Taking the planet as fixed ($M \\gg m$), the moon's mass cancels, leaving Kepler's third law with a constant that depends only on $M$."
         },
         {
           "type": "formula",
@@ -823,7 +823,7 @@
         },
         {
           "type": "fact",
-          "text": "Field strength is force per unit mass on a small mass, in $\\pu{N kg-1}$ (= $\\pu{m s-2}$). On the line between two bodies, subtract the fields; the resultant is zero nearer the smaller mass.",
+          "text": "Field strength is force per unit mass on a small mass, in $\\pu{N kg-1}$ (= $\\pu{m s-2}$). Between two bodies, on the line joining them, subtract the fields; the resultant is zero nearer the smaller mass.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -6,7 +6,7 @@
   "title": "Angular momentum and rotational kinetic energy",
   "level": "AHL",
   "topic": 1,
-  "summary": "A spinning body has [[angular-momentum|angular momentum]], $L = I\\omega$. With no resultant [[torque|torque]] it stays constant, so a spinning body that pulls its mass towards the axis speeds up. Spinning also stores [[rotational-kinetic-energy|rotational kinetic energy]], $\\frac{1}{2}I\\omega^{2}$.",
+  "summary": "A spinning body has [[angular-momentum|angular momentum]], $L = I\\omega$. With no resultant external [[torque|torque]] it stays constant, so a spinning body that pulls its mass towards the axis speeds up. Spinning also stores [[rotational-kinetic-energy|rotational kinetic energy]], $\\frac{1}{2}I\\omega^{2}$.",
   "goals": [
     {
       "text": "Calculate the angular momentum of a rotating body with $L = I\\omega$.",
@@ -585,7 +585,7 @@
           "id": "ex-cylinder-rolls",
           "question": "A uniform solid cylinder, $\\pu{1.8 kg}$ and $\\pu{0.050 m}$ in radius, starts at rest at the top of a ramp. It rolls down without slipping, through a vertical drop of $\\pu{0.60 m}$. Its moment of inertia is $\\frac{1}{2}MR^{2}$. Determine its speed at the bottom.",
           "steps": [
-            "The contact point does not slide, so friction does no work. The lost gravitational potential energy all becomes kinetic energy.",
+            "The contact point does not slide, so friction does no work. With air resistance negligible, the lost gravitational potential energy all becomes kinetic energy.",
             "With $\\omega = \\frac{v}{R}$, the rotational part is $\\frac{1}{2} \\times \\frac{1}{2}MR^{2} \\times \\frac{v^{2}}{R^{2}} = \\frac{1}{4}Mv^{2}$.",
             "So $Mgh = \\frac{1}{2}Mv^{2} + \\frac{1}{4}Mv^{2} = \\frac{3}{4}Mv^{2}$. $M$ and $R$ cancel.",
             "$v = \\sqrt{\\frac{4gh}{3}} = \\sqrt{\\frac{4 \\times 9.8 \\times 0.60}{3}} = 2.8\\ \\text{m s}^{-1}$, using $g = \\pu{9.8 m s-2}$ from the data booklet.",
@@ -682,7 +682,7 @@
         },
         {
           "type": "fact",
-          "text": "Conserving $L$ does not conserve kinetic energy: pulling mass inwards raises $E_\\text{k}$; coupling two bodies that turn at different rates lowers it.",
+          "text": "Conserved $L$ does not mean conserved kinetic energy: pulling mass inwards raises $E_\\text{k}$; coupling two bodies that turn at different rates lowers it.",
           "tag": "learn",
           "cheatSheet": true
         },

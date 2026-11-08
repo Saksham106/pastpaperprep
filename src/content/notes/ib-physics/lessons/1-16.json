@@ -298,7 +298,7 @@
         {
           "type": "result",
           "statement": "At speeds much less than $c$, the Lorentz transformation becomes the Galilean transformation, $x' = x - vt$ and $t' = t$.",
-          "why": "When $v \\ll c$, $\\gamma \\approx 1$, and $\\frac{vx}{c^{2}}$ is tiny because $c^{2}$ is so large."
+          "why": "When $v \\ll c$, $\\gamma \\approx 1$, and, for everyday distances, $\\frac{vx}{c^{2}}$ is tiny because $c^{2}$ is so large."
         },
         {
           "type": "example",
@@ -558,7 +558,7 @@
         },
         {
           "type": "text",
-          "text": "If a light signal travels from one event to the other, $\\Delta x = c\\Delta t$, so $\\Delta s = 0$ in every frame."
+          "text": "If a light signal travels from one event to the other, $(\\Delta x)^{2} = (c\\Delta t)^{2}$, so $\\Delta s = 0$ in every frame."
         },
         {
           "type": "text",

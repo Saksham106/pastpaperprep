@@ -181,7 +181,7 @@
         },
         {
           "type": "result",
-          "statement": "The photon model explains all four results. The energy of each photon depends only on $f$, so $f$ decides whether an electron can escape and how fast it can leave. The intensity sets the number of photons arriving per second, so it sets the number of electrons emitted per second.",
+          "statement": "The photon model explains all four results. The energy of each photon depends only on $f$, so for a given metal $f$ decides whether an electron can escape and how fast it can leave. The intensity sets the number of photons arriving per second, so it sets the number of electrons emitted per second.",
           "why": "One photon is absorbed by one electron in a single event, so there is no waiting, and energy from several photons cannot add up on one electron."
         },
         {
@@ -331,7 +331,7 @@
         },
         {
           "type": "text",
-          "text": "Work functions are a few [[electronvolt|electronvolts]]: caesium about $\\pu{2.1 eV}$, zinc about $\\pu{4.3 eV}$. So visible light frees electrons from caesium, but zinc needs ultraviolet."
+          "text": "Work functions are a few [[electronvolt|electronvolts]]: caesium about $\\pu{2.1 eV}$, zinc about $\\pu{4.3 eV}$. So visible light from violet to yellow frees electrons from caesium, but zinc needs ultraviolet."
         },
         {
           "type": "text",
@@ -759,5 +759,5 @@
     "Paper 1A options often swap what intensity and frequency do. Only frequency sets the energy of each photon.",
     "In a Paper 1B graph question, read $f_0$ from the frequency intercept and $h$ from the gradient. Convert eV s to J s if the energy axis is in eV."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

@@ -260,7 +260,7 @@
         },
         {
           "type": "text",
-          "text": "Whatever is not scattered is absorbed. So a surface of albedo $\\alpha$ absorbs a fraction $1 - \\alpha$ of the incident power. Snow has an albedo of about 0.8, oceans about 0.06, and Earth as a whole about 0.3."
+          "text": "For an opaque surface, or a planet as a whole, whatever is not scattered is absorbed. So it absorbs a fraction $1 - \\alpha$ of the incident power. Snow has an albedo of about 0.8, oceans about 0.06, and Earth as a whole about 0.3."
         },
         {
           "type": "text",
@@ -743,7 +743,7 @@
         },
         {
           "type": "fact",
-          "text": "Emissivity and albedo are ratios with no unit, each between 0 and 1. A surface absorbs a fraction $1 - \\alpha$ of the incident power.",
+          "text": "Emissivity and albedo are ratios with no unit, each between 0 and 1. An opaque surface or a whole planet absorbs a fraction $1 - \\alpha$ of the incident power.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -767,7 +767,7 @@
         },
         {
           "type": "fact",
-          "text": "Surface in equilibrium: absorbed solar intensity + intensity radiated down by the atmosphere = intensity the surface radiates.",
+          "text": "Surface in equilibrium, losing energy only by radiation: absorbed solar intensity + intensity radiated down by the atmosphere = intensity the surface radiates.",
           "tag": "learn",
           "cheatSheet": true
         }

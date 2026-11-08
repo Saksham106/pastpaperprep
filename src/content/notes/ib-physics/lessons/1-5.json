@@ -732,7 +732,7 @@
         },
         {
           "type": "fact",
-          "text": "Drag: small sphere moving slowly. Buoyancy: $\\rho$ of the fluid, $V$ displaced. A sphere falling at terminal speed: $F_\\text{d} + F_\\text{b} = W$. For a rising bubble, drag acts down: $F_\\text{b} = W + F_\\text{d}$.",
+          "text": "Drag: small sphere moving slowly. Buoyancy: $\\rho$ of the fluid, $V$ displaced. A sphere falling at terminal speed: $F_\\text{d} + F_\\text{b} = W$. For a bubble rising at terminal speed, drag acts down: $F_\\text{b} = W + F_\\text{d}$.",
           "tag": "learn",
           "cheatSheet": true
         },

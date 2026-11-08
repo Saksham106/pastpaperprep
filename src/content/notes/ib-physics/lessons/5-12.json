@@ -141,7 +141,7 @@
         },
         {
           "type": "result",
-          "statement": "A star is stable when, at every depth, the outward radiation pressure and gas pressure balance the inward gravitational force. This is equilibrium.",
+          "statement": "A star is stable when, at every depth, the outward force from radiation pressure and gas pressure balances the inward gravitational force. This is equilibrium.",
           "why": "The resultant force on each layer is zero, so it neither falls inwards nor moves outwards."
         },
         {
@@ -325,7 +325,7 @@
         },
         {
           "type": "text",
-          "text": "The products have less mass. This [[mass-defect|mass defect]] has become energy, by [[mass-energy-equivalence|mass-energy equivalence]], $E = mc^{2}$, which is in the data booklet."
+          "text": "The products have less mass. This mass lost, also called the [[mass-defect|mass defect]] of the reaction, has become energy, by [[mass-energy-equivalence|mass-energy equivalence]], $E = mc^{2}$, which is in the data booklet."
         },
         {
           "type": "text",
@@ -352,7 +352,7 @@
         },
         {
           "type": "text",
-          "text": "A star's [[luminosity|luminosity]] is the energy it releases each second. Divide it by the energy from one reaction to get the reactions per second."
+          "text": "A star's [[luminosity|luminosity]] is the energy it radiates each second. For a star in equilibrium this equals the energy fusion releases each second, so divide it by the energy from one reaction to get the reactions per second."
         },
         {
           "type": "example",
@@ -577,7 +577,7 @@
         },
         {
           "type": "text",
-          "text": "Stars spend about 90% of their lives on the main sequence. A more massive star has a hotter, denser core and fuses much faster. It is more luminous, with a hotter surface, and it uses up its core hydrogen sooner despite having more."
+          "text": "Stars spend about 90% of their lives on the main sequence. A more massive star has a hotter core and fuses much faster. It is more luminous, with a hotter surface, and it uses up its core hydrogen sooner despite having more."
         },
         {
           "type": "text",
@@ -729,7 +729,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "A star is stable when outward radiation and gas pressure balance the inward gravitational force.",
+          "text": "A star is stable when the outward force from radiation and gas pressure balances the inward gravitational force.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -777,5 +777,5 @@
     "\"Calculate\" the energy released: write the mass-defect line with every particle, then multiply by 931.5.",
     "\"Explain\" the conditions for fusion: kinetic energy to overcome repulsion, the strong force at short range, and density for frequent collisions."
   ],
-  "readingMinutes": 23
+  "readingMinutes": 24
 }

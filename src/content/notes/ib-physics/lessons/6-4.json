@@ -628,7 +628,7 @@
         },
         {
           "type": "text",
-          "text": "A good line of best fit passes through every bar. If no straight line can, the data are not linear, or some points are anomalous."
+          "text": "A good line of best fit passes through every bar. If no straight line can, the data are not linear, some points are anomalous, or the uncertainties were underestimated."
         },
         {
           "type": "text",
@@ -720,7 +720,7 @@
         {
           "type": "check",
           "id": "check-percentage-k",
-          "prompt": "What is the percentage uncertainty in $k = (48.4 \\pm 4.2)\\ \\text{N m}^{-1}$, to 2 significant figures?",
+          "prompt": "Before rounding, the spring example gave $k = 48.4\\ \\text{N m}^{-1}$ and $\\Delta k = 4.2\\ \\text{N m}^{-1}$. What is the percentage uncertainty in $k$, to 2 significant figures?",
           "hint": "Divide the absolute uncertainty by the value, then multiply by 100.",
           "answer": {
             "value": 8.7,
@@ -740,7 +740,7 @@
           "hint": "What does a bar tell you about where the true point lies?",
           "options": [
             {
-              "text": "the data are not linear, or some points are anomalous",
+              "text": "the data are not linear, some points are anomalous, or the uncertainties are underestimated",
               "correct": true
             },
             {
@@ -752,10 +752,10 @@
               "correct": false
             }
           ],
-          "explain": "A linear relationship would let a straight line fit every bar.",
+          "explain": "A linear relationship with honest uncertainties would let a straight line fit every bar.",
           "verify": {
             "kind": "choice",
-            "truth": "the data are not linear, or some points are anomalous"
+            "truth": "the data are not linear, some points are anomalous, or the uncertainties are underestimated"
           }
         }
       ]

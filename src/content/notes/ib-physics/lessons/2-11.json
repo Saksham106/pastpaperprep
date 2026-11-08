@@ -165,7 +165,7 @@
     },
     {
      "type": "text",
-     "text": "3. An [[isothermal-process|isothermal process]] keeps $T$ fixed, so $\\Delta U = 0$ and $Q = W$. All the heat supplied becomes work, or all the work done on the gas leaves it as heat."
+     "text": "3. An [[isothermal-process|isothermal process]] keeps $T$ fixed. For an ideal gas this means $\\Delta U = 0$, so $Q = W$. All the heat supplied becomes work, or all the work done on the gas leaves it as heat."
     },
     {
      "type": "text",
@@ -485,7 +485,7 @@
      "question": "An ideal monatomic gas is taken round the cycle ABCDA in the diagram. A to B and C to D are isovolumetric; B to C and D to A are isobaric. Determine the efficiency of this cycle.",
      "steps": [
       "Net work is the enclosed area: $W = (4.2 - 1.4) \\times 10^{5} \\times (3.8 - 1.6) \\times 10^{-3} = (2.8 \\times 10^{5})(2.2 \\times 10^{-3}) = \\pu{616 J}$.",
-      "Heat flows in where the gas warms, from A to B and from B to C. It flows out from C to D and from D to A, where the gas cools. For each stage, $\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}\\Delta(PV)$.",
+      "In isovolumetric and isobaric stages, $Q$ has the same sign as $\\Delta T$, so heat flows in where the gas warms, from A to B and from B to C. It flows out from C to D and from D to A, where the gas cools. For each stage, $\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}\\Delta(PV)$.",
       "A to B: $W = 0$, so $Q = \\Delta U = \\frac{3}{2}V\\Delta P = \\frac{3}{2}(1.6 \\times 10^{-3})(2.8 \\times 10^{5}) = \\pu{672 J}$.",
       "B to C: $W = P\\Delta V = (4.2 \\times 10^{5})(2.2 \\times 10^{-3}) = \\pu{924 J}$ and $\\Delta U = \\frac{3}{2}P\\Delta V = \\pu{1386 J}$, so $Q = \\pu{2310 J}$.",
       "Input energy: $Q_\\text{h} = 672 + 2310 = \\pu{2982 J}$, so $\\eta = \\dfrac{616}{2982} = 0.207$. Give 2 significant figures.",
@@ -548,7 +548,7 @@
    "blocks": [
     {
      "type": "text",
-     "text": "Every heat engine wastes some heat. How small can the waste be? The answer depends only on the temperatures of the two reservoirs, and the [[carnot-cycle|Carnot cycle]] reaches it."
+     "text": "Every heat engine wastes some heat. How small can the wasted fraction be? The answer depends only on the temperatures of the two reservoirs, and the [[carnot-cycle|Carnot cycle]] reaches it."
     },
     {
      "type": "text",

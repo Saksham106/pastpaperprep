@@ -122,7 +122,7 @@
         {
           "type": "definition",
           "term": "generator",
-          "statement": "A device in which a coil rotates in a magnetic field, so that an emf is induced in it. It transfers the kinetic energy of the rotation into electrical energy.",
+          "statement": "A device in which a coil rotates in a magnetic field, so that an emf is induced in it. It transfers the work done turning the coil into electrical energy.",
           "plain": "A spinning coil in a magnet that makes electricity."
         },
         {
@@ -289,7 +289,7 @@
         },
         {
           "type": "result",
-          "statement": "For a coil turning in a uniform field, the emf has the same frequency as the rotation, and its peak is proportional to that frequency. With the same coil and field, multiply the rotation frequency by $k$ and the peak emf is multiplied by $k$, while the period is divided by $k$.",
+          "statement": "For a coil turning steadily in a uniform field, the emf has the same frequency as the rotation, and its peak is proportional to that frequency. With the same coil and field, multiply the rotation frequency by $k$ and the peak emf is multiplied by $k$, while the period is divided by $k$.",
           "why": "$\\varepsilon_0 = NBA\\omega = 2\\pi NBAf$, and the period of the emf is the time for one turn, $T = \\frac{1}{f}$."
         },
         {
@@ -449,7 +449,7 @@
     "Changing only the period when a generator speeds up. The peak emf rises in the same ratio.",
     "Using $f$, or revolutions per minute, in $\\varepsilon_0 = NBA\\omega$. Convert to turns per second, then use $\\omega = 2\\pi f$ in $\\text{rad s}^{-1}$.",
     "Measuring $\\theta$ from the plane of the coil. With $\\theta$ from the normal, the flux is $BA\\cos\\theta$ and the emf goes with $\\sin\\theta$.",
-    "Saying a generator creates energy. It transfers kinetic energy into electrical energy, and Lenz's law makes it harder to turn when a current flows."
+    "Saying a generator creates energy. It transfers the work done turning it into electrical energy, and Lenz's law makes it harder to turn when a current flows."
   ],
   "examTips": [
     "\"Explain\" why a turning coil has an emf: say there is flux linking this coil, that it changes as the coil turns, and that by Faraday's law the emf depends on its rate of change.",

@@ -180,7 +180,7 @@
         },
         {
           "type": "text",
-          "text": "An electron accelerated from rest through a potential difference $V$ gains kinetic energy $E_\\text{k} = eV$, in joules. These equations hold while the speed is well below $c$, which is true for electrons accelerated through a few thousand volts."
+          "text": "An electron accelerated from rest through a potential difference $V$ gains kinetic energy $E_\\text{k} = eV$, in joules. The relations $p = mv$ and $E_\\text{k} = \\frac{p^{2}}{2m}$ hold while the speed is well below $c$, which is true for electrons accelerated through a few thousand volts."
         },
         {
           "type": "example",
@@ -383,7 +383,7 @@
         },
         {
           "type": "text",
-          "text": "For small angles, $\\sin\\theta \\approx \\theta$ in radians, and this becomes $\\theta = \\frac{\\lambda}{b}$ from {{lesson:3.6}}. To make $\\theta_\\text{min}$ measurable, $\\lambda$ must be comparable to $D$, about $10^{-15}$ m. That needs electrons with hundreds of MeV, so questions give you $\\lambda$ or $p$."
+          "text": "For small angles, $\\sin\\theta \\approx \\theta$ in radians, and this becomes $\\theta = \\frac{\\lambda}{b}$ from {{lesson:3.6}}. To make $\\theta_\\text{min}$ measurable, $\\lambda$ must be comparable to $D$, about $10^{-15}$ to $10^{-14}$ m. That needs electrons with hundreds of MeV. They move at almost $c$, so $p = \\sqrt{2mE_\\text{k}}$ no longer works, and questions give you $\\lambda$ or $p$."
         },
         {
           "type": "example",

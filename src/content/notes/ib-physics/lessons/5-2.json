@@ -297,7 +297,7 @@
         },
         {
           "type": "text",
-          "text": "Each pair of levels gives one transition, so one wavelength. Four levels make 6 pairs; in general, $n$ levels give $\\frac{n(n-1)}{2}$ possible wavelengths."
+          "text": "Each pair of levels gives one transition, so one wavelength. Four levels make 6 pairs; in general, $n$ levels give at most $\\frac{n(n-1)}{2}$ different wavelengths, fewer if two gaps happen to be equal."
         },
         {
           "type": "mistake",
@@ -757,5 +757,5 @@
     "Paper 1A: compare gaps on the diagram by eye. A small gap means a long wavelength.",
     "\"Outline\" what line spectra show: discrete energy levels, and which elements are present."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

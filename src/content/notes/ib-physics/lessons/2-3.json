@@ -256,7 +256,7 @@
         },
         {
           "type": "text",
-          "text": "From {{lesson:2.1}}, $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$: the hotter a material, the greater the average random [[kinetic-energy|kinetic energy]] of its particles. In a solid the particles vibrate about fixed positions, faster and further at the hot end."
+          "text": "From {{lesson:2.1}}, $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ (a gas result that also fits solids): the hotter a material, the greater the average random [[kinetic-energy|kinetic energy]] of its particles. In a solid the particles vibrate about fixed positions, faster and further at the hot end."
         },
         {
           "type": "text",
@@ -280,7 +280,7 @@
         },
         {
           "type": "text",
-          "text": "Metals have a second, faster route: free electrons. Electrons at the hot end gain kinetic energy, move quickly through the metal and collide with ions further along. This is why metals are the best conductors."
+          "text": "Metals have a second, faster route: free electrons. Electrons at the hot end gain kinetic energy, move quickly through the metal and collide with ions further along. This is why metals usually conduct far better than non-metals."
         },
         {
           "type": "text",
@@ -444,7 +444,7 @@
         },
         {
           "type": "mistake",
-          "text": "Leaving a thickness in millimetres or centimetres. Convert to metres first: $\\pu{4.0 mm} = \\pu{4.0e-3 m}$. A thickness left in mm makes the rate 1000 times too small."
+          "text": "Leaving a thickness in mm or cm. Convert to metres first: $\\pu{4.0 mm} = \\pu{4.0e-3 m}$."
         },
         {
           "type": "example",
@@ -559,7 +559,7 @@
         },
         {
           "type": "text",
-          "text": "When part of a fluid is heated, its particles move faster and spread further apart, so it expands. The same mass takes up more volume, so by $\\rho = \\frac{m}{V}$ its [[density|density]] falls."
+          "text": "When part of a fluid is heated, its particles move faster and usually spread further apart, so it expands. The same mass takes up more volume, so by $\\rho = \\frac{m}{V}$ its [[density|density]] falls."
         },
         {
           "type": "text",
@@ -701,13 +701,13 @@
         },
         {
           "type": "fact",
-          "text": "The rate of conduction is proportional to $k$, $A$ and $\\Delta T$ and inversely proportional to the thickness $\\Delta x$, in metres.",
+          "text": "Once temperatures are steady, the rate of conduction is proportional to $k$, $A$ and $\\Delta T$ and inversely proportional to the thickness $\\Delta x$, in metres.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Convection: heated fluid expands, its density falls and it rises; cooler, denser fluid sinks. It happens only in liquids and gases.",
+          "text": "Convection: heated fluid usually expands, its density falls and it rises; cooler, denser fluid sinks. It happens only in liquids and gases.",
           "tag": "learn",
           "cheatSheet": true
         }

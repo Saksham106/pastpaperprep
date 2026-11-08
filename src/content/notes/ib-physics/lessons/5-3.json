@@ -185,7 +185,7 @@
         },
         {
           "type": "result",
-          "statement": "All nuclei have about the same density, roughly $2 \\times 10^{17}\\ \\text{kg m}^{-3}$, whatever their nucleon number.",
+          "statement": "All nuclei have about the same density, roughly $2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$, whatever their nucleon number.",
           "why": "Mass and volume are both proportional to $A$, so $A$ cancels when you divide one by the other."
         },
         {
@@ -276,7 +276,7 @@
         {
           "type": "definition",
           "term": "distance of closest approach",
-          "statement": "In a head-on collision, the distance $d$ between the centre of the nucleus and the alpha particle at the instant the alpha particle stops.",
+          "statement": "In a head-on collision with a nucleus treated as fixed, the distance $d$ between the centre of the nucleus and the alpha particle at the instant the alpha particle stops.",
           "plain": "How close a charged particle fired straight at a nucleus gets before it is turned back."
         },
         {
@@ -427,7 +427,7 @@
         },
         {
           "type": "text",
-          "text": "Deviations start at a lower energy for a light nucleus. Its smaller charge repels less, so alpha particles reach its surface more easily."
+          "text": "Deviations start at a lower energy for a light nucleus. Its radius is a little smaller, but its charge is much smaller, so it repels less and alpha particles reach its surface more easily."
         },
         {
           "type": "example",
@@ -698,7 +698,7 @@
         },
         {
           "type": "text",
-          "text": "The energies are negative because zero is chosen as the electron completely free of the atom ($n \\to \\infty$). A bound electron has less energy than a free one. Freeing it from level $n$ takes $\\frac{13.6}{n^{2}}\\ \\text{eV}$, so the [[ionisation|ionisation]] energy of hydrogen in its ground state is $13.6\\ \\text{eV}$."
+          "text": "The energies are negative because zero is chosen as the electron completely free of the atom ($n \\to \\infty$). A bound electron has less energy than a free one. The minimum energy to free it from level $n$ is $\\frac{13.6}{n^{2}}\\ \\text{eV}$, so the [[ionisation|ionisation]] energy of hydrogen in its ground state is $13.6\\ \\text{eV}$."
         },
         {
           "type": "figure",
@@ -856,7 +856,7 @@
     "Leaving $E_\\text{k}$ in MeV in $d = \\frac{2kZe^{2}}{E_\\text{k}}$. Multiply by $1.60 \\times 10^{-13}$ to get joules first.",
     "Thinking a bigger nucleus is denser. Its mass and volume both grow in proportion to $A$, so the density stays the same.",
     "Using one level's energy as the photon energy. The photon carries the difference between two levels.",
-    "Using $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$ for atoms other than hydrogen. The Bohr model only works for one electron."
+    "Using $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$ for atoms other than hydrogen. The equation is for hydrogen only, and the Bohr model fails for atoms with more than one electron."
   ],
   "examTips": [
     "\"Show that\" a nuclear radius or density: write $R = R_0A^{\\frac{1}{3}}$ with $1.20 \\times 10^{-15}\\ \\text{m}$ substituted, then give one more significant figure than the value you were shown.",

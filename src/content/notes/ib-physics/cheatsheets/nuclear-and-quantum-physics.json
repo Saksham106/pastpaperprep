@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Wavelength or frequency of light from a transition on an energy-level diagram → photon energy = the gap between the two levels, converted to J, then $\\lambda = \\frac{hc}{\\Delta E}$; the smallest gap gives the longest wavelength ({{lesson:5.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Alpha particle fired head-on at a nucleus, how close it gets → energy conservation with the nucleus fixed: initial $E_\\text{k}$ = electric $E_\\text{p}$ at rest, so $d = \\frac{2kZe^{2}}{E_\\text{k}}$ with $E_\\text{k}$ in J ({{lesson:5.3}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Light on a metal, a stopping potential or a graph of $E_\\text{max}$ against $f$ → $E_\\text{max} = hf - \\Phi = eV_\\text{s}$, with every energy in the same unit; on the graph, gradient $h$ and frequency intercept $f_0$ ({{lesson:5.4}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Wavelength of a moving electron or other particle, or electron diffraction rings → $\\lambda = \\frac{h}{p}$; well below $c$, $p = mv = \\sqrt{2mE_\\text{k}}$, with $E_\\text{k} = eV$ in J for an accelerated electron ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "X-ray or gamma photon scattered by an electron through an angle → $\\Delta\\lambda = \\frac{h}{m_\\text{e}c}(1 - \\cos\\theta)$ with $\\theta$ the photon's angle; the electron's kinetic energy is the energy the photon lost ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Energy released by a fission, fusion or decay, given masses → mass before − mass after, counting every neutron, electron and positron; masses in u × 931.5 give MeV, masses in kg use $\\Delta E = \\Delta m\\, c^{2}$ for J ({{lesson:5.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Energy released, given binding energies per nucleon → total binding energy $= A \\times \\frac{E_\\text{B}}{A}$ for each nucleus; energy released = total after − total before, with free neutrons and protons counting zero ({{lesson:5.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Count rate after a whole number of half-lives, with a background reading → subtract the background, multiply by $\\left(\\tfrac{1}{2}\\right)^{n}$ with $n = \\frac{t}{T_{\\frac{1}{2}}}$, then add the background back if asked what the counter reads ({{lesson:5.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Nuclei or activity left after any time, or a half-life from a decay constant → $N = N_0\\mathrm{e}^{-\\lambda t}$ with $\\lambda$ and $t$ in the same unit, $A = \\lambda N$ with $\\lambda$ in $\\text{s}^{-1}$ for Bq, and $T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$ ({{lesson:5.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Maximum kinetic energy of beta particles from masses → $E_\\text{max} \\approx \\Delta m\\, c^{2}$ with $\\Delta m = M_\\text{parent} - M_\\text{daughter} - m_\\text{e}$ for nuclear masses; at $E_\\text{max}$ the (anti)neutrino gets almost nothing ({{lesson:5.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Fuel used each second by a star or a power station → reactions per second = power from the reactions ÷ energy per reaction in J (the star's luminosity, or the plant's electrical output ÷ efficiency), then × mass used per reaction ({{lesson:5.12}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Radius of a star from parallax, apparent brightness and peak wavelength → $d = \\frac{1}{p}$ in pc, converted to m; $L = 4\\pi d^{2}b$; $T$ from Wien's law; then $R = \\sqrt{\\frac{L}{4\\pi\\sigma T^{4}}}$, or $\\frac{R}{R_\\odot} = \\sqrt{\\frac{L}{L_\\odot}}\\left(\\frac{T_\\odot}{T}\\right)^{2}$ for ratios ({{lesson:5.13}})",
+      "tag": "learn",
+      "level": "SL"
+    }
+  ]
+}

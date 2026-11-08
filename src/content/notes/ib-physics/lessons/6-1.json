@@ -320,7 +320,7 @@
         },
         {
           "type": "text",
-          "text": "Time: a stopwatch shows $\\pu{0.01 s}$, but reaction time is about $\\pu{0.2 s}$. Time many repeats and divide, or use light gates for short intervals."
+          "text": "Time: a stopwatch shows $\\pu{0.01 s}$, but reaction time is about $\\pu{0.2 s}$. Time many cycles and divide, or use light gates for short intervals."
         },
         {
           "type": "text",
@@ -1000,7 +1000,7 @@
         },
         {
           "type": "fact",
-          "text": "Read to the resolution, check zero errors, read at eye level, and time many repeats.",
+          "text": "Read to the resolution, check zero errors, read at eye level, and time many cycles.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -1018,7 +1018,7 @@
     "Paper 1A unit questions: build the unit step by step from equations you know ($F = ma$, $W = Fs$, $P = \\frac{W}{t}$, $Q = It$, $V = \\frac{W}{Q}$).",
     "\"Estimate\": write down your rounded values and assumptions, then give one significant figure or a power of ten.",
     "\"Suggest\" a precaution: give the control measure and the hazard it deals with, joined by \"because\".",
-    "Give every final answer with a unit, in scientific notation when it is very large or small, and to the significant figures of the least precise datum."
+    "Give every final answer with a unit, in scientific notation when it is very large or small, and to the significant figures of the least precise datum (decimal places for sums and differences)."
   ],
   "readingMinutes": 30
 }

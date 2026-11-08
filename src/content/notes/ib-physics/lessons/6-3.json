@@ -817,7 +817,7 @@
         },
         {
           "type": "text",
-          "text": "Three rules cover every case. They are printed in the data booklet under Uncertainties, so the skill is choosing the right one."
+          "text": "Three rules cover sums, differences, products, quotients and powers; combine them for longer formulas. They are printed in the data booklet under Uncertainties, so the skill is choosing the right one."
         },
         {
           "type": "formula",
@@ -982,7 +982,7 @@
         },
         {
           "type": "fact",
-          "text": "Sums and differences: add absolute uncertainties. Products and quotients: add fractional ones. Power $n$: multiply by $\\lvert n \\rvert$.",
+          "text": "Sums and differences: add absolute uncertainties. Products and quotients: add fractional ones. Power $n$: multiply the fractional uncertainty by $\\lvert n \\rvert$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -998,7 +998,7 @@
   "mistakes": [
     "Writing 'human error' or 'to reduce error'. Name the error as random or systematic, give its cause, and say what your change does to it.",
     "Quoting too many digits, such as $15 \\pm 0.833\\ \\Omega$. Round the uncertainty to one significant figure, then match the value: $15.0 \\pm 0.8\\ \\Omega$.",
-    "Subtracting uncertainties when values are subtracted. Absolute uncertainties always add.",
+    "Subtracting uncertainties when values are subtracted. In a sum or difference, absolute uncertainties always add.",
     "Forgetting the power. In $v^{2}$ the fractional uncertainty in $v$ counts twice; an exact $\\tfrac12$ or $\\pi$ adds nothing.",
     "Dividing by your own result in a percentage error. Divide by the accepted value.",
     "Calling a result correct because its percentage error is small. It agrees only if the accepted value lies inside its range."

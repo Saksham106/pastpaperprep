@@ -410,7 +410,7 @@
     },
     {
      "type": "text",
-     "text": "A charged conducting sphere, solid or hollow, is a key case. The charge spreads over its outer surface, and inside the conductor the field is zero once the charges stop moving. Zero gradient means the potential is the same everywhere inside, equal to its value at the surface, $\\frac{kQ}{R}$."
+     "text": "An isolated charged conducting sphere, solid or hollow, is a key case. The charge spreads over its outer surface, and inside the conductor the field is zero once the charges stop moving. Zero gradient means the potential is the same everywhere inside, equal to its value at the surface, $\\frac{kQ}{R}$."
     },
     {
      "type": "figure",
@@ -782,7 +782,7 @@
     },
     {
      "type": "fact",
-     "text": "$E_\\text{p}$ and $V_\\text{e}$ are zero at infinity and take the signs of the charges. Potential is a scalar: add it from each charge, signs included. $E_\\text{p} = qV_\\text{e}$.",
+     "text": "$E_\\text{p}$ and $V_\\text{e}$ are zero at infinity. $V_\\text{e}$ has the sign of the charge making it; $E_\\text{p}$ is positive for like charges, negative for unlike. Potential is a scalar: add it from each charge, signs included. $E_\\text{p} = qV_\\text{e}$.",
      "tag": "learn",
      "cheatSheet": true
     },
@@ -802,13 +802,13 @@
     },
     {
      "type": "fact",
-     "text": "$\\pu{1 eV} = \\pu{1.60e-19 J}$. A free charge $q$ gains $\\Delta E_\\text{k} = -q\\Delta V_\\text{e}$; an electron through $V$ gains $eV$.",
+     "text": "$\\pu{1 eV} = \\pu{1.60e-19 J}$. A charge $q$ acted on only by the electric force gains $\\Delta E_\\text{k} = -q\\Delta V_\\text{e}$; an electron through $V$ gains $eV$.",
      "tag": "learn",
      "cheatSheet": true
     },
     {
      "type": "fact",
-     "text": "No work is done along an equipotential. Field lines cross equipotentials at right angles, towards lower potential. A charged conductor is one equipotential, with zero field inside.",
+     "text": "No work is done along an equipotential. Field lines cross equipotentials at right angles, towards lower potential. A conductor whose charges are at rest is one equipotential, with zero field inside.",
      "tag": "learn",
      "cheatSheet": true
     }
@@ -825,7 +825,7 @@
  ],
  "examTips": [
   "\"State what is meant by electric potential at a point\": the work done per unit positive test charge in bringing it from infinity to the point. \"Per unit charge\" and \"from infinity\" both earn credit.",
-  "Distance of closest approach: write $E_\\text{k} = k\\frac{q_1 q_2}{r}$, convert MeV to J, substitute with charges in coulombs, then give $r$ with its unit. Each step is a mark in Paper 2.",
+  "Distance of closest approach, head-on to a nucleus that stays put: write $E_\\text{k} = k\\frac{q_1 q_2}{r}$, convert MeV to J, substitute with charges in coulombs, then give $r$ with its unit. Each step is a mark in Paper 2.",
   "\"Sketch\" $V_\\text{e}$ against $r$: positive charge, positive curve falling as $\\frac{1}{r}$ towards zero; for a conducting sphere, flat inside and continuous at the surface.",
   "In Paper 1A equipotential questions, look for right angles with the field lines, closer spacing where the field is stronger, and $W = 0$ along any path that starts and ends on the same equipotential."
  ],

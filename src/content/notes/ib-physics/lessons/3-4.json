@@ -284,7 +284,7 @@
         {
           "type": "definition",
           "term": "refraction",
-          "statement": "The change in direction of a wave as it passes from one medium into another, caused by the change in its speed. The frequency stays the same.",
+          "statement": "The change in direction of a wave as it passes from one medium into another at an angle to the normal, caused by the change in its speed. The frequency stays the same.",
           "plain": "The transmitted wave bends because it speeds up or slows down."
         },
         {
@@ -883,7 +883,7 @@
     "Measuring angles from the surface. Every angle in reflection, Snell's law and the critical angle is measured from the normal.",
     "Saying light bends towards the normal without a reason. Add that it is passing into a medium with a larger refractive index, where it travels more slowly.",
     "Swapping the indices in Snell's law. Write $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$, with medium 1 the one the light starts in.",
-    "Stating that frequency, or wavelength after a gap, changes. Refraction changes speed and wavelength only; diffraction changes neither.",
+    "Stating that frequency, or wavelength after a gap, changes. Refraction changes the speed and wavelength but not the frequency; diffraction changes neither the wavelength nor the frequency.",
     "Drawing total internal reflection for light entering a denser medium. There must also be a refracted ray whenever light goes into a larger $n$."
   ],
   "examTips": [

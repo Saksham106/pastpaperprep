@@ -278,7 +278,7 @@
     },
     {
      "type": "text",
-     "text": "2. It travels $2L$, to the far wall and back, before hitting this wall again, taking a time $\\frac{2L}{u}$."
+     "text": "2. Ignoring collisions with other molecules, it travels $2L$, to the far wall and back, before hitting this wall again, taking a time $\\frac{2L}{u}$."
     },
     {
      "type": "text",
@@ -435,7 +435,7 @@
     },
     {
      "type": "text",
-     "text": "So $U$ depends only on the amount of gas and its temperature, not on which gas it is or on its pressure and volume separately. Because $Nk_\\text{B}T = PV$, you can also write $U = \\frac{3}{2}PV$."
+     "text": "So $U$ depends only on the amount of gas and its temperature, not on which monatomic gas it is or on its pressure and volume separately. Because $Nk_\\text{B}T = PV$, you can also write $U = \\frac{3}{2}PV$."
     },
     {
      "type": "text",
@@ -677,7 +677,7 @@
     },
     {
      "type": "fact",
-     "text": "Pressure comes from the rate of change of momentum of molecules colliding with the walls. Hotter molecules hit harder and more often; compressed gas hits each unit area more often.",
+     "text": "Pressure comes from the rate of change of momentum of molecules colliding with the walls. At constant volume, hotter molecules hit harder and more often; compressed gas at constant temperature hits each unit area more often.",
      "tag": "learn",
      "cheatSheet": true
     },

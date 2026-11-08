@@ -672,7 +672,7 @@
         {
           "type": "definition",
           "term": "Ohm's law",
-          "statement": "The current in a conductor is directly proportional to the potential difference across it, provided its temperature and other physical conditions stay constant.",
+          "statement": "The current in a metal conductor is directly proportional to the potential difference across it, provided its temperature and other physical conditions stay constant.",
           "plain": "Double the voltage and the current doubles, as long as nothing heats up."
         },
         {
@@ -695,11 +695,11 @@
         },
         {
           "type": "text",
-          "text": "Every resistor heats up when it carries a current, and stays ohmic only while its temperature is steady. You will calculate the heating power in {{lesson:2.14}}."
+          "text": "Every resistor heats up when it carries a current. A metal's resistance changes with temperature, so a metal resistor obeys Ohm's law only while its temperature is steady. You will calculate the heating power in {{lesson:2.14}}."
         },
         {
           "type": "text",
-          "text": "An LED conducts in one direction only, and only above a threshold potential difference. A thermistor's resistance falls as it warms, because more carriers are freed. Both are non-ohmic."
+          "text": "An LED conducts in one direction only, and only above a threshold potential difference. An NTC thermistor's resistance falls as it warms, because more carriers are freed. Both are non-ohmic."
         },
         {
           "type": "text",
@@ -867,7 +867,7 @@
         },
         {
           "type": "fact",
-          "text": "Ohm's law: $I \\propto V$ at constant temperature. Ohmic means a straight I–V line through the origin.",
+          "text": "Ohm's law: for a metal conductor, $I \\propto V$ at constant temperature. Ohmic means a straight I–V line through the origin.",
           "tag": "learn",
           "cheatSheet": true
         },

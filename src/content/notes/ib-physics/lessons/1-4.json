@@ -392,7 +392,7 @@
         },
         {
           "type": "mistake",
-          "text": "Writing $F_\\text{N} = W$ for every body on a surface. An angled pull, a slope or an acceleration changes $F_\\text{N}$, so balance the vertical components."
+          "text": "Writing $F_\\text{N} = W$ for every body on a surface. An angled pull, a slope or a vertical acceleration changes $F_\\text{N}$, so find it from the force components perpendicular to the surface."
         },
         {
           "type": "check",
@@ -731,7 +731,7 @@
         },
         {
           "type": "fact",
-          "text": "Second law: $F$ is the resultant force, and the acceleration is in its direction. For connected bodies, treat the whole system first.",
+          "text": "Second law: $F$ is the resultant force, and the acceleration is in its direction. For connected bodies with the same acceleration, treat the whole system first.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -747,7 +747,7 @@
   "mistakes": [
     "Drawing a \"driving force\" or \"force of the throw\" on a body nothing is pushing. Each force needs a second body acting on it now.",
     "Arrows unlabelled or not touching the body. Start each on the body and name it: weight, not gravity.",
-    "Assuming $F_\\text{N} = mg$. Balance the vertical components; an angled pull or an acceleration changes $F_\\text{N}$.",
+    "Assuming $F_\\text{N} = mg$. Use the force components perpendicular to the surface; an angled pull, a slope or a vertical acceleration changes $F_\\text{N}$.",
     "Thinking a moving body needs a resultant force to keep moving. At constant velocity the resultant force is zero.",
     "Calling the weight and the normal force a third-law pair. A pair acts on two different bodies and is the same type of force."
   ],

@@ -150,7 +150,7 @@
         },
         {
           "type": "text",
-          "text": "The angles are tiny, so $\\sin\\theta \\approx \\theta$ in radians. That gives the data-booklet equation (section C.3, higher level)."
+          "text": "The slit is usually many wavelengths wide, so the angle is small and $\\sin\\theta \\approx \\theta$ in radians. That gives the data-booklet equation (section C.3, higher level)."
         },
         {
           "type": "formula",
@@ -160,7 +160,7 @@
         },
         {
           "type": "text",
-          "text": "$\\theta$ is the angle, in radians, from the centre line to the first minimum. The equation holds for monochromatic light, a rectangular slit and normal incidence."
+          "text": "$\\theta$ is the angle, in radians, from the centre line to the first minimum. The equation holds for monochromatic light, a rectangular slit, normal incidence and small angles."
         },
         {
           "type": "figure",
@@ -743,7 +743,7 @@
         },
         {
           "type": "fact",
-          "text": "Highest order: the whole number at or below $\\frac{d}{\\lambda}$. Total maxima $= 2n_\\text{max} + 1$.",
+          "text": "Highest order: the whole number below $\\frac{d}{\\lambda}$ (an order exactly at $\\frac{d}{\\lambda}$ is at $90^\\circ$ and never reaches a screen). Total maxima $= 2n_\\text{max} + 1$.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -759,8 +759,8 @@
   "examTips": [
     "\"Calculate\" for a grating: write $d$ in metres, then $n\\lambda = d\\sin\\theta$ with your numbers, then the answer with its unit.",
     "\"Determine\" the highest order: say that $\\sin\\theta$ cannot exceed 1 (or set $\\theta = 90^\\circ$), work out $\\frac{d}{\\lambda}$, then state the whole number below it. Writing the decimal alone loses the mark.",
-    "\"Sketch\" a single-slit intensity graph: a central peak twice as wide as the side peaks, side peaks much lower, and minima at zero intensity, equally spaced.",
+    "\"Sketch\" a single-slit intensity graph: a central peak twice as wide as the side peaks, side peaks much lower, and minima at zero intensity, equally spaced on each side.",
     "In Paper 1A double-slit graphs, the fringe spacing is $\\frac{\\lambda}{d}$ and the envelope's first minimum is $\\frac{\\lambda}{b}$."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

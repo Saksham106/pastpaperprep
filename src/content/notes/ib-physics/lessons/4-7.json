@@ -151,7 +151,7 @@
     },
     {
      "type": "text",
-     "text": "Gravity can be ignored: in a field of just $\\pu{1000 V m-1}$ an electron's acceleration is about $\\pu{1.8e14 m s-2}$, some $10^{13}$ times $g$."
+     "text": "For electrons and ions, gravity can be ignored (unlike for Millikan's oil drops in {{lesson:4.4}}): in a field of just $\\pu{1000 V m-1}$ an electron's acceleration is about $\\pu{1.8e14 m s-2}$, some $10^{13}$ times $g$."
     },
     {
      "type": "text",
@@ -448,7 +448,7 @@
    "blocks": [
     {
      "type": "text",
-     "text": "The radius depends on the particle only through $\\frac{q}{m}$. From $r = \\frac{mv}{qB}$, and, for a particle accelerated from rest through $V$, $v = \\sqrt{\\frac{2qV}{m}}$:"
+     "text": "The radius depends on the particle only through $\\frac{q}{m}$. From $r = \\frac{mv}{qB}$, and, for a particle accelerated from rest through $V$ to a speed well below the speed of light, $v = \\sqrt{\\frac{2qV}{m}}$:"
     },
     {
      "type": "formula",

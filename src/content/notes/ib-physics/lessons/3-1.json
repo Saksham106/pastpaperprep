@@ -402,7 +402,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A mass $m$ on a spring of [[spring-constant|spring constant]] $k$ is the standard SHM oscillator. If the spring obeys [[hooke-s-law|Hooke's law]], the resultant force is $F = -kx$, so $a = -\\frac{k}{m}x$."
+          "text": "A mass $m$ on a light spring of [[spring-constant|spring constant]] $k$ is the standard SHM oscillator. If the spring obeys [[hooke-s-law|Hooke's law]] and there is no friction, the resultant force is $F = -kx$, so $a = -\\frac{k}{m}x$."
         },
         {
           "type": "text",
@@ -420,7 +420,7 @@
         },
         {
           "type": "text",
-          "text": "The period does not depend on the amplitude. It is also the same for a vertical spring: gravity moves the equilibrium position down, but $g$ is not in the formula."
+          "text": "The period does not depend on the amplitude, as long as the spring obeys Hooke's law. It is also the same for a vertical spring: gravity moves the equilibrium position down, but $g$ is not in the formula."
         },
         {
           "type": "example",
@@ -905,7 +905,7 @@
     "Writing \"potential energy\" for a spring. Mark schemes want elastic potential energy, or gravitational potential energy for a pendulum."
   ],
   "examTips": [
-    "\"Outline\" why a motion is SHM: name the restoring force, say it is proportional to the displacement and opposite to it. Quoting $a = -\\omega^{2}x$ alone earns nothing.",
+    "\"Outline\" why a motion is SHM: name the restoring force, say it is proportional to the displacement and opposite to it. Quoting $a = -\\omega^{2}x$ without saying what it means is not enough.",
     "In Paper 1A ratio questions, use $T \\propto \\sqrt{m}$ for a spring and $T \\propto \\sqrt{l}$ and $T \\propto \\frac{1}{\\sqrt{g}}$ for a pendulum. The pendulum's mass never matters.",
     "\"Determine\" a period from a graph or a timing: read across several complete cycles and divide. Show that division, because it earns a mark.",
     "\"State the energy changes\": name both stores specifically and the direction of the transfer, such as elastic potential energy to kinetic energy."

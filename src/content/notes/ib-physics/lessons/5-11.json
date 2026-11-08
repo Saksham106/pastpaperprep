@@ -298,7 +298,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Each fission of uranium-235 releases 2 or 3 neutrons. Each can be absorbed by another uranium-235 nucleus and cause another fission, which releases more neutrons."
+          "text": "Each fission of uranium-235 usually releases 2 or 3 neutrons. Each can be absorbed by another uranium-235 nucleus and cause another fission, which releases more neutrons."
         },
         {
           "type": "definition",
@@ -568,7 +568,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Uranium-235 has about 1.55 neutrons per proton; stable medium-mass nuclei have fewer, about 1.3 to 1.45. The fragments keep the uranium's high share of neutrons, so they are unstable. This gives fission products three properties:"
+          "text": "Uranium-235 has about 1.55 neutrons per proton; stable medium-mass nuclei have fewer, about 1.25 to 1.45. The fragments keep the uranium's high share of neutrons, so they are unstable. This gives fission products three properties:"
         },
         {
           "type": "text",
@@ -576,7 +576,7 @@
         },
         {
           "type": "text",
-          "text": "2. Their [[half-life|half-lives]] range from fractions of a second to millions of years. Strontium-90 and caesium-137, about 30 years each, give most of the heat and radiation for the first few centuries. A few, such as technetium-99, last hundreds of thousands of years."
+          "text": "2. Their [[half-life|half-lives]] range from fractions of a second to millions of years. Strontium-90 and caesium-137, about 30 years each, give most of the fission products' heat and radiation from a few years after removal until a few centuries later. A few, such as technetium-99, last hundreds of thousands of years."
         },
         {
           "type": "text",
@@ -708,7 +708,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "Fission: a heavy nucleus splits into two medium-mass nuclei and 2 or 3 neutrons, spontaneously or after absorbing a neutron.",
+          "text": "Fission: a heavy nucleus splits into two medium-mass nuclei and usually 2 or 3 neutrons, spontaneously or after absorbing a neutron.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -749,7 +749,7 @@
     "Saying the moderator absorbs neutrons. It slows them, making fission more likely; the control rods absorb them.",
     "Saying the control rods cool the reactor. The coolant and heat exchanger carry the energy away.",
     "Forgetting the absorbed neutron, or the neutrons released, when balancing an equation or finding the mass lost.",
-    "Thinking that storing or cooling waste shortens its half-life. Nothing changes the rate of decay."
+    "Thinking that storing or cooling waste shortens its half-life. Nothing external changes a nuclide's half-life."
   ],
   "examTips": [
     "\"Determine\" the energy released: mass before minus mass after, with every neutron, times 931.5 for MeV.",

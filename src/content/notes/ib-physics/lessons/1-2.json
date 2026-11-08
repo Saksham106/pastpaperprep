@@ -605,7 +605,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "The equations of motion hold only for uniform acceleration in a straight line. Each leaves out one of $s$, $u$, $v$, $a$, $t$.",
+          "text": "The equations of motion hold only while the acceleration is uniform. Use them along one line at a time, and split a journey into stages if $a$ changes. Each leaves out one of $s$, $u$, $v$, $a$, $t$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -646,7 +646,7 @@
     "\"Calculate\": write the equation you chose, then the substitution with numbers. That line earns the method mark if the final answer slips.",
     "\"Determine\" a gradient from a curve: draw a long tangent and use a large triangle. For an area, show the value of one square and the count.",
     "\"Sketch\" a motion graph: label both axes, and show the key features: straight or curved, where it crosses zero, where it levels off.",
-    "In Paper 1A, from rest $s = \\tfrac{1}{2}at^{2}$, so doubling the time quadruples the displacement."
+    "In Paper 1A, with uniform acceleration from rest $s = \\tfrac{1}{2}at^{2}$, so doubling the time quadruples the displacement."
   ],
   "readingMinutes": 21
 }

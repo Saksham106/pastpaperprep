@@ -145,7 +145,7 @@
         },
         {
           "type": "text",
-          "text": "An object at rest keeps one $x$, so its [[world-line|world line]] is vertical. Light obeys $x = ct$, so its world line is at $45^{\\circ}$. An object moving at constant velocity, slower than light, has a straight world line in between, leaning left if it moves towards $-x$."
+          "text": "An object at rest keeps one $x$, so its [[world-line|world line]] is vertical. Light moves one unit of $x$ for each unit of $ct$, so its world line is at $45^{\\circ}$, leaning right or left. An object moving at constant velocity, slower than light, has a straight world line in between, leaning left if it moves towards $-x$."
         },
         {
           "type": "figure",
@@ -697,5 +697,5 @@
     "“Determine the speed” from a diagram: read two far-apart points on the world line or $ct'$ axis and use $v = c\\,\\frac{\\Delta x}{\\Delta(ct)}$, as a fraction of $c$ or in $\\text{m s}^{-1}$.",
     "“Identify the simultaneous events” for an observer: draw a line through one event parallel to that observer's $x$ axis, and name the events on it."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

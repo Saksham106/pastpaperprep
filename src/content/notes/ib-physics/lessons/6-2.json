@@ -140,7 +140,7 @@
         },
         {
           "type": "result",
-          "statement": "To sort a quantity, ask whether it needs a direction to be complete. If it does, it is a vector. Distance and speed are the scalar partners of displacement and velocity.",
+          "statement": "To sort a quantity, ask whether it needs a direction to be complete. If it does, it is a vector. (Current is the exception: it has a sense round a circuit but adds as a plain number, so it is a scalar.) Distance and speed are the scalar partners of displacement and velocity.",
           "why": "A force of 10 N to the left and one of 10 N to the right have very different effects, but 10 J of energy is the same whichever way it moves."
         },
         {

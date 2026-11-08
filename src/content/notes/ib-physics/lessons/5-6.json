@@ -284,7 +284,7 @@
         },
         {
           "type": "text",
-          "text": "Its short range matters. At separations much beyond a few times $10^{-15}\\ \\text{m}$ the strong force is negligible. So a nucleon only feels its nearest neighbours, while the electric repulsion reaches every proton in the nucleus."
+          "text": "Its short range matters. At separations much beyond a few times $10^{-15}\\ \\text{m}$ the strong force is negligible. (At very small separations, below about $0.5 \\times 10^{-15}\\ \\text{m}$, it turns repulsive, which stops nucleons crowding closer. You don't need this detail.) So a nucleon only feels its nearest neighbours, while the electric repulsion reaches every proton in the nucleus."
         },
         {
           "type": "text",
@@ -715,7 +715,7 @@
           "type": "definition",
           "term": "binding energy per nucleon",
           "statement": "The binding energy of a nucleus divided by its nucleon number, $\\frac{E_\\text{B}}{A}$.",
-          "plain": "The average energy needed to pull one nucleon out of the nucleus."
+          "plain": "The energy needed to take the nucleus fully apart, shared out per nucleon."
         },
         {
           "type": "text",

@@ -234,7 +234,7 @@
               "correct": false
             }
           ],
-          "explain": "If the line of action passes through the axis, $\\theta = 0$ and the perpendicular distance is zero, so $\\tau = 0$. A force at right angles to the door gives the largest torque.",
+          "explain": "If the line of action passes through the axis, $\\theta = 0^{\\circ}$ or $180^{\\circ}$ and the perpendicular distance is zero, so $\\tau = 0$. A force at right angles to the door gives the largest torque.",
           "verify": {
             "kind": "choice",
             "truth": "the line of action passes through the hinges"
