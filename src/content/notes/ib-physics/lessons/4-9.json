@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.9",
+  "slug": "magnetic-flux-faradays-law-and-lenzs-law",
+  "title": "Magnetic flux, Faraday's law and Lenz's law",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Change the [[magnetic-flux|magnetic flux]] through a circuit and you get an [[induced-emf|induced emf]]. [[faraday-s-law|Faraday's law]] gives its size: the rate of change of flux, times the number of turns. [[lenz-s-law|Lenz's law]] gives its direction: it opposes the change.",
+  "goals": [
+    {
+      "text": "Calculate [[magnetic-flux|magnetic flux]] with $\\Phi = BA\\cos\\theta$, measuring $\\theta$ from the normal.",
+      "bullets": [
+        "D.4-a1"
+      ]
+    },
+    {
+      "text": "Use [[faraday-s-law|Faraday's law]] when a field changes or a coil moves into a field.",
+      "bullets": [
+        "D.4-a2"
+      ]
+    },
+    {
+      "text": "Explain how a moving magnet induces an [[emf|emf]] in a coil.",
+      "bullets": [
+        "D.4-a2"
+      ]
+    },
+    {
+      "text": "Derive and use $\\varepsilon = BvL$ for a rod moving across a field.",
+      "bullets": [
+        "D.4-a3"
+      ]
+    },
+    {
+      "text": "Find the direction of an induced current with [[lenz-s-law|Lenz's law]], and link it to [[conservation-of-energy|conservation of energy]].",
+      "bullets": [
+        "D.4-a4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "2.12",
+    "4.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electromagnetic induction",
+    "flux linkage",
+    "Faraday's law of induction",
+    "Lenz's law direction",
+    "emf in a moving rod",
+    "BvL"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-force-on-wire",
+      "prompt": "A wire $\\pu{0.25 m}$ long carries $\\pu{3.2 A}$ perpendicular to a $\\pu{0.15 T}$ field. What force acts on it, in N? Give 2 significant figures.",
+      "hint": "Use $F = BIL\\sin\\theta$ with $\\theta = 90^{\\circ}$.",
+      "answer": {
+        "value": 0.12,
+        "tolerance": 0.005
+      },
+      "explain": "$F = BIL = 0.15 \\times 3.2 \\times 0.25 = \\pu{0.12 N}$. Revise it in {{lesson:4.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.15*3.2*0.25*sind(90)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-emf-meaning",
+      "prompt": "A cell has an emf of $\\pu{1.5 V}$. What does this mean?",
+      "hint": "A volt is a joule per coulomb.",
+      "options": [
+        {
+          "text": "It transfers 1.5 J to each coulomb of charge.",
+          "correct": true
+        },
+        {
+          "text": "It pushes charges with a force of 1.5 N.",
+          "correct": false
+        },
+        {
+          "text": "It always supplies a current of 1.5 A.",
+          "correct": false
+        }
+      ],
+      "explain": "Emf is energy transferred per unit charge by the source. It is not a force, and the current depends on the circuit. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It transfers 1.5 J to each coulomb of charge."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-work-done",
+      "prompt": "A steady $\\pu{40 N}$ force pushes a crate $\\pu{6.5 m}$ in the direction of the force. How much work does it do, in J? Give 2 significant figures.",
+      "hint": "Force and displacement point the same way, so $W = Fs$.",
+      "answer": {
+        "value": 260,
+        "tolerance": 5
+      },
+      "explain": "$W = Fs = 40 \\times 6.5 = \\pu{260 J}$ of energy transferred. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "40*6.5*cosd(0)",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "flux",
+      "heading": "Magnetic flux",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Think of magnetic flux as the number of field lines passing through a loop. A stronger field or a bigger loop means more lines. Tilting the loop lets fewer through, and edge-on it catches none."
+        },
+        {
+          "type": "definition",
+          "term": "magnetic flux",
+          "statement": "For a flat area $A$ in a uniform field $B$, $\\Phi = BA\\cos\\theta$, where $\\theta$ is the angle between the field and the normal to the area. Unit: weber, $\\pu{1 Wb} = \\pu{1 T m2}$.",
+          "plain": "How much magnetic field passes through a loop."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Phi = BA\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-9"
+        },
+        {
+          "type": "text",
+          "text": "$B$ is the [[magnetic-field-strength|magnetic field strength]] in tesla and $A$ the area in $\\text{m}^{2}$. The normal is a line at right angles to the surface. All three equations in this lesson are in section D.4 of the data booklet."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-flux-angle",
+          "alt": "Three drawings of a flat loop seen edge-on in a uniform magnetic field whose lines point to the right. In the first, the loop stands at right angles to the lines, its normal points along the field, theta is 0 and four field lines pass through it: the flux is BA, its largest value. In the second, the normal makes an angle theta with the field and only two lines pass through: the flux is BA cos theta. In the third, the loop lies along the field lines, its normal is at 90 degrees to the field and no lines pass through: the flux is zero.",
+          "caption": "$\\theta$ is measured from the normal. The flux is largest at $\\theta = 0$ and zero at $\\theta = 90^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-flux-tilted-coil",
+          "question": "A flat rectangular loop measures $\\pu{12 cm}$ by $\\pu{8.0 cm}$. It sits in a uniform field of $\\pu{0.35 T}$, with its normal at $40^{\\circ}$ to the field. Calculate the magnetic flux through the loop.",
+          "steps": [
+            "Area in square metres: $A = 0.12 \\times 0.080 = \\pu{9.6e-3 m2}$.",
+            "The angle is measured from the normal, so $\\theta = 40^{\\circ}$.",
+            "$\\Phi = BA\\cos\\theta = 0.35 \\times 9.6 \\times 10^{-3} \\times \\cos 40^{\\circ} = 2.57 \\times 10^{-3}\\ \\text{Wb}$, then round to 2 significant figures."
+          ],
+          "answer": "$\\Phi \\approx 2.6 \\times 10^{-3}\\ \\text{Wb}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.35*(0.12*0.080)*cosd(40)",
+            "sf": 2,
+            "unit": "Wb"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the angle between the field and the plane of the loop as $\\theta$. If a question gives that angle, subtract it from $90^{\\circ}$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-flux-plane-angle",
+          "question": "A square loop of side $\\pu{6.0 cm}$ is in a uniform field of $\\pu{0.20 T}$. The plane of the loop makes $30^{\\circ}$ with the field lines. Calculate the flux through the loop.",
+          "steps": [
+            "The $30^{\\circ}$ is from the plane, so the normal is at $\\theta = 90^{\\circ} - 30^{\\circ} = 60^{\\circ}$.",
+            "Area: $A = 0.060^{2} = \\pu{3.6e-3 m2}$.",
+            "$\\Phi = 0.20 \\times 3.6 \\times 10^{-3} \\times \\cos 60^{\\circ} = 3.6 \\times 10^{-4}\\ \\text{Wb}$.",
+            "Sense check: the loop is nearer edge-on than face-on, so $\\Phi$ should be less than $BA\\cos 45^{\\circ} \\approx 0.7BA$. It is $0.5BA$."
+          ],
+          "answer": "$\\Phi = 3.6 \\times 10^{-4}\\ \\text{Wb}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.20*0.060**2*cosd(90-30)",
+            "sf": 2,
+            "unit": "Wb"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-flux-zero",
+          "prompt": "A flat coil sits in a uniform magnetic field. In which position is the flux through it zero?",
+          "hint": "Zero flux means no field lines pass through.",
+          "options": [
+            {
+              "text": "plane parallel to the field lines",
+              "correct": true
+            },
+            {
+              "text": "plane at right angles to the field lines",
+              "correct": false
+            },
+            {
+              "text": "normal at 45° to the field lines",
+              "correct": false
+            }
+          ],
+          "explain": "With the plane along the field, $\\theta = 90^{\\circ}$ and $\\cos 90^{\\circ} = 0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "plane parallel to the field lines"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-flux-cm2",
+          "prompt": "A coil of area $\\pu{50 cm2}$ is in a uniform field of $\\pu{0.40 T}$, with its normal at $35^{\\circ}$ to the field. Calculate the flux, in mWb. Give 2 significant figures.",
+          "hint": "$\\pu{1 cm2} = \\pu{1e-4 m2}$, and $\\pu{1 mWb} = \\pu{1e-3 Wb}$.",
+          "answer": {
+            "value": 1.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Phi = 0.40 \\times 5.0 \\times 10^{-3} \\times \\cos 35^{\\circ} = \\pu{1.6e-3 Wb} = \\pu{1.6 mWb}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.40*50e-4*cosd(35)*10**3",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "faraday",
+      "heading": "Faraday's law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a magnet into a coil connected to a meter and the needle kicks. Hold it still and the reading is zero. Pull it out and the needle kicks the other way. Only a changing flux produces an [[emf|emf]]."
+        },
+        {
+          "type": "definition",
+          "term": "induced emf",
+          "statement": "An emf produced in a conductor when the magnetic flux linked with it changes.",
+          "plain": "The push a changing field gives to the charges in a wire."
+        },
+        {
+          "type": "definition",
+          "term": "Faraday's law",
+          "statement": "The magnitude of the induced emf equals the rate of change of magnetic flux linkage.",
+          "plain": "Faster change, or more turns, gives a bigger emf."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = -N\\frac{\\Delta\\Phi}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-4-9"
+        },
+        {
+          "type": "text",
+          "text": "$N$ is the number of turns. The turns are in series, so their emfs add, and $N\\Phi$ is called the flux linkage. The minus sign gives the direction ([[lenz-s-law|Lenz's law]], below), so for sizes use $\\varepsilon = N\\frac{\\Delta\\Phi}{\\Delta t}$."
+        },
+        {
+          "type": "text",
+          "text": "To change $\\Phi = BA\\cos\\theta$, change $B$ (move a magnet, switch an electromagnet), $A$ (move a coil into or out of a field) or $\\theta$ (rotate the coil, as in {{lesson:4.10}})."
+        },
+        {
+          "type": "text",
+          "text": "On a graph of $\\Phi$ against $t$, the emf is $N$ times the gradient. A steep part means a large emf; a flat part means zero emf."
+        },
+        {
+          "type": "example",
+          "id": "ex-faraday-falling-field",
+          "question": "A flat coil of 180 turns, each of area $\\pu{35 cm2}$, faces a uniform field, so the field passes straight through it. The field falls steadily from $\\pu{0.62 T}$ to $\\pu{0.14 T}$ in $\\pu{90 ms}$. Calculate the magnitude of the induced emf.",
+          "steps": [
+            "The field is along the normal, so $\\theta = 0$ and $\\Phi = BA$, with $A = \\pu{3.5e-3 m2}$.",
+            "$\\Delta\\Phi = (0.14 - 0.62) \\times 3.5 \\times 10^{-3} = -1.68 \\times 10^{-3}\\ \\text{Wb}$.",
+            "$\\varepsilon = -N\\frac{\\Delta\\Phi}{\\Delta t} = -180 \\times \\frac{-1.68 \\times 10^{-3}}{0.090} = 3.36\\ \\text{V}$, so 3.4 V to 2 significant figures."
+          ],
+          "answer": "$\\varepsilon \\approx 3.4\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-180*(0.14-0.62)*35e-4/(90e-3)",
+            "sf": 2,
+            "unit": "V"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the area in $\\text{cm}^{2}$. Convert first: $\\pu{1 cm2} = \\pu{1e-4 m2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-faraday-magnet-spring",
+          "question": "A bar magnet hangs from a spring and bounces up and down above a coil connected to a voltmeter. Explain why the reading keeps changing sign, and why it is zero at the top and bottom of each bounce.",
+          "steps": [
+            "Say what changes: the flux linked with the coil.",
+            "Link it to Faraday's law.",
+            "Then deal with the direction, and with the turning points, where the magnet stops."
+          ],
+          "answer": "As the magnet moves, the flux linked with the coil changes. By Faraday's law, a changing flux induces an emf in the coil. Moving down, the flux increases; moving up, it decreases. So the emf reverses direction every half oscillation. At the top and bottom the magnet is momentarily at rest. The flux is not changing at that instant, so the emf is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "moving magnet changes the flux linkage; Faraday: changing flux induces emf; increase then decrease reverses the emf; at rest at the turning points so no change and zero emf",
+            "requires": [
+              [
+                "flux linked with the coil changes",
+                "flux linkage changes"
+              ],
+              "Faraday's law",
+              [
+                "induces an emf",
+                "induced emf"
+              ],
+              [
+                "reverses direction",
+                "opposite direction"
+              ],
+              [
+                "momentarily at rest",
+                "instantaneously at rest"
+              ],
+              [
+                "not changing",
+                "no change in flux"
+              ],
+              "zero"
+            ],
+            "forbids": [
+              "flux is zero",
+              "no flux"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steady-field",
+          "prompt": "A coil sits at rest in a very strong, steady magnetic field. What emf is induced?",
+          "hint": "Faraday's law depends on $\\Delta\\Phi$, not on $\\Phi$.",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "a large emf, because the flux is large",
+              "correct": false
+            },
+            {
+              "text": "an emf equal to the flux linkage",
+              "correct": false
+            }
+          ],
+          "explain": "Nothing changes, so $\\Delta\\Phi = 0$ and $\\varepsilon = 0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-flux-rise",
+          "prompt": "The flux through each turn of a 40-turn coil rises steadily from $\\pu{1.5 mWb}$ to $\\pu{6.0 mWb}$ in $\\pu{0.030 s}$. Calculate the emf, in V. Give 2 significant figures.",
+          "hint": "Find $\\Delta\\Phi$ in webers, multiply by $N$ and divide by $\\Delta t$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\varepsilon = 40 \\times \\frac{4.5 \\times 10^{-3}}{0.030} = \\pu{6.0 V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "40*(6.0e-3 - 1.5e-3)/0.030",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "motional",
+      "heading": "A rod moving through a field",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A metal rod moving through a field carries its free electrons with it, so each feels a magnetic force $qvB$ along the rod. Electrons pile up at one end, leaving the other end positive, and an emf appears between the ends."
+        },
+        {
+          "type": "definition",
+          "term": "motional emf",
+          "statement": "The emf induced between the ends of a conductor moving through a magnetic field.",
+          "plain": "Moving a wire across a field turns it into a source of emf."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = BvL",
+          "tag": "booklet",
+          "bookletId": "db-4-9"
+        },
+        {
+          "type": "text",
+          "text": "$L$ is the rod's length and $v$ its speed. This [[motional-emf|motional emf]] needs a uniform field, with rod, velocity and field all at right angles. A rod sliding along the field, or along its own length, has none."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-rod-rails",
+          "alt": "Top view of two parallel horizontal rails joined at the left by a resistor R. A vertical metal rod of length L lies across the rails and moves to the right at speed v. Crosses fill the space, showing a magnetic field B into the page. The top end of the rod is marked plus and the bottom end minus. Current arrows show the current flowing up the rod, left along the top rail, down through the resistor and right along the bottom rail. An arrow on the rod pointing left is labelled F equals B I L.",
+          "caption": "The rod acts as the source. Current flows, and the field pushes back on the rod."
+        },
+        {
+          "type": "example",
+          "id": "ex-show-bvl",
+          "question": "A straight rod of length $L$ slides along rails at constant speed $v$, as in the figure. A uniform field $B$ is perpendicular to both the rod and its velocity. Show, using Faraday's law, that the emf in the rod is $\\varepsilon = BvL$.",
+          "steps": [
+            "Start from a short time $\\Delta t$: the rod moves $v\\Delta t$.",
+            "Area swept, then change in flux: $\\Delta\\Phi = B \\times Lv\\Delta t$.",
+            "The circuit is a single loop, so $N = 1$. Divide by $\\Delta t$."
+          ],
+          "answer": "In a time $\\Delta t$ the rod moves a distance $v\\Delta t$. So it sweeps out an area $\\Delta A = Lv\\Delta t$. The field is perpendicular to this area, so the change in flux is $\\Delta\\Phi = BLv\\Delta t$. The circuit has one turn, so by Faraday's law the emf is the flux change divided by the time taken. So $\\varepsilon = \\frac{BLv\\Delta t}{\\Delta t} = BvL$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "distance v dt, swept area L v dt, flux change B L v dt, Faraday with N = 1, divide by dt to get BvL",
+            "requires": [
+              "distance",
+              "sweeps out an area",
+              [
+                "change in flux",
+                "flux change"
+              ],
+              "one turn",
+              "Faraday's law",
+              [
+                "divided by the time",
+                "rate of change of flux"
+              ]
+            ],
+            "forbids": [
+              "flux is constant"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-coil-enters-field",
+          "question": "A rectangular coil of 30 turns measures $\\pu{6.0 cm}$ by $\\pu{10.0 cm}$. It is pulled at a steady $\\pu{0.40 m s-1}$, short side first, into a region of uniform field $\\pu{0.25 T}$ perpendicular to the coil. Determine the emf while the coil is entering the field.",
+          "steps": [
+            "Only the leading short side, $L = \\pu{0.060 m}$, cuts across the field. The long sides move along their own length, so they add no emf.",
+            "The 30 turns are in series: $\\varepsilon = NBvL = 30 \\times 0.25 \\times 0.40 \\times 0.060 = 0.18\\ \\text{V}$.",
+            "Once the coil is fully inside, the flux stops changing and the emf is zero. As it leaves, the emf is $\\pu{0.18 V}$ again, in the opposite direction."
+          ],
+          "answer": "$\\varepsilon = 0.18\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "30*0.25*0.40*0.060",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rod-positive-end",
+          "prompt": "In the figure, the rod moves right through a field into the page. Which end of the rod becomes positive?",
+          "hint": "Find the magnetic force on a positive charge moving right with the rod.",
+          "options": [
+            {
+              "text": "the top end",
+              "correct": true
+            },
+            {
+              "text": "the bottom end",
+              "correct": false
+            },
+            {
+              "text": "neither end",
+              "correct": false
+            }
+          ],
+          "explain": "By the [[right-hand-rule|right-hand rule]] from {{lesson:4.8}}, that force points up the page. Electrons are pushed the other way, to the bottom.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the top end"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rod-speed",
+          "prompt": "A rod $\\pu{0.30 m}$ long moves perpendicular to a uniform $\\pu{0.12 T}$ field. The emf between its ends is $\\pu{54 mV}$. Calculate its speed, in $\\text{m s}^{-1}$. Give 2 significant figures.",
+          "hint": "Rearrange $\\varepsilon = BvL$ for $v$, and convert mV to V.",
+          "answer": {
+            "value": 1.5,
+            "tolerance": 0.05
+          },
+          "explain": "$v = \\frac{\\varepsilon}{BL} = \\frac{0.054}{0.12 \\times 0.30} = \\pu{1.5 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "54e-3/(0.12*0.30)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "lenz",
+      "heading": "Lenz's law and energy",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Lenz's law",
+          "statement": "The direction of an induced emf is such that the current it drives opposes the change in flux that produces it.",
+          "plain": "Induction always pushes back against the change that causes it."
+        },
+        {
+          "type": "text",
+          "text": "To use it: 1. decide whether the flux is increasing or decreasing. 2. The induced current makes its own field to oppose that change. 3. Find the current that makes this field."
+        },
+        {
+          "type": "text",
+          "text": "For step 3, curl your right hand's fingers round the loop with the current; your thumb points along the field inside. Seen from one side, an anticlockwise current makes a field towards you, so that face acts as a north pole."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-lenz-ring",
+          "alt": "Left: side view of a bar magnet with its north pole on the right, moving right towards a metal ring. An arrow from the centre of the ring points left, back towards the magnet, labelled induced field. Text: flux through the ring increases, so the ring's near face acts as N and repels the magnet. Right: the ring seen from the magnet, with curved arrows showing an anticlockwise current and a dot in a circle at the centre showing the induced field out of the page.",
+          "caption": "The ring opposes an incoming north pole by making a north pole of its own."
+        },
+        {
+          "type": "example",
+          "id": "ex-lenz-ring-direction",
+          "question": "The north pole of a bar magnet is pushed towards a metal ring along its axis. Deduce the direction of the induced current, seen from the magnet, and explain your answer.",
+          "steps": [
+            "The magnet's field passes through the ring away from the magnet, and grows as the magnet nears: the flux increases.",
+            "The induced field must point the other way, back towards the magnet.",
+            "A field towards the viewer means an anticlockwise current, seen from that side."
+          ],
+          "answer": "As the magnet approaches, the flux through the ring increases. By Lenz's law, the induced current opposes this increase. So the ring's field points back towards the magnet, and its near face becomes a north pole that repels the magnet. Seen from the magnet, the current is anticlockwise.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "flux increases; Lenz: induced current opposes the increase; induced field points back at the magnet, near face north, repels; anticlockwise seen from the magnet",
+            "requires": [
+              "increases",
+              "Lenz's law",
+              "opposes",
+              "north pole",
+              [
+                "repels",
+                "repel"
+              ],
+              "anticlockwise"
+            ],
+            "forbids": [
+              "clockwise",
+              "attracts"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the induced current opposes the magnet's field. It opposes the change in flux: pull a north pole away and the ring attracts it."
+        },
+        {
+          "type": "result",
+          "statement": "Lenz's law is a consequence of [[conservation-of-energy|conservation of energy]]. The induced current opposes the change, so work must be done to keep the change going. That work becomes electrical energy.",
+          "why": "If the induced current helped the change, it would speed itself up with no work done: energy from nothing."
+        },
+        {
+          "type": "text",
+          "text": "In the rod figure, the current in the rod feels a force $F = BIL$ backwards. To keep the rod moving steadily you must push, and your work ends up as thermal energy in the resistor."
+        },
+        {
+          "type": "example",
+          "id": "ex-lenz-energy",
+          "question": "A student pushes a bar magnet into a coil connected to a resistor. Explain, using conservation of energy, why the induced current must oppose the motion of the magnet.",
+          "steps": [
+            "Say what the induced current does to the magnet: it repels it.",
+            "Trace the work done against that force to its final form.",
+            "Show what would go wrong if the current attracted the magnet."
+          ],
+          "answer": "The induced current makes the coil repel the approaching magnet. So the student must do work against this force. This work is transferred to electrical energy, and then to thermal energy in the resistor. If the current attracted the magnet instead, the magnet would speed up and the current would grow with no work done. That would create energy from nothing, which conservation of energy does not allow.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current repels the magnet; work must be done; work becomes electrical then thermal energy; attraction would make energy from nothing",
+            "requires": [
+              [
+                "repel",
+                "repels"
+              ],
+              [
+                "do work",
+                "work done"
+              ],
+              "electrical energy",
+              "thermal energy",
+              [
+                "speed up",
+                "accelerate"
+              ],
+              "from nothing",
+              "conservation of energy"
+            ],
+            "forbids": [
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A coil also opposes changes in its own current. Switch it on and the growing flux through its own turns induces an emf against the rise, so the current builds up gradually. This is self-induction; you only need to describe it."
+        },
+        {
+          "type": "check",
+          "id": "check-pull-away",
+          "prompt": "The north pole of a magnet is pulled away from a metal ring along its axis. Seen from the magnet, which way does the induced current flow?",
+          "hint": "The flux is falling. The ring tries to keep it up.",
+          "options": [
+            {
+              "text": "clockwise",
+              "correct": true
+            },
+            {
+              "text": "anticlockwise",
+              "correct": false
+            },
+            {
+              "text": "no current flows",
+              "correct": false
+            }
+          ],
+          "explain": "The induced field points away from the magnet, like the magnet's own field, so the current is clockwise seen from the magnet. The near face is a south pole, attracting the magnet back.",
+          "verify": {
+            "kind": "choice",
+            "truth": "clockwise"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-copper-pipe",
+          "prompt": "A strong magnet dropped down a vertical copper pipe soon falls at a slow, steady speed. Where does its lost gravitational potential energy go?",
+          "hint": "The falling magnet changes the flux through each ring of the pipe.",
+          "options": [
+            {
+              "text": "thermal energy in the pipe, via induced currents",
+              "correct": true
+            },
+            {
+              "text": "the magnet's kinetic energy",
+              "correct": false
+            },
+            {
+              "text": "it is destroyed by the magnetic force",
+              "correct": false
+            }
+          ],
+          "explain": "Induced currents in the pipe oppose the fall. At steady speed the kinetic energy is constant, so the lost potential energy becomes thermal energy in the copper.",
+          "verify": {
+            "kind": "choice",
+            "truth": "thermal energy in the pipe, via induced currents"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\Phi = BA\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-9",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\theta$ is measured from the normal to the area. $\\pu{1 Wb} = \\pu{1 T m2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = -N\\frac{\\Delta\\Phi}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-4-9",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An emf is induced only when the flux linkage changes. A steady flux, however large, induces nothing.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = BvL",
+          "tag": "booklet",
+          "bookletId": "db-4-9",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lenz's law: the induced current opposes the change in flux causing it. This follows from conservation of energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring $\\theta$ from the plane of the coil. It is measured from the normal: a plane at $30^{\\circ}$ to the field means $\\theta = 60^{\\circ}$.",
+    "Forgetting $N$, or leaving areas in $\\text{cm}^{2}$.",
+    "Confusing flux with its rate of change. A large steady flux gives zero emf.",
+    "Saying the induced current opposes the field. It opposes the change: an approaching pole is repelled, a retreating one attracted.",
+    "Using $\\varepsilon = BvL$ when the rod moves along the field or along its own length."
+  ],
+  "examTips": [
+    "\"Explain\" why an emf is induced: state that the flux linked with the coil changes, say why it changes, then quote Faraday's law linking the rate of change to the emf.",
+    "\"Show that\" $\\varepsilon = BvL$: distance $v\\Delta t$, then area, then change in flux, then divide by $\\Delta t$ with $N = 1$.",
+    "In Paper 1A direction questions, decide first whether the flux is rising or falling, then oppose that change.",
+    "On a flux–time graph, the emf is $N$ times the gradient."
+  ],
+  "readingMinutes": 24
+}

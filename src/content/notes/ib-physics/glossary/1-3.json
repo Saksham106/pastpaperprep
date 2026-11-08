@@ -2,19 +2,19 @@
   {
     "id": "projectile",
     "term": "projectile",
-    "definition": "TODO: Body moving under gravity alone after launch",
+    "definition": "A body that moves freely after it has been launched, with no engine or push, so the only forces on it are its weight and any fluid resistance.",
     "lesson": "1.3"
   },
   {
     "id": "fluid-resistance",
     "term": "fluid resistance",
-    "definition": "TODO: Force from a fluid opposing motion; reduces range and speed",
+    "definition": "The force a gas or liquid exerts on a body moving through it, acting opposite to the body's velocity relative to the fluid and increasing with speed; air resistance and drag are examples.",
     "lesson": "1.3"
   },
   {
     "id": "terminal-speed",
     "term": "terminal speed",
-    "definition": "TODO: Constant speed reached when drag (plus upthrust) balances weight; resultant force zero, not zero speed",
+    "definition": "The constant speed of a body falling through a fluid once the fluid resistance plus any upthrust balances its weight, so the resultant force and the acceleration are zero (the body is still moving).",
     "lesson": "1.3"
   }
 ]

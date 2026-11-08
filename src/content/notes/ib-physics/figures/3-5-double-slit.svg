@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 280" role="img" aria-labelledby="t">
+  <title id="t">Side view of Young's double-slit experiment, not to scale. A laser on the left sends a beam to a barrier with two narrow slits, S1 and S2, a small distance d apart. A screen stands a distance D to the right of the slits. On the screen is a column of evenly spaced bright fringes with dark gaps between them. The central bright fringe lies on the centre line, where the path difference is zero. Lines from S1 and S2 meet at point P, the next bright fringe up, where the path difference is one wavelength. The fringe separation s is marked between the centres of two neighbouring bright fringes.</title>
+  <rect x="20" y="126" width="64" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="52" y="144" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">laser</text>
+  <path d="M84.0 140.0 L122.0 140.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="130.0,140.0 122.0,144.0 122.0,136.0" fill="var(--t3-ink)"/>
+  <g stroke="currentColor" stroke-width="3">
+    <path d="M170 30 V128"/>
+    <path d="M170 134 V146"/>
+    <path d="M170 152 V250"/>
+  </g>
+  <text x="178" y="125" font-size="12" fill="currentColor" font-family="inherit">S₁</text>
+  <text x="178" y="165" font-size="12" fill="currentColor" font-family="inherit">S₂</text>
+  <path d="M156.0 140.0 L156.0 127.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="156.0,121.0 159.0,127.0 153.0,127.0" fill="currentColor"/><path d="M156.0 140.0 L156.0 153.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="156.0,159.0 153.0,153.0 159.0,153.0" fill="currentColor"/>
+  <path d="M150 131 H166 M150 149 H166" stroke="var(--muted)" stroke-width="1"/>
+  <text x="148" y="145" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end" font-style="italic">d</text>
+  <path d="M420 30 V250" stroke="currentColor" stroke-width="2.4"/>
+  <text x="420" y="22" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">screen</text>
+  <path d="M170 140 H420" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M295.0 265.0 L176.0 265.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="170.0,265.0 176.0,262.0 176.0,268.0" fill="currentColor"/><path d="M295.0 265.0 L414.0 265.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="420.0,265.0 414.0,268.0 414.0,262.0" fill="currentColor"/>
+  <text x="295.0" y="258" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">D</text>
+  <path d="M170 131 L420 110 M170 149 L420 110" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <circle cx="420" cy="110" r="3" fill="var(--t1-ink)"/>
+  <text x="414" y="102" font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="end">P: path difference = λ</text>
+  <rect x="426" y="44" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="74" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="104" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="134" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="164" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="194" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <rect x="426" y="224" width="34" height="12" rx="2" fill="var(--t3-ink)"/>
+  <text x="466" y="144" font-size="11" fill="currentColor" font-family="inherit">central bright</text>
+  <text x="466" y="157" font-size="11" fill="currentColor" font-family="inherit">fringe, Δx = 0</text>
+  <path d="M480.0 65.0 L480.0 74.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="480.0,80.0 477.0,74.0 483.0,74.0" fill="currentColor"/><path d="M480.0 65.0 L480.0 56.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="480.0,50.0 483.0,56.0 477.0,56.0" fill="currentColor"/>
+  <path d="M462 80 H486 M462 50 H486" stroke="var(--muted)" stroke-width="1"/>
+  <text x="492" y="70.0" font-size="13" fill="currentColor" font-family="inherit" font-style="italic">s</text>
+</svg>

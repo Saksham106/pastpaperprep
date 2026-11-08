@@ -2,43 +2,43 @@
   {
     "id": "superposition",
     "term": "superposition",
-    "definition": "TODO: Resultant displacement is the sum of individual displacements at each point",
+    "definition": "When waves or pulses overlap, the resultant displacement at each point is the sum of the displacements each would cause on its own.",
     "lesson": "3.5"
   },
   {
     "id": "coherence",
     "term": "coherence",
-    "definition": "TODO: Sources with constant phase difference and same frequency; needed for stable interference",
+    "definition": "Two sources are coherent when they have the same frequency and a constant phase difference, which a steady interference pattern needs.",
     "lesson": "3.5"
   },
   {
     "id": "phase-difference",
     "term": "phase difference",
-    "definition": "TODO: How far apart in cycle two points or waves are, in radians or degrees; also used for SHM",
+    "definition": "How far one oscillation is ahead of another, as a fraction of a cycle written as an angle: one cycle is $2\\pi$ rad or $360^\\circ$.",
     "lesson": "3.5"
   },
   {
     "id": "constructive-interference",
     "term": "constructive interference",
-    "definition": "TODO: Waves in phase add to a larger amplitude; path difference n lambda",
+    "definition": "Waves arriving in phase add to a larger amplitude; for sources in phase it happens where the path difference is $n\\lambda$.",
     "lesson": "3.5"
   },
   {
     "id": "destructive-interference",
     "term": "destructive interference",
-    "definition": "TODO: Waves in antiphase cancel; path difference (n + 1/2) lambda",
+    "definition": "Waves arriving in antiphase partly or fully cancel; for sources in phase it happens where the path difference is $(n + \\frac{1}{2})\\lambda$.",
     "lesson": "3.5"
   },
   {
     "id": "path-difference",
     "term": "path difference",
-    "definition": "TODO: Difference in distance travelled by two waves to a point",
+    "definition": "The difference between the distances two waves travel from their sources to the same point.",
     "lesson": "3.5"
   },
   {
     "id": "double-slit-interference",
     "term": "double-slit interference",
-    "definition": "TODO: Young's experiment: fringe separation s = lambda D/d",
+    "definition": "The evenly spaced bright and dark fringes formed when coherent light passes through two narrow slits, with fringe separation $s = \\frac{\\lambda D}{d}$.",
     "lesson": "3.5"
   }
 ]

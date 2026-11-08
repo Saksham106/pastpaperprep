@@ -1,0 +1,734 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.4",
+  "slug": "thermal-radiation-and-black-bodies",
+  "title": "Thermal radiation and black bodies",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Every object gives off [[thermal-radiation|thermal radiation]], and the hotter it is, the more it emits. For an ideal emitter, a [[black-body|black body]], the [[stefan-boltzmann-law|Stefan-Boltzmann law]] gives the total [[power|power]] radiated from its surface area and [[temperature|temperature]]. How bright a star looks, and where its spectrum peaks, then tell you its power, temperature, size and distance.",
+  "goals": [
+    {
+      "text": "Calculate the [[luminosity|luminosity]] of a black body from its surface area and absolute temperature, and work back from $L$ to $T$ or to the area.",
+      "bullets": [
+        "B.1-s14"
+      ]
+    },
+    {
+      "text": "Explain what [[apparent-brightness|apparent brightness]] is and why it depends on distance as well as on luminosity.",
+      "bullets": [
+        "B.1-s15"
+      ]
+    },
+    {
+      "text": "Use $b = \\frac{L}{4\\pi d^{2}}$ to find a brightness, luminosity or distance, with $L$ in watts or in solar luminosities.",
+      "bullets": [
+        "B.1-s16"
+      ]
+    },
+    {
+      "text": "Describe the spectrum of a black body and use [[wien-s-displacement-law|Wien's displacement law]] to find a temperature from a peak wavelength.",
+      "bullets": [
+        "B.1-s17"
+      ]
+    },
+    {
+      "text": "Combine the three laws to find the temperature, size or distance of a star.",
+      "bullets": [
+        "B.1-s14",
+        "B.1-s16",
+        "B.1-s17"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11",
+    "2.1",
+    "2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Stefan-Boltzmann law calculation",
+    "Wien's law",
+    "black body radiation",
+    "luminosity of a star",
+    "apparent brightness formula",
+    "inverse square law for light"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kelvin",
+      "prompt": "Convert $57\\,^{\\circ}\\text{C}$ to the [[kelvin-scale|kelvin scale]].",
+      "hint": "Add the offset between the two scales.",
+      "answer": {
+        "value": 330,
+        "tolerance": 0
+      },
+      "explain": "$T = 57 + 273 = \\pu{330 K}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "57 + zero_celsius",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-power",
+      "prompt": "A heater transfers $\\pu{9.0 kJ}$ of energy in $2.5$ minutes. Calculate its output power in watts, to 2 significant figures.",
+      "hint": "Power is energy divided by time, with the time in seconds.",
+      "answer": {
+        "value": 60,
+        "tolerance": 0.5
+      },
+      "explain": "$P = \\frac{9000}{2.5 \\times 60} = \\frac{9000}{150} = \\pu{60 W}$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "9.0*10**3/(2.5*60)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-vacuum",
+      "prompt": "Which mechanism of thermal energy transfer can carry energy across a vacuum?",
+      "hint": "Two of the three need particles to pass the energy along.",
+      "options": [
+        {
+          "text": "radiation",
+          "correct": true
+        },
+        {
+          "text": "conduction",
+          "correct": false
+        },
+        {
+          "text": "convection",
+          "correct": false
+        }
+      ],
+      "explain": "[[thermal-radiation|Thermal radiation]] is electromagnetic waves, which need no medium. Conduction and convection both need particles. Revise it in {{lesson:2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "radiation"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "stefan-boltzmann",
+      "heading": "Radiated power and the Stefan-Boltzmann law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hold your hand near a hot iron without touching it and you feel warmth. That energy reaches you as electromagnetic waves, mostly infrared, emitted from the iron's surface. Every object above absolute zero emits this [[thermal-radiation|thermal radiation]]."
+        },
+        {
+          "type": "text",
+          "text": "Two things set how much power a surface radiates: its area and its absolute temperature. A bigger surface emits more, and a hotter one emits far more."
+        },
+        {
+          "type": "definition",
+          "term": "black body",
+          "statement": "An idealised object that absorbs all the electromagnetic radiation falling on it and, at any given temperature, emits the most radiation that any surface can.",
+          "plain": "A perfect absorber, which is also the best possible emitter."
+        },
+        {
+          "type": "text",
+          "text": "No real object is a perfect black body, but stars come close, and so do many dull, dark surfaces. A real surface emits less than a black body at the same temperature. You will correct for this with a factor called emissivity in {{lesson:2.5}}."
+        },
+        {
+          "type": "text",
+          "text": "The total power a body radiates is its [[luminosity|luminosity]] $L$, measured in watts. For a black body it follows the [[stefan-boltzmann-law|Stefan-Boltzmann law]]."
+        },
+        {
+          "type": "formula",
+          "tex": "L = \\sigma A T^{4}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the surface area in $\\text{m}^{2}$ and $T$ is the absolute [[temperature|temperature]] in kelvin. $\\sigma = \\pu{5.67e-8 W m-2 K-4}$ is the Stefan-Boltzmann constant. The law and $\\sigma$ are both in the data booklet, and so are the light-year and Wien's constant used later. Values for the Sun are not in the booklet, so a question gives them."
+        },
+        {
+          "type": "text",
+          "text": "The fourth power makes temperature matter hugely: double $T$ and $L$ rises $2^{4} = 16$ times. For a sphere of radius $r$, the radiating surface is the whole sphere, $A = 4\\pi r^{2}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting degrees Celsius into $T^{4}$. Add 273 first: $27\\,^{\\circ}\\text{C}$ is $\\pu{300 K}$, and $300^{4}$ is about 15 000 times bigger than $27^{4}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sb-ball",
+          "question": "A dull black metal ball of radius $\\pu{4.0 cm}$ is lifted out of a furnace at $900\\,^{\\circ}\\text{C}$. Treating it as a black body, calculate the power it radiates at that moment.",
+          "steps": [
+            "Convert to SI units: $r = \\pu{0.040 m}$ and $T = 900 + 273 = \\pu{1173 K}$.",
+            "Surface area of the sphere: $A = 4\\pi r^{2} = 4\\pi(0.040)^{2} = \\pu{2.01e-2 m2}$.",
+            "Substitute into $L = \\sigma A T^{4}$: $L = (5.67 \\times 10^{-8})(2.01 \\times 10^{-2})(1173)^{4} = \\pu{2158 W}$.",
+            "The radius has 2 significant figures, so give 2."
+          ],
+          "answer": "$L \\approx 2.2 \\times 10^{3}\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "sigma*4*pi*0.040**2*(900 + zero_celsius)**4",
+            "sf": 2,
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sb-red-giant",
+          "question": "In about 5 billion years the Sun will become a red giant. Its radius may grow to about 150 times today's value while its surface temperature falls from $\\pu{5800 K}$ to $\\pu{3200 K}$. Estimate the red giant's luminosity as a multiple of the Sun's present luminosity $L_\\odot$.",
+          "steps": [
+            "Write the law for both stars, with $A = 4\\pi R^{2}$, and divide. $\\sigma$ and $4\\pi$ cancel: $\\dfrac{L}{L_\\odot} = \\left(\\dfrac{R}{R_\\odot}\\right)^{2}\\left(\\dfrac{T}{T_\\odot}\\right)^{4}$.",
+            "Substitute the ratios: $\\dfrac{L}{L_\\odot} = 150^{2} \\times \\left(\\dfrac{3200}{5800}\\right)^{4} = 22\\,500 \\times 0.0927 = 2085$.",
+            "The cooler surface cuts the power per square metre to under a tenth, but the area grows 22 500 times, so the area wins."
+          ],
+          "answer": "$\\dfrac{L}{L_\\odot} \\approx 2.1 \\times 10^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "150**2*(3200/5800)**4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sb-double-t",
+          "prompt": "The absolute temperature of a black body doubles and its surface area stays the same. By what factor does its luminosity increase?",
+          "hint": "Which power of $T$ appears in the law?",
+          "options": [
+            {
+              "text": "$16$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            }
+          ],
+          "explain": "$L \\propto T^{4}$, so the factor is $2^{4} = 16$. Choosing $4$ squares the temperature instead of raising it to the fourth power.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sb-hotplate",
+          "prompt": "An electric hotplate has a radiating surface of area $\\pu{0.025 m2}$ and radiates $\\pu{650 W}$. Treating it as a black body, calculate its surface temperature in kelvin, to 2 significant figures.",
+          "hint": "Rearrange the law to $T = \\sqrt[4]{\\dfrac{L}{\\sigma A}}$.",
+          "answer": {
+            "value": 820,
+            "tolerance": 5
+          },
+          "explain": "$T = \\sqrt[4]{\\dfrac{650}{(5.67 \\times 10^{-8})(0.025)}} = \\sqrt[4]{4.59 \\times 10^{11}} \\approx \\pu{820 K}$, about $550\\,^{\\circ}\\text{C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(650/(sigma*0.025))**Rational(1, 4)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "brightness",
+      "heading": "Apparent brightness and the inverse square law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A torch is dazzling up close and faint from across a field, yet it emits the same power all the time. What changes is how much of that power reaches each square metre near you."
+        },
+        {
+          "type": "text",
+          "text": "Picture a small source radiating equally in all directions. At distance $d$, its power is spread over a sphere of area $4\\pi d^{2}$. The power per unit area on a surface facing the source is the [[intensity|intensity]], in $\\text{W m}^{-2}$."
+        },
+        {
+          "type": "definition",
+          "term": "apparent brightness",
+          "statement": "The power received from a source per unit area at the observer, on a surface at right angles to the direction of the radiation.",
+          "plain": "How bright a source looks from where you are, in watts per square metre."
+        },
+        {
+          "type": "text",
+          "text": "[[apparent-brightness|Apparent brightness]] $b$ is the intensity you receive from a star or other source. It links to the luminosity by this equation, which is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "b = \\frac{L}{4\\pi d^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "$L$ is in W and $d$ is in m. The equation assumes the source radiates equally in all directions and nothing absorbs the radiation on the way."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-inverse-square",
+          "alt": "A point source on the left with a cone of radiation spreading to the right. At distance d the cone passes through one shaded square of area A. At distance 2d the same cone covers a square made of four such squares, area 4A. At distance 3d it covers nine squares, area 9A. The brightness is labelled b at distance d, b over 4 at 2d and b over 9 at 3d, because the same power passes through each shaded area.",
+          "caption": "Double the distance and the same power covers 4 times the area, so $b$ falls to a quarter."
+        },
+        {
+          "type": "text",
+          "text": "For a source of fixed luminosity, $b \\propto \\frac{1}{d^{2}}$. This is an [[inverse-square-law|inverse square law]]. You will meet the same pattern in gravitational and electric fields."
+        },
+        {
+          "type": "text",
+          "text": "Astronomers measure $b$ with a detector on a telescope. If they also know $d$, they can find $L$, a property of the star itself. Luminosities are often given as multiples of the Sun's luminosity $L_\\odot$, about $\\pu{3.8e26 W}$; a question gives you the value when you need it."
+        },
+        {
+          "type": "example",
+          "id": "ex-b-lamp",
+          "question": "A small garden lamp emits $\\pu{18 W}$ of light equally in all directions. Calculate the intensity of its light $\\pu{3.0 m}$ away.",
+          "steps": [
+            "The light spreads over a sphere of radius $\\pu{3.0 m}$, of area $4\\pi(3.0)^{2} = \\pu{113 m2}$.",
+            "$b = \\dfrac{L}{4\\pi d^{2}} = \\dfrac{18}{4\\pi(3.0)^{2}} = \\pu{0.159 W m-2}$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$b \\approx 0.16\\ \\text{W m}^{-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "18/(4*pi*3.0**2)",
+            "sf": 2,
+            "unit": "W m-2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-b-star-luminosity",
+          "question": "A star is 25 light-years from Earth. Its apparent brightness at Earth is $\\pu{2.8e-8 W m-2}$. Determine its luminosity.",
+          "steps": [
+            "Convert the distance with the data booklet's light-year: $d = 25 \\times 9.46 \\times 10^{15} = \\pu{2.365e17 m}$.",
+            "Rearrange $b = \\dfrac{L}{4\\pi d^{2}}$ to $L = 4\\pi d^{2} b$.",
+            "Substitute: $L = 4\\pi(2.365 \\times 10^{17})^{2}(2.8 \\times 10^{-8}) = \\pu{1.97e28 W}$.",
+            "The brightness has 2 significant figures, so give 2."
+          ],
+          "answer": "$L \\approx 2.0 \\times 10^{28}\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4*pi*(25*ly)**2*2.8*10**-8",
+            "sf": 2,
+            "unit": "W"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-b-solar-units",
+            "prompt": "Now you try: express this star's luminosity in solar luminosities, using $L_\\odot = \\pu{3.83e26 W}$. Give 2 significant figures.",
+            "hint": "Divide the unrounded $L$ by $L_\\odot$.",
+            "answer": {
+              "value": 51,
+              "tolerance": 0.5
+            },
+            "explain": "$\\dfrac{1.968 \\times 10^{28}}{3.83 \\times 10^{26}} \\approx 51$, so $L \\approx 51\\,L_\\odot$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "4*pi*(25*ly)**2*2.8*10**-8/(3.83*10**26)",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-b-explain",
+          "question": "Star P looks brighter than star Q in the night sky. A student concludes that P must have the greater luminosity. Explain why the student may be wrong.",
+          "steps": [
+            "Separate what the star emits ($L$) from what reaches Earth ($b$).",
+            "Link the two with $b = \\dfrac{L}{4\\pi d^{2}}$, then name the variable the student ignored."
+          ],
+          "answer": "Apparent brightness is the power received per unit area at Earth, while luminosity is the total power the star emits. The apparent brightness depends on the distance as well as on the luminosity, since $b = \\frac{L}{4\\pi d^{2}}$. Brightness falls with the inverse square of the distance. So if Q is much farther away than P, Q can have the greater luminosity and still look dimmer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "b depends on L and on distance (inverse square), so a distant star can be more luminous yet look dimmer",
+            "requires": [
+              "power received per unit area",
+              "total power",
+              "distance",
+              "inverse square",
+              [
+                "farther away",
+                "further away"
+              ],
+              "greater luminosity"
+            ],
+            "forbids": [
+              "brightness is the same as luminosity",
+              "closer stars are always more luminous"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-b-farther",
+          "prompt": "The intensity of the light from a small lamp is $\\pu{0.90 W m-2}$ at $\\pu{1.5 m}$. Calculate the intensity at $\\pu{4.5 m}$, in $\\text{W m}^{-2}$ to 2 significant figures.",
+          "hint": "The distance is 3 times bigger. What does that do to $b$?",
+          "answer": {
+            "value": 0.1,
+            "tolerance": 0.005
+          },
+          "explain": "$b \\propto \\frac{1}{d^{2}}$, so $b = 0.90 \\times \\left(\\dfrac{1.5}{4.5}\\right)^{2} = \\dfrac{0.90}{9} = \\pu{0.10 W m-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.90*(1.5/4.5)**2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-b-ratio",
+          "prompt": "Star X has 4 times the luminosity of star Y and is twice as far from Earth. What is $\\dfrac{b_\\text{X}}{b_\\text{Y}}$?",
+          "hint": "Brightness is proportional to $L$ and to $\\frac{1}{d^{2}}$.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dfrac{b_\\text{X}}{b_\\text{Y}} = \\dfrac{4}{2^{2}} = 1$, so they look equally bright. Choosing $2$ forgets to square the distance ratio.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4/2**2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "spectrum",
+      "heading": "The black-body spectrum and Wien's law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heat an iron poker in a fire. First it glows dull red, then orange, then yellow-white. Its colour tells you its temperature, and the reason is the shape of its spectrum."
+        },
+        {
+          "type": "text",
+          "text": "A black body emits a continuous range of wavelengths. Its [[emission-spectrum|emission spectrum]], a graph of intensity against wavelength, is a smooth curve with a single peak. A hot gas is different: its atoms emit only certain wavelengths, giving a line spectrum."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-black-body-spectra",
+          "alt": "Graph of intensity, in arbitrary units, against wavelength from 0 to 1600 nanometres, with the visible band from 400 to 700 nanometres shaded. Three smooth single-peaked curves are drawn for 5000 K, 4500 K and 4000 K. The 5000 K curve is the highest at every wavelength and peaks at 580 nanometres. The 4500 K curve is lower and peaks at 644 nanometres. The 4000 K curve is the lowest and peaks at 725 nanometres. A dashed line drops from each peak to the wavelength axis.",
+          "caption": "Hotter means higher at every wavelength, with the peak further left. The area under each curve is proportional to the total power emitted."
+        },
+        {
+          "type": "text",
+          "text": "Two things change as the temperature rises. The whole curve gets higher, so the area under it, and the total power, grows as $T^{4}$. And the peak moves to shorter wavelengths."
+        },
+        {
+          "type": "text",
+          "text": "The peak wavelength $\\lambda_\\text{max}$ is inversely proportional to the absolute temperature. This is [[wien-s-displacement-law|Wien's displacement law]]. It is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_\\text{max} T = 2.9 \\times 10^{-3}\\ \\text{m K}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "Put $\\lambda_\\text{max}$ in metres and $T$ in kelvin. A star's colour shows roughly where its peak is: cool stars look red, the Sun peaks near the middle of the visible range, and very hot stars look blue-white."
+        },
+        {
+          "type": "example",
+          "id": "ex-w-star-temperature",
+          "question": "The spectrum of a star peaks at a wavelength of $\\pu{380 nm}$. Determine the star's surface temperature.",
+          "steps": [
+            "Convert the wavelength to metres: $\\lambda_\\text{max} = 380 \\times 10^{-9}\\ \\text{m}$.",
+            "Rearrange Wien's law: $T = \\dfrac{2.9 \\times 10^{-3}}{\\lambda_\\text{max}} = \\dfrac{2.9 \\times 10^{-3}}{380 \\times 10^{-9}} = \\pu{7632 K}$.",
+            "Wien's constant has 2 significant figures, so give 2. Sense check: a peak at the violet end means a star hotter than the Sun, which fits."
+          ],
+          "answer": "$T \\approx 7.6 \\times 10^{3}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "wien_b/(380*10**-9)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-w-explain-colour",
+          "question": "A steel bar is heated from $\\pu{900 K}$ to $\\pu{1800 K}$. Outline how its emission spectrum changes, and explain why its glow changes from dull red to yellow-white.",
+          "steps": [
+            "Describe the curve: its shape, its height and the position of its peak.",
+            "Then link the peak's position to the visible wavelengths emitted."
+          ],
+          "answer": "The spectrum stays continuous, but the intensity increases at every wavelength. The total power emitted, shown by the area under the curve, increases because $L \\propto T^{4}$. The peak moves to shorter wavelengths, because $\\lambda_\\text{max}$ is inversely proportional to $T$. At $\\pu{900 K}$ almost all the emission is infrared, and only the red end of the visible range is emitted noticeably. At $\\pu{1800 K}$ the peak is still in the infrared, but the curve now reaches well across the visible range, so orange, yellow and some green light join the red and the glow looks yellow-white.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "continuous; higher at every wavelength; area grows as T^4; peak shifts to shorter wavelength; more of the visible range emitted",
+            "requires": [
+              "continuous",
+              [
+                "every wavelength",
+                "all wavelengths"
+              ],
+              "area under the curve",
+              [
+                "shorter wavelengths",
+                "shorter wavelength"
+              ],
+              "inversely proportional",
+              "infrared"
+            ],
+            "forbids": [
+              "longer wavelengths",
+              "frequency decreases",
+              "line spectrum"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-w-triple",
+          "prompt": "The absolute temperature of a black body is tripled. What happens to the wavelength at which its spectrum peaks?",
+          "hint": "Wien's law: $\\lambda_\\text{max} T$ is constant.",
+          "options": [
+            {
+              "text": "it falls to one third of its value",
+              "correct": true
+            },
+            {
+              "text": "it triples",
+              "correct": false
+            },
+            {
+              "text": "it falls to one ninth of its value",
+              "correct": false
+            },
+            {
+              "text": "it falls to one eighty-first of its value",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda_\\text{max} \\propto \\frac{1}{T}$, so tripling $T$ divides $\\lambda_\\text{max}$ by 3. The fourth power belongs to the total power, not to the peak.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it falls to one third of its value"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-w-skin",
+          "prompt": "Human skin has a surface temperature of about $34\\,^{\\circ}\\text{C}$. Calculate the peak wavelength of its thermal radiation, in micrometres to 2 significant figures.",
+          "hint": "Convert to kelvin first, then use $\\lambda_\\text{max} = \\dfrac{2.9 \\times 10^{-3}}{T}$.",
+          "answer": {
+            "value": 9.4,
+            "tolerance": 0.05
+          },
+          "explain": "$T = 34 + 273 = \\pu{307 K}$, so $\\lambda_\\text{max} = \\dfrac{2.9 \\times 10^{-3}}{307} = 9.4 \\times 10^{-6}\\ \\text{m}$, or $9.4\\ \\mu\\text{m}$. That is infrared, which is why thermal cameras can see people in the dark.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "wien_b/(34 + zero_celsius)*10**6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "heading": "Using the laws together",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't put a thermometer on a star or measure its radius with a ruler. Astronomers combine the three laws instead, because each one links quantities they can measure to ones they can't."
+        },
+        {
+          "type": "text",
+          "text": "1. Wien's law: the peak wavelength gives the surface temperature $T$."
+        },
+        {
+          "type": "text",
+          "text": "2. $b = \\frac{L}{4\\pi d^{2}}$: the brightness and distance give the luminosity $L$, or $L$ and $b$ give the distance $d$."
+        },
+        {
+          "type": "text",
+          "text": "3. $L = \\sigma A T^{4}$ with $A = 4\\pi R^{2}$: $L$ and $T$ give the radius $R$, or $R$ and $T$ give $L$."
+        },
+        {
+          "type": "examTip",
+          "text": "In a multi-part \"determine\" question, write each quantity with its unit as you find it. A wrong temperature used correctly in a later part can still earn the later marks (error carried forward)."
+        },
+        {
+          "type": "example",
+          "id": "ex-c-radius",
+          "question": "A star has a luminosity of $\\pu{2.4e27 W}$ and its spectrum peaks at $\\pu{340 nm}$. Determine the radius of the star.",
+          "steps": [
+            "Temperature from Wien's law: $T = \\dfrac{2.9 \\times 10^{-3}}{340 \\times 10^{-9}} = \\pu{8529 K}$.",
+            "Surface area from the Stefan-Boltzmann law: $A = \\dfrac{L}{\\sigma T^{4}} = \\dfrac{2.4 \\times 10^{27}}{(5.67 \\times 10^{-8})(8529)^{4}} = \\pu{8.00e18 m2}$.",
+            "Radius from $A = 4\\pi R^{2}$: $R = \\sqrt{\\dfrac{A}{4\\pi}} = \\sqrt{\\dfrac{8.00 \\times 10^{18}}{4\\pi}} = \\pu{7.98e8 m}$.",
+            "Give 2 significant figures. Sense check: the Sun's radius is about $\\pu{7.0e8 m}$, so this star is a little bigger and much hotter."
+          ],
+          "answer": "$R \\approx 8.0 \\times 10^{8}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "sqrt(2.4*10**27/(4*pi*sigma*(wien_b/(340*10**-9))**4))",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-c-distance",
+          "question": "A white dwarf has a radius of $\\pu{6.0e6 m}$ and a surface temperature of $\\pu{12000 K}$. Its apparent brightness at Earth is $\\pu{4.5e-13 W m-2}$. Determine its distance from Earth in light-years.",
+          "steps": [
+            "Luminosity: $L = \\sigma (4\\pi R^{2}) T^{4} = (5.67 \\times 10^{-8}) \\times 4\\pi(6.0 \\times 10^{6})^{2} \\times (12\\,000)^{4} = \\pu{5.32e23 W}$.",
+            "Distance: $d = \\sqrt{\\dfrac{L}{4\\pi b}} = \\sqrt{\\dfrac{5.32 \\times 10^{23}}{4\\pi(4.5 \\times 10^{-13})}} = \\pu{3.07e17 m}$.",
+            "Convert with the booklet's light-year: $\\dfrac{3.07 \\times 10^{17}}{9.46 \\times 10^{15}} = 32.4$. Give 2 significant figures."
+          ],
+          "answer": "$d \\approx 32\\ \\text{ly}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(sigma*4*pi*(6.0*10**6)**2*12000**4/(4*pi*4.5*10**-13))/ly",
+            "sf": 2,
+            "unit": "ly"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-c-luminosity-ratio",
+          "prompt": "Stars A and B have the same radius. The spectrum of A peaks at $\\pu{450 nm}$ and that of B at $\\pu{900 nm}$. What is $\\dfrac{L_\\text{A}}{L_\\text{B}}$?",
+          "hint": "Find the temperature ratio from Wien's law first.",
+          "options": [
+            {
+              "text": "$16$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{16}$",
+              "correct": false
+            }
+          ],
+          "explain": "A's peak is half as long, so $T_\\text{A} = 2T_\\text{B}$. The areas are equal, so $\\dfrac{L_\\text{A}}{L_\\text{B}} = 2^{4} = 16$. Choosing $\\frac{1}{16}$ treats the longer peak as the hotter star.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(900/450)**4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-c-radius-ratio",
+          "prompt": "A star has a luminosity of $0.40\\,L_\\odot$ and a surface temperature of $\\pu{4500 K}$. The Sun's surface temperature is $\\pu{5800 K}$. Calculate the star's radius as a multiple of the Sun's radius, to 2 significant figures.",
+          "hint": "From $L = 4\\pi R^{2}\\sigma T^{4}$, $\\dfrac{R}{R_\\odot} = \\sqrt{\\dfrac{L}{L_\\odot}} \\times \\left(\\dfrac{T_\\odot}{T}\\right)^{2}$.",
+          "answer": {
+            "value": 1.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\dfrac{R}{R_\\odot} = \\sqrt{0.40} \\times \\left(\\dfrac{5800}{4500}\\right)^{2} = 0.632 \\times 1.66 = 1.05 \\approx 1.1$. The star is cooler than the Sun but slightly bigger.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(0.40)*(5800/4500)**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "L = \\sigma A T^{4}",
+          "tag": "booklet",
+          "bookletId": "db-2-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "b = \\frac{L}{4\\pi d^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-2-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_\\text{max} T = 2.9 \\times 10^{-3}\\ \\text{m K}",
+          "tag": "booklet",
+          "bookletId": "db-2-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use absolute temperature in every radiation law: $T$ in K $= T$ in $^{\\circ}\\text{C} + 273$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A spherical black body of radius $R$ has $A = 4\\pi R^{2}$, so $L = 4\\pi R^{2}\\sigma T^{4}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A black body emits a continuous spectrum. Hotter means more intensity at every wavelength and a shorter peak wavelength.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Brightness falls as $\\frac{1}{d^{2}}$: double the distance and the brightness falls to a quarter.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using degrees Celsius in $L = \\sigma A T^{4}$ or in Wien's law. Convert to kelvin first by adding 273.",
+    "Using $\\pi r^{2}$ for the radiating area of a star or ball. A sphere radiates from its whole surface, $4\\pi r^{2}$.",
+    "Forgetting to square the distance in $b = \\frac{L}{4\\pi d^{2}}$, or leaving $d$ in light-years. Convert to metres, then square.",
+    "Leaving $\\lambda_\\text{max}$ in nanometres in Wien's law. Multiply by $10^{-9}$ first, or $T$ comes out a billion times too small.",
+    "Mixing up luminosity and apparent brightness. $L$, in W, belongs to the source; $b$, in $\\text{W m}^{-2}$, also depends on where you are.",
+    "Applying the fourth power to the peak wavelength. Only the power goes as $T^{4}$; $\\lambda_\\text{max}$ goes as $\\frac{1}{T}$."
+  ],
+  "examTips": [
+    "\"Calculate\" or \"determine\": write the equation, substitute, then give the answer with its unit, to the significant figures of the least precise datum (usually 2 or 3).",
+    "Paper 1A ratio questions (a radius doubled, a temperature halved): divide the two equations so the constants cancel, then apply each power, $R^{2}$ and $T^{4}$ for luminosity and $\\frac{1}{d^{2}}$ for brightness.",
+    "\"Explain\" why a star that looks brighter need not be more luminous: say that $b$ depends on both $L$ and $d$, and name the inverse square law. Put each point in its own sentence.",
+    "\"State\" Wien's law in one precise sentence: the peak wavelength is inversely proportional to the absolute temperature."
+  ],
+  "readingMinutes": 25
+}
