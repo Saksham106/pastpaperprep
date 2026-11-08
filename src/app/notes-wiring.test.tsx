@@ -58,6 +58,14 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
     expect(find(IbPage(), QualificationHub)[0].props.chemistryNotesHref).toBe("/revision-notes/ib-chemistry");
   });
 
+  it("/ib hub links the Physics notes only when that course is visible", () => {
+    hide();
+    expect(find(IbPage(), QualificationHub)[0].props.physicsNotesHref).toBeUndefined();
+    restorePublished?.();
+    restorePublished = undefined;
+    expect(find(IbPage(), QualificationHub)[0].props.physicsNotesHref).toBe("/revision-notes/ib-physics");
+  });
+
   it("/cambridge-igcse hub links the 0580 notes only when that course is visible", () => {
     hide();
     expect(find(CambridgeIgcsePage(), QualificationHub)[0].props.notesHref).toBeUndefined();

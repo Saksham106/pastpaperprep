@@ -49,15 +49,15 @@ describe("notes home", () => {
 
   it("keeps IB Physics 'Coming soon' while its course is unpublished, and links it once visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"))[0];
-    expect(getCourse("ib-physics")!.published).toBe(false);
-    expect(row().notes).toBeUndefined();
-    const restore = setCoursePublishedForTests(true, "ib-physics");
+    const restore = setCoursePublishedForTests(false, "ib-physics");
     try {
-      const lessons = getCourse("ib-physics")!.lessons.length;
-      expect(row().notes).toEqual({ href: "/revision-notes/ib-physics", label: `${lessons} lesson${lessons === 1 ? "" : "s"}` });
+      expect(row().notes).toBeUndefined();
     } finally {
       restore();
     }
+    // Published: linked without a preview flag.
+    expect(getCourse("ib-physics")!.lessons).toHaveLength(68);
+    expect(row().notes).toEqual({ href: "/revision-notes/ib-physics", label: "68 lessons" });
   });
 
   it("links IGCSE Chemistry 0620 to its existing topic summaries", () => {

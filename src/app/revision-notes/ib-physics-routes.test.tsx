@@ -50,10 +50,13 @@ beforeEach(() => { saved = process.env.NOTES_PREVIEW; delete process.env.NOTES_P
 afterEach(() => { if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved; });
 
 describe("IB Physics course routes", () => {
-  it("ships unpublished, with all 68 items", () => {
-    expect(course.published).toBe(false);
+  it("is published, with all 68 lessons, params and sitemap paths without a preview flag", async () => {
+    expect(course.published).toBe(true);
     expect(course.items.items).toHaveLength(68);
-    expect(course.lessons.length).toBeLessThanOrEqual(68);
+    expect(course.lessons).toHaveLength(68);
+    expect(courseNotesVisible(course.slug)).toBe(true);
+    expect(await lessonRoute.generateStaticParams()).toHaveLength(68);
+    expect(notesPaths()).toContain(lessonPath(course, course.lessons[0]));
   });
 
   it("when unpublished: no params, every page 404s, nothing in the sitemap, no site links", async () => {
