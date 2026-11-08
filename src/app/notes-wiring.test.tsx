@@ -28,7 +28,7 @@ afterEach(() => {
 /** Hidden state: every course unpublished and no preview. */
 const hide = () => {
   if (!restorePublished) {
-    const restores = [setCoursePublishedForTests(false), setCoursePublishedForTests(false, "igcse-maths-0580")];
+    const restores = [setCoursePublishedForTests(false), setCoursePublishedForTests(false, "igcse-maths-0580"), setCoursePublishedForTests(false, "ib-chemistry")];
     restorePublished = () => restores.forEach((restore) => restore());
   }
   delete process.env.NOTES_PREVIEW;
@@ -48,6 +48,14 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
     expect(find(IbPage(), QualificationHub)[0].props.notesHref).toBeUndefined();
     process.env.NOTES_PREVIEW = "1";
     expect(find(IbPage(), QualificationHub)[0].props.notesHref).toBe("/revision-notes/ib-math-aa");
+  });
+
+  it("/ib hub links the Chemistry notes only when that course is visible", () => {
+    hide();
+    expect(find(IbPage(), QualificationHub)[0].props.chemistryNotesHref).toBeUndefined();
+    restorePublished?.();
+    restorePublished = undefined;
+    expect(find(IbPage(), QualificationHub)[0].props.chemistryNotesHref).toBe("/revision-notes/ib-chemistry");
   });
 
   it("/cambridge-igcse hub links the 0580 notes only when that course is visible", () => {

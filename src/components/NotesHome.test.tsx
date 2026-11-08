@@ -14,7 +14,7 @@ describe("notes home", () => {
     const rows = notesRows(banks.filter((bank) => bank.slug === "ib-hl" || bank.slug === "ib-sl" || bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"));
     expect(rows.map((row) => [row.name, row.level, row.notes?.href ?? null])).toEqual([
       ["IB Math AA", "SL & HL", "/revision-notes/ib-math-aa"],
-      ["Chemistry", "SL & HL", null],
+      ["Chemistry", "SL & HL", "/revision-notes/ib-chemistry"],
     ]);
     expect(rows[0].notes?.label).toBe("83 lessons");
   });
@@ -35,15 +35,16 @@ describe("notes home", () => {
 
   it("keeps IB Chemistry 'Coming soon' while its course is unpublished, and links it once visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-chemistry-hl" || bank.slug === "ib-chemistry-sl"))[0];
-    expect(getCourse("ib-chemistry")!.published).toBe(false);
-    expect(row().notes).toBeUndefined();
-    const restore = setCoursePublishedForTests(true, "ib-chemistry");
+    const restore = setCoursePublishedForTests(false, "ib-chemistry");
     try {
-      const lessons = getCourse("ib-chemistry")!.lessons.length;
-      expect(row().notes).toEqual({ href: "/revision-notes/ib-chemistry", label: `${lessons} lesson${lessons === 1 ? "" : "s"}` });
+      expect(row().notes).toBeUndefined();
     } finally {
       restore();
     }
+    // Published: linked without a preview flag.
+    const lessons = getCourse("ib-chemistry")!.lessons.length;
+    expect(lessons).toBe(71);
+    expect(row().notes).toEqual({ href: "/revision-notes/ib-chemistry", label: "71 lessons" });
   });
 
   it("links IGCSE Chemistry 0620 to its existing topic summaries", () => {

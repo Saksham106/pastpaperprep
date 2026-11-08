@@ -14,7 +14,10 @@ const visible = { ...course, published: true };
 
 let restorePublished: (() => void) | undefined;
 let restore0580: (() => void) | undefined;
+let restoreChem: (() => void) | undefined;
 afterEach(() => {
+  restoreChem?.();
+  restoreChem = undefined;
   restorePublished?.();
   restorePublished = undefined;
   restore0580?.();
@@ -72,6 +75,7 @@ describe("surface lookups follow visibility", () => {
   it("are empty while the course is unpublished", () => {
     restorePublished = setCoursePublishedForTests(false);
     restore0580 = setCoursePublishedForTests(false, "igcse-maths-0580");
+    restoreChem = setCoursePublishedForTests(false, "ib-chemistry");
     vi.stubEnv("NOTES_PREVIEW", "");
     expect(course.published).toBe(false);
     expect(notesLinksForBank("ib-hl")).toBeUndefined();
@@ -162,6 +166,7 @@ describe("IB Chemistry links by bank subtopic", () => {
 
   it("are empty while the course is hidden, written lessons or not", () => {
     vi.stubEnv("NOTES_PREVIEW", "");
+    restoreChem = setCoursePublishedForTests(false, "ib-chemistry");
     expect(chem.published).toBe(false);
     write("1.1", "1.3", "1.5");
     for (const bank of ["ib-chemistry-sl", "ib-chemistry-hl"]) {

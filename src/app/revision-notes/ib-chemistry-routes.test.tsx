@@ -24,7 +24,7 @@ import { clientCourse } from "@/lib/course-notes/client-course";
 import { getCourse, lessonPath, topicPath } from "@/lib/course-notes/course";
 import { lessonPractice } from "@/lib/course-notes/practice";
 import { courseNotesVisible, notesNavVisible } from "@/lib/course-notes/visibility";
-import { setCourseLessonsForTests } from "@/lib/course-notes/test-visibility";
+import { setCourseLessonsForTests, setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { lessonFixture } from "@/lib/course-notes/__fixtures__/lesson";
 import { notesPaths } from "@/lib/revision-notes";
 import * as homeRoute from "./ib-chemistry/page";
@@ -50,20 +50,32 @@ beforeEach(() => { saved = process.env.NOTES_PREVIEW; delete process.env.NOTES_P
 afterEach(() => { if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved; });
 
 describe("IB Chemistry course routes", () => {
-  it("is unpublished: no params, every page 404s, nothing in the sitemap, no site links", async () => {
-    expect(course.published).toBe(false);
-    expect(courseNotesVisible(course.slug)).toBe(false);
-    for (const route of [...staticRoutes, ...topicRoutes, lessonRoute]) {
-      expect(route.dynamicParams).toBe(false);
-      expect(await route.generateStaticParams()).toEqual([]);
+  it("is published: params and sitemap paths without a preview flag", async () => {
+    expect(course.published).toBe(true);
+    expect(course.lessons).toHaveLength(71);
+    expect(await lessonRoute.generateStaticParams()).toHaveLength(course.lessons.length);
+    expect(notesPaths()).toContain(lessonPath(course, course.lessons[0]));
+  });
+
+  it("when unpublished: no params, every page 404s, nothing in the sitemap, no site links", async () => {
+    const restore = setCoursePublishedForTests(false, "ib-chemistry");
+    try {
+      expect(course.published).toBe(false);
+      expect(courseNotesVisible(course.slug)).toBe(false);
+      for (const route of [...staticRoutes, ...topicRoutes, lessonRoute]) {
+        expect(route.dynamicParams).toBe(false);
+        expect(await route.generateStaticParams()).toEqual([]);
+      }
+      for (const route of staticRoutes) await expect(route.default()).rejects.toThrow();
+      for (const route of topicRoutes) await expect(route.default(topic)).rejects.toThrow();
+      const lesson = course.lessons[0];
+      await expect(lessonRoute.default({ params: Promise.resolve(lesson ? lessonParams(lessonPath(course, lesson)) : { topic: firstTopic.slug, lesson: "1-1-x" }) })).rejects.toThrow();
+      expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
+      // The header's Notes link is for the published courses, not this one.
+      expect(notesNavVisible()).toBe(true);
+    } finally {
+      restore();
     }
-    for (const route of staticRoutes) await expect(route.default()).rejects.toThrow();
-    for (const route of topicRoutes) await expect(route.default(topic)).rejects.toThrow();
-    const lesson = course.lessons[0];
-    await expect(lessonRoute.default({ params: Promise.resolve(lesson ? lessonParams(lessonPath(course, lesson)) : { topic: firstTopic.slug, lesson: "1-1-x" }) })).rejects.toThrow();
-    expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
-    // The header's Notes link is for the published courses, not this one.
-    expect(notesNavVisible()).toBe(true);
   });
 
   it("emits its params and sitemap paths with NOTES_PREVIEW=1, lessons included once written", async () => {

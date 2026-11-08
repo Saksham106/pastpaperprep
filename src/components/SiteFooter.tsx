@@ -2,7 +2,7 @@ import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { BookOpenText } from "@phosphor-icons/react/dist/ssr";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
-import { IGCSE_MATHS_NOTES_HREF, NOTES_INDEX_HREF, aaNotesVisible, igcseMathsNotesVisible } from "@/lib/course-notes/visibility";
+import { IB_CHEMISTRY_NOTES_HREF, IGCSE_MATHS_NOTES_HREF, NOTES_INDEX_HREF, aaNotesVisible, ibChemistryNotesVisible, igcseMathsNotesVisible } from "@/lib/course-notes/visibility";
 import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { FooterSkyline } from "@/components/FooterSkyline";
 import { GooglePreferredSourceButton } from "@/components/GooglePreferredSourceButton";
@@ -27,7 +27,7 @@ export function SiteFooter() {
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
         <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"], ["/banks/ib-economics/exam-style", "IB Economics"]]} />
-        <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ["/revision-notes", "Revision notes"], ...(aaNotesVisible() ? [[NOTES_INDEX_HREF, "IB Maths AA notes"] as const] : []), ...(igcseMathsNotesVisible() ? [[IGCSE_MATHS_NOTES_HREF, "IGCSE Maths notes"] as const] : []), ["/about", "About PastPaperPrep"], ["/updates", "What's new"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
+        <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ["/revision-notes", "Revision notes"], ...(aaNotesVisible() ? [[NOTES_INDEX_HREF, "IB Maths AA notes"] as const] : []), ...(igcseMathsNotesVisible() ? [[IGCSE_MATHS_NOTES_HREF, "IGCSE Maths notes"] as const] : []), ...(ibChemistryNotesVisible() ? [[IB_CHEMISTRY_NOTES_HREF, "IB Chemistry notes"] as const] : []), ["/about", "About PastPaperPrep"], ["/updates", "What's new"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
       </nav>
       {/* The skyline stands behind the wordmark, on the same ground line. */}
       <div className="footer-mark" aria-hidden="true"><FooterSkyline /><p className="footer-wordmark" aria-hidden="true">PastPaperPrep</p></div>
