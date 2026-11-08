@@ -89,7 +89,8 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
     for (const sheet of Object.keys(course.cheatSheets)) expect(course.topics.map((topic) => topic.slug)).toContain(sheet);
     if (course.published) {
       expect(Object.keys(course.cheatSheets).sort()).toEqual(course.topics.map((topic) => topic.slug).sort());
-      expect(course.commandTerms.length).toBeGreaterThan(20);
+      // Every published course defines its board's command terms; the IB Chemistry guide lists 18.
+      expect(course.commandTerms.length).toBeGreaterThanOrEqual(15);
     }
     for (const [where, text] of texts) {
       expect(text, where).not.toMatch(/\\["']/);

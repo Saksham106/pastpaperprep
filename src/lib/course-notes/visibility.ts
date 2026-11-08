@@ -13,6 +13,9 @@ export const NOTES_INDEX_HREF = `/revision-notes/${ibMathAaJson.slug}`;
 /** The IGCSE Maths 0580 notes, linked from the footer and the Cambridge IGCSE hub. */
 export const IGCSE_MATHS_NOTES_HREF = `/revision-notes/${igcseMaths0580Json.slug}`;
 
+/** The IB Chemistry notes, linked from the footer and the IB hub. */
+export const IB_CHEMISTRY_NOTES_HREF = `/revision-notes/${ibChemistryJson.slug}`;
+
 /** The notes home: every subject, with notes that are out linked and the rest marked coming soon. */
 export const NOTES_HOME_HREF = "/revision-notes";
 
@@ -27,6 +30,9 @@ export const aaNotesVisible = (): boolean => courseNotesVisible(ibMathAaJson.slu
 
 /** True once the 0580 course is visible (the footer and Cambridge IGCSE hub link to it). */
 export const igcseMathsNotesVisible = (): boolean => courseNotesVisible(igcseMaths0580Json.slug);
+
+/** True once the IB Chemistry course is visible (the footer and IB hub link to it). */
+export const ibChemistryNotesVisible = (): boolean => courseNotesVisible(ibChemistryJson.slug);
 
 /** The header's Notes link: shown once any course is visible. */
 export const notesNavVisible = (): boolean => COURSE_FLAGS.some((course) => isVisibleWhen(course.published));

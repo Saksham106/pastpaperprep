@@ -51,6 +51,20 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "IGCSE Maths notes" })).toHaveAttribute("href", "/revision-notes/igcse-maths-0580");
   });
 
+  it("links the IB Chemistry notes only while that course is visible", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    const restore = setCoursePublishedForTests(false, "ib-chemistry");
+    try {
+      const view = render(<SiteFooter />);
+      expect(screen.queryByRole("link", { name: "IB Chemistry notes" })).not.toBeInTheDocument();
+      view.unmount();
+    } finally {
+      restore();
+    }
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "IB Chemistry notes" })).toHaveAttribute("href", "/revision-notes/ib-chemistry");
+  });
+
   it("reopens the consent banner via the cookie settings control", () => {
     const dispatch = vi.spyOn(window, "dispatchEvent");
     render(<SiteFooter />);
