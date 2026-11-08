@@ -2,31 +2,31 @@
   {
     "id": "electrical-power",
     "term": "electrical power",
-    "definition": "TODO: P = IV = I^2 R = V^2/R",
+    "definition": "The rate at which a component transfers electrical energy to other forms, such as thermal energy in a resistor: $P = IV = I^2R = \\frac{V^2}{R}$, measured in watts.",
     "lesson": "2.14"
   },
   {
     "id": "internal-resistance",
     "term": "internal resistance",
-    "definition": "TODO: Resistance of the cell itself, so terminal p.d. = emf - Ir",
+    "definition": "The resistance of the materials inside a cell; the current in the cell dissipates energy in it, so the terminal potential difference is $V = \\varepsilon - Ir$.",
     "lesson": "2.14"
   },
   {
     "id": "terminal-potential-difference",
     "term": "terminal potential difference",
-    "definition": "TODO: p.d. across the cell terminals when current flows, less than emf",
+    "definition": "The potential difference across a cell's terminals while it delivers a current; it is less than the emf by $Ir$, and equals the emf only when no current flows.",
     "lesson": "2.14"
   },
   {
     "id": "thermistor",
     "term": "thermistor",
-    "definition": "TODO: Resistance changes with temperature; NTC falls as temperature rises",
+    "definition": "A resistor whose resistance changes a lot with temperature; in an NTC thermistor the resistance decreases as the temperature increases.",
     "lesson": "2.14"
   },
   {
     "id": "light-dependent-resistor",
     "term": "light-dependent resistor",
-    "definition": "TODO: Resistance falls as light intensity rises",
+    "definition": "A resistor (LDR) whose resistance decreases as the intensity of the light falling on it increases.",
     "lesson": "2.14"
   }
 ]

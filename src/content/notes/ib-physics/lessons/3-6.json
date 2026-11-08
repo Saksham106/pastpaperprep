@@ -1,0 +1,766 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.6",
+  "slug": "single-slit-diffraction-and-diffraction-gratings",
+  "title": "Single-slit diffraction and diffraction gratings",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "One narrow slit spreads light into a bright central band with faint bands beside it: [[single-slit-diffraction|single-slit diffraction]]. The first dark band is at $\\theta = \\frac{\\lambda}{b}$, so a narrower slit spreads the light further. It also sets how bright [[double-slit-interference|double-slit]] fringes are. A [[diffraction-grating|diffraction grating]] has thousands of slits and gives sharp maxima at $n\\lambda = d\\sin\\theta$.",
+  "goals": [
+    {
+      "text": "Describe the single-slit [[intensity|intensity]] pattern and explain why its central maximum is twice as wide as the others.",
+      "bullets": [
+        "C.3-a1"
+      ]
+    },
+    {
+      "text": "Use $\\theta = \\frac{\\lambda}{b}$ to find the angle to the first minimum, and predict how the slit width changes the width and brightness of the pattern.",
+      "bullets": [
+        "C.3-a1"
+      ]
+    },
+    {
+      "text": "Explain how the brightness of double-slit fringes is set by each slit's own [[diffraction|diffraction]], and count the fringes inside the central maximum.",
+      "bullets": [
+        "C.3-a2"
+      ]
+    },
+    {
+      "text": "Explain why more slits give sharper, brighter maxima, and use $n\\lambda = d\\sin\\theta$ for a diffraction grating.",
+      "bullets": [
+        "C.3-a3"
+      ]
+    },
+    {
+      "text": "Describe grating patterns from white light and from several wavelengths, and find the highest order you can see.",
+      "bullets": [
+        "C.3-a3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.4",
+    "3.3",
+    "3.4",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "single slit diffraction pattern",
+    "width of central maximum",
+    "diffraction grating equation",
+    "n lambda = d sin theta",
+    "lines per mm grating",
+    "double slit envelope"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gap-spreading",
+      "prompt": "Plane [[wave|waves]] pass through a gap. The gap is made narrower, closer to the wavelength. What happens to the diffraction after the gap?",
+      "hint": "Spreading is greatest when the gap is about one wavelength wide.",
+      "options": [
+        {
+          "text": "the waves spread out more",
+          "correct": true
+        },
+        {
+          "text": "the waves spread out less",
+          "correct": false
+        },
+        {
+          "text": "the spreading does not change",
+          "correct": false
+        }
+      ],
+      "explain": "Spreading is greatest when the gap is similar to the wavelength. Revise it in {{lesson:3.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the waves spread out more"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-antiphase",
+      "prompt": "Two [[coherence|coherent]] sources oscillate in phase. At point P the [[path-difference|path difference]] is $1.5\\lambda$. What happens at P?",
+      "hint": "Is $1.5$ a whole number, or a whole number plus a half?",
+      "options": [
+        {
+          "text": "destructive interference: the waves arrive in antiphase",
+          "correct": true
+        },
+        {
+          "text": "constructive interference: the waves arrive in phase",
+          "correct": false
+        },
+        {
+          "text": "no interference, because the paths are different",
+          "correct": false
+        }
+      ],
+      "explain": "$1.5\\lambda$ puts crest on trough: [[destructive-interference|destructive interference]]. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "destructive interference: the waves arrive in antiphase"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fringe-separation",
+      "prompt": "Yellow light of wavelength $\\pu{589 nm}$ passes through two slits $\\pu{0.30 mm}$ apart. The screen is $\\pu{1.8 m}$ away. What is the fringe separation, in mm? Give 2 significant figures.",
+      "hint": "Use $s = \\frac{\\lambda D}{d}$ with every length in metres, then convert to mm.",
+      "answer": {
+        "value": 3.5,
+        "tolerance": 0.05
+      },
+      "explain": "$s = \\frac{589 \\times 10^{-9} \\times 1.8}{0.30 \\times 10^{-3}} = \\pu{3.5e-3 m} = \\pu{3.5 mm}$. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "589*10**-9*1.8/(0.30*10**-3)*10**3",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "single-slit",
+      "heading": "Single-slit diffraction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.4}} you saw a [[wave|wave]] spread out after a narrow gap. Shine a laser through one narrow slit and the screen shows a bright central band, fainter bands either side, and dark gaps between them."
+        },
+        {
+          "type": "definition",
+          "term": "single-slit diffraction",
+          "statement": "The pattern made when monochromatic light passes through one narrow slit: a bright central maximum, with much dimmer maxima on either side, separated by minima of zero intensity.",
+          "plain": "One slit gives a wide bright band in the middle and faint bands beside it."
+        },
+        {
+          "type": "text",
+          "text": "Why the dark bands? Treat every point across the slit, of width $b$, as a source of wavelets. Pair each point in the top half with the point $\\frac{b}{2}$ below it."
+        },
+        {
+          "type": "text",
+          "text": "At an angle $\\theta$, the two waves in each pair have a [[path-difference|path difference]] of $\\frac{b}{2}\\sin\\theta$. When that equals $\\frac{\\lambda}{2}$, every pair arrives in antiphase and cancels. So the first minimum is where $b\\sin\\theta = \\lambda$."
+        },
+        {
+          "type": "text",
+          "text": "The angles are tiny, so $\\sin\\theta \\approx \\theta$ in radians. That gives the data-booklet equation (section C.3, higher level)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\theta = \\frac{\\lambda}{b}",
+          "tag": "booklet",
+          "bookletId": "db-3-6"
+        },
+        {
+          "type": "text",
+          "text": "$\\theta$ is the angle, in radians, from the centre line to the first minimum. The equation holds for monochromatic light, a rectangular slit and normal incidence."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-single-slit-intensity",
+          "alt": "Graph of intensity against angle from the centre line for single-slit diffraction of monochromatic light. A tall central maximum is centred on zero and falls to zero intensity at angles of plus and minus lambda over b, so it is 2 lambda over b wide. On each side are much dimmer secondary maxima, each lambda over b wide, with zero-intensity minima at plus and minus 2 lambda over b.",
+          "caption": "Minima at $\\frac{\\lambda}{b}$, $\\frac{2\\lambda}{b}$, … on each side. The central maximum runs from $-\\frac{\\lambda}{b}$ to $+\\frac{\\lambda}{b}$."
+        },
+        {
+          "type": "result",
+          "statement": "The central maximum is twice as wide as each of the other maxima, and much brighter. Its angular width is $\\frac{2\\lambda}{b}$.",
+          "why": "The minima are $\\frac{\\lambda}{b}$ apart, but the central maximum spans the gaps on both sides of the centre line."
+        },
+        {
+          "type": "text",
+          "text": "On a screen a distance $D$ away, the central maximum is $2D\\theta = \\frac{2\\lambda D}{b}$ wide."
+        },
+        {
+          "type": "example",
+          "id": "ex-hene-central-width",
+          "question": "A red laser of wavelength $\\pu{633 nm}$ shines on a slit $\\pu{0.090 mm}$ wide. A screen is $\\pu{3.2 m}$ away. Determine the width of the central maximum on the screen.",
+          "steps": [
+            "Angle to the first minimum: $\\theta = \\frac{\\lambda}{b} = \\frac{633 \\times 10^{-9}}{0.090 \\times 10^{-3}} = 7.03 \\times 10^{-3}$ rad.",
+            "The central maximum reaches $\\theta$ on both sides, so its width is $2D\\theta = 2 \\times 3.2 \\times 7.03 \\times 10^{-3}$.",
+            "That is $\\pu{0.045 m}$, to 2 significant figures like the slit width and the distance."
+          ],
+          "answer": "$w \\approx 0.045\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*3.2*633*10**-9/(0.090*10**-3)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now change the slit. A narrower slit makes $\\theta$ larger, so the pattern spreads out. Less light gets through it, and that light covers a wider area, so the central maximum is also dimmer."
+        },
+        {
+          "type": "text",
+          "text": "A wider slit gives a narrower, brighter central maximum. A longer wavelength widens it."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-narrower-slit",
+          "question": "A student makes the slit narrower and keeps the same laser. Describe and explain the changes to the central maximum.",
+          "steps": [
+            "Use $\\theta = \\frac{\\lambda}{b}$ for the width.",
+            "Think about how much light gets through, and how far it spreads, for the brightness."
+          ],
+          "answer": "The angle to the first minimum is $\\theta = \\frac{\\lambda}{b}$, so a smaller slit width gives a larger angle. The central maximum becomes wider. Less light passes through the narrower slit. That light is spread over a wider area, so the central maximum becomes dimmer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "smaller b gives larger theta, so wider; less light spread over more area, so dimmer",
+            "requires": [
+              [
+                "larger angle",
+                "angle increases"
+              ],
+              "wider",
+              "less light",
+              [
+                "spread over a wider area",
+                "spread over a larger area"
+              ],
+              [
+                "dimmer",
+                "lower intensity"
+              ]
+            ],
+            "forbids": [
+              "brighter",
+              "narrower central maximum"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using degrees in $\\theta = \\frac{\\lambda}{b}$. The answer is in radians; convert only if the question asks for degrees."
+        },
+        {
+          "type": "check",
+          "id": "check-blue-first-minimum",
+          "prompt": "Blue light of wavelength $\\pu{470 nm}$ passes through a slit $\\pu{0.050 mm}$ wide. What is the angle from the centre line to the first minimum, in rad? Give 2 significant figures.",
+          "hint": "Write both lengths in metres before you divide.",
+          "answer": {
+            "value": 0.0094,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\theta = \\frac{470 \\times 10^{-9}}{0.050 \\times 10^{-3}} = \\pu{9.4e-3 rad}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "470*10**-9/(0.050*10**-3)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-central-maximum",
+          "prompt": "How does the central maximum of a single-slit pattern compare with the next maximum along?",
+          "hint": "Where are the minima?",
+          "options": [
+            {
+              "text": "twice as wide, much brighter",
+              "correct": true
+            },
+            {
+              "text": "same width, much brighter",
+              "correct": false
+            },
+            {
+              "text": "twice as wide, equally bright",
+              "correct": false
+            }
+          ],
+          "explain": "It spans $-\\frac{\\lambda}{b}$ to $+\\frac{\\lambda}{b}$, twice the gap between other minima, and holds most of the light.",
+          "verify": {
+            "kind": "choice",
+            "truth": "twice as wide, much brighter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modulation",
+      "heading": "How one slit shapes double-slit fringes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.5}} each slit was treated as very narrow. Real slits have a width $b$, so each one makes its own single-slit pattern."
+        },
+        {
+          "type": "text",
+          "text": "On a distant screen, the two single-slit patterns land in the same place. [[superposition|Superposition]] of the waves from the two slits decides where the fringes are. The single-slit pattern decides how bright each fringe can be."
+        },
+        {
+          "type": "result",
+          "statement": "The double-slit fringes are modulated by each slit's own diffraction: they stay where the double-slit equation puts them, but their brightness follows the single-slit curve, called the envelope.",
+          "why": "Where the single-slit pattern has a minimum, no light arrives from either slit, so there is nothing there to interfere."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-modulated",
+          "alt": "Graph of intensity against angle for a double slit whose slit separation d is four times the slit width b. Narrow, evenly spaced interference fringes, lambda over d apart, sit under a dashed single-slit envelope. The fringes are brightest at the centre and get dimmer outwards, following the envelope. The envelope falls to zero at plus and minus lambda over b, so the fringe that would be there is missing, leaving seven bright fringes inside the central maximum of the envelope. Dimmer groups of fringes lie between lambda over b and 2 lambda over b on each side.",
+          "caption": "Here $d = 4b$. The fringes are $\\frac{\\lambda}{d}$ apart in angle, and the envelope's first minimum is at $\\frac{\\lambda}{b}$, where the fourth fringe would be."
+        },
+        {
+          "type": "text",
+          "text": "For small angles the fringes are $\\frac{s}{D} = \\frac{\\lambda}{d}$ apart in angle, where $d$ is the slit separation. The envelope's first minimum is at $\\frac{\\lambda}{b}$."
+        },
+        {
+          "type": "text",
+          "text": "The slits cannot overlap, so $d > b$ and several fringes fit inside the envelope's central maximum. From the centre to its first minimum there are $\\frac{\\lambda / b}{\\lambda / d} = \\frac{d}{b}$ fringe spacings."
+        },
+        {
+          "type": "text",
+          "text": "If $\\frac{d}{b}$ is a whole number, the fringe that would sit on the envelope minimum gets no light and is missing."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-fringes",
+          "question": "Two slits, each $\\pu{0.035 mm}$ wide, have centres $\\pu{0.21 mm}$ apart. They are lit by light of wavelength $\\pu{650 nm}$. Determine how many bright fringes lie inside the central maximum of the single-slit envelope.",
+          "steps": [
+            "Fringe spacing in angle: $\\frac{\\lambda}{d}$. First envelope minimum: $\\frac{\\lambda}{b}$.",
+            "Number of fringe spacings from the centre to that minimum: $\\frac{d}{b} = \\frac{0.21}{0.035} = 6$. The wavelength cancels.",
+            "So the 6th fringe on each side falls on the envelope minimum and is missing. Fringes $n = 1$ to $5$ remain on each side.",
+            "Count both sides and the central fringe: $2 \\times 5 + 1 = 11$."
+          ],
+          "answer": "$N = 11$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(0.21/0.035 - 1) + 1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-modulation",
+          "question": "In a double-slit experiment, the fringes are not all equally bright, and one fringe position is completely dark. Explain both observations.",
+          "steps": [
+            "Say what each slit does on its own.",
+            "Link that to the brightness of the fringes, then to the dark position."
+          ],
+          "answer": "Each slit diffracts the light and on its own produces a single-slit diffraction pattern. The light from the two slits interferes, which sets where the fringes are. The double-slit pattern is modulated by the single-slit pattern, which acts as an envelope. Away from the centre the envelope falls, so the fringes get dimmer. At the angle $\\theta = \\frac{\\lambda}{b}$ the single-slit pattern has a minimum, so no light arrives from either slit. The fringe that should be there is missing.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "each slit gives a single-slit pattern that modulates (envelopes) the fringes; at its minimum no light arrives, so a fringe is missing",
+            "requires": [
+              "diffracts",
+              [
+                "single-slit diffraction pattern",
+                "single-slit pattern"
+              ],
+              "interferes",
+              [
+                "modulated",
+                "envelope"
+              ],
+              "dimmer",
+              [
+                "minimum",
+                "no light"
+              ],
+              "missing"
+            ],
+            "forbids": [
+              "the slits cancel each other",
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-envelope-slit-width",
+          "prompt": "In a double-slit pattern made with light of wavelength $\\pu{520 nm}$, the envelope's first minimum is at $\\pu{0.013 rad}$. What is the width of each slit?",
+          "hint": "The envelope is the single-slit pattern.",
+          "options": [
+            {
+              "text": "$4.0 \\times 10^{-5}\\text{ m}$",
+              "correct": true
+            },
+            {
+              "text": "$2.0 \\times 10^{-5}\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$8.0 \\times 10^{-5}\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$6.8 \\times 10^{-9}\\text{ m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$b = \\frac{\\lambda}{\\theta} = \\frac{520 \\times 10^{-9}}{0.013} = \\pu{4.0e-5 m}$. $\\pu{6.8e-9 m}$ multiplies.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "520*10**-9/0.013",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-narrower-slits-same-d",
+          "prompt": "The two slits are made narrower, but their separation $d$ stays the same. What happens to the pattern?",
+          "hint": "Which quantity sets the fringe spacing, and which sets the envelope?",
+          "options": [
+            {
+              "text": "same fringe spacing, more fringes inside the envelope",
+              "correct": true
+            },
+            {
+              "text": "fringes closer together",
+              "correct": false
+            },
+            {
+              "text": "same fringe spacing, fewer fringes inside the envelope",
+              "correct": false
+            }
+          ],
+          "explain": "The spacing $\\frac{\\lambda}{d}$ depends only on $d$. A smaller $b$ moves the envelope minimum $\\frac{\\lambda}{b}$ outwards, so $\\frac{d}{b}$ grows.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same fringe spacing, more fringes inside the envelope"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grating",
+      "heading": "Many slits: the diffraction grating",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now use many slits, all a distance $d$ apart. At an angle $\\theta$, the wave from each slit travels $d\\sin\\theta$ further than the wave from its neighbour."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-grating-path",
+          "alt": "Light arrives from the left, at right angles to a diffraction grating drawn as a barrier with several equally spaced slits, a distance d apart. From two neighbouring slits, parallel rays leave at an angle theta to the straight-through direction, which is shown dashed. A dashed line from the upper slit meets the lower ray at right angles, and the short extra length of the lower ray before that point is highlighted and labelled extra path equals d sin theta.",
+          "caption": "Neighbouring slits differ in path by $d\\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "A bright maximum needs every slit's wave to arrive in phase. So the path difference between neighbouring slits must be a whole number of wavelengths. This is [[constructive-interference|constructive interference]] from every slit at once."
+        },
+        {
+          "type": "formula",
+          "tex": "n\\lambda = d\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-3-6"
+        },
+        {
+          "type": "text",
+          "text": "$n$ is the order: 0 straight through, then 1, 2, … on each side. $\\theta$ is measured from the straight-through direction. Grating angles are often large, so always use $\\sin\\theta$."
+        },
+        {
+          "type": "definition",
+          "term": "diffraction grating",
+          "statement": "A plate with a large number of parallel, equally spaced slits, which gives sharp, bright maxima at the angles where $n\\lambda = d\\sin\\theta$.",
+          "plain": "Many slits side by side, which turn a beam into a few sharp bright lines."
+        },
+        {
+          "type": "text",
+          "text": "Gratings are sold by lines per mm. For 500 lines per mm, $d = \\frac{1}{500 \\times 10^{3}} = \\pu{2.0e-6 m}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-many-slits",
+          "alt": "Two graphs of intensity against angle, one above the other, drawn to the same horizontal scale. Top, 2 slits: broad maxima, equally spaced, labelled n equals minus 2 to plus 2, with intensity varying smoothly between them. Bottom, 10 slits with the same slit separation: the principal maxima are at exactly the same angles but are very narrow and sharp, with almost zero intensity between them apart from tiny bumps. Each graph is scaled to the same peak height.",
+          "caption": "Both graphs are scaled to the same height; the 10-slit maxima are really far brighter."
+        },
+        {
+          "type": "result",
+          "statement": "More slits at the same spacing $d$ keep the maxima at the same angles but make them much narrower and brighter, with near darkness between.",
+          "why": "Just off a maximum, waves from distant slits are well out of step and cancel. More slits also send more light into each maximum."
+        },
+        {
+          "type": "example",
+          "id": "ex-grating-second-order",
+          "question": "A green laser of wavelength $\\pu{532 nm}$ is shone at normal incidence onto a grating with 300 lines per mm. Calculate the angle of the second-order maximum.",
+          "steps": [
+            "Spacing: $d = \\frac{1}{300 \\times 10^{3}} = 3.33 \\times 10^{-6}$ m.",
+            "Rearrange: $\\sin\\theta = \\frac{n\\lambda}{d} = \\frac{2 \\times 532 \\times 10^{-9}}{3.33 \\times 10^{-6}} = 0.319$.",
+            "$\\theta = \\sin^{-1}(0.319) = 18.6^\\circ$, with the calculator in degrees."
+          ],
+          "answer": "$\\theta \\approx 18.6^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(2*532*10**-9*300*10**3)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-grating-wavelength",
+          "question": "Light from a lamp passes through a grating with 650 lines per mm. The two first-order maxima, one on each side, are $41.6^\\circ$ apart. Determine the wavelength.",
+          "steps": [
+            "The angle from the central maximum is half the angle between the two first-order maxima: $\\theta = \\frac{41.6^\\circ}{2} = 20.8^\\circ$.",
+            "Spacing: $d = \\frac{1}{650 \\times 10^{3}} = 1.54 \\times 10^{-6}$ m.",
+            "First order, $n = 1$: $\\lambda = d\\sin\\theta = 1.54 \\times 10^{-6} \\times \\sin 20.8^\\circ = 5.46 \\times 10^{-7}$ m.",
+            "Sense check: $\\pu{546 nm}$ is green light, a sensible visible wavelength."
+          ],
+          "answer": "$\\lambda \\approx 546\\text{ nm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sind(41.6/2)/(650*10**3)*10**9",
+            "sf": 3,
+            "unit": "nm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the angle between the two first-order maxima as $\\theta$. Halve it: $\\theta$ is from the centre."
+        },
+        {
+          "type": "check",
+          "id": "check-spacing-from-lines",
+          "prompt": "A grating has 450 lines per mm. What is the slit spacing $d$, in µm? Give 3 significant figures.",
+          "hint": "Lines per metre first, then $d$ is one over that. One µm is $\\pu{1e-6 m}$.",
+          "answer": {
+            "value": 2.22,
+            "tolerance": 0.005
+          },
+          "explain": "$d = \\frac{1}{450 \\times 10^{3}} = \\pu{2.22e-6 m}$, which is 2.22 µm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10**6/(450*10**3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-first-order-angle",
+          "prompt": "Light of wavelength $\\pu{480 nm}$ falls at normal incidence on a grating with 500 lines per mm. At what angle is the first-order maximum?",
+          "hint": "$d = \\pu{2.0e-6 m}$, so $\\sin\\theta = \\frac{\\lambda}{d}$.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 13.9^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 28.7^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 76.1^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin\\theta = \\frac{480 \\times 10^{-9}}{2.0 \\times 10^{-6}} = 0.24$, so $\\theta = 13.9^\\circ$. $28.7^\\circ$ is the second order, and $76.1^\\circ$ uses $\\cos^{-1}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(480*10**-9*500*10**3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "spectra",
+      "heading": "White light, several wavelengths and the highest order",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each wavelength obeys $n\\lambda = d\\sin\\theta$ with its own angle. In any order except zero, a longer wavelength comes out at a larger angle."
+        },
+        {
+          "type": "text",
+          "text": "Send white light through a grating. At $n = 0$ the path difference is zero for every wavelength, so all the colours arrive together and the central maximum is white."
+        },
+        {
+          "type": "text",
+          "text": "In every other order the colours separate into a spectrum. Violet, the shortest visible wavelength, is nearest the centre and red is furthest out."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-white-light",
+          "alt": "A strip of screen showing the pattern from white light through a diffraction grating. At the centre is a narrow white maximum labelled n equals 0. On each side is a first-order spectrum, n equals 1, with its violet end nearer the centre and its red end further out. Further out on each side is a second-order spectrum, n equals 2, again violet nearest the centre and red outermost, spread over a wider distance than the first order.",
+          "caption": "Each order beyond zero is a spectrum, violet on the inside. The second order is spread more widely than the first."
+        },
+        {
+          "type": "text",
+          "text": "Higher orders spread wider and overlap. $3 \\times \\pu{400 nm}$ is less than $2 \\times \\pu{700 nm}$, so third-order violet appears inside second-order red."
+        },
+        {
+          "type": "text",
+          "text": "A lamp that emits only a few wavelengths gives a few sharp lines in each order. Because grating maxima are so narrow, close wavelengths show as separate lines, where a double slit's broad fringes would blur them."
+        },
+        {
+          "type": "text",
+          "text": "There is a limit to the number of orders. $\\sin\\theta$ cannot be more than 1, so $n \\le \\frac{d}{\\lambda}$. The highest order is the whole number at or below $\\frac{d}{\\lambda}$. If $\\frac{d}{\\lambda}$ is a whole number, that order is at $90^\\circ$ and cannot reach a screen."
+        },
+        {
+          "type": "example",
+          "id": "ex-max-orders",
+          "question": "Light from a sodium lamp, of wavelength $\\pu{589 nm}$, falls at normal incidence on a grating with 720 lines per mm. Determine the total number of maxima that can be observed.",
+          "steps": [
+            "Spacing: $d = \\frac{1}{720 \\times 10^{3}} = 1.39 \\times 10^{-6}$ m.",
+            "The largest possible angle is $90^\\circ$, where $\\sin\\theta = 1$: $n = \\frac{d}{\\lambda} = \\frac{1.39 \\times 10^{-6}}{589 \\times 10^{-9}} = 2.36$.",
+            "Orders must be whole numbers, so the highest order is $n = 2$. Do not round up to 3.",
+            "Count orders 2 and 1 on each side plus the central maximum: $2 \\times 2 + 1 = 5$."
+          ],
+          "answer": "$N = 5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*floor(1/(720*10**3*589*10**-9)) + 1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-white-light",
+          "question": "White light falls at normal incidence on a diffraction grating. Describe and explain the pattern seen on a distant screen.",
+          "steps": [
+            "Start with the centre, $n = 0$.",
+            "Then use $\\sin\\theta = \\frac{n\\lambda}{d}$ for the order of the colours, and finish with the higher orders."
+          ],
+          "answer": "At the centre there is a white maximum. For $n = 0$ the path difference is zero for every wavelength, so all the colours arrive in phase together. On each side there is a first-order spectrum, then a second-order spectrum further out. In each order a longer wavelength has a larger angle, because $\\sin\\theta = \\frac{n\\lambda}{d}$. So violet is nearest the centre and red is furthest out. Higher orders are spread more widely, and the second and third orders overlap.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "white central maximum (zero path difference for all wavelengths); spectra each side with violet inside and red outside because sin theta = n lambda / d; higher orders wider and overlapping",
+            "requires": [
+              "white",
+              "every wavelength",
+              "spectrum",
+              [
+                "longer wavelength has a larger angle",
+                "longer wavelength, larger angle"
+              ],
+              "violet is nearest",
+              "red is furthest",
+              "overlap"
+            ],
+            "forbids": [
+              "red is nearest",
+              "violet is furthest",
+              "refraction"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-orders-count",
+          "prompt": "A red laser of wavelength $\\pu{633 nm}$ shines on a grating with 210 lines per mm. How many maxima can be observed in total?",
+          "hint": "Find $\\frac{d}{\\lambda}$, round down, then count both sides and the centre.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$d = \\pu{4.76e-6 m}$, so $\\frac{d}{\\lambda} = 7.52$ and the highest order is 7. Total: $2 \\times 7 + 1 = 15$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*floor(1/(210*10**3*633*10**-9)) + 1",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-lines",
+          "prompt": "A hydrogen lamp emits light of wavelengths $\\pu{486 nm}$ and $\\pu{656 nm}$. It shines on a grating with 400 lines per mm. What is the angle between the two second-order lines on the same side?",
+          "hint": "Find each angle from $\\sin\\theta = \\frac{2\\lambda}{d}$, then subtract the angles.",
+          "options": [
+            {
+              "text": "$\\approx 8.8^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 4.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 7.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 31.7^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$d = \\pu{2.50e-6 m}$. $\\sin\\theta = 0.525$ gives $31.7^\\circ$ and $\\sin\\theta = 0.389$ gives $22.9^\\circ$, so they are $8.8^\\circ$ apart. $4.0^\\circ$ is the first order, and $7.8^\\circ$ subtracts the sines before taking $\\sin^{-1}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(2*656*10**-9*400*10**3) - asind(2*486*10**-9*400*10**3)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\theta = \\frac{\\lambda}{b}",
+          "tag": "booklet",
+          "bookletId": "db-3-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Single slit: central maximum twice as wide as the others; $\\theta$ to the first minimum is in radians.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A narrower slit or a longer wavelength gives a wider pattern; a narrower slit also makes it dimmer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Double slit: fringes $\\frac{\\lambda}{d}$ apart sit under a single-slit envelope with its first minimum at $\\frac{\\lambda}{b}$. A fringe on an envelope minimum is missing.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n\\lambda = d\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-3-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "More slits at the same $d$: maxima at the same angles, but sharper and brighter. $d$ is one over the number of lines per metre.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "White light on a grating: a white central maximum, then spectra with violet inside and red outside. Higher orders are wider and overlap.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Highest order: the whole number at or below $\\frac{d}{\\lambda}$. Total maxima $= 2n_\\text{max} + 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving $\\frac{\\lambda}{b}$ as the width of the central maximum. That is the angle from the centre to the first minimum; the full angular width is $\\frac{2\\lambda}{b}$.",
+    "Using lines per mm as $d$. Convert first: 400 lines per mm is $4.00 \\times 10^{5}$ lines per metre, so $d = \\frac{1}{4.00 \\times 10^{5}} = \\pu{2.50e-6 m}$.",
+    "Rounding $\\frac{d}{\\lambda}$ up, or counting one side only. Round down, then count both sides and the central maximum: $2n_\\text{max} + 1$.",
+    "Saying a narrower slit makes the pattern brighter. Less light gets through and it spreads further, so the central maximum is wider and dimmer."
+  ],
+  "examTips": [
+    "\"Calculate\" for a grating: write $d$ in metres, then $n\\lambda = d\\sin\\theta$ with your numbers, then the answer with its unit.",
+    "\"Determine\" the highest order: say that $\\sin\\theta$ cannot exceed 1 (or set $\\theta = 90^\\circ$), work out $\\frac{d}{\\lambda}$, then state the whole number below it. Writing the decimal alone loses the mark.",
+    "\"Sketch\" a single-slit intensity graph: a central peak twice as wide as the side peaks, side peaks much lower, and minima at zero intensity, equally spaced.",
+    "In Paper 1A double-slit graphs, the fringe spacing is $\\frac{\\lambda}{d}$ and the envelope's first minimum is $\\frac{\\lambda}{b}$."
+  ],
+  "readingMinutes": 25
+}

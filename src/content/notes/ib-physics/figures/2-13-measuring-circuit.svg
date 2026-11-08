@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-labelledby="t">
+<title id="t">Circuit diagram. A cell, an ammeter and a resistor are connected in series in a single loop. A voltmeter is connected in parallel across the resistor only, on a separate branch above it.</title>
+<g fill="none" stroke="currentColor" stroke-width="1.6">
+<path d="M60 80 H116"/>
+<path d="M144 80 H225"/>
+<path d="M275 80 H340 V180 H210"/>
+<path d="M200 180 H60 V80"/>
+<path d="M210 160 V200"/>
+<circle cx="130" cy="80" r="14"/>
+<rect x="225" y="71" width="50" height="18"/>
+<path d="M215 80 V35 H236"/>
+<path d="M264 35 H285 V80"/>
+<circle cx="250" cy="35" r="14"/>
+</g>
+<path d="M200 168 V192" stroke="currentColor" stroke-width="4"/>
+<circle cx="215" cy="80" r="2.5" fill="currentColor"/>
+<circle cx="285" cy="80" r="2.5" fill="currentColor"/>
+<text font-family="inherit" font-size="14" x="130" y="85" fill="currentColor" text-anchor="middle">A</text>
+<text font-family="inherit" font-size="14" x="250" y="40" fill="currentColor" text-anchor="middle">V</text>
+<text font-family="inherit" font-size="12" x="250" y="110" fill="var(--t3-ink)" text-anchor="middle">resistor</text>
+<text font-family="inherit" font-size="12" x="130" y="112" fill="var(--t3-ink)" text-anchor="middle">ammeter in series</text>
+<text font-family="inherit" font-size="12" x="226" y="28" fill="var(--t3-ink)" text-anchor="end">voltmeter in parallel</text>
+<text font-family="inherit" font-size="12" x="205" y="214" fill="var(--t3-ink)" text-anchor="middle">cell</text>
+</svg>

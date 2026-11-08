@@ -2,37 +2,37 @@
   {
     "id": "simple-harmonic-motion",
     "term": "simple harmonic motion",
-    "definition": "TODO: Acceleration proportional to displacement and directed to equilibrium, a = -omega^2 x",
+    "definition": "Oscillation in which the acceleration is proportional to the displacement from a fixed equilibrium position and always directed towards that position, $a = -\\omega^{2}x$.",
     "lesson": "3.1"
   },
   {
     "id": "amplitude",
     "term": "amplitude",
-    "definition": "TODO: Maximum displacement from equilibrium",
+    "definition": "The maximum displacement of an oscillating object from its equilibrium position, $x_0$: half the distance between the two extreme positions.",
     "lesson": "3.1"
   },
   {
     "id": "frequency",
     "term": "frequency",
-    "definition": "TODO: Number of cycles per unit time; hertz",
+    "definition": "The number of complete oscillations or cycles per unit time, $f = \\frac{1}{T}$, measured in hertz (Hz).",
     "lesson": "3.1"
   },
   {
     "id": "angular-frequency",
     "term": "angular frequency",
-    "definition": "TODO: omega = 2 pi f = 2 pi/T, in rad s-1; not angular velocity of a real rotation",
+    "definition": "$\\omega = 2\\pi f = \\frac{2\\pi}{T}$, in rad s⁻¹; for an oscillation it measures how quickly the cycles repeat, not the rate of any real rotation.",
     "lesson": "3.1"
   },
   {
     "id": "simple-pendulum",
     "term": "simple pendulum",
-    "definition": "TODO: Small point mass on light string; T = 2 pi sqrt(l/g) for small angles",
+    "definition": "A small, dense bob on a light, inextensible string swinging from a fixed point; for small angles it performs simple harmonic motion with $T = 2\\pi\\sqrt{l/g}$.",
     "lesson": "3.1"
   },
   {
     "id": "mass-spring-system",
     "term": "mass-spring system",
-    "definition": "TODO: T = 2 pi sqrt(m/k); independent of amplitude",
+    "definition": "A mass attached to a spring that obeys Hooke's law; it oscillates in simple harmonic motion with $T = 2\\pi\\sqrt{m/k}$, whatever the amplitude.",
     "lesson": "3.1"
   }
 ]

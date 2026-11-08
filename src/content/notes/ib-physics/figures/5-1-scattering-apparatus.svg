@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" role="img" aria-labelledby="t51sa">
+  <title id="t51sa">Top view of the alpha-scattering apparatus inside an evacuated chamber. On the left, an alpha source sits in a lead block with a narrow opening, which sends a narrow beam of alpha particles to the right. The beam hits a thin gold foil in the centre. A dashed circle around the foil shows the path the detector can be moved along. The detector, a zinc sulfide screen with a microscope, is shown at a small angle to the beam, and a second, paler position is shown far round, on the side the beam came from. Short arrows leaving the foil show most alpha particles going straight on, two deflected through small angles, and one turned back towards the source.</title>
+  <defs><marker id="m51sa-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/></marker></defs>
+  <rect x="8" y="8" width="544" height="284" rx="14" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <circle cx="290" cy="150" r="110" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+  <path d="M40,125 H110 V145 H96 V155 H110 V175 H40 Z" fill="var(--muted)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.3"/>
+  <circle cx="90" cy="150" r="4" fill="var(--t4-ink)"/>
+  <line x1="96" y1="150" x2="284" y2="150" stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#m51sa-a)"/>
+  <line x1="290" y1="108" x2="290" y2="192" stroke="var(--t3-ink)" stroke-width="4"/>
+  <g stroke="var(--t1-ink)" stroke-width="1.6" fill="none" marker-end="url(#m51sa-a)">
+    <line x1="294" y1="146" x2="388" y2="146"/>
+    <line x1="294" y1="150" x2="388" y2="150"/>
+    <line x1="294" y1="154" x2="388" y2="154"/>
+    <line x1="294" y1="147" x2="378" y2="122"/>
+    <line x1="294" y1="153" x2="378" y2="178"/>
+    <line x1="287" y1="146" x2="214" y2="108"/>
+  </g>
+  <g transform="translate(385.3 95) rotate(-30)" stroke="currentColor" stroke-width="1.3">
+    <rect x="-4" y="-13" width="8" height="26" fill="var(--t2-ink)"/>
+    <rect x="4" y="-5" width="28" height="10" fill="none"/>
+  </g>
+  <g transform="translate(205.7 79.3) rotate(-140)" stroke="currentColor" stroke-width="1.3" opacity="0.4">
+    <rect x="-4" y="-13" width="8" height="26" fill="var(--t2-ink)"/>
+    <rect x="4" y="-5" width="28" height="10" fill="none"/>
+  </g>
+  <g font-size="11" fill="currentColor">
+    <text x="22" y="30" fill="var(--muted)">evacuated chamber</text>
+    <text x="75" y="196" text-anchor="middle">alpha source</text>
+    <text x="75" y="210" text-anchor="middle">in lead block</text>
+    <text x="190" y="140" text-anchor="middle">narrow beam of alpha particles</text>
+    <text x="290" y="205" text-anchor="middle">thin gold foil</text>
+    <text x="420" y="54">detector: zinc sulfide</text>
+    <text x="420" y="68">screen and microscope</text>
+    <text x="290" y="278" text-anchor="middle" fill="var(--muted)">the detector moves around this circle</text>
+  </g>
+</svg>

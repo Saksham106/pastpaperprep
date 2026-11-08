@@ -2,13 +2,13 @@
   {
     "id": "single-slit-diffraction",
     "term": "single-slit diffraction",
-    "definition": "TODO: Central maximum twice as wide as others, theta = lambda/b",
+    "definition": "The pattern from monochromatic light through one narrow slit of width $b$: a bright central maximum, twice as wide as the much dimmer maxima beside it, with the first minimum at an angle $\\theta = \\frac{\\lambda}{b}$ in radians.",
     "lesson": "3.6"
   },
   {
     "id": "diffraction-grating",
     "term": "diffraction grating",
-    "definition": "TODO: Many slits giving sharp maxima, n lambda = d sin theta",
+    "definition": "A plate with a large number of equally spaced parallel slits, a distance $d$ apart, giving sharp bright maxima at the angles where $n\\lambda = d\\sin\\theta$.",
     "lesson": "3.6"
   }
 ]

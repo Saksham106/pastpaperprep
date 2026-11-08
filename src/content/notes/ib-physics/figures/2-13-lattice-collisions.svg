@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 250" role="img" aria-labelledby="t">
+<title id="t">A section of metal wire drawn as a rectangle filled with a regular grid of positive lattice ions. The left end is marked minus and the right end is marked plus. A free electron follows a zig-zag path from left to right, changing direction each time it hits an ion. Below the wire, an arrow pointing right is labelled electron drift, and an arrow pointing left is labelled conventional current.</title>
+<rect x="40" y="30" width="360" height="150" rx="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="18" x="22" y="112" fill="currentColor" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="18" x="418" y="112" fill="currentColor" text-anchor="middle">+</text>
+<g fill="none" stroke="var(--t2-ink)" stroke-width="1.4">
+<circle cx="80" cy="60" r="11"/><circle cx="140" cy="60" r="11"/><circle cx="200" cy="60" r="11"/><circle cx="260" cy="60" r="11"/><circle cx="320" cy="60" r="11"/><circle cx="380" cy="60" r="11"/>
+<circle cx="80" cy="105" r="11"/><circle cx="140" cy="105" r="11"/><circle cx="200" cy="105" r="11"/><circle cx="260" cy="105" r="11"/><circle cx="320" cy="105" r="11"/><circle cx="380" cy="105" r="11"/>
+<circle cx="80" cy="150" r="11"/><circle cx="140" cy="150" r="11"/><circle cx="200" cy="150" r="11"/><circle cx="260" cy="150" r="11"/><circle cx="320" cy="150" r="11"/><circle cx="380" cy="150" r="11"/>
+</g>
+<g font-family="inherit" font-size="13" fill="var(--t2-ink)" text-anchor="middle">
+<text x="80" y="65">+</text><text x="140" y="65">+</text><text x="200" y="65">+</text><text x="260" y="65">+</text><text x="320" y="65">+</text><text x="380" y="65">+</text>
+<text x="80" y="110">+</text><text x="140" y="110">+</text><text x="200" y="110">+</text><text x="260" y="110">+</text><text x="320" y="110">+</text><text x="380" y="110">+</text>
+<text x="80" y="155">+</text><text x="140" y="155">+</text><text x="200" y="155">+</text><text x="260" y="155">+</text><text x="320" y="155">+</text><text x="380" y="155">+</text>
+</g>
+<path d="M50 128 L80 116 L140 139 L200 116 L260 139 L320 116 L350 127" fill="none" stroke="var(--t4-ink)" stroke-width="1.8" stroke-dasharray="5 3"/>
+<circle cx="50" cy="128" r="4" fill="var(--t4-ink)"/>
+<polygon points="358,128 347,122 349,132" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="50" y="175" fill="var(--t4-ink)" text-anchor="start">free electron</text>
+<path d="M120 205 L300 205" fill="none" stroke="var(--t4-ink)" stroke-width="1.6"/>
+<polygon points="310,205 300,200 300,210" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="320" y="209" fill="var(--t4-ink)" text-anchor="start">electron drift</text>
+<path d="M310 232 L130 232" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="120,232 130,227 130,237" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="112" y="236" fill="currentColor" text-anchor="end">conventional current</text>
+<text font-family="inherit" font-size="12" x="400" y="24" fill="var(--t2-ink)" text-anchor="end">lattice ions vibrate about fixed positions</text>
+</svg>

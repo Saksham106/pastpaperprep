@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 370" role="img" aria-labelledby="t52el">
+  <title id="t52el">Energy-level diagram of an atom drawn to scale, energy in electronvolts. A dashed line at 0 eV marks an electron that has just escaped the atom. Below it are four levels: E4 at minus 0.90 eV, E3 at minus 1.70 eV, E2 at minus 3.20 eV and E1, the ground state, at minus 7.60 eV. Six downward arrows show every possible emission: E4 to E3, E4 to E2, E4 to E1, E3 to E2, E3 to E1 and E2 to E1.</title>
+  <defs>
+    <marker id="a52el" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t1-ink)"/>
+    </marker>
+  </defs>
+  <line x1="120" y1="40" x2="470" y2="40" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <g stroke="currentColor" stroke-width="2.5">
+    <line x1="120" y1="76" x2="470" y2="76"/>
+    <line x1="120" y1="108" x2="470" y2="108"/>
+    <line x1="120" y1="168" x2="470" y2="168"/>
+    <line x1="120" y1="344" x2="470" y2="344"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#a52el)">
+    <line x1="160" y1="78" x2="160" y2="105"/>
+    <line x1="205" y1="78" x2="205" y2="165"/>
+    <line x1="250" y1="78" x2="250" y2="341"/>
+    <line x1="300" y1="110" x2="300" y2="165"/>
+    <line x1="345" y1="110" x2="345" y2="341"/>
+    <line x1="410" y1="170" x2="410" y2="341"/>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="105" y="44" text-anchor="end" fill="var(--muted)">0</text>
+    <text x="105" y="80" text-anchor="end">E₄</text>
+    <text x="105" y="112" text-anchor="end">E₃</text>
+    <text x="105" y="172" text-anchor="end">E₂</text>
+    <text x="105" y="348" text-anchor="end">E₁</text>
+    <text x="480" y="44" fill="var(--muted)">0 eV (electron free)</text>
+    <text x="480" y="80">−0.90 eV</text>
+    <text x="480" y="112">−1.70 eV</text>
+    <text x="480" y="172">−3.20 eV</text>
+    <text x="480" y="348">−7.60 eV</text>
+    <text x="480" y="364" fill="var(--muted)">ground state</text>
+    <text x="0" y="0" transform="translate(40,230) rotate(-90)" fill="var(--muted)">energy / eV</text>
+  </g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 300" role="img" aria-labelledby="t42pg">
+  <title id="t42pg">Graph of gravitational potential against distance r from the centre of a planet of radius R. The potential is negative everywhere. It is minus V0 at the surface, minus V0 over 2 at 2R, and rises towards zero as r increases. A tangent drawn at 2R shows the gradient; the field strength there is minus this gradient.</title>
+  <defs>
+    <marker id="m42pg-ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- axes: r axis along V = 0 at the top, V axis pointing down to negative values -->
+  <line x1="50" y1="40" x2="452" y2="40" stroke="currentColor" stroke-width="1.4" marker-end="url(#m42pg-ax)"/>
+  <line x1="50" y1="40" x2="50" y2="282" stroke="currentColor" stroke-width="1.4"/>
+
+  <!-- ticks on the r axis -->
+  <g stroke="currentColor" stroke-width="1.2">
+    <line x1="140" y1="36" x2="140" y2="44"/>
+    <line x1="230" y1="36" x2="230" y2="44"/>
+    <line x1="320" y1="36" x2="320" y2="44"/>
+    <line x1="410" y1="36" x2="410" y2="44"/>
+    <line x1="46" y1="240" x2="54" y2="240"/>
+    <line x1="46" y1="140" x2="54" y2="140"/>
+  </g>
+
+  <!-- guide lines from the axes to the curve -->
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="140" y1="44" x2="140" y2="240"/>
+    <line x1="230" y1="44" x2="230" y2="140"/>
+    <line x1="54" y1="240" x2="140" y2="240"/>
+    <line x1="54" y1="140" x2="230" y2="140"/>
+  </g>
+
+  <!-- the planet's interior is not drawn: shade it lightly -->
+  <rect x="51" y="41" width="89" height="240" fill="var(--t1-ink)" opacity="0.08"/>
+
+  <!-- V = -GM/r for r >= R -->
+  <polyline fill="none" stroke="var(--t1-ink)" stroke-width="2.6" stroke-linejoin="round"
+    points="140,240.0 145,229.5 150,220.0 155,211.4 160,203.6 165,196.5 170,190.0 175,184.0 180,178.5 185,173.3 190,168.6 195,164.1 200,160.0 215,149.1 230,140.0 245,132.3 260,125.7 275,120.0 290,115.0 305,110.6 320,106.7 335,103.2 350,100.0 365,97.1 380,94.5 395,92.2 410,90.0 425,88.0 440,86.2"/>
+
+  <!-- tangent at r = 2R -->
+  <line x1="150" y1="184.4" x2="330" y2="84.4" stroke="var(--t5-ink)" stroke-width="1.8"/>
+  <circle cx="230" cy="140" r="3.5" fill="var(--t5-ink)"/>
+
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="40" y="35" text-anchor="end">0</text>
+    <text x="458" y="45" font-style="italic">r</text>
+    <text x="140" y="28" text-anchor="middle" font-style="italic">R</text>
+    <text x="230" y="28" text-anchor="middle">2<tspan font-style="italic">R</tspan></text>
+    <text x="320" y="28" text-anchor="middle">3<tspan font-style="italic">R</tspan></text>
+    <text x="410" y="28" text-anchor="middle">4<tspan font-style="italic">R</tspan></text>
+    <text x="42" y="244" text-anchor="end">−<tspan font-style="italic">V</tspan><tspan font-size="10" dy="3">0</tspan></text>
+    <text x="42" y="137" text-anchor="end">−<tspan font-style="italic">V</tspan><tspan font-size="10" dy="3">0</tspan><tspan dy="-3">/2</tspan></text>
+    <text x="58" y="296"><tspan font-style="italic">V</tspan><tspan font-size="10" dy="3">g</tspan></text>
+    <text x="95" y="268" text-anchor="middle" font-size="11" fill="var(--muted)">inside</text>
+    <text x="95" y="281" text-anchor="middle" font-size="11" fill="var(--muted)">planet</text>
+    <text x="148" y="258" font-size="12" fill="var(--t1-ink)">surface</text>
+    <text x="300" y="150" font-size="12" fill="var(--t1-ink)"><tspan font-style="italic">V</tspan><tspan font-size="9" dy="3">g</tspan><tspan dy="-3"> = −</tspan><tspan font-style="italic">GM</tspan>/<tspan font-style="italic">r</tspan></text>
+    <text x="250" y="200" font-size="12" fill="var(--t5-ink)">tangent at 2<tspan font-style="italic">R</tspan>:</text>
+    <text x="250" y="216" font-size="12" fill="var(--t5-ink)"><tspan font-style="italic">g</tspan> = − gradient</text>
+  </g>
+</svg>

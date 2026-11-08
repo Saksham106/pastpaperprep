@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" role="img" aria-labelledby="t42eq">
+  <title id="t42eq">Left: a planet with eight radial field lines pointing inwards and three dashed circular equipotentials drawn at equal steps of potential; the gaps between them grow with distance. Right: the uniform field near a planet's surface, with parallel downward field lines and equally spaced horizontal dashed equipotentials. In both, field lines cross equipotentials at right angles.</title>
+  <defs>
+    <marker id="m42eq-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- Left panel: radial field -->
+  <g>
+    <g stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="6 4" fill="none">
+      <circle cx="150" cy="150" r="50"/>
+      <circle cx="150" cy="150" r="66.7"/>
+      <circle cx="150" cy="150" r="100"/>
+    </g>
+    <g stroke="var(--t5-ink)" stroke-width="1.4" marker-end="url(#m42eq-f)">
+      <line x1="279.3" y1="203.6" x2="189.7" y2="166.5"/>
+      <line x1="203.6" y1="279.3" x2="166.5" y2="189.7"/>
+      <line x1="96.4" y1="279.3" x2="133.5" y2="189.7"/>
+      <line x1="20.7" y1="203.6" x2="110.3" y2="166.5"/>
+      <line x1="20.7" y1="96.4" x2="110.3" y2="133.5"/>
+      <line x1="96.4" y1="20.7" x2="133.5" y2="110.3"/>
+      <line x1="203.6" y1="20.7" x2="166.5" y2="110.3"/>
+      <line x1="279.3" y1="96.4" x2="189.7" y2="133.5"/>
+    </g>
+    <circle cx="150" cy="150" r="40" fill="var(--t1-ink)" opacity="0.25" stroke="currentColor" stroke-width="1.4"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="150" y="154" text-anchor="middle">planet</text>
+      <text x="150" y="304" text-anchor="middle">radial field: equal steps in <tspan font-style="italic">V</tspan><tspan font-size="9" dy="3">g</tspan></text>
+      <text x="150" y="318" text-anchor="middle" font-size="11" fill="var(--muted)">gaps grow with distance</text>
+    </g>
+  </g>
+
+  <!-- Right panel: uniform field near the surface -->
+  <g>
+    <rect x="335" y="262" width="250" height="18" fill="var(--t1-ink)" opacity="0.25" stroke="currentColor" stroke-width="1.2"/>
+    <g stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="6 4">
+      <line x1="340" y1="70" x2="580" y2="70"/>
+      <line x1="340" y1="120" x2="580" y2="120"/>
+      <line x1="340" y1="170" x2="580" y2="170"/>
+      <line x1="340" y1="220" x2="580" y2="220"/>
+    </g>
+    <g stroke="var(--t5-ink)" stroke-width="1.4" marker-end="url(#m42eq-f)">
+      <line x1="365" y1="40" x2="365" y2="258"/>
+      <line x1="415" y1="40" x2="415" y2="258"/>
+      <line x1="465" y1="40" x2="465" y2="258"/>
+      <line x1="515" y1="40" x2="515" y2="258"/>
+      <line x1="565" y1="40" x2="565" y2="258"/>
+    </g>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="460" y="276" text-anchor="middle" font-size="11">surface</text>
+      <text x="460" y="304" text-anchor="middle">uniform field: equal steps in <tspan font-style="italic">V</tspan><tspan font-size="9" dy="3">g</tspan></text>
+      <text x="460" y="318" text-anchor="middle" font-size="11" fill="var(--muted)">equal gaps</text>
+    </g>
+  </g>
+
+  <!-- key -->
+  <g font-size="11" font-family="inherit">
+    <line x1="340" y1="18" x2="362" y2="18" stroke="var(--t5-ink)" stroke-width="1.4" marker-end="url(#m42eq-f)"/>
+    <text x="368" y="22" fill="var(--t5-ink)">field line</text>
+    <line x1="450" y1="18" x2="476" y2="18" stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="482" y="22" fill="var(--t1-ink)">equipotential</text>
+  </g>
+</svg>

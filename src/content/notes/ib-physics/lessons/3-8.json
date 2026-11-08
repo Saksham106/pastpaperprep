@@ -1,0 +1,738 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.8",
+  "slug": "resonance-and-damping",
+  "title": "Resonance and damping",
+  "level": "SL",
+  "topic": 3,
+  "summary": "Every object that can oscillate has a [[natural-frequency|natural frequency]]. Push it with a periodic force at that [[frequency|frequency]] and its [[amplitude|amplitude]] grows large: this is [[resonance|resonance]]. [[damping|Damping]] removes energy, so it lowers and flattens the resonance peak and decides how quickly a disturbed system settles.",
+  "goals": [
+    {
+      "text": "Tell free oscillations at the natural frequency from [[forced-oscillation|forced oscillations]] at the driving frequency.",
+      "bullets": [
+        "C.4-s4"
+      ]
+    },
+    {
+      "text": "Describe how the amplitude of a forced oscillation depends on the driving frequency, and explain resonance in terms of energy.",
+      "bullets": [
+        "C.4-s4"
+      ]
+    },
+    {
+      "text": "Give useful and destructive effects of resonance.",
+      "bullets": [
+        "C.4-s4"
+      ]
+    },
+    {
+      "text": "Describe how damping changes the maximum amplitude and the resonant frequency of a driven system.",
+      "bullets": [
+        "C.4-s5"
+      ]
+    },
+    {
+      "text": "Describe light, [[critical-damping|critical]] and heavy damping, and say where each is wanted.",
+      "bullets": [
+        "C.4-s6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "3.3",
+    "3.5",
+    "3.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "forced vibrations",
+    "resonance curve",
+    "damped oscillations",
+    "critical damping",
+    "overdamped and underdamped",
+    "natural frequency of vibration"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-period",
+      "prompt": "An oscillator completes one cycle every $\\pu{0.25 s}$. What is its frequency, in Hz?",
+      "hint": "Frequency is the number of cycles per second: $f = \\frac{1}{T}$.",
+      "answer": {
+        "value": 4.0,
+        "tolerance": 0.05
+      },
+      "explain": "$f = \\frac{1}{0.25} = \\pu{4.0 Hz}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1/0.25",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-shm-speed",
+      "prompt": "A mass on a spring moves in [[simple-harmonic-motion|simple harmonic motion]]. Where is its speed greatest?",
+      "hint": "Think about where all the energy is kinetic.",
+      "options": [
+        {
+          "text": "at the equilibrium position",
+          "correct": true
+        },
+        {
+          "text": "at the maximum displacement",
+          "correct": false
+        },
+        {
+          "text": "halfway between equilibrium and maximum displacement",
+          "correct": false
+        }
+      ],
+      "explain": "At equilibrium all the energy is kinetic; at maximum displacement the mass is momentarily at rest. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "at the equilibrium position"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-harmonic",
+      "prompt": "A string fixed at both ends has a first harmonic of $\\pu{110 Hz}$. What is the frequency of its third harmonic, in Hz?",
+      "hint": "For this string, $f_n = n f_1$.",
+      "answer": {
+        "value": 330,
+        "tolerance": 0.5
+      },
+      "explain": "$f_3 = 3 \\times 110 = \\pu{330 Hz}$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*110",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "natural-frequency",
+      "heading": "Natural frequency and forced oscillations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pull a mass on a spring down and let go. It bobs at one particular frequency, whatever size the pull. Nothing keeps pushing it, so this is a free oscillation."
+        },
+        {
+          "type": "definition",
+          "term": "natural frequency",
+          "statement": "The frequency at which a system oscillates when it is displaced and then left to oscillate freely.",
+          "plain": "The frequency an object 'wants' to vibrate at."
+        },
+        {
+          "type": "text",
+          "text": "A free oscillation with a restoring force proportional to displacement is [[simple-harmonic-motion|simple harmonic motion]]. So for a mass $m$ on a spring of spring constant $k$, the natural frequency comes from the [[period|period]] equation of {{lesson:3.1}}:"
+        },
+        {
+          "type": "formula",
+          "tex": "T = 2\\pi\\sqrt{\\frac{m}{k}}",
+          "tag": "booklet",
+          "bookletId": "db-3-1"
+        },
+        {
+          "type": "text",
+          "text": "This and $T = \\frac{1}{f}$ are printed in section C.1 of the data booklet. For a pendulum of length $l$, use $T = 2\\pi\\sqrt{\\frac{l}{g}}$, with $g = \\pu{9.8 m s-2}$ from the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "Now hang the spring from a vibration generator. It applies a periodic driving force at a driving frequency you choose."
+        },
+        {
+          "type": "definition",
+          "term": "forced oscillation",
+          "statement": "An oscillation of a system caused by an external force that varies periodically.",
+          "plain": "Something keeps pushing the system back and forth on its own timetable."
+        },
+        {
+          "type": "text",
+          "text": "Once settled, a [[forced-oscillation|forced oscillation]] has the driving frequency, not the natural frequency. The natural frequency controls the size of the motion: the closer the two frequencies, the larger the amplitude."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-natural",
+          "question": "A $\\pu{0.45 kg}$ mass hangs on a spring of spring constant $\\pu{72 N m-1}$. Calculate the natural frequency of the system.",
+          "steps": [
+            "Find the period of free oscillation: $T = 2\\pi\\sqrt{\\frac{m}{k}} = 2\\pi\\sqrt{\\frac{0.45}{72}}$.",
+            "$T = 2\\pi \\times 0.0791 = 0.497\\ \\text{s}$ (keep the full value on your calculator).",
+            "Natural frequency: $f_0 = \\frac{1}{T} = \\frac{1}{0.497} = 2.01\\ \\text{Hz}$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$f_0 \\approx 2.0\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1/(2*pi*sqrt(0.45/72))",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-driven-frequency",
+          "question": "The mass-spring system above is now hung from a vibration generator set to $\\pu{5.0 Hz}$. Once the motion is steady, state the frequency of the mass's oscillation. Explain your answer, and compare its amplitude with the amplitude when the generator is set to $\\pu{2.0 Hz}$.",
+          "steps": [
+            "Say which frequency a forced oscillation takes, then use the natural frequency to judge the amplitude."
+          ],
+          "answer": "The mass oscillates at 5.0 Hz, the driving frequency. This is a forced oscillation, so once the motion has settled the periodic force sets its frequency. The natural frequency of 2.0 Hz is only the frequency of free oscillation. The amplitude is small because the driving frequency is far from the natural frequency. At 2.0 Hz the driving frequency equals the natural frequency, so the amplitude is much larger.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Forced oscillations take the driving frequency (5.0 Hz); amplitude is small far from the natural frequency and largest when the driving frequency equals it.",
+            "requires": [
+              "5.0 Hz",
+              "driving frequency",
+              "forced oscillation",
+              "natural frequency",
+              [
+                "small",
+                "smaller"
+              ],
+              [
+                "much larger",
+                "largest"
+              ]
+            ],
+            "forbids": [
+              "oscillates at 2.0 Hz",
+              "oscillates at its natural frequency"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a driven system vibrates at its natural frequency. Once steady, it vibrates at the driving frequency; the natural frequency only decides how large the amplitude is."
+        },
+        {
+          "type": "check",
+          "id": "check-pendulum-natural",
+          "prompt": "A pendulum of length $\\pu{0.62 m}$ swings with a small amplitude. What is its natural frequency, in Hz? Give 2 significant figures.",
+          "hint": "Find $T = 2\\pi\\sqrt{\\frac{l}{g}}$ with $g = \\pu{9.8 m s-2}$, then $f = \\frac{1}{T}$.",
+          "answer": {
+            "value": 0.63,
+            "tolerance": 0.005
+          },
+          "explain": "$T = 2\\pi\\sqrt{\\frac{0.62}{9.8}} = \\pu{1.58 s}$, so $f_0 = \\frac{1}{1.58} = \\pu{0.63 Hz}$ (2 significant figures, like the data).",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1/(2*pi*sqrt(0.62/g))",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steady-frequency",
+          "prompt": "A system with a natural frequency of $\\pu{8 Hz}$ is pushed back and forth at $\\pu{12 Hz}$ by a motor. At what frequency does it oscillate once the motion is steady?",
+          "hint": "Which one sets the timing of a forced oscillation: the system or the driver?",
+          "options": [
+            {
+              "text": "at the driving frequency",
+              "correct": true
+            },
+            {
+              "text": "at its natural frequency",
+              "correct": false
+            },
+            {
+              "text": "at the mean of the two frequencies",
+              "correct": false
+            },
+            {
+              "text": "at the difference of the two frequencies",
+              "correct": false
+            }
+          ],
+          "explain": "A forced oscillation follows the driver: $\\pu{12 Hz}$. Being away from $\\pu{8 Hz}$ only makes the amplitude small.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at the driving frequency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "resonance",
+      "heading": "Resonance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Raise the driving frequency slowly. The amplitude is small at first, becomes large near $f_0$, then drops again. A graph of amplitude against driving frequency has a peak (see the figure in the next section)."
+        },
+        {
+          "type": "definition",
+          "term": "resonance",
+          "statement": "The large amplitude of a forced oscillation that occurs when the driving frequency equals, or is very close to, the natural frequency of the system.",
+          "plain": "Push something in time with its own rhythm and it swings hugely."
+        },
+        {
+          "type": "text",
+          "text": "Why? Driven at its natural frequency, the force always pushes in the direction of motion, so it transfers energy to the system every cycle. At other frequencies some pushes act against the motion and take energy back."
+        },
+        {
+          "type": "text",
+          "text": "The amplitude stops growing when the energy lost to resistive forces per cycle equals the energy supplied per cycle."
+        },
+        {
+          "type": "text",
+          "text": "Many systems have more than one natural frequency. A guitar string or the air in a pipe has a whole set of [[standing-wave|standing wave]] patterns, the [[harmonic|harmonics]] of {{lesson:3.7}}. Each harmonic is a natural frequency, so the string or pipe resonates at each one."
+        },
+        {
+          "type": "result",
+          "statement": "Resonance is useful in musical instruments, radio tuning, quartz clocks and MRI scanners. It is destructive in swaying bridges and buildings, shaking machinery and shattering glass.",
+          "why": "Useful cases drive a system at its natural frequency on purpose; destructive cases are unwanted forces that happen to match it."
+        },
+        {
+          "type": "text",
+          "text": "A radio's tuning circuit has an adjustable natural frequency, so it responds strongly to one station only. To protect a structure, engineers change its natural frequency, avoid the driving frequency, or add damping."
+        },
+        {
+          "type": "text",
+          "text": "Carbon dioxide and water molecules have natural frequencies in the infrared, so they absorb infrared strongly at those frequencies: a resonance model of the [[greenhouse-effect|greenhouse effect]] in {{lesson:2.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-drum-panel",
+          "question": "A washing machine drum spins at 1140 revolutions per minute, and each revolution gives the casing one push. A loose side panel has a natural frequency of $\\pu{19 Hz}$. Show that the panel resonates at this spin speed.",
+          "steps": [
+            "The driving frequency is the number of pushes per second.",
+            "There are 60 seconds in a minute: $f = \\frac{1140}{60}$.",
+            "$f = 19.0\\ \\text{Hz}$, given to one more significant figure than the stated value.",
+            "This equals the panel's natural frequency, so the panel resonates and rattles loudly."
+          ],
+          "answer": "$f \\approx 19.0\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1140/60",
+            "sf": 3,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-swing-energy",
+          "question": "A parent pushes a child on a swing once every cycle, at the swing's natural frequency. Explain, in terms of energy, why the amplitude becomes large, and why it then stops increasing.",
+          "steps": [
+            "Link the timing of the pushes to the work they do, then compare energy in and energy out per cycle."
+          ],
+          "answer": "Because the pushes are at the natural frequency, each push is in the same direction as the swing's motion. So each push does positive work on the swing, and energy is transferred to it every cycle. The swing's energy, and so its amplitude, increases. As the amplitude grows, air resistance and friction remove more energy each cycle. The amplitude stops increasing when the energy lost per cycle equals the energy supplied per cycle.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Pushes in step with the motion do positive work every cycle, so energy builds up; growth stops when the energy lost per cycle equals the energy supplied per cycle.",
+            "requires": [
+              "natural frequency",
+              [
+                "same direction",
+                "in step"
+              ],
+              [
+                "positive work",
+                "does work"
+              ],
+              "every cycle",
+              [
+                "air resistance",
+                "friction"
+              ],
+              [
+                "energy lost per cycle equals the energy supplied",
+                "loss equals the energy supplied"
+              ]
+            ],
+            "forbids": [
+              "energy is created",
+              "grows for ever",
+              "increases without limit"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"explain\" resonance, name both frequencies: the driving frequency equals the natural frequency. \"The frequencies match\" alone does not say which ones."
+        },
+        {
+          "type": "check",
+          "id": "check-footbridge",
+          "prompt": "Each time a walker's left foot lands, it pushes a footbridge slightly sideways; the right foot pushes it the other way. The bridge's sideways natural frequency is $\\pu{0.95 Hz}$. At how many steps per second would walkers drive it at resonance? Give 2 significant figures.",
+          "hint": "One complete sideways cycle needs one left step and one right step.",
+          "answer": {
+            "value": 1.9,
+            "tolerance": 0.05
+          },
+          "explain": "One sideways cycle takes two steps, so the step rate is $2 \\times 0.95 = 1.9$ steps per second, a normal walking pace.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*0.95",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-useful-resonance",
+          "prompt": "Which of these is a useful application of resonance?",
+          "hint": "Look for a system driven at its natural frequency on purpose.",
+          "options": [
+            {
+              "text": "tuning a radio to one station",
+              "correct": true
+            },
+            {
+              "text": "shock absorbers in a car",
+              "correct": false
+            },
+            {
+              "text": "a footbridge swaying under walkers",
+              "correct": false
+            },
+            {
+              "text": "noise-cancelling headphones",
+              "correct": false
+            }
+          ],
+          "explain": "The tuning circuit's natural frequency is set to the station's. The others are damping, destructive resonance and destructive interference.",
+          "verify": {
+            "kind": "choice",
+            "truth": "tuning a radio to one station"
+          }
+        }
+      ]
+    },
+    {
+      "id": "damping-curve",
+      "heading": "Damping and the resonance curve",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "damping",
+          "statement": "The loss of energy from an oscillating system to its surroundings, through resistive forces such as friction, air resistance or drag, so that its amplitude decreases with time.",
+          "plain": "Whatever makes an oscillation die away."
+        },
+        {
+          "type": "text",
+          "text": "The energy is not destroyed. [[damping|Damping]] forces transfer it to [[internal-energy|internal energy]] of the system and its surroundings, which warm very slightly."
+        },
+        {
+          "type": "text",
+          "text": "Drive one system across a range of frequencies with different amounts of damping, for example by fixing card to the mass."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-resonance-curves",
+          "alt": "Graph of amplitude against driving frequency for the same oscillator with three amounts of damping. With light damping the curve rises slowly, then shoots up to a tall, narrow peak at the natural frequency f0, then falls away. With more damping the curve has a lower, broader peak, just to the left of f0. With heavy damping there is no peak: the amplitude falls steadily as the driving frequency increases. The more damped curves never rise above the lightly damped one, and all three start from the same amplitude at very low frequency.",
+          "caption": "Resonance curves for one oscillator. More damping gives a lower, broader peak at a slightly lower frequency."
+        },
+        {
+          "type": "result",
+          "statement": "Increasing the damping lowers the maximum amplitude, moves the peak to a slightly lower frequency and makes the peak broader. With heavy damping there is no peak at all.",
+          "why": "With more damping, the energy lost per cycle equals the energy supplied per cycle at a smaller amplitude, so the amplitude stops growing sooner."
+        },
+        {
+          "type": "text",
+          "text": "You only need to describe these changes, not calculate them. For light damping the shift is tiny, so take the resonant frequency as $f_0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-card-curve",
+          "question": "A student drives a lightly damped mass-spring system and plots its resonance curve. She then fixes a large card to the mass and repeats the experiment. Describe how the new curve differs from the first, and explain why the maximum amplitude changes.",
+          "steps": [
+            "Compare the height, position and width of the peak, then use energy per cycle to explain the height."
+          ],
+          "answer": "The new curve has a lower maximum amplitude. Its peak is at a slightly lower frequency than before. The peak is broader, and the new curve lies below the first at all but the lowest frequencies. The card increases air resistance, so more energy is lost per cycle at any given amplitude. So the energy lost per cycle equals the energy supplied per cycle at a smaller amplitude.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Lower, broader peak at a slightly lower frequency, below the first curve everywhere; more energy lost per cycle, so the balance with energy supplied is reached at a smaller amplitude.",
+            "requires": [
+              "lower maximum amplitude",
+              "slightly lower frequency",
+              "broader",
+              "below the first",
+              "air resistance",
+              "energy lost per cycle",
+              [
+                "equals the energy supplied",
+                "balances the energy supplied"
+              ],
+              "smaller amplitude"
+            ],
+            "forbids": [
+              "higher peak",
+              "higher frequency",
+              "same maximum amplitude"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-amplitude-ratio",
+          "question": "A driven mass-spring system has a maximum amplitude of $\\pu{36 mm}$ at $\\pu{3.1 Hz}$. With extra damping, the maximum amplitude is $\\pu{14 mm}$ at $\\pu{3.0 Hz}$. Calculate the factor by which the maximum amplitude has decreased, and comment on the change in the peak frequency.",
+          "steps": [
+            "Ratio of the maximum amplitudes: $\\frac{A_\\text{before}}{A_\\text{after}} = \\frac{36}{14}$.",
+            "$\\frac{36}{14} = 2.57\\ldots$, so 2 significant figures gives 2.6. A ratio of two lengths has no unit.",
+            "The peak moved from $\\pu{3.1 Hz}$ to $\\pu{3.0 Hz}$: slightly lower, as extra damping predicts."
+          ],
+          "answer": "$\\frac{A_\\text{before}}{A_\\text{after}} \\approx 2.6$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "36/14",
+            "sf": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing the more damped curve with a higher peak, a peak at a higher frequency, or crossing the first curve. It is never higher than the first curve, with its peak at the same or a slightly lower frequency."
+        },
+        {
+          "type": "check",
+          "id": "check-peak-change",
+          "prompt": "More damping is added to a driven oscillator. How does the peak of its resonance curve change?",
+          "hint": "Damping removes energy, and the natural frequency is the starting point.",
+          "options": [
+            {
+              "text": "lower, and at a slightly lower frequency",
+              "correct": true
+            },
+            {
+              "text": "higher, and at a slightly higher frequency",
+              "correct": false
+            },
+            {
+              "text": "lower, and at a much higher frequency",
+              "correct": false
+            },
+            {
+              "text": "the same height, but broader",
+              "correct": false
+            }
+          ],
+          "explain": "More energy is lost per cycle, so the peak is lower. Damping also shifts the peak slightly below $f_0$, never above it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "lower, and at a slightly lower frequency"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-heavy-curve",
+          "prompt": "Which describes the resonance curve of a heavily damped oscillator?",
+          "hint": "Look at the lowest curve in the figure.",
+          "options": [
+            {
+              "text": "no peak: the amplitude falls steadily as the driving frequency rises",
+              "correct": true
+            },
+            {
+              "text": "a tall, narrow peak at the natural frequency",
+              "correct": false
+            },
+            {
+              "text": "a peak at twice the natural frequency",
+              "correct": false
+            },
+            {
+              "text": "zero amplitude at every driving frequency",
+              "correct": false
+            }
+          ],
+          "explain": "Heavy damping removes so much energy that there is no peak, though the system still moves.",
+          "verify": {
+            "kind": "choice",
+            "truth": "no peak: the amplitude falls steadily as the driving frequency rises"
+          }
+        }
+      ]
+    },
+    {
+      "id": "damping-types",
+      "heading": "Light, critical and heavy damping",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now switch the driver off, displace the system and release it."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-damping-types",
+          "alt": "Graph of displacement against time for an oscillator released from rest at the same displacement x0 with three kinds of damping. Light damping: the curve keeps oscillating either side of zero displacement, with the amplitude getting smaller each cycle. Critical damping: the curve falls smoothly to zero displacement and stays there, without crossing zero, in the shortest time. Heavy damping: the curve also never crosses zero but falls much more slowly and is still clearly above zero at the end of the graph.",
+          "caption": "The same system released from $x_0$ with light, critical and heavy damping."
+        },
+        {
+          "type": "text",
+          "text": "Light damping: the system oscillates with gradually decreasing amplitude and an almost unchanged period, like a plucked guitar string."
+        },
+        {
+          "type": "definition",
+          "term": "critical damping",
+          "statement": "The amount of damping at which a displaced system returns to equilibrium in the shortest possible time without oscillating.",
+          "plain": "Just enough damping to stop any overshoot."
+        },
+        {
+          "type": "text",
+          "text": "[[critical-damping|Critical damping]] is the boundary case: no overshoot, and the fastest return of any non-oscillating motion. Heavy damping: no oscillation either, but a slow return."
+        },
+        {
+          "type": "text",
+          "text": "Car suspensions and meter needles are built close to critical damping. Door closers are often heavily damped, so doors close slowly without slamming."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-decay",
+          "question": "A lightly damped pendulum is released with an amplitude of $\\pu{15 cm}$. Each complete oscillation, its amplitude falls to 0.92 of its value at the start of that oscillation. Calculate its amplitude after 6 complete oscillations.",
+          "steps": [
+            "After one oscillation: $15 \\times 0.92$. After two: $15 \\times 0.92^2$.",
+            "After 6 oscillations: $A = 15 \\times 0.92^{6}$.",
+            "$A = 15 \\times 0.606 = 9.10\\ \\text{cm}$; give 2 significant figures.",
+            "Check: the amplitude is smaller, as expected."
+          ],
+          "answer": "$A \\approx 9.1\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "15*0.92**6",
+            "sf": 2,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-meter-needle",
+          "question": "The needle of an analogue voltmeter is damped. Explain why the needle is designed to be close to critically damped, rather than lightly or heavily damped.",
+          "steps": [
+            "Say what each kind of damping would make the needle do, then why critical is best for reading the meter."
+          ],
+          "answer": "With light damping the needle would overshoot and oscillate about the reading before settling, so it would be hard to read. With heavy damping the needle would not oscillate, but it would move to the reading slowly. Critical damping brings the needle to the reading in the shortest time without oscillating. So the reading can be taken quickly and accurately.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Light: overshoots and oscillates. Heavy: no oscillation but slow. Critical: shortest time without oscillating, so quick, clear readings.",
+            "requires": [
+              "light damping",
+              [
+                "oscillate",
+                "overshoot"
+              ],
+              "heavy damping",
+              "slowly",
+              "shortest time",
+              "without oscillating"
+            ],
+            "forbids": [
+              "heavy damping is fastest",
+              "critical damping oscillates"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying heavy damping returns a system to equilibrium fastest. Heavy damping avoids oscillation but is slow; critical damping is the fastest return without oscillating."
+        },
+        {
+          "type": "check",
+          "id": "check-critical",
+          "prompt": "Which kind of damping returns a displaced system to equilibrium in the shortest time without oscillating?",
+          "hint": "It sits on the boundary between oscillating and not oscillating.",
+          "options": [
+            {
+              "text": "critical damping",
+              "correct": true
+            },
+            {
+              "text": "light damping",
+              "correct": false
+            },
+            {
+              "text": "heavy damping",
+              "correct": false
+            },
+            {
+              "text": "no damping",
+              "correct": false
+            }
+          ],
+          "explain": "Light damping and no damping both oscillate. Heavy damping does not oscillate but takes longer.",
+          "verify": {
+            "kind": "choice",
+            "truth": "critical damping"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-halving-time",
+          "prompt": "A lightly damped oscillator has a period of $\\pu{0.80 s}$. Its amplitude halves every 12 oscillations. How long does the amplitude take to fall to a quarter of its starting value, in s? Give 2 significant figures.",
+          "hint": "A quarter is a half of a half.",
+          "answer": {
+            "value": 19,
+            "tolerance": 0.5
+          },
+          "explain": "Two halvings take $2 \\times 12 = 24$ oscillations, so $t = 24 \\times 0.80 = 19.2$, so $t \\approx \\pu{19 s}$ to 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*12*0.80",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Natural frequency: the frequency of free oscillation. A forced oscillation, once steady, has the driving frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resonance: the amplitude of a forced oscillation is largest when the driving frequency equals (or is close to) the natural frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At resonance the driving force does positive work every cycle; the amplitude stops growing when energy lost per cycle equals energy supplied per cycle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "More damping: lower, broader resonance peak at a slightly lower frequency; heavy damping gives no peak.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Light damping: oscillates with decreasing amplitude. Critical: back to equilibrium in the shortest time without oscillating. Heavy: no oscillation, slow return.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing a more damped resonance curve that is higher, peaks at a higher frequency, or crosses the original.",
+    "Writing just \"friction\" for why the amplitude falls. Say resistive forces transfer energy out each cycle.",
+    "Confusing critical and heavy damping. Both avoid oscillation, but only critical damping returns the system in the shortest time.",
+    "Saying resonance happens at \"high frequency\". It happens where the driving frequency equals the natural frequency, whatever that is."
+  ],
+  "examTips": [
+    "\"Explain\" resonance: driving frequency equals natural frequency, so energy is transferred to the system every cycle and the amplitude is large. Name both frequencies.",
+    "\"Sketch\" or \"draw\" the effect of more damping on a resonance curve: a lower peak at the same or a slightly lower frequency, with the new curve below the old one and never crossing it.",
+    "\"Describe\" light, critical or heavy damping: say whether the system oscillates and how quickly it returns to equilibrium."
+  ],
+  "readingMinutes": 25
+}

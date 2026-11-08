@@ -2,19 +2,19 @@
   {
     "id": "nuclear-radius",
     "term": "nuclear radius",
-    "definition": "TODO: R = R0 A^(1/3); implies constant nuclear density",
+    "definition": "The radius of a nucleus, $R = R_0A^{\\frac{1}{3}}$ with $R_0 = 1.20 \\times 10^{-15}\\ \\text{m}$ and $A$ the nucleon number, so a nucleus's volume is proportional to $A$ and every nucleus has about the same density.",
     "lesson": "5.3"
   },
   {
     "id": "distance-of-closest-approach",
     "term": "distance of closest approach",
-    "definition": "TODO: Where alpha kinetic energy equals electric potential energy in head-on scattering",
+    "definition": "In a head-on collision, the distance between a charged particle and the centre of a nucleus at the instant the particle stops, when all its initial kinetic energy has become electric potential energy.",
     "lesson": "5.3"
   },
   {
     "id": "bohr-model",
     "term": "Bohr model",
-    "definition": "TODO: Electrons in quantised circular orbits, mvr = nh/2 pi; En = -13.6/n^2 eV",
+    "definition": "A model of the hydrogen atom in which the electron can only move in circular orbits whose angular momentum is $mvr = \\frac{nh}{2\\pi}$, which gives discrete energy levels $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$.",
     "lesson": "5.3"
   }
 ]

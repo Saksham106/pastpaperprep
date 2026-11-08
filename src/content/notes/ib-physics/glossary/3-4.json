@@ -2,55 +2,55 @@
   {
     "id": "wavefront",
     "term": "wavefront",
-    "definition": "TODO: Line joining points in phase; perpendicular to rays",
+    "definition": "A line or surface joining neighbouring points of a wave that are in phase, such as one crest; neighbouring wavefronts are usually drawn one wavelength apart.",
     "lesson": "3.4"
   },
   {
     "id": "ray",
     "term": "ray",
-    "definition": "TODO: Line showing the direction of wave travel",
+    "definition": "A line showing the direction a wave travels and transfers energy, always perpendicular to the wavefronts.",
     "lesson": "3.4"
   },
   {
     "id": "reflection",
     "term": "reflection",
-    "definition": "TODO: Wave bounces back from a boundary; angle of incidence equals angle of reflection",
+    "definition": "The return of a wave into its own medium at a boundary, with the angle of reflection equal to the angle of incidence, both measured from the normal.",
     "lesson": "3.4"
   },
   {
     "id": "refraction",
     "term": "refraction",
-    "definition": "TODO: Change of speed and direction at a boundary; frequency unchanged",
+    "definition": "The change in direction of a wave crossing into a new medium, caused by its change of speed; the frequency stays the same while the wavelength changes.",
     "lesson": "3.4"
   },
   {
     "id": "diffraction",
     "term": "diffraction",
-    "definition": "TODO: Spreading of a wave through an aperture or round an obstacle; most when gap is about one wavelength",
+    "definition": "The spreading of a wave through a gap or round the edge of an obstacle, most noticeable when the gap or obstacle is about one wavelength across.",
     "lesson": "3.4"
   },
   {
     "id": "refractive-index",
     "term": "refractive index",
-    "definition": "TODO: n = c/v; no unit",
+    "definition": "The speed of light in a vacuum divided by its speed in a medium, $n = \\frac{c}{v}$; it has no unit.",
     "lesson": "3.4"
   },
   {
     "id": "snell-s-law",
     "term": "Snell's law",
-    "definition": "TODO: n1 sin theta1 = n2 sin theta2; angles measured from the normal",
+    "definition": "The rule for refraction at a boundary, $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$, with each angle measured between the ray and the normal.",
     "lesson": "3.4"
   },
   {
     "id": "critical-angle",
     "term": "critical angle",
-    "definition": "TODO: Angle of incidence in denser medium giving refraction at 90 degrees; sin C = n2/n1",
+    "definition": "The angle of incidence, in the medium with the larger refractive index, that gives an angle of refraction of $90^{\\circ}$; $\\sin C = \\frac{n_2}{n_1}$.",
     "lesson": "3.4"
   },
   {
     "id": "total-internal-reflection",
     "term": "total internal reflection",
-    "definition": "TODO: Occurs above the critical angle going from denser to less dense medium",
+    "definition": "Reflection of all of a wave back into its medium, which happens when it heads towards a smaller refractive index at an angle of incidence greater than the critical angle.",
     "lesson": "3.4"
   }
 ]

@@ -2,31 +2,31 @@
   {
     "id": "standing-wave",
     "term": "standing wave",
-    "definition": "TODO: Superposition of two identical waves travelling in opposite directions; no net energy transfer",
+    "definition": "A wave pattern made when two waves with the same frequency, wavelength, amplitude and speed travel in opposite directions and superpose; the pattern stays in place and transfers no net energy.",
     "lesson": "3.7"
   },
   {
     "id": "node",
     "term": "node",
-    "definition": "TODO: Point of zero amplitude in a standing wave",
+    "definition": "A point on a standing wave where the amplitude is always zero, so the medium there never moves.",
     "lesson": "3.7"
   },
   {
     "id": "antinode",
     "term": "antinode",
-    "definition": "TODO: Point of maximum amplitude in a standing wave",
+    "definition": "A point on a standing wave where the amplitude is largest, halfway between two neighbouring nodes.",
     "lesson": "3.7"
   },
   {
     "id": "harmonic",
     "term": "harmonic",
-    "definition": "TODO: Standing wave pattern at multiple of fundamental frequency",
+    "definition": "One of the standing-wave patterns a string or air column can hold, numbered by $n$; the first harmonic has the lowest frequency. With one node end and one antinode end, only odd $n$ exist.",
     "lesson": "3.7"
   },
   {
     "id": "fundamental-frequency",
     "term": "fundamental frequency",
-    "definition": "TODO: Lowest standing wave frequency, first harmonic",
+    "definition": "An older name for the frequency of the first harmonic, the lowest-frequency standing wave a string or pipe can hold; IB Physics says first harmonic instead.",
     "lesson": "3.7"
   }
 ]

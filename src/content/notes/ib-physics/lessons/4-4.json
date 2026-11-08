@@ -1,0 +1,907 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.4",
+  "slug": "electric-charge-coulombs-law",
+  "title": "Electric charge and Coulomb's law",
+  "level": "SL",
+  "topic": 4,
+  "summary": "[[electric-charge|Electric charge]] comes in two kinds: like charges repel and unlike charges attract. [[coulomb-s-law|Coulomb's law]] gives the size of the [[force|force]] between two point charges. Charge is never created or destroyed, it comes only in whole multiples of $e$, and it moves between bodies by friction, contact and induction.",
+  "goals": [
+    {
+      "text": "State the direction of the force between two charges, and use [[newton-s-third-law|Newton's third law]] for the pair of forces.",
+      "bullets": [
+        "D.2-s1"
+      ]
+    },
+    {
+      "text": "Calculate the force between point charges with $F = k\\frac{q_1 q_2}{r^{2}}$, in a vacuum or a material, including the resultant force on a charge on a line.",
+      "bullets": [
+        "D.2-s2"
+      ]
+    },
+    {
+      "text": "Apply [[conservation-of-charge|conservation of charge]] to charging by friction and to conductors that touch.",
+      "bullets": [
+        "D.2-s3",
+        "D.2-s5"
+      ]
+    },
+    {
+      "text": "Describe charging by [[electrostatic-induction|electrostatic induction]] and the role of [[earthing|earthing]].",
+      "bullets": [
+        "D.2-s5"
+      ]
+    },
+    {
+      "text": "Explain how [[millikan-s-experiment|Millikan's experiment]] shows that charge is quantised, and find the charge on an oil drop.",
+      "bullets": [
+        "D.2-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "1.5",
+    "2.4",
+    "2.12",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Coulomb's law",
+    "like charges repel",
+    "permittivity",
+    "charging by induction",
+    "earthing",
+    "grounding",
+    "Millikan oil drop experiment",
+    "quantisation of charge",
+    "conservation of charge"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-charge-current",
+      "prompt": "A current of $\\pu{0.25 A}$ flows in a wire for $\\pu{40 s}$. How much charge passes a point, in coulombs? Give 2 significant figures.",
+      "hint": "Current is charge per unit time, so $\\Delta q = I\\Delta t$.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0.5
+      },
+      "explain": "$\\Delta q = I\\Delta t = 0.25 \\times 40 = \\pu{10 C}$. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.25*40",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-square",
+      "prompt": "The intensity of light from a small lamp is $\\pu{36 W m-2}$ at $\\pu{0.50 m}$. What is it at $\\pu{1.5 m}$, in $\\pu{W m-2}$? Give 2 significant figures.",
+      "hint": "Three times the distance gives one ninth of the intensity.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0.05
+      },
+      "explain": "Intensity follows an [[inverse-square-law|inverse square law]]: $36 \\times \\left(\\frac{0.50}{1.5}\\right)^{2} = \\pu{4.0 W m-2}$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "36*(0.50/1.5)**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-third-law",
+      "prompt": "A book pushes down on a table with a force of $\\pu{12 N}$. What is the Newton's third law partner of this force?",
+      "hint": "The partner acts on the other body and is the same type of force.",
+      "options": [
+        {
+          "text": "the table pushes up on the book with 12 N",
+          "correct": true
+        },
+        {
+          "text": "the book's weight, 12 N downwards",
+          "correct": false
+        },
+        {
+          "text": "the table pushes up on the book with less than 12 N",
+          "correct": false
+        },
+        {
+          "text": "the floor pushes up on the table",
+          "correct": false
+        }
+      ],
+      "explain": "Book on table and table on book: equal, opposite, on different bodies. The weight is a pull from the Earth. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the table pushes up on the book with 12 N"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "two-kinds",
+      "heading": "Two kinds of charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Protons carry a positive charge, electrons a negative charge of the same size, and neutrons none."
+        },
+        {
+          "type": "text",
+          "text": "That size is the [[elementary-charge|elementary charge]], $e = \\pu{1.60e-19 C}$. Like every constant in this lesson that a question does not give you, it comes from the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "A neutral body has equal numbers of protons and electrons. In a solid the protons are locked in the nuclei, so a body becomes charged by gaining electrons (negative) or losing them (positive)."
+        },
+        {
+          "type": "text",
+          "text": "Charged bodies exert an [[electric-force|electric force]] on each other: like charges repel, unlike charges attract."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-like-unlike",
+          "alt": "Three pairs of small charged spheres, one pair per row. Top row: two positive charges, each with a force arrow pointing away from the other, labelled like charges repel. Middle row: two negative charges, also with arrows pointing away from each other, labelled like charges repel. Bottom row: a positive and a negative charge, with arrows pointing towards each other, labelled unlike charges attract. In every row the two arrows are the same length.",
+          "caption": "The forces in each pair are equal in size and opposite in direction."
+        },
+        {
+          "type": "text",
+          "text": "The two forces form a [[newton-s-third-law|Newton's third law]] pair: equal in size and opposite in direction, even when one charge is much bigger. Each acts along the line joining the bodies."
+        },
+        {
+          "type": "text",
+          "text": "A charged body also attracts an uncharged one, by induction (below). So attraction does not prove that both are charged; repulsion does."
+        },
+        {
+          "type": "example",
+          "id": "ex-deduce-signs",
+          "question": "Three small charged spheres, X, Y and Z, hang from insulating threads. Sphere X is negatively charged. X repels Y, and Y attracts Z. Deduce the sign of the charge on Y and on Z.",
+          "steps": [
+            "Repulsion means like charges; attraction between two charged bodies means unlike charges."
+          ],
+          "answer": "X and Y repel, so they carry like charges: Y is negative. Y and Z attract, and both are charged, so they carry unlike charges: Z is positive.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "repel so like charges; Y negative; attract so unlike charges; Z positive",
+            "requires": [
+              "like charges",
+              "Y is negative",
+              "unlike charges",
+              "Z is positive"
+            ],
+            "forbids": [
+              "Y is positive",
+              "Z is negative"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-third-law-pair",
+          "question": "A small sphere carrying $+\\pu{4.0 nC}$ is near a larger sphere carrying $+\\pu{12 nC}$. The electric force on the small sphere is $\\pu{2.0 mN}$, away from the larger sphere. State and explain the size and direction of the force on the larger sphere.",
+          "steps": [
+            "Name the law, then give the size and the direction."
+          ],
+          "answer": "The two forces form a Newton's third law pair. So the force on the larger sphere has the same size, 2.0 mN, even though its charge is bigger. It acts in the opposite direction: away from the small sphere, because like charges repel.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Newton's third law pair; same size 2.0 mN; opposite direction; away from the small sphere because like charges repel",
+            "requires": [
+              "Newton's third law",
+              [
+                "same size",
+                "equal in size"
+              ],
+              "opposite direction",
+              [
+                "away from the small sphere",
+                "repel"
+              ]
+            ],
+            "forbids": [
+              "6.0 mN",
+              "towards the small sphere"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the body with the bigger charge feels the bigger force. The forces on the two bodies are a third law pair, so they are always equal in size."
+        },
+        {
+          "type": "check",
+          "id": "check-repel-conclusion",
+          "prompt": "A negatively charged rod repels a small ball hanging from a thread. What can you conclude about the ball?",
+          "hint": "Which kinds of body can repel each other?",
+          "options": [
+            {
+              "text": "it is negatively charged",
+              "correct": true
+            },
+            {
+              "text": "it is positively charged",
+              "correct": false
+            },
+            {
+              "text": "it is uncharged",
+              "correct": false
+            },
+            {
+              "text": "it is either uncharged or positively charged",
+              "correct": false
+            }
+          ],
+          "explain": "Only like charges repel. A positive or uncharged ball would be attracted.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is negatively charged"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pair-sizes",
+          "prompt": "Charged sphere P attracts charged sphere Q. P's charge is three times Q's. How does the force on Q compare with the force on P?",
+          "hint": "Which of Newton's laws links the two forces?",
+          "options": [
+            {
+              "text": "same size, opposite direction",
+              "correct": true
+            },
+            {
+              "text": "three times bigger, opposite direction",
+              "correct": false
+            },
+            {
+              "text": "three times smaller, opposite direction",
+              "correct": false
+            },
+            {
+              "text": "same size, same direction",
+              "correct": false
+            }
+          ],
+          "explain": "A Newton's third law pair: equal and opposite, whatever the charges.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same size, opposite direction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coulomb",
+      "heading": "Coulomb's law and permittivity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[coulomb-s-law|Coulomb's law]]: the force between two point charges is proportional to the product of the charges and inversely proportional to the square of their separation."
+        },
+        {
+          "type": "formula",
+          "tex": "F = k\\frac{q_1 q_2}{r^{2}} \\quad\\text{where}\\quad k = \\frac{1}{4\\pi\\varepsilon_0}",
+          "tag": "booklet",
+          "bookletId": "db-4-4"
+        },
+        {
+          "type": "text",
+          "text": "$k = \\pu{8.99e9 N m2 C-2}$ and the permittivity of free space $\\varepsilon_0 = \\pu{8.85e-12 C2 N-1 m-2}$ are in the data booklet. Work in coulombs and metres: convert nC ($10^{-9}$) and µC ($10^{-6}$) first."
+        },
+        {
+          "type": "text",
+          "text": "Like gravitation in {{lesson:4.1}}, it is an [[inverse-square-law|inverse square law]]: double $r$ and $F$ falls to a quarter. But gravity only attracts; the electric force can also repel."
+        },
+        {
+          "type": "text",
+          "text": "A charged body counts as a point charge when it is small compared with the distance to the other charge. A sphere with its charge spread evenly acts, outside it, as if the charge were at its centre. Measure $r$ between centres."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-spheres",
+          "question": "Two small charged spheres carry charges of $+\\pu{45 nC}$ and $-\\pu{28 nC}$. Their centres are $\\pu{12 cm}$ apart. Calculate the size of the electric force between them, and state its direction.",
+          "steps": [
+            "Convert to SI units: $q_1 = \\pu{45e-9 C}$, $q_2 = \\pu{28e-9 C}$ and $r = \\pu{0.12 m}$.",
+            "$F = k\\frac{q_1 q_2}{r^{2}} = \\frac{8.99 \\times 10^{9} \\times 45 \\times 10^{-9} \\times 28 \\times 10^{-9}}{0.12^{2}} = \\frac{1.133 \\times 10^{-5}}{0.0144} = 7.87 \\times 10^{-4}$ N.",
+            "The charges have opposite signs, so the force is attractive: each sphere is pulled towards the other."
+          ],
+          "answer": "$F \\approx 7.9 \\times 10^{-4}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "k_e*45e-9*28e-9/0.12**2",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Forces from several charges add as vectors. On a line, choose a positive direction, give each force a sign, and add."
+        },
+        {
+          "type": "example",
+          "id": "ex-resultant-line",
+          "question": "Point charge P, $+\\pu{2.0 \\mu C}$, and point charge Q, $+\\pu{6.0 \\mu C}$, are fixed $\\pu{0.40 m}$ apart, with P on the left. Point charge R, $+\\pu{1.5 \\mu C}$, is placed midway between them. Taking the direction to the right as positive, determine the resultant electric force on R.",
+          "steps": [
+            "R is $\\pu{0.20 m}$ from each charge. All three are positive, so both forces on R are repulsive.",
+            "P pushes R to the right: $F_\\text{P} = \\frac{8.99 \\times 10^{9} \\times 2.0 \\times 10^{-6} \\times 1.5 \\times 10^{-6}}{0.20^{2}} = +\\pu{0.674 N}$.",
+            "Q pushes R to the left: $F_\\text{Q} = \\frac{8.99 \\times 10^{9} \\times 6.0 \\times 10^{-6} \\times 1.5 \\times 10^{-6}}{0.20^{2}} = \\pu{2.023 N}$, so it counts as $-\\pu{2.023 N}$.",
+            "Resultant: $F = 0.674 - 2.023 = -1.35$ N. The minus sign means $\\pu{1.3 N}$ to the left, towards P."
+          ],
+          "answer": "$F \\approx -1.3\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "k_e*2.0e-6*1.5e-6/0.20**2 - k_e*6.0e-6*1.5e-6/0.20**2",
+            "sf": 2,
+            "unit": "N",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the signs of the charges into $F = k\\frac{q_1 q_2}{r^{2}}$ and then reading the sign of $F$ as left or right. A negative product only tells you the force is attractive. Use the sizes of the charges, then decide each direction from the rule."
+        },
+        {
+          "type": "text",
+          "text": "In an insulating material, such as oil or water, the force is smaller. Replace $\\varepsilon_0$ with the material's permittivity $\\varepsilon$ (air is close enough to a vacuum to use $\\varepsilon_0$)."
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\frac{1}{4\\pi\\varepsilon}\\frac{q_1 q_2}{r^{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Every material has $\\varepsilon > \\varepsilon_0$, so $F$ is smaller than in a vacuum, and $F \\propto \\frac{1}{\\varepsilon}$. Rough values: paper $3\\,\\varepsilon_0$, glass $5$ to $10\\,\\varepsilon_0$, water $80\\,\\varepsilon_0$. A question gives the value it needs."
+        },
+        {
+          "type": "example",
+          "id": "ex-beads-in-oil",
+          "question": "Two small beads carrying $+\\pu{12 nC}$ and $+\\pu{8.0 nC}$ are held $\\pu{3.0 cm}$ apart in an oil of permittivity $\\pu{2.1e-11 C2 N-1 m-2}$. Calculate the size of the electric force between them.",
+          "steps": [
+            "Use the oil's permittivity, not $\\varepsilon_0$: $F = \\frac{1}{4\\pi\\varepsilon}\\frac{q_1 q_2}{r^{2}}$.",
+            "$4\\pi\\varepsilon r^{2} = 4\\pi \\times 2.1 \\times 10^{-11} \\times 0.030^{2} = 2.375 \\times 10^{-13}$.",
+            "$F = \\frac{12 \\times 10^{-9} \\times 8.0 \\times 10^{-9}}{2.375 \\times 10^{-13}} = \\frac{9.6 \\times 10^{-17}}{2.375 \\times 10^{-13}} = 4.04 \\times 10^{-4}$ N. Both beads are positive, so they repel."
+          ],
+          "answer": "$F \\approx 4.0 \\times 10^{-4}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "12e-9*8.0e-9/(4*pi*2.1e-11*0.030**2)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-triple-halve",
+          "prompt": "Two point charges are a distance $r$ apart. One charge is tripled and the distance is halved. By what factor does the size of the force change?",
+          "hint": "Tripling one charge triples $q_1 q_2$. Halving $r$ does what to $\\frac{1}{r^{2}}$?",
+          "options": [
+            {
+              "text": "$12$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$q_1 q_2$ becomes 3 times bigger and $\\frac{1}{r^{2}}$ 4 times bigger: $3 \\times 4 = 12$. $6$ forgets to square $r$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*2**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electric-vs-gravity",
+          "prompt": "Two electrons are a distance $r$ apart. What is the ratio $\\frac{\\text{electric force}}{\\text{gravitational force}}$ between them? Give 2 significant figures.",
+          "hint": "Both forces go as $\\frac{1}{r^{2}}$, so $r$ cancels: find $\\frac{ke^{2}}{Gm_\\text{e}^{2}}$.",
+          "answer": {
+            "value": 4.2e+42,
+            "tolerance": 5e+40
+          },
+          "explain": "$\\frac{8.99 \\times 10^{9} \\times (1.60 \\times 10^{-19})^{2}}{6.67 \\times 10^{-11} \\times (9.11 \\times 10^{-31})^{2}} \\approx 4.2 \\times 10^{42}$: gravity between charged particles is negligible.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "k_e*e**2/(G*me**2)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-liquid-force",
+          "prompt": "In a vacuum, two point charges attract each other with a force of $\\pu{5.6 mN}$. The same charges, at the same separation, are put in a liquid of permittivity $7.0\\,\\varepsilon_0$. What is the new force, in mN? Give 2 significant figures.",
+          "hint": "$F \\propto \\frac{1}{\\varepsilon}$.",
+          "answer": {
+            "value": 0.8,
+            "tolerance": 0.005
+          },
+          "explain": "$\\varepsilon$ is 7.0 times bigger, so $F$ is 7.0 times smaller: $\\frac{5.6}{7.0} = \\pu{0.80 mN}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.6/7.0",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of charge: friction and contact",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[conservation-of-charge|Conservation of charge]]: the total charge of an isolated system never changes. Charge is never created or destroyed, only moved."
+        },
+        {
+          "type": "text",
+          "text": "Friction: rub two different insulators together and electrons move from one to the other. Polythene rubbed with wool gains electrons from the wool: the rod becomes negative and the cloth positive by the same amount."
+        },
+        {
+          "type": "text",
+          "text": "Which way electrons go depends on the materials: acetate rubbed with a cloth loses electrons and becomes positive."
+        },
+        {
+          "type": "text",
+          "text": "Contact: when a charged conductor touches another conductor, electrons flow between them and they share the total charge. Identical conducting spheres end with equal charges; spheres of different sizes don't."
+        },
+        {
+          "type": "example",
+          "id": "ex-touch-and-share",
+          "question": "Two identical small conducting spheres carry $+\\pu{8.0 nC}$ and $-\\pu{2.0 nC}$. They are touched together and then put back with their centres $\\pu{15 cm}$ apart. Determine the size of the force between them now, and state whether it is attractive or repulsive.",
+          "steps": [
+            "Charge is conserved: the total is $8.0 + (-2.0) = +\\pu{6.0 nC}$, with the sign included.",
+            "The spheres are identical, so they share it equally: $+\\pu{3.0 nC}$ each.",
+            "$F = k\\frac{q_1 q_2}{r^{2}} = \\frac{8.99 \\times 10^{9} \\times (3.0 \\times 10^{-9})^{2}}{0.15^{2}} = 3.60 \\times 10^{-6}$ N.",
+            "Both are now positive, so the force is repulsive; before, it was attractive."
+          ],
+          "answer": "$F \\approx 3.6 \\times 10^{-6}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "k_e*((8.0e-9 - 2.0e-9)/2)**2/0.15**2",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rod-and-cloth",
+          "question": "A polythene rod is rubbed with a wool cloth and becomes negatively charged. Explain, using conservation of charge, what charge the cloth gains.",
+          "steps": [
+            "What moves and which way, what each body ends with, then conservation."
+          ],
+          "answer": "Rubbing transfers electrons from the wool to the polythene. The rod gains electrons, so it becomes negative. The cloth loses the same number of electrons, so it becomes positive. Charge is conserved, so the total charge of rod and cloth stays zero: the cloth's positive charge is equal in size to the rod's negative charge.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "electrons move from wool to polythene; rod negative; cloth loses same number so positive; conserved so total zero; equal in size",
+            "requires": [
+              "electrons",
+              [
+                "from the wool to the polythene",
+                "from the cloth to the rod"
+              ],
+              "positive",
+              [
+                "conserved",
+                "total charge"
+              ],
+              [
+                "equal in size",
+                "same size"
+              ]
+            ],
+            "forbids": [
+              "protons move",
+              "gains protons",
+              "loses protons"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying positive charge or protons move when a body becomes positive. In a solid only electrons move: a positive body has lost electrons."
+        },
+        {
+          "type": "check",
+          "id": "check-share-charge",
+          "prompt": "Two identical conducting spheres carry $+\\pu{14 nC}$ and $-\\pu{6.0 nC}$. They touch and are then separated. What is the charge on each sphere, in nC? Give 2 significant figures.",
+          "hint": "Add the charges with their signs, then share equally.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0.05
+          },
+          "explain": "Total $14 + (-6.0) = +\\pu{8.0 nC}$, shared equally: $+\\pu{4.0 nC}$ each. Ignoring the sign gives $10$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(14 - 6.0)/2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rod-positive",
+          "prompt": "An acetate rod becomes positively charged when it is rubbed with a cloth. What has happened?",
+          "hint": "Which particles can move in a solid?",
+          "options": [
+            {
+              "text": "it lost electrons to the cloth",
+              "correct": true
+            },
+            {
+              "text": "it gained protons from the cloth",
+              "correct": false
+            },
+            {
+              "text": "friction created positive charge on it",
+              "correct": false
+            },
+            {
+              "text": "it gained electrons from the cloth",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons moved from the rod to the cloth. Friction moves charge; it never creates it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it lost electrons to the cloth"
+          }
+        }
+      ]
+    },
+    {
+      "id": "induction",
+      "heading": "Electrostatic induction and earthing",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[electrostatic-induction|Electrostatic induction]] separates charge in a conductor without touching it. Hold a negative rod near a neutral metal sphere: free electrons are pushed to the far side, leaving the near side positive. A positive rod pulls electrons to the near side. Either way, the near side gets the opposite charge to the rod, and the total stays zero."
+        },
+        {
+          "type": "text",
+          "text": "The opposite charge is closer to the rod, so the attraction beats the repulsion: a charged body attracts a neutral one. In an insulator, charges in each molecule shift slightly, so a charged balloon clings to a wall."
+        },
+        {
+          "type": "text",
+          "text": "[[earthing|Earthing]] (grounding) connects a conductor to the Earth, by a wire or a touch. The Earth is so large that it gives or takes electrons with no noticeable change. With nothing charged nearby, an earthed conductor ends up neutral."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-induction",
+          "alt": "Charging a metal sphere by induction, in four panels from left to right. Each panel shows a metal sphere on an insulating stand. Panel 1: a negatively charged rod is held near the left side of the sphere without touching it. Positive charges are marked on the left side of the sphere, nearest the rod, and negative charges on the right side, because free electrons have been pushed away from the rod. Panel 2: the rod is still near, and the sphere is connected to earth by a wire. An arrow along the wire shows electrons flowing from the sphere down to earth. Only the positive charges on the left side remain. Panel 3: the earth wire has been removed while the rod is still near. The positive charges stay on the left side. Panel 4: the rod has been taken away. The same positive charges are now spread evenly around the whole surface, so the sphere has a net positive charge.",
+          "caption": "Charging by induction with a negative rod leaves the sphere positive: the opposite sign to the rod."
+        },
+        {
+          "type": "text",
+          "text": "Order matters: break the earth connection before removing the rod. Remove the rod first and electrons flow back, leaving the sphere neutral."
+        },
+        {
+          "type": "example",
+          "id": "ex-induce-negative",
+          "question": "Describe how a metal sphere on an insulating stand can be given a negative charge by induction, using a positively charged rod.",
+          "steps": [
+            "Give the steps in order, with what the electrons do."
+          ],
+          "answer": "Bring the positively charged rod close to the sphere without touching it. Free electrons in the sphere are attracted towards the rod, so the near side becomes negative and the far side positive. Connect the sphere to earth while the rod is still near: electrons flow from the earth onto the sphere. Break the earth connection first, then take the rod away. The sphere is left with extra electrons, so it has a negative charge, which spreads over its surface.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rod near without touching; electrons attracted to near side; earth the sphere; electrons flow from earth onto sphere; break earth before removing rod; sphere negative",
+            "requires": [
+              "without touching",
+              [
+                "electrons in the sphere are attracted",
+                "electrons move towards the rod"
+              ],
+              [
+                "connect the sphere to earth",
+                "earth the sphere"
+              ],
+              [
+                "from the earth onto the sphere",
+                "from earth to the sphere"
+              ],
+              [
+                "break the earth connection first",
+                "remove the earth connection before"
+              ],
+              "negative charge"
+            ],
+            "forbids": [
+              "protons",
+              "touch the sphere with the rod",
+              "take the rod away first"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-electrons-to-earth",
+          "question": "A metal sphere is charged by induction and ends with a charge of $+\\pu{4.8 nC}$. How many electrons flowed from the sphere to the Earth?",
+          "steps": [
+            "The sphere started neutral, so its $+\\pu{4.8 nC}$ is the charge of the electrons it lost.",
+            "Each electron carries $e = \\pu{1.60e-19 C}$, so $N = \\frac{q}{e} = \\frac{4.8 \\times 10^{-9}}{1.60 \\times 10^{-19}} = 3.0 \\times 10^{10}$."
+          ],
+          "answer": "$N = 3.0 \\times 10^{10}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.8e-9/e"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutral-can",
+          "prompt": "A positively charged rod is held near, not touching, an uncharged metal can on an insulating mat. What happens?",
+          "hint": "Which charge ends up closer to the rod?",
+          "options": [
+            {
+              "text": "the can is attracted towards the rod",
+              "correct": true
+            },
+            {
+              "text": "the can is repelled by the rod",
+              "correct": false
+            },
+            {
+              "text": "no force, because it has no net charge",
+              "correct": false
+            },
+            {
+              "text": "protons in the can move away from the rod",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons gather on the near side. That negative charge is closer than the positive far side, so the attraction wins.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the can is attracted towards the rod"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wrong-order",
+          "prompt": "A negatively charged rod is held near an earthed metal sphere. The rod is taken away, and only then is the earth connection removed. What charge is left on the sphere?",
+          "hint": "With the rod gone and the earth still connected, what do electrons do?",
+          "options": [
+            {
+              "text": "no charge",
+              "correct": true
+            },
+            {
+              "text": "a positive charge",
+              "correct": false
+            },
+            {
+              "text": "a negative charge",
+              "correct": false
+            },
+            {
+              "text": "the same charge as the rod",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons flow back from the Earth, leaving the sphere neutral.",
+          "verify": {
+            "kind": "choice",
+            "truth": "no charge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "millikan",
+      "heading": "Quantisation of charge: Millikan's experiment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[quantisation-of-charge|Quantisation of charge]]: charge comes only in whole-number multiples of the elementary charge, $q = ne$. A body can carry $3e$ or $-5e$, never $2.5e$."
+        },
+        {
+          "type": "text",
+          "text": "The evidence came from [[millikan-s-experiment|Millikan's experiment]] (1909 to 1913). Oil drops, charged by friction as they were sprayed, fell between two horizontal metal plates and were watched through a microscope."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-millikan",
+          "alt": "Millikan's oil-drop arrangement. Two horizontal metal plates a distance d apart, with a potential difference V between them: the upper plate is positive and the lower plate negative. A small negatively charged oil drop hangs at rest between the plates. An arrow from the drop points straight up, labelled electric force qE. An arrow of the same length points straight down, labelled weight mg.",
+          "caption": "A negative drop held still: the upward electric force balances its weight."
+        },
+        {
+          "type": "text",
+          "text": "He adjusted the potential difference $V$ across the plates until a drop hung still, so the electric force $qE$ balanced its weight $mg$. Between plates a distance $d$ apart, $E = \\frac{V}{d}$ (more in {{lesson:4.5}}). The drop's mass came from how fast it fell with the plates switched off."
+        },
+        {
+          "type": "formula",
+          "tex": "q\\frac{V}{d} = mg \\quad\\text{so}\\quad q = \\frac{mgd}{V}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Over many drops, every charge was a whole-number multiple of one smallest value, about $\\pu{1.6e-19 C}$, and none fell in between. That step is $e$."
+        },
+        {
+          "type": "text",
+          "text": "Energy levels in atoms are quantised too: see {{lesson:5.2}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-oil-drop",
+          "question": "An oil drop of mass $\\pu{2.9e-15 kg}$ is held stationary between two horizontal plates $\\pu{6.0 mm}$ apart when the potential difference between them is $\\pu{355 V}$. Determine the size of the charge on the drop, and deduce how many excess electrons it carries.",
+          "steps": [
+            "The drop is stationary, so the electric force balances the weight: $q\\frac{V}{d} = mg$.",
+            "$q = \\frac{mgd}{V} = \\frac{2.9 \\times 10^{-15} \\times 9.8 \\times 6.0 \\times 10^{-3}}{355} = \\frac{1.705 \\times 10^{-16}}{355} = 4.80 \\times 10^{-19}$ C.",
+            "Number of electrons: $\\frac{q}{e} = \\frac{4.80 \\times 10^{-19}}{1.60 \\times 10^{-19}} = 3.0$, so the drop carries 3 excess electrons."
+          ],
+          "answer": "$q \\approx 4.8 \\times 10^{-19}\\ \\text{C}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.9e-15*g*6.0e-3/355",
+            "sf": 2,
+            "unit": "C"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-millikan-evidence",
+          "question": "Explain how the results of Millikan's experiment provide evidence that electric charge is quantised.",
+          "steps": [
+            "What was measured, the pattern, what was never found, the conclusion."
+          ],
+          "answer": "Millikan measured the charge on many different oil drops. Every charge he measured was a whole-number multiple of one smallest value, about $1.6 \\times 10^{-19}$ C. He never found a charge between these multiples. So charge comes only in whole-number multiples of a basic unit, the elementary charge $e$: charge is quantised.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "charge on many drops; all whole-number multiples of a smallest value; none in between; so quantised in units of e",
+            "requires": [
+              [
+                "many different",
+                "many drops"
+              ],
+              [
+                "whole-number multiple",
+                "integer multiple"
+              ],
+              [
+                "smallest value",
+                "basic unit"
+              ],
+              [
+                "never found a charge between",
+                "none in between"
+              ],
+              "quantised"
+            ],
+            "forbids": [
+              "all the drops had the same charge",
+              "continuous"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking every drop carried charge $e$. The drops carried different charges, all whole-number multiples of $e$."
+        },
+        {
+          "type": "check",
+          "id": "check-common-step",
+          "prompt": "Four oil drops carry charges of $6.4$, $8.0$, $11.2$ and $4.8$ (units of $10^{-19}\\ \\text{C}$). What is the largest charge they are all whole-number multiples of, in these units? Give 2 significant figures.",
+          "hint": "Every difference between two values must also be a whole number of steps.",
+          "answer": {
+            "value": 1.6,
+            "tolerance": 0.05
+          },
+          "explain": "$8.0 - 6.4 = 1.6$, and the four values are $4$, $5$, $7$ and $3$ times $1.6$, with no larger common step. That step is $e$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.0 - 6.4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-possible-charge",
+          "prompt": "Which of these could be the size of the charge on an oil drop in Millikan's experiment?",
+          "hint": "Divide each value by $e = \\pu{1.60e-19 C}$. Which gives a whole number?",
+          "options": [
+            {
+              "text": "$\\pu{8.0e-19 C}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{4.0e-19 C}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{2.4e-19 C}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{1.0e-19 C}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{8.0 \\times 10^{-19}}{1.60 \\times 10^{-19}} = 5$. The others give $2.5e$, $1.5e$ and $0.625e$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "5*e",
+            "sf": 2,
+            "unit": "C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Like charges repel, unlike charges attract; the two forces are an equal and opposite third law pair. Only repulsion proves a body is charged.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F = k\\frac{q_1 q_2}{r^{2}} \\quad\\text{where}\\quad k = \\frac{1}{4\\pi\\varepsilon_0}",
+          "tag": "booklet",
+          "bookletId": "db-4-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Point charges, $r$ between centres, SI units; sizes of charges in, direction from like or unlike. In a material use its permittivity $\\varepsilon > \\varepsilon_0$: $F \\propto \\frac{1}{\\varepsilon}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Total charge of an isolated system is constant. Friction moves electrons; touching conductors share charge (equally if identical); induction separates charge; earthing lets electrons flow to or from the Earth.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Charge is quantised: $q = ne$ with $e = \\pu{1.60e-19 C}$. Millikan balanced charged oil drops, $q\\frac{V}{d} = mg$, and found every charge a whole-number multiple of $e$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving charges in nC or µC, or $r$ in cm. Convert to coulombs and metres first.",
+    "Forgetting to square $r$. Halve the distance and the force becomes four times bigger.",
+    "Adding the sizes of charges that touch. Add them with signs, then share: $+8$ and $-2$ give $+3$ each.",
+    "Using $\\varepsilon_0$ for charges in a material instead of the material's permittivity.",
+    "In charging by induction, removing the rod before breaking the earth connection."
+  ],
+  "examTips": [
+    "In Paper 1A ratio questions, use $F \\propto \\frac{q_1 q_2}{r^{2}}$ directly; you rarely need $k$.",
+    "For conductors that touch, write the total charge with signs first: that line earns the method mark.",
+    "To 'describe' charging by induction, give the steps in order and say which way electrons flow when earthed.",
+    "To 'explain' Millikan's evidence, say all charges were whole-number multiples of one smallest charge, with none in between. 'Charge is quantised' alone earns nothing."
+  ],
+  "readingMinutes": 30
+}

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" role="img" aria-labelledby="t214sp">
+  <title id="t214sp">Two circuits side by side. Left, series: a cell on the top wire and two resistors, R1 and R2, one after the other on the bottom wire, so there is a single loop and the same current I passes through both. Right, parallel: a cell on the top wire and two branches between the same two junctions, R1 on the upper branch and R2 on the lower branch; the current I splits at the left junction into I1 and I2, which rejoin at the right junction.</title>
+  <defs>
+    <marker id="a214sp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="var(--t1-ink)"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- series loop -->
+    <line x1="30" y1="60" x2="152" y2="60"/>
+    <line x1="168" y1="60" x2="290" y2="60"/>
+    <line x1="290" y1="60" x2="290" y2="210"/>
+    <line x1="290" y1="210" x2="250" y2="210"/>
+    <rect x="190" y="200" width="60" height="20"/>
+    <line x1="190" y1="210" x2="130" y2="210"/>
+    <rect x="70" y="200" width="60" height="20"/>
+    <line x1="70" y1="210" x2="30" y2="210"/>
+    <line x1="30" y1="210" x2="30" y2="60"/>
+    <!-- parallel loop -->
+    <line x1="370" y1="60" x2="492" y2="60"/>
+    <line x1="508" y1="60" x2="630" y2="60"/>
+    <line x1="370" y1="60" x2="370" y2="240"/>
+    <line x1="630" y1="60" x2="630" y2="240"/>
+    <line x1="370" y1="160" x2="470" y2="160"/>
+    <rect x="470" y="150" width="60" height="20"/>
+    <line x1="530" y1="160" x2="630" y2="160"/>
+    <line x1="370" y1="240" x2="470" y2="240"/>
+    <rect x="470" y="230" width="60" height="20"/>
+    <line x1="530" y1="240" x2="630" y2="240"/>
+  </g>
+  <!-- cells: long thin plate is positive, short thick plate negative -->
+  <line x1="152" y1="40" x2="152" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="168" y1="50" x2="168" y2="70" stroke="currentColor" stroke-width="6"/>
+  <line x1="492" y1="40" x2="492" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="508" y1="50" x2="508" y2="70" stroke="currentColor" stroke-width="6"/>
+  <circle cx="370" cy="160" r="4" fill="currentColor"/>
+  <circle cx="630" cy="160" r="4" fill="currentColor"/>
+  <!-- current arrows -->
+  <line x1="30" y1="105" x2="30" y2="160" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#a214sp)"/>
+  <line x1="370" y1="85" x2="370" y2="135" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#a214sp)"/>
+  <line x1="395" y1="160" x2="445" y2="160" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#a214sp)"/>
+  <line x1="395" y1="240" x2="445" y2="240" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#a214sp)"/>
+  <g font-family="inherit" font-size="15" fill="currentColor">
+    <text x="160" y="22" text-anchor="middle" font-weight="bold">Series</text>
+    <text x="500" y="22" text-anchor="middle" font-weight="bold">Parallel</text>
+    <text x="42" y="138" fill="var(--t1-ink)">I</text>
+    <text x="100" y="245" text-anchor="middle">R<tspan font-size="11" dy="4">1</tspan></text>
+    <text x="220" y="245" text-anchor="middle">R<tspan font-size="11" dy="4">2</tspan></text>
+    <text x="382" y="115" fill="var(--t1-ink)">I</text>
+    <text x="420" y="150" text-anchor="middle" fill="var(--t1-ink)">I<tspan font-size="11" dy="4">1</tspan></text>
+    <text x="420" y="230" text-anchor="middle" fill="var(--t1-ink)">I<tspan font-size="11" dy="4">2</tspan></text>
+    <text x="500" y="142" text-anchor="middle">R<tspan font-size="11" dy="4">1</tspan></text>
+    <text x="500" y="275" text-anchor="middle">R<tspan font-size="11" dy="4">2</tspan></text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="160" y="290" text-anchor="middle">one path: same current in each resistor</text>
+    <text x="160" y="308" text-anchor="middle">pds add: V = V1 + V2</text>
+    <text x="500" y="300" text-anchor="middle">same pd across each branch</text>
+    <text x="500" y="318" text-anchor="middle">currents add: I = I1 + I2</text>
+  </g>
+</svg>

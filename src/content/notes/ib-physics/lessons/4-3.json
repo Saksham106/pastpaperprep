@@ -1,0 +1,711 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "4.3",
+ "slug": "orbits-and-escape-speed",
+ "title": "Orbits and escape speed",
+ "level": "AHL",
+ "topic": 4,
+ "summary": "In a circular orbit, gravity supplies exactly the centripetal force, which fixes the [[orbital-speed|orbital speed]] at each radius. Energy tells you the rest: what it costs to launch a satellite or move it higher, the [[escape-speed|escape speed]] needed to leave for good, and why air drag makes a satellite sink and speed up.",
+ "goals": [
+  {
+   "text": "Derive and use $v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}$ for a circular orbit, including the period.",
+   "bullets": [
+    "D.1-a9"
+   ]
+  },
+  {
+   "text": "Calculate the kinetic, potential and total energy of a satellite in orbit, and the energy needed to launch it or change its orbit.",
+   "bullets": [
+    "D.1-a9"
+   ]
+  },
+  {
+   "text": "Define escape speed, derive and use $v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}$, and apply the energy condition for escape, including from orbit.",
+   "bullets": [
+    "D.1-a8"
+   ]
+  },
+  {
+   "text": "Explain how a small atmospheric drag force changes an orbiting body's height and speed.",
+   "bullets": [
+    "D.1-a10"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "1.3",
+  "1.8",
+  "1.10",
+  "4.1",
+  "4.2"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "orbital speed formula",
+  "v = sqrt(GM/r)",
+  "escape velocity",
+  "v = sqrt(2GM/r)",
+  "total energy of a satellite",
+  "energy to change orbit",
+  "why does drag speed up a satellite",
+  "orbital decay"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-centripetal",
+   "prompt": "A $\\pu{2.0 kg}$ mass moves in a circle of radius $\\pu{0.50 m}$ at a constant speed of $\\pu{3.0 m s-1}$. Calculate the centripetal force on it, in N. Give 2 significant figures.",
+   "hint": "Use $F = \\frac{mv^{2}}{r}$.",
+   "answer": {
+    "value": 36,
+    "tolerance": 0.5
+   },
+   "explain": "$F = \\frac{2.0 \\times 3.0^{2}}{0.50} = \\pu{36 N}$, towards the centre. Revise it in {{lesson:1.8}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "2.0*3.0**2/0.50",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-potential",
+   "prompt": "A planet has mass $\\pu{6.0e24 kg}$. Calculate the [[gravitational-potential|gravitational potential]] $\\pu{1.2e7 m}$ from its centre, in units of $10^{7}\\ \\text{J kg}^{-1}$. Give 2 significant figures, with its sign.",
+   "hint": "Use $V_\\text{g} = -\\frac{GM}{r}$.",
+   "answer": {
+    "value": -3.3,
+    "tolerance": 0.05
+   },
+   "explain": "$V_\\text{g} = -\\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24}}{1.2 \\times 10^{7}} = \\pu{-3.3e7 J kg-1}$. Revise it in {{lesson:4.2}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "-G*6.0e24/1.2e7/10**7",
+    "sf": 2,
+    "signed": true
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-kinetic",
+   "prompt": "A $\\pu{1500 kg}$ car moves at $\\pu{20 m s-1}$. Calculate its kinetic energy, in units of $10^{5}$ J. Give 2 significant figures.",
+   "hint": "Use $E_\\text{k} = \\frac{1}{2}mv^{2}$.",
+   "answer": {
+    "value": 3.0,
+    "tolerance": 0.05
+   },
+   "explain": "$E_\\text{k} = \\frac{1}{2} \\times 1500 \\times 20^{2} = \\pu{3.0e5 J}$. Revise it in {{lesson:1.10}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "0.5*1500*20**2/10**5",
+    "sf": 2
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "orbital-speed",
+   "heading": "Orbital speed",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "A satellite in a circular orbit moves at a steady [[speed|speed]], but its direction keeps changing, so it is accelerating towards the centre of the circle. In {{lesson:1.8}} you met the [[resultant-force|resultant force]] this needs: $\\frac{mv^{2}}{r}$, directed towards the centre."
+    },
+    {
+     "type": "text",
+     "text": "Far above the atmosphere, the only [[force|force]] on the satellite is the planet's gravitational pull. It points to the planet's centre, so it provides the centripetal force. Set [[newton-s-law-of-gravitation|Newton's law of gravitation]] equal to $\\frac{mv^{2}}{r}$:"
+    },
+    {
+     "type": "formula",
+     "tex": "\\frac{GMm}{r^{2}} = \\frac{mv^{2}}{r} \\quad\\Rightarrow\\quad v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}",
+     "tag": "booklet",
+     "bookletId": "db-4-3"
+    },
+    {
+     "type": "text",
+     "text": "$M$ is the mass of the planet or star being orbited, much larger than the satellite's, and $r$ is the orbital radius, measured from its centre. $G = \\pu{6.67e-11 N m2 kg-2}$ comes from the data booklet, like every constant a question does not give you. Both equations in this lesson's booklet section, $v_\\text{orbital}$ and $v_\\text{esc}$, are printed in the higher level part of D.1."
+    },
+    {
+     "type": "text",
+     "text": "Three things follow. The satellite's mass $m$ cancels, so every body at the same radius has the same [[orbital-speed|orbital speed]], whatever its mass. A lower orbit is faster: $v \\propto \\frac{1}{\\sqrt{r}}$, so a quarter of the radius means twice the speed. And since $\\frac{GM}{r^{2}}$ is the [[gravitational-field-strength|gravitational field strength]] at the orbit, $v^{2} = gr$."
+    },
+    {
+     "type": "text",
+     "text": "The [[period|period]] is the time for one lap: $T = \\frac{2\\pi r}{v}$. Squaring and substituting $v^{2} = \\frac{GM}{r}$ gives back [[kepler-s-third-law|Kepler's third law]], $T^{2} = \\frac{4\\pi^{2}}{GM}r^{3}$. In IB calculations, orbits are always taken to be circular."
+    },
+    {
+     "type": "example",
+     "id": "ex-orbit-period",
+     "question": "A weather satellite orbits a planet of mass $\\pu{4.87e24 kg}$ and radius $\\pu{6.05e6 m}$, at a height of $\\pu{7.50e5 m}$ above the surface. Determine the period of its orbit.",
+     "steps": [
+      "Find the orbital radius from the planet's centre: $r = 6.05 \\times 10^{6} + 7.50 \\times 10^{5} = 6.80 \\times 10^{6}\\ \\text{m}$.",
+      "Orbital speed: $v = \\sqrt{\\frac{GM}{r}} = \\sqrt{\\frac{6.67 \\times 10^{-11} \\times 4.87 \\times 10^{24}}{6.80 \\times 10^{6}}} = 6912\\ \\text{m s}^{-1}$.",
+      "Period: $T = \\frac{2\\pi r}{v} = \\frac{2\\pi \\times 6.80 \\times 10^{6}}{6912} = 6182\\ \\text{s}$.",
+      "Round to 3 significant figures, as the data are given to 3. That is about 103 minutes per lap."
+     ],
+     "answer": "$T \\approx 6.18 \\times 10^{3}\\ \\text{s}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "2*pi*(6.05e6 + 7.50e5)/sqrt(G*4.87e24/(6.05e6 + 7.50e5))",
+      "sf": 3,
+      "unit": "s"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Using the height above the surface as $r$. In $v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}$, $r$ is measured from the planet's centre, so add the planet's radius."
+    },
+    {
+     "type": "example",
+     "id": "ex-orbit-mass-cancels",
+     "question": "Two satellites orbit the same planet at the same orbital radius. Their masses are $\\pu{180 kg}$ and $\\pu{3600 kg}$. Explain why they move with the same speed.",
+     "steps": [
+      "Name the force and what it does.",
+      "Write the equation.",
+      "Show what cancels.",
+      "Conclude."
+     ],
+     "answer": "The only force on each satellite is the gravitational force from the planet, and it provides the centripetal force. So $\\frac{GMm}{r^{2}} = \\frac{mv^{2}}{r}$. The satellite's mass $m$ appears on both sides and cancels, giving $v = \\sqrt{\\frac{GM}{r}}$. The speed depends only on the planet's mass and the orbital radius. Both are the same for the two satellites, so their speeds are equal.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "gravitational force provides the centripetal force; GMm/r^2 = mv^2/r; satellite mass cancels; v depends only on M and r, same for both",
+      "requires": [
+       "gravitational force",
+       "centripetal force",
+       [
+        "mass m appears on both sides",
+        "cancels"
+       ],
+       [
+        "depends only on the planet's mass",
+        "only on M and r"
+       ],
+       [
+        "same for the two satellites",
+        "same for both"
+       ]
+      ],
+      "forbids": [
+       "heavier satellite moves faster",
+       "heavier satellite moves slower"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-orbit-quadruple",
+     "prompt": "A moon's orbital radius around a planet is made four times larger. What happens to its orbital speed?",
+     "hint": "$v = \\sqrt{\\frac{GM}{r}}$, so $v \\propto \\frac{1}{\\sqrt{r}}$.",
+     "options": [
+      {
+       "text": "it halves",
+       "correct": true
+      },
+      {
+       "text": "it quarters",
+       "correct": false
+      },
+      {
+       "text": "it doubles",
+       "correct": false
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      }
+     ],
+     "explain": "$\\sqrt{4} = 2$, so the speed falls to $\\frac{1}{2}$ of its value. Quartering would be $v \\propto \\frac{1}{r}$, which is wrong.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it halves"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-moon-orbital-speed",
+     "prompt": "A moon orbits a gas giant of mass $\\pu{5.68e26 kg}$ in a circular orbit of radius $\\pu{1.22e9 m}$. Calculate its orbital speed, in $\\text{km s}^{-1}$. Give 2 significant figures.",
+     "hint": "Use $v = \\sqrt{\\frac{GM}{r}}$, then divide by 1000.",
+     "answer": {
+      "value": 5.6,
+      "tolerance": 0.05
+     },
+     "explain": "$v = \\sqrt{\\frac{6.67 \\times 10^{-11} \\times 5.68 \\times 10^{26}}{1.22 \\times 10^{9}}} = \\pu{5.57e3 m s-1} \\approx \\pu{5.6 km s-1}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "sqrt(G*5.68e26/1.22e9)/1000",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "orbit-energy",
+   "heading": "Energy in orbit and changing orbit",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "An orbiting satellite has [[kinetic-energy|kinetic energy]] because it moves, and [[gravitational-potential-energy|gravitational potential energy]] because the planet attracts it. Put $v^{2} = \\frac{GM}{r}$ into $E_\\text{k} = \\frac{1}{2}mv^{2}$:"
+    },
+    {
+     "type": "formula",
+     "tex": "E_\\text{k} = \\frac{GMm}{2r}",
+     "tag": "learn"
+    },
+    {
+     "type": "text",
+     "text": "The potential energy, from {{lesson:4.2}}, is $E_\\text{p} = -\\frac{GMm}{r}$, zero at infinity and negative everywhere else. Add the two to get the total energy of the satellite in orbit, its [[mechanical-energy|mechanical energy]]:"
+    },
+    {
+     "type": "formula",
+     "tex": "E_\\text{T} = E_\\text{k} + E_\\text{p} = \\frac{GMm}{2r} - \\frac{GMm}{r} = -\\frac{GMm}{2r}",
+     "tag": "learn"
+    },
+    {
+     "type": "text",
+     "text": "Neither equation is in the data booklet, but both take one line to derive, as above. Learn the pattern: $E_\\text{k} = -E_\\text{T}$ and $E_\\text{p} = 2E_\\text{T}$. The total is negative, which means the satellite is bound: it cannot reach infinity without extra energy."
+    },
+    {
+     "type": "figure",
+     "id": "4-3-orbit-energies",
+     "alt": "Graph of energy against orbital radius r, starting at the planet's surface where r equals R. The kinetic energy curve, labelled plus G M m over 2 r, is positive and falls towards zero as r increases. The potential energy curve, labelled minus G M m over r, is negative and starts twice as far below zero as the kinetic energy curve is above it. The total energy curve, labelled minus G M m over 2 r, is dashed, negative and is the mirror image of the kinetic energy curve in the r axis. All three curves approach zero as r becomes large.",
+     "caption": "As $r$ increases, kinetic energy falls while potential energy and total energy rise towards zero."
+    },
+    {
+     "type": "text",
+     "text": "To move a satellite to a higher orbit, its total energy must rise from $-\\frac{GMm}{2r_1}$ to the less negative $-\\frac{GMm}{2r_2}$. Its engines must supply that difference. In the higher orbit it moves more slowly, so its kinetic energy falls, while its potential energy rises by twice as much."
+    },
+    {
+     "type": "text",
+     "text": "To launch a satellite from rest on the surface of a non-rotating planet of radius $R$, it starts with no kinetic energy and $E_\\text{p} = -\\frac{GMm}{R}$. The energy needed is the orbit's total energy minus that starting value. Both calculations ignore air resistance and the energy carried off by the fuel."
+    },
+    {
+     "type": "example",
+     "id": "ex-raise-orbit",
+     "question": "An $\\pu{850 kg}$ satellite is moved from a circular orbit of radius $\\pu{7.0e6 m}$ to one of radius $\\pu{9.5e6 m}$ around a planet of mass $\\pu{6.0e24 kg}$. Calculate the minimum energy that must be supplied.",
+     "steps": [
+      "Total energy in each orbit: $E_\\text{T} = -\\frac{GMm}{2r}$.",
+      "Lower orbit: $E_1 = -\\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24} \\times 850}{2 \\times 7.0 \\times 10^{6}} = -2.430 \\times 10^{10}\\ \\text{J}$.",
+      "Higher orbit: $E_2 = -\\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24} \\times 850}{2 \\times 9.5 \\times 10^{6}} = -1.790 \\times 10^{10}\\ \\text{J}$.",
+      "Energy supplied $= E_2 - E_1 = 6.39 \\times 10^{9}\\ \\text{J}$, so $6.4 \\times 10^{9}\\ \\text{J}$ to 2 significant figures.",
+      "Sense check: the total energy rose (became less negative), so energy had to be supplied."
+     ],
+     "answer": "$\\Delta E \\approx 6.4 \\times 10^{9}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "(-G*6.0e24*850/(2*9.5e6)) - (-G*6.0e24*850/(2*7.0e6))",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Finding the energy to raise an orbit from the change in potential energy alone. The satellite also slows down in the higher orbit, so its kinetic energy falls; use the change in total energy, $-\\frac{GMm}{2r}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-launch-to-orbit",
+     "question": "A $\\pu{400 kg}$ probe rests on the surface of a non-rotating moon of mass $\\pu{9.0e22 kg}$ and radius $\\pu{1.9e6 m}$. It is to be put into a circular orbit, $\\pu{2.5e6 m}$ from the moon's centre. Determine the minimum energy needed. Ignore the mass of fuel used.",
+     "steps": [
+      "Starting energy, at rest on the surface: $E_\\text{k} = 0$ and $E_\\text{p} = -\\frac{GMm}{R} = -\\frac{6.67 \\times 10^{-11} \\times 9.0 \\times 10^{22} \\times 400}{1.9 \\times 10^{6}} = -1.264 \\times 10^{9}\\ \\text{J}$.",
+      "Total energy in orbit: $E_\\text{T} = -\\frac{GMm}{2r} = -\\frac{6.67 \\times 10^{-11} \\times 9.0 \\times 10^{22} \\times 400}{2 \\times 2.5 \\times 10^{6}} = -4.802 \\times 10^{8}\\ \\text{J}$.",
+      "Energy needed $= -4.802 \\times 10^{8} - (-1.264 \\times 10^{9}) = 7.84 \\times 10^{8}\\ \\text{J}$.",
+      "Round to 2 significant figures, as the moon's data are given to 2."
+     ],
+     "answer": "$E \\approx 7.8 \\times 10^{8}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "(-G*9.0e22*400/(2*2.5e6)) - (-G*9.0e22*400/1.9e6)",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-higher-orbit-ek",
+     "prompt": "A satellite is moved from a circular orbit to a higher circular orbit around the same planet. What happens to its kinetic energy?",
+     "hint": "Use $E_\\text{k} = \\frac{GMm}{2r}$.",
+     "options": [
+      {
+       "text": "it decreases",
+       "correct": true
+      },
+      {
+       "text": "it increases",
+       "correct": false
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      }
+     ],
+     "explain": "A larger $r$ gives a smaller $\\frac{GMm}{2r}$: the satellite moves more slowly in the higher orbit. Its total energy still increases, because its potential energy rises by twice as much.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it decreases"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-total-from-ek",
+     "prompt": "A satellite in a circular orbit has a kinetic energy of $\\pu{2.4e10 J}$. Calculate its total energy, in units of $10^{10}$ J. Give 2 significant figures, with its sign.",
+     "hint": "$E_\\text{k} = \\frac{GMm}{2r}$ and $E_\\text{T} = -\\frac{GMm}{2r}$.",
+     "answer": {
+      "value": -2.4,
+      "tolerance": 0.05
+     },
+     "explain": "$E_\\text{T} = -E_\\text{k} = \\pu{-2.4e10 J}$, so $-2.4$. The potential energy is $\\pu{-4.8e10 J}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "-1*2.4e10/10**10",
+      "sf": 2,
+      "signed": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "escape-speed",
+   "heading": "Escape speed",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Throw a ball upwards and gravity brings it back. Throw it fast enough and it never returns: it keeps moving away, slowing all the time, but gravity weakens so quickly with distance that it never stops. The threshold is the [[escape-speed|escape speed]]."
+    },
+    {
+     "type": "definition",
+     "term": "escape speed",
+     "statement": "The minimum speed an unpowered object needs at a point in a gravitational field to reach infinity, ignoring air resistance.",
+     "plain": "The smallest launch speed that lets something coast away for good."
+    },
+    {
+     "type": "text",
+     "text": "Use [[conservation-of-energy|conservation of energy]]. At the minimum speed, the object just reaches infinity with no kinetic energy left. There $E_\\text{p} = 0$ too, so its total energy is zero all the way. At distance $r$ from the centre:"
+    },
+    {
+     "type": "formula",
+     "tex": "\\frac{1}{2}mv_\\text{esc}^{2} - \\frac{GMm}{r} = 0 \\quad\\Rightarrow\\quad v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}",
+     "tag": "booklet",
+     "bookletId": "db-4-3"
+    },
+    {
+     "type": "text",
+     "text": "Like orbital speed, escape speed does not depend on the object's mass. Nor does it depend on direction, as long as the path does not hit the planet. Comparing the two equations at the same $r$, $v_\\text{esc} = \\sqrt{2}\\,v_\\text{orbital}$. Since $\\frac{GM}{r} = -V_\\text{g}$, the [[gravitational-potential|gravitational potential]] at the point, $v_\\text{esc} = \\sqrt{-2V_\\text{g}}$."
+    },
+    {
+     "type": "result",
+     "statement": "An unpowered object escapes if its total energy $E_\\text{k} + E_\\text{p} \\ge 0$. With $E_\\text{T} < 0$ it is bound; with $E_\\text{T} > 0$ it reaches infinity with speed to spare, $\\frac{1}{2}mv_\\infty^{2} = E_\\text{T}$.",
+     "why": "Far away, the potential energy is zero, so whatever total energy remains is kinetic energy, which cannot be negative."
+    },
+    {
+     "type": "text",
+     "text": "A satellite already in orbit has $E_\\text{T} = -\\frac{GMm}{2r}$. To escape, it needs at least $\\frac{GMm}{2r}$ more, which is exactly its kinetic energy. That means increasing its speed from $v_\\text{orbital}$ to $\\sqrt{2}\\,v_\\text{orbital}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-escape-surface",
+     "question": "A moon with no atmosphere has a mass of $\\pu{3.0e23 kg}$ and a radius of $\\pu{2.4e6 m}$. Calculate the escape speed from its surface.",
+     "steps": [
+      "Write the equation: $v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}$, with $r$ the radius of the moon.",
+      "Substitute: $v_\\text{esc} = \\sqrt{\\frac{2 \\times 6.67 \\times 10^{-11} \\times 3.0 \\times 10^{23}}{2.4 \\times 10^{6}}}$.",
+      "$v_\\text{esc} = \\sqrt{1.668 \\times 10^{7}} = 4084\\ \\text{m s}^{-1}$, so $\\pu{4.1e3 m s-1}$ to 2 significant figures."
+     ],
+     "answer": "$v_\\text{esc} \\approx 4.1 \\times 10^{3}\\ \\text{m s}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "sqrt(2*G*3.0e23/2.4e6)",
+      "sf": 2,
+      "unit": "m s-1"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-escape-from-orbit",
+     "question": "A $\\pu{1200 kg}$ spacecraft circles a planet of mass $\\pu{6.0e24 kg}$ at an orbital radius of $\\pu{8.0e6 m}$. Calculate the minimum energy needed for it to escape the planet's gravitational field.",
+     "steps": [
+      "Its total energy in orbit: $E_\\text{T} = -\\frac{GMm}{2r} = -\\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24} \\times 1200}{2 \\times 8.0 \\times 10^{6}} = -3.00 \\times 10^{10}\\ \\text{J}$.",
+      "To escape, the total energy must reach zero, so the energy needed is $0 - (-3.00 \\times 10^{10}) = 3.0 \\times 10^{10}\\ \\text{J}$.",
+      "Check with speeds: $v_\\text{orbital} = \\sqrt{\\frac{GM}{r}} = \\pu{7.07e3 m s-1}$ and $v_\\text{esc} = \\sqrt{2} \\times 7.07 \\times 10^{3} = \\pu{1.00e4 m s-1}$. $\\frac{1}{2} \\times 1200 \\times \\left((1.00 \\times 10^{4})^{2} - (7.07 \\times 10^{3})^{2}\\right) = 3.0 \\times 10^{10}\\ \\text{J}$, as before."
+     ],
+     "answer": "$E \\approx 3.0 \\times 10^{10}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "0 - (-G*6.0e24*1200/(2*8.0e6))",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Defining escape speed without \"minimum\", or as the speed needed to leave an orbit. It is the minimum speed at a point for an unpowered object to reach infinity."
+    },
+    {
+     "type": "check",
+     "id": "check-speed-far-away",
+     "prompt": "An unpowered space probe passes a point high above a planet, moving away from it at $\\pu{5.0 km s-1}$. The escape speed at that point is $\\pu{4.0 km s-1}$. Calculate the probe's speed when it is very far from the planet, in $\\text{km s}^{-1}$. Give 2 significant figures.",
+     "hint": "Per kilogram, the $E_\\text{p}$ at that point is $-\\frac{1}{2}v_\\text{esc}^{2}$. Far away, only kinetic energy remains.",
+     "answer": {
+      "value": 3.0,
+      "tolerance": 0.05
+     },
+     "explain": "$\\frac{1}{2}v_\\infty^{2} = \\frac{1}{2}(5.0)^{2} - \\frac{1}{2}(4.0)^{2}$, so $v_\\infty = \\sqrt{25 - 16} = \\pu{3.0 km s-1}$. Subtracting the speeds, $\\pu{1.0 km s-1}$, is wrong: energies add, speeds don't.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "sqrt(5.0**2 - 4.0**2)",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-escape-from-orbit-speed",
+     "prompt": "A satellite moves at $\\pu{7.0e3 m s-1}$ in a circular orbit. What is the escape speed at the radius of its orbit?",
+     "hint": "Compare $\\sqrt{\\frac{2GM}{r}}$ with $\\sqrt{\\frac{GM}{r}}$.",
+     "options": [
+      {
+       "text": "$\\approx 9.9 \\times 10^{3}\\ \\text{m s}^{-1}$",
+       "correct": true
+      },
+      {
+       "text": "$\\approx 1.4 \\times 10^{4}\\ \\text{m s}^{-1}$",
+       "correct": false
+      },
+      {
+       "text": "$\\approx 7.0 \\times 10^{3}\\ \\text{m s}^{-1}$",
+       "correct": false
+      },
+      {
+       "text": "$\\approx 4.9 \\times 10^{3}\\ \\text{m s}^{-1}$",
+       "correct": false
+      }
+     ],
+     "explain": "$v_\\text{esc} = \\sqrt{2}\\,v_\\text{orbital} = 1.414 \\times 7.0 \\times 10^{3} = \\pu{9.9e3 m s-1}$. Doubling the speed would quadruple the kinetic energy, which is more than needed.",
+     "verify": {
+      "kind": "standard-form",
+      "truth": "sqrt(2)*7.0e3",
+      "sf": 2,
+      "unit": "m s-1"
+     }
+    }
+   ]
+  },
+  {
+   "id": "drag",
+   "heading": "Atmospheric drag on an orbit",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Satellites a few hundred kilometres up still skim the very thin top of the atmosphere. The air exerts a small [[viscous-drag|viscous drag]] force on them, a kind of [[fluid-resistance|fluid resistance]], always opposite to the [[velocity|velocity]]."
+    },
+    {
+     "type": "text",
+     "text": "Drag acts against the motion, so it does negative [[work|work]] on the satellite and removes energy. The total energy $-\\frac{GMm}{2r}$ becomes more negative, so $r$ must get smaller: the satellite loses height."
+    },
+    {
+     "type": "text",
+     "text": "Now the surprise. In the lower orbit, $v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}$ is larger, so drag makes the satellite speed up. As it drifts inwards, gravity has a small component along its path and does positive work. Since $E_\\text{k} = -E_\\text{T}$ and $E_\\text{p} = 2E_\\text{T}$, for every joule drag removes, kinetic energy rises by 1 J and potential energy falls by 2 J."
+    },
+    {
+     "type": "figure",
+     "id": "4-3-orbital-decay",
+     "alt": "A planet with two circular orbits around it. The outer dashed orbit is the original orbit; the inner solid orbit is lower, after drag has acted. On the outer orbit, the satellite has a short velocity arrow labelled v, slower, and a small arrow labelled drag pointing backwards along its path. On the inner orbit, the satellite has a longer velocity arrow labelled v, faster. A note says drag removes energy, so the total energy falls and the orbit gets lower; in a lower orbit v equals the square root of G M over r is larger, so the satellite speeds up.",
+     "caption": "Drag lowers the orbit and speeds the satellite up. The drop is drawn much larger than one orbit's worth."
+    },
+    {
+     "type": "text",
+     "text": "Because the drag is small, each lap is still almost a circle, so the circular-orbit equations hold at every moment. The orbit shrinks slowly at first, then faster: lower down, the air is denser and the satellite faster, so drag grows. The period also falls. Without regular engine boosts, a low satellite eventually spirals into the dense atmosphere and burns up."
+    },
+    {
+     "type": "example",
+     "id": "ex-drag-explain",
+     "question": "A satellite in a low circular orbit experiences a small drag force from the upper atmosphere. Explain the effect of the drag on the height and the speed of the satellite.",
+     "steps": [
+      "Direction of drag and its work.",
+      "Effect on total energy.",
+      "Link total energy to radius.",
+      "Link radius to speed, with the energy accounting."
+     ],
+     "answer": "The drag force acts opposite to the satellite's velocity, so it does negative work on the satellite. This removes energy, so the total energy of the satellite decreases. In a circular orbit the total energy is $-\\frac{GMm}{2r}$, so a more negative total energy means a smaller orbital radius, and the satellite loses height. The orbital speed is $\\sqrt{\\frac{GM}{r}}$, so the smaller radius gives a larger speed. The kinetic energy increases because the gravitational potential energy decreases by twice the energy removed by drag.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "drag opposite velocity does negative work; total energy decreases; E = -GMm/2r so r decreases, height falls; v = sqrt(GM/r) so speed increases; Ep falls by twice the energy removed",
+      "requires": [
+       [
+        "opposite to the satellite's velocity",
+        "opposite to the velocity"
+       ],
+       [
+        "negative work",
+        "removes energy"
+       ],
+       [
+        "total energy of the satellite decreases",
+        "total energy decreases"
+       ],
+       [
+        "smaller orbital radius",
+        "loses height"
+       ],
+       [
+        "larger speed",
+        "speed increases"
+       ],
+       [
+        "potential energy decreases by twice",
+        "twice the energy removed"
+       ]
+      ],
+      "forbids": [
+       "slows down",
+       "speed decreases",
+       "height increases"
+      ]
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-drag-new-radius",
+     "question": "A $\\pu{520 kg}$ satellite orbits a planet of mass $\\pu{5.97e24 kg}$ in a circular orbit of radius $\\pu{6.78e6 m}$. Over several months, atmospheric drag removes $\\pu{1.50e8 J}$ of energy. Determine the new orbital radius.",
+     "steps": [
+      "Initial total energy: $E_1 = -\\frac{GMm}{2r} = -\\frac{6.67 \\times 10^{-11} \\times 5.97 \\times 10^{24} \\times 520}{2 \\times 6.78 \\times 10^{6}} = -1.5270 \\times 10^{10}\\ \\text{J}$.",
+      "Drag removes energy, so $E_2 = -1.5270 \\times 10^{10} - 1.50 \\times 10^{8} = -1.5420 \\times 10^{10}\\ \\text{J}$.",
+      "Rearrange $E_2 = -\\frac{GMm}{2r_2}$: $r_2 = -\\frac{GMm}{2E_2} = \\frac{6.67 \\times 10^{-11} \\times 5.97 \\times 10^{24} \\times 520}{2 \\times 1.5420 \\times 10^{10}} = 6.714 \\times 10^{6}\\ \\text{m}$.",
+      "The radius falls by about 66 km. The speed rises from $\\pu{7.66e3 m s-1}$ to $\\pu{7.70e3 m s-1}$, and the kinetic energy gains the full $\\pu{1.50e8 J}$."
+     ],
+     "answer": "$r_2 \\approx 6.71 \\times 10^{6}\\ \\text{m}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "G*5.97e24*520/(2*(G*5.97e24*520/(2*6.78e6) + 1.50e8))",
+      "sf": 3,
+      "unit": "m"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-drag-speed",
+     "prompt": "Drag from the upper atmosphere acts on a satellite in a low circular orbit. What happens to the satellite's speed over many orbits?",
+     "hint": "Drag lowers the orbit. Which orbits are faster?",
+     "options": [
+      {
+       "text": "it increases",
+       "correct": true
+      },
+      {
+       "text": "it decreases",
+       "correct": false
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      }
+     ],
+     "explain": "The orbit shrinks, and $v = \\sqrt{\\frac{GM}{r}}$ is larger at smaller $r$. Gravity does more positive work on the satellite than drag does negative work.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it increases"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-drag-ep",
+     "prompt": "Drag removes $\\pu{4.0e7 J}$ of energy from a satellite in a slowly shrinking circular orbit. What is the change in its gravitational potential energy?",
+     "hint": "$E_\\text{p} = 2E_\\text{T}$ at every moment.",
+     "options": [
+      {
+       "text": "$-8.0 \\times 10^{7}\\ \\text{J}$",
+       "correct": true
+      },
+      {
+       "text": "$-4.0 \\times 10^{7}\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$+4.0 \\times 10^{7}\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$-2.0 \\times 10^{7}\\ \\text{J}$",
+       "correct": false
+      }
+     ],
+     "explain": "$\\Delta E_\\text{T} = \\pu{-4.0e7 J}$, so $\\Delta E_\\text{p} = 2\\Delta E_\\text{T} = \\pu{-8.0e7 J}$. The kinetic energy rises by $\\pu{4.0e7 J}$: the books balance.",
+     "verify": {
+      "kind": "standard-form",
+      "truth": "2*(-4.0e7)",
+      "sf": 2,
+      "unit": "J",
+      "signed": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "formula",
+     "tex": "v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}",
+     "tag": "booklet",
+     "bookletId": "db-4-3",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Gravity provides the centripetal force. Orbital speed is independent of the satellite's mass; lower orbits are faster, with shorter periods.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "In a circular orbit, $E_\\text{k} = \\frac{GMm}{2r}$, $E_\\text{p} = -\\frac{GMm}{r}$ and $E_\\text{T} = -\\frac{GMm}{2r}$. Energy to change orbit or to launch from rest = final total energy minus initial total energy.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}",
+     "tag": "booklet",
+     "bookletId": "db-4-3",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Escape speed: the minimum speed at a point to reach infinity, unpowered. It needs $E_\\text{T} \\ge 0$, and $v_\\text{esc} = \\sqrt{2}\\,v_\\text{orbital}$ at the same radius.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "A small atmospheric drag lowers the orbit and increases the speed: drag removes energy, kinetic energy rises by that amount and potential energy falls by twice it.",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Using the height above the surface as $r$. In every equation here, $r$ is measured from the planet's centre.",
+  "Thinking a heavier satellite needs a different orbital speed or escape speed. The satellite's mass cancels in both.",
+  "Saying drag slows a satellite down. Drag lowers the orbit, and the satellite speeds up, because gravity does more work on it than drag removes.",
+  "Finding the energy to change orbit from $\\Delta E_\\text{p}$ alone. Use the change in total energy, $-\\frac{GMm}{2r}$, because the kinetic energy changes too.",
+  "Forgetting the starting potential energy when launching from a surface. The probe starts with $E_\\text{p} = -\\frac{GMm}{R}$, not zero.",
+  "Subtracting speeds to find the speed far away. Subtract kinetic energies: $v_\\infty^{2} = v^{2} - v_\\text{esc}^{2}$."
+ ],
+ "examTips": [
+  "\"State what is meant by escape speed\": the minimum speed needed at a point to reach infinity. Without \"minimum\" the mark is lost, and \"escape from orbit\" is not accepted.",
+  "\"Show that\" the orbital speed is $\\sqrt{\\frac{GM}{r}}$: write $\\frac{GMm}{r^{2}} = \\frac{mv^{2}}{r}$ and say that gravity provides the centripetal force, then rearrange.",
+  "\"Determine whether\" an object escapes: compare its total energy with zero, or its speed with $v_\\text{esc}$, and state the conclusion with the comparison. A bare yes or no earns nothing.",
+  "In Paper 1A, orbit questions are often ratios: $v \\propto \\frac{1}{\\sqrt{r}}$, $T^{2} \\propto r^{3}$, and the satellite's mass cancels."
+ ],
+ "readingMinutes": 24
+}

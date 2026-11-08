@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="t53hl">
+  <title id="t53hl">Energy level diagram for hydrogen in the Bohr model, not to scale. Horizontal lines from bottom to top: n equals 1 at minus 13.6 electronvolts, n equals 2 at minus 3.40, n equals 3 at minus 1.51, n equals 4 at minus 0.85, n equals 5 at minus 0.54, and zero at the top, where the electron is free. The levels crowd together towards zero. A downward arrow from n equals 5 to n equals 2 is labelled 2.86 electronvolt photon. A dashed upward arrow from n equals 1 to zero is labelled 13.6 electronvolts to ionise.</title>
+  <defs>
+    <marker id="m53hl-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.6">
+    <line x1="110" y1="290" x2="370" y2="290"/>
+    <line x1="110" y1="150" x2="370" y2="150"/>
+    <line x1="110" y1="100" x2="370" y2="100"/>
+    <line x1="110" y1="74" x2="370" y2="74"/>
+    <line x1="110" y1="52" x2="370" y2="52"/>
+  </g>
+  <line x1="110" y1="30" x2="370" y2="30" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="190" y1="54" x2="190" y2="147" stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#m53hl-a)"/>
+  <line x1="300" y1="288" x2="300" y2="33" stroke="var(--t4-ink)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#m53hl-a)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="100" y="294" text-anchor="end">n = 1</text>
+    <text x="100" y="154" text-anchor="end">n = 2</text>
+    <text x="100" y="104" text-anchor="end">n = 3</text>
+    <text x="100" y="78" text-anchor="end">n = 4</text>
+    <text x="100" y="56" text-anchor="end">n = 5</text>
+    <text x="100" y="34" text-anchor="end">n = ∞</text>
+    <text x="378" y="294">−13.6 eV</text>
+    <text x="378" y="154">−3.40 eV</text>
+    <text x="378" y="104">−1.51 eV</text>
+    <text x="378" y="78">−0.85 eV</text>
+    <text x="378" y="56">−0.54 eV</text>
+    <text x="378" y="34">0 (electron free)</text>
+    <text x="198" y="122" fill="var(--t1-ink)">2.86 eV photon</text>
+    <text x="308" y="220" fill="var(--t4-ink)">13.6 eV</text>
+    <text x="308" y="235" fill="var(--t4-ink)">to ionise</text>
+    <text x="470" y="314" text-anchor="end" fill="var(--muted)">not to scale</text>
+  </g>
+</svg>

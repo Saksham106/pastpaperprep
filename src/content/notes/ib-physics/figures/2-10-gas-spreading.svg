@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" role="img" aria-labelledby="t210gs">
+  <title id="t210gs">Two views of the same sealed, insulated box. Before: a partition divides the box in half; gas molecules fill the left half and the right half is a vacuum. After the partition is removed: the molecules are spread randomly through the whole box. An arrow from before to after is labelled happens by itself; the reverse change, back to the left half, is not seen.</title>
+  <defs>
+    <marker id="a210gs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="20" y="50" width="220" height="140" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="130" y1="50" x2="130" y2="190" stroke="currentColor" stroke-width="3"/>
+  <g fill="var(--t2-ink)">
+    <circle cx="40" cy="70" r="5"/><circle cx="72" cy="64" r="5"/><circle cx="108" cy="78" r="5"/>
+    <circle cx="52" cy="100" r="5"/><circle cx="88" cy="108" r="5"/><circle cx="116" cy="122" r="5"/>
+    <circle cx="36" cy="138" r="5"/><circle cx="70" cy="146" r="5"/><circle cx="102" cy="160" r="5"/>
+    <circle cx="46" cy="176" r="5"/><circle cx="82" cy="178" r="5"/><circle cx="118" cy="176" r="5"/>
+  </g>
+  <text x="185" y="125" font-size="13" fill="var(--muted)" text-anchor="middle" font-family="inherit">vacuum</text>
+  <rect x="360" y="50" width="220" height="140" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="470" y1="50" x2="470" y2="190" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <g fill="var(--t2-ink)">
+    <circle cx="384" cy="74" r="5"/><circle cx="440" cy="98" r="5"/><circle cx="500" cy="66" r="5"/>
+    <circle cx="556" cy="88" r="5"/><circle cx="408" cy="128" r="5"/><circle cx="458" cy="150" r="5"/>
+    <circle cx="522" cy="124" r="5"/><circle cx="562" cy="158" r="5"/><circle cx="380" cy="172" r="5"/>
+    <circle cx="430" cy="178" r="5"/><circle cx="494" cy="176" r="5"/><circle cx="540" cy="180" r="5"/>
+  </g>
+  <line x1="256" y1="120" x2="344" y2="120" stroke="currentColor" stroke-width="1.6" marker-end="url(#a210gs)"/>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="130" y="36" font-weight="bold">before</text>
+    <text x="470" y="36" font-weight="bold">after the partition is removed</text>
+    <text x="300" y="108">happens</text>
+    <text x="300" y="142">by itself</text>
+    <text x="130" y="214">partition</text>
+    <text x="470" y="214">molecules spread through the whole box</text>
+    <text x="300" y="242" fill="var(--muted)" font-size="12">the reverse change is never seen</text>
+  </g>
+</svg>

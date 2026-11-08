@@ -2,37 +2,37 @@
   {
     "id": "atomic-energy-level",
     "term": "atomic energy level",
-    "definition": "TODO: Discrete allowed energies of electrons in an atom",
+    "definition": "One of the discrete energies that an electron bound in an atom is allowed to have. The lowest is the ground state; the higher ones are excited states.",
     "lesson": "5.2"
   },
   {
     "id": "atomic-transition",
     "term": "atomic transition",
-    "definition": "TODO: Electron jump between levels with photon emission or absorption",
+    "definition": "A change of an electron from one energy level of an atom to another. Moving down emits one photon whose energy equals the gap; moving up needs exactly that energy, for example from an absorbed photon.",
     "lesson": "5.2"
   },
   {
     "id": "photon",
     "term": "photon",
-    "definition": "TODO: Quantum of electromagnetic radiation, E = hf",
+    "definition": "A single packet, or quantum, of electromagnetic radiation. A photon of frequency $f$ carries energy $E = hf$.",
     "lesson": "5.2"
   },
   {
     "id": "planck-constant",
     "term": "Planck constant",
-    "definition": "TODO: h = 6.63e-34 J s",
+    "definition": "The constant $h$ that links a photon's energy to its frequency in $E = hf$; $h = \\pu{6.63e-34 J s}$, given in the data booklet.",
     "lesson": "5.2"
   },
   {
     "id": "absorption-spectrum",
     "term": "absorption spectrum",
-    "definition": "TODO: Dark lines in a continuous spectrum at wavelengths atoms absorb",
+    "definition": "A continuous spectrum crossed by dark lines, formed when light passes through a cooler gas whose atoms absorb photons of particular wavelengths.",
     "lesson": "5.2"
   },
   {
     "id": "spectral-line",
     "term": "spectral line",
-    "definition": "TODO: Discrete wavelength emitted or absorbed",
+    "definition": "One particular wavelength emitted or absorbed by atoms, seen as a bright line in an emission spectrum or a dark line in an absorption spectrum. Each line comes from a transition between two energy levels.",
     "lesson": "5.2"
   }
 ]

@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.2",
+  "slug": "atomic-spectra-and-energy-levels",
+  "title": "Atomic spectra and energy levels",
+  "level": "SL",
+  "topic": 5,
+  "summary": "An electron in an atom can only have certain energies, its [[atomic-energy-level|atomic energy levels]]. When it moves between two levels, the atom emits or absorbs one [[photon|photon]] whose energy matches the gap, $\\Delta E = hf$. That is why a gas gives a spectrum of sharp lines, and why those lines identify the elements present, even in a distant star.",
+  "goals": [
+    {
+      "text": "Calculate the energy of a photon from its [[frequency|frequency]] or wavelength, in joules and in [[electronvolt|electronvolts]].",
+      "bullets": [
+        "E.1-s5"
+      ]
+    },
+    {
+      "text": "Describe [[atomic-transition|atomic transitions]] on an energy-level diagram, and state that each one emits or absorbs a single photon.",
+      "bullets": [
+        "E.1-s4"
+      ]
+    },
+    {
+      "text": "Use $\\Delta E = hf$ to link an energy gap to the photon's frequency or wavelength, and find which transition gives the longest or shortest wavelength.",
+      "bullets": [
+        "E.1-s4",
+        "E.1-s5"
+      ]
+    },
+    {
+      "text": "Explain how emission and absorption line spectra form, and why they show that atomic energy levels are discrete.",
+      "bullets": [
+        "E.1-s3"
+      ]
+    },
+    {
+      "text": "Explain how [[spectral-line|spectral lines]] reveal the elements in a gas or a star, and identify elements from given line wavelengths.",
+      "bullets": [
+        "E.1-s6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.3",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "E = hf",
+    "energy level diagram",
+    "emission and absorption spectra",
+    "line spectrum",
+    "photon energy calculation",
+    "spectral lines chemical composition"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-frequency",
+      "prompt": "Calculate the frequency of light of wavelength $\\pu{750 nm}$. Give your answer in units of $10^{14}\\ \\text{Hz}$, to 2 significant figures.",
+      "hint": "Use $c = f\\lambda$ with the wavelength in metres.",
+      "answer": {
+        "value": 4.0,
+        "tolerance": 0.05
+      },
+      "explain": "$f = \\dfrac{c}{\\lambda} = \\dfrac{3.00 \\times 10^{8}}{750 \\times 10^{-9}} = 4.0 \\times 10^{14}\\ \\text{Hz}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "c/(750*10**-9)/10**14",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ev",
+      "prompt": "Convert an energy of $\\pu{2.5 eV}$ to joules. Give your answer in units of $10^{-19}\\ \\text{J}$, to 2 significant figures.",
+      "hint": "One electronvolt is $\\pu{1.60e-19 J}$.",
+      "answer": {
+        "value": 4.0,
+        "tolerance": 0.05
+      },
+      "explain": "$2.5 \\times 1.60 \\times 10^{-19} = 4.0 \\times 10^{-19}\\ \\text{J}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.5*eV/10**-19",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-em-order",
+      "prompt": "Which of these [[electromagnetic-wave|electromagnetic waves]] has the shortest wavelength?",
+      "hint": "Order them from radio waves to gamma rays.",
+      "options": [
+        {
+          "text": "ultraviolet",
+          "correct": true
+        },
+        {
+          "text": "visible light",
+          "correct": false
+        },
+        {
+          "text": "infrared",
+          "correct": false
+        },
+        {
+          "text": "microwaves",
+          "correct": false
+        }
+      ],
+      "explain": "From long to short wavelength: microwaves, infrared, visible light, ultraviolet. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "ultraviolet"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "photons",
+      "heading": "Photons and photon energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a single atom emits or absorbs light, the energy does not flow smoothly. It comes in separate packets, each with a definite energy."
+        },
+        {
+          "type": "definition",
+          "term": "photon",
+          "statement": "A single quantum, or packet, of electromagnetic radiation. A photon of frequency $f$ carries energy $E = hf$.",
+          "plain": "The smallest amount of light of one frequency that can be emitted or absorbed."
+        },
+        {
+          "type": "text",
+          "text": "The energy of one [[photon|photon]] is proportional to the [[frequency|frequency]] of the radiation. The constant is the [[planck-constant|Planck constant]] $h$. The equation and the value of $h$ are both in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-5-2"
+        },
+        {
+          "type": "text",
+          "text": "$E$ is in joules, $f$ in hertz and $h = \\pu{6.63e-34 J s}$. Light of one colour is a stream of identical photons. A brighter beam of that colour carries more photons per second, not more energetic ones."
+        },
+        {
+          "type": "text",
+          "text": "Combine $E = hf$ with $c = f\\lambda$ to get the energy from the wavelength."
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{hc}{\\lambda}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A shorter wavelength means a more energetic photon. Across the [[electromagnetic-spectrum|electromagnetic spectrum]], ultraviolet photons carry more energy than visible ones, and visible more than infrared."
+        },
+        {
+          "type": "text",
+          "text": "Photon energies in joules are tiny, so atomic physics often uses the [[electronvolt|electronvolt]]: $\\pu{1 eV} = \\pu{1.60e-19 J}$. Visible photons, from about $\\pu{700 nm}$ (red) to $\\pu{400 nm}$ (violet), carry roughly $\\pu{1.8 eV}$ to $\\pu{3.1 eV}$. The data booklet also lists $hc = \\pu{1.99e-25 J m}$, or $\\pu{1.24e-6 eV m}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the wavelength in nanometres. Multiply by $10^{-9}$ first, or the photon energy comes out a billion times too small."
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-green-laser",
+          "question": "A green laser pointer emits light of wavelength $\\pu{532 nm}$. Calculate the energy of one of its photons in electronvolts.",
+          "steps": [
+            "Convert the wavelength to metres: $\\lambda = 532 \\times 10^{-9}\\ \\text{m}$.",
+            "Photon energy in joules: $E = \\dfrac{hc}{\\lambda} = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{532 \\times 10^{-9}} = \\pu{3.74e-19 J}$.",
+            "Convert to electronvolts: $E = \\dfrac{3.74 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{2.34 eV}$.",
+            "Give 3 significant figures."
+          ],
+          "answer": "$E \\approx 2.34\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*c/(532*10**-9)/eV",
+            "sf": 3,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ph-lamp-wavelength",
+          "question": "Each photon from a street lamp carries $\\pu{2.1 eV}$. Determine the wavelength of the light.",
+          "steps": [
+            "Convert the energy to joules: $E = 2.1 \\times 1.60 \\times 10^{-19} = \\pu{3.36e-19 J}$.",
+            "Rearrange $E = \\dfrac{hc}{\\lambda}$ to $\\lambda = \\dfrac{hc}{E}$.",
+            "Substitute: $\\lambda = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{3.36 \\times 10^{-19}} = \\pu{5.92e-7 m}$.",
+            "The energy has 2 significant figures, so give 2. That is about $\\pu{590 nm}$, yellow-orange visible light."
+          ],
+          "answer": "$\\lambda \\approx 5.9 \\times 10^{-7}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h*c/(2.1*eV)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-double-f",
+          "prompt": "The frequency of a beam of light is doubled. What happens to the energy of each photon?",
+          "hint": "Look at how $E$ depends on $f$ in $E = hf$.",
+          "options": [
+            {
+              "text": "it doubles",
+              "correct": true
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            },
+            {
+              "text": "it is unchanged",
+              "correct": false
+            },
+            {
+              "text": "it quadruples",
+              "correct": false
+            }
+          ],
+          "explain": "$E = hf$, so $E$ is proportional to $f$. Halving would follow from doubling the wavelength.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it doubles"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ph-uv-frequency",
+          "prompt": "A photon of violet light has an energy of $\\pu{4.8e-19 J}$. Calculate its frequency, in units of $10^{14}\\ \\text{Hz}$, to 2 significant figures.",
+          "hint": "Rearrange $E = hf$ for $f$.",
+          "answer": {
+            "value": 7.2,
+            "tolerance": 0.05
+          },
+          "explain": "$f = \\dfrac{E}{h} = \\dfrac{4.8 \\times 10^{-19}}{6.63 \\times 10^{-34}} = 7.2 \\times 10^{14}\\ \\text{Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.8*10**-19/h/10**14",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "transitions",
+      "heading": "Energy levels and transitions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An electron in an atom can't have just any energy. Each atom has a fixed set of allowed energies. The lowest is the ground state; the higher ones are excited states."
+        },
+        {
+          "type": "definition",
+          "term": "atomic energy level",
+          "statement": "One of the discrete energies that an electron bound in an atom is allowed to have.",
+          "plain": "An allowed energy for an electron in an atom; energies in between are not possible."
+        },
+        {
+          "type": "text",
+          "text": "An energy-level diagram draws each [[atomic-energy-level|atomic energy level]] as a horizontal line, with higher lines for higher energies. The values are often negative. Zero is the energy of an electron that has only just escaped from the atom, so a bound electron has less energy than that."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-energy-levels",
+          "alt": "Energy-level diagram of an atom drawn to scale. A dashed line at 0 electronvolts marks an electron that has just escaped. Below it are four levels: E4 at minus 0.90 eV, E3 at minus 1.70 eV, E2 at minus 3.20 eV and the ground state E1 at minus 7.60 eV. Six downward arrows show every possible emission: E4 to E3, E4 to E2, E4 to E1, E3 to E2, E3 to E1 and E2 to E1.",
+          "caption": "An atom with four levels. Each arrow is one possible emission, so this atom can emit 6 different wavelengths."
+        },
+        {
+          "type": "text",
+          "text": "An electron moves between levels in an [[atomic-transition|atomic transition]]. When it drops to a lower level, the atom emits one photon carrying the energy difference. To move up, it must gain exactly that difference: by absorbing one photon of the right energy, or in a collision with another particle."
+        },
+        {
+          "type": "text",
+          "text": "A photon that matches no gap passes through, unless it has enough energy to free the electron completely."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E = hf = \\frac{hc}{\\lambda}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The bigger the gap, the higher the frequency and the shorter the wavelength. The longest wavelength comes from the smallest gap."
+        },
+        {
+          "type": "text",
+          "text": "Each pair of levels gives one transition, so one wavelength. Four levels make 6 pairs; in general, $n$ levels give $\\frac{n(n-1)}{2}$ possible wavelengths."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the energy of one level instead of a difference. The photon carries $\\Delta E$, the gap between two levels, never the value of a single level such as $\\pu{-3.20 eV}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tr-wavelength",
+          "question": "Use the energy levels in the figure. Calculate the wavelength of the photon emitted when an electron moves from $E_4$ to $E_2$.",
+          "steps": [
+            "Energy gap: $\\Delta E = E_4 - E_2 = -0.90 - (-3.20) = \\pu{2.30 eV}$.",
+            "Convert to joules: $\\Delta E = 2.30 \\times 1.60 \\times 10^{-19} = \\pu{3.68e-19 J}$.",
+            "Wavelength: $\\lambda = \\dfrac{hc}{\\Delta E} = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{3.68 \\times 10^{-19}} = \\pu{5.40e-7 m}$.",
+            "Give 3 significant figures. That is $\\pu{540 nm}$, green light."
+          ],
+          "answer": "$\\lambda \\approx 5.40 \\times 10^{-7}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h*c/((-0.90 - (-3.20))*eV)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tr-absorb",
+          "question": "Atoms of the gas in the figure are all in the ground state. Photons of energies $\\pu{4.40 eV}$, $\\pu{5.00 eV}$ and $\\pu{5.90 eV}$ pass through the gas. Deduce which photons can be absorbed, and explain why.",
+          "steps": [
+            "Work out the gaps from the ground state: $E_2 - E_1$, $E_3 - E_1$ and $E_4 - E_1$.",
+            "Compare each photon energy with those gaps. Only an exact match is absorbed."
+          ],
+          "answer": "A photon is absorbed only if its energy is exactly equal to the energy difference between the ground state and a higher level. The gaps from $E_1$ are 4.40 eV to $E_2$, 5.90 eV to $E_3$ and 6.70 eV to $E_4$. So the 4.40 eV photon is absorbed, lifting an electron to $E_2$, and the 5.90 eV photon is absorbed, lifting one to $E_3$. The 5.00 eV photon matches no gap, so it is not absorbed and passes through the gas.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "absorbed only when photon energy equals a gap: 4.40 eV and 5.90 eV absorbed, 5.00 eV passes through",
+            "requires": [
+              "exactly equal",
+              "energy difference",
+              "4.40 eV",
+              "5.90 eV",
+              "6.70 eV",
+              [
+                "not absorbed",
+                "passes through"
+              ]
+            ],
+            "forbids": [
+              "5.00 eV photon is absorbed",
+              "absorbs part of"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tr-longest",
+          "prompt": "In the figure, which transition emits the photon with the longest wavelength?",
+          "hint": "The longest wavelength means the lowest photon energy. Which arrow is shortest?",
+          "options": [
+            {
+              "text": "from E₄ to E₃",
+              "correct": true
+            },
+            {
+              "text": "from E₄ to E₁",
+              "correct": false
+            },
+            {
+              "text": "from E₂ to E₁",
+              "correct": false
+            },
+            {
+              "text": "from E₃ to E₂",
+              "correct": false
+            }
+          ],
+          "explain": "$E_4$ to $E_3$ is the smallest gap, $\\pu{0.80 eV}$, so it gives the longest wavelength. $E_4$ to $E_1$, the largest gap, gives the shortest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from E₄ to E₃"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tr-frequency",
+          "prompt": "In the figure, calculate the frequency of the photon emitted when an electron moves from $E_3$ to $E_1$. Give it in units of $10^{15}\\ \\text{Hz}$, to 3 significant figures.",
+          "hint": "Find the gap in eV, convert it to joules, then use $f = \\dfrac{\\Delta E}{h}$.",
+          "answer": {
+            "value": 1.42,
+            "tolerance": 0.005
+          },
+          "explain": "$\\Delta E = -1.70 - (-7.60) = \\pu{5.90 eV} = 9.44 \\times 10^{-19}\\ \\text{J}$, so $f = \\dfrac{9.44 \\times 10^{-19}}{6.63 \\times 10^{-34}} = 1.42 \\times 10^{15}\\ \\text{Hz}$, in the ultraviolet.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-1.70 - (-7.60))*eV/h/10**15",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tr-count",
+          "prompt": "An atom has five energy levels. What is the largest number of different wavelengths it can emit?",
+          "hint": "Each pair of levels gives one wavelength. Count the pairs.",
+          "options": [
+            {
+              "text": "$10$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$20$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{5 \\times 4}{2} = 10$ pairs. Choosing $4$ counts only drops to the ground state; $20$ counts each pair twice.",
+          "verify": {
+            "kind": "exact",
+            "truth": "5*4/2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "heading": "Line spectra as evidence for energy levels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light from a hot filament, spread out by a diffraction grating, gives a continuous spectrum: every visible wavelength from red to violet. A hot gas is different."
+        },
+        {
+          "type": "text",
+          "text": "Heat a low-pressure gas, or pass an electric current through it, and collisions lift its electrons to excited states. As they fall back, the atoms emit photons. The gas's [[emission-spectrum|emission spectrum]] is a set of bright, sharp [[spectral-line|spectral lines]] on a dark background, each at one exact wavelength."
+        },
+        {
+          "type": "text",
+          "text": "Now shine white light through the same gas while it is cool. The result is an [[absorption-spectrum|absorption spectrum]]: a continuous spectrum crossed by dark lines. Each dark line sits at the wavelength of one of the gas's emission lines. A cool gas often shows fewer absorption lines, because almost all its atoms start in the ground state."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-three-spectra",
+          "alt": "Three spectra on the same wavelength scale from 400 to 700 nanometres. Top: a continuous spectrum, filled at every wavelength. Middle: the emission spectrum of gas X, an empty band with three bright lines at 450, 520 and 610 nanometres. Bottom: the absorption spectrum of gas X, a filled band with three gaps where light is missing, at the same 450, 520 and 610 nanometres.",
+          "caption": "The gas absorbs the same wavelengths it emits, so the dark lines line up with the bright ones."
+        },
+        {
+          "type": "text",
+          "text": "Why are the dark lines dark? The atoms absorb photons of those wavelengths from the beam. When the electrons drop back, the atoms re-emit photons in all directions, so very few continue towards the observer."
+        },
+        {
+          "type": "text",
+          "text": "Here is the evidence. Every line is one wavelength, so one photon energy, $E = \\frac{hc}{\\lambda}$. If an atom's energy could take any value, the gas would emit and absorb every wavelength. Instead, only certain energy changes happen. So the atom has only certain energies: its levels are discrete."
+        },
+        {
+          "type": "text",
+          "text": "Energy inside an atom is quantised, in the same way that charge comes only in whole multiples of $e$ ([[quantisation-of-charge|quantisation of charge]])."
+        },
+        {
+          "type": "examTip",
+          "text": "In an \"explain\" question on absorption spectra, link the dark lines to particular wavelengths or frequencies. \"Dark lines appear\" alone does not earn the point."
+        },
+        {
+          "type": "example",
+          "id": "ex-ev-neon",
+          "question": "A student views the light from a low-pressure neon lamp through a diffraction grating and sees separate bright lines. Explain how this shows that the energy of a neon atom can only take certain values.",
+          "steps": [
+            "Link each line to one wavelength, then to one photon energy.",
+            "Link each photon energy to a drop between two levels, then argue from \"only certain lines\" to \"only certain levels\"."
+          ],
+          "answer": "Each bright line is light of one particular wavelength, and so of one frequency. The light is emitted as photons when electrons move from a higher energy level to a lower one. Each photon's energy is $E = hf$, so each line corresponds to one particular energy difference between levels. Only certain wavelengths appear, so only certain energy differences exist. This means the electrons can only occupy discrete energy levels; if any energy were allowed, the spectrum would be continuous.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "each line is one wavelength, one photon energy, one energy difference; only certain differences, so discrete levels",
+            "requires": [
+              [
+                "one particular wavelength",
+                "particular wavelength"
+              ],
+              "photons",
+              [
+                "higher energy level to a lower",
+                "higher level to a lower"
+              ],
+              "energy difference",
+              "only certain",
+              "discrete",
+              "continuous"
+            ],
+            "forbids": [
+              "energy levels are continuous",
+              "any energy is allowed"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ev-sodium-vapour",
+          "question": "Light from a filament lamp passes through a tube of cool sodium vapour and then into a spectrometer. Explain why the spectrum seen has dark lines at particular wavelengths.",
+          "steps": [
+            "Start with what the lamp gives out, then say what the atoms do to the light.",
+            "Say why the absorbed light does not simply carry on to the spectrometer."
+          ],
+          "answer": "The lamp produces a continuous spectrum containing all wavelengths. Electrons in the sodium atoms absorb photons and move up to higher energy levels. A photon is absorbed only if its energy exactly equals the energy difference between two levels. Since $E = \\frac{hc}{\\lambda}$, only photons of particular wavelengths are absorbed. The excited atoms re-emit photons in all directions, so fewer photons of those wavelengths reach the spectrometer, and those wavelengths appear as dark lines.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "continuous light in; photons absorbed only when energy equals a level gap, so only particular wavelengths; re-emitted in all directions, so missing wavelengths",
+            "requires": [
+              "all wavelengths",
+              "absorb photons",
+              "exactly equals the energy difference",
+              [
+                "particular wavelengths",
+                "specific wavelengths"
+              ],
+              "all directions",
+              "fewer photons"
+            ],
+            "forbids": [
+              "reflect",
+              "blocks all the light"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ev-type",
+          "prompt": "A spectrum shows a few bright lines on a dark background. Where did the light come from?",
+          "hint": "Bright lines mean atoms are emitting.",
+          "options": [
+            {
+              "text": "a hot, low-pressure gas",
+              "correct": true
+            },
+            {
+              "text": "white light passing through a cool gas",
+              "correct": false
+            },
+            {
+              "text": "a hot filament",
+              "correct": false
+            },
+            {
+              "text": "a hot, dense solid",
+              "correct": false
+            }
+          ],
+          "explain": "It is an emission spectrum, from the atoms of a hot gas at low pressure. A hot solid or filament gives a continuous spectrum; white light through a cool gas gives dark lines.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a hot, low-pressure gas"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ev-gap",
+          "prompt": "An absorption spectrum has a dark line at $\\pu{470 nm}$. Calculate the energy difference between the two levels involved, in eV, to 3 significant figures.",
+          "hint": "Use $\\Delta E = \\dfrac{hc}{\\lambda}$, then divide by $1.60 \\times 10^{-19}$.",
+          "answer": {
+            "value": 2.64,
+            "tolerance": 0.005
+          },
+          "explain": "$\\Delta E = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{470 \\times 10^{-9}} = 4.23 \\times 10^{-19}\\ \\text{J}$, and $\\dfrac{4.23 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{2.64 eV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h*c/(470*10**-9)/eV",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "composition",
+      "heading": "Identifying elements from their spectra",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every element has its own set of energy levels, so its own set of gaps and its own pattern of spectral lines. No two elements share the same pattern. The lines work like a barcode: match the pattern and you have named the element."
+        },
+        {
+          "type": "text",
+          "text": "To analyse a gas, compare the wavelengths of its lines with laboratory values for known elements. Look for an element's whole pattern: if its strong lines are missing, it is not there, even if one line happens to match. A question gives the reference values; you need not remember any."
+        },
+        {
+          "type": "text",
+          "text": "It works for stars too. A star's hot, dense interior emits a continuous spectrum, and the cooler gas of its outer layers absorbs particular wavelengths. The dark lines show which elements those layers contain. Helium was first found as unexplained lines in the Sun's spectrum, before anyone found it on Earth."
+        },
+        {
+          "type": "example",
+          "id": "ex-co-lamp",
+          "question": "A gas discharge lamp gives emission lines at 436, 447, 502, 546, 577 and 668 nm. Laboratory lines (in nm) for four elements are: hydrogen 410, 434, 486; helium 447, 502, 668; mercury 436, 546, 577; lithium 610, 671. Deduce which elements the lamp contains.",
+          "steps": [
+            "Check each element's full set of lines against the observed list.",
+            "Make sure every observed line is accounted for, and rule out near misses."
+          ],
+          "answer": "The lamp contains mercury and helium. All three mercury lines, at 436 nm, 546 nm and 577 nm, appear, and so do all three helium lines, at 447 nm, 502 nm and 668 nm. Together they account for every observed line. The 436 nm line is close to hydrogen's 434 nm line, but hydrogen is absent, because its lines at 410 nm and 486 nm are missing. Lithium is absent too, since neither of its lines appears.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "mercury and helium: all their lines appear; hydrogen ruled out (410 and 486 missing); lithium absent",
+            "requires": [
+              "mercury",
+              "helium",
+              [
+                "every observed line",
+                "all the observed lines"
+              ],
+              [
+                "486 nm",
+                "410 nm"
+              ],
+              [
+                "hydrogen is absent",
+                "no hydrogen"
+              ],
+              "lithium"
+            ],
+            "forbids": [
+              "contains hydrogen",
+              "hydrogen is present"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-co-calcium",
+          "question": "A strong dark line in the Sun's spectrum, at $\\pu{393 nm}$, is caused by calcium ions absorbing photons. Calculate the energy difference, in eV, between the two energy levels involved.",
+          "steps": [
+            "Convert the wavelength: $\\lambda = 393 \\times 10^{-9}\\ \\text{m}$.",
+            "Energy gap: $\\Delta E = \\dfrac{hc}{\\lambda} = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{393 \\times 10^{-9}} = \\pu{5.06e-19 J}$.",
+            "In electronvolts: $\\dfrac{5.06 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{3.16 eV}$. Give 3 significant figures."
+          ],
+          "answer": "$\\Delta E \\approx 3.16\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*c/(393*10**-9)/eV",
+            "sf": 3,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-co-star",
+          "prompt": "What causes the dark lines in a star's spectrum?",
+          "hint": "Follow the light out from the interior.",
+          "options": [
+            {
+              "text": "absorption by cooler outer layers",
+              "correct": true
+            },
+            {
+              "text": "an interior that emits only some wavelengths",
+              "correct": false
+            },
+            {
+              "text": "light losing energy in empty space",
+              "correct": false
+            },
+            {
+              "text": "reflection by the outer layers",
+              "correct": false
+            }
+          ],
+          "explain": "The interior emits all wavelengths. Atoms in the cooler outer layers absorb photons that match their level gaps, so those wavelengths are missing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "absorption by cooler outer layers"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-co-wavelength",
+          "prompt": "A line in the emission spectrum of a gas comes from a transition of $\\pu{1.85 eV}$. Calculate its wavelength in nm, to 3 significant figures.",
+          "hint": "Convert the energy to joules, then use $\\lambda = \\dfrac{hc}{\\Delta E}$ with $h$ and $c$ from the data booklet.",
+          "answer": {
+            "value": 672,
+            "tolerance": 0.5
+          },
+          "explain": "$\\lambda = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{1.85 \\times 1.60 \\times 10^{-19}} = 6.72 \\times 10^{-7}\\ \\text{m} = \\pu{672 nm}$. Close to lithium's red line.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h*c/(1.85*eV)*10**9",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-5-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A transition emits or absorbs one photon whose energy equals the gap between the two levels: $\\Delta E = hf = \\frac{hc}{\\lambda}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\pu{1 eV} = \\pu{1.60e-19 J}$. Convert eV to J before using $h$ in J s.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A big energy gap gives a high frequency and a short wavelength; the smallest gap gives the longest wavelength.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Emission spectrum: bright lines from a hot, low-pressure gas. Absorption spectrum: dark lines in a continuous spectrum after light passes through a cooler gas, at wavelengths that match the same gas's emission lines.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Line spectra show only certain energy differences, so atoms have discrete energy levels.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Each element has its own pattern of lines, so line spectra identify the elements in a gas or in a star's outer layers.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving wavelengths in nanometres in $E = \\frac{hc}{\\lambda}$. Convert to metres first.",
+    "Putting an energy in eV into a formula with $h$ in J s. Convert to joules first.",
+    "Picking the biggest gap for the longest wavelength. The longest wavelength comes from the smallest gap.",
+    "Giving a negative photon energy or wavelength. Use the size of the gap.",
+    "Saying the dark lines in an absorption spectrum are where the gas emits. They are wavelengths it absorbed."
+  ],
+  "examTips": [
+    "\"Calculate\" a wavelength from an energy-level diagram: write $\\Delta E$ as the difference of two levels, convert to joules, then substitute into $\\lambda = \\frac{hc}{\\Delta E}$. Show each step.",
+    "\"Explain\" an absorption spectrum with one point per sentence: continuous light in, photons absorbed only when their energy equals a level gap, so particular wavelengths go missing.",
+    "Paper 1A: compare gaps on the diagram by eye. A small gap means a long wavelength.",
+    "\"Outline\" what line spectra show: discrete energy levels, and which elements are present."
+  ],
+  "readingMinutes": 25
+}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-labelledby="t41n">
+<title id="t41n">A large planet on the left and a small moon on the right, with a point P on the line between their centres, much closer to the moon. At P, the field due to the planet points left, towards the planet, and the field due to the moon points right, towards the moon. The two arrows are the same length, so the resultant field at P is zero. Distance d runs from the planet centre to P, and D minus d from P to the moon centre.</title>
+<circle cx="80" cy="90" r="45" fill="var(--t2-ink)" fill-opacity="0.18" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<circle cx="520" cy="90" r="14" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<line x1="80" y1="90" x2="520" y2="90" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="440" cy="90" r="4" fill="currentColor"/>
+<path d="M440.0 90.0 L389.0 90.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/><polygon points="380.0,90.0 389.0,85.5 389.0,94.5" fill="var(--t2-ink)"/>
+<path d="M440.0 90.0 L491.0 90.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/><polygon points="500.0,90.0 491.0,94.5 491.0,85.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" fill="currentColor" font-size="13" x="440" y="78" text-anchor="middle">P</text>
+<text font-family="inherit" font-size="12" fill="var(--t2-ink)" x="395" y="112" text-anchor="middle">due to planet</text>
+<text font-family="inherit" font-size="12" fill="var(--t3-ink)" x="500" y="128" text-anchor="middle">due to moon</text>
+<text font-family="inherit" fill="currentColor" font-size="12" x="80" y="155" text-anchor="middle">planet, mass M</text>
+<text font-family="inherit" fill="currentColor" font-size="12" x="520" y="155" text-anchor="middle">moon, mass m</text>
+<line x1="80" y1="175" x2="440" y2="175" stroke="currentColor" stroke-width="1"/>
+<line x1="440" y1="175" x2="520" y2="175" stroke="currentColor" stroke-width="1"/>
+<line x1="80" y1="170" x2="80" y2="180" stroke="currentColor"/><line x1="440" y1="170" x2="440" y2="180" stroke="currentColor"/><line x1="520" y1="170" x2="520" y2="180" stroke="currentColor"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="260" y="194" text-anchor="middle">d</text>
+<text font-family="inherit" fill="currentColor" font-size="12" x="480" y="194" text-anchor="middle">D − d</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="300" y="20" text-anchor="middle">not to scale</text>
+</svg>

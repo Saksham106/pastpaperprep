@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 210" role="img" aria-labelledby="t">
+<title id="t">Graph of displacement x against time t for an oscillation. The curve is a smooth wave that starts at its highest point, x0, falls through zero to its lowest point, minus x0, and rises back to x0, then repeats once more. The horizontal time axis is the line x = 0, labelled equilibrium. A vertical double arrow from the axis up to a crest is labelled amplitude x0. A horizontal double arrow from one crest to the next is labelled period T.</title>
+<path d="M50 196 L50 26" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="50,18 46,28 54,28" fill="currentColor"/>
+<path d="M50 110 L392 110" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="400,110 390,106 390,114" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="58" y="22" fill="currentColor" text-anchor="start">x / m</text>
+<text font-family="inherit" font-size="12" x="400" y="128" fill="currentColor" text-anchor="end">t / s</text>
+<text font-family="inherit" font-size="11" x="44" y="44" fill="currentColor" text-anchor="end">x₀</text>
+<text font-family="inherit" font-size="11" x="44" y="114" fill="currentColor" text-anchor="end">0</text>
+<text font-family="inherit" font-size="11" x="44" y="184" fill="currentColor" text-anchor="end">−x₀</text>
+<path d="M50 180 L56 180" fill="none" stroke="currentColor" stroke-width="1"/>
+<path d="M50 40 L56 40" fill="none" stroke="currentColor" stroke-width="1"/>
+<text font-family="inherit" font-size="11" x="338" y="104" fill="var(--muted)" text-anchor="start">equilibrium</text>
+<path d="M50.0 40.0 L54.0 41.1 L58.0 44.5 L62.0 49.9 L66.0 57.3 L70.0 66.4 L74.0 76.8 L78.0 88.4 L82.0 100.6 L86.0 113.1 L90.0 125.6 L94.0 137.5 L98.0 148.6 L102.0 158.4 L106.0 166.6 L110.0 173.1 L114.0 177.5 L118.0 179.7 L122.0 179.7 L126.0 177.5 L130.0 173.1 L134.0 166.6 L138.0 158.4 L142.0 148.6 L146.0 137.5 L150.0 125.6 L154.0 113.1 L158.0 100.6 L162.0 88.4 L166.0 76.8 L170.0 66.4 L174.0 57.3 L178.0 49.9 L182.0 44.5 L186.0 41.1 L190.0 40.0 L194.0 41.1 L198.0 44.5 L202.0 49.9 L206.0 57.3 L210.0 66.4 L214.0 76.8 L218.0 88.4 L222.0 100.6 L226.0 113.1 L230.0 125.6 L234.0 137.5 L238.0 148.6 L242.0 158.4 L246.0 166.6 L250.0 173.1 L254.0 177.5 L258.0 179.7 L262.0 179.7 L266.0 177.5 L270.0 173.1 L274.0 166.6 L278.0 158.4 L282.0 148.6 L286.0 137.5 L290.0 125.6 L294.0 113.1 L298.0 100.6 L302.0 88.4 L306.0 76.8 L310.0 66.4 L314.0 57.3 L318.0 49.9 L322.0 44.5 L326.0 41.1 L330.0 40.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<path d="M190 104 L190 48" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="190,40 186,49 194,49" fill="var(--t3-ink)"/>
+<polygon points="190,110 186,101 194,101" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="197" y="80" fill="var(--t3-ink)" text-anchor="start">amplitude x₀</text>
+<path d="M50 38 L50 24 M190 38 L190 24" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<path d="M58 28 L182 28" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="50,28 59,24 59,32" fill="var(--t2-ink)"/>
+<polygon points="190,28 181,24 181,32" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="120" y="22" fill="var(--t2-ink)" text-anchor="middle">period T</text>
+</svg>

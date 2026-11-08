@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 370" role="img" aria-labelledby="t211rc">
+  <title id="t211rc">Pressure in units of 10 to the 5 pascals against volume in units of 10 to the minus 3 cubic metres. A rectangle has corners A at volume 1.6 and pressure 1.4, B at volume 1.6 and pressure 4.2, C at volume 3.8 and pressure 4.2, and D at volume 3.8 and pressure 1.4. Arrows go clockwise: up from A to B, right from B to C, down from C to D and left from D to A. The inside of the rectangle is shaded.</title>
+  <defs>
+    <marker id="a211rc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+    <marker id="b211rc" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="70" y1="320" x2="530" y2="320" marker-end="url(#a211rc)"/>
+    <line x1="70" y1="320" x2="70" y2="40" marker-end="url(#a211rc)"/>
+  </g>
+  <rect x="230.0" y="89.0" width="220.0" height="154.0" fill="var(--t1-ink)" fill-opacity="0.15" stroke="var(--t1-ink)" stroke-width="2"/>
+  <g stroke="var(--t3-ink)" stroke-width="2">
+    <line x1="230.0" y1="243.0" x2="230.0" y2="166.0" marker-end="url(#b211rc)"/>
+    <line x1="230.0" y1="89.0" x2="340.0" y2="89.0" marker-end="url(#b211rc)"/>
+    <line x1="450.0" y1="89.0" x2="450.0" y2="166.0" marker-end="url(#b211rc)"/>
+    <line x1="450.0" y1="243.0" x2="340.0" y2="243.0" marker-end="url(#b211rc)"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.6">
+    <line x1="70" y1="243.0" x2="230.0" y2="243.0"/>
+    <line x1="70" y1="89.0" x2="230.0" y2="89.0"/>
+    <line x1="230.0" y1="320" x2="230.0" y2="243.0"/>
+    <line x1="450.0" y1="320" x2="450.0" y2="243.0"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="230.0" cy="243.0" r="4"/><circle cx="230.0" cy="89.0" r="4"/>
+    <circle cx="450.0" cy="89.0" r="4"/><circle cx="450.0" cy="243.0" r="4"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="212.0" y="261.0">A</text>
+    <text x="212.0" y="81.0">B</text>
+    <text x="458.0" y="81.0">C</text>
+    <text x="458.0" y="261.0">D</text>
+    <text x="40" y="247.0">1.4</text>
+    <text x="40" y="93.0">4.2</text>
+    <text x="220.0" y="338">1.6</text>
+    <text x="440.0" y="338">3.8</text>
+    <text x="78" y="36">P / 10⁵ Pa</text>
+    <text x="440" y="358">V / 10⁻³ m³</text>
+    <text x="58" y="336">0</text>
+  </g>
+</svg>

@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.4",
+  "slug": "reflection-refraction-and-snells-law",
+  "title": "Reflection, refraction and Snell's law",
+  "level": "SL",
+  "topic": 3,
+  "summary": "When a [[wave|wave]] meets a boundary, part of it bounces back ([[reflection|reflection]]) and part crosses into the new medium, where a change of speed bends it ([[refraction|refraction]]). [[snell-s-law|Snell's law]] gives the new direction, and above the [[critical-angle|critical angle]] light cannot leave a glass block at all. Waves also spread through gaps and round edges: this is [[diffraction|diffraction]].",
+  "goals": [
+    {
+      "text": "Describe a wave with [[wavefront|wavefronts]] and [[ray|rays]], and link the wavefront spacing to the [[wavelength|wavelength]].",
+      "bullets": [
+        "C.3-s1"
+      ]
+    },
+    {
+      "text": "Describe what happens at a boundary: reflection, refraction and transmission, and what changes and what stays the same.",
+      "bullets": [
+        "C.3-s2",
+        "C.3-s4"
+      ]
+    },
+    {
+      "text": "Use the [[refractive-index|refractive index]] and Snell's law to find angles, speeds and refractive indices.",
+      "bullets": [
+        "C.3-s5",
+        "C.3-s6"
+      ]
+    },
+    {
+      "text": "Calculate a critical angle and explain when [[total-internal-reflection|total internal reflection]] happens.",
+      "bullets": [
+        "C.3-s5"
+      ]
+    },
+    {
+      "text": "Explain diffraction through a gap and round an obstacle, and draw wavefront-ray diagrams for refraction and diffraction.",
+      "bullets": [
+        "C.3-s3",
+        "C.3-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.3",
+    "6.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "refraction of light",
+    "angle of incidence and refraction",
+    "critical angle formula",
+    "total internal reflection",
+    "diffraction through a gap",
+    "wavefront diagrams"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wave-speed",
+      "prompt": "A water wave has frequency $\\pu{2.5 Hz}$ and wavelength $\\pu{0.60 m}$. What is its speed, in m s⁻¹?",
+      "hint": "Use $v = f\\lambda$.",
+      "answer": {
+        "value": 1.5,
+        "tolerance": 0.05
+      },
+      "explain": "$v = 2.5 \\times 0.60 = \\pu{1.5 m s-1}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.5*0.60",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-em-speed",
+      "prompt": "Red light and blue light both travel through a vacuum. How do their speeds compare? Both are [[electromagnetic-wave|electromagnetic waves]].",
+      "hint": "Every electromagnetic wave has the same speed in a vacuum.",
+      "options": [
+        {
+          "text": "they are equal",
+          "correct": true
+        },
+        {
+          "text": "red light is faster",
+          "correct": false
+        },
+        {
+          "text": "blue light is faster",
+          "correct": false
+        }
+      ],
+      "explain": "In a vacuum every electromagnetic wave travels at $c$, whatever its wavelength. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they are equal"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse",
+      "prompt": "A quantity $y$ is [[inverse-proportionality|inversely proportional]] to $x$. What happens to $y$ when $x$ is doubled?",
+      "hint": "Inversely proportional means $y = \\frac{k}{x}$ for a constant $k$.",
+      "options": [
+        {
+          "text": "it halves",
+          "correct": true
+        },
+        {
+          "text": "it doubles",
+          "correct": false
+        },
+        {
+          "text": "it stays the same",
+          "correct": false
+        }
+      ],
+      "explain": "$y = \\frac{k}{2x}$ is half of $\\frac{k}{x}$. Revise it in {{lesson:6.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it halves"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "wavefronts-rays",
+      "heading": "Wavefronts and rays",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drop a pebble in a pond and rings spread out. Each ring is a crest. Two kinds of line describe waves spreading in two or three dimensions."
+        },
+        {
+          "type": "definition",
+          "term": "wavefront",
+          "statement": "A line (or surface, in three dimensions) joining neighbouring points of a wave that are in phase, such as all the points on one crest.",
+          "plain": "One crest of the wave, drawn as a line."
+        },
+        {
+          "type": "definition",
+          "term": "ray",
+          "statement": "A line showing the direction in which a wave travels, and so the direction energy is transferred. A ray is always perpendicular to the wavefronts it crosses.",
+          "plain": "An arrow pointing the way the wave is going."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-wavefronts-rays",
+          "alt": "Two panels. Left: a point source with four concentric circular wavefronts around it and eight rays pointing straight outwards from the source, each ray crossing the circles at right angles. Right: six parallel straight wavefronts, evenly spaced, with three parallel rays crossing them at right angles. The gap between neighbouring wavefronts is labelled lambda, one wavelength.",
+          "caption": "Circular wavefronts from a point source, and plane wavefronts. Rays cross wavefronts at $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Usually each wavefront drawn is a crest, so neighbouring wavefronts are one wavelength apart. A point source gives circular wavefronts. A long straight source, such as a vibrating bar in a ripple tank, gives straight (plane) wavefronts."
+        },
+        {
+          "type": "text",
+          "text": "This works for [[transverse-wave|transverse waves]] such as light and for longitudinal waves such as sound, where a wavefront joins the centres of a compression."
+        },
+        {
+          "type": "example",
+          "id": "ex-ripple-speed",
+          "question": "In a ripple tank, a vibrating bar makes straight waves at $\\pu{14 Hz}$. A student measures $\\pu{7.5 cm}$ across six neighbouring wavefronts, from the first to the sixth. Calculate the speed of the waves.",
+          "steps": [
+            "Six wavefronts have $6 - 1 = 5$ gaps between them, and each gap is one wavelength.",
+            "$\\lambda = \\frac{7.5}{5} = \\pu{1.5 cm} = \\pu{0.015 m}$.",
+            "$v = f\\lambda = 14 \\times 0.015$."
+          ],
+          "answer": "$v = \\pu{0.21 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "14*(7.5/5)/100",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-plane-sunlight",
+          "question": "The Sun sends out light in all directions, yet light arriving at Earth is usually drawn as plane wavefronts with parallel rays. Explain why.",
+          "steps": [
+            "Start with the shape near the source, then say what happens to it far away."
+          ],
+          "answer": "Close to a point source the wavefronts are spheres centred on the source, and the rays spread out radially. As the waves travel, the radius of each wavefront grows. Earth is so far from the Sun that the radius is enormous compared with any region we look at. Over that small region the curvature is negligible, so the wavefronts are almost flat, or plane. The rays are perpendicular to the wavefronts, so they are almost parallel.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Wavefronts from a point source are spheres; far away the radius is huge, so over a small region they are almost plane and the perpendicular rays almost parallel.",
+            "requires": [
+              [
+                "spheres",
+                "spherical"
+              ],
+              "radius",
+              [
+                "curvature is negligible",
+                "almost flat"
+              ],
+              "plane",
+              "perpendicular",
+              "parallel"
+            ],
+            "forbids": [
+              "rays are parallel to the wavefronts",
+              "the Sun is not a point source"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ray-direction",
+          "prompt": "How is a ray drawn compared with the wavefronts it crosses?",
+          "hint": "A ray shows the direction the wavefronts move.",
+          "options": [
+            {
+              "text": "at right angles to the wavefronts",
+              "correct": true
+            },
+            {
+              "text": "parallel to the wavefronts",
+              "correct": false
+            },
+            {
+              "text": "at 45 degrees to the wavefronts",
+              "correct": false
+            }
+          ],
+          "explain": "Wavefronts move forwards, perpendicular to themselves, so the ray is at $90^{\\circ}$ to every wavefront.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at right angles to the wavefronts"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wavefront-frequency",
+          "prompt": "Straight wavefronts in a ripple tank are $\\pu{4.0 cm}$ apart and move at $\\pu{0.30 m s-1}$. What is the frequency of the waves, in Hz?",
+          "hint": "The wavefront spacing is the wavelength. Convert it to metres, then use $f = \\frac{v}{\\lambda}$.",
+          "answer": {
+            "value": 7.5,
+            "tolerance": 0.05
+          },
+          "explain": "$f = \\frac{0.30}{0.040} = \\pu{7.5 Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.30/(4.0/100)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundaries",
+      "heading": "Reflection, refraction and transmission",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Shine a torch at a window: most light passes through, but you also see a faint reflection. At a boundary a wave is usually split into a reflected part and a transmitted part."
+        },
+        {
+          "type": "text",
+          "text": "Angles at a boundary are always measured from the normal: a line drawn at $90^{\\circ}$ to the boundary where the ray meets it. They are never measured from the surface itself."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-boundary",
+          "alt": "A horizontal boundary between air above and glass below, with a dashed normal drawn at right angles to the boundary where a ray meets it. An incident ray comes in from the upper left at angle theta i to the normal. A thinner reflected ray leaves to the upper right at an equal angle theta r to the normal, labelled partial reflection. A transmitted ray continues into the glass at a smaller angle theta 2 to the normal, bent towards the normal: it is refracted.",
+          "caption": "At the boundary the incident ray splits into a reflected ray and a transmitted ray."
+        },
+        {
+          "type": "definition",
+          "term": "reflection",
+          "statement": "The return of a wave into the medium it came from when it meets a boundary. The angle of reflection equals the angle of incidence, both measured from the normal.",
+          "plain": "The wave bounces back off the boundary at the same angle."
+        },
+        {
+          "type": "text",
+          "text": "The reflected wave stays in the same medium, so its speed, frequency and wavelength are all unchanged."
+        },
+        {
+          "type": "definition",
+          "term": "refraction",
+          "statement": "The change in direction of a wave as it passes from one medium into another, caused by the change in its speed. The frequency stays the same.",
+          "plain": "The transmitted wave bends because it speeds up or slows down."
+        },
+        {
+          "type": "text",
+          "text": "The frequency cannot change. Each wavefront that reaches the boundary sets off exactly one wavefront on the other side, so the same number arrive and leave each second. As $v = f\\lambda$ with $f$ fixed, the wavelength changes in proportion to the speed."
+        },
+        {
+          "type": "result",
+          "statement": "Crossing a boundary, $f$ stays the same, and $\\frac{\\lambda_2}{\\lambda_1} = \\frac{v_2}{v_1}$.",
+          "why": "$f = \\frac{v_1}{\\lambda_1} = \\frac{v_2}{\\lambda_2}$, so the ratios of speeds and wavelengths are equal."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-refraction-wavefronts",
+          "alt": "A beam of straight, evenly spaced wavefronts travels down and to the right towards a horizontal boundary. Above the boundary the wave is faster and the wavefronts are further apart. Below it the wave is slower and the wavefronts are closer together. Each wavefront kinks where it crosses the boundary. A ray drawn at right angles to the wavefronts meets the boundary at angle theta 1 to the dashed normal and continues below at a smaller angle theta 2: the ray bends towards the normal.",
+          "caption": "Wavefront-ray diagram for a wave slowing down. The wavefronts get closer together and the ray bends towards the normal."
+        },
+        {
+          "type": "text",
+          "text": "One end of each wavefront enters the slow medium first and slows while the rest is still fast, so the wavefront swings round. Slowing down bends a ray towards the normal; speeding up bends it away."
+        },
+        {
+          "type": "text",
+          "text": "A wave meeting the boundary along the normal ($0^{\\circ}$) changes speed and wavelength but not direction."
+        },
+        {
+          "type": "example",
+          "id": "ex-wavelength-in-liquid",
+          "question": "Light of wavelength $\\pu{640 nm}$ in air passes into a liquid, where it travels at $\\pu{2.25e8 m s-1}$. Calculate its wavelength in the liquid. Take the speed of light in air to be $c$.",
+          "steps": [
+            "The data booklet gives $c = \\pu{3.00e8 m s-1}$.",
+            "The frequency is unchanged, so $\\frac{\\lambda_2}{\\lambda_1} = \\frac{v_2}{v_1}$.",
+            "$\\lambda_2 = 640 \\times \\frac{2.25 \\times 10^{8}}{3.00 \\times 10^{8}}$.",
+            "The light is slower in the liquid, so its wavelength should be shorter. It is."
+          ],
+          "answer": "$\\lambda_2 = \\pu{480 nm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "640*2.25*10**8/c",
+            "unit": "nm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-bending",
+          "question": "Plane water waves travel from deep water into shallow water, where they move more slowly. They meet the boundary at an angle. Explain, in terms of wavefronts, why the waves change direction.",
+          "steps": [
+            "Follow one wavefront as it crosses the boundary, end by end."
+          ],
+          "answer": "The wavefronts meet the boundary at an angle, so one end of each wavefront reaches the shallow water first. That end slows down while the rest of the wavefront is still in deep water, moving faster. So the wavefront swings round and changes direction. In the shallow water the wavefronts are closer together because the wavelength is shorter, while the frequency is unchanged. The ray is perpendicular to the wavefronts, so it bends towards the normal.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "One end of each wavefront slows first, so the wavefront swings round; shorter wavelength, same frequency; the ray bends towards the normal.",
+            "requires": [
+              [
+                "reaches the shallow water first",
+                "one end"
+              ],
+              "slows down",
+              "faster",
+              [
+                "swings round",
+                "changes direction"
+              ],
+              "wavelength is shorter",
+              "frequency is unchanged",
+              "towards the normal"
+            ],
+            "forbids": [
+              "frequency decreases",
+              "away from the normal",
+              "frequency changes"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mirror-angle",
+          "prompt": "A ray of light hits a flat mirror at $25^{\\circ}$ to the mirror's surface. What is the angle of reflection?",
+          "hint": "Find the angle to the normal first.",
+          "options": [
+            {
+              "text": "$65^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$25^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$50^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$130^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The angle of incidence is $90^{\\circ} - 25^{\\circ} = 65^{\\circ}$ from the normal, so the angle of reflection is $65^{\\circ}$. $25^{\\circ}$ is measured from the surface.",
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - 25"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shallow-wavelength",
+          "prompt": "Water waves pass from deep water into shallow water, where they travel more slowly. What happens to their wavelength?",
+          "hint": "The frequency is fixed, and $v = f\\lambda$.",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "With $f$ unchanged, $\\lambda = \\frac{v}{f}$ falls in proportion to the speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "snell",
+      "heading": "Refractive index and Snell's law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How much a ray bends depends on how much the wave's speed changes. For light, a number for each medium measures this."
+        },
+        {
+          "type": "definition",
+          "term": "refractive index",
+          "statement": "The ratio of the speed of light in a vacuum to the speed of light in a medium, $n = \\frac{c}{v}$. It has no unit.",
+          "plain": "How many times slower light travels in the medium than in a vacuum."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{c}{v}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So $n$ is [[inverse-proportionality|inversely proportional]] to the speed: a larger $n$ means slower light. A vacuum has $n = 1$ exactly; air is so close to 1 that we use $n = 1.00$. Glass is about 1.5 and water about 1.33."
+        },
+        {
+          "type": "definition",
+          "term": "Snell's law",
+          "statement": "For a wave crossing a boundary from medium 1 to medium 2, $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$, where each angle is between the ray and the normal.",
+          "plain": "The ray bends by an amount fixed by the two refractive indices."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{n_1}{n_2} = \\frac{\\sin\\theta_2}{\\sin\\theta_1} = \\frac{v_2}{v_1}",
+          "tag": "booklet",
+          "bookletId": "db-3-4"
+        },
+        {
+          "type": "text",
+          "text": "This form is in the data booklet; cross-multiplying gives $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$. Into a larger $n$, $\\sin\\theta$ gets smaller, so the ray bends towards the normal."
+        },
+        {
+          "type": "example",
+          "id": "ex-n-from-speed",
+          "question": "Light travels through a zircon gemstone at $\\pu{1.56e8 m s-1}$. Calculate the refractive index of zircon.",
+          "steps": [
+            "$n = \\frac{c}{v}$, with $c = \\pu{3.00e8 m s-1}$ from the data booklet.",
+            "$n = \\frac{3.00 \\times 10^{8}}{1.56 \\times 10^{8}} = 1.923\\ldots$",
+            "A ratio of speeds has no unit. Give 3 significant figures, like the data."
+          ],
+          "answer": "$n \\approx 1.92$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "c/(1.56*10**8)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-perspex-angle",
+          "question": "A ray of light in air meets the flat surface of a perspex block at $58^{\\circ}$ to the surface. The refractive index of perspex is 1.49. Calculate the angle of refraction.",
+          "steps": [
+            "Angles go from the normal: $\\theta_1 = 90^{\\circ} - 58^{\\circ} = 32^{\\circ}$.",
+            "Snell's law: $1.00 \\times \\sin 32^{\\circ} = 1.49 \\sin\\theta_2$.",
+            "$\\sin\\theta_2 = \\frac{\\sin 32^{\\circ}}{1.49} = 0.3556\\ldots$, so $\\theta_2 = 20.83^{\\circ}$.",
+            "Check: perspex has the larger $n$, so the ray should bend towards the normal, and $20.8^{\\circ} < 32^{\\circ}$."
+          ],
+          "answer": "$\\theta_2 \\approx 20.8^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(sind(90 - 58)/1.49)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To measure $n$ in the lab, plot $\\sin\\theta$ in air against $\\sin\\theta$ in the block. The gradient of the straight line is $n$."
+        },
+        {
+          "type": "check",
+          "id": "check-speed-in-water",
+          "prompt": "Water has refractive index 1.33. What is the speed of light in water, in units of $10^{8}\\ \\text{m s}^{-1}$? Give 3 significant figures.",
+          "hint": "Rearrange $n = \\frac{c}{v}$ to $v = \\frac{c}{n}$.",
+          "answer": {
+            "value": 2.26,
+            "tolerance": 0.005
+          },
+          "explain": "$v = \\frac{3.00 \\times 10^{8}}{1.33} = 2.26 \\times 10^{8}\\ \\text{m s}^{-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "c/1.33/10**8",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-glass-to-water",
+          "prompt": "A ray passes from glass ($n = 1.50$) into water ($n = 1.33$). It meets the boundary at $30^{\\circ}$ to the normal. What is the angle of refraction?",
+          "hint": "Use $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$ with glass as medium 1.",
+          "options": [
+            {
+              "text": "$\\theta_2 \\approx 34.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta_2 \\approx 26.3^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta_2 \\approx 48.6^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta_2 \\approx 22.1^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin\\theta_2 = \\frac{1.50 \\times \\sin 30^{\\circ}}{1.33} = 0.564$, so $\\theta_2 \\approx 34.3^{\\circ}$: bent away from the normal, into the smaller $n$. $26.3^{\\circ}$ swaps the indices, $48.6^{\\circ}$ treats water as air, and $22.1^{\\circ}$ treats glass as air.",
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(1.50*sind(30)/1.33)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "total-internal-reflection",
+      "heading": "Critical angle and total internal reflection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now send light from glass into air. It speeds up and bends away from the normal. As the angle in the glass grows, the ray in air swings closer to the boundary."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-critical-angle",
+          "alt": "Three panels, each with glass below and air above a horizontal boundary and a dashed normal. In each, a ray in the glass meets the boundary at angle theta to the normal. Left, theta less than the critical angle C: most light refracts into the air, bending away from the normal, and a weak ray reflects back into the glass. Middle, theta equal to C: the refracted ray runs along the boundary, at 90 degrees to the normal, with a weak reflected ray. Right, theta greater than C: there is no refracted ray and all the light reflects back into the glass at an equal angle. This is total internal reflection.",
+          "caption": "Light going from glass into air as the angle of incidence grows past the critical angle $C$."
+        },
+        {
+          "type": "definition",
+          "term": "critical angle",
+          "statement": "The angle of incidence, in the medium with the larger refractive index, for which the angle of refraction is $90^{\\circ}$.",
+          "plain": "The angle at which the refracted ray just skims along the boundary."
+        },
+        {
+          "type": "text",
+          "text": "Put $\\theta_1 = C$ and $\\theta_2 = 90^{\\circ}$ into Snell's law. As $\\sin 90^{\\circ} = 1$, this gives $n_1 \\sin C = n_2$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin C = \\frac{n_2}{n_1}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $n_1$ is the medium the light is in and $n_2$ the medium beyond, with $n_1 > n_2$. Into air, $n_2 = 1.00$, so $\\sin C = \\frac{1}{n_1}$."
+        },
+        {
+          "type": "definition",
+          "term": "total internal reflection",
+          "statement": "The reflection of all of a wave back into its medium at a boundary. It happens when the wave travels towards a medium with a smaller refractive index and meets the boundary at an angle of incidence greater than the critical angle.",
+          "plain": "Past the critical angle, no light gets out: it all reflects."
+        },
+        {
+          "type": "text",
+          "text": "Both conditions are needed. Into a larger refractive index the ray always refracts, so there is no critical angle."
+        },
+        {
+          "type": "example",
+          "id": "ex-critical-glass",
+          "question": "A ray travels inside a glass block of refractive index 1.52 towards a boundary with air. Calculate the critical angle, and state what happens to a ray meeting the boundary at $45^{\\circ}$ to the normal.",
+          "steps": [
+            "$\\sin C = \\frac{n_2}{n_1} = \\frac{1.00}{1.52} = 0.6578\\ldots$",
+            "$C = 41.14^{\\circ}$, or $41.1^{\\circ}$ to 3 significant figures.",
+            "$45^{\\circ} > 41.1^{\\circ}$ and the light is going from glass into air, so the ray is totally internally reflected, at $45^{\\circ}$ to the normal."
+          ],
+          "answer": "$C \\approx 41.1^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(1.00/1.52)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fibre",
+          "question": "An optical fibre has a glass core surrounded by a cladding of glass with a slightly smaller refractive index. Explain how light that enters one end stays inside the core along a gently curved fibre.",
+          "steps": [
+            "Say which way the light is crossing the boundary, then compare its angle with the critical angle."
+          ],
+          "answer": "Light in the core meets the boundary with the cladding, which has a smaller refractive index. So the light is going from a higher to a lower refractive index, and there is a critical angle. The light meets the boundary at a large angle of incidence, greater than the critical angle. So it undergoes total internal reflection and none is refracted out of the core. The angle of reflection equals the angle of incidence, so the light meets the opposite side at the same large angle and is totally internally reflected again, zigzagging along the core.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Core has the higher refractive index, so a critical angle exists; light meets the core-cladding boundary above the critical angle and is totally internally reflected again and again.",
+            "requires": [
+              [
+                "smaller refractive index",
+                "lower refractive index"
+              ],
+              "critical angle",
+              "greater than the critical angle",
+              "total internal reflection",
+              [
+                "none is refracted",
+                "no refraction"
+              ],
+              [
+                "again",
+                "zigzag"
+              ]
+            ],
+            "forbids": [
+              "less than the critical angle",
+              "higher refractive index cladding",
+              "refracted along the fibre"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diamond-critical",
+          "prompt": "Diamond has refractive index 2.42. What is the critical angle for light inside diamond meeting a boundary with air, in degrees? Give 3 significant figures.",
+          "hint": "$\\sin C = \\frac{1}{n}$ for a boundary with air.",
+          "answer": {
+            "value": 24.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\sin C = \\frac{1}{2.42} = 0.413$, so $C \\approx 24.4^{\\circ}$. The small critical angle traps light inside a cut diamond, which is why it sparkles.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "asind(1/2.42)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tir-condition",
+          "prompt": "In which case can total internal reflection happen?",
+          "hint": "Light must be heading into a medium where it travels faster.",
+          "options": [
+            {
+              "text": "light in water meeting a boundary with air",
+              "correct": true
+            },
+            {
+              "text": "light in air meeting a boundary with glass",
+              "correct": false
+            },
+            {
+              "text": "light in water meeting a boundary with glass",
+              "correct": false
+            },
+            {
+              "text": "light in air meeting a boundary with water",
+              "correct": false
+            }
+          ],
+          "explain": "Only water to air goes from a larger to a smaller refractive index. In the other cases the ray bends towards the normal, so it always refracts.",
+          "verify": {
+            "kind": "choice",
+            "truth": "light in water meeting a boundary with air"
+          }
+        }
+      ]
+    },
+    {
+      "id": "diffraction",
+      "heading": "Diffraction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can hear someone through an open door even when you cannot see them. Sound bends round the doorway; light, in practice, does not."
+        },
+        {
+          "type": "definition",
+          "term": "diffraction",
+          "statement": "The spreading of a wave as it passes through an aperture (a gap) or round the edge of an obstacle.",
+          "plain": "Waves spread out after squeezing through a gap or passing an edge."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-diffraction",
+          "alt": "Three panels. In each, straight wavefronts arrive from the left at a barrier, with the same spacing, one wavelength, before and after it. Left: a gap many wavelengths wide; the wavefronts pass through mostly straight, curving only slightly at the edges. Middle: a gap about one wavelength wide; the wavefronts after it are semicircles centred on the gap, so the wave spreads out strongly. Right: the edge of a barrier; below the edge the wavefronts carry on straight, and they curve round the edge into the region behind the barrier.",
+          "caption": "Wavefront diagrams for diffraction. The spacing of the wavefronts, the wavelength, does not change."
+        },
+        {
+          "type": "result",
+          "statement": "Diffraction is most noticeable when the gap or obstacle is about the same size as the wavelength. When the gap is much wider than the wavelength, the wave passes through almost straight.",
+          "why": "Diffraction always happens, but the spread is only large compared with the gap when $\\lambda$ is comparable to the gap width."
+        },
+        {
+          "type": "text",
+          "text": "Diffraction changes the direction of travel only. The medium is the same, so the wavelength and frequency do not change: keep the wavefront spacing the same after the gap."
+        },
+        {
+          "type": "example",
+          "id": "ex-doorway-sound",
+          "question": "A note of frequency $\\pu{440 Hz}$ is played in a room. Sound travels at $\\pu{343 m s-1}$. Calculate the wavelength of the sound, and use it to explain why the note is heard clearly round the edge of a doorway $\\pu{0.85 m}$ wide.",
+          "steps": [
+            "$\\lambda = \\frac{v}{f} = \\frac{343}{440} = 0.7795\\ldots\\text{ m}$.",
+            "This is about the same size as the doorway, so the sound diffracts strongly and spreads into the room next door.",
+            "Visible light has $\\lambda \\approx 5 \\times 10^{-7}$ m, about a million times smaller than the doorway, so its diffraction there is negligible."
+          ],
+          "answer": "$\\lambda \\approx \\pu{0.780 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "343/440",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-radio-hills",
+          "question": "A house in a valley, behind a range of hills, receives long-wave radio (wavelength about $\\pu{1500 m}$) clearly but gets poor FM radio (wavelength about $\\pu{3 m}$) from the same transmitter. Explain this.",
+          "steps": [
+            "Compare each wavelength with the size of the hills."
+          ],
+          "answer": "Radio waves can reach the valley only by diffracting round the hills, which are obstacles hundreds of metres across. Long-wave radio has a wavelength similar in size to the hills, so it diffracts strongly and bends round them into the valley. FM radio has a wavelength much smaller than the hills, so it diffracts very little. Most of the FM signal carries on in straight lines past the hilltops and the valley is in its shadow.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Long-wave wavelength is comparable with the hills, so it diffracts strongly round them; FM wavelength is much smaller, so it diffracts little and the valley is in shadow.",
+            "requires": [
+              "diffracting",
+              [
+                "similar in size",
+                "comparable"
+              ],
+              "bends round",
+              "much smaller than the hills",
+              "diffracts very little",
+              "shadow"
+            ],
+            "forbids": [
+              "FM diffracts more",
+              "long-wave reflects off the hills",
+              "frequency changes"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To sketch wavefronts after a gap, keep the spacing unchanged. For a narrow gap draw arcs centred on the gap; for a wide gap draw straight wavefronts with curved ends."
+        },
+        {
+          "type": "check",
+          "id": "check-diffraction-wavelength",
+          "prompt": "Plane water waves diffract through a narrow gap in a barrier. How does their wavelength after the gap compare with before it?",
+          "hint": "Ask whether the speed or the frequency changes.",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it is longer",
+              "correct": false
+            },
+            {
+              "text": "it is shorter",
+              "correct": false
+            }
+          ],
+          "explain": "The waves stay in the same water, so the speed and the frequency are unchanged, and so is $\\lambda = \\frac{v}{f}$. Only the direction of travel spreads out.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-more-diffraction",
+          "prompt": "A loudspeaker plays a note through an open doorway. Which change makes the sound spread out more beyond the doorway?",
+          "hint": "Spreading increases as the wavelength gets closer to the width of the gap. How does $\\lambda$ depend on $f$?",
+          "options": [
+            {
+              "text": "lowering the frequency",
+              "correct": true
+            },
+            {
+              "text": "raising the frequency",
+              "correct": false
+            },
+            {
+              "text": "making the note louder",
+              "correct": false
+            },
+            {
+              "text": "widening the doorway",
+              "correct": false
+            }
+          ],
+          "explain": "A lower frequency gives a longer wavelength, $\\lambda = \\frac{v}{f}$, closer to the doorway's width, so more diffraction. Loudness changes the amplitude, not the wavelength; a wider doorway gives less spreading.",
+          "verify": {
+            "kind": "choice",
+            "truth": "lowering the frequency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Wavefronts join points in phase and are one wavelength apart; rays show the direction of travel and are perpendicular to wavefronts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Angles at a boundary are measured from the normal. Reflection: angle of incidence = angle of reflection.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On refraction the frequency stays the same; speed and wavelength change together. Slowing down bends a ray towards the normal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{c}{v}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{n_1}{n_2} = \\frac{\\sin\\theta_2}{\\sin\\theta_1} = \\frac{v_2}{v_1}",
+          "tag": "booklet",
+          "bookletId": "db-3-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin C = \\frac{n_2}{n_1}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Total internal reflection needs light heading into a smaller refractive index at an angle of incidence greater than $C$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Diffraction is most noticeable when the gap or obstacle is about one wavelength across; it does not change the wavelength.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring angles from the surface. Every angle in reflection, Snell's law and the critical angle is measured from the normal.",
+    "Saying light bends towards the normal without a reason. Add that it is passing into a medium with a larger refractive index, where it travels more slowly.",
+    "Swapping the indices in Snell's law. Write $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$, with medium 1 the one the light starts in.",
+    "Stating that frequency, or wavelength after a gap, changes. Refraction changes speed and wavelength only; diffraction changes neither.",
+    "Drawing total internal reflection for light entering a denser medium. There must also be a refracted ray whenever light goes into a larger $n$."
+  ],
+  "examTips": [
+    "\"Identify, with a reason\" an error in a ray diagram: say what the ray should do, then compare the two refractive indices.",
+    "\"Calculate\" with Snell's law: write the equation, substitute angles from the normal, then give the angle to 3 significant figures.",
+    "\"Sketch\" wavefronts: perpendicular to the rays, closer together in the slower medium, equally spaced after a gap.",
+    "In Paper 1A, check the direction: into a larger $n$ the angle gets smaller; into a smaller $n$ it gets larger."
+  ],
+  "readingMinutes": 30
+}

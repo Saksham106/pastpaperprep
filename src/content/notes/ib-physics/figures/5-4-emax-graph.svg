@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 340" role="img" aria-labelledby="t54eg">
+  <title id="t54eg">Graph of maximum kinetic energy in eV against frequency in units of 10 to the 14 hertz, from 0 to 12. Two parallel straight lines are drawn for metals A and B. The line for A crosses the frequency axis at 5.0 and rises to about 2.9 eV at 12. The line for B crosses the frequency axis at 7.0 and rises to about 2.1 eV at 12. Dashed extensions of each line continue down to the energy axis, meeting it at about minus 2.1 eV for A and minus 2.9 eV for B. The gradient of both lines is labelled h.</title>
+  <defs><marker id="m54eg-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <!-- x: 0..12 maps to 70..490 (35 px per unit); y: E = 0 at 190, 40 px per eV -->
+  <g stroke="var(--muted)" stroke-width="0.6">
+    <line x1="70" y1="30" x2="490" y2="30"/><line x1="70" y1="70" x2="490" y2="70"/><line x1="70" y1="110" x2="490" y2="110"/><line x1="70" y1="150" x2="490" y2="150"/>
+    <line x1="70" y1="230" x2="490" y2="230"/><line x1="70" y1="270" x2="490" y2="270"/><line x1="70" y1="310" x2="490" y2="310"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none" marker-end="url(#m54eg-a)">
+    <line x1="70" y1="190" x2="510" y2="190"/>
+    <line x1="70" y1="320" x2="70" y2="20"/>
+  </g>
+  <line x1="245" y1="190" x2="490" y2="74" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="70" y1="273" x2="245" y2="190" stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="315" y1="190" x2="490" y2="107" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <line x1="70" y1="306" x2="315" y2="190" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <g font-size="11" fill="currentColor" text-anchor="middle">
+    <text x="140" y="205">2</text><text x="210" y="205">4</text><text x="280" y="205">6</text><text x="350" y="205">8</text><text x="420" y="205">10</text><text x="490" y="205">12</text>
+  </g>
+  <g font-size="11" fill="currentColor" text-anchor="end">
+    <text x="64" y="34">4</text><text x="64" y="74">3</text><text x="64" y="114">2</text><text x="64" y="154">1</text><text x="64" y="194">0</text>
+    <text x="64" y="234">−1</text><text x="64" y="274">−2</text><text x="64" y="314">−3</text>
+  </g>
+  <g font-size="12" fill="currentColor">
+    <text x="500" y="182" text-anchor="end">f / 10¹⁴ Hz</text>
+    <text x="80" y="22">E</text><text x="88" y="26" font-size="9">max</text><text x="108" y="22">/ eV</text>
+    <text x="496" y="70" fill="var(--t1-ink)">A</text>
+    <text x="496" y="104" fill="var(--t2-ink)">B</text>
+    <text x="245" y="180" text-anchor="middle" fill="var(--t1-ink)">f₀ for A</text>
+    <text x="318" y="180" text-anchor="middle" fill="var(--t2-ink)">f₀ for B</text>
+    <text x="380" y="110" fill="var(--t1-ink)">gradient h</text>
+    <text x="78" y="262" fill="var(--t1-ink)">−Φ for A</text>
+    <text x="78" y="326" fill="var(--t2-ink)">−Φ for B</text>
+  </g>
+</svg>

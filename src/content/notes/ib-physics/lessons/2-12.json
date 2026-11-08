@@ -1,0 +1,878 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.12",
+  "slug": "current-potential-difference-and-emf",
+  "title": "Current, potential difference and emf",
+  "level": "SL",
+  "topic": 2,
+  "summary": "An [[electric-current|electric current]] is a flow of [[charge-carrier|charge carriers]], such as electrons in a metal, and $I = \\frac{\\Delta q}{\\Delta t}$. A cell is a source of [[emf|emf]]: it gives energy to each coulomb of charge. [[potential-difference|Potential difference]] is the energy each coulomb gives up between two points, $V = \\frac{W}{q}$.",
+  "goals": [
+    {
+      "text": "Describe direct current as a flow of charge carriers and use $I = \\frac{\\Delta q}{\\Delta t}$.",
+      "bullets": [
+        "B.5-s4"
+      ]
+    },
+    {
+      "text": "Define potential difference and use $V = \\frac{W}{q}$.",
+      "bullets": [
+        "B.5-s5"
+      ]
+    },
+    {
+      "text": "Explain that a cell is a source of emf, and distinguish emf from potential difference.",
+      "bullets": [
+        "B.5-s1"
+      ]
+    },
+    {
+      "text": "Compare chemical cells and solar cells as energy sources.",
+      "bullets": [
+        "B.5-s2"
+      ]
+    },
+    {
+      "text": "Read and draw circuit diagrams, with ammeters and voltmeters in the right places.",
+      "bullets": [
+        "B.5-s3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "what is emf",
+    "electric current definition",
+    "charge flow Q = It",
+    "volt joule per coulomb",
+    "circuit symbols",
+    "solar cell vs battery"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-milliamp",
+      "prompt": "Convert $\\pu{45 mA}$ to amperes.",
+      "hint": "The prefix milli means $10^{-3}$.",
+      "answer": {
+        "value": 0.045,
+        "tolerance": 0
+      },
+      "explain": "$45 \\times 10^{-3} = \\pu{0.045 A}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45*10**-3",
+        "dp": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hours",
+      "prompt": "How many seconds are there in $2.5$ hours?",
+      "hint": "One hour is 60 minutes, and one minute is 60 seconds.",
+      "answer": {
+        "value": 9000,
+        "tolerance": 0
+      },
+      "explain": "$2.5 \\times 60 \\times 60 = \\pu{9000 s}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.5*60*60",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-work",
+      "prompt": "A force of $\\pu{20 N}$ pushes a box $\\pu{3.0 m}$ along the floor, in the direction of the force. Calculate the work done on the box, in joules.",
+      "hint": "Work done is force times the distance moved in the direction of the force.",
+      "answer": {
+        "value": 60,
+        "tolerance": 0.5
+      },
+      "explain": "$W = Fs = 20 \\times 3.0 = \\pu{60 J}$. That is $\\pu{60 J}$ of energy transferred to the box. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "20*3.0",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "current",
+      "heading": "Charge and current",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[electric-charge|Electric charge]] comes in two kinds, positive and negative. Like charges repel and unlike charges attract."
+        },
+        {
+          "type": "text",
+          "text": "Charge is measured in coulombs (C). An electron carries a charge of $-e$, where $e = \\pu{1.60e-19 C}$. That value, like every constant here, is in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "A [[charge-carrier|charge carrier]] is a charged particle that is free to move. In a metal the carriers are free electrons; in a salt solution they are ions."
+        },
+        {
+          "type": "definition",
+          "term": "electric current",
+          "statement": "The rate of flow of charge past a point in a circuit.",
+          "plain": "How many coulombs pass a point each second."
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\frac{\\Delta q}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-2-12"
+        },
+        {
+          "type": "text",
+          "text": "Here $I$ is the [[electric-current|electric current]], $\\Delta q$ is the charge that passes a point and $\\Delta t$ is the time taken. The unit of current is the ampere (A), an [[si-unit|SI base unit]]. One ampere is one coulomb per second, so $\\pu{1 A} = \\pu{1 C s-1}$."
+        },
+        {
+          "type": "text",
+          "text": "This lesson is about direct current (dc): the carriers drift one way only, so the current never reverses. Cells give dc. Alternating current is not in this course."
+        },
+        {
+          "type": "text",
+          "text": "Conventional current flows from the positive terminal of the source, round the circuit, to the negative terminal: the way positive charge would move. Electrons in a metal drift the other way, from negative to positive."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-current-direction",
+          "alt": "A cell and a lamp joined in a loop. The long thin plate of the cell is the positive terminal and the short thick plate is the negative terminal. On the left-hand wire, an arrow labelled conventional current points down, away from the positive terminal. Beside it, an arrow labelled electron flow points up, the opposite way.",
+          "caption": "Conventional current leaves the positive terminal. Electrons in the wire drift the opposite way."
+        },
+        {
+          "type": "example",
+          "id": "ex-current-heater",
+          "question": "In a fan heater, $\\pu{920 C}$ of charge flows through the heating element in 35 minutes. Calculate the average current in the element.",
+          "steps": [
+            "Convert the time to seconds: $\\Delta t = 35 \\times 60 = \\pu{2100 s}$.",
+            "Use $I = \\dfrac{\\Delta q}{\\Delta t} = \\dfrac{920}{2100} = \\pu{0.438 A}$.",
+            "The time has 2 significant figures, so give 2."
+          ],
+          "answer": "$I \\approx 0.44\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "920/(35*60)",
+            "sf": 2,
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-electrons-led",
+          "question": "A small LED carries a steady current of $\\pu{18 mA}$. Determine the number of electrons that pass a point in the LED in $\\pu{45 s}$.",
+          "steps": [
+            "Find the charge that passes: $\\Delta q = I\\Delta t = (18 \\times 10^{-3})(45) = \\pu{0.81 C}$.",
+            "Each electron carries a charge of magnitude $e = \\pu{1.60e-19 C}$ (data booklet).",
+            "Divide: $N = \\dfrac{0.81}{1.60 \\times 10^{-19}} = 5.06 \\times 10^{18}$.",
+            "Give 2 significant figures."
+          ],
+          "answer": "$N \\approx 5.1 \\times 10^{18}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "18*10**-3*45/e",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lightning",
+          "prompt": "A lightning stroke transfers $\\pu{15 C}$ of charge in $\\pu{0.60 ms}$. Calculate the average current, in amperes to 2 significant figures.",
+          "hint": "Write $\\pu{0.60 ms}$ as $0.60 \\times 10^{-3}\\ \\text{s}$.",
+          "answer": {
+            "value": 25000,
+            "tolerance": 500
+          },
+          "explain": "$I = \\dfrac{15}{0.60 \\times 10^{-3}} = \\pu{2.5e4 A}$. A large charge in a very short time gives a huge current.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15/(0.60*10**-3)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electron-drift",
+          "prompt": "A cell lights a lamp through copper wires. Which statement about the wires is correct?",
+          "hint": "Which charges are free to move in a metal?",
+          "options": [
+            {
+              "text": "Electrons drift from − to +, against the conventional current.",
+              "correct": true
+            },
+            {
+              "text": "Electrons drift from + to −, with the conventional current.",
+              "correct": false
+            },
+            {
+              "text": "Positive ions drift from + to − and carry the current.",
+              "correct": false
+            },
+            {
+              "text": "Electrons are used up in the lamp, so fewer return to the cell.",
+              "correct": false
+            }
+          ],
+          "explain": "Only the free electrons move in a metal. Being negative, they drift towards +, against the conventional current. No charge is used up.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Electrons drift from − to +, against the conventional current."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pd",
+      "heading": "Potential difference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Charge flowing through a lamp gives it energy, which leaves as light and thermal energy. Potential difference measures the energy each coulomb transfers."
+        },
+        {
+          "type": "definition",
+          "term": "potential difference",
+          "statement": "The work done per unit charge on a positive charge as it moves from one point in a circuit to another, following the current.",
+          "plain": "The energy each coulomb of charge transfers between two points in a circuit."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{W}{q}",
+          "tag": "booklet",
+          "bookletId": "db-2-12"
+        },
+        {
+          "type": "text",
+          "text": "Here $V$ is the [[potential-difference|potential difference]] (pd), $W$ is the [[work|work]] done, or [[energy|energy]] transferred, and $q$ is the charge that moves. The unit is the volt (V). One volt is one joule per coulomb, so $\\pu{1 V} = \\pu{1 J C-1}$."
+        },
+        {
+          "type": "text",
+          "text": "A pd of $\\pu{6 V}$ across a lamp means each coulomb passing through it transfers $\\pu{6 J}$ of electrical energy to light and thermal energy."
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, $W = qV$, and with $q = I\\Delta t$ the energy transferred is $W = VI\\Delta t$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pd-headlamp",
+          "question": "While a car headlamp is switched on, $\\pu{150 C}$ of charge passes through it and $\\pu{1800 J}$ of electrical energy is transferred to light and thermal energy. Calculate the potential difference across the headlamp.",
+          "steps": [
+            "Use $V = \\dfrac{W}{q}$.",
+            "Substitute: $V = \\dfrac{1800}{150} = \\pu{12 V}$.",
+            "Check the meaning: each coulomb transfers $\\pu{12 J}$, which fits a $\\pu{12 V}$ car electrical system."
+          ],
+          "answer": "$V = 12\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1800/150",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pd-meaning",
+          "question": "The pd across an electric motor is $\\pu{9.0 V}$. Outline what this means.",
+          "steps": [
+            "Name the quantity: work done (energy transferred) per unit charge.",
+            "Put the numbers in words, then say where the energy goes."
+          ],
+          "answer": "A pd tells you the work done per unit charge as charge moves from one point to another. So 9.0 joules of work is done for each coulomb of charge that passes through the motor. That energy is transferred from electrical energy to the kinetic energy of the motor and to thermal energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pd is work done per unit charge; 9.0 J transferred per coulomb through the motor",
+            "requires": [
+              [
+                "work done per unit charge",
+                "energy transferred per unit charge"
+              ],
+              [
+                "9.0 joules"
+              ],
+              [
+                "for each coulomb",
+                "per coulomb",
+                "each coulomb"
+              ],
+              [
+                "from electrical energy",
+                "electrical energy to"
+              ]
+            ],
+            "forbids": [
+              "force per unit charge",
+              "charge is used up",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-volt-unit",
+          "prompt": "Which is equal to one volt?",
+          "hint": "Look at what $V = \\frac{W}{q}$ divides by what.",
+          "options": [
+            {
+              "text": "one joule per coulomb",
+              "correct": true
+            },
+            {
+              "text": "one coulomb per joule",
+              "correct": false
+            },
+            {
+              "text": "one joule per second",
+              "correct": false
+            },
+            {
+              "text": "one coulomb per second",
+              "correct": false
+            }
+          ],
+          "explain": "$V = \\frac{W}{q}$, so $\\pu{1 V} = \\pu{1 J C-1}$. One joule per second is the watt, and one coulomb per second is the ampere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "one joule per coulomb"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electron-energy",
+          "prompt": "In a vacuum tube, an electron is accelerated from rest through a potential difference of $\\pu{250 V}$. Calculate the kinetic energy it gains, in joules to 2 significant figures.",
+          "hint": "Use $W = qV$ with the size of the electron's charge, $e$, from the data booklet.",
+          "answer": {
+            "value": 4e-17,
+            "tolerance": 5e-19
+          },
+          "explain": "$W = qV = (1.60 \\times 10^{-19})(250) = \\pu{4.0e-17 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "e*250",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "emf",
+      "heading": "Cells and emf",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A lamp stays lit only while something keeps giving the charge energy. In a torch, chemical reactions in a cell do work on the charge passing through it, so the cell is a source of [[emf|emf]]."
+        },
+        {
+          "type": "definition",
+          "term": "emf",
+          "statement": "The energy transferred from other forms to electrical energy per unit charge by a source, as charge passes through the source.",
+          "plain": "The energy a cell gives each coulomb of charge that goes through it."
+        },
+        {
+          "type": "text",
+          "text": "The symbol for emf is $\\varepsilon$ and, as energy per unit charge, its unit is the volt: $\\varepsilon = \\frac{W}{q}$. The name stands for electromotive force, but emf is not a force."
+        },
+        {
+          "type": "text",
+          "text": "Emf and pd are both energy per unit charge, but the energy goes opposite ways. In a source, other forms of energy become electrical energy: that is emf. In a component such as a lamp, electrical energy becomes other forms: that is pd."
+        },
+        {
+          "type": "text",
+          "text": "Charge also transfers some energy inside a real cell, which warms it. So the pd across its terminals equals its emf only when no current flows. You will model this with [[internal-resistance|internal resistance]] in {{lesson:2.14}}."
+        },
+        {
+          "type": "text",
+          "text": "A battery is two or more cells in series, positive to negative. Their emfs add. A cell put in the wrong way round takes energy back, so its emf subtracts."
+        },
+        {
+          "type": "example",
+          "id": "ex-emf-torch",
+          "question": "A torch battery is made of three cells in series, each of emf $\\pu{1.5 V}$. While the torch is on, $\\pu{640 C}$ of charge passes through the battery. Calculate the energy the battery transfers to electrical energy.",
+          "steps": [
+            "Add the emfs of the cells in series: $\\varepsilon = 3 \\times 1.5 = \\pu{4.5 V}$.",
+            "Rearrange $\\varepsilon = \\dfrac{W}{q}$ to $W = \\varepsilon q$.",
+            "Substitute: $W = 4.5 \\times 640 = \\pu{2880 J}$. Give 2 significant figures."
+          ],
+          "answer": "$W \\approx 2.9 \\times 10^{3}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3*1.5*640",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-emf-vs-pd",
+          "question": "A cell lights a lamp. Distinguish between the emf of the cell and the potential difference across the lamp.",
+          "steps": [
+            "Say what the two quantities have in common.",
+            "Then give the direction of the energy change for each, and where it happens."
+          ],
+          "answer": "Both are energy transferred per unit charge, measured in volts. The emf is the energy transferred from chemical energy to electrical energy per unit charge as charge passes through the cell. The potential difference across the lamp is the energy transferred from electrical energy to light and thermal energy per unit charge as charge passes through the lamp. So emf is energy given to the charge by a source, and pd is energy given up by the charge in a component.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both energy per unit charge; emf converts chemical to electrical in the source, pd converts electrical to other forms in the lamp",
+            "requires": [
+              [
+                "per unit charge"
+              ],
+              [
+                "chemical energy"
+              ],
+              [
+                "to electrical energy",
+                "into electrical energy"
+              ],
+              [
+                "from electrical energy",
+                "electrical energy to light"
+              ],
+              [
+                "through the cell",
+                "in the cell",
+                "by a source"
+              ],
+              [
+                "through the lamp",
+                "in a component"
+              ]
+            ],
+            "forbids": [
+              "emf is a force",
+              "current is used up",
+              "pd across the terminals of the cell"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-emf-meaning",
+          "prompt": "A cell has an emf of $\\pu{2.0 V}$. What does this mean?",
+          "hint": "Emf is measured in volts. What is a volt?",
+          "options": [
+            {
+              "text": "It gives 2.0 joules of electrical energy to each coulomb passing through it.",
+              "correct": true
+            },
+            {
+              "text": "It pushes each coulomb with a force of 2.0 newtons.",
+              "correct": false
+            },
+            {
+              "text": "It drives 2.0 coulombs round the circuit each second.",
+              "correct": false
+            },
+            {
+              "text": "Its terminal pd is 2.0 volts whatever the current.",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pu{1 V} = \\pu{1 J C-1}$. Emf is not a force, coulombs per second is a current, and the terminal pd drops below the emf when current flows.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It gives 2.0 joules of electrical energy to each coulomb passing through it."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reversed-cell",
+          "prompt": "Four cells, each of emf $\\pu{1.2 V}$, are placed in series in a holder. One of them is the wrong way round. What is the emf of the combination?",
+          "hint": "The reversed cell takes energy back from each coulomb instead of giving it.",
+          "options": [
+            {
+              "text": "$2.4\\ \\text{V}$",
+              "correct": true
+            },
+            {
+              "text": "$4.8\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$3.6\\ \\text{V}$",
+              "correct": false
+            }
+          ],
+          "explain": "Three cells add $3 \\times 1.2 = \\pu{3.6 V}$ and the reversed cell subtracts $\\pu{1.2 V}$, leaving $\\pu{2.4 V}$. Choosing $\\pu{3.6 V}$ just ignores the reversed cell.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*1.2 - 1.2",
+            "unit": "V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "heading": "Chemical cells and solar cells",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a chemical cell, reactions at two electrodes in an electrolyte transfer chemical energy to electrical energy. A primary cell is used once. A secondary cell is rechargeable: a current driven backwards through it reverses the reactions."
+        },
+        {
+          "type": "text",
+          "text": "A cell's capacity is the total charge it can deliver, often in ampere-hours: $\\pu{1 A h} = 1 \\times 3600 = \\pu{3600 C}$."
+        },
+        {
+          "type": "text",
+          "text": "A solar (photovoltaic) cell transfers light energy straight to electrical energy. One cell gives only about $\\pu{0.5 V}$, so panels join many together. The output rises and falls with the light intensity."
+        },
+        {
+          "type": "text",
+          "text": "Chemical cells. For: portable, store energy until it is needed, and give a fairly steady emf; rechargeable ones can be reused. Against: they store limited energy, so they run flat, and their chemicals can be toxic to dispose of."
+        },
+        {
+          "type": "text",
+          "text": "Solar cells. For: a renewable source, sunlight, with no fuel, no moving parts and no pollution while working. Against: no output at night and less in cloud, so energy must be stored, and a large area is needed for a large power."
+        },
+        {
+          "type": "text",
+          "text": "Exam answers about sources need physics reasons. Cost is an economic point and earns no marks."
+        },
+        {
+          "type": "example",
+          "id": "ex-capacity-phone",
+          "question": "A rechargeable phone battery has an emf of $\\pu{3.8 V}$ and a capacity of $\\pu{3200 mA h}$. Assuming the emf stays constant, determine the energy it can transfer to electrical energy from fully charged.",
+          "steps": [
+            "Convert the capacity to coulombs: $q = (3200 \\times 10^{-3}\\ \\text{A}) \\times (3600\\ \\text{s}) = \\pu{11520 C}$.",
+            "Use $W = \\varepsilon q = 3.8 \\times 11\\,520 = \\pu{43776 J}$.",
+            "The emf has 2 significant figures, so give 2."
+          ],
+          "answer": "$W \\approx 4.4 \\times 10^{4}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.8*3200*10**-3*3600",
+            "sf": 2,
+            "unit": "J"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-torch-hours",
+            "prompt": "Now you try: a torch cell can deliver $\\pu{9000 C}$ of charge before it runs flat. The torch lamp takes a current of $\\pu{0.30 A}$. Calculate how long the torch can stay on, in hours to 2 significant figures.",
+            "hint": "Rearrange $I = \\frac{\\Delta q}{\\Delta t}$ to find $\\Delta t$ in seconds, then divide by 3600.",
+            "answer": {
+              "value": 8.3,
+              "tolerance": 0.05
+            },
+            "explain": "$\\Delta t = \\dfrac{9000}{0.30} = \\pu{30000 s} = 8.3$ hours.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "9000/0.30/3600",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-weather-station",
+          "question": "A weather station on a remote mountain is powered by solar cells. Outline one advantage and one disadvantage of using solar cells rather than chemical cells alone for this.",
+          "steps": [
+            "Advantage: name the energy source and what it means for this site.",
+            "Disadvantage: say how the output depends on light, and what the station then needs."
+          ],
+          "answer": "One advantage is that solar cells use a renewable energy source, sunlight, so the station never runs out of energy and nobody has to climb up to replace flat cells. They also produce no pollution while working. One disadvantage is that their output depends on the light intensity, so they give no output at night and less in cloudy weather. A rechargeable cell is therefore still needed to store energy for those times.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "advantage: renewable sunlight, no replacement or pollution; disadvantage: output depends on light, none at night, needs storage",
+            "requires": [
+              [
+                "renewable"
+              ],
+              [
+                "sunlight"
+              ],
+              [
+                "light intensity",
+                "intensity of the light"
+              ],
+              [
+                "at night",
+                "night"
+              ],
+              [
+                "store energy",
+                "storage",
+                "rechargeable"
+              ]
+            ],
+            "forbids": [
+              "cheaper",
+              "expensive",
+              "costs less"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solar-advantage",
+          "prompt": "Which is a valid physics advantage of a solar cell over a chemical cell?",
+          "hint": "Think about where the energy comes from. Economic reasons earn no marks.",
+          "options": [
+            {
+              "text": "It uses a renewable energy source.",
+              "correct": true
+            },
+            {
+              "text": "It costs less to buy.",
+              "correct": false
+            },
+            {
+              "text": "It works just as well at night.",
+              "correct": false
+            },
+            {
+              "text": "One solar cell has a larger emf than one chemical cell.",
+              "correct": false
+            }
+          ],
+          "explain": "Sunlight is renewable. Cost is an economic point, solar cells give nothing in the dark, and one solar cell's emf of about $\\pu{0.5 V}$ is less than a typical chemical cell's $\\pu{1.5 V}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It uses a renewable energy source."
+          }
+        }
+      ]
+    },
+    {
+      "id": "diagrams",
+      "heading": "Circuit diagrams and meters",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A circuit diagram shows how components are connected, not where they sit on the bench. Each component has a standard symbol; lines are wires of negligible resistance."
+        },
+        {
+          "type": "text",
+          "text": "The symbols you need are in the data booklet. The LDR, thermistor and potentiometer come back in {{lesson:2.14}}."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-symbols",
+          "alt": "Twelve circuit symbols in a grid. Cell: a long thin plate beside a short thick plate. Battery: two cells joined by a dashed line. Open switch: a hinged line lifted away from a contact. Lamp: a circle with a cross inside. Resistor: a rectangle. Variable resistor: a rectangle with a diagonal arrow through it. Ammeter: a circle with A inside. Voltmeter: a circle with V inside. LDR: a rectangle with two arrows pointing in towards it. Thermistor: a rectangle crossed by a diagonal line with a short flat tail at its lower end. Potentiometer: a rectangle with an arrow pointing onto its middle from below. LED: a diode triangle and bar with two arrows pointing outwards.",
+          "caption": "Some of the data booklet symbols. The booklet also shows the heating element, motor and earth. The long thin plate of a cell is its positive terminal."
+        },
+        {
+          "type": "text",
+          "text": "A current flows only round a complete loop. In a single loop, a series circuit, the same current passes every point. Charge is not used up in a lamp; what the lamp takes from the charge is energy."
+        },
+        {
+          "type": "text",
+          "text": "An ammeter goes in series with the component, so all its charge flows through the meter. A voltmeter measures the pd between two points, so it goes in parallel, one lead on each side of the component."
+        },
+        {
+          "type": "figure",
+          "id": "2-12-meter-circuit",
+          "alt": "A single loop containing a cell, a switch, a lamp and an ammeter, all in series. The cell and the switch are on the top wire, the ammeter is on the right-hand wire and the lamp is on the bottom wire. A voltmeter sits on a separate branch below the lamp: its two wires join the main loop on either side of the lamp, at two junction dots, so the voltmeter is in parallel across the lamp.",
+          "caption": "The ammeter is in the loop. The voltmeter bridges the lamp."
+        },
+        {
+          "type": "text",
+          "text": "An ideal ammeter has zero resistance, so it does not reduce the current. An ideal voltmeter has infinite resistance, so no current flows through it. Meters are ideal unless a question says otherwise."
+        },
+        {
+          "type": "example",
+          "id": "ex-meters-heater",
+          "question": "A student wants to measure the current in a heating element and the pd across it. Describe how the ammeter and the voltmeter should be connected, and explain why each meter should be ideal.",
+          "steps": [
+            "Place each meter and give the reason for its position.",
+            "Then state each ideal resistance and what it avoids."
+          ],
+          "answer": "The ammeter is connected in series with the heating element, so all the charge flowing through the element also flows through the ammeter. The voltmeter is connected in parallel across the heating element, so it measures the pd between its two ends. An ideal ammeter has zero resistance, so it does not reduce the current it is measuring. An ideal voltmeter has infinite resistance, so no current flows through it and it does not change the circuit.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ammeter in series, voltmeter in parallel; ideal ammeter zero resistance, ideal voltmeter infinite resistance",
+            "requires": [
+              [
+                "in series"
+              ],
+              [
+                "in parallel",
+                "across the heating element"
+              ],
+              [
+                "zero resistance"
+              ],
+              [
+                "infinite resistance"
+              ],
+              [
+                "does not reduce the current",
+                "does not change the circuit"
+              ]
+            ],
+            "forbids": [
+              "voltmeter is connected in series",
+              "ammeter is connected in parallel"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-current-not-used-up",
+          "question": "Two ideal ammeters are in series with a lamp, one on each side of it. A student predicts the second will read less, because the lamp uses up some current. Explain why the readings are equal.",
+          "steps": [
+            "Start from what current is.",
+            "Use conservation of charge, then say what the lamp actually takes from the charge."
+          ],
+          "answer": "Current is the rate of flow of charge. Charge is conserved, so it is not used up in the lamp: every coulomb that enters the lamp also leaves it. In a series circuit the same amount of charge passes every point each second, so the two readings are equal. What the lamp transfers is energy: each coulomb gives up energy as light and thermal energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current is rate of flow of charge; charge conserved so equal current; lamp transfers energy",
+            "requires": [
+              [
+                "rate of flow of charge"
+              ],
+              [
+                "charge is conserved",
+                "not used up"
+              ],
+              [
+                "same reading",
+                "equal",
+                "same amount of charge"
+              ],
+              [
+                "energy"
+              ]
+            ],
+            "forbids": [
+              "current is used up in the lamp",
+              "less current after"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ammeter",
+          "prompt": "How is an ammeter connected to measure the current in a resistor, and what is the resistance of an ideal ammeter?",
+          "hint": "All the resistor's charge must pass through the meter.",
+          "options": [
+            {
+              "text": "in series, zero resistance",
+              "correct": true
+            },
+            {
+              "text": "in parallel, zero resistance",
+              "correct": false
+            },
+            {
+              "text": "in series, infinite resistance",
+              "correct": false
+            },
+            {
+              "text": "in parallel, infinite resistance",
+              "correct": false
+            }
+          ],
+          "explain": "In series, all the charge passes through the meter, and zero resistance leaves the current unchanged. Infinite resistance is the ideal voltmeter, which goes in parallel.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in series, zero resistance"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-series-charge",
+          "prompt": "In a series circuit, an ammeter beside the cell reads $\\pu{0.35 A}$. Calculate the charge that flows through a lamp on the far side of the loop in 2.0 minutes, in coulombs to 2 significant figures.",
+          "hint": "The current is the same at every point in a single loop. Convert the time to seconds.",
+          "answer": {
+            "value": 42,
+            "tolerance": 0.5
+          },
+          "explain": "The lamp carries the same $\\pu{0.35 A}$, so $\\Delta q = I\\Delta t = 0.35 \\times 120 = \\pu{42 C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.35*2.0*60",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "I = \\frac{\\Delta q}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-2-12",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{W}{q}",
+          "tag": "booklet",
+          "bookletId": "db-2-12",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\pu{1 A} = \\pu{1 C s-1}$, $\\pu{1 V} = \\pu{1 J C-1}$ and $\\pu{1 A h} = \\pu{3600 C}$. Electron charge: $-e$, with $e = \\pu{1.60e-19 C}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Emf $\\varepsilon$: energy transferred to electrical energy per unit charge by a source. Pd: electrical energy transferred to other forms per unit charge between two points. Terminal pd equals $\\varepsilon$ only when no current flows.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conventional current flows from + to − outside the source; electrons in a metal drift the other way. Charge is never used up.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ammeter in series (ideal: zero resistance). Voltmeter in parallel (ideal: infinite resistance).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chemical cell: chemical to electrical, portable, limited store. Solar cell: light to electrical, renewable, no emissions, no output in the dark.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Defining emf as the pd across the cell's terminals. Give the energy transferred to electrical energy per unit charge by the source.",
+    "Leaving time in minutes or current in mA in $I = \\frac{\\Delta q}{\\Delta t}$. Convert to seconds and amperes first.",
+    "Saying a lamp uses up current. Charge is conserved; the lamp takes energy.",
+    "Putting the voltmeter in series or the ammeter in parallel.",
+    "Giving cost as an advantage of solar cells. Give a physics point instead."
+  ],
+  "examTips": [
+    "\"State what is meant by\" emf: you need \"per unit charge\" and the energy change (other forms to electrical, in the source).",
+    "\"Calculate\" or \"determine\": write the booklet equation, substitute in SI units and give the unit. In a \"deduce\", a bald answer can score zero.",
+    "\"Outline\" an advantage of a source (Paper 2): one physics point and what it means in context. Economic reasons get no credit.",
+    "Paper 1A tests units: $\\pu{1 V} = \\pu{1 J C-1}$, $\\pu{1 A} = \\pu{1 C s-1}$, $\\pu{1 A h} = \\pu{3600 C}$."
+  ],
+  "readingMinutes": 29
+}

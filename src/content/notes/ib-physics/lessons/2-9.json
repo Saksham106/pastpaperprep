@@ -1,0 +1,624 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "2.9",
+ "slug": "first-law-of-thermodynamics",
+ "title": "The first law of thermodynamics",
+ "level": "AHL",
+ "topic": 2,
+ "summary": "The [[first-law-of-thermodynamics|first law of thermodynamics]], $Q = \\Delta U + W$, is the conservation of [[energy|energy]] applied to a gas: the [[thermal-energy-transfer|thermal energy]] you supply either raises its [[internal-energy|internal energy]] or leaves as [[work|work]] done by the gas. The work comes from a change of volume, $W = P\\Delta V$. For an [[ideal-gas|ideal]] monatomic gas, the change in internal energy follows the temperature: $\\Delta U = \\frac{3}{2}nR\\Delta T$.",
+ "goals": [
+  {
+   "text": "Apply the [[first-law-of-thermodynamics|first law of thermodynamics]], $Q = \\Delta U + W$, to a closed system as [[conservation-of-energy|conservation of energy]], using the sign convention for heat supplied and work done by the system.",
+   "bullets": [
+    "B.4-a1"
+   ]
+  },
+  {
+   "text": "Calculate the work done by or on a gas from $W = P\\Delta V$ when the [[pressure|pressure]] is constant, and from the area under a pressure–volume graph when it is not.",
+   "bullets": [
+    "B.4-a2"
+   ]
+  },
+  {
+   "text": "Find the change in internal energy of a monatomic ideal gas from its change in temperature, $\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}Nk_\\text{B}\\Delta T$, and combine $Q$, $\\Delta U$ and $W$ to solve first-law problems.",
+   "bullets": [
+    "B.4-a3",
+    "B.4-a1"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "1.2",
+  "1.6",
+  "1.9",
+  "2.1",
+  "2.2",
+  "2.7",
+  "2.8"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "Q = ΔU + W",
+  "first law of thermodynamics sign convention",
+  "work done by a gas W = PΔV",
+  "area under a pV graph",
+  "change in internal energy of an ideal gas",
+  "closed and isolated systems"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-work-force",
+   "prompt": "A trolley is pushed $\\pu{6.0 m}$ along a corridor by a constant force of $\\pu{35 N}$ in the direction it moves. Calculate the work done by the force, in joules.",
+   "hint": "Work done is force times the distance moved in the direction of the force.",
+   "answer": {
+    "value": 210,
+    "tolerance": 5
+   },
+   "explain": "$W = Fs = 35 \\times 6.0 = \\pu{210 J}$. Revise it in {{lesson:1.9}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "35*6.0",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-pressure-igl",
+   "prompt": "A sample of $\\pu{0.60 mol}$ of an ideal gas is held at $\\pu{320 K}$ in a container of volume $\\pu{5.0e-3 m3}$. Calculate its pressure, in pascals to 2 significant figures.",
+   "hint": "Rearrange $PV = nRT$ for $P$.",
+   "answer": {
+    "value": 320000,
+    "tolerance": 5000
+   },
+   "explain": "$P = \\dfrac{nRT}{V} = \\dfrac{(0.60)(8.31)(320)}{5.0 \\times 10^{-3}} \\approx \\pu{3.2e5 Pa}$. Revise it in {{lesson:2.8}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "0.60*R*320/(5.0*10**-3)",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-u-monatomic",
+   "prompt": "What is the internal energy of $\\pu{1.5 mol}$ of an ideal monatomic gas at $\\pu{250 K}$?",
+   "hint": "Use $U = \\frac{3}{2}nRT$.",
+   "options": [
+    {
+     "text": "$\\approx 4.7 \\times 10^{3}\\ \\text{J}$",
+     "correct": true
+    },
+    {
+     "text": "$\\approx 3.1 \\times 10^{3}\\ \\text{J}$",
+     "correct": false
+    },
+    {
+     "text": "$\\approx 1.6 \\times 10^{3}\\ \\text{J}$",
+     "correct": false
+    }
+   ],
+   "explain": "$U = \\frac{3}{2}(1.5)(8.31)(250) \\approx \\pu{4.7e3 J}$. Leaving out the $\\frac{3}{2}$ gives $3.1 \\times 10^{3}$ J, and using $\\frac{1}{2}$ gives $1.6 \\times 10^{3}$ J. Revise it in {{lesson:2.8}}.",
+   "verify": {
+    "kind": "standard-form",
+    "truth": "Rational(3, 2)*1.5*R*250",
+    "sf": 2,
+    "unit": "J"
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "first-law",
+   "heading": "Heat, work and internal energy",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Picture a gas sealed in a cylinder by a piston. You can raise its [[internal-energy|internal energy]] in two ways: heat it with a flame, or push the piston in. It loses internal energy if it cools, or if it pushes the piston out. The first law keeps track of both kinds of transfer."
+    },
+    {
+     "type": "definition",
+     "term": "closed system",
+     "statement": "A system that no mass can enter or leave, but that can gain or lose energy, as heat or as work.",
+     "plain": "The gas stays in, but energy can flow in or out."
+    },
+    {
+     "type": "text",
+     "text": "A gas in a sealed cylinder with a movable piston is a closed system. [[energy|Energy]] crosses its boundary as [[thermal-energy-transfer|thermal energy]] (heat) because of a temperature difference, or as [[work|work]] when the piston moves. An [[isolated-system|isolated system]] is stricter: neither mass nor energy can cross its boundary."
+    },
+    {
+     "type": "text",
+     "text": "By [[conservation-of-energy|conservation of energy]], the thermal energy supplied to a closed system cannot vanish. Part of it can stay inside, raising the internal energy. The rest leaves as work done by the system on its surroundings."
+    },
+    {
+     "type": "definition",
+     "term": "first law of thermodynamics",
+     "statement": "The thermal energy $Q$ supplied to a closed system equals the increase in its internal energy $\\Delta U$ plus the work $W$ done by the system: $Q = \\Delta U + W$.",
+     "plain": "Energy put in as heat either stays in the gas or leaves as work."
+    },
+    {
+     "type": "formula",
+     "tex": "Q = \\Delta U + W",
+     "tag": "booklet",
+     "bookletId": "db-2-9"
+    },
+    {
+     "type": "text",
+     "text": "The [[first-law-of-thermodynamics|first law of thermodynamics]] is in the data booklet. IB problems use Clausius' sign convention, where every quantity is seen from the system's side:"
+    },
+    {
+     "type": "text",
+     "text": "1. $Q$ is positive when thermal energy is supplied to the system, and negative when the system loses thermal energy."
+    },
+    {
+     "type": "text",
+     "text": "2. $W$ is positive when the system does work on its surroundings, as when a gas expands. It is negative when work is done on the system, as when a gas is compressed."
+    },
+    {
+     "type": "text",
+     "text": "3. $\\Delta U$ is positive when the internal energy increases, and negative when it decreases."
+    },
+    {
+     "type": "figure",
+     "id": "2-9-sign-convention",
+     "alt": "A box labelled gas, a closed system, with its change in internal energy delta U written inside. On the left, an arrow points into the box, labelled Q greater than zero, thermal energy supplied to the gas. On the right, an arrow points out of the box, labelled W greater than zero, work done by the gas on its surroundings.",
+     "caption": "Positive directions: $Q$ into the gas, $W$ out of it. A transfer the other way gets a minus sign."
+    },
+    {
+     "type": "text",
+     "text": "Rearranged, $\\Delta U = Q - W$: heat in raises $U$, and work done by the gas lowers it. In an isolated system $Q = 0$ and $W = 0$, so $\\Delta U = 0$."
+    },
+    {
+     "type": "mistake",
+     "text": "Writing $W$ as positive when a gas is compressed. Work done on the gas is negative, so in $\\Delta U = Q - W$ it adds to the internal energy."
+    },
+    {
+     "type": "example",
+     "id": "ex-fl-flame",
+     "question": "A gas in a cylinder absorbs $\\pu{740 J}$ of thermal energy from a flame. At the same time it expands and does $\\pu{290 J}$ of work pushing a piston outwards. Find by how much the internal energy of the gas changes.",
+     "steps": [
+      "Assign signs. Thermal energy is supplied, so $Q = +\\pu{740 J}$. The gas does work, so $W = +\\pu{290 J}$.",
+      "Rearrange the first law: $\\Delta U = Q - W$.",
+      "Substitute: $\\Delta U = 740 - 290 = +\\pu{450 J}$.",
+      "The sign is positive, so the internal energy of the gas rises. For an ideal gas, that means its temperature rises too."
+     ],
+     "answer": "$\\Delta U = +450\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "exact",
+      "truth": "740 - 290",
+      "unit": "J",
+      "signed": true
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-fl-syringe",
+     "question": "Air trapped in a sealed syringe is compressed by pushing the plunger. The plunger does $\\pu{125 J}$ of work on the air. During the compression the air loses $\\pu{40 J}$ of thermal energy to its surroundings. Determine the change in internal energy of the air.",
+     "steps": [
+      "Assign signs from the air's side. It loses thermal energy, so $Q = -\\pu{40 J}$. Work is done on it, so $W = -\\pu{125 J}$.",
+      "Use $\\Delta U = Q - W = (-40) - (-125)$.",
+      "Evaluate: $\\Delta U = -40 + 125 = +\\pu{85 J}$.",
+      "Check it makes sense: $\\pu{125 J}$ went in as work and only $\\pu{40 J}$ came out as heat, so the air gains $\\pu{85 J}$."
+     ],
+     "answer": "$\\Delta U = +85\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "exact",
+      "truth": "-40 - (-125)",
+      "unit": "J",
+      "signed": true
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-fl-closed",
+     "prompt": "Which statement describes a closed system?",
+     "hint": "Compare it with an isolated system, which is stricter.",
+     "options": [
+      {
+       "text": "no mass crosses its boundary, but energy can, as heat or work",
+       "correct": true
+      },
+      {
+       "text": "neither mass nor energy crosses its boundary",
+       "correct": false
+      },
+      {
+       "text": "mass can cross its boundary, but energy cannot",
+       "correct": false
+      },
+      {
+       "text": "its internal energy cannot change",
+       "correct": false
+      }
+     ],
+     "explain": "In a closed system the mass is fixed, but energy can flow in or out as heat or work, so its internal energy can change. A system that exchanges neither mass nor energy is isolated.",
+     "verify": {
+      "kind": "choice",
+      "truth": "no mass crosses its boundary, but energy can, as heat or work"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-fl-signs",
+     "prompt": "A gas loses $\\pu{520 J}$ of thermal energy to its surroundings while it does $\\pu{180 J}$ of work on them. What is the change in its internal energy?",
+     "hint": "Both transfers take energy out of the gas. Write $Q$ and $W$ with their signs, then use $\\Delta U = Q - W$.",
+     "options": [
+      {
+       "text": "$-700\\ \\text{J}$",
+       "correct": true
+      },
+      {
+       "text": "$-340\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$+340\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$+700\\ \\text{J}$",
+       "correct": false
+      }
+     ],
+     "explain": "$Q = -\\pu{520 J}$ and $W = +\\pu{180 J}$, so $\\Delta U = -520 - 180 = -\\pu{700 J}$. The answer $-340$ J comes from treating the work as energy gained.",
+     "verify": {
+      "kind": "exact",
+      "truth": "-520 - 180",
+      "unit": "J",
+      "signed": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "work-done",
+   "heading": "Work done by a gas",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "When a gas expands, it pushes its boundary outwards. A force that moves through a distance does [[work|work]], so the expanding gas does work on its surroundings. To find how much, look at a piston."
+    },
+    {
+     "type": "figure",
+     "id": "2-9-piston",
+     "alt": "Side view of a horizontal cylinder closed at the left end, holding gas at pressure P. A piston of area A starts at the dashed line and moves to the right by a distance delta x. The extra volume swept out, between the dashed line and the piston, is delta V equals A delta x. An arrow pointing right, below the cylinder, shows the force F equals P A that the gas exerts on the piston.",
+     "caption": "The gas pushes the piston with force $F = PA$ through a distance $\\Delta x$."
+    },
+    {
+     "type": "text",
+     "text": "1. The gas, at [[pressure|pressure]] $P$, pushes on a piston of area $A$ with a force $F = PA$."
+    },
+    {
+     "type": "text",
+     "text": "2. The piston moves out a distance $\\Delta x$. If $P$ stays constant, the work done by the gas is $W = F\\Delta x = PA\\Delta x$."
+    },
+    {
+     "type": "text",
+     "text": "3. $A\\Delta x$ is the change in volume $\\Delta V$ of the gas, so $W = P\\Delta V$."
+    },
+    {
+     "type": "formula",
+     "tex": "W = P\\Delta V",
+     "tag": "booklet",
+     "bookletId": "db-2-9"
+    },
+    {
+     "type": "text",
+     "text": "The sign takes care of itself. In an expansion $\\Delta V$ is positive, so $W$ is positive. In a compression $\\Delta V$ is negative, so $W$ is negative. At constant volume, in a rigid container, $W = 0$, so $Q = \\Delta U$."
+    },
+    {
+     "type": "text",
+     "text": "With $P$ in Pa and $V$ in m³, $W$ comes out in joules, because $\\text{Pa m}^{3} = \\text{N m}^{-2} \\times \\text{m}^{3} = \\text{N m} = \\text{J}$."
+    },
+    {
+     "type": "mistake",
+     "text": "Leaving volumes in cm³ or litres. Convert first: $\\pu{1 cm3} = \\pu{1e-6 m3}$ and $\\pu{1 L} = \\pu{1 dm3} = \\pu{1e-3 m3}$. A power-of-ten slip makes the whole answer wrong."
+    },
+    {
+     "type": "example",
+     "id": "ex-wd-constant-p",
+     "question": "Gas in a cylinder is heated and expands at a constant pressure of $\\pu{2.4e5 Pa}$. Its volume increases from $\\pu{1.8e-3 m3}$ to $\\pu{2.6e-3 m3}$. Calculate the work done by the gas.",
+     "steps": [
+      "Find the change in volume: $\\Delta V = 2.6 \\times 10^{-3} - 1.8 \\times 10^{-3} = \\pu{8.0e-4 m3}$.",
+      "Use $W = P\\Delta V = (2.4 \\times 10^{5})(8.0 \\times 10^{-4})$.",
+      "Evaluate: $W = \\pu{192 J}$. The pressure has 2 significant figures, so give 2.",
+      "$W$ is positive, as it must be for an expansion: the gas does work on the piston."
+     ],
+     "answer": "$W \\approx 1.9 \\times 10^{2}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "2.4*10**5*(2.6*10**-3 - 1.8*10**-3)",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "text",
+     "text": "Often the pressure changes as the volume changes. Then no single $P$ fits $W = P\\Delta V$. Split the change into many thin strips: each strip's work, $P\\Delta V$, is the area of a thin rectangle under the pressure–volume graph."
+    },
+    {
+     "type": "text",
+     "text": "Adding the strips gives the rule: the work done is the [[area-under-a-graph|area under]] the pressure–volume graph, between the start and end volumes. This works for any shape of graph, and a constant pressure is just a rectangle."
+    },
+    {
+     "type": "figure",
+     "id": "2-9-pv-area",
+     "alt": "Pressure in units of 10 to the 5 pascals on the vertical axis, from 0 to 5, against volume in units of 10 to the minus 3 cubic metres on the horizontal axis, from 0 to 4. State A is at volume 1.0 and pressure 4.0. A straight line with an arrow runs down to state B at volume 3.0 and pressure 1.0. The region under the line, between volumes 1.0 and 3.0 and down to zero pressure, is shaded and labelled area equals work done by the gas.",
+     "caption": "An expansion from A to B while the pressure falls. The shaded area is the work done by the gas."
+    },
+    {
+     "type": "text",
+     "text": "The direction decides the sign. Moving to the right on the graph (expansion), the gas does work and $W$ is positive. Moving to the left (compression), the same area counts as negative work."
+    },
+    {
+     "type": "example",
+     "id": "ex-wd-graph",
+     "question": "A gas changes from state A to state B along the straight line in the graph above. At A its volume is $\\pu{1.0e-3 m3}$ and its pressure $\\pu{4.0e5 Pa}$. At B its volume is $\\pu{3.0e-3 m3}$ and its pressure $\\pu{1.0e5 Pa}$. Determine the work done by the gas.",
+     "steps": [
+      "The pressure is not constant, so find the area under the line from A to B.",
+      "The area is a trapezium: $W = \\frac{1}{2}(P_\\text{A} + P_\\text{B})(V_\\text{B} - V_\\text{A})$.",
+      "Substitute: $W = \\frac{1}{2}(4.0 \\times 10^{5} + 1.0 \\times 10^{5})(3.0 \\times 10^{-3} - 1.0 \\times 10^{-3}) = \\pu{500 J}$.",
+      "The gas expands, so $W$ is positive. Going back from B to A along the same line, $W$ would be $-\\pu{500 J}$."
+     ],
+     "answer": "$W \\approx 5.0 \\times 10^{2}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(1, 2)*(4.0*10**5 + 1.0*10**5)*(3.0*10**-3 - 1.0*10**-3)",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "examTip",
+     "text": "When you \"determine\" work from a graph, check the axis units first. Kilopascals times $10^{-3}$ m³ gives joules directly, but other combinations need a power of ten."
+    },
+    {
+     "type": "check",
+     "id": "check-wd-compress",
+     "prompt": "A gas is compressed at a constant pressure of $\\pu{1.2e5 Pa}$ from a volume of $\\pu{5.0e-3 m3}$ to $\\pu{3.5e-3 m3}$. Calculate the work done by the gas, in joules to 2 significant figures. Include its sign.",
+     "hint": "$\\Delta V$ is the final volume minus the initial volume.",
+     "answer": {
+      "value": -180,
+      "tolerance": 5
+     },
+     "explain": "$\\Delta V = 3.5 \\times 10^{-3} - 5.0 \\times 10^{-3} = \\pu{-1.5e-3 m3}$, so $W = (1.2 \\times 10^{5})(-1.5 \\times 10^{-3}) = -\\pu{180 J}$. The minus sign means $\\pu{180 J}$ of work is done on the gas.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "1.2*10**5*(3.5*10**-3 - 5.0*10**-3)",
+      "sf": 2,
+      "signed": true
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-wd-area",
+     "prompt": "A gas changes state, and the change is drawn on a pressure–volume graph. What does the area under the line represent?",
+     "hint": "Each thin strip under the line has an area of $P\\Delta V$.",
+     "options": [
+      {
+       "text": "the work done by or on the gas",
+       "correct": true
+      },
+      {
+       "text": "the internal energy gained by the gas",
+       "correct": false
+      },
+      {
+       "text": "the thermal energy supplied to the gas",
+       "correct": false
+      },
+      {
+       "text": "the change in temperature of the gas",
+       "correct": false
+      }
+     ],
+     "explain": "Each strip has area $P\\Delta V$, which is the work done in that small step, so the total area is the work. Whether the gas does the work or has it done on it depends on the direction of the change.",
+     "verify": {
+      "kind": "choice",
+      "truth": "the work done by or on the gas"
+     }
+    }
+   ]
+  },
+  {
+   "id": "internal-energy-change",
+   "heading": "Internal energy and temperature",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "In {{lesson:2.8}} you met $U = \\frac{3}{2}nRT$ for an [[ideal-gas|ideal]] monatomic gas. Its atoms have no intermolecular potential energy, so its [[internal-energy|internal energy]] is all random kinetic energy, and that is set by the temperature alone."
+    },
+    {
+     "type": "text",
+     "text": "So a change in temperature $\\Delta T$ gives a change in internal energy in proportion. Here $n$ is the amount in moles, $R = \\pu{8.31 J K-1 mol-1}$ is the [[molar-gas-constant|molar gas constant]], $N$ is the number of atoms and $k_\\text{B} = \\pu{1.38e-23 J K-1}$ is the [[boltzmann-constant|Boltzmann constant]]. Both constants are from the data booklet."
+    },
+    {
+     "type": "formula",
+     "tex": "\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}Nk_\\text{B}\\Delta T",
+     "tag": "booklet",
+     "bookletId": "db-2-9"
+    },
+    {
+     "type": "text",
+     "text": "Three things follow. First, $\\Delta U$ depends only on the start and end temperatures, not on the route between them. Second, if the temperature does not change, $\\Delta U = 0$, so $Q = W$. Third, the temperature rises exactly when $\\Delta U$ is positive."
+    },
+    {
+     "type": "text",
+     "text": "A change of $\\pu{1 K}$ is the same size as a change of $1\\,^{\\circ}\\text{C}$, so $\\Delta T$ is the same on both scales. Temperatures themselves, as in $PV = nRT$, must be in kelvin. In calculations, the course uses only monatomic ideal gases."
+    },
+    {
+     "type": "text",
+     "text": "To solve a first-law problem: find $\\Delta U$ from $\\Delta T$, find $W$ from $P\\Delta V$ or an area, then use $Q = \\Delta U + W$. At constant pressure the [[ideal-gas-law|ideal gas law]] gives a shortcut: $P\\Delta V = nR\\Delta T$. The special processes, such as constant temperature, get names in {{lesson:2.11}}."
+    },
+    {
+     "type": "example",
+     "id": "ex-ie-helium",
+     "question": "A sample of $\\pu{0.250 mol}$ of helium, an ideal monatomic gas, is heated at constant pressure from $\\pu{290 K}$ to $\\pu{350 K}$. Determine the thermal energy supplied to the helium.",
+     "steps": [
+      "Change in internal energy: $\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}(0.250)(8.31)(60) = \\pu{186.975 J}$.",
+      "Work done by the gas at constant pressure: $W = P\\Delta V = nR\\Delta T = (0.250)(8.31)(60) = \\pu{124.65 J}$.",
+      "First law: $Q = \\Delta U + W = 186.975 + 124.65 = \\pu{311.6 J}$. Give 3 significant figures.",
+      "Only 60% of the heat raises the internal energy; the rest leaves as work. Heating the same gas through the same $\\Delta T$ at constant volume would need only $\\pu{187 J}$."
+     ],
+     "answer": "$Q \\approx 312\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "Rational(3, 2)*0.250*R*(350 - 290) + 0.250*R*(350 - 290)",
+      "sf": 3,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-ie-pump",
+     "question": "A cyclist pushes the handle of a bicycle pump in quickly. The air inside is compressed before much thermal energy can flow out through the walls, and the air becomes warmer. Explain this, using the first law of thermodynamics.",
+     "steps": [
+      "Decide the sign of $Q$ from how quickly the compression happens.",
+      "Decide the sign of $W$ from the change in volume, then use $\\Delta U = Q - W$.",
+      "Link the change in internal energy to the temperature."
+     ],
+     "answer": "The compression is so quick that almost no thermal energy leaves the air, so $Q \\approx 0$. The air is compressed, so work is done on the air and $W$ is negative. From $Q = \\Delta U + W$, $\\Delta U = Q - W \\approx -W$, which is positive, so the internal energy increases. The internal energy of an ideal gas depends only on its temperature, so the temperature of the air rises.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "Q is about zero because the compression is fast; work is done on the gas so W is negative; Delta U = -W is positive so internal energy increases; internal energy depends on temperature so temperature rises",
+      "requires": [
+       [
+        "Q \\approx 0",
+        "Q = 0",
+        "no thermal energy"
+       ],
+       "work is done on the air",
+       "negative",
+       "internal energy increases",
+       "temperature"
+      ],
+      "forbids": [
+       "thermal energy is supplied",
+       "heat is created"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ie-neon",
+     "prompt": "A sample of $\\pu{1.2 mol}$ of neon, an ideal monatomic gas, cools by $\\pu{45 K}$. Calculate the change in its internal energy, in joules to 2 significant figures. Include its sign.",
+     "hint": "Use $\\Delta U = \\frac{3}{2}nR\\Delta T$, with $\\Delta T$ negative for cooling.",
+     "answer": {
+      "value": -670,
+      "tolerance": 5
+     },
+     "explain": "$\\Delta U = \\frac{3}{2}(1.2)(8.31)(-45) \\approx -\\pu{670 J}$. The internal energy falls, so the sign is negative.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "Rational(3, 2)*1.2*R*(-45)",
+      "sf": 2,
+      "signed": true
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ie-isothermal",
+     "prompt": "An ideal monatomic gas expands slowly while its temperature stays constant. Which statement about the thermal energy $Q$ supplied to it is correct?",
+     "hint": "What is $\\Delta U$ when $\\Delta T = 0$?",
+     "options": [
+      {
+       "text": "it equals the work done by the gas",
+       "correct": true
+      },
+      {
+       "text": "it is zero, because the temperature does not change",
+       "correct": false
+      },
+      {
+       "text": "it equals the increase in internal energy of the gas",
+       "correct": false
+      },
+      {
+       "text": "it is negative, because the gas expands",
+       "correct": false
+      }
+     ],
+     "explain": "Constant temperature means $\\Delta U = 0$, so $Q = W$. The gas does positive work as it expands, so heat must flow in to supply it. A constant temperature does not mean no heat flows.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it equals the work done by the gas"
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "formula",
+     "tex": "Q = \\Delta U + W",
+     "tag": "booklet",
+     "bookletId": "db-2-9",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Sign convention: $Q > 0$ when thermal energy is supplied to the system; $W > 0$ when the system does work (expands), $W < 0$ when work is done on it (compressed).",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "A closed system exchanges energy but not mass with its surroundings. An isolated system exchanges neither, so its $\\Delta U = 0$.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "W = P\\Delta V",
+     "tag": "booklet",
+     "bookletId": "db-2-9",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "When the pressure changes, the work done is the area under the pressure–volume graph: positive for an expansion, negative for a compression.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}Nk_\\text{B}\\Delta T",
+     "tag": "booklet",
+     "bookletId": "db-2-9",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Constant volume: $W = 0$, so $Q = \\Delta U$. Constant temperature: $\\Delta U = 0$, so $Q = W$.",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Getting the sign of $W$ wrong. Work done by the gas (expansion) is positive; work done on it (compression) is negative.",
+  "Saying no heat flows because the temperature stays constant. Constant temperature means $\\Delta U = 0$, so $Q = W$, which is usually not zero.",
+  "Using $W = P\\Delta V$ with one pressure when the pressure changes. Find the area under the pressure–volume graph instead.",
+  "Power-of-ten slips with volumes in cm³ or litres, or pressures in kPa. Convert to m³ and Pa before multiplying.",
+  "Using $\\Delta U = \\frac{3}{2}nR\\Delta T$ as if it gave the heat supplied. It is the change in internal energy; add the work done to get $Q$."
+ ],
+ "examTips": [
+  "\"Show, using the first law\" that energy is supplied: state $\\Delta U$ (from what happens to $T$), state the sign of $W$ (from what happens to $V$), then deduce the sign of $Q$ from $Q = \\Delta U + W$.",
+  "In a Paper 2 \"calculate\" or \"determine\", write $Q$, $\\Delta U$ and $W$ separately with their signs before combining them. The method marks are for each one.",
+  "Paper 1A questions often test signs alone. Ask two questions: is thermal energy flowing into the gas (then $Q > 0$)? Is the gas expanding (then $W > 0$)?",
+  "\"Explain\" a temperature change with the first law: give the sign of $Q$ and of $W$, deduce $\\Delta U$, then link $\\Delta U$ to $T$ for an ideal gas."
+ ],
+ "readingMinutes": 22
+}

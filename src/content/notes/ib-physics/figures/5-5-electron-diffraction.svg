@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="t55ed">
+  <title id="t55ed">Electron diffraction. On the left, an electron gun accelerates electrons through a potential difference V. The beam travels right and passes through a thin graphite film. Beyond the film the electrons spread out at certain angles and hit a fluorescent screen. On the right, a front view of the screen shows a bright central spot surrounded by two concentric bright rings. Not to scale.</title>
+  <defs>
+    <marker id="m55ed-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="30" y="95" width="70" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="100" y1="110" x2="200" y2="110" stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#m55ed-a)"/>
+  <line x1="215" y1="70" x2="215" y2="150" stroke="var(--t3-ink)" stroke-width="3"/>
+  <g stroke="var(--t1-ink)" stroke-width="1.4" fill="none">
+    <line x1="215" y1="110" x2="380" y2="110"/>
+    <line x1="215" y1="110" x2="380" y2="72" stroke-dasharray="5 3"/>
+    <line x1="215" y1="110" x2="380" y2="148" stroke-dasharray="5 3"/>
+    <line x1="215" y1="110" x2="380" y2="46" stroke-dasharray="5 3"/>
+    <line x1="215" y1="110" x2="380" y2="174" stroke-dasharray="5 3"/>
+  </g>
+  <line x1="382" y1="30" x2="382" y2="190" stroke="currentColor" stroke-width="2.5"/>
+  <circle cx="510" cy="110" r="5" fill="var(--t1-ink)"/>
+  <circle cx="510" cy="110" r="38" fill="none" stroke="var(--t1-ink)" stroke-width="3"/>
+  <circle cx="510" cy="110" r="64" fill="none" stroke="var(--t1-ink)" stroke-width="3"/>
+  <g fill="currentColor" font-family="sans-serif" font-size="13">
+    <text x="65" y="85" text-anchor="middle">electron gun</text>
+    <text x="65" y="145" text-anchor="middle">p.d. V</text>
+    <text x="150" y="100" text-anchor="middle">beam</text>
+    <text x="215" y="60" text-anchor="middle">thin graphite film</text>
+    <text x="382" y="210" text-anchor="middle">screen</text>
+    <text x="510" y="215" text-anchor="middle">screen, front view</text>
+  </g>
+</svg>

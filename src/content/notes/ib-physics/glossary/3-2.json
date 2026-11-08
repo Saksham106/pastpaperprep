@@ -2,7 +2,7 @@
   {
     "id": "phase-angle",
     "term": "phase angle",
-    "definition": "TODO: Phase constant phi that fixes position in the cycle at t = 0",
+    "definition": "The constant $\\phi$ in $x = x_0\\sin(\\omega t + \\phi)$, in radians, that fixes where an oscillator is in its cycle, and which way it is moving, at $t = 0$.",
     "lesson": "3.2"
   }
 ]

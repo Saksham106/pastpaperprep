@@ -2,43 +2,43 @@
   {
     "id": "isovolumetric-process",
     "term": "isovolumetric process",
-    "definition": "TODO: Constant volume; no work done",
+    "definition": "A change of state of a gas at constant volume, so the gas does no work and all the heat supplied changes its internal energy ($Q = \\Delta U$).",
     "lesson": "2.11"
   },
   {
     "id": "isobaric-process",
     "term": "isobaric process",
-    "definition": "TODO: Constant pressure; W = P ΔV",
+    "definition": "A change of state of a gas at constant pressure, in which the work done by the gas is $W = P\\Delta V$.",
     "lesson": "2.11"
   },
   {
     "id": "isothermal-process",
     "term": "isothermal process",
-    "definition": "TODO: Constant temperature; ΔU = 0 for an ideal gas, Q = W",
+    "definition": "A change of state of a gas at constant temperature; for an ideal gas the internal energy does not change, so the heat supplied equals the work done by the gas ($Q = W$).",
     "lesson": "2.11"
   },
   {
     "id": "adiabatic-process",
     "term": "adiabatic process",
-    "definition": "TODO: No thermal energy transfer, Q = 0; PV^(5/3) constant for monatomic ideal gas",
+    "definition": "A change of state with no thermal energy transferred to or from the gas ($Q = 0$), so $\\Delta U = -W$; for a monatomic ideal gas, $PV^{\\frac{5}{3}}$ stays constant.",
     "lesson": "2.11"
   },
   {
     "id": "p-v-diagram",
     "term": "P-V diagram",
-    "definition": "TODO: Plot of pressure against volume; area under curve is work, enclosed area is net work",
+    "definition": "A graph of the pressure of a gas against its volume, on which each point is a state; the area under a line is the work done by the gas, and the area enclosed by a cycle is the net work.",
     "lesson": "2.11"
   },
   {
     "id": "heat-engine",
     "term": "heat engine",
-    "definition": "TODO: Device that converts thermal energy to work by cycling; waste heat is released to a cold reservoir",
+    "definition": "A device that takes a gas round a repeating cycle, taking in thermal energy from a hot reservoir, doing useful work and giving out the rest as thermal energy to a cold reservoir.",
     "lesson": "2.11"
   },
   {
     "id": "carnot-cycle",
     "term": "Carnot cycle",
-    "definition": "TODO: Reversible cycle giving maximum efficiency 1 - Tc/Th, in kelvin",
+    "definition": "A theoretical reversible cycle of two isothermal and two adiabatic stages, whose efficiency $1 - \\frac{T_\\text{c}}{T_\\text{h}}$ (temperatures in kelvin) is the maximum for any heat engine between those reservoirs.",
     "lesson": "2.11"
   }
 ]

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t41k">
+<title id="t41k">An elliptical orbit with the Sun at one focus. Two shaded slices, swept out in equal times, have equal areas: a short, wide slice near the Sun and a long, thin slice far from the Sun. The planet travels a longer arc near the Sun, so it moves faster there.</title>
+<ellipse cx="300" cy="150" rx="200" ry="110" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M133.0 150.0 L198.8 244.9 L190.0 241.9 L181.5 238.6 L173.2 235.1 L165.4 231.3 L157.9 227.4 L150.7 223.2 L144.0 218.8 L137.7 214.3 L131.9 209.6 L126.5 204.7 L121.5 199.6 L117.1 194.5 L113.1 189.2 L109.7 183.8 L106.7 178.3 L104.3 172.7 L102.4 167.1 L101.1 161.4 L100.3 155.7 L100.0 150.0 L100.3 144.3 L101.1 138.6 L102.4 132.9 L104.3 127.3 L106.7 121.7 L109.7 116.2 L113.1 110.8 L117.1 105.5 L121.5 100.4 L126.5 95.3 L131.9 90.4 L137.7 85.7 L144.0 81.2 L150.7 76.8 L157.9 72.6 L165.4 68.7 L173.2 64.9 L181.5 61.4 L190.0 58.1 L198.8 55.1 Z" fill="var(--t1-ink)" fill-opacity="0.22" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<path d="M133.0 150.0 L497.0 130.9 L497.2 131.8 L497.5 132.8 L497.8 133.7 L498.0 134.7 L498.3 135.6 L498.5 136.6 L498.7 137.5 L498.9 138.5 L499.1 139.4 L499.2 140.4 L499.4 141.4 L499.5 142.3 L499.6 143.3 L499.7 144.2 L499.8 145.2 L499.9 146.2 L499.9 147.1 L500.0 148.1 L500.0 149.0 L500.0 150.0 L500.0 151.0 L500.0 151.9 L499.9 152.9 L499.9 153.8 L499.8 154.8 L499.7 155.8 L499.6 156.7 L499.5 157.7 L499.4 158.6 L499.2 159.6 L499.1 160.6 L498.9 161.5 L498.7 162.5 L498.5 163.4 L498.3 164.4 L498.0 165.3 L497.8 166.3 L497.5 167.2 L497.2 168.2 L497.0 169.1 Z" fill="var(--t3-ink)" fill-opacity="0.22" stroke="var(--t3-ink)" stroke-width="1.2"/>
+<circle cx="133.0" cy="150" r="9" fill="var(--t5-ink)"/>
+<g stroke="var(--muted)" stroke-width="1.5"><line x1="462.0" y1="145" x2="472.0" y2="155"/><line x1="462.0" y1="155" x2="472.0" y2="145"/></g>
+<text font-family="inherit" fill="currentColor" font-size="12" x="147.0" y="154">Sun, at a focus</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="453.0" y="184" text-anchor="middle">other focus</text>
+<circle cx="198.8" cy="55.1" r="5" fill="currentColor"/>
+<path d="M198.8 55.1 L214.6 50.0" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="221.6,47.8 215.7,53.3 213.5,46.7" fill="currentColor"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="206.0" y="38.0">fast</text>
+<circle cx="497.0" cy="169.1" r="5" fill="currentColor"/>
+<path d="M497.0 169.1 L493.7 179.4" fill="none" stroke="currentColor" stroke-width="1.6"/><polygon points="492.0,185.1 490.9,178.5 496.6,180.3" fill="currentColor"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="505.0" y="195.1">slow</text>
+<text font-family="inherit" font-size="12" fill="var(--t1-ink)" x="94" y="154" text-anchor="end">area A</text>
+<text font-family="inherit" font-size="12" fill="var(--t3-ink)" x="508" y="136" text-anchor="start">area A</text>
+<text font-family="inherit" font-size="12" fill="var(--muted)" x="300" y="290" text-anchor="middle">each slice is swept out in the same time, so the two areas are equal</text>
+</svg>

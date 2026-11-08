@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 290" role="img" aria-labelledby="t47cp">
+  <title id="t47cp">Crosses show a magnetic field pointing into the page. Left: a positive charge moves anticlockwise round a circle. At the bottom of the circle it moves to the right, labelled v, and the magnetic force on it, labelled F, points up towards the centre. The radius r is drawn from the centre to the charge. Right: an electron moves clockwise round a circle. At the bottom of its circle it moves to the left, and the magnetic force on it points up towards the centre.</title>
+  <defs>
+    <marker id="m47cp-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="m47cp-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+    <marker id="m47cp-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- field into the page -->
+  <g font-family="inherit" font-size="15" fill="var(--muted)" text-anchor="middle">
+    <text x="40" y="40">×</text><text x="100" y="40">×</text><text x="220" y="40">×</text><text x="280" y="40">×</text>
+    <text x="320" y="40">×</text><text x="380" y="40">×</text><text x="500" y="40">×</text><text x="560" y="40">×</text>
+    <text x="40" y="145">×</text><text x="280" y="145">×</text><text x="320" y="145">×</text><text x="560" y="145">×</text>
+    <text x="40" y="250">×</text><text x="280" y="250">×</text><text x="320" y="250">×</text><text x="560" y="250">×</text>
+    <text x="130" y="110">×</text><text x="190" y="175">×</text><text x="410" y="110">×</text><text x="470" y="175">×</text>
+  </g>
+
+  <!-- left: positive charge, anticlockwise -->
+  <circle cx="160" cy="140" r="90" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="248.5" y1="160" x2="249.6" y2="150" stroke="currentColor" stroke-width="1.6" marker-end="url(#m47cp-p)"/>
+  <line x1="71.5" y1="120" x2="70.4" y2="130" stroke="currentColor" stroke-width="1.6" marker-end="url(#m47cp-p)"/>
+  <line x1="160" y1="140" x2="160" y2="224" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="166" y="190" font-family="inherit" font-size="13" font-style="italic" fill="var(--muted)">r</text>
+  <circle cx="160" cy="230" r="7" fill="var(--t1-ink)" fill-opacity="0.35" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <text x="160" y="234" font-family="inherit" font-size="11" text-anchor="middle" fill="var(--t1-ink)">+</text>
+  <line x1="169" y1="230" x2="225" y2="230" stroke="var(--t5-ink)" stroke-width="2" marker-end="url(#m47cp-v)"/>
+  <text x="214" y="250" font-family="inherit" font-size="13" font-style="italic" fill="var(--t5-ink)">v</text>
+  <line x1="140" y1="222" x2="140" y2="182" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m47cp-f)"/>
+  <text x="132" y="200" font-family="inherit" font-size="13" font-style="italic" text-anchor="end" fill="var(--t2-ink)">F</text>
+  <text x="160" y="280" font-family="inherit" font-size="13" text-anchor="middle" fill="currentColor">positive charge: anticlockwise</text>
+
+  <!-- right: electron, clockwise -->
+  <circle cx="440" cy="140" r="90" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="528.5" y1="120" x2="529.6" y2="130" stroke="currentColor" stroke-width="1.6" marker-end="url(#m47cp-p)"/>
+  <line x1="351.5" y1="160" x2="350.4" y2="150" stroke="currentColor" stroke-width="1.6" marker-end="url(#m47cp-p)"/>
+  <circle cx="440" cy="230" r="7" fill="var(--t3-ink)" fill-opacity="0.35" stroke="var(--t3-ink)" stroke-width="1.4"/>
+  <text x="440" y="234" font-family="inherit" font-size="12" text-anchor="middle" fill="var(--t3-ink)">−</text>
+  <line x1="431" y1="230" x2="375" y2="230" stroke="var(--t5-ink)" stroke-width="2" marker-end="url(#m47cp-v)"/>
+  <text x="384" y="250" font-family="inherit" font-size="13" font-style="italic" fill="var(--t5-ink)">v</text>
+  <line x1="460" y1="222" x2="460" y2="182" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m47cp-f)"/>
+  <text x="468" y="200" font-family="inherit" font-size="13" font-style="italic" fill="var(--t2-ink)">F</text>
+  <text x="440" y="280" font-family="inherit" font-size="13" text-anchor="middle" fill="currentColor">electron: clockwise</text>
+</svg>

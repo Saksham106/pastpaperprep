@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 320" role="img" aria-labelledby="t">
+  <title id="t">A beam of straight, evenly spaced wavefronts travels down and to the right towards a horizontal boundary. Above the boundary the wave is faster and the wavefronts are further apart. Below it the wave is slower and the wavefronts are closer together. Each wavefront kinks where it crosses the boundary. A ray drawn at right angles to the wavefronts meets the boundary at angle theta 1 to the dashed normal and continues below at a smaller angle theta 2: the ray bends towards the normal.</title>
+  <defs><clipPath id="c34r"><rect x="20" y="20" width="500" height="290"/></clipPath></defs>
+  <rect x="20" y="170" width="500" height="140" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <path d="M20.0 170.0 L520.0 170.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <g clip-path="url(#c34r)"><path d="M157.0 115.8 L261.0 22.1" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M179.7 141.0 L283.8 47.4" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M202.5 166.3 L306.5 72.6" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M249.2 170.0 L329.3 97.9" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M212.8 186.0 L249.2 170.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M300.0 170.0 L352.0 123.2" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M221.0 204.6 L300.0 170.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M350.8 170.0 L374.8 148.4" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M229.2 223.3 L350.8 170.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M237.4 242.0 L395.4 172.7" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M245.6 260.7 L403.6 191.4" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M253.7 279.4 L411.8 210.1" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/><path d="M261.9 298.1 L420.0 228.8" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/></g>
+  <path d="M199.6 58.5 L294.6 164.1" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="300.0,170.0 291.7,166.7 297.6,161.4" fill="var(--t3-ink)"/>
+  <path d="M300.0 170.0 L349.0 281.7" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="352.2,289.1 345.3,283.3 352.6,280.1" fill="var(--t3-ink)"/>
+  <path d="M300.0 30.0 L300.0 305.0" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="306.0" y="40.0" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="start">normal</text>
+  <path d="M269.2 135.8 A46.0 46.0 0 0 1 300.0 124.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M320.9 217.6 A52.0 52.0 0 0 1 300.0 222.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="282.0" y="116.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="289.0" y="121.0" font-size="9" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">1</text>
+  <text x="311.0" y="238.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="318.0" y="243.0" font-size="9" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">2</text>
+  <text x="520.0" y="40.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">medium 1: wave faster,</text>
+  <text x="520.0" y="54.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">wavefronts further apart</text>
+  <text x="30.0" y="262.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">medium 2: wave slower,</text>
+  <text x="30.0" y="276.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">wavefronts closer together</text>
+  <text x="30.0" y="300.0" font-size="11" fill="var(--t3-ink)" font-family="inherit" text-anchor="start">ray bends towards the normal</text>
+</svg>

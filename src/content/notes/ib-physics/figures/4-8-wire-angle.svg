@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="t48wa">
+  <title id="t48wa">A straight wire carrying current I lies at an angle theta to horizontal magnetic field lines pointing to the right. The angle theta is marked between the wire and the field direction. The force on the wire points into the page.</title>
+  <defs>
+    <marker id="m48wa-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m48wa-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- field lines to the right -->
+  <g stroke="var(--t1-ink)" stroke-width="1.5" marker-end="url(#m48wa-b)">
+    <line x1="30" y1="50" x2="520" y2="50"/>
+    <line x1="30" y1="110" x2="520" y2="110"/>
+    <line x1="30" y1="170" x2="520" y2="170"/>
+    <line x1="30" y1="230" x2="520" y2="230"/>
+  </g>
+
+  <!-- wire at 35 degrees to the field -->
+  <line x1="150" y1="210" x2="380" y2="49" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+  <line x1="300" y1="92" x2="345" y2="60.5" stroke="var(--t2-ink)" stroke-width="2.5" marker-end="url(#m48wa-i)"/>
+
+  <!-- angle arc at the lower end -->
+  <line x1="150" y1="210" x2="250" y2="210" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <path d="M 215 210 A 65 65 0 0 0 203.2 172.7" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+
+  <!-- force into the page -->
+  <circle cx="265" cy="130" r="12" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <line x1="257" y1="122" x2="273" y2="138" stroke="var(--t3-ink)" stroke-width="2"/>
+  <line x1="273" y1="122" x2="257" y2="138" stroke="var(--t3-ink)" stroke-width="2"/>
+
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="225" y="200" font-style="italic">θ</text>
+    <text x="348" y="88" font-style="italic" fill="var(--t2-ink)">I</text>
+    <text x="284" y="146" fill="var(--t3-ink)"><tspan font-style="italic">F</tspan> into the page</text>
+    <text x="526" y="114" font-style="italic" fill="var(--t1-ink)">B</text>
+  </g>
+</svg>

@@ -2,43 +2,43 @@
   {
     "id": "coulomb-s-law",
     "term": "Coulomb's law",
-    "definition": "TODO: F = k q1 q2/r^2; k = 1/4 pi eps0",
+    "definition": "The electric force between two point charges is proportional to the product of the charges and inversely proportional to the square of their separation, $F = k\\frac{q_1 q_2}{r^{2}}$, where $k = \\frac{1}{4\\pi\\varepsilon_0}$ in a vacuum; like charges repel and unlike charges attract.",
     "lesson": "4.4"
   },
   {
     "id": "conservation-of-charge",
     "term": "conservation of charge",
-    "definition": "TODO: Net charge of an isolated system is constant",
+    "definition": "The total electric charge of an isolated system stays constant: charge can move from one body to another but is never created or destroyed.",
     "lesson": "4.4"
   },
   {
     "id": "quantisation-of-charge",
     "term": "quantisation of charge",
-    "definition": "TODO: Charge occurs only in whole multiples of e",
+    "definition": "The fact that the charge on any free particle or body is a whole-number multiple of the elementary charge, $q = ne$, so charge changes only in steps of $e$.",
     "lesson": "4.4"
   },
   {
     "id": "elementary-charge",
     "term": "elementary charge",
-    "definition": "TODO: e = 1.60e-19 C, charge of a proton",
+    "definition": "The size of the charge on a proton or an electron, $e = 1.60 \\times 10^{-19}\\ \\text{C}$: the smallest charge found on any free particle.",
     "lesson": "4.4"
   },
   {
     "id": "millikan-s-experiment",
     "term": "Millikan's experiment",
-    "definition": "TODO: Oil drop charges are integer multiples of e",
+    "definition": "An experiment in which charged oil drops were held still between horizontal charged plates, so that the electric force balanced their weight; every charge measured was a whole-number multiple of $e$, which is evidence that charge is quantised.",
     "lesson": "4.4"
   },
   {
     "id": "electrostatic-induction",
     "term": "electrostatic induction",
-    "definition": "TODO: Charge redistribution in a conductor by a nearby charge without contact",
+    "definition": "The separation of charge in a conductor caused by a nearby charged body, without contact: charge opposite to the body's gathers on the near side and like charge on the far side, while the conductor's total charge is unchanged.",
     "lesson": "4.4"
   },
   {
     "id": "earthing",
     "term": "earthing",
-    "definition": "TODO: Connecting to Earth lets charge flow to or from the ground",
+    "definition": "Connecting a conductor to the Earth (grounding), so that electrons can flow between the conductor and the Earth; the Earth is so large that its own charge does not change noticeably.",
     "lesson": "4.4"
   }
 ]

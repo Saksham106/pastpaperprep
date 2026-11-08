@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" role="img" aria-labelledby="t47vs">
+  <title id="t47vs">A velocity selector. Two horizontal parallel plates, the top one positive and the bottom one negative, with a magnetic field into the page between them, shown by crosses. Positive ions enter from the left, moving horizontally. On an ion between the plates, the magnetic force q v B points up and the electric force q E points down. Ions with speed equal to E over B go straight through. Faster ions curve upwards, in the direction of the magnetic force. Slower ions curve downwards, in the direction of the electric force.</title>
+  <defs>
+    <marker id="m47vs-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+    <marker id="m47vs-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t4-ink)"/>
+    </marker>
+    <marker id="m47vs-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+
+  <!-- plates -->
+  <rect x="110" y="40" width="300" height="10" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.3"/>
+  <rect x="110" y="200" width="300" height="10" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.3"/>
+  <g font-family="inherit" font-size="15" text-anchor="middle">
+    <text x="140" y="33" fill="var(--t1-ink)">+</text><text x="220" y="33" fill="var(--t1-ink)">+</text>
+    <text x="300" y="33" fill="var(--t1-ink)">+</text><text x="380" y="33" fill="var(--t1-ink)">+</text>
+    <text x="140" y="228" fill="var(--t3-ink)">−</text><text x="220" y="228" fill="var(--t3-ink)">−</text>
+    <text x="300" y="228" fill="var(--t3-ink)">−</text><text x="380" y="228" fill="var(--t3-ink)">−</text>
+  </g>
+
+  <!-- B into the page -->
+  <g font-family="inherit" font-size="14" fill="var(--muted)" text-anchor="middle">
+    <text x="140" y="80">×</text><text x="240" y="80">×</text><text x="340" y="80">×</text>
+    <text x="140" y="180">×</text><text x="240" y="180">×</text><text x="340" y="180">×</text>
+  </g>
+  <text x="110" y="250" font-family="inherit" font-size="12" fill="var(--muted)"><tspan font-style="italic">B</tspan> into the page (×)</text>
+
+  <!-- incoming beam -->
+  <line x1="30" y1="125" x2="104" y2="125" stroke="currentColor" stroke-width="1.8" marker-end="url(#m47vs-p)"/>
+  <text x="34" y="115" font-family="inherit" font-size="12" fill="currentColor">positive ions</text>
+
+  <!-- three paths -->
+  <path d="M110,125 Q260,125 410,70" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <line x1="110" y1="125" x2="540" y2="125" stroke="currentColor" stroke-width="2" marker-end="url(#m47vs-p)"/>
+  <path d="M110,125 Q260,125 410,180" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 4"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="418" y="72">faster</text>
+    <text x="440" y="118"><tspan font-style="italic">v</tspan> = <tspan font-style="italic">E</tspan>/<tspan font-style="italic">B</tspan>: straight through</text>
+    <text x="418" y="190">slower</text>
+  </g>
+
+  <!-- forces on an ion -->
+  <circle cx="200" cy="125" r="6" fill="var(--t1-ink)" fill-opacity="0.35" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <line x1="200" y1="117" x2="200" y2="85" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m47vs-b)"/>
+  <line x1="200" y1="133" x2="200" y2="165" stroke="var(--t4-ink)" stroke-width="2" marker-end="url(#m47vs-e)"/>
+  <g font-family="inherit" font-size="12">
+    <text x="192" y="98" text-anchor="end" fill="var(--t2-ink)">magnetic force <tspan font-style="italic">qvB</tspan></text>
+    <text x="192" y="160" text-anchor="end" fill="var(--t4-ink)">electric force <tspan font-style="italic">qE</tspan></text>
+  </g>
+</svg>

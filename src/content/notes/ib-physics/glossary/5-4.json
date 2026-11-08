@@ -2,25 +2,25 @@
   {
     "id": "photoelectric-effect",
     "term": "photoelectric effect",
-    "definition": "TODO: Emission of electrons from a metal surface by light above a threshold frequency",
+    "definition": "The emission of electrons from a metal surface when electromagnetic radiation above the metal's threshold frequency falls on it. It is evidence that light behaves as particles (photons).",
     "lesson": "5.4"
   },
   {
     "id": "threshold-frequency",
     "term": "threshold frequency",
-    "definition": "TODO: Minimum frequency of light to eject electrons; independent of intensity",
+    "definition": "The minimum frequency of electromagnetic radiation that can release photoelectrons from a given metal, $f_0 = \\frac{\\Phi}{h}$. Below it no electrons are emitted, however intense the radiation.",
     "lesson": "5.4"
   },
   {
     "id": "work-function",
     "term": "work function",
-    "definition": "TODO: Minimum energy to remove an electron from the metal; Φ = h f0",
+    "definition": "The minimum energy needed to remove an electron from the surface of a metal, written $\\Phi$. It equals $hf_0$, where $f_0$ is the threshold frequency.",
     "lesson": "5.4"
   },
   {
     "id": "maximum-kinetic-energy-of-photoelectrons",
     "term": "maximum kinetic energy of photoelectrons",
-    "definition": "TODO: Emax = hf - Φ; depends on frequency, not intensity",
+    "definition": "The kinetic energy of the fastest electrons emitted in the photoelectric effect, $E_\\text{max} = hf - \\Phi$. It depends on the frequency of the radiation and the metal, not on the intensity.",
     "lesson": "5.4"
   }
 ]

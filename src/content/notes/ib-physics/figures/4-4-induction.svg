@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 270" role="img" aria-labelledby="t44in">
+<title id="t44in">Charging a metal sphere by induction, in four panels from left to right. Each panel shows a metal sphere on an insulating stand. Panel 1: a negatively charged rod is held near the left side of the sphere without touching it. Positive charges are marked on the left side of the sphere, nearest the rod, and negative charges on the right side, because free electrons have been pushed away from the rod. Panel 2: the rod is still near, and the right side of the sphere is connected to earth by a wire. An arrow along the wire shows electrons flowing from the sphere down to earth. Only the positive charges on the left side remain. Panel 3: the earth wire has been removed while the rod is still near. The positive charges stay on the left side. Panel 4: the rod has been taken away. The same positive charges are now spread evenly around the whole surface, so the sphere has a net positive charge.</title>
+<circle cx="120" cy="105" r="38" fill="var(--muted)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5"/>
+<line x1="120" y1="143" x2="120" y2="185" stroke="currentColor" stroke-width="4"/>
+<line x1="95" y1="185" x2="145" y2="185" stroke="currentColor" stroke-width="2"/>
+<rect x="8" y="98" width="58" height="14" rx="3" fill="var(--t3-ink)" fill-opacity="0.2" stroke="var(--t3-ink)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="16" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="30" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="44" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="58" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="93" y="92" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="93" y="110" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="93" y="128" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="15" fill="var(--t3-ink)" x="147" y="92" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="15" fill="var(--t3-ink)" x="147" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="15" fill="var(--t3-ink)" x="147" y="128" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="12" fill="currentColor" x="100" y="213" text-anchor="middle">1 rod brought near</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="100" y="229" text-anchor="middle">electrons pushed to far side</text>
+<line x1="200" y1="15" x2="200" y2="255" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="3 4"/>
+<circle cx="320" cy="105" r="38" fill="var(--muted)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5"/>
+<line x1="320" y1="143" x2="320" y2="185" stroke="currentColor" stroke-width="4"/>
+<line x1="295" y1="185" x2="345" y2="185" stroke="currentColor" stroke-width="2"/>
+<rect x="208" y="98" width="58" height="14" rx="3" fill="var(--t3-ink)" fill-opacity="0.2" stroke="var(--t3-ink)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="216" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="230" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="244" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="258" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="293" y="92" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="293" y="110" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="293" y="128" text-anchor="middle">+</text>
+<polyline points="358,105 380,105 380,187" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<line x1="366" y1="187" x2="394" y2="187" stroke="var(--t2-ink)" stroke-width="2"/><line x1="371" y1="192" x2="389" y2="192" stroke="var(--t2-ink)" stroke-width="2"/><line x1="376" y1="197" x2="384" y2="197" stroke="var(--t2-ink)" stroke-width="2"/>
+<path d="M392.0 117.0 L392.0 154.0" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/><polygon points="392.0,161.0 388.5,154.0 395.5,154.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="11" fill="var(--t2-ink)" x="394" y="110" text-anchor="start">e⁻</text>
+<text font-family="inherit" font-size="12" fill="currentColor" x="300" y="213" text-anchor="middle">2 sphere earthed</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="300" y="229" text-anchor="middle">electrons flow to earth</text>
+<line x1="400" y1="15" x2="400" y2="255" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="3 4"/>
+<circle cx="520" cy="105" r="38" fill="var(--muted)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5"/>
+<line x1="520" y1="143" x2="520" y2="185" stroke="currentColor" stroke-width="4"/>
+<line x1="495" y1="185" x2="545" y2="185" stroke="currentColor" stroke-width="2"/>
+<rect x="408" y="98" width="58" height="14" rx="3" fill="var(--t3-ink)" fill-opacity="0.2" stroke="var(--t3-ink)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="416" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="430" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="444" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="13" fill="var(--t3-ink)" x="458" y="110" text-anchor="middle">−</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="493" y="92" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="493" y="110" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="14" fill="var(--t1-ink)" x="493" y="128" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="12" fill="currentColor" x="500" y="213" text-anchor="middle">3 earth wire removed</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="500" y="229" text-anchor="middle">rod still near</text>
+<line x1="600" y1="15" x2="600" y2="255" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="3 4"/>
+<circle cx="720" cy="105" r="38" fill="var(--muted)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.5"/>
+<line x1="720" y1="143" x2="720" y2="185" stroke="currentColor" stroke-width="4"/>
+<line x1="695" y1="185" x2="745" y2="185" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="13" fill="var(--t1-ink)" x="747.0" y="110.0" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="13" fill="var(--t1-ink)" x="706.5" y="133.4" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="13" fill="var(--t1-ink)" x="706.5" y="86.6" text-anchor="middle">+</text>
+<text font-family="inherit" font-size="12" fill="currentColor" x="700" y="213" text-anchor="middle">4 rod removed</text>
+<text font-family="inherit" font-size="11" fill="var(--muted)" x="700" y="229" text-anchor="middle">sphere left positive</text>
+</svg>

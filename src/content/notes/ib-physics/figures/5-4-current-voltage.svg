@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t54cv">
+  <title id="t54cv">Graph of photocurrent I against the potential V of the collector relative to the emitter. Two curves, for light of the same frequency, both start at zero current at the same negative voltage, labelled minus V s. Each rises steeply and then levels off at a constant current for positive voltages. The curve for higher intensity levels off at about twice the current of the curve for lower intensity.</title>
+  <defs><marker id="m54cv-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <g stroke="currentColor" stroke-width="1.5" fill="none" marker-end="url(#m54cv-a)">
+    <line x1="40" y1="250" x2="490" y2="250"/>
+    <line x1="230" y1="270" x2="230" y2="30"/>
+  </g>
+  <path d="M120,250 C160,230 180,90 240,80 C280,74 330,72 470,72" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <path d="M120,250 C160,240 180,165 240,160 C280,157 330,156 470,156" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <line x1="120" y1="244" x2="120" y2="256" stroke="currentColor" stroke-width="1.5"/>
+  <g font-size="12" fill="currentColor">
+    <text x="480" y="270" text-anchor="end">V</text>
+    <text x="242" y="40">I</text>
+    <text x="120" y="272" text-anchor="middle">−V</text><text x="128" y="276" font-size="9">s</text>
+    <text x="236" y="266">0</text>
+    <text x="470" y="64" text-anchor="end" fill="var(--t1-ink)">higher intensity</text>
+    <text x="470" y="148" text-anchor="end" fill="var(--t2-ink)">lower intensity</text>
+    <text x="60" y="230" fill="var(--muted)">collector negative</text>
+    <text x="330" y="230" fill="var(--muted)">collector positive</text>
+  </g>
+</svg>

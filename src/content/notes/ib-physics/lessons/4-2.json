@@ -1,0 +1,846 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.2",
+  "slug": "gravitational-potential-and-potential-energy",
+  "title": "Gravitational potential and potential energy",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Far from a planet, $mgh$ no longer fits, because $g$ changes with distance. Instead you measure [[gravitational-potential-energy|gravitational potential energy]] from infinity, where it is zero, so it is always negative. [[gravitational-potential|Gravitational potential]] is the same idea per kilogram. Its slope gives the field, and surfaces of equal potential show where moving costs no [[work|work]].",
+  "goals": [
+    {
+      "text": "Explain why gravitational potential energy is the work done to assemble a system from infinity, and calculate it with $E_\\text{p} = -G\\frac{m_1m_2}{r}$.",
+      "bullets": [
+        "D.1-a1",
+        "D.1-a2"
+      ]
+    },
+    {
+      "text": "Define [[gravitational-potential|gravitational potential]] and calculate it with $V_\\text{g} = -\\frac{GM}{r}$, including at a point between two bodies.",
+      "bullets": [
+        "D.1-a3"
+      ]
+    },
+    {
+      "text": "Find the field strength as minus the [[potential-gradient|potential gradient]], from data or from a graph of $V_\\text{g}$ against $r$.",
+      "bullets": [
+        "D.1-a4"
+      ]
+    },
+    {
+      "text": "Calculate the work done moving a mass between two points with $W = m\\Delta V_\\text{g}$.",
+      "bullets": [
+        "D.1-a5"
+      ]
+    },
+    {
+      "text": "Sketch [[equipotential-surface|equipotential surfaces]] and explain why they cross field lines at right angles.",
+      "bullets": [
+        "D.1-a6",
+        "D.1-a7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.9",
+    "1.10",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "gravitational potential energy formula",
+    "Vg = -GM/r",
+    "potential gradient",
+    "equipotential surfaces gravity",
+    "work done in a gravitational field",
+    "why is gravitational potential negative"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-g-distance",
+      "prompt": "A planet has mass $\\pu{6.0e24 kg}$. Calculate the [[gravitational-field-strength|gravitational field strength]] $\\pu{2.0e7 m}$ from its centre, in $\\text{N kg}^{-1}$. Give 2 significant figures.",
+      "hint": "Use $g = \\frac{GM}{r^{2}}$, with $r$ measured from the centre.",
+      "answer": {
+        "value": 1.0,
+        "tolerance": 0.05
+      },
+      "explain": "$g = \\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24}}{(2.0 \\times 10^{7})^{2}} = \\pu{1.0 N kg-1}$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "G*6.0e24/(2.0e7)**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-work-perpendicular",
+      "prompt": "A force acts at right angles to an object's displacement the whole time. How much work does the force do?",
+      "hint": "Use $W = Fs\\cos\\theta$ with $\\theta = 90^{\\circ}$.",
+      "options": [
+        {
+          "text": "zero",
+          "correct": true
+        },
+        {
+          "text": "the force times the distance",
+          "correct": false
+        },
+        {
+          "text": "it depends on the speed",
+          "correct": false
+        }
+      ],
+      "explain": "$\\cos 90^{\\circ} = 0$, so $W = 0$. A force at right angles to the motion transfers no energy. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "zero"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mgh",
+      "prompt": "A $\\pu{12 kg}$ box is lifted $\\pu{3.5 m}$ near Earth's surface. Calculate the increase in its gravitational potential energy, in J. Give 2 significant figures.",
+      "hint": "Near the surface, $\\Delta E_\\text{p} = mg\\Delta h$ with $g = \\pu{9.8 m s-2}$.",
+      "answer": {
+        "value": 410,
+        "tolerance": 5
+      },
+      "explain": "$\\Delta E_\\text{p} = 12 \\times 9.8 \\times 3.5 = \\pu{412 J} \\approx \\pu{410 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12*g*3.5",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "energy",
+      "heading": "Gravitational potential energy of a system",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Near Earth's surface you used $\\Delta E_\\text{p} = mg\\Delta h$. That works only while $g$ stays constant. A satellite thousands of kilometres up feels a much weaker pull, so you need a version that works at any distance."
+        },
+        {
+          "type": "text",
+          "text": "The trick is to pick a zero that every system shares: infinite separation. Two bodies infinitely far apart do not pull on each other at all, so their [[gravitational-potential-energy|gravitational potential energy]] is defined as zero there."
+        },
+        {
+          "type": "definition",
+          "term": "gravitational potential energy of a system",
+          "statement": "The work needed to bring all the parts of the system together, starting with them infinitely far apart. It belongs to the system, not to one body.",
+          "plain": "Minus the energy you would need to pull the bodies completely apart, so it is negative."
+        },
+        {
+          "type": "text",
+          "text": "Gravity is attractive. As you bring a mass in from infinity, gravity pulls it in, and you must hold it back to stop it speeding up. Your force points outwards while the mass moves inwards, so the [[work|work]] you do is negative."
+        },
+        {
+          "type": "text",
+          "text": "So the potential energy at any finite separation is less than zero. Pulling the bodies apart again takes positive work, and $E_\\text{p}$ rises towards zero."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{p} = -G\\frac{m_1 m_2}{r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2"
+        },
+        {
+          "type": "text",
+          "text": "$m_1$ and $m_2$ are the two masses and $r$ is the distance between their centres of mass. As in [[newton-s-law-of-gravitation|Newton's law of gravitation]], a uniform sphere acts as a [[point-mass|point mass]] at its [[centre-of-mass|centre of mass]], as long as you are at or outside its surface."
+        },
+        {
+          "type": "text",
+          "text": "$G = \\pu{6.67e-11 N m2 kg-2}$ comes from the data booklet. All four equations in this lesson are in the higher level part of booklet section D.1, so you don't need to memorise them; you need to know when to use them."
+        },
+        {
+          "type": "example",
+          "id": "ex-ep-probe",
+          "question": "A $\\pu{650 kg}$ space probe is $\\pu{9.0e6 m}$ from the centre of a planet of mass $\\pu{4.8e24 kg}$. Calculate the gravitational potential energy of the planet–probe system.",
+          "steps": [
+            "Write the equation: $E_\\text{p} = -G\\frac{m_1 m_2}{r}$.",
+            "Substitute, with $r$ from the planet's centre: $E_\\text{p} = -\\frac{6.67 \\times 10^{-11} \\times 4.8 \\times 10^{24} \\times 650}{9.0 \\times 10^{6}}$.",
+            "$E_\\text{p} = -2.312 \\times 10^{10}\\ \\text{J}$, then round to 2 significant figures, as the data are given to 2.",
+            "Sense check: the answer is negative, as every gravitational $E_\\text{p}$ must be."
+          ],
+          "answer": "$E_\\text{p} \\approx -2.3 \\times 10^{10}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-G*4.8e24*650/9.0e6",
+            "sf": 2,
+            "unit": "J",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the probe's height above the surface as $r$. Always measure $r$ between centres, so add the planet's radius to any height."
+        },
+        {
+          "type": "example",
+          "id": "ex-ep-why-negative",
+          "question": "Explain why the gravitational potential energy of a planet–probe system is negative, and why it increases as the probe moves away from the planet.",
+          "steps": [
+            "Start from the definition: work done to assemble the system.",
+            "Say where the zero is.",
+            "Use the direction of the force to find the sign of the work.",
+            "Then deal with moving outwards."
+          ],
+          "answer": "Gravitational potential energy is the work needed to bring the bodies together from infinitely far apart. It is defined as zero at infinity. Gravity is attractive, so the probe is pulled inwards as it is brought in. The agent bringing it in must push outwards against the motion, so the work done is negative. So the potential energy at any finite separation is less than zero. Moving the probe outwards needs positive work against the attraction, so the potential energy becomes less negative, rising towards zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ep is work done to assemble from infinity; zero at infinity; attractive force so the work done bringing it in is negative; Ep below zero; moving out needs positive work so Ep rises towards zero",
+            "requires": [
+              [
+                "bring the bodies together",
+                "assemble the system"
+              ],
+              [
+                "infinitely far apart",
+                "from infinity"
+              ],
+              [
+                "zero at infinity",
+                "defined as zero"
+              ],
+              "attractive",
+              [
+                "work done is negative",
+                "negative work"
+              ],
+              [
+                "positive work",
+                "work against the attraction"
+              ],
+              [
+                "less negative",
+                "towards zero"
+              ]
+            ],
+            "forbids": [
+              "repulsive",
+              "becomes positive"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ep-double",
+          "prompt": "The gravitational potential energy of a two-body system is $\\pu{-8.0e9 J}$. The separation of their centres is doubled. What is the new potential energy?",
+          "hint": "$E_\\text{p}$ is proportional to $\\frac{1}{r}$, and keeps its minus sign.",
+          "options": [
+            {
+              "text": "$-4.0 \\times 10^{9}\\ \\text{J}$",
+              "correct": true
+            },
+            {
+              "text": "$-1.6 \\times 10^{10}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$-2.0 \\times 10^{9}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$4.0 \\times 10^{9}\\ \\text{J}$",
+              "correct": false
+            }
+          ],
+          "explain": "Doubling $r$ halves the size of $E_\\text{p}$: $\\frac{-8.0 \\times 10^{9}}{2} = \\pu{-4.0e9 J}$. It is less negative, so the energy has increased. Quartering it would be the $\\frac{1}{r^{2}}$ rule for force.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-8.0e9/2",
+            "sf": 2,
+            "unit": "J",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ep-asteroids",
+          "prompt": "Two spherical asteroids of mass $\\pu{3.0e15 kg}$ and $\\pu{5.0e14 kg}$ have centres $\\pu{2.0e4 m}$ apart. Calculate the gravitational potential energy of the pair, in units of $10^{15}$ J. Give 2 significant figures, with its sign.",
+          "hint": "Use $E_\\text{p} = -G\\frac{m_1m_2}{r}$, then divide by $10^{15}$.",
+          "answer": {
+            "value": -5.0,
+            "tolerance": 0.05
+          },
+          "explain": "$E_\\text{p} = -\\frac{6.67 \\times 10^{-11} \\times 3.0 \\times 10^{15} \\times 5.0 \\times 10^{14}}{2.0 \\times 10^{4}} = \\pu{-5.0e15 J}$, so $-5.0$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-G*3.0e15*5.0e14/2.0e4/10**15",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "potential",
+      "heading": "Gravitational potential",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Potential energy depends on both masses. Often you care about a point in space, whatever is placed there. So divide by the mass you bring in: energy per kilogram."
+        },
+        {
+          "type": "definition",
+          "term": "gravitational potential",
+          "statement": "$V_\\text{g}$ at a point equals the work needed, for each kilogram, to move a small test mass to that point from infinity. Unit: $\\text{J kg}^{-1}$.",
+          "plain": "How much energy each kilogram has because of where it sits in the field."
+        },
+        {
+          "type": "formula",
+          "tex": "V_\\text{g} = -\\frac{GM}{r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2"
+        },
+        {
+          "type": "text",
+          "text": "$M$ is the mass creating the field and $r$ the distance from its centre. Like potential energy, [[gravitational-potential|gravitational potential]] is zero at infinity and negative everywhere else. Outside the body, it is most negative at the surface, where $r$ is smallest."
+        },
+        {
+          "type": "text",
+          "text": "Multiply by the mass placed at the point and you get the potential energy: $E_\\text{p} = mV_\\text{g}$. Check: $m \\times \\left(-\\frac{GM}{r}\\right) = -\\frac{GMm}{r}$."
+        },
+        {
+          "type": "text",
+          "text": "Potential is a scalar: it has no direction. At a point near two bodies, add the potential from each, minus signs included. This is easier than adding field strengths, which are vectors."
+        },
+        {
+          "type": "example",
+          "id": "ex-v-surface",
+          "question": "A moon has mass $\\pu{7.6e22 kg}$ and radius $\\pu{1.9e6 m}$. Calculate the gravitational potential at its surface.",
+          "steps": [
+            "At the surface, $r$ is the radius: $V_\\text{g} = -\\frac{GM}{r} = -\\frac{6.67 \\times 10^{-11} \\times 7.6 \\times 10^{22}}{1.9 \\times 10^{6}}$.",
+            "$V_\\text{g} = -2.668 \\times 10^{6}\\ \\text{J kg}^{-1}$, so $\\pu{-2.7e6 J kg-1}$ to 2 significant figures.",
+            "Going further: a height equal to the radius puts the point at $r = 2 \\times 1.9 \\times 10^{6}\\ \\text{m}$ from the centre. $V_\\text{g} \\propto \\frac{1}{r}$, so the potential halves: about $\\pu{-1.3e6 J kg-1}$."
+          ],
+          "answer": "$V_\\text{g} \\approx -2.7 \\times 10^{6}\\ \\text{J kg}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-G*7.6e22/1.9e6",
+            "sf": 2,
+            "unit": "J kg-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-v-two-bodies",
+          "question": "A planet of mass $\\pu{6.0e24 kg}$ and its moon of mass $\\pu{7.0e22 kg}$ have centres $\\pu{3.8e8 m}$ apart. Point P lies on the line between them, $\\pu{3.0e8 m}$ from the planet's centre. Calculate the gravitational potential at P.",
+          "steps": [
+            "P is $3.8 \\times 10^{8} - 3.0 \\times 10^{8} = \\pu{8.0e7 m}$ from the moon's centre.",
+            "Planet: $V_1 = -\\frac{6.67 \\times 10^{-11} \\times 6.0 \\times 10^{24}}{3.0 \\times 10^{8}} = -1.334 \\times 10^{6}\\ \\text{J kg}^{-1}$.",
+            "Moon: $V_2 = -\\frac{6.67 \\times 10^{-11} \\times 7.0 \\times 10^{22}}{8.0 \\times 10^{7}} = -5.84 \\times 10^{4}\\ \\text{J kg}^{-1}$.",
+            "Potential is a scalar, so add: $V = -1.334 \\times 10^{6} - 5.84 \\times 10^{4} = -1.392 \\times 10^{6}\\ \\text{J kg}^{-1}$.",
+            "The two fields point in opposite directions at P and partly cancel, but the potentials never cancel. Both are negative."
+          ],
+          "answer": "$V_\\text{g} \\approx -1.4 \\times 10^{6}\\ \\text{J kg}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-G*6.0e24/3.0e8 - G*7.0e22/(3.8e8 - 3.0e8)",
+            "sf": 2,
+            "unit": "J kg-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the potential is zero where the field strength is zero. Between two bodies the fields can cancel, but each potential is negative, so their sum is negative too."
+        },
+        {
+          "type": "check",
+          "id": "check-v-compare",
+          "prompt": "Planet Y has twice the mass and twice the radius of planet X. How does the gravitational potential at the surface of Y compare with that at the surface of X?",
+          "hint": "Put $2M$ and $2R$ into $V_\\text{g} = -\\frac{GM}{r}$.",
+          "options": [
+            {
+              "text": "it is the same",
+              "correct": true
+            },
+            {
+              "text": "it is twice as negative",
+              "correct": false
+            },
+            {
+              "text": "it is half as negative",
+              "correct": false
+            },
+            {
+              "text": "it is four times as negative",
+              "correct": false
+            }
+          ],
+          "explain": "$-\\frac{G(2M)}{2R} = -\\frac{GM}{R}$: the factors of 2 cancel. The surface field strength is different, though: $\\frac{G(2M)}{(2R)^{2}}$ is half as big.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-v-point",
+          "prompt": "A planet has mass $\\pu{6.4e23 kg}$. Calculate the gravitational potential $\\pu{5.0e6 m}$ from its centre, in units of $10^{6}\\ \\text{J kg}^{-1}$. Give 2 significant figures, with its sign.",
+          "hint": "Use $V_\\text{g} = -\\frac{GM}{r}$, then divide by $10^{6}$.",
+          "answer": {
+            "value": -8.5,
+            "tolerance": 0.05
+          },
+          "explain": "$V_\\text{g} = -\\frac{6.67 \\times 10^{-11} \\times 6.4 \\times 10^{23}}{5.0 \\times 10^{6}} = \\pu{-8.5e6 J kg-1}$, so $-8.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-G*6.4e23/5.0e6/10**6",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "gradient",
+      "heading": "Field strength as a potential gradient",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Think of potential as height on a hill. A ball rolls downhill, and it rolls fastest where the slope is steepest. In the same way, a mass is pushed towards lower potential, and the push is strongest where the potential changes fastest."
+        },
+        {
+          "type": "definition",
+          "term": "potential gradient",
+          "statement": "The rate of change of potential with distance, $\\frac{\\Delta V_\\text{g}}{\\Delta r}$. Unit: $\\text{J kg}^{-1}\\ \\text{m}^{-1}$, the same as $\\text{N kg}^{-1}$.",
+          "plain": "How steeply the potential changes as you move."
+        },
+        {
+          "type": "formula",
+          "tex": "g = -\\frac{\\Delta V_\\text{g}}{\\Delta r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2"
+        },
+        {
+          "type": "text",
+          "text": "So the [[gravitational-field-strength|gravitational field strength]] is minus the [[potential-gradient|potential gradient]]. With $r$ measured outwards, $V_\\text{g}$ rises as $r$ grows, so $g$ comes out negative: the field points inwards, towards lower potential. Most questions ask only for its size."
+        },
+        {
+          "type": "text",
+          "text": "On a graph of $V_\\text{g}$ against $r$, the [[gradient|gradient]] of the tangent at a point gives the field strength there. Near the planet the curve is steep, so the field is strong. Far away the curve flattens, so the field is weak."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-potential-graph",
+          "alt": "Graph of gravitational potential against distance r from the centre of a planet of radius R. The potential is negative everywhere outside the planet. It is minus V0 at the surface and minus V0 over 2 at 2R, and rises towards zero, getting flatter as r increases. A straight tangent touches the curve at 2R; the field strength there equals minus its gradient.",
+          "caption": "The curve is steepest at the surface, where the field is strongest. This is how a map of potential gives you the field."
+        },
+        {
+          "type": "result",
+          "statement": "Outside a uniform sphere, the size of the field strength at a distance $r$ is $g = -\\frac{V_\\text{g}}{r}$.",
+          "why": "$V_\\text{g} = -\\frac{GM}{r}$ and $g = \\frac{GM}{r^{2}}$. Dividing the first by $r$ gives $-\\frac{GM}{r^{2}} = -g$."
+        },
+        {
+          "type": "example",
+          "id": "ex-g-from-potentials",
+          "question": "Above a planet, the gravitational potential is $\\pu{-5.70e7 J kg-1}$ at $\\pu{7.00e6 m}$ from its centre, and $\\pu{-5.54e7 J kg-1}$ at $\\pu{7.20e6 m}$. Estimate the size of the field in the gap between the two points.",
+          "steps": [
+            "Change in potential, final minus initial: $\\Delta V_\\text{g} = -5.54 \\times 10^{7} - (-5.70 \\times 10^{7}) = \\pu{1.6e6 J kg-1}$.",
+            "Change in distance: $\\Delta r = 7.20 \\times 10^{6} - 7.00 \\times 10^{6} = \\pu{2.0e5 m}$.",
+            "$g = -\\frac{\\Delta V_\\text{g}}{\\Delta r} = -\\frac{1.6 \\times 10^{6}}{2.0 \\times 10^{5}} = -8.0\\ \\text{N kg}^{-1}$.",
+            "The minus sign means the field points inwards. Its magnitude is $\\pu{8.0 N kg-1}$. This is an average over the gap, so it is an estimate."
+          ],
+          "answer": "$g \\approx 8.0\\ \\text{N kg}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "((-5.54e7) - (-5.70e7))/(7.20e6 - 7.00e6)",
+            "sf": 2,
+            "unit": "N kg-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-g-from-surface",
+          "question": "A planet has radius $\\pu{3.4e6 m}$. The gravitational potential at its surface is $\\pu{-1.26e7 J kg-1}$. Determine the gravitational field strength at its surface.",
+          "steps": [
+            "Write both booklet equations for the surface, $r = R$: $V_\\text{g} = -\\frac{GM}{R}$ and $g = \\frac{GM}{R^{2}}$.",
+            "Divide the first by $R$: $g = -\\frac{V_\\text{g}}{R}$.",
+            "Substitute: $g = -\\frac{-1.26 \\times 10^{7}}{3.4 \\times 10^{6}} = 3.71\\ \\text{N kg}^{-1}$, so $\\pu{3.7 N kg-1}$ to 2 significant figures.",
+            "You never needed $M$ or $G$: the potential already contains them."
+          ],
+          "answer": "$g \\approx 3.7\\ \\text{N kg}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-(-1.26e7)/3.4e6",
+            "sf": 2,
+            "unit": "N kg-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-g-direction",
+          "prompt": "Which way does a gravitational field point, compared with the gravitational potential?",
+          "hint": "$g = -\\frac{\\Delta V_\\text{g}}{\\Delta r}$: the minus sign matters.",
+          "options": [
+            {
+              "text": "towards lower potential",
+              "correct": true
+            },
+            {
+              "text": "towards higher potential",
+              "correct": false
+            },
+            {
+              "text": "along a line of constant potential",
+              "correct": false
+            }
+          ],
+          "explain": "Masses are pulled towards lower (more negative) potential, just as a ball rolls downhill. Around a planet that means inwards.",
+          "verify": {
+            "kind": "choice",
+            "truth": "towards lower potential"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-g-tangent",
+          "prompt": "On a graph of $V_\\text{g}$ against $r$ for a planet, the tangent at one point passes through $(\\pu{1.0e7 m}, \\pu{-4.0e6 J kg-1})$ and $(\\pu{2.0e7 m}, 0)$. Determine the magnitude of the field strength at that point, in $\\text{N kg}^{-1}$. Give 2 significant figures.",
+          "hint": "Gradient = rise over run, using the two points on the tangent.",
+          "answer": {
+            "value": 0.4,
+            "tolerance": 0.005
+          },
+          "explain": "Gradient $= \\frac{0 - (-4.0 \\times 10^{6})}{2.0 \\times 10^{7} - 1.0 \\times 10^{7}} = 0.40$, so $g = \\pu{0.40 N kg-1}$ in size, pointing inwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0 - (-4.0e6))/(2.0e7 - 1.0e7)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "heading": "Work done moving a mass",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Potential is energy per kilogram. So to move a mass $m$ between two points, multiply its mass by the change in potential."
+        },
+        {
+          "type": "formula",
+          "tex": "W = m\\Delta V_\\text{g}",
+          "tag": "booklet",
+          "bookletId": "db-4-2"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta V_\\text{g} = V_\\text{final} - V_\\text{initial}$. $W$ is the [[work|work]] done on the mass by an outside agent, such as a rocket, moving it without changing its speed. It equals the change in [[gravitational-potential-energy|gravitational potential energy]] of the system."
+        },
+        {
+          "type": "text",
+          "text": "Moving away from a planet, $V_\\text{g}$ rises, so $W$ is positive: you must supply energy. Moving towards it, $W$ is negative: the field does the work instead. With no other forces, a falling mass gains kinetic energy equal to $m$ times the drop in potential."
+        },
+        {
+          "type": "text",
+          "text": "Near the surface, the field is almost uniform, so $\\Delta V_\\text{g} = g\\Delta h$ and $W = mg\\Delta h$, the equation from {{lesson:1.10}}. It is a special case, valid only when $\\Delta h$ is tiny compared with the planet's radius."
+        },
+        {
+          "type": "example",
+          "id": "ex-work-lift",
+          "question": "A $\\pu{1500 kg}$ satellite is raised from the surface of a planet of mass $\\pu{6.4e24 kg}$ and radius $\\pu{6.0e6 m}$ to a point $\\pu{1.8e7 m}$ from the planet's centre. Calculate the work done against gravity.",
+          "steps": [
+            "Potential at the surface: $V_1 = -\\frac{6.67 \\times 10^{-11} \\times 6.4 \\times 10^{24}}{6.0 \\times 10^{6}} = -7.115 \\times 10^{7}\\ \\text{J kg}^{-1}$.",
+            "Potential at the new point: $V_2 = -\\frac{6.67 \\times 10^{-11} \\times 6.4 \\times 10^{24}}{1.8 \\times 10^{7}} = -2.372 \\times 10^{7}\\ \\text{J kg}^{-1}$.",
+            "$\\Delta V_\\text{g} = V_2 - V_1 = 4.743 \\times 10^{7}\\ \\text{J kg}^{-1}$. Keep the unrounded values.",
+            "$W = m\\Delta V_\\text{g} = 1500 \\times 4.743 \\times 10^{7} = 7.11 \\times 10^{10}\\ \\text{J}$.",
+            "Using $mg\\Delta h$ with surface $g$ would give three times this, because $g$ weakens as the satellite rises. To put the satellite into orbit, it also needs kinetic energy: see {{lesson:4.3}}."
+          ],
+          "answer": "$W \\approx 7.1 \\times 10^{10}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1500*((-G*6.4e24/1.8e7) - (-G*6.4e24/6.0e6))",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $mg\\Delta h$ for a large change in height. It assumes $g$ is constant, which fails once $\\Delta h$ is a sizeable fraction of the planet's radius."
+        },
+        {
+          "type": "example",
+          "id": "ex-free-fall-speed",
+          "question": "A rock starts at rest at a point where the gravitational potential of an airless moon is $\\pu{-3.2e6 J kg-1}$. It falls freely to the surface, where the potential is $\\pu{-4.1e6 J kg-1}$. Calculate its speed as it reaches the surface.",
+          "steps": [
+            "The field does the work, so the kinetic energy gained equals the potential energy lost: $\\frac{1}{2}mv^{2} = m(V_\\text{initial} - V_\\text{final})$.",
+            "The mass cancels: $v = \\sqrt{2(V_\\text{initial} - V_\\text{final})}$.",
+            "Drop in potential: $-3.2 \\times 10^{6} - (-4.1 \\times 10^{6}) = \\pu{9.0e5 J kg-1}$.",
+            "$v = \\sqrt{2 \\times 9.0 \\times 10^{5}} = 1342\\ \\text{m s}^{-1}$, so $\\pu{1.3e3 m s-1}$ to 2 significant figures."
+          ],
+          "answer": "$v \\approx 1.3 \\times 10^{3}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "sqrt(2*((-3.2e6) - (-4.1e6)))",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ep-approach",
+          "prompt": "An unpowered spacecraft moves closer to a planet. What happens to the gravitational potential energy of the planet–spacecraft system?",
+          "hint": "Closer means $r$ smaller, so $-\\frac{GMm}{r}$ is more negative.",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "The potential energy becomes more negative, so it decreases. The energy lost becomes kinetic energy: the spacecraft speeds up.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-work-probe",
+          "prompt": "An $\\pu{80 kg}$ probe is moved from a point where $V_\\text{g} = \\pu{-6.0e7 J kg-1}$ to a point where $V_\\text{g} = \\pu{-2.5e7 J kg-1}$. Calculate the work done on it, in units of $10^{9}$ J. Give 2 significant figures.",
+          "hint": "$\\Delta V_\\text{g}$ is final minus initial.",
+          "answer": {
+            "value": 2.8,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta V_\\text{g} = -2.5 \\times 10^{7} - (-6.0 \\times 10^{7}) = \\pu{3.5e7 J kg-1}$, so $W = 80 \\times 3.5 \\times 10^{7} = \\pu{2.8e9 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "80*((-2.5e7) - (-6.0e7))/10**9",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "equipotentials",
+      "heading": "Equipotential surfaces",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Join up all the points that have the same potential and you get a surface, like a contour line on a map joining points at the same height."
+        },
+        {
+          "type": "definition",
+          "term": "equipotential surface",
+          "statement": "A surface on which every point has the same gravitational potential.",
+          "plain": "A surface you can move along without gaining or losing gravitational energy."
+        },
+        {
+          "type": "text",
+          "text": "On an [[equipotential-surface|equipotential surface]], $\\Delta V_\\text{g} = 0$, so $W = m\\Delta V_\\text{g} = 0$. No work is done moving a mass along it. The field is still there; it just has no component along the surface."
+        },
+        {
+          "type": "text",
+          "text": "That is why field lines always cross equipotentials at right angles. Around a planet, the field lines are radial and the equipotentials are concentric spheres. Close to the surface, the field is almost uniform: parallel field lines and flat, horizontal equipotentials."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-equipotentials",
+          "alt": "Two diagrams. Left: a circular planet with eight straight field lines pointing radially inwards. Three dashed circles around the planet are equipotentials drawn at equal steps of potential. The gap between the planet's surface and the first circle is smallest, and each later gap is larger. Right: a flat strip of ground with five parallel vertical field lines pointing down to it, crossed by four horizontal dashed equipotentials that are equally spaced. In both diagrams the field lines meet the equipotentials at right angles.",
+          "caption": "Equipotentials drawn at equal steps of $V_\\text{g}$ crowd together where the field is strong."
+        },
+        {
+          "type": "text",
+          "text": "Draw equipotentials at equal steps in potential and their spacing shows the field strength. In a radial field they spread out with distance, because $g$ gets weaker. In a uniform field they are equally spaced."
+        },
+        {
+          "type": "text",
+          "text": "To map a field from potential: draw the equipotentials, then draw field lines at right angles to them, pointing towards lower potential."
+        },
+        {
+          "type": "example",
+          "id": "ex-equipotential-perpendicular",
+          "question": "Explain why gravitational field lines always cross equipotential surfaces at right angles.",
+          "steps": [
+            "Say what is constant on an equipotential.",
+            "Use $W = m\\Delta V_\\text{g}$ to find the work done moving along it.",
+            "Argue what a component of the field along the surface would do."
+          ],
+          "answer": "On an equipotential surface the potential is the same everywhere, so the change in potential along it is zero. By $W = m\\Delta V_\\text{g}$, no work is done moving a mass along the surface. If the field had a component along the surface, the gravitational force would do work on a mass moved along it. So the field has no component along the surface. The field lines must therefore be perpendicular to the equipotential surfaces.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "potential constant on the surface; zero change in potential so no work along it; a component of the field along the surface would do work; so no such component; field lines perpendicular",
+            "requires": [
+              [
+                "potential is the same",
+                "constant potential",
+                "same potential"
+              ],
+              [
+                "no work",
+                "zero work"
+              ],
+              "component along the surface",
+              "perpendicular"
+            ],
+            "forbids": [
+              "no field",
+              "parallel to the equipotential"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-equipotential-spacing",
+          "question": "A planet has mass $\\pu{8.0e24 kg}$. Equipotential surfaces are drawn around it at $\\pu{-8.0e7 J kg-1}$, $\\pu{-6.0e7 J kg-1}$ and $\\pu{-4.0e7 J kg-1}$, all outside the planet. Determine the distance between the first two surfaces, and compare it with the distance between the last two.",
+          "steps": [
+            "Rearrange $V_\\text{g} = -\\frac{GM}{r}$: each surface is a sphere of radius $r = -\\frac{GM}{V_\\text{g}}$, with $GM = 6.67 \\times 10^{-11} \\times 8.0 \\times 10^{24} = 5.336 \\times 10^{14}\\ \\text{N m}^{2}\\ \\text{kg}^{-1}$.",
+            "Radii: $\\frac{5.336 \\times 10^{14}}{8.0 \\times 10^{7}} = \\pu{6.67e6 m}$, $\\frac{5.336 \\times 10^{14}}{6.0 \\times 10^{7}} = \\pu{8.89e6 m}$, $\\frac{5.336 \\times 10^{14}}{4.0 \\times 10^{7}} = \\pu{1.33e7 m}$.",
+            "First gap: $8.893 \\times 10^{6} - 6.670 \\times 10^{6} = 2.22 \\times 10^{6}\\ \\text{m}$, so $\\pu{2.2e6 m}$ to 2 significant figures.",
+            "Second gap: $1.334 \\times 10^{7} - 8.893 \\times 10^{6} = 4.4 \\times 10^{6}\\ \\text{m}$, twice as big. The steps in potential are equal, but the field is weaker further out, so you must travel further for the same change."
+          ],
+          "answer": "$\\Delta r \\approx 2.2 \\times 10^{6}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "G*8.0e24/6.0e7 - G*8.0e24/8.0e7",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equipotential-work",
+          "prompt": "A probe of mass $m$ moves 5000 km along an equipotential surface around a planet. How much work does the gravitational field do on it?",
+          "hint": "Use $W = m\\Delta V_\\text{g}$.",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "a positive amount",
+              "correct": false
+            },
+            {
+              "text": "a negative amount",
+              "correct": false
+            },
+            {
+              "text": "it depends on the probe's mass",
+              "correct": false
+            }
+          ],
+          "explain": "The potential does not change, so $\\Delta V_\\text{g} = 0$ and no work is done, whatever the mass or distance.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equipotential-uniform",
+          "prompt": "Near the surface of a planet the field is uniform. Equipotentials are drawn at equal steps of potential. What do they look like?",
+          "hint": "Field lines are vertical and parallel, and the field strength is the same everywhere.",
+          "options": [
+            {
+              "text": "horizontal planes, equally spaced",
+              "correct": true
+            },
+            {
+              "text": "horizontal planes, further apart with height",
+              "correct": false
+            },
+            {
+              "text": "vertical planes, equally spaced",
+              "correct": false
+            }
+          ],
+          "explain": "Equipotentials are at right angles to the vertical field lines, so they are horizontal. A uniform field means equal gaps for equal steps in potential.",
+          "verify": {
+            "kind": "choice",
+            "truth": "horizontal planes, equally spaced"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E_\\text{p} = -G\\frac{m_1 m_2}{r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "V_\\text{g} = -\\frac{GM}{r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Potential energy and potential are zero at infinity and negative everywhere else. $r$ is measured between centres. Potential is a scalar: add it from each body.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "g = -\\frac{\\Delta V_\\text{g}}{\\Delta r}",
+          "tag": "booklet",
+          "bookletId": "db-4-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "W = m\\Delta V_\\text{g}",
+          "tag": "booklet",
+          "bookletId": "db-4-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No work is done moving along an equipotential. Field lines cross equipotentials at right angles and point towards lower potential.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the height above the surface as $r$. In $E_\\text{p} = -G\\frac{m_1m_2}{r}$ and $V_\\text{g} = -\\frac{GM}{r}$, $r$ is measured from the centre: add the planet's radius.",
+    "Dropping the minus sign. Potential and potential energy are zero at infinity and negative everywhere else; a positive answer is wrong.",
+    "Treating potential as a vector. It is a scalar: add the values from each body, signs included, with no directions.",
+    "Using $mg\\Delta h$ for a change in height comparable to the planet's radius. Use $W = m\\Delta V_\\text{g}$ with $V_\\text{g} = -\\frac{GM}{r}$ at each point.",
+    "Getting $\\Delta V_\\text{g}$ backwards. It is final minus initial, so moving away from a planet gives positive work done on the mass."
+  ],
+  "examTips": [
+    "\"Define\" gravitational potential: the work needed per kilogram to move a small mass to the point from infinity. Leaving out \"per unit mass\" or \"from infinity\" loses the mark.",
+    "\"Show that\" questions linking $V_\\text{g}$ and $g$: write both booklet equations, then divide or substitute to reach the given result.",
+    "In Paper 1A, potential questions often compare points. Potential varies as $\\frac{1}{r}$ and field strength as $\\frac{1}{r^{2}}$: check which one is asked for.",
+    "\"Sketch\" equipotentials: draw them at right angles to every field line, closer together where the field is stronger."
+  ],
+  "readingMinutes": 29
+}

@@ -1,0 +1,914 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.1",
+  "slug": "simple-harmonic-motion",
+  "title": "Simple harmonic motion",
+  "level": "SL",
+  "topic": 3,
+  "summary": "[[simple-harmonic-motion|Simple harmonic motion]] is the back-and-forth motion of a mass on a spring, a swinging pendulum and many other oscillators. Its [[acceleration|acceleration]] is proportional to its [[displacement|displacement]] and always points back towards the middle. That one rule sets the [[period|period]] of a [[mass-spring-system|mass–spring system]] and of a [[simple-pendulum|simple pendulum]].",
+  "goals": [
+    {
+      "text": "Describe an oscillation using equilibrium position, displacement, [[amplitude|amplitude]], period, [[frequency|frequency]] and [[angular-frequency|angular frequency]], and use $T = \\frac{1}{f} = \\frac{2\\pi}{\\omega}$.",
+      "bullets": [
+        "C.1-s3",
+        "C.1-s4"
+      ]
+    },
+    {
+      "text": "State the conditions for simple harmonic motion, and explain the minus sign in $a = -\\omega^{2}x$.",
+      "bullets": [
+        "C.1-s1",
+        "C.1-s2"
+      ]
+    },
+    {
+      "text": "Calculate the period of a mass–spring system and of a simple pendulum, and say what each period does not depend on.",
+      "bullets": [
+        "C.1-s5",
+        "C.1-s6"
+      ]
+    },
+    {
+      "text": "Describe how kinetic, potential and total energy change during one cycle of an oscillation.",
+      "bullets": [
+        "C.1-s7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.5",
+    "1.8",
+    "1.10",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "simple harmonic motion",
+    "SHM",
+    "a = -omega^2 x",
+    "period of a mass on a spring",
+    "period of a pendulum",
+    "angular frequency"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hooke-force",
+      "prompt": "A spring has a [[spring-constant|spring constant]] of $\\pu{40 N m-1}$. It is stretched by $\\pu{0.15 m}$. What force does it exert, in newtons? Give 2 significant figures.",
+      "hint": "Use [[hooke-s-law|Hooke's law]], $F = kx$.",
+      "answer": {
+        "value": 6.0,
+        "tolerance": 0.05
+      },
+      "explain": "$F = kx = 40 \\times 0.15 = \\pu{6.0 N}$, pulling back towards the spring's natural length. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "40*0.15",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-wheel-omega",
+      "prompt": "A wheel turns steadily, once every $\\pu{0.50 s}$. What is its angular velocity, in $\\pu{rad s-1}$? Give 3 significant figures.",
+      "hint": "One turn is $2\\pi$ rad, so $\\omega = \\frac{2\\pi}{T}$.",
+      "answer": {
+        "value": 12.6,
+        "tolerance": 0.05
+      },
+      "explain": "$\\omega = \\frac{2\\pi}{T} = \\frac{2\\pi}{0.50} = 12.57... \\approx \\pu{12.6 rad s-1}$. Revise the [[period|period]] and angular velocity in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*pi/0.50",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-spring-energy",
+      "prompt": "A spring of spring constant $\\pu{200 N m-1}$ is compressed by $\\pu{0.040 m}$. How much [[elastic-potential-energy|elastic potential energy]] does it store, in joules? Give 2 significant figures.",
+      "hint": "Use $E_\\text{H} = \\frac{1}{2}k\\Delta x^{2}$.",
+      "answer": {
+        "value": 0.16,
+        "tolerance": 0.005
+      },
+      "explain": "$E_\\text{H} = \\frac{1}{2} \\times 200 \\times 0.040^{2} = \\pu{0.16 J}$. This is the [[area-under-a-graph|area under]] the force–compression graph. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*200*0.040**2",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "describing",
+      "heading": "Describing an oscillation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pull a mass on a spring down and let go. It bobs up and down, repeating the same motion: an oscillation."
+        },
+        {
+          "type": "text",
+          "text": "The equilibrium position is where the object would rest if nothing disturbed it. The [[displacement|displacement]] $x$ is how far the object is from equilibrium, in a stated direction. It is positive on one side and negative on the other."
+        },
+        {
+          "type": "text",
+          "text": "The largest displacement is the [[amplitude|amplitude]], $x_0$. The object swings out to $+x_0$ and $-x_0$, so the two extremes are $2x_0$ apart."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-displacement-time",
+          "alt": "Graph of displacement x against time t. A smooth wave starts at its highest point x0, falls through zero to minus x0 and rises back to x0, twice over. The time axis is the line x = 0, labelled equilibrium. A vertical double arrow from the axis to a crest is labelled amplitude x0. A horizontal double arrow from one crest to the next is labelled period T.",
+          "caption": "One complete oscillation takes one [[period|period]] $T$. The amplitude is measured from equilibrium, not from crest to trough."
+        },
+        {
+          "type": "text",
+          "text": "The period $T$ is the time for one complete oscillation, for example from one extreme to the other and back again. The [[frequency|frequency]] $f$ is the number of complete oscillations per second, in hertz (Hz)."
+        },
+        {
+          "type": "text",
+          "text": "An oscillation also has an [[angular-frequency|angular frequency]] $\\omega$, measured in $\\pu{rad s-1}$. One complete oscillation counts as $2\\pi$ [[radian|radians]], so $\\omega = 2\\pi f$."
+        },
+        {
+          "type": "formula",
+          "tex": "T = \\frac{1}{f} = \\frac{2\\pi}{\\omega}",
+          "tag": "booklet",
+          "bookletId": "db-3-1"
+        },
+        {
+          "type": "text",
+          "text": "Why 'angular'? Picture a point moving round a circle at angular velocity $\\omega$. Its shadow on a wall moves back and forth with the same period. Nothing in a real oscillator rotates: $\\omega$ just measures how quickly the cycles repeat."
+        },
+        {
+          "type": "example",
+          "id": "ex-wing-beat",
+          "question": "A hummingbird's wings beat back and forth 52.0 times every second. Treat each wing as an oscillator. Calculate the angular frequency of the wing beat.",
+          "steps": [
+            "One beat is one complete oscillation, so $f = \\pu{52.0 Hz}$.",
+            "Period: $T = \\frac{1}{f} = \\frac{1}{52.0} = \\pu{0.0192 s}$.",
+            "Angular frequency: $\\omega = 2\\pi f = 2\\pi \\times 52.0 = \\pu{326.7 rad s-1}$. Round to 3 significant figures, like the data."
+          ],
+          "answer": "$\\omega \\approx \\pu{327 rad s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*52.0",
+            "sf": 3,
+            "unit": "rad s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-buoy-frequency",
+          "question": "A buoy bobs up and down on waves. Its highest point is $\\pu{0.90 m}$ above its lowest point. It makes 15 complete oscillations in $\\pu{42.0 s}$. Determine the frequency of its motion.",
+          "steps": [
+            "Period: $T = \\frac{42.0}{15} = \\pu{2.80 s}$. Timing many oscillations and dividing gives a more precise period than timing one.",
+            "Frequency: $f = \\frac{1}{T} = \\frac{1}{2.80} = \\pu{0.3571 Hz}$. Round to 3 significant figures.",
+            "The $\\pu{0.90 m}$ is from lowest to highest point, so the amplitude is half of it, $\\pu{0.45 m}$. The frequency does not depend on it."
+          ],
+          "answer": "$f \\approx \\pu{0.357 Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "15/42.0",
+            "sf": 3,
+            "unit": "Hz"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-buoy-omega",
+            "prompt": "Now you try: what is the angular frequency of the buoy, in $\\pu{rad s-1}$? Give 3 significant figures.",
+            "hint": "Use $\\omega = 2\\pi f$ with the unrounded $f$.",
+            "answer": {
+              "value": 2.24,
+              "tolerance": 0.005
+            },
+            "explain": "$\\omega = 2\\pi f = 2\\pi \\times 0.3571 = 2.244... \\approx \\pu{2.24 rad s-1}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "2*pi*15/42.0",
+              "sf": 3
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-amplitude-swing",
+          "prompt": "A pendulum bob swings back and forth between two points $\\pu{0.12 m}$ apart. What is its amplitude?",
+          "hint": "Amplitude is measured from the equilibrium position, which is halfway between the two points.",
+          "options": [
+            {
+              "text": "$\\pu{0.060 m}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.12 m}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.24 m}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.030 m}$",
+              "correct": false
+            }
+          ],
+          "explain": "The bob goes $x_0$ either side of equilibrium, so $2x_0 = \\pu{0.12 m}$ and $x_0 = \\pu{0.060 m}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.12/2",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-omega-to-frequency",
+          "prompt": "An oscillator has an angular frequency of $\\pu{8.0 rad s-1}$. What is its frequency, in Hz? Give 2 significant figures.",
+          "hint": "Rearrange $\\omega = 2\\pi f$.",
+          "answer": {
+            "value": 1.3,
+            "tolerance": 0.05
+          },
+          "explain": "$f = \\frac{\\omega}{2\\pi} = \\frac{8.0}{2\\pi} = 1.27... \\approx \\pu{1.3 Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.0/(2*pi)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "defining-equation",
+      "heading": "The condition for simple harmonic motion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pull a mass on a spring further from equilibrium and the spring pulls back harder. The force always points back towards equilibrium, so it is called a restoring force."
+        },
+        {
+          "type": "text",
+          "text": "When the restoring force is proportional to the displacement, the motion is [[simple-harmonic-motion|simple harmonic motion]] (SHM). By [[newton-s-second-law|Newton's second law]], the [[acceleration|acceleration]] is then proportional to the displacement too."
+        },
+        {
+          "type": "definition",
+          "term": "simple harmonic motion",
+          "statement": "Motion in which the acceleration is proportional to the displacement from a fixed equilibrium position and is always directed towards that position.",
+          "plain": "The further it is from the middle, the harder it is pulled back to the middle."
+        },
+        {
+          "type": "formula",
+          "tex": "a = -\\omega^{2}x",
+          "tag": "booklet",
+          "bookletId": "db-3-1"
+        },
+        {
+          "type": "text",
+          "text": "$\\omega^{2}$ is always positive, so the minus sign carries the meaning: $a$ and $x$ always have opposite signs. Displaced to the positive side, the object accelerates in the negative direction, back towards equilibrium."
+        },
+        {
+          "type": "text",
+          "text": "So SHM needs two conditions together: the acceleration (and resultant force) is proportional to the displacement, and it points the opposite way, towards equilibrium."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-acceleration-displacement",
+          "alt": "Graph of acceleration a against displacement x. The axes cross at the origin. A straight line runs from top left to bottom right through the origin, between x = minus x0 and x = plus x0. Where x is positive, a is negative; where x is negative, a is positive. The line is labelled gradient = minus omega squared.",
+          "caption": "A straight line through the origin with a negative gradient is the signature of SHM. The gradient is $-\\omega^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "At equilibrium ($x = 0$) the acceleration is zero and the speed is greatest. At the extremes ($x = \\pm x_0$) the acceleration is greatest and the object is momentarily at rest."
+        },
+        {
+          "type": "text",
+          "text": "The acceleration changes all the time, so SHM is [[non-uniform-acceleration|non-uniform acceleration]]. The equations of motion from {{lesson:1.2}} do not apply."
+        },
+        {
+          "type": "example",
+          "id": "ex-glider-springs",
+          "question": "A glider sits on a horizontal, frictionless air track between two identical stretched springs. Each spring is fixed to one end of the track. The glider is pulled sideways and released. Outline why the glider performs simple harmonic motion.",
+          "steps": [
+            "Name the force, then give its size and its direction: those are the marking points.",
+            "Writing $a = -\\omega^{2}x$ on its own earns nothing. Say what physically makes the force proportional and opposite."
+          ],
+          "answer": "When the glider is displaced, one spring stretches more and the other stretches less, so there is a resultant force on the glider. The springs obey Hooke's law, so the resultant force is proportional to the displacement. The force acts opposite to the displacement, towards the equilibrium position. So the acceleration is proportional to the displacement and directed towards the equilibrium position, which is the condition for simple harmonic motion.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "resultant force from springs; proportional to displacement (Hooke's law); opposite to displacement, towards equilibrium; so a is proportional to -x",
+            "requires": [
+              [
+                "resultant force",
+                "net force"
+              ],
+              "proportional to the displacement",
+              [
+                "opposite to the displacement",
+                "towards the equilibrium position"
+              ],
+              "acceleration"
+            ],
+            "forbids": [
+              "constant force",
+              "same direction as the displacement",
+              "away from the equilibrium position"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-frequency-from-acceleration",
+          "question": "An object performs simple harmonic motion. At one instant its displacement is $+\\pu{0.030 m}$ and its acceleration is $-\\pu{2.7 m s-2}$. Determine the frequency of the oscillation.",
+          "steps": [
+            "Take the direction of the displacement as positive. Rearrange $a = -\\omega^{2}x$: $\\omega^{2} = -\\frac{a}{x} = -\\frac{-2.7}{0.030} = \\pu{90 s-2}$.",
+            "$\\omega = \\sqrt{90} = \\pu{9.487 rad s-1}$.",
+            "From $T = \\frac{1}{f} = \\frac{2\\pi}{\\omega}$: $f = \\frac{\\omega}{2\\pi} = \\frac{9.487}{2\\pi} = \\pu{1.510 Hz}$. Round to 2 significant figures.",
+            "Check the signs: $x$ is positive and $a$ is negative, as SHM requires."
+          ],
+          "answer": "$f \\approx \\pu{1.5 Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2.7/0.030)/(2*pi)",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only \"the acceleration is proportional to the displacement\". Mark schemes also want the direction: opposite to the displacement, towards equilibrium."
+        },
+        {
+          "type": "check",
+          "id": "check-which-is-shm",
+          "prompt": "Which of these motions is simple harmonic?",
+          "hint": "Is the restoring force proportional to the displacement from equilibrium?",
+          "options": [
+            {
+              "text": "a mass bobbing on a spring that obeys Hooke's law",
+              "correct": true
+            },
+            {
+              "text": "a ball bouncing up and down on a hard floor",
+              "correct": false
+            },
+            {
+              "text": "a pendulum swinging out to 80 degrees on each side",
+              "correct": false
+            },
+            {
+              "text": "a car driving at constant speed back and forth between two walls",
+              "correct": false
+            }
+          ],
+          "explain": "Only the spring force is proportional and opposite to the displacement. The ball's acceleration is a constant $g$, the large-angle pendulum's force is not proportional, and the car has no restoring force.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a mass bobbing on a spring that obeys Hooke's law"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-acceleration-sign",
+          "prompt": "An object performs SHM with angular frequency $\\pu{5.0 rad s-1}$. What is its acceleration when its displacement is $-\\pu{0.040 m}$, in $\\pu{m s-2}$? Include the sign. Give 2 significant figures.",
+          "hint": "Substitute into $a = -\\omega^{2}x$ and watch the two minus signs.",
+          "answer": {
+            "value": 1.0,
+            "tolerance": 0.05
+          },
+          "explain": "$a = -\\omega^{2}x = -(5.0^{2}) \\times (-0.040) = +\\pu{1.0 m s-2}$. It is positive: back towards equilibrium.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-(5.0**2)*(-0.040)",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "mass-spring",
+      "heading": "The mass–spring system",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A mass $m$ on a spring of [[spring-constant|spring constant]] $k$ is the standard SHM oscillator. If the spring obeys [[hooke-s-law|Hooke's law]], the resultant force is $F = -kx$, so $a = -\\frac{k}{m}x$."
+        },
+        {
+          "type": "text",
+          "text": "Compare this with $a = -\\omega^{2}x$: here $\\omega^{2} = \\frac{k}{m}$. Then $T = \\frac{2\\pi}{\\omega}$ gives the period of a [[mass-spring-system|mass–spring system]]."
+        },
+        {
+          "type": "formula",
+          "tex": "T = 2\\pi\\sqrt{\\frac{m}{k}}",
+          "tag": "booklet",
+          "bookletId": "db-3-1"
+        },
+        {
+          "type": "text",
+          "text": "A larger mass accelerates less for the same force, so it oscillates more slowly. A stiffer spring pulls harder, so it oscillates faster."
+        },
+        {
+          "type": "text",
+          "text": "The period does not depend on the amplitude. It is also the same for a vertical spring: gravity moves the equilibrium position down, but $g$ is not in the formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-period",
+          "question": "A $\\pu{0.25 kg}$ mass hangs from a spring of spring constant $\\pu{16 N m-1}$. It is pulled down and released. Calculate the period of its oscillations.",
+          "steps": [
+            "Use $T = 2\\pi\\sqrt{\\frac{m}{k}}$. The spring is vertical, but $g$ does not appear.",
+            "$T = 2\\pi\\sqrt{\\frac{0.25}{16}} = 2\\pi \\times 0.125 = \\pu{0.7854 s}$.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$T \\approx \\pu{0.79 s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*sqrt(0.25/16)",
+            "sf": 2,
+            "unit": "s"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-quarter-mass",
+            "prompt": "Now you try: the mass is replaced by one with a quarter of the mass, on the same spring. What happens to the period?",
+            "hint": "$T$ is proportional to $\\sqrt{m}$.",
+            "options": [
+              {
+                "text": "it halves",
+                "correct": true
+              },
+              {
+                "text": "it becomes a quarter",
+                "correct": false
+              },
+              {
+                "text": "it doubles",
+                "correct": false
+              },
+              {
+                "text": "it stays the same",
+                "correct": false
+              }
+            ],
+            "explain": "$T \\propto \\sqrt{m}$ and $\\sqrt{\\frac{1}{4}} = \\frac{1}{2}$, so the period halves, to about $\\pu{0.39 s}$.",
+            "verify": {
+              "kind": "choice",
+              "truth": "it halves"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-constant-lab",
+          "question": "A student hangs a $\\pu{0.500 kg}$ mass from a spring and times 20 complete oscillations. The total time is $\\pu{13.6 s}$. Determine the spring constant.",
+          "steps": [
+            "Period: $T = \\frac{13.6}{20} = \\pu{0.680 s}$.",
+            "Rearrange $T = 2\\pi\\sqrt{\\frac{m}{k}}$. Square both sides: $T^{2} = \\frac{4\\pi^{2}m}{k}$, so $k = \\frac{4\\pi^{2}m}{T^{2}}$.",
+            "$k = \\frac{4\\pi^{2} \\times 0.500}{0.680^{2}} = \\pu{42.69 N m-1}$. Round to 3 significant figures."
+          ],
+          "answer": "$k \\approx \\pu{42.7 N m-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*pi**2*0.500/(13.6/20)**2",
+            "sf": 3,
+            "unit": "N m-1"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To measure a period, time 10 or more oscillations and divide. Your reaction-time error is then shared over many cycles, so the period is more precise."
+        },
+        {
+          "type": "check",
+          "id": "check-double-amplitude",
+          "prompt": "A mass on a horizontal spring oscillates on a frictionless surface. A student pulls it twice as far before releasing it. What happens to the period?",
+          "hint": "Is the amplitude anywhere in $T = 2\\pi\\sqrt{\\frac{m}{k}}$?",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it increases, but by less than double",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            }
+          ],
+          "explain": "The mass travels twice as far, but the force is twice as large, so it moves faster. The effects cancel.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mass-for-period",
+          "prompt": "What mass, hung on a spring of spring constant $\\pu{30 N m-1}$, oscillates with a period of $\\pu{1.0 s}$? Give your answer in kg to 2 significant figures.",
+          "hint": "Rearrange $T = 2\\pi\\sqrt{\\frac{m}{k}}$ to $m = \\frac{kT^{2}}{4\\pi^{2}}$.",
+          "answer": {
+            "value": 0.76,
+            "tolerance": 0.005
+          },
+          "explain": "$m = \\frac{kT^{2}}{4\\pi^{2}} = \\frac{30 \\times 1.0^{2}}{4\\pi^{2}} = 0.759... \\approx \\pu{0.76 kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "30*1.0**2/(4*pi**2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "pendulum",
+      "heading": "The simple pendulum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[simple-pendulum|simple pendulum]] is a small, dense bob on a light, inextensible string, swinging from a fixed point. Its length $l$ is measured from the pivot to the centre of the bob."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-pendulum",
+          "alt": "A simple pendulum. A bob hangs from a fixed pivot on a string of length l, pulled to the right so the string makes an angle theta with a dashed vertical line marking the equilibrium position. A dashed arc shows the bob's path. The tension acts along the string towards the pivot, and weight mg acts straight down. A dashed arrow at the bob, along the arc towards the equilibrium position, is the component of the weight, mg sin theta, labelled restoring.",
+          "caption": "The [[tension|tension]] acts along the string, so it has no component along the arc. The component of the [[weight|weight]] along the arc, $mg\\sin\\theta$, is the restoring force."
+        },
+        {
+          "type": "text",
+          "text": "The displacement along the arc is $x = l\\theta$, with $\\theta$ in [[radian|radians]]. For small angles $\\sin\\theta \\approx \\theta$, so the restoring force is about $mg\\frac{x}{l}$: proportional to the displacement."
+        },
+        {
+          "type": "text",
+          "text": "So $a \\approx -\\frac{g}{l}x$. This is SHM with $\\omega^{2} = \\frac{g}{l}$, which gives the period."
+        },
+        {
+          "type": "formula",
+          "tex": "T = 2\\pi\\sqrt{\\frac{l}{g}}",
+          "tag": "booklet",
+          "bookletId": "db-3-1"
+        },
+        {
+          "type": "text",
+          "text": "Only the length and $g$ set the period. The mass cancels: a heavier bob has a larger restoring force, but also more mass to accelerate. For small swings, the amplitude does not matter either."
+        },
+        {
+          "type": "text",
+          "text": "The small-angle approximation works well up to about $10^{\\circ}$. At large angles the motion is still periodic but not simple harmonic, and the period is longer than the formula gives."
+        },
+        {
+          "type": "text",
+          "text": "Use $g = \\pu{9.8 m s-2}$ from the data booklet unless a question gives another value."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-period",
+          "question": "A small heavy ball hangs from a light string. The distance from the pivot to the centre of the ball is $\\pu{1.4 m}$. Calculate the period of small oscillations.",
+          "steps": [
+            "$l = \\pu{1.4 m}$ and $g = \\pu{9.8 m s-2}$.",
+            "$T = 2\\pi\\sqrt{\\frac{l}{g}} = 2\\pi\\sqrt{\\frac{1.4}{9.8}} = \\pu{2.375 s}$.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$T \\approx \\pu{2.4 s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*sqrt(1.4/g)",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-small-angle",
+          "question": "Outline why a simple pendulum performs simple harmonic motion only when its amplitude is small.",
+          "steps": [
+            "Give the restoring force, the SHM condition, and why it only holds for small angles: one point per sentence."
+          ],
+          "answer": "The restoring force on the bob is the component of the weight along the arc, which acts towards the equilibrium position. For simple harmonic motion, the restoring force must be proportional to the displacement. The displacement along the arc is proportional to the angle, but the restoring force is proportional to the sine of the angle. For small angles, measured in radians, the sine of the angle is approximately equal to the angle, so the restoring force is approximately proportional to the displacement.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "restoring force is weight component along arc towards equilibrium; SHM needs force proportional to displacement; force goes as sin theta, displacement as theta; sin theta approx theta for small angles in radians",
+            "requires": [
+              "component of the weight",
+              "towards the equilibrium position",
+              "proportional to the displacement",
+              "small angles",
+              [
+                "approximately equal to the angle",
+                "sin theta is approximately theta"
+              ]
+            ],
+            "forbids": [
+              "depends on the mass",
+              "tension provides the restoring force"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a heavier bob swings more slowly. Mass is not in $T = 2\\pi\\sqrt{\\frac{l}{g}}$; only the length and $g$ change the period."
+        },
+        {
+          "type": "check",
+          "id": "check-pendulum-ratio",
+          "prompt": "The string of a simple pendulum is made 9 times longer, and the bob is replaced by one with half the mass. The pendulum still swings through small angles. What happens to the period?",
+          "hint": "$T \\propto \\sqrt{l}$, and the mass is not in the formula.",
+          "options": [
+            {
+              "text": "it triples",
+              "correct": true
+            },
+            {
+              "text": "it increases by a factor of 9",
+              "correct": false
+            },
+            {
+              "text": "it increases by a factor of 1.5",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{9} = 3$, so the period triples. Halving the mass changes nothing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it triples"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-measure-g",
+          "prompt": "A student times 20 small oscillations of a pendulum of length $\\pu{0.750 m}$. The total time is $\\pu{34.8 s}$. Determine $g$ from these results, in $\\pu{m s-2}$. Give 3 significant figures.",
+          "hint": "Find $T$ first, then rearrange to $g = \\frac{4\\pi^{2}l}{T^{2}}$.",
+          "answer": {
+            "value": 9.78,
+            "tolerance": 0.005
+          },
+          "explain": "$T = \\frac{34.8}{20} = \\pu{1.74 s}$, so $g = \\frac{4\\pi^{2} \\times 0.750}{1.74^{2}} = 9.779... \\approx \\pu{9.78 m s-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4*pi**2*0.750/(34.8/20)**2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "heading": "Energy during an oscillation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "As an oscillator moves, its energy keeps changing between [[kinetic-energy|kinetic energy]] and potential energy."
+        },
+        {
+          "type": "text",
+          "text": "For a horizontal spring, the potential energy is [[elastic-potential-energy|elastic potential energy]]. For a pendulum, it is [[gravitational-potential-energy|gravitational potential energy]]. A vertical spring has both."
+        },
+        {
+          "type": "text",
+          "text": "At each extreme the object stops for an instant. Its kinetic energy is zero and its potential energy is at a maximum. At equilibrium the speed is greatest, so the kinetic energy is at a maximum and the potential energy is at a minimum."
+        },
+        {
+          "type": "text",
+          "text": "With no friction or air resistance, the total energy stays constant. It is the [[mechanical-energy|mechanical energy]] given to the oscillator at the start, and a larger amplitude means more of it. Real oscillators lose energy to their surroundings; this [[damping|damping]] is taught in {{lesson:3.8}}."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-energy-time",
+          "alt": "Graph of energy E against time t over one period T, for an oscillator released from rest at maximum displacement at t = 0. A horizontal line at the top is the total energy, constant. The dashed potential energy curve starts at the total, falls to zero at T/4, rises to the total at T/2, falls to zero at 3T/4 and returns to the total at T. The solid kinetic energy curve does the opposite: zero at 0, T/2 and T, and equal to the total at T/4 and 3T/4. At every moment the two curves add up to the total.",
+          "caption": "Released from rest at an extreme at $t = 0$. Kinetic and potential energy swap back and forth, and their sum stays constant."
+        },
+        {
+          "type": "text",
+          "text": "Kinetic energy peaks every time the object passes through equilibrium, which happens twice per cycle. So each energy goes through a full cycle in $\\frac{T}{2}$, half the period of the motion."
+        },
+        {
+          "type": "hlNote",
+          "text": "At SL you describe these energy changes. At HL you also calculate them, using $E_\\text{T} = \\frac{1}{2}m\\omega^{2}x_0^{2}$.",
+          "lesson": "3.2"
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-energy",
+          "question": "A glider on a horizontal, frictionless track is attached to a spring. It is pulled to one side and released from rest. Describe the energy changes during one complete oscillation.",
+          "steps": [
+            "Start where it is released, then go through equilibrium to the other extreme. Name each energy store specifically.",
+            "Finish with what happens to the total."
+          ],
+          "answer": "When it is released, the glider is at rest, so its kinetic energy is zero and its elastic potential energy is maximum. As it moves towards the equilibrium position, elastic potential energy is transferred to kinetic energy. At the equilibrium position the kinetic energy is maximum and the elastic potential energy is zero. As it moves on to the other extreme, kinetic energy is transferred back to elastic potential energy, until the glider stops again. The return half of the cycle repeats these changes. The total energy is constant throughout, because there is no friction.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "EPE max and KE zero at extreme; EPE to KE moving to equilibrium; KE max at equilibrium; KE back to EPE; total constant without friction",
+            "requires": [
+              "elastic potential energy is maximum",
+              "elastic potential energy is transferred to kinetic energy",
+              [
+                "kinetic energy is maximum",
+                "maximum kinetic energy"
+              ],
+              "kinetic energy is transferred back to elastic potential energy",
+              [
+                "total energy is constant",
+                "total energy stays constant"
+              ]
+            ],
+            "forbids": [
+              "energy is lost",
+              "kinetic energy is maximum at the extreme"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ke-peak-interval",
+          "question": "A mass on a spring oscillates with a frequency of $\\pu{2.5 Hz}$. Determine the time between two successive moments when its kinetic energy is maximum.",
+          "steps": [
+            "Kinetic energy is maximum each time the mass passes through equilibrium, which happens twice per oscillation.",
+            "Period: $T = \\frac{1}{f} = \\frac{1}{2.5} = \\pu{0.40 s}$.",
+            "The kinetic energy peaks every half period: $\\frac{T}{2} = \\frac{0.40}{2} = \\pu{0.20 s}$."
+          ],
+          "answer": "$t = \\pu{0.20 s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1/(2*2.5)",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing just \"potential energy\" for a mass on a horizontal spring. Name it: elastic potential energy (for a pendulum, gravitational potential energy)."
+        },
+        {
+          "type": "check",
+          "id": "check-energy-at-equilibrium",
+          "prompt": "An object performing SHM passes through its equilibrium position. Which statement is correct?",
+          "hint": "Where is the object moving fastest?",
+          "options": [
+            {
+              "text": "kinetic energy is maximum and potential energy is minimum",
+              "correct": true
+            },
+            {
+              "text": "kinetic energy is minimum and potential energy is maximum",
+              "correct": false
+            },
+            {
+              "text": "kinetic energy and potential energy are both maximum",
+              "correct": false
+            },
+            {
+              "text": "kinetic energy is maximum and acceleration is maximum",
+              "correct": false
+            }
+          ],
+          "explain": "The speed is greatest at equilibrium, so kinetic energy is maximum and potential energy is minimum. The acceleration there is zero, because $x = 0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "kinetic energy is maximum and potential energy is minimum"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-energy-third-quarter",
+          "prompt": "A mass on a horizontal spring is released from rest at maximum extension at $t = 0$. The period is $T$. Which energy change happens between $t = \\frac{T}{2}$ and $t = \\frac{3T}{4}$?",
+          "hint": "Where is the mass at $t = \\frac{T}{2}$, and where is it at $t = \\frac{3T}{4}$?",
+          "options": [
+            {
+              "text": "elastic potential energy decreases and kinetic energy increases",
+              "correct": true
+            },
+            {
+              "text": "kinetic energy decreases and elastic potential energy increases",
+              "correct": false
+            },
+            {
+              "text": "kinetic energy and elastic potential energy both increase",
+              "correct": false
+            },
+            {
+              "text": "the total energy decreases",
+              "correct": false
+            }
+          ],
+          "explain": "At $\\frac{T}{2}$ the mass is at maximum compression, momentarily at rest. At $\\frac{3T}{4}$ it passes through equilibrium at full speed. So elastic potential energy is transferred to kinetic energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "elastic potential energy decreases and kinetic energy increases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-first-max-speed",
+          "prompt": "A pendulum of length $\\pu{2.5 m}$ is pulled aside through a small angle and released from rest. How long after release does it first reach its maximum speed, in seconds? Give 2 significant figures.",
+          "hint": "Maximum speed is at equilibrium. What fraction of a period does it take to get there from an extreme?",
+          "answer": {
+            "value": 0.79,
+            "tolerance": 0.005
+          },
+          "explain": "It reaches equilibrium after a quarter of a period: $\\frac{T}{4} = \\frac{1}{4} \\times 2\\pi\\sqrt{\\frac{2.5}{9.8}} = 0.793... \\approx \\pu{0.79 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi*sqrt(2.5/g)/4",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Amplitude $x_0$ is the maximum displacement from equilibrium: half the distance between the extremes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "T = \\frac{1}{f} = \\frac{2\\pi}{\\omega}",
+          "tag": "booklet",
+          "bookletId": "db-3-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a = -\\omega^{2}x",
+          "tag": "booklet",
+          "bookletId": "db-3-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "SHM needs an acceleration (and resultant force) proportional to the displacement and opposite to it, towards equilibrium. The minus sign in $a = -\\omega^{2}x$ means $a$ and $x$ always have opposite signs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "T = 2\\pi\\sqrt{\\frac{m}{k}}",
+          "tag": "booklet",
+          "bookletId": "db-3-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "T = 2\\pi\\sqrt{\\frac{l}{g}}",
+          "tag": "booklet",
+          "bookletId": "db-3-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Neither period depends on amplitude. Mass–spring: no $g$. Pendulum: no mass, small angles only (about $10^{\\circ}$ or less), $l$ to the centre of the bob.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Kinetic energy is maximum at equilibrium; potential energy is maximum at the extremes. Without friction the total is constant, and each energy repeats every $\\frac{T}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the amplitude as the distance between the two extremes. Amplitude is measured from equilibrium, so it is half that distance.",
+    "Saying the acceleration is proportional to the displacement without its direction. It is opposite to the displacement, towards equilibrium.",
+    "Thinking a pendulum's period depends on its mass, or a spring's period on $g$. Use $T = 2\\pi\\sqrt{\\frac{l}{g}}$ and $T = 2\\pi\\sqrt{\\frac{m}{k}}$ exactly as they are.",
+    "Writing \"potential energy\" for a spring. Mark schemes want elastic potential energy, or gravitational potential energy for a pendulum."
+  ],
+  "examTips": [
+    "\"Outline\" why a motion is SHM: name the restoring force, say it is proportional to the displacement and opposite to it. Quoting $a = -\\omega^{2}x$ alone earns nothing.",
+    "In Paper 1A ratio questions, use $T \\propto \\sqrt{m}$ for a spring and $T \\propto \\sqrt{l}$ and $T \\propto \\frac{1}{\\sqrt{g}}$ for a pendulum. The pendulum's mass never matters.",
+    "\"Determine\" a period from a graph or a timing: read across several complete cycles and divide. Show that division, because it earns a mark.",
+    "\"State the energy changes\": name both stores specifically and the direction of the transfer, such as elastic potential energy to kinetic energy."
+  ],
+  "readingMinutes": 30
+}

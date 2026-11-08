@@ -2,19 +2,19 @@
   {
     "id": "gravitational-potential",
     "term": "gravitational potential",
-    "definition": "TODO: Work per unit mass bringing a mass from infinity to a point, Vg = -GM/r; negative",
+    "definition": "The work done per unit mass in bringing a small mass from infinity to a point, $V_\\text{g} = -\\frac{GM}{r}$; it is zero at infinity and negative everywhere else, measured in $\\text{J kg}^{-1}$.",
     "lesson": "4.2"
   },
   {
     "id": "potential-gradient",
     "term": "potential gradient",
-    "definition": "TODO: Rate of change of potential with distance; field strength = minus gradient",
+    "definition": "The rate of change of potential with distance, $\\frac{\\Delta V}{\\Delta r}$; the gravitational field strength is minus the gravitational potential gradient.",
     "lesson": "4.2"
   },
   {
     "id": "equipotential-surface",
     "term": "equipotential surface",
-    "definition": "TODO: Surface of constant potential; no work to move along it; perpendicular to field lines",
+    "definition": "A surface on which every point has the same potential, so no work is done moving a mass (or, in an electric field, a charge) along it; field lines cross it at right angles.",
     "lesson": "4.2"
   }
 ]
