@@ -1,0 +1,77 @@
+{
+  "slug": "ib-physics",
+  "name": "IB Physics",
+  "published": false,
+  "levels": {
+    "base": "SL",
+    "extension": "AHL",
+    "labels": {
+      "base": "SL",
+      "extension": "HL",
+      "extensionOnly": "HL only"
+    }
+  },
+  "banks": {
+    "SL": "ib-physics-sl",
+    "HL": "ib-physics-hl"
+  },
+  "items": "src/content/notes/ib-physics/items.json",
+  "practice": {
+    "kind": "bank-subtopics"
+  },
+  "gate": {
+    "sidecars": "scripts/notes/sidecars/ib-physics",
+    "packs": "course-notes-physics/packs",
+    "glossaryPlan": "course-notes-physics/glossary-plan.json"
+  },
+  "calculators": [],
+  "copy": {
+    "crumbs": [
+      "IB",
+      "Physics"
+    ],
+    "guide": "Follows the IB Physics guide for exams from May 2025.",
+    "sheetFooter": "Follows the IB Physics guide (first assessment 2025). Not affiliated with the IB.",
+    "board": "IB",
+    "educationalLevel": "IB Diploma",
+    "bankPrefix": "Physics",
+    "bankPhrase": "in the Physics {level} bank"
+  },
+  "topics": [
+    {
+      "n": 1,
+      "slug": "space-time-and-motion",
+      "label": "Theme A",
+      "name": "Space, time and motion"
+    },
+    {
+      "n": 2,
+      "slug": "particulate-nature-of-matter",
+      "label": "Theme B",
+      "name": "The particulate nature of matter"
+    },
+    {
+      "n": 3,
+      "slug": "wave-behaviour",
+      "label": "Theme C",
+      "name": "Wave behaviour"
+    },
+    {
+      "n": 4,
+      "slug": "fields",
+      "label": "Theme D",
+      "name": "Fields"
+    },
+    {
+      "n": 5,
+      "slug": "nuclear-and-quantum-physics",
+      "label": "Theme E",
+      "name": "Nuclear and quantum physics"
+    },
+    {
+      "n": 6,
+      "slug": "practical-skills",
+      "name": "Practical skills"
+    }
+  ]
+}

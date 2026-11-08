@@ -4,6 +4,7 @@ import { COURSES, lessonPath } from "./course";
 import { lessonForGroup, lessonForItem, notesLinksForBank, notesTopicLinksForBank, syllabusNotesForBank } from "./group-lessons";
 import { notesNavVisible } from "./visibility";
 import { lessonFixture } from "./__fixtures__/lesson";
+import { subtopicPracticeFile } from "./subtopic-practice";
 import { setCourseLessonsForTests, setCoursePublishedForTests } from "./test-visibility";
 
 const course = COURSES[0];
@@ -15,7 +16,10 @@ const visible = { ...course, published: true };
 let restorePublished: (() => void) | undefined;
 let restore0580: (() => void) | undefined;
 let restoreChem: (() => void) | undefined;
+let restorePhysics: (() => void) | undefined;
 afterEach(() => {
+  restorePhysics?.();
+  restorePhysics = undefined;
   restoreChem?.();
   restoreChem = undefined;
   restorePublished?.();
@@ -76,6 +80,7 @@ describe("surface lookups follow visibility", () => {
     restorePublished = setCoursePublishedForTests(false);
     restore0580 = setCoursePublishedForTests(false, "igcse-maths-0580");
     restoreChem = setCoursePublishedForTests(false, "ib-chemistry");
+    restorePhysics = setCoursePublishedForTests(false, "ib-physics");
     vi.stubEnv("NOTES_PREVIEW", "");
     expect(course.published).toBe(false);
     expect(notesLinksForBank("ib-hl")).toBeUndefined();
@@ -213,5 +218,75 @@ describe("IB Chemistry links by bank subtopic", () => {
       { name: "Entropy, Gibbs energy and spontaneity", topic: "Energetics, thermodynamics and fuels", href: href["4.6"], label: "Entropy" },
     ]);
     expect(syllabusNotesForBank("ib-chemistry-sl").map((note) => note.name)).not.toContain("Entropy, Gibbs energy and spontaneity");
+  });
+});
+
+describe("IB Physics links by bank subtopic", () => {
+  const phys = COURSES.find((entry) => entry.slug === "ib-physics")!;
+  /** The bank topic each label's questions sit under, from the generated practice file. */
+  const parents = subtopicPracticeFile(phys).parents;
+  let restoreLessons: (() => void) | undefined;
+  afterEach(() => {
+    restoreLessons?.();
+    restoreLessons = undefined;
+  });
+  /** Stand-in lessons for these items (the real ones are written later). */
+  const write = (...items: string[]) => {
+    restoreLessons?.();
+    restoreLessons = setCourseLessonsForTests("ib-physics", lessonFixture, items);
+    return Object.fromEntries(phys.lessons.map((entry) => [entry.item, lessonPath(phys, entry)]));
+  };
+
+  it("are empty while the course is hidden, written lessons or not", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    restorePhysics = setCoursePublishedForTests(false, "ib-physics");
+    expect(phys.published).toBe(false);
+    write("1.1", "1.12", "4.1");
+    for (const bank of ["ib-physics-sl", "ib-physics-hl"]) {
+      expect(notesLinksForBank(bank)).toBeUndefined();
+      expect(notesTopicLinksForBank(bank)).toBeUndefined();
+      expect(syllabusNotesForBank(bank)).toEqual([]);
+    }
+  });
+
+  it("link a question's subtopic to the first written lesson practising it; the SL bank links SL lessons only", () => {
+    vi.stubEnv("NOTES_PREVIEW", "1");
+    // 1.1-1.3 (SL) share "Kinematics and motion"; 1.8 and 4.1 (SL) and 4.2, 4.3 (AHL) share "Circular motion and
+    // gravitation"; 1.12-1.14 (AHL) share "Rigid body and rotational mechanics"; 3.3 alone practises its label.
+    const href = write("1.2", "1.12", "3.3", "4.1");
+    const hl = notesLinksForBank("ib-physics-hl")!;
+    expect(hl["Kinematics and motion"]).toEqual({ href: href["1.2"], label: "Kinematics and motion" });
+    expect(hl["Circular motion and gravitation"]).toEqual({ href: href["4.1"], label: "Circular motion and gravitation" });
+    expect(hl["Rigid body and rotational mechanics"]).toEqual({ href: href["1.12"], label: "Rigid body and rotational mechanics" });
+    expect(hl["Wave model and characteristics"]).toEqual({ href: href["3.3"], label: "Travelling waves" });
+    expect(Object.keys(hl).sort()).toEqual(["Circular motion and gravitation", "Kinematics and motion", "Rigid body and rotational mechanics", "Wave model and characteristics"]);
+    const sl = notesLinksForBank("ib-physics-sl")!;
+    expect(sl["Kinematics and motion"].href).toBe(href["1.2"]);
+    expect(sl["Rigid body and rotational mechanics"]).toBeUndefined();
+    // Only 1.12 written: HL links to it, SL has nothing.
+    const only = write("1.12");
+    expect(notesLinksForBank("ib-physics-hl")?.["Rigid body and rotational mechanics"]?.href).toBe(only["1.12"]);
+    expect(notesLinksForBank("ib-physics-sl")).toBeUndefined();
+    // Physics links stay on the Physics banks.
+    write("1.1");
+    for (const bank of ["ib-hl", "ib-chemistry-hl", "ib-chemistry-sl"])
+      expect(Object.values(notesLinksForBank(bank) ?? {}).some((link) => link.href.includes("ib-physics")), bank).toBe(false);
+  });
+
+  it("paper reports and the syllabus page use the same lessons, by bank topic and subtopic", () => {
+    vi.stubEnv("NOTES_PREVIEW", "1");
+    const href = write("1.1", "2.1", "3.3", "4.9");
+    const labels = { "1.1": "Kinematics and motion", "2.1": "Thermal concepts and energy transfer", "3.3": "Wave model and characteristics", "4.9": "Electromagnetic induction and power systems" };
+    const topics = notesTopicLinksForBank("ib-physics-hl")!;
+    for (const [item, label] of Object.entries(labels)) expect(topics[parents[label]].href, item).toBe(href[item]);
+    // 4.9 is AHL: the SL bank never links it.
+    expect(Object.values(notesTopicLinksForBank("ib-physics-sl") ?? {}).map((link) => link.href)).not.toContain(href["4.9"]);
+    expect(syllabusNotesForBank("ib-physics-hl")).toEqual([
+      { name: labels["1.1"], topic: parents[labels["1.1"]], href: href["1.1"], label: "Describing motion" },
+      { name: labels["2.1"], topic: parents[labels["2.1"]], href: href["2.1"], label: "Particles, density and temperature" },
+      { name: labels["3.3"], topic: parents[labels["3.3"]], href: href["3.3"], label: "Travelling waves" },
+      { name: labels["4.9"], topic: parents[labels["4.9"]], href: href["4.9"], label: "Magnetic flux, Faraday's law and Lenz's law" },
+    ]);
+    expect(syllabusNotesForBank("ib-physics-sl").map((note) => note.name)).not.toContain(labels["4.9"]);
   });
 });
