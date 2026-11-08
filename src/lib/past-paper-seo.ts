@@ -108,11 +108,12 @@ export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readon
   const only = routes.size === 1 ? [...routes][0] : null;
   const note = only === 'Core' || only === 'Extended' ? ` (${only})` : '';
   const base = `Every ${name} Paper ${label} from ${yearRange(papers)} with its ${scheme(bank)}`;
-  const topics = (n: number) => topTopics.length >= n ? `${base}, and the topics it tests most: ${list(topTopics.slice(0, n))}. Free, no sign-up.` : null;
+  const short = `${name} Paper ${label} past papers ${yearRange(papers)} with ${scheme(bank)}s`;
+  const topics = (n: number, free: boolean) => topTopics.length >= n ? `${short}. Most tested: ${topTopics.slice(0, n).join('; ')}.${free ? ' Free, no sign-up.' : ''}` : null;
   return {
     title: fitTitle(`${name} Paper ${label} Past Papers${note}`, `${name} Paper ${label} Past Papers`),
     h1: `${name} Paper ${label} past papers`,
-    description: fitDescription(...[topics(3), topics(2), `${base}. Free, no sign-up.`].filter((c): c is string => c !== null)),
+    description: fitDescription(...[topics(3, true), topics(2, true), topics(3, false), topics(2, false), `${base}. Free, no sign-up.`].filter((c): c is string => c !== null)),
     answer: `Every ${name} Paper ${label} ${fromYears(papers)}: ${plural(papers.length, 'paper')}, each with its ${scheme(bank)}.`,
   };
 }

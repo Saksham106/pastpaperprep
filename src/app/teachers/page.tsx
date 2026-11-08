@@ -66,7 +66,7 @@ export default function TeachersPage() {
           {items.map(item => <article key={item.title}>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
-            <p>{item.links.map((link, i) => <span key={link.href}>{i > 0 && " · "}<Link href={link.href}>{link.label}</Link></span>)}</p>
+            <p>{item.links.map((link, i) => <span key={link.href}>{i > 0 && " · "}<Link className="text-link" href={link.href}>{link.label}</Link></span>)}</p>
           </article>)}
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function TeachersPage() {
         <div className="about-section-heading">
           <p className="eyebrow">Paid access</p>
           <h2 id="teachers-paid-title">Printable topic worksheets</h2>
-          <p>Newer exam years and PDF worksheet export need paid access. <Link href="/articles/pastpaperprep-for-tutors-printable-practice-sets">How to build a printable practice set</Link> · <Link href="/pricing">Plans</Link></p>
+          <p>Newer exam years and PDF worksheet export need paid access. <Link className="text-link" href="/articles/pastpaperprep-for-tutors-printable-practice-sets">How to build a printable practice set</Link> · <Link className="text-link" href="/pricing">Plans</Link></p>
         </div>
       </section>
 
@@ -83,7 +83,7 @@ export default function TeachersPage() {
         <div className="about-section-heading">
           <p className="eyebrow">Contact</p>
           <h2 id="teachers-contact-title">Found a mistake, or want a subject added?</h2>
-          <p>Email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>. PastPaperPrep is independent and not affiliated with Cambridge International or the International Baccalaureate.</p>
+          <p>Email <a className="text-link" href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a>. PastPaperPrep is independent and not affiliated with Cambridge International or the International Baccalaureate.</p>
         </div>
       </section>
     </div>

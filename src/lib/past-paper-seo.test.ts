@@ -156,3 +156,17 @@ describe('copy only promises what a paper has', () => {
     expect(subjectFaq(getCatalogBank('ib-hl')!, [ib]).find(f => f.q.includes('TZ1'))!.a).toBe('IB sets separate papers for different time zones. Each has its own markscheme.');
   });
 });
+
+describe('paper-number descriptions name the most-tested topics', () => {
+  const p = (year: number) => ({ ...ext, year });
+  it('fits the top topics into a search-result description, separated so "and" in a name stays clear', () => {
+    const copy = paperNumberCopy(bank, '4', [p(2019), p(2026)], ['Algebra and graphs', 'Number', 'Geometry']);
+    expect(copy.description).toBe('IGCSE Maths 0580 Paper 4 past papers 2019–2026 with mark schemes. Most tested: Algebra and graphs; Number; Geometry. Free, no sign-up.');
+    expect(copy.description.length).toBeLessThanOrEqual(160);
+  });
+  it('drops topics that would not fit, and falls back without them', () => {
+    const long = ['A very long topic name that goes on and on', 'Another very long topic name that goes on', 'A third very long topic name'];
+    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)], long).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme. Free, no sign-up.');
+    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)]).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme. Free, no sign-up.');
+  });
+});

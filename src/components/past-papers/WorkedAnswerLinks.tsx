@@ -37,7 +37,8 @@ export function CopyWorkedAnswerLink({ number, bank, paper }: { number: number; 
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      window.location.hash = `worked-q${number}`;
+      // Clipboard blocked (permissions, embedded browsers): show the link so it can be copied by hand.
+      window.prompt('Copy this link to the worked answer:', url);
     }
     trackProductEvent('worked_answer_link_copy', { bank, paper, question: number });
   };
