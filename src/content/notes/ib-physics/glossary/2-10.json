@@ -2,7 +2,7 @@
   {
     "id": "entropy",
     "term": "entropy",
-    "definition": "A thermodynamic quantity $S$, in $\\text{J K}^{-1}$, that measures the disorder of the particles in a system; it changes by $\\Delta S = \\frac{\\Delta Q}{T}$ when thermal energy is transferred at constant temperature, and equals $k_\\text{B}\\ln\\Omega$ for a state with $\\Omega$ microstates.",
+    "definition": "A thermodynamic quantity $S$, in $\\text{J K}^{-1}$, that measures the disorder of the particles in a system; it changes by $\\Delta S = \\frac{\\Delta Q}{T}$ when thermal energy is transferred reversibly at constant temperature, and equals $k_\\text{B}\\ln\\Omega$ for a state with $\\Omega$ microstates.",
     "lesson": "2.10"
   },
   {

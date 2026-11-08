@@ -46,12 +46,12 @@
       "level": "AHL"
     },
     {
-      "text": "Heat transferred at a fixed temperature (melting, boiling, a large reservoir) → $\\Delta S = \\frac{\\Delta Q}{T}$ with $T$ in kelvin and $\\Delta Q$ signed; to test whether a process can happen, add the entropy changes of every body involved and check the total is not negative ({{lesson:2.10}})",
+      "text": "Heat transferred reversibly at a fixed temperature (melting, boiling, a large reservoir) → $\\Delta S = \\frac{\\Delta Q}{T}$ with $T$ in kelvin and $\\Delta Q$ signed; to test whether a process can happen, add the entropy changes of every body involved and check the total is not negative ({{lesson:2.10}})",
       "tag": "learn",
       "level": "AHL"
     },
     {
-      "text": "Monatomic ideal gas compressed or expanded with no heat flow (insulated or very fast) → adiabatic: $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$ for the new $P$ or $V$, then $PV = nRT$ for the temperature, and $W = -\\Delta U$ ({{lesson:2.11}})",
+      "text": "Monatomic ideal gas compressed or expanded slowly (reversibly) with no heat flow → adiabatic: $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$ (not for a free expansion into a vacuum, where $T$ stays the same) for the new $P$ or $V$, then $PV = nRT$ for the temperature, and $W = -\\Delta U$ ({{lesson:2.11}})",
       "tag": "learn",
       "level": "AHL"
     },

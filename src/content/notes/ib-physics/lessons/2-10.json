@@ -1,804 +1,804 @@
 {
- "schemaVersion": 1,
- "edition": "ib-physics-2025",
- "item": "2.10",
- "slug": "entropy-and-the-second-law",
- "title": "Entropy and the second law",
- "level": "AHL",
- "topic": 2,
- "summary": "[[entropy|Entropy]] measures how disordered the particles of a system are. You can find a change in it from heat and temperature, $\\Delta S = \\frac{\\Delta Q}{T}$, or count arrangements of particles, $S = k_\\text{B}\\ln\\Omega$. The [[second-law-of-thermodynamics|second law of thermodynamics]] says the total entropy of an [[isolated-system|isolated system]] never decreases. That one rule explains why heat flows from hot to cold, why no engine is 100% efficient, and why a fridge needs a power supply.",
- "goals": [
-  {
-   "text": "Describe entropy as a measure of the disorder of the particles in a system, and calculate an entropy change from $\\Delta S = \\frac{\\Delta Q}{T}$ at constant temperature.",
-   "bullets": [
-    "B.4-a4",
-    "B.4-a5"
-   ]
-  },
-  {
-   "text": "Count the [[microstate|microstates]] of a simple model, such as a set of coins, and use $S = k_\\text{B}\\ln\\Omega$.",
-   "bullets": [
-    "B.4-a4",
-    "B.4-a5"
-   ]
-  },
-  {
-   "text": "State the second law of thermodynamics in its entropy, Clausius and Kelvin forms, and use it to decide whether a process is possible.",
-   "bullets": [
-    "B.4-a6"
-   ]
-  },
-  {
-   "text": "Explain why real processes are irreversible, and so why an isolated system in the real world always gains entropy.",
-   "bullets": [
-    "B.4-a7"
-   ]
-  },
-  {
-   "text": "Explain how the entropy of a system that is not isolated can fall, and show that the surroundings gain at least as much.",
-   "bullets": [
-    "B.4-a8"
-   ]
-  }
- ],
- "prerequisites": [
-  "1.6",
-  "2.1",
-  "2.2"
- ],
- "papers": [
-  "P1",
-  "P2"
- ],
- "synonyms": [
-  "entropy change delta S = Q/T",
-  "S = k ln W microstates",
-  "second law of thermodynamics",
-  "Clausius and Kelvin statements",
-  "reversible and irreversible processes",
-  "entropy of the universe increases"
- ],
- "before": [
-  {
-   "type": "check",
-   "id": "before-kelvin",
-   "prompt": "A cup of tea is at $57\\,^{\\circ}\\text{C}$. What is its temperature in kelvin?",
-   "hint": "Add 273 to a Celsius temperature.",
-   "answer": {
-    "value": 330,
-    "tolerance": 0.5
-   },
-   "explain": "$T = 57 + 273 = \\pu{330 K}$. Revise it in {{lesson:2.1}}.",
-   "verify": {
-    "kind": "numeric",
-    "truth": "57 + zero_celsius",
-    "sf": 2
-   }
-  },
-  {
-   "type": "check",
-   "id": "before-latent",
-   "prompt": "The specific latent heat of vaporization of ethanol is $\\pu{8.5e5 J kg-1}$. How much thermal energy is released when $\\pu{0.24 kg}$ of ethanol vapour condenses at its boiling point?",
-   "hint": "Use $Q = mL$.",
-   "options": [
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.10",
+  "slug": "entropy-and-the-second-law",
+  "title": "Entropy and the second law",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "[[entropy|Entropy]] measures how disordered the particles of a system are. You can find a change in it from heat and temperature, $\\Delta S = \\frac{\\Delta Q}{T}$, or count arrangements of particles, $S = k_\\text{B}\\ln\\Omega$. The [[second-law-of-thermodynamics|second law of thermodynamics]] says the total entropy of an [[isolated-system|isolated system]] never decreases. That one rule explains why heat flows from hot to cold, why no engine is 100% efficient, and why a fridge needs a power supply.",
+  "goals": [
     {
-     "text": "$\\approx 2.0 \\times 10^{5}\\ \\text{J}$",
-     "correct": true
-    },
-    {
-     "text": "$\\approx 3.5 \\times 10^{6}\\ \\text{J}$",
-     "correct": false
-    },
-    {
-     "text": "$\\approx 2.8 \\times 10^{-7}\\ \\text{J}$",
-     "correct": false
-    }
-   ],
-   "explain": "$Q = mL = 0.24 \\times 8.5 \\times 10^{5} \\approx \\pu{2.0e5 J}$. Dividing $L$ by $m$ gives $3.5 \\times 10^{6}$ J, and dividing $m$ by $L$ gives $2.8 \\times 10^{-7}$. Revise it in {{lesson:2.2}}.",
-   "verify": {
-    "kind": "standard-form",
-    "truth": "0.24*8.5*10**5",
-    "sf": 2,
-    "unit": "J"
-   }
-  },
-  {
-   "type": "check",
-   "id": "before-melting",
-   "prompt": "A block of ice melts at a constant $0\\,^{\\circ}\\text{C}$. What happens to its [[internal-energy|internal energy]]?",
-   "hint": "Internal energy is the random kinetic energy plus the intermolecular potential energy of the particles.",
-   "options": [
-    {
-     "text": "it increases, because the potential energy of the particles increases",
-     "correct": true
-    },
-    {
-     "text": "it stays the same, because the temperature does not change",
-     "correct": false
-    },
-    {
-     "text": "it increases, because the particles move faster",
-     "correct": false
-    }
-   ],
-   "explain": "The temperature is constant, so the mean kinetic energy of the particles is unchanged. The energy supplied separates the particles, raising their potential energy, so the internal energy increases. Revise it in {{lesson:2.2}}.",
-   "verify": {
-    "kind": "choice",
-    "truth": "it increases, because the potential energy of the particles increases"
-   }
-  }
- ],
- "sections": [
-  {
-   "id": "entropy-heat",
-   "heading": "Entropy from heat and temperature",
-   "blocks": [
-    {
-     "type": "text",
-     "text": "Drop an ice cube into a warm drink. The water molecules, once locked in a neat crystal, end up moving randomly through the liquid. You never see the reverse: a drink that cools itself while an ice cube grows in it. Physics needs a quantity that tracks this one-way change."
-    },
-    {
-     "type": "definition",
-     "term": "entropy",
-     "statement": "Entropy $S$ is a thermodynamic quantity that measures how disordered the particles of a system are. Its unit is $\\text{J K}^{-1}$.",
-     "plain": "The more ways the particles could be arranged, the more disordered the system and the higher its entropy."
-    },
-    {
-     "type": "text",
-     "text": "A solid has lower [[entropy|entropy]] than the same substance as a liquid, and a liquid lower than a gas. Heating a substance also raises its entropy, because its particles move more randomly. Melting and boiling raise the [[internal-energy|internal energy]] and the entropy together."
-    },
-    {
-     "type": "text",
-     "text": "You can measure an entropy change without looking at particles at all. When thermal energy $\\Delta Q$ is transferred to a system at a constant absolute temperature $T$, its entropy changes by $\\frac{\\Delta Q}{T}$."
-    },
-    {
-     "type": "formula",
-     "tex": "\\Delta S = \\frac{\\Delta Q}{T}",
-     "tag": "booklet",
-     "bookletId": "db-2-10"
-    },
-    {
-     "type": "text",
-     "text": "Signs follow the system. Thermal energy into the system makes $\\Delta Q$ positive, so its entropy rises. Thermal energy out makes $\\Delta Q$ negative, so its entropy falls. $T$ must be on the [[kelvin-scale|kelvin scale]]."
-    },
-    {
-     "type": "text",
-     "text": "Use the equation only when $T$ stays constant: a pure substance melting or boiling, a gas held at constant temperature, or a reservoir so large that its temperature barely changes. The same energy causes a bigger entropy change at a low temperature than at a high one, because a cold system starts out more ordered."
-    },
-    {
-     "type": "example",
-     "id": "ex-eh-boiling",
-     "question": "A kettle boils away $\\pu{0.0380 kg}$ of water at $100\\,^{\\circ}\\text{C}$. The specific latent heat of vaporization of water is $\\pu{2.26e6 J kg-1}$. Calculate the change in entropy of the water.",
-     "steps": [
-      "Thermal energy supplied to the water: $\\Delta Q = mL = 0.0380 \\times 2.26 \\times 10^{6} = \\pu{8.588e4 J}$. It goes in, so it is positive.",
-      "The water boils at a constant temperature: $T = 100 + 273 = \\pu{373 K}$.",
-      "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{8.588 \\times 10^{4}}{373} = \\pu{230.2 J K-1}$.",
-      "The data have 3 significant figures, so give 3. Steam is far more disordered than liquid water, so the rise makes sense."
-     ],
-     "answer": "$\\Delta S \\approx 2.30 \\times 10^{2}\\ \\text{J K}^{-1}$",
-     "video": null,
-     "verify": {
-      "kind": "rounded",
-      "truth": "0.0380*2.26*10**6/(100 + zero_celsius)",
-      "sf": 3,
-      "unit": "J K-1"
-     }
-    },
-    {
-     "type": "mistake",
-     "text": "Dividing by the Celsius temperature. $\\frac{8.588 \\times 10^{4}}{100}$ is almost four times too big. Always convert to kelvin first."
-    },
-    {
-     "type": "example",
-     "id": "ex-eh-lead",
-     "question": "In a foundry, $\\pu{2.0 kg}$ of molten lead solidifies at its melting point of $327\\,^{\\circ}\\text{C}$. The specific latent heat of fusion of lead is $\\pu{2.5e4 J kg-1}$. Determine the change in entropy of the lead.",
-     "steps": [
-      "Thermal energy leaves the lead as it solidifies: $\\Delta Q = -mL = -(2.0)(2.5 \\times 10^{4}) = \\pu{-5.0e4 J}$.",
-      "The temperature is constant: $T = 327 + 273 = \\pu{600 K}$.",
-      "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{-5.0 \\times 10^{4}}{600} = \\pu{-83.3 J K-1}$.",
-      "Give 2 significant figures and keep the sign: the solid is more ordered than the liquid, so the entropy of the lead falls."
-     ],
-     "answer": "$\\Delta S \\approx -83\\ \\text{J K}^{-1}$",
-     "video": null,
-     "verify": {
-      "kind": "rounded",
-      "truth": "-2.0*2.5*10**4/(327 + zero_celsius)",
-      "sf": 2,
-      "unit": "J K-1",
-      "signed": true
-     }
-    },
-    {
-     "type": "check",
-     "id": "check-eh-lake",
-     "prompt": "A large lake stays at $12\\,^{\\circ}\\text{C}$ while it absorbs $\\pu{5.7e4 J}$ of thermal energy from the Sun. Calculate the increase in entropy of the lake, in $\\text{J K}^{-1}$ to 2 significant figures.",
-     "hint": "The lake is so large that its temperature is constant. Convert to kelvin before dividing.",
-     "answer": {
-      "value": 200,
-      "tolerance": 5
-     },
-     "explain": "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{5.7 \\times 10^{4}}{285} = \\pu{200 J K-1}$.",
-     "verify": {
-      "kind": "numeric",
-      "truth": "5.7*10**4/(12 + zero_celsius)",
-      "sf": 2
-     }
-    },
-    {
-     "type": "check",
-     "id": "check-eh-gas",
-     "prompt": "An ideal monatomic gas expands slowly at a constant $77\\,^{\\circ}\\text{C}$ and does $\\pu{820 J}$ of work on its surroundings. What is the change in entropy of the gas?",
-     "hint": "At constant temperature the internal energy of an ideal gas does not change, so by the first law $Q = W$.",
-     "options": [
-      {
-       "text": "$\\approx +2.34\\ \\text{J K}^{-1}$",
-       "correct": true
-      },
-      {
-       "text": "$\\approx -2.34\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$\\approx +10.6\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$\\approx +0.427\\ \\text{J K}^{-1}$",
-       "correct": false
-      }
-     ],
-     "explain": "$\\Delta U = 0$, so $Q = W = +\\pu{820 J}$ flows into the gas. $\\Delta S = \\frac{820}{350} \\approx +\\pu{2.34 J K-1}$. Dividing by 77 gives 10.6, and $\\frac{T}{Q}$ gives 0.427. The gas gains thermal energy, so its entropy rises.",
-     "verify": {
-      "kind": "rounded",
-      "truth": "820/(77 + zero_celsius)",
-      "sf": 3,
-      "unit": "J K-1",
-      "signed": true
-     }
-    }
-   ]
-  },
-  {
-   "id": "microstates",
-   "heading": "Counting microstates",
-   "blocks": [
-    {
-     "type": "text",
-     "text": "Entropy can also be found by counting. Toss four coins. The result \"two heads\" describes the overall state, called a macrostate. Each exact sequence that gives it, such as HTTH, is a [[microstate|microstate]]."
-    },
-    {
-     "type": "definition",
-     "term": "microstate",
-     "statement": "One particular arrangement of the particles of a system, among all the arrangements that give the same macroscopic state. $\\Omega$ is the number of microstates of that state.",
-     "plain": "A microstate is one exact way the parts can be set up; $\\Omega$ counts how many ways give what you see from outside."
-    },
-    {
-     "type": "figure",
-     "id": "2-10-coin-microstates",
-     "alt": "All sixteen microstates of four coins, sorted into five macrostates by the number of heads. Four heads: 1 microstate. Three heads: 4 microstates. Two heads: 6 microstates, the most of any macrostate. One head: 4 microstates. No heads: 1 microstate.",
-     "caption": "Four coins: 16 microstates in five macrostates. \"Two heads\" has the most microstates."
-    },
-    {
-     "type": "text",
-     "text": "Every microstate is equally likely. So the macrostate with the most microstates is the most likely one: two heads turns up 6 times in 16, four heads only once. The mixed, disordered macrostate wins because there are more ways to make it."
-    },
-    {
-     "type": "text",
-     "text": "Real systems have around $10^{23}$ particles, not four coins. Then the most disordered macrostates have so many more microstates than the ordered ones that the system is almost certain to be found in one of them."
-    },
-    {
-     "type": "formula",
-     "tex": "S = k_\\text{B}\\ln\\Omega",
-     "tag": "booklet",
-     "bookletId": "db-2-10"
-    },
-    {
-     "type": "text",
-     "text": "Here $k_\\text{B}$ is the [[boltzmann-constant|Boltzmann constant]], $\\pu{1.38e-23 J K-1}$ from the data booklet, and $\\ln$ is the natural logarithm. A state with only one microstate has $S = k_\\text{B}\\ln 1 = 0$: perfect order. More microstates means more entropy."
-    },
-    {
-     "type": "example",
-     "id": "ex-ms-five-coins",
-     "question": "Five coins are tossed. Determine the entropy of the macrostate \"exactly three heads\".",
-     "steps": [
-      "Count the microstates. Choose which 3 of the 5 coins show heads: HHHTT, HHTHT, HHTTH, HTHHT, HTHTH, HTTHH, THHHT, THHTH, THTHH, TTHHH. So $\\Omega = 10$.",
-      "Use $S = k_\\text{B}\\ln\\Omega = (1.38 \\times 10^{-23})\\ln 10$.",
-      "$S = (1.38 \\times 10^{-23})(2.303) = \\pu{3.178e-23 J K-1}$. Give 3 significant figures.",
-      "Compare: \"five heads\" has $\\Omega = 1$, so its entropy is zero."
-     ],
-     "answer": "$S \\approx 3.18 \\times 10^{-23}\\ \\text{J K}^{-1}$",
-     "video": null,
-     "verify": {
-      "kind": "standard-form",
-      "truth": "kB*log(10)",
-      "sf": 3,
-      "unit": "J K-1"
-     }
-    },
-    {
-     "type": "mistake",
-     "text": "Using the total number of outcomes, $2^{5} = 32$, for $\\Omega$. Count only the microstates of the macrostate you are asked about."
-    },
-    {
-     "type": "example",
-     "id": "ex-ms-spreading",
-     "question": "A gas is held in one corner of a sealed container by a thin film. The film bursts. Explain, in terms of microstates, why the gas spreads out to fill the whole container and never gathers back into the corner.",
-     "steps": [
-      "Say what is true of every microstate.",
-      "Compare how many microstates the spread-out and the gathered macrostates have.",
-      "Link the most likely macrostate to entropy."
-     ],
-     "answer": "All microstates of the gas are equally likely. Far more microstates have the molecules spread through the whole container than have them all in one corner. So the spread-out macrostate is overwhelmingly the most probable, and the random motion of the molecules carries the gas into it. The spread-out state has a larger $\\Omega$, so it has a higher entropy, from $S = k_\\text{B}\\ln\\Omega$. A return to the corner would need the gas to reach one of the very few gathered microstates, which is so improbable that it is never observed.",
-     "video": null,
-     "verify": {
-      "kind": "explanation",
-      "truth": "microstates equally likely; many more microstates for the spread-out gas; so that macrostate is overwhelmingly most probable; larger Omega means higher entropy",
-      "requires": [
-       [
-        "equally likely",
-        "equally probable"
-       ],
-       "more microstates",
-       [
-        "most probable",
-        "most likely"
-       ],
-       "higher entropy",
-       [
-        "improbable",
-        "unlikely"
-       ]
-      ],
-      "forbids": [
-       "molecules want",
-       "repel each other",
-       "impossible"
+      "text": "Describe entropy as a measure of the disorder of the particles in a system, and calculate an entropy change from $\\Delta S = \\frac{\\Delta Q}{T}$ for a reversible transfer at constant temperature.",
+      "bullets": [
+        "B.4-a4",
+        "B.4-a5"
       ]
-     }
     },
     {
-     "type": "check",
-     "id": "check-ms-likely",
-     "prompt": "Four coins are tossed. Which macrostate is most likely?",
-     "hint": "Every microstate is equally likely. Count the microstates of each macrostate.",
-     "options": [
-      {
-       "text": "two heads and two tails",
-       "correct": true
-      },
-      {
-       "text": "four heads",
-       "correct": false
-      },
-      {
-       "text": "three heads and one tail",
-       "correct": false
-      },
-      {
-       "text": "every macrostate is equally likely",
-       "correct": false
-      }
-     ],
-     "explain": "Two heads and two tails has 6 of the 16 microstates, more than any other macrostate. Microstates are equally likely; macrostates are not.",
-     "verify": {
-      "kind": "choice",
-      "truth": "two heads and two tails"
-     }
-    },
-    {
-     "type": "check",
-     "id": "check-ms-six-coins",
-     "prompt": "Six coins are tossed. What is the entropy of the macrostate \"exactly two heads\"?",
-     "hint": "Count the ways of choosing which 2 of the 6 coins show heads, then use $S = k_\\text{B}\\ln\\Omega$.",
-     "options": [
-      {
-       "text": "$\\approx 3.7 \\times 10^{-23}\\ \\text{J K}^{-1}$",
-       "correct": true
-      },
-      {
-       "text": "$\\approx 2.1 \\times 10^{-22}\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$\\approx 5.7 \\times 10^{-23}\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$\\approx 2.5 \\times 10^{-23}\\ \\text{J K}^{-1}$",
-       "correct": false
-      }
-     ],
-     "explain": "The first head can be any of 6 coins and the second any of the other 5, but each pair is counted twice: $\\Omega = \\frac{6 \\times 5}{2} = 15$. $S = (1.38 \\times 10^{-23})\\ln 15 \\approx \\pu{3.7e-23 J K-1}$. Leaving out the $\\ln$ gives $2.1 \\times 10^{-22}$, using all 64 outcomes gives $5.7 \\times 10^{-23}$, and using $\\Omega = 6$ gives $2.5 \\times 10^{-23}$.",
-     "verify": {
-      "kind": "standard-form",
-      "truth": "kB*log(15)",
-      "sf": 2,
-      "unit": "J K-1"
-     }
-    }
-   ]
-  },
-  {
-   "id": "second-law",
-   "heading": "The second law of thermodynamics",
-   "blocks": [
-    {
-     "type": "text",
-     "text": "In thermodynamics an [[isolated-system|isolated system]] is one that neither mass nor energy can enter or leave. Nothing outside can push it towards order, so it drifts towards its most probable macrostates. That is the content of the second law."
-    },
-    {
-     "type": "result",
-     "statement": "The [[second-law-of-thermodynamics|second law of thermodynamics]]: the total entropy of an isolated system never decreases, $\\Delta S \\ge 0$. It stays constant only in an ideal reversible process, and increases in every real one.",
-     "why": "An isolated system moves towards the macrostates with the most microstates, which are the states of highest entropy."
-    },
-    {
-     "type": "text",
-     "text": "A reversible process is an ideal one that could be run backwards, returning both the system and its surroundings exactly to their starting states. It would have to happen infinitely slowly, with no friction and no temperature differences. Real processes are not like that."
-    },
-    {
-     "type": "definition",
-     "term": "irreversible process",
-     "statement": "A process after which the system and its surroundings cannot both be returned to their initial states. Every real process is irreversible, and it increases the total entropy.",
-     "plain": "Something that happens one way only: you can't run the film backwards."
-    },
-    {
-     "type": "text",
-     "text": "Friction, mixing, thermal energy flowing across a temperature difference and a gas rushing into a vacuum are all [[irreversible-process|irreversible processes]]. So any real isolated system gains entropy."
-    },
-    {
-     "type": "figure",
-     "id": "2-10-gas-spreading",
-     "alt": "Two views of the same sealed, insulated box. Before: a partition divides the box in half; gas molecules fill the left half and the right half is a vacuum. After the partition is removed: the molecules are spread randomly through the whole box. An arrow from before to after is labelled happens by itself; the reverse change is never seen.",
-     "caption": "A gas expanding into a vacuum is irreversible. With 4 molecules, all of them are in the left half 1 time in 16; with $10^{23}$, never in practice."
-    },
-    {
-     "type": "text",
-     "text": "The second law limits what can happen. Energy conservation alone would allow a cup of tea to get hotter by cooling the air around it. The second law forbids it, because the total entropy would fall. Two older statements say the same thing."
-    },
-    {
-     "type": "text",
-     "text": "Clausius form: thermal energy cannot flow by itself from a colder body to a hotter one. A fridge does move energy from cold to hot, but only because work is done on it."
-    },
-    {
-     "type": "text",
-     "text": "Kelvin form: no device working in a cycle can take thermal energy from a single reservoir and turn all of it into work. Every [[heat-engine|heat engine]] must pass some thermal energy to a colder reservoir. This is why no engine can be 100% efficient; {{lesson:2.11}} finds the limit."
-    },
-    {
-     "type": "text",
-     "text": "The entropy form gives the Clausius form directly. Let thermal energy $Q$ flow from a body at $T_\\text{h}$ to one at $T_\\text{c}$. The hot body loses entropy $\\frac{Q}{T_\\text{h}}$ and the cold body gains $\\frac{Q}{T_\\text{c}}$. The total change, $\\frac{Q}{T_\\text{c}} - \\frac{Q}{T_\\text{h}}$, is positive only when $T_\\text{h} > T_\\text{c}$."
-    },
-    {
-     "type": "example",
-     "id": "ex-sl-rod",
-     "question": "A copper bar connects a furnace wall at $\\pu{520 K}$ to cooling water at $\\pu{290 K}$. Both are large enough to stay at constant temperature. In one minute, $\\pu{1.20e3 J}$ of thermal energy flows along the bar. The bar's own temperatures do not change. Determine the total change in entropy in that minute.",
-     "steps": [
-      "Take each body's thermal energy as positive when it goes in. Furnace wall: $\\Delta S_\\text{h} = \\dfrac{-1.20 \\times 10^{3}}{520} = \\pu{-2.308 J K-1}$.",
-      "Cooling water: $\\Delta S_\\text{c} = \\dfrac{+1.20 \\times 10^{3}}{290} = \\pu{+4.138 J K-1}$.",
-      "The bar is in a steady state, so its entropy does not change.",
-      "Total: $\\Delta S = -2.308 + 4.138 = \\pu{+1.830 J K-1}$. It is positive, as the second law requires for a real flow from hot to cold."
-     ],
-     "answer": "$\\Delta S_\\text{total} \\approx +1.83\\ \\text{J K}^{-1}$",
-     "video": null,
-     "verify": {
-      "kind": "rounded",
-      "truth": "-1.20*10**3/520 + 1.20*10**3/290",
-      "sf": 3,
-      "unit": "J K-1",
-      "signed": true
-     }
-    },
-    {
-     "type": "example",
-     "id": "ex-sl-engine",
-     "question": "Use the entropy form of the second law to explain why a heat engine that works in a cycle must transfer some thermal energy to a cold reservoir.",
-     "steps": [
-      "Say what happens to the entropy of the hot reservoir.",
-      "Say what happens to the engine's own entropy over a cycle, and whether work carries entropy.",
-      "Find what must happen for the total not to decrease."
-     ],
-     "answer": "Each cycle the engine takes thermal energy $Q_\\text{h}$ from the hot reservoir, so the entropy of the hot reservoir decreases by $\\frac{Q_\\text{h}}{T_\\text{h}}$. The engine returns to its initial state at the end of each cycle, so its own entropy does not change. Work done on the surroundings transfers no entropy. If all of $Q_\\text{h}$ became work, the total entropy would decrease, which the second law forbids. So the engine must transfer thermal energy $Q_\\text{c}$ to a cold reservoir, whose entropy increase $\\frac{Q_\\text{c}}{T_\\text{c}}$ is at least as large as the decrease of the hot reservoir.",
-     "video": null,
-     "verify": {
-      "kind": "explanation",
-      "truth": "hot reservoir loses entropy Qh/Th; engine returns to its initial state each cycle; work carries no entropy; total entropy would decrease; so heat must go to a cold reservoir whose entropy gain is at least as large",
-      "requires": [
-       "entropy of the hot reservoir decreases",
-       "initial state",
-       [
-        "transfers no entropy",
-        "carries no entropy"
-       ],
-       "total entropy would decrease",
-       "cold reservoir",
-       "at least as large"
-      ],
-      "forbids": [
-       "energy is destroyed",
-       "energy is lost"
+      "text": "Count the [[microstate|microstates]] of a simple model, such as a set of coins, and use $S = k_\\text{B}\\ln\\Omega$.",
+      "bullets": [
+        "B.4-a4",
+        "B.4-a5"
       ]
-     }
     },
     {
-     "type": "check",
-     "id": "check-sl-flow",
-     "prompt": "$\\pu{600 J}$ of thermal energy flows from a large reservoir at $\\pu{400 K}$ to a large reservoir at $\\pu{300 K}$. What is the total change in entropy?",
-     "hint": "The hot reservoir loses entropy, the cold one gains it. Add the two changes with their signs.",
-     "options": [
-      {
-       "text": "$+0.50\\ \\text{J K}^{-1}$",
-       "correct": true
-      },
-      {
-       "text": "$-0.50\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$+3.5\\ \\text{J K}^{-1}$",
-       "correct": false
-      },
-      {
-       "text": "$+2.0\\ \\text{J K}^{-1}$",
-       "correct": false
-      }
-     ],
-     "explain": "$\\Delta S = -\\frac{600}{400} + \\frac{600}{300} = -1.5 + 2.0 = +\\pu{0.50 J K-1}$. Swapping the signs gives $-0.50$, adding both as gains gives $+3.5$, and counting only the cold reservoir gives $+2.0$.",
-     "verify": {
-      "kind": "rounded",
-      "truth": "-600/400 + 600/300",
-      "sf": 2,
-      "unit": "J K-1",
-      "signed": true
-     }
-    },
-    {
-     "type": "check",
-     "id": "check-sl-clausius",
-     "prompt": "Which statement is the Clausius form of the second law of thermodynamics?",
-     "hint": "Clausius is about the direction of thermal energy flow. Remember that a fridge exists.",
-     "options": [
-      {
-       "text": "thermal energy cannot flow by itself from a colder body to a hotter body",
-       "correct": true
-      },
-      {
-       "text": "thermal energy can never be transferred from a colder body to a hotter body",
-       "correct": false
-      },
-      {
-       "text": "the total energy of an isolated system is constant",
-       "correct": false
-      },
-      {
-       "text": "a cyclic engine can turn all the thermal energy it absorbs into work",
-       "correct": false
-      }
-     ],
-     "explain": "Thermal energy can go from cold to hot, but only when work is done, as in a fridge. Constant total energy is energy conservation, and the last option is what the Kelvin form forbids.",
-     "verify": {
-      "kind": "choice",
-      "truth": "thermal energy cannot flow by itself from a colder body to a hotter body"
-     }
-    },
-    {
-     "type": "check",
-     "id": "check-sl-real",
-     "prompt": "A real process takes place inside an isolated system. What happens to the total entropy of the system?",
-     "hint": "Real processes are irreversible.",
-     "options": [
-      {
-       "text": "it increases",
-       "correct": true
-      },
-      {
-       "text": "it stays the same",
-       "correct": false
-      },
-      {
-       "text": "it decreases",
-       "correct": false
-      },
-      {
-       "text": "it may increase or decrease",
-       "correct": false
-      }
-     ],
-     "explain": "Every real process is irreversible, so it increases the total entropy of an isolated system. Entropy would stay the same only in an ideal reversible process.",
-     "verify": {
-      "kind": "choice",
-      "truth": "it increases"
-     }
-    }
-   ]
-  },
-  {
-   "id": "local-decrease",
-   "heading": "When entropy falls locally",
-   "blocks": [
-    {
-     "type": "text",
-     "text": "Most systems are not isolated. A closed system can exchange energy with its surroundings, as heat or as work, but no mass can enter or leave it; an open system, such as a living cell, exchanges mass too. The entropy of a system that is not isolated can go down."
-    },
-    {
-     "type": "text",
-     "text": "Water freezing in a freezer, the cold inside of a fridge, a growing crystal and a living cell all become more ordered. None of them breaks the second law. Each one passes thermal energy (and a cell also waste matter) to its surroundings, and the surroundings gain at least as much entropy as the system loses."
-    },
-    {
-     "type": "text",
-     "text": "To test a process, draw a boundary around the system and its surroundings together. That larger system is isolated, so its total entropy must not decrease: $\\Delta S_\\text{system} + \\Delta S_\\text{surroundings} \\ge 0$."
-    },
-    {
-     "type": "figure",
-     "id": "2-10-fridge-entropy",
-     "alt": "Energy flows in a refrigerator. The cold inside at temperature T c loses thermal energy Q c, so its entropy falls by Q c over T c. Q c goes to the pump, which also receives electrical work W. The pump delivers Q h, equal to Q c plus W, to the warm kitchen at temperature T h, whose entropy rises by Q h over T h. The rise is at least as large as the fall.",
-     "caption": "A fridge lowers the entropy inside it, but the kitchen gains more."
-    },
-    {
-     "type": "text",
-     "text": "The work $W$ is what makes a fridge possible. The kitchen is warmer, so each joule adds less entropy there than it removed from the inside. Without the work, the kitchen's entropy gain would be smaller than the inside's loss. With it, the kitchen receives $Q_\\text{c} + W$, enough extra energy to make up the difference."
-    },
-    {
-     "type": "example",
-     "id": "ex-ld-fridge",
-     "question": "Each minute, a fridge removes $\\pu{4.5e3 J}$ of thermal energy from its inside at $3\\,^{\\circ}\\text{C}$, using $\\pu{1.1e3 J}$ of electrical work. All the energy goes into the kitchen at $22\\,^{\\circ}\\text{C}$. Treat the inside and the kitchen as reservoirs at constant temperature. Determine the total change in entropy each minute.",
-     "steps": [
-      "Inside, at $T_\\text{c} = \\pu{276 K}$: $\\Delta S_\\text{c} = \\dfrac{-4.5 \\times 10^{3}}{276} = \\pu{-16.30 J K-1}$.",
-      "Energy into the kitchen, by energy conservation: $Q_\\text{h} = 4.5 \\times 10^{3} + 1.1 \\times 10^{3} = \\pu{5.6e3 J}$.",
-      "Kitchen, at $T_\\text{h} = \\pu{295 K}$: $\\Delta S_\\text{h} = \\dfrac{+5.6 \\times 10^{3}}{295} = \\pu{+18.98 J K-1}$.",
-      "Total: $\\Delta S = -16.30 + 18.98 = \\pu{+2.68 J K-1}$. The entropy inside falls, but the total rises, as it must."
-     ],
-     "answer": "$\\Delta S_\\text{total} \\approx +2.7\\ \\text{J K}^{-1}$",
-     "video": null,
-     "verify": {
-      "kind": "rounded",
-      "truth": "-4.5*10**3/(3 + zero_celsius) + (4.5*10**3 + 1.1*10**3)/(22 + zero_celsius)",
-      "sf": 2,
-      "unit": "J K-1",
-      "signed": true
-     }
-    },
-    {
-     "type": "example",
-     "id": "ex-ld-freezer",
-     "question": "Water in an ice tray turns to ice in a freezer, and the entropy of the water decreases. Explain why this does not break the second law of thermodynamics.",
-     "steps": [
-      "Say whether the water is an isolated system, and where its thermal energy goes.",
-      "Say what happens to the entropy of the surroundings.",
-      "Compare the two changes and state the total."
-     ],
-     "answer": "The water is not an isolated system, so the second law does not require its own entropy to stay the same or rise. As it freezes, the water transfers thermal energy to its surroundings. The surroundings are colder than the water, so their entropy increase, $\\frac{Q}{T}$, is larger than the water's decrease. The freezer also does work and transfers that energy to the room, adding more entropy. The total entropy of the water and its surroundings, which together form an isolated system, increases, as the second law requires.",
-     "video": null,
-     "verify": {
-      "kind": "explanation",
-      "truth": "water not isolated; it passes thermal energy to colder surroundings; their entropy increase exceeds the water's decrease; total entropy of system plus surroundings increases",
-      "requires": [
-       "not an isolated system",
-       "thermal energy",
-       "surroundings",
-       [
-        "larger than",
-        "greater than",
-        "at least as large"
-       ],
-       "total entropy",
-       "increases"
-      ],
-      "forbids": [
-       "entropy is destroyed",
-       "the second law does not apply"
+      "text": "State the second law of thermodynamics in its entropy, Clausius and Kelvin forms, and use it to decide whether a process is possible.",
+      "bullets": [
+        "B.4-a6"
       ]
-     }
     },
     {
-     "type": "check",
-     "id": "check-ld-ice",
-     "prompt": "$\\pu{0.40 kg}$ of water at $0\\,^{\\circ}\\text{C}$ freezes to ice at $0\\,^{\\circ}\\text{C}$. The specific latent heat of fusion of ice is $\\pu{3.3e5 J kg-1}$. By how much does the entropy of the water decrease? Give your answer in $\\text{J K}^{-1}$ to 2 significant figures.",
-     "hint": "Find the thermal energy removed with $Q = mL$, then divide by the temperature in kelvin.",
-     "answer": {
-      "value": 480,
-      "tolerance": 5
-     },
-     "explain": "$Q = 0.40 \\times 3.3 \\times 10^{5} = \\pu{1.32e5 J}$, so the decrease is $\\frac{1.32 \\times 10^{5}}{273} \\approx \\pu{480 J K-1}$.",
-     "verify": {
-      "kind": "numeric",
-      "truth": "0.40*3.3*10**5/(0 + zero_celsius)",
-      "sf": 2
-     }
+      "text": "Explain why real processes are irreversible, and so why an isolated system in the real world always gains entropy.",
+      "bullets": [
+        "B.4-a7"
+      ]
     },
     {
-     "type": "check",
-     "id": "check-ld-closed",
-     "prompt": "Which statement describes a closed system?",
-     "hint": "Compare it with an isolated system, which lets nothing in or out.",
-     "options": [
-      {
-       "text": "energy can enter or leave it, but mass cannot",
-       "correct": true
+      "text": "Explain how the entropy of a system that is not isolated can fall, and show that the surroundings gain at least as much.",
+      "bullets": [
+        "B.4-a8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "2.1",
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "entropy change delta S = Q/T",
+    "S = k ln W microstates",
+    "second law of thermodynamics",
+    "Clausius and Kelvin statements",
+    "reversible and irreversible processes",
+    "entropy of the universe increases"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kelvin",
+      "prompt": "A cup of tea is at $57\\,^{\\circ}\\text{C}$. What is its temperature in kelvin?",
+      "hint": "Add 273 to a Celsius temperature.",
+      "answer": {
+        "value": 330,
+        "tolerance": 0.5
       },
-      {
-       "text": "neither energy nor mass can enter or leave it",
-       "correct": false
-      },
-      {
-       "text": "mass can enter or leave it, but energy cannot",
-       "correct": false
-      },
-      {
-       "text": "its entropy can never decrease",
-       "correct": false
+      "explain": "$T = 57 + 273 = \\pu{330 K}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "57 + zero_celsius",
+        "sf": 2
       }
-     ],
-     "explain": "A closed system exchanges energy as heat or work but no mass. With no energy exchange either, it would be isolated. A closed system's entropy can fall, as long as its surroundings gain at least as much.",
-     "verify": {
-      "kind": "choice",
-      "truth": "energy can enter or leave it, but mass cannot"
-     }
+    },
+    {
+      "type": "check",
+      "id": "before-latent",
+      "prompt": "The specific latent heat of vaporization of ethanol is $\\pu{8.5e5 J kg-1}$. How much thermal energy is released when $\\pu{0.24 kg}$ of ethanol vapour condenses at its boiling point?",
+      "hint": "Use $Q = mL$.",
+      "options": [
+        {
+          "text": "$\\approx 2.0 \\times 10^{5}\\ \\text{J}$",
+          "correct": true
+        },
+        {
+          "text": "$\\approx 3.5 \\times 10^{6}\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$\\approx 2.8 \\times 10^{-7}\\ \\text{J}$",
+          "correct": false
+        }
+      ],
+      "explain": "$Q = mL = 0.24 \\times 8.5 \\times 10^{5} \\approx \\pu{2.0e5 J}$. Dividing $L$ by $m$ gives $3.5 \\times 10^{6}$ J, and dividing $m$ by $L$ gives $2.8 \\times 10^{-7}$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "0.24*8.5*10**5",
+        "sf": 2,
+        "unit": "J"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-melting",
+      "prompt": "A block of ice melts at a constant $0\\,^{\\circ}\\text{C}$. What happens to its [[internal-energy|internal energy]]?",
+      "hint": "Internal energy is the random kinetic energy plus the intermolecular potential energy of the particles.",
+      "options": [
+        {
+          "text": "it increases, because the potential energy of the particles increases",
+          "correct": true
+        },
+        {
+          "text": "it stays the same, because the temperature does not change",
+          "correct": false
+        },
+        {
+          "text": "it increases, because the particles move faster",
+          "correct": false
+        }
+      ],
+      "explain": "The temperature is constant, so the mean kinetic energy of the particles is unchanged. The energy supplied separates the particles, raising their potential energy, so the internal energy increases. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it increases, because the potential energy of the particles increases"
+      }
     }
-   ]
-  },
-  {
-   "id": "takeaways",
-   "heading": "Key takeaways",
-   "blocks": [
+  ],
+  "sections": [
     {
-     "type": "fact",
-     "text": "Entropy $S$ measures the disorder of the particles in a system, in $\\text{J K}^{-1}$. For the same substance, gas > liquid > solid; heating raises it.",
-     "tag": "learn",
-     "cheatSheet": true
+      "id": "entropy-heat",
+      "heading": "Entropy from heat and temperature",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drop an ice cube into a warm drink. The water molecules, once locked in a neat crystal, end up moving randomly through the liquid. You never see the reverse: a drink that cools itself while an ice cube grows in it. Physics needs a quantity that tracks this one-way change."
+        },
+        {
+          "type": "definition",
+          "term": "entropy",
+          "statement": "Entropy $S$ is a thermodynamic quantity that measures how disordered the particles of a system are. Its unit is $\\text{J K}^{-1}$.",
+          "plain": "The more ways the particles could be arranged, the more disordered the system and the higher its entropy."
+        },
+        {
+          "type": "text",
+          "text": "A solid has lower [[entropy|entropy]] than the same substance as a liquid, and a liquid lower than a gas. Heating a substance also raises its entropy, because its particles move more randomly. Melting and boiling raise the [[internal-energy|internal energy]] and the entropy together."
+        },
+        {
+          "type": "text",
+          "text": "You can measure an entropy change without looking at particles at all. When thermal energy $\\Delta Q$ is transferred reversibly (slowly, with no other losses) to a system at a constant absolute temperature $T$, its entropy changes by $\\frac{\\Delta Q}{T}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta S = \\frac{\\Delta Q}{T}",
+          "tag": "booklet",
+          "bookletId": "db-2-10"
+        },
+        {
+          "type": "text",
+          "text": "Signs follow the system. Thermal energy into the system makes $\\Delta Q$ positive, so its entropy rises. Thermal energy out makes $\\Delta Q$ negative, so its entropy falls. $T$ must be on the [[kelvin-scale|kelvin scale]]."
+        },
+        {
+          "type": "text",
+          "text": "Use the equation only when $T$ stays constant and the transfer is reversible: a pure substance melting or boiling, a gas expanding slowly at constant temperature, or a reservoir so large that its temperature barely changes. Constant temperature alone is not enough: in a free expansion into a vacuum no heat flows and $T$ stays the same, yet the entropy rises. The same energy causes a bigger entropy change at a low temperature than at a high one, because a cold system starts out more ordered."
+        },
+        {
+          "type": "example",
+          "id": "ex-eh-boiling",
+          "question": "A kettle boils away $\\pu{0.0380 kg}$ of water at $100\\,^{\\circ}\\text{C}$. The specific latent heat of vaporization of water is $\\pu{2.26e6 J kg-1}$. Calculate the change in entropy of the water.",
+          "steps": [
+            "Thermal energy supplied to the water: $\\Delta Q = mL = 0.0380 \\times 2.26 \\times 10^{6} = \\pu{8.588e4 J}$. It goes in, so it is positive.",
+            "The water boils at a constant temperature: $T = 100 + 273 = \\pu{373 K}$.",
+            "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{8.588 \\times 10^{4}}{373} = \\pu{230.2 J K-1}$.",
+            "The data have 3 significant figures, so give 3. Steam is far more disordered than liquid water, so the rise makes sense."
+          ],
+          "answer": "$\\Delta S \\approx 2.30 \\times 10^{2}\\ \\text{J K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.0380*2.26*10**6/(100 + zero_celsius)",
+            "sf": 3,
+            "unit": "J K-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the Celsius temperature. $\\frac{8.588 \\times 10^{4}}{100}$ is almost four times too big. Always convert to kelvin first."
+        },
+        {
+          "type": "example",
+          "id": "ex-eh-lead",
+          "question": "In a foundry, $\\pu{2.0 kg}$ of molten lead solidifies at its melting point of $327\\,^{\\circ}\\text{C}$. The specific latent heat of fusion of lead is $\\pu{2.5e4 J kg-1}$. Determine the change in entropy of the lead.",
+          "steps": [
+            "Thermal energy leaves the lead as it solidifies: $\\Delta Q = -mL = -(2.0)(2.5 \\times 10^{4}) = \\pu{-5.0e4 J}$.",
+            "The temperature is constant: $T = 327 + 273 = \\pu{600 K}$.",
+            "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{-5.0 \\times 10^{4}}{600} = \\pu{-83.3 J K-1}$.",
+            "Give 2 significant figures and keep the sign: the solid is more ordered than the liquid, so the entropy of the lead falls."
+          ],
+          "answer": "$\\Delta S \\approx -83\\ \\text{J K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-2.0*2.5*10**4/(327 + zero_celsius)",
+            "sf": 2,
+            "unit": "J K-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-eh-lake",
+          "prompt": "A large lake stays at $12\\,^{\\circ}\\text{C}$ while it absorbs $\\pu{5.7e4 J}$ of thermal energy from the Sun. Calculate the increase in entropy of the lake, in $\\text{J K}^{-1}$ to 2 significant figures.",
+          "hint": "The lake is so large that its temperature is constant. Convert to kelvin before dividing.",
+          "answer": {
+            "value": 200,
+            "tolerance": 5
+          },
+          "explain": "$\\Delta S = \\dfrac{\\Delta Q}{T} = \\dfrac{5.7 \\times 10^{4}}{285} = \\pu{200 J K-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.7*10**4/(12 + zero_celsius)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-eh-gas",
+          "prompt": "An ideal monatomic gas expands slowly at a constant $77\\,^{\\circ}\\text{C}$ and does $\\pu{820 J}$ of work on its surroundings. What is the change in entropy of the gas?",
+          "hint": "At constant temperature the internal energy of an ideal gas does not change, so by the first law $Q = W$.",
+          "options": [
+            {
+              "text": "$\\approx +2.34\\ \\text{J K}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx -2.34\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx +10.6\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx +0.427\\ \\text{J K}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta U = 0$, so $Q = W = +\\pu{820 J}$ flows into the gas. $\\Delta S = \\frac{820}{350} \\approx +\\pu{2.34 J K-1}$. Dividing by 77 gives 10.6, and $\\frac{T}{Q}$ gives 0.427. The gas gains thermal energy, so its entropy rises.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "820/(77 + zero_celsius)",
+            "sf": 3,
+            "unit": "J K-1",
+            "signed": true
+          }
+        }
+      ]
     },
     {
-     "type": "formula",
-     "tex": "\\Delta S = \\frac{\\Delta Q}{T}",
-     "tag": "booklet",
-     "bookletId": "db-2-10",
-     "cheatSheet": true
+      "id": "microstates",
+      "heading": "Counting microstates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Entropy can also be found by counting. Toss four coins. The result \"two heads\" describes the overall state, called a macrostate. Each exact sequence that gives it, such as HTTH, is a [[microstate|microstate]]."
+        },
+        {
+          "type": "definition",
+          "term": "microstate",
+          "statement": "One particular arrangement of the particles of a system, among all the arrangements that give the same macroscopic state. $\\Omega$ is the number of microstates of that state.",
+          "plain": "A microstate is one exact way the parts can be set up; $\\Omega$ counts how many ways give what you see from outside."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-coin-microstates",
+          "alt": "All sixteen microstates of four coins, sorted into five macrostates by the number of heads. Four heads: 1 microstate. Three heads: 4 microstates. Two heads: 6 microstates, the most of any macrostate. One head: 4 microstates. No heads: 1 microstate.",
+          "caption": "Four coins: 16 microstates in five macrostates. \"Two heads\" has the most microstates."
+        },
+        {
+          "type": "text",
+          "text": "Every microstate is equally likely. So the macrostate with the most microstates is the most likely one: two heads turns up 6 times in 16, four heads only once. The mixed, disordered macrostate wins because there are more ways to make it."
+        },
+        {
+          "type": "text",
+          "text": "Real systems have around $10^{23}$ particles, not four coins. Then the most disordered macrostates have so many more microstates than the ordered ones that the system is almost certain to be found in one of them."
+        },
+        {
+          "type": "formula",
+          "tex": "S = k_\\text{B}\\ln\\Omega",
+          "tag": "booklet",
+          "bookletId": "db-2-10"
+        },
+        {
+          "type": "text",
+          "text": "Here $k_\\text{B}$ is the [[boltzmann-constant|Boltzmann constant]], $\\pu{1.38e-23 J K-1}$ from the data booklet, and $\\ln$ is the natural logarithm. A state with only one microstate has $S = k_\\text{B}\\ln 1 = 0$: perfect order. More microstates means more entropy."
+        },
+        {
+          "type": "example",
+          "id": "ex-ms-five-coins",
+          "question": "Five coins are tossed. Determine the entropy of the macrostate \"exactly three heads\".",
+          "steps": [
+            "Count the microstates. Choose which 3 of the 5 coins show heads: HHHTT, HHTHT, HHTTH, HTHHT, HTHTH, HTTHH, THHHT, THHTH, THTHH, TTHHH. So $\\Omega = 10$.",
+            "Use $S = k_\\text{B}\\ln\\Omega = (1.38 \\times 10^{-23})\\ln 10$.",
+            "$S = (1.38 \\times 10^{-23})(2.303) = \\pu{3.178e-23 J K-1}$. Give 3 significant figures.",
+            "Compare: \"five heads\" has $\\Omega = 1$, so its entropy is zero."
+          ],
+          "answer": "$S \\approx 3.18 \\times 10^{-23}\\ \\text{J K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "kB*log(10)",
+            "sf": 3,
+            "unit": "J K-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the total number of outcomes, $2^{5} = 32$, for $\\Omega$. Count only the microstates of the macrostate you are asked about."
+        },
+        {
+          "type": "example",
+          "id": "ex-ms-spreading",
+          "question": "A gas is held in one corner of a sealed container by a thin film. The film bursts. Explain, in terms of microstates, why the gas spreads out to fill the whole container and never gathers back into the corner.",
+          "steps": [
+            "Say what is true of every microstate.",
+            "Compare how many microstates the spread-out and the gathered macrostates have.",
+            "Link the most likely macrostate to entropy."
+          ],
+          "answer": "All microstates of the gas are equally likely. Far more microstates have the molecules spread through the whole container than have them all in one corner. So the spread-out macrostate is overwhelmingly the most probable, and the random motion of the molecules carries the gas into it. The spread-out state has a larger $\\Omega$, so it has a higher entropy, from $S = k_\\text{B}\\ln\\Omega$. A return to the corner would need the gas to reach one of the very few gathered microstates, which is so improbable that it is never observed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "microstates equally likely; many more microstates for the spread-out gas; so that macrostate is overwhelmingly most probable; larger Omega means higher entropy",
+            "requires": [
+              [
+                "equally likely",
+                "equally probable"
+              ],
+              "more microstates",
+              [
+                "most probable",
+                "most likely"
+              ],
+              "higher entropy",
+              [
+                "improbable",
+                "unlikely"
+              ]
+            ],
+            "forbids": [
+              "molecules want",
+              "repel each other",
+              "impossible"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ms-likely",
+          "prompt": "Four coins are tossed. Which macrostate is most likely?",
+          "hint": "Every microstate is equally likely. Count the microstates of each macrostate.",
+          "options": [
+            {
+              "text": "two heads and two tails",
+              "correct": true
+            },
+            {
+              "text": "four heads",
+              "correct": false
+            },
+            {
+              "text": "three heads and one tail",
+              "correct": false
+            },
+            {
+              "text": "every macrostate is equally likely",
+              "correct": false
+            }
+          ],
+          "explain": "Two heads and two tails has 6 of the 16 microstates, more than any other macrostate. Microstates are equally likely; macrostates are not.",
+          "verify": {
+            "kind": "choice",
+            "truth": "two heads and two tails"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ms-six-coins",
+          "prompt": "Six coins are tossed. What is the entropy of the macrostate \"exactly two heads\"?",
+          "hint": "Count the ways of choosing which 2 of the 6 coins show heads, then use $S = k_\\text{B}\\ln\\Omega$.",
+          "options": [
+            {
+              "text": "$\\approx 3.7 \\times 10^{-23}\\ \\text{J K}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 2.1 \\times 10^{-22}\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 5.7 \\times 10^{-23}\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 2.5 \\times 10^{-23}\\ \\text{J K}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "The first head can be any of 6 coins and the second any of the other 5, but each pair is counted twice: $\\Omega = \\frac{6 \\times 5}{2} = 15$. $S = (1.38 \\times 10^{-23})\\ln 15 \\approx \\pu{3.7e-23 J K-1}$. Leaving out the $\\ln$ gives $2.1 \\times 10^{-22}$, using all 64 outcomes gives $5.7 \\times 10^{-23}$, and using $\\Omega = 6$ gives $2.5 \\times 10^{-23}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "kB*log(15)",
+            "sf": 2,
+            "unit": "J K-1"
+          }
+        }
+      ]
     },
     {
-     "type": "fact",
-     "text": "In $\\Delta S = \\frac{\\Delta Q}{T}$, $T$ is constant and in kelvin. $\\Delta Q$ is positive into the system and negative out of it.",
-     "tag": "learn",
-     "cheatSheet": true
+      "id": "second-law",
+      "heading": "The second law of thermodynamics",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In thermodynamics an [[isolated-system|isolated system]] is one that neither mass nor energy can enter or leave. Nothing outside can push it towards order, so it drifts towards its most probable macrostates. That is the content of the second law."
+        },
+        {
+          "type": "result",
+          "statement": "The [[second-law-of-thermodynamics|second law of thermodynamics]]: the total entropy of an isolated system never decreases, $\\Delta S \\ge 0$. It stays constant only in an ideal reversible process, and increases in every real one.",
+          "why": "An isolated system moves towards the macrostates with the most microstates, which are the states of highest entropy."
+        },
+        {
+          "type": "text",
+          "text": "A reversible process is an ideal one that could be run backwards, returning both the system and its surroundings exactly to their starting states. It would have to happen infinitely slowly, with no friction and no temperature differences. Real processes are not like that."
+        },
+        {
+          "type": "definition",
+          "term": "irreversible process",
+          "statement": "A process after which the system and its surroundings cannot both be returned to their initial states. Every real process is irreversible, and it increases the total entropy.",
+          "plain": "Something that happens one way only: you can't run the film backwards."
+        },
+        {
+          "type": "text",
+          "text": "Friction, mixing, thermal energy flowing across a temperature difference and a gas rushing into a vacuum are all [[irreversible-process|irreversible processes]]. So any real isolated system gains entropy."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-gas-spreading",
+          "alt": "Two views of the same sealed, insulated box. Before: a partition divides the box in half; gas molecules fill the left half and the right half is a vacuum. After the partition is removed: the molecules are spread randomly through the whole box. An arrow from before to after is labelled happens by itself; the reverse change is never seen.",
+          "caption": "A gas expanding into a vacuum is irreversible. With 4 molecules, all of them are in the left half 1 time in 16; with $10^{23}$, never in practice."
+        },
+        {
+          "type": "text",
+          "text": "The second law limits what can happen. Energy conservation alone would allow a cup of tea to get hotter by cooling the air around it. The second law forbids it, because the total entropy would fall. Two older statements say the same thing."
+        },
+        {
+          "type": "text",
+          "text": "Clausius form: thermal energy cannot flow by itself from a colder body to a hotter one. A fridge does move energy from cold to hot, but only because work is done on it."
+        },
+        {
+          "type": "text",
+          "text": "Kelvin form: no device working in a cycle can take thermal energy from a single reservoir and turn all of it into work. Every [[heat-engine|heat engine]] must pass some thermal energy to a colder reservoir. This is why no engine can be 100% efficient; {{lesson:2.11}} finds the limit."
+        },
+        {
+          "type": "text",
+          "text": "The entropy form gives the Clausius form directly. Let thermal energy $Q$ flow from a body at $T_\\text{h}$ to one at $T_\\text{c}$. The hot body loses entropy $\\frac{Q}{T_\\text{h}}$ and the cold body gains $\\frac{Q}{T_\\text{c}}$. The total change, $\\frac{Q}{T_\\text{c}} - \\frac{Q}{T_\\text{h}}$, is positive only when $T_\\text{h} > T_\\text{c}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sl-rod",
+          "question": "A copper bar connects a furnace wall at $\\pu{520 K}$ to cooling water at $\\pu{290 K}$. Both are large enough to stay at constant temperature. In one minute, $\\pu{1.20e3 J}$ of thermal energy flows along the bar. The bar's own temperatures do not change. Determine the total change in entropy in that minute.",
+          "steps": [
+            "Take each body's thermal energy as positive when it goes in. Furnace wall: $\\Delta S_\\text{h} = \\dfrac{-1.20 \\times 10^{3}}{520} = \\pu{-2.308 J K-1}$.",
+            "Cooling water: $\\Delta S_\\text{c} = \\dfrac{+1.20 \\times 10^{3}}{290} = \\pu{+4.138 J K-1}$.",
+            "The bar is in a steady state, so its entropy does not change.",
+            "Total: $\\Delta S = -2.308 + 4.138 = \\pu{+1.830 J K-1}$. It is positive, as the second law requires for a real flow from hot to cold."
+          ],
+          "answer": "$\\Delta S_\\text{total} \\approx +1.83\\ \\text{J K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-1.20*10**3/520 + 1.20*10**3/290",
+            "sf": 3,
+            "unit": "J K-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sl-engine",
+          "question": "Use the entropy form of the second law to explain why a heat engine that works in a cycle must transfer some thermal energy to a cold reservoir.",
+          "steps": [
+            "Say what happens to the entropy of the hot reservoir.",
+            "Say what happens to the engine's own entropy over a cycle, and whether work carries entropy.",
+            "Find what must happen for the total not to decrease."
+          ],
+          "answer": "Each cycle the engine takes thermal energy $Q_\\text{h}$ from the hot reservoir, so the entropy of the hot reservoir decreases by $\\frac{Q_\\text{h}}{T_\\text{h}}$. The engine returns to its initial state at the end of each cycle, so its own entropy does not change. Work done on the surroundings transfers no entropy. If all of $Q_\\text{h}$ became work, the total entropy would decrease, which the second law forbids. So the engine must transfer thermal energy $Q_\\text{c}$ to a cold reservoir, whose entropy increase $\\frac{Q_\\text{c}}{T_\\text{c}}$ is at least as large as the decrease of the hot reservoir.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hot reservoir loses entropy Qh/Th; engine returns to its initial state each cycle; work carries no entropy; total entropy would decrease; so heat must go to a cold reservoir whose entropy gain is at least as large",
+            "requires": [
+              "entropy of the hot reservoir decreases",
+              "initial state",
+              [
+                "transfers no entropy",
+                "carries no entropy"
+              ],
+              "total entropy would decrease",
+              "cold reservoir",
+              "at least as large"
+            ],
+            "forbids": [
+              "energy is destroyed",
+              "energy is lost"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sl-flow",
+          "prompt": "$\\pu{600 J}$ of thermal energy flows from a large reservoir at $\\pu{400 K}$ to a large reservoir at $\\pu{300 K}$. What is the total change in entropy?",
+          "hint": "The hot reservoir loses entropy, the cold one gains it. Add the two changes with their signs.",
+          "options": [
+            {
+              "text": "$+0.50\\ \\text{J K}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$-0.50\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$+3.5\\ \\text{J K}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$+2.0\\ \\text{J K}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta S = -\\frac{600}{400} + \\frac{600}{300} = -1.5 + 2.0 = +\\pu{0.50 J K-1}$. Swapping the signs gives $-0.50$, adding both as gains gives $+3.5$, and counting only the cold reservoir gives $+2.0$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "-600/400 + 600/300",
+            "sf": 2,
+            "unit": "J K-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sl-clausius",
+          "prompt": "Which statement is the Clausius form of the second law of thermodynamics?",
+          "hint": "Clausius is about the direction of thermal energy flow. Remember that a fridge exists.",
+          "options": [
+            {
+              "text": "thermal energy cannot flow by itself from a colder body to a hotter body",
+              "correct": true
+            },
+            {
+              "text": "thermal energy can never be transferred from a colder body to a hotter body",
+              "correct": false
+            },
+            {
+              "text": "the total energy of an isolated system is constant",
+              "correct": false
+            },
+            {
+              "text": "a cyclic engine can turn all the thermal energy it absorbs into work",
+              "correct": false
+            }
+          ],
+          "explain": "Thermal energy can go from cold to hot, but only when work is done, as in a fridge. Constant total energy is energy conservation, and the last option is what the Kelvin form forbids.",
+          "verify": {
+            "kind": "choice",
+            "truth": "thermal energy cannot flow by itself from a colder body to a hotter body"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sl-real",
+          "prompt": "A real process takes place inside an isolated system. What happens to the total entropy of the system?",
+          "hint": "Real processes are irreversible.",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it may increase or decrease",
+              "correct": false
+            }
+          ],
+          "explain": "Every real process is irreversible, so it increases the total entropy of an isolated system. Entropy would stay the same only in an ideal reversible process.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        }
+      ]
     },
     {
-     "type": "formula",
-     "tex": "S = k_\\text{B}\\ln\\Omega",
-     "tag": "booklet",
-     "bookletId": "db-2-10",
-     "cheatSheet": true
+      "id": "local-decrease",
+      "heading": "When entropy falls locally",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most systems are not isolated. A closed system can exchange energy with its surroundings, as heat or as work, but no mass can enter or leave it; an open system, such as a living cell, exchanges mass too. The entropy of a system that is not isolated can go down."
+        },
+        {
+          "type": "text",
+          "text": "Water freezing in a freezer, the cold inside of a fridge, a growing crystal and a living cell all become more ordered. None of them breaks the second law. Each one passes thermal energy (and a cell also waste matter) to its surroundings, and the surroundings gain at least as much entropy as the system loses."
+        },
+        {
+          "type": "text",
+          "text": "To test a process, draw a boundary around the system and its surroundings together. That larger system is isolated, so its total entropy must not decrease: $\\Delta S_\\text{system} + \\Delta S_\\text{surroundings} \\ge 0$."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-fridge-entropy",
+          "alt": "Energy flows in a refrigerator. The cold inside at temperature T c loses thermal energy Q c, so its entropy falls by Q c over T c. Q c goes to the pump, which also receives electrical work W. The pump delivers Q h, equal to Q c plus W, to the warm kitchen at temperature T h, whose entropy rises by Q h over T h. The rise is at least as large as the fall.",
+          "caption": "A fridge lowers the entropy inside it, but the kitchen gains more."
+        },
+        {
+          "type": "text",
+          "text": "The work $W$ is what makes a fridge possible. The kitchen is warmer, so each joule adds less entropy there than it removed from the inside. Without the work, the kitchen's entropy gain would be smaller than the inside's loss. With it, the kitchen receives $Q_\\text{c} + W$, enough extra energy to make up the difference."
+        },
+        {
+          "type": "example",
+          "id": "ex-ld-fridge",
+          "question": "Each minute, a fridge removes $\\pu{4.5e3 J}$ of thermal energy from its inside at $3\\,^{\\circ}\\text{C}$, using $\\pu{1.1e3 J}$ of electrical work. All the energy goes into the kitchen at $22\\,^{\\circ}\\text{C}$. Treat the inside and the kitchen as reservoirs at constant temperature. Determine the total change in entropy each minute.",
+          "steps": [
+            "Inside, at $T_\\text{c} = \\pu{276 K}$: $\\Delta S_\\text{c} = \\dfrac{-4.5 \\times 10^{3}}{276} = \\pu{-16.30 J K-1}$.",
+            "Energy into the kitchen, by energy conservation: $Q_\\text{h} = 4.5 \\times 10^{3} + 1.1 \\times 10^{3} = \\pu{5.6e3 J}$.",
+            "Kitchen, at $T_\\text{h} = \\pu{295 K}$: $\\Delta S_\\text{h} = \\dfrac{+5.6 \\times 10^{3}}{295} = \\pu{+18.98 J K-1}$.",
+            "Total: $\\Delta S = -16.30 + 18.98 = \\pu{+2.68 J K-1}$. The entropy inside falls, but the total rises, as it must."
+          ],
+          "answer": "$\\Delta S_\\text{total} \\approx +2.7\\ \\text{J K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-4.5*10**3/(3 + zero_celsius) + (4.5*10**3 + 1.1*10**3)/(22 + zero_celsius)",
+            "sf": 2,
+            "unit": "J K-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ld-freezer",
+          "question": "Water in an ice tray turns to ice in a freezer, and the entropy of the water decreases. Explain why this does not break the second law of thermodynamics.",
+          "steps": [
+            "Say whether the water is an isolated system, and where its thermal energy goes.",
+            "Say what happens to the entropy of the surroundings.",
+            "Compare the two changes and state the total."
+          ],
+          "answer": "The water is not an isolated system, so the second law does not require its own entropy to stay the same or rise. As it freezes, the water transfers thermal energy to its surroundings. The surroundings are colder than the water, so their entropy increase, $\\frac{Q}{T}$, is larger than the water's decrease. The freezer also does work and transfers that energy to the room, adding more entropy. The total entropy of the water and its surroundings, which together form an isolated system, increases, as the second law requires.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water not isolated; it passes thermal energy to colder surroundings; their entropy increase exceeds the water's decrease; total entropy of system plus surroundings increases",
+            "requires": [
+              "not an isolated system",
+              "thermal energy",
+              "surroundings",
+              [
+                "larger than",
+                "greater than",
+                "at least as large"
+              ],
+              "total entropy",
+              "increases"
+            ],
+            "forbids": [
+              "entropy is destroyed",
+              "the second law does not apply"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ld-ice",
+          "prompt": "$\\pu{0.40 kg}$ of water at $0\\,^{\\circ}\\text{C}$ freezes to ice at $0\\,^{\\circ}\\text{C}$. The specific latent heat of fusion of ice is $\\pu{3.3e5 J kg-1}$. By how much does the entropy of the water decrease? Give your answer in $\\text{J K}^{-1}$ to 2 significant figures.",
+          "hint": "Find the thermal energy removed with $Q = mL$, then divide by the temperature in kelvin.",
+          "answer": {
+            "value": 480,
+            "tolerance": 5
+          },
+          "explain": "$Q = 0.40 \\times 3.3 \\times 10^{5} = \\pu{1.32e5 J}$, so the decrease is $\\frac{1.32 \\times 10^{5}}{273} \\approx \\pu{480 J K-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.40*3.3*10**5/(0 + zero_celsius)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ld-closed",
+          "prompt": "Which statement describes a closed system?",
+          "hint": "Compare it with an isolated system, which lets nothing in or out.",
+          "options": [
+            {
+              "text": "energy can enter or leave it, but mass cannot",
+              "correct": true
+            },
+            {
+              "text": "neither energy nor mass can enter or leave it",
+              "correct": false
+            },
+            {
+              "text": "mass can enter or leave it, but energy cannot",
+              "correct": false
+            },
+            {
+              "text": "its entropy can never decrease",
+              "correct": false
+            }
+          ],
+          "explain": "A closed system exchanges energy as heat or work but no mass. With no energy exchange either, it would be isolated. A closed system's entropy can fall, as long as its surroundings gain at least as much.",
+          "verify": {
+            "kind": "choice",
+            "truth": "energy can enter or leave it, but mass cannot"
+          }
+        }
+      ]
     },
     {
-     "type": "fact",
-     "text": "In an isolated system all microstates are equally likely, so the macrostate with the most microstates is the most probable and has the highest entropy.",
-     "tag": "learn",
-     "cheatSheet": true
-    },
-    {
-     "type": "fact",
-     "text": "Second law: the total entropy of an isolated system never decreases. Real processes are irreversible, so it increases. Clausius: thermal energy cannot flow by itself from cold to hot. Kelvin: no cyclic engine turns all the heat from one reservoir into work.",
-     "tag": "learn",
-     "cheatSheet": true
-    },
-    {
-     "type": "fact",
-     "text": "A system that is not isolated can lose entropy, but its surroundings gain at least as much: $\\Delta S_\\text{system} + \\Delta S_\\text{surroundings} \\ge 0$.",
-     "tag": "learn",
-     "cheatSheet": true
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Entropy $S$ measures the disorder of the particles in a system, in $\\text{J K}^{-1}$. For the same substance, gas > liquid > solid; heating raises it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta S = \\frac{\\Delta Q}{T}",
+          "tag": "booklet",
+          "bookletId": "db-2-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $\\Delta S = \\frac{\\Delta Q}{T}$, $T$ is constant and in kelvin. $\\Delta Q$ is positive into the system and negative out of it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "S = k_\\text{B}\\ln\\Omega",
+          "tag": "booklet",
+          "bookletId": "db-2-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In an isolated system all microstates are equally likely, so the macrostate with the most microstates is the most probable and has the highest entropy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Second law: the total entropy of an isolated system never decreases. Real processes are irreversible, so it increases. Clausius: thermal energy cannot flow by itself from cold to hot. Kelvin: no cyclic engine turns all the heat from one reservoir into work.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A system that is not isolated can lose entropy, but its surroundings gain at least as much: $\\Delta S_\\text{system} + \\Delta S_\\text{surroundings} \\ge 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
     }
-   ]
-  }
- ],
- "mistakes": [
-  "Using a Celsius temperature in $\\Delta S = \\frac{\\Delta Q}{T}$. Convert to kelvin first, or the answer is far too large.",
-  "Dropping the sign. Thermal energy leaving a system makes its entropy change negative.",
-  "Saying the second law means entropy can never decrease anywhere. It forbids a decrease in the total entropy of an isolated system; a part of it can lose entropy.",
-  "Using $\\Delta S = \\frac{\\Delta Q}{T}$ when the temperature of the system changes a lot. It needs a constant temperature, as in a phase change or a large reservoir.",
-  "Taking $\\Omega$ as the total number of outcomes, or forgetting the $\\ln$ in $S = k_\\text{B}\\ln\\Omega$.",
-  "Saying a fridge breaks the Clausius form. It moves thermal energy from cold to hot only because work is done on it."
- ],
- "examTips": [
-  "\"State the second law\": the entropy form needs both \"isolated system\" and \"total entropy never decreases\". For the Clausius form, include \"by itself\" or \"without work being done\".",
-  "\"Calculate the change in entropy\": write $\\Delta S = \\frac{\\Delta Q}{T}$, substitute with $T$ in kelvin, and give a signed answer in $\\text{J K}^{-1}$.",
-  "Paper 1A coin questions: count the microstates of the stated macrostate only, then use $S = k_\\text{B}\\ln\\Omega$.",
-  "\"Explain why this does not violate the second law\": say the system is not isolated, name the surroundings, say their entropy rises by more than the system's falls, and end with the total increasing."
- ],
- "readingMinutes": 30
+  ],
+  "mistakes": [
+    "Using a Celsius temperature in $\\Delta S = \\frac{\\Delta Q}{T}$. Convert to kelvin first, or the answer is far too large.",
+    "Dropping the sign. Thermal energy leaving a system makes its entropy change negative.",
+    "Saying the second law means entropy can never decrease anywhere. It forbids a decrease in the total entropy of an isolated system; a part of it can lose entropy.",
+    "Using $\\Delta S = \\frac{\\Delta Q}{T}$ when the temperature of the system changes a lot. It needs a constant temperature and a reversible transfer, as in a phase change or a large reservoir; it does not apply to a free expansion, where $\\Delta Q = 0$ but the entropy rises.",
+    "Taking $\\Omega$ as the total number of outcomes, or forgetting the $\\ln$ in $S = k_\\text{B}\\ln\\Omega$.",
+    "Saying a fridge breaks the Clausius form. It moves thermal energy from cold to hot only because work is done on it."
+  ],
+  "examTips": [
+    "\"State the second law\": the entropy form needs both \"isolated system\" and \"total entropy never decreases\". For the Clausius form, include \"by itself\" or \"without work being done\".",
+    "\"Calculate the change in entropy\": write $\\Delta S = \\frac{\\Delta Q}{T}$, substitute with $T$ in kelvin, and give a signed answer in $\\text{J K}^{-1}$.",
+    "Paper 1A coin questions: count the microstates of the stated macrostate only, then use $S = k_\\text{B}\\ln\\Omega$.",
+    "\"Explain why this does not violate the second law\": say the system is not isolated, name the surroundings, say their entropy rises by more than the system's falls, and end with the total increasing."
+  ],
+  "readingMinutes": 30
 }

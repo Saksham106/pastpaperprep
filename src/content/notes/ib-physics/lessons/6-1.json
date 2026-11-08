@@ -342,7 +342,7 @@
         },
         {
           "type": "text",
-          "text": "Sound and light intensity: a sound level meter or a light meter (or sensors). Subtract the background reading, and keep the distance and direction fixed."
+          "text": "Sound and light intensity: a sound level meter or a light meter (or sensors). Keep the distance and direction fixed, and record the background reading. A light meter's background can be subtracted directly; a sound level meter reads in decibels, a logarithmic scale, so convert both readings to intensities before subtracting."
         },
         {
           "type": "text",
@@ -1020,5 +1020,5 @@
     "\"Suggest\" a precaution: give the control measure and the hazard it deals with, joined by \"because\".",
     "Give every final answer with a unit, in scientific notation when it is very large or small, and to the significant figures of the least precise datum (decimal places for sums and differences)."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }

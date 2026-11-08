@@ -467,7 +467,7 @@
         },
         {
           "type": "text",
-          "text": "$\\Delta\\lambda$ is observed minus emitted wavelength $\\lambda$, and $\\Delta f$ the change from the emitted $f$. $v$ is the relative speed along the line of sight. The equation, and $c = \\pu{3.00e8 m s-1}$, are in the data booklet."
+          "text": "Here $\\Delta\\lambda$ and $\\Delta f$ are the sizes of the shifts from the emitted wavelength $\\lambda$ and frequency $f$. Say the direction in words: for a source moving away the wavelength gets longer and the frequency lower (a red shift); moving closer, the reverse. $v$ is the relative speed along the line of sight. The equation, and $c = \\pu{3.00e8 m s-1}$, are in the data booklet."
         },
         {
           "type": "text",
@@ -499,13 +499,13 @@
         {
           "type": "example",
           "id": "ex-probe-radio",
-          "question": "A space probe moves directly away from Earth at $\\pu{14.2 km s-1}$ relative to Earth. It transmits radio waves of frequency $\\pu{2.30 GHz}$. Calculate the change in frequency of the waves received on Earth.",
+          "question": "A space probe moves directly away from Earth at $\\pu{14.2 km s-1}$ relative to Earth. It transmits radio waves of frequency $\\pu{2.30 GHz}$. Calculate the size of the frequency shift of the waves received on Earth, and state whether the received frequency is higher or lower.",
           "steps": [
             "Convert: $v = 14.2 \\times 10^{3}\\text{ m s}^{-1}$ and $f = 2.30 \\times 10^{9}\\text{ Hz}$. Radio waves are electromagnetic, so use $c$.",
             "$\\Delta f = f\\,\\frac{v}{c} = \\frac{2.30 \\times 10^{9} \\times 14.2 \\times 10^{3}}{3.00 \\times 10^{8}}$.",
             "$\\Delta f = 1.088\\ldots \\times 10^{5}\\text{ Hz}$. The probe is moving away, so the received frequency is lower by this amount."
           ],
-          "answer": "$\\Delta f \\approx 1.09 \\times 10^{5}\\text{ Hz}$",
+          "answer": "Lower by $\\Delta f \\approx 1.09 \\times 10^{5}\\text{ Hz}$",
           "video": null,
           "verify": {
             "kind": "standard-form",
@@ -879,5 +879,5 @@
     "In Paper 1A, constant velocity straight towards the observer gives a constant observed frequency, not a rising one.",
     "HL \"calculate\": write the equation with your chosen sign, substitute, and check that approaching gave a higher frequency."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }
