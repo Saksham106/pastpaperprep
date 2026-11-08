@@ -5,6 +5,7 @@ import { PastPaperPaperPage } from '@/components/past-papers/PastPaperPaperPage'
 import { qualificationOfBank } from '@/lib/past-paper-catalog';
 import { pastPaperFallback, pastPaperParams, resolveEntry } from '@/lib/past-paper-pages';
 import { paperCopy, paperNumberCopy, pastPaperMetadata, yearCopy } from '@/lib/past-paper-seo';
+import { topicFrequency } from '@/lib/past-paper-insights';
 
 // Unbuilt entries render on request so guessed or mistyped paper links redirect instead of 404ing.
 export const dynamicParams = true;
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug, entry } = await params;
   const view = await resolveEntry(slug, entry);
   if (!view) return {};
-  const copy = view.kind === 'year' ? yearCopy(view.bank, view.year, view.papers) : view.kind === 'paperNumber' ? paperNumberCopy(view.bank, view.paper, view.papers) : paperCopy(view.bank, view.detail.summary);
+  const copy = view.kind === 'year' ? yearCopy(view.bank, view.year, view.papers) : view.kind === 'paperNumber' ? paperNumberCopy(view.bank, view.paper, view.papers, topicFrequency(view.questionSets ?? []).topics.map(t => t.topic)) : paperCopy(view.bank, view.detail.summary);
   const indexed = view.kind === 'paper' ? view.indexing?.indexed ?? false : view.kind === 'paperNumber';
   return pastPaperMetadata(copy, `/past-papers/${slug}/${entry}`, qualificationOfBank(view.bank.slug), indexed);
 }

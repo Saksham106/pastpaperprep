@@ -101,15 +101,18 @@ export function yearCopy(bank: CatalogBank, year: number, papers: readonly Whole
   };
 }
 
-export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readonly WholePaperSummary[]): PageCopy {
+/** `topTopics`: the paper's most-tested topics (from "What Paper N tests"), named in the description when they fit. */
+export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readonly WholePaperSummary[], topTopics: readonly string[] = []): PageCopy {
   const name = subjectSearchName(bank), label = paper.toUpperCase();
   const routes = new Set(papers.map(p => p.route));
   const only = routes.size === 1 ? [...routes][0] : null;
   const note = only === 'Core' || only === 'Extended' ? ` (${only})` : '';
+  const base = `Every ${name} Paper ${label} from ${yearRange(papers)} with its ${scheme(bank)}`;
+  const topics = (n: number) => topTopics.length >= n ? `${base}, and the topics it tests most: ${list(topTopics.slice(0, n))}. Free, no sign-up.` : null;
   return {
     title: fitTitle(`${name} Paper ${label} Past Papers${note}`, `${name} Paper ${label} Past Papers`),
     h1: `${name} Paper ${label} past papers`,
-    description: `Every ${name} Paper ${label} from ${yearRange(papers)} with its ${scheme(bank)}. Free, no sign-up.`,
+    description: fitDescription(...[topics(3), topics(2), `${base}. Free, no sign-up.`].filter((c): c is string => c !== null)),
     answer: `Every ${name} Paper ${label} ${fromYears(papers)}: ${plural(papers.length, 'paper')}, each with its ${scheme(bank)}.`,
   };
 }
