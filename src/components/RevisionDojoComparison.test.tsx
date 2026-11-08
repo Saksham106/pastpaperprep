@@ -10,7 +10,7 @@ describe("RevisionDojo vs Revision Village article", () => {
       draft: false,
       title: "RevisionDojo vs Revision Village: Which Is Better for IB Practice?",
       publishedAt: "2026-10-05",
-      updatedAt: "2026-10-16",
+      updatedAt: "2026-11-08",
       answerLink: { href: "/#question-banks" },
       comparison: { headings: ["Dimension", "RevisionDojo", "Revision Village"] },
     });

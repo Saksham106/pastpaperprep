@@ -62,6 +62,11 @@ describe("articles index enrichment", () => {
             "igcse-chemistry-0620": "src/data/production/igcse-chemistry-0620.json",
             "igcse-physics-0625": "src/data/production/igcse-physics-0625.json",
             "igcse-coordinated-sciences-0654": "src/data/production/igcse-coordinated-sciences-0654.json",
+            "igcse-computer-science-0478": "src/data/production/igcse-computer-science-0478.json",
+            "ib-computer-science-hl": "src/data/production/ib-computer-science-hl.json",
+            "ib-computer-science-sl": "src/data/production/ib-computer-science-sl.json",
+            "ib-economics-hl": "src/data/production/ib-economics-hl.json",
+            "ib-economics-sl": "src/data/production/ib-economics-sl.json",
           };
           const topicLabels = privateDataFiles[slug]
             ? JSON.parse(readFileSync(resolve(process.cwd(), privateDataFiles[slug]), "utf8")).questions.flatMap((question: { primaryTopic: string; secondaryTopics?: string[] }) => [question.primaryTopic, ...(question.secondaryTopics ?? [])])

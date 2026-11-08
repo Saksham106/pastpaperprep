@@ -170,7 +170,7 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
     eyebrow: "Buyer guide",
     answer: "For Cambridge IGCSE Maths 0580 and Additional Maths 0606, PastPaperPrep offers free whole papers and matching official mark schemes without signup, plus a separate topical question bank. Use Cambridge International for syllabus context and its official public selection, PMT for a broad free archive, and MathsGenie where its clearly labelled specification matches your course. Custom PastPaperPrep worksheets require eligible bank access.",
     publishedAt: "2026-09-15",
-    updatedAt: "2026-10-16",
+    updatedAt: "2026-11-08",
     readingMinutes: 7,
     sections: [
       {
@@ -212,8 +212,9 @@ export const TUTORS_PRICING_IGCSE_MATHS: readonly Article[] = [
         heading: "PastPaperPrep: filtering instead of PDF hunting",
         paragraphs: [
           "PastPaperPrep offers two routes for 0580 and 0606. Its whole-paper archives are free without signup and pair question papers with official mark schemes. Its topical banks let you filter real questions by the available topic, paper, year and marks metadata. Start with free practice; custom printable worksheets require eligible bank access and follow plan download allowances.",
-          "Use the archive for a timed sitting and the bank for focused repair between papers. A whole-paper mark scheme shows the credited working, but is not a full teaching explanation. Many 0580 and 0606 questions also have a PastPaperPrep worked explanation; look for the Explanation button. Cambridge’s syllabus and specimen materials remain the alignment check.",
+          "Use the archive for a timed sitting and the bank for focused repair between papers. A whole-paper mark scheme shows the credited working, but is not a full teaching explanation. Every 0580 and 0606 question has a PastPaperPrep worked explanation; look for the Explanation button. Free-year paper pages print the worked answers below the paper. Free IGCSE Maths 0580 revision notes cover the course lesson by lesson. Cambridge’s syllabus and specimen materials remain the alignment check.",
         ],
+        links: [{ href: "/revision-notes/igcse-maths-0580", label: "Free IGCSE Maths 0580 revision notes" }],
       },
       {
         heading: "A practical choice by use case",

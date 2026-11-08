@@ -86,7 +86,7 @@ describe("existing article feature refresh", () => {
   it("keeps the PPP and SME table aligned with both access paths", () => {
     const table = JSON.stringify(article("pastpaperprep-vs-save-my-exams").comparison);
     expect(table).toMatch(/whole papers.*without signup/i);
-    expect(table).toMatch(/worked explanations on many questions/i);
+    expect(table).toMatch(/worked explanation on every question/i);
   });
 
   it.each(prioritySlugs)("%s separates free papers from topical access", (slug) => {

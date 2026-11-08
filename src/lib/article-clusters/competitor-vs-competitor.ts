@@ -11,7 +11,7 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
   answer:
     "Neither wins outright, because they solve different problems. Physics & Maths Tutor (PMT) is a free, ad-supported library of past papers, mark schemes, notes and topic questions that you download and organise yourself. Save My Exams sells a paid membership with teacher-written notes, exam-style questions, model answers, feedback and mock exams across several qualifications. Choose PMT for free files. Choose Save My Exams when you need teaching. For supported courses, PastPaperPrep is stronger than both specifically at turning real past-paper questions into a filtered, printable topic set. Its live banks cover Cambridge IGCSE Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Maths and sciences. It is not the best choice if you need lessons, videos, or an unsupported course.",
   publishedAt: "2026-09-15",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "Physics & Maths Tutor vs Save My Exams at a glance",
@@ -99,16 +99,16 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
     {
       heading: "Where PastPaperPrep fits, honestly",
       paragraphs: [
-        "PastPaperPrep has a free whole-paper library as well as its topical banks, but is not a full revision course. It focuses on live question banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654 and Economics 0455, plus IB Mathematics AA and AI, Chemistry, Physics, Biology and Economics at HL and SL. The questions are real past-paper questions with source details attached, and you can filter by course, topic, subtopic, year, paper, session, marks and other exam-specific properties before building a printable set.",
+        "PastPaperPrep has a free whole-paper library as well as its topical banks, but is not a full revision course. It focuses on live question banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478, plus IB Mathematics AA and AI, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. The questions are real past-paper questions with source details attached, and you can filter by course, topic, subtopic, year, paper, session, marks and other exam-specific properties before building a printable set.",
         "Prices are $6 per month or $48 per year for one bank. Two to five banks start at $10 per month or $84 per year, with each extra bank at $4 per month or $36 per year. Six or more banks are $25 per month or $216 per year. Complete older exam years can be practised free.",
-        "There is no full notes library or video course. PastPaperPrep’s worked explanations cover many questions, not every method from the beginning. For unsupported courses, such as A Level Chemistry or GCSE English, compare the relevant PMT and Save My Exams resources instead.",
+        "There is no video course, and its free revision notes cover only IB Maths AA, IGCSE Maths 0580 and IB Chemistry so far. PastPaperPrep’s worked explanations cover many questions, not every method from the beginning. For unsupported courses, such as A Level Chemistry or GCSE English, compare the relevant PMT and Save My Exams resources instead.",
       ],
     },
     {
       heading: "A buying order that wastes the least money",
       paragraphs: [
         "Start free and diagnose. Use PMT or the official board papers for a timed paper, mark it, and write down the two or three skills that actually cost you marks. Save My Exams' free tier is good enough to test whether its notes and question style suit the way you work before you pay for anything.",
-        "Pay only for the missing feature. Save My Exams offers written revision notes and broader learning tools with plan-dependent access. PastPaperPrep offers free whole papers, a separate free topical selection and worked explanations where published; paid access adds newer topical inventory and custom worksheets. If the free resources already do the job, buy nothing.",
+        "Pay only for the missing feature. Save My Exams offers written revision notes and broader learning tools with plan-dependent access. PastPaperPrep offers free whole papers, a separate free topical selection and a worked explanation on every question; paid access adds newer topical inventory and custom worksheets. If the free resources already do the job, buy nothing.",
         "A sensible sequence for one term: free papers to diagnose, one targeted set per week to repair, a mixed paper every fortnight to check transfer, and a decision after four weeks about whether the paid layer is still earning its keep. Cancel the tier you have stopped opening; both PMT's paid courses and PastPaperPrep's subscriptions are easy to keep out of habit.",
       ],
       bullets: [
@@ -179,7 +179,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
   answer:
     "Choose Revision Village for video-led IB practice, especially IB Maths: one course costs $70 a month or $249 once until your exams. Choose Save My Exams for written notes and exam-style questions across IB and other qualifications: Essential costs $40 a month or $96 a year for every subject. Prices checked 21 October 2026, in US dollars. PastPaperPrep is a third option for free whole papers and real past-paper questions by topic, from $6 a month.",
   publishedAt: "2026-09-15",
-  updatedAt: "2026-10-21",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "Revision Village vs Save My Exams for IB at a glance",
@@ -284,7 +284,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
       paragraphs: [
         "PastPaperPrep covers a smaller catalogue than either competitor, but it now spans 22 live banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478, plus IB Mathematics AA and AI, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. One bank costs $6 a month or $48 a year, and every bank is $25 a month. The content is real past-paper questions with source metadata, filterable by course, topic, subtopic, year, paper, session and marks, and exportable as a printable set.",
         "Start with PastPaperPrep’s free whole-paper workspace, then use the topical bank to repair a weak skill. Paid plans add eligible access to newer bank inventory and custom worksheet export. Use the pricing page for current bank choices and allowances.",
-        "PastPaperPrep’s published worked explanations can help with the first step you missed in a supported question. They are separate from official mark schemes and do not cover every question or subject. There is no full revision-notes library, video course, AI tutor or automatic marking. PastPaperPrep is independent of the IB; its explanations are not official IB solutions.",
+        "Every PastPaperPrep question has a worked explanation that can show the first step you missed. It is separate from the official mark scheme. Free revision notes cover only IB Maths AA, IGCSE Maths 0580 and IB Chemistry so far, and there is no video course, AI tutor or automatic marking. PastPaperPrep is independent of the IB; its explanations are not official IB solutions.",
       ],
     },
     {
@@ -307,7 +307,7 @@ const REVISION_VILLAGE_VS_SAVE_MY_EXAMS: Article = {
     {
       question: "Is Revision Village better than Save My Exams for IB?",
       answer:
-        "Revision Village is a better fit for video-led IB practice. Save My Exams is a better fit for written notes and resources across qualifications. PastPaperPrep suits free whole papers and focused real-question practice with worked explanations where published. Check course coverage and access before buying.",
+        "Revision Village is a better fit for video-led IB practice. Save My Exams is a better fit for written notes and resources across qualifications. PastPaperPrep suits free whole papers and focused real-question practice with a worked explanation on every question. Check course coverage and access before buying.",
     },
     {
       question: "Does Save My Exams cover IB and GCSE at the same time?",
@@ -373,7 +373,7 @@ const EXAM_MATE_VS_SAVE_MY_EXAMS: Article = {
   answer:
     "They mean different things by “topical”. Exam-Mate groups real past-paper questions from Cambridge, Edexcel and IB sessions by chapter and topic with official mark schemes, but keeps the question bank on screen. Save My Exams writes its own specification-matched questions and pairs them with model answers, notes and marking tools. Choose Exam-Mate for authentic provenance across a broad catalogue. Choose Save My Exams for explanation. For a supported course, PastPaperPrep is stronger than both specifically when you want real past-paper questions filtered into a custom printable set. Its live banks span Cambridge IGCSE Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Maths and sciences. It has no notes or videos, and Exam-Mate still covers more curricula.",
   publishedAt: "2026-09-15",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "Exam-Mate vs Save My Exams for IGCSE topical practice",
@@ -471,9 +471,9 @@ const EXAM_MATE_VS_SAVE_MY_EXAMS: Article = {
     {
       heading: "Where PastPaperPrep lands between them",
       paragraphs: [
-        "PastPaperPrep combines two things this comparison separates: real past-paper questions and a printable custom set. Its live banks cover Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654 and Economics 0455, plus IB Mathematics AA and AI, Chemistry, Physics, Biology and Economics at HL and SL. Questions carry source details and can be filtered by course, topic, subtopic, year, paper, session and marks before you build a set.",
+        "PastPaperPrep combines two things this comparison separates: real past-paper questions and a printable custom set. Its live banks cover Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478, plus IB Mathematics AA and AI, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. Questions carry source details and can be filtered by course, topic, subtopic, year, paper, session and marks before you build a set.",
         "Prices are $6 per month or $48 per year for one bank, two to five banks from $10 per month or $84 per year, and six or more banks at $25 per month or $216 per year, with complete older exam years free.",
-        "Exam-Mate still covers more curricula and subjects. Save My Exams has a broader written revision-notes library. PastPaperPrep has free whole papers and targeted real questions, with worked explanations on many questions. Choose it for that practice workflow, not as a replacement for every teaching or marking tool.",
+        "Exam-Mate still covers more curricula and subjects. Save My Exams has a broader written revision-notes library. PastPaperPrep has free whole papers and targeted real questions, with a worked explanation on every question. Choose it for that practice workflow, not as a replacement for every teaching or marking tool.",
       ],
     },
     {
@@ -533,10 +533,10 @@ const REVISION_DOJO_VS_REVISION_VILLAGE: Article = {
   title: "RevisionDojo vs Revision Village: Which Is Better for IB Practice?",
   description: "Compare RevisionDojo and Revision Village for IB: free practice, marking limits, AI tools, notes, videos, course coverage and billing.",
   eyebrow: "IB revision platform comparison",
-  answer: "Choose RevisionDojo for written notes, lessons and varied AI-supported study, or Revision Village for structured exam-style questions and video solutions. PastPaperPrep is a third option for free IB whole papers and topic-filtered real questions, with worked explanations where published. Free marking and AI tools have provider-specific quotas; sample the relevant course before paying.",
+  answer: "Choose RevisionDojo for written notes, lessons and varied AI-supported study, or Revision Village for structured exam-style questions and video solutions. PastPaperPrep is a third option for free IB whole papers and topic-filtered real questions, with a worked explanation on every question. Free marking and AI tools have provider-specific quotas; sample the relevant course before paying.",
   answerLink: { href: "/#question-banks", label: "PastPaperPrep" },
   publishedAt: "2026-10-05",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "RevisionDojo vs Revision Village for IB students",
@@ -552,7 +552,7 @@ const REVISION_DOJO_VS_REVISION_VILLAGE: Article = {
     ],
   },
   sections: [
-      { heading: "First, a focused option for printable topic practice", paragraphs: ["PastPaperPrep separates free whole-paper practice from its topical real-question banks. Its IB courses include Maths AA and AI, Biology, Chemistry, Physics and Economics at HL and SL. Worked explanations cover many questions, without providing RevisionDojo’s AI tools or Revision Village’s videos. Custom PDF worksheets require eligible bank access and follow the plan download allowance.", "The direct choice remains RevisionDojo versus Revision Village: choose by the kind of support you need after encountering a difficult question."] },
+      { heading: "First, a focused option for printable topic practice", paragraphs: ["PastPaperPrep separates free whole-paper practice from its topical real-question banks. Its IB courses include Maths AA and AI, Biology, Chemistry, Physics, Economics and Computer Science at HL and SL. Every question has a worked explanation, without RevisionDojo’s AI tools or Revision Village’s videos. Custom PDF worksheets require eligible bank access and follow the plan download allowance.", "The direct choice remains RevisionDojo versus Revision Village: choose by the kind of support you need after encountering a difficult question."] },
       freeAccessSection([
         { href: "/past-papers/ib-math-aa-hl", label: "IB Maths AA HL whole papers" },
         { href: "/past-papers/ib-math-ai-hl", label: "IB Maths AI HL whole papers" },
