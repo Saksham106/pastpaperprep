@@ -2,43 +2,43 @@
   {
     "id": "position",
     "term": "position",
-    "definition": "TODO: Where a body is relative to a chosen origin, a vector; not distance",
+    "definition": "Where a body is, given as a distance and a direction from a chosen origin; a vector, measured in metres.",
     "lesson": "1.1"
   },
   {
     "id": "displacement",
     "term": "displacement",
-    "definition": "TODO: Change in position, a vector, not the distance travelled",
+    "definition": "The change in a body's position, a vector from where it started to where it finished, whatever path it took.",
     "lesson": "1.1"
   },
   {
     "id": "distance",
     "term": "distance",
-    "definition": "TODO: Total length of path travelled, a scalar",
+    "definition": "The total length of the path a body travels, a scalar that never decreases, however often the body changes direction.",
     "lesson": "1.1"
   },
   {
     "id": "velocity",
     "term": "velocity",
-    "definition": "TODO: Rate of change of position, a vector; speed with direction",
+    "definition": "The rate of change of a body's position, a vector in $\\text{m s}^{-1}$ that gives both how fast it moves and which way.",
     "lesson": "1.1"
   },
   {
     "id": "speed",
     "term": "speed",
-    "definition": "TODO: Magnitude of velocity; rate of change of distance, a scalar",
+    "definition": "The rate at which a body covers distance, a scalar in $\\text{m s}^{-1}$; instantaneous speed is the size of the instantaneous velocity.",
     "lesson": "1.1"
   },
   {
     "id": "acceleration",
     "term": "acceleration",
-    "definition": "TODO: Rate of change of velocity, a vector; a negative value is not automatically slowing down",
+    "definition": "The rate of change of a body's velocity, a vector in $\\text{m s}^{-2}$; it can change the speed, the direction or both, and a negative value does not by itself mean slowing down.",
     "lesson": "1.1"
   },
   {
     "id": "gradient",
     "term": "gradient",
-    "definition": "TODO: Slope of a graph, change in y over change in x; tangent gives instantaneous rate",
+    "definition": "The steepness of a graph, the change in the vertical quantity divided by the change in the horizontal quantity; the gradient of a tangent gives the rate of change at one point.",
     "lesson": "1.1"
   }
 ]

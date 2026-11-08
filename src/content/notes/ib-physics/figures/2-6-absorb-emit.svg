@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-labelledby="t26abs">
+  <title id="t26abs">Left: two vibrational energy levels of a greenhouse gas molecule, separated by an energy gap delta E. An infrared photon with energy h f equal to delta E arrives and is absorbed, raising the molecule from the lower level to the higher level. Right: the excited molecule above Earth's surface re-emits infrared photons in all directions: up, down and sideways. Only part of the radiation heads back down to the surface.</title>
+  <defs>
+    <marker id="a26absI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="a26absK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-family="inherit">
+    <text x="160" y="28" font-size="13" fill="var(--muted)" text-anchor="middle">1. absorption</text>
+    <text x="480" y="28" font-size="13" fill="var(--muted)" text-anchor="middle">2. re-emission</text>
+    <g stroke="currentColor" stroke-width="2">
+      <line x1="150" y1="90" x2="290" y2="90"/>
+      <line x1="150" y1="220" x2="290" y2="220"/>
+    </g>
+    <g font-size="11.5" fill="currentColor">
+      <text x="220" y="80" text-anchor="middle">higher vibrational level</text>
+      <text x="220" y="240" text-anchor="middle">lower vibrational level</text>
+    </g>
+    <line x1="250" y1="218" x2="250" y2="94" stroke="currentColor" stroke-width="2" marker-end="url(#a26absK)"/>
+    <text x="258" y="160" font-size="12" fill="currentColor">ΔE</text>
+    <path d="M30 160 q7 -12 14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 t14 0 L238 160" fill="none" stroke="var(--t5-ink)" stroke-width="2" marker-end="url(#a26absI)"/>
+    <g font-size="11.5" fill="currentColor">
+      <text x="30" y="136">infrared photon</text>
+      <text x="30" y="270">absorbed only if</text>
+      <text x="30" y="284">hf = ΔE</text>
+    </g>
+    <rect x="340" y="270" width="280" height="30" fill="var(--t2-ink)" fill-opacity="0.2" stroke="var(--t2-ink)" stroke-width="1"/>
+    <text x="350" y="290" font-size="12" fill="var(--muted)">surface</text>
+    <circle cx="480" cy="140" r="16" fill="var(--t1-ink)" fill-opacity="0.3" stroke="var(--t1-ink)" stroke-width="1.5"/>
+    <g stroke="var(--t5-ink)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#a26absI)">
+      <line x1="480" y1="122" x2="480" y2="50"/>
+      <line x1="493" y1="127" x2="560" y2="70"/>
+      <line x1="467" y1="127" x2="400" y2="70"/>
+      <line x1="498" y1="140" x2="590" y2="140"/>
+      <line x1="462" y1="140" x2="370" y2="140"/>
+      <line x1="493" y1="153" x2="560" y2="215"/>
+      <line x1="467" y1="153" x2="400" y2="215"/>
+      <line x1="480" y1="158" x2="480" y2="266"/>
+    </g>
+    <g font-size="11.5" fill="currentColor">
+      <text x="486" y="250">part returns</text>
+      <text x="486" y="264">to the surface</text>
+      <text x="566" y="62">in all</text>
+      <text x="566" y="76">directions</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 360" role="img" aria-labelledby="t118muonframes">
+<title id="t118muonframes">Two panels. Left panel, Earth frame: a shaded atmosphere 6.0 kilometres thick above a detector at sea level. A muon at the top moves straight down at 0.994 c. A note says its mean lifetime is dilated to about 20 microseconds. Right panel, muon frame: the muon is at rest at the top of a much thinner shaded layer, 0.66 kilometres thick, with the detector at its lower edge. The layer moves up towards the muon at 0.994 c. A note says the atmosphere is contracted and the mean lifetime is 2.2 microseconds.</title>
+<g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+<text x="120" y="22">Earth frame</text>
+<text x="350" y="22">Muon frame</text>
+</g>
+<path d="M235 10 V330" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+<rect x="40" y="50" width="160" height="240" fill="var(--t1-ink)" fill-opacity="0.10" stroke="none"/>
+<path d="M30 290 H210" stroke="currentColor" stroke-width="2.2"/>
+<text font-family="inherit" font-size="12" x="120" y="308" fill="currentColor" text-anchor="middle">detector at sea level</text>
+<circle cx="120" cy="62" r="6" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="132" y="66" fill="var(--t2-ink)">muon</text>
+<path d="M120 72 L120 130" stroke="var(--t2-ink)" stroke-width="2"/><polygon points="120.0,138.0 124.5,129.0 115.5,129.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="128" y="112" fill="var(--t2-ink)">0.994c</text>
+<path d="M24 52 V288" stroke="currentColor" stroke-width="1"/><polygon points="24.0,52.0 20.5,59.0 27.5,59.0" fill="currentColor"/>
+<polygon points="24.0,288.0 27.5,281.0 20.5,281.0" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="20" y="174" fill="currentColor" text-anchor="end" transform="rotate(-90 20 174)">6.0 km</text>
+<g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle"><text x="120" y="330">mean lifetime dilated</text><text x="120" y="346">to about 20 µs</text></g>
+<rect x="270" y="140" width="160" height="26.3" fill="var(--t1-ink)" fill-opacity="0.10" stroke="none"/>
+<path d="M260 166.3 H440" stroke="currentColor" stroke-width="2.2"/>
+<text font-family="inherit" font-size="12" x="350" y="184.3" fill="currentColor" text-anchor="middle">detector moving up</text>
+<path d="M405 204.3 L405 244.3" stroke="currentColor" stroke-width="2"/><polygon points="405.0,196.3 400.5,205.3 409.5,205.3" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="398" y="234.3" fill="currentColor" text-anchor="end">0.994c</text>
+<circle cx="350" cy="146" r="6" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="362" y="130" fill="var(--t2-ink)">muon at rest</text>
+<text font-family="inherit" font-size="12" x="262" y="157.1" fill="currentColor" text-anchor="end">0.66 km</text>
+<g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle"><text x="350" y="330">atmosphere contracted;</text><text x="350" y="346">mean lifetime 2.2 µs</text></g>
+</svg>

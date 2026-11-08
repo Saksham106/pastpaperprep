@@ -1,0 +1,795 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.7",
+  "slug": "collisions-and-explosions",
+  "title": "Collisions and explosions",
+  "level": "SL",
+  "topic": 1,
+  "summary": "When bodies collide or fly apart, the total [[linear-momentum|momentum]] stays the same as long as no [[resultant-force|resultant]] external [[force|force]] acts. [[kinetic-energy|Kinetic energy]] is a different story: it is unchanged in an [[elastic-collision|elastic collision]], falls in an [[inelastic-collision|inelastic collision]] and rises in an [[explosion|explosion]]. Use momentum to find the velocities, then compare kinetic energies to see what kind of event it was.",
+  "goals": [
+    {
+      "text": "Use [[conservation-of-momentum|conservation of momentum]] to find an unknown [[velocity|velocity]] after two bodies collide along a line, with signs for direction.",
+      "bullets": [
+        "A.2-s11"
+      ]
+    },
+    {
+      "text": "Decide whether a collision is elastic or inelastic by comparing the total kinetic energy before and after, and calculate the energy transferred.",
+      "bullets": [
+        "A.2-s11",
+        "A.2-s13"
+      ]
+    },
+    {
+      "text": "Find the velocities of the pieces after an explosion from rest.",
+      "bullets": [
+        "A.2-s12"
+      ]
+    },
+    {
+      "text": "Explain where the kinetic energy of an explosion comes from and why the lighter piece gets more of it.",
+      "bullets": [
+        "A.2-s12",
+        "A.2-s13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "elastic and inelastic collisions",
+    "conservation of momentum in collisions",
+    "kinetic energy lost in a collision",
+    "explosions and recoil",
+    "objects stick together after collision",
+    "two-dimensional collisions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ball-momentum",
+      "prompt": "A $\\pu{0.25 kg}$ ball moves at $\\pu{12 m s-1}$. What is the size of its momentum, in $\\pu{kg m s-1}$? Give 2 significant figures.",
+      "hint": "Momentum is mass times velocity.",
+      "answer": {
+        "value": 3.0,
+        "tolerance": 0.05
+      },
+      "explain": "$p = mv = 0.25 \\times 12 = \\pu{3.0 kg m s-1}$. Revise momentum in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.25*12",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cart-energy",
+      "prompt": "A $\\pu{2.0 kg}$ cart moves at $\\pu{3.0 m s-1}$. What is its kinetic energy, in joules? Give 2 significant figures.",
+      "hint": "Use $E_\\text{k} = \\tfrac{1}{2}mv^{2}$. Square the speed first.",
+      "answer": {
+        "value": 9.0,
+        "tolerance": 0.05
+      },
+      "explain": "$E_\\text{k} = \\tfrac{1}{2}(2.0)(3.0)^{2} = \\pu{9.0 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*2.0*3.0**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hammer-nail",
+      "prompt": "A hammer hits a nail. How does the force of the nail on the hammer compare with the force of the hammer on the nail?",
+      "hint": "Think of Newton's third law.",
+      "options": [
+        {
+          "text": "equal in size and opposite in direction",
+          "correct": true
+        },
+        {
+          "text": "smaller, because the nail is lighter",
+          "correct": false
+        },
+        {
+          "text": "larger, because the nail stops the hammer",
+          "correct": false
+        },
+        {
+          "text": "zero, because the nail does not push",
+          "correct": false
+        }
+      ],
+      "explain": "The two forces are a third-law pair: equal in size, opposite in direction, acting on different bodies. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "equal in size and opposite in direction"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "collisions",
+      "heading": "Momentum in a collision",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two bumper cars crash. The crash is over in a fraction of a second, yet you can predict how they move afterwards without knowing anything about it."
+        },
+        {
+          "type": "text",
+          "text": "During the crash each car pushes the other. By [[newton-s-third-law|Newton's third law]] these forces are equal and opposite, and they last for the same time."
+        },
+        {
+          "type": "text",
+          "text": "So the cars receive equal and opposite [[impulse|impulses]]: one gains exactly the momentum the other loses."
+        },
+        {
+          "type": "result",
+          "statement": "When two bodies collide, the total momentum of the system just before the collision equals the total momentum just after it, provided no resultant external force acts on the system.",
+          "why": "The forces the bodies exert on each other are a third-law pair acting for the same time, so their impulses, and so their changes of momentum, are equal and opposite."
+        },
+        {
+          "type": "text",
+          "text": "This is [[conservation-of-momentum|conservation of momentum]] for an [[isolated-system|isolated system]]."
+        },
+        {
+          "type": "text",
+          "text": "[[friction|Friction]] and air resistance are external forces. But a collision is so short that their impulse is tiny compared with the impulse each body gives the other, so momentum is conserved to a very good approximation."
+        },
+        {
+          "type": "formula",
+          "tex": "m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$u$ is a velocity before and $v$ a velocity after. At SL every collision is along one line, so a sign shows direction."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a positive direction and sketch before and after."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the total momentum before, each velocity with its sign."
+        },
+        {
+          "type": "text",
+          "text": "3. Write the total after, set the totals equal and solve. A negative answer means motion in the negative direction."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-gliders-before-after",
+          "alt": "Two air-track gliders before and after a collision, with the positive direction to the right. Before: glider A, 0.40 kg, moves right at 5.0 metres per second towards glider B, 0.60 kg, which moves left at 2.0 metres per second. After: A moves left at 2.2 metres per second and B moves right at 2.8 metres per second. Arrow lengths are proportional to the speeds. A note says the total momentum to the right is 0.80 kilogram metres per second both before and after.",
+          "caption": "A before-and-after sketch for the second example. Velocities to the left are negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-wagons-couple",
+          "question": "A railway wagon of mass $\\pu{1.8e4 kg}$ rolls at $\\pu{2.4 m s-1}$ along a level track. It hits a stationary wagon of mass $\\pu{1.2e4 kg}$ and the two couple together. Calculate their speed just after the collision.",
+          "steps": [
+            "Take the direction of the moving wagon as positive.",
+            "Total momentum before: $(1.8 \\times 10^{4})(2.4) + (1.2 \\times 10^{4})(0) = \\pu{4.32e4 kg m s-1}$.",
+            "After, they move together with one velocity $v$, so the total momentum is $(1.8 \\times 10^{4} + 1.2 \\times 10^{4})v = (3.0 \\times 10^{4})v$.",
+            "Momentum is conserved: $(3.0 \\times 10^{4})v = 4.32 \\times 10^{4}$, so $v = \\pu{1.44 m s-1}$.",
+            "Round to 2 significant figures, like the data. The answer is positive, so they move on in the original direction, more slowly."
+          ],
+          "answer": "$v \\approx \\pu{1.4 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.8e4*2.4/(1.8e4 + 1.2e4)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gliders-rebound",
+          "question": "On a horizontal air track, glider A of mass $\\pu{0.40 kg}$ moves to the right at $\\pu{5.0 m s-1}$. It collides head-on with glider B of mass $\\pu{0.60 kg}$, which is moving to the left at $\\pu{2.0 m s-1}$. After the collision B moves to the right at $\\pu{2.8 m s-1}$. Determine the velocity of A after the collision.",
+          "steps": [
+            "Take right as positive, so B's velocity before is $\\pu{-2.0 m s-1}$.",
+            "Total momentum before: $(0.40)(5.0) + (0.60)(-2.0) = 2.0 - 1.2 = \\pu{0.80 kg m s-1}$.",
+            "Total momentum after: $0.40v_\\text{A} + (0.60)(2.8) = 0.40v_\\text{A} + 1.68$.",
+            "Set them equal: $0.40v_\\text{A} + 1.68 = 0.80$, so $v_\\text{A} = \\frac{0.80 - 1.68}{0.40} = \\pu{-2.2 m s-1}$.",
+            "The minus sign means A bounces back: it moves to the left at $\\pu{2.2 m s-1}$."
+          ],
+          "answer": "$v_\\text{A} = \\pu{-2.2 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.40*5.0 + 0.60*(-2.0) - 0.60*2.8)/0.40",
+            "unit": "m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing every velocity as positive. A body moving the other way has a negative velocity, so its momentum is subtracted from the total."
+        },
+        {
+          "type": "check",
+          "id": "check-why-conserved",
+          "prompt": "Two trolleys collide on a smooth, level track. Why is their total momentum the same before and after the collision?",
+          "hint": "Compare the force A exerts on B with the force B exerts on A, and how long each acts.",
+          "options": [
+            {
+              "text": "the forces they exert on each other are equal and opposite and act for the same time",
+              "correct": true
+            },
+            {
+              "text": "their kinetic energy is conserved",
+              "correct": false
+            },
+            {
+              "text": "the forces on each trolley are balanced during the collision",
+              "correct": false
+            },
+            {
+              "text": "the trolleys have the same mass",
+              "correct": false
+            }
+          ],
+          "explain": "Equal and opposite forces for the same time give equal and opposite impulses. The forces on each trolley are not balanced: each one accelerates.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the forces they exert on each other are equal and opposite and act for the same time"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rugby-tackle",
+          "prompt": "An $\\pu{85 kg}$ rugby player running at $\\pu{6.0 m s-1}$ tackles a $\\pu{95 kg}$ player who is standing still. They move off together. What is their speed just after the tackle, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "After the tackle the mass is $85 + 95$, all moving at one velocity.",
+          "answer": {
+            "value": 2.8,
+            "tolerance": 0.05
+          },
+          "explain": "Momentum before: $85 \\times 6.0 = \\pu{510 kg m s-1}$. After: $180v = 510$, so $v = 2.83... \\approx \\pu{2.8 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "85*6.0/(85 + 95)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "heading": "Kinetic energy in collisions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rubber ball bounces back up; a lump of clay goes splat. Momentum is conserved in both, but kinetic energy is not."
+        },
+        {
+          "type": "text",
+          "text": "Total energy is always conserved. But kinetic energy can be transferred to [[internal-energy|internal energy]] (the bodies warm up), sound and permanent deformation."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\tfrac{1}{2}mv^{2} = \\frac{p^{2}}{2m}",
+          "tag": "booklet",
+          "bookletId": "db-1-10"
+        },
+        {
+          "type": "text",
+          "text": "This is in the data booklet. Kinetic energy is a scalar and never negative, so ignore the sign of the velocity."
+        },
+        {
+          "type": "definition",
+          "term": "elastic collision",
+          "statement": "A collision in which the total kinetic energy of the bodies is the same after the collision as before it.",
+          "plain": "A perfect bounce: no kinetic energy is turned into heat, sound or damage."
+        },
+        {
+          "type": "definition",
+          "term": "inelastic collision",
+          "statement": "A collision in which the total kinetic energy after the collision is less than before it, because some has been transferred to other forms of energy.",
+          "plain": "A collision that dents, heats or makes a noise, so the bodies move off with less kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "Momentum is conserved in both kinds; only kinetic energy tells them apart. Most real collisions are inelastic."
+        },
+        {
+          "type": "text",
+          "text": "Bodies that stick together lose the most kinetic energy that momentum conservation allows. They still move unless the total momentum is zero."
+        },
+        {
+          "type": "result",
+          "statement": "In an elastic collision of two bodies along a line, the relative speed at which they separate equals the relative speed at which they approached.",
+          "why": "It follows from conserving both momentum and kinetic energy. It gives a quick test for an elastic collision; you don't need to derive it."
+        },
+        {
+          "type": "text",
+          "text": "You won't need to solve momentum and energy equations together. Use momentum to find a velocity, then kinetic energy to classify the collision."
+        },
+        {
+          "type": "example",
+          "id": "ex-clay-trolley",
+          "question": "A $\\pu{0.050 kg}$ lump of clay moving horizontally at $\\pu{6.0 m s-1}$ hits a stationary $\\pu{0.20 kg}$ trolley and sticks to it. Calculate the kinetic energy transferred to other forms in the collision.",
+          "steps": [
+            "Take the clay's direction as positive. Momentum before: $(0.050)(6.0) = \\pu{0.30 kg m s-1}$.",
+            "They move together, so $(0.050 + 0.20)v = 0.30$ and $v = \\pu{1.2 m s-1}$.",
+            "Kinetic energy before: $\\tfrac{1}{2}(0.050)(6.0)^{2} = \\pu{0.90 J}$.",
+            "Kinetic energy after: $\\tfrac{1}{2}(0.25)(1.2)^{2} = \\pu{0.18 J}$.",
+            "Energy transferred: $0.90 - 0.18 = \\pu{0.72 J}$, mostly to internal energy as the clay squashes."
+          ],
+          "answer": "$\\Delta E_\\text{k} = \\pu{0.72 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*0.050*6.0**2 - Rational(1, 2)*(0.050 + 0.20)*(0.050*6.0/(0.050 + 0.20))**2",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gliders-classify",
+          "question": "Deduce whether the air-track glider collision from the first section is elastic.",
+          "steps": [
+            "Kinetic energy is a scalar, so directions don't matter.",
+            "Before: $\\tfrac{1}{2}(0.40)(5.0)^{2} + \\tfrac{1}{2}(0.60)(2.0)^{2} = 5.0 + 1.2 = \\pu{6.2 J}$.",
+            "After: $\\tfrac{1}{2}(0.40)(2.2)^{2} + \\tfrac{1}{2}(0.60)(2.8)^{2} = 0.968 + 2.352 = \\pu{3.32 J}$.",
+            "Quick check: they approached at $5.0 + 2.0 = \\pu{7.0 m s-1}$ but separate at $2.2 + 2.8 = \\pu{5.0 m s-1}$, so not elastic."
+          ],
+          "answer": "The total kinetic energy before the collision is 6.2 J. The total kinetic energy after is 3.3 J. This is less than before, so the collision is inelastic, with about 2.9 J transferred to internal energy and sound.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ek before 6.2 J, Ek after 3.3 J, less after so inelastic",
+            "requires": [
+              "6.2 J",
+              "3.3 J",
+              "less than before",
+              [
+                "collision is inelastic",
+                "inelastic"
+              ]
+            ],
+            "forbids": [
+              "collision is elastic",
+              "momentum is not conserved",
+              "momentum is lost"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying momentum is lost in an inelastic collision. Momentum is conserved in every collision of an isolated system; it is kinetic energy that is transferred to other forms."
+        },
+        {
+          "type": "check",
+          "id": "check-equal-balls-elastic",
+          "prompt": "A ball moving at speed $u$ hits an identical stationary ball head-on. The collision is elastic. What happens next?",
+          "hint": "Test each option: is momentum conserved, and is the total kinetic energy unchanged?",
+          "options": [
+            {
+              "text": "the first ball stops and the second moves off at speed u",
+              "correct": true
+            },
+            {
+              "text": "both balls move off together at speed u/2",
+              "correct": false
+            },
+            {
+              "text": "the first ball bounces back at speed u and the second stays still",
+              "correct": false
+            },
+            {
+              "text": "both balls move on at speed u",
+              "correct": false
+            }
+          ],
+          "explain": "Moving together at $u/2$ halves the kinetic energy. Bouncing back alone reverses the momentum, and both moving at $u$ doubles it. Only the swap conserves both.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the first ball stops and the second moves off at speed u"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-car-shunt",
+          "prompt": "A $\\pu{1200 kg}$ car moving at $\\pu{8.0 m s-1}$ runs into the back of a stationary $\\pu{800 kg}$ car. The two cars lock together. How much kinetic energy is transferred to other forms, in kJ? Give 2 significant figures.",
+          "hint": "Find the common velocity from momentum first, then compare the kinetic energies.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0.5
+          },
+          "explain": "$v = \\frac{1200 \\times 8.0}{2000} = \\pu{4.8 m s-1}$. $E_\\text{k}$ falls from $\\pu{38400 J}$ to $\\tfrac{1}{2}(2000)(4.8)^{2} = \\pu{23040 J}$: $\\pu{15360 J} \\approx \\pu{15 kJ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Rational(1, 2)*1200*8.0**2 - Rational(1, 2)*(1200 + 800)*(1200*8.0/(1200 + 800))**2)/1000",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "explosions",
+      "heading": "Explosions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two skaters at rest push apart. Their total momentum was zero, and nothing outside them pushes, so it is still zero: they move off in opposite directions."
+        },
+        {
+          "type": "definition",
+          "term": "explosion",
+          "statement": "An event in which a body or a group of bodies is pushed apart by internal forces, using stored energy, so that the pieces fly apart. The total momentum is conserved and the total kinetic energy increases.",
+          "plain": "A collision run backwards: things start together and fly apart."
+        },
+        {
+          "type": "text",
+          "text": "The stored energy may be chemical (gunpowder, muscles), elastic (a spring) or nuclear. It need not be loud or violent."
+        },
+        {
+          "type": "result",
+          "statement": "If a body at rest splits into two pieces, with no resultant external force, the pieces move off in opposite directions with momenta of equal size: $m_1v_1 = -m_2v_2$.",
+          "why": "The total momentum before is zero, so the two momenta after must add up to zero."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-spring-trolleys",
+          "alt": "Two trolleys on a track. Before: a 1.5 kilogram trolley and a 0.50 kilogram trolley are held together at rest with a compressed spring between them, so the total momentum is zero. After release: the 1.5 kilogram trolley moves left at 0.80 metres per second and the 0.50 kilogram trolley moves right at 2.4 metres per second. The velocity arrows are to scale, so the lighter trolley's arrow is three times as long. Each trolley has a momentum of 1.2 kilogram metres per second, in opposite directions.",
+          "caption": "Equal and opposite momenta: the trolley with a third of the mass moves three times as fast."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-trolleys",
+          "question": "Two trolleys, of mass $\\pu{1.5 kg}$ and $\\pu{0.50 kg}$, are held at rest on a level track with a compressed spring between them. When they are released, the $\\pu{0.50 kg}$ trolley moves to the right at $\\pu{2.4 m s-1}$. Calculate the velocity of the $\\pu{1.5 kg}$ trolley.",
+          "steps": [
+            "Take right as positive. Total momentum before is zero, because both trolleys are at rest.",
+            "Total momentum after: $(0.50)(2.4) + 1.5v = 1.2 + 1.5v$.",
+            "Set it equal to zero: $1.5v = -1.2$, so $v = \\pu{-0.80 m s-1}$.",
+            "The minus sign means the heavier trolley moves to the left, at a third of the lighter one's speed."
+          ],
+          "answer": "$v = \\pu{-0.80 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-0.50*2.4/1.5",
+            "unit": "m s-1",
+            "signed": true
+          },
+          "check": {
+            "type": "check",
+            "id": "check-spring-energy",
+            "prompt": "Now you try: all the elastic potential energy stored in the spring becomes kinetic energy of the trolleys. How much energy did the spring store?",
+            "hint": "Add the kinetic energies of both trolleys. Kinetic energy is never negative.",
+            "options": [
+              {
+                "text": "$\\approx \\pu{1.9 J}$",
+                "correct": true
+              },
+              {
+                "text": "$\\approx \\pu{1.4 J}$",
+                "correct": false
+              },
+              {
+                "text": "$\\approx \\pu{0.96 J}$",
+                "correct": false
+              },
+              {
+                "text": "$\\pu{0 J}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\tfrac{1}{2}(0.50)(2.4)^{2} + \\tfrac{1}{2}(1.5)(0.80)^{2} = 1.44 + 0.48 = 1.92 \\approx \\pu{1.9 J}$. $\\pu{1.4 J}$ forgets the heavy trolley; $\\pu{0.96 J}$ subtracts; $\\pu{0 J}$ confuses energy with momentum.",
+            "verify": {
+              "kind": "rounded",
+              "truth": "Rational(1, 2)*0.50*2.4**2 + Rational(1, 2)*1.5*(0.50*2.4/1.5)**2",
+              "sf": 2,
+              "unit": "J"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-astronaut-toolbox",
+          "question": "An astronaut floats at rest in deep space, far from any planet or star, and pushes a toolbox away from her. Explain why she moves off in the opposite direction, and why the total kinetic energy increases even though the total momentum does not change.",
+          "steps": [
+            "Marking point 1: no resultant external force, so total momentum is conserved.",
+            "Marking point 2: it was zero, so the two momenta after are equal and opposite.",
+            "Marking point 3: kinetic energy is a scalar and never negative, so it cannot cancel.",
+            "Marking point 4: the extra kinetic energy comes from the chemical energy in her muscles."
+          ],
+          "answer": "No resultant external force acts on the astronaut and the toolbox, so their total momentum is conserved. It was zero before the push, so afterwards her momentum is equal and opposite to the toolbox's, and she moves the other way. Kinetic energy is a scalar and never negative, so the two kinetic energies add rather than cancel, and the total has increased from zero. The extra kinetic energy comes from chemical energy stored in her muscles.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "no external force so momentum conserved; zero before so equal and opposite momenta; KE scalar so increases; from chemical energy",
+            "requires": [
+              [
+                "no resultant external force",
+                "no external force"
+              ],
+              [
+                "total momentum is conserved",
+                "momentum is conserved"
+              ],
+              "equal and opposite",
+              [
+                "kinetic energy is a scalar",
+                "never negative"
+              ],
+              [
+                "chemical energy",
+                "stored energy"
+              ]
+            ],
+            "forbids": [
+              "inelastic collision",
+              "momentum is not conserved",
+              "energy is created"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Both pieces have momenta of the same size $p$, and $E_\\text{k} = \\frac{p^{2}}{2m}$. So kinetic energy is inversely proportional to mass: the lighter piece moves faster and carries more energy."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling an explosion an inelastic collision. In an inelastic collision kinetic energy decreases; in an explosion it increases, from stored energy."
+        },
+        {
+          "type": "check",
+          "id": "check-firework-split",
+          "prompt": "A firework is momentarily at rest at the top of its flight when it bursts into two pieces. Which statement is correct just after the burst?",
+          "hint": "Momentum is a vector and can cancel. Kinetic energy cannot.",
+          "options": [
+            {
+              "text": "total momentum is zero and total kinetic energy has increased",
+              "correct": true
+            },
+            {
+              "text": "total momentum and total kinetic energy are both zero",
+              "correct": false
+            },
+            {
+              "text": "total momentum and total kinetic energy have both increased",
+              "correct": false
+            },
+            {
+              "text": "total momentum is zero and total kinetic energy is unchanged",
+              "correct": false
+            }
+          ],
+          "explain": "The burst is internal and over in an instant, so gravity's impulse during it is negligible and the momenta of the pieces cancel. Each piece moves, so each has kinetic energy, released from chemical energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "total momentum is zero and total kinetic energy has increased"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-alpha-share",
+          "prompt": "A stationary nucleus emits an alpha particle. Take the alpha particle's mass as $\\pu{4.0 u}$ and the remaining nucleus's mass as $\\pu{208 u}$. How many times larger is the kinetic energy of the alpha particle than that of the recoiling nucleus? Give 2 significant figures.",
+          "hint": "Their momenta are equal in size, so use $E_\\text{k} = \\frac{p^{2}}{2m}$.",
+          "answer": {
+            "value": 52,
+            "tolerance": 0.5
+          },
+          "explain": "Same $p$, so $\\frac{E_\\alpha}{E_\\text{nucleus}} = \\frac{208}{4.0} = 52$. The alpha particle takes almost all the energy released.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "208/4.0",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-dimensions",
+      "heading": "Collisions and explosions in two dimensions",
+      "level": "AHL",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At HL, bodies can collide at an angle or fly apart in several directions. Momentum is a vector, so it is conserved in every direction at once."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose perpendicular axes $x$ and $y$ and resolve every momentum."
+        },
+        {
+          "type": "text",
+          "text": "2. Conserve the $x$ and $y$ components separately."
+        },
+        {
+          "type": "text",
+          "text": "3. Combine the components with Pythagoras and $\\tan\\theta$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum p_x\\ \\text{before} = \\sum p_x\\ \\text{after} \\qquad \\sum p_y\\ \\text{before} = \\sum p_y\\ \\text{after}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "1-7-skaters-momentum",
+          "alt": "Vector diagram of momentum, drawn to scale, with north up and east to the right. An arrow for skater A's momentum, 280 kilogram metres per second, points east. From its tip, an arrow for skater B's momentum, 300 kilogram metres per second, points north. The resultant arrow runs from the start of the first arrow to the tip of the second: the total momentum, 410 kilogram metres per second, at angle theta north of east.",
+          "caption": "Add momenta tip to tail. The total is the same before and after the collision."
+        },
+        {
+          "type": "example",
+          "id": "ex-skaters-2d",
+          "question": "A $\\pu{70 kg}$ skater moving east at $\\pu{4.0 m s-1}$ collides with a $\\pu{60 kg}$ skater moving north at $\\pu{5.0 m s-1}$. They hold on to each other and move off together. Friction from the ice is negligible. Calculate their speed just after the collision.",
+          "steps": [
+            "Take east as $+x$ and north as $+y$.",
+            "$x$ momentum before: $(70)(4.0) = \\pu{280 kg m s-1}$. $y$ momentum before: $(60)(5.0) = \\pu{300 kg m s-1}$.",
+            "After, the combined mass is $\\pu{130 kg}$, so $130v_x = 280$ and $130v_y = 300$.",
+            "Total momentum: $p = \\sqrt{280^{2} + 300^{2}} = \\pu{410.4 kg m s-1}$, so $v = \\frac{410.4}{130} = \\pu{3.157 m s-1}$.",
+            "Round to 2 significant figures."
+          ],
+          "answer": "$v \\approx \\pu{3.2 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((70*4.0)**2 + (60*5.0)**2)/(70 + 60)",
+            "sf": 2,
+            "unit": "m s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-skaters-direction",
+            "prompt": "Now you try: at what angle $\\theta$ north of east do the skaters move off?",
+            "hint": "Use $\\tan\\theta = \\frac{p_y}{p_x}$, with momenta, not the original speeds.",
+            "options": [
+              {
+                "text": "$\\theta \\approx 47.0^{\\circ}$",
+                "correct": true
+              },
+              {
+                "text": "$\\theta \\approx 43.0^{\\circ}$",
+                "correct": false
+              },
+              {
+                "text": "$\\theta \\approx 51.3^{\\circ}$",
+                "correct": false
+              },
+              {
+                "text": "$\\theta \\approx 38.7^{\\circ}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\tan\\theta = \\frac{300}{280}$, so $\\theta \\approx 47.0^{\\circ}$. $43.0^{\\circ}$ is measured from north, and $51.3^{\\circ}$ and $38.7^{\\circ}$ use the speeds $5.0$ and $4.0$ instead of the momenta.",
+            "verify": {
+              "kind": "angle",
+              "truth": "atand((60*5.0)/(70*4.0))"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-three-fragments",
+          "question": "A stationary object explodes into three pieces that move across a horizontal surface. A $\\pu{0.20 kg}$ piece moves east at $\\pu{6.0 m s-1}$ and a $\\pu{0.30 kg}$ piece moves north at $\\pu{3.0 m s-1}$. The third piece has a mass of $\\pu{0.25 kg}$. Calculate its speed.",
+          "steps": [
+            "Take east as $+x$ and north as $+y$. The total momentum before is zero in both directions.",
+            "$x$: $(0.20)(6.0) + p_{3x} = 0$, so $p_{3x} = \\pu{-1.2 kg m s-1}$.",
+            "$y$: $(0.30)(3.0) + p_{3y} = 0$, so $p_{3y} = \\pu{-0.90 kg m s-1}$.",
+            "Size: $p_3 = \\sqrt{1.2^{2} + 0.90^{2}} = \\pu{1.5 kg m s-1}$, so $v_3 = \\frac{1.5}{0.25} = \\pu{6.0 m s-1}$.",
+            "Both components are negative, so it moves south-west, at $\\tan^{-1}\\frac{0.90}{1.2} = 36.9^{\\circ}$ south of west."
+          ],
+          "answer": "$v_3 = \\pu{6.0 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((0.20*6.0)**2 + (0.30*3.0)**2)/0.25",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the sizes of momenta that point in different directions. Add components, or draw the vectors tip to tail."
+        },
+        {
+          "type": "check",
+          "id": "check-what-conserved-2d",
+          "prompt": "Two pucks collide at an angle on smooth ice. Which statement is always true?",
+          "hint": "Momentum is a vector. Kinetic energy is not.",
+          "options": [
+            {
+              "text": "momentum is conserved separately in each of two perpendicular directions",
+              "correct": true
+            },
+            {
+              "text": "only the momentum along the first puck's original direction is conserved",
+              "correct": false
+            },
+            {
+              "text": "the sum of the speeds is the same before and after",
+              "correct": false
+            },
+            {
+              "text": "kinetic energy is conserved separately in each direction",
+              "correct": false
+            }
+          ],
+          "explain": "The momentum vector is conserved, so every component of it is. Kinetic energy is a scalar with no components, conserved only in an elastic collision.",
+          "verify": {
+            "kind": "choice",
+            "truth": "momentum is conserved separately in each of two perpendicular directions"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pucks-glancing",
+          "prompt": "A $\\pu{0.16 kg}$ puck moving at $\\pu{3.0 m s-1}$ strikes an identical stationary puck. Afterwards the first puck moves at $\\pu{1.5 m s-1}$ at $60^{\\circ}$ to its original direction. What is the speed of the second puck, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "Take $x$ along the original direction. The second puck's $y$ momentum must cancel the first puck's.",
+          "answer": {
+            "value": 2.6,
+            "tolerance": 0.05
+          },
+          "explain": "$x$: $0.48 = 0.16(1.5\\cos 60^{\\circ}) + p_{2x}$, so $p_{2x} = 0.36$. $y$: $p_{2y} = -0.16(1.5\\sin 60^{\\circ}) = -0.208$. So $p_2 = \\sqrt{0.36^{2} + 0.208^{2}} = 0.416$ and $v_2 = \\frac{0.416}{0.16} = 2.60... \\approx \\pu{2.6 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((0.16*3.0 - 0.16*1.5*cosd(60))**2 + (0.16*1.5*sind(60))**2)/0.16",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "With no resultant external force, total momentum is conserved in every collision and explosion: $m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2$, with signs for direction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Elastic: total $E_\\text{k}$ unchanged. Inelastic: total $E_\\text{k}$ decreases, transferred to internal energy, sound and deformation. Sticking together loses the most.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Elastic, head-on: relative speed of separation equals relative speed of approach.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Explosion from rest: momenta equal and opposite, $m_1v_1 = -m_2v_2$. Total $E_\\text{k}$ increases from stored energy, and by $E_\\text{k} = \\frac{p^{2}}{2m}$ the lighter piece gets more.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two dimensions: conserve the $x$ and $y$ components of momentum separately, then combine.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "AHL"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Assuming kinetic energy is conserved in every collision. Only momentum always is; kinetic energy is conserved only in an elastic collision.",
+    "Saying the total kinetic energy after an explosion from rest is zero because the total momentum is. Momentum is a vector and cancels; kinetic energy adds.",
+    "Leaving out the condition. Momentum is conserved only when no resultant external force acts on the system."
+  ],
+  "examTips": [
+    "\"Show that\" a collision is elastic: calculate total kinetic energy before and after, substitutions written out, and state they are equal. Equal relative speeds of approach and separation also earn the marks.",
+    "\"Explain\" with momentum: state the condition (no resultant external force) and what happens to the total. An energy argument earns nothing there.",
+    "In Paper 1A, test each option for conservation of momentum first, then reject any collision that gains kinetic energy."
+  ],
+  "readingMinutes": 27
+}

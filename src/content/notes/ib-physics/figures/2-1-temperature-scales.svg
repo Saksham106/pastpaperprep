@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" font-family="inherit" font-size="13" fill="currentColor" role="img" aria-labelledby="t21ts">
+  <title id="t21ts">Two vertical temperature scales side by side, Celsius on the left and kelvin on the right, with horizontal dashed lines joining matching points. Absolute zero is minus 273 degrees Celsius and 0 kelvin. Ice melts at 0 degrees Celsius and 273 kelvin. Water boils at 100 degrees Celsius and 373 kelvin. A bracket between the melting and boiling lines is labelled: a rise of 100 kelvin equals a rise of 100 degrees Celsius.</title>
+  <text x="150" y="18" text-anchor="middle" font-weight="bold">Celsius / °C</text>
+  <text x="310" y="18" text-anchor="middle" font-weight="bold">kelvin / K</text>
+  <g stroke="currentColor" stroke-width="1.6">
+    <path d="M150 215.0 L150 35.0"/>
+    <path d="M310 215.0 L310 35.0"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3">
+    <path d="M142 215.0 L318 215.0"/>
+    <path d="M142 92.1 L318 92.1"/>
+    <path d="M142 47.2 L318 47.2"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6">
+    <path d="M142 215.0 L158 215.0"/>
+    <path d="M302 215.0 L318 215.0"/>
+    <path d="M142 92.1 L158 92.1"/>
+    <path d="M302 92.1 L318 92.1"/>
+    <path d="M142 47.2 L158 47.2"/>
+    <path d="M302 47.2 L318 47.2"/>
+  </g>
+  <text x="136" y="219.5" text-anchor="end">−273</text>
+  <text x="324" y="219.5" text-anchor="start">0</text>
+  <text x="230.0" y="209.0" text-anchor="middle" fill="var(--muted)">absolute zero</text>
+  <text x="136" y="96.6" text-anchor="end">0</text>
+  <text x="324" y="96.6" text-anchor="start">273</text>
+  <text x="230.0" y="86.1" text-anchor="middle" fill="var(--muted)">ice melts</text>
+  <text x="136" y="51.7" text-anchor="end">100</text>
+  <text x="324" y="51.7" text-anchor="start">373</text>
+  <text x="230.0" y="41.2" text-anchor="middle" fill="var(--muted)">water boils</text>
+  <path d="M375 47.2 q8 0 8 8 L383 63.7 l6 6 l-6 6 L383 84.1 q0 8 -8 8" fill="none" stroke="var(--t2-ink)" stroke-width="1.5"/>
+  <text x="395" y="66.7" fill="var(--t2-ink)">a rise of 100 K</text>
+  <text x="395" y="82.7" fill="var(--t2-ink)">= a rise of 100 °C</text>
+</svg>

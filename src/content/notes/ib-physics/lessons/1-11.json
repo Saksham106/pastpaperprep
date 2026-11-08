@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.11",
+  "slug": "power-efficiency-and-energy-density",
+  "title": "Power, efficiency and energy density",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[power|Power]] is how fast [[energy|energy]] is transferred: the [[work|work]] done each second, measured in watts. [[efficiency|Efficiency]] is the fraction of the input that comes out as useful output. [[energy-density|Energy density]] compares fuels by how much energy each cubic metre of fuel releases.",
+  "goals": [
+    {
+      "text": "Define power as the rate of doing work or transferring energy, and calculate it with $P = \\frac{\\Delta W}{\\Delta t}$.",
+      "bullets": [
+        "A.3-s9"
+      ]
+    },
+    {
+      "text": "Use $P = Fv$ for a [[force|force]] moving a body at [[velocity|velocity]] $v$, including a vehicle working against resistive forces.",
+      "bullets": [
+        "A.3-s9"
+      ]
+    },
+    {
+      "text": "Calculate efficiency from energies or powers, and use it to find an input or an output.",
+      "bullets": [
+        "A.3-s10"
+      ]
+    },
+    {
+      "text": "Explain where wasted energy goes in terms of the work done by [[friction|friction]] and air resistance.",
+      "bullets": [
+        "A.3-s9",
+        "A.3-s10"
+      ]
+    },
+    {
+      "text": "Compare fuel sources by energy density and specific energy, and find the volume or mass of fuel a job needs.",
+      "bullets": [
+        "A.3-s11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4",
+    "1.9",
+    "1.10"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "P = Fv",
+    "rate of doing work",
+    "useful power output",
+    "efficiency calculation",
+    "energy density of fuels",
+    "specific energy"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-push-work",
+      "prompt": "A horizontal force of $\\pu{25 N}$ pushes a crate $\\pu{3.2 m}$ across a floor, in the direction of the force. How much work does the force do, in J? Give 2 significant figures.",
+      "hint": "The force is along the displacement, so $W = Fs$.",
+      "answer": {
+        "value": 80,
+        "tolerance": 0.5
+      },
+      "explain": "$W = Fs\\cos 0^{\\circ} = 25 \\times 3.2 = \\pu{80 J}$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "25*3.2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ball-ke",
+      "prompt": "A ball of mass $\\pu{0.50 kg}$ moves at a [[speed|speed]] of $\\pu{12 m s-1}$. What is its [[kinetic-energy|kinetic energy]], in J? Give 2 significant figures.",
+      "hint": "$E_\\text{k} = \\tfrac{1}{2}mv^{2}$. Square the speed first.",
+      "answer": {
+        "value": 36,
+        "tolerance": 0.5
+      },
+      "explain": "$E_\\text{k} = \\tfrac{1}{2} \\times 0.50 \\times 12^{2} = \\pu{36 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*0.50*12**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-box-gpe",
+      "prompt": "A $\\pu{6.0 kg}$ box is lifted onto a shelf $\\pu{1.5 m}$ higher. By how much does its [[gravitational-potential-energy|gravitational potential energy]] increase, in J? Give 2 significant figures.",
+      "hint": "$\\Delta E_\\text{p} = mg\\Delta h$, with $g = \\pu{9.8 m s-2}$.",
+      "answer": {
+        "value": 88,
+        "tolerance": 0.5
+      },
+      "explain": "$\\Delta E_\\text{p} = 6.0 \\times 9.8 \\times 1.5 = 88.2 \\approx \\pu{88 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.0*g*1.5",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "power",
+      "heading": "Power",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two friends of equal mass climb the same stairs, one walking and one running. They gain the same gravitational potential energy, so they do the same work, but the runner does it in less time."
+        },
+        {
+          "type": "text",
+          "text": "What differs is the rate of doing work. That rate is called power."
+        },
+        {
+          "type": "definition",
+          "term": "power",
+          "statement": "The rate at which work is done, or the rate at which energy is transferred. Its unit is the watt, W, where $\\pu{1 W} = \\pu{1 J s-1}$.",
+          "plain": "How quickly energy is passed on."
+        },
+        {
+          "type": "formula",
+          "tex": "P = \\frac{\\Delta W}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-1-11"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta W$ is the work done, or energy transferred, in J, and $\\Delta t$ is the time taken, in s. [[power|Power]] is a scalar; large values use kW and MW. This equation is in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "If the rate changes during the time, $\\frac{\\Delta W}{\\Delta t}$ gives the average power over that time."
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-motor",
+          "question": "A motor raises a lift cage of mass $\\pu{640 kg}$ through a height of $\\pu{18 m}$ at constant speed. The journey takes $\\pu{24 s}$. Calculate the power the motor develops. Ignore friction.",
+          "steps": [
+            "At constant speed the cage's kinetic energy does not change. The motor's work all goes into gravitational potential energy.",
+            "$\\Delta W = mg\\Delta h = 640 \\times 9.8 \\times 18 = \\pu{112896 J}$, with $g = \\pu{9.8 m s-2}$ from the data booklet.",
+            "$P = \\frac{\\Delta W}{\\Delta t} = \\frac{112896}{24} = \\pu{4704 W}$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$P \\approx \\pu{4.7 kW}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "640*g*18/24/1000",
+            "sf": 2,
+            "unit": "kW"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Power also links to [[force|force]] and [[velocity|velocity]]. A constant force $F$ pushes a body along at velocity $v$. In a time $\\Delta t$ the body moves $\\Delta s = v\\Delta t$, so the force does work $F\\Delta s$."
+        },
+        {
+          "type": "text",
+          "text": "Divide by $\\Delta t$: $P = \\frac{F\\Delta s}{\\Delta t} = Fv$."
+        },
+        {
+          "type": "formula",
+          "tex": "P = Fv",
+          "tag": "booklet",
+          "bookletId": "db-1-11"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the force along the direction of motion, in N, and $v$ is the [[speed|speed]] at that instant, in $\\pu{m s-1}$. If $v$ is changing, $Fv$ gives the power at that instant."
+        },
+        {
+          "type": "figure",
+          "id": "1-11-car-constant-speed",
+          "alt": "A car moves to the right along a level road. An arrow above it shows its velocity v to the right, labelled constant. From the centre of the car, an arrow to the right is labelled driving force F. An arrow of the same length points to the left, labelled resistive forces, air resistance and friction. A note says the two horizontal forces are equal in size.",
+          "caption": "At constant velocity the resultant force is zero, so the driving force equals the total resistive force."
+        },
+        {
+          "type": "text",
+          "text": "A vehicle at constant velocity has zero [[resultant-force|resultant force]], by [[newton-s-first-law|Newton's first law]]. So the driving force equals the total resistive force, and the engine's power is $P = F_\\text{resistive}\\,v$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-drag",
+          "question": "A cyclist rides along a level road at a constant $\\pu{7.50 m s-1}$. The total resistive force on the cyclist and bicycle is $\\pu{31.2 N}$. Calculate the power the cyclist develops.",
+          "steps": [
+            "The velocity is constant, so the resultant force is zero. The driving force equals the resistive force: $F = \\pu{31.2 N}$.",
+            "$P = Fv = 31.2 \\times 7.50 = \\pu{234 W}$.",
+            "The data have 3 significant figures, so give 3."
+          ],
+          "answer": "$P \\approx \\pu{234 W}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "31.2*7.50",
+            "sf": 3,
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-constant-speed-explain",
+          "question": "A car travels at constant speed along a level road, and its engine keeps developing power. Explain, in terms of work done, what happens to the energy the engine transfers.",
+          "steps": [
+            "Start from the resultant force, then say what the net work does to the kinetic energy.",
+            "Then name the forces that take energy away, and where that energy ends up."
+          ],
+          "answer": "The car moves at constant velocity, so the resultant force on it is zero and the driving force equals the total resistive force. The driving force does positive work on the car. Air resistance and friction act opposite the motion, so they do an equal amount of negative work. So the kinetic energy of the car does not change, and neither does its mechanical energy. The energy the engine transfers is dissipated as thermal energy in the air, the tyres and the road.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "constant velocity so resultant force zero and driving force equals resistive force; driving force does positive work, resistive forces equal negative work; kinetic and mechanical energy unchanged; energy dissipated as thermal energy in the surroundings",
+            "requires": [
+              [
+                "resultant force on it is zero",
+                "resultant force is zero"
+              ],
+              "equals the total resistive force",
+              "positive work",
+              "negative work",
+              [
+                "kinetic energy of the car does not change",
+                "kinetic energy stays constant"
+              ],
+              [
+                "thermal energy",
+                "internal energy"
+              ]
+            ],
+            "forbids": [
+              "no forces act",
+              "energy is destroyed",
+              "energy is used up"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the resultant force into $P = Fv$. At constant velocity the resultant force is zero; use the driving force, which equals the resistive force."
+        },
+        {
+          "type": "check",
+          "id": "check-climber-power",
+          "prompt": "A climber of mass $\\pu{61 kg}$ climbs a vertical height of $\\pu{8.0 m}$ up a wall in $\\pu{25 s}$. What average power does she develop in gaining gravitational potential energy, in W? Give 2 significant figures.",
+          "hint": "Find $mg\\Delta h$ first, then divide by the time.",
+          "answer": {
+            "value": 190,
+            "tolerance": 5
+          },
+          "explain": "$\\Delta W = 61 \\times 9.8 \\times 8.0 = \\pu{4782.4 J}$, so $P = \\frac{4782.4}{25} = 191.3 \\approx \\pu{190 W}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "61*g*8.0/25",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-boat-power",
+          "prompt": "A motorboat moves at a constant $\\pu{6.0 m s-1}$. The total resistive force from the water and the air is $\\pu{1.5 kN}$. What power does the engine deliver to drive the boat?",
+          "hint": "At constant velocity the driving force equals the resistive force. Then use $P = Fv$.",
+          "options": [
+            {
+              "text": "$\\pu{9.0 kW}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.25 kW}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{4.5 kW}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{54 kW}$",
+              "correct": false
+            }
+          ],
+          "explain": "$P = Fv = 1.5 \\times 10^{3} \\times 6.0 = \\pu{9.0 kW}$. $0.25$ comes from $\\frac{F}{v}$, $4.5$ from halving as for kinetic energy, and $54$ from $Fv^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1.5*6.0",
+            "unit": "kW"
+          }
+        }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "heading": "Efficiency",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No real machine passes on all its input as useful output: a motor's coils get warm and its bearings rub. On a [[sankey-diagram|Sankey diagram]] the useful arrow is always narrower than the input arrow."
+        },
+        {
+          "type": "definition",
+          "term": "efficiency",
+          "statement": "The ratio of the useful work (or energy) output to the total work (or energy) input. Equivalently, the ratio of the useful power output to the total power input.",
+          "plain": "The fraction of what you put in that comes out doing the job you want."
+        },
+        {
+          "type": "formula",
+          "tex": "\\eta = \\frac{\\text{useful work out}}{\\text{total work in}} = \\frac{\\text{useful power out}}{\\text{total power in}}",
+          "tag": "booklet",
+          "bookletId": "db-1-11"
+        },
+        {
+          "type": "text",
+          "text": "$\\eta$ (Greek eta) has no unit, because it is joules over joules or watts over watts. Multiply it by 100 to give a percentage. This equation is also in the data booklet."
+        },
+        {
+          "type": "figure",
+          "id": "1-11-ebike-sankey",
+          "alt": "Sankey diagram for the motor of an electric bike, with arrow widths drawn to scale. A wide arrow on the left is labelled electrical power in, 450 watts. It splits in two. The wider branch carries straight on to the right, labelled useful, turns the wheels, 360 watts. A narrower branch curves downwards, labelled thermal, wasted, 90 watts.",
+          "caption": "The two outputs, $360 + 90$, add up to the $\\pu{450 W}$ input."
+        },
+        {
+          "type": "example",
+          "id": "ex-ebike-efficiency",
+          "question": "Use the Sankey diagram above to determine the efficiency of the electric bike's motor.",
+          "steps": [
+            "Read the arrows: useful power out $\\pu{360 W}$, total power in $\\pu{450 W}$.",
+            "$\\eta = \\frac{\\text{useful power out}}{\\text{total power in}} = \\frac{360}{450}$.",
+            "$\\eta = 0.80$, which is $80\\%$. Check: it is less than 1, as it must be."
+          ],
+          "answer": "$\\eta = 0.80$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(360, 450)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If you know the efficiency and the useful output, rearrange: total power in $= \\frac{\\text{useful power out}}{\\eta}$. Since $\\eta < 1$, the input is always bigger than the output."
+        },
+        {
+          "type": "example",
+          "id": "ex-crane-input",
+          "question": "A crane lifts a steel beam of mass $\\pu{850 kg}$ through a height of $\\pu{22 m}$ at constant speed in $\\pu{40 s}$. The efficiency of the crane's motor is $0.35$. Determine the electrical power input to the motor.",
+          "steps": [
+            "Useful work out: the gain in gravitational potential energy, $mg\\Delta h = 850 \\times 9.8 \\times 22 = \\pu{183260 J}$.",
+            "Useful power out: $\\frac{183260}{40} = \\pu{4581.5 W}$.",
+            "Total power in: $\\frac{4581.5}{0.35} = \\pu{13090 W}$. Keep the full value until the end.",
+            "Give 2 significant figures, like the efficiency."
+          ],
+          "answer": "$P_\\text{in} \\approx \\pu{13 kW}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "850*g*22/40/0.35/1000",
+            "sf": 2,
+            "unit": "kW"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-efficiency-below-one",
+          "question": "Explain why the efficiency of a machine with moving parts is always less than 1.",
+          "steps": [
+            "Use [[conservation-of-energy|conservation of energy]] to set an upper limit.",
+            "Then say which forces take energy away from the useful output, and where that energy goes."
+          ],
+          "answer": "By conservation of energy, the useful energy output cannot be more than the total energy input. In a machine with moving parts, friction and air resistance act against the motion and do negative work. This transfers some of the input energy to thermal energy in the machine and its surroundings, and some to sound. That energy is not part of the useful output. So the useful output is less than the input, and the efficiency is less than 1.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "conservation of energy caps output at input; friction and air resistance do negative work, transferring energy to thermal energy and sound; so useful output less than input and efficiency less than 1",
+            "requires": [
+              "conservation of energy",
+              [
+                "cannot be more than",
+                "cannot exceed"
+              ],
+              "friction",
+              "thermal energy",
+              "useful output is less than the input",
+              "less than 1"
+            ],
+            "forbids": [
+              "energy is destroyed",
+              "energy is used up",
+              "energy disappears"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the ratio upside down. Useful output goes on top, so $\\eta$ is never above 1. If you get an efficiency over $100\\%$, swap the top and bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-efficiency",
+          "prompt": "A lamp transfers $\\pu{60 J}$ of electrical energy every second and gives out $\\pu{8.4 J}$ of light every second. What is its efficiency, as a percentage? Give 2 significant figures.",
+          "hint": "Useful output over total input, then multiply by 100.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0.5
+          },
+          "explain": "$\\eta = \\frac{8.4}{60} = 0.14$, which is $14\\%$. The other $\\pu{51.6 J}$ each second heats the lamp and its surroundings.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.4/60*100",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-motor-wasted",
+          "prompt": "A motor has an efficiency of $0.25$ and a useful power output of $\\pu{300 W}$. What power does it waste?",
+          "hint": "Find the total power in first, then subtract the useful part.",
+          "options": [
+            {
+              "text": "$\\pu{900 W}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{75 W}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{225 W}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{1200 W}$",
+              "correct": false
+            }
+          ],
+          "explain": "Total power in $= \\frac{300}{0.25} = \\pu{1200 W}$, so the wasted power is $1200 - 300 = \\pu{900 W}$. $75$ and $225$ come from multiplying by $\\eta$ instead of dividing, and $1200$ is the input, not the waste.",
+          "verify": {
+            "kind": "exact",
+            "truth": "300/Rational(1, 4) - 300",
+            "unit": "W"
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-density",
+      "heading": "Energy density of fuels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A fuel is a store of energy. Petrol, coal and wood release it by burning; uranium releases it by fission, which you meet in {{lesson:5.11}}."
+        },
+        {
+          "type": "text",
+          "text": "A car's tank has a fixed volume, and an aircraft can only lift so much mass. So you can compare fuels per cubic metre or per kilogram."
+        },
+        {
+          "type": "definition",
+          "term": "energy density",
+          "statement": "The energy released per unit volume of a fuel. Its unit is $\\pu{J m-3}$.",
+          "plain": "How much energy a cubic metre of the fuel can give you."
+        },
+        {
+          "type": "definition",
+          "term": "specific energy",
+          "statement": "The energy released per unit mass of a fuel. Its unit is $\\pu{J kg-1}$.",
+          "plain": "How much energy a kilogram of the fuel can give you."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{energy density} = \\frac{E}{V} \\qquad \\text{specific energy} = \\frac{E}{m}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Some books call both of these \"energy density\". The unit tells you which is meant: $\\pu{J m-3}$ is per volume and $\\pu{J kg-1}$ is per mass. The two are linked by the fuel's [[density|density]] $\\rho = \\frac{m}{V}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{energy density} = \\text{specific energy} \\times \\rho",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Typical values (they vary with the exact fuel):"
+        },
+        {
+          "type": "text",
+          "text": "1. Wood about $\\pu{16 MJ kg-1}$, coal about $\\pu{30 MJ kg-1}$, petrol and diesel about $\\pu{45 MJ kg-1}$. Petrol's energy density is about $\\pu{3.4e10 J m-3}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Hydrogen about $\\pu{140 MJ kg-1}$. But as a gas at atmospheric pressure its energy density is only about $\\pu{1e7 J m-3}$, thousands of times less than petrol."
+        },
+        {
+          "type": "text",
+          "text": "3. Uranium-235 undergoing fission about $\\pu{8e13 J kg-1}$, roughly a million times more than burning petrol or coal. A lithium-ion battery stores under $\\pu{1 MJ kg-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-diesel-energy",
+          "question": "Diesel has an [[energy-density|energy density]] of $\\pu{3.8e10 J m-3}$. Calculate the energy released when $\\pu{0.025 m3}$ (25 litres) of diesel burns completely.",
+          "steps": [
+            "Energy density is energy per volume, so energy = energy density $\\times$ volume.",
+            "$E = 3.8 \\times 10^{10} \\times 0.025 = \\pu{9.5e8 J}$.",
+            "Check the unit: $\\pu{J m-3} \\times \\pu{m3} = \\pu{J}$."
+          ],
+          "answer": "$E = 9.5 \\times 10^{8}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.8*10**10*0.025",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-generator-volume",
+          "question": "A diesel generator delivers a steady useful electrical power of $\\pu{4.2 kW}$. Its efficiency is $0.30$, and diesel has an energy density of $\\pu{3.8e10 J m-3}$. Determine the volume of diesel the generator uses in $\\pu{1.0 h}$.",
+          "steps": [
+            "Total power in from the fuel: $\\frac{4.2 \\times 10^{3}}{0.30} = \\pu{1.4e4 W}$.",
+            "Energy from the fuel in one hour, $\\pu{3600 s}$: $E = 1.4 \\times 10^{4} \\times 3600 = \\pu{5.04e7 J}$.",
+            "Volume: $V = \\frac{E}{\\text{energy density}} = \\frac{5.04 \\times 10^{7}}{3.8 \\times 10^{10}} = \\pu{1.326e-3 m3}$.",
+            "Give 2 significant figures. That is about $1.3$ litres."
+          ],
+          "answer": "$V \\approx 1.3 \\times 10^{-3}\\ \\text{m}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.2*10**3/0.30*3600/(3.8*10**10)",
+            "sf": 2,
+            "unit": "m3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-aircraft-fuel",
+          "question": "Kerosene has a specific energy of $\\pu{43 MJ kg-1}$ and an energy density of $\\pu{3.5e10 J m-3}$. A lithium-ion battery pack has a specific energy of $\\pu{0.9 MJ kg-1}$ and an energy density of $\\pu{2e9 J m-3}$. Suggest why long-distance airliners burn kerosene rather than run on batteries.",
+          "steps": [
+            "Compare the specific energies, and link mass to what an aircraft can lift.",
+            "Compare the energy densities, and link volume to the space in the aircraft."
+          ],
+          "answer": "Kerosene's specific energy is about 50 times that of the batteries. So the mass of batteries needed to store the energy for a long flight would be far too great for the aircraft to lift. Kerosene's energy density is also more than 10 times higher, so the fuel takes up much less volume and fits in the wing tanks. Batteries would leave little or no mass and space for passengers and cargo.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "kerosene specific energy about 50 times battery so battery mass too great to lift; energy density over 10 times higher so less volume; batteries leave no room for payload",
+            "requires": [
+              "specific energy",
+              [
+                "50 times",
+                "much higher"
+              ],
+              "mass of batteries",
+              "energy density",
+              "volume"
+            ],
+            "forbids": [
+              "batteries have more energy",
+              "kerosene is lighter"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coal-mass",
+          "prompt": "Coal has a specific energy of $\\pu{3.0e7 J kg-1}$. What mass of coal must burn to release $\\pu{4.5e12 J}$, in kg? Give 2 significant figures.",
+          "hint": "Specific energy is energy per kilogram, so mass = energy / specific energy.",
+          "answer": {
+            "value": 150000,
+            "tolerance": 5000
+          },
+          "explain": "$m = \\frac{4.5 \\times 10^{12}}{3.0 \\times 10^{7}} = \\pu{1.5e5 kg}$, which is 150 tonnes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.5*10**12/(3.0*10**7)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ethanol-density",
+          "prompt": "Ethanol has a specific energy of $\\pu{2.7e7 J kg-1}$ and a density of $\\pu{790 kg m-3}$. What is its energy density?",
+          "hint": "Energy per cubic metre = energy per kilogram $\\times$ kilograms per cubic metre.",
+          "options": [
+            {
+              "text": "$\\approx 2.1 \\times 10^{10}\\ \\text{J m}^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 3.4 \\times 10^{4}\\ \\text{J m}^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 2.9 \\times 10^{-5}\\ \\text{J m}^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 2.7 \\times 10^{7}\\ \\text{J m}^{-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Energy density $= 2.7 \\times 10^{7} \\times 790 \\approx \\pu{2.1e10 J m-3}$. The other options divide one value by the other, or leave out the density.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.7*10**7*790",
+            "sf": 2,
+            "unit": "J m-3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hydrogen-compare",
+          "prompt": "Hydrogen gas has a higher specific energy than petrol, but a much lower energy density at atmospheric pressure. What does this mean?",
+          "hint": "Specific energy is per kilogram; energy density is per cubic metre.",
+          "options": [
+            {
+              "text": "a kilogram of hydrogen releases more energy than a kilogram of petrol, but a cubic metre releases less",
+              "correct": true
+            },
+            {
+              "text": "a cubic metre of hydrogen releases more energy than a cubic metre of petrol",
+              "correct": false
+            },
+            {
+              "text": "a kilogram of hydrogen releases less energy than a kilogram of petrol",
+              "correct": false
+            },
+            {
+              "text": "hydrogen is denser than petrol",
+              "correct": false
+            }
+          ],
+          "explain": "Higher specific energy means more energy per kilogram. Lower energy density means less energy per cubic metre, because hydrogen gas has a very low density. That is why hydrogen vehicles need large, high-pressure tanks.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a kilogram of hydrogen releases more energy than a kilogram of petrol, but a cubic metre releases less"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "P = \\frac{\\Delta W}{\\Delta t} = Fv",
+          "tag": "booklet",
+          "bookletId": "db-1-11",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Power is the rate of doing work or transferring energy, in watts: $\\pu{1 W} = \\pu{1 J s-1}$. In $P = Fv$, $F$ is the force along the motion; at constant velocity the driving force equals the total resistive force.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\eta = \\frac{\\text{useful work out}}{\\text{total work in}} = \\frac{\\text{useful power out}}{\\text{total power in}}",
+          "tag": "booklet",
+          "bookletId": "db-1-11",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Efficiency has no unit and is always less than 1 for a real machine. Wasted energy is dissipated, mostly as thermal energy: in moving machines, through work done against friction and other resistive forces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy density = energy released per unit volume of fuel, in $\\pu{J m-3}$. Specific energy = energy released per unit mass, in $\\pu{J kg-1}$. Energy density = specific energy $\\times$ density.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Confusing power with energy. Power is a rate, in W; energy is in J. Multiply a power by a time in seconds to get an energy.",
+    "Using the resultant force in $P = Fv$. At constant velocity it is zero, so use the driving force, which equals the total resistive force.",
+    "Writing efficiency upside down, or mixing an energy with a power in the ratio. Put the useful output on top, and make the top and bottom both energies or both powers.",
+    "Leaving a time in minutes or hours, or a power in kW, when working in joules. Convert to seconds and watts before you substitute.",
+    "Mixing up energy density ($\\pu{J m-3}$, per volume) and specific energy ($\\pu{J kg-1}$, per mass). Read the unit you are given before deciding to use a volume or a mass.",
+    "Saying wasted energy is “lost” or “used up”. Say where it goes: it is dissipated, mostly as thermal energy in the surroundings, for example by friction and air resistance."
+  ],
+  "examTips": [
+    "“Calculate” or “determine” a power: write the equation, substitute in W, J, s and N, then give the answer with its unit. In multi-step questions keep full values and round only at the end.",
+    "When you are given the efficiency and the useful output, divide by $\\eta$ to find the input. Check that the input you get is bigger than the output.",
+    "“Suggest” or “explain” a choice of fuel: name the quantity (energy density or specific energy), compare the values, and link it to the limit that matters, the volume of the tank or the mass the vehicle can carry.",
+    "In Paper 1A, check that a power option reduces to $\\pu{J s-1}$, as $Fv$ and $\\frac{mgh}{t}$ do. A unit check rules out wrong options fast."
+  ],
+  "readingMinutes": 25
+}

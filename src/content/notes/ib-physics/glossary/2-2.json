@@ -2,37 +2,37 @@
   {
     "id": "internal-energy",
     "term": "internal energy",
-    "definition": "TODO: Total random kinetic plus intermolecular potential energy of the particles, not temperature",
+    "definition": "The total random kinetic energy of the particles of a system plus the total intermolecular potential energy from the forces between them; it is a total, unlike temperature, which measures the average kinetic energy per particle.",
     "lesson": "2.2"
   },
   {
     "id": "thermal-energy-transfer",
     "term": "thermal energy transfer",
-    "definition": "TODO: Energy moving because of a temperature difference; often called heat; not a form stored in a body",
+    "definition": "Energy transferred from a body at a higher temperature to one at a lower temperature because of their temperature difference, often called heat; it is energy in transit, not something a body stores.",
     "lesson": "2.2"
   },
   {
     "id": "thermal-equilibrium",
     "term": "thermal equilibrium",
-    "definition": "TODO: No net energy transfer because temperatures are equal",
+    "definition": "The state of bodies in thermal contact that are at the same temperature, so there is no resultant thermal energy transfer between them.",
     "lesson": "2.2"
   },
   {
     "id": "phase-change",
     "term": "phase change",
-    "definition": "TODO: Change of state at constant temperature; energy changes potential energy, not kinetic",
+    "definition": "A change of state, such as melting, freezing, boiling or condensing, that happens at constant temperature for a pure substance; the energy transferred changes the intermolecular potential energy of the particles, not their average random kinetic energy.",
     "lesson": "2.2"
   },
   {
     "id": "specific-heat-capacity",
     "term": "specific heat capacity",
-    "definition": "TODO: Energy per unit mass per unit temperature change, Q = m c ΔT",
+    "definition": "The energy needed to raise the temperature of 1 kg of a substance by 1 K, in $\\text{J kg}^{-1}\\,\\text{K}^{-1}$, so that $Q = mc\\Delta T$.",
     "lesson": "2.2"
   },
   {
     "id": "specific-latent-heat",
     "term": "specific latent heat",
-    "definition": "TODO: Energy per unit mass to change phase at constant temperature, Q = mL; fusion and vaporisation differ",
+    "definition": "The energy needed to change the phase of 1 kg of a substance at constant temperature, in $\\text{J kg}^{-1}$, so that $Q = mL$; fusion (melting) and vaporization (boiling) have different values.",
     "lesson": "2.2"
   }
 ]

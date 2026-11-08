@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" font-family="sans-serif" font-size="13" fill="currentColor" role="img" aria-labelledby="t19fd">
+  <title id="t19fd">Force against distance for a chain towing a log</title>
+  <polygon points="60,250 60,70 240,70 360,250" fill="var(--t5-ink)" fill-opacity="0.25"/>
+  <line x1="60" y1="250" x2="390" y2="250" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="60" y1="250" x2="60" y2="40" stroke="currentColor" stroke-width="1.5"/>
+  <g stroke="var(--muted)" stroke-width="0.8" stroke-dasharray="3 3">
+    <line x1="60" y1="190" x2="360" y2="190"/>
+    <line x1="60" y1="130" x2="360" y2="130"/>
+    <line x1="60" y1="70" x2="360" y2="70"/>
+    <line x1="120" y1="250" x2="120" y2="70"/>
+    <line x1="180" y1="250" x2="180" y2="70"/>
+    <line x1="240" y1="250" x2="240" y2="70"/>
+    <line x1="300" y1="250" x2="300" y2="70"/>
+    <line x1="360" y1="250" x2="360" y2="70"/>
+  </g>
+  <polyline points="60,70 240,70 360,250" fill="none" stroke="var(--t5-ink)" stroke-width="3"/>
+  <g text-anchor="end">
+    <text x="52" y="254">0</text>
+    <text x="52" y="194">300</text>
+    <text x="52" y="134">600</text>
+    <text x="52" y="74">900</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="60" y="268">0</text>
+    <text x="120" y="268">2.0</text>
+    <text x="180" y="268">4.0</text>
+    <text x="240" y="268">6.0</text>
+    <text x="300" y="268">8.0</text>
+    <text x="360" y="268">10.0</text>
+  </g>
+  <text x="225" y="292" text-anchor="middle">distance s / m</text>
+  <text x="16" y="30">tension F / N</text>
+</svg>

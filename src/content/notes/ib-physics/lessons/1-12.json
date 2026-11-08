@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.12",
+  "slug": "torque-and-rotational-equilibrium",
+  "title": "Torque and rotational equilibrium",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[force|force]] can turn a body as well as push it. Its turning effect about an axis is its [[torque|torque]], $\\tau = Fr\\sin\\theta$. When the torques on a body cancel, it is in [[rotational-equilibrium|rotational equilibrium]]; when they don't, its rotation speeds up or slows down.",
+  "goals": [
+    {
+      "text": "Calculate a force's torque about an axis with $\\tau = Fr\\sin\\theta$, and give its sense: clockwise or anticlockwise.",
+      "bullets": [
+        "A.4-a1"
+      ]
+    },
+    {
+      "text": "Find the perpendicular distance from an axis to a force's line of action.",
+      "bullets": [
+        "A.4-a1"
+      ]
+    },
+    {
+      "text": "Use zero resultant torque to find unknown forces and distances in balanced bodies.",
+      "bullets": [
+        "A.4-a2"
+      ]
+    },
+    {
+      "text": "Treat the weight of a uniform body as acting at its [[centre-of-mass|centre of mass]].",
+      "bullets": [
+        "A.4-a2"
+      ]
+    },
+    {
+      "text": "Explain why an unbalanced torque gives a rigid body an angular acceleration.",
+      "bullets": [
+        "A.4-a3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "moments",
+    "principle of moments",
+    "turning effect of a force",
+    "torque calculation",
+    "balanced beam",
+    "seesaw problem"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-resultant-force",
+      "prompt": "Two horizontal forces act on a crate: $\\pu{45 N}$ to the right and $\\pu{28 N}$ to the left. What is the size of the [[resultant-force|resultant force]], in N?",
+      "hint": "The forces act in opposite directions, so subtract.",
+      "answer": {
+        "value": 17,
+        "tolerance": 0.5
+      },
+      "explain": "Taking right as positive, $45 - 28 = \\pu{17 N}$, to the right. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45 - 28",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-book-fbd",
+      "prompt": "A book rests on a table. Which forces belong on the book's [[free-body-diagram|free-body diagram]]?",
+      "hint": "Only forces acting on the book itself go on its diagram.",
+      "options": [
+        {
+          "text": "its weight and the normal force from the table",
+          "correct": true
+        },
+        {
+          "text": "its weight and the push of the book on the table",
+          "correct": false
+        },
+        {
+          "text": "its weight only",
+          "correct": false
+        }
+      ],
+      "explain": "The book's push on the table acts on the table, not the book. The two forces on the book are its weight and the table's normal force. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "its weight and the normal force from the table"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rod-centre-of-mass",
+      "prompt": "Where is the centre of mass of a uniform straight rod?",
+      "hint": "Uniform means the mass is spread evenly along its length.",
+      "options": [
+        {
+          "text": "at its midpoint",
+          "correct": true
+        },
+        {
+          "text": "at the end nearer the ground",
+          "correct": false
+        },
+        {
+          "text": "at the point where it is supported",
+          "correct": false
+        }
+      ],
+      "explain": "Equal amounts of mass lie on each side of the midpoint, so that is where the mass can be taken to act. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "at its midpoint"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "torque",
+      "heading": "Torque",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a door near its handle and it swings open easily. Push with the same force near the hinges and it barely moves. Push along the door, straight towards the hinges, and nothing turns at all."
+        },
+        {
+          "type": "text",
+          "text": "So the turning effect depends on three things: the size of the force, how far from the axis it acts, and its direction. Torque combines all three."
+        },
+        {
+          "type": "definition",
+          "term": "torque",
+          "statement": "For a force acting on a body that can turn about an axis, its torque is $\\tau = Fr\\sin\\theta$, where $r$ is the distance from the axis to the point where the force acts and $\\theta$ is the angle between the force and that line. Unit: N m.",
+          "plain": "How strongly a force turns something about an axis."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tau = Fr\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-12"
+        },
+        {
+          "type": "text",
+          "text": "This equation is in section A.4 of the data booklet. $\\tau$ is the Greek letter tau."
+        },
+        {
+          "type": "text",
+          "text": "Another way to read it: $r\\sin\\theta$ is the perpendicular distance from the axis to the force's line of action. The line of action is the force arrow extended both ways. So torque = force × perpendicular distance, as the figure shows."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-spanner-torque",
+          "alt": "A spanner pivots about a bolt at O on the left. The spanner runs horizontally to the right, a length r, to point P where a force F is applied. F points up and to the right, at angle theta to the line from O through P. A dashed line extends the force's line of action back below P. A short solid line from O meets this dashed line at a right angle; it is labelled r sin theta, the perpendicular distance. A curved arrow round O shows the force turns the spanner anticlockwise.",
+          "caption": "The torque is $F$ times the perpendicular distance $r\\sin\\theta$ from the axis to the line of action."
+        },
+        {
+          "type": "text",
+          "text": "The torque is largest when the force is at $90^{\\circ}$ to the line from the axis ($\\sin 90^{\\circ} = 1$). It is zero when the line of action passes through the axis ($\\theta = 0^{\\circ}$ or $180^{\\circ}$)."
+        },
+        {
+          "type": "text",
+          "text": "Torque also has a sense: it turns the body clockwise or anticlockwise, seen from one side. You don't need torque's vector direction, but always state the sense."
+        },
+        {
+          "type": "example",
+          "id": "ex-torque-spanner",
+          "question": "A mechanic pulls on a spanner with a force of $\\pu{65 N}$, applied $\\pu{0.28 m}$ from the centre of the bolt. The force acts at $70^{\\circ}$ to the spanner. Calculate the torque about the bolt.",
+          "steps": [
+            "Identify the quantities: $F = \\pu{65 N}$, $r = \\pu{0.28 m}$, $\\theta = 70^{\\circ}$, the angle between the force and the spanner.",
+            "$\\tau = Fr\\sin\\theta = 65 \\times 0.28 \\times \\sin 70^{\\circ} = 17.1\\ \\text{N m}$.",
+            "The data have 2 significant figures, so round to 2."
+          ],
+          "answer": "$\\tau \\approx 17\\ \\text{N m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "65*0.28*sind(70)",
+            "sf": 2,
+            "unit": "N m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\tau = Fr$ when the force is not at right angles to the spanner. Include $\\sin\\theta$, or use the perpendicular distance."
+        },
+        {
+          "type": "example",
+          "id": "ex-torque-pedal",
+          "question": "A cyclist pushes vertically down with a force of $\\pu{520 N}$ on a pedal. The crank, from the axle to the pedal, is $\\pu{0.17 m}$ long and points forwards at $30^{\\circ}$ above the horizontal. The bicycle is seen from its right side, facing right. Determine the torque about the axle and its sense.",
+          "steps": [
+            "The crank is $30^{\\circ}$ above the horizontal and the force is vertical, so the angle between them is $\\theta = 90^{\\circ} + 30^{\\circ} = 120^{\\circ}$.",
+            "$\\tau = Fr\\sin\\theta = 520 \\times 0.17 \\times \\sin 120^{\\circ} = 76.6\\ \\text{N m}$.",
+            "Check with the perpendicular distance: the line of action is vertical, so the distance is horizontal, $0.17\\cos 30^{\\circ} \\approx \\pu{0.147 m}$, and $520 \\times 0.17\\cos 30^{\\circ} = 76.6\\ \\text{N m}$.",
+            "The pedal is ahead of the axle and pushed down, so the crank turns clockwise as seen."
+          ],
+          "answer": "$\\tau \\approx 77\\ \\text{N m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "520*0.17*sind(90+30)",
+            "sf": 2,
+            "unit": "N m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When the crank points straight down, the downward push acts along it, through the axle. The torque is then zero, however hard the cyclist pushes."
+        },
+        {
+          "type": "check",
+          "id": "check-torque-zero",
+          "prompt": "A force acts on a door that turns about its hinges. In which case is the torque about the hinges zero?",
+          "hint": "Zero torque means zero perpendicular distance from the axis.",
+          "options": [
+            {
+              "text": "the line of action passes through the hinges",
+              "correct": true
+            },
+            {
+              "text": "the force acts at the handle, at right angles to the door",
+              "correct": false
+            },
+            {
+              "text": "the force acts at the handle, at 45° to the door",
+              "correct": false
+            }
+          ],
+          "explain": "If the line of action passes through the axis, $\\theta = 0$ and the perpendicular distance is zero, so $\\tau = 0$. A force at right angles to the door gives the largest torque.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the line of action passes through the hinges"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-torque-bar",
+          "prompt": "A force of $\\pu{12 N}$ acts on the end of a bar $\\pu{0.45 m}$ long, at $35^{\\circ}$ to the bar. The bar can turn about its other end. Calculate the torque, in N m. Give 2 significant figures.",
+          "hint": "Use $\\tau = Fr\\sin\\theta$ with $\\theta = 35^{\\circ}$.",
+          "answer": {
+            "value": 3.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\tau = 12 \\times 0.45 \\times \\sin 35^{\\circ} = 3.10$, so $\\pu{3.1 N m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12*0.45*sind(35)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "equilibrium",
+      "heading": "Rotational equilibrium",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A seesaw with two children on it can balance, even if one child is heavier. The heavier child just sits nearer the pivot. Each child's [[weight|weight]] has a torque about the pivot, and the two torques are equal and opposite."
+        },
+        {
+          "type": "definition",
+          "term": "rotational equilibrium",
+          "statement": "A body is in rotational equilibrium when the resultant torque on it is zero.",
+          "plain": "The turning effects cancel out, so the rotation doesn't change."
+        },
+        {
+          "type": "result",
+          "statement": "In rotational equilibrium, the sum of the clockwise torques equals the sum of the anticlockwise torques.",
+          "why": "Taking one sense as positive, the resultant torque is the anticlockwise total minus the clockwise total. Setting it to zero makes the two totals equal."
+        },
+        {
+          "type": "text",
+          "text": "Zero resultant torque does not mean the body is still. It means its rotation doesn't change: it stays at rest, or keeps turning at a steady rate."
+        },
+        {
+          "type": "text",
+          "text": "For an extended body, take its whole weight as acting at its [[centre-of-mass|centre of mass]]. For a uniform beam, that is its midpoint. You never need to calculate where the centre of mass is; it will be given or obvious."
+        },
+        {
+          "type": "text",
+          "text": "A body that stays at rest is in full equilibrium. It needs zero [[resultant-force|resultant force]] and zero resultant torque. Then the torques balance about every axis, so you can choose any point to take torques about."
+        },
+        {
+          "type": "example",
+          "id": "ex-seesaw-position",
+          "question": "A uniform seesaw is pivoted at its centre. A child of mass $\\pu{28 kg}$ sits $\\pu{1.6 m}$ from the pivot. Where must a child of mass $\\pu{35 kg}$ sit, on the other side, so that the seesaw balances horizontally?",
+          "steps": [
+            "The seesaw's own weight acts at its centre, through the pivot, so it has no torque about the pivot.",
+            "Each weight is vertical and the seesaw is horizontal, so $\\theta = 90^{\\circ}$ and the torque is weight × distance.",
+            "Clockwise torque = anticlockwise torque: $35g \\times x = 28g \\times 1.6$.",
+            "$g$ cancels: $x = \\frac{28 \\times 1.6}{35} = 1.28\\ \\text{m}$, so 1.3 m to 2 significant figures."
+          ],
+          "answer": "$x \\approx 1.3\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "28*g*1.6/(35*g)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "With an unknown force, take torques about the point where it acts. Its torque there is zero, so it drops out of the equation."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-shelf-brackets",
+          "alt": "A uniform shelf 1.40 m long rests on a bracket at each end, A on the left and B on the right. A box sits on the shelf 0.30 m from end A. Four forces act on the shelf: an upward force F A at end A, a shorter upward force F B at end B, the push of the box, 5.0 g, downward at 0.30 m from A, and the weight of the shelf, 3.0 g, downward at its midpoint, 0.70 m from A, labelled centre of mass.",
+          "caption": "The four forces on the shelf. Its own weight acts at its centre of mass."
+        },
+        {
+          "type": "example",
+          "id": "ex-shelf-bracket",
+          "question": "A uniform shelf of mass $\\pu{3.0 kg}$ and length $\\pu{1.40 m}$ rests on brackets A and B at its ends, as in the figure. A box of mass $\\pu{5.0 kg}$ sits $\\pu{0.30 m}$ from end A. Determine the upward force from bracket A.",
+          "steps": [
+            "Take torques about B, so the unknown $F_\\text{B}$ drops out. All the forces are vertical and the shelf horizontal, so each torque is force × distance from B. Use $g = \\pu{9.8 m s-2}$ from the data booklet.",
+            "Distances from B: $F_\\text{A}$ acts $\\pu{1.40 m}$ away, the box $1.40 - 0.30 = \\pu{1.10 m}$ away and the shelf's weight $\\pu{0.70 m}$ away.",
+            "About B, $F_\\text{A}$ turns the shelf clockwise; both weights turn it anticlockwise. Balance them: $F_\\text{A} \\times 1.40 = 3.0g \\times 0.70 + 5.0g \\times 1.10$.",
+            "$F_\\text{A} = \\frac{20.58 + 53.90}{1.40} = 53.2\\ \\text{N}$.",
+            "Check with the forces: $F_\\text{B} = 8.0g - F_\\text{A} = 78.4 - 53.2 = \\pu{25.2 N}$. Bracket A is nearer the box, so it should push harder, and it does."
+          ],
+          "answer": "$F_\\text{A} \\approx 53\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3.0*g*0.70 + 5.0*g*(1.40 - 0.30))/1.40",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out the beam's own weight. Unless it is described as light, add its weight, acting at its centre of mass."
+        },
+        {
+          "type": "check",
+          "id": "check-metre-rule",
+          "prompt": "A uniform metre rule of mass $\\pu{0.12 kg}$ balances on a pivot at its 40.0 cm mark, with a small mass hung at the 10.0 cm mark. Calculate the hung mass, in grams. Give 2 significant figures.",
+          "hint": "The rule's weight acts at the 50.0 cm mark. Measure each distance from the pivot.",
+          "answer": {
+            "value": 40,
+            "tolerance": 0.5
+          },
+          "explain": "About the pivot: $m g \\times 0.300 = 0.12g \\times 0.100$, so $m = \\pu{0.040 kg} = \\pu{40 g}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.12*(0.500 - 0.400)/(0.400 - 0.100)*1000",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ladder-equilibrium",
+          "prompt": "A ladder leans at rest against a wall. Which statement must be true?",
+          "hint": "Staying at rest means no acceleration of any kind.",
+          "options": [
+            {
+              "text": "The resultant force and the resultant torque on it are both zero.",
+              "correct": true
+            },
+            {
+              "text": "The resultant force on it is zero, but the resultant torque need not be.",
+              "correct": false
+            },
+            {
+              "text": "The resultant torque on it is zero, but the resultant force need not be.",
+              "correct": false
+            }
+          ],
+          "explain": "A resultant force would make it accelerate along a line, and a resultant torque would make it start to rotate. A body at rest needs both to be zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The resultant force and the resultant torque on it are both zero."
+          }
+        }
+      ]
+    },
+    {
+      "id": "unbalanced",
+      "heading": "Unbalanced torque",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If the torques on a rigid body don't cancel, the body is not in rotational equilibrium. Its rotation changes: it gains an [[angular-acceleration|angular acceleration]]."
+        },
+        {
+          "type": "result",
+          "statement": "An unbalanced (non-zero) resultant torque on an extended, rigid body causes an angular acceleration, in the same sense as the resultant torque.",
+          "why": "This is the turning version of Newton's second law: a resultant force changes linear motion, and a resultant torque changes rotation."
+        },
+        {
+          "type": "text",
+          "text": "Angular acceleration is the rate at which the rotation speeds up or slows down. If the resultant torque opposes the way the body is turning, the rotation slows. {{lesson:1.13}} makes this quantitative with $\\tau = I\\alpha$."
+        },
+        {
+          "type": "text",
+          "text": "Turning a steering wheel with two hands, you push up on one side and pull down on the other with equal forces. The resultant force is zero, so the wheel's centre stays put. But both forces turn the wheel the same way, so the resultant torque is not zero."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-wheel-couple",
+          "alt": "A steering wheel seen face-on, turning about its centre. A hand on the right of the rim pushes up with force F. A hand on the left of the rim pulls down with an equal force F. The two forces are parallel and opposite, and their lines of action are a distance d apart, the diameter of the wheel. A curved arrow at the centre shows the wheel turning anticlockwise. Notes beside the wheel read: resultant force zero, resultant torque F d, anticlockwise.",
+          "caption": "Equal, opposite, parallel forces (a couple): zero resultant force, but a resultant torque $Fd$."
+        },
+        {
+          "type": "text",
+          "text": "So zero resultant force does not stop a body rotating faster. Equally, a force whose line of action passes through the centre of mass can accelerate a free body without making it spin."
+        },
+        {
+          "type": "example",
+          "id": "ex-rod-released",
+          "question": "A uniform rod is pivoted at its left end and held horizontal. It is then released. Explain why the rod starts to rotate about the pivot.",
+          "steps": [
+            "List the forces on the rod: its weight and the force from the pivot.",
+            "Find the torque of each about the pivot.",
+            "Conclude from the resultant torque."
+          ],
+          "answer": "The rod's weight acts at its centre of mass, which is at its midpoint. This is a perpendicular distance of half the rod's length from the pivot, so the weight has a torque about the pivot. The force from the pivot acts through the axis, so it has zero torque about it. So the resultant torque on the rod is not zero. An unbalanced torque on a rigid body causes an angular acceleration, so the rod starts to rotate clockwise about the pivot.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "weight acts at the centre of mass (midpoint), perpendicular distance from pivot so it has a torque; pivot force acts through the axis so zero torque; resultant torque non-zero; unbalanced torque causes angular acceleration",
+            "requires": [
+              "centre of mass",
+              [
+                "midpoint",
+                "middle"
+              ],
+              [
+                "torque about the pivot",
+                "has a torque"
+              ],
+              [
+                "through the axis",
+                "through the pivot"
+              ],
+              [
+                "zero torque",
+                "no torque"
+              ],
+              [
+                "resultant torque on the rod is not zero",
+                "unbalanced torque"
+              ],
+              "angular acceleration"
+            ],
+            "forbids": [
+              "weight acts at the pivot",
+              "no forces act"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-drum-resultant",
+          "question": "A drum of radius $\\pu{0.25 m}$ turns anticlockwise on a fixed axle. A rope wound round it pulls tangentially with $\\pu{30 N}$, turning it anticlockwise. A brake pad rubs on a rim of radius $\\pu{0.30 m}$, with a tangential friction force of $\\pu{18 N}$ opposing the motion. Determine the resultant torque on the drum, and state what happens to its rotation.",
+          "steps": [
+            "Take anticlockwise as positive. Both forces are tangential, so each is at $90^{\\circ}$ to its radius and $\\sin\\theta = 1$.",
+            "Rope: $+30 \\times 0.25 = +7.5\\ \\text{N m}$. Friction opposes the motion, so it is clockwise: $-18 \\times 0.30 = -5.4\\ \\text{N m}$.",
+            "Resultant torque: $7.5 - 5.4 = +2.1\\ \\text{N m}$.",
+            "It is positive, so anticlockwise, the way the drum turns. The drum has an anticlockwise angular acceleration, so it turns faster and faster."
+          ],
+          "answer": "$\\tau = +2.1\\ \\text{N m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "30*0.25 - 18*0.30",
+            "unit": "N m",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding every torque as positive. Choose a positive sense first, then give torques the other way a minus sign."
+        },
+        {
+          "type": "check",
+          "id": "check-zero-force-rotation",
+          "prompt": "The resultant force on a rigid body is zero. What can you conclude about its rotation?",
+          "hint": "Think about the steering wheel.",
+          "options": [
+            {
+              "text": "It may still have an angular acceleration.",
+              "correct": true
+            },
+            {
+              "text": "Its angular speed must be constant.",
+              "correct": false
+            },
+            {
+              "text": "It cannot be rotating.",
+              "correct": false
+            }
+          ],
+          "explain": "Zero resultant force says nothing about torque. Two equal, opposite forces with different lines of action give a resultant torque, so the rotation can change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It may still have an angular acceleration."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steering-couple",
+          "prompt": "A driver pushes up on one side of a steering wheel and pulls down on the other, each with a tangential force of $\\pu{24 N}$. The wheel's diameter is $\\pu{0.38 m}$. Calculate the resultant torque about the centre, in N m. Give 2 significant figures.",
+          "hint": "Each hand is one radius from the centre, and both torques have the same sense.",
+          "answer": {
+            "value": 9.1,
+            "tolerance": 0.05
+          },
+          "explain": "Each force gives $24 \\times 0.19 = \\pu{4.56 N m}$, in the same sense. Total: $\\pu{9.12 N m} \\approx \\pu{9.1 N m}$, which is also $F \\times d = 24 \\times 0.38$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*24*(0.38/2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\tau = Fr\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-12",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$r\\sin\\theta$ is the perpendicular distance from the axis to the line of action. Torque is in N m; always give its sense, clockwise or anticlockwise.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rotational equilibrium: resultant torque zero, so clockwise torques = anticlockwise torques. A body at rest also needs zero resultant force.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Take the weight of an extended body as acting at its centre of mass: the midpoint of a uniform beam.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An unbalanced torque gives a rigid body an angular acceleration in the sense of the resultant torque. A force through the axis has no torque.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying the force by the distance to where it acts, ignoring the angle. Use $r\\sin\\theta$, the perpendicular distance from the axis to the line of action.",
+    "Forgetting the weight of the beam itself. For a uniform beam it acts at the midpoint, its centre of mass.",
+    "Adding clockwise and anticlockwise torques together. Choose a positive sense and subtract the other way.",
+    "Saying a body is in equilibrium because the forces balance. A couple has zero resultant force but still turns the body.",
+    "Thinking zero resultant torque means no rotation. It means no angular acceleration: a wheel can keep spinning steadily."
+  ],
+  "examTips": [
+    "\"State\" the condition for rotational equilibrium: the resultant torque on the body is zero. Saying only that the forces balance earns nothing.",
+    "In \"determine\" questions with an unknown support force, take torques about that support. Write the torque equation, substitute, then give the answer in N.",
+    "Give torques in N m with their sense. Show $\\tau = Fr\\sin\\theta$ and the angle you used.",
+    "In Paper 1A, check the angle first: the torque is largest when the force is at $90^{\\circ}$ to the line from the axis, and zero when its line of action passes through the axis."
+  ],
+  "readingMinutes": 22
+}

@@ -2,37 +2,37 @@
   {
     "id": "force",
     "term": "force",
-    "definition": "TODO: Interaction between bodies; a vector; its unit is the newton",
+    "definition": "A push or pull that one body exerts on another as they interact; a vector, measured in newtons (N), where $\\pu{1 N} = \\pu{1 kg m s-2}$.",
     "lesson": "1.4"
   },
   {
     "id": "resultant-force",
     "term": "resultant force",
-    "definition": "TODO: Vector sum of all forces on a body",
+    "definition": "The vector sum of all the forces acting on a body: the single force with the same effect as all of them together, also called the net force.",
     "lesson": "1.4"
   },
   {
     "id": "newton-s-first-law",
     "term": "Newton's first law",
-    "definition": "TODO: Body stays at rest or at constant velocity unless a resultant force acts",
+    "definition": "A body stays at rest, or keeps moving at constant velocity, unless a resultant force acts on it.",
     "lesson": "1.4"
   },
   {
     "id": "newton-s-second-law",
     "term": "Newton's second law",
-    "definition": "TODO: Resultant force equals rate of change of momentum; F = ma only for constant mass",
+    "definition": "The resultant force on a body equals its rate of change of momentum; for a body of constant mass this becomes $F = ma$.",
     "lesson": "1.4"
   },
   {
     "id": "newton-s-third-law",
     "term": "Newton's third law",
-    "definition": "TODO: Forces come in equal and opposite pairs acting on different bodies, of the same type",
+    "definition": "If body A exerts a force on body B, then B exerts a force on A that is equal in size, opposite in direction and of the same type; the two forces act on different bodies.",
     "lesson": "1.4"
   },
   {
     "id": "free-body-diagram",
     "term": "free-body diagram",
-    "definition": "TODO: Diagram of one body showing only forces acting on it, not forces it exerts",
+    "definition": "A diagram of one body showing every force acting on it, and no force it exerts, as labelled arrows starting on the body.",
     "lesson": "1.4"
   }
 ]

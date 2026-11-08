@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" role="img" aria-labelledby="t22hc">
+  <title id="t22hc">Heating curve for ice heated at a constant rate, not to scale: temperature rises, stays at 0 degrees Celsius while melting, rises again, stays at 100 degrees Celsius while boiling for a longer time, then rises again as steam.</title>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="20" x2="70" y2="280"/>
+    <line x1="70" y1="280" x2="580" y2="280"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="70" y1="235" x2="110" y2="235"/>
+    <line x1="70" y1="85" x2="300" y2="85"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="65" y1="235" x2="70" y2="235"/>
+    <line x1="65" y1="85" x2="70" y2="85"/>
+  </g>
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <polyline points="80,280 110,235" stroke="var(--t1-ink)"/>
+    <polyline points="170,235 300,85" stroke="var(--t1-ink)"/>
+    <polyline points="520,85 550,40" stroke="var(--t1-ink)"/>
+    <line x1="110" y1="235" x2="170" y2="235" stroke="var(--t3-ink)"/>
+    <line x1="300" y1="85" x2="520" y2="85" stroke="var(--t3-ink)"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="60" y="239" text-anchor="end">0</text>
+    <text x="60" y="89" text-anchor="end">100</text>
+    <text x="100" y="270" fill="var(--t1-ink)">solid</text>
+    <text x="140" y="225" text-anchor="middle" fill="var(--t3-ink)">melting</text>
+    <text x="140" y="252" text-anchor="middle" fill="var(--t3-ink)">solid + liquid</text>
+    <text x="246" y="166" fill="var(--t1-ink)">liquid</text>
+    <text x="410" y="75" text-anchor="middle" fill="var(--t3-ink)">boiling</text>
+    <text x="410" y="102" text-anchor="middle" fill="var(--t3-ink)">liquid + gas</text>
+    <text x="560" y="58" fill="var(--t1-ink)">gas</text>
+    <text x="255" y="190" fill="var(--muted)">sloping: temperature and average Ek rise</text>
+    <text x="255" y="208" fill="var(--muted)">flat: phase change, average Ek constant, Ep rises</text>
+    <text x="325" y="305" text-anchor="middle" fill="var(--muted)">time (energy supplied at a constant rate)</text>
+    <text x="0" y="0" transform="translate(40,215) rotate(-90)" fill="var(--muted)">temperature / °C</text>
+  </g>
+</svg>

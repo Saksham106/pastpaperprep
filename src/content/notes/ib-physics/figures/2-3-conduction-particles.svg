@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" role="img" aria-labelledby="t23cp">
+  <title id="t23cp">Particle model of conduction along a solid bar: particles at the hot left end vibrate with large amplitude, particles at the cold right end with small amplitude, and the net energy transfer is from left to right</title>
+  <rect x="40" y="40" width="520" height="120" rx="6" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+  <g stroke="var(--t5-ink)" stroke-width="1.6" stroke-linecap="round">
+    <line x1="56" y1="70" x2="104" y2="70"/><line x1="56" y1="100" x2="104" y2="100"/><line x1="56" y1="130" x2="104" y2="130"/>
+    <line x1="122" y1="70" x2="166" y2="70"/><line x1="122" y1="100" x2="166" y2="100"/><line x1="122" y1="130" x2="166" y2="130"/>
+    <line x1="188" y1="70" x2="228" y2="70"/><line x1="188" y1="100" x2="228" y2="100"/><line x1="188" y1="130" x2="228" y2="130"/>
+    <line x1="254" y1="70" x2="290" y2="70"/><line x1="254" y1="100" x2="290" y2="100"/><line x1="254" y1="130" x2="290" y2="130"/>
+    <line x1="320" y1="70" x2="352" y2="70"/><line x1="320" y1="100" x2="352" y2="100"/><line x1="320" y1="130" x2="352" y2="130"/>
+    <line x1="386" y1="70" x2="414" y2="70"/><line x1="386" y1="100" x2="414" y2="100"/><line x1="386" y1="130" x2="414" y2="130"/>
+    <line x1="452" y1="70" x2="476" y2="70"/><line x1="452" y1="100" x2="476" y2="100"/><line x1="452" y1="130" x2="476" y2="130"/>
+    <line x1="518" y1="70" x2="538" y2="70"/><line x1="518" y1="100" x2="538" y2="100"/><line x1="518" y1="130" x2="538" y2="130"/>
+  </g>
+  <g fill="var(--t1-ink)">
+    <circle cx="80" cy="70" r="9"/><circle cx="80" cy="100" r="9"/><circle cx="80" cy="130" r="9"/>
+    <circle cx="144" cy="70" r="9"/><circle cx="144" cy="100" r="9"/><circle cx="144" cy="130" r="9"/>
+    <circle cx="208" cy="70" r="9"/><circle cx="208" cy="100" r="9"/><circle cx="208" cy="130" r="9"/>
+    <circle cx="272" cy="70" r="9"/><circle cx="272" cy="100" r="9"/><circle cx="272" cy="130" r="9"/>
+    <circle cx="336" cy="70" r="9"/><circle cx="336" cy="100" r="9"/><circle cx="336" cy="130" r="9"/>
+    <circle cx="400" cy="70" r="9"/><circle cx="400" cy="100" r="9"/><circle cx="400" cy="130" r="9"/>
+    <circle cx="464" cy="70" r="9"/><circle cx="464" cy="100" r="9"/><circle cx="464" cy="130" r="9"/>
+    <circle cx="528" cy="70" r="9"/><circle cx="528" cy="100" r="9"/><circle cx="528" cy="130" r="9"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="120" y1="200" x2="470" y2="200"/>
+    <polyline points="458,192 472,200 458,208"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="110" y="28">hot end</text>
+    <text x="490" y="28">cold end</text>
+    <text x="300" y="28" fill="var(--muted)">bar of a solid</text>
+    <text x="300" y="225">net transfer of thermal energy</text>
+    <text x="40" y="182" font-size="12" text-anchor="start">large vibrations: greater average kinetic energy</text>
+    <text x="490" y="182" font-size="12">small vibrations: less</text>
+    <text x="300" y="244" font-size="12" fill="var(--muted)">orange lines show how far each particle vibrates about its fixed position</text>
+  </g>
+</svg>

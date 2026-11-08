@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" role="img" aria-labelledby="t12jy">
+  <title id="t12jy">Velocity against time graph of a scooter journey. Velocity in metres per second on the vertical axis, time in seconds on the horizontal axis. The velocity rises in a straight line from zero at time 0 to 5.0 metres per second at 2.5 seconds, stays at 5.0 until 12.5 seconds, then falls in a straight line to zero at 17.5 seconds. The area under the graph is split into a triangle A from 0 to 2.5 seconds, a rectangle B from 2.5 to 12.5 seconds and a triangle C from 12.5 to 17.5 seconds.</title>
+  <defs>
+    <marker id="m12jy-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="60" y1="240" x2="60" y2="20" marker-end="url(#m12jy-head)"/>
+    <line x1="60" y1="240" x2="420" y2="240" marker-end="url(#m12jy-head)"/>
+  </g>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="22" y="130" text-anchor="middle" transform="rotate(-90 22 130)">velocity v / m s⁻¹</text>
+    <text x="420" y="268" text-anchor="end">time t / s</text>
+    <text x="54" y="254" text-anchor="end">0</text>
+  </g>
+  <polygon points="60,240 110.0,90 110.0,240" fill="var(--t1-ink)" fill-opacity="0.15"/>
+  <rect x="110.0" y="90" width="200.0" height="150" fill="var(--t2-ink)" fill-opacity="0.15"/>
+  <polygon points="310.0,90 410.0,240 310.0,240" fill="var(--t3-ink)" fill-opacity="0.15"/>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none">
+    <line x1="60" y1="90" x2="110.0" y2="90"/>
+    <line x1="110.0" y1="90" x2="110.0" y2="240"/>
+    <line x1="310.0" y1="90" x2="310.0" y2="240"/>
+  </g>
+  <polyline points="60,240 110.0,90 310.0,90 410.0,240" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="52" y="94" text-anchor="end">5.0</text>
+    <text x="110.0" y="254" text-anchor="middle">2.5</text>
+    <text x="310.0" y="254" text-anchor="middle">12.5</text>
+    <text x="410.0" y="254" text-anchor="middle">17.5</text>
+  </g>
+  <g font-family="inherit" font-size="15" font-weight="bold">
+    <text x="95.0" y="210.0" text-anchor="middle" fill="var(--t1-ink)">A</text>
+    <text x="220" y="180.0" text-anchor="middle" fill="var(--t2-ink)">B</text>
+    <text x="342.0" y="204.0" text-anchor="middle" fill="var(--t3-ink)">C</text>
+  </g>
+</svg>

@@ -1,0 +1,729 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.3",
+  "slug": "conduction-and-convection",
+  "title": "Conduction and convection",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Whenever two places are at different [[temperature|temperatures]], energy flows from the hotter to the colder. This [[thermal-energy-transfer|thermal energy transfer]] happens by [[conduction|conduction]], [[convection|convection]] and [[thermal-radiation|thermal radiation]]. You learn how the first two work at the particle level, and how to calculate the rate of conduction through a wall or rod.",
+  "goals": [
+    {
+      "text": "Name the three main mechanisms of thermal energy transfer and say what each one needs.",
+      "bullets": [
+        "B.1-s10"
+      ]
+    },
+    {
+      "text": "Explain conduction in terms of particles with more kinetic energy passing energy to particles with less.",
+      "bullets": [
+        "B.1-s11"
+      ]
+    },
+    {
+      "text": "Use $\\frac{\\Delta Q}{\\Delta t} = -kA\\frac{\\Delta T}{\\Delta x}$ to find a rate of conduction, a thickness or a temperature difference, and reason with its proportions.",
+      "bullets": [
+        "B.1-s12"
+      ]
+    },
+    {
+      "text": "Describe how density differences in a heated fluid set up a convection current.",
+      "bullets": [
+        "B.1-s13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.1",
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "methods of heat transfer",
+    "thermal conductivity equation",
+    "rate of heat conduction",
+    "temperature gradient",
+    "convection currents",
+    "why metals conduct heat"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "A straight-line graph of temperature against position passes through $(0.10\\ \\text{m}, 64\\,^{\\circ}\\text{C})$ and $(0.50\\ \\text{m}, 24\\,^{\\circ}\\text{C})$. Calculate its [[gradient|gradient]] in $^{\\circ}\\text{C m}^{-1}$.",
+      "hint": "Change in temperature divided by change in position. Keep the sign.",
+      "answer": {
+        "value": -100,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{24 - 64}{0.50 - 0.10} = \\frac{-40}{0.40} = -100\\,^{\\circ}\\text{C m}^{-1}$. The line slopes down, so the gradient is negative. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(24 - 64)/(0.50 - 0.10)",
+        "dp": 0,
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kelvin-change",
+      "prompt": "A metal block warms from $17\\,^{\\circ}\\text{C}$ to $46\\,^{\\circ}\\text{C}$. What is its change in temperature in kelvin?",
+      "hint": "A kelvin and a degree Celsius are the same size step.",
+      "answer": {
+        "value": 29,
+        "tolerance": 0
+      },
+      "explain": "$\\Delta T = 46 - 17 = 29\\,^{\\circ}\\text{C}$, which is also $\\pu{29 K}$. A change in temperature is the same on both scales. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "46 - 17",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-direction",
+      "prompt": "A spoon at $70\\,^{\\circ}\\text{C}$ is put into water at $20\\,^{\\circ}\\text{C}$. Which way is the net thermal energy transfer?",
+      "hint": "What sets the direction: the materials or the temperatures?",
+      "options": [
+        {
+          "text": "from the spoon to the water",
+          "correct": true
+        },
+        {
+          "text": "from the water to the spoon",
+          "correct": false
+        },
+        {
+          "text": "equal amounts both ways, so no net transfer",
+          "correct": false
+        }
+      ],
+      "explain": "Net thermal energy flows from hotter to colder. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "from the spoon to the water"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "mechanisms",
+      "heading": "Three ways thermal energy moves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a pan of soup on a hob. The base heats the soup, the soup churns, and you feel warmth on your face. Three different processes are at work."
+        },
+        {
+          "type": "text",
+          "text": "A [[thermal-energy-transfer|thermal energy transfer]] happens whenever there is a [[temperature|temperature]] difference, with the net flow from hotter to colder. There are three main mechanisms."
+        },
+        {
+          "type": "text",
+          "text": "1. [[conduction|Conduction]]: energy passes from particle to particle by collisions, with no movement of the material. It is the main mechanism in solids."
+        },
+        {
+          "type": "text",
+          "text": "2. [[convection|Convection]]: a warmed part of a liquid or gas moves, carrying its energy with it."
+        },
+        {
+          "type": "text",
+          "text": "3. [[thermal-radiation|Thermal radiation]]: every object emits electromagnetic waves, mostly infrared at everyday temperatures. They need no medium, so they cross a vacuum. You calculate radiated power in {{lesson:2.4}}."
+        },
+        {
+          "type": "text",
+          "text": "Conduction and convection need particles; radiation does not. Usually all three happen at once, and one dominates."
+        },
+        {
+          "type": "example",
+          "id": "ex-mech-sun",
+          "question": "Energy from the Sun crosses about $1.5 \\times 10^{11}\\ \\text{m}$ of space to reach Earth. Explain why this energy cannot arrive by conduction or convection.",
+          "steps": [
+            "Say what the space contains, what conduction and convection each need, and which mechanism needs neither."
+          ],
+          "answer": "The space between the Sun and Earth is almost a vacuum, with very few particles. Conduction needs colliding particles and convection needs a fluid that can flow, so neither can happen there. The energy arrives as thermal radiation: electromagnetic waves, which need no medium.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "space is nearly a vacuum; conduction needs colliding particles; convection needs a moving fluid; radiation is electromagnetic waves needing no medium",
+            "requires": [
+              "vacuum",
+              "particles",
+              "fluid",
+              "electromagnetic waves",
+              "no medium"
+            ],
+            "forbids": [
+              "heat rises",
+              "radiation needs a medium"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mech-flask",
+          "question": "A vacuum flask has a double glass wall with a near-vacuum between the layers, and the glass surfaces facing the gap are silvered. Explain how these features reduce thermal energy transfer out of a hot drink.",
+          "steps": [
+            "Conduction and convection first: what do they need? Then radiation, which can still cross the gap."
+          ],
+          "answer": "Conduction and convection need particles to carry the energy. The vacuum contains almost no particles, so very little energy crosses the gap by conduction or convection. Thermal radiation is electromagnetic waves, so it can cross a vacuum. The silvered surfaces reflect most of this infrared radiation back towards the drink.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "vacuum has no particles so stops conduction and convection; silvering reflects infrared radiation back",
+            "requires": [
+              "need particles",
+              "vacuum",
+              "conduction or convection",
+              "electromagnetic waves",
+              "reflect",
+              "infrared"
+            ],
+            "forbids": [
+              "vacuum stops radiation",
+              "radiation needs a medium"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mech-brick",
+          "prompt": "Energy passes through a solid brick wall, and no part of the wall moves. Which mechanism carries the energy through the brick?",
+          "hint": "Which mechanism works without any bulk movement of the material?",
+          "options": [
+            {
+              "text": "conduction",
+              "correct": true
+            },
+            {
+              "text": "convection",
+              "correct": false
+            },
+            {
+              "text": "radiation",
+              "correct": false
+            }
+          ],
+          "explain": "In a solid, collisions pass energy from particle to particle: conduction. Convection needs a flowing fluid, and infrared cannot pass through brick.",
+          "verify": {
+            "kind": "choice",
+            "truth": "conduction"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mech-convection-states",
+          "prompt": "In which states of matter can convection happen?",
+          "hint": "Convection carries energy by moving the material itself.",
+          "options": [
+            {
+              "text": "liquids and gases only",
+              "correct": true
+            },
+            {
+              "text": "solids, liquids and gases",
+              "correct": false
+            },
+            {
+              "text": "gases only",
+              "correct": false
+            },
+            {
+              "text": "solids only",
+              "correct": false
+            }
+          ],
+          "explain": "Convection needs a fluid that can flow. The particles of a solid stay in fixed positions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "liquids and gases only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conduction-particles",
+      "heading": "Conduction: passing on kinetic energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hold one end of a metal rod in a flame. Soon the far end is too hot to hold, yet no metal has moved along the rod."
+        },
+        {
+          "type": "text",
+          "text": "From {{lesson:2.1}}, $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$: the hotter a material, the greater the average random [[kinetic-energy|kinetic energy]] of its particles. In a solid the particles vibrate about fixed positions, faster and further at the hot end."
+        },
+        {
+          "type": "text",
+          "text": "These particles collide with neighbours that have less kinetic energy, and pass some of it on. The neighbours then do the same to the particles beyond them."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-conduction-particles",
+          "alt": "A bar of a solid drawn as three rows of eight particles. Each particle has a line through it showing how far it vibrates about its fixed position. The lines are longest at the hot left end and get shorter towards the cold right end. Below the bar an arrow points from left to right, labelled net transfer of thermal energy. The hot end is labelled large vibrations, greater average kinetic energy; the cold end is labelled small vibrations, less.",
+          "caption": "Particles stay in place. Kinetic energy is handed on from particles with more to particles with less."
+        },
+        {
+          "type": "definition",
+          "term": "conduction",
+          "statement": "The transfer of thermal energy through a material by collisions between neighbouring particles, from particles with more average kinetic energy to those with less, with no bulk movement of the material.",
+          "plain": "Energy is handed along the particles while they stay in place."
+        },
+        {
+          "type": "text",
+          "text": "Collisions go both ways, but on average the faster particles lose energy and the slower ones gain it. So the net transfer is from hot to cold, until the average kinetic energy is the same everywhere: [[thermal-equilibrium|thermal equilibrium]]."
+        },
+        {
+          "type": "text",
+          "text": "Metals have a second, faster route: free electrons. Electrons at the hot end gain kinetic energy, move quickly through the metal and collide with ions further along. This is why metals are the best conductors."
+        },
+        {
+          "type": "text",
+          "text": "Particles in solids and liquids are close together, so collisions are frequent. Gas particles are far apart, so gases conduct poorly; trapped air in wool or foam insulates."
+        },
+        {
+          "type": "example",
+          "id": "ex-cond-copper-rod",
+          "question": "One end of a copper rod stands in boiling water. Describe how thermal energy is conducted along the rod.",
+          "steps": [
+            "Say what is different about the particles at the hot end, how they pass energy on, and the metal's extra route."
+          ],
+          "answer": "Particles at the hot end have a greater average kinetic energy. They collide with neighbouring particles that have less, and transfer kinetic energy to them. This repeats along the rod, with no bulk movement of the copper. Free electrons also gain kinetic energy at the hot end, move quickly along the rod and collide with ions further along. The net transfer is from the hot end to the cold end.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "greater average KE at hot end; collisions with neighbours transfer KE; no bulk movement; free electrons in metals; net transfer hot to cold",
+            "requires": [
+              "greater average kinetic energy",
+              "collide",
+              "neighbouring particles",
+              "no bulk movement",
+              "free electrons",
+              "hot end to the cold end"
+            ],
+            "forbids": [
+              "heat particles",
+              "particles expand",
+              "particles get bigger"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cond-ke-difference",
+          "question": "One end of a steel bar is held at $\\pu{450 K}$ and the other end at $\\pu{310 K}$. Calculate the difference between the average random kinetic energies of a particle at the two ends.",
+          "steps": [
+            "Use $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ with $k_\\text{B} = \\pu{1.38e-23 J K-1}$, from the data booklet.",
+            "The difference is $\\Delta E_\\text{k} = \\frac{3}{2}k_\\text{B}(450 - 310) = \\frac{3}{2}(1.38 \\times 10^{-23})(140) = \\pu{2.90e-21 J}$.",
+            "Give 2 significant figures. In collisions, particles at the hot end hand on some of this extra kinetic energy: that drives conduction."
+          ],
+          "answer": "$\\Delta E_\\text{k} \\approx 2.9 \\times 10^{-21}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Rational(3, 2)*kB*(450 - 310)",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cond-ke-ratio",
+          "prompt": "One end of a rod is at $\\pu{640 K}$ and the other at $\\pu{320 K}$. What is the ratio of the average kinetic energy of a particle at the hot end to that at the cold end?",
+          "hint": "Average kinetic energy is proportional to the kelvin temperature.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$E_\\text{k} \\propto T$, so the ratio is $\\frac{640}{320} = 2$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "640/320"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cond-air",
+          "prompt": "Why is still air a poor conductor of thermal energy?",
+          "hint": "Conduction relies on particles colliding with their neighbours.",
+          "options": [
+            {
+              "text": "its particles are far apart, so collisions are rare",
+              "correct": true
+            },
+            {
+              "text": "its particles have no kinetic energy",
+              "correct": false
+            },
+            {
+              "text": "its particles move too slowly to collide",
+              "correct": false
+            },
+            {
+              "text": "air can only transfer energy by radiation",
+              "correct": false
+            }
+          ],
+          "explain": "Gas particles move fast but are far apart, so each rarely meets a neighbour to hand energy on.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its particles are far apart, so collisions are rare"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conduction-rate",
+      "heading": "The rate of conduction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A thin glass window loses energy far faster than a thick brick wall. Four things set the rate: the material, the area, the thickness and the temperature difference."
+        },
+        {
+          "type": "text",
+          "text": "Picture a bar with insulated sides, one face held hot and the other cold. Once the temperatures stop changing, a graph of temperature against position along it is a straight line."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-bar-gradient",
+          "alt": "Top: a horizontal bar with hatched insulation along its top and bottom sides. Its left face is the hot face at T hot and its right face is the cold face at T cold. An arrow inside the bar points left to right, labelled energy flow. The length of the bar is marked delta x, and the bar is labelled cross-sectional area A. Bottom: a graph with temperature T in kelvin on the vertical axis and position along the bar x in metres on the horizontal axis, from 0 to delta x. A straight line falls from T hot at x equals 0 to T cold at x equals delta x. A label says the gradient is delta T over delta x, negative in the direction of energy flow.",
+          "caption": "The steeper the temperature gradient, the faster energy is conducted."
+        },
+        {
+          "type": "text",
+          "text": "Its [[gradient|gradient]] $\\frac{\\Delta T}{\\Delta x}$ is the temperature gradient, in $\\text{K m}^{-1}$. The rate of conduction is given by this data booklet equation."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\Delta Q}{\\Delta t} = -kA\\frac{\\Delta T}{\\Delta x}",
+          "tag": "booklet",
+          "bookletId": "db-2-3",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{\\Delta Q}{\\Delta t}$ is the rate of thermal energy transfer in W. $A$ is the cross-sectional area in $\\text{m}^{2}$, $\\Delta x$ the thickness in m, and $\\Delta T$ the temperature difference across it, in K or $^{\\circ}\\text{C}$."
+        },
+        {
+          "type": "definition",
+          "term": "thermal conductivity",
+          "statement": "The property $k$ of a material that sets the rate of conduction through it for a given cross-sectional area and temperature gradient, measured in $\\text{W m}^{-1}\\,\\text{K}^{-1}$.",
+          "plain": "How good a material is at conducting thermal energy."
+        },
+        {
+          "type": "text",
+          "text": "[[thermal-conductivity|Thermal conductivity]] is a property of the material. Rough values in $\\text{W m}^{-1}\\,\\text{K}^{-1}$: copper 400, glass 1, brick 0.7, still air 0.025. A question gives you $k$."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign: temperature falls along the direction of energy flow, so $\\frac{\\Delta T}{\\Delta x}$ is negative and the rate comes out positive. In calculations, use the size of $\\Delta T$."
+        },
+        {
+          "type": "text",
+          "text": "So the rate is proportional to $k$, $A$ and $\\Delta T$, and inversely proportional to $\\Delta x$. Double the thickness and the rate halves."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving a thickness in millimetres or centimetres. Convert to metres first: $\\pu{4.0 mm} = \\pu{4.0e-3 m}$. A thickness left in mm makes the rate 1000 times too small."
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-window",
+          "question": "A single-glazed window pane is $\\pu{1.2 m}$ by $\\pu{0.85 m}$ and $\\pu{4.0 mm}$ thick. The glass has a thermal conductivity of $\\pu{0.96 W m-1 K-1}$. Its inner surface is at $14\\,^{\\circ}\\text{C}$ and its outer surface at $6.0\\,^{\\circ}\\text{C}$. Calculate the rate of thermal energy transfer through the glass.",
+          "steps": [
+            "Convert to SI units: $A = 1.2 \\times 0.85 = \\pu{1.02 m2}$, $\\Delta x = \\pu{4.0e-3 m}$, $\\Delta T = 14 - 6.0 = \\pu{8.0 K}$.",
+            "Substitute the size of $\\Delta T$: $\\frac{\\Delta Q}{\\Delta t} = kA\\frac{\\Delta T}{\\Delta x} = 0.96 \\times 1.02 \\times \\frac{8.0}{4.0 \\times 10^{-3}} = \\pu{1958 W}$.",
+            "Give 2 significant figures. The energy flows outwards, from the warm inner surface to the cold outer one."
+          ],
+          "answer": "$\\frac{\\Delta Q}{\\Delta t} \\approx 2.0 \\times 10^{3}\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.96*1.2*0.85*(14 - 6.0)/(4.0*10**-3)",
+            "sf": 2,
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-coolbox",
+          "question": "The walls of a cool box are made of polystyrene of thermal conductivity $\\pu{0.033 W m-1 K-1}$. Their total area is $\\pu{0.62 m2}$. The inside is kept at $3\\,^{\\circ}\\text{C}$ on a day when the outside surface is at $31\\,^{\\circ}\\text{C}$. Determine the thickness of polystyrene needed so that energy enters by conduction at $\\pu{12 W}$.",
+          "steps": [
+            "Temperature difference: $\\Delta T = 31 - 3 = \\pu{28 K}$.",
+            "Rearrange for the thickness: $\\Delta x = \\dfrac{kA\\,\\Delta T}{\\Delta Q / \\Delta t} = \\dfrac{0.033 \\times 0.62 \\times 28}{12} = \\pu{0.0477 m}$.",
+            "Give 2 significant figures, about 5 cm. A thicker wall would let in less, since the rate is inversely proportional to $\\Delta x$."
+          ],
+          "answer": "$\\Delta x \\approx 0.048\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.033*0.62*(31 - 3)/12",
+            "sf": 2,
+            "unit": "m"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-rate-coolbox-energy",
+            "prompt": "Now you try: at $\\pu{12 W}$, how much thermal energy enters the cool box in $6.0$ hours? Give your answer in kJ to 2 significant figures.",
+            "hint": "Energy is rate multiplied by time, with the time in seconds.",
+            "answer": {
+              "value": 260,
+              "tolerance": 5
+            },
+            "explain": "$Q = 12 \\times 6.0 \\times 3600 = \\pu{2.59e5 J} \\approx \\pu{260 kJ}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "12*6.0*3600/1000",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Mark schemes ignore the sign of a calculated rate, but want the substitution and a unit: W or $\\text{J s}^{-1}$."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-rods",
+          "prompt": "Rods X and Y are made of the same metal, with the same temperature difference between their ends. Y has twice the diameter and twice the length of X. What is $\\frac{\\text{rate along Y}}{\\text{rate along X}}$?",
+          "hint": "Area depends on the diameter squared. Length is the $\\Delta x$.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            }
+          ],
+          "explain": "Twice the diameter gives $2^{2} = 4$ times the area; twice the length halves the rate. So the ratio is $\\frac{4}{2} = 2$. Choosing $1$ forgets to square the diameter.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**2/2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rate-pan-base",
+          "prompt": "The copper base of a pan has an area of $\\pu{0.018 m2}$ and is $\\pu{3.0 mm}$ thick. Copper has $k = \\pu{390 W m-1 K-1}$. Energy passes through the base at $\\pu{2.5 kW}$. Calculate the temperature difference across the base, in K to 2 significant figures.",
+          "hint": "Rearrange to $\\Delta T = \\dfrac{(\\Delta Q / \\Delta t)\\,\\Delta x}{kA}$, with every quantity in SI units.",
+          "answer": {
+            "value": 1.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta T = \\dfrac{2500 \\times 3.0 \\times 10^{-3}}{390 \\times 0.018} = \\pu{1.07 K} \\approx \\pu{1.1 K}$: copper needs only a tiny temperature difference.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.5*10**3*3.0*10**-3/(390*0.018)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "convection",
+      "heading": "Convection: fluids on the move",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hold your hand above a candle flame and it soon feels hot. Hold it the same distance to the side and it barely warms."
+        },
+        {
+          "type": "text",
+          "text": "When part of a fluid is heated, its particles move faster and spread further apart, so it expands. The same mass takes up more volume, so by $\\rho = \\frac{m}{V}$ its [[density|density]] falls."
+        },
+        {
+          "type": "text",
+          "text": "The surrounding denser fluid pushes it up: the upward [[buoyancy|buoyancy]] force on it is bigger than its weight. Cooler, denser fluid sinks to take its place."
+        },
+        {
+          "type": "text",
+          "text": "Away from the heat source, the risen fluid cools, becomes denser, sinks and flows back to be heated again. This loop is a convection current, and the moving fluid carries energy with it."
+        },
+        {
+          "type": "definition",
+          "term": "convection",
+          "statement": "The transfer of thermal energy by the bulk movement of a fluid, driven by the density differences that temperature differences cause.",
+          "plain": "Warm fluid rises, cool fluid sinks, and the moving fluid carries the energy."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-convection-room",
+          "alt": "Cross-section of a room. A heater sits low on the left wall and a cold window is high on the right wall. An arrow rises from above the heater, labelled warm air expands, becomes less dense and rises. A second arrow runs along under the ceiling from left to right, labelled warm air spreads under the ceiling. A third arrow goes down beside the window, labelled air cools, becomes denser and sinks. A fourth arrow runs back along the floor from right to left to the heater, labelled cool, dense air flows back along the floor.",
+          "caption": "A [[convection|convection]] current carries energy from the heater round the whole room."
+        },
+        {
+          "type": "text",
+          "text": "Convection only happens in fluids. It is why heaters go near the floor and a fridge's cooling unit near the top: the current then reaches the whole space."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"heat rises\" or \"the particles expand\". Energy can flow in any direction; what rises is the warmer, less dense fluid. The particles don't get bigger; they move further apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-conv-water-density",
+          "question": "At the bottom of a pan, $\\pu{0.360 kg}$ of water fills $\\pu{3.60e-4 m3}$. Heated, it expands to $\\pu{3.64e-4 m3}$. Calculate its new density, and state what it does if the water above it is at about $\\pu{1000 kg m-3}$.",
+          "steps": [
+            "The mass does not change when it expands, so $\\rho = \\dfrac{m}{V} = \\dfrac{0.360}{3.64 \\times 10^{-4}} = \\pu{989.0 kg m-3}$.",
+            "It is now less dense than the cooler water above, so it rises and cooler water sinks to replace it: a convection current starts."
+          ],
+          "answer": "$\\rho \\approx 989\\ \\text{kg m}^{-3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.360/(3.64*10**-4)",
+            "sf": 3,
+            "unit": "kg m-3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-conv-room",
+          "question": "A room has a heater near the floor on one side and a cold window on the other. Explain how convection transfers thermal energy from the heater to the rest of the room.",
+          "steps": [
+            "Follow one parcel of air round the room, linking its temperature to its density and its density to its motion."
+          ],
+          "answer": "Air next to the heater is warmed and expands, so its density decreases. Being less dense than the air around it, it rises, and cooler, denser air sinks to take its place. Near the window the warm air cools, becomes denser and sinks. It returns along the floor to the heater, so a convection current carries energy round the room.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "heated air expands, density decreases, rises; cooler denser air sinks; cools, sinks, returns: convection current",
+            "requires": [
+              "expands",
+              [
+                "density decreases",
+                "less dense"
+              ],
+              "rises",
+              "denser",
+              "sinks",
+              "convection current"
+            ],
+            "forbids": [
+              "heat rises",
+              "particles expand",
+              "cold rises"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-conv-fridge",
+          "prompt": "Why is the cooling unit placed near the top of a fridge?",
+          "hint": "What happens to the density of air when it cools?",
+          "options": [
+            {
+              "text": "cooled air becomes denser and sinks, so a convection current forms",
+              "correct": true
+            },
+            {
+              "text": "cold air rises, so it collects at the top",
+              "correct": false
+            },
+            {
+              "text": "cooled air becomes less dense and stays at the top",
+              "correct": false
+            },
+            {
+              "text": "conduction through air only works downwards",
+              "correct": false
+            }
+          ],
+          "explain": "Cooled air becomes denser and sinks. Warmer air rises to the unit to be cooled, so the current cools the whole fridge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "cooled air becomes denser and sinks, so a convection current forms"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-conv-air-density",
+          "prompt": "A parcel of air of mass $\\pu{1.20 kg}$ fills $\\pu{1.00 m3}$. It is warmed by a sunny car park and expands to $\\pu{1.11 m3}$. Calculate its new density, in $\\text{kg m}^{-3}$ to 3 significant figures.",
+          "hint": "The mass stays the same; only the volume changes.",
+          "answer": {
+            "value": 1.08,
+            "tolerance": 0.005
+          },
+          "explain": "$\\rho = \\frac{1.20}{1.11} = \\pu{1.08 kg m-3}$, less than the surrounding air, so it rises.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.20/1.11",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The three main mechanisms are conduction, convection and thermal radiation. Conduction and convection need particles; radiation crosses a vacuum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conduction: particles with more kinetic energy collide with neighbours and pass it on, with no bulk movement. Metals also conduct by free electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The rate of conduction is proportional to $k$, $A$ and $\\Delta T$ and inversely proportional to the thickness $\\Delta x$, in metres.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Convection: heated fluid expands, its density falls and it rises; cooler, denser fluid sinks. It happens only in liquids and gases.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Describing conduction as just \"energy passing on\". Say that particles with more kinetic energy collide with neighbours and transfer kinetic energy, and mention free electrons for a metal.",
+    "Leaving thicknesses in mm or cm in $\\frac{\\Delta Q}{\\Delta t} = -kA\\frac{\\Delta T}{\\Delta x}$. Convert to metres first, or the rate is 100 or 1000 times too small.",
+    "Using one temperature instead of the difference across the material. $\\Delta T$ is hot face minus cold face, the same in K or °C.",
+    "Forgetting that a rod's area goes as its diameter squared. Twice the diameter means four times the rate for the same length."
+  ],
+  "examTips": [
+    "\"Describe\" conduction: one point per sentence, covering more kinetic energy at the hot end, collisions with neighbours, kinetic energy transferred, and free electrons in a metal.",
+    "\"Calculate\" a rate: write the equation, substitute in SI units, then give the answer in W to the significant figures of the data.",
+    "\"Explain\" a convection current: link temperature to density, density to rising or sinking, and close the loop back to the heat source."
+  ],
+  "readingMinutes": 25
+}

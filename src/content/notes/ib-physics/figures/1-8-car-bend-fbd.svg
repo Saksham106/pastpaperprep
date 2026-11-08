@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" role="img" aria-labelledby="t">
+<title id="t">Free-body diagram of a car going round a flat, horizontal bend, seen from behind. The centre of the bend is to the left. Three arrows start at a dot at the car's centre: weight W pointing vertically down; normal force F N pointing vertically up, the same length as the weight; and friction F f pointing horizontally to the left, towards the centre of the bend. There is no separate centripetal force arrow: friction is the resultant force, and it points towards the centre.</title>
+<path d="M90 228 H350" stroke="currentColor" stroke-width="1.4"/>
+<rect x="185" y="118" width="90" height="62" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+<rect x="192" y="180" width="16" height="48" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+<rect x="252" y="180" width="16" height="48" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+<path d="M230.0 150.0 L230.0 49.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="230.0,40.0 234.5,49.0 225.5,49.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="238.0" y="52.0" fill="var(--t2-ink)" text-anchor="start">normal force F<tspan baseline-shift="sub" font-size="9">N</tspan></text>
+<path d="M230.0 150.0 L230.0 251.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="230.0,260.0 225.5,251.0 234.5,251.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="238.0" y="256.0" fill="var(--t1-ink)" text-anchor="start">weight W</text>
+<path d="M230.0 150.0 L177.0 150.0" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="168.0,150.0 177.0,145.5 177.0,154.5" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="162.0" y="142.0" fill="var(--t4-ink)" text-anchor="end">friction F<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+<circle cx="230" cy="150" r="5" fill="currentColor"/>
+<path d="M80.0 60.0 L31.0 60.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="24.0,60.0 31.0,55.5 31.0,64.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="52.0" y="48.0" fill="var(--muted)" text-anchor="start">to the centre of the bend</text>
+</svg>

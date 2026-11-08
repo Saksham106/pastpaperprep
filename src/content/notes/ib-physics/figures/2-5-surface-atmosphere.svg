@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t25bal">
+  <title id="t25bal">Surface and atmosphere energy balance. Solar radiation comes down; part is scattered back to space and the rest is absorbed by the surface. The surface radiates infrared upwards; some escapes to space and the rest is absorbed by the atmosphere. The atmosphere radiates both up to space and down to the surface.</title>
+  <defs>
+    <marker id="a25balS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="a25balI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t5-ink)"/>
+    </marker>
+  </defs>
+  <rect x="20" y="110" width="600" height="70" fill="var(--t1-ink)" fill-opacity="0.12" stroke="var(--t1-ink)" stroke-width="1"/>
+  <rect x="20" y="265" width="600" height="30" fill="var(--t2-ink)" fill-opacity="0.2" stroke="var(--t2-ink)" stroke-width="1"/>
+  <g font-size="12" fill="var(--muted)" font-family="inherit">
+    <text x="28" y="24">space</text>
+    <text x="28" y="128">atmosphere</text>
+    <text x="28" y="285">surface</text>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="2" marker-end="url(#a25balS)">
+    <line x1="110" y1="30" x2="110" y2="262"/>
+    <line x1="135" y1="262" x2="175" y2="30"/>
+  </g>
+  <g stroke="var(--t5-ink)" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#a25balI)">
+    <line x1="300" y1="262" x2="300" y2="150"/>
+    <line x1="360" y1="262" x2="360" y2="30"/>
+    <line x1="480" y1="140" x2="480" y2="30"/>
+    <line x1="540" y1="150" x2="540" y2="262"/>
+  </g>
+  <circle cx="300" cy="148" r="3" fill="var(--t5-ink)"/>
+  <g font-size="11.5" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="105" y="62" text-anchor="end">incoming solar</text>
+    <text x="105" y="76" text-anchor="end">radiation</text>
+    <text x="200" y="62" text-anchor="start">scattered</text>
+    <text x="200" y="76" text-anchor="start">to space</text>
+    <text x="110" y="314">absorbed by surface</text>
+    <text x="292" y="214" text-anchor="end">infrared absorbed</text>
+    <text x="292" y="228" text-anchor="end">by atmosphere</text>
+    <text x="366" y="62" text-anchor="start">infrared escapes</text>
+    <text x="366" y="76" text-anchor="start">to space</text>
+    <text x="486" y="92" text-anchor="start">atmosphere</text>
+    <text x="486" y="106" text-anchor="start">radiates up</text>
+    <text x="546" y="214" text-anchor="start">atmosphere</text>
+    <text x="546" y="228" text-anchor="start">radiates down</text>
+    <text x="330" y="314">surface radiates infrared</text>
+  </g>
+</svg>

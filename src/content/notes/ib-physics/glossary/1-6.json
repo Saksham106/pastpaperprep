@@ -2,25 +2,25 @@
   {
     "id": "linear-momentum",
     "term": "linear momentum",
-    "definition": "TODO: p = mv, a vector; product of mass and velocity",
+    "definition": "The product of a body's mass and its velocity, $p = mv$: a vector in the direction of the velocity, measured in kg m s⁻¹.",
     "lesson": "1.6"
   },
   {
     "id": "impulse",
     "term": "impulse",
-    "definition": "TODO: J = F Δt, change in momentum; area under a force-time graph",
+    "definition": "The average resultant force on a body multiplied by the time it acts, $J = F\\Delta t$; it equals the body's change in momentum and the area under its force-time graph, measured in N s.",
     "lesson": "1.6"
   },
   {
     "id": "conservation-of-momentum",
     "term": "conservation of momentum",
-    "definition": "TODO: Total momentum of an isolated system is constant; holds for all collisions",
+    "definition": "The rule that the total momentum of a system stays constant when no resultant external force acts on it; it holds in every collision and explosion of an isolated system.",
     "lesson": "1.6"
   },
   {
     "id": "isolated-system",
     "term": "isolated system",
-    "definition": "TODO: No resultant external force (mechanics); in thermodynamics, no energy or matter exchange",
+    "definition": "In mechanics, a system on which no resultant external force acts, so its total momentum is constant; in thermal physics, a system that exchanges neither energy nor matter with its surroundings.",
     "lesson": "1.6"
   }
 ]

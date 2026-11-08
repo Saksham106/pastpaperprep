@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 345" role="img" aria-labelledby="t">
+<title id="t">Free-body diagram of a box being dragged to the right across a rough floor by a rope. The box is drawn as a dot. Four labelled arrows start at the dot: weight W, the longest, pointing vertically down; normal force F N pointing vertically up, a little shorter than the weight; tension T pointing up and to the right along the rope, at 28 degrees above a dashed horizontal line; and friction F f pointing horizontally to the left, opposite to the motion. An arrow above the diagram shows the direction of motion to the right. Arrow lengths are roughly to scale.</title>
+<path d="M150.0 170.0 L150.0 45.4" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="150.0,36.4 154.5,45.4 145.5,45.4" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="158" y="50.44" fill="var(--t2-ink)" text-anchor="start">normal force F<tspan baseline-shift="sub" font-size="9">N</tspan></text>
+<path d="M150.0 170.0 L150.0 323.1" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="150.0,332.1 145.5,323.1 154.5,323.1" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="158" y="326.12" fill="var(--t1-ink)" text-anchor="start">weight W</text>
+<path d="M150 170 H245" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M190 170 A40 40 0 0 0 185.3 151.2" fill="none" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="11" x="196" y="164" fill="var(--muted)" text-anchor="start">28°</text>
+<path d="M150.0 170.0 L195.8 145.6" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="203.8,141.4 197.9,149.6 193.7,141.7" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="209.77150840510865" y="137.40918182633925" fill="var(--t3-ink)" text-anchor="start">tension T</text>
+<path d="M150.0 170.0 L105.2 170.0" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="96.2,170.0 105.2,165.5 105.2,174.5" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="90.24000000000001" y="174" fill="var(--t4-ink)" text-anchor="end">friction F<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+<circle cx="150" cy="170" r="5" fill="currentColor"/>
+<path d="M250.0 90.0 L303.0 90.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="310.0,90.0 303.0,93.5 303.0,86.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="280" y="80" fill="var(--muted)" text-anchor="middle">motion</text>
+</svg>

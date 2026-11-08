@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.14",
+  "slug": "angular-momentum-and-rotational-kinetic-energy",
+  "title": "Angular momentum and rotational kinetic energy",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A spinning body has [[angular-momentum|angular momentum]], $L = I\\omega$. With no resultant [[torque|torque]] it stays constant, so a spinning body that pulls its mass towards the axis speeds up. Spinning also stores [[rotational-kinetic-energy|rotational kinetic energy]], $\\frac{1}{2}I\\omega^{2}$.",
+  "goals": [
+    {
+      "text": "Calculate the angular momentum of a rotating body with $L = I\\omega$.",
+      "bullets": [
+        "A.4-a9"
+      ]
+    },
+    {
+      "text": "Use $\\Delta L = \\tau\\Delta t = \\Delta(I\\omega)$, including the area under a torque–time graph.",
+      "bullets": [
+        "A.4-a11"
+      ]
+    },
+    {
+      "text": "Apply [[conservation-of-angular-momentum|conservation of angular momentum]] when a body changes shape or two bodies start turning together.",
+      "bullets": [
+        "A.4-a10"
+      ]
+    },
+    {
+      "text": "Calculate rotational kinetic energy with $\\frac{1}{2}I\\omega^{2}$ or $\\frac{L^{2}}{2I}$, including for a body rolling without slipping.",
+      "bullets": [
+        "A.4-a12"
+      ]
+    },
+    {
+      "text": "Explain why [[kinetic-energy|kinetic energy]] can change while angular momentum stays constant.",
+      "bullets": [
+        "A.4-a10",
+        "A.4-a12"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.10",
+    "1.12",
+    "1.13"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "angular momentum",
+    "conservation of angular momentum",
+    "angular impulse",
+    "rotational kinetic energy",
+    "spinning skater arms in",
+    "rolling down a slope energy"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-impulse",
+      "prompt": "A constant resultant [[force|force]] of $\\pu{30 N}$ acts on a trolley for $\\pu{0.40 s}$. What is the change in the trolley's [[linear-momentum|linear momentum]], in N s?",
+      "hint": "The [[impulse|impulse]] of a constant resultant force is $F\\Delta t$, and it equals the change in momentum.",
+      "answer": {
+        "value": 12,
+        "tolerance": 0.5
+      },
+      "explain": "$\\Delta p = F\\Delta t = 30 \\times 0.40 = \\pu{12 N s}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "30*0.40",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-two-masses-inertia",
+      "prompt": "Two small $\\pu{0.50 kg}$ masses sit on a light rod, each $\\pu{0.20 m}$ from the axis of rotation. Calculate the [[moment-of-inertia|moment of inertia]] of the pair about that axis, in kg m². Give 2 significant figures.",
+      "hint": "Use $I = \\sum mr^{2}$: add $mr^{2}$ for each mass.",
+      "answer": {
+        "value": 0.04,
+        "tolerance": 0.0005
+      },
+      "explain": "$I = 2 \\times 0.50 \\times 0.20^{2} = \\pu{0.040 kg m2}$. Revise it in {{lesson:1.13}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*0.50*0.20**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kinetic-energy",
+      "prompt": "A $\\pu{0.20 kg}$ ball moves at $\\pu{6.0 m s-1}$. Calculate its [[kinetic-energy|kinetic energy]], in J. Give 2 significant figures.",
+      "hint": "$E_\\text{k} = \\frac{1}{2}mv^{2}$.",
+      "answer": {
+        "value": 3.6,
+        "tolerance": 0.05
+      },
+      "explain": "$E_\\text{k} = \\frac{1}{2} \\times 0.20 \\times 6.0^{2} = \\pu{3.6 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.5*0.20*6.0**2",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "angular-momentum",
+      "heading": "Angular momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A heavy spinning wheel is hard to stop, as a heavy moving trolley is. For the trolley, this is measured by linear momentum, $p = mv$."
+        },
+        {
+          "type": "text",
+          "text": "For rotation, swap each linear quantity for its turning partner. Mass $m$ becomes moment of inertia $I$, and speed $v$ becomes angular speed $\\omega$. The product is angular momentum."
+        },
+        {
+          "type": "definition",
+          "term": "angular momentum",
+          "statement": "The angular momentum of a body rotating about an axis is $L = I\\omega$, where $I$ is its moment of inertia about that axis and $\\omega$ is its angular speed. Unit: $\\text{kg m}^{2}\\ \\text{s}^{-1}$.",
+          "plain": "How much rotational motion a spinning body has."
+        },
+        {
+          "type": "formula",
+          "tex": "L = I\\omega",
+          "tag": "booklet",
+          "bookletId": "db-1-14"
+        },
+        {
+          "type": "text",
+          "text": "This equation, and the others in this lesson, are in section A.4 of the data booklet. $\\omega$ must be in $\\text{rad s}^{-1}$: one revolution is $2\\pi$ rad."
+        },
+        {
+          "type": "text",
+          "text": "You don't need its vector direction, but give its sense (clockwise or anticlockwise) when bodies turn opposite ways."
+        },
+        {
+          "type": "example",
+          "id": "ex-potters-wheel-momentum",
+          "question": "A potter's wheel has a moment of inertia of $\\pu{0.85 kg m2}$ about its axle. It turns at 2.4 revolutions per second. Calculate its angular momentum.",
+          "steps": [
+            "Convert to rad s⁻¹. Each revolution is $2\\pi$ rad, so $\\omega = 2\\pi \\times 2.4 = 15.08\\ \\text{rad s}^{-1}$.",
+            "$L = I\\omega = 0.85 \\times 15.08 = 12.8\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$.",
+            "The data have 2 significant figures, so round to 2."
+          ],
+          "answer": "$L \\approx 13\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.85*2*pi*2.4",
+            "sf": 2,
+            "unit": "kg m2 s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using revolutions per second as $\\omega$. Multiply by $2\\pi$ to get $\\text{rad s}^{-1}$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-rod-masses-momentum",
+          "question": "Two small $\\pu{0.30 kg}$ masses are fixed to a light rod, one on each side of the axis and each $\\pu{0.45 m}$ from it. The rod turns at $\\pu{6.0 rad s-1}$. Calculate the angular momentum of the system.",
+          "steps": [
+            "Moment of inertia: the rod is light, so only the masses count. $I = \\sum mr^{2} = 2 \\times 0.30 \\times 0.45^{2} = \\pu{0.1215 kg m2}$.",
+            "$L = I\\omega = 0.1215 \\times 6.0 = 0.729\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$."
+          ],
+          "answer": "$L \\approx 0.73\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*0.30*0.45**2*6.0",
+            "sf": 2,
+            "unit": "kg m2 s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ring-or-disc",
+          "prompt": "A thin ring and a uniform disc have the same mass and radius. Both spin about their central axes at the same angular speed. Which has the larger angular momentum?",
+          "hint": "Same $\\omega$, so compare $I$. Where is each body's mass?",
+          "options": [
+            {
+              "text": "the ring",
+              "correct": true
+            },
+            {
+              "text": "the disc",
+              "correct": false
+            },
+            {
+              "text": "neither: they are equal",
+              "correct": false
+            }
+          ],
+          "explain": "All the ring's mass is at the full radius, but much of the disc's is nearer the axis. So the ring has the larger $I$, and with equal $\\omega$, the larger $L = I\\omega$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the ring"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bike-wheel-momentum",
+          "prompt": "A bicycle wheel with moment of inertia $\\pu{0.12 kg m2}$ spins at $\\pu{25 rad s-1}$. Calculate its angular momentum, in kg m² s⁻¹. Give 2 significant figures.",
+          "hint": "$L = I\\omega$; $\\omega$ is already in rad s⁻¹.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0.05
+          },
+          "explain": "$L = 0.12 \\times 25 = 3.0\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.12*25",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "angular-impulse",
+      "heading": "Angular impulse",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A force acting for a time gives a body an [[impulse|impulse]], $F\\Delta t$, which equals its change in linear momentum. Turning works the same way: a resultant torque acting for a time changes the angular momentum."
+        },
+        {
+          "type": "result",
+          "statement": "A resultant torque $\\tau$ acting for a time $\\Delta t$ gives an angular impulse $\\tau\\Delta t$. It equals the change in angular momentum: $\\Delta L = \\tau\\Delta t = \\Delta(I\\omega)$.",
+          "why": "From {{lesson:1.13}}, $\\tau = I\\alpha = I\\frac{\\Delta\\omega}{\\Delta t}$ for a rigid body, so $\\tau\\Delta t = I\\Delta\\omega = \\Delta(I\\omega)$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta L = \\tau\\Delta t = \\Delta(I\\omega)",
+          "tag": "booklet",
+          "bookletId": "db-1-14"
+        },
+        {
+          "type": "text",
+          "text": "Angular impulse has the unit N m s, which is the same as $\\text{kg m}^{2}\\ \\text{s}^{-1}$. Rearranged, $\\tau = \\frac{\\Delta L}{\\Delta t}$: the resultant torque is the rate of change of angular momentum."
+        },
+        {
+          "type": "text",
+          "text": "Signs matter here. Take the direction of rotation as positive. A torque that slows the body is then negative, and so is its angular impulse."
+        },
+        {
+          "type": "example",
+          "id": "ex-grinder-spin-up",
+          "question": "A grinding wheel with moment of inertia $\\pu{0.024 kg m2}$ starts from rest. Its motor applies a constant resultant torque of $\\pu{0.65 N m}$ for $\\pu{2.5 s}$. Calculate the wheel's final angular speed.",
+          "steps": [
+            "Angular impulse: $\\tau\\Delta t = 0.65 \\times 2.5 = \\pu{1.625 N m s}$.",
+            "This equals $\\Delta L = I\\omega_\\text{f} - I\\omega_\\text{i}$, and $\\omega_\\text{i} = 0$, so $0.024\\,\\omega_\\text{f} = 1.625$.",
+            "$\\omega_\\text{f} = \\frac{1.625}{0.024} = 67.7\\ \\text{rad s}^{-1}$."
+          ],
+          "answer": "$\\omega_\\text{f} \\approx 68\\ \\text{rad s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.65*2.5/0.024",
+            "sf": 2,
+            "unit": "rad s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When the resultant torque varies, the area under a torque–time graph is the angular impulse, just as the area under a force–time graph is the impulse."
+        },
+        {
+          "type": "figure",
+          "id": "1-14-torque-time",
+          "alt": "Graph of resultant torque in newton metres against time in seconds for a rotor. The torque rises in a straight line from zero at time zero to 4.0 newton metres at 0.50 seconds, stays at 4.0 newton metres until 1.50 seconds, then falls in a straight line to zero at 2.00 seconds. The shaded area under the graph is labelled angular impulse.",
+          "caption": "The area under a torque–time graph is the angular impulse, $\\Delta L$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rotor-graph",
+          "question": "A rotor with moment of inertia $\\pu{0.15 kg m2}$ is spinning at $\\pu{12 rad s-1}$. A motor then applies the resultant torque in the figure, in the direction of rotation. Determine the rotor's angular speed at $t = \\pu{2.00 s}$.",
+          "steps": [
+            "Split the area into two triangles and a rectangle: $\\frac{1}{2} \\times 0.50 \\times 4.0 + 1.00 \\times 4.0 + \\frac{1}{2} \\times 0.50 \\times 4.0 = \\pu{6.0 N m s}$.",
+            "So $\\Delta L = \\pu{6.0 N m s}$, and $\\Delta\\omega = \\frac{\\Delta L}{I} = \\frac{6.0}{0.15} = 40\\ \\text{rad s}^{-1}$.",
+            "The torque acts in the direction of rotation, so the rotor speeds up: $\\omega = 12 + 40 = 52\\ \\text{rad s}^{-1}$."
+          ],
+          "answer": "$\\omega \\approx 52\\ \\text{rad s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "12 + (Rational(1, 2)*0.50*4.0 + (1.50 - 0.50)*4.0 + Rational(1, 2)*(2.00 - 1.50)*4.0)/0.15",
+            "sf": 2,
+            "unit": "rad s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-graph-area-meaning",
+          "prompt": "What does the area under a graph of resultant torque against time give?",
+          "hint": "Torque × time is an angular impulse.",
+          "options": [
+            {
+              "text": "the change in angular momentum",
+              "correct": true
+            },
+            {
+              "text": "the change in angular speed",
+              "correct": false
+            },
+            {
+              "text": "the work done by the torque",
+              "correct": false
+            }
+          ],
+          "explain": "Area = $\\tau\\Delta t$ = angular impulse = $\\Delta L$. To get $\\Delta\\omega$ you still divide by $I$. Work done by a torque depends on the angle turned, not the time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the change in angular momentum"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-braking-torque",
+          "prompt": "A wheel with moment of inertia $\\pu{0.40 kg m2}$ slows from $\\pu{30 rad s-1}$ to $\\pu{18 rad s-1}$ in $\\pu{4.0 s}$. Taking the direction of rotation as positive, calculate the average resultant torque, in N m. Give 2 significant figures.",
+          "hint": "Find $\\Delta L = I(\\omega_\\text{f} - \\omega_\\text{i})$ first, then divide by the time. Watch the sign.",
+          "answer": {
+            "value": -1.2,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta L = 0.40 \\times (18 - 30) = -4.8\\ \\text{N m s}$, so $\\tau = \\frac{-4.8}{4.0} = -1.2\\ \\text{N m}$. The minus sign shows the torque opposes the rotation.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.40*(18 - 30)/4.0",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of angular momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If no resultant torque acts, $\\tau\\Delta t = 0$, so $\\Delta L = 0$. The angular momentum can't change."
+        },
+        {
+          "type": "definition",
+          "term": "conservation of angular momentum",
+          "statement": "The total angular momentum of a system stays constant unless a resultant external torque acts on it.",
+          "plain": "Without an outside twist, a system's spin can't change."
+        },
+        {
+          "type": "text",
+          "text": "Torques between parts of the system are internal. They come in equal and opposite pairs, so they move angular momentum from one part to another without changing the total."
+        },
+        {
+          "type": "text",
+          "text": "A force through the axis has no torque about it. A force parallel to the axis, like the weight of a body turning about a vertical axis, has none either."
+        },
+        {
+          "type": "result",
+          "statement": "With no resultant external torque, $I_{1}\\omega_{1} = I_{2}\\omega_{2}$. If the moment of inertia decreases, the angular speed increases in the same ratio.",
+          "why": "$L = I\\omega$ is constant, so $I$ and $\\omega$ are inversely proportional."
+        },
+        {
+          "type": "figure",
+          "id": "1-14-stool-arms",
+          "alt": "Two views from above of a student on a stool that turns freely about a vertical axis through its centre. On the left she holds a dumbbell in each hand with her arms stretched out, so the dumbbells are far from the axis; a short curved arrow shows slow anticlockwise rotation, labelled I large, omega small. On the right she has pulled the dumbbells in to her chest, close to the axis; a longer curved arrow shows faster anticlockwise rotation, labelled I small, omega large. Between the panels a note reads L equals I omega, the same in both.",
+          "caption": "Pulling mass towards the axis lowers $I$, so $\\omega$ rises and $L = I\\omega$ stays the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-stool-arms-in",
+          "question": "A student sits on a stool that turns freely about a vertical axis. With dumbbells held at arm's length, her moment of inertia (with the stool) is $\\pu{3.6 kg m2}$ and she turns at $\\pu{2.0 rad s-1}$. She pulls the dumbbells in, and her moment of inertia falls to $\\pu{1.5 kg m2}$. Calculate her new angular speed.",
+          "steps": [
+            "The stool turns freely, so there is no resultant external torque about the axis. Angular momentum is conserved.",
+            "$I_{1}\\omega_{1} = I_{2}\\omega_{2}$: $3.6 \\times 2.0 = 1.5\\,\\omega_{2}$.",
+            "$\\omega_{2} = \\frac{7.2}{1.5} = 4.8\\ \\text{rad s}^{-1}$. $I$ fell, so $\\omega$ rose, as expected."
+          ],
+          "answer": "$\\omega_{2} \\approx 4.8\\ \\text{rad s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.6*2.0/1.5",
+            "sf": 2,
+            "unit": "rad s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-stool-explain",
+          "question": "Explain why the student's angular speed increases when she pulls the dumbbells in.",
+          "steps": [
+            "Say why angular momentum is conserved.",
+            "Say what happens to the moment of inertia, and why.",
+            "Use $L = I\\omega$ to conclude."
+          ],
+          "answer": "The stool turns freely, so there is no resultant external torque on the student, dumbbells and stool. So their total angular momentum $L = I\\omega$ stays constant. Pulling the dumbbells in moves mass closer to the axis, so her moment of inertia decreases. For $I\\omega$ to stay constant, her angular speed must increase.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "no resultant external torque so angular momentum conserved; mass moves closer to the axis so moment of inertia decreases; L = I omega constant so omega increases",
+            "requires": [
+              [
+                "no resultant external torque",
+                "no external torque"
+              ],
+              "angular momentum",
+              [
+                "stays constant",
+                "is conserved"
+              ],
+              "closer to the axis",
+              "moment of inertia decreases",
+              [
+                "angular speed must increase",
+                "angular speed increases"
+              ]
+            ],
+            "forbids": [
+              "centrifugal",
+              "angular momentum increases"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Conservation also links coupled bodies. When two bodies on the same axis grip each other, friction between them is internal. Each body's angular momentum changes, but their total does not."
+        },
+        {
+          "type": "example",
+          "id": "ex-turntable-ring",
+          "question": "A turntable with moment of inertia $\\pu{0.020 kg m2}$ spins freely at $\\pu{3.5 rad s-1}$. A ring with moment of inertia $\\pu{0.0060 kg m2}$, not rotating, is dropped centrally onto it. Friction between them soon makes them turn together. Calculate their final angular speed.",
+          "steps": [
+            "The turntable spins freely and the friction between ring and turntable is internal, so the total angular momentum is conserved.",
+            "Before: $L = 0.020 \\times 3.5 + 0.0060 \\times 0 = 0.070\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$.",
+            "After, they share one $\\omega$, with $I = 0.020 + 0.0060 = \\pu{0.026 kg m2}$.",
+            "$\\omega = \\frac{0.070}{0.026} = 2.69\\ \\text{rad s}^{-1}$."
+          ],
+          "answer": "$\\omega \\approx 2.7\\ \\text{rad s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.020*3.5/(0.020 + 0.0060)",
+            "sf": 2,
+            "unit": "rad s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-roundabout-jump",
+          "prompt": "A playground roundabout spins freely. A child, standing still on the ground, steps straight onto its edge. What happens to the roundabout's angular speed?",
+          "hint": "The child adds mass far from the axis, but brings no angular momentum.",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            }
+          ],
+          "explain": "The total $L$ is unchanged, but the child increases $I$. So $\\omega = \\frac{L}{I}$ decreases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diver-tuck",
+          "prompt": "A diver leaves the board turning at $\\pu{1.8 rad s-1}$, with a moment of inertia of $\\pu{9.0 kg m2}$ about her centre of mass. In the air she tucks, and it falls to $\\pu{3.6 kg m2}$. Calculate her new angular speed, in rad s⁻¹. Give 2 significant figures.",
+          "hint": "Her weight acts at her centre of mass, so it has no torque about it. Use $I_{1}\\omega_{1} = I_{2}\\omega_{2}$.",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0.05
+          },
+          "explain": "$\\omega_{2} = \\frac{9.0 \\times 1.8}{3.6} = 4.5\\ \\text{rad s}^{-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9.0*1.8/3.6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "rotational-ke",
+      "heading": "Rotational kinetic energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A spinning flywheel can stay in one place, yet every part of it is moving. So it has kinetic energy, stored in its rotation."
+        },
+        {
+          "type": "definition",
+          "term": "rotational kinetic energy",
+          "statement": "The rotational kinetic energy of a body turning about an axis is $E_\\text{k} = \\frac{1}{2}I\\omega^{2}$, where $I$ is its moment of inertia about that axis. Unit: J.",
+          "plain": "The energy a body has because it is spinning."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\frac{1}{2}I\\omega^{2} = \\frac{L^{2}}{2I}",
+          "tag": "booklet",
+          "bookletId": "db-1-14"
+        },
+        {
+          "type": "text",
+          "text": "Why $\\frac{1}{2}I\\omega^{2}$? A small mass $m$ at distance $r$ moves at $v = \\omega r$, so its energy is $\\frac{1}{2}mr^{2}\\omega^{2}$. Adding these over the body gives $\\frac{1}{2}(\\sum mr^{2})\\omega^{2} = \\frac{1}{2}I\\omega^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "The second form comes from putting $\\omega = \\frac{L}{I}$ into the first. Use it when you know $L$."
+        },
+        {
+          "type": "example",
+          "id": "ex-roundabout-energy",
+          "question": "A roundabout has a moment of inertia of $\\pu{240 kg m2}$ and turns at $\\pu{1.50 rad s-1}$. Calculate its rotational kinetic energy.",
+          "steps": [
+            "$E_\\text{k} = \\frac{1}{2}I\\omega^{2} = \\frac{1}{2} \\times 240 \\times 1.50^{2} = \\pu{270 J}$, to 3 significant figures.",
+            "Check with the other form: $L = 240 \\times 1.50 = 360\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$, and $\\frac{L^{2}}{2I} = \\frac{360^{2}}{480} = \\pu{270 J}$."
+          ],
+          "answer": "$E_\\text{k} \\approx 270\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*240*1.50**2",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Angular momentum can be conserved while kinetic energy is not. Look again at the student on the stool."
+        },
+        {
+          "type": "example",
+          "id": "ex-stool-energy-change",
+          "question": "For the student on the stool, $I$ fell from $\\pu{3.6 kg m2}$ to $\\pu{1.5 kg m2}$ while $L$ stayed at $7.2\\ \\text{kg m}^{2}\\ \\text{s}^{-1}$. Determine the change in her rotational kinetic energy.",
+          "steps": [
+            "Before: $E_\\text{k} = \\frac{L^{2}}{2I} = \\frac{7.2^{2}}{2 \\times 3.6} = \\pu{7.2 J}$.",
+            "After: $E_\\text{k} = \\frac{7.2^{2}}{2 \\times 1.5} = \\pu{17.28 J}$. Use the new $I$ here, not the old one.",
+            "Change: $17.28 - 7.2 = +10.08\\ \\text{J}$. It is positive, so the energy increases.",
+            "The extra energy comes from the work her arm muscles do pulling the dumbbells inwards."
+          ],
+          "answer": "$\\Delta E_\\text{k} \\approx +10\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3.6*2.0)**2/(2*1.5) - (3.6*2.0)**2/(2*3.6)",
+            "sf": 2,
+            "unit": "J",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the same moment of inertia before and after a change of shape. $I$ changes, so work out each energy with its own $I$ and $\\omega$."
+        },
+        {
+          "type": "text",
+          "text": "Coupled bodies go the other way. When the ring grips the turntable, friction turns some kinetic energy into internal energy, as in an inelastic collision."
+        },
+        {
+          "type": "text",
+          "text": "A rolling wheel both moves along and spins. Rolling without slipping means the contact point does not slide, so $v = \\omega R$, where $v$ is the speed of the centre and $R$ the radius."
+        },
+        {
+          "type": "result",
+          "statement": "For a body rolling without slipping, total kinetic energy = translational + rotational = $\\frac{1}{2}mv^{2} + \\frac{1}{2}I\\omega^{2}$, with $v = \\omega R$.",
+          "why": "For the moving-along part, the body's mass is treated as concentrated at its [[centre-of-mass|centre of mass]]; the spinning part is about an axis through that point."
+        },
+        {
+          "type": "example",
+          "id": "ex-cylinder-rolls",
+          "question": "A uniform solid cylinder, $\\pu{1.8 kg}$ and $\\pu{0.050 m}$ in radius, starts at rest at the top of a ramp. It rolls down without slipping, through a vertical drop of $\\pu{0.60 m}$. Its moment of inertia is $\\frac{1}{2}MR^{2}$. Determine its speed at the bottom.",
+          "steps": [
+            "The contact point does not slide, so friction does no work. The lost gravitational potential energy all becomes kinetic energy.",
+            "With $\\omega = \\frac{v}{R}$, the rotational part is $\\frac{1}{2} \\times \\frac{1}{2}MR^{2} \\times \\frac{v^{2}}{R^{2}} = \\frac{1}{4}Mv^{2}$.",
+            "So $Mgh = \\frac{1}{2}Mv^{2} + \\frac{1}{4}Mv^{2} = \\frac{3}{4}Mv^{2}$. $M$ and $R$ cancel.",
+            "$v = \\sqrt{\\frac{4gh}{3}} = \\sqrt{\\frac{4 \\times 9.8 \\times 0.60}{3}} = 2.8\\ \\text{m s}^{-1}$, using $g = \\pu{9.8 m s-2}$ from the data booklet.",
+            "A frictionless sliding block would reach $\\sqrt{2gh} = \\pu{3.4 m s-1}$. The cylinder is slower: a third of its energy is rotational."
+          ],
+          "answer": "$v \\approx 2.8\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(4*g*0.60/3)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-omega",
+          "prompt": "The angular speed of a flywheel doubles. What happens to its rotational kinetic energy?",
+          "hint": "$E_\\text{k}$ depends on $\\omega^{2}$.",
+          "options": [
+            {
+              "text": "it becomes four times as large",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "$E_\\text{k} = \\frac{1}{2}I\\omega^{2}$ with $I$ unchanged, so doubling $\\omega$ multiplies $E_\\text{k}$ by $2^{2} = 4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it becomes four times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-turntable-energy-lost",
+          "prompt": "A turntable ($I = \\pu{0.020 kg m2}$) spinning at $\\pu{3.5 rad s-1}$ is joined by a non-rotating ring ($I = \\pu{0.0060 kg m2}$), and they end up turning together at the same angular speed. Calculate the kinetic energy lost, in J. Give 2 significant figures.",
+          "hint": "First find the shared $\\omega$ from conservation of $L$. Then compare $\\frac{1}{2}I\\omega^{2}$ before and after, each with its own $I$.",
+          "answer": {
+            "value": 0.028,
+            "tolerance": 0.0005
+          },
+          "explain": "Before: $\\frac{1}{2} \\times 0.020 \\times 3.5^{2} = \\pu{0.1225 J}$. After: $\\frac{L^{2}}{2I} = \\frac{0.070^{2}}{2 \\times 0.026} = \\pu{0.0942 J}$. Lost: $\\pu{0.028 J}$, to internal energy through friction.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*0.020*3.5**2 - (0.020*3.5)**2/(2*(0.020 + 0.0060))",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "L = I\\omega",
+          "tag": "booklet",
+          "bookletId": "db-1-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta L = \\tau\\Delta t = \\Delta(I\\omega)",
+          "tag": "booklet",
+          "bookletId": "db-1-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\frac{1}{2}I\\omega^{2} = \\frac{L^{2}}{2I}",
+          "tag": "booklet",
+          "bookletId": "db-1-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With no resultant external torque, angular momentum is conserved: $I_{1}\\omega_{1} = I_{2}\\omega_{2}$. Lower $I$ means higher $\\omega$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The area under a resultant torque–time graph is the angular impulse, $\\Delta L$. Units: N m s = $\\text{kg m}^{2}\\ \\text{s}^{-1}$; $\\omega$ in $\\text{rad s}^{-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conserving $L$ does not conserve kinetic energy: pulling mass inwards raises $E_\\text{k}$; coupling two bodies that turn at different rates lowers it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rolling without slipping: $v = \\omega R$, and total $E_\\text{k} = \\frac{1}{2}mv^{2} + \\frac{1}{2}I\\omega^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Claiming angular momentum is conserved without saying why. State that no resultant external torque acts on the system.",
+    "Assuming kinetic energy is conserved because angular momentum is. Work out $E_\\text{k}$ before and after, each with its own $I$.",
+    "Leaving $\\omega$ in revolutions per second or per minute. Convert to $\\text{rad s}^{-1}$ before using $L = I\\omega$ or $\\frac{1}{2}I\\omega^{2}$.",
+    "Forgetting the rotational energy of a rolling body. Its total kinetic energy is $\\frac{1}{2}mv^{2} + \\frac{1}{2}I\\omega^{2}$.",
+    "Reading the area under a torque–time graph as a change in angular speed. It is $\\Delta L$; divide by $I$."
+  ],
+  "examTips": [
+    "\"Explain\" a change in angular speed with three points: no resultant external torque, so $L$ is constant; why $I$ changes; so $\\omega$ changes inversely.",
+    "In \"determine\" questions, write the conservation equation $I_{1}\\omega_{1} = I_{2}\\omega_{2}$ before substituting. Give $\\omega$ in $\\text{rad s}^{-1}$ and $L$ in $\\text{kg m}^{2}\\ \\text{s}^{-1}$.",
+    "In Paper 1A ratio questions, pick the form that holds one quantity fixed: $\\frac{L^{2}}{2I}$ when $L$ is the same, $\\frac{1}{2}I\\omega^{2}$ when $\\omega$ is.",
+    "In \"show that\" rolling questions, write the energy equation with both kinetic terms, substitute $\\omega = \\frac{v}{R}$, and give one more significant figure than the stated value."
+  ],
+  "readingMinutes": 25
+}

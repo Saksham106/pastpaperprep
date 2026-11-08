@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 290" role="img" aria-labelledby="t">
+<title id="t">A drum of radius r turns on a fixed horizontal axle at its centre. A rope is wound round the drum and leaves its right-hand edge, hanging straight down to a bucket. On the drum, the tension T acts straight down at the rim, where the rope leaves, a perpendicular distance r from the axle. A curved arrow labelled alpha shows the drum turning clockwise. On the bucket, the tension T acts straight up along the rope and the weight m g acts straight down, and the weight arrow is longer. An arrow labelled a beside the bucket shows its acceleration downwards.</title>
+<circle cx="140" cy="90" r="45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<circle cx="140" cy="90" r="4" fill="currentColor"/>
+<path d="M140 90 H185" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text font-family="inherit" font-size="12" x="160" y="84" fill="var(--muted)" text-anchor="middle">r</text>
+<path d="M185 90 V190" stroke="var(--muted)" stroke-width="1.4"/>
+<path d="M88 60 A60 60 0 0 1 170 38" fill="none" stroke="var(--t4-ink)" stroke-width="1.8"/>
+<polygon points="170,38 159.95,37.4 164.45,29.6" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="13" x="112" y="22" fill="var(--t4-ink)">α</text>
+<path d="M185 90 L185 124" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<polygon points="185,133 180.5,124 189.5,124" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="193" y="122" fill="var(--t2-ink)">T</text>
+<rect x="165" y="190" width="40" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M185 190 L185 157" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<polygon points="185,148 189.5,157 180.5,157" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="193" y="162" fill="var(--t2-ink)">T</text>
+<path d="M185 209 L185 266" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<polygon points="185,275 180.5,266 189.5,266" fill="var(--t1-ink)"/>
+<circle cx="185" cy="209" r="3" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="193" y="270" fill="var(--t1-ink)">mg</text>
+<path d="M245 192 V232" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="245,240 241,232 249,232" fill="var(--muted)"/>
+<text font-family="inherit" font-size="12" x="253" y="220" fill="var(--muted)">a</text>
+</svg>

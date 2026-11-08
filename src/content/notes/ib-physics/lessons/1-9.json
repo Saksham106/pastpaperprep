@@ -1,0 +1,788 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.9",
+  "slug": "work-and-energy-transfer",
+  "title": "Work and energy transfer",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[energy|Energy]] is never created or destroyed, only moved around: that is [[conservation-of-energy|conservation of energy]], and a [[sankey-diagram|Sankey diagram]] draws it. A [[force|force]] that moves a body does [[work|work]] on it, $W = Fs\\cos\\theta$, which is a transfer of energy. The work done by the [[resultant-force|resultant force]] equals the change in the body's kinetic energy.",
+  "goals": [
+    {
+      "text": "State the principle of conservation of energy and use it to account for every joule in a process.",
+      "bullets": [
+        "A.3-s1"
+      ]
+    },
+    {
+      "text": "Draw and read Sankey diagrams, using arrow widths to find energies.",
+      "bullets": [
+        "A.3-s3"
+      ]
+    },
+    {
+      "text": "Calculate the work done by a force with $W = Fs\\cos\\theta$, including zero and negative work, and from the [[area-under-a-graph|area under]] a graph of force against [[distance|distance]].",
+      "bullets": [
+        "A.3-s2",
+        "A.3-s4"
+      ]
+    },
+    {
+      "text": "Use the work done by the resultant force to find changes in kinetic energy and speed.",
+      "bullets": [
+        "A.3-s5"
+      ]
+    },
+    {
+      "text": "Explain changes in mechanical energy in terms of the work done by [[friction|friction]], air resistance and other non-conservative forces.",
+      "bullets": [
+        "A.3-s2",
+        "A.3-s5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.4",
+    "1.5",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "work done by a force",
+    "W = Fs cos theta",
+    "work-energy theorem",
+    "Sankey diagram",
+    "conservation of energy",
+    "energy transfer"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-rope-component",
+      "prompt": "A rope pulls on a crate with a force of $\\pu{50 N}$ at $30^{\\circ}$ above the horizontal. What is the horizontal component of the force, in N? Give 2 significant figures.",
+      "hint": "The component next to the angle uses cosine.",
+      "answer": {
+        "value": 43,
+        "tolerance": 0.5
+      },
+      "explain": "$F_x = 50\\cos 30^{\\circ} = 43.3... \\approx \\pu{43 N}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "50*cosd(30)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-friction-direction",
+      "prompt": "A box slides to the right across a rough floor. Which way does the [[friction|friction]] force on the box act?",
+      "hint": "Friction opposes sliding between the two surfaces.",
+      "options": [
+        {
+          "text": "to the left",
+          "correct": true
+        },
+        {
+          "text": "to the right",
+          "correct": false
+        },
+        {
+          "text": "vertically upwards",
+          "correct": false
+        },
+        {
+          "text": "there is no friction once it moves",
+          "correct": false
+        }
+      ],
+      "explain": "Friction acts along the surface, opposite the box's motion relative to the floor, so to the left. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "to the left"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cart-speed",
+      "prompt": "A cart starts from rest and accelerates uniformly at $\\pu{2.0 m s-2}$ over $\\pu{9.0 m}$. What is its final speed, in $\\pu{m s-1}$? Give 2 significant figures.",
+      "hint": "Use $v^{2} = u^{2} + 2as$ with $u = 0$.",
+      "answer": {
+        "value": 6.0,
+        "tolerance": 0.05
+      },
+      "explain": "$v = \\sqrt{2 \\times 2.0 \\times 9.0} = \\sqrt{36} = \\pu{6.0 m s-1}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(2*2.0*9.0)",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "conservation",
+      "heading": "Energy and its conservation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A phone battery runs down, a ball slows to a stop, a kettle boils. In each case something has been passed on or changed form. Physics tracks it with one quantity: energy."
+        },
+        {
+          "type": "definition",
+          "term": "energy",
+          "statement": "A [[scalar|scalar]] property of a body or system that measures its capacity to do work. Its unit is the joule, J.",
+          "plain": "What a system needs in order to make things happen: move, heat up, light up."
+        },
+        {
+          "type": "text",
+          "text": "Energy comes in several forms. A moving body has [[kinetic-energy|kinetic energy]]. A raised body has [[gravitational-potential-energy|gravitational potential energy]]. A stretched spring has [[elastic-potential-energy|elastic potential energy]]."
+        },
+        {
+          "type": "text",
+          "text": "Others include the [[internal-energy|internal energy]] of hot objects, chemical energy in fuels and food, and energy carried by electric currents, light and sound. You meet the equations for kinetic and potential energy in {{lesson:1.10}}."
+        },
+        {
+          "type": "definition",
+          "term": "conservation of energy",
+          "statement": "Energy cannot be created or destroyed. It can only be transferred from one body to another or transformed from one form to another, so the total energy of a system that no energy enters or leaves stays constant.",
+          "plain": "Energy is never made or lost; it only moves around and changes form."
+        },
+        {
+          "type": "text",
+          "text": "Energy often seems to vanish. It has usually spread into the surroundings as thermal energy, warming the air, the floor or the machine a little. This spread-out energy is hard to use again, so we say it is dissipated. It is not destroyed."
+        },
+        {
+          "type": "text",
+          "text": "So to account for energy, list every place it goes. The energy in must equal the total of all the energies out."
+        },
+        {
+          "type": "example",
+          "id": "ex-drill-coils",
+          "question": "While drilling one hole, a cordless drill's battery supplies $\\pu{640 J}$ of electrical energy. $\\pu{85 J}$ is transferred as sound, and $\\pu{410 J}$ heats the drill bit and the wood. All the rest heats the coils of the motor. Calculate the energy that heats the coils.",
+          "steps": [
+            "By conservation of energy, energy in = total energy out.",
+            "$640 = 85 + 410 + E_\\text{coils}$.",
+            "$E_\\text{coils} = 640 - 85 - 410 = \\pu{145 J}$.",
+            "Check: $85 + 410 + 145 = 640$, so every joule is accounted for."
+          ],
+          "answer": "$E_\\text{coils} = \\pu{145 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "640 - 85 - 410",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bounce-explain",
+          "question": "A tennis ball is dropped onto a hard floor. It bounces back up, but not to the height it was dropped from. Explain why this does not break the principle of conservation of energy.",
+          "steps": [
+            "Ask where the ball's energy goes during the bounce.",
+            "Then say what that means for the total energy of the ball and its surroundings."
+          ],
+          "answer": "The ball's energy is not destroyed in the bounce. During the impact, some of its kinetic energy is transferred to the ball and the floor as thermal energy, and to the air as sound. So the ball leaves the floor with less kinetic energy than it arrived with, and cannot rise as high. The total energy of the ball and its surroundings stays the same.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "energy not destroyed; some transferred as thermal energy and sound to ball, floor, air; ball leaves with less kinetic energy so lower height; total energy of ball and surroundings constant",
+            "requires": [
+              [
+                "not destroyed",
+                "cannot be destroyed"
+              ],
+              [
+                "thermal energy",
+                "internal energy"
+              ],
+              "sound",
+              "less kinetic energy",
+              "total energy",
+              [
+                "stays the same",
+                "stays constant",
+                "is constant"
+              ]
+            ],
+            "forbids": [
+              "energy is used up",
+              "energy is lost forever",
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that energy is “lost” or “used up”. Say where it went instead: to the surroundings as thermal energy, and sometimes sound."
+        },
+        {
+          "type": "check",
+          "id": "check-braking-car",
+          "prompt": "A car brakes to a stop on a level road. What happens to its kinetic energy?",
+          "hint": "Brakes get hot when they are used.",
+          "options": [
+            {
+              "text": "it is transferred to thermal energy in the brakes and surroundings",
+              "correct": true
+            },
+            {
+              "text": "it is destroyed by the friction in the brakes",
+              "correct": false
+            },
+            {
+              "text": "it is stored as potential energy in the brakes",
+              "correct": false
+            },
+            {
+              "text": "it becomes the car's momentum",
+              "correct": false
+            }
+          ],
+          "explain": "Friction in the brakes transfers the kinetic energy to thermal energy, which spreads into the brakes, tyres and air. Energy is never destroyed, and momentum is not a form of energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is transferred to thermal energy in the brakes and surroundings"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wind-up-toy",
+          "prompt": "The spring of a wind-up toy releases $\\pu{2.8 J}$. The toy gains $\\pu{0.65 J}$ of kinetic energy and $\\pu{0.15 J}$ is transferred as sound. The rest is dissipated as thermal energy. How much energy is that, in J? Give 2 significant figures.",
+          "hint": "Energy in = sum of all the energies out.",
+          "answer": {
+            "value": 2.0,
+            "tolerance": 0.05
+          },
+          "explain": "$2.8 - 0.65 - 0.15 = \\pu{2.0 J}$ is dissipated as thermal energy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.8 - 0.65 - 0.15",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "sankey",
+      "heading": "Sankey diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A list of energies is hard to take in at a glance. A Sankey diagram draws each transfer as an arrow, so you see at once where most of the energy goes."
+        },
+        {
+          "type": "definition",
+          "term": "Sankey diagram",
+          "statement": "A flow diagram of an energy transfer in which the width of each arrow is proportional to the energy, or power, it represents.",
+          "plain": "A picture of where energy goes, with fat arrows for big amounts."
+        },
+        {
+          "type": "text",
+          "text": "1. The input arrow enters from the left. Its width shows the total energy supplied."
+        },
+        {
+          "type": "text",
+          "text": "2. The useful output carries straight on. Each wasted output branches off, usually curving downwards."
+        },
+        {
+          "type": "text",
+          "text": "3. The output widths add up to the input width. That is conservation of energy, drawn as a picture."
+        },
+        {
+          "type": "text",
+          "text": "To draw one to scale, pick a scale such as $\\pu{1 mm}$ for $\\pu{10 J}$, then make every arrow the matching width. To read one, measure the widths and use the scale."
+        },
+        {
+          "type": "figure",
+          "id": "1-9-motor-sankey",
+          "alt": "Sankey diagram for an electric motor lifting a load, with arrow widths drawn to scale. A wide arrow on the left is labelled electrical energy in, 600 joules. It splits into three. The widest branch carries straight on to the right, labelled useful, lifts the load, 360 joules. A branch curves downwards, labelled thermal, 200 joules. A thin branch curves downwards nearest the input, labelled sound, with its value shown as a question mark.",
+          "caption": "Every arrow's width is proportional to its energy. The three outputs together are as wide as the input."
+        },
+        {
+          "type": "example",
+          "id": "ex-sankey-sound",
+          "question": "The Sankey diagram above is for an electric motor lifting a load. Determine the energy the motor transfers as sound.",
+          "steps": [
+            "Read the labelled arrows: input $\\pu{600 J}$, useful $\\pu{360 J}$, thermal $\\pu{200 J}$.",
+            "The outputs must add up to the input: $600 = 360 + 200 + E_\\text{sound}$.",
+            "$E_\\text{sound} = 600 - 360 - 200 = \\pu{40 J}$.",
+            "Check against the widths: the sound arrow is about a fifth as wide as the thermal arrow, and $\\tfrac{40}{200} = \\tfrac{1}{5}$."
+          ],
+          "answer": "$E_\\text{sound} = \\pu{40 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "600 - 360 - 200",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-kettle-width",
+          "question": "A Sankey diagram for an electric kettle is drawn to scale. The input arrow is $\\pu{50 mm}$ wide and stands for $\\pu{85 kJ}$ of electrical energy. The arrow for energy wasted heating the kettle's body and the air is $\\pu{6.0 mm}$ wide. Determine the energy transferred to the water.",
+          "steps": [
+            "Find the scale: $\\frac{85}{50} = \\pu{1.7 kJ}$ for each millimetre.",
+            "Wasted energy: $6.0 \\times 1.7 = \\pu{10.2 kJ}$.",
+            "The rest goes to the water: $85 - 10.2 = \\pu{74.8 kJ}$.",
+            "The widths are given to 2 significant figures, so give 2."
+          ],
+          "answer": "$E \\approx \\pu{75 kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "85 - 6.0*85/50",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing output arrows that add up to less than the input, as if some energy disappeared. Every joule in must appear in exactly one output arrow."
+        },
+        {
+          "type": "check",
+          "id": "check-sankey-rule",
+          "prompt": "Which statement about a correctly drawn Sankey diagram is true?",
+          "hint": "Think about conservation of energy.",
+          "options": [
+            {
+              "text": "the input arrow is as wide as all the output arrows added together",
+              "correct": true
+            },
+            {
+              "text": "the useful output arrow is always the widest",
+              "correct": false
+            },
+            {
+              "text": "the output arrows add up to less than the input, because energy is used up",
+              "correct": false
+            },
+            {
+              "text": "the length of each arrow shows the amount of energy",
+              "correct": false
+            }
+          ],
+          "explain": "Energy is conserved, so the output widths add up to the input width. Width, not length, shows the energy, and in many devices the wasted output is the widest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the input arrow is as wide as all the output arrows added together"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-sankey",
+          "prompt": "A Sankey diagram for a lamp uses $\\pu{1 mm}$ to stand for $\\pu{4.0 J}$. The input arrow is $\\pu{32 mm}$ wide and the light arrow is $\\pu{9.0 mm}$ wide. The only other output is thermal energy. How much energy is that, in J? Give 2 significant figures.",
+          "hint": "Find the width of the thermal arrow first, then use the scale.",
+          "answer": {
+            "value": 92,
+            "tolerance": 0.5
+          },
+          "explain": "The thermal arrow is $32 - 9.0 = \\pu{23 mm}$ wide, so it stands for $23 \\times 4.0 = \\pu{92 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(32 - 9.0)*4.0",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "heading": "Work done by a force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a trolley along a corridor and it speeds up: energy has gone from you to the trolley. Push harder, or for longer, and more energy goes across. This transfer by a [[force|force]] is called work."
+        },
+        {
+          "type": "definition",
+          "term": "work",
+          "statement": "The work done by a constant force on a body is the product of the size of the force and the displacement of the body along the line of the force. Work done by a force is a transfer of energy.",
+          "plain": "The energy a force passes on when it moves something."
+        },
+        {
+          "type": "formula",
+          "tex": "W = Fs\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-9"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the size of the force in N, $s$ is the size of the displacement in m, and $\\theta$ is the angle between the force and the displacement. $W$ is in joules: $\\pu{1 J} = \\pu{1 N m}$. This equation is printed in the data booklet."
+        },
+        {
+          "type": "result",
+          "statement": "The work done by a force on a body equals the energy that force transfers to the body (or, if the work is negative, takes from it).",
+          "why": "A force that does work on a body changes its energy by exactly that amount, which is why work and energy share the joule."
+        },
+        {
+          "type": "text",
+          "text": "Why $\\cos\\theta$? Split the force into a component $F\\cos\\theta$ along the displacement and $F\\sin\\theta$ at right angles to it. Only the component along the line of motion transfers energy."
+        },
+        {
+          "type": "figure",
+          "id": "1-9-sledge-rope",
+          "alt": "A sledge on level ground is pulled to the right by a rope. The tension in the rope is an arrow labelled F equals 64.0 newtons, pointing up and to the right at an angle theta of 35 degrees above the horizontal. Dashed arrows show its two components: F cos theta horizontally to the right, and F sin theta vertically upwards. Below the ground, an arrow to the right is labelled displacement s equals 25.0 metres.",
+          "caption": "Only $F\\cos\\theta$, the component along the displacement, does work on the sledge."
+        },
+        {
+          "type": "text",
+          "text": "The angle decides the sign of the work:"
+        },
+        {
+          "type": "text",
+          "text": "1. $\\theta < 90^{\\circ}$: the work is positive. The force gives the body energy."
+        },
+        {
+          "type": "text",
+          "text": "2. $\\theta = 90^{\\circ}$: $\\cos 90^{\\circ} = 0$, so no work is done. The [[normal-force|normal force]] on a body sliding across a level floor does no work."
+        },
+        {
+          "type": "text",
+          "text": "3. $\\theta > 90^{\\circ}$: the work is negative. The force takes energy from the body. Friction on a sliding body acts at $\\theta = 180^{\\circ}$, so it does work $W = -Fs$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sledge-rope",
+          "question": "A child pulls a sledge $\\pu{25.0 m}$ across level snow. The tension in the rope is a constant $\\pu{64.0 N}$, at $35^{\\circ}$ above the horizontal, as in the figure. Calculate the work done on the sledge by the tension.",
+          "steps": [
+            "The displacement is horizontal and the rope is at $35^{\\circ}$ to it, so $\\theta = 35^{\\circ}$.",
+            "$W = Fs\\cos\\theta = 64.0 \\times 25.0 \\times \\cos 35^{\\circ}$.",
+            "$W = \\pu{1310.6 J}$. The data have 3 significant figures, so give 3.",
+            "Check: the answer is less than $64.0 \\times 25.0 = \\pu{1600 J}$, as it must be when the rope is not along the motion."
+          ],
+          "answer": "$W \\approx \\pu{1.31 kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "64.0*25.0*cosd(35)/1000",
+            "sf": 3,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If the force changes as the body moves, $W = Fs\\cos\\theta$ no longer works with a single value of $F$. Plot the force component along the motion against distance. The work done is the [[area-under-a-graph|area under]] that force-distance graph."
+        },
+        {
+          "type": "figure",
+          "id": "1-9-chain-force-distance",
+          "alt": "Graph of tension F in newtons, from 0 to 900, against distance s in metres, from 0 to 10.0. The line is horizontal at 900 newtons from 0 to 6.0 metres, then falls in a straight line to 0 at 10.0 metres. The area under the line is shaded.",
+          "caption": "The shaded area is the work done by the tension."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-area",
+          "question": "A tractor tows a log along level ground with a horizontal chain. The tension in the chain varies with the distance moved as shown in the graph. Calculate the work done on the log by the tension over the $\\pu{10.0 m}$.",
+          "steps": [
+            "The work is the area under the graph. Split it into a rectangle and a triangle.",
+            "Rectangle, from 0 to $\\pu{6.0 m}$: $900 \\times 6.0 = \\pu{5400 J}$.",
+            "Triangle, from $\\pu{6.0 m}$ to $\\pu{10.0 m}$: $\\tfrac{1}{2} \\times 4.0 \\times 900 = \\pu{1800 J}$.",
+            "Total: $W = 5400 + 1800 = \\pu{7200 J}$."
+          ],
+          "answer": "$W \\approx \\pu{7.2 kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(900*6.0 + Rational(1, 2)*(10.0 - 6.0)*900)/1000",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\sin\\theta$, or the angle to the wrong line. $\\theta$ is the angle between the force and the displacement; if you are given the angle to the vertical, work out the angle to the motion first."
+        },
+        {
+          "type": "check",
+          "id": "check-waiter-tray",
+          "prompt": "A waiter carries a tray across a level room at constant velocity. How much work does the upward force of his hand do on the tray?",
+          "hint": "What is the angle between the upward force and the horizontal displacement?",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "the weight of the tray times the distance walked",
+              "correct": false
+            },
+            {
+              "text": "a positive amount, because the tray moves",
+              "correct": false
+            },
+            {
+              "text": "a negative amount, because the force opposes gravity",
+              "correct": false
+            }
+          ],
+          "explain": "The force is vertical and the displacement horizontal, so $\\theta = 90^{\\circ}$ and $W = Fs\\cos 90^{\\circ} = 0$. The force transfers no energy to the tray.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-friction-work",
+          "prompt": "A box slides $\\pu{3.2 m}$ across a floor. The friction force on it is a constant $\\pu{14 N}$. What work does friction do on the box, in J? Include the sign, and give 2 significant figures.",
+          "hint": "Friction acts opposite the displacement, so $\\theta = 180^{\\circ}$.",
+          "answer": {
+            "value": -45,
+            "tolerance": 0.5
+          },
+          "explain": "$W = 14 \\times 3.2 \\times \\cos 180^{\\circ} = -44.8 \\approx \\pu{-45 J}$. Friction takes energy from the box.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "14*3.2*cosd(180)",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "work-energy",
+      "heading": "Work and the change in energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Several forces may act on a body at once. Add up the work each one does, and you get the work done by the [[resultant-force|resultant force]]. Where does that energy end up?"
+        },
+        {
+          "type": "text",
+          "text": "Take a constant resultant force $F$ on a body of mass $m$, along its displacement $s$. By Newton's second law, $F = ma$. From the equations of motion, $v^{2} = u^{2} + 2as$, so $as = \\tfrac{1}{2}(v^{2} - u^{2})$."
+        },
+        {
+          "type": "text",
+          "text": "Multiply by $m$: $Fs = \\tfrac{1}{2}mv^{2} - \\tfrac{1}{2}mu^{2}$. The quantity $\\tfrac{1}{2}mv^{2}$ is the body's kinetic energy, $E_\\text{k}$. So the work done by the resultant force has gone into kinetic energy."
+        },
+        {
+          "type": "result",
+          "statement": "When the resultant force on a body does work, the body's kinetic energy changes by exactly that amount: $W_\\text{net} = \\Delta E_\\text{k}$.",
+          "why": "Combine $F = ma$ with $v^{2} = u^{2} + 2as$, as above."
+        },
+        {
+          "type": "formula",
+          "tex": "W_\\text{net} = \\Delta E_\\text{k} = \\tfrac{1}{2}mv^{2} - \\tfrac{1}{2}mu^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Positive net work speeds a body up, negative net work slows it down, and zero net work leaves its speed unchanged. More generally, the net work done on any system shows up as an equal change in that system's energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-puck-speed",
+          "question": "An ice-hockey puck of mass $\\pu{0.17 kg}$ is at rest. A stick pushes it with a constant resultant force of $\\pu{5.6 N}$ over a distance of $\\pu{0.38 m}$, in the direction of motion. Calculate the speed of the puck as it leaves the stick.",
+          "steps": [
+            "Work done by the resultant force: $W = Fs = 5.6 \\times 0.38 = \\pu{2.128 J}$.",
+            "This equals the gain in kinetic energy, and the puck starts at rest: $\\tfrac{1}{2} \\times 0.17 \\times v^{2} = 2.128$.",
+            "$v = \\sqrt{\\frac{2 \\times 2.128}{0.17}} = \\pu{5.0035 m s-1}$.",
+            "Give 2 significant figures, like the data."
+          ],
+          "answer": "$v \\approx \\pu{5.0 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2*5.6*0.38/0.17)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Gravity and spring forces are conservative forces: the work done against them is stored as potential energy and can be fully got back. Friction, air resistance and pushes from people or motors are non-conservative forces."
+        },
+        {
+          "type": "text",
+          "text": "Kinetic plus potential energy is the [[mechanical-energy|mechanical energy]] of a system. Only non-conservative forces change it."
+        },
+        {
+          "type": "result",
+          "statement": "Work done on a system by non-conservative forces changes its mechanical energy by the same amount: $\\Delta E_\\text{mech} = W_\\text{nc}$.",
+          "why": "The work done by gravity and springs only moves energy between kinetic and potential forms; any other force adds or removes energy."
+        },
+        {
+          "type": "text",
+          "text": "Friction on a sliding body and air resistance do negative work, so they reduce the mechanical energy. The lost mechanical energy becomes thermal energy in the surroundings. For a body falling or sliding through a height $h$, its weight does work $mgh$, with $g = \\pu{9.8 m s-2}$ from the data booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-slide-friction",
+          "question": "A child of mass $\\pu{32 kg}$ starts from rest at the top of a straight slide and leaves the bottom at $\\pu{5.1 m s-1}$. The slide is $\\pu{5.8 m}$ long and drops through a vertical height of $\\pu{2.6 m}$. Determine the average frictional force on the child.",
+          "steps": [
+            "Three forces act: weight, the normal force and friction. The normal force is at right angles to the slide, so it does no work.",
+            "Work done by the weight: its component along the slide times the length, which equals $mgh = 32 \\times 9.8 \\times 2.6 = \\pu{815.36 J}$.",
+            "Gain in kinetic energy: $\\tfrac{1}{2} \\times 32 \\times 5.1^{2} = \\pu{416.16 J}$.",
+            "Net work = change in kinetic energy: $815.36 + W_\\text{f} = 416.16$, so $W_\\text{f} = \\pu{-399.2 J}$. Friction removed $\\pu{399.2 J}$ of mechanical energy.",
+            "Friction acts along the whole $\\pu{5.8 m}$, opposite the motion: $F_\\text{f} = \\frac{399.2}{5.8} = \\pu{68.8 N}$. Give 2 significant figures."
+          ],
+          "answer": "$F_\\text{f} \\approx \\pu{69 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(32*g*2.6 - Rational(1, 2)*32*5.1**2)/5.8",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parachutist-explain",
+          "question": "A skydiver with her parachute open falls at constant speed. Explain, in terms of work done, why her kinetic energy stays constant while her gravitational potential energy decreases.",
+          "steps": [
+            "What is the resultant force at constant speed, and so the net work?",
+            "Which force does positive work, which does negative work, and where does the energy go?"
+          ],
+          "answer": "At constant speed the resultant force on her is zero, so the resultant force does no work and her kinetic energy does not change. Her weight does positive work as she falls, equal to her loss of gravitational potential energy. Air resistance acts upwards, opposite her displacement, so it does an equal amount of negative work. Air resistance is a non-conservative force, so her mechanical energy decreases. That energy is transferred to the air as thermal energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "resultant force zero so net work zero, kinetic energy constant; weight does positive work equal to loss of GPE; air resistance does equal negative work; non-conservative, mechanical energy decreases; transferred to air as thermal energy",
+            "requires": [
+              [
+                "resultant force on her is zero",
+                "resultant force is zero"
+              ],
+              [
+                "does no work",
+                "zero work"
+              ],
+              [
+                "weight does positive work",
+                "weight does work"
+              ],
+              [
+                "negative work"
+              ],
+              "mechanical energy decreases",
+              [
+                "thermal energy",
+                "internal energy"
+              ]
+            ],
+            "forbids": [
+              "no forces act",
+              "energy is destroyed",
+              "gravity stops"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the work done by one force, such as the push or the weight, as the change in kinetic energy. Only the work done by the resultant force equals $\\Delta E_\\text{k}$."
+        },
+        {
+          "type": "check",
+          "id": "check-crate-ramp",
+          "prompt": "A crate is pushed up a rough ramp at constant speed. How much work does the resultant force on the crate do?",
+          "hint": "What is the resultant force on a body moving at constant velocity?",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "the gain in gravitational potential energy of the crate",
+              "correct": false
+            },
+            {
+              "text": "the work done by the push",
+              "correct": false
+            },
+            {
+              "text": "the work done against friction",
+              "correct": false
+            }
+          ],
+          "explain": "Constant velocity means zero resultant force, so the net work is zero and $\\Delta E_\\text{k} = 0$. The push does positive work; the weight and friction do equal negative work between them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-car-braking-work",
+          "prompt": "A car of mass $\\pu{1400 kg}$ slows from $\\pu{15 m s-1}$ to $\\pu{5.0 m s-1}$. What work does the resultant force do on the car, in kJ? Include the sign, and give 2 significant figures.",
+          "hint": "$W_\\text{net} = \\tfrac{1}{2}mv^{2} - \\tfrac{1}{2}mu^{2}$, then divide by 1000.",
+          "answer": {
+            "value": -140,
+            "tolerance": 5
+          },
+          "explain": "$W_\\text{net} = \\tfrac{1}{2} \\times 1400 \\times (5.0^{2} - 15^{2}) = \\pu{-140000 J} = \\pu{-140 kJ}$. Negative, because the car loses kinetic energy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*1400*(5.0**2 - 15**2)/1000",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Conservation of energy: energy cannot be created or destroyed, only transferred or transformed. Energy that seems lost has been dissipated, usually as thermal energy in the surroundings.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a Sankey diagram, arrow width is proportional to energy (or power). The output widths add up to the input width; wasted energy branches off.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "W = Fs\\cos\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-9",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Work done by a force is energy transferred, in J. $\\theta$ is the angle between force and displacement: positive work for $\\theta < 90^{\\circ}$, none at $90^{\\circ}$, negative above. For a varying force, work = area under the force-distance graph.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "W_\\text{net} = \\Delta E_\\text{k} = \\tfrac{1}{2}mv^{2} - \\tfrac{1}{2}mu^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change in mechanical energy = work done by non-conservative forces (friction, air resistance, pushes). Friction on a sliding body and air resistance do negative work and turn mechanical energy into thermal energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that energy is “lost” or “used up”. Energy is conserved: name where it went, usually thermal energy in the surroundings.",
+    "Taking $\\theta$ as the angle to the wrong line. It is the angle between the force and the displacement, so a force along the motion has $\\theta = 0$ and $W = Fs$.",
+    "Treating the work done by one force as the change in kinetic energy. Add the work of every force, or use the resultant force, before setting it equal to $\\Delta E_\\text{k}$.",
+    "Forgetting the sign of the work done by friction or air resistance. On a sliding or falling body they act against the motion, so their work is negative and they remove mechanical energy.",
+    "Taking the normal force on a slope as equal to the weight. If nothing else pushes into the slope, it is $mg\\cos\\alpha$ for a slope at angle $\\alpha$ to the horizontal; this matters when you find friction from $\\mu F_\\text{N}$.",
+    "Writing “gravity” for the force that does work on a falling body. Name the force: the weight of the body."
+  ],
+  "examTips": [
+    "“State” the principle of conservation of energy in full: energy cannot be created or destroyed, only transferred or transformed. “Energy is conserved” on its own is too vague.",
+    "“Calculate” work: write $W = Fs\\cos\\theta$ with the numbers in, including the angle, then the answer with J. Check $\\theta$ is measured from the displacement.",
+    "“Explain” an energy change: name each force, say whether its work is positive, negative or zero, and say where the energy ends up.",
+    "In Paper 1A, the area under a force-distance graph is work, and the output widths of a Sankey diagram add up to the input width."
+  ],
+  "readingMinutes": 30
+}

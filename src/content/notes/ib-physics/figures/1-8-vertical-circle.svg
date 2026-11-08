@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 330" role="img" aria-labelledby="t">
+<title id="t">A small mass on a string moves in a vertical circle, shown dashed, around a fixed centre. At the top of the circle two arrows point straight down from the mass: a short arrow labelled tension T and a longer arrow labelled weight mg; both point towards the centre, and the label reads T plus mg equals m v squared over r. At the bottom of the circle a long arrow labelled tension T points straight up towards the centre and a shorter arrow labelled weight mg points straight down; the label reads T minus mg equals m v squared over r. The weight arrows are the same length. The tension arrow at the bottom is much longer than the tension arrow at the top.</title>
+<circle cx="170" cy="160" r="100" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/>
+<circle cx="170" cy="160" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="180.0" y="164.0" fill="var(--muted)" text-anchor="start">centre</text>
+<path d="M166.0 60.0 L166.0 69.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="166.0,78.0 161.5,69.0 170.5,69.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="162.0" y="80.0" fill="var(--t3-ink)" text-anchor="end">tension T</text>
+<path d="M174.0 60.0 L174.0 81.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="174.0,90.0 169.5,81.0 178.5,81.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="182.0" y="88.0" fill="var(--t1-ink)" text-anchor="start">weight mg</text>
+<circle cx="170" cy="60" r="6" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="170.0" y="46.0" fill="currentColor" text-anchor="middle">top: T + mg = mv²/r</text>
+<path d="M170.0 260.0 L170.0 174.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="170.0,165.0 174.5,174.0 165.5,174.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="162.0" y="200.0" fill="var(--t3-ink)" text-anchor="end">tension T</text>
+<path d="M170.0 260.0 L170.0 281.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="170.0,290.0 165.5,281.0 174.5,281.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="180.0" y="288.0" fill="var(--t1-ink)" text-anchor="start">weight mg</text>
+<circle cx="170" cy="260" r="6" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="156.0" y="284.0" fill="currentColor" text-anchor="end">bottom: T − mg = mv²/r</text>
+</svg>

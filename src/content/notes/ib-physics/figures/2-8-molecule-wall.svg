@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" role="img" aria-labelledby="t28mw">
+  <title id="t28mw">Side view of a cubic box of side L. A molecule of mass m moves towards the right-hand wall, which is shaded and has area L squared. The positive direction is to the right. Before hitting the wall, the component of the molecule's velocity towards the wall is plus u. After bouncing off, the component is minus u, while the component along the wall is unchanged.</title>
+  <defs>
+    <marker id="a28mw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="c28mw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="120" y="60" width="240" height="240" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="360" y="60" width="14" height="240" fill="var(--t1-ink)" fill-opacity="0.3" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <g stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4" fill="none">
+    <polyline points="190,110 358,180 190,250"/>
+  </g>
+  <circle cx="190" cy="110" r="7" fill="var(--t2-ink)"/>
+  <circle cx="190" cy="250" r="7" fill="var(--t2-ink)" fill-opacity="0.5"/>
+  <g stroke="var(--t3-ink)" stroke-width="2" marker-end="url(#a28mw)">
+    <line x1="200" y1="110" x2="270" y2="110"/>
+    <line x1="180" y1="250" x2="128" y2="250"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" marker-end="url(#c28mw)">
+    <line x1="420" y1="40" x2="500" y2="40"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="120" y1="314" x2="360" y2="314"/>
+    <line x1="120" y1="308" x2="120" y2="320"/>
+    <line x1="360" y1="308" x2="360" y2="320"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="420" y="30">positive direction</text>
+    <text x="232" y="103" fill="var(--t3-ink)">+u</text>
+    <text x="120" y="242" fill="var(--t3-ink)">−u</text>
+    <text x="140" y="80">before: momentum +mu</text>
+    <text x="140" y="280">after: momentum −mu</text>
+    <text x="236" y="328" text-anchor="middle">L</text>
+    <text x="384" y="170">wall of</text>
+    <text x="384" y="186">area L²</text>
+  </g>
+</svg>

@@ -2,19 +2,19 @@
   {
     "id": "ideal-gas-law",
     "term": "ideal gas law",
-    "definition": "TODO: PV = N kB T = n R T; temperature must be in kelvin",
+    "definition": "The equation linking the pressure, volume, amount and temperature of an ideal gas: $PV = nRT$, or $PV = Nk_\\text{B}T$ when counting molecules. The temperature must be in kelvin.",
     "lesson": "2.8"
   },
   {
     "id": "molar-gas-constant",
     "term": "molar gas constant",
-    "definition": "TODO: R = 8.31 J mol-1 K-1; R = NA kB",
+    "definition": "The constant $R$ in $PV = nRT$, the same for every ideal gas: $R = \\pu{8.31 J mol-1 K-1}$. It equals the Avogadro constant multiplied by the Boltzmann constant, $R = N_\\text{A}k_\\text{B}$.",
     "lesson": "2.8"
   },
   {
     "id": "root-mean-square-speed",
     "term": "root mean square speed",
-    "definition": "TODO: Square root of mean of squared speeds; used in P = 1/3 rho v^2",
+    "definition": "The square root of the mean of the squares of the speeds of the molecules in a gas, $v_\\text{rms} = \\sqrt{\\overline{v^{2}}}$. Its square is the $v^{2}$ in $P = \\frac{1}{3}\\rho v^{2}$.",
     "lesson": "2.8"
   }
 ]

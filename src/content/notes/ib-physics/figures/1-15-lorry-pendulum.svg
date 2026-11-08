@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 250" role="img" aria-labelledby="t">
+<title id="t">Side view of a lorry on a level road, accelerating to the right, shown by an arrow labelled acceleration a above the lorry. A small mass hangs on a string from a point on the roof inside the cargo box. The string is tilted backwards, towards the rear of the lorry, at an angle theta to a dashed vertical line. Two forces act on the mass: the tension T, pulling up along the string, and the weight m g, pulling straight down.</title>
+<path d="M300 24 L391 24" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<polygon points="400,24 391,28.5 391,19.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="292" y="28" fill="var(--t3-ink)" text-anchor="end">acceleration a</text>
+<rect x="80" y="50" width="360" height="150" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M440 110 L480 110 L500 140 L500 200 L440 200" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="140" cy="214" r="14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="400" cy="214" r="14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M20 228 L510 228" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="30" y="244" fill="currentColor" text-anchor="start">level road</text>
+<path d="M260 50 V185" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M260 50 L232.8 151.4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M260 80 A30 30 0 0 1 252.2 79" fill="none" stroke="currentColor" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="254" y="100" fill="currentColor" text-anchor="middle">θ</text>
+<path d="M232.8 151.4 L241.2 120.1" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<polygon points="243.5,111.4 245.5,121.2 236.8,118.9" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="222" y="124" fill="var(--t1-ink)" text-anchor="middle">T</text>
+<path d="M232.8 151.4 L232.8 182.4" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<polygon points="232.8,191.4 228.3,182.4 237.3,182.4" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="13" x="242" y="186" fill="var(--t2-ink)" text-anchor="start">mg</text>
+<circle cx="232.8" cy="151.4" r="6" fill="currentColor"/>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-labelledby="t">
+<title id="t">Two air-track gliders before and after a collision, with the positive direction to the right. Before: glider A, 0.40 kg, moves right at 5.0 metres per second towards glider B, 0.60 kg, which moves left at 2.0 metres per second. After: A moves left at 2.2 metres per second and B moves right at 2.8 metres per second. Arrow lengths are proportional to the speeds. A note says the total momentum to the right is 0.80 kilogram metres per second both before and after.</title>
+<text font-family="inherit" font-size="13" x="20" y="26" fill="currentColor" text-anchor="start">Before</text>
+<path d="M390.0 22.0 L442.0 22.0" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="450.0,22.0 442.0,26.0 442.0,18.0" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="420" y="14" fill="var(--muted)" text-anchor="middle">positive</text>
+<path d="M20 100 H460 M20 215 H460" stroke="var(--muted)" stroke-width="1.5"/>
+<rect x="80" y="70" width="70" height="30" rx="3" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="115.0" y="89.0" fill="var(--t1-ink)" text-anchor="middle">A 0.40 kg</text>
+<rect x="300" y="70" width="70" height="30" rx="3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="335.0" y="89.0" fill="var(--t3-ink)" text-anchor="middle">B 0.60 kg</text>
+<path d="M115.0 55.0 L206.0 55.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="215.0,55.0 206.0,59.5 206.0,50.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="165" y="46" fill="var(--t1-ink)" text-anchor="middle">5.0 m s⁻¹</text>
+<path d="M335.0 55.0 L304.0 55.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="295.0,55.0 304.0,50.5 304.0,59.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="315" y="46" fill="var(--t3-ink)" text-anchor="middle">2.0 m s⁻¹</text>
+<text font-family="inherit" font-size="13" x="20" y="141" fill="currentColor" text-anchor="start">After</text>
+<rect x="60" y="185" width="70" height="30" rx="3" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="95.0" y="204.0" fill="var(--t1-ink)" text-anchor="middle">A 0.40 kg</text>
+<rect x="330" y="185" width="70" height="30" rx="3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="365.0" y="204.0" fill="var(--t3-ink)" text-anchor="middle">B 0.60 kg</text>
+<path d="M95.0 170.0 L60.0 170.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="51.0,170.0 60.0,165.5 60.0,174.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="73" y="161" fill="var(--t1-ink)" text-anchor="middle">2.2 m s⁻¹</text>
+<path d="M365.0 170.0 L412.0 170.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="421.0,170.0 412.0,174.5 412.0,165.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="393" y="161" fill="var(--t3-ink)" text-anchor="middle">2.8 m s⁻¹</text>
+<text font-family="inherit" font-size="10" x="240" y="240" fill="var(--muted)" text-anchor="middle">arrow lengths to scale; total momentum to the right is 0.80 kg m s⁻¹ before and after</text>
+</svg>

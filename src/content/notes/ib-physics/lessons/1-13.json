@@ -1,0 +1,758 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.13",
+  "slug": "rotational-motion-and-moment-of-inertia",
+  "title": "Rotational motion and moment of inertia",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A turning wheel is described by its [[angular-displacement|angular displacement]], angular velocity and [[angular-acceleration|angular acceleration]], which play the parts of [[displacement|displacement]], velocity and [[acceleration|acceleration]]. When the angular acceleration is constant, four equations of motion predict the rotation. A resultant [[torque|torque]] causes the angular acceleration, $\\tau = I\\alpha$, where the [[moment-of-inertia|moment of inertia]] $I$ depends on how the mass is spread about the axis.",
+  "goals": [
+    {
+      "text": "Describe a rotation using angular displacement, angular velocity and angular acceleration, with a sign for the sense of rotation.",
+      "bullets": [
+        "A.4-a4"
+      ]
+    },
+    {
+      "text": "Use the four equations for uniform angular acceleration, including for a wheel that rolls without slipping.",
+      "bullets": [
+        "A.4-a5"
+      ]
+    },
+    {
+      "text": "Explain how the moment of inertia of a body depends on how its mass is spread about the axis, and on which axis it turns about.",
+      "bullets": [
+        "A.4-a6"
+      ]
+    },
+    {
+      "text": "Calculate the moment of inertia of a system of point masses with $I = \\sum mr^{2}$, alone or added to a body whose $I$ is given.",
+      "bullets": [
+        "A.4-a7"
+      ]
+    },
+    {
+      "text": "Apply $\\tau = I\\alpha$ to a turning body, including a resistive torque and a wheel coupled to a hanging mass.",
+      "bullets": [
+        "A.4-a8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.4",
+    "1.8",
+    "1.11",
+    "1.12",
+    "4.1",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "angular acceleration",
+    "rotational equations of motion",
+    "moment of inertia",
+    "torque equals I alpha",
+    "rolling without slipping",
+    "flywheel and hanging mass"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-rpm-to-omega",
+      "prompt": "A turntable turns at 300 revolutions per minute. What is its angular velocity, in $\\pu{rad s-1}$? Give 3 significant figures.",
+      "hint": "Divide by 60 to get revolutions per second, then multiply by $2\\pi$ [[radian|radians]] per revolution.",
+      "answer": {
+        "value": 31.4,
+        "tolerance": 0.05
+      },
+      "explain": "$f = \\frac{300}{60} = \\pu{5.00 Hz}$, so $\\omega = 2\\pi f = 31.41... \\approx \\pu{31.4 rad s-1}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "300*2*pi/60",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-spanner-torque",
+      "prompt": "A $\\pu{50 N}$ [[force|force]] acts on a spanner $\\pu{0.30 m}$ from the bolt, at $60^{\\circ}$ to the spanner. What is the [[torque|torque]] about the bolt, in $\\pu{N m}$? Give 2 significant figures.",
+      "hint": "Use $\\tau = Fr\\sin\\theta$, where $\\theta$ is the angle between the force and the spanner.",
+      "answer": {
+        "value": 13,
+        "tolerance": 0.5
+      },
+      "explain": "$\\tau = 50 \\times 0.30 \\times \\sin 60^{\\circ} = 12.99... \\approx \\pu{13 N m}$. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "50*0.30*sind(60)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-suvat-displacement",
+      "prompt": "A car moving at $\\pu{4.0 m s-1}$ accelerates uniformly at $\\pu{2.5 m s-2}$ for $\\pu{6.0 s}$. What is its displacement, in metres? Give 2 significant figures.",
+      "hint": "You have $u$, $a$ and $t$, so use $s = ut + \\frac{1}{2}at^{2}$.",
+      "answer": {
+        "value": 69,
+        "tolerance": 0.5
+      },
+      "explain": "$s = 4.0 \\times 6.0 + \\frac{1}{2} \\times 2.5 \\times 6.0^{2} = 24 + 45 = \\pu{69 m}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4.0*6.0 + Rational(1, 2)*2.5*6.0**2",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "describing-rotation",
+      "heading": "Angular displacement, velocity and acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a body moving in a line you used [[position|position]], [[displacement|displacement]], velocity and [[acceleration|acceleration]]. A wheel spinning on its axle stays in one place, so you need a turning version of each."
+        },
+        {
+          "type": "text",
+          "text": "Here a body is rigid: it keeps its shape as it turns. So every point on it turns through the same angle in the same time."
+        },
+        {
+          "type": "text",
+          "text": "Draw a line on the body. Its angular position $\\theta$ is the angle between that line and a fixed reference direction, in [[radian|radians]]. One full turn is $2\\pi$ rad."
+        },
+        {
+          "type": "definition",
+          "term": "angular displacement",
+          "statement": "The change in angular position of a rotating body, $\\Delta\\theta = \\theta_\\text{f} - \\theta_\\text{i}$, measured in radians. Its sign gives the sense of the rotation.",
+          "plain": "The angle the body has turned through, and which way."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-angular-position",
+          "alt": "A disc turns about a fixed axis through its centre. A dashed horizontal line from the centre is the reference direction. A painted line on the disc starts at angle theta i, 30 degrees above the reference direction, and later sits at angle theta f, 110 degrees above it. A curved arrow between the two positions, turning anticlockwise, is labelled delta theta. A curved arrow outside the disc shows that anticlockwise is taken as positive.",
+          "caption": "The disc has turned anticlockwise, so with anticlockwise positive its angular displacement $\\Delta\\theta = \\theta_\\text{f} - \\theta_\\text{i}$ is positive."
+        },
+        {
+          "type": "text",
+          "text": "You won't need the vector treatment of rotation. Instead, choose one sense as positive, usually anticlockwise, and give each angular quantity a sign. Clockwise is then negative."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:1.8}} you met angular velocity, $\\omega = \\frac{\\Delta\\theta}{\\Delta t}$, in $\\pu{rad s-1}$. Its size is the angular speed. When the body speeds up or slows down its turning, $\\omega$ changes."
+        },
+        {
+          "type": "definition",
+          "term": "angular acceleration",
+          "statement": "The rate of change of angular velocity, $\\alpha = \\frac{\\Delta\\omega}{\\Delta t}$. Unit: $\\pu{rad s-2}$.",
+          "plain": "How quickly the turning speeds up or slows down."
+        },
+        {
+          "type": "text",
+          "text": "If $\\alpha$ has the same sign as $\\omega$, the turning speeds up. If the signs are opposite, it slows down."
+        },
+        {
+          "type": "text",
+          "text": "A point at distance $r$ from the axis moves along an arc. The radian is defined so that the arc length is $s = r\\theta$. Dividing by time gives $v = \\omega r$, and in the same way its acceleration along the path is $a = \\alpha r$."
+        },
+        {
+          "type": "formula",
+          "tex": "s = r\\theta \\qquad v = \\omega r \\qquad a = \\alpha r",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "These links matter most for a wheel that rolls without slipping. The ground touches each part of the rim in turn, so the axle moves forward one arc length for each angle turned: $s = r\\theta$, $v = \\omega r$ and $a = \\alpha r$ for the axle."
+        },
+        {
+          "type": "text",
+          "text": "For this forward motion, you treat the wheel's whole mass as if it sits at its [[centre-of-mass|centre of mass]], at the axle."
+        },
+        {
+          "type": "example",
+          "id": "ex-drill-spin-up",
+          "question": "An electric drill starts from rest and reaches 1800 revolutions per minute in $\\pu{0.750 s}$. Calculate the average angular acceleration of the drill bit.",
+          "steps": [
+            "Convert to $\\pu{rad s-1}$: $\\omega_\\text{f} = \\frac{1800 \\times 2\\pi}{60} = \\pu{188.5 rad s-1}$, and $\\omega_\\text{i} = 0$.",
+            "Use the definition: $\\alpha = \\frac{\\Delta\\omega}{\\Delta t} = \\frac{188.5 - 0}{0.750} = \\pu{251.3 rad s-2}$.",
+            "Round to 3 significant figures, like the time."
+          ],
+          "answer": "$\\alpha \\approx \\pu{251 rad s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1800*2*pi/60)/0.750",
+            "sf": 3,
+            "unit": "rad s-2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-wheel-rolls",
+          "question": "A bicycle wheel of radius $\\pu{0.34 m}$ rolls without slipping along a straight road. The bicycle moves forward $\\pu{12.0 m}$. Calculate the size of the angular displacement of the wheel.",
+          "steps": [
+            "Rolling without slipping, so the distance moved equals the arc length turned: $s = r\\theta$.",
+            "$\\theta = \\frac{s}{r} = \\frac{12.0}{0.34} = \\pu{35.29 rad}$.",
+            "Round to 2 significant figures, like the radius. Drawn moving to the right, the wheel turns clockwise, so with anticlockwise positive, $\\Delta\\theta = \\pu{-35 rad}$."
+          ],
+          "answer": "$\\theta \\approx \\pu{35 rad}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "12.0/0.34",
+            "sf": 2,
+            "unit": "rad"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-bike-wheel-turns",
+            "prompt": "Now you try: how many complete turns is that? Give 2 significant figures.",
+            "hint": "One turn is $2\\pi$ rad.",
+            "answer": {
+              "value": 5.6,
+              "tolerance": 0.05
+            },
+            "explain": "$\\frac{35.29}{2\\pi} = 5.61... \\approx 5.6$ turns.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "12.0/0.34/(2*pi)",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting revolutions or degrees into an angular equation. Convert to radians first: multiply revolutions by $2\\pi$, and divide revolutions per minute by 60 before multiplying."
+        },
+        {
+          "type": "check",
+          "id": "check-signs-slowing",
+          "prompt": "A wheel turns anticlockwise and is slowing down. Anticlockwise is positive. What are the signs of its angular velocity and angular acceleration?",
+          "hint": "Which way is it turning? Is $\\Delta\\omega$ positive or negative?",
+          "options": [
+            {
+              "text": "angular velocity positive, angular acceleration negative",
+              "correct": true
+            },
+            {
+              "text": "both positive",
+              "correct": false
+            },
+            {
+              "text": "both negative",
+              "correct": false
+            },
+            {
+              "text": "angular velocity negative, angular acceleration positive",
+              "correct": false
+            }
+          ],
+          "explain": "It turns anticlockwise, so $\\omega > 0$. It is slowing down, so $\\omega$ is getting less positive and $\\alpha < 0$: opposite in sign to $\\omega$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "angular velocity positive, angular acceleration negative"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-roundabout-turns",
+          "prompt": "A playground roundabout turns through 3.5 revolutions. What is its angular displacement, in radians? Give 2 significant figures.",
+          "hint": "Each revolution is $2\\pi$ rad.",
+          "answer": {
+            "value": 22,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta\\theta = 3.5 \\times 2\\pi = 21.99... \\approx \\pu{22 rad}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.5*2*pi",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "equations-of-motion",
+      "heading": "Equations for uniform angular acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.2}} you used four equations for [[uniform-acceleration|uniform acceleration]]. Swap each linear quantity for its angular partner and you get the rotational versions."
+        },
+        {
+          "type": "text",
+          "text": "The swaps are: $s \\to \\Delta\\theta$, $u \\to \\omega_\\text{i}$, $v \\to \\omega_\\text{f}$ and $a \\to \\alpha$. Time $t$ stays the same."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\theta = \\frac{\\omega_\\text{f} + \\omega_\\text{i}}{2}t \\qquad \\omega_\\text{f} = \\omega_\\text{i} + \\alpha t",
+          "tag": "booklet",
+          "bookletId": "db-1-13"
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\theta = \\omega_\\text{i}t + \\frac{1}{2}\\alpha t^{2} \\qquad \\omega_\\text{f}^{2} = \\omega_\\text{i}^{2} + 2\\alpha\\Delta\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-13"
+        },
+        {
+          "type": "text",
+          "text": "All four are in the data booklet. You need to choose the right one: list the five quantities, mark the one you want, and pick the equation that leaves out the one you don't know."
+        },
+        {
+          "type": "text",
+          "text": "They hold only when $\\alpha$ is constant. If the turning effect changes during the motion, $\\alpha$ changes too, and the equations no longer apply."
+        },
+        {
+          "type": "example",
+          "id": "ex-drum-slows",
+          "question": "A washing machine drum spins at $\\pu{120 rad s-1}$. It slows down uniformly and stops in $\\pu{8.0 s}$. Calculate the number of revolutions it makes while stopping.",
+          "steps": [
+            "Take the drum's sense of rotation as positive: $\\omega_\\text{i} = \\pu{120 rad s-1}$, $\\omega_\\text{f} = 0$, $t = \\pu{8.0 s}$. You want $\\Delta\\theta$ and don't need $\\alpha$.",
+            "$\\Delta\\theta = \\frac{\\omega_\\text{f} + \\omega_\\text{i}}{2}t = \\frac{0 + 120}{2} \\times 8.0 = \\pu{480 rad}$.",
+            "Revolutions: $\\frac{480}{2\\pi} = 76.39$.",
+            "Check: $\\alpha = \\frac{0 - 120}{8.0} = \\pu{-15 rad s-2}$, negative because it slows. Then $\\omega_\\text{i}t + \\frac{1}{2}\\alpha t^{2} = 960 - 480 = \\pu{480 rad}$, as before."
+          ],
+          "answer": "$N \\approx 76$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0 + 120)/2*8.0/(2*pi)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-grinding-wheel",
+          "question": "A grinding wheel turns at $\\pu{52 rad s-1}$. Its motor then gives it a constant angular acceleration of $\\pu{6.5 rad s-2}$ while it turns through $\\pu{150 rad}$. Determine its final angular velocity.",
+          "steps": [
+            "Positive is the sense of rotation. Known: $\\omega_\\text{i} = 52$, $\\alpha = 6.5$, $\\Delta\\theta = 150$. Not known and not wanted: $t$.",
+            "So use $\\omega_\\text{f}^{2} = \\omega_\\text{i}^{2} + 2\\alpha\\Delta\\theta = 52^{2} + 2 \\times 6.5 \\times 150 = 2704 + 1950 = 4654$.",
+            "$\\omega_\\text{f} = \\sqrt{4654} = \\pu{68.22 rad s-1}$. It speeds up, as it should with $\\alpha$ and $\\omega$ the same sign."
+          ],
+          "answer": "$\\omega_\\text{f} \\approx \\pu{68 rad s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(52**2 + 2*6.5*150)",
+            "sf": 2,
+            "unit": "rad s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-grinding-time",
+            "prompt": "Now you try: how long does this speeding up take, in seconds? Give 2 significant figures.",
+            "hint": "Use $\\omega_\\text{f} = \\omega_\\text{i} + \\alpha t$ with the unrounded $\\omega_\\text{f}$.",
+            "answer": {
+              "value": 2.5,
+              "tolerance": 0.05
+            },
+            "explain": "$t = \\frac{\\omega_\\text{f} - \\omega_\\text{i}}{\\alpha} = \\frac{68.22 - 52}{6.5} = 2.49... \\approx \\pu{2.5 s}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(sqrt(52**2 + 2*6.5*150) - 52)/6.5",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a \"calculate\" question, write the equation you chose, then the substitution. If a slip spoils the answer, those lines can still earn method marks."
+        },
+        {
+          "type": "check",
+          "id": "check-disc-from-rest",
+          "prompt": "A disc starts from rest with a constant angular acceleration of $\\pu{4.0 rad s-2}$. Through what angle does it turn in the first $\\pu{3.0 s}$?",
+          "hint": "From rest, $\\omega_\\text{i} = 0$, so $\\Delta\\theta = \\frac{1}{2}\\alpha t^{2}$.",
+          "options": [
+            {
+              "text": "$\\pu{18 rad}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{36 rad}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{12 rad}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{6.0 rad}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta\\theta = \\frac{1}{2} \\times 4.0 \\times 3.0^{2} = \\pu{18 rad}$. Forgetting the $\\frac{1}{2}$ gives 36 rad.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*4.0*3.0**2",
+            "unit": "rad"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-toy-car-wheel",
+          "prompt": "A toy car starts from rest and accelerates uniformly across a floor. Its wheels, of radius $\\pu{0.020 m}$, roll without slipping. After $\\pu{1.5 s}$ the car has moved $\\pu{0.90 m}$. What is the angular acceleration of a wheel, in $\\pu{rad s-2}$? Give 2 significant figures.",
+          "hint": "First find the angle turned, $\\theta = \\frac{s}{r}$. Then use $\\Delta\\theta = \\frac{1}{2}\\alpha t^{2}$.",
+          "answer": {
+            "value": 40,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta\\theta = \\frac{0.90}{0.020} = \\pu{45 rad}$, so $\\alpha = \\frac{2\\Delta\\theta}{t^{2}} = \\frac{2 \\times 45}{1.5^{2}} = \\pu{40 rad s-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*(0.90/0.020)/1.5**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "moment-of-inertia",
+      "heading": "Moment of inertia",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Mass measures how hard it is to change a body's linear velocity. For turning, mass alone is not enough: where the mass sits also matters."
+        },
+        {
+          "type": "text",
+          "text": "Hold a broom near its middle and twist it to and fro: it is easy. Now hold it at the end of the handle and swing it to and fro: it is much harder. Same broom, same mass, but more of the mass is now far from the axis."
+        },
+        {
+          "type": "definition",
+          "term": "moment of inertia",
+          "statement": "For a system of point masses about a given axis, $I = \\sum mr^{2}$, where $r$ is each mass's perpendicular distance from the axis. Unit: $\\pu{kg m2}$.",
+          "plain": "How hard it is to change a body's rotation about a particular axis."
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\sum mr^{2}",
+          "tag": "booklet",
+          "bookletId": "db-1-13"
+        },
+        {
+          "type": "text",
+          "text": "Each mass counts with $r^{2}$, so mass far from the axis counts for a lot. Double a mass's distance and its share of $I$ becomes four times as big. A mass on the axis adds nothing."
+        },
+        {
+          "type": "text",
+          "text": "An extended body, like a wheel, is many small pieces, so $I$ depends on how its mass is spread about the axis. The same body has a different $I$ about a different axis."
+        },
+        {
+          "type": "text",
+          "text": "You won't have to derive $I$ for a solid shape. The question gives you the expression, such as $I = \\frac{1}{2}MR^{2}$ for a uniform disc about its central axis."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-rod-axes",
+          "alt": "Two copies of the same light rod, 0.80 m long, with a 0.60 kg mass at each end and a 0.20 kg mass at its centre. In copy a, a dashed axis perpendicular to the rod passes through the centre, so each end mass is 0.40 m from the axis and the centre mass is on the axis. In copy b, the dashed axis passes through the left end, so the centre mass is 0.40 m from the axis and the far end mass is 0.80 m from it.",
+          "caption": "The same masses about two different axes. Measure each $r$ from the axis, not from the end of the rod."
+        },
+        {
+          "type": "example",
+          "id": "ex-rod-centre-axis",
+          "question": "A light rod $\\pu{0.80 m}$ long has a $\\pu{0.60 kg}$ mass fixed at each end and a $\\pu{0.20 kg}$ mass at its centre. Treat the masses as points. Calculate the moment of inertia about an axis through the centre, perpendicular to the rod.",
+          "steps": [
+            "Each end mass is $\\pu{0.40 m}$ from the axis. The centre mass is on the axis, so $r = 0$. The rod is light, so it adds nothing.",
+            "$I = \\sum mr^{2} = 0.60 \\times 0.40^{2} + 0.60 \\times 0.40^{2} + 0.20 \\times 0^{2} = 0.096 + 0.096 + 0 = \\pu{0.192 kg m2}$.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$I \\approx \\pu{0.19 kg m2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*0.60*0.40**2 + 0.20*0**2",
+            "sf": 2,
+            "unit": "kg m2"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-rod-end-axis",
+            "prompt": "Now you try: find the moment of inertia of the same rod about a parallel axis through one end mass, in $\\pu{kg m2}$. Give 2 significant figures.",
+            "hint": "Now the mass on the axis adds nothing, the centre mass is 0.40 m away and the far mass is 0.80 m away.",
+            "answer": {
+              "value": 0.42,
+              "tolerance": 0.005
+            },
+            "explain": "$I = 0.60 \\times 0^{2} + 0.20 \\times 0.40^{2} + 0.60 \\times 0.80^{2} = 0.032 + 0.384 = 0.416 \\approx \\pu{0.42 kg m2}$, more than twice the value about the centre.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "0.60*0**2 + 0.20*0.40**2 + 0.60*0.80**2",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ring-versus-disc",
+          "question": "A thin ring and a uniform solid disc have the same mass and the same radius. Explain which has the greater moment of inertia about the axis through its centre, perpendicular to its face.",
+          "steps": [
+            "The masses are equal, so the answer depends only on where the mass sits.",
+            "Compare distances from the axis, and say how $r^{2}$ makes that count."
+          ],
+          "answer": "Moment of inertia is $I = \\sum mr^{2}$, so it depends on how the mass is distributed about the axis. All the mass of the ring is at the full radius from the axis. Much of the disc's mass is closer to the axis, at every distance from zero up to the radius. So the ring has more of its mass further from the axis, and the ring has the greater moment of inertia.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "I = sum m r^2 depends on mass distribution; ring's mass all at full radius; disc's mass partly near the axis; ring has the greater moment of inertia",
+            "requires": [
+              [
+                "distributed about the axis",
+                "distribution of mass"
+              ],
+              "full radius",
+              "closer to the axis",
+              "further from the axis",
+              "the ring has the greater moment of inertia"
+            ],
+            "forbids": [
+              "the disc has the greater moment of inertia",
+              "same moment of inertia",
+              "ring is heavier"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-masses-slide-out",
+          "prompt": "Two equal small masses sit on a light rod, the same distance either side of the axis. Both slide outwards to twice their distance from the axis. What happens to the moment of inertia?",
+          "hint": "Each mass counts with $r^{2}$.",
+          "options": [
+            {
+              "text": "it becomes four times as large",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same, because the mass is the same",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            }
+          ],
+          "explain": "$I = \\sum mr^{2}$. Doubling every $r$ multiplies every $r^{2}$, and so $I$, by 4. The mass is unchanged, but the way it is spread about the axis has changed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it becomes four times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-turntable-added-mass",
+          "prompt": "A uniform turntable of mass $\\pu{2.0 kg}$ and radius $\\pu{0.30 m}$ has $I = \\frac{1}{2}MR^{2}$ about its axis. A small $\\pu{0.15 kg}$ weight is fixed on it, $\\pu{0.25 m}$ from the axis. What is the new moment of inertia, in $\\pu{kg m2}$? Give 2 significant figures.",
+          "hint": "Moments of inertia about the same axis add. Treat the small weight as a point mass.",
+          "answer": {
+            "value": 0.099,
+            "tolerance": 0.0005
+          },
+          "explain": "$I = \\frac{1}{2} \\times 2.0 \\times 0.30^{2} + 0.15 \\times 0.25^{2} = 0.090 + 0.0094 = 0.0994 \\approx \\pu{0.099 kg m2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*2.0*0.30**2 + 0.15*0.25**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "newtons-second-law-rotation",
+      "heading": "Newton's second law for rotation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[newton-s-second-law|Newton's second law]] says a resultant [[force|force]] gives a mass an acceleration, $F = ma$. For turning, a resultant [[torque|torque]] gives a body an angular acceleration."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tau = I\\alpha",
+          "tag": "booklet",
+          "bookletId": "db-1-13"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\tau$ is the resultant torque about the axis: add the torques with signs, anticlockwise positive. Each one is $Fr\\sin\\theta$, as in {{lesson:1.12}}. The angular acceleration has the same sense as the resultant torque."
+        },
+        {
+          "type": "text",
+          "text": "If the torque changes during the motion, $\\tau = I\\alpha$ links the average torque to the average angular acceleration over that time."
+        },
+        {
+          "type": "text",
+          "text": "A resultant torque of zero gives $\\alpha = 0$. That is [[rotational-equilibrium|rotational equilibrium]]: the body stays at rest or keeps turning at a steady rate. No torque is needed to keep it turning."
+        },
+        {
+          "type": "text",
+          "text": "Real axles have friction, which gives a resistive torque that always opposes the rotation. A motor must beat it to speed the wheel up."
+        },
+        {
+          "type": "text",
+          "text": "The weight of a wheel acts at its centre of mass. On a wheel turning about its central axle that point is on the axis, so the weight has no lever arm and gives no torque."
+        },
+        {
+          "type": "example",
+          "id": "ex-flywheel-motor",
+          "question": "A flywheel has moment of inertia $\\pu{0.85 kg m2}$ about its axle. A motor applies a constant torque of $\\pu{12 N m}$, and friction at the axle gives a constant resistive torque of $\\pu{1.5 N m}$. The flywheel starts from rest. Calculate the time it takes to reach $\\pu{60 rad s-1}$.",
+          "steps": [
+            "Take the motor's sense as positive. Resultant torque: $\\tau = 12 - 1.5 = \\pu{10.5 N m}$.",
+            "$\\alpha = \\frac{\\tau}{I} = \\frac{10.5}{0.85} = \\pu{12.35 rad s-2}$, constant because the torques are constant.",
+            "$\\omega_\\text{f} = \\omega_\\text{i} + \\alpha t$, so $t = \\frac{60 - 0}{12.35} = \\pu{4.857 s}$."
+          ],
+          "answer": "$t \\approx \\pu{4.9 s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "60/((12 - 1.5)/0.85)",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Often a turning body is coupled to one moving in a line, like a drum with a rope and a hanging load. Write one equation for each body, then link them."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-windlass",
+          "alt": "A drum of radius r turns on a fixed horizontal axle at its centre. A rope wound round the drum leaves its right-hand edge and hangs straight down to a bucket. On the drum, the tension T acts straight down at the rim, a perpendicular distance r from the axle. A curved arrow labelled alpha shows the drum turning clockwise. On the bucket, the tension T acts straight up and the weight m g acts straight down, and the weight arrow is longer. An arrow labelled a beside the bucket shows its acceleration downwards.",
+          "caption": "The same tension $T$ pulls up on the bucket and down on the rim of the drum."
+        },
+        {
+          "type": "example",
+          "id": "ex-bucket-on-drum",
+          "question": "A bucket of mass $\\pu{4.0 kg}$ hangs from a light rope wound round a drum of radius $\\pu{0.12 m}$. The drum has moment of inertia $\\pu{0.090 kg m2}$ and turns on a frictionless axle. The bucket is released from rest. Determine the acceleration of the bucket.",
+          "steps": [
+            "Bucket, down positive (the data booklet gives $g = \\pu{9.8 m s-2}$): $mg - T = ma$.",
+            "Drum, with the rope's tension acting at the rim at right angles to the radius: $Tr = I\\alpha$.",
+            "The rope does not slip, so $a = \\alpha r$. Then $T = \\frac{I\\alpha}{r} = \\frac{Ia}{r^{2}}$.",
+            "Substitute into the bucket's equation: $mg = a\\left(m + \\frac{I}{r^{2}}\\right)$, so $a = \\frac{4.0 \\times 9.8}{4.0 + \\frac{0.090}{0.12^{2}}} = \\frac{39.2}{4.0 + 6.25} = \\pu{3.824 m s-2}$.",
+            "Check: $T = \\frac{Ia}{r^{2}} = \\pu{23.9 N}$, less than the weight of $\\pu{39.2 N}$, as it must be for the bucket to accelerate down."
+          ],
+          "answer": "$a \\approx \\pu{3.8 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.0*g/(4.0 + 0.090/0.12**2)",
+            "sf": 2,
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Setting the rope's tension equal to the hanging weight. The load accelerates, so $T < mg$. Write $mg - T = ma$ for the load and $Tr = I\\alpha$ for the drum."
+        },
+        {
+          "type": "check",
+          "id": "check-brake-torque-sense",
+          "prompt": "A wheel is turning clockwise and a brake is applied, so the wheel slows down. What is the sense of the resultant torque on the wheel?",
+          "hint": "The torque has the same sense as the angular acceleration. Is the wheel speeding up or slowing down?",
+          "options": [
+            {
+              "text": "anticlockwise, opposite to the rotation",
+              "correct": true
+            },
+            {
+              "text": "clockwise, the same as the rotation",
+              "correct": false
+            },
+            {
+              "text": "zero, because the wheel is still turning",
+              "correct": false
+            }
+          ],
+          "explain": "The wheel slows, so $\\alpha$ is opposite to $\\omega$: anticlockwise. By $\\tau = I\\alpha$, the resultant torque is anticlockwise too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "anticlockwise, opposite to the rotation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-roundabout-stopping-torque",
+          "prompt": "A playground roundabout with moment of inertia $\\pu{240 kg m2}$ is turning at $\\pu{1.5 rad s-1}$. It slows uniformly and stops in $\\pu{6.0 s}$. What is the size of the resultant torque on it, in $\\pu{N m}$? Give 2 significant figures.",
+          "hint": "Find $\\alpha$ from $\\omega_\\text{f} = \\omega_\\text{i} + \\alpha t$, then use $\\tau = I\\alpha$.",
+          "answer": {
+            "value": 60,
+            "tolerance": 0.5
+          },
+          "explain": "$\\alpha = \\frac{0 - 1.5}{6.0} = \\pu{-0.25 rad s-2}$, so $\\tau = I\\alpha = 240 \\times (-0.25) = \\pu{-60 N m}$, a torque of size $\\pu{60 N m}$ opposing the rotation.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "240*1.5/6.0",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Angular displacement $\\Delta\\theta$ (rad), angular velocity $\\omega = \\frac{\\Delta\\theta}{\\Delta t}$ ($\\pu{rad s-1}$) and angular acceleration $\\alpha = \\frac{\\Delta\\omega}{\\Delta t}$ ($\\pu{rad s-2}$). Choose a positive sense and give each a sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rolling without slipping (for the axle), or a point at radius $r$ (along its path): $s = r\\theta$, $v = \\omega r$, $a = \\alpha r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\theta = \\frac{\\omega_\\text{f} + \\omega_\\text{i}}{2}t \\qquad \\omega_\\text{f} = \\omega_\\text{i} + \\alpha t \\qquad \\Delta\\theta = \\omega_\\text{i}t + \\frac{1}{2}\\alpha t^{2} \\qquad \\omega_\\text{f}^{2} = \\omega_\\text{i}^{2} + 2\\alpha\\Delta\\theta",
+          "tag": "booklet",
+          "bookletId": "db-1-13",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The four angular equations of motion hold only for constant angular acceleration, with angles in radians.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\sum mr^{2} \\qquad \\tau = I\\alpha",
+          "tag": "booklet",
+          "bookletId": "db-1-13",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Moment of inertia depends on the mass and on how it is spread about the chosen axis: mass further from the axis gives a larger $I$. $\\tau$ in $\\tau = I\\alpha$ is the resultant torque, including any resistive torque.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using revolutions, revolutions per minute or degrees in the angular equations. Convert every angle to radians and every rate to $\\pu{rad s-1}$ first.",
+    "Using the angular equations of motion when the torque, and so the angular acceleration, is not constant. Check that $\\alpha$ is constant before you use them.",
+    "Measuring $r$ in $I = \\sum mr^{2}$ from the end of the object instead of from the axis. $r$ is each mass's perpendicular distance from the axis of rotation.",
+    "Saying two bodies of equal mass must have the same moment of inertia. $I$ depends on how the mass is distributed about the axis, not just on how much there is.",
+    "Leaving out a resistive torque, or setting a rope's tension equal to the hanging weight. Use the resultant torque, and write a separate equation for each coupled body."
+  ],
+  "examTips": [
+    "\"Calculate\" with the angular equations: list $\\Delta\\theta$, $\\omega_\\text{i}$, $\\omega_\\text{f}$, $\\alpha$ and $t$, mark the unknown and the one you don't need, then write the equation before substituting.",
+    "\"Explain\" a difference in moment of inertia: say where the mass is relative to the axis (\"more of its mass further from the axis\"). \"It is heavier\" earns nothing when the masses are equal.",
+    "\"Determine\" for a wheel coupled to a hanging mass: write $mg - T = ma$, $Tr = I\\alpha$ and $a = \\alpha r$ as three separate lines. Each one can earn a method mark.",
+    "In Paper 1A, reason with ratios: $I$ goes as $r^{2}$, and for the same torque $\\alpha$ goes as $\\frac{1}{I}$."
+  ],
+  "readingMinutes": 26
+}

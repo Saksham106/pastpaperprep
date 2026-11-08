@@ -1,0 +1,652 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.2",
+  "slug": "equations-of-motion-and-motion-graphs",
+  "title": "Equations of motion and motion graphs",
+  "level": "SL",
+  "topic": 1,
+  "summary": "When the [[acceleration|acceleration]] is constant, four equations link [[displacement|displacement]], [[velocity|velocity]], acceleration and time, so you can predict where a body will be and how fast it will move. When the acceleration changes, those equations fail, and you work from graphs instead: [[gradient|gradients]] give rates, and the [[area-under-a-graph|area under a graph]] gives the change.",
+  "goals": [
+    {
+      "text": "Choose and use the four equations of motion for [[uniform-acceleration|uniform acceleration]] in a straight line, with a stated positive direction.",
+      "bullets": [
+        "A.1-s6"
+      ]
+    },
+    {
+      "text": "Solve vertical motion problems with the [[acceleration-of-free-fall|acceleration of free fall]], including bodies thrown up that turn round.",
+      "bullets": [
+        "A.1-s6",
+        "A.1-s7"
+      ]
+    },
+    {
+      "text": "Tell uniform from [[non-uniform-acceleration|non-uniform acceleration]], and say when the equations of motion apply.",
+      "bullets": [
+        "A.1-s7"
+      ]
+    },
+    {
+      "text": "Find velocity, acceleration and displacement from the gradients and areas of motion graphs, for straight and curved lines.",
+      "bullets": [
+        "A.1-s7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "suvat equations",
+    "equations of motion",
+    "kinematics equations",
+    "velocity time graph area",
+    "free fall calculations",
+    "uniform and non-uniform acceleration"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-st",
+      "prompt": "On a graph of displacement against time, what does the gradient give?",
+      "hint": "Gradient is change in the vertical quantity divided by change in time.",
+      "options": [
+        {
+          "text": "velocity",
+          "correct": true
+        },
+        {
+          "text": "acceleration",
+          "correct": false
+        },
+        {
+          "text": "distance travelled",
+          "correct": false
+        },
+        {
+          "text": "displacement",
+          "correct": false
+        }
+      ],
+      "explain": "Velocity is the rate of change of displacement, so it is the gradient of a displacement–time graph. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "velocity"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-speed",
+      "prompt": "A bus travels $\\pu{1.8 km}$ along a road in $\\pu{4.0 min}$. What is its average [[speed|speed]], in $\\pu{m s-1}$? Give 2 significant figures.",
+      "hint": "Convert to metres and seconds first.",
+      "answer": {
+        "value": 7.5,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{1800}{4.0 \\times 60} = \\pu{7.5 m s-1}$. Revise average speed in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1.8*10**3/(4.0*60)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-acceleration",
+      "prompt": "A trolley's velocity rises from $\\pu{4.0 m s-1}$ to $\\pu{10.0 m s-1}$ in $\\pu{3.0 s}$. What is its average acceleration, in $\\pu{m s-2}$? Give 2 significant figures.",
+      "hint": "Acceleration is change in velocity divided by time taken.",
+      "answer": {
+        "value": 2.0,
+        "tolerance": 0.05
+      },
+      "explain": "$a = \\frac{10.0 - 4.0}{3.0} = \\pu{2.0 m s-2}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(10.0 - 4.0)/3.0",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "suvat",
+      "heading": "The four equations of motion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A car pulls away from traffic lights, gaining the same speed every second. Because the change is steady, you can predict where it will be later."
+        },
+        {
+          "type": "definition",
+          "term": "uniform acceleration",
+          "statement": "Acceleration that stays constant in both magnitude and direction.",
+          "plain": "The velocity changes by the same amount in every second."
+        },
+        {
+          "type": "text",
+          "text": "For [[uniform-acceleration|uniform acceleration]] in a straight line, five quantities describe the motion. Their initials give the equations their nickname, suvat."
+        },
+        {
+          "type": "text",
+          "text": "$s$ is the displacement, $u$ the initial velocity, $v$ the final velocity, $a$ the acceleration and $t$ the time taken. $s$, $u$, $v$ and $a$ are vectors along the line, so each has a sign."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-vt-area",
+          "alt": "Velocity against time graph for uniform acceleration. A straight line rises from velocity u on the vertical axis at time zero to velocity v at time t, and its gradient is labelled a. The area under the line, down to the time axis, is split into two parts. The lower part is a rectangle of height u and width t, labelled area u t. The upper part is a triangle of width t and height v minus u, which equals a t, labelled area one half a t squared. Together they make the displacement s.",
+          "caption": "With uniform acceleration the velocity–time graph is a straight line. Its gradient is $a$, and the area under it is $s$."
+        },
+        {
+          "type": "text",
+          "text": "The gradient gives $a = \\frac{v - u}{t}$, so $v = u + at$. The area under the line, a rectangle $ut$ plus a triangle $\\tfrac{1}{2}at^{2}$, gives $s = ut + \\tfrac{1}{2}at^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "s = \\frac{(u+v)t}{2} \\qquad v = u + at \\qquad s = ut + \\tfrac{1}{2}at^{2} \\qquad v^{2} = u^{2} + 2as",
+          "tag": "booklet",
+          "bookletId": "db-1-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "All four are in the data booklet. Choose the right one: each leaves out one of the five quantities."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a positive direction and write it down."
+        },
+        {
+          "type": "text",
+          "text": "2. List $s$, $u$, $v$, $a$ and $t$. Fill in the three you know, with signs and SI units."
+        },
+        {
+          "type": "text",
+          "text": "3. Mark the one you want and the one you neither know nor want. Pick the equation without that second one."
+        },
+        {
+          "type": "text",
+          "text": "4. Substitute, solve, then round the final answer only, and give its unit."
+        },
+        {
+          "type": "example",
+          "id": "ex-tram-from-rest",
+          "question": "A tram starts from rest and accelerates uniformly to $\\pu{18.0 m s-1}$ in $\\pu{24.0 s}$. Calculate the [[distance|distance]] it travels in this time.",
+          "steps": [
+            "Take the direction of motion as positive. $u = 0$, $v = \\pu{18.0 m s-1}$, $t = \\pu{24.0 s}$, $s = ?$ You don't need $a$.",
+            "The equation without $a$ is $s = \\frac{(u+v)t}{2}$.",
+            "$s = \\frac{(0 + 18.0) \\times 24.0}{2} = \\pu{216 m}$.",
+            "It never turns round, so this displacement is also the distance."
+          ],
+          "answer": "$s = \\pu{216 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0 + 18.0)*24.0/2",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-stopping-distance",
+          "question": "A driver is travelling at $\\pu{24 m s-1}$ when she sees a hazard. Her reaction time is $\\pu{0.60 s}$, during which the car keeps its speed. The brakes then give a uniform deceleration of $\\pu{6.5 m s-2}$. Determine the total distance from seeing the hazard to stopping.",
+          "steps": [
+            "Take the direction of motion as positive. Split the motion: constant velocity, then uniform deceleration.",
+            "Reaction stage, $a = 0$: $s_{1} = ut = 24 \\times 0.60 = \\pu{14.4 m}$.",
+            "Braking stage: $u = \\pu{24 m s-1}$, $v = 0$, $a = \\pu{-6.5 m s-2}$, $s_{2} = ?$ No time is given, so use $v^{2} = u^{2} + 2as$.",
+            "$0 = 24^{2} + 2(-6.5)s_{2}$, so $s_{2} = \\frac{576}{13} = \\pu{44.31 m}$.",
+            "Total: $s = 14.4 + 44.31 = \\pu{58.7 m}$. Round to 2 significant figures, like the data."
+          ],
+          "answer": "$s \\approx \\pu{59 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "24*0.60 + 24**2/(2*6.5)",
+            "sf": 2,
+            "unit": "m"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-braking-time",
+            "prompt": "Now you try: how long does the braking stage last, in seconds? Give 2 significant figures.",
+            "hint": "You know $u$, $v$ and $a$. Use $v = u + at$.",
+            "answer": {
+              "value": 3.7,
+              "tolerance": 0.05
+            },
+            "explain": "$0 = 24 + (-6.5)t$, so $t = \\frac{24}{6.5} = 3.69... \\approx \\pu{3.7 s}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "24/6.5",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the deceleration a positive sign. If the direction of motion is positive and the body slows down, $a$ is negative."
+        },
+        {
+          "type": "check",
+          "id": "check-pick-equation",
+          "prompt": "A body accelerates uniformly. You know $u$, $a$ and $s$, and you want $v$. The time is not given. Which equation goes straight to the answer?",
+          "hint": "Which equation has no $t$ in it?",
+          "options": [
+            {
+              "text": "$v^{2} = u^{2} + 2as$",
+              "correct": true
+            },
+            {
+              "text": "$v = u + at$",
+              "correct": false
+            },
+            {
+              "text": "$s = ut + \\tfrac{1}{2}at^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$s = \\frac{(u+v)t}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Only $v^{2} = u^{2} + 2as$ leaves out $t$. The other three all need the time.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(v**2, u**2 + 2*a*s)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-up-slope",
+          "prompt": "A ball rolls up a slope at $\\pu{4.0 m s-1}$ and slows down uniformly at $\\pu{1.6 m s-2}$. How far up the slope does it travel before it stops for an instant? Answer in metres to 2 significant figures.",
+          "hint": "Up the slope is positive, so $a = \\pu{-1.6 m s-2}$ and $v = 0$.",
+          "answer": {
+            "value": 5.0,
+            "tolerance": 0.05
+          },
+          "explain": "$0 = 4.0^{2} + 2(-1.6)s$, so $s = \\frac{16}{3.2} = \\pu{5.0 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.0**2/(2*1.6)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "free-fall",
+      "heading": "Vertical motion and free fall",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On the Moon, a hammer and a feather dropped together land at the same moment. With no air in the way, every body falls with the same acceleration."
+        },
+        {
+          "type": "definition",
+          "term": "acceleration of free fall",
+          "statement": "The acceleration of a body when the only force on it is its weight. Near Earth's surface it is $g = \\pu{9.8 m s-2}$, directed downwards, and it is the same for every body.",
+          "plain": "How quickly anything speeds up as it falls, ignoring air resistance."
+        },
+        {
+          "type": "text",
+          "text": "The value $g = \\pu{9.8 m s-2}$ is from the data booklet. Near the ground the [[acceleration-of-free-fall|acceleration of free fall]] is uniform, so the equations of motion apply."
+        },
+        {
+          "type": "text",
+          "text": "Signs matter here. With up as positive, $a = \\pu{-9.8 m s-2}$ the whole time: going up, at the top and coming down."
+        },
+        {
+          "type": "result",
+          "statement": "For a body thrown straight up with air resistance negligible, one set of equations covers the whole flight. At the highest point $v = 0$, but the acceleration is still $g$ downwards.",
+          "why": "The weight still acts at the top, so the velocity keeps changing at the same rate, through zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-max-height",
+          "question": "A ball is thrown vertically upwards at $\\pu{12 m s-1}$. Air resistance is negligible. Calculate the maximum height it reaches above the point of release.",
+          "steps": [
+            "Take up as positive. $u = \\pu{12 m s-1}$, $a = -g = \\pu{-9.8 m s-2}$, and at the top $v = 0$. You want $s$; $t$ is not needed.",
+            "Use $v^{2} = u^{2} + 2as$: $0 = 12^{2} + 2(-9.8)s$.",
+            "$s = \\frac{144}{19.6} = \\pu{7.347 m}$.",
+            "Round to 2 significant figures."
+          ],
+          "answer": "$s \\approx \\pu{7.3 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "12**2/(2*g)",
+            "sf": 2,
+            "unit": "m"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-velocity-after-2s",
+            "prompt": "Now you try: taking up as positive, what is the ball's velocity $\\pu{2.0 s}$ after it is thrown? Answer in $\\pu{m s-1}$ to 2 significant figures, with its sign.",
+            "hint": "Use $v = u + at$ with $a = \\pu{-9.8 m s-2}$. A negative answer means it is moving down.",
+            "answer": {
+              "value": -7.6,
+              "tolerance": 0.05
+            },
+            "explain": "$v = 12 + (-9.8)(2.0) = \\pu{-7.6 m s-1}$: past the top and falling.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "12 - g*2.0",
+              "sf": 2,
+              "signed": true
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cliff-stone",
+          "question": "A stone is thrown vertically upwards at $\\pu{8.0 m s-1}$ from the edge of a cliff. It then falls past the edge into the sea, $\\pu{35 m}$ below the point of release. Air resistance is negligible. Calculate the time from release until the stone hits the sea.",
+          "steps": [
+            "Take up as positive. $u = \\pu{8.0 m s-1}$, $a = \\pu{-9.8 m s-2}$, and the sea is below the start, so $s = \\pu{-35 m}$. You want $t$.",
+            "The acceleration is uniform for the whole flight, so one equation does it: $s = ut + \\tfrac{1}{2}at^{2}$ gives $-35 = 8.0t - 4.9t^{2}$.",
+            "Rearrange: $4.9t^{2} - 8.0t - 35 = 0$.",
+            "Quadratic formula: $t = \\frac{8.0 + \\sqrt{8.0^{2} + 4(4.9)(35)}}{9.8} = \\pu{3.611 s}$. Reject the negative root."
+          ],
+          "answer": "$t \\approx \\pu{3.6 s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(8.0 + sqrt(8.0**2 + 2*g*35))/g",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $s = \\pu{+35 m}$ after taking up as positive. The stone ends below where it started, so its displacement is negative."
+        },
+        {
+          "type": "check",
+          "id": "check-top-of-flight",
+          "prompt": "A ball is thrown vertically upwards. Air resistance is negligible. Which describes it at the highest point?",
+          "hint": "Is the velocity still changing at that instant?",
+          "options": [
+            {
+              "text": "velocity zero, acceleration 9.8 m s⁻² downwards",
+              "correct": true
+            },
+            {
+              "text": "velocity zero, acceleration zero",
+              "correct": false
+            },
+            {
+              "text": "velocity 9.8 m s⁻¹ downwards, acceleration zero",
+              "correct": false
+            },
+            {
+              "text": "velocity zero, acceleration 9.8 m s⁻² upwards",
+              "correct": false
+            }
+          ],
+          "explain": "It stops for an instant, so $v = 0$. Its weight still acts, so the acceleration is still $g$ downwards.",
+          "verify": {
+            "kind": "choice",
+            "truth": "velocity zero, acceleration 9.8 m s⁻² downwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dropped-phone",
+          "prompt": "A phone slips from a hand and falls from rest through $\\pu{1.4 m}$ to the floor. Air resistance is negligible. At what speed does it hit the floor, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "Take down as positive: $u = 0$, $a = \\pu{9.8 m s-2}$, $s = \\pu{1.4 m}$.",
+          "answer": {
+            "value": 5.2,
+            "tolerance": 0.05
+          },
+          "explain": "$v^{2} = 0 + 2(9.8)(1.4) = 27.44$, so $v = 5.23... \\approx \\pu{5.2 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(2*g*1.4)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Motion graphs: uniform and non-uniform acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sprinter's acceleration is largest at the start and fades near top speed. The equations of motion can't handle that; graphs can."
+        },
+        {
+          "type": "definition",
+          "term": "non-uniform acceleration",
+          "statement": "Acceleration that changes in magnitude, direction or both as time passes.",
+          "plain": "The velocity changes by different amounts in different seconds."
+        },
+        {
+          "type": "text",
+          "text": "A body falling through air speeds up less and less as the air pushes back harder, so it has [[non-uniform-acceleration|non-uniform acceleration]]. The equations of motion assume constant $a$, so they give wrong answers there."
+        },
+        {
+          "type": "text",
+          "text": "Read motion graphs two ways. The gradient is a rate of change. The [[area-under-a-graph|area under a graph]] adds up the product of the two axis quantities."
+        },
+        {
+          "type": "result",
+          "statement": "Gradient of displacement–time = velocity. Gradient of velocity–time = acceleration. Area under velocity–time = displacement. Area under acceleration–time = change in velocity.",
+          "why": "Velocity is the rate of change of displacement and acceleration the rate of change of velocity; the area adds up rate × time over each small interval."
+        },
+        {
+          "type": "text",
+          "text": "Uniform, non-zero acceleration gives a straight velocity–time graph, a horizontal acceleration–time line and a parabolic displacement–time graph. Non-uniform acceleration curves the velocity–time graph."
+        },
+        {
+          "type": "text",
+          "text": "Area below the time axis is negative displacement: motion in the negative direction. Add it with its sign for displacement, and its size for distance."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-scooter-journey",
+          "alt": "Velocity against time graph of a scooter journey. Velocity in metres per second on the vertical axis, time in seconds on the horizontal axis. The velocity rises in a straight line from zero at time 0 to 5.0 metres per second at 2.5 seconds, stays at 5.0 until 12.5 seconds, then falls in a straight line to zero at 17.5 seconds. The area under the graph is split into a triangle A from 0 to 2.5 seconds, a rectangle B from 2.5 to 12.5 seconds and a triangle C from 12.5 to 17.5 seconds.",
+          "caption": "Split the area under a velocity–time graph into shapes you can measure."
+        },
+        {
+          "type": "example",
+          "id": "ex-scooter-displacement",
+          "question": "The graph shows the velocity of an electric scooter moving along a straight path. It accelerates uniformly from rest to $\\pu{5.0 m s-1}$ in $\\pu{2.5 s}$, moves at that velocity until $t = \\pu{12.5 s}$, then slows uniformly and stops at $t = \\pu{17.5 s}$. Determine its displacement in the $\\pu{17.5 s}$.",
+          "steps": [
+            "Displacement is the area under the velocity–time graph. Split it into the shapes A, B and C.",
+            "A, a triangle: $\\tfrac{1}{2} \\times 2.5 \\times 5.0 = \\pu{6.25 m}$.",
+            "B, a rectangle: $(12.5 - 2.5) \\times 5.0 = \\pu{50 m}$.",
+            "C, a triangle: $\\tfrac{1}{2} \\times (17.5 - 12.5) \\times 5.0 = \\pu{12.5 m}$.",
+            "Total: $6.25 + 50 + 12.5 = \\pu{68.75 m}$. Round to 2 significant figures, like the velocity."
+          ],
+          "answer": "$s \\approx \\pu{69 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*2.5*5.0 + (12.5 - 2.5)*5.0 + Rational(1, 2)*(17.5 - 12.5)*5.0",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-2-non-uniform",
+          "alt": "Velocity against time graph for non-uniform acceleration. The curve starts at the origin, rises steeply at first, and then becomes less and less steep as time goes on. At a point P on the curve a dashed straight line touches the curve: this tangent's gradient is the acceleration at that instant. The area under the curve is divided into thin vertical strips, each close to a trapezium, whose areas add up to the displacement.",
+          "caption": "For a curve: the tangent's gradient gives the acceleration at an instant, and strips estimate the area."
+        },
+        {
+          "type": "text",
+          "text": "For a curve, draw a tangent at the instant you want and find its [[gradient|gradient]] with a large triangle. For the area, count grid squares or use thin trapezia."
+        },
+        {
+          "type": "example",
+          "id": "ex-curved-graph-explain",
+          "question": "The velocity–time graph of a cyclist moving in a straight line is a curve. It gets less steep as time goes on. Explain why the equations of motion cannot be used to find the cyclist's displacement, and outline how the graph can be used instead.",
+          "steps": [
+            "First mark: what the changing gradient means.",
+            "Second mark: why that rules out the equations of motion.",
+            "Third and fourth marks: the graph method, area for displacement, then how to measure it."
+          ],
+          "answer": "The gradient of a velocity–time graph is the acceleration, and here the gradient decreases, so the acceleration is not constant. The equations of motion only apply to uniform acceleration, so they cannot be used. The displacement is equal to the area under the velocity–time graph. This area can be estimated by counting the squares under the curve, or by splitting it into thin trapezia, and multiplying by the displacement that one square represents.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gradient = acceleration, which decreases, so non-uniform; suvat needs uniform acceleration; displacement = area under v-t, by counting squares or trapezia",
+            "requires": [
+              [
+                "gradient of a velocity–time graph is the acceleration",
+                "gradient is the acceleration"
+              ],
+              [
+                "acceleration is not constant",
+                "acceleration decreases",
+                "non-uniform"
+              ],
+              [
+                "only apply to uniform acceleration",
+                "constant acceleration"
+              ],
+              "area under the velocity–time graph",
+              [
+                "counting the squares",
+                "trapezia"
+              ]
+            ],
+            "forbids": [
+              "acceleration is constant",
+              "area is the distance travelled",
+              "gradient is the displacement"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-curve-steeper",
+          "prompt": "A body moves in a straight line. Its velocity–time graph is a rising curve that gets steeper as time goes on. Which describes its acceleration?",
+          "hint": "The gradient of a velocity–time graph is the acceleration.",
+          "options": [
+            {
+              "text": "increasing",
+              "correct": true
+            },
+            {
+              "text": "constant",
+              "correct": false
+            },
+            {
+              "text": "decreasing",
+              "correct": false
+            },
+            {
+              "text": "zero",
+              "correct": false
+            }
+          ],
+          "explain": "A steeper gradient means a larger acceleration, so the acceleration increases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "increasing"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trolley-displacement",
+          "prompt": "A trolley moves at $\\pu{+2.0 m s-1}$ for $\\pu{3.0 s}$, then at $\\pu{-1.0 m s-1}$ for $\\pu{4.0 s}$. What is its displacement after the $\\pu{7.0 s}$?",
+          "hint": "Area below the time axis counts as negative.",
+          "options": [
+            {
+              "text": "$s = \\pu{2.0 m}$",
+              "correct": true
+            },
+            {
+              "text": "$s = \\pu{10 m}$",
+              "correct": false
+            },
+            {
+              "text": "$s = \\pu{6.0 m}$",
+              "correct": false
+            },
+            {
+              "text": "$s = \\pu{-2.0 m}$",
+              "correct": false
+            }
+          ],
+          "explain": "The areas are $+6.0$ and $-4.0$, so $s = \\pu{2.0 m}$. Adding the sizes, $\\pu{10 m}$, gives the distance travelled instead.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.0*3.0 + (-1.0)*4.0",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-a-t-area",
+          "prompt": "A cart starts from rest. Its acceleration is $\\pu{1.5 m s-2}$ for $\\pu{4.0 s}$, then $\\pu{0.50 m s-2}$ for the next $\\pu{6.0 s}$, in the same direction. What is its speed at the end, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "The area under an acceleration–time graph is the change in velocity. Sketch the two rectangles.",
+          "answer": {
+            "value": 9.0,
+            "tolerance": 0.05
+          },
+          "explain": "Change in velocity $= 1.5 \\times 4.0 + 0.50 \\times 6.0 = \\pu{9.0 m s-1}$, and it started from rest.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.5*4.0 + 0.50*6.0",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The equations of motion hold only for uniform acceleration in a straight line. Each leaves out one of $s$, $u$, $v$, $a$, $t$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "State a positive direction first. Displacement, velocity and acceleration carry signs; up positive means $a = -g$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Free fall: $g = \\pu{9.8 m s-2}$ downwards (data booklet), the same for every body when air resistance is negligible. At the top of a vertical throw $v = 0$ but $a = g$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gradient of displacement–time = velocity; gradient of velocity–time = acceleration; area under velocity–time = displacement; area under acceleration–time = change in velocity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Non-uniform acceleration: curved velocity–time graph, no suvat. Use a tangent for the gradient, and squares or trapezia for the area.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the equations of motion when the acceleration changes, such as a fall through air or a curved velocity–time graph. Check the acceleration is constant first.",
+    "Mixing signs: taking up as positive but writing $a = \\pu{+9.8 m s-2}$. Write the positive direction down and give every vector its sign.",
+    "Treating $s$ as distance when the body turns round. $s$ is the displacement from the start, so a ball that lands back in your hand has $s = 0$.",
+    "Reading the gradient of a displacement–time graph as acceleration. It is velocity."
+  ],
+  "examTips": [
+    "\"Calculate\": write the equation you chose, then the substitution with numbers. That line earns the method mark if the final answer slips.",
+    "\"Determine\" a gradient from a curve: draw a long tangent and use a large triangle. For an area, show the value of one square and the count.",
+    "\"Sketch\" a motion graph: label both axes, and show the key features: straight or curved, where it crosses zero, where it levels off.",
+    "In Paper 1A, from rest $s = \\tfrac{1}{2}at^{2}$, so doubling the time quadruples the displacement."
+  ],
+  "readingMinutes": 21
+}

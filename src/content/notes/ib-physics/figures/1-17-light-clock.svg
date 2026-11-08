@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 260" role="img" aria-labelledby="t">
+<title id="t">A light clock seen from two frames. Left panel, the clock's own frame: two horizontal mirrors a distance d apart, one above the other. A pulse of light goes straight up from the lower mirror to the upper mirror and straight back down, so one tick is a path of length 2 d. Right panel, a frame in which the clock moves to the right at speed v: the clock is drawn at three positions. The light leaves the lower mirror at the first position, meets the upper mirror at the second position and returns to the lower mirror at the third position, so it follows a longer zigzag path. The light still travels at speed c, so each tick takes longer in this frame.</title>
+<text font-family="inherit" font-size="13" x="100" y="24" fill="currentColor" text-anchor="middle">clock's own frame</text>
+<path d="M65 60 H135" stroke="currentColor" stroke-width="3"/>
+<path d="M65 190 H135" stroke="currentColor" stroke-width="3"/>
+<path d="M92 186 V73" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="92,64 87.5,73 96.5,73" fill="var(--t1-ink)"/>
+<path d="M108 64 V177" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="108,186 103.5,177 112.5,177" fill="var(--t1-ink)"/>
+<path d="M150 60 V190" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="13" x="158" y="130" fill="currentColor" text-anchor="start">d</text>
+<text font-family="inherit" font-size="12" x="100" y="216" fill="currentColor" text-anchor="middle">one tick: path 2d</text>
+<path d="M200 20 V240" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="13" x="370" y="24" fill="currentColor" text-anchor="middle">frame in which the clock moves</text>
+<path d="M240 60 H280" stroke="var(--muted)" stroke-width="3"/>
+<path d="M240 190 H280" stroke="var(--muted)" stroke-width="3"/>
+<path d="M340 60 H380" stroke="var(--muted)" stroke-width="3"/>
+<path d="M340 190 H380" stroke="var(--muted)" stroke-width="3"/>
+<path d="M440 60 H480" stroke="currentColor" stroke-width="3"/>
+<path d="M440 190 H480" stroke="currentColor" stroke-width="3"/>
+<path d="M260 186 L354.3 71" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="360,64 350.8,68.1 357.8,73.8" fill="var(--t1-ink)"/>
+<path d="M360 64 L454.3 179" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="460,186 457.8,176.2 450.8,181.9" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="296" y="118" fill="var(--t1-ink)" text-anchor="end">c</text>
+<text font-family="inherit" font-size="13" x="424" y="118" fill="var(--t1-ink)" text-anchor="start">c</text>
+<path d="M440 40 H491" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<polygon points="500,40 491,44.5 491,35.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="13" x="430" y="45" fill="var(--t3-ink)" text-anchor="end">v</text>
+<text font-family="inherit" font-size="12" x="370" y="216" fill="currentColor" text-anchor="middle">one tick: longer zigzag path, same speed c</text>
+<text font-family="inherit" font-size="12" x="370" y="236" fill="currentColor" text-anchor="middle">so each tick takes longer</text>
+</svg>

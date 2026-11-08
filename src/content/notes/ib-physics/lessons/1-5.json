@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.5",
+  "slug": "contact-and-field-forces",
+  "title": "Contact and field forces",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Every [[force|force]] on a body is a contact force or a field force. Contact forces need touching: the [[normal-force|normal force]], [[friction|friction]], [[tension|tension]], spring forces, drag and [[buoyancy|buoyancy]]. Field forces act at a distance: [[weight|weight]], and [[electric-force|electric]] and [[magnetic-force|magnetic forces]].",
+  "goals": [
+    {
+      "text": "Describe the normal force and friction, and use $F_\\text{f} \\le \\mu_\\text{s}F_\\text{N}$ and $F_\\text{f} = \\mu_\\text{d}F_\\text{N}$, on level ground and on slopes.",
+      "bullets": [
+        "A.2-s5"
+      ]
+    },
+    {
+      "text": "Use tension and [[hooke-s-law|Hooke's law]], $F_\\text{H} = -kx$, for strings, cables and springs.",
+      "bullets": [
+        "A.2-s5"
+      ]
+    },
+    {
+      "text": "Calculate [[viscous-drag|viscous drag]] on a small sphere and buoyancy on a body in a fluid, including at [[terminal-speed|terminal speed]].",
+      "bullets": [
+        "A.2-s5"
+      ]
+    },
+    {
+      "text": "Calculate weight with $F_\\text{g} = mg$, and tell weight apart from mass.",
+      "bullets": [
+        "A.2-s6"
+      ]
+    },
+    {
+      "text": "Describe the [[electric-force|electric force]] and the [[magnetic-force|magnetic force]]: what each acts on and its direction.",
+      "bullets": [
+        "A.2-s6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "2.1",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "friction coefficient",
+    "normal reaction force",
+    "Hooke's law spring",
+    "Stokes drag",
+    "upthrust",
+    "weight and mass"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-vertical-component",
+      "prompt": "A force of $\\pu{50 N}$ acts at $40^{\\circ}$ above the horizontal. What is its vertical component, in newtons? Give 2 significant figures.",
+      "hint": "The vertical side is opposite the angle, so use sine.",
+      "answer": {
+        "value": 32,
+        "tolerance": 0.5
+      },
+      "explain": "$50\\sin 40^{\\circ} = 32.1... \\approx \\pu{32 N}$. Revise [[resolving-a-vector|resolving a vector]] in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "50*sind(40)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-density",
+      "prompt": "A metal block has a mass of $\\pu{0.81 kg}$ and a volume of $\\pu{3.0e-4 m3}$. What is its [[density|density]], in $\\pu{kg m-3}$? Give 2 significant figures.",
+      "hint": "Density is mass divided by volume.",
+      "answer": {
+        "value": 2700,
+        "tolerance": 50
+      },
+      "explain": "$\\rho = \\frac{0.81}{3.0 \\times 10^{-4}} = \\pu{2700 kg m-3}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.81/(3.0*10**-4)",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "normal-friction",
+      "heading": "Normal force and friction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a book on a tilted desk. The desk pushes on the book, and that push has two parts: one perpendicular to the surface, and one along it."
+        },
+        {
+          "type": "definition",
+          "term": "normal force",
+          "statement": "The component of the contact force from a surface that acts perpendicular to the surface, pushing on the body. Symbol $F_\\text{N}$.",
+          "plain": "The surface pushing back so the body does not sink into it."
+        },
+        {
+          "type": "text",
+          "text": "$F_\\text{N}$ is only as large as it needs to be. It equals $mg$ on a level surface with no other vertical forces and no vertical [[acceleration|acceleration]], but not in general."
+        },
+        {
+          "type": "text",
+          "text": "On a slope at angle $\\theta$ to the horizontal, with no other force perpendicular to the slope, $F_\\text{N} = mg\\cos\\theta$."
+        },
+        {
+          "type": "definition",
+          "term": "friction",
+          "statement": "The component of the contact force parallel to the surface. It opposes the sliding of the two surfaces over each other, or their tendency to slide. Symbol $F_\\text{f}$.",
+          "plain": "The surface gripping the body and resisting sliding."
+        },
+        {
+          "type": "text",
+          "text": "Static friction acts while the surfaces do not slide. It is just big enough to stop sliding, up to a maximum value. Dynamic friction acts once they slide."
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{f} \\le \\mu_\\text{s} F_\\text{N}",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{f} = \\mu_\\text{d} F_\\text{N}",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "text",
+          "text": "$\\mu_\\text{s}$ and $\\mu_\\text{d}$ are [[coefficient-of-friction|coefficients of friction]], for static and for sliding contact. They have no unit and depend on the two surfaces. Usually $\\mu_\\text{d} < \\mu_\\text{s}$: starting to slide is harder than keeping going."
+        },
+        {
+          "type": "text",
+          "text": "Both equations are in the data booklet. So is $g = \\pu{9.8 m s-2}$, used throughout this lesson."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-friction-push",
+          "alt": "Graph of the friction force on a box resting on a level floor against the horizontal push on it. Both axes are in newtons. From the origin, the friction rises along a straight line at 45 degrees, equal to the push, labelled at rest. It reaches a peak, labelled mu s F N, where the box starts to slide. The friction then drops to a lower value, labelled mu d F N, and stays constant as the push increases further, labelled sliding.",
+          "caption": "At rest, friction matches the push. It can't exceed $\\mu_\\text{s}F_\\text{N}$, so the box slides, and friction drops to $\\mu_\\text{d}F_\\text{N}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-box-start",
+          "question": "A box of books of mass $\\pu{15 kg}$ rests on a level floor. Between the box and the floor, $\\mu_\\text{s} = 0.62$. Determine the smallest horizontal push that starts the box sliding.",
+          "steps": [
+            "The floor is level and the push is horizontal, so $F_\\text{N} = mg = 15 \\times 9.8 = \\pu{147 N}$.",
+            "Maximum static friction: $\\mu_\\text{s}F_\\text{N} = 0.62 \\times 147 = \\pu{91.14 N}$.",
+            "The push must just exceed this maximum. Round to 2 significant figures, as the data are given."
+          ],
+          "answer": "$F \\approx \\pu{91 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.62*15*g",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-box-weak-push",
+          "prompt": "Someone now pushes the same box, at rest, horizontally with $\\pu{60 N}$. What is the size of the friction force on it, in newtons?",
+          "hint": "Is $\\pu{60 N}$ above or below the maximum static friction?",
+          "answer": {
+            "value": 60,
+            "tolerance": 0.5
+          },
+          "explain": "$60 < 91.14$, so the box stays at rest. Static friction balances the push: $\\pu{60 N}$, not $\\mu_\\text{s}F_\\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Min(60, 0.62*15*g)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-5-slope-fbd",
+          "alt": "A block on a rough ramp that rises to the right at angle theta to the horizontal. The block is sliding down the ramp. Three labelled arrows start at a dot at the centre of the block: weight m g, the longest, pointing vertically down; normal force F N pointing away from the ramp, perpendicular to its surface; and a short friction arrow F f pointing up the ramp, against the sliding. Two dashed arrows show the components of the weight: m g sin theta down the ramp and m g cos theta into the ramp, perpendicular to the surface. The normal force arrow is the same length as the m g cos theta component.",
+          "caption": "On a [[free-body-diagram|free-body diagram]] for a slope, resolve the weight along and perpendicular to the surface. Friction acts up the slope, against the sliding."
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-slide",
+          "question": "A crate slides down a loading ramp inclined at $31^{\\circ}$ to the horizontal. The coefficient of dynamic friction between crate and ramp is $0.35$. Calculate the acceleration of the crate.",
+          "steps": [
+            "Take down the ramp as positive. [[resolving-a-vector|Resolve]] the weight: $mg\\sin 31^{\\circ}$ down the ramp, $mg\\cos 31^{\\circ}$ into it.",
+            "Perpendicular to the ramp there is no acceleration, so $F_\\text{N} = mg\\cos 31^{\\circ}$ and $F_\\text{f} = 0.35\\,mg\\cos 31^{\\circ}$, up the ramp.",
+            "Along the ramp: $ma = mg\\sin 31^{\\circ} - 0.35\\,mg\\cos 31^{\\circ}$. The mass cancels.",
+            "$a = 9.8\\,(0.5150 - 0.35 \\times 0.8572) = \\pu{2.107 m s-2}$, down the ramp."
+          ],
+          "answer": "$a \\approx \\pu{2.1 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "g*(sind(31)-0.35*cosd(31))",
+            "sf": 2,
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ramp-normal",
+          "prompt": "A box of weight $W$ rests on a ramp at angle $\\theta$ to the horizontal. Only its weight, the normal force and friction act on it. What is the size of the normal force?",
+          "hint": "The normal force balances the component of the weight perpendicular to the ramp.",
+          "options": [
+            {
+              "text": "$W\\cos\\theta$",
+              "correct": true
+            },
+            {
+              "text": "$W\\sin\\theta$",
+              "correct": false
+            },
+            {
+              "text": "$W$",
+              "correct": false
+            },
+            {
+              "text": "$W\\tan\\theta$",
+              "correct": false
+            }
+          ],
+          "explain": "Perpendicular to the ramp, $F_\\text{N} = W\\cos\\theta$. $W\\sin\\theta$ is the component along the ramp, which friction balances.",
+          "verify": {
+            "kind": "expression",
+            "truth": "W*cos(theta)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tension-springs",
+      "heading": "Tension and springs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pull a rope tight and every part of it is stretched. At each end it pulls on whatever is attached."
+        },
+        {
+          "type": "definition",
+          "term": "tension",
+          "statement": "The pulling force that a taut string, rope or cable exerts on a body attached to it. It acts along the string, away from the body. Symbol $T$.",
+          "plain": "The pull of a tight rope."
+        },
+        {
+          "type": "text",
+          "text": "For a light string, the tension is the same all along it, even over a smooth pulley."
+        },
+        {
+          "type": "text",
+          "text": "A spring pulls when stretched and pushes when compressed. This elastic restoring force grows with the stretch."
+        },
+        {
+          "type": "definition",
+          "term": "Hooke's law",
+          "statement": "The force exerted by a spring is proportional to its extension $x$ from its natural length, and opposite to it, up to the limit of proportionality.",
+          "plain": "Twice the stretch, twice the force."
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{H} = -kx",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "text",
+          "text": "$x$ is the extension (or compression) in m. $k$ is the [[spring-constant|spring constant]] in $\\pu{N m-1}$, the force per metre of extension. A stiffer spring has a larger $k$."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign says the force on the attached body is opposite to the extension. For sizes, use $F_\\text{H} = kx$."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-hooke-graph",
+          "alt": "Graph of force F in newtons against extension x in metres for a spring. From the origin the graph is a straight line. A small right-angled triangle drawn under the straight part shows that its gradient is the spring constant k. At a point labelled limit of proportionality the line ends, and beyond it the graph curves and becomes less steep.",
+          "caption": "Gradient $= k$, but only on the straight part. Past the limit of proportionality, Hooke's law no longer holds."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-constant",
+          "question": "A spring hangs vertically with a natural length of $\\pu{18.0 cm}$. A $\\pu{0.25 kg}$ mass hung from it stretches it to $\\pu{23.6 cm}$ when at rest. Calculate the spring constant.",
+          "steps": [
+            "Extension: $x = 23.6 - 18.0 = \\pu{5.6 cm} = \\pu{0.056 m}$.",
+            "The mass is at rest, so the spring force balances its weight: $kx = mg = 0.25 \\times 9.8 = \\pu{2.45 N}$.",
+            "$k = \\frac{2.45}{0.056} = \\pu{43.75 N m-1}$. Round to 2 significant figures."
+          ],
+          "answer": "$k \\approx \\pu{44 N m-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.25*g/((23.6-18.0)/100)",
+            "sf": 2,
+            "unit": "N m-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sign-cables",
+          "question": "A shop sign of mass $\\pu{4.2 kg}$ hangs at rest from two cables. Each cable makes an angle of $35^{\\circ}$ with the vertical, one on each side. Calculate the tension in each cable.",
+          "steps": [
+            "By symmetry both tensions are equal. Their horizontal components cancel.",
+            "The sign is at rest, so vertically: $2T\\cos 35^{\\circ} = mg = 4.2 \\times 9.8 = \\pu{41.16 N}$.",
+            "$T = \\frac{41.16}{2 \\times 0.8192} = \\pu{25.12 N}$."
+          ],
+          "answer": "$T \\approx \\pu{25 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.2*g/(2*cosd(35))",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hooke-load",
+          "prompt": "A spring obeys Hooke's law. A $\\pu{2.0 N}$ load stretches it by $\\pu{3.0 cm}$. What load stretches it by $\\pu{7.5 cm}$?",
+          "hint": "Force is proportional to extension, so scale by the same factor.",
+          "options": [
+            {
+              "text": "$5.0\\text{ N}$",
+              "correct": true
+            },
+            {
+              "text": "$4.5\\text{ N}$",
+              "correct": false
+            },
+            {
+              "text": "$0.80\\text{ N}$",
+              "correct": false
+            },
+            {
+              "text": "$6.5\\text{ N}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{7.5}{3.0} = 2.5$, so the load is $2.5 \\times 2.0 = \\pu{5.0 N}$. $\\pu{4.5 N}$ subtracts the extensions, and $\\pu{0.80 N}$ uses the ratio upside down.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.0*7.5/3.0",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compressed-spring",
+          "prompt": "A spring with $k = \\pu{120 N m-1}$ is compressed by $\\pu{3.5 cm}$. What is the size of the force it exerts, in newtons? Give 2 significant figures.",
+          "hint": "Convert the compression to metres first.",
+          "answer": {
+            "value": 4.2,
+            "tolerance": 0.05
+          },
+          "explain": "$F_\\text{H} = kx = 120 \\times 0.035 = \\pu{4.2 N}$, pushing outwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "120*3.5/100",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fluid-forces",
+      "heading": "Drag and buoyancy in fluids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A marble sinks slowly through syrup. A beach ball pushed under water shoots back up."
+        },
+        {
+          "type": "text",
+          "text": "[[fluid-resistance|Fluid resistance]] opposes motion through a gas or liquid ({{lesson:1.3}}). For a small sphere moving slowly, its size follows a simple rule."
+        },
+        {
+          "type": "definition",
+          "term": "viscous drag",
+          "statement": "The resistive force on a small sphere moving slowly through a fluid. It acts opposite to the sphere's [[velocity|velocity]] through the fluid. Symbol $F_\\text{d}$.",
+          "plain": "The fluid holding back a sphere moving through it."
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{d} = 6\\pi\\eta r v",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "text",
+          "text": "$\\eta$ (eta) is the viscosity of the fluid, in Pa s: how thick it is. $r$ is the sphere's radius and $v$ its speed through the fluid."
+        },
+        {
+          "type": "text",
+          "text": "The rule holds only for a small, smooth sphere moving slowly, so the fluid flows smoothly round it. For a fast, large body such as a car, drag rises faster than $v$."
+        },
+        {
+          "type": "definition",
+          "term": "buoyancy",
+          "statement": "The upward force a fluid exerts on a body that is partly or fully immersed in it. It equals the weight of the fluid the body displaces. Symbol $F_\\text{b}$.",
+          "plain": "The fluid pushing up on a body in it."
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{b} = \\rho V g",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "text",
+          "text": "$\\rho$ is the [[density|density]] of the fluid, not of the body. $V$ is the volume of fluid displaced: the volume of the part of the body below the surface."
+        },
+        {
+          "type": "text",
+          "text": "A floating body is at rest, so its buoyancy equals its weight. A fully immersed body that is denser than the fluid sinks."
+        },
+        {
+          "type": "text",
+          "text": "A small sphere denser than the fluid speeds up until drag plus buoyancy equals its weight. The [[resultant-force|resultant force]] is then zero, and it falls at [[terminal-speed|terminal speed]]."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-sphere-fbd",
+          "alt": "Free-body diagram of a small sphere falling at terminal speed through a fluid, drawn inside a shaded box of fluid. Three labelled arrows start on the sphere: weight W pointing vertically down from its bottom; viscous drag F d pointing vertically up from its top; and buoyancy F b, a shorter arrow, also pointing vertically up from its top. The drag and buoyancy arrows together are as long as the weight arrow. A separate arrow beside the sphere, not touching it, points down and is labelled velocity.",
+          "caption": "At terminal speed, $F_\\text{d} + F_\\text{b} = W$. Velocity is not a force, so its arrow is drawn apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-float-hold",
+          "question": "A sealed plastic float of mass $\\pu{1.2 kg}$ and volume $\\pu{8.5e-3 m3}$ is held fully under seawater of density $\\pu{1030 kg m-3}$. Calculate the downward force needed to hold it at rest.",
+          "steps": [
+            "Fully immersed, so $V = \\pu{8.5e-3 m3}$. Buoyancy: $F_\\text{b} = \\rho Vg = 1030 \\times 8.5 \\times 10^{-3} \\times 9.8 = \\pu{85.80 N}$, up.",
+            "Weight: $mg = 1.2 \\times 9.8 = \\pu{11.76 N}$, down.",
+            "At rest, up = down: $F_\\text{b} = mg + F$, so $F = 85.80 - 11.76 = \\pu{74.04 N}$."
+          ],
+          "answer": "$F \\approx \\pu{74 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1030*8.5*10**-3*g - 1.2*g",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bead-terminal",
+          "question": "A glass bead of radius $\\pu{1.2 mm}$ and density $\\pu{2500 kg m-3}$ falls through oil of density $\\pu{920 kg m-3}$ and viscosity $\\pu{0.85 Pa s}$. Determine the terminal speed of the bead.",
+          "steps": [
+            "Volume: $V = \\frac{4}{3}\\pi r^{3} = \\frac{4}{3}\\pi (1.2 \\times 10^{-3})^{3} = \\pu{7.238e-9 m3}$.",
+            "Weight: $\\rho_\\text{glass}Vg = 2500 \\times 7.238 \\times 10^{-9} \\times 9.8 = \\pu{1.773e-4 N}$. Buoyancy: $\\rho_\\text{oil}Vg = \\pu{6.526e-5 N}$.",
+            "At terminal speed, $F_\\text{d} = W - F_\\text{b} = \\pu{1.121e-4 N}$.",
+            "$v = \\frac{F_\\text{d}}{6\\pi\\eta r} = \\frac{1.121 \\times 10^{-4}}{6\\pi \\times 0.85 \\times 1.2 \\times 10^{-3}} = \\pu{5.829e-3 m s-1}$."
+          ],
+          "answer": "$v \\approx 5.8 \\times 10^{-3}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(2500-920)*Rational(4,3)*pi*(1.2*10**-3)**3*g/(6*pi*0.85*1.2*10**-3)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out buoyancy at terminal speed. Upwards, drag and buoyancy together balance the weight."
+        },
+        {
+          "type": "check",
+          "id": "check-drag-size",
+          "prompt": "A small sphere of radius $\\pu{2.0 mm}$ moves at $\\pu{0.030 m s-1}$ through a liquid of viscosity $\\pu{0.50 Pa s}$. What is the viscous drag on it, in mN? Give 2 significant figures.",
+          "hint": "Use $F_\\text{d} = 6\\pi\\eta r v$ with $r$ in metres, then convert N to mN.",
+          "answer": {
+            "value": 0.57,
+            "tolerance": 0.005
+          },
+          "explain": "$F_\\text{d} = 6\\pi \\times 0.50 \\times 0.0020 \\times 0.030 = \\pu{5.65e-4 N} \\approx \\pu{0.57 mN}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*pi*0.50*2.0*10**-3*0.030*1000",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-floating-block",
+          "prompt": "A wooden block floats at rest in a pond. How does the buoyancy on it compare with its weight?",
+          "hint": "The block is at rest. What is the resultant force?",
+          "options": [
+            {
+              "text": "the buoyancy equals the weight",
+              "correct": true
+            },
+            {
+              "text": "the buoyancy is greater than the weight",
+              "correct": false
+            },
+            {
+              "text": "the buoyancy is less than the weight",
+              "correct": false
+            }
+          ],
+          "explain": "At rest, the resultant force is zero, so the buoyancy equals the weight.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the buoyancy equals the weight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-forces",
+      "heading": "Field forces: weight, electric and magnetic",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A falling apple touches nothing, yet it speeds up. Some forces act at a distance, through a field."
+        },
+        {
+          "type": "definition",
+          "term": "weight",
+          "statement": "The gravitational force on a body, $F_\\text{g} = mg$. Near the Earth's surface it acts vertically downwards.",
+          "plain": "How hard the Earth pulls on a body."
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{g} = mg",
+          "tag": "booklet",
+          "bookletId": "db-1-5"
+        },
+        {
+          "type": "text",
+          "text": "$g$ is the gravitational field strength, in $\\pu{N kg-1}$. It equals the [[acceleration-of-free-fall|acceleration of free fall]], so near the Earth $g = \\pu{9.8 m s-2}$."
+        },
+        {
+          "type": "text",
+          "text": "Mass and weight are different. Mass, in kg, is the same everywhere. Weight, in N, depends on $g$: on the Moon it is about a sixth of its value on Earth."
+        },
+        {
+          "type": "definition",
+          "term": "electric force",
+          "statement": "The force between charged bodies, or on a charge in an electric field. Like charges repel and unlike charges attract. Symbol $F_\\text{e}$.",
+          "plain": "The push or pull between charges."
+        },
+        {
+          "type": "text",
+          "text": "It acts on a charge whether it moves or not. You calculate it in {{lesson:4.4}}."
+        },
+        {
+          "type": "definition",
+          "term": "magnetic force",
+          "statement": "The force on a moving charge, or a current-carrying wire, in a magnetic field. It acts perpendicular to both the velocity (or current) and the field. Symbol $F_\\text{m}$.",
+          "plain": "The sideways push a magnetic field gives a moving charge."
+        },
+        {
+          "type": "text",
+          "text": "A charge at rest feels no magnetic force, and neither does one moving parallel to the field. You calculate it in {{lesson:4.8}}."
+        },
+        {
+          "type": "text",
+          "text": "Contact forces are electric too. The normal force, friction and tension all come from electric forces between particles: those of the touching surfaces, or those along a stretched rope."
+        },
+        {
+          "type": "example",
+          "id": "ex-rover-weight",
+          "question": "A small rover of mass $\\pu{24 kg}$ is tested on Earth and then landed on Mars, where $g = \\pu{3.7 N kg-1}$. Calculate its weight on Mars.",
+          "steps": [
+            "Its mass is still $\\pu{24 kg}$: mass does not depend on location.",
+            "On Mars, $F_\\text{g} = mg = 24 \\times 3.7 = \\pu{88.8 N}$.",
+            "Round to 2 significant figures, as the data are given."
+          ],
+          "answer": "$F_\\text{g} \\approx \\pu{89 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "24*3.7",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-dust-grain",
+          "question": "In a vacuum, a charged dust grain stays at rest between two horizontal charged plates. A magnetic field also passes through the region. Outline which forces act on the grain and why it stays at rest.",
+          "steps": [
+            "List the field forces: gravitational, electric, magnetic. There is no contact and no fluid.",
+            "Check each: is the grain charged? Is it moving?"
+          ],
+          "answer": "Its weight acts vertically downwards. The electric force from the plates' field acts upwards. The grain is at rest, so the resultant force is zero and the electric force is equal in size to the weight. The magnetic field exerts no force, because a magnetic force acts only on a moving charge.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "weight down; electric force up; resultant zero so equal; no magnetic force on a charge at rest",
+            "requires": [
+              "weight",
+              "electric force",
+              "upwards",
+              [
+                "resultant force is zero",
+                "zero resultant force"
+              ],
+              "equal in size",
+              [
+                "only on a moving charge",
+                "only on moving charges"
+              ]
+            ],
+            "forbids": [
+              "magnetic force balances",
+              "no forces act"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Labelling the weight arrow \"gravity\" or $g$. Write weight, $W$, $F_\\text{g}$ or $mg$."
+        },
+        {
+          "type": "check",
+          "id": "check-astronaut-moon",
+          "prompt": "An astronaut travels from the Earth to the Moon. Which statement about her on the Moon is correct?",
+          "hint": "Which quantity depends on $g$?",
+          "options": [
+            {
+              "text": "her mass is the same and her weight is smaller",
+              "correct": true
+            },
+            {
+              "text": "her mass and her weight are both smaller",
+              "correct": false
+            },
+            {
+              "text": "her mass is smaller and her weight is the same",
+              "correct": false
+            },
+            {
+              "text": "her mass and her weight are both the same",
+              "correct": false
+            }
+          ],
+          "explain": "Mass does not depend on location. Weight is $mg$, and $g$ is smaller on the Moon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "her mass is the same and her weight is smaller"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnetic-which",
+          "prompt": "Which particle feels a magnetic force?",
+          "hint": "The magnetic force needs a charge, and motion across the field.",
+          "options": [
+            {
+              "text": "an electron moving across a magnetic field",
+              "correct": true
+            },
+            {
+              "text": "an electron at rest in a magnetic field",
+              "correct": false
+            },
+            {
+              "text": "a neutron moving across a magnetic field",
+              "correct": false
+            },
+            {
+              "text": "a proton moving parallel to a magnetic field",
+              "correct": false
+            }
+          ],
+          "explain": "Only a moving charge with motion across the field feels it. A neutron has no charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an electron moving across a magnetic field"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Normal force $F_\\text{N}$: perpendicular to the surface, and not always $mg$. On a slope with no other perpendicular forces, $F_\\text{N} = mg\\cos\\theta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{f} \\le \\mu_\\text{s} F_\\text{N} \\qquad F_\\text{f} = \\mu_\\text{d} F_\\text{N}",
+          "tag": "booklet",
+          "bookletId": "db-1-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{H} = -kx",
+          "tag": "booklet",
+          "bookletId": "db-1-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{d} = 6\\pi\\eta r v",
+          "tag": "booklet",
+          "bookletId": "db-1-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{b} = \\rho V g",
+          "tag": "booklet",
+          "bookletId": "db-1-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_\\text{g} = mg",
+          "tag": "booklet",
+          "bookletId": "db-1-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Drag: small sphere moving slowly. Buoyancy: $\\rho$ of the fluid, $V$ displaced. A sphere falling at terminal speed: $F_\\text{d} + F_\\text{b} = W$. For a rising bubble, drag acts down: $F_\\text{b} = W + F_\\text{d}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electric force: on any charge, moving or not. Magnetic force: only on moving charges or currents, perpendicular to the velocity and the field.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing $F_\\text{f} = \\mu_\\text{s}F_\\text{N}$ for a body at rest. That is only the maximum; static friction is just what stops the sliding.",
+    "Assuming $F_\\text{N} = mg$ everywhere. On a slope it is $mg\\cos\\theta$, and an angled pull or a vertical acceleration changes it too.",
+    "Using the stretched length, or centimetres, in $F_\\text{H} = kx$. Use the extension in metres.",
+    "Using the body's density in $F_\\text{b} = \\rho Vg$. Use the fluid's density and the volume of fluid displaced.",
+    "Labelling a force \"gravity\". Write weight. Also use $g = \\pu{9.8 m s-2}$ from the data booklet, not $9.81$ or $10$, unless told otherwise: in a \"show that\" another value can cost the mark."
+  ],
+  "examTips": [
+    "\"Label\" a free-body diagram with standard names or symbols: weight $F_\\text{g}$, normal force $F_\\text{N}$, friction $F_\\text{f}$, tension $T$, drag $F_\\text{d}$, buoyancy $F_\\text{b}$.",
+    "\"Calculate\" a friction force: find $F_\\text{N}$ first and show it, then multiply by $\\mu$. For a body at rest, say why friction equals the force it balances.",
+    "In Paper 1A terminal-speed questions, write the balance first, with drag opposite to the motion: for a falling body, weight = drag + buoyancy. Then pick the option."
+  ],
+  "readingMinutes": 24
+}

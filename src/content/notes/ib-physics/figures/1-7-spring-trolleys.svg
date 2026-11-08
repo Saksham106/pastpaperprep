@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-labelledby="t">
+<title id="t">Two trolleys on a track. Before: a 1.5 kilogram trolley and a 0.50 kilogram trolley are held together at rest with a compressed spring between them, so the total momentum is zero. After release: the 1.5 kilogram trolley moves left at 0.80 metres per second and the 0.50 kilogram trolley moves right at 2.4 metres per second. The velocity arrows are to scale, so the lighter trolley's arrow is three times as long. Each trolley has a momentum of 1.2 kilogram metres per second, in opposite directions.</title>
+<text font-family="inherit" font-size="13" x="20" y="26" fill="currentColor" text-anchor="start">Before: at rest</text>
+<path d="M20 90 H460 M20 205 H460" stroke="var(--muted)" stroke-width="1.5"/>
+<rect x="140" y="55" width="90" height="35" rx="3" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="185.0" y="76.5" fill="var(--t1-ink)" text-anchor="middle">1.5 kg</text>
+<path d="M230 72 L234 66 L238 78 L242 66 L246 78 L250 66 L254 78 L258 66 L262 72" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<rect x="262" y="55" width="60" height="35" rx="3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="292.0" y="76.5" fill="var(--t3-ink)" text-anchor="middle">0.50 kg</text>
+<text font-family="inherit" font-size="11" x="240" y="112" fill="var(--muted)" text-anchor="middle">total momentum = 0</text>
+<text font-family="inherit" font-size="13" x="20" y="141" fill="currentColor" text-anchor="start">After</text>
+<rect x="80" y="170" width="90" height="35" rx="3" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="125.0" y="191.5" fill="var(--t1-ink)" text-anchor="middle">1.5 kg</text>
+<path d="M125.0 157.0 L102.0 157.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="93.0,157.0 102.0,152.5 102.0,161.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="110" y="148" fill="var(--t1-ink)" text-anchor="middle">0.80 m s⁻¹</text>
+<rect x="330" y="170" width="60" height="35" rx="3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="360.0" y="191.5" fill="var(--t3-ink)" text-anchor="middle">0.50 kg</text>
+<path d="M360.0 157.0 L447.0 157.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="456.0,157.0 447.0,161.5 447.0,152.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="405" y="148" fill="var(--t3-ink)" text-anchor="middle">2.4 m s⁻¹</text>
+<text font-family="inherit" font-size="10" x="240" y="232" fill="var(--muted)" text-anchor="middle">equal and opposite momenta: 1.2 kg m s⁻¹ each; arrow lengths to scale</text>
+</svg>

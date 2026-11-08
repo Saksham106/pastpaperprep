@@ -1,0 +1,727 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.8",
+  "slug": "circular-motion",
+  "title": "Circular motion",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A body moving in a circle keeps changing direction, so its [[velocity|velocity]] changes and it has an [[acceleration|acceleration]] towards the centre, even at constant [[speed|speed]]. A [[resultant-force|resultant force]] towards the centre, the centripetal [[force|force]], causes it. The [[period|period]], angular velocity and speed describe the motion.",
+  "goals": [
+    {
+      "text": "Describe circular motion using period, frequency and angular velocity, and use $v = \\frac{2\\pi r}{T} = \\omega r$.",
+      "bullets": [
+        "A.2-s17"
+      ]
+    },
+    {
+      "text": "Explain why a body moving in a circle at constant speed is accelerating, and give the direction of its acceleration.",
+      "bullets": [
+        "A.2-s14",
+        "A.2-s16"
+      ]
+    },
+    {
+      "text": "Calculate centripetal acceleration from the speed, the angular velocity or the period.",
+      "bullets": [
+        "A.2-s14"
+      ]
+    },
+    {
+      "text": "Identify the real forces that provide a centripetal force, and calculate the force needed.",
+      "bullets": [
+        "A.2-s15",
+        "A.2-s16"
+      ]
+    },
+    {
+      "text": "Analyse the forces at the top and bottom of a vertical circle, where the speed changes.",
+      "bullets": [
+        "A.2-s15",
+        "A.2-s14"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.4",
+    "1.5",
+    "1.6",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "circular motion",
+    "centripetal acceleration",
+    "centripetal force",
+    "angular velocity",
+    "tension in a vertical circle",
+    "minimum speed at the top of a loop"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-degrees-to-radians",
+      "prompt": "Convert $120^{\\circ}$ to [[radian|radians]]. Give 3 significant figures.",
+      "hint": "A full turn is $360^{\\circ} = 2\\pi$ rad, so multiply by $\\frac{\\pi}{180}$.",
+      "answer": {
+        "value": 2.09,
+        "tolerance": 0.005
+      },
+      "explain": "$120 \\times \\frac{\\pi}{180} = \\frac{2\\pi}{3} = 2.094... \\approx \\pu{2.09 rad}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "120*pi/180",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-second-law",
+      "prompt": "A [[resultant-force|resultant force]] of $\\pu{18 N}$ acts on a $\\pu{4.0 kg}$ trolley. What is its acceleration, in $\\pu{m s-2}$? Give 2 significant figures.",
+      "hint": "Rearrange $F = ma$.",
+      "answer": {
+        "value": 4.5,
+        "tolerance": 0.05
+      },
+      "explain": "$a = \\frac{F}{m} = \\frac{18}{4.0} = \\pu{4.5 m s-2}$, in the direction of the resultant force. Revise [[newton-s-second-law|Newton's second law]] in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "18/4.0",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-max-static-friction",
+      "prompt": "A $\\pu{12 kg}$ box rests on a level floor. The coefficient of static friction is $0.55$. What is the largest friction force the floor can exert before the box slides, in newtons? Give 2 significant figures.",
+      "hint": "On a level floor the [[normal-force|normal force]] equals the weight. Then use $F_\\text{f} \\le \\mu_\\text{s} F_\\text{N}$.",
+      "answer": {
+        "value": 65,
+        "tolerance": 0.5
+      },
+      "explain": "$F_\\text{N} = mg = 12 \\times 9.8 = \\pu{117.6 N}$, so the largest friction is $0.55 \\times 117.6 = 64.7 \\approx \\pu{65 N}$. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.55*12*g",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "describing",
+      "heading": "Period, frequency and angular velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A point on a spinning wheel covers the same circle again and again. You describe it by how long each turn takes and how fast it turns."
+        },
+        {
+          "type": "definition",
+          "term": "period",
+          "statement": "The time taken for one complete cycle of a repeating motion. For circular motion, it is the time for one full revolution. Symbol $T$, unit s.",
+          "plain": "How long one lap takes."
+        },
+        {
+          "type": "text",
+          "text": "The [[frequency|frequency]] $f$ is the number of revolutions per second, measured in hertz (Hz). It is the reciprocal of the [[period|period]]."
+        },
+        {
+          "type": "formula",
+          "tex": "T = \\frac{1}{f}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Angles in circular motion are measured in [[radian|radians]]. One full turn is $2\\pi$ rad, and the data booklet gives $\\pu{1 rad} = \\frac{180^{\\circ}}{\\pi}$."
+        },
+        {
+          "type": "definition",
+          "term": "angular velocity",
+          "statement": "The angle swept out by the radius per unit time, $\\omega = \\frac{\\Delta\\theta}{\\Delta t}$, with the angle in radians. Unit: $\\pu{rad s-1}$.",
+          "plain": "How fast something turns, in radians per second."
+        },
+        {
+          "type": "text",
+          "text": "In one period the radius sweeps out $2\\pi$ rad, so $\\omega = \\frac{2\\pi}{T} = 2\\pi f$. In that time the body travels one circumference, $2\\pi r$."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{2\\pi r}{T} = \\omega r",
+          "tag": "booklet",
+          "bookletId": "db-1-8"
+        },
+        {
+          "type": "text",
+          "text": "Every point on a turning rigid object has the same $\\omega$. A point further from the axis has a larger speed, $v = \\omega r$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fan-blade-tip",
+          "question": "A ceiling fan turns steadily, making one revolution every $\\pu{0.40 s}$. The tip of each blade is $\\pu{0.62 m}$ from the axis. Calculate the speed of a blade tip.",
+          "steps": [
+            "$T = \\pu{0.40 s}$ and $r = \\pu{0.62 m}$.",
+            "Angular velocity: $\\omega = \\frac{2\\pi}{T} = \\frac{2\\pi}{0.40} = \\pu{15.71 rad s-1}$.",
+            "Speed: $v = \\omega r = 15.71 \\times 0.62 = \\pu{9.739 m s-1}$. Round to 2 significant figures, like the data."
+          ],
+          "answer": "$v \\approx \\pu{9.7 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*0.62/0.40",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-potter-wheel",
+          "question": "A potter's wheel turns at a steady 75 revolutions per minute. Determine its angular velocity in $\\pu{rad s-1}$.",
+          "steps": [
+            "Revolutions per second: $f = \\frac{75}{60} = \\pu{1.25 Hz}$.",
+            "Each revolution is $2\\pi$ rad: $\\omega = 2\\pi f = 2\\pi \\times 1.25 = \\pu{7.854 rad s-1}$."
+          ],
+          "answer": "$\\omega \\approx \\pu{7.9 rad s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*75/60",
+            "sf": 2,
+            "unit": "rad s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-clay-speed",
+            "prompt": "Now you try: a lump of clay sits on the wheel $\\pu{0.18 m}$ from the axis. What is its speed, in $\\pu{m s-1}$? Give 2 significant figures.",
+            "hint": "Use $v = \\omega r$ with the unrounded $\\omega$.",
+            "answer": {
+              "value": 1.4,
+              "tolerance": 0.05
+            },
+            "explain": "$v = \\omega r = 7.854 \\times 0.18 = 1.41... \\approx \\pu{1.4 m s-1}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "2*pi*75/60*0.18",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting revolutions per minute straight into $v = \\omega r$. Divide by 60 to get $f$ in Hz, then use $\\omega = 2\\pi f$."
+        },
+        {
+          "type": "check",
+          "id": "check-roundabout-children",
+          "prompt": "Two children sit on a turning playground roundabout. Ana is $\\pu{1.0 m}$ from the centre and Ben is $\\pu{2.0 m}$ from the centre. Which statement is correct?",
+          "hint": "Do they both complete a turn in the same time? Then use $v = \\omega r$.",
+          "options": [
+            {
+              "text": "same angular velocity, and Ben has twice the speed",
+              "correct": true
+            },
+            {
+              "text": "same speed, and Ben has half the angular velocity",
+              "correct": false
+            },
+            {
+              "text": "Ben has twice the angular velocity and twice the speed",
+              "correct": false
+            },
+            {
+              "text": "same angular velocity and same speed",
+              "correct": false
+            }
+          ],
+          "explain": "They go round together, so they have the same period and the same $\\omega$. Ben's circle is twice as big, so $v = \\omega r$ is twice as big.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same angular velocity, and Ben has twice the speed"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-period-from-omega",
+          "prompt": "A bicycle wheel turns with an angular velocity of $\\pu{12 rad s-1}$. What is its period, in seconds? Give 2 significant figures.",
+          "hint": "One turn is $2\\pi$ rad. How long does that take at $\\pu{12 rad s-1}$?",
+          "answer": {
+            "value": 0.52,
+            "tolerance": 0.005
+          },
+          "explain": "$T = \\frac{2\\pi}{\\omega} = \\frac{2\\pi}{12} = 0.524... \\approx \\pu{0.52 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi/12",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "centripetal-acceleration",
+      "heading": "Centripetal acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drive round a roundabout at a steady [[speed|speed]]. You still feel the car turning you, because your direction keeps changing."
+        },
+        {
+          "type": "text",
+          "text": "[[velocity|Velocity]] is a vector, so a change of direction is a change of velocity, even at constant speed. A changing velocity means an [[acceleration|acceleration]]."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-velocity-change",
+          "alt": "A body moves clockwise round a circle at constant speed. At point A, at the top of the circle, the velocity is drawn along the tangent, pointing right. At point B, 60 degrees further round, its velocity arrow is the same length but points along the new tangent, down and to the right. Dashed radii join A and B to the centre. Halfway between A and B, an arrow labelled a points from the circle towards the centre. To the right, a vector diagram draws the two velocities from the same point. The arrow from the tip of the first velocity to the tip of the second is the change in velocity, and it points the same way as the arrow towards the centre.",
+          "caption": "The velocity keeps the same length but turns. The change in velocity, and so the acceleration, points towards the centre."
+        },
+        {
+          "type": "definition",
+          "term": "centripetal acceleration",
+          "statement": "The acceleration of a body moving along a circular path, directed along the radius towards the centre of the circle.",
+          "plain": "The centre-seeking acceleration that keeps turning the velocity."
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{v^{2}}{r} = \\omega^{2}r = \\frac{4\\pi^{2}r}{T^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-1-8"
+        },
+        {
+          "type": "text",
+          "text": "Pick the form that matches your data: speed, angular velocity or period. Double $v$ on the same circle and $a$ becomes four times bigger."
+        },
+        {
+          "type": "text",
+          "text": "Its size is constant but its direction keeps turning, so it is not [[uniform-acceleration|uniform acceleration]]: don't use the equations of motion from {{lesson:1.2}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-train-on-curve",
+          "question": "A train travels round a curved section of track at a constant speed. Explain why the train is accelerating.",
+          "steps": [
+            "Give one marking point per sentence: velocity is a vector; its direction changes; so velocity changes; acceleration is the rate of change of velocity, towards the centre.",
+            "\"The speed is constant\" on its own earns nothing."
+          ],
+          "answer": "Velocity is a vector, so it has both magnitude and direction. As the train goes round the curve, its direction of motion changes continuously. So its velocity changes, even though its speed is constant. Acceleration is the rate of change of velocity, so the train is accelerating, towards the centre of the curve.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "velocity is a vector; direction changes so velocity changes; acceleration is rate of change of velocity; directed towards the centre",
+            "requires": [
+              [
+                "velocity is a vector",
+                "magnitude and direction"
+              ],
+              "direction of motion changes",
+              "velocity changes",
+              "rate of change of velocity",
+              "towards the centre"
+            ],
+            "forbids": [
+              "no acceleration",
+              "away from the centre",
+              "speed changes"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-equator-acceleration",
+          "question": "The Earth turns once every 24 hours. A point on the equator moves in a circle of radius $\\pu{6.4e6 m}$. Calculate the centripetal acceleration of this point.",
+          "steps": [
+            "You have $r$ and $T$, so use $a = \\frac{4\\pi^{2}r}{T^{2}}$, with $T = 24 \\times 3600 = \\pu{86400 s}$.",
+            "$a = \\frac{4\\pi^{2} \\times 6.4 \\times 10^{6}}{86400^{2}} = \\pu{0.03385 m s-2}$, towards the Earth's axis.",
+            "Compare $g = \\pu{9.8 m s-2}$ (from the data booklet): about 300 times smaller, so you don't notice it."
+          ],
+          "answer": "$a \\approx \\pu{0.034 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*pi**2*6.4*10**6/(24*3600)**2",
+            "sf": 2,
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-acceleration-direction",
+          "prompt": "A puck on smooth ice is tied to a post by a string and slides round in a horizontal circle at constant speed. What is the direction of its acceleration?",
+          "hint": "Which way does the change in velocity point?",
+          "options": [
+            {
+              "text": "towards the centre of the circle",
+              "correct": true
+            },
+            {
+              "text": "along the tangent, in the direction of motion",
+              "correct": false
+            },
+            {
+              "text": "away from the centre of the circle",
+              "correct": false
+            },
+            {
+              "text": "there is none, because the speed is constant",
+              "correct": false
+            }
+          ],
+          "explain": "The velocity keeps turning towards the centre, so the acceleration points along the radius towards the centre. Constant speed does not mean constant velocity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "towards the centre of the circle"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-salad-spinner",
+          "prompt": "A lettuce leaf is pressed against the wall of a salad spinner basket, $\\pu{0.120 m}$ from the axis. The basket turns at $\\pu{45.0 rad s-1}$. What is the centripetal acceleration of the leaf, in $\\pu{m s-2}$? Give 3 significant figures.",
+          "hint": "You have $\\omega$ and $r$, so use $a = \\omega^{2}r$.",
+          "answer": {
+            "value": 243,
+            "tolerance": 0.5
+          },
+          "explain": "$a = \\omega^{2}r = 45.0^{2} \\times 0.120 = \\pu{243 m s-2}$, about 25 times $g$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "45.0**2*0.120",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "centripetal-force",
+      "heading": "Centripetal force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "By [[newton-s-second-law|Newton's second law]], an acceleration needs a [[resultant-force|resultant force]] in the same direction. So a body moving in a circle needs a resultant force towards the centre."
+        },
+        {
+          "type": "definition",
+          "term": "centripetal force",
+          "statement": "The resultant force on a body moving in a circle. It is directed towards the centre of the circle, perpendicular to the body's velocity, and has size $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$.",
+          "plain": "Whatever real pull or push keeps turning the body towards the centre."
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\frac{mv^{2}}{r} = m\\omega^{2}r",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Centripetal force is not a new kind of [[force|force]]. It is a job done by real forces: [[tension|tension]] in a string, friction on tyres, the [[normal-force|normal force]] from a wall, or gravity on a moon."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-car-bend-fbd",
+          "alt": "Free-body diagram of a car going round a flat, horizontal bend, seen from behind. The centre of the bend is to the left. Three arrows start at a dot at the centre of the car: weight W pointing vertically down; normal force F N pointing vertically up, the same length as the weight; and friction F f pointing horizontally to the left, towards the centre of the bend. There is no separate centripetal force arrow.",
+          "caption": "On a flat bend, friction from the road is the only horizontal force, so it provides the centripetal force."
+        },
+        {
+          "type": "text",
+          "text": "On a [[free-body-diagram|free-body diagram]], draw only the real forces. Never add an extra arrow labelled \"centripetal force\"."
+        },
+        {
+          "type": "text",
+          "text": "The centripetal force is perpendicular to the velocity, so it cannot change the speed. It only changes the direction, and does no [[work|work]]."
+        },
+        {
+          "type": "text",
+          "text": "The body's [[linear-momentum|momentum]] keeps its size but turns. If the force stopped, the body would move off along the tangent, not outwards along the radius."
+        },
+        {
+          "type": "text",
+          "text": "On a banked track, part of the normal force points towards the centre. You only describe this; banked calculations are not required."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-flat-bend",
+          "question": "A car of mass $\\pu{1350 kg}$ drives round a flat, horizontal bend of radius $\\pu{48 m}$ at a constant $\\pu{15 m s-1}$. Determine the minimum coefficient of static friction between the tyres and the road for the car not to skid.",
+          "steps": [
+            "Friction provides the centripetal force: $F_\\text{f} = \\frac{mv^{2}}{r} = \\frac{1350 \\times 15^{2}}{48} = \\pu{6328 N}$.",
+            "The road is level, so $F_\\text{N} = mg = 1350 \\times 9.8 = \\pu{13230 N}$.",
+            "The tyres don't slide, so $F_\\text{f} \\le \\mu_\\text{s} F_\\text{N}$. The minimum $\\mu_\\text{s}$ makes it equal: $\\mu_\\text{s} = \\frac{6328}{13230} = 0.4783$.",
+            "Check: $\\mu_\\text{s} = \\frac{v^{2}}{gr}$, so the mass cancels."
+          ],
+          "answer": "$\\mu_\\text{s} \\approx 0.48$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1350*15**2/48)/(1350*g)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-force-does-no-work",
+          "question": "A ball on a string moves in a horizontal circle at constant speed. Explain why the centripetal force on the ball does not change its speed.",
+          "steps": [
+            "Chain the marking points: force towards the centre; velocity along the tangent, so perpendicular; no work; speed constant, direction changes."
+          ],
+          "answer": "The centripetal force acts towards the centre of the circle. The ball's velocity is along the tangent, so the force is perpendicular to the velocity at every instant. The force has no component in the direction of motion, so it does no work on the ball. Its kinetic energy and speed stay constant; only the direction of the velocity changes.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "force towards centre is perpendicular to velocity; no component along motion; no work done; speed constant, direction changes",
+            "requires": [
+              "towards the centre",
+              "perpendicular to the velocity",
+              [
+                "no component in the direction of motion",
+                "no component along the motion"
+              ],
+              [
+                "does no work",
+                "no work"
+              ],
+              "direction of the velocity"
+            ],
+            "forbids": [
+              "centrifugal",
+              "outward force",
+              "no force acts"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing an outward \"centrifugal force\" on a body moving in a circle. No such force acts on it; the resultant force points inwards, towards the centre."
+        },
+        {
+          "type": "check",
+          "id": "check-coin-on-turntable",
+          "prompt": "A coin sits on a horizontal turntable that turns at a steady rate. The coin moves round with the turntable without slipping. What provides the centripetal force on the coin?",
+          "hint": "Which real force on the coin is horizontal?",
+          "options": [
+            {
+              "text": "friction from the turntable, towards the centre",
+              "correct": true
+            },
+            {
+              "text": "friction from the turntable, away from the centre",
+              "correct": false
+            },
+            {
+              "text": "the normal force from the turntable",
+              "correct": false
+            },
+            {
+              "text": "the weight of the coin",
+              "correct": false
+            }
+          ],
+          "explain": "Weight and the normal force are vertical and balance. The only horizontal force is static friction, and it must point towards the centre.",
+          "verify": {
+            "kind": "choice",
+            "truth": "friction from the turntable, towards the centre"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-puck-tension",
+          "prompt": "A $\\pu{0.25 kg}$ puck on a frictionless horizontal table is tied to a fixed peg by a string $\\pu{0.60 m}$ long. It moves round in a circle with a period of $\\pu{0.80 s}$. What is the tension in the string, in newtons? Give 2 significant figures.",
+          "hint": "The tension is the only horizontal force, so it equals $\\frac{4\\pi^{2}mr}{T^{2}}$.",
+          "answer": {
+            "value": 9.3,
+            "tolerance": 0.05
+          },
+          "explain": "$F = ma = m\\frac{4\\pi^{2}r}{T^{2}} = 0.25 \\times \\frac{4\\pi^{2} \\times 0.60}{0.80^{2}} = 9.25... \\approx \\pu{9.3 N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.25*4*pi**2*0.60/0.80**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "vertical-circles",
+      "heading": "Vertical circles and changing speed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Swing a bag in a vertical circle and it slows near the top and speeds up near the bottom: its weight has a component along the path. This is non-uniform circular motion."
+        },
+        {
+          "type": "text",
+          "text": "The force component towards the centre still equals $\\frac{mv^{2}}{r}$ for the speed at that instant. You only analyse the top and the bottom, where every force is vertical."
+        },
+        {
+          "type": "text",
+          "text": "Draw the [[free-body-diagram|free-body diagram]] and take towards the centre as positive."
+        },
+        {
+          "type": "text",
+          "text": "Then (forces towards the centre) minus (forces away from it) $= \\frac{mv^{2}}{r}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-vertical-circle",
+          "alt": "A small mass on a string moves in a vertical circle, shown dashed, around a fixed centre. At the top of the circle, two arrows point straight down from the mass, towards the centre: a short arrow labelled tension T and a longer arrow labelled weight mg. The label reads T plus mg equals m v squared over r. At the bottom of the circle, a long arrow labelled tension T points straight up towards the centre, and a shorter arrow labelled weight mg points straight down. The label reads T minus mg equals m v squared over r. The weight arrows are the same length. The tension arrow at the bottom is much longer than the one at the top.",
+          "caption": "At the bottom the [[tension|tension]] must beat the weight; at the top the tension and the weight both point towards the centre."
+        },
+        {
+          "type": "text",
+          "text": "At the bottom: $T - mg = \\frac{mv^{2}}{r}$, so the tension is larger than the weight. At the top: $T + mg = \\frac{mv^{2}}{r}$."
+        },
+        {
+          "type": "text",
+          "text": "At the top, the minimum speed makes the tension zero, so the weight alone provides the centripetal force: $mg = \\frac{mv^{2}}{r}$, giving $v_\\text{min} = \\sqrt{gr}$. Slower, and the string goes slack."
+        },
+        {
+          "type": "text",
+          "text": "Speed can change on a horizontal circle too. Then the resultant force also has a component along the velocity, so it no longer points at the centre."
+        },
+        {
+          "type": "example",
+          "id": "ex-swing-lowest-point",
+          "question": "A child of mass $\\pu{32 kg}$ sits on a swing. Her centre of mass is $\\pu{2.4 m}$ below the pivot. At the lowest point of the swing she moves at $\\pu{4.5 m s-1}$. Calculate the total tension in the two ropes at this point.",
+          "steps": [
+            "Take up, towards the centre, as positive. Forces: total tension $F_\\text{T}$ up, weight $mg$ down.",
+            "$F_\\text{T} - mg = \\frac{mv^{2}}{r}$, so $F_\\text{T} = 32 \\times 9.8 + \\frac{32 \\times 4.5^{2}}{2.4} = 313.6 + 270 = \\pu{583.6 N}$.",
+            "Almost twice her weight. Round to 2 significant figures."
+          ],
+          "answer": "$F_\\text{T} \\approx \\pu{0.58 kN}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(32*g + 32*4.5**2/2.4)/1000",
+            "sf": 2,
+            "unit": "kN"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-loop-top",
+          "question": "A roller-coaster car of mass $\\pu{450 kg}$ goes round the inside of a vertical loop of radius $\\pu{6.0 m}$. At the top of the loop it is upside down and moving at $\\pu{11 m s-1}$. Calculate the normal force that the track exerts on the car at the top.",
+          "steps": [
+            "The centre is below, so take down as positive. Weight $mg$ and the normal force $F_\\text{N}$ from the track both act down.",
+            "$F_\\text{N} + mg = \\frac{mv^{2}}{r}$, so $F_\\text{N} = \\frac{450 \\times 11^{2}}{6.0} - 450 \\times 9.8 = 9075 - 4410 = \\pu{4665 N}$, downwards.",
+            "Check: $\\sqrt{gr} = \\pu{7.7 m s-1} < \\pu{11 m s-1}$, so the car stays on the track."
+          ],
+          "answer": "$F_\\text{N} \\approx \\pu{4.7 kN}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(450*11**2/6.0 - 450*g)/1000",
+            "sf": 2,
+            "unit": "kN"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a \"calculate\" question at the top or bottom of a circle, write the Newton's second law equation with the signs before substituting. That line earns the method mark."
+        },
+        {
+          "type": "check",
+          "id": "check-greatest-tension",
+          "prompt": "A stone on a string is whirled in a vertical circle. Where is the tension in the string greatest?",
+          "hint": "Where must the tension both balance the weight and provide the centripetal force, at the highest speed?",
+          "options": [
+            {
+              "text": "at the bottom of the circle",
+              "correct": true
+            },
+            {
+              "text": "at the top of the circle",
+              "correct": false
+            },
+            {
+              "text": "halfway up, where the string is horizontal",
+              "correct": false
+            },
+            {
+              "text": "it is the same all the way round",
+              "correct": false
+            }
+          ],
+          "explain": "At the bottom $T = mg + \\frac{mv^{2}}{r}$, and the speed is greatest there. At the top the weight helps, so $T = \\frac{mv^{2}}{r} - mg$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at the bottom of the circle"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bucket-min-speed",
+          "prompt": "A bucket of water is swung in a vertical circle of radius $\\pu{0.85 m}$. What is the minimum speed at the top for the water to stay in the bucket, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "At the minimum speed the bucket pushes on the water with zero force, so the weight alone provides the centripetal force.",
+          "answer": {
+            "value": 2.9,
+            "tolerance": 0.05
+          },
+          "explain": "$mg = \\frac{mv^{2}}{r}$ gives $v = \\sqrt{gr} = \\sqrt{9.8 \\times 0.85} = 2.88... \\approx \\pu{2.9 m s-1}$. The mass cancels.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(g*0.85)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$T = \\frac{1}{f}$, and the angular velocity is $\\omega = \\frac{2\\pi}{T} = 2\\pi f$, in $\\pu{rad s-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{2\\pi r}{T} = \\omega r",
+          "tag": "booklet",
+          "bookletId": "db-1-8",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Constant speed in a circle is still acceleration: the direction of the velocity changes. The acceleration points towards the centre of the circle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{v^{2}}{r} = \\omega^{2}r = \\frac{4\\pi^{2}r}{T^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-1-8",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Centripetal force $F = \\frac{mv^{2}}{r} = m\\omega^{2}r$ is the resultant of real forces, towards the centre and perpendicular to the velocity. It changes direction, not speed, and does no work.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertical circle, towards the centre positive: bottom $T - mg = \\frac{mv^{2}}{r}$; top $T + mg = \\frac{mv^{2}}{r}$. Minimum speed at the top: $\\sqrt{gr}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a body at constant speed in a circle has no acceleration. Its velocity changes direction, so it accelerates towards the centre.",
+    "Adding a \"centripetal force\" arrow, or an outward force, to a free-body diagram. Draw only real forces.",
+    "Saying \"towards the centre of the bowl\" or just \"inwards\". Name the centre of the circle the body moves in.",
+    "Mixing signs in a vertical circle. With towards the centre positive, the weight is positive at the top, negative at the bottom."
+  ],
+  "examTips": [
+    "\"Explain\" an acceleration at constant speed: velocity is a vector, its direction changes, so it accelerates, towards the centre. One point per sentence.",
+    "\"Draw\" forces with their usual names (weight, tension, normal force, friction). An extra force loses the mark.",
+    "In Paper 1A ratio questions, use $a = \\frac{v^{2}}{r}$: double $v$ at the same radius and $a$ and $F$ quadruple.",
+    "\"Determine\" a minimum speed or friction coefficient: state the limiting condition first (tension zero, or $F_\\text{f} = \\mu_\\text{s}F_\\text{N}$)."
+  ],
+  "readingMinutes": 24
+}

@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.10",
+  "slug": "mechanical-energy",
+  "title": "Mechanical energy",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A system holds [[mechanical-energy|mechanical energy]] in three forms: [[kinetic-energy|kinetic energy]] from motion, [[gravitational-potential-energy|gravitational potential energy]] from height and [[elastic-potential-energy|elastic potential energy]] in a stretched or squashed spring. When only [[weight|weight]] and spring [[force|forces]] do [[work|work]] (no [[friction|friction]], air resistance or driving force), the total stays constant and [[energy|energy]] only changes form. That lets you find speeds and heights without knowing the path.",
+  "goals": [
+    {
+      "text": "Calculate kinetic, gravitational potential and elastic potential energy, and add them to find the mechanical energy of a system.",
+      "bullets": [
+        "A.3-s6",
+        "A.3-s8"
+      ]
+    },
+    {
+      "text": "State the condition for mechanical energy to be conserved, and use conservation to find speeds, heights and compressions.",
+      "bullets": [
+        "A.3-s7",
+        "A.3-s8"
+      ]
+    },
+    {
+      "text": "Explain energy changes as [[work|work]] done: the [[weight|weight]] and spring forces transform energy between forms, so the work equals the energy transformed.",
+      "bullets": [
+        "A.3-s8"
+      ]
+    },
+    {
+      "text": "Use the work done by friction, air resistance and other non-conservative forces to account for a change in mechanical energy.",
+      "bullets": [
+        "A.3-s7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "conservation of mechanical energy",
+    "kinetic and potential energy",
+    "gravitational potential energy mgh",
+    "elastic potential energy of a spring",
+    "energy changes on a roller coaster",
+    "energy lost to friction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-push-work",
+      "prompt": "A constant force of $\\pu{18 N}$ pushes a box $\\pu{2.5 m}$ along the direction of the force. How much work does the force do, in joules? Give 2 significant figures.",
+      "hint": "The force and the displacement point the same way, so $\\theta = 0$.",
+      "answer": {
+        "value": 45,
+        "tolerance": 0.5
+      },
+      "explain": "$W = Fs\\cos\\theta = 18 \\times 2.5 \\times \\cos 0^{\\circ} = \\pu{45 J}$. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "18*2.5*cosd(0)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-dog-weight",
+      "prompt": "A dog has a mass of $\\pu{6.0 kg}$. What is its weight, in newtons? Take $g = \\pu{9.8 m s-2}$ and give 2 significant figures.",
+      "hint": "Weight is mass times the gravitational field strength.",
+      "answer": {
+        "value": 59,
+        "tolerance": 0.5
+      },
+      "explain": "$F_\\text{g} = mg = 6.0 \\times 9.8 = 58.8 \\approx \\pu{59 N}$. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.0*g",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-spring-force",
+      "prompt": "A spring with [[spring-constant|spring constant]] $\\pu{120 N m-1}$ is stretched by $\\pu{0.050 m}$. What is the size of the force it exerts, in newtons? Give 2 significant figures.",
+      "hint": "The force from a spring is proportional to its extension.",
+      "answer": {
+        "value": 6.0,
+        "tolerance": 0.05
+      },
+      "explain": "$F = kx = 120 \\times 0.050 = \\pu{6.0 N}$. Revise [[hooke-s-law|Hooke's law]] in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "120*0.050",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "forms",
+      "heading": "Kinetic, gravitational and elastic energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A ball flying through the air is moving and is above the ground. A stretched catapult is about to fling a stone. Each holds energy because of its motion, its height or its shape."
+        },
+        {
+          "type": "text",
+          "text": "Their names are [[kinetic-energy|kinetic energy]] (motion), [[gravitational-potential-energy|gravitational potential energy]] (height) and [[elastic-potential-energy|elastic potential energy]] (shape). Each has its own equation."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\tfrac{1}{2}mv^{2} = \\frac{p^{2}}{2m}",
+          "tag": "booklet",
+          "bookletId": "db-1-10"
+        },
+        {
+          "type": "text",
+          "text": "$m$ is the mass in kg, $v$ the speed in $\\pu{m s-1}$ and $p = mv$ the momentum. Kinetic energy is a scalar and never negative, so the direction of motion does not matter."
+        },
+        {
+          "type": "text",
+          "text": "Because the speed is squared, doubling the speed makes the kinetic energy four times as large. Use $\\frac{p^{2}}{2m}$ when you know the momentum."
+        },
+        {
+          "type": "text",
+          "text": "Now lift a body of mass $m$ slowly through a height $\\Delta h$. You must push up with a [[force|force]] equal to its [[weight|weight]], $mg$, over a distance $\\Delta h$. So you do [[work|work]] $mg\\Delta h$, and that energy is stored as gravitational potential energy."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E_\\text{p} = mg\\Delta h",
+          "tag": "booklet",
+          "bookletId": "db-1-10"
+        },
+        {
+          "type": "text",
+          "text": "$g = \\pu{9.8 m s-2}$ comes from the data booklet. Only changes in height matter, so you may choose any level as zero, such as the floor or the lowest point of the motion."
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta h$ is the vertical change in height, not the distance along a slope. The equation only holds close to Earth's surface, where $g$ is constant. Far from Earth $g$ gets smaller and this equation fails."
+        },
+        {
+          "type": "text",
+          "text": "A spring that obeys [[hooke-s-law|Hooke's law]] pushes back with a force $k\\Delta x$, where $k$ is the [[spring-constant|spring constant]] and $\\Delta x$ the extension or compression. The force grows from zero as you stretch it."
+        },
+        {
+          "type": "text",
+          "text": "The work you do stretching it is the area under the force–extension graph. That area is a triangle of base $\\Delta x$ and height $k\\Delta x$, so the energy stored is $\\tfrac{1}{2}k(\\Delta x)^{2}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-10-spring-area",
+          "alt": "Graph of the force on a spring against its extension: a straight line through the origin with gradient k. The triangle under the line up to extension delta x is shaded. Its height is k times delta x, and its area, one half k delta x squared, is the elastic potential energy.",
+          "caption": "The elastic potential energy is the area under the force–extension graph."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{H} = \\tfrac{1}{2}k(\\Delta x)^{2}",
+          "tag": "booklet",
+          "bookletId": "db-1-10"
+        },
+        {
+          "type": "text",
+          "text": "All three equations are in the data booklet. Compression stores energy just as extension does, because $(\\Delta x)^{2}$ is positive either way."
+        },
+        {
+          "type": "definition",
+          "term": "mechanical energy",
+          "statement": "The sum of a system's kinetic energy, its gravitational potential energy and its elastic potential energy.",
+          "plain": "All the energy a system has because of how its parts move, how high they are and how springs in it are stretched."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{mech} = E_\\text{k} + E_\\text{p} + E_\\text{H}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-momentum",
+          "question": "A cyclist and her bicycle have a combined mass of $\\pu{64.0 kg}$ and a momentum of $\\pu{352 kg m s-1}$. Calculate their kinetic energy.",
+          "steps": [
+            "You know the momentum, so use $E_\\text{k} = \\frac{p^{2}}{2m}$.",
+            "Substitute: $E_\\text{k} = \\frac{352^{2}}{2 \\times 64.0} = \\frac{123904}{128}$.",
+            "So $E_\\text{k} = \\pu{968 J}$.",
+            "Check with the speed: $v = \\frac{352}{64.0} = \\pu{5.50 m s-1}$ and $\\tfrac{1}{2}(64.0)(5.50)^{2} = \\pu{968 J}$, the same."
+          ],
+          "answer": "$E_\\text{k} = \\pu{968 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "352**2/(2*64.0)",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-trolley-total-energy",
+          "question": "A $\\pu{0.250 kg}$ trolley runs on a track $\\pu{0.600 m}$ above the floor. At one instant it moves at $\\pu{1.20 m s-1}$ and has compressed a buffer spring of spring constant $\\pu{350 N m-1}$ by $\\pu{0.0400 m}$. Taking the floor as the zero of gravitational potential energy, calculate the mechanical energy of the trolley and spring at that instant.",
+          "steps": [
+            "Kinetic energy: $E_\\text{k} = \\tfrac{1}{2}(0.250)(1.20)^{2} = \\pu{0.180 J}$.",
+            "Gravitational potential energy above the floor: $E_\\text{p} = (0.250)(9.8)(0.600) = \\pu{1.47 J}$.",
+            "Elastic potential energy: $E_\\text{H} = \\tfrac{1}{2}(350)(0.0400)^{2} = \\pu{0.280 J}$.",
+            "Add the three: $0.180 + 1.47 + 0.280 = \\pu{1.93 J}$."
+          ],
+          "answer": "$E_\\text{mech} = \\pu{1.93 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*0.250*1.20**2 + 0.250*g*0.600 + Rational(1, 2)*350*0.0400**2",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to square. In $\\tfrac{1}{2}mv^{2}$ and $\\tfrac{1}{2}k(\\Delta x)^{2}$, square the speed or the extension first, then multiply."
+        },
+        {
+          "type": "check",
+          "id": "check-double-speed",
+          "prompt": "A car's speed doubles. What happens to its kinetic energy?",
+          "hint": "The speed appears squared in $E_\\text{k} = \\tfrac{1}{2}mv^{2}$.",
+          "options": [
+            {
+              "text": "it becomes four times as large",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same, because the mass has not changed",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            }
+          ],
+          "explain": "$E_\\text{k}$ is proportional to $v^{2}$, and $2^{2} = 4$. Doubling would be true only if $E_\\text{k}$ were proportional to $v$, as momentum is.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it becomes four times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-catapult-energy",
+          "prompt": "The elastic band of a catapult behaves like a spring with spring constant $\\pu{280 N m-1}$. It is pulled back $\\pu{0.14 m}$. How much elastic potential energy does it store, in joules? Give 2 significant figures.",
+          "hint": "Use $E_\\text{H} = \\tfrac{1}{2}k(\\Delta x)^{2}$, with $\\Delta x$ in metres.",
+          "answer": {
+            "value": 2.7,
+            "tolerance": 0.05
+          },
+          "explain": "$E_\\text{H} = \\tfrac{1}{2} \\times 280 \\times 0.14^{2} = 2.744 \\approx \\pu{2.7 J}$. Forgetting the $\\tfrac{1}{2}$ gives $\\pu{5.5 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*280*0.14**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of mechanical energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A skateboarder drops into a smooth half-pipe. Going down, she loses height and gains speed; going up, the reverse."
+        },
+        {
+          "type": "text",
+          "text": "If nothing rubs or drags, no energy leaves as thermal energy. The total of her kinetic and gravitational potential energy stays the same."
+        },
+        {
+          "type": "result",
+          "statement": "When only weight and spring forces do work on a system, its total [[mechanical-energy|mechanical energy]] stays constant. That needs no [[friction|friction]] or air resistance, and no driving force such as a motor, a push or a cable.",
+          "why": "The work done by the weight and spring forces just moves energy from one form of mechanical energy to another. Any other force that does work adds or removes mechanical energy."
+        },
+        {
+          "type": "text",
+          "text": "Here is how the [[work|work]] fits in. As a body falls through $\\Delta h$, its [[weight|weight]] does work $mg\\Delta h$ on it. Exactly that much gravitational potential energy is transformed into kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "So when mechanical energy is conserved, the work done by the weight or a spring force is the energy transformed between forms."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k,1} + E_\\text{p,1} + E_\\text{H,1} = E_\\text{k,2} + E_\\text{p,2} + E_\\text{H,2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "1. Pick two moments, 1 and 2, and a zero level for height."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the mechanical energy at each moment, leaving out any form that is zero there (no speed, no height, no compression)."
+        },
+        {
+          "type": "text",
+          "text": "3. Set the totals equal and solve. The path between the two moments does not matter, only the start and the end."
+        },
+        {
+          "type": "figure",
+          "id": "1-10-ramp-energy",
+          "alt": "A frictionless skate ramp. A skateboarder starts at rest at point A, 3.2 metres above the lowest point B. The track then rises to point C, 1.6 metres above B. Bar charts below, with B as the zero of gravitational potential energy, show that at A all the mechanical energy is gravitational potential energy, at B it is all kinetic energy, and at C it is half of each. The total is the same at all three points.",
+          "caption": "On a frictionless ramp the energy changes form but the total stays the same. Heights are measured from B."
+        },
+        {
+          "type": "example",
+          "id": "ex-skate-ramp-speed",
+          "question": "A skateboarder starts from rest at A on the ramp in the figure, $\\pu{3.2 m}$ above the lowest point B. Friction and air resistance are negligible. Calculate her speed at B.",
+          "steps": [
+            "Take B as the zero of height. At A: $E_\\text{k} = 0$ and $E_\\text{p} = mg(3.2)$. At B: $E_\\text{p} = 0$ and $E_\\text{k} = \\tfrac{1}{2}mv^{2}$.",
+            "Mechanical energy is conserved: $\\tfrac{1}{2}mv^{2} = mg(3.2)$.",
+            "The mass cancels, so $v = \\sqrt{2g(3.2)} = \\sqrt{2 \\times 9.8 \\times 3.2} = \\pu{7.92 m s-1}$.",
+            "The ramp is curved, so her acceleration is not uniform and the equations of motion do not apply. Energy works for any shape of ramp."
+          ],
+          "answer": "$v \\approx \\pu{7.9 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2*g*3.2)",
+            "sf": 2,
+            "unit": "m s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-skate-point-c",
+            "prompt": "Now you try: what is her speed at C, which is $\\pu{1.6 m}$ above B?",
+            "hint": "Compare A and C. How far below A is C?",
+            "options": [
+              {
+                "text": "$\\approx \\pu{5.6 m s-1}$",
+                "correct": true
+              },
+              {
+                "text": "$\\approx \\pu{4.0 m s-1}$",
+                "correct": false
+              },
+              {
+                "text": "$\\approx \\pu{7.9 m s-1}$",
+                "correct": false
+              },
+              {
+                "text": "$\\approx \\pu{31 m s-1}$",
+                "correct": false
+              }
+            ],
+            "explain": "C is $3.2 - 1.6 = \\pu{1.6 m}$ below A, so $v = \\sqrt{2 \\times 9.8 \\times 1.6} = \\pu{5.6 m s-1}$. Half the speed at B is wrong: $E_\\text{k}$ is half, not $v$. $\\pu{31}$ forgets the square root.",
+            "verify": {
+              "kind": "rounded",
+              "truth": "sqrt(2*g*(3.2 - 1.6))",
+              "sf": 2,
+              "unit": "m s-1"
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-launcher-height",
+          "question": "A toy launcher fires a $\\pu{0.040 kg}$ ball straight up. Its spring has spring constant $\\pu{520 N m-1}$ and is compressed by $\\pu{0.075 m}$ before release. Air resistance is negligible. Calculate the maximum height the ball reaches above its starting position.",
+          "steps": [
+            "At the start the ball is at rest, so all the mechanical energy is elastic: $E_\\text{H} = \\tfrac{1}{2}(520)(0.075)^{2} = \\pu{1.4625 J}$.",
+            "At the top the ball is momentarily at rest and the spring is no longer compressed, so all of it is gravitational potential energy: $mgh$.",
+            "Mechanical energy is conserved: $(0.040)(9.8)h = 1.4625$.",
+            "So $h = \\frac{1.4625}{0.392} = \\pu{3.73 m}$. Round to 2 significant figures, like the data."
+          ],
+          "answer": "$h \\approx \\pu{3.7 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*520*0.075**2/(0.040*g)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-same-height",
+          "question": "A pendulum bob on a light string is pulled aside and released from rest. Air resistance is negligible. Explain why the bob rises to the same height on the other side of its swing.",
+          "steps": [
+            "Marking point 1: the tension acts at right angles to the bob's motion, so it does no work.",
+            "Marking point 2: only the weight does work, so mechanical energy is conserved.",
+            "Marking point 3: at each end of the swing the bob is momentarily at rest, so all its mechanical energy is gravitational potential energy.",
+            "Marking point 4: equal gravitational potential energy means equal height."
+          ],
+          "answer": "The tension in the string always acts at right angles to the bob's motion, so it does no work on the bob. The only force that does work is the weight, and there is no air resistance, so the mechanical energy of the bob is conserved. At each end of the swing the bob is momentarily at rest, so its kinetic energy is zero and all its mechanical energy is gravitational potential energy. The gravitational potential energy is therefore the same at both ends, so the bob reaches the same height.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "tension perpendicular so no work; only weight does work so mechanical energy conserved; at rest at each end so all Ep; same Ep so same height",
+            "requires": [
+              [
+                "right angles",
+                "perpendicular"
+              ],
+              "does no work",
+              [
+                "mechanical energy of the bob is conserved",
+                "mechanical energy is conserved"
+              ],
+              "momentarily at rest",
+              [
+                "same height",
+                "equal height"
+              ]
+            ],
+            "forbids": [
+              "energy is lost",
+              "kinetic energy is conserved",
+              "no forces act"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the equations of motion on a curved slope or a spring. The acceleration changes, so they give wrong answers. Use conservation of mechanical energy, which needs only the start and end."
+        },
+        {
+          "type": "check",
+          "id": "check-two-balls-slide",
+          "prompt": "A heavy ball and a light ball are released from rest at the top of the same frictionless slide. How do their speeds at the bottom compare?",
+          "hint": "Write $\\tfrac{1}{2}mv^{2} = mg\\Delta h$ and see what happens to $m$.",
+          "options": [
+            {
+              "text": "they are equal",
+              "correct": true
+            },
+            {
+              "text": "the heavy ball is faster",
+              "correct": false
+            },
+            {
+              "text": "the light ball is faster",
+              "correct": false
+            },
+            {
+              "text": "it depends on the shape of the slide",
+              "correct": false
+            }
+          ],
+          "explain": "The mass cancels, leaving $v = \\sqrt{2g\\Delta h}$. The heavy ball has more kinetic energy, but the same speed. The shape changes how long the trip takes, not the final speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are equal"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cliff-stone",
+          "prompt": "A stone is thrown from the top of a cliff $\\pu{15 m}$ above the sea at $\\pu{8.0 m s-1}$, at $30^{\\circ}$ above the horizontal. Air resistance is negligible. What is its speed as it reaches the sea, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "The stone is a [[projectile|projectile]], but you don't need its path. Kinetic energy is a scalar, so the direction of the throw does not matter.",
+          "answer": {
+            "value": 19,
+            "tolerance": 0.5
+          },
+          "explain": "$\\tfrac{1}{2}mv^{2} = \\tfrac{1}{2}m(8.0)^{2} + mg(15)$, so $v = \\sqrt{8.0^{2} + 2 \\times 9.8 \\times 15} = 18.9... \\approx \\pu{19 m s-1}$. The angle does not appear.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(8.0**2 + 2*g*15)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "resistive",
+      "heading": "When friction and air resistance act",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a real playground slide, a child reaches the bottom slower than the frictionless answer predicts. Some mechanical energy has gone."
+        },
+        {
+          "type": "text",
+          "text": "It has not been destroyed: [[conservation-of-energy|conservation of energy]] still holds. [[friction|Friction]] and [[fluid-resistance|fluid resistance]] have transferred it to [[internal-energy|internal energy]], warming the slide, the child's clothes and the air."
+        },
+        {
+          "type": "text",
+          "text": "Friction, air resistance and a push from a motor are non-conservative forces: the work they do is not stored as potential energy. You met them in {{lesson:1.9}}."
+        },
+        {
+          "type": "result",
+          "statement": "When non-conservative forces do [[work|work]] on a system, the change in its total [[mechanical-energy|mechanical energy]] equals that work.",
+          "why": "Work done by weight and spring forces only moves energy between mechanical forms. Any other force that does work adds energy to the mechanical total or takes it away."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E_\\text{k} + \\Delta E_\\text{p} + \\Delta E_\\text{H} = W_\\text{nc}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A resistive force acts against the motion, so it does negative work. For a constant resistive force $F$ along a path of length $d$, the mechanical energy falls by $Fd$."
+        },
+        {
+          "type": "text",
+          "text": "Use the length of the path for the work done by friction, but the vertical height for $\\Delta E_\\text{p}$. A motor or a person pushing can do positive work and increase the mechanical energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-sledge-friction",
+          "question": "A sledge of mass $\\pu{24 kg}$ starts from rest at the top of a straight snowy slope. It slides $\\pu{36 m}$ along the slope, dropping $\\pu{9.0 m}$ vertically, and reaches the bottom at $\\pu{9.5 m s-1}$. Air resistance is negligible. Determine the average friction force on the sledge.",
+          "steps": [
+            "Gravitational potential energy lost: $mg\\Delta h = (24)(9.8)(9.0) = \\pu{2116.8 J}$.",
+            "Kinetic energy gained: $\\tfrac{1}{2}(24)(9.5)^{2} = \\pu{1083 J}$.",
+            "The mechanical energy falls by $2116.8 - 1083 = \\pu{1033.8 J}$. This is the work done against friction.",
+            "Friction acts along the whole $\\pu{36 m}$ path: $F = \\frac{1033.8}{36} = \\pu{28.7 N}$. Round to 2 significant figures."
+          ],
+          "answer": "$F \\approx \\pu{29 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(24*g*9.0 - Rational(1, 2)*24*9.5**2)/36",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-block-spring-friction",
+          "question": "A $\\pu{2.0 kg}$ block slides across a rough, level floor at $\\pu{1.5 m s-1}$ into a spring of spring constant $\\pu{300 N m-1}$. The block compresses the spring by $\\pu{0.10 m}$ before it stops. Calculate the average friction force on the block while it compresses the spring.",
+          "steps": [
+            "The floor is level, so $\\Delta E_\\text{p} = 0$.",
+            "Mechanical energy at the start, all kinetic: $\\tfrac{1}{2}(2.0)(1.5)^{2} = \\pu{2.25 J}$.",
+            "Mechanical energy when it stops, all elastic: $\\tfrac{1}{2}(300)(0.10)^{2} = \\pu{1.5 J}$.",
+            "Work done against friction over the $\\pu{0.10 m}$: $2.25 - 1.5 = \\pu{0.75 J}$, so $F = \\frac{0.75}{0.10} = \\pu{7.5 N}$."
+          ],
+          "answer": "$F = \\pu{7.5 N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(1, 2)*2.0*1.5**2 - Rational(1, 2)*300*0.10**2)/0.10",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-cable-explain",
+          "question": "An electric motor winds a cable that raises a lift at constant speed. Friction and air resistance are negligible. Explain why the mechanical energy of the lift increases, and state where the extra energy comes from.",
+          "steps": [
+            "Marking point 1: the speed is constant, so the kinetic energy does not change.",
+            "Marking point 2: the lift gains height, so its gravitational potential energy increases.",
+            "Marking point 3: mechanical energy changes only through work done by non-conservative forces; the cable tension does positive work.",
+            "Marking point 4: the energy comes from the electrical energy supplied to the motor."
+          ],
+          "answer": "The lift moves at constant speed, so its kinetic energy does not change. It gains height, so its gravitational potential energy increases, and its mechanical energy increases. Mechanical energy can only change when a non-conservative force does work. The tension in the cable acts upwards as the lift moves upwards, so it does positive work on the lift equal to the gain in gravitational potential energy. This energy comes from the electrical energy supplied to the motor.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "constant speed so Ek unchanged; height gained so Ep increases; tension does positive work; energy from electrical supply to motor",
+            "requires": [
+              [
+                "kinetic energy does not change",
+                "kinetic energy is constant"
+              ],
+              [
+                "gravitational potential energy increases",
+                "gains gravitational potential energy"
+              ],
+              "positive work",
+              [
+                "tension",
+                "cable"
+              ],
+              "electrical energy"
+            ],
+            "forbids": [
+              "mechanical energy is conserved",
+              "energy is created",
+              "kinetic energy increases"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the slope length for the change in gravitational potential energy. $\\Delta E_\\text{p}$ uses the vertical height; only the work done by friction uses the distance along the slope."
+        },
+        {
+          "type": "check",
+          "id": "check-ramp-constant-speed",
+          "prompt": "A parcel slides down a rough chute at constant speed. What happens to the mechanical energy of the parcel?",
+          "hint": "Its kinetic energy stays the same. What happens to its height?",
+          "options": [
+            {
+              "text": "it decreases, because friction transfers it to internal energy",
+              "correct": true
+            },
+            {
+              "text": "it stays the same, because the speed is constant",
+              "correct": false
+            },
+            {
+              "text": "it increases, because the parcel keeps moving",
+              "correct": false
+            },
+            {
+              "text": "it stays the same, because energy is always conserved",
+              "correct": false
+            }
+          ],
+          "explain": "$E_\\text{k}$ is constant but $E_\\text{p}$ falls, so the mechanical energy falls. Total energy is conserved, but mechanical energy is not when friction acts.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases, because friction transfers it to internal energy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-drag-work",
+          "prompt": "A $\\pu{0.20 kg}$ ball is thrown straight up at $\\pu{15 m s-1}$. It reaches a maximum height of $\\pu{10.5 m}$ above the point of release. How much work does air resistance do on the ball on the way up, in joules? Include the sign, and give 2 significant figures.",
+          "hint": "Compare the kinetic energy at the start with the gravitational potential energy at the top. Air resistance takes energy away.",
+          "answer": {
+            "value": -1.9,
+            "tolerance": 0.05
+          },
+          "explain": "Start: $\\tfrac{1}{2}(0.20)(15)^{2} = \\pu{22.5 J}$. Top: $(0.20)(9.8)(10.5) = \\pu{20.58 J}$. $W = 20.58 - 22.5 = -1.92 \\approx \\pu{-1.9 J}$: negative, because air resistance opposes the motion.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.20*g*10.5 - Rational(1, 2)*0.20*15**2",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\tfrac{1}{2}mv^{2} = \\frac{p^{2}}{2m}",
+          "tag": "booklet",
+          "bookletId": "db-1-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E_\\text{p} = mg\\Delta h",
+          "tag": "booklet",
+          "bookletId": "db-1-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{H} = \\tfrac{1}{2}k(\\Delta x)^{2}",
+          "tag": "booklet",
+          "bookletId": "db-1-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mechanical energy = kinetic + gravitational potential + elastic potential energy. $\\Delta h$ is vertical, and $mg\\Delta h$ holds only near Earth's surface.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mechanical energy is conserved when only weight and spring forces do work (no friction, air resistance or driving force): their work equals the energy transformed between forms.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Change in mechanical energy = work done by non-conservative forces. A constant resistive force $F$ over a path $d$ removes $Fd$, as internal energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying mechanical energy is conserved without the condition. State that friction and air resistance are negligible and no other force, such as a motor or push, does work.",
+    "Using the distance along a slope in $mg\\Delta h$. The height change is always vertical.",
+    "Writing \"gravity\" for a force in an explanation. Name the force: the weight of the body.",
+    "Thinking energy is lost when mechanical energy falls. It has been transferred, usually to internal energy of the surfaces and the air."
+  ],
+  "examTips": [
+    "\"Calculate\" a speed with energy: write the energy equation with the substitution, such as $\\tfrac{1}{2}mv^{2} = mg\\Delta h$, then the answer with its unit. The equation earns the first mark.",
+    "\"Explain\" or \"outline\" energy changes: name each form that rises or falls, and say which force does the work. Bare words like \"gravity\" or \"energy is lost\" don't earn marks.",
+    "Don't count the weight twice. Either include the work done by the weight or include $\\Delta E_\\text{p}$, never both."
+  ],
+  "readingMinutes": 26
+}

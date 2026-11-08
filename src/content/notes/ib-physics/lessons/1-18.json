@@ -1,0 +1,701 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.18",
+  "slug": "space-time-diagrams-and-muon-decay",
+  "title": "Space–time diagrams and muon decay",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[space-time-diagram|space–time diagram]] plots events with $ct$ up and $x$ across, so light always travels at $45^{\\circ}$. An object moving at constant velocity has a straight [[world-line|world line]] at angle $\\theta$ to the $ct$ axis, with $\\tan\\theta = v/c$. [[muon-decay-experiment|Muon decay experiments]] show that [[time-dilation|time dilation]] and [[length-contraction|length contraction]] really happen.",
+  "goals": [
+    {
+      "text": "Draw and read a [[space-time-diagram|space–time diagram]], with [[world-line|world lines]] for objects at rest, moving objects and light.",
+      "bullets": [
+        "A.5-a13"
+      ]
+    },
+    {
+      "text": "Use $\\tan\\theta = v/c$ to link a world line's angle to a speed.",
+      "bullets": [
+        "A.5-a14"
+      ]
+    },
+    {
+      "text": "Draw a moving frame's axes, read coordinates in it, judge [[simultaneity|simultaneity]], set its scale, and see time dilation and length contraction on the diagram.",
+      "bullets": [
+        "A.5-a13",
+        "A.5-a14"
+      ]
+    },
+    {
+      "text": "Explain, with calculations, how [[muon-decay-experiment|muon decay experiments]] give evidence for time dilation and length contraction.",
+      "bullets": [
+        "A.5-a15"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.15",
+    "1.16",
+    "1.17"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "spacetime diagram",
+    "Minkowski diagram",
+    "world line angle",
+    "tan theta = v/c",
+    "muon experiment",
+    "muon lifetime evidence"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gamma-070",
+      "prompt": "A spacecraft moves at $0.70c$ relative to the Earth. Calculate the [[lorentz-factor|Lorentz factor]] $\\gamma$. Give 3 significant figures.",
+      "hint": "Use $\\gamma = \\dfrac{1}{\\sqrt{1 - v^2/c^2}}$ with $v/c = 0.70$.",
+      "answer": {
+        "value": 1.4,
+        "tolerance": 0.005
+      },
+      "explain": "$\\gamma = \\frac{1}{\\sqrt{1 - 0.70^2}} = \\frac{1}{\\sqrt{0.51}} = 1.40$. Revise it in {{lesson:1.16}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1/sqrt(1 - 0.70**2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-proper-time",
+      "prompt": "A clock on a spaceship ticks twice. Who measures the [[proper-time-interval|proper time interval]] between the ticks?",
+      "hint": "Proper time is measured in the frame where both events happen at the same place.",
+      "options": [
+        {
+          "text": "an astronaut at rest on the spaceship",
+          "correct": true
+        },
+        {
+          "text": "an observer on a planet the spaceship passes",
+          "correct": false
+        },
+        {
+          "text": "an observer in a faster spaceship overtaking it",
+          "correct": false
+        },
+        {
+          "text": "every inertial observer measures the same interval",
+          "correct": false
+        }
+      ],
+      "explain": "Only in the astronaut's frame do both ticks happen at the same place, the clock. Revise it in {{lesson:1.17}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "an astronaut at rest on the spaceship"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-interval",
+      "prompt": "Two events in frame S are separated by $\\Delta x = \\pu{5.0 m}$ and $c\\Delta t = \\pu{13.0 m}$. Calculate the [[space-time-interval|space–time interval]] $(\\Delta s)^2$, in $\\text{m}^2$.",
+      "hint": "Use $(\\Delta s)^2 = (c\\Delta t)^2 - (\\Delta x)^2$.",
+      "answer": {
+        "value": 144,
+        "tolerance": 0.5
+      },
+      "explain": "$(\\Delta s)^2 = 13.0^2 - 5.0^2 = \\pu{144 m2}$, the same in every inertial frame. Revise it in {{lesson:1.16}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "13.0**2 - 5.0**2",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "diagrams",
+      "heading": "Space–time diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.15}} an event had a position $x$ and a time $t$ in a [[reference-frame|reference frame]]. A [[space-time-diagram|space–time diagram]] puts every event of one frame on one graph: $x$ across and $ct$ up."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying a time by $c$ turns it into a distance, how far light goes in that time. So both axes share one unit (m, km or ly)."
+        },
+        {
+          "type": "definition",
+          "term": "space–time diagram",
+          "statement": "A graph for one inertial reference frame, with position $x$ on the horizontal axis and $ct$ on the vertical axis, drawn to the same scale. Each point is an event.",
+          "plain": "A map of where and when things happen, with time running upwards."
+        },
+        {
+          "type": "text",
+          "text": "To turn $ct$ into a time, divide by $c = \\pu{3.00e8 m s-1}$ (from the data booklet). So $ct = \\pu{600 m}$ means $t = \\pu{2.00e-6 s}$. In light-years it is easier: $ct = \\pu{1 ly}$ means $t = 1$ year."
+        },
+        {
+          "type": "definition",
+          "term": "world line",
+          "statement": "The line on a space–time diagram made by all the events in the history of an object.",
+          "plain": "The trail an object leaves on the diagram as time passes."
+        },
+        {
+          "type": "text",
+          "text": "An object at rest keeps one $x$, so its [[world-line|world line]] is vertical. Light obeys $x = ct$, so its world line is at $45^{\\circ}$. An object moving at constant velocity, slower than light, has a straight world line in between, leaning left if it moves towards $-x$."
+        },
+        {
+          "type": "figure",
+          "id": "1-18-world-lines",
+          "alt": "Space-time diagram with x in kilometres on the horizontal axis and c t in kilometres on the vertical axis, both from 0 to 6 with the same scale. Three world lines are drawn. A vertical line at x equals 4 kilometres is the world line of a lamp at rest. A dashed line at 45 degrees from the origin is the world line of a light pulse. It meets the lamp's world line at event E, at x equals 4 kilometres and c t equals 4 kilometres. A third straight line from the origin to x equals 3, c t equals 6 is the world line of a particle moving at 0.50 c. The angle theta between this world line and the c t axis is marked.",
+          "caption": "A lamp at rest (vertical), a particle at $0.50c$ (tilted) and a light pulse ($45^{\\circ}$)."
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-pulse",
+          "question": "A lamp is at rest at $x = \\pu{4.0 km}$ in frame S. At $t = 0$ a light pulse leaves the origin towards it. Describe both world lines, and determine the time in S at which the pulse reaches the lamp.",
+          "steps": [
+            "The lamp's world line is vertical, through $x = \\pu{4.0 km}$. The pulse's is the $45^{\\circ}$ line through the origin.",
+            "They cross at event E, where $x = \\pu{4.0 km}$ and so $ct = \\pu{4.0 km}$ (see the figure).",
+            "$t = \\frac{ct}{c} = \\frac{4.0 \\times 10^{3}}{3.00 \\times 10^{8}} = \\pu{1.33e-5 s}$, or $\\pu{1.3e-5 s}$ to 2 significant figures."
+          ],
+          "answer": "$t \\approx 1.3 \\times 10^{-5}\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.0*10**3/c",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-three-events",
+          "question": "In frame S, event P is at $x = \\pu{0.6 km}$, $ct = \\pu{1.5 km}$; Q is at $x = \\pu{2.1 km}$, $ct = \\pu{1.5 km}$; and R is at $x = \\pu{0.6 km}$, $ct = \\pu{3.9 km}$. State which two events are simultaneous in S, and determine the time between P and R in S.",
+          "steps": [
+            "P and Q have the same $ct$: they are on one horizontal line, so they are simultaneous in S.",
+            "P and R have the same $x$: they happen at the same place in S, with $c\\Delta t = 3.9 - 1.5 = \\pu{2.4 km}$.",
+            "$\\Delta t = \\frac{2.4 \\times 10^{3}}{3.00 \\times 10^{8}} = \\pu{8.0e-6 s}$. This is the [[proper-time-interval|proper time interval]] between P and R, read by a clock at rest at $x = \\pu{0.6 km}$."
+          ],
+          "answer": "$\\Delta t = 8.0 \\times 10^{-6}\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(3.9 - 1.5)*10**3/c",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rest-world-line",
+          "prompt": "A buoy floats at rest in frame S. What does its world line look like on a space–time diagram for S?",
+          "hint": "Which coordinate changes as time passes, and which stays fixed?",
+          "options": [
+            {
+              "text": "a vertical line, parallel to the ct axis",
+              "correct": true
+            },
+            {
+              "text": "a horizontal line, parallel to the x axis",
+              "correct": false
+            },
+            {
+              "text": "a line at 45 degrees to both axes",
+              "correct": false
+            },
+            {
+              "text": "a single point",
+              "correct": false
+            }
+          ],
+          "explain": "Its $x$ is fixed while $ct$ grows.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a vertical line, parallel to the ct axis"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-echo",
+          "prompt": "Light leaves $x = 0$ at $t = 0$ in frame S and reflects straight back from a mirror at rest at $x = \\pu{2.7 km}$. What is the $ct$ coordinate, in km, of its return to $x = 0$? Give 2 significant figures.",
+          "hint": "Both halves of the trip are $45^{\\circ}$ lines. How much does $ct$ grow on each?",
+          "answer": {
+            "value": 5.4,
+            "tolerance": 0.05
+          },
+          "explain": "$ct$ rises by $\\pu{2.7 km}$ on the way out and another $\\pu{2.7 km}$ on the way back: $ct = \\pu{5.4 km}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*2.7",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "angle",
+      "heading": "The angle of a world line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An object leaves the origin at constant speed $v$. After time $t$ it is at $x = vt$, and the time coordinate is $ct$. Its world line runs from the origin to the point $(vt,\\ ct)$."
+        },
+        {
+          "type": "text",
+          "text": "Let $\\theta$ be the angle between the world line and the $ct$ axis. In the right-angled triangle, the side opposite $\\theta$ is $vt$ and the side next to it is $ct$, so $\\tan\\theta = \\frac{vt}{ct}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{v}{c}",
+          "tag": "booklet",
+          "bookletId": "db-1-18"
+        },
+        {
+          "type": "text",
+          "text": "This is in the data booklet. $\\theta$ is measured from the $ct$ axis, $v$ is the speed in the frame of the diagram, and both axes must have the same scale."
+        },
+        {
+          "type": "result",
+          "statement": "Anything with mass has $v < c$, so its world line makes $\\theta < 45^{\\circ}$ with the $ct$ axis: steeper than a light line. Light has $\\theta = 45^{\\circ}$; an object at rest has $\\theta = 0$.",
+          "why": "$\\tan\\theta = \\frac{v}{c} < 1$ whenever $v < c$, and $\\tan 45^{\\circ} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "The gradient of a world line on the page is $\\frac{\\Delta(ct)}{\\Delta x} = \\frac{c}{v}$, the inverse of $\\tan\\theta$. From two points on a world line, use $\\frac{v}{c} = \\frac{\\Delta x}{\\Delta(ct)}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-probe-speed",
+          "question": "A probe's world line, on a space–time diagram for frame S, passes through the origin and the event $x = \\pu{1.5 km}$, $ct = \\pu{5.0 km}$. Determine the speed of the probe in S.",
+          "steps": [
+            "$\\tan\\theta = \\frac{v}{c} = \\frac{\\Delta x}{\\Delta(ct)} = \\frac{1.5}{5.0} = 0.30$, so $v = 0.30c$.",
+            "$v = 0.30 \\times 3.00 \\times 10^{8} = \\pu{9.0e7 m s-1}$."
+          ],
+          "answer": "$v = 9.0 \\times 10^{7}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.5/5.0*c",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-craft-angle",
+          "question": "A spacecraft moves in the $-x$ direction of frame S at $\\pu{2.1e8 m s-1}$. Calculate the angle between its world line and the $ct$ axis, and state which way the world line leans.",
+          "steps": [
+            "$\\frac{v}{c} = \\frac{2.1 \\times 10^{8}}{3.00 \\times 10^{8}} = 0.70$.",
+            "$\\theta = \\arctan 0.70 = 34.99^{\\circ}$, or $35^{\\circ}$ to 2 significant figures.",
+            "It moves towards $-x$, so the world line leans to the left of the $ct$ axis."
+          ],
+          "answer": "$\\theta \\approx 35^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "atand(2.1*10**8/c)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring $\\theta$ from the $x$ axis. That angle has $\\tan = \\frac{c}{v}$, more than 1 for any particle with mass. Measure from the $ct$ axis."
+        },
+        {
+          "type": "check",
+          "id": "check-angle-quarter",
+          "prompt": "A particle moves at $0.250c$ in frame S. What angle, in degrees, does its world line make with the $ct$ axis? Give 3 significant figures.",
+          "hint": "Use $\\tan\\theta = \\frac{v}{c}$.",
+          "answer": {
+            "value": 14.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\theta = \\arctan 0.250 = 14.0^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atand(0.250)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steeper",
+          "prompt": "A particle with mass and a light pulse leave the same event in the same direction. How does the particle's world line compare with the pulse's?",
+          "hint": "Compare $\\tan\\theta$ for the particle with $\\tan\\theta$ for light.",
+          "options": [
+            {
+              "text": "it is steeper, closer to the ct axis",
+              "correct": true
+            },
+            {
+              "text": "it is less steep, closer to the x axis",
+              "correct": false
+            },
+            {
+              "text": "it lies on top of the light line",
+              "correct": false
+            },
+            {
+              "text": "it curves away from the light line",
+              "correct": false
+            }
+          ],
+          "explain": "$v < c$ gives $\\tan\\theta < 1$, so $\\theta < 45^{\\circ}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is steeper, closer to the ct axis"
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-frames",
+      "heading": "Two frames on one diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Frame S′ moves at velocity $v$ along $x$ relative to S; the origins meet at $t = t' = 0$. Its axes can go on S's diagram."
+        },
+        {
+          "type": "text",
+          "text": "The $ct'$ axis is every event with $x' = 0$: the world line of the origin of S′. So it leans from the $ct$ axis by $\\theta$, where $\\tan\\theta = \\frac{v}{c}$."
+        },
+        {
+          "type": "text",
+          "text": "The $x'$ axis is every event with $t' = 0$. Setting $t' = 0$ in the [[lorentz-transformation|Lorentz transformation]] gives $ct = \\frac{v}{c}x$: a line tilted up from the $x$ axis by the same angle $\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "As $v$ grows, the primed axes close in on the $45^{\\circ}$ light line from both sides. The light line is shared, because by the [[postulates-of-special-relativity|postulates of special relativity]] both frames measure light at $c$."
+        },
+        {
+          "type": "figure",
+          "id": "1-18-moving-axes",
+          "alt": "Space-time diagram for frame S, with a horizontal x axis and a vertical c t axis meeting at origin O. The axes of frame S prime, moving at 0.50 c in the positive x direction, are drawn through the same origin. The c t prime axis is tilted to the right of the c t axis by an angle theta. The x prime axis is tilted up from the x axis by the same angle theta. A dashed 45 degree light line lies between the two primed axes. An event E is marked. A dashed line from E parallel to the x prime axis meets the c t prime axis, giving E's c t prime coordinate. A dashed line from E parallel to the c t prime axis meets the x prime axis, giving E's x prime coordinate. Dotted lines from E parallel to the x and c t axes give its coordinates in S.",
+          "caption": "Read S′ coordinates with lines parallel to the primed axes (here $v = 0.50c$)."
+        },
+        {
+          "type": "text",
+          "text": "To find $ct'$ for event E, draw a line through E parallel to the $x'$ axis to meet the $ct'$ axis. For $x'$, draw a line through E parallel to the $ct'$ axis to meet the $x'$ axis."
+        },
+        {
+          "type": "result",
+          "statement": "Events on a line parallel to the $x'$ axis are simultaneous in S′; events on a line parallel to the $x$ axis are simultaneous in S. These lines are not parallel, so events at different places that are simultaneous in one frame are not simultaneous in the other.",
+          "why": "A line parallel to $x'$ is a line of constant $ct'$. This is the relativity of [[simultaneity|simultaneity]] as a picture."
+        },
+        {
+          "type": "example",
+          "id": "ex-simultaneous-speed",
+          "question": "In frame S, event A is at $x = \\pu{1.0 km}$, $ct = \\pu{1.0 km}$ and event B is at $x = \\pu{6.0 km}$, $ct = \\pu{3.0 km}$. Frame S′ moves in the $+x$ direction, and in S′ the events are simultaneous. Determine the speed of S′ relative to S.",
+          "steps": [
+            "In S′ the events are simultaneous, so line AB is parallel to the $x'$ axis. (In S, A happens first.)",
+            "Along the $x'$ axis, $\\tan\\theta = \\frac{\\Delta(ct)}{\\Delta x}$. For AB, $\\tan\\theta = \\frac{3.0 - 1.0}{6.0 - 1.0} = 0.40$.",
+            "$\\tan\\theta = \\frac{v}{c}$, so $v = 0.40c = 0.40 \\times 3.00 \\times 10^{8} = \\pu{1.2e8 m s-1}$.",
+            "Check with the Lorentz transformation: $c\\Delta t' = \\gamma\\left(c\\Delta t - \\frac{v}{c}\\Delta x\\right) = \\gamma(2.0 - 0.40 \\times 5.0) = 0$."
+          ],
+          "answer": "$v = 1.2 \\times 10^{8}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(3.0 - 1.0)/(6.0 - 1.0)*c",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "One unit on the $ct'$ axis is longer on the page than one unit on $ct$. The [[space-time-interval|space–time interval]] fixes the scale."
+        },
+        {
+          "type": "text",
+          "text": "An event on the $ct'$ axis has $x' = 0$, so $(\\Delta s)^2 = (ct')^2$. In S, $(\\Delta s)^2 = (ct)^2 - x^2$. So the tick $ct' = 1$ lies on the curve $(ct)^2 - x^2 = 1$, a line of constant space–time interval."
+        },
+        {
+          "type": "figure",
+          "id": "1-18-scale-hyperbolas",
+          "alt": "Space-time diagram for frame S, with x in light-years on the horizontal axis and c t in light-years on the vertical axis, both from 0 to 4. The axes of frame S prime, moving at 0.60 c, are drawn through the origin: the c t prime axis tilts right of the c t axis and the x prime axis tilts up from the x axis, either side of a dashed 45 degree light line. Four grey curves are lines of constant space-time interval. Each curve crosses the c t axis at 1, 2, 3 and 4 light-years and bends to the right, approaching the light line. Where the curves cross the c t prime axis, the ticks are labelled c t prime equals 1, 2, 3 and 4 light-years. The first tick, c t prime equals 1 light-year, is level with c t equals 1.25 light-years. Ticks at x prime equals 1, 2 and 3 light-years are marked along the x prime axis, further from the origin than the matching ticks on the x axis.",
+          "caption": "Lines of constant interval set the $ct'$ ticks (here $v = 0.60c$, so $\\gamma = 1.25$)."
+        },
+        {
+          "type": "text",
+          "text": "On the $ct'$ axis $x = \\frac{v}{c}ct$, so $(ct)^2 - x^2 = (ct')^2$ gives $ct = \\gamma\\,ct'$. Curves $x^2 - (ct)^2 = (x')^2$ set the $x'$ ticks the same way."
+        },
+        {
+          "type": "example",
+          "id": "ex-tick-dilation",
+          "question": "Frame S′ moves at $0.50c$ relative to S. A clock at the origin of S′ reads $ct' = \\pu{6.0 km}$. Determine the $ct$ coordinate of this event in S, and explain what it shows.",
+          "steps": [
+            "On the $ct'$ axis $x' = 0$, so $(\\Delta s)^2 = 6.0^2 = \\pu{36 km2}$. In S the event has $x = 0.50\\,ct$.",
+            "The interval is invariant: $(ct)^2 - (0.50\\,ct)^2 = 36$, so $ct = \\sqrt{48} = \\pu{6.93 km}$, or $\\pu{6.9 km}$ to 2 significant figures.",
+            "Both events happen at the clock, so $ct' = \\pu{6.0 km}$ is the proper time. S measures longer: [[time-dilation|time dilation]], read off the diagram."
+          ],
+          "answer": "$ct \\approx 6.9\\ \\text{km}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(6.0**2/(1 - 0.50**2))",
+            "sf": 2,
+            "unit": "km"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Length works the same way. S′ measures a rod at rest in S′ along a line parallel to $x'$: its [[proper-length|proper length]]. S measures between the same two world lines along a horizontal line, and gets a length shorter by $\\gamma$: [[length-contraction|length contraction]]."
+        },
+        {
+          "type": "check",
+          "id": "check-which-simultaneous",
+          "prompt": "Frame S′ moves at $0.50c$ relative to S. Event O is at the origin. In S, P is at $(x, ct) = (\\pu{2.0 km}, \\pu{4.0 km})$, Q at $(\\pu{4.0 km}, \\pu{2.0 km})$, R at $(\\pu{4.0 km}, 0)$ and T at $(\\pu{3.0 km}, \\pu{3.0 km})$. Which event is simultaneous with O in S′?",
+          "hint": "Events simultaneous with O in S′ lie on the $x'$ axis, $ct = 0.50x$.",
+          "options": [
+            {
+              "text": "event Q",
+              "correct": true
+            },
+            {
+              "text": "event P",
+              "correct": false
+            },
+            {
+              "text": "event R",
+              "correct": false
+            },
+            {
+              "text": "event T",
+              "correct": false
+            }
+          ],
+          "explain": "Q is on the $x'$ axis. P is on the $ct'$ axis (same place as O in S′), R is simultaneous with O in S, and T is on the light line.",
+          "verify": {
+            "kind": "choice",
+            "truth": "event Q"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tick-ly",
+          "prompt": "Frame S′ moves at $0.28c$ relative to S. A clock at the origin of S′ reads $ct' = \\pu{4.8 ly}$. What is the $ct$ coordinate of this event in S, in ly? Give 2 significant figures.",
+          "hint": "On the $ct'$ axis, $ct = \\gamma\\,ct'$.",
+          "answer": {
+            "value": 5.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\gamma = \\frac{1}{\\sqrt{1 - 0.28^2}} = \\frac{1}{0.96}$, so $ct = \\frac{4.8}{0.96} = \\pu{5.0 ly}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.8/sqrt(1 - 0.28**2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "muons",
+      "heading": "Muon decay: evidence for relativity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Cosmic rays hitting the upper atmosphere, typically 10 to 15 km up, make unstable particles called muons. Many travel down at over $0.99c$."
+        },
+        {
+          "type": "text",
+          "text": "At rest, muons decay with a mean lifetime of about $2.2\\ \\mu\\text{s}$. Decay is random: this is an average."
+        },
+        {
+          "type": "text",
+          "text": "Classically, even at $c$ a muon covers only $3.00 \\times 10^{8} \\times 2.2 \\times 10^{-6} = \\pu{660 m}$ in one mean lifetime. From several kilometres up, almost every muon should decay before reaching the ground."
+        },
+        {
+          "type": "definition",
+          "term": "muon decay experiment",
+          "statement": "An experiment that counts muons of a known speed at high altitude and at sea level, and compares the number that survive the journey with the number predicted from their mean lifetime.",
+          "plain": "Count the muons up a mountain and at the bottom: far too many survive for classical physics."
+        },
+        {
+          "type": "text",
+          "text": "A [[muon-decay-experiment|muon decay experiment]] finds far more at sea level than this predicts. Relativity explains the number, in either frame."
+        },
+        {
+          "type": "text",
+          "text": "**Earth frame.** The moving muon's clock runs slow, so its mean lifetime is dilated to $\\Delta t = \\gamma\\Delta t_0$. Here $\\Delta t_0 = 2.2\\ \\mu\\text{s}$ is the proper time, in the muon's frame."
+        },
+        {
+          "type": "text",
+          "text": "**Muon frame.** The muon is at rest and lives $2.2\\ \\mu\\text{s}$ on average, while the atmosphere rushes past. Its thickness, a proper length $L_0$ in the Earth frame, is contracted to $L = \\frac{L_0}{\\gamma}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-18-muon-frames",
+          "alt": "Two panels. Left panel, Earth frame: a shaded atmosphere 6.0 kilometres thick above a detector at sea level. A muon at the top moves straight down at 0.994 c. A note says its mean lifetime is dilated to about 20 microseconds. Right panel, muon frame: the muon is at rest at the top of a much thinner shaded layer, 0.66 kilometres thick, with the detector at its lower edge. The layer moves up towards the muon at 0.994 c. A note says the atmosphere is contracted and the mean lifetime is 2.2 microseconds.",
+          "caption": "One journey, two frames: time dilation (Earth) and length contraction (muon)."
+        },
+        {
+          "type": "example",
+          "id": "ex-muon-earth",
+          "question": "Muons are produced $\\pu{6.0 km}$ above a detector at sea level and travel straight down at $0.994c$. Their mean lifetime at rest is $2.2\\ \\mu\\text{s}$. Calculate their mean lifetime in the Earth frame, and compare it with the travel time.",
+          "steps": [
+            "Travel time: $t = \\frac{6.0 \\times 10^{3}}{0.994 \\times 3.00 \\times 10^{8}} = \\pu{2.01e-5 s}$.",
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.994^2}} = 9.14$, so $\\Delta t = \\gamma\\Delta t_0 = 9.14 \\times 2.2 \\times 10^{-6} = \\pu{2.01e-5 s}$, or $\\pu{2.0e-5 s}$ to 2 significant figures.",
+            "Classically the trip lasts $\\frac{20.1}{2.2} \\approx 9$ mean lifetimes, so almost all muons decay. With time dilation it lasts about one, so a large fraction survive, as detectors find."
+          ],
+          "answer": "$\\Delta t \\approx 2.0 \\times 10^{-5}\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.2*10**-6/sqrt(1 - 0.994**2)",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-muon-frame",
+          "question": "Explain, with a calculation, how an observer moving with the muons in the previous example accounts for the number reaching the detector.",
+          "steps": [
+            "Muons at rest: use the proper lifetime. Atmosphere moving at $0.994c$: $L = \\frac{6.0}{9.14} = \\pu{0.66 km}$.",
+            "Time for the detector to arrive: $\\frac{0.66 \\times 10^{3}}{0.994 \\times 3.00 \\times 10^{8}} = \\pu{2.2e-6 s}$."
+          ],
+          "answer": "In the muon frame the muons are at rest, so they decay with their proper mean lifetime of 2.2 µs. The atmosphere moves past at 0.994c, so its 6.0 km thickness is length contracted to L = 6.0/9.14 = 0.66 km. The detector covers 0.66 km in about 2.2 µs, about one mean lifetime. So a large fraction of the muons survive until the detector reaches them. Both frames predict the same number detected.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "muon at rest, proper lifetime 2.2 us; atmosphere length contracted to 0.66 km; travel time about one mean lifetime; large fraction survive; frames agree",
+            "requires": [
+              [
+                "proper mean lifetime",
+                "proper lifetime"
+              ],
+              [
+                "length contracted",
+                "length contraction"
+              ],
+              "0.66 km",
+              "one mean lifetime",
+              "large fraction",
+              [
+                "same number",
+                "agree"
+              ]
+            ],
+            "forbids": [
+              "lifetime is dilated in the muon frame",
+              "faster than light",
+              "muons do not decay"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "“Explain why this is evidence for time dilation”: compare the Earth-frame travel time with the proper lifetime (most should decay), then with $\\gamma\\Delta t_0$ (many survive). Each comparison earns a mark."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $c$ for the muon's speed. Travel time is distance divided by $v$; mark schemes refuse $\\frac{d}{c}$ when $v$ is given."
+        },
+        {
+          "type": "check",
+          "id": "check-muon-frame",
+          "prompt": "In the frame of a muon moving down through the atmosphere, which effect explains why it reaches the ground before decaying?",
+          "hint": "In its own frame the muon's clock is at rest. What is moving?",
+          "options": [
+            {
+              "text": "the atmosphere's thickness is length contracted",
+              "correct": true
+            },
+            {
+              "text": "the muon's mean lifetime is dilated",
+              "correct": false
+            },
+            {
+              "text": "the muon moves faster than light",
+              "correct": false
+            },
+            {
+              "text": "the ground moves slower than the muon",
+              "correct": false
+            }
+          ],
+          "explain": "The muon's clock is at rest, so it lives its proper $2.2\\ \\mu\\text{s}$. The moving atmosphere is contracted by $\\gamma$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the atmosphere's thickness is length contracted"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-contracted-layer",
+          "prompt": "Muons move down at $0.980c$ through a layer of air $\\pu{4.0 km}$ thick in the Earth frame. What is its thickness in the muons' frame, in m? Give 2 significant figures.",
+          "hint": "Find $\\gamma$, then use $L = \\frac{L_0}{\\gamma}$.",
+          "answer": {
+            "value": 800,
+            "tolerance": 5
+          },
+          "explain": "$\\gamma = \\frac{1}{\\sqrt{1 - 0.980^2}} = 5.03$, so $L = \\frac{4.0 \\times 10^{3}}{5.03} = \\pu{796 m} \\approx \\pu{800 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.0*10**3*sqrt(1 - 0.980**2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A space–time diagram plots $ct$ against $x$, same scale, for one inertial frame. Points are events; histories are world lines."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "At rest: vertical world line. Light: $45^{\\circ}$. Constant velocity $v < c$: straight and steeper than light."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{v}{c}",
+          "tag": "booklet",
+          "bookletId": "db-1-18",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Frame S′ at speed $v$: $ct'$ leans $\\theta$ from $ct$; $x'$ leans $\\theta$ up from $x$. Lines parallel to $x'$ join events simultaneous in S′."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Lines of constant interval, $(ct)^2 - x^2 = \\text{constant}$, set the primed scales. On the $ct'$ axis, $ct = \\gamma\\,ct'$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Far more muons reach sea level than classical physics predicts. Earth frame: lifetime dilated to $\\gamma\\Delta t_0$. Muon frame: atmosphere contracted to $L_0/\\gamma$."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Reading S′ coordinates off the S grid. Draw lines parallel to the primed axes; one unit on $ct'$ is longer than one on $ct$.",
+    "Saying a muon's lifetime is dilated in its own frame. There it lives the proper $2.2\\ \\mu\\text{s}$; the atmosphere is contracted instead.",
+    "Calling events simultaneous “for everyone”. Events at different places, simultaneous in one frame, are not simultaneous in a frame moving relative to it."
+  ],
+  "examTips": [
+    "“Draw the $x'$ axis”: a straight line from the origin, tilted up from $x$ by the same angle as $ct'$ is tilted from $ct$.",
+    "“Determine the speed” from a diagram: read two far-apart points on the world line or $ct'$ axis and use $v = c\\,\\frac{\\Delta x}{\\Delta(ct)}$, as a fraction of $c$ or in $\\text{m s}^{-1}$.",
+    "“Identify the simultaneous events” for an observer: draw a line through one event parallel to that observer's $x$ axis, and name the events on it."
+  ],
+  "readingMinutes": 25
+}

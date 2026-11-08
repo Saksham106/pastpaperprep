@@ -2,31 +2,31 @@
   {
     "id": "gas",
     "term": "gas",
-    "definition": "TODO: No fixed shape or volume; particles far apart, moving randomly",
+    "definition": "A phase of matter with no fixed shape or volume, whose particles are far apart and move fast and randomly, with negligible forces between them except during collisions.",
     "lesson": "2.1"
   },
   {
     "id": "density",
     "term": "density",
-    "definition": "TODO: Mass per unit volume, rho = m/V",
+    "definition": "The mass per unit volume of a substance, $\\rho = \\frac{m}{V}$, measured in $\\text{kg m}^{-3}$.",
     "lesson": "2.1"
   },
   {
     "id": "temperature",
     "term": "temperature",
-    "definition": "TODO: Measure of average random kinetic energy of particles; decides direction of net thermal transfer",
+    "definition": "A measure of the average random kinetic energy of the particles of a substance; thermal energy flows from higher to lower temperature.",
     "lesson": "2.1"
   },
   {
     "id": "kelvin-scale",
     "term": "kelvin scale",
-    "definition": "TODO: Absolute scale with zero at absolute zero; use in all gas and radiation equations",
+    "definition": "The absolute temperature scale, with zero at absolute zero and steps the same size as degrees Celsius, so $T$ in K is the Celsius temperature plus 273; use it in every equation that multiplies or divides by temperature.",
     "lesson": "2.1"
   },
   {
     "id": "boltzmann-constant",
     "term": "Boltzmann constant",
-    "definition": "TODO: kB links temperature to particle kinetic energy; not the same as R",
+    "definition": "The constant $k_\\text{B} = 1.38 \\times 10^{-23}\\ \\text{J K}^{-1}$ linking absolute temperature to the average kinetic energy of one particle; it is per particle, unlike the gas constant $R$, which is per mole.",
     "lesson": "2.1"
   }
 ]

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 290" font-family="sans-serif" font-size="14" fill="currentColor" role="img" aria-labelledby="t19sk">
+  <title id="t19sk">Sankey diagram for an electric motor lifting a load</title>
+  <rect x="20" y="40" width="180" height="120" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <rect x="200" y="40" width="240" height="72" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <polygon points="440,26 490,76 440,126" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <rect x="200" y="112" width="100" height="40" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <path d="M300,112 A63,63 0 0 1 363,175 L363,215 L323,215 L323,175 A23,23 0 0 0 300,152 Z" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <polygon points="311,215 343,250 375,215" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <path d="M200,152 A23,23 0 0 1 223,175 L223,225 L215,225 L215,175 A15,15 0 0 0 200,160 Z" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <polygon points="208,225 219,245 230,225" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <text x="30" y="96">electrical</text>
+  <text x="30" y="114">energy in</text>
+  <text x="30" y="132" font-weight="bold">600 J</text>
+  <text x="250" y="72">useful: lifts the load</text>
+  <text x="250" y="92" font-weight="bold">360 J</text>
+  <text x="343" y="272" text-anchor="middle">thermal <tspan font-weight="bold">200 J</tspan></text>
+  <text x="219" y="272" text-anchor="middle">sound <tspan font-weight="bold">?</tspan></text>
+  <text x="20" y="24" fill="var(--muted)" font-size="12">arrow widths drawn to scale</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" font-family="sans-serif" font-size="14" fill="currentColor" role="img" aria-labelledby="t111sk">
+  <title id="t111sk">Sankey diagram for the motor of an electric bike, in watts</title>
+  <rect x="20" y="40" width="180" height="135" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <rect x="200" y="40" width="230" height="108" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <polygon points="430,26 490,94 430,162" fill="var(--t1-ink)" fill-opacity="0.35"/>
+  <rect x="200" y="148" width="60" height="27" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <path d="M260,148 A50,50 0 0 1 310,198 L310,235 L283,235 L283,198 A23,23 0 0 0 260,175 Z" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <polygon points="273,235 296.5,262 320,235" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <text x="30" y="96">electrical</text>
+  <text x="30" y="114">power in</text>
+  <text x="30" y="132" font-weight="bold">450 W</text>
+  <text x="225" y="84">useful: turns the wheels</text>
+  <text x="225" y="104" font-weight="bold">360 W</text>
+  <text x="296" y="284" text-anchor="middle">thermal (wasted) <tspan font-weight="bold">90 W</tspan></text>
+  <text x="20" y="24" fill="var(--muted)" font-size="12">arrow widths drawn to scale</text>
+</svg>

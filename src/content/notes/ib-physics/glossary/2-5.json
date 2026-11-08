@@ -2,19 +2,19 @@
   {
     "id": "emissivity",
     "term": "emissivity",
-    "definition": "TODO: Ratio of power radiated per unit area to that of a black body at same temperature; between 0 and 1",
+    "definition": "How well a surface radiates compared with a black body: the power it emits from each square metre divided by $\\sigma T^{4}$, the black-body value at the same temperature. It has no unit and lies between 0 and 1.",
     "lesson": "2.5"
   },
   {
     "id": "albedo",
     "term": "albedo",
-    "definition": "TODO: Total scattered power divided by total incident power; between 0 and 1",
+    "definition": "The fraction of the radiation falling on a surface or planet that is scattered back rather than absorbed: total scattered power divided by total incident power. It has no unit and lies between 0 and 1.",
     "lesson": "2.5"
   },
   {
     "id": "solar-constant",
     "term": "solar constant",
-    "definition": "TODO: S, solar intensity at the top of Earth's atmosphere on a surface perpendicular to rays",
+    "definition": "The intensity of the Sun's radiation at the top of Earth's atmosphere, on a surface at right angles to the rays, at the mean Earth–Sun distance; the data booklet gives $S = 1.36 \\times 10^{3}\\ \\text{W m}^{-2}$.",
     "lesson": "2.5"
   }
 ]

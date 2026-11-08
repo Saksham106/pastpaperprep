@@ -1,0 +1,792 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.5",
+  "slug": "emissivity-albedo-and-earths-energy-balance",
+  "title": "Emissivity, albedo and Earth's energy balance",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A planet's temperature settles where the power it absorbs from the Sun equals the power it radiates away. [[albedo|Albedo]] tells you how much sunlight is scattered back instead of absorbed, and [[emissivity|emissivity]] tells you how well a surface radiates compared with a [[black-body|black body]]. Put them together with the [[solar-constant|solar constant]] and you can estimate the temperature of Earth or any other planet.",
+  "goals": [
+    {
+      "text": "Use [[emissivity|emissivity]] to find the power radiated by a real surface, or its temperature, from $\\sigma T^{4}$.",
+      "bullets": [
+        "B.2-s2"
+      ]
+    },
+    {
+      "text": "Calculate an albedo from scattered and incident power, and explain why Earth's albedo changes with clouds, latitude and time of day.",
+      "bullets": [
+        "B.2-s3",
+        "B.2-s4"
+      ]
+    },
+    {
+      "text": "State what the solar constant is, and explain why the mean [[intensity|intensity]] arriving over a planet's surface is $\\frac{S}{4}$.",
+      "bullets": [
+        "B.2-s5",
+        "B.2-s6"
+      ]
+    },
+    {
+      "text": "Apply [[conservation-of-energy|conservation of energy]] to estimate the equilibrium temperature of a planet from its albedo, emissivity and the incoming intensity.",
+      "bullets": [
+        "B.2-s1",
+        "B.2-s6"
+      ]
+    },
+    {
+      "text": "Balance the energy exchanged between a planet's surface and its atmosphere, and explain why burning fossil fuels raises the surface temperature.",
+      "bullets": [
+        "B.2-s1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "2.2",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "emissivity formula",
+    "albedo definition",
+    "solar constant S over 4",
+    "equilibrium temperature of a planet",
+    "Earth energy balance model",
+    "planet temperature calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sigma-t4",
+      "prompt": "A black body is at $\\pu{400 K}$. Calculate the power it radiates per square metre of surface, in $\\text{W m}^{-2}$ to 3 significant figures.",
+      "hint": "Divide $L = \\sigma A T^{4}$ by the area $A$.",
+      "answer": {
+        "value": 1450,
+        "tolerance": 5
+      },
+      "explain": "$\\frac{L}{A} = \\sigma T^{4} = (5.67 \\times 10^{-8})(400)^{4} \\approx \\pu{1450 W m-2}$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sigma*400**4",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-lamp-intensity",
+      "prompt": "A small lamp radiates $\\pu{25 W}$ equally in all directions. Calculate the intensity $\\pu{2.0 m}$ from it, in $\\text{W m}^{-2}$ to 2 significant figures.",
+      "hint": "The power spreads over a sphere of area $4\\pi d^{2}$.",
+      "answer": {
+        "value": 0.5,
+        "tolerance": 0.005
+      },
+      "explain": "$I = \\frac{25}{4\\pi (2.0)^{2}} \\approx \\pu{0.50 W m-2}$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "25/(4*pi*2.0**2)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-in-out",
+      "prompt": "A metal plate in sunlight absorbs energy at $\\pu{45 W}$ and loses energy at $\\pu{32 W}$. What happens to its temperature?",
+      "hint": "Where does the extra energy each second go?",
+      "options": [
+        {
+          "text": "it rises",
+          "correct": true
+        },
+        {
+          "text": "it stays the same",
+          "correct": false
+        },
+        {
+          "text": "it falls",
+          "correct": false
+        }
+      ],
+      "explain": "Energy is conserved, so the extra $\\pu{13 J}$ each second stays in the plate as internal energy, and its temperature rises. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it rises"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "emissivity",
+      "heading": "Real surfaces and emissivity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.4}} you met the [[black-body|black body]], the best possible emitter of [[thermal-radiation|thermal radiation]]. By the [[stefan-boltzmann-law|Stefan-Boltzmann law]], each square metre of a black body radiates $\\sigma T^{4}$ watts."
+        },
+        {
+          "type": "text",
+          "text": "A real surface at the same temperature radiates less. A shiny metal plate radiates only a few per cent of the black-body value. Dull paint, skin and soil come much closer."
+        },
+        {
+          "type": "definition",
+          "term": "emissivity",
+          "statement": "The ratio of the power a surface emits from each square metre to the power emitted from each square metre of a black body at the same temperature.",
+          "plain": "How good a surface is at radiating, as a fraction of the best possible."
+        },
+        {
+          "type": "text",
+          "text": "[[emissivity|Emissivity]] $e$ is a ratio of two powers per unit area, so it has no unit. It lies between 0 and 1, and $e = 1$ only for a black body. The data booklet gives it in this form."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{emissivity} = \\frac{\\text{power radiated per unit area}}{\\sigma T^{4}}",
+          "tag": "booklet",
+          "bookletId": "db-2-5"
+        },
+        {
+          "type": "text",
+          "text": "Multiply both sides by $\\sigma T^{4}$ and by the area $A$. The total power radiated by a real surface is then $P = e\\sigma A T^{4}$. As always, $T$ is in kelvin."
+        },
+        {
+          "type": "example",
+          "id": "ex-e-roof",
+          "question": "On a summer afternoon a dark roof tile is at $47\\,^{\\circ}\\text{C}$ and radiates $\\pu{415 W m-2}$. Determine the emissivity of the tile, to 2 significant figures.",
+          "steps": [
+            "Convert to kelvin: $T = 47 + 273 = \\pu{320 K}$.",
+            "Find the black-body value at that temperature: $\\sigma T^{4} = (5.67 \\times 10^{-8})(320)^{4} = \\pu{594.5 W m-2}$.",
+            "Divide: $e = \\dfrac{415}{594.5} = 0.698$.",
+            "Sense check: the answer is between 0 and 1, and it has no unit."
+          ],
+          "answer": "$e \\approx 0.70$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "415/(sigma*(47 + zero_celsius)**4)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-e-panel",
+          "question": "A ceramic heating panel has a radiating area of $\\pu{0.0600 m2}$ and an emissivity of $0.850$. It radiates $\\pu{265 W}$. Calculate its surface temperature.",
+          "steps": [
+            "Start from $P = e\\sigma A T^{4}$ and make $T$ the subject: $T = \\sqrt[4]{\\dfrac{P}{e\\sigma A}}$.",
+            "Substitute: $T = \\sqrt[4]{\\dfrac{265}{(0.850)(5.67 \\times 10^{-8})(0.0600)}} = \\sqrt[4]{9.16 \\times 10^{10}}$.",
+            "Evaluate: $T = \\pu{550.2 K}$. The data have 3 significant figures, so give 3."
+          ],
+          "answer": "$T \\approx 5.50 \\times 10^{2}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(265/(0.850*sigma*0.0600))**Rational(1, 4)",
+            "sf": 3,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-e-skin",
+          "prompt": "Human skin at $33\\,^{\\circ}\\text{C}$ has an emissivity of about $0.97$. Calculate the power radiated per square metre of skin, in $\\text{W m}^{-2}$ to 2 significant figures.",
+          "hint": "Power per unit area is $e\\sigma T^{4}$, with $T$ in kelvin.",
+          "answer": {
+            "value": 480,
+            "tolerance": 5
+          },
+          "explain": "$T = 306\\ \\text{K}$, so $e\\sigma T^{4} = 0.97 \\times (5.67 \\times 10^{-8}) \\times 306^{4} \\approx \\pu{480 W m-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.97*sigma*(33 + zero_celsius)**4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-e-statement",
+          "prompt": "Which statement about the emissivity of a surface is correct?",
+          "hint": "Emissivity compares the surface with a black body at the same temperature.",
+          "options": [
+            {
+              "text": "it has no unit and cannot be greater than 1",
+              "correct": true
+            },
+            {
+              "text": "it is measured in watts per square metre",
+              "correct": false
+            },
+            {
+              "text": "it can be greater than 1 for a very hot surface",
+              "correct": false
+            },
+            {
+              "text": "it is the fraction of incident radiation that is reflected",
+              "correct": false
+            }
+          ],
+          "explain": "Emissivity is a ratio of two powers per unit area, so the units cancel. No surface radiates more than a black body at the same temperature, so $e \\le 1$. The reflected fraction is the albedo, the next idea.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it has no unit and cannot be greater than 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "albedo",
+      "heading": "Albedo",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fresh snow on a sunny day is dazzling, while a tarmac road beside it looks dark. The snow scatters most of the sunlight back. The road absorbs most of it, and gets much warmer."
+        },
+        {
+          "type": "definition",
+          "term": "albedo",
+          "statement": "The total power scattered by a surface or body divided by the total power incident on it.",
+          "plain": "The fraction of the radiation falling on something that bounces back instead of being absorbed."
+        },
+        {
+          "type": "text",
+          "text": "[[albedo|Albedo]], written $\\alpha$ here, is also in the data booklet. Like emissivity, it is a ratio with no unit, between 0 and 1. \"Scattered\" includes reflection in every direction, not only mirror-like reflection."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{albedo} = \\frac{\\text{total scattered power}}{\\text{total incident power}}",
+          "tag": "booklet",
+          "bookletId": "db-2-5"
+        },
+        {
+          "type": "text",
+          "text": "Whatever is not scattered is absorbed. So a surface of albedo $\\alpha$ absorbs a fraction $1 - \\alpha$ of the incident power. Snow has an albedo of about 0.8, oceans about 0.06, and Earth as a whole about 0.3."
+        },
+        {
+          "type": "text",
+          "text": "Albedo describes a large system on average. Earth's albedo is not fixed: it varies from day to day, mainly because cloud cover changes, and it depends on latitude."
+        },
+        {
+          "type": "example",
+          "id": "ex-a-snow",
+          "question": "Sunlight of intensity $\\pu{820 W m-2}$ falls on a snowfield, and $\\pu{660 W m-2}$ is scattered back. Calculate the albedo of the snow, to 2 significant figures.",
+          "steps": [
+            "Intensity is power per unit area, so for the same area the ratio of intensities equals the ratio of powers.",
+            "$\\alpha = \\dfrac{\\text{scattered}}{\\text{incident}} = \\dfrac{660}{820} = 0.805$.",
+            "So the snow absorbs only $820 - 660 = \\pu{160 W m-2}$, which is why snow can last on sunny days."
+          ],
+          "answer": "$\\alpha \\approx 0.80$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "660/820",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-a-varies",
+          "question": "Explain why the albedo of Earth changes from day to day, and why it is higher near the poles than near the equator.",
+          "steps": [
+            "Name what scatters sunlight strongly and say whether it changes from day to day.",
+            "Then compare the surfaces, and the angle of the Sun's rays, at high and low latitude."
+          ],
+          "answer": "Clouds scatter a large fraction of the sunlight falling on them, so they have a high albedo. Cloud cover changes from day to day, so the fraction of incident power scattered by Earth changes too. As Earth rotates, different surfaces such as dark oceans and pale deserts also face the Sun. Near the poles the surface is covered by ice and snow, which have a much higher albedo than oceans or forests. At high latitude the Sun's rays also arrive at a low angle, and water scatters more of the radiation at low angles. So the albedo depends on latitude and is higher near the poles.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "clouds have high albedo and cloud cover changes daily; ice and snow at the poles have high albedo; low Sun angle at high latitude increases scattering",
+            "requires": [
+              "cloud",
+              [
+                "day to day",
+                "daily"
+              ],
+              "ice",
+              "snow",
+              "latitude",
+              "low angle"
+            ],
+            "forbids": [
+              "albedo is constant",
+              "the poles absorb more"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-a-absorbed",
+          "prompt": "A field of crops has an albedo of $0.24$. What fraction of the incident solar power does it absorb?",
+          "hint": "Everything that is not scattered is absorbed.",
+          "options": [
+            {
+              "text": "$0.76$",
+              "correct": true
+            },
+            {
+              "text": "$0.24$",
+              "correct": false
+            },
+            {
+              "text": "$1.24$",
+              "correct": false
+            }
+          ],
+          "explain": "The absorbed fraction is $1 - \\alpha = 1 - 0.24 = 0.76$. Choosing $0.24$ mixes up the scattered and absorbed fractions.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.24"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-a-mixed",
+          "prompt": "Seen from a satellite, a region is $60\\%$ forest of albedo $0.15$ and $40\\%$ cloud of albedo $0.70$. The same intensity falls on every part. Calculate the albedo of the whole region, to 2 significant figures.",
+          "hint": "Work out the scattered power for each part of the area, then divide by the total incident power.",
+          "answer": {
+            "value": 0.37,
+            "tolerance": 0.005
+          },
+          "explain": "Per unit of incident power, the scattered fraction is $0.60 \\times 0.15 + 0.40 \\times 0.70 = 0.09 + 0.28 = 0.37$. Averaging $0.15$ and $0.70$ equally gives $0.43$, which ignores the areas.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.60*0.15 + 0.40*0.70",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "solar-constant",
+      "heading": "The solar constant and the factor of 4",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you can balance a planet's energy, you need to know how much power arrives. Outside the atmosphere nothing absorbs the sunlight, so the [[intensity|intensity]] there depends only on the Sun and the distance."
+        },
+        {
+          "type": "definition",
+          "term": "solar constant",
+          "statement": "The intensity of the Sun's radiation at the top of Earth's atmosphere, on a surface at right angles to the rays, at Earth's mean distance from the Sun.",
+          "plain": "How much solar power hits each square metre facing the Sun, just above the air."
+        },
+        {
+          "type": "text",
+          "text": "The data booklet gives the [[solar-constant|solar constant]] as $S = \\pu{1.36e3 W m-2}$. It is the Sun's [[luminosity|luminosity]] spread over a sphere of radius equal to the Earth–Sun distance, $S = \\frac{L}{4\\pi d^{2}}$. Another planet has its own value of $S$ at its own distance."
+        },
+        {
+          "type": "text",
+          "text": "The Sun is so far away that its rays arrive parallel. A planet of radius $R$ blocks them like a flat disc, so it intercepts the power falling on its projected area $\\pi R^{2}$. The power arriving is $S\\pi R^{2}$."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-projected-area",
+          "alt": "Parallel rays of sunlight arrive from the left and hit a sphere of radius R. Behind the sphere the rays it blocks leave a shadow the shape of a disc of the same radius. The disc is labelled projected area pi R squared, and the sphere is labelled surface area 4 pi R squared. The left half of the sphere is lit and the right half is the night side.",
+          "caption": "The planet catches the sunlight falling on a disc of area $\\pi R^{2}$, but its whole surface, $4\\pi R^{2}$, shares that power as it rotates."
+        },
+        {
+          "type": "text",
+          "text": "As the planet rotates, that power is shared over its whole surface, $4\\pi R^{2}$, night side included. The mean incoming intensity over the surface is therefore a quarter of $S$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{mean incoming intensity} = \\frac{S \\pi R^{2}}{4\\pi R^{2}} = \\frac{S}{4}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For Earth, $\\frac{S}{4} = \\frac{1360}{4} = \\pu{340 W m-2}$. Part of this is scattered straight back, as set by the albedo."
+        },
+        {
+          "type": "example",
+          "id": "ex-s-quarter",
+          "question": "Explain why the mean intensity of solar radiation arriving over the whole surface of a planet is $\\frac{S}{4}$, where $S$ is the solar constant at the planet.",
+          "steps": [
+            "Say what area catches the sunlight.",
+            "Then say what area shares it, and divide."
+          ],
+          "answer": "The Sun is very far away, so its rays arrive parallel. The planet intercepts the radiation falling on its projected area, a disc of area $\\pi R^{2}$, so the incoming power is $S\\pi R^{2}$. As the planet rotates, this power is spread over its whole surface, of area $4\\pi R^{2}$, including the night side. So the mean incoming intensity is $\\frac{S\\pi R^{2}}{4\\pi R^{2}} = \\frac{S}{4}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "power intercepted by the projected disc pi R^2 is spread over the whole surface 4 pi R^2, so mean intensity is S/4",
+            "requires": [
+              "parallel",
+              [
+                "projected area",
+                "cross-sectional area"
+              ],
+              "disc",
+              "rotates",
+              "whole surface",
+              "night side"
+            ],
+            "forbids": [
+              "only half",
+              "the whole surface faces the Sun"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-s-mars",
+          "question": "The Sun's luminosity is $\\pu{3.83e26 W}$ and Mars orbits at $\\pu{2.28e11 m}$ from the Sun. Calculate the mean intensity of solar radiation arriving over the surface of Mars.",
+          "steps": [
+            "Find the solar constant at Mars: $S = \\dfrac{L}{4\\pi d^{2}} = \\dfrac{3.83 \\times 10^{26}}{4\\pi(2.28 \\times 10^{11})^{2}} = \\pu{586.3 W m-2}$.",
+            "Average over the whole surface: $\\dfrac{S}{4} = \\dfrac{586.3}{4} = \\pu{146.6 W m-2}$.",
+            "Sense check: Mars is about 1.5 times as far from the Sun as Earth, so it should get about $\\frac{1}{1.5^{2}} \\approx 0.44$ of Earth's $\\pu{340 W m-2}$, which fits."
+          ],
+          "answer": "$I \\approx 147\\ \\text{W m}^{-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.83*10**26/(4*pi*(2.28*10**11)**2)/4",
+            "sf": 3,
+            "unit": "W m-2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-s-intercepted",
+          "prompt": "Earth's radius is $\\pu{6.37e6 m}$. Using the solar constant from the data booklet, what is the total solar power arriving at Earth?",
+          "hint": "Which area actually faces the Sun's parallel rays?",
+          "options": [
+            {
+              "text": "$P \\approx 1.73 \\times 10^{17}\\ \\text{W}$",
+              "correct": true
+            },
+            {
+              "text": "$P \\approx 6.93 \\times 10^{17}\\ \\text{W}$",
+              "correct": false
+            },
+            {
+              "text": "$P \\approx 4.33 \\times 10^{16}\\ \\text{W}$",
+              "correct": false
+            }
+          ],
+          "explain": "$P = S\\pi R^{2} = 1360 \\times \\pi (6.37 \\times 10^{6})^{2} \\approx \\pu{1.73e17 W}$. Using $4\\pi R^{2}$ counts the night side as if it faced the Sun. Using $\\frac{S}{4}$ with $\\pi R^{2}$ applies the factor 4 twice.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "S_solar*pi*(6.37*10**6)**2",
+            "sf": 3,
+            "unit": "W"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-s-venus",
+          "prompt": "Venus is $0.72$ times as far from the Sun as Earth. Calculate the solar constant at Venus, in $\\text{W m}^{-2}$ to 2 significant figures.",
+          "hint": "Intensity follows an inverse square law with distance.",
+          "answer": {
+            "value": 2600,
+            "tolerance": 50
+          },
+          "explain": "$S_\\text{Venus} = \\dfrac{1360}{0.72^{2}} \\approx \\pu{2600 W m-2}$. Closer means more intense, so the answer must be bigger than Earth's value.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "S_solar/0.72**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "equilibrium",
+      "heading": "Energy balance and equilibrium temperature",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Energy cannot be created or destroyed. This is [[conservation-of-energy|conservation of energy]]. If a planet absorbs more power than it radiates, the difference stays in it as internal energy, and it warms up."
+        },
+        {
+          "type": "text",
+          "text": "Warming makes it radiate more, because emission grows as $T^{4}$. The temperature keeps rising until the power out equals the power in. If it radiates more than it absorbs, it cools until the two match again. This steady state is the equilibrium temperature."
+        },
+        {
+          "type": "text",
+          "text": "Write the balance per square metre of the planet's surface. In: the mean incoming intensity $\\frac{S}{4}$, less the fraction $\\alpha$ that is scattered. Out: $e\\sigma T^{4}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(1 - \\alpha)\\frac{S}{4} = e\\sigma T^{4}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "With no atmosphere, the surface usually radiates close to a black body, so take $e = 1$ unless told otherwise. For Earth seen from space, the surface and atmosphere act together, with an effective emissivity well below 1."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $S$ instead of $\\frac{S}{4}$, or forgetting the $(1 - \\alpha)$. Write the absorbed intensity as its own line first, then set it equal to $e\\sigma T^{4}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-q-airless",
+          "question": "An airless planet has an albedo of $0.12$, and the solar constant at its orbit is $\\pu{590 W m-2}$. Treating its surface as a black body, estimate its mean equilibrium temperature.",
+          "steps": [
+            "Absorbed intensity, averaged over the surface: $(1 - 0.12) \\times \\dfrac{590}{4} = \\pu{129.8 W m-2}$.",
+            "In equilibrium this equals the emitted intensity, $\\sigma T^{4}$ with $e = 1$.",
+            "Solve: $T = \\sqrt[4]{\\dfrac{129.8}{5.67 \\times 10^{-8}}} = \\pu{218.7 K}$.",
+            "The albedo has 2 significant figures, so give 2."
+          ],
+          "answer": "$T \\approx 2.2 \\times 10^{2}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "((1 - 0.12)*590/4/sigma)**Rational(1, 4)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-q-effective-e",
+          "question": "The solar constant at a rocky planet is $\\pu{1.10e3 W m-2}$ and its albedo is $0.28$. Its mean surface temperature is $\\pu{281 K}$. Treating the planet and its atmosphere as one body at this temperature, determine the effective emissivity that keeps it in energy balance.",
+          "steps": [
+            "Absorbed intensity: $(1 - 0.28) \\times \\dfrac{1.10 \\times 10^{3}}{4} = \\pu{198 W m-2}$.",
+            "Black-body intensity at $\\pu{281 K}$: $\\sigma T^{4} = (5.67 \\times 10^{-8})(281)^{4} = \\pu{353.5 W m-2}$.",
+            "Balance $198 = e \\times 353.5$, so $e = \\dfrac{198}{353.5} = 0.560$.",
+            "Only 56% of the black-body value escapes to space. The atmosphere absorbs much of the surface's radiation, which is why the surface can stay this warm."
+          ],
+          "answer": "$e \\approx 0.56$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1 - 0.28)*1.10*10**3/4/(sigma*281**4)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-q-dwarf",
+          "prompt": "A small icy world with no atmosphere has an albedo of $0.67$. The solar constant at its orbit is $\\pu{50.3 W m-2}$. Treating it as a black body, estimate its equilibrium temperature in kelvin, to 2 significant figures.",
+          "hint": "Absorbed intensity is $(1 - \\alpha)\\frac{S}{4}$. Set it equal to $\\sigma T^{4}$.",
+          "answer": {
+            "value": 92,
+            "tolerance": 0.5
+          },
+          "explain": "$(1 - 0.67) \\times \\frac{50.3}{4} = \\pu{4.15 W m-2}$, so $T = \\sqrt[4]{\\frac{4.15}{5.67 \\times 10^{-8}}} \\approx \\pu{92 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((1 - 0.67)*50.3/4/sigma)**Rational(1, 4)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-q-double-s",
+          "prompt": "A planet's albedo and emissivity stay the same while the solar constant at its orbit doubles. By what factor does its equilibrium temperature change?",
+          "hint": "The absorbed intensity doubles, and it equals $e\\sigma T^{4}$.",
+          "options": [
+            {
+              "text": "$\\sqrt[4]{2}$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$T^{4} \\propto S$, so $T \\propto \\sqrt[4]{S}$ and $T$ rises by $\\sqrt[4]{2} \\approx 1.19$. Choosing $16$ applies the fourth power the wrong way round.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**Rational(1, 4)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "atmosphere",
+      "heading": "Surface and atmosphere",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An airless planet is easy, but a real one has an atmosphere between the surface and space. Exam problems split the balance into two layers, the surface and the atmosphere, and apply conservation of energy to each."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-surface-atmosphere",
+          "alt": "Energy balance diagram with three layers: space at the top, the atmosphere in the middle and the surface at the bottom. Incoming solar radiation comes down from space. Part of it is scattered back up to space. The rest is absorbed by the surface. The surface radiates infrared upwards. Some of this passes through to space and the rest is absorbed by the atmosphere. The atmosphere radiates in all directions: up to space and down to the surface.",
+          "caption": "In equilibrium, the power into each layer equals the power out of it."
+        },
+        {
+          "type": "text",
+          "text": "The surface absorbs two things: the sunlight that reaches it, and the radiation sent back down by the atmosphere. It loses energy mainly by radiating [[infrared-radiation|infrared radiation]] upwards. Real surfaces also lose energy by [[convection|convection]] and evaporation, but the simple model leaves these out."
+        },
+        {
+          "type": "text",
+          "text": "Greenhouse gases in the atmosphere absorb much of the surface's infrared and re-radiate it in all directions, so part comes back down. You will see why they absorb it in {{lesson:2.6}}. Burning fossil fuels adds carbon dioxide, a greenhouse gas, and is the main driver of the [[enhanced-greenhouse-effect|enhanced greenhouse effect]]."
+        },
+        {
+          "type": "text",
+          "text": "So, for the surface in equilibrium: absorbed solar intensity + intensity from the atmosphere = intensity the surface radiates."
+        },
+        {
+          "type": "example",
+          "id": "ex-at-surface-t",
+          "question": "In a model of a planet, the surface absorbs a mean solar intensity of $\\pu{172 W m-2}$. The atmosphere radiates $\\pu{221 W m-2}$ down to the surface. The surface has an emissivity of $0.95$. Assuming it loses energy only by radiation, determine its equilibrium temperature.",
+          "steps": [
+            "Total intensity absorbed by the surface: $172 + 221 = \\pu{393 W m-2}$.",
+            "In equilibrium the surface radiates the same: $e\\sigma T^{4} = 393$.",
+            "Solve: $T = \\sqrt[4]{\\dfrac{393}{(0.95)(5.67 \\times 10^{-8})}} = \\pu{292.3 K}$.",
+            "The emissivity has 2 significant figures, so give 2. Without the atmosphere's $\\pu{221 W m-2}$, the same surface would settle near $\\pu{240 K}$."
+          ],
+          "answer": "$T \\approx 2.9 \\times 10^{2}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "((172 + 221)/(0.95*sigma))**Rational(1, 4)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-at-fossil",
+          "question": "Burning fossil fuels increases the concentration of carbon dioxide in the atmosphere. Explain, using the energy balance of the surface, why this raises the mean temperature of Earth's surface.",
+          "steps": [
+            "Say what the extra carbon dioxide does to the surface's infrared radiation.",
+            "Then apply conservation of energy to the surface until a new balance is reached."
+          ],
+          "answer": "Carbon dioxide is a greenhouse gas, so with more of it the atmosphere absorbs more of the infrared radiation emitted by the surface. The atmosphere re-radiates this energy in all directions, so more radiation returns to the surface. The surface now absorbs more power than it emits. By conservation of energy its internal energy increases, so its temperature rises. The power it radiates grows as $T^{4}$, so the temperature rises until the power emitted again equals the power absorbed. The new equilibrium is at a higher surface temperature.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more CO2 absorbs more surface infrared and re-radiates some back; surface absorbs more than it emits; internal energy and temperature rise until emission (T^4) balances at a higher temperature",
+            "requires": [
+              "absorbs more",
+              "infrared",
+              "all directions",
+              "more power than it emits",
+              "conservation of energy",
+              "higher surface temperature"
+            ],
+            "forbids": [
+              "ozone",
+              "reflects the infrared",
+              "traps heat"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-at-back-radiation",
+          "prompt": "A planet's surface acts as a black body at $\\pu{284 K}$ and absorbs a mean solar intensity of $\\pu{155 W m-2}$. Assuming it loses energy only by radiation, calculate the intensity the atmosphere must radiate down to the surface for equilibrium, in $\\text{W m}^{-2}$ to 3 significant figures.",
+          "hint": "Find $\\sigma T^{4}$ for the surface. The sunlight and the atmosphere together must supply that much.",
+          "answer": {
+            "value": 214,
+            "tolerance": 0.5
+          },
+          "explain": "The surface radiates $(5.67 \\times 10^{-8})(284)^{4} = \\pu{368.9 W m-2}$. The atmosphere must supply $368.9 - 155 \\approx \\pu{214 W m-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sigma*284**4 - 155",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-at-imbalance",
+          "prompt": "The concentration of greenhouse gases rises suddenly. Before the surface temperature has had time to change, which statement is correct?",
+          "hint": "What changes first: what the surface receives, or what it emits?",
+          "options": [
+            {
+              "text": "the surface absorbs more power than it emits",
+              "correct": true
+            },
+            {
+              "text": "the surface emits more power than it absorbs",
+              "correct": false
+            },
+            {
+              "text": "the surface emits more power because its emissivity increases",
+              "correct": false
+            },
+            {
+              "text": "the incoming solar intensity at the top of the atmosphere increases",
+              "correct": false
+            }
+          ],
+          "explain": "More radiation comes back down from the atmosphere, but the surface still emits $e\\sigma T^{4}$ at its old temperature. The surplus warms it until a new balance is reached. The solar constant does not depend on the atmosphere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the surface absorbs more power than it emits"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\text{emissivity} = \\frac{\\text{power radiated per unit area}}{\\sigma T^{4}}",
+          "tag": "booklet",
+          "bookletId": "db-2-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{albedo} = \\frac{\\text{total scattered power}}{\\text{total incident power}}",
+          "tag": "booklet",
+          "bookletId": "db-2-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Emissivity and albedo are ratios with no unit, each between 0 and 1. A surface absorbs a fraction $1 - \\alpha$ of the incident power.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Earth's albedo, about 0.3, varies daily with cloud cover and is higher at high latitude, where ice and snow cover the surface.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The mean incoming intensity over a planet's surface is $\\frac{S}{4}$: power is caught by a disc of area $\\pi R^{2}$ and shared over $4\\pi R^{2}$. For Earth, $S = \\pu{1.36e3 W m-2}$ (data booklet).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(1 - \\alpha)\\frac{S}{4} = e\\sigma T^{4}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Surface in equilibrium: absorbed solar intensity + intensity radiated down by the atmosphere = intensity the surface radiates.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the full solar constant $S$ as the mean incoming intensity. Averaged over the whole surface it is $\\frac{S}{4}$.",
+    "Using $4\\pi R^{2}$ for the area that catches sunlight. The intercepted power is $S\\pi R^{2}$; $4\\pi R^{2}$ is the area that shares it.",
+    "Treating the albedo as the absorbed fraction. Albedo is the scattered fraction, so multiply the incoming intensity by $1 - \\alpha$.",
+    "Mixing up albedo and emissivity. Albedo is about incoming radiation that is scattered; emissivity is about radiation the surface itself emits.",
+    "Giving a temperature in degrees Celsius when the working gave kelvin, or putting Celsius into $T^{4}$. Keep $T$ in kelvin and convert only if asked.",
+    "Writing that greenhouse gases \"trap heat\" or \"reflect\" infrared. They absorb infrared and re-radiate it in all directions."
+  ],
+  "examTips": [
+    "Defining the solar constant (a one-line \"state\"): give the intensity of solar radiation at the top of Earth's atmosphere, at right angles to the rays. \"Power per unit area\" is fine for intensity.",
+    "In a Paper 2 energy-balance \"determine\" or \"show that\", show every step: $\\frac{S}{4}$, then the absorbed intensity with $(1 - \\alpha)$, then the balance and $T$. The steps earn the marks, not just the final value.",
+    "Paper 1A energy-balance diagrams: apply conservation of energy to one layer at a time. What goes into the surface (or the atmosphere) must equal what comes out.",
+    "\"Explain\" a change in surface temperature: say what happens to the absorbed and emitted power, use conservation of energy, and end with the new equilibrium. Write \"radiation\" or \"energy\", not \"heat\"."
+  ],
+  "readingMinutes": 30
+}

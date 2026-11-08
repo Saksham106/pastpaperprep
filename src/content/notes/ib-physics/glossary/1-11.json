@@ -2,19 +2,19 @@
   {
     "id": "power",
     "term": "power",
-    "definition": "TODO: Rate of work done or energy transfer, P = W/t = Fv; unit watt",
+    "definition": "The rate at which work is done or energy is transferred, $P = \\frac{\\Delta W}{\\Delta t}$, which for a force $F$ moving a body at velocity $v$ along its line is $P = Fv$; its unit is the watt, where $1\\ \\text{W} = 1\\ \\text{J s}^{-1}$.",
     "lesson": "1.11"
   },
   {
     "id": "efficiency",
     "term": "efficiency",
-    "definition": "TODO: Useful output divided by total input (energy or power), never above 1",
+    "definition": "The ratio of the useful energy (or power) output of a device to the total energy (or power) input, $\\eta$; it has no unit and is always less than 1 for a real machine, because some input energy is dissipated.",
     "lesson": "1.11"
   },
   {
     "id": "energy-density",
     "term": "energy density",
-    "definition": "TODO: Energy released per unit volume of a fuel; compare specific energy per unit mass",
+    "definition": "The energy released per unit volume of a fuel, in $\\text{J m}^{-3}$; it differs from specific energy, the energy released per unit mass in $\\text{J kg}^{-1}$, by a factor of the fuel's density.",
     "lesson": "1.11"
   }
 ]

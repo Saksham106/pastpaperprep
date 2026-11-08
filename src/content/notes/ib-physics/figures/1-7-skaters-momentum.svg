@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 260" role="img" aria-labelledby="t">
+<title id="t">Vector diagram of momentum, drawn to scale, with north up and east to the right. An arrow for skater A's momentum, 280 kilogram metres per second, points east. From its tip, an arrow for skater B's momentum, 300 kilogram metres per second, points north. The resultant arrow runs from the start of the first arrow to the tip of the second: the total momentum, 410 kilogram metres per second, at angle theta north of east.</title>
+<path d="M90.0 230.0 L221.0 230.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="230.0,230.0 221.0,234.5 221.0,225.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="160.0" y="248" fill="var(--t1-ink)" text-anchor="middle">skater A: 280 kg m s⁻¹ east</text>
+<path d="M230.0 230.0 L230.0 89.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="230.0,80.0 234.5,89.0 225.5,89.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="238.0" y="155.0" fill="var(--t3-ink)" text-anchor="start">skater B: 300 kg m s⁻¹ north</text>
+<path d="M90.0 230.0 L223.9 86.6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+<polygon points="230.0,80.0 227.1,89.6 220.6,83.5" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="158" y="135" fill="currentColor" text-anchor="end">total: 410 kg m s⁻¹</text>
+<path d="M124 230 A34 34 0 0 0 113.2 205.1" fill="none" stroke="var(--muted)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" x="134" y="218" fill="currentColor" text-anchor="middle">θ</text>
+<path d="M420.0 70.0 L420.0 37.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="420.0,30.0 423.5,37.0 416.5,37.0" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="420" y="22" fill="var(--muted)" text-anchor="middle">N</text>
+<path d="M420.0 70.0 L453.0 70.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="460.0,70.0 453.0,73.5 453.0,66.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="468" y="74" fill="var(--muted)" text-anchor="middle">E</text>
+</svg>
