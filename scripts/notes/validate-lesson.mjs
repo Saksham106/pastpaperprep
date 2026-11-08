@@ -1,6 +1,9 @@
 // One-lesson gate for writers: everything the batch checks for a single lesson, read straight from files.
 //
-//   node scripts/notes/validate-lesson.mjs [--course <slug>] <item>        (e.g. 5.16 or 5-16; default course ib-math-aa)
+//   node scripts/notes/validate-lesson.mjs [--course <slug>] [--fix] <item>   (e.g. 5.16 or 5-16; default course ib-math-aa)
+//
+// --fix first rewrites the lesson file's mechanical parts, then checks it: readingMinutes set to the computed value, and
+// each plain first use of a planned glossary term wrapped in [[id|…]]. Everything else is still the writer's to fix.
 //
 // Runs, for that lesson only:
 //   validator    validateLesson (src/lib/course-notes/validate.ts, loaded through tsx, KaTeX in Node as in vitest)
@@ -11,7 +14,7 @@
 //   check-math   scripts/notes/check-math.py <item> with the SymPy venv (AA_NOTES_PYTHON or ../research venv)
 //   originality  scripts/notes/originality.mjs against ../research/<gate.packs>/<item>.json (AA: aa-course-notes/packs),
 //                plus number sets: no example or check reuses 3+ distinctive numbers from one part of a pack question
-//   lints        scripts/notes/lints.mjs: reading time (computed value printed; must match readingMinutes +/- 1),
+//   lints        scripts/notes/lints.mjs: reading time (computed value printed; must match readingMinutes +/- 1; --fix sets it),
 //                no formula or fact flagged for the cheat sheet twice, and, when the course has a glossary plan
 //                (course.json gate.glossaryPlan), first use of each planned term underlined and glossary/<item>.json
 //                holding only terms the plan gives this item. course.json gate.exempt switches lints off (AA predates them).
@@ -19,14 +22,14 @@
 // AA_NOTES_LESSONS_DIR / AA_NOTES_SIDECARS_DIR point at another lessons / sidecars folder (used by the tests).
 // Exit 0: every check passed. Exit 1: a check failed. Exit 2: usage error or unknown item.
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { register as registerCjs } from "tsx/cjs/api";
 import { register } from "tsx/esm/api";
 import { findResearchDir } from "./build-source-pack.mjs";
 import { courseFiles, parseCourseArg } from "./course.mjs";
-import { duplicateCheatSheetErrors, glossaryFirstUseErrors, glossaryOwnershipErrors, numberSetErrors, readingMinutes } from "./lints.mjs";
+import { duplicateCheatSheetErrors, fixGlossaryFirstUse, glossaryFirstUseErrors, glossaryOwnershipErrors, numberSetErrors, readingMinutes } from "./lints.mjs";
 import { findOverlaps } from "./originality.mjs";
 
 register();
@@ -48,7 +51,8 @@ const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 const listJson = (dir) => (existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith(".json")).sort() : []);
 const UNSAFE_SVG = /<script|\son\w+\s*=|javascript:|<foreignObject/i;
 
-const arg = parsed.rest[0];
+const fix = parsed.rest.includes("--fix");
+const arg = parsed.rest.find((entry) => entry !== "--fix");
 const items = readJson(course.itemsFile);
 const item = arg?.replace("-", ".");
 if (!item || !items.items.some((entry) => entry.item === item)) {
@@ -63,6 +67,31 @@ const calculatorIds = (course.config.calculators ?? []).map((model) => model.id)
 const calculatorFile = join(courseRoot, "calculator.json");
 const calculatorSnippets = existsSync(calculatorFile) ? readJson(calculatorFile).snippets ?? {} : {};
 const { calculatorSteps } = await import(pathToFileURL(join(repoRoot, "src/lib/course-notes/calculators.ts")).href);
+const glossaryPlan = () => {
+  const planPath = course.config.gate.glossaryPlan;
+  const research = planPath && researchDir();
+  const planFile = research && join(research, planPath);
+  return planFile && existsSync(planFile) ? readJson(planFile) : null;
+};
+
+// 0. --fix: the mechanical parts, written back before anything is checked.
+if (fix) {
+  const lessonFile = join(lessonsDir, `${dashed}.json`);
+  try {
+    const lesson = readJson(lessonFile);
+    const plan = glossaryPlan();
+    const fixes = plan ? fixGlossaryFirstUse(lesson, plan) : [];
+    const { minutes } = readingMinutes(lesson, (block) => calculatorSteps(block, calculatorSnippets));
+    if (!exempt.has("readingMinutes") && lesson.readingMinutes !== minutes) {
+      fixes.push(`readingMinutes ${lesson.readingMinutes} -> ${minutes}`);
+      lesson.readingMinutes = minutes;
+    }
+    if (fixes.length) writeFileSync(lessonFile, `${JSON.stringify(lesson, null, 2)}\n`);
+    for (const line of fixes) console.log(`FIXED ${line}`);
+  } catch (error) {
+    console.log(`FIX skipped: ${error instanceof Error ? error.message : error}`);
+  }
+}
 
 // 1. Validator and per-lesson content checks.
 {
@@ -160,7 +189,7 @@ const { calculatorSteps } = await import(pathToFileURL(join(repoRoot, "src/lib/c
     const off = Math.abs(reading.minutes - lesson.readingMinutes) > 1;
     const readingNote = `computed ${reading.minutes} min (${reading.words} words / 150 + ${reading.examples} example${reading.examples === 1 ? "" : "s"}), lesson says ${lesson.readingMinutes}`;
     if (exempt.has("readingMinutes")) record("reading-time", [], `${readingNote}; not enforced for this course`);
-    else record("reading-time", off ? [`readingMinutes is ${lesson.readingMinutes}, but the lesson reads in about ${reading.minutes}: set it to ${reading.minutes} (within 1)`] : [], readingNote);
+    else record("reading-time", off ? [`readingMinutes is ${lesson.readingMinutes}, but the lesson reads in about ${reading.minutes}: run with --fix to set it`] : [], readingNote);
 
     record("cheat-sheet", exempt.has("duplicateCheatSheetFlags") ? [] : duplicateCheatSheetErrors(lesson), exempt.has("duplicateCheatSheetFlags") ? "duplicate flags not enforced for this course" : undefined);
 
