@@ -15,6 +15,7 @@ import ExplanationPanel from '@/components/ExplanationPanel';
 import { paperThreshold, paperTopicMarks, type ComponentThreshold } from '@/lib/past-paper-insights';
 import { STATUS_TOPIC } from '@/lib/question-filter';
 import { PaperWorkspace } from './PaperWorkspace';
+import { CopyWorkedAnswerLink, WorkedAnswerHashOpener } from './WorkedAnswerLinks';
 import shell from './PastPaperPages.module.css';
 import styles from './PastPaperPaperPage.module.css';
 
@@ -147,8 +148,9 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
     {worked.length > 0 && <section className={`${styles.questions} ${styles.worked}`} aria-labelledby="worked-answers">
       <h2 id="worked-answers">Worked answers</h2>
       <p>Step-by-step solutions, with the mark-scheme points each step earns.</p>
+      <WorkedAnswerHashOpener />
       {worked.map(w => <details key={w.number} id={`worked-q${w.number}`}>
-        <summary><b>Q{w.number}</b><span>{w.topics.filter(t => !STATUS_TOPIC.test(t)).join(', ')}</span>{w.marks !== null && <em>{w.marks} {w.marks === 1 ? 'mark' : 'marks'}</em>}</summary>
+        <summary><b>Q{w.number}</b><span>{w.topics.filter(t => !STATUS_TOPIC.test(t)).join(', ')}</span><em>{w.marks !== null && `${w.marks} ${w.marks === 1 ? 'mark' : 'marks'}`}</em><CopyWorkedAnswerLink number={w.number} bank={bank.slug} paper={p.id} /></summary>
         <ExplanationPanel explanation={w.explanation} />
       </details>)}
     </section>}

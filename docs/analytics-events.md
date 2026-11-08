@@ -23,6 +23,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
+| `worked_answer_link_copy` | free past-paper page, copy-link icon on a worked-answer row | `bank`, `paper` (archive id), `question` (number) |
 | `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |
 | `question_report` | bank page, flag on an unlocked question card ("Report a problem"); once per question per page session | `bank`, `questionId`, `issue` (`question_image`, `mark_scheme`, `explanation`, `other`), `freePreview`, `hasExplanation`. No free text. |
 | `pdf_builder_open` | Save PDF / Download PDF | `bank`, `questionCount` |

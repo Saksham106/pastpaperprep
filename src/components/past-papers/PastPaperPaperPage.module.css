@@ -58,13 +58,19 @@
 
 /* Worked answers: one closed row per question; the full solution is in the HTML either way. */
 .worked details { border-bottom: 1px solid var(--line); }
-.worked summary { padding: 12px 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; cursor: pointer; list-style: none; font-size: .92rem; }
+.worked summary { padding: 12px 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto 32px; align-items: center; gap: 10px; cursor: pointer; list-style: none; font-size: .92rem; }
 .worked summary::-webkit-details-marker { display: none; }
 .worked summary b { color: var(--muted); font: 600 .84rem/1.4 var(--font-mono); }
 .worked summary em { color: var(--muted); font: 500 .8rem/1.5 var(--font-mono); font-style: normal; white-space: nowrap; }
 .worked summary:hover span { color: var(--course-accent, var(--cobalt)); }
 .worked details[open] summary span { font-weight: 650; }
 .worked details > div { padding: 0 0 18px 54px; }
+.worked details { scroll-margin-top: 88px; }
+/* Copy-link: quiet until the row is hovered or focused, always reachable by keyboard. */
+.copyLink { width: 32px; height: 32px; display: inline-grid; place-items: center; color: var(--muted); background: none; border: 0; border-radius: 8px; cursor: pointer; opacity: .55; transition: opacity 150ms ease, color 150ms ease, background-color 150ms ease; }
+.copyLink svg { width: 16px; height: 16px; }
+.worked summary:hover .copyLink, .copyLink:focus-visible { opacity: 1; }
+.copyLink:hover { color: var(--course-accent, var(--cobalt)); background: var(--subject-panel-tint, var(--surface)); }
 
 @media (max-width: 760px) {
   .worked details > div { padding-left: 0; }
