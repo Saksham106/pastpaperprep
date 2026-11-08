@@ -25,7 +25,7 @@ describe("targeted article SEO improvements", () => {
     expect(copy).toContain("$140");
     expect(copy).not.toContain("payment is shown as a one-time charge");
     expect(article.answer).toMatch(/^Revision Village Gold costs \$70 a month or \$249 once/);
-    expect(article.updatedAt).toBe("2026-10-16");
+    expect(article.updatedAt).toBe("2026-11-08");
   });
 
   it.each(["pastpaperprep-vs-revision-village", "best-ib-maths-question-banks-aa-ai"])("links the indexed %s guide to RV alternatives before the FAQ", slug => {

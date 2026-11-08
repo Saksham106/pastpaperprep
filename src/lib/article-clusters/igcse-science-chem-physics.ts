@@ -54,7 +54,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
           "For Biology, begin with the 0610 syllabus, then use PMT or exam-mate for topic retrieval and Save My Exams for structured-answer technique. Practise graph and unfamiliar-data questions, not only definition flashcards.",
           "For Chemistry, prioritise a bank that lets you mix theory with practical and calculation questions. Confirm that your practice covers the 0620 areas Cambridge lists, including states of matter, stoichiometry, electrochemistry, acids, metals, organic chemistry and experimental techniques. Keep a separate error log for formulae, observations, tests and explanations.",
           "For Physics, choose questions that make you write units, rearrange equations, interpret graphs and explain practical choices. The 0625 syllabus is not just a formula list. Mix short recall with calculations, diagrams, data handling and Paper 5 or Paper 6-style practical work.",
-          "PastPaperPrep now has live IGCSE Biology 0610, Chemistry 0620 and Physics 0625 banks. Together they contain 10,790 real past-paper questions, with filters for topics, papers, years, sessions, marks and other available exam details. It is the strongest fit here when you want authentic questions and custom printable sets; choose Save My Exams instead when lessons and guided explanations matter more than building your own practice."
+          "PastPaperPrep now has live IGCSE Biology 0610, Chemistry 0620 and Physics 0625 banks. Together they contain 16,129 real past-paper questions, with filters for topics, papers, years, sessions, marks and other available exam details. It is the strongest fit here when you want authentic questions and custom printable sets; choose Save My Exams instead when lessons and guided explanations matter more than building your own practice."
         ]
       }
     ],
@@ -129,7 +129,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "answer": "For Cambridge IGCSE Chemistry 0620 stoichiometry, PMT is a useful free route to topic-sorted multiple-choice and theory questions with mark schemes; Save My Exams adds structured topic PDFs and worked explanations, while exam-mate offers online topical practice. PastPaperPrep is for real past-paper questions you can filter by topic and paper and assemble into a printable set. Check Core or Extended and the 2026–2028 syllabus before choosing questions: a quiz or formula drill is not a substitute for written working and mark-scheme review.",
     "answerLink": { "href": "/banks/igcse-chemistry-0620", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-16",
+    "updatedAt": "2026-11-08",
     "readingMinutes": 4,
     "sections": [
       {
@@ -178,7 +178,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
           "Start by making a syllabus checklist from the current Cambridge document. For each topic, do a short recall pass, then eight to fifteen topical questions. Record the exact reason for every lost mark: knowledge, equation, calculation, observation, explanation, graph or command word.",
           "Next, rotate components. Paper 1 or 2 builds quick recognition but can hide weak written explanations. Paper 3 or 4 exposes definitions, equations, calculations and unfamiliar contexts. Paper 5 or 6 tests practical planning, measurement, analysis and evaluation. Do not replace one component with another.",
           "Finish with timed full papers and official mark schemes. Reattempt missed questions several days later without looking at your first answer. Grade thresholds are not a substitute for marking accuracy, and a high score on a familiar topical set is not proof that you can handle a mixed paper.",
-          "PastPaperPrep’s live IGCSE Chemistry 0620 bank contains real past-paper questions from papers covering recent exam years. Use it when you want to filter by topic, paper, year, session, marks and other available exam details, then turn a weak area into a printable set. Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. It does not replace notes, worked explanations or teaching; it removes the manual work of finding and assembling authentic questions."
+          "PastPaperPrep’s live IGCSE Chemistry 0620 bank contains real past-paper questions from papers covering recent exam years. Use it when you want to filter by topic, paper, year, session, marks and other available exam details, then turn a weak area into a printable set. Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Every question has a worked explanation, but it is not a teaching course; it removes the manual work of finding and assembling authentic questions."
         ]
       }
     ],
@@ -252,7 +252,7 @@ export const IGCSE_SCIENCE_CHEM_PHYSICS: readonly Article[] = [
     "answer": "PastPaperPrep is a focused option for real IGCSE Physics 0625 questions by topic: practise mechanics or electricity, check the available mark scheme and build a printable set with eligible bank access. A formula quiz can rehearse recall, but it does not stand in for full exam-style questions that make you choose a method, show working and apply it in context. Start with targeted calculation practice, then use full papers to test whether you can choose the right method without a topic prompt. PMT is useful for free paper archives; Save My Exams adds guided explanations.",
     "answerLink": { "href": "/banks/igcse-physics-0625", "label": "PastPaperPrep" },
     "publishedAt": "2026-09-15",
-    "updatedAt": "2026-10-16",
+    "updatedAt": "2026-11-08",
     "readingMinutes": 4,
     "sections": [
       {

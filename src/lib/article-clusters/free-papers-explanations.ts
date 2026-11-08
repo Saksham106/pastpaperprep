@@ -6,10 +6,10 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
   title: "RevisionDojo vs Save My Exams for IB: Free Access, Questions and Explanations",
   description: "Compare RevisionDojo and Save My Exams for IB revision: free access, exam-style questions, worked answers, AI feedback and the right course fit.",
   eyebrow: "IB revision comparison",
-  answer: "Choose RevisionDojo if you want IB practice with Jojo AI feedback and interactive learning tools. Choose Save My Exams if you prefer syllabus-specific revision notes and exam-style topic questions with teacher-written model answers. Both offer free access, but neither makes every explanation or feedback tool unlimited for free. If your main task is practising authentic papers, PastPaperPrep is a third option: its whole-paper IB archive is free without signup, with separate topical banks and worked explanations on published questions in supported banks.",
+  answer: "Choose RevisionDojo if you want IB practice with Jojo AI feedback and interactive learning tools. Choose Save My Exams if you prefer syllabus-specific revision notes and exam-style topic questions with teacher-written model answers. Both offer free access, but neither makes every explanation or feedback tool unlimited for free. If your main task is practising authentic papers, PastPaperPrep is a third option: its whole-paper IB archive is free without signup, with separate topical banks and a worked explanation on every question.",
   answerLink: { href: "/past-papers/ib", label: "Browse free IB whole papers" },
   publishedAt: "2026-10-14",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "RevisionDojo vs Save My Exams for IB: compare the task, not just the free label",
@@ -70,7 +70,7 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
       paragraphs: [
         "PastPaperPrep is useful when the problem is finding authentic paper practice, not choosing a complete learning platform. The whole-paper archive at /past-papers and /past-papers/ib is free without signup. Choose the exact course and level, then a year, session and paper with its matching official mark scheme.",
         "The topical question banks are a separate workflow. Guests can practise up to 20 matching free questions; a free account opens the rest of the free selection. Newer bank inventory and custom PDF exports require eligible bank access, with applicable allowances. Free whole papers do not make every topical question or export free.",
-        "Many questions across the IB banks have a published worked explanation. Coverage is not every question in those banks and not every IB subject. Explanations follow the same access gate as the question's mark scheme and are distinct from official mark schemes.",
+        "Every question in every IB bank has a worked explanation. Explanations follow the same access gate as the question's mark scheme and are distinct from official mark schemes.",
         "That makes PastPaperPrep a practical supplement: attempt a real paper, identify the topic that cost marks and practise matching real questions. It is not a replacement for RevisionDojo's coursework tools, a full notes course or a video teaching library.",
       ],
       links: [
@@ -94,7 +94,7 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
     { question: "Is RevisionDojo or Save My Exams better for IB?", answer: "RevisionDojo is a better fit for interactive IB practice and Jojo AI feedback. Save My Exams is a better fit for syllabus-specific notes and teacher-written model answers. Compare one topic in your exact subject and HL/SL course before paying; neither is best for every student." },
     { question: "Are both platforms free?", answer: "Both offer free access with limits. RevisionDojo says question-bank and past-paper browsing and written answers are free, but AI marking spends energy and free walkthroughs are capped. Save My Exams offers selected notes and limited questions and answers, with available past-paper downloads through a free account. Neither provides its entire teaching and feedback feature set free." },
     { question: "Are their topic questions real IB past-paper questions?", answer: "Do not assume so. RevisionDojo describes its Question Bank as IB-style practice and its separate Past Papers feature as real exam questions. Save My Exams describes its IB topic questions as exam-style. Check the source identity of the resource you use rather than treating all question banks as original-paper archives." },
-    { question: "Does PastPaperPrep have IB worked explanations?", answer: "Yes, on many individual questions across its IGCSE and IB banks. Not every question has one yet. Each explanation follows the question's mark-scheme access gate and is separate from the official mark scheme. The whole-paper archive remains free without signup." },
+    { question: "Does PastPaperPrep have IB worked explanations?", answer: "Yes. Every question in its IGCSE and IB banks has one. Each explanation follows the question's mark-scheme access gate and is separate from the official mark scheme. The whole-paper archive remains free without signup." },
   ],
   relatedBanks: [
     { href: "/banks/ib-hl", label: "IB Maths AA HL topic practice" },
@@ -128,7 +128,7 @@ const BEST_FREE_IGCSE_PAST_PAPER_WEBSITES: Article = {
   answer: "For supported Cambridge IGCSE subjects, start with PastPaperPrep for free whole papers and matching mark schemes without signup. Use Cambridge International to check official syllabuses and specimen papers, PapaCambridge for a broad subject-code archive, and Physics & Maths Tutor for its board-specific paper lists. The best choice depends on your syllabus code and the files you need, not which website has the longest list. Whole-paper archives and free topical question access are different things.",
   answerLink: { href: "/past-papers/igcse", label: "Choose a free Cambridge IGCSE paper" },
   publishedAt: "2026-10-14",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 8,
   comparison: {
     caption: "Free IGCSE paper websites: what to use each source for",
@@ -151,9 +151,9 @@ const BEST_FREE_IGCSE_PAST_PAPER_WEBSITES: Article = {
       ],
     },
     {
-      heading: "PastPaperPrep: free whole papers for seven Cambridge courses",
+      heading: "PastPaperPrep: free whole papers for eight Cambridge courses",
       paragraphs: [
-        "PastPaperPrep's whole-paper archive is free without signup. Its Cambridge IGCSE directory separates Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Economics 0455 and Co-ordinated Sciences 0654. Choose the course first, then the year, session and paper/component with its matching official mark scheme.",
+        "PastPaperPrep's whole-paper archive is free without signup. Its Cambridge IGCSE directory separates Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Economics 0455, Co-ordinated Sciences 0654 and Computer Science 0478. Choose the course first, then the year, session and paper/component with its matching official mark scheme.",
         "Use that structure when you want to attempt a complete paper rather than assemble questions one by one. Read the paper's own instructions and identity before starting. Check the available years and components on the course page; a supported subject is not a promise of every historical sitting or the latest unpublished papers.",
         "After marking, move to the matching topical bank if you need more questions on a weak area. That is separate from the free archive: guests get up to 20 matching free questions, and a free account opens the rest of the free selection. Newer bank inventory and custom PDF exports require eligible bank access and applicable allowances.",
       ],

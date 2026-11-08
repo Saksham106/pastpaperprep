@@ -21,7 +21,7 @@ describe("existing subject article AEO practice paths", () => {
     const answer = container.querySelector(".article-answer")!;
     expect(answer.querySelector("a")).toHaveAttribute("href", href);
     expect(answer.textContent).toContain("PastPaperPrep");
-    expect(article.updatedAt).toBe("2026-10-16");
+    expect(article.updatedAt).toBe("2026-11-08");
   });
 
   it("retains distinct study tasks, precise access boundaries and no unverified prices", () => {

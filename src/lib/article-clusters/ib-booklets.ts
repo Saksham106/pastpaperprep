@@ -6,10 +6,10 @@ const IB_PHYSICS_DATA_BOOKLET_GUIDE: Article = {
   title: "IB Physics Data Booklet: What It Has and How to Use It",
   description: "What the IB Physics data booklet contains, which papers allow it, what you must memorise, and how to practise with it under timed conditions.",
   eyebrow: "IB Physics guide",
-  answer: "The IB Physics data booklet is an official reference document that students receive as a clean copy in the written exam papers, at both SL and HL. It gives constants, unit conversions and equations grouped by syllabus theme, but it does not explain how to use them or tell you which equation fits a question. You can practise with real exam questions on PastPaperPrep, then check yourself against the mark scheme and, on many questions, a worked explanation.",
+  answer: "The IB Physics data booklet is an official reference document that students receive as a clean copy in the written exam papers, at both SL and HL. It gives constants, unit conversions and equations grouped by syllabus theme, but it does not explain how to use them or tell you which equation fits a question. You can practise with real exam questions on PastPaperPrep, then check yourself against the mark scheme and a worked explanation on every question.",
   answerLink: { href: "/banks/ib-physics-hl", label: "PastPaperPrep" },
   publishedAt: "2026-10-16",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 5,
   sections: [
     {
@@ -53,7 +53,7 @@ const IB_PHYSICS_DATA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Work with the same clean copy you will use in the exam. Do not write on it and do not use your own formula sheet while practising, or you will build habits you cannot repeat on the day.",
         "Start with topic-filtered questions to learn where things are, then move to whole papers against the clock. After each attempt, note whether a lost mark came from not knowing the equation, not finding it, or misusing it. Those three problems need different fixes.",
-        "On PastPaperPrep you can filter real IB Physics questions by topic, and whole papers are free to open without signing up. Many questions also have a worked explanation to compare with your own method.",
+        "On PastPaperPrep you can filter real IB Physics questions by topic, and whole papers are free to open without signing up. Every question also has a worked explanation to compare with your own method.",
       ],
       links: [
         { href: "/banks/ib-physics-hl", label: "IB Physics HL topic practice" },
@@ -95,7 +95,7 @@ const IB_CHEMISTRY_DATA_BOOKLET_GUIDE: Article = {
   answer: "The IB Chemistry data booklet is an official reference that includes the periodic table, constants and tables of data such as bond enthalpies, and a clean copy is provided in the written exam papers at SL and HL. It does not give you definitions, mechanisms or the reasoning for an answer. On PastPaperPrep you can practise real IB Chemistry questions by topic and open whole papers free without signing up.",
   answerLink: { href: "/banks/ib-chemistry-hl", label: "PastPaperPrep" },
   publishedAt: "2026-10-16",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 5,
   sections: [
     {
@@ -139,7 +139,7 @@ const IB_CHEMISTRY_DATA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Practise with the clean booklet from the start. Pick a topic, work through questions, and each time you look something up, note which section it came from. After a week you will find things quickly.",
         "Then move to whole papers under timed conditions with only the booklet and a scientific calculator. Mark yourself against the official mark scheme, and record whether each lost mark was a recall, calculation or data-lookup error.",
-        "PastPaperPrep lets you filter real IB Chemistry questions by topic, and whole papers are free to open without an account. Many questions also include a worked explanation.",
+        "PastPaperPrep lets you filter real IB Chemistry questions by topic, and whole papers are free to open without an account. Every question also includes a worked explanation.",
       ],
       links: [
         { href: "/banks/ib-chemistry-hl", label: "IB Chemistry HL topic practice" },
@@ -180,7 +180,7 @@ const IB_MATH_AA_FORMULA_BOOKLET_GUIDE: Article = {
   answer: "The IB Maths Analysis and Approaches formula booklet is an official document of formulae grouped by topic, and students get a clean copy in the exam papers at SL and HL, including the no-calculator Paper 1. It lists the formulae, not the methods, so you must still know when and how to apply them. You can practise with real IB Maths AA questions on PastPaperPrep, filtered by topic, and open whole papers free.",
   answerLink: { href: "/banks/ib-hl", label: "PastPaperPrep" },
   publishedAt: "2026-10-16",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 5,
   sections: [
     {
@@ -225,7 +225,7 @@ const IB_MATH_AA_FORMULA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Print a clean copy and use it only as you will in the exam. For Paper 1 practise without a calculator and use the booklet only to check a formula you already half remember. Over time you should need it less and less.",
         "Use topic questions to learn the layout, then sit whole papers against the clock. After marking, list the formulae you looked up and the ones you did not know existed. Learn those that you use often so you rely on the booklet only for the rest.",
-        "PastPaperPrep has real IB Maths AA questions you can filter by topic, with whole papers free to open without signing up and worked explanations on many questions.",
+        "PastPaperPrep has real IB Maths AA questions you can filter by topic, with whole papers free to open without signing up and a worked explanation on every question. Its free IB Maths AA revision notes cover the course lesson by lesson.",
       ],
       links: [
         { href: "/banks/ib-hl", label: "IB Maths AA HL topic practice" },
@@ -267,7 +267,7 @@ const IB_MATH_AI_FORMULA_BOOKLET_GUIDE: Article = {
   answer: "The IB Maths Applications and Interpretation formula booklet is an official formula list grouped by syllabus topic, and students receive a clean copy in the exam papers at SL and HL. It gives formulae such as compound interest and binomial results, but not the calculator skills that this course relies on. On PastPaperPrep you can practise real IB Maths AI questions by topic and open whole papers free.",
   answerLink: { href: "/banks/ib-ai-hl", label: "PastPaperPrep" },
   publishedAt: "2026-10-16",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 5,
   sections: [
     {
@@ -312,7 +312,7 @@ const IB_MATH_AI_FORMULA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Practise with a clean copy of the booklet and your exam calculator together. Many marks depend on writing down the formula, the substitution and the interpreted answer, so show each step.",
         "Start with topic questions to learn the layout, then sit whole papers against the clock. Afterwards, sort lost marks into three types: the formula was not known, the calculator was used wrongly, or the answer was not interpreted in context.",
-        "PastPaperPrep has real IB Maths AI questions you can filter by topic, whole papers free to open without signing up, and worked explanations on many questions.",
+        "PastPaperPrep has real IB Maths AI questions you can filter by topic, whole papers free to open without signing up, and a worked explanation on every question.",
       ],
       links: [
         { href: "/banks/ib-ai-hl", label: "IB Maths AI HL topic practice" },
