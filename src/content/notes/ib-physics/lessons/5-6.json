@@ -1,0 +1,931 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.6",
+  "slug": "binding-energy-and-mass-defect",
+  "title": "Binding energy and mass defect",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[nucleus|nucleus]] has less mass than the separate [[nucleon|nucleons]] that make it. That missing mass, the [[mass-defect|mass defect]], is the [[binding-energy|binding energy]] divided by $c^{2}$: the [[energy|energy]] needed to pull the nucleus apart. [[binding-energy-per-nucleon|Binding energy per nucleon]] tells you which nuclei are most tightly bound, and why both fission and fusion release energy.",
+  "goals": [
+    {
+      "text": "Explain what [[isotope|isotopes]] are, and count the protons and neutrons in each.",
+      "bullets": [
+        "E.3-s1"
+      ]
+    },
+    {
+      "text": "Describe the [[strong-nuclear-force|strong nuclear force]] and explain why a nucleus needs it.",
+      "bullets": [
+        "E.3-s5"
+      ]
+    },
+    {
+      "text": "Use [[mass-energy-equivalence|mass-energy equivalence]], $E = mc^{2}$, to find the energy released by a mass change, with masses in kg, u or $\\text{MeV}\\,c^{-2}$.",
+      "bullets": [
+        "E.3-s4"
+      ]
+    },
+    {
+      "text": "Calculate the mass defect and binding energy of a nucleus.",
+      "bullets": [
+        "E.3-s2"
+      ]
+    },
+    {
+      "text": "Interpret the binding energy per nucleon curve, and use it to explain and calculate the energy released in fission and fusion.",
+      "bullets": [
+        "E.3-s3",
+        "E.3-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "3.3",
+    "5.1",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "mass defect",
+    "binding energy per nucleon graph",
+    "E = mc2 nuclear",
+    "strong nuclear force",
+    "isotopes",
+    "unified atomic mass unit"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-aluminium-nucleons",
+      "prompt": "How many nucleons are in a nucleus of $^{27}_{13}\\text{Al}$?",
+      "hint": "Which number counts protons and neutrons together?",
+      "answer": {
+        "value": 27,
+        "tolerance": 0
+      },
+      "explain": "The top number is the [[nucleon-number|nucleon number]], $A = 27$: 13 protons and 14 neutrons. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "13 + 14",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mev-to-joules",
+      "prompt": "Convert $\\pu{2.0 MeV}$ to joules. Use $\\pu{1 eV} = \\pu{1.60e-19 J}$.",
+      "hint": "Mega means $10^{6}$.",
+      "options": [
+        {
+          "text": "$3.2 \\times 10^{-13}\\ \\text{J}$",
+          "correct": true
+        },
+        {
+          "text": "$3.2 \\times 10^{-19}\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$3.2 \\times 10^{-16}\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$1.3 \\times 10^{13}\\ \\text{J}$",
+          "correct": false
+        }
+      ],
+      "explain": "$2.0 \\times 10^{6} \\times 1.60 \\times 10^{-19} = \\pu{3.2e-13 J}$. Forgetting the $10^{6}$ gives $10^{-19}$; dividing gives $10^{13}$. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "2.0*MeV",
+        "sf": 2,
+        "unit": "J"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-energy-conserved",
+      "prompt": "A system is isolated: no energy enters or leaves it. What happens to its total energy?",
+      "hint": "Think about the principle of [[conservation-of-energy|conservation of energy]].",
+      "options": [
+        {
+          "text": "It stays the same, although it can change form",
+          "correct": true
+        },
+        {
+          "text": "It decreases, because some energy is used up",
+          "correct": false
+        },
+        {
+          "text": "It increases whenever something speeds up",
+          "correct": false
+        }
+      ],
+      "explain": "Energy is never created or destroyed, only transferred or changed in form. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It stays the same, although it can change form"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "isotopes",
+      "heading": "Isotopes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you described a nucleus by its [[proton-number|proton number]] $Z$ and its [[nucleon-number|nucleon number]] $A$. The proton number fixes the element. The number of neutrons, $N = A - Z$, can vary."
+        },
+        {
+          "type": "text",
+          "text": "A nuclide is one particular kind of nucleus, set by its values of $Z$ and $N$. Nuclides of the same element with different numbers of neutrons are called [[isotope|isotopes]]."
+        },
+        {
+          "type": "definition",
+          "term": "isotopes",
+          "statement": "Nuclides with the same proton number $Z$ but different neutron numbers $N$, and so different nucleon numbers $A$.",
+          "plain": "Same element, same protons, different numbers of neutrons."
+        },
+        {
+          "type": "text",
+          "text": "Carbon-12, $^{12}_{6}\\text{C}$, and carbon-14, $^{14}_{6}\\text{C}$, are isotopes. Both have 6 protons. Carbon-12 has 6 neutrons; carbon-14 has 8."
+        },
+        {
+          "type": "text",
+          "text": "Isotopes of an element have the same chemical properties, because their atoms have the same number of electrons. They differ in mass. They can also differ in stability: carbon-12 is stable, while carbon-14 is radioactive ({{lesson:5.7}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-isotopes",
+          "question": "Copper has two stable isotopes, $^{63}_{29}\\text{Cu}$ and $^{65}_{29}\\text{Cu}$. Find the number of neutrons $N$ in a nucleus of copper-65, and the number of protons $Z$.",
+          "steps": [
+            "The bottom number is the proton number, so $Z = 29$. Copper-63 has the same, as it is the same element.",
+            "The top number is the nucleon number, $A = 65$. So $N = A - Z = 65 - 29 = 36$.",
+            "Check: copper-63 has $63 - 29 = 34$ neutrons. The two isotopes differ by 2 neutrons, matching the 2 between their nucleon numbers."
+          ],
+          "answer": "$Z = 29,\\; N = 36$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'Z': 29, 'N': 65 - 29}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-neon-isotopes",
+          "question": "Neon has the isotopes $^{20}_{10}\\text{Ne}$ and $^{22}_{10}\\text{Ne}$. Outline what is meant by isotopes, and state one way in which these two nuclides differ.",
+          "steps": [
+            "Give both parts of the definition: what is the same and what is different.",
+            "Then put numbers on it for neon, and name a property that changes."
+          ],
+          "answer": "Isotopes are nuclides of the same element: they have the same number of protons but a different number of neutrons. Both neon nuclei have 10 protons, while neon-20 has 10 neutrons and neon-22 has 12. They differ in mass, because neon-22 has two more nucleons.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Z is the same and N differs; neon-22 is heavier",
+            "requires": [
+              [
+                "same number of protons",
+                "same proton number"
+              ],
+              [
+                "different number of neutrons",
+                "different neutron number"
+              ],
+              [
+                "mass",
+                "heavier"
+              ]
+            ],
+            "forbids": [
+              "different number of protons",
+              "same number of neutrons",
+              "different number of electrons"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only \"isotopes have different numbers of neutrons\". The mark needs both halves: the same number of protons and a different number of neutrons."
+        },
+        {
+          "type": "check",
+          "id": "check-pick-isotopes",
+          "prompt": "Each option gives two nuclei as protons (p) and neutrons (n). Which pair are isotopes?",
+          "hint": "Isotopes share the number of protons, not the total number of nucleons.",
+          "options": [
+            {
+              "text": "26 p, 28 n and 26 p, 30 n",
+              "correct": true
+            },
+            {
+              "text": "19 p, 21 n and 20 p, 20 n",
+              "correct": false
+            },
+            {
+              "text": "6 p, 8 n and 7 p, 7 n",
+              "correct": false
+            },
+            {
+              "text": "1 p, 2 n and 2 p, 1 n",
+              "correct": false
+            }
+          ],
+          "explain": "Only the first pair share a proton number, 26: these are iron-54 and iron-56. The other pairs share the nucleon number instead, so they are different elements.",
+          "verify": {
+            "kind": "choice",
+            "truth": "26 p, 28 n and 26 p, 30 n"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lead-neutrons",
+          "prompt": "One isotope of lead has 82 protons and 126 neutrons. Another isotope of lead has nucleon number 204. How many neutrons does a nucleus of this second isotope have?",
+          "hint": "Isotopes of lead all have the same number of protons.",
+          "answer": {
+            "value": 122,
+            "tolerance": 0
+          },
+          "explain": "Every lead nucleus has $Z = 82$, so $N = 204 - 82 = 122$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "204 - 82",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "strong-force",
+      "heading": "The strong nuclear force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[nucleus|nucleus]] packs several protons into a space about $10^{-15}\\ \\text{m}$ across. Every proton is positive, so each pair repels by Coulomb's law ({{lesson:4.4}}). At that tiny distance the repulsion is huge."
+        },
+        {
+          "type": "text",
+          "text": "Gravity attracts the protons too, but it is far too weak to help. So something else must hold the nucleus together."
+        },
+        {
+          "type": "definition",
+          "term": "strong nuclear force",
+          "statement": "An attractive force that acts between [[nucleon|nucleons]]: proton and proton, proton and neutron, neutron and neutron. It has a very short range, about $10^{-15}\\ \\text{m}$.",
+          "plain": "Strong glue between neighbouring nucleons, and nothing further away."
+        },
+        {
+          "type": "text",
+          "text": "Inside a nucleus, nucleons are about $10^{-15}\\ \\text{m}$ apart. At that separation the [[strong-nuclear-force|strong nuclear force]] is stronger than the electric repulsion between protons, so the nucleus holds together."
+        },
+        {
+          "type": "text",
+          "text": "Its short range matters. At separations much beyond a few times $10^{-15}\\ \\text{m}$ the strong force is negligible. So a nucleon only feels its nearest neighbours, while the electric repulsion reaches every proton in the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "Neutrons feel the strong force but no electric force. They add attraction without adding repulsion, which is why every nucleus except hydrogen-1 contains neutrons."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you study which mixes of protons and neutrons give a stable nucleus, and why heavy nuclei need more neutrons than protons.",
+          "lesson": "5.9"
+        },
+        {
+          "type": "example",
+          "id": "ex-proton-repulsion",
+          "question": "Two protons in a nucleus are $\\pu{2.2e-15 m}$ apart. Calculate the electric force between them.",
+          "steps": [
+            "Use Coulomb's law, $F = k\\frac{q_1q_2}{r^{2}}$, with $k = \\pu{8.99e9 N m2 C-2}$ and $q = e = \\pu{1.60e-19 C}$. These constants are from the data booklet.",
+            "Substitute: $F = \\frac{8.99 \\times 10^{9} \\times (1.60 \\times 10^{-19})^{2}}{(2.2 \\times 10^{-15})^{2}}$.",
+            "$F = 47.6\\ \\text{N}$. The separation has 2 significant figures, so give 2.",
+            "That is about the weight of a 5 kg bag, acting on a particle of mass about $10^{-27}$ kg. Only a stronger attraction can stop the protons flying apart."
+          ],
+          "answer": "$F \\approx 48\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "k_e*e**2/(2.2e-15)**2",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-helium-together",
+          "question": "A helium-4 nucleus contains two protons and two neutrons. Outline why the nucleus does not fly apart, even though the two protons repel each other.",
+          "steps": [
+            "Say what pushes the protons apart and why gravity can't balance it.",
+            "Name the force that does, and give its key properties: attractive, and short range."
+          ],
+          "answer": "The two protons repel each other because both are positive, and at nuclear distances this repulsion is very large. Gravity is far too weak to balance it. The strong nuclear force is attractive and acts between all the nucleons, including the neutrons. It has a short range, but inside the nucleus it is stronger than the electric repulsion, so the nucleus holds together.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "electric repulsion between protons is outweighed by the short-range attractive strong nuclear force between all nucleons",
+            "requires": [
+              [
+                "repel",
+                "repulsion"
+              ],
+              [
+                "strong nuclear force",
+                "strong force"
+              ],
+              [
+                "attractive",
+                "attraction"
+              ],
+              [
+                "short range",
+                "short-range"
+              ],
+              [
+                "stronger than the electric repulsion",
+                "larger than the electric repulsion",
+                "greater than the electric repulsion"
+              ]
+            ],
+            "forbids": [
+              "gravity holds",
+              "gravitational attraction holds",
+              "electrons hold",
+              "acts only between protons"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strong-force-property",
+          "prompt": "Which statement about the strong nuclear force is correct?",
+          "hint": "Does it act on neutrons? How far does it reach?",
+          "options": [
+            {
+              "text": "It attracts nucleons, but only over very short distances",
+              "correct": true
+            },
+            {
+              "text": "It acts only between protons",
+              "correct": false
+            },
+            {
+              "text": "It attracts nucleons over any distance, like gravity",
+              "correct": false
+            },
+            {
+              "text": "It pushes nucleons apart",
+              "correct": false
+            }
+          ],
+          "explain": "It attracts any two nucleons, neutrons included. Its very short range makes it unlike gravity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It attracts nucleons, but only over very short distances"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electric-vs-gravity",
+          "prompt": "Calculate the ratio $\\frac{\\text{electric force}}{\\text{gravitational force}}$ between two protons. Use $m_\\text{p} = \\pu{1.673e-27 kg}$.",
+          "hint": "Both forces go as $\\frac{1}{r^{2}}$, so $r$ cancels: the ratio is $\\frac{ke^{2}}{Gm_\\text{p}^{2}}$.",
+          "options": [
+            {
+              "text": "$\\approx 1.2 \\times 10^{36}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 8.1 \\times 10^{-37}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 4.2 \\times 10^{42}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 7.7 \\times 10^{54}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{8.99 \\times 10^{9} \\times (1.60 \\times 10^{-19})^{2}}{6.67 \\times 10^{-11} \\times (1.673 \\times 10^{-27})^{2}} = 1.2 \\times 10^{36}$. Gravity is hopeless here. The others come from inverting, using the electron's mass, or not squaring $e$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "k_e*e**2/(G*mp**2)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"outline\" what holds a nucleus together, name the strong nuclear force and give two properties: it is attractive between nucleons, and it has a short range."
+        }
+      ]
+    },
+    {
+      "id": "mass-energy",
+      "heading": "Mass-energy equivalence",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Einstein showed that mass and [[energy|energy]] are two forms of the same thing. Whenever a system gains or loses energy, its mass changes too. This is [[mass-energy-equivalence|mass-energy equivalence]]."
+        },
+        {
+          "type": "formula",
+          "tex": "E = mc^{2}",
+          "tag": "booklet",
+          "bookletId": "db-5-6"
+        },
+        {
+          "type": "text",
+          "text": "Here $E$ is the energy in J, $m$ the mass in kg, and $c$ the [[speed-of-light|speed of light]] in a vacuum, $\\pu{3.00e8 m s-1}$. You don't need to memorise this formula; it is in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "In a nuclear reaction, the energy released $\\Delta E$ comes from a loss of mass $\\Delta m$: the products have less mass than the particles you started with. So $\\Delta E = \\Delta m\\, c^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "The released energy appears mostly as kinetic energy of the products, and sometimes as gamma photons."
+        },
+        {
+          "type": "text",
+          "text": "Nuclear masses are tiny, so they are often given in the unified atomic mass unit, u. The data booklet gives $\\pu{1 u} = \\pu{1.661e-27 kg} = 931.5\\ \\text{MeV}\\,c^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "The unit $\\text{MeV}\\,c^{-2}$ is a unit of mass: an energy in MeV divided by $c^{2}$. It makes the conversion quick. A mass decrease of 1 u releases 931.5 MeV. One MeV is $10^{6}$ [[electronvolt|electronvolts]], so $\\pu{1 MeV} = \\pu{1.60e-13 J}$."
+        },
+        {
+          "type": "examTip",
+          "text": "With masses in u, multiply the mass change by 931.5 to get MeV directly. With masses in kg, use $\\Delta E = \\Delta m\\, c^{2}$ to get joules. Never multiply a mass in u by $c^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fission-mass-loss",
+          "question": "When one uranium-235 nucleus undergoes fission, the total mass decreases by $\\pu{3.10e-28 kg}$. Calculate the energy released, in MeV.",
+          "steps": [
+            "Use $\\Delta E = \\Delta m\\, c^{2}$ with $c = \\pu{3.00e8 m s-1}$.",
+            "$\\Delta E = 3.10 \\times 10^{-28} \\times (3.00 \\times 10^{8})^{2} = \\pu{2.79e-11 J}$.",
+            "Convert to MeV: $\\frac{2.79 \\times 10^{-11}}{1.60 \\times 10^{-13}} = 174.4\\ \\text{MeV}$.",
+            "Give 3 significant figures, like the data."
+          ],
+          "answer": "$\\Delta E \\approx 174\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.10e-28*c**2/MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lithium-proton",
+          "question": "In 1932, Cockcroft and Walton fired protons at lithium-7 nuclei. Each reaction gave two helium-4 nuclei: $^{7}_{3}\\text{Li} + {}^{1}_{1}\\text{p} \\rightarrow 2\\,{}^{4}_{2}\\text{He}$. The nuclear masses are lithium-7: 7.014357 u and helium-4: 4.001506 u. Calculate the energy released in one reaction.",
+          "steps": [
+            "Take the proton mass from the data booklet: $\\pu{1.007276 u}$.",
+            "Mass before: $7.014357 + 1.007276 = \\pu{8.021633 u}$. Mass after: $2 \\times 4.001506 = \\pu{8.003012 u}$.",
+            "Mass lost: $\\Delta m = 8.021633 - 8.003012 = \\pu{0.018621 u}$.",
+            "Convert with $\\pu{1 u} = 931.5\\ \\text{MeV}\\,c^{-2}$: $\\Delta E = 0.018621 \\times 931.5 = 17.35\\ \\text{MeV}$.",
+            "The measured kinetic energy of the helium nuclei matched this: an early direct test of $E = mc^{2}$."
+          ],
+          "answer": "$\\Delta E \\approx 17.3\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(7.014357 + mp_u - 2*4.001506)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding the masses before you subtract. The difference is tiny, so keep every decimal place until the subtraction is done."
+        },
+        {
+          "type": "check",
+          "id": "check-products-mass",
+          "prompt": "A nuclear reaction releases energy. How does the total mass of the products compare with the total mass of the particles before the reaction?",
+          "hint": "Use $\\Delta E = \\Delta m\\, c^{2}$. Where does the released energy come from?",
+          "options": [
+            {
+              "text": "It is less",
+              "correct": true
+            },
+            {
+              "text": "It is the same, because mass is conserved",
+              "correct": false
+            },
+            {
+              "text": "It is greater",
+              "correct": false
+            }
+          ],
+          "explain": "The released energy comes from a decrease in mass, $\\Delta m = \\frac{\\Delta E}{c^{2}}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is less"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-u-to-mev",
+          "prompt": "In a reaction, the total mass decreases by 0.0250 u. Calculate the energy released in MeV, to 3 significant figures.",
+          "hint": "$\\pu{1 u}$ of mass is equivalent to 931.5 MeV.",
+          "answer": {
+            "value": 23.3,
+            "tolerance": 0.05
+          },
+          "explain": "$0.0250 \\times 931.5 = 23.29$, so $23.3\\ \\text{MeV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.0250*u_MeV",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "binding-energy",
+      "heading": "Mass defect and binding energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Weigh a nucleus, then weigh its protons and neutrons one by one. The separate [[nucleon|nucleons]] always have more mass. The difference is the [[mass-defect|mass defect]]."
+        },
+        {
+          "type": "definition",
+          "term": "mass defect",
+          "statement": "The total mass of the separate nucleons of a nucleus minus the mass of the nucleus, $\\Delta m$.",
+          "plain": "The mass that seems to go missing when nucleons join up."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta m = \\left(Zm_\\text{p} + (A - Z)m_\\text{n}\\right) - M_\\text{nucleus}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $m_\\text{p}$ and $m_\\text{n}$ are the proton and neutron masses, from the data booklet, and $M_\\text{nucleus}$ is the mass of the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "Why is mass missing? To pull a nucleus apart, you must do work against the strong nuclear force. So the separate nucleons have more energy than the nucleus, and by mass-energy equivalence, more mass."
+        },
+        {
+          "type": "definition",
+          "term": "binding energy",
+          "statement": "The minimum energy needed to separate a nucleus completely into its individual nucleons. It equals the energy released when the nucleus forms from separate nucleons.",
+          "plain": "The energy you would have to put in to take a nucleus fully apart."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{B} = \\Delta m\\, c^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "5-6-mass-defect",
+          "alt": "Mass diagram for a small nucleus of three protons and three neutrons. The upper level shows the six nucleons far apart, with total mass Z times the proton mass plus N times the neutron mass. The lower level shows the same six nucleons packed together as a nucleus, with the smaller mass M. An arrow pointing up on the left shows that the binding energy must be supplied to pull the nucleus apart. An arrow pointing down on the right shows that the same energy is released when the nucleus forms. A double-headed arrow on the far right marks the gap between the two levels as the mass defect, delta m.",
+          "caption": "The nucleus sits lower in mass than its separate nucleons. The gap is the mass defect, and $\\Delta m\\, c^{2}$ is the [[binding-energy|binding energy]]."
+        },
+        {
+          "type": "mistake",
+          "text": "Treating binding energy as energy stored inside the nucleus, waiting to be released. It is energy you must supply to separate the nucleus. A nucleus with more binding energy has less mass than its parts, not more energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-oxygen-binding",
+          "question": "The mass of an oxygen-16 nucleus, $^{16}_{8}\\text{O}$, is 15.99052 u. Calculate its binding energy in MeV.",
+          "steps": [
+            "Count: $Z = 8$ protons and $N = 16 - 8 = 8$ neutrons. Masses from the data booklet: $m_\\text{p} = \\pu{1.007276 u}$, $m_\\text{n} = \\pu{1.008665 u}$.",
+            "Separate nucleons: $8 \\times 1.007276 + 8 \\times 1.008665 = \\pu{16.127528 u}$.",
+            "Mass defect: $\\Delta m = 16.127528 - 15.99052 = \\pu{0.137008 u}$.",
+            "Binding energy: $E_\\text{B} = 0.137008 \\times 931.5 = 127.6\\ \\text{MeV}$.",
+            "Shared between 16 nucleons, that is about $7.98\\ \\text{MeV}$ per nucleon. Oxygen-16 is marked at this value on the curve in the next section."
+          ],
+          "answer": "$E_\\text{B} \\approx 128\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(8*mp_u + 8*mn_u - 15.99052)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-nitrogen-mass",
+          "question": "The mass of a nitrogen-14 nucleus is less than the total mass of 7 separate protons and 7 separate neutrons. Explain why, with reference to binding energy.",
+          "steps": [
+            "Start from what it takes to pull the nucleus apart.",
+            "Link that energy difference to a mass difference with $E = mc^{2}$."
+          ],
+          "answer": "Energy must be supplied to separate the nucleus into its individual nucleons, because the strong nuclear force holds them together. So the separate nucleons have more energy than the nucleus, by an amount equal to the binding energy. By mass-energy equivalence, more energy means more mass. So the separate nucleons have more mass than the nucleus, and the difference is the mass defect, equal to the binding energy divided by c squared.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "separating the nucleons needs energy (the binding energy); by E = mc^2 the separate nucleons have more mass",
+            "requires": [
+              [
+                "energy must be supplied",
+                "energy is needed",
+                "energy is required"
+              ],
+              [
+                "binding energy"
+              ],
+              [
+                "mass-energy equivalence",
+                "E = mc"
+              ],
+              [
+                "more mass",
+                "greater mass"
+              ],
+              [
+                "mass defect"
+              ]
+            ],
+            "forbids": [
+              "energy stored in the nucleus",
+              "nucleus has more energy",
+              "mass is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-meaning-binding-energy",
+          "prompt": "Which statement describes the binding energy of a nucleus?",
+          "hint": "Do you have to put energy in to pull a nucleus apart, or does it give energy out?",
+          "options": [
+            {
+              "text": "The energy needed to separate the nucleus completely into its nucleons",
+              "correct": true
+            },
+            {
+              "text": "The energy stored in the nucleus, released when it splits",
+              "correct": false
+            },
+            {
+              "text": "The energy needed to remove an electron from the atom",
+              "correct": false
+            }
+          ],
+          "explain": "It is supplied to take a nucleus apart, and released when the nucleus forms. It is not stored energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The energy needed to separate the nucleus completely into its nucleons"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-carbon-mass-mev",
+          "prompt": "The binding energy of a carbon-12 nucleus is 92.2 MeV. Using $m_\\text{p} = 938\\ \\text{MeV}\\,c^{-2}$ and $m_\\text{n} = 940\\ \\text{MeV}\\,c^{-2}$, calculate the mass of the nucleus in $\\text{MeV}\\,c^{-2}$. Give 3 significant figures.",
+          "hint": "The nucleus has less mass than its separate nucleons, by $\\frac{E_\\text{B}}{c^{2}} = 92.2\\ \\text{MeV}\\,c^{-2}$.",
+          "answer": {
+            "value": 11200,
+            "tolerance": 50
+          },
+          "explain": "Separate nucleons: $6 \\times 938 + 6 \\times 940 = 11\\,268\\ \\text{MeV}\\,c^{-2}$. Subtract the binding energy: $11\\,268 - 92.2 = 11\\,176$, so $1.12 \\times 10^{4}\\ \\text{MeV}\\,c^{-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*mp_MeV + 6*mn_MeV - 92.2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Check whether a question gives the mass of a nucleus or of a whole atom. An atomic mass includes $Z$ electrons; subtract $Z \\times 0.000549$ u to get the nuclear mass."
+        }
+      ]
+    },
+    {
+      "id": "binding-curve",
+      "heading": "Binding energy per nucleon",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A big nucleus has more binding energy than a small one just because it has more nucleons. To compare nuclei fairly, divide by the number of nucleons."
+        },
+        {
+          "type": "definition",
+          "term": "binding energy per nucleon",
+          "statement": "The binding energy of a nucleus divided by its nucleon number, $\\frac{E_\\text{B}}{A}$.",
+          "plain": "The average energy needed to pull one nucleon out of the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "The higher the [[binding-energy-per-nucleon|binding energy per nucleon]], the more tightly bound, and so in general the more stable, the nucleus."
+        },
+        {
+          "type": "figure",
+          "id": "5-6-binding-curve",
+          "alt": "Graph of binding energy per nucleon in MeV against nucleon number A, from 0 to 250. The curve rises steeply from hydrogen-2 at about 1.1 MeV. Helium-4 sits well above the curve near it, at about 7.1 MeV, and oxygen-16 is marked at about 8.0 MeV. The curve reaches a broad maximum of about 8.8 MeV at iron-56, then falls slowly to about 7.6 MeV at uranium-238. To the left of the peak, an arrow pointing right shows that fusing light nuclei releases energy. To the right of the peak, an arrow pointing left shows that splitting heavy nuclei releases energy.",
+          "caption": "Binding energy per nucleon against nucleon number. Nuclei near the peak are the most tightly bound."
+        },
+        {
+          "type": "text",
+          "text": "Reading the curve from left to right:"
+        },
+        {
+          "type": "text",
+          "text": "1. Light nuclei: it rises steeply. Each extra nucleon has more neighbours to attract it."
+        },
+        {
+          "type": "text",
+          "text": "2. Helium-4 sits well above its neighbours, so it is unusually stable."
+        },
+        {
+          "type": "text",
+          "text": "3. The peak, about 8.8 MeV, is near $A = 56$ to $62$, at iron-56 and nickel-62. These are the most tightly bound nuclei."
+        },
+        {
+          "type": "text",
+          "text": "4. Heavy nuclei: it falls slowly. The strong force only reaches nearby nucleons, but the electric repulsion acts between every pair of protons and keeps growing."
+        },
+        {
+          "type": "text",
+          "text": "Any change that moves nuclei towards the peak makes them more tightly bound, so it releases energy. Joining light nuclei is [[fusion|fusion]] ({{lesson:5.12}}). Splitting a heavy nucleus into two medium ones is [[fission|fission]] ({{lesson:5.11}})."
+        },
+        {
+          "type": "text",
+          "text": "To find the energy released, use total binding energy, $E_\\text{B} = A \\times \\frac{E_\\text{B}}{A}$, for each nucleus. Energy released $=$ total binding energy after $-$ total binding energy before. A free neutron or proton has no binding energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fission-release",
+          "question": "A uranium-235 nucleus absorbs a neutron and splits into two medium-mass nuclei. Explain, with reference to binding energy per nucleon, why energy is released.",
+          "steps": [
+            "Locate uranium and the products on the curve.",
+            "Compare how tightly bound they are, then link that to energy and to mass."
+          ],
+          "answer": "Uranium-235 has a binding energy per nucleon of about 7.6 MeV. The medium-mass products lie nearer the peak, at about 8.5 MeV per nucleon, so they are more tightly bound. Their total binding energy is greater than that of the uranium nucleus. The difference is released, mostly as kinetic energy of the products. Equivalently, the products have less total mass than the reactants.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "products are nearer the peak, so more tightly bound; greater total binding energy; the difference is released and the mass decreases",
+            "requires": [
+              [
+                "binding energy per nucleon",
+                "per nucleon"
+              ],
+              [
+                "more tightly bound",
+                "higher binding energy per nucleon",
+                "greater binding energy per nucleon"
+              ],
+              [
+                "total binding energy"
+              ],
+              [
+                "released"
+              ],
+              [
+                "less total mass",
+                "less mass",
+                "mass decreases"
+              ]
+            ],
+            "forbids": [
+              "energy stored in the nucleus",
+              "breaking the bonds releases",
+              "lower binding energy per nucleon than uranium"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fission-from-be-per-nucleon",
+          "question": "One fission of uranium-235 is $^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\rightarrow {}^{141}_{56}\\text{Ba} + {}^{92}_{36}\\text{Kr} + 3\\,{}^{1}_{0}\\text{n}$. The binding energies per nucleon are uranium-235: 7.59 MeV, barium-141: 8.33 MeV, krypton-92: 8.51 MeV. Determine the energy released.",
+          "steps": [
+            "Total binding energy before: only the uranium nucleus is bound. $235 \\times 7.59 = 1783.65\\ \\text{MeV}$.",
+            "Total binding energy after: $141 \\times 8.33 + 92 \\times 8.51 = 1174.53 + 782.92 = 1957.45\\ \\text{MeV}$. The free neutrons add nothing.",
+            "Energy released: $1957.45 - 1783.65 = 173.8\\ \\text{MeV}$.",
+            "This agrees with the $\\pu{3.10e-28 kg}$ mass loss in the mass-energy example. Both describe the same physics."
+          ],
+          "answer": "$E \\approx 174\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "141*8.33 + 92*8.51 - 235*7.59",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Judging stability by total binding energy. Uranium-238 has far more binding energy than iron-56 in total, but less per nucleon, so it is less tightly bound."
+        },
+        {
+          "type": "check",
+          "id": "check-molybdenum-total",
+          "prompt": "The binding energy per nucleon of molybdenum-98, $^{98}_{42}\\text{Mo}$, is 8.64 MeV. Calculate its total binding energy in MeV, to 3 significant figures.",
+          "hint": "Multiply by the number of nucleons, not the number of protons.",
+          "answer": {
+            "value": 847,
+            "tolerance": 0.5
+          },
+          "explain": "$E_\\text{B} = 98 \\times 8.64 = 846.7$, so $847\\ \\text{MeV}$. Using $Z = 42$ by mistake gives 363 MeV.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "98*8.64",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-releases",
+          "prompt": "Which of these changes releases energy?",
+          "hint": "Energy is released when the nuclei end up closer to the peak of the curve.",
+          "options": [
+            {
+              "text": "Two hydrogen-2 nuclei fusing into helium-4",
+              "correct": true
+            },
+            {
+              "text": "Two iron-56 nuclei fusing",
+              "correct": false
+            },
+            {
+              "text": "An iron-56 nucleus splitting in two",
+              "correct": false
+            },
+            {
+              "text": "A helium-4 nucleus splitting in two",
+              "correct": false
+            }
+          ],
+          "explain": "Fusing hydrogen-2 (about 1.1 MeV per nucleon) into helium-4 (about 7.1 MeV per nucleon) moves up the curve towards the peak. Iron is at the peak, so any change to it needs energy; splitting helium-4 moves down the curve.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Two hydrogen-2 nuclei fusing into helium-4"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To \"sketch\" the curve, show a steep rise, a peak of about 8.8 MeV near $A = 56$, and a slow fall."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Isotopes: the same proton number $Z$ but a different neutron number $N$. Same chemistry, different mass.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Strong nuclear force: attractive between all nucleons, short range (about $10^{-15}\\ \\text{m}$), stronger than the electric repulsion inside a nucleus.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = mc^{2}, \\qquad \\pu{1 u} = 931.5\\ \\text{MeV}\\,c^{-2}",
+          "tag": "booklet",
+          "bookletId": "db-5-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta m = Zm_\\text{p} + (A - Z)m_\\text{n} - M_\\text{nucleus}, \\qquad E_\\text{B} = \\Delta m\\, c^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Binding energy is the energy needed to separate a nucleus into its nucleons, not energy stored in it. Products of an energy-releasing reaction have less mass.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Binding energy per nucleon peaks at about 8.8 MeV near iron-56. Fusion of light nuclei and fission of heavy nuclei both move towards the peak and release energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Defining isotopes by the neutrons alone. Say both: the proton number is the same and the neutron number differs.",
+    "Calling binding energy the energy stored in a nucleus. It is the energy needed to separate the nucleus into its nucleons.",
+    "Rounding masses before subtracting. The mass defect is a small difference of large numbers, so keep every decimal place.",
+    "Multiplying a mass in u by $c^{2}$. Convert to kg first, or multiply by 931.5 to get MeV.",
+    "Judging stability by total binding energy instead of binding energy per nucleon."
+  ],
+  "examTips": [
+    "\"Outline\" isotopes for two marks: say the proton number is the same and the neutron number is different. State both; an implied comparison doesn't score.",
+    "In a \"show that\" energy calculation, show the substituted mass difference, then give one more significant figure than the stated value.",
+    "\"Explain\" why fission or fusion releases energy: the products are nearer the peak, so they are more tightly bound."
+  ],
+  "readingMinutes": 30
+}

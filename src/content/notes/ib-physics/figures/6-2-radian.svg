@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t62ra">
+  <title id="t62ra">A circle with centre O and radius r. Two radii run from O: one horizontally to the right, the other up and to the right. The arc of the circle between their ends is drawn thick and labelled arc length equals r, the same length as the radius. The angle at O between the two radii is labelled 1 rad, which is about 57 degrees.</title>
+  <circle cx="200" cy="160" r="110" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="200" cy="160" r="3.5" fill="currentColor"/>
+  <text x="186" y="178" font-size="13" fill="currentColor" font-family="inherit">O</text>
+
+  <line x1="200" y1="160" x2="310" y2="160" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <text x="262" y="178" font-size="14" font-style="italic" fill="var(--t1-ink)" font-family="inherit">r</text>
+  <line x1="200" y1="160" x2="259.4" y2="67.4" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <text x="214" y="108" font-size="14" font-style="italic" fill="var(--t1-ink)" font-family="inherit">r</text>
+
+  <path d="M310 160 A110 110 0 0 0 259.4 67.4" fill="none" stroke="var(--t2-ink)" stroke-width="4.5"/>
+  <text x="300" y="92" font-size="13" fill="var(--t2-ink)" font-family="inherit">arc length = <tspan font-style="italic">r</tspan></text>
+
+  <path d="M235 160 A35 35 0 0 0 218.9 130.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="240" y="146" font-size="12" fill="currentColor" font-family="inherit">1 rad</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 290" role="img" aria-labelledby="t57pe">
+  <title id="t57pe">Three kinds of radiation leave sources on the left and travel right towards three absorbers in a row: a sheet of paper, a few millimetres of aluminium, then several centimetres of lead. The alpha arrow stops at the paper. The beta arrow passes through the paper and stops in the aluminium. The gamma arrow passes through the paper and the aluminium, and through the lead, coming out on the far side as a thinner dashed arrow to show that its intensity has been reduced but not to zero.</title>
+  <defs><marker id="m57pe-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/></marker><marker id="m57pe-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/></marker><marker id="m57pe-5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/></marker></defs>
+  <rect x="196" y="40" width="4" height="200" fill="var(--muted)" stroke="currentColor" stroke-width="1"/>
+  <rect x="290" y="40" width="14" height="200" fill="var(--t2-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/>
+  <rect x="390" y="40" width="44" height="200" fill="var(--muted)" fill-opacity="0.6" stroke="currentColor" stroke-width="1"/>
+  <g stroke-width="2.4" fill="none">
+    <line x1="70" y1="80" x2="192" y2="80" stroke="var(--t1-ink)" marker-end="url(#m57pe-1)"/>
+    <line x1="70" y1="150" x2="286" y2="150" stroke="var(--t3-ink)" marker-end="url(#m57pe-3)"/>
+    <line x1="70" y1="215" x2="388" y2="215" stroke="var(--t5-ink)" marker-end="url(#m57pe-5)"/>
+  </g>
+  <line x1="436" y1="215" x2="530" y2="215" stroke="var(--t5-ink)" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#m57pe-5)"/>
+  <g fill="var(--t4-ink)"><circle cx="58" cy="80" r="6"/><circle cx="58" cy="150" r="6"/><circle cx="58" cy="215" r="6"/></g>
+  <g font-size="12" fill="currentColor">
+    <text x="90" y="72" fill="var(--t1-ink)">alpha</text>
+    <text x="90" y="142" fill="var(--t3-ink)">beta</text>
+    <text x="90" y="207" fill="var(--t5-ink)">gamma</text>
+    <text x="198" y="262" text-anchor="middle">paper</text>
+    <text x="297" y="262" text-anchor="middle">aluminium,</text>
+    <text x="297" y="276" text-anchor="middle">a few mm</text>
+    <text x="412" y="262" text-anchor="middle">lead,</text>
+    <text x="412" y="276" text-anchor="middle">several cm</text>
+    <text x="440" y="205" fill="var(--t5-ink)">reduced, not zero</text>
+    <text x="30" y="28" fill="var(--muted)">sources</text>
+  </g>
+</svg>

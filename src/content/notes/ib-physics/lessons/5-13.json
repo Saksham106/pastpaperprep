@@ -1,0 +1,814 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.13",
+  "slug": "the-hr-diagram-parallax-and-stellar-radii",
+  "title": "The HR diagram, parallax and stellar radii",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[hertzsprung-russell-diagram|Hertzsprung–Russell diagram]] plots stars by [[luminosity|luminosity]] and surface temperature, and they group into regions: the [[main-sequence|main sequence]], [[red-giant|red giants]], [[supergiant|supergiants]] and [[white-dwarf|white dwarfs]]. [[stellar-parallax|Stellar parallax]] gives the distance to nearby stars, $d = \\frac{1}{p}$ in [[parsec|parsecs]]. With distance, [[apparent-brightness|apparent brightness]] and temperature, you can work out how big a star is.",
+  "goals": [
+    {
+      "text": "Sketch an HR diagram, describe the stars in each region, and read sizes from lines of equal radius.",
+      "bullets": [
+        "E.5-s5"
+      ]
+    },
+    {
+      "text": "Explain how a star's spectrum gives its surface temperature and its composition.",
+      "bullets": [
+        "E.5-s5",
+        "E.5-s7"
+      ]
+    },
+    {
+      "text": "Use stellar parallax to find a star's distance, and convert between AU, light years and parsecs.",
+      "bullets": [
+        "E.5-s6"
+      ]
+    },
+    {
+      "text": "Determine a star's radius from its luminosity and surface temperature.",
+      "bullets": [
+        "E.5-s7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.4",
+    "3.9",
+    "5.2",
+    "5.12"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "HR diagram",
+    "Hertzsprung Russell diagram",
+    "stellar parallax",
+    "parsec light year conversion",
+    "radius of a star",
+    "instability strip"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-radius-doubles",
+      "prompt": "A star's radius doubles while its surface temperature stays the same. By what factor does its luminosity change?",
+      "hint": "Use $L = \\sigma A T^{4}$ with $A = 4\\pi R^{2}$.",
+      "options": [
+        {
+          "text": "$4$",
+          "correct": true
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        },
+        {
+          "text": "$8$",
+          "correct": false
+        },
+        {
+          "text": "$16$",
+          "correct": false
+        }
+      ],
+      "explain": "$L \\propto R^{2}$ at a fixed temperature, so $L$ changes by $2^{2} = 4$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "2**2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-peak-wavelength",
+      "prompt": "The spectrum of star A peaks at a shorter wavelength than the spectrum of star B. What can you conclude?",
+      "hint": "Wien's law: $\\lambda_\\text{max} T$ is constant.",
+      "options": [
+        {
+          "text": "Star A has the hotter surface.",
+          "correct": true
+        },
+        {
+          "text": "Star B has the hotter surface.",
+          "correct": false
+        },
+        {
+          "text": "Star A is closer to the Earth.",
+          "correct": false
+        },
+        {
+          "text": "Star A has the larger radius.",
+          "correct": false
+        }
+      ],
+      "explain": "$\\lambda_\\text{max} \\propto \\frac{1}{T}$, so a shorter peak wavelength means a higher surface temperature. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Star A has the hotter surface."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-main-sequence-core",
+      "prompt": "What happens in the core of a [[main-sequence|main-sequence]] star?",
+      "hint": "Think about the star's main source of energy for most of its life.",
+      "options": [
+        {
+          "text": "Hydrogen nuclei fuse into helium.",
+          "correct": true
+        },
+        {
+          "text": "Helium nuclei fuse into carbon.",
+          "correct": false
+        },
+        {
+          "text": "Heavy nuclei split by fission.",
+          "correct": false
+        },
+        {
+          "text": "No nuclear reactions take place.",
+          "correct": false
+        }
+      ],
+      "explain": "A main-sequence star fuses hydrogen into helium in its core. Revise it in {{lesson:5.12}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Hydrogen nuclei fuse into helium."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "hr-diagram",
+      "heading": "The Hertzsprung–Russell diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Plot stars by [[luminosity|luminosity]] and surface temperature, and they don't scatter at random. They crowd into a few regions, each a stage in a star's life."
+        },
+        {
+          "type": "definition",
+          "term": "Hertzsprung–Russell diagram",
+          "statement": "A graph of stars' luminosity (up the side) against their surface temperature (along the bottom), with temperature decreasing to the right.",
+          "plain": "A map of stars: luminous ones at the top, hot ones on the left."
+        },
+        {
+          "type": "text",
+          "text": "This is the [[hertzsprung-russell-diagram|HR diagram]]. Both axes are usually logarithmic, because luminosities range from about $10^{-4}$ to $10^{6}$ times the Sun's luminosity, $L_\\odot$. Temperature runs backwards: hot on the left, cool on the right."
+        },
+        {
+          "type": "figure",
+          "id": "5-13-hr-diagram",
+          "alt": "Hertzsprung-Russell diagram. Luminosity relative to the Sun is on the vertical axis, on a logarithmic scale from 10 to the minus 4 to 10 to the 6. Surface temperature in kelvin is on the horizontal axis, on a logarithmic scale decreasing from 40 000 K on the left to 2500 K on the right. The main sequence is a band from hot, very luminous stars at the top left down to cool, dim stars at the bottom right, with the Sun near the middle at 5800 K and luminosity 1. Red giants are a group above and to the right of the main sequence: cool, but about 100 to 1000 times as luminous as the Sun. Supergiants lie across the top, at about 10 to the 4 to 10 to the 6 times the Sun's luminosity. White dwarfs are at the bottom left: hot but very dim. The instability strip is a narrow, almost vertical band at about 6000 to 7500 K, rising from the main sequence to the supergiants. Three dashed lines of constant radius, for 0.01, 1 and 100 solar radii, slope down from left to right.",
+          "caption": "The main regions of the HR diagram. Dashed lines join stars of equal radius."
+        },
+        {
+          "type": "text",
+          "text": "[[main-sequence|Main sequence]]: a diagonal band from top left to bottom right, where stars spend most of their lives. They [[fusion|fuse]] hydrogen into helium in their cores. Higher up the band, stars are more massive, hotter, more luminous and larger. The Sun is near the middle."
+        },
+        {
+          "type": "text",
+          "text": "[[red-giant|Red giants]]: above and to the right of the main sequence. Their surfaces are cool, about 3000 to 5000 K, yet they are roughly 100 to 1000 times as luminous as the Sun. A red giant has used up the hydrogen in its core and fuses helium in the core or hydrogen in a shell around it."
+        },
+        {
+          "type": "text",
+          "text": "[[supergiant|Supergiants]]: across the top, at about $10^{4}$ to $10^{6}\\,L_\\odot$, over the whole temperature range. A supergiant is a massive star late in its life, with a radius of up to about $1000\\,R_\\odot$ ($R_\\odot$ is the Sun's radius). Red supergiants sit at the top right."
+        },
+        {
+          "type": "text",
+          "text": "[[white-dwarf|White dwarfs]]: bottom left. A white dwarf is hot, often $\\pu{10000 K}$ or more, but only about $10^{-4}$ to $10^{-2}\\,L_\\odot$. It is the leftover core of a low-mass star, with no fusion, and it slowly cools."
+        },
+        {
+          "type": "text",
+          "text": "Instability strip: a narrow, nearly vertical band at about 6000 to 7500 K, between the main sequence and the supergiants. Stars that cross it pulsate: their outer layers swell and shrink regularly, so their luminosity rises and falls. The details of these variable stars are not required."
+        },
+        {
+          "type": "text",
+          "text": "Position on the diagram also tells you size. From {{lesson:2.4}}, $L = \\sigma 4\\pi R^{2} T^{4}$. Two stars at the same temperature can only differ in luminosity if they differ in size."
+        },
+        {
+          "type": "result",
+          "statement": "Along a line of constant radius, $L \\propto T^{4}$. These lines slope down to the right, and radius increases towards the top right of the HR diagram.",
+          "why": "Fixing $R$ in $L = \\sigma 4\\pi R^{2} T^{4}$ leaves $L \\propto T^{4}$, so a cooler star of the same size is less luminous."
+        },
+        {
+          "type": "text",
+          "text": "So white dwarfs (bottom left) are the smallest stars on the diagram, about Earth-sized, and red supergiants (top right) the largest."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-white-dwarf",
+          "question": "A star has a surface temperature of $\\pu{15000 K}$ and a luminosity of $0.004\\,L_\\odot$. Identify its region of the HR diagram, and describe its properties compared with the Sun.",
+          "steps": [
+            "Place it: hotter than the Sun ($\\pu{5800 K}$) puts it to the left; $0.004\\,L_\\odot$ puts it far below the Sun.",
+            "Bottom left is the white-dwarf region.",
+            "Compare temperature, luminosity and radius, then say what is happening inside."
+          ],
+          "answer": "It is a white dwarf, at the bottom left of the HR diagram. Its surface temperature is higher than the Sun's. Its luminosity is much less than the Sun's. For a hotter star to be so much less luminous, it must have a much smaller radius, about the size of the Earth. There is no fusion in it: it is the leftover core of a low-mass star, slowly cooling.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "white dwarf; hotter surface, much lower luminosity, so much smaller radius; no fusion, a cooling remnant core",
+            "requires": [
+              [
+                "white dwarf"
+              ],
+              [
+                "higher than the Sun",
+                "hotter than the Sun"
+              ],
+              [
+                "luminosity is much less",
+                "much less luminous",
+                "lower luminosity"
+              ],
+              [
+                "much smaller radius",
+                "radius is much smaller"
+              ],
+              [
+                "no fusion"
+              ]
+            ],
+            "forbids": [
+              "main-sequence star",
+              "red giant",
+              "fuses hydrogen"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-constant-radius-luminosity",
+          "question": "Stars A and B lie on the same line of constant radius. Star A has a surface temperature of $\\pu{12000 K}$ and a luminosity of $250\\,L_\\odot$. Star B has a surface temperature of $\\pu{3000 K}$. Calculate the luminosity of star B, in terms of $L_\\odot$.",
+          "steps": [
+            "Same radius, so $\\sigma$, $4\\pi$ and $R^{2}$ cancel in the ratio: $\\dfrac{L_\\text{B}}{L_\\text{A}} = \\left(\\dfrac{T_\\text{B}}{T_\\text{A}}\\right)^{4}$.",
+            "Substitute: $\\dfrac{L_\\text{B}}{L_\\text{A}} = \\left(\\dfrac{3000}{12\\,000}\\right)^{4} = \\dfrac{1}{256}$.",
+            "$L_\\text{B} = \\dfrac{250}{256}\\,L_\\odot = 0.977\\,L_\\odot$. Give 2 significant figures.",
+            "This is why the dashed lines fall so steeply to the right."
+          ],
+          "answer": "$\\dfrac{L_\\text{B}}{L_\\odot} \\approx 0.98$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "250*(3000/12000)**4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bottom-left-star",
+          "prompt": "A star lies at the bottom left of the HR diagram. Which describes it?",
+          "hint": "Left means hot; bottom means low luminosity. What must the radius be?",
+          "options": [
+            {
+              "text": "hot, with a low luminosity and a small radius",
+              "correct": true
+            },
+            {
+              "text": "cool, with a low luminosity and a small radius",
+              "correct": false
+            },
+            {
+              "text": "hot, with a high luminosity and a large radius",
+              "correct": false
+            },
+            {
+              "text": "cool, with a high luminosity and a large radius",
+              "correct": false
+            }
+          ],
+          "explain": "The temperature axis runs backwards, so left is hot. A hot star can only have a low luminosity if its surface area is small.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hot, with a low luminosity and a small radius"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-instability-strip",
+          "prompt": "What is true of a star in the instability strip?",
+          "hint": "The name says the star is not steady.",
+          "options": [
+            {
+              "text": "It pulsates, so its luminosity varies regularly.",
+              "correct": true
+            },
+            {
+              "text": "It is about to explode as a supernova.",
+              "correct": false
+            },
+            {
+              "text": "It has no fusion in its core.",
+              "correct": false
+            },
+            {
+              "text": "It is a white dwarf, slowly cooling.",
+              "correct": false
+            }
+          ],
+          "explain": "Stars in the strip swell and shrink regularly, so their luminosity rises and falls. Most of the strip lies above the main sequence.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It pulsates, so its luminosity varies regularly."
+          }
+        }
+      ]
+    },
+    {
+      "id": "spectra",
+      "heading": "What a star's spectrum tells you",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A star's spectrum gives two things: its surface temperature and what its outer layers are made of."
+        },
+        {
+          "type": "text",
+          "text": "Temperature. A star's spectrum is close to a black-body curve. The peak wavelength gives the surface temperature by [[wien-s-displacement-law|Wien's displacement law]], which is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_\\text{max} T = 2.9 \\times 10^{-3}\\ \\text{m K}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "Composition. Light from the hot interior passes through the cooler gas of the star's outer layers. Atoms in that gas absorb photons of particular wavelengths, so dark [[spectral-line|spectral lines]] cross the continuous spectrum."
+        },
+        {
+          "type": "text",
+          "text": "Each element absorbs its own set of wavelengths, fixed by its energy levels ({{lesson:5.2}}). Matching the dark lines to the spectra of elements measured in a laboratory shows which elements are present."
+        },
+        {
+          "type": "text",
+          "text": "If the star moves along our line of sight, the [[doppler-effect|Doppler effect]] shifts every line by the same fraction: a [[redshift|redshift]] if it moves away. The pattern of lines is kept, so the elements can still be identified."
+        },
+        {
+          "type": "example",
+          "id": "ex-temperature-from-peak",
+          "question": "The spectrum of a star peaks at a wavelength of 870 nm. Determine its surface temperature.",
+          "steps": [
+            "Convert the wavelength to metres: $\\lambda_\\text{max} = 870 \\times 10^{-9}\\ \\text{m}$.",
+            "Rearrange Wien's law: $T = \\dfrac{2.9 \\times 10^{-3}}{870 \\times 10^{-9}} = \\pu{3333 K}$.",
+            "Wien's constant has 2 significant figures, so give 2. A peak in the infrared means a star cooler than the Sun: a red star."
+          ],
+          "answer": "$T \\approx 3.3 \\times 10^{3}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "wien_b/(870*10**-9)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-composition",
+          "question": "Outline how astronomers identify the elements in a star's outer layers from its spectrum.",
+          "steps": [
+            "Say where the absorption happens and why it picks out particular wavelengths.",
+            "Say how the lines are matched to elements."
+          ],
+          "answer": "Light from the hot interior passes through the cooler gas of the star's outer layers. Atoms in this gas absorb photons of particular wavelengths. This produces dark absorption lines in the continuous spectrum. Each element absorbs its own set of wavelengths, which depend on its energy levels. Comparing the wavelengths of the lines with the spectra of elements measured in a laboratory identifies the elements.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "cooler outer gas absorbs particular wavelengths, giving absorption lines; each element has its own set (energy levels); match with laboratory spectra",
+            "requires": [
+              [
+                "cooler gas",
+                "cooler outer layers"
+              ],
+              [
+                "absorb"
+              ],
+              [
+                "absorption lines",
+                "dark lines"
+              ],
+              [
+                "each element"
+              ],
+              [
+                "energy levels"
+              ],
+              [
+                "laboratory"
+              ]
+            ],
+            "forbids": [
+              "peak wavelength",
+              "burning"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the peak wavelength to find what a star is made of. The peak gives the surface temperature; the dark lines give the composition."
+        },
+        {
+          "type": "check",
+          "id": "check-which-feature-composition",
+          "prompt": "Which feature of a star's spectrum shows which elements are in its outer layers?",
+          "hint": "Temperature and composition come from different features.",
+          "options": [
+            {
+              "text": "the wavelengths of the dark absorption lines",
+              "correct": true
+            },
+            {
+              "text": "the wavelength at which the spectrum peaks",
+              "correct": false
+            },
+            {
+              "text": "the total area under the spectrum",
+              "correct": false
+            },
+            {
+              "text": "how much the whole spectrum is redshifted",
+              "correct": false
+            }
+          ],
+          "explain": "Each element absorbs its own set of wavelengths. The peak gives temperature, the area relates to luminosity, and a redshift shows motion.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the wavelengths of the dark absorption lines"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-peak-hot-star",
+          "prompt": "A star has a surface temperature of $\\pu{18000 K}$. Calculate the wavelength at which its spectrum peaks, in nm, to 2 significant figures.",
+          "hint": "$\\lambda_\\text{max} = \\dfrac{2.9 \\times 10^{-3}}{T}$, then convert metres to nanometres.",
+          "answer": {
+            "value": 160,
+            "tolerance": 5
+          },
+          "explain": "$\\lambda_\\text{max} = \\dfrac{2.9 \\times 10^{-3}}{18\\,000} = \\pu{1.61e-7 m} = \\pu{160 nm}$, in the ultraviolet.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "wien_b/18000*10**9",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallax",
+      "heading": "Stellar parallax and the parsec",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look at a raised finger with one eye, then the other: it jumps against the background. Astronomers use the Earth's orbit in place of your two eyes."
+        },
+        {
+          "type": "text",
+          "text": "As the Earth orbits the Sun, a nearby star seems to shift against much more distant stars, which barely move. This is [[stellar-parallax|stellar parallax]]. Astronomers record the star's position twice, six months apart, from opposite sides of the orbit."
+        },
+        {
+          "type": "definition",
+          "term": "parallax angle",
+          "statement": "The parallax angle $p$ of a star is half the angle through which it appears to shift against distant stars between two observations six months apart. It is the angle subtended at the star by 1 AU, the radius of the Earth's orbit.",
+          "plain": "How far the star seems to move, measured as seen from the Sun."
+        },
+        {
+          "type": "figure",
+          "id": "5-13-parallax",
+          "alt": "Stellar parallax, not to scale. The Sun is at the bottom centre, with the Earth at two points of its orbit six months apart, one on each side, each 1 AU from the Sun. A nearby star is above the Sun, a distance d away. Lines of sight from the two Earth positions cross at the nearby star and continue to a row of very distant background stars, reaching it at two different points, so the star appears in two different places. At the nearby star, the parallax angle p is marked between the line to the Sun and the line to one Earth position.",
+          "caption": "The parallax angle $p$ is half the angle between the two lines of sight."
+        },
+        {
+          "type": "text",
+          "text": "These angles are tiny, so they are measured in arc-seconds: 1 arc-second is $\\frac{1}{3600}$ of a degree. Even the nearest star has $p$ less than 1 arc-second."
+        },
+        {
+          "type": "text",
+          "text": "In the right-angled triangle Sun–Earth–star, $\\tan p = \\frac{1\\ \\text{AU}}{d}$. For a tiny angle in radians, $\\tan p \\approx p$, so $d = \\frac{1\\ \\text{AU}}{p}$. Distance is inversely proportional to the parallax angle."
+        },
+        {
+          "type": "definition",
+          "term": "parsec",
+          "statement": "One parsec (pc) is the distance at which a length of 1 AU subtends an angle of 1 arc-second.",
+          "plain": "The distance of a star whose parallax angle is exactly 1 arc-second."
+        },
+        {
+          "type": "text",
+          "text": "With $d$ in [[parsec|parsecs]] and $p$ in arc-seconds, the distance is one over the angle. This equation is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "d\\,(\\text{parsec}) = \\frac{1}{p\\,(\\text{arc-second})}",
+          "tag": "booklet",
+          "bookletId": "db-5-13"
+        },
+        {
+          "type": "text",
+          "text": "The data booklet also gives the conversions: $1\\ \\text{pc} = 3.26\\ \\text{ly}$, $1\\ \\text{ly} = \\pu{9.46e15 m}$ and $1\\ \\text{AU} = \\pu{1.50e11 m}$. A light year (ly) is the distance light travels in one year."
+        },
+        {
+          "type": "text",
+          "text": "Parallax works only for fairly nearby stars. Further away, $p$ is too small to measure precisely, even from space."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallax-to-ly",
+          "question": "The parallax angle of a nearby star is 0.064 arc-seconds. Calculate its distance from the Earth in light years.",
+          "steps": [
+            "Distance in parsecs: $d = \\dfrac{1}{p} = \\dfrac{1}{0.064} = \\pu{15.6 pc}$.",
+            "Convert with $1\\ \\text{pc} = 3.26\\ \\text{ly}$: $d = 15.6 \\times 3.26 = \\pu{50.9 ly}$.",
+            "The angle has 2 significant figures, so give 2. Over so many light years, the star's distances from the Earth and from the Sun are effectively the same."
+          ],
+          "answer": "$d \\approx 51\\ \\text{ly}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pc_ly/0.064",
+            "sf": 2,
+            "unit": "ly"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-show-parsec-in-metres",
+          "question": "Use the definition of the parsec to show that $1\\ \\text{pc}$ is about $3 \\times 10^{16}\\ \\text{m}$.",
+          "steps": [
+            "By definition, 1 AU subtends 1 arc-second at a distance of 1 pc: $\\tan\\left(\\frac{1}{3600}\\right)^{\\circ} = \\dfrac{1\\ \\text{AU}}{1\\ \\text{pc}}$.",
+            "Rearrange: $1\\ \\text{pc} = \\dfrac{1.50 \\times 10^{11}}{\\tan\\left(\\frac{1}{3600}\\right)^{\\circ}} = \\dfrac{1.50 \\times 10^{11}}{4.848 \\times 10^{-6}}$.",
+            "$1\\ \\text{pc} = \\pu{3.09e16 m}$. Give one more significant figure than the value to show.",
+            "Check against the booklet: $3.26 \\times 9.46 \\times 10^{15} = \\pu{3.08e16 m}$, which agrees."
+          ],
+          "answer": "$1\\ \\text{pc} \\approx 3.1 \\times 10^{16}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "AU/tand(Rational(1, 3600))",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole six-month shift as $p$. The parallax angle is half the shift, so halve it before using $d = \\frac{1}{p}$."
+        },
+        {
+          "type": "check",
+          "id": "check-shift-to-distance",
+          "prompt": "Over six months, a star's position shifts by 0.046 arc-seconds against the distant stars. What is its distance from the Earth?",
+          "hint": "Find the parallax angle from the shift first.",
+          "options": [
+            {
+              "text": "$\\approx 43\\ \\text{pc}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 22\\ \\text{pc}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 140\\ \\text{pc}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.023\\ \\text{pc}$",
+              "correct": false
+            }
+          ],
+          "explain": "$p = \\frac{0.046}{2} = 0.023$ arc-seconds, so $d = \\frac{1}{0.023} = \\pu{43 pc}$. Not halving gives 22 pc; 140 is the distance in ly, not pc.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1/(0.046/2)",
+            "sf": 2,
+            "unit": "pc"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-metres-to-parallax",
+          "prompt": "A star is $\\pu{2.7e17 m}$ from the Earth. Calculate its parallax angle, in arc-seconds, to 2 significant figures.",
+          "hint": "Convert the distance to parsecs, then use $p = \\frac{1}{d}$.",
+          "answer": {
+            "value": 0.11,
+            "tolerance": 0.005
+          },
+          "explain": "$d = \\frac{2.7 \\times 10^{17}}{3.26 \\times 9.46 \\times 10^{15}} = \\pu{8.76 pc}$, so $p = \\frac{1}{8.76} = 0.11$ arc-seconds.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "pc_ly*ly/(2.7*10**17)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "radii",
+      "heading": "Determining a star's radius",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Almost all stars look like points, even in large telescopes, so a radius can't be measured directly. It is worked out from the luminosity and the surface temperature."
+        },
+        {
+          "type": "text",
+          "text": "A star behaves almost like a black body, so the [[stefan-boltzmann-law|Stefan–Boltzmann law]] applies. Its surface area is that of a sphere, $A = 4\\pi R^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "L = \\sigma A T^{4}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "Rearranged for the radius:"
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\sqrt{\\frac{L}{4\\pi\\sigma T^{4}}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "1. Surface temperature $T$: from the peak wavelength of the spectrum, by Wien's law."
+        },
+        {
+          "type": "text",
+          "text": "2. Distance $d$: from the parallax angle, converted to metres."
+        },
+        {
+          "type": "text",
+          "text": "3. Luminosity $L$: measure the [[apparent-brightness|apparent brightness]] $b$ at the Earth, then use the inverse square law, $L = 4\\pi d^{2} b$. Finally substitute $L$ and $T$ to find $R$."
+        },
+        {
+          "type": "formula",
+          "tex": "b = \\frac{L}{4\\pi d^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-2-4"
+        },
+        {
+          "type": "text",
+          "text": "Comparing with the Sun is often quicker. Divide the law for the star by the law for the Sun, and $\\sigma$ and $4\\pi$ cancel."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{R}{R_\\odot} = \\sqrt{\\frac{L}{L_\\odot}}\\left(\\frac{T_\\odot}{T}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-ratio",
+          "question": "A star has a surface temperature of $0.55\\,T_\\odot$ and a luminosity of $320\\,L_\\odot$, where $T_\\odot$ and $L_\\odot$ are the Sun's values. Determine its radius in terms of the Sun's radius $R_\\odot$.",
+          "steps": [
+            "Write the ratio form: $\\dfrac{R}{R_\\odot} = \\sqrt{\\dfrac{L}{L_\\odot}}\\left(\\dfrac{T_\\odot}{T}\\right)^{2}$.",
+            "Substitute: $\\dfrac{R}{R_\\odot} = \\sqrt{320} \\times \\left(\\dfrac{1}{0.55}\\right)^{2} = 17.89 \\times 3.306 = 59.1$.",
+            "The data have 2 significant figures, so give 2.",
+            "Cool but very luminous, and about 60 times the Sun's radius: it is in the red-giant region of the HR diagram."
+          ],
+          "answer": "$\\dfrac{R}{R_\\odot} \\approx 59$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(320)/0.55**2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-full-method",
+          "question": "The parallax angle of a star is 0.0125 arc-seconds, and its apparent brightness is $\\pu{6.4e-10 W m-2}$. Its spectrum peaks at 290 nm. Determine the radius of the star.",
+          "steps": [
+            "Distance: $d = \\dfrac{1}{0.0125} = \\pu{80.0 pc}$, and $80.0 \\times 3.26 \\times 9.46 \\times 10^{15} = \\pu{2.467e18 m}$.",
+            "Luminosity: $L = 4\\pi d^{2} b = 4\\pi(2.467 \\times 10^{18})^{2}(6.4 \\times 10^{-10}) = \\pu{4.90e28 W}$.",
+            "Temperature: $T = \\dfrac{2.9 \\times 10^{-3}}{290 \\times 10^{-9}} = \\pu{1.00e4 K}$.",
+            "Radius: $R = \\sqrt{\\dfrac{L}{4\\pi\\sigma T^{4}}} = \\sqrt{\\dfrac{4.90 \\times 10^{28}}{4\\pi(5.67 \\times 10^{-8})(1.00 \\times 10^{4})^{4}}} = \\pu{2.62e9 m}$.",
+            "Give 2 significant figures. Keep unrounded values between steps. Sense check: the Sun's radius is about $\\pu{7e8 m}$, so this hot star is a few times larger."
+          ],
+          "answer": "$R \\approx 2.6 \\times 10^{9}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "sqrt(4*pi*(pc_ly*ly/0.0125)**2*6.4*10**-10/(4*pi*sigma*(wien_b/(290*10**-9))**4))",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the square root, or using $T$ instead of $T^{2}$, in the ratio. Radius goes as $\\frac{\\sqrt{L}}{T^{2}}$."
+        },
+        {
+          "type": "check",
+          "id": "check-radius-ratio-16L",
+          "prompt": "Star Y has 16 times the luminosity of star X and twice its surface temperature. Calculate the ratio of radii $\\frac{R_\\text{Y}}{R_\\text{X}}$.",
+          "hint": "$R \\propto \\dfrac{\\sqrt{L}}{T^{2}}$.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{R_\\text{Y}}{R_\\text{X}} = \\frac{\\sqrt{16}}{2^{2}} = 1$. Forgetting the root gives 4; using $T$ not $T^{2}$ gives 2; using $T^{4}$ gives $\\frac{1}{4}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(16)/2**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-radius-cool-star",
+          "prompt": "A star has a luminosity of $\\pu{5.2e30 W}$ and a surface temperature of 3600 K. Calculate its radius, in m, to 2 significant figures.",
+          "hint": "$R = \\sqrt{\\dfrac{L}{4\\pi\\sigma T^{4}}}$, with $\\sigma$ from the data booklet.",
+          "answer": {
+            "value": 210000000000.0,
+            "tolerance": 5000000000.0
+          },
+          "explain": "$R = \\sqrt{\\frac{5.2 \\times 10^{30}}{4\\pi(5.67 \\times 10^{-8})(3600)^{4}}} = \\pu{2.1e11 m}$, about 300 times the Sun's radius: a red supergiant.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(5.2*10**30/(4*pi*sigma*3600**4))",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "HR diagram: luminosity up, temperature decreasing to the right. Main sequence diagonal; red giants above right; supergiants across the top; white dwarfs bottom left; instability strip nearly vertical.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lines of constant radius ($L \\propto T^{4}$) slope down to the right; radius increases towards the top right.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Spectrum: the peak wavelength gives the surface temperature (Wien's law); the dark absorption lines give the composition.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "d\\,(\\text{parsec}) = \\frac{1}{p\\,(\\text{arc-second})}",
+          "tag": "booklet",
+          "bookletId": "db-5-13",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$p$ is half the shift seen six months apart. $1\\ \\text{pc} = 3.26\\ \\text{ly}$, $1\\ \\text{ly} = \\pu{9.46e15 m}$, $1\\ \\text{AU} = \\pu{1.50e11 m}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\sqrt{\\frac{L}{4\\pi\\sigma T^{4}}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{R}{R_\\odot} = \\sqrt{\\frac{L}{L_\\odot}}\\left(\\frac{T_\\odot}{T}\\right)^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"brighter\" when you mean more luminous. Luminosity is the power a star emits; apparent brightness also depends on distance.",
+    "Comparing temperatures without saying which. Say surface temperature or core temperature.",
+    "Reading the HR temperature axis as increasing to the right. Hot stars are on the left.",
+    "Deciding a star is not on the main sequence from one property. Use luminosity and temperature together: a main-sequence star at that temperature would have a very different luminosity."
+  ],
+  "examTips": [
+    "\"Sketch\" an HR diagram: luminosity on the vertical axis, temperature decreasing to the right, and labelled regions for the main sequence, red giants, supergiants and white dwarfs.",
+    "\"Determine\" or \"calculate\" a radius or distance: write the equation, substitute, then give the answer with its unit. A bare answer may earn no marks.",
+    "\"Describe what is meant by\" the parallax angle: half the angular shift seen six months apart, or the angle 1 AU subtends at the star. A labelled sketch of the angle also works.",
+    "Paper 1A ratio questions: use $R \\propto \\frac{\\sqrt{L}}{T^{2}}$ or $d = \\frac{1}{p}$ with the given factors. No constants are needed."
+  ],
+  "readingMinutes": 25
+}

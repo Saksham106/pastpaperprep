@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260" role="img" aria-labelledby="t58dt">
+  <title id="t58dt">A small radioactive source on the left sends radiation out in all directions, shown by sixteen short arrows pointing every way. A Geiger-Muller tube on the right points at the source. Two faint lines from the source to the edges of the tube's window mark a narrow cone: only radiation inside this cone can enter the tube. The tube is wired to a counter.</title>
+  <defs>
+    <marker id="m58dt-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/></marker>
+  </defs>
+  <circle cx="120" cy="140" r="9" fill="var(--t4-ink)"/>
+  <g stroke="var(--t1-ink)" stroke-width="1.6" fill="none" marker-end="url(#m58dt-a)"><line x1="133.9" y1="141.4" x2="189.7" y2="147.0"/><line x1="132.3" y1="146.6" x2="181.7" y2="173.1"/><line x1="128.9" y1="150.8" x2="164.3" y2="194.2"/><line x1="124.0" y1="153.4" x2="140.2" y2="207.0"/><line x1="118.6" y1="153.9" x2="113.0" y2="209.7"/><line x1="113.4" y1="152.3" x2="86.9" y2="201.7"/><line x1="109.2" y1="148.9" x2="65.8" y2="184.3"/><line x1="106.6" y1="144.0" x2="53.0" y2="160.2"/><line x1="106.1" y1="138.6" x2="50.3" y2="133.0"/><line x1="107.7" y1="133.4" x2="58.3" y2="106.9"/><line x1="111.1" y1="129.2" x2="75.7" y2="85.8"/><line x1="116.0" y1="126.6" x2="99.8" y2="73.0"/><line x1="121.4" y1="126.1" x2="127.0" y2="70.3"/><line x1="126.6" y1="127.7" x2="153.1" y2="78.3"/><line x1="130.8" y1="131.1" x2="174.2" y2="95.7"/><line x1="133.4" y1="136.0" x2="187.0" y2="119.8"/></g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none">
+    <line x1="120" y1="140" x2="330" y2="122"/>
+    <line x1="120" y1="140" x2="330" y2="158"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="330" y="122" width="110" height="36" rx="6"/>
+    <line x1="330" y1="122" x2="330" y2="158" stroke="var(--t3-ink)" stroke-width="4"/>
+    <polyline points="440,140 470,140 470,210 420,210"/>
+    <rect x="360" y="195" width="60" height="30" rx="3"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="120" y="235" text-anchor="middle">source</text>
+    <text x="385" y="110" text-anchor="middle">Geiger–Müller tube</text>
+    <text x="320" y="182" text-anchor="end" fill="var(--t3-ink)">window</text>
+    <text x="390" y="214" text-anchor="middle">counter</text>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t62df">
+  <title id="t62df">A box rests on a horizontal floor. A rope is tied to the middle of its right-hand side, and a dot marks that point, labelled point of application. A force arrow starts at the dot and points up and to the right, at 30 degrees above a dashed horizontal reference line. The arrow is labelled T equals 40 N. Below, a scale bar shows that a length equal to one quarter of the arrow represents 10 N, so the arrow is four scale lengths long.</title>
+  <defs>
+    <marker id="m62df-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- floor and box -->
+  <line x1="20" y1="240" x2="380" y2="240" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="60" y="150" width="120" height="90" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <text x="120" y="200" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">box</text>
+
+  <!-- reference line -->
+  <line x1="180" y1="195" x2="350" y2="195" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+
+  <!-- force arrow: 160 px at 30 degrees -->
+  <line x1="180" y1="195" x2="318.6" y2="115" stroke="var(--t1-ink)" stroke-width="2.6" marker-end="url(#m62df-a)"/>
+  <circle cx="180" cy="195" r="4" fill="currentColor"/>
+  <text x="300" y="98" font-size="14" fill="var(--t1-ink)" font-family="inherit"><tspan font-style="italic">T</tspan> = 40 N</text>
+
+  <!-- angle -->
+  <path d="M220 195 A40 40 0 0 0 214.64 175" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="226" y="187" font-size="12" fill="currentColor" font-family="inherit">30°</text>
+
+  <!-- point of application label -->
+  <line x1="182" y1="199" x2="200" y2="222" stroke="var(--muted)" stroke-width="1"/>
+  <text x="204" y="228" font-size="11" fill="var(--muted)" font-family="inherit">point of application</text>
+
+  <!-- scale bar: 40 px = 10 N -->
+  <line x1="240" y1="272" x2="280" y2="272" stroke="currentColor" stroke-width="2"/>
+  <line x1="240" y1="266" x2="240" y2="278" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="280" y1="266" x2="280" y2="278" stroke="currentColor" stroke-width="1.2"/>
+  <text x="290" y="276" font-size="11" fill="currentColor" font-family="inherit">scale: 10 N</text>
+</svg>

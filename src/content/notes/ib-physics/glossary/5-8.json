@@ -2,25 +2,25 @@
   {
     "id": "activity",
     "term": "activity",
-    "definition": "TODO: Number of decays per second, unit becquerel",
+    "definition": "The number of nuclei in a radioactive sample that decay per unit time, measured in becquerels (1 Bq is one decay per second).",
     "lesson": "5.8"
   },
   {
     "id": "count-rate",
     "term": "count rate",
-    "definition": "TODO: Detected decays per unit time, less than activity",
+    "definition": "The number of counts a detector records per unit time; the part due to a source is less than the source's activity because the detector catches only some of its radiation.",
     "lesson": "5.8"
   },
   {
     "id": "half-life",
     "term": "half-life",
-    "definition": "TODO: Time for activity or number of nuclei to halve; constant",
+    "definition": "The time taken for the number of undecayed nuclei of a nuclide, or its activity, to fall to half; it is the same whatever the starting amount.",
     "lesson": "5.8"
   },
   {
     "id": "background-radiation",
     "term": "background radiation",
-    "definition": "TODO: Radiation from natural sources; subtract from count rate",
+    "definition": "Radiation that is always present from sources such as radon gas, rocks, cosmic rays and food; subtract it from a measured count rate to find the count rate from a source.",
     "lesson": "5.8"
   }
 ]

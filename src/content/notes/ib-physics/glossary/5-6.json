@@ -2,37 +2,37 @@
   {
     "id": "isotope",
     "term": "isotope",
-    "definition": "TODO: Nuclides with the same proton number but different neutron number",
+    "definition": "One of two or more nuclides of the same element: they have the same proton number $Z$ but different numbers of neutrons, so different nucleon numbers $A$.",
     "lesson": "5.6"
   },
   {
     "id": "mass-defect",
     "term": "mass defect",
-    "definition": "TODO: Difference between mass of separate nucleons and the nucleus",
+    "definition": "The total mass of the separate protons and neutrons that make up a nucleus minus the mass of the nucleus itself, $\\Delta m$; the nucleus always has the smaller mass.",
     "lesson": "5.6"
   },
   {
     "id": "binding-energy",
     "term": "binding energy",
-    "definition": "TODO: Energy needed to separate a nucleus into nucleons; equals mass defect times c^2",
+    "definition": "The minimum energy needed to separate a nucleus completely into its individual nucleons, equal to the energy released when the nucleus forms from them: $E_\\text{B} = \\Delta m\\, c^{2}$, where $\\Delta m$ is the mass defect.",
     "lesson": "5.6"
   },
   {
     "id": "binding-energy-per-nucleon",
     "term": "binding energy per nucleon",
-    "definition": "TODO: Measure of stability; peaks near iron-56",
+    "definition": "The binding energy of a nucleus divided by its nucleon number; the higher it is, the more tightly bound the nucleus, with a peak of about 8.8 MeV near iron-56.",
     "lesson": "5.6"
   },
   {
     "id": "mass-energy-equivalence",
     "term": "mass-energy equivalence",
-    "definition": "TODO: E = mc^2; mass change in reactions releases energy",
+    "definition": "The principle that mass and energy are equivalent, $E = mc^{2}$: when a system's energy changes by $\\Delta E$, its mass changes by $\\Delta E / c^{2}$, so a nuclear reaction that releases energy ends with less mass.",
     "lesson": "5.6"
   },
   {
     "id": "strong-nuclear-force",
     "term": "strong nuclear force",
-    "definition": "TODO: Short-range attractive force between nucleons",
+    "definition": "The attractive force between nucleons that holds a nucleus together; it acts only over distances of about $10^{-15}\\ \\text{m}$, where it is stronger than the electric repulsion between protons.",
     "lesson": "5.6"
   }
 ]

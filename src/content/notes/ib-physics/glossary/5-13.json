@@ -2,25 +2,25 @@
   {
     "id": "hertzsprung-russell-diagram",
     "term": "Hertzsprung-Russell diagram",
-    "definition": "TODO: Plot of luminosity against temperature, axes reversed",
+    "definition": "A graph of stars' luminosity, on the vertical axis, against their surface temperature, on the horizontal axis with temperature decreasing to the right; stars group into regions such as the main sequence, giants and white dwarfs.",
     "lesson": "5.13"
   },
   {
     "id": "supergiant",
     "term": "supergiant",
-    "definition": "TODO: Very luminous large star at top of HR diagram",
+    "definition": "A massive star late in its life, with a luminosity of roughly $10^{4}$ to $10^{6}$ times the Sun's and a radius up to about a thousand times the Sun's; supergiants lie across the top of the HR diagram.",
     "lesson": "5.13"
   },
   {
     "id": "stellar-parallax",
     "term": "stellar parallax",
-    "definition": "TODO: Apparent shift of a nearby star against distant stars; basis for distance",
+    "definition": "The apparent shift of a nearby star against much more distant stars as the Earth orbits the Sun; the parallax angle, half the shift seen six months apart, gives the star's distance.",
     "lesson": "5.13"
   },
   {
     "id": "parsec",
     "term": "parsec",
-    "definition": "TODO: Distance with parallax 1 arc-second; d = 1/p",
+    "definition": "The distance at which 1 AU subtends an angle of 1 arc-second, so a star with parallax angle $p$ in arc-seconds is $d = \\frac{1}{p}$ parsecs away; 1 pc is 3.26 light years.",
     "lesson": "5.13"
   }
 ]

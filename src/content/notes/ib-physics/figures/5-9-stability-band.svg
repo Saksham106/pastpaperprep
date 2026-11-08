@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" role="img" aria-labelledby="t59sb">
+  <title id="t59sb">Graph of neutron number N, from 0 to 150, against proton number Z, from 0 to 100. A dashed straight line shows N equal to Z. A shaded band of stable nuclides follows the N equals Z line for light nuclei, then curves above it as Z increases, passing calcium-40 at Z 20, N 20, iron-56 at Z 26, N 30, tin-120 at Z 50, N 70, and ending at lead-208 at Z 82, N 126. Nuclides above the band have too many neutrons and decay by beta-minus decay. Nuclides below the band have too few neutrons and decay by beta-plus decay. Beyond Z 82 no nuclide is stable, and many of these heavy nuclides decay by alpha decay.</title>
+  <defs>
+    <marker id="m59sb-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="270" x2="70" y2="18" marker-end="url(#m59sb-head)"/>
+    <line x1="70" y1="270" x2="490" y2="270" marker-end="url(#m59sb-head)"/>
+    <line x1="70.0" y1="270" x2="70.0" y2="275"/>
+    <line x1="150.0" y1="270" x2="150.0" y2="275"/>
+    <line x1="230.0" y1="270" x2="230.0" y2="275"/>
+    <line x1="310.0" y1="270" x2="310.0" y2="275"/>
+    <line x1="390.0" y1="270" x2="390.0" y2="275"/>
+    <line x1="470.0" y1="270" x2="470.0" y2="275"/>
+    <line x1="65" y1="270.0" x2="70" y2="270.0"/>
+    <line x1="65" y1="206.0" x2="70" y2="206.0"/>
+    <line x1="65" y1="142.0" x2="70" y2="142.0"/>
+    <line x1="65" y1="78.0" x2="70" y2="78.0"/>
+  </g>
+  <polygon points="70.0,266.8 78.0,263.4 86.0,259.9 94.0,256.3 102.0,252.6 110.0,248.9 118.0,245.0 126.0,241.1 134.0,237.1 142.0,233.0 150.0,228.9 158.0,224.6 166.0,220.3 174.0,215.9 182.0,211.4 190.0,206.8 198.0,202.1 206.0,197.4 214.0,192.6 222.0,187.6 230.0,182.6 238.0,177.6 246.0,172.4 254.0,167.1 262.0,161.8 270.0,156.4 278.0,150.9 286.0,145.3 294.0,139.7 302.0,133.9 310.0,128.1 318.0,122.2 326.0,116.2 334.0,110.1 342.0,103.9 350.0,97.7 358.0,91.4 366.0,84.9 374.0,78.4 382.0,71.9 390.0,65.2 398.0,58.5 398.0,79.3 390.0,85.7 382.0,92.0 374.0,98.2 366.0,104.4 358.0,110.4 350.0,116.4 342.0,122.3 334.0,128.1 326.0,133.8 318.0,139.5 310.0,145.0 302.0,150.5 294.0,155.9 286.0,161.2 278.0,166.5 270.0,171.6 262.0,176.7 254.0,181.6 246.0,186.5 238.0,191.4 230.0,196.1 222.0,200.7 214.0,205.3 206.0,209.8 198.0,214.2 190.0,218.5 182.0,222.7 174.0,226.9 166.0,230.9 158.0,234.9 150.0,238.8 142.0,242.6 134.0,246.3 126.0,250.0 118.0,253.6 110.0,257.0 102.0,260.4 94.0,263.8 86.0,267.0 78.0,270.0 70.0,270.0" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1"/>
+  <line x1="70.0" y1="270.0" x2="450.0" y2="118.0" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="70.0" y="290" text-anchor="middle">0</text>
+    <text x="150.0" y="290" text-anchor="middle">20</text>
+    <text x="230.0" y="290" text-anchor="middle">40</text>
+    <text x="310.0" y="290" text-anchor="middle">60</text>
+    <text x="390.0" y="290" text-anchor="middle">80</text>
+    <text x="470.0" y="290" text-anchor="middle">100</text>
+    <text x="60" y="274.0" text-anchor="end">0</text>
+    <text x="60" y="210.0" text-anchor="end">40</text>
+    <text x="60" y="146.0" text-anchor="end">80</text>
+    <text x="60" y="82.0" text-anchor="end">120</text>
+    <text x="280" y="312" text-anchor="middle">proton number Z</text>
+    <text x="22" y="150" text-anchor="middle" transform="rotate(-90 22 150)">neutron number N</text>
+    <text x="350.0" y="174.0" text-anchor="middle" fill="var(--muted)" transform="rotate(-21.8 350.0 174.0)">N = Z</text>
+    <circle cx="150.0" cy="238.0" r="3" fill="currentColor"/>
+    <text x="157.0" y="252.0">Ca-40</text>
+    <circle cx="174.0" cy="222.0" r="3" fill="currentColor"/>
+    <text x="181.0" y="236.0">Fe-56</text>
+    <circle cx="270.0" cy="158.0" r="3" fill="currentColor"/>
+    <text x="277.0" y="172.0">Sn-120</text>
+    <circle cx="398.0" cy="68.4" r="3" fill="currentColor"/>
+    <text x="390.0" y="64.4" text-anchor="end">Pb-208</text>
+    <text x="110" y="60">too many neutrons:</text>
+    <text x="110" y="76">beta-minus decay</text>
+    <text x="330" y="215">too few neutrons:</text>
+    <text x="330" y="231">beta-plus decay</text>
+    <text x="420" y="30">Z above 82:</text>
+    <text x="420" y="46">none stable,</text>
+    <text x="420" y="62">alpha decay</text>
+    <text x="278.0" y="124.0" fill="var(--t1-ink)" transform="rotate(-30 278.0 124.0)">stable nuclides</text>
+  </g>
+</svg>

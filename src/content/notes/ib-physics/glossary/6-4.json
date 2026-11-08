@@ -2,43 +2,43 @@
   {
     "id": "direct-proportionality",
     "term": "direct proportionality",
-    "definition": "TODO: y = kx, straight line through origin",
+    "definition": "A relationship $y = kx$ with $k$ constant: doubling $x$ doubles $y$, and the graph is a straight line through the origin.",
     "lesson": "6.4"
   },
   {
     "id": "inverse-proportionality",
     "term": "inverse proportionality",
-    "definition": "TODO: y = k/x",
+    "definition": "A relationship $y = \\frac{k}{x}$ with $k$ constant: doubling $x$ halves $y$, so the product $xy$ stays the same.",
     "lesson": "6.4"
   },
   {
     "id": "correlation",
     "term": "correlation",
-    "definition": "TODO: Positive or negative relationship; not necessarily causation",
+    "definition": "A trend between two variables, positive when one tends to rise as the other rises and negative when it tends to fall; it does not by itself show that one causes the other.",
     "lesson": "6.4"
   },
   {
     "id": "line-of-best-fit",
     "term": "line of best fit",
-    "definition": "TODO: Line through the data trend",
+    "definition": "A single straight line or smooth curve drawn through the trend of plotted data, with the points scattered as evenly as possible on both sides.",
     "lesson": "6.4"
   },
   {
     "id": "uncertainty-bar",
     "term": "uncertainty bar",
-    "definition": "TODO: Bar showing uncertainty on a plotted point",
+    "definition": "A line through a plotted point reaching one absolute uncertainty either side of it, showing the range in which the true value could lie.",
     "lesson": "6.4"
   },
   {
     "id": "linearisation",
     "term": "linearisation",
-    "definition": "TODO: Plotting transformed variables to get a straight line",
+    "definition": "Choosing what to plot on each axis, from a theoretical equation, so that the predicted relationship gives a straight-line graph of the form $y = mx + c$.",
     "lesson": "6.4"
   },
   {
     "id": "logarithmic-scale",
     "term": "logarithmic scale",
-    "definition": "TODO: Axis marked in powers of ten",
+    "definition": "An axis on which equal distances stand for equal factors, usually powers of ten, so values spanning many orders of magnitude fit on one graph.",
     "lesson": "6.4"
   }
 ]

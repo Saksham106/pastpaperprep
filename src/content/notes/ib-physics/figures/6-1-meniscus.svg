@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 250" font-family="inherit" font-size="12" fill="currentColor" role="img" aria-labelledby="t61mn">
+  <title id="t61mn">A close-up of a measuring cylinder holding water. The scale is marked every 1 cubic centimetre and labelled at 36, 38, 40, 42 and 44. The water surface curves down in the middle, forming a meniscus whose lowest point is level with the 41 cubic centimetre mark. Three eyes look at the meniscus from the right. The middle eye is level with the bottom of the meniscus, along a horizontal dashed line, and is labelled correct: read 41 cubic centimetres. An eye above, looking down, and an eye below, looking up, are each labelled parallax error.</title>
+  <path d="M120 230 L240 230" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M130 20 L130 230 M230 20 L230 230" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M131 98 Q180 126 229 98 L229 229 L131 229 Z" fill="var(--t1-ink)" fill-opacity="0.18" stroke="none"/>
+  <path d="M131 98 Q180 126 229 98" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+  <g stroke="currentColor" stroke-width="1.3">
+    <path d="M230 52 L216 52"/>
+    <path d="M230 72 L222 72"/>
+    <path d="M230 92 L216 92"/>
+    <path d="M230 112 L222 112"/>
+    <path d="M230 132 L216 132"/>
+    <path d="M230 152 L222 152"/>
+    <path d="M230 172 L216 172"/>
+    <path d="M230 192 L222 192"/>
+    <path d="M230 212 L216 212"/>
+  </g>
+  <g text-anchor="end">
+    <text x="124" y="56">44</text>
+    <text x="124" y="96">42</text>
+    <text x="124" y="136">40</text>
+    <text x="124" y="176">38</text>
+    <text x="124" y="216">36</text>
+  </g>
+  <text x="80" y="20" text-anchor="middle" fill="var(--muted)">volume / cm³</text>
+  <path d="M180 112 L420 112" stroke="var(--t2-ink)" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <path d="M180 112 L420 40" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <path d="M180 112 L420 196" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M422 112 Q436 102 450 112 Q436 122 422 112 Z"/>
+    <path d="M422 40 Q436 30 450 40 Q436 50 422 40 Z"/>
+    <path d="M422 196 Q436 186 450 196 Q436 206 422 196 Z"/>
+  </g>
+  <g>
+    <circle cx="436" cy="112" r="4"/>
+    <circle cx="436" cy="40" r="4"/>
+    <circle cx="436" cy="196" r="4"/>
+  </g>
+  <text x="458" y="108" fill="var(--t2-ink)">correct:</text>
+  <text x="458" y="124" fill="var(--t2-ink)">read 41 cm³</text>
+  <text x="458" y="44" fill="var(--muted)">parallax error</text>
+  <text x="458" y="200" fill="var(--muted)">parallax error</text>
+</svg>

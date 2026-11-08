@@ -2,31 +2,31 @@
   {
     "id": "si-unit",
     "term": "SI unit",
-    "definition": "TODO: Unit from the International System; base units kg, m, s, A, K, mol, cd",
+    "definition": "A unit of the International System of Units, built from the seven fundamental units: the kilogram, metre, second, ampere, kelvin, mole and candela.",
     "lesson": "6.1"
   },
   {
     "id": "si-prefix",
     "term": "SI prefix",
-    "definition": "TODO: Power of ten multiplier such as kilo or milli",
+    "definition": "A word or symbol in front of a unit that multiplies it by a power of ten, such as kilo (k, $10^{3}$) or micro (µ, $10^{-6}$).",
     "lesson": "6.1"
   },
   {
     "id": "scientific-notation",
     "term": "scientific notation",
-    "definition": "TODO: Number as a x 10^n with 1 <= a < 10",
+    "definition": "A way of writing a number as $a \\times 10^{n}$, where $1 \\le a < 10$ and $n$ is an integer, as in $3.5 \\times 10^{6}$.",
     "lesson": "6.1"
   },
   {
     "id": "order-of-magnitude",
     "term": "order of magnitude",
-    "definition": "TODO: Nearest power of ten",
+    "definition": "The power of ten nearest to a value, used to compare sizes and to quote rough estimates.",
     "lesson": "6.1"
   },
   {
     "id": "electronvolt",
     "term": "electronvolt",
-    "definition": "TODO: Energy gained by an electron through 1 V, 1.60e-19 J",
+    "definition": "The energy gained by one electron accelerated through a potential difference of 1 V, equal to $1.60 \\times 10^{-19}$ J.",
     "lesson": "6.1"
   }
 ]

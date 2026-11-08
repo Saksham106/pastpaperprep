@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 170" font-family="inherit" font-size="12" fill="currentColor" role="img" aria-labelledby="t61ls">
+  <title id="t61ls">A horizontal axis of lengths in metres, with equal spacing for each power of ten, running from 10 to the minus 15 on the left to 10 to the 21 on the right. Marked on it: a proton, about 10 to the minus 15 metres; an atom, 10 to the minus 10; a cell, 10 to the minus 5; a person, 10 to the 0, that is 1 metre; the Earth's radius, 10 to the 7; the Earth to Sun distance, 10 to the 11; the nearest star, 10 to the 17; and the Milky Way, 10 to the 21 metres across.</title>
+  <path d="M30 100 L580 100" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M572 95 L582 100 L572 105" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="580" y="140" text-anchor="end" fill="var(--muted)">length / m</text>
+  <g stroke="currentColor" stroke-width="1.6">
+    <path d="M40 94 L40 106"/>
+    <path d="M110 94 L110 106"/>
+    <path d="M180 94 L180 106"/>
+    <path d="M250 94 L250 106"/>
+    <path d="M348 94 L348 106"/>
+    <path d="M404 94 L404 106"/>
+    <path d="M488 94 L488 106"/>
+    <path d="M544 94 L544 106"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="40" y="122">10<tspan baseline-shift="super" font-size="9">−15</tspan></text>
+    <text x="110" y="122">10<tspan baseline-shift="super" font-size="9">−10</tspan></text>
+    <text x="180" y="122">10<tspan baseline-shift="super" font-size="9">−5</tspan></text>
+    <text x="250" y="122">10<tspan baseline-shift="super" font-size="9">0</tspan></text>
+    <text x="348" y="122">10<tspan baseline-shift="super" font-size="9">7</tspan></text>
+    <text x="404" y="122">10<tspan baseline-shift="super" font-size="9">11</tspan></text>
+    <text x="488" y="122">10<tspan baseline-shift="super" font-size="9">17</tspan></text>
+    <text x="544" y="122">10<tspan baseline-shift="super" font-size="9">21</tspan></text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3">
+    <path d="M40 88 L40 76"/>
+    <path d="M110 88 L110 46"/>
+    <path d="M180 88 L180 76"/>
+    <path d="M250 88 L250 46"/>
+    <path d="M348 88 L348 76"/>
+    <path d="M404 88 L404 46"/>
+    <path d="M488 88 L488 76"/>
+    <path d="M544 88 L544 46"/>
+  </g>
+  <g text-anchor="middle" fill="var(--t3-ink)">
+    <text x="40" y="70">proton</text>
+    <text x="110" y="40">atom</text>
+    <text x="180" y="70">cell</text>
+    <text x="250" y="40">person</text>
+    <text x="348" y="70">Earth's radius</text>
+    <text x="404" y="40">Earth to Sun</text>
+    <text x="488" y="70">nearest star</text>
+    <text x="544" y="40">Milky Way</text>
+  </g>
+</svg>

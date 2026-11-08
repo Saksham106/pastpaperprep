@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t512eq">
+  <title id="t512eq">Cross-section of a star. A shaded core sits at the centre, where fusion releases energy. A dashed circle part-way out marks one layer of gas. On a small piece of that layer at the top, two arrows of equal length act: one points outwards, away from the centre, labelled radiation and gas pressure; the other points inwards, towards the centre, labelled gravitational force. Equal lengths show that the two balance.</title>
+  <defs>
+    <marker id="m512eq-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+    <marker id="m512eq-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m512eq-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+  <circle cx="150" cy="150" r="125" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="38" fill="var(--t5-ink)" fill-opacity="0.25" stroke="var(--t5-ink)" stroke-width="1.5"/>
+  <circle cx="150" cy="150" r="85" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="143" y="60" width="14" height="10" fill="var(--muted)" fill-opacity="0.35" stroke="currentColor" stroke-width="1"/>
+  <line x1="150" y1="60" x2="150" y2="28" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#m512eq-o)"/>
+  <line x1="150" y1="70" x2="150" y2="102" stroke="var(--t3-ink)" stroke-width="2.5" marker-end="url(#m512eq-i)"/>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="156" y1="42" x2="292" y2="42"/>
+    <line x1="156" y1="88" x2="292" y2="96"/>
+    <line x1="186" y1="150" x2="292" y2="150"/>
+    <line x1="210" y1="210" x2="292" y2="214"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="298" y="38" fill="var(--t1-ink)">outward: radiation pressure</text>
+    <text x="298" y="53" fill="var(--t1-ink)">and gas pressure</text>
+    <text x="298" y="94" fill="var(--t3-ink)">inward: gravitational force</text>
+    <text x="298" y="109" fill="var(--t3-ink)">(towards the centre)</text>
+    <text x="298" y="148">core: fusion releases</text>
+    <text x="298" y="163">energy</text>
+    <text x="298" y="212">one layer of gas: the two</text>
+    <text x="298" y="227">arrows balance, so the</text>
+    <text x="298" y="242">layer stays where it is</text>
+  </g>
+</svg>

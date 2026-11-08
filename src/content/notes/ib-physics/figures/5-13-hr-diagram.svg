@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" role="img" aria-labelledby="t513hr">
+  <title id="t513hr">Hertzsprung-Russell diagram. Vertical axis: luminosity relative to the Sun, on a logarithmic scale from 10 to the minus 4 up to 10 to the 6. Horizontal axis: surface temperature in kelvin, on a logarithmic scale, decreasing from 40 000 K on the left to 2500 K on the right. The main sequence is a band running from hot, very luminous stars at the top left down to cool, dim stars at the bottom right, with the Sun near the middle at 5800 K and luminosity 1. Red giants are a group above and to the right of the main sequence, cool but about 100 to 1000 times the Sun's luminosity. Supergiants lie across the top of the diagram, at luminosities of about 10 to the 4 to 10 to the 6. White dwarfs are at the bottom left: hot but very dim. The instability strip is a narrow, almost vertical band at about 6000 to 7500 K, rising from the main sequence up to the supergiants. Three dashed lines of constant radius, labelled 0.01, 1 and 100 solar radii, slope down from left to right; radius increases towards the top right.</title>
+  <defs><clipPath id="c513hr"><rect x="90" y="30" width="380" height="270"/></clipPath></defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <rect x="90" y="30" width="380" height="270"/>
+    <line x1="85" y1="300.0" x2="90" y2="300.0"/><line x1="85" y1="246.0" x2="90" y2="246.0"/><line x1="85" y1="192.0" x2="90" y2="192.0"/><line x1="85" y1="138.0" x2="90" y2="138.0"/><line x1="85" y1="84.0" x2="90" y2="84.0"/><line x1="85" y1="30.0" x2="90" y2="30.0"/><line x1="90.0" y1="300" x2="90.0" y2="305"/><line x1="185.0" y1="300" x2="185.0" y2="305"/><line x1="280.0" y1="300" x2="280.0" y2="305"/><line x1="375.0" y1="300" x2="375.0" y2="305"/><line x1="470.0" y1="300" x2="470.0" y2="305"/>
+  </g>
+  <g clip-path="url(#c513hr)" stroke="var(--muted)" stroke-width="1" stroke-dasharray="5 4" fill="none">
+    <line x1="90.0" y1="209.4" x2="470.0" y2="339.5"/><line x1="90.0" y1="101.4" x2="470.0" y2="231.5"/><line x1="90.0" y1="-6.6" x2="470.0" y2="123.5"/>
+  </g>
+  <polygon points="319.4,165.0 343.3,165.0 367.0,57.0 343.3,57.0" fill="var(--t4-ink)" fill-opacity="0.22" stroke="var(--t4-ink)" stroke-width="1"/>
+  <path d="M97.0,40.7 L154.4,71.1 L224.4,111.0 L280.0,148.7 L319.4,171.0 L354.7,192.0 L389.4,210.9 L423.9,237.9 L445.0,256.7" fill="none" stroke="var(--t1-ink)" stroke-opacity="0.35" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="395.7" cy="127.3" rx="34" ry="20" fill="var(--t5-ink)" fill-opacity="0.3" stroke="var(--t5-ink)" stroke-width="1"/>
+  <polygon points="129.4,75.9 436.2,75.9 436.2,32.6 129.4,32.6" fill="var(--t3-ink)" fill-opacity="0.2" stroke="var(--t3-ink)" stroke-width="1"/>
+  <ellipse cx="244.0" cy="273.0" rx="34" ry="16" fill="var(--t2-ink)" fill-opacity="0.3" stroke="var(--t2-ink)" stroke-width="1"/>
+  <circle cx="354.7" cy="192.0" r="4" fill="currentColor"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="82" y="304.0" text-anchor="end">10<tspan dy="-5" font-size="9">-4</tspan></text><text x="82" y="250.0" text-anchor="end">10<tspan dy="-5" font-size="9">-2</tspan></text><text x="82" y="196.0" text-anchor="end">1</text><text x="82" y="142.0" text-anchor="end">10<tspan dy="-5" font-size="9">2</tspan></text><text x="82" y="88.0" text-anchor="end">10<tspan dy="-5" font-size="9">4</tspan></text><text x="82" y="34.0" text-anchor="end">10<tspan dy="-5" font-size="9">6</tspan></text><text x="90.0" y="318" text-anchor="middle">40 000</text><text x="185.0" y="318" text-anchor="middle">20 000</text><text x="280.0" y="318" text-anchor="middle">10 000</text><text x="375.0" y="318" text-anchor="middle">5000</text><text x="470.0" y="318" text-anchor="middle">2500</text>
+    <text x="280.0" y="336" text-anchor="middle" fill="var(--muted)">surface temperature / K (hotter to the left)</text>
+    <text x="22" y="165.0" text-anchor="middle" fill="var(--muted)" transform="rotate(-90 22 165.0)">luminosity / L&#8857;</text>
+    <text x="362.7" y="196.0">Sun</text>
+    <text x="207.3" y="132.6" text-anchor="middle" fill="var(--t1-ink)">main sequence</text>
+    <text x="395.7" y="131.2" text-anchor="middle" fill="var(--t5-ink)">red giants</text>
+    <text x="294.4" y="51.6" text-anchor="middle" fill="var(--t3-ink)">supergiants</text>
+    <text x="244.0" y="277.0" text-anchor="middle" fill="var(--t2-ink)">white dwarfs</text>
+    <text x="336.9" y="102.9" text-anchor="middle" fill="var(--t4-ink)" font-size="10">instability</text>
+    <text x="336.9" y="113.9" text-anchor="middle" fill="var(--t4-ink)" font-size="10">strip</text>
+    <text x="449.7" y="111.5" text-anchor="middle" fill="var(--muted)" font-size="10">100 R&#8857;</text>
+    <text x="449.7" y="219.5" text-anchor="middle" fill="var(--muted)" font-size="10">1 R&#8857;</text>
+    <text x="369.6" y="300.1" text-anchor="middle" fill="var(--muted)" font-size="10">0.01 R&#8857;</text>
+  </g>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 330" role="img" aria-labelledby="t512ev">
+  <title id="t512ev">Flow chart of how a star's mass decides its life. A cloud of gas and dust contracts to form a main-sequence star, which fuses hydrogen in its core. The path then splits. For an initial mass up to about 8 solar masses, the star becomes a red giant with helium fusion in its core, its outer layers drift off as a planetary nebula, and a white dwarf is left, with no fusion. For more than about 8 solar masses, the star becomes a red supergiant with fusion up to iron, its core collapses in a supernova, and a neutron star is left, or a black hole for the most massive stars.</title>
+  <defs>
+    <marker id="m512ev-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.2">
+    <rect x="125" y="10" width="310" height="34" rx="6"/>
+    <rect x="125" y="70" width="310" height="34" rx="6" stroke="var(--t1-ink)" stroke-width="2"/>
+    <rect x="20" y="150" width="230" height="40" rx="6" stroke="var(--t3-ink)"/>
+    <rect x="20" y="215" width="230" height="40" rx="6" stroke="var(--t3-ink)"/>
+    <rect x="20" y="280" width="230" height="40" rx="6" stroke="var(--t3-ink)" stroke-width="2"/>
+    <rect x="310" y="150" width="230" height="40" rx="6" stroke="var(--t5-ink)"/>
+    <rect x="310" y="215" width="230" height="40" rx="6" stroke="var(--t5-ink)"/>
+    <rect x="310" y="280" width="230" height="40" rx="6" stroke="var(--t5-ink)" stroke-width="2"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.2">
+    <line x1="280" y1="44" x2="280" y2="68" marker-end="url(#m512ev-a)"/>
+    <path d="M280,104 V120 H135 V148" marker-end="url(#m512ev-a)"/>
+    <path d="M280,120 H425 V148" marker-end="url(#m512ev-a)"/>
+    <line x1="135" y1="190" x2="135" y2="213" marker-end="url(#m512ev-a)"/>
+    <line x1="135" y1="255" x2="135" y2="278" marker-end="url(#m512ev-a)"/>
+    <line x1="425" y1="190" x2="425" y2="213" marker-end="url(#m512ev-a)"/>
+    <line x1="425" y1="255" x2="425" y2="278" marker-end="url(#m512ev-a)"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="280" y="31">cloud of gas and dust contracts</text>
+    <text x="280" y="91">main-sequence star: hydrogen fusion in core</text>
+    <text x="135" y="174">red giant: helium fusion in core</text>
+    <text x="135" y="232">outer layers drift off as a</text>
+    <text x="135" y="247">planetary nebula</text>
+    <text x="135" y="304">white dwarf: no fusion, cools</text>
+    <text x="425" y="174">red supergiant: fusion up to iron</text>
+    <text x="425" y="239">core collapses: supernova</text>
+    <text x="425" y="297">neutron star, or black hole</text>
+    <text x="425" y="312">for the most massive stars</text>
+  </g>
+  <g font-size="12" font-family="inherit">
+    <text x="127" y="134" text-anchor="end" fill="var(--t3-ink)">up to about</text>
+    <text x="127" y="147" text-anchor="end" fill="var(--t3-ink)">8 solar masses</text>
+    <text x="433" y="134" fill="var(--t5-ink)">more than about</text>
+    <text x="433" y="147" fill="var(--t5-ink)">8 solar masses</text>
+  </g>
+</svg>

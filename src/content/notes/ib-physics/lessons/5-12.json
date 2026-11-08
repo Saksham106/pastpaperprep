@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.12",
+  "slug": "fusion-and-the-life-of-stars",
+  "title": "Fusion and the life of stars",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Stars shine because [[fusion|fusion]] in their cores turns hydrogen into helium, and the lost mass becomes energy. While outward pressure balances the inward gravitational force, a star sits stably on the [[main-sequence|main sequence]]. Its mass then decides its future: a [[red-giant|red giant]] and then a [[white-dwarf|white dwarf]], or a red supergiant and a supernova.",
+  "goals": [
+    {
+      "text": "Explain how outward radiation pressure and the inward gravitational force keep a star stable.",
+      "bullets": [
+        "E.5-s1"
+      ]
+    },
+    {
+      "text": "Calculate the energy released in a fusion reaction, and link it to a star's [[luminosity|luminosity]].",
+      "bullets": [
+        "E.5-s2"
+      ]
+    },
+    {
+      "text": "Explain why fusion needs both a very high temperature and a very high density.",
+      "bullets": [
+        "E.5-s3"
+      ]
+    },
+    {
+      "text": "Outline how a star's mass decides its lifetime, its later stages and its remnant.",
+      "bullets": [
+        "E.5-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.4",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "stellar evolution",
+    "life cycle of a star",
+    "nuclear fusion in stars",
+    "why stars don't collapse",
+    "conditions for fusion",
+    "red giant white dwarf supernova"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mass-to-energy",
+      "prompt": "In a nuclear reaction, the total mass decreases by 0.0042 u. Calculate the energy released, in MeV, to 2 significant figures.",
+      "hint": "$\\pu{1 u}$ is equivalent to 931.5 MeV.",
+      "answer": {
+        "value": 3.9,
+        "tolerance": 0.05
+      },
+      "explain": "$0.0042 \\times 931.5 = 3.91$, so $\\pu{3.9 MeV}$. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.0042*u_MeV",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-joining-light-nuclei",
+      "prompt": "Two very light nuclei join to make one heavier nucleus, releasing energy. Why is energy released?",
+      "hint": "Think about the [[binding-energy-per-nucleon|binding energy per nucleon]] curve.",
+      "options": [
+        {
+          "text": "The product has a higher binding energy per nucleon.",
+          "correct": true
+        },
+        {
+          "text": "The product has a lower binding energy per nucleon.",
+          "correct": false
+        },
+        {
+          "text": "Energy stored inside the light nuclei is let out.",
+          "correct": false
+        },
+        {
+          "text": "The product has more mass than the two light nuclei.",
+          "correct": false
+        }
+      ],
+      "explain": "The product is more tightly bound, so the total mass falls and the difference is released. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The product has a higher binding energy per nucleon."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-luminosity-meaning",
+      "prompt": "What is the luminosity of a star?",
+      "hint": "Luminosity is a power: energy per second.",
+      "options": [
+        {
+          "text": "the total power it radiates",
+          "correct": true
+        },
+        {
+          "text": "the power per square metre received at the Earth",
+          "correct": false
+        },
+        {
+          "text": "the temperature of its surface",
+          "correct": false
+        },
+        {
+          "text": "the total energy it radiates in its life",
+          "correct": false
+        }
+      ],
+      "explain": "Luminosity is the total power a star radiates, in watts. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the total power it radiates"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "equilibrium",
+      "heading": "Why a star is stable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A star is a huge ball of hot gas. Gravity pulls every part of it towards the centre. So why doesn't it collapse?"
+        },
+        {
+          "type": "text",
+          "text": "Fusion in the core keeps the gas very hot, and hot gas pushes outwards: gas pressure. The radiation streaming out from the core pushes outwards too: radiation pressure."
+        },
+        {
+          "type": "result",
+          "statement": "A star is stable when, at every depth, the outward radiation pressure and gas pressure balance the inward gravitational force. This is equilibrium.",
+          "why": "The resultant force on each layer is zero, so it neither falls inwards nor moves outwards."
+        },
+        {
+          "type": "figure",
+          "id": "5-12-equilibrium",
+          "alt": "Cross-section of a star with a shaded core where fusion releases energy. A dashed circle marks one layer of gas. On a small piece of that layer, an outward arrow labelled radiation and gas pressure and an inward arrow labelled gravitational force have equal lengths, showing that they balance.",
+          "caption": "On every layer, outward pressure balances the inward gravitational force."
+        },
+        {
+          "type": "text",
+          "text": "A star in this steady state, fusing hydrogen into helium in its core, is on the [[main-sequence|main sequence]]. The Sun has been there for about 4.6 billion years."
+        },
+        {
+          "type": "text",
+          "text": "The balance corrects itself. If fusion speeds up, the pressure rises and the core expands, which cools it and lowers its density. Fusion slows again. If fusion slows, gravity squeezes the core, heating it, and fusion speeds up."
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-main-sequence-stable",
+          "question": "A main-sequence star stays almost the same size for billions of years. Outline how it stays in equilibrium.",
+          "steps": [
+            "Name the inward force, then the outward effect and its energy source.",
+            "Say that they balance."
+          ],
+          "answer": "There is an inward gravitational force on every layer of the star. Fusion in the core releases energy that keeps the gas hot. The hot gas and the outflowing radiation produce an outward pressure. This outward pressure balances the inward gravitational force, so the star is in equilibrium.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "inward gravitational force balanced by outward radiation and gas pressure, which fusion energy maintains",
+            "requires": [
+              [
+                "inward gravitational force",
+                "inward gravitational pressure"
+              ],
+              [
+                "fusion"
+              ],
+              [
+                "outward pressure",
+                "outward radiation pressure",
+                "outward thermal pressure"
+              ],
+              [
+                "balances",
+                "balanced"
+              ],
+              [
+                "equilibrium"
+              ]
+            ],
+            "forbids": [
+              "centrifugal",
+              "strong nuclear force holds",
+              "solid core"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fusion-speeds-up",
+          "question": "For a short time, the rate of fusion in a main-sequence star's core increases. Explain how the star returns to equilibrium.",
+          "steps": [
+            "Say what extra energy does to the outward pressure, and how the core responds.",
+            "Link that to temperature, density and the rate of fusion."
+          ],
+          "answer": "The extra energy makes the outward pressure greater than the inward gravitational force, so the core expands. As it expands, its temperature and density fall. This reduces the rate of fusion. The outward pressure falls until it balances the gravitational force again.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more energy raises pressure above gravity, core expands, cools and becomes less dense, fusion rate falls, balance restored",
+            "requires": [
+              [
+                "outward pressure greater",
+                "outward pressure is greater"
+              ],
+              [
+                "expands"
+              ],
+              [
+                "temperature"
+              ],
+              [
+                "density"
+              ],
+              [
+                "reduces the rate of fusion",
+                "fusion rate falls"
+              ],
+              [
+                "balances"
+              ]
+            ],
+            "forbids": [
+              "fusion stops",
+              "gravity increases"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-stops-collapse",
+          "prompt": "What stops a main-sequence star from collapsing under its own gravity?",
+          "hint": "Something must push outwards on every layer.",
+          "options": [
+            {
+              "text": "outward pressure from radiation and hot gas",
+              "correct": true
+            },
+            {
+              "text": "the strong nuclear force acting across the star",
+              "correct": false
+            },
+            {
+              "text": "the star spinning fast enough to resist gravity",
+              "correct": false
+            },
+            {
+              "text": "a rigid solid core",
+              "correct": false
+            }
+          ],
+          "explain": "Radiation and gas pressure, kept up by fusion, balance gravity. The strong force only reaches about $10^{-15}$ m, and a star is gas throughout.",
+          "verify": {
+            "kind": "choice",
+            "truth": "outward pressure from radiation and hot gas"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-core-stops-fusing",
+          "prompt": "Fusion in the core of a star stops. What happens to the core next?",
+          "hint": "What is left once the outward pressure is no longer topped up?",
+          "options": [
+            {
+              "text": "It contracts and heats up.",
+              "correct": true
+            },
+            {
+              "text": "It expands and cools down.",
+              "correct": false
+            },
+            {
+              "text": "It stays the same size, because gravity also stops.",
+              "correct": false
+            },
+            {
+              "text": "It cools down and stays the same size.",
+              "correct": false
+            }
+          ],
+          "explain": "The pressure falls, so gravity wins and the core contracts. Squeezing a gas heats it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It contracts and heats up."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fusion-energy",
+      "heading": "Fusion: where a star's energy comes from",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No chemical fuel could keep the Sun shining for billions of years. Only nuclear reactions release enough energy per kilogram."
+        },
+        {
+          "type": "definition",
+          "term": "fusion",
+          "statement": "Nuclear fusion is the joining of two light nuclei to form a heavier nucleus. Energy is released when the product has a higher [[binding-energy-per-nucleon|binding energy per nucleon]].",
+          "plain": "Small nuclei join to make a bigger one, and some mass becomes energy."
+        },
+        {
+          "type": "text",
+          "text": "In a main-sequence star, hydrogen becomes helium. Overall, four protons make a helium-4 nucleus, two positrons ($\\mathrm{e}^{+}$) and two neutrinos ($\\nu_\\text{e}$). The steps (the proton–proton chain) need not be learnt."
+        },
+        {
+          "type": "formula",
+          "tex": "4\\,{}^{1}_{1}\\text{H} \\rightarrow {}^{4}_{2}\\text{He} + 2\\,\\mathrm{e}^{+} + 2\\,\\nu_\\text{e}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The products have less mass. This [[mass-defect|mass defect]] has become energy, by [[mass-energy-equivalence|mass-energy equivalence]], $E = mc^{2}$, which is in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "With masses in u, use $\\pu{1 u} = 931.5\\ \\text{MeV}\\,c^{-2}$. The proton mass $\\pu{1.007276 u}$ and the electron (and positron) mass $\\pu{0.000549 u}$ are in the data booklet. Count every particle, positrons included; neutrino mass is negligible."
+        },
+        {
+          "type": "example",
+          "id": "ex-helium3-fusion",
+          "question": "In one fusion step in the Sun, two helium-3 nuclei fuse: ${}^{3}_{2}\\text{He} + {}^{3}_{2}\\text{He} \\rightarrow {}^{4}_{2}\\text{He} + 2\\,{}^{1}_{1}\\text{H}$. The nuclear masses are helium-3: 3.014932 u and helium-4: 4.001506 u. Calculate the energy released, in MeV.",
+          "steps": [
+            "Mass before: $2 \\times 3.014932 = \\pu{6.029864 u}$.",
+            "Mass after: $4.001506 + 2 \\times 1.007276 = \\pu{6.016058 u}$.",
+            "Mass defect: $\\Delta m = 6.029864 - 6.016058 = \\pu{0.013806 u}$.",
+            "$E = 0.013806 \\times 931.5 = 12.86\\ \\text{MeV}$, so 3 significant figures."
+          ],
+          "answer": "$E \\approx 12.9\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(2*3.014932 - 4.001506 - 2*mp_u)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A star's [[luminosity|luminosity]] is the energy it releases each second. Divide it by the energy from one reaction to get the reactions per second."
+        },
+        {
+          "type": "example",
+          "id": "ex-hydrogen-used-per-second",
+          "question": "A main-sequence star has a luminosity of $\\pu{7.2e26 W}$. Each helium-4 nucleus it makes releases 26.7 MeV in total. Determine the mass of hydrogen nuclei it turns into helium each second.",
+          "steps": [
+            "Energy per helium nucleus: $26.7 \\times 1.60 \\times 10^{-13} = \\pu{4.272e-12 J}$.",
+            "Helium nuclei per second: $\\frac{7.2 \\times 10^{26}}{4.272 \\times 10^{-12}} = 1.685 \\times 10^{38}\\ \\text{s}^{-1}$.",
+            "Each uses 4 protons of mass $\\pu{1.673e-27 kg}$: $4 \\times 1.673 \\times 10^{-27} \\times 1.685 \\times 10^{38} = \\pu{1.128e12 kg}$ each second.",
+            "Give 2 significant figures, like the luminosity."
+          ],
+          "answer": "$\\text{mass per second} \\approx 1.1 \\times 10^{12}\\ \\text{kg s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*mp*7.2*10**26/(26.7*MeV)",
+            "sf": 2,
+            "unit": "kg s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the positrons out of the mass after. Subtract $\\pu{0.000549 u}$ for each, or the energy comes out too large."
+        },
+        {
+          "type": "check",
+          "id": "check-four-protons-energy",
+          "prompt": "Using nuclear masses, calculate the energy released when four protons become a helium-4 nucleus (4.001506 u), two positrons and two neutrinos.",
+          "hint": "Mass after: helium-4 plus two positrons.",
+          "options": [
+            {
+              "text": "$\\approx 24.7\\ \\text{MeV}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 25.7\\ \\text{MeV}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 25.2\\ \\text{MeV}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 6.17\\ \\text{MeV}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta m = 4.029104 - 4.001506 - 0.001098 = \\pu{0.026500 u}$, and $\\times 931.5$ gives 24.7 MeV. Ignoring the positrons gives 25.7; one positron, 25.2; dividing by 4, 6.17. In a star each positron then annihilates with an electron, adding about 1 MeV each, which is why 26.7 MeV is the total per helium-4.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(4*mp_u - 4.001506 - 2*me_u)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mass-lost-per-second",
+          "prompt": "A star has a luminosity of $\\pu{5.4e27 W}$. Calculate the mass it loses each second as radiated energy, in kg, to 2 significant figures.",
+          "hint": "Rearrange $E = mc^{2}$ for one second.",
+          "answer": {
+            "value": 60000000000,
+            "tolerance": 500000000
+          },
+          "explain": "$m = \\frac{L}{c^{2}} = \\frac{5.4 \\times 10^{27}}{(3.00 \\times 10^{8})^{2}} = \\pu{6.0e10 kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.4*10**27/c**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "conditions",
+      "heading": "Conditions for fusion: temperature and density",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Nuclei are positive, so they repel. The attractive [[strong-nuclear-force|strong nuclear force]] only acts over about $10^{-15}$ m. To fuse, two nuclei must get that close."
+        },
+        {
+          "type": "text",
+          "text": "Why a high temperature? Mean kinetic energy is $\\frac{3}{2}k_\\text{B}T$ ({{lesson:2.1}}). In a very hot core, nuclei move fast enough to get close despite the repulsion."
+        },
+        {
+          "type": "text",
+          "text": "Why a high density? With many nuclei in each cubic metre, collisions are frequent, so enough fusions happen each second."
+        },
+        {
+          "type": "text",
+          "text": "Gravity supplies both: a contracting gas cloud gets denser and hotter. At about $10^{7}$ K in the core, hydrogen fusion starts. Heavier nuclei repel more strongly: helium fusion needs about $10^{8}$ K."
+        },
+        {
+          "type": "result",
+          "statement": "Fusion needs a high temperature, so nuclei have enough kinetic energy to overcome their electrostatic repulsion, and a high density, so collisions are frequent.",
+          "why": "Temperature sets how hard each collision is; density sets how many happen each second."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fusion-conditions",
+          "question": "Explain why fusion in a star's core happens only when the temperature and the density are both very high.",
+          "steps": [
+            "Temperature: what must the nuclei overcome, and why?",
+            "Density: how often do the nuclei meet?"
+          ],
+          "answer": "Nuclei are positive, so there is electrostatic repulsion between them. A high temperature gives them enough kinetic energy to overcome this repulsion. They get close enough for the strong nuclear force to act. A high density means many nuclei per unit volume, so collisions are frequent enough for a high rate of fusion.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "high temperature gives enough kinetic energy to overcome electrostatic repulsion and get within range of the strong force; high density makes collisions frequent",
+            "requires": [
+              [
+                "electrostatic repulsion",
+                "electric repulsion",
+                "coulomb repulsion"
+              ],
+              [
+                "kinetic energy",
+                "high speed"
+              ],
+              [
+                "overcome"
+              ],
+              [
+                "strong nuclear force",
+                "strong force"
+              ],
+              [
+                "density"
+              ],
+              [
+                "collisions"
+              ]
+            ],
+            "forbids": [
+              "gravity pulls the nuclei together",
+              "nuclei attract each other electrically"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-core-temperature-from-energy",
+          "question": "Estimate the core temperature at which the mean kinetic energy of the nuclei is 2.2 keV.",
+          "steps": [
+            "$E_\\text{k} = \\frac{3}{2}k_\\text{B}T$, so $T = \\frac{2E_\\text{k}}{3k_\\text{B}}$.",
+            "Convert: $2.2 \\times 10^{3} \\times 1.60 \\times 10^{-19} = \\pu{3.52e-16 J}$.",
+            "$T = \\frac{2 \\times 3.52 \\times 10^{-16}}{3 \\times 1.38 \\times 10^{-23}} = \\pu{1.70e7 K}$, so 2 significant figures."
+          ],
+          "answer": "$T \\approx 1.7 \\times 10^{7}\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*2.2*keV/(3*kB)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Beyond the syllabus: 2 keV is far below the repulsion barrier. Only the fastest nuclei fuse, and only by quantum tunnelling, so each fusion is rare and stars burn slowly."
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the reasons. Temperature gives each collision enough energy; density makes collisions frequent."
+        },
+        {
+          "type": "check",
+          "id": "check-helium-needs-hotter",
+          "prompt": "Why does fusing helium nuclei need a hotter core than fusing hydrogen nuclei?",
+          "hint": "Compare the charges of the two nuclei.",
+          "options": [
+            {
+              "text": "Helium nuclei have a larger charge, so they repel more strongly.",
+              "correct": true
+            },
+            {
+              "text": "Helium nuclei are heavier, so gravity holds them back.",
+              "correct": false
+            },
+            {
+              "text": "Helium nuclei have no charge, so nothing pulls them together.",
+              "correct": false
+            },
+            {
+              "text": "Helium has a lower binding energy per nucleon than hydrogen.",
+              "correct": false
+            }
+          ],
+          "explain": "Helium has charge $+2e$, a proton $+e$. Stronger repulsion needs more kinetic energy, so a hotter core.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Helium nuclei have a larger charge, so they repel more strongly."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mean-energy-at-core",
+          "prompt": "A star's core is at $\\pu{1.2e8 K}$. Calculate the mean kinetic energy of its nuclei, in J, to 2 significant figures.",
+          "hint": "$E_\\text{k} = \\frac{3}{2}k_\\text{B}T$.",
+          "answer": {
+            "value": 2.5e-15,
+            "tolerance": 5e-17
+          },
+          "explain": "$1.5 \\times 1.38 \\times 10^{-23} \\times 1.2 \\times 10^{8} = \\pu{2.5e-15 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(3, 2)*kB*1.2*10**8",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "evolution",
+      "heading": "How mass decides a star's life",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Mass decides a star's life: how hot its core gets, which reactions happen, how long each stage lasts and what is left."
+        },
+        {
+          "type": "text",
+          "text": "Stars spend about 90% of their lives on the main sequence. A more massive star has a hotter, denser core and fuses much faster. It is more luminous, with a hotter surface, and it uses up its core hydrogen sooner despite having more."
+        },
+        {
+          "type": "text",
+          "text": "When the core hydrogen runs out, core fusion stops. Gravity squeezes the core, which heats up, and hydrogen fuses in a shell around it. The outer layers swell and cool: the star becomes a [[red-giant|red giant]], or a red supergiant if massive."
+        },
+        {
+          "type": "text",
+          "text": "The hotter core now fuses helium into carbon and oxygen."
+        },
+        {
+          "type": "figure",
+          "id": "5-12-evolution-paths",
+          "alt": "Flow chart. A cloud of gas and dust contracts into a main-sequence star that fuses hydrogen in its core. For an initial mass up to about 8 solar masses, the path goes to a red giant with helium fusion in its core, then the outer layers drift off as a planetary nebula, leaving a white dwarf with no fusion. For more than about 8 solar masses, the path goes to a red supergiant with fusion up to iron, then the core collapses in a supernova, leaving a neutron star, or a black hole for the most massive stars.",
+          "caption": "The two paths. The 8 solar-mass boundary is approximate."
+        },
+        {
+          "type": "text",
+          "text": "Up to about 8 solar masses, the core never fuses carbon. The outer layers drift off as a planetary nebula, leaving a [[white-dwarf|white dwarf]]: Earth-sized, very dense and with no fusion. It shines only because it is hot, and slowly cools. The Sun will end this way."
+        },
+        {
+          "type": "text",
+          "text": "Above about 8 solar masses, the core fuses heavier nuclei, up to iron. Iron sits at the top of the [[binding-energy-per-nucleon|binding energy per nucleon]] curve (with nickel), so fusing it would absorb energy. With no energy source, the core collapses and the star explodes as a supernova. A neutron star is left, or a black hole for the most massive stars."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:5.13}} you will follow these stages on a Hertzsprung–Russell diagram."
+        },
+        {
+          "type": "example",
+          "id": "ex-triple-alpha-energy",
+          "question": "In a red giant's core, three helium-4 nuclei fuse into one carbon-12 nucleus. The nuclear masses are helium-4: 4.001506 u and carbon-12: 11.996706 u. Calculate the energy released.",
+          "steps": [
+            "Mass before: $3 \\times 4.001506 = \\pu{12.004518 u}$. Mass after: $\\pu{11.996706 u}$.",
+            "Mass defect: $\\Delta m = 12.004518 - 11.996706 = \\pu{0.007812 u}$.",
+            "$E = 0.007812 \\times 931.5 = 7.277\\ \\text{MeV}$, so 3 significant figures."
+          ],
+          "answer": "$E \\approx 7.28\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3*4.001506 - 11.996706)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-massive-star",
+          "question": "A main-sequence star has a mass of 15 solar masses. Outline its likely evolution after the main sequence.",
+          "steps": [
+            "Name the next stage and its core fusion.",
+            "Say why fusion stops at iron, then what happens to the core and what is left."
+          ],
+          "answer": "When its core hydrogen runs out, the star becomes a red supergiant. Its core fuses heavier nuclei, up to iron. Fusing iron would absorb energy, so nothing resists gravity. The core collapses and the star explodes as a supernova. It leaves a neutron star or, if the remaining core is massive enough, a black hole.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "red supergiant, fusion up to iron, core collapse, supernova, neutron star or black hole",
+            "requires": [
+              [
+                "red supergiant",
+                "supergiant"
+              ],
+              [
+                "iron"
+              ],
+              [
+                "collapses",
+                "collapse"
+              ],
+              [
+                "supernova"
+              ],
+              [
+                "neutron star",
+                "black hole"
+              ]
+            ],
+            "forbids": [
+              "white dwarf",
+              "planetary nebula",
+              "red giant"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shortest-main-sequence",
+          "prompt": "Which main-sequence star will leave the main sequence first?",
+          "hint": "More mass means more fuel, but how fast is it used?",
+          "options": [
+            {
+              "text": "the star of 12 solar masses",
+              "correct": true
+            },
+            {
+              "text": "the star of 3 solar masses",
+              "correct": false
+            },
+            {
+              "text": "the star of 1 solar mass",
+              "correct": false
+            },
+            {
+              "text": "the star of 0.5 solar masses",
+              "correct": false
+            }
+          ],
+          "explain": "The most massive star fuses fastest, so it uses up its core hydrogen first.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the star of 12 solar masses"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-iron-core",
+          "prompt": "Why can't fusion release energy once a massive star's core is iron?",
+          "hint": "Where is iron on the binding energy per nucleon curve?",
+          "options": [
+            {
+              "text": "Iron sits at the top of the binding energy per nucleon curve, so fusing it would absorb energy.",
+              "correct": true
+            },
+            {
+              "text": "Iron has the lowest binding energy per nucleon, so it cannot fuse.",
+              "correct": false
+            },
+            {
+              "text": "Iron nuclei are uncharged, so they do not collide.",
+              "correct": false
+            },
+            {
+              "text": "The core has cooled too much to fuse anything.",
+              "correct": false
+            }
+          ],
+          "explain": "Iron is at the top of the curve, so making heavier nuclei from it needs energy. The core is hottest at this stage, not cooling.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Iron sits at the top of the binding energy per nucleon curve, so fusing it would absorb energy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A star is stable when outward radiation and gas pressure balance the inward gravitational force.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "4\\,{}^{1}_{1}\\text{H} \\rightarrow {}^{4}_{2}\\text{He} + 2\\,\\mathrm{e}^{+} + 2\\,\\nu_\\text{e}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy released $=$ mass defect in u $\\times\\ 931.5$ MeV, positrons included. Luminosity $\\div$ energy per reaction $=$ reactions per second.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fusion needs a high temperature (to overcome electrostatic repulsion) and a high density (for frequent collisions).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "More massive main-sequence stars are more luminous and leave the main sequence sooner.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Up to about 8 solar masses: red giant, planetary nebula, white dwarf. Above: red supergiant, supernova, neutron star or black hole.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing only \"gravity\". Name the inward gravitational force (or pressure) and the outward radiation (or gas) pressure.",
+    "Ignoring positrons in a mass defect from nuclear masses. Subtract $\\pu{0.000549 u}$ for each.",
+    "Calling a red giant \"brighter\" or just \"hotter\". Say luminosity, and say surface or core temperature.",
+    "Sending a star of a few solar masses to a supernova. Up to about 8 solar masses, stars end as white dwarfs."
+  ],
+  "examTips": [
+    "\"Outline\" or \"describe\" equilibrium: name the inward gravitational force and the outward radiation pressure, and say they balance.",
+    "\"Calculate\" the energy released: write the mass-defect line with every particle, then multiply by 931.5.",
+    "\"Explain\" the conditions for fusion: kinetic energy to overcome repulsion, the strong force at short range, and density for frequent collisions."
+  ],
+  "readingMinutes": 23
+}

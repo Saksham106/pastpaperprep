@@ -1,0 +1,1024 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "6.1",
+  "slug": "units-measurement-and-estimation",
+  "title": "Units, measurement and estimation",
+  "level": "SL",
+  "topic": 6,
+  "summary": "Every measured value needs a unit, a sensible precision and a size you can judge. This lesson covers safe, careful measurement, [[si-unit|SI units]], prefixes and [[scientific-notation|scientific notation]], handy units such as the [[electronvolt|electronvolt]], checking equations with units, and estimating to the nearest [[order-of-magnitude|order of magnitude]].",
+  "goals": [
+    {
+      "text": "Address the safety, ethical and environmental issues in an investigation.",
+      "bullets": [
+        "T1.1"
+      ]
+    },
+    {
+      "text": "Choose and read the right instrument for each common quantity, to an appropriate precision.",
+      "bullets": [
+        "T1.2"
+      ]
+    },
+    {
+      "text": "Use SI units, prefixes and scientific notation.",
+      "bullets": [
+        "T3.1",
+        "T3.6"
+      ]
+    },
+    {
+      "text": "Express derived units in fundamental units, and use units to check an equation.",
+      "bullets": [
+        "T3.2",
+        "T3.4",
+        "T3.5"
+      ]
+    },
+    {
+      "text": "Use eV, $\\text{eV}\\,c^{-2}$, ly, pc, h, days and years where they fit, and convert them to SI.",
+      "bullets": [
+        "T3.3"
+      ]
+    },
+    {
+      "text": "Quote values, ratios and estimates to the nearest order of magnitude.",
+      "bullets": [
+        "T3.7"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "SI base units",
+    "unit prefixes conversion",
+    "standard form physics",
+    "electronvolt to joules",
+    "order of magnitude estimate",
+    "checking an equation with units"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-powers",
+      "prompt": "What is $10^{5} \\times 10^{-2}$?",
+      "hint": "Multiplying powers of ten: add the indices.",
+      "options": [
+        {
+          "text": "$10^{3}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{-10}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{7}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{-3}$",
+          "correct": false
+        }
+      ],
+      "explain": "Add the indices: $5 + (-2) = 3$, giving $10^{3}$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**5*10**-2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-speed",
+      "prompt": "A cyclist travels $\\pu{750 m}$ in $\\pu{150 s}$. Calculate the average speed in $\\text{m s}^{-1}$, to 2 significant figures.",
+      "hint": "Speed is distance divided by time.",
+      "answer": {
+        "value": 5.0,
+        "tolerance": 0.05
+      },
+      "explain": "$v = \\frac{750}{150} = \\pu{5.0 m s-1}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "750/150",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rearrange",
+      "prompt": "Rearrange $v = \\frac{s}{t}$ to make $t$ the subject.",
+      "hint": "Multiply both sides by $t$ first, then divide by $v$.",
+      "options": [
+        {
+          "text": "$t = \\frac{s}{v}$",
+          "correct": true
+        },
+        {
+          "text": "$t = sv$",
+          "correct": false
+        },
+        {
+          "text": "$t = \\frac{v}{s}$",
+          "correct": false
+        }
+      ],
+      "explain": "$v = \\frac{s}{t}$ gives $vt = s$, so $t = \\frac{s}{v}$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "s/v"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "safety",
+      "heading": "Safety, ethics and the environment",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "hazard and risk",
+          "statement": "A hazard is anything that could cause harm. Risk is how likely and how serious that harm is, as the experiment is actually done.",
+          "plain": "A laser is a hazard; the risk depends on how it is used."
+        },
+        {
+          "type": "text",
+          "text": "A risk assessment lists each hazard and the control measure that lowers its risk. Common physics hazards:"
+        },
+        {
+          "type": "text",
+          "text": "1. Electricity: use low-voltage supplies, check leads for damage and keep water away from mains equipment."
+        },
+        {
+          "type": "text",
+          "text": "2. Heaters and hot water: let them cool before handling."
+        },
+        {
+          "type": "text",
+          "text": "3. Lasers: never look along the beam, and remove shiny surfaces that could reflect it."
+        },
+        {
+          "type": "text",
+          "text": "4. Radioactive sources: use tongs and return them to their lead-lined box promptly. Less time, more distance and shielding all cut your dose."
+        },
+        {
+          "type": "text",
+          "text": "5. Stretched wires and hanging masses: wear eye protection and put something soft below."
+        },
+        {
+          "type": "text",
+          "text": "Ethical issues are about honesty and people. Record every result, including ones that don't fit, and credit others' data. If people take part, get their informed consent."
+        },
+        {
+          "type": "text",
+          "text": "Environmental issues are about waste: switch equipment off, use only the materials you need, and recycle batteries."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-precautions",
+          "question": "A student hangs slotted masses on a long, thin steel wire until it snaps, to find the force needed to break it. Suggest two safety precautions, each with a reason.",
+          "steps": [
+            "Name the hazards: the snapping wire, and the masses that then drop.",
+            "Give one control for each, with its reason."
+          ],
+          "answer": "Wear safety goggles, because the wire whips back when it snaps and could hit the eyes. Place a box of foam under the masses, because they fall when the wire breaks and could injure someone's feet.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "goggles because the wire whips back; cushion under the masses because they fall",
+            "requires": [
+              [
+                "safety goggles",
+                "eye protection"
+              ],
+              [
+                "whips back",
+                "springs back",
+                "recoils"
+              ],
+              [
+                "foam",
+                "sand",
+                "cushion"
+              ],
+              [
+                "fall",
+                "drop"
+              ]
+            ],
+            "forbids": [
+              "no precautions are needed"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-reaction-ethics",
+          "question": "A student plans to measure the reaction times of 20 classmates by catching a falling ruler. Outline the ethical issues and how the student should address them.",
+          "steps": [
+            "Ethics applies because people take part."
+          ],
+          "answer": "The classmates are human participants, so the student must get their informed consent first. Each person must be free to withdraw at any time. Results should be recorded by number, not name, so they stay anonymous.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "informed consent; free to withdraw; anonymous results",
+            "requires": [
+              [
+                "informed consent",
+                "consent"
+              ],
+              "withdraw",
+              [
+                "anonymous",
+                "anonymity"
+              ]
+            ],
+            "forbids": [
+              "no ethical issues"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-source-dose",
+          "prompt": "A student moves a sealed radioactive source between its box and a holder. Which precaution reduces the student's dose?",
+          "hint": "Think about time, distance and shielding.",
+          "options": [
+            {
+              "text": "handle it with long tongs, holding it away from the body",
+              "correct": true
+            },
+            {
+              "text": "wear a lab coat",
+              "correct": false
+            },
+            {
+              "text": "hold it close to the body in gloved hands",
+              "correct": false
+            },
+            {
+              "text": "leave it out of its box between readings",
+              "correct": false
+            }
+          ],
+          "explain": "Tongs add distance, which cuts the dose sharply. Leaving it out of its box adds exposure time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "handle it with long tongs, holding it away from the body"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-environmental-issue",
+          "prompt": "Which of these is an environmental issue, rather than a safety or ethical one?",
+          "hint": "Environmental issues are about waste and resources.",
+          "options": [
+            {
+              "text": "leaving a power supply switched on all lesson",
+              "correct": true
+            },
+            {
+              "text": "copying another group's results",
+              "correct": false
+            },
+            {
+              "text": "looking along a laser beam",
+              "correct": false
+            },
+            {
+              "text": "touching a heater that has just been used",
+              "correct": false
+            }
+          ],
+          "explain": "It wastes energy. Copying is ethical; the laser and heater are safety issues.",
+          "verify": {
+            "kind": "choice",
+            "truth": "leaving a power supply switched on all lesson"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring",
+      "heading": "Measuring to the right precision",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An instrument's resolution is the smallest change it can show: $\\pu{1 mm}$ for a metre rule. Pick an instrument whose resolution is small compared with the quantity, and read it to that resolution."
+        },
+        {
+          "type": "text",
+          "text": "Length: metre rule ($\\pu{1 mm}$), vernier calipers ($\\pu{0.1 mm}$ or better), micrometer ($\\pu{0.01 mm}$). Check for a zero error, which shifts every reading equally."
+        },
+        {
+          "type": "text",
+          "text": "Mass: an electronic balance, zeroed (tared) with any container on it."
+        },
+        {
+          "type": "text",
+          "text": "Time: a stopwatch shows $\\pu{0.01 s}$, but reaction time is about $\\pu{0.2 s}$. Time many repeats and divide, or use light gates for short intervals."
+        },
+        {
+          "type": "text",
+          "text": "Volume: a measuring cylinder, read at eye level."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-meniscus",
+          "alt": "A measuring cylinder of water with a scale every 1 cubic centimetre, labelled 36 to 44. The water surface dips in the middle; its lowest point is level with the 41 mark. An eye level with the bottom of the meniscus is labelled correct, read 41 cubic centimetres. Eyes above and below, looking at an angle, are labelled parallax error.",
+          "caption": "Read the bottom of the meniscus with your eye level with it. Looking from above or below gives a parallax error."
+        },
+        {
+          "type": "text",
+          "text": "Temperature: a thermometer or temperature probe; stir and wait for the reading to settle. Force: a newton meter or force sensor, zeroed first. Angle: a protractor, to $1^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Current and potential difference: an ammeter in series with the component, a voltmeter in parallel across it. On a digital meter, use the range that shows the most digits."
+        },
+        {
+          "type": "text",
+          "text": "Sound and light intensity: a sound level meter or a light meter (or sensors). Subtract the background reading, and keep the distance and direction fixed."
+        },
+        {
+          "type": "text",
+          "text": "Repeat readings and take the mean to reduce random scatter. Uncertainties are in {{lesson:6.3}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-timing",
+          "question": "A student times 25 complete oscillations of a pendulum and gets $\\pu{31.5 s}$. Calculate the period, and explain why timing 25 is better than timing one.",
+          "steps": [
+            "Divide the total time by the number of oscillations: $T = \\frac{31.5}{25}$.",
+            "Reaction time adds about 0.2 s of error to the total, however long it is.",
+            "Shared over 25 oscillations, that is under 0.01 s each, tiny compared with the period."
+          ],
+          "answer": "$T = \\frac{31.5}{25} = 1.26\\text{ s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "31.5/25",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-diameter",
+          "question": "A wire has a diameter of roughly 0.3 mm. Outline how to measure its diameter to an appropriate precision.",
+          "steps": [
+            "Pick the instrument: a ruler's divisions are bigger than the wire.",
+            "Then deal with zero error and with an uneven wire."
+          ],
+          "answer": "Use a micrometer screw gauge, which reads to 0.01 mm, because a ruler's resolution is larger than the wire. Close the jaws with nothing between them and note any zero error, then correct every reading for it. Measure the diameter at several points along the wire, turning it each time, and take the mean.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "micrometer to 0.01 mm; correct zero error; repeat along the wire and average",
+            "requires": [
+              "micrometer",
+              "0.01 mm",
+              "zero error",
+              [
+                "several points",
+                "different points"
+              ],
+              [
+                "mean",
+                "average"
+              ]
+            ],
+            "forbids": [
+              "metre rule is precise enough"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coin-thickness",
+          "prompt": "Which instrument should you use to measure the thickness of a coin, about 2 mm, to the nearest 0.01 mm?",
+          "hint": "Compare each instrument's resolution with 0.01 mm.",
+          "options": [
+            {
+              "text": "micrometer screw gauge",
+              "correct": true
+            },
+            {
+              "text": "metre rule",
+              "correct": false
+            },
+            {
+              "text": "tape measure",
+              "correct": false
+            },
+            {
+              "text": "protractor",
+              "correct": false
+            }
+          ],
+          "explain": "A micrometer reads to 0.01 mm; a rule or tape only to 1 mm.",
+          "verify": {
+            "kind": "choice",
+            "truth": "micrometer screw gauge"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-voltmeter",
+          "prompt": "How should a voltmeter be connected to measure the potential difference across a lamp?",
+          "hint": "A voltmeter compares the two ends of the component.",
+          "options": [
+            {
+              "text": "in parallel with the lamp",
+              "correct": true
+            },
+            {
+              "text": "in series with the lamp",
+              "correct": false
+            },
+            {
+              "text": "in series with the cell, on the far side of the circuit",
+              "correct": false
+            }
+          ],
+          "explain": "A voltmeter goes across the lamp, in parallel. An ammeter goes in series.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in parallel with the lamp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "si-units",
+      "heading": "SI units, prefixes and scientific notation",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "SI unit",
+          "statement": "A unit of the International System. Its seven fundamental (base) units are the kilogram (kg), metre (m), second (s), ampere (A), kelvin (K), mole (mol) and candela (cd); every other SI unit is built from them.",
+          "plain": "The one system of units scientists everywhere agree on."
+        },
+        {
+          "type": "text",
+          "text": "IB Physics uses the first six; the candela does not appear."
+        },
+        {
+          "type": "text",
+          "text": "Very large and very small values are written in [[scientific-notation|scientific notation]]. The speed of light, $\\pu{300000000 m s-1}$, becomes $3.00 \\times 10^{8}\\ \\text{m s}^{-1}$."
+        },
+        {
+          "type": "definition",
+          "term": "scientific notation",
+          "statement": "A number written as $a \\times 10^{n}$, where $1 \\le a < 10$ and $n$ is an integer.",
+          "plain": "One digit before the decimal point, then a power of ten to show the size."
+        },
+        {
+          "type": "text",
+          "text": "The power counts how far the decimal point moves. Negative $n$ means a number below 1: $4.2 \\times 10^{-3} = 0.0042$."
+        },
+        {
+          "type": "text",
+          "text": "An [[si-prefix|SI prefix]] does the same job. Replace it with its power of ten: $\\pu{6.5 kV} = 6.5 \\times 10^{3}\\ \\text{V}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-prefixes",
+          "alt": "A table of SI prefixes. tera, T, 10 to the 12. giga, G, 10 to the 9. mega, M, 10 to the 6. kilo, k, 10 to the 3. centi, c, 10 to the minus 2. milli, m, 10 to the minus 3. micro, the Greek letter mu, 10 to the minus 6. nano, n, 10 to the minus 9. pico, p, 10 to the minus 12. femto, f, 10 to the minus 15. Each has an example unit, such as GHz, MeV, mA, nm and fm.",
+          "caption": "The prefixes you meet most often. The full list is in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "Case matters: $\\text{m}$ is milli but $\\text{M}$ is mega."
+        },
+        {
+          "type": "text",
+          "text": "When a prefixed unit is squared or cubed, the power of ten is too: $\\pu{1 cm2} = (10^{-2}\\ \\text{m})^{2} = 10^{-4}\\ \\text{m}^{2}$ and $\\pu{1 cm3} = 10^{-6}\\ \\text{m}^{3}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Converting $\\text{cm}^{2}$ to $\\text{m}^{2}$ by dividing by 100. Square the prefix as well: divide by $10^{4}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-current-micro",
+          "question": "A sensor draws a current of $\\pu{35 \\mu A}$. Write this current in amperes, in scientific notation.",
+          "steps": [
+            "Replace the prefix: $\\mu = 10^{-6}$, so $I = 35 \\times 10^{-6}\\ \\text{A}$.",
+            "Bring the number into the range 1 to 10: $35 = 3.5 \\times 10^{1}$.",
+            "Add the indices: $10^{1} \\times 10^{-6} = 10^{-5}$."
+          ],
+          "answer": "$I = 3.5 \\times 10^{-5}\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "35*10**-6",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pressure-cm2",
+          "question": "Pressure is force divided by the area it acts on. A force of $\\pu{18 N}$ presses on an area of $\\pu{2.5 cm2}$. Calculate the pressure in pascals ($\\text{N m}^{-2}$).",
+          "steps": [
+            "Convert the area to $\\text{m}^{2}$ first: $2.5 \\times 10^{-4}\\ \\text{m}^{2}$.",
+            "Substitute: $p = \\frac{F}{A} = \\frac{18}{2.5 \\times 10^{-4}}$.",
+            "Dividing by $10^{-4}$ multiplies by $10^{4}$: $7.2 \\times 10^{4}$.",
+            "Both data have 2 significant figures, so the answer has 2."
+          ],
+          "answer": "$p = 7.2 \\times 10^{4}\\ \\text{Pa}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "18/(2.5*10**-4)",
+            "unit": "Pa"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wavelength-metres",
+          "prompt": "Red light has a wavelength of $\\pu{650 nm}$. What is this in metres?",
+          "hint": "Nano means $10^{-9}$.",
+          "options": [
+            {
+              "text": "$6.5 \\times 10^{-7}\\ \\text{m}$",
+              "correct": true
+            },
+            {
+              "text": "$6.5 \\times 10^{-10}\\ \\text{m}$",
+              "correct": false
+            },
+            {
+              "text": "$6.5 \\times 10^{-4}\\ \\text{m}$",
+              "correct": false
+            },
+            {
+              "text": "$6.5 \\times 10^{-12}\\ \\text{m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$650 \\times 10^{-9} = 6.5 \\times 10^{2} \\times 10^{-9} = 6.5 \\times 10^{-7}\\ \\text{m}$. The answer $6.5 \\times 10^{-10}$ forgets that 650 is $6.5 \\times 10^{2}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "650*10**-9",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-density-units",
+          "prompt": "Aluminium has a [[density|density]] of $\\pu{2.7 g cm-3}$. Convert this to $\\text{kg m}^{-3}$, to 2 significant figures.",
+          "hint": "$\\pu{1 g} = 10^{-3}\\ \\text{kg}$ and $\\pu{1 cm3} = 10^{-6}\\ \\text{m}^{3}$.",
+          "answer": {
+            "value": 2700,
+            "tolerance": 50
+          },
+          "explain": "$\\frac{2.7 \\times 10^{-3}\\ \\text{kg}}{10^{-6}\\ \\text{m}^{3}} = 2.7 \\times 10^{3}\\ \\text{kg m}^{-3} = \\pu{2700 kg m-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.7*10**-3/10**-6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "derived-units",
+      "heading": "Fundamental and derived units",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A derived unit is built from fundamental units by the equation that defines the quantity. The newton comes from $F = ma$: $\\text{N} = \\text{kg} \\times \\text{m s}^{-2} = \\text{kg m s}^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "To convert any unit: write a defining equation, replace each quantity by its fundamental units, then collect the powers."
+        },
+        {
+          "type": "text",
+          "text": "The joule follows from work $=$ force $\\times$ distance: $\\text{J} = \\text{N m} = \\text{kg m}^{2}\\,\\text{s}^{-2}$. The coulomb follows from $Q = It$: $\\text{C} = \\text{A s}$."
+        },
+        {
+          "type": "text",
+          "text": "Units also catch mistakes. You can only add, subtract or equate quantities with the same units, so every term of a correct equation has the same units."
+        },
+        {
+          "type": "result",
+          "statement": "If the units of an equation's terms do not match, the equation is wrong. If they do match, it may still be wrong, because units cannot show a missing number such as $\\frac{1}{2}$ or $2\\pi$.",
+          "why": "Every term in a true equation describes the same kind of quantity, but unitless numbers leave no trace in the units."
+        },
+        {
+          "type": "example",
+          "id": "ex-ohm-base-units",
+          "question": "Express the ohm in fundamental SI units.",
+          "steps": [
+            "Resistance is $R = \\frac{V}{I}$, so $\\Omega = \\text{V A}^{-1}$.",
+            "Potential difference is energy per charge, $V = \\frac{W}{Q}$, so $\\text{V} = \\text{J C}^{-1} = \\text{J A}^{-1}\\,\\text{s}^{-1}$.",
+            "Substitute $\\text{J} = \\text{kg m}^{2}\\,\\text{s}^{-2}$: $\\text{V} = \\text{kg m}^{2}\\,\\text{s}^{-3}\\,\\text{A}^{-1}$.",
+            "Divide by one more ampere for the ohm."
+          ],
+          "answer": "Since $R = \\frac{V}{I}$ and $\\text{V} = \\text{kg m}^{2}\\,\\text{s}^{-3}\\,\\text{A}^{-1}$, the ohm is $\\text{kg m}^{2}\\,\\text{s}^{-3}\\,\\text{A}^{-2}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ohm = V A^-1 = kg m2 s-3 A-2",
+            "requires": [
+              "$R = \\frac{V}{I}$",
+              "$\\text{kg m}^{2}\\,\\text{s}^{-3}\\,\\text{A}^{-1}$",
+              "$\\text{kg m}^{2}\\,\\text{s}^{-3}\\,\\text{A}^{-2}$"
+            ],
+            "forbids": [
+              "$\\text{kg m}^{2}\\,\\text{s}^{-2}\\,\\text{A}^{-2}$"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-period-check",
+          "question": "A student writes the period of a mass $m$ on a spring as $T = 2\\pi\\sqrt{\\frac{k}{m}}$, where the spring constant $k$ is in $\\text{N m}^{-1}$. Use units to show that this cannot be right, and suggest a form that passes the check.",
+          "steps": [
+            "Fundamental units of $k$: $\\text{N m}^{-1} = \\text{kg m s}^{-2} \\times \\text{m}^{-1} = \\text{kg s}^{-2}$.",
+            "Then $\\frac{k}{m}$ has units $\\frac{\\text{kg s}^{-2}}{\\text{kg}} = \\text{s}^{-2}$, and its square root has units $\\text{s}^{-1}$.",
+            "Turning the fraction over gives $\\sqrt{\\text{s}^{2}} = \\text{s}$, which matches. The check cannot confirm the $2\\pi$."
+          ],
+          "answer": "The units of $k$ are $\\text{kg s}^{-2}$, so $\\sqrt{\\frac{k}{m}}$ has units of $\\text{s}^{-1}$, not seconds. The two sides do not match, so the equation is wrong. The form $T = 2\\pi\\sqrt{\\frac{m}{k}}$ has units of seconds, so it passes the check.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "sqrt(k/m) has units s^-1, not s; sqrt(m/k) gives s",
+            "requires": [
+              "$\\text{kg s}^{-2}$",
+              "$\\text{s}^{-1}$",
+              [
+                "do not match",
+                "not seconds"
+              ],
+              "$T = 2\\pi\\sqrt{\\frac{m}{k}}$"
+            ],
+            "forbids": [
+              "the units match, so the equation is correct"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spring-constant-units",
+          "prompt": "A quantity has fundamental SI units of $\\text{kg s}^{-2}$. Which quantity is it?",
+          "hint": "Write the newton as $\\text{kg m s}^{-2}$, then look for a quantity that divides it by a metre.",
+          "options": [
+            {
+              "text": "the spring constant",
+              "correct": true
+            },
+            {
+              "text": "the energy stored in a spring",
+              "correct": false
+            },
+            {
+              "text": "the tension in a spring",
+              "correct": false
+            },
+            {
+              "text": "the extension of a spring",
+              "correct": false
+            }
+          ],
+          "explain": "The spring constant is force per extension: $\\text{N m}^{-1} = \\text{kg m s}^{-2} \\times \\text{m}^{-1} = \\text{kg s}^{-2}$. Energy is $\\text{kg m}^{2}\\,\\text{s}^{-2}$ and tension is $\\text{kg m s}^{-2}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the spring constant"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-homogeneous",
+          "prompt": "$a$ is an acceleration and $t$ is a time. Which kind of quantity could $\\frac{1}{2}at^{2}$ be?",
+          "hint": "Multiply the units: $\\text{m s}^{-2} \\times \\text{s}^{2}$.",
+          "options": [
+            {
+              "text": "a displacement",
+              "correct": true
+            },
+            {
+              "text": "a velocity",
+              "correct": false
+            },
+            {
+              "text": "an acceleration",
+              "correct": false
+            },
+            {
+              "text": "a time",
+              "correct": false
+            }
+          ],
+          "explain": "$\\text{m s}^{-2} \\times \\text{s}^{2} = \\text{m}$: a length, such as a displacement.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a displacement"
+          }
+        }
+      ]
+    },
+    {
+      "id": "other-units",
+      "heading": "Units that suit the problem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A particle's energy in joules is tiny, and a star's distance in metres is huge. Units that fit the scale are easier; convert to SI before calculating."
+        },
+        {
+          "type": "definition",
+          "term": "electronvolt",
+          "statement": "The energy gained by one electron when it is accelerated through a potential difference of $\\pu{1 V}$. $\\pu{1 eV} = 1.60 \\times 10^{-19}\\ \\text{J}$.",
+          "plain": "A tiny energy unit sized for single particles."
+        },
+        {
+          "type": "text",
+          "text": "The [[electronvolt|electronvolt]] comes from $W = qV$ with $q = e$, the elementary charge. With prefixes you get keV, MeV and GeV."
+        },
+        {
+          "type": "text",
+          "text": "Since $E = mc^{2}$, a mass can be given as an energy divided by $c^{2}$. The unit is $\\text{eV}\\,c^{-2}$ or $\\text{MeV}\\,c^{-2}$: an electron's rest mass is $0.511\\ \\text{MeV}\\,c^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "For astronomical distances, the light-year (ly) is the distance light travels in one year, $9.46 \\times 10^{15}\\ \\text{m}$. A light-year is a distance, not a time."
+        },
+        {
+          "type": "text",
+          "text": "The [[parsec|parsec]] (pc) is $3.26\\ \\text{ly}$. Both conversions, the value of $e$ and the electron's mass are in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "Hours (h), days and years suit half-lives and ages. In seconds: $\\pu{1 h} = \\pu{3600 s}$, 1 day $= \\pu{86400 s}$, 1 year $\\approx 3.16 \\times 10^{7}\\ \\text{s}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-alpha-joules",
+          "question": "An alpha particle has a kinetic energy of $4.8\\ \\text{MeV}$. Convert this to joules.",
+          "steps": [
+            "Replace the prefix: $4.8\\ \\text{MeV} = 4.8 \\times 10^{6}\\ \\text{eV}$.",
+            "Multiply by the joules in one electronvolt: $4.8 \\times 10^{6} \\times 1.60 \\times 10^{-19}$.",
+            "$4.8 \\times 1.60 = 7.68$ and $10^{6} \\times 10^{-19} = 10^{-13}$, so $7.68 \\times 10^{-13}\\ \\text{J}$.",
+            "Round to 2 significant figures, as in the data."
+          ],
+          "answer": "$E_\\text{k} \\approx 7.7 \\times 10^{-13}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.8*MeV",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-star-distance",
+          "question": "A star is $\\pu{2.6 pc}$ from the Sun. Find its distance in light-years, then in metres.",
+          "steps": [
+            "Parsecs to light-years: $2.6 \\times 3.26 = 8.476\\ \\text{ly} \\approx 8.5\\ \\text{ly}$.",
+            "Light-years to metres: $8.476 \\times 9.46 \\times 10^{15}$. Use the unrounded value.",
+            "$8.476 \\times 9.46 = 80.18$, so the distance is $80.18 \\times 10^{15} = 8.018 \\times 10^{16}\\ \\text{m}$.",
+            "Give 2 significant figures, as in the data."
+          ],
+          "answer": "$d \\approx 8.0 \\times 10^{16}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.6*pc",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ev-energy",
+          "prompt": "An electron starts at rest and is accelerated through a potential difference of $\\pu{250 V}$. What kinetic energy does it gain, in joules?",
+          "hint": "It gains $\\pu{250 eV}$. Now convert to joules.",
+          "options": [
+            {
+              "text": "$4.00 \\times 10^{-17}\\ \\text{J}$",
+              "correct": true
+            },
+            {
+              "text": "$6.40 \\times 10^{-22}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$2.50 \\times 10^{2}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$1.60 \\times 10^{-19}\\ \\text{J}$",
+              "correct": false
+            }
+          ],
+          "explain": "$W = qV = 1.60 \\times 10^{-19} \\times 250 = 4.00 \\times 10^{-17}\\ \\text{J}$, which is $\\pu{250 eV}$. Dividing by 250 instead gives $6.40 \\times 10^{-22}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "e*250",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hours-seconds",
+          "prompt": "A lamp is left on for $\\pu{2.5 h}$. How long is this in seconds? Give 2 significant figures.",
+          "hint": "There are $60 \\times 60$ seconds in an hour.",
+          "answer": {
+            "value": 9000,
+            "tolerance": 50
+          },
+          "explain": "$2.5 \\times 3600 = \\pu{9000 s}$, or $9.0 \\times 10^{3}\\ \\text{s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.5*3600",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "orders-of-magnitude",
+      "heading": "Orders of magnitude",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often you only need to know roughly how big something is: nearer a thousand or a million?"
+        },
+        {
+          "type": "definition",
+          "term": "order of magnitude",
+          "statement": "The power of ten closest to a value. On a logarithmic scale, the halfway point between $10^{n}$ and $10^{n+1}$ is $10^{n + 0.5} \\approx 3.16 \\times 10^{n}$.",
+          "plain": "The size of a number to the nearest power of ten."
+        },
+        {
+          "type": "text",
+          "text": "So $2 \\times 10^{4}$ has an [[order-of-magnitude|order of magnitude]] of $10^{4}$, but $6 \\times 10^{4}$ is nearer $10^{5}$. Don't just copy the power from scientific notation."
+        },
+        {
+          "type": "text",
+          "text": "To compare two values, divide them and find the order of magnitude of the ratio. A ratio of about $10^{3}$ means one is three orders of magnitude bigger than the other."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-length-scales",
+          "alt": "A horizontal axis of length in metres with equal spacing for each power of ten, from 10 to the minus 15 to 10 to the 21. Marked: proton 10 to the minus 15, atom 10 to the minus 10, cell 10 to the minus 5, person 10 to the 0, Earth's radius 10 to the 7, Earth to Sun 10 to the 11, nearest star 10 to the 17, Milky Way 10 to the 21 metres.",
+          "caption": "These lengths span 36 orders of magnitude."
+        },
+        {
+          "type": "text",
+          "text": "An estimate uses rounded values you can judge, with your assumptions stated. Give the result to one significant figure or as a power of ten."
+        },
+        {
+          "type": "example",
+          "id": "ex-earth-atom-ratio",
+          "question": "The Earth's radius is $6.4 \\times 10^{6}\\ \\text{m}$ and a hydrogen atom's radius is about $5 \\times 10^{-11}\\ \\text{m}$. Find the order of magnitude of the ratio of the two radii.",
+          "steps": [
+            "Divide: $\\frac{6.4 \\times 10^{6}}{5 \\times 10^{-11}} = 1.28 \\times 10^{17}$.",
+            "$1.28$ is below $3.16$, so the nearest power of ten is $10^{17}$.",
+            "The Earth's radius is 17 orders of magnitude bigger than the atom's."
+          ],
+          "answer": "$10^{17}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "10**floor(log(6.4*10**6/(5*10**-11), 10) + Rational(1, 2))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-classroom-air",
+          "question": "Estimate the mass of the air in a classroom, to the nearest order of magnitude. The density of air is about $\\pu{1.2 kg m-3}$.",
+          "steps": [
+            "Assume a room about 8 m long, 6 m wide and 3 m high.",
+            "Volume: $8 \\times 6 \\times 3 = \\pu{144 m3}$.",
+            "Mass $=$ density $\\times$ volume: $1.2 \\times 144 \\approx \\pu{170 kg}$.",
+            "$1.7 \\times 10^{2}$ is below $3.16 \\times 10^{2}$, so the order of magnitude is $10^{2}$."
+          ],
+          "answer": "$10^{2}\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "10**floor(log(8*6*3*1.2, 10) + Rational(1, 2))",
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electron-mass-oom",
+          "prompt": "The mass of an electron is $9.11 \\times 10^{-31}\\ \\text{kg}$. What is its order of magnitude?",
+          "hint": "Is $9.11$ nearer 1 or 10 on a logarithmic scale?",
+          "options": [
+            {
+              "text": "$10^{-30}\\ \\text{kg}$",
+              "correct": true
+            },
+            {
+              "text": "$10^{-31}\\ \\text{kg}$",
+              "correct": false
+            },
+            {
+              "text": "$10^{-32}\\ \\text{kg}$",
+              "correct": false
+            },
+            {
+              "text": "$10^{-29}\\ \\text{kg}$",
+              "correct": false
+            }
+          ],
+          "explain": "$9.11$ is above $3.16$, so $9.11 \\times 10^{-31}$ rounds up to $10^{-30}\\ \\text{kg}$. Copying the power gives $10^{-31}$, which is wrong.",
+          "verify": {
+            "kind": "exact",
+            "truth": "10**floor(log(me, 10) + Rational(1, 2))",
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-proton-electron",
+          "prompt": "Using the data booklet masses, by how many orders of magnitude is the mass of a proton bigger than the mass of an electron?",
+          "hint": "Divide the masses, then find the nearest power of ten.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1.673 \\times 10^{-27}}{9.110 \\times 10^{-31}} \\approx 1840$, which is nearest to $10^{3}$, so 3 orders of magnitude.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "floor(log(mp/me, 10) + Rational(1, 2))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Fundamental SI units: kg, m, s, A, K, mol (and cd). Derived units come from defining equations.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\text{N} = \\text{kg m s}^{-2}$, $\\text{J} = \\text{kg m}^{2}\\,\\text{s}^{-2}$, $\\text{C} = \\text{A s}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Scientific notation: $a \\times 10^{n}$ with $1 \\le a < 10$. A prefix is a power of ten; square or cube it with the unit ($\\pu{1 cm2} = 10^{-4}\\ \\text{m}^{2}$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\pu{1 eV} = 1.60 \\times 10^{-19}\\ \\text{J}$; $\\pu{1 ly} = 9.46 \\times 10^{15}\\ \\text{m}$; $\\pu{1 pc} = 3.26\\ \\text{ly}$; $\\pu{1 h} = \\pu{3600 s}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every term of a correct equation has the same units. Matching units do not prove an equation right.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Order of magnitude: the nearest power of ten, with the halfway point at about $3.16 \\times 10^{n}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Read to the resolution, check zero errors, read at eye level, and time many repeats.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Mixing up prefix case: $\\text{mW}$ is a milliwatt, $\\text{MW}$ a megawatt.",
+    "Taking the power in scientific notation as the order of magnitude. $8 \\times 10^{5}$ is nearer $10^{6}$ than $10^{5}$.",
+    "Treating the light-year as a time. It is the distance light travels in a year.",
+    "Trusting an equation because its units match. Units can't show a missing $\\frac{1}{2}$ or $2\\pi$.",
+    "Reading a meniscus from above, or forgetting a zero error. Read at eye level, and check the zero before you start."
+  ],
+  "examTips": [
+    "Paper 1A unit questions: build the unit step by step from equations you know ($F = ma$, $W = Fs$, $P = \\frac{W}{t}$, $Q = It$, $V = \\frac{W}{Q}$).",
+    "\"Estimate\": write down your rounded values and assumptions, then give one significant figure or a power of ten.",
+    "\"Suggest\" a precaution: give the control measure and the hazard it deals with, joined by \"because\".",
+    "Give every final answer with a unit, in scientific notation when it is very large or small, and to the significant figures of the least precise datum."
+  ],
+  "readingMinutes": 30
+}

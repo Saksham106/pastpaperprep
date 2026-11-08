@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.8",
+  "slug": "activity-and-half-life",
+  "title": "Activity and half-life",
+  "level": "SL",
+  "topic": 5,
+  "summary": "In [[radioactive-decay|radioactive decay]] you can't say when one nucleus will decay, but a large sample behaves predictably. Its [[activity|activity]] (decays per second) halves every [[half-life|half-life]], whatever the starting amount. A detector measures a [[count-rate|count rate]], which also includes [[background-radiation|background radiation]], so you subtract the background before you use half-lives.",
+  "goals": [
+    {
+      "text": "Explain what activity, count rate and half-life mean, and read a half-life from a decay graph.",
+      "bullets": [
+        "E.3-s11"
+      ]
+    },
+    {
+      "text": "Work out the activity, count rate or number of nuclei left after a whole number of half-lives, and the time taken to fall to a given value.",
+      "bullets": [
+        "E.3-s12"
+      ]
+    },
+    {
+      "text": "Correct a count rate for background radiation, and explain why the measured count rate does not halve in one half-life.",
+      "bullets": [
+        "E.3-s13"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "half life calculations",
+    "activity becquerel",
+    "count rate background",
+    "corrected count rate",
+    "radioactive dating",
+    "how to find half-life from a graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-random-nucleus",
+      "prompt": "Which statement about one unstable nucleus is correct?",
+      "hint": "Think about what \"random\" means for a single nucleus.",
+      "options": [
+        {
+          "text": "You cannot predict when it will decay.",
+          "correct": true
+        },
+        {
+          "text": "It decays as soon as it is one half-life old.",
+          "correct": false
+        },
+        {
+          "text": "Cooling it down makes it decay later.",
+          "correct": false
+        },
+        {
+          "text": "It always decays within one hour.",
+          "correct": false
+        }
+      ],
+      "explain": "[[radioactive-decay|Radioactive decay]] is random and spontaneous. Nothing outside the nucleus, such as temperature, changes when it decays. Revise it in {{lesson:5.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "You cannot predict when it will decay."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-most-ionising",
+      "prompt": "Which radiation causes the most [[ionisation|ionisation]] per millimetre of air it passes through?",
+      "hint": "The most ionising radiation loses its energy fastest, so it has the shortest range.",
+      "options": [
+        {
+          "text": "alpha particles",
+          "correct": true
+        },
+        {
+          "text": "beta particles",
+          "correct": false
+        },
+        {
+          "text": "gamma rays",
+          "correct": false
+        }
+      ],
+      "explain": "Alpha particles are heavy and carry charge $+2e$, so they ionise strongly and stop after a few centimetres of air. A detector counts radiation by the ionisation it causes. Revise it in {{lesson:5.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "alpha particles"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-halve-four-times",
+      "prompt": "You halve a quantity, then halve the result, four times in total. What fraction of the original is left?",
+      "hint": "Multiply by $\\tfrac{1}{2}$ four times.",
+      "options": [
+        {
+          "text": "$\\tfrac{1}{16}$",
+          "correct": true
+        },
+        {
+          "text": "$\\tfrac{1}{8}$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{1}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{1}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left(\\tfrac{1}{2}\\right)^{4} = \\tfrac{1}{16}$. Halving four times is not the same as dividing by 4 or by 8.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(1, 2)**4"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "activity-half-life",
+      "heading": "Activity, count rate and half-life",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One nucleus decays at a random moment. But even a milligram of a radioactive material holds around $10^{18}$ nuclei, so the randomness averages out. The number decaying each second follows a clear pattern."
+        },
+        {
+          "type": "definition",
+          "term": "activity",
+          "statement": "The [[activity|activity]] $A$ of a sample is the number of nuclei that decay per unit time. Its unit is the becquerel: $\\pu{1 Bq}$ is one decay per second.",
+          "plain": "How many decays happen in the sample each second."
+        },
+        {
+          "type": "text",
+          "text": "More undecayed nuclei means more decays each second. So as the sample decays, its activity falls."
+        },
+        {
+          "type": "text",
+          "text": "You can't count every decay. A detector, such as a Geiger–Müller tube, records only some of them. The number it records per second (or per minute) is the [[count-rate|count rate]]."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-detector-fraction",
+          "alt": "A small radioactive source on the left sends radiation out in all directions, shown by sixteen short arrows. A Geiger-Muller tube on the right points at the source. Two dashed lines from the source to the edges of the tube's window mark a narrow cone. Only radiation inside this cone can enter the tube. The tube is wired to a counter.",
+          "caption": "The source emits in all directions, but only radiation heading into the window can be counted. So the count rate is much less than the activity."
+        },
+        {
+          "type": "text",
+          "text": "If the source and detector stay in the same places, the count rate is a fixed fraction of the activity. So the count rate falls in step with the activity: when the activity halves, so does the count rate."
+        },
+        {
+          "type": "definition",
+          "term": "half-life",
+          "statement": "The [[half-life|half-life]] $T_{\\frac{1}{2}}$ of a nuclide is the time taken for the number of undecayed nuclei, or the activity, to fall to half of its value.",
+          "plain": "How long it takes for half of what is left to decay."
+        },
+        {
+          "type": "text",
+          "text": "Half-life is the same whenever you start the clock. From 800 Bq to 400 Bq takes one half-life. So does 400 Bq to 200 Bq. It is a property of the nuclide, so it doesn't depend on the size of the sample."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-half-life-curve",
+          "alt": "Graph of activity in becquerels against time in minutes, from 0 to 25 minutes. The curve starts at 800 Bq and falls steeply, then more gently. Dashed lines show it reaches 400 Bq at 5 minutes, 200 Bq at 10 minutes and 100 Bq at 15 minutes. Each halving takes the same 5 minutes.",
+          "caption": "A nuclide with a half-life of 5 minutes. Every 5 minutes the activity halves. The curve gets close to zero but never quite reaches it."
+        },
+        {
+          "type": "example",
+          "id": "ex-half-life-from-graph",
+          "question": "A student plots the activity of a sample against time and draws a smooth curve. The curve passes through $\\pu{1200 Bq}$ at $t = 0$, $\\pu{600 Bq}$ at $t = \\pu{7.5 min}$ and $\\pu{300 Bq}$ at $t = \\pu{15.2 min}$. Determine the half-life of the nuclide.",
+          "steps": [
+            "Find each time the activity halves. From $1200$ to $\\pu{600 Bq}$ takes $7.5 - 0 = \\pu{7.5 min}$.",
+            "From $600$ to $\\pu{300 Bq}$ takes $15.2 - 7.5 = \\pu{7.7 min}$.",
+            "The two readings differ a little because points on a hand-drawn curve are uncertain. Take the mean: $\\frac{7.5 + 7.7}{2} = \\pu{7.6 min}$.",
+            "The two values agree closely, as they should: the half-life is the same whatever value you start from."
+          ],
+          "answer": "$T_{\\frac{1}{2}} \\approx 7.6\\ \\text{min}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "((7.5 - 0) + (15.2 - 7.5))/2",
+            "sf": 2,
+            "unit": "min"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"determine\" a half-life from a graph, read at least two halvings from different starting values and average them. Draw the construction lines on the graph so the examiner can see your readings."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-count-rate",
+          "question": "A Geiger–Müller tube is placed $\\pu{20 cm}$ from a small beta source. Explain why the count rate recorded is less than the activity of the source.",
+          "steps": [
+            "Marking point 1: the source emits radiation in all directions, so most of it never reaches the tube.",
+            "Marking point 2: some radiation heading for the tube is absorbed by the air or the tube's window.",
+            "Marking point 3: not every particle that enters the tube is detected.",
+            "Conclusion: only a fraction of the decays are counted."
+          ],
+          "answer": "The source emits radiation in all directions, so only a small fraction of it travels towards the tube. Some of the radiation heading for the tube is absorbed by the air or by the tube's window before it gets in. Not every particle that enters the tube is detected. So only some of the decays are counted, and the count rate is less than the activity.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "radiation emitted in all directions; some absorbed before reaching the detector; not all entering radiation is detected",
+            "requires": [
+              [
+                "all directions"
+              ],
+              [
+                "absorbed"
+              ],
+              [
+                "not every",
+                "not all"
+              ],
+              [
+                "less than the activity"
+              ]
+            ],
+            "forbids": [
+              "equal to the activity",
+              "count rate is the activity"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-activity-from-decays",
+          "prompt": "In $\\pu{2.0 min}$, $5.4 \\times 10^{6}$ nuclei in a long-lived sample decay. What is the activity of the sample, in Bq? Give 2 significant figures.",
+          "hint": "Activity is decays per second. Convert the time to seconds first.",
+          "answer": {
+            "value": 45000,
+            "tolerance": 500
+          },
+          "explain": "$\\pu{2.0 min} = \\pu{120 s}$, so $A = \\frac{5.4 \\times 10^{6}}{120} = \\pu{4.5e4 Bq}$. Dividing by 2.0 instead gives decays per minute, not becquerels.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.4*10**6/(2.0*60)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-sample",
+          "prompt": "Sample X contains 2 g of a nuclide. Sample Y contains 4 g of the same nuclide. How does the half-life of Y compare with that of X?",
+          "hint": "Half-life is a property of the nuclide. What changes with more nuclei is the activity.",
+          "options": [
+            {
+              "text": "the same",
+              "correct": true
+            },
+            {
+              "text": "twice as long",
+              "correct": false
+            },
+            {
+              "text": "half as long",
+              "correct": false
+            }
+          ],
+          "explain": "Each nucleus has the same chance of decaying, however many others there are. Y has twice the activity of X, but both halve in the same time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "whole-half-lives",
+      "heading": "Changes over whole half-lives",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "After one half-life, $\\tfrac{1}{2}$ of the nuclei are left undecayed. After two, half of that half: $\\tfrac{1}{4}$. After three, $\\tfrac{1}{8}$. Each half-life multiplies what is left by $\\tfrac{1}{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "N = N_0\\left(\\tfrac{1}{2}\\right)^{n} \\qquad A = A_0\\left(\\tfrac{1}{2}\\right)^{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$n$ is the number of half-lives that have passed, so $n = \\frac{t}{T_{\\frac{1}{2}}}$. $N_0$ and $A_0$ are the values at the start. The count rate from the source (with background removed) follows the same rule."
+        },
+        {
+          "type": "text",
+          "text": "These rules are not in the SL data booklet, so learn them. At SL, $n$ is always a whole number. A table of halvings works just as well as the formula."
+        },
+        {
+          "type": "example",
+          "id": "ex-tracer-after-18h",
+          "question": "A hospital prepares a gamma-emitting tracer with an activity of $\\pu{4.8e8 Bq}$. The nuclide has a half-life of $\\pu{6.0 h}$. The tracer is used 18 hours later. Calculate its activity then.",
+          "steps": [
+            "Number of half-lives: $n = \\frac{18}{6.0} = 3$.",
+            "Multiply by $\\tfrac{1}{2}$ three times: $A = 4.8 \\times 10^{8} \\times \\left(\\tfrac{1}{2}\\right)^{3} = \\frac{4.8 \\times 10^{8}}{8}$.",
+            "$A = \\pu{6.0e7 Bq}$.",
+            "Check with a table: $4.8 \\times 10^{8} \\to 2.4 \\times 10^{8} \\to 1.2 \\times 10^{8} \\to 6.0 \\times 10^{7}$ Bq."
+          ],
+          "answer": "$A \\approx 6.0 \\times 10^{7}\\ \\text{Bq}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.8*10**8*Rational(1, 2)**(18/6.0)",
+            "sf": 2,
+            "unit": "Bq"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-time-to-fall",
+          "question": "Engineers trace a leak in an underground pipe with a nuclide of half-life $\\pu{15 h}$. Its activity starts at $\\pu{2400 Bq}$. Determine how long it takes for the activity to fall to $\\pu{150 Bq}$.",
+          "steps": [
+            "Find the fraction left: $\\frac{150}{2400} = \\frac{1}{16}$.",
+            "$\\frac{1}{16} = \\left(\\tfrac{1}{2}\\right)^{4}$, so 4 half-lives have passed. As a table: $2400 \\to 1200 \\to 600 \\to 300 \\to 150$.",
+            "Time: $t = 4 \\times 15 = \\pu{60 h}$."
+          ],
+          "answer": "$t = 60\\ \\text{h}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "15*log(Rational(2400, 150), 2)",
+            "unit": "h"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a sample is all gone after two half-lives. Half of what is *left* decays in each half-life, so after two half-lives $\\tfrac{1}{4}$ is still undecayed and $\\tfrac{3}{4}$ has decayed."
+        },
+        {
+          "type": "text",
+          "text": "Half-life decides which nuclide suits a job. A medical tracer needs a half-life of hours: long enough for a scan, short enough to keep the patient's dose low. A thickness gauge needs years, so its count rate stays steady during production."
+        },
+        {
+          "type": "text",
+          "text": "Radioactive dating works the other way round. If a rock had none of the stable product when it formed, the ratio of product to parent nuclei tells you how many half-lives have passed. The parent's half-life must be similar in size to the age you want to measure."
+        },
+        {
+          "type": "check",
+          "id": "check-rock-age",
+          "prompt": "A mineral contained a parent nuclide and none of its stable daughter when it formed. Each decay makes one daughter nucleus, which stays in the mineral. Today there are 7 daughter nuclei for every parent nucleus. The parent's half-life is $1.3 \\times 10^{9}$ years. How old is the mineral, in years? Give 2 significant figures.",
+          "hint": "Out of every 8 nuclei the mineral started with, how many parent nuclei are left?",
+          "answer": {
+            "value": 3900000000,
+            "tolerance": 50000000
+          },
+          "explain": "The parent nuclei left are $\\frac{1}{1 + 7} = \\frac{1}{8} = \\left(\\tfrac{1}{2}\\right)^{3}$ of the original. So 3 half-lives have passed: $3 \\times 1.3 \\times 10^{9} = 3.9 \\times 10^{9}$ years. Using $\\frac{1}{7}$ is the common slip.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.3*10**9*log(1 + 7, 2)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-leak-isotope",
+          "prompt": "A tracer is added to water in a pipe to find where it leaks. Which half-life suits the tracer best?",
+          "hint": "It must last long enough to be detected, then stop being a hazard.",
+          "options": [
+            {
+              "text": "a few hours",
+              "correct": true
+            },
+            {
+              "text": "a few seconds",
+              "correct": false
+            },
+            {
+              "text": "a few thousand years",
+              "correct": false
+            }
+          ],
+          "explain": "A half-life of seconds would leave almost nothing by the time the water reaches the leak. A half-life of thousands of years would leave the ground radioactive long after the job is done.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a few hours"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find the activity after any time, not only whole half-lives, using the decay constant and $N = N_0\\mathrm{e}^{-\\lambda t}$.",
+          "lesson": "5.10"
+        }
+      ]
+    },
+    {
+      "id": "background",
+      "heading": "Background radiation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Switch on a counter with no source nearby, and it still clicks. This is [[background-radiation|background radiation]]. It comes from radon gas in the air, rocks and building materials, cosmic rays, food and medical uses."
+        },
+        {
+          "type": "text",
+          "text": "Background is random, but its average stays steady over an experiment. It doesn't come from your source, so it doesn't halve when your source does."
+        },
+        {
+          "type": "text",
+          "text": "A counter near a source records the source's count rate plus the background. To find the source's part, measure the background with the source removed. Then subtract it from every reading. The result is the corrected count rate."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{corrected count rate} = \\text{measured count rate} - \\text{background count rate}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "5-8-background-level",
+          "alt": "Graph of count rate in counts per minute against time in minutes, from 0 to 24 minutes. The measured count rate starts at 630 and falls, then levels off at a dashed horizontal line at 30 counts per minute, labelled background. A second, lower dashed curve, the corrected count rate, starts at 600 and falls towards zero, halving every 4 minutes. The gap between the two curves is always 30.",
+          "caption": "The measured count rate levels off at the background, not at zero. Only the corrected count rate halves every half-life."
+        },
+        {
+          "type": "example",
+          "id": "ex-reading-after-24-days",
+          "question": "A counter next to a source reads $\\pu{515 counts min-1}$. The background is $\\pu{35 counts min-1}$. The nuclide has a half-life of 8.0 days. Calculate what the counter will read 24 days later.",
+          "steps": [
+            "Remove the background: $515 - 35 = \\pu{480 counts min-1}$ from the source.",
+            "Number of half-lives: $n = \\frac{24}{8.0} = 3$.",
+            "Decay only the source's part: $480 \\times \\left(\\tfrac{1}{2}\\right)^{3} = \\pu{60 counts min-1}$.",
+            "The counter still picks up the background, so add it back: $60 + 35 = \\pu{95 counts min-1}$."
+          ],
+          "answer": "$95\\ \\text{counts min}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(515 - 35)*Rational(1, 2)**(24/8.0) + 35",
+            "unit": "counts min-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Halving the measured count rate. $515 \\div 8 \\approx 64$ is wrong, because the background never decays. Subtract it first, then halve, then add it back if the question asks for the reading."
+        },
+        {
+          "type": "text",
+          "text": "To determine a half-life in the lab, measure the background for a long time, so its random variation averages out. Then record the count rate at regular times, correct every reading and plot the corrected count rate against time. Read several halvings off the curve and average them."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-measured-halving",
+          "question": "A student finds the time for the measured count rate near a source to halve and calls this the half-life. Explain why the student's value is too long.",
+          "steps": [
+            "Marking point 1: the measured count rate includes the background.",
+            "Marking point 2: the background stays constant; it does not decay.",
+            "Marking point 3: so the measured count rate takes longer than one half-life to halve.",
+            "Marking point 4: the fix is to subtract the background from each reading first."
+          ],
+          "answer": "The measured count rate is the count rate from the source plus the background count rate. The background stays constant on average, because it does not come from the source. Only the count rate from the source halves in one half-life. So the measured count rate takes longer than one half-life to halve, and the student's value is too long. The student should subtract the background from every reading, then find the time for the corrected count rate to halve.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "measured includes background; background constant; measured takes longer to halve; subtract background",
+            "requires": [
+              [
+                "plus the background",
+                "includes the background"
+              ],
+              [
+                "stays constant",
+                "does not decay",
+                "does not change"
+              ],
+              [
+                "takes longer"
+              ],
+              [
+                "subtract the background"
+              ]
+            ],
+            "forbids": [
+              "background halves",
+              "background decays"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reading-two-half-lives",
+          "prompt": "A counter near a source reads $\\pu{330 counts min-1}$, and the background is $\\pu{30 counts min-1}$. What will the counter read two half-lives later?",
+          "hint": "Only the source's part halves. The counter still picks up the background.",
+          "options": [
+            {
+              "text": "$105\\ \\text{counts min}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$82.5\\ \\text{counts min}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$75\\ \\text{counts min}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$165\\ \\text{counts min}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Source alone: $330 - 30 = 300$. After two half-lives: $300 \\times \\tfrac{1}{4} = 75$. Add the background back: $75 + 30 = 105$. Quartering all 330 gives 82.5, and halving it only once gives 165.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(330 - 30)*Rational(1, 2)**2 + 30",
+            "unit": "counts min-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-background",
+          "prompt": "A counter near a source reads $\\pu{410 counts min-1}$. Three half-lives later it reads $\\pu{60 counts min-1}$. What is the background count rate, in counts per minute?",
+          "hint": "Call the background $B$. The source's part, $410 - B$, is divided by 8 to give $60 - B$.",
+          "answer": {
+            "value": 10,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{410 - B}{8} = 60 - B$, so $410 - B = 480 - 8B$ and $7B = 70$, giving $B = 10$. Check: $\\frac{400}{8} + 10 = 60$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2**3*60 - 410)/(2**3 - 1)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Activity is the number of decays per second, in becquerels ($\\pu{1 Bq}$ = one decay per second). The count rate is the number detected per unit time, and it is less than the activity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Half-life is the time for the number of undecayed nuclei, or the activity, to halve. It is the same for any starting amount.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "N = N_0\\left(\\tfrac{1}{2}\\right)^{n}, \\quad n = \\frac{t}{T_{\\frac{1}{2}}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Subtract the background from every count rate before halving. Add it back to predict what the counter will read.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Halving a count rate that still includes background. Subtract the background first; only the source's part decays.",
+    "Thinking a sample has gone after two half-lives. A quarter is still undecayed; each half-life halves what is left.",
+    "Saying a bigger sample has a longer half-life. A bigger sample has a bigger activity, but the half-life belongs to the nuclide.",
+    "Giving activity in decays per minute and calling it becquerels. One becquerel is one decay per second.",
+    "Treating the count rate as the activity. A detector catches only a fraction of the decays."
+  ],
+  "examTips": [
+    "\"Determine\" a half-life from a graph: show your construction lines, read two or more halvings and give the mean with its unit.",
+    "\"Calculate\" a later count rate: write the subtraction of background, the number of half-lives and the halving as separate lines. Each one can earn a mark.",
+    "In Paper 1A, options often include the answer you get by halving the measured count rate, or by forgetting to add the background back. Check which quantity the question asks for.",
+    "\"Explain\" questions about count rate want the reason in steps: emitted in all directions, some absorbed, not all detected."
+  ],
+  "readingMinutes": 21
+}

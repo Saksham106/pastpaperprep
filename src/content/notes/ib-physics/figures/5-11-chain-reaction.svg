@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 270" role="img" aria-labelledby="t511cr">
+  <title id="t511cr">Two chain reactions side by side. Left, labelled steady: a row of four fissions, each linked to the next by one neutron. From every fission one more neutron goes up and stops at a bar labelled absorbed, so the number of fissions stays at one per generation. Right, labelled growing: one fission sends neutrons to two fissions, those send neutrons to four, and those send neutrons on to eight. The columns are labelled 1, 2, 4 and 8 fissions.</title>
+  <defs><marker id="m511cr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/></marker></defs>
+  <g font-size="12" fill="currentColor">
+    <text x="20" y="24">Steady: one neutron per fission</text>
+    <text x="20" y="40">causes another</text>
+    <text x="330" y="24">Growing: two neutrons per fission</text>
+    <text x="330" y="40">cause more fissions</text>
+  </g>
+  <line x1="300" y1="14" x2="300" y2="256" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <g fill="var(--t5-ink)" fill-opacity="0.7">
+    <rect x="30" y="86" width="36" height="6"/><rect x="100" y="86" width="36" height="6"/><rect x="170" y="86" width="36" height="6"/><rect x="240" y="86" width="36" height="6"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="1.8" fill="none">
+    <line x1="48" y1="138" x2="48" y2="96" marker-end="url(#m511cr)"/>
+    <line x1="118" y1="138" x2="118" y2="96" marker-end="url(#m511cr)"/>
+    <line x1="188" y1="138" x2="188" y2="96" marker-end="url(#m511cr)"/>
+    <line x1="258" y1="138" x2="258" y2="96" marker-end="url(#m511cr)"/>
+    <line x1="62" y1="152" x2="101" y2="152" marker-end="url(#m511cr)"/>
+    <line x1="132" y1="152" x2="171" y2="152" marker-end="url(#m511cr)"/>
+    <line x1="202" y1="152" x2="241" y2="152" marker-end="url(#m511cr)"/>
+    <line x1="272" y1="152" x2="292" y2="152" marker-end="url(#m511cr)"/>
+    <line x1="354" y1="146" x2="403" y2="102" marker-end="url(#m511cr)"/>
+    <line x1="354" y1="158" x2="403" y2="200" marker-end="url(#m511cr)"/>
+    <line x1="432" y1="88" x2="481" y2="66" marker-end="url(#m511cr)"/>
+    <line x1="432" y1="100" x2="481" y2="122" marker-end="url(#m511cr)"/>
+    <line x1="432" y1="198" x2="481" y2="178" marker-end="url(#m511cr)"/>
+    <line x1="432" y1="210" x2="481" y2="232" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="58" x2="560" y2="48" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="66" x2="560" y2="76" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="122" x2="560" y2="112" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="130" x2="560" y2="140" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="174" x2="560" y2="164" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="182" x2="560" y2="192" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="236" x2="560" y2="226" marker-end="url(#m511cr)"/>
+    <line x1="510" y1="244" x2="560" y2="254" marker-end="url(#m511cr)"/>
+  </g>
+  <g fill="var(--t1-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1">
+    <circle cx="48" cy="152" r="14"/><circle cx="118" cy="152" r="14"/><circle cx="188" cy="152" r="14"/><circle cx="258" cy="152" r="14"/>
+    <circle cx="340" cy="152" r="14"/>
+    <circle cx="418" cy="94" r="14"/><circle cx="418" cy="204" r="14"/>
+    <circle cx="496" cy="62" r="14"/><circle cx="496" cy="126" r="14"/><circle cx="496" cy="178" r="14"/><circle cx="496" cy="240" r="14"/>
+  </g>
+  <g font-size="12" fill="currentColor">
+    <text x="150" y="76" text-anchor="middle" fill="var(--t5-ink)">absorbed</text>
+    <text x="48" y="196" text-anchor="middle">1</text><text x="118" y="196" text-anchor="middle">1</text><text x="188" y="196" text-anchor="middle">1</text><text x="258" y="196" text-anchor="middle">1</text>
+    <text x="150" y="222" text-anchor="middle" fill="var(--muted)">fissions per generation</text>
+    <text x="340" y="186" text-anchor="middle">1</text>
+    <text x="418" y="262" text-anchor="middle">2</text>
+    <text x="496" y="266" text-anchor="middle">4</text>
+    <text x="590" y="152" text-anchor="middle">8</text>
+  </g>
+</svg>

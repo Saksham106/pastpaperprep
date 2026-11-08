@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 290" font-family="inherit" font-size="13" fill="currentColor" role="img" aria-labelledby="t61pf">
+  <title id="t61pf">A table of SI prefixes, from largest to smallest. tera, symbol T, times 10 to the 12, as in TW. giga, G, times 10 to the 9, as in GHz. mega, M, times 10 to the 6, as in MeV. kilo, k, times 10 to the 3, as in kilohm. centi, c, times 10 to the minus 2, as in cm. milli, m, times 10 to the minus 3, as in mA. micro, the Greek letter mu, times 10 to the minus 6, as in micrometre. nano, n, times 10 to the minus 9, as in nm. pico, p, times 10 to the minus 12, as in pF. femto, f, times 10 to the minus 15, as in fm.</title>
+  <g font-weight="bold">
+    <text x="30" y="24">prefix</text>
+    <text x="140" y="24">symbol</text>
+    <text x="230" y="24">multiply by</text>
+    <text x="360" y="24">example</text>
+  </g>
+  <path d="M20 34 L440 34" stroke="currentColor" stroke-width="1.4"/>
+  <g>
+    <text x="30" y="56">tera</text><text x="140" y="56">T</text><text x="230" y="56">10<tspan baseline-shift="super" font-size="10">12</tspan></text><text x="360" y="56">TW</text>
+    <text x="30" y="80">giga</text><text x="140" y="80">G</text><text x="230" y="80">10<tspan baseline-shift="super" font-size="10">9</tspan></text><text x="360" y="80">GHz</text>
+    <text x="30" y="104">mega</text><text x="140" y="104">M</text><text x="230" y="104">10<tspan baseline-shift="super" font-size="10">6</tspan></text><text x="360" y="104">MeV</text>
+    <text x="30" y="128">kilo</text><text x="140" y="128">k</text><text x="230" y="128">10<tspan baseline-shift="super" font-size="10">3</tspan></text><text x="360" y="128">kΩ</text>
+  </g>
+  <path d="M20 140 L440 140" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+  <g fill="var(--t2-ink)">
+    <text x="30" y="162">centi</text><text x="140" y="162">c</text><text x="230" y="162">10<tspan baseline-shift="super" font-size="10">−2</tspan></text><text x="360" y="162">cm</text>
+    <text x="30" y="186">milli</text><text x="140" y="186">m</text><text x="230" y="186">10<tspan baseline-shift="super" font-size="10">−3</tspan></text><text x="360" y="186">mA</text>
+    <text x="30" y="210">micro</text><text x="140" y="210">μ</text><text x="230" y="210">10<tspan baseline-shift="super" font-size="10">−6</tspan></text><text x="360" y="210">μm</text>
+    <text x="30" y="234">nano</text><text x="140" y="234">n</text><text x="230" y="234">10<tspan baseline-shift="super" font-size="10">−9</tspan></text><text x="360" y="234">nm</text>
+    <text x="30" y="258">pico</text><text x="140" y="258">p</text><text x="230" y="258">10<tspan baseline-shift="super" font-size="10">−12</tspan></text><text x="360" y="258">pF</text>
+    <text x="30" y="282">femto</text><text x="140" y="282">f</text><text x="230" y="282">10<tspan baseline-shift="super" font-size="10">−15</tspan></text><text x="360" y="282">fm</text>
+  </g>
+</svg>

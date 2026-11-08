@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.9",
+  "slug": "nuclear-stability-and-the-neutrino",
+  "title": "Nuclear stability and the neutrino",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "The [[strong-nuclear-force|strong nuclear force]] holds nuclei together, but only over about $10^{-15}\\ \\text{m}$. That short range explains the [[neutron-to-proton-ratio|neutron-to-proton ratio]] of stable nuclei and the flat part of the [[binding-energy-per-nucleon|binding energy per nucleon]] curve. The energies of emitted particles reveal [[nuclear-energy-level|nuclear energy levels]] and the [[neutrino|neutrino]].",
+  "goals": [
+    {
+      "text": "Describe the evidence for a strong, short-range attraction between nucleons.",
+      "bullets": [
+        "E.3-a1"
+      ]
+    },
+    {
+      "text": "Explain why heavy stable nuclei have more neutrons than protons, and predict how an unstable nuclide decays.",
+      "bullets": [
+        "E.3-a2"
+      ]
+    },
+    {
+      "text": "Explain why the binding energy per nucleon is about constant above $A \\approx 60$, using masses in u, $\\text{MeV}\\,c^{-2}$ and kg.",
+      "bullets": [
+        "E.3-a3"
+      ]
+    },
+    {
+      "text": "Explain how alpha and gamma line spectra show discrete nuclear energy levels.",
+      "bullets": [
+        "E.3-a4"
+      ]
+    },
+    {
+      "text": "Explain how the continuous beta spectrum led to the neutrino, and find the maximum beta energy from masses.",
+      "bullets": [
+        "E.3-a5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.6",
+    "5.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "band of stability",
+    "neutron to proton ratio",
+    "N/Z ratio and stability",
+    "beta spectrum evidence for the neutrino",
+    "nuclear energy levels alpha and gamma",
+    "evidence for the strong nuclear force"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-strong-force-range",
+      "prompt": "Which statement about the [[strong-nuclear-force|strong nuclear force]] is correct?",
+      "hint": "Which particles does it act between, and how far does it reach?",
+      "options": [
+        {
+          "text": "It attracts nucleons to each other, but only over very short distances.",
+          "correct": true
+        },
+        {
+          "text": "It acts between protons only.",
+          "correct": false
+        },
+        {
+          "text": "It has an unlimited range, like gravity.",
+          "correct": false
+        },
+        {
+          "text": "It attracts protons but repels neutrons.",
+          "correct": false
+        }
+      ],
+      "explain": "It attracts any pair of nucleons and is negligible beyond a few times $10^{-15}\\ \\text{m}$. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It attracts nucleons to each other, but only over very short distances."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-beta-minus-numbers",
+      "prompt": "In [[beta-minus-decay|beta-minus decay]], what happens to the numbers of protons and neutrons in the nucleus?",
+      "hint": "A neutron changes into something else.",
+      "options": [
+        {
+          "text": "one more proton, one fewer neutron",
+          "correct": true
+        },
+        {
+          "text": "one fewer proton, one more neutron",
+          "correct": false
+        },
+        {
+          "text": "two fewer protons, two fewer neutrons",
+          "correct": false
+        },
+        {
+          "text": "no change to either",
+          "correct": false
+        }
+      ],
+      "explain": "A neutron changes into a proton, so the nucleon number stays the same. Revise it in {{lesson:5.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "one more proton, one fewer neutron"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-be-per-nucleon",
+      "prompt": "A nucleus with nucleon number 40 has a total [[binding-energy|binding energy]] of $\\pu{342 MeV}$. What is its binding energy per nucleon, in MeV? Give 3 significant figures.",
+      "hint": "Divide by the number of nucleons.",
+      "answer": {
+        "value": 8.55,
+        "tolerance": 0.005
+      },
+      "explain": "$\\frac{342}{40} = \\pu{8.55 MeV}$. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "342/40",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "strong-force",
+      "heading": "Evidence for the strong nuclear force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.6}} you met the [[strong-nuclear-force|strong nuclear force]], an attraction between nucleons with a range of about $10^{-15}\\ \\text{m}$. You can't see a force. So what is the evidence for this one?"
+        },
+        {
+          "type": "text",
+          "text": "Evidence 1: nuclei exist. Protons in a nucleus are about $10^{-15}\\ \\text{m}$ apart, and every pair repels. Gravity is about $10^{36}$ times too weak to hold them, so a much stronger attraction must act."
+        },
+        {
+          "type": "text",
+          "text": "Evidence 2: neutrons are bound. The deuteron, one proton plus one neutron, is stable. No electric force acts on the uncharged neutron, so the binding force acts on neutrons too."
+        },
+        {
+          "type": "example",
+          "id": "ex-proton-forces",
+          "question": "Two protons in a nucleus are $\\pu{2.0e-15 m}$ apart. Calculate the electric force between them, and show that gravity cannot hold them together.",
+          "steps": [
+            "Constants from the data booklet: $k = \\pu{8.99e9 N m2 C-2}$, $e = \\pu{1.60e-19 C}$, $G = \\pu{6.67e-11 N m2 kg-2}$, $m_\\text{p} = \\pu{1.673e-27 kg}$.",
+            "Electric force: $F_\\text{E} = \\frac{ke^{2}}{r^{2}} = \\frac{8.99 \\times 10^{9} \\times (1.60 \\times 10^{-19})^{2}}{(2.0 \\times 10^{-15})^{2}} = \\pu{57.5 N}$.",
+            "Gravitational force: $F_\\text{G} = \\frac{Gm_\\text{p}^{2}}{r^{2}} = \\pu{4.7e-35 N}$, about $10^{36}$ times smaller. Gravity cannot balance the repulsion.",
+            "Round to 2 significant figures, to match the separation."
+          ],
+          "answer": "$F_\\text{E} \\approx 58\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "k_e*e**2/(2.0*10**-15)**2",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Evidence 3: fast [[alpha-particle|alpha particles]]. At low energies, alpha particles scattered by a nucleus follow a model with only the electric force ({{lesson:5.3}}). Faster ones get closer before they are turned back."
+        },
+        {
+          "type": "text",
+          "text": "Above a certain energy, they come within a few femtometres ($\\pu{1 fm} = 10^{-15}\\ \\text{m}$) and the model fails, because the strong force now acts too. So the force exists, and its range is very short."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fast-alphas",
+          "question": "Alpha particles are fired at an aluminium foil. Above a certain energy, the numbers scattered through large angles no longer agree with a model that uses only the electric force. Explain why, and state what this shows about the strong nuclear force.",
+          "steps": [
+            "Faster alpha particles get closer to the nucleus.",
+            "They come within range of the strong force, which then acts too.",
+            "So the strong force exists and has a short range."
+          ],
+          "answer": "A faster alpha particle gets closer to the nucleus before the electric repulsion turns it back. Above a certain energy, it comes within about $10^{-15}\\ \\text{m}$ of the nucleus, inside the range of the strong force. The strong force then also acts on it, so the electric-force-only model fails. This shows that the strong force exists and has a very short range.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "closer approach; within range of strong force; strong force also acts; short range",
+            "requires": [
+              [
+                "gets closer",
+                "closer to the nucleus"
+              ],
+              [
+                "range of the strong force"
+              ],
+              [
+                "also acts"
+              ],
+              [
+                "short range"
+              ]
+            ],
+            "forbids": [
+              "long range"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "'Outline' why fast alpha particles depart from the electric-force model: the mark is for saying they come within range of the strong force."
+        },
+        {
+          "type": "check",
+          "id": "check-strong-force-evidence",
+          "prompt": "Which observation shows that a force other than gravity and the electric force acts in a nucleus?",
+          "hint": "Which observation can the electric force and gravity not explain?",
+          "options": [
+            {
+              "text": "Nuclei with several protons hold together.",
+              "correct": true
+            },
+            {
+              "text": "Alpha particles are deflected by a magnetic field.",
+              "correct": false
+            },
+            {
+              "text": "Most alpha particles pass straight through a thin gold foil.",
+              "correct": false
+            },
+            {
+              "text": "Gamma rays are not deflected by an electric field.",
+              "correct": false
+            }
+          ],
+          "explain": "The protons repel and gravity is far too weak, so an extra attraction must act. Alpha particles passing through a foil shows the nucleus is small, not what holds it together.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Nuclei with several protons hold together."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-proton-repulsion",
+          "prompt": "Two protons are $\\pu{2.5e-15 m}$ apart. What is the electric force between them, in N? Give 2 significant figures.",
+          "hint": "$F = \\frac{ke^{2}}{r^{2}}$, with $k$ and $e$ from the data booklet.",
+          "answer": {
+            "value": 37,
+            "tolerance": 0.5
+          },
+          "explain": "$F = \\frac{8.99 \\times 10^{9} \\times (1.60 \\times 10^{-19})^{2}}{(2.5 \\times 10^{-15})^{2}} = \\pu{36.8 N}$. Forgetting to square $r$ gives a far bigger value.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "k_e*e**2/(2.5*10**-15)**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "n-z-ratio",
+      "heading": "The neutron-to-proton ratio",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A nucleus has $Z$ protons and $N = A - Z$ neutrons. Plot every stable nuclide on a graph of $N$ against $Z$, and they fall in a narrow band."
+        },
+        {
+          "type": "definition",
+          "term": "neutron-to-proton ratio",
+          "statement": "The number of neutrons in a nucleus divided by the number of protons, $\\frac{N}{Z}$.",
+          "plain": "How many neutrons a nucleus has for each proton."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-stability-band",
+          "alt": "Graph of neutron number N, from 0 to 150, against proton number Z, from 0 to 100. A dashed straight line shows N equal to Z. A shaded band of stable nuclides follows the N equals Z line for light nuclei, then curves above it as Z increases, passing calcium-40 at Z 20, N 20, iron-56 at Z 26, N 30, tin-120 at Z 50, N 70, and ending at lead-208 at Z 82, N 126. Nuclides above the band have too many neutrons and decay by beta-minus decay. Nuclides below the band have too few neutrons and decay by beta-plus decay. Beyond Z 82 no nuclide is stable, and many of these heavy nuclides decay by alpha decay.",
+          "caption": "The band follows $N = Z$ for light nuclei and bends towards more neutrons as $Z$ grows."
+        },
+        {
+          "type": "text",
+          "text": "For light stable nuclei the [[neutron-to-proton-ratio|neutron-to-proton ratio]] is about 1. For the heaviest it rises to about 1.5."
+        },
+        {
+          "type": "text",
+          "text": "Why? The electric force has a long range, so every proton repels every other proton. The strong force reaches only nearest neighbours. So as $Z$ grows, the repulsion grows faster than the attraction."
+        },
+        {
+          "type": "text",
+          "text": "Extra neutrons add strong-force attraction with no repulsion, and spread the protons apart. But too many neutrons also makes a nucleus unstable. A nuclide off the band decays towards it:"
+        },
+        {
+          "type": "text",
+          "text": "1. Above the band (too many neutrons): [[beta-minus-decay|beta-minus decay]] turns a neutron into a proton."
+        },
+        {
+          "type": "text",
+          "text": "2. Below the band (too few neutrons): [[beta-plus-decay|beta-plus decay]] turns a proton into a neutron."
+        },
+        {
+          "type": "text",
+          "text": "3. $Z > 82$: no nuclide is stable. Many of these large nuclei decay by [[alpha-decay|alpha decay]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-ratio-heavy",
+          "question": "Oxygen-16, $^{16}_{8}\\text{O}$, and mercury-202, $^{202}_{80}\\text{Hg}$, are both stable. Calculate the neutron-to-proton ratio of each, and comment.",
+          "steps": [
+            "Oxygen-16: $N = 16 - 8 = 8$, so $\\frac{N}{Z} = 1.00$.",
+            "Mercury-202: $N = 202 - 80 = 122$, so $\\frac{N}{Z} = \\frac{122}{80} = 1.525$.",
+            "The heavy nucleus needs about 50% more neutrons than protons to hold its 80 mutually repelling protons together. Give 3 significant figures."
+          ],
+          "answer": "$\\frac{N}{Z} \\approx 1.53$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(202 - 80, 80)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-nitrogen-13",
+          "question": "Nitrogen-13, $^{13}_{7}\\text{N}$, is used in PET heart scans. Stable nitrogen nuclei have 7 or 8 neutrons. Deduce how nitrogen-13 decays, and explain why the decay makes the nucleus more stable.",
+          "steps": [
+            "Nitrogen-13 has too few neutrons.",
+            "So it decays by beta-plus decay: a proton changes into a neutron.",
+            "The daughter, carbon-13, lies in the band."
+          ],
+          "answer": "Nitrogen-13 has 7 protons and 6 neutrons, fewer neutrons than any stable nitrogen nucleus, so it has too few neutrons. It decays by beta-plus decay. A proton changes into a neutron, and a positron and a neutrino are emitted. The daughter, carbon-13, has 6 protons and 7 neutrons, which puts it in the band of stable nuclides.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "too few neutrons; beta-plus; proton changes into a neutron; carbon-13 in band",
+            "requires": [
+              [
+                "too few neutrons",
+                "proton-rich"
+              ],
+              [
+                "beta-plus"
+              ],
+              [
+                "proton changes into a neutron"
+              ],
+              [
+                "carbon-13"
+              ]
+            ],
+            "forbids": [
+              "beta-minus",
+              "neutron changes into a proton"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Assuming every stable nucleus has $N = Z$. Only light ones do; heavy stable nuclei have up to about 1.5 neutrons per proton."
+        },
+        {
+          "type": "check",
+          "id": "check-cobalt-60",
+          "prompt": "Cobalt-60 has 27 protons and 33 neutrons. The only stable isotope of cobalt has 32 neutrons. How does cobalt-60 decay?",
+          "hint": "Which decay turns a neutron into a proton?",
+          "options": [
+            {
+              "text": "beta-minus decay",
+              "correct": true
+            },
+            {
+              "text": "beta-plus decay",
+              "correct": false
+            },
+            {
+              "text": "alpha decay",
+              "correct": false
+            },
+            {
+              "text": "gamma decay only",
+              "correct": false
+            }
+          ],
+          "explain": "It has one neutron too many, so beta-minus decay turns a neutron into a proton, giving stable nickel-60.",
+          "verify": {
+            "kind": "choice",
+            "truth": "beta-minus decay"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ratio-zirconium",
+          "prompt": "What is the neutron-to-proton ratio of zirconium-90, $^{90}_{40}\\text{Zr}$? Give 3 significant figures.",
+          "hint": "$N = A - Z$, then divide by $Z$.",
+          "answer": {
+            "value": 1.25,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{90 - 40}{40} = 1.25$. Dividing $A$ by $Z$ gives 2.25 instead.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(90 - 40, 40)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "flat-curve",
+      "heading": "Why the binding energy curve levels off",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.6}} you read the [[binding-energy-per-nucleon|binding energy per nucleon]] curve. Look again at the part above $A \\approx 60$."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-flat-curve",
+          "alt": "Graph of binding energy per nucleon in MeV, from 0 to 10, against nucleon number A, from 0 to 250. The curve rises steeply for light nuclei, with helium-4 a separate point above the curve at about 7.1 MeV. It peaks at about 8.8 MeV between A 56 and A 62. A dashed vertical line marks A equal to 60. To the right of it, the shaded strip between two dashed horizontal lines at 7.6 MeV and 8.8 MeV contains the whole rest of the curve, which falls only slowly to about 7.6 MeV at A 238. The strip is labelled approximately constant.",
+          "caption": "Above $A \\approx 60$ the curve stays between about 7.6 and 8.8 MeV."
+        },
+        {
+          "type": "text",
+          "text": "From $A \\approx 60$ to 238, the nucleon number quadruples. Yet the binding energy per nucleon falls only from 8.8 to 7.6 MeV, under 15%."
+        },
+        {
+          "type": "result",
+          "statement": "Above $A \\approx 60$ the binding energy per nucleon is approximately constant, so the total binding energy is roughly proportional to $A$.",
+          "why": "The short-range strong force binds each nucleon only to its nearest neighbours, and every nucleon inside a large nucleus has about the same number of them."
+        },
+        {
+          "type": "text",
+          "text": "If each nucleon attracted every other one, the binding energy per nucleon would keep rising with $A$. It doesn't. So the flat curve is more evidence of the strong force's short range."
+        },
+        {
+          "type": "text",
+          "text": "The slow fall comes from the electric force. Every proton repels every other proton, so the repulsion grows faster than $A$."
+        },
+        {
+          "type": "text",
+          "text": "Nuclear masses come in three units, linked in the data booklet: $\\pu{1 u} = 931.5\\ \\text{MeV}\\,c^{-2} = \\pu{1.661e-27 kg}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-mass-defect-estimate",
+          "question": "A nucleus has nucleon number 120 and a binding energy per nucleon of 8.5 MeV. Determine its mass defect in $\\text{MeV}\\,c^{-2}$, in u and in kg.",
+          "steps": [
+            "Total [[binding-energy|binding energy]]: $E_\\text{B} = 120 \\times 8.5 = \\pu{1020 MeV}$, so $\\Delta m = 1020\\ \\text{MeV}\\,c^{-2}$.",
+            "In u: $\\Delta m = \\frac{1020}{931.5} = \\pu{1.095 u}$.",
+            "In kg: $\\Delta m = 1.095 \\times 1.661 \\times 10^{-27} = \\pu{1.82e-27 kg}$. Give 2 significant figures, to match 8.5 MeV."
+          ],
+          "answer": "$\\Delta m \\approx 1.8 \\times 10^{-27}\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "120*8.5/u_MeV*u_kg",
+            "sf": 2,
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-flat-curve",
+          "question": "Explain how the binding energy per nucleon curve, for nucleon numbers above about 60, is evidence that the strong nuclear force has a short range.",
+          "steps": [
+            "The curve is approximately constant there.",
+            "Each nucleon is bound only to its nearest neighbours.",
+            "A long-range force would make the curve keep rising."
+          ],
+          "answer": "Above $A \\approx 60$ the binding energy per nucleon is approximately constant, at about 8 MeV. Each nucleon is attracted only by its nearest neighbours, because the strong force has a short range. A nucleon in a large nucleus has about the same number of neighbours as one in a medium nucleus, so each extra nucleon adds about the same binding energy. If every nucleon attracted every other nucleon, the binding energy per nucleon would keep rising as $A$ increased.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "approximately constant; nearest neighbours; same number of neighbours; would keep rising",
+            "requires": [
+              [
+                "approximately constant",
+                "roughly constant"
+              ],
+              [
+                "nearest neighbours"
+              ],
+              [
+                "same number of neighbours"
+              ],
+              [
+                "would keep rising",
+                "would increase"
+              ]
+            ],
+            "forbids": [
+              "exactly constant"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Asked to 'identify' the feature that shows the short range? Point to the approximately constant part beyond the peak."
+        },
+        {
+          "type": "check",
+          "id": "check-slow-fall",
+          "prompt": "Why does the binding energy per nucleon fall slowly for the heaviest nuclei?",
+          "hint": "Which force reaches across the whole nucleus?",
+          "options": [
+            {
+              "text": "Every proton repels every other proton, but the strong force acts only between neighbours.",
+              "correct": true
+            },
+            {
+              "text": "The strong force gets weaker in a large nucleus.",
+              "correct": false
+            },
+            {
+              "text": "Heavy nuclei have fewer neutrons per proton.",
+              "correct": false
+            },
+            {
+              "text": "Gravity pulls the nucleons apart.",
+              "correct": false
+            }
+          ],
+          "explain": "The repulsion grows with every extra pair of protons, while each nucleon's strong-force binding stays about the same.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Every proton repels every other proton, but the strong force acts only between neighbours."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-percentage-fall",
+          "prompt": "Nuclei with $A = 90$ and $A = 200$ have binding energies per nucleon of 8.71 MeV and 7.90 MeV. By what percentage is the second smaller than the first? Give 3 significant figures.",
+          "hint": "Divide the change by the first value.",
+          "answer": {
+            "value": 9.3,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{8.71 - 7.90}{8.71} \\times 100 = 9.30\\%$: under 10% while $A$ more than doubles.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(8.71 - 7.90)/8.71*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-levels",
+      "heading": "Nuclear energy levels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.2}}, line spectra showed that an atom's electrons have only certain energies. Spectra show the same for nuclei."
+        },
+        {
+          "type": "definition",
+          "term": "nuclear energy level",
+          "statement": "One of the discrete energies a nucleus can have: a ground state or an excited state.",
+          "plain": "A nucleus can only hold certain fixed amounts of energy."
+        },
+        {
+          "type": "text",
+          "text": "Evidence 1: in [[alpha-decay|alpha decay]], the alpha particles from one nuclide have only a few exact kinetic energies. Their spectrum is a few sharp lines."
+        },
+        {
+          "type": "text",
+          "text": "Only two bodies come out, the alpha particle and the daughter. Conservation of momentum fixes how they share the energy released, so each alpha energy means one energy release."
+        },
+        {
+          "type": "text",
+          "text": "Different alpha energies mean the daughter is left in different states, each with a definite energy. These are its [[nuclear-energy-level|nuclear energy levels]]."
+        },
+        {
+          "type": "text",
+          "text": "Evidence 2: a daughter in an excited state drops to a lower level by [[gamma-decay|gamma decay]]. Each photon carries the gap between two levels, so gamma spectra are line spectra too."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\gamma = E_\\text{upper} - E_\\text{lower} = hf",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$E = hf$ and $h$ are in the data booklet. The gap between two alpha energies matches a gamma photon energy, give or take the daughter's small recoil."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-alpha-gamma-levels",
+          "alt": "Energy-level diagram, not to scale. On the left, a short horizontal line high up is the parent nucleus. On the right, two horizontal lines are levels of the daughter nucleus: an excited state 0.29 MeV above the ground state, and the ground state at the bottom. A long arrow labelled alpha 1, 6.05 MeV, goes down from the parent to the daughter's ground state. A shorter arrow labelled alpha 2, 5.76 MeV, goes down from the parent to the excited state. A vertical arrow labelled gamma, 0.29 MeV, goes down from the excited state to the ground state.",
+          "caption": "Not to scale. Each alpha energy leaves the daughter in a different level."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-spectra",
+          "alt": "Two graphs side by side, each of number of particles against kinetic energy. Left, alpha particles from one nuclide: two narrow vertical lines, a taller one at 6.05 MeV and a shorter one at 5.76 MeV, with nothing in between. This is a line spectrum. Right, beta-minus particles from one nuclide: a smooth hump that starts at zero energy, rises to a peak at low energy, about a fifth of the maximum energy, then falls to zero at the maximum kinetic energy, E max. This is a continuous spectrum.",
+          "caption": "Alpha particles have a few exact energies; beta particles have every energy up to a maximum (next section)."
+        },
+        {
+          "type": "example",
+          "id": "ex-gamma-from-alphas",
+          "question": "A nuclide emits alpha particles with kinetic energies of 6.05 MeV and 5.76 MeV, as in the diagram. Ignoring recoil, determine the frequency of the gamma photon the daughter then emits.",
+          "steps": [
+            "The gap between the levels is the difference in alpha energies: $E_\\gamma = 6.05 - 5.76 = \\pu{0.29 MeV}$.",
+            "In joules: $E_\\gamma = 0.29 \\times 1.60 \\times 10^{-13} = \\pu{4.64e-14 J}$.",
+            "$f = \\frac{E_\\gamma}{h} = \\frac{4.64 \\times 10^{-14}}{6.63 \\times 10^{-34}} = \\pu{7.00e19 Hz}$. Give 2 significant figures, to match 0.29 MeV."
+          ],
+          "answer": "$f \\approx 7.0 \\times 10^{19}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(6.05 - 5.76)*MeV/h",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Gamma photons and atomic photons are both photons. Nuclear levels are typically $10^{5}$ to $10^{6}$ times further apart, so gamma photons carry far more energy than the few eV of atomic photons."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-discrete-levels",
+          "question": "A nuclide's alpha particles have only two kinetic energies, and its daughter nuclei emit gamma photons of one energy. Explain how these observations show that the nucleus has discrete energy levels.",
+          "steps": [
+            "The alpha energies are discrete, and a two-body decay fixes each one.",
+            "So the daughter is left in states of definite energy.",
+            "The gamma energy is the gap between two levels."
+          ],
+          "answer": "The alpha particles have only certain kinetic energies. Only two bodies are produced, so conservation of energy and momentum fixes the alpha energy for each energy release. So the daughter must be left in one of a few states with definite energies. The daughter drops between them by emitting a gamma photon whose energy equals the difference between the two levels. This almost exactly matches the difference between the two alpha energies.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "discrete alpha energies; two-body decay; definite daughter states; gamma = level gap = alpha difference",
+            "requires": [
+              [
+                "only certain kinetic energies",
+                "discrete energies"
+              ],
+              [
+                "conservation of energy and momentum"
+              ],
+              [
+                "definite energies"
+              ],
+              [
+                "difference between the two levels"
+              ],
+              [
+                "difference between the two alpha energies"
+              ]
+            ],
+            "forbids": [
+              "continuous range"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking an alpha energy as the gamma photon energy. The photon carries the gap between two levels."
+        },
+        {
+          "type": "check",
+          "id": "check-why-gamma-lines",
+          "prompt": "Why do the gamma photons from one nuclide have only a few definite energies?",
+          "hint": "What is a gamma photon's energy equal to?",
+          "options": [
+            {
+              "text": "The nucleus can only have certain energies, so each photon carries the gap between two of them.",
+              "correct": true
+            },
+            {
+              "text": "All gamma photons travel at the speed of light.",
+              "correct": false
+            },
+            {
+              "text": "Gamma photons are not deflected by electric fields.",
+              "correct": false
+            },
+            {
+              "text": "The nuclide has a fixed half-life.",
+              "correct": false
+            }
+          ],
+          "explain": "Only a few levels exist, so only a few gaps exist. The other statements are true but say nothing about energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The nucleus can only have certain energies, so each photon carries the gap between two of them."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gamma-energy",
+          "prompt": "A nuclide emits alpha particles with kinetic energies of 4.87 MeV and 4.68 MeV. Ignoring recoil, what is the energy, in MeV, of the gamma photon its daughter emits? Give 2 decimal places.",
+          "hint": "Subtract the alpha energies.",
+          "answer": {
+            "value": 0.19,
+            "tolerance": 0.005
+          },
+          "explain": "$4.87 - 4.68 = \\pu{0.19 MeV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.87 - 4.68",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "beta-spectrum",
+      "heading": "The beta spectrum and the neutrino",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every beta decay of one nuclide releases the same energy, because the parent and daughter have fixed masses. With only two bodies, momentum conservation would give every beta particle the same kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "Instead, beta particles from one nuclide have every kinetic energy from about zero up to a maximum, $E_\\text{max}$: a continuous spectrum. $E_\\text{max}$ equals the energy released, less the nucleus's tiny recoil."
+        },
+        {
+          "type": "text",
+          "text": "In 1930 Pauli proposed a third particle that shares the energy, differently each time: an [[antineutrino|antineutrino]] in [[beta-minus-decay|beta-minus decay]], a [[neutrino|neutrino]] in beta-plus decay. The beta particle gets $E_\\text{max}$ when the antineutrino gets almost nothing."
+        },
+        {
+          "type": "text",
+          "text": "The charges already balance, so the particle is neutral. $E_\\text{max}$ is almost the whole energy released, so its mass is tiny. It was first detected in 1956, 26 years after conservation of energy predicted it."
+        },
+        {
+          "type": "text",
+          "text": "To find $E_\\text{max}$, convert the mass lost to energy. The electron mass, $m_\\text{e} = \\pu{0.000549 u}$, is in the data booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-emax-phosphorus",
+          "question": "Phosphorus-32, a beta-minus emitter used in cancer treatment, decays to sulfur-32. Their nuclear masses are 31.965672 u and 31.963287 u. Calculate the maximum kinetic energy of the emitted electrons, in MeV.",
+          "steps": [
+            "Mass lost: $\\Delta m = 31.965672 - 31.963287 - 0.000549 = \\pu{0.001836 u}$. Subtract the electron, which is created in the decay.",
+            "Energy released: $0.001836 \\times 931.5 = \\pu{1.710 MeV}$.",
+            "The electron gets all of it when the antineutrino gets almost none."
+          ],
+          "answer": "$E_\\text{max} \\approx 1.71\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(31.965672 - 31.963287 - me_u)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-third-particle",
+          "question": "A student measures the kinetic energies of the beta-minus particles from a sample of one nuclide. Describe what she finds, and explain how it shows that a third particle is emitted.",
+          "steps": [
+            "The energies form a continuous range up to a maximum.",
+            "Every decay releases the same energy, so two bodies would give one electron energy.",
+            "So a third particle, the antineutrino, carries the rest."
+          ],
+          "answer": "The beta particles have a continuous range of kinetic energies, from about zero up to a maximum. Every decay releases the same energy, because the parent and daughter have fixed masses. With only the electron and the daughter, conservation of energy and momentum would give every electron the same kinetic energy. So a third particle must be emitted that carries the rest of the energy, in a different share each decay. This is the antineutrino.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "continuous range; same energy released; two bodies give one energy; third particle carries the rest",
+            "requires": [
+              [
+                "continuous range",
+                "continuous spectrum"
+              ],
+              [
+                "releases the same energy"
+              ],
+              [
+                "third particle"
+              ],
+              [
+                "carries the rest of the energy"
+              ]
+            ],
+            "forbids": [
+              "energy is not conserved",
+              "energy is lost"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying energy is 'lost' in beta decay. Energy is conserved; the antineutrino or neutrino carries the rest."
+        },
+        {
+          "type": "check",
+          "id": "check-neutrino-evidence",
+          "prompt": "Which observation about beta-minus decay led physicists to propose a third particle?",
+          "hint": "What clashes with energy conservation if only two particles are produced?",
+          "options": [
+            {
+              "text": "The electrons have a continuous range of kinetic energies up to a maximum.",
+              "correct": true
+            },
+            {
+              "text": "All the electrons from one nuclide have the same kinetic energy.",
+              "correct": false
+            },
+            {
+              "text": "The electrons are deflected by a magnetic field.",
+              "correct": false
+            },
+            {
+              "text": "The electrons are stopped by a few millimetres of aluminium.",
+              "correct": false
+            }
+          ],
+          "explain": "Two bodies sharing a fixed energy would give every electron the same energy. A spread means a third particle takes a varying share.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The electrons have a continuous range of kinetic energies up to a maximum."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-emax-from-kg",
+          "prompt": "In a beta decay the mass lost is $\\pu{2.65e-30 kg}$. What is the maximum kinetic energy of the beta particles, in MeV? Give 3 significant figures.",
+          "hint": "$E = mc^{2}$ in J, then divide by $1.60 \\times 10^{-13}\\ \\text{J}$ per MeV.",
+          "answer": {
+            "value": 1.49,
+            "tolerance": 0.005
+          },
+          "explain": "$2.65 \\times 10^{-30} \\times (3.00 \\times 10^{8})^{2} = \\pu{2.385e-13 J} = \\pu{1.49 MeV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.65*10**-30*c**2/MeV",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Strong force evidence: nuclei hold together against proton repulsion, neutrons are bound, and fast alpha particles depart from the electric-force model within about $10^{-15}\\ \\text{m}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stable nuclei: $\\frac{N}{Z} \\approx 1$ when light, up to about 1.5 when heavy. Too many neutrons: beta-minus. Too few: beta-plus. $Z > 82$: none stable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Above $A \\approx 60$ the binding energy per nucleon is approximately constant, because each nucleon is bound only to its nearest neighbours.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alpha and gamma line spectra show discrete nuclear energy levels; a gamma photon carries the gap between two levels.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The beta spectrum is continuous up to $E_\\text{max}$, so the (anti)neutrino shares the energy released.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{max} \\approx \\Delta m\\,c^{2}, \\qquad \\Delta m = M_\\text{parent} - M_\\text{daughter} - m_\\text{e}\\ \\text{(nuclear masses)}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying all beta particles from one nuclide have the same energy. Only alpha and gamma energies are discrete; beta energies spread up to $E_\\text{max}$.",
+    "Saying N = Z for every stable nucleus. Heavy stable nuclei have up to 1.5 neutrons per proton.",
+    "Mixing up the beta decays: too many neutrons gives beta-minus, too few gives beta-plus.",
+    "Calling the curve above $A \\approx 60$ 'constant'. It is approximately constant, falling slowly from 8.8 to 7.6 MeV."
+  ],
+  "examTips": [
+    "'Explain' the neutrino evidence in two steps: the beta spectrum is continuous, so another emitted particle shares the energy. A momentum-only answer may lose a mark.",
+    "'Deduce' a decay mode: compare N with the stable isotopes, then name the decay that moves the nuclide towards the band.",
+    "'Determine' a gamma photon's frequency: subtract the alpha energies, convert MeV to J, then use $E = hf$."
+  ],
+  "readingMinutes": 30
+}

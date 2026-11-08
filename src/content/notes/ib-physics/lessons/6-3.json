@@ -1,0 +1,1012 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "6.3",
+  "slug": "uncertainties-and-errors",
+  "title": "Uncertainties and errors",
+  "level": "SL",
+  "topic": 6,
+  "summary": "Every measurement has an [[uncertainty|uncertainty]]. You record it, carry it through calculations and quote results to sensible [[significant-figures|significant figures]]. [[random-error|Random]] and [[systematic-error|systematic errors]] affect [[precision|precision]] and [[accuracy|accuracy]] differently, and [[percentage-error|percentage error]] shows whether a result agrees with an accepted value.",
+  "goals": [
+    {
+      "text": "Tell random from systematic errors, and say how each affects precision and accuracy.",
+      "bullets": [
+        "T3.18"
+      ]
+    },
+    {
+      "text": "Round values to a sensible number of significant figures or decimal places.",
+      "bullets": [
+        "T3.15"
+      ]
+    },
+    {
+      "text": "Record a reading with its [[absolute-uncertainty|absolute uncertainty]], such as $(0.34 \\pm 0.01)$ A.",
+      "bullets": [
+        "T3.19",
+        "T3.21"
+      ]
+    },
+    {
+      "text": "Find [[fractional-uncertainty|fractional]] and [[percentage-uncertainty|percentage uncertainty]] and percentage error, and judge whether a result agrees with an accepted value.",
+      "bullets": [
+        "T3.17",
+        "T3.18",
+        "T3.21"
+      ]
+    },
+    {
+      "text": "Work out and interpret [[percentage-change|percentage change]] and [[percentage-difference|percentage difference]].",
+      "bullets": [
+        "T3.16"
+      ]
+    },
+    {
+      "text": "[[propagation-of-uncertainty|Propagate uncertainties]] through sums, differences, products, quotients and powers.",
+      "bullets": [
+        "T3.20",
+        "T3.21"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "error propagation",
+    "percentage uncertainty",
+    "random and systematic errors",
+    "precision and accuracy",
+    "significant figures in physics",
+    "absolute uncertainty"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mean",
+      "prompt": "Find the mean of $4.2$, $4.7$ and $4.5$. Give 2 decimal places.",
+      "hint": "Add the values, then divide by how many there are.",
+      "answer": {
+        "value": 4.47,
+        "tolerance": 0.005
+      },
+      "explain": "$\\frac{4.2 + 4.7 + 4.5}{3} = \\frac{13.4}{3} = 4.466\\ldots \\approx 4.47$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(4.2 + 4.7 + 4.5)/3",
+        "dp": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percentage",
+      "prompt": "A $\\pu{60 g}$ sample loses $\\pu{9 g}$ of its mass. What percentage of its mass did it lose?",
+      "hint": "Divide the part by the whole, then multiply by 100.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0.5
+      },
+      "explain": "$\\frac{9}{60} \\times 100\\% = 15\\%$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "9/60*100",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-round-sf",
+      "prompt": "Calculate $5.3 \\times 0.0137$. Give 2 significant figures.",
+      "hint": "Count from the first non-zero digit.",
+      "answer": {
+        "value": 0.073,
+        "tolerance": 0.0005
+      },
+      "explain": "$5.3 \\times 0.0137 = 0.07261 \\approx 0.073$. The leading zeros don't count.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "5.3*0.0137",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "errors",
+      "heading": "Random and systematic errors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Time the same event five times and you get five slightly different readings. Errors come in two kinds."
+        },
+        {
+          "type": "definition",
+          "term": "random error",
+          "statement": "An error that makes repeated readings scatter unpredictably above and below the true value.",
+          "plain": "Readings wobble by a different amount each time."
+        },
+        {
+          "type": "definition",
+          "term": "systematic error",
+          "statement": "An error that shifts every reading in the same direction, by the same amount or fraction.",
+          "plain": "Readings are all off in the same way."
+        },
+        {
+          "type": "text",
+          "text": "Random errors come from things you can't control exactly, like reaction time. Systematic errors come from the instrument or method, like a zero error or heat lost in every trial."
+        },
+        {
+          "type": "definition",
+          "term": "precision",
+          "statement": "How close repeated measurements of the same quantity are to each other.",
+          "plain": "Precise readings are tightly bunched."
+        },
+        {
+          "type": "definition",
+          "term": "accuracy",
+          "statement": "How close a measurement, or the mean of several, is to the true value.",
+          "plain": "Accurate readings are centred on the right answer."
+        },
+        {
+          "type": "result",
+          "statement": "Random errors reduce precision; repeating and averaging reduces their effect. Systematic errors reduce accuracy; repeating does not help, so correct the readings or change the method.",
+          "why": "Random errors push readings up as often as down, so they partly cancel in a mean. A systematic error pushes every reading the same way."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-precision-accuracy",
+          "alt": "Four rows of five measurement dots, each on its own horizontal line, with a dashed vertical line marking the true value through all four rows. Row 1, precise and accurate: the dots are tightly bunched on the true value. Row 2, precise but not accurate, labelled systematic error: the dots are tightly bunched but all well to the right of the true value. Row 3, accurate but not precise, labelled random error: the dots are widely spread, but centred on the true value. Row 4, neither, labelled both kinds of error: the dots are widely spread and centred well to the right of the true value.",
+          "caption": "Precision is the spread of the dots. Accuracy is where their centre sits."
+        },
+        {
+          "type": "example",
+          "id": "ex-newtonmeter-zero",
+          "question": "A newton-meter reads $\\pu{0.3 N}$ with nothing hanging from it. A student hangs a stone from it three times and records $\\pu{4.6 N}$, $\\pu{4.7 N}$ and $\\pu{4.6 N}$. Explain whether the readings are precise and accurate, and how to correct them.",
+          "steps": [
+            "Marking point 1: the readings agree within $\\pu{0.1 N}$: precise.",
+            "Marking point 2: every reading is $\\pu{0.3 N}$ high: systematic, so not accurate.",
+            "Marking point 3: subtract the zero reading: $4.63 - 0.3 \\approx \\pu{4.3 N}$."
+          ],
+          "answer": "The readings agree within 0.1 N, so they are precise. The zero error adds 0.3 N to every reading: a systematic error, so they are not accurate. Repeating does not reduce it. Subtract 0.3 N from each reading, or reset the meter to zero, giving about 4.3 N.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "precise (readings close); zero error is systematic, so not accurate; repeats don't help; subtract the zero reading",
+            "requires": [
+              "precise",
+              "systematic error",
+              "not accurate",
+              [
+                "does not reduce",
+                "will not reduce"
+              ],
+              [
+                "subtract",
+                "reset"
+              ]
+            ],
+            "forbids": [
+              "random error",
+              "not precise"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hand-timing",
+          "question": "A student times a toy car over a marked distance with a hand-held stopwatch. Five trials give times from $\\pu{1.38 s}$ to $\\pu{1.71 s}$. Explain the main cause of the spread and how to get a more reliable time.",
+          "steps": [
+            "Marking point 1: varying reaction time is a random error.",
+            "Marking point 2: averaging repeats lets the errors partly cancel.",
+            "Marking point 3: light gates remove reaction time."
+          ],
+          "answer": "Reaction time in starting and stopping the watch varies between trials. This random error makes the readings scatter above and below the true time. More repeats and a mean help, because random errors partly cancel. Light gates would remove reaction time altogether.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "varying reaction time is a random error; scatter; repeat and average so errors cancel; light gates remove it",
+            "requires": [
+              "reaction time",
+              "random error",
+              [
+                "scatter",
+                "spread"
+              ],
+              [
+                "mean",
+                "average"
+              ],
+              "cancel"
+            ],
+            "forbids": [
+              "systematic error",
+              "human error"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying repeats make a result more accurate. Averaging reduces random error, which improves precision. A systematic error stays."
+        },
+        {
+          "type": "check",
+          "id": "check-worn-rule",
+          "prompt": "A metre rule has lost the first $\\pu{2 mm}$ of its end. Measuring from that end causes:",
+          "hint": "Is every reading off by the same amount, the same way?",
+          "options": [
+            {
+              "text": "a systematic error, lowering accuracy",
+              "correct": true
+            },
+            {
+              "text": "a random error, lowering precision",
+              "correct": false
+            },
+            {
+              "text": "a systematic error, lowering precision",
+              "correct": false
+            },
+            {
+              "text": "a random error, lowering accuracy",
+              "correct": false
+            }
+          ],
+          "explain": "Every length reads $\\pu{2 mm}$ too long: precise, perhaps, but off target.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a systematic error, lowering accuracy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reduce-random",
+          "prompt": "Which of these reduces the effect of random errors on a result?",
+          "hint": "Which helps errors that go both ways to cancel?",
+          "options": [
+            {
+              "text": "averaging more repeat readings",
+              "correct": true
+            },
+            {
+              "text": "subtracting a zero reading",
+              "correct": false
+            },
+            {
+              "text": "recalibrating the instrument",
+              "correct": false
+            },
+            {
+              "text": "using the same instrument throughout",
+              "correct": false
+            }
+          ],
+          "explain": "Random errors partly cancel in a mean. Subtracting a zero reading and recalibrating correct systematic errors, and using one instrument does neither.",
+          "verify": {
+            "kind": "choice",
+            "truth": "averaging more repeat readings"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sig-figs",
+      "heading": "Significant figures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\pu{2.50 m}$ says more than $\\pu{2.5 m}$: the final zero shows the length was measured to the nearest centimetre. Digits that carry this information are [[significant-figures|significant figures]]."
+        },
+        {
+          "type": "definition",
+          "term": "significant figures",
+          "statement": "The digits of a number that carry meaning about its size and precision, counted from the first non-zero digit.",
+          "plain": "The digits you actually measured, with nothing invented."
+        },
+        {
+          "type": "text",
+          "text": "Non-zero digits always count, and so do zeros between them: $\\pu{1.05 kg}$ has three. Leading zeros never count: $\\pu{0.0062 m}$ has two."
+        },
+        {
+          "type": "text",
+          "text": "Trailing zeros count after a decimal point: $\\pu{3.40 s}$ has three. In a whole number they are unclear, so write $\\pu{1.3e3 m}$ or $\\pu{1.30e3 m}$, not $\\pu{1300 m}$."
+        },
+        {
+          "type": "result",
+          "statement": "Multiplying or dividing: give the answer to the fewest significant figures in the data. Adding or subtracting: give it to the fewest decimal places.",
+          "why": "A result can't be more precise than the roughest measurement that went into it."
+        },
+        {
+          "type": "text",
+          "text": "Round only the final answer, never along the way."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-speed",
+          "question": "A toy car travels $\\pu{2.65 m}$ in $\\pu{1.8 s}$. Calculate its average speed to an appropriate number of significant figures.",
+          "steps": [
+            "$v = \\frac{2.65}{1.8} = 1.4722\\ldots\\ \\text{m s}^{-1}$.",
+            "A division: $2.65$ has three significant figures and $1.8$ has two, so give two."
+          ],
+          "answer": "$v \\approx \\pu{1.5 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.65/1.8",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-series-resistors",
+          "question": "Two resistors are connected in series. One is labelled $22.4\\ \\Omega$ and the other is measured as $3.87\\ \\Omega$. Calculate the total resistance to an appropriate precision.",
+          "steps": [
+            "In series, resistances add: $R = 22.4 + 3.87 = 26.27\\ \\Omega$.",
+            "An addition: $22.4$ has one decimal place and $3.87$ has two, so give one."
+          ],
+          "answer": "$R \\approx 26.3\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "22.4 + 3.87",
+            "dp": 1,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-sf",
+          "prompt": "How many significant figures are there in $\\pu{0.04070 m}$?",
+          "hint": "Leading zeros don't count. A zero at the end of a decimal does.",
+          "options": [
+            {
+              "text": "four",
+              "correct": true
+            },
+            {
+              "text": "three",
+              "correct": false
+            },
+            {
+              "text": "five",
+              "correct": false
+            },
+            {
+              "text": "two",
+              "correct": false
+            }
+          ],
+          "explain": "The leading zeros don't count; $4$, $0$, $7$ and the final $0$ do.",
+          "verify": {
+            "kind": "choice",
+            "truth": "four"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-force-sf",
+          "prompt": "A trolley of mass $\\pu{0.250 kg}$ accelerates at $\\pu{3.6 m s-2}$. Use $F = ma$ to find the resultant force, in N, to an appropriate number of significant figures.",
+          "hint": "A multiplication: count the significant figures in each value.",
+          "answer": {
+            "value": 0.9,
+            "tolerance": 0.005
+          },
+          "explain": "$F = 0.250 \\times 3.6 = \\pu{0.90 N}$: two significant figures, like $3.6$, so keep the final zero.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.250*3.6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "recording",
+      "heading": "Recording a measurement with its uncertainty",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No instrument gives the exact true value, so every reading comes with an [[uncertainty|uncertainty]]."
+        },
+        {
+          "type": "definition",
+          "term": "uncertainty",
+          "statement": "The range, above and below a measured value, within which the true value is expected to lie.",
+          "plain": "How far off the reading could be, either way."
+        },
+        {
+          "type": "definition",
+          "term": "absolute uncertainty",
+          "statement": "The uncertainty in a quantity, given in the same unit as the quantity.",
+          "plain": "The plus-or-minus part of a reading, with its unit."
+        },
+        {
+          "type": "text",
+          "text": "Write value $\\pm$ absolute uncertainty, with the unit: $(0.34 \\pm 0.01)$ A, or $I = 0.34 \\pm \\pu{0.01 A}$. The current lies between $\\pu{0.33 A}$ and $\\pu{0.35 A}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Analogue scale: half the smallest division, unless the reading is harder to judge."
+        },
+        {
+          "type": "text",
+          "text": "2. Digital display: one unit in the last digit. A balance showing $\\pu{12.47 g}$ has an uncertainty of $\\pm\\pu{0.01 g}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Repeated readings: half the range, $\\frac{\\text{largest} - \\text{smallest}}{2}$, if that is bigger than the instrument's uncertainty."
+        },
+        {
+          "type": "result",
+          "statement": "Round an absolute uncertainty to one significant figure. Then round the value to end at the same decimal place.",
+          "why": "The uncertainty shows which decimal place is already in doubt. Digits beyond it carry no information."
+        },
+        {
+          "type": "example",
+          "id": "ex-ammeter-reading",
+          "question": "An analogue ammeter scale is marked every $\\pu{0.02 A}$. The needle points exactly at the $\\pu{0.34 A}$ mark. Record the current with its absolute uncertainty.",
+          "steps": [
+            "Analogue scale, so take half the smallest division: $\\frac{0.02}{2} = \\pu{0.01 A}$.",
+            "The uncertainty is in the second decimal place, and so is the reading, so no rounding is needed."
+          ],
+          "answer": "$I = 0.34 \\pm \\pu{0.01 A}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-times",
+          "question": "A student times a ball rolling down a ramp five times, with a stopwatch that reads to $\\pu{0.01 s}$: $\\pu{2.43 s}$, $\\pu{2.38 s}$, $\\pu{2.46 s}$, $\\pu{2.40 s}$ and $\\pu{2.44 s}$. Record the mean time with its absolute uncertainty.",
+          "steps": [
+            "Mean: $\\frac{12.11}{5} = \\pu{2.422 s}$.",
+            "Half the range: $\\frac{2.46 - 2.38}{2} = \\pu{0.04 s}$. It is bigger than the stopwatch's $\\pu{0.01 s}$, so use it.",
+            "Round the mean to the second decimal place, like the uncertainty."
+          ],
+          "answer": "$t = 2.42 \\pm \\pu{0.04 s}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-voltmeter-digital",
+          "prompt": "A digital voltmeter displays $\\pu{3.07 V}$. What is the absolute uncertainty in this reading?",
+          "hint": "For a digital display, look at the last digit.",
+          "options": [
+            {
+              "text": "$\\pu{0.01 V}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{0.005 V}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.1 V}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{0.07 V}$",
+              "correct": false
+            }
+          ],
+          "explain": "One unit in the last digit: $\\pm\\pu{0.01 V}$. Halving is for analogue scales.",
+          "verify": {
+            "kind": "exact",
+            "truth": "10**-2",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-record-length",
+          "prompt": "A mean length is $\\pu{15.264 cm}$, with an absolute uncertainty of $\\pu{0.03 cm}$. How should it be recorded?",
+          "hint": "Where does the uncertainty's one significant figure sit?",
+          "options": [
+            {
+              "text": "$15.26 \\pm \\pu{0.03 cm}$",
+              "correct": true
+            },
+            {
+              "text": "$15.264 \\pm \\pu{0.03 cm}$",
+              "correct": false
+            },
+            {
+              "text": "$15.3 \\pm \\pu{0.03 cm}$",
+              "correct": false
+            },
+            {
+              "text": "$15.26 \\pm \\pu{0.030 cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "The uncertainty is in the second decimal place, so the value stops there too."
+        }
+      ]
+    },
+    {
+      "id": "percentage-uncertainty",
+      "heading": "Percentage uncertainty and percentage error",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\pm\\pu{1 mm}$ is tiny on a $\\pu{2 m}$ rod but huge on a $\\pu{3 mm}$ bead. To compare uncertainties, divide by the value."
+        },
+        {
+          "type": "definition",
+          "term": "fractional uncertainty",
+          "statement": "The absolute uncertainty in a quantity divided by its value; also called the relative uncertainty.",
+          "plain": "What fraction of the reading is in doubt."
+        },
+        {
+          "type": "definition",
+          "term": "percentage uncertainty",
+          "statement": "The fractional uncertainty multiplied by 100%.",
+          "plain": "The doubt as a percentage of the reading."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage uncertainty} = \\frac{\\Delta x}{x} \\times 100\\%",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta x$ is the absolute uncertainty in $x$. Fractional and percentage uncertainties have no unit; give them to one or two significant figures."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-diameter",
+          "question": "A micrometer gives the diameter of a wire as $0.48 \\pm \\pu{0.01 mm}$. Calculate the fractional and percentage uncertainties in the diameter.",
+          "steps": [
+            "Fractional: $\\frac{0.01}{0.48} = 0.0208\\ldots \\approx 0.021$, with no unit.",
+            "Percentage: $0.0208\\ldots \\times 100\\% = 2.08\\ldots\\%$, to two significant figures."
+          ],
+          "answer": "$\\text{percentage uncertainty} \\approx 2.1\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.01/0.48*100",
+            "sf": 2,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "text",
+          "text": "For the same absolute uncertainty, small readings have large percentage uncertainties. To shrink one, measure something bigger: time ten swings instead of one, or measure a stack of 50 sheets and divide by 50."
+        },
+        {
+          "type": "definition",
+          "term": "percentage error",
+          "statement": "The difference between an experimental value and the accepted value, as a percentage of the accepted value.",
+          "plain": "How far your result is from the accepted value, in percent."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100\\%",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "A result agrees with the accepted value if that value lies inside its range (value $\\pm$ absolute uncertainty). If it lies outside, or the percentage error is larger than the percentage uncertainty, a systematic error is likely.",
+          "why": "The range is where random scatter could put the result. Missing the accepted value by more than that means something pushed it one way."
+        },
+        {
+          "type": "figure",
+          "id": "6-3-range-vs-accepted",
+          "alt": "A horizontal number line for g in metres per second squared, marked from 9.0 to 10.0 in steps of 0.1. A dot at 9.4 shows the measured value, with a horizontal bar from 9.1 to 9.7 showing its range. A separate vertical marker at 9.81 shows the accepted value. The accepted value lies to the right of the end of the bar, outside the range.",
+          "caption": "The range $9.4 \\pm 0.3$ runs from $9.1$ to $9.7$. The accepted value, $9.81$, is outside it."
+        },
+        {
+          "type": "example",
+          "id": "ex-g-significance",
+          "question": "A student drops a ball through light gates and finds $g = 9.4 \\pm \\pu{0.3 m s-2}$. The accepted value where the student lives is $\\pu{9.81 m s-2}$. Comment on whether the result agrees with it, and what this suggests.",
+          "steps": [
+            "Marking point 1: the range is $9.1$ to $\\pu{9.7 m s-2}$, and $9.81$ lies outside it.",
+            "Marking point 2: percentage error $\\frac{0.41}{9.81} \\times 100\\% \\approx 4.2\\%$; percentage uncertainty $\\frac{0.3}{9.4} \\times 100\\% \\approx 3.2\\%$.",
+            "Marking point 3: so a systematic error is likely; air resistance would make every value too small."
+          ],
+          "answer": "The range is 9.1 to 9.7 m s⁻² and the accepted value lies outside it, so the result does not agree. The percentage error, 4.2%, is larger than the percentage uncertainty, 3.2%. So random errors alone cannot explain the gap: a systematic error, such as air resistance, is likely.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "accepted value outside 9.1-9.7 range; % error 4.2 > % uncertainty 3.2; systematic error likely (e.g. air resistance)",
+            "requires": [
+              "outside",
+              [
+                "does not agree",
+                "doesn't agree"
+              ],
+              [
+                "larger than",
+                "greater than",
+                "bigger than"
+              ],
+              "random errors alone",
+              "systematic error"
+            ],
+            "forbids": [
+              "human error",
+              "the result agrees"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-timer-percent",
+          "prompt": "A time is measured as $0.84 \\pm \\pu{0.02 s}$. What is its percentage uncertainty? Give 2 significant figures.",
+          "hint": "Divide the uncertainty by the value, then multiply by 100.",
+          "answer": {
+            "value": 2.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{0.02}{0.84} \\times 100\\% = 2.38\\ldots\\% \\approx 2.4\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.02/0.84*100",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-planck-error",
+          "prompt": "A student uses LEDs to find the Planck constant as $\\pu{7.1e-34 J s}$. What is the percentage error, compared with the data-booklet value?",
+          "hint": "The data booklet gives $h = \\pu{6.63e-34 J s}$. Which value goes on the bottom?",
+          "options": [
+            {
+              "text": "$\\approx 7.1\\%$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 6.6\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.071\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 93\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "Constants a question doesn't give come from the data booklet. $\\frac{7.1 - 6.63}{6.63} \\times 100\\% = 7.08\\ldots\\%$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(7.1*10**-34 - h)/h*100",
+            "sf": 2,
+            "unit": "%"
+          }
+        }
+      ]
+    },
+    {
+      "id": "change-difference",
+      "heading": "Percentage change and percentage difference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two more percentages compare values, not uncertainties. Which one you use depends on whether one value came first."
+        },
+        {
+          "type": "definition",
+          "term": "percentage change",
+          "statement": "The change in a quantity divided by its original value, multiplied by 100%.",
+          "plain": "How much something grew or shrank, compared with where it started."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage change} = \\frac{\\text{new value} - \\text{original value}}{\\text{original value}} \\times 100\\%",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A rise gives a positive percentage change and a fall a negative one. Keep the sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-thermistor-change",
+          "question": "When a thermistor is warmed, its resistance falls from $2.40\\ \\text{k}\\Omega$ to $1.65\\ \\text{k}\\Omega$. Calculate the percentage change in its resistance.",
+          "steps": [
+            "Change: $1.65 - 2.40 = -0.75\\ \\text{k}\\Omega$. It is a fall, so it is negative.",
+            "Divide by the original: $\\frac{-0.75}{2.40} \\times 100\\% = -31.25\\%$. The change $0.75$ has two significant figures, so give two.",
+            "The resistance fell by just under a third."
+          ],
+          "answer": "$\\text{percentage change} \\approx -31\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1.65 - 2.40)/2.40*100",
+            "sf": 2,
+            "unit": "%",
+            "signed": true
+          }
+        },
+        {
+          "type": "definition",
+          "term": "percentage difference",
+          "statement": "The difference between two values divided by their mean, multiplied by 100%.",
+          "plain": "How far apart two results are, compared with their average."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage difference} = \\frac{\\lvert a - b \\rvert}{\\tfrac{1}{2}(a + b)} \\times 100\\%",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Use percentage difference when neither value is the right one or the starting one, such as two groups' results. With an accepted value, use percentage error."
+        },
+        {
+          "type": "example",
+          "id": "ex-wave-speed-difference",
+          "question": "Two groups measure the speed of water waves in the same ripple tank: $\\pu{1.46 m s-1}$ and $\\pu{1.52 m s-1}$. Calculate the percentage difference between their results.",
+          "steps": [
+            "Difference $= \\pu{0.06 m s-1}$; mean $= \\frac{1.46 + 1.52}{2} = \\pu{1.49 m s-1}$.",
+            "$\\frac{0.06}{1.49} \\times 100\\% = 4.02\\ldots\\%$. The difference $0.06$ has one significant figure, so give one.",
+            "Whether 4% matters depends on each group's percentage uncertainty."
+          ],
+          "answer": "$\\text{percentage difference} \\approx 4\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(1.46 - 1.52)/((1.46 + 1.52)/2)*100",
+            "sf": 1,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-change",
+          "prompt": "A solar panel's output rises from $\\pu{250 W}$ to $\\pu{320 W}$ after cleaning. What is the percentage change? Give 2 significant figures.",
+          "hint": "Divide the change by the original value.",
+          "answer": {
+            "value": 28,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{320 - 250}{250} \\times 100\\% = +28\\%$, positive because it is a rise.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(320 - 250)/250*100",
+            "sf": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-percentage",
+          "prompt": "Two students find the same spring constant by different methods. There is no accepted value. Which quantity best compares their results?",
+          "hint": "Neither result came first, and neither is known to be right.",
+          "options": [
+            {
+              "text": "percentage difference",
+              "correct": true
+            },
+            {
+              "text": "percentage error",
+              "correct": false
+            },
+            {
+              "text": "percentage change",
+              "correct": false
+            },
+            {
+              "text": "percentage uncertainty",
+              "correct": false
+            }
+          ],
+          "explain": "Percentage error needs an accepted value, and percentage change needs an original value.",
+          "verify": {
+            "kind": "choice",
+            "truth": "percentage difference"
+          }
+        }
+      ]
+    },
+    {
+      "id": "propagation",
+      "heading": "Propagating uncertainties",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most results are calculated from several measurements, each with its own uncertainty. [[propagation-of-uncertainty|Propagation of uncertainty]] combines them into the uncertainty of the result."
+        },
+        {
+          "type": "definition",
+          "term": "propagation of uncertainty",
+          "statement": "Working out the uncertainty in a calculated result from the uncertainties in the quantities used to calculate it.",
+          "plain": "Passing the doubt in your readings on to your answer."
+        },
+        {
+          "type": "text",
+          "text": "Three rules cover every case. They are printed in the data booklet under Uncertainties, so the skill is choosing the right one."
+        },
+        {
+          "type": "formula",
+          "tex": "y = a \\pm b \\;\\Rightarrow\\; \\Delta y = \\Delta a + \\Delta b",
+          "tag": "booklet",
+          "bookletId": "db-6-3"
+        },
+        {
+          "type": "text",
+          "text": "1. Adding or subtracting: add the absolute uncertainties, even for a subtraction. They never cancel."
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\frac{ab}{c} \\;\\Rightarrow\\; \\frac{\\Delta y}{y} = \\frac{\\Delta a}{a} + \\frac{\\Delta b}{b} + \\frac{\\Delta c}{c}",
+          "tag": "booklet",
+          "bookletId": "db-6-3"
+        },
+        {
+          "type": "text",
+          "text": "2. Multiplying or dividing: add the fractional (or percentage) uncertainties, then multiply by $y$ for the absolute uncertainty."
+        },
+        {
+          "type": "formula",
+          "tex": "y = a^{n} \\;\\Rightarrow\\; \\frac{\\Delta y}{y} = \\left\\lvert n\\,\\frac{\\Delta a}{a} \\right\\rvert",
+          "tag": "booklet",
+          "bookletId": "db-6-3"
+        },
+        {
+          "type": "text",
+          "text": "3. Raising to a power: multiply the fractional uncertainty by the size of the power. A square root, power $\\tfrac12$, halves it."
+        },
+        {
+          "type": "text",
+          "text": "Exact numbers, such as the $\\tfrac12$ in $\\tfrac12 mv^{2}$ or the $2$ and $\\pi$ in $2\\pi r$, have no uncertainty."
+        },
+        {
+          "type": "example",
+          "id": "ex-resistance-range",
+          "question": "The potential difference across a resistor is $4.5 \\pm \\pu{0.1 V}$ and the current is $0.30 \\pm \\pu{0.01 A}$. Determine its resistance, $R = \\frac{V}{I}$, with its absolute uncertainty.",
+          "steps": [
+            "Value: $R = \\frac{4.5}{0.30} = 15\\ \\Omega$.",
+            "Dividing, so add fractional uncertainties: $\\frac{0.1}{4.5} + \\frac{0.01}{0.30} = 0.0222\\ldots + 0.0333\\ldots = 0.0555\\ldots$",
+            "$\\Delta R = 0.0555\\ldots \\times 15 = 0.833\\ldots\\ \\Omega \\approx 0.8\\ \\Omega$, to one significant figure.",
+            "That is the first decimal place, so give $R$ as $15.0\\ \\Omega$. With an uncertainty, it sets the decimal places, not the significant-figure rule."
+          ],
+          "answer": "$R = 15.0 \\pm 0.8\\ \\Omega$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-kinetic-energy-range",
+          "question": "A trolley of mass $0.600 \\pm \\pu{0.006 kg}$ moves at $2.5 \\pm \\pu{0.1 m s-1}$. Determine its kinetic energy, $E_\\text{k} = \\tfrac12 mv^{2}$, with its absolute uncertainty.",
+          "steps": [
+            "Value: $E_\\text{k} = \\tfrac12 \\times 0.600 \\times 2.5^{2} = \\pu{1.875 J}$.",
+            "Fractional uncertainties: mass $\\frac{0.006}{0.600} = 0.01$; speed $\\frac{0.1}{2.5} = 0.04$, doubled because $v$ is squared: $0.08$. The $\\tfrac12$ adds nothing.",
+            "Total $0.09$, so $\\Delta E_\\text{k} = 0.09 \\times 1.875 = 0.16875 \\approx \\pu{0.2 J}$.",
+            "Round the value to the first decimal place: $\\pu{1.9 J}$."
+          ],
+          "answer": "$E_\\text{k} = 1.9 \\pm \\pu{0.2 J}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding absolute uncertainties in a product or quotient. Their units often don't even match. Add fractional uncertainties, then convert back."
+        },
+        {
+          "type": "examTip",
+          "text": "In Paper 1A, propagation questions are quickest in percentages: add them for products and quotients, and multiply by the power."
+        },
+        {
+          "type": "check",
+          "id": "check-extension-range",
+          "prompt": "A spring is $12.7 \\pm \\pu{0.1 cm}$ long unloaded and $18.4 \\pm \\pu{0.1 cm}$ long with a load. What is its extension?",
+          "hint": "A subtraction: what happens to the absolute uncertainties?",
+          "options": [
+            {
+              "text": "$5.7 \\pm \\pu{0.2 cm}$",
+              "correct": true
+            },
+            {
+              "text": "$5.7 \\pm \\pu{0.1 cm}$",
+              "correct": false
+            },
+            {
+              "text": "$31.1 \\pm \\pu{0.2 cm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$18.4 - 12.7 = \\pu{5.7 cm}$; the uncertainties add to $\\pu{0.2 cm}$. That is 3.5%, against under 1% per length: subtracting close values inflates it."
+        },
+        {
+          "type": "check",
+          "id": "check-power-fourth",
+          "prompt": "Radiated power is proportional to $T^{4}$, with $T$ in kelvin. If $T$ has a percentage uncertainty of $1.5\\%$, what is the percentage uncertainty in the power?",
+          "hint": "A power of 4 multiplies the percentage uncertainty by 4.",
+          "options": [
+            {
+              "text": "$6\\%$",
+              "correct": true
+            },
+            {
+              "text": "$1.5\\%$",
+              "correct": false
+            },
+            {
+              "text": "$5.5\\%$",
+              "correct": false
+            },
+            {
+              "text": "$0.375\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$4 \\times 1.5\\% = 6\\%$. Adding 4 gives $5.5\\%$; dividing by 4 gives $0.375\\%$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*1.5",
+            "unit": "%"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Random error: scatter, lowers precision, reduced by averaging repeats. Systematic error: same shift each time, lowers accuracy, not reduced by repeats.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\times$ and $\\div$: fewest significant figures. $+$ and $-$: fewest decimal places.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Analogue: half the smallest division. Digital: one unit in the last digit. Repeats: half the range. Uncertainty to 1 s.f., value to the same decimal place.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage uncertainty} = \\frac{\\Delta x}{x} \\times 100\\%",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{percentage error} = \\frac{\\lvert \\text{experimental value} - \\text{accepted value} \\rvert}{\\lvert \\text{accepted value} \\rvert} \\times 100\\%",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Percentage change $= \\frac{\\text{new} - \\text{original}}{\\text{original}} \\times 100\\%$. Percentage difference $= \\frac{\\lvert a - b \\rvert}{\\text{mean}} \\times 100\\%$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sums and differences: add absolute uncertainties. Products and quotients: add fractional ones. Power $n$: multiply by $\\lvert n \\rvert$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Accepted value outside the range, or percentage error above percentage uncertainty: a systematic error is likely.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing 'human error' or 'to reduce error'. Name the error as random or systematic, give its cause, and say what your change does to it.",
+    "Quoting too many digits, such as $15 \\pm 0.833\\ \\Omega$. Round the uncertainty to one significant figure, then match the value: $15.0 \\pm 0.8\\ \\Omega$.",
+    "Subtracting uncertainties when values are subtracted. Absolute uncertainties always add.",
+    "Forgetting the power. In $v^{2}$ the fractional uncertainty in $v$ counts twice; an exact $\\tfrac12$ or $\\pi$ adds nothing.",
+    "Dividing by your own result in a percentage error. Divide by the accepted value.",
+    "Calling a result correct because its percentage error is small. It agrees only if the accepted value lies inside its range."
+  ],
+  "examTips": [
+    "'Determine the absolute uncertainty' needs working: the fractional uncertainties, their sum, then multiplying by the value.",
+    "To 'state' a result to the appropriate precision, give the uncertainty to one significant figure, match the value's decimal places, and add the unit.",
+    "To 'comment on' agreement with an accepted value, give the range, say whether the accepted value is inside it, and if not name a likely systematic error. Paper 1B data-based questions test this."
+  ],
+  "readingMinutes": 31
+}

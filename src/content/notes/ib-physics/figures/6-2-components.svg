@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" role="img" aria-labelledby="t62co">
+  <title id="t62co">A force F is an arrow from point O, pointing up and to the right at angle theta above the horizontal. Its horizontal component, F cos theta, is an arrow along the horizontal from O to directly below the head of F. Its vertical component, F sin theta, is a dashed arrow from there straight up to the head of F. The two components meet at a right angle, so F is the hypotenuse of a right-angled triangle, and adding the two components head to tail gives F again.</title>
+  <defs>
+    <marker id="m62co-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m62co-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m62co-4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t4-ink)"/>
+    </marker>
+  </defs>
+
+  <circle cx="80" cy="230" r="3.5" fill="currentColor"/>
+  <text x="66" y="248" font-size="13" fill="currentColor" font-family="inherit">O</text>
+
+  <line x1="80" y1="230" x2="260.2" y2="103.8" stroke="var(--t1-ink)" stroke-width="2.6" marker-end="url(#m62co-1)"/>
+  <text x="150" y="150" font-size="15" font-weight="bold" fill="var(--t1-ink)" font-family="inherit">F</text>
+
+  <line x1="80" y1="230" x2="260.2" y2="230" stroke="var(--t3-ink)" stroke-width="2.2" marker-end="url(#m62co-3)"/>
+  <text x="170" y="254" font-size="13" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle"><tspan font-style="italic">F</tspan> cos θ</text>
+
+  <line x1="260.2" y1="230" x2="260.2" y2="103.8" stroke="var(--t4-ink)" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#m62co-4)"/>
+  <text x="270" y="172" font-size="13" fill="var(--t4-ink)" font-family="inherit"><tspan font-style="italic">F</tspan> sin θ</text>
+
+  <path d="M250.2 230 L250.2 220 L260.2 220" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M125 230 A45 45 0 0 0 116.9 204.2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="130" y="220" font-size="13" fill="currentColor" font-family="inherit">θ</text>
+</svg>
