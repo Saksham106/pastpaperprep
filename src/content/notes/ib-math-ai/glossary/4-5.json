@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sample-space",
+    "term": "sample space",
+    "definition": "TODO: The set of all possible outcomes of a trial, U; n(U) is the number of outcomes",
+    "lesson": "4.5"
+  },
+  {
+    "id": "event",
+    "term": "event",
+    "definition": "TODO: A set of outcomes from the sample space; it happens when the trial's outcome is in the set",
+    "lesson": "4.5"
+  },
+  {
+    "id": "relative-frequency",
+    "term": "relative frequency",
+    "definition": "TODO: Number of times an event happened ÷ number of trials: an experimental probability, unlike the theoretical n(A)/n(U), which needs equally likely outcomes",
+    "lesson": "4.5"
+  },
+  {
+    "id": "complementary-events",
+    "term": "complementary events",
+    "definition": "TODO: A and A′ (not A): exactly one of them happens, so P(A) + P(A′) = 1",
+    "lesson": "4.5"
+  },
+  {
+    "id": "expected-number-of-occurrences",
+    "term": "expected number of occurrences",
+    "definition": "TODO: n × P(A) for n trials; it need not be a whole number (12.8 absent students)",
+    "lesson": "4.5"
+  }
+]

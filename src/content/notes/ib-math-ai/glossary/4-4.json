@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bivariate-data",
+    "term": "bivariate data",
+    "definition": "TODO: Data in pairs: two measurements from each member of a sample",
+    "lesson": "4.4"
+  },
+  {
+    "id": "scatter-diagram",
+    "term": "scatter diagram",
+    "definition": "TODO: A graph plotting each pair of bivariate data as one point",
+    "lesson": "4.4"
+  },
+  {
+    "id": "correlation",
+    "term": "correlation",
+    "definition": "TODO: How closely points follow a straight line, described as positive, negative or zero and strong or weak",
+    "lesson": "4.4"
+  },
+  {
+    "id": "pearsons-product-moment-correlation-coefficient",
+    "term": "Pearson's product-moment correlation coefficient",
+    "definition": "TODO: r, between −1 and 1, measuring the strength and direction of linear correlation only; r near 0 does not mean no relationship",
+    "lesson": "4.4"
+  },
+  {
+    "id": "critical-value",
+    "term": "critical value",
+    "definition": "TODO: The boundary value of a test statistic for a given significance level; |r| above the critical value means significant correlation, and a χ² statistic above it means reject H0",
+    "lesson": "4.4"
+  },
+  {
+    "id": "line-of-best-fit",
+    "term": "line of best fit",
+    "definition": "TODO: A straight line drawn by eye that passes through the mean point (x̄, ȳ) and follows the trend of the points",
+    "lesson": "4.4"
+  },
+  {
+    "id": "causation",
+    "term": "causation",
+    "definition": "TODO: One variable directly producing a change in another; correlation alone does not show causation",
+    "lesson": "4.4"
+  },
+  {
+    "id": "regression-line",
+    "term": "regression line",
+    "definition": "TODO: The least-squares line of y on x, y = ax + b, used to predict y from x within the data; it cannot reliably predict x from y",
+    "lesson": "4.4"
+  }
+]

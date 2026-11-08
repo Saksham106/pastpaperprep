@@ -1,0 +1,26 @@
+[
+  {
+    "id": "adjacency-matrix",
+    "term": "adjacency matrix",
+    "definition": "TODO: A square matrix whose (i, j) entry is the number of edges directly from vertex i to vertex j; symmetric for an undirected graph",
+    "lesson": "3.15"
+  },
+  {
+    "id": "walk",
+    "term": "walk",
+    "definition": "TODO: A sequence of edges, each starting where the last one ended; vertices and edges may repeat; its length is the number of edges",
+    "lesson": "3.15"
+  },
+  {
+    "id": "weighted-adjacency-table",
+    "term": "weighted adjacency table",
+    "definition": "TODO: A table of the weights of edges directly joining each pair of vertices; a blank (not 0) means no direct edge",
+    "lesson": "3.15"
+  },
+  {
+    "id": "transition-matrix",
+    "term": "transition matrix",
+    "definition": "TODO: A matrix of probabilities of moving between states; in IB AI T_ij is the probability of moving from j to i, so each column sums to 1",
+    "lesson": "3.15"
+  }
+]

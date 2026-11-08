@@ -1,0 +1,32 @@
+[
+  {
+    "id": "markov-chain",
+    "term": "Markov chain",
+    "definition": "TODO: A process moving between states where the probability of the next state depends only on the current state, not on earlier ones",
+    "lesson": "4.19"
+  },
+  {
+    "id": "transition-diagram",
+    "term": "transition diagram",
+    "definition": "TODO: A directed graph of the states with arrows labelled by transition probabilities; the probabilities leaving each state sum to 1",
+    "lesson": "4.19"
+  },
+  {
+    "id": "initial-state-matrix",
+    "term": "initial state matrix",
+    "definition": "TODO: The column vector s0 of starting probabilities or proportions; after n transitions s_n = T^n s0",
+    "lesson": "4.19"
+  },
+  {
+    "id": "regular-markov-chain",
+    "term": "regular Markov chain",
+    "definition": "TODO: A Markov chain whose transition matrix has some power with all entries positive; it then has one steady state, reached from any start",
+    "lesson": "4.19"
+  },
+  {
+    "id": "steady-state",
+    "term": "steady state",
+    "definition": "TODO: A state vector s with Ts = s: the eigenvector for eigenvalue 1 scaled so its entries sum to 1; the long-term probabilities",
+    "lesson": "4.19"
+  }
+]

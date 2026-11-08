@@ -1,0 +1,26 @@
+[
+  {
+    "id": "normal-distribution",
+    "term": "normal distribution",
+    "definition": "TODO: A continuous distribution with a symmetric bell-shaped curve centred on its mean; X ~ N(μ, σ²) has variance σ², not standard deviation σ²",
+    "lesson": "4.9"
+  },
+  {
+    "id": "continuous-random-variable",
+    "term": "continuous random variable",
+    "definition": "TODO: A random variable that can take any value in an interval; probabilities are areas, so P(X = a) = 0 and P(X < a) = P(X ≤ a)",
+    "lesson": "4.9"
+  },
+  {
+    "id": "68-95-99-7-rule",
+    "term": "68–95–99.7 rule",
+    "definition": "TODO: For a normal distribution about 68%, 95% and 99.7% of values lie within 1, 2 and 3 standard deviations of the mean; approximate, not exact",
+    "lesson": "4.9"
+  },
+  {
+    "id": "inverse-normal",
+    "term": "inverse normal",
+    "definition": "TODO: Working back from a probability to a value: finding k with P(X < k) = p for a normal X with given mean and standard deviation; check which tail the GDC uses",
+    "lesson": "4.9"
+  }
+]

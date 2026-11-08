@@ -1,0 +1,32 @@
+[
+  {
+    "id": "random-variable",
+    "term": "random variable",
+    "definition": "TODO: A quantity whose value is decided by the outcome of a random trial, named with a capital letter such as X",
+    "lesson": "4.7"
+  },
+  {
+    "id": "discrete-random-variable",
+    "term": "discrete random variable",
+    "definition": "TODO: A random variable whose possible values can be listed, such as 0, 1, 2, 3",
+    "lesson": "4.7"
+  },
+  {
+    "id": "probability-distribution",
+    "term": "probability distribution",
+    "definition": "TODO: Every value a random variable can take with its probability, as a table or formula; the probabilities add up to 1",
+    "lesson": "4.7"
+  },
+  {
+    "id": "expected-value",
+    "term": "expected value",
+    "definition": "TODO: E(X) = Σ x P(X = x), the long-run mean of X; it need not be a value X can take",
+    "lesson": "4.7"
+  },
+  {
+    "id": "fair-game",
+    "term": "fair game",
+    "definition": "TODO: A game where the expected gain of a player is 0, E(X) = 0 for X the player's gain",
+    "lesson": "4.7"
+  }
+]

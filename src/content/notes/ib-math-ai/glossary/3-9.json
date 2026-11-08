@@ -1,0 +1,14 @@
+[
+  {
+    "id": "transformation-matrix",
+    "term": "transformation matrix",
+    "definition": "TODO: A 2 × 2 matrix A mapping each point x to its image Ax (+ b for a translation), e.g. enlargement kI or rotation (cos θ, −sin θ; sin θ, cos θ) about the origin; |det A| is the area scale factor",
+    "lesson": "3.9"
+  },
+  {
+    "id": "fractal",
+    "term": "fractal",
+    "definition": "TODO: A shape built by applying transformations over and over, so it shows detail at every scale; total length or area often comes from a geometric series",
+    "lesson": "3.9"
+  }
+]

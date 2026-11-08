@@ -1,0 +1,26 @@
+[
+  {
+    "id": "eigenvalue",
+    "term": "eigenvalue",
+    "definition": "TODO: A scalar λ with Av = λv for some non-zero vector v; the eigenvalues solve det(A − λI) = 0",
+    "lesson": "1.15"
+  },
+  {
+    "id": "eigenvector",
+    "term": "eigenvector",
+    "definition": "TODO: A non-zero vector v with Av = λv; any non-zero multiple is also an eigenvector, and the zero vector never counts",
+    "lesson": "1.15"
+  },
+  {
+    "id": "characteristic-polynomial",
+    "term": "characteristic polynomial",
+    "definition": "TODO: det(A − λI) for a 2 × 2 matrix A, a quadratic in λ whose roots are the eigenvalues",
+    "lesson": "1.15"
+  },
+  {
+    "id": "diagonalization",
+    "term": "diagonalization",
+    "definition": "TODO: Writing M = PDP⁻¹ with eigenvectors as the columns of P and the matching eigenvalues in the same order on the diagonal matrix D (zeros elsewhere), so M^n = PD^nP⁻¹; IB only for 2 × 2 with distinct real eigenvalues",
+    "lesson": "1.15"
+  }
+]

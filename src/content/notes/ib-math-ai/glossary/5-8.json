@@ -1,0 +1,8 @@
+[
+  {
+    "id": "trapezoidal-rule",
+    "term": "trapezoidal rule",
+    "definition": "TODO: Estimates the integral from a to b using n strips of equal width h = (b − a)/n and n + 1 ordinates: (h/2)[y0 + yn + 2(y1 + … + y(n−1))]; overestimates only if the curve is concave-up across the whole interval",
+    "lesson": "5.8"
+  }
+]

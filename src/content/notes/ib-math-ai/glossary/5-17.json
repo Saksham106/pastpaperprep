@@ -1,0 +1,32 @@
+[
+  {
+    "id": "phase-portrait",
+    "term": "phase portrait",
+    "definition": "TODO: A diagram in the (x, y) plane showing trajectories of a coupled system with arrows for direction; time is not an axis",
+    "lesson": "5.17"
+  },
+  {
+    "id": "trajectory",
+    "term": "trajectory",
+    "definition": "TODO: The path traced by a solution (x(t), y(t)) of a coupled system in the phase plane",
+    "lesson": "5.17"
+  },
+  {
+    "id": "equilibrium-point",
+    "term": "equilibrium point",
+    "definition": "TODO: A point where dx/dt = 0 and dy/dt = 0 together, so the system stays there; for dx/dt = ax + by, dy/dt = cx + dy with non-zero eigenvalues it is the origin",
+    "lesson": "5.17"
+  },
+  {
+    "id": "saddle-point",
+    "term": "saddle point",
+    "definition": "TODO: An equilibrium where the eigenvalues are real with opposite signs: trajectories come in along one eigenvector direction and leave along the other; unstable",
+    "lesson": "5.17"
+  },
+  {
+    "id": "stable-equilibrium",
+    "term": "stable equilibrium",
+    "definition": "TODO: An equilibrium that nearby solutions move towards: both eigenvalues negative, or complex with negative real part",
+    "lesson": "5.17"
+  }
+]

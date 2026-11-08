@@ -1,0 +1,50 @@
+[
+  {
+    "id": "vector",
+    "term": "vector",
+    "definition": "TODO: A quantity with magnitude and direction, written in bold or as AB→; a scalar has magnitude only",
+    "lesson": "3.10"
+  },
+  {
+    "id": "unit-vector",
+    "term": "unit vector",
+    "definition": "TODO: A vector of magnitude 1; the unit vector in the direction of v is v/|v| (normalizing)",
+    "lesson": "3.10"
+  },
+  {
+    "id": "base-vectors",
+    "term": "base vectors",
+    "definition": "TODO: The unit vectors i, j, k along the x-, y- and z-axes, so v = v1 i + v2 j + v3 k",
+    "lesson": "3.10"
+  },
+  {
+    "id": "component-of-a-vector",
+    "term": "component of a vector",
+    "definition": "TODO: One of the numbers v1, v2, v3 that multiply i, j, k, written in a column",
+    "lesson": "3.10"
+  },
+  {
+    "id": "magnitude-of-a-vector",
+    "term": "magnitude of a vector",
+    "definition": "TODO: The length |v| = √(v1² + v2² + v3²); never negative",
+    "lesson": "3.10"
+  },
+  {
+    "id": "position-vector",
+    "term": "position vector",
+    "definition": "TODO: The vector OA→ = a from the origin to a point A; its components are A's coordinates",
+    "lesson": "3.10"
+  },
+  {
+    "id": "velocity",
+    "term": "velocity",
+    "definition": "TODO: Rate of change of position, a vector; its magnitude is the speed and in one dimension its sign gives the direction",
+    "lesson": "3.10"
+  },
+  {
+    "id": "speed",
+    "term": "speed",
+    "definition": "TODO: The magnitude of velocity, |v|; never negative",
+    "lesson": "3.10"
+  }
+]

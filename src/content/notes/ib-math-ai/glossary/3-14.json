@@ -1,0 +1,74 @@
+[
+  {
+    "id": "graph",
+    "term": "graph (graph theory)",
+    "definition": "TODO: A set of vertices joined by edges; positions and edge lengths in the drawing don't matter, only the connections",
+    "lesson": "3.14"
+  },
+  {
+    "id": "graph-vertex",
+    "term": "vertex (graph theory)",
+    "definition": "TODO: A point of a graph (also called a node), joined to others by edges",
+    "lesson": "3.14"
+  },
+  {
+    "id": "graph-edge",
+    "term": "edge (graph theory)",
+    "definition": "TODO: A line joining two vertices of a graph (or one vertex to itself for a loop)",
+    "lesson": "3.14"
+  },
+  {
+    "id": "degree-of-a-vertex",
+    "term": "degree of a vertex",
+    "definition": "TODO: The number of edge ends at a vertex; a loop counts twice; the degrees add up to twice the number of edges",
+    "lesson": "3.14"
+  },
+  {
+    "id": "simple-graph",
+    "term": "simple graph",
+    "definition": "TODO: A graph with no loops and no multiple edges between the same pair of vertices",
+    "lesson": "3.14"
+  },
+  {
+    "id": "complete-graph",
+    "term": "complete graph",
+    "definition": "TODO: A simple graph with every pair of vertices joined by exactly one edge; K_n has n(n − 1)/2 edges",
+    "lesson": "3.14"
+  },
+  {
+    "id": "weighted-graph",
+    "term": "weighted graph",
+    "definition": "TODO: A graph with a number (weight) on each edge, such as a cost, distance or time",
+    "lesson": "3.14"
+  },
+  {
+    "id": "connected-graph",
+    "term": "connected graph",
+    "definition": "TODO: A graph with a path between every pair of vertices",
+    "lesson": "3.14"
+  },
+  {
+    "id": "strongly-connected-graph",
+    "term": "strongly connected graph",
+    "definition": "TODO: A directed graph in which every vertex can be reached from every other vertex following the edge directions",
+    "lesson": "3.14"
+  },
+  {
+    "id": "directed-graph",
+    "term": "directed graph",
+    "definition": "TODO: A graph whose edges have directions (arrows) and can be travelled only one way; a vertex's in-degree counts edges coming in, its out-degree edges going out",
+    "lesson": "3.14"
+  },
+  {
+    "id": "subgraph",
+    "term": "subgraph",
+    "definition": "TODO: A graph made from some of the vertices and edges of another graph, where every chosen edge keeps both its end vertices",
+    "lesson": "3.14"
+  },
+  {
+    "id": "tree",
+    "term": "tree",
+    "definition": "TODO: A connected graph with no cycles; a tree with n vertices has n − 1 edges",
+    "lesson": "3.14"
+  }
+]

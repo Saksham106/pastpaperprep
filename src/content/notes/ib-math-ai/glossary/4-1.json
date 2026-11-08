@@ -1,0 +1,86 @@
+[
+  {
+    "id": "population",
+    "term": "population",
+    "definition": "TODO: The whole group of people or objects a statistical question is about",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sample",
+    "term": "sample",
+    "definition": "TODO: The part of a population that data is actually collected from, used to draw conclusions about the population",
+    "lesson": "4.1"
+  },
+  {
+    "id": "random-sample",
+    "term": "random sample",
+    "definition": "TODO: A sample where every member of the population has the same chance of being chosen",
+    "lesson": "4.1"
+  },
+  {
+    "id": "discrete-data",
+    "term": "discrete data",
+    "definition": "TODO: Data that can only take separate values, usually counts",
+    "lesson": "4.1"
+  },
+  {
+    "id": "continuous-data",
+    "term": "continuous data",
+    "definition": "TODO: Measured data that can take any value in a range, such as time or mass",
+    "lesson": "4.1"
+  },
+  {
+    "id": "sampling-bias",
+    "term": "sampling bias",
+    "definition": "TODO: A built-in tendency of a sampling method to pick some kinds of member more than others, so the sample misrepresents the population",
+    "lesson": "4.1"
+  },
+  {
+    "id": "outlier",
+    "term": "outlier",
+    "definition": "TODO: A value more than 1.5 × IQR below the lower quartile or above the upper quartile; some are valid data, some are errors, so don't remove one without a reason",
+    "lesson": "4.1"
+  },
+  {
+    "id": "quartile",
+    "term": "quartile",
+    "definition": "TODO: Values cutting ordered data into quarters: a quarter lies below the lower quartile Q1, three quarters below the upper quartile Q3; methods differ, so GDC and hand values can differ",
+    "lesson": "4.1"
+  },
+  {
+    "id": "interquartile-range",
+    "term": "interquartile range",
+    "definition": "TODO: IQR = Q3 − Q1, the spread of the middle half of the data",
+    "lesson": "4.1"
+  },
+  {
+    "id": "simple-random-sampling",
+    "term": "simple random sampling",
+    "definition": "TODO: Every possible group of the required size is equally likely to be chosen, e.g. drawing numbers at random from a full list",
+    "lesson": "4.1"
+  },
+  {
+    "id": "convenience-sampling",
+    "term": "convenience sampling",
+    "definition": "TODO: Taking the members easiest to reach; quick but likely to be biased",
+    "lesson": "4.1"
+  },
+  {
+    "id": "systematic-sampling",
+    "term": "systematic sampling",
+    "definition": "TODO: Taking every kth member from an ordered list, starting at a randomly chosen member among the first k",
+    "lesson": "4.1"
+  },
+  {
+    "id": "quota-sampling",
+    "term": "quota sampling",
+    "definition": "TODO: Setting how many to take from each group, then the collector chooses anyone who fits until each quota is filled; not random",
+    "lesson": "4.1"
+  },
+  {
+    "id": "stratified-sampling",
+    "term": "stratified sampling",
+    "definition": "TODO: Splitting the population into groups by a shared feature and taking a random sample from each in proportion to its size; rounded group sizes must still add up to the total sample",
+    "lesson": "4.1"
+  }
+]

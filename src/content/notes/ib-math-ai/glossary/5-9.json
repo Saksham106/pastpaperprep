@@ -1,0 +1,26 @@
+[
+  {
+    "id": "chain-rule",
+    "term": "chain rule",
+    "definition": "TODO: For a composite function, dy/dx = dy/du × du/dx: derivative of the outside times derivative of the inside",
+    "lesson": "5.9"
+  },
+  {
+    "id": "product-rule",
+    "term": "product rule",
+    "definition": "TODO: If y = uv then dy/dx = u dv/dx + v du/dx",
+    "lesson": "5.9"
+  },
+  {
+    "id": "quotient-rule",
+    "term": "quotient rule",
+    "definition": "TODO: If y = u/v then dy/dx = (v du/dx − u dv/dx)/v², with the minus sign order fixed",
+    "lesson": "5.9"
+  },
+  {
+    "id": "related-rates",
+    "term": "related rates",
+    "definition": "TODO: Rates of change of linked quantities connected by the chain rule, such as dV/dt = dV/dr × dr/dt",
+    "lesson": "5.9"
+  }
+]

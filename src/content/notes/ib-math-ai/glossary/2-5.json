@@ -1,0 +1,74 @@
+[
+  {
+    "id": "piecewise-function",
+    "term": "piecewise function",
+    "definition": "TODO: A function given by different rules on different intervals of its domain; each x uses exactly one rule, so check the endpoints of each interval",
+    "lesson": "2.5"
+  },
+  {
+    "id": "quadratic-function",
+    "term": "quadratic function",
+    "definition": "TODO: f(x) = ax² + bx + c with a ≠ 0; its graph is a parabola",
+    "lesson": "2.5"
+  },
+  {
+    "id": "parabola",
+    "term": "parabola",
+    "definition": "TODO: The U-shaped graph of a quadratic function; opens upwards when a > 0, downwards when a < 0",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-function",
+    "term": "exponential function",
+    "definition": "TODO: A function with the variable in the exponent, f(x) = ka^x + c (a > 0, a ≠ 1) or ke^(rx) + c; horizontal asymptote y = c",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-growth",
+    "term": "exponential growth",
+    "definition": "TODO: Increase by the same factor over equal steps: ka^x + c with k > 0 and a > 1 (or r > 0); not just 'fast' growth",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-decay",
+    "term": "exponential decay",
+    "definition": "TODO: Decrease by the same factor over equal steps: ka^x + c with k > 0 and 0 < a < 1 (or ka^(−x), a > 1); approaches the asymptote y = c but never reaches it",
+    "lesson": "2.5"
+  },
+  {
+    "id": "direct-variation",
+    "term": "direct variation",
+    "definition": "TODO: y = ax^n with n > 0, 'y is proportional to x^n'; y = 0 when x = 0",
+    "lesson": "2.5"
+  },
+  {
+    "id": "inverse-variation",
+    "term": "inverse variation",
+    "definition": "TODO: y = ax^n with n < 0, such as y = a/x; the y-axis is a vertical asymptote; xy is constant only when n = −1",
+    "lesson": "2.5"
+  },
+  {
+    "id": "sinusoidal-function",
+    "term": "sinusoidal function",
+    "definition": "TODO: A wave-shaped function a sin(bx) + d or a cos(bx) + d; SL uses degrees (period 360°/b), AHL radians (period 2π/b)",
+    "lesson": "2.5"
+  },
+  {
+    "id": "amplitude",
+    "term": "amplitude",
+    "definition": "TODO: |a|, half the difference between the maximum and minimum values; always positive",
+    "lesson": "2.5"
+  },
+  {
+    "id": "period",
+    "term": "period",
+    "definition": "TODO: The horizontal length of one complete cycle: 360°/b in degrees, 2π/b in radians",
+    "lesson": "2.5"
+  },
+  {
+    "id": "principal-axis",
+    "term": "principal axis",
+    "definition": "TODO: The horizontal line y = d halfway between the maximum and minimum of a sinusoidal graph",
+    "lesson": "2.5"
+  }
+]

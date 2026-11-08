@@ -25,6 +25,12 @@ describe.skipIf(!python)("mathparse.py", () => {
     expect(run.stdout.split("\n").filter((line) => line.startsWith("FAIL")), run.stdout + run.stderr).toEqual([]);
     expect(run.status).toBe(0);
   });
+
+  it("passes scripts/notes/test_stats.py (GDC statistics, distributions, tests and TVM helpers in truths)", () => {
+    const run = spawnSync(python!, [resolve(process.cwd(), "scripts/notes/test_stats.py")], { encoding: "utf8" });
+    expect(run.stdout.split("\n").filter((line) => line.startsWith("FAIL")), run.stdout + run.stderr).toEqual([]);
+    expect(run.status).toBe(0);
+  });
 });
 
 describe.skipIf(!python)("verify kinds", () => {

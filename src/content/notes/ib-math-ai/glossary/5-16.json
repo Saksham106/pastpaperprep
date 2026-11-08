@@ -1,0 +1,20 @@
+[
+  {
+    "id": "eulers-method",
+    "term": "Euler's method",
+    "definition": "TODO: A numerical method with step size h: y_(n+1) = y_n + h f(x_n, y_n), x_(n+1) = x_n + h; approximate, usually more accurate for smaller h; over- or underestimates by concavity only for one step from a point on the curve",
+    "lesson": "5.16"
+  },
+  {
+    "id": "coupled-differential-equations",
+    "term": "coupled differential equations",
+    "definition": "TODO: Two differential equations, dx/dt and dy/dt, each depending on both variables, so they must be solved together",
+    "lesson": "5.16"
+  },
+  {
+    "id": "predator-prey-model",
+    "term": "predator–prey model",
+    "definition": "TODO: Coupled differential equations for two populations: predators reduce the prey's growth and the predators' growth depends on the prey",
+    "lesson": "5.16"
+  }
+]

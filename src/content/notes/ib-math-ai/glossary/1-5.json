@@ -1,0 +1,26 @@
+[
+  {
+    "id": "laws-of-exponents",
+    "term": "laws of exponents",
+    "definition": "TODO: a^m × a^n = a^(m+n), a^m ÷ a^n = a^(m−n), (a^m)^n = a^(mn), a^0 = 1, a^(−n) = 1/a^n, for a ≠ 0; the first two need the same base",
+    "lesson": "1.5"
+  },
+  {
+    "id": "logarithm",
+    "term": "logarithm",
+    "definition": "TODO: log_a b = x means a^x = b; needs a > 0, a ≠ 1 and b > 0",
+    "lesson": "1.5"
+  },
+  {
+    "id": "natural-logarithm",
+    "term": "natural logarithm",
+    "definition": "TODO: ln x = log_e x, the inverse of e^x; defined only for x > 0",
+    "lesson": "1.5"
+  },
+  {
+    "id": "e",
+    "term": "e (Euler's number)",
+    "definition": "TODO: The irrational constant e ≈ 2.718 used as a base for exponentials and natural logarithms",
+    "lesson": "1.5"
+  }
+]

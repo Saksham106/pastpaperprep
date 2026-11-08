@@ -1,0 +1,32 @@
+[
+  {
+    "id": "matrix",
+    "term": "matrix",
+    "definition": "TODO: A rectangular array of numbers; order m × n means m rows and n columns, rows first; a_ij is the element in row i, column j",
+    "lesson": "1.14"
+  },
+  {
+    "id": "matrix-multiplication",
+    "term": "matrix multiplication",
+    "definition": "TODO: AB is defined only when A has as many columns as B has rows; each entry is a row of A times a column of B; associative but not commutative (AB ≠ BA in general)",
+    "lesson": "1.14"
+  },
+  {
+    "id": "identity-matrix",
+    "term": "identity matrix",
+    "definition": "TODO: The square matrix I with 1s on the leading diagonal and 0s elsewhere; AI = IA = A",
+    "lesson": "1.14"
+  },
+  {
+    "id": "determinant",
+    "term": "determinant",
+    "definition": "TODO: A number det A for a square matrix, ad − bc for a 2 × 2; A has an inverse only when det A ≠ 0",
+    "lesson": "1.14"
+  },
+  {
+    "id": "inverse-matrix",
+    "term": "inverse matrix",
+    "definition": "TODO: A⁻¹ with AA⁻¹ = A⁻¹A = I; exists only for a square matrix with det A ≠ 0 (a singular matrix has none); Ax = b gives x = A⁻¹b, multiplying on the left",
+    "lesson": "1.14"
+  }
+]

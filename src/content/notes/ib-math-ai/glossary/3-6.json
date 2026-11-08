@@ -1,0 +1,44 @@
+[
+  {
+    "id": "voronoi-diagram",
+    "term": "Voronoi diagram",
+    "definition": "TODO: A division of the plane into cells, one for each site, where each cell holds every point closer to its site than to any other site",
+    "lesson": "3.6"
+  },
+  {
+    "id": "site",
+    "term": "site",
+    "definition": "TODO: One of the given points a Voronoi diagram is built around; each site has its own cell",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-cell",
+    "term": "cell (Voronoi diagram)",
+    "definition": "TODO: The region of all points closer to its site than to any other site; its boundaries are parts of perpendicular bisectors",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-edge",
+    "term": "edge (Voronoi diagram)",
+    "definition": "TODO: A boundary between two neighbouring cells, part of the perpendicular bisector of their two sites; its points are equidistant from those two sites",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-vertex",
+    "term": "vertex (Voronoi diagram)",
+    "definition": "TODO: A point where three or more edges meet, equidistant from the three or more sites around it",
+    "lesson": "3.6"
+  },
+  {
+    "id": "nearest-neighbour-interpolation",
+    "term": "nearest neighbour interpolation",
+    "definition": "TODO: Estimating a value at any point as the value at the site of the cell it lies in, its nearest site",
+    "lesson": "3.6"
+  },
+  {
+    "id": "toxic-waste-dump-problem",
+    "term": "toxic waste dump problem",
+    "definition": "TODO: Finding the point in a region as far as possible from the nearest site; in IB exams the answer is at a vertex where three edges meet",
+    "lesson": "3.6"
+  }
+]

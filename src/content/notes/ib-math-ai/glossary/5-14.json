@@ -1,0 +1,26 @@
+[
+  {
+    "id": "differential-equation",
+    "term": "differential equation",
+    "definition": "TODO: An equation containing a derivative, such as dy/dx = ky; solving it means finding the function",
+    "lesson": "5.14"
+  },
+  {
+    "id": "separation-of-variables",
+    "term": "separation of variables",
+    "definition": "TODO: Solving dy/dx = f(x)g(y) by rearranging to ∫ dy/g(y) = ∫ f(x) dx and integrating both sides, with one constant",
+    "lesson": "5.14"
+  },
+  {
+    "id": "general-solution",
+    "term": "general solution",
+    "definition": "TODO: The family of all solutions of a differential equation, with an arbitrary constant",
+    "lesson": "5.14"
+  },
+  {
+    "id": "particular-solution",
+    "term": "particular solution",
+    "definition": "TODO: The one solution of a differential equation that fits a given condition, such as a known point",
+    "lesson": "5.14"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "scalar-product",
+    "term": "scalar product",
+    "definition": "TODO: v · w = v1w1 + v2w2 + v3w3 = |v||w| cos θ, a number; it is 0 for perpendicular non-zero vectors",
+    "lesson": "3.13"
+  },
+  {
+    "id": "vector-product",
+    "term": "vector product",
+    "definition": "TODO: v × w = |v||w| sin θ n, a vector perpendicular to both, with unit vector n fixed by the right-hand screw rule (fingers curl from v to w, thumb gives n); |v × w| is the parallelogram's area; w × v = −(v × w)",
+    "lesson": "3.13"
+  },
+  {
+    "id": "component-of-a-vector-in-a-direction",
+    "term": "component of a vector in a direction",
+    "definition": "TODO: The component of a in the direction of b is (a · b)/|b| = |a| cos θ, a scalar; perpendicular to b (in their plane) it is |a × b|/|b| = |a| sin θ",
+    "lesson": "3.13"
+  }
+]

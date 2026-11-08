@@ -1,0 +1,26 @@
+[
+  {
+    "id": "least-squares-regression",
+    "term": "least squares regression",
+    "definition": "TODO: Fitting a line or curve (linear, quadratic, cubic, exponential, power, sine) by choosing parameters that make the sum of squared vertical residuals as small as possible",
+    "lesson": "4.13"
+  },
+  {
+    "id": "residual",
+    "term": "residual",
+    "definition": "TODO: Observed y minus the value the model predicts at the same x; a signed vertical distance",
+    "lesson": "4.13"
+  },
+  {
+    "id": "sum-of-square-residuals",
+    "term": "sum of square residuals",
+    "definition": "TODO: SS_res, the sum of the squared residuals; for the same data a smaller value means a closer fit, and 0 means a perfect fit",
+    "lesson": "4.13"
+  },
+  {
+    "id": "coefficient-of-determination",
+    "term": "coefficient of determination",
+    "definition": "TODO: R², the proportion of the variability in y accounted for by the model; equals r² for a linear model; a high R² alone does not make a model the right choice",
+    "lesson": "4.13"
+  }
+]

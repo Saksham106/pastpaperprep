@@ -1,0 +1,32 @@
+[
+  {
+    "id": "critical-region",
+    "term": "critical region",
+    "definition": "TODO: The values of the test statistic that lead to rejecting H0; for a discrete distribution it makes P(Type I error) as large as possible while staying below the significance level",
+    "lesson": "4.18"
+  },
+  {
+    "id": "type-i-error",
+    "term": "Type I error",
+    "definition": "TODO: Rejecting H0 when it is actually true",
+    "lesson": "4.18"
+  },
+  {
+    "id": "type-ii-error",
+    "term": "Type II error",
+    "definition": "TODO: Not rejecting H0 when it is actually false; its probability needs a specific true value of the parameter",
+    "lesson": "4.18"
+  },
+  {
+    "id": "matched-pairs",
+    "term": "matched pairs",
+    "definition": "TODO: Two measurements on each subject, analysed as one sample of differences",
+    "lesson": "4.18"
+  },
+  {
+    "id": "population-product-moment-correlation-coefficient",
+    "term": "population product-moment correlation coefficient",
+    "definition": "TODO: ρ, the correlation in the whole population, estimated by r; testing H0: ρ = 0 assumes the data come from a bivariate normal distribution",
+    "lesson": "4.18"
+  }
+]

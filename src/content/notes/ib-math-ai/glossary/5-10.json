@@ -1,0 +1,32 @@
+[
+  {
+    "id": "second-derivative",
+    "term": "second derivative",
+    "definition": "TODO: f″(x) or d²y/dx², the derivative of the derivative: how fast the gradient is changing",
+    "lesson": "5.10"
+  },
+  {
+    "id": "second-derivative-test",
+    "term": "second derivative test",
+    "definition": "TODO: At a stationary point, f″(x) > 0 means a local minimum and f″(x) < 0 a local maximum; f″(x) = 0 decides nothing",
+    "lesson": "5.10"
+  },
+  {
+    "id": "point-of-inflexion",
+    "term": "point of inflexion",
+    "definition": "TODO: A point where the concavity changes; f″(x) = 0 there for a smooth curve, but f″(x) = 0 alone is not enough (x⁴ at 0); it need not be stationary",
+    "lesson": "5.10"
+  },
+  {
+    "id": "concave-up",
+    "term": "concave-up",
+    "definition": "TODO: Bending upwards on an interval: the gradient increases there, as it does wherever f″(x) > 0",
+    "lesson": "5.10"
+  },
+  {
+    "id": "concave-down",
+    "term": "concave-down",
+    "definition": "TODO: Bending downwards on an interval: the gradient decreases there, as it does wherever f″(x) < 0",
+    "lesson": "5.10"
+  }
+]

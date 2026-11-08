@@ -1,0 +1,110 @@
+[
+  {
+    "id": "trail",
+    "term": "trail",
+    "definition": "TODO: A walk with no repeated edges; vertices may repeat",
+    "lesson": "3.16"
+  },
+  {
+    "id": "path",
+    "term": "path",
+    "definition": "TODO: A walk with no repeated vertices, so no repeated edges either",
+    "lesson": "3.16"
+  },
+  {
+    "id": "circuit",
+    "term": "circuit",
+    "definition": "TODO: A trail that starts and ends at the same vertex: closed, with no repeated edges",
+    "lesson": "3.16"
+  },
+  {
+    "id": "cycle",
+    "term": "cycle",
+    "definition": "TODO: A closed walk with no repeated vertices except the start and end vertex",
+    "lesson": "3.16"
+  },
+  {
+    "id": "odd-vertex",
+    "term": "odd vertex",
+    "definition": "TODO: A vertex of odd degree; every graph has an even number of odd vertices",
+    "lesson": "3.16"
+  },
+  {
+    "id": "eulerian-trail",
+    "term": "Eulerian trail",
+    "definition": "TODO: A trail using every edge exactly once; a connected graph has one when it has 0 or 2 odd vertices, and with 2 it must start at one and end at the other",
+    "lesson": "3.16"
+  },
+  {
+    "id": "eulerian-circuit",
+    "term": "Eulerian circuit",
+    "definition": "TODO: A circuit using every edge exactly once; a connected graph has one exactly when every vertex has even degree",
+    "lesson": "3.16"
+  },
+  {
+    "id": "hamiltonian-path",
+    "term": "Hamiltonian path",
+    "definition": "TODO: A path visiting every vertex exactly once; there is no simple test for whether one exists",
+    "lesson": "3.16"
+  },
+  {
+    "id": "hamiltonian-cycle",
+    "term": "Hamiltonian cycle",
+    "definition": "TODO: A cycle visiting every vertex exactly once and returning to the start",
+    "lesson": "3.16"
+  },
+  {
+    "id": "spanning-tree",
+    "term": "spanning tree",
+    "definition": "TODO: A subgraph that is a tree and includes every vertex of the graph",
+    "lesson": "3.16"
+  },
+  {
+    "id": "minimum-spanning-tree",
+    "term": "minimum spanning tree",
+    "definition": "TODO: A spanning tree of least total weight in a connected weighted graph; it may not be unique",
+    "lesson": "3.16"
+  },
+  {
+    "id": "kruskals-algorithm",
+    "term": "Kruskal's algorithm",
+    "definition": "TODO: Builds a minimum spanning tree by adding edges in increasing order of weight, skipping any that would make a cycle, until there are n − 1 edges",
+    "lesson": "3.16"
+  },
+  {
+    "id": "prims-algorithm",
+    "term": "Prim's algorithm",
+    "definition": "TODO: Builds a minimum spanning tree from a starting vertex by repeatedly adding the least-weight edge from a tree vertex to a vertex not yet in the tree; also works on a table (matrix method)",
+    "lesson": "3.16"
+  },
+  {
+    "id": "chinese-postman-problem",
+    "term": "Chinese postman problem",
+    "definition": "TODO: Find the least-weight closed route along every edge at least once; with odd vertices, repeat the least-weight pairing of the odd vertices (up to four in IB)",
+    "lesson": "3.16"
+  },
+  {
+    "id": "travelling-salesman-problem",
+    "term": "travelling salesman problem",
+    "definition": "TODO: Find the least-weight Hamiltonian cycle in a weighted complete graph; practical problems first need a table of least distances",
+    "lesson": "3.16"
+  },
+  {
+    "id": "table-of-least-distances",
+    "term": "table of least distances",
+    "definition": "TODO: A table of the shortest route between every pair of vertices, which turns a practical problem into the classical TSP on a complete graph",
+    "lesson": "3.16"
+  },
+  {
+    "id": "nearest-neighbour-algorithm",
+    "term": "nearest neighbour algorithm",
+    "definition": "TODO: From a start vertex go to the nearest unvisited vertex each time, then return to the start; gives an upper bound for the TSP, not necessarily the best tour",
+    "lesson": "3.16"
+  },
+  {
+    "id": "deleted-vertex-algorithm",
+    "term": "deleted vertex algorithm",
+    "definition": "TODO: Delete a vertex, find a minimum spanning tree of the rest, add the two least-weight edges from the deleted vertex; gives a lower bound for the TSP, and the largest such bound is the best",
+    "lesson": "3.16"
+  }
+]

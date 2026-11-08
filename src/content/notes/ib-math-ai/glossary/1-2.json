@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sequence",
+    "term": "sequence",
+    "definition": "TODO: An ordered list of numbers (terms); u_n is the nth term, not the sum",
+    "lesson": "1.2"
+  },
+  {
+    "id": "arithmetic-sequence",
+    "term": "arithmetic sequence",
+    "definition": "TODO: Each term is the previous term plus the same constant d, which may be negative",
+    "lesson": "1.2"
+  },
+  {
+    "id": "common-difference",
+    "term": "common difference",
+    "definition": "TODO: d = u_(n+1) − u_n, the same for every pair of consecutive terms; can be negative; for real data only approximately constant",
+    "lesson": "1.2"
+  },
+  {
+    "id": "series",
+    "term": "series",
+    "definition": "TODO: The sum of the terms of a sequence; S_n is the sum of the first n terms, not the nth term",
+    "lesson": "1.2"
+  },
+  {
+    "id": "sigma-notation",
+    "term": "sigma notation",
+    "definition": "TODO: Σ with a general term and the first and last values of the counter, both included",
+    "lesson": "1.2"
+  },
+  {
+    "id": "simple-interest",
+    "term": "simple interest",
+    "definition": "TODO: Interest each period on the original amount only, so the balance grows arithmetically, not geometrically",
+    "lesson": "1.2"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "linear-combination-of-random-variables",
+    "term": "linear combination of random variables",
+    "definition": "TODO: aX + bY + …: expectations always add; Var(aX ± bY) = a²Var(X) + b²Var(Y) only when X and Y are independent, with variances adding even for a difference",
+    "lesson": "4.14"
+  },
+  {
+    "id": "variance-of-a-random-variable",
+    "term": "variance of a random variable",
+    "definition": "TODO: Var(X) = E((X − μ)²), the expected squared distance from the mean; Var(aX + b) = a²Var(X), so adding b has no effect",
+    "lesson": "4.14"
+  },
+  {
+    "id": "unbiased-estimate",
+    "term": "unbiased estimate",
+    "definition": "TODO: An estimate whose expected value equals the parameter: x̄ for μ, and s²_(n−1) (dividing by n − 1, not n) for σ²",
+    "lesson": "4.14"
+  }
+]

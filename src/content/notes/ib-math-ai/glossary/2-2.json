@@ -1,0 +1,38 @@
+[
+  {
+    "id": "function",
+    "term": "function",
+    "definition": "TODO: A rule that gives exactly one output for each input in its domain",
+    "lesson": "2.2"
+  },
+  {
+    "id": "domain",
+    "term": "domain",
+    "definition": "TODO: The set of input values a function is defined for; in a model it is also limited by the context",
+    "lesson": "2.2"
+  },
+  {
+    "id": "range",
+    "term": "range",
+    "definition": "TODO: The set of output values a function takes over its domain; not the range of a data set",
+    "lesson": "2.2"
+  },
+  {
+    "id": "mathematical-model",
+    "term": "mathematical model",
+    "definition": "TODO: A function or equation that describes a real situation approximately, valid only over a domain the context allows",
+    "lesson": "2.2"
+  },
+  {
+    "id": "inverse-function",
+    "term": "inverse function",
+    "definition": "TODO: f⁻¹ undoes f: if f(a) = b then f⁻¹(b) = a; its graph is the reflection in y = x; exists only for a one-to-one function; domain of f⁻¹ = range of f; f⁻¹(x) is not 1/f(x)",
+    "lesson": "2.2"
+  },
+  {
+    "id": "one-to-one-function",
+    "term": "one-to-one function",
+    "definition": "TODO: A function where no two inputs give the same output, so it has an inverse; every horizontal line meets the graph at most once",
+    "lesson": "2.2"
+  }
+]

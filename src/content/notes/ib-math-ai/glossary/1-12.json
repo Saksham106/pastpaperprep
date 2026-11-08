@@ -1,0 +1,56 @@
+[
+  {
+    "id": "complex-number",
+    "term": "complex number",
+    "definition": "TODO: A number z = a + bi with a, b real and i² = −1 (i is not a real number); real numbers are the case b = 0",
+    "lesson": "1.12"
+  },
+  {
+    "id": "cartesian-form",
+    "term": "Cartesian form",
+    "definition": "TODO: A complex number written z = a + bi with a and b real, real part first",
+    "lesson": "1.12"
+  },
+  {
+    "id": "real-part",
+    "term": "real part",
+    "definition": "TODO: For z = a + bi with a, b real, Re(z) = a",
+    "lesson": "1.12"
+  },
+  {
+    "id": "imaginary-part",
+    "term": "imaginary part",
+    "definition": "TODO: For z = a + bi with a, b real, Im(z) = b, a real number (not bi)",
+    "lesson": "1.12"
+  },
+  {
+    "id": "complex-conjugate",
+    "term": "complex conjugate",
+    "definition": "TODO: For z = a + bi, z* = a − bi, the reflection of z in the real axis; non-real roots of a real quadratic come as a conjugate pair",
+    "lesson": "1.12"
+  },
+  {
+    "id": "modulus-of-a-complex-number",
+    "term": "modulus of a complex number",
+    "definition": "TODO: |z| = √(a² + b²), the distance of z from 0 on an Argand diagram; never negative",
+    "lesson": "1.12"
+  },
+  {
+    "id": "argument-of-a-complex-number",
+    "term": "argument of a complex number",
+    "definition": "TODO: The angle arg z from the positive real axis to z, anticlockwise positive; check the quadrant, since arctan(b/a) alone is wrong when a < 0; usually −π < arg z ≤ π",
+    "lesson": "1.12"
+  },
+  {
+    "id": "argand-diagram",
+    "term": "Argand diagram",
+    "definition": "TODO: The complex plane: real axis horizontal, imaginary axis vertical, a + bi plotted at (a, b)",
+    "lesson": "1.12"
+  },
+  {
+    "id": "discriminant",
+    "term": "discriminant",
+    "definition": "TODO: Δ = b² − 4ac for ax² + bx + c with real coefficients, a ≠ 0; Δ < 0 means no real roots, but the quadratic formula gives two complex conjugate roots",
+    "lesson": "1.12"
+  }
+]

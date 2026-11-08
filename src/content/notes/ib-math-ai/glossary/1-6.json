@@ -1,0 +1,26 @@
+[
+  {
+    "id": "significant-figures",
+    "term": "significant figures",
+    "definition": "TODO: Digits counted from the first non-zero digit; leading zeros don't count, trailing zeros kept after rounding do; IB default is 3 s.f. unless told otherwise",
+    "lesson": "1.6"
+  },
+  {
+    "id": "upper-bound",
+    "term": "upper bound",
+    "definition": "TODO: For a rounded value, the boundary half a unit of the last place above it; the true value is below it, not equal (x = 4.1 to 1 d.p. means x < 4.15); in the TSP, a value the optimal tour cannot exceed",
+    "lesson": "1.6"
+  },
+  {
+    "id": "lower-bound",
+    "term": "lower bound",
+    "definition": "TODO: For a rounded value, the boundary half a unit of the last place below it, which the true value can equal (4.05 ≤ x); in the TSP, a value the optimal tour cannot be less than",
+    "lesson": "1.6"
+  },
+  {
+    "id": "percentage-error",
+    "term": "percentage error",
+    "definition": "TODO: |approximate − exact| ÷ |exact| × 100%; divide by the exact (accepted) value, never the approximation",
+    "lesson": "1.6"
+  }
+]

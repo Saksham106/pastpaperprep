@@ -65,6 +65,7 @@ from sympy.parsing.latex import parse_latex
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chem_data  # noqa: E402
+import stats_data  # noqa: E402
 import chemparse as cp  # noqa: E402
 import mathparse as mp  # noqa: E402
 import phys_data  # noqa: E402
@@ -255,6 +256,7 @@ _CHEM_FUNCTIONS = {name: value for name, value in chem_data.namespace().items() 
 _CHEM_CONSTANTS = {name: value for name, value in chem_data.namespace().items() if not callable(value)}
 NAMESPACE.update(_CHEM_FUNCTIONS)
 NAMESPACE["S"] = _EntropyOrS()
+NAMESPACE.update(stats_data.HELPERS)  # GDC statistics, distributions, tests and TVM (stats_data.py); names clash with nothing
 
 
 _PHYS_NAMES = phys_data.namespace()
