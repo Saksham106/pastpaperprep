@@ -694,18 +694,18 @@
         },
         {
           "type": "text",
-          "text": "You can also judge a result. If the percentage error is smaller than the total percentage uncertainty, random errors can explain it. If it is larger, there must be systematic errors too."
+          "text": "You can also judge a result. The direct test is the range: if the accepted value lies within your result $\\pm$ its absolute uncertainty, random errors can explain the difference; if it lies outside, there must be systematic errors too. Comparing the percentage error with the total percentage uncertainty gives the same verdict when the gap is clear. Near the edge, check the range itself, because the two percentages are measured against different values (the accepted value and your result)."
         },
         {
           "type": "example",
           "id": "ex-error-vs-uncertainty",
           "question": "In the butan-1-ol experiment above, the percentage error was $19.7\\%$. The student's measurements give a total percentage uncertainty of $4\\%$. Explain what this comparison shows about the errors in the method.",
           "steps": [
-            "Compare the two percentages.",
+            "Compare the two percentages. The gap is large (19.7% against 4%), so the verdict is clear: the accepted value lies well outside the result's uncertainty range.",
             "Say what the uncertainty can account for, and what must cause the rest.",
             "Give a likely systematic error for burning a fuel under a can, and say why repeats won't fix it."
           ],
-          "answer": "The percentage error is much larger than the total percentage uncertainty. Random errors in the measurements can only account for about 4%. So the rest must come from systematic errors in the method. For example, heat is lost to the surroundings, and some of the fuel burns incompletely. Repeating the experiment would not remove these errors; the method must be changed, for example by insulating the can.",
+          "answer": "The percentage error is much larger than the total percentage uncertainty, so the accepted value lies well outside the result's uncertainty range. Random errors in the measurements can only account for about 4%. So the rest must come from systematic errors in the method. For example, heat is lost to the surroundings, and some of the fuel burns incompletely. Repeating the experiment would not remove these errors; the method must be changed, for example by insulating the can.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -880,7 +880,7 @@
         },
         {
           "type": "fact",
-          "text": "Percentage error larger than the total percentage uncertainty means systematic errors are present.",
+          "text": "A result agrees with the accepted value only if that value lies within the result $\\pm$ its absolute uncertainty; outside that range, systematic errors are present. A percentage error far above the total percentage uncertainty shows the same.",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -896,8 +896,8 @@
   ],
   "examTips": [
     "\"Calculate\" a processed value with its uncertainty: show each percentage uncertainty, their sum, then the value $\\pm$ its absolute uncertainty with units.",
-    "\"Evaluate\" a result: compare the percentage error with the total percentage uncertainty, then say whether random errors alone explain it.",
+    "\"Evaluate\" a result: check whether the accepted value lies within your result $\\pm$ its absolute uncertainty (comparing the percentage error with the total percentage uncertainty works when the gap is clear), then say whether random errors alone explain it.",
     "In a Paper 1B data table, record each reading to the precision of the instrument, with the same decimal places down a column."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }
