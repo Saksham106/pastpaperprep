@@ -1,0 +1,32 @@
+[
+  {
+    "id": "electrical-power",
+    "term": "electrical power",
+    "definition": "TODO: P = IV = I^2 R = V^2/R",
+    "lesson": "2.14"
+  },
+  {
+    "id": "internal-resistance",
+    "term": "internal resistance",
+    "definition": "TODO: Resistance of the cell itself, so terminal p.d. = emf - Ir",
+    "lesson": "2.14"
+  },
+  {
+    "id": "terminal-potential-difference",
+    "term": "terminal potential difference",
+    "definition": "TODO: p.d. across the cell terminals when current flows, less than emf",
+    "lesson": "2.14"
+  },
+  {
+    "id": "thermistor",
+    "term": "thermistor",
+    "definition": "TODO: Resistance changes with temperature; NTC falls as temperature rises",
+    "lesson": "2.14"
+  },
+  {
+    "id": "light-dependent-resistor",
+    "term": "light-dependent resistor",
+    "definition": "TODO: Resistance falls as light intensity rises",
+    "lesson": "2.14"
+  }
+]

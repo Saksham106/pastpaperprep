@@ -1,0 +1,44 @@
+[
+  {
+    "id": "isovolumetric-process",
+    "term": "isovolumetric process",
+    "definition": "TODO: Constant volume; no work done",
+    "lesson": "2.11"
+  },
+  {
+    "id": "isobaric-process",
+    "term": "isobaric process",
+    "definition": "TODO: Constant pressure; W = P ΔV",
+    "lesson": "2.11"
+  },
+  {
+    "id": "isothermal-process",
+    "term": "isothermal process",
+    "definition": "TODO: Constant temperature; ΔU = 0 for an ideal gas, Q = W",
+    "lesson": "2.11"
+  },
+  {
+    "id": "adiabatic-process",
+    "term": "adiabatic process",
+    "definition": "TODO: No thermal energy transfer, Q = 0; PV^(5/3) constant for monatomic ideal gas",
+    "lesson": "2.11"
+  },
+  {
+    "id": "p-v-diagram",
+    "term": "P-V diagram",
+    "definition": "TODO: Plot of pressure against volume; area under curve is work, enclosed area is net work",
+    "lesson": "2.11"
+  },
+  {
+    "id": "heat-engine",
+    "term": "heat engine",
+    "definition": "TODO: Device that converts thermal energy to work by cycling; waste heat is released to a cold reservoir",
+    "lesson": "2.11"
+  },
+  {
+    "id": "carnot-cycle",
+    "term": "Carnot cycle",
+    "definition": "TODO: Reversible cycle giving maximum efficiency 1 - Tc/Th, in kelvin",
+    "lesson": "2.11"
+  }
+]

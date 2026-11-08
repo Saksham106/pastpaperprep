@@ -1,0 +1,50 @@
+[
+  {
+    "id": "black-body",
+    "term": "black body",
+    "definition": "TODO: Ideal absorber and emitter; absorbs all incident radiation and emits the maximum power at its temperature",
+    "lesson": "2.4"
+  },
+  {
+    "id": "stefan-boltzmann-law",
+    "term": "Stefan-Boltzmann law",
+    "definition": "TODO: L = sigma A T^4, for black bodies; scale with emissivity for others",
+    "lesson": "2.4"
+  },
+  {
+    "id": "luminosity",
+    "term": "luminosity",
+    "definition": "TODO: Total power radiated by a body, in watts",
+    "lesson": "2.4"
+  },
+  {
+    "id": "apparent-brightness",
+    "term": "apparent brightness",
+    "definition": "TODO: Power received per unit area, b = L/4 pi d^2; depends on distance",
+    "lesson": "2.4"
+  },
+  {
+    "id": "intensity",
+    "term": "intensity",
+    "definition": "TODO: Power per unit area perpendicular to the direction of travel; proportional to amplitude squared for waves",
+    "lesson": "2.4"
+  },
+  {
+    "id": "inverse-square-law",
+    "term": "inverse square law",
+    "definition": "TODO: Quantity falls as 1/r^2 with distance from a point source",
+    "lesson": "2.4"
+  },
+  {
+    "id": "emission-spectrum",
+    "term": "emission spectrum",
+    "definition": "TODO: Wavelengths emitted by a source; black body gives continuous, atoms give lines",
+    "lesson": "2.4"
+  },
+  {
+    "id": "wien-s-displacement-law",
+    "term": "Wien's displacement law",
+    "definition": "TODO: lambda_max T = 2.9e-3 m K; hotter body peaks at shorter wavelength",
+    "lesson": "2.4"
+  }
+]

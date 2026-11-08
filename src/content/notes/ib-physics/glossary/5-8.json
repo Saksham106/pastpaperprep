@@ -1,0 +1,26 @@
+[
+  {
+    "id": "activity",
+    "term": "activity",
+    "definition": "TODO: Number of decays per second, unit becquerel",
+    "lesson": "5.8"
+  },
+  {
+    "id": "count-rate",
+    "term": "count rate",
+    "definition": "TODO: Detected decays per unit time, less than activity",
+    "lesson": "5.8"
+  },
+  {
+    "id": "half-life",
+    "term": "half-life",
+    "definition": "TODO: Time for activity or number of nuclei to halve; constant",
+    "lesson": "5.8"
+  },
+  {
+    "id": "background-radiation",
+    "term": "background radiation",
+    "definition": "TODO: Radiation from natural sources; subtract from count rate",
+    "lesson": "5.8"
+  }
+]
