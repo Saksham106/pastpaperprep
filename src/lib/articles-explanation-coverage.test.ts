@@ -15,3 +15,14 @@ describe("article claim: every question has a worked explanation", () => {
     }
   });
 });
+
+describe("article copy matches full explanation coverage", () => {
+  it("never hedges explanation coverage in a published article", async () => {
+    const { ARTICLES } = await import("@/lib/articles");
+    const hedge = /not every question has (?:one|a worked explanation)|has one yet|(?:many|some) (?:HL and SL )?questions (?:also )?(?:have|has|include)s? a (?:PastPaperPrep |published )?worked explanation|worked explanations? (?:on|for|cover) (?:many|available|published|supported)|explanations? where published/i;
+    for (const article of ARTICLES) {
+      const match = hedge.exec(JSON.stringify(article));
+      expect(match?.[0], `${article.slug} hedges explanation coverage`).toBeUndefined();
+    }
+  });
+});

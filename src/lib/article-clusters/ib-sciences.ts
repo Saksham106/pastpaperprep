@@ -193,7 +193,7 @@ export const IB_SCIENCE_BUYER_GUIDES: readonly Article[] = [
       {
         heading: "Best focused paper practice: PastPaperPrep",
         paragraphs: [
-          "PastPaperPrep separates HL and SL whole-paper archives and topical banks. Use a free paper for a timed attempt, then filter real questions to repair a modelling, units or data-handling gap. Official mark schemes check credited answers. Many HL and SL questions also have a PastPaperPrep worked explanation. Printable custom sets require eligible bank access.",
+          "PastPaperPrep separates HL and SL whole-paper archives and topical banks. Use a free paper for a timed attempt, then filter real questions to repair a modelling, units or data-handling gap. Official mark schemes check credited answers. Every HL and SL question also has a PastPaperPrep worked explanation. Printable custom sets require eligible bank access.",
           "Guests can see up to 20 questions matching their active filters; a free account opens the rest of that bank’s free selection. PDF export requires eligible bank access and follows the plan download allowance. Check current access on the bank page. PastPaperPrep is not the best choice if you need video teaching, extensive revision notes, flashcards, or a guided course sequence."
         ]
       },

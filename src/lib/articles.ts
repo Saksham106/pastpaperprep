@@ -598,7 +598,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Save My Exams: Price and Features",
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
-    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Many questions also have a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools. Neither every question nor every subject has a PastPaperPrep explanation.",
+    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Every question also has a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools. Neither every question nor every subject has a PastPaperPrep explanation.",
     publishedAt: "2026-08-30",
     updatedAt: "2026-11-08",
     readingMinutes: 6,

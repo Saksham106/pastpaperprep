@@ -53,7 +53,7 @@ const IB_PHYSICS_DATA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Work with the same clean copy you will use in the exam. Do not write on it and do not use your own formula sheet while practising, or you will build habits you cannot repeat on the day.",
         "Start with topic-filtered questions to learn where things are, then move to whole papers against the clock. After each attempt, note whether a lost mark came from not knowing the equation, not finding it, or misusing it. Those three problems need different fixes.",
-        "On PastPaperPrep you can filter real IB Physics questions by topic, and whole papers are free to open without signing up. Many questions also have a worked explanation to compare with your own method.",
+        "On PastPaperPrep you can filter real IB Physics questions by topic, and whole papers are free to open without signing up. Every question also has a worked explanation to compare with your own method.",
       ],
       links: [
         { href: "/banks/ib-physics-hl", label: "IB Physics HL topic practice" },
@@ -95,7 +95,7 @@ const IB_CHEMISTRY_DATA_BOOKLET_GUIDE: Article = {
   answer: "The IB Chemistry data booklet is an official reference that includes the periodic table, constants and tables of data such as bond enthalpies, and a clean copy is provided in the written exam papers at SL and HL. It does not give you definitions, mechanisms or the reasoning for an answer. On PastPaperPrep you can practise real IB Chemistry questions by topic and open whole papers free without signing up.",
   answerLink: { href: "/banks/ib-chemistry-hl", label: "PastPaperPrep" },
   publishedAt: "2026-10-16",
-  updatedAt: "2026-10-16",
+  updatedAt: "2026-11-08",
   readingMinutes: 5,
   sections: [
     {
@@ -139,7 +139,7 @@ const IB_CHEMISTRY_DATA_BOOKLET_GUIDE: Article = {
       paragraphs: [
         "Practise with the clean booklet from the start. Pick a topic, work through questions, and each time you look something up, note which section it came from. After a week you will find things quickly.",
         "Then move to whole papers under timed conditions with only the booklet and a scientific calculator. Mark yourself against the official mark scheme, and record whether each lost mark was a recall, calculation or data-lookup error.",
-        "PastPaperPrep lets you filter real IB Chemistry questions by topic, and whole papers are free to open without an account. Many questions also include a worked explanation.",
+        "PastPaperPrep lets you filter real IB Chemistry questions by topic, and whole papers are free to open without an account. Every question also includes a worked explanation.",
       ],
       links: [
         { href: "/banks/ib-chemistry-hl", label: "IB Chemistry HL topic practice" },

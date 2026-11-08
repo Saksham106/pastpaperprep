@@ -6,7 +6,7 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
   title: "RevisionDojo vs Save My Exams for IB: Free Access, Questions and Explanations",
   description: "Compare RevisionDojo and Save My Exams for IB revision: free access, exam-style questions, worked answers, AI feedback and the right course fit.",
   eyebrow: "IB revision comparison",
-  answer: "Choose RevisionDojo if you want IB practice with Jojo AI feedback and interactive learning tools. Choose Save My Exams if you prefer syllabus-specific revision notes and exam-style topic questions with teacher-written model answers. Both offer free access, but neither makes every explanation or feedback tool unlimited for free. If your main task is practising authentic papers, PastPaperPrep is a third option: its whole-paper IB archive is free without signup, with separate topical banks and worked explanations on published questions in supported banks.",
+  answer: "Choose RevisionDojo if you want IB practice with Jojo AI feedback and interactive learning tools. Choose Save My Exams if you prefer syllabus-specific revision notes and exam-style topic questions with teacher-written model answers. Both offer free access, but neither makes every explanation or feedback tool unlimited for free. If your main task is practising authentic papers, PastPaperPrep is a third option: its whole-paper IB archive is free without signup, with separate topical banks and a worked explanation on every question.",
   answerLink: { href: "/past-papers/ib", label: "Browse free IB whole papers" },
   publishedAt: "2026-10-14",
   updatedAt: "2026-11-08",
@@ -70,7 +70,7 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
       paragraphs: [
         "PastPaperPrep is useful when the problem is finding authentic paper practice, not choosing a complete learning platform. The whole-paper archive at /past-papers and /past-papers/ib is free without signup. Choose the exact course and level, then a year, session and paper with its matching official mark scheme.",
         "The topical question banks are a separate workflow. Guests can practise up to 20 matching free questions; a free account opens the rest of the free selection. Newer bank inventory and custom PDF exports require eligible bank access, with applicable allowances. Free whole papers do not make every topical question or export free.",
-        "Many questions across the IB banks have a published worked explanation. Every question in every IB bank has one. Explanations follow the same access gate as the question's mark scheme and are distinct from official mark schemes.",
+        "Every question in every IB bank has a worked explanation. Explanations follow the same access gate as the question's mark scheme and are distinct from official mark schemes.",
         "That makes PastPaperPrep a practical supplement: attempt a real paper, identify the topic that cost marks and practise matching real questions. It is not a replacement for RevisionDojo's coursework tools, a full notes course or a video teaching library.",
       ],
       links: [
@@ -94,7 +94,7 @@ const REVISIONDOJO_VS_SAVE_MY_EXAMS: Article = {
     { question: "Is RevisionDojo or Save My Exams better for IB?", answer: "RevisionDojo is a better fit for interactive IB practice and Jojo AI feedback. Save My Exams is a better fit for syllabus-specific notes and teacher-written model answers. Compare one topic in your exact subject and HL/SL course before paying; neither is best for every student." },
     { question: "Are both platforms free?", answer: "Both offer free access with limits. RevisionDojo says question-bank and past-paper browsing and written answers are free, but AI marking spends energy and free walkthroughs are capped. Save My Exams offers selected notes and limited questions and answers, with available past-paper downloads through a free account. Neither provides its entire teaching and feedback feature set free." },
     { question: "Are their topic questions real IB past-paper questions?", answer: "Do not assume so. RevisionDojo describes its Question Bank as IB-style practice and its separate Past Papers feature as real exam questions. Save My Exams describes its IB topic questions as exam-style. Check the source identity of the resource you use rather than treating all question banks as original-paper archives." },
-    { question: "Does PastPaperPrep have IB worked explanations?", answer: "Yes. Every question in its IGCSE and IB banks has one. Not every question has one yet. Each explanation follows the question's mark-scheme access gate and is separate from the official mark scheme. The whole-paper archive remains free without signup." },
+    { question: "Does PastPaperPrep have IB worked explanations?", answer: "Yes. Every question in its IGCSE and IB banks has one. Each explanation follows the question's mark-scheme access gate and is separate from the official mark scheme. The whole-paper archive remains free without signup." },
   ],
   relatedBanks: [
     { href: "/banks/ib-hl", label: "IB Maths AA HL topic practice" },

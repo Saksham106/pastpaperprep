@@ -41,7 +41,7 @@ describe("article library", () => {
   it("keeps the commercial cluster behind an explicit release matrix", () => {
     const releaseMatrix = [
       ["ib-physics-data-booklet-guide", "2026-10-16", "2026-11-08", false],
-      ["ib-chemistry-data-booklet-guide", "2026-10-16", "2026-10-16", false],
+      ["ib-chemistry-data-booklet-guide", "2026-10-16", "2026-11-08", false],
       ["ib-math-aa-formula-booklet-guide", "2026-10-16", "2026-11-08", false],
       ["ib-math-ai-formula-booklet-guide", "2026-10-16", "2026-11-08", false],
       ["revisiondojo-vs-save-my-exams", "2026-10-14", "2026-11-08", false],
