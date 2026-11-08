@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 170" role="img" aria-labelledby="t63rg">
+  <title id="t63rg">A horizontal number line for g in metres per second squared, marked from 9.0 to 10.0 in steps of 0.1. A dot at 9.4 shows the measured value, with a horizontal bar from 9.1 to 9.7 showing its range. A separate vertical marker at 9.81 shows the accepted value. The accepted value lies to the right of the end of the bar, outside the range.</title>
+  <line x1="50" y1="120" x2="470" y2="120" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="60" y1="116" x2="60" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="60" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">9.0</text>
+  <line x1="100" y1="116" x2="100" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="140" y1="116" x2="140" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="140" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">9.2</text>
+  <line x1="180" y1="116" x2="180" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="220" y1="116" x2="220" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="220" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">9.4</text>
+  <line x1="260" y1="116" x2="260" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="300" y1="116" x2="300" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="300" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">9.6</text>
+  <line x1="340" y1="116" x2="340" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="380" y1="116" x2="380" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="380" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">9.8</text>
+  <line x1="420" y1="116" x2="420" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="460" y1="116" x2="460" y2="124" stroke="currentColor" stroke-width="1.2"/>
+  <text x="460" y="140" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10.0</text>
+  <text x="260" y="162" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle"><tspan font-style="italic">g</tspan> / m s⁻²</text>
+  <line x1="100" y1="80" x2="340" y2="80" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <line x1="100" y1="72" x2="100" y2="88" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <line x1="340" y1="72" x2="340" y2="88" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <circle cx="220" cy="80" r="5" fill="var(--t3-ink)"/>
+  <text x="220" y="64" font-size="12" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">measured: 9.4 ± 0.3</text>
+  <line x1="384" y1="40" x2="384" y2="120" stroke="var(--t1-ink)" stroke-width="1.8" stroke-dasharray="5 3"/>
+  <text x="390" y="44" font-size="12" fill="var(--t1-ink)" font-family="inherit">accepted: 9.81</text>
+</svg>

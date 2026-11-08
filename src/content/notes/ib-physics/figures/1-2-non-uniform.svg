@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 285" role="img" aria-labelledby="t12nu">
+  <title id="t12nu">Velocity against time graph for non-uniform acceleration. The curve starts at the origin, rises steeply at first, and then becomes less and less steep as time goes on. At a point P on the curve a dashed straight line touches the curve: this tangent's gradient is the acceleration at that instant. The area under the curve is divided into thin vertical strips, each close to a trapezium, whose areas add up to the displacement.</title>
+  <defs>
+    <marker id="m12nu-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="60" y1="240" x2="60" y2="20" marker-end="url(#m12nu-head)"/>
+    <line x1="60" y1="240" x2="420" y2="240" marker-end="url(#m12nu-head)"/>
+  </g>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="22" y="130" text-anchor="middle" transform="rotate(-90 22 130)">velocity v / m s⁻¹</text>
+    <text x="420" y="268" text-anchor="end">time t / s</text>
+    <text x="54" y="254" text-anchor="end">0</text>
+  </g>
+  <g fill="var(--t1-ink)" fill-opacity="0.12" stroke="var(--t1-ink)" stroke-opacity="0.45" stroke-width="0.8">
+    <polygon points="60,240 60.0,240.0 116.0,164.5 116,240"/>
+    <polygon points="116,240 116.0,164.5 172.0,118.6 172,240"/>
+    <polygon points="172,240 172.0,118.6 228.0,90.8 228,240"/>
+    <polygon points="228,240 228.0,90.8 284.0,74.0 284,240"/>
+    <polygon points="284,240 284.0,74.0 340.0,63.8 340,240"/>
+    <polygon points="340,240 340.0,63.8 396.0,57.6 396,240"/>
+  </g>
+  <path d="M60.0 240.0 L67.0 228.4 L74.0 217.4 L81.0 207.2 L88.0 197.5 L95.0 188.5 L102.0 180.0 L109.0 172.0 L116.0 164.5 L123.0 157.4 L130.0 150.8 L137.0 144.5 L144.0 138.7 L151.0 133.2 L158.0 128.0 L165.0 123.2 L172.0 118.6 L179.0 114.4 L186.0 110.3 L193.0 106.6 L200.0 103.0 L207.0 99.7 L214.0 96.5 L221.0 93.6 L228.0 90.8 L235.0 88.2 L242.0 85.8 L249.0 83.5 L256.0 81.4 L263.0 79.3 L270.0 77.4 L277.0 75.7 L284.0 74.0 L291.0 72.4 L298.0 70.9 L305.0 69.5 L312.0 68.2 L319.0 67.0 L326.0 65.9 L333.0 64.8 L340.0 63.8 L347.0 62.8 L354.0 61.9 L361.0 61.1 L368.0 60.3 L375.0 59.5 L382.0 58.8 L389.0 58.2 L396.0 57.6" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <path d="M76.8 178.7 L289.6 44.5" fill="none" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <circle cx="172.0" cy="118.6" r="4" fill="var(--t2-ink)"/>
+  <g font-family="inherit" font-size="12">
+    <text x="166.0" y="108.6" text-anchor="end" fill="var(--t2-ink)">P</text>
+    <text x="283.6" y="36.5" text-anchor="end" fill="var(--t2-ink)">tangent: gradient = a at P</text>
+    <text x="284.0" y="187.2" text-anchor="middle" fill="var(--t1-ink)">area of strips ≈ displacement</text>
+  </g>
+</svg>

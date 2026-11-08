@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" role="img" aria-labelledby="t56md">
+  <title id="t56md">Mass diagram for a small nucleus of three protons and three neutrons. The upper level shows the six nucleons far apart, with total mass Z times the proton mass plus N times the neutron mass. The lower level shows the same six nucleons packed together as a nucleus, with the smaller mass M. An arrow pointing up on the left shows that the binding energy must be supplied to pull the nucleus apart. An arrow pointing down on the right shows that the same energy is released when the nucleus forms. A double-headed arrow on the far right marks the gap between the two levels as the mass defect, delta m.</title>
+  <defs>
+    <marker id="m56md-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="70" y1="60" x2="330" y2="60"/>
+    <line x1="70" y1="190" x2="330" y2="190"/>
+  </g>
+  <g fill="var(--t4-ink)">
+    <circle cx="110" cy="44" r="8"/>
+    <circle cx="180" cy="44" r="8"/>
+    <circle cx="250" cy="44" r="8"/>
+    <circle cx="192" cy="166" r="8"/>
+    <circle cx="208" cy="166" r="8"/>
+    <circle cx="200" cy="180" r="8"/>
+  </g>
+  <g fill="var(--muted)">
+    <circle cx="145" cy="44" r="8"/>
+    <circle cx="215" cy="44" r="8"/>
+    <circle cx="285" cy="44" r="8"/>
+    <circle cx="184" cy="180" r="8"/>
+    <circle cx="216" cy="180" r="8"/>
+    <circle cx="200" cy="152" r="8"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="95" y1="184" x2="95" y2="68" marker-end="url(#m56md-a)"/>
+    <line x1="305" y1="68" x2="305" y2="184" marker-end="url(#m56md-a)"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="1.6" fill="none">
+    <line x1="470" y1="62" x2="470" y2="188" marker-start="url(#m56md-a)" marker-end="url(#m56md-a)"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" fill="none">
+    <line x1="445" y1="60" x2="478" y2="60"/>
+    <line x1="445" y1="190" x2="478" y2="190"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="103" y="104">binding energy</text>
+    <text x="103" y="118">supplied to pull</text>
+    <text x="103" y="132">it apart</text>
+    <text x="297" y="104" text-anchor="end">same energy</text>
+    <text x="297" y="118" text-anchor="end">released when</text>
+    <text x="297" y="132" text-anchor="end">it forms</text>
+    <text x="338" y="56">separate nucleons</text>
+    <text x="338" y="72">mass Zm<tspan font-size="9" dy="3">p</tspan><tspan dy="-3"> + Nm</tspan><tspan font-size="9" dy="3">n</tspan></text>
+    <text x="338" y="186">nucleus</text>
+    <text x="338" y="202">mass M</text>
+    <text x="478" y="116" fill="var(--t1-ink)">mass</text>
+    <text x="478" y="130" fill="var(--t1-ink)">defect</text>
+    <text x="478" y="144" fill="var(--t1-ink)">Δm</text>
+    <text x="70" y="226" fill="var(--muted)">coloured circles: protons; grey circles: neutrons. Not to scale.</text>
+  </g>
+</svg>

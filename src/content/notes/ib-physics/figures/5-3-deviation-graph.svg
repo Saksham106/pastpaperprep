@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" role="img" aria-labelledby="t53dg">
+  <title id="t53dg">Sketch graph of the number of alpha particles scattered through large angles, measured, divided by the number Rutherford's model predicts, against alpha particle kinetic energy. The ratio stays at 1 at low energies, where only the electric force acts and the model fits. Above an energy marked E0 the ratio falls well below 1: fewer alpha particles are scattered back than predicted, because the strong nuclear force also acts.</title>
+  <defs>
+    <marker id="m53dg-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="60" y1="230" x2="60" y2="30" marker-end="url(#m53dg-a)"/>
+    <line x1="60" y1="230" x2="482" y2="230" marker-end="url(#m53dg-a)"/>
+  </g>
+  <line x1="280" y1="90" x2="280" y2="230" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M60,90 L280,90 C320,92 340,150 370,185 C390,206 420,215 470,219" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="52" y="94" text-anchor="end">1</text>
+    <text x="52" y="234" text-anchor="end">0</text>
+    <text x="280" y="248" text-anchor="middle">E<tspan font-size="9" dy="3">0</tspan></text>
+    <text x="478" y="250" text-anchor="end" fill="var(--muted)">alpha particle kinetic energy</text>
+    <text x="70" y="22" fill="var(--muted)">measured ÷ Rutherford prediction (large angles)</text>
+    <text x="72" y="78">electric force only: model fits</text>
+    <text x="296" y="62">strong nuclear force also acts:</text>
+    <text x="296" y="78">fewer scattered back</text>
+  </g>
+</svg>

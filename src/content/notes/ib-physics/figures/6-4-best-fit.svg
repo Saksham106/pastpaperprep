@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 290" role="img" aria-labelledby="t64bf">
+  <title id="t64bf">A plotted graph with labelled axes, y over unit up and x over unit across. Eight crosses rise from left to right close to a straight line. One ruled straight line of best fit runs through their trend, with points scattered on both sides of it; it does not pass through every point and is not forced through the origin. A ninth cross lies well above the line and is circled and labelled anomalous: check it, then leave it out of the line.</title>
+  <defs>
+    <marker id="m64bf-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="60" y1="240" x2="60" y2="20" marker-end="url(#m64bf-head)"/>
+    <line x1="60" y1="240" x2="480" y2="240" marker-end="url(#m64bf-head)"/>
+  </g>
+  <g><path d="M96.0,200.0 L104.0,208.0 M96.0,208.0 L104.0,200.0" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M136.0,191.0 L144.0,199.0 M136.0,199.0 L144.0,191.0" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M176.0,168.5 L184.0,176.5 M176.0,176.5 L184.0,168.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M216.0,161.0 L224.0,169.0 M216.0,169.0 L224.0,161.0" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M256.0,138.5 L264.0,146.5 M256.0,146.5 L264.0,138.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M296.0,130.0 L304.0,138.0 M296.0,138.0 L304.0,130.0" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M376.0,91.0 L384.0,99.0 M376.0,99.0 L384.0,91.0" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M416.0,80.0 L424.0,88.0 M416.0,88.0 L424.0,80.0" stroke="currentColor" stroke-width="1.6" fill="none"/></g>
+  <path d="M336.0,71.0 L344.0,79.0 M336.0,79.0 L344.0,71.0" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <circle cx="340.0" cy="75.0" r="10" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <line x1="68.0" y1="221.8" x2="452.0" y2="68.2" stroke="var(--t1-ink)" stroke-width="2.2"/>
+  <g font-size="12" fill="currentColor">
+    <text x="68" y="24" fill="var(--muted)">y / unit</text>
+    <text x="480" y="270" text-anchor="end" fill="var(--muted)">x / unit</text>
+    <text x="324.0" y="69.0" text-anchor="end" fill="var(--t3-ink)">anomalous: check it,</text>
+    <text x="324.0" y="84.0" text-anchor="end" fill="var(--t3-ink)">then leave it out</text>
+    <text x="386.0" y="126.2" fill="var(--t1-ink)">line of best fit</text>
+  </g>
+</svg>

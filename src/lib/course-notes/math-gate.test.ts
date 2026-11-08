@@ -290,3 +290,44 @@ describe.skipIf(!python)("check-math.py checks chemistry lessons", () => {
     expect(maths.status).toBe(1);
   });
 });
+
+describe.skipIf(!python)("check-math.py checks physics lessons", () => {
+  // A small physics lesson (edition ib-physics-2025, so the booklet constants g, h, c, ... and sind / atand are names).
+  const physFixtures = resolve(process.cwd(), "scripts/notes/__fixtures__/gate-phys");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the fixture lesson is mutated freely
+  const phys = (mutate?: (lesson: any) => void) => {
+    const dir = mkdtempSync(join(tmpdir(), "phys-gate-"));
+    const lesson = JSON.parse(readFileSync(join(physFixtures, "9-97.json"), "utf8"));
+    mutate?.(lesson);
+    writeFileSync(join(dir, "9-97.json"), JSON.stringify(lesson));
+    return spawnSync(python!, [script, "9.97"], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: dir, AA_NOTES_SIDECARS_DIR: dir } });
+  };
+  const probe = (id: string, tex: string) =>
+    spawnSync(python!, [script, "--verify", "9.97", id, tex], { encoding: "utf8", env: { ...process.env, AA_NOTES_LESSONS_DIR: physFixtures, AA_NOTES_SIDECARS_DIR: physFixtures } });
+
+  it("passes the fixture, rejecting every wrong-unit and wrong-value distractor", () => {
+    const run = phys();
+    expect(run.stdout).toMatch(/^PASS check-resistance distractor 1 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-speed distractor 1 rejected$/m);
+    expect(run.stdout).toMatch(/^PASS check-angle tolerance 0.05$/m);
+    expect(run.stdout, run.stdout + run.stderr).not.toMatch(/FAIL/);
+    expect(run.status).toBe(0);
+  });
+
+  it("checks physics units in any writing and fails a mismatched one", () => {
+    expect(probe("check-speed", "29.4 m s⁻¹").status).toBe(0);
+    expect(probe("check-speed", String.raw`\pu{29.4 m s-1}`).status).toBe(0);
+    expect(probe("check-resistance", "2.4 kΩ").status).toBe(0);
+    expect(probe("check-speed", String.raw`29.4\,\mathrm{m\,s^{-2}}`).stdout).toMatch(/^FAIL check-speed \(AssertionError: .*unit/);
+    expect(probe("ex-component", String.raw`F_x \approx 16.38\ \text{N}`).stdout).toMatch(/^FAIL ex-component \(.*significant figures/);
+  });
+
+  it("fails a non-physics lesson's use of g and the degree helpers", () => {
+    const maths = phys((lesson) => {
+      lesson.edition = "aa-2021";
+    });
+    expect(maths.stdout).toMatch(/^FAIL check-speed /m);
+    expect(maths.stdout).toMatch(/^FAIL ex-component /m);
+    expect(maths.status).toBe(1);
+  });
+});

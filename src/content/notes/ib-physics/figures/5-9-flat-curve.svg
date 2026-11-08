@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" role="img" aria-labelledby="t59bc">
+  <title id="t59bc">Graph of binding energy per nucleon in MeV, from 0 to 10, against nucleon number A, from 0 to 250. The curve rises steeply for light nuclei, with helium-4 a separate point above the curve at about 7.1 MeV. It peaks at about 8.8 MeV between A 56 and A 62. A dashed vertical line marks A equal to 60. To the right of it, the shaded strip between two dashed horizontal lines at 7.6 MeV and 8.8 MeV contains the whole rest of the curve, which falls only slowly to about 7.6 MeV at A 238. The strip is labelled approximately constant.</title>
+  <defs>
+    <marker id="m59bc-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="166.0" y="56.4" width="288.0" height="26.4" fill="var(--t2-ink)" fill-opacity="0.18"/>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="250" x2="70" y2="18" marker-end="url(#m59bc-head)"/>
+    <line x1="70" y1="250" x2="490" y2="250" marker-end="url(#m59bc-head)"/>
+    <line x1="70.0" y1="250" x2="70.0" y2="255"/>
+    <line x1="150.0" y1="250" x2="150.0" y2="255"/>
+    <line x1="230.0" y1="250" x2="230.0" y2="255"/>
+    <line x1="310.0" y1="250" x2="310.0" y2="255"/>
+    <line x1="390.0" y1="250" x2="390.0" y2="255"/>
+    <line x1="470.0" y1="250" x2="470.0" y2="255"/>
+    <line x1="65" y1="250.0" x2="70" y2="250.0"/>
+    <line x1="65" y1="206.0" x2="70" y2="206.0"/>
+    <line x1="65" y1="162.0" x2="70" y2="162.0"/>
+    <line x1="65" y1="118.0" x2="70" y2="118.0"/>
+    <line x1="65" y1="74.0" x2="70" y2="74.0"/>
+    <line x1="65" y1="30.0" x2="70" y2="30.0"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none"><line x1="166.0" y1="250" x2="166.0" y2="38.8"/><line x1="166.0" y1="56.4" x2="454.0" y2="56.4"/><line x1="166.0" y1="82.8" x2="454.0" y2="82.8"/></g>
+  <path d="M73.2,225.6 L74.8,193.5 L79.6,132.7 L81.2,126.6 L84.4,107.9 L89.2,81.0 L95.6,74.4 L102.0,73.3 L108.4,68.3 L114.8,64.1 L121.2,63.2 L134.0,61.9 L159.6,56.6 L169.2,56.6 L198.0,58.4 L230.0,60.8 L262.0,63.0 L310.0,68.3 L358.0,73.3 L402.8,76.9 L450.8,83.5" fill="none" stroke="var(--t1-ink)" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="76.4" cy="94.5" r="3.5" fill="var(--t1-ink)"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="70.0" y="270" text-anchor="middle">0</text>
+    <text x="150.0" y="270" text-anchor="middle">50</text>
+    <text x="230.0" y="270" text-anchor="middle">100</text>
+    <text x="310.0" y="270" text-anchor="middle">150</text>
+    <text x="390.0" y="270" text-anchor="middle">200</text>
+    <text x="470.0" y="270" text-anchor="middle">250</text>
+    <text x="60" y="254.0" text-anchor="end">0</text>
+    <text x="60" y="210.0" text-anchor="end">2</text>
+    <text x="60" y="166.0" text-anchor="end">4</text>
+    <text x="60" y="122.0" text-anchor="end">6</text>
+    <text x="60" y="78.0" text-anchor="end">8</text>
+    <text x="60" y="34.0" text-anchor="end">10</text>
+    <text x="280" y="292" text-anchor="middle">nucleon number A</text>
+    <text x="22" y="135" text-anchor="middle" transform="rotate(-90 22 135)">binding energy per nucleon / MeV</text>
+    <text x="84.4" y="98.5">He-4</text>
+    <text x="170.0" y="42.8">A = 60</text>
+    <text x="457.2" y="60.4" text-anchor="end" dy="-8">8.8</text>
+    <text x="457.2" y="100.8" text-anchor="end">7.6</text>
+    <text x="310.0" y="109.2" text-anchor="middle">approximately constant</text>
+    <text x="310.0" y="125.2" text-anchor="middle">above A = 60</text>
+  </g>
+</svg>

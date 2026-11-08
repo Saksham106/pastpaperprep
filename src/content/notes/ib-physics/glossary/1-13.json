@@ -1,0 +1,20 @@
+[
+  {
+    "id": "angular-displacement",
+    "term": "angular displacement",
+    "definition": "The angle a rotating body turns through, $\\Delta\\theta = \\theta_\\text{f} - \\theta_\\text{i}$, measured in radians, with a sign that shows the sense of rotation (for example anticlockwise positive).",
+    "lesson": "1.13"
+  },
+  {
+    "id": "angular-acceleration",
+    "term": "angular acceleration",
+    "definition": "The rate of change of angular velocity, $\\alpha = \\frac{\\Delta\\omega}{\\Delta t}$, measured in rad s⁻²; it is caused by a resultant torque.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "moment-of-inertia",
+    "term": "moment of inertia",
+    "definition": "A body's resistance to a change in its rotation about a given axis, $I = \\sum mr^{2}$ with $r$ the perpendicular distance of each mass from the axis, so it depends on how the mass is spread about that axis; unit kg m².",
+    "lesson": "1.13"
+  }
+]

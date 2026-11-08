@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 265" role="img" aria-labelledby="t27gl">
+  <title id="t27gl">The three empirical gas laws for a fixed amount of gas: pressure against volume is a curve at constant temperature, volume against Celsius temperature is a straight line that extrapolates to zero at minus 273 degrees Celsius, and pressure against kelvin temperature is a straight line through the origin</title>
+  <defs>
+    <marker id="a27g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g transform="translate(0,0)">
+    <g stroke="currentColor" stroke-width="1.4" fill="none">
+      <line x1="20" y1="200" x2="20" y2="40" marker-end="url(#a27g)"/><line x1="20" y1="200" x2="180" y2="200" marker-end="url(#a27g)"/>
+    </g>
+    <path d="M45.5,58.8 L48.6,74.2 L51.7,86.5 L54.8,96.7 L58.0,105.1 L61.1,112.3 L64.2,118.5 L67.3,123.9 L70.4,128.6 L73.5,132.7 L76.6,136.4 L79.7,139.7 L82.9,142.7 L86.0,145.4 L89.1,147.9 L92.2,150.1 L95.3,152.2 L98.4,154.1 L101.5,155.8 L104.6,157.5 L107.8,159.0 L110.9,160.4 L114.0,161.7 L117.1,162.9 L120.2,164.1 L123.3,165.2 L126.4,166.2 L129.5,167.1 L132.7,168.0 L135.8,168.9 L138.9,169.7 L142.0,170.5 L145.1,171.2 L148.2,171.9 L151.3,172.6 L154.4,173.2 L157.6,173.8 L160.7,174.4 L163.8,175.0 L166.9,175.5 L170.0,176.0" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+    <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+      <text x="90" y="22" font-weight="bold">constant T</text>
+      <text x="12" y="48">P</text><text x="178" y="218">V</text><text x="90" y="250" fill="var(--muted)">P ∝ 1/V (Boyle)</text>
+    </g>
+  </g>
+  <g transform="translate(200,0)">
+    <g stroke="currentColor" stroke-width="1.4" fill="none">
+      <line x1="129.2" y1="200" x2="129.2" y2="40" marker-end="url(#a27g)"/><line x1="10" y1="200" x2="185" y2="200" marker-end="url(#a27g)"/>
+    </g>
+    <line x1="20.0" y1="200" x2="89.2" y2="130.8" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="5 4"/><line x1="89.2" y1="130.8" x2="173.2" y2="46.8" stroke="var(--t1-ink)" stroke-width="2"/><circle cx="20.0" cy="200" r="3.5" fill="var(--t1-ink)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+      <text x="90" y="22" font-weight="bold">constant P</text>
+      <text x="121.2" y="48">V</text><text x="168" y="218">T / °C</text><text x="26.0" y="218">−273</text><text x="129.2" y="218">0</text><text x="90" y="250" fill="var(--muted)">V ∝ T in kelvin (Charles)</text>
+    </g>
+  </g>
+  <g transform="translate(400,0)">
+    <g stroke="currentColor" stroke-width="1.4" fill="none">
+      <line x1="20" y1="200" x2="20" y2="40" marker-end="url(#a27g)"/><line x1="20" y1="200" x2="180" y2="200" marker-end="url(#a27g)"/>
+    </g>
+    <line x1="20" y1="200" x2="70" y2="160" stroke="var(--t1-ink)" stroke-width="2" stroke-dasharray="5 4"/><line x1="70" y1="160" x2="170" y2="80" stroke="var(--t1-ink)" stroke-width="2"/>
+    <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+      <text x="90" y="22" font-weight="bold">constant V</text>
+      <text x="12" y="48">P</text><text x="168" y="218">T / K</text><text x="20" y="218">0</text><text x="90" y="250" fill="var(--muted)">P ∝ T in kelvin (pressure law)</text>
+    </g>
+  </g>
+</svg>

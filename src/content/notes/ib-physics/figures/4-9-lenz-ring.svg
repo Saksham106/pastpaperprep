@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 242" role="img" aria-labelledby="t49lr">
+  <title id="t49lr">Left: side view of a bar magnet, north pole first, moving towards a metal ring. The ring's induced field points back towards the magnet, so its near face acts as a north pole and repels the magnet. Right: the ring seen from the magnet, with the induced current flowing anticlockwise and the induced field pointing out of the page, towards the viewer.</title>
+  <defs>
+    <marker id="m49lr-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="m49lr-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m49lr-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- Left panel: side view -->
+  <g>
+    <rect x="30" y="95" width="80" height="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="110" y="95" width="80" height="40" fill="var(--t1-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="80" y1="78" x2="160" y2="78" stroke="var(--t5-ink)" stroke-width="2" marker-end="url(#m49lr-v)"/>
+    <ellipse cx="300" cy="115" rx="14" ry="60" fill="none" stroke="var(--t2-ink)" stroke-width="3"/>
+    <line x1="288" y1="115" x2="214" y2="115" stroke="var(--t3-ink)" stroke-width="2" marker-end="url(#m49lr-b)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="70" y="120" text-anchor="middle" font-size="15">S</text>
+      <text x="150" y="120" text-anchor="middle" font-size="15">N</text>
+      <text x="120" y="66" text-anchor="middle" fill="var(--t5-ink)">magnet moves towards the ring</text>
+      <text x="244" y="137" text-anchor="middle" fill="var(--t3-ink)">induced field</text>
+      <text x="300" y="44" text-anchor="middle" fill="var(--t2-ink)">ring</text>
+      <text x="200" y="200" text-anchor="middle">flux through the ring increases,</text>
+      <text x="200" y="216" text-anchor="middle">so the ring's near face acts as N</text>
+      <text x="200" y="232" text-anchor="middle">and repels the magnet</text>
+    </g>
+  </g>
+
+  <!-- Right panel: the ring seen from the magnet -->
+  <g transform="translate(400,0)">
+    <circle cx="110" cy="110" r="55" fill="none" stroke="var(--t2-ink)" stroke-width="3"/>
+    <g fill="none" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m49lr-i)">
+      <path d="M172,87.4 A66,66 0 0 0 48,87.4"/>
+      <path d="M48,132.6 A66,66 0 0 0 172,132.6"/>
+    </g>
+    <circle cx="110" cy="110" r="8" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+    <circle cx="110" cy="110" r="2.5" fill="var(--t3-ink)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="110" y="34" text-anchor="middle" font-style="italic" fill="var(--t2-ink)">I</text>
+      <text x="110" y="200" text-anchor="middle">seen from the magnet:</text>
+      <text x="110" y="216" text-anchor="middle">current anticlockwise,</text>
+      <text x="110" y="232" text-anchor="middle">induced field out of the page</text>
+    </g>
+  </g>
+</svg>

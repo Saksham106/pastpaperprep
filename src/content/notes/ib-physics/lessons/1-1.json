@@ -1,0 +1,766 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.1",
+  "slug": "describing-motion",
+  "title": "Describing motion",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Motion is described by three quantities: [[position|position]], [[velocity|velocity]] and [[acceleration|acceleration]]. Velocity is how fast position changes; acceleration is how fast velocity changes. [[displacement|Displacement]] is a change in position, which is not the same as the [[distance|distance]] travelled. Average values of velocity, [[speed|speed]] and acceleration cover an interval; instantaneous values, from the [[gradient|gradient]] of a tangent, belong to one moment.",
+  "goals": [
+    {
+      "text": "Describe a body's motion using its position, velocity and acceleration, from a chosen origin and positive direction.",
+      "bullets": [
+        "A.1-s1"
+      ]
+    },
+    {
+      "text": "Find a displacement as a change in position, and tell it apart from the distance travelled.",
+      "bullets": [
+        "A.1-s3",
+        "A.1-s4"
+      ]
+    },
+    {
+      "text": "Calculate average velocity, average speed and average acceleration as rates of change, with signs and units.",
+      "bullets": [
+        "A.1-s2",
+        "A.1-s5"
+      ]
+    },
+    {
+      "text": "Determine instantaneous velocity and acceleration from tangents to motion graphs, or from measurements over a short time.",
+      "bullets": [
+        "A.1-s5"
+      ]
+    },
+    {
+      "text": "Explain why a change of direction at constant speed is an acceleration.",
+      "bullets": [
+        "A.1-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "6.1",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "distance vs displacement",
+    "speed vs velocity",
+    "average velocity",
+    "instantaneous velocity",
+    "acceleration definition",
+    "gradient of displacement time graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kmh-to-ms",
+      "prompt": "A car's speedometer reads $\\pu{90 km h-1}$. What is this speed in $\\pu{m s-1}$?",
+      "hint": "$\\pu{1 km} = \\pu{1000 m}$ and $\\pu{1 h} = \\pu{3600 s}$.",
+      "answer": {
+        "value": 25,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{90 \\times 1000}{3600} = \\pu{25 m s-1}$. The [[si-unit|SI unit]] of speed is $\\pu{m s-1}$, so convert before you calculate. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "90*1000/3600",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-which-vector",
+      "prompt": "Which of these quantities is a [[vector|vector]]?",
+      "hint": "A vector needs a direction as well as a size.",
+      "options": [
+        {
+          "text": "force",
+          "correct": true
+        },
+        {
+          "text": "mass",
+          "correct": false
+        },
+        {
+          "text": "energy",
+          "correct": false
+        },
+        {
+          "text": "time",
+          "correct": false
+        }
+      ],
+      "explain": "A force pushes or pulls in a direction. Mass, energy and time have size only: they are [[scalar|scalars]]. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "force"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-line-gradient",
+      "prompt": "A straight line passes through $(0.5, 3.5)$ and $(4.5, 23.5)$. What is its [[gradient|gradient]]?",
+      "hint": "Gradient is the change in $y$ divided by the change in $x$.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{23.5 - 3.5}{4.5 - 0.5} = \\frac{20}{4} = 5$. You met this in maths before the course.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(23.5 - 3.5)/(4.5 - 0.5)",
+        "sf": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "position",
+      "heading": "Position, displacement and distance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To describe how something moves, you need three things: where it is, how fast that is changing, and how fast the velocity itself is changing. These are position, velocity and acceleration."
+        },
+        {
+          "type": "text",
+          "text": "Everything starts with where. Pick a fixed point, the origin, and a positive direction. Then a position is just a signed number on that line."
+        },
+        {
+          "type": "definition",
+          "term": "position",
+          "statement": "The location of a body relative to a chosen origin, given as a distance and a direction. Along a line it is a signed number $x$, in metres.",
+          "plain": "Where something is, measured from a starting mark you choose."
+        },
+        {
+          "type": "text",
+          "text": "[[position|Position]] is a vector: $x = \\pu{+5 m}$ and $x = \\pu{-5 m}$ are different places, on opposite sides of the origin."
+        },
+        {
+          "type": "definition",
+          "term": "displacement",
+          "statement": "The change in position of a body: a vector from where it started to where it finished, whatever path it took between.",
+          "plain": "How far you end up from where you began, and in which direction."
+        },
+        {
+          "type": "formula",
+          "tex": "s = \\Delta x = x_\\text{final} - x_\\text{initial}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The symbol $\\Delta$ (delta) means \"change in\": final value minus initial value. A negative $s$ means the body ended up on the negative side of where it started."
+        },
+        {
+          "type": "definition",
+          "term": "distance",
+          "statement": "The total length of the path a body travels. It is a scalar, so it has no direction, and it never decreases.",
+          "plain": "How much ground you actually covered."
+        },
+        {
+          "type": "text",
+          "text": "[[displacement|Displacement]] only cares about the start and the end. [[distance|Distance]] counts every metre of the trip, including any doubling back."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-corridor-positions",
+          "alt": "A straight horizontal line marked in metres from minus 1 to 10, with the origin O at 0 and an arrow showing that the positive direction is to the right. A person starts at P, position plus 2 metres, walks right to Q at plus 8 metres, then turns and walks back left to R at plus 5 metres. Arrows above the line show the two legs, labelled 6 metres and 3 metres, so the distance travelled is 9 metres. A thin arrow from O to R shows the position of R, plus 5 metres. Below the line, a single arrow from P to R shows the displacement, plus 3 metres.",
+          "caption": "Position is measured from O. Displacement P to R is $\\pu{+3 m}$; the distance walked is $\\pu{9 m}$."
+        },
+        {
+          "type": "text",
+          "text": "The two are equal in size only when the body moves in a straight line and never turns back."
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-trip",
+          "question": "A lift starts at a floor $\\pu{31.5 m}$ above the ground floor. It goes down to a car park $\\pu{7.5 m}$ below the ground floor, then up to a floor $\\pu{10.5 m}$ above the ground floor. Take up as positive and the ground floor as the origin. Calculate the displacement of the lift for the whole trip.",
+          "steps": [
+            "Write each position with its sign: start $x_\\text{initial} = \\pu{+31.5 m}$, car park $\\pu{-7.5 m}$, end $x_\\text{final} = \\pu{+10.5 m}$.",
+            "Displacement uses only the start and the end: $s = x_\\text{final} - x_\\text{initial} = 10.5 - 31.5$.",
+            "So $s = \\pu{-21.0 m}$. The minus sign means the lift finished $\\pu{21.0 m}$ below where it started.",
+            "Compare the distance: $\\pu{39.0 m}$ down plus $\\pu{18.0 m}$ up is $\\pu{57.0 m}$. Distance is never negative and is at least the size of the displacement."
+          ],
+          "answer": "$s = \\pu{-21.0 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "10.5 - 31.5",
+            "unit": "m",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-running-lap",
+          "question": "An athlete runs exactly one lap of a $\\pu{400 m}$ running track, finishing on the start line. State her distance and her displacement, and explain why they differ.",
+          "steps": [
+            "Marking point 1: give the distance with its unit.",
+            "Marking point 2: give the displacement.",
+            "Marking point 3: link displacement to start and end positions, distance to the path."
+          ],
+          "answer": "The distance she runs is 400 m, the length of the path. Her displacement is zero. Displacement is the change in position, and she ends at the same position as she started. Distance adds up the whole path, so it does not cancel when she comes back round.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "distance 400 m along the path; displacement zero because final position equals initial position",
+            "requires": [
+              "400 m",
+              [
+                "displacement is zero",
+                "zero displacement"
+              ],
+              [
+                "change in position",
+                "changes in position"
+              ],
+              [
+                "same position",
+                "where she started"
+              ],
+              [
+                "whole path",
+                "length of the path"
+              ]
+            ],
+            "forbids": [
+              "displacement is 400",
+              "distance is zero"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the legs of a trip to get the displacement. That gives the distance. For displacement, subtract the start position from the end position."
+        },
+        {
+          "type": "check",
+          "id": "check-equal-sizes",
+          "prompt": "When is the distance a body travels equal to the size of its displacement?",
+          "hint": "Think about what makes distance grow while displacement shrinks.",
+          "options": [
+            {
+              "text": "when it moves in a straight line without turning back",
+              "correct": true
+            },
+            {
+              "text": "always",
+              "correct": false
+            },
+            {
+              "text": "only when it moves at constant speed",
+              "correct": false
+            },
+            {
+              "text": "only when it starts from rest",
+              "correct": false
+            }
+          ],
+          "explain": "Turning back or following a curve adds path length without adding to the change in position. Speed and starting from rest make no difference.",
+          "verify": {
+            "kind": "choice",
+            "truth": "when it moves in a straight line without turning back"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dog-displacement",
+          "prompt": "A dog runs along a straight beach from position $x = \\pu{+4.0 m}$ to $x = \\pu{-7.0 m}$. What is its displacement, in metres? Include the sign and give 2 significant figures.",
+          "hint": "Final position minus initial position.",
+          "answer": {
+            "value": -11,
+            "tolerance": 0.5
+          },
+          "explain": "$s = -7.0 - (+4.0) = \\pu{-11 m}$. The dog moved $\\pu{11 m}$ in the negative direction.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-7.0 - 4.0",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "velocity",
+      "heading": "Velocity and speed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two cars can cover the same ground in very different times. To compare them you need a rate: how much changes per second."
+        },
+        {
+          "type": "definition",
+          "term": "velocity",
+          "statement": "The rate of change of position of a body. It is a vector, in $\\pu{m s-1}$, whose direction is the direction of motion.",
+          "plain": "How fast something is going, and which way."
+        },
+        {
+          "type": "definition",
+          "term": "speed",
+          "statement": "The rate at which a body covers distance. It is a scalar, in $\\pu{m s-1}$; at any instant it is the size of the velocity.",
+          "plain": "How fast something is going, ignoring direction."
+        },
+        {
+          "type": "text",
+          "text": "Over a time interval $\\Delta t$, [[velocity|velocity]] and [[speed|speed]] have average values. They use different numerators, which is why they can differ."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{average velocity} = \\frac{\\Delta x}{\\Delta t} = \\frac{\\text{displacement}}{\\text{time taken}} \\qquad \\text{average speed} = \\frac{\\text{distance travelled}}{\\text{time taken}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Average velocity carries a sign or a direction. Average speed never does, and it is never smaller than the size of the average velocity."
+        },
+        {
+          "type": "text",
+          "text": "Neither is in the data booklet: its kinematics section gives only the four equations for constant acceleration, which you meet in {{lesson:1.2}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-pool-average-velocity",
+          "question": "A swimmer swims three lengths of a $\\pu{25 m}$ pool in $\\pu{52 s}$, starting at the shallow end. Take the direction away from the shallow end as positive. Calculate her average velocity.",
+          "steps": [
+            "Three lengths take her to the far end, back, and to the far end again. So her displacement is $\\pu{+25 m}$.",
+            "Average velocity $= \\frac{\\Delta x}{\\Delta t} = \\frac{25}{52} = \\pu{0.4808 m s-1}$.",
+            "Round to 2 significant figures, like the data. It is positive, so it points away from the shallow end.",
+            "For comparison, the distance is $3 \\times 25 = \\pu{75 m}$, so her average speed is three times larger."
+          ],
+          "answer": "$v_\\text{avg} \\approx \\pu{+0.48 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "25/52",
+            "sf": 2,
+            "unit": "m s-1",
+            "signed": true
+          },
+          "check": {
+            "type": "check",
+            "id": "check-pool-average-speed",
+            "prompt": "Now you try: what is the swimmer's average speed, in $\\pu{m s-1}$? Give 2 significant figures.",
+            "hint": "Use the total distance, not the displacement.",
+            "answer": {
+              "value": 1.4,
+              "tolerance": 0.05
+            },
+            "explain": "Average speed $= \\frac{75}{52} = 1.44... \\approx \\pu{1.4 m s-1}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "3*25/52",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-out-and-back",
+          "question": "A delivery drone flies $\\pu{1.2 km}$ due north in $\\pu{90 s}$. It then flies $\\pu{0.40 km}$ due south in $\\pu{60 s}$. Determine the size of its average velocity for the whole flight.",
+          "steps": [
+            "Take north as positive and convert to metres: $\\pu{+1200 m}$ then $\\pu{-400 m}$.",
+            "Displacement: $s = 1200 - 400 = \\pu{+800 m}$, so $\\pu{800 m}$ north.",
+            "Total time: $\\Delta t = 90 + 60 = \\pu{150 s}$.",
+            "Average velocity $= \\frac{800}{150} = \\pu{5.33 m s-1}$ north.",
+            "Check with the average speed: $\\frac{1600}{150} = \\pu{10.7 m s-1}$. It is larger, as it must be, because the drone doubled back."
+          ],
+          "answer": "$v_\\text{avg} \\approx \\pu{5.3 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1.2 - 0.40)*1000/(90 + 60)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the distance by the time and calling it the average velocity. Velocity needs the displacement, so first find where the body ended up."
+        },
+        {
+          "type": "text",
+          "text": "Your speedometer does not show an average. It shows the speed at that instant. Instantaneous values belong to one moment; the last section shows how to find them."
+        },
+        {
+          "type": "check",
+          "id": "check-speedometer",
+          "prompt": "Which quantity does a car's speedometer show?",
+          "hint": "Does it tell you which way the car is going? Does it cover a whole trip?",
+          "options": [
+            {
+              "text": "instantaneous speed",
+              "correct": true
+            },
+            {
+              "text": "average speed",
+              "correct": false
+            },
+            {
+              "text": "instantaneous velocity",
+              "correct": false
+            },
+            {
+              "text": "average velocity",
+              "correct": false
+            }
+          ],
+          "explain": "It gives the speed at that moment, with no direction, so it is the instantaneous speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "instantaneous speed"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cyclist-speed",
+          "prompt": "A cyclist rides $\\pu{3.6 km}$ in 12 minutes. What is her average speed, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "Convert to metres and seconds first.",
+          "answer": {
+            "value": 5.0,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{3600}{12 \\times 60} = \\frac{3600}{720} = \\pu{5.0 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.6*1000/(12*60)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "acceleration",
+      "heading": "Acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Velocity can change too. A sprinter leaving the blocks and a car braking at a junction both have changing velocities. The rate of that change is acceleration."
+        },
+        {
+          "type": "definition",
+          "term": "acceleration",
+          "statement": "The rate of change of velocity of a body. It is a vector, in $\\pu{m s-2}$.",
+          "plain": "How quickly the velocity is changing, and in which direction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{average acceleration} = \\frac{\\Delta v}{\\Delta t} = \\frac{v - u}{\\Delta t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $u$ is the initial velocity and $v$ the final velocity. The unit $\\pu{m s-2}$ means \"metres per second, every second\"."
+        },
+        {
+          "type": "text",
+          "text": "Velocity is a vector, so [[acceleration|acceleration]] happens whenever its size or its direction changes. A car going round a bend at a steady speed is accelerating."
+        },
+        {
+          "type": "text",
+          "text": "The sign of the acceleration alone does not tell you whether the body is slowing down. For motion along a line, compare it with the sign of the velocity: same sign, speeding up; opposite signs, slowing down."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-acceleration",
+          "question": "A cyclist's velocity increases from $\\pu{3.0 m s-1}$ to $\\pu{7.8 m s-1}$ in $\\pu{4.0 s}$, along a straight road. Calculate her average acceleration.",
+          "steps": [
+            "Take her direction of motion as positive: $u = \\pu{3.0 m s-1}$, $v = \\pu{7.8 m s-1}$, $\\Delta t = \\pu{4.0 s}$.",
+            "Change in velocity: $\\Delta v = 7.8 - 3.0 = \\pu{4.8 m s-1}$.",
+            "Average acceleration $= \\frac{4.8}{4.0} = \\pu{1.2 m s-2}$.",
+            "Sense check: she gains $\\pu{1.2 m s-1}$ every second, and $4 \\times 1.2 = 4.8$."
+          ],
+          "answer": "$a = \\pu{1.2 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(7.8 - 3.0)/4.0",
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-rebound",
+          "question": "A ball hits a wall at $\\pu{14 m s-1}$ and rebounds along the same line at $\\pu{8.5 m s-1}$. It is in contact with the wall for $\\pu{0.045 s}$. Taking the direction towards the wall as positive, calculate the average acceleration of the ball during the contact.",
+          "steps": [
+            "State the signs: $u = \\pu{+14 m s-1}$ (towards the wall) and $v = \\pu{-8.5 m s-1}$ (away from it).",
+            "Change in velocity: $\\Delta v = v - u = -8.5 - 14 = \\pu{-22.5 m s-1}$. It is not $8.5 - 14$: the direction reversed.",
+            "Average acceleration $= \\frac{\\Delta v}{\\Delta t} = \\frac{-22.5}{0.045}$.",
+            "So $a = \\pu{-500 m s-2}$: $\\pu{500 m s-2}$ directed away from the wall, while the ball is in contact."
+          ],
+          "answer": "$a = \\pu{-500 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(-8.5 - 14)/0.045",
+            "unit": "m s-2",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting speeds when the direction reverses. Give each velocity its sign first; a rebound makes $\\Delta v$ the sum of the two speeds."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-both",
+          "prompt": "A car moves in the negative direction and its acceleration is also negative. What happens to its speed?",
+          "hint": "Do the velocity and the acceleration point the same way?",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "Velocity and acceleration point the same way, so the car speeds up. A negative acceleration only means slowing down when the velocity is positive.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bend-constant-speed",
+          "prompt": "A runner goes round a curved bend at a constant speed. Which statement is correct?",
+          "hint": "Velocity has a direction. Is that changing?",
+          "options": [
+            {
+              "text": "She is accelerating, because her direction of motion changes.",
+              "correct": true
+            },
+            {
+              "text": "She is not accelerating, because her speed is constant.",
+              "correct": false
+            },
+            {
+              "text": "She is accelerating, because her speed changes.",
+              "correct": false
+            },
+            {
+              "text": "She is not accelerating, because no distance is gained.",
+              "correct": false
+            }
+          ],
+          "explain": "Her speed is constant but her velocity is not: its direction keeps changing. Any change in velocity is an acceleration.",
+          "verify": {
+            "kind": "choice",
+            "truth": "She is accelerating, because her direction of motion changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "instantaneous",
+      "heading": "Instantaneous values from graphs and measurements",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An average covers an interval. Shrink the interval around one moment and the average gets closer and closer to a single value: the instantaneous value at that moment."
+        },
+        {
+          "type": "text",
+          "text": "On a displacement–time graph, an average velocity is the [[gradient|gradient]] of a chord, a straight line joining two points on the curve. As the two points move together, the chord becomes the tangent at that point."
+        },
+        {
+          "type": "result",
+          "statement": "The instantaneous velocity at time $t$ is the gradient of the tangent to the displacement–time graph at $t$. The instantaneous acceleration is the gradient of the tangent to the velocity–time graph at $t$. Gradients of chords give the average values between two times.",
+          "why": "A tangent is the limit of a chord over a shrinking time interval, and a gradient is a change divided by a change in time."
+        },
+        {
+          "type": "text",
+          "text": "Instantaneous speed is the size of the instantaneous velocity. On a straight-line graph the gradient is the same everywhere, so the average and instantaneous values are equal."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-chord-tangent",
+          "alt": "Graph of displacement s in metres against time t in seconds, from 0 to 6 seconds and 0 to 18 metres. The curve starts at the origin and gets steeper, passing through 2 metres at 2 seconds, 4.5 metres at 3 seconds and 8 metres at 4 seconds. A straight chord joins the origin to the point at 4 seconds, 8 metres; its gradient, 2.0 metres per second, is the average velocity over the first 4 seconds. A dashed tangent touches the curve at 3 seconds and passes through 1.5 seconds, 0 metres and 5.5 seconds, 12 metres; its gradient, 3.0 metres per second, is the instantaneous velocity at 3 seconds. A dotted vertical line under the end of the tangent marks a rise of 12 metres, over a run of 4.0 seconds along the time axis.",
+          "caption": "Chord gradient: average velocity. Tangent gradient: instantaneous velocity."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-velocity",
+          "question": "The figure shows the displacement of a toy train against time. The dashed tangent at $t = \\pu{3.0 s}$ passes through $(\\pu{1.5 s}, \\pu{0 m})$ and $(\\pu{5.5 s}, \\pu{12 m})$. Determine the instantaneous velocity of the train at $t = \\pu{3.0 s}$.",
+          "steps": [
+            "Instantaneous velocity is the gradient of the tangent, so use two points on the tangent, not on the curve.",
+            "Rise: $\\Delta s = 12 - 0 = \\pu{12 m}$. Run: $\\Delta t = 5.5 - 1.5 = \\pu{4.0 s}$.",
+            "Gradient $= \\frac{12}{4.0} = \\pu{3.0 m s-1}$.",
+            "Check: reading $\\frac{s}{t} = \\frac{4.5}{3.0} = \\pu{1.5 m s-1}$ at that point would give the average from $t = 0$, not the value at $\\pu{3.0 s}$."
+          ],
+          "answer": "$v = \\pu{3.0 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(12 - 0)/(5.5 - 1.5)",
+            "unit": "m s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-chord-average",
+            "prompt": "Now you try: use the chord in the figure, from the origin to $(\\pu{4.0 s}, \\pu{8.0 m})$. What is the train's average velocity over the first $\\pu{4.0 s}$, in $\\pu{m s-1}$? Give 2 significant figures.",
+            "hint": "Gradient of the chord: change in displacement over change in time.",
+            "answer": {
+              "value": 2.0,
+              "tolerance": 0.05
+            },
+            "explain": "$\\frac{8.0 - 0}{4.0 - 0} = \\pu{2.0 m s-1}$. It is less than the $\\pu{3.0 m s-1}$ at $t = \\pu{3.0 s}$, because the train started slowly.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(8.0 - 0)/(4.0 - 0)",
+              "sf": 2
+            }
+          }
+        },
+        {
+          "type": "text",
+          "text": "In the laboratory you can measure an instantaneous speed directly. A light gate times how long a card of known length takes to pass. The interval is so short that the average over it is very close to the instantaneous value."
+        },
+        {
+          "type": "example",
+          "id": "ex-light-gates",
+          "question": "A trolley carries a card $\\pu{4.0 cm}$ long. The card blocks light gate A for $\\pu{0.095 s}$ and light gate B for $\\pu{0.051 s}$. The trolley takes $\\pu{1.5 s}$ to go from A to B. Determine the average acceleration of the trolley between the gates.",
+          "steps": [
+            "Convert the card length: $\\pu{4.0 cm} = \\pu{0.040 m}$.",
+            "Speed at A: $v_A = \\frac{0.040}{0.095} = \\pu{0.4211 m s-1}$. Speed at B: $v_B = \\frac{0.040}{0.051} = \\pu{0.7843 m s-1}$. Each is close to the instantaneous speed at that gate.",
+            "Average acceleration $= \\frac{v_B - v_A}{\\Delta t} = \\frac{0.7843 - 0.4211}{1.5} = \\pu{0.2421 m s-2}$.",
+            "Keep the unrounded speeds until the end, then round to 2 significant figures."
+          ],
+          "answer": "$a \\approx \\pu{0.24 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.040/0.051 - 0.040/0.095)/1.5",
+            "sf": 2,
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To \"determine\" a gradient from a curve, draw the tangent long and pick two points on it far apart. Show the rise and run you read; the method mark is for the tangent."
+        },
+        {
+          "type": "check",
+          "id": "check-vt-gradient",
+          "prompt": "On a velocity–time graph, how do you find the instantaneous acceleration at one time?",
+          "hint": "Acceleration is a rate of change of velocity.",
+          "options": [
+            {
+              "text": "the gradient of the tangent at that time",
+              "correct": true
+            },
+            {
+              "text": "the gradient of the chord from the origin to that point",
+              "correct": false
+            },
+            {
+              "text": "the velocity value read at that time",
+              "correct": false
+            },
+            {
+              "text": "the area under the graph up to that time",
+              "correct": false
+            }
+          ],
+          "explain": "Acceleration is how fast the velocity changes, which is the gradient. A tangent gives the value at one instant; a chord gives an average.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the gradient of the tangent at that time"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-st-straight-negative",
+          "prompt": "A displacement–time graph is a straight line sloping downwards. What does it show?",
+          "hint": "What does a constant, negative gradient mean on this graph?",
+          "options": [
+            {
+              "text": "constant velocity in the negative direction",
+              "correct": true
+            },
+            {
+              "text": "constant negative acceleration",
+              "correct": false
+            },
+            {
+              "text": "slowing down to rest",
+              "correct": false
+            },
+            {
+              "text": "the body at rest",
+              "correct": false
+            }
+          ],
+          "explain": "The gradient is the velocity. A straight line has a constant gradient, here negative, so the velocity is constant and the acceleration is zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "constant velocity in the negative direction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Displacement is the change in position, $s = x_\\text{final} - x_\\text{initial}$, a vector. Distance is the total path length, a scalar.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Velocity measures how fast position changes; acceleration measures how fast velocity changes. Both are vectors.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Average velocity $= \\frac{\\text{displacement}}{\\text{time}}$; average speed $= \\frac{\\text{distance}}{\\text{time}}$; average acceleration $= \\frac{\\Delta v}{\\Delta t}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Instantaneous values are gradients of tangents: on an $s$–$t$ graph for velocity, on a $v$–$t$ graph for acceleration. Chords give averages.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Changing direction at constant speed is acceleration. Along a line, same sign for $v$ and $a$: speeding up; opposite signs: slowing down.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding the legs of a trip to get the displacement. That is the distance; displacement is end position minus start position.",
+    "Calling a negative acceleration \"slowing down\". It slows the body only when the velocity is positive; compare the two signs.",
+    "Saying acceleration is just a change in speed. It is a change in velocity, so a change of direction at constant speed counts.",
+    "Finding the velocity at a point on a curved $s$–$t$ graph by dividing $s$ by $t$. That is an average from $t = 0$; use the gradient of the tangent.",
+    "Forgetting to convert units. Change $\\pu{km}$, $\\pu{cm}$, minutes and hours to metres and seconds before you divide."
+  ],
+  "examTips": [
+    "\"State\" a definition in Paper 2: velocity as the rate of change of position, never as \"distance over time\".",
+    "\"Calculate\" with vectors: state your positive direction, then give the answer with its sign (or a direction) and its unit.",
+    "\"Outline the difference\" between distance and displacement: one is a scalar along the path, the other a vector from start to end. Give both halves.",
+    "\"Determine\" from a graph: draw a long tangent, show the two points you read, and quote the gradient with its unit."
+  ],
+  "readingMinutes": 26
+}

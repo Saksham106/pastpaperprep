@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" role="img" aria-labelledby="t">
+<title id="t">A simple pendulum: a bob hangs from a fixed pivot on a string of length l. The bob has been pulled to the right so the string makes an angle theta with the dashed vertical line, which marks the equilibrium position. A dashed arc shows the path of the bob. Two forces act on the bob: the tension along the string towards the pivot, and weight mg straight down. A dashed arrow at the bob, along the arc and pointing back towards the equilibrium position, is the component of the weight mg sin theta, the restoring force.</title>
+<path d="M150 30 L250 30" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M160 30 L152 22 M175 30 L167 22 M190 30 L182 22 M205 30 L197 22 M220 30 L212 22 M235 30 L227 22 M250 30 L242 22" fill="none" stroke="currentColor" stroke-width="1"/>
+<path d="M200 30 L200 254" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text font-family="inherit" font-size="11" x="200" y="266" fill="var(--muted)" text-anchor="middle">equilibrium position</text>
+<path d="M115.5 211.3 A200 200 0 0 0 284.5 211.3" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+<path d="M200 30 L284.5 211.3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text font-family="inherit" font-size="12" x="250" y="118" fill="currentColor" text-anchor="start">l</text>
+<path d="M200 70 A40 40 0 0 0 216.9 66.3" fill="none" stroke="currentColor" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="209" y="86" fill="currentColor" text-anchor="middle">θ</text>
+<path d="M284.5 211.3 L257.9 154.2" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="254.1,146.0 254.3,155.9 261.5,152.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="250" y="156" fill="var(--t3-ink)" text-anchor="end">tension</text>
+<path d="M284.5 211.3 L284.5 282" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="284.5,291 280,282 289,282" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="292" y="288" fill="var(--t1-ink)" text-anchor="start">weight mg</text>
+<path d="M284.5 211.3 L261.7 221.9" fill="none" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="4 3"/>
+<polygon points="253.5,225.7 260.0,218.2 263.4,225.5" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="250" y="246" fill="var(--t2-ink)" text-anchor="end">mg sin θ (restoring)</text>
+<circle cx="284.5" cy="211.3" r="8" fill="currentColor"/>
+</svg>

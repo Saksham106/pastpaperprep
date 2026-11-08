@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 645 222" role="img" aria-labelledby="t49fa">
+  <title id="t49fa">A flat loop seen edge-on in a uniform field pointing right, in three positions. With its normal along the field, four field lines pass through it. With its normal at an angle theta to the field, fewer pass through. With its plane along the field, none pass through.</title>
+  <defs>
+    <marker id="m49fa-field" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+    </marker>
+    <marker id="m49fa-normal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- Panel 1: normal along the field -->
+  <g>
+    <g stroke="var(--muted)" stroke-width="1.2" marker-end="url(#m49fa-field)">
+      <line x1="10" y1="55" x2="190" y2="55"/>
+      <line x1="10" y1="85" x2="190" y2="85"/>
+      <line x1="10" y1="115" x2="190" y2="115"/>
+      <line x1="10" y1="145" x2="190" y2="145"/>
+    </g>
+    <line x1="100" y1="45" x2="100" y2="155" stroke="var(--t1-ink)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="160" y2="100" stroke="var(--t5-ink)" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#m49fa-normal)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="12" y="47" font-style="italic" fill="var(--muted)">B</text>
+      <text x="128" y="97" font-size="11" fill="var(--t5-ink)">normal</text>
+      <text x="100" y="186" text-anchor="middle">normal along the field</text>
+      <text x="100" y="204" text-anchor="middle"><tspan font-style="italic">θ</tspan> = 0°, <tspan font-style="italic">Φ</tspan> = <tspan font-style="italic">BA</tspan> (largest)</text>
+    </g>
+  </g>
+
+  <!-- Panel 2: normal at theta = 50 degrees to the field -->
+  <g transform="translate(222,0)">
+    <g stroke="var(--muted)" stroke-width="1.2" marker-end="url(#m49fa-field)">
+      <line x1="10" y1="55" x2="190" y2="55"/>
+      <line x1="10" y1="85" x2="190" y2="85"/>
+      <line x1="10" y1="115" x2="190" y2="115"/>
+      <line x1="10" y1="145" x2="190" y2="145"/>
+    </g>
+    <line x1="100" y1="100" x2="168" y2="100" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="57.9" y1="64.6" x2="142.1" y2="135.4" stroke="var(--t1-ink)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="138.6" y2="54" stroke="var(--t5-ink)" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#m49fa-normal)"/>
+    <path d="M125,100 A25,25 0 0 0 116.1,80.8" fill="none" stroke="var(--t5-ink)" stroke-width="1.3"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="129" y="93" font-style="italic" fill="var(--t5-ink)">θ</text>
+      <text x="144" y="46" font-size="11" fill="var(--t5-ink)">normal</text>
+      <text x="100" y="186" text-anchor="middle">normal at <tspan font-style="italic">θ</tspan> to the field</text>
+      <text x="100" y="204" text-anchor="middle"><tspan font-style="italic">Φ</tspan> = <tspan font-style="italic">BA</tspan> cos <tspan font-style="italic">θ</tspan></text>
+    </g>
+  </g>
+
+  <!-- Panel 3: plane along the field -->
+  <g transform="translate(444,0)">
+    <g stroke="var(--muted)" stroke-width="1.2" marker-end="url(#m49fa-field)">
+      <line x1="10" y1="55" x2="190" y2="55"/>
+      <line x1="10" y1="85" x2="190" y2="85"/>
+      <line x1="10" y1="115" x2="190" y2="115"/>
+      <line x1="10" y1="145" x2="190" y2="145"/>
+    </g>
+    <line x1="45" y1="100" x2="155" y2="100" stroke="var(--t1-ink)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="100" y2="34" stroke="var(--t5-ink)" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#m49fa-normal)"/>
+    <g font-size="12" fill="currentColor" font-family="inherit">
+      <text x="106" y="40" font-size="11" fill="var(--t5-ink)">normal</text>
+      <text x="100" y="186" text-anchor="middle">plane along the field</text>
+      <text x="100" y="204" text-anchor="middle"><tspan font-style="italic">θ</tspan> = 90°, <tspan font-style="italic">Φ</tspan> = 0</text>
+    </g>
+  </g>
+</svg>

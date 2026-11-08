@@ -1,7 +1,8 @@
-// Practice by bank subtopic (`bank-subtopics` courses, IB Chemistry): the generated counts and the links they describe.
+// Practice by bank subtopic (`bank-subtopics` courses: IB Chemistry, IB Physics): the generated counts and the links they describe.
 // Server-side and small: the counts are made ahead of time by scripts/generate-notes-practice.mts (subtopic-counts.ts),
 // so notes and bank pages never load a raw bank for them.
 import chemistryPracticeJson from "@/data/notes-practice/ib-chemistry.json";
+import physicsPracticeJson from "@/data/notes-practice/ib-physics.json";
 
 /** src/data/notes-practice/<course>.json. Counts are keyed by the course's level labels (IB Chemistry: SL / HL). */
 export type SubtopicPracticeFile = {
@@ -25,7 +26,7 @@ export function subtopicHref(bank: string, label: string, freeTier: boolean): st
 }
 
 /** Each `bank-subtopics` course's generated counts, by course slug. A new course: generate its file, then add it here. */
-const SOURCES: Record<string, SubtopicPracticeFile> = { "ib-chemistry": chemistryPracticeJson };
+const SOURCES: Record<string, SubtopicPracticeFile> = { "ib-chemistry": chemistryPracticeJson, "ib-physics": physicsPracticeJson };
 
 /** The course's practice file; throws for a course without one. */
 export function subtopicPracticeFile(course: { slug: string }): SubtopicPracticeFile {

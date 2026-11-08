@@ -1,0 +1,918 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.5",
+  "slug": "superposition-and-double-slit-interference",
+  "title": "Superposition and double-slit interference",
+  "level": "SL",
+  "topic": 3,
+  "summary": "When two [[wave|waves]] overlap, their displacements add: this is [[superposition|superposition]]. Two [[coherence|coherent]] sources give a steady pattern of loud and quiet (or bright and dark) points, and the [[path-difference|path difference]] to each point decides which it is. Young's [[double-slit-interference|double-slit]] experiment uses this pattern to measure the [[wavelength|wavelength]] of light with $s = \\frac{\\lambda D}{d}$.",
+  "goals": [
+    {
+      "text": "Add the displacements of overlapping waves and pulses to find the resultant displacement.",
+      "bullets": [
+        "C.3-s7"
+      ]
+    },
+    {
+      "text": "Explain what coherent sources are and why interference needs them.",
+      "bullets": [
+        "C.3-s8"
+      ]
+    },
+    {
+      "text": "Use the path difference to decide whether a point shows [[constructive-interference|constructive interference]] or [[destructive-interference|destructive interference]].",
+      "bullets": [
+        "C.3-s9",
+        "C.3-s10"
+      ]
+    },
+    {
+      "text": "Use $s = \\frac{\\lambda D}{d}$ to find a fringe separation, a wavelength, a slit separation or a screen distance.",
+      "bullets": [
+        "C.3-s11"
+      ]
+    },
+    {
+      "text": "Explain how double-slit fringes form, predict how they change, and what they show about light.",
+      "bullets": [
+        "C.3-s8",
+        "C.3-s11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.4",
+    "3.1",
+    "3.3",
+    "3.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "interference of waves",
+    "Young's slits",
+    "fringe spacing",
+    "path difference condition",
+    "coherent sources",
+    "principle of superposition"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wavelength",
+      "prompt": "A sound wave of [[frequency|frequency]] $\\pu{430 Hz}$ travels through air at $\\pu{344 m s-1}$. What is its wavelength, in m? Give 3 significant figures.",
+      "hint": "Use $v = f\\lambda$ and rearrange for $\\lambda$.",
+      "answer": {
+        "value": 0.8,
+        "tolerance": 0.0005
+      },
+      "explain": "$\\lambda = \\frac{344}{430} = \\pu{0.800 m}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "344/430",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-diffraction",
+      "prompt": "Plane water waves pass through a gap in a barrier. When do they spread out most after the gap? This spreading is [[diffraction|diffraction]].",
+      "hint": "Compare the width of the gap with the wavelength.",
+      "options": [
+        {
+          "text": "when the gap is about as wide as the wavelength",
+          "correct": true
+        },
+        {
+          "text": "when the gap is many wavelengths wide",
+          "correct": false
+        },
+        {
+          "text": "the spreading is the same for every gap width",
+          "correct": false
+        }
+      ],
+      "explain": "Spreading is greatest when the gap is similar to the wavelength. Revise it in {{lesson:3.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "when the gap is about as wide as the wavelength"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-amplitude",
+      "prompt": "A point on a rope oscillates between $\\pu{6 cm}$ above and $\\pu{6 cm}$ below its rest position. What is the [[amplitude|amplitude]] of its oscillation?",
+      "hint": "Amplitude is measured from the rest position, not from top to bottom.",
+      "options": [
+        {
+          "text": "$6\\text{ cm}$",
+          "correct": true
+        },
+        {
+          "text": "$12\\text{ cm}$",
+          "correct": false
+        },
+        {
+          "text": "$3\\text{ cm}$",
+          "correct": false
+        }
+      ],
+      "explain": "Amplitude is the largest displacement from rest: $\\frac{6 + 6}{2} = \\pu{6 cm}$. $\\pu{12 cm}$ is top to bottom. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(6 + 6)/2",
+        "unit": "cm"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "superposition",
+      "heading": "Superposition of waves and pulses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drop two stones into a pond. Where the ripples cross, each set passes straight through the other. While they overlap, the water's displacement is the two displacements added together."
+        },
+        {
+          "type": "definition",
+          "term": "principle of superposition",
+          "statement": "When two or more waves overlap at a point, the resultant displacement there, at each instant, equals the sum of the displacements each wave would cause on its own.",
+          "plain": "Overlapping waves add up point by point, then carry on unchanged."
+        },
+        {
+          "type": "text",
+          "text": "Displacement has a direction, so give it a sign. Take up as positive. A crest then adds a positive displacement and a trough a negative one, so a crest and a trough can cancel."
+        },
+        {
+          "type": "text",
+          "text": "A pulse is a single short disturbance. Pulses add while they overlap, then separate with their original shapes and speeds."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-pulses",
+          "alt": "Three snapshots of a stretched rope, one above the other. Top, before: pulse A, 3 centimetres high, on the left moving right, and pulse B, 2 centimetres high, on the right moving left. Middle, overlapping: the two pulses are at the same place, shown dashed, and the rope forms a single pulse 5 centimetres high. Bottom, after: pulse A is now on the right still moving right and pulse B on the left still moving left, each with its original height.",
+          "caption": "While the pulses overlap the rope's displacement is $3 + 2 = \\pu{5 cm}$. Afterwards each pulse is unchanged."
+        },
+        {
+          "type": "example",
+          "id": "ex-pulses-opposite",
+          "question": "On a long spring, a pulse of height $\\pu{18 mm}$ travels to the right. An inverted pulse of depth $\\pu{11 mm}$, with the same shape and width, travels to the left. Taking upwards as positive, determine the displacement where the two peaks coincide.",
+          "steps": [
+            "Positive direction: up. The first pulse gives $+18$ mm and the inverted one $-11$ mm at the same point.",
+            "Superposition: add the displacements with their signs. $y = (+18) + (-11)$.",
+            "After they pass, each pulse carries on with its own height, $+18$ mm and $-11$ mm."
+          ],
+          "answer": "$y = +7\\text{ mm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "18 + (-11)",
+            "unit": "mm",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-flat-rope",
+          "question": "Two pulses of equal size, one upward and one downward, travel towards each other along a rope. At one instant the rope is completely straight. Explain why, and outline what happens next.",
+          "steps": [
+            "Name the principle, apply it, then say what happens next."
+          ],
+          "answer": "At that instant the two pulses overlap exactly. By the principle of superposition, the displacement at each point is the sum of the two displacements. The displacements are equal and opposite, so they add to zero everywhere and the rope is straight. The rope is still moving, so its energy is kinetic energy at that instant. The pulses then separate, and each continues in its original direction with its original shape.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Equal and opposite displacements add to zero by superposition; the pulses then pass through unchanged.",
+            "requires": [
+              "overlap",
+              "superposition",
+              [
+                "sum of",
+                "add"
+              ],
+              "equal and opposite",
+              "zero",
+              "kinetic energy",
+              [
+                "continues",
+                "carries on"
+              ]
+            ],
+            "forbids": [
+              "pulses are destroyed",
+              "energy is destroyed",
+              "bounce off"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding sizes and dropping signs. A crest of $\\pu{5 mm}$ on a trough of $\\pu{3 mm}$ gives $(+5) + (-3) = \\pu{+2 mm}$, not $\\pu{8 mm}$."
+        },
+        {
+          "type": "check",
+          "id": "check-superpose-sum",
+          "prompt": "At one point and one instant, wave P gives a displacement of $\\pu{-4.0 mm}$ and wave Q gives $\\pu{+1.5 mm}$. What is the resultant displacement?",
+          "hint": "Keep the signs: a displacement below the rest position is negative.",
+          "options": [
+            {
+              "text": "$-2.5\\text{ mm}$",
+              "correct": true
+            },
+            {
+              "text": "$-5.5\\text{ mm}$",
+              "correct": false
+            },
+            {
+              "text": "$+5.5\\text{ mm}$",
+              "correct": false
+            },
+            {
+              "text": "$+2.5\\text{ mm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(-4.0) + (+1.5) = \\pu{-2.5 mm}$. $\\pu{-5.5 mm}$ adds the sizes, and $\\pu{+2.5 mm}$ loses the sign.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-4.0 + 1.5",
+            "unit": "mm",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pulses-after",
+          "prompt": "Two pulses pass through each other on a string. What are they like once they have separated?",
+          "hint": "Superposition only adds displacements while the pulses overlap.",
+          "options": [
+            {
+              "text": "unchanged in shape and speed",
+              "correct": true
+            },
+            {
+              "text": "smaller, having lost energy",
+              "correct": false
+            },
+            {
+              "text": "reversed, having bounced back",
+              "correct": false
+            },
+            {
+              "text": "joined into one pulse",
+              "correct": false
+            }
+          ],
+          "explain": "Each pulse moves on as if the other had never been there.",
+          "verify": {
+            "kind": "choice",
+            "truth": "unchanged in shape and speed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coherence",
+      "heading": "Phase difference and coherent sources",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Interference is the superposition of two continuous waves, usually from two sources. For a visible pattern, the waves must stay in step, or out of step by a fixed amount."
+        },
+        {
+          "type": "definition",
+          "term": "phase difference",
+          "statement": "How far one oscillation is ahead of another, as a fraction of a cycle written as an angle. One whole cycle is $2\\pi$ rad, or $360^\\circ$.",
+          "plain": "How far out of step two oscillations are."
+        },
+        {
+          "type": "text",
+          "text": "Oscillations are in phase when the phase difference is zero, or a whole number of cycles. They are in antiphase when it is half a cycle, $\\pi$ rad or $180^\\circ$ (plus any whole number of cycles): one at a crest when the other is at a trough."
+        },
+        {
+          "type": "text",
+          "text": "Along a wave, one wavelength is one whole cycle. So two points a distance $\\Delta x$ apart, or two waves whose paths differ by $\\Delta x$, have this phase difference $\\Delta\\phi$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-phase-from-distance",
+          "question": "Two corks float on a water wave. They are $\\pu{0.15 m}$ apart along the direction the wave travels, and the wavelength is $\\pu{0.60 m}$. Calculate the phase difference between their oscillations, in radians.",
+          "steps": [
+            "One wavelength is one cycle, $2\\pi$ rad.",
+            "$\\Delta\\phi = \\frac{0.15}{0.60} \\times 2\\pi = \\frac{\\pi}{2}$ rad, a quarter of a cycle.",
+            "$\\frac{\\pi}{2} = 1.5707\\ldots$, so give 3 s.f."
+          ],
+          "answer": "$\\Delta\\phi \\approx 1.57\\text{ rad}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.15/0.60*2*pi",
+            "sf": 3,
+            "unit": "rad"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "coherence",
+          "statement": "Two sources are coherent when they have the same frequency and a constant phase difference.",
+          "plain": "They stay in step, or out of step by the same amount, all the time."
+        },
+        {
+          "type": "text",
+          "text": "Coherent sources need not be in phase; the phase difference only has to stay the same. Waves of different frequencies keep drifting in and out of step."
+        },
+        {
+          "type": "text",
+          "text": "Two separate lamps are not coherent. Each emits light in short random bursts, so their phase difference changes randomly, far too fast for a steady pattern."
+        },
+        {
+          "type": "text",
+          "text": "To get coherent waves, split the waves from one source. In Young's experiment both slits are lit by one laser beam, or by one narrow slit in front of a lamp. Two loudspeakers on one signal generator are coherent."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-coherence",
+          "question": "Two loudspeakers each run from their own signal generator, both set to the same dial reading. A listener walking across the room hears no fixed loud or quiet spots. With both speakers on one generator, fixed loud and quiet spots appear. Explain this.",
+          "steps": [
+            "Ask what stays constant in each set-up, and link that to the pattern."
+          ],
+          "answer": "Two separate generators never give exactly the same frequency, so the phase difference between the two sounds keeps changing. A point with constructive interference one moment has destructive interference the next, so the loud and quiet spots move about and average out. With one generator the sources have the same frequency and a constant phase difference: they are coherent. Then each point always has the same phase difference, so the loud and quiet spots stay fixed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Separate generators: phase difference keeps changing, pattern moves and averages out. One generator: same frequency, constant phase difference (coherent), fixed pattern.",
+            "requires": [
+              [
+                "same frequency",
+                "exactly the same frequency"
+              ],
+              "phase difference",
+              "keeps changing",
+              [
+                "average out",
+                "move about"
+              ],
+              "constant phase difference",
+              "coherent",
+              [
+                "stay fixed",
+                "fixed"
+              ]
+            ],
+            "forbids": [
+              "coherent means in phase",
+              "same amplitude"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying coherent means \"in phase\". Coherent sources have the same frequency and a constant phase difference, which need not be zero."
+        },
+        {
+          "type": "check",
+          "id": "check-coherent-pair",
+          "prompt": "Which pair of sources is coherent?",
+          "hint": "Look for one origin that is split into two.",
+          "options": [
+            {
+              "text": "two loudspeakers on one signal generator",
+              "correct": true
+            },
+            {
+              "text": "two identical filament lamps",
+              "correct": false
+            },
+            {
+              "text": "two lasers of different wavelengths",
+              "correct": false
+            }
+          ],
+          "explain": "One generator gives both speakers the same frequency and a constant phase difference. Lamps emit random bursts; different wavelengths mean different frequencies.",
+          "verify": {
+            "kind": "choice",
+            "truth": "two loudspeakers on one signal generator"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phase-degrees",
+          "prompt": "Two points on a wave of wavelength $\\pu{2.4 m}$ are $\\pu{0.90 m}$ apart along its direction of travel. What is the phase difference between them, in degrees?",
+          "hint": "One wavelength is $360^\\circ$.",
+          "answer": {
+            "value": 135,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta\\phi = \\frac{0.90}{2.4} \\times 360^\\circ = 135^\\circ$, three-eighths of a cycle.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.90/2.4*360",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "conditions",
+      "heading": "Path difference: constructive and destructive interference",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two coherent sources, $S_1$ and $S_2$, in phase, send waves to a point P. The extra distance one wave travels is the [[path-difference|path difference]]: $\\Delta x = S_2P - S_1P$."
+        },
+        {
+          "type": "text",
+          "text": "Each circular [[wavefront|wavefront]] below is a crest or a trough. Along some lines crests always meet crests; along others, crests meet troughs."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-two-sources",
+          "alt": "Two sources, S1 and S2, two wavelengths apart on the left edge, send circular waves to the right. Crests are solid arcs and troughs are dashed arcs. Along the centre line, equidistant from both sources, crests meet crests: a maximum where the path difference is zero. On each side of it a curved line where crests meet troughs is labelled minimum, path difference half a wavelength. Further out on each side a curved line is labelled maximum, path difference one wavelength.",
+          "caption": "Two in-phase sources. Solid arcs are crests, dashed arcs troughs; $\\Delta x$ is the path difference."
+        },
+        {
+          "type": "text",
+          "text": "If $\\Delta x$ is a whole number of wavelengths, the waves arrive in phase: crest on crest, trough on trough. If it is a whole number plus a half, they arrive in antiphase: crest on trough."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{constructive: path difference} = n\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-3-5"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{destructive: path difference} = \\left(n + \\tfrac{1}{2}\\right)\\lambda",
+          "tag": "booklet",
+          "bookletId": "db-3-5"
+        },
+        {
+          "type": "text",
+          "text": "Here $n$ is a whole number: $0, 1, 2, \\ldots$ Both conditions are printed in section C.3 of the data booklet. They apply to sources in phase. For sources in antiphase the two conditions swap over."
+        },
+        {
+          "type": "text",
+          "text": "[[constructive-interference|Constructive interference]] gives a resultant amplitude $A_1 + A_2$: a loud point, or a bright fringe. [[destructive-interference|Destructive interference]] gives $|A_1 - A_2|$. That is zero, with zero [[intensity|intensity]], only when the two amplitudes are equal."
+        },
+        {
+          "type": "example",
+          "id": "ex-speakers-constructive",
+          "question": "Two loudspeakers, driven by one signal generator, emit sound in phase at $\\pu{860 Hz}$. The speed of sound is $\\pu{344 m s-1}$. A microphone is $\\pu{3.20 m}$ from one speaker and $\\pu{4.40 m}$ from the other. Determine whether the microphone is at a point of constructive or destructive interference.",
+          "steps": [
+            "Wavelength: $\\lambda = \\frac{v}{f} = \\frac{344}{860} = \\pu{0.400 m}$.",
+            "Path difference: $\\Delta x = 4.40 - 3.20 = \\pu{1.20 m}$.",
+            "Path difference in wavelengths: $\\frac{1.20}{0.400} = 3$, a whole number.",
+            "So the waves arrive in phase: constructive interference, a loud point."
+          ],
+          "answer": "$n = \\frac{\\Delta x}{\\lambda} = 3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4.40 - 3.20)/(344/860)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-longest-wavelength",
+          "question": "Two dippers vibrate in phase in a ripple tank. At point Q, which is $\\pu{0.27 m}$ further from one dipper than the other, the water stays still. Determine the longest wavelength the ripples could have.",
+          "steps": [
+            "Still water means destructive interference: $\\Delta x = \\left(n + \\tfrac{1}{2}\\right)\\lambda$.",
+            "Rearrange: $\\lambda = \\frac{\\Delta x}{n + \\frac{1}{2}}$. The smallest $n$, $n = 0$, gives the longest wavelength.",
+            "$\\lambda = \\frac{0.27}{0.5} = \\pu{0.54 m}$.",
+            "Check: $n = 1$ gives $\\frac{0.27}{1.5} = \\pu{0.18 m}$, which is shorter."
+          ],
+          "answer": "$\\lambda = 0.54\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.27/(0 + Rational(1, 2))",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 1A path-difference question, work out $\\frac{\\Delta x}{\\lambda}$ first. A whole number means a maximum; a whole number plus a half means a minimum."
+        },
+        {
+          "type": "check",
+          "id": "check-unequal-amplitudes",
+          "prompt": "Two coherent sources in phase send waves of amplitude $\\pu{3.0 mm}$ and $\\pu{1.2 mm}$ to a point where the path difference is $1.5\\lambda$. What is the resultant amplitude there?",
+          "hint": "Decide constructive or destructive first, then combine the amplitudes.",
+          "options": [
+            {
+              "text": "$1.8\\text{ mm}$",
+              "correct": true
+            },
+            {
+              "text": "$4.2\\text{ mm}$",
+              "correct": false
+            },
+            {
+              "text": "$0\\text{ mm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1.5\\lambda$ means antiphase: $3.0 - 1.2 = \\pu{1.8 mm}$. Zero needs equal amplitudes; $\\pu{4.2 mm}$ is the constructive value.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3.0 - 1.2",
+            "unit": "mm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-possible-wavelength",
+          "prompt": "Two loudspeakers emit sound in phase. A quiet point is $\\pu{0.75 m}$ further from one speaker than the other. Which of these could be the wavelength?",
+          "hint": "Quiet means $\\Delta x = \\left(n + \\tfrac{1}{2}\\right)\\lambda$. Try $n = 0, 1, 2$.",
+          "options": [
+            {
+              "text": "$0.50\\text{ m}$",
+              "correct": true
+            },
+            {
+              "text": "$0.75\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$0.375\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$0.25\\text{ m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda = \\frac{0.75}{n + 0.5}$ gives $\\pu{1.5 m}$, $\\pu{0.50 m}$, $\\pu{0.30 m}$, … The others make $0.75$ a whole number of wavelengths: a loud point.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.75/(1 + Rational(1, 2))",
+            "unit": "m"
+          }
+        }
+      ]
+    },
+    {
+      "id": "double-slit",
+      "heading": "Young's double-slit experiment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the early 1800s Thomas Young shone light through two narrow slits close together. On a screen he saw evenly spaced bright and dark bands, called fringes: [[double-slit-interference|double-slit interference]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-double-slit",
+          "alt": "Side view of Young's double-slit experiment, not to scale. A laser on the left sends a beam to a barrier with two narrow slits, S1 and S2, a small distance d apart. A screen stands a distance D to the right of the slits. On the screen is a column of evenly spaced bright fringes with dark gaps between them. The central bright fringe lies on the centre line, where the path difference is zero. Lines from S1 and S2 meet at point P, the next bright fringe up, where the path difference is one wavelength. The fringe separation s is marked between the centres of two neighbouring bright fringes.",
+          "caption": "Not to scale: in practice $D$ is about a metre or more, while $d$ is a fraction of a millimetre."
+        },
+        {
+          "type": "text",
+          "text": "Light diffracts as it passes through each narrow slit, so the waves from the two slits spread out and overlap on the screen. Both slits are lit by the same beam, so the two waves are coherent and in phase."
+        },
+        {
+          "type": "text",
+          "text": "At the centre of the screen the two paths are equal, so there is a bright fringe. Moving outwards, the path difference grows: $\\lambda$ at the next bright fringe, then $2\\lambda$, and so on. Halfway between, it is $\\frac{\\lambda}{2}, \\frac{3\\lambda}{2}, \\ldots$, and the screen is dark."
+        },
+        {
+          "type": "formula",
+          "tex": "s = \\frac{\\lambda D}{d}",
+          "tag": "booklet",
+          "bookletId": "db-3-5"
+        },
+        {
+          "type": "text",
+          "text": "$s$ is the fringe separation, between the centres of neighbouring bright (or dark) fringes. $d$ is the slit separation, centre to centre. $D$ is the slit-to-screen distance."
+        },
+        {
+          "type": "text",
+          "text": "It assumes normal incidence and $D$ much larger than $d$ and $s$. Put every length in metres before you substitute."
+        },
+        {
+          "type": "example",
+          "id": "ex-fringe-separation",
+          "question": "A green laser of wavelength $\\pu{532 nm}$ shines on two slits $\\pu{0.250 mm}$ apart. The screen is $\\pu{1.80 m}$ from the slits. Calculate the fringe separation.",
+          "steps": [
+            "Convert to metres: $\\lambda = 532 \\times 10^{-9}\\text{ m}$, $d = 0.250 \\times 10^{-3}\\text{ m}$.",
+            "$s = \\frac{\\lambda D}{d} = \\frac{532 \\times 10^{-9} \\times 1.80}{0.250 \\times 10^{-3}}$.",
+            "$s = 3.8304 \\times 10^{-3}\\text{ m}$, about $\\pu{3.8 mm}$: a sensible size to measure with a ruler."
+          ],
+          "answer": "$s \\approx 3.83 \\times 10^{-3}\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "532*10**-9*1.80/(0.250*10**-3)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wavelength-from-fringes",
+          "question": "In a double-slit experiment the slits are $\\pu{0.400 mm}$ apart and the screen is $\\pu{2.10 m}$ away. A student measures $\\pu{21.0 mm}$ from the centre of the 1st bright fringe to the centre of the 8th. Determine the wavelength of the light, in nm.",
+          "steps": [
+            "From the 1st to the 8th bright fringe there are $8 - 1 = 7$ gaps, so $s = \\frac{21.0}{7} = \\pu{3.00 mm}$.",
+            "Rearrange: $\\lambda = \\frac{s d}{D} = \\frac{3.00 \\times 10^{-3} \\times 0.400 \\times 10^{-3}}{2.10}$.",
+            "$\\lambda = 5.714\\ldots \\times 10^{-7}\\text{ m} = 571.4\\ldots\\text{ nm}$. Visible light is about 400 to 700 nm, so this is reasonable."
+          ],
+          "answer": "$\\lambda \\approx 571\\text{ nm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(21.0*10**-3/7)*0.400*10**-3/2.10*10**9",
+            "sf": 3,
+            "unit": "nm"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Measure across many fringes and divide by the number of gaps. The ruler's uncertainty is shared over many fringes, so $s$ is more certain."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fringes",
+          "question": "Monochromatic light passes through a double slit and forms bright and dark fringes on a screen. Explain how the fringes are formed.",
+          "steps": [
+            "One marking point per sentence: diffraction, coherence, superposition, then the two path-difference conditions."
+          ],
+          "answer": "Light diffracts at each slit, so the waves from the two slits spread out and overlap on the screen. Both slits are lit by the same source, so the waves are coherent. Where the waves overlap they superpose. At a bright fringe the path difference is a whole number of wavelengths, so the waves arrive in phase and interfere constructively. At a dark fringe the path difference is a whole number plus half a wavelength, so the waves arrive in antiphase, $180^\\circ$ out of phase, and interfere destructively.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Diffraction at each slit, coherent waves superpose; path difference n lambda gives in phase (bright), (n + 1/2) lambda gives antiphase (dark).",
+            "requires": [
+              "diffracts",
+              "coherent",
+              "superpose",
+              "path difference",
+              "whole number of wavelengths",
+              "in phase",
+              [
+                "antiphase",
+                "180"
+              ],
+              "interfere constructively",
+              "interfere destructively"
+            ],
+            "forbids": [
+              "waves collide",
+              "light bounces",
+              "particles of light"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fringe-mm",
+          "prompt": "Light of wavelength $\\pu{650 nm}$ falls on two slits $\\pu{0.500 mm}$ apart, and the screen is $\\pu{2.40 m}$ away. What is the fringe separation, in mm? Give 3 significant figures.",
+          "hint": "Work in metres, then convert your answer to mm.",
+          "answer": {
+            "value": 3.12,
+            "tolerance": 0.005
+          },
+          "explain": "$s = \\frac{650 \\times 10^{-9} \\times 2.40}{0.500 \\times 10^{-3}} = 3.12 \\times 10^{-3}\\text{ m} = \\pu{3.12 mm}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "650*10**-9*2.40/(0.500*10**-3)*10**3",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-slit-separation",
+          "prompt": "Fringes $\\pu{1.6 mm}$ apart are formed with light of wavelength $\\pu{480 nm}$ on a screen $\\pu{1.50 m}$ from the slits. What is the slit separation?",
+          "hint": "Rearrange to $d = \\frac{\\lambda D}{s}$ and convert both mm and nm to metres.",
+          "options": [
+            {
+              "text": "$4.5 \\times 10^{-4}\\text{ m}$",
+              "correct": true
+            },
+            {
+              "text": "$4.5 \\times 10^{-7}\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$5.1 \\times 10^{-10}\\text{ m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$d = \\frac{480 \\times 10^{-9} \\times 1.50}{1.6 \\times 10^{-3}} = 4.5 \\times 10^{-4}\\text{ m}$. $4.5 \\times 10^{-7}$ leaves $s$ in mm, and $5.1 \\times 10^{-10}$ comes from $\\frac{\\lambda s}{D}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "480*10**-9*1.50/(1.6*10**-3)",
+            "sf": 2,
+            "unit": "m"
+          }
+        }
+      ]
+    },
+    {
+      "id": "changing-pattern",
+      "heading": "Changing the pattern, and what it shows about light",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "The fringes spread out (larger $s$) for a longer wavelength, a more distant screen, or slits closer together.",
+          "why": "From $s = \\frac{\\lambda D}{d}$, $s$ is proportional to $\\lambda$ and to $D$, and inversely proportional to $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-scale-fringes",
+          "question": "In a double-slit experiment the fringes are $\\pu{2.4 mm}$ apart. The slit separation is then halved, and the screen is moved from $\\pu{1.2 m}$ to $\\pu{1.8 m}$ from the slits. Calculate the new fringe separation.",
+          "steps": [
+            "$s \\propto \\frac{D}{d}$, so scale the old value by each change.",
+            "Halving $d$ doubles $s$. Moving the screen multiplies $D$ by $\\frac{1.8}{1.2} = 1.5$.",
+            "$s_\\text{new} = 2.4 \\times 2 \\times 1.5$."
+          ],
+          "answer": "$s = 7.2\\text{ mm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2.4*2*(1.8/1.2)",
+            "unit": "mm"
+          }
+        },
+        {
+          "type": "text",
+          "text": "White light contains every visible wavelength, and each makes its own set of fringes. Red light, with the longest wavelength, has the widest spacing; violet has the narrowest."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-white-light",
+          "question": "The laser in a double-slit experiment is replaced by a white-light source with a single narrow slit in front of it. Predict and explain the pattern on the screen.",
+          "steps": [
+            "Start at the centre, then use $s \\propto \\lambda$ for the fringes either side."
+          ],
+          "answer": "At the centre the path difference is zero for every wavelength, so every colour interferes constructively there and the central fringe is white. Each colour has fringe separation $s = \\frac{\\lambda D}{d}$, so the other bright fringes are coloured. In each one, violet and blue are nearer the centre and red is further from the centre, because red has the longest wavelength. Further out the fringes of different colours overlap, so the pattern blurs and fades.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Zero path difference for all colours gives a white centre; s proportional to lambda spreads the other fringes into colours, red outermost, overlapping further out.",
+            "requires": [
+              "path difference is zero",
+              [
+                "central fringe is white",
+                "white central fringe"
+              ],
+              "coloured",
+              "red",
+              [
+                "further from the centre",
+                "outer edge"
+              ],
+              "longest wavelength",
+              "overlap"
+            ],
+            "forbids": [
+              "central fringe is dark",
+              "red is nearer the centre"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Young's fringes are evidence that light is a wave. Two streams of particles would only add, giving brighter light where they overlap. Dark fringes need waves that cancel."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, electrons sent through a double slit also make fringes: evidence that particles have a wavelength.",
+          "lesson": "5.5"
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking energy is destroyed at a dark fringe. It is redistributed: the bright fringes receive the energy the dark fringes lack."
+        },
+        {
+          "type": "check",
+          "id": "check-shorter-wavelength",
+          "prompt": "In a double-slit experiment the laser is swapped for one of shorter wavelength. Nothing else changes. What happens to the fringes?",
+          "hint": "Look at how $s$ depends on $\\lambda$ in $s = \\frac{\\lambda D}{d}$.",
+          "options": [
+            {
+              "text": "they move closer together",
+              "correct": true
+            },
+            {
+              "text": "they move further apart",
+              "correct": false
+            },
+            {
+              "text": "they stay the same distance apart",
+              "correct": false
+            },
+            {
+              "text": "they disappear",
+              "correct": false
+            }
+          ],
+          "explain": "$s$ is proportional to $\\lambda$, so a shorter wavelength gives closer fringes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they move closer together"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-changes",
+          "prompt": "Fringes are $\\pu{2.0 mm}$ apart. The slit-to-screen distance is doubled, and the wavelength is changed from $\\pu{600 nm}$ to $\\pu{450 nm}$. What is the new fringe separation?",
+          "hint": "Multiply $2.0$ mm by the factor for $D$ and the factor for $\\lambda$.",
+          "options": [
+            {
+              "text": "$3.0\\text{ mm}$",
+              "correct": true
+            },
+            {
+              "text": "$5.3\\text{ mm}$",
+              "correct": false
+            },
+            {
+              "text": "$1.5\\text{ mm}$",
+              "correct": false
+            },
+            {
+              "text": "$4.0\\text{ mm}$",
+              "correct": false
+            }
+          ],
+          "explain": "$s = 2.0 \\times 2 \\times \\frac{450}{600} = \\pu{3.0 mm}$. $\\pu{5.3 mm}$ inverts the wavelength ratio; $\\pu{1.5 mm}$ and $\\pu{4.0 mm}$ each miss one change.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.0*2*(450/600)",
+            "unit": "mm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Superposition: overlapping waves or pulses add their displacements, with signs, then carry on unchanged.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Coherent sources have the same frequency and a constant phase difference; a steady interference pattern needs them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\phi = \\frac{\\Delta x}{\\lambda} \\times 2\\pi",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For sources in phase: constructive interference when path difference $= n\\lambda$, destructive when path difference $= \\left(n + \\tfrac{1}{2}\\right)\\lambda$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "s = \\frac{\\lambda D}{d}",
+          "tag": "booklet",
+          "bookletId": "db-3-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fringes spread out for larger $\\lambda$ or $D$ and smaller $d$. White light gives a white central fringe with coloured fringes either side, each with violet nearest the centre and red furthest out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dark fringes do not destroy energy; it moves to the bright fringes.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that the waves \"meet\" or \"cancel\" without saying how. Name superposition, and say they arrive in antiphase: crest on trough.",
+    "Writing \"out of phase\" with no angle. Out of phase by $90^\\circ$ does not give a minimum; antiphase ($180^\\circ$) does.",
+    "Counting fringes instead of gaps. From the 1st to the 8th bright fringe there are 7 fringe separations.",
+    "Mixing nm, mm and m in $s = \\frac{\\lambda D}{d}$. Convert to metres first.",
+    "Calling sources coherent because they are \"the same\". The test is the same frequency and a constant phase difference."
+  ],
+  "examTips": [
+    "\"Explain\" the double-slit pattern: give diffraction at each slit, coherent waves superposing, then path difference $n\\lambda$ for bright and $\\left(n + \\tfrac{1}{2}\\right)\\lambda$ for dark, one point per sentence.",
+    "\"Explain\" why sources must be coherent: a constant phase difference fixes the maxima and minima, so the pattern stays still.",
+    "\"Determine\" a wavelength from fringes: show $s$ (distance ÷ number of gaps), the rearranged equation, then the answer with its unit.",
+    "In Paper 1A, for a change to the set-up, multiply $s$ by the factor each change makes."
+  ],
+  "readingMinutes": 31
+}

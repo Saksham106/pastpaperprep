@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" role="img" aria-labelledby="t32rc">
+  <title id="t32rc">A circle of radius x0 with a point P moving anticlockwise around it at angular speed omega. The radius to P makes an angle omega t plus phi with the horizontal line through the centre. A dashed horizontal line runs from P across to a vertical displacement axis on the right. On that axis, which runs from minus x0 to plus x0, a dot marks the shadow of P at height x equals x0 sin of omega t plus phi. As P goes round, the shadow moves up and down the axis with simple harmonic motion.</title>
+  <defs>
+    <marker id="a32rc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+    <marker id="b32rc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t1-ink)"/>
+    </marker>
+  </defs>
+  <circle cx="200" cy="170" r="120" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4">
+    <line x1="70" y1="170" x2="460" y2="170"/>
+    <line x1="200" y1="50" x2="440" y2="50"/>
+    <line x1="200" y1="290" x2="440" y2="290"/>
+  </g>
+  <line x1="200" y1="170" x2="291.9" y2="92.9" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M238.0 170.0 A38 38 0 0 0 229.1 145.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="291.9" y1="92.9" x2="440" y2="92.9" stroke="var(--t3-ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+  <path d="M256.3 64.0 A120 120 0 0 0 216.7 51.2" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" marker-end="url(#b32rc)"/>
+  <line x1="440" y1="315" x2="440" y2="20" stroke="currentColor" stroke-width="1.6" marker-end="url(#a32rc)"/>
+  <g fill="currentColor">
+    <circle cx="200" cy="170" r="3"/>
+    <circle cx="291.9" cy="92.9" r="5" fill="var(--t1-ink)"/>
+    <circle cx="440" cy="92.9" r="5" fill="var(--t3-ink)"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="302" y="85" font-size="14">P</text>
+    <text x="246" y="160">ωt + ϕ</text>
+    <text x="230" y="121" text-anchor="middle">x₀</text>
+    <text x="215" y="38">ω</text>
+    <text x="452" y="55">x₀</text>
+    <text x="452" y="175">0</text>
+    <text x="452" y="295">−x₀</text>
+    <text x="452" y="98" fill="var(--t3-ink)">x = x₀ sin(ωt + ϕ)</text>
+    <text x="432" y="16" text-anchor="middle">x</text>
+  </g>
+</svg>

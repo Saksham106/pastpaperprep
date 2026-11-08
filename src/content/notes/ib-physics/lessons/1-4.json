@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.4",
+  "slug": "newtons-laws-and-free-body-diagrams",
+  "title": "Newton's laws and free-body diagrams",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A [[force|force]] is a push or pull between two bodies. Draw every force on one body in a [[free-body-diagram|free-body diagram]], then add them to get the [[resultant-force|resultant force]]. Newton's three laws say what that resultant does: zero means constant [[velocity|velocity]], non-zero means [[acceleration|acceleration]], and forces always come in pairs.",
+  "goals": [
+    {
+      "text": "Describe a [[force|force]] as an interaction between two bodies, and name common forces with their standard symbols.",
+      "bullets": [
+        "A.2-s2"
+      ]
+    },
+    {
+      "text": "Draw a labelled [[free-body-diagram|free-body diagram]] for a body in one or two dimensions.",
+      "bullets": [
+        "A.2-s3"
+      ]
+    },
+    {
+      "text": "Find the [[resultant-force|resultant force]] from a free-body diagram, resolving angled forces where needed.",
+      "bullets": [
+        "A.2-s4"
+      ]
+    },
+    {
+      "text": "Use [[newton-s-first-law|Newton's first law]] to find unknown forces on a body in translational equilibrium.",
+      "bullets": [
+        "A.2-s1",
+        "A.2-s4"
+      ]
+    },
+    {
+      "text": "Use [[newton-s-second-law|Newton's second law]], $F = ma$, to find accelerations and forces, including for connected bodies.",
+      "bullets": [
+        "A.2-s1",
+        "A.2-s4"
+      ]
+    },
+    {
+      "text": "Identify [[newton-s-third-law|Newton's third law]] force pairs and explain why they never cancel.",
+      "bullets": [
+        "A.2-s1",
+        "A.2-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.3",
+    "1.5",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Newton's laws of motion",
+    "free body diagram",
+    "resultant force",
+    "net force",
+    "F = ma",
+    "action and reaction pairs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-force-component",
+      "prompt": "A rope pulls with $\\pu{18 N}$ at $25^{\\circ}$ above the horizontal. What is the horizontal component of the pull, in newtons? Give 2 significant figures.",
+      "hint": "The horizontal side is next to the angle, so use cosine.",
+      "answer": {
+        "value": 16,
+        "tolerance": 0.5
+      },
+      "explain": "$18\\cos 25^{\\circ} = 16.3... \\approx \\pu{16 N}$. Revise [[resolving-a-vector|resolving a vector]] in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "18*cosd(25)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-acceleration",
+      "prompt": "A cyclist speeds up from $\\pu{2.0 m s-1}$ to $\\pu{8.8 m s-1}$ in $\\pu{4.0 s}$. What is her average acceleration, in $\\pu{m s-2}$? Give 2 significant figures.",
+      "hint": "Acceleration is change in velocity divided by time taken.",
+      "answer": {
+        "value": 1.7,
+        "tolerance": 0.05
+      },
+      "explain": "$a = \\frac{8.8 - 2.0}{4.0} = \\pu{1.7 m s-2}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(8.8-2.0)/4.0",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-vector",
+      "prompt": "Which of these quantities is a [[vector|vector]]?",
+      "hint": "A vector has a direction as well as a size.",
+      "options": [
+        {
+          "text": "velocity",
+          "correct": true
+        },
+        {
+          "text": "speed",
+          "correct": false
+        },
+        {
+          "text": "mass",
+          "correct": false
+        },
+        {
+          "text": "time",
+          "correct": false
+        }
+      ],
+      "explain": "Velocity has a direction; speed, mass and time do not. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "velocity"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "forces",
+      "heading": "Forces and free-body diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a door and the door pushes back on your hand. A force always involves two bodies."
+        },
+        {
+          "type": "definition",
+          "term": "force",
+          "statement": "An interaction between two bodies: a push or pull that one body exerts on another. Force is a [[vector|vector]] with a size and a direction. Its unit is the newton, where $\\pu{1 N} = \\pu{1 kg m s-2}$.",
+          "plain": "A push or a pull, always from one thing on another."
+        },
+        {
+          "type": "text",
+          "text": "Some forces need contact, like the floor pushing on your feet. Others act at a distance through a field, like the Earth's pull."
+        },
+        {
+          "type": "text",
+          "text": "Use the standard names and symbols. [[weight|Weight]] $W$ or $F_\\text{g}$ is the Earth's pull. The [[normal-force|normal force]] $F_\\text{N}$ is a surface pushing perpendicular to itself. Friction $F_\\text{f}$ acts along a surface. Tension $T$ pulls along a string or rope."
+        },
+        {
+          "type": "text",
+          "text": "Fluids add [[viscous-drag|drag]] $F_\\text{d}$ and [[buoyancy|buoyancy]] $F_\\text{b}$. Each force is covered in {{lesson:1.5}}."
+        },
+        {
+          "type": "definition",
+          "term": "free-body diagram",
+          "statement": "A diagram of one body, drawn as a dot or simple shape, showing every force acting on it as a labelled arrow starting on the body.",
+          "plain": "One object and all the pushes and pulls on it."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose one body. Show only forces acting on it, never forces it exerts on something else."
+        },
+        {
+          "type": "text",
+          "text": "2. Start every arrow on the body, pointing the way the force acts. Label it with its name or symbol."
+        },
+        {
+          "type": "text",
+          "text": "3. Make lengths roughly match sizes."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-crate-fbd",
+          "alt": "Free-body diagram of a box being dragged to the right across a rough floor by a rope. The box is drawn as a dot. Four labelled arrows start at the dot: weight W, the longest, pointing vertically down; normal force F N pointing vertically up, a little shorter than the weight; tension T pointing up and to the right along the rope, at 28 degrees above a dashed horizontal line; and friction F f pointing horizontally to the left, opposite to the motion. An arrow above the diagram shows the direction of motion to the right. Arrow lengths are roughly to scale.",
+          "caption": "Four forces from four interactions: Earth, floor (twice) and rope. Every arrow starts on the dot."
+        },
+        {
+          "type": "example",
+          "id": "ex-fbd-dragged-box",
+          "question": "A worker drags a heavy box of tiles to the right across a rough floor. She pulls a rope that is at an angle above the horizontal. Identify each force acting on the box, the body that exerts it, and its direction.",
+          "steps": [
+            "List every body that touches the box, plus the Earth, which acts at a distance.",
+            "The floor gives two forces: one perpendicular to it, and friction along it, against the sliding.",
+            "Nothing else acts, so there are exactly four forces, as in the figure."
+          ],
+          "answer": "Weight $W$: the Earth pulls the box vertically downwards. Normal force $F_\\text{N}$: the floor pushes it vertically upwards. Friction $F_\\text{f}$: the floor pushes it to the left, opposite to the motion. Tension $T$: the rope pulls it up and to the right, along the rope.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "weight from the Earth down; normal force from the floor up; friction from the floor opposite the motion; tension from the rope along the rope",
+            "requires": [
+              "weight",
+              "Earth",
+              "normal force",
+              "floor",
+              "friction",
+              [
+                "opposite to its motion",
+                "opposite to the motion"
+              ],
+              "tension",
+              "along the rope"
+            ],
+            "forbids": [
+              "driving force",
+              "force of motion"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fbd-rising-ball",
+          "question": "A volleyball has just left a player's hands and is moving vertically upwards. Air resistance is negligible. Describe the free-body diagram of the ball and explain why it shows no upward force.",
+          "steps": [
+            "Only the Earth acts on the ball now.",
+            "Explain the upward motion with velocity, not a force."
+          ],
+          "answer": "The diagram has a single arrow, starting on the ball and pointing vertically downwards, labelled weight $W$. A force needs an interaction with another body. The ball is no longer in contact with the hands, so they exert no force on it. It keeps rising because it already has an upward velocity, which its weight reduces.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "only the weight, downwards; no contact with the hands so no upward force; it rises because of its velocity",
+            "requires": [
+              [
+                "single arrow",
+                "one arrow"
+              ],
+              "weight",
+              "vertically downwards",
+              "interaction",
+              [
+                "no longer in contact",
+                "not in contact"
+              ],
+              "upward velocity"
+            ],
+            "forbids": [
+              "force of the throw",
+              "upward force acts",
+              "force of the hands"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding a \"force of motion\" or \"force of the throw\". Every arrow needs a second body pushing or pulling right now."
+        },
+        {
+          "type": "check",
+          "id": "check-sliding-puck",
+          "prompt": "A puck slides across smooth, level ice after being hit. Friction and air resistance are negligible. Which forces belong on its free-body diagram?",
+          "hint": "Which bodies act on the puck now?",
+          "options": [
+            {
+              "text": "weight and normal force",
+              "correct": true
+            },
+            {
+              "text": "weight, normal force and a forward force",
+              "correct": false
+            },
+            {
+              "text": "a forward force only",
+              "correct": false
+            },
+            {
+              "text": "weight only",
+              "correct": false
+            }
+          ],
+          "explain": "Only the Earth and the ice act on it. It keeps moving without a forward force.",
+          "verify": {
+            "kind": "choice",
+            "truth": "weight and normal force"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scales",
+          "prompt": "A person stands on bathroom scales. Which force does not belong on the free-body diagram of the person?",
+          "hint": "Show forces on the body, not forces it exerts.",
+          "options": [
+            {
+              "text": "the push of the person on the scales",
+              "correct": true
+            },
+            {
+              "text": "the weight of the person",
+              "correct": false
+            },
+            {
+              "text": "the normal force from the scales on the person",
+              "correct": false
+            }
+          ],
+          "explain": "That push acts on the scales, so it belongs on their diagram.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the push of the person on the scales"
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-law",
+      "heading": "Resultant force and Newton's first law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A puck slid across smooth ice glides a long way. A book slid across a table soon stops, because friction acts on it."
+        },
+        {
+          "type": "definition",
+          "term": "resultant force",
+          "statement": "The [[vector-addition|vector sum]] of all the forces acting on a body: the single force that has the same effect as all of them together.",
+          "plain": "What all the pushes and pulls add up to; also called the net force."
+        },
+        {
+          "type": "text",
+          "text": "In one dimension, choose a positive direction and give each force a sign. Then add them."
+        },
+        {
+          "type": "text",
+          "text": "In two dimensions, [[resolving-a-vector|resolve]] each angled force into horizontal and vertical components. Add the components in each direction to get $F_x$ and $F_y$. Then combine them."
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\sqrt{F_x^{2} + F_y^{2}} \\qquad \\tan\\theta = \\frac{F_y}{F_x}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Newton's first law",
+          "statement": "A body stays at rest, or keeps moving at constant velocity, unless a resultant force acts on it.",
+          "plain": "Nothing speeds up, slows down or turns by itself."
+        },
+        {
+          "type": "result",
+          "statement": "The resultant force on a body is zero exactly when the body stays at rest or moves at constant velocity. The body is then in translational equilibrium, and the forces balance in every direction.",
+          "why": "By the first law, only a resultant force can change a velocity."
+        },
+        {
+          "type": "text",
+          "text": "Constant velocity means constant speed and direction. A car rounding a bend at steady speed is not in equilibrium. A skydiver at [[terminal-speed|terminal speed]] is."
+        },
+        {
+          "type": "text",
+          "text": "So in equilibrium, up = down and left = right. Each equation can give one unknown force."
+        },
+        {
+          "type": "example",
+          "id": "ex-barge-resultant",
+          "question": "Two tugboats pull a barge. One pulls with $\\pu{8.0 kN}$ due east and the other with $\\pu{5.5 kN}$ due north. Water resistance is negligible at this instant. Calculate the magnitude of the resultant force on the barge.",
+          "steps": [
+            "The forces are perpendicular, so they are the components: $F_x = \\pu{8.0 kN}$, $F_y = \\pu{5.5 kN}$.",
+            "Magnitude: $F = \\sqrt{8.0^{2} + 5.5^{2}} = \\sqrt{94.25} = \\pu{9.708 kN}$.",
+            "Direction: $\\tan\\theta = \\frac{5.5}{8.0}$, so $\\theta = 34.5^{\\circ}$ north of east. The question asks only for the magnitude: round it to 2 significant figures."
+          ],
+          "answer": "$F \\approx \\pu{9.7 kN}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(8.0**2+5.5**2)",
+            "sf": 2,
+            "unit": "kN"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-box-normal-force",
+          "question": "The box of tiles from the figure is dragged at constant velocity. The tension in the rope is $\\pu{145 N}$ at $28^{\\circ}$ above the horizontal, and the weight of the box is $\\pu{386 N}$. Calculate the normal force from the floor on the box.",
+          "steps": [
+            "Constant velocity, so the box is in equilibrium: the forces balance horizontally and vertically.",
+            "Horizontally: $F_\\text{f} = 145\\cos 28^{\\circ} = \\pu{128.0 N}$. This is the friction.",
+            "Vertically, up = down: $F_\\text{N} + 145\\sin 28^{\\circ} = 386$.",
+            "$F_\\text{N} = 386 - 68.07 = \\pu{317.9 N}$: less than $W$, because the rope lifts part of the weight."
+          ],
+          "answer": "$F_\\text{N} \\approx \\pu{318 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "386-145*sind(28)",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $F_\\text{N} = W$ for every body on a surface. An angled pull, a slope or a vertical acceleration changes $F_\\text{N}$, so find it from the force components perpendicular to the surface."
+        },
+        {
+          "type": "check",
+          "id": "check-steady-lift",
+          "prompt": "A lift moves upwards at a constant speed. How does the tension in its cable compare with its weight?",
+          "hint": "Constant speed in a straight line: what is the resultant force?",
+          "options": [
+            {
+              "text": "the tension equals the weight",
+              "correct": true
+            },
+            {
+              "text": "the tension is greater than the weight",
+              "correct": false
+            },
+            {
+              "text": "the tension is less than the weight",
+              "correct": false
+            }
+          ],
+          "explain": "Constant velocity means zero resultant force. No extra force is needed to keep it moving.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the tension equals the weight"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rowing-boat",
+          "prompt": "The oars push a rowing boat forwards with $\\pu{210 N}$. Water drag of $\\pu{145 N}$ and wind of $\\pu{38 N}$ both act backwards. Taking forwards as positive, what is the resultant force on the boat, in newtons?",
+          "hint": "Backward forces are negative.",
+          "answer": {
+            "value": 27,
+            "tolerance": 0.5
+          },
+          "explain": "$210 - 145 - 38 = \\pu{27 N}$, forwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "210-145-38",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "second-law",
+      "heading": "Newton's second law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push an empty trolley and a full one equally hard: the empty one speeds up more. More force means more acceleration; more mass means less."
+        },
+        {
+          "type": "definition",
+          "term": "Newton's second law",
+          "statement": "The resultant force on a body equals its rate of change of momentum. For constant mass this is $F = ma$, with the acceleration in the direction of the resultant force.",
+          "plain": "Resultant force equals mass times acceleration."
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma",
+          "tag": "booklet",
+          "bookletId": "db-1-4"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the resultant force in N, $m$ the mass in kg, $a$ the acceleration in $\\pu{m s-2}$. It is in the data booklet; the momentum form comes in {{lesson:1.6}}."
+        },
+        {
+          "type": "text",
+          "text": "Weight is $mg$, where $g = \\pu{9.8 m s-2}$ is the gravitational field strength from the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "Method: draw the free-body diagram, take the acceleration's direction as positive, then write resultant force = $ma$ with numbers."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-lift-fbd",
+          "alt": "Free-body diagram of a lift accelerating upwards, drawn as a dot. Two labelled arrows start at the dot: tension T from the cable pointing vertically up, and weight mg pointing vertically down. The tension arrow is longer than the weight arrow. A separate arrow beside the diagram, not touching the dot, points up and is labelled acceleration a.",
+          "caption": "Accelerating upwards, so $T > mg$. The acceleration is drawn apart from the body: it is not a force."
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-tension",
+          "question": "A lift and its passengers have a total mass of $\\pu{780 kg}$. As it sets off upwards, its acceleration is $\\pu{1.4 m s-2}$ upwards. Calculate the tension in the cable.",
+          "steps": [
+            "Tension $T$ acts up and weight $mg$ down. Take up as positive.",
+            "Resultant force = $ma$: $T - mg = ma$.",
+            "$T = m(g + a) = 780 \\times (9.8 + 1.4) = \\pu{8736 N}$.",
+            "Check: $T$ exceeds the weight, $\\pu{7644 N}$, as an upward acceleration needs. Round to 2 significant figures."
+          ],
+          "answer": "$T \\approx \\pu{8.7 kN}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "780*(g+1.4)/1000",
+            "sf": 2,
+            "unit": "kN"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-car-trailer",
+          "question": "A car of mass $\\pu{1350 kg}$ tows a trailer of mass $\\pu{450 kg}$ along a level road. The road pushes the car forwards with $\\pu{2885 N}$. Resistive forces are $\\pu{380 N}$ on the car and $\\pu{160 N}$ on the trailer. Calculate the tension in the tow bar.",
+          "steps": [
+            "Treat car and trailer as one system. The tow-bar forces act between its parts, so they cancel.",
+            "System: resultant force $= 2885 - 380 - 160 = \\pu{2345 N}$ on a mass of $\\pu{1800 kg}$, so $a = \\frac{2345}{1800} = \\pu{1.303 m s-2}$.",
+            "Trailer alone: $T$ forwards, $\\pu{160 N}$ backwards, so $T - 160 = 450 \\times 1.303$.",
+            "$T = 160 + 586.3 = \\pu{746.3 N}$. Round only at the end."
+          ],
+          "answer": "$T \\approx \\pu{746 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "160+450*(2885-380-160)/(1350+450)",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting one force, often the weight, into $F = ma$. $F$ is the resultant force: find it from the free-body diagram first."
+        },
+        {
+          "type": "check",
+          "id": "check-skydiver",
+          "prompt": "A skydiver of mass $\\pu{65 kg}$ falls with air resistance of $\\pu{390 N}$ acting on her. What is her acceleration, in $\\pu{m s-2}$? Give 2 significant figures.",
+          "hint": "Resultant force = weight - air resistance, then divide by the mass.",
+          "answer": {
+            "value": 3.8,
+            "tolerance": 0.05
+          },
+          "explain": "$a = \\frac{65 \\times 9.8 - 390}{65} = \\frac{247}{65} = \\pu{3.8 m s-2}$, downwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(65*g-390)/65",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lift-slowing",
+          "prompt": "A lift moving downwards slows down as it nears the ground floor. How does the tension in its cable compare with its weight?",
+          "hint": "Slowing while moving down: which way does the acceleration point?",
+          "options": [
+            {
+              "text": "the tension is greater than the weight",
+              "correct": true
+            },
+            {
+              "text": "the tension equals the weight",
+              "correct": false
+            },
+            {
+              "text": "the tension is less than the weight",
+              "correct": false
+            }
+          ],
+          "explain": "Slowing while moving down means the acceleration, and so the resultant force, is upwards.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the tension is greater than the weight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "third-law",
+      "heading": "Newton's third law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Step off a small boat and the boat moves backwards. You can't push something without being pushed."
+        },
+        {
+          "type": "definition",
+          "term": "Newton's third law",
+          "statement": "If body A exerts a force on body B, then body B exerts a force on body A that is equal in size and opposite in direction. The two forces are of the same type.",
+          "plain": "Forces always come in pairs, one on each of the two bodies."
+        },
+        {
+          "type": "text",
+          "text": "A third-law pair acts on two different bodies. Both forces are the same type, such as both gravitational or both contact, and exist at the same time."
+        },
+        {
+          "type": "text",
+          "text": "Acting on different bodies, the pair never cancels. Its forces belong on two different free-body diagrams."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-book-pairs",
+          "alt": "Three small diagrams side by side for a book resting on a desk. The first shows the forces on the book: weight, the pull of the Earth on the book, pointing down, and the normal force, the push of the desk on the book, pointing up. The second shows the push of the book on the desk, pointing down, in the same colour as the normal force. The third shows the pull of the book on the Earth, pointing up, in the same colour as the weight. Arrows of the same colour are equal in length and opposite in direction: each colour is one third-law pair, and its two forces act on different bodies.",
+          "caption": "Same colour, same pair. The normal force and the weight both act on the book, so they are not a pair."
+        },
+        {
+          "type": "example",
+          "id": "ex-book-pairs",
+          "question": "A dictionary rests on a desk. A student says that the weight of the dictionary and the normal force on it form a Newton's third law pair. Explain why the student is wrong, and identify the third-law partner of each force.",
+          "steps": [
+            "Test the pair: different bodies? same type?",
+            "Name each partner by swapping the two bodies: Earth on dictionary becomes dictionary on Earth."
+          ],
+          "answer": "Both forces act on the same body, the dictionary, but a third-law pair acts on different bodies. They are also different types: gravitational and contact. The weight's partner is the pull of the dictionary on the Earth, upwards. The normal force's partner is the push of the dictionary on the desk, downwards. Weight and normal force are equal here only because the dictionary is in equilibrium.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both act on the dictionary; a pair acts on different bodies and is the same type; partners are dictionary on Earth (up) and dictionary on desk (down)",
+            "requires": [
+              "same body",
+              "different bodies",
+              [
+                "different types",
+                "different type"
+              ],
+              [
+                "dictionary on the Earth",
+                "dictionary pulls the Earth"
+              ],
+              [
+                "dictionary on the desk",
+                "dictionary pushes the desk"
+              ]
+            ],
+            "forbids": [
+              "they cancel because of the third law"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-skaters-push",
+          "question": "Two skaters stand at rest on smooth ice. Skater P has mass $\\pu{52 kg}$ and skater Q has mass $\\pu{78 kg}$. P pushes Q with a force of $\\pu{130 N}$. Friction is negligible. Taking the direction in which Q moves as positive, calculate the acceleration of P during the push.",
+          "steps": [
+            "Third law: Q pushes P with an equal force, $\\pu{130 N}$, in the opposite direction. So the force on P is $\\pu{-130 N}$.",
+            "Second law for P: $a_\\text{P} = \\frac{F}{m} = \\frac{-130}{52} = \\pu{-2.5 m s-2}$.",
+            "Compare Q: $a_\\text{Q} = \\frac{130}{78} = \\pu{+1.7 m s-2}$. Equal forces; the lighter skater accelerates more."
+          ],
+          "answer": "$a_\\text{P} = \\pu{-2.5 m s-2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-130/52",
+            "unit": "m s-2",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the two forces of a third-law pair cancel. They act on different bodies, so they can't."
+        },
+        {
+          "type": "check",
+          "id": "check-rocket-pair",
+          "prompt": "A rocket engine pushes exhaust gas backwards. What is the third-law partner of this force?",
+          "hint": "Swap the two bodies in rocket on gas.",
+          "options": [
+            {
+              "text": "the gas pushing the rocket forwards",
+              "correct": true
+            },
+            {
+              "text": "the weight of the rocket",
+              "correct": false
+            },
+            {
+              "text": "air resistance on the rocket",
+              "correct": false
+            },
+            {
+              "text": "the Earth pulling the gas downwards",
+              "correct": false
+            }
+          ],
+          "explain": "Swap the bodies: gas on rocket, forwards. This is what drives the rocket.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the gas pushing the rocket forwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-truck-car",
+          "prompt": "A truck collides head-on with a small car. During the collision, how does the force of the truck on the car compare with the force of the car on the truck?",
+          "hint": "These two forces are a third-law pair.",
+          "options": [
+            {
+              "text": "the two forces are equal in size",
+              "correct": true
+            },
+            {
+              "text": "the force on the car is larger",
+              "correct": false
+            },
+            {
+              "text": "the force on the truck is larger",
+              "correct": false
+            }
+          ],
+          "explain": "A third-law pair is always equal in size. The car's smaller mass gives it the larger acceleration.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the two forces are equal in size"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A force is an interaction between two bodies. A free-body diagram shows one body and only the forces on it, as labelled arrows starting on the body.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resultant force: the vector sum of all forces. In 2D, resolve, add components, then $F = \\sqrt{F_x^{2} + F_y^{2}}$, $\\tan\\theta = \\frac{F_y}{F_x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "First law: zero resultant force exactly when the body stays at rest or moves at constant velocity (translational equilibrium). Forces then balance in every direction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma",
+          "tag": "booklet",
+          "bookletId": "db-1-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Second law: $F$ is the resultant force, and the acceleration is in its direction. For connected bodies with the same acceleration, treat the whole system first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Third law: a pair is equal in size, opposite in direction, the same type, and acts on two different bodies, so the pair never cancels.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing a \"driving force\" or \"force of the throw\" on a body nothing is pushing. Each force needs a second body acting on it now.",
+    "Arrows unlabelled or not touching the body. Start each on the body and name it: weight, not gravity.",
+    "Assuming $F_\\text{N} = mg$. Use the force components perpendicular to the surface; an angled pull, a slope or a vertical acceleration changes $F_\\text{N}$.",
+    "Thinking a moving body needs a resultant force to keep moving. At constant velocity the resultant force is zero.",
+    "Calling the weight and the normal force a third-law pair. A pair acts on two different bodies and is the same type of force."
+  ],
+  "examTips": [
+    "\"Draw\" a free-body diagram: arrows touching the body, standard labels, sensible relative lengths. Leave out forces the body exerts.",
+    "\"Identify\" a third-law pair by naming both bodies and the type of force: \"the Earth pulls the ball down; the ball pulls the Earth up\".",
+    "\"Calculate\" with $F = ma$: write the resultant-force equation with numbers in, such as $T - mg = ma$. That line earns the method mark.",
+    "In Paper 1A, read \"remains at rest\" or \"constant velocity\" as \"resultant force is zero\", then balance the forces."
+  ],
+  "readingMinutes": 25
+}

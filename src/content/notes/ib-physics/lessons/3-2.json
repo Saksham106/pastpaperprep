@@ -1,0 +1,686 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.2",
+  "slug": "phase-and-the-equations-of-simple-harmonic-motion",
+  "title": "Phase and the equations of simple harmonic motion",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Two oscillators with the same [[amplitude|amplitude]] and period can still be at different points in their cycles. The [[phase-angle|phase angle]] $\\phi$ records where each one starts. With it, $x = x_0\\sin(\\omega t + \\phi)$ and $v = \\omega x_0\\cos(\\omega t + \\phi)$ give the displacement and velocity at any moment, and $E_\\text{T} = \\tfrac{1}{2}m\\omega^2x_0^2$ tells you how the energy is shared.",
+  "goals": [
+    {
+      "text": "Use the [[phase-angle|phase angle]] $\\phi$ to say where an oscillator is in its cycle at $t = 0$, and find $\\phi$ from the starting displacement and direction.",
+      "bullets": [
+        "C.1-a1"
+      ]
+    },
+    {
+      "text": "Find the [[phase-difference|phase difference]] between two oscillations, and describe how displacement, velocity and acceleration are out of phase.",
+      "bullets": [
+        "C.1-a1"
+      ]
+    },
+    {
+      "text": "Use $x = x_0\\sin(\\omega t + \\phi)$ and $v = \\omega x_0\\cos(\\omega t + \\phi)$ to find the displacement and velocity at any time.",
+      "bullets": [
+        "C.1-a2"
+      ]
+    },
+    {
+      "text": "Find the speed at any displacement with $v = \\pm\\omega\\sqrt{x_0^2 - x^2}$, and the maximum speed and acceleration.",
+      "bullets": [
+        "C.1-a2"
+      ]
+    },
+    {
+      "text": "Calculate the total, potential and kinetic energy of an oscillator, and describe how each varies with displacement and with time.",
+      "bullets": [
+        "C.1-a2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "phase constant in SHM",
+    "x = x0 sin(wt + phi)",
+    "SHM velocity equation",
+    "maximum speed in SHM",
+    "energy in simple harmonic motion",
+    "SHM energy graphs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-omega",
+      "prompt": "A guitar string vibrates with a period of $\\pu{0.25 s}$. What is its [[angular-frequency|angular frequency]], in $\\text{rad s}^{-1}$? Give 3 significant figures.",
+      "hint": "Use $\\omega = \\frac{2\\pi}{T}$.",
+      "answer": {
+        "value": 25.1,
+        "tolerance": 0.05
+      },
+      "explain": "$\\omega = \\frac{2\\pi}{0.25} = 8\\pi \\approx \\pu{25.1 rad s-1}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*pi/0.25",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-radians",
+      "prompt": "Convert an angle of $135^\\circ$ into [[radian|radians]]. Give 3 significant figures.",
+      "hint": "A full turn is $360^\\circ$, which is $2\\pi$ rad.",
+      "answer": {
+        "value": 2.36,
+        "tolerance": 0.005
+      },
+      "explain": "$135 \\times \\frac{2\\pi}{360} = \\frac{3\\pi}{4} \\approx \\pu{2.36 rad}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "135*2*pi/360",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-accel",
+      "prompt": "An object moves with [[simple-harmonic-motion|simple harmonic motion]] with $\\omega = \\pu{5.0 rad s-1}$. At one instant its displacement is $+\\pu{0.020 m}$. What is its acceleration?",
+      "hint": "Use $a = -\\omega^2 x$, and keep the sign.",
+      "options": [
+        {
+          "text": "$-0.50\\text{ m s}^{-2}$",
+          "correct": true
+        },
+        {
+          "text": "$+0.50\\text{ m s}^{-2}$",
+          "correct": false
+        },
+        {
+          "text": "$-0.10\\text{ m s}^{-2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$a = -(5.0)^2 \\times 0.020 = \\pu{-0.50 m s-2}$. $+0.50$ loses the sign; $-0.10$ uses $\\omega$, not $\\omega^2$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-(5.0)**2*0.020",
+        "unit": "m s-2",
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "phase",
+      "heading": "Phase angle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.1}} you described [[simple-harmonic-motion|simple harmonic motion]] (SHM) with its [[amplitude|amplitude]] $x_0$ and [[angular-frequency|angular frequency]] $\\omega$. Those two numbers don't say where the oscillator is when you start the clock. Two identical pendulums can swing with the same $x_0$ and $\\omega$, but one is at the end of its swing while the other is passing through the middle."
+        },
+        {
+          "type": "text",
+          "text": "Picture a point P moving round a circle of radius $x_0$ at a steady angular speed $\\omega$. Its shadow on a vertical line moves up and down with SHM."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-reference-circle",
+          "alt": "A circle of radius x0 with a point P moving anticlockwise around it at angular speed omega. The radius to P makes an angle omega t plus phi with the horizontal line through the centre. A dashed horizontal line runs from P to a vertical displacement axis on the right, from minus x0 to plus x0. A dot on that axis marks the shadow of P at height x equals x0 sin of omega t plus phi.",
+          "caption": "The shadow of P is at $x = x_0\\sin(\\omega t + \\phi)$. The angle $\\omega t + \\phi$ says how far round the cycle the oscillator is."
+        },
+        {
+          "type": "text",
+          "text": "The angle of P from the horizontal is $\\omega t + \\phi$: it starts at $\\phi$ when $t = 0$. The height of the shadow is $x_0$ times the sine of this angle."
+        },
+        {
+          "type": "formula",
+          "tex": "x = x_0\\sin(\\omega t + \\phi)",
+          "tag": "booklet",
+          "bookletId": "db-3-2"
+        },
+        {
+          "type": "definition",
+          "term": "phase angle",
+          "statement": "The constant $\\phi$ in $x = x_0\\sin(\\omega t + \\phi)$. It fixes the position and direction of motion of the oscillator at $t = 0$, and is measured in radians.",
+          "plain": "Where in its cycle the oscillator is when you start timing."
+        },
+        {
+          "type": "text",
+          "text": "The five SHM equations in this lesson are in the data booklet; you need to know when to use each. Angles are in [[radian|radians]], so set your calculator to radian mode."
+        },
+        {
+          "type": "text",
+          "text": "Four starting points are worth knowing. Take the positive direction as the direction of $+x_0$."
+        },
+        {
+          "type": "text",
+          "text": "1. $\\phi = 0$: at equilibrium, moving in the positive direction."
+        },
+        {
+          "type": "text",
+          "text": "2. $\\phi = \\frac{\\pi}{2}$: at $+x_0$, momentarily at rest. Then $x = x_0\\cos\\omega t$."
+        },
+        {
+          "type": "text",
+          "text": "3. $\\phi = \\pi$: at equilibrium, moving in the negative direction."
+        },
+        {
+          "type": "text",
+          "text": "4. $\\phi = \\frac{3\\pi}{2}$ (or $-\\frac{\\pi}{2}$): at $-x_0$, momentarily at rest."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-phase-graphs",
+          "alt": "Displacement x against time t for two oscillators with the same amplitude x0 and period T. The solid curve, phase angle 0, starts at zero and rises, reaching plus x0 at T over 4, zero at T over 2, minus x0 at 3T over 4 and zero at T. The dashed curve, phase angle pi over 2, starts at plus x0, falls to zero at T over 4, reaches minus x0 at T over 2 and is back at plus x0 at T. The dashed curve is a quarter of a cycle ahead.",
+          "caption": "Same amplitude, same period, different phase angles. The dashed oscillator is $\\frac{\\pi}{2}$ rad, a quarter of a cycle, ahead."
+        },
+        {
+          "type": "text",
+          "text": "Two oscillators with the same $\\omega$ keep a constant [[phase-difference|phase difference]], $\\Delta\\phi$. One full cycle is $2\\pi$ rad. So if one oscillator reaches each point a time $\\Delta t$ after the other, the fraction of a cycle between them is $\\frac{\\Delta t}{T}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\phi = 2\\pi\\frac{\\Delta t}{T}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-phase-from-start",
+          "question": "A cork bobs on a pond with SHM of amplitude $\\pu{5.0 cm}$. Take upwards as positive. At $t = 0$ the cork is $\\pu{2.0 cm}$ above equilibrium and moving upwards. Determine the phase angle $\\phi$.",
+          "steps": [
+            "At $t = 0$: $x = x_0\\sin\\phi$, so $2.0 = 5.0\\sin\\phi$ and $\\sin\\phi = 0.40$.",
+            "In radian mode, $\\sin^{-1}(0.40) = 0.4115\\ldots$ rad.",
+            "Check the direction. The other angle with $\\sin\\phi = 0.40$ is $\\pi - 0.4115 = 2.73$ rad. There $v = \\omega x_0\\cos\\phi$ is negative: moving down.",
+            "The cork is moving up, so $\\cos\\phi > 0$: take the smaller angle."
+          ],
+          "answer": "$\\phi \\approx 0.41\\text{ rad}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "asin(2.0/5.0)",
+            "sf": 2,
+            "unit": "rad"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-phase-lag",
+          "question": "Two identical pendulums swing with a period of $\\pu{1.6 s}$. Pendulum B reaches its right-hand extreme $\\pu{0.20 s}$ after pendulum A does. Calculate the phase difference between them.",
+          "steps": [
+            "The time lag as a fraction of a cycle: $\\frac{\\Delta t}{T} = \\frac{0.20}{1.6} = 0.125$, an eighth of a cycle.",
+            "$\\Delta\\phi = 2\\pi\\frac{\\Delta t}{T} = 2\\pi \\times 0.125 = \\frac{\\pi}{4}$ rad.",
+            "$\\frac{\\pi}{4} = 0.785\\ldots$ rad. B lags behind A by this angle."
+          ],
+          "answer": "$\\Delta\\phi \\approx 0.79\\text{ rad}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*pi*0.20/1.6",
+            "sf": 2,
+            "unit": "rad"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Velocity is the gradient of the $x$–$t$ graph. It reaches its positive maximum at $x = 0$ moving up, a quarter of a cycle before $x$ reaches $+x_0$, and it is zero at the extremes. So velocity is $\\frac{\\pi}{2}$ rad ahead of displacement."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign in $a = -\\omega^2 x$ makes the acceleration always point towards equilibrium, opposite to the displacement. So acceleration is $\\pi$ rad out of phase with displacement: in antiphase."
+        },
+        {
+          "type": "mistake",
+          "text": "Finding $\\phi$ with $\\sin^{-1}$ and stopping. Two angles give the same starting displacement; pick the one whose $\\cos\\phi$ has the sign of the starting velocity."
+        },
+        {
+          "type": "check",
+          "id": "check-phase-start-pi",
+          "prompt": "An oscillator moves with $x = x_0\\sin(\\omega t + \\pi)$. Where is it at $t = 0$, and which way is it moving?",
+          "hint": "Put $t = 0$ into $x$, then think about where the sine curve goes next.",
+          "options": [
+            {
+              "text": "at equilibrium, moving in the negative direction",
+              "correct": true
+            },
+            {
+              "text": "at equilibrium, moving in the positive direction",
+              "correct": false
+            },
+            {
+              "text": "at maximum positive displacement, at rest",
+              "correct": false
+            },
+            {
+              "text": "at maximum negative displacement, at rest",
+              "correct": false
+            }
+          ],
+          "explain": "$x = x_0\\sin\\pi = 0$, so it starts at equilibrium. $v = \\omega x_0\\cos\\pi = -\\omega x_0$, so it moves in the negative direction at top speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at equilibrium, moving in the negative direction"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phase-lag",
+          "prompt": "Two masses on identical springs oscillate with a period of $\\pu{1.4 s}$. One passes through equilibrium $\\pu{0.35 s}$ after the other, moving the same way. What is their phase difference, in radians? Give 2 significant figures.",
+          "hint": "Work out what fraction of a period $\\pu{0.35 s}$ is, then multiply by $2\\pi$.",
+          "answer": {
+            "value": 1.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta\\phi = 2\\pi \\times \\frac{0.35}{1.4} = \\frac{\\pi}{2} \\approx \\pu{1.6 rad}$: a quarter of a cycle.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi*0.35/1.4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-velocity-phase",
+          "prompt": "By how much is the velocity of an oscillator ahead of its displacement?",
+          "hint": "Velocity is greatest when the displacement is zero. How far round the cycle is that from a peak?",
+          "options": [
+            {
+              "text": "$\\frac{\\pi}{2}\\text{ rad}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pi\\text{ rad}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\pi}{4}\\text{ rad}$",
+              "correct": false
+            }
+          ],
+          "explain": "Velocity peaks a quarter of a cycle before displacement does: $\\frac{\\pi}{2}$ rad. A difference of $\\pi$ rad is between displacement and acceleration.",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi/2",
+            "unit": "rad"
+          }
+        }
+      ]
+    },
+    {
+      "id": "equations",
+      "heading": "Displacement and velocity at any time",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The $x$–$t$ graph of SHM is a sine curve. Its gradient, the velocity, is a cosine curve with the same $\\omega$ and $\\phi$. The velocity is largest, $\\omega x_0$, where the sine curve is steepest."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\omega x_0\\cos(\\omega t + \\phi)",
+          "tag": "booklet",
+          "bookletId": "db-3-2"
+        },
+        {
+          "type": "text",
+          "text": "Use these when you know the time. Work out $\\omega t + \\phi$ in radians first, then take its sine or cosine. The sign tells you which side of equilibrium the object is on, or which way it moves."
+        },
+        {
+          "type": "example",
+          "id": "ex-buoy-velocity",
+          "question": "A buoy rides up and down on waves. Its displacement in metres, upwards positive, is $x = 0.60\\sin(1.8t + 0.50)$, with $t$ in seconds. Determine the velocity of the buoy at $t = \\pu{2.0 s}$, and describe its motion then.",
+          "steps": [
+            "Read off the equation: $x_0 = \\pu{0.60 m}$, $\\omega = \\pu{1.8 rad s-1}$, $\\phi = \\pu{0.50 rad}$.",
+            "Angle: $\\omega t + \\phi = 1.8 \\times 2.0 + 0.50 = \\pu{4.1 rad}$.",
+            "$v = \\omega x_0\\cos(\\omega t + \\phi) = 1.8 \\times 0.60 \\times \\cos 4.1 = 1.08 \\times (-0.5748\\ldots) = -0.6208\\ldots\\ \\text{m s}^{-1}$.",
+            "Also $x = 0.60\\sin 4.1 = \\pu{-0.49 m}$. So the buoy is below equilibrium and still moving down."
+          ],
+          "answer": "$v \\approx -0.62\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.8*0.60*cos(1.8*2.0 + 0.50)",
+            "sf": 2,
+            "unit": "m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "Often you know where the object is, not when. Square the two equations and use $\\sin^2\\theta + \\cos^2\\theta = 1$: $v^2 = \\omega^2x_0^2\\left(1 - \\sin^2(\\omega t + \\phi)\\right) = \\omega^2\\left(x_0^2 - x^2\\right)$. Taking the square root gives the speed at any displacement."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\pm\\omega\\sqrt{x_0^2 - x^2}",
+          "tag": "booklet",
+          "bookletId": "db-3-2"
+        },
+        {
+          "type": "text",
+          "text": "The object passes each point twice per cycle, once each way. Choose $+$ when it moves in the positive direction, $-$ otherwise."
+        },
+        {
+          "type": "result",
+          "statement": "The maximum speed is $v_\\text{max} = \\omega x_0$, at equilibrium ($x = 0$). The maximum acceleration has magnitude $\\omega^2 x_0$, at the extremes ($x = \\pm x_0$), where the object is momentarily at rest.",
+          "why": "Put $x = 0$ into $v = \\pm\\omega\\sqrt{x_0^2 - x^2}$, and $x = \\pm x_0$ into $a = -\\omega^2 x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-at-x",
+          "question": "A mass on a spring oscillates with a period of $\\pu{0.50 s}$ and an amplitude of $\\pu{8.0 cm}$. Calculate the speed of the mass when its displacement is $\\pu{5.0 cm}$.",
+          "steps": [
+            "$\\omega = \\frac{2\\pi}{T} = \\frac{2\\pi}{0.50} = 12.56\\ldots\\ \\text{rad s}^{-1}$.",
+            "Convert to metres: $x_0 = \\pu{0.080 m}$, $x = \\pu{0.050 m}$.",
+            "$v = \\omega\\sqrt{x_0^2 - x^2} = 12.56\\ldots \\times \\sqrt{0.080^2 - 0.050^2} = 12.56\\ldots \\times 0.06245\\ldots$",
+            "$v = 0.7847\\ldots\\ \\text{m s}^{-1}$. Sense check: below $v_\\text{max} = \\omega x_0 = \\pu{1.0 m s-1}$, as it must be away from equilibrium."
+          ],
+          "answer": "$v \\approx 0.78\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(2*pi/0.50)*sqrt(0.080**2 - 0.050**2)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When asked for a maximum acceleration, give the magnitude $\\omega^2 x_0$. The minus sign in $a = -\\omega^2 x$ only gives the direction."
+        },
+        {
+          "type": "check",
+          "id": "check-max-speed",
+          "prompt": "An oscillator moves with $x = 0.030\\sin(25t)$, where $x$ is in metres and $t$ in seconds. What is its maximum speed?",
+          "hint": "Read $x_0$ and $\\omega$ from the equation. Maximum speed is at equilibrium.",
+          "options": [
+            {
+              "text": "$0.75\\text{ m s}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$19\\text{ m s}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$0.0012\\text{ m s}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$v_\\text{max} = \\omega x_0 = 25 \\times 0.030 = \\pu{0.75 m s-1}$. $19$ is $\\omega^2 x_0$, the maximum acceleration in $\\text{m s}^{-2}$, and $0.0012$ divides by $\\omega$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "25*0.030",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speed-at-x",
+          "prompt": "A particle oscillates with $\\omega = \\pu{6.0 rad s-1}$ and amplitude $\\pu{0.15 m}$. What is its speed, in $\\text{m s}^{-1}$, when its displacement is $\\pu{0.090 m}$? Give 2 significant figures.",
+          "hint": "Use $v = \\omega\\sqrt{x_0^2 - x^2}$. Square before you subtract.",
+          "answer": {
+            "value": 0.72,
+            "tolerance": 0.005
+          },
+          "explain": "$v = 6.0\\sqrt{0.15^2 - 0.090^2} = 6.0 \\times 0.12 = \\pu{0.72 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6.0*sqrt(0.15**2 - 0.090**2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "heading": "Energy in simple harmonic motion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In an undamped oscillator, energy passes back and forth between [[kinetic-energy|kinetic energy]] and potential energy, and the total stays the same."
+        },
+        {
+          "type": "text",
+          "text": "At equilibrium the speed is $v_\\text{max} = \\omega x_0$, and the potential energy, measured from equilibrium, is zero. So the total energy is all kinetic: $\\tfrac{1}{2}m(\\omega x_0)^2$."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{T} = \\tfrac{1}{2}m\\omega^2x_0^2",
+          "tag": "booklet",
+          "bookletId": "db-3-2"
+        },
+        {
+          "type": "text",
+          "text": "At displacement $x$, the kinetic energy is $\\tfrac{1}{2}mv^2 = \\tfrac{1}{2}m\\omega^2\\left(x_0^2 - x^2\\right)$. The rest of the total is potential energy."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{p} = \\tfrac{1}{2}m\\omega^2x^2",
+          "tag": "booklet",
+          "bookletId": "db-3-2"
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = E_\\text{T} - E_\\text{p} = \\tfrac{1}{2}m\\omega^2\\left(x_0^2 - x^2\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$E_\\text{p}$ is measured from the equilibrium position, where it is zero. For a horizontal [[mass-spring-system|mass–spring system]], $m\\omega^2 = k$, so $E_\\text{p} = \\tfrac{1}{2}kx^2$, the [[elastic-potential-energy|elastic potential energy]]. For a vertical spring, it is the elastic and gravitational energy together, compared with equilibrium."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-energy-displacement",
+          "alt": "Energy against displacement from minus x0 to plus x0. A horizontal line at the total energy ET. A solid U-shaped parabola for potential energy, zero at x equals 0 and ET at plus and minus x0. A dashed upside-down parabola for kinetic energy, ET at x equals 0 and zero at plus and minus x0. They cross at half of ET, at x equals plus and minus x0 over root 2.",
+          "caption": "$E_\\text{p}$ and $E_\\text{k}$ are parabolas in $x$. They always add up to $E_\\text{T}$."
+        },
+        {
+          "type": "text",
+          "text": "Against time, each energy rises and falls twice per cycle: kinetic energy peaks at each pass through equilibrium, potential energy at each extreme."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-energy-time",
+          "alt": "Energy against time over one period T, for an oscillator passing equilibrium at t equals 0. A horizontal line at ET for the total. The dashed kinetic energy curve is ET at 0, T over 2 and T, and zero at T over 4 and 3T over 4. The solid potential energy curve is the opposite. Neither goes below zero, and each repeats twice in one period.",
+          "caption": "For $\\phi = 0$: $E_\\text{k}$ and $E_\\text{p}$ each have period $\\frac{T}{2}$, half the period of the oscillation."
+        },
+        {
+          "type": "example",
+          "id": "ex-glider-energy",
+          "question": "A $\\pu{0.30 kg}$ glider on an air track is held between two springs. It oscillates with SHM at $\\pu{1.2 Hz}$ with an amplitude of $\\pu{0.050 m}$. Calculate its kinetic energy when its displacement is $\\pu{0.030 m}$.",
+          "steps": [
+            "$\\omega = 2\\pi f = 2\\pi \\times 1.2 = 7.539\\ldots\\ \\text{rad s}^{-1}$, so $\\omega^2 = 56.84\\ldots\\ \\text{s}^{-2}$.",
+            "Total: $E_\\text{T} = \\tfrac{1}{2} \\times 0.30 \\times 56.84\\ldots \\times 0.050^2 = 0.02131\\ldots\\ \\text{J}$.",
+            "Potential: $E_\\text{p} = \\tfrac{1}{2} \\times 0.30 \\times 56.84\\ldots \\times 0.030^2 = 0.00767\\ldots\\ \\text{J}$.",
+            "Kinetic: $E_\\text{k} = E_\\text{T} - E_\\text{p} = 0.01364\\ldots\\ \\text{J}$."
+          ],
+          "answer": "$E_\\text{k} \\approx 0.014\\text{ J}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*0.30*(2*pi*1.2)**2*(0.050**2 - 0.030**2)",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-equal-energies",
+          "question": "A pendulum bob swings with small oscillations of amplitude $\\pu{0.12 m}$. Determine the distance $d$ from equilibrium at which its kinetic and potential energies are equal.",
+          "steps": [
+            "Equal shares means $E_\\text{p} = \\tfrac{1}{2}E_\\text{T}$.",
+            "$\\tfrac{1}{2}m\\omega^2x^2 = \\tfrac{1}{2} \\times \\tfrac{1}{2}m\\omega^2x_0^2$, so $x^2 = \\tfrac{1}{2}x_0^2$ and $x = \\pm\\frac{x_0}{\\sqrt{2}}$. The mass and $\\omega$ cancel.",
+            "$d = \\frac{0.12}{\\sqrt{2}} = 0.0848\\ldots$ m, on either side of equilibrium. It happens four times per cycle."
+          ],
+          "answer": "$d \\approx 0.085\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.12/sqrt(2)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ek-time",
+          "question": "A mass on a spring oscillates with period $T$. Explain why its kinetic energy varies with a period of $\\frac{T}{2}$.",
+          "steps": [
+            "Think about where the kinetic energy is greatest and least, and how often each happens per cycle."
+          ],
+          "answer": "Kinetic energy is $\\tfrac{1}{2}mv^2$, so it depends on the speed and not on the direction of motion. In one oscillation the mass passes through the equilibrium position twice, once in each direction, and its kinetic energy is a maximum each time. It is momentarily at rest at each extreme, twice per oscillation, where its kinetic energy is zero. Kinetic energy can never be negative, so it rises and falls twice in each oscillation. So the kinetic energy repeats every $\\frac{T}{2}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "maximum at each pass through equilibrium and zero at each extreme, twice per cycle, never negative",
+            "requires": [
+              "speed",
+              [
+                "equilibrium position twice",
+                "twice"
+              ],
+              [
+                "at rest",
+                "zero"
+              ],
+              [
+                "never be negative",
+                "cannot be negative"
+              ]
+            ],
+            "forbids": [
+              "same period as the oscillation"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving amplitudes in cm in an energy formula. $x_0^2$ in $\\text{cm}^2$ makes the answer $10^4$ times too big; convert to metres first."
+        },
+        {
+          "type": "check",
+          "id": "check-ek-fraction",
+          "prompt": "An oscillator is at a displacement of $0.60x_0$, where $x_0$ is the amplitude. What fraction of its total energy is kinetic?",
+          "hint": "$\\frac{E_\\text{k}}{E_\\text{T}} = \\frac{x_0^2 - x^2}{x_0^2}$.",
+          "options": [
+            {
+              "text": "$0.64$",
+              "correct": true
+            },
+            {
+              "text": "$0.36$",
+              "correct": false
+            },
+            {
+              "text": "$0.40$",
+              "correct": false
+            },
+            {
+              "text": "$0.80$",
+              "correct": false
+            }
+          ],
+          "explain": "$1 - 0.60^2 = 0.64$. $0.36$ is the potential share, $0.40$ forgets to square, and $0.80$ is the speed ratio.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - 0.60**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-total-energy",
+          "prompt": "A $\\pu{0.50 kg}$ mass oscillates with $\\omega = \\pu{8.0 rad s-1}$ and amplitude $\\pu{0.10 m}$. What is its total energy, in J? Give 2 significant figures.",
+          "hint": "Use $E_\\text{T} = \\tfrac{1}{2}m\\omega^2x_0^2$ with the amplitude, not a displacement.",
+          "answer": {
+            "value": 0.16,
+            "tolerance": 0.005
+          },
+          "explain": "$E_\\text{T} = \\tfrac{1}{2} \\times 0.50 \\times 8.0^2 \\times 0.10^2 = \\pu{0.16 J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*0.50*8.0**2*0.10**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The phase angle $\\phi$ fixes where an oscillator is, and which way it moves, at $t = 0$. Phase angles are in radians; a full cycle is $2\\pi$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "x = x_0\\sin(\\omega t + \\phi)",
+          "tag": "booklet",
+          "bookletId": "db-3-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\omega x_0\\cos(\\omega t + \\phi)",
+          "tag": "booklet",
+          "bookletId": "db-3-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\pm\\omega\\sqrt{x_0^2 - x^2}",
+          "tag": "booklet",
+          "bookletId": "db-3-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$v_\\text{max} = \\omega x_0$ at equilibrium; maximum acceleration $\\omega^2 x_0$ at the extremes. Velocity leads displacement by $\\frac{\\pi}{2}$; acceleration is in antiphase with it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{T} = \\tfrac{1}{2}m\\omega^2x_0^2",
+          "tag": "booklet",
+          "bookletId": "db-3-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{p} = \\tfrac{1}{2}m\\omega^2x^2",
+          "tag": "booklet",
+          "bookletId": "db-3-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$E_\\text{k} = E_\\text{T} - E_\\text{p}$. Without damping $E_\\text{T}$ is constant, and $E_\\text{k}$ and $E_\\text{p}$ each repeat every $\\frac{T}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the calculator in degree mode. $\\omega t + \\phi$ is in radians, so switch to radian mode before taking a sine or cosine.",
+    "Taking $\\phi = \\sin^{-1}\\left(\\frac{x}{x_0}\\right)$ without checking the direction. $\\pi - \\phi$ gives the same displacement moving the other way.",
+    "Dropping the sign of a velocity. $v = \\pm\\omega\\sqrt{x_0^2 - x^2}$ gives the speed; pick $+$ or $-$ from the direction of motion.",
+    "Putting $x$ instead of $x_0$ into $E_\\text{T} = \\tfrac{1}{2}m\\omega^2x_0^2$. The total energy uses the amplitude and is the same at every point.",
+    "Sketching kinetic energy against time with the period of the oscillation, or dipping below zero. Each energy repeats every $\\frac{T}{2}$ and stays between $0$ and $E_\\text{T}$."
+  ],
+  "examTips": [
+    "\"Show that\" a frequency or maximum speed: write the equation and the substituted numbers, then give one more significant figure than the stated value.",
+    "\"Calculate\" or \"determine\" with the SHM equations: write the booklet equation, work out $\\omega t + \\phi$ in radians, then give the answer with its unit and, for a velocity, its sign.",
+    "\"Sketch\" an energy–time graph: both energies between $0$ and $E_\\text{T}$, never negative, period $\\frac{T}{2}$, starting at the right value for the given phase.",
+    "In Paper 1A, the maximum acceleration is $\\omega^2 x_0$, at the extremes. The minus sign in $a = -\\omega^2 x$ gives only its direction."
+  ],
+  "readingMinutes": 21
+}

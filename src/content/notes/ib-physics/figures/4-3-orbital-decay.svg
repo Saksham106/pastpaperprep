@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-labelledby="t43d">
+<title id="t43d">A planet with two circular orbits around it. The outer dashed orbit is the satellite's original orbit. The inner solid orbit is lower, after drag has acted for a while. On the outer orbit the satellite has a shorter velocity arrow, labelled slower, and a small drag arrow pointing backwards along its path. On the inner orbit the satellite has a longer velocity arrow, labelled faster.</title>
+<circle cx="170" cy="170" r="60" fill="var(--t2-ink)" fill-opacity="0.18" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="170" y="174" text-anchor="middle">planet</text>
+<circle cx="170" cy="170" r="140" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="6 4"/>
+<circle cx="170" cy="170" r="105" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="170" cy="30" r="6" fill="var(--t1-ink)"/>
+<line x1="178" y1="30" x2="228" y2="30" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="238,30 228,25 228,35" fill="var(--t1-ink)"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="210" y="20" text-anchor="middle">v (slower)</text>
+<line x1="162" y1="30" x2="142" y2="30" stroke="var(--t4-ink)" stroke-width="2"/>
+<polygon points="134,30 142,26 142,34" fill="var(--t4-ink)"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="130" y="20" text-anchor="middle">drag</text>
+<circle cx="275" cy="170" r="6" fill="var(--t1-ink)"/>
+<line x1="275" y1="178" x2="275" y2="248" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="275,258 270,248 280,248" fill="var(--t1-ink)"/>
+<text font-family="inherit" fill="currentColor" font-size="12" x="285" y="256">v (faster)</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="120">Drag removes energy, so the</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="140">total energy falls and the</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="160">orbit gets lower.</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="200">Lower orbit: v = √(GM/r)</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="220">is larger, so the satellite</text>
+<text font-family="inherit" fill="currentColor" font-size="13" x="360" y="240">speeds up.</text>
+<text font-family="inherit" fill="currentColor" font-size="12" x="30" y="335">dashed: original orbit</text>
+<text font-family="inherit" fill="currentColor" font-size="12" x="180" y="335">solid: lower orbit</text>
+</svg>

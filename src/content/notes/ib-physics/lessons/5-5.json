@@ -1,0 +1,822 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.5",
+  "slug": "matter-waves-and-compton-scattering",
+  "title": "Matter waves and Compton scattering",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Moving particles such as electrons behave like a [[wave|wave]], with a [[de-broglie-wavelength|de Broglie wavelength]] $\\lambda = \\frac{h}{p}$, and electron [[diffraction|diffraction]] proves it. Light works the other way: in [[compton-scattering|Compton scattering]] an X-ray [[photon|photon]] bounces off an electron like a particle and comes away with a longer [[wavelength|wavelength]]. Together these show that light and matter both have a wave side and a particle side.",
+  "goals": [
+    {
+      "text": "Calculate the de Broglie wavelength of a particle from its momentum, speed or kinetic energy.",
+      "bullets": [
+        "E.2-a6"
+      ]
+    },
+    {
+      "text": "Explain how electron diffraction shows the wave nature of matter, and predict how the pattern changes with the electrons' momentum.",
+      "bullets": [
+        "E.2-a4"
+      ]
+    },
+    {
+      "text": "Describe an electron-scattering experiment and use the angle of the first minimum to find the diameter of a nucleus.",
+      "bullets": [
+        "E.2-a4"
+      ]
+    },
+    {
+      "text": "Explain why photons scattered by electrons have a longer wavelength, and calculate the shift with $\\Delta\\lambda = \\frac{h}{m_\\text{e}c}(1 - \\cos\\theta)$.",
+      "bullets": [
+        "E.2-a8",
+        "E.2-a9"
+      ]
+    },
+    {
+      "text": "Explain why Compton scattering is further evidence for the particle nature of light, and what it means to say that light and matter show [[wave-particle-duality|wave-particle duality]].",
+      "bullets": [
+        "E.2-a7",
+        "E.2-a5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "3.6",
+    "5.2",
+    "5.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "de Broglie wavelength",
+    "lambda = h/p",
+    "electron diffraction",
+    "Compton effect",
+    "Compton shift formula",
+    "wave-particle duality"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-trolley-momentum",
+      "prompt": "A trolley of mass $\\pu{1.5 kg}$ moves at $\\pu{0.80 m s-1}$. What is its momentum, in $\\text{kg m s}^{-1}$?",
+      "hint": "Momentum is mass times velocity.",
+      "answer": {
+        "value": 1.2,
+        "tolerance": 0.05
+      },
+      "explain": "$p = mv = 1.5 \\times 0.80 = \\pu{1.2 kg m s-1}$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1.5*0.80",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-photon-energy",
+      "prompt": "What is the energy of a photon of wavelength $\\pu{450 nm}$? Give it in units of $10^{-19}\\ \\text{J}$, to 2 significant figures.",
+      "hint": "$E = \\frac{hc}{\\lambda}$, with $\\lambda$ in metres.",
+      "answer": {
+        "value": 4.4,
+        "tolerance": 0.05
+      },
+      "explain": "$E = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{450 \\times 10^{-9}} = \\pu{4.4e-19 J}$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "h*c/(450*10**-9)/10**-19",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-narrower-slit",
+      "prompt": "Monochromatic light passes through a single slit. The slit is made narrower. What happens to the angle of the first minimum of the diffraction pattern?",
+      "hint": "For the first minimum, $\\theta = \\frac{\\lambda}{b}$, where $b$ is the slit width.",
+      "options": [
+        {
+          "text": "It increases.",
+          "correct": true
+        },
+        {
+          "text": "It decreases.",
+          "correct": false
+        },
+        {
+          "text": "It stays the same.",
+          "correct": false
+        }
+      ],
+      "explain": "$\\theta = \\frac{\\lambda}{b}$, so a smaller $b$ gives a larger $\\theta$: the pattern spreads out. Revise it in {{lesson:3.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It increases."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "matter-waves",
+      "heading": "Matter waves and the de Broglie wavelength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.4}}, light acted like a stream of particles: one photon released at most one electron. Yet light also diffracts and interferes, which only a wave can do. So light behaves as a wave in some experiments and as particles in others."
+        },
+        {
+          "type": "text",
+          "text": "In 1924 Louis de Broglie turned the question round. If waves can act like particles, can particles such as electrons act like waves?"
+        },
+        {
+          "type": "text",
+          "text": "He proposed that every moving particle has a wavelength set by its [[linear-momentum|momentum]] $p$. The [[planck-constant|Planck constant]] $h$ links the two, just as it links a photon's energy to its frequency."
+        },
+        {
+          "type": "definition",
+          "term": "de Broglie wavelength",
+          "statement": "The wavelength of a particle with momentum $p$: $\\lambda = \\frac{h}{p}$, where $h$ is the Planck constant.",
+          "plain": "The more momentum a particle has, the shorter its wavelength."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda = \\frac{h}{p}",
+          "tag": "booklet",
+          "bookletId": "db-5-5"
+        },
+        {
+          "type": "text",
+          "text": "This equation is in the data booklet. So are the constants you need with it: $h = \\pu{6.63e-34 J s}$, the electron mass $m_\\text{e} = \\pu{9.110e-31 kg}$ and $c = \\pu{3.00e8 m s-1}$."
+        },
+        {
+          "type": "text",
+          "text": "For a particle of mass $m$ moving at speed $v$, the momentum is $p = mv$, so $\\lambda = \\frac{h}{mv}$. A heavier or faster particle has a shorter wavelength."
+        },
+        {
+          "type": "example",
+          "id": "ex-electron-speed",
+          "question": "An electron moves at $\\pu{4.5e6 m s-1}$. Calculate its de Broglie wavelength.",
+          "steps": [
+            "Find the momentum: $p = m_\\text{e}v = 9.110 \\times 10^{-31} \\times 4.5 \\times 10^{6} = \\pu{4.10e-24 kg m s-1}$.",
+            "Substitute into $\\lambda = \\frac{h}{p}$: $\\lambda = \\frac{6.63 \\times 10^{-34}}{4.10 \\times 10^{-24}} = \\pu{1.62e-10 m}$.",
+            "Round to 2 significant figures, to match the speed.",
+            "Sense check: $10^{-10}$ m is about the size of an atom."
+          ],
+          "answer": "$\\lambda \\approx 1.6 \\times 10^{-10}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h/(me*4.5*10**6)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Often you know the kinetic energy, not the speed. The data booklet gives $E_\\text{k} = \\frac{p^2}{2m}$, so $p = \\sqrt{2mE_\\text{k}}$."
+        },
+        {
+          "type": "text",
+          "text": "An electron accelerated from rest through a potential difference $V$ gains kinetic energy $E_\\text{k} = eV$, in joules. The relations $p = mv$ and $E_\\text{k} = \\frac{p^{2}}{2m}$ hold while the speed is well below $c$, which is true for electrons accelerated through a few thousand volts."
+        },
+        {
+          "type": "example",
+          "id": "ex-accelerated-electron",
+          "question": "Electrons in a diffraction tube are accelerated from rest through a potential difference of $\\pu{2.50 kV}$. Determine their de Broglie wavelength.",
+          "steps": [
+            "Kinetic energy: $E_\\text{k} = eV = 1.60 \\times 10^{-19} \\times 2500 = \\pu{4.00e-16 J}$.",
+            "Momentum: $p = \\sqrt{2m_\\text{e}E_\\text{k}} = \\sqrt{2 \\times 9.110 \\times 10^{-31} \\times 4.00 \\times 10^{-16}} = \\pu{2.700e-23 kg m s-1}$.",
+            "Wavelength: $\\lambda = \\frac{h}{p} = \\frac{6.63 \\times 10^{-34}}{2.700 \\times 10^{-23}} = \\pu{2.456e-11 m}$.",
+            "Round to 3 significant figures, to match the potential difference."
+          ],
+          "answer": "$\\lambda \\approx 2.46 \\times 10^{-11}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h/sqrt(2*me*e*2.50*10**3)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Since $p = \\sqrt{2mE_\\text{k}}$, the wavelength is proportional to $\\frac{1}{\\sqrt{E_\\text{k}}}$. Four times the kinetic energy halves the wavelength."
+        },
+        {
+          "type": "text",
+          "text": "So why does a football never diffract? A $\\pu{0.43 kg}$ ball at $\\pu{20 m s-1}$ has $\\lambda = \\frac{6.63 \\times 10^{-34}}{0.43 \\times 20} \\approx \\pu{8e-35 m}$. Nothing is anywhere near that small, so its wave behaviour can never be seen."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the potential difference in volts straight into $p = \\sqrt{2mE_\\text{k}}$. Convert first: $E_\\text{k} = eV$ gives the energy in joules."
+        },
+        {
+          "type": "check",
+          "id": "check-ke-four-times",
+          "prompt": "The kinetic energy of an electron is made four times larger. Its speed stays well below $c$. What happens to its de Broglie wavelength?",
+          "hint": "$\\lambda = \\frac{h}{p}$ and $p = \\sqrt{2mE_\\text{k}}$.",
+          "options": [
+            {
+              "text": "it halves",
+              "correct": true
+            },
+            {
+              "text": "it falls to a quarter",
+              "correct": false
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it does not change",
+              "correct": false
+            }
+          ],
+          "explain": "Four times $E_\\text{k}$ gives $\\sqrt{4} = 2$ times the momentum, so half the wavelength. A quarter would be right only if $\\lambda$ were proportional to $\\frac{1}{E_\\text{k}}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it halves"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutron-wavelength",
+          "prompt": "A slow neutron from a reactor moves at $\\pu{2.2e3 m s-1}$. Calculate its de Broglie wavelength, in units of $10^{-10}\\ \\text{m}$, to 2 significant figures. The neutron mass is in the data booklet.",
+          "hint": "$p = m_\\text{n}v$ with $m_\\text{n} = \\pu{1.675e-27 kg}$, then $\\lambda = \\frac{h}{p}$.",
+          "answer": {
+            "value": 1.8,
+            "tolerance": 0.05
+          },
+          "explain": "$p = 1.675 \\times 10^{-27} \\times 2.2 \\times 10^{3} = \\pu{3.69e-24 kg m s-1}$, so $\\lambda = \\frac{6.63 \\times 10^{-34}}{3.69 \\times 10^{-24}} = \\pu{1.8e-10 m}$. That is close to the spacing of atoms in a crystal, so such neutrons diffract too.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h/(mn*2.2*10**3)/10**-10",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "particle-diffraction",
+      "heading": "Diffraction of particles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Diffraction is the test for a wave. If a beam of electrons diffracts, electrons must have a wave nature. For strong diffraction, the gap or obstacle must be about the size of the wavelength."
+        },
+        {
+          "type": "text",
+          "text": "Electrons accelerated through a few thousand volts have $\\lambda \\approx 10^{-11}$ to $10^{-10}$ m. The atoms in a crystal are about $10^{-10}$ m apart, so a crystal is the right size to diffract them."
+        },
+        {
+          "type": "text",
+          "text": "In an electron diffraction tube, an electron gun accelerates electrons through a potential difference $V$. The beam passes through a thin film of graphite and hits a fluorescent screen, which glows where electrons land."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-electron-diffraction",
+          "alt": "Electron diffraction. On the left, an electron gun accelerates electrons through a potential difference V. The beam travels right and passes through a thin graphite film. Beyond the film the electrons spread out at certain angles and hit a fluorescent screen. On the right, a front view of the screen shows a bright central spot surrounded by two concentric bright rings.",
+          "caption": "Electrons through a thin graphite film give bright rings, not a single spot."
+        },
+        {
+          "type": "text",
+          "text": "The screen shows bright rings around a central spot. Each ring is a diffraction maximum, where waves scattered by the regularly spaced atoms arrive in phase. Particles travelling in straight lines would give only the spot."
+        },
+        {
+          "type": "text",
+          "text": "Increase $V$ and the electrons' momentum rises, so $\\lambda = \\frac{h}{p}$ falls. The rings shrink, because a shorter wavelength diffracts through smaller angles. The ring sizes match the wavelength that $\\lambda = \\frac{h}{p}$ predicts."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-electron-diffraction",
+          "question": "A beam of electrons passes through a thin graphite film and forms bright rings on a screen. Explain how this shows that electrons have a wave nature.",
+          "steps": [
+            "Marking point 1: diffraction is a property of waves.",
+            "Marking point 2: the spacing of the atoms is similar to the de Broglie wavelength of the electrons, so they diffract.",
+            "Marking point 3: the rings are diffraction maxima, which particles moving in straight lines could not produce.",
+            "Marking point 4: the rings change size with the electrons' momentum as $\\lambda = \\frac{h}{p}$ predicts: a higher accelerating potential difference makes the rings smaller."
+          ],
+          "answer": "Diffraction is a property of waves, so a diffraction pattern shows wave behaviour. The atoms in graphite are about $10^{-10}$ m apart, which is similar to the de Broglie wavelength of the electrons, so the electrons diffract. The bright rings are diffraction maxima, which particles moving in straight lines could not produce. When the accelerating potential difference is increased, the electrons' momentum increases and their wavelength decreases, so the rings get smaller, exactly as $\\lambda = \\frac{h}{p}$ predicts.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "diffraction is a wave property; atomic spacing similar to de Broglie wavelength; rings are maxima; rings shrink as momentum rises",
+            "requires": [
+              [
+                "property of waves",
+                "wave property",
+                "only waves"
+              ],
+              [
+                "similar to the de Broglie wavelength",
+                "comparable to the de Broglie wavelength"
+              ],
+              [
+                "diffraction maxima"
+              ],
+              [
+                "rings get smaller",
+                "rings shrink"
+              ]
+            ],
+            "forbids": [
+              "rings get larger",
+              "electrons are not particles"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-voltage-rings",
+          "prompt": "The accelerating potential difference in an electron diffraction tube is reduced. What happens to the rings on the screen?",
+          "hint": "Less voltage means less momentum. What does that do to $\\lambda$, and so to the diffraction angles?",
+          "options": [
+            {
+              "text": "They get larger.",
+              "correct": true
+            },
+            {
+              "text": "They get smaller.",
+              "correct": false
+            },
+            {
+              "text": "They stay the same size.",
+              "correct": false
+            },
+            {
+              "text": "They disappear.",
+              "correct": false
+            }
+          ],
+          "explain": "Lower $V$ gives a smaller momentum, so a longer wavelength $\\lambda = \\frac{h}{p}$. Longer waves diffract through larger angles, so the rings get larger.",
+          "verify": {
+            "kind": "choice",
+            "truth": "They get larger."
+          }
+        },
+        {
+          "type": "text",
+          "text": "Particle diffraction can also measure the size of a nucleus. Fire a beam of very high-energy electrons at a thin target, and move a detector round to count the electrons scattered at each angle $\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Each nucleus acts like a tiny obstacle, so the electrons diffract around it. The intensity falls as $\\theta$ grows, but at one angle it drops to a clear minimum. This is the first diffraction minimum."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-intensity-angle",
+          "alt": "Graph of the intensity of scattered electrons against scattering angle theta, in degrees. The intensity is highest at small angles and falls as the angle increases. At one angle, marked theta min with a dashed line, the curve dips to a clear minimum, then rises slightly before falling again. No numbers are marked on the axes.",
+          "caption": "The dip at $\\theta_\\text{min}$ is the first diffraction minimum. Its position depends on the electrons' wavelength and the size of the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "The first minimum comes at the same place as for a [[diffraction|diffraction]] pattern from a slit of width $D$, where $D$ is the diameter of the nucleus. The angles here are not always small, so use $\\sin\\theta$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta_\\text{min} \\approx \\frac{\\lambda}{D}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For small angles, $\\sin\\theta \\approx \\theta$ in radians, and this becomes $\\theta = \\frac{\\lambda}{b}$ from {{lesson:3.6}}. To make $\\theta_\\text{min}$ measurable, $\\lambda$ must be comparable to $D$, about $10^{-15}$ to $10^{-14}$ m. That needs electrons with hundreds of MeV. They move at almost $c$, so $p = \\sqrt{2mE_\\text{k}}$ no longer works, and questions give you $\\lambda$ or $p$."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-of-minimum",
+          "question": "Electrons with a de Broglie wavelength of $\\pu{3.1e-15 m}$ are scattered by nuclei of diameter $\\pu{9.6e-15 m}$. Calculate the angle of the first minimum of intensity.",
+          "steps": [
+            "Use $\\sin\\theta_\\text{min} \\approx \\frac{\\lambda}{D} = \\frac{3.1 \\times 10^{-15}}{9.6 \\times 10^{-15}} = 0.323$.",
+            "Take the inverse sine, with the calculator in degrees: $\\theta_\\text{min} = 18.8^{\\circ}$.",
+            "Round to 2 significant figures, to match the data."
+          ],
+          "answer": "$\\theta_\\text{min} \\approx 19^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(Rational(31, 96))",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-nuclear-diameter",
+          "question": "Electrons of momentum $\\pu{5.2e-19 kg m s-1}$ are scattered by carbon nuclei. The first minimum of intensity is at $13^{\\circ}$. Determine the diameter of a carbon nucleus.",
+          "steps": [
+            "Find the wavelength: $\\lambda = \\frac{h}{p} = \\frac{6.63 \\times 10^{-34}}{5.2 \\times 10^{-19}} = \\pu{1.275e-15 m}$.",
+            "Rearrange $\\sin\\theta_\\text{min} \\approx \\frac{\\lambda}{D}$: $D = \\frac{\\lambda}{\\sin\\theta_\\text{min}} = \\frac{1.275 \\times 10^{-15}}{\\sin 13^{\\circ}}$.",
+            "$\\sin 13^{\\circ} = 0.2250$, so $D = \\pu{5.67e-15 m}$.",
+            "Round to 2 significant figures. A few femtometres is the right size for a nucleus."
+          ],
+          "answer": "$D \\approx 5.7 \\times 10^{-15}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h/(5.2*10**-19)/sind(13)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diameter-from-minimum",
+          "prompt": "Electrons with a de Broglie wavelength of $\\pu{2.0e-15 m}$ give a first minimum of intensity at $16^{\\circ}$. Calculate the diameter of the nuclei, in units of $10^{-15}\\ \\text{m}$, to 2 significant figures.",
+          "hint": "$D = \\frac{\\lambda}{\\sin\\theta_\\text{min}}$. Check the calculator is in degrees.",
+          "answer": {
+            "value": 7.3,
+            "tolerance": 0.05
+          },
+          "explain": "$D = \\frac{2.0 \\times 10^{-15}}{\\sin 16^{\\circ}} = \\frac{2.0 \\times 10^{-15}}{0.2756} = \\pu{7.3e-15 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.0/sind(16)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "compton",
+      "heading": "Compton scattering",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In 1923 Arthur Compton fired X-rays at a carbon block and measured the wavelength of the X-rays scattered at different angles. He found X-rays with a longer wavelength than the ones he sent in."
+        },
+        {
+          "type": "text",
+          "text": "Picture the X-ray as a photon, a particle with energy $E = \\frac{hc}{\\lambda}$. It hits an electron that is free, or so loosely bound that it acts free. Like one snooker ball hitting another, the photon gives some of its energy to the electron, which recoils."
+        },
+        {
+          "type": "text",
+          "text": "The scattered photon has less energy, so its wavelength is longer. It still travels at $c$: a photon cannot slow down, so losing energy lowers its frequency instead."
+        },
+        {
+          "type": "definition",
+          "term": "Compton scattering",
+          "statement": "The scattering of an X-ray or gamma-ray photon by a free electron, in which the photon transfers energy and momentum to the electron and leaves with a longer wavelength.",
+          "plain": "A photon bounces off an electron and comes away with less energy and a longer wavelength."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-compton-geometry",
+          "alt": "Compton scattering. An incident photon, drawn as a wavy arrow with a short wavelength, travels from the left towards an electron at rest. A dashed line continues the original direction to the right. The scattered photon leaves up and to the right at angle theta to the dashed line, drawn with a longer wavelength. The electron recoils down and to the right.",
+          "caption": "$\\theta$ is the angle between the photon's new direction and its original direction."
+        },
+        {
+          "type": "text",
+          "text": "The shift in wavelength depends only on the angle $\\theta$ through which the photon is scattered. Its derivation is not needed, but you must be able to use it. It is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_\\text{f} - \\lambda_\\text{i} = \\Delta\\lambda = \\frac{h}{m_\\text{e}c}(1 - \\cos\\theta)",
+          "tag": "booklet",
+          "bookletId": "db-5-5"
+        },
+        {
+          "type": "text",
+          "text": "$\\lambda_\\text{i}$ is the incident wavelength and $\\lambda_\\text{f}$ the scattered one. The constant $\\frac{h}{m_\\text{e}c} = \\frac{6.63 \\times 10^{-34}}{9.110 \\times 10^{-31} \\times 3.00 \\times 10^{8}} = \\pu{2.43e-12 m}$."
+        },
+        {
+          "type": "text",
+          "text": "At $\\theta = 0$ the photon carries straight on and $\\Delta\\lambda = 0$. At $90^{\\circ}$, $\\cos\\theta = 0$, so $\\Delta\\lambda = \\frac{h}{m_\\text{e}c}$. The biggest shift, $\\frac{2h}{m_\\text{e}c} = \\pu{4.85e-12 m}$, is for a photon scattered straight back, at $180^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-scattered-wavelength",
+          "question": "X-rays of wavelength $\\pu{4.50e-11 m}$ are scattered by free electrons. Calculate the wavelength of the X-rays scattered through $70.0^{\\circ}$.",
+          "steps": [
+            "Find the shift: $\\Delta\\lambda = \\frac{h}{m_\\text{e}c}(1 - \\cos\\theta) = 2.426 \\times 10^{-12} \\times (1 - \\cos 70.0^{\\circ})$.",
+            "$\\cos 70.0^{\\circ} = 0.3420$, so $\\Delta\\lambda = 2.426 \\times 10^{-12} \\times 0.6580 = \\pu{1.596e-12 m}$.",
+            "Add the shift to the incident wavelength: $\\lambda_\\text{f} = 4.50 \\times 10^{-11} + 0.1596 \\times 10^{-11} = \\pu{4.660e-11 m}$.",
+            "Round to 3 significant figures. The wavelength has grown, as it must."
+          ],
+          "answer": "$\\lambda_\\text{f} \\approx 4.66 \\times 10^{-11}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.50*10**-11 + h/(me*c)*(1 - cosd(70.0))",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Energy is conserved in the collision. The kinetic energy of the recoiling electron equals the energy the photon loses: $E_\\text{k} = \\frac{hc}{\\lambda_\\text{i}} - \\frac{hc}{\\lambda_\\text{f}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-recoil-energy",
+          "question": "A gamma-ray photon of energy $\\pu{0.360 MeV}$ is scattered by a free electron through $120^{\\circ}$. Determine the kinetic energy of the recoiling electron, in MeV.",
+          "steps": [
+            "Convert the energy to joules: $0.360 \\times 1.60 \\times 10^{-13} = \\pu{5.76e-14 J}$. Then $\\lambda_\\text{i} = \\frac{hc}{E} = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{5.76 \\times 10^{-14}} = \\pu{3.453e-12 m}$.",
+            "Shift: $\\Delta\\lambda = 2.426 \\times 10^{-12} \\times (1 - \\cos 120^{\\circ}) = 2.426 \\times 10^{-12} \\times 1.5 = \\pu{3.639e-12 m}$. So $\\lambda_\\text{f} = \\pu{7.092e-12 m}$.",
+            "Scattered photon energy: $E_\\text{f} = \\frac{hc}{\\lambda_\\text{f}} = \\pu{2.805e-14 J}$, which is $\\frac{2.805 \\times 10^{-14}}{1.60 \\times 10^{-13}} = \\pu{0.175 MeV}$.",
+            "Energy conservation: $E_\\text{k} = 0.360 - 0.175 = \\pu{0.185 MeV}$. Carry unrounded values to the end."
+          ],
+          "answer": "$E_\\text{k} \\approx 0.185\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.360 - h*c/(h*c/(0.360*MeV) + h/(me*c)*(1 - cosd(120)))/MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The shift is the same size whatever the incident wavelength. For X-rays of $\\pu{5e-11 m}$, a shift of a few picometres is several per cent, easy to measure. For visible light of $\\pu{5e-7 m}$ it is about one part in $10^{5}$, so you never notice it."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the electron's recoil angle as $\\theta$. In the Compton formula, $\\theta$ is the angle through which the photon is scattered."
+        },
+        {
+          "type": "check",
+          "id": "check-largest-shift",
+          "prompt": "X-ray photons are scattered by free electrons. In which direction are the scattered photons with the longest wavelength found?",
+          "hint": "$\\Delta\\lambda$ is largest when $1 - \\cos\\theta$ is largest.",
+          "options": [
+            {
+              "text": "straight back, at 180 degrees to the incident beam",
+              "correct": true
+            },
+            {
+              "text": "at 90 degrees to the incident beam",
+              "correct": false
+            },
+            {
+              "text": "straight ahead, along the incident beam",
+              "correct": false
+            },
+            {
+              "text": "the same in every direction",
+              "correct": false
+            }
+          ],
+          "explain": "$1 - \\cos\\theta$ is largest, equal to 2, at $\\theta = 180^{\\circ}$. At $90^{\\circ}$ it is 1, and straight ahead it is 0, so there is no shift.",
+          "verify": {
+            "kind": "choice",
+            "truth": "straight back, at 180 degrees to the incident beam"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-from-shift",
+          "prompt": "An X-ray photon scatters off a free electron, and its wavelength increases by $\\pu{3.00e-12 m}$. Calculate the scattering angle, in degrees, to 3 significant figures.",
+          "hint": "Rearrange: $1 - \\cos\\theta = \\frac{\\Delta\\lambda}{h / (m_\\text{e}c)}$.",
+          "answer": {
+            "value": 104,
+            "tolerance": 0.5
+          },
+          "explain": "$1 - \\cos\\theta = \\frac{3.00 \\times 10^{-12}}{2.426 \\times 10^{-12}} = 1.237$, so $\\cos\\theta = -0.237$ and $\\theta = 104^{\\circ}$. A negative cosine means more than $90^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "acosd(1 - 3.00*10**-12/(h/(me*c)))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "heading": "Compton scattering as evidence, and wave-particle duality",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Why does the shift matter so much? In the wave model, an X-ray wave makes each electron vibrate at the wave's own frequency. The vibrating electron then gives out waves of that same frequency. So the wave model predicts no change of wavelength at any angle."
+        },
+        {
+          "type": "text",
+          "text": "The photon model predicts the shift exactly. Treat the photon as a particle with energy $\\frac{hc}{\\lambda}$ and momentum $p = \\frac{h}{\\lambda}$, the de Broglie relation used the other way round. Then apply [[conservation-of-momentum|conservation of momentum]] and of energy to its collision with an electron. Out comes the Compton formula."
+        },
+        {
+          "type": "text",
+          "text": "Compare this with the photoelectric effect from {{lesson:5.4}}. There, the wave model cannot explain the threshold frequency, why the maximum kinetic energy does not depend on intensity, or why emission starts at once. Those features show that light's energy arrives in packets of $hf$."
+        },
+        {
+          "type": "text",
+          "text": "Compton scattering adds something new. It shows that a photon also carries momentum, and that it collides with a single electron just as one particle collides with another. So it makes the stronger case for photons."
+        },
+        {
+          "type": "text",
+          "text": "A photon-electron collision is like a collision of two balls: total momentum and total energy are conserved, and the energy lost by one is gained by the other. But a photon has no mass and always moves at $c$. Its momentum is $\\frac{h}{\\lambda}$, not $mv$, and it loses energy by getting a longer wavelength, not by slowing down."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-longer-wavelength",
+          "question": "Explain, using the photon model, why X-rays scattered by free electrons have a longer wavelength than the incident X-rays.",
+          "steps": [
+            "Marking point 1: an X-ray photon collides with an electron.",
+            "Marking point 2: the photon transfers some of its energy to the electron, which recoils.",
+            "Marking point 3: so the scattered photon has less energy than the incident one.",
+            "Marking point 4: since $E = \\frac{hc}{\\lambda}$, less energy means a longer wavelength."
+          ],
+          "answer": "In the photon model, each X-ray photon collides with a single electron. The photon transfers some of its energy to the electron, which recoils. So the scattered photon has less energy than the incident photon. A photon's energy is $E = \\frac{hc}{\\lambda}$, so less energy means a longer wavelength. The photon still travels at $c$; it is the frequency that falls.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "photon collides with electron; transfers energy; scattered photon has less energy; E = hc/lambda so longer wavelength",
+            "requires": [
+              [
+                "collides",
+                "collision"
+              ],
+              [
+                "transfers some of its energy",
+                "gives some of its energy",
+                "loses energy"
+              ],
+              [
+                "less energy"
+              ],
+              [
+                "longer wavelength"
+              ]
+            ],
+            "forbids": [
+              "photon slows down",
+              "speed of the photon decreases",
+              "more energy"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-better-evidence",
+          "question": "Outline why Compton scattering gives stronger support than the photoelectric effect for the idea that light is made of photons.",
+          "steps": [
+            "Marking point 1: the photoelectric effect shows only that light transfers energy in packets of $hf$.",
+            "Marking point 2: Compton scattering shows that a photon also carries momentum, $p = \\frac{h}{\\lambda}$.",
+            "Marking point 3: the photon collides with a single electron, and the measured shift fits a collision that conserves both energy and momentum, as for two particles."
+          ],
+          "answer": "The photoelectric effect shows only that light transfers energy in packets of $hf$, the energy of a photon. Compton scattering shows that a photon also carries momentum, $p = \\frac{h}{\\lambda}$. In Compton scattering the photon collides with a single electron, and the measured wavelength shift at every angle fits a collision in which both energy and momentum are conserved, just as for two particles. The wave model predicts no change of wavelength at all.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "photoelectric shows photon energy only; Compton shows photon momentum; particle-like collision conserving energy and momentum",
+            "requires": [
+              [
+                "packets of",
+                "energy of a photon"
+              ],
+              [
+                "carries momentum",
+                "has momentum"
+              ],
+              [
+                "collides",
+                "collision"
+              ],
+              [
+                "energy and momentum are conserved",
+                "conserves both energy and momentum",
+                "both energy and momentum are conserved"
+              ]
+            ],
+            "forbids": [
+              "photons have mass",
+              "photon slows down"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Put the evidence together and you reach [[wave-particle-duality|wave-particle duality]]. Light shows wave behaviour in interference and diffraction, and particle behaviour in the photoelectric effect and Compton scattering. Electrons sent through graphite one at a time each make a single dot, like particles, yet thousands of dots build up the rings of a wave."
+        },
+        {
+          "type": "definition",
+          "term": "wave-particle duality",
+          "statement": "Both light and matter can show wave behaviour in some experiments and particle behaviour in others; neither model alone describes every experiment.",
+          "plain": "Light and electrons are neither just waves nor just particles: which behaviour you see depends on the experiment."
+        },
+        {
+          "type": "check",
+          "id": "check-wave-model-fails",
+          "prompt": "X-rays are scattered by a block of carbon. Which observation can the wave model of light not explain?",
+          "hint": "Ask what the wave model predicts about the wavelength of the scattered radiation.",
+          "options": [
+            {
+              "text": "Some scattered X-rays have a longer wavelength, by an amount that depends on the scattering angle.",
+              "correct": true
+            },
+            {
+              "text": "X-rays are scattered in many different directions.",
+              "correct": false
+            },
+            {
+              "text": "The scattered X-rays are less intense than the incident beam.",
+              "correct": false
+            },
+            {
+              "text": "X-rays passing through a crystal produce a diffraction pattern.",
+              "correct": false
+            }
+          ],
+          "explain": "The wave model predicts scattered waves with the same wavelength as the incident ones. Scattering in many directions and a fall in intensity both happen with waves, and diffraction is a wave effect.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Some scattered X-rays have a longer wavelength, by an amount that depends on the scattering angle."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-duality-statement",
+          "prompt": "Which statement about wave-particle duality is correct?",
+          "hint": "Think of electron diffraction and the photoelectric effect.",
+          "options": [
+            {
+              "text": "Both light and electrons can show wave behaviour or particle behaviour, depending on the experiment.",
+              "correct": true
+            },
+            {
+              "text": "Light is always a wave and electrons are always particles.",
+              "correct": false
+            },
+            {
+              "text": "Only things with no mass, such as photons, can behave as waves.",
+              "correct": false
+            },
+            {
+              "text": "Electrons behave as waves only when they move close to the speed of light.",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons diffract, so matter has a wave nature. Light ejects photoelectrons and Compton-scatters, so it has a particle nature. Slow electrons diffract too: speed only changes the wavelength.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Both light and electrons can show wave behaviour or particle behaviour, depending on the experiment."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\lambda = \\frac{h}{p}",
+          "tag": "booklet",
+          "bookletId": "db-5-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a particle well below $c$: $p = mv = \\sqrt{2mE_\\text{k}}$, and an electron accelerated through $V$ has $E_\\text{k} = eV$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electron diffraction is evidence for the wave nature of matter: it needs a gap or spacing similar to the de Broglie wavelength.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta_\\text{min} \\approx \\frac{\\lambda}{D}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_\\text{f} - \\lambda_\\text{i} = \\Delta\\lambda = \\frac{h}{m_\\text{e}c}(1 - \\cos\\theta)",
+          "tag": "booklet",
+          "bookletId": "db-5-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compton scattering: the photon loses energy to a free electron, so its wavelength increases. $\\theta$ is the photon's scattering angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compton scattering shows photons carry momentum as well as energy, so it is stronger evidence for photons than the photoelectric effect.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $p = mv$ for a photon. A photon has no mass: its momentum is $p = \\frac{h}{\\lambda}$.",
+    "Forgetting to convert the accelerating voltage to energy. $E_\\text{k} = eV$ in joules, then $p = \\sqrt{2mE_\\text{k}}$.",
+    "Using the electron's recoil angle in the Compton formula. $\\theta$ is the angle through which the photon is scattered.",
+    "Saying the scattered photon slows down. It still travels at $c$; its energy and frequency fall, so its wavelength rises.",
+    "Leaving the calculator in radians when finding $\\cos\\theta$ or $\\sin\\theta_\\text{min}$ from an angle in degrees."
+  ],
+  "examTips": [
+    "\"Calculate\" or \"determine\": write the equation, then substitute the numbers. A formula written down with no substitution does not count as using it.",
+    "Paper 1A often gives Compton shifts as multiples of $\\frac{h}{m_\\text{e}c}$. Work out $1 - \\cos\\theta$: 0 at $0^{\\circ}$, 1 at $90^{\\circ}$, 2 at $180^{\\circ}$.",
+    "\"Describe\" a scattering experiment: a high-energy electron beam, a thin target, a detector moved through different angles, and a first minimum where $\\sin\\theta \\approx \\frac{\\lambda}{D}$.",
+    "\"Explain\" the Compton shift with one point per sentence: collision, energy transferred to the electron, less photon energy, $E = \\frac{hc}{\\lambda}$ so a longer wavelength."
+  ],
+  "readingMinutes": 30
+}

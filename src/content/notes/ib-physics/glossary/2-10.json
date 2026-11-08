@@ -1,0 +1,26 @@
+[
+  {
+    "id": "entropy",
+    "term": "entropy",
+    "definition": "A thermodynamic quantity $S$, in $\\text{J K}^{-1}$, that measures the disorder of the particles in a system; it changes by $\\Delta S = \\frac{\\Delta Q}{T}$ when thermal energy is transferred reversibly at constant temperature, and equals $k_\\text{B}\\ln\\Omega$ for a state with $\\Omega$ microstates.",
+    "lesson": "2.10"
+  },
+  {
+    "id": "microstate",
+    "term": "microstate",
+    "definition": "One particular arrangement of the particles of a system among all the arrangements that give the same macroscopic state; in an isolated system all microstates are equally likely, and $\\Omega$ is the number of them.",
+    "lesson": "2.10"
+  },
+  {
+    "id": "second-law-of-thermodynamics",
+    "term": "second law of thermodynamics",
+    "definition": "The total entropy of an isolated system never decreases; equivalently, thermal energy cannot flow by itself from a colder to a hotter body (Clausius), and no cyclic engine can turn all the thermal energy from one reservoir into work (Kelvin).",
+    "lesson": "2.10"
+  },
+  {
+    "id": "irreversible-process",
+    "term": "irreversible process",
+    "definition": "A process after which the system and its surroundings cannot both be returned to their initial states; every real process is irreversible and increases the total entropy.",
+    "lesson": "2.10"
+  }
+]

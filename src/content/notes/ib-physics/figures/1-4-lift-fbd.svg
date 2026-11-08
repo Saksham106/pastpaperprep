@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 285" role="img" aria-labelledby="t">
+<title id="t">Free-body diagram of a lift accelerating upwards, drawn as a dot. Two labelled arrows start at the dot: tension T from the cable pointing vertically up, and weight mg pointing vertically down. The tension arrow is longer than the weight arrow. A separate arrow beside the diagram, not touching the dot, points up and is labelled acceleration a.</title>
+<path d="M140.0 160.0 L140.0 43.3" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<polygon points="140.0,34.3 144.5,43.3 135.5,43.3" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="150" y="48.28571428571429" fill="var(--t3-ink)" text-anchor="start">tension T</text>
+<path d="M140.0 160.0 L140.0 261.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="140.0,270.0 135.5,261.0 144.5,261.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="150" y="264.0" fill="var(--t1-ink)" text-anchor="start">weight mg</text>
+<circle cx="140" cy="160" r="5" fill="currentColor"/>
+<path d="M280.0 190.0 L280.0 128.0" fill="none" stroke="var(--t5-ink)" stroke-width="1.6"/>
+<polygon points="280.0,120.0 284.0,128.0 276.0,128.0" fill="var(--t5-ink)"/>
+<text font-family="inherit" font-size="12" x="296" y="150" fill="var(--t5-ink)" text-anchor="start">acceleration a</text>
+<text font-family="inherit" font-size="11" x="296" y="166" fill="var(--muted)" text-anchor="start">(not a force)</text>
+</svg>

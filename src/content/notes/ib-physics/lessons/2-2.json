@@ -1,0 +1,738 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.2",
+  "slug": "internal-energy-phase-changes-and-specific-heats",
+  "title": "Internal energy, phase changes and specific heats",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Every substance stores [[energy|energy]] in its particles as [[internal-energy|internal energy]]. Energy flows from higher to lower [[temperature|temperature]] by [[thermal-energy-transfer|thermal energy transfer]], and a [[phase-change|phase change]] of a pure substance happens at constant temperature. [[specific-heat-capacity|Specific heat capacity]] and [[specific-latent-heat|specific latent heat]] let you calculate the energy to warm, melt or boil anything.",
+  "goals": [
+    {
+      "text": "Describe internal energy in terms of particles, and tell it apart from temperature.",
+      "bullets": [
+        "B.1-s6"
+      ]
+    },
+    {
+      "text": "Use a temperature difference to predict which way energy flows, and say when bodies reach [[thermal-equilibrium|thermal equilibrium]].",
+      "bullets": [
+        "B.1-s7"
+      ]
+    },
+    {
+      "text": "Explain why a phase change happens at constant temperature, using melting, freezing, boiling, condensing and evaporation correctly.",
+      "bullets": [
+        "B.1-s8"
+      ]
+    },
+    {
+      "text": "Calculate with $Q = mc\\Delta T$ and $Q = mL$, including mixing and heating in stages.",
+      "bullets": [
+        "B.1-s9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.9",
+    "1.11",
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "specific heat capacity calculation",
+    "latent heat of fusion and vaporization",
+    "heating curve",
+    "internal energy definition",
+    "thermal equilibrium",
+    "Q = mc delta T"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-heater-energy",
+      "prompt": "A $\\pu{650 W}$ heater runs for 2.0 minutes. Calculate the energy transferred, in kJ to 2 significant figures.",
+      "hint": "Energy = power × time, with time in seconds.",
+      "answer": {
+        "value": 78,
+        "tolerance": 0.5
+      },
+      "explain": "$E = Pt = 650 \\times 120 = \\pu{78000 J} = \\pu{78 kJ}$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "650*2.0*60/10**3",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kelvin-to-celsius",
+      "prompt": "A [[gas|gas]] is at $\\pu{350 K}$ on the [[kelvin-scale|kelvin scale]]. What is its temperature in degrees Celsius?",
+      "hint": "The scales differ by a fixed offset.",
+      "answer": {
+        "value": 77,
+        "tolerance": 0
+      },
+      "explain": "Subtract 273: $350 - 273 = 77\\,^{\\circ}\\text{C}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "350 - zero_celsius",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kelvin-meaning",
+      "prompt": "What does the kelvin temperature of a substance measure?",
+      "hint": "A total over all particles, or an amount per particle?",
+      "options": [
+        {
+          "text": "the average kinetic energy of its particles",
+          "correct": true
+        },
+        {
+          "text": "the total kinetic energy of its particles",
+          "correct": false
+        },
+        {
+          "text": "the total energy of its particles",
+          "correct": false
+        }
+      ],
+      "explain": "Kelvin temperature is proportional to the average kinetic energy per particle, $\\bar{E}_\\text{k} = \\frac{3}{2}k_\\text{B}T$, not a total. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the average kinetic energy of its particles"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "internal-energy",
+      "heading": "Internal energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Recall from {{lesson:2.1}} that particles never stop moving."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-particle-models",
+          "alt": "Three boxes side by side. In the solid, particles sit touching in a regular grid and vibrate about fixed positions. In the liquid, particles are still close together but in an irregular arrangement, filling the bottom of an open container. In the gas, six particles are far apart, each with an arrow pointing in a different direction.",
+          "caption": "The same particles, with different spacing and freedom to move."
+        },
+        {
+          "type": "text",
+          "text": "In solids and liquids the particles are close, with strong forces between them; in a gas they are far apart, with tiny forces except in collisions."
+        },
+        {
+          "type": "text",
+          "text": "So particles have kinetic energy from their random motion, and potential energy from the forces between them, which depends on their separation."
+        },
+        {
+          "type": "definition",
+          "term": "internal energy",
+          "statement": "Internal energy is the sum of the random kinetic energies of all the particles in a system and the intermolecular potential energy due to the forces between them.",
+          "plain": "All the energy at the particle scale: every particle's jiggling, plus the energy of their spacing."
+        },
+        {
+          "type": "text",
+          "text": "[[internal-energy|Internal energy]] is a total over every particle, so twice the mass of the same substance, in the same phase and at the same temperature, has twice the internal energy."
+        },
+        {
+          "type": "text",
+          "text": "The motion and height of the whole object do not count: a thrown ball has the same internal energy as at rest, at the same temperature."
+        },
+        {
+          "type": "text",
+          "text": "[[temperature|Temperature]] is different: kelvin temperature measures the average random kinetic energy per particle. A sparkler's spark is over $1000\\,^{\\circ}\\text{C}$ but has little internal energy, as it has so few particles."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"internal energy is kinetic plus potential energy\". Name both parts: total random kinetic energy of the particles plus total intermolecular potential energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-ie-train",
+          "question": "A sealed flask of water is on a train that speeds up from rest to $\\pu{30 m s-1}$. No energy is transferred thermally to or from the water. Explain whether the water's internal energy changes.",
+          "steps": [
+            "Recall what internal energy counts.",
+            "Ask what the train changes for the molecules, and for the water as a whole."
+          ],
+          "answer": "Internal energy is the molecules' total random kinetic energy plus their total intermolecular potential energy. The train gives every molecule the same extra velocity, so the water gains kinetic energy as a whole, which is not random motion. The molecules' random motion and separation are unchanged. So the internal energy does not change.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the train adds ordered kinetic energy of the whole body, not random kinetic energy or intermolecular potential energy, so internal energy is unchanged",
+            "requires": [
+              "random kinetic energy",
+              "intermolecular potential energy",
+              "as a whole",
+              "not random",
+              "does not change"
+            ],
+            "forbids": [
+              "internal energy increases",
+              "temperature increases"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ie-bath-tea",
+          "question": "A bath holds $\\pu{120 kg}$ of water at $38\\,^{\\circ}\\text{C}$. A mug holds $\\pu{0.30 kg}$ of tea (mostly water) at $85\\,^{\\circ}\\text{C}$. Compare the average random kinetic energy of the molecules, and the internal energy, of the two.",
+          "steps": [
+            "Temperature tells you the average energy per molecule.",
+            "Internal energy is a total. The bath has $\\frac{120}{0.30} = 400$ times the mass of the tea."
+          ],
+          "answer": "The tea is at the higher temperature, so its molecules have the greater average random kinetic energy. Internal energy is a total over all the molecules. The bath has about 400 times as many molecules, so it has far more internal energy than the tea.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "tea is hotter so higher average random KE; bath has 400 times as many molecules so far more internal energy",
+            "requires": [
+              "higher temperature",
+              "average random kinetic energy",
+              "total",
+              "as many molecules",
+              "far more internal energy"
+            ],
+            "forbids": [
+              "the tea has more internal energy",
+              "same internal energy"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ie-bottle",
+          "prompt": "Which of these increases the internal energy of the air in a sealed, rigid bottle?",
+          "hint": "Which one changes the random motion of the air molecules?",
+          "options": [
+            {
+              "text": "leaving it in sunlight",
+              "correct": true
+            },
+            {
+              "text": "carrying it upstairs",
+              "correct": false
+            },
+            {
+              "text": "throwing it across a room",
+              "correct": false
+            },
+            {
+              "text": "putting it in a fridge",
+              "correct": false
+            }
+          ],
+          "explain": "Sunlight warms the air, raising the random kinetic energy of its molecules. Lifting or throwing changes the energy of the bottle as a whole.",
+          "verify": {
+            "kind": "choice",
+            "truth": "leaving it in sunlight"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ie-mass",
+          "prompt": "Copper blocks A and B are at the same temperature, and A has twice the mass of B. How does A's internal energy compare with B's?",
+          "hint": "Same temperature, same energy per particle. How many particles does each have?",
+          "options": [
+            {
+              "text": "twice as much",
+              "correct": true
+            },
+            {
+              "text": "the same",
+              "correct": false
+            },
+            {
+              "text": "half as much",
+              "correct": false
+            },
+            {
+              "text": "four times as much",
+              "correct": false
+            }
+          ],
+          "explain": "A has twice as many particles, each with the same average energy, so twice the total.",
+          "verify": {
+            "kind": "choice",
+            "truth": "twice as much"
+          }
+        }
+      ]
+    },
+    {
+      "id": "direction",
+      "heading": "Which way thermal energy flows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a hot pan on a cold worktop: the pan cools and the worktop warms, never the reverse on its own."
+        },
+        {
+          "type": "definition",
+          "term": "thermal energy transfer",
+          "statement": "Thermal energy transfer is the transfer of energy between bodies that is caused by a difference in their temperatures.",
+          "plain": "Energy moving because one thing is hotter than another; in everyday words, heat."
+        },
+        {
+          "type": "text",
+          "text": "[[thermal-energy-transfer|Thermal energy transfer]], often called heat, is energy in transit: a body has internal energy, but it does not \"contain heat\". The energy transferred is $Q$, in joules."
+        },
+        {
+          "type": "text",
+          "text": "The temperature difference alone decides which way the net transfer goes: from higher to lower temperature. Which body has more internal energy does not matter."
+        },
+        {
+          "type": "text",
+          "text": "At the contact, the hotter body's particles have the greater average kinetic energy, so collisions pass more energy from hot to cold than back. You meet [[conduction|conduction]] in {{lesson:2.3}}."
+        },
+        {
+          "type": "text",
+          "text": "The transfer continues until the temperatures are equal: the bodies are in [[thermal-equilibrium|thermal equilibrium]]. Collisions still exchange energy, but the transfers balance."
+        },
+        {
+          "type": "text",
+          "text": "From {{lesson:2.1}}, a change of 1 K equals a change of $1\\,^{\\circ}\\text{C}$, so $\\Delta T$ has the same value on both scales."
+        },
+        {
+          "type": "example",
+          "id": "ex-dir-spoon",
+          "question": "A metal spoon at $70\\,^{\\circ}\\text{C}$ is dropped into a swimming pool at $26\\,^{\\circ}\\text{C}$. The pool has far more internal energy than the spoon. Explain which way the net thermal energy transfer goes, and when it stops.",
+          "steps": [
+            "Decide what sets the direction: temperature, not internal energy.",
+            "Link the temperatures to the particles at the spoon's surface."
+          ],
+          "answer": "The direction depends on the temperature difference, not on internal energy. The spoon is at the higher temperature, so its particles have a greater average kinetic energy than the water molecules touching it. Collisions pass more energy from the spoon to the water than back, so the net transfer is from the spoon to the water. It stops when both are at the same temperature: thermal equilibrium.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "transfer from spoon to water because the spoon is at the higher temperature; stops at thermal equilibrium (same temperature)",
+            "requires": [
+              "temperature difference",
+              "higher temperature",
+              "average kinetic energy",
+              "from the spoon to the water",
+              "same temperature",
+              "thermal equilibrium"
+            ],
+            "forbids": [
+              "from the water to the spoon",
+              "cold flows"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-dir-nitrogen",
+          "question": "A rubber ball at $21\\,^{\\circ}\\text{C}$ is lowered into liquid nitrogen at $-196\\,^{\\circ}\\text{C}$ and left there until it reaches thermal equilibrium with the nitrogen. Calculate the change in temperature of the ball, in kelvin.",
+          "steps": [
+            "At thermal equilibrium the ball is at the nitrogen's temperature: $T_\\text{f} = -196 + 273 = \\pu{77 K}$.",
+            "Starting temperature: $T_\\text{i} = 21 + 273 = \\pu{294 K}$.",
+            "$\\Delta T = T_\\text{f} - T_\\text{i} = 77 - 294 = \\pu{-217 K}$, negative because the ball cools.",
+            "Check in Celsius: $-196 - 21 = -217\\,^{\\circ}\\text{C}$, the same change."
+          ],
+          "answer": "$\\Delta T = -217\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(-196 + zero_celsius) - (21 + zero_celsius)",
+            "unit": "K",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dir-blocks",
+          "prompt": "Block P, at $40\\,^{\\circ}\\text{C}$, has three times the internal energy of block Q, at $\\pu{330 K}$. They are put in contact, insulated. Which way does the net thermal energy transfer go?",
+          "hint": "Put both temperatures on the same scale.",
+          "options": [
+            {
+              "text": "from Q to P",
+              "correct": true
+            },
+            {
+              "text": "from P to Q",
+              "correct": false
+            },
+            {
+              "text": "none: they are in thermal equilibrium",
+              "correct": false
+            }
+          ],
+          "explain": "$40\\,^{\\circ}\\text{C} = \\pu{313 K}$, lower than Q's $\\pu{330 K}$, so energy flows from Q to P, whatever their internal energies.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from Q to P"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dir-soup",
+          "prompt": "A bowl of soup cools from $82\\,^{\\circ}\\text{C}$ to $47\\,^{\\circ}\\text{C}$. What is the size of its temperature change in kelvin?",
+          "hint": "A change of one degree Celsius is a change of one kelvin.",
+          "answer": {
+            "value": 35,
+            "tolerance": 0
+          },
+          "explain": "$82 - 47 = 35$, so $\\pu{35 K}$. Adding 273 to both gives the same difference.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(82 + zero_celsius) - (47 + zero_celsius)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific-heat",
+      "heading": "Specific heat capacity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Give the same energy to 1 kg of water and 1 kg of dry sand, and the sand gets far hotter. Each substance needs its own energy per kilogram per kelvin."
+        },
+        {
+          "type": "definition",
+          "term": "specific heat capacity",
+          "statement": "The specific heat capacity $c$ of a substance is the energy needed to raise the temperature of $\\pu{1 kg}$ of the substance by $\\pu{1 K}$.",
+          "plain": "How much energy each kilogram needs per degree of warming."
+        },
+        {
+          "type": "text",
+          "text": "[[specific-heat-capacity|Specific heat capacity]] links the energy $Q$ to the mass $m$ and the temperature change $\\Delta T$. This equation is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "Q = mc\\Delta T",
+          "tag": "booklet",
+          "bookletId": "db-2-2"
+        },
+        {
+          "type": "text",
+          "text": "$Q$ is in J, $m$ in kg, $\\Delta T$ in K (or °C) and $c$ in $\\text{J kg}^{-1}\\,\\text{K}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Water's $c$ is high, about $\\pu{4.18e3 J kg-1 K-1}$, which is why seas warm and cool slowly. It is not in the data booklet, so a question gives it."
+        },
+        {
+          "type": "example",
+          "id": "ex-c-heater",
+          "question": "To measure the specific heat capacity of aluminium, a student puts a $\\pu{60.0 W}$ electric heater into a $\\pu{1.40 kg}$ aluminium block and switches it on for $\\pu{4.00 min}$. The block's temperature rises from $19.2\\,^{\\circ}\\text{C}$ to $30.8\\,^{\\circ}\\text{C}$. Assume all the energy from the heater goes into the block. Determine the specific heat capacity of aluminium.",
+          "steps": [
+            "Energy from the heater, using [[power|power]] $\\times$ time: $Q = Pt = 60.0 \\times (4.00 \\times 60) = \\pu{14400 J}$.",
+            "Temperature change: $\\Delta T = 30.8 - 19.2 = \\pu{11.6 K}$.",
+            "Rearrange $Q = mc\\Delta T$: $c = \\dfrac{Q}{m\\Delta T} = \\dfrac{14\\,400}{1.40 \\times 11.6} = \\pu{886.7 J kg-1 K-1}$.",
+            "Give 3 significant figures. In practice, some energy escapes to the air, so this method overestimates $c$."
+          ],
+          "answer": "$c \\approx 887\\ \\text{J kg}^{-1}\\,\\text{K}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "60.0*4.00*60/(1.40*(30.8 - 19.2))",
+            "sf": 3,
+            "unit": "J kg-1 K-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When a hot and a cold body mix in an insulated container that takes negligible energy itself, [[conservation-of-energy|conservation of energy]] gives: energy lost by the hot body = energy gained by the cold body. Both end at one temperature."
+        },
+        {
+          "type": "example",
+          "id": "ex-c-mixing",
+          "question": "A $\\pu{0.250 kg}$ copper block at $95.0\\,^{\\circ}\\text{C}$ is placed in $\\pu{0.400 kg}$ of water at $18.0\\,^{\\circ}\\text{C}$ in an insulated container. Take $c = \\pu{385 J kg-1 K-1}$ for copper and $c = \\pu{4180 J kg-1 K-1}$ for water. Calculate the final temperature of the water.",
+          "steps": [
+            "Let the final temperature be $T$ in °C. The copper cools by $(95.0 - T)$ and the water warms by $(T - 18.0)$.",
+            "Energy out of the copper = energy into the water: $0.250 \\times 385 \\times (95.0 - T) = 0.400 \\times 4180 \\times (T - 18.0)$.",
+            "Expand both sides: $9143.75 - 96.25T = 1672T - 30\\,096$.",
+            "Collect the terms in $T$: $1768.25T = 39\\,239.75$, so $T = 22.19\\,^{\\circ}\\text{C}$.",
+            "Sense check: $T$ is between the starting temperatures, near the water's, as the water's $mc$ is about 17 times the copper's."
+          ],
+          "answer": "$T \\approx 22.2\\,^{\\circ}\\text{C}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.250*385*95.0 + 0.400*4180*18.0)/(0.250*385 + 0.400*4180)",
+            "sf": 3,
+            "unit": "°C"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a mixing question, write \"energy lost = energy gained\" first. Write each temperature change as hotter minus colder, so both sides are positive."
+        },
+        {
+          "type": "check",
+          "id": "check-c-compare",
+          "prompt": "Equal masses of metals X and Y get the same energy. X warms by $\\pu{12 K}$ and Y by $\\pu{4.0 K}$. How does the specific heat capacity of Y compare with that of X?",
+          "hint": "Rearrange $Q = mc\\Delta T$ for $c$.",
+          "options": [
+            {
+              "text": "three times as large",
+              "correct": true
+            },
+            {
+              "text": "one third as large",
+              "correct": false
+            },
+            {
+              "text": "the same",
+              "correct": false
+            },
+            {
+              "text": "nine times as large",
+              "correct": false
+            }
+          ],
+          "explain": "$c = \\frac{Q}{m\\Delta T}$ with equal $Q$ and $m$, so $c \\propto \\frac{1}{\\Delta T}$. Y warms a third as much, so its $c$ is three times larger.",
+          "verify": {
+            "kind": "choice",
+            "truth": "three times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-c-concrete",
+          "prompt": "A $\\pu{2.5 kg}$ concrete slab, with $c = \\pu{880 J kg-1 K-1}$, absorbs $\\pu{33 kJ}$ from sunlight. Calculate its rise in temperature, in K to 2 significant figures.",
+          "hint": "Rearrange to $\\Delta T = \\dfrac{Q}{mc}$, with $Q$ in joules.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta T = \\dfrac{33\\,000}{2.5 \\times 880} = \\pu{15 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "33*10**3/(2.5*880)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-change",
+      "heading": "Phase changes and specific latent heat",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heat ice steadily and record its temperature. Twice, it stops rising."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-heating-curve",
+          "alt": "Graph of temperature in degrees Celsius against time, with energy supplied at a constant rate. The line rises steeply while the substance is solid, then stays flat at 0 degrees while it melts, labelled solid plus liquid. It rises again, less steeply, while it is liquid. It stays flat at 100 degrees for a much longer time while it boils, labelled liquid plus gas. Finally it rises as gas. A note says the sloping parts are where temperature and average kinetic energy rise, and the flat parts are phase changes where average kinetic energy is constant and potential energy rises. Not to scale.",
+          "caption": "Heating curve for water (not to scale). On the flat parts energy goes in, but the temperature holds."
+        },
+        {
+          "type": "text",
+          "text": "On the sloping parts the temperature, and so the average random kinetic energy, rises. On the flat parts the substance changes phase at constant temperature."
+        },
+        {
+          "type": "definition",
+          "term": "phase change",
+          "statement": "A phase change is a change of state of a pure substance at constant temperature: the energy transferred changes the particles' arrangement and potential energy, not their average random kinetic energy.",
+          "plain": "Melting, boiling and their reverses: energy pulls particles apart, or comes out as they come together, without changing their average speed."
+        },
+        {
+          "type": "text",
+          "text": "When a solid melts, the energy does work against the forces holding the particles in place. Their intermolecular potential energy rises; their average kinetic energy, and so the temperature, does not."
+        },
+        {
+          "type": "text",
+          "text": "Melting is solid to liquid; freezing is the reverse. Boiling is liquid to gas throughout the liquid, at the boiling point; condensing is the reverse. Freezing and condensing release energy."
+        },
+        {
+          "type": "text",
+          "text": "Evaporation is liquid to gas at the surface only, at any temperature. The fastest molecules escape, so the rest have a lower average kinetic energy and the liquid cools."
+        },
+        {
+          "type": "definition",
+          "term": "specific latent heat",
+          "statement": "The specific latent heat $L$ of a substance is the energy needed to change the phase of $\\pu{1 kg}$ of the substance at constant temperature.",
+          "plain": "The energy each kilogram needs to melt, or to boil, without getting hotter."
+        },
+        {
+          "type": "text",
+          "text": "[[specific-latent-heat|Specific latent heat]] has two values: $L_\\text{f}$ for fusion (melting) and $L_\\text{v}$ for vaporization (boiling). This equation is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "Q = mL",
+          "tag": "booklet",
+          "bookletId": "db-2-2"
+        },
+        {
+          "type": "text",
+          "text": "$L$ is in $\\text{J kg}^{-1}$. For water, $L_\\text{v} \\approx \\pu{2.26e6 J kg-1}$ is about 7 times $L_\\text{f} \\approx \\pu{3.34e5 J kg-1}$: boiling pulls particles fully apart; melting only loosens them."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying particles \"move faster\" while ice melts. The temperature is constant, so their average kinetic energy is too; only the potential energy rises."
+        },
+        {
+          "type": "example",
+          "id": "ex-pc-boiling",
+          "question": "A pan of water boils steadily on a hotplate that keeps supplying energy, yet the water stays at $100\\,^{\\circ}\\text{C}$. Explain this in terms of the water molecules.",
+          "steps": [
+            "Link the constant temperature to the molecules' kinetic energy.",
+            "Then say where the energy goes."
+          ],
+          "answer": "The temperature is constant, so the molecules' average random kinetic energy does not change. The energy supplied does work against the intermolecular forces, separating the molecules as liquid becomes gas. So it increases the intermolecular potential energy, and the internal energy rises while the temperature does not.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "constant temperature means constant average random KE; energy does work against intermolecular forces, raising intermolecular PE and internal energy",
+            "requires": [
+              "average random kinetic energy",
+              "does not change",
+              "intermolecular forces",
+              "separating",
+              "intermolecular potential energy",
+              "internal energy"
+            ],
+            "forbids": [
+              "kinetic energy increases",
+              "molecules speed up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pc-ice-cube",
+          "question": "An ice cube of mass $\\pu{0.120 kg}$ is taken from a freezer at $-18\\,^{\\circ}\\text{C}$ and left until it has become water at $25\\,^{\\circ}\\text{C}$. Calculate the total energy it absorbs. Use $c_\\text{ice} = \\pu{2.10e3 J kg-1 K-1}$, $L_\\text{f} = \\pu{3.34e5 J kg-1}$ and $c_\\text{water} = \\pu{4.18e3 J kg-1 K-1}$.",
+          "steps": [
+            "Split the change at the phase change: warm the ice to $0\\,^{\\circ}\\text{C}$, melt it, warm the water.",
+            "Warm the ice by 18 K: $Q_1 = mc_\\text{ice}\\Delta T = 0.120 \\times 2100 \\times 18 = \\pu{4536 J}$.",
+            "Melt it at $0\\,^{\\circ}\\text{C}$: $Q_2 = mL_\\text{f} = 0.120 \\times 3.34 \\times 10^{5} = \\pu{40080 J}$.",
+            "Warm the water by 25 K: $Q_3 = mc_\\text{water}\\Delta T = 0.120 \\times 4180 \\times 25 = \\pu{12540 J}$.",
+            "Add the three: $Q = 4536 + 40\\,080 + 12\\,540 = \\pu{57156 J}$. Give 3 significant figures. Melting alone takes about 70% of the total."
+          ],
+          "answer": "$Q \\approx 5.72 \\times 10^{4}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.120*2.10*10**3*(0 - (-18)) + 0.120*3.34*10**5 + 0.120*4.18*10**3*(25 - 0)",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pc-condense",
+          "prompt": "Steam at $100\\,^{\\circ}\\text{C}$ condenses to water at $100\\,^{\\circ}\\text{C}$. What happens to the intermolecular potential energy and the average random kinetic energy of the molecules?",
+          "hint": "Temperature is constant. Which energy does temperature tell you about?",
+          "options": [
+            {
+              "text": "potential falls, kinetic unchanged",
+              "correct": true
+            },
+            {
+              "text": "potential unchanged, kinetic falls",
+              "correct": false
+            },
+            {
+              "text": "both fall",
+              "correct": false
+            },
+            {
+              "text": "potential rises, kinetic unchanged",
+              "correct": false
+            }
+          ],
+          "explain": "Constant temperature means constant average kinetic energy. The molecules come closer and release energy, so the potential energy, and the internal energy, fall.",
+          "verify": {
+            "kind": "choice",
+            "truth": "potential falls, kinetic unchanged"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pc-kettle",
+          "prompt": "A faulty kettle keeps boiling water at $\\pu{2.2 kW}$. For water, $L_\\text{v} = \\pu{2.26e6 J kg-1}$. Assuming all the energy goes into the water, calculate the time to boil away $\\pu{0.18 kg}$, in minutes to 2 significant figures.",
+          "hint": "Find $Q = mL_\\text{v}$, then use $t = \\dfrac{Q}{P}$ with $P$ in watts.",
+          "answer": {
+            "value": 3.1,
+            "tolerance": 0.05
+          },
+          "explain": "$Q = 0.18 \\times 2.26 \\times 10^{6} = \\pu{4.07e5 J}$, so $t = \\dfrac{4.07 \\times 10^{5}}{2200} = \\pu{185 s}$, which is about 3.1 minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.18*2.26*10**6/(2.2*10**3)/60",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "Q = mc\\Delta T",
+          "tag": "booklet",
+          "bookletId": "db-2-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "Q = mL",
+          "tag": "booklet",
+          "bookletId": "db-2-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Internal energy = total random kinetic energy of the particles + total intermolecular potential energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Net thermal energy transfer goes from higher to lower temperature until thermal equilibrium, whatever the internal energies.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "During a phase change of a pure substance, temperature and average random kinetic energy are constant; intermolecular potential energy changes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta T$ is the same in K and °C; actual temperatures convert with $T$ in K $= \\theta$ in $^{\\circ}\\text{C} + 273$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Insulated mixing, ignoring the container: energy lost by the hot body = energy gained by the cold body.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that internal energy is \"kinetic plus potential energy\". Say total random kinetic energy plus total intermolecular potential energy.",
+    "Thinking energy flows from the body with more internal energy. Temperature decides: from higher to lower.",
+    "Saying particles speed up during melting or boiling. The temperature is constant, so their average kinetic energy is too.",
+    "Putting a temperature, not a change, into $Q = mc\\Delta T$. Subtract first; no 273 is needed for a change.",
+    "Leaving $L$ in $\\text{kJ kg}^{-1}$ or mass in grams. Convert to J and kg first.",
+    "Missing a stage when ice becomes warm water: warm the ice, melt it, then warm the water, with separate values of $c$."
+  ],
+  "examTips": [
+    "\"State\" what internal energy is with every key word: total, random kinetic, intermolecular potential.",
+    "\"Explain\" a constant-temperature phase change in two sentences: average kinetic energy unchanged; energy increases the intermolecular potential energy.",
+    "Multi-stage \"calculate\" or \"show that\": one $Q$ line per stage with its substitution, then add. In a \"show that\", give one more significant figure than stated.",
+    "Paper 1A: with the same energy and mass, $c \\propto \\frac{1}{\\Delta T}$."
+  ],
+  "readingMinutes": 25
+}

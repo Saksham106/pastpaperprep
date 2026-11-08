@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" role="img" aria-labelledby="t">
+  <title id="t">Three panels, each with glass below and air above a horizontal boundary and a dashed normal. In each, a ray in the glass meets the boundary at angle theta to the normal. Left, theta less than the critical angle C: most light refracts into the air, bending away from the normal, and a weak ray reflects back into the glass. Middle, theta equal to C: the refracted ray runs along the boundary, at 90 degrees to the normal, with a weak reflected ray. Right, theta greater than C: there is no refracted ray and all the light reflects back into the glass at an equal angle. This is total internal reflection.</title>
+  <rect x="20" y="110" width="180" height="110" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <path d="M20.0 110.0 L200.0 110.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M110.0 48.0 L110.0 215.0" fill="none" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="4 4"/>
+  <path d="M66.8 191.2 L106.2 117.1" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="110.0,110.0 109.8,118.9 102.7,115.2" fill="var(--t3-ink)"/>
+  <path d="M110.0 110.0 L149.4 184.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.0"/><polygon points="153.2,191.2 145.9,186.0 153.0,182.3" fill="var(--t3-ink)"/>
+  <path d="M110.0 110.0 L160.7 58.9" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="166.3,53.2 163.5,61.7 157.9,56.1" fill="var(--t3-ink)"/>
+  <path d="M110.0 136.0 A26.0 26.0 0 0 1 97.8 133.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="98.0" y="154.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="110.0" y="246.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">θ less than C</text>
+  <rect x="220" y="110" width="180" height="110" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <path d="M220.0 110.0 L400.0 110.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M310.0 48.0 L310.0 215.0" fill="none" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="4 4"/>
+  <path d="M248.7 178.6 L304.7 116.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="310.0,110.0 307.6,118.6 301.7,113.3" fill="var(--t3-ink)"/>
+  <path d="M310.0 110.0 L366.0 172.6" fill="none" stroke="var(--t3-ink)" stroke-width="1.0"/><polygon points="371.3,178.6 363.0,175.3 369.0,169.9" fill="var(--t3-ink)"/>
+  <path d="M310.0 110.0 L388.0 110.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="396.0,110.0 388.0,114.0 388.0,106.0" fill="var(--t3-ink)"/>
+  <path d="M310.0 136.0 A26.0 26.0 0 0 1 292.7 129.4" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="298.0" y="154.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="310.0" y="246.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">θ equal to C</text>
+  <rect x="420" y="110" width="180" height="110" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <path d="M420.0 110.0 L600.0 110.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M510.0 48.0 L510.0 215.0" fill="none" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="4 4"/>
+  <path d="M433.7 161.4 L503.4 114.5" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="510.0,110.0 505.6,117.8 501.1,111.2" fill="var(--t3-ink)"/>
+  <path d="M510.0 110.0 L579.6 157.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.0"/><polygon points="586.3,161.4 577.4,160.3 581.9,153.7" fill="var(--t3-ink)"/>
+  <path d="M510.0 136.0 A26.0 26.0 0 0 1 488.4 124.5" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="498.0" y="154.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="510.0" y="246.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">θ greater than C</text>
+  <text x="30.0" y="40.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">air</text>
+  <text x="30.0" y="210.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">glass</text>
+  <text x="355.0" y="100.0" font-size="10" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">along the boundary</text>
+  <text x="510.0" y="22.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">all reflected:</text>
+  <text x="510.0" y="36.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">no refracted ray</text>
+</svg>

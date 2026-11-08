@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 256" role="img" aria-labelledby="t">
+  <title id="t">Three horizontal spectrum strips above a wavelength axis running from 400 to 700 nanometres. Top strip, laboratory source at rest: four dark lines, from violet to red. Middle strip, galaxy moving away: the same four lines in the same pattern, each moved to a longer wavelength, to the right, labelled redshift. Bottom strip, star moving towards us: the same pattern moved to shorter wavelengths, to the left, labelled blueshift. Dashed guide lines drop from the laboratory lines so the shifts can be seen; the red line on the right shifts the furthest.</title>
+  <path d="M93.6 28 L93.6 74" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M93.6 94 L93.6 140" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M93.6 160 L93.6 194" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M125.3 28 L125.3 74" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M125.3 94 L125.3 140" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M125.3 160 L125.3 194" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M194.8 28 L194.8 74" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M194.8 94 L194.8 140" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M194.8 160 L194.8 194" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M421.7 28 L421.7 74" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M421.7 94 L421.7 140" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M421.7 160 L421.7 194" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="80" y="22" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">laboratory: source at rest</text>
+  <rect x="80" y="28" width="400" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M93.6 28 L93.6 56" stroke="currentColor" stroke-width="3"/>
+  <path d="M125.3 28 L125.3 56" stroke="currentColor" stroke-width="3"/>
+  <path d="M194.8 28 L194.8 56" stroke="currentColor" stroke-width="3"/>
+  <path d="M421.7 28 L421.7 56" stroke="currentColor" stroke-width="3"/>
+  <text x="80" y="88" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">galaxy moving away: redshift (to longer λ)</text>
+  <rect x="80" y="94" width="400" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M110.0 94 L110.0 122" stroke="var(--t2-ink)" stroke-width="3"/>
+  <path d="M142.7 94 L142.7 122" stroke="var(--t2-ink)" stroke-width="3"/>
+  <path d="M214.2 94 L214.2 122" stroke="var(--t2-ink)" stroke-width="3"/>
+  <path d="M448.0 94 L448.0 122" stroke="var(--t2-ink)" stroke-width="3"/>
+  <text x="80" y="154" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">star moving towards us: blueshift (to shorter λ)</text>
+  <rect x="80" y="160" width="400" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M82.7 160 L82.7 188" stroke="var(--t4-ink)" stroke-width="3"/>
+  <path d="M113.8 160 L113.8 188" stroke="var(--t4-ink)" stroke-width="3"/>
+  <path d="M181.8 160 L181.8 188" stroke="var(--t4-ink)" stroke-width="3"/>
+  <path d="M404.2 160 L404.2 188" stroke="var(--t4-ink)" stroke-width="3"/>
+  <path d="M80 212 L480 212" stroke="currentColor" stroke-width="1"/>
+  <path d="M80.0 212 L80.0 218" stroke="currentColor" stroke-width="1"/>
+  <text x="80.0" y="232" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">400</text>
+  <path d="M213.3 212 L213.3 218" stroke="currentColor" stroke-width="1"/>
+  <text x="213.3" y="232" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">500</text>
+  <path d="M346.7 212 L346.7 218" stroke="currentColor" stroke-width="1"/>
+  <text x="346.7" y="232" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">600</text>
+  <path d="M480.0 212 L480.0 218" stroke="currentColor" stroke-width="1"/>
+  <text x="480.0" y="232" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">700</text>
+  <text x="280" y="248" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">wavelength / nm</text>
+  <text x="40" y="52" font-size="10" fill="var(--muted)" font-family="inherit" text-anchor="middle">violet</text>
+  <text x="500" y="52" font-size="10" fill="var(--muted)" font-family="inherit" text-anchor="middle">red</text>
+</svg>

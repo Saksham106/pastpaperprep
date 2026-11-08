@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" role="img" aria-labelledby="t511pp">
+  <title id="t511pp">Simplified nuclear power plant. On the left, the reactor core sits inside a thick wall of shielding. In the core, vertical fuel rods stand in moderator water, and control rods hang down between them from above and can be raised or lowered. Hot coolant leaves the top of the core through a pipe to a heat exchanger, and cooled coolant returns along a lower pipe. In the heat exchanger, energy passes through a coil to water in a separate circuit, which turns to steam. The steam drives a turbine, which turns a generator, and the water returns to the heat exchanger.</title>
+  <defs><marker id="m511pp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker><marker id="m511pp-4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t4-ink)"/></marker><marker id="m511pp-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/></marker></defs>
+  <rect x="150" y="50" width="220" height="250" fill="var(--muted)" fill-opacity="0.45" stroke="currentColor" stroke-width="1"/>
+  <rect x="175" y="80" width="170" height="195" fill="var(--t2-ink)" fill-opacity="0.18" stroke="currentColor" stroke-width="1.2"/>
+  <g fill="var(--t1-ink)" fill-opacity="0.65">
+    <rect x="193" y="130" width="12" height="130"/><rect x="233" y="130" width="12" height="130"/><rect x="273" y="130" width="12" height="130"/><rect x="313" y="130" width="12" height="130"/>
+  </g>
+  <g fill="var(--t5-ink)" fill-opacity="0.85">
+    <rect x="215" y="34" width="8" height="160"/><rect x="255" y="34" width="8" height="160"/><rect x="295" y="34" width="8" height="160"/>
+  </g>
+  <line x1="259" y1="30" x2="259" y2="8" stroke="var(--t5-ink)" stroke-width="1.5" marker-start="url(#m511pp)" marker-end="url(#m511pp)"/>
+  <g fill="none" stroke-width="3">
+    <polyline points="345,100 440,100" stroke="var(--t4-ink)" marker-end="url(#m511pp-4)"/>
+    <polyline points="440,230 345,230" stroke="var(--t2-ink)" marker-end="url(#m511pp-2)"/>
+  </g>
+  <rect x="440" y="80" width="90" height="170" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <polyline points="440,100 470,100 470,120 500,120 500,140 470,140 470,160 500,160 500,180 470,180 470,200 500,200 500,230 440,230" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+  <g fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="530,95 600,95 600,108" marker-end="url(#m511pp)"/>
+    <polyline points="600,152 600,240 533,240" marker-end="url(#m511pp)"/>
+  </g>
+  <polygon points="585,110 615,110 625,150 575,150" fill="var(--t3-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="620" y1="130" x2="652" y2="130" stroke="currentColor" stroke-width="2"/>
+  <circle cx="668" cy="130" r="16" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="668" y="134" font-size="12" text-anchor="middle" fill="currentColor">G</text>
+  <g font-size="12" fill="currentColor">
+    <line x1="120" y1="66" x2="215" y2="66" stroke="var(--muted)" stroke-width="1"/>
+    <text x="10" y="70" fill="var(--t5-ink)">control rods</text>
+    <line x1="120" y1="166" x2="193" y2="166" stroke="var(--muted)" stroke-width="1"/>
+    <text x="10" y="170" fill="var(--t1-ink)">fuel rods</text>
+    <line x1="120" y1="240" x2="180" y2="240" stroke="var(--muted)" stroke-width="1"/>
+    <text x="10" y="236">moderator</text>
+    <text x="10" y="250">(water)</text>
+    <line x1="120" y1="292" x2="155" y2="292" stroke="var(--muted)" stroke-width="1"/>
+    <text x="10" y="296">shielding</text>
+    <text x="270" y="14" fill="var(--t5-ink)">raise or lower</text>
+    <text x="392" y="92" text-anchor="middle" fill="var(--t4-ink)">hot coolant</text>
+    <text x="392" y="250" text-anchor="middle" fill="var(--t2-ink)">cooled coolant</text>
+    <text x="485" y="72" text-anchor="middle">heat exchanger</text>
+    <text x="565" y="88">steam</text>
+    <text x="594" y="176" text-anchor="end">turbine</text>
+    <text x="668" y="164" text-anchor="middle">generator</text>
+    <text x="566" y="256" text-anchor="middle">water</text>
+  </g>
+</svg>

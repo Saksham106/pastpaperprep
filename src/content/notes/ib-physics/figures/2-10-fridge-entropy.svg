@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 270" role="img" aria-labelledby="t210fe">
+  <title id="t210fe">Energy flows in a refrigerator. On the left, the cold inside of the fridge at temperature T c loses thermal energy Q c, so its entropy falls by Q c over T c. An arrow carries Q c to the pump in the middle. Electrical work W enters the pump from above. On the right, the pump delivers thermal energy Q h, equal to Q c plus W, to the warm kitchen at temperature T h, whose entropy rises by Q h over T h.</title>
+  <defs>
+    <marker id="a210fe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect x="20" y="90" width="150" height="90" rx="6" fill="var(--t4-ink)" fill-opacity="0.18" stroke="var(--t4-ink)" stroke-width="1.4"/>
+  <circle cx="300" cy="135" r="42" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="430" y="90" width="150" height="90" rx="6" fill="var(--t1-ink)" fill-opacity="0.18" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="1.6" marker-end="url(#a210fe)">
+    <line x1="172" y1="135" x2="254" y2="135"/>
+    <line x1="346" y1="135" x2="428" y2="135"/>
+    <line x1="300" y1="30" x2="300" y2="90"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="95" y="126" font-weight="bold">inside (cold)</text>
+    <text x="95" y="152">T<tspan font-size="10" dy="4">c</tspan></text>
+    <text x="505" y="126" font-weight="bold">kitchen (warm)</text>
+    <text x="505" y="152">T<tspan font-size="10" dy="4">h</tspan></text>
+    <text x="300" y="140">pump</text>
+    <text x="212" y="124">Q<tspan font-size="10" dy="4">c</tspan></text>
+    <text x="388" y="124">Q<tspan font-size="10" dy="4">h</tspan><tspan dy="-4"> = Q</tspan><tspan font-size="10" dy="4">c</tspan><tspan dy="-4"> + W</tspan></text>
+    <text x="330" y="54">W</text>
+    <text x="300" y="20" font-size="12" fill="var(--muted)">electrical work</text>
+    <text x="95" y="214">entropy falls</text>
+    <text x="95" y="236">by Q<tspan font-size="10" dy="4">c</tspan><tspan dy="-4"> / T</tspan><tspan font-size="10" dy="4">c</tspan></text>
+    <text x="505" y="214">entropy rises</text>
+    <text x="505" y="236">by Q<tspan font-size="10" dy="4">h</tspan><tspan dy="-4"> / T</tspan><tspan font-size="10" dy="4">h</tspan></text>
+    <text x="300" y="262" font-size="12" fill="var(--muted)">the rise is at least as large as the fall</text>
+  </g>
+</svg>

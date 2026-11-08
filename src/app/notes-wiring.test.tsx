@@ -28,7 +28,7 @@ afterEach(() => {
 /** Hidden state: every course unpublished and no preview. */
 const hide = () => {
   if (!restorePublished) {
-    const restores = [setCoursePublishedForTests(false), setCoursePublishedForTests(false, "igcse-maths-0580"), setCoursePublishedForTests(false, "ib-chemistry")];
+    const restores = [setCoursePublishedForTests(false), setCoursePublishedForTests(false, "igcse-maths-0580"), setCoursePublishedForTests(false, "ib-chemistry"), setCoursePublishedForTests(false, "ib-physics")];
     restorePublished = () => restores.forEach((restore) => restore());
   }
   delete process.env.NOTES_PREVIEW;
@@ -136,6 +136,24 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
       expect(shown?.["The mole and reacting quantities"]?.href).toMatch(/^\/revision-notes\/ib-chemistry\/structure-1\/1-6-/);
       expect(shown?.["The mole and reacting quantities"]?.label).toBe("The mole and reacting quantities");
       expect(Object.values(shown ?? {}).every((link) => link.href.startsWith("/revision-notes/ib-chemistry/"))).toBe(true);
+    } finally {
+      restoreLessons();
+    }
+  });
+
+  it("the Physics banks link questions to Physics lessons by subtopic, only while that course is visible", async () => {
+    const manifest = await getLandingManifest("ib-physics-hl");
+    const params = { params: Promise.resolve({ slug: "ib-physics-hl", topicSlug: manifest.topics[0].slug }) };
+    const links = async () => find(await TopicPage(params), BankQuestionExplorer)[0].props.notesLinks as Record<string, { href: string; label: string }> | undefined;
+    const restoreLessons = setCourseLessonsForTests("ib-physics", lessonFixture, ["1.8", "4.1"]);
+    try {
+      hide();
+      expect(await links()).toBeUndefined();
+      process.env.NOTES_PREVIEW = "1";
+      const shown = await links();
+      expect(shown?.["Circular motion and gravitation"]?.href).toMatch(/^\/revision-notes\/ib-physics\/space-time-and-motion\/1-8-/);
+      expect(shown?.["Circular motion and gravitation"]?.label).toBe("Circular motion and gravitation");
+      expect(Object.values(shown ?? {}).every((link) => link.href.startsWith("/revision-notes/ib-physics/"))).toBe(true);
     } finally {
       restoreLessons();
     }

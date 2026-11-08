@@ -1,0 +1,26 @@
+[
+  {
+    "id": "energy",
+    "term": "energy",
+    "definition": "A scalar property of a body or system that measures its capacity to do work; it can be transferred or change form but never created or destroyed, and its unit is the joule (J).",
+    "lesson": "1.9"
+  },
+  {
+    "id": "conservation-of-energy",
+    "term": "conservation of energy",
+    "definition": "The principle that energy cannot be created or destroyed, only transferred between bodies or transformed between forms, so the total energy of a system that no energy enters or leaves stays constant.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "work",
+    "term": "work",
+    "definition": "The energy transferred by a force when its point of application moves; for a constant force $W = Fs\\cos\\theta$, where $\\theta$ is the angle between the force and the displacement, so only the component of the force along the displacement does work.",
+    "lesson": "1.9"
+  },
+  {
+    "id": "sankey-diagram",
+    "term": "Sankey diagram",
+    "definition": "A flow diagram of an energy transfer in which each arrow's width is proportional to the energy or power it carries, with the useful output carrying straight on and wasted energy branching off.",
+    "lesson": "1.9"
+  }
+]

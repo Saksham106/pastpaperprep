@@ -1,0 +1,54 @@
+{
+  "lines": [
+    {
+      "text": "Unit of a derived quantity, or is this equation possible? → build fundamental units from defining equations ($F = ma$, $W = Fs$, $Q = It$); every term must match, but a match can't show a missing $\\frac{1}{2}$ or $2\\pi$ ({{lesson:6.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Estimate or order of magnitude → round to the nearest power of ten on a log scale: $a \\times 10^{n}$ becomes $10^{n+1}$ when $a$ is above about $3.16$ ({{lesson:6.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Forces or velocities at an angle → resolve each into perpendicular components ($\\cos$ for the side next to the angle, $\\sin$ for the side opposite), add each direction with signs, then combine with Pythagoras ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Change in velocity when the direction changes → $\\Delta\\boldsymbol{v} = \\boldsymbol{v}_\\text{f} + (-\\boldsymbol{v}_\\text{i})$: reverse the initial velocity and add head to tail; along a line, give each velocity its sign first ({{lesson:6.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Uncertainty in a calculated result → sums and differences: add absolute uncertainties; products and quotients: add fractional ones; a power $n$: multiply the fractional uncertainty by $\\lvert n \\rvert$ ({{lesson:6.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Does a result agree with the accepted value? → see whether the accepted value lies inside value $\\pm$ absolute uncertainty; if not, name a likely systematic error ({{lesson:6.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Comparing two values → percentage error against an accepted value, percentage change from an original value, percentage difference (over the mean) when neither is the reference ({{lesson:6.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Uncertainty in a gradient or intercept → draw the steepest and shallowest straight lines through every uncertainty bar; $\\Delta(\\text{gradient}) = \\frac{\\text{max} - \\text{min}}{2}$ ({{lesson:6.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Do the data support $y \\propto x$? → draw the best line without forcing it through the origin, then check whether some straight line through the origin passes through every uncertainty bar ({{lesson:6.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Testing a predicted relationship → rearrange it into $y = mx + c$ and plot those quantities ($T^{2}$ against $m$, $I$ against $\\frac{1}{d^{2}}$); for $y = kx^{n}$ with $n$ unknown, plot $\\log_{10} y$ against $\\log_{10} x$ and the gradient is $n$ ({{lesson:6.4}})",
+      "tag": "learn",
+      "level": "SL"
+    }
+  ]
+}

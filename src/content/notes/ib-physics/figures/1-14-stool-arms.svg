@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-labelledby="t114sa">
+  <title id="t114sa">Two views from above of a student on a stool that turns freely about a vertical axis through its centre. On the left she holds a dumbbell in each hand with her arms stretched out, so the dumbbells are far from the axis; a short curved arrow shows slow anticlockwise rotation, labelled I large, omega small. On the right she has pulled the dumbbells in to her chest, close to the axis; a longer curved arrow shows faster anticlockwise rotation, labelled I small, omega large. Between the panels a note reads L equals I omega, the same in both.</title>
+  <defs>
+    <marker id="m114sa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- left panel: arms out -->
+  <circle cx="110" cy="110" r="26" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="110" cy="110" r="3" fill="currentColor"/>
+  <line x1="84" y1="110" x2="30" y2="110" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  <line x1="136" y1="110" x2="190" y2="110" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="24" cy="110" r="9" fill="var(--t1-ink)"/>
+  <circle cx="196" cy="110" r="9" fill="var(--t1-ink)"/>
+  <path d="M146 78 A48 48 0 0 0 110 62" fill="none" stroke="var(--t3-ink)" stroke-width="2" marker-end="url(#m114sa)"/>
+  <g font-family="inherit" font-size="13" text-anchor="middle">
+    <text x="110" y="180" fill="currentColor">arms out</text>
+    <text x="110" y="202" fill="var(--t3-ink)">I large, ω small</text>
+  </g>
+
+  <!-- middle note -->
+  <g font-family="inherit" font-size="12" text-anchor="middle" fill="var(--muted)">
+    <text x="240" y="104">L = Iω</text>
+    <text x="240" y="122">the same</text>
+  </g>
+
+  <!-- right panel: arms in -->
+  <circle cx="370" cy="110" r="26" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="370" cy="110" r="3" fill="currentColor"/>
+  <circle cx="352" cy="128" r="9" fill="var(--t1-ink)"/>
+  <circle cx="388" cy="128" r="9" fill="var(--t1-ink)"/>
+  <path d="M418 110 A48 48 0 1 0 370 158" fill="none" stroke="var(--t3-ink)" stroke-width="2" marker-end="url(#m114sa)"/>
+  <g font-family="inherit" font-size="13" text-anchor="middle">
+    <text x="370" y="200" fill="currentColor">arms in</text>
+    <text x="370" y="222" fill="var(--t3-ink)">I small, ω large</text>
+  </g>
+</svg>

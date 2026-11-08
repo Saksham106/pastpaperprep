@@ -1,0 +1,32 @@
+[
+  {
+    "id": "emf",
+    "term": "emf",
+    "definition": "The energy transferred from other forms to electrical energy per unit charge by a source such as a cell, measured in volts; despite its name it is not a force, and for a real cell it equals the pd across the terminals only when no current flows.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "electric-charge",
+    "term": "electric charge",
+    "definition": "A property of matter, positive or negative, that makes particles exert electric forces on each other; it is measured in coulombs (C), and an electron carries $-1.60 \\times 10^{-19}\\ \\text{C}$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "charge-carrier",
+    "term": "charge carrier",
+    "definition": "A charged particle that is free to move through a material and so carries a current, such as a free electron in a metal or an ion in a solution.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "electric-current",
+    "term": "electric current",
+    "definition": "The rate of flow of charge past a point, $I = \\frac{\\Delta q}{\\Delta t}$, measured in amperes, where $1\\ \\text{A} = 1\\ \\text{C s}^{-1}$.",
+    "lesson": "2.12"
+  },
+  {
+    "id": "potential-difference",
+    "term": "potential difference",
+    "definition": "The work done per unit charge on a positive charge as it moves from one point in a circuit to another, following the current, $V = \\frac{W}{q}$, measured in volts, where $1\\ \\text{V} = 1\\ \\text{J C}^{-1}$.",
+    "lesson": "2.12"
+  }
+]

@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.6",
+  "slug": "greenhouse-gases-and-the-greenhouse-effect",
+  "title": "Greenhouse gases and the greenhouse effect",
+  "level": "SL",
+  "topic": 2,
+  "summary": "[[greenhouse-gas|Greenhouse gases]] such as carbon dioxide and methane let most sunlight through, but absorb the [[infrared-radiation|infrared radiation]] that Earth's surface gives off. They re-emit it in all directions, so part comes back down and the surface stays warmer: the [[greenhouse-effect|greenhouse effect]]. Human activities, above all burning fossil fuels, add more of these gases and strengthen it. That is the [[enhanced-greenhouse-effect|enhanced greenhouse effect]].",
+  "goals": [
+    {
+      "text": "Name the four main greenhouse gases and give a natural source and a human source of each.",
+      "bullets": [
+        "B.2-s7"
+      ]
+    },
+    {
+      "text": "Explain how a greenhouse gas molecule absorbs infrared using its energy levels, and why it re-emits radiation in all directions.",
+      "bullets": [
+        "B.2-s8"
+      ]
+    },
+    {
+      "text": "Explain the greenhouse effect with both the resonance model and the energy-level model, and link them with $E = hf$.",
+      "bullets": [
+        "B.2-s9"
+      ]
+    },
+    {
+      "text": "Explain the enhanced greenhouse effect, name burning fossil fuels as its primary cause, and estimate the temperature rise with an energy balance.",
+      "bullets": [
+        "B.2-s10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.3",
+    "2.4",
+    "2.5",
+    "3.3",
+    "3.8",
+    "5.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "main greenhouse gases",
+    "how greenhouse gases absorb infrared",
+    "resonance model greenhouse effect",
+    "molecular energy levels infrared",
+    "enhanced greenhouse effect",
+    "why carbon dioxide absorbs infrared"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-em-region",
+      "prompt": "On the [[electromagnetic-spectrum|electromagnetic spectrum]], which region has wavelengths just longer than those of red light?",
+      "hint": "Visible light runs from violet (short) to red (long). What comes next?",
+      "options": [
+        {
+          "text": "infrared",
+          "correct": true
+        },
+        {
+          "text": "ultraviolet",
+          "correct": false
+        },
+        {
+          "text": "microwaves",
+          "correct": false
+        },
+        {
+          "text": "X-rays",
+          "correct": false
+        }
+      ],
+      "explain": "Visible light ends at about 700 nm (red). Just beyond it is infrared. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "infrared"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-photon-energy",
+      "prompt": "Calculate the energy of a [[photon|photon]] of frequency $5.0 \\times 10^{14}\\ \\text{Hz}$, in joules to 2 significant figures.",
+      "hint": "Use $E = hf$ with the Planck constant from the data booklet.",
+      "answer": {
+        "value": 3.3e-19,
+        "tolerance": 5e-21
+      },
+      "explain": "$E = hf = (6.63 \\times 10^{-34})(5.0 \\times 10^{14}) \\approx 3.3 \\times 10^{-19}\\ \\text{J}$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "h*5.0*10**14",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-imbalance",
+      "prompt": "A planet's surface starts to absorb more radiation power than it emits. What happens next?",
+      "hint": "How does the emitted power depend on $T$?",
+      "options": [
+        {
+          "text": "its temperature rises until the power it emits equals the power it absorbs",
+          "correct": true
+        },
+        {
+          "text": "its temperature rises without limit",
+          "correct": false
+        },
+        {
+          "text": "its temperature stays the same because energy is conserved",
+          "correct": false
+        },
+        {
+          "text": "its emissivity increases until the powers balance",
+          "correct": false
+        }
+      ],
+      "explain": "The surplus raises $T$. Emitted power grows as $T^{4}$, so a new balance is reached. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "its temperature rises until the power it emits equals the power it absorbs"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "gases",
+      "heading": "The main greenhouse gases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Sun's surface is at about 5800 K, so by [[wien-s-displacement-law|Wien's displacement law]] its [[thermal-radiation|thermal radiation]] peaks near 500 nm, in the visible."
+        },
+        {
+          "type": "text",
+          "text": "Earth's surface is far cooler, so it radiates mostly [[infrared-radiation|infrared radiation]]: [[electromagnetic-wave|electromagnetic waves]] longer than red light, from about 700 nm to 1 mm."
+        },
+        {
+          "type": "definition",
+          "term": "greenhouse gas",
+          "statement": "A gas in the atmosphere whose molecules absorb infrared radiation and then re-emit it in all directions.",
+          "plain": "A gas that soaks up infrared and sends it out again."
+        },
+        {
+          "type": "text",
+          "text": "Nitrogen and oxygen, most of the air, are not greenhouse gases. The four main ones are water vapour ($\\ce{H2O}$), carbon dioxide ($\\ce{CO2}$), methane ($\\ce{CH4}$) and nitrous oxide ($\\ce{N2O}$)."
+        },
+        {
+          "type": "text",
+          "text": "Each has natural sources and human ones. Water vapour comes naturally from evaporation; humans add a little from irrigation and burning fuels."
+        },
+        {
+          "type": "text",
+          "text": "Carbon dioxide comes from respiration, decay and volcanoes. Humans add it by burning coal, oil and gas, and by clearing forests."
+        },
+        {
+          "type": "text",
+          "text": "Methane comes from wetlands, where plants rot without oxygen. Humans add it from livestock, rice paddies, landfill and gas leaks."
+        },
+        {
+          "type": "text",
+          "text": "Nitrous oxide comes from bacteria in soils and oceans. Humans add it mainly through nitrogen fertilisers."
+        },
+        {
+          "type": "text",
+          "text": "The atmosphere lets most visible sunlight through, but greenhouse gases absorb much of the infrared coming back up. The wavelengths a gas absorbs form its [[absorption-spectrum|absorption spectrum]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-gas-earth-peak",
+          "question": "Earth's surface has a mean temperature of about $288\\ \\text{K}$. Treating it as a black body, calculate the wavelength at which its emission peaks, and state the region of the electromagnetic spectrum.",
+          "steps": [
+            "Use Wien's displacement law from the data booklet: $\\lambda_{\\text{max}} T = 2.9 \\times 10^{-3}\\ \\text{m K}$.",
+            "Rearrange: $\\lambda_{\\text{max}} = \\dfrac{2.9 \\times 10^{-3}}{288}$.",
+            "Calculate: $\\lambda_{\\text{max}} = 1.007 \\times 10^{-5}\\ \\text{m}$, about $10\\ \\mu\\text{m}$.",
+            "This is far beyond red light: infrared. Give 2 significant figures, as in the Wien constant."
+          ],
+          "answer": "$\\lambda_{\\text{max}} \\approx 1.0 \\times 10^{-5}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "wien_b/288",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gas-sources",
+          "question": "Methane and nitrous oxide are both greenhouse gases. For each gas, outline one natural source and one source caused by human activity.",
+          "steps": [
+            "Take each gas in turn: one natural source, one human source."
+          ],
+          "answer": "Methane is released naturally by wetlands. Humans add methane from cattle and other livestock. Nitrous oxide is made naturally by bacteria in soils. Humans add nitrous oxide by spreading nitrogen fertilisers on farmland.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "methane: wetlands (natural), livestock (human); nitrous oxide: soil and ocean bacteria (natural), fertilisers (human)",
+            "requires": [
+              [
+                "wetlands",
+                "termites"
+              ],
+              [
+                "livestock",
+                "cattle",
+                "rice",
+                "landfill"
+              ],
+              "bacteria",
+              [
+                "fertilisers",
+                "fertilizers"
+              ]
+            ],
+            "forbids": [
+              "ozone"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gas-which",
+          "prompt": "Which of these gases is a greenhouse gas?",
+          "hint": "Nitrogen and oxygen make up most of the air, yet they absorb almost no infrared.",
+          "options": [
+            {
+              "text": "nitrous oxide",
+              "correct": true
+            },
+            {
+              "text": "nitrogen",
+              "correct": false
+            },
+            {
+              "text": "oxygen",
+              "correct": false
+            },
+            {
+              "text": "argon",
+              "correct": false
+            }
+          ],
+          "explain": "Nitrous oxide, $\\ce{N2O}$, is one of the four main greenhouse gases. The others absorb almost no infrared.",
+          "verify": {
+            "kind": "choice",
+            "truth": "nitrous oxide"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gas-desert",
+          "prompt": "Desert sand at midday reaches $320\\ \\text{K}$. Treating it as a black body, calculate the peak wavelength of its emission in micrometres ($\\mu\\text{m}$), to 2 significant figures.",
+          "hint": "Use $\\lambda_{\\text{max}} T = 2.9 \\times 10^{-3}\\ \\text{m K}$, then convert metres to micrometres.",
+          "answer": {
+            "value": 9.1,
+            "tolerance": 0.05
+          },
+          "explain": "$\\lambda_{\\text{max}} = \\frac{2.9 \\times 10^{-3}}{320} = 9.06 \\times 10^{-6}\\ \\text{m} \\approx 9.1\\ \\mu\\text{m}$, in the infrared.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "wien_b/320*10**6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-levels",
+      "heading": "Absorbing infrared: molecular energy levels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An atom has only certain [[atomic-energy-level|energy levels]] ({{lesson:5.2}}). So does a molecule: its atoms vibrate as the bonds stretch and bend, and each vibration's energy can take only certain values."
+        },
+        {
+          "type": "text",
+          "text": "The gap between two vibrational levels is small, around 0.1 eV. That is the energy of an infrared [[photon|photon]], given by:"
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-5-2"
+        },
+        {
+          "type": "text",
+          "text": "$h$ is the Planck constant and $f$ the frequency. With $c = f\\lambda$, $E = \\dfrac{hc}{\\lambda}$. Both equations and $h$ are in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "A molecule absorbs a photon only if its energy equals the gap $\\Delta E$ between two levels. The molecule then moves up to the higher level."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-absorb-emit",
+          "alt": "Left: two vibrational energy levels of a greenhouse gas molecule, separated by an energy gap delta E. An infrared photon whose energy h f equals delta E is absorbed, and the molecule moves from the lower level to the higher level. Right: the excited molecule above the surface re-emits infrared in all directions, up, down and sideways, so only part of it returns to the surface.",
+          "caption": "Absorption needs $hf = \\Delta E$; re-emission goes in every direction."
+        },
+        {
+          "type": "text",
+          "text": "The excited molecule soon drops back and emits an infrared photon in a random direction. So the re-emitted radiation goes out in all directions: up, sideways and back down to the surface."
+        },
+        {
+          "type": "text",
+          "text": "Often the molecule first shares the energy with other air molecules in collisions. The warmed air then radiates infrared, again in all directions."
+        },
+        {
+          "type": "definition",
+          "term": "greenhouse effect",
+          "statement": "The warming of a planet's surface because greenhouse gases in its atmosphere absorb infrared radiation emitted by the surface and re-emit part of it back towards the surface.",
+          "plain": "The air sends part of the ground's infrared back down."
+        },
+        {
+          "type": "text",
+          "text": "The greenhouse effect is natural. It raises Earth's mean surface temperature from about 255 K, below freezing, to about 288 K."
+        },
+        {
+          "type": "example",
+          "id": "ex-lev-photon-ev",
+          "question": "Carbon dioxide absorbs strongly at a wavelength of $15\\ \\mu\\text{m}$. Calculate the energy of a photon of this wavelength, in electronvolts.",
+          "steps": [
+            "Combine $E = hf$ and $c = f\\lambda$: $E = \\dfrac{hc}{\\lambda}$, with $h$ and $c$ from the data booklet.",
+            "Substitute: $E = \\dfrac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{15 \\times 10^{-6}} = 1.326 \\times 10^{-20}\\ \\text{J}$.",
+            "Convert to electronvolts by dividing by $1.60 \\times 10^{-19}$: $E = 0.0829\\ \\text{eV}$.",
+            "Give 2 significant figures. A visible photon (500 nm) carries about $2.5\\ \\text{eV}$, far too much for this gap."
+          ],
+          "answer": "$E \\approx 0.083\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*c/(15*10**-6)/eV",
+            "sf": 2,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lev-mechanism",
+          "question": "Outline how a greenhouse gas molecule absorbs infrared radiation emitted by Earth's surface, and how this leads to more radiation reaching the surface.",
+          "steps": [
+            "Give the condition for absorption, then where the energy goes."
+          ],
+          "answer": "The molecule has discrete vibrational energy levels. An infrared photon is absorbed when its energy $hf$ equals the difference between two levels. The molecule then returns to a lower level and emits an infrared photon in a random direction. As emission is in all directions, part travels back down to the surface, which receives more radiation than without the gas.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "photon absorbed when hf equals the gap between molecular vibrational levels; re-emitted in random/all directions, so part returns to the surface",
+            "requires": [
+              "energy levels",
+              [
+                "equals the difference",
+                "matches the difference",
+                "equals the gap"
+              ],
+              "photon",
+              [
+                "random direction",
+                "all directions"
+              ],
+              [
+                "back down",
+                "towards the surface"
+              ]
+            ],
+            "forbids": [
+              "reflect",
+              "reflects",
+              "ozone",
+              "traps heat"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lev-condition",
+          "prompt": "A molecule has two vibrational levels separated by an energy $\\Delta E$. Which infrared photon can it absorb to move between them?",
+          "hint": "The levels have fixed energies. How much energy must the photon supply?",
+          "options": [
+            {
+              "text": "one whose energy exactly equals the gap",
+              "correct": true
+            },
+            {
+              "text": "any photon with more energy than the gap",
+              "correct": false
+            },
+            {
+              "text": "any photon with less energy than the gap",
+              "correct": false
+            },
+            {
+              "text": "any infrared photon, whatever its energy",
+              "correct": false
+            }
+          ],
+          "explain": "The photon must supply exactly the gap: $hf = \\Delta E$. More or less energy, and it is not absorbed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "one whose energy exactly equals the gap"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lev-wavelength",
+          "prompt": "A vibrational transition in a water molecule has an energy gap of $0.20\\ \\text{eV}$. Calculate the wavelength of the photon it absorbs, in micrometres to 2 significant figures.",
+          "hint": "Convert the gap to joules, then use $\\lambda = \\dfrac{hc}{E}$.",
+          "answer": {
+            "value": 6.2,
+            "tolerance": 0.05
+          },
+          "explain": "$E = 0.20 \\times 1.60 \\times 10^{-19} = 3.2 \\times 10^{-20}\\ \\text{J}$, so $\\lambda = \\frac{(6.63 \\times 10^{-34})(3.00 \\times 10^{8})}{3.2 \\times 10^{-20}} = 6.2 \\times 10^{-6}\\ \\text{m} = 6.2\\ \\mu\\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h*c/(0.20*eV)*10**6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "resonance",
+      "heading": "The resonance model",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now picture a molecule as balls (atoms) joined by springs (bonds). Like a mass on a spring, it has [[natural-frequency|natural frequencies]] of vibration. For carbon dioxide and water these are about $10^{13}$ to $10^{14}\\ \\text{Hz}$: infrared."
+        },
+        {
+          "type": "text",
+          "text": "The atoms carry small charges: in $\\ce{CO2}$ the oxygens are slightly negative, the carbon slightly positive. The oscillating electric field of an infrared [[electromagnetic-wave|electromagnetic wave]] pushes them back and forth: a periodic driving force."
+        },
+        {
+          "type": "text",
+          "text": "When the driving frequency equals a natural frequency, [[resonance|resonance]] occurs. The amplitude grows large and the molecule absorbs energy strongly. At other frequencies it absorbs very little."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-resonance-model",
+          "alt": "Left: a carbon dioxide molecule drawn as a slightly positive carbon atom between two slightly negative oxygen atoms, joined by springs. A double-headed arrow shows the oscillating electric field of an infrared wave pushing the charged atoms back and forth. Right: a graph of energy absorbed against driving frequency, with a sharp peak at the natural frequency in the infrared and almost no absorption at the much higher frequencies of visible light.",
+          "caption": "The molecule absorbs strongly only near a natural frequency $f_0$."
+        },
+        {
+          "type": "text",
+          "text": "Visible light, around $6 \\times 10^{14}\\ \\text{Hz}$, is well above these natural frequencies. No resonance, so it mostly passes through."
+        },
+        {
+          "type": "text",
+          "text": "The two models agree: a natural frequency $f_0$ matches an energy gap $\\Delta E = hf_0$."
+        },
+        {
+          "type": "text",
+          "text": "A limitation: the resonance model is classical, with energy flowing in smoothly. It cannot explain absorption in fixed amounts, one photon at a time; the energy-level model can."
+        },
+        {
+          "type": "text",
+          "text": "Beyond the syllabus: nitrogen and oxygen molecules are two identical atoms with no separated charges, so the wave's field cannot drive them. That is why they absorb almost no infrared."
+        },
+        {
+          "type": "example",
+          "id": "ex-res-wavelength",
+          "question": "One vibration of a carbon dioxide molecule has a natural frequency of $2.0 \\times 10^{13}\\ \\text{Hz}$. Calculate the wavelength of the radiation that drives this vibration at resonance.",
+          "steps": [
+            "At resonance the wave's frequency equals the natural frequency: $f = 2.0 \\times 10^{13}\\ \\text{Hz}$.",
+            "Use $c = f\\lambda$, so $\\lambda = \\dfrac{c}{f} = \\dfrac{3.00 \\times 10^{8}}{2.0 \\times 10^{13}}$.",
+            "Calculate: $\\lambda = 1.5 \\times 10^{-5}\\ \\text{m}$, or $15\\ \\mu\\text{m}$, in the infrared.",
+            "Energy-level check: $hf_0 = 1.3 \\times 10^{-20}\\ \\text{J}$, the photon energy found in the previous section."
+          ],
+          "answer": "$\\lambda \\approx 1.5 \\times 10^{-5}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c/(2.0*10**13)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-res-explain",
+          "question": "Use the resonance model to explain why carbon dioxide absorbs infrared radiation emitted by Earth's surface but lets most visible light from the Sun pass through.",
+          "steps": [
+            "Compare each radiation's frequency with the molecule's natural frequencies."
+          ],
+          "answer": "The molecule is charged atoms joined by springy bonds, so it has natural frequencies of vibration. The oscillating electric field of an electromagnetic wave drives the charged atoms. Infrared from the surface includes frequencies equal to these natural frequencies, so resonance occurs. The amplitude becomes large and the molecule absorbs energy from the wave. Visible light has much higher frequencies than any natural frequency, so there is no resonance and little is absorbed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "molecule has natural frequencies in the infrared; the wave's electric field drives it; resonance gives large amplitude and absorption; visible frequencies are far higher, so no resonance",
+            "requires": [
+              [
+                "natural frequency",
+                "natural frequencies"
+              ],
+              "electric field",
+              [
+                "drives",
+                "driven",
+                "driving"
+              ],
+              "resonance",
+              "amplitude",
+              [
+                "higher frequency",
+                "higher frequencies"
+              ]
+            ],
+            "forbids": [
+              "reflect",
+              "reflects"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-res-methane",
+          "prompt": "One vibration of a methane molecule has a natural frequency of $3.9 \\times 10^{13}\\ \\text{Hz}$. Calculate the wavelength that drives it at resonance, in micrometres to 2 significant figures.",
+          "hint": "At resonance the wave's frequency equals the natural frequency. Then use $\\lambda = \\dfrac{c}{f}$.",
+          "answer": {
+            "value": 7.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\lambda = \\frac{3.00 \\times 10^{8}}{3.9 \\times 10^{13}} = 7.7 \\times 10^{-6}\\ \\text{m} = 7.7\\ \\mu\\text{m}$, in the infrared.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "c/(3.9*10**13)*10**6",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-res-limit",
+          "prompt": "What does the molecular energy-level model explain that the resonance model cannot?",
+          "hint": "The resonance model is classical, so energy flows in smoothly. What is quantum about absorption?",
+          "options": [
+            {
+              "text": "that energy is absorbed in fixed amounts, one photon at a time",
+              "correct": true
+            },
+            {
+              "text": "that absorption is strongest near a natural frequency",
+              "correct": false
+            },
+            {
+              "text": "that the atoms of the molecule vibrate",
+              "correct": false
+            },
+            {
+              "text": "that infrared is absorbed more strongly than visible light",
+              "correct": false
+            }
+          ],
+          "explain": "Both models have vibrating atoms and strong absorption at particular frequencies. Only the energy-level model has quantised energy, absorbed photon by photon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "that energy is absorbed in fixed amounts, one photon at a time"
+          }
+        }
+      ]
+    },
+    {
+      "id": "enhanced",
+      "heading": "The enhanced greenhouse effect",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Since the 1800s, people have added greenhouse gases faster than natural processes remove them. Carbon dioxide has risen by about half; methane has more than doubled."
+        },
+        {
+          "type": "definition",
+          "term": "enhanced greenhouse effect",
+          "statement": "The strengthening of the greenhouse effect caused by human activities that raise the concentrations of greenhouse gases in the atmosphere.",
+          "plain": "The extra warming people add on top of the natural greenhouse effect."
+        },
+        {
+          "type": "text",
+          "text": "Burning fossil fuels (coal, oil and gas) is the primary cause: it releases carbon dioxide locked underground for millions of years. Clearing forests, farming and fertilisers add more."
+        },
+        {
+          "type": "text",
+          "text": "More greenhouse gas means more of the surface's infrared is absorbed and re-radiated back down. The surface absorbs more than it emits, so it warms to a new, higher equilibrium ({{lesson:2.5}})."
+        },
+        {
+          "type": "text",
+          "text": "Warmer air holds more water vapour, which absorbs more infrared. This feedback amplifies the warming."
+        },
+        {
+          "type": "example",
+          "id": "ex-enh-rise",
+          "question": "In a simple model, a planet's surface acts as a black body. It absorbs $168\\ \\text{W m}^{-2}$ of sunlight and $232\\ \\text{W m}^{-2}$ radiated down by the atmosphere, and loses energy only by radiation. Extra greenhouse gases raise the downward intensity from the atmosphere by $6.0\\ \\text{W m}^{-2}$. Determine the rise in the surface's equilibrium temperature.",
+          "steps": [
+            "Before: the surface radiates what it absorbs, $168 + 232 = 400\\ \\text{W m}^{-2}$. So $\\sigma T_1^{4} = 400$, with $\\sigma$ from the data booklet, and $T_1 = \\sqrt[4]{\\dfrac{400}{5.67 \\times 10^{-8}}} = 289.81\\ \\text{K}$.",
+            "After: the surface absorbs $400 + 6.0 = 406\\ \\text{W m}^{-2}$, so $T_2 = \\sqrt[4]{\\dfrac{406}{5.67 \\times 10^{-8}}} = 290.89\\ \\text{K}$.",
+            "Subtract, using the unrounded values: $\\Delta T = 290.89 - 289.81 = 1.08\\ \\text{K}$.",
+            "Give 2 significant figures. A 1.5% rise in intensity gives only about 0.4% in $T$, because emission grows as $T^{4}$."
+          ],
+          "answer": "$\\Delta T \\approx 1.1\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "((168 + 232 + 6.0)/sigma)**Rational(1, 4) - ((168 + 232)/sigma)**Rational(1, 4)",
+            "sf": 2,
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-enh-distinguish",
+          "question": "Distinguish between the greenhouse effect and the enhanced greenhouse effect, and identify the primary cause of the enhanced effect.",
+          "steps": [
+            "Describe the natural effect, then what humans change and why."
+          ],
+          "answer": "The greenhouse effect is natural. Greenhouse gases absorb infrared emitted by the surface and re-radiate it in all directions, so part returns and the surface is warmer. The enhanced greenhouse effect is extra warming from human activities that increase the concentration of greenhouse gases. More infrared is then re-radiated to the surface, so the equilibrium surface temperature rises. The primary cause is burning fossil fuels, which releases carbon dioxide.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "natural effect: GHGs absorb surface infrared and re-radiate in all directions, warming the surface; enhanced: human activity raises GHG concentrations, so more is re-radiated and T rises; primary cause burning fossil fuels (CO2)",
+            "requires": [
+              "natural",
+              "infrared",
+              "all directions",
+              "human activities",
+              "concentration",
+              "burning fossil fuels",
+              "carbon dioxide"
+            ],
+            "forbids": [
+              "ozone",
+              "traps heat",
+              "reflect",
+              "reflects"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-enh-water",
+          "prompt": "Which statement about water vapour in Earth's atmosphere is correct?",
+          "hint": "Think about what happens to evaporation when the air warms.",
+          "options": [
+            {
+              "text": "it is a greenhouse gas, and warmer air holds more of it",
+              "correct": true
+            },
+            {
+              "text": "it is not a greenhouse gas, because it comes mainly from natural sources",
+              "correct": false
+            },
+            {
+              "text": "it absorbs visible light but not infrared",
+              "correct": false
+            },
+            {
+              "text": "it causes the greenhouse effect by reflecting infrared",
+              "correct": false
+            }
+          ],
+          "explain": "Water vapour is a greenhouse gas, and warmer air holds more of it. Natural sources do not stop a gas absorbing infrared, and no greenhouse gas works by reflection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is a greenhouse gas, and warmer air holds more of it"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-enh-new-t",
+          "prompt": "A planet's surface acts as a black body at $250\\ \\text{K}$ in equilibrium, losing energy only by radiation. More greenhouse gas makes the atmosphere radiate an extra $5.0\\ \\text{W m}^{-2}$ down to it. Calculate the new equilibrium temperature, in K to 3 significant figures.",
+          "hint": "Find $\\sigma T^{4}$ at 250 K, add the extra intensity, then solve for $T$.",
+          "answer": {
+            "value": 251,
+            "tolerance": 0.5
+          },
+          "explain": "$\\sigma (250)^{4} = 221.5\\ \\text{W m}^{-2}$. The new total is $226.5\\ \\text{W m}^{-2}$, so $T = \\sqrt[4]{\\frac{226.5}{5.67 \\times 10^{-8}}} \\approx 251\\ \\text{K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((sigma*250**4 + 5.0)/sigma)**Rational(1, 4)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The four main greenhouse gases are $\\ce{H2O}$, $\\ce{CO2}$, $\\ce{CH4}$ and $\\ce{N2O}$, each with natural and human sources.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sunlight peaks in the visible and mostly passes through; Earth radiates infrared (peak near $10\\ \\mu\\text{m}$), much of which greenhouse gases absorb.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = hf",
+          "tag": "booklet",
+          "bookletId": "db-5-2",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Energy levels: a photon is absorbed only if $hf$ equals a gap between vibrational levels; re-emission goes in all directions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resonance: the wave's electric field drives the molecule; it absorbs strongly at a natural frequency $f_0$, where $\\Delta E = hf_0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The natural greenhouse effect warms Earth from about 255 K to 288 K. The enhanced effect is extra human-caused warming; burning fossil fuels is the primary cause.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that greenhouse gases reflect infrared or \"trap heat\". They absorb it and re-emit radiation; write \"radiation\" or \"energy\", not \"heat\".",
+    "Saying the re-emitted radiation goes back to the surface. It goes out in all directions; only part returns.",
+    "Saying greenhouse gases absorb incoming sunlight. They let most visible light through and absorb the surface's infrared.",
+    "Mixing up the greenhouse effect with the ozone hole, which is about ultraviolet. Nor is the greenhouse effect itself human-made: only the enhancement is."
+  ],
+  "examTips": [
+    "A two-mark \"outline\" of absorption needs: photon energy matching a gap between molecular energy levels (or resonance at a natural frequency), then re-emission in all directions. \"Back to the surface\" alone is not enough.",
+    "\"Explain\" the effect of more greenhouse gas: more infrared absorbed, more re-radiated down, surface absorbs more than it emits, temperature rises to a new equilibrium.",
+    "Paper 1A can ask which gas is a greenhouse gas, or what mainly causes the enhanced effect: burning fossil fuels, not volcanoes or melting ice."
+  ],
+  "readingMinutes": 24
+}

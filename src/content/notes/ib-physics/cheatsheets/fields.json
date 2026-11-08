@@ -1,0 +1,64 @@
+{
+  "lines": [
+    {
+      "text": "Force between two bodies, or a planet's mass from a moon's orbit → $F = G\\frac{m_1m_2}{r^{2}}$ with $r$ between centres; for a circular orbit write $\\frac{GMm}{r^{2}} = \\frac{4\\pi^{2}mr}{T^{2}}$, with $T$ in seconds ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Comparing the periods or radii of two orbits around the same body → Kepler's third law as a ratio, $\\left(\\frac{T_1}{T_2}\\right)^{2} = \\left(\\frac{r_1}{r_2}\\right)^{3}$; any units, as long as both orbits use the same ones ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Point between two masses, or two like charges, where the field is zero → set the two field sizes equal, $\\frac{GM_1}{x^{2}} = \\frac{GM_2}{(d - x)^{2}}$ or $\\frac{kQ_1}{x^{2}} = \\frac{kQ_2}{(d - x)^{2}}$, and take square roots; the point is nearer the smaller one ({{lesson:4.1}}, {{lesson:4.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Charged particle fired between parallel plates → $E = \\frac{V}{d}$ and $a = \\frac{qE}{m}$; treat it like a horizontal projectile: time from the plate length, $t = \\frac{L}{v}$, sideways deflection $s = \\frac{1}{2}at^{2}$ ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Charged particle moving at right angles to a uniform magnetic field → magnetic force = centripetal force, so $r = \\frac{mv}{qB}$ and the speed stays constant; with crossed electric and magnetic fields, it goes straight through only if $v = \\frac{E}{B}$ ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Direction of the magnetic force on a moving charge or a current → right-hand rule: fingers along $B$, thumb along a positive charge's velocity or the current, force out of the palm; reverse it for a negative charge ({{lesson:4.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Energy to move a mass far from a planet → $W = m\\Delta V_\\text{g}$, with $V_\\text{g} = -\\frac{GM}{r}$ at each point and $r$ from the centre; $mg\\Delta h$ only when $\\Delta h$ is tiny compared with the radius ({{lesson:4.2}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Field strength from a graph of potential or from equipotentials → minus the potential gradient, $g = -\\frac{\\Delta V_\\text{g}}{\\Delta r}$ or $E = -\\frac{\\Delta V_\\text{e}}{\\Delta r}$; field lines cross equipotentials at right angles, towards lower potential ({{lesson:4.2}}, {{lesson:4.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Energy to launch a satellite, raise its orbit or let it escape → use total energy: $E_\\text{T} = -\\frac{GMm}{2r}$ in a circular orbit, $-\\frac{GMm}{R}$ at rest on the surface; energy needed = final minus initial, and escape needs $E_\\text{T} \\ge 0$, so $v \\ge \\sqrt{\\frac{2GM}{r}}$ ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Closest approach of a charged particle fired head-on at a fixed nucleus → its kinetic energy far away all becomes $E_\\text{p} = k\\frac{q_1q_2}{r}$; convert MeV to J first ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Changing field, moving magnet or coil entering a field → $\\varepsilon = N\\frac{\\Delta\\Phi}{\\Delta t}$ in size, with $\\Phi = BA\\cos\\theta$ and $\\theta$ from the normal; a rod moving across a uniform field: $\\varepsilon = BvL$; direction from Lenz's law ({{lesson:4.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Generator turned faster or slower → peak emf $\\varepsilon_0 = NBA\\omega$ with $\\omega = 2\\pi f$: $k$ times as fast multiplies the peak by $k$ and divides the period by $k$ ({{lesson:4.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

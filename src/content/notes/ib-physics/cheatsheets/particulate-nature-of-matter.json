@@ -1,0 +1,74 @@
+{
+  "lines": [
+    {
+      "text": "Any ratio or product with a temperature in it ($E_\\text{k} = \\frac{3}{2}k_\\text{B}T$, $\\sigma T^{4}$, gas laws) → convert to kelvin first; a temperature change can stay in °C ({{lesson:2.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Energy to warm, melt or boil something → split the journey at each phase change: $Q = mc\\Delta T$ for each warming stage, $Q = mL$ for each change of phase at constant temperature, then add ({{lesson:2.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Hot and cold bodies mixed in an insulated container → energy lost by the hot body = energy gained by the cold body, with each $\\Delta T$ written as hotter minus colder; solve for the shared final temperature ({{lesson:2.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Steady rate of energy through a wall, window or rod → $\\frac{\\Delta Q}{\\Delta t} = kA\\frac{\\Delta T}{\\Delta x}$ using the size of $\\Delta T$ and $\\Delta x$ in metres ({{lesson:2.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Star's temperature, luminosity, radius or distance → Wien's law gives $T$ from the peak wavelength, $b = \\frac{L}{4\\pi d^{2}}$ links $L$ and $d$, and $L = \\sigma(4\\pi R^{2})T^{4}$ links $L$, $R$ and $T$ ({{lesson:2.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Planet's equilibrium temperature → set the absorbed intensity $(1 - \\alpha)\\frac{S}{4}$ equal to the emitted $e\\sigma T^{4}$; with an atmosphere, balance the surface alone: absorbed solar + radiated down by the atmosphere = emitted ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Fixed amount of gas moving between two states → $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$, cancelling what stays constant; moles, molecules or mass in one state → $PV = nRT = Nk_\\text{B}T$ in Pa, m³ and K ({{lesson:2.7}}, {{lesson:2.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Molecular speed from pressure and density → $P = \\frac{1}{3}\\rho v^{2}$ gives $v_\\text{rms}$; internal energy of an ideal monatomic gas → $U = \\frac{3}{2}nRT = \\frac{3}{2}PV$ ({{lesson:2.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Gas is heated, cooled, compressed or expands → write $Q$ (heat in), $W$ (work by the gas: $P\\Delta V$, or the area under the P–V line when $P$ changes) and, for a monatomic ideal gas, $\\Delta U = \\frac{3}{2}nR\\Delta T$, each with its sign, then use $Q = \\Delta U + W$ ({{lesson:2.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Heat transferred reversibly at a fixed temperature (melting, boiling, a large reservoir) → $\\Delta S = \\frac{\\Delta Q}{T}$ with $T$ in kelvin and $\\Delta Q$ signed; to test whether a process can happen, add the entropy changes of every body involved and check the total is not negative ({{lesson:2.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Monatomic ideal gas compressed or expanded slowly (reversibly) with no heat flow → adiabatic: $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$ (not for a free expansion into a vacuum, where $T$ stays the same) for the new $P$ or $V$, then $PV = nRT$ for the temperature, and $W = -\\Delta U$ ({{lesson:2.11}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Efficiency of an engine running round a gas cycle → $\\eta = \\frac{W}{Q_\\text{h}}$, with $W$ the area enclosed on the P–V diagram and $Q_\\text{h}$ the heat taken in on the stages where $Q > 0$ only; the most any engine can reach is $1 - \\frac{T_\\text{c}}{T_\\text{h}}$, in kelvin ({{lesson:2.11}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Resistance of a wire from its size, or after it is stretched or swapped for a thicker one → $R = \\frac{\\rho L}{A}$ with $A = \\pi r^{2}$ in $\\text{m}^{2}$; change one factor at a time, and the area goes as the diameter squared ({{lesson:2.13}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Meter reading after a resistor, LDR or thermistor changes → follow the chain one link at a time: total resistance → current → pd across the fixed resistor ($IR$) or the lost volts ($Ir$) → reading; use $\\varepsilon = I(R + r)$ when the cell has internal resistance ({{lesson:2.14}})",
+      "tag": "learn",
+      "level": "SL"
+    }
+  ]
+}

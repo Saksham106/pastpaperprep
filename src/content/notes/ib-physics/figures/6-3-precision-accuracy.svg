@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 290" role="img" aria-labelledby="t63pa">
+  <title id="t63pa">Four rows of five measurement dots, each on its own horizontal line, with a dashed vertical line marking the true value through all four rows. Row 1, precise and accurate: the dots are tightly bunched on the true value. Row 2, precise but not accurate, labelled systematic error: the dots are tightly bunched but all well to the right of the true value. Row 3, accurate but not precise, labelled random error: the dots are widely spread, but centred on the true value. Row 4, neither, labelled both kinds of error: the dots are widely spread and centred well to the right of the true value.</title>
+  <!-- true value line -->
+  <line x1="310" y1="34" x2="310" y2="275" stroke="var(--t1-ink)" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="310" y="24" font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">true value</text>
+  <!-- row 1: precise and accurate -->
+  <text x="10" y="67" font-size="12" fill="currentColor" font-family="inherit">precise and accurate</text>
+  <text x="10" y="83" font-size="11" fill="var(--muted)" font-family="inherit">small errors</text>
+  <line x1="170" y1="70" x2="490" y2="70" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="303" cy="70" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="308" cy="70" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="312" cy="70" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="316" cy="70" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="306" cy="70" r="4.5" fill="var(--t3-ink)"/>
+  <!-- row 2: precise, not accurate -->
+  <text x="10" y="127" font-size="12" fill="currentColor" font-family="inherit">precise, not accurate</text>
+  <text x="10" y="143" font-size="11" fill="var(--muted)" font-family="inherit">systematic error</text>
+  <line x1="170" y1="130" x2="490" y2="130" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="404" cy="130" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="408" cy="130" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="412" cy="130" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="415" cy="130" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="410" cy="130" r="4.5" fill="var(--t3-ink)"/>
+  <!-- row 3: accurate, not precise -->
+  <text x="10" y="187" font-size="12" fill="currentColor" font-family="inherit">accurate, not precise</text>
+  <text x="10" y="203" font-size="11" fill="var(--muted)" font-family="inherit">random error</text>
+  <line x1="170" y1="190" x2="490" y2="190" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="240" cy="190" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="280" cy="190" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="330" cy="190" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="365" cy="190" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="335" cy="190" r="4.5" fill="var(--t3-ink)"/>
+  <!-- row 4: neither -->
+  <text x="10" y="247" font-size="12" fill="currentColor" font-family="inherit">neither</text>
+  <text x="10" y="263" font-size="11" fill="var(--muted)" font-family="inherit">both kinds of error</text>
+  <line x1="170" y1="250" x2="490" y2="250" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="350" cy="250" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="380" cy="250" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="420" cy="250" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="455" cy="250" r="4.5" fill="var(--t3-ink)"/>
+  <circle cx="445" cy="250" r="4.5" fill="var(--t3-ink)"/>
+</svg>

@@ -1,0 +1,741 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "4.7",
+ "slug": "charged-particles-in-electric-and-magnetic-fields",
+ "title": "Charged particles in electric and magnetic fields",
+ "level": "SL",
+ "topic": 4,
+ "summary": "Between charged plates a charge feels a constant force, so it speeds up along the field or curves in a parabola across it. In a [[magnetic-field|magnetic field]] the force is always sideways, so it circles at constant speed, and the radius reveals its charge-to-mass ratio. Cross the two fields and only one speed gets through.",
+ "goals": [
+  {
+   "text": "Calculate the acceleration $a = \\frac{qE}{m}$ of a charge between parallel plates and the energy $qV$ it gains, and describe its parabolic path across the field.",
+   "bullets": [
+    "D.3-s1"
+   ]
+  },
+  {
+   "text": "Explain why a charge moving perpendicular to a magnetic field circles at constant speed, and calculate the radius $r = \\frac{mv}{qB}$.",
+   "bullets": [
+    "D.3-s2"
+   ]
+  },
+  {
+   "text": "Determine a charge-to-mass ratio from the radius of a circular path, and use it to identify a particle.",
+   "bullets": [
+    "D.3-s2"
+   ]
+  },
+  {
+   "text": "Explain how crossed electric and magnetic fields pass one speed only, $v = \\frac{E}{B}$, and predict which way faster and slower particles bend.",
+   "bullets": [
+    "D.3-s3"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "1.1",
+  "1.3",
+  "1.4",
+  "1.5",
+  "1.8",
+  "1.10",
+  "2.12",
+  "4.4",
+  "4.5",
+  "6.1"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "charged particle in a magnetic field",
+  "r = mv/qB",
+  "electron deflection between parallel plates",
+  "e/m experiment",
+  "fine beam tube",
+  "velocity selector v = E/B"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-centripetal",
+   "prompt": "A $\\pu{0.40 kg}$ ball moves in a circle of radius $\\pu{1.5 m}$ at a constant speed of $\\pu{3.0 m s-1}$. Calculate the centripetal force on it, in N. Give 2 significant figures.",
+   "hint": "Use $F = \\frac{mv^{2}}{r}$.",
+   "answer": {
+    "value": 2.4,
+    "tolerance": 0.05
+   },
+   "explain": "$F = \\frac{0.40 \\times 3.0^{2}}{1.5} = \\pu{2.4 N}$, towards the centre. Revise it in {{lesson:1.8}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "0.40*3.0**2/1.5",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-plates",
+   "prompt": "Two parallel plates $\\pu{25 mm}$ apart have a potential difference of $\\pu{500 V}$ between them. Calculate the [[electric-field-strength|electric field strength]] between them, in units of $10^{4}\\ \\text{V m}^{-1}$. Give 2 significant figures.",
+   "hint": "Use $E = \\frac{V}{d}$, with $d$ in metres.",
+   "answer": {
+    "value": 2.0,
+    "tolerance": 0.05
+   },
+   "explain": "$E = \\frac{500}{0.025} = \\pu{2.0e4 V m-1}$. Revise it in {{lesson:4.5}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "500/0.025/10**4",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-projectile",
+   "prompt": "A ball is thrown horizontally off a cliff. Ignoring air resistance, what happens to the horizontal component of its [[velocity|velocity]]?",
+   "hint": "Which way does the only force act?",
+   "options": [
+    {
+     "text": "it stays constant",
+     "correct": true
+    },
+    {
+     "text": "it decreases steadily",
+     "correct": false
+    },
+    {
+     "text": "it increases steadily",
+     "correct": false
+    },
+    {
+     "text": "it falls to zero at the bottom",
+     "correct": false
+    }
+   ],
+   "explain": "The weight is vertical, so nothing changes the horizontal motion. Revise it in {{lesson:1.3}}.",
+   "verify": {
+    "kind": "choice",
+    "truth": "it stays constant"
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "electric",
+   "heading": "Motion in a uniform electric field",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Between two charged parallel plates the field is a [[uniform-electric-field|uniform electric field]]: the same everywhere except near the edges. A charge there feels a constant [[electric-force|electric force]], so it has a constant acceleration, just like a ball under gravity."
+    },
+    {
+     "type": "text",
+     "text": "From the definition of [[electric-field-strength|electric field strength]], and the field between plates a distance $d$ apart with a potential difference $V$ across them:"
+    },
+    {
+     "type": "formula",
+     "tex": "E = \\frac{F}{q}",
+     "tag": "booklet",
+     "bookletId": "db-4-5"
+    },
+    {
+     "type": "formula",
+     "tex": "E = \\frac{V}{d}",
+     "tag": "booklet",
+     "bookletId": "db-4-5"
+    },
+    {
+     "type": "text",
+     "text": "So $F = qE$ and $a = \\frac{qE}{m}$. A positive charge accelerates along the field lines, towards the negative plate. An electron, $q = -e$, accelerates the opposite way. Take $e$, $m_\\text{e}$, $m_\\text{p}$ and any other constant a question does not give from the data booklet."
+    },
+    {
+     "type": "text",
+     "text": "For electrons and ions, gravity can be ignored (unlike for Millikan's oil drops in {{lesson:4.4}}): in a field of just $\\pu{1000 V m-1}$ an electron's acceleration is about $\\pu{1.8e14 m s-2}$, some $10^{13}$ times $g$."
+    },
+    {
+     "type": "text",
+     "text": "**Along the field.** A particle released from rest moves in a straight line and speeds up. The field does work $qV$ on it across a potential difference $V$, so its [[kinetic-energy|kinetic energy]] grows by:"
+    },
+    {
+     "type": "formula",
+     "tex": "\\Delta E_\\text{k} = qV",
+     "tag": "learn"
+    },
+    {
+     "type": "text",
+     "text": "An electron accelerated from rest through $\\pu{1 V}$ gains $\\pu{1.60e-19 J}$: one [[electronvolt|electronvolt]]. This is how an electron gun makes a fast beam."
+    },
+    {
+     "type": "example",
+     "id": "ex-accelerate",
+     "question": "An electron gun accelerates electrons from rest through a potential difference of $\\pu{2.5 kV}$. Calculate the speed of the electrons as they leave the gun.",
+     "steps": [
+      "The electrons start from rest, so all the energy gained is kinetic: $\\frac{1}{2} m_\\text{e} v^{2} = eV$.",
+      "Rearrange: $v = \\sqrt{\\frac{2eV}{m_\\text{e}}} = \\sqrt{\\frac{2 \\times 1.60 \\times 10^{-19} \\times 2500}{9.11 \\times 10^{-31}}} = 2.96 \\times 10^{7}\\ \\text{m s}^{-1}$.",
+      "Sense check: about a tenth of the speed of light, fast but well below $c$."
+     ],
+     "answer": "$v \\approx 3.0 \\times 10^{7}\\ \\text{m s}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "sqrt(2*e*2500/me)",
+      "sf": 2,
+      "unit": "m s-1"
+     }
+    },
+    {
+     "type": "text",
+     "text": "**Across the field.** Fire the particle between the plates, parallel to them, so its [[velocity|velocity]] is perpendicular to the field. It moves like a [[projectile|projectile]] thrown horizontally:\n- along the plates, no force: constant velocity, so the time between plates of length $L$ is $t = \\frac{L}{v}$;\n- across the plates, uniform acceleration $\\frac{qE}{m}$ from rest: sideways displacement $s = \\frac{1}{2}at^{2}$;\n- so the path is a parabola, then a straight line once the particle leaves the field."
+    },
+    {
+     "type": "figure",
+     "id": "4-7-plates-deflection",
+     "alt": "Two horizontal parallel plates, the top one positive and the bottom one negative, with straight, parallel electric field lines pointing down between them. An electron enters midway between the plates from the left, moving horizontally with velocity v. Between the plates its path curves upwards, towards the positive plate, along a parabola. An arrow on the electron points straight up, labelled electric force e E. After leaving the plates the electron travels in a straight line, still angled upwards.",
+     "caption": "Constant velocity along the plates, uniform acceleration towards the positive plate: a parabola."
+    },
+    {
+     "type": "example",
+     "id": "ex-deflect",
+     "question": "Two horizontal plates $\\pu{60 mm}$ long are $\\pu{40 mm}$ apart, with a potential difference of $\\pu{150 V}$ between them. An electron enters midway between the plates, moving parallel to them at $\\pu{3.0e7 m s-1}$. Determine how far the electron has been deflected towards the positive plate when it leaves the plates.",
+     "steps": [
+      "$E = \\frac{V}{d} = \\frac{150}{0.040} = 3750\\ \\text{V m}^{-1}$.",
+      "$a = \\frac{eE}{m_\\text{e}} = \\frac{1.60 \\times 10^{-19} \\times 3750}{9.11 \\times 10^{-31}} = 6.59 \\times 10^{14}\\ \\text{m s}^{-2}$.",
+      "Time between the plates: $t = \\frac{L}{v} = \\frac{0.060}{3.0 \\times 10^{7}} = 2.0 \\times 10^{-9}\\ \\text{s}$.",
+      "$s = \\frac{1}{2}at^{2} = \\frac{1}{2} \\times 6.59 \\times 10^{14} \\times (2.0 \\times 10^{-9})^{2} = 1.3 \\times 10^{-3}\\ \\text{m}$, less than the $\\pu{20 mm}$ gap, so it gets out."
+     ],
+     "answer": "$s \\approx 1.3 \\times 10^{-3}\\ \\text{m}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(1, 2)*(e*(150/0.040)/me)*(0.060/3.0e7)**2",
+      "sf": 2,
+      "unit": "m"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Finding the time between the plates from their separation. Time comes from the plate length, $t = \\frac{L}{v}$; the separation is only for $E = \\frac{V}{d}$."
+    },
+    {
+     "type": "check",
+     "id": "check-ke-alpha",
+     "prompt": "A proton and an alpha particle, of charge $+2e$, are each accelerated from rest through the same potential difference. Which statement is correct?",
+     "hint": "The energy gained is $qV$.",
+     "options": [
+      {
+       "text": "the alpha particle gains twice as much kinetic energy",
+       "correct": true
+      },
+      {
+       "text": "both gain the same kinetic energy",
+       "correct": false
+      },
+      {
+       "text": "the proton gains more kinetic energy, because it has less mass",
+       "correct": false
+      },
+      {
+       "text": "the alpha particle gains four times as much kinetic energy",
+       "correct": false
+      }
+     ],
+     "explain": "$\\Delta E_\\text{k} = qV$ depends on charge, not mass. The lighter proton ends up faster, but with less energy.",
+     "verify": {
+      "kind": "choice",
+      "truth": "the alpha particle gains twice as much kinetic energy"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-accel-proton",
+     "prompt": "A proton is in a uniform electric field of strength $\\pu{4.0e3 V m-1}$. Calculate the size of its acceleration, in units of $10^{11}\\ \\text{m s}^{-2}$. Give 2 significant figures.",
+     "hint": "$a = \\frac{eE}{m_\\text{p}}$.",
+     "answer": {
+      "value": 3.8,
+      "tolerance": 0.05
+     },
+     "explain": "$a = \\frac{1.60 \\times 10^{-19} \\times 4.0 \\times 10^{3}}{1.673 \\times 10^{-27}} = \\pu{3.8e11 m s-2}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "e*4.0e3/mp/10**11",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "magnetic",
+   "heading": "Motion in a uniform magnetic field",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "A [[magnetic-field|magnetic field]] exerts a [[magnetic-force|magnetic force]] only on a charge moving across its [[magnetic-field-line|field lines]]:"
+    },
+    {
+     "type": "formula",
+     "tex": "F = qvB\\sin\\theta",
+     "tag": "booklet",
+     "bookletId": "db-4-7"
+    },
+    {
+     "type": "text",
+     "text": "$B$ is the [[magnetic-field-strength|magnetic field strength]] in tesla, T, and $\\theta$ the angle between the velocity and the field. Moving along the field, $\\sin\\theta = 0$: no force, so a straight line at constant speed. Moving perpendicular to it, $F = qvB$."
+    },
+    {
+     "type": "text",
+     "text": "The force is at right angles to both the velocity and the field. For a positive charge use the [[right-hand-rule|right-hand rule]] from {{lesson:4.8}}; for a negative charge the force is reversed."
+    },
+    {
+     "type": "text",
+     "text": "**Why a circle?** For a velocity perpendicular to a uniform field, the force has a constant size and always acts sideways to the motion. It turns the particle without changing its speed: uniform circular motion. The magnetic force is the centripetal force:"
+    },
+    {
+     "type": "formula",
+     "tex": "qvB = \\frac{mv^{2}}{r} \\quad\\Rightarrow\\quad r = \\frac{mv}{qB}",
+     "tag": "learn"
+    },
+    {
+     "type": "text",
+     "text": "Faster or heavier particles make bigger circles; a stronger field or a larger charge makes tighter ones. The direction of the turn gives the sign of the charge."
+    },
+    {
+     "type": "figure",
+     "id": "4-7-circular-paths",
+     "alt": "Crosses show a magnetic field pointing into the page. Left: a positive charge moves anticlockwise round a circle. At the bottom of the circle it moves to the right, labelled v, and the magnetic force on it, labelled F, points up towards the centre. The radius r is drawn from the centre to the charge. Right: an electron moves clockwise round a circle. At the bottom of its circle it moves to the left, and the magnetic force on it points up towards the centre.",
+     "caption": "Field into the page: positive charges circle anticlockwise, electrons clockwise. Not to scale."
+    },
+    {
+     "type": "text",
+     "text": "Since the force is always perpendicular to the motion, it does no work. So in a magnetic field alone a particle's speed, and its kinetic energy, never change; only its direction does."
+    },
+    {
+     "type": "example",
+     "id": "ex-radius",
+     "question": "An alpha particle, of charge $+2e$ and mass $\\pu{6.64e-27 kg}$, moves at $\\pu{1.6e6 m s-1}$ perpendicular to a $\\pu{0.25 T}$ magnetic field. Calculate the radius of its path.",
+     "steps": [
+      "Magnetic force = centripetal force: $qvB = \\frac{mv^{2}}{r}$, so $r = \\frac{mv}{qB}$.",
+      "$r = \\frac{6.64 \\times 10^{-27} \\times 1.6 \\times 10^{6}}{2 \\times 1.60 \\times 10^{-19} \\times 0.25} = 0.133\\ \\text{m}$, so $\\pu{0.13 m}$ to 2 significant figures."
+     ],
+     "answer": "$r \\approx 0.13\\ \\text{m}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "6.64e-27*1.6e6/(2*e*0.25)",
+      "sf": 2,
+      "unit": "m"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-ke-constant",
+     "question": "A proton moves in a circle in a uniform magnetic field. Explain why its kinetic energy does not change.",
+     "steps": [
+      "Compare the direction of the force with the motion.",
+      "Link that to work done, then to kinetic energy."
+     ],
+     "answer": "The magnetic force on the proton is always perpendicular to its velocity. So the force does no work on the proton. With no work done, the kinetic energy stays the same, so the speed is constant. The force changes only the direction of the velocity.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "force perpendicular to velocity; no work done; kinetic energy and speed constant; only direction changes",
+      "requires": [
+       "perpendicular",
+       [
+        "does no work",
+        "no work"
+       ],
+       [
+        "kinetic energy stays the same",
+        "kinetic energy is constant"
+       ],
+       [
+        "speed is constant",
+        "speed stays the same"
+       ]
+      ],
+      "forbids": [
+       "force does work",
+       "speed increases",
+       "slows down",
+       "speeds up"
+      ]
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Saying the magnetic force speeds a particle up or slows it down. It only turns it."
+    },
+    {
+     "type": "check",
+     "id": "check-direction",
+     "prompt": "A proton moves towards the top of the page through a magnetic field pointing into the page. In which direction is the magnetic force on it?",
+     "hint": "Right-hand rule: thumb up the page, fingers into the page.",
+     "options": [
+      {
+       "text": "towards the left of the page",
+       "correct": true
+      },
+      {
+       "text": "towards the right of the page",
+       "correct": false
+      },
+      {
+       "text": "into the page",
+       "correct": false
+      },
+      {
+       "text": "towards the top of the page",
+       "correct": false
+      }
+     ],
+     "explain": "The palm faces left. The force is perpendicular to both the velocity and the field. An electron would be pushed right.",
+     "verify": {
+      "kind": "choice",
+      "truth": "towards the left of the page"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-electron-radius",
+     "prompt": "An electron moves at $\\pu{4.0e6 m s-1}$ perpendicular to a $\\pu{8.0e-4 T}$ magnetic field. Calculate the radius of its path, in mm. Give 2 significant figures.",
+     "hint": "$r = \\frac{m_\\text{e}v}{eB}$, then convert to mm.",
+     "answer": {
+      "value": 28,
+      "tolerance": 0.5
+     },
+     "explain": "$r = \\frac{9.11 \\times 10^{-31} \\times 4.0 \\times 10^{6}}{1.60 \\times 10^{-19} \\times 8.0 \\times 10^{-4}} = 0.0285\\ \\text{m} = \\pu{28 mm}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "me*4.0e6/(e*8.0e-4)*1000",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-radius-speed",
+     "prompt": "A charged particle circles in a uniform magnetic field. Its speed is doubled. What happens to the radius of its path?",
+     "hint": "$r = \\frac{mv}{qB}$.",
+     "options": [
+      {
+       "text": "it doubles",
+       "correct": true
+      },
+      {
+       "text": "it halves",
+       "correct": false
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      },
+      {
+       "text": "it quadruples",
+       "correct": false
+      }
+     ],
+     "explain": "$r$ is proportional to $v$.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it doubles"
+     }
+    }
+   ]
+  },
+  {
+   "id": "charge-mass",
+   "heading": "Finding the charge-to-mass ratio",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "The radius depends on the particle only through $\\frac{q}{m}$. From $r = \\frac{mv}{qB}$, and, for a particle accelerated from rest through $V$ to a speed well below the speed of light, $v = \\sqrt{\\frac{2qV}{m}}$:"
+    },
+    {
+     "type": "formula",
+     "tex": "\\frac{q}{m} = \\frac{v}{Br} = \\frac{2V}{B^{2}r^{2}}",
+     "tag": "learn"
+    },
+    {
+     "type": "text",
+     "text": "**The experiment.** In a fine-beam tube, an electron gun accelerates electrons through a known $V$. Coils make a uniform field $B$ perpendicular to the beam. Low-pressure gas glows along the beam, so you can read the circle's diameter off a scale and halve it."
+    },
+    {
+     "type": "text",
+     "text": "Repeat for several $V$ at fixed $B$: since $r^{2} = \\frac{2m}{qB^{2}}V$, a graph of $r^{2}$ against $V$ is a straight line through the origin, and $\\frac{q}{m} = \\frac{2}{B^{2} \\times \\text{gradient}}$."
+    },
+    {
+     "type": "text",
+     "text": "**Identifying a particle.** At the same speed in the same field, $r \\propto \\frac{m}{q}$, and the way the path bends gives the sign of the charge. A proton has $\\frac{q}{m} \\approx \\pu{9.6e7 C kg-1}$, an alpha particle about half that, an electron about $1800$ times more."
+    },
+    {
+     "type": "example",
+     "id": "ex-qm-calc",
+     "question": "In a fine-beam tube, electrons are accelerated from rest through $\\pu{250 V}$. A magnetic field of $\\pu{1.2e-3 T}$ perpendicular to the beam bends it into a circle of diameter $\\pu{89 mm}$. Determine the charge-to-mass ratio of the electron.",
+     "steps": [
+      "Radius: $r = \\frac{0.089}{2} = 0.0445\\ \\text{m}$.",
+      "$\\frac{q}{m} = \\frac{2V}{B^{2}r^{2}} = \\frac{2 \\times 250}{(1.2 \\times 10^{-3})^{2} \\times 0.0445^{2}} = 1.75 \\times 10^{11}\\ \\text{C kg}^{-1}$.",
+      "Sense check: the booklet values give $\\frac{e}{m_\\text{e}} = \\frac{1.60 \\times 10^{-19}}{9.11 \\times 10^{-31}} = 1.76 \\times 10^{11}\\ \\text{C kg}^{-1}$."
+     ],
+     "answer": "$\\frac{q}{m} \\approx 1.8 \\times 10^{11}\\ \\text{C kg}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "2*250/((1.2e-3)**2*(0.089/2)**2)",
+      "sf": 2,
+      "unit": "C kg-1"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-isotopes",
+     "question": "Singly charged ions of two isotopes of one element, all at the same speed, enter a uniform magnetic field perpendicular to it. The beam splits into two circles. Explain why, and state which circle the heavier isotope follows.",
+     "steps": [
+      "Write down what provides the centripetal force.",
+      "Say what is the same for both isotopes and what differs."
+     ],
+     "answer": "The magnetic force provides the centripetal force, so $r = \\frac{mv}{qB}$. All the ions have the same charge and speed in the same field, so the radius is proportional to the mass. The isotopes have different masses, so their radii differ. The heavier isotope follows the larger circle.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "magnetic force is centripetal; r = mv/qB; same q, v, B; r proportional to m; heavier isotope has larger radius",
+      "requires": [
+       "centripetal force",
+       "same charge",
+       "proportional to the mass",
+       "different masses",
+       "larger circle"
+      ],
+      "forbids": [
+       "smaller circle",
+       "different charges"
+      ]
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Using the diameter as $r$. In $\\frac{q}{m} = \\frac{2V}{B^{2}r^{2}}$ that makes $\\frac{q}{m}$ four times too small."
+    },
+    {
+     "type": "check",
+     "id": "check-qm",
+     "prompt": "A charged particle moves at $\\pu{5.0e5 m s-1}$ in a circle of radius $\\pu{0.21 m}$ perpendicular to a $\\pu{0.050 T}$ magnetic field. Calculate its charge-to-mass ratio, in units of $10^{7}\\ \\text{C kg}^{-1}$. Give 2 significant figures.",
+     "hint": "$\\frac{q}{m} = \\frac{v}{Br}$.",
+     "answer": {
+      "value": 4.8,
+      "tolerance": 0.05
+     },
+     "explain": "$\\frac{q}{m} = \\frac{5.0 \\times 10^{5}}{0.050 \\times 0.21} = \\pu{4.8e7 C kg-1}$, half the proton's value: perhaps an alpha particle.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "5.0e5/(0.050*0.21)/10**7",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-alpha-proton",
+     "prompt": "A proton and an alpha particle move at the same speed perpendicular to the same magnetic field. How does the radius of the alpha particle's path compare with the proton's?",
+     "hint": "$r \\propto \\frac{m}{q}$. The alpha particle has about four times the mass and twice the charge.",
+     "options": [
+      {
+       "text": "it is about twice as large",
+       "correct": true
+      },
+      {
+       "text": "it is the same",
+       "correct": false
+      },
+      {
+       "text": "it is about four times as large",
+       "correct": false
+      },
+      {
+       "text": "it is about half as large",
+       "correct": false
+      }
+     ],
+     "explain": "Its $\\frac{m}{q}$ is about $\\frac{4}{2} = 2$ times the proton's.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it is about twice as large"
+     }
+    }
+   ]
+  },
+  {
+   "id": "crossed",
+   "heading": "Crossed electric and magnetic fields",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Now set up both fields together, perpendicular to each other and to the beam: charged plates make an [[electric-field|electric field]], and a magnetic field runs across the gap. The fields are arranged so that the electric and magnetic forces on a particle point in opposite directions."
+    },
+    {
+     "type": "text",
+     "text": "The electric force $qE$ does not depend on speed; the magnetic force $qvB$ does. At one speed they balance, the [[resultant-force|resultant force]] is zero, and the particle goes straight through:"
+    },
+    {
+     "type": "formula",
+     "tex": "qE = qvB \\quad\\Rightarrow\\quad v = \\frac{E}{B}",
+     "tag": "learn"
+    },
+    {
+     "type": "definition",
+     "term": "velocity selector",
+     "statement": "Uniform electric and magnetic fields perpendicular to each other and to a beam of charged particles, so that only particles with speed $v = \\frac{E}{B}$ pass through undeflected.",
+     "plain": "A filter that lets through charged particles of one speed only."
+    },
+    {
+     "type": "text",
+     "text": "In a [[velocity-selector|velocity selector]] the charge cancels, so the selected speed is the same for any charge, mass or sign. Faster particles are deflected the way the magnetic force acts; slower ones the way the electric force acts. A slit after the fields passes only $v = \\frac{E}{B}$."
+    },
+    {
+     "type": "figure",
+     "id": "4-7-velocity-selector",
+     "alt": "A velocity selector. Two horizontal parallel plates, the top one positive and the bottom one negative, with a magnetic field into the page between them, shown by crosses. Positive ions enter from the left, moving horizontally. On an ion between the plates, the magnetic force q v B points up and the electric force q E points down. Ions with speed equal to E over B go straight through. Faster ions curve upwards, in the direction of the magnetic force. Slower ions curve downwards, in the direction of the electric force.",
+     "caption": "Only ions with $v = \\frac{E}{B}$ go straight through."
+    },
+    {
+     "type": "example",
+     "id": "ex-selector-speed",
+     "question": "In a velocity selector, two parallel plates $\\pu{12 mm}$ apart have a potential difference of $\\pu{600 V}$ between them. A $\\pu{0.020 T}$ magnetic field acts perpendicular to the electric field and to the beam. Calculate the speed of the ions that pass through undeflected.",
+     "steps": [
+      "$E = \\frac{V}{d} = \\frac{600}{0.012} = 5.0 \\times 10^{4}\\ \\text{V m}^{-1}$.",
+      "Forces balance: $qE = qvB$, so $v = \\frac{E}{B} = \\frac{5.0 \\times 10^{4}}{0.020} = 2.5 \\times 10^{6}\\ \\text{m s}^{-1}$.",
+      "No charge or mass was needed: they cancel."
+     ],
+     "answer": "$v = 2.5 \\times 10^{6}\\ \\text{m s}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "(600/0.012)/0.020",
+      "sf": 2,
+      "unit": "m s-1"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-selector-fast",
+     "question": "An ion moving faster than $\\frac{E}{B}$ enters a velocity selector. Explain why it does not pass straight through, and state which way it is deflected.",
+     "steps": [
+      "Compare how the two forces depend on speed.",
+      "Compare their sizes for this ion."
+     ],
+     "answer": "The electric force $qE$ does not depend on speed, but the magnetic force $qvB$ is proportional to speed. For this faster ion the magnetic force is larger than the electric force. The resultant force is not zero, so the ion does not go straight. It is deflected in the direction of the magnetic force.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "electric force independent of speed; magnetic force proportional to speed; faster ion: magnetic force larger; resultant not zero; deflected towards magnetic force",
+      "requires": [
+       "does not depend on speed",
+       "proportional to speed",
+       "magnetic force is larger",
+       "resultant force is not zero",
+       "direction of the magnetic force"
+      ],
+      "forbids": [
+       "direction of the electric force",
+       "forces balance"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-selector-b",
+     "prompt": "A velocity selector has an electric field of $\\pu{4.2e4 V m-1}$. Calculate the magnetic field strength needed to select ions moving at $\\pu{2.8e5 m s-1}$, in T. Give 2 significant figures.",
+     "hint": "Rearrange $v = \\frac{E}{B}$.",
+     "answer": {
+      "value": 0.15,
+      "tolerance": 0.005
+     },
+     "explain": "$B = \\frac{E}{v} = \\frac{4.2 \\times 10^{4}}{2.8 \\times 10^{5}} = \\pu{0.15 T}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "4.2e4/2.8e5",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-selector-charge",
+     "prompt": "A velocity selector passes singly charged lithium ions of one speed straight through. Without changing the fields, it is used for a beam of electrons instead. What happens to the speed that passes straight through?",
+     "hint": "Does $q$ or $m$ appear in $v = \\frac{E}{B}$?",
+     "options": [
+      {
+       "text": "it stays the same",
+       "correct": true
+      },
+      {
+       "text": "it is much higher, because electrons are much lighter",
+       "correct": false
+      },
+      {
+       "text": "no speed passes, because the charge is negative",
+       "correct": false
+      },
+      {
+       "text": "it is lower, because electrons carry less charge",
+       "correct": false
+      }
+     ],
+     "explain": "Both forces are proportional to $q$, so the charge and the mass cancel. A negative charge reverses both forces together, so they still balance.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it stays the same"
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "fact",
+     "text": "Uniform electric field: $a = \\frac{qE}{m}$. Along the field, $\\Delta E_\\text{k} = qV$. Across it, a parabola: constant velocity along the plates, uniform acceleration across.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "F = qvB\\sin\\theta",
+     "tag": "booklet",
+     "bookletId": "db-4-7",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Velocity perpendicular to a uniform magnetic field: a circle, $r = \\frac{mv}{qB}$. No work is done, so kinetic energy is constant.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "$\\frac{q}{m} = \\frac{v}{Br} = \\frac{2V}{B^{2}r^{2}}$. Use the radius, not the diameter.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Crossed fields: undeflected when $v = \\frac{E}{B}$, for any charge or mass.",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Saying the magnetic force does work on a moving charge. It is perpendicular to the velocity, so speed and kinetic energy stay constant.",
+  "Forgetting to reverse the right-hand rule for an electron.",
+  "Finding the time between plates from their separation instead of their length, $t = \\frac{L}{v}$.",
+  "Mixing up the paths: a parabola across a uniform electric field, a circle perpendicular to a uniform magnetic field.",
+  "Using the diameter of the beam's circle as $r$ when finding $\\frac{q}{m}$."
+ ],
+ "examTips": [
+  "\"Outline why the kinetic energy stays constant\": the force is perpendicular to the velocity, so no work is done. Both ideas earn the mark.",
+  "\"State the direction\" of a field or force: write \"into the page\", \"out of the page\" or \"towards the top of the page\", not a bare \"up\" or \"outwards\".",
+  "Deflection between plates in Paper 2: write $E = \\frac{V}{d}$, $a = \\frac{qE}{m}$, $t = \\frac{L}{v}$ and $s = \\frac{1}{2}at^{2}$, each substituted. Each step can score.",
+  "To show gravity is negligible, compare $qE$ with $mg$ using numbers; a bare claim may not score."
+ ],
+ "readingMinutes": 24
+}

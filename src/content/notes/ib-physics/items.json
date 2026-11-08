@@ -1,0 +1,2197 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "source": "IB Physics guide, first assessment 2025 (published February 2023, updated March 2024)",
+ "items": [
+  {
+   "item": "1.1",
+   "topic": 1,
+   "level": "SL",
+   "name": "Describing motion",
+   "practice": "Kinematics and motion",
+   "bullets": [
+    {
+     "id": "A.1-s1",
+     "text": "that the motion of bodies through space and time can be described and analysed in terms of position, velocity, and acceleration"
+    },
+    {
+     "id": "A.1-s2",
+     "text": "velocity is the rate of change of position, and acceleration is the rate of change of velocity"
+    },
+    {
+     "id": "A.1-s3",
+     "text": "the change in position is the displacement"
+    },
+    {
+     "id": "A.1-s4",
+     "text": "the difference between distance and displacement"
+    },
+    {
+     "id": "A.1-s5",
+     "text": "the difference between instantaneous and average values of velocity, speed and acceleration, and how to determine them"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-1",
+     "label": "Data booklet A.1 Kinematics"
+    }
+   ]
+  },
+  {
+   "item": "1.2",
+   "topic": 1,
+   "level": "SL",
+   "name": "Equations of motion and motion graphs",
+   "practice": "Kinematics and motion",
+   "bullets": [
+    {
+     "id": "A.1-s6",
+     "text": "the equations of motion for solving problems with uniformly accelerated motion as given by s = u + v2 t v = u + at s = ut + 12 at2 v2 = u2 + 2as"
+    },
+    {
+     "id": "A.1-s7",
+     "text": "motion with uniform and non-uniform acceleration"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-2",
+     "label": "Data booklet A.1 Kinematics"
+    }
+   ]
+  },
+  {
+   "item": "1.3",
+   "topic": 1,
+   "level": "SL",
+   "name": "Projectile motion",
+   "practice": "Kinematics and motion",
+   "bullets": [
+    {
+     "id": "A.1-s8",
+     "text": "the behaviour of projectiles in the absence of fluid resistance, and the application of the equations of motion resolved into vertical and horizontal components"
+    },
+    {
+     "id": "A.1-s9",
+     "text": "the qualitative effect of fluid resistance on projectiles, including time of flight, trajectory, velocity, acceleration, range and terminal speed."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-3",
+     "label": "Data booklet A.1 Kinematics"
+    }
+   ]
+  },
+  {
+   "item": "1.4",
+   "topic": 1,
+   "level": "SL",
+   "name": "Newton's laws and free-body diagrams",
+   "practice": "Forces and dynamics",
+   "bullets": [
+    {
+     "id": "A.2-s1",
+     "text": "Newton’s three laws of motion"
+    },
+    {
+     "id": "A.2-s2",
+     "text": "forces as interactions between bodies"
+    },
+    {
+     "id": "A.2-s3",
+     "text": "that forces acting on a body can be represented in a free-body diagram"
+    },
+    {
+     "id": "A.2-s4",
+     "text": "that free-body diagrams can be analysed to find the resultant force on a system"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-4",
+     "label": "Data booklet A.2 Forces and momentum"
+    }
+   ]
+  },
+  {
+   "item": "1.5",
+   "topic": 1,
+   "level": "SL",
+   "name": "Contact and field forces",
+   "practice": "Forces and dynamics",
+   "bullets": [
+    {
+     "id": "A.2-s5",
+     "text": "the nature and use of the following contact forces; normal force FN is the component of the contact force acting perpendicular to the surface that counteracts the body; surface frictional force Ff acting in a direction parallel to the plane of contact between a body and a surface, on a stationary body as given by Ff ≤ μsFN or a body in motion as given by Ff = μdFN where μs and μd are the coefficients of static and dynamic friction respectively; tension; elastic restoring force FH following Hooke’s law as given by FH = –kx where k is the spring constant; viscous drag force Fd acting on a small sphere opposing its motion through a fluid as given by Fd = 6πηrv where η is the fluid viscosity, r is the radius of the sphere and v is the velocity of the sphere through the fluid; buoyancy Fb acting on a body due to the displacement of the fluid as given by Fb = ρVg where V is the volume of fluid displaced"
+    },
+    {
+     "id": "A.2-s6",
+     "text": "the nature and use of the following field forces; gravitational force Fg is the weight of the body and calculated is given by Fg = mg; electric force Fe; magnetic force Fm"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-5",
+     "label": "Data booklet A.2 Forces and momentum"
+    }
+   ]
+  },
+  {
+   "item": "1.6",
+   "topic": 1,
+   "level": "SL",
+   "name": "Momentum and impulse",
+   "practice": "Momentum, impulse and collisions",
+   "bullets": [
+    {
+     "id": "A.2-s7",
+     "text": "that linear momentum as given by p = mv remains constant unless the system is acted upon by a resultant external force"
+    },
+    {
+     "id": "A.2-s8",
+     "text": "that a resultant external force applied to a system constitutes an impulse J as given by J = FΔt where F is the average resultant force and Δt is the time of contact"
+    },
+    {
+     "id": "A.2-s9",
+     "text": "that the applied external impulse equals the change in momentum of the system"
+    },
+    {
+     "id": "A.2-s10",
+     "text": "that Newton’s second law in the form F = ma assumes mass is constant whereas F = ΔpΔt allows for situations where mass is changing"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-6",
+     "label": "Data booklet A.2 Forces and momentum"
+    }
+   ]
+  },
+  {
+   "item": "1.7",
+   "topic": 1,
+   "level": "SL",
+   "name": "Collisions and explosions",
+   "practice": "Momentum, impulse and collisions",
+   "bullets": [
+    {
+     "id": "A.2-s11",
+     "text": "the elastic and inelastic collisions of two bodies"
+    },
+    {
+     "id": "A.2-s12",
+     "text": "explosions"
+    },
+    {
+     "id": "A.2-s13",
+     "text": "energy considerations in elastic collisions, inelastic collisions, and explosions"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-7",
+     "label": "Data booklet A.2 Forces and momentum"
+    }
+   ]
+  },
+  {
+   "item": "1.8",
+   "topic": 1,
+   "level": "SL",
+   "name": "Circular motion",
+   "practice": "Circular motion and gravitation",
+   "bullets": [
+    {
+     "id": "A.2-s14",
+     "text": "that bodies moving along a circular trajectory at a constant speed experience an acceleration that is directed radially towards the centre of the circle—known as a centripetal acceleration as given by a = v2 r = ω2r = 4π2rT 2"
+    },
+    {
+     "id": "A.2-s15",
+     "text": "that circular motion is caused by a centripetal force acting perpendicular to the velocity"
+    },
+    {
+     "id": "A.2-s16",
+     "text": "that a centripetal force causes the body to change direction even if its magnitude of velocity may remain constant"
+    },
+    {
+     "id": "A.2-s17",
+     "text": "that the motion along a circular trajectory can be described in terms of the angular velocity ω which is related to the linear speed v by the equation as given by v = 2πrT = ωr."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-8",
+     "label": "Data booklet A.2 Forces and momentum"
+    }
+   ]
+  },
+  {
+   "item": "1.9",
+   "topic": 1,
+   "level": "SL",
+   "name": "Work and energy transfer",
+   "practice": "Work, energy and power",
+   "bullets": [
+    {
+     "id": "A.3-s1",
+     "text": "the principle of the conservation of energy"
+    },
+    {
+     "id": "A.3-s2",
+     "text": "that work done by a force is equivalent to a transfer of energy"
+    },
+    {
+     "id": "A.3-s3",
+     "text": "that energy transfers can be represented on a Sankey diagram"
+    },
+    {
+     "id": "A.3-s4",
+     "text": "that work W done on a body by a constant force depends on the component of the force along the line of displacement as given by W = Fs cos θ"
+    },
+    {
+     "id": "A.3-s5",
+     "text": "that work done by the resultant force on a system is equal to the change in the energy of the system"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-9",
+     "label": "Data booklet A.3 Work, energy and power"
+    }
+   ]
+  },
+  {
+   "item": "1.10",
+   "topic": 1,
+   "level": "SL",
+   "name": "Mechanical energy",
+   "practice": "Work, energy and power",
+   "bullets": [
+    {
+     "id": "A.3-s6",
+     "text": "that mechanical energy is the sum of kinetic energy, gravitational potential energy and elastic potential energy"
+    },
+    {
+     "id": "A.3-s7",
+     "text": "that in the absence of frictional, resistive forces, the total mechanical energy of a system is conserved"
+    },
+    {
+     "id": "A.3-s8",
+     "text": "that if mechanical energy is conserved, work is the amount of energy transformed between different forms of mechanical energy in a system, such as: the kinetic energy of translational motion as given by Ek = 12 mv2 = p22m; the gravitational potential energy, when close to the surface of the Earth as given by ΔEp = mgΔh; the elastic potential energy as given by EH = 12 k(Δx)2"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-10",
+     "label": "Data booklet A.3 Work, energy and power"
+    }
+   ]
+  },
+  {
+   "item": "1.11",
+   "topic": 1,
+   "level": "SL",
+   "name": "Power, efficiency and energy density",
+   "practice": "Work, energy and power",
+   "bullets": [
+    {
+     "id": "A.3-s9",
+     "text": "that power developed P is the rate of work done, or the rate of energy transfer, as given by P = ΔWΔt = Fv"
+    },
+    {
+     "id": "A.3-s10",
+     "text": "efficiency η in terms of energy transfer or power as given by η = useful work outtotal work in = useful power outtotal power in"
+    },
+    {
+     "id": "A.3-s11",
+     "text": "energy density of the fuel sources."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-11",
+     "label": "Data booklet A.3 Work, energy and power"
+    }
+   ]
+  },
+  {
+   "item": "1.12",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Torque and rotational equilibrium",
+   "practice": "Rigid body and rotational mechanics",
+   "bullets": [
+    {
+     "id": "A.4-a1",
+     "text": "the torque τ of a force about an axis as given by τ = Fr sin θ"
+    },
+    {
+     "id": "A.4-a2",
+     "text": "that bodies in rotational equilibrium have a resultant torque of zero"
+    },
+    {
+     "id": "A.4-a3",
+     "text": "that an unbalanced torque applied to an extended, rigid body will cause angular acceleration"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-12",
+     "label": "Data booklet A.4 Rigid body mechanics"
+    }
+   ]
+  },
+  {
+   "item": "1.13",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Rotational motion and moment of inertia",
+   "practice": "Rigid body and rotational mechanics",
+   "bullets": [
+    {
+     "id": "A.4-a4",
+     "text": "that the rotation of a body can be described in terms of angular displacement, angular velocity and angular acceleration"
+    },
+    {
+     "id": "A.4-a5",
+     "text": "that equations of motion for uniform angular acceleration can be used to predict the body’s angular position θ , angular displacement Δθ , angular speed ω and angular acceleration α, as given by Δθ = ωf + ωi 2 t ωf = ωi + αt Δθ = ωit + 12 αt2 ωf2 = ωi2 + 2αΔθ"
+    },
+    {
+     "id": "A.4-a6",
+     "text": "that the moment of inertia I depends on the distribution of mass of an extended body about an axis of rotation"
+    },
+    {
+     "id": "A.4-a7",
+     "text": "the moment of inertia for a system of point masses as given by I = Σmr2"
+    },
+    {
+     "id": "A.4-a8",
+     "text": "Newton’s second law for rotation as given by τ = Iα where τ is the average torque"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-13",
+     "label": "Data booklet A.4 Rigid body mechanics"
+    }
+   ]
+  },
+  {
+   "item": "1.14",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Angular momentum and rotational kinetic energy",
+   "practice": "Rigid body and rotational mechanics",
+   "bullets": [
+    {
+     "id": "A.4-a9",
+     "text": "that an extended body rotating with an angular speed has an angular momentum L as given by L = Iω"
+    },
+    {
+     "id": "A.4-a10",
+     "text": "that angular momentum remains constant unless the body is acted upon by a resultant torque"
+    },
+    {
+     "id": "A.4-a11",
+     "text": "that the action of a resultant torque constitutes an angular impulse ΔL as given by ΔL = τΔt = Δ(Iω)"
+    },
+    {
+     "id": "A.4-a12",
+     "text": "the kinetic energy of rotational motion as given by Ek = 12 Iω2 = L22I ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-14",
+     "label": "Data booklet A.4 Rigid body mechanics"
+    }
+   ]
+  },
+  {
+   "item": "1.15",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Reference frames and Galilean relativity",
+   "practice": "Special relativity and spacetime",
+   "bullets": [
+    {
+     "id": "A.5-a1",
+     "text": "reference frames"
+    },
+    {
+     "id": "A.5-a2",
+     "text": "that Newton's laws of motion are the same in all inertial reference frames and this is known as Galilean relativity"
+    },
+    {
+     "id": "A.5-a3",
+     "text": "that in Galilean relativity the position x′ and time t′ of an event are given by x′ = x–vt and t′ = t"
+    },
+    {
+     "id": "A.5-a4",
+     "text": "that Galilean transformation equations lead to the velocity addition equation as given by u′ = u–v"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-15",
+     "label": "Data booklet A.5 Galilean and special relativity"
+    }
+   ]
+  },
+  {
+   "item": "1.16",
+   "topic": 1,
+   "level": "AHL",
+   "name": "The postulates of special relativity and Lorentz transformations",
+   "practice": "Special relativity and spacetime",
+   "bullets": [
+    {
+     "id": "A.5-a5",
+     "text": "the two postulates of special relativity"
+    },
+    {
+     "id": "A.5-a6",
+     "text": "that the postulates of special relativity lead to the Lorentz transformation equations for the coordinates of an event in two inertial reference frames as given by x′ = γ(x–vt) t′ = γ t– vxc2 where γ = 1 1– v2 c2"
+    },
+    {
+     "id": "A.5-a7",
+     "text": "that Lorentz transformation equations lead to the relativistic velocity addition equation as given by u′ = u–v 1– uvc2"
+    },
+    {
+     "id": "A.5-a8",
+     "text": "that the space–time interval Δs between two events is an invariant quantity as given by (Δs)2 = (cΔt)2–(Δx)2"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-16",
+     "label": "Data booklet A.5 Galilean and special relativity"
+    }
+   ]
+  },
+  {
+   "item": "1.17",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Time dilation, length contraction and simultaneity",
+   "practice": "Special relativity and spacetime",
+   "bullets": [
+    {
+     "id": "A.5-a9",
+     "text": "proper time interval and proper length"
+    },
+    {
+     "id": "A.5-a10",
+     "text": "time dilation as given by Δt = γΔt0"
+    },
+    {
+     "id": "A.5-a11",
+     "text": "length contraction as given by L = L0 γ"
+    },
+    {
+     "id": "A.5-a12",
+     "text": "the relativity of simultaneity"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-17",
+     "label": "Data booklet A.5 Galilean and special relativity"
+    }
+   ]
+  },
+  {
+   "item": "1.18",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Space–time diagrams and muon decay",
+   "practice": "Special relativity and spacetime",
+   "bullets": [
+    {
+     "id": "A.5-a13",
+     "text": "space–time diagrams"
+    },
+    {
+     "id": "A.5-a14",
+     "text": "that the angle between the world line of a moving particle and the time axis on a space–time diagram is related to the particle’s speed as given by tan θ = vc"
+    },
+    {
+     "id": "A.5-a15",
+     "text": "that muon decay experiments provide experimental evidence for time dilation and length contraction."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-1-18",
+     "label": "Data booklet A.5 Galilean and special relativity"
+    }
+   ]
+  },
+  {
+   "item": "2.1",
+   "topic": 2,
+   "level": "SL",
+   "name": "Particles, density and temperature",
+   "practice": "Thermal concepts and energy transfer",
+   "bullets": [
+    {
+     "id": "B.1-s1",
+     "text": "molecular theory in solids, liquids and gases"
+    },
+    {
+     "id": "B.1-s2",
+     "text": "density ρ as given by ρ = mV"
+    },
+    {
+     "id": "B.1-s3",
+     "text": "that Kelvin and Celsius scales are used to express temperature"
+    },
+    {
+     "id": "B.1-s4",
+     "text": "that the change in temperature of a system is the same when expressed with the Kelvin or Celsius scales"
+    },
+    {
+     "id": "B.1-s5",
+     "text": "that Kelvin temperature is a measure of the average kinetic energy of particles as given by Ek = 32 kBT"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-1",
+     "label": "Data booklet B.1 Thermal energy transfers"
+    }
+   ]
+  },
+  {
+   "item": "2.2",
+   "topic": 2,
+   "level": "SL",
+   "name": "Internal energy, phase changes and specific heats",
+   "practice": "Thermal concepts and energy transfer",
+   "bullets": [
+    {
+     "id": "B.1-s6",
+     "text": "that the internal energy of a system is the total intermolecular potential energy arising from the forces between the molecules plus the total random kinetic energy of the molecules arising from their random motion"
+    },
+    {
+     "id": "B.1-s7",
+     "text": "that temperature difference determines the direction of the resultant thermal energy transfer between bodies"
+    },
+    {
+     "id": "B.1-s8",
+     "text": "that a phase change represents a change in particle behaviour arising from a change in energy at constant temperature"
+    },
+    {
+     "id": "B.1-s9",
+     "text": "quantitative analysis of thermal energy transfers Q with the use of specific heat capacity c and specific latent heat of fusion and vaporization of substances L as given by Q = mcΔT and Q = mL"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-2",
+     "label": "Data booklet B.1 Thermal energy transfers"
+    }
+   ]
+  },
+  {
+   "item": "2.3",
+   "topic": 2,
+   "level": "SL",
+   "name": "Conduction and convection",
+   "practice": "Thermal concepts and energy transfer",
+   "bullets": [
+    {
+     "id": "B.1-s10",
+     "text": "that conduction, convection and thermal radiation are the primary mechanisms for thermal energy transfer"
+    },
+    {
+     "id": "B.1-s11",
+     "text": "conduction in terms of the difference in the kinetic energy of particles"
+    },
+    {
+     "id": "B.1-s12",
+     "text": "quantitative analysis of rate of thermal energy transfer by conduction in terms of the type of material and cross-sectional area of the material and the temperature gradient as given by ΔQΔt = − kA ΔTΔx"
+    },
+    {
+     "id": "B.1-s13",
+     "text": "qualitative description of thermal energy transferred by convection due to fluid density differences"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-3",
+     "label": "Data booklet B.1 Thermal energy transfers"
+    }
+   ]
+  },
+  {
+   "item": "2.4",
+   "topic": 2,
+   "level": "SL",
+   "name": "Thermal radiation and black bodies",
+   "practice": "Thermal concepts and energy transfer",
+   "bullets": [
+    {
+     "id": "B.1-s14",
+     "text": "quantitative analysis of energy transferred by radiation as a result of the emission of electromagnetic waves from the surface of a body, which in the case of a black body can be modelled by the Stefan- Boltzmann law as given by L = σAT 4 where L is the luminosity, A is the surface area and T is the absolute temperature of the body"
+    },
+    {
+     "id": "B.1-s15",
+     "text": "the concept of apparent brightness b"
+    },
+    {
+     "id": "B.1-s16",
+     "text": "luminosity L of a body as given by b = L4πd2"
+    },
+    {
+     "id": "B.1-s17",
+     "text": "the emission spectrum of a black body and the determination of the temperature of the body using Wien’s displacement law as given by λmaxT = 2 . 9 × 10−3m K where λmax is the peak wavelength emitted."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-4",
+     "label": "Data booklet B.1 Thermal energy transfers"
+    }
+   ]
+  },
+  {
+   "item": "2.5",
+   "topic": 2,
+   "level": "SL",
+   "name": "Emissivity, albedo and Earth's energy balance",
+   "practice": "Greenhouse effect and climate-energy systems",
+   "bullets": [
+    {
+     "id": "B.2-s1",
+     "text": "the conservation of energy"
+    },
+    {
+     "id": "B.2-s2",
+     "text": "emissivity as the ratio of the power radiated per unit area by a surface compared to that of an ideal black surface at the same temperature as given by emissivity = power radiated per unit areaσT 4"
+    },
+    {
+     "id": "B.2-s3",
+     "text": "albedo as a measure of the average energy reflected off a macroscopic system as given by albedo = total scattered powertotal incident power"
+    },
+    {
+     "id": "B.2-s4",
+     "text": "that Earth’s albedo varies daily and is dependent on cloud formations and latitude"
+    },
+    {
+     "id": "B.2-s5",
+     "text": "the solar constant S"
+    },
+    {
+     "id": "B.2-s6",
+     "text": "that the incoming radiative power is dependent on the projected surface of a planet along the direction of the path of the rays, resulting in a mean value of the incoming intensity being S4"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-5",
+     "label": "Data booklet B.2 Greenhouse effect"
+    }
+   ]
+  },
+  {
+   "item": "2.6",
+   "topic": 2,
+   "level": "SL",
+   "name": "Greenhouse gases and the greenhouse effect",
+   "practice": "Greenhouse effect and climate-energy systems",
+   "bullets": [
+    {
+     "id": "B.2-s7",
+     "text": "that methane CH4, water vapour H2O, carbon dioxide CO2, and nitrous oxide N2O, are the main greenhouse gases and each of these has origins that are both natural and created by human activity"
+    },
+    {
+     "id": "B.2-s8",
+     "text": "the absorption of infrared radiation by the main greenhouse gases in terms of the molecular energy levels and the subsequent emission of radiation in all directions"
+    },
+    {
+     "id": "B.2-s9",
+     "text": "that the greenhouse effect can be explained in terms of both a resonance model and molecular energy levels"
+    },
+    {
+     "id": "B.2-s10",
+     "text": "that the augmentation of the greenhouse effect due to human activities is known as the enhanced greenhouse effect."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-6",
+     "label": "Data booklet B.2 Greenhouse effect"
+    }
+   ]
+  },
+  {
+   "item": "2.7",
+   "topic": 2,
+   "level": "SL",
+   "name": "Pressure, amount of substance and the ideal gas model",
+   "practice": "Kinetic model and gas laws",
+   "bullets": [
+    {
+     "id": "B.3-s1",
+     "text": "pressure as given by P = FA where F is the force exerted perpendicular to the surface"
+    },
+    {
+     "id": "B.3-s2",
+     "text": "the amount of substance n as given by n = NNA where N is the number of molecules and NA is the Avogadro constant"
+    },
+    {
+     "id": "B.3-s3",
+     "text": "that ideal gases are described in terms of the kinetic theory and constitute a modelled system used to approximate the behaviour of real gases"
+    },
+    {
+     "id": "B.3-s4",
+     "text": "that the ideal gas law equation can be derived from the empirical gas laws for constant pressure, constant volume and constant temperature as given by PVT = constant"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-7",
+     "label": "Data booklet B.3 Gas laws"
+    }
+   ]
+  },
+  {
+   "item": "2.8",
+   "topic": 2,
+   "level": "SL",
+   "name": "The ideal gas equations and the kinetic model",
+   "practice": "Kinetic model and gas laws",
+   "bullets": [
+    {
+     "id": "B.3-s5",
+     "text": "the equations governing the behaviour of ideal gases as given by PV = NkBT and PV = nRT"
+    },
+    {
+     "id": "B.3-s6",
+     "text": "that the change in momentum of particles due to collisions with a given surface gives rise to pressure in gases and, from that analysis, pressure is related to the average (translational speed)2 of molecules as given by P = 13 ρv2"
+    },
+    {
+     "id": "B.3-s7",
+     "text": "the relationship between the internal energy U of an ideal monatomic gas and the number of molecules or amount of substance as given by U = 32 NkBT or U = 32 RnT"
+    },
+    {
+     "id": "B.3-s8",
+     "text": "the temperature, pressure and density conditions under which an ideal gas is a good approximation of a real gas."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-8",
+     "label": "Data booklet B.3 Gas laws"
+    }
+   ]
+  },
+  {
+   "item": "2.9",
+   "topic": 2,
+   "level": "AHL",
+   "name": "The first law of thermodynamics",
+   "practice": "Thermodynamics, entropy and cycles",
+   "bullets": [
+    {
+     "id": "B.4-a1",
+     "text": "that the first law of thermodynamics as given by Q = ΔU + W results from the application of conservation of energy to a closed system and relates the internal energy of a system to the transfer of energy as heat and as work"
+    },
+    {
+     "id": "B.4-a2",
+     "text": "that the work done by or on a closed system as given by W = PΔV when its boundaries are changed can be described in terms of pressure and changes of volume of the system"
+    },
+    {
+     "id": "B.4-a3",
+     "text": "that the change in internal energy as given by ΔU = 32 NkBΔT = 32 nRΔT of a system is related to the change of its temperature"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-9",
+     "label": "Data booklet B.4 Thermodynamics"
+    }
+   ]
+  },
+  {
+   "item": "2.10",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Entropy and the second law",
+   "practice": "Thermodynamics, entropy and cycles",
+   "bullets": [
+    {
+     "id": "B.4-a4",
+     "text": "that entropy S is a thermodynamic quantity that relates to the degree of disorder of the particles in a system"
+    },
+    {
+     "id": "B.4-a5",
+     "text": "that entropy can be determined in terms of macroscopic quantities such as thermal energy and temperature as given by ΔS = ΔQT and also in terms of the properties of individual particles of the system as given by S = kB ln Ω where kB is the Boltzmann constant and Ω is the number of possible microstates of the system"
+    },
+    {
+     "id": "B.4-a6",
+     "text": "that the second law of thermodynamics refers to the change in entropy of an isolated system and sets constraints on possible physical processes and on the overall evolution of the system"
+    },
+    {
+     "id": "B.4-a7",
+     "text": "that processes in real isolated systems are almost always irreversible and consequently the entropy of a real isolated system always increases"
+    },
+    {
+     "id": "B.4-a8",
+     "text": "that the entropy of a non-isolated system can decrease locally, but this is compensated by an equal or greater increase of the entropy of the surroundings"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-10",
+     "label": "Data booklet B.4 Thermodynamics"
+    }
+   ]
+  },
+  {
+   "item": "2.11",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Gas processes and heat engines",
+   "practice": "Thermodynamics, entropy and cycles",
+   "bullets": [
+    {
+     "id": "B.4-a9",
+     "text": "that isovolumetric, isobaric, isothermal and adiabatic processes are obtained by keeping one variable fixed"
+    },
+    {
+     "id": "B.4-a10",
+     "text": "that adiabatic processes in monatomic ideal gases can be modelled by the equation as given by PV 5 3 = constant"
+    },
+    {
+     "id": "B.4-a11",
+     "text": "that cyclic gas processes are used to run heat engines"
+    },
+    {
+     "id": "B.4-a12",
+     "text": "that a heat engine can respond to different cycles and is characterized by its efficiency as given by η = useful workinput energy"
+    },
+    {
+     "id": "B.4-a13",
+     "text": "that the Carnot cycle sets a limit for the efficiency of a heat engine at the temperatures of its heat reservoirs as given by ηCarnot = 1– TcTh ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-11",
+     "label": "Data booklet B.4 Thermodynamics"
+    }
+   ]
+  },
+  {
+   "item": "2.12",
+   "topic": 2,
+   "level": "SL",
+   "name": "Current, potential difference and emf",
+   "practice": "Current, resistance, circuits and heating",
+   "bullets": [
+    {
+     "id": "B.5-s1",
+     "text": "that cells provide a source of emf"
+    },
+    {
+     "id": "B.5-s2",
+     "text": "chemical cells and solar cells as the energy source in circuits"
+    },
+    {
+     "id": "B.5-s3",
+     "text": "that circuit diagrams represent the arrangement of components in a circuit"
+    },
+    {
+     "id": "B.5-s4",
+     "text": "direct current (dc) I as a flow of charge carriers as given by I = ΔqΔt"
+    },
+    {
+     "id": "B.5-s5",
+     "text": "that the electric potential difference V is the work done per unit charge on moving a positive charge between two points along the path of the current as given by V = Wq"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-12",
+     "label": "Data booklet B.5 Current and circuits"
+    }
+   ]
+  },
+  {
+   "item": "2.13",
+   "topic": 2,
+   "level": "SL",
+   "name": "Resistance, resistivity and Ohm's law",
+   "practice": "Current, resistance, circuits and heating",
+   "bullets": [
+    {
+     "id": "B.5-s6",
+     "text": "the properties of electrical conductors and insulators in terms of mobility of charge carriers"
+    },
+    {
+     "id": "B.5-s7",
+     "text": "electric resistance and its origin"
+    },
+    {
+     "id": "B.5-s8",
+     "text": "electrical resistance R as given by R = VI"
+    },
+    {
+     "id": "B.5-s9",
+     "text": "resistivity as given by ρ = RAL"
+    },
+    {
+     "id": "B.5-s10",
+     "text": "Ohm’s law"
+    },
+    {
+     "id": "B.5-s11",
+     "text": "the ohmic and non-ohmic behaviour of electrical conductors, including the heating effect of resistors"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-13",
+     "label": "Data booklet B.5 Current and circuits"
+    }
+   ]
+  },
+  {
+   "item": "2.14",
+   "topic": 2,
+   "level": "SL",
+   "name": "Electrical power and circuits",
+   "practice": "Current, resistance, circuits and heating",
+   "bullets": [
+    {
+     "id": "B.5-s12",
+     "text": "electrical power P dissipated by a resistor as given by P = IV = I2R = V 2 R"
+    },
+    {
+     "id": "B.5-s13",
+     "text": "the combinations of resistors in series and parallel circuits Series circuits Parallel circuits I = I1 = I2 = . . . V = V1 + V2 + . . . Rs = R1 + R2 + . . . I = I1 + I2 + . . . V = V1 = V2 = . . . 1 Rp = 1R1 + 1R2 + . . ."
+    },
+    {
+     "id": "B.5-s14",
+     "text": "that electric cells are characterized by their emf ε and internal resistance r as given by ε = I(R + r)"
+    },
+    {
+     "id": "B.5-s15",
+     "text": "that resistors can have variable resistance."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-2-14",
+     "label": "Data booklet B.5 Current and circuits"
+    }
+   ]
+  },
+  {
+   "item": "3.1",
+   "topic": 3,
+   "level": "SL",
+   "name": "Simple harmonic motion",
+   "practice": "Oscillations and simple harmonic motion",
+   "bullets": [
+    {
+     "id": "C.1-s1",
+     "text": "conditions that lead to simple harmonic motion"
+    },
+    {
+     "id": "C.1-s2",
+     "text": "the defining equation of simple harmonic motion as given by a = –ω2x"
+    },
+    {
+     "id": "C.1-s3",
+     "text": "a particle undergoing simple harmonic motion can be described using time period T , frequency ƒ , angular frequency ω, amplitude, equilibrium position, and displacement"
+    },
+    {
+     "id": "C.1-s4",
+     "text": "the time period in terms of frequency of oscillation and angular frequency as given by T = 1ƒ = 2πω"
+    },
+    {
+     "id": "C.1-s5",
+     "text": "the time period of a mass–spring system as given by T = 2π mk"
+    },
+    {
+     "id": "C.1-s6",
+     "text": "the time period of a simple pendulum as given by T = 2π lg"
+    },
+    {
+     "id": "C.1-s7",
+     "text": "a qualitative approach to energy changes during one cycle of an oscillation."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-1",
+     "label": "Data booklet C.1 Simple harmonic motion"
+    }
+   ]
+  },
+  {
+   "item": "3.2",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Phase and the equations of simple harmonic motion",
+   "practice": "Oscillations and simple harmonic motion",
+   "bullets": [
+    {
+     "id": "C.1-a1",
+     "text": "that a particle undergoing simple harmonic motion can be described using phase angle"
+    },
+    {
+     "id": "C.1-a2",
+     "text": "that problems can be solved using the equations for simple harmonic motion as given by x = x0 sin (ωt + ϕ) v = ωx0 cos (ωt + ϕ) v = ± ω x02–x2 ET = 12 mω2x02 Ep = 12 mω2x2."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-2",
+     "label": "Data booklet C.1 Simple harmonic motion"
+    }
+   ]
+  },
+  {
+   "item": "3.3",
+   "topic": 3,
+   "level": "SL",
+   "name": "Travelling waves",
+   "practice": "Wave model and characteristics",
+   "bullets": [
+    {
+     "id": "C.2-s1",
+     "text": "transverse and longitudinal travelling waves"
+    },
+    {
+     "id": "C.2-s2",
+     "text": "wavelength λ , frequency ƒ , time period T , and wave speed v applied to wave motion as given by v = ƒλ = λT"
+    },
+    {
+     "id": "C.2-s3",
+     "text": "the nature of sound waves"
+    },
+    {
+     "id": "C.2-s4",
+     "text": "the nature of electromagnetic waves"
+    },
+    {
+     "id": "C.2-s5",
+     "text": "the differences between mechanical waves and electromagnetic waves."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-3",
+     "label": "Data booklet C.2 Wave model"
+    }
+   ]
+  },
+  {
+   "item": "3.4",
+   "topic": 3,
+   "level": "SL",
+   "name": "Reflection, refraction and Snell's law",
+   "practice": "Interference, diffraction, polarization and resolution",
+   "bullets": [
+    {
+     "id": "C.3-s1",
+     "text": "that waves travelling in two and three dimensions can be described through the concepts of wavefronts and rays"
+    },
+    {
+     "id": "C.3-s2",
+     "text": "wave behaviour at boundaries in terms of reflection, refraction and transmission"
+    },
+    {
+     "id": "C.3-s3",
+     "text": "wave diffraction around a body and through an aperture"
+    },
+    {
+     "id": "C.3-s4",
+     "text": "wavefront-ray diagrams showing refraction and diffraction"
+    },
+    {
+     "id": "C.3-s5",
+     "text": "Snell’s law, critical angle and total internal reflection"
+    },
+    {
+     "id": "C.3-s6",
+     "text": "Snell’s law as given by n1 n2 = sin θ2 sin θ1 = v2 v1 where n is the refractive index and θ is the angle between the normal and the ray"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-4",
+     "label": "Data booklet C.3 Wave phenomena"
+    }
+   ]
+  },
+  {
+   "item": "3.5",
+   "topic": 3,
+   "level": "SL",
+   "name": "Superposition and double-slit interference",
+   "practice": "Interference, diffraction, polarization and resolution",
+   "bullets": [
+    {
+     "id": "C.3-s7",
+     "text": "superposition of waves and wave pulses"
+    },
+    {
+     "id": "C.3-s8",
+     "text": "that double-source interference requires coherent sources"
+    },
+    {
+     "id": "C.3-s9",
+     "text": "the condition for constructive interference as given by path difference = nλ"
+    },
+    {
+     "id": "C.3-s10",
+     "text": "the condition for destructive interference as given by path difference = ( n + 12 )λ"
+    },
+    {
+     "id": "C.3-s11",
+     "text": "Young’s double-slit interference as given by s = λDd where s is the separation of fringes, d is the separation of the slits, and D is the distance from the slits to the screen."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-5",
+     "label": "Data booklet C.3 Wave phenomena"
+    }
+   ]
+  },
+  {
+   "item": "3.6",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Single-slit diffraction and diffraction gratings",
+   "practice": "Interference, diffraction, polarization and resolution",
+   "bullets": [
+    {
+     "id": "C.3-a1",
+     "text": "single-slit diffraction including intensity patterns as given by θ = λb where b is the slit width"
+    },
+    {
+     "id": "C.3-a2",
+     "text": "that the single-slit pattern modulates the double slit interference pattern"
+    },
+    {
+     "id": "C.3-a3",
+     "text": "interference patterns from multiple slits and diffraction gratings as given by nλ = d sin θ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-6",
+     "label": "Data booklet C.3 Wave phenomena"
+    }
+   ]
+  },
+  {
+   "item": "3.7",
+   "topic": 3,
+   "level": "SL",
+   "name": "Standing waves",
+   "practice": "Standing waves, resonance and Doppler effect",
+   "bullets": [
+    {
+     "id": "C.4-s1",
+     "text": "the nature and formation of standing waves in terms of superposition of two identical waves travelling in opposite directions"
+    },
+    {
+     "id": "C.4-s2",
+     "text": "nodes and antinodes, relative amplitude and phase difference of points along a standing wave"
+    },
+    {
+     "id": "C.4-s3",
+     "text": "standing waves patterns in strings and pipes"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-7",
+     "label": "Data booklet C.4 Standing waves and resonance"
+    }
+   ]
+  },
+  {
+   "item": "3.8",
+   "topic": 3,
+   "level": "SL",
+   "name": "Resonance and damping",
+   "practice": "Standing waves, resonance and Doppler effect",
+   "bullets": [
+    {
+     "id": "C.4-s4",
+     "text": "the nature of resonance including natural frequency and amplitude of oscillation based on driving frequency"
+    },
+    {
+     "id": "C.4-s5",
+     "text": "the effect of damping on the maximum amplitude and resonant frequency of oscillation"
+    },
+    {
+     "id": "C.4-s6",
+     "text": "the effects of light, critical and heavy damping on the system."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-8",
+     "label": "Data booklet C.4 Standing waves and resonance"
+    }
+   ]
+  },
+  {
+   "item": "3.9",
+   "topic": 3,
+   "level": "SL",
+   "name": "The Doppler effect",
+   "practice": "Standing waves, resonance and Doppler effect",
+   "bullets": [
+    {
+     "id": "C.5-s1",
+     "text": "the nature of the Doppler effect for sound waves and electromagnetic waves"
+    },
+    {
+     "id": "C.5-s2",
+     "text": "the representation of the Doppler effect in terms of wavefront diagrams when either the source or the observer is moving"
+    },
+    {
+     "id": "C.5-s3",
+     "text": "the relative change in frequency or wavelength observed for a light wave due to the Doppler effect where the speed of light is much larger than the relative speed between the source and the observer as given by Δƒƒ = Δλλ ≈ vc"
+    },
+    {
+     "id": "C.5-s4",
+     "text": "that shifts in spectral lines provide information about the motion of bodies like stars and galaxies in space."
+    },
+    {
+     "id": "C.5-a1",
+     "text": "the observed frequency for sound waves and mechanical waves due to the Doppler effect as given by: moving source ƒ′ = ƒ vv ± us where us is the speed of the source moving observer ƒ′ = ƒ v ± uo v where uo is the speed of the observer.",
+     "level": "AHL"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-3-9",
+     "label": "Data booklet C.5 Doppler effect"
+    }
+   ]
+  },
+  {
+   "item": "4.1",
+   "topic": 4,
+   "level": "SL",
+   "name": "Gravitation: Kepler's laws and Newton's law",
+   "practice": "Circular motion and gravitation",
+   "bullets": [
+    {
+     "id": "D.1-s1",
+     "text": "Kepler’s three laws of orbital motion"
+    },
+    {
+     "id": "D.1-s2",
+     "text": "Newton's universal law of gravitation as given by F = G m1m2 r2 for bodies treated as point masses"
+    },
+    {
+     "id": "D.1-s3",
+     "text": "conditions under which extended bodies can be treated as point masses"
+    },
+    {
+     "id": "D.1-s4",
+     "text": "that gravitational field strength g at a point is the force per unit mass experienced by a small point mass at that point as given by g = Fm = G Mr2"
+    },
+    {
+     "id": "D.1-s5",
+     "text": "gravitational field lines."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-1",
+     "label": "Data booklet D.1 Gravitational fields"
+    }
+   ]
+  },
+  {
+   "item": "4.2",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Gravitational potential and potential energy",
+   "practice": "Circular motion and gravitation",
+   "bullets": [
+    {
+     "id": "D.1-a1",
+     "text": "that the gravitational potential energy Ep of a system is the work done to assemble the system from infinite separation of the components of the system"
+    },
+    {
+     "id": "D.1-a2",
+     "text": "the gravitational potential energy for a two-body system as given by Ep = –G m1m2r where r is the separation between the centre of mass of the two bodies"
+    },
+    {
+     "id": "D.1-a3",
+     "text": "that the gravitational potential Vg at a point is the work done per unit mass in bringing a mass from infinity to that point as given by Vg = –G Mr"
+    },
+    {
+     "id": "D.1-a4",
+     "text": "the gravitational field strength g as the gravitational potential gradient as given by g = – ΔVg Δr"
+    },
+    {
+     "id": "D.1-a5",
+     "text": "the work done in moving a mass m in a gravitational field as given by W = mΔVg"
+    },
+    {
+     "id": "D.1-a6",
+     "text": "equipotential surfaces for gravitational fields"
+    },
+    {
+     "id": "D.1-a7",
+     "text": "the relationship between equipotential surfaces and gravitational field lines"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-2",
+     "label": "Data booklet D.1 Gravitational fields"
+    }
+   ]
+  },
+  {
+   "item": "4.3",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Orbits and escape speed",
+   "practice": "Circular motion and gravitation",
+   "bullets": [
+    {
+     "id": "D.1-a8",
+     "text": "the escape speed vesc at any point in a gravitational field as given by vesc = 2GMr"
+    },
+    {
+     "id": "D.1-a9",
+     "text": "the orbital speed vorbital of a body orbiting a large mass as given by vorbital = GMr"
+    },
+    {
+     "id": "D.1-a10",
+     "text": "the qualitative effect of a small viscous drag force due to the atmosphere on the height and speed of an orbiting body."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-3",
+     "label": "Data booklet D.1 Gravitational fields"
+    }
+   ]
+  },
+  {
+   "item": "4.4",
+   "topic": 4,
+   "level": "SL",
+   "name": "Electric charge and Coulomb's law",
+   "practice": "Electric charge, fields, potential and energy",
+   "bullets": [
+    {
+     "id": "D.2-s1",
+     "text": "the direction of forces between the two types of electric charge"
+    },
+    {
+     "id": "D.2-s2",
+     "text": "Coulomb’s law as given by F = k q1q2 r2 for charged bodies treated as point charges where k = 14πε0"
+    },
+    {
+     "id": "D.2-s3",
+     "text": "the conservation of electric charge"
+    },
+    {
+     "id": "D.2-s4",
+     "text": "Millikan’s experiment as evidence for quantization of electric charge"
+    },
+    {
+     "id": "D.2-s5",
+     "text": "that the electric charge can be transferred between bodies using friction, electrostatic induction and by contact, including the role of grounding (earthing)"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-4",
+     "label": "Data booklet D.2 Electric and magnetic fields"
+    }
+   ]
+  },
+  {
+   "item": "4.5",
+   "topic": 4,
+   "level": "SL",
+   "name": "Electric and magnetic field lines",
+   "practice": "Electric charge, fields, potential and energy",
+   "bullets": [
+    {
+     "id": "D.2-s6",
+     "text": "the electric field strength as given by E = Fq"
+    },
+    {
+     "id": "D.2-s7",
+     "text": "electric field lines"
+    },
+    {
+     "id": "D.2-s8",
+     "text": "the relationship between field line density and field strength"
+    },
+    {
+     "id": "D.2-s9",
+     "text": "the uniform electric field strength between parallel plates as given by E = Vd"
+    },
+    {
+     "id": "D.2-s10",
+     "text": "magnetic field lines."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-5",
+     "label": "Data booklet D.2 Electric and magnetic fields"
+    }
+   ]
+  },
+  {
+   "item": "4.6",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Electric potential and potential energy",
+   "practice": "Electric charge, fields, potential and energy",
+   "bullets": [
+    {
+     "id": "D.2-a1",
+     "text": "the electric potential energy Ep in terms of work done to assemble the system from infinite separation"
+    },
+    {
+     "id": "D.2-a2",
+     "text": "the electric potential energy for a system of two charged bodies as given by Ep = k q1q2r"
+    },
+    {
+     "id": "D.2-a3",
+     "text": "that the electric potential is a scalar quantity with zero defined at infinity"
+    },
+    {
+     "id": "D.2-a4",
+     "text": "that the electric potential Ve at a point is the work done per unit charge to bring a test charge from infinity to that point as given by Ve = kQr"
+    },
+    {
+     "id": "D.2-a5",
+     "text": "the electric field strength E as the electric potential gradient as given by E = – ΔVe Δr"
+    },
+    {
+     "id": "D.2-a6",
+     "text": "the work done in moving a charge q in an electric field as given by W = qΔVe"
+    },
+    {
+     "id": "D.2-a7",
+     "text": "equipotential surfaces for electric fields"
+    },
+    {
+     "id": "D.2-a8",
+     "text": "the relationship between equipotential surfaces and electric field lines."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-6",
+     "label": "Data booklet D.2 Electric and magnetic fields"
+    }
+   ]
+  },
+  {
+   "item": "4.7",
+   "topic": 4,
+   "level": "SL",
+   "name": "Charged particles in electric and magnetic fields",
+   "practice": "Magnetic fields, forces and motion",
+   "bullets": [
+    {
+     "id": "D.3-s1",
+     "text": "the motion of a charged particle in a uniform electric field"
+    },
+    {
+     "id": "D.3-s2",
+     "text": "the motion of a charged particle in a uniform magnetic field"
+    },
+    {
+     "id": "D.3-s3",
+     "text": "the motion of a charged particle in perpendicularly orientated uniform electric and magnetic fields"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-7",
+     "label": "Data booklet D.3 Motion in electromagnetic fields"
+    }
+   ]
+  },
+  {
+   "item": "4.8",
+   "topic": 4,
+   "level": "SL",
+   "name": "Magnetic forces on charges and currents",
+   "practice": "Magnetic fields, forces and motion",
+   "bullets": [
+    {
+     "id": "D.3-s4",
+     "text": "the magnitude and direction of the force on a charge moving in a magnetic field as given by F = qvB sin θ, where B is the magnetic field strength"
+    },
+    {
+     "id": "D.3-s5",
+     "text": "the magnitude and direction of the force on a current-carrying conductor in a magnetic field as given by F = BΙL sin θ"
+    },
+    {
+     "id": "D.3-s6",
+     "text": "the force per unit length between parallel wires as given by FL = μ0 I1I22πr where r is the separation between the two wires."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-8",
+     "label": "Data booklet D.3 Motion in electromagnetic fields"
+    }
+   ]
+  },
+  {
+   "item": "4.9",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Magnetic flux, Faraday's law and Lenz's law",
+   "practice": "Electromagnetic induction and power systems",
+   "bullets": [
+    {
+     "id": "D.4-a1",
+     "text": "magnetic flux Φ as given by Φ = BA cos θ"
+    },
+    {
+     "id": "D.4-a2",
+     "text": "that a time-changing magnetic flux induces an emf ε as given by Faraday’s law of induction ε = − N ΔΦΔt"
+    },
+    {
+     "id": "D.4-a3",
+     "text": "that a uniform magnetic field induces an emf in a straight conductor moving perpendicularly to it as given by ε = BvL"
+    },
+    {
+     "id": "D.4-a4",
+     "text": "that the direction of induced emf is determined by Lenz’s law and is a consequence of energy conservation"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-9",
+     "label": "Data booklet D.4 Induction"
+    }
+   ]
+  },
+  {
+   "item": "4.10",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Generators and alternating emf",
+   "practice": "Electromagnetic induction and power systems",
+   "bullets": [
+    {
+     "id": "D.4-a5",
+     "text": "that a uniform magnetic field induces a sinusoidal varying emf in a coil rotating within it"
+    },
+    {
+     "id": "D.4-a6",
+     "text": "the effect on induced emf caused by changing the frequency of rotation."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-4-10",
+     "label": "Data booklet D.4 Induction"
+    }
+   ]
+  },
+  {
+   "item": "5.1",
+   "topic": 5,
+   "level": "SL",
+   "name": "The nuclear atom",
+   "practice": "Atomic structure and discrete energy levels",
+   "bullets": [
+    {
+     "id": "E.1-s1",
+     "text": "the Geiger–Marsden–Rutherford experiment and the discovery of the nucleus"
+    },
+    {
+     "id": "E.1-s2",
+     "text": "nuclear notation XZA where A is the nucleon number Z is the proton number and X is the chemical symbol"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-1",
+     "label": "Data booklet E.1 Structure of the atom"
+    }
+   ]
+  },
+  {
+   "item": "5.2",
+   "topic": 5,
+   "level": "SL",
+   "name": "Atomic spectra and energy levels",
+   "practice": "Atomic structure and discrete energy levels",
+   "bullets": [
+    {
+     "id": "E.1-s3",
+     "text": "that emission and absorption spectra provide evidence for discrete atomic energy levels"
+    },
+    {
+     "id": "E.1-s4",
+     "text": "that photons are emitted and absorbed during atomic transitions"
+    },
+    {
+     "id": "E.1-s5",
+     "text": "that the frequency of the photon released during an atomic transition depends on the difference in energy level as given by E = hƒ"
+    },
+    {
+     "id": "E.1-s6",
+     "text": "that emission and absorption spectra provide information on the chemical composition."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-2",
+     "label": "Data booklet E.1 Structure of the atom"
+    }
+   ]
+  },
+  {
+   "item": "5.3",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Nuclear radius and the Bohr model",
+   "practice": "Atomic structure and discrete energy levels",
+   "bullets": [
+    {
+     "id": "E.1-a1",
+     "text": "the relationship between the radius and the nucleon number for a nucleus as given by R = R0A 13 and implications for nuclear densities"
+    },
+    {
+     "id": "E.1-a2",
+     "text": "deviations from Rutherford scattering at high energies"
+    },
+    {
+     "id": "E.1-a3",
+     "text": "the distance of closest approach in head-on scattering experiments"
+    },
+    {
+     "id": "E.1-a4",
+     "text": "the discrete energy levels in the Bohr model for hydrogen as given by E = − 13 . 6n2 eV"
+    },
+    {
+     "id": "E.1-a5",
+     "text": "that the existence of quantized energy and orbits arise from the quantization of angular momentum in the Bohr model for hydrogen as given by mvr = nh2π ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-3",
+     "label": "Data booklet E.1 Structure of the atom"
+    }
+   ]
+  },
+  {
+   "item": "5.4",
+   "topic": 5,
+   "level": "AHL",
+   "name": "The photoelectric effect",
+   "practice": "Quantum physics and matter-radiation interaction",
+   "bullets": [
+    {
+     "id": "E.2-a1",
+     "text": "the photoelectric effect as evidence of the particle nature of light"
+    },
+    {
+     "id": "E.2-a2",
+     "text": "that photons of a certain frequency, known as the threshold frequency, are required to release photoelectrons from the metal"
+    },
+    {
+     "id": "E.2-a3",
+     "text": "Einstein’s explanation using the work function and the maximum kinetic energy of the photoelectrons as given by Emax = hƒ–Φ where Φ is the work function of the metal"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-4",
+     "label": "Data booklet E.2 Quantum physics"
+    }
+   ]
+  },
+  {
+   "item": "5.5",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Matter waves and Compton scattering",
+   "practice": "Quantum physics and matter-radiation interaction",
+   "bullets": [
+    {
+     "id": "E.2-a4",
+     "text": "diffraction of particles as evidence of the wave nature of matter"
+    },
+    {
+     "id": "E.2-a5",
+     "text": "that matter exhibits wave–particle duality"
+    },
+    {
+     "id": "E.2-a6",
+     "text": "the de Broglie wavelength for particles as given by λ = hp"
+    },
+    {
+     "id": "E.2-a7",
+     "text": "Compton scattering of light by electrons as additional evidence of the particle nature of light"
+    },
+    {
+     "id": "E.2-a8",
+     "text": "that photons scatter off electrons with increased wavelength"
+    },
+    {
+     "id": "E.2-a9",
+     "text": "the shift in photon wavelength after scattering off an electron as given by λf–λi = Δλ = hmec (1–cos θ)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-5",
+     "label": "Data booklet E.2 Quantum physics"
+    }
+   ]
+  },
+  {
+   "item": "5.6",
+   "topic": 5,
+   "level": "SL",
+   "name": "Binding energy and mass defect",
+   "practice": "Radioactivity and nuclear reactions",
+   "bullets": [
+    {
+     "id": "E.3-s1",
+     "text": "isotopes"
+    },
+    {
+     "id": "E.3-s2",
+     "text": "nuclear binding energy and mass defect"
+    },
+    {
+     "id": "E.3-s3",
+     "text": "the variation of the binding energy per nucleon with nucleon number"
+    },
+    {
+     "id": "E.3-s4",
+     "text": "the mass-energy equivalence as given by E = mc2 in nuclear reactions"
+    },
+    {
+     "id": "E.3-s5",
+     "text": "the existence of the strong nuclear force, a short-range, attractive force between nucleons"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-6",
+     "label": "Data booklet E.3 Radioactive decay"
+    }
+   ]
+  },
+  {
+   "item": "5.7",
+   "topic": 5,
+   "level": "SL",
+   "name": "Radioactive decay",
+   "practice": "Radioactivity and nuclear reactions",
+   "bullets": [
+    {
+     "id": "E.3-s6",
+     "text": "the random and spontaneous nature of radioactive decay"
+    },
+    {
+     "id": "E.3-s7",
+     "text": "the changes in the state of the nucleus following alpha, beta and gamma radioactive decay"
+    },
+    {
+     "id": "E.3-s8",
+     "text": "the radioactive decay equations involving α, β−, β+, γ"
+    },
+    {
+     "id": "E.3-s9",
+     "text": "the existence of neutrinos ν and antineutrinos ν"
+    },
+    {
+     "id": "E.3-s10",
+     "text": "the penetration and ionizing ability of alpha particles, beta particles and gamma rays"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-7",
+     "label": "Data booklet E.3 Radioactive decay"
+    }
+   ]
+  },
+  {
+   "item": "5.8",
+   "topic": 5,
+   "level": "SL",
+   "name": "Activity and half-life",
+   "practice": "Radioactivity and nuclear reactions",
+   "bullets": [
+    {
+     "id": "E.3-s11",
+     "text": "the activity, count rate and half-life in radioactive decay"
+    },
+    {
+     "id": "E.3-s12",
+     "text": "the changes in activity and count rate during radioactive decay using integer values of half-life"
+    },
+    {
+     "id": "E.3-s13",
+     "text": "the effect of background radiation on count rate."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-8",
+     "label": "Data booklet E.3 Radioactive decay"
+    }
+   ]
+  },
+  {
+   "item": "5.9",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Nuclear stability and the neutrino",
+   "practice": "Radioactivity and nuclear reactions",
+   "bullets": [
+    {
+     "id": "E.3-a1",
+     "text": "the evidence for the strong nuclear force"
+    },
+    {
+     "id": "E.3-a2",
+     "text": "the role of the ratio of neutrons to protons for the stability of nuclides"
+    },
+    {
+     "id": "E.3-a3",
+     "text": "the approximate constancy of binding energy curve above a nucleon number of 60"
+    },
+    {
+     "id": "E.3-a4",
+     "text": "that the spectrum of alpha and gamma radiations provides evidence for discrete nuclear energy levels"
+    },
+    {
+     "id": "E.3-a5",
+     "text": "the continuous spectrum of beta decay as evidence for the neutrino"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-9",
+     "label": "Data booklet E.3 Radioactive decay"
+    }
+   ]
+  },
+  {
+   "item": "5.10",
+   "topic": 5,
+   "level": "AHL",
+   "name": "The radioactive decay law",
+   "practice": "Radioactivity and nuclear reactions",
+   "bullets": [
+    {
+     "id": "E.3-a6",
+     "text": "the decay constant λ and the radioactive decay law as given by N = N0e−λt"
+    },
+    {
+     "id": "E.3-a7",
+     "text": "that the decay constant approximates the probability of decay in unit time only in the limit of sufficiently small λt"
+    },
+    {
+     "id": "E.3-a8",
+     "text": "the activity as the rate of decay as given by A = λN = λN0e−λt"
+    },
+    {
+     "id": "E.3-a9",
+     "text": "the relationship between half-life and the decay constant as given by T 1 2 = ln2λ ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-10",
+     "label": "Data booklet E.3 Radioactive decay"
+    }
+   ]
+  },
+  {
+   "item": "5.11",
+   "topic": 5,
+   "level": "SL",
+   "name": "Fission and nuclear power",
+   "practice": "Nuclear energy, fission and fusion",
+   "bullets": [
+    {
+     "id": "E.4-s1",
+     "text": "that energy is released in spontaneous and neutron-induced fission"
+    },
+    {
+     "id": "E.4-s2",
+     "text": "the role of chain reactions in nuclear fission reactions"
+    },
+    {
+     "id": "E.4-s3",
+     "text": "the role of control rods, moderators, heat exchangers and shielding in a nuclear power plant"
+    },
+    {
+     "id": "E.4-s4",
+     "text": "the properties of the products of nuclear fission and their management."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-11",
+     "label": "Data booklet E.4 Fission"
+    }
+   ]
+  },
+  {
+   "item": "5.12",
+   "topic": 5,
+   "level": "SL",
+   "name": "Fusion and the life of stars",
+   "practice": "Stellar evolution and processes",
+   "bullets": [
+    {
+     "id": "E.5-s1",
+     "text": "that the stability of stars relies on an equilibrium between outward radiation pressure and inward gravitational forces"
+    },
+    {
+     "id": "E.5-s2",
+     "text": "that fusion is a source of energy in stars"
+    },
+    {
+     "id": "E.5-s3",
+     "text": "the conditions leading to fusion in stars in terms of density and temperature"
+    },
+    {
+     "id": "E.5-s4",
+     "text": "the effect of stellar mass on the evolution of a star"
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-12",
+     "label": "Data booklet E.5 Fusion and stars"
+    }
+   ]
+  },
+  {
+   "item": "5.13",
+   "topic": 5,
+   "level": "SL",
+   "name": "The HR diagram, parallax and stellar radii",
+   "practice": "Stellar quantities and observations",
+   "bullets": [
+    {
+     "id": "E.5-s5",
+     "text": "the main regions of the Hertzsprung–Russell (HR) diagram and how to describe the main properties of stars in these regions"
+    },
+    {
+     "id": "E.5-s6",
+     "text": "the use of stellar parallax as a method to determine the distance d to celestial bodies as given by d(parsec) = 1p(arc‐second)"
+    },
+    {
+     "id": "E.5-s7",
+     "text": "how to determine stellar radii."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-5-13",
+     "label": "Data booklet E.5 Fusion and stars"
+    }
+   ]
+  },
+  {
+   "item": "6.1",
+   "topic": 6,
+   "level": "SL",
+   "name": "Units, measurement and estimation",
+   "practice": "Measurements, units and dimensions",
+   "bullets": [
+    {
+     "id": "T1.1",
+     "text": "Recognize and address relevant safety, ethical or environmental issues in an investigation."
+    },
+    {
+     "id": "T1.2",
+     "text": "Understand how to accurately measure the following to an appropriate level of precision: mass, time, length, volume, temperature, force, electric current, electric potential difference, angle, sound and light intensity."
+    },
+    {
+     "id": "T3.1",
+     "text": "Apply and use International System of Units (SI) prefixes and units."
+    },
+    {
+     "id": "T3.2",
+     "text": "Work with fundamental units."
+    },
+    {
+     "id": "T3.3",
+     "text": "Use of units (for example, eV, eVc–2, ly, pc, h, day, year) whenever appropriate."
+    },
+    {
+     "id": "T3.4",
+     "text": "Express derived units in terms of SI units."
+    },
+    {
+     "id": "T3.5",
+     "text": "Check an expression using dimensional analysis of units (the formal process of dimensional analysis will not be assessed)."
+    },
+    {
+     "id": "T3.6",
+     "text": "Use and interpret scientific notation (for example, 3.5 × 106)."
+    },
+    {
+     "id": "T3.7",
+     "text": "Compare and quote ratios, values and approximations to the nearest order of magnitude."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.2",
+   "topic": 6,
+   "level": "SL",
+   "name": "Scalars and vectors",
+   "practice": "Vectors, scalars and representation",
+   "bullets": [
+    {
+     "id": "T3.8",
+     "text": "Identify a quantity as a scalar or vector."
+    },
+    {
+     "id": "T3.9",
+     "text": "Draw and label vectors including magnitude, point of application and direction."
+    },
+    {
+     "id": "T3.10",
+     "text": "Add and subtract vectors in the same plane (limited to three vectors)."
+    },
+    {
+     "id": "T3.11",
+     "text": "Multiply vectors by a scalar."
+    },
+    {
+     "id": "T3.12",
+     "text": "Resolve vectors (limited to two perpendicular components)."
+    },
+    {
+     "id": "T3.13",
+     "text": "Use radian measurement."
+    },
+    {
+     "id": "T3.14",
+     "text": "Convert between degrees and radians."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "6.3",
+   "topic": 6,
+   "level": "SL",
+   "name": "Uncertainties and errors",
+   "practice": "Uncertainty, error and significant figures",
+   "bullets": [
+    {
+     "id": "T3.15",
+     "text": "Express quantities and uncertainties to an appropriate number of significant figures or decimal places."
+    },
+    {
+     "id": "T3.16",
+     "text": "Calculate and interpret percentage change and percentage difference."
+    },
+    {
+     "id": "T3.17",
+     "text": "Calculate and interpret percentage error and percentage uncertainty."
+    },
+    {
+     "id": "T3.18",
+     "text": "Understand the significance of uncertainties in raw and processed data."
+    },
+    {
+     "id": "T3.19",
+     "text": "Record uncertainties in measurements as a range (±) to an appropriate level of precision."
+    },
+    {
+     "id": "T3.20",
+     "text": "Propagate uncertainties in processed data in calculations involving addition, subtraction, multiplication, division and raising to a power."
+    },
+    {
+     "id": "T3.21",
+     "text": "Express measurement and processed uncertainties—absolute, fractional (relative) and percentage—to an appropriate number of significant figures or level of precision."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "db-6-3",
+     "label": "Data booklet Uncertainties"
+    }
+   ]
+  },
+  {
+   "item": "6.4",
+   "topic": 6,
+   "level": "SL",
+   "name": "Graphs and data analysis",
+   "practice": "Graphs, data processing and modelling",
+   "bullets": [
+    {
+     "id": "T3.22",
+     "text": "Determine rates of change."
+    },
+    {
+     "id": "T3.23",
+     "text": "Understand direct and inverse proportionality, as well as positive and negative relationships or correlations between variables."
+    },
+    {
+     "id": "T3.24",
+     "text": "Sketch graphs, with labelled but unscaled axes, to qualitatively describe trends."
+    },
+    {
+     "id": "T3.25",
+     "text": "Construct and interpret graphs using logarithmic scales."
+    },
+    {
+     "id": "T3.26",
+     "text": "Plot linear and non-linear graphs showing the relationship between two variables with appropriate scales and axes."
+    },
+    {
+     "id": "T3.27",
+     "text": "Draw lines or curves of best fit."
+    },
+    {
+     "id": "T3.28",
+     "text": "Draw and interpret uncertainty bars."
+    },
+    {
+     "id": "T3.29",
+     "text": "Extrapolate and interpolate graphs."
+    },
+    {
+     "id": "T3.30",
+     "text": "Linearize graphs (only where appropriate)."
+    }
+   ],
+   "booklet": []
+  }
+ ]
+}

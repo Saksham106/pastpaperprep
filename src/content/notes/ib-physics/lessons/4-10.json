@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.10",
+  "slug": "generators-and-alternating-emf",
+  "title": "Generators and alternating emf",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Turn a coil in a steady magnetic field and the [[magnetic-flux|magnetic flux]] through it keeps changing, so [[faraday-s-law|Faraday's law]] gives an [[induced-emf|induced emf]] that rises, falls and reverses like a sine wave. That is a [[generator|generator]]. Turn it faster and the [[alternating-emf|alternating emf]] gets bigger as well as quicker.",
+  "goals": [
+    {
+      "text": "Explain why a coil turning in a uniform field produces a sinusoidal [[alternating-emf|alternating emf]].",
+      "bullets": [
+        "D.4-a5"
+      ]
+    },
+    {
+      "text": "Link the coil's position to the flux and the [[emf|emf]]: zero emf when the flux is largest, peak emf when the flux is zero.",
+      "bullets": [
+        "D.4-a5"
+      ]
+    },
+    {
+      "text": "Calculate the peak emf of a [[generator|generator]] with $\\varepsilon_0 = NBA\\omega$.",
+      "bullets": [
+        "D.4-a5",
+        "D.4-a6"
+      ]
+    },
+    {
+      "text": "Predict how the peak emf and the period change when the rotation frequency changes.",
+      "bullets": [
+        "D.4-a6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.12",
+    "4.9"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "ac generator",
+    "alternator",
+    "rotating coil emf",
+    "NBA omega",
+    "sinusoidal emf",
+    "generator speed and emf"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-flux-tilted",
+      "prompt": "A loop of area $\\pu{40 cm2}$ is in a uniform field of $\\pu{0.20 T}$, with its normal at $60^{\\circ}$ to the field. What is the flux through it, in mWb? Give 2 significant figures.",
+      "hint": "Use $\\Phi = BA\\cos\\theta$, with the area in $\\text{m}^{2}$.",
+      "answer": {
+        "value": 0.4,
+        "tolerance": 0.005
+      },
+      "explain": "$\\Phi = 0.20 \\times 4.0 \\times 10^{-3} \\times \\cos 60^{\\circ} = \\pu{4.0e-4 Wb} = \\pu{0.40 mWb}$. Revise it in {{lesson:4.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.20*40e-4*cosd(60)*10**3",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-steady-flux",
+      "prompt": "A coil sits at rest in a strong, steady magnetic field. What emf is induced in it?",
+      "hint": "Faraday's law needs a change.",
+      "options": [
+        {
+          "text": "zero",
+          "correct": true
+        },
+        {
+          "text": "a large, constant emf",
+          "correct": false
+        },
+        {
+          "text": "an emf that keeps reversing",
+          "correct": false
+        }
+      ],
+      "explain": "The flux through the coil is not changing, so the induced emf is zero, however strong the field. Revise it in {{lesson:4.9}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "zero"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-angular-velocity",
+      "prompt": "A wheel makes 5.0 revolutions per second. What is its angular velocity, in $\\text{rad s}^{-1}$? Give 2 significant figures.",
+      "hint": "One revolution is $2\\pi$ radians, so $\\omega = 2\\pi f$.",
+      "answer": {
+        "value": 31,
+        "tolerance": 0.5
+      },
+      "explain": "$\\omega = 2\\pi f = 2\\pi \\times 5.0 = \\pu{31 rad s-1}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*pi*5.0",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "rotating",
+      "heading": "A coil turning in a field",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.9}} you changed the [[magnetic-flux|magnetic flux]] by changing the field or moving a coil into it. Now keep the field steady and spin the coil instead. The angle keeps changing, so the flux keeps changing, so an [[emf|emf]] is induced all the time."
+        },
+        {
+          "type": "definition",
+          "term": "generator",
+          "statement": "A device in which a coil rotates in a magnetic field, so that an emf is induced in it. It transfers the work done turning the coil into electrical energy.",
+          "plain": "A spinning coil in a magnet that makes electricity."
+        },
+        {
+          "type": "text",
+          "text": "Take a flat coil of $N$ turns, each of area $A$. It turns at a steady angular velocity $\\omega$ in a uniform field $B$, about an axis at right angles to the field. If it makes $f$ turns per second, $\\omega = 2\\pi f$."
+        },
+        {
+          "type": "text",
+          "text": "Measure the angle $\\theta$ between the field and the normal to the coil, and start the clock when $\\theta = 0$. Then $\\theta = \\omega t$, so the flux through each turn is $\\Phi = BA\\cos(\\omega t)$."
+        },
+        {
+          "type": "figure",
+          "id": "4-10-rotating-coil",
+          "alt": "End-on view of a rectangular coil between the N and S poles of a magnet. The field lines run from N to S, left to right. The coil is seen edge-on as a line through the rotation axis and turns anticlockwise. Its normal makes an angle theta with the field. The two long sides of the coil move in a circle, and each of their velocity arrows also makes the angle theta with the field.",
+          "caption": "The normal and the velocity of each long side both make the angle $\\theta = \\omega t$ with the field."
+        },
+        {
+          "type": "text",
+          "text": "By [[faraday-s-law|Faraday's law]], the [[induced-emf|induced emf]] is $N$ times the rate of change of flux. On a graph, that is $N$ times the gradient of the flux–time curve, with a minus sign. The flux is a cosine curve, so the emf is a sine curve."
+        },
+        {
+          "type": "text",
+          "text": "Two positions matter most. When the plane of the coil is perpendicular to the field, the flux is at its largest but is not changing at that instant, so the emf is zero. When the plane is along the field, the flux is zero but changing fastest, so the emf is at its peak."
+        },
+        {
+          "type": "figure",
+          "id": "4-10-flux-emf-graph",
+          "alt": "Two graphs against time for one turn of the coil. Top: flux linkage, a cosine curve that starts at its largest value NBA, is zero at a quarter period, most negative at half a period, zero at three quarters and largest again after one period. Bottom: emf, a sine curve that starts at zero, peaks at a quarter period, is zero at half a period, most negative at three quarters and zero after one period. Small drawings above show the coil edge-on: across the field at 0, half and one period, and along the field at a quarter and three quarters.",
+          "caption": "The emf is zero where the flux linkage peaks, and peaks where the flux linkage is zero."
+        },
+        {
+          "type": "definition",
+          "term": "alternating emf",
+          "statement": "An emf that reverses direction regularly. A coil turning steadily in a uniform field gives one that varies sinusoidally with time.",
+          "plain": "An emf that keeps swapping direction, smoothly, like a sine wave."
+        },
+        {
+          "type": "text",
+          "text": "You can also see the size of the emf from $\\varepsilon = BvL$. Each long side, of length $L$, moves in a circle of radius $\\frac{w}{2}$, where $w$ is the coil's width. So its speed is $v = \\omega\\frac{w}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Only the part of the velocity across the field induces an emf. The velocity makes the angle $\\theta$ with the field, so that part is $v\\sin\\theta$. The two sides' emfs add round each turn, and the $N$ turns are in series."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = NBA\\omega\\sin(\\omega t)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This comes from $\\varepsilon = 2NBL\\left(\\omega\\frac{w}{2}\\right)\\sin(\\omega t)$ with $A = Lw$. The peak emf is $\\varepsilon_0 = NBA\\omega$. Faraday's law and $\\varepsilon = BvL$ are in section D.4 of the data booklet; this result is not, so remember it or derive it."
+        },
+        {
+          "type": "text",
+          "text": "A generator does not make energy. When a current flows, [[lenz-s-law|Lenz's law]] means the magnetic forces on the induced current oppose the rotation. Whatever turns the coil (a turbine, a wind rotor, a bicycle wheel) must do work against that opposition."
+        },
+        {
+          "type": "example",
+          "id": "ex-zero-emf-max-flux",
+          "question": "A flat coil turns steadily in a uniform magnetic field. Explain why the induced emf is zero at the instant the coil's plane is perpendicular to the field, even though the flux through the coil is then at its maximum.",
+          "steps": [
+            "Start with what the emf depends on: Faraday's law.",
+            "Say what the flux is doing at that position, not just how big it is.",
+            "Back it up with the motion of the sides, then conclude."
+          ],
+          "answer": "By Faraday's law, the emf is set by the rate of change of flux linkage, not by the flux itself. With the plane perpendicular to the field, the flux through the coil is at its maximum. At a maximum the flux stops increasing and starts decreasing, so its rate of change is momentarily zero. At that instant the long sides move parallel to the field lines, so they do not cut them. So the induced emf is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "emf depends on rate of change of flux linkage (Faraday); flux is at a maximum so its rate of change is momentarily zero; sides move along the field; emf zero",
+            "requires": [
+              "Faraday's law",
+              [
+                "rate of change of flux linkage",
+                "rate of change of flux"
+              ],
+              "maximum",
+              "momentarily zero",
+              [
+                "induced emf is zero",
+                "emf is zero"
+              ]
+            ],
+            "forbids": [
+              "flux is zero",
+              "no flux"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the emf is largest when the flux is largest. It is the other way round: the emf follows the rate of change of flux, which is greatest when the flux is passing through zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-peak-emf-bicycle",
+          "question": "A generator coil has 250 turns, each $\\pu{5.0 cm}$ by $\\pu{3.0 cm}$. It makes 40 revolutions per second in a uniform field of $\\pu{0.12 T}$, about an axis at right angles to the field. Calculate the peak emf.",
+          "steps": [
+            "Area of one turn in square metres: $A = 0.050 \\times 0.030 = \\pu{1.5e-3 m2}$.",
+            "Angular velocity: $\\omega = 2\\pi f = 2\\pi \\times 40 = \\pu{251.3 rad s-1}$.",
+            "Peak emf: $\\varepsilon_0 = NBA\\omega = 250 \\times 0.12 \\times 1.5 \\times 10^{-3} \\times 251.3 = 11.31\\ \\text{V}$.",
+            "Round to 2 significant figures, matching the data."
+          ],
+          "answer": "$\\varepsilon_0 \\approx 11\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "250*0.12*(0.050*0.030)*2*pi*40",
+            "sf": 2,
+            "unit": "V"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest-emf-position",
+          "prompt": "A coil turns steadily in a uniform magnetic field. In which position is the induced emf largest?",
+          "hint": "Where is the flux changing fastest?",
+          "options": [
+            {
+              "text": "plane of the coil parallel to the field lines",
+              "correct": true
+            },
+            {
+              "text": "plane of the coil perpendicular to the field lines",
+              "correct": false
+            },
+            {
+              "text": "normal to the coil at 45° to the field lines",
+              "correct": false
+            }
+          ],
+          "explain": "With the plane along the field, $\\theta = 90^{\\circ}$ and $\\sin\\theta = 1$, so the emf is at its peak. The flux is zero there but changing fastest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "plane of the coil parallel to the field lines"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-peak-emf-small-coil",
+          "prompt": "A coil of 80 turns, each of area $\\pu{25 cm2}$, makes 15 revolutions per second in a uniform field of $\\pu{0.30 T}$, about an axis at right angles to the field. Calculate the peak emf, in V. Give 2 significant figures.",
+          "hint": "Convert the area to $\\text{m}^{2}$ and use $\\omega = 2\\pi f$.",
+          "answer": {
+            "value": 5.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\varepsilon_0 = NBA\\omega = 80 \\times 0.30 \\times 2.5 \\times 10^{-3} \\times 2\\pi \\times 15 = \\pu{5.7 V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "80*0.30*25e-4*2*pi*15",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "frequency",
+      "heading": "Turning the coil faster",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Spin the coil faster and two things change. Each turn takes less time, so the emf repeats more often. The flux also goes through the same changes in less time, so it changes faster and the emf is bigger."
+        },
+        {
+          "type": "result",
+          "statement": "For a coil turning steadily in a uniform field, the emf has the same frequency as the rotation, and its peak is proportional to that frequency. With the same coil and field, multiply the rotation frequency by $k$ and the peak emf is multiplied by $k$, while the period is divided by $k$.",
+          "why": "$\\varepsilon_0 = NBA\\omega = 2\\pi NBAf$, and the period of the emf is the time for one turn, $T = \\frac{1}{f}$."
+        },
+        {
+          "type": "figure",
+          "id": "4-10-frequency-doubled",
+          "alt": "Graph of emf against time for the same generator at two speeds. The solid sine curve, at rotation frequency f, has peak emf epsilon nought and period T, and completes two cycles. The dashed sine curve, at frequency 2f, has peak emf two epsilon nought and period T over 2, and completes four cycles in the same time.",
+          "caption": "Doubling the rotation frequency doubles the peak emf and halves the period."
+        },
+        {
+          "type": "text",
+          "text": "More turns, a stronger field or a bigger coil also raise the peak emf, because each appears in $NBA\\omega$. Only a change of speed changes the period as well."
+        },
+        {
+          "type": "example",
+          "id": "ex-turbine-slows",
+          "question": "A small generator turns at 1500 revolutions per minute and gives a peak emf of $\\pu{9.0 V}$. It slows to 1000 revolutions per minute. Calculate the new peak emf.",
+          "steps": [
+            "Rotation frequencies: $f_1 = \\frac{1500}{60} = \\pu{25 Hz}$ and $f_2 = \\frac{1000}{60} = \\pu{16.7 Hz}$.",
+            "Nothing else changes, so $\\varepsilon_0 \\propto f$: $\\varepsilon_2 = 9.0 \\times \\frac{1000}{1500} = 9.0 \\times \\frac{2}{3} = 6.0\\ \\text{V}$.",
+            "The period also rises, from $\\frac{1}{25} = \\pu{40 ms}$ to $\\frac{1}{16.7} = \\pu{60 ms}$.",
+            "Sense check: slower turning gives a smaller emf, and $\\pu{6.0 V} < \\pu{9.0 V}$."
+          ],
+          "answer": "$\\varepsilon_0 = 6.0\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "9.0*(1000/60)/(1500/60)",
+            "sf": 2,
+            "unit": "V"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In Paper 1A graph questions about a generator changing speed, check both the height and the width of the new curve. Options often change only one of them."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-speed-explain",
+          "question": "The rotation frequency of a generator coil is doubled. The coil and the field are unchanged. Explain the effect on the peak emf and on the period of the emf.",
+          "steps": [
+            "The period is the time for one turn, so deal with that first.",
+            "The flux linkage goes through the same values each turn; ask how fast it now changes.",
+            "Use Faraday's law to link that rate to the emf."
+          ],
+          "answer": "The coil now completes each turn in half the time, so the period of the emf is halved. Each turn, the flux linkage goes through the same change, from $NBA$ to $-NBA$ and back. It now makes the same change in half the time, so the rate of change of flux linkage doubles at every position. By Faraday's law the emf is proportional to this rate of change. So the peak emf doubles.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "period halves; same change in flux linkage in half the time so rate of change doubles; Faraday: emf proportional to rate of change; peak emf doubles",
+            "requires": [
+              [
+                "period of the emf is halved",
+                "period halves"
+              ],
+              "same change",
+              [
+                "rate of change of flux linkage doubles",
+                "rate of change doubles"
+              ],
+              "Faraday's law",
+              [
+                "peak emf doubles",
+                "peak emf is doubled"
+              ]
+            ],
+            "forbids": [
+              "peak emf is unchanged",
+              "peak emf stays the same",
+              "period doubles"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Sketching a faster generator's emf with only a shorter period. It has a larger peak too: the wave gets taller as well as narrower."
+        },
+        {
+          "type": "check",
+          "id": "check-three-times-faster",
+          "prompt": "A generator is made to turn three times as fast as before. What happens to the peak emf and to the period of the emf?",
+          "hint": "$\\varepsilon_0 = NBA\\omega$, and the period is the time for one turn.",
+          "options": [
+            {
+              "text": "peak emf triples; period becomes one-third",
+              "correct": true
+            },
+            {
+              "text": "peak emf unchanged; period becomes one-third",
+              "correct": false
+            },
+            {
+              "text": "peak emf triples; period unchanged",
+              "correct": false
+            },
+            {
+              "text": "peak emf becomes one-third; period triples",
+              "correct": false
+            }
+          ],
+          "explain": "Tripling $\\omega$ triples $\\varepsilon_0 = NBA\\omega$, and each turn now takes a third of the time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "peak emf triples; period becomes one-third"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-target-frequency",
+          "prompt": "A generator gives a peak emf of $\\pu{4.8 V}$ when it turns at $\\pu{20 Hz}$. At what rotation frequency, in Hz, would the peak emf be $\\pu{7.2 V}$? Give 2 significant figures.",
+          "hint": "The peak emf is proportional to the rotation frequency.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0.5
+          },
+          "explain": "$f = 20 \\times \\frac{7.2}{4.8} = \\pu{30 Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "20*7.2/4.8",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A coil turning at constant $\\omega$ in a uniform field has flux linkage $NBA\\cos(\\omega t)$ and a sinusoidal emf.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = NBA\\omega\\sin(\\omega t),\\quad \\varepsilon_0 = NBA\\omega",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The emf is zero when the coil's plane is perpendicular to the field (flux largest), and at its peak when the plane is along the field (flux zero).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Turn the same coil in the same field $k$ times as fast: the peak emf is multiplied by $k$ and the period is divided by $k$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the emf peaks when the flux peaks. The emf follows the rate of change of flux, so it peaks when the flux is zero.",
+    "Changing only the period when a generator speeds up. The peak emf rises in the same ratio.",
+    "Using $f$, or revolutions per minute, in $\\varepsilon_0 = NBA\\omega$. Convert to turns per second, then use $\\omega = 2\\pi f$ in $\\text{rad s}^{-1}$.",
+    "Measuring $\\theta$ from the plane of the coil. With $\\theta$ from the normal, the flux is $BA\\cos\\theta$ and the emf goes with $\\sin\\theta$.",
+    "Saying a generator creates energy. It transfers the work done turning it into electrical energy, and Lenz's law makes it harder to turn when a current flows."
+  ],
+  "examTips": [
+    "\"Explain\" why a turning coil has an emf: say there is flux linking this coil, that it changes as the coil turns, and that by Faraday's law the emf depends on its rate of change.",
+    "\"Sketch\" the emf–time graph: a sine curve with constant peak and a period equal to the time for one turn. Mark any values you are given.",
+    "When the speed changes, scale both the peak emf and the period by the same factor, in opposite directions.",
+    "\"Determine\" $\\omega$ from an emf–time graph: read the period $T$ from the time axis, then $\\omega = \\frac{2\\pi}{T}$."
+  ],
+  "readingMinutes": 17
+}

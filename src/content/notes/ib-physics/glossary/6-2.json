@@ -1,0 +1,32 @@
+[
+  {
+    "id": "scalar",
+    "term": "scalar",
+    "definition": "A quantity that has magnitude only, with no direction, such as mass, distance, speed, energy or temperature.",
+    "lesson": "6.2"
+  },
+  {
+    "id": "vector",
+    "term": "vector",
+    "definition": "A quantity that has both magnitude and direction, such as displacement, velocity, acceleration or force; it is drawn as an arrow whose length shows its size.",
+    "lesson": "6.2"
+  },
+  {
+    "id": "vector-addition",
+    "term": "vector addition",
+    "definition": "Combining vectors by drawing them head to tail, so the resultant runs from the tail of the first to the head of the last; to subtract a vector, add its negative.",
+    "lesson": "6.2"
+  },
+  {
+    "id": "resolving-a-vector",
+    "term": "resolving a vector",
+    "definition": "Replacing a vector by two perpendicular components that add up to it; at angle $\\theta$ to the $x$-direction they are $F\\cos\\theta$ and $F\\sin\\theta$.",
+    "lesson": "6.2"
+  },
+  {
+    "id": "radian",
+    "term": "radian",
+    "definition": "The angle at the centre of a circle when the arc it cuts off equals the radius, so $\\theta = \\frac{s}{r}$ and $2\\pi$ rad $= 360^{\\circ}$.",
+    "lesson": "6.2"
+  }
+]

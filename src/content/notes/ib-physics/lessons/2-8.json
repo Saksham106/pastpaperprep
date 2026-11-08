@@ -1,0 +1,714 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "2.8",
+ "slug": "ideal-gas-equations-and-kinetic-model",
+ "title": "The ideal gas equations and the kinetic model",
+ "level": "SL",
+ "topic": 2,
+ "summary": "One equation, $PV = nRT$, links the [[pressure|pressure]], volume, amount and [[temperature|temperature]] of any [[ideal-gas|ideal gas]]. The kinetic model explains where it comes from: [[gas|gas]] molecules hitting the walls create the pressure, and their mean kinetic energy sets the temperature. The same model gives the [[internal-energy|internal energy]] of a monatomic gas, and shows when a real gas stops behaving ideally.",
+ "goals": [
+  {
+   "text": "Use the [[ideal-gas-law|ideal gas law]] $PV = nRT = Nk_\\text{B}T$ to find an unknown pressure, volume, temperature or amount of gas, and read changes of state on a pressure–volume diagram.",
+   "bullets": [
+    "B.3-s5"
+   ]
+  },
+  {
+   "text": "Explain how molecules colliding with a wall produce a pressure, and use $P = \\frac{1}{3}\\rho v^{2}$ to link pressure, [[density|density]] and the [[root-mean-square-speed|root mean square speed]].",
+   "bullets": [
+    "B.3-s6"
+   ]
+  },
+  {
+   "text": "Calculate the internal energy $U$ of a monatomic ideal gas from $U = \\frac{3}{2}Nk_\\text{B}T = \\frac{3}{2}nRT$.",
+   "bullets": [
+    "B.3-s7"
+   ]
+  },
+  {
+   "text": "State the conditions of temperature, pressure and density under which a real gas behaves like an ideal gas, and explain why it deviates outside them.",
+   "bullets": [
+    "B.3-s8"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "2.1",
+  "2.2",
+  "2.7"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "PV = nRT",
+  "ideal gas equation",
+  "kinetic theory of gases",
+  "P = 1/3 rho v squared",
+  "internal energy of an ideal gas",
+  "real gas vs ideal gas",
+  "rms speed of gas molecules"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-kelvin",
+   "prompt": "A gas is cooled to $-23\\,^{\\circ}\\text{C}$. What is its temperature in kelvin?",
+   "hint": "Add 273 to a Celsius temperature.",
+   "answer": {
+    "value": 250,
+    "tolerance": 0.5
+   },
+   "explain": "$T = -23 + 273 = \\pu{250 K}$. Revise it in {{lesson:2.1}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "-23 + zero_celsius",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-moles",
+   "prompt": "A flask holds $1.8 \\times 10^{24}$ molecules of argon. Calculate the amount of argon in [[mole|moles]], to 2 significant figures.",
+   "hint": "Divide the number of molecules by the [[avogadro-constant|Avogadro constant]], $\\pu{6.02e23 mol-1}$.",
+   "answer": {
+    "value": 3.0,
+    "tolerance": 0.05
+   },
+   "explain": "$n = \\dfrac{N}{N_\\text{A}} = \\dfrac{1.8 \\times 10^{24}}{6.02 \\times 10^{23}} \\approx \\pu{3.0 mol}$. Revise it in {{lesson:2.7}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "1.8*10**24/NA",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-mean-ek",
+   "prompt": "What is the mean translational kinetic energy of the particles of a gas at $\\pu{450 K}$?",
+   "hint": "Use $\\overline{E}_\\text{k} = \\frac{3}{2}k_\\text{B}T$.",
+   "options": [
+    {
+     "text": "$\\approx 9.3 \\times 10^{-21}\\ \\text{J}$",
+     "correct": true
+    },
+    {
+     "text": "$\\approx 6.2 \\times 10^{-21}\\ \\text{J}$",
+     "correct": false
+    },
+    {
+     "text": "$\\approx 3.1 \\times 10^{-21}\\ \\text{J}$",
+     "correct": false
+    }
+   ],
+   "explain": "$\\overline{E}_\\text{k} = \\frac{3}{2}(1.38 \\times 10^{-23})(450) \\approx \\pu{9.3e-21 J}$. Leaving out the $\\frac{3}{2}$ gives $6.2 \\times 10^{-21}$ J. Using $\\frac{1}{2}$ instead gives $3.1 \\times 10^{-21}$ J. Revise it in {{lesson:2.1}}.",
+   "verify": {
+    "kind": "standard-form",
+    "truth": "Rational(3, 2)*kB*450",
+    "sf": 2,
+    "unit": "J"
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "ideal-gas-law",
+   "heading": "The ideal gas law",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "In {{lesson:2.7}} you found that $\\frac{PV}{T}$ is constant for a fixed amount of gas. Double the [[amount-of-substance|amount of substance]] at the same pressure and temperature and the volume doubles, so $\\frac{PV}{T}$ is proportional to the amount $n$. The constant of proportionality, the same for every ideal gas, is the [[molar-gas-constant|molar gas constant]] $R = \\pu{8.31 J mol-1 K-1}$. All constants in this lesson are from the data booklet."
+    },
+    {
+     "type": "definition",
+     "term": "ideal gas law",
+     "statement": "For an ideal gas, $PV = nRT$, where $P$ is the pressure, $V$ the volume, $n$ the amount of gas in moles, $R$ the molar gas constant and $T$ the absolute temperature.",
+     "plain": "Pressure times volume is proportional to the amount of gas and its temperature in kelvin."
+    },
+    {
+     "type": "text",
+     "text": "You can also count molecules instead of moles. Since $n = \\frac{N}{N_\\text{A}}$, $nR = N\\frac{R}{N_\\text{A}}$. The ratio $\\frac{R}{N_\\text{A}}$ is the [[boltzmann-constant|Boltzmann constant]] $k_\\text{B} = \\pu{1.38e-23 J K-1}$, so $R = N_\\text{A}k_\\text{B}$, with $N_\\text{A}$ the [[avogadro-constant|Avogadro constant]]. Both forms are in the data booklet."
+    },
+    {
+     "type": "formula",
+     "tex": "PV = nRT = Nk_\\text{B}T",
+     "tag": "booklet",
+     "bookletId": "db-2-8"
+    },
+    {
+     "type": "mistake",
+     "text": "Substituting a Celsius temperature or a volume in litres. Use $P$ in Pa, $V$ in m³ (1 litre $= 10^{-3}$ m³) and $T$ on the [[kelvin-scale|kelvin scale]]."
+    },
+    {
+     "type": "example",
+     "id": "ex-igl-cylinder",
+     "question": "A diving cylinder has an internal volume of $\\pu{0.0105 m3}$. It holds air at a pressure of $\\pu{1.85e7 Pa}$ and a temperature of $16\\,^{\\circ}\\text{C}$. The molar mass of air is $\\pu{0.0290 kg mol-1}$. Treating the air as an ideal gas, determine the mass of air in the cylinder.",
+     "steps": [
+      "Convert the temperature: $T = 16 + 273 = \\pu{289 K}$.",
+      "Rearrange $PV = nRT$ for the amount: $n = \\dfrac{PV}{RT} = \\dfrac{(1.85 \\times 10^{7})(0.0105)}{(8.31)(289)} = \\pu{80.9 mol}$.",
+      "Mass $=$ amount $\\times$ molar mass $= 80.9 \\times 0.0290 = \\pu{2.35 kg}$.",
+      "The data have 3 significant figures, so give 3."
+     ],
+     "answer": "$m \\approx 2.35\\ \\text{kg}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "1.85*10**7*0.0105/(R*(16 + zero_celsius))*0.0290",
+      "sf": 3,
+      "unit": "kg"
+     }
+    },
+    {
+     "type": "text",
+     "text": "For a fixed amount of gas changing state, $n$ and $R$ cancel: use $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$ and cross out whatever stays constant."
+    },
+    {
+     "type": "example",
+     "id": "ex-igl-balloon",
+     "question": "A weather balloon holds $\\pu{8.6 m3}$ of helium at a pressure of $\\pu{1.00e5 Pa}$ and a temperature of $15\\,^{\\circ}\\text{C}$. It rises to a height where the pressure of the helium is $\\pu{2.6e4 Pa}$ and its temperature is $-45\\,^{\\circ}\\text{C}$. No gas escapes. Calculate the new volume of the balloon.",
+     "steps": [
+      "Convert both temperatures: $T_1 = \\pu{288 K}$ and $T_2 = \\pu{228 K}$.",
+      "The amount of gas is fixed, so $\\dfrac{P_1V_1}{T_1} = \\dfrac{P_2V_2}{T_2}$, which gives $V_2 = V_1 \\times \\dfrac{P_1}{P_2} \\times \\dfrac{T_2}{T_1}$.",
+      "Substitute: $V_2 = 8.6 \\times \\dfrac{1.00 \\times 10^{5}}{2.6 \\times 10^{4}} \\times \\dfrac{228}{288} = \\pu{26.2 m3}$.",
+      "The pressure falls to about a quarter, so the volume grows nearly fourfold; the cooling trims it. Give 2 significant figures."
+     ],
+     "answer": "$V_2 \\approx 26\\ \\text{m}^{3}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "8.6*(1.00*10**5/(2.6*10**4))*((-45 + zero_celsius)/(15 + zero_celsius))",
+      "sf": 2,
+      "unit": "m3"
+     }
+    },
+    {
+     "type": "text",
+     "text": "Changes of state are drawn on a pressure–volume diagram, where each point is one state. An isotherm is a curve of constant temperature: along it $PV$ is constant. A hotter isotherm lies further from the origin."
+    },
+    {
+     "type": "figure",
+     "id": "2-8-pv-isotherms",
+     "alt": "Pressure against volume for a fixed amount of ideal gas. Two curved isotherms fall from top left to bottom right; the curve for the higher temperature T2 lies further from the origin than the curve for T1. State A is on the T1 curve. A vertical arrow goes up from A to state B on the T2 curve, labelled constant volume. A horizontal arrow goes right from A to state C on the T2 curve, labelled constant pressure.",
+     "caption": "Heating from $T_1$ to $T_2$: a vertical line keeps the volume constant, a horizontal line keeps the pressure constant."
+    },
+    {
+     "type": "text",
+     "text": "To reach the hotter isotherm from A, the gas can be heated in a rigid container (A to B) or allowed to expand at constant pressure (A to C). Moving along an isotherm is a change at constant temperature."
+    },
+    {
+     "type": "check",
+     "id": "check-igl-room",
+     "prompt": "A classroom has a volume of $\\pu{180 m3}$. The air in it is at $\\pu{1.0e5 Pa}$ and $20\\,^{\\circ}\\text{C}$. Estimate the number of molecules in the room.",
+     "hint": "Use $PV = Nk_\\text{B}T$ with $T$ in kelvin.",
+     "options": [
+      {
+       "text": "$\\approx 4.5 \\times 10^{27}$",
+       "correct": true
+      },
+      {
+       "text": "$\\approx 6.5 \\times 10^{28}$",
+       "correct": false
+      },
+      {
+       "text": "$\\approx 7.4 \\times 10^{3}$",
+       "correct": false
+      }
+     ],
+     "explain": "$N = \\dfrac{PV}{k_\\text{B}T} = \\dfrac{(1.0 \\times 10^{5})(180)}{(1.38 \\times 10^{-23})(293)} \\approx 4.5 \\times 10^{27}$. Using $20$ for $T$ gives $6.5 \\times 10^{28}$. The value $7.4 \\times 10^{3}$ is the amount in moles, from $PV = nRT$.",
+     "verify": {
+      "kind": "standard-form",
+      "truth": "1.0*10**5*180/(kB*(20 + zero_celsius))",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-igl-factor",
+     "prompt": "The pressure of a fixed amount of ideal gas is halved while its kelvin temperature is doubled. What happens to its volume?",
+     "hint": "Make $V$ the subject: $V = \\frac{nRT}{P}$.",
+     "options": [
+      {
+       "text": "it becomes four times as large",
+       "correct": true
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      },
+      {
+       "text": "it doubles",
+       "correct": false
+      },
+      {
+       "text": "it becomes a quarter as large",
+       "correct": false
+      }
+     ],
+     "explain": "$V \\propto \\frac{T}{P}$. Doubling $T$ doubles $V$, and halving $P$ doubles it again, so $V$ becomes four times as large.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it becomes four times as large"
+     }
+    }
+   ]
+  },
+  {
+   "id": "kinetic-pressure",
+   "heading": "Pressure from molecular collisions",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "The kinetic model treats a gas as many identical molecules in random motion: tiny compared with the gaps between them, with no forces between them except during collisions, and with elastic collisions. These ideal gas assumptions from {{lesson:2.7}} are enough to work out the pressure."
+    },
+    {
+     "type": "text",
+     "text": "Take one molecule of mass $m$ in a cube of side $L$. Call the direction towards the right-hand wall positive, and let the component of the molecule's [[velocity|velocity]] in that direction be $+u$. It hits the wall and bounces back elastically, so that component becomes $-u$. The component along the wall does not change."
+    },
+    {
+     "type": "figure",
+     "id": "2-8-molecule-wall",
+     "alt": "Side view of a cubic box of side L. A molecule of mass m moves towards the right-hand wall, which is shaded and has area L squared. The positive direction is to the right. Before hitting the wall, the component of the molecule's velocity towards the wall is plus u. After bouncing off, the component is minus u, while the component along the wall is unchanged.",
+     "caption": "Only the velocity component at right angles to the wall reverses, from $+u$ to $-u$."
+    },
+    {
+     "type": "text",
+     "text": "1. The molecule's momentum changes from $+mu$ to $-mu$, a change of $-2mu$. By Newton's third law the molecule pushes on the wall as hard as the wall pushes on it, so the wall gains $+2mu$."
+    },
+    {
+     "type": "text",
+     "text": "2. Ignoring collisions with other molecules, it travels $2L$, to the far wall and back, before hitting this wall again, taking a time $\\frac{2L}{u}$."
+    },
+    {
+     "type": "text",
+     "text": "3. The mean force it exerts on the wall is the rate of change of momentum: $\\dfrac{2mu}{2L/u} = \\dfrac{mu^{2}}{L}$."
+    },
+    {
+     "type": "text",
+     "text": "4. Add up the forces from all $N$ molecules and divide by the wall's area $L^{2}$. The [[pressure|pressure]] is $P = \\dfrac{Nm\\overline{u^{2}}}{L^{3}}$, where $\\overline{u^{2}}$ is the mean of $u^{2}$ over all the molecules."
+    },
+    {
+     "type": "text",
+     "text": "5. The motion is random, so the mean square speed $\\overline{v^{2}}$ is shared equally between three perpendicular directions: $\\overline{u^{2}} = \\frac{1}{3}\\overline{v^{2}}$."
+    },
+    {
+     "type": "text",
+     "text": "6. $Nm$ is the total mass of gas and $L^{3}$ is its volume, so $\\frac{Nm}{L^{3}}$ is its [[density|density]] $\\rho$."
+    },
+    {
+     "type": "formula",
+     "tex": "P = \\frac{1}{3}\\rho v^{2}",
+     "tag": "booklet",
+     "bookletId": "db-2-8"
+    },
+    {
+     "type": "definition",
+     "term": "root mean square speed",
+     "statement": "The square root of the mean of the squares of the speeds of the molecules: $v_\\text{rms} = \\sqrt{\\overline{v^{2}}}$.",
+     "plain": "Square every molecule's speed, take the average, then take the square root."
+    },
+    {
+     "type": "text",
+     "text": "Here $v^{2}$ means $\\overline{v^{2}}$, and its square root is the [[root-mean-square-speed|root mean square speed]]. It is slightly larger than the mean speed, because squaring weights the fast molecules more. For air at room temperature it is about $\\pu{500 m s-1}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-kp-vrms",
+     "question": "Nitrogen in a storage tank has a density of $\\pu{4.75 kg m-3}$ and a pressure of $\\pu{3.85e5 Pa}$. Calculate the root mean square speed of the nitrogen molecules.",
+     "steps": [
+      "Rearrange $P = \\frac{1}{3}\\rho v^{2}$: $v^{2} = \\dfrac{3P}{\\rho}$.",
+      "Substitute: $v^{2} = \\dfrac{3(3.85 \\times 10^{5})}{4.75} = \\pu{2.432e5 m2 s-2}$.",
+      "Take the square root: $v_\\text{rms} = \\sqrt{2.432 \\times 10^{5}} = \\pu{493.1 m s-1}$."
+     ],
+     "answer": "$v_\\text{rms} \\approx 493\\ \\text{m s}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "sqrt(3*3.85*10**5/4.75)",
+      "sf": 3,
+      "unit": "m s-1"
+     }
+    },
+    {
+     "type": "text",
+     "text": "The model explains the gas laws in words. Heat a gas at constant volume and its molecules move faster, so each collision with a wall gives a larger change in momentum and collisions happen more often. Both raise the pressure. Heat it at constant pressure instead and the gas must expand, so that fewer collisions per unit area balance the harder ones."
+    },
+    {
+     "type": "example",
+     "id": "ex-kp-compress",
+     "question": "A fixed mass of ideal gas in a cylinder is compressed slowly by a piston, so that its temperature stays constant. Explain, in terms of the molecules, why the pressure of the gas increases.",
+     "steps": [
+      "Say what the constant temperature means for the molecules' speeds.",
+      "Then say what changes about their collisions with the walls, and link that to force and pressure."
+     ],
+     "answer": "The temperature is constant, so the mean kinetic energy and the mean speed of the molecules do not change. Each collision with a wall therefore gives the same change in momentum as before. The volume is smaller, so there are more molecules in each unit of volume and they travel shorter distances between hits on a wall. Collisions with each unit area of wall are more frequent. The rate of change of momentum at the walls increases, so the force on each unit area of wall, which is the pressure, increases.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "same mean speed so same momentum change per collision; smaller volume means more frequent collisions per unit area of wall; greater rate of change of momentum means greater force per unit area",
+      "requires": [
+       [
+        "mean speed",
+        "mean kinetic energy"
+       ],
+       "change in momentum",
+       "more frequent",
+       "rate of change of momentum",
+       "unit area"
+      ],
+      "forbids": [
+       "collide with each other more",
+       "molecules get smaller",
+       "move faster"
+      ]
+     }
+    },
+    {
+     "type": "text",
+     "text": "Comparing the model with the ideal gas law shows what temperature means. With $\\rho = \\frac{Nm}{V}$, the model gives $PV = \\frac{1}{3}Nm\\overline{v^{2}}$, and the law gives $PV = Nk_\\text{B}T$. Equating them gives $\\frac{1}{2}m\\overline{v^{2}} = \\frac{3}{2}k_\\text{B}T$: the mean translational kinetic energy of a molecule is proportional to the kelvin temperature, as you met in {{lesson:2.1}}."
+    },
+    {
+     "type": "check",
+     "id": "check-kp-density",
+     "prompt": "Helium in a balloon is at a pressure of $\\pu{2.2e5 Pa}$, and the root mean square speed of its atoms is $\\pu{1.30e3 m s-1}$. Calculate the density of the helium, in $\\text{kg m}^{-3}$ to 2 significant figures.",
+     "hint": "Rearrange $P = \\frac{1}{3}\\rho v^{2}$ for $\\rho$, and remember to square the speed.",
+     "answer": {
+      "value": 0.39,
+      "tolerance": 0.005
+     },
+     "explain": "$\\rho = \\dfrac{3P}{v^{2}} = \\dfrac{3(2.2 \\times 10^{5})}{(1.30 \\times 10^{3})^{2}} \\approx \\pu{0.39 kg m-3}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "3*2.2*10**5/(1.30*10**3)**2",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-kp-double-t",
+     "prompt": "The kelvin temperature of an ideal gas is doubled. By what factor does the root mean square speed of its molecules change?",
+     "hint": "The mean kinetic energy, $\\frac{1}{2}m\\overline{v^{2}}$, is proportional to $T$.",
+     "options": [
+      {
+       "text": "$\\sqrt{2}$",
+       "correct": true
+      },
+      {
+       "text": "$2$",
+       "correct": false
+      },
+      {
+       "text": "$4$",
+       "correct": false
+      },
+      {
+       "text": "$\\frac{1}{\\sqrt{2}}$",
+       "correct": false
+      }
+     ],
+     "explain": "$\\overline{v^{2}} \\propto T$, so $v_\\text{rms} \\propto \\sqrt{T}$, and doubling $T$ multiplies $v_\\text{rms}$ by $\\sqrt{2} \\approx 1.41$. The factor 2 applies to the kinetic energy, not the speed.",
+     "verify": {
+      "kind": "exact",
+      "truth": "sqrt(2)"
+     }
+    }
+   ]
+  },
+  {
+   "id": "internal-energy",
+   "heading": "Internal energy of an ideal monatomic gas",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Internal energy, from {{lesson:2.2}}, is the total random kinetic energy of the particles plus their intermolecular potential energy. In an ideal gas there are no intermolecular forces between collisions, so the potential energy is zero."
+    },
+    {
+     "type": "text",
+     "text": "In a monatomic gas, such as helium or argon, each particle is a single atom whose only kinetic energy is translational. Each atom has a mean kinetic energy of $\\frac{3}{2}k_\\text{B}T$, so $N$ atoms have a total of $\\frac{3}{2}Nk_\\text{B}T$. Using $Nk_\\text{B} = nR$ gives the molar form."
+    },
+    {
+     "type": "formula",
+     "tex": "U = \\frac{3}{2}Nk_\\text{B}T = \\frac{3}{2}RnT",
+     "tag": "booklet",
+     "bookletId": "db-2-8"
+    },
+    {
+     "type": "text",
+     "text": "So $U$ depends only on the amount of gas and its temperature, not on which monatomic gas it is or on its pressure and volume separately. Because $Nk_\\text{B}T = PV$, you can also write $U = \\frac{3}{2}PV$."
+    },
+    {
+     "type": "text",
+     "text": "Beyond the syllabus: molecules of two or more atoms can also rotate and vibrate, so they hold more energy at the same temperature. The equation is only for monatomic gases."
+    },
+    {
+     "type": "example",
+     "id": "ex-ie-balloon",
+     "question": "A party balloon contains $\\pu{0.185 mol}$ of helium at $22\\,^{\\circ}\\text{C}$. Treating the helium as an ideal monatomic gas, calculate its internal energy.",
+     "steps": [
+      "Convert the temperature: $T = 22 + 273 = \\pu{295 K}$.",
+      "Use $U = \\frac{3}{2}RnT = \\frac{3}{2}(8.31)(0.185)(295)$.",
+      "Evaluate: $U = \\pu{680.3 J}$. Give 3 significant figures."
+     ],
+     "answer": "$U \\approx 6.80 \\times 10^{2}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(3, 2)*R*0.185*(22 + zero_celsius)",
+      "sf": 3,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-ie-argon",
+     "question": "A rigid container of volume $\\pu{0.0250 m3}$ holds argon, an ideal monatomic gas. When the argon is heated, its pressure rises from $\\pu{1.20e5 Pa}$ to $\\pu{1.65e5 Pa}$. Determine the increase in the internal energy of the argon.",
+     "steps": [
+      "Combine $U = \\frac{3}{2}Nk_\\text{B}T$ with $PV = Nk_\\text{B}T$: $U = \\frac{3}{2}PV$.",
+      "The volume is constant, so $\\Delta U = \\frac{3}{2}V\\Delta P$.",
+      "Substitute: $\\Delta U = \\frac{3}{2}(0.0250)(1.65 \\times 10^{5} - 1.20 \\times 10^{5}) = \\frac{3}{2}(0.0250)(4.5 \\times 10^{4}) = \\pu{1687.5 J}$.",
+      "The pressure change is known to 2 significant figures, so give 2."
+     ],
+     "answer": "$\\Delta U \\approx 1.7 \\times 10^{3}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(3, 2)*0.0250*(1.65*10**5 - 1.20*10**5)",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ie-neon",
+     "prompt": "A sample of neon contains $2.4 \\times 10^{23}$ atoms at $\\pu{350 K}$. Calculate its internal energy, in joules to 2 significant figures.",
+     "hint": "Use $U = \\frac{3}{2}Nk_\\text{B}T$.",
+     "answer": {
+      "value": 1700,
+      "tolerance": 50
+     },
+     "explain": "$U = \\frac{3}{2}(2.4 \\times 10^{23})(1.38 \\times 10^{-23})(350) \\approx \\pu{1700 J}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "Rational(3, 2)*2.4*10**23*kB*350",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ie-same",
+     "prompt": "Two sealed containers hold equal amounts, in moles, of helium and of xenon, both ideal monatomic gases at the same temperature. Xenon atoms are about 33 times as massive as helium atoms. Which statement is correct?",
+     "hint": "Which quantities appear in the equation for $U$?",
+     "options": [
+      {
+       "text": "their internal energies are equal",
+       "correct": true
+      },
+      {
+       "text": "the xenon has more internal energy because its atoms are more massive",
+       "correct": false
+      },
+      {
+       "text": "the helium has more internal energy because its atoms move faster",
+       "correct": false
+      }
+     ],
+     "explain": "$U = \\frac{3}{2}nRT$ contains no mass. The xenon atoms move more slowly, but each atom has the same mean kinetic energy, so the internal energies are equal.",
+     "verify": {
+      "kind": "choice",
+      "truth": "their internal energies are equal"
+     }
+    }
+   ]
+  },
+  {
+   "id": "real-gases",
+   "heading": "When is a real gas ideal?",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Real molecules take up some space and attract each other weakly when close. The ideal model ignores both, so it works when the molecules are far apart and fast: at low density and pressure, and at high temperature, well above the point where the gas would condense."
+    },
+    {
+     "type": "text",
+     "text": "At high pressure and low temperature both approximations fail. Crowded molecules' own volume matters, and attractions pull them together, weakening their collisions with the walls. A real gas can then condense into a liquid; an ideal gas never can."
+    },
+    {
+     "type": "text",
+     "text": "To test a gas, compare $\\frac{PV}{nT}$ with $R$, or check whether $PV$ stays constant at constant temperature."
+    },
+    {
+     "type": "example",
+     "id": "ex-rg-co2",
+     "question": "A sample of $\\pu{1.00 mol}$ of carbon dioxide is held at $\\pu{300 K}$ and a pressure of $\\pu{5.00e6 Pa}$. Its measured volume is $\\pu{3.85e-4 m3}$. Calculate the ratio of the measured volume to the volume an ideal gas would have under the same conditions.",
+     "steps": [
+      "Volume of an ideal gas: $V_\\text{ideal} = \\dfrac{nRT}{P} = \\dfrac{(1.00)(8.31)(300)}{5.00 \\times 10^{6}} = \\pu{4.99e-4 m3}$.",
+      "Ratio: $\\dfrac{3.85 \\times 10^{-4}}{4.99 \\times 10^{-4}} = 0.772$.",
+      "The gas takes about 23% less volume than the model predicts, so at this high pressure it is not ideal."
+     ],
+     "answer": "$\\dfrac{V}{V_\\text{ideal}} \\approx 0.77$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "3.85*10**-4/(1.00*R*300/(5.00*10**6))",
+      "sf": 2
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-rg-explain",
+     "question": "Explain why a real gas behaves less like an ideal gas at high pressure and low temperature.",
+     "steps": [
+      "Name the two assumptions of the ideal gas model that real molecules break.",
+      "Say why each one matters more when the molecules are crowded and slow."
+     ],
+     "answer": "The ideal gas model assumes that the molecules have negligible volume and that there are no intermolecular forces except during collisions. At high pressure the density is high, so the molecules are close together. Their own volume is then a significant fraction of the volume of the gas. At low temperature the molecules move slowly, so the intermolecular forces of attraction have a significant effect on their motion. These attractions reduce the force of the collisions with the walls, and the gas may condense. So the gas no longer obeys $PV = nRT$.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "ideal model assumes negligible molecular volume and no intermolecular forces; at high pressure molecules are close so their volume matters; at low temperature they are slow so attractions matter",
+      "requires": [
+       "negligible volume",
+       [
+        "no intermolecular forces",
+        "intermolecular forces"
+       ],
+       "high pressure",
+       "close together",
+       "low temperature",
+       "move slowly",
+       "attraction"
+      ],
+      "forbids": [
+       "molecules expand",
+       "molecules get bigger"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-rg-conditions",
+     "prompt": "Under which conditions does a real gas behave most like an ideal gas?",
+     "hint": "Think about when the molecules are far apart and moving fast.",
+     "options": [
+      {
+       "text": "low pressure and high temperature",
+       "correct": true
+      },
+      {
+       "text": "high pressure and low temperature",
+       "correct": false
+      },
+      {
+       "text": "high pressure and high temperature",
+       "correct": false
+      },
+      {
+       "text": "low pressure and low temperature",
+       "correct": false
+      }
+     ],
+     "explain": "Low pressure means a low density, so the molecules are far apart and their volume is negligible. High temperature means fast molecules, so attractions barely affect them.",
+     "verify": {
+      "kind": "choice",
+      "truth": "low pressure and high temperature"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-rg-liquid",
+     "prompt": "Which assumption of the ideal gas model means that an ideal gas can never become a liquid?",
+     "hint": "What holds the particles of a liquid together?",
+     "options": [
+      {
+       "text": "there are no intermolecular forces except during collisions",
+       "correct": true
+      },
+      {
+       "text": "the molecules move randomly",
+       "correct": false
+      },
+      {
+       "text": "collisions between molecules are elastic",
+       "correct": false
+      },
+      {
+       "text": "the molecules obey Newton's laws of motion",
+       "correct": false
+      }
+     ],
+     "explain": "A liquid is held together by forces between its particles. An ideal gas has no intermolecular forces except during collisions, so nothing can hold its molecules together.",
+     "verify": {
+      "kind": "choice",
+      "truth": "there are no intermolecular forces except during collisions"
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "formula",
+     "tex": "PV = nRT = Nk_\\text{B}T",
+     "tag": "booklet",
+     "bookletId": "db-2-8",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "In gas equations $T$ is in kelvin, $V$ in m³ and $P$ in Pa. $R = N_\\text{A}k_\\text{B} = \\pu{8.31 J mol-1 K-1}$ (data booklet).",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "On a pressure–volume diagram, an isotherm is a curve with $PV$ constant; hotter isotherms lie further from the origin. Vertical lines are constant volume, horizontal lines constant pressure.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "P = \\frac{1}{3}\\rho v^{2}",
+     "tag": "booklet",
+     "bookletId": "db-2-8",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Pressure comes from the rate of change of momentum of molecules colliding with the walls. At constant volume, hotter molecules hit harder and more often; compressed gas at constant temperature hits each unit area more often.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "U = \\frac{3}{2}Nk_\\text{B}T = \\frac{3}{2}RnT",
+     "tag": "booklet",
+     "bookletId": "db-2-8",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "A real gas is close to ideal at low pressure, low density and high temperature (well above its condensation point).",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Using degrees Celsius in a gas equation or a temperature ratio. Doubling from $20\\,^{\\circ}\\text{C}$ to $40\\,^{\\circ}\\text{C}$ does not double $T$.",
+  "Mixing up $n$ and $N$: $R$ goes with moles, $k_\\text{B}$ with molecules.",
+  "Forgetting to square the speed in $P = \\frac{1}{3}\\rho v^{2}$, or to take the square root at the end when finding $v_\\text{rms}$.",
+  "Saying pressure comes from molecules colliding with each other. It comes from their collisions with the walls of the container.",
+  "Using $U = \\frac{3}{2}nRT$ for a gas of molecules with more than one atom. It is only for an ideal monatomic gas."
+ ],
+ "examTips": [
+  "In a Paper 2 \"calculate\" or \"determine\" with gases, write the equation, substitute with $T$ in kelvin, then give the answer with its unit. A bare answer can lose the method marks.",
+  "\"Explain, in terms of molecules\" a pressure change: say what happens to the molecular speeds, then to the change in momentum per collision and the rate of collisions with the walls, and end with force per unit area.",
+  "Paper 1A ratio questions: write $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$ or $U \\propto nT$, cross out what is constant, and convert to kelvin first.",
+  "\"State\" the conditions for ideal behaviour: low pressure (or density) and high temperature. \"Explain\" needs each linked to a model assumption."
+ ],
+ "readingMinutes": 26
+}

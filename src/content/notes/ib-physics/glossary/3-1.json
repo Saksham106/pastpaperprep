@@ -1,0 +1,38 @@
+[
+  {
+    "id": "simple-harmonic-motion",
+    "term": "simple harmonic motion",
+    "definition": "Oscillation in which the acceleration is proportional to the displacement from a fixed equilibrium position and always directed towards that position, $a = -\\omega^{2}x$.",
+    "lesson": "3.1"
+  },
+  {
+    "id": "amplitude",
+    "term": "amplitude",
+    "definition": "The maximum displacement of an oscillating object or particle from its equilibrium position: half the distance between the two extreme positions. Written $x_0$ for an oscillator and often $A$ for a wave.",
+    "lesson": "3.1"
+  },
+  {
+    "id": "frequency",
+    "term": "frequency",
+    "definition": "The number of complete oscillations or cycles per unit time, $f = \\frac{1}{T}$, measured in hertz (Hz).",
+    "lesson": "3.1"
+  },
+  {
+    "id": "angular-frequency",
+    "term": "angular frequency",
+    "definition": "$\\omega = 2\\pi f = \\frac{2\\pi}{T}$, in rad s⁻¹; for an oscillation it measures how quickly the cycles repeat, not the rate of any real rotation.",
+    "lesson": "3.1"
+  },
+  {
+    "id": "simple-pendulum",
+    "term": "simple pendulum",
+    "definition": "A small, dense bob on a light, inextensible string swinging from a fixed point; for small angles it performs simple harmonic motion with $T = 2\\pi\\sqrt{l/g}$.",
+    "lesson": "3.1"
+  },
+  {
+    "id": "mass-spring-system",
+    "term": "mass-spring system",
+    "definition": "A mass attached to a light spring that obeys Hooke's law; it oscillates in simple harmonic motion with $T = 2\\pi\\sqrt{m/k}$, whatever the amplitude.",
+    "lesson": "3.1"
+  }
+]

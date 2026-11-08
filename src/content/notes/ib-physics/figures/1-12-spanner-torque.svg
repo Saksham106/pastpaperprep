@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 290" role="img" aria-labelledby="t112st">
+  <title id="t112st">A spanner pivots about a bolt at O on the left. The spanner runs horizontally to the right, a length r, to point P where a force F is applied. F points up and to the right, at angle theta to the line from O through P. A dashed line extends the force's line of action back below P. A short solid line from O meets this dashed line at a right angle; it is labelled r sin theta, the perpendicular distance. A curved arrow round O shows the force turns the spanner anticlockwise.</title>
+  <defs>
+    <marker id="m112st-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m112st-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- spanner -->
+  <line x1="80" y1="170" x2="300" y2="170" stroke="var(--muted)" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="80" cy="170" r="16" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="80" cy="170" r="3.5" fill="currentColor"/>
+  <text x="62" y="150" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end">O</text>
+  <text x="58" y="206" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">axis (bolt)</text>
+
+  <!-- r label along the spanner -->
+  <text x="190" y="158" font-size="13" fill="currentColor" font-family="inherit" font-style="italic" text-anchor="middle">r</text>
+
+  <!-- extension of OP -->
+  <line x1="300" y1="170" x2="372" y2="170" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- point P and force -->
+  <circle cx="300" cy="170" r="3.5" fill="currentColor"/>
+  <text x="296" y="194" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">P</text>
+  <line x1="300" y1="170" x2="330.8" y2="85.4" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#m112st-f)"/>
+  <text x="340" y="84" font-size="14" fill="var(--t1-ink)" font-family="inherit" font-style="italic">F</text>
+
+  <!-- angle theta between OP extended and F -->
+  <path d="M330 170 A30 30 0 0 0 310.3 141.8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="338" y="152" font-size="13" fill="currentColor" font-family="inherit">θ</text>
+
+  <!-- line of action extended back -->
+  <line x1="300" y1="170" x2="267.5" y2="259.3" stroke="var(--t1-ink)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="262" y="280" font-size="11" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">line of action of F</text>
+
+  <!-- perpendicular distance -->
+  <line x1="80" y1="170" x2="274.3" y2="240.7" stroke="var(--t2-ink)" stroke-width="2"/>
+  <path d="M277.0 233.2 L269.5 230.5 L266.8 238.0" fill="none" stroke="var(--t2-ink)" stroke-width="1.2"/>
+  <text x="168" y="230" font-size="13" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">r sin θ</text>
+
+  <!-- sense: anticlockwise about O -->
+  <path d="M112 170 A32 32 0 0 0 80 138" fill="none" stroke="var(--t3-ink)" stroke-width="1.8" marker-end="url(#m112st-s)"/>
+  <text x="122" y="120" font-size="11" fill="var(--t3-ink)" font-family="inherit">anticlockwise</text>
+</svg>

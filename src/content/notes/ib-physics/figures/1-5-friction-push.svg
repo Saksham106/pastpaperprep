@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-labelledby="t">
+<title id="t">Graph of the friction force on a box resting on a level floor against the horizontal push on it. Both axes are in newtons. From the origin, the friction rises along a straight line at 45 degrees, equal to the push, labelled at rest. It reaches a peak, labelled mu s F N, where the box starts to slide. The friction then drops to a lower value, labelled mu d F N, and stays constant as the push increases further, labelled sliding.</title>
+<path d="M60.0 230.0 L378.0 230.0" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="385.0,230.0 378.0,234.5 378.0,225.5" fill="currentColor"/>
+<path d="M60.0 230.0 L60.0 29.0" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="60.0,22.0 64.5,29.0 55.5,29.0" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="385.0" y="250.0" fill="currentColor" text-anchor="end">push on the box / N</text>
+<text font-family="inherit" font-size="12" x="68.0" y="28.0" fill="currentColor" text-anchor="start">friction F<tspan baseline-shift="sub" font-size="9">f</tspan> / N</text>
+<path d="M60 230 L200 90" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<path d="M200 90 L200 125" fill="none" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="4 3"/>
+<path d="M200 125 L375 125" fill="none" stroke="var(--t4-ink)" stroke-width="2.4"/>
+<path d="M60 90 H200 M60 125 H200" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="200" cy="90" r="4" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="55.0" y="94.0" fill="currentColor" text-anchor="end">μ<tspan baseline-shift="sub" font-size="9">s</tspan> F<tspan baseline-shift="sub" font-size="9">N</tspan></text>
+<text font-family="inherit" font-size="12" x="55.0" y="129.0" fill="currentColor" text-anchor="end">μ<tspan baseline-shift="sub" font-size="9">d</tspan> F<tspan baseline-shift="sub" font-size="9">N</tspan></text>
+<text font-family="inherit" font-size="12" x="208.0" y="82.0" fill="var(--t2-ink)" text-anchor="start">starts to slide</text>
+<text font-family="inherit" font-size="12" x="140.0" y="200.0" fill="var(--t2-ink)" text-anchor="start">at rest:</text>
+<text font-family="inherit" font-size="12" x="140.0" y="215.0" fill="var(--t2-ink)" text-anchor="start">friction = push</text>
+<text font-family="inherit" font-size="12" x="290.0" y="115.0" fill="var(--t4-ink)" text-anchor="middle">sliding</text>
+</svg>

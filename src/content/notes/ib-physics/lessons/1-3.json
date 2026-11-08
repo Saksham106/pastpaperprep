@@ -1,0 +1,676 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.3",
+  "slug": "projectile-motion",
+  "title": "Projectile motion",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A [[projectile|projectile]] moves sideways and falls at the same time. With no air resistance the horizontal [[velocity|velocity]] stays constant, while vertically it has the [[acceleration-of-free-fall|acceleration of free fall]] $g$. Solve each direction separately, linked by the time. [[fluid-resistance|Fluid resistance]] makes the path lower, shorter and lopsided.",
+  "goals": [
+    {
+      "text": "Resolve a launch velocity into components and treat the two motions separately.",
+      "bullets": [
+        "A.1-s8"
+      ]
+    },
+    {
+      "text": "Calculate time of flight, maximum height, range and impact [[speed|speed]] for horizontal, upward and downward launches.",
+      "bullets": [
+        "A.1-s8"
+      ]
+    },
+    {
+      "text": "Describe the velocity and [[acceleration|acceleration]] of a projectile at any point on its parabolic path.",
+      "bullets": [
+        "A.1-s8"
+      ]
+    },
+    {
+      "text": "Describe how fluid resistance changes time of flight, path, velocity, acceleration and range.",
+      "bullets": [
+        "A.1-s9"
+      ]
+    },
+    {
+      "text": "Explain how a falling body reaches its [[terminal-speed|terminal speed]].",
+      "bullets": [
+        "A.1-s9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.5",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "projectile motion",
+    "horizontal and vertical components",
+    "time of flight and range",
+    "suvat projectile",
+    "air resistance on a projectile",
+    "terminal velocity"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-resolve-component",
+      "prompt": "A velocity of $\\pu{12 m s-1}$ points $35^{\\circ}$ above the horizontal. What is its vertical component, in $\\pu{m s-1}$? Give 2 significant figures.",
+      "hint": "The vertical side is opposite the angle.",
+      "answer": {
+        "value": 6.9,
+        "tolerance": 0.05
+      },
+      "explain": "$12\\sin 35^{\\circ} = 6.88... \\approx \\pu{6.9 m s-1}$. Revise [[resolving-a-vector|resolving a vector]] in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12*sind(35)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-drop-distance",
+      "prompt": "A key is dropped from rest and falls for $\\pu{1.5 s}$. Air resistance is negligible. How far does it fall, in metres? Give 2 significant figures.",
+      "hint": "Use $s = ut + \\tfrac{1}{2}at^{2}$ with $u = 0$ and $a = g$.",
+      "answer": {
+        "value": 11,
+        "tolerance": 0.5
+      },
+      "explain": "$s = 0 + \\tfrac{1}{2}(9.8)(1.5)^{2} = 11.0... \\approx \\pu{11 m}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*g*1.5**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-top-of-throw",
+      "prompt": "A coin is tossed straight up. Air resistance is negligible. What is its acceleration at the highest point?",
+      "hint": "Its velocity is zero there for an instant. Is it still changing?",
+      "options": [
+        {
+          "text": "g downwards",
+          "correct": true
+        },
+        {
+          "text": "zero",
+          "correct": false
+        },
+        {
+          "text": "g upwards",
+          "correct": false
+        }
+      ],
+      "explain": "Only gravity acts, so the acceleration is $g$ downwards throughout. The velocity is zero at the top but still changing. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "g downwards"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "components",
+      "heading": "Two motions at once",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Roll a marble off a desk and drop another from the same height at the same instant. They land together: moving sideways does not change how fast a body falls."
+        },
+        {
+          "type": "definition",
+          "term": "projectile",
+          "statement": "A body that moves freely after it has been launched, with no engine or push, so the only forces on it are its weight and any fluid resistance.",
+          "plain": "Anything thrown, kicked, fired or dropped, once it has left the hand."
+        },
+        {
+          "type": "text",
+          "text": "Until the last section, fluid resistance is negligible. Then the only force is the projectile's [[weight|weight]], straight down."
+        },
+        {
+          "type": "result",
+          "statement": "With no fluid resistance, the horizontal and vertical motions of a projectile are independent. Horizontally the acceleration is zero, so the horizontal component of velocity is constant. Vertically the acceleration is $g$ downwards, the same as for a dropped body.",
+          "why": "Weight is vertical, so it changes only the vertical component of velocity."
+        },
+        {
+          "type": "text",
+          "text": "So split every problem into a horizontal list and a vertical list. The only quantity they share is the time $t$."
+        },
+        {
+          "type": "formula",
+          "tex": "s_x = u_x t",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Horizontally, the [[displacement|displacement]] is $u_x$ times the time. Vertically, the acceleration is [[uniform-acceleration|uniform]], so the equations of motion from {{lesson:1.2}} apply. They are in the data booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "s = \\frac{(u+v)t}{2} \\qquad v = u + at \\qquad s = ut + \\tfrac{1}{2}at^{2} \\qquad v^{2} = u^{2} + 2as",
+          "tag": "booklet",
+          "bookletId": "db-1-3"
+        },
+        {
+          "type": "text",
+          "text": "Choose a positive direction first and keep it. With up positive, $a = -g = \\pu{-9.8 m s-2}$ ($g$ is from the data booklet)."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-horizontal-launch",
+          "alt": "A ball launched horizontally from a ledge follows a curved path down to the ground. Dots mark its position at equal time intervals: they are equally spaced horizontally, but the vertical gaps between them grow. A second ball dropped from rest at the same moment falls straight down below the launch point, and dotted lines show it is at the same height as the launched ball at every instant. At two points on the path, arrows show the velocity: a horizontal component that is the same length at both points, a downward vertical component that is longer at the later point, and the resultant velocity along the tangent to the path. A separate arrow pointing straight down is labelled acceleration g, the same at every point.",
+          "caption": "Equal horizontal steps in equal times; vertically it keeps pace with a dropped ball. Velocity is along the tangent, acceleration is $g$ down."
+        },
+        {
+          "type": "text",
+          "text": "The path is a parabola. You don't need its equation."
+        },
+        {
+          "type": "example",
+          "id": "ex-toy-car-off-table",
+          "question": "A toy car rolls off the edge of a horizontal table at $\\pu{1.6 m s-1}$. The table top is $\\pu{0.92 m}$ above the floor. Air resistance is negligible. Calculate how far from the foot of the table the car lands.",
+          "steps": [
+            "Take down as positive. Vertical list: $u_y = 0$ (it leaves horizontally), $a = g = \\pu{9.8 m s-2}$, $s_y = \\pu{0.92 m}$, $t = ?$",
+            "Vertical motion gives the time: $0.92 = 0 + \\tfrac{1}{2}(9.8)t^{2}$, so $t = \\sqrt{\\frac{2 \\times 0.92}{9.8}} = \\pu{0.4333 s}$.",
+            "Horizontal list: $u_x = \\pu{1.6 m s-1}$, constant. $s_x = u_x t = 1.6 \\times 0.4333 = \\pu{0.693 m}$.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$s_x \\approx \\pu{0.69 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.6*sqrt(2*0.92/g)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-two-marbles",
+          "question": "Marble A rolls off a horizontal desk. At the same instant marble B is released from rest at the same height. Air resistance is negligible. Explain why both marbles reach the floor at the same time.",
+          "steps": [
+            "Marking point 1: the vertical and horizontal motions are independent.",
+            "Marking point 2: both have zero vertical velocity at the start.",
+            "Marking point 3: both have the same vertical acceleration, $g$.",
+            "Marking point 4: same vertical distance, so the same time. A's horizontal speed plays no part."
+          ],
+          "answer": "The vertical motion of each marble is independent of its horizontal motion. Both marbles start with zero vertical velocity. Both have the same vertical acceleration, $g$ downwards, because the gravitational force is the only force acting. They fall the same vertical distance, so they take the same time and land together.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "independent motions; same initial vertical velocity, same acceleration g, same height so same time",
+            "requires": [
+              "independent",
+              [
+                "zero vertical velocity",
+                "no vertical velocity"
+              ],
+              [
+                "same vertical acceleration",
+                "same acceleration"
+              ],
+              [
+                "same vertical distance",
+                "same height"
+              ],
+              [
+                "same time",
+                "land together"
+              ]
+            ],
+            "forbids": [
+              "heavier",
+              "falls more slowly",
+              "takes longer"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a horizontal distance into a vertical equation. Only $t$ crosses between the lists."
+        },
+        {
+          "type": "check",
+          "id": "check-what-stays-constant",
+          "prompt": "A ball is thrown horizontally from a cliff. Air resistance is negligible. Which quantity stays constant during its flight?",
+          "hint": "Which direction has no force acting along it?",
+          "options": [
+            {
+              "text": "the horizontal component of velocity",
+              "correct": true
+            },
+            {
+              "text": "the speed",
+              "correct": false
+            },
+            {
+              "text": "the vertical component of velocity",
+              "correct": false
+            },
+            {
+              "text": "the direction of motion",
+              "correct": false
+            }
+          ],
+          "explain": "No force acts horizontally, so that component never changes. The vertical component grows, so speed and direction change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the horizontal component of velocity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-drone-parcel",
+          "prompt": "A drone flies horizontally at $\\pu{14 m s-1}$, $\\pu{26 m}$ above flat ground. It releases a parcel. Air resistance is negligible. How far, horizontally, does the parcel travel before it lands? Answer in metres to 2 significant figures.",
+          "hint": "At release the parcel moves with the drone: $u_y = 0$.",
+          "answer": {
+            "value": 32,
+            "tolerance": 0.5
+          },
+          "explain": "Vertically: $26 = \\tfrac{1}{2}(9.8)t^{2}$, so $t = \\pu{2.30 s}$. Horizontally: $s_x = 14 \\times 2.30 = 32.2... \\approx \\pu{32 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "14*sqrt(2*26/g)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "angled",
+      "heading": "Launching above or below the horizontal",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a projectile is launched at an angle, both components start non-zero. Find them first, by [[resolving-a-vector|resolving]] the launch velocity $u$ at angle $\\theta$ to the horizontal."
+        },
+        {
+          "type": "formula",
+          "tex": "u_x = u\\cos\\theta \\qquad u_y = u\\sin\\theta",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Below the horizontal, $u_y$ points down, so it is negative when up is positive."
+        },
+        {
+          "type": "text",
+          "text": "Launched upwards, $v_y$ shrinks to zero at the highest point. There the velocity is horizontal, the [[speed|speed]] is smallest ($u\\cos\\theta$), and the acceleration is still $g$ down."
+        },
+        {
+          "type": "text",
+          "text": "On level ground the path is symmetrical: time up equals time down, and it lands at its launch speed."
+        },
+        {
+          "type": "example",
+          "id": "ex-football-range",
+          "question": "A football is kicked from level ground at $\\pu{17 m s-1}$, $38^{\\circ}$ above the horizontal. Air resistance is negligible. Determine the horizontal distance to where it lands.",
+          "steps": [
+            "Resolve, with up as positive: $u_x = 17\\cos 38^{\\circ} = \\pu{13.40 m s-1}$ and $u_y = 17\\sin 38^{\\circ} = \\pu{10.47 m s-1}$.",
+            "Time of flight: it lands at the launch height, so $s_y = 0$. $0 = 10.47t - \\tfrac{1}{2}(9.8)t^{2}$ gives $t = \\frac{2 \\times 10.47}{9.8} = \\pu{2.136 s}$ (the other root, $t = 0$, is the kick).",
+            "Range: $s_x = u_x t = 13.40 \\times 2.136 = \\pu{28.6 m}$.",
+            "Extra: at the top $v_y = 0$, so $0 = 10.47^{2} - 2(9.8)H$ gives a maximum height $H = \\pu{5.6 m}$.",
+            "Round only the final answer."
+          ],
+          "answer": "$s_x \\approx \\pu{29 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "17*cosd(38) * 2*17*sind(38)/g",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-stone-off-bridge",
+          "question": "A stone is thrown from a bridge at $\\pu{7.5 m s-1}$, $35^{\\circ}$ below the horizontal. It lands in the river $\\pu{33 m}$ below the point of release. Air resistance is negligible. Calculate the speed at which the stone hits the water.",
+          "steps": [
+            "Take down as positive, since every vertical quantity points down. $u_y = 7.5\\sin 35^{\\circ} = \\pu{4.30 m s-1}$ and $u_x = 7.5\\cos 35^{\\circ} = \\pu{6.14 m s-1}$.",
+            "Vertical: $v_y^{2} = u_y^{2} + 2as = 4.30^{2} + 2(9.8)(33) = 665.3$, so $v_y = \\pu{25.79 m s-1}$.",
+            "Horizontal: $v_x = u_x = \\pu{6.14 m s-1}$, unchanged.",
+            "Combine the components: $v = \\sqrt{v_x^{2} + v_y^{2}} = \\sqrt{6.14^{2} + 665.3} = \\pu{26.5 m s-1}$.",
+            "Check: $v^{2} = u^{2} + 2gh = 56.25 + 646.8$ gives the same speed, but not the direction."
+          ],
+          "answer": "$v \\approx \\pu{27 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((7.5*cosd(35))**2 + (7.5*sind(35))**2 + 2*g*33)",
+            "sf": 2,
+            "unit": "m s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-bridge-impact-angle",
+            "prompt": "Now you try: at what angle below the horizontal does the stone hit the water?",
+            "hint": "Use $\\tan\\phi = \\frac{v_y}{v_x}$ with the final components.",
+            "options": [
+              {
+                "text": "$\\phi \\approx 76.6^{\\circ}$",
+                "correct": true
+              },
+              {
+                "text": "$\\phi \\approx 13.4^{\\circ}$",
+                "correct": false
+              },
+              {
+                "text": "$\\phi \\approx 35.0^{\\circ}$",
+                "correct": false
+              },
+              {
+                "text": "$\\phi \\approx 73.8^{\\circ}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\tan\\phi = \\frac{25.79}{6.14}$, so $\\phi \\approx 76.6^{\\circ}$. $13.4^{\\circ}$ is the angle to the vertical, $35.0^{\\circ}$ keeps the launch angle, and $73.8^{\\circ}$ uses $\\pu{7.5 m s-1}$ unresolved.",
+            "verify": {
+              "kind": "angle",
+              "truth": "atand(sqrt((7.5*sind(35))**2 + 2*g*33)/(7.5*cosd(35)))"
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the launch height. $s_y$ is measured from the release point, not the ground."
+        },
+        {
+          "type": "check",
+          "id": "check-highest-point",
+          "prompt": "A ball is launched at $40^{\\circ}$ above the horizontal. Air resistance is negligible. Which describes it at the highest point of its path?",
+          "hint": "Which component is zero there? Has the force changed?",
+          "options": [
+            {
+              "text": "velocity horizontal, acceleration g downwards",
+              "correct": true
+            },
+            {
+              "text": "velocity zero, acceleration g downwards",
+              "correct": false
+            },
+            {
+              "text": "velocity horizontal, acceleration zero",
+              "correct": false
+            },
+            {
+              "text": "velocity zero, acceleration zero",
+              "correct": false
+            }
+          ],
+          "explain": "Only $v_y$ is zero at the top, so the velocity is horizontal. The weight still acts, so the acceleration is $g$ down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "velocity horizontal, acceleration g downwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-balcony-time",
+          "prompt": "A ball is thrown from a balcony at $\\pu{11 m s-1}$, $40^{\\circ}$ above the horizontal. It lands on the ground $\\pu{6.0 m}$ below the point of release. Air resistance is negligible. How long is it in the air, in seconds? Give 2 significant figures.",
+          "hint": "With up positive, $s_y = \\pu{-6.0 m}$. Solve $s = ut + \\tfrac{1}{2}at^{2}$; keep the positive root.",
+          "answer": {
+            "value": 2.0,
+            "tolerance": 0.05
+          },
+          "explain": "$u_y = 11\\sin 40^{\\circ} = \\pu{7.07 m s-1}$. $-6.0 = 7.07t - 4.9t^{2}$, so $4.9t^{2} - 7.07t - 6.0 = 0$ and $t = \\frac{7.07 + \\sqrt{7.07^{2} + 4(4.9)(6.0)}}{9.8} = 2.04... \\approx \\pu{2.0 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(11*sind(40) + sqrt((11*sind(40))**2 + 2*g*6.0))/g",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fluid-resistance",
+      "heading": "The effect of fluid resistance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A shuttlecock and a tennis ball hit the same way follow very different paths, because of the air."
+        },
+        {
+          "type": "definition",
+          "term": "fluid resistance",
+          "statement": "The force a gas or liquid exerts on a body moving through it, acting opposite to the body's velocity relative to the fluid. It increases as the speed increases.",
+          "plain": "Air resistance or water resistance: the fluid pushing back on anything that moves through it."
+        },
+        {
+          "type": "text",
+          "text": "You describe the effects of [[fluid-resistance|fluid resistance]]; you don't calculate them. It opposes the velocity, so it slows both components."
+        },
+        {
+          "type": "text",
+          "text": "Acceleration: no longer constant $g$. Going up, the resistance has a downward part that adds to the weight, so the vertical component of acceleration is more than $g$. Coming down, its vertical part opposes the weight, so the vertical component is less than $g$."
+        },
+        {
+          "type": "text",
+          "text": "Velocity: the horizontal component decreases throughout. On level ground it lands slower than it was launched."
+        },
+        {
+          "type": "text",
+          "text": "Path and range: a lower maximum height and a shorter range. The path is not symmetrical; it comes down more steeply than it went up."
+        },
+        {
+          "type": "text",
+          "text": "Time of flight: from level ground it rises for less time and falls for longer than it rose; the total is usually shorter. Launched horizontally from a height, it takes longer to land."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-air-resistance-path",
+          "alt": "Two paths launched from the same point on level ground with the same initial velocity, at the same angle. The dashed path, with no air resistance, is a symmetrical parabola: it rises highest and lands furthest away. The solid path, with air resistance, rises to a lower maximum height, and its highest point is past the middle of its range. It comes down more steeply than it went up and lands at about half the range of the dashed path.",
+          "caption": "With air resistance the peak is lower and past the middle, and the descent is steeper."
+        },
+        {
+          "type": "example",
+          "id": "ex-shuttlecock-path",
+          "question": "A shuttlecock is hit upwards at an angle. Air resistance on it is large. Describe how air resistance changes its maximum height, range and path shape, compared with no air resistance.",
+          "steps": [
+            "Start from the direction of the force, then give one effect per sentence: height, range, shape."
+          ],
+          "answer": "Air resistance acts in the opposite direction to the shuttlecock's velocity, so it slows both the horizontal and the vertical motion. On the way up it has a downward component that adds to the weight, so the shuttlecock reaches a lower maximum height. Its horizontal velocity keeps decreasing, so the range is shorter. By the time it comes down, its horizontal velocity is much smaller than at launch, so the path is no longer symmetrical: it comes down more steeply than it went up.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "drag opposes velocity: lower maximum height, shorter range, asymmetric path with steeper descent",
+            "requires": [
+              [
+                "opposite direction to",
+                "opposes"
+              ],
+              "lower maximum height",
+              [
+                "range is shorter",
+                "shorter range"
+              ],
+              [
+                "no longer symmetrical",
+                "not symmetrical"
+              ],
+              [
+                "more steeply",
+                "steeper"
+              ]
+            ],
+            "forbids": [
+              "horizontal velocity is constant",
+              "acceleration is constant",
+              "longer range"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A body that falls far enough stops speeding up, because the resistance grows with speed. For a small, slow sphere the force is [[viscous-drag|viscous drag]] ({{lesson:1.5}})."
+        },
+        {
+          "type": "definition",
+          "term": "terminal speed",
+          "statement": "The constant speed reached by a body falling through a fluid when the fluid resistance, plus any [[buoyancy|upthrust]], balances its weight.",
+          "plain": "The top speed of a falling object, reached when the forces on it cancel out."
+        },
+        {
+          "type": "text",
+          "text": "At [[terminal-speed|terminal speed]] the resultant force and the acceleration are zero. The forces have not vanished; they balance. Upthrust is tiny in air but matters in a liquid."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-terminal-speed-graph",
+          "alt": "Graph of speed against time for a body falling from rest through air. Speed on the vertical axis in metres per second, time on the horizontal axis in seconds. The curve starts at the origin with its steepest gradient, equal to g, shown by a dashed tangent line. The gradient then decreases, and the curve levels off towards a horizontal dashed line labelled terminal speed.",
+          "caption": "The gradient is the acceleration: $g$ at the start, falling to zero at terminal speed."
+        },
+        {
+          "type": "example",
+          "id": "ex-hailstone-terminal",
+          "question": "A hailstone falls from rest from a high cloud. Explain why it reaches a terminal speed.",
+          "steps": [
+            "Follow the chain: speed up, air resistance up, resultant force down, acceleration down, until the forces balance."
+          ],
+          "answer": "At the start the speed is zero, so the only force is the weight and the acceleration is $g$. As the speed increases, the air resistance increases while the weight stays constant. The resultant force downwards decreases, so the acceleration decreases. Eventually the air resistance becomes equal to the weight, since the upthrust in air is negligible. The resultant force is then zero, so the acceleration is zero and the hailstone falls at a constant speed, its terminal speed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "drag increases with speed until it equals weight; resultant force and acceleration zero; constant speed",
+            "requires": [
+              "air resistance increases",
+              [
+                "weight stays constant",
+                "weight is constant"
+              ],
+              "acceleration decreases",
+              [
+                "equal to the weight",
+                "balances the weight"
+              ],
+              [
+                "resultant force is then zero",
+                "resultant force is zero"
+              ],
+              "constant speed"
+            ],
+            "forbids": [
+              "no forces act",
+              "greater than the weight",
+              "speed becomes zero"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-top-with-drag",
+          "prompt": "A ball is launched upwards at an angle and air resistance is not negligible. Which describes its acceleration at the highest point of its path?",
+          "hint": "Which way does air resistance point when the velocity is horizontal?",
+          "options": [
+            {
+              "text": "more than g, downwards and backwards",
+              "correct": true
+            },
+            {
+              "text": "exactly g, straight down",
+              "correct": false
+            },
+            {
+              "text": "zero",
+              "correct": false
+            },
+            {
+              "text": "less than g, straight down",
+              "correct": false
+            }
+          ],
+          "explain": "At the top, air resistance acts horizontally backwards. Added to the weight, the resultant force is larger than the weight, so the acceleration is more than $g$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "more than g, downwards and backwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-skydiver-terminal",
+          "prompt": "A skydiver is falling at terminal speed. Which statement is correct?",
+          "hint": "Constant velocity means zero acceleration.",
+          "options": [
+            {
+              "text": "The resultant force on her is zero.",
+              "correct": true
+            },
+            {
+              "text": "No forces act on her.",
+              "correct": false
+            },
+            {
+              "text": "Her weight is less than the air resistance.",
+              "correct": false
+            },
+            {
+              "text": "Her acceleration is g downwards.",
+              "correct": false
+            }
+          ],
+          "explain": "Constant speed means zero acceleration and zero resultant force. Weight and air resistance both act, equal in size.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The resultant force on her is zero."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "No fluid resistance: horizontally $u_x$ is constant and $s_x = u_x t$; vertically the acceleration is $g$ down. Only $t$ links them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resolve first: $u_x = u\\cos\\theta$, $u_y = u\\sin\\theta$. Combine at the end: $v = \\sqrt{v_x^{2} + v_y^{2}}$, $\\tan\\phi = \\frac{v_y}{v_x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "No fluid resistance: the path is a parabola. Velocity is along the tangent; acceleration is $g$ straight down at every point, including the top, where $v_y = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fluid resistance opposes velocity: lower maximum height, shorter range, decreasing horizontal velocity, acceleration not constant, steeper descent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Terminal speed: fluid resistance (plus upthrust) equals weight, so the resultant force and acceleration are zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the full launch speed in both directions. Resolve it into $u\\cos\\theta$ and $u\\sin\\theta$ first.",
+    "Taking up as positive but writing $a = \\pu{+9.8 m s-2}$. State the positive direction and match the sign of $a$.",
+    "Drawing the acceleration along the path, or calling it zero at the top. With no air resistance it is $g$ straight down everywhere.",
+    "Saying no forces act at terminal speed. They balance, so the resultant force is zero."
+  ],
+  "examTips": [
+    "\"Draw\" arrows on a path: start each at the point. Velocity is along the tangent; acceleration is vertically down.",
+    "\"Calculate\" a time of flight: write the vertical equation with numbers substituted. That line earns the method mark.",
+    "\"Explain\" terminal speed as a chain, one step per sentence, ending with balanced forces and constant speed.",
+    "In Paper 1A, find the time from the vertical motion first. With no air resistance, horizontal speed never changes the time to fall."
+  ],
+  "readingMinutes": 21
+}

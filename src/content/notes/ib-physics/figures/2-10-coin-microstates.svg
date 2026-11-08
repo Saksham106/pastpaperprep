@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t210cm">
+  <title id="t210cm">All sixteen microstates of four coins, sorted into five macrostates by the number of heads. Four heads: 1 microstate, HHHH. Three heads: 4 microstates. Two heads: 6 microstates, HHTT, HTHT, HTTH, THHT, THTH and TTHH, the most of any macrostate. One head: 4 microstates. No heads: 1 microstate, TTTT.</title>
+  <rect x="245" y="20" width="110" height="250" rx="8" fill="var(--t2-ink)" fill-opacity="0.15" stroke="var(--t2-ink)" stroke-width="1.2"/>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle" font-weight="bold">
+    <text x="70" y="44">4 heads</text>
+    <text x="185" y="44">3 heads</text>
+    <text x="300" y="44">2 heads</text>
+    <text x="415" y="44">1 head</text>
+    <text x="530" y="44">0 heads</text>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="ui-monospace, monospace" text-anchor="middle">
+    <text x="70" y="76">HHHH</text>
+    <text x="185" y="76">THHH</text>
+    <text x="185" y="100">HTHH</text>
+    <text x="185" y="124">HHTH</text>
+    <text x="185" y="148">HHHT</text>
+    <text x="300" y="76">HHTT</text>
+    <text x="300" y="100">HTHT</text>
+    <text x="300" y="124">HTTH</text>
+    <text x="300" y="148">THHT</text>
+    <text x="300" y="172">THTH</text>
+    <text x="300" y="196">TTHH</text>
+    <text x="415" y="76">HTTT</text>
+    <text x="415" y="100">THTT</text>
+    <text x="415" y="124">TTHT</text>
+    <text x="415" y="148">TTTH</text>
+    <text x="530" y="76">TTTT</text>
+  </g>
+  <line x1="20" y1="226" x2="580" y2="226" stroke="var(--muted)" stroke-width="1"/>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="70" y="254">Ω = 1</text>
+    <text x="185" y="254">Ω = 4</text>
+    <text x="300" y="254" fill="var(--t2-ink)" font-weight="bold">Ω = 6</text>
+    <text x="415" y="254">Ω = 4</text>
+    <text x="530" y="254">Ω = 1</text>
+  </g>
+  <text x="300" y="292" font-size="12" fill="var(--muted)" text-anchor="middle" font-family="inherit">16 equally likely microstates in all</text>
+</svg>

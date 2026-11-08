@@ -14,9 +14,13 @@ Reading
   parse_with_unit(tex, unit)       the TeX with its unit removed; the unit must be present and match. Units are
                                    compared token by token in any order, with \\text{}, \\mathrm{}, mhchem \\pu{}, \\,
                                    `^{-1}`, `-1` and `⁻¹` all equivalent: \\text{kJ mol}^{-1} = kJ mol-1 = kJ mol⁻¹.
+                                   \\Omega, Ω and the ohm sign U+2126 read Ω; \\mu, μ and µ read µ (\\mu\\text{F} = µF).
+                                   Matching is by spelling, not dimension: N s is not kg m s-1, Hz is not s-1.
   split_unit(tex, plain=False)     (TeX without its trailing unit, the normalised unit or None). A unit starts at
                                    \\text / \\mathrm (not a "(3 s.f.)" remark), a degree sign, \\% or \\pu{}; with plain=True
-                                   also at a bare SI/chemistry unit such as `mol dm^{-3}` or `kJ mol⁻¹`.
+                                   also at a bare SI/chemistry/physics unit such as `mol dm^{-3}`, `kJ mol⁻¹`,
+                                   `m s^{-2}`, `rad s^{-1}`, `kΩ`, `MeV`, `T`, `Wb`, `ly`, and (plain only) at Ω / \\Omega
+                                   or \\mu\\text{..} after a number, so 4.7\\,\\mu\\text{F} reads as µF.
   parse_degrees(tex)               an exact angle written with ^{\\circ}.
   parse_vector(tex), parse_point(tex), parse_vector_line(tex), parse_set(tex), parse_equation(tex)
 
@@ -313,17 +317,25 @@ _SUPERSCRIPTS = str.maketrans("\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\
 
 def _normal_unit(unit: str) -> str:
     """One spelling for a unit: \\text{kJ mol}^{-1}, kJ\\,mol^{-1}, kJ mol-1 and kJ mol⁻¹ all read "kJ mol-1". Tokens are
-    sorted, so J K^{-1} mol^{-1} = J mol^{-1} K^{-1} (a product of units does not depend on the order)."""
+    sorted, so J K^{-1} mol^{-1} = J mol^{-1} K^{-1} (a product of units does not depend on the order). \\Omega and the
+    ohm sign read Ω; \\mu, μ and µ read µ, joined to the unit after it (\\mu\\text{F} = µF), as k / M / G are to Ω."""
     unit = re.sub(r"\^\s*\{?\s*\\circ\s*\}?|\\degree|°", "°", unit)
+    unit = re.sub(r"\\Omega(?![A-Za-z])|\u2126", "\u03a9", unit)
     unit = unit.replace("\u2212", "-").translate(_SUPERSCRIPTS)
     unit = re.sub(r"\\(?:text|mathrm|textrm|operatorname|pu)\s*\{", " ", unit)
     unit = re.sub(r"\\(?:cdot|[,;:! ])|\\q?quad(?![A-Za-z])|[~·]", " ", unit)
     unit = unit.replace("\\%", "%")
     unit = re.sub(r"\\(?:mu|micro)(?![A-Za-z])|\u03bc", "\u00b5", unit)
     unit = unit.replace("{", "").replace("}", "").replace("^", "")
+    unit = re.sub(r"\u00b5\s+", "\u00b5", unit)  # \mu\text{F} -> µF: a prefix on its own is never a unit
+    unit = re.sub(r"(?<!\S)([kMG])\s+(?=\u03a9)", r"\1", unit)  # \text{k}\,\Omega -> kΩ (but Ω m stays ohm metre)
     unit = re.sub(r"\s+(?=[-+]?\d)", "", unit)  # "mol -1" -> "mol-1"
     unit = re.sub(r"°\s*", "°", unit)  # ^{\circ}\text{C} -> °C
     return " ".join(sorted(unit.split()))
+
+
+#: After a number: an ohm unit (5\,\Omega, 2.2 k\Omega, 3 Ω) or a micro prefix before \text (4.7\,\mu\text{F}).
+_NUMBER_UNIT = re.compile(r"\d\s*((?:[kMG\u00b5\u03bc]|\\mu\s*)?(?:\\Omega(?![A-Za-z])|[\u03a9\u2126])|(?:\\mu\s*|[\u00b5\u03bc])(?=\\(?:text|mathrm)\{))")
 
 
 def _unit_start(rhs: str):
@@ -331,8 +343,10 @@ def _unit_start(rhs: str):
     return match.start() if match else None
 
 
-#: A bare unit token: an SI or chemistry unit with an optional prefix and power, as in mol, dm^{-3}, kJ, mol⁻¹, cm^3.
-_UNIT_TOKEN = (r"(?:(?:[kMmcdnpµμ]?(?:mol|g|m|L|J|Pa|s|K|V|W|N|Hz|eV|A|C))|atm|min|hr?|ppm|M)"
+#: A bare unit token: an SI, chemistry or physics unit with an optional prefix and power, as in mol, dm^{-3}, kJ, mol⁻¹,
+#: cm^3, m s^{-2}, kΩ, \mu A, MeV, rad, T, Wb, ly, pc, AU, u.
+_UNIT_TOKEN = (r"(?:(?:(?:[kMGmcdnpµμ]|\\mu\s*)?(?:mol|g|m|L|J|Pa|s|K|V|Wb|W|N|Hz|eV|A|C|T|F|Ω|\\Omega(?![A-Za-z])))"
+               r"|rad|ly|pc|AU|u|atm|min|hr?|ppm|M)"
                r"(?:\s*\^\s*\{?\s*[-\u2212]?\d+\s*\}?|[-\u2212]?\d+|[\u207b]?[\u2070\u00b9\u00b2\u00b3\u2074-\u2079]+)?")
 _PLAIN_UNIT = re.compile(rf"(?:(?<=[\d}}\s])|^)((?:{_UNIT_TOKEN})(?:\s*(?:{_UNIT_TOKEN}))*)\s*$")
 
@@ -348,6 +362,9 @@ def split_unit(tex: str, plain: bool = False):
     offset = cuts[-1][1] if cuts else 0
     rhs = cleaned[offset:]
     start = _unit_start(rhs)
+    number = _NUMBER_UNIT.search(rhs) if plain else None
+    if number and (start is None or number.start(1) < start):
+        start = number.start(1)
     if start is None and plain:
         match = _PLAIN_UNIT.search(rhs)
         if match and re.search(r"\d", rhs[: match.start(1)]):

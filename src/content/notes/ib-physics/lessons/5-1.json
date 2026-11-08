@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.1",
+  "slug": "the-nuclear-atom",
+  "title": "The nuclear atom",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Firing [[alpha-particle|alpha particles]] at thin gold foil showed that an atom is mostly empty space, with almost all its mass and positive charge packed into a tiny [[nucleus|nucleus]]. You describe any nucleus with two whole numbers: its [[proton-number|proton number]] $Z$ and its [[nucleon-number|nucleon number]] $A$.",
+  "goals": [
+    {
+      "text": "Describe the [[geiger-marsden-rutherford-experiment|Geiger–Marsden–Rutherford experiment]] and what the alpha particles did.",
+      "bullets": [
+        "E.1-s1"
+      ]
+    },
+    {
+      "text": "Explain how each observation leads to a tiny, dense, positive nucleus surrounded by mostly empty space.",
+      "bullets": [
+        "E.1-s1"
+      ]
+    },
+    {
+      "text": "Read and write nuclear notation $^{A}_{Z}\\text{X}$, and count the protons, neutrons and electrons in an atom or ion.",
+      "bullets": [
+        "E.1-s2"
+      ]
+    },
+    {
+      "text": "Calculate the charge on a nucleus from its proton number.",
+      "bullets": [
+        "E.1-s2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.12",
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "gold foil experiment",
+    "Rutherford scattering",
+    "alpha particle scattering",
+    "nuclear model of the atom",
+    "A and Z notation",
+    "number of neutrons in a nucleus"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-like-charges-repel",
+      "prompt": "A small positive charge is held near a fixed positive charge, then released. What force does it feel?",
+      "hint": "Do like charges attract or repel?",
+      "options": [
+        {
+          "text": "A repulsive force, away from the fixed charge",
+          "correct": true
+        },
+        {
+          "text": "An attractive force, towards the fixed charge",
+          "correct": false
+        },
+        {
+          "text": "No force, because the fixed charge is not moving",
+          "correct": false
+        }
+      ],
+      "explain": "Like charges repel, so the force pushes it away. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "A repulsive force, away from the fixed charge"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-coulomb-half-distance",
+      "prompt": "Two point charges are moved to half their original separation. By what factor does the electric force between them increase?",
+      "hint": "Coulomb's law: $F \\propto \\frac{1}{r^{2}}$.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "Halving $r$ multiplies $\\frac{1}{r^{2}}$ by $2^{2} = 4$. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1/Rational(1, 2)**2",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-charge-of-electrons",
+      "prompt": "What is the magnitude of the total [[electric-charge|electric charge]] on 250 electrons?",
+      "hint": "Each electron carries one [[elementary-charge|elementary charge]], $\\pu{1.60e-19 C}$.",
+      "options": [
+        {
+          "text": "$4.0 \\times 10^{-17}\\ \\text{C}$",
+          "correct": true
+        },
+        {
+          "text": "$6.4 \\times 10^{-22}\\ \\text{C}$",
+          "correct": false
+        },
+        {
+          "text": "$1.6 \\times 10^{21}\\ \\text{C}$",
+          "correct": false
+        },
+        {
+          "text": "$1.6 \\times 10^{-19}\\ \\text{C}$",
+          "correct": false
+        }
+      ],
+      "explain": "Multiply: $250 \\times 1.60 \\times 10^{-19} = \\pu{4.0e-17 C}$. Dividing gives the wrong answers. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "250*e",
+        "sf": 2,
+        "unit": "C"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scattering",
+      "heading": "The Geiger–Marsden–Rutherford experiment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Around 1900, the accepted picture of the atom was the \"plum pudding\" model. Positive charge was spread evenly through the whole atom, with tiny negative electrons dotted through it. Nobody could see inside an atom, so the model had to be tested."
+        },
+        {
+          "type": "text",
+          "text": "In 1909, Hans Geiger and Ernest Marsden, working in Ernest Rutherford's laboratory, fired [[alpha-particle|alpha particles]] at very thin gold foil. An alpha particle is two protons and two neutrons bound together. Its charge is $+2e$, where $e$ is the [[elementary-charge|elementary charge]], and its mass is about 7300 times an electron's."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-scattering-apparatus",
+          "alt": "Top view of the alpha-scattering apparatus inside an evacuated chamber. On the left, an alpha source sits in a lead block with a narrow opening, which sends a narrow beam of alpha particles to the right. The beam hits a thin gold foil in the centre. A dashed circle around the foil shows the path the detector can be moved along. The detector, a zinc sulfide screen with a microscope, is shown at a small angle to the beam, and a second, paler position is shown far round, on the side the beam came from. Short arrows leaving the foil show most alpha particles going straight on, two deflected through small angles, and one turned back towards the source.",
+          "caption": "The detector is moved around the foil to count alpha particles at each angle."
+        },
+        {
+          "type": "definition",
+          "term": "Geiger–Marsden–Rutherford experiment",
+          "statement": "A narrow beam of alpha particles is aimed at a thin metal foil in a vacuum, and the number of alpha particles scattered through each angle is counted.",
+          "plain": "Fire tiny charged bullets at a thin sheet, then see where they end up."
+        },
+        {
+          "type": "text",
+          "text": "Each alpha particle that hits the zinc sulfide screen makes a tiny flash of light. Through the microscope, the experimenters counted the flashes at each angle."
+        },
+        {
+          "type": "text",
+          "text": "The air was pumped out, because alpha particles travel only a few centimetres in air before stopping. The foil was less than a micrometre thick, so almost every alpha particle got through it."
+        },
+        {
+          "type": "text",
+          "text": "What they saw:"
+        },
+        {
+          "type": "text",
+          "text": "1. Most alpha particles passed straight through the foil, with little or no deflection."
+        },
+        {
+          "type": "text",
+          "text": "2. Some were deflected through small angles."
+        },
+        {
+          "type": "text",
+          "text": "3. A very few, roughly one in many thousands, were deflected by more than $90^{\\circ}$. Some came almost straight back towards the source."
+        },
+        {
+          "type": "text",
+          "text": "The plum pudding model can't explain observation 3. Its positive charge is spread thinly through the whole atom, so the electric force on an alpha particle is never large. Every alpha particle should get through, bent by a tiny angle at most."
+        },
+        {
+          "type": "definition",
+          "term": "nucleus",
+          "statement": "The small, dense, positively charged centre of an atom. It holds almost all of the atom's mass.",
+          "plain": "A tiny, heavy, positive core with empty space all around it."
+        },
+        {
+          "type": "text",
+          "text": "Rutherford explained the results in 1911. The positive charge and almost all the mass of each atom must be packed into a tiny nucleus at its centre. Close to such a concentrated charge, the electric repulsion on an alpha particle becomes very large, because Coulomb's force grows as $\\frac{1}{r^{2}}$ when the distance $r$ shrinks."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-alpha-paths",
+          "alt": "Paths of alpha particles passing a single gold nucleus, drawn as a small positive dot. Alpha particles arrive from the left along parallel straight lines. Those aimed far above or below the nucleus carry on almost straight, bent away by only a few degrees. Those aimed closer are pushed further away and leave at larger angles. One aimed very close is turned through about 100 degrees, and one aimed almost straight at the nucleus is turned back to the left, through about 150 degrees. Every path bends away from the nucleus, never towards it. Not to scale.",
+          "caption": "The closer an alpha particle passes the nucleus, the larger its deflection. Every path bends away: the force is repulsive."
+        },
+        {
+          "type": "text",
+          "text": "Each observation leads to a conclusion:"
+        },
+        {
+          "type": "text",
+          "text": "1. Most pass straight through, so most of the atom is empty space. The nucleus is tiny compared with the whole atom."
+        },
+        {
+          "type": "text",
+          "text": "2. Some are deflected away from their path, so the nucleus is positively charged. It repels the positive alpha particles."
+        },
+        {
+          "type": "text",
+          "text": "3. A very few bounce back, so the positive charge and almost all the mass are concentrated in that tiny nucleus. Only a strong force from a much heavier target can turn a fast alpha particle around."
+        },
+        {
+          "type": "text",
+          "text": "The electrons play almost no part. An alpha particle is thousands of times heavier than an electron, so electrons cannot noticeably deflect it."
+        },
+        {
+          "type": "text",
+          "text": "An atom is about $10^{-10}\\ \\text{m}$ across, while a nucleus is about $10^{-15}$ to $10^{-14}\\ \\text{m}$ across. So an atom is roughly $10^{4}$ to $10^{5}$ times wider than its nucleus."
+        },
+        {
+          "type": "text",
+          "text": "At SL you describe and explain this experiment in words; no formula is needed. In these experiments the alpha particles never get close enough to feel any force except electric repulsion, so that is the only force you consider."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you use energy conservation to find how close an alpha particle gets to a nucleus, and see why scattering stops following Rutherford's model at high energies.",
+          "lesson": "5.3"
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-silver-backscatter",
+          "question": "A narrow beam of alpha particles is aimed at a thin silver foil in a vacuum. Explain why only a very small fraction of the alpha particles are scattered through more than $90^{\\circ}$.",
+          "steps": [
+            "A large deflection needs a large force. Ask what makes the force large, then why that happens rarely.",
+            "Link both the size of the force and the rarity to the nucleus: its charge, its mass and its size."
+          ],
+          "answer": "The positive charge of each silver atom is concentrated in a tiny nucleus, which also holds almost all of the atom's mass. An alpha particle passing very close to a nucleus feels a very large electric repulsion, because both are positive and the force increases as the distance decreases. The massive nucleus barely moves, so the alpha particle is turned back through a large angle. The nucleus is tiny compared with the atom, so very few alpha particles pass close enough, and the fraction is very small.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Charge and mass concentrated in a tiny nucleus: close passes give a large repulsion that turns the alpha back, but close passes are rare.",
+            "requires": [
+              [
+                "concentrated",
+                "tiny nucleus"
+              ],
+              [
+                "positive",
+                "positively charged"
+              ],
+              [
+                "repulsion",
+                "repel"
+              ],
+              [
+                "almost all of the atom's mass",
+                "most of the mass",
+                "massive nucleus"
+              ],
+              [
+                "very few",
+                "small fraction"
+              ]
+            ],
+            "forbids": [
+              "attracted",
+              "attraction",
+              "bounce off electrons",
+              "collide with electrons"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-atom-to-nucleus-ratio",
+          "question": "A silver atom is about $\\pu{2.9e-10 m}$ across, and its nucleus about $\\pu{1.2e-14 m}$ across. Calculate the ratio of the diameter of the atom to the diameter of its nucleus.",
+          "steps": [
+            "Divide the atom's diameter by the nucleus's: $\\frac{2.9 \\times 10^{-10}}{1.2 \\times 10^{-14}} = 24\\,167$.",
+            "Both lengths are in metres, so the ratio has no unit. The data have 2 significant figures, so round to 2.",
+            "Sense check: if the nucleus were a $\\pu{1 cm}$ bead, the atom would be about $\\pu{240 m}$ across, all of it nearly empty."
+          ],
+          "answer": "$\\frac{d_\\text{atom}}{d_\\text{nucleus}} \\approx 2.4 \\times 10^{4}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.9e-10/1.2e-14",
+            "sf": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that most of the nucleus is empty space. It is the atom that is mostly empty; the nucleus is the dense part."
+        },
+        {
+          "type": "check",
+          "id": "check-plum-pudding",
+          "prompt": "Which result could the plum pudding model not explain?",
+          "hint": "In that model, how strong can the electric force on an alpha particle get?",
+          "options": [
+            {
+              "text": "A few alpha particles were deflected by more than 90 degrees",
+              "correct": true
+            },
+            {
+              "text": "Most alpha particles passed straight through",
+              "correct": false
+            },
+            {
+              "text": "The foil did not stop the alpha particles",
+              "correct": false
+            }
+          ],
+          "explain": "Spread-out positive charge gives only weak forces, so the model predicts small deflections for everything. Large-angle scattering needs a concentrated charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A few alpha particles were deflected by more than 90 degrees"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-model",
+          "prompt": "A model shows a nucleus $\\pu{7.0e-15 m}$ across as a bead $\\pu{4.0 mm}$ across. Its atom is $\\pu{1.4e-10 m}$ across. How wide, in m, is the atom in the model? Give 2 significant figures.",
+          "hint": "Find how many times wider the atom is than the nucleus, then scale the bead up by that factor.",
+          "answer": {
+            "value": 80,
+            "tolerance": 0.5
+          },
+          "explain": "The atom is $\\frac{1.4 \\times 10^{-10}}{7.0 \\times 10^{-15}} = 2.0 \\times 10^{4}$ times wider, so $4.0 \\times 10^{-3} \\times 2.0 \\times 10^{4} = \\pu{80 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.0e-3*1.4e-10/7.0e-15",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "This is how models change in physics. The plum pudding model fitted earlier evidence, but it could not survive one clear result it failed to predict. The nuclear model replaced it, and later models of the electrons were built on it ({{lesson:5.2}})."
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe\" the observations: say what the alpha particles did. \"Explain\" the conclusions: pair each observation with what it shows about the nucleus."
+        }
+      ]
+    },
+    {
+      "id": "notation",
+      "heading": "Nuclear notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[nucleus|nucleus]] is made of protons and neutrons. Together they are called [[nucleon|nucleons]]. A proton has charge $+e$; a neutron is uncharged."
+        },
+        {
+          "type": "definition",
+          "term": "proton number",
+          "statement": "The number of protons in a nucleus, symbol $Z$. It decides which element the atom is.",
+          "plain": "$Z$ counts the protons."
+        },
+        {
+          "type": "definition",
+          "term": "nucleon number",
+          "statement": "The total number of protons and neutrons in a nucleus, symbol $A$.",
+          "plain": "$A$ counts every particle in the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "Nuclear notation puts both numbers on the chemical symbol X: $A$ at the top left, $Z$ at the bottom left."
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The question always gives the chemical symbol, so you don't need to recall it. The element sets $Z$ anyway, so $Z$ is sometimes left off: $^{12}\\text{C}$ means $^{12}_{6}\\text{C}$."
+        },
+        {
+          "type": "text",
+          "text": "The neutron number $N$ is what is left once you take away the protons:"
+        },
+        {
+          "type": "formula",
+          "tex": "N = A - Z",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A neutral atom has as many electrons as protons, so it has $Z$ electrons. An ion with charge $+n$ has lost $n$ electrons; an ion with charge $-n$ has gained $n$. The nucleus itself always carries charge $+Ze$."
+        },
+        {
+          "type": "text",
+          "text": "Nuclei of one element always share the same $Z$ but can have different numbers of neutrons, so different $A$. You meet these in {{lesson:5.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-cobalt-counts",
+          "question": "A nucleus is written $^{59}_{27}\\text{Co}$. State its number of protons $Z$ and its number of neutrons $N$.",
+          "steps": [
+            "The bottom number is the proton number: $Z = 27$.",
+            "The top number is the nucleon number, $A = 59$. So $N = A - Z = 59 - 27 = 32$.",
+            "A neutral cobalt atom would also have 27 electrons."
+          ],
+          "answer": "$Z = 27,\\; N = 32$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'Z': 27, 'N': 59 - 27}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-strontium-ion",
+          "question": "An ion of strontium (Sr) contains 38 protons, 50 neutrons and 36 electrons. Find its nucleon number $A$ and proton number $Z$.",
+          "steps": [
+            "Protons give the proton number: $Z = 38$.",
+            "Nucleons are protons plus neutrons: $A = 38 + 50 = 88$.",
+            "Charge: 38 protons and 36 electrons give $38 - 36 = 2$ more positive charges than negative, so the charge is $2+$.",
+            "So the ion is written $^{88}_{38}\\text{Sr}^{2+}$. The electrons change the charge, never $A$ or $Z$."
+          ],
+          "answer": "$A = 88,\\; Z = 38$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 38 + 50, 'Z': 38}"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping $A$ and $Z$. The top number is the nucleon number, so it is never smaller than the bottom one."
+        },
+        {
+          "type": "example",
+          "id": "ex-tin-nuclear-charge",
+          "question": "Calculate the charge on a nucleus of $^{120}_{50}\\text{Sn}$.",
+          "steps": [
+            "Only the protons are charged. There are $Z = 50$ of them; the 70 neutrons add nothing.",
+            "Use the elementary charge from the data booklet, $e = \\pu{1.60e-19 C}$: $Q = Ze = 50 \\times 1.60 \\times 10^{-19}$.",
+            "$Q = \\pu{8.0e-18 C}$, positive."
+          ],
+          "answer": "$Q = 8.0 \\times 10^{-18}\\ \\text{C}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "50*e",
+            "sf": 2,
+            "unit": "C"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zinc-neutrons",
+          "prompt": "How many neutrons are in a nucleus of $^{66}_{30}\\text{Zn}$?",
+          "hint": "Which number counts all the nucleons?",
+          "options": [
+            {
+              "text": "$36$",
+              "correct": true
+            },
+            {
+              "text": "$66$",
+              "correct": false
+            },
+            {
+              "text": "$30$",
+              "correct": false
+            },
+            {
+              "text": "$96$",
+              "correct": false
+            }
+          ],
+          "explain": "$N = A - Z = 66 - 30 = 36$. 66 is all the nucleons and 30 is the protons.",
+          "verify": {
+            "kind": "exact",
+            "truth": "66 - 30"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sulfide-electrons",
+          "prompt": "How many electrons does the ion $^{34}_{16}\\text{S}^{2-}$ have?",
+          "hint": "A neutral atom has $Z$ electrons. A $2-$ charge means extra electrons.",
+          "answer": {
+            "value": 18,
+            "tolerance": 0
+          },
+          "explain": "Neutral sulfur has 16 electrons. The $2-$ charge means 2 more: $16 + 2 = 18$. The 34 plays no part.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "16 + 2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In Paper 1A, an ion is often described by its particle counts. Take $Z$ from the protons and $A$ from protons plus neutrons; the electrons only set the charge."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Alpha scattering: most pass straight through (the atom is mostly empty space); some are deflected and a very few bounce back (a tiny, dense, positive nucleus).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Atom about $10^{-10}\\ \\text{m}$ across; nucleus about $10^{-15}$ to $10^{-14}\\ \\text{m}$. The deflections come from electric repulsion, not from electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X}, \\qquad N = A - Z",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Neutral atom: $Z$ electrons. Ion of charge $\\pm n$: $Z \\mp n$ electrons. Charge on the nucleus: $+Ze$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the experiment shows the nucleus is mostly empty. The atom is mostly empty; the nucleus is tiny and dense.",
+    "Saying the alpha particles are attracted to the nucleus. Both are positive, so the force is repulsive and the paths bend away.",
+    "Blaming the large deflections on electrons. Electrons are far too light to turn an alpha particle back; the nucleus does it.",
+    "Claiming the scattering experiment shows electrons in discrete energy levels. That evidence comes from atomic spectra.",
+    "Taking $A$ as the number of neutrons. $A$ counts all the nucleons, so the neutrons are $A - Z$.",
+    "Using $Z$ for the electrons in an ion. Adjust for the charge: a $2+$ ion has $Z - 2$ electrons."
+  ],
+  "examTips": [
+    "\"Describe\" two observations: most alpha particles pass straight through, and a very few are deflected through more than $90^{\\circ}$. Write what happened, not what it means.",
+    "\"Explain\" or \"outline\" a conclusion: link each observation to one feature of the nucleus, such as \"a few bounce back, so the positive charge and mass are concentrated in a tiny nucleus\".",
+    "When asked for the charge on a nucleus, use $Q = Ze$ with $e$ from the data booklet. The nucleon number plays no part."
+  ],
+  "readingMinutes": 18
+}

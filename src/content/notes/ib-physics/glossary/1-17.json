@@ -1,0 +1,32 @@
+[
+  {
+    "id": "proper-time-interval",
+    "term": "proper time interval",
+    "definition": "The time between two events measured in the inertial frame in which both happen at the same place, so one clock times them both; it is the shortest interval any inertial observer measures.",
+    "lesson": "1.17"
+  },
+  {
+    "id": "proper-length",
+    "term": "proper length",
+    "definition": "The length of an object measured in the inertial frame in which the object is at rest; it is the longest length any inertial observer measures.",
+    "lesson": "1.17"
+  },
+  {
+    "id": "time-dilation",
+    "term": "time dilation",
+    "definition": "The lengthening of the time between two events for an observer who sees them happen at different places, $\\Delta t = \\gamma\\Delta t_0$, so a clock moving relative to you is measured to run slow.",
+    "lesson": "1.17"
+  },
+  {
+    "id": "length-contraction",
+    "term": "length contraction",
+    "definition": "The shortening of an object's length along its direction of motion for an observer who sees it move, $L = \\frac{L_0}{\\gamma}$; lengths at right angles to the motion do not change.",
+    "lesson": "1.17"
+  },
+  {
+    "id": "simultaneity",
+    "term": "simultaneity",
+    "definition": "Two events happening at the same time in a given frame; events at different places that are simultaneous in one inertial frame need not be simultaneous in another.",
+    "lesson": "1.17"
+  }
+]

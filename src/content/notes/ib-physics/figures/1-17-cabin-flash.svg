@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 300" role="img" aria-labelledby="t">
+<title id="t">A lamp flashes at the centre of a spaceship cabin, with a light sensor at each end. Top panel, the cabin's frame: the cabin is at rest, and two light arrows of equal length, each labelled c, go from the lamp to the rear sensor on the left and the front sensor on the right. Both sensors are reached at the same time. Bottom panel, the space station's frame, a short time after the flash: the cabin moves to the right at speed v. A dashed outline shows where the cabin was when the lamp flashed, and a cross marks the point where the flash happened. The two light arrows from the cross are still equal in length, because light travels at c both ways. The rear sensor has moved towards the cross and has already been reached. The front sensor has moved away and has not been reached yet.</title>
+<text font-family="inherit" font-size="13" x="20" y="26" fill="currentColor" text-anchor="start">cabin's frame</text>
+<rect x="110" y="50" width="300" height="56" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="112" y="68" width="10" height="20" fill="var(--t2-ink)"/>
+<rect x="398" y="68" width="10" height="20" fill="var(--t2-ink)"/>
+<circle cx="260" cy="78" r="6" fill="var(--t3-ink)"/>
+<path d="M252 78 H133" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="124,78 133,73.5 133,82.5" fill="var(--t1-ink)"/>
+<path d="M268 78 H387" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="396,78 387,73.5 387,82.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="190" y="70" fill="var(--t1-ink)" text-anchor="middle">c</text>
+<text font-family="inherit" font-size="13" x="330" y="70" fill="var(--t1-ink)" text-anchor="middle">c</text>
+<text font-family="inherit" font-size="12" x="117" y="124" fill="var(--t2-ink)" text-anchor="middle">rear sensor</text>
+<text font-family="inherit" font-size="12" x="403" y="124" fill="var(--t2-ink)" text-anchor="middle">front sensor</text>
+<text font-family="inherit" font-size="12" x="260" y="144" fill="currentColor" text-anchor="middle">both sensors reached at the same time</text>
+<path d="M20 160 H520" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="13" x="20" y="184" fill="currentColor" text-anchor="start">space station's frame</text>
+<path d="M440 180 H491" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<polygon points="500,180 491,184.5 491,175.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="13" x="430" y="185" fill="var(--t3-ink)" text-anchor="end">v</text>
+<rect x="110" y="200" width="300" height="56" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<rect x="160" y="200" width="300" height="56" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="162" y="218" width="10" height="20" fill="var(--t2-ink)"/>
+<rect x="448" y="218" width="10" height="20" fill="var(--t2-ink)"/>
+<path d="M254 222 L266 234 M266 222 L254 234" stroke="var(--t3-ink)" stroke-width="2"/>
+<path d="M252 228 H183" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="174,228 183,223.5 183,232.5" fill="var(--t1-ink)"/>
+<path d="M268 228 H337" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="346,228 337,223.5 337,232.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="215" y="220" fill="var(--t1-ink)" text-anchor="middle">c</text>
+<text font-family="inherit" font-size="13" x="305" y="220" fill="var(--t1-ink)" text-anchor="middle">c</text>
+<text font-family="inherit" font-size="12" x="167" y="274" fill="var(--t2-ink)" text-anchor="middle">rear sensor: reached first</text>
+<text font-family="inherit" font-size="12" x="453" y="274" fill="var(--t2-ink)" text-anchor="end">front sensor: not reached yet</text>
+<text font-family="inherit" font-size="12" x="260" y="294" fill="currentColor" text-anchor="middle">cross: where the flash happened</text>
+</svg>

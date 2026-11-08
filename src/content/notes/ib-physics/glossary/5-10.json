@@ -1,0 +1,14 @@
+[
+  {
+    "id": "decay-constant",
+    "term": "decay constant",
+    "definition": "The rate of decay per undecayed nucleus of a nuclide, $\\lambda = A/N$, in $\\text{s}^{-1}$; it is close to the probability that a nucleus decays in unit time only when $\\lambda t$ is small.",
+    "lesson": "5.10"
+  },
+  {
+    "id": "radioactive-decay-law",
+    "term": "radioactive decay law",
+    "definition": "The rule that the number of undecayed nuclei falls exponentially with time, $N = N_0\\mathrm{e}^{-\\lambda t}$, so the activity $A = \\lambda N$ falls in the same way.",
+    "lesson": "5.10"
+  }
+]

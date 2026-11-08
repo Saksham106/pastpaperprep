@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 290" role="img" aria-labelledby="t58hl">
+  <title id="t58hl">Graph of activity in becquerels against time in minutes. The curve starts at 800 Bq and falls steeply, then more gently. Dashed lines show it reaches 400 Bq at 5 minutes, 200 Bq at 10 minutes and 100 Bq at 15 minutes. Each halving takes the same 5 minutes.</title>
+  <defs>
+    <marker id="m58hl-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="240" x2="70" y2="18" marker-end="url(#m58hl-head)"/>
+    <line x1="70" y1="240" x2="494.0" y2="240" marker-end="url(#m58hl-head)"/>
+    <line x1="70.0" y1="240" x2="70.0" y2="245"/><line x1="150.0" y1="240" x2="150.0" y2="245"/><line x1="230.0" y1="240" x2="230.0" y2="245"/><line x1="310.0" y1="240" x2="310.0" y2="245"/><line x1="390.0" y1="240" x2="390.0" y2="245"/><line x1="470.0" y1="240" x2="470.0" y2="245"/><line x1="65" y1="240.0" x2="70" y2="240.0"/><line x1="65" y1="190.0" x2="70" y2="190.0"/><line x1="65" y1="140.0" x2="70" y2="140.0"/><line x1="65" y1="90.0" x2="70" y2="90.0"/><line x1="65" y1="40.0" x2="70" y2="40.0"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none"><line x1="70" y1="140.0" x2="150.0" y2="140.0"/><line x1="150.0" y1="140.0" x2="150.0" y2="240"/><line x1="70" y1="190.0" x2="230.0" y2="190.0"/><line x1="230.0" y1="190.0" x2="230.0" y2="240"/><line x1="70" y1="215.0" x2="310.0" y2="215.0"/><line x1="310.0" y1="215.0" x2="310.0" y2="240"/></g>
+  <path d="M70.0,40.0 L74.0,46.8 L78.0,53.4 L82.0,59.7 L86.0,65.9 L90.0,71.8 L94.0,77.5 L98.0,83.1 L102.0,88.4 L106.0,93.6 L110.0,98.6 L114.0,103.4 L118.0,108.0 L122.0,112.5 L126.0,116.9 L130.0,121.1 L134.0,125.1 L138.0,129.0 L142.0,132.8 L146.0,136.5 L150.0,140.0 L154.0,143.4 L158.0,146.7 L162.0,149.9 L166.0,152.9 L170.0,155.9 L174.0,158.8 L178.0,161.5 L182.0,164.2 L186.0,166.8 L190.0,169.3 L194.0,171.7 L198.0,174.0 L202.0,176.3 L206.0,178.4 L210.0,180.5 L214.0,182.6 L218.0,184.5 L222.0,186.4 L226.0,188.2 L230.0,190.0 L234.0,191.7 L238.0,193.3 L242.0,194.9 L246.0,196.5 L250.0,198.0 L254.0,199.4 L258.0,200.8 L262.0,202.1 L266.0,203.4 L270.0,204.6 L274.0,205.8 L278.0,207.0 L282.0,208.1 L286.0,209.2 L290.0,210.3 L294.0,211.3 L298.0,212.3 L302.0,213.2 L306.0,214.1 L310.0,215.0 L314.0,215.9 L318.0,216.7 L322.0,217.5 L326.0,218.2 L330.0,219.0 L334.0,219.7 L338.0,220.4 L342.0,221.1 L346.0,221.7 L350.0,222.3 L354.0,222.9 L358.0,223.5 L362.0,224.1 L366.0,224.6 L370.0,225.1 L374.0,225.6 L378.0,226.1 L382.0,226.6 L386.0,227.1 L390.0,227.5 L394.0,227.9 L398.0,228.3 L402.0,228.7 L406.0,229.1 L410.0,229.5 L414.0,229.8 L418.0,230.2 L422.0,230.5 L426.0,230.8 L430.0,231.2 L434.0,231.5 L438.0,231.8 L442.0,232.0 L446.0,232.3 L450.0,232.6 L454.0,232.8 L458.0,233.1 L462.0,233.3 L466.0,233.5 L470.0,233.8" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="70.0" y="260" text-anchor="middle">0</text><text x="150.0" y="260" text-anchor="middle">5</text><text x="230.0" y="260" text-anchor="middle">10</text><text x="310.0" y="260" text-anchor="middle">15</text><text x="390.0" y="260" text-anchor="middle">20</text><text x="470.0" y="260" text-anchor="middle">25</text><text x="61" y="244.0" text-anchor="end">0</text><text x="61" y="194.0" text-anchor="end">200</text><text x="61" y="144.0" text-anchor="end">400</text><text x="61" y="94.0" text-anchor="end">600</text><text x="61" y="44.0" text-anchor="end">800</text>
+    <text x="494.0" y="276" text-anchor="end" fill="var(--muted)">t / min</text>
+    <text x="78" y="22" fill="var(--muted)">A / Bq</text>
+    <text x="110.0" y="134.0" text-anchor="middle" fill="var(--t2-ink)">halves</text>
+    <text x="190.0" y="184.0" text-anchor="middle" fill="var(--t2-ink)">halves</text>
+    <text x="270.0" y="209.0" text-anchor="middle" fill="var(--t2-ink)">halves</text>
+    <text x="326.0" y="70" fill="var(--t1-ink)">half-life = 5 min</text>
+  </g>
+</svg>

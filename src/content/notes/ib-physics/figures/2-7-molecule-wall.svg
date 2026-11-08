@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t27mw">
+  <title id="t27mw">Gas molecules moving randomly in a container. One molecule bounces off the right-hand wall: its velocity component towards the wall reverses, the wall pushes it inwards and it pushes the wall outwards with an equal force</title>
+  <defs>
+    <marker id="a27m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+    </marker>
+    <marker id="a27f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="a27r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+  <rect x="30" y="30" width="400" height="230" fill="none" stroke="currentColor" stroke-width="3"/>
+  <g fill="var(--t3-ink)">
+    <circle cx="90" cy="80" r="5"/><circle cx="170" cy="200" r="5"/><circle cx="240" cy="110" r="5"/>
+    <circle cx="120" cy="170" r="5"/><circle cx="300" cy="220" r="5"/><circle cx="210" cy="60" r="5"/>
+    <circle cx="330" cy="90" r="5"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.4" marker-end="url(#a27m)">
+    <line x1="90" y1="80" x2="115" y2="98"/><line x1="170" y1="200" x2="150" y2="222"/>
+    <line x1="240" y1="110" x2="212" y2="128"/><line x1="120" y1="170" x2="148" y2="160"/>
+    <line x1="300" y1="220" x2="320" y2="196"/><line x1="210" y1="60" x2="182" y2="48"/>
+    <line x1="330" y1="90" x2="350" y2="112"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="1.4" stroke-dasharray="4 3" fill="none">
+    <path d="M340,120 L424,150 L340,180"/>
+  </g>
+  <circle cx="424" cy="150" r="5.5" fill="var(--t3-ink)"/>
+  <g stroke="var(--t3-ink)" stroke-width="1.8" marker-end="url(#a27m)">
+    <line x1="350" y1="124" x2="390" y2="138"/>
+    <line x1="390" y1="162" x2="350" y2="176"/>
+  </g>
+  <line x1="418" y1="150" x2="372" y2="150" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#a27f)"/>
+  <line x1="436" y1="150" x2="490" y2="150" stroke="var(--t2-ink)" stroke-width="2.4" marker-end="url(#a27r)"/>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="300" y="118">before</text>
+    <text x="300" y="196">after</text>
+    <text x="258" y="154" fill="var(--t1-ink)">force on molecule</text>
+    <text x="446" y="140" fill="var(--t2-ink)">force on wall</text>
+    <text x="446" y="172" fill="var(--muted)">equal size,</text>
+    <text x="446" y="187" fill="var(--muted)">opposite direction</text>
+    <text x="40" y="285" fill="var(--muted)">Each bounce reverses the momentum component towards the wall.</text>
+  </g>
+</svg>

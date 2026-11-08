@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="t23bg">
+  <title id="t23bg">Top: a bar with insulated sides, its left face at the hot temperature and its right face at the cold temperature, length delta x and cross-sectional area A, with energy flowing left to right. Bottom: a graph of temperature against position along the bar, a straight line falling from the hot temperature to the cold temperature, whose negative gradient is the temperature gradient</title>
+  <g stroke="var(--muted)" stroke-width="1">
+    <line x1="140" y1="40" x2="152" y2="28"/><line x1="170" y1="40" x2="182" y2="28"/><line x1="200" y1="40" x2="212" y2="28"/>
+    <line x1="230" y1="40" x2="242" y2="28"/><line x1="260" y1="40" x2="272" y2="28"/><line x1="290" y1="40" x2="302" y2="28"/>
+    <line x1="320" y1="40" x2="332" y2="28"/><line x1="350" y1="40" x2="362" y2="28"/><line x1="380" y1="40" x2="392" y2="28"/>
+    <line x1="410" y1="40" x2="422" y2="28"/><line x1="440" y1="40" x2="452" y2="28"/>
+    <line x1="140" y1="112" x2="152" y2="100"/><line x1="170" y1="112" x2="182" y2="100"/><line x1="200" y1="112" x2="212" y2="100"/>
+    <line x1="230" y1="112" x2="242" y2="100"/><line x1="260" y1="112" x2="272" y2="100"/><line x1="290" y1="112" x2="302" y2="100"/>
+    <line x1="320" y1="112" x2="332" y2="100"/><line x1="350" y1="112" x2="362" y2="100"/><line x1="380" y1="112" x2="392" y2="100"/>
+    <line x1="410" y1="112" x2="422" y2="100"/><line x1="440" y1="112" x2="452" y2="100"/>
+  </g>
+  <rect x="130" y="40" width="330" height="60" fill="var(--t3-ink)" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="112" y="40" width="18" height="60" fill="var(--t5-ink)" fill-opacity="0.5"/>
+  <rect x="460" y="40" width="18" height="60" fill="var(--t1-ink)" fill-opacity="0.5"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="200" y1="70" x2="390" y2="70"/>
+    <polyline points="378,62 392,70 378,78"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="none">
+    <line x1="130" y1="128" x2="460" y2="128"/>
+    <polyline points="138,123 130,128 138,133"/>
+    <polyline points="452,123 460,128 452,133"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="295" y="62">energy flow</text>
+    <text x="295" y="20" fill="var(--muted)">insulation on the sides</text>
+    <text x="78" y="75">hot face</text>
+    <text x="78" y="91">T<tspan baseline-shift="sub" font-size="10">hot</tspan></text>
+    <text x="520" y="75">cold face</text>
+    <text x="520" y="91">T<tspan baseline-shift="sub" font-size="10">cold</tspan></text>
+    <text x="295" y="146">length Δx</text>
+    <text x="295" y="88" font-size="12">cross-sectional area A</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="130" y1="370" x2="490" y2="370"/>
+    <line x1="130" y1="370" x2="130" y2="175"/>
+    <polyline points="484,365 492,370 484,375"/>
+    <polyline points="125,183 130,175 135,183"/>
+  </g>
+  <line x1="130" y1="200" x2="460" y2="330" stroke="var(--t5-ink)" stroke-width="2.5"/>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="460" y1="330" x2="460" y2="370"/>
+    <line x1="130" y1="330" x2="460" y2="330"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="122" y="204" text-anchor="end">T<tspan baseline-shift="sub" font-size="10">hot</tspan></text>
+    <text x="122" y="334" text-anchor="end">T<tspan baseline-shift="sub" font-size="10">cold</tspan></text>
+    <text x="130" y="388" text-anchor="middle">0</text>
+    <text x="460" y="388" text-anchor="middle">Δx</text>
+    <text x="490" y="392" text-anchor="end">position along the bar x / m</text>
+    <text x="140" y="172">temperature T / K</text>
+    <text x="310" y="240" font-size="12">straight line: gradient = ΔT/Δx,</text>
+    <text x="310" y="255" font-size="12">negative in the direction of energy flow</text>
+  </g>
+</svg>

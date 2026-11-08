@@ -15,14 +15,38 @@ type Props = {
 
 type Result = { ok: boolean; picked?: number; invalid?: boolean } | null;
 
-/** Plain numbers, a Unicode minus, or a simple fraction like 1/2 or −3/4. Null when it is none of these. */
+const SUPERSCRIPT: Record<string, string> = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-", "⁺": "+" };
+
+/**
+ * Plain numbers, a Unicode minus, a simple fraction like 1/2 or −3/4, or standard form: 1.5e24, 1.5E-3, 1.5×10^24,
+ * 1.5 x 10^-34, 1.5*10^(−3), 3×10²⁴ or 10^5. Null when it is none of these.
+ */
 export function parseNumeric(raw: string): number | null {
-  const text = raw.trim().replace(/[\u2212\u2013]/g, "-").replace(/\s+/g, "");
-  const plain = /^[+-]?(\d+\.?\d*|\.\d+)$/;
-  if (plain.test(text)) return Number(text);
-  const fraction = /^([+-]?(?:\d+\.?\d*|\.\d+))\/(\d+\.?\d*|\.\d+)$/.exec(text);
+  const text = raw
+    .trim()
+    .replace(/[\u2212\u2013]/g, "-")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g, (run) => `^${[...run].map((ch) => SUPERSCRIPT[ch]).join("")}`)
+    .replace(/\s+/g, "");
+  const decimal = "[+-]?(?:\\d+\\.?\\d*|\\.\\d+)";
+  if (new RegExp(`^${decimal}$`).test(text)) return Number(text);
+  const eNotation = new RegExp(`^${decimal}[eE][+-]?\\d+$`);
+  if (eNotation.test(text)) return finite(Number(text));
+  const tenPower = new RegExp(`^(?:(${decimal})[×xX*·])?10\\^\\{?\\(?([+-]?\\d+)\\)?\\}?$`).exec(text);
+  if (tenPower) return finite((tenPower[1] === undefined ? 1 : Number(tenPower[1])) * 10 ** Number(tenPower[2]));
+  const fraction = new RegExp(`^(${decimal})/(\\d+\\.?\\d*|\\.\\d+)$`).exec(text);
   if (!fraction || Number(fraction[2]) === 0) return null;
   return Number(fraction[1]) / Number(fraction[2]);
+}
+
+const finite = (value: number): number | null => (Number.isFinite(value) ? value : null);
+
+/**
+ * True when `value` is within `tolerance` of `expected`. The floating-point allowance scales with the answer's size, so a
+ * physics answer of 6.6e-34 is not "correct" at 0 (a fixed 1e-9 allowance would swamp it).
+ */
+export function withinTolerance(value: number, expected: number, tolerance: number): boolean {
+  const slack = expected === 0 ? 1e-12 : Math.abs(expected) * 1e-9;
+  return Math.abs(value - expected) <= tolerance + slack;
 }
 
 export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Props) {
@@ -51,7 +75,7 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
       setResult({ ok: false, invalid: true });
       return;
     }
-    const ok = Math.abs(value - answer.value) <= answer.tolerance + 1e-9;
+    const ok = withinTolerance(value, answer.value, answer.tolerance);
     record(`n:${value}`, ok);
     setResult({ ok });
   };
@@ -114,7 +138,7 @@ export function CheckQuestion({ id, prompt, hint, options, answer, explain }: Pr
       )}
       <div data-testid="check-feedback" aria-live="polite" className={`${styles.fb} ${result ? (result.ok ? styles.fbOk : styles.fbNo) : ""}`}>
         {result?.invalid ? (
-          <b>Enter a number, like 2.5, −3 or 1/2.</b>
+          <b>Enter a number, like 2.5, −3, 1/2 or 3.2e-5.</b>
         ) : result ? (
           <>
             <b>{result.ok ? "Correct." : "Not quite."}</b> {explain}

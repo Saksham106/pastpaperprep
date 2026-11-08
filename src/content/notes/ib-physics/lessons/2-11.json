@@ -1,0 +1,776 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "2.11",
+ "slug": "gas-processes-and-heat-engines",
+ "title": "Gas processes and heat engines",
+ "level": "AHL",
+ "topic": 2,
+ "summary": "A gas can change state while one thing stays fixed: its volume, its pressure, its temperature or, in an [[adiabatic-process|adiabatic]] change, its heat exchange. Take a gas round a closed loop of such changes and you have a [[heat-engine|heat engine]], turning thermal energy into work again and again. The [[carnot-cycle|Carnot cycle]] sets the highest [[efficiency|efficiency]] any engine can reach between two temperatures.",
+ "goals": [
+  {
+   "text": "Describe [[isovolumetric-process|isovolumetric]], [[isobaric-process|isobaric]], [[isothermal-process|isothermal]] and adiabatic processes, and apply the [[first-law-of-thermodynamics|first law of thermodynamics]] to each one on a [[p-v-diagram|P-V diagram]].",
+   "bullets": [
+    "B.4-a9"
+   ]
+  },
+  {
+   "text": "Use $PV^{\\frac{5}{3}} = \\text{constant}$ to find the pressure, volume and temperature after an adiabatic change of a monatomic [[ideal-gas|ideal gas]].",
+   "bullets": [
+    "B.4-a10"
+   ]
+  },
+  {
+   "text": "Explain how a cyclic gas process runs a heat engine, and find the net work from the area enclosed on a P-V diagram.",
+   "bullets": [
+    "B.4-a11"
+   ]
+  },
+  {
+   "text": "Calculate the efficiency of a heat engine running on a given cycle, using $\\eta = \\frac{\\text{useful work}}{\\text{input energy}}$.",
+   "bullets": [
+    "B.4-a12"
+   ]
+  },
+  {
+   "text": "Use $\\eta_\\text{Carnot} = 1 - \\frac{T_\\text{c}}{T_\\text{h}}$ to find the maximum efficiency between two reservoirs, and explain why real engines fall short of it.",
+   "bullets": [
+    "B.4-a13"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "1.11",
+  "2.7",
+  "2.8",
+  "2.9",
+  "2.10"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "thermodynamic processes",
+  "PV to the power 5/3 constant",
+  "adiabatic expansion",
+  "heat engine efficiency",
+  "Carnot efficiency",
+  "pV diagram cycle"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-first-law",
+   "prompt": "A gas is supplied with $\\pu{750 J}$ of thermal energy and does $\\pu{280 J}$ of work on its surroundings. Calculate the change in its internal energy, in J.",
+   "hint": "Rearrange $Q = \\Delta U + W$ for $\\Delta U$.",
+   "answer": {
+    "value": 470,
+    "tolerance": 5
+   },
+   "explain": "$\\Delta U = Q - W = 750 - 280 = \\pu{470 J}$. Revise it in {{lesson:2.9}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "750 - 280",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-work-pdv",
+   "prompt": "A gas at a constant pressure of $\\pu{1.5e5 Pa}$ expands from $\\pu{2.0e-3 m3}$ to $\\pu{2.6e-3 m3}$. How much work does the gas do?",
+   "hint": "Use $W = P\\Delta V$, with $\\Delta V$ the change in volume.",
+   "options": [
+    {
+     "text": "$90\\ \\text{J}$",
+     "correct": true
+    },
+    {
+     "text": "$390\\ \\text{J}$",
+     "correct": false
+    },
+    {
+     "text": "$300\\ \\text{J}$",
+     "correct": false
+    }
+   ],
+   "explain": "$W = P\\Delta V = (1.5 \\times 10^{5})(0.6 \\times 10^{-3}) = \\pu{90 J}$. Multiplying by the final or the starting volume, instead of the change, gives 390 J or 300 J. Revise it in {{lesson:2.9}}.",
+   "verify": {
+    "kind": "exact",
+    "truth": "1.5*10**5*(2.6*10**-3 - 2.0*10**-3)",
+    "unit": "J"
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-delta-u",
+   "prompt": "The temperature of $\\pu{0.60 mol}$ of an ideal monatomic gas rises by $\\pu{25 K}$. Calculate the increase in its internal energy, in J to 2 significant figures.",
+   "hint": "Use $\\Delta U = \\frac{3}{2}nR\\Delta T$.",
+   "answer": {
+    "value": 190,
+    "tolerance": 5
+   },
+   "explain": "$\\Delta U = \\frac{3}{2}(0.60)(8.31)(25) \\approx \\pu{190 J}$. Revise it in {{lesson:2.9}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "Rational(3, 2)*0.60*R*25",
+    "sf": 2
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "gas-processes",
+   "heading": "Four simple gas processes",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "In {{lesson:2.9}} you met the [[first-law-of-thermodynamics|first law of thermodynamics]] for a closed system: a fixed amount of gas that exchanges energy with its surroundings, but not matter. Every problem uses the same sign convention."
+    },
+    {
+     "type": "text",
+     "text": "$Q$ is the thermal energy supplied to the gas. It is negative when energy leaves the gas as heat."
+    },
+    {
+     "type": "text",
+     "text": "$W$ is the work done by the gas. It is positive when the gas expands and negative when the gas is compressed."
+    },
+    {
+     "type": "formula",
+     "tex": "Q = \\Delta U + W",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "For a monatomic [[ideal-gas|ideal gas]], the [[internal-energy|internal energy]] depends only on the temperature. So $\\Delta U$ is positive when the gas warms and negative when it cools. All constants in this lesson, such as $R = \\pu{8.31 J K-1 mol-1}$, come from the data booklet."
+    },
+    {
+     "type": "formula",
+     "tex": "\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}Nk_\\text{B}\\Delta T",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "The state of a gas is described by $P$, $V$ and $T$, linked by the [[ideal-gas-law|ideal gas law]] $PV = nRT$. Four simple processes each keep one quantity fixed."
+    },
+    {
+     "type": "text",
+     "text": "1. An [[isovolumetric-process|isovolumetric process]] keeps $V$ fixed. The gas pushes nothing back, so $W = 0$ and $Q = \\Delta U$."
+    },
+    {
+     "type": "text",
+     "text": "2. An [[isobaric-process|isobaric process]] keeps $P$ fixed. The work done by the gas is $W = P\\Delta V$."
+    },
+    {
+     "type": "text",
+     "text": "3. An [[isothermal-process|isothermal process]] keeps $T$ fixed. For an ideal gas this means $\\Delta U = 0$, so $Q = W$. All the heat supplied becomes work, or all the work done on the gas leaves it as heat."
+    },
+    {
+     "type": "text",
+     "text": "4. An [[adiabatic-process|adiabatic process]] keeps $Q$ fixed at zero: no thermal energy enters or leaves, so $\\Delta U = -W$. It happens when the gas is insulated, or when the change is too fast for heat to flow."
+    },
+    {
+     "type": "formula",
+     "tex": "W = P\\Delta V",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "On a [[p-v-diagram|P-V diagram]], each point is one state of the gas and each line is a process. Here are the four processes, all starting from the same state."
+    },
+    {
+     "type": "figure",
+     "id": "2-11-four-processes",
+     "alt": "Pressure against volume for a fixed amount of ideal gas. Four lines start from the same state S. A vertical line rises from S, labelled isovolumetric, V constant. A horizontal line runs to the right from S, labelled isobaric, P constant. Two curves fall to the right from S: the gentler one is labelled isothermal, T constant, and the steeper one, which ends lower, is labelled adiabatic, Q equals 0.",
+     "caption": "From the same state S: vertical is isovolumetric, horizontal is isobaric, and the adiabatic curve falls more steeply than the isothermal one."
+    },
+    {
+     "type": "text",
+     "text": "The work done by the gas is the area under its line. Moving right (expansion), the gas does positive work. Moving left (compression), $W$ is negative: work is done on the gas. A vertical line has no area under it, so $W = 0$."
+    },
+    {
+     "type": "mistake",
+     "text": "Using $W = P\\Delta V$ when the pressure changes. It holds only at constant pressure; under a curve, estimate the area or use the first law ($W = Q$ when isothermal, $W = -\\Delta U$ when adiabatic)."
+    },
+    {
+     "type": "example",
+     "id": "ex-gp-isobaric",
+     "question": "Helium in a cylinder is held at $\\pu{1.6e5 Pa}$ by a freely sliding piston. Treat it as an ideal monatomic gas. When the helium is heated, its volume increases from $\\pu{2.5e-3 m3}$ to $\\pu{3.7e-3 m3}$. Determine the thermal energy supplied to the helium.",
+     "steps": [
+      "Work done by the gas at constant pressure: $W = P\\Delta V = (1.6 \\times 10^{5})(3.7 \\times 10^{-3} - 2.5 \\times 10^{-3}) = \\pu{192 J}$.",
+      "Change in internal energy: $\\Delta U = \\frac{3}{2}nR\\Delta T$. At constant pressure, $PV = nRT$ gives $nR\\Delta T = P\\Delta V$, so $\\Delta U = \\frac{3}{2}P\\Delta V = \\frac{3}{2}(192) = \\pu{288 J}$.",
+      "First law: $Q = \\Delta U + W = 288 + 192 = \\pu{480 J}$.",
+      "Only two-fifths of the heat becomes work; the rest warms the gas. The pressure has 2 significant figures, so give 2."
+     ],
+     "answer": "$Q \\approx 4.8 \\times 10^{2}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(3, 2)*1.6*10**5*(3.7*10**-3 - 2.5*10**-3) + 1.6*10**5*(3.7*10**-3 - 2.5*10**-3)",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-gp-isothermal",
+     "question": "An ideal gas in a cylinder is compressed slowly, so that its temperature stays constant. Explain, using the first law of thermodynamics, whether thermal energy enters or leaves the gas.",
+     "steps": [
+      "Say what a constant temperature means for $\\Delta U$.",
+      "Give the sign of $W$ for a compression.",
+      "Combine them in $Q = \\Delta U + W$."
+     ],
+     "answer": "The internal energy of an ideal gas depends only on its temperature, which is constant, so the internal energy does not change and $\\Delta U = 0$. The gas is compressed, so work is done on the gas and the work done by the gas, $W$, is negative. From the first law, $Q = \\Delta U + W = W$, so $Q$ is negative. Thermal energy leaves the gas, equal in size to the work done on it.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "constant temperature so delta U = 0; compression so W negative; Q = W is negative so thermal energy leaves the gas",
+      "requires": [
+       "internal energy",
+       "does not change",
+       "negative",
+       "work is done on the gas",
+       "leaves the gas"
+      ],
+      "forbids": [
+       "thermal energy enters the gas",
+       "temperature increases"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-gp-rigid",
+     "prompt": "A sealed, rigid steel can holds $\\pu{0.040 mol}$ of argon, an ideal monatomic gas. It is warmed from $\\pu{290 K}$ to $\\pu{365 K}$. Calculate the thermal energy supplied, in J to 2 significant figures.",
+     "hint": "The volume is fixed, so $W = 0$ and $Q = \\Delta U$.",
+     "answer": {
+      "value": 37,
+      "tolerance": 0.5
+     },
+     "explain": "$Q = \\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}(0.040)(8.31)(75) \\approx \\pu{37 J}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "Rational(3, 2)*0.040*R*(365 - 290)",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-gp-which",
+     "prompt": "In which process is the thermal energy supplied to an ideal gas equal to the work done by the gas?",
+     "hint": "In which process is $\\Delta U = 0$?",
+     "options": [
+      {
+       "text": "isothermal",
+       "correct": true
+      },
+      {
+       "text": "isovolumetric",
+       "correct": false
+      },
+      {
+       "text": "adiabatic",
+       "correct": false
+      },
+      {
+       "text": "isobaric",
+       "correct": false
+      }
+     ],
+     "explain": "At constant temperature $\\Delta U = 0$, so $Q = W$. Isovolumetric gives $Q = \\Delta U$, adiabatic gives $Q = 0$, and isobaric gives $Q = \\Delta U + W$ with both terms non-zero.",
+     "verify": {
+      "kind": "choice",
+      "truth": "isothermal"
+     }
+    }
+   ]
+  },
+  {
+   "id": "adiabatic",
+   "heading": "Adiabatic changes",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "In an [[adiabatic-process|adiabatic]] expansion no heat enters, but the gas still does work as it pushes outwards. That energy must come from the gas itself. So $\\Delta U = -W$ is negative, and the gas cools."
+    },
+    {
+     "type": "text",
+     "text": "An adiabatic compression does the reverse. Work is done on the gas ($W < 0$), so $\\Delta U > 0$ and the gas warms. This is how a diesel engine ignites its fuel without a spark: compressing the air makes it hot enough."
+    },
+    {
+     "type": "text",
+     "text": "As a gas expands adiabatically, it moves onto cooler and cooler isotherms. So its curve on a [[p-v-diagram|P-V diagram]] is steeper than the isotherm through the same point. The pressure falls both because the volume grows and because the temperature drops."
+    },
+    {
+     "type": "formula",
+     "tex": "PV^{\\frac{5}{3}} = \\text{constant}",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "This model is for a monatomic [[ideal-gas|ideal gas]] changing adiabatically, with the same pressure throughout the gas at each moment. Between two states, $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$. Use $PV = nRT$ alongside it to find a temperature."
+    },
+    {
+     "type": "mistake",
+     "text": "Using $PV = \\text{constant}$ for an adiabatic change. That is the isothermal rule. Adiabatic means no heat flow, not no temperature change, so use $PV^{\\frac{5}{3}} = \\text{constant}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-ad-pressure",
+     "question": "Neon, an ideal monatomic gas, is at a pressure of $\\pu{1.05e5 Pa}$ in a volume of $\\pu{6.0e-4 m3}$. It is compressed adiabatically to a volume of $\\pu{1.5e-4 m3}$. Calculate its final pressure.",
+     "steps": [
+      "For an adiabatic change, $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$, so $P_2 = P_1\\left(\\dfrac{V_1}{V_2}\\right)^{\\frac{5}{3}}$.",
+      "The volume ratio is $\\dfrac{6.0 \\times 10^{-4}}{1.5 \\times 10^{-4}} = 4.0$, and $4.0^{\\frac{5}{3}} = 10.08$.",
+      "So $P_2 = (1.05 \\times 10^{5})(10.08) = \\pu{1.058e6 Pa}$. Give 2 significant figures.",
+      "Sense check: an isothermal compression to a quarter of the volume would only multiply the pressure by 4. The adiabatic one multiplies it by about 10, because the gas also heats up."
+     ],
+     "answer": "$P_2 \\approx 1.1 \\times 10^{6}\\ \\text{Pa}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "1.05*10**5*(6.0*10**-4/(1.5*10**-4))**Rational(5, 3)",
+      "sf": 2,
+      "unit": "Pa"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-ad-work",
+     "question": "A sample of $\\pu{0.25 mol}$ of helium, an ideal monatomic gas, is at $\\pu{420 K}$ in a volume of $\\pu{3.0e-3 m3}$. It expands adiabatically to a volume of $\\pu{7.5e-3 m3}$. Determine the work done by the gas.",
+     "steps": [
+      "Starting pressure: $P_1 = \\dfrac{nRT_1}{V_1} = \\dfrac{(0.25)(8.31)(420)}{3.0 \\times 10^{-3}} = \\pu{2.91e5 Pa}$.",
+      "Final pressure: $P_2 = P_1\\left(\\dfrac{V_1}{V_2}\\right)^{\\frac{5}{3}} = (2.91 \\times 10^{5})(0.40)^{\\frac{5}{3}} = \\pu{6.32e4 Pa}$.",
+      "Final temperature: $T_2 = \\dfrac{P_2V_2}{nR} = \\dfrac{(6.32 \\times 10^{4})(7.5 \\times 10^{-3})}{(0.25)(8.31)} = \\pu{228 K}$. The gas has cooled, as expected.",
+      "No heat flows, so $W = -\\Delta U = -\\frac{3}{2}nR(T_2 - T_1) = -\\frac{3}{2}(0.25)(8.31)(228 - 420) = \\pu{598 J}$.",
+      "$W$ is positive because the gas expands. Carry unrounded values through, then give 2 significant figures."
+     ],
+     "answer": "$W \\approx 6.0 \\times 10^{2}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "Rational(3, 2)*0.25*R*420*(1 - (3.0*10**-3/(7.5*10**-3))**Rational(2, 3))",
+      "sf": 2,
+      "unit": "J"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ad-temp",
+     "prompt": "A monatomic ideal gas expands adiabatically. What happens to its temperature?",
+     "hint": "No heat enters, but the gas does work. Where does that energy come from?",
+     "options": [
+      {
+       "text": "it decreases",
+       "correct": true
+      },
+      {
+       "text": "it stays the same",
+       "correct": false
+      },
+      {
+       "text": "it increases",
+       "correct": false
+      }
+     ],
+     "explain": "$Q = 0$ and the gas does positive work, so $\\Delta U = -W < 0$ and the temperature falls. \"It stays the same\" mixes up adiabatic with isothermal.",
+     "verify": {
+      "kind": "choice",
+      "truth": "it decreases"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ad-volume",
+     "prompt": "Argon, an ideal monatomic gas, is at $\\pu{2.4e5 Pa}$ in a volume of $\\pu{1.8e-3 m3}$. It expands adiabatically until its pressure is $\\pu{6.0e4 Pa}$. Calculate its final volume, in units of $10^{-3}\\ \\text{m}^{3}$, to 2 significant figures.",
+     "hint": "Rearrange $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$ to $V_2 = V_1\\left(\\frac{P_1}{P_2}\\right)^{\\frac{3}{5}}$.",
+     "answer": {
+      "value": 4.1,
+      "tolerance": 0.05
+     },
+     "explain": "$V_2 = (1.8 \\times 10^{-3})(4.0)^{\\frac{3}{5}} = (1.8 \\times 10^{-3})(2.30) \\approx \\pu{4.1e-3 m3}$. Using $PV = \\text{constant}$ would give $7.2 \\times 10^{-3}\\ \\text{m}^{3}$, the isothermal answer.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "1.8*(2.4*10**5/(6.0*10**4))**Rational(3, 5)",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "heat-engines",
+   "heading": "Cycles and heat engines",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "One expansion can do work only once: the piston soon reaches the end of the cylinder. To keep doing work, the gas must be brought back to its starting state and the process repeated. A series of processes that ends where it began is called a cycle."
+    },
+    {
+     "type": "text",
+     "text": "After a full cycle the gas is back at its starting temperature, so $\\Delta U = 0$. The first law then says that the net thermal energy taken in over the cycle equals the net work done by the gas."
+    },
+    {
+     "type": "text",
+     "text": "On a [[p-v-diagram|P-V diagram]] a cycle is a closed loop, and the net work is the area it encloses. Going clockwise, the gas expands at a higher pressure than it is compressed at, so net work is done by the gas. Going anticlockwise, net work is done on the gas."
+    },
+    {
+     "type": "text",
+     "text": "A [[heat-engine|heat engine]] runs a gas round such a cycle. In each cycle it takes in thermal energy $Q_\\text{h}$ from a hot reservoir, does useful work $W$, and gives out thermal energy $Q_\\text{c}$ to a cold reservoir. Here $Q_\\text{h}$ and $Q_\\text{c}$ are sizes, both positive."
+    },
+    {
+     "type": "figure",
+     "id": "2-11-engine-flow",
+     "alt": "Energy flow in a heat engine. A box at the top is labelled hot reservoir at temperature T h. A thick arrow labelled Q h goes down from it into a circle labelled engine. An arrow labelled W, useful work, leaves the engine to the right. An arrow labelled Q c goes down from the engine into a box at the bottom labelled cold reservoir at temperature T c.",
+     "caption": "Energy flow in one cycle: $Q_\\text{h} = W + Q_\\text{c}$."
+    },
+    {
+     "type": "text",
+     "text": "The Kelvin form of the [[second-law-of-thermodynamics|second law of thermodynamics]], from {{lesson:2.10}}, says no cyclic engine can turn all of $Q_\\text{h}$ into work. Some energy must always go to the cold reservoir, so $Q_\\text{c} > 0$."
+    },
+    {
+     "type": "text",
+     "text": "Engines run on many different cycles. A petrol engine roughly follows two adiabatic and two isovolumetric stages; other designs use isobaric or isothermal stages. Each cycle gives a different efficiency, but you work it out the same way."
+    },
+    {
+     "type": "text",
+     "text": "The [[efficiency|efficiency]] of an engine compares the useful work it does with the energy put in. For a heat engine, the input energy is $Q_\\text{h}$, the thermal energy taken in."
+    },
+    {
+     "type": "formula",
+     "tex": "\\eta = \\frac{\\text{useful work}}{\\text{input energy}}",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "So $\\eta = \\dfrac{W}{Q_\\text{h}} = \\dfrac{Q_\\text{h} - Q_\\text{c}}{Q_\\text{h}}$. For a cycle on a P-V diagram, $W$ is the enclosed area. $Q_\\text{h}$ is the sum of the positive values of $Q$ only, from the stages where heat flows in."
+    },
+    {
+     "type": "mistake",
+     "text": "Dividing by the net heat, $Q_\\text{h} - Q_\\text{c}$, when finding the efficiency. The net heat equals the work; the input energy is only the heat taken in."
+    },
+    {
+     "type": "example",
+     "id": "ex-he-generator",
+     "question": "In each cycle, the engine of a small generator takes in $\\pu{2.60 kJ}$ of thermal energy from burning fuel and gives out $\\pu{1.85 kJ}$ to the surrounding air. Calculate the efficiency of the engine.",
+     "steps": [
+      "Useful work per cycle: $W = Q_\\text{h} - Q_\\text{c} = 2.60 - 1.85 = \\pu{0.75 kJ}$.",
+      "Efficiency: $\\eta = \\dfrac{W}{Q_\\text{h}} = \\dfrac{0.75}{2.60} = 0.288$.",
+      "The work is known to 2 significant figures, so give 2. As a percentage, this is about 29%."
+     ],
+     "answer": "$\\eta \\approx 0.29$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "(2.60 - 1.85)/2.60",
+      "sf": 2
+     }
+    },
+    {
+     "type": "text",
+     "text": "In a cycle made of several processes, find $Q$ for each stage from the first law. Only the stages where $Q$ is positive count towards the input energy."
+    },
+    {
+     "type": "figure",
+     "id": "2-11-rect-cycle",
+     "alt": "Pressure in units of 10 to the 5 pascals against volume in units of 10 to the minus 3 cubic metres. A rectangle has corners A at volume 1.6 and pressure 1.4, B at volume 1.6 and pressure 4.2, C at volume 3.8 and pressure 4.2, and D at volume 3.8 and pressure 1.4. Arrows go clockwise: up from A to B, right from B to C, down from C to D and left from D to A. The inside of the rectangle is shaded.",
+     "caption": "The cycle ABCDA for the next example. The shaded area is the net work done by the gas."
+    },
+    {
+     "type": "example",
+     "id": "ex-he-rectangle",
+     "question": "An ideal monatomic gas is taken round the cycle ABCDA in the diagram. A to B and C to D are isovolumetric; B to C and D to A are isobaric. Determine the efficiency of this cycle.",
+     "steps": [
+      "Net work is the enclosed area: $W = (4.2 - 1.4) \\times 10^{5} \\times (3.8 - 1.6) \\times 10^{-3} = (2.8 \\times 10^{5})(2.2 \\times 10^{-3}) = \\pu{616 J}$.",
+      "In isovolumetric and isobaric stages, $Q$ has the same sign as $\\Delta T$, so heat flows in where the gas warms, from A to B and from B to C. It flows out from C to D and from D to A, where the gas cools. For each stage, $\\Delta U = \\frac{3}{2}nR\\Delta T = \\frac{3}{2}\\Delta(PV)$.",
+      "A to B: $W = 0$, so $Q = \\Delta U = \\frac{3}{2}V\\Delta P = \\frac{3}{2}(1.6 \\times 10^{-3})(2.8 \\times 10^{5}) = \\pu{672 J}$.",
+      "B to C: $W = P\\Delta V = (4.2 \\times 10^{5})(2.2 \\times 10^{-3}) = \\pu{924 J}$ and $\\Delta U = \\frac{3}{2}P\\Delta V = \\pu{1386 J}$, so $Q = \\pu{2310 J}$.",
+      "Input energy: $Q_\\text{h} = 672 + 2310 = \\pu{2982 J}$, so $\\eta = \\dfrac{616}{2982} = 0.207$. Give 2 significant figures.",
+      "Check: the stages C to D and D to A give out $1596 + 770 = \\pu{2366 J}$, and $2982 - 2366 = \\pu{616 J}$, the net work."
+     ],
+     "answer": "$\\eta \\approx 0.21$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "(4.2*10**5 - 1.4*10**5)*(3.8*10**-3 - 1.6*10**-3)/(Rational(3, 2)*1.6*10**-3*(4.2*10**5 - 1.4*10**5) + Rational(5, 2)*4.2*10**5*(3.8*10**-3 - 1.6*10**-3))",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-he-waste",
+     "prompt": "A car engine has an efficiency of 0.31 and a useful power output of $\\pu{42 kW}$. Calculate the rate at which it transfers thermal energy to the surroundings, in kW to 2 significant figures.",
+     "hint": "First find the input power: input $= \\frac{\\text{useful output}}{\\eta}$.",
+     "answer": {
+      "value": 93,
+      "tolerance": 0.5
+     },
+     "explain": "Input power $= \\frac{42}{0.31} = \\pu{135.5 kW}$, so the rate of wasted heat is $135.5 - 42 \\approx \\pu{93 kW}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "42/0.31 - 42",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-he-anticlockwise",
+     "prompt": "A gas is taken anticlockwise round a closed loop on a P-V diagram. Which statement about one complete cycle is correct?",
+     "hint": "Compare the pressure during the compression with the pressure during the expansion.",
+     "options": [
+      {
+       "text": "net work is done on the gas",
+       "correct": true
+      },
+      {
+       "text": "net work is done by the gas",
+       "correct": false
+      },
+      {
+       "text": "no net work is done, because the gas returns to its starting state",
+       "correct": false
+      }
+     ],
+     "explain": "Anticlockwise, the gas is compressed at a higher pressure than it expands at, so more work is done on it than by it. $\\Delta U = 0$ over a cycle, but the net work equals the net heat, which is not zero.",
+     "verify": {
+      "kind": "choice",
+      "truth": "net work is done on the gas"
+     }
+    }
+   ]
+  },
+  {
+   "id": "carnot",
+   "heading": "The Carnot cycle and the efficiency limit",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Every heat engine wastes some heat. How small can the wasted fraction be? The answer depends only on the temperatures of the two reservoirs, and the [[carnot-cycle|Carnot cycle]] reaches it."
+    },
+    {
+     "type": "text",
+     "text": "A Carnot engine takes an ideal gas through four reversible stages:"
+    },
+    {
+     "type": "text",
+     "text": "1. A to B: isothermal expansion at $T_\\text{h}$. The gas takes in $Q_\\text{h}$ from the hot reservoir."
+    },
+    {
+     "type": "text",
+     "text": "2. B to C: adiabatic expansion. The gas does work and cools from $T_\\text{h}$ to $T_\\text{c}$."
+    },
+    {
+     "type": "text",
+     "text": "3. C to D: isothermal compression at $T_\\text{c}$. The gas gives out $Q_\\text{c}$ to the cold reservoir."
+    },
+    {
+     "type": "text",
+     "text": "4. D to A: adiabatic compression. Work done on the gas warms it back to $T_\\text{h}$."
+    },
+    {
+     "type": "figure",
+     "id": "2-11-carnot-cycle",
+     "alt": "Pressure against volume for a Carnot cycle. From A at the top left, the gas expands along the hotter isotherm, labelled T h, to B, taking in thermal energy Q h. From B it expands along a steeper adiabatic curve down to C. From C it is compressed along the cooler isotherm, labelled T c, to D, giving out thermal energy Q c. From D a steep adiabatic curve rises back to A. The cycle runs clockwise and the enclosed area is shaded.",
+     "caption": "A Carnot cycle: two isotherms joined by two steeper adiabatics, run clockwise. The shaded area is the net work."
+    },
+    {
+     "type": "text",
+     "text": "Heat flows only while the gas is at (almost exactly) the reservoir's temperature, so no heat crosses a real temperature difference. With no friction either, every stage is reversible, with no [[irreversible-process|irreversible]] losses. Over a cycle, the total [[entropy|entropy]] of the gas and the two reservoirs does not change."
+    },
+    {
+     "type": "text",
+     "text": "This gives the limit. The hot reservoir loses entropy $\\frac{Q_\\text{h}}{T_\\text{h}}$ and the cold one gains $\\frac{Q_\\text{c}}{T_\\text{c}}$. With no overall change these are equal, so $\\frac{Q_\\text{c}}{Q_\\text{h}} = \\frac{T_\\text{c}}{T_\\text{h}}$ and $\\eta = 1 - \\frac{Q_\\text{c}}{Q_\\text{h}} = 1 - \\frac{T_\\text{c}}{T_\\text{h}}$."
+    },
+    {
+     "type": "formula",
+     "tex": "\\eta_\\text{Carnot} = 1 - \\frac{T_\\text{c}}{T_\\text{h}}",
+     "tag": "booklet",
+     "bookletId": "db-2-11"
+    },
+    {
+     "type": "text",
+     "text": "Both temperatures must be in kelvin. No heat engine working between the same two reservoirs can be more efficient than a Carnot engine. A more efficient one would send less heat to the cold reservoir, so the total entropy would fall, which the [[second-law-of-thermodynamics|second law]] forbids."
+    },
+    {
+     "type": "text",
+     "text": "Real engines fall well short of the Carnot efficiency. They have friction and turbulence, and their heat flows across real temperature differences, which is irreversible. A true Carnot cycle would also have to run infinitely slowly, so it would deliver no power. It is a theoretical limit, not a practical design."
+    },
+    {
+     "type": "text",
+     "text": "To raise the limit, make $T_\\text{h}$ higher or $T_\\text{c}$ lower. This is why power stations run their steam as hot as their materials allow."
+    },
+    {
+     "type": "mistake",
+     "text": "Putting Celsius temperatures into $1 - \\frac{T_\\text{c}}{T_\\text{h}}$. Between $400\\,^{\\circ}\\text{C}$ and $40\\,^{\\circ}\\text{C}$ the limit is $1 - \\frac{313}{673} \\approx 0.53$, not $1 - \\frac{40}{400} = 0.90$."
+    },
+    {
+     "type": "example",
+     "id": "ex-ca-station",
+     "question": "The turbines of a power station take in steam at $540\\,^{\\circ}\\text{C}$ and release heat to cooling water at $25\\,^{\\circ}\\text{C}$. Calculate the maximum possible efficiency of the turbines.",
+     "steps": [
+      "Convert to kelvin: $T_\\text{h} = 540 + 273 = \\pu{813 K}$ and $T_\\text{c} = 25 + 273 = \\pu{298 K}$.",
+      "Carnot limit: $\\eta_\\text{Carnot} = 1 - \\dfrac{298}{813} = 0.633$.",
+      "Give 2 significant figures. Real turbines reach much less than this, because they are not reversible."
+     ],
+     "answer": "$\\eta_\\text{Carnot} \\approx 0.63$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "1 - (25 + zero_celsius)/(540 + zero_celsius)",
+      "sf": 2
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-ca-claim",
+     "question": "An inventor claims that her engine takes in $\\pu{5.0 kJ}$ of thermal energy per cycle from a reservoir at $\\pu{640 K}$, gives out heat to the air at $\\pu{290 K}$, and does $\\pu{3.0 kJ}$ of work per cycle. Evaluate this claim.",
+     "steps": [
+      "Work out the efficiency she claims.",
+      "Work out the Carnot limit for these two temperatures.",
+      "Compare them, and say what the comparison means."
+     ],
+     "answer": "The claimed efficiency is $\\eta = \\frac{3.0}{5.0} = 0.60$. The Carnot efficiency for these reservoirs is $1 - \\frac{290}{640}$, which is about 0.55. This is the maximum efficiency of any heat engine working between these two temperatures. The claimed efficiency is greater than this maximum. So the claim is impossible, because such an engine would break the second law of thermodynamics.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "claimed efficiency 0.60 exceeds the Carnot maximum of 0.55 for 640 K and 290 K, so the claim breaks the second law and is impossible",
+      "requires": [
+       "0.60",
+       "0.55",
+       "maximum",
+       [
+        "impossible",
+        "not possible"
+       ],
+       "second law"
+      ],
+      "forbids": [
+       "claim is possible",
+       "claim is correct"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ca-kelvin",
+     "prompt": "A Carnot engine works between reservoirs at $177\\,^{\\circ}\\text{C}$ and $27\\,^{\\circ}\\text{C}$. What is its efficiency?",
+     "hint": "Convert both temperatures to kelvin before using $\\eta = 1 - \\frac{T_\\text{c}}{T_\\text{h}}$.",
+     "options": [
+      {
+       "text": "$\\approx 0.33$",
+       "correct": true
+      },
+      {
+       "text": "$\\approx 0.85$",
+       "correct": false
+      },
+      {
+       "text": "$\\approx 0.67$",
+       "correct": false
+      },
+      {
+       "text": "$\\approx 0.15$",
+       "correct": false
+      }
+     ],
+     "explain": "In kelvin, $T_\\text{h} = \\pu{450 K}$ and $T_\\text{c} = \\pu{300 K}$, so $\\eta = 1 - \\frac{300}{450} \\approx 0.33$. Using Celsius gives 0.85. The value 0.67 is $\\frac{T_\\text{c}}{T_\\text{h}}$, the fraction of the heat that is wasted, and 0.15 is the Celsius ratio $\\frac{27}{177}$.",
+     "verify": {
+      "kind": "rounded",
+      "truth": "1 - (27 + zero_celsius)/(177 + zero_celsius)",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ca-hot",
+     "prompt": "A Carnot engine has an efficiency of 0.35. Its cold reservoir is at $17\\,^{\\circ}\\text{C}$. Calculate the temperature of its hot reservoir, in K to 2 significant figures.",
+     "hint": "Rearrange $\\eta = 1 - \\frac{T_\\text{c}}{T_\\text{h}}$ to $T_\\text{h} = \\frac{T_\\text{c}}{1 - \\eta}$, with $T_\\text{c}$ in kelvin.",
+     "answer": {
+      "value": 450,
+      "tolerance": 5
+     },
+     "explain": "$T_\\text{h} = \\frac{290}{1 - 0.35} = \\frac{290}{0.65} \\approx \\pu{450 K}$ (446 K before rounding).",
+     "verify": {
+      "kind": "numeric",
+      "truth": "(17 + zero_celsius)/(1 - 0.35)",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "fact",
+     "text": "In $Q = \\Delta U + W$, $Q$ is the heat supplied to the gas and $W$ is the work done by the gas. Work done on the gas (compression) is negative.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "For an ideal gas. Isovolumetric: $W = 0$, $Q = \\Delta U$. Isobaric: $W = P\\Delta V$. Isothermal: $\\Delta U = 0$, $Q = W$. Adiabatic: $Q = 0$, $W = -\\Delta U$.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "PV^{\\frac{5}{3}} = \\text{constant}",
+     "tag": "booklet",
+     "bookletId": "db-2-11",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "Work done by a gas is the area under its P-V line, negative when the gas is compressed. Over a cycle, the net work is the enclosed area, done by the gas when the loop runs clockwise.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "\\eta = \\frac{\\text{useful work}}{\\text{input energy}}",
+     "tag": "booklet",
+     "bookletId": "db-2-11",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "For a heat engine, $W = Q_\\text{h} - Q_\\text{c}$, and the input energy is $Q_\\text{h}$, the heat taken in.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "\\eta_\\text{Carnot} = 1 - \\frac{T_\\text{c}}{T_\\text{h}}",
+     "tag": "booklet",
+     "bookletId": "db-2-11",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "The Carnot efficiency, with temperatures in kelvin, is the maximum for any heat engine between two reservoirs. Real engines are irreversible and always less efficient.",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Using Celsius in $\\eta_\\text{Carnot} = 1 - \\frac{T_\\text{c}}{T_\\text{h}}$. Convert both temperatures to kelvin first.",
+  "Taking work done on the gas as positive. In $Q = \\Delta U + W$, $W$ is the work done by the gas, so a compression has $W < 0$.",
+  "Thinking adiabatic means constant temperature. Adiabatic means $Q = 0$; the temperature changes because work is done.",
+  "Saying no net work is done over a cycle because $\\Delta U = 0$. The net work equals the net heat taken in, which is the enclosed area.",
+  "Saying a well-designed real engine could reach the Carnot efficiency. The Carnot cycle is reversible and infinitely slow, so it is only a limit."
+ ],
+ "examTips": [
+  "\"Show, using the first law\" that heat enters or leaves: state $\\Delta U$ (from the temperature change), then the sign of $W$ (expansion or compression), then combine them in $Q = \\Delta U + W$. Each step is a marking point, so don't jump to the conclusion.",
+  "\"Show that\" a volume or pressure after an adiabatic change: write $P_1V_1^{\\frac{5}{3}} = P_2V_2^{\\frac{5}{3}}$ with the numbers in, then give one more significant figure than the stated value.",
+  "\"Sketch\" or \"draw\" a cycle on P-V axes: the marks are for the shapes. Isovolumetric is vertical, isobaric is horizontal, and an adiabatic curve is steeper than an isotherm through the same point.",
+  "\"Explain\" why a real engine cannot reach the Carnot efficiency: the Carnot cycle is reversible (no friction, no heat flow across a temperature difference) and would have to run infinitely slowly."
+ ],
+ "readingMinutes": 28
+}

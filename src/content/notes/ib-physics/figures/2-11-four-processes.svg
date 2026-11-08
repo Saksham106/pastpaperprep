@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 370" role="img" aria-labelledby="t211fp">
+  <title id="t211fp">Pressure against volume for a fixed amount of ideal gas. Four lines start from the same state S. A vertical line rises from S, labelled isovolumetric, V constant. A horizontal line runs to the right from S, labelled isobaric, P constant. Two curves fall to the right from S: the gentler one is labelled isothermal, T constant, and the steeper one, which ends lower, is labelled adiabatic, Q equals 0.</title>
+  <defs>
+    <marker id="a211fp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+    <marker id="b211fp" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="70" y1="320" x2="530" y2="320" marker-end="url(#a211fp)"/>
+    <line x1="70" y1="320" x2="70" y2="40" marker-end="url(#a211fp)"/>
+  </g>
+  <polyline fill="none" stroke="var(--t1-ink)" stroke-width="2" points="200.0,170.0 207.2,177.9 214.5,185.1 221.8,191.5 229.0,197.4 236.2,202.7 243.5,207.6 250.8,212.1 258.0,216.3 265.2,220.1 272.5,223.7 279.8,227.0 287.0,230.1 294.2,233.0 301.5,235.8 308.8,238.3 316.0,240.7 323.2,243.0 330.5,245.1 337.8,247.2 345.0,249.1 352.2,250.9 359.5,252.6 366.8,254.3 374.0,255.9 381.2,257.3 388.5,258.8 395.8,260.1 403.0,261.4 410.2,262.7 417.5,263.9 424.8,265.0 432.0,266.1 439.2,267.2 446.5,268.2 453.8,269.2 461.0,270.1 468.2,271.0 475.5,271.9 482.8,272.8 490.0,273.6"/>
+  <polyline fill="none" stroke="var(--t2-ink)" stroke-width="2" points="200.0,170.0 207.2,183.0 214.5,194.2 221.8,204.1 229.0,212.8 236.2,220.4 243.5,227.3 250.8,233.4 258.0,238.9 265.2,243.8 272.5,248.3 279.8,252.4 287.0,256.1 294.2,259.5 301.5,262.7 308.8,265.5 316.0,268.2 323.2,270.6 330.5,272.9 337.8,275.0 345.0,277.0 352.2,278.8 359.5,280.5 366.8,282.1 374.0,283.6 381.2,285.0 388.5,286.3 395.8,287.6 403.0,288.7 410.2,289.8 417.5,290.9 424.8,291.9 432.0,292.8 439.2,293.7 446.5,294.5 453.8,295.3 461.0,296.1 468.2,296.8 475.5,297.5 482.8,298.1 490.0,298.8"/>
+  <g stroke="var(--t3-ink)" stroke-width="2">
+    <line x1="200" y1="170" x2="200" y2="70"/>
+    <line x1="200" y1="170" x2="380" y2="170"/>
+  </g>
+  <circle cx="200" cy="170" r="4.5" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="182" y="188">S</text>
+    <text x="208" y="78" fill="var(--t3-ink)">isovolumetric (V constant)</text>
+    <text x="388" y="174" fill="var(--t3-ink)">isobaric (P constant)</text>
+    <text x="400" y="248" fill="var(--t1-ink)">isothermal (T constant)</text>
+    <text x="400" y="312" fill="var(--t2-ink)">adiabatic (Q = 0)</text>
+    <text x="40" y="36">P</text>
+    <text x="520" y="345">V</text>
+    <text x="58" y="336">0</text>
+  </g>
+</svg>

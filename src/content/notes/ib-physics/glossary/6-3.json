@@ -1,0 +1,80 @@
+[
+  {
+    "id": "random-error",
+    "term": "random error",
+    "definition": "An error that makes repeated readings scatter unpredictably above and below the true value; its effect is reduced by repeating readings and taking the mean.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "systematic-error",
+    "term": "systematic error",
+    "definition": "An error that shifts every reading in the same direction, such as a zero error or an uncalibrated instrument; repeating readings does not reduce it.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "precision",
+    "term": "precision",
+    "definition": "How close repeated measurements of the same quantity are to each other; random errors reduce it.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "accuracy",
+    "term": "accuracy",
+    "definition": "How close a measurement, or the mean of several, is to the true value; systematic errors reduce it.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "uncertainty",
+    "term": "uncertainty",
+    "definition": "The range above and below a measured value within which the true value is expected to lie, written as value ± uncertainty.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "absolute-uncertainty",
+    "term": "absolute uncertainty",
+    "definition": "The uncertainty in a quantity given in the quantity's own unit, such as the 0.01 A in (0.34 ± 0.01) A.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "fractional-uncertainty",
+    "term": "fractional uncertainty",
+    "definition": "The absolute uncertainty divided by the measured value, $\\frac{\\Delta x}{x}$; it has no unit and is also called the relative uncertainty.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "percentage-uncertainty",
+    "term": "percentage uncertainty",
+    "definition": "The fractional uncertainty multiplied by 100%, which shows how large the uncertainty is compared with the value.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "percentage-error",
+    "term": "percentage error",
+    "definition": "The size of the difference between an experimental value and the accepted value, divided by the size of the accepted value (ignore any minus sign) and multiplied by 100%.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "percentage-change",
+    "term": "percentage change",
+    "definition": "The change in a quantity divided by its original value and multiplied by 100%; positive for a rise and negative for a fall.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "percentage-difference",
+    "term": "percentage difference",
+    "definition": "The difference between two values divided by their mean and multiplied by 100%, used to compare two results when neither is an accepted value.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "significant-figures",
+    "term": "significant figures",
+    "definition": "The digits of a number that carry meaning about its precision, counted from the first non-zero digit.",
+    "lesson": "6.3"
+  },
+  {
+    "id": "propagation-of-uncertainty",
+    "term": "propagation of uncertainty",
+    "definition": "Working out the uncertainty in a calculated result from the uncertainties in the measurements used to calculate it.",
+    "lesson": "6.3"
+  }
+]

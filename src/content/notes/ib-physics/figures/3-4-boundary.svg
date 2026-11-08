@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 290" role="img" aria-labelledby="t">
+  <title id="t">A horizontal boundary between air above and glass below, with a dashed normal drawn at right angles to the boundary where a ray meets it. An incident ray comes in from the upper left at angle theta i to the normal. A thinner reflected ray leaves to the upper right at an equal angle theta r to the normal, labelled partial reflection. A transmitted ray continues into the glass at a smaller angle theta 2 to the normal, bent towards the normal: it is refracted.</title>
+  <rect x="20" y="150" width="420" height="130" fill="var(--t2-ink)" fill-opacity="0.12"/>
+  <path d="M20.0 150.0 L440.0 150.0" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M230.0 25.0 L230.0 275.0" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="236.0" y="36.0" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="start">normal</text>
+  <path d="M130.4 66.4 L223.9 144.9" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="230.0,150.0 221.3,147.9 226.4,141.8" fill="var(--t3-ink)"/>
+  <path d="M230.0 150.0 L323.5 71.6" fill="none" stroke="var(--t3-ink)" stroke-width="1.1"/><polygon points="329.6,66.4 326.0,74.6 320.9,68.5" fill="var(--t3-ink)"/>
+  <path d="M230.0 150.0 L292.3 254.9" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/><polygon points="296.4,261.8 288.9,256.9 295.7,252.8" fill="var(--t3-ink)"/>
+  <path d="M204.0 128.1 A34.0 34.0 0 0 1 230.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M230.0 110.0 A40.0 40.0 0 0 1 260.6 124.3" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M250.4 184.4 A40.0 40.0 0 0 1 230.0 190.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="214.0" y="104.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="222.0" y="109.0" font-size="9" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">i</text>
+  <text x="250.0" y="100.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="257.0" y="105.0" font-size="9" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">r</text>
+  <text x="242.0" y="204.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">θ</text>
+  <text x="249.0" y="209.0" font-size="9" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">2</text>
+  <text x="122.0" y="60.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">incident ray</text>
+  <text x="345.0" y="52.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">reflected ray</text>
+  <text x="345.0" y="66.0" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="middle">(partial reflection)</text>
+  <text x="345.0" y="245.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">transmitted ray,</text>
+  <text x="345.0" y="259.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">refracted</text>
+  <text x="30.0" y="140.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">medium 1 (air)</text>
+  <text x="30.0" y="172.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">medium 2 (glass)</text>
+</svg>

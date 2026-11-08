@@ -1,0 +1,44 @@
+[
+  {
+    "id": "electric-field",
+    "term": "electric field",
+    "definition": "A region of space in which an electric charge experiences an electric force.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "electric-field-strength",
+    "term": "electric field strength",
+    "definition": "The electric force per unit charge on a small positive test charge at a point, $E = \\frac{F}{q}$; a vector, measured in $\\text{N C}^{-1}$ or $\\text{V m}^{-1}$.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "test-charge",
+    "term": "test charge",
+    "definition": "An imagined small positive charge placed at a point to measure the field there, small enough not to disturb the charges that make the field.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "electric-field-line",
+    "term": "electric field line",
+    "definition": "A line showing the direction of the force on a positive charge at each point; lines start on positive charges and end on negative charges (or at infinity), never cross, and are closer together where the field is stronger.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "uniform-electric-field",
+    "term": "uniform electric field",
+    "definition": "An electric field with the same strength and direction at every point, drawn as parallel, equally spaced lines; between parallel plates its strength is $E = \\frac{V}{d}$.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "magnetic-field",
+    "term": "magnetic field",
+    "definition": "A region in which a magnet, a magnetic material, or a moving charge or current experiences a force.",
+    "lesson": "4.5"
+  },
+  {
+    "id": "magnetic-field-line",
+    "term": "magnetic field line",
+    "definition": "A line showing the direction of the force on a north pole at each point; outside a magnet the lines run from north to south, and they always form closed loops.",
+    "lesson": "4.5"
+  }
+]

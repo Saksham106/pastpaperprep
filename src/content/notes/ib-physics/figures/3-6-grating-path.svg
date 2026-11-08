@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 540 325" role="img" aria-labelledby="t">
+  <title id="t">Light arrives from the left, at right angles to a diffraction grating drawn as a barrier with several equally spaced slits, a distance d apart. From two neighbouring slits, parallel rays leave at an angle theta to the straight-through direction, which is shown dashed. A dashed line from the upper slit meets the lower ray at right angles, and the short extra length of the lower ray before that point is highlighted and labelled extra path equals d sin theta.</title>
+  <path d="M150 30 V61" stroke="currentColor" stroke-width="3"/>
+  <path d="M150 67 V95" stroke="currentColor" stroke-width="3"/>
+  <path d="M150 101 V129" stroke="currentColor" stroke-width="3"/>
+  <path d="M150 135 V163" stroke="currentColor" stroke-width="3"/>
+  <path d="M150 169 V197" stroke="currentColor" stroke-width="3"/>
+  <path d="M150 203 V250" stroke="currentColor" stroke-width="3"/>
+  <path d="M40.0 64.0 L132.0 64.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><polygon points="138.0,64.0 132.0,67.0 132.0,61.0" fill="var(--t3-ink)"/>
+  <path d="M40.0 132.0 L132.0 132.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><polygon points="138.0,132.0 132.0,135.0 132.0,129.0" fill="var(--t3-ink)"/>
+  <path d="M40.0 200.0 L132.0 200.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/><polygon points="138.0,200.0 132.0,203.0 132.0,197.0" fill="var(--t3-ink)"/>
+  <text x="40" y="54" font-size="12" fill="currentColor" font-family="inherit" text-anchor="start">light</text>
+  <path d="M150 98 L375.2 -32.0" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <path d="M150 132 L375.2 2.0" stroke="var(--t1-ink)" stroke-width="1.4"/>
+  <path d="M150 132 H380" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M210 132 A60 60 0 0 0 202.0 102.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="218" y="124" font-size="13" fill="currentColor" font-family="inherit" text-anchor="start" font-style="italic">θ</text>
+  <path d="M150 98 L164.7 123.5" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M150 132 L164.7 123.5" stroke="var(--t2-ink)" stroke-width="3.4"/>
+  <text x="164" y="154" font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="start">extra path = d sin θ</text>
+  <path d="M120 98 H144 M120 132 H144" stroke="var(--muted)" stroke-width="1"/>
+  <path d="M128.0 115.0 L128.0 106.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="128.0,100.0 131.0,106.0 125.0,106.0" fill="currentColor"/>
+  <path d="M128.0 115.0 L128.0 124.0" fill="none" stroke="currentColor" stroke-width="1.2"/><polygon points="128.0,130.0 125.0,124.0 131.0,124.0" fill="currentColor"/>
+  <text x="122" y="120" font-size="13" fill="currentColor" font-family="inherit" text-anchor="end" font-style="italic">d</text>
+  <text x="150" y="270" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">grating (many equally spaced slits)</text>
+  <text x="379.2" y="-2" font-size="11" fill="currentColor" font-family="inherit" text-anchor="start">to a distant screen</text>
+</svg>

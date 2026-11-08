@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" role="img" aria-labelledby="t">
+<title id="t">Graph of speed against time for a body falling from rest through air. Speed on the vertical axis in metres per second, time on the horizontal axis in seconds. The curve starts at the origin with its steepest gradient, equal to g, shown by a dashed tangent line. The gradient then decreases, and the curve levels off towards a horizontal dashed line labelled terminal speed.</title>
+<path d="M60.0 240.0 L60.0 29.0" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="60.0,20.0 64.5,29.0 55.5,29.0" fill="currentColor"/>
+<path d="M60.0 240.0 L411.0 240.0" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="420.0,240.0 411.0,244.5 411.0,235.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle" transform="rotate(-90 22 130)" x="22" y="130">speed v / m s⁻¹</text>
+<text font-family="inherit" font-size="12" x="400" y="264" fill="currentColor" text-anchor="end">time t / s</text>
+<text font-family="inherit" font-size="12" x="54" y="254" fill="currentColor" text-anchor="end">0</text>
+<path d="M60 70 H410" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text font-family="inherit" font-size="11" x="410" y="62" fill="var(--muted)" text-anchor="end">terminal speed</text>
+<path d="M60.0 240.0 L65.0 227.9 L70.0 215.9 L75.0 204.1 L80.0 192.7 L85.0 181.7 L90.0 171.3 L95.0 161.4 L100.0 152.2 L105.0 143.6 L110.0 135.7 L115.0 128.5 L120.0 121.9 L125.0 115.9 L130.0 110.5 L135.0 105.7 L140.0 101.4 L145.0 97.5 L150.0 94.1 L155.0 91.1 L160.0 88.5 L165.0 86.1 L170.0 84.1 L175.0 82.3 L180.0 80.7 L185.0 79.3 L190.0 78.1 L195.0 77.0 L200.0 76.1 L205.0 75.3 L210.0 74.6 L215.0 74.0 L220.0 73.5 L225.0 73.0 L230.0 72.6 L235.0 72.3 L240.0 72.0 L245.0 71.7 L250.0 71.5 L255.0 71.3 L260.0 71.1 L265.0 71.0 L270.0 70.8 L275.0 70.7 L280.0 70.6 L285.0 70.5 L290.0 70.5 L295.0 70.4 L300.0 70.4 L305.0 70.3 L310.0 70.3 L315.0 70.2 L320.0 70.2 L325.0 70.2 L330.0 70.2 L335.0 70.1 L340.0 70.1 L345.0 70.1 L350.0 70.1 L355.0 70.1 L360.0 70.1 L365.0 70.1 L370.0 70.0 L375.0 70.0 L380.0 70.0 L385.0 70.0 L390.0 70.0 L395.0 70.0 L400.0 70.0 L405.0 70.0 L410.0 70.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<path d="M60 240 L150 21.4" stroke="var(--t2-ink)" stroke-width="1.4" stroke-dasharray="4 4"/>
+<text font-family="inherit" font-size="11" x="156" y="25.428571428571416" fill="var(--t2-ink)" text-anchor="start">gradient = g at the start</text>
+<text font-family="inherit" font-size="11" x="250" y="98" fill="var(--t1-ink)" text-anchor="start">gradient falls to zero</text>
+</svg>

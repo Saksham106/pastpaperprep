@@ -1,0 +1,760 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.11",
+  "slug": "fission-and-nuclear-power",
+  "title": "Fission and nuclear power",
+  "level": "SL",
+  "topic": 5,
+  "summary": "In [[fission|fission]], a heavy nucleus splits into two medium-mass nuclei that are more tightly bound, so energy is released. The neutrons it gives off can split more nuclei in a [[chain-reaction|chain reaction]]. A nuclear power plant keeps that chain steady, turns the energy into electricity, and must then store radioactive waste for thousands of years.",
+  "goals": [
+    {
+      "text": "Describe spontaneous and neutron-induced fission, and calculate the energy released from masses or from [[binding-energy-per-nucleon|binding energy per nucleon]].",
+      "bullets": [
+        "E.4-s1"
+      ]
+    },
+    {
+      "text": "Explain how a chain reaction works, and when its rate stays steady, grows or dies out.",
+      "bullets": [
+        "E.4-s2"
+      ]
+    },
+    {
+      "text": "Explain the roles of the [[moderator|moderator]], [[control-rod|control rods]], [[heat-exchanger|heat exchanger]] and [[shielding|shielding]], and calculate how much fuel a power station uses.",
+      "bullets": [
+        "E.4-s3",
+        "E.4-s1"
+      ]
+    },
+    {
+      "text": "Describe the properties of fission products, how nuclear waste is managed, and the impact of storing it for a very long time.",
+      "bullets": [
+        "E.4-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7",
+    "1.11",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "nuclear fission",
+    "chain reaction",
+    "nuclear reactor parts",
+    "moderator and control rods",
+    "nuclear waste storage",
+    "energy released in fission"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-products-tighter",
+      "prompt": "A heavy nucleus splits into two medium-mass nuclei, and energy is released. How does the binding energy per nucleon of the products compare with that of the heavy nucleus?",
+      "hint": "Medium-mass nuclei sit nearer the peak of the binding energy per nucleon curve.",
+      "options": [
+        {
+          "text": "It is greater",
+          "correct": true
+        },
+        {
+          "text": "It is smaller",
+          "correct": false
+        },
+        {
+          "text": "It is the same, because energy is conserved",
+          "correct": false
+        }
+      ],
+      "explain": "The products are nearer the peak, so they are more tightly bound. The increase in total [[binding-energy|binding energy]] is the energy released. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It is greater"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cart-explosion",
+      "prompt": "Two trolleys at rest are pushed apart by a spring in an [[explosion|explosion]]. Trolley P has three times the mass of trolley Q. Which statement is correct?",
+      "hint": "The total momentum was zero before, so it is zero after.",
+      "options": [
+        {
+          "text": "Q moves off three times as fast as P",
+          "correct": true
+        },
+        {
+          "text": "P moves off three times as fast as Q",
+          "correct": false
+        },
+        {
+          "text": "Both move off at the same speed",
+          "correct": false
+        }
+      ],
+      "explain": "Momenta are equal and opposite: $3m\\,v_\\text{P} = m\\,v_\\text{Q}$, so $v_\\text{Q} = 3v_\\text{P}$. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Q moves off three times as fast as P"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-station-efficiency",
+      "prompt": "A power station takes in energy at a rate of $\\pu{3.0 GW}$ and delivers electrical power of $\\pu{1.1 GW}$. Calculate its [[efficiency|efficiency]] as a decimal, to 2 significant figures.",
+      "hint": "Efficiency is useful power out divided by total power in.",
+      "answer": {
+        "value": 0.37,
+        "tolerance": 0.005
+      },
+      "explain": "$\\frac{1.1}{3.0} = 0.367$, so 0.37. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1.1/3.0",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "energy-released",
+      "heading": "Energy from fission",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.6}} you saw that binding energy per nucleon peaks near iron and falls slowly for heavier nuclei. So when a very heavy nucleus splits into two medium-mass nuclei, the products are more tightly bound, and energy is released."
+        },
+        {
+          "type": "definition",
+          "term": "fission",
+          "statement": "The splitting of a heavy nucleus into two medium-mass nuclei, usually with a few neutrons, releasing energy.",
+          "plain": "A big nucleus breaks into two medium-sized ones and gives out energy."
+        },
+        {
+          "type": "text",
+          "text": "Fission happens in two ways. In spontaneous fission, a nucleus splits on its own, at random, with nothing hitting it. Californium-252 does this; uranium-238 does too, but very rarely."
+        },
+        {
+          "type": "text",
+          "text": "In neutron-induced fission, a nucleus first absorbs a neutron. Uranium-235, the [[isotope|isotope]] used in most reactors, absorbs a slow neutron and becomes uranium-236, which is unstable and usually splits almost at once."
+        },
+        {
+          "type": "figure",
+          "id": "5-11-induced-fission",
+          "alt": "A slow neutron travels right towards a uranium-235 nucleus. The nucleus absorbs it and becomes an unstable, stretched uranium-236 nucleus. This splits into two medium-mass fission fragments that fly apart, together with two fast neutrons.",
+          "caption": "Neutron-induced fission of uranium-235. The two fragments and the new neutrons all fly off at high speed."
+        },
+        {
+          "type": "text",
+          "text": "A typical equation is $^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\rightarrow {}^{144}_{56}\\text{Ba} + {}^{89}_{36}\\text{Kr} + 3\\,{}^{1}_{0}\\text{n}$. Nucleon number and proton number are both conserved."
+        },
+        {
+          "type": "text",
+          "text": "The two positive fragments repel and fly apart like an [[explosion|explosion]]. About 80% of the energy appears as their [[kinetic-energy|kinetic energy]]. The rest goes to the neutrons, gamma photons and the later decay of the fragments."
+        },
+        {
+          "type": "text",
+          "text": "The uranium-236 nucleus is almost at rest and no external force acts, so momentum is conserved: ignoring the neutrons, the fragments have equal and opposite momenta. Since $E_\\text{k} = \\frac{p^{2}}{2m}$, the lighter fragment gets more of the kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "By [[mass-energy-equivalence|mass-energy equivalence]], the products have less mass than the reactants. You can find the energy released in two ways."
+        },
+        {
+          "type": "formula",
+          "tex": "E = mc^{2}",
+          "tag": "booklet",
+          "bookletId": "db-5-6"
+        },
+        {
+          "type": "text",
+          "text": "1. From masses: find the mass lost, $\\Delta m$, then $E = \\Delta m\\, c^{2}$. With masses in u, multiply $\\Delta m$ by 931.5 to get MeV."
+        },
+        {
+          "type": "text",
+          "text": "2. From [[binding-energy|binding energy]]: subtract the total binding energy of the reactants from that of the products. Free neutrons have none."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{released} = \\Delta m\\, c^{2} = E_\\text{B, products} - E_\\text{B, reactants}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-caesium-rubidium-fission",
+          "question": "A uranium-235 nucleus absorbs a neutron and splits: $^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\rightarrow {}^{137}_{55}\\text{Cs} + {}^{97}_{37}\\text{Rb} + 2\\,{}^{1}_{0}\\text{n}$. The atomic masses are uranium-235: 235.043930 u, caesium-137: 136.907089 u, rubidium-97: 96.937340 u. Determine the energy released in one fission, in MeV.",
+          "steps": [
+            "These are masses of atoms, but both sides have 92 electrons, so the electron masses cancel.",
+            "Neutron mass from the data booklet: $m_\\text{n} = \\pu{1.008665 u}$. Mass before: $235.043930 + 1.008665 = \\pu{236.052595 u}$.",
+            "Mass after, with both neutrons: $136.907089 + 96.937340 + 2 \\times 1.008665 = \\pu{235.861759 u}$.",
+            "Mass lost: $\\Delta m = \\pu{0.190836 u}$, so $E = 0.190836 \\times 931.5 = 177.8\\ \\text{MeV}$."
+          ],
+          "answer": "$E \\approx 178\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(235.043930 + mn_u - 136.907089 - 96.937340 - 2*mn_u)*u_MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-outline-two-fissions",
+          "question": "Californium-252 can split with nothing hitting it, while uranium-235 splits after absorbing a neutron. Outline the difference between these two kinds of fission, and state the form in which most of the released energy first appears.",
+          "steps": [
+            "Name each kind of fission and say what starts it.",
+            "Then say where the energy goes first: think about what flies apart."
+          ],
+          "answer": "Californium-252 undergoes spontaneous fission: it splits on its own, at random, with no outside trigger. Uranium-235 undergoes neutron-induced fission: it absorbs a neutron, becomes unstable uranium-236, and splits. Most of the released energy first appears as kinetic energy of the two fission fragments.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spontaneous fission needs no trigger; induced fission follows absorption of a neutron; energy appears mainly as kinetic energy of the fragments",
+            "requires": [
+              [
+                "spontaneous"
+              ],
+              [
+                "neutron-induced",
+                "induced"
+              ],
+              [
+                "absorbs a neutron",
+                "absorbing a neutron"
+              ],
+              [
+                "kinetic energy"
+              ],
+              [
+                "fragments",
+                "products"
+              ]
+            ],
+            "forbids": [
+              "binding energy is released",
+              "energy stored in the nucleus",
+              "needs a neutron to split spontaneously"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutrons-lanthanum",
+          "prompt": "A uranium-235 nucleus absorbs one neutron and splits into lanthanum-147 and bromine-87, plus some neutrons. How many neutrons are released?",
+          "hint": "The total nucleon number on the left is $235 + 1$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$236 - 147 - 87 = 2$ neutrons. Forgetting the absorbed neutron gives 1.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "235 + 1 - 147 - 87",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-binding-energy-route",
+          "prompt": "A uranium-235 nucleus absorbs a neutron and splits into cerium-146, selenium-88 and two neutrons. The binding energies per nucleon are uranium-235: $\\pu{7.6 MeV}$, cerium-146: $\\pu{8.30 MeV}$, selenium-88: $\\pu{8.55 MeV}$. Calculate the energy released, in MeV, to 2 significant figures.",
+          "hint": "Total binding energy is nucleon number times binding energy per nucleon. Free neutrons have none.",
+          "answer": {
+            "value": 180,
+            "tolerance": 5
+          },
+          "explain": "$146 \\times 8.30 + 88 \\times 8.55 - 235 \\times 7.6 = 1211.8 + 752.4 - 1786 = 178.2 \\approx \\pu{180 MeV}$. The uranium value has 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "146*8.30 + 88*8.55 - 235*7.6",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fragment-share",
+          "prompt": "A uranium-236 nucleus at rest splits into two fragments of nucleon numbers 146 and 88. Ignore the neutrons. The fragments share $\\pu{165 MeV}$ of kinetic energy. Calculate the kinetic energy of the lighter fragment, in MeV, to 3 significant figures.",
+          "hint": "Equal momenta and $E_\\text{k} = \\frac{p^{2}}{2m}$: each share is inversely proportional to mass.",
+          "answer": {
+            "value": 103,
+            "tolerance": 0.5
+          },
+          "explain": "Share of the lighter fragment: $165 \\times \\frac{146}{234} = 102.9 \\approx \\pu{103 MeV}$. Using $\\frac{88}{234}$ gives the heavier fragment's share.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "165*146/(146 + 88)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "chain-reactions",
+      "heading": "Chain reactions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each fission of uranium-235 usually releases 2 or 3 neutrons. Each can be absorbed by another uranium-235 nucleus and cause another fission, which releases more neutrons."
+        },
+        {
+          "type": "definition",
+          "term": "chain reaction",
+          "statement": "A self-sustaining series of fissions in which neutrons released by one fission go on to cause further fissions.",
+          "plain": "Each split triggers the next one, so the process keeps itself going."
+        },
+        {
+          "type": "text",
+          "text": "Some neutrons escape from the fuel, and some are absorbed by nuclei that don't split, such as uranium-238. What matters is how many neutrons per fission, on average, cause another fission."
+        },
+        {
+          "type": "text",
+          "text": "1. Fewer than one on average: each generation has fewer fissions, and the [[chain-reaction|chain reaction]] dies out."
+        },
+        {
+          "type": "text",
+          "text": "2. Exactly one on average: the rate of fission stays constant. This is what a reactor needs for a steady power output."
+        },
+        {
+          "type": "text",
+          "text": "3. More than one on average: the number of fissions grows every generation, extremely fast. An uncontrolled chain like this is what happens in a nuclear weapon."
+        },
+        {
+          "type": "figure",
+          "id": "5-11-chain-reaction",
+          "alt": "Two chain reactions side by side. Left, labelled steady: a row of four fissions, each linked to the next by one neutron, while one more neutron from each fission is absorbed, so there is one fission per generation. Right, labelled growing: one fission leads to two, then four, then eight.",
+          "caption": "Left: exactly one neutron per fission causes another, so the rate is steady. Right: two per fission do, so the number of fissions doubles each generation."
+        },
+        {
+          "type": "example",
+          "id": "ex-neutron-budget",
+          "question": "In a reactor, each fission releases 2.4 neutrons on average. Of these, 0.6 are absorbed by uranium-238 without causing fission, 0.5 are absorbed by the control rods and 0.2 escape from the core. Determine the average number of neutrons per fission that cause a further fission, and state what happens to the rate of fission.",
+          "steps": [
+            "Each neutron causes a fission, is absorbed without fission, or escapes. Subtract the losses: $2.4 - 0.6 - 0.5 - 0.2 = 1.1$.",
+            "This is more than one, so the rate of fission increases.",
+            "To hold it steady, the control rods must absorb 0.1 more neutrons per fission: lower them further."
+          ],
+          "answer": "$n \\approx 1.1$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.4 - 0.6 - 0.5 - 0.2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-chain",
+          "question": "Explain what is meant by a chain reaction in nuclear fission, and state the condition for the rate of fission to stay constant.",
+          "steps": [
+            "Say where the neutrons come from and what they do next.",
+            "Then give the condition as an average number of neutrons per fission."
+          ],
+          "answer": "Each fission releases two or three neutrons. These can cause further fissions, which release more neutrons, so the process sustains itself. The rate of fission stays constant when, on average, exactly one neutron from each fission causes another fission.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "neutrons from each fission cause further fissions; steady when on average exactly one neutron per fission causes another fission",
+            "requires": [
+              [
+                "releases two or three neutrons",
+                "releases neutrons"
+              ],
+              [
+                "further fissions",
+                "another fission"
+              ],
+              [
+                "on average"
+              ],
+              [
+                "exactly one neutron",
+                "one neutron"
+              ]
+            ],
+            "forbids": [
+              "all the neutrons cause",
+              "every neutron causes"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rate-grows",
+          "prompt": "In a sample of uranium, on average 1.4 neutrons from each fission cause another fission. What happens to the rate of fission?",
+          "hint": "Compare 1.4 with the steady value.",
+          "options": [
+            {
+              "text": "It increases with each generation",
+              "correct": true
+            },
+            {
+              "text": "It stays constant",
+              "correct": false
+            },
+            {
+              "text": "It decreases and the chain dies out",
+              "correct": false
+            }
+          ],
+          "explain": "More than one per fission means each generation has more fissions than the last.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It increases with each generation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-generation-count",
+          "prompt": "Generation 1 of a chain is a single fission. Every fission causes exactly two fissions in the next generation. How many fissions happen in generation 10?",
+          "hint": "Generation 2 has 2, generation 3 has 4. How many doublings come after generation 1?",
+          "answer": {
+            "value": 512,
+            "tolerance": 0
+          },
+          "explain": "9 doublings after generation 1: $2^{9} = 512$. $2^{10}$ counts one too many.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2**9",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "power-plant",
+      "heading": "Inside a nuclear power plant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A power plant runs the chain reaction at a steady rate. The energy heats the core, and a steam turbine turns it into electricity. Four parts keep this controlled and safe."
+        },
+        {
+          "type": "figure",
+          "id": "5-11-power-plant",
+          "alt": "Simplified nuclear power plant. The reactor core sits inside thick shielding. In the core, fuel rods stand in moderator water, and control rods hang down between them and can be raised or lowered. Hot coolant flows to a heat exchanger and cooled coolant returns. In the heat exchanger, water in a separate circuit turns to steam, which drives a turbine and generator before returning as water.",
+          "caption": "The coolant circuit carries energy from the core to the [[heat-exchanger|heat exchanger]]. The steam circuit is kept separate."
+        },
+        {
+          "type": "text",
+          "text": "Moderator: fission releases fast neutrons, of about 2 MeV, but uranium-235 is far more likely to absorb slow ones, of about 0.03 eV. The [[moderator|moderator]] slows the neutrons down."
+        },
+        {
+          "type": "text",
+          "text": "It works by collisions with light nuclei, such as hydrogen in water or carbon in graphite. Each collision takes a significant share of the neutron's kinetic energy. Off a heavy nucleus, the neutron would bounce back with almost all of it."
+        },
+        {
+          "type": "text",
+          "text": "Control rods: [[control-rod|control rods]] of boron or cadmium absorb neutrons. Lowering them reduces the rate of fission; raising them increases it. Operators set them so that, on average, exactly one neutron per fission causes another fission."
+        },
+        {
+          "type": "text",
+          "text": "Heat exchanger: a coolant carries thermal energy from the core to the heat exchanger. There it boils water in a separate circuit, and the steam drives the turbine. The coolant, which can be radioactive, never reaches the turbine."
+        },
+        {
+          "type": "text",
+          "text": "Shielding: thick steel and concrete [[shielding|shielding]] absorbs the neutrons and gamma radiation from the core, protecting workers."
+        },
+        {
+          "type": "example",
+          "id": "ex-fuel-per-day",
+          "question": "A nuclear power station has an electrical output of $\\pu{750 MW}$ and an overall efficiency of 32%. Each fission of uranium-235 releases $\\pu{205 MeV}$. Take the mass of one uranium-235 atom as 235 u. Determine the mass of uranium-235 that undergoes fission in one day.",
+          "steps": [
+            "Power from fission: $P = \\frac{750 \\times 10^{6}}{0.32} = \\pu{2.344e9 W}$.",
+            "Energy per fission: $205 \\times 1.60 \\times 10^{-13} = \\pu{3.28e-11 J}$. Fissions in a day: $\\frac{2.344 \\times 10^{9}}{3.28 \\times 10^{-11}} \\times 86\\,400 = 6.17 \\times 10^{24}$.",
+            "Mass of one atom, with u from the data booklet: $235 \\times \\pu{1.661e-27 kg} = \\pu{3.90e-25 kg}$.",
+            "Total: $6.17 \\times 10^{24} \\times 3.90 \\times 10^{-25} = 2.41\\ \\text{kg}$. The efficiency has 2 significant figures, so give 2."
+          ],
+          "answer": "$m \\approx 2.4\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "750e6/0.32/(205*MeV)*86400*235*u_kg",
+            "sf": 2,
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-moderator-rods",
+          "question": "Explain how the moderator and the control rods together allow a reactor to produce a steady power output.",
+          "steps": [
+            "Give each part its own job, in terms of what it does to the neutrons.",
+            "Then link the control rods to the steady condition for a chain reaction."
+          ],
+          "answer": "The moderator slows down the fast neutrons from fission. Slow neutrons are more likely to cause fission of uranium-235, so the chain reaction continues. The control rods absorb neutrons. They are adjusted until, on average, exactly one neutron from each fission causes another fission, so the rate of fission is constant.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "moderator slows neutrons so fission is more likely; control rods absorb neutrons so that on average one neutron per fission causes another fission",
+            "requires": [
+              [
+                "slows down",
+                "slows the",
+                "reduces the kinetic energy"
+              ],
+              [
+                "more likely"
+              ],
+              [
+                "control rods absorb neutrons",
+                "absorb neutrons"
+              ],
+              [
+                "exactly one neutron",
+                "one neutron"
+              ],
+              [
+                "rate of fission is constant",
+                "constant rate"
+              ]
+            ],
+            "forbids": [
+              "moderator absorbs neutrons",
+              "control rods slow",
+              "control rods cool"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lower-rods",
+          "prompt": "The operators lower the control rods further into the core. What happens?",
+          "hint": "What do control rods do to neutrons?",
+          "options": [
+            {
+              "text": "More neutrons are absorbed, so the rate of fission falls",
+              "correct": true
+            },
+            {
+              "text": "Neutrons are slowed more, so the rate of fission rises",
+              "correct": false
+            },
+            {
+              "text": "More thermal energy is removed, but the rate of fission stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "Control rods absorb neutrons, so fewer cause fission. Slowing neutrons is the moderator's job.",
+          "verify": {
+            "kind": "choice",
+            "truth": "More neutrons are absorbed, so the rate of fission falls"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-energy-per-kg",
+          "prompt": "Each fission of uranium-235 releases $\\pu{200 MeV}$. Taking the mass of one uranium-235 atom as 235 u, calculate the energy released per kilogram of uranium-235 that undergoes fission. Give your answer in $\\text{J kg}^{-1}$, to 2 significant figures.",
+          "hint": "Divide the energy of one fission, in joules, by the mass of one atom, in kilograms.",
+          "answer": {
+            "value": 82000000000000,
+            "tolerance": 500000000000
+          },
+          "explain": "$\\frac{200 \\times 1.60 \\times 10^{-13}}{235 \\times 1.661 \\times 10^{-27}} = 8.2 \\times 10^{13}\\ \\text{J kg}^{-1}$. This [[energy-density|energy density]] is millions of times that of coal.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "200*MeV/(235*u_kg)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "waste",
+      "heading": "Fission products and nuclear waste",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Uranium-235 has about 1.55 neutrons per proton; stable medium-mass nuclei have fewer, about 1.25 to 1.45. The fragments keep the uranium's high share of neutrons, so they are unstable. This gives fission products three properties:"
+        },
+        {
+          "type": "text",
+          "text": "1. They are radioactive, mostly by [[beta-minus-decay|beta-minus decay]], often with gamma rays."
+        },
+        {
+          "type": "text",
+          "text": "2. Their [[half-life|half-lives]] range from fractions of a second to millions of years. Strontium-90 and caesium-137, about 30 years each, give most of the fission products' heat and radiation from a few years after removal until a few centuries later. A few, such as technetium-99, last hundreds of thousands of years."
+        },
+        {
+          "type": "text",
+          "text": "3. Their decay releases energy, so spent fuel stays hot for years."
+        },
+        {
+          "type": "text",
+          "text": "Spent fuel also holds plutonium-239, made when uranium-238 absorbs neutrons. It has a half-life of about 24 000 years."
+        },
+        {
+          "type": "text",
+          "text": "Management: spent fuel first sits in deep pools of water for years, which carry away the heat and absorb radiation. It then goes into sealed steel and concrete casks. The long-term plan in several countries is a deep store in stable rock."
+        },
+        {
+          "type": "text",
+          "text": "Long-term storage is the hard part. Some waste must stay isolated for tens of thousands of years. Stores must keep water out, survive earthquakes and stay secure, and future generations inherit the risk."
+        },
+        {
+          "type": "text",
+          "text": "For climate change, a fission plant emits almost no carbon dioxide while running and gives steady power. Against that are the waste, the risk of accidents such as Chernobyl, and the high cost of building plants."
+        },
+        {
+          "type": "example",
+          "id": "ex-strontium-activity",
+          "question": "Strontium-90 has a half-life of 29 years. A container of waste holds strontium-90 with an activity of $\\pu{6.4e15 Bq}$. Calculate the activity of the strontium-90 after 145 years.",
+          "steps": [
+            "Count the half-lives: $\\frac{145}{29} = 5$, so the activity halves 5 times: a factor of $2^{5} = 32$.",
+            "Activity: $\\frac{6.4 \\times 10^{15}}{32} = \\pu{2.0e14 Bq}$. Still huge after almost 150 years."
+          ],
+          "answer": "$A = 2.0 \\times 10^{14}\\ \\text{Bq}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "6.4e15/2**(145/29)",
+            "unit": "Bq"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-hot-waste",
+          "question": "Explain why the products of fission are radioactive, and why spent fuel is kept in pools of water for several years after it is removed from a reactor.",
+          "steps": [
+            "Compare the neutrons per proton of uranium with that of stable medium-mass nuclei.",
+            "Then say what the decays do to the fuel, and what the water does."
+          ],
+          "answer": "Uranium has more neutrons per proton than stable medium-mass nuclei, and the fragments keep this, so they are unstable. They decay mainly by beta-minus decay, with gamma radiation. Each decay releases energy, so the spent fuel keeps heating itself. The water removes this energy and absorbs radiation while the short-lived products decay.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fragments are neutron-rich so they are unstable and beta-minus decay; the decays release energy, which the water removes, and the water absorbs radiation",
+            "requires": [
+              [
+                "more neutrons per proton",
+                "too many neutrons"
+              ],
+              [
+                "unstable"
+              ],
+              [
+                "beta-minus",
+                "beta"
+              ],
+              [
+                "releases energy",
+                "heating"
+              ],
+              [
+                "absorbs radiation",
+                "absorbs the radiation"
+              ]
+            ],
+            "forbids": [
+              "water slows the decay",
+              "water stops the decay",
+              "changes the half-life"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-pools",
+          "prompt": "Why is spent fuel first stored in deep pools of water?",
+          "hint": "Think about what the decaying products give out.",
+          "options": [
+            {
+              "text": "The water removes the heat from decay and absorbs radiation",
+              "correct": true
+            },
+            {
+              "text": "The water slows the decay, so the waste becomes safe sooner",
+              "correct": false
+            },
+            {
+              "text": "The water acts as a moderator and keeps the chain reaction going",
+              "correct": false
+            }
+          ],
+          "explain": "Decay goes on at its own rate. The water removes its heat and shields people; it cannot change a half-life.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The water removes the heat from decay and absorbs radiation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plutonium-sixteenth",
+          "prompt": "Plutonium-239 has a half-life of $2.4 \\times 10^{4}$ years. How many years does it take for the activity of a sample to fall to $\\tfrac{1}{16}$ of its starting value?",
+          "hint": "How many times must you halve to reach $\\tfrac{1}{16}$?",
+          "answer": {
+            "value": 96000,
+            "tolerance": 0
+          },
+          "explain": "$\\tfrac{1}{16} = \\left(\\tfrac{1}{2}\\right)^{4}$: 4 half-lives, $4 \\times 2.4 \\times 10^{4} = 96\\,000$ years.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4*2.4e4",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Discuss\" waste storage or fission and climate change with points on both sides, then a conclusion."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Fission: a heavy nucleus splits into two medium-mass nuclei and usually 2 or 3 neutrons, spontaneously or after absorbing a neutron.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{released} = \\Delta m\\, c^{2} = E_\\text{B, products} - E_\\text{B, reactants}, \\qquad \\pu{1 u} \\to 931.5\\ \\text{MeV}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Most of the energy released first appears as kinetic energy of the fission fragments.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chain reaction: steady when, on average, exactly one neutron per fission causes another fission; it grows above one and dies out below one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Moderator slows neutrons; control rods absorb neutrons; heat exchanger passes energy to the steam circuit; shielding absorbs radiation.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fission products are neutron-rich: radioactive (beta-minus, gamma), hot, some long-lived. Waste is cooled in water, sealed and stored deep underground.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the moderator absorbs neutrons. It slows them, making fission more likely; the control rods absorb them.",
+    "Saying the control rods cool the reactor. The coolant and heat exchanger carry the energy away.",
+    "Forgetting the absorbed neutron, or the neutrons released, when balancing an equation or finding the mass lost.",
+    "Thinking that storing or cooling waste shortens its half-life. Nothing external changes a nuclide's half-life."
+  ],
+  "examTips": [
+    "\"Determine\" the energy released: mass before minus mass after, with every neutron, times 931.5 for MeV.",
+    "In 1A, match each part to its one job: moderator slows neutrons, control rods absorb them, heat exchanger transfers energy, shielding absorbs radiation.",
+    "\"Explain\" a chain reaction: neutrons from one fission cause further fissions; steady means exactly one per fission on average."
+  ],
+  "readingMinutes": 26
+}

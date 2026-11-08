@@ -1,0 +1,26 @@
+[
+  {
+    "id": "conduction",
+    "term": "conduction",
+    "definition": "The transfer of thermal energy through a material by collisions between neighbouring particles (and, in metals, free electrons), from particles with more average kinetic energy to those with less, with no bulk movement of the material.",
+    "lesson": "2.3"
+  },
+  {
+    "id": "thermal-conductivity",
+    "term": "thermal conductivity",
+    "definition": "The property $k$ of a material, in $\\text{W m}^{-1}\\,\\text{K}^{-1}$, that sets how fast it conducts thermal energy for a given area and temperature gradient, as in $\\frac{\\Delta Q}{\\Delta t} = -kA\\frac{\\Delta T}{\\Delta x}$; metals have high values and insulators low ones.",
+    "lesson": "2.3"
+  },
+  {
+    "id": "convection",
+    "term": "convection",
+    "definition": "The transfer of thermal energy by the bulk movement of a liquid or gas: warmer fluid usually expands, becomes less dense and rises, while cooler, denser fluid sinks to replace it.",
+    "lesson": "2.3"
+  },
+  {
+    "id": "thermal-radiation",
+    "term": "thermal radiation",
+    "definition": "Energy transferred as electromagnetic waves, mostly infrared at everyday temperatures, which every object above absolute zero emits; it needs no medium, so it can cross a vacuum.",
+    "lesson": "2.3"
+  }
+]

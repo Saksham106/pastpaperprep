@@ -1,0 +1,756 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.7",
+  "slug": "standing-waves",
+  "title": "Standing waves",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A [[standing-wave|standing wave]] forms when two identical [[wave|waves]] travel in opposite directions and combine by [[superposition|superposition]], usually a wave and its own [[reflection|reflection]]. Some points never move, the [[node|nodes]], and some move the most, the [[antinode|antinodes]]. On a string or in a pipe, the ends decide which patterns, called [[harmonic|harmonics]], fit, and so which frequencies it can sound.",
+  "goals": [
+    {
+      "text": "Explain how a standing wave forms and how it differs from a travelling wave.",
+      "bullets": [
+        "C.4-s1"
+      ]
+    },
+    {
+      "text": "Find nodes and antinodes, and use the distance between them to find the [[wavelength|wavelength]].",
+      "bullets": [
+        "C.4-s2"
+      ]
+    },
+    {
+      "text": "Describe how the [[amplitude|amplitude]] and phase of points change along a standing wave.",
+      "bullets": [
+        "C.4-s2"
+      ]
+    },
+    {
+      "text": "Sketch the standing-wave patterns on strings and in pipes for each pair of end conditions.",
+      "bullets": [
+        "C.4-s3"
+      ]
+    },
+    {
+      "text": "Calculate the wavelength and [[frequency|frequency]] of the $n$th harmonic from the length and the wave speed.",
+      "bullets": [
+        "C.4-s3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "3.1",
+    "3.3",
+    "3.4",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "stationary waves",
+    "harmonics on a string",
+    "nodes and antinodes",
+    "open and closed pipes",
+    "first harmonic frequency",
+    "air column standing wave"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wave-speed",
+      "prompt": "A wave on a rope has [[frequency|frequency]] $\\pu{12 Hz}$ and wavelength $\\pu{0.35 m}$. What is its speed, in $\\text{m s}^{-1}$?",
+      "hint": "Use $v = f\\lambda$.",
+      "answer": {
+        "value": 4.2,
+        "tolerance": 0.05
+      },
+      "explain": "$v = f\\lambda = 12 \\times 0.35 = \\pu{4.2 m s-1}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12*0.35",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-antiphase",
+      "prompt": "Two waves with the same [[amplitude|amplitude]] meet at a point in antiphase, a [[phase-difference|phase difference]] of $\\pi$ rad. What is the resultant amplitude there?",
+      "hint": "Antiphase means a crest arrives with a trough.",
+      "options": [
+        {
+          "text": "zero",
+          "correct": true
+        },
+        {
+          "text": "twice the amplitude of one wave",
+          "correct": false
+        },
+        {
+          "text": "the same as the amplitude of one wave",
+          "correct": false
+        }
+      ],
+      "explain": "Crest meets trough at every instant, so the displacements cancel: [[destructive-interference|destructive interference]]. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "zero"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sound-motion",
+      "prompt": "A sound wave travels along a pipe. How do the air particles move?",
+      "hint": "Is sound transverse or longitudinal?",
+      "options": [
+        {
+          "text": "back and forth along the direction the wave travels",
+          "correct": true
+        },
+        {
+          "text": "up and down, at right angles to the direction the wave travels",
+          "correct": false
+        },
+        {
+          "text": "along the pipe with the wave, from one end to the other",
+          "correct": false
+        }
+      ],
+      "explain": "Sound is a [[longitudinal-wave|longitudinal wave]]: the particles oscillate parallel to the direction of travel and stay near their rest positions. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "back and forth along the direction the wave travels"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "formation",
+      "heading": "How a standing wave forms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pluck a guitar string and it blurs into a shape that stays in place. Some points shake hard; others never move. This is a [[standing-wave|standing wave]]."
+        },
+        {
+          "type": "text",
+          "text": "It is made of two travelling [[wave|waves]]. A wave runs along the string, reaches the end and [[reflection|reflects]]. The incident and reflected waves then overlap all along the string."
+        },
+        {
+          "type": "definition",
+          "term": "standing wave",
+          "statement": "The wave pattern formed when two waves with the same frequency, wavelength, amplitude and speed, travelling in opposite directions, [[superposition|superpose]]. The pattern does not move along the medium and transfers no net energy.",
+          "plain": "Two identical waves going opposite ways add up to a wave that stays in place."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-snapshots",
+          "alt": "A stretched string shown at five instants during one oscillation of a standing wave. The string has four nodes, marked N, evenly spaced along it, including both ends, and an antinode, marked A, halfway between each pair of nodes. At the nodes the string never moves. At the antinodes it swings furthest, between the solid curve at its highest and the opposite solid curve at its lowest, with dashed curves at in-between times. The distance from one node to the next is marked half a wavelength, and so is the distance from one antinode to the next.",
+          "caption": "One standing wave at several instants. N marks the nodes and A the antinodes."
+        },
+        {
+          "type": "text",
+          "text": "At some points the two waves always arrive in antiphase. Their displacements cancel at every instant by [[destructive-interference|destructive interference]], so these points never move. They are [[node|nodes]]."
+        },
+        {
+          "type": "text",
+          "text": "Halfway between the nodes, the waves always arrive in phase. [[constructive-interference|Constructive interference]] gives the largest oscillation there. These points are [[antinode|antinodes]]."
+        },
+        {
+          "type": "text",
+          "text": "Every point except a node oscillates with [[simple-harmonic-motion|simple harmonic motion]] at the [[frequency|frequency]] of the travelling waves. Only the [[amplitude|amplitude]] varies."
+        },
+        {
+          "type": "text",
+          "text": "A travelling wave carries energy from place to place. In a standing wave the two waves carry equal energy in opposite directions, so there is no net energy transfer."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-cord-formation",
+          "question": "A vibration generator shakes one end of a stretched elastic cord. The other end is tied to a fixed post. At certain frequencies the cord forms a steady pattern of loops. Outline how this standing wave forms.",
+          "steps": [
+            "Name the two waves, say why they match, then say what their superposition does."
+          ],
+          "answer": "The generator sends a travelling wave along the cord. The wave reflects at the fixed post and travels back. The incident and reflected waves have the same frequency, wavelength and speed, and almost the same amplitude. They travel in opposite directions and superpose. Where they always arrive in antiphase they cancel, forming nodes; where they always arrive in phase they form antinodes.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Travelling wave reflects at the post; incident and reflected waves (same frequency, wavelength, speed) travel in opposite directions and superpose, giving nodes and antinodes.",
+            "requires": [
+              "travelling wave",
+              [
+                "reflects",
+                "reflected"
+              ],
+              "opposite directions",
+              "same frequency",
+              "superpose",
+              "nodes",
+              "antinodes"
+            ],
+            "forbids": [
+              "energy travels along the cord",
+              "the pattern moves along"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-antinode-amplitude",
+          "question": "Two waves, each of amplitude $\\pu{4.0 mm}$ and frequency $\\pu{30 Hz}$, travel in opposite directions along a wire and form a standing wave. Determine the amplitude of an antinode.",
+          "steps": [
+            "At an antinode the two waves always arrive in phase.",
+            "Superposition: their displacements add. At the moment both are at a crest, $y = 4.0 + 4.0$ mm.",
+            "The antinode still oscillates at $\\pu{30 Hz}$; only its amplitude is doubled. At a node the amplitude is $4.0 - 4.0 = 0$."
+          ],
+          "answer": "$A_\\text{antinode} = 8.0\\text{ mm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*4.0",
+            "unit": "mm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a standing wave carries energy along the string. The two waves carry equal energy in opposite directions, so there is no net transfer."
+        },
+        {
+          "type": "check",
+          "id": "check-standing-not-travelling",
+          "prompt": "Which statement is true for a standing wave but not for a travelling wave?",
+          "hint": "Think about energy, amplitude and phase along each kind of wave.",
+          "options": [
+            {
+              "text": "there is no net transfer of energy",
+              "correct": true
+            },
+            {
+              "text": "every point oscillates with the same amplitude",
+              "correct": false
+            },
+            {
+              "text": "neighbouring points have slightly different phases",
+              "correct": false
+            },
+            {
+              "text": "the wave shape moves along at the wave speed",
+              "correct": false
+            }
+          ],
+          "explain": "A standing wave transfers no net energy. The other three statements describe a travelling wave.",
+          "verify": {
+            "kind": "choice",
+            "truth": "there is no net transfer of energy"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-straight-cord",
+          "prompt": "A standing wave on a cord oscillates at $\\pu{15 Hz}$. How many times each second is the whole cord momentarily straight?",
+          "hint": "Every point passes through its rest position at the same moment, twice in each cycle.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0
+          },
+          "explain": "The cord is straight twice per cycle, and there are 15 cycles per second: $2 \\times 15 = 30$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*15",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "nodes-antinodes",
+      "heading": "Nodes, antinodes, amplitude and phase",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "node",
+          "statement": "A point on a standing wave where the amplitude is always zero.",
+          "plain": "A point that never moves."
+        },
+        {
+          "type": "definition",
+          "term": "antinode",
+          "statement": "A point on a standing wave where the amplitude is largest.",
+          "plain": "A point that oscillates the most."
+        },
+        {
+          "type": "text",
+          "text": "Nodes are evenly spaced, with an antinode halfway between each pair. The spacing depends on the wavelength $\\lambda$ of the travelling waves."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{node to next node} = \\frac{\\lambda}{2} \\qquad \\text{node to next antinode} = \\frac{\\lambda}{4}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So measuring the distance between nodes gives you $\\lambda$. Then $v = f\\lambda$, from the data booklet, links it to the frequency."
+        },
+        {
+          "type": "text",
+          "text": "Amplitude varies smoothly: zero at a node, largest at an antinode. If each travelling wave has amplitude $A$, an antinode has amplitude $2A$."
+        },
+        {
+          "type": "text",
+          "text": "All points between two neighbouring nodes move in phase: they reach their highest points together. Points on opposite sides of a node are in antiphase, a [[phase-difference|phase difference]] of $\\pi$ rad ($180^\\circ$)."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-phase",
+          "alt": "One snapshot of a standing wave with two loops between three nodes, marked N, drawn inside its dashed envelope. In the left loop, point P sits at the antinode and point Q sits closer to the left-hand node, so Q has a smaller amplitude. Both P and Q have arrows pointing up: they move upwards together, in phase. In the right loop, point R is on the far side of the middle node and has an arrow pointing down: it moves opposite to P and Q, in antiphase.",
+          "caption": "P and Q have different amplitudes but the same phase. R, across a node, is in antiphase with both."
+        },
+        {
+          "type": "text",
+          "text": "So the phase difference between two points is only ever $0$ or $\\pi$. In a travelling wave it grows steadily with distance, and, if no energy is lost, every point has the same amplitude."
+        },
+        {
+          "type": "example",
+          "id": "ex-wavelength-from-nodes",
+          "question": "A standing wave forms on a stretched spring. A student measures $\\pu{84 cm}$ from the first node to the fifth node. Determine the wavelength.",
+          "steps": [
+            "From the 1st to the 5th node there are 4 gaps, not 5.",
+            "Each gap is $\\frac{\\lambda}{2}$, so $4 \\times \\frac{\\lambda}{2} = 84$ cm, which means $2\\lambda = 84$ cm.",
+            "$\\lambda = \\frac{2 \\times 84}{4} = 42$ cm."
+          ],
+          "answer": "$\\lambda = 42\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*84/4",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-points",
+          "question": "On a standing wave, point X is $\\frac{\\lambda}{4}$ from a node. Point Y is $\\frac{\\lambda}{8}$ from the same node, on the other side. Compare the motion of X and Y.",
+          "steps": [
+            "Use the spacing to place each point, then compare amplitude, phase and frequency."
+          ],
+          "answer": "X is a quarter of a wavelength from the node, so X is an antinode and has the largest amplitude. Y is between the node and the next antinode, so its amplitude is smaller than that of X but not zero. X and Y are on opposite sides of a node, so they oscillate in antiphase, with a phase difference of $\\pi$ rad. Both oscillate with the same frequency.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "X is an antinode (largest amplitude); Y has a smaller, non-zero amplitude; opposite sides of a node, so antiphase; same frequency.",
+            "requires": [
+              "antinode",
+              [
+                "largest amplitude",
+                "maximum amplitude"
+              ],
+              "smaller",
+              "opposite sides of a node",
+              "antiphase",
+              "same frequency"
+            ],
+            "forbids": [
+              "Y is a node",
+              "they are in phase"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In Paper 1A, count the nodes between two points: an even number (or none) means in phase, an odd number means antiphase."
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the distance between neighbouring nodes as $\\lambda$. It is $\\frac{\\lambda}{2}$, so double it to get the wavelength."
+        },
+        {
+          "type": "check",
+          "id": "check-two-nodes-apart",
+          "prompt": "Points P and Q on a standing wave have exactly two nodes between them. How do they oscillate relative to each other?",
+          "hint": "Each node you cross flips the phase by half a cycle.",
+          "options": [
+            {
+              "text": "in phase",
+              "correct": true
+            },
+            {
+              "text": "in antiphase",
+              "correct": false
+            },
+            {
+              "text": "a quarter of a cycle apart",
+              "correct": false
+            }
+          ],
+          "explain": "Crossing one node gives antiphase; crossing a second flips it back. So P and Q are in phase.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in phase"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-node-to-antinode",
+          "prompt": "A standing wave is formed by sound of wavelength $\\pu{0.96 m}$. What is the distance from a node to the nearest antinode, in m?",
+          "hint": "A node and the next antinode are a quarter of a wavelength apart.",
+          "answer": {
+            "value": 0.24,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\lambda}{4} = \\frac{0.96}{4} = \\pu{0.24 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.96/4",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "heading": "Standing waves on strings",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A string can only hold standing waves that fit its length. Which ones fit depends on what happens at the ends: the boundary conditions."
+        },
+        {
+          "type": "text",
+          "text": "A fixed end cannot move, so it is a node. A free end moves the most, so it is an antinode: for example, a string tied to a light ring that slides on a smooth pole."
+        },
+        {
+          "type": "text",
+          "text": "The wave speed depends on the string's [[tension|tension]] and mass per metre. On one string at one tension, every standing wave has the same speed $v$."
+        },
+        {
+          "type": "definition",
+          "term": "harmonic",
+          "statement": "One of the standing-wave patterns a string or air column can hold, numbered by $n$. The first harmonic is the pattern with the lowest frequency.",
+          "plain": "One of the allowed ways a string or pipe can vibrate."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-string-harmonics",
+          "alt": "Standing waves on a string of length L, drawn as solid and dashed envelopes. Top three rows, a string fixed at both ends: the first harmonic, n equals 1, is one loop with L equal to half a wavelength; the second harmonic, n equals 2, is two loops with L equal to one wavelength; the third harmonic, n equals 3, is three loops with L equal to three halves of a wavelength. Bottom row, a string fixed at the left end and tied at the right end to a ring that slides on a pole: the first harmonic has a node at the fixed end and an antinode at the free end, with L equal to a quarter of a wavelength.",
+          "caption": "Harmonics on a string of length $L$. Each loop is half a wavelength."
+        },
+        {
+          "type": "text",
+          "text": "With both ends fixed, the simplest pattern is one loop: node, antinode, node. The length is half a wavelength, $L = \\frac{\\lambda}{2}$. Each extra loop adds another half wavelength: $L = \\lambda$, then $L = \\frac{3\\lambda}{2}$, and so on."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_n = \\frac{2L}{n} \\qquad f_n = \\frac{nv}{2L} \\qquad n = 1, 2, 3, \\ldots",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So $f_n = nf_1$: every whole-number multiple is allowed, and the $n$th harmonic has $n$ loops. Two free ends (antinodes at both) give the same wavelengths and frequencies."
+        },
+        {
+          "type": "text",
+          "text": "Older books call the first harmonic the [[fundamental-frequency|fundamental]]. In IB Physics, call it the first harmonic."
+        },
+        {
+          "type": "text",
+          "text": "With one fixed and one free end, there is a node at one end and an antinode at the other. The first harmonic has $L = \\frac{\\lambda}{4}$. The next has $L = \\frac{3\\lambda}{4}$: each step adds half a wavelength."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lambda_n = \\frac{4L}{n} \\qquad f_n = \\frac{nv}{4L} \\qquad n = 1, 3, 5, \\ldots",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Only odd harmonics exist here. An even $n$ would need a node at both ends or an antinode at both ends."
+        },
+        {
+          "type": "example",
+          "id": "ex-guitar-third",
+          "question": "A guitar string is $\\pu{0.65 m}$ long between its fixed ends. Waves travel along it at $\\pu{286 m s-1}$. Determine the frequency of its third harmonic.",
+          "steps": [
+            "Both ends fixed, so $\\lambda_n = \\frac{2L}{n}$.",
+            "Third harmonic, three loops: $\\lambda_3 = \\frac{2 \\times 0.65}{3} = 0.4333\\ldots$ m.",
+            "$f_3 = \\frac{v}{\\lambda_3} = \\frac{286}{0.4333\\ldots} = 660$ Hz.",
+            "Check: $f_1 = \\frac{286}{2 \\times 0.65} = \\pu{220 Hz}$, and $3 \\times 220 = 660$."
+          ],
+          "answer": "$f_3 = 660\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "3*286/(2*0.65)",
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-free-end-rope",
+          "question": "A rope $\\pu{2.4 m}$ long is fixed to a wall at one end. Its other end is tied to a light ring that slides freely on a smooth vertical pole. Waves travel along the rope at $\\pu{6.0 m s-1}$. Determine the frequency of the lowest harmonic above the first.",
+          "steps": [
+            "Fixed end: node. Free end: antinode. So $\\lambda_n = \\frac{4L}{n}$ with $n$ odd.",
+            "First harmonic: $f_1 = \\frac{v}{4L} = \\frac{6.0}{4 \\times 2.4} = \\pu{0.625 Hz}$.",
+            "There is no second harmonic. The next is $n = 3$: $f_3 = 3 \\times 0.625 = 1.875$ Hz, or 1.9 Hz to 2 significant figures."
+          ],
+          "answer": "$f_3 \\approx 1.9\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3*6.0/(4*2.4)",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $f_n = \\frac{nv}{2L}$ for a string with one fixed end and one free end. Sketch the pattern first: a node at one end and an antinode at the other means $\\lambda_n = \\frac{4L}{n}$, odd $n$ only."
+        },
+        {
+          "type": "check",
+          "id": "check-string-first",
+          "prompt": "A string fixed at both ends vibrates in its third harmonic at $\\pu{540 Hz}$. What is the frequency of its first harmonic?",
+          "hint": "For two fixed ends, $f_n = nf_1$.",
+          "options": [
+            {
+              "text": "$180\\text{ Hz}$",
+              "correct": true
+            },
+            {
+              "text": "$270\\text{ Hz}$",
+              "correct": false
+            },
+            {
+              "text": "$1620\\text{ Hz}$",
+              "correct": false
+            },
+            {
+              "text": "$540\\text{ Hz}$",
+              "correct": false
+            }
+          ],
+          "explain": "$f_1 = \\frac{540}{3} = \\pu{180 Hz}$. $\\pu{270 Hz}$ divides by 2, and $\\pu{1620 Hz}$ multiplies instead of dividing.",
+          "verify": {
+            "kind": "exact",
+            "truth": "540/3",
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nodes-fourth",
+          "prompt": "A string fixed at both ends vibrates in its fourth harmonic. How many nodes are there, counting the two ends?",
+          "hint": "Sketch four loops between the fixed ends.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "Four loops need $4 + 1 = 5$ nodes: one at each end and three between.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4 + 1",
+            "sf": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "pipes",
+      "heading": "Standing waves in pipes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Air in a pipe can hold standing waves too. Sound is a [[longitudinal-wave|longitudinal wave]], so the air oscillates back and forth along the pipe, not up and down."
+        },
+        {
+          "type": "text",
+          "text": "Sound reflects at closed and open ends, so a sound wave and its reflection form the standing wave. A loudspeaker at one end can drive it."
+        },
+        {
+          "type": "text",
+          "text": "A closed end stops the air: a displacement node. At an open end the air moves freely: a displacement antinode, taken to be exactly at the end."
+        },
+        {
+          "type": "text",
+          "text": "Pipe diagrams show the displacement amplitude along the pipe, not the shape of the wave: the air moves along the pipe."
+        },
+        {
+          "type": "figure",
+          "id": "3-7-pipe-modes",
+          "alt": "Displacement standing waves in pipes of length L, two harmonics for each type, drawn as mirror-image envelopes inside each pipe. Pipe open at both ends: antinodes at both open ends; the first harmonic has one node in the middle, L equals half a wavelength; the second harmonic has two nodes, L equals one wavelength. Pipe closed at both ends: nodes at both closed ends; the first harmonic has one antinode in the middle, L equals half a wavelength; the second harmonic has two antinodes, L equals one wavelength. Pipe closed at the left and open at the right: a node at the closed end and an antinode at the open end; the first harmonic has L equal to a quarter of a wavelength; the next possible pattern is the third harmonic, L equals three quarters of a wavelength.",
+          "caption": "Displacement nodes at closed ends, antinodes at open ends."
+        },
+        {
+          "type": "text",
+          "text": "Pipes open at both ends or closed at both ends have matching ends, like a string fixed at both ends. A pipe with a closed end and an open end has unlike ends, like a string with one free end."
+        },
+        {
+          "type": "result",
+          "statement": "Matching ends (two nodes or two antinodes): $\\lambda_n = \\frac{2L}{n}$ and $f_n = \\frac{nv}{2L}$ for every whole number $n$. Unlike ends (a node and an antinode): $\\lambda_n = \\frac{4L}{n}$ and $f_n = \\frac{nv}{4L}$ for odd $n$ only.",
+          "why": "Between matching ends the length holds a whole number of half wavelengths; between unlike ends it holds an odd number of quarter wavelengths."
+        },
+        {
+          "type": "example",
+          "id": "ex-closed-tube-first",
+          "question": "A narrow tube, closed at the bottom and open at the top, holds an air column $\\pu{0.49 m}$ long. The speed of sound in the air is $\\pu{343 m s-1}$. Calculate the frequency of the first harmonic.",
+          "steps": [
+            "Closed end: node. Open end: antinode. The first harmonic is a quarter of a wavelength: $L = \\frac{\\lambda}{4}$.",
+            "$\\lambda = 4 \\times 0.49 = \\pu{1.96 m}$.",
+            "$f_1 = \\frac{v}{\\lambda} = \\frac{343}{1.96} = 175$ Hz.",
+            "The next harmonic this tube can hold is the third, $3 \\times 175 = \\pu{525 Hz}$."
+          ],
+          "answer": "$f_1 = 175\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "343/(4*0.49)",
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-open-vs-closed",
+          "question": "Pipe A is open at both ends. Pipe B has the same length but is closed at one end. Explain why the first harmonic of pipe A has twice the frequency of the first harmonic of pipe B.",
+          "steps": [
+            "Sketch both first harmonics, write $L$ in terms of $\\lambda$ for each, then use $f = \\frac{v}{\\lambda}$."
+          ],
+          "answer": "Pipe A has a displacement antinode at each open end, with one node between them. Its first harmonic is half a wavelength long, so $\\lambda_A = 2L$. Pipe B has a node at its closed end and an antinode at its open end. Its first harmonic is a quarter of a wavelength long, so $\\lambda_B = 4L$. The speed of sound is the same in both pipes. Since $f = \\frac{v}{\\lambda}$, halving the wavelength doubles the frequency.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Open pipe: antinodes at both ends, L = half wavelength. Closed pipe: node at closed end, antinode at open end, L = quarter wavelength. Same speed, so half the wavelength gives double the frequency.",
+            "requires": [
+              "antinode",
+              "open end",
+              "half a wavelength",
+              "node",
+              "closed end",
+              "quarter of a wavelength",
+              [
+                "speed of sound is the same",
+                "same speed"
+              ],
+              [
+                "doubles the frequency",
+                "twice the frequency"
+              ]
+            ],
+            "forbids": [
+              "pressure node",
+              "end correction"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To ‘determine’ a harmonic frequency, sketch the pattern, write $L$ in terms of $\\lambda$, then use $f = \\frac{v}{\\lambda}$. The sketch shows the examiner your boundary conditions."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading a pipe diagram as the path of the air. The curves show how far the air moves at each point; the air itself moves along the pipe."
+        },
+        {
+          "type": "check",
+          "id": "check-closed-pipe-third",
+          "prompt": "A $\\pu{0.90 m}$ pipe is closed at its left end and open at its right end. What wavelength does its third harmonic have?",
+          "hint": "Unlike ends: $\\lambda_n = \\frac{4L}{n}$.",
+          "options": [
+            {
+              "text": "$1.2\\text{ m}$",
+              "correct": true
+            },
+            {
+              "text": "$0.60\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$3.6\\text{ m}$",
+              "correct": false
+            },
+            {
+              "text": "$1.8\\text{ m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda_3 = \\frac{4 \\times 0.90}{3} = \\pu{1.2 m}$. $\\pu{0.60 m}$ uses the open-pipe rule, $\\pu{3.6 m}$ is the first harmonic, and $\\pu{1.8 m}$ is $2L$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*0.90/3",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-open-pipe-length",
+          "prompt": "A pipe open at both ends has a first harmonic of $\\pu{440 Hz}$. The speed of sound is $\\pu{343 m s-1}$. How long is the pipe, in m? Give 3 significant figures.",
+          "hint": "Matching ends: the first harmonic is half a wavelength, so $L = \\frac{v}{2f_1}$.",
+          "answer": {
+            "value": 0.39,
+            "tolerance": 0.0005
+          },
+          "explain": "$L = \\frac{343}{2 \\times 440} = 0.3897\\ldots \\approx \\pu{0.390 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "343/(2*440)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A standing wave forms when two waves with the same frequency, wavelength, amplitude and speed travel in opposite directions and superpose. It transfers no net energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Nodes have zero amplitude and antinodes the largest. Neighbouring nodes are $\\frac{\\lambda}{2}$ apart; a node and the next antinode are $\\frac{\\lambda}{4}$ apart.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Points between neighbouring nodes are in phase. Points on opposite sides of a node are in antiphase ($\\pi$ rad).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fixed string end or closed pipe end: node. Free string end or open pipe end: antinode.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Matching ends: $\\lambda_n = \\frac{2L}{n}$, $f_n = \\frac{nv}{2L}$, $n = 1, 2, 3, \\ldots$",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Unlike ends: $\\lambda_n = \\frac{4L}{n}$, $f_n = \\frac{nv}{4L}$, $n = 1, 3, 5, \\ldots$ (odd harmonics only).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a standing wave transfers energy. There is no net transfer: the two waves carry equal energy in opposite directions.",
+    "Writing \"the waves bounce back and cancel\". Name the reflection, the two identical waves travelling in opposite directions, and their superposition.",
+    "Giving a pipe with one closed end a second harmonic. Only odd harmonics fit: $f_1$, $3f_1$, $5f_1$ and so on.",
+    "Counting nodes instead of gaps. From the 1st to the 4th node there are 3 half-wavelengths."
+  ],
+  "examTips": [
+    "\"Outline\" how a standing wave forms: give one point each for the reflection, the two waves travelling in opposite directions with the same frequency, and their superposition.",
+    "\"Compare\" standing and travelling waves on three things: energy transfer, amplitude along the wave, and phase between points.",
+    "In Paper 1A harmonic questions, sketch the pattern before you look at the options."
+  ],
+  "readingMinutes": 25
+}

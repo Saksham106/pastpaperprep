@@ -1,0 +1,188 @@
+{
+  "course": "ib-physics",
+  "banks": {
+    "SL": {
+      "slug": "ib-physics-sl",
+      "freeTier": true
+    },
+    "HL": {
+      "slug": "ib-physics-hl",
+      "freeTier": true
+    }
+  },
+  "subtopics": {
+    "Kinematics and motion": {
+      "SL": 77,
+      "HL": 74
+    },
+    "Forces and dynamics": {
+      "SL": 88,
+      "HL": 94
+    },
+    "Momentum, impulse and collisions": {
+      "SL": 50,
+      "HL": 47
+    },
+    "Circular motion and gravitation": {
+      "SL": 80,
+      "HL": 124
+    },
+    "Work, energy and power": {
+      "SL": 66,
+      "HL": 62
+    },
+    "Rigid body and rotational mechanics": {
+      "SL": 27,
+      "HL": 42
+    },
+    "Special relativity and spacetime": {
+      "SL": 60,
+      "HL": 89
+    },
+    "Thermal concepts and energy transfer": {
+      "SL": 93,
+      "HL": 86
+    },
+    "Greenhouse effect and climate-energy systems": {
+      "SL": 28,
+      "HL": 27
+    },
+    "Kinetic model and gas laws": {
+      "SL": 77,
+      "HL": 92
+    },
+    "Thermodynamics, entropy and cycles": {
+      "SL": 20,
+      "HL": 42
+    },
+    "Current, resistance, circuits and heating": {
+      "SL": 106,
+      "HL": 94
+    },
+    "Oscillations and simple harmonic motion": {
+      "SL": 39,
+      "HL": 84
+    },
+    "Wave model and characteristics": {
+      "SL": 66,
+      "HL": 61
+    },
+    "Interference, diffraction, polarization and resolution": {
+      "SL": 51,
+      "HL": 129
+    },
+    "Standing waves, resonance and Doppler effect": {
+      "SL": 44,
+      "HL": 85
+    },
+    "Electric charge, fields, potential and energy": {
+      "SL": 43,
+      "HL": 98
+    },
+    "Magnetic fields, forces and motion": {
+      "SL": 53,
+      "HL": 79
+    },
+    "Electromagnetic induction and power systems": {
+      "SL": 1,
+      "HL": 87
+    },
+    "Atomic structure and discrete energy levels": {
+      "SL": 42,
+      "HL": 57
+    },
+    "Quantum physics and matter-radiation interaction": {
+      "SL": 2,
+      "HL": 88
+    },
+    "Radioactivity and nuclear reactions": {
+      "SL": 75,
+      "HL": 117
+    },
+    "Nuclear energy, fission and fusion": {
+      "SL": 23,
+      "HL": 34
+    },
+    "Stellar evolution and processes": {
+      "SL": 23,
+      "HL": 36
+    },
+    "Stellar quantities and observations": {
+      "SL": 38,
+      "HL": 45
+    },
+    "Measurements, units and dimensions": {
+      "SL": 11,
+      "HL": 10
+    },
+    "Vectors, scalars and representation": {
+      "SL": 12,
+      "HL": 2
+    },
+    "Uncertainty, error and significant figures": {
+      "SL": 44,
+      "HL": 37
+    },
+    "Graphs, data processing and modelling": {
+      "SL": 26,
+      "HL": 21
+    }
+  },
+  "topics": {
+    "1": {
+      "SL": 339,
+      "HL": 486
+    },
+    "2": {
+      "SL": 296,
+      "HL": 323
+    },
+    "3": {
+      "SL": 190,
+      "HL": 343
+    },
+    "4": {
+      "SL": 170,
+      "HL": 378
+    },
+    "5": {
+      "SL": 185,
+      "HL": 350
+    },
+    "6": {
+      "SL": 82,
+      "HL": 62
+    }
+  },
+  "parents": {
+    "Kinematics and motion": "Mechanics and motion",
+    "Forces and dynamics": "Mechanics and motion",
+    "Momentum, impulse and collisions": "Mechanics and motion",
+    "Circular motion and gravitation": "Mechanics and motion",
+    "Work, energy and power": "Mechanics and motion",
+    "Rigid body and rotational mechanics": "Mechanics and motion",
+    "Special relativity and spacetime": "Relativity, astrophysics and cosmology",
+    "Thermal concepts and energy transfer": "Thermal and energy systems",
+    "Greenhouse effect and climate-energy systems": "Thermal and energy systems",
+    "Kinetic model and gas laws": "Thermal and energy systems",
+    "Thermodynamics, entropy and cycles": "Thermal and energy systems",
+    "Current, resistance, circuits and heating": "Electricity, circuits and electromagnetism",
+    "Oscillations and simple harmonic motion": "Waves, optics and imaging",
+    "Wave model and characteristics": "Waves, optics and imaging",
+    "Interference, diffraction, polarization and resolution": "Waves, optics and imaging",
+    "Standing waves, resonance and Doppler effect": "Waves, optics and imaging",
+    "Electric charge, fields, potential and energy": "Electricity, circuits and electromagnetism",
+    "Magnetic fields, forces and motion": "Electricity, circuits and electromagnetism",
+    "Electromagnetic induction and power systems": "Electricity, circuits and electromagnetism",
+    "Atomic structure and discrete energy levels": "Atomic, quantum, nuclear and particle physics",
+    "Quantum physics and matter-radiation interaction": "Atomic, quantum, nuclear and particle physics",
+    "Radioactivity and nuclear reactions": "Atomic, quantum, nuclear and particle physics",
+    "Nuclear energy, fission and fusion": "Atomic, quantum, nuclear and particle physics",
+    "Stellar evolution and processes": "Relativity, astrophysics and cosmology",
+    "Stellar quantities and observations": "Relativity, astrophysics and cosmology",
+    "Measurements, units and dimensions": "Foundations, measurement and data",
+    "Vectors, scalars and representation": "Foundations, measurement and data",
+    "Uncertainty, error and significant figures": "Foundations, measurement and data",
+    "Graphs, data processing and modelling": "Foundations, measurement and data"
+  }
+}

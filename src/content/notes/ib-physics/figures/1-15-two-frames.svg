@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" role="img" aria-labelledby="t">
+<title id="t">Two parallel horizontal x-axes. The lower axis belongs to frame S, with origin O at the left. The upper axis belongs to frame S prime, with origin O prime further to the right, and an arrow labelled v shows that frame S prime moves to the right relative to S. A dashed vertical line marks event P, to the right of both origins. Below the axes, an arrow from O to O prime is labelled v t, and a longer arrow from O to P is labelled x. Beside the upper axis, an arrow from O prime to P is labelled x prime. So x equals v t plus x prime.</title>
+<text font-family="inherit" font-size="12" x="420" y="30" fill="currentColor" text-anchor="middle">event P</text>
+<path d="M420 38 V220" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M220 30 L281 30" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+<polygon points="290,30 281,34.5 281,25.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="13" x="298" y="34" fill="var(--t3-ink)" text-anchor="start">v</text>
+<path d="M200 70 L486 70" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="495,70 486,74.5 486,65.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="500" y="58" fill="var(--t1-ink)" text-anchor="end">x′ (frame S′)</text>
+<path d="M220 60 V80" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="220" y="54" fill="var(--t1-ink)" text-anchor="middle">O′</text>
+<path d="M220 96 L411 96" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="420,96 411,100.5 411,91.5" fill="var(--t1-ink)"/>
+<polygon points="220,96 229,100.5 229,91.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="320" y="114" fill="var(--t1-ink)" text-anchor="middle">x′</text>
+<path d="M30 150 L486 150" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="495,150 486,154.5 486,145.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="500" y="138" fill="currentColor" text-anchor="end">x (frame S)</text>
+<path d="M60 140 V160" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="60" y="134" fill="currentColor" text-anchor="middle">O</text>
+<path d="M60 180 L211 180" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="220,180 211,184.5 211,175.5" fill="var(--t3-ink)"/>
+<polygon points="60,180 69,184.5 69,175.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="13" x="140" y="174" fill="var(--t3-ink)" text-anchor="middle">vt</text>
+<path d="M220 80 V188" stroke="var(--t3-ink)" stroke-width="1" stroke-dasharray="2 3"/>
+<path d="M60 210 L411 210" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="420,210 411,214.5 411,205.5" fill="var(--t2-ink)"/>
+<polygon points="60,210 69,214.5 69,205.5" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="13" x="240" y="230" fill="var(--t2-ink)" text-anchor="middle">x</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" font-family="inherit" font-size="13" fill="currentColor" role="img" aria-labelledby="t21pm">
+  <title id="t21pm">Three boxes of particles drawn as circles. Left, solid: 25 particles packed touching in a regular 5 by 5 grid, with small marks beside some showing they vibrate about fixed positions. Middle, liquid: about 22 particles still close together and touching, but in an irregular arrangement filling the lower part of the box, with a few small gaps. Right, gas: 6 particles spread far apart across the whole box, each with an arrow showing it moving fast in a random direction.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="20" y="15" width="160" height="160" rx="6"/>
+    <rect x="220" y="15" width="160" height="160" rx="6"/>
+    <rect x="420" y="15" width="160" height="160" rx="6"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <circle cx="64" cy="59" r="9" fill="var(--t2-ink)"/>
+    <circle cx="64" cy="77" r="9" fill="var(--t2-ink)"/>
+    <circle cx="64" cy="95" r="9" fill="var(--t2-ink)"/>
+    <circle cx="64" cy="113" r="9" fill="var(--t2-ink)"/>
+    <circle cx="64" cy="131" r="9" fill="var(--t2-ink)"/>
+    <circle cx="82" cy="59" r="9" fill="var(--t2-ink)"/>
+    <circle cx="82" cy="77" r="9" fill="var(--t2-ink)"/>
+    <circle cx="82" cy="95" r="9" fill="var(--t2-ink)"/>
+    <circle cx="82" cy="113" r="9" fill="var(--t2-ink)"/>
+    <circle cx="82" cy="131" r="9" fill="var(--t2-ink)"/>
+    <circle cx="100" cy="59" r="9" fill="var(--t2-ink)"/>
+    <circle cx="100" cy="77" r="9" fill="var(--t2-ink)"/>
+    <circle cx="100" cy="95" r="9" fill="var(--t2-ink)"/>
+    <circle cx="100" cy="113" r="9" fill="var(--t2-ink)"/>
+    <circle cx="100" cy="131" r="9" fill="var(--t2-ink)"/>
+    <circle cx="118" cy="59" r="9" fill="var(--t2-ink)"/>
+    <circle cx="118" cy="77" r="9" fill="var(--t2-ink)"/>
+    <circle cx="118" cy="95" r="9" fill="var(--t2-ink)"/>
+    <circle cx="118" cy="113" r="9" fill="var(--t2-ink)"/>
+    <circle cx="118" cy="131" r="9" fill="var(--t2-ink)"/>
+    <circle cx="136" cy="59" r="9" fill="var(--t2-ink)"/>
+    <circle cx="136" cy="77" r="9" fill="var(--t2-ink)"/>
+    <circle cx="136" cy="95" r="9" fill="var(--t2-ink)"/>
+    <circle cx="136" cy="113" r="9" fill="var(--t2-ink)"/>
+    <circle cx="136" cy="131" r="9" fill="var(--t2-ink)"/>
+    <circle cx="250" cy="163" r="9" fill="var(--t3-ink)"/>
+    <circle cx="268" cy="165" r="9" fill="var(--t3-ink)"/>
+    <circle cx="286" cy="162" r="9" fill="var(--t3-ink)"/>
+    <circle cx="304" cy="164" r="9" fill="var(--t3-ink)"/>
+    <circle cx="322" cy="163" r="9" fill="var(--t3-ink)"/>
+    <circle cx="340" cy="165" r="9" fill="var(--t3-ink)"/>
+    <circle cx="357" cy="162" r="9" fill="var(--t3-ink)"/>
+    <circle cx="258" cy="146" r="9" fill="var(--t3-ink)"/>
+    <circle cx="277" cy="146" r="9" fill="var(--t3-ink)"/>
+    <circle cx="296" cy="146" r="9" fill="var(--t3-ink)"/>
+    <circle cx="314" cy="147" r="9" fill="var(--t3-ink)"/>
+    <circle cx="333" cy="146" r="9" fill="var(--t3-ink)"/>
+    <circle cx="350" cy="146" r="9" fill="var(--t3-ink)"/>
+    <circle cx="248" cy="129" r="9" fill="var(--t3-ink)"/>
+    <circle cx="266" cy="129" r="9" fill="var(--t3-ink)"/>
+    <circle cx="287" cy="128" r="9" fill="var(--t3-ink)"/>
+    <circle cx="306" cy="130" r="9" fill="var(--t3-ink)"/>
+    <circle cx="341" cy="129" r="9" fill="var(--t3-ink)"/>
+    <circle cx="359" cy="131" r="9" fill="var(--t3-ink)"/>
+    <circle cx="276" cy="112" r="9" fill="var(--t3-ink)"/>
+    <circle cx="296" cy="111" r="9" fill="var(--t3-ink)"/>
+    <circle cx="329" cy="113" r="9" fill="var(--t3-ink)"/>
+    <circle cx="450" cy="45" r="9" fill="var(--t4-ink)"/>
+    <circle cx="540" cy="60" r="9" fill="var(--t4-ink)"/>
+    <circle cx="470" cy="130" r="9" fill="var(--t4-ink)"/>
+    <circle cx="520" cy="150" r="9" fill="var(--t4-ink)"/>
+    <circle cx="500" cy="95" r="9" fill="var(--t4-ink)"/>
+    <circle cx="560" cy="120" r="9" fill="var(--t4-ink)"/>
+  </g>
+  <g fill="none" stroke="var(--muted)" stroke-width="1.3">
+    <path d="M52 45 q-4 -4 0 -8"/>
+    <path d="M76 45 q4 -4 0 -8"/>
+    <path d="M124 81 q-4 -4 0 -8"/>
+    <path d="M148 81 q4 -4 0 -8"/>
+    <path d="M88 117 q-4 -4 0 -8"/>
+    <path d="M112 117 q4 -4 0 -8"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" fill="currentColor">
+    <path d="M460.4 39.0 L479.4 28.0" fill="none"/>
+    <polygon points="485.5,24.5 481.4,31.5 477.4,24.5" stroke="none"/>
+    <path d="M529.6 54.0 L510.6 43.0" fill="none"/>
+    <polygon points="504.5,39.5 512.6,39.5 508.6,46.5" stroke="none"/>
+    <path d="M464.6 137.2 L453.8 151.6" fill="none"/>
+    <polygon points="449.0,158.0 457.0,154.0 450.6,149.2" stroke="none"/>
+    <path d="M508.7 154.1 L488.1 161.6" fill="none"/>
+    <polygon points="481.5,164.0 486.7,157.9 489.4,165.4" stroke="none"/>
+    <path d="M502.1 83.2 L505.9 61.5" fill="none"/>
+    <polygon points="507.1,54.6 509.8,62.2 502.0,60.8" stroke="none"/>
+    <path d="M555.9 131.3 L548.4 151.9" fill="none"/>
+    <polygon points="546.0,158.5 544.6,150.6 552.1,153.3" stroke="none"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="100" y="196" font-weight="bold">solid</text>
+    <text x="100" y="214">fixed positions, vibrate</text>
+    <text x="300" y="196" font-weight="bold">liquid</text>
+    <text x="300" y="214">close, slide past each other</text>
+    <text x="500" y="196" font-weight="bold">gas</text>
+    <text x="500" y="214">far apart, fast, random</text>
+  </g>
+</svg>

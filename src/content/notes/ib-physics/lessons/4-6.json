@@ -1,0 +1,833 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-physics-2025",
+ "item": "4.6",
+ "slug": "electric-potential-and-potential-energy",
+ "title": "Electric potential and potential energy",
+ "level": "AHL",
+ "topic": 4,
+ "summary": "Charges store energy because of where they are: [[electric-potential-energy|electric potential energy]] is the [[work|work]] done to bring them together from far apart. Divide by the charge and you get [[electric-potential|electric potential]], a scalar that maps the whole field, gives the field strength from its slope and tells you the energy needed to move any charge.",
+ "goals": [
+  {
+   "text": "Explain electric potential energy as the work done to assemble a system from infinite separation, and calculate it with $E_\\text{p} = k\\frac{q_1 q_2}{r}$, sign included.",
+   "bullets": [
+    "D.2-a1",
+    "D.2-a2"
+   ]
+  },
+  {
+   "text": "Define electric potential, zero at infinity, calculate it with $V_\\text{e} = \\frac{kQ}{r}$, and add the potentials of several charges as scalars.",
+   "bullets": [
+    "D.2-a3",
+    "D.2-a4"
+   ]
+  },
+  {
+   "text": "Find the [[electric-field-strength|electric field strength]] from the [[potential-gradient|potential gradient]], $E = -\\frac{\\Delta V_\\text{e}}{\\Delta r}$, including inside and outside a charged conducting sphere.",
+   "bullets": [
+    "D.2-a5"
+   ]
+  },
+  {
+   "text": "Calculate the work done moving a charge, $W = q\\Delta V_\\text{e}$, in joules and electronvolts, and use energy conservation for moving charges.",
+   "bullets": [
+    "D.2-a6"
+   ]
+  },
+  {
+   "text": "Sketch and interpret [[equipotential-surface|equipotential surfaces]] for point charges, parallel plates and conducting spheres, and relate them to field lines.",
+   "bullets": [
+    "D.2-a7",
+    "D.2-a8"
+   ]
+  }
+ ],
+ "prerequisites": [
+  "1.1",
+  "1.9",
+  "4.2",
+  "4.4",
+  "4.5"
+ ],
+ "papers": [
+  "P1",
+  "P2"
+ ],
+ "synonyms": [
+  "electric potential energy formula",
+  "V = kQ/r",
+  "electric potential of a point charge",
+  "potential gradient and electric field",
+  "electric equipotential lines",
+  "distance of closest approach"
+ ],
+ "before": [
+  {
+   "type": "check",
+   "id": "before-coulomb",
+   "prompt": "Two point charges of $+\\pu{3.0 \\mu C}$ and $+\\pu{5.0 \\mu C}$ are $\\pu{0.20 m}$ apart in air. Calculate the size of the electric force between them, in N. Give 2 significant figures.",
+   "hint": "Use [[coulomb-s-law|Coulomb's law]], $F = k\\frac{q_1 q_2}{r^{2}}$, with $k = \\pu{8.99e9 N m2 C-2}$.",
+   "answer": {
+    "value": 3.4,
+    "tolerance": 0.05
+   },
+   "explain": "$F = \\frac{8.99 \\times 10^{9} \\times 3.0 \\times 10^{-6} \\times 5.0 \\times 10^{-6}}{0.20^{2}} = \\pu{3.4 N}$. Revise it in {{lesson:4.4}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "k_e*3.0e-6*5.0e-6/0.20**2",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-field-strength",
+   "prompt": "A charge of $+\\pu{2.0 \\mu C}$ feels a force of $\\pu{0.012 N}$ in an [[electric-field|electric field]]. Calculate the [[electric-field-strength|electric field strength]], in units of $10^{3}\\ \\text{N C}^{-1}$. Give 2 significant figures.",
+   "hint": "Use $E = \\frac{F}{q}$.",
+   "answer": {
+    "value": 6.0,
+    "tolerance": 0.05
+   },
+   "explain": "$E = \\frac{0.012}{2.0 \\times 10^{-6}} = \\pu{6.0e3 N C-1}$. Revise it in {{lesson:4.5}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "0.012/2.0e-6/10**3",
+    "sf": 2
+   }
+  },
+  {
+   "type": "check",
+   "id": "before-gravity-work",
+   "prompt": "A $\\pu{20 kg}$ probe moves from a point where $V_\\text{g} = \\pu{-5.0e7 J kg-1}$ to a point where $V_\\text{g} = \\pu{-3.0e7 J kg-1}$. Calculate the [[work|work]] done on it, in units of $10^{8}$ J. Give 2 significant figures.",
+   "hint": "Use $W = m\\Delta V_\\text{g}$, with $\\Delta V_\\text{g}$ = final minus initial.",
+   "answer": {
+    "value": 4.0,
+    "tolerance": 0.05
+   },
+   "explain": "$W = 20 \\times (-3.0 \\times 10^{7} - (-5.0 \\times 10^{7})) = \\pu{4.0e8 J}$. Revise it in {{lesson:4.2}}.",
+   "verify": {
+    "kind": "numeric",
+    "truth": "20*(-3.0e7 - (-5.0e7))/10**8",
+    "sf": 2
+   }
+  }
+ ],
+ "sections": [
+  {
+   "id": "energy",
+   "heading": "Electric potential energy",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "In {{lesson:4.2}} you met gravitational potential energy: the work done to bring masses together from infinitely far apart. Electric potential energy works the same way, with one twist. Charges can repel as well as attract."
+    },
+    {
+     "type": "definition",
+     "term": "electric potential energy",
+     "statement": "The work done to assemble a system of charges, bringing each charge from infinite separation to its position.",
+     "plain": "The energy an arrangement of charges has because of the forces between them, counted as zero when they are infinitely far apart."
+    },
+    {
+     "type": "text",
+     "text": "For two point charges the [[electric-potential-energy|electric potential energy]] is:"
+    },
+    {
+     "type": "formula",
+     "tex": "E_\\text{p} = k\\frac{q_1 q_2}{r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6"
+    },
+    {
+     "type": "text",
+     "text": "$q_1$ and $q_2$ are the two charges, with their signs, and $r$ is the distance between their centres. A charged sphere counts as a point charge at its centre. $k = \\pu{8.99e9 N m2 C-2}$, from [[coulomb-s-law|Coulomb's law]], comes from the data booklet, like $e$ and every constant a question does not give. All four equations in this lesson are in the booklet's higher level D.2 section."
+    },
+    {
+     "type": "text",
+     "text": "Why the sign? Like charges repel. To push them together you must push in the direction they move, so you do positive [[work|work]] and $E_\\text{p}$ is positive. Unlike charges attract. You must hold them back as they come together, so the work is negative and $E_\\text{p}$ is negative."
+    },
+    {
+     "type": "text",
+     "text": "Substitute the charges with their signs and the sign comes out right. With three or more charges, add the $E_\\text{p}$ of every pair: three charges make three pairs."
+    },
+    {
+     "type": "example",
+     "id": "ex-ep-pair",
+     "question": "A $+\\pu{4.0 \\mu C}$ point charge and a $-\\pu{2.5 \\mu C}$ point charge are $\\pu{0.15 m}$ apart. Calculate the electric potential energy of the system.",
+     "steps": [
+      "Write the equation: $E_\\text{p} = k\\frac{q_1 q_2}{r}$, keeping the signs of the charges.",
+      "Substitute: $E_\\text{p} = \\frac{8.99 \\times 10^{9} \\times (4.0 \\times 10^{-6}) \\times (-2.5 \\times 10^{-6})}{0.15}$.",
+      "$E_\\text{p} = -0.5993\\ \\text{J}$, so $-0.60$ J to 2 significant figures.",
+      "Sense check: unlike charges attract, so $E_\\text{p}$ should be negative."
+     ],
+     "answer": "$E_\\text{p} \\approx -0.60\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "k_e*4.0e-6*(-2.5e-6)/0.15",
+      "sf": 2,
+      "unit": "J",
+      "signed": true
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Squaring $r$. That is Coulomb's law for the force. Potential energy falls off as $\\frac{1}{r}$, not $\\frac{1}{r^{2}}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-ep-sign",
+     "question": "Two protons are held a small distance apart. Explain why the electric potential energy of the system is positive, and what happens to it when the protons are released.",
+     "steps": [
+      "Say what the force between them is.",
+      "Link the work done in assembling them to the sign of $E_\\text{p}$.",
+      "Describe the motion after release.",
+      "Track the energy."
+     ],
+     "answer": "The protons have like charges, so they repel. To bring them together from infinite separation, an external force must push them in the direction they move, so positive work is done on the system. The electric potential energy equals this work, so it is positive. When released, the protons repel and move apart. As their separation grows, the electric potential energy decreases towards zero. The protons gain kinetic energy equal to the decrease.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "like charges repel; positive work to assemble from infinity; Ep positive; released they move apart; Ep decreases to zero; kinetic energy gained equals decrease",
+      "requires": [
+       "repel",
+       [
+        "infinite separation",
+        "from infinity"
+       ],
+       "positive work",
+       [
+        "decreases towards zero",
+        "decreases"
+       ],
+       [
+        "gain kinetic energy",
+        "kinetic energy increases"
+       ]
+      ],
+      "forbids": [
+       "attract each other",
+       "potential energy is negative",
+       "potential energy increases"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ep-halve",
+     "prompt": "Two point charges, $+q$ and $-q$, have an electric potential energy of $\\pu{-0.060 J}$. Their separation is halved. What is the new electric potential energy?",
+     "hint": "$E_\\text{p} \\propto \\frac{1}{r}$. Keep the sign.",
+     "options": [
+      {
+       "text": "$-0.12\\ \\text{J}$",
+       "correct": true
+      },
+      {
+       "text": "$-0.030\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$-0.24\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$0.12\\ \\text{J}$",
+       "correct": false
+      }
+     ],
+     "explain": "Halving $r$ doubles the size of $E_\\text{p}$, so it becomes $\\pu{-0.12 J}$. It gets more negative: the attracting charges have moved closer.",
+     "verify": {
+      "kind": "rounded",
+      "truth": "2*(-0.060)",
+      "sf": 2,
+      "unit": "J",
+      "signed": true
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-ep-three",
+     "prompt": "Three point charges, each $+\\pu{2.0 \\mu C}$, sit at the corners of an equilateral triangle of side $\\pu{0.30 m}$. Calculate the electric potential energy of the system, in J. Give 2 significant figures.",
+     "hint": "There are three pairs, each $\\pu{0.30 m}$ apart. Add their energies.",
+     "answer": {
+      "value": 0.36,
+      "tolerance": 0.005
+     },
+     "explain": "One pair: $\\frac{8.99 \\times 10^{9} \\times (2.0 \\times 10^{-6})^{2}}{0.30} = \\pu{0.1199 J}$. Three pairs: $3 \\times 0.1199 = \\pu{0.36 J}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "3*k_e*(2.0e-6)**2/0.30",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "potential",
+   "heading": "Electric potential",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Electric potential energy depends on both charges. To describe a point in the field, whatever charge sits there, divide by the charge: energy per coulomb, as for gravity in {{lesson:4.2}}."
+    },
+    {
+     "type": "definition",
+     "term": "electric potential",
+     "statement": "The electric potential $V_\\text{e}$ at a point is the work needed, per coulomb, to move a small positive [[test-charge|test charge]] from infinity to that point. Unit: $\\text{J C}^{-1}$, which is the volt, V.",
+     "plain": "How much energy each coulomb of positive charge has at that point, compared with being infinitely far away."
+    },
+    {
+     "type": "text",
+     "text": "A test charge is small enough not to disturb the field it measures. For a point charge $Q$, the [[electric-potential|electric potential]] a distance $r$ away is:"
+    },
+    {
+     "type": "formula",
+     "tex": "V_\\text{e} = \\frac{kQ}{r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6"
+    },
+    {
+     "type": "text",
+     "text": "$Q$ is the charge making the field, with its sign. Near a positive charge, $V_\\text{e}$ is positive and falls towards zero with distance. Near a negative charge, it is negative and rises towards zero. Potential is zero at infinity by definition."
+    },
+    {
+     "type": "text",
+     "text": "Multiply by the charge placed at the point to get the potential energy: $E_\\text{p} = qV_\\text{e}$. Check: $q \\times \\frac{kQ}{r} = k\\frac{qQ}{r}$."
+    },
+    {
+     "type": "text",
+     "text": "Potential is a scalar: it has a size and a sign but no direction. To find it near several charges, add the potential from each one, signs included. That is much easier than adding field strengths, which are vectors."
+    },
+    {
+     "type": "example",
+     "id": "ex-v-single",
+     "question": "Calculate the electric potential $\\pu{0.040 m}$ from a point charge of $-\\pu{6.0 nC}$.",
+     "steps": [
+      "Write the equation: $V_\\text{e} = \\frac{kQ}{r}$, with $Q = -6.0 \\times 10^{-9}\\ \\text{C}$.",
+      "Substitute: $V_\\text{e} = \\frac{8.99 \\times 10^{9} \\times (-6.0 \\times 10^{-9})}{0.040} = -1349\\ \\text{V}$.",
+      "Round to 2 significant figures. The potential is negative because the charge is negative.",
+      "An electron placed there would have $E_\\text{p} = qV_\\text{e} = (-1.60 \\times 10^{-19}) \\times (-1349) = +2.2 \\times 10^{-16}\\ \\text{J}$: two negative charges repel."
+     ],
+     "answer": "$V_\\text{e} \\approx -1.3 \\times 10^{3}\\ \\text{V}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "k_e*(-6.0e-9)/0.040",
+      "sf": 2,
+      "unit": "V",
+      "signed": true
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-v-square",
+     "question": "Four point charges sit at the corners of a square of side $\\pu{0.20 m}$: $+\\pu{3.0 nC}$, $+\\pu{3.0 nC}$, $-\\pu{2.0 nC}$ and $+\\pu{1.0 nC}$. Determine the electric potential at the point where the diagonals cross.",
+     "steps": [
+      "Each corner is half a diagonal from the centre: $r = \\frac{0.20\\sqrt{2}}{2} = 0.1414\\ \\text{m}$.",
+      "Potential is a scalar, so add the four potentials. They share the same $r$, so add the charges: $(3.0 + 3.0 - 2.0 + 1.0) \\times 10^{-9} = 5.0 \\times 10^{-9}\\ \\text{C}$.",
+      "$V_\\text{e} = \\frac{8.99 \\times 10^{9} \\times 5.0 \\times 10^{-9}}{0.1414} = 317.8\\ \\text{V}$, so $\\pu{3.2e2 V}$ to 2 significant figures.",
+      "The field there would need four vectors; the potential needed none."
+     ],
+     "answer": "$V_\\text{e} \\approx 3.2 \\times 10^{2}\\ \\text{V}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "k_e*(3.0e-9 + 3.0e-9 - 2.0e-9 + 1.0e-9)/(0.20/sqrt(2))",
+      "sf": 2,
+      "unit": "V"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Thinking the potential is zero wherever the field is zero. Midway between two equal positive charges the fields cancel, but both potentials are positive, so $V_\\text{e} = \\frac{2kQ}{r}$."
+    },
+    {
+     "type": "check",
+     "id": "check-v-midpoint",
+     "prompt": "Point M is midway between a charge $+Q$ and a charge $-Q$. Which statement about M is correct?",
+     "hint": "Add the potentials as numbers with signs. Add the fields as arrows.",
+     "options": [
+      {
+       "text": "the potential is zero but the field strength is not",
+       "correct": true
+      },
+      {
+       "text": "the field strength is zero but the potential is not",
+       "correct": false
+      },
+      {
+       "text": "both are zero",
+       "correct": false
+      },
+      {
+       "text": "neither is zero",
+       "correct": false
+      }
+     ],
+     "explain": "The potentials $+\\frac{kQ}{r}$ and $-\\frac{kQ}{r}$ cancel. Both fields point from $+Q$ towards $-Q$, so they add and the field is not zero.",
+     "verify": {
+      "kind": "choice",
+      "truth": "the potential is zero but the field strength is not"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-v-two",
+     "prompt": "A charge of $+\\pu{8.0 nC}$ is at $x = 0$ and a charge of $-\\pu{4.0 nC}$ is at $x = \\pu{0.30 m}$. Calculate the electric potential at $x = \\pu{0.10 m}$, in V. Give 2 significant figures.",
+     "hint": "The point is $\\pu{0.10 m}$ from the first charge and $\\pu{0.20 m}$ from the second. Add $\\frac{kQ}{r}$ for each, with signs.",
+     "answer": {
+      "value": 540,
+      "tolerance": 5
+     },
+     "explain": "$V_\\text{e} = 8.99 \\times 10^{9} \\left(\\frac{8.0 \\times 10^{-9}}{0.10} - \\frac{4.0 \\times 10^{-9}}{0.20}\\right) = 719 - 180 = \\pu{540 V}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "k_e*(8.0e-9/0.10 + (-4.0e-9)/0.20)",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "gradient",
+   "heading": "Field strength as a potential gradient",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Think of potential as height on a hill. A positive charge is pushed downhill, towards lower potential, and the push is strongest where the slope is steepest. The slope is the [[potential-gradient|potential gradient]]:"
+    },
+    {
+     "type": "formula",
+     "tex": "E = -\\frac{\\Delta V_\\text{e}}{\\Delta r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6"
+    },
+    {
+     "type": "text",
+     "text": "$\\Delta V_\\text{e}$ is the change in potential over a small distance $\\Delta r$ along the field. The minus sign says the field points the way the potential falls. So a positive charge is pushed towards lower potential, and a negative charge, such as an electron, towards higher potential."
+    },
+    {
+     "type": "text",
+     "text": "The unit $\\text{V m}^{-1}$ is the same as $\\text{N C}^{-1}$. Between parallel plates the potential changes steadily, so the [[gradient|gradient]] is the same everywhere and its size is $E = \\frac{V}{d}$, as in {{lesson:4.5}}. On a graph of $V_\\text{e}$ against $r$, the gradient of the tangent is $-E$."
+    },
+    {
+     "type": "text",
+     "text": "An isolated charged conducting sphere, solid or hollow, is a key case. The charge spreads over its outer surface, and inside the conductor the field is zero once the charges stop moving. Zero gradient means the potential is the same everywhere inside, equal to its value at the surface, $\\frac{kQ}{R}$."
+    },
+    {
+     "type": "figure",
+     "id": "4-6-sphere-graphs",
+     "alt": "Two graphs for a positively charged conducting sphere of radius R, solid or hollow, against distance r from its centre. Left: electric potential V. From the centre out to r equals R the line is flat at k Q over R, so the potential is the same everywhere inside. Beyond R it falls along the curve k Q over r towards zero. Right: electric field strength E. It is zero from the centre out to R, jumps to k Q over R squared at the surface, then falls along the curve k Q over r squared towards zero.",
+     "caption": "A charged conducting sphere: flat potential and zero field inside; outside, it acts like a point charge at its centre."
+    },
+    {
+     "type": "text",
+     "text": "Outside the sphere, the field and potential are those of a point charge $Q$ at its centre. So $V_\\text{e}$ falls as $\\frac{kQ}{r}$ and has no jump at the surface, while $E$ jumps from zero to $\\frac{kQ}{R^{2}}$."
+    },
+    {
+     "type": "example",
+     "id": "ex-e-from-v",
+     "question": "Along an [[electric-field-line|electric field line]], the potential is $\\pu{340 V}$ at point A and $\\pu{310 V}$ at point B, $\\pu{2.0 mm}$ further along. Estimate the electric field strength between A and B, and state its direction.",
+     "steps": [
+      "Change in potential from A to B: $\\Delta V_\\text{e} = 310 - 340 = -30\\ \\text{V}$, over $\\Delta r = 2.0 \\times 10^{-3}\\ \\text{m}$.",
+      "Use $E = -\\frac{\\Delta V_\\text{e}}{\\Delta r} = -\\frac{-30}{2.0 \\times 10^{-3}} = 1.5 \\times 10^{4}\\ \\text{V m}^{-1}$.",
+      "$E$ points from A to B, the way the potential falls. It is the average field over the gap."
+     ],
+     "answer": "$E \\approx 1.5 \\times 10^{4}\\ \\text{V m}^{-1}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "-(310 - 340)/2.0e-3",
+      "sf": 2,
+      "unit": "V m-1"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-sphere-centre",
+     "question": "A solid metal sphere of radius $\\pu{0.12 m}$ carries a charge of $+\\pu{5.0 nC}$. Determine the electric potential at its centre.",
+     "steps": [
+      "Inside a conductor the field is zero, so the potential does not change between the surface and the centre.",
+      "So the potential at the centre equals the potential at the surface: $V_\\text{e} = \\frac{kQ}{R}$, with $R = 0.12$ m.",
+      "$V_\\text{e} = \\frac{8.99 \\times 10^{9} \\times 5.0 \\times 10^{-9}}{0.12} = 374.6\\ \\text{V}$, so $\\pu{3.7e2 V}$ to 2 significant figures.",
+      "Don't put $r = 0$ into $\\frac{kQ}{r}$: it holds only outside."
+     ],
+     "answer": "$V_\\text{e} \\approx 3.7 \\times 10^{2}\\ \\text{V}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "k_e*5.0e-9/0.12",
+      "sf": 2,
+      "unit": "V"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-sphere-inside",
+     "prompt": "A charged hollow metal sphere has a potential of $\\pu{600 V}$ at its surface. What is the potential at a point inside it, halfway to the centre?",
+     "hint": "What is the field inside the conductor? What does that make the potential gradient?",
+     "options": [
+      {
+       "text": "the same as at the surface",
+       "correct": true
+      },
+      {
+       "text": "twice the surface value",
+       "correct": false
+      },
+      {
+       "text": "half the surface value",
+       "correct": false
+      },
+      {
+       "text": "zero",
+       "correct": false
+      }
+     ],
+     "explain": "The field inside is zero, so the potential does not change: it is $\\pu{600 V}$ throughout. Using $\\frac{kQ}{r}$ with the smaller $r$, which gives $\\pu{1200 V}$, is wrong inside the sphere.",
+     "verify": {
+      "kind": "choice",
+      "truth": "the same as at the surface"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-graph-gradient",
+     "prompt": "On a graph of $V_\\text{e}$ against $r$ outside a charged sphere, the tangent at one point passes through $(\\pu{0.10 m}, \\pu{900 V})$ and $(\\pu{0.40 m}, \\pu{0 V})$. Determine the electric field strength at that point, in units of $10^{3}\\ \\text{V m}^{-1}$. Give 2 significant figures.",
+     "hint": "Find the gradient of the tangent, then use $E = -\\frac{\\Delta V_\\text{e}}{\\Delta r}$.",
+     "answer": {
+      "value": 3.0,
+      "tolerance": 0.05
+     },
+     "explain": "Gradient $= \\frac{0 - 900}{0.40 - 0.10} = \\pu{-3000 V m-1}$, so $E = \\pu{3.0e3 V m-1}$, pointing away from the sphere.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "-(0 - 900)/(0.40 - 0.10)/10**3",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "work",
+   "heading": "Work done moving a charge",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Potential is energy per coulomb. So the work needed to move a charge $q$ between two points is the charge times the change in potential:"
+    },
+    {
+     "type": "formula",
+     "tex": "W = q\\Delta V_\\text{e}",
+     "tag": "booklet",
+     "bookletId": "db-4-6"
+    },
+    {
+     "type": "text",
+     "text": "$\\Delta V_\\text{e} = V_\\text{final} - V_\\text{initial}$. $W$ is the work done on the charge by an outside agent that moves it without changing its speed. It equals the change in electric potential energy."
+    },
+    {
+     "type": "text",
+     "text": "Keep the sign of $q$ and the sign of $W$ follows. Moving a positive charge to higher potential needs positive work. Moving a negative charge there gives negative $W$: the field does the work."
+    },
+    {
+     "type": "text",
+     "text": "If the charge moves freely, with only the electric force on it, the field's work becomes kinetic energy: $\\Delta E_\\text{k} = -q\\Delta V_\\text{e}$. An electron, $q = -e$, accelerated through a potential difference $V$ gains kinetic energy $eV$."
+    },
+    {
+     "type": "text",
+     "text": "That makes the [[electronvolt|electronvolt]] a natural unit. It is the energy gained by one electron moving through $\\pu{1 V}$: $\\pu{1 eV} = \\pu{1.60e-19 J}$. A charge of $ne$ accelerated freely through a potential difference of $V$ volts gains $nV$ electronvolts. Multiply by $1.60 \\times 10^{-19}$ to convert to joules."
+    },
+    {
+     "type": "example",
+     "id": "ex-work-move",
+     "question": "A charge of $+\\pu{2.0 \\mu C}$ is moved from a point where the potential is $\\pu{-150 V}$ to a point where it is $\\pu{+250 V}$. Calculate the work done on the charge.",
+     "steps": [
+      "Change in potential: $\\Delta V_\\text{e} = 250 - (-150) = 400\\ \\text{V}$.",
+      "Use $W = q\\Delta V_\\text{e} = 2.0 \\times 10^{-6} \\times 400 = 8.0 \\times 10^{-4}\\ \\text{J}$.",
+      "Sense check: a positive charge moved to higher potential, so energy had to be supplied and $W$ is positive."
+     ],
+     "answer": "$W \\approx +8.0 \\times 10^{-4}\\ \\text{J}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "2.0e-6*(250 - (-150))",
+      "sf": 2,
+      "unit": "J",
+      "signed": true
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-closest-approach",
+     "question": "An alpha particle, charge $+2e$, has a kinetic energy of $\\pu{3.0 MeV}$ far from a tin nucleus, charge $+50e$. It moves straight towards the nucleus. Determine the distance of closest approach. Assume the nucleus does not move.",
+     "steps": [
+      "Far away, $E_\\text{p} = 0$. At closest approach the alpha particle stops for an instant, so all its kinetic energy has become electric potential energy: $E_\\text{k} = k\\frac{q_1 q_2}{r}$.",
+      "Convert the kinetic energy to joules: $E_\\text{k} = 3.0 \\times 10^{6} \\times 1.60 \\times 10^{-19} = 4.80 \\times 10^{-13}\\ \\text{J}$.",
+      "Rearrange: $r = \\frac{kq_1 q_2}{E_\\text{k}} = \\frac{8.99 \\times 10^{9} \\times (2 \\times 1.60 \\times 10^{-19}) \\times (50 \\times 1.60 \\times 10^{-19})}{4.80 \\times 10^{-13}}$.",
+      "$r = 4.795 \\times 10^{-14}\\ \\text{m}$, so $\\pu{4.8e-14 m}$ to 2 significant figures."
+     ],
+     "answer": "$r \\approx 4.8 \\times 10^{-14}\\ \\text{m}$",
+     "video": null,
+     "verify": {
+      "kind": "standard-form",
+      "truth": "k_e*(2*e)*(50*e)/(3.0*MeV)",
+      "sf": 2,
+      "unit": "m"
+     }
+    },
+    {
+     "type": "mistake",
+     "text": "Mixing electronvolts and joules. $E_\\text{p} = k\\frac{q_1 q_2}{r}$ gives joules with charges in coulombs, so convert MeV to J before you use it."
+    },
+    {
+     "type": "check",
+     "id": "check-alpha-kev",
+     "prompt": "An alpha particle, charge $+2e$, starts at rest and is accelerated through $\\pu{1500 V}$. Calculate the kinetic energy it gains, in keV. Give 2 significant figures.",
+     "hint": "A charge of $ne$ accelerated freely through a potential difference of $V$ volts gains $nV$ electronvolts.",
+     "answer": {
+      "value": 3.0,
+      "tolerance": 0.05
+     },
+     "explain": "$E_\\text{k} = 2 \\times 1500 = \\pu{3000 eV} = \\pu{3.0 keV}$, which is $\\pu{4.8e-16 J}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "2*1500/1000",
+      "sf": 2
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-electron-work",
+     "prompt": "An electron is moved from a point at $\\pu{+40 V}$ to a point at $\\pu{+10 V}$, without changing its speed. What is the work done on it?",
+     "hint": "Use $W = q\\Delta V_\\text{e}$ with $q = -e$ and $\\Delta V_\\text{e}$ = final minus initial.",
+     "options": [
+      {
+       "text": "$+30\\ \\text{eV}$",
+       "correct": true
+      },
+      {
+       "text": "$-30\\ \\text{eV}$",
+       "correct": false
+      },
+      {
+       "text": "$50\\ \\text{eV}$",
+       "correct": false
+      },
+      {
+       "text": "$-50\\ \\text{eV}$",
+       "correct": false
+      }
+     ],
+     "explain": "$W = (-e) \\times (10 - 40) = +30\\ \\text{eV}$. Positive work is needed: the electron is pushed towards higher potential, so taking it to lower potential means working against the field.",
+     "verify": {
+      "kind": "exact",
+      "truth": "(-1)*(10 - 40)",
+      "unit": "eV",
+      "signed": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "equipotentials",
+   "heading": "Equipotential surfaces",
+   "blocks": [
+    {
+     "type": "text",
+     "text": "Join up all the points at the same electric potential and you get an [[equipotential-surface|equipotential surface]], like a contour line on a map. On paper it shows up as a line."
+    },
+    {
+     "type": "text",
+     "text": "Along an equipotential, $\\Delta V_\\text{e} = 0$, so $W = q\\Delta V_\\text{e} = 0$. No work is done moving a charge between two points on the same equipotential, whatever path it takes. The field still acts, but it has no component along the surface."
+    },
+    {
+     "type": "text",
+     "text": "So [[electric-field-line|electric field lines]] always cross equipotentials at right angles, pointing from higher to lower potential. Drawn at equal steps of potential, equipotentials crowd together where the field is strong and spread out where it is weak."
+    },
+    {
+     "type": "figure",
+     "id": "4-6-equipotentials",
+     "alt": "Three sketches of electric field lines, drawn solid with arrows, and equipotentials, drawn dashed. Left: a positive point charge with eight field lines pointing radially outwards and three concentric circular equipotentials at equal steps of potential; the gaps between the circles grow with distance. Centre: a positive charge on the left and a negative charge of equal size on the right. Field lines curve from the positive charge to the negative one. Closed equipotential loops surround each charge, and a straight equipotential labelled V equals 0 runs halfway between them. Right: two parallel plates, positive on top and negative below, with straight, equally spaced field lines pointing down between them and equally spaced horizontal equipotentials. At the ends of the plates the field lines bow outwards and the equipotentials curve. In every sketch the field lines cross the equipotentials at right angles.",
+     "caption": "Field lines cross equipotentials at right angles. Closer equipotentials mean a stronger field."
+    },
+    {
+     "type": "text",
+     "text": "Point charge: concentric spheres around it, spreading out with distance because the field weakens. Parallel plates: in the middle the field is uniform, so the equipotentials are flat, equally spaced and parallel to the plates. At the edges the field weakens and they curve."
+    },
+    {
+     "type": "text",
+     "text": "Several charges: close to each charge, the equipotentials are almost spheres around it. Between equal and opposite charges, the halfway plane is at $V_\\text{e} = 0$. Far from a group whose total charge is not zero, they look like those of one charge equal to the total."
+    },
+    {
+     "type": "text",
+     "text": "Conducting sphere, solid or hollow: the whole conductor, including any space inside, is one equipotential at $\\frac{kQ}{R}$. Outside, the equipotentials are concentric spheres, as for a point charge at its centre."
+    },
+    {
+     "type": "example",
+     "id": "ex-equi-spacing",
+     "question": "Equipotential surfaces are drawn around a point charge of $+\\pu{12 nC}$ at $\\pu{600 V}$, $\\pu{400 V}$ and $\\pu{200 V}$. Determine the distance between the $\\pu{400 V}$ and $\\pu{200 V}$ surfaces.",
+     "steps": [
+      "Rearrange $V_\\text{e} = \\frac{kQ}{r}$: $r = \\frac{kQ}{V_\\text{e}}$, with $kQ = 8.99 \\times 10^{9} \\times 12 \\times 10^{-9} = 107.9\\ \\text{V m}$.",
+      "$r_{400} = \\frac{107.9}{400} = 0.2697\\ \\text{m}$ and $r_{200} = \\frac{107.9}{200} = 0.5394\\ \\text{m}$.",
+      "Distance between them: $0.5394 - 0.2697 = 0.2697\\ \\text{m}$, so $\\pu{0.27 m}$ to 2 significant figures.",
+      "The $\\pu{600 V}$ to $\\pu{400 V}$ gap is only $\\pu{0.090 m}$: equal steps in potential, growing gaps."
+     ],
+     "answer": "$\\Delta r \\approx 0.27\\ \\text{m}$",
+     "video": null,
+     "verify": {
+      "kind": "rounded",
+      "truth": "k_e*12e-9/200 - k_e*12e-9/400",
+      "sf": 2,
+      "unit": "m"
+     }
+    },
+    {
+     "type": "example",
+     "id": "ex-equi-perpendicular",
+     "question": "Explain why no work is done when a charge moves along an equipotential surface, and deduce the angle between electric field lines and equipotential surfaces.",
+     "steps": [
+      "Use the definition of an equipotential.",
+      "Use $W = q\\Delta V_\\text{e}$.",
+      "Link zero work to the direction of the force.",
+      "Conclude."
+     ],
+     "answer": "Every point on an equipotential surface has the same potential, so the potential difference between any two points on it is zero. Since $W = q\\Delta V_\\text{e}$, the work done moving a charge along the surface is zero. A force does work only if it has a component along the displacement, so the electric force, and the field, has no component along the surface. The field lines are therefore perpendicular to the equipotential surfaces, at $90^{\\circ}$.",
+     "video": null,
+     "verify": {
+      "kind": "explanation",
+      "truth": "same potential everywhere on surface; potential difference zero; W = q dV = 0; no field component along surface; field lines perpendicular",
+      "requires": [
+       "same potential",
+       [
+        "potential difference between any two points on it is zero",
+        "potential difference is zero"
+       ],
+       [
+        "work done moving a charge along the surface is zero",
+        "no work"
+       ],
+       "no component along the surface",
+       [
+        "perpendicular",
+        "90"
+       ]
+      ],
+      "forbids": [
+       "parallel to the equipotential",
+       "no force acts",
+       "field is zero on"
+      ]
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-equi-work",
+     "prompt": "A charge of $+\\pu{5.0 \\mu C}$ moves $\\pu{0.30 m}$ along a curved path on the $\\pu{200 V}$ equipotential. What is the work done on it by the electric field?",
+     "hint": "What is $\\Delta V_\\text{e}$ between two points on the same equipotential?",
+     "options": [
+      {
+       "text": "$0\\ \\text{J}$",
+       "correct": true
+      },
+      {
+       "text": "$1.0 \\times 10^{-3}\\ \\text{J}$",
+       "correct": false
+      },
+      {
+       "text": "$3.0 \\times 10^{-4}\\ \\text{J}$",
+       "correct": false
+      }
+     ],
+     "explain": "$\\Delta V_\\text{e} = 200 - 200 = 0$, so $W = 0$, whatever the path or its length.",
+     "verify": {
+      "kind": "exact",
+      "truth": "5.0e-6*(200 - 200)",
+      "unit": "J"
+     }
+    },
+    {
+     "type": "check",
+     "id": "check-plate-spacing",
+     "prompt": "Two parallel plates are $\\pu{20 mm}$ apart with a potential difference of $\\pu{120 V}$ between them. Equipotentials are drawn every $\\pu{20 V}$, from one plate to the other. Calculate the spacing of the equipotentials away from the edges, in mm. Give 2 significant figures.",
+     "hint": "The field is uniform, so the potential changes by equal amounts over equal distances.",
+     "answer": {
+      "value": 3.3,
+      "tolerance": 0.05
+     },
+     "explain": "There are $\\frac{120}{20} = 6$ equal steps across $\\pu{20 mm}$, so each gap is $\\frac{20}{6} = \\pu{3.3 mm}$.",
+     "verify": {
+      "kind": "numeric",
+      "truth": "20*20/120",
+      "sf": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "takeaways",
+   "heading": "Key takeaways",
+   "blocks": [
+    {
+     "type": "formula",
+     "tex": "E_\\text{p} = k\\frac{q_1 q_2}{r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "V_\\text{e} = \\frac{kQ}{r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "$E_\\text{p}$ and $V_\\text{e}$ are zero at infinity. $V_\\text{e}$ has the sign of the charge making it; $E_\\text{p}$ is positive for like charges, negative for unlike. Potential is a scalar: add it from each charge, signs included. $E_\\text{p} = qV_\\text{e}$.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "E = -\\frac{\\Delta V_\\text{e}}{\\Delta r}",
+     "tag": "booklet",
+     "bookletId": "db-4-6",
+     "cheatSheet": true
+    },
+    {
+     "type": "formula",
+     "tex": "W = q\\Delta V_\\text{e}",
+     "tag": "booklet",
+     "bookletId": "db-4-6",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "$\\pu{1 eV} = \\pu{1.60e-19 J}$. A charge $q$ acted on only by the electric force gains $\\Delta E_\\text{k} = -q\\Delta V_\\text{e}$; an electron through $V$ gains $eV$.",
+     "tag": "learn",
+     "cheatSheet": true
+    },
+    {
+     "type": "fact",
+     "text": "No work is done along an equipotential. Field lines cross equipotentials at right angles, towards lower potential. A conductor whose charges are at rest is one equipotential, with zero field inside.",
+     "tag": "learn",
+     "cheatSheet": true
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  "Squaring $r$ in $E_\\text{p}$ or $V_\\text{e}$. Only the force and the field strength go as $\\frac{1}{r^{2}}$; energy and potential go as $\\frac{1}{r}$.",
+  "Dropping the signs of the charges. An electron has $q = -e$, and the sign of $E_\\text{p}$, $V_\\text{e}$ and $W$ comes from the signs you substitute.",
+  "Adding potentials as vectors, or thinking $V_\\text{e} = 0$ where $E = 0$. Potentials add as signed numbers; fields add as arrows.",
+  "Using $\\frac{kQ}{r}$ inside a charged conducting sphere. Inside, the potential stays at its surface value, $\\frac{kQ}{R}$, and the field is zero.",
+  "Mixing electronvolts and joules. Convert with $\\pu{1 eV} = \\pu{1.60e-19 J}$ before using $k\\frac{q_1 q_2}{r}$.",
+  "Drawing field lines along equipotentials. They always cross at right angles."
+ ],
+ "examTips": [
+  "\"State what is meant by electric potential at a point\": the work done per unit positive test charge in bringing it from infinity to the point. \"Per unit charge\" and \"from infinity\" both earn credit.",
+  "Distance of closest approach, head-on to a nucleus that stays put: write $E_\\text{k} = k\\frac{q_1 q_2}{r}$, convert MeV to J, substitute with charges in coulombs, then give $r$ with its unit. Each step is a mark in Paper 2.",
+  "\"Sketch\" $V_\\text{e}$ against $r$: positive charge, positive curve falling as $\\frac{1}{r}$ towards zero; for a conducting sphere, flat inside and continuous at the surface.",
+  "In Paper 1A equipotential questions, look for right angles with the field lines, closer spacing where the field is stronger, and $W = 0$ along any path that starts and ends on the same equipotential."
+ ],
+ "readingMinutes": 30
+}

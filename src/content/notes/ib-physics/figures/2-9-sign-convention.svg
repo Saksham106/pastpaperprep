@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 250" role="img" aria-labelledby="t29sc">
+  <title id="t29sc">A box labelled gas, a closed system, with its change in internal energy delta U written inside. On the left, an arrow points into the box, labelled Q greater than zero, thermal energy supplied to the gas. On the right, an arrow points out of the box, labelled W greater than zero, work done by the gas on its surroundings.</title>
+  <defs>
+    <marker id="a29sc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="b29sc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+  <rect x="200" y="65" width="160" height="120" rx="10" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="40" y1="125" x2="194" y2="125" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#a29sc)"/>
+  <line x1="366" y1="125" x2="520" y2="125" stroke="var(--t2-ink)" stroke-width="2.4" marker-end="url(#b29sc)"/>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="280" y="105">gas</text>
+    <text x="280" y="123">(closed system)</text>
+    <text x="280" y="160" font-size="16">ΔU</text>
+    <text x="117" y="112" fill="var(--t1-ink)" font-size="15">Q &gt; 0</text>
+    <text x="117" y="150" fill="var(--t1-ink)" font-size="12">thermal energy</text>
+    <text x="117" y="165" fill="var(--t1-ink)" font-size="12">supplied to the gas</text>
+    <text x="443" y="112" fill="var(--t2-ink)" font-size="15">W &gt; 0</text>
+    <text x="443" y="150" fill="var(--t2-ink)" font-size="12">work done by</text>
+    <text x="443" y="165" fill="var(--t2-ink)" font-size="12">the gas</text>
+    <text x="280" y="220" font-size="12" fill="var(--muted)">Q = ΔU + W</text>
+  </g>
+</svg>

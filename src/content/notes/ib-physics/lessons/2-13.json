@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.13",
+  "slug": "resistance-resistivity-and-ohms-law",
+  "title": "Resistance, resistivity and Ohm's law",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[conductor|conductor]] carries an [[electric-current|electric current]] because it has mobile [[charge-carrier|charge carriers]]; an [[insulator|insulator]] has almost none. Collisions between carriers and vibrating ions cause [[resistance|resistance]], $R = \\frac{V}{I}$, and heat the material. [[resistivity|Resistivity]] describes the material whatever its shape, and [[ohm-s-law|Ohm's law]] says when current is proportional to [[potential-difference|potential difference]].",
+  "goals": [
+    {
+      "text": "Explain why metals conduct and plastics do not, in terms of mobile charge carriers.",
+      "bullets": [
+        "B.5-s6"
+      ]
+    },
+    {
+      "text": "Explain where resistance comes from, and why a hot metal resists more.",
+      "bullets": [
+        "B.5-s7"
+      ]
+    },
+    {
+      "text": "Use $R = \\frac{V}{I}$ to find a resistance, a current or a potential difference, with the right units and prefixes.",
+      "bullets": [
+        "B.5-s8"
+      ]
+    },
+    {
+      "text": "Use $\\rho = \\frac{RA}{L}$ to find a wire's resistance or resistivity, and predict how $R$ changes with its shape.",
+      "bullets": [
+        "B.5-s9"
+      ]
+    },
+    {
+      "text": "State Ohm's law, and use I–V graphs to tell ohmic from [[non-ohmic-conductor|non-ohmic conductors]] such as a filament lamp.",
+      "bullets": [
+        "B.5-s10",
+        "B.5-s11"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.12",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Ohm's law",
+    "resistivity formula",
+    "resistance of a wire",
+    "I-V graph of a filament lamp",
+    "ohmic and non-ohmic conductors",
+    "why do metals conduct electricity"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-current",
+      "prompt": "A charge of $\\pu{42 C}$ flows past a point in a wire in $\\pu{2.5 min}$. Calculate the current, to 2 significant figures.",
+      "hint": "Current is charge divided by time, with the time in seconds.",
+      "answer": {
+        "value": 0.28,
+        "tolerance": 0.005
+      },
+      "explain": "$I = \\frac{\\Delta q}{\\Delta t} = \\frac{42}{2.5 \\times 60} = \\pu{0.28 A}$. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "42/(2.5*60)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pd",
+      "prompt": "Moving $\\pu{2.2 C}$ of charge through a component transfers $\\pu{33 J}$ of energy. Calculate the potential difference across it, in volts.",
+      "hint": "Potential difference is work done per unit charge.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0.5
+      },
+      "explain": "$V = \\frac{W}{q} = \\frac{33}{2.2} = \\pu{15 V}$. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "33/2.2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ampere",
+      "prompt": "Which of these is an SI base unit?",
+      "hint": "Base units are not built from other units.",
+      "options": [
+        {
+          "text": "ampere",
+          "correct": true
+        },
+        {
+          "text": "volt",
+          "correct": false
+        },
+        {
+          "text": "coulomb",
+          "correct": false
+        },
+        {
+          "text": "ohm",
+          "correct": false
+        }
+      ],
+      "explain": "The ampere is a base unit; the others are built from base units. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "ampere"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "conductors",
+      "heading": "Conductors and insulators",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cell drives a current through a copper wire but not through a plastic ruler. Both are full of [[electric-charge|electric charge]], so the difference is whether that charge can move."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:2.12}} you met charge carriers: charged particles that move to carry a current. A material conducts well only if it has many charge carriers that are free to move through it."
+        },
+        {
+          "type": "definition",
+          "term": "conductor",
+          "statement": "A material with a large number of charge carriers that are free to move through it, so a potential difference produces a significant current.",
+          "plain": "A material whose charges can travel through it easily."
+        },
+        {
+          "type": "text",
+          "text": "In a metal, each atom gives up one or more outer electrons. These free electrons wander through the whole metal, while the positive ions stay in a fixed lattice. So the charge carriers in a metal are electrons."
+        },
+        {
+          "type": "definition",
+          "term": "insulator",
+          "statement": "A material in which almost all the electrons are bound to their atoms or molecules, so there are very few mobile charge carriers and the current is negligible.",
+          "plain": "A material whose charges are stuck in place."
+        },
+        {
+          "type": "text",
+          "text": "In a salt solution the carriers are positive and negative ions. Semiconductors such as silicon sit in between: far fewer free carriers than a metal, with more freed as they warm up."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying an insulator contains no electrons. It is full of electrons, but they are bound to their atoms."
+        },
+        {
+          "type": "example",
+          "id": "ex-copper-pvc",
+          "question": "A cable has a copper core inside a PVC plastic coating. Explain, in terms of charge carriers, why a potential difference across the cable produces a current in the copper but not in the PVC.",
+          "steps": [
+            "Marking point 1: copper has many free electrons.",
+            "Marking point 2: they are free to move, so they form a current.",
+            "Marking point 3: in PVC the electrons are bound to their atoms.",
+            "Marking point 4: so PVC has very few mobile charge carriers."
+          ],
+          "answer": "Copper is a metal, so it contains a large number of free electrons. These electrons are free to move through the metal, so they drift and form a current. In PVC the electrons are bound to their atoms and molecules. So PVC has very few mobile charge carriers, and the current in it is negligible.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "copper has many free electrons that can move; PVC electrons bound so very few mobile carriers",
+            "requires": [
+              [
+                "free electrons",
+                "delocalised electrons"
+              ],
+              [
+                "free to move",
+                "can move"
+              ],
+              [
+                "bound",
+                "tightly held"
+              ],
+              [
+                "very few mobile charge carriers",
+                "very few charge carriers",
+                "very few free"
+              ]
+            ],
+            "forbids": [
+              "no electrons",
+              "has no charge"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-salt-solution",
+          "question": "Solid sodium chloride does not conduct electricity, but a solution of sodium chloride in water does. Explain why.",
+          "steps": [
+            "Marking point 1: sodium chloride is made of ions.",
+            "Marking point 2: in the solid the ions cannot move.",
+            "Marking point 3: in solution the ions are free to move, so they are charge carriers.",
+            "Marking point 4: positive and negative ions drift in opposite directions."
+          ],
+          "answer": "Sodium chloride is made of positive and negative ions. In the solid the ions are held in fixed positions, so there are no mobile charge carriers. In solution the ions are free to move, so they act as charge carriers. Positive and negative ions drift in opposite directions, and both carry the current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ions fixed in solid; free to move in solution so act as charge carriers, in opposite directions",
+            "requires": [
+              [
+                "ions"
+              ],
+              [
+                "fixed positions",
+                "cannot move"
+              ],
+              [
+                "free to move"
+              ],
+              [
+                "charge carriers"
+              ],
+              [
+                "opposite"
+              ]
+            ],
+            "forbids": [
+              "electrons flow through the water"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-metal-carriers",
+          "prompt": "What are the charge carriers in a copper wire?",
+          "hint": "Which particles in a metal are not tied to one atom?",
+          "options": [
+            {
+              "text": "free electrons",
+              "correct": true
+            },
+            {
+              "text": "positive ions",
+              "correct": false
+            },
+            {
+              "text": "protons",
+              "correct": false
+            },
+            {
+              "text": "electrons bound to their atoms",
+              "correct": false
+            }
+          ],
+          "explain": "The free electrons move through the lattice. The positive ions only vibrate about fixed positions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "free electrons"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-glass-insulator",
+          "prompt": "Why is glass an insulator?",
+          "hint": "Think about whether its charges can move, not whether it has any.",
+          "options": [
+            {
+              "text": "very few mobile charge carriers",
+              "correct": true
+            },
+            {
+              "text": "it contains no electrons",
+              "correct": false
+            },
+            {
+              "text": "it contains no charged particles",
+              "correct": false
+            }
+          ],
+          "explain": "Glass is full of electrons and ions, but they are bound in place.",
+          "verify": {
+            "kind": "choice",
+            "truth": "very few mobile charge carriers"
+          }
+        }
+      ]
+    },
+    {
+      "id": "origin",
+      "heading": "Where resistance comes from",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A potential difference across a metal wire sets up an electric field inside it. The field pushes on every free electron, so each one gains velocity in the same direction, on top of its random motion."
+        },
+        {
+          "type": "text",
+          "text": "An electron does not speed up for long. It soon hits one of the lattice ions, which vibrate about fixed positions, and bounces off in a new direction. Then the field speeds it up again."
+        },
+        {
+          "type": "figure",
+          "id": "2-13-lattice-collisions",
+          "alt": "A section of metal wire drawn as a rectangle filled with a regular grid of positive lattice ions. The left end is marked minus and the right end is marked plus. A free electron follows a zig-zag path from left to right, changing direction each time it hits an ion. Below the wire, an arrow pointing right is labelled electron drift, and an arrow pointing left is labelled conventional current.",
+          "caption": "Electrons drift slowly towards the positive end, opposite to the conventional current."
+        },
+        {
+          "type": "text",
+          "text": "The result is a slow drift of electrons along the wire. These collisions are the origin of [[resistance|resistance]]: they oppose the flow of charge, so a bigger potential difference is needed for the same current."
+        },
+        {
+          "type": "text",
+          "text": "Each collision gives some of the electron's kinetic energy to the lattice. The ions vibrate more, so the wire's internal energy and temperature rise: the heating effect of a current. A charge $q$ passing through transfers energy $W = qV$."
+        },
+        {
+          "type": "text",
+          "text": "Heat a metal and its ions vibrate with a larger amplitude. Electrons collide with them more often, so a metal's resistance rises with temperature."
+        },
+        {
+          "type": "example",
+          "id": "ex-hot-wire-resistance",
+          "question": "Explain, using a particle model, why the resistance of a metal wire increases when its temperature increases.",
+          "steps": [
+            "Marking point 1: free electrons move through a lattice of ions.",
+            "Marking point 2: hotter ions vibrate with a larger amplitude.",
+            "Marking point 3: so electrons collide with the ions more often.",
+            "Marking point 4: so the resistance is larger."
+          ],
+          "answer": "The current is carried by free electrons moving through a lattice of positive ions. At a higher temperature the ions vibrate with a larger amplitude. So the electrons collide with the ions more often. This opposes the flow of charge more, so the resistance is larger.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "free electrons through lattice; hotter ions vibrate with larger amplitude; more frequent collisions; larger resistance",
+            "requires": [
+              [
+                "free electrons"
+              ],
+              [
+                "lattice"
+              ],
+              [
+                "larger amplitude",
+                "vibrate more"
+              ],
+              [
+                "collide with the ions more often",
+                "more frequent collisions"
+              ],
+              [
+                "resistance is larger",
+                "resistance increases"
+              ]
+            ],
+            "forbids": [
+              "electrons are used up",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-energy-to-lattice",
+          "question": "There is a potential difference of $\\pu{4.5 V}$ across a resistor. In $\\pu{2.0 min}$, a charge of $\\pu{18 C}$ flows through it. Calculate the energy transferred to the internal energy of the resistor.",
+          "steps": [
+            "Potential difference is energy per unit charge, so $W = qV$.",
+            "Substitute: $W = 18 \\times 4.5 = \\pu{81 J}$.",
+            "The time is not needed: the charge already counts everything that passed."
+          ],
+          "answer": "$W = 81\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "18*4.5",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-collision-effect",
+          "prompt": "What is the effect of free electrons colliding with the lattice ions in a resistor?",
+          "hint": "Follow the energy, not the charge.",
+          "options": [
+            {
+              "text": "the resistor warms up",
+              "correct": true
+            },
+            {
+              "text": "the electrons are used up",
+              "correct": false
+            },
+            {
+              "text": "the current falls along the resistor",
+              "correct": false
+            }
+          ],
+          "explain": "The electrons pass kinetic energy to the ions, so the internal energy rises. No charge is used up, so the current is the same all along.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the resistor warms up"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charge-from-energy",
+          "prompt": "A heating element has a potential difference of $\\pu{12 V}$ across it and transfers $\\pu{360 J}$ to internal energy. Calculate the charge that flowed through it, in coulombs.",
+          "hint": "Rearrange $W = qV$ for $q$.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0.5
+          },
+          "explain": "$q = \\frac{W}{V} = \\frac{360}{12} = \\pu{30 C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360/12",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "resistance",
+      "heading": "Resistance, R = V/I",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two lamps on the same potential difference can carry very different currents. Resistance puts a number on this: how many volts you need for each ampere."
+        },
+        {
+          "type": "definition",
+          "term": "resistance",
+          "statement": "The resistance $R$ of a component is the ratio of the potential difference $V$ across it to the current $I$ in it.",
+          "plain": "How many volts it takes to push each ampere through."
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\frac{V}{I}",
+          "tag": "booklet",
+          "bookletId": "db-2-13"
+        },
+        {
+          "type": "text",
+          "text": "The [[si-unit|SI unit]] of resistance is the ohm, $\\Omega$: $\\pu{1 \\Omega} = \\pu{1 V A-1}$. Kilohms ($10^{3}\\ \\Omega$) and megohms ($10^{6}\\ \\Omega$) are common."
+        },
+        {
+          "type": "text",
+          "text": "$R = \\frac{V}{I}$ is in the data booklet. It defines resistance, so it holds for any component at any moment, even when $R$ changes with the current."
+        },
+        {
+          "type": "text",
+          "text": "To measure $R$, put an ammeter in series with the component and a voltmeter in parallel across it. Treat meters as ideal unless told otherwise: zero resistance for an ammeter, infinite for a voltmeter."
+        },
+        {
+          "type": "figure",
+          "id": "2-13-measuring-circuit",
+          "alt": "Circuit diagram. A cell, an ammeter and a resistor are connected in series in a single loop. A voltmeter is connected in parallel across the resistor only, on a separate branch above it.",
+          "caption": "The ammeter measures the current in the resistor; the voltmeter measures the potential difference across it."
+        },
+        {
+          "type": "example",
+          "id": "ex-element-resistance",
+          "question": "A voltmeter across a small heating element reads $\\pu{5.4 V}$ while an ammeter in series with it reads $\\pu{1.2 A}$. Calculate the resistance of the element.",
+          "steps": [
+            "Write the definition: $R = \\frac{V}{I}$.",
+            "Substitute: $R = \\frac{5.4}{1.2} = 4.5\\ \\Omega$.",
+            "Check: $4.5\\ \\Omega \\times \\pu{1.2 A} = \\pu{5.4 V}$, which matches the voltmeter."
+          ],
+          "answer": "$R = 4.5\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "5.4/1.2",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-kilohm-current",
+          "question": "A resistor of resistance $\\pu{3.3 k\\Omega}$ has a potential difference of $\\pu{1.5 V}$ across it. Calculate the current in the resistor.",
+          "steps": [
+            "Convert the prefix: $R = 3.3 \\times 10^{3}\\ \\Omega$.",
+            "Rearrange $R = \\frac{V}{I}$ to $I = \\frac{V}{R}$.",
+            "Substitute: $I = \\frac{1.5}{3.3 \\times 10^{3}} = 4.545 \\times 10^{-4}\\ \\text{A}$.",
+            "Both data have 2 significant figures, so give 2. This is about $\\pu{0.45 mA}$."
+          ],
+          "answer": "$I \\approx 4.5 \\times 10^{-4}\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.5/(3.3*10**3)",
+            "sf": 2,
+            "unit": "A"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-resistance",
+          "prompt": "The current in a lamp is $\\pu{0.40 A}$ when the potential difference across it is $\\pu{9.6 V}$. Calculate its resistance in ohms, to 2 significant figures.",
+          "hint": "Divide the potential difference by the current.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0.5
+          },
+          "explain": "$R = \\frac{9.6}{0.40} = 24\\ \\Omega$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9.6/0.40",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ohm-unit",
+          "prompt": "Which of these is equivalent to one ohm?",
+          "hint": "Go back to $R = \\frac{V}{I}$.",
+          "options": [
+            {
+              "text": "one volt per ampere",
+              "correct": true
+            },
+            {
+              "text": "one ampere per volt",
+              "correct": false
+            },
+            {
+              "text": "one coulomb per second",
+              "correct": false
+            }
+          ],
+          "explain": "Resistance is volts divided by amperes. A coulomb per second is an ampere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "one volt per ampere"
+          }
+        }
+      ]
+    },
+    {
+      "id": "resistivity",
+      "heading": "Resistivity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A long thin wire resists more than a short thick one of the same metal. Double the length and each electron passes twice as many ions, so the resistance doubles: $R \\propto L$."
+        },
+        {
+          "type": "text",
+          "text": "Double the cross-sectional area and it is like two wires side by side. Twice the current flows for the same potential difference, so $R \\propto \\frac{1}{A}$."
+        },
+        {
+          "type": "text",
+          "text": "Together, $R = \\frac{\\rho L}{A}$. The constant $\\rho$ is the [[resistivity|resistivity]]. It depends on the material and its temperature, not on the wire's length or thickness."
+        },
+        {
+          "type": "definition",
+          "term": "resistivity",
+          "statement": "The resistivity $\\rho$ of a material is $\\frac{RA}{L}$, where $R$ is the resistance of a sample of length $L$ and uniform cross-sectional area $A$.",
+          "plain": "How strongly a material resists current, whatever its shape."
+        },
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{RA}{L}",
+          "tag": "booklet",
+          "bookletId": "db-2-13"
+        },
+        {
+          "type": "text",
+          "text": "Its unit is the ohm metre, $\\Omega\\ \\text{m}$. Values range from about $10^{-8}\\ \\Omega\\ \\text{m}$ for copper and $10^{-6}\\ \\Omega\\ \\text{m}$ for nichrome to over $10^{12}\\ \\Omega\\ \\text{m}$ for plastics."
+        },
+        {
+          "type": "text",
+          "text": "For a round wire, $A = \\pi r^{2} = \\frac{\\pi d^{2}}{4}$, in metres. In the lab, measure $d$ with a micrometer at several places and take the mean."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the diameter in $\\pi r^{2}$, or leaving it in millimetres. A $\\pu{0.40 mm}$ diameter gives $r = 0.20 \\times 10^{-3}\\ \\text{m}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-nichrome-wire",
+          "question": "A heater coil is made from $\\pu{1.8 m}$ of nichrome wire of diameter $\\pu{0.40 mm}$. The resistivity of nichrome is $1.1 \\times 10^{-6}\\ \\Omega\\ \\text{m}$. Calculate the resistance of the coil.",
+          "steps": [
+            "Radius in metres: $r = 2.0 \\times 10^{-4}\\ \\text{m}$.",
+            "Area: $A = \\pi r^{2} = \\pi (2.0 \\times 10^{-4})^{2} = 1.257 \\times 10^{-7}\\ \\text{m}^{2}$.",
+            "Rearrange: $R = \\frac{\\rho L}{A}$.",
+            "Substitute: $R = \\frac{(1.1 \\times 10^{-6})(1.8)}{1.257 \\times 10^{-7}} = 15.76\\ \\Omega$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$R \\approx 16\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.1*10**-6*1.8/(pi*(0.40*10**-3/2)**2)",
+            "sf": 2,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-stretched-wire",
+          "question": "A metal wire of resistance $R$ is drawn out to three times its length, keeping a uniform cross-section. Its volume and resistivity do not change. Determine the new resistance as a multiple of $R$.",
+          "steps": [
+            "The volume $AL$ is constant, so tripling $L$ divides the area by 3.",
+            "So $R_\\text{new} = \\frac{\\rho (3L)}{A/3} = 9 \\times \\frac{\\rho L}{A}$.",
+            "Both changes raise the resistance: longer and thinner."
+          ],
+          "answer": "$\\frac{R_\\text{new}}{R} = 9$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "3*3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-resistivity-gradient",
+          "prompt": "A graph of the resistance $R$ of a wire against its length $L$ is a straight line through the origin with gradient $8.0\\ \\Omega\\ \\text{m}^{-1}$. The wire's cross-sectional area is $2.0 \\times 10^{-7}\\ \\text{m}^{2}$. Calculate the resistivity in $\\Omega\\ \\text{m}$.",
+          "hint": "From $R = \\frac{\\rho}{A} L$, the gradient is $\\frac{\\rho}{A}$.",
+          "answer": {
+            "value": 1.6e-06,
+            "tolerance": 5e-08
+          },
+          "explain": "$\\rho = 8.0 \\times 2.0 \\times 10^{-7} = 1.6 \\times 10^{-6}\\ \\Omega\\ \\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.0*2.0*10**-7",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-ratio",
+          "prompt": "Wire Y is made of the same metal as wire X. It is twice as long and has twice the diameter. What is $\\frac{R_Y}{R_X}$?",
+          "hint": "Doubling the diameter multiplies the area by 4.",
+          "options": [
+            {
+              "text": "$\\frac{1}{2}$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{8}$",
+              "correct": false
+            }
+          ],
+          "explain": "$R \\propto \\frac{L}{d^{2}}$, so $\\frac{R_Y}{R_X} = \\frac{2}{2^{2}} = \\frac{1}{2}$. Choosing $1$ forgets to square the diameter.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(2, 2**2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ohms-law",
+      "heading": "Ohm's law and non-ohmic conductors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Measure $I$ for several values of $V$ across a metal wire kept at a steady temperature. The graph is a straight line through the origin: double $V$ and $I$ doubles."
+        },
+        {
+          "type": "definition",
+          "term": "Ohm's law",
+          "statement": "The current in a metal conductor is directly proportional to the potential difference across it, provided its temperature and other physical conditions stay constant.",
+          "plain": "Double the voltage and the current doubles, as long as nothing heats up."
+        },
+        {
+          "type": "text",
+          "text": "A component that obeys Ohm's law is ohmic: its resistance is constant and its I–V graph is a straight line through the origin. A metal conductor at constant temperature counts as ohmic."
+        },
+        {
+          "type": "text",
+          "text": "A [[non-ohmic-conductor|non-ohmic conductor]] does not obey Ohm's law. Its resistance changes with the current, so its I–V graph is not a straight line through the origin."
+        },
+        {
+          "type": "figure",
+          "id": "2-13-iv-characteristics",
+          "alt": "Three graphs of current I against potential difference V, each with the origin in the middle so that negative values are shown. First, an ohmic resistor at constant temperature: a straight line through the origin. Second, a filament lamp: a curve through the origin that is steep near the origin and becomes less steep at larger positive and negative potential differences, symmetric about the origin. Third, a light-emitting diode: the current is zero for all negative potential differences and for small positive ones, then rises steeply once the positive potential difference passes a threshold.",
+          "caption": "I–V characteristics. Only the ohmic resistor gives a straight line through the origin."
+        },
+        {
+          "type": "text",
+          "text": "A filament lamp is non-ohmic because of the heating effect. A bigger current makes the filament hotter, so its resistance rises. The current grows more slowly than $V$, and the graph bends towards the $V$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Every resistor heats up when it carries a current. A metal's resistance changes with temperature, so a metal resistor obeys Ohm's law only while its temperature is steady. You will calculate the heating power in {{lesson:2.14}}."
+        },
+        {
+          "type": "text",
+          "text": "An LED conducts in one direction only, and only above a threshold potential difference. An NTC thermistor's resistance falls as it warms, because more carriers are freed. Both are non-ohmic."
+        },
+        {
+          "type": "text",
+          "text": "For any component, the resistance at a point on the I–V graph is $\\frac{V}{I}$ at that point, not the reciprocal of the gradient."
+        },
+        {
+          "type": "examTip",
+          "text": "For the resistance at a point on a curved I–V graph, read off V and I and divide. Mark schemes do not reward gradient methods here."
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-two-points",
+          "question": "A filament lamp carries a current of $\\pu{0.15 A}$ when the potential difference across it is $\\pu{2.4 V}$, and $\\pu{0.24 A}$ when it is $\\pu{7.2 V}$. Determine the increase in the lamp's resistance between these two readings.",
+          "steps": [
+            "First reading: $R_1 = \\frac{V}{I} = \\frac{2.4}{0.15} = 16\\ \\Omega$.",
+            "Second reading: $R_2 = \\frac{7.2}{0.24} = 30\\ \\Omega$.",
+            "Increase: $\\Delta R = 30 - 16 = 14\\ \\Omega$.",
+            "The potential difference tripled but the current did not, so the lamp is non-ohmic."
+          ],
+          "answer": "$\\Delta R = 14\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "7.2/0.24 - 2.4/0.15",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-curve",
+          "question": "Explain why the I–V graph of a filament lamp is a curve rather than a straight line through the origin.",
+          "steps": [
+            "Marking point 1: a larger current raises the filament's temperature.",
+            "Marking point 2: the ions vibrate more, so collisions are more frequent.",
+            "Marking point 3: so the resistance increases.",
+            "Marking point 4: so the current is not proportional to the potential difference."
+          ],
+          "answer": "As the potential difference increases, the current increases and the temperature of the filament rises. The lattice ions vibrate more, so the electrons collide with them more often. So the resistance of the filament increases. The current is therefore not proportional to the potential difference, and the lamp does not obey Ohm's law.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "larger current heats filament; ions vibrate more, more collisions; resistance increases; current not proportional to pd",
+            "requires": [
+              [
+                "current increases"
+              ],
+              [
+                "temperature of the filament rises",
+                "temperature rises"
+              ],
+              [
+                "vibrate more",
+                "larger amplitude"
+              ],
+              [
+                "collide with them more often",
+                "more frequent collisions"
+              ],
+              [
+                "resistance of the filament increases",
+                "resistance increases"
+              ],
+              [
+                "not proportional"
+              ]
+            ],
+            "forbids": [
+              "resistance decreases",
+              "resistance becomes constant",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ohms-law-statement",
+          "prompt": "Which statement is Ohm's law?",
+          "hint": "Ohm's law is about proportionality, with a condition.",
+          "options": [
+            {
+              "text": "I is proportional to V at constant temperature",
+              "correct": true
+            },
+            {
+              "text": "R is V divided by I",
+              "correct": false
+            },
+            {
+              "text": "I is inversely proportional to V",
+              "correct": false
+            }
+          ],
+          "explain": "$R = \\frac{V}{I}$ defines resistance for every component. Ohm's law says $I \\propto V$, only at constant temperature.",
+          "verify": {
+            "kind": "choice",
+            "truth": "I is proportional to V at constant temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-resistance-trend",
+          "prompt": "The potential difference across a filament lamp rises from zero to its working value. What happens to its resistance?",
+          "hint": "What does a bigger current do to the filament's temperature?",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it increases, then stays constant",
+              "correct": false
+            }
+          ],
+          "explain": "The filament gets hotter all the way, so its resistance keeps increasing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "R = \\frac{V}{I}",
+          "tag": "booklet",
+          "bookletId": "db-2-13",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{RA}{L}",
+          "tag": "booklet",
+          "bookletId": "db-2-13",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conductors have many mobile charge carriers (free electrons in metals, ions in solutions); insulators have very few.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resistance comes from carriers colliding with vibrating lattice ions. The collisions heat a resistor, and a hotter metal has a larger resistance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resistivity, in $\\Omega\\ \\text{m}$, belongs to the material; for a round wire use $A = \\pi r^{2}$ with $r$ in metres.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ohm's law: for a metal conductor, $I \\propto V$ at constant temperature. Ohmic means a straight I–V line through the origin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A filament lamp is non-ohmic: its resistance rises as it heats. At any point, $R = \\frac{V}{I}$, not the gradient.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling $R = \\frac{V}{I}$ Ohm's law. $R = \\frac{V}{I}$ defines resistance for any component; Ohm's law says $I \\propto V$ at constant temperature.",
+    "Finding the resistance of a curved I–V graph from its gradient. Read $V$ and $I$ at the point and divide.",
+    "Writing the unit of resistivity as $\\Omega\\ \\text{m}^{-1}$. From $\\rho = \\frac{RA}{L}$ it is $\\Omega\\ \\text{m}$.",
+    "Saying the current is used up in a resistor. The same current enters and leaves; the resistor takes energy from the charge carriers."
+  ],
+  "examTips": [
+    "\"State\" Ohm's law: say the current is directly proportional to the potential difference, and add \"at constant temperature\".",
+    "\"Outline\" how a lamp's resistance changes as the current rises: \"it increases\". Don't say it then becomes constant, and don't argue from the gradient.",
+    "\"Calculate\" with resistivity: write $\\rho = \\frac{RA}{L}$, show $A = \\pi r^{2}$ with $r$ in metres, then give the answer with its unit to 2 or 3 significant figures.",
+    "Paper 1A wire-ratio questions: write $R = \\frac{\\rho L}{A}$, change one quantity at a time, and remember the area goes as the diameter squared."
+  ],
+  "readingMinutes": 28
+}

@@ -1,0 +1,880 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.7",
+  "slug": "radioactive-decay",
+  "title": "Radioactive decay",
+  "level": "SL",
+  "topic": 5,
+  "summary": "An unstable [[nucleus|nucleus]] decays at a random moment that nothing outside can change. It emits an [[alpha-particle|alpha particle]], a beta particle with a [[neutrino|neutrino]] or [[antineutrino|antineutrino]], or a gamma photon, each changing the nucleus in a fixed way. The radiations differ in range and [[ionisation|ionisation]], which decides their uses.",
+  "goals": [
+    {
+      "text": "Explain what it means for [[radioactive-decay|radioactive decay]] to be random and spontaneous.",
+      "bullets": [
+        "E.3-s6"
+      ]
+    },
+    {
+      "text": "Describe how $Z$, $A$ and the energy of a nucleus change in alpha, beta-minus, beta-plus and [[gamma-decay|gamma decay]].",
+      "bullets": [
+        "E.3-s7"
+      ]
+    },
+    {
+      "text": "Write and complete balanced decay equations, including chains of decays.",
+      "bullets": [
+        "E.3-s8"
+      ]
+    },
+    {
+      "text": "State which beta decay emits a neutrino and which an antineutrino, and why these particles must exist.",
+      "bullets": [
+        "E.3-s9"
+      ]
+    },
+    {
+      "text": "Compare the penetration and ionising ability of alpha, beta and gamma radiation, and choose a radiation for a use.",
+      "bullets": [
+        "E.3-s10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "1.7",
+    "4.4",
+    "5.1",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "alpha beta gamma radiation",
+    "nuclear decay equations",
+    "beta plus decay positron",
+    "what is a neutrino",
+    "penetrating power of radiation",
+    "ionising radiation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-potassium-neutrons",
+      "prompt": "How many neutrons are in a nucleus of $^{40}_{19}\\text{K}$?",
+      "hint": "The top number counts all the [[nucleon|nucleons]]; the bottom number counts the protons.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$N = A - Z = 40 - 19 = 21$. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "40 - 19",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-trolleys-apart",
+      "prompt": "Two trolleys at rest are pushed apart by a spring between them. The $\\pu{2.0 kg}$ trolley moves off at $\\pu{0.60 m s-1}$. What is the speed of the $\\pu{3.0 kg}$ trolley?",
+      "hint": "The total momentum was zero before, so it is zero after.",
+      "options": [
+        {
+          "text": "$0.40\\ \\text{m s}^{-1}$",
+          "correct": true
+        },
+        {
+          "text": "$0.90\\ \\text{m s}^{-1}$",
+          "correct": false
+        },
+        {
+          "text": "$0.60\\ \\text{m s}^{-1}$",
+          "correct": false
+        }
+      ],
+      "explain": "$2.0 \\times 0.60 = 3.0\\,v$, so $v = \\pu{0.40 m s-1}$ in the opposite direction. Multiplying by $\\frac{3.0}{2.0}$ instead gives 0.90. Revise it in {{lesson:1.7}}.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "2.0*0.60/3.0",
+        "sf": 2,
+        "unit": "m s-1"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-charge-split",
+      "prompt": "A neutral particle splits into two pieces. One piece has charge $+2e$. What is the charge of the other piece, in units of $e$?",
+      "hint": "The total charge before and after must be the same.",
+      "answer": {
+        "value": -2,
+        "tolerance": 0
+      },
+      "explain": "Charge is conserved: $0 = +2 + q$, so $q = -2$, a charge of $-2e$. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0 - 2",
+        "dp": 0,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "random",
+      "heading": "Random and spontaneous decay",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most [[nucleus|nuclei]] around us are stable. Some are unstable: they have too much energy, or the wrong mix of protons and neutrons. Sooner or later each one changes into a more stable form."
+        },
+        {
+          "type": "definition",
+          "term": "radioactive decay",
+          "statement": "The random and spontaneous change of an unstable nucleus into a different nucleus, or into a lower-energy state of the same nucleus, with the emission of radiation.",
+          "plain": "An unstable nucleus settles down by itself, at a moment nobody can predict, and throws out radiation."
+        },
+        {
+          "type": "text",
+          "text": "[[radioactive-decay|Radioactive decay]] has two key properties. Random means you cannot predict which nucleus will decay next, or when. Every nucleus of a radioactive [[isotope|isotope]] has the same chance of decaying in the next second, however long it has existed."
+        },
+        {
+          "type": "text",
+          "text": "Spontaneous means nothing outside the nucleus triggers it. Temperature, pressure and chemical state have no effect on the decay rate."
+        },
+        {
+          "type": "text",
+          "text": "A sample holds billions of nuclei, so the number decaying each second is predictable on average ({{lesson:5.8}}). But a detector's counts over equal intervals scatter about that average, so take several readings and average them."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the chance of one nucleus decaying per unit time becomes the decay constant, and you use it to predict decay over any time interval.",
+          "lesson": "5.10"
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-heating-surface",
+          "question": "A student claims that heating a radioactive source makes it decay faster, and that the next nucleus to decay will be one near the surface. Explain why both parts of the claim are wrong.",
+          "steps": [
+            "The first claim is about what affects the rate: decay is spontaneous.",
+            "The second is about which nucleus decays: decay is random. Give one marking point per sentence."
+          ],
+          "answer": "Radioactive decay is spontaneous, so its rate is not affected by external conditions such as temperature. Heating the source does not change its decay rate. Decay is also random: every nucleus has the same chance of decaying in a given time, so you cannot predict which nucleus will decay next. A nucleus near the surface is no more likely to decay than one inside.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Spontaneous: rate unaffected by temperature. Random: cannot predict which nucleus decays next; all have the same chance.",
+            "requires": [
+              "spontaneous",
+              [
+                "not affected by",
+                "unaffected by"
+              ],
+              "temperature",
+              "random",
+              [
+                "cannot predict which",
+                "cannot be predicted which"
+              ],
+              "same chance"
+            ],
+            "forbids": [
+              "heating speeds up",
+              "heating increases the rate",
+              "decays faster when heated"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-count-rate",
+          "question": "A detector near a radioactive source records these counts in six intervals of $\\pu{20 s}$ each: 312, 287, 335, 301, 296, 319. Calculate the mean count rate, in counts per second.",
+          "steps": [
+            "The readings differ because decay is random. Total: $312 + 287 + 335 + 301 + 296 + 319 = 1850$.",
+            "Mean count per interval: $\\frac{1850}{6} = 308.3$.",
+            "Divide by the interval: $\\frac{308.3}{20} = 15.42\\ \\text{s}^{-1}$.",
+            "The counts have 3 significant figures, so give 3."
+          ],
+          "answer": "$\\text{count rate} \\approx 15.4\\ \\text{s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(312 + 287 + 335 + 301 + 296 + 319)/6/20",
+            "sf": 3,
+            "unit": "s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-one-nucleus",
+          "prompt": "Which statement about one nucleus in a sample of a radioactive isotope is correct?",
+          "hint": "Random: nobody can say when. Spontaneous: nothing outside changes it.",
+          "options": [
+            {
+              "text": "Its chance of decaying in the next second does not depend on its temperature",
+              "correct": true
+            },
+            {
+              "text": "It will decay as soon as it has existed for one half-life",
+              "correct": false
+            },
+            {
+              "text": "It is more likely to decay if the sample is heated",
+              "correct": false
+            },
+            {
+              "text": "It decays only when a neighbouring nucleus decays",
+              "correct": false
+            }
+          ],
+          "explain": "Decay is spontaneous, so temperature has no effect. It is also random, so no nucleus has a fixed moment to decay, and one decay does not trigger another.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its chance of decaying in the next second does not depend on its temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-five-counts",
+          "prompt": "Counts from a source in five intervals of $\\pu{30 s}$ are 84, 91, 77, 88 and 80. What is the mean count rate, in $\\text{s}^{-1}$? Give 2 significant figures.",
+          "hint": "Average the five counts, then divide by the length of one interval.",
+          "answer": {
+            "value": 2.8,
+            "tolerance": 0.05
+          },
+          "explain": "Mean count: $\\frac{420}{5} = 84$ per interval. Count rate: $\\frac{84}{30} = \\pu{2.8 s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(84 + 91 + 77 + 88 + 80)/5/30",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For \"random\", say you can't tell which nucleus decays next, or when. For \"spontaneous\", name external conditions, such as temperature, that have no effect."
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "heading": "What each decay does to the nucleus",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A nucleus is made of [[nucleon|nucleons]]. Its [[proton-number|proton number]] $Z$ counts the protons and its nucleon number $A$ counts protons and neutrons. Each decay changes $Z$, $A$ or the energy in its own way."
+        },
+        {
+          "type": "definition",
+          "term": "alpha particle",
+          "statement": "A particle made of 2 protons and 2 neutrons bound together, identical to a helium-4 nucleus. Its charge is $+2e$.",
+          "plain": "A small, heavy lump of four nucleons."
+        },
+        {
+          "type": "text",
+          "text": "In [[alpha-decay|alpha decay]] the nucleus throws out an [[alpha-particle|alpha particle]]. It loses 2 protons and 2 neutrons, so $Z$ falls by 2 and $A$ falls by 4. The element changes."
+        },
+        {
+          "type": "text",
+          "text": "In [[beta-minus-decay|beta-minus decay]] ($\\beta^{-}$), a neutron inside the nucleus changes into a proton. An electron and an [[antineutrino|antineutrino]] are created and emitted. So $Z$ rises by 1 and $A$ stays the same."
+        },
+        {
+          "type": "text",
+          "text": "This electron, the beta-minus particle, is created in the decay. It was never an orbiting electron; there are no electrons in a nucleus."
+        },
+        {
+          "type": "text",
+          "text": "In [[beta-plus-decay|beta-plus decay]] ($\\beta^{+}$), a proton changes into a neutron. A positron and a [[neutrino|neutrino]] are emitted. A positron is the antiparticle of the electron: same mass, but charge $+e$. So $Z$ falls by 1 and $A$ stays the same."
+        },
+        {
+          "type": "text",
+          "text": "After an alpha or beta decay, the new nucleus is often left in an excited state, with extra energy. In [[gamma-decay|gamma decay]] it drops to a lower energy level and emits the difference as a gamma [[photon|photon]]. $Z$ and $A$ do not change, so the element stays the same."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-nz-moves",
+          "alt": "A grid with proton number Z increasing to the right and neutron number N increasing upwards. A parent nucleus sits at the point Z, N. An arrow for alpha decay goes two squares left and two squares down, to Z minus 2, N minus 2. An arrow for beta-minus decay goes one square right and one square down, to Z plus 1, N minus 1. An arrow for beta-plus decay goes one square left and one square up, to Z minus 1, N plus 1. Gamma decay does not move the nucleus on the grid: it stays at Z, N with less energy.",
+          "caption": "Each decay moves the nucleus a fixed step on a chart of neutron number against proton number. Gamma decay only lowers its energy."
+        },
+        {
+          "type": "text",
+          "text": "Gamma photons typically carry about $\\pu{0.1 MeV}$ to a few MeV, far more than the few eV typical of photons from transitions of outer atomic electrons."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you see how the sharp energies of alpha particles and gamma photons show that a nucleus has discrete energy levels.",
+          "lesson": "5.9"
+        },
+        {
+          "type": "text",
+          "text": "A decay is a tiny [[explosion|explosion]]. A nucleus at rest has zero [[linear-momentum|linear momentum]], so by [[conservation-of-momentum|conservation of momentum]] the alpha particle and new nucleus fly apart in opposite directions."
+        },
+        {
+          "type": "example",
+          "id": "ex-alpha-recoil",
+          "question": "A nucleus of $^{212}_{84}\\text{Po}$ at rest emits an alpha particle at $\\pu{2.0e7 m s-1}$. Take each mass as proportional to nucleon number. Determine the speed of the nucleus left behind.",
+          "steps": [
+            "The daughter has $A = 212 - 4 = 208$. The alpha particle has $A = 4$.",
+            "Take the alpha particle's direction as positive. Momentum before is zero, so after: $4m \\times (2.0 \\times 10^{7}) + 208m \\times v = 0$, where $m$ is the mass per nucleon.",
+            "$v = -\\frac{4 \\times 2.0 \\times 10^{7}}{208} = -3.846 \\times 10^{5}\\ \\text{m s}^{-1}$. The minus sign means it recoils opposite to the alpha particle.",
+            "The speed is $3.8 \\times 10^{5}\\ \\text{m s}^{-1}$ to 2 significant figures: 52 times slower, as it is 52 times heavier."
+          ],
+          "answer": "$v \\approx 3.8 \\times 10^{5}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4*2.0e7/(212 - 4)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-7-gamma-levels",
+          "alt": "Energy-level diagram for a daughter nucleus. Three horizontal lines show its levels: the top line at 0.84 MeV, a middle line at 0.31 MeV, and the ground state at 0 at the bottom. A downward arrow labelled gamma 1 goes from the 0.84 MeV level to the 0.31 MeV level. A second downward arrow labelled gamma 2 goes from the 0.31 MeV level to the ground state. Each downward step emits one gamma photon.",
+          "caption": "Each drop between nuclear energy levels emits one gamma photon."
+        },
+        {
+          "type": "example",
+          "id": "ex-gamma-photon-energy",
+          "question": "After a beta-minus decay, a nucleus is left $\\pu{0.84 MeV}$ above its ground state. It first drops to a level $\\pu{0.31 MeV}$ above the ground state, emitting a gamma photon, as in the diagram. Calculate the energy of this photon in joules.",
+          "steps": [
+            "The photon carries the energy difference between the two levels: $0.84 - 0.31 = \\pu{0.53 MeV}$.",
+            "The data booklet gives $e = 1.60 \\times 10^{-19}\\ \\text{C}$, so $\\pu{1 eV} = 1.60 \\times 10^{-19}\\ \\text{J}$ and $\\pu{1 MeV} = 1.60 \\times 10^{-13}\\ \\text{J}$. So $E = 0.53 \\times 1.60 \\times 10^{-13}$.",
+            "$E = 8.48 \\times 10^{-14}\\ \\text{J}$, which is $8.5 \\times 10^{-14}\\ \\text{J}$ to 2 significant figures."
+          ],
+          "answer": "$E \\approx 8.5 \\times 10^{-14}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(0.84 - 0.31)*MeV",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-beta-minus-inside",
+          "prompt": "What happens inside a nucleus during beta-minus decay?",
+          "hint": "Beta-minus decay raises the proton number by 1.",
+          "options": [
+            {
+              "text": "A neutron changes into a proton",
+              "correct": true
+            },
+            {
+              "text": "A proton changes into a neutron",
+              "correct": false
+            },
+            {
+              "text": "An orbiting electron is captured by the nucleus",
+              "correct": false
+            },
+            {
+              "text": "An electron stored in the nucleus is released",
+              "correct": false
+            }
+          ],
+          "explain": "$Z$ rises by 1 with $A$ unchanged, so a neutron has become a proton. The electron is created in the decay.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A neutron changes into a proton"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-alpha-neutrons",
+          "prompt": "A nucleus with 90 protons and 140 neutrons emits an alpha particle. How many neutrons does the new nucleus have?",
+          "hint": "An alpha particle takes away 2 protons and 2 neutrons.",
+          "answer": {
+            "value": 138,
+            "tolerance": 0
+          },
+          "explain": "$140 - 2 = 138$ neutrons. The protons fall to 88.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "140 - 2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying gamma decay changes the element. Gamma emission only lowers the energy of the nucleus; $Z$ and $A$ stay the same."
+        }
+      ]
+    },
+    {
+      "id": "equations",
+      "heading": "Decay equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A decay equation has the parent on the left and the products on the right. The top numbers (nucleons) balance, and so do the bottom numbers (charge): this is [[conservation-of-charge|conservation of charge]]."
+        },
+        {
+          "type": "text",
+          "text": "Each emitted particle gets its own top and bottom numbers. The bottom number is its charge in units of $e$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Alpha particle: ${}^{4}_{2}\\alpha$, also written ${}^{4}_{2}\\text{He}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Beta-minus particle (electron): ${}^{0}_{-1}\\text{e}$, also written ${}^{0}_{-1}\\beta$."
+        },
+        {
+          "type": "text",
+          "text": "3. Beta-plus particle (positron): ${}^{0}_{+1}\\text{e}$, also written ${}^{0}_{+1}\\beta$."
+        },
+        {
+          "type": "text",
+          "text": "4. Neutrino ${}^{0}_{0}\\nu$, antineutrino ${}^{0}_{0}\\overline{\\nu}$, gamma photon ${}^{0}_{0}\\gamma$. All three have no charge and no nucleons."
+        },
+        {
+          "type": "text",
+          "text": "So for a parent X, with daughter Y:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} \\alpha:&\\quad {}^{A}_{Z}\\text{X} \\rightarrow {}^{A-4}_{Z-2}\\text{Y} + {}^{4}_{2}\\alpha \\\\ \\beta^{-}:&\\quad {}^{A}_{Z}\\text{X} \\rightarrow {}^{A}_{Z+1}\\text{Y} + {}^{0}_{-1}\\text{e} + {}^{0}_{0}\\overline{\\nu} \\\\ \\beta^{+}:&\\quad {}^{A}_{Z}\\text{X} \\rightarrow {}^{A}_{Z-1}\\text{Y} + {}^{0}_{+1}\\text{e} + {}^{0}_{0}\\nu \\\\ \\gamma:&\\quad {}^{A}_{Z}\\text{X}^{*} \\rightarrow {}^{A}_{Z}\\text{X} + {}^{0}_{0}\\gamma \\end{aligned}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\text{X}^{*}$ is a nucleus in an excited state. These equations are not in the data booklet: learn them."
+        },
+        {
+          "type": "text",
+          "text": "Inside the nucleus, beta-minus decay is ${}^{1}_{0}\\text{n} \\rightarrow {}^{1}_{1}\\text{p} + {}^{0}_{-1}\\text{e} + {}^{0}_{0}\\overline{\\nu}$. Check it: top $1 = 1 + 0 + 0$, bottom $0 = 1 - 1 + 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-phosphorus-beta",
+          "question": "Phosphorus-32, $^{32}_{15}\\text{P}$, decays by beta-minus emission to sulfur (S). Determine the nucleon number $A$ and proton number $Z$ of the sulfur nucleus, and write the decay equation.",
+          "steps": [
+            "Write the equation with unknowns: ${}^{32}_{15}\\text{P} \\rightarrow {}^{A}_{Z}\\text{S} + {}^{0}_{-1}\\text{e} + {}^{0}_{0}\\overline{\\nu}$.",
+            "Top numbers: $32 = A + 0 + 0$, so $A = 32$.",
+            "Bottom numbers: $15 = Z - 1 + 0$, so $Z = 16$.",
+            "Full equation: ${}^{32}_{15}\\text{P} \\rightarrow {}^{32}_{16}\\text{S} + {}^{0}_{-1}\\text{e} + {}^{0}_{0}\\overline{\\nu}$."
+          ],
+          "answer": "$A = 32,\\; Z = 16$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 32, 'Z': 15 + 1}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-radium-chain",
+          "question": "A nucleus of $^{228}_{88}\\text{Ra}$ undergoes a beta-minus decay, then a second beta-minus decay, then an alpha decay. Determine $A$ and $Z$ for the final nucleus.",
+          "steps": [
+            "First $\\beta^{-}$: $Z$ goes from 88 to 89, $A$ stays 228.",
+            "Second $\\beta^{-}$: $Z$ goes from 89 to 90, $A$ stays 228.",
+            "Alpha: $Z$ goes from 90 to 88, $A$ goes from 228 to 224.",
+            "$Z = 88$ again, so the final nucleus is radium again, $^{224}_{88}\\text{Ra}$, with 4 fewer neutrons."
+          ],
+          "answer": "$A = 224,\\; Z = 88$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 228 - 4, 'Z': 88 + 1 + 1 - 2}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-carbon-beta-plus",
+          "prompt": "$^{11}_{6}\\text{C}$ decays by beta-plus emission. Which nucleus is produced?",
+          "hint": "In beta-plus decay a proton becomes a neutron.",
+          "options": [
+            {
+              "text": "Boron-11",
+              "correct": true
+            },
+            {
+              "text": "Nitrogen-11",
+              "correct": false
+            },
+            {
+              "text": "Beryllium-7",
+              "correct": false
+            },
+            {
+              "text": "Carbon-10",
+              "correct": false
+            }
+          ],
+          "explain": "$Z$ falls by 1 and $A$ is unchanged: $^{11}_{5}\\text{B}$. Raising $Z$ is beta-minus decay; losing 4 nucleons is alpha decay.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Boron-11"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-polonium-two-step",
+          "prompt": "$^{218}_{84}\\text{Po}$ decays by alpha emission, and the daughter then decays by beta-minus emission. What is the proton number of the final nucleus?",
+          "hint": "Alpha lowers $Z$ by 2; beta-minus raises it by 1.",
+          "answer": {
+            "value": 83,
+            "tolerance": 0
+          },
+          "explain": "$84 - 2 + 1 = 83$. The nucleon number is $218 - 4 = 214$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "84 - 2 + 1",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Check both rows of every decay equation, and include the neutrino or antineutrino in every beta equation."
+        }
+      ]
+    },
+    {
+      "id": "neutrinos",
+      "heading": "Neutrinos and antineutrinos",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "neutrino",
+          "statement": "An uncharged particle with a very small mass that is emitted, with a positron, in beta-plus decay. Its antiparticle, the antineutrino, is emitted with an electron in beta-minus decay.",
+          "plain": "A ghostly particle that carries away part of the energy in every beta decay."
+        },
+        {
+          "type": "text",
+          "text": "Every beta decay emits a third particle. Beta-minus emits an [[antineutrino|antineutrino]] $\\overline{\\nu}$; beta-plus emits a [[neutrino|neutrino]] $\\nu$. Alpha and gamma decays emit neither."
+        },
+        {
+          "type": "text",
+          "text": "They have no charge and a mass far smaller than an electron's, and very rarely interact with matter. Almost all pass straight through the whole Earth."
+        },
+        {
+          "type": "text",
+          "text": "Why believe in a particle that is so hard to see? Every decay of one beta emitter releases the same energy (when the daughter ends in the same state), yet the beta particles' kinetic energy varies and is almost always less. Energy is conserved only if an unseen particle carries the rest, with some momentum."
+        },
+        {
+          "type": "text",
+          "text": "The neutrino was proposed in 1930 for this reason and first detected in 1956: conservation laws predicted it long before anyone saw it."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you study the spread of beta-particle energies, the continuous beta spectrum, as the evidence for the neutrino.",
+          "lesson": "5.9"
+        },
+        {
+          "type": "example",
+          "id": "ex-antineutrino-share",
+          "question": "Each beta-minus decay of a certain nuclide releases $\\pu{1.48 MeV}$. In one decay the electron has $\\pu{0.57 MeV}$ of kinetic energy. Ignoring the energy of the recoiling nucleus, determine the energy carried by the antineutrino.",
+          "steps": [
+            "The heavy daughter nucleus takes almost no kinetic energy, so the two light particles share it.",
+            "Energy conservation: $E_{\\overline{\\nu}} = 1.48 - 0.57$.",
+            "$E_{\\overline{\\nu}} = \\pu{0.91 MeV}$. Another decay would split it differently, with the same total."
+          ],
+          "answer": "$E = 0.91\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.48 - 0.57",
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-neutrino-detection",
+          "question": "Explain why neutrinos are extremely difficult to detect.",
+          "steps": [
+            "Detectors rely on the [[ionisation|ionisation]] a particle causes, or on it interacting with matter. Say why a neutrino does neither.",
+            "One marking point per sentence: charge, mass, interaction."
+          ],
+          "answer": "Neutrinos have no charge, so they do not ionise the atoms they pass. Their mass is very small, far less than an electron's. They interact with matter extremely rarely, so almost all of them pass straight through a detector, and even through the whole Earth, without leaving any trace.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "No charge so no ionisation; tiny mass; interact very rarely, so they pass through matter undetected.",
+            "requires": [
+              [
+                "no charge",
+                "uncharged",
+                "neutral"
+              ],
+              "ionise",
+              [
+                "very small",
+                "tiny"
+              ],
+              [
+                "interact with matter extremely rarely",
+                "rarely interact",
+                "interact very rarely"
+              ],
+              [
+                "pass straight through",
+                "pass through"
+              ]
+            ],
+            "forbids": [
+              "massless",
+              "have no mass"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-beta-plus-partner",
+          "prompt": "Which particle is emitted together with a positron in beta-plus decay?",
+          "hint": "Beta-minus and beta-plus emit different partners.",
+          "options": [
+            {
+              "text": "A neutrino",
+              "correct": true
+            },
+            {
+              "text": "An antineutrino",
+              "correct": false
+            },
+            {
+              "text": "An electron",
+              "correct": false
+            },
+            {
+              "text": "An alpha particle",
+              "correct": false
+            }
+          ],
+          "explain": "Beta-plus decay emits a positron and a neutrino. The antineutrino goes with the electron in beta-minus decay.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A neutrino"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutrino-share",
+          "prompt": "A beta-plus decay releases $\\pu{0.96 MeV}$. The positron has $\\pu{0.35 MeV}$ of kinetic energy. Ignoring the recoil of the nucleus, how much energy, in MeV, does the neutrino carry?",
+          "hint": "The two light particles share the energy released.",
+          "answer": {
+            "value": 0.61,
+            "tolerance": 0.005
+          },
+          "explain": "$0.96 - 0.35 = \\pu{0.61 MeV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.96 - 0.35",
+            "dp": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the partners. Beta-minus emits an electron and an antineutrino; beta-plus emits a positron and a neutrino."
+        }
+      ]
+    },
+    {
+      "id": "penetration",
+      "heading": "Penetration and ionisation",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "ionisation",
+          "statement": "The removal of one or more electrons from an atom or molecule, leaving a positive ion.",
+          "plain": "Knocking electrons off atoms."
+        },
+        {
+          "type": "text",
+          "text": "As radiation passes through matter it causes [[ionisation|ionisation]]. Each ionisation in air takes about $\\pu{34 eV}$. The more strongly a radiation ionises, the sooner it runs out of energy."
+        },
+        {
+          "type": "text",
+          "text": "Alpha particles have charge $+2e$, a large mass and a lower speed than beta particles. They ionise very strongly, travel a few centimetres in air, and are stopped by paper."
+        },
+        {
+          "type": "text",
+          "text": "Beta particles have charge $\\pm e$, a tiny mass and a high speed. They ionise less, and are stopped by a few millimetres of aluminium."
+        },
+        {
+          "type": "text",
+          "text": "Gamma rays are uncharged photons travelling at the speed of light. They ionise weakly, so they penetrate most. Several centimetres of lead reduces their intensity a lot, but never to zero."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-penetration",
+          "alt": "Three kinds of radiation leave sources on the left and travel right towards three absorbers in a row: a sheet of paper, a few millimetres of aluminium, then several centimetres of lead. The alpha arrow stops at the paper. The beta arrow passes through the paper and stops in the aluminium. The gamma arrow passes through the paper and the aluminium, and through the lead, coming out on the far side as a thinner dashed arrow to show that its intensity has been reduced but not to zero.",
+          "caption": "Most ionising means least penetrating: alpha, then beta, then gamma."
+        },
+        {
+          "type": "text",
+          "text": "Electric and magnetic fields deflect alpha and beta particles, in opposite directions for alpha and beta-minus. Gamma rays, being uncharged, are not deflected."
+        },
+        {
+          "type": "text",
+          "text": "These properties decide the uses. A leak in a buried pipe is found by adding a gamma emitter to the fluid: only gamma rays get through the soil."
+        },
+        {
+          "type": "text",
+          "text": "A medical tracer imaged from outside must be a gamma emitter too, so its radiation escapes the body. Its half-life is short: hours, not years ({{lesson:5.8}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-alpha-ion-pairs",
+          "question": "An alpha particle with $\\pu{5.6 MeV}$ of kinetic energy stops in air after travelling $\\pu{4.2 cm}$. Each ionisation in air takes about $\\pu{34 eV}$. Estimate the number of ion pairs it produces.",
+          "steps": [
+            "Assume all its kinetic energy goes into ionisation. Number of ion pairs $= \\frac{\\text{total energy}}{\\text{energy per ion pair}}$.",
+            "Both energies in eV: $\\frac{5.6 \\times 10^{6}}{34} = 1.65 \\times 10^{5}$.",
+            "So about $1.6 \\times 10^{5}$ ion pairs, to 2 significant figures.",
+            "That is about $3.9 \\times 10^{3}$ ion pairs per millimetre: dense ionisation, so a short range."
+          ],
+          "answer": "$N \\approx 1.6 \\times 10^{5}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "5.6*MeV/(34*eV)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cardboard-gauge",
+          "question": "A factory checks the thickness of cardboard sheets by passing them between a radioactive source and a detector. Explain why a beta source is used, rather than an alpha or a gamma source.",
+          "steps": [
+            "For each radiation, ask whether the count rate would change when the thickness changes. One sentence each."
+          ],
+          "answer": "Alpha particles would be completely absorbed by the cardboard, so no count would reach the detector whatever the thickness. Gamma rays would pass through almost unaffected, so the count rate would hardly change with thickness. Beta particles are partly absorbed, so the count rate falls noticeably when the cardboard gets thicker. A change in the beta count rate therefore shows a change in thickness.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Alpha is fully absorbed and gamma barely absorbed, so neither count changes with thickness; beta is partly absorbed, so its count rate tracks thickness.",
+            "requires": [
+              "alpha",
+              [
+                "completely absorbed",
+                "stopped"
+              ],
+              "gamma",
+              [
+                "hardly change",
+                "almost unaffected"
+              ],
+              "beta",
+              [
+                "partly absorbed",
+                "partially absorbed"
+              ],
+              "count rate"
+            ],
+            "forbids": [
+              "gamma rays are stopped",
+              "alpha particles pass through"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tracer-radiation",
+          "prompt": "A doctor wants to image a patient's kidney with a camera outside the body, using an injected tracer. Which radiation should the tracer emit?",
+          "hint": "The radiation must get out of the body, and do as little harm as possible on the way.",
+          "options": [
+            {
+              "text": "Gamma rays",
+              "correct": true
+            },
+            {
+              "text": "Alpha particles",
+              "correct": false
+            },
+            {
+              "text": "Beta particles",
+              "correct": false
+            }
+          ],
+          "explain": "Gamma rays escape the body and ionise least. Alpha and most beta particles would be absorbed inside, causing damage.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Gamma rays"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-beta-ion-pairs",
+          "prompt": "A beta particle with $\\pu{1.2 MeV}$ of kinetic energy is stopped in air. Each ionisation takes about $\\pu{34 eV}$. Estimate the number of ion pairs it produces. Give 2 significant figures.",
+          "hint": "Write both energies in eV, then divide.",
+          "answer": {
+            "value": 35000,
+            "tolerance": 500
+          },
+          "explain": "$\\frac{1.2 \\times 10^{6}}{34} \\approx 3.5 \\times 10^{4}$ ion pairs.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.2*MeV/(34*eV)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that lead stops gamma rays. Lead greatly reduces their intensity, but some always get through."
+        },
+        {
+          "type": "examTip",
+          "text": "In a \"compare\" question, state both sides: \"alpha is more ionising than beta\", not only \"alpha is highly ionising\". An implied comparison does not earn the mark."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Random: you cannot predict which nucleus will decay, or when. Spontaneous: the rate is not affected by temperature, pressure or chemical state.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alpha: $Z - 2$, $A - 4$. Beta-minus: neutron to proton, $Z + 1$. Beta-plus: proton to neutron, $Z - 1$. Gamma: $Z$ and $A$ unchanged, the nucleus loses energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{aligned} &{}^{A}_{Z}\\text{X} \\rightarrow {}^{A-4}_{Z-2}\\text{Y} + {}^{4}_{2}\\alpha \\\\ &{}^{A}_{Z}\\text{X} \\rightarrow {}^{A}_{Z+1}\\text{Y} + {}^{0}_{-1}\\text{e} + {}^{0}_{0}\\overline{\\nu} \\\\ &{}^{A}_{Z}\\text{X} \\rightarrow {}^{A}_{Z-1}\\text{Y} + {}^{0}_{+1}\\text{e} + {}^{0}_{0}\\nu \\end{aligned}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a decay equation the top numbers and the bottom numbers each balance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Antineutrino with beta-minus, neutrino with beta-plus: no charge, very small mass, hardly interact. They carry part of the energy and momentum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ionising: alpha > beta > gamma. Penetrating: gamma > beta > alpha. Alpha stopped by paper, beta by a few mm of aluminium; lead reduces gamma but never to zero.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking heating a source changes its decay rate. Decay is spontaneous: external conditions have no effect.",
+    "Calling the beta-minus particle an orbital electron. It is created in the nucleus when a neutron turns into a proton.",
+    "Putting the antineutrino in a beta-plus equation, or the neutrino in a beta-minus one. Electron goes with antineutrino; positron with neutrino.",
+    "Balancing only the top row of a decay equation. The proton numbers (charges) must balance too.",
+    "Saying gamma decay changes the element, or that lead stops gamma rays completely."
+  ],
+  "examTips": [
+    "\"Identify\" the type of decay from the change in $Z$ and $A$: $Z$ down 2 and $A$ down 4 is alpha; $Z$ up 1 is beta-minus; $Z$ down 1 is beta-plus.",
+    "In Paper 1A, tables of protons and neutrons after a decay chain are common. Track $Z$ and $A$ one step at a time, then find neutrons from $A - Z$.",
+    "\"Explain\" the choice of a source: link its penetration to what the job needs, and mention half-life for medical tracers."
+  ],
+  "readingMinutes": 30
+}

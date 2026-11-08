@@ -1,0 +1,727 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.16",
+  "slug": "postulates-of-special-relativity-and-lorentz-transformations",
+  "title": "The postulates of special relativity and Lorentz transformations",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "Special relativity rests on two [[postulates-of-special-relativity|postulates]]: physics is the same in every [[inertial-reference-frame|inertial reference frame]], and every inertial observer measures the same [[speed-of-light|speed of light]]. They lead to the [[lorentz-transformation|Lorentz transformation]], built on the [[lorentz-factor|Lorentz factor]] $\\gamma$, and to [[relativistic-velocity-addition|relativistic velocity addition]], which never gives a speed above $c$. Observers disagree about times and distances, but agree on the [[space-time-interval|space–time interval]].",
+  "goals": [
+    {
+      "text": "State the two postulates of special relativity and explain why they rule out the Galilean addition of [[velocity|velocities]] for light.",
+      "bullets": [
+        "A.5-a5"
+      ]
+    },
+    {
+      "text": "Calculate the Lorentz factor $\\gamma$ and use the Lorentz transformation to find an event's coordinates $x'$ and $t'$ in another inertial frame.",
+      "bullets": [
+        "A.5-a6"
+      ]
+    },
+    {
+      "text": "Explain why the Lorentz transformation becomes the Galilean transformation at speeds much less than $c$.",
+      "bullets": [
+        "A.5-a6"
+      ]
+    },
+    {
+      "text": "Use relativistic velocity addition to find a velocity in another frame, with the correct signs.",
+      "bullets": [
+        "A.5-a7"
+      ]
+    },
+    {
+      "text": "Calculate the space–time interval between two events and use its invariance to find a missing time or distance.",
+      "bullets": [
+        "A.5-a8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.15",
+    "3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Einstein's postulates",
+    "Lorentz transformation equations",
+    "gamma factor",
+    "relativistic velocity addition",
+    "spacetime interval",
+    "invariant interval"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-galilean-velocity",
+      "prompt": "On a straight road, take the direction of travel as positive. A cyclist moves at $\\pu{+8.0 m s-1}$ and a bus overtakes her at $\\pu{+14.0 m s-1}$, both relative to the road. What is the cyclist's velocity relative to the bus, in $\\pu{m s-1}$?",
+      "hint": "Use Galilean velocity addition, $u' = u - v$, where $v$ is the bus's velocity relative to the road.",
+      "answer": {
+        "value": -6.0,
+        "tolerance": 0.05
+      },
+      "explain": "$u' = u - v = 8.0 - 14.0 = \\pu{-6.0 m s-1}$. The minus sign means the bus sees the cyclist moving backwards. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8.0 - 14.0",
+        "sf": 2,
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inertial-frame",
+      "prompt": "Which passenger is in an inertial frame of reference?",
+      "hint": "An inertial frame is not accelerating. Remember that a change of direction is an acceleration.",
+      "options": [
+        {
+          "text": "a passenger in a train moving at constant velocity on a straight track",
+          "correct": true
+        },
+        {
+          "text": "a passenger in a car going round a roundabout at constant speed",
+          "correct": false
+        },
+        {
+          "text": "a passenger in a lift that is speeding up",
+          "correct": false
+        }
+      ],
+      "explain": "An inertial frame is at rest or moves with constant velocity. The car's speed is constant, but its direction changes, so it accelerates. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a passenger in a train moving at constant velocity on a straight track"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "postulates",
+      "heading": "The two postulates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.15}} you met [[galilean-relativity|Galilean relativity]]. Newton's laws hold in every inertial frame, all observers share one clock ($t' = t$), and velocities subtract simply ($u' = u - v$). It works very well for cars, planes and planets."
+        },
+        {
+          "type": "text",
+          "text": "Light does not fit. Maxwell's theory of electromagnetism gives light in a vacuum one speed, $c$, without saying who measures it, and experiments find the same $c$ for every observer. In 1905 Einstein built this into two postulates."
+        },
+        {
+          "type": "definition",
+          "term": "postulates of special relativity",
+          "statement": "1. The laws of physics take the same form in every [[inertial-reference-frame|inertial reference frame]]. 2. Every inertial observer measures the same value, $c$, for the speed of light in a vacuum, whatever the motion of the source or of the observer.",
+          "plain": "No inertial frame is special, and everyone clocks light at $c$."
+        },
+        {
+          "type": "text",
+          "text": "An inertial frame does not accelerate: it is at rest or moves with constant velocity. A frame that speeds up, slows down or turns is not inertial. In this course special relativity is applied to inertial frames only."
+        },
+        {
+          "type": "result",
+          "statement": "Galilean relativity cannot be the whole story. Its velocity addition, and its assumption that every observer shares the same time, must be replaced at speeds close to $c$.",
+          "why": "Galilean addition gives a moving observer $c - v$ or $c + v$ for light, not $c$."
+        },
+        {
+          "type": "example",
+          "id": "ex-galilean-radio-pulse",
+          "question": "A probe moves straight towards a space station at $0.25c$ relative to the station. The station sends a radio pulse to the probe. Radio waves travel at $c$. Calculate, in $\\pu{m s-1}$, the speed of the pulse relative to the probe that Galilean velocity addition predicts.",
+          "steps": [
+            "In the station's frame, take the pulse's direction as positive: $u = +c$. The probe moves against the pulse, so $v = -0.25c$.",
+            "Galilean addition: $u' = u - v = c - (-0.25c) = 1.25c$.",
+            "$u' = 1.25 \\times 3.00 \\times 10^{8} = \\pu{3.75e8 m s-1}$.",
+            "This prediction is wrong: by the second postulate the probe measures $c$."
+          ],
+          "answer": "$u' = 3.75 \\times 10^{8}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c - (-0.25*c)",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-two-observers",
+          "question": "Two inertial observers move apart at $0.40c$. A lamp at rest beside the first observer sends a flash towards the second observer. Explain why both observers measure the speed of the flash as $c$, and why this means the Galilean transformation must be replaced.",
+          "steps": [
+            "Both move with constant velocity, so both frames are inertial.",
+            "Apply the second postulate to each, then compare with Galilean addition."
+          ],
+          "answer": "Both observers are in inertial reference frames, so the postulates apply to each. The second postulate says every inertial observer measures the speed of light in a vacuum as $c$, whatever the motion of the source. So the second observer also measures $c$. Galilean velocity addition predicts $0.60c$ for her, which contradicts the second postulate. So the Galilean transformation must be replaced.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both inertial observers measure c, so Galilean addition is wrong",
+            "requires": [
+              [
+                "inertial reference frames",
+                "inertial frames"
+              ],
+              "second postulate",
+              [
+                "whatever the motion of the source",
+                "independent of the motion of the source"
+              ],
+              "contradicts",
+              [
+                "must be replaced",
+                "cannot be correct"
+              ]
+            ],
+            "forbids": [
+              "light slows down",
+              "depends on the speed of the source"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-light-speed-observer",
+          "prompt": "An astronaut flies at $0.90c$ towards a star. Compared with an observer at rest relative to the star, what speed does she measure for its light?",
+          "hint": "Which postulate is about light, and does it mention the observer's motion?",
+          "options": [
+            {
+              "text": "the same speed",
+              "correct": true
+            },
+            {
+              "text": "a greater speed",
+              "correct": false
+            },
+            {
+              "text": "a smaller speed",
+              "correct": false
+            }
+          ],
+          "explain": "By the second postulate, every inertial observer measures $c$, whatever the motion of the source or the observer. Galilean addition would give her $1.90c$, but it fails for light.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the same speed"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pendulum-train",
+          "prompt": "A student times a pendulum in a laboratory, then in a train moving at constant velocity on a straight track. What does the first postulate predict for the period?",
+          "hint": "Is the train an inertial frame?",
+          "options": [
+            {
+              "text": "the same period",
+              "correct": true
+            },
+            {
+              "text": "a shorter period in the train",
+              "correct": false
+            },
+            {
+              "text": "a longer period in the train",
+              "correct": false
+            }
+          ],
+          "explain": "Both frames are inertial, so the same laws of physics apply and the experiment gives the same result.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the same period"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lorentz",
+      "heading": "The Lorentz transformation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An event is something that happens at one place at one instant: a flash, a collision, a firework bursting. In a frame S it has coordinates $x$ and $t$. In a second frame S′ the same event has coordinates $x'$ and $t'$."
+        },
+        {
+          "type": "text",
+          "text": "Use the standard set-up throughout. S′ moves at constant [[velocity|velocity]] $v$ in the $+x$ direction of S. The two origins pass each other at $t = t' = 0$, when both clocks read zero."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-frames-event",
+          "alt": "Two panels showing frames S and S prime. Top: at t equals t prime equals zero the origins O and O prime are at the same point, and S prime moves at velocity v in the positive x direction. Bottom: at a later time t in S, O prime has moved a distance v t from O. An event E is further along the x axis, a distance x from O. The distance from O prime to E, measured in S, is x minus v t. A note says S prime measures x prime equals gamma times x minus v t.",
+          "caption": "Galilean relativity says $x' = x - vt$. The [[lorentz-transformation|Lorentz transformation]] multiplies this by $\\gamma$."
+        },
+        {
+          "type": "text",
+          "text": "The postulates lead to new equations for $x'$ and $t'$, the Lorentz transformation. You need to use them, not derive them. Both use the Lorentz factor $\\gamma$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^{2}}{c^{2}}}}",
+          "tag": "booklet",
+          "bookletId": "db-1-16"
+        },
+        {
+          "type": "definition",
+          "term": "Lorentz factor",
+          "statement": "$\\gamma = \\frac{1}{\\sqrt{1 - v^{2}/c^{2}}}$, where $v$ is the speed of one inertial frame relative to the other.",
+          "plain": "A number that shows how much relativity changes the answer: $\\gamma = 1$ means not at all."
+        },
+        {
+          "type": "text",
+          "text": "Because $v < c$, the square root lies between 0 and 1, so $\\gamma \\ge 1$. It equals 1 only when $v = 0$ and grows without limit as $v$ approaches $c$."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-gamma-graph",
+          "alt": "Graph of the Lorentz factor gamma against v over c, from 0 to 1. Gamma starts at 1 and stays close to 1 up to about 0.3. It is about 1.15 at 0.5, 1.40 at 0.7 and 2.29 at 0.9, then rises steeply towards a dashed vertical line at v over c equals 1, which it never reaches.",
+          "caption": "$\\gamma$ stays close to 1 until about $0.3c$, then rises steeply. Marked: $1.15$ at $0.50c$, $1.40$ at $0.70c$ and $2.29$ at $0.90c$."
+        },
+        {
+          "type": "formula",
+          "tex": "x' = \\gamma(x - vt) \\qquad t' = \\gamma\\left(t - \\frac{vx}{c^{2}}\\right)",
+          "tag": "booklet",
+          "bookletId": "db-1-16"
+        },
+        {
+          "type": "text",
+          "text": "Read the second equation carefully. $t'$ depends on where the event happens, not only on when. Time is no longer shared by every observer."
+        },
+        {
+          "type": "text",
+          "text": "For two events, apply the same equations to the differences: $\\Delta x' = \\gamma(\\Delta x - v\\Delta t)$ and $\\Delta t' = \\gamma\\left(\\Delta t - \\frac{v\\Delta x}{c^{2}}\\right)$."
+        },
+        {
+          "type": "text",
+          "text": "To go back from S′ to S, swap the primes and change the sign of $v$: $x = \\gamma(x' + vt')$ and $t = \\gamma\\left(t' + \\frac{vx'}{c^{2}}\\right)$."
+        },
+        {
+          "type": "result",
+          "statement": "At speeds much less than $c$, the Lorentz transformation becomes the Galilean transformation, $x' = x - vt$ and $t' = t$.",
+          "why": "When $v \\ll c$, $\\gamma \\approx 1$, and, for everyday distances, $\\frac{vx}{c^{2}}$ is tiny because $c^{2}$ is so large."
+        },
+        {
+          "type": "example",
+          "id": "ex-gamma-070",
+          "question": "A spacecraft moves at $0.70c$ relative to a planet. Calculate the Lorentz factor for the two frames.",
+          "steps": [
+            "Use $\\gamma = \\frac{1}{\\sqrt{1 - v^{2}/c^{2}}}$ with $\\frac{v}{c} = 0.70$.",
+            "$\\frac{v^{2}}{c^{2}} = 0.70^{2} = 0.49$, so $1 - 0.49 = 0.51$.",
+            "$\\gamma = \\frac{1}{\\sqrt{0.51}} = 1.4002\\ldots$",
+            "Sense check: $\\gamma > 1$, and it matches the graph at $0.70c$."
+          ],
+          "answer": "$\\gamma \\approx 1.40$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1/sqrt(1-0.70**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Work with $\\frac{v}{c}$ directly. When $v = 0.70c$, $\\frac{v^{2}}{c^{2}} = 0.49$: the $c$s cancel and you never need the value of $c$."
+        },
+        {
+          "type": "example",
+          "id": "ex-firework-coords",
+          "question": "In the ground frame S, a firework bursts at $x = \\pu{1.20 km}$ and $t = \\pu{5.00 \\mu s}$. A rocket frame S′ moves at $+0.50c$ relative to the ground, in the standard set-up. Determine the position $x'$ of the burst in S′.",
+          "steps": [
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.50^{2}}} = \\frac{1}{\\sqrt{0.75}} = 1.1547\\ldots$",
+            "$v = 0.50 \\times 3.00 \\times 10^{8} = \\pu{1.50e8 m s-1}$, using $c$ from the data booklet.",
+            "$vt = 1.50 \\times 10^{8} \\times 5.00 \\times 10^{-6} = \\pu{750 m}$.",
+            "$x' = \\gamma(x - vt) = 1.1547 \\times (1200 - 750) = 519.6\\ldots\\text{ m}$.",
+            "Galilean relativity would give $\\pu{450 m}$. The factor $\\gamma$ makes the relativistic value larger."
+          ],
+          "answer": "$x' \\approx \\pu{520 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1200 - 0.50*c*5.00*10**-6)/sqrt(1-0.50**2)",
+            "sf": 3,
+            "unit": "m"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-firework-time",
+            "prompt": "Now you try: find $t'$ for the same burst, in $\\mu\\text{s}$. Give 3 significant figures.",
+            "hint": "Use $t' = \\gamma\\left(t - \\frac{vx}{c^{2}}\\right)$. Work out $\\frac{vx}{c^{2}}$ in seconds first.",
+            "answer": {
+              "value": 3.46,
+              "tolerance": 0.005
+            },
+            "explain": "$\\frac{vx}{c^{2}} = \\frac{1.50 \\times 10^{8} \\times 1200}{(3.00 \\times 10^{8})^{2}} = \\pu{2.00e-6 s}$. So $t' = 1.1547 \\times (5.00 - 2.00) \\times 10^{-6} = \\pu{3.46e-6 s}$, which is $\\pu{3.46 \\mu s}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(5.00*10**-6 - 0.50*c*1200/c**2)/sqrt(1-0.50**2)*10**6",
+              "sf": 3
+            }
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $t' = t$, or dropping the $\\frac{vx}{c^{2}}$ term. In relativity the time of an event in S′ depends on its position, so both terms are needed."
+        },
+        {
+          "type": "check",
+          "id": "check-gamma-statement",
+          "prompt": "Which statement about the Lorentz factor $\\gamma$ is true for any two inertial frames?",
+          "hint": "Look at the square root in the formula. Is it bigger or smaller than 1?",
+          "options": [
+            {
+              "text": "it is never less than 1",
+              "correct": true
+            },
+            {
+              "text": "it is never more than 1",
+              "correct": false
+            },
+            {
+              "text": "it equals 1 when v equals c",
+              "correct": false
+            },
+            {
+              "text": "it equals v divided by c",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{1 - v^{2}/c^{2}}$ is at most 1, so its reciprocal is at least 1.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is never less than 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-event-before",
+          "prompt": "In frame S an event happens at $x = \\pu{900 m}$ and $t = \\pu{1.00 \\mu s}$. Frame S′ moves at $+0.50c$ in the standard set-up. Calculate $t'$, in $\\mu\\text{s}$, with its sign. Give 3 significant figures.",
+          "hint": "Find $\\frac{vx}{c^{2}}$ first, then subtract it from $t$ before multiplying by $\\gamma = 1.1547$.",
+          "answer": {
+            "value": -0.577,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{vx}{c^{2}} = \\frac{0.50 \\times 900}{3.00 \\times 10^{8}} = \\pu{1.50e-6 s}$, so $t' = 1.1547 \\times (1.00 - 1.50) = \\pu{-0.577 \\mu s}$. In S′ the event happens before the origins pass.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1.00*10**-6 - 0.50*c*900/c**2)/sqrt(1-0.50**2)*10**6",
+            "sf": 3,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "velocity-addition",
+      "heading": "Relativistic velocity addition",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Galilean addition lets speeds pass $c$: for ships leaving a station in opposite directions at $0.70c$ and $0.50c$, it says each ship sees the other moving at $1.20c$. The Lorentz transformation gives a new rule, [[relativistic-velocity-addition|relativistic velocity addition]]."
+        },
+        {
+          "type": "formula",
+          "tex": "u' = \\frac{u - v}{1 - \\frac{uv}{c^{2}}}",
+          "tag": "booklet",
+          "bookletId": "db-1-16"
+        },
+        {
+          "type": "text",
+          "text": "Here $u$ is the object's [[velocity|velocity]] in S, $v$ is the velocity of S′ relative to S, and $u'$ is the object's velocity in S′. All three lie along one line, so each has a sign. Choose the positive direction first and keep it."
+        },
+        {
+          "type": "result",
+          "statement": "If $u$ and $v$ are both less than $c$ in size, so is $u'$. If $u = c$, then $u' = c$ for every $v$.",
+          "why": "With $u = c$: $u' = \\frac{c - v}{1 - v/c} = \\frac{c(c - v)}{c - v} = c$, which is exactly the second postulate."
+        },
+        {
+          "type": "text",
+          "text": "When $u$ and $v$ are much less than $c$, $\\frac{uv}{c^{2}} \\approx 0$, and the rule becomes the Galilean $u' = u - v$."
+        },
+        {
+          "type": "figure",
+          "id": "1-16-two-ships",
+          "alt": "A space station in the middle of a horizontal line, with the positive direction to the right. Spaceship A, to the right of the station, moves right at plus 0.70 c. Spaceship B, to the left of the station, moves left at minus 0.50 c. The ships move apart.",
+          "caption": "Both velocities are measured in the station's frame, with right as positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-ships-apart",
+          "question": "Spaceship A moves at $+0.70c$ and spaceship B at $-0.50c$, both relative to a space station. Calculate the velocity of B relative to A.",
+          "steps": [
+            "Let S be the station's frame, with right as positive. S′ is A's frame, so $v = +0.70c$. The object is B, so $u = -0.50c$.",
+            "Numerator: $u - v = -0.50c - 0.70c = -1.20c$.",
+            "Denominator: $1 - \\frac{uv}{c^{2}} = 1 - (-0.50)(0.70) = 1.35$.",
+            "$u' = \\frac{-1.20c}{1.35} = -0.888\\ldots c$.",
+            "The minus sign means A sees B moving in the negative direction. Its speed, about $0.89c$, is less than $c$, unlike the Galilean $1.20c$."
+          ],
+          "answer": "$\\frac{u'}{c} \\approx -0.89$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(-0.50 - 0.70)/(1 - (-0.50)*0.70)",
+            "sf": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-light-from-probe",
+          "question": "A probe moves away from Earth at $0.90c$ and fires a laser pulse straight ahead. Show, using relativistic velocity addition, that the pulse travels at $c$ relative to Earth.",
+          "steps": [
+            "Let S be the probe's frame, with the probe's direction of travel as positive. In S the pulse has $u = +c$.",
+            "Earth moves backwards relative to the probe, so S′, Earth's frame, has $v = -0.90c$.",
+            "$u' = \\frac{c - (-0.90c)}{1 - \\frac{c \\times (-0.90c)}{c^{2}}} = \\frac{1.90c}{1.90} = c$.",
+            "Galilean addition would give $1.90c$. Relativistic addition gives exactly $c$, as the second postulate requires."
+          ],
+          "answer": "$\\frac{u'}{c} = 1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 - (-0.90))/(1 - 1*(-0.90))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Changing the minus in the denominator to a plus by habit. Keep the booklet's form, $1 - \\frac{uv}{c^{2}}$, and let the signs of $u$ and $v$ do the work."
+        },
+        {
+          "type": "check",
+          "id": "check-electron-relative",
+          "prompt": "In a laboratory an electron moves at $+0.95c$. An observer moves at $+0.40c$ in the same direction. Calculate the electron's velocity relative to the observer, as a fraction of $c$. Give 3 significant figures.",
+          "hint": "Here $u = 0.95c$ and $v = 0.40c$. Work in units of $c$, so the $c$s cancel.",
+          "answer": {
+            "value": 0.887,
+            "tolerance": 0.0005
+          },
+          "explain": "$u' = \\frac{0.95 - 0.40}{1 - 0.95 \\times 0.40}c = \\frac{0.55}{0.62}c = 0.887c$. Galilean addition would give only $0.55c$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.95 - 0.40)/(1 - 0.95*0.40)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rockets-approach",
+          "prompt": "Two rockets fly towards each other, each at $0.50c$ relative to Earth. What is the speed of one rocket relative to the other, as a fraction of $c$?",
+          "hint": "Take one rocket's direction as positive. Then the other rocket has a negative velocity.",
+          "options": [
+            {
+              "text": "$0.80$",
+              "correct": true
+            },
+            {
+              "text": "$1.0$",
+              "correct": false
+            },
+            {
+              "text": "$1.3$",
+              "correct": false
+            }
+          ],
+          "explain": "With $u = -0.50c$ and $v = +0.50c$: $u' = \\frac{-1.00c}{1 + 0.25} = -0.80c$, a speed of $0.80c$. $1.0$ is Galilean addition, and $1.3$ comes from dropping the sign of $u$ in the denominator.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.50 + 0.50)/(1 + 0.50*0.50)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "interval",
+      "heading": "The space–time interval",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Observers in relative motion disagree about the time $\\Delta t$ and the distance $\\Delta x$ between two events. Yet one combination of the two is the same for all of them."
+        },
+        {
+          "type": "formula",
+          "tex": "(\\Delta s)^{2} = (c\\Delta t)^{2} - (\\Delta x)^{2}",
+          "tag": "booklet",
+          "bookletId": "db-1-16"
+        },
+        {
+          "type": "definition",
+          "term": "space–time interval",
+          "statement": "For two events separated by $\\Delta t$ and $\\Delta x$ in an inertial frame, the interval $\\Delta s$ is given by $(\\Delta s)^{2} = (c\\Delta t)^{2} - (\\Delta x)^{2}$. It has the same value in every inertial frame.",
+          "plain": "A separation in space and time together that every inertial observer agrees on."
+        },
+        {
+          "type": "text",
+          "text": "$c\\Delta t$ is the distance light travels in the time $\\Delta t$, so both terms are in metres. Multiply $\\Delta t$ by $c$ before you square it."
+        },
+        {
+          "type": "result",
+          "statement": "The [[space-time-interval|space–time interval]] is invariant: $(c\\Delta t)^{2} - (\\Delta x)^{2} = (c\\Delta t')^{2} - (\\Delta x')^{2}$ for any two inertial frames. $\\Delta t$ and $\\Delta x$ on their own are not invariant.",
+          "why": "Substitute the Lorentz transformation for $\\Delta x'$ and $\\Delta t'$: the factors of $\\gamma$ cancel, because $\\gamma^{2}\\left(1 - \\frac{v^{2}}{c^{2}}\\right) = 1$."
+        },
+        {
+          "type": "text",
+          "text": "If a light signal travels from one event to the other, $(\\Delta x)^{2} = (c\\Delta t)^{2}$, so $\\Delta s = 0$ in every frame."
+        },
+        {
+          "type": "text",
+          "text": "On a space–time diagram, curves of constant interval set the scale of each observer's axes ({{lesson:1.18}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-interval-firework",
+          "question": "Return to the firework. In S the burst is at $x = \\pu{1.20 km}$, $t = \\pu{5.00 \\mu s}$, and a second event is at the origin, $x = 0$, $t = 0$. Calculate the space–time interval between the two events, then check it in S′.",
+          "steps": [
+            "In S: $c\\Delta t = 3.00 \\times 10^{8} \\times 5.00 \\times 10^{-6} = \\pu{1500 m}$ and $\\Delta x = \\pu{1200 m}$.",
+            "$(\\Delta s)^{2} = 1500^{2} - 1200^{2} = 2.25 \\times 10^{6} - 1.44 \\times 10^{6} = \\pu{8.1e5 m2}$, so $\\Delta s = \\pu{900 m}$.",
+            "In S′ you found $x' = 519.6\\text{ m}$ and $t' = 3.464\\ \\mu\\text{s}$, so $ct' = 1039.2\\text{ m}$.",
+            "$(\\Delta s')^{2} = 1039.2^{2} - 519.6^{2} = 8.1 \\times 10^{5}\\ \\text{m}^{2}$. The interval is the same, although $\\Delta t$ and $\\Delta x$ both changed."
+          ],
+          "answer": "$\\Delta s = \\pu{900 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((c*5.00*10**-6)**2 - 1200**2)",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-interval-third-frame",
+          "question": "A third inertial observer finds that the two firework events are $\\pu{600 m}$ apart. Determine the time between the events for this observer.",
+          "steps": [
+            "The interval is invariant, so $(c\\Delta t'')^{2} - (\\Delta x'')^{2} = (\\Delta s)^{2} = \\pu{8.1e5 m2}$.",
+            "$(c\\Delta t'')^{2} = 8.1 \\times 10^{5} + 600^{2} = \\pu{1.17e6 m2}$, so $c\\Delta t'' = 1081.7\\ldots\\text{ m}$.",
+            "$\\Delta t'' = \\frac{1081.7}{3.00 \\times 10^{8}} = 3.605\\ldots \\times 10^{-6}\\text{ s}$.",
+            "Sense check: a larger $\\Delta x$ needs a larger $\\Delta t$ to keep $\\Delta s$ fixed, and $\\pu{3.61 \\mu s}$ is more than the $\\pu{3.46 \\mu s}$ found in S′."
+          ],
+          "answer": "$\\Delta t'' \\approx \\pu{3.61 \\mu s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((c*5.00*10**-6)**2 - 1200**2 + 600**2)/c*10**6",
+            "sf": 3,
+            "unit": "µs"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Treating $\\Delta t$ or $\\Delta x$ as the same for every observer. Only the combination $(c\\Delta t)^{2} - (\\Delta x)^{2}$ is invariant."
+        },
+        {
+          "type": "check",
+          "id": "check-invariant-quantity",
+          "prompt": "Two observers in inertial frames move relative to each other. Both observe the same two events. Which quantity do they always agree on?",
+          "hint": "Which quantity combines time and distance?",
+          "options": [
+            {
+              "text": "the space–time interval between the events",
+              "correct": true
+            },
+            {
+              "text": "the time between the events",
+              "correct": false
+            },
+            {
+              "text": "the distance between the events",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta t$ and $\\Delta x$ both depend on the frame. The combination $(c\\Delta t)^{2} - (\\Delta x)^{2}$ does not.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the space–time interval between the events"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-light-interval",
+          "prompt": "A light pulse leaves a lamp and reaches a detector $\\pu{1.2 km}$ away, $\\pu{4.0 \\mu s}$ later. What is the space–time interval between the emission and the detection?",
+          "hint": "Compare $c\\Delta t$ with $\\Delta x$.",
+          "options": [
+            {
+              "text": "$\\Delta s = \\pu{0 m}$",
+              "correct": true
+            },
+            {
+              "text": "$\\Delta s = \\pu{1200 m}$",
+              "correct": false
+            },
+            {
+              "text": "$\\Delta s = \\pu{1700 m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$c\\Delta t = 3.00 \\times 10^{8} \\times 4.0 \\times 10^{-6} = \\pu{1200 m}$, which equals $\\Delta x$, so $(\\Delta s)^{2} = 0$. Events linked by light always have $\\Delta s = 0$. $\\pu{1700 m}$ comes from adding the squares instead of subtracting.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((c*4.0*10**-6)**2 - (1.2*10**3)**2)",
+            "unit": "m"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The postulates: (1) the laws of physics are the same in every inertial frame; (2) every inertial observer measures light in a vacuum at $c$, whatever the motion of the source or observer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^{2}}{c^{2}}}} \\qquad x' = \\gamma(x - vt) \\qquad t' = \\gamma\\left(t - \\frac{vx}{c^{2}}\\right)",
+          "tag": "booklet",
+          "bookletId": "db-1-16",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\gamma \\ge 1$, and $\\gamma = 1$ only when $v = 0$. When $v \\ll c$, the Lorentz transformation reduces to the Galilean $x' = x - vt$, $t' = t$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "u' = \\frac{u - v}{1 - \\frac{uv}{c^{2}}}",
+          "tag": "booklet",
+          "bookletId": "db-1-16",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In velocity addition, $u$ is the object's velocity in S and $v$ is the velocity of S′ relative to S, each with a sign. For any object slower than light, the result is below $c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(\\Delta s)^{2} = (c\\Delta t)^{2} - (\\Delta x)^{2}",
+          "tag": "booklet",
+          "bookletId": "db-1-16",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta t$ and $\\Delta x$ depend on the frame, but $\\Delta s$ is invariant. Events linked by a light signal have $\\Delta s = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling a frame inertial just because it is moving. It must not accelerate: at rest or constant velocity, with no change of speed or direction.",
+    "Saying light from a moving source travels at $c + v$. Every inertial observer measures $c$, whatever the motion of the source or the observer.",
+    "Getting $\\gamma < 1$ by inverting the formula, or using $\\frac{v}{c}$ for $\\frac{v^{2}}{c^{2}}$. Check that $\\gamma \\ge 1$.",
+    "Adding velocities the Galilean way at high speed and getting more than $c$. Use $u' = \\frac{u - v}{1 - uv/c^{2}}$, with a sign on both $u$ and $v$.",
+    "Forgetting to multiply $\\Delta t$ by $c$ in the interval, which subtracts metres from seconds. Convert both terms to metres first."
+  ],
+  "examTips": [
+    "\"State\" the postulates as two separate sentences. Say \"inertial\" frames and \"in a vacuum\"; each is part of the statement.",
+    "\"Calculate\" with the Lorentz transformation: find $\\gamma$ first, write the equation, then substitute. Carry unrounded values to the end.",
+    "Velocity addition: state your positive direction and write $u$ and $v$ with signs before substituting. A speed above $c$ means a sign slip.",
+    "Paper 1A: reject any option with $\\gamma < 1$, an object with mass reaching $c$, or a $\\Delta s$ that changes between frames."
+  ],
+  "readingMinutes": 25
+}

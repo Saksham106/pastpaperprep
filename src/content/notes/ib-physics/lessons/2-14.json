@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.14",
+  "slug": "electrical-power-and-circuits",
+  "title": "Electrical power and circuits",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A resistor dissipates energy as heat at a rate called [[electrical-power|electrical power]], $P = IV$. Resistors combine in series and parallel by simple rules. A real cell's [[internal-resistance|internal resistance]] makes the [[potential-difference|potential difference]] (pd) it delivers less than its [[emf|emf]]. [[thermistor|Thermistors]] and [[light-dependent-resistor|light-dependent resistors]] change [[resistance|resistance]] with temperature and light, so they make good sensors.",
+  "goals": [
+    {
+      "text": "Calculate the electrical power and energy dissipated in a resistor.",
+      "bullets": [
+        "B.5-s12"
+      ]
+    },
+    {
+      "text": "Combine resistors in series and parallel, and find the current and pd in each.",
+      "bullets": [
+        "B.5-s13"
+      ]
+    },
+    {
+      "text": "Explain how currents and pds change when a branch is added.",
+      "bullets": [
+        "B.5-s13"
+      ]
+    },
+    {
+      "text": "Use $\\varepsilon = I(R + r)$, and explain why the terminal pd falls as the current rises.",
+      "bullets": [
+        "B.5-s14"
+      ]
+    },
+    {
+      "text": "Describe thermistors, LDRs and potentiometers, and use them in potential dividers.",
+      "bullets": [
+        "B.5-s15"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.11",
+    "2.12",
+    "2.13"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "series and parallel resistors",
+    "internal resistance of a cell",
+    "emf and terminal voltage",
+    "potential divider",
+    "thermistor and LDR",
+    "electrical power formula"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-charge-current",
+      "prompt": "A charge of $\\pu{36 C}$ passes a point in a wire in $\\pu{1.5 min}$. What is the [[electric-current|current]] in the wire, in A? Give 2 significant figures.",
+      "hint": "Current is charge per second: $I = \\frac{\\Delta q}{\\Delta t}$, with the time in seconds.",
+      "answer": {
+        "value": 0.4,
+        "tolerance": 0.005
+      },
+      "explain": "$I = \\frac{36}{90} = \\pu{0.40 A}$. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "36/(1.5*60)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-resistance",
+      "prompt": "A resistor has a pd of $\\pu{4.8 V}$ across it and a current of $\\pu{0.24 A}$ in it. What is its resistance?",
+      "hint": "Resistance is pd divided by current: $R = \\frac{V}{I}$.",
+      "options": [
+        {
+          "text": "$20\\ \\Omega$",
+          "correct": true
+        },
+        {
+          "text": "$0.050\\ \\Omega$",
+          "correct": false
+        },
+        {
+          "text": "$1.2\\ \\Omega$",
+          "correct": false
+        }
+      ],
+      "explain": "$R = \\frac{4.8}{0.24} = 20\\ \\Omega$. Revise it in {{lesson:2.13}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "4.8/0.24",
+        "unit": "Ω"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-lamp-power",
+      "prompt": "A lamp transfers $\\pu{540 J}$ of energy in one minute. What is its [[power|power]]?",
+      "hint": "Power is energy transferred per second.",
+      "options": [
+        {
+          "text": "$\\pu{9.0 W}$",
+          "correct": true
+        },
+        {
+          "text": "$\\pu{540 W}$",
+          "correct": false
+        },
+        {
+          "text": "$\\pu{32400 W}$",
+          "correct": false
+        }
+      ],
+      "explain": "$P = \\frac{540}{60} = \\pu{9.0 W}$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "540/60",
+        "unit": "W"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "power",
+      "heading": "Power dissipated in a resistor",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each [[charge-carrier|charge carrier]] passing through a resistor loses electrical potential energy, and the resistor warms up. The rate of this transfer is the [[power|power]] dissipated."
+        },
+        {
+          "type": "text",
+          "text": "The [[potential-difference|pd]] $V$ is the energy transferred per coulomb, and the [[electric-current|current]] $I$ is the coulombs per second. So the energy per second is $VI$."
+        },
+        {
+          "type": "definition",
+          "term": "electrical power",
+          "statement": "The rate at which a component transfers electrical energy to other forms: $P = IV$, where $V$ is the pd across the component and $I$ is the current in it. Its unit is the watt: $\\pu{1 W} = \\pu{1 J s-1} = \\pu{1 V A}$.",
+          "plain": "The joules a component turns into heat, light or motion each second."
+        },
+        {
+          "type": "text",
+          "text": "Put $V = IR$ into $P = IV$ to get $P = I^2R$, or $I = \\frac{V}{R}$ to get $P = \\frac{V^2}{R}$."
+        },
+        {
+          "type": "formula",
+          "tex": "P = IV = I^{2}R = \\frac{V^{2}}{R}",
+          "tag": "booklet",
+          "bookletId": "db-2-14"
+        },
+        {
+          "type": "text",
+          "text": "Pick the form that uses the two quantities you know. The equations in this lesson are in section B.5 of the data booklet unless tagged learn."
+        },
+        {
+          "type": "text",
+          "text": "A metal at constant temperature obeys [[ohm-s-law|Ohm's law]], so $R$ is fixed and $P \\propto V^2$. A filament lamp's resistance rises as it heats, so use its value at the working current."
+        },
+        {
+          "type": "text",
+          "text": "Energy transferred in time $t$ (in seconds) at a steady power: $E = Pt$."
+        },
+        {
+          "type": "example",
+          "id": "ex-demister-resistance",
+          "question": "The heating element of a car's rear-window demister is connected to a $\\pu{12.0 V}$ dc supply. It dissipates $\\pu{96.0 W}$. Calculate the resistance of the element.",
+          "steps": [
+            "You know $V$ and $P$, so rearrange $P = \\frac{V^2}{R}$: $R = \\frac{V^2}{P}$.",
+            "Substitute: $R = \\frac{12.0^2}{96.0} = \\frac{144}{96.0} = 1.50\\ \\Omega$.",
+            "Check: $I = \\frac{96.0}{12.0} = \\pu{8.00 A}$ and $\\frac{12.0}{8.00} = 1.50\\ \\Omega$."
+          ],
+          "answer": "$R = 1.50\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "12.0**2/96.0",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-resistor-energy",
+          "question": "A $72\\ \\Omega$ resistor carries a steady current of $\\pu{0.25 A}$ for $\\pu{3.0 min}$. Calculate the energy dissipated in the resistor.",
+          "steps": [
+            "You know $I$ and $R$, so use $P = I^2R = 0.25^2 \\times 72 = \\pu{4.5 W}$.",
+            "Change the time to seconds: $t = 3.0 \\times 60 = \\pu{180 s}$.",
+            "$E = Pt = 4.5 \\times 180 = \\pu{810 J}$."
+          ],
+          "answer": "$E = \\pu{810 J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.25**2*72*3.0*60",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to square in $P = I^2R$ or $P = \\frac{V^2}{R}$. Write the formula down before you substitute, then check the unit: $\\pu{A^2}\\ \\Omega = \\pu{V A} = \\pu{W}$."
+        },
+        {
+          "type": "check",
+          "id": "check-pd-doubled",
+          "prompt": "The pd across an ohmic resistor at constant temperature is doubled. What happens to the power it dissipates?",
+          "hint": "$R$ stays the same, so use the form of the power equation with $V$ and $R$.",
+          "options": [
+            {
+              "text": "it becomes four times as large",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            }
+          ],
+          "explain": "$P = \\frac{V^2}{R}$ with $R$ fixed, so doubling $V$ multiplies $P$ by $2^2 = 4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it becomes four times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bulb-current",
+          "prompt": "A torch bulb works at $\\pu{4.5 V}$ and dissipates $\\pu{2.7 W}$. What is the current in it, in A? Give 2 significant figures.",
+          "hint": "Use $P = IV$ and rearrange for $I$.",
+          "answer": {
+            "value": 0.6,
+            "tolerance": 0.005
+          },
+          "explain": "$I = \\frac{P}{V} = \\frac{2.7}{4.5} = \\pu{0.60 A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.7/4.5",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "combinations",
+      "heading": "Resistors in series and in parallel",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A series circuit has one path, and charge is never used up ([[conservation-of-charge|conservation of charge]]). So the current is the same at every point."
+        },
+        {
+          "type": "text",
+          "text": "Each coulomb's energy is shared between the components, so their pds add up to the supply pd. Each pd is $IR$ with the same $I$, so [[resistance|resistances]] add too."
+        },
+        {
+          "type": "text",
+          "text": "In a parallel circuit, branches connect the same two points, so each has the same pd. The branch currents add up to the current into the junction."
+        },
+        {
+          "type": "text",
+          "text": "Write $I = \\frac{V}{R}$ for each branch and divide by $V$: $\\frac{1}{R_\\text{p}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\dots$"
+        },
+        {
+          "type": "figure",
+          "id": "2-14-series-parallel",
+          "alt": "Two circuits side by side. Left, series: a cell on the top wire and two resistors, R1 and R2, one after the other on the bottom wire, so there is a single loop and the same current I passes through both. Below it: one path, same current in each resistor; pds add. Right, parallel: a cell on the top wire and two branches between the same two junctions, R1 on the upper branch and R2 on the lower branch. The current I splits into I1 and I2 at the left junction, and they rejoin at the right junction. Below it: same pd across each branch; currents add.",
+          "caption": "Series: one current, shared pd. Parallel: one pd, shared current."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Series: } I = I_{1} = I_{2} = \\dots \\qquad V = V_{1} + V_{2} + \\dots \\qquad R_\\text{s} = R_{1} + R_{2} + \\dots",
+          "tag": "booklet",
+          "bookletId": "db-2-14"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Parallel: } I = I_{1} + I_{2} + \\dots \\qquad V = V_{1} = V_{2} = \\dots \\qquad \\frac{1}{R_\\text{p}} = \\frac{1}{R_{1}} + \\frac{1}{R_{2}} + \\dots",
+          "tag": "booklet",
+          "bookletId": "db-2-14"
+        },
+        {
+          "type": "result",
+          "statement": "The combined resistance of resistors in parallel is less than the smallest of the individual resistances.",
+          "why": "The smallest resistor on its own would draw a current $\\frac{V}{R_\\text{min}}$. Every other branch adds more current at the same pd, so the total current is bigger and the combined resistance is smaller than $R_\\text{min}$."
+        },
+        {
+          "type": "text",
+          "text": "$n$ equal resistors $R$ in parallel combine to $\\frac{R}{n}$."
+        },
+        {
+          "type": "text",
+          "text": "Treat meters as ideal unless told otherwise. An ideal ammeter has zero resistance; an ideal voltmeter has infinite resistance and draws no current. A non-ideal meter is just one more constant resistor."
+        },
+        {
+          "type": "text",
+          "text": "For a network: combine each parallel group, add the series parts, find the supply current, then work back with $V = IR$."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-pair",
+          "question": "Find the current drawn from a $\\pu{4.8 V}$ battery (negligible internal resistance) when $30\\ \\Omega$ and $20\\ \\Omega$ resistors are placed side by side across it.",
+          "steps": [
+            "Combined resistance: $\\frac{1}{R_\\text{p}} = \\frac{1}{30} + \\frac{1}{20} = \\frac{2 + 3}{60} = \\frac{5}{60}$, so $R_\\text{p} = 12\\ \\Omega$.",
+            "$I = \\frac{V}{R_\\text{p}} = \\frac{4.8}{12} = \\pu{0.40 A}$.",
+            "Check: branch currents $\\frac{4.8}{30} + \\frac{4.8}{20} = 0.16 + 0.24 = \\pu{0.40 A}$."
+          ],
+          "answer": "$I = \\pu{0.40 A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.8/(1/(1/30 + 1/20))",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-network-power",
+          "question": "A $12\\ \\Omega$ resistor is connected in series with a parallel pair made of a $40\\ \\Omega$ and a $10\\ \\Omega$ resistor. The combination is connected to an $\\pu{8.0 V}$ battery of negligible internal resistance. Determine the power dissipated in the $40\\ \\Omega$ resistor.",
+          "steps": [
+            "Parallel pair: $\\frac{1}{R_\\text{p}} = \\frac{1}{40} + \\frac{1}{10} = \\frac{5}{40}$, so $R_\\text{p} = 8.0\\ \\Omega$.",
+            "Total: $R = 12 + 8.0 = 20\\ \\Omega$, so the battery current is $I = \\frac{8.0}{20} = \\pu{0.40 A}$.",
+            "pd across the pair: $V_\\text{p} = 0.40 \\times 8.0 = \\pu{3.2 V}$.",
+            "$P = \\frac{V_\\text{p}^2}{R} = \\frac{3.2^2}{40} = \\pu{0.256 W}$, so 2 s.f. gives $\\pu{0.26 W}$."
+          ],
+          "answer": "$P \\approx \\pu{0.26 W}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(8.0/(12 + 1/(1/40 + 1/10)) * 1/(1/40 + 1/10))**2/40",
+            "sf": 2,
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-third-lamp",
+          "question": "Two identical lamps, L1 and L2, are connected in parallel to a battery of negligible internal resistance. A third identical lamp is then connected in parallel with them. Explain what happens to the brightness of L1 and to the current in the battery.",
+          "steps": [
+            "Use what parallel branches share, then the total resistance."
+          ],
+          "answer": "The lamps are in parallel, so each has the same potential difference across it. The battery has negligible internal resistance, so this pd stays equal to the emf when the third lamp is added. So the current in L1 is unchanged and L1 stays equally bright. Adding a branch decreases the total resistance of the circuit. The battery current is the sum of the branch currents, so the current in the battery increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "parallel lamps share the battery pd, unchanged with negligible internal resistance, so L1 current and brightness unchanged; total resistance falls and battery current (sum of branches) increases",
+            "requires": [
+              "same potential difference",
+              [
+                "current in L1 is unchanged",
+                "L1 stays equally bright"
+              ],
+              "decreases the total resistance",
+              "current in the battery increases"
+            ],
+            "forbids": [
+              "used up",
+              "L1 gets dimmer"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-three-parallel",
+          "prompt": "Resistors of $8.0\\ \\Omega$, $24\\ \\Omega$ and $12\\ \\Omega$ are connected in parallel. What is their combined resistance?",
+          "hint": "Add the reciprocals, then invert. The answer must be less than $8.0\\ \\Omega$.",
+          "options": [
+            {
+              "text": "$4.0\\ \\Omega$",
+              "correct": true
+            },
+            {
+              "text": "$44\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$0.25\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$15\\ \\Omega$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{R_\\text{p}} = \\frac{3 + 1 + 2}{24} = \\frac{6}{24}$, so $R_\\text{p} = 4.0\\ \\Omega$. $0.25$ forgets to invert.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/(1/8.0 + 1/24 + 1/12)",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-series-share",
+          "prompt": "A $\\pu{2.2 k\\Omega}$ resistor and a $\\pu{3.3 k\\Omega}$ resistor are connected in series to an $\\pu{11 V}$ supply of negligible internal resistance. What is the pd across the $\\pu{3.3 k\\Omega}$ resistor, in V? Give 2 significant figures.",
+          "hint": "Find the current from the total resistance first.",
+          "answer": {
+            "value": 6.6,
+            "tolerance": 0.05
+          },
+          "explain": "$I = \\frac{11}{5500} = \\pu{2.0 mA}$, so $V = 0.0020 \\times 3300 = \\pu{6.6 V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "11*3.3/(2.2 + 3.3)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "internal-resistance",
+      "heading": "Emf and internal resistance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[emf|emf]] $\\varepsilon$ of a cell is the energy it transfers to each coulomb passing through it ({{lesson:2.12}}). A real cell can't pass all of it on."
+        },
+        {
+          "type": "text",
+          "text": "The chemicals inside the cell have [[resistance|resistance]], so some energy per coulomb is dissipated inside the cell itself."
+        },
+        {
+          "type": "definition",
+          "term": "internal resistance",
+          "statement": "The resistance of the materials inside a cell, which the current in the cell must pass through.",
+          "plain": "The cell's own resistance, as if a small resistor were hidden inside it."
+        },
+        {
+          "type": "definition",
+          "term": "terminal potential difference",
+          "statement": "The potential difference across the terminals of a cell while it delivers a current: the energy per unit charge transferred to the external circuit.",
+          "plain": "What a voltmeter across the cell reads while the cell is in use."
+        },
+        {
+          "type": "figure",
+          "id": "2-14-internal-resistance",
+          "alt": "A real cell drawn as a dashed box containing an ideal cell of emf epsilon in series with a small resistor r, the internal resistance. The two terminals are dots on the edges of the box. Outside the box a single loop runs through an ammeter and an external resistor R. A voltmeter is connected across the two terminals, so it reads the terminal potential difference V. A note says the energy per coulomb splits as epsilon equals IR plus Ir, so V equals IR, which equals epsilon minus Ir.",
+          "caption": "Model a real cell as an ideal emf $\\varepsilon$ in series with its internal resistance $r$."
+        },
+        {
+          "type": "text",
+          "text": "The same current passes through $R$ and $r$, so the emf is shared: $IR$ outside and $Ir$ inside."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = I(R + r)",
+          "tag": "booklet",
+          "bookletId": "db-2-14"
+        },
+        {
+          "type": "text",
+          "text": "The [[terminal-potential-difference|terminal potential difference]] is the part outside, $V = IR$, so:"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\varepsilon - Ir",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$Ir$ is the “lost volts”. With no current, $V = \\varepsilon$; the bigger the current, the smaller $V$."
+        },
+        {
+          "type": "text",
+          "text": "A short circuit ($R \\approx 0$) gives the largest current, $I = \\frac{\\varepsilon}{r}$, and the cell can get dangerously hot."
+        },
+        {
+          "type": "text",
+          "text": "To measure $\\varepsilon$ and $r$, vary $R$ and plot $V$ against $I$: a straight line, $V = -rI + \\varepsilon$."
+        },
+        {
+          "type": "example",
+          "id": "ex-terminal-pd",
+          "question": "A $2.4\\ \\Omega$ resistor is joined across a battery whose emf is $\\pu{4.5 V}$ and whose internal resistance is $0.60\\ \\Omega$. Calculate the terminal pd.",
+          "steps": [
+            "Current: $I = \\frac{\\varepsilon}{R + r} = \\frac{4.5}{2.4 + 0.60} = \\frac{4.5}{3.0} = \\pu{1.5 A}$.",
+            "Terminal pd: $V = IR = 1.5 \\times 2.4 = \\pu{3.6 V}$.",
+            "Check: $\\varepsilon - Ir = 4.5 - 0.90 = \\pu{3.6 V}$."
+          ],
+          "answer": "$V = \\pu{3.6 V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5/(2.4 + 0.60)*2.4",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-find-internal-resistance",
+          "question": "With nothing else connected, an ideal voltmeter across a battery reads $\\pu{4.50 V}$. A $12.0\\ \\Omega$ resistor is then connected across the battery, and the voltmeter reading falls to $\\pu{4.05 V}$. Determine the internal resistance of the battery.",
+          "steps": [
+            "No current flows at first, so $\\varepsilon = \\pu{4.50 V}$.",
+            "Current with the resistor: $I = \\frac{V}{R} = \\frac{4.05}{12.0} = \\pu{0.3375 A}$.",
+            "Lost volts: $Ir = \\varepsilon - V = 4.50 - 4.05 = \\pu{0.45 V}$.",
+            "$r = \\frac{0.45}{0.3375} = 1.333\\ \\Omega$, so 3 s.f. gives $1.33\\ \\Omega$."
+          ],
+          "answer": "$r \\approx 1.33\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(4.50 - 4.05)/(4.05/12.0)",
+            "sf": 3,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-terminal",
+          "question": "An ideal voltmeter is connected across a cell that has internal resistance and is supplying a resistor. Another resistor is added in parallel with that one. Explain the change in the voltmeter reading.",
+          "steps": [
+            "Follow the chain: external resistance, current, $Ir$, terminal pd."
+          ],
+          "answer": "Connecting a resistor in parallel decreases the total external resistance $R$. The emf and the internal resistance of the cell do not change. So, from $\\varepsilon = I(R + r)$, the current in the cell increases. The pd across the internal resistance, $Ir$, increases. The terminal pd is $V = \\varepsilon - Ir$, so it decreases and the voltmeter reading falls.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "external resistance falls, emf and r constant, so current rises, Ir rises and terminal pd falls",
+            "requires": [
+              [
+                "decreases the total external resistance",
+                "external resistance decreases"
+              ],
+              "do not change",
+              "current in the cell increases",
+              "pd across the internal resistance",
+              "voltmeter reading falls"
+            ],
+            "forbids": [
+              "emf decreases",
+              "emf falls",
+              "used up"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "As energy sources, cells are portable, give direct current at once and release no emissions where used. Rechargeable cells can be reused."
+        },
+        {
+          "type": "text",
+          "text": "But they store little energy per kilogram compared with fuels, and internal resistance limits the current and wastes energy. Their emf falls as they run down, and used cells need careful disposal."
+        },
+        {
+          "type": "check",
+          "id": "check-short-circuit",
+          "prompt": "A $\\pu{1.5 V}$ cell with internal resistance $0.30\\ \\Omega$ is short-circuited by a thick wire of negligible resistance. What is the current, in A? Give 2 significant figures.",
+          "hint": "Put $R = 0$ into $\\varepsilon = I(R + r)$.",
+          "answer": {
+            "value": 5.0,
+            "tolerance": 0.05
+          },
+          "explain": "$I = \\frac{\\varepsilon}{r} = \\frac{1.5}{0.30} = \\pu{5.0 A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.5/0.30",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-vi-graph",
+          "prompt": "A student plots terminal pd $V$ against current $I$ for a cell, varying the external resistance. What do the $V$-intercept and the gradient give?",
+          "hint": "Compare $V = \\varepsilon - Ir$ with $y = c + mx$.",
+          "options": [
+            {
+              "text": "intercept: the emf; gradient: minus the internal resistance",
+              "correct": true
+            },
+            {
+              "text": "intercept: the internal resistance; gradient: minus the emf",
+              "correct": false
+            },
+            {
+              "text": "intercept: the emf; gradient: the external resistance",
+              "correct": false
+            },
+            {
+              "text": "intercept: zero; gradient: the internal resistance",
+              "correct": false
+            }
+          ],
+          "explain": "$V = \\varepsilon - Ir$ is $y = c + mx$ with $c = \\varepsilon$ and $m = -r$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "intercept: the emf; gradient: minus the internal resistance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "variable-resistors",
+      "heading": "Variable resistors and potential dividers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You need three variable resistors: the [[thermistor|thermistor]], the [[light-dependent-resistor|light-dependent resistor]] (LDR) and the potentiometer. Their symbols are in the data booklet."
+        },
+        {
+          "type": "definition",
+          "term": "thermistor",
+          "statement": "A resistor whose resistance changes a lot with temperature. In a negative temperature coefficient (NTC) thermistor, the resistance decreases as the temperature increases.",
+          "plain": "A temperature sensor. Warm an NTC thermistor and it conducts better."
+        },
+        {
+          "type": "text",
+          "text": "Heating the thermistor's semiconductor frees more [[charge-carrier|charge carriers]], so its [[resistance|resistance]] falls, though not in inverse proportion to temperature."
+        },
+        {
+          "type": "text",
+          "text": "Its resistance depends on temperature, and the current in it can heat it, so it is a [[non-ohmic-conductor|non-ohmic conductor]]."
+        },
+        {
+          "type": "definition",
+          "term": "light-dependent resistor",
+          "statement": "A resistor whose resistance decreases as the intensity of the light falling on it increases.",
+          "plain": "A light sensor: high resistance in the dark, low resistance in bright light."
+        },
+        {
+          "type": "text",
+          "text": "In an LDR, light frees the charge carriers instead."
+        },
+        {
+          "type": "text",
+          "text": "Two resistors in series share the supply pd in the ratio of their resistances, since the same current passes through both. This is a potential divider."
+        },
+        {
+          "type": "formula",
+          "tex": "V_\\text{out} = V_\\text{in}\\,\\frac{R_{2}}{R_{1} + R_{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This assumes negligible internal resistance and nothing drawing current from the output."
+        },
+        {
+          "type": "figure",
+          "id": "2-14-potential-divider",
+          "alt": "Potential divider. A supply of potential difference V in, with negligible internal resistance, on the left, positive terminal at the top. On the right, a fixed resistor R1 on top and a thermistor R2 below it are joined in series between the top and bottom wires. Output wires run from the junction between them and from the bottom wire to two open terminals, so the output potential difference V out is the pd across the thermistor. A note says the same current passes through R1 and R2, so the pd divides in the ratio R1 to R2.",
+          "caption": "As the NTC thermistor warms, $R_2$ falls, so it takes a smaller share of $V_\\text{in}$ and $V_\\text{out}$ falls."
+        },
+        {
+          "type": "text",
+          "text": "With a thermistor or LDR as $R_2$, the output pd follows temperature or light: a sensor circuit."
+        },
+        {
+          "type": "text",
+          "text": "A potentiometer is a resistor track with a sliding contact: an adjustable potential divider. Its output can be set anywhere from zero to the full supply pd."
+        },
+        {
+          "type": "example",
+          "id": "ex-thermistor-divider",
+          "question": "An NTC thermistor and a fixed $\\pu{1.5 k\\Omega}$ resistor are connected in series to a $\\pu{6.0 V}$ battery of negligible internal resistance. At room temperature the thermistor's resistance is $\\pu{3.5 k\\Omega}$. Calculate the pd across the fixed resistor.",
+          "steps": [
+            "Total resistance: $1.5 + 3.5 = \\pu{5.0 k\\Omega}$.",
+            "Current: $I = \\frac{6.0}{5.0 \\times 10^{3}} = \\pu{1.2e-3 A}$.",
+            "pd across the fixed resistor: $V = IR = 1.2 \\times 10^{-3} \\times 1.5 \\times 10^{3} = \\pu{1.8 V}$.",
+            "Check: $\\frac{1.5}{5.0} \\times 6.0 = \\pu{1.8 V}$."
+          ],
+          "answer": "$V = \\pu{1.8 V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6.0*1.5/(1.5 + 3.5)",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ldr-brighter",
+          "question": "An LDR and a fixed resistor are connected in series to a battery of negligible internal resistance. A voltmeter is connected across the fixed resistor. Explain what happens to the voltmeter reading when the light falling on the LDR becomes brighter.",
+          "steps": [
+            "Chain: LDR, total resistance, current, pd across the fixed resistor."
+          ],
+          "answer": "The resistance of the LDR decreases as the light intensity increases. The fixed resistor does not change, so the total resistance of the circuit decreases. The emf is unchanged, so the current in the circuit increases. The pd across the fixed resistor is $IR$ with $R$ constant, so it increases. So the voltmeter reading increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "LDR resistance falls in brighter light, total resistance falls, current rises, pd IR across the fixed resistor rises",
+            "requires": [
+              "resistance of the LDR decreases",
+              "total resistance of the circuit decreases",
+              "current in the circuit increases",
+              "pd across the fixed resistor",
+              "voltmeter reading increases"
+            ],
+            "forbids": [
+              "resistance of the LDR increases",
+              "inversely proportional"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ntc-warms",
+          "prompt": "An NTC thermistor is in series with a fixed resistor across a battery of negligible internal resistance. The thermistor warms up. What happens to the pd across the thermistor?",
+          "hint": "Its resistance falls. What happens to its share of the battery's pd?",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "Its share of the total resistance falls, so its share of the pd falls.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-warm-thermistor",
+          "prompt": "In the circuit of the example above ($\\pu{6.0 V}$ battery, fixed $\\pu{1.5 k\\Omega}$ resistor), the thermistor warms until the pd across the fixed resistor is $\\pu{4.2 V}$. What is the thermistor's resistance now, in $\\Omega$? Give 2 significant figures.",
+          "hint": "Find the current from the fixed resistor, and the thermistor's pd by subtracting from $\\pu{6.0 V}$.",
+          "answer": {
+            "value": 640,
+            "tolerance": 5
+          },
+          "explain": "$I = \\frac{4.2}{1500} = \\pu{2.8e-3 A}$ and $R = \\frac{1.8}{2.8 \\times 10^{-3}} \\approx 640\\ \\Omega$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(6.0 - 4.2)/(4.2/(1.5*10**3))",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-potentiometer",
+          "prompt": "A uniform potentiometer track is across a $\\pu{10 V}$ battery (negligible internal resistance). The slider is a quarter of the way from the negative end. What does an ideal voltmeter between the slider and that end read, in V? Give 2 significant figures.",
+          "hint": "A quarter of the track has a quarter of the resistance.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{1}{4} \\times 10 = \\pu{2.5 V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10/4",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "P = IV = I^{2}R = \\frac{V^{2}}{R}",
+          "tag": "booklet",
+          "bookletId": "db-2-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Series: } I = I_{1} = I_{2} = \\dots \\qquad V = V_{1} + V_{2} + \\dots \\qquad R_\\text{s} = R_{1} + R_{2} + \\dots",
+          "tag": "booklet",
+          "bookletId": "db-2-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{Parallel: } I = I_{1} + I_{2} + \\dots \\qquad V = V_{1} = V_{2} = \\dots \\qquad \\frac{1}{R_\\text{p}} = \\frac{1}{R_{1}} + \\frac{1}{R_{2}} + \\dots",
+          "tag": "booklet",
+          "bookletId": "db-2-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Resistors in parallel combine to less than the smallest of them. An ideal ammeter has zero resistance; an ideal voltmeter has infinite resistance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = I(R + r)",
+          "tag": "booklet",
+          "bookletId": "db-2-14",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Terminal pd $V = \\varepsilon - Ir$. It equals the emf only when no current flows, and falls as the current rises.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "NTC thermistor: resistance falls as temperature rises. LDR: resistance falls as light intensity rises. Potential divider: $V_\\text{out} = V_\\text{in}\\,\\frac{R_2}{R_1 + R_2}$; a potentiometer gives any output from zero to $V_\\text{in}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying current is used up in a resistor. Current is the same all round a series circuit; energy is what is transferred.",
+    "Using the whole supply pd for one resistor in series, for example in $P = \\frac{V^2}{R}$. Use that resistor's own pd.",
+    "Adding resistances in parallel, or forgetting to invert $\\frac{1}{R_\\text{p}}$. A parallel combination is always smaller than its smallest resistor.",
+    "Defining emf as the pd across the cell's terminals. Emf is the energy the cell transfers per unit charge; the terminal pd is less by $Ir$ whenever current flows.",
+    "Calling an NTC thermistor's resistance inversely proportional to temperature. It decreases as temperature rises, but not in proportion."
+  ],
+  "examTips": [
+    "“Explain” a change in a meter reading: give the chain, one link per sentence: resistance, current, pd, reading. A bald “it increases” earns nothing.",
+    "“Show that”: write the equation and substitution, and give one more significant figure than the stated value.",
+    "Advantages and disadvantages of cells: give physics reasons (portability, no emissions where used, internal resistance, stored energy). Cost earns no marks.",
+    "In Paper 1A, use limits: a parallel combination is below its smallest resistor, and while a cell supplies current, its terminal pd is less than its emf."
+  ],
+  "readingMinutes": 26
+}

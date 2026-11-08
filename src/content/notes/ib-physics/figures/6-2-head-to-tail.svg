@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 270" role="img" aria-labelledby="t62ht">
+  <title id="t62ht">Left: two separate vectors. Vector a is a horizontal arrow pointing right. Vector b is a shorter arrow pointing up and to the right. Right: the same two vectors joined head to tail. Arrow a points right; arrow b starts at the head of a and points up and to the right. A third arrow, a plus b, runs straight from the tail of a to the head of b. It is the resultant, and closes the triangle.</title>
+  <defs>
+    <marker id="m62ht-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m62ht-3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m62ht-2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+
+  <text x="90" y="30" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">two vectors</text>
+  <line x1="30" y1="210" x2="150" y2="210" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#m62ht-1)"/>
+  <text x="90" y="232" font-size="15" font-weight="bold" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">a</text>
+  <line x1="70" y1="160" x2="130" y2="80" stroke="var(--t3-ink)" stroke-width="2.4" marker-end="url(#m62ht-3)"/>
+  <text x="88" y="112" font-size="15" font-weight="bold" fill="var(--t3-ink)" font-family="inherit" text-anchor="middle">b</text>
+
+  <line x1="200" y1="20" x2="200" y2="250" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+
+  <text x="330" y="30" font-size="12" fill="var(--muted)" font-family="inherit" text-anchor="middle">head to tail</text>
+  <line x1="230" y1="210" x2="350" y2="210" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#m62ht-1)"/>
+  <text x="290" y="232" font-size="15" font-weight="bold" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">a</text>
+  <line x1="350" y1="210" x2="410" y2="130" stroke="var(--t3-ink)" stroke-width="2.4" marker-end="url(#m62ht-3)"/>
+  <text x="394" y="182" font-size="15" font-weight="bold" fill="var(--t3-ink)" font-family="inherit">b</text>
+  <line x1="230" y1="210" x2="410" y2="130" stroke="var(--t2-ink)" stroke-width="2.4" marker-end="url(#m62ht-2)"/>
+  <text x="300" y="158" font-size="15" font-weight="bold" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">a + b</text>
+</svg>

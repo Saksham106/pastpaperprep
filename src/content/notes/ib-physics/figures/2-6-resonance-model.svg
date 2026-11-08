@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" role="img" aria-labelledby="t26res">
+  <title id="t26res">Resonance model of a carbon dioxide molecule. Left: two oxygen atoms, each slightly negative, joined by springs to a slightly positive carbon atom in the middle; the oscillating electric field of an infrared wave pushes the charged atoms back and forth. Right: graph of energy absorbed against driving frequency, with a sharp peak at the natural frequency in the infrared and almost no absorption at the much higher frequencies of visible light.</title>
+  <defs>
+    <marker id="a26resF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="a26resA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g font-family="inherit">
+    <text x="160" y="30" font-size="13" fill="var(--muted)" text-anchor="middle">model: atoms on springs</text>
+    <g stroke="currentColor" stroke-width="1.6" fill="none">
+      <path d="M76 140 L82 128 L90 152 L98 128 L106 152 L114 128 L122 152 L130 128 L136 140"/>
+      <path d="M184 140 L190 128 L198 152 L206 128 L214 152 L222 128 L230 152 L238 128 L244 140"/>
+    </g>
+    <circle cx="56" cy="140" r="21" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.5"/>
+    <circle cx="160" cy="140" r="24" fill="var(--t2-ink)" fill-opacity="0.25" stroke="var(--t2-ink)" stroke-width="1.5"/>
+    <circle cx="264" cy="140" r="21" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.5"/>
+    <g font-size="14" fill="currentColor" text-anchor="middle">
+      <text x="56" y="145">O</text>
+      <text x="160" y="145">C</text>
+      <text x="264" y="145">O</text>
+    </g>
+    <g font-size="12" fill="currentColor" text-anchor="middle">
+      <text x="56" y="106">δ−</text>
+      <text x="160" y="104">δ+</text>
+      <text x="264" y="106">δ−</text>
+    </g>
+    <line x1="160" y1="230" x2="160" y2="186" stroke="var(--t5-ink)" stroke-width="2" marker-start="url(#a26resF)" marker-end="url(#a26resF)"/>
+    <g font-size="11.5" fill="currentColor" text-anchor="middle">
+      <text x="160" y="250">oscillating electric field</text>
+      <text x="160" y="264">of the infrared wave drives</text>
+      <text x="160" y="278">the charged atoms</text>
+    </g>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="360" y1="250" x2="628" y2="250" marker-end="url(#a26resA)"/>
+    <line x1="360" y1="250" x2="360" y2="36" marker-end="url(#a26resA)"/>
+  </g>
+  <path d="M370 242.9 L375 241.9 L380 240.8 L385 239.4 L390 237.7 L395 235.6 L400 232.8 L405 229.2 L410 224.5 L415 218.0 L420 209.0 L425 196.2 L430 177.8 L435 151.5 L440 117.0 L445 81.5 L450 65.0 L455 81.5 L460 117.0 L465 151.5 L470 177.8 L475 196.2 L480 209.0 L485 218.0 L490 224.5 L495 229.2 L500 232.8 L505 235.6 L510 237.7 L515 239.4 L520 240.8 L525 241.9 L530 242.9 L535 243.7 L540 244.3 L545 244.9 L550 245.4 L555 245.8 L560 246.2 L565 246.5 L570 246.8 L575 247.0 L580 247.2 L585 247.4 L590 247.6 L595 247.8 L600 247.9 L605 248.0 L610 248.2 L615 248.3 L620 248.4" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+  <line x1="450" y1="65" x2="450" y2="250" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+  <g font-family="inherit" font-size="11.5" fill="currentColor">
+    <text x="352" y="44" text-anchor="end">energy</text>
+    <text x="352" y="58" text-anchor="end">absorbed</text>
+    <text x="628" y="272" text-anchor="end">driving frequency</text>
+    <text x="450" y="268" text-anchor="middle">f₀</text>
+    <text x="462" y="62">resonance at the natural</text>
+    <text x="462" y="76">frequency (infrared)</text>
+    <text x="608" y="222" text-anchor="end">visible light: far</text>
+    <text x="608" y="236" text-anchor="end">above f₀, little absorbed</text>
+  </g>
+</svg>

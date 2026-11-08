@@ -1,0 +1,50 @@
+[
+  {
+    "id": "black-body",
+    "term": "black body",
+    "definition": "An idealised object that absorbs all the electromagnetic radiation falling on it and, at any given temperature, emits the most radiation that any surface can.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "stefan-boltzmann-law",
+    "term": "Stefan-Boltzmann law",
+    "definition": "The total power radiated by a black body is $L = \\sigma A T^{4}$, so it depends on its surface area and on the fourth power of its absolute temperature; a real surface radiates less.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "luminosity",
+    "term": "luminosity",
+    "definition": "The total power radiated by a body, such as a star, measured in watts or as a multiple of the Sun's luminosity.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "apparent-brightness",
+    "term": "apparent brightness",
+    "definition": "The power received from a source per unit area at the observer, in $\\text{W m}^{-2}$; for a source radiating equally in all directions, $b = \\frac{L}{4\\pi d^{2}}$, so it depends on distance as well as luminosity.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "intensity",
+    "term": "intensity",
+    "definition": "The power carried by radiation or a wave per unit area, through a surface at right angles to the direction of travel, in $\\text{W m}^{-2}$; for a wave it is proportional to the amplitude squared.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "inverse-square-law",
+    "term": "inverse square law",
+    "definition": "A rule in which a quantity is proportional to $\\frac{1}{d^{2}}$, the inverse of the square of the distance from a point source, so doubling the distance divides it by four.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "emission-spectrum",
+    "term": "emission spectrum",
+    "definition": "The range of wavelengths a source emits, often shown as intensity against wavelength; a black body gives a continuous spectrum, while the atoms of a hot, low-density gas give lines at certain wavelengths only.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "wien-s-displacement-law",
+    "term": "Wien's displacement law",
+    "definition": "The peak wavelength of a black body's spectrum is inversely proportional to its absolute temperature, $\\lambda_\\text{max} T = 2.9 \\times 10^{-3}\\ \\text{m K}$, so hotter bodies peak at shorter wavelengths.",
+    "lesson": "2.4"
+  }
+]

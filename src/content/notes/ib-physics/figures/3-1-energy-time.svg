@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 240" role="img" aria-labelledby="t">
+<title id="t">Graph of energy E against time t for one complete oscillation of period T, for an oscillator released from rest at maximum displacement at t = 0. A horizontal straight line at the top is the total energy, constant. The potential energy curve, dashed, starts at the total energy, falls to zero at T/4, rises back to the total at T/2, falls to zero at 3T/4 and returns to the total at T. The kinetic energy curve, solid, does the opposite: it starts at zero, peaks at the total energy at T/4 and 3T/4, and is zero at T/2 and T. At every moment the two curves add up to the total energy. Each energy goes through two full cycles in one period T.</title>
+<path d="M50 200 L50 26" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="50,18 46,28 54,28" fill="currentColor"/>
+<path d="M50 190 L392 190" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="400,190 390,186 390,194" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="58" y="22" fill="currentColor" text-anchor="start">E / J</text>
+<text font-family="inherit" font-size="12" x="400" y="208" fill="currentColor" text-anchor="end">t / s</text>
+<text font-family="inherit" font-size="11" x="44" y="194" fill="currentColor" text-anchor="end">0</text>
+<path d="M120 190 L120 195 M190 190 L190 195 M260 190 L260 195 M330 190 L330 195" fill="none" stroke="currentColor" stroke-width="1"/>
+<text font-family="inherit" font-size="11" x="120" y="208" fill="currentColor" text-anchor="middle">T/4</text>
+<text font-family="inherit" font-size="11" x="190" y="208" fill="currentColor" text-anchor="middle">T/2</text>
+<text font-family="inherit" font-size="11" x="260" y="208" fill="currentColor" text-anchor="middle">3T/4</text>
+<text font-family="inherit" font-size="11" x="330" y="208" fill="currentColor" text-anchor="middle">T</text>
+<path d="M50 50 L340 50" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="346" y="54" fill="currentColor" text-anchor="start">total</text>
+<path d="M50.0 50.0 L54.0 51.1 L58.0 54.5 L62.0 59.9 L66.0 67.3 L70.0 76.4 L74.0 86.8 L78.0 98.4 L82.0 110.6 L86.0 123.1 L90.0 135.6 L94.0 147.5 L98.0 158.6 L102.0 168.4 L106.0 176.6 L110.0 183.1 L114.0 187.5 L118.0 189.7 L122.0 189.7 L126.0 187.5 L130.0 183.1 L134.0 176.6 L138.0 168.4 L142.0 158.6 L146.0 147.5 L150.0 135.6 L154.0 123.1 L158.0 110.6 L162.0 98.4 L166.0 86.8 L170.0 76.4 L174.0 67.3 L178.0 59.9 L182.0 54.5 L186.0 51.1 L190.0 50.0 L194.0 51.1 L198.0 54.5 L202.0 59.9 L206.0 67.3 L210.0 76.4 L214.0 86.8 L218.0 98.4 L222.0 110.6 L226.0 123.1 L230.0 135.6 L234.0 147.5 L238.0 158.6 L242.0 168.4 L246.0 176.6 L250.0 183.1 L254.0 187.5 L258.0 189.7 L262.0 189.7 L266.0 187.5 L270.0 183.1 L274.0 176.6 L278.0 168.4 L282.0 158.6 L286.0 147.5 L290.0 135.6 L294.0 123.1 L298.0 110.6 L302.0 98.4 L306.0 86.8 L310.0 76.4 L314.0 67.3 L318.0 59.9 L322.0 54.5 L326.0 51.1 L330.0 50.0" fill="none" stroke="var(--t3-ink)" stroke-width="2.2" stroke-dasharray="6 4"/>
+<path d="M50.0 190.0 L54.0 188.9 L58.0 185.5 L62.0 180.1 L66.0 172.7 L70.0 163.6 L74.0 153.2 L78.0 141.6 L82.0 129.4 L86.0 116.9 L90.0 104.4 L94.0 92.5 L98.0 81.4 L102.0 71.6 L106.0 63.4 L110.0 56.9 L114.0 52.5 L118.0 50.3 L122.0 50.3 L126.0 52.5 L130.0 56.9 L134.0 63.4 L138.0 71.6 L142.0 81.4 L146.0 92.5 L150.0 104.4 L154.0 116.9 L158.0 129.4 L162.0 141.6 L166.0 153.2 L170.0 163.6 L174.0 172.7 L178.0 180.1 L182.0 185.5 L186.0 188.9 L190.0 190.0 L194.0 188.9 L198.0 185.5 L202.0 180.1 L206.0 172.7 L210.0 163.6 L214.0 153.2 L218.0 141.6 L222.0 129.4 L226.0 116.9 L230.0 104.4 L234.0 92.5 L238.0 81.4 L242.0 71.6 L246.0 63.4 L250.0 56.9 L254.0 52.5 L258.0 50.3 L262.0 50.3 L266.0 52.5 L270.0 56.9 L274.0 63.4 L278.0 71.6 L282.0 81.4 L286.0 92.5 L290.0 104.4 L294.0 116.9 L298.0 129.4 L302.0 141.6 L306.0 153.2 L310.0 163.6 L314.0 172.7 L318.0 180.1 L322.0 185.5 L326.0 188.9 L330.0 190.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<path d="M346 84 L366 84" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<text font-family="inherit" font-size="12" x="370" y="88" fill="var(--t1-ink)" text-anchor="start">kinetic</text>
+<path d="M346 106 L366 106" fill="none" stroke="var(--t3-ink)" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text font-family="inherit" font-size="12" x="370" y="110" fill="var(--t3-ink)" text-anchor="start">potential</text>
+</svg>

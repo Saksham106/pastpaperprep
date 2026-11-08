@@ -1,0 +1,883 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.9",
+  "slug": "the-doppler-effect",
+  "title": "The Doppler effect",
+  "level": "SL",
+  "topic": 3,
+  "summary": "When a source of [[wave|waves]] and an observer move towards each other, the observed [[frequency|frequency]] rises; when they move apart, it falls. This is the [[doppler-effect|Doppler effect]]. For light, $\\frac{\\Delta f}{f} = \\frac{\\Delta\\lambda}{\\lambda} \\approx \\frac{v}{c}$, so the [[redshift|redshift]] of [[spectral-line|spectral lines]] tells astronomers how fast stars and galaxies move.",
+  "goals": [
+    {
+      "text": "Describe the Doppler effect for sound and light, and why for sound it matters which one moves.",
+      "bullets": [
+        "C.5-s1"
+      ]
+    },
+    {
+      "text": "Draw and interpret [[wavefront|wavefront]] diagrams for a moving source or observer.",
+      "bullets": [
+        "C.5-s2"
+      ]
+    },
+    {
+      "text": "Use $\\frac{\\Delta f}{f} = \\frac{\\Delta\\lambda}{\\lambda} \\approx \\frac{v}{c}$ to find a shift in frequency or [[wavelength|wavelength]], or a speed.",
+      "bullets": [
+        "C.5-s3"
+      ]
+    },
+    {
+      "text": "Explain how shifts in spectral lines show the motion and rotation of stars and galaxies.",
+      "bullets": [
+        "C.5-s4"
+      ]
+    },
+    {
+      "text": "Calculate the observed frequency of sound from a moving source or for a moving observer, or a speed from a frequency.",
+      "bullets": [
+        "C.5-a1"
+      ],
+      "level": "AHL"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.4",
+    "3.1",
+    "3.3",
+    "3.4",
+    "5.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Doppler shift",
+    "redshift and blueshift",
+    "moving source frequency",
+    "Doppler wavefront diagram",
+    "siren pitch change",
+    "Doppler equation for sound"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wave-speed",
+      "prompt": "A tuning fork makes a sound of [[frequency|frequency]] $\\pu{512 Hz}$ with a [[wavelength|wavelength]] of $\\pu{0.670 m}$ in air. What is the speed of the sound, in $\\text{m s}^{-1}$? Give 3 significant figures.",
+      "hint": "Use $v = f\\lambda$.",
+      "answer": {
+        "value": 343,
+        "tolerance": 0.5
+      },
+      "explain": "$v = f\\lambda = 512 \\times 0.670 = 343.04$, so $v \\approx \\pu{343 m s-1}$. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "512*0.670",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-wavefront-gap",
+      "prompt": "A source at rest sends out circular [[wavefront|wavefronts]], each one a crest. How far apart are neighbouring wavefronts?",
+      "hint": "Think about how far apart two neighbouring crests are.",
+      "options": [
+        {
+          "text": "one wavelength",
+          "correct": true
+        },
+        {
+          "text": "half a wavelength",
+          "correct": false
+        },
+        {
+          "text": "one amplitude",
+          "correct": false
+        },
+        {
+          "text": "the distance the wave travels in one second",
+          "correct": false
+        }
+      ],
+      "explain": "Neighbouring crests, and so neighbouring wavefronts, are one wavelength apart. Revise it in {{lesson:3.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "one wavelength"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-vacuum",
+      "prompt": "Which statement about sound and light is correct?",
+      "hint": "Think about what each wave needs in order to travel.",
+      "options": [
+        {
+          "text": "Light can travel through a vacuum but sound cannot.",
+          "correct": true
+        },
+        {
+          "text": "Sound can travel through a vacuum but light cannot.",
+          "correct": false
+        },
+        {
+          "text": "Both need a medium to travel through.",
+          "correct": false
+        },
+        {
+          "text": "Both travel at the same speed in air.",
+          "correct": false
+        }
+      ],
+      "explain": "Sound is a vibration of particles, so it needs a medium. Light is an [[electromagnetic-wave|electromagnetic wave]] and needs none. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Light can travel through a vacuum but sound cannot."
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "nature",
+      "heading": "What the Doppler effect is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An ambulance siren sounds higher as it comes towards you and drops in pitch the moment it passes. The siren itself plays the same note the whole time. What changes is how often the crests of the [[wave|wave]] reach your ear."
+        },
+        {
+          "type": "definition",
+          "term": "Doppler effect",
+          "statement": "The change in the observed frequency of a wave when the source and the observer move towards or away from each other. For a moving source, and for light, the observed wavelength changes too.",
+          "plain": "Coming closer raises the frequency you receive; moving apart lowers it."
+        },
+        {
+          "type": "text",
+          "text": "In the [[doppler-effect|Doppler effect]], approaching means more crests reach you each second, so the observed [[frequency|frequency]] is higher than the emitted one. Moving apart means it is lower."
+        },
+        {
+          "type": "text",
+          "text": "Only the part of the [[velocity|velocity]] along the line joining source and observer counts. Motion at right angles to that line gives no shift."
+        },
+        {
+          "type": "text",
+          "text": "Sound is a [[longitudinal-wave|longitudinal wave]] that travels at a fixed speed through the air. A moving source changes the wavelength in the air; a moving observer only changes how fast the crests sweep past. So for sound it matters which one moves."
+        },
+        {
+          "type": "text",
+          "text": "[[electromagnetic-wave|Electromagnetic waves]] need no medium, and every inertial observer measures the same [[speed-of-light|speed of light]], $c$. So for light only the relative velocity matters."
+        },
+        {
+          "type": "text",
+          "text": "Radar speed guns and medical ultrasound both use the effect: waves reflected from a moving car, or from moving blood, come back with a shifted frequency, and the shift gives the speed."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-passing-car",
+          "question": "A car sounds its horn at a steady frequency as it drives along a straight road past a person standing at the roadside. Describe and explain what the person hears.",
+          "steps": [
+            "Approach first, then moving away: wavefront spacing, wavelength, frequency."
+          ],
+          "answer": "As the car approaches, the wavefronts in front of it are closer together, so the wavelength reaching the person is shorter. More wavefronts arrive each second, so the person hears a higher frequency than the horn emits. As the car moves away, the wavefronts behind it are further apart, so the wavelength is longer. Fewer wavefronts arrive each second, so the person hears a lower frequency than the horn emits. The pitch drops quickly as the car passes, even though the horn's own frequency never changes.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "approach: bunched wavefronts, shorter wavelength, higher frequency; receding: spread out, longer wavelength, lower frequency",
+            "requires": [
+              [
+                "closer together",
+                "bunched"
+              ],
+              "shorter",
+              [
+                "higher frequency",
+                "higher pitch"
+              ],
+              [
+                "further apart",
+                "spread out"
+              ],
+              "longer",
+              [
+                "lower frequency",
+                "lower pitch"
+              ],
+              [
+                "never changes",
+                "does not change",
+                "stays the same"
+              ]
+            ],
+            "forbids": [
+              "speed of sound increases",
+              "sound travels faster",
+              "louder means higher"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-ultrasound",
+          "question": "Ultrasound of known frequency is directed at an artery, and the waves reflected from the blood are detected. Explain how this shows the direction and speed of the blood flow.",
+          "steps": [
+            "Link direction to the sign of the shift, and speed to its size."
+          ],
+          "answer": "The blood cells reflect the ultrasound while they are moving relative to the probe. Blood flowing towards the probe returns ultrasound of a higher frequency than was emitted. Blood flowing away from the probe returns ultrasound of a lower frequency. A larger frequency shift means a greater speed, so measuring the shift gives the speed of the blood.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "moving reflectors give a Doppler shift: towards higher, away lower, size gives speed",
+            "requires": [
+              "reflect",
+              [
+                "towards the probe returns ultrasound of a higher",
+                "towards the probe gives a higher"
+              ],
+              [
+                "away from the probe returns ultrasound of a lower",
+                "away from the probe gives a lower"
+              ],
+              [
+                "larger frequency shift",
+                "size of the shift"
+              ],
+              "speed"
+            ],
+            "forbids": [
+              "louder",
+              "speed of the ultrasound changes"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-band-float",
+          "prompt": "A trumpeter on a float plays a steady note while the float moves towards you. Compared with the note the trumpeter hears, what do you receive?",
+          "hint": "The source is moving. What happens to the wavefronts ahead of it?",
+          "options": [
+            {
+              "text": "a higher frequency and a shorter wavelength",
+              "correct": true
+            },
+            {
+              "text": "a higher frequency and the same wavelength",
+              "correct": false
+            },
+            {
+              "text": "the same frequency and a shorter wavelength",
+              "correct": false
+            },
+            {
+              "text": "a higher frequency, because the sound travels faster",
+              "correct": false
+            }
+          ],
+          "explain": "The wavefronts bunch up ahead of the source, so the wavelength is shorter. The sound speed is unchanged, so the frequency is higher.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a higher frequency and a shorter wavelength"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-circle-centre",
+          "prompt": "A model train goes round a circular track at constant speed, sounding a steady whistle. You stand at the centre of the circle. What do you hear?",
+          "hint": "Which way does the train move compared with the line from you to the train?",
+          "options": [
+            {
+              "text": "a constant frequency, equal to the emitted frequency",
+              "correct": true
+            },
+            {
+              "text": "a frequency that rises and falls once per lap",
+              "correct": false
+            },
+            {
+              "text": "a constant frequency, higher than the emitted frequency",
+              "correct": false
+            }
+          ],
+          "explain": "The train always moves at right angles to the line joining it to you, never towards or away, so there is no shift.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a constant frequency, equal to the emitted frequency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wavefronts",
+      "heading": "Wavefront diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[wavefront|wavefront]] joins points on the same crest. Neighbouring wavefronts are one [[wavelength|wavelength]] apart, and a new one leaves the source every period, $T = \\frac{1}{f}$."
+        },
+        {
+          "type": "text",
+          "text": "When the source moves, each wavefront still spreads out as a circle at the wave speed $v$, centred where the source was when it emitted it. The source chases its wavefronts, so they crowd together ahead and spread apart behind."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-moving-source",
+          "alt": "Five circular wavefronts from a source moving right. Each circle is centred on a small open circle where the source was when it emitted it; larger, older circles are centred further left. The source, a filled dot with an arrow pointing right, is right of all the centres. On the right the wavefronts are crowded, marked short wavelength, and observer A there receives a higher frequency. On the left they are spread out, marked long wavelength, and observer B receives a lower frequency.",
+          "caption": "A moving source. Open circles show where the source was when it emitted each wavefront. Observer A receives a shorter $\\lambda$ and higher $f$; observer B a longer $\\lambda$ and lower $f$."
+        },
+        {
+          "type": "text",
+          "text": "Here is why, with $u_\\text{s}$ for the source's speed. In one period a wavefront moves $vT$ forwards, but the source follows it by $u_\\text{s}T$. So the gap ahead is $(v - u_\\text{s})T$ and the gap behind is $(v + u_\\text{s})T$."
+        },
+        {
+          "type": "text",
+          "text": "The wave speed is unchanged, so observer A's shorter wavelength means a higher frequency, from $f = \\frac{v}{\\lambda}$."
+        },
+        {
+          "type": "text",
+          "text": "Now keep the source still and move the observer. The wavefronts are evenly spaced, so the wavelength is the same everywhere. An observer moving towards the source meets them more often than one at rest."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-moving-observer",
+          "alt": "A source at rest on the left with concentric circular wavefronts, all the same distance apart; one gap is marked lambda. An observer on the right has an arrow pointing left, towards the source. A note says the spacing is one wavelength everywhere, and the moving observer meets wavefronts more often, so hears a higher frequency.",
+          "caption": "A moving observer: same wavelength, but the wavefronts pass at a greater relative speed. Moving away gives a lower frequency."
+        },
+        {
+          "type": "example",
+          "id": "ex-ripple-dipper",
+          "question": "A dipper moves at a steady speed in a straight line across a ripple tank, making $4.0$ waves per second. A photograph from above shows the wavefronts directly ahead of the dipper are $\\pu{3.1 cm}$ apart and those directly behind it are $\\pu{4.5 cm}$ apart. Determine the speed of the dipper.",
+          "steps": [
+            "Period: $T = \\frac{1}{f} = \\frac{1}{4.0} = \\pu{0.25 s}$.",
+            "Gap ahead: $\\lambda_\\text{ahead} = (v - u_\\text{s})T$. Gap behind: $\\lambda_\\text{behind} = (v + u_\\text{s})T$.",
+            "Subtract: $\\lambda_\\text{behind} - \\lambda_\\text{ahead} = 2u_\\text{s}T$, so $u_\\text{s} = \\frac{0.045 - 0.031}{2 \\times 0.25}$ in metres.",
+            "Check: adding the gaps gives $2vT$, so $v = \\pu{0.152 m s-1}$, faster than the dipper, as it must be."
+          ],
+          "answer": "$u_\\text{s} = 0.028\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.045 - 0.031)/(2*(1/4.0))",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-cyclist-wavefronts",
+          "question": "A cyclist rides directly towards a loudspeaker that is at rest and emits a steady note. Use a wavefront diagram to explain why the cyclist hears a higher frequency, even though the wavelength in the air is unchanged.",
+          "steps": [
+            "Wavefronts first, then what the motion changes."
+          ],
+          "answer": "The loudspeaker is at rest, so its wavefronts are evenly spaced circles, one wavelength apart. The wavelength in the air is therefore the same in every direction. The cyclist moves towards the oncoming wavefronts, so the wavefronts pass the cyclist at a greater relative speed. More wavefronts reach the cyclist each second than if the cyclist were at rest. So the cyclist hears a higher frequency than the loudspeaker emits.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "evenly spaced wavefronts, same wavelength; greater relative speed; more wavefronts per second; higher frequency",
+            "requires": [
+              "evenly spaced",
+              [
+                "same in every direction",
+                "wavelength is unchanged"
+              ],
+              [
+                "greater relative speed",
+                "faster relative"
+              ],
+              [
+                "more wavefronts",
+                "more often"
+              ],
+              "higher frequency"
+            ],
+            "forbids": [
+              "wavelength is shorter",
+              "wavefronts bunch",
+              "shorter wavelength"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ahead-behind",
+          "prompt": "A sound source moves at constant velocity between two microphones at rest: P is ahead of it and Q is behind it. Which statement is correct?",
+          "hint": "Does the source's motion change how fast sound travels through the air?",
+          "options": [
+            {
+              "text": "shorter wavelength at P; same wave speed at both",
+              "correct": true
+            },
+            {
+              "text": "shorter wavelength at P; greater wave speed at P",
+              "correct": false
+            },
+            {
+              "text": "same wavelength at both; higher frequency at P",
+              "correct": false
+            },
+            {
+              "text": "longer wavelength at P; same wave speed at both",
+              "correct": false
+            }
+          ],
+          "explain": "The wavefronts bunch up ahead (P) and spread out behind (Q). The air sets the speed of sound, so it is the same at both.",
+          "verify": {
+            "kind": "choice",
+            "truth": "shorter wavelength at P; same wave speed at both"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ripple-wave-speed",
+          "prompt": "A dipper moving across a ripple tank makes $5.0$ waves per second. The wavefronts directly ahead of it are $\\pu{2.4 cm}$ apart and those directly behind are $\\pu{3.6 cm}$ apart. What is the speed of the water waves, in $\\text{m s}^{-1}$? Give 2 significant figures.",
+          "hint": "Add the two gaps: $(v - u_\\text{s})T + (v + u_\\text{s})T = 2vT$.",
+          "answer": {
+            "value": 0.15,
+            "tolerance": 0.005
+          },
+          "explain": "$T = \\frac{1}{5.0} = \\pu{0.20 s}$. $2vT = 0.024 + 0.036 = \\pu{0.060 m}$, so $v = \\frac{0.060}{2 \\times 0.20} = \\pu{0.15 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.024 + 0.036)/(2*(1/5.0))",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "light",
+      "heading": "The Doppler effect for light",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light from a source moving away arrives with a longer wavelength and lower frequency; from a source approaching, a shorter wavelength and higher frequency."
+        },
+        {
+          "type": "definition",
+          "term": "redshift",
+          "statement": "An increase in the observed wavelength, and decrease in frequency, of light from a source that is moving away from the observer.",
+          "plain": "The light is shifted towards the red, long-wavelength end of the spectrum."
+        },
+        {
+          "type": "text",
+          "text": "The opposite, a decrease in wavelength from an approaching source, is a blueshift. For a [[redshift|redshift]] or a blueshift, when the relative speed $v$ is much less than $c$, the fractional change is:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\Delta f}{f} = \\frac{\\Delta \\lambda}{\\lambda} \\approx \\frac{v}{c}",
+          "tag": "booklet",
+          "bookletId": "db-3-9"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\Delta\\lambda$ and $\\Delta f$ are the sizes of the shifts from the emitted wavelength $\\lambda$ and frequency $f$. Say the direction in words: for a source moving away the wavelength gets longer and the frequency lower (a red shift); moving closer, the reverse. $v$ is the relative speed along the line of sight. The equation, and $c = \\pu{3.00e8 m s-1}$, are in the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "It gives the size of the shift; take the direction from the motion. It only holds when $v \\ll c$: near $c$ it gives wrong answers."
+        },
+        {
+          "type": "text",
+          "text": "It also works for sound if the source or observer moves at a speed $u$ far below the speed of sound $v$: $\\frac{\\Delta f}{f} \\approx \\frac{u}{v}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-galaxy-speed",
+          "question": "In the spectrum of a distant galaxy, a hydrogen line that has a wavelength of $\\pu{486.1 nm}$ in the laboratory is observed at $\\pu{487.9 nm}$. Determine the speed of the galaxy relative to Earth.",
+          "steps": [
+            "Shift: $\\Delta\\lambda = 487.9 - 486.1 = \\pu{1.8 nm}$. The wavelength is longer, so this is a redshift: the galaxy is moving away.",
+            "Fractional shift: $\\frac{\\Delta\\lambda}{\\lambda} = \\frac{1.8}{486.1} = 3.703\\ldots \\times 10^{-3}$. The nm cancel.",
+            "$v = c\\,\\frac{\\Delta\\lambda}{\\lambda} = 3.00 \\times 10^{8} \\times 3.703\\ldots \\times 10^{-3} = 1.110\\ldots \\times 10^{6}\\text{ m s}^{-1}$.",
+            "$\\Delta\\lambda$ has 2 significant figures, so give 2. $v$ is about $0.4\\%$ of $c$, so $v \\ll c$ holds."
+          ],
+          "answer": "$v \\approx 1.1 \\times 10^{6}\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c*(487.9 - 486.1)/486.1",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-probe-radio",
+          "question": "A space probe moves directly away from Earth at $\\pu{14.2 km s-1}$ relative to Earth. It transmits radio waves of frequency $\\pu{2.30 GHz}$. Calculate the size of the frequency shift of the waves received on Earth, and state whether the received frequency is higher or lower.",
+          "steps": [
+            "Convert: $v = 14.2 \\times 10^{3}\\text{ m s}^{-1}$ and $f = 2.30 \\times 10^{9}\\text{ Hz}$. Radio waves are electromagnetic, so use $c$.",
+            "$\\Delta f = f\\,\\frac{v}{c} = \\frac{2.30 \\times 10^{9} \\times 14.2 \\times 10^{3}}{3.00 \\times 10^{8}}$.",
+            "$\\Delta f = 1.088\\ldots \\times 10^{5}\\text{ Hz}$. The probe is moving away, so the received frequency is lower by this amount."
+          ],
+          "answer": "Lower by $\\Delta f \\approx 1.09 \\times 10^{5}\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.30*10**9*14.2*10**3/c",
+            "sf": 3,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-star-approach",
+          "prompt": "A star is moving towards Earth. How do the lines in its spectrum compare with the same lines measured in a laboratory?",
+          "hint": "Approaching squeezes the waves together.",
+          "options": [
+            {
+              "text": "shifted to shorter wavelengths: a blueshift",
+              "correct": true
+            },
+            {
+              "text": "shifted to longer wavelengths: a redshift",
+              "correct": false
+            },
+            {
+              "text": "at the same wavelengths, but brighter",
+              "correct": false
+            },
+            {
+              "text": "shifted to longer wavelengths and higher frequencies",
+              "correct": false
+            }
+          ],
+          "explain": "Approaching gives shorter wavelengths, towards the blue end. A longer wavelength with a higher frequency is impossible, as $c = f\\lambda$ is fixed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "shifted to shorter wavelengths: a blueshift"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sodium-star",
+          "prompt": "A line at $\\pu{589.00 nm}$ in the laboratory is observed at $\\pu{589.45 nm}$ in the light from a star. How fast is the star moving away, in $\\text{km s}^{-1}$? Give 2 significant figures.",
+          "hint": "Find $\\Delta\\lambda$, then $v = c\\,\\frac{\\Delta\\lambda}{\\lambda}$, then convert to km s⁻¹.",
+          "answer": {
+            "value": 230,
+            "tolerance": 5
+          },
+          "explain": "$v = 3.00 \\times 10^{8} \\times \\frac{0.45}{589.00} = 2.29 \\times 10^{5}\\text{ m s}^{-1} \\approx \\pu{230 km s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "c*(589.45 - 589.00)/589.00/1000",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "astronomy",
+      "heading": "Spectral lines and moving stars",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each element emits and absorbs light only at its own set of wavelengths, its [[spectral-line|spectral lines]]. A hot, low-pressure gas gives an [[emission-spectrum|emission spectrum]] of bright lines. Cooler gas in front of a hot source absorbs the same wavelengths, giving dark lines."
+        },
+        {
+          "type": "text",
+          "text": "Each element's lines form a fixed pattern, like a fingerprint. Astronomers recognise the pattern in starlight even when it has moved, and compare each line with its laboratory wavelength."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-spectral-shift",
+          "alt": "Three spectrum strips above a wavelength axis from 400 to 700 nanometres. Top, laboratory source at rest: four lines from violet to red. Middle, galaxy moving away: the same pattern moved to longer wavelengths, labelled redshift. Bottom, star moving towards us: the same pattern moved to shorter wavelengths, labelled blueshift. Dashed guides from the laboratory lines show the shifts; the red line shifts furthest.",
+          "caption": "Shifts exaggerated. Every line moves by the same fraction $\\frac{\\Delta\\lambda}{\\lambda}$, so the longest-wavelength line moves furthest in nanometres."
+        },
+        {
+          "type": "result",
+          "statement": "A redshift means the body is moving away from us; a blueshift means it is moving towards us. $\\frac{\\Delta\\lambda}{\\lambda}$ gives the speed along the line of sight.",
+          "why": "This is the Doppler effect for light, $\\frac{\\Delta\\lambda}{\\lambda} \\approx \\frac{v}{c}$."
+        },
+        {
+          "type": "text",
+          "text": "Light from almost every distant galaxy is redshifted, so almost all of them are moving away from us."
+        },
+        {
+          "type": "text",
+          "text": "Shifts also reveal rotation. Seen edge-on, one side of a spinning star or galaxy approaches and the other recedes, so one edge is blueshifted and the other redshifted. Half the difference between the edges gives the rotation speed; their average gives the motion of the whole body."
+        },
+        {
+          "type": "text",
+          "text": "In a binary star, two stars orbit each other, so each star's lines shift back and forth with the orbital period."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-galaxy-receding",
+          "question": "Outline how the spectrum of a galaxy shows that the galaxy is moving away from Earth.",
+          "steps": [
+            "One point per sentence: identify the lines, compare with the laboratory, name the shift, conclude."
+          ],
+          "answer": "The galaxy's spectrum contains lines in the same pattern as a known element, such as hydrogen, measured in the laboratory. Each line is observed at a longer wavelength than its laboratory value. This shift towards the red end of the spectrum is a redshift. A redshift shows that the galaxy is moving away from the observer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "known pattern of lines; longer wavelength than laboratory; redshift; moving away",
+            "requires": [
+              "same pattern",
+              "laboratory",
+              "longer wavelength",
+              "redshift",
+              "moving away"
+            ],
+            "forbids": [
+              "shorter wavelength",
+              "blueshift",
+              "gets dimmer"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rotating-galaxy",
+          "question": "A spiral galaxy is seen edge-on. A hydrogen line with a laboratory wavelength of $\\pu{656.3 nm}$ is observed at $\\pu{657.4 nm}$ in light from one edge and at $\\pu{656.0 nm}$ in light from the opposite edge. Determine the speed at which the edges rotate.",
+          "steps": [
+            "Relative to the centre, one edge recedes and the other approaches at the same speed, so each is shifted by half the difference.",
+            "Half the difference: $\\Delta\\lambda = \\frac{657.4 - 656.0}{2} = \\pu{0.70 nm}$.",
+            "$v = c\\,\\frac{\\Delta\\lambda}{\\lambda} = 3.00 \\times 10^{8} \\times \\frac{0.70}{656.3} = 3.199\\ldots \\times 10^{5}\\text{ m s}^{-1}$.",
+            "The average, $\\pu{656.7 nm}$, shows the whole galaxy also recedes, at about $\\pu{1.8e5 m s-1}$; that does not affect the rotation speed."
+          ],
+          "answer": "$v \\approx 3.2 \\times 10^{5}\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c*((657.4 - 656.0)/2)/656.3",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-binary-shift",
+          "prompt": "A line in the spectrum of one star of a binary pair shifts regularly to longer and then shorter wavelengths. What causes this?",
+          "hint": "What is changing as the star goes round its orbit?",
+          "options": [
+            {
+              "text": "The star's velocity along our line of sight keeps changing as it orbits.",
+              "correct": true
+            },
+            {
+              "text": "The star's surface temperature rises and falls.",
+              "correct": false
+            },
+            {
+              "text": "The companion star absorbs some of its light.",
+              "correct": false
+            },
+            {
+              "text": "The star is moving away from us faster and faster.",
+              "correct": false
+            }
+          ],
+          "explain": "For half of each orbit the star moves partly away from us (redshift), for the other half partly towards us (blueshift).",
+          "verify": {
+            "kind": "choice",
+            "truth": "The star's velocity along our line of sight keeps changing as it orbits."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-star-rotation",
+          "prompt": "A star is seen side-on. A line at $\\pu{500.000 nm}$ in the laboratory is observed at $\\pu{500.004 nm}$ from one edge of the star and at $\\pu{499.996 nm}$ from the opposite edge. What is the rotation speed of the star's edges?",
+          "hint": "Use half the difference between the two edges.",
+          "options": [
+            {
+              "text": "$2400\\text{ m s}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$4800\\text{ m s}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$0\\text{ m s}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Half the difference is $\\pu{0.004 nm}$: $v = 3.00 \\times 10^{8} \\times \\frac{0.004}{500.000} = \\pu{2400 m s-1}$. $4800$ uses the whole difference; zero is the average, the motion of the whole star.",
+          "verify": {
+            "kind": "exact",
+            "truth": "c*((500.004 - 499.996)/2)/500.000",
+            "unit": "m s-1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sound-equations",
+      "heading": "Doppler equations for sound",
+      "level": "AHL",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At HL you calculate the observed frequency $f'$ for sound and other mechanical waves exactly. $v$ is the wave speed in the medium; $u_\\text{s}$ and $u_\\text{o}$ are the speeds of the source and the observer relative to the medium."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{moving source: } f' = f\\,\\frac{v}{v \\pm u_\\text{s}}",
+          "tag": "booklet",
+          "bookletId": "db-3-9"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{moving observer: } f' = f\\,\\frac{v \\pm u_\\text{o}}{v}",
+          "tag": "booklet",
+          "bookletId": "db-3-9"
+        },
+        {
+          "type": "text",
+          "text": "Both are in the data booklet. Choose the sign so that approaching gives a higher $f'$: $v - u_\\text{s}$ or $v + u_\\text{o}$ for approaching, $v + u_\\text{s}$ or $v - u_\\text{o}$ for receding."
+        },
+        {
+          "type": "text",
+          "text": "They come from the wavefront diagrams. Ahead of a moving source $\\lambda' = \\frac{v - u_\\text{s}}{f}$, so $f' = \\frac{v}{\\lambda'}$. A moving observer meets wavefronts $\\frac{v}{f}$ apart at relative speed $v + u_\\text{o}$."
+        },
+        {
+          "type": "text",
+          "text": "IB problems never have the source and the observer both moving. To find a speed, rearrange for $u_\\text{s}$ or $u_\\text{o}$ first."
+        },
+        {
+          "type": "example",
+          "id": "ex-train-horn",
+          "question": "A train approaches a level crossing at $\\pu{32.0 m s-1}$, sounding a horn of frequency $\\pu{480 Hz}$. The speed of sound in air is $\\pu{343 m s-1}$. Calculate the frequency heard by a person standing at the crossing as the train approaches.",
+          "steps": [
+            "The source moves and approaches, so use the minus sign: $f' = f\\,\\frac{v}{v - u_\\text{s}}$.",
+            "$f' = 480 \\times \\frac{343}{343 - 32.0} = 480 \\times \\frac{343}{311}$.",
+            "$f' = 529.3\\ldots\\text{ Hz}$, higher than $\\pu{480 Hz}$, as it should be.",
+            "After it passes: $f' = 480 \\times \\frac{343}{343 + 32.0} = \\pu{439 Hz}$."
+          ],
+          "answer": "$f' \\approx 529\\text{ Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "480*343/(343 - 32.0)",
+            "sf": 3,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-speed",
+          "question": "A cyclist rides in a straight line directly away from a siren at rest, which emits sound of frequency $\\pu{920 Hz}$. The cyclist hears a frequency of $\\pu{885 Hz}$. The speed of sound in air is $\\pu{343 m s-1}$. Determine the speed of the cyclist.",
+          "steps": [
+            "The observer moves away, so use $f' = f\\,\\frac{v - u_\\text{o}}{v}$. A lower $f'$ confirms the cyclist is moving away.",
+            "Rearrange: $\\frac{f'}{f} = 1 - \\frac{u_\\text{o}}{v}$, so $u_\\text{o} = v\\left(1 - \\frac{f'}{f}\\right)$.",
+            "$u_\\text{o} = 343 \\times \\left(1 - \\frac{885}{920}\\right) = 343 \\times \\frac{35}{920} = 13.04\\ldots\\text{ m s}^{-1}$.",
+            "The moving-source equation would give $\\pu{13.6 m s-1}$: close, but it earns no marks."
+          ],
+          "answer": "$u_\\text{o} \\approx 13.0\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "343*(1 - 885/920)",
+            "sf": 3,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ambulance-away",
+          "prompt": "An ambulance drives directly away from you at $\\pu{25.0 m s-1}$. Its siren emits $\\pu{710 Hz}$ and the speed of sound is $\\pu{343 m s-1}$. What frequency do you hear, in Hz? Give 3 significant figures.",
+          "hint": "The source is moving away, so the denominator is $v + u_\\text{s}$.",
+          "answer": {
+            "value": 662,
+            "tolerance": 0.5
+          },
+          "explain": "$f' = 710 \\times \\frac{343}{343 + 25.0} = 710 \\times \\frac{343}{368} = 661.8 \\approx \\pu{662 Hz}$, lower than $\\pu{710 Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "710*343/(343 + 25.0)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-observer-eighth",
+          "prompt": "An observer moves directly towards a sound source at rest, at one-eighth of the speed of sound. The source emits frequency $f$. What frequency does the observer hear?",
+          "hint": "The observer moves, so use $f' = f\\,\\frac{v \\pm u_\\text{o}}{v}$ with $u_\\text{o} = \\frac{v}{8}$.",
+          "options": [
+            {
+              "text": "$\\frac{9}{8}f$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{8}{7}f$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7}{8}f$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{8}{9}f$",
+              "correct": false
+            }
+          ],
+          "explain": "$f' = f\\,\\frac{v + v/8}{v} = \\frac{9}{8}f$. $\\frac{8}{7}f$ uses the moving-source equation; $\\frac{7}{8}f$ the receding sign.",
+          "verify": {
+            "kind": "expression",
+            "truth": "Rational(9, 8)*f"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Doppler effect: relative motion along the line joining source and observer changes the observed frequency. Approaching gives a higher frequency, moving apart a lower one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Moving source: wavefronts bunch up ahead and spread out behind. Moving observer: same wavelength, met more or less often.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sound: it matters which one moves. Light: only the relative velocity matters.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\Delta f}{f} = \\frac{\\Delta \\lambda}{\\lambda} \\approx \\frac{v}{c} \\quad (v \\ll c)",
+          "tag": "booklet",
+          "bookletId": "db-3-9",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Redshift (longer wavelength): moving away. Blueshift (shorter wavelength): moving towards. Every line shifts by the same fraction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rotation: one edge redshifted, the other blueshifted; half the difference gives the rotation speed.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "HL: $f' = f\\,\\frac{v}{v \\pm u_\\text{s}}$ (moving source) and $f' = f\\,\\frac{v \\pm u_\\text{o}}{v}$ (moving observer). Choose the sign so that approaching raises $f'$.",
+          "tag": "booklet",
+          "cheatSheet": true,
+          "level": "AHL"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing that the source's frequency changes. It emits the same frequency; only the received frequency changes.",
+    "Saying a moving observer receives a shorter wavelength, or that a moving source changes the speed of sound. A moving observer meets wavefronts more or less often; a moving source changes the wavelength.",
+    "Using observed $\\div$ emitted wavelength as $\\frac{v}{c}$. Subtract first: $\\Delta\\lambda$ is observed minus emitted.",
+    "HL: using the moving-source equation for a moving observer, or the wrong sign. Approaching must give a higher frequency."
+  ],
+  "examTips": [
+    "\"Explain\" a Doppler change: wavefront spacing (or how often wavefronts arrive), then wavelength, then frequency, one point per sentence.",
+    "\"Determine\" a star's speed: show $\\Delta\\lambda$, then $v = c\\,\\frac{\\Delta\\lambda}{\\lambda}$ with its unit, and state towards (blueshift) or away (redshift).",
+    "In Paper 1A, constant velocity straight towards the observer gives a constant observed frequency, not a rising one.",
+    "HL \"calculate\": write the equation with your chosen sign, substitute, and check that approaching gave a higher frequency."
+  ],
+  "readingMinutes": 31
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240" role="img" aria-labelledby="t">
+<title id="t">A straight horizontal line marked in metres from minus 1 to 10, with the origin O at 0 and an arrow showing that the positive direction is to the right. A person starts at P, position plus 2 metres, walks right to Q at plus 8 metres, then turns and walks back left to R at plus 5 metres. Arrows above the line show the two legs, labelled 6 metres and 3 metres, so the distance travelled is 9 metres. A thin arrow from O to R shows the position of R, plus 5 metres. Below the line, a single arrow from P to R shows the displacement, plus 3 metres.</title>
+<text font-family="inherit" font-size="12" x="260" y="24" fill="var(--t1-ink)" text-anchor="middle">distance travelled = 6 m + 3 m = 9 m</text>
+<path d="M20 150 L486 150" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="495,150 486,154.5 486,145.5" fill="currentColor"/>
+<text font-family="inherit" font-size="14" x="495" y="140" fill="currentColor" text-anchor="end">+</text>
+<text font-family="inherit" font-size="12" x="500" y="172" fill="currentColor" text-anchor="end">x / m</text>
+<path d="M20 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M60 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="60" y="170" fill="currentColor" text-anchor="middle">0</text>
+<path d="M100 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M140 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="140" y="170" fill="currentColor" text-anchor="middle">2</text>
+<path d="M180 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M220 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="220" y="170" fill="currentColor" text-anchor="middle">4</text>
+<path d="M260 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M300 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="300" y="170" fill="currentColor" text-anchor="middle">6</text>
+<path d="M340 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M380 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="380" y="170" fill="currentColor" text-anchor="middle">8</text>
+<path d="M420 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<path d="M460 145 V155" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="11" x="460" y="170" fill="currentColor" text-anchor="middle">10</text>
+<text font-family="inherit" font-size="11" x="60" y="186" fill="currentColor" text-anchor="middle">origin O</text>
+<circle cx="140" cy="150" r="5" fill="currentColor"/>
+<circle cx="380" cy="150" r="5" fill="currentColor"/>
+<circle cx="260" cy="150" r="5" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="140" y="140" fill="currentColor" text-anchor="middle">P (start)</text>
+<text font-family="inherit" font-size="11" x="388" y="140" fill="currentColor" text-anchor="middle">Q (turns)</text>
+<text font-family="inherit" font-size="11" x="278" y="140" fill="currentColor" text-anchor="middle">R (end)</text>
+<path d="M140 62 L371 62" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="380,62 371,66.5 371,57.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="260.0" y="54" fill="var(--t1-ink)" text-anchor="middle">6 m</text>
+<path d="M380 86 L269 86" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="260,86 269,90.5 269,81.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="320.0" y="80" fill="var(--t1-ink)" text-anchor="middle">3 m</text>
+<path d="M380 62 Q394 74 380 86" fill="none" stroke="var(--t1-ink)" stroke-width="1.2" stroke-dasharray="3 3"/>
+<path d="M60 116 L251 116" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/>
+<polygon points="260,116 251,120.5 251,111.5" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="64" y="110" fill="var(--t3-ink)" text-anchor="start">position of R = +5 m</text>
+<path d="M140 208 L251 208" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="260,208 251,212.5 251,203.5" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="200.0" y="228" fill="var(--t2-ink)" text-anchor="middle">displacement P to R = +3 m</text>
+</svg>

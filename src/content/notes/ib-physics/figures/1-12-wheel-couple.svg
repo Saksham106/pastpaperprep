@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" role="img" aria-labelledby="t112wc">
+  <title id="t112wc">A steering wheel seen face-on, turning about its centre. A hand on the right of the rim pushes up with force F. A hand on the left of the rim pulls down with an equal force F. The two forces are parallel and opposite, and their lines of action are a distance d apart, the diameter of the wheel. A curved arrow at the centre shows the wheel turning anticlockwise. Notes beside the wheel read: resultant force zero, resultant torque F d, anticlockwise.</title>
+  <defs>
+    <marker id="m112wc-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m112wc-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m112wc-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+    </marker>
+  </defs>
+
+  <!-- wheel -->
+  <circle cx="170" cy="140" r="90" fill="none" stroke="currentColor" stroke-width="5"/>
+  <line x1="80" y1="140" x2="260" y2="140" stroke="var(--muted)" stroke-width="2"/>
+  <circle cx="170" cy="140" r="5" fill="currentColor"/>
+
+  <!-- forces -->
+  <line x1="260" y1="140" x2="260" y2="62" stroke="var(--t1-ink)" stroke-width="2.6" marker-end="url(#m112wc-f)"/>
+  <text x="270" y="72" font-size="14" fill="var(--t1-ink)" font-family="inherit" font-style="italic">F</text>
+  <line x1="80" y1="140" x2="80" y2="218" stroke="var(--t1-ink)" stroke-width="2.6" marker-end="url(#m112wc-f)"/>
+  <text x="66" y="216" font-size="14" fill="var(--t1-ink)" font-family="inherit" font-style="italic" text-anchor="end">F</text>
+
+  <!-- sense -->
+  <path d="M200 140 A30 30 0 1 0 170 170" fill="none" stroke="var(--t3-ink)" stroke-width="1.8" marker-end="url(#m112wc-s)"/>
+
+  <!-- d between lines of action -->
+  <line x1="80" y1="262" x2="260" y2="262" stroke="var(--muted)" stroke-width="1.1" marker-start="url(#m112wc-dim)" marker-end="url(#m112wc-dim)"/>
+  <line x1="80" y1="226" x2="80" y2="272" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="260" y1="148" x2="260" y2="272" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="170" y="286" font-size="13" fill="var(--muted)" font-family="inherit" font-style="italic" text-anchor="middle">d</text>
+
+  <!-- notes -->
+  <g font-size="12" font-family="inherit">
+    <text x="300" y="120" fill="currentColor">resultant force = 0</text>
+    <text x="300" y="142" fill="var(--t3-ink)">resultant torque = Fd,</text>
+    <text x="300" y="160" fill="var(--t3-ink)">anticlockwise</text>
+  </g>
+</svg>

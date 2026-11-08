@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" role="img" aria-labelledby="t">
+  <title id="t">The electromagnetic spectrum drawn as a horizontal band, with wavelength in metres on a scale where each mark is a hundred times the last, from 10 to the minus 14 on the left to 10 to the 4 on the right. From left to right the regions are: gamma rays, about 10 to the minus 12 metres and shorter; X-rays, about 10 to the minus 10 metres; ultraviolet, about 10 to the minus 8 metres; a narrow visible band from 400 to 700 nanometres; infrared, about 10 to the minus 5 metres; microwaves, about 10 to the minus 2 metres; and radio waves, about 1 metre and longer. An arrow along the top points left, labelled frequency increases; an arrow along the bottom points right, labelled wavelength increases.</title>
+  <rect x="30.0" y="70" width="90.0" height="40" fill="var(--t5-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="75.0" y="94.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">gamma</text>
+  <rect x="120.0" y="70" width="90.0" height="40" fill="var(--t4-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="165.0" y="94.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">X-rays</text>
+  <rect x="210.0" y="70" width="48.1" height="40" fill="var(--t3-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="234.0" y="94.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">UV</text>
+  <rect x="258.1" y="70" width="7.3" height="40" fill="var(--t2-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <rect x="265.4" y="70" width="94.6" height="40" fill="var(--t1-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="312.7" y="94.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">infrared</text>
+  <rect x="360.0" y="70" width="60.0" height="40" fill="var(--t2-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="390.0" y="94.0" font-size="10" fill="currentColor" font-family="inherit" text-anchor="middle">microwaves</text>
+  <rect x="420.0" y="70" width="150.0" height="40" fill="var(--t3-ink)" fill-opacity="0.22" stroke="currentColor" stroke-width="1"/>
+  <text x="495.0" y="94.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">radio waves</text>
+  <path d="M261.7 70.0 L261.7 52.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="261.7" y="46.0" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">visible: 400–700 nm</text>
+  <path d="M30.0 110.0 L30.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="30.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−14</tspan></text>
+  <path d="M90.0 110.0 L90.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="90.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−12</tspan></text>
+  <path d="M150.0 110.0 L150.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="150.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−10</tspan></text>
+  <path d="M210.0 110.0 L210.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="210.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−8</tspan></text>
+  <path d="M270.0 110.0 L270.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="270.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−6</tspan></text>
+  <path d="M330.0 110.0 L330.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="330.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−4</tspan></text>
+  <path d="M390.0 110.0 L390.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="390.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">−2</tspan></text>
+  <path d="M450.0 110.0 L450.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="450.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">0</tspan></text>
+  <path d="M510.0 110.0 L510.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="510.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">2</tspan></text>
+  <path d="M570.0 110.0 L570.0 116.0" fill="none" stroke="currentColor" stroke-width="1"/>
+  <text x="570.0" y="130" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">10<tspan dy="-5" font-size="8">4</tspan></text>
+  <text x="570.0" y="148.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="end">wavelength / m</text>
+  <path d="M450.0 22.0 L90.0 22.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+  <polygon points="90.0,22.0 96.2,18.7 96.2,25.3" fill="var(--muted)"/>
+  <text x="96.0" y="16.0" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="start">frequency increases</text>
+  <path d="M70.0 178.0 L410.0 178.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+  <polygon points="410.0,178.0 403.8,181.3 403.8,174.7" fill="var(--muted)"/>
+  <text x="70.0" y="194.0" font-size="11" fill="var(--muted)" font-family="inherit" text-anchor="start">wavelength increases</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-labelledby="t">
+<title id="t">Graph of force F in newtons against extension x in metres for a spring. From the origin the graph is a straight line. A small right-angled triangle drawn under the straight part shows that its gradient is the spring constant k. At a point labelled limit of proportionality the line ends, and beyond it the graph curves and becomes less steep.</title>
+<path d="M50.0 230.0 L373.0 230.0" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="380.0,230.0 373.0,234.5 373.0,225.5" fill="currentColor"/>
+<path d="M50.0 230.0 L50.0 29.0" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="50.0,22.0 54.5,29.0 45.5,29.0" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="380.0" y="250.0" fill="currentColor" text-anchor="end">extension x / m</text>
+<text font-family="inherit" font-size="12" x="58.0" y="28.0" fill="currentColor" text-anchor="start">force F / N</text>
+<path d="M50 230 L230 95" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<path d="M230 95 Q275 61 360 48" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<circle cx="230" cy="95" r="4" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="236.0" y="112.0" fill="var(--t3-ink)" text-anchor="start">limit of proportionality</text>
+<path d="M90 200 H170 V140" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text font-family="inherit" font-size="12" x="176.0" y="178.0" fill="var(--muted)" text-anchor="start">gradient = k</text>
+</svg>

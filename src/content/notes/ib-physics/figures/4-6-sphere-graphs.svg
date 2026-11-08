@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 260" role="img" aria-labelledby="t46sp">
+  <title id="t46sp">Two graphs for a positively charged conducting sphere of radius R, solid or hollow, against distance r from its centre. Left: electric potential V. From the centre out to r equals R the line is horizontal at the value k Q over R, so the potential is constant inside. Beyond R it falls along the curve k Q over r, approaching zero far away. Right: electric field strength E. It is zero from the centre out to R, jumps to k Q over R squared at the surface, then falls along the curve k Q over r squared, approaching zero. The flat potential inside goes with the zero field inside.</title>
+  <defs>
+    <marker id="m46sp-ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.3" fill="none">
+    <line x1="50" y1="210" x2="290" y2="210" marker-end="url(#m46sp-ax)"/>
+    <line x1="50" y1="210" x2="50" y2="30" marker-end="url(#m46sp-ax)"/>
+    <line x1="350" y1="210" x2="590" y2="210" marker-end="url(#m46sp-ax)"/>
+    <line x1="350" y1="210" x2="350" y2="30" marker-end="url(#m46sp-ax)"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none">
+    <line x1="110" y1="60" x2="110" y2="210"/>
+    <line x1="410" y1="60" x2="410" y2="210"/>
+    <line x1="350" y1="60" x2="410" y2="60"/>
+  </g>
+  <g stroke="var(--t5-ink)" stroke-width="2.2" fill="none">
+    <line x1="50" y1="60" x2="110" y2="60"/>
+    <path d="M110.0,60.0 L114.2,69.9 L118.5,78.6 L122.8,86.3 L127.0,93.1 L131.2,99.2 L135.5,104.7 L139.8,109.7 L144.0,114.3 L148.2,118.4 L152.5,122.2 L156.8,125.7 L161.0,128.9 L165.2,131.9 L169.5,134.7 L173.8,137.3 L178.0,139.7 L182.2,141.9 L186.5,144.1 L190.8,146.1 L195.0,147.9 L199.2,149.7 L203.5,151.4 L207.8,152.9 L212.0,154.4 L216.2,155.9 L220.5,157.2 L224.8,158.5 L229.0,159.7 L233.2,160.9 L237.5,162.0 L241.8,163.1 L246.0,164.1 L250.2,165.1 L254.5,166.0 L258.8,166.9 L263.0,167.7 L267.2,168.6 L271.5,169.4 L275.8,170.1 L280.0,170.9"/>
+    <line x1="350" y1="209" x2="410" y2="209"/>
+    <path d="M410.0,60.0 L414.2,79.2 L418.5,94.9 L422.8,108.0 L427.0,118.9 L431.2,128.2 L435.5,136.1 L439.8,143.0 L444.0,148.9 L448.2,154.1 L452.5,158.6 L456.8,162.6 L461.0,166.2 L465.2,169.3 L469.5,172.2 L473.8,174.7 L478.0,177.0 L482.2,179.1 L486.5,181.0 L490.8,182.7 L495.0,184.3 L499.2,185.8 L503.5,187.1 L507.8,188.3 L512.0,189.4 L516.2,190.5 L520.5,191.4 L524.8,192.3 L529.0,193.1 L533.2,193.9 L537.5,194.6 L541.8,195.3 L546.0,195.9 L550.2,196.5 L554.5,197.1 L558.8,197.6 L563.0,198.1 L567.2,198.6 L571.5,199.0 L575.8,199.4 L580.0,199.8"/>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="38" y="36" text-anchor="end" font-style="italic">V</text>
+    <text x="292" y="228" font-style="italic">r</text>
+    <text x="110" y="226" text-anchor="middle" font-style="italic">R</text>
+    <text x="50" y="226" text-anchor="middle">0</text>
+    <text x="44" y="64" text-anchor="end">kQ/R</text>
+    <text x="80" y="52" text-anchor="middle" font-size="11" fill="var(--muted)">inside</text>
+    <text x="190" y="140" font-size="11" fill="var(--muted)">kQ/r</text>
+    <text x="170" y="250" text-anchor="middle">potential V</text>
+    <text x="338" y="36" text-anchor="end" font-style="italic">E</text>
+    <text x="592" y="228" font-style="italic">r</text>
+    <text x="410" y="226" text-anchor="middle" font-style="italic">R</text>
+    <text x="350" y="226" text-anchor="middle">0</text>
+    <text x="344" y="64" text-anchor="end">kQ/R²</text>
+    <text x="380" y="200" text-anchor="middle" font-size="11" fill="var(--muted)">E = 0</text>
+    <text x="470" y="140" font-size="11" fill="var(--muted)">kQ/r²</text>
+    <text x="470" y="250" text-anchor="middle">field strength E</text>
+  </g>
+</svg>

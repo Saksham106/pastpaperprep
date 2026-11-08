@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 260" role="img" aria-labelledby="t59sp">
+  <title id="t59sp">Two graphs side by side, each of number of particles against kinetic energy. Left, alpha particles from one nuclide: two narrow vertical lines, a taller one at 6.05 MeV and a shorter one at 5.76 MeV, with nothing in between. This is a line spectrum. Right, beta-minus particles from one nuclide: a smooth hump that starts at zero energy, rises to a peak at low energy, about a fifth of the maximum energy, then falls to zero at the maximum kinetic energy, E max. This is a continuous spectrum.</title>
+  <defs>
+    <marker id="m59sp-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="40" y1="210" x2="40" y2="20" marker-end="url(#m59sp-head)"/>
+    <line x1="40" y1="210" x2="250" y2="210" marker-end="url(#m59sp-head)"/>
+    <line x1="300" y1="210" x2="300" y2="20" marker-end="url(#m59sp-head)"/>
+    <line x1="300" y1="210" x2="520" y2="210" marker-end="url(#m59sp-head)"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="4"><line x1="120" y1="210" x2="120" y2="140"/><line x1="200" y1="210" x2="200" y2="50"/></g>
+  <path d="M300.0,210.0 L301.9,158.6 L303.8,138.8 L305.7,124.6 L307.6,113.4 L309.5,104.2 L311.4,96.6 L313.3,90.1 L315.2,84.5 L317.1,79.8 L319.0,75.8 L320.9,72.3 L322.8,69.4 L324.7,67.0 L326.6,65.0 L328.5,63.4 L330.4,62.1 L332.3,61.1 L334.2,60.5 L336.1,60.1 L338.0,60.0 L339.9,60.1 L341.8,60.4 L343.7,61.0 L345.6,61.7 L347.5,62.6 L349.4,63.7 L351.3,64.9 L353.2,66.2 L355.1,67.7 L357.0,69.3 L358.9,71.1 L360.8,72.9 L362.7,74.9 L364.6,76.9 L366.5,79.0 L368.4,81.2 L370.3,83.5 L372.2,85.8 L374.1,88.2 L376.0,90.7 L377.9,93.2 L379.8,95.7 L381.7,98.3 L383.6,101.0 L385.5,103.7 L387.4,106.4 L389.3,109.1 L391.2,111.8 L393.1,114.6 L395.0,117.4 L396.9,120.1 L398.8,122.9 L400.7,125.7 L402.6,128.5 L404.5,131.3 L406.4,134.1 L408.3,136.8 L410.2,139.6 L412.1,142.3 L414.0,145.0 L415.9,147.7 L417.8,150.4 L419.7,153.1 L421.6,155.7 L423.5,158.2 L425.4,160.8 L427.3,163.3 L429.2,165.7 L431.1,168.2 L433.0,170.5 L434.9,172.9 L436.8,175.1 L438.7,177.4 L440.6,179.5 L442.5,181.6 L444.4,183.7 L446.3,185.7 L448.2,187.6 L450.1,189.5 L452.0,191.3 L453.9,193.0 L455.8,194.6 L457.7,196.2 L459.6,197.7 L461.5,199.1 L463.4,200.5 L465.3,201.7 L467.2,202.9 L469.1,204.0 L471.0,205.0 L472.9,206.0 L474.8,206.8 L476.7,207.5 L478.6,208.2 L480.5,208.7 L482.4,209.2 L484.3,209.5 L486.2,209.8 L488.1,209.9 L490.0,210.0" fill="var(--t2-ink)" fill-opacity="0.2" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="145" y="16" text-anchor="middle">alpha particles: line spectrum</text>
+    <text x="410" y="16" text-anchor="middle">beta particles: continuous spectrum</text>
+    <text x="120" y="226" text-anchor="middle">5.76</text>
+    <text x="200" y="226" text-anchor="middle">6.05</text>
+    <text x="145" y="248" text-anchor="middle">kinetic energy / MeV</text>
+    <text x="300" y="226" text-anchor="middle">0</text>
+    <text x="490" y="226" text-anchor="middle">E max</text>
+    <text x="410" y="248" text-anchor="middle">kinetic energy</text>
+    <text x="30" y="120" text-anchor="middle" transform="rotate(-90 30 120)">number of particles</text>
+    <text x="290" y="120" text-anchor="middle" transform="rotate(-90 290 120)">number of particles</text>
+  </g>
+</svg>

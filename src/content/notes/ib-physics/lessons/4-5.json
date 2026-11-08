@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.5",
+  "slug": "electric-and-magnetic-field-lines",
+  "title": "Electric and magnetic field lines",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Every [[electric-charge|electric charge]] sets up an [[electric-field|electric field]], a region where other charges feel an [[electric-force|electric force]]. The [[electric-field-strength|electric field strength]] $E = \\frac{F}{q}$ is the force per coulomb. Field lines show its direction, and their spacing shows its strength. Magnets and currents set up [[magnetic-field|magnetic fields]], drawn the same way.",
+  "goals": [
+    {
+      "text": "Use $E = \\frac{F}{q}$ to find a field strength, or the force on a charge and its direction.",
+      "bullets": [
+        "D.2-s6"
+      ]
+    },
+    {
+      "text": "Sketch and interpret [[electric-field-line|electric field lines]] for point charges, a charged conducting sphere and two charges.",
+      "bullets": [
+        "D.2-s7"
+      ]
+    },
+    {
+      "text": "Compare field strengths from line spacing, and use $E = \\frac{kQ}{r^{2}}$ for a point charge.",
+      "bullets": [
+        "D.2-s8",
+        "D.2-s6"
+      ]
+    },
+    {
+      "text": "Use $E = \\frac{V}{d}$ for the [[uniform-electric-field|uniform electric field]] between parallel plates, and describe the edge effects.",
+      "bullets": [
+        "D.2-s9"
+      ]
+    },
+    {
+      "text": "Sketch and interpret [[magnetic-field-line|magnetic field lines]] for a bar magnet, a wire, a coil and a solenoid, and find the field direction round a wire.",
+      "bullets": [
+        "D.2-s10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "2.12",
+    "4.4",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "electric field strength",
+    "E = F/q",
+    "electric field lines",
+    "field between parallel plates",
+    "E = V/d",
+    "magnetic field of a solenoid"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-coulomb-force",
+      "prompt": "Two small charged spheres carry $+\\pu{3.0 nC}$ and $-\\pu{5.0 nC}$, with centres $\\pu{0.20 m}$ apart. Use [[coulomb-s-law|Coulomb's law]] to find the size of the force between them, in micronewtons. Give 2 significant figures.",
+      "hint": "Use $F = \\frac{kq_1q_2}{r^{2}}$ with $k = \\pu{8.99e9 N m2 C-2}$, and charges in coulombs.",
+      "answer": {
+        "value": 3.4,
+        "tolerance": 0.05
+      },
+      "explain": "$F = \\frac{8.99 \\times 10^{9} \\times 3.0 \\times 10^{-9} \\times 5.0 \\times 10^{-9}}{0.20^{2}} = 3.37 \\times 10^{-6}\\ \\text{N} \\approx 3.4\\ \\mu\\text{N}$, attractive. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "k_e*3.0e-9*5.0e-9/0.20**2*10**6",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-energy-pd",
+      "prompt": "A charge of $\\pu{0.50 C}$ moves through a [[potential-difference|potential difference]] of $\\pu{9.0 V}$. How much energy is transferred, in joules? Give 2 significant figures.",
+      "hint": "One volt is one joule per coulomb, so $W = qV$.",
+      "answer": {
+        "value": 4.5,
+        "tolerance": 0.05
+      },
+      "explain": "$W = qV = 0.50 \\times 9.0 = \\pu{4.5 J}$. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.50*9.0",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-vector",
+      "prompt": "Which of these is a [[vector|vector]] quantity?",
+      "hint": "A vector has a direction as well as a size.",
+      "options": [
+        {
+          "text": "force",
+          "correct": true
+        },
+        {
+          "text": "energy",
+          "correct": false
+        },
+        {
+          "text": "mass",
+          "correct": false
+        },
+        {
+          "text": "charge",
+          "correct": false
+        }
+      ],
+      "explain": "Force has a direction, so it is a vector. Energy, mass and charge have a size only. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "force"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "field-strength",
+      "heading": "Electric field strength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two charges push or pull each other without touching. We describe this with a field: a charge changes the space around it, and any other charge placed in that space feels a force."
+        },
+        {
+          "type": "definition",
+          "term": "electric field",
+          "statement": "A region of space in which a charge experiences an electric force.",
+          "plain": "The space around a charged object where other charges get pushed or pulled."
+        },
+        {
+          "type": "text",
+          "text": "To measure the field at a point, imagine a small positive [[test-charge|test charge]] $q$ there and find the force $F$ on it. It is small so that it doesn't disturb the charges making the field."
+        },
+        {
+          "type": "definition",
+          "term": "electric field strength",
+          "statement": "The electric force per unit charge on a small positive test charge placed at that point.",
+          "plain": "How many newtons of force each coulomb of positive charge would feel there."
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{F}{q}",
+          "tag": "booklet",
+          "bookletId": "db-4-5"
+        },
+        {
+          "type": "text",
+          "text": "$E$ is measured in newtons per coulomb, $\\text{N C}^{-1}$. It is a [[vector|vector]]: its direction is the direction of the force on a positive charge."
+        },
+        {
+          "type": "text",
+          "text": "$E = \\frac{F}{q}$ is in section D.2 of the data booklet. So is every constant in this lesson that a question doesn't give, such as $e$ and $k$."
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, $F = qE$. A positive charge is pushed along the field. A negative charge, such as an electron, is pushed the opposite way."
+        },
+        {
+          "type": "example",
+          "id": "ex-dust-grain-field",
+          "question": "A dust grain carrying a charge of $+\\pu{2.5 nC}$ is in an electric field. It feels an electric force of $\\pu{7.0e-4 N}$ due east. Calculate the electric field strength where the grain is, and state its direction.",
+          "steps": [
+            "Use $E = \\frac{F}{q}$ with the charge in coulombs: $\\pu{2.5 nC} = 2.5 \\times 10^{-9}\\ \\text{C}$.",
+            "$E = \\frac{7.0 \\times 10^{-4}}{2.5 \\times 10^{-9}} = 2.8 \\times 10^{5}\\ \\text{N C}^{-1}$.",
+            "The grain is positive, so the field points the same way as the force: due east."
+          ],
+          "answer": "$E \\approx 2.8 \\times 10^{5}\\ \\text{N C}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "7.0e-4/(2.5e-9)",
+            "sf": 2,
+            "unit": "N C-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-electron-force",
+          "question": "In an electron gun, the electric field is uniform, with strength $\\pu{3.5e4 N C-1}$, and points vertically downwards. Taking upwards as positive, calculate the force on an electron in this field.",
+          "steps": [
+            "Upwards is positive, so the field is $E = -3.5 \\times 10^{4}\\ \\text{N C}^{-1}$.",
+            "The electron's charge is $q = -e = -1.60 \\times 10^{-19}\\ \\text{C}$, from the data booklet.",
+            "$F = qE = (-1.60 \\times 10^{-19}) \\times (-3.5 \\times 10^{4}) = +5.6 \\times 10^{-15}\\ \\text{N}$.",
+            "The positive sign means the force is upwards, opposite to the field, as it must be for a negative charge."
+          ],
+          "answer": "$F \\approx +5.6 \\times 10^{-15}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(-e)*(-3.5e4)",
+            "sf": 2,
+            "unit": "N",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-field-from-force",
+          "prompt": "A small sphere with a charge of $+6.0\\ \\mu\\text{C}$ feels a force of $\\pu{0.12 N}$ in an electric field. What is the electric field strength, in $\\text{N C}^{-1}$? Give 2 significant figures.",
+          "hint": "Convert microcoulombs to coulombs first: $1\\ \\mu\\text{C} = 10^{-6}\\ \\text{C}$.",
+          "answer": {
+            "value": 20000,
+            "tolerance": 500
+          },
+          "explain": "$E = \\frac{F}{q} = \\frac{0.12}{6.0 \\times 10^{-6}} = 2.0 \\times 10^{4}\\ \\text{N C}^{-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.12/(6.0*10**-6)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-proton-electron",
+          "prompt": "A proton and then an electron are placed at the same point in an electric field. How do the electric forces on them compare?",
+          "hint": "Both carry a charge of size $e$. Use $F = qE$.",
+          "options": [
+            {
+              "text": "equal in size, opposite directions",
+              "correct": true
+            },
+            {
+              "text": "equal in size, same direction",
+              "correct": false
+            },
+            {
+              "text": "larger on the electron",
+              "correct": false
+            },
+            {
+              "text": "larger on the proton",
+              "correct": false
+            }
+          ],
+          "explain": "$F = qE$ depends on charge, not mass. The charges are equal in size but opposite in sign.",
+          "verify": {
+            "kind": "choice",
+            "truth": "equal in size, opposite directions"
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-lines",
+      "heading": "Field lines and field strength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A field line is a way of drawing a field. Put a small positive charge anywhere on a line, and the force on it acts along the line, in the direction of the arrow."
+        },
+        {
+          "type": "definition",
+          "term": "electric field line",
+          "statement": "A line whose direction at every point is the direction of the force on a small positive test charge placed there.",
+          "plain": "A path showing which way a positive charge would be pushed."
+        },
+        {
+          "type": "text",
+          "text": "Four rules for drawing them:"
+        },
+        {
+          "type": "text",
+          "text": "1. Lines start on positive charges and end on negative charges, or run to or from infinity."
+        },
+        {
+          "type": "text",
+          "text": "2. Lines never cross. A crossing would give the field two directions at one point."
+        },
+        {
+          "type": "text",
+          "text": "3. Lines meet the surface of a conductor at right angles, once its charges have stopped moving."
+        },
+        {
+          "type": "text",
+          "text": "4. The number of lines drawn from a charge is proportional to its size."
+        },
+        {
+          "type": "result",
+          "statement": "The density of field lines shows the field strength: where the lines are closer together, the field is stronger.",
+          "why": "More lines through each square metre means a larger force on a test charge there."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-point-charges",
+          "alt": "Three field-line diagrams. Left: a positive point charge with twelve straight field lines pointing radially outwards, spreading apart further away. Middle: a negative point charge with twelve straight field lines pointing radially inwards. Right: a positively charged conducting sphere. Its charge sits on the surface, the field lines start on the surface and point radially outwards at right angles to it, and the label inside the sphere says E equals 0.",
+          "caption": "Radial fields. Inside the conducting sphere, $E = 0$."
+        },
+        {
+          "type": "text",
+          "text": "Around a point charge the field is radial: straight lines out from a positive charge, or in towards a negative one. The lines spread apart further out, so the field weakens."
+        },
+        {
+          "type": "text",
+          "text": "Combine [[coulomb-s-law|Coulomb's law]], $F = \\frac{kQq}{r^{2}}$, with $E = \\frac{F}{q}$. The test charge $q$ cancels, which leaves the field a distance $r$ from a point charge $Q$:"
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{kQ}{r^{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is an inverse square law: at three times the distance, the field is $\\frac{1}{9}$ as strong."
+        },
+        {
+          "type": "text",
+          "text": "An isolated charged conducting sphere holds its charge on its surface. Outside, its field is the same as a point charge at its centre, so measure $r$ from the centre."
+        },
+        {
+          "type": "text",
+          "text": "Inside a conductor, once the charges stop moving, $E = 0$. Any field would push the free electrons until it vanished. So no lines are drawn inside."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-radial",
+          "question": "Explain, by reference to field lines, why the electric field of an isolated point charge gets weaker further from the charge.",
+          "steps": [
+            "One marking point per sentence: radial lines, spreading apart, density shows strength, so weaker."
+          ],
+          "answer": "The field lines around a point charge are radial. As the distance from the charge increases, the lines spread further apart. The density of the field lines represents the field strength. So the field strength decreases with distance from the charge.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "radial lines spread out; lower line density means a weaker field",
+            "requires": [
+              "radial",
+              [
+                "spread further apart",
+                "further apart",
+                "spread out"
+              ],
+              [
+                "density",
+                "closer together"
+              ],
+              [
+                "field strength decreases",
+                "weaker"
+              ]
+            ],
+            "forbids": [
+              "lines cross",
+              "charge is used up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sphere-field",
+          "question": "A metal sphere of radius $\\pu{15 cm}$, on an insulating stand, carries a charge of $+\\pu{40 nC}$. Determine the electric field strength at a point $\\pu{25 cm}$ from the centre of the sphere.",
+          "steps": [
+            "Outside the sphere, treat its charge as a point charge at the centre, so $r = \\pu{0.25 m}$, not the distance from the surface.",
+            "$E = \\frac{kQ}{r^{2}} = \\frac{8.99 \\times 10^{9} \\times 40 \\times 10^{-9}}{0.25^{2}} = \\frac{359.6}{0.0625}$.",
+            "$E = 5754\\ \\text{N C}^{-1}$, directed radially away from the sphere because its charge is positive."
+          ],
+          "answer": "$E \\approx 5.8 \\times 10^{3}\\ \\text{N C}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "k_e*40e-9/0.25**2",
+            "sf": 2,
+            "unit": "N C-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-triple-distance",
+          "prompt": "The electric field strength at $\\pu{2.0 cm}$ from a point charge is $E_1$, and at $\\pu{6.0 cm}$ it is $E_2$. What is the ratio $\\frac{E_2}{E_1}$?",
+          "hint": "The field follows an inverse square law, and the distance has tripled.",
+          "options": [
+            {
+              "text": "$\\frac{1}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "$E \\propto \\frac{1}{r^{2}}$, so $\\frac{E_2}{E_1} = \\left(\\frac{2.0}{6.0}\\right)^{2} = \\frac{1}{9}$. $\\frac{1}{3}$ forgets to square the distance.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2.0/6.0)**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inside-sphere",
+          "prompt": "A hollow metal sphere carries a positive charge. What is the electric field at the centre of the sphere?",
+          "hint": "Think about what the free electrons in a conductor do while there is a field inside it.",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "the same strength as just outside the surface",
+              "correct": false
+            },
+            {
+              "text": "stronger than just outside the surface",
+              "correct": false
+            }
+          ],
+          "explain": "Inside a conductor at rest $E = 0$, even in a hollow one. The charge sits on the outer surface.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-charges",
+      "heading": "Fields of two charges",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When two charges are near each other, the field at any point is the vector sum of their separate fields."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-charge-pairs",
+          "alt": "Two field-line diagrams for point charges of equal size. Left: a positive and a negative charge. Field lines leave the positive charge, curve across and end on the negative charge; the lines are most crowded on the straight line between them. Right: two positive charges. Field lines leave both charges and bend away from each other. Midway between the charges there is a gap with no lines, marked N for neutral point, where the field is zero.",
+          "caption": "Unlike charges (left) and like charges with a neutral point N (right)."
+        },
+        {
+          "type": "text",
+          "text": "Between unlike charges, both fields point from the positive charge towards the negative one. They add, so the lines crowd together there."
+        },
+        {
+          "type": "text",
+          "text": "Between like charges, the fields point in opposite directions and cancel at one point. This neutral point has $E = 0$, and no line passes through it."
+        },
+        {
+          "type": "text",
+          "text": "A larger charge gets more lines and a stronger field, so the neutral point is closer to the smaller charge."
+        },
+        {
+          "type": "result",
+          "statement": "At the neutral point between like charges $Q_1$ and $Q_2$, a distance $d$ apart, the two fields are equal in size: $\\frac{kQ_1}{x^{2}} = \\frac{kQ_2}{(d - x)^{2}}$, where $x$ is the distance from $Q_1$.",
+          "why": "Opposite fields cancel only where their sizes match."
+        },
+        {
+          "type": "example",
+          "id": "ex-neutral-point",
+          "question": "Two small spheres carry charges of $+\\pu{2.0 nC}$ and $+\\pu{8.0 nC}$. Their centres are $\\pu{0.36 m}$ apart. Calculate the distance from the $+\\pu{2.0 nC}$ charge to the point between them where the electric field is zero.",
+          "steps": [
+            "Between like charges the fields are opposite, so $E = 0$ where they are equal in size.",
+            "$\\frac{k \\times 2.0 \\times 10^{-9}}{x^{2}} = \\frac{k \\times 8.0 \\times 10^{-9}}{(0.36 - x)^{2}}$, so $k$ and $10^{-9}$ cancel.",
+            "Take square roots: $\\frac{0.36 - x}{x} = \\sqrt{\\frac{8.0}{2.0}} = 2$.",
+            "$0.36 - x = 2x$, so $3x = 0.36$ and $x = 0.12$ m.",
+            "Sense check: the neutral point is nearer the smaller charge, as it should be."
+          ],
+          "answer": "$x = 0.12\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.36/(1 + sqrt(8.0/2.0))",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-unlike",
+          "question": "Two point charges, $+Q$ and $-Q$, are fixed a short distance apart. Explain why there is no point on the straight line between them where the electric field is zero.",
+          "steps": [
+            "Give each field's direction between the charges, then combine them."
+          ],
+          "answer": "Between the charges, the field of the positive charge points away from it, towards the negative charge. The field of the negative charge points towards the negative charge, so it is in the same direction. The two fields therefore add instead of cancelling. So the resultant field between the charges is never zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both fields point from + towards - between the charges, so they add and cannot cancel",
+            "requires": [
+              "points away from",
+              [
+                "towards the negative charge"
+              ],
+              "same direction",
+              [
+                "add",
+                "adds"
+              ],
+              [
+                "never zero",
+                "cannot be zero"
+              ]
+            ],
+            "forbids": [
+              "opposite directions between",
+              "neutral point between them"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutral-numeric",
+          "prompt": "Charges of $+1.0\\ \\mu\\text{C}$ and $+9.0\\ \\mu\\text{C}$ are $\\pu{40 cm}$ apart. How far from the $+1.0\\ \\mu\\text{C}$ charge is the neutral point between them, in centimetres? Give 2 significant figures.",
+          "hint": "Set the two fields equal and take square roots: $\\frac{40 - x}{x} = \\sqrt{9.0}$.",
+          "answer": {
+            "value": 10,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{40 - x}{x} = 3$, so $40 = 4x$ and $x = \\pu{10 cm}$, nearer the smaller charge.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "40/(1 + sqrt(9.0/1.0))",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-line-count",
+          "prompt": "A sketch shows the field lines of two positive charges, $+q$ and $+4q$. Which feature must it have?",
+          "hint": "Line count follows charge size.",
+          "options": [
+            {
+              "text": "more lines on the larger charge, neutral point nearer the smaller",
+              "correct": true
+            },
+            {
+              "text": "more lines on the larger charge, neutral point nearer the larger",
+              "correct": false
+            },
+            {
+              "text": "equal lines on each, neutral point midway",
+              "correct": false
+            }
+          ],
+          "explain": "$+4q$ gets four times as many lines, and its stronger field balances that of $+q$ closer to $+q$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "more lines on the larger charge, neutral point nearer the smaller"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallel-plates",
+      "heading": "The uniform field between parallel plates",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Connect two flat metal plates to a power supply and they become charged, one positive and one negative. Between them the field lines are straight, parallel and equally spaced, pointing from the positive plate to the negative plate."
+        },
+        {
+          "type": "definition",
+          "term": "uniform electric field",
+          "statement": "A field whose strength and direction are the same at every point.",
+          "plain": "Parallel, evenly spaced lines: a charge feels the same force anywhere in it."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-parallel-plates",
+          "alt": "Two horizontal parallel plates a distance d apart, the top plate positive and the bottom plate negative. Between the plates, away from the ends, the field lines are straight, parallel, equally spaced and point straight down from the positive plate to the negative plate. Near each end of the plates the lines bulge outwards in curves and are further apart, showing a weaker, non-uniform field. These are the edge effects.",
+          "caption": "Uniform in the middle; edge effects at the ends."
+        },
+        {
+          "type": "text",
+          "text": "For plates a distance $d$ apart, with a [[potential-difference|potential difference]] $V$ between them, the field strength is:"
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{V}{d}",
+          "tag": "booklet",
+          "bookletId": "db-4-5"
+        },
+        {
+          "type": "text",
+          "text": "So $E$ can also be given in volts per metre, and $1\\ \\text{V m}^{-1} = 1\\ \\text{N C}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Near the ends of the plates the lines bow outwards. These edge effects mean $E = \\frac{V}{d}$ only holds well inside the plates, away from the edges."
+        },
+        {
+          "type": "example",
+          "id": "ex-plate-field",
+          "question": "Two parallel plates are $\\pu{4.0 mm}$ apart, with a potential difference of $\\pu{1.2 kV}$ across them. Calculate the electric field strength between the plates.",
+          "steps": [
+            "Convert to SI units: $d = 4.0 \\times 10^{-3}\\ \\text{m}$ and $V = 1200\\ \\text{V}$.",
+            "$E = \\frac{V}{d} = \\frac{1200}{4.0 \\times 10^{-3}} = 3.0 \\times 10^{5}\\ \\text{V m}^{-1}$.",
+            "This is the field anywhere between the plates, away from the edges. It points from the positive plate to the negative plate."
+          ],
+          "answer": "$E \\approx 3.0 \\times 10^{5}\\ \\text{V m}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.2e3/(4.0e-3)",
+            "sf": 2,
+            "unit": "V m-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-oil-drop",
+          "question": "A charged oil drop of mass $\\pu{3.2e-15 kg}$ is held stationary between two horizontal plates $\\pu{6.0 mm}$ apart. The upper plate is positive, and the potential difference between the plates is $\\pu{392 V}$. Determine the size of the charge on the drop.",
+          "steps": [
+            "The drop is stationary, so the upward electric force balances its weight: $qE = mg$.",
+            "$E = \\frac{V}{d} = \\frac{392}{6.0 \\times 10^{-3}} = 6.53 \\times 10^{4}\\ \\text{V m}^{-1}$.",
+            "$q = \\frac{mg}{E} = \\frac{3.2 \\times 10^{-15} \\times 9.8}{6.53 \\times 10^{4}} = 4.8 \\times 10^{-19}\\ \\text{C}$. Keep the unrounded $E$ in your calculator.",
+            "The force is up, towards the positive plate, so the drop is negative. Its charge is $3e$: three extra electrons."
+          ],
+          "answer": "$q \\approx 4.8 \\times 10^{-19}\\ \\text{C}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.2e-15*g*6.0e-3/392",
+            "sf": 2,
+            "unit": "C"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-gap",
+          "prompt": "The separation of two parallel plates is doubled, while the potential difference across them stays the same. What happens to the electric field strength between them?",
+          "hint": "Look at where $d$ appears in $E = \\frac{V}{d}$.",
+          "options": [
+            {
+              "text": "it halves",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it falls to a quarter",
+              "correct": false
+            }
+          ],
+          "explain": "$E = \\frac{V}{d}$, so doubling $d$ halves $E$. The inverse square law is for point charges, not plates.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it halves"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plate-numeric",
+          "prompt": "A potential difference of $\\pu{60 V}$ is applied across two parallel plates $\\pu{2.5 cm}$ apart. What is the field strength between them, in $\\text{V m}^{-1}$? Give 2 significant figures.",
+          "hint": "Convert the separation to metres first.",
+          "answer": {
+            "value": 2400,
+            "tolerance": 50
+          },
+          "explain": "$E = \\frac{V}{d} = \\frac{60}{0.025} = 2.4 \\times 10^{3}\\ \\text{V m}^{-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "60/0.025",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnetic-lines",
+      "heading": "Magnetic field lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Magnets and currents have a different kind of field around them, which turns a compass needle."
+        },
+        {
+          "type": "definition",
+          "term": "magnetic field",
+          "statement": "A region in which a magnet, a magnetic material, or a moving charge or current experiences a force.",
+          "plain": "The space around a magnet or a current where a compass needle is turned."
+        },
+        {
+          "type": "definition",
+          "term": "magnetic field line",
+          "statement": "A line whose direction at each point is the direction of the force on a north pole placed there.",
+          "plain": "The way a small compass needle would point."
+        },
+        {
+          "type": "text",
+          "text": "Like electric field lines, they never cross, and closer lines mean a stronger field. Outside a magnet they run from its north pole to its south pole."
+        },
+        {
+          "type": "text",
+          "text": "Unlike electric field lines, they have no ends. They carry on through the magnet from south to north, forming closed loops."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-magnet-wire",
+          "alt": "Left: field lines around a bar magnet, north pole on the right and south pole on the left. The lines leave the north pole, curve round outside the magnet and enter the south pole. They are crowded near the poles and spread out further away. Right: a straight wire seen end on, drawn as a circle with a dot because the current flows out of the page. The field lines are circles centred on the wire, with arrows going anticlockwise. The gaps between neighbouring circles get bigger further from the wire.",
+          "caption": "A bar magnet, and a wire with current out of the page."
+        },
+        {
+          "type": "text",
+          "text": "Round a long straight wire carrying a current, the lines are circles centred on the wire. They spread out further away, where the field is weaker."
+        },
+        {
+          "type": "text",
+          "text": "To find their direction, use the right-hand grip rule. Point the thumb of your right hand along the conventional current, and your fingers curl the way the field lines go."
+        },
+        {
+          "type": "text",
+          "text": "In diagrams, $\\odot$ means current coming out of the page towards you, and $\\otimes$ means current going into the page. For current out of the page, the lines go anticlockwise."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-coil-solenoid",
+          "alt": "Left: a flat circular coil cut through along its axis, so it shows as two wire ends: the top one has a dot (current out of the page) and the bottom one a cross (current into the page). Field lines loop round each wire end, and through the middle of the coil they run nearly straight and point to the right. Right: a solenoid cut through along its axis, with a row of dots along the top and a row of crosses along the bottom. Inside, the field lines are straight, parallel, equally spaced and point to the right. Outside they spread out and loop back from the right-hand end to the left-hand end, like a bar magnet's field. The right-hand end is labelled N and the left-hand end S.",
+          "caption": "Inside the coil and the solenoid, the fields of the wires add along the axis."
+        },
+        {
+          "type": "text",
+          "text": "In a flat circular coil, the lines circle the wire close to it. Through the middle they all point the same way, so the field there is strong."
+        },
+        {
+          "type": "text",
+          "text": "A solenoid is a long coil. Inside, away from the ends, the lines are straight, parallel and equally spaced, so the field is uniform. Outside, it looks like a bar magnet's field, with lines leaving the north end."
+        },
+        {
+          "type": "text",
+          "text": "To find the north end, curl the fingers of your right hand the way the current flows round the turns. Your thumb then points to the north end."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-direction",
+          "question": "A long straight wire runs vertically and carries a current upwards. A small compass sits on a horizontal table due east of the wire. Determine the direction of the magnetic field at the compass due to the current.",
+          "steps": [
+            "Thumb along the current, then look down from above: the current comes towards you.",
+            "Find which way an anticlockwise circle heads at its east side."
+          ],
+          "answer": "Using the right-hand grip rule, the thumb points upwards along the current. Seen from above, the fingers curl anticlockwise round the wire. At a point due east of the wire, an anticlockwise circle is heading north. So the magnetic field at the compass points north.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "right-hand grip rule: anticlockwise seen from above, so north at the east side",
+            "requires": [
+              [
+                "right-hand grip rule",
+                "right hand"
+              ],
+              [
+                "thumb points upwards",
+                "thumb along the current"
+              ],
+              "anticlockwise",
+              "north"
+            ],
+            "forbids": [
+              "field points south",
+              "points east",
+              "points west",
+              "left hand"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-solenoid-pattern",
+          "question": "Describe the magnetic field pattern of a long solenoid carrying a steady current, inside and outside the solenoid.",
+          "steps": [
+            "Inside: shape and spacing of the lines. Outside: compare with a familiar pattern."
+          ],
+          "answer": "Inside the solenoid, the field lines are straight, parallel and equally spaced, so the field is uniform along most of its length. The field inside is strong because the fields of all the turns add together. Outside, the field is much weaker, and the lines spread out like the field of a bar magnet. The lines form closed loops, leaving the north end and entering the south end.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "uniform field inside (straight, parallel, equally spaced); bar-magnet pattern outside; closed loops",
+            "requires": [
+              "straight",
+              "parallel",
+              [
+                "equally spaced",
+                "evenly spaced"
+              ],
+              "uniform",
+              "bar magnet",
+              [
+                "closed loops",
+                "loop"
+              ]
+            ],
+            "forbids": [
+              "field inside is zero",
+              "lines cross"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-into-page",
+          "prompt": "A long straight wire carries a current into the page. Which way do the magnetic field lines around it go, as seen on the page?",
+          "hint": "Point your right thumb into the page and look at how your fingers curl.",
+          "options": [
+            {
+              "text": "clockwise",
+              "correct": true
+            },
+            {
+              "text": "anticlockwise",
+              "correct": false
+            },
+            {
+              "text": "radially outwards from the wire",
+              "correct": false
+            },
+            {
+              "text": "parallel to the wire",
+              "correct": false
+            }
+          ],
+          "explain": "With your thumb pointing into the page, your fingers curl clockwise.",
+          "verify": {
+            "kind": "choice",
+            "truth": "clockwise"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-closed-loops",
+          "prompt": "Which statement is true of magnetic field lines but not of electric field lines?",
+          "hint": "Think about where each kind of line starts and ends.",
+          "options": [
+            {
+              "text": "They always form closed loops.",
+              "correct": true
+            },
+            {
+              "text": "They never cross.",
+              "correct": false
+            },
+            {
+              "text": "Their spacing shows the strength of the field.",
+              "correct": false
+            },
+            {
+              "text": "They point the way a positive charge is pushed.",
+              "correct": false
+            }
+          ],
+          "explain": "Electric field lines start and end on charges. Magnetic field lines have no ends. Both never cross and both show strength by spacing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "They always form closed loops."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E = \\frac{F}{q}",
+          "tag": "booklet",
+          "bookletId": "db-4-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electric field strength is the force per unit charge on a small positive test charge. It is a vector, in $\\text{N C}^{-1}$ or $\\text{V m}^{-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{kQ}{r^{2}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electric field lines start on $+$, end on $-$ (or run to or from infinity), never cross and meet conductors at right angles. Closer lines mean a stronger field.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Inside a conductor whose charges are at rest, $E = 0$. Outside an isolated charged conducting sphere, treat its charge as a point charge at the centre.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Between like charges there is a neutral point, closer to the smaller charge. Between unlike charges there is none (if their sizes differ, one lies outside them, beyond the smaller charge).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{V}{d}",
+          "tag": "booklet",
+          "bookletId": "db-4-5",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Between parallel plates the field is uniform: the same size and direction everywhere, except near the edges.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Magnetic field lines run from N to S outside a magnet and form closed loops. Right-hand grip rule: thumb along the current, fingers show the field.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Ignoring direction. $E$ is a vector, and a negative charge is pushed against it.",
+    "Using $\\frac{1}{r}$ instead of $\\frac{1}{r^{2}}$ for a point charge. Tripling the distance cuts $E$ to $\\frac{1}{9}$, not $\\frac{1}{3}$.",
+    "Measuring $r$ from the surface of a charged sphere. Use the distance from its centre.",
+    "Drawing field lines that cross, stop in mid-air, or have no arrows.",
+    "Using $E = \\frac{V}{d}$ with $d$ in millimetres, or near the edges of the plates where the field is not uniform.",
+    "Getting the grip rule backwards. Use your right hand, with the thumb along the conventional current."
+  ],
+  "examTips": [
+    "Asked what electric field strength is? Give both marking points: force per unit charge, on a small positive test charge.",
+    "\"Sketch\" field lines: arrows on every line, more lines on the larger charge, right angles at conductors, and spacing that shows strength. For plates, show the edge effects.",
+    "In a Paper 1A question, reason with ratios: double $d$ and $E$ halves; triple $r$ and a point charge's $E$ falls to $\\frac{1}{9}$.",
+    "\"Determine the direction\" round a wire: name the right-hand grip rule, then give the direction in the question's terms."
+  ],
+  "readingMinutes": 30
+}

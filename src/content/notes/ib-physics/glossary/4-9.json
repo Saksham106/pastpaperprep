@@ -1,0 +1,32 @@
+[
+  {
+    "id": "magnetic-flux",
+    "term": "magnetic flux",
+    "definition": "How much magnetic field passes through an area, $\\Phi = BA\\cos\\theta$ with $\\theta$ measured between the field and the normal to the area, in webers ($\\pu{1 Wb} = \\pu{1 T m2}$).",
+    "lesson": "4.9"
+  },
+  {
+    "id": "induced-emf",
+    "term": "induced emf",
+    "definition": "An emf produced in a conductor when the magnetic flux linked with it changes; Faraday's law gives its size and Lenz's law its direction.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "faraday-s-law",
+    "term": "Faraday's law",
+    "definition": "The size of an induced emf equals the rate of change of flux linkage, $\\varepsilon = N\\frac{\\Delta\\Phi}{\\Delta t}$, where $N$ is the number of turns.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "lenz-s-law",
+    "term": "Lenz's law",
+    "definition": "An induced emf acts in the direction that makes its current oppose the change in flux causing it, a consequence of conservation of energy.",
+    "lesson": "4.9"
+  },
+  {
+    "id": "motional-emf",
+    "term": "motional emf",
+    "definition": "The emf $\\varepsilon = BvL$ induced between the ends of a straight conductor of length $L$ moving at speed $v$ in a uniform magnetic field $B$, when the conductor, its velocity and the field are all at right angles to each other.",
+    "lesson": "4.9"
+  }
+]

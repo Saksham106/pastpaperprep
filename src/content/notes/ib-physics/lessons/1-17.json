@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.17",
+  "slug": "time-dilation-length-contraction-and-simultaneity",
+  "title": "Time dilation, length contraction and simultaneity",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A clock moving relative to you runs slow, and a moving object is shorter along its motion: [[time-dilation|time dilation]], $\\Delta t = \\gamma\\Delta t_0$, and [[length-contraction|length contraction]], $L = \\frac{L_0}{\\gamma}$. Observers in relative motion can also disagree about whether two separated events happen at the same time: [[simultaneity|simultaneity]] depends on the frame.",
+  "goals": [
+    {
+      "text": "Identify which observer measures the [[proper-time-interval|proper time interval]] between two events and the [[proper-length|proper length]] of an object.",
+      "bullets": [
+        "A.5-a9"
+      ]
+    },
+    {
+      "text": "Use $\\Delta t = \\gamma\\Delta t_0$ to find a dilated time interval or a proper time interval.",
+      "bullets": [
+        "A.5-a9",
+        "A.5-a10"
+      ]
+    },
+    {
+      "text": "Use $L = \\frac{L_0}{\\gamma}$ to find a contracted length, and say which lengths contract.",
+      "bullets": [
+        "A.5-a9",
+        "A.5-a11"
+      ]
+    },
+    {
+      "text": "Explain why two events that are simultaneous in one frame need not be simultaneous in another, and find which happens first.",
+      "bullets": [
+        "A.5-a12"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.15",
+    "1.16",
+    "3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "moving clocks run slow",
+    "proper time",
+    "proper length",
+    "length contraction formula",
+    "relativity of simultaneity",
+    "time dilation calculation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-inertial-frame",
+      "prompt": "Which of these describes an [[inertial-reference-frame|inertial reference frame]]?",
+      "hint": "Think about what Newton's first law needs.",
+      "options": [
+        {
+          "text": "a frame that is not accelerating",
+          "correct": true
+        },
+        {
+          "text": "a frame at rest relative to the Earth",
+          "correct": false
+        },
+        {
+          "text": "a frame moving in a circle at constant speed",
+          "correct": false
+        }
+      ],
+      "explain": "An inertial frame has zero acceleration, so it moves at constant [[velocity|velocity]]. It need not be at rest, and circular motion is accelerated. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a frame that is not accelerating"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gamma-030",
+      "prompt": "Calculate the [[lorentz-factor|Lorentz factor]] $\\gamma$ for a [[speed|speed]] of $0.30c$. Give 3 significant figures.",
+      "hint": "$\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^2}{c^2}}}$, and here $\\frac{v}{c} = 0.30$.",
+      "answer": {
+        "value": 1.05,
+        "tolerance": 0.005
+      },
+      "explain": "$\\gamma = \\frac{1}{\\sqrt{1 - 0.30^2}} = \\frac{1}{\\sqrt{0.91}} = 1.048 \\approx 1.05$. Revise it in {{lesson:1.16}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1/sqrt(1 - 0.30**2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-light-postulate",
+      "prompt": "An astronaut flies towards a lamp at a high constant speed. What speed does she measure for the lamp's light?",
+      "hint": "Use the second postulate of special relativity.",
+      "options": [
+        {
+          "text": "the same as when she is at rest",
+          "correct": true
+        },
+        {
+          "text": "faster than when she is at rest",
+          "correct": false
+        },
+        {
+          "text": "slower than when she is at rest",
+          "correct": false
+        }
+      ],
+      "explain": "The [[speed-of-light|speed of light]] in a vacuum is $c$ for every inertial observer, whatever the motion of the source or observer. Revise it in {{lesson:1.16}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the same as when she is at rest"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "proper",
+      "heading": "Proper time and proper length",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In special relativity, observers in different [[inertial-reference-frame|inertial reference frames]] can measure different times between the same two events, and different lengths for the same object. So say whose measurement you mean."
+        },
+        {
+          "type": "text",
+          "text": "For a pair of events, one frame is often special: the frame where both happen at the same place. There, one clock at that place can time both. This frame exists when something slower than light could be present at both events."
+        },
+        {
+          "type": "definition",
+          "term": "proper time interval",
+          "statement": "The time between two events measured in the inertial reference frame in which both events happen at the same place. Symbol $\\Delta t_0$.",
+          "plain": "The time shown by one clock that is present at both events."
+        },
+        {
+          "type": "definition",
+          "term": "proper length",
+          "statement": "The length of an object measured in the inertial reference frame in which the object is at rest. Symbol $L_0$.",
+          "plain": "The length you measure with a ruler that travels with the object."
+        },
+        {
+          "type": "result",
+          "statement": "The [[proper-time-interval|proper time interval]] is the shortest interval any inertial observer measures between the two events. The [[proper-length|proper length]] is the longest length any inertial observer measures.",
+          "why": "The next two sections multiply $\\Delta t_0$ by $\\gamma$ and divide $L_0$ by $\\gamma$, and $\\gamma \\ge 1$."
+        },
+        {
+          "type": "text",
+          "text": "This is not always the observer who seems to be moving. Find the frame where the two events share a position."
+        },
+        {
+          "type": "example",
+          "id": "ex-proper-train-tea",
+          "question": "A high-speed train passes through a station at constant [[velocity|velocity]]. A passenger in her seat pours a cup of tea. Identify who measures the proper time interval for the pouring, and who measures the proper length of the platform. Explain your answers.",
+          "steps": [
+            "The events are the start and end of pouring. Find the frame where both are at the same place.",
+            "For the platform, find the frame where it is at rest.",
+            "Say what the other observer measures: longer time, shorter length."
+          ],
+          "answer": "Both events happen at the same place in the train's frame: at the passenger's seat. So the passenger measures the proper time interval, with one clock present at both events. In the station's frame the events happen at different places, so a platform observer measures a longer interval. The platform is at rest in the station's frame, so a platform observer measures its proper length; the passenger measures it shorter.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pouring events at the same place in the train frame so the passenger measures proper time; platform at rest in the station frame so a platform observer measures its proper length",
+            "requires": [
+              "same place",
+              "train's frame",
+              "passenger measures the proper time interval",
+              "different places",
+              "at rest in the station's frame",
+              "proper length"
+            ],
+            "forbids": [
+              "platform measures the proper time interval",
+              "passenger measures the proper length"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-proper-probe-stations",
+          "question": "A probe leaves space station D and travels at constant velocity to space station A, which is at rest relative to D. Explain why a clock on the probe, and not the clocks on the stations, measures the proper time interval between the probe leaving D and the probe arriving at A.",
+          "steps": [
+            "Locate both events in the probe's frame, then in the stations' frame, and compare."
+          ],
+          "answer": "In the probe's frame the probe is at rest, and both events happen at the same place: at the probe. So a single clock on the probe times both events and measures the proper time interval. In the stations' frame the events happen at different places, so they need two synchronised clocks. That interval is longer, by the factor $\\gamma$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "probe at rest in its own frame, both events at the probe so one clock times them: proper time; in the stations' frame the events are at different places, timed by two clocks, interval longer",
+            "requires": [
+              "probe is at rest",
+              "same place",
+              "single clock",
+              "proper time interval",
+              "different places",
+              "longer"
+            ],
+            "forbids": [
+              "stations measure the proper time interval",
+              "shorter, by the factor"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-proper-time-guard",
+          "prompt": "A guard on a platform starts a stopwatch as the front of a fast train passes her, and stops it as the back passes her. Who measures the proper time interval between these two events?",
+          "hint": "Where does each event happen in the guard's frame?",
+          "options": [
+            {
+              "text": "the guard on the platform",
+              "correct": true
+            },
+            {
+              "text": "a passenger at the front of the train",
+              "correct": false
+            },
+            {
+              "text": "a passenger at the back of the train",
+              "correct": false
+            }
+          ],
+          "explain": "Both events happen at the guard's position, so her one stopwatch measures the proper time interval. In the train's frame the events happen at different places.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the guard on the platform"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-proper-length-rocket",
+          "prompt": "A rocket flies past a space station at constant velocity. Who measures the proper length of the rocket?",
+          "hint": "Proper length is measured in the frame where the object is at rest.",
+          "options": [
+            {
+              "text": "an astronaut on board the rocket",
+              "correct": true
+            },
+            {
+              "text": "an observer on the space station",
+              "correct": false
+            },
+            {
+              "text": "every observer, as length is the same in all frames",
+              "correct": false
+            }
+          ],
+          "explain": "The rocket is at rest relative to the astronaut, so she measures its proper length. The station observer measures it shorter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an astronaut on board the rocket"
+          }
+        }
+      ]
+    },
+    {
+      "id": "time-dilation",
+      "heading": "Time dilation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a light clock: a light pulse bouncing between two mirrors a distance $d$ apart. In the clock's own frame, one tick is a path of $2d$, straight up and back."
+        },
+        {
+          "type": "text",
+          "text": "Seen moving past you, the mirrors shift while the light travels, so its path zigzags and is longer. By the [[postulates-of-special-relativity|postulates of special relativity]], it still travels at the [[speed-of-light|speed of light]], $c$. So each tick takes longer."
+        },
+        {
+          "type": "figure",
+          "id": "1-17-light-clock",
+          "alt": "A light clock seen from two frames. Left panel, the clock's own frame: two horizontal mirrors a distance d apart, one above the other. A pulse of light goes straight up from the lower mirror to the upper mirror and straight back down, so one tick is a path of length 2 d. Right panel, a frame in which the clock moves to the right at speed v: the clock is drawn at three positions. The light leaves the lower mirror at the first position, meets the upper mirror at the second position and returns to the lower mirror at the third position, so it follows a longer zigzag path. The light still travels at speed c, so each tick takes longer in this frame.",
+          "caption": "Each tick takes longer for an observer who sees the clock move. You don't need to derive the equation."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta t = \\gamma\\,\\Delta t_0",
+          "tag": "booklet",
+          "bookletId": "db-1-17"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta t_0$ is the proper time interval. $\\Delta t$ is the interval in a frame moving at [[speed|speed]] $v$ relative to the frame where the events share a place."
+        },
+        {
+          "type": "text",
+          "text": "$\\gamma = \\frac{1}{\\sqrt{1 - \\frac{v^2}{c^2}}}$ is the [[lorentz-factor|Lorentz factor]]. Both equations, and $c = \\pu{3.00e8 m s-1}$, are in the data booklet. For $v = 0.920c$, put $0.920$ in for $\\frac{v}{c}$."
+        },
+        {
+          "type": "definition",
+          "term": "time dilation",
+          "statement": "The lengthening of the time between two events, measured in a frame where they happen at different places, compared with the proper time interval.",
+          "plain": "A clock that moves relative to you is measured to run slow."
+        },
+        {
+          "type": "result",
+          "statement": "Because $\\gamma \\ge 1$, $\\Delta t \\ge \\Delta t_0$: a clock moving relative to you runs slow, as you measure it. Two observers in relative motion each measure the other's clocks running slow.",
+          "why": "By the first postulate neither inertial frame is special, so each clock is the moving one for the other observer."
+        },
+        {
+          "type": "example",
+          "id": "ex-kaon-lifetime",
+          "question": "A charged kaon has a mean lifetime of $\\pu{1.24e-8 s}$, measured in a frame where it is at rest. In a laboratory beam, kaons move at $0.920c$. Calculate their mean lifetime in the laboratory frame.",
+          "steps": [
+            "The kaon is created and decays at one place in its rest frame, so $\\Delta t_0 = \\pu{1.24e-8 s}$ is proper.",
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.920^2}} = 2.552$.",
+            "$\\Delta t = \\gamma\\Delta t_0 = 2.552 \\times 1.24 \\times 10^{-8} = \\pu{3.16e-8 s}$, longer than $\\Delta t_0$ as expected."
+          ],
+          "answer": "$\\Delta t \\approx \\pu{3.16e-8 s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.24e-8/sqrt(1 - 0.920**2)",
+            "sf": 3,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by $\\gamma$ when you should multiply. Decide first which interval is proper: it is always the shorter one."
+        },
+        {
+          "type": "example",
+          "id": "ex-star-trip-time",
+          "question": "A spacecraft travels at a constant $0.850c$ from Earth to a star. In Earth's frame the star is at rest and $\\pu{6.00 ly}$ away. Determine the time the journey takes according to a clock on board the spacecraft, in years.",
+          "steps": [
+            "Earth's frame: light covers $\\pu{1 ly}$ per year, so the spacecraft covers $\\pu{0.850 ly}$ per year: $\\Delta t = \\frac{6.00}{0.850} = 7.059$ years.",
+            "Leaving Earth and reaching the star both happen at the spacecraft, so its clock measures the proper time interval $\\Delta t_0$.",
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.850^2}} = 1.898$.",
+            "$\\Delta t_0 = \\frac{\\Delta t}{\\gamma} = \\frac{7.059}{1.898} = 3.72$ years. Round only at the end.",
+            "Check: $\\Delta t_0 < \\Delta t$, as a proper time interval must be."
+          ],
+          "answer": "$\\Delta t_0 \\approx 3.72\\ \\text{years}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(6.00/0.850)*sqrt(1 - 0.850**2)",
+            "sf": 3,
+            "unit": "years"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-on-rocket",
+          "prompt": "A lamp on a rocket stays on for $\\pu{2.00 s}$ by the crew's clock. The rocket moves at $0.960c$ relative to a space station. For how long, in s, is the lamp on in the station's frame? Give 3 significant figures.",
+          "hint": "Switching on and off both happen at the lamp, so $\\pu{2.00 s}$ is proper.",
+          "answer": {
+            "value": 7.14,
+            "tolerance": 0.005
+          },
+          "explain": "$\\gamma = \\frac{1}{\\sqrt{1 - 0.960^2}} = 3.571$, so $\\Delta t = 3.571 \\times 2.00 = \\pu{7.14 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.00/sqrt(1 - 0.960**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-clocks-symmetry",
+          "prompt": "Rockets P and Q pass each other at a high constant relative speed. Each crew compares the other's clocks with its own. Which is correct?",
+          "hint": "Neither inertial frame is special.",
+          "options": [
+            {
+              "text": "Each crew measures the other's clocks running slow.",
+              "correct": true
+            },
+            {
+              "text": "Each crew measures the other's clocks running fast.",
+              "correct": false
+            },
+            {
+              "text": "Both crews agree that P's clocks run slow.",
+              "correct": false
+            }
+          ],
+          "explain": "To each crew, the other's clocks are the moving ones, so each measures them running slow by the factor $\\gamma$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Each crew measures the other's clocks running slow."
+          }
+        }
+      ]
+    },
+    {
+      "id": "length-contraction",
+      "heading": "Length contraction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Back to the star trip. The crew's clock shows 3.72 years, and they see the star approach at $0.850c$. So in their frame the journey is only $0.850 \\times 3.72 = \\pu{3.16 ly}$, not $\\pu{6.00 ly}$."
+        },
+        {
+          "type": "text",
+          "text": "Distances along the motion are shorter for an observer who sees them moving: [[length-contraction|length contraction]]."
+        },
+        {
+          "type": "formula",
+          "tex": "L = \\frac{L_0}{\\gamma}",
+          "tag": "booklet",
+          "bookletId": "db-1-17"
+        },
+        {
+          "type": "text",
+          "text": "$L_0$ is the [[proper-length|proper length]], measured in the object's rest frame. $L$ is the length measured in a frame where the object moves at speed $v$ along that length."
+        },
+        {
+          "type": "definition",
+          "term": "length contraction",
+          "statement": "The shortening of an object's length along its direction of motion, measured in a frame where it moves, compared with its proper length.",
+          "plain": "A moving object is measured to be shorter in the direction it moves."
+        },
+        {
+          "type": "result",
+          "statement": "Only lengths parallel to the relative velocity contract. Lengths at right angles to the motion are the same in every frame.",
+          "why": "Two equal rods held across the motion pass side by side. If moving rods shrank sideways, each observer would see the other's rod as shorter, and both cannot be true."
+        },
+        {
+          "type": "text",
+          "text": "To measure a moving object, you mark both ends at the same instant in your frame. As the next section shows, \"the same instant\" depends on the frame."
+        },
+        {
+          "type": "example",
+          "id": "ex-ship-length-station",
+          "question": "A spacecraft is $\\pu{85.0 m}$ long when measured by its crew. It flies past a space station at $0.920c$, moving along its length. Calculate the length of the spacecraft measured from the station.",
+          "steps": [
+            "The spacecraft is at rest in the crew's frame, so $L_0 = \\pu{85.0 m}$ is its proper length.",
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.920^2}} = 2.552$.",
+            "$L = \\frac{L_0}{\\gamma} = \\frac{85.0}{2.552} = \\pu{33.3 m}$.",
+            "Its width and height, at right angles to the motion, are unchanged."
+          ],
+          "answer": "$L \\approx \\pu{33.3 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "85.0*sqrt(1 - 0.920**2)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-star-trip-distance",
+          "question": "For the spacecraft travelling at $0.850c$ to a star $\\pu{6.00 ly}$ from Earth (in Earth's frame), calculate the Earth–star distance measured by the crew. Show that it gives the same journey time as before.",
+          "steps": [
+            "Earth and the star are at rest in Earth's frame, so $L_0 = \\pu{6.00 ly}$ is the proper length.",
+            "For the crew they move at $0.850c$, so $L = \\frac{6.00}{1.898} = \\pu{3.16 ly}$.",
+            "Crew's journey time: $\\frac{3.161}{0.850} = 3.72$ years, the same $\\Delta t_0$ as before.",
+            "Earth explains the short trip by slow on-board clocks; the crew by a shorter distance. Both agree on the clock reading at arrival."
+          ],
+          "answer": "$L \\approx \\pu{3.16 ly}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.00*sqrt(1 - 0.850**2)",
+            "sf": 3,
+            "unit": "ly"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Shrinking every dimension. Only the length along the motion contracts; a moving sphere is measured as flattened, not smaller all round."
+        },
+        {
+          "type": "check",
+          "id": "check-rod-contraction",
+          "prompt": "A rod has a proper length of $\\pu{2.50 m}$. It moves along its length at $0.960c$ relative to a laboratory. What length, in m, does the laboratory measure? Give 3 significant figures.",
+          "hint": "Divide the proper length by $\\gamma$.",
+          "answer": {
+            "value": 0.7,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\gamma = 3.571$, so $L = \\frac{2.50}{3.571} = \\pu{0.700 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.50*sqrt(1 - 0.960**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cube-edges",
+          "prompt": "A cube-shaped probe moves at $0.90c$ relative to an observer, parallel to one of its edges. Which statement describes the observer's measurements?",
+          "hint": "Which edges lie along the velocity?",
+          "options": [
+            {
+              "text": "only the edges parallel to the velocity are shorter",
+              "correct": true
+            },
+            {
+              "text": "every edge is shorter by the same factor",
+              "correct": false
+            },
+            {
+              "text": "only the edges perpendicular to the velocity are shorter",
+              "correct": false
+            }
+          ],
+          "explain": "Length contraction acts only along the relative motion. The other two dimensions are unchanged.",
+          "verify": {
+            "kind": "choice",
+            "truth": "only the edges parallel to the velocity are shorter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "simultaneity",
+      "heading": "The relativity of simultaneity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In Galilean relativity $t' = t$, so every observer agrees on which events happen at the same time ({{lesson:1.15}}). Special relativity removes that agreement."
+        },
+        {
+          "type": "definition",
+          "term": "simultaneity",
+          "statement": "Two events are simultaneous in a frame if they have the same time coordinate in that frame.",
+          "plain": "Happening at the same time, as judged in one particular frame."
+        },
+        {
+          "type": "text",
+          "text": "A lamp flashes at the centre of a spaceship cabin with a light sensor at each end. In the cabin's frame the light travels equal distances at $c$, so it reaches both sensors together."
+        },
+        {
+          "type": "text",
+          "text": "From a space station, the cabin moves forwards. The light still travels at $c$ both ways, but the rear sensor moves towards the flash point and the front sensor moves away."
+        },
+        {
+          "type": "figure",
+          "id": "1-17-cabin-flash",
+          "alt": "A lamp flashes at the centre of a spaceship cabin, with a light sensor at each end. Top panel, the cabin's frame: the cabin is at rest, and two light arrows of equal length, each labelled c, go from the lamp to the rear sensor on the left and the front sensor on the right. Both sensors are reached at the same time. Bottom panel, the space station's frame, a short time after the flash: the cabin moves to the right at speed v. A dashed outline shows where the cabin was when the lamp flashed, and a cross marks the point where the flash happened. The two light arrows from the cross are still equal in length, because light travels at c both ways. The rear sensor has moved towards the cross and has already been reached. The front sensor has moved away and has not been reached yet.",
+          "caption": "Simultaneous in the cabin's frame; rear sensor first in the station's frame."
+        },
+        {
+          "type": "result",
+          "statement": "[[simultaneity|Simultaneity]] is relative. Two events simultaneous in one inertial frame, at different places along the line of relative motion, are not simultaneous in a frame moving relative to the first. Events at the same place and time are simultaneous in every frame.",
+          "why": "Both frames measure light's speed as $c$, but the sensors move in only one frame, so the paths differ in length."
+        },
+        {
+          "type": "text",
+          "text": "The [[lorentz-transformation|Lorentz transformation]] $t' = \\gamma\\left(t - \\frac{vx}{c^2}\\right)$ gives the size of the effect. Apply it to two events and subtract:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta t' = \\gamma\\left(\\Delta t - \\frac{v\\,\\Delta x}{c^2}\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "If $\\Delta t = 0$ but $\\Delta x \\ne 0$, then $\\Delta t' = -\\frac{\\gamma v\\,\\Delta x}{c^2}$, which is not zero. Take $+x$ as the direction in which frame $S'$ moves. Then of two events simultaneous in $S$, the one further along $+x$, ahead of the moving observer, happens first in $S'$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cabin-flash-explain",
+          "question": "In the cabin above, the sensors register the flash together in the cabin's frame. Explain why, for an observer on the space station, the rear sensor registers it first.",
+          "steps": [
+            "Give the second postulate, then how each sensor moves, then the shorter path, then conclude."
+          ],
+          "answer": "For the station observer, the speed of light is the same, $c$, in both directions, by the second postulate. While the light travels, the rear sensor moves towards the point where the flash happened, and the front sensor moves away from it. So the light travels a shorter distance to the rear sensor and reaches it first. The detections are simultaneous in the cabin's frame but not in the station's frame.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "light speed c both ways for the station; rear sensor moves towards the emission point, front away; shorter path to rear so it is reached first; simultaneous in cabin frame only",
+            "requires": [
+              [
+                "speed of light is the same",
+                "same speed"
+              ],
+              "rear sensor moves towards",
+              "front sensor moves away",
+              "shorter distance",
+              "reaches it first",
+              "simultaneous in the cabin's frame"
+            ],
+            "forbids": [
+              "light travels faster",
+              "c + v",
+              "speed of light is greater"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-beacons-probe",
+          "question": "Two beacons on a straight test track are $\\pu{1.20 km}$ apart: P at $x = 0$ and Q at $x = \\pu{+1.20 km}$. In the track's frame they flash at the same instant. A probe flies along the track in the $+x$ direction at $0.850c$. Determine $t'_\\text{Q} - t'_\\text{P}$, the time between the flashes in the probe's frame, and state which beacon flashes first.",
+          "steps": [
+            "Take $+x$ along the probe's motion. Then $v = +0.850c$, $\\Delta x = x_\\text{Q} - x_\\text{P} = \\pu{+1.20e3 m}$ and $\\Delta t = 0$.",
+            "$\\gamma = \\frac{1}{\\sqrt{1 - 0.850^2}} = 1.898$.",
+            "$\\Delta t' = \\gamma\\left(0 - \\frac{v\\,\\Delta x}{c^2}\\right) = -\\frac{1.898 \\times 0.850 \\times 1.20 \\times 10^{3}}{3.00 \\times 10^{8}} = \\pu{-6.45e-6 s}$, using $\\frac{v}{c^2} = \\frac{0.850}{c}$.",
+            "The minus sign means $t'_\\text{Q} < t'_\\text{P}$: Q, the beacon ahead of the probe, flashes first, $\\pu{6.45e-6 s}$ before P."
+          ],
+          "answer": "$t'_\\text{Q} - t'_\\text{P} \\approx \\pu{-6.45e-6 s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "-(0.850*1.20e3/c)/sqrt(1 - 0.850**2)",
+            "sf": 3,
+            "unit": "s",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the light \"travels faster\" towards one sensor. Its speed is $c$ for every observer; what differs is the distance it must cover."
+        },
+        {
+          "type": "check",
+          "id": "check-same-place-same-time",
+          "prompt": "Two events happen at the same place and at the same time in frame $S$. Frame $S'$ moves at $0.70c$ relative to $S$. In $S'$, the two events are",
+          "hint": "Put $\\Delta t = 0$ and $\\Delta x = 0$ into $\\Delta t' = \\gamma\\left(\\Delta t - \\frac{v\\,\\Delta x}{c^2}\\right)$.",
+          "options": [
+            {
+              "text": "simultaneous",
+              "correct": true
+            },
+            {
+              "text": "not simultaneous",
+              "correct": false
+            },
+            {
+              "text": "simultaneous only if the relative speed is small",
+              "correct": false
+            }
+          ],
+          "explain": "With $\\Delta t = 0$ and $\\Delta x = 0$, $\\Delta t' = 0$ in every frame. Only separated events can lose their simultaneity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "simultaneous"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lightning-order",
+          "prompt": "Lightning strikes both ends of a long platform at the same instant in the platform's frame. A train passes through, moving east. In the train's frame, which strike happens first?",
+          "hint": "The event ahead of the moving observer happens first in the observer's frame.",
+          "options": [
+            {
+              "text": "the strike at the east end",
+              "correct": true
+            },
+            {
+              "text": "the strike at the west end",
+              "correct": false
+            },
+            {
+              "text": "neither: they are simultaneous",
+              "correct": false
+            }
+          ],
+          "explain": "Take east as $+x$. With $\\Delta t = 0$, $t'_\\text{east} - t'_\\text{west} = -\\frac{\\gamma v\\,\\Delta x}{c^2} < 0$, so the east strike, ahead of the train, comes first.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the strike at the east end"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Proper time interval $\\Delta t_0$: measured in the frame where both events happen at the same place. It is the shortest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Proper length $L_0$: measured in the frame where the object is at rest. It is the longest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta t = \\gamma\\,\\Delta t_0",
+          "tag": "booklet",
+          "bookletId": "db-1-17",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "L = \\frac{L_0}{\\gamma}",
+          "tag": "booklet",
+          "bookletId": "db-1-17",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only lengths along the motion contract. Each of two observers measures the other's clocks running slow.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Events simultaneous in one frame and separated along the relative motion are not simultaneous in a frame moving relative to it. The event ahead of the moving observer happens first for that observer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the observer \"at rest\" measures the proper time. It is the frame where both events happen at the same place, which may be the platform, not the train.",
+    "Multiplying when you should divide. The proper time interval is the shortest and the proper length the longest: check your answer against that.",
+    "Contracting lengths at right angles to the motion. Only the length along the relative velocity changes.",
+    "Thinking only one observer really moves. Each inertial observer measures the other's clocks running slow."
+  ],
+  "examTips": [
+    "\"Define\" proper time interval or proper length: name the frame, where the events happen at the same place or where the object is at rest. \"The real length\" scores nothing.",
+    "In \"calculate\" or \"determine\" questions, say which quantity is proper, show $\\gamma$, substitute into the equation, then give the answer with its unit.",
+    "\"Explain\" a simultaneity result: light travels at $c$ for both observers, say how the receivers move, then conclude which event is first in which frame.",
+    "In Paper 1A, reject options with $\\Delta t < \\Delta t_0$ or $L > L_0$: $\\gamma$ is never less than 1."
+  ],
+  "readingMinutes": 27
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" role="img" aria-labelledby="t">
+<title id="t">Graph of acceleration a against displacement x for simple harmonic motion. The axes cross at the origin. A straight line runs from the top left to the bottom right through the origin, from x = minus x0 to x = plus x0. Where x is positive, a is negative; where x is negative, a is positive. The line is labelled gradient = minus omega squared.</title>
+<path d="M60 125 L352 125" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="360,125 350,121 350,129" fill="currentColor"/>
+<path d="M200 236 L200 22" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="200,14 196,24 204,24" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="360" y="143" fill="currentColor" text-anchor="end">x / m</text>
+<text font-family="inherit" font-size="12" x="208" y="20" fill="currentColor" text-anchor="start">a / m s⁻²</text>
+<path d="M110 121 L110 129 M290 121 L290 129" fill="none" stroke="currentColor" stroke-width="1"/>
+<text font-family="inherit" font-size="11" x="110" y="142" fill="currentColor" text-anchor="middle">−x₀</text>
+<text font-family="inherit" font-size="11" x="290" y="116" fill="currentColor" text-anchor="middle">x₀</text>
+<path d="M110 50 L290 200" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<circle cx="110" cy="50" r="3.5" fill="var(--t1-ink)"/>
+<circle cx="290" cy="200" r="3.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="252" y="214" fill="var(--t1-ink)" text-anchor="end">gradient = −ω²</text>
+<text font-family="inherit" font-size="11" x="298" y="190" fill="var(--muted)" text-anchor="start">x &gt; 0, a &lt; 0</text>
+<text font-family="inherit" font-size="11" x="102" y="64" fill="var(--muted)" text-anchor="end">x &lt; 0, a &gt; 0</text>
+</svg>

@@ -1,0 +1,729 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.8",
+  "slug": "magnetic-forces-on-charges-and-currents",
+  "title": "Magnetic forces on charges and currents",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[magnetic-field|magnetic field]] pushes on a charge only while it moves across the field. The [[force|force]] is at right angles to both the motion and the field, so it bends the path without changing the speed. Currents are moving charges, so wires carrying currents feel the same push, and parallel wires attract or repel each other.",
+  "goals": [
+    {
+      "text": "Calculate the [[magnetic-force|magnetic force]] on a moving charge with $F = qvB\\sin\\theta$.",
+      "bullets": [
+        "D.3-s4"
+      ]
+    },
+    {
+      "text": "Find the direction of that force with the [[right-hand-rule|right-hand rule]], and explain why it never changes a charge's speed.",
+      "bullets": [
+        "D.3-s4"
+      ]
+    },
+    {
+      "text": "Calculate the force on a current-carrying wire with $F = BIL\\sin\\theta$, and say what one tesla means.",
+      "bullets": [
+        "D.3-s5"
+      ]
+    },
+    {
+      "text": "Calculate the force on each metre of two parallel wires, and decide whether they attract or repel.",
+      "bullets": [
+        "D.3-s6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "1.5",
+    "2.12",
+    "4.5",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "force on a moving charge",
+    "qvB sin theta",
+    "force on a wire BIL",
+    "motor effect",
+    "Fleming's left-hand rule",
+    "force between parallel wires"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-grip-rule",
+      "prompt": "A long straight wire in the plane of the page carries a current up the page. Which way does its magnetic field point at a spot just to the right of the wire?",
+      "hint": "Grip the wire with your right thumb along the current. Your fingers curl the way the field goes.",
+      "options": [
+        {
+          "text": "into the page",
+          "correct": true
+        },
+        {
+          "text": "out of the page",
+          "correct": false
+        },
+        {
+          "text": "up the page, along the current",
+          "correct": false
+        }
+      ],
+      "explain": "With your thumb pointing up, your fingers go into the page on the right of the wire and come out of it on the left. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "into the page"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-resolve",
+      "prompt": "A ball moves at $\\pu{8.0 m s-1}$ at $25^{\\circ}$ to a horizontal line. What is the component of its velocity at right angles to the line, in $\\text{m s}^{-1}$? Give 2 significant figures.",
+      "hint": "The component perpendicular to the line is opposite the $25^{\\circ}$ angle, so use sine.",
+      "answer": {
+        "value": 3.4,
+        "tolerance": 0.05
+      },
+      "explain": "$v_\\perp = 8.0\\sin 25^{\\circ} = \\pu{3.4 m s-1}$. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "8.0*sind(25)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-electron-flow",
+      "prompt": "In a metal wire, which way do the electrons move compared with the conventional current?",
+      "hint": "Conventional current is the direction positive charge would flow.",
+      "options": [
+        {
+          "text": "in the opposite direction",
+          "correct": true
+        },
+        {
+          "text": "in the same direction",
+          "correct": false
+        },
+        {
+          "text": "at right angles to it",
+          "correct": false
+        }
+      ],
+      "explain": "Electrons are negative, so they drift from the negative terminal to the positive one, against the conventional current. Revise it in {{lesson:2.12}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in the opposite direction"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "charge",
+      "heading": "Force on a moving charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A charge sitting still in a [[magnetic-field|magnetic field]] feels no [[magnetic-force|magnetic force]]. Set it moving across the field and a force appears. Move it along the [[magnetic-field-line|field lines]] and the force vanishes again."
+        },
+        {
+          "type": "formula",
+          "tex": "F = qvB\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-8"
+        },
+        {
+          "type": "text",
+          "text": "$q$ is the charge in coulombs and $v$ its speed. $B$ is the [[magnetic-field-strength|magnetic field strength]], in tesla (T). $\\theta$ is the angle between the velocity and the field."
+        },
+        {
+          "type": "text",
+          "text": "All three equations in this lesson are in section D.3 of the data booklet. Constants such as the electron charge $e = \\pu{1.60e-19 C}$ come from the data booklet too."
+        },
+        {
+          "type": "text",
+          "text": "[[resolving-a-vector|Resolve]] the velocity: only its component across the field, $v\\sin\\theta$, counts. So the force is largest at $\\theta = 90^{\\circ}$ and zero along the field."
+        },
+        {
+          "type": "example",
+          "id": "ex-force-electron",
+          "question": "An electron moves at $\\pu{2.4e7 m s-1}$ across a uniform $\\pu{0.060 T}$ field, at $90^{\\circ}$ to the field lines. Calculate the size of the magnetic force on it.",
+          "steps": [
+            "The charge is $e = \\pu{1.60e-19 C}$ from the data booklet. For a size, ignore its sign.",
+            "At right angles, $\\theta = 90^{\\circ}$ and $\\sin 90^{\\circ} = 1$.",
+            "$F = qvB\\sin\\theta = 1.60 \\times 10^{-19} \\times 2.4 \\times 10^{7} \\times 0.060 \\times 1 = 2.30 \\times 10^{-13}\\ \\text{N}$, then round to 2 significant figures."
+          ],
+          "answer": "$F \\approx 2.3 \\times 10^{-13}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "e*2.4e7*0.060*sind(90)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-force-angle",
+          "question": "A proton moves at $\\pu{4.0e5 m s-1}$ in a uniform magnetic field of $\\pu{0.18 T}$. Its velocity makes an angle of $35^{\\circ}$ with the field. Calculate the magnetic force on the proton.",
+          "steps": [
+            "The proton's charge is $+e = \\pu{1.60e-19 C}$.",
+            "The angle is between the velocity and the field, so $\\theta = 35^{\\circ}$.",
+            "$F = 1.60 \\times 10^{-19} \\times 4.0 \\times 10^{5} \\times 0.18 \\times \\sin 35^{\\circ} = 6.61 \\times 10^{-15}\\ \\text{N}$."
+          ],
+          "answer": "$F \\approx 6.6 \\times 10^{-15}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "e*4.0e5*0.18*sind(35)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the angle to the page, or to some other line, as $\\theta$. It is always the angle between the velocity and the field lines."
+        },
+        {
+          "type": "check",
+          "id": "check-along-field",
+          "prompt": "A proton moves parallel to the field lines of a uniform magnetic field. What magnetic force acts on it?",
+          "hint": "What is $\\theta$, and what is its sine?",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "the largest possible force",
+              "correct": false
+            },
+            {
+              "text": "a force along the field lines",
+              "correct": false
+            }
+          ],
+          "explain": "Along the field, $\\theta = 0$ and $\\sin 0 = 0$, so $F = 0$. The proton carries on in a straight line.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speed-from-force",
+          "prompt": "An electron moving at right angles to a $\\pu{0.050 T}$ field feels a magnetic force of $\\pu{4.0e-14 N}$. Calculate its speed, in units of $10^{6}\\ \\text{m s}^{-1}$. Give 2 significant figures.",
+          "hint": "Rearrange $F = qvB$ for $v$, with $q = \\pu{1.60e-19 C}$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0.05
+          },
+          "explain": "$v = \\frac{F}{qB} = \\frac{4.0 \\times 10^{-14}}{1.60 \\times 10^{-19} \\times 0.050} = \\pu{5.0e6 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.0e-14/(e*0.050)/10**6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "direction",
+      "heading": "Direction of the force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[magnetic-force|magnetic force]] is always at right angles to both the velocity and the field. That leaves two opposite directions. The [[right-hand-rule|right-hand rule]] picks the right one."
+        },
+        {
+          "type": "definition",
+          "term": "right-hand rule",
+          "statement": "Hold your right hand flat. Point your fingers along the field and your thumb along the velocity of a positive charge. The force on the charge comes out of your palm.",
+          "plain": "Fingers for the field, thumb for the motion, palm for the push."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-right-hand-rule",
+          "alt": "The right-hand rule as three arrows at right angles. The field B points up the page, along the fingers. The velocity of a positive charge, or the current, points to the right, along the thumb. The force comes out of the palm, out of the page, shown as a dot in a circle where the arrows meet.",
+          "caption": "Field, motion and force are all at right angles to each other."
+        },
+        {
+          "type": "text",
+          "text": "For a negative charge, such as an electron, find the force as if the charge were positive. Then reverse it."
+        },
+        {
+          "type": "text",
+          "text": "Diagrams show a field into the page as crosses (×), like the tail of an arrow flying away from you. A field out of the page is drawn as dots, like the arrow's tip coming towards you."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-charge-forces",
+          "alt": "Two panels in a uniform magnetic field into the page. Left: a positive charge moves to the right and the magnetic force on it points up the page. Right: an electron moves to the right and the magnetic force on it points down the page, the opposite way.",
+          "caption": "Same field, same velocity: the electron's force is the reverse of the positive charge's."
+        },
+        {
+          "type": "example",
+          "id": "ex-direction-electron",
+          "question": "A uniform magnetic field points vertically downwards. An electron moves horizontally towards the east through it. Deduce the direction of the magnetic force on the electron.",
+          "steps": [
+            "Fingers down (field), thumb east (velocity): the palm faces north.",
+            "That is the force on a positive charge. The electron is negative, so reverse it."
+          ],
+          "answer": "Using the right-hand rule, the fingers point down along the field and the thumb points east along the velocity. For a positive charge the palm, and so the force, would face north. The electron is negative, so the force is reversed. The force on the electron is horizontal, towards the south.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "right-hand rule: fingers down along B, thumb east along v, force on a positive charge is north; electron is negative so the force is reversed, towards the south",
+            "requires": [
+              "right-hand rule",
+              "fingers",
+              "thumb",
+              "north",
+              [
+                "negative",
+                "reversed"
+              ],
+              "south"
+            ],
+            "forbids": [
+              "upwards",
+              "towards the west"
+            ]
+          }
+        },
+        {
+          "type": "result",
+          "statement": "A magnetic force does no [[work|work]] on a moving charge. So if it is the only force, the charge's speed and [[kinetic-energy|kinetic energy]] stay constant.",
+          "why": "The force is always at right angles to the velocity, so it has no component along the motion."
+        },
+        {
+          "type": "text",
+          "text": "The force still changes the direction of the velocity, so the charge accelerates. In a uniform field at right angles to the velocity, with no other force acting, the path is a circle. Measuring its radius gives the particle's charge-to-mass ratio $\\frac{q}{m}$; see {{lesson:4.7}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-ke-constant",
+          "question": "A proton travels through a region where the only field is a uniform magnetic field. Explain why its kinetic energy stays constant even though a force acts on it.",
+          "steps": [
+            "Compare the force's direction with the velocity.",
+            "Link that to work done, then to kinetic energy."
+          ],
+          "answer": "The magnetic force on the proton is always perpendicular to its velocity. So the force has no component in the direction of motion. This means the force does no work on the proton. With no work done, the kinetic energy does not change, so the speed stays constant. The force only changes the direction of the velocity.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "force perpendicular to velocity; no component along the motion; no work done; kinetic energy and speed constant; only the direction changes",
+            "requires": [
+              "perpendicular",
+              "no component",
+              [
+                "does no work",
+                "no work"
+              ],
+              "kinetic energy",
+              [
+                "speed stays constant",
+                "constant speed"
+              ],
+              "direction"
+            ],
+            "forbids": [
+              "no force",
+              "velocity is constant",
+              "velocity stays constant"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the velocity stays constant. The speed does, but the direction keeps changing, so the charge is accelerating."
+        },
+        {
+          "type": "check",
+          "id": "check-electron-direction",
+          "prompt": "An electron moves up the page through a uniform magnetic field directed out of the page. In which direction is the magnetic force on it?",
+          "hint": "Find the force on a positive charge first, then reverse it.",
+          "options": [
+            {
+              "text": "to the left",
+              "correct": true
+            },
+            {
+              "text": "to the right",
+              "correct": false
+            },
+            {
+              "text": "into the page",
+              "correct": false
+            }
+          ],
+          "explain": "Fingers out of the page and thumb up the page leave the palm facing right, so a positive charge would be pushed right. The electron is negative, so its force is to the left.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the left"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-constant",
+          "prompt": "A charged particle moves through a uniform magnetic field, and no other force acts. Which quantity stays constant?",
+          "hint": "The force changes the direction of motion. Which quantity has no direction?",
+          "options": [
+            {
+              "text": "its speed",
+              "correct": true
+            },
+            {
+              "text": "its velocity",
+              "correct": false
+            },
+            {
+              "text": "its momentum",
+              "correct": false
+            }
+          ],
+          "explain": "No work is done, so the speed is constant. Velocity and momentum are vectors, and their direction keeps changing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its speed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wire",
+      "heading": "Force on a current-carrying wire",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[electric-current|electric current]] is moving charge. In a [[magnetic-field|magnetic field]], every moving [[charge-carrier|charge carrier]] in a wire feels a push. Those pushes add up to a [[force|force]] on the wire itself."
+        },
+        {
+          "type": "formula",
+          "tex": "F = BIL\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-8"
+        },
+        {
+          "type": "text",
+          "text": "$I$ is the current, $L$ the length of wire inside the field, and $\\theta$ the angle between the wire (the current) and the field. A wire lying along the field lines feels no force."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-wire-angle",
+          "alt": "A straight wire carrying current I lies at an angle theta to horizontal magnetic field lines pointing to the right. The angle theta is marked between the wire and the field direction. The force on the wire points into the page.",
+          "caption": "$\\theta$ is measured between the current and the field. The force is at right angles to both."
+        },
+        {
+          "type": "result",
+          "statement": "The force on a wire is the total force on its moving charges, $F = BIL\\sin\\theta$.",
+          "why": "If charge $q$ crosses a length $L$ in time $t$, its speed is $v = \\frac{L}{t}$, so $qvB = \\frac{q}{t}LB = BIL$ when $\\theta = 90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "For the direction, use the same [[right-hand-rule|right-hand rule]], with your thumb along the conventional current. Electrons moving the other way give the same force."
+        },
+        {
+          "type": "definition",
+          "term": "magnetic field strength",
+          "statement": "The force per unit current per unit length on a straight wire at right angles to the field, $B = \\frac{F}{IL}$. It is a vector, measured in tesla.",
+          "plain": "How hard the field pushes on a current."
+        },
+        {
+          "type": "text",
+          "text": "So $1\\ \\text{T} = 1\\ \\text{N A}^{-1}\\,\\text{m}^{-1}$: a 1 T field pushes with 1 N on each metre of wire carrying 1 A across it."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-angle",
+          "question": "A straight wire $\\pu{0.45 m}$ long carries a current of $\\pu{2.8 A}$. It lies in a uniform field of $\\pu{0.075 T}$, at $60^{\\circ}$ to the field lines. Calculate the force on the wire.",
+          "steps": [
+            "The angle between the current and the field is $\\theta = 60^{\\circ}$.",
+            "$F = BIL\\sin\\theta = 0.075 \\times 2.8 \\times 0.45 \\times \\sin 60^{\\circ} = 0.0818\\ \\text{N}$."
+          ],
+          "answer": "$F \\approx 0.082\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.075*2.8*0.45*sind(60)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-balance-field",
+          "question": "A magnet stands on a top-pan balance. A horizontal wire is clamped so that $\\pu{4.0 cm}$ of it lies between the poles, at right angles to the field. When a current of $\\pu{2.5 A}$ flows, the balance reading rises by $\\pu{2.04 g}$. Determine the magnetic field strength between the poles.",
+          "steps": [
+            "The wire is pushed one way, so by Newton's third law the magnet is pushed the other way. The extra reading is that force.",
+            "Force: $F = mg = 2.04 \\times 10^{-3} \\times 9.8 = 0.0200\\ \\text{N}$, using $g$ from the data booklet.",
+            "$B = \\frac{F}{IL} = \\frac{0.0200}{2.5 \\times 0.040} = 0.200\\ \\text{T}$, so 0.20 T to 2 significant figures."
+          ],
+          "answer": "$B \\approx 0.20\\ \\text{T}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.04e-3*g/(2.5*0.040)",
+            "sf": 2,
+            "unit": "T"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving lengths in cm or fields in mT. Convert to metres and tesla before you substitute."
+        },
+        {
+          "type": "check",
+          "id": "check-wire-direction",
+          "prompt": "A horizontal wire carries a current from west to east. The magnetic field there points horizontally north. Which way does the force on the wire act?",
+          "hint": "Fingers north, thumb east. Which way does your palm face?",
+          "options": [
+            {
+              "text": "vertically upwards",
+              "correct": true
+            },
+            {
+              "text": "vertically downwards",
+              "correct": false
+            },
+            {
+              "text": "towards the north",
+              "correct": false
+            },
+            {
+              "text": "towards the west",
+              "correct": false
+            }
+          ],
+          "explain": "With fingers north and thumb east, your palm faces up. The force is at right angles to both the current and the field, so it can't be north or west.",
+          "verify": {
+            "kind": "choice",
+            "truth": "vertically upwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-force",
+          "prompt": "A wire $\\pu{0.60 m}$ long carries $\\pu{4.5 A}$ at right angles to a $\\pu{0.032 T}$ field. Calculate the force on it, in mN. Give 2 significant figures.",
+          "hint": "Use $F = BIL$, then multiply newtons by 1000 to get mN.",
+          "answer": {
+            "value": 86,
+            "tolerance": 0.5
+          },
+          "explain": "$F = 0.032 \\times 4.5 \\times 0.60 = \\pu{0.0864 N} \\approx \\pu{86 mN}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.032*4.5*0.60*sind(90)*10**3",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "Forces between parallel wires",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every current makes a [[magnetic-field|magnetic field]] around its wire. So two parallel wires each sit in the other's field, and each feels a [[force|force]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{F}{L} = \\mu_0\\frac{I_1 I_2}{2\\pi r}",
+          "tag": "booklet",
+          "bookletId": "db-4-8"
+        },
+        {
+          "type": "text",
+          "text": "$I_1$ and $I_2$ are the currents and $r$ the distance between the wires, which must be long and straight. $\\mu_0 = 4\\pi \\times 10^{-7}\\ \\text{T m A}^{-1}$ is the permeability of free space. $\\frac{F}{L}$ is a force per metre of wire, in $\\text{N m}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Find the direction in two steps. 1. Use the right-hand grip rule from {{lesson:4.5}} to find the field of one wire where the other wire is. 2. Use the [[right-hand-rule|right-hand rule]] to find the force on the other wire's current."
+        },
+        {
+          "type": "result",
+          "statement": "Parallel currents in the same direction attract. Currents in opposite directions repel.",
+          "why": "With both currents up the page, the left wire's field at the right wire points into the page, and the right-hand rule then pushes the right wire to the left."
+        },
+        {
+          "type": "figure",
+          "id": "4-8-parallel-wires",
+          "alt": "Two panels, each with two long parallel vertical wires a distance r apart. Left: both currents flow up the page. The field of the left wire points into the page at the right wire, and the forces on the two wires point towards each other: they attract. Right: the currents flow in opposite directions, up in the left wire and down in the right wire. The forces point away from each other: they repel.",
+          "caption": "Reverse one current and the force on each wire reverses."
+        },
+        {
+          "type": "text",
+          "text": "The two forces are a [[newton-s-third-law|Newton's third law]] pair: equal in size and opposite in direction, even when the currents differ."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-cables",
+          "question": "Two long straight cables run parallel, $\\pu{4.0 cm}$ apart. One carries $\\pu{12 A}$ and the other $\\pu{20 A}$, in opposite directions. Calculate the force per unit length between them, and state whether they attract or repel.",
+          "steps": [
+            "$r = \\pu{0.040 m}$. The $\\pi$ cancels: $\\frac{F}{L} = \\frac{4\\pi \\times 10^{-7} \\times 12 \\times 20}{2\\pi \\times 0.040} = \\frac{2 \\times 10^{-7} \\times 240}{0.040} = 1.2 \\times 10^{-3}\\ \\text{N m}^{-1}$.",
+            "The currents are in opposite directions, so the cables repel."
+          ],
+          "answer": "$\\frac{F}{L} = 1.2 \\times 10^{-3}\\ \\text{N m}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "mu0*12*20/(2*pi*0.040)",
+            "unit": "N m-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-attract",
+          "question": "Two long vertical wires in the plane of the page both carry currents up the page. Explain why the wires attract each other.",
+          "steps": [
+            "Find the field of one wire at the other, then the force on that wire's current.",
+            "Finish with the force on the first wire."
+          ],
+          "answer": "Each current produces a magnetic field around its wire. By the right-hand grip rule, the field of the left wire at the right wire points into the page. The current in the right wire flows up the page through this field, so it feels a force. By the right-hand rule, this force points to the left, towards the left wire. By Newton's third law, the left wire feels an equal force towards the right wire, so the wires attract.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "each current makes a field; grip rule gives the left wire's field into the page at the right wire; right-hand rule gives a force on the right wire towards the left wire; Newton's third law gives an equal force on the left wire; they attract",
+            "requires": [
+              "magnetic field",
+              "grip rule",
+              "into the page",
+              "right-hand rule",
+              [
+                "towards the left wire",
+                "to the left"
+              ],
+              [
+                "Newton's third law",
+                "equal force"
+              ],
+              "attract"
+            ],
+            "forbids": [
+              "repel",
+              "out of the page"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $\\frac{F}{L}$ when a force is asked for, or the other way round. Check the unit: N for a force, $\\text{N m}^{-1}$ for force per unit length."
+        },
+        {
+          "type": "check",
+          "id": "check-unequal-currents",
+          "prompt": "Two long parallel wires carry currents in the same direction. Wire P carries $\\pu{2 A}$ and wire Q carries $\\pu{6 A}$. How do the magnetic forces on the two wires compare?",
+          "hint": "Think about Newton's third law, or look at the product $I_1 I_2$.",
+          "options": [
+            {
+              "text": "equal in size, each towards the other wire",
+              "correct": true
+            },
+            {
+              "text": "the force on P is three times the force on Q",
+              "correct": false
+            },
+            {
+              "text": "the force on Q is three times the force on P",
+              "correct": false
+            },
+            {
+              "text": "equal in size, each away from the other wire",
+              "correct": false
+            }
+          ],
+          "explain": "The forces are a third-law pair, so they are equal and opposite. Same-direction currents attract.",
+          "verify": {
+            "kind": "choice",
+            "truth": "equal in size, each towards the other wire"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-force",
+          "prompt": "Two long parallel wires $\\pu{0.15 m}$ apart each carry $\\pu{25 A}$. Calculate the force on a $\\pu{4.0 m}$ length of one wire, in mN. Give 2 significant figures.",
+          "hint": "Find $\\frac{F}{L}$ first, then multiply by the length and by 1000.",
+          "answer": {
+            "value": 3.3,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{F}{L} = \\frac{4\\pi \\times 10^{-7} \\times 25 \\times 25}{2\\pi \\times 0.15} = \\pu{8.33e-4 N m-1}$, so $F = 8.33 \\times 10^{-4} \\times 4.0 = \\pu{3.3e-3 N} = \\pu{3.3 mN}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "mu0*25*25/(2*pi*0.15)*4.0*10**3",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "F = qvB\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-8",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F = BIL\\sin\\theta",
+          "tag": "booklet",
+          "bookletId": "db-4-8",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{F}{L} = \\mu_0\\frac{I_1 I_2}{2\\pi r}",
+          "tag": "booklet",
+          "bookletId": "db-4-8",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Right-hand rule: fingers along $B$, thumb along the velocity of a positive charge or the current, force out of the palm. Reverse it for a negative charge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The magnetic force on a charge is perpendicular to its velocity, so it does no work. If it is the only force, speed and kinetic energy stay constant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$B = \\frac{F}{IL}$ for a wire at right angles to the field; $1\\ \\text{T} = 1\\ \\text{N A}^{-1}\\,\\text{m}^{-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Parallel wires: same-direction currents attract, opposite currents repel. The forces on the two wires are always equal and opposite.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping thumb and fingers in the right-hand rule. Fingers along the field, thumb along a positive charge's motion, palm gives the force.",
+    "Forgetting to reverse the force for a negative charge such as an electron.",
+    "Saying the magnetic force speeds a charge up. It is perpendicular to the velocity, so it does no work; only the direction changes.",
+    "Giving a direction as just \"up\" or \"outwards\". Name it in the diagram's terms, such as \"into the page\".",
+    "Measuring $\\theta$ from the wrong line. It is the angle between the field and the velocity, or the field and the wire."
+  ],
+  "examTips": [
+    "\"State the direction\" of a magnetic force in words that can't be misread, such as \"into the page\". A bare \"up\" may not score.",
+    "\"Outline\" why kinetic energy is constant: the force is perpendicular to the velocity, so it does no work.",
+    "In Paper 1A direction questions, find the force for a positive charge first, then check the particle's sign.",
+    "In Paper 2, write the equation, substitute in SI units, and give the unit. Check whether a force or a force per unit length is asked for."
+  ],
+  "readingMinutes": 25
+}

@@ -1,0 +1,868 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.3",
+  "slug": "nuclear-radius-and-the-bohr-model",
+  "title": "Nuclear radius and the Bohr model",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[nucleus|nucleus]] grows as you add [[nucleon|nucleons]], but only as the cube root of the [[nucleon-number|nucleon number]], so every nucleus has about the same [[density|density]]. Energy conservation gives the [[distance-of-closest-approach|distance of closest approach]] of an [[alpha-particle|alpha particle]] fired straight at a nucleus. The [[bohr-model|Bohr model]] quantises the electron's angular momentum, which gives hydrogen's energy levels, $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$.",
+  "goals": [
+    {
+      "text": "Use $R = R_0A^{\\frac{1}{3}}$ to find the radius of a nucleus, and explain why all nuclei have about the same density.",
+      "bullets": [
+        "E.1-a1"
+      ]
+    },
+    {
+      "text": "Calculate the distance of closest approach of an alpha particle in a head-on collision, using conservation of energy.",
+      "bullets": [
+        "E.1-a3"
+      ]
+    },
+    {
+      "text": "Explain why scattering at high energies deviates from Rutherford's model, and use the energy where it starts to estimate a [[nuclear-radius|nuclear radius]].",
+      "bullets": [
+        "E.1-a2"
+      ]
+    },
+    {
+      "text": "Explain how quantised angular momentum, $mvr = \\frac{nh}{2\\pi}$, gives fixed orbits and discrete energies in the Bohr model.",
+      "bullets": [
+        "E.1-a5"
+      ]
+    },
+    {
+      "text": "Use $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$ to find hydrogen's energy levels, photon energies, wavelengths and ionisation energies.",
+      "bullets": [
+        "E.1-a4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "4.6",
+    "5.1",
+    "5.2",
+    "5.7",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "R = R0 A^(1/3)",
+    "nuclear density",
+    "distance of closest approach",
+    "Bohr model of hydrogen",
+    "13.6/n^2 energy levels",
+    "mvr = nh/2pi"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gmr-bounce-back",
+      "prompt": "In the [[geiger-marsden-rutherford-experiment|Geiger–Marsden–Rutherford experiment]], a very small fraction of the alpha particles bounced back from a thin metal foil. What did this show?",
+      "hint": "Only something small, massive and positive could turn a fast alpha particle right round.",
+      "options": [
+        {
+          "text": "The positive charge and most of the mass are in a tiny centre.",
+          "correct": true
+        },
+        {
+          "text": "The atom is mostly solid matter.",
+          "correct": false
+        },
+        {
+          "text": "The positive charge is spread evenly through the atom.",
+          "correct": false
+        },
+        {
+          "text": "Electrons orbit at fixed energies.",
+          "correct": false
+        }
+      ],
+      "explain": "A tiny, massive, positive centre can turn an alpha particle back. Most alpha particles passed straight through, so most of the atom is empty. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The positive charge and most of the mass are in a tiny centre."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ep-closer",
+      "prompt": "Two positive point charges are pushed closer together. What happens to their [[electric-potential-energy|electric potential energy]]?",
+      "hint": "Look at how $E_\\text{p} = k\\frac{q_1q_2}{r}$ changes as $r$ falls.",
+      "options": [
+        {
+          "text": "It increases.",
+          "correct": true
+        },
+        {
+          "text": "It decreases.",
+          "correct": false
+        },
+        {
+          "text": "It stays the same.",
+          "correct": false
+        },
+        {
+          "text": "It becomes negative.",
+          "correct": false
+        }
+      ],
+      "explain": "For two like charges $E_\\text{p}$ is positive and grows as $r$ gets smaller. You do work pushing them together against the repulsion. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "It increases."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-photon-gap",
+      "prompt": "An electron in an atom falls from the [[atomic-energy-level|energy level]] at $-2.1\\ \\text{eV}$ to the level at $-5.6\\ \\text{eV}$. What is the energy, in eV, of the [[photon|photon]] it emits?",
+      "hint": "Take the lower level's energy away from the higher one's.",
+      "answer": {
+        "value": 3.5,
+        "tolerance": 0.05
+      },
+      "explain": "$E = -2.1 - (-5.6) = 3.5\\ \\text{eV}$. The photon carries away the energy the electron loses. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-2.1 - (-5.6)",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "radius",
+      "heading": "Nuclear radius and density",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you met the tiny nucleus at the centre of every atom. Adding nucleons makes it bigger, but slowly: twenty-seven times as many nucleons only triples the radius. This cube-root rule is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "R = R_0A^{\\frac{1}{3}}",
+          "tag": "booklet",
+          "bookletId": "db-5-3"
+        },
+        {
+          "type": "text",
+          "text": "$R$ is the radius of the nucleus and $A$ is its nucleon number. $R_0 = 1.20 \\times 10^{-15}\\ \\text{m}$ is the Fermi radius, roughly the radius of one nucleon (put $A = 1$). Like every constant in this lesson, it comes from the data booklet."
+        },
+        {
+          "type": "definition",
+          "term": "nuclear radius",
+          "statement": "The radius $R$ of a nucleus with nucleon number $A$, given by $R = R_0A^{\\frac{1}{3}}$, where $R_0 = 1.20 \\times 10^{-15}\\ \\text{m}$.",
+          "plain": "How big a nucleus is: a few times $10^{-15}\\ \\text{m}$, growing slowly as nucleons are added."
+        },
+        {
+          "type": "example",
+          "id": "ex-radius-64-nucleons",
+          "question": "A nucleus contains 64 nucleons. Calculate its radius.",
+          "steps": [
+            "Write the booklet equation: $R = R_0A^{\\frac{1}{3}}$.",
+            "Take the cube root first: $64^{\\frac{1}{3}} = 4$, because $4 \\times 4 \\times 4 = 64$.",
+            "Substitute: $R = 1.20 \\times 10^{-15} \\times 4 = 4.80 \\times 10^{-15}\\ \\text{m}$.",
+            "Sense check: an atom is about $10^{-10}\\ \\text{m}$ across, so the nucleus is tens of thousands of times smaller, as it should be."
+          ],
+          "answer": "$R \\approx 4.80 \\times 10^{-15}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "R0*64**Rational(1, 3)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Why a cube root? A sphere's volume is $\\frac{4}{3}\\pi R^{3}$. Cube the booklet equation and $R^{3} = R_0^{3}A$, so the volume is proportional to $A$. Each nucleon takes up the same space, like marbles packed in a bag."
+        },
+        {
+          "type": "result",
+          "statement": "All nuclei have about the same density, roughly $2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$, whatever their nucleon number.",
+          "why": "Mass and volume are both proportional to $A$, so $A$ cancels when you divide one by the other."
+        },
+        {
+          "type": "example",
+          "id": "ex-nuclear-density",
+          "question": "Take the mass of a nucleus with nucleon number $A$ to be $A$ atomic mass units. Show that its density is about $2 \\times 10^{17}\\ \\text{kg m}^{-3}$, whatever the value of $A$.",
+          "steps": [
+            "Mass: $m = A \\times 1.661 \\times 10^{-27}\\ \\text{kg}$, using the data booklet value of $1\\ \\text{u}$.",
+            "Volume: $V = \\frac{4}{3}\\pi R^{3} = \\frac{4}{3}\\pi \\left(R_0A^{\\frac{1}{3}}\\right)^{3} = \\frac{4}{3}\\pi R_0^{3}A$.",
+            "Divide: $\\rho = \\frac{m}{V} = \\frac{A \\times 1.661 \\times 10^{-27}}{\\frac{4}{3}\\pi R_0^{3}A}$. The $A$ cancels, so the density is the same for every nucleus.",
+            "Substitute: $\\rho = \\frac{3 \\times 1.661 \\times 10^{-27}}{4\\pi \\times (1.20 \\times 10^{-15})^{3}} = 2.29 \\times 10^{17}\\ \\text{kg m}^{-3}$.",
+            "Give one more significant figure than the value you were shown: $2.3 \\times 10^{17}$, which is about $2 \\times 10^{17}$."
+          ],
+          "answer": "$\\rho \\approx 2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3*u_kg/(4*pi*R0**3)",
+            "sf": 2,
+            "unit": "kg m-3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Water has a density of $1000\\ \\text{kg m}^{-3}$, so nuclear matter is about $10^{14}$ times denser: 14 [[order-of-magnitude|orders of magnitude]]. Write values this size in [[scientific-notation|scientific notation]] and track the powers of ten carefully."
+        },
+        {
+          "type": "mistake",
+          "text": "Treating $R$ as proportional to $A$. Doubling $A$ multiplies $R$ by $2^{\\frac{1}{3}} \\approx 1.26$, not by 2."
+        },
+        {
+          "type": "check",
+          "id": "check-radius-ratio",
+          "prompt": "Nucleus P has 125 nucleons and nucleus Q has 8. How many times larger is the radius of P than the radius of Q?",
+          "hint": "$R_0$ cancels in the ratio. Take the cube root of each nucleon number.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{R_P}{R_Q} = \\frac{125^{\\frac{1}{3}}}{8^{\\frac{1}{3}}} = \\frac{5}{2} = 2.5$. Dividing 125 by 8 gives 15.6, which is the ratio of the volumes, not the radii.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "125**Rational(1, 3)/8**Rational(1, 3)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-density-125",
+          "prompt": "Estimate the density of a nucleus with nucleon number 125. Take its mass to be $125\\ \\text{u}$.",
+          "hint": "Density doesn't depend on $A$. If you work it out in full, remember $V = \\frac{4}{3}\\pi R^{3}$ with $R = R_0A^{\\frac{1}{3}}$.",
+          "options": [
+            {
+              "text": "$\\approx 2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 1.8 \\times 10^{15}\\ \\text{kg m}^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 1.5 \\times 10^{13}\\ \\text{kg m}^{-3}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 9.6 \\times 10^{17}\\ \\text{kg m}^{-3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$A$ cancels, so the answer is the same $2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$ as for any nucleus. $1.8 \\times 10^{15}$ uses the mass of one nucleon, $1.5 \\times 10^{13}$ uses $R = R_0A$, and $9.6 \\times 10^{17}$ leaves out $\\frac{4}{3}\\pi$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "125*u_kg/(Rational(4, 3)*pi*(R0*125**Rational(1, 3))**3)",
+            "sf": 2,
+            "unit": "kg m-3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "closest-approach",
+      "heading": "Distance of closest approach",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fire an [[alpha-particle|alpha particle]] straight at a nucleus. Both are positive, so the electric force pushes against the alpha particle all the way in. It slows, stops for an instant, then is pushed back the way it came."
+        },
+        {
+          "type": "definition",
+          "term": "distance of closest approach",
+          "statement": "In a head-on collision with a nucleus treated as fixed, the distance $d$ between the centre of the nucleus and the alpha particle at the instant the alpha particle stops.",
+          "plain": "How close a charged particle fired straight at a nucleus gets before it is turned back."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-closest-approach",
+          "alt": "Head-on collision of an alpha particle with a nucleus. Far away on the left, the alpha particle of charge plus 2e moves right with all its energy as kinetic energy. Further right, a dashed outline shows it stopped for an instant, with all its energy as electric potential energy. On the right is the nucleus, charge plus Ze. A double-headed arrow marks d, the distance from the stopped alpha particle to the centre of the nucleus. Not to scale.",
+          "caption": "At closest approach $v = 0$: all of $E_\\text{k}$ is now $E_\\text{p}$."
+        },
+        {
+          "type": "text",
+          "text": "Use conservation of energy. Far away, the alpha particle has kinetic energy $E_\\text{k}$ and almost no [[electric-potential-energy|electric potential energy]]. At closest approach it is at rest, so all of $E_\\text{k}$ has become electric potential energy."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{p} = k\\frac{q_1q_2}{r}",
+          "tag": "booklet",
+          "bookletId": "db-4-6"
+        },
+        {
+          "type": "text",
+          "text": "The alpha particle has charge $+2e$. A nucleus with proton number $Z$ has charge $+Ze$. Set $E_\\text{k}$ equal to $E_\\text{p}$ at $r = d$ and rearrange:"
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = k\\frac{(2e)(Ze)}{d} \\quad\\Rightarrow\\quad d = \\frac{2kZe^{2}}{E_\\text{k}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This assumes the nucleus does not move, which is fair because it is much heavier than the alpha particle. In closest-approach questions the energies are low enough that only the electric force acts; the next section shows what changes at higher energies."
+        },
+        {
+          "type": "text",
+          "text": "$E_\\text{k}$ is usually given in MeV, millions of [[electronvolt|electronvolts]]. Convert to joules first: $1\\ \\text{MeV} = 10^{6} \\times 1.60 \\times 10^{-19} = 1.60 \\times 10^{-13}\\ \\text{J}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-closest-z50",
+          "question": "An alpha particle with kinetic energy $6.0\\ \\text{MeV}$ moves head-on towards a nucleus with proton number 50. Calculate the distance of closest approach.",
+          "steps": [
+            "Convert the energy: $E_\\text{k} = 6.0 \\times 1.60 \\times 10^{-13} = 9.6 \\times 10^{-13}\\ \\text{J}$.",
+            "Charges: the alpha particle has $2e = 3.20 \\times 10^{-19}\\ \\text{C}$ and the nucleus has $50e = 8.00 \\times 10^{-18}\\ \\text{C}$.",
+            "Energy conservation: $E_\\text{k} = k\\frac{(2e)(50e)}{d}$, so $d = \\frac{8.99 \\times 10^{9} \\times 3.20 \\times 10^{-19} \\times 8.00 \\times 10^{-18}}{9.6 \\times 10^{-13}}$.",
+            "$d = 2.4 \\times 10^{-14}\\ \\text{m}$, to 2 significant figures like the energy.",
+            "Sense check: a nucleus with about 120 nucleons has $R \\approx 6 \\times 10^{-15}\\ \\text{m}$, so the alpha particle stops well outside it."
+          ],
+          "answer": "$d \\approx 2.4 \\times 10^{-14}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "k_e*(2*e)*(50*e)/(6.0*MeV)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-energy-to-reach-d",
+          "question": "Determine the kinetic energy, in MeV, that an alpha particle needs to get within $2.0 \\times 10^{-14}\\ \\text{m}$ of the centre of a nucleus with proton number 60.",
+          "steps": [
+            "Aim it head-on. At closest approach all the kinetic energy has become electric potential energy, so $E_\\text{k} = k\\frac{(2e)(60e)}{d}$.",
+            "Substitute: $E_\\text{k} = \\frac{8.99 \\times 10^{9} \\times 2 \\times 60 \\times (1.60 \\times 10^{-19})^{2}}{2.0 \\times 10^{-14}} = 1.38 \\times 10^{-12}\\ \\text{J}$.",
+            "Convert to MeV: $\\frac{1.38 \\times 10^{-12}}{1.60 \\times 10^{-13}} = 8.6\\ \\text{MeV}$.",
+            "With less energy, the alpha particle stops further out."
+          ],
+          "answer": "$E_\\text{k} \\approx 8.6\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "k_e*(2*e)*(60*e)/(2.0*10**-14)/MeV",
+            "sf": 2,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-closest-z40",
+          "prompt": "An alpha particle with kinetic energy $3.0\\ \\text{MeV}$ moves head-on towards a nucleus with proton number 40. Calculate the distance of closest approach in units of $10^{-14}\\ \\text{m}$, to 2 significant figures.",
+          "hint": "Convert MeV to joules, then use $d = \\frac{2kZe^{2}}{E_\\text{k}}$.",
+          "answer": {
+            "value": 3.8,
+            "tolerance": 0.05
+          },
+          "explain": "$d = \\frac{8.99 \\times 10^{9} \\times 2 \\times 40 \\times (1.60 \\times 10^{-19})^{2}}{3.0 \\times 1.60 \\times 10^{-13}} = 3.8 \\times 10^{-14}\\ \\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "k_e*(2*e)*(40*e)/(3.0*MeV)/10**-14",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-energy",
+          "prompt": "The alpha particles in a head-on scattering experiment are given twice as much kinetic energy. What happens to the distance of closest approach?",
+          "hint": "In $d = \\frac{2kZe^{2}}{E_\\text{k}}$, how does $d$ depend on $E_\\text{k}$?",
+          "options": [
+            {
+              "text": "it halves",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it falls to a quarter",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "$d$ is inversely proportional to $E_\\text{k}$, so doubling the energy halves $d$. The faster alpha particle has to get closer before the potential energy matches its kinetic energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it halves"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deviations",
+      "heading": "Deviations from Rutherford scattering",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Rutherford's scattering model treats the nucleus as a point charge that repels alpha particles by the electric force alone. For low-energy alpha particles it predicts how many are scattered at each angle very well."
+        },
+        {
+          "type": "text",
+          "text": "Raise the energy and the distance of closest approach shrinks. Eventually the alpha particles reach the surface of the nucleus. There the [[strong-nuclear-force|strong nuclear force]] acts too. It is attractive and acts only over a few times $10^{-15}\\ \\text{m}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-deviation-graph",
+          "alt": "Sketch graph of the number of alpha particles scattered through large angles divided by the number Rutherford's model predicts, against alpha particle kinetic energy. The ratio stays at 1 at low energies, where only the electric force acts. Above an energy marked E0 it falls well below 1, because the strong nuclear force also acts and fewer alpha particles are scattered back.",
+          "caption": "Above $E_0$, fewer alpha particles bounce back than predicted."
+        },
+        {
+          "type": "result",
+          "statement": "Above a certain alpha particle energy, fewer alpha particles are scattered through large angles than Rutherford's model predicts.",
+          "why": "At that energy the distance of closest approach is about the nuclear radius, so the strong nuclear force acts as well and a model with only the electric force no longer works."
+        },
+        {
+          "type": "text",
+          "text": "The energy where deviations start, $E_0$, is useful. At $E_0$ the distance of closest approach is about the radius of the nucleus, so $R \\approx \\frac{2kZe^{2}}{E_0}$. This was an early way to measure nuclear radii."
+        },
+        {
+          "type": "text",
+          "text": "Deviations start at a lower energy for a light nucleus. Its radius is a little smaller, but its charge is much smaller, so it repels less and alpha particles reach its surface more easily."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-deviation",
+          "question": "A beam of alpha particles is aimed at a thin foil of a heavy metal. Above a certain energy, fewer alpha particles bounce back than Rutherford's model predicts. Explain why.",
+          "steps": [
+            "Start with what changes: more energy means the alpha particles get closer to the nucleus.",
+            "Say how close: about the radius of the nucleus.",
+            "Name the extra force: the strong nuclear force, which only acts at these short distances.",
+            "Link to the model: it includes only the electric force, so its predictions fail."
+          ],
+          "answer": "As the alpha particles' energy increases, their distance of closest approach decreases. Above a certain energy, the distance of closest approach is about the same as the radius of the nucleus. The alpha particles then come within range of the strong nuclear force, which acts as well as the electric force. Rutherford's model includes only the electric force, so it no longer predicts the scattering correctly, and fewer alpha particles are scattered back than it predicts.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "at high energy the closest approach reaches the nuclear radius, the strong force acts, and the electric-only model fails",
+            "requires": [
+              [
+                "distance of closest approach decreases",
+                "closest approach decreases",
+                "get closer"
+              ],
+              [
+                "radius of the nucleus",
+                "nuclear radius"
+              ],
+              "strong nuclear force",
+              [
+                "only the electric force",
+                "electric force only"
+              ],
+              "fewer"
+            ],
+            "forbids": [
+              "gravitational force",
+              "electrons deflect"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-estimate-e0",
+          "question": "A nucleus has proton number 13 and nucleon number 27. Estimate the alpha particle energy, in MeV, above which scattering from it starts to deviate from Rutherford's model.",
+          "steps": [
+            "Find the radius: $R = 1.20 \\times 10^{-15} \\times 27^{\\frac{1}{3}} = 1.20 \\times 10^{-15} \\times 3 = 3.60 \\times 10^{-15}\\ \\text{m}$.",
+            "Deviations start when the distance of closest approach equals $R$: $E_0 = k\\frac{(2e)(13e)}{R}$.",
+            "Substitute: $E_0 = \\frac{8.99 \\times 10^{9} \\times 2 \\times 13 \\times (1.60 \\times 10^{-19})^{2}}{3.60 \\times 10^{-15}} = 1.66 \\times 10^{-12}\\ \\text{J}$.",
+            "Convert: $\\frac{1.66 \\times 10^{-12}}{1.60 \\times 10^{-13}} = 10.4\\ \\text{MeV}$.",
+            "This is an estimate. The alpha particle has a size of its own, so in practice deviations begin at a somewhat lower energy."
+          ],
+          "answer": "$E_0 \\approx 10.4\\ \\text{MeV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "k_e*(2*e)*(13*e)/(R0*27**Rational(1, 3))/MeV",
+            "sf": 3,
+            "unit": "MeV"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you outline why the deviation happens, make two points: the alpha particles get about as close as the nuclear radius, and the strong nuclear force then acts. These are what the marks reward."
+        },
+        {
+          "type": "check",
+          "id": "check-light-or-heavy",
+          "prompt": "Alpha particles are fired at a light nucleus and at a heavy nucleus, and their energy is slowly raised. For which nucleus do deviations from Rutherford's model appear at the lower energy?",
+          "hint": "Which nucleus repels the alpha particles less strongly?",
+          "options": [
+            {
+              "text": "the light nucleus",
+              "correct": true
+            },
+            {
+              "text": "the heavy nucleus",
+              "correct": false
+            },
+            {
+              "text": "both at the same energy",
+              "correct": false
+            }
+          ],
+          "explain": "The light nucleus has a smaller charge, so alpha particles reach its surface with less energy. Its radius is smaller too, but the charge matters more: $E_0 \\approx \\frac{2kZe^{2}}{R}$, and $Z$ grows faster than $R$ as nuclei get heavier.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the light nucleus"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-radius-from-e0",
+          "prompt": "Deviations from Rutherford scattering start at $18\\ \\text{MeV}$ for nuclei with proton number 26. Estimate their radius in units of $10^{-15}\\ \\text{m}$, to 2 significant figures.",
+          "hint": "When deviations start, the distance of closest approach is about the nuclear radius.",
+          "answer": {
+            "value": 4.2,
+            "tolerance": 0.05
+          },
+          "explain": "$R \\approx \\frac{2kZe^{2}}{E_0} = \\frac{8.99 \\times 10^{9} \\times 2 \\times 26 \\times (1.60 \\times 10^{-19})^{2}}{18 \\times 1.60 \\times 10^{-13}} = 4.2 \\times 10^{-15}\\ \\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "k_e*(2*e)*(26*e)/(18*MeV)/10**-15",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "bohr-orbits",
+      "heading": "Quantised angular momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.2}} you saw that hydrogen gives out only certain wavelengths, so its energy levels are discrete. But why should an electron's energy be restricted at all?"
+        },
+        {
+          "type": "text",
+          "text": "Classical physics says an orbiting electron is accelerating, so it should radiate energy and spiral into the nucleus. Bohr kept the circular orbit but added a rule: only some orbits are allowed, and an electron in one does not radiate."
+        },
+        {
+          "type": "definition",
+          "term": "Bohr model",
+          "statement": "A model of the hydrogen atom in which the electron moves in a circular orbit around the proton, held by the electric force. Only orbits with angular momentum $mvr = \\frac{nh}{2\\pi}$, where $n = 1, 2, 3, \\ldots$, are allowed. The electron emits or absorbs a photon only when it moves between allowed orbits.",
+          "plain": "Hydrogen's electron can only be in certain orbits, each with its own fixed energy."
+        },
+        {
+          "type": "text",
+          "text": "[[angular-momentum|Angular momentum]] is the rotational version of momentum. For a mass $m$ moving at speed $v$ in a circle of radius $r$, it is $mvr$. Bohr's rule says it comes in whole-number steps of $\\frac{h}{2\\pi}$:"
+        },
+        {
+          "type": "formula",
+          "tex": "mvr = \\frac{nh}{2\\pi}",
+          "tag": "booklet",
+          "bookletId": "db-5-3"
+        },
+        {
+          "type": "text",
+          "text": "Here $m$ is the electron's mass, $h$ is the Planck constant and $n$ is a positive whole number, the quantum number of the orbit."
+        },
+        {
+          "type": "text",
+          "text": "Combine this rule with the electric force that keeps the electron in its circle, and only certain radii work: $r = n^{2} \\times 5.3 \\times 10^{-11}\\ \\text{m}$. You don't need to derive this. Each allowed orbit has its own speed and its own energy."
+        },
+        {
+          "type": "result",
+          "statement": "Quantised angular momentum gives quantised orbits, and quantised orbits give quantised energy.",
+          "why": "Only certain radii satisfy the rule, and each radius has exactly one energy."
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-n1",
+          "question": "In the Bohr model, the electron in the $n = 1$ orbit of hydrogen has an orbit radius of $5.3 \\times 10^{-11}\\ \\text{m}$. Calculate its speed.",
+          "steps": [
+            "Rearrange $mvr = \\frac{nh}{2\\pi}$ for $v$: $v = \\frac{nh}{2\\pi mr}$.",
+            "Substitute $n = 1$ and the electron mass from the data booklet: $v = \\frac{1 \\times 6.63 \\times 10^{-34}}{2\\pi \\times 9.11 \\times 10^{-31} \\times 5.3 \\times 10^{-11}}$.",
+            "$v = 2.2 \\times 10^{6}\\ \\text{m s}^{-1}$, to 2 significant figures like the radius.",
+            "Sense check: that is fast, about 0.7% of the speed of light, but well below it."
+          ],
+          "answer": "$v \\approx 2.2 \\times 10^{6}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1*h/(2*pi*me*5.3*10**-11)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-quantised-energy",
+          "question": "Outline how the Bohr model explains why hydrogen has discrete energy levels.",
+          "steps": [
+            "Start from Bohr's rule: angular momentum is quantised, $mvr = \\frac{nh}{2\\pi}$.",
+            "Link it to the orbits: only certain radii satisfy the rule.",
+            "Link the orbits to energy: each orbit has one energy, so only those energies are possible."
+          ],
+          "answer": "In the Bohr model, the electron's angular momentum can only be a whole-number multiple of $\\frac{h}{2\\pi}$. So the electron can only move in orbits of certain radii. Each allowed orbit has a definite energy. So the electron's energy can only take certain discrete values, which are the energy levels.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "quantised angular momentum allows only certain orbits, each with a definite energy, so energy is discrete",
+            "requires": [
+              "angular momentum",
+              [
+                "whole-number multiple",
+                "integer multiple"
+              ],
+              [
+                "certain radii",
+                "allowed orbits",
+                "certain orbits"
+              ],
+              [
+                "definite energy",
+                "fixed energy"
+              ],
+              "discrete"
+            ],
+            "forbids": [
+              "any orbit",
+              "continuous range of energies"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angular-momentum-n3",
+          "prompt": "Calculate the angular momentum of the electron in the $n = 3$ orbit of hydrogen in units of $10^{-34}\\ \\text{J s}$, to 3 significant figures.",
+          "hint": "Bohr's rule gives the angular momentum directly.",
+          "answer": {
+            "value": 3.17,
+            "tolerance": 0.005
+          },
+          "explain": "$mvr = \\frac{3 \\times 6.63 \\times 10^{-34}}{2\\pi} = 3.17 \\times 10^{-34}\\ \\text{J s}$. You don't need $m$, $v$ or $r$ separately.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*h/(2*pi)/10**-34",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angular-momentum-ratio",
+          "prompt": "The electron in a hydrogen atom moves from the $n = 2$ orbit to the $n = 4$ orbit. What happens to its angular momentum?",
+          "hint": "Angular momentum is proportional to $n$.",
+          "options": [
+            {
+              "text": "it doubles",
+              "correct": true
+            },
+            {
+              "text": "it quadruples",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "$mvr = \\frac{nh}{2\\pi}$, so going from $n = 2$ to $n = 4$ doubles it. The radius quadruples ($r \\propto n^{2}$), but the speed halves, so $mvr$ only doubles.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it doubles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-levels",
+      "heading": "Hydrogen's energy levels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Bohr's orbits give hydrogen's energy levels directly. This equation is in the data booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "E = -\\frac{13.6}{n^{2}}\\ \\text{eV}",
+          "tag": "booklet",
+          "bookletId": "db-5-3"
+        },
+        {
+          "type": "text",
+          "text": "$n = 1$ is the ground state, at $-13.6\\ \\text{eV}$. As $n$ grows, the levels rise towards zero and crowd closer together."
+        },
+        {
+          "type": "text",
+          "text": "The energies are negative because zero is chosen as the electron completely free of the atom ($n \\to \\infty$). A bound electron has less energy than a free one. The minimum energy to free it from level $n$ is $\\frac{13.6}{n^{2}}\\ \\text{eV}$, so the [[ionisation|ionisation]] energy of hydrogen in its ground state is $13.6\\ \\text{eV}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-hydrogen-levels",
+          "alt": "Energy level diagram for hydrogen in the Bohr model, not to scale. Horizontal lines from bottom to top: n equals 1 at minus 13.6 electronvolts, n equals 2 at minus 3.40, n equals 3 at minus 1.51, n equals 4 at minus 0.85, n equals 5 at minus 0.54, and zero at the top, where the electron is free. A downward arrow from n equals 5 to n equals 2 is labelled 2.86 electronvolt photon. A dashed upward arrow from n equals 1 to zero is labelled 13.6 electronvolts to ionise.",
+          "caption": "The levels crowd together towards $0$. A fall from $n = 5$ to $n = 2$ emits a $2.86\\ \\text{eV}$ photon."
+        },
+        {
+          "type": "text",
+          "text": "In an [[atomic-transition|atomic transition]], one photon carries the energy difference between the two levels: $E = hf = \\frac{hc}{\\lambda}$, where $E$ is the gap. Convert eV to joules before using $h$."
+        },
+        {
+          "type": "example",
+          "id": "ex-wavelength-5-to-2",
+          "question": "Calculate the wavelength of the photon emitted when the electron in a hydrogen atom falls from $n = 5$ to $n = 2$.",
+          "steps": [
+            "Find each level: $E_5 = -\\frac{13.6}{25} = -0.544\\ \\text{eV}$ and $E_2 = -\\frac{13.6}{4} = -3.40\\ \\text{eV}$.",
+            "The photon energy is the gap: $E = -0.544 - (-3.40) = 2.856\\ \\text{eV} = 2.856 \\times 1.60 \\times 10^{-19} = 4.570 \\times 10^{-19}\\ \\text{J}$.",
+            "Wavelength: $\\lambda = \\frac{hc}{E} = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{4.570 \\times 10^{-19}} = 4.35 \\times 10^{-7}\\ \\text{m}$.",
+            "That is $435\\ \\text{nm}$, violet light: one of the lines in hydrogen's visible spectrum."
+          ],
+          "answer": "$\\lambda \\approx 4.35 \\times 10^{-7}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h*c/((-13.6/5**2 + 13.6/2**2)*eV)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ionise-from-n4",
+          "question": "A hydrogen atom has its electron in the $n = 4$ level. Determine the minimum frequency of a photon that can ionise it.",
+          "steps": [
+            "Ionising means raising the electron to $E = 0$. From $E_4 = -\\frac{13.6}{16} = -0.850\\ \\text{eV}$, it needs $0.850\\ \\text{eV}$.",
+            "Convert: $0.850 \\times 1.60 \\times 10^{-19} = 1.36 \\times 10^{-19}\\ \\text{J}$.",
+            "Use $E = hf$: $f = \\frac{1.36 \\times 10^{-19}}{6.63 \\times 10^{-34}} = 2.05 \\times 10^{14}\\ \\text{Hz}$.",
+            "A photon of higher frequency also ionises the atom. The extra energy becomes the freed electron's kinetic energy."
+          ],
+          "answer": "$f \\approx 2.05 \\times 10^{14}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(13.6/4**2)*eV/h",
+            "sf": 3,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The Bohr model works well for hydrogen, but it has limits. It fails for atoms with more than one electron, because it ignores how the electrons affect each other. It cannot predict how bright each spectral line is. And it assumes, without explaining why, that an electron in an allowed orbit does not radiate."
+        },
+        {
+          "type": "check",
+          "id": "check-photon-3-to-1",
+          "prompt": "Calculate the energy, in eV, of the photon emitted when hydrogen's electron falls from $n = 3$ to $n = 1$. Give 3 significant figures.",
+          "hint": "Find both levels with the booklet equation, then subtract.",
+          "answer": {
+            "value": 12.1,
+            "tolerance": 0.05
+          },
+          "explain": "$E_3 = -\\frac{13.6}{9} = -1.51\\ \\text{eV}$ and $E_1 = -13.6\\ \\text{eV}$, so $E = -1.51 - (-13.6) = 12.1\\ \\text{eV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-13.6/3**2 + 13.6/1**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shortest-wavelength",
+          "prompt": "Which transition in hydrogen emits the photon with the shortest wavelength?",
+          "hint": "Shortest wavelength means largest photon energy, so look for the biggest energy gap.",
+          "options": [
+            {
+              "text": "from the third level to the ground state",
+              "correct": true
+            },
+            {
+              "text": "from the second level to the ground state",
+              "correct": false
+            },
+            {
+              "text": "from the fifth level to the second level",
+              "correct": false
+            },
+            {
+              "text": "from the third level to the second level",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda = \\frac{hc}{E}$, so the biggest gap gives the shortest wavelength. $n = 3$ to $n = 1$ is $12.1\\ \\text{eV}$, more than $10.2\\ \\text{eV}$ (2 to 1), $2.86\\ \\text{eV}$ (5 to 2) and $1.89\\ \\text{eV}$ (3 to 2). Jumping more levels doesn't matter; the size of the gap does.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from the third level to the ground state"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "R = R_0A^{\\frac{1}{3}}",
+          "tag": "booklet",
+          "bookletId": "db-5-3",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every nucleus has about the same density, $2.3 \\times 10^{17}\\ \\text{kg m}^{-3}$, because its mass and volume are both proportional to $A$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "d = \\frac{2kZe^{2}}{E_\\text{k}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Above a certain energy, alpha particles reach the nucleus, the strong nuclear force acts, and scattering deviates from Rutherford's model. That energy gives an estimate of the nuclear radius.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "mvr = \\frac{nh}{2\\pi}",
+          "tag": "booklet",
+          "bookletId": "db-5-3",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = -\\frac{13.6}{n^{2}}\\ \\text{eV}",
+          "tag": "booklet",
+          "bookletId": "db-5-3",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A photon's energy is the gap between two levels. The Bohr model works for hydrogen but fails for atoms with more than one electron.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using $e$ instead of $2e$ for the alpha particle's charge. An alpha particle has two protons, so its charge is $+2e$.",
+    "Leaving $E_\\text{k}$ in MeV in $d = \\frac{2kZe^{2}}{E_\\text{k}}$. Multiply by $1.60 \\times 10^{-13}$ to get joules first.",
+    "Thinking a bigger nucleus is denser. Its mass and volume both grow in proportion to $A$, so the density stays the same.",
+    "Using one level's energy as the photon energy. The photon carries the difference between two levels.",
+    "Using $E = -\\frac{13.6}{n^{2}}\\ \\text{eV}$ for atoms other than hydrogen. The equation is for hydrogen only, and the Bohr model fails for atoms with more than one electron."
+  ],
+  "examTips": [
+    "\"Show that\" a nuclear radius or density: write $R = R_0A^{\\frac{1}{3}}$ with $1.20 \\times 10^{-15}\\ \\text{m}$ substituted, then give one more significant figure than the value you were shown.",
+    "\"Calculate\" a proton number from a distance of closest approach: give a whole number, because $Z$ counts protons.",
+    "\"Outline\" why scattering deviates at high energies: say the alpha particles get as close as the nuclear radius, and name the strong nuclear force.",
+    "In Paper 1A, ratio questions about nuclei rest on two facts: the radius goes as the cube root of $A$, and the density does not change."
+  ],
+  "readingMinutes": 30
+}

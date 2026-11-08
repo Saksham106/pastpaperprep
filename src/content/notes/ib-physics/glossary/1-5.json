@@ -1,0 +1,68 @@
+[
+  {
+    "id": "normal-force",
+    "term": "normal force",
+    "definition": "The component of the contact force from a surface that acts perpendicular to the surface, pushing on the body; it equals the weight only in special cases, such as a body at rest on level ground with no other vertical forces.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "friction",
+    "term": "friction",
+    "definition": "The component of the contact force parallel to a surface, opposing the sliding of the two surfaces or their tendency to slide.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "coefficient-of-friction",
+    "term": "coefficient of friction",
+    "definition": "A number with no unit that links friction to the normal force: static friction is at most $\\mu_\\text{s}F_\\text{N}$, and sliding friction equals $\\mu_\\text{d}F_\\text{N}$.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "tension",
+    "term": "tension",
+    "definition": "The pulling force a taut string, rope or cable exerts on a body attached to it, acting along the string away from the body.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "hooke-s-law",
+    "term": "Hooke's law",
+    "definition": "The force a spring exerts is proportional to its extension and opposite to it, $F_\\text{H} = -kx$, as long as the limit of proportionality is not passed.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "spring-constant",
+    "term": "spring constant",
+    "definition": "The force per unit extension of a spring, $k$, in $\\text{N m}^{-1}$; a stiffer spring has a larger spring constant.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "viscous-drag",
+    "term": "viscous drag",
+    "definition": "The resistive force on a small sphere moving slowly through a fluid, opposite to its velocity, given by $F_\\text{d} = 6\\pi\\eta r v$.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "buoyancy",
+    "term": "buoyancy",
+    "definition": "The upward force a fluid exerts on a body in it, equal to the weight of fluid displaced, $F_\\text{b} = \\rho V g$ with $\\rho$ the density of the fluid.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "weight",
+    "term": "weight",
+    "definition": "The gravitational force on a body, $F_\\text{g} = mg$, measured in newtons; unlike mass, it depends on the gravitational field strength where the body is.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "electric-force",
+    "term": "electric force",
+    "definition": "The force between charged bodies, or on a charge in an electric field, whether or not the charge moves; like charges repel and unlike charges attract.",
+    "lesson": "1.5"
+  },
+  {
+    "id": "magnetic-force",
+    "term": "magnetic force",
+    "definition": "The force a magnetic field exerts on a moving charge or a current-carrying wire, perpendicular to both the velocity (or current) and the field.",
+    "lesson": "1.5"
+  }
+]

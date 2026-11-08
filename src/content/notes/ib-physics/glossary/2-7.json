@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pressure",
+    "term": "pressure",
+    "definition": "The force acting perpendicular to a surface divided by the area it acts on, $P = \\frac{F}{A}$, measured in pascals ($\\pu{1 Pa} = \\pu{1 N m-2}$).",
+    "lesson": "2.7"
+  },
+  {
+    "id": "amount-of-substance",
+    "term": "amount of substance",
+    "definition": "The number of particles in a sample counted in moles, $n = \\frac{N}{N_\\text{A}}$, where $N$ is the number of particles and $N_\\text{A}$ the Avogadro constant.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "mole",
+    "term": "mole",
+    "definition": "The SI unit of amount of substance (mol): one mole of a substance contains $N_\\text{A} = 6.02 \\times 10^{23}$ particles.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "avogadro-constant",
+    "term": "Avogadro constant",
+    "definition": "The number of particles in one mole of any substance, $N_\\text{A} = \\pu{6.02e23 mol-1}$.",
+    "lesson": "2.7"
+  },
+  {
+    "id": "ideal-gas",
+    "term": "ideal gas",
+    "definition": "A model gas of point molecules in random motion that exert no forces on each other except during elastic collisions, so it has no intermolecular potential energy and, for a fixed amount, obeys $\\frac{PV}{T} = \\text{constant}$ exactly.",
+    "lesson": "2.7"
+  }
+]

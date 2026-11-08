@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-labelledby="t29pa">
+  <title id="t29pa">Pressure in units of 10 to the 5 pascals on the vertical axis, from 0 to 5, against volume in units of 10 to the minus 3 cubic metres on the horizontal axis, from 0 to 4. State A is at volume 1.0 and pressure 4.0. A straight line with an arrow runs down to state B at volume 3.0 and pressure 1.0. The region under the line, between volumes 1.0 and 3.0 and down to zero pressure, is shaded and labelled area equals work done by the gas.</title>
+  <defs>
+    <marker id="a29pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+    </marker>
+    <marker id="b29pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t1-ink)"/>
+    </marker>
+  </defs>
+  <polygon points="180,300 180,100 380,250 380,300" fill="var(--t3-ink)" fill-opacity="0.2"/>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <line x1="80" y1="300" x2="520" y2="300" marker-end="url(#a29pa)"/>
+    <line x1="80" y1="300" x2="80" y2="30" marker-end="url(#a29pa)"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2">
+    <line x1="180" y1="300" x2="180" y2="306"/>
+    <line x1="280" y1="300" x2="280" y2="306"/>
+    <line x1="380" y1="300" x2="380" y2="306"/>
+    <line x1="480" y1="300" x2="480" y2="306"/>
+    <line x1="74" y1="250" x2="80" y2="250"/>
+    <line x1="74" y1="200" x2="80" y2="200"/>
+    <line x1="74" y1="150" x2="80" y2="150"/>
+    <line x1="74" y1="100" x2="80" y2="100"/>
+    <line x1="74" y1="50" x2="80" y2="50"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="80" y1="100" x2="180" y2="100"/>
+    <line x1="80" y1="250" x2="380" y2="250"/>
+  </g>
+  <line x1="180" y1="100" x2="373" y2="245" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#b29pa)"/>
+  <g fill="currentColor">
+    <circle cx="180" cy="100" r="4"/>
+    <circle cx="380" cy="250" r="4"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="176" y="324" text-anchor="middle">1.0</text>
+    <text x="280" y="324" text-anchor="middle">2.0</text>
+    <text x="380" y="324" text-anchor="middle">3.0</text>
+    <text x="480" y="324" text-anchor="middle">4.0</text>
+    <text x="68" y="255" text-anchor="end">1.0</text>
+    <text x="68" y="205" text-anchor="end">2.0</text>
+    <text x="68" y="155" text-anchor="end">3.0</text>
+    <text x="68" y="105" text-anchor="end">4.0</text>
+    <text x="68" y="55" text-anchor="end">5.0</text>
+    <text x="188" y="92" font-size="14">A</text>
+    <text x="388" y="244" font-size="14">B</text>
+    <text x="280" y="270" text-anchor="middle">area = work done</text>
+    <text x="280" y="286" text-anchor="middle">by the gas</text>
+    <text x="520" y="345" text-anchor="end">V / 10⁻³ m³</text>
+    <text x="90" y="24">P / 10⁵ Pa</text>
+  </g>
+</svg>

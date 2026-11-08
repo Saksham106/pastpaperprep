@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" role="img" aria-labelledby="t48rh">
+  <title id="t48rh">The right-hand rule as three arrows at right angles. The field B points up the page, along the fingers. The velocity of a positive charge, or the current, points to the right, along the thumb. The force comes out of the palm, out of the page, shown as a dot in a circle where the arrows meet.</title>
+  <defs>
+    <marker id="m48rh-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/>
+    </marker>
+    <marker id="m48rh-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- field B: fingers, up the page -->
+  <line x1="150" y1="180" x2="150" y2="50" stroke="var(--t1-ink)" stroke-width="2.5" marker-end="url(#m48rh-b)"/>
+  <!-- velocity / current: thumb, to the right -->
+  <line x1="150" y1="180" x2="310" y2="180" stroke="var(--t5-ink)" stroke-width="2.5" marker-end="url(#m48rh-v)"/>
+  <!-- force: out of the palm, out of the page -->
+  <circle cx="150" cy="180" r="12" fill="none" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <circle cx="150" cy="180" r="3.5" fill="var(--t3-ink)"/>
+
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="162" y="56" fill="var(--t1-ink)">Fingers: field <tspan font-style="italic">B</tspan></text>
+    <text x="318" y="176" fill="var(--t5-ink)">Thumb: velocity <tspan font-style="italic">v</tspan></text>
+    <text x="318" y="194" fill="var(--t5-ink)">of a + charge,</text>
+    <text x="318" y="212" fill="var(--t5-ink)">or current <tspan font-style="italic">I</tspan></text>
+    <text x="138" y="222" text-anchor="end" fill="var(--t3-ink)">Palm pushes: force <tspan font-style="italic">F</tspan>,</text>
+    <text x="138" y="240" text-anchor="end" fill="var(--t3-ink)">out of the page</text>
+  </g>
+</svg>

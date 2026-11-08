@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" role="img" aria-labelledby="t64tan">
+  <title id="t64tan">Velocity in metres per second, 0 to 10, against time in seconds, 0 to 10. A curve rises from the origin, steeply at first and then more gently. A straight tangent touches the curve at 4.0 seconds, where the velocity is 5.0 metres per second. The tangent passes through 2.6 metres per second at 0 seconds and 8.6 metres per second at 10.0 seconds. A dashed triangle under the tangent shows a change in time of 10.0 seconds and a change in velocity of 6.0 metres per second.</title>
+  <defs>
+    <marker id="m64tan-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="60" y1="250" x2="60" y2="12" marker-end="url(#m64tan-head)"/>
+    <line x1="60" y1="250" x2="490" y2="250" marker-end="url(#m64tan-head)"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2"><line x1="60.0" y1="250" x2="60.0" y2="255"/><line x1="140.0" y1="250" x2="140.0" y2="255"/><line x1="220.0" y1="250" x2="220.0" y2="255"/><line x1="300.0" y1="250" x2="300.0" y2="255"/><line x1="380.0" y1="250" x2="380.0" y2="255"/><line x1="460.0" y1="250" x2="460.0" y2="255"/><line x1="55" y1="250.0" x2="60" y2="250.0"/><line x1="55" y1="206.0" x2="60" y2="206.0"/><line x1="55" y1="162.0" x2="60" y2="162.0"/><line x1="55" y1="118.0" x2="60" y2="118.0"/><line x1="55" y1="74.0" x2="60" y2="74.0"/><line x1="55" y1="30.0" x2="60" y2="30.0"/></g>
+  <path d="M60.0,250.0 L64.0,245.1 L68.0,240.4 L72.0,235.8 L76.0,231.4 L80.0,227.1 L84.0,223.0 L88.0,219.0 L92.0,215.1 L96.0,211.4 L100.0,207.8 L104.0,204.3 L108.0,200.9 L112.0,197.6 L116.0,194.4 L120.0,191.3 L124.0,188.4 L128.0,185.5 L132.0,182.7 L136.0,180.0 L140.0,177.4 L144.0,174.9 L148.0,172.5 L152.0,170.1 L156.0,167.8 L160.0,165.6 L164.0,163.5 L168.0,161.4 L172.0,159.4 L176.0,157.5 L180.0,155.6 L184.0,153.8 L188.0,152.1 L192.0,150.4 L196.0,148.8 L200.0,147.2 L204.0,145.6 L208.0,144.2 L212.0,142.7 L216.0,141.3 L220.0,140.0 L224.0,138.7 L228.0,137.4 L232.0,136.2 L236.0,135.1 L240.0,133.9 L244.0,132.8 L248.0,131.8 L252.0,130.7 L256.0,129.7 L260.0,128.8 L264.0,127.8 L268.0,126.9 L272.0,126.1 L276.0,125.2 L280.0,124.4 L284.0,123.6 L288.0,122.8 L292.0,122.1 L296.0,121.4 L300.0,120.7 L304.0,120.0 L308.0,119.4 L312.0,118.7 L316.0,118.1 L320.0,117.6 L324.0,117.0 L328.0,116.4 L332.0,115.9 L336.0,115.4 L340.0,114.9 L344.0,114.4 L348.0,113.9 L352.0,113.5 L356.0,113.1 L360.0,112.6 L364.0,112.2 L368.0,111.8 L372.0,111.5 L376.0,111.1 L380.0,110.7 L384.0,110.4 L388.0,110.1 L392.0,109.7 L396.0,109.4 L400.0,109.1 L404.0,108.8 L408.0,108.5 L412.0,108.3 L416.0,108.0 L420.0,107.7 L424.0,107.5 L428.0,107.3 L432.0,107.0 L436.0,106.8 L440.0,106.6 L444.0,106.4 L448.0,106.2 L452.0,106.0 L456.0,105.8 L460.0,105.6" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="60.0" y1="192.8" x2="460.0" y2="60.8" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" fill="none"><line x1="60.0" y1="192.8" x2="460.0" y2="192.8"/><line x1="460.0" y1="192.8" x2="460.0" y2="60.8"/></g>
+  <circle cx="220.0" cy="140.0" r="4" fill="var(--t2-ink)"/>
+  <g font-size="12" fill="currentColor">
+<text x="60.0" y="270" text-anchor="middle">0</text><text x="140.0" y="270" text-anchor="middle">2</text><text x="220.0" y="270" text-anchor="middle">4</text><text x="300.0" y="270" text-anchor="middle">6</text><text x="380.0" y="270" text-anchor="middle">8</text><text x="460.0" y="270" text-anchor="middle">10</text><text x="51" y="254.0" text-anchor="end">0</text><text x="51" y="210.0" text-anchor="end">2</text><text x="51" y="166.0" text-anchor="end">4</text><text x="51" y="122.0" text-anchor="end">6</text><text x="51" y="78.0" text-anchor="end">8</text><text x="51" y="34.0" text-anchor="end">10</text>
+    <text x="490" y="288" text-anchor="end" fill="var(--muted)">t / s</text>
+    <text x="68" y="18" fill="var(--muted)">v / m s⁻¹</text>
+    <text x="212.0" y="128.0" text-anchor="end" fill="var(--t2-ink)">tangent at t = 4.0 s</text>
+    <text x="300.0" y="208.8" text-anchor="middle" fill="var(--muted)">Δt = 10.0 s</text>
+    <text x="454.0" y="170.8" text-anchor="end" fill="var(--muted)">Δv = 6.0 m s⁻¹</text>
+  </g>
+</svg>

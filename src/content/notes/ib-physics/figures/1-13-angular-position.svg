@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 290" role="img" aria-labelledby="t">
+<title id="t">A disc turns about a fixed axis through its centre. A dashed horizontal line from the centre to the right is the fixed reference direction. A painted line on the disc starts at angle theta i, 30 degrees above the reference direction, and later sits at angle theta f, 110 degrees above it. A curved arrow between the two positions, turning anticlockwise, is labelled delta theta, the angular displacement. A curved arrow outside the disc, at the bottom right, shows that anticlockwise is taken as the positive sense.</title>
+<circle cx="160" cy="150" r="100" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="160" cy="150" r="4" fill="currentColor"/>
+<path d="M160 150 H300" fill="none" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="6 5"/>
+<text font-family="inherit" font-size="11" x="304" y="146" fill="var(--muted)">reference</text>
+<text font-family="inherit" font-size="11" x="304" y="160" fill="var(--muted)">direction</text>
+<path d="M160 150 L246.6 100" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<text font-family="inherit" font-size="12" x="252" y="98" fill="var(--t1-ink)">start</text>
+<path d="M160 150 L125.8 56" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<text font-family="inherit" font-size="12" x="80" y="46" fill="var(--t2-ink)">later, θ<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+<path d="M195 150 A35 35 0 0 0 190.3 132.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+<text font-family="inherit" font-size="12" x="200" y="140" fill="var(--t1-ink)">θ<tspan baseline-shift="sub" font-size="9">i</tspan></text>
+<path d="M212 120 A60 60 0 0 0 139.5 93.6" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+<polygon points="139.5,93.6 149.5,94.7 146.4,86.3" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="13" x="178" y="84" fill="var(--t4-ink)">Δθ</text>
+<path d="M219 252.2 A118 118 0 0 0 270.9 190.4" fill="none" stroke="var(--muted)" stroke-width="1.6"/>
+<polygon points="270.9,190.4 272.1,200.4 263.6,197.4" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="262" y="250" fill="var(--muted)">anticlockwise</text>
+<text font-family="inherit" font-size="11" x="262" y="264" fill="var(--muted)">= positive</text>
+</svg>

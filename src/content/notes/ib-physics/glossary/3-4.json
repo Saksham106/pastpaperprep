@@ -1,0 +1,56 @@
+[
+  {
+    "id": "wavefront",
+    "term": "wavefront",
+    "definition": "A line or surface joining neighbouring points of a wave that are in phase, such as one crest; neighbouring wavefronts are usually drawn one wavelength apart.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "ray",
+    "term": "ray",
+    "definition": "A line showing the direction a wave travels and transfers energy, always perpendicular to the wavefronts.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "reflection",
+    "term": "reflection",
+    "definition": "The return of a wave into its own medium at a boundary, with the angle of reflection equal to the angle of incidence, both measured from the normal.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "refraction",
+    "term": "refraction",
+    "definition": "The change in direction of a wave crossing into a new medium at an angle to the normal, caused by its change of speed; the frequency stays the same while the wavelength changes.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "diffraction",
+    "term": "diffraction",
+    "definition": "The spreading of a wave through a gap or round the edge of an obstacle, most noticeable when the gap or obstacle is about one wavelength across.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "refractive-index",
+    "term": "refractive index",
+    "definition": "The speed of light in a vacuum divided by its speed in a medium, $n = \\frac{c}{v}$; it has no unit.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "snell-s-law",
+    "term": "Snell's law",
+    "definition": "The rule for refraction at a boundary, $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$, with each angle measured between the ray and the normal.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "critical-angle",
+    "term": "critical angle",
+    "definition": "The angle of incidence, in the medium with the larger refractive index, that gives an angle of refraction of $90^{\\circ}$; $\\sin C = \\frac{n_2}{n_1}$.",
+    "lesson": "3.4"
+  },
+  {
+    "id": "total-internal-reflection",
+    "term": "total internal reflection",
+    "definition": "Reflection of all of a wave back into its medium, which happens when it heads towards a smaller refractive index at an angle of incidence greater than the critical angle.",
+    "lesson": "3.4"
+  }
+]

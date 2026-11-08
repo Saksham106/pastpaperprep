@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-labelledby="t214ir">
+  <title id="t214ir">A real cell drawn as a dashed box containing an ideal cell of emf epsilon in series with a small resistor r, the internal resistance. The two terminals are dots on the edges of the box. Outside the box, a single loop runs through an ammeter on the right-hand wire and an external resistor R on the bottom wire. A voltmeter is connected across the two terminals, so it reads the terminal potential difference V.</title>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <rect x="200" y="80" width="210" height="64" stroke-dasharray="7 5" stroke="var(--t2-ink)"/>
+    <line x1="100" y1="112" x2="242" y2="112"/>
+    <line x1="258" y1="112" x2="310" y2="112"/>
+    <rect x="310" y="102" width="50" height="20"/>
+    <line x1="360" y1="112" x2="500" y2="112"/>
+    <line x1="500" y1="112" x2="500" y2="174"/>
+    <circle cx="500" cy="190" r="16"/>
+    <line x1="500" y1="206" x2="500" y2="270"/>
+    <line x1="500" y1="270" x2="330" y2="270"/>
+    <rect x="270" y="260" width="60" height="20"/>
+    <line x1="270" y1="270" x2="100" y2="270"/>
+    <line x1="100" y1="270" x2="100" y2="112"/>
+    <!-- voltmeter across the terminals -->
+    <line x1="170" y1="112" x2="170" y2="40"/>
+    <line x1="170" y1="40" x2="289" y2="40"/>
+    <circle cx="305" cy="40" r="16"/>
+    <line x1="321" y1="40" x2="440" y2="40"/>
+    <line x1="440" y1="40" x2="440" y2="112"/>
+  </g>
+  <line x1="242" y1="92" x2="242" y2="132" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="258" y1="102" x2="258" y2="122" stroke="currentColor" stroke-width="6"/>
+  <circle cx="200" cy="112" r="4" fill="currentColor"/>
+  <circle cx="410" cy="112" r="4" fill="currentColor"/>
+  <circle cx="170" cy="112" r="4" fill="currentColor"/>
+  <circle cx="440" cy="112" r="4" fill="currentColor"/>
+  <g font-family="inherit" font-size="15" fill="currentColor">
+    <text x="305" y="45" text-anchor="middle">V</text>
+    <text x="500" y="195" text-anchor="middle">A</text>
+    <text x="250" y="160" text-anchor="middle">ε</text>
+    <text x="335" y="160" text-anchor="middle">r</text>
+    <text x="300" y="305" text-anchor="middle">R</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="var(--muted)">
+    <text x="452" y="72">voltmeter reads the</text>
+    <text x="452" y="88">terminal pd V</text>
+    <text x="305" y="182" text-anchor="middle" fill="var(--t2-ink)">real cell (between the terminals)</text>
+    <text x="300" y="330" text-anchor="middle">energy per coulomb: ε = IR + Ir, so V = IR = ε − Ir</text>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" role="img" aria-labelledby="t54pc">
+  <title id="t54pc">An evacuated glass tube holds a curved metal plate, the emitter, on the left and a thin collecting electrode on the right. A beam of light enters from above and falls on the inner, curved face of the emitter, the face towards the collector. Small arrows show electrons travelling from the emitter across to the collector. Below the tube, wires join the emitter and collector through an ammeter and a variable power supply, and a voltmeter is connected across the supply.</title>
+  <defs>
+    <marker id="m54pc-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t1-ink)"/></marker>
+    <marker id="m54pc-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--t4-ink)"/></marker>
+  </defs>
+  <ellipse cx="260" cy="110" rx="160" ry="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M170,60 Q145,110 170,160" fill="none" stroke="var(--t3-ink)" stroke-width="6"/>
+  <line x1="350" y1="70" x2="350" y2="150" stroke="var(--t3-ink)" stroke-width="4"/>
+  <g stroke="var(--t4-ink)" stroke-width="3" fill="none" marker-end="url(#m54pc-b)">
+    <line x1="226" y1="6" x2="167" y2="80"/>
+    <line x1="250" y1="14" x2="168" y2="100"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="1.6" fill="none" marker-end="url(#m54pc-a)">
+    <line x1="178" y1="95" x2="330" y2="88"/>
+    <line x1="178" y1="112" x2="330" y2="112"/>
+    <line x1="178" y1="128" x2="330" y2="136"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <polyline points="160,110 100,110 100,270 200,270"/>
+    <polyline points="350,150 350,170 420,170 420,270 330,270"/>
+    <circle cx="215" cy="270" r="15"/>
+    <polyline points="230,270 270,270"/>
+    <line x1="270" y1="256" x2="270" y2="284"/>
+    <line x1="282" y1="262" x2="282" y2="278" stroke-width="4"/>
+    <polyline points="282,270 330,270"/>
+    <line x1="258" y1="292" x2="300" y2="250" stroke-width="1.2" marker-end="url(#m54pc-a)"/>
+    <polyline points="250,270 250,225 263,225"/>
+    <circle cx="276" cy="225" r="13"/>
+    <polyline points="289,225 305,225 305,270"/>
+  </g>
+  <g font-size="12" fill="currentColor">
+    <text x="215" y="274" text-anchor="middle">A</text>
+    <text x="276" y="229" text-anchor="middle">V</text>
+    <text x="218" y="14" text-anchor="end" fill="var(--t4-ink)">light</text>
+    <text x="148" y="190" text-anchor="middle">emitter</text>
+    <text x="370" y="75">collector</text>
+    <text x="254" y="80" text-anchor="middle" fill="var(--t1-ink)">photoelectrons</text>
+    <text x="260" y="38" text-anchor="middle" fill="var(--muted)">vacuum</text>
+    <text x="276" y="308" text-anchor="middle">variable supply</text>
+  </g>
+</svg>

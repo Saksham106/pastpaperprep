@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250" role="img" aria-labelledby="t">
+<title id="t">Three graphs of current I against potential difference V, each with the origin in the middle so that negative values are shown. First, an ohmic resistor at constant temperature: a straight line through the origin. Second, a filament lamp: a curve through the origin that is steep near the origin and becomes less steep at larger positive and negative potential differences, symmetric about the origin. Third, a light-emitting diode: the current is zero for all negative potential differences and for small positive ones, then rises steeply once the positive potential difference passes a threshold.</title>
+<g fill="none" stroke="currentColor" stroke-width="1.3">
+<path d="M25 120 H170"/><path d="M100 200 V40"/>
+<path d="M225 120 H370"/><path d="M300 200 V40"/>
+<path d="M425 120 H570"/><path d="M500 200 V40"/>
+</g>
+<g fill="currentColor">
+<polygon points="177,120 170,116 170,124"/><polygon points="100,33 96,40 104,40"/>
+<polygon points="377,120 370,116 370,124"/><polygon points="300,33 296,40 304,40"/>
+<polygon points="577,120 570,116 570,124"/><polygon points="500,33 496,40 504,40"/>
+</g>
+<g font-family="inherit" font-size="12" fill="currentColor">
+<text x="174" y="138" text-anchor="end">V</text><text x="108" y="40">I</text>
+<text x="374" y="138" text-anchor="end">V</text><text x="308" y="40">I</text>
+<text x="574" y="138" text-anchor="end">V</text><text x="508" y="40">I</text>
+</g>
+<path d="M45 175 L155 65" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<path d="M300 120 C315 92 335 78 372 72 M300 120 C285 148 265 162 228 168" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<path d="M428 120 H522 C530 120 534 100 540 48" fill="none" stroke="var(--t5-ink)" stroke-width="2.4"/>
+<g font-family="inherit" font-size="13" text-anchor="middle">
+<text x="100" y="228" fill="var(--t1-ink)">ohmic resistor</text>
+<text x="100" y="244" fill="var(--muted)" font-size="11">constant temperature</text>
+<text x="300" y="228" fill="var(--t3-ink)">filament lamp</text>
+<text x="300" y="244" fill="var(--muted)" font-size="11">resistance rises as it heats</text>
+<text x="500" y="228" fill="var(--t5-ink)">LED</text>
+<text x="500" y="244" fill="var(--muted)" font-size="11">conducts one way only</text>
+</g>
+</svg>

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "resonance",
+    "term": "resonance",
+    "definition": "The large amplitude of a forced oscillation when the driving frequency equals, or is very close to, the natural frequency of the system.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "natural-frequency",
+    "term": "natural frequency",
+    "definition": "The frequency at which a system oscillates when it is displaced and then left to oscillate freely, with no driving force.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "forced-oscillation",
+    "term": "forced oscillation",
+    "definition": "An oscillation caused by an external periodic force; once steady, it has the frequency of the driving force, not the natural frequency.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "damping",
+    "term": "damping",
+    "definition": "The loss of energy from an oscillating system through resistive forces such as friction or air resistance, so its amplitude decreases; in a driven system it lowers the resonance peak and shifts it to a slightly lower frequency.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "critical-damping",
+    "term": "critical damping",
+    "definition": "The amount of damping at which a displaced system returns to equilibrium in the shortest possible time without oscillating.",
+    "lesson": "3.8"
+  }
+]

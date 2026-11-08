@@ -1,0 +1,142 @@
+{
+  "item": "9.97",
+  "edition": "ib-physics-2025",
+  "before": [],
+  "sections": [
+    {
+      "id": "s1",
+      "title": "Fixture",
+      "blocks": [
+        {
+          "type": "example",
+          "id": "ex-component",
+          "question": "A $20\\ \\text{N}$ force acts at $35^{\\circ}$ to the horizontal. Find its horizontal component.",
+          "steps": [
+            "$F_x = F\\cos\\theta$."
+          ],
+          "answer": "$F_x \\approx 16.4\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "20*cosd(35)",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-photon",
+          "question": "Find the energy of a photon of wavelength $500\\ \\text{nm}$.",
+          "steps": [
+            "$E = \\frac{hc}{\\lambda}$."
+          ],
+          "answer": "$E \\approx 3.98 \\times 10^{-19}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "h*c/(500*10**-9)",
+            "sf": 3,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain",
+          "question": "A car moves at constant velocity. Explain what this shows about the forces on it.",
+          "steps": [
+            "Constant velocity means zero acceleration."
+          ],
+          "answer": "The driving force and the resistive forces balance, so the net force on the car is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the forces balance, so the net force is zero",
+            "requires": [
+              "net force",
+              "zero"
+            ],
+            "forbids": [
+              "no forces act"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-resistance",
+          "prompt": "A $12\\ \\text{V}$ supply drives $5.0\\ \\text{mA}$ through a resistor. What is its resistance?",
+          "hint": "$R = \\frac{V}{I}$.",
+          "options": [
+            {
+              "text": "$2.4\\,\\text{k}\\Omega$",
+              "correct": true
+            },
+            {
+              "text": "$2.4\\,\\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$0.42\\,\\text{k}\\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$2.4\\,\\text{M}\\Omega$",
+              "correct": false
+            }
+          ],
+          "explain": "$R = \\frac{12}{5.0 \\times 10^{-3}} = 2400\\ \\Omega$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "12/(5.0*10**-3)/1000",
+            "unit": "kΩ"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speed",
+          "prompt": "A ball falls from rest for $3.0\\ \\text{s}$. What is its speed? Ignore air resistance.",
+          "hint": "$v = u + at$.",
+          "options": [
+            {
+              "text": "$29.4\\ \\text{m s}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$29.4\\ \\text{m s}^{-2}$",
+              "correct": false
+            },
+            {
+              "text": "$3.27\\ \\text{m s}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$29.4\\ \\text{m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$v = 9.8 \\times 3.0$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "g*3.0",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle",
+          "prompt": "A ramp rises $3.0\\ \\text{m}$ over $4.0\\ \\text{m}$. At what angle to the horizontal is it, in degrees? Give 3 s.f.",
+          "hint": "$\\tan\\theta = \\frac{3.0}{4.0}$.",
+          "answer": {
+            "value": 36.9,
+            "tolerance": 0.05
+          },
+          "explain": "$\\theta = \\tan^{-1} 0.75$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "atand(3.0/4.0)",
+            "sf": 3
+          }
+        }
+      ]
+    }
+  ]
+}

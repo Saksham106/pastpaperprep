@@ -1,0 +1,855 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "3.3",
+  "slug": "travelling-waves",
+  "title": "Travelling waves",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A [[wave|wave]] carries energy from place to place without carrying the material along with it. In a [[transverse-wave|transverse wave]] the oscillations are perpendicular to the direction of travel; in a [[longitudinal-wave|longitudinal wave]], such as sound, they are parallel. Every wave obeys $v = f\\lambda$, and all [[electromagnetic-wave|electromagnetic waves]] cross a vacuum at the [[speed-of-light|speed of light]].",
+  "goals": [
+    {
+      "text": "Describe how the particles move in transverse and longitudinal waves, and find compressions and rarefactions on a graph.",
+      "bullets": [
+        "C.2-s1"
+      ]
+    },
+    {
+      "text": "Use $v = f\\lambda = \\frac{\\lambda}{T}$, reading the [[wavelength|wavelength]] and [[period|period]] from graphs.",
+      "bullets": [
+        "C.2-s2"
+      ]
+    },
+    {
+      "text": "Explain what a sound wave is and how it travels through a medium.",
+      "bullets": [
+        "C.2-s3"
+      ]
+    },
+    {
+      "text": "Describe electromagnetic waves and place each region of the spectrum by its wavelength.",
+      "bullets": [
+        "C.2-s4"
+      ]
+    },
+    {
+      "text": "Compare mechanical waves with electromagnetic waves.",
+      "bullets": [
+        "C.2-s5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.8",
+    "2.4",
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "wave equation v = f lambda",
+    "transverse vs longitudinal",
+    "compressions and rarefactions",
+    "electromagnetic spectrum wavelengths",
+    "sound wave nature",
+    "mechanical vs electromagnetic waves"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-frequency",
+      "prompt": "A mass on a spring completes 30 oscillations in $\\pu{12 s}$. What is its [[frequency|frequency]], in Hz?",
+      "hint": "Count the oscillations in one second, or find the [[period|period]] first and use $f = \\frac{1}{T}$.",
+      "answer": {
+        "value": 2.5,
+        "tolerance": 0.05
+      },
+      "explain": "$f = \\frac{30}{12} = \\pu{2.5 Hz}$. The period is $T = \\frac{12}{30} = \\pu{0.40 s}$, and $\\frac{1}{0.40} = 2.5$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "30/12",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-speed",
+      "prompt": "A cyclist rides $\\pu{450 m}$ in $\\pu{90 s}$ at a constant [[speed|speed]]. What is the speed, in $\\text{m s}^{-1}$?",
+      "hint": "Speed is distance divided by time.",
+      "answer": {
+        "value": 5.0,
+        "tolerance": 0.05
+      },
+      "explain": "$v = \\frac{450}{90} = \\pu{5.0 m s-1}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "450/90",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-amplitude",
+      "prompt": "The tip of a vibrating ruler moves back and forth between two points $\\pu{30 mm}$ apart. What is the [[amplitude|amplitude]] of its oscillation?",
+      "hint": "Amplitude is measured from the rest position, which is halfway between the two end points.",
+      "options": [
+        {
+          "text": "$15\\text{ mm}$",
+          "correct": true
+        },
+        {
+          "text": "$30\\text{ mm}$",
+          "correct": false
+        },
+        {
+          "text": "$60\\text{ mm}$",
+          "correct": false
+        }
+      ],
+      "explain": "The rest position is in the middle: $\\frac{30}{2} = \\pu{15 mm}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "30/2",
+        "unit": "mm"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "travelling-waves",
+      "heading": "Transverse and longitudinal waves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Flick one end of a long rope and a bump runs to the far end. The rope itself goes nowhere. What travels is the disturbance, and the energy it carries."
+        },
+        {
+          "type": "definition",
+          "term": "travelling wave",
+          "statement": "A disturbance that moves through a medium or through space, transferring energy by oscillations, with no net transfer of matter.",
+          "plain": "The pattern and its energy move; the material stays put."
+        },
+        {
+          "type": "text",
+          "text": "The material a mechanical wave passes through, such as a rope, water or air, is the medium. Each particle oscillates about its rest position and passes the motion on to its neighbour."
+        },
+        {
+          "type": "definition",
+          "term": "transverse wave",
+          "statement": "A wave in which the oscillations are perpendicular to the direction of energy transfer.",
+          "plain": "The wave runs along the rope; each piece moves from side to side."
+        },
+        {
+          "type": "definition",
+          "term": "longitudinal wave",
+          "statement": "A wave in which the oscillations are parallel to the direction of energy transfer.",
+          "plain": "Push a slinky: each coil moves back and forth along the line the wave travels."
+        },
+        {
+          "type": "text",
+          "text": "A longitudinal wave has compressions, where the particles are closer together than normal, and rarefactions, where they are further apart. In a gas, compressions are regions of higher pressure and rarefactions regions of lower pressure."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-transverse-longitudinal",
+          "alt": "Two waves, both travelling to the right. Top, a transverse wave on a rope: a smooth wave shape of crests and troughs. One marked point on the rope has a double-headed arrow pointing up and down, labelled oscillation, at right angles to the arrow labelled direction of travel. Bottom, a longitudinal wave on a slinky spring, drawn as a row of vertical coils. In some places the coils are bunched together, labelled C for compression, and in between they are spread apart, labelled R for rarefaction. One marked coil has a double-headed arrow pointing left and right, labelled oscillation, parallel to the arrow labelled direction of travel.",
+          "caption": "Transverse: oscillation across the direction of travel. Longitudinal: oscillation along it."
+        },
+        {
+          "type": "text",
+          "text": "A particle's speed keeps changing as it oscillates: fastest at its rest position, zero at its largest displacement. This particle speed is not the wave speed."
+        },
+        {
+          "type": "text",
+          "text": "A displacement–position graph of a transverse wave is a snapshot of the rope. To find which way a point is moving, picture the shape shifted a little in the direction of travel."
+        },
+        {
+          "type": "text",
+          "text": "For a longitudinal wave the same graph is not a picture. It shows each particle's displacement along the line of travel, with forwards (the direction of travel) as positive."
+        },
+        {
+          "type": "text",
+          "text": "At a compression, particles just behind are displaced forwards and particles just ahead backwards. So, reading along the direction of travel, a compression is where the displacement crosses zero from positive to negative. A rarefaction is where it crosses from negative to positive."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-longitudinal-graph",
+          "alt": "Top: a displacement against position graph for a longitudinal wave travelling to the right. Displacement to the right is positive. The curve starts at zero, rises to a positive maximum, falls through zero at half a wavelength, reaches a negative minimum, and returns to zero at one wavelength, then repeats. Bottom: the same particles drawn as dots, lined up under the graph. Where the curve crosses zero going from positive to negative, the dots are bunched together: this is labelled compression. Where the curve crosses zero going from negative to positive, the dots are spread out: this is labelled rarefaction. Dashed vertical lines join each crossing point on the graph to the matching compression or rarefaction.",
+          "caption": "Compressions and rarefactions sit where the displacement is zero, not at the peaks of the graph."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-rope-wave",
+          "question": "A student moves one end of a long horizontal rope up and down, and a wave runs along it to the far end. Describe how energy reaches the far end, and explain whether the rope itself travels with the wave.",
+          "steps": [
+            "Say what the source does, how the motion is passed on, the direction of oscillation, then what happens to the material."
+          ],
+          "answer": "The hand makes the end of the rope oscillate. Each piece of rope pulls on the next, so the oscillation is passed along and energy is transferred to the far end. Each piece oscillates perpendicular to the direction of energy transfer, so the wave is transverse. Each piece only oscillates about its rest position, so there is no net transfer of matter: the rope does not travel with the wave.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Oscillation passed from piece to piece transfers energy; pieces oscillate perpendicular to the energy transfer (transverse) about fixed rest positions, so no net transfer of matter.",
+            "requires": [
+              "oscillate",
+              [
+                "passed along",
+                "passes on"
+              ],
+              [
+                "energy is transferred",
+                "transfers energy"
+              ],
+              "perpendicular",
+              "transverse",
+              "rest position",
+              "no net transfer of matter"
+            ],
+            "forbids": [
+              "the rope travels with the wave",
+              "parallel to the direction of energy transfer"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-compression-slinky",
+          "question": "A longitudinal wave travels in the positive $x$ direction along a slinky. At one instant, the coils between $x = 0$ and $x = \\pu{0.35 m}$ are displaced in the positive direction. The coils between $x = \\pu{0.35 m}$ and $x = \\pu{0.70 m}$ are displaced in the negative direction. Determine where in this stretch there is a compression.",
+          "steps": [
+            "Positive direction: $+x$, the direction of travel.",
+            "At a compression, coils behind the point are displaced forwards (positive) and coils ahead of it backwards (negative).",
+            "That happens where the displacement crosses zero from positive to negative, at $x = \\pu{0.35 m}$.",
+            "If the pattern repeats, $x = 0$ and $x = \\pu{0.70 m}$ are rarefactions and $\\lambda = \\pu{0.70 m}$."
+          ],
+          "answer": "$x = 0.35\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.70/2",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a compression at a peak of a longitudinal wave's displacement–position graph. A peak is a particle with the largest displacement; compressions and rarefactions are where the displacement is zero."
+        },
+        {
+          "type": "check",
+          "id": "check-point-direction",
+          "prompt": "A transverse wave travels to the right along a string. Point P is halfway between a crest just to its left and a trough just to its right. Which way is P moving at this instant?",
+          "hint": "Picture the whole wave shape moved a little to the right. Does P end up higher or lower?",
+          "options": [
+            {
+              "text": "upwards",
+              "correct": true
+            },
+            {
+              "text": "downwards",
+              "correct": false
+            },
+            {
+              "text": "to the right",
+              "correct": false
+            },
+            {
+              "text": "to the left",
+              "correct": false
+            }
+          ],
+          "explain": "The crest behind P is moving towards it, so P is rising. Particles never move along the string.",
+          "verify": {
+            "kind": "choice",
+            "truth": "upwards"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-transfers",
+          "prompt": "A loudspeaker plays a note and you hear it across the room. What has travelled from the loudspeaker to your ear?",
+          "hint": "Think about what each air molecule does as the wave passes.",
+          "options": [
+            {
+              "text": "energy, but not the air near the loudspeaker",
+              "correct": true
+            },
+            {
+              "text": "air molecules from near the loudspeaker",
+              "correct": false
+            },
+            {
+              "text": "both energy and air molecules from near the loudspeaker",
+              "correct": false
+            }
+          ],
+          "explain": "Each molecule only oscillates about its rest position. Energy crosses the room; the air does not.",
+          "verify": {
+            "kind": "choice",
+            "truth": "energy, but not the air near the loudspeaker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wave-equation",
+      "heading": "Wavelength, frequency and wave speed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Time one particle's oscillation, or measure one cycle along the wave at an instant: these describe every wave."
+        },
+        {
+          "type": "definition",
+          "term": "wavelength",
+          "statement": "The [[wavelength|wavelength]] $\\lambda$ is the distance between two neighbouring points on a wave that are in phase, such as one crest and the next.",
+          "plain": "The length of one complete wave."
+        },
+        {
+          "type": "text",
+          "text": "The [[amplitude|amplitude]] $A$ is the largest displacement of a particle from its rest position ({{lesson:3.1}} writes it $x_0$ for an oscillator). The [[period|period]] $T$ is the time for one particle to make one complete oscillation. The [[frequency|frequency]] $f$ is the number of oscillations per second, $f = \\frac{1}{T}$, in hertz (Hz)."
+        },
+        {
+          "type": "text",
+          "text": "In one period, each particle makes one oscillation and the wave moves forward by one wavelength. [[speed|Speed]] is distance divided by time, so the wave speed is $v = \\frac{\\lambda}{T}$. Since $\\frac{1}{T} = f$, this is also $v = f\\lambda$."
+        },
+        {
+          "type": "formula",
+          "tex": "v = f\\lambda = \\frac{\\lambda}{T}",
+          "tag": "booklet",
+          "bookletId": "db-3-3"
+        },
+        {
+          "type": "text",
+          "text": "It is in section C.2 of the data booklet and works for every wave, sound and light included."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-wave-graphs",
+          "alt": "Two graphs side by side. Left: displacement against position x for a wave at one instant. A sine-shaped curve; the horizontal distance from one crest to the next is labelled wavelength, lambda, and the distance from the zero line down to a trough is labelled amplitude, A. Right: displacement against time t for one particle of the medium. A sine-shaped curve of the same height; the time from one peak to the next is labelled period, T, and the distance from the zero line down to a trough is again labelled amplitude, A.",
+          "caption": "Read $\\lambda$ from a displacement–position graph and $T$ from a displacement–time graph."
+        },
+        {
+          "type": "text",
+          "text": "The source sets the frequency, and the medium sets the speed. So when a wave passes into a new medium, its frequency stays the same while its speed changes. Its wavelength changes to match: $\\lambda = \\frac{v}{f}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ripple-speed",
+          "question": "A dipper in a ripple tank vibrates at $\\pu{12 Hz}$. A student measures $\\pu{0.15 m}$ across 6 neighbouring crests. Calculate the speed of the ripples.",
+          "steps": [
+            "6 crests have 5 gaps between them, so the distance is 5 wavelengths: $\\lambda = \\frac{0.15}{5} = \\pu{0.030 m}$.",
+            "$v = f\\lambda = 12 \\times 0.030$.",
+            "$v = \\pu{0.36 m s-1}$. A sensible speed for ripples."
+          ],
+          "answer": "$v = 0.36\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "12*0.15/5",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-graphs-rope",
+          "question": "Two graphs describe a wave on a rope. The displacement–position graph shows exactly 3 complete waves along $\\pu{3.6 m}$ of rope. The displacement–time graph for one point on the rope shows a period of $\\pu{0.40 s}$. Determine the speed of the wave.",
+          "steps": [
+            "From the displacement–position graph: $\\lambda = \\frac{3.6}{3} = \\pu{1.2 m}$.",
+            "From the displacement–time graph: $T = \\pu{0.40 s}$.",
+            "$v = \\frac{\\lambda}{T} = \\frac{1.2}{0.40}$."
+          ],
+          "answer": "$v = 3.0\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(3.6/3)/0.40",
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 1A wave graph, read the axis label first. A gap along a position axis is a wavelength; the same gap along a time axis is a period."
+        },
+        {
+          "type": "check",
+          "id": "check-swell-speed",
+          "prompt": "Crests of an ocean swell pass the end of a pier every $\\pu{12 s}$. Neighbouring crests are $\\pu{180 m}$ apart. What is the speed of the swell, in $\\text{m s}^{-1}$?",
+          "hint": "The time between crests is the period; the distance between crests is the wavelength.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0.5
+          },
+          "explain": "$v = \\frac{\\lambda}{T} = \\frac{180}{12} = \\pu{15 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "180/12",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sound-into-water",
+          "prompt": "A sound of frequency $\\pu{425 Hz}$ passes from air into water. It travels at $\\pu{340 m s-1}$ in air and $\\pu{1480 m s-1}$ in water. What is its wavelength in water, in m? Give 3 significant figures.",
+          "hint": "The frequency does not change at the boundary. Use the speed in water.",
+          "answer": {
+            "value": 3.48,
+            "tolerance": 0.005
+          },
+          "explain": "$\\lambda = \\frac{v}{f} = \\frac{1480}{425} = \\pu{3.48 m}$, against $\\frac{340}{425} = \\pu{0.800 m}$ in air. Same frequency, faster wave, longer wavelength.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1480/425",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "heading": "Sound waves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A loudspeaker cone vibrates. Moving forwards, it squashes the air into a compression, a region of higher pressure. Moving back, it leaves a rarefaction, a region of lower pressure."
+        },
+        {
+          "type": "text",
+          "text": "Each layer of air pushes on the next, so the compressions and rarefactions travel outwards. The molecules oscillate along the direction of travel, so sound is a longitudinal wave of pressure changes."
+        },
+        {
+          "type": "text",
+          "text": "Sound is a mechanical wave: it needs a medium of particles to pass the oscillation on. It travels through gases, liquids and solids, but not through a vacuum."
+        },
+        {
+          "type": "text",
+          "text": "Sound in air and liquids is always longitudinal: a fluid has no force pulling a layer back if it slides sideways. Solids can also carry transverse mechanical waves, such as some earthquake waves."
+        },
+        {
+          "type": "text",
+          "text": "Sound travels at about $\\pu{340 m s-1}$ in air at room temperature, about $\\pu{1500 m s-1}$ in water and several thousand $\\text{m s}^{-1}$ in steel. Sound is generally slowest in gases and fastest in solids."
+        },
+        {
+          "type": "example",
+          "id": "ex-echo-sounder",
+          "question": "A boat's echo sounder sends a short pulse of ultrasound (sound too high to hear) straight down. The echo from the seabed returns $\\pu{0.084 s}$ later. Sound travels at $\\pu{1520 m s-1}$ in seawater. Calculate the depth of the water.",
+          "steps": [
+            "The pulse goes down and back up, so it travels twice the depth: $2d = vt$.",
+            "$d = \\frac{vt}{2} = \\frac{1520 \\times 0.084}{2}$.",
+            "$d = 63.84$ m. The time has 2 significant figures, so give 2 s.f."
+          ],
+          "answer": "$d \\approx 64\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1520*0.084/2",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-loudspeaker",
+          "question": "Explain how a loudspeaker sends a sound wave through the air to a listener, and why the air next to the loudspeaker never reaches the listener.",
+          "steps": [
+            "Go from the source, to the compressions and rarefactions, to how they travel, to what each molecule does."
+          ],
+          "answer": "The loudspeaker cone vibrates back and forth. When it moves forwards it pushes air molecules together, forming a compression, a region of higher pressure. When it moves back it forms a rarefaction, a region of lower pressure. Each layer of air pushes on the next, so the compressions and rarefactions travel outwards to the listener. The molecules oscillate parallel to the direction of energy transfer, so sound is a longitudinal wave. Each molecule only oscillates about its rest position, so energy reaches the listener but the air next to the loudspeaker does not.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Vibrating cone makes compressions (high pressure) and rarefactions (low pressure) that travel outwards; molecules oscillate parallel to energy transfer (longitudinal) about fixed positions, so energy travels, not air.",
+            "requires": [
+              "vibrates",
+              "compression",
+              "higher pressure",
+              "rarefaction",
+              "lower pressure",
+              "parallel",
+              "longitudinal",
+              "rest position",
+              "energy"
+            ],
+            "forbids": [
+              "perpendicular to the direction",
+              "sound is transverse",
+              "air travels to the listener"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the return trip in an echo question. The sound goes there and back, so the distance to the reflector is $\\frac{vt}{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-bell-jar",
+          "prompt": "An electric bell rings inside a sealed glass jar. A pump slowly removes the air from the jar. What happens to the sound you hear?",
+          "hint": "Ask what sound needs in order to travel.",
+          "options": [
+            {
+              "text": "it fades until it is almost silent",
+              "correct": true
+            },
+            {
+              "text": "it gets louder",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "its pitch rises",
+              "correct": false
+            }
+          ],
+          "explain": "Sound needs particles to pass it on, so less air means less sound gets out. You still see the bell, because light needs no medium.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it fades until it is almost silent"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-highest-pressure",
+          "prompt": "In a sound wave in air, where is the air pressure highest?",
+          "hint": "Pressure is highest where the molecules are most crowded.",
+          "options": [
+            {
+              "text": "at a compression",
+              "correct": true
+            },
+            {
+              "text": "at a rarefaction",
+              "correct": false
+            },
+            {
+              "text": "where the molecules have their largest displacement",
+              "correct": false
+            }
+          ],
+          "explain": "Molecules are most crowded at a compression. There the displacement is zero; the largest displacements are halfway between a compression and a rarefaction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at a compression"
+          }
+        }
+      ]
+    },
+    {
+      "id": "electromagnetic",
+      "heading": "Electromagnetic waves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light, radio waves and X-rays seem very different, but they are the same kind of wave. Nothing material oscillates: an electric field and a magnetic field do."
+        },
+        {
+          "type": "definition",
+          "term": "electromagnetic wave",
+          "statement": "A transverse wave made of oscillating electric and magnetic fields, perpendicular to each other and to the direction of travel, that can travel through a vacuum.",
+          "plain": "Light and its relatives: waves made of fields, not of matter."
+        },
+        {
+          "type": "text",
+          "text": "Accelerating charges, such as electrons moving up and down a radio aerial, give out electromagnetic waves. A changing electric field produces a magnetic field and a changing magnetic field produces an electric field, so each keeps the other going."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-em-wave",
+          "alt": "An electromagnetic wave drawn in perspective, travelling to the right along a horizontal axis labelled direction of travel. An electric field wave, labelled E, oscillates up and down in a vertical plane. A magnetic field wave, labelled B, oscillates in a horizontal plane, drawn slanting into and out of the page. The two waves have the same wavelength and reach their peaks at the same places. Small arrows from the axis show the field directions: the electric field arrows are vertical, the magnetic field arrows are horizontal, and both are at right angles to the direction of travel.",
+          "caption": "The electric field ($E$) and magnetic field ($B$) oscillate in phase, at right angles to each other and to the direction of travel."
+        },
+        {
+          "type": "text",
+          "text": "The fields oscillate perpendicular to the direction of travel, so every electromagnetic wave is transverse. No particles are needed, so they cross the vacuum between the Sun and the Earth."
+        },
+        {
+          "type": "text",
+          "text": "In a vacuum, every electromagnetic wave travels at the same speed, the [[speed-of-light|speed of light]]: $c = \\pu{3.00e8 m s-1}$. This value is in the data booklet; use it when a question doesn't give the speed. In air the speed is almost exactly $c$, and in a vacuum $c = f\\lambda$."
+        },
+        {
+          "type": "text",
+          "text": "The [[electromagnetic-spectrum|electromagnetic spectrum]] groups them by wavelength, as the data booklet shows. From shortest to longest: gamma rays ($10^{-12}$ m and shorter), X-rays (about $10^{-10}$ m), ultraviolet (about $10^{-8}$ m), visible light (400 to 700 nm), infrared (about $10^{-5}$ m), microwaves (about $10^{-2}$ m) and radio waves (about 1 m and longer)."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-em-spectrum",
+          "alt": "The electromagnetic spectrum drawn as a horizontal band, with wavelength in metres on a scale where each mark is a hundred times the last, from 10 to the minus 14 on the left to 10 to the 4 on the right. From left to right the regions are: gamma rays, about 10 to the minus 12 metres and shorter; X-rays, about 10 to the minus 10 metres; ultraviolet, about 10 to the minus 8 metres; a narrow visible band from 400 to 700 nanometres; infrared, about 10 to the minus 5 metres; microwaves, about 10 to the minus 2 metres; and radio waves, about 1 metre and longer. An arrow along the top points left, labelled frequency increases; an arrow along the bottom points right, labelled wavelength increases.",
+          "caption": "Approximate wavelengths. The boundaries between regions are not sharp."
+        },
+        {
+          "type": "text",
+          "text": "They all share one speed in a vacuum, so from $c = f\\lambda$ a shorter wavelength means a higher frequency. Gamma rays have the highest frequencies and radio waves the lowest."
+        },
+        {
+          "type": "example",
+          "id": "ex-fm-wavelength",
+          "question": "A radio station broadcasts at $\\pu{96.4 MHz}$. Its radio waves travel through the air at $c$. Calculate their wavelength.",
+          "steps": [
+            "Convert: $f = 96.4 \\times 10^{6}$ Hz.",
+            "$\\lambda = \\frac{c}{f} = \\frac{3.00 \\times 10^{8}}{96.4 \\times 10^{6}}$.",
+            "$\\lambda = 3.112\\ldots$ m: a few metres, as expected for radio waves."
+          ],
+          "answer": "$\\lambda \\approx 3.11\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "c/(96.4*10**6)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-identify-xray",
+          "question": "Electromagnetic radiation of frequency $\\pu{6.0e17 Hz}$ travels through a vacuum. Calculate its wavelength and identify the region of the spectrum it belongs to.",
+          "steps": [
+            "$\\lambda = \\frac{c}{f} = \\frac{3.00 \\times 10^{8}}{6.0 \\times 10^{17}}$.",
+            "$\\lambda = 5.0 \\times 10^{-10}$ m.",
+            "This is close to $10^{-10}$ m, so the radiation is X-rays."
+          ],
+          "answer": "$\\lambda \\approx 5.0 \\times 10^{-10}\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "c/(6.0*10**17)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-b-direction",
+          "prompt": "An electromagnetic wave travels horizontally towards the east. At one point its electric field oscillates vertically. Along which line does its magnetic field oscillate?",
+          "hint": "The magnetic field is perpendicular to both the electric field and the direction of travel.",
+          "options": [
+            {
+              "text": "horizontal, north–south",
+              "correct": true
+            },
+            {
+              "text": "vertical, up–down",
+              "correct": false
+            },
+            {
+              "text": "horizontal, east–west",
+              "correct": false
+            }
+          ],
+          "explain": "Perpendicular to both vertical and east–west leaves horizontal north–south.",
+          "verify": {
+            "kind": "choice",
+            "truth": "horizontal, north–south"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spectrum-order",
+          "prompt": "Which list is in order of increasing frequency?",
+          "hint": "Higher frequency means shorter wavelength.",
+          "options": [
+            {
+              "text": "radio waves, infrared, ultraviolet, X-rays",
+              "correct": true
+            },
+            {
+              "text": "X-rays, ultraviolet, infrared, radio waves",
+              "correct": false
+            },
+            {
+              "text": "radio waves, ultraviolet, infrared, X-rays",
+              "correct": false
+            },
+            {
+              "text": "infrared, radio waves, X-rays, ultraviolet",
+              "correct": false
+            }
+          ],
+          "explain": "Frequency rises as wavelength falls: radio is longest, X-rays shortest. The second list is reversed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "radio waves, infrared, ultraviolet, X-rays"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mechanical-vs-em",
+      "heading": "Mechanical and electromagnetic waves compared",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Both kinds transfer energy without transferring matter, and both obey $v = f\\lambda$. They differ in four ways."
+        },
+        {
+          "type": "text",
+          "text": "1. Medium. Mechanical waves, such as sound, waves on a rope and water waves, need a medium. Electromagnetic waves need none and can travel through a vacuum."
+        },
+        {
+          "type": "text",
+          "text": "2. What oscillates. In a mechanical wave, the particles of the medium oscillate. In an electromagnetic wave, electric and magnetic fields oscillate."
+        },
+        {
+          "type": "text",
+          "text": "3. Type. Mechanical waves can be transverse (a rope) or longitudinal (sound). Electromagnetic waves are always transverse."
+        },
+        {
+          "type": "text",
+          "text": "4. Speed. All electromagnetic waves travel at $c = \\pu{3.00e8 m s-1}$ in a vacuum. Mechanical waves are far slower, and their speed depends on the medium: about $\\pu{340 m s-1}$ for sound in air."
+        },
+        {
+          "type": "example",
+          "id": "ex-lightning",
+          "question": "During a storm you see a lightning flash and hear its thunder $\\pu{4.5 s}$ later. The speed of sound in air is $\\pu{340 m s-1}$. Estimate how far away the lightning struck, in km, and explain why the light's travel time can be ignored.",
+          "steps": [
+            "Light covers the distance in microseconds ($\\frac{1530}{3.00 \\times 10^{8}} \\approx 5 \\times 10^{-6}$ s), so the delay is the sound's travel time.",
+            "$d = vt = 340 \\times 4.5 = \\pu{1530 m}$.",
+            "The time has 2 significant figures, so $d \\approx \\pu{1.5 km}$."
+          ],
+          "answer": "$d \\approx 1.5\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "340*4.5/1000",
+            "sf": 2,
+            "unit": "km"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-astronauts",
+          "question": "Two astronauts work outside a space station, a few metres apart. Explain why one cannot hear the other shout, but they can talk by radio.",
+          "steps": [
+            "Classify each wave, then say what each one needs to travel."
+          ],
+          "answer": "Sound is a mechanical wave, passed on by the particles of a medium oscillating. Space is almost a vacuum, so there are too few particles to pass the sound on and the shout does not travel. Radio waves are electromagnetic waves: oscillating electric and magnetic fields. They need no medium, so they travel through the vacuum at the speed of light.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Sound is mechanical and needs a medium, which a vacuum lacks; radio is electromagnetic (oscillating fields) and needs no medium.",
+            "requires": [
+              "mechanical",
+              "medium",
+              "vacuum",
+              "electromagnetic",
+              "electric and magnetic fields",
+              "need no medium"
+            ],
+            "forbids": [
+              "sound travels through a vacuum",
+              "radio waves are sound"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sound-not-light",
+          "prompt": "Which statement is true for sound waves but not for light waves?",
+          "hint": "Think about what happens in a vacuum.",
+          "options": [
+            {
+              "text": "they need a medium to travel through",
+              "correct": true
+            },
+            {
+              "text": "they transfer energy",
+              "correct": false
+            },
+            {
+              "text": "they obey the wave equation",
+              "correct": false
+            },
+            {
+              "text": "they can be transverse",
+              "correct": false
+            }
+          ],
+          "explain": "Both transfer energy and obey the wave equation, and only light is always transverse. Only sound needs a medium.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they need a medium to travel through"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stadium-delay",
+          "prompt": "A spectator sits $\\pu{170 m}$ from a drummer across a stadium. The speed of sound in air is $\\pu{340 m s-1}$. How long after seeing a drumbeat does she hear it, in s?",
+          "hint": "The light arrives almost at once, so the delay is the sound's travel time.",
+          "answer": {
+            "value": 0.5,
+            "tolerance": 0.005
+          },
+          "explain": "$t = \\frac{d}{v} = \\frac{170}{340} = \\pu{0.50 s}$. The light's travel time is negligible.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "170/340",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A travelling wave transfers energy by oscillations, with no net transfer of matter.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Transverse: oscillations perpendicular to the direction of energy transfer. Longitudinal: oscillations parallel to it, with compressions and rarefactions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "v = f\\lambda = \\frac{\\lambda}{T}",
+          "tag": "booklet",
+          "bookletId": "db-3-3",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The source sets the frequency. When a wave changes medium, its frequency stays the same; its speed and wavelength change.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sound is a longitudinal mechanical wave of pressure changes. It needs a medium, and travels at about $\\pu{340 m s-1}$ in air.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Electromagnetic waves are transverse oscillations of electric and magnetic fields. All travel at $c = \\pu{3.00e8 m s-1}$ in a vacuum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In order of increasing wavelength: gamma rays, X-rays, ultraviolet, visible (400 to 700 nm), infrared, microwaves, radio waves.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the medium travels with the wave. Each particle oscillates about a fixed rest position; only the energy and the wave pattern move along.",
+    "Defining transverse as \"up and down\". Compare the oscillation with the direction of energy transfer: perpendicular for transverse, parallel for longitudinal.",
+    "Mixing up the particle speed and the wave speed. A particle speeds up and slows down as it oscillates; $v = f\\lambda$ is how fast the wave pattern moves.",
+    "Saying the frequency changes when a wave enters a new medium. The frequency stays the same; the speed and the wavelength change."
+  ],
+  "examTips": [
+    "\"State\" what a transverse or longitudinal wave is: compare the oscillation with the direction of energy transfer. \"Up and down\" alone does not earn the mark.",
+    "\"Outline\" a difference between sound and electromagnetic waves: give one property for both, such as \"sound needs a medium, but electromagnetic waves can travel through a vacuum\".",
+    "\"Determine\" a wave speed: write $v = f\\lambda$ or $v = \\frac{\\lambda}{T}$, substitute in SI units, then give the answer with its unit."
+  ],
+  "readingMinutes": 30
+}

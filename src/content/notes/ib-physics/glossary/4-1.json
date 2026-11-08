@@ -1,0 +1,44 @@
+[
+  {
+    "id": "kepler-s-first-law",
+    "term": "Kepler's first law",
+    "definition": "Every planet moves in an elliptical orbit with the Sun at one focus of the ellipse.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "kepler-s-second-law",
+    "term": "Kepler's second law",
+    "definition": "The line joining the Sun and a planet sweeps out equal areas in equal times, so the planet moves fastest when it is closest to the Sun.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "kepler-s-third-law",
+    "term": "Kepler's third law",
+    "definition": "For bodies orbiting the same central mass, the square of the orbital period is proportional to the cube of the mean orbital radius: $T^{2} \\propto r^{3}$.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "newton-s-law-of-gravitation",
+    "term": "Newton's law of gravitation",
+    "definition": "Two point masses attract each other with a force $F = G\\frac{m_1 m_2}{r^{2}}$ along the line joining them, where $r$ is the distance between their centres.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "point-mass",
+    "term": "point mass",
+    "definition": "A body modelled as all its mass at a single point; a uniform sphere acts as one at its centre for points on or outside its surface, and so does any body far away compared with its size.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "centre-of-mass",
+    "term": "centre of mass",
+    "definition": "The point at which the whole mass of a body can be taken to act; for a uniform sphere it is the centre.",
+    "lesson": "4.1"
+  },
+  {
+    "id": "gravitational-field-strength",
+    "term": "gravitational field strength",
+    "definition": "The gravitational force per unit mass on a small point mass placed at a point, $g = \\frac{F}{m}$, in $\\text{N kg}^{-1}$; it points towards the mass causing the field.",
+    "lesson": "4.1"
+  }
+]

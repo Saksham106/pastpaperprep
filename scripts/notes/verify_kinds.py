@@ -20,7 +20,28 @@ The booklet constants R, NA, F, Kw, c_water, Vm, T_STP, T_SATP, P_std, h_planck,
 chemistry course (check(..., chemistry=True); check-math.py turns it on for course.json gate.chemistry or an
 "ib-chemistry" edition), so a maths truth keeps R or F as an ordinary symbol. Number kinds accept a trailing unit
 (\\text{}, \\pu{}, `kJ mol⁻¹`), and `unit` / `signed` check it and the sign. chem-equation, formula and explanation
-are the chemistry kinds (see their docstrings). Property-style kinds reject degenerate answers by construction: an equation
+are the chemistry kinds (see their docstrings).
+
+Physics (IB Physics lessons): the physics data booklet values of phys_data.py are names only in a physics course
+(check(..., physics=True); check-math.py turns it on for course.json gate.physics or an "ib-physics" edition), so a maths
+truth keeps g, G, R, c, h and e as ordinary symbols (Euler's number is E in every course; a published \\mathrm{e} is
+always Euler's). Each course reads R and NA from its own booklet; chemistry and physics names are never merged.
+  Constants: g, G, NA, R, kB, sigma, k_e (Coulomb k), eps0, mu0 (4*pi*10**-7), c, h, e, me, mp, mn, u_kg, S_solar, R0
+  (Fermi radius); masses in u me_u, mp_u, mn_u and in MeV c-2 me_MeV, mp_MeV, mn_MeV, u_MeV.
+  Conversions: ly, AU, pc (= pc_ly*ly, in m), pc_ly (3.26), kWh, hc (J m), hc_eV (eV m), zero_celsius (273),
+  wien_b (2.9e-3 m K); eV, keV, MeV, GeV in joules. Prefixes are written as powers of ten (4.7*10**-6). The booklet
+  gives no specific heat capacity of water: state it in the question.
+  Degree trigonometry: sind, cosd, tand take degrees; asind, acosd, atand return degrees ("20*cosd(35)",
+  "atand(Rational(3, 4))"). A degree answer uses `angle` (needs the °; exact with =, rounded with \\approx, default 1
+  d.p., or sf: 3); a radian answer uses `rounded` with unit: "rad".
+  Units (`unit` on exact / rounded / standard-form): m s-1, m s-2, N, J, W, Pa, kg m s-1, N s, N m, rad s-1, rad s-2, kg m2, Hz,
+  V, A, Ω (\\Omega or Ω), kΩ, Ω m, C, T, Wb, F, V m-1, N C-1, eV, keV, MeV, GeV, K, °C, J kg-1 K-1, J kg-1, m3, kg m-3, mol,
+  W m-2, ly, pc, AU, with prefixes µ (\\mu, μ, µ), n, p, k, M, G; written plain, in \\text{} / \\mathrm{}, \\,-separated,
+  with ^{-1} or ⁻¹, or in \\pu{}. Matching is by spelling after that normalisation, not by dimension: declare the unit
+  the answer uses (N s is not kg m s-1, Hz is not s-1). A bare unit (6 m s⁻¹, 6\\,\\Omega) is read only with `unit`.
+  `explanation` works unchanged for physics prose (requires "net force", "zero"; forbids "no forces act").
+
+Property-style kinds reject degenerate answers by construction: an equation
 must equal the true one up to a NON-ZERO constant factor (so 0 = 0 and a squared equation fail), `expression` with
 `scale` needs a non-zero constant ratio (so 0 or a constant is not an integrating factor), sets must be equal (not
 contained). Identities are proved symbolically, never by agreeing at sample points.
@@ -46,6 +67,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chem_data  # noqa: E402
 import chemparse as cp  # noqa: E402
 import mathparse as mp  # noqa: E402
+import phys_data  # noqa: E402
 
 parse_latex("x")  # load the parser now: importing it under evaluate(False) breaks sympy.physics
 
@@ -54,6 +76,8 @@ parse_latex("x")  # load the parser now: importing it under evaluate(False) brea
 PRECISION = ("sf", "dp")
 #: kind -> {"required": options that must be present, "oneOf": exactly one of these, "optional": other allowed options,
 #:          "on": which blocks may use it ("example", "choice" = multiple-choice check, "numeric" = numeric check)}
+#: `unit` (exact, rounded, standard-form) takes chemistry and physics units alike: "kJ mol-1", "m s-2", "kΩ", "MeV",
+#: "J kg-1 K-1", "rad s-1" (see the module docstring). Physics angles: `angle` for degrees, `rounded` + unit "rad".
 KINDS = {
     "exact": {"optional": ["unit", "signed"], "on": ["example", "choice"]},
     "rounded": {"oneOf": list(PRECISION), "optional": ["unit", "signed"], "on": ["example", "choice"]},
@@ -71,7 +95,7 @@ KINDS = {
     "money": {"optional": ["dp"], "on": ["example", "choice"]},
     "time": {"required": ["form"], "on": ["example", "choice"]},
     "bearing": {"optional": ["dp"], "on": ["example", "choice"]},
-    "angle": {"optional": list(PRECISION), "on": ["example", "choice"]},
+    "angle": {"optional": list(PRECISION), "on": ["example", "choice"]},  # degrees, with °; physics truths: atand(...), asind(...)
     "fraction": {"optional": ["simplest", "form"], "on": ["example", "choice"]},
     "expression": {"optional": ["form", "scale"], "on": ["example", "choice"]},
     "antiderivative": {"optional": ["var"], "on": ["example", "choice"]},
@@ -233,7 +257,17 @@ NAMESPACE.update(_CHEM_FUNCTIONS)
 NAMESPACE["S"] = _EntropyOrS()
 
 
-def _namespace(chemistry=False):
+_PHYS_NAMES = phys_data.namespace()
+
+
+def _namespace(chemistry=False, physics=False):
+    """The truth namespace: SymPy and the chemistry helpers everywhere; the chemistry constants only in a chemistry course
+    and the physics constants and degree trigonometry only in a physics course. Each course reads R, NA, ... from its own
+    data booklet, so the two sets are never merged."""
+    if chemistry and physics:
+        raise ValueError("a lesson is either chemistry or physics, not both")
+    if physics:
+        return {**NAMESPACE, **_PHYS_NAMES}
     return {**NAMESPACE, **_CHEM_CONSTANTS} if chemistry else NAMESPACE
 
 _ALLOWED_NODES = (
@@ -271,10 +305,11 @@ class _Exact(ast.NodeTransformer):
         return ast.copy_location(ast.Call(ast.Name("Symbol", ast.Load()), [ast.Constant(node.id)], []), node)
 
 
-def evaluate_truth(source: str, chemistry=False):
+def evaluate_truth(source: str, chemistry=False, physics=False):
     """The SymPy value of a verify.truth string, evaluated with SymPy names (and the chemistry helpers) only (see the module
-    docstring). chemistry=True adds the data booklet constants R, NA, F, Kw, c_water, Vm, ..."""
-    namespace = _namespace(chemistry)
+    docstring). chemistry=True adds the chemistry data booklet constants R, NA, F, Kw, c_water, Vm, ...; physics=True the
+    physics data booklet constants g, G, c, h, e, me, ... and sind / cosd / tand / asind / acosd / atand."""
+    namespace = _namespace(chemistry, physics)
     if not isinstance(source, str) or not source.strip():
         raise ValueError("truth is empty")
     try:
@@ -1143,9 +1178,10 @@ CHECKERS = {
 }
 
 
-def check(verify: dict, published, tolerance=None, chemistry=False):
+def check(verify: dict, published, tolerance=None, chemistry=False, physics=False):
     """Raise AssertionError if `published` (an answer's TeX, an option's text, or a numeric check's value) is wrong.
-    chemistry=True makes the data booklet constants (R, NA, F, ...) names in the truth."""
+    chemistry=True makes the chemistry data booklet constants (R, NA, F, ...) names in the truth; physics=True the
+    physics ones (g, G, c, h, e, ..., and the degree trigonometry)."""
     check_spec(verify)
     kind = verify["kind"]
     opts = {key: value for key, value in verify.items() if key not in ("kind", "truth")}
@@ -1155,7 +1191,7 @@ def check(verify: dict, published, tolerance=None, chemistry=False):
         if not isinstance(published, str):
             raise ValueError(f"{kind} checks published text, got {published!r}")
         return (k_explanation if kind == "explanation" else k_chem_equation)(published, verify["truth"], opts)
-    truth = evaluate_truth(verify["truth"], chemistry=chemistry)
+    truth = evaluate_truth(verify["truth"], chemistry=chemistry, physics=physics)
     if kind != "antiderivative":
         with mp.keep_constant():
             return _check_kind(verify, kind, opts, truth, published, tolerance)

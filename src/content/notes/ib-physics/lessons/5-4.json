@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.4",
+  "slug": "the-photoelectric-effect",
+  "title": "The photoelectric effect",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Light can knock electrons out of a metal: this is the [[photoelectric-effect|photoelectric effect]]. Below a [[threshold-frequency|threshold frequency]] nothing comes out, however bright the light, which the wave model of light cannot explain. Einstein explained it with [[photon|photons]]: one photon gives all its energy to one electron, so $E_\\text{max} = hf - \\Phi$, where $\\Phi$ is the [[work-function|work function]].",
+  "goals": [
+    {
+      "text": "Describe the photoelectric effect and the observations that the wave model of light cannot explain.",
+      "bullets": [
+        "E.2-a1"
+      ]
+    },
+    {
+      "text": "Explain how the photon model accounts for each observation, so that the effect is evidence that light behaves as particles.",
+      "bullets": [
+        "E.2-a1"
+      ]
+    },
+    {
+      "text": "Explain why no electrons are emitted below the threshold frequency, and link it to the work function with $\\Phi = hf_0$.",
+      "bullets": [
+        "E.2-a2"
+      ]
+    },
+    {
+      "text": "Use $E_\\text{max} = hf - \\Phi$ to calculate maximum kinetic energies, speeds, work functions and threshold frequencies.",
+      "bullets": [
+        "E.2-a3"
+      ]
+    },
+    {
+      "text": "Find $E_\\text{max}$ from a stopping potential, and $h$, $f_0$ and $\\Phi$ from a graph of $E_\\text{max}$ against $f$.",
+      "bullets": [
+        "E.2-a3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.10",
+    "3.1",
+    "5.2",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Einstein photoelectric equation",
+    "Emax = hf - work function",
+    "threshold frequency",
+    "work function",
+    "stopping potential",
+    "particle nature of light evidence"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-photon-energy",
+      "prompt": "What is the energy, in J, of one photon of [[frequency|frequency]] $\\pu{7.5e14 Hz}$? Give 3 significant figures.",
+      "hint": "Photon energy is $E = hf$, with $h$ from the data booklet.",
+      "answer": {
+        "value": 4.97e-19,
+        "tolerance": 5e-22
+      },
+      "explain": "$E = hf = 6.63 \\times 10^{-34} \\times 7.5 \\times 10^{14} = \\pu{4.97e-19 J}$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "h*7.5*10**14",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ev-to-joules",
+      "prompt": "An energy is $\\pu{3.4 eV}$. What is it in joules?",
+      "hint": "$\\pu{1 eV} = \\pu{1.60e-19 J}$.",
+      "options": [
+        {
+          "text": "$\\approx 5.44 \\times 10^{-19}\\ \\text{J}$",
+          "correct": true
+        },
+        {
+          "text": "$\\approx 2.13 \\times 10^{-19}\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$\\approx 2.13 \\times 10^{19}\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$\\approx 3.40 \\times 10^{-19}\\ \\text{J}$",
+          "correct": false
+        }
+      ],
+      "explain": "Multiply by the electron charge: $3.4 \\times 1.60 \\times 10^{-19} = \\pu{5.44e-19 J}$. Dividing by $1.60 \\times 10^{-19}$ instead gives a huge number. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "3.4*e",
+        "sf": 3,
+        "unit": "J"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-electron-speed",
+      "prompt": "An electron has a [[kinetic-energy|kinetic energy]] of $\\pu{1.8e-19 J}$. What is its speed, in $\\text{m s}^{-1}$? Give 2 significant figures.",
+      "hint": "Rearrange $E_\\text{k} = \\tfrac{1}{2}mv^2$ for $v$. The electron mass is in the data booklet.",
+      "answer": {
+        "value": 630000,
+        "tolerance": 5000
+      },
+      "explain": "$v = \\sqrt{\\frac{2E_\\text{k}}{m_\\text{e}}} = \\sqrt{\\frac{2 \\times 1.8 \\times 10^{-19}}{9.11 \\times 10^{-31}}} = \\pu{6.3e5 m s-1}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(2*1.8*10**-19/me)",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "evidence",
+      "heading": "What the photoelectric effect shows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Shine ultraviolet light on a clean zinc plate and electrons leave its surface. Light has given them enough energy to escape from the metal."
+        },
+        {
+          "type": "definition",
+          "term": "photoelectric effect",
+          "statement": "The emission of electrons from a metal surface when electromagnetic radiation of high enough frequency falls on it. The emitted electrons are called photoelectrons.",
+          "plain": "Light knocking electrons out of a metal."
+        },
+        {
+          "type": "text",
+          "text": "A photocell is used to study it. Light falls on a metal emitter in a vacuum tube, and an ammeter measures the current of photoelectrons reaching a collector."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-photocell",
+          "alt": "An evacuated glass tube holds a curved metal plate, the emitter, on the left and a thin collecting electrode on the right. A beam of light enters from above and falls on the inner, curved face of the emitter, the face towards the collector. Small arrows show electrons travelling from the emitter across to the collector. Below the tube, wires join the emitter and collector through an ammeter and a variable power supply, and a voltmeter is connected across the supply.",
+          "caption": "A photocell. The supply sets the potential of the collector relative to the emitter, and the ammeter measures the photocurrent."
+        },
+        {
+          "type": "text",
+          "text": "Experiments like this give four results, for every metal."
+        },
+        {
+          "type": "text",
+          "text": "1. Below a certain frequency, the threshold frequency $f_0$, no electrons come out, however intense the light or however long it shines."
+        },
+        {
+          "type": "text",
+          "text": "2. Above $f_0$, electrons come out at once, even in very dim light: any delay is less than about $10^{-9}\\ \\text{s}$."
+        },
+        {
+          "type": "text",
+          "text": "3. The electrons have a range of kinetic energies. The maximum rises with frequency but does not depend on intensity."
+        },
+        {
+          "type": "text",
+          "text": "4. At a fixed frequency above $f_0$, more intense light releases more electrons per second."
+        },
+        {
+          "type": "text",
+          "text": "In the wave model, light delivers energy continuously, spread over the wavefront, at a rate set by its intensity. Frequency plays no special part."
+        },
+        {
+          "type": "text",
+          "text": "So it predicts that intense enough light of any frequency frees electrons, that dim light needs time to build up the energy, and that brighter light gives faster electrons. Results 1, 2 and 3 contradict it."
+        },
+        {
+          "type": "text",
+          "text": "Einstein's explanation treats light as a stream of photons. Each photon carries energy $E = hf$, where $h$ is the [[planck-constant|Planck constant]]. An electron absorbs one whole photon, all its energy at once, or nothing."
+        },
+        {
+          "type": "result",
+          "statement": "The photon model explains all four results. The energy of each photon depends only on $f$, so for a given metal $f$ decides whether an electron can escape and how fast it can leave. The intensity sets the number of photons arriving per second, so it sets the number of electrons emitted per second.",
+          "why": "One photon is absorbed by one electron in a single event, so there is no waiting, and energy from several photons cannot add up on one electron."
+        },
+        {
+          "type": "text",
+          "text": "So the photoelectric effect is evidence for the particle nature of light."
+        },
+        {
+          "type": "example",
+          "id": "ex-wave-model-delay",
+          "question": "In the wave model, assume that one electron in a metal surface absorbs all the light energy falling on an area of $\\pu{2.0e-19 m2}$, about the size of an atom. Dim light of intensity $\\pu{0.015 W m-2}$ falls on the surface. The electron needs $\\pu{2.6 eV}$ to escape. Estimate how long it would take to collect this energy.",
+          "steps": [
+            "Convert the energy needed to joules: $2.6 \\times 1.60 \\times 10^{-19} = \\pu{4.16e-19 J}$.",
+            "Power reaching the electron is intensity times area: $P = 0.015 \\times 2.0 \\times 10^{-19} = \\pu{3.0e-21 W}$.",
+            "Time to collect the energy: $t = \\frac{E}{P} = \\frac{4.16 \\times 10^{-19}}{3.0 \\times 10^{-21}} = 139\\ \\text{s}$.",
+            "The wave model predicts a wait of about two minutes, but real emission starts in under $10^{-9}\\ \\text{s}$."
+          ],
+          "answer": "$t \\approx 1.4 \\times 10^{2}\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.6*e/(0.015*2.0*10**-19)",
+            "sf": 2,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-threshold",
+          "question": "A metal releases electrons when blue light falls on it, but not when red light falls on it, even very intense red light. Explain how this result is evidence that light consists of photons, not waves.",
+          "steps": [
+            "Marking point 1: the wave model says intense light of any frequency should work.",
+            "Marking point 2: photons have energy $hf$; one electron absorbs one photon.",
+            "Marking point 3: each red photon has less energy than the electron needs.",
+            "Marking point 4: more intensity means more photons, not more energy per photon."
+          ],
+          "answer": "In the wave model, the energy given to the electrons depends on the intensity, so intense enough red light should release electrons, but it does not. In the photon model, light arrives as photons of energy $hf$, and each electron absorbs one photon. Red light has a lower frequency than blue, so each red photon has less energy than an electron needs to escape. Making the red light more intense only increases the number of photons, not the energy of each photon, so still no electrons are released.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "wave model: intense light of any frequency should work; photon energy hf; one photon per electron; red photons have too little energy; intensity only adds photons",
+            "requires": [
+              [
+                "depends on the intensity",
+                "depends on intensity"
+              ],
+              [
+                "energy $hf$",
+                "energy hf"
+              ],
+              [
+                "absorbs one photon",
+                "one photon"
+              ],
+              [
+                "less energy than",
+                "not enough energy"
+              ],
+              [
+                "number of photons",
+                "more photons"
+              ]
+            ],
+            "forbids": [
+              "more energy per photon",
+              "photons add up",
+              "photons combine"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying that brighter light gives the electrons more kinetic energy. Brighter light at the same frequency means more photons per second, so more electrons per second. The energy of each photon, and so the maximum kinetic energy, stays the same."
+        },
+        {
+          "type": "check",
+          "id": "check-intensity-doubled",
+          "prompt": "Light above the threshold frequency falls on a metal. The intensity is doubled and the frequency is kept the same. What happens?",
+          "hint": "Ask what intensity changes in the photon model: the energy of each photon, or the number of photons per second?",
+          "options": [
+            {
+              "text": "the number of electrons emitted per second doubles",
+              "correct": true
+            },
+            {
+              "text": "the maximum kinetic energy of the electrons doubles",
+              "correct": false
+            },
+            {
+              "text": "both the number per second and the maximum kinetic energy double",
+              "correct": false
+            },
+            {
+              "text": "nothing changes",
+              "correct": false
+            }
+          ],
+          "explain": "Twice the intensity at the same frequency means twice as many photons per second, each with the same energy $hf$. So twice as many electrons leave per second, with the same maximum kinetic energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the number of electrons emitted per second doubles"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wave-model-fits",
+          "prompt": "Which observation of the photoelectric effect is consistent with the wave model of light?",
+          "hint": "Three of these involve frequency or timing. The wave model links energy only to intensity.",
+          "options": [
+            {
+              "text": "more intense light gives a larger photocurrent",
+              "correct": true
+            },
+            {
+              "text": "no emission below a threshold frequency",
+              "correct": false
+            },
+            {
+              "text": "no delay in emission in dim light",
+              "correct": false
+            },
+            {
+              "text": "maximum kinetic energy independent of intensity",
+              "correct": false
+            }
+          ],
+          "explain": "More energy per second could free more electrons in either model. The wave model cannot explain the other three.",
+          "verify": {
+            "kind": "choice",
+            "truth": "more intense light gives a larger photocurrent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "threshold",
+      "heading": "Threshold frequency and work function",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Free electrons move around inside a metal, but the positive ions hold them in. To leave the surface, an electron needs some minimum energy."
+        },
+        {
+          "type": "definition",
+          "term": "work function",
+          "statement": "The work function $\\Phi$ of a metal is the minimum energy needed to remove an electron from the surface of the metal.",
+          "plain": "The smallest energy ticket an electron needs to get out of the metal."
+        },
+        {
+          "type": "text",
+          "text": "Work functions are a few [[electronvolt|electronvolts]]: caesium about $\\pu{2.1 eV}$, zinc about $\\pu{4.3 eV}$. So visible light from violet to yellow frees electrons from caesium, but zinc needs ultraviolet."
+        },
+        {
+          "type": "text",
+          "text": "An electron absorbs one photon, so it can only escape if $hf$ is at least $\\Phi$. At the threshold frequency, the photon energy just equals the work function."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Phi = hf_0",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "threshold frequency",
+          "statement": "The threshold frequency $f_0$ of a metal is the minimum frequency of electromagnetic radiation that can release photoelectrons from it. It depends on the metal, not on the intensity of the radiation.",
+          "plain": "The lowest frequency of light that can knock electrons out of that metal."
+        },
+        {
+          "type": "text",
+          "text": "Since $c = f\\lambda$, a minimum frequency means a maximum wavelength. The threshold wavelength is $\\lambda_0 = \\frac{c}{f_0} = \\frac{hc}{\\Phi}$. Radiation with a longer wavelength than $\\lambda_0$ releases no electrons."
+        },
+        {
+          "type": "example",
+          "id": "ex-threshold-from-work-function",
+          "question": "A metal has a work function of $\\pu{2.9 eV}$. Calculate its threshold frequency.",
+          "steps": [
+            "Convert the work function to joules: $\\Phi = 2.9 \\times 1.60 \\times 10^{-19} = \\pu{4.64e-19 J}$.",
+            "Rearrange $\\Phi = hf_0$: $f_0 = \\frac{\\Phi}{h}$.",
+            "Substitute: $f_0 = \\frac{4.64 \\times 10^{-19}}{6.63 \\times 10^{-34}} = \\pu{7.00e14 Hz}$.",
+            "Round to 2 significant figures, to match the work function. Sense check: this is near violet light."
+          ],
+          "answer": "$f_0 \\approx 7.0 \\times 10^{14}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.9*e/h",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-yellow-light-photon",
+          "question": "A sodium street lamp gives yellow light of wavelength $\\pu{590 nm}$. Calculate the energy of one of its photons in eV, and determine whether this light releases electrons from a surface with a work function of $\\pu{2.3 eV}$.",
+          "steps": [
+            "Photon energy: $E = \\frac{hc}{\\lambda} = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{590 \\times 10^{-9}} = \\pu{3.37e-19 J}$.",
+            "Convert to eV: $\\frac{3.37 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{2.1 eV}$.",
+            "Compare with the work function: $\\pu{2.1 eV} < \\pu{2.3 eV}$, so one photon does not carry enough energy to free an electron.",
+            "So no electrons are released, however bright the lamp."
+          ],
+          "answer": "$E \\approx 2.1\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*c/(590*10**-9)/e",
+            "sf": 2,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing a work function in eV straight by $h$. Convert eV to joules first (multiply by $1.60 \\times 10^{-19}$), because $h$ is in J s."
+        },
+        {
+          "type": "check",
+          "id": "check-work-function-from-f0",
+          "prompt": "A metal has a threshold frequency of $\\pu{1.1e15 Hz}$. What is its work function, in eV? Give 2 significant figures.",
+          "hint": "$\\Phi = hf_0$ gives joules. Divide by $1.60 \\times 10^{-19}$ to get eV.",
+          "answer": {
+            "value": 4.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Phi = 6.63 \\times 10^{-34} \\times 1.1 \\times 10^{15} = \\pu{7.29e-19 J}$, and $\\frac{7.29 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{4.6 eV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "h*1.1*10**15/e",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-larger-work-function",
+          "prompt": "Metal X has a larger work function than metal Y. How do their thresholds compare?",
+          "hint": "$f_0 = \\frac{\\Phi}{h}$ and $\\lambda_0 = \\frac{hc}{\\Phi}$.",
+          "options": [
+            {
+              "text": "X has a higher threshold frequency and a shorter threshold wavelength",
+              "correct": true
+            },
+            {
+              "text": "X has a higher threshold frequency and a longer threshold wavelength",
+              "correct": false
+            },
+            {
+              "text": "X has a lower threshold frequency and a shorter threshold wavelength",
+              "correct": false
+            },
+            {
+              "text": "X and Y have the same threshold frequency",
+              "correct": false
+            }
+          ],
+          "explain": "A larger $\\Phi$ needs more energetic photons, so a higher $f_0$. Higher frequency means shorter wavelength, so $\\lambda_0$ is shorter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X has a higher threshold frequency and a shorter threshold wavelength"
+          }
+        }
+      ]
+    },
+    {
+      "id": "einstein",
+      "heading": "Einstein's photoelectric equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Follow one photon of frequency $f$ above $f_0$. One electron absorbs it. Part of the energy gets the electron out, and the rest becomes kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "An electron at the surface needs only $\\Phi$ to escape, so it leaves fastest. Electrons from deeper lose energy on the way out. That is why the energies have a range, with a maximum."
+        },
+        {
+          "type": "definition",
+          "term": "maximum kinetic energy of photoelectrons",
+          "statement": "The largest kinetic energy $E_\\text{max}$ of the electrons emitted when radiation of a given frequency falls on a metal. It is the photon energy minus the work function.",
+          "plain": "How much energy the fastest electrons leave with."
+        },
+        {
+          "type": "text",
+          "text": "This is Einstein's photoelectric equation. It is in the data booklet, with the values of $h$, $c$, $e$ and $m_\\text{e}$ that you need."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{max} = hf - \\Phi",
+          "tag": "booklet",
+          "bookletId": "db-5-4"
+        },
+        {
+          "type": "text",
+          "text": "Here $E_\\text{max}$ is the [[maximum-kinetic-energy-of-photoelectrons|maximum kinetic energy]] of the emitted electrons and $hf$ is the photon energy. All three terms must be in the same unit, J or eV."
+        },
+        {
+          "type": "result",
+          "statement": "$E_\\text{max}$ depends only on the frequency and the metal, not on the intensity. If $f < f_0$, then $hf - \\Phi$ would be negative, so no electrons are emitted.",
+          "why": "Intensity does not appear in $E_\\text{max} = hf - \\Phi$, and a kinetic energy can never be negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-emax-ultraviolet",
+          "question": "Ultraviolet radiation of wavelength $\\pu{240 nm}$ falls on a metal with a work function of $\\pu{4.1 eV}$. Calculate the maximum kinetic energy of the photoelectrons in eV.",
+          "steps": [
+            "Photon energy: $hf = \\frac{hc}{\\lambda} = \\frac{6.63 \\times 10^{-34} \\times 3.00 \\times 10^{8}}{240 \\times 10^{-9}} = \\pu{8.29e-19 J}$.",
+            "Convert to eV so it matches the work function: $\\frac{8.29 \\times 10^{-19}}{1.60 \\times 10^{-19}} = \\pu{5.18 eV}$.",
+            "Use $E_\\text{max} = hf - \\Phi = 5.18 - 4.1 = \\pu{1.08 eV}$.",
+            "Round to 2 significant figures, to match the data."
+          ],
+          "answer": "$E_\\text{max} \\approx 1.1\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*c/(240*10**-9)/e - 4.1",
+            "sf": 2,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-max-speed",
+          "question": "Light of frequency $\\pu{8.2e14 Hz}$ falls on a metal surface with a work function of $\\pu{2.2 eV}$. Calculate the maximum speed of the photoelectrons.",
+          "steps": [
+            "Photon energy: $hf = 6.63 \\times 10^{-34} \\times 8.2 \\times 10^{14} = \\pu{5.44e-19 J}$.",
+            "Work function in joules: $\\Phi = 2.2 \\times 1.60 \\times 10^{-19} = \\pu{3.52e-19 J}$.",
+            "$E_\\text{max} = hf - \\Phi = 5.44 \\times 10^{-19} - 3.52 \\times 10^{-19} = \\pu{1.92e-19 J}$. Keep the unrounded value.",
+            "Use $E_\\text{max} = \\tfrac{1}{2}m_\\text{e}v_\\text{max}^2$: $v_\\text{max} = \\sqrt{\\frac{2 \\times 1.917 \\times 10^{-19}}{9.11 \\times 10^{-31}}} = \\pu{6.49e5 m s-1}$.",
+            "Round to 2 significant figures."
+          ],
+          "answer": "$v_\\text{max} \\approx 6.5 \\times 10^{5}\\ \\text{m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2*(h*8.2*10**14 - 2.2*e)/me)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting a work function in eV from a photon energy in joules. Put both in the same unit before using $E_\\text{max} = hf - \\Phi$."
+        },
+        {
+          "type": "check",
+          "id": "check-emax-ev",
+          "prompt": "Photons of energy $\\pu{3.6 eV}$ fall on a metal of work function $\\pu{2.7 eV}$. What is $E_\\text{max}$, in eV?",
+          "hint": "Both energies are already in eV, so subtract.",
+          "answer": {
+            "value": 0.9,
+            "tolerance": 0.05
+          },
+          "explain": "$E_\\text{max} = 3.6 - 2.7 = \\pu{0.9 eV}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.6 - 2.7",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-frequency-doubled",
+          "prompt": "Light above the threshold frequency falls on a metal. The frequency is doubled. What happens to the maximum kinetic energy of the photoelectrons?",
+          "hint": "Write $E_\\text{max} = hf - \\Phi$, then replace $f$ with $2f$. Does $\\Phi$ double too?",
+          "options": [
+            {
+              "text": "it increases to more than double",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it increases, but to less than double",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "The new value is $2hf - \\Phi = 2(hf - \\Phi) + \\Phi$, which is more than $2E_\\text{max}$. The photon energy doubles, but the work function stays the same.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases to more than double"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring",
+      "heading": "Measuring the maximum kinetic energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To measure $E_\\text{max}$, use the supply to make the collector negative relative to the emitter."
+        },
+        {
+          "type": "text",
+          "text": "Now the photoelectrons are pushed back. As this potential difference rises, fewer reach the collector and the current falls. At the stopping potential $V_\\text{s}$, even the fastest are turned back, so the current is zero."
+        },
+        {
+          "type": "text",
+          "text": "The work done against the field on the fastest electron is $eV_\\text{s}$, and it equals the kinetic energy it started with."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{max} = eV_\\text{s}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In eV this is very neat: a stopping potential of $\\pu{1.5 V}$ means $E_\\text{max} = \\pu{1.5 eV}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-current-voltage",
+          "alt": "Graph of photocurrent I against the potential V of the collector relative to the emitter. Two curves, for light of the same frequency, both start at zero current at the same negative voltage, labelled minus V s. Each rises steeply and then levels off at a constant current for positive voltages. The curve for higher intensity levels off at about twice the current of the curve for lower intensity.",
+          "caption": "Same frequency, two intensities: the same stopping potential, so the same $E_\\text{max}$. More intense light gives a larger current once all the electrons are collected."
+        },
+        {
+          "type": "text",
+          "text": "Plot $E_\\text{max}$ against $f$ for several frequencies and you get a straight line."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-emax-graph",
+          "alt": "Graph of maximum kinetic energy in eV against frequency in units of 10 to the 14 hertz, from 0 to 12. Two parallel straight lines are drawn for metals A and B. The line for A crosses the frequency axis at 5.0 and rises to about 2.9 eV at 12. The line for B crosses the frequency axis at 7.0 and rises to about 2.1 eV at 12. Dashed extensions of each line continue down to the energy axis, meeting it at about minus 2.1 eV for A and minus 2.9 eV for B. The gradient of both lines is labelled h.",
+          "caption": "Every metal gives a line of gradient $h$. The frequency intercept is $f_0$, and the extended line meets the energy axis at $-\\Phi$."
+        },
+        {
+          "type": "result",
+          "statement": "On a graph of $E_\\text{max}$ against $f$: the gradient is $h$, the intercept on the frequency axis is $f_0$, and the intercept on the energy axis is $-\\Phi$. Different metals give parallel lines.",
+          "why": "Compare $E_\\text{max} = hf - \\Phi$ with $y = mx + c$. Setting $E_\\text{max} = 0$ gives $f = \\frac{\\Phi}{h} = f_0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-work-function-from-stopping",
+          "question": "Light of frequency $\\pu{7.4e14 Hz}$ falls on the emitter of a photocell. The current falls to zero when the collector is $\\pu{1.35 V}$ negative relative to the emitter. Determine the work function of the emitter in eV.",
+          "steps": [
+            "The stopping potential is $\\pu{1.35 V}$, so $E_\\text{max} = eV_\\text{s} = \\pu{1.35 eV}$.",
+            "Photon energy in eV: $hf = \\frac{6.63 \\times 10^{-34} \\times 7.4 \\times 10^{14}}{1.60 \\times 10^{-19}} = \\pu{3.07 eV}$.",
+            "Rearrange $E_\\text{max} = hf - \\Phi$: $\\Phi = hf - E_\\text{max} = 3.07 - 1.35 = \\pu{1.72 eV}$.",
+            "Round to 2 significant figures."
+          ],
+          "answer": "$\\Phi \\approx 1.7\\ \\text{eV}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "h*7.4*10**14/e - 1.35",
+            "sf": 2,
+            "unit": "eV"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-threshold-from-graph",
+          "question": "A student measures $E_\\text{max}$ at several frequencies for one metal. The best-fit line passes through $(\\pu{6.0e14 Hz},\\ \\pu{0.40 eV})$ and $(\\pu{9.0e14 Hz},\\ \\pu{1.64 eV})$. Determine the threshold frequency of the metal.",
+          "steps": [
+            "Gradient: $\\frac{1.64 - 0.40}{9.0 \\times 10^{14} - 6.0 \\times 10^{14}} = \\frac{1.24}{3.0 \\times 10^{14}} = \\pu{4.13e-15 eV s}$.",
+            "This gradient is $h$ in eV s. In J s: $4.13 \\times 10^{-15} \\times 1.60 \\times 10^{-19} = \\pu{6.6e-34 J s}$, close to the booklet value, which is a good check.",
+            "At $f_0$, $E_\\text{max} = 0$. From the first point, $f_0 = 6.0 \\times 10^{14} - \\frac{0.40}{4.13 \\times 10^{-15}} = 6.0 \\times 10^{14} - 0.97 \\times 10^{14}$.",
+            "$f_0 = \\pu{5.03e14 Hz}$. Round to 2 significant figures."
+          ],
+          "answer": "$f_0 \\approx 5.0 \\times 10^{14}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.0*10**14 - 0.40/((1.64 - 0.40)/(9.0*10**14 - 6.0*10**14))",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "If the energy axis is in eV, the gradient is in eV s. Multiply by $1.60 \\times 10^{-19}$ to get $h$ in J s before you compare it with the data booklet."
+        },
+        {
+          "type": "check",
+          "id": "check-h-from-gradient",
+          "prompt": "A graph of $E_\\text{max}$ in eV against $f$ in Hz has a gradient of $\\pu{4.1e-15 eV s}$. What value of $h$, in J s, does this give? Give 2 significant figures.",
+          "hint": "$\\pu{1 eV} = \\pu{1.60e-19 J}$, so multiply the gradient by $1.60 \\times 10^{-19}$.",
+          "answer": {
+            "value": 6.6e-34,
+            "tolerance": 5e-36
+          },
+          "explain": "$h = 4.1 \\times 10^{-15} \\times 1.60 \\times 10^{-19} = \\pu{6.6e-34 J s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.1*10**-15*e",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stopping-intensity",
+          "prompt": "In a photocell, the intensity of the light is increased and its frequency is kept the same. What happens to the stopping potential?",
+          "hint": "The stopping potential measures $E_\\text{max}$. Does intensity change $E_\\text{max}$?",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it becomes zero",
+              "correct": false
+            }
+          ],
+          "explain": "$eV_\\text{s} = E_\\text{max} = hf - \\Phi$, and neither $f$ nor $\\Phi$ has changed. Only the current rises.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E_\\text{max} = hf - \\Phi",
+          "tag": "booklet",
+          "bookletId": "db-5-4",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Work function and threshold: $\\Phi = hf_0$, and the threshold wavelength is $\\lambda_0 = \\frac{hc}{\\Phi}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "One photon gives all its energy $hf$ to one electron. Frequency sets the photon energy; intensity sets the photons per second.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The wave model cannot explain the threshold frequency, the lack of any delay, or why $E_\\text{max}$ does not depend on intensity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stopping potential: $E_\\text{max} = eV_\\text{s}$. In eV, $E_\\text{max}$ has the same number as $V_\\text{s}$ in volts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Graph of $E_\\text{max}$ against $f$: gradient $h$, frequency intercept $f_0$, energy intercept $-\\Phi$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying brighter light makes faster electrons. Intensity changes the number emitted per second, not $E_\\text{max}$.",
+    "Thinking several photons can add up to free one electron. Each electron absorbs one photon, so below $f_0$ nothing is emitted.",
+    "Mixing eV and J in $E_\\text{max} = hf - \\Phi$. Convert so both energies are in the same unit before subtracting.",
+    "Treating $E_\\text{max}$ as the energy of every photoelectron. Most leave with less."
+  ],
+  "examTips": [
+    "\"Explain\" evidence for the particle nature of light: state what the wave model predicts, then the photon idea: one photon, one electron, energy $hf$.",
+    "\"Calculate\" with $E_\\text{max} = hf - \\Phi$: write it with the numbers substituted. Stating the equation alone does not show you used it.",
+    "Paper 1A options often swap what intensity and frequency do. Only frequency sets the energy of each photon.",
+    "In a Paper 1B graph question, read $f_0$ from the frequency intercept and $h$ from the gradient. Convert eV s to J s if the energy axis is in eV."
+  ],
+  "readingMinutes": 26
+}

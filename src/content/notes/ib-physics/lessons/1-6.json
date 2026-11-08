@@ -1,0 +1,756 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.6",
+  "slug": "momentum-and-impulse",
+  "title": "Momentum and impulse",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[linear-momentum|Momentum]] is mass times [[velocity|velocity]], $p = mv$, a [[vector|vector]]. A [[resultant-force|resultant force]] acting for a time gives an [[impulse|impulse]], $J = F\\Delta t$, which equals the change in momentum. With no resultant external [[force|force]], a system is an [[isolated-system|isolated system]] and its total momentum stays constant: this is [[conservation-of-momentum|conservation of momentum]].",
+  "goals": [
+    {
+      "text": "Calculate momentum, $p = mv$, and changes in momentum, keeping track of direction with signs.",
+      "bullets": [
+        "A.2-s7"
+      ]
+    },
+    {
+      "text": "Calculate an impulse from $J = F\\Delta t$ or from the area under a force-time graph.",
+      "bullets": [
+        "A.2-s8"
+      ]
+    },
+    {
+      "text": "Use impulse = change in momentum to find average forces and final velocities, and explain why a longer contact time means a smaller force.",
+      "bullets": [
+        "A.2-s8",
+        "A.2-s9"
+      ]
+    },
+    {
+      "text": "Use [[newton-s-second-law|Newton's second law]] as $F = \\frac{\\Delta p}{\\Delta t}$ when mass changes, and explain why $F = ma$ fails there.",
+      "bullets": [
+        "A.2-s10"
+      ]
+    },
+    {
+      "text": "Apply conservation of momentum to one-dimensional collisions and recoils, and state when it holds.",
+      "bullets": [
+        "A.2-s7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "linear momentum",
+    "impulse and change in momentum",
+    "conservation of momentum",
+    "force-time graph",
+    "rate of change of momentum",
+    "F = dp/dt"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-resultant-acceleration",
+      "prompt": "A resultant force of $\\pu{2.1 N}$ acts on a trolley of mass $\\pu{0.75 kg}$. What is its [[acceleration|acceleration]], in $\\pu{m s-2}$? Give 2 significant figures.",
+      "hint": "Rearrange $F = ma$.",
+      "answer": {
+        "value": 2.8,
+        "tolerance": 0.05
+      },
+      "explain": "$a = \\frac{F}{m} = \\frac{2.1}{0.75} = \\pu{2.8 m s-2}$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.1/0.75",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-velocity-change",
+      "prompt": "A puck slides right at $\\pu{4.5 m s-1}$ and rebounds left at $\\pu{3.5 m s-1}$. Taking right as positive, what is its change in velocity, in $\\pu{m s-1}$? Include the sign.",
+      "hint": "Final minus initial. The final velocity is negative.",
+      "answer": {
+        "value": -8.0,
+        "tolerance": 0.05
+      },
+      "explain": "$\\Delta v = (-3.5) - (+4.5) = \\pu{-8.0 m s-1}$: the change points to the left. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-3.5 - 4.5",
+        "sf": 2,
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-which-vector",
+      "prompt": "Which of these quantities has a direction as well as a size?",
+      "hint": "A vector needs a direction to describe it fully.",
+      "options": [
+        {
+          "text": "acceleration",
+          "correct": true
+        },
+        {
+          "text": "speed",
+          "correct": false
+        },
+        {
+          "text": "mass",
+          "correct": false
+        },
+        {
+          "text": "distance",
+          "correct": false
+        }
+      ],
+      "explain": "Acceleration is a [[vector|vector]]. Speed, mass and distance are scalars. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "acceleration"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "momentum",
+      "heading": "Linear momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A slow lorry and a fast cricket ball are both hard to stop: one has a large mass, the other a large [[velocity|velocity]]. Momentum combines the two."
+        },
+        {
+          "type": "definition",
+          "term": "linear momentum",
+          "statement": "The product of a body's mass and its velocity, $p = mv$. Momentum is a [[vector|vector]] in the direction of the velocity. Its unit is $\\pu{kg m s-1}$.",
+          "plain": "How much motion something has: mass times velocity."
+        },
+        {
+          "type": "formula",
+          "tex": "p = mv",
+          "tag": "booklet",
+          "bookletId": "db-1-6"
+        },
+        {
+          "type": "text",
+          "text": "$m$ is the mass in kg and $v$ the velocity in $\\pu{m s-1}$. This equation is printed in the data booklet, and so are $J = F\\Delta t$ and $F = \\frac{\\Delta p}{\\Delta t}$ later in this lesson."
+        },
+        {
+          "type": "text",
+          "text": "Choose a positive direction first: a body moving the other way has negative momentum. The change in momentum is $\\Delta p = mv - mu$, where $u$ is the initial velocity."
+        },
+        {
+          "type": "example",
+          "id": "ex-bowling-ball-momentum",
+          "question": "A bowling ball of mass $\\pu{6.4 kg}$ rolls along a lane at $\\pu{3.5 m s-1}$. Calculate its momentum.",
+          "steps": [
+            "Use $p = mv$ with the mass in kg and the velocity in $\\pu{m s-1}$.",
+            "$p = 6.4 \\times 3.5 = \\pu{22.4 kg m s-1}$.",
+            "Both data have 2 significant figures, so give 2. The momentum points along the lane."
+          ],
+          "answer": "$p \\approx \\pu{22 kg m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.4*3.5",
+            "sf": 2,
+            "unit": "kg m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-football-rebound",
+          "question": "A football of mass $\\pu{0.27 kg}$ hits a wall at $\\pu{11 m s-1}$ and rebounds along the same line at $\\pu{8.0 m s-1}$. Calculate the change in momentum of the ball. Take the direction towards the wall as positive.",
+          "steps": [
+            "Before: $u = \\pu{+11 m s-1}$. After, it moves away from the wall: $v = \\pu{-8.0 m s-1}$.",
+            "$\\Delta p = mv - mu = 0.27 \\times (-8.0) - 0.27 \\times 11$.",
+            "$\\Delta p = -2.16 - 2.97 = \\pu{-5.13 kg m s-1}$.",
+            "The minus sign means the change points away from the wall."
+          ],
+          "answer": "$\\Delta p \\approx \\pu{-5.1 kg m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.27*(-8.0) - 0.27*11",
+            "sf": 2,
+            "unit": "kg m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting speeds for a rebound: $0.27 \\times (11 - 8.0)$. The velocity reverses, so it changes sign; the change is $0.27 \\times (11 + 8.0)$ in size."
+        },
+        {
+          "type": "check",
+          "id": "check-cricket-ball-mass",
+          "prompt": "A cricket ball moving at $\\pu{38 m s-1}$ has a momentum of $\\pu{6.2 kg m s-1}$. What is its mass, in kg? Give 2 significant figures.",
+          "hint": "Rearrange $p = mv$ for $m$.",
+          "answer": {
+            "value": 0.16,
+            "tolerance": 0.005
+          },
+          "explain": "$m = \\frac{p}{v} = \\frac{6.2}{38} = 0.163... \\approx \\pu{0.16 kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6.2/38",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bounce-change",
+          "prompt": "A ball of mass $m$ hits the floor vertically at speed $v$ and bounces straight back up at the same speed $v$. What is the size of its change in momentum?",
+          "hint": "Take down as positive. What is the velocity after the bounce?",
+          "options": [
+            {
+              "text": "$2mv$",
+              "correct": true
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            },
+            {
+              "text": "$mv$",
+              "correct": false
+            },
+            {
+              "text": "$\\tfrac{1}{2}mv$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta p = m(-v) - m(+v) = -2mv$, so the size is $2mv$. The speed is unchanged, but the momentum is not, because its direction reverses.",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*m*v"
+          }
+        }
+      ]
+    },
+    {
+      "id": "impulse",
+      "heading": "Impulse and change in momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Catch a hard ball with stiff arms and it stings. Pull your hands back, and it doesn't. The ball loses the same momentum either way; only the time changes."
+        },
+        {
+          "type": "text",
+          "text": "Start from $F = ma$ for a body of constant mass, with $a = \\frac{v - u}{\\Delta t}$. Multiply both sides by $\\Delta t$: $F\\Delta t = mv - mu$. A force acting for a time changes momentum."
+        },
+        {
+          "type": "definition",
+          "term": "impulse",
+          "statement": "The product of the average resultant [[force|force]] on a body and the time for which it acts, $J = F\\Delta t$. Impulse is a vector in the direction of the force. Its unit is $\\pu{N s}$.",
+          "plain": "A push multiplied by how long it lasts."
+        },
+        {
+          "type": "formula",
+          "tex": "J = F\\Delta t",
+          "tag": "booklet",
+          "bookletId": "db-1-6"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the average [[resultant-force|resultant force]] in N, and $\\Delta t$ is the time of contact in s. Since $\\pu{1 N} = \\pu{1 kg m s-2}$, $\\pu{1 N s} = \\pu{1 kg m s-1}$: impulse and momentum have the same unit."
+        },
+        {
+          "type": "result",
+          "statement": "The impulse of the resultant external force on a system is equal to the system's change in momentum: $J = \\Delta p$.",
+          "why": "Newton's second law says the resultant force is the rate of change of momentum, $F = \\frac{\\Delta p}{\\Delta t}$; multiply both sides by $\\Delta t$."
+        },
+        {
+          "type": "text",
+          "text": "When the force varies, the impulse is the [[area-under-a-graph|area under]] the force-time graph, and $F$ in $J = F\\Delta t$ is the average force."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-force-time",
+          "alt": "Graph of force in newtons against time in milliseconds for a push on a trolley. The force rises in a straight line from 0 at time 0 to 36 newtons at 50 milliseconds, stays at 36 newtons until 150 milliseconds, then falls in a straight line to 0 at 200 milliseconds. The area under the line, a trapezium, is shaded. It splits into a triangle on the left labelled 0.90 newton seconds, a rectangle in the middle labelled 3.6 newton seconds and a triangle on the right labelled 0.90 newton seconds.",
+          "caption": "The shaded area is the impulse, $\\pu{5.4 N s}$. Convert milliseconds to seconds before you multiply."
+        },
+        {
+          "type": "example",
+          "id": "ex-trolley-force-time",
+          "question": "A trolley of mass $\\pu{1.5 kg}$ is at rest on a smooth, level track. It is pushed, and the force on it varies with time as shown in the graph above. Determine the speed of the trolley after the push.",
+          "steps": [
+            "The impulse is the area under the graph. Change the times to seconds: $\\pu{50 ms} = \\pu{0.050 s}$, $\\pu{100 ms} = \\pu{0.10 s}$.",
+            "Two triangles: $2 \\times \\tfrac{1}{2} \\times 0.050 \\times 36 = \\pu{1.8 N s}$. Rectangle: $0.10 \\times 36 = \\pu{3.6 N s}$.",
+            "Total impulse $J = 1.8 + 3.6 = \\pu{5.4 N s}$.",
+            "Impulse = change in momentum, starting from rest: $5.4 = 1.5v - 0$, so $v = \\frac{5.4}{1.5} = \\pu{3.6 m s-1}$."
+          ],
+          "answer": "$v \\approx \\pu{3.6 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(2*Rational(1, 2)*0.050*36 + 0.10*36)/1.5",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-goalkeeper-force",
+          "question": "A goalkeeper catches a ball of mass $\\pu{0.430 kg}$ travelling at $\\pu{25.0 m s-1}$ and brings it to rest in $\\pu{0.0600 s}$. Determine the size of the average force her hands exert on the ball.",
+          "steps": [
+            "Take the ball's direction of travel as positive. $\\Delta p = 0 - 0.430 \\times 25.0 = \\pu{-10.75 kg m s-1}$.",
+            "Impulse = change in momentum, so $F\\Delta t = \\Delta p$ and $F = \\frac{-10.75}{0.0600} = \\pu{-179.2 N}$.",
+            "The minus sign means the force opposes the motion. Give 3 significant figures, like the data.",
+            "By [[newton-s-third-law|Newton's third law]], the ball pushes on her hands with $\\pu{179 N}$ in its direction of travel."
+          ],
+          "answer": "$F \\approx \\pu{179 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.430*25.0/0.0600",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-airbag-explain",
+          "question": "Explain, in terms of impulse, why an airbag reduces the average force on a driver's head in a crash.",
+          "steps": [
+            "Fix the change in momentum first: same start speed, same end speed.",
+            "Then compare the times, and finish with $J = F\\Delta t$."
+          ],
+          "answer": "The head's change in momentum is the same with or without the airbag, because it goes from the same speed to rest. Impulse equals change in momentum, so the impulse on the head is also the same. The airbag increases the time over which the head stops. Since $J = F\\Delta t$, a longer time means a smaller average force on the head.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same change in momentum so same impulse; airbag increases stopping time; J = F dt so average force is smaller",
+            "requires": [
+              "change in momentum",
+              [
+                "is the same",
+                "the same"
+              ],
+              "impulse",
+              [
+                "increases the time",
+                "longer time"
+              ],
+              [
+                "smaller average force",
+                "average force is smaller"
+              ]
+            ],
+            "forbids": [
+              "reduces the impulse",
+              "reduces the change in momentum",
+              "absorbs the momentum"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that an airbag or crash mat reduces the impulse. The impulse is the same; only the time, and so the average force, changes."
+        },
+        {
+          "type": "check",
+          "id": "check-impulse-unit",
+          "prompt": "Which unit is the same as the newton second, $\\pu{N s}$?",
+          "hint": "Write the newton in base units, $\\pu{kg m s-2}$, then multiply by seconds.",
+          "options": [
+            {
+              "text": "kg m s⁻¹",
+              "correct": true
+            },
+            {
+              "text": "kg m s⁻²",
+              "correct": false
+            },
+            {
+              "text": "kg m² s⁻²",
+              "correct": false
+            },
+            {
+              "text": "N s⁻¹",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pu{N s} = \\pu{kg m s-2} \\times \\pu{s} = \\pu{kg m s-1}$, the unit of momentum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "kg m s⁻¹"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-racket-impulse",
+          "prompt": "A racket exerts an average force of $\\pu{380 N}$ on a tennis ball for $\\pu{4.5 ms}$. What impulse does the ball receive, in $\\pu{N s}$? Give 2 significant figures.",
+          "hint": "Convert milliseconds to seconds, then use $J = F\\Delta t$.",
+          "answer": {
+            "value": 1.7,
+            "tolerance": 0.05
+          },
+          "explain": "$J = 380 \\times 4.5 \\times 10^{-3} = 1.71 \\approx \\pu{1.7 N s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "380*4.5*10**-3",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "changing-mass",
+      "heading": "Force as rate of change of momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.4}} you used $F = ma$. Newton's second law is more general: the resultant force equals the rate of change of momentum."
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma = \\frac{\\Delta p}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-1-6"
+        },
+        {
+          "type": "text",
+          "text": "If the mass stays constant, $\\Delta p = m\\Delta v$. Then $\\frac{\\Delta p}{\\Delta t} = m\\frac{\\Delta v}{\\Delta t} = ma$. So $F = ma$ is the special case for a body whose mass does not change."
+        },
+        {
+          "type": "text",
+          "text": "On a momentum-time graph, the [[gradient|gradient]] is $\\frac{\\Delta p}{\\Delta t}$, so it equals the resultant force."
+        },
+        {
+          "type": "text",
+          "text": "Some systems gain or lose mass as they move: a rocket burning fuel, a water jet, sand dropping onto a belt. Then $F = ma$ fails. Use $F = \\frac{\\Delta p}{\\Delta t}$."
+        },
+        {
+          "type": "text",
+          "text": "For a steady stream, a mass $\\frac{\\Delta m}{\\Delta t}$ arrives each second, and each kilogram changes velocity by $\\Delta v$. So the force needed is:"
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\frac{\\Delta m}{\\Delta t}\\,\\Delta v",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-hose-wall",
+          "question": "A hose sprays water horizontally at a wall at $\\pu{14 m s-1}$. Water hits the wall at a rate of $\\pu{1.8 kg s-1}$ and runs down it without bouncing back. Calculate the horizontal force the water exerts on the wall.",
+          "steps": [
+            "Take the direction towards the wall as positive. Each second, $\\pu{1.8 kg}$ of water goes from $\\pu{+14 m s-1}$ to 0 horizontally.",
+            "Rate of change of momentum of the water: $\\frac{\\Delta p}{\\Delta t} = 1.8 \\times (0 - 14) = \\pu{-25.2 kg m s-2}$.",
+            "So the wall pushes the water with $F = \\pu{-25.2 N}$, away from the wall.",
+            "By Newton's third law, the water pushes the wall with $\\pu{25.2 N}$ towards it. Round to 2 significant figures."
+          ],
+          "answer": "$F \\approx \\pu{25 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.8*14",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-conveyor-belt",
+          "question": "Grain falls vertically onto a horizontal conveyor belt at a rate of $\\pu{45 kg s-1}$. The belt moves at a constant $\\pu{0.80 m s-1}$. Ignore friction in the belt's rollers. Determine the extra horizontal force the motor must supply because of the grain.",
+          "steps": [
+            "The grain lands with no horizontal velocity. The belt must bring each kilogram up to $\\pu{0.80 m s-1}$.",
+            "Each second, the horizontal momentum gained is $45 \\times 0.80 = \\pu{36 kg m s-1}$.",
+            "$F = \\frac{\\Delta p}{\\Delta t} = \\pu{36 N}$, in the belt's direction of motion.",
+            "$F = ma$ would wrongly give zero, since the belt does not accelerate. Its load keeps changing, so use $F = \\frac{\\Delta p}{\\Delta t}$."
+          ],
+          "answer": "$F \\approx \\pu{36 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "45*0.80",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $F = ma$ for a rocket, a jet of water or a loaded belt. The mass is changing, so use $F = \\frac{\\Delta p}{\\Delta t}$."
+        },
+        {
+          "type": "check",
+          "id": "check-rocket-why",
+          "prompt": "Why can $F = ma$ not be used with one value of $m$ for a rocket during launch?",
+          "hint": "What happens to the fuel inside the rocket as it burns?",
+          "options": [
+            {
+              "text": "its mass decreases as it burns fuel",
+              "correct": true
+            },
+            {
+              "text": "no external force acts on it",
+              "correct": false
+            },
+            {
+              "text": "its acceleration is zero",
+              "correct": false
+            },
+            {
+              "text": "its weight balances the thrust",
+              "correct": false
+            }
+          ],
+          "explain": "The rocket throws out burnt fuel, so its mass falls during launch. $F = ma$ assumes constant mass; $F = \\frac{\\Delta p}{\\Delta t}$ does not.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its mass decreases as it burns fuel"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-engine-thrust",
+          "prompt": "A small rocket engine throws out exhaust gas at $\\pu{2.6 kg s-1}$, at a speed of $\\pu{1900 m s-1}$ relative to the rocket. What force does the gas exert on the rocket, in kN? Give 2 significant figures.",
+          "hint": "Use $F = \\frac{\\Delta m}{\\Delta t}\\,\\Delta v$, then divide by 1000.",
+          "answer": {
+            "value": 4.9,
+            "tolerance": 0.05
+          },
+          "explain": "$F = 2.6 \\times 1900 = \\pu{4940 N} \\approx \\pu{4.9 kN}$, pushing the rocket forwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.6*1900/1000",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two skaters stand still on smooth ice and push each other apart. Before the push, the total momentum is zero. After it, they glide off in opposite directions."
+        },
+        {
+          "type": "text",
+          "text": "By Newton's third law, each pushes the other with an equal and opposite force, for the same time. So their impulses are equal and opposite, and their changes in momentum cancel. The total is still zero."
+        },
+        {
+          "type": "definition",
+          "term": "isolated system",
+          "statement": "A system on which no resultant external force acts. External forces come from bodies outside the system; internal forces act between its parts.",
+          "plain": "Nothing outside it gives it an overall push."
+        },
+        {
+          "type": "definition",
+          "term": "conservation of momentum",
+          "statement": "The total momentum of a system remains constant unless a resultant external force acts on it. So the total momentum of an isolated system is constant.",
+          "plain": "With no overall push from outside, total momentum can't change."
+        },
+        {
+          "type": "text",
+          "text": "Internal forces come in third-law pairs inside the system, so they cancel. Only a resultant external force gives the system an impulse and changes its total momentum."
+        },
+        {
+          "type": "text",
+          "text": "Momentum is conserved in every collision and [[explosion|explosion]] of an isolated system, whether the bodies bounce, stick together or fly apart. [[kinetic-energy|Kinetic energy]] is often not conserved: that is in {{lesson:1.7}}."
+        },
+        {
+          "type": "text",
+          "text": "In a short collision, outside forces such as friction are tiny next to the contact forces, so momentum is conserved to a good approximation."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a positive direction and draw before and after."
+        },
+        {
+          "type": "text",
+          "text": "2. Write total momentum before = total momentum after, with signs."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve. The sign of the answer gives the direction."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-wagons",
+          "alt": "Two diagrams of railway wagons on a straight track, with an arrow at the top marking right as the positive direction. Before: wagon A, mass 18 000 kilograms, on the left, moving right at 2.4 metres per second; wagon B, mass 12 000 kilograms, on the right, moving left at 0.90 metres per second, towards A. After: the two wagons are coupled together, total mass 30 000 kilograms, moving with an unknown velocity v marked to the right.",
+          "caption": "Before and after the wagons couple. Right is positive, so wagon B starts with negative momentum."
+        },
+        {
+          "type": "example",
+          "id": "ex-wagons-couple",
+          "question": "Wagon A, of mass $\\pu{18000 kg}$, moves at $\\pu{2.4 m s-1}$ to the right. It meets wagon B, of mass $\\pu{12000 kg}$, moving at $\\pu{0.90 m s-1}$ to the left, and the two couple together. Friction is negligible. Calculate the velocity of the wagons just after they couple.",
+          "steps": [
+            "Take right as positive. Wagon B's velocity is $\\pu{-0.90 m s-1}$.",
+            "Total momentum before: $18000 \\times 2.4 + 12000 \\times (-0.90) = 43200 - 10800 = \\pu{32400 kg m s-1}$.",
+            "Total momentum after: $(18000 + 12000)v = 30000v$.",
+            "Conservation of momentum: $30000v = 32400$, so $v = \\pu{1.08 m s-1}$.",
+            "Positive, so they move to the right."
+          ],
+          "answer": "$v \\approx \\pu{1.1 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(18000*2.4 + 12000*(-0.90))/(18000 + 12000)",
+            "sf": 2,
+            "unit": "m s-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-falling-apple-explain",
+          "question": "A dropped apple speeds up as it falls, so its momentum increases. Explain why this does not break the law of conservation of momentum.",
+          "steps": [
+            "Is the apple on its own an isolated system?",
+            "Widen the system to include the Earth. Its velocity change is far too small to notice, because its mass is huge."
+          ],
+          "answer": "The apple alone is not an isolated system. Its weight, the pull of the Earth, is a resultant external force on it, so its momentum can change. Take the apple and the Earth together as the system. By Newton's third law, the apple pulls the Earth upwards with an equal and opposite force. So the Earth gains an equal momentum upwards, and the total momentum of the apple and the Earth stays constant.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "apple alone is not isolated: weight is an external force; apple and Earth together: third-law pair, Earth gains equal and opposite momentum, total constant",
+            "requires": [
+              "not an isolated system",
+              "external force",
+              "apple and the Earth",
+              "third law",
+              "equal and opposite",
+              "total momentum",
+              [
+                "stays constant",
+                "is constant"
+              ]
+            ],
+            "forbids": [
+              "momentum is destroyed",
+              "momentum is created",
+              "energy"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stating that momentum is conserved without the condition. Always add that no resultant external force acts, or that the system is isolated."
+        },
+        {
+          "type": "check",
+          "id": "check-spring-trolleys",
+          "prompt": "Two trolleys at rest on a smooth track have a compressed spring between them. The spring is released and they move apart. Which statement is correct just after they separate?",
+          "hint": "The total momentum before release is zero. What must the total be afterwards?",
+          "options": [
+            {
+              "text": "their momenta are equal in size and opposite in direction",
+              "correct": true
+            },
+            {
+              "text": "the lighter trolley has the larger momentum",
+              "correct": false
+            },
+            {
+              "text": "both trolleys have zero momentum",
+              "correct": false
+            },
+            {
+              "text": "the total momentum is greater than before",
+              "correct": false
+            }
+          ],
+          "explain": "The total momentum stays zero, so the two momenta cancel. The lighter trolley has the larger speed, not the larger momentum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "their momenta are equal in size and opposite in direction"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-putty-trolley",
+          "prompt": "A lump of putty of mass $\\pu{0.20 kg}$, moving at $\\pu{6.5 m s-1}$, hits a stationary trolley of mass $\\pu{0.45 kg}$ and sticks to it. What is their speed just after the impact, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "Total momentum before = total momentum after. After the impact they move together, so add the masses.",
+          "answer": {
+            "value": 2.0,
+            "tolerance": 0.05
+          },
+          "explain": "$0.20 \\times 6.5 = (0.20 + 0.45)v$, so $v = \\frac{1.3}{0.65} = \\pu{2.0 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.20*6.5/(0.20 + 0.45)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "p = mv",
+          "tag": "booklet",
+          "bookletId": "db-1-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Momentum is a vector, unit $\\pu{kg m s-1}$. Change in momentum $\\Delta p = mv - mu$: choose a positive direction and keep the signs.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "J = F\\Delta t",
+          "tag": "booklet",
+          "bookletId": "db-1-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Impulse = change in momentum = area under the resultant force-time graph. $\\pu{1 N s} = \\pu{1 kg m s-1}$. Same $\\Delta p$ over a longer time means a smaller average force.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma = \\frac{\\Delta p}{\\Delta t}",
+          "tag": "booklet",
+          "bookletId": "db-1-6",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$F = ma$ needs constant mass. When mass changes (rockets, jets, belts), use $F = \\frac{\\Delta p}{\\Delta t}$; for a steady stream, $F = \\frac{\\Delta m}{\\Delta t}\\,\\Delta v$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The total momentum of a system is constant unless a resultant external force acts on it. This holds in every collision and explosion of an isolated system.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting speeds when a body rebounds. Give the two velocities opposite signs: a reversal gives a bigger change in momentum.",
+    "Saying momentum is conserved with no condition. It holds only when no resultant external force acts on the system.",
+    "Reading a force-time graph in milliseconds and not converting. Change ms to s first, or the impulse is 1000 times too big.",
+    "Assuming kinetic energy is conserved because momentum is. Momentum is conserved in every collision of an isolated system; kinetic energy usually is not."
+  ],
+  "examTips": [
+    "\"State\" the law of conservation of momentum with its condition: \"the total momentum of a system is constant if no resultant external force acts\". The condition carries the mark.",
+    "\"Calculate\" a velocity after a collision: state your positive direction, then write momentum before = momentum after with numbers in. That line earns the method mark.",
+    "\"Explain\" why a longer contact time reduces a force: same change in momentum, so same impulse; longer time, so smaller average force. Arguments about energy earn nothing here.",
+    "In Paper 1A, N s and kg m s⁻¹ are the same unit, so impulse and momentum values compare directly."
+  ],
+  "readingMinutes": 25
+}

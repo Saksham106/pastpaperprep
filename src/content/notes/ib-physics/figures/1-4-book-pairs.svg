@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 270" role="img" aria-labelledby="t">
+<title id="t">Three small diagrams side by side for a book resting on a desk. The first shows the forces on the book: weight, the pull of the Earth on the book, pointing down, and the normal force, the push of the desk on the book, pointing up. The second shows the push of the book on the desk, pointing down, in the same colour as the normal force. The third shows the pull of the book on the Earth, pointing up, in the same colour as the weight. Arrows of the same colour are equal in length and opposite in direction: each colour is one third-law pair, and its two forces act on different bodies.</title>
+<text font-family="inherit" font-size="13" x="80" y="30" fill="currentColor" text-anchor="middle">on the book</text>
+<circle cx="80" cy="150" r="5" fill="currentColor"/>
+<text font-family="inherit" font-size="13" x="230" y="30" fill="currentColor" text-anchor="middle">on the desk</text>
+<circle cx="230" cy="150" r="5" fill="currentColor"/>
+<text font-family="inherit" font-size="13" x="380" y="30" fill="currentColor" text-anchor="middle">on the Earth</text>
+<circle cx="380" cy="150" r="5" fill="currentColor"/>
+<path d="M80.0 150.0 L80.0 89.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="80.0,80.0 84.5,89.0 75.5,89.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="11" x="88" y="92" fill="var(--t2-ink)" text-anchor="start">desk on book</text>
+<text font-family="inherit" font-size="11" x="88" y="106" fill="var(--t2-ink)" text-anchor="start">(normal force)</text>
+<path d="M80.0 150.0 L80.0 211.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="80.0,220.0 75.5,211.0 84.5,211.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="88" y="204" fill="var(--t1-ink)" text-anchor="start">Earth on book</text>
+<text font-family="inherit" font-size="11" x="88" y="218" fill="var(--t1-ink)" text-anchor="start">(weight)</text>
+<path d="M230.0 150.0 L230.0 211.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="230.0,220.0 225.5,211.0 234.5,211.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="11" x="238" y="204" fill="var(--t2-ink)" text-anchor="start">book on desk</text>
+<path d="M380.0 150.0 L380.0 89.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="380.0,80.0 384.5,89.0 375.5,89.0" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="388" y="92" fill="var(--t1-ink)" text-anchor="start">book on Earth</text>
+<path d="M155 50 V250 M305 50 V250" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 4"/>
+<text font-family="inherit" font-size="10" x="230" y="262" fill="var(--muted)" text-anchor="middle">other forces on the desk and the Earth not shown</text>
+</svg>

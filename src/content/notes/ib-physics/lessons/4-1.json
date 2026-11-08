@@ -1,0 +1,853 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "4.1",
+  "slug": "gravitation-kepler-newton",
+  "title": "Gravitation: Kepler's laws and Newton's law",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Every mass attracts every other mass with a [[force|force]] that falls off as $\\frac{1}{r^{2}}$. This one law explains Kepler's three rules for planetary orbits. The [[gravitational-field-strength|gravitational field strength]] $g$ describes the pull per kilogram at any point, and field lines show it as a picture.",
+  "goals": [
+    {
+      "text": "State Kepler's three laws and use $T^{2} \\propto r^{3}$ to compare orbits around the same body.",
+      "bullets": [
+        "D.1-s1"
+      ]
+    },
+    {
+      "text": "Calculate the gravitational force between two masses with $F = G\\frac{m_1 m_2}{r^{2}}$, and use it to find the mass of a central body from an orbit.",
+      "bullets": [
+        "D.1-s2",
+        "D.1-s1"
+      ]
+    },
+    {
+      "text": "State when a large body can be treated as a [[point-mass|point mass]], and measure $r$ between centres.",
+      "bullets": [
+        "D.1-s3"
+      ]
+    },
+    {
+      "text": "Define gravitational field strength, calculate it with $g = \\frac{GM}{r^{2}}$, and find the resultant field on the line joining two bodies.",
+      "bullets": [
+        "D.1-s4"
+      ]
+    },
+    {
+      "text": "Sketch and interpret field lines for radial and uniform gravitational fields.",
+      "bullets": [
+        "D.1-s5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.4",
+    "1.5",
+    "1.8",
+    "2.1",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Kepler's laws",
+    "Newton's law of universal gravitation",
+    "gravitational field strength",
+    "T squared proportional to r cubed",
+    "gravitational field lines",
+    "point where gravitational field is zero"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-centripetal-tension",
+      "prompt": "A $\\pu{0.40 kg}$ ball on a string moves in a horizontal circle of radius $\\pu{1.5 m}$ at a steady $\\pu{6.0 m s-1}$. What is the centripetal force on it, in newtons? Give 2 significant figures.",
+      "hint": "Use $F = \\frac{mv^{2}}{r}$.",
+      "answer": {
+        "value": 9.6,
+        "tolerance": 0.05
+      },
+      "explain": "$F = \\frac{mv^{2}}{r} = \\frac{0.40 \\times 6.0^{2}}{1.5} = \\pu{9.6 N}$, towards the centre. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.40*6.0**2/1.5",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-square",
+      "prompt": "The intensity of light from a small lamp is $\\pu{80 W m-2}$ at $\\pu{2.0 m}$ from it. What is the intensity at $\\pu{4.0 m}$, in $\\pu{W m-2}$? Give 2 significant figures.",
+      "hint": "Twice the distance spreads the same power over four times the area.",
+      "answer": {
+        "value": 20,
+        "tolerance": 0.5
+      },
+      "explain": "Intensity follows an [[inverse-square-law|inverse square law]]: $80 \\times \\left(\\frac{2.0}{4.0}\\right)^{2} = \\pu{20 W m-2}$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "80*(2.0/4.0)**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-weight",
+      "prompt": "What is the [[weight|weight]] of a $\\pu{65 kg}$ climber on the Earth's surface, in newtons? Give 2 significant figures.",
+      "hint": "Use $W = mg$ with $g = \\pu{9.8 m s-2}$.",
+      "answer": {
+        "value": 640,
+        "tolerance": 5
+      },
+      "explain": "$W = mg = 65 \\times 9.8 = 637 \\approx \\pu{640 N}$, downwards. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "65*g",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "kepler",
+      "heading": "Kepler's three laws",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the early 1600s, Johannes Kepler found three rules in measurements of the planets. They describe the orbits but do not explain them."
+        },
+        {
+          "type": "text",
+          "text": "[[kepler-s-first-law|Kepler's first law]]: every planet moves in an ellipse, with the Sun at one focus. An ellipse is a stretched circle with two special points, the foci. The other focus is empty."
+        },
+        {
+          "type": "text",
+          "text": "Planetary orbits are nearly circles; in calculations, treat them as circles."
+        },
+        {
+          "type": "text",
+          "text": "[[kepler-s-second-law|Kepler's second law]]: the line from the Sun to a planet sweeps out equal areas in equal times. Close to the Sun the line is short, so the planet must cover a longer stretch of its orbit to sweep the same area."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-kepler-areas",
+          "alt": "An elliptical orbit, stretched more than a real planet's orbit, with the Sun at the left-hand focus. The other focus, on the right, is marked with a cross and is empty. Two slices from the Sun to the orbit are shaded and labelled area A. The left slice, near the Sun, is short and wide and covers a long stretch of the orbit. The right slice, far from the Sun, is long and thin and covers a short stretch. An arrow labelled fast is on the planet near the Sun, and an arrow labelled slow is on the planet far from the Sun. A note says each slice is swept out in the same time, so the two areas are equal.",
+          "caption": "Equal areas in equal times: the planet moves fastest when it is closest to the Sun. The ellipse is exaggerated."
+        },
+        {
+          "type": "text",
+          "text": "[[kepler-s-third-law|Kepler's third law]]: the square of a planet's [[period|period]] is proportional to the cube of its mean distance from the Sun. For a circular orbit, that distance is the orbital radius $r$."
+        },
+        {
+          "type": "formula",
+          "tex": "T^{2} \\propto r^{3} \\quad\\text{so}\\quad \\frac{T^{2}}{r^{3}} = \\text{constant}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The constant is the same for all bodies orbiting the same central mass, such as the moons of one planet. A different central body has a different constant."
+        },
+        {
+          "type": "text",
+          "text": "To compare two orbits around the same body, use the ratio form: $\\left(\\frac{T_1}{T_2}\\right)^{2} = \\left(\\frac{r_1}{r_2}\\right)^{3}$. Any units work if both orbits use the same ones."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-moons-period",
+          "question": "Two moons, P and Q, orbit the same planet in circular orbits. Moon P has an orbital radius of $\\pu{1.9e8 m}$ and a period of $\\pu{3.2 days}$. Moon Q has an orbital radius of $\\pu{4.8e8 m}$. Determine the orbital period of moon Q.",
+          "steps": [
+            "Same central body, so Kepler's third law applies: $\\left(\\frac{T_\\text{Q}}{T_\\text{P}}\\right)^{2} = \\left(\\frac{r_\\text{Q}}{r_\\text{P}}\\right)^{3}$.",
+            "Rearrange: $T_\\text{Q} = T_\\text{P}\\left(\\frac{r_\\text{Q}}{r_\\text{P}}\\right)^{3/2} = 3.2 \\times \\left(\\frac{4.8 \\times 10^{8}}{1.9 \\times 10^{8}}\\right)^{1.5}$.",
+            "$\\frac{4.8}{1.9} = 2.526$ and $2.526^{1.5} = 4.015$, so $T_\\text{Q} = 3.2 \\times 4.015 = 12.85$ days."
+          ],
+          "answer": "$T_\\text{Q} \\approx 13\\ \\text{days}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.2*(4.8e8/1.9e8)**1.5",
+            "sf": 2,
+            "unit": "days"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-comet-speed",
+          "question": "A comet moves in a long, thin elliptical orbit around the Sun. Explain, using Kepler's second law, why the comet moves fastest when it is closest to the Sun.",
+          "steps": [
+            "One marking point per sentence: equal areas in equal times; short line near the Sun; longer arc in the same time; so higher speed."
+          ],
+          "answer": "Kepler's second law says that the line from the Sun to the comet sweeps out equal areas in equal times. When the comet is close to the Sun, this line is short. To sweep out the same area in the same time, the comet must travel a longer distance along its orbit. A greater distance in the same time means a greater speed, so the comet moves fastest when closest to the Sun.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "equal areas in equal times; line is short near the Sun; longer distance along orbit in same time; so faster",
+            "requires": [
+              "equal areas in equal times",
+              [
+                "line is short",
+                "shorter line",
+                "line from the Sun to the comet is short"
+              ],
+              [
+                "longer distance",
+                "greater distance"
+              ],
+              [
+                "same time",
+                "equal time"
+              ],
+              [
+                "greater speed",
+                "faster",
+                "moves fastest"
+              ]
+            ],
+            "forbids": [
+              "equal distances in equal times",
+              "constant speed",
+              "equal arcs"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a planet moves through equal distances in equal times. Kepler's second law is about equal areas, so the speed changes around an elliptical orbit."
+        },
+        {
+          "type": "check",
+          "id": "check-second-law-statement",
+          "prompt": "Which statement is Kepler's second law?",
+          "hint": "The law is about what the line joining the Sun and the planet does.",
+          "options": [
+            {
+              "text": "the line from the Sun to a planet sweeps out equal areas in equal times",
+              "correct": true
+            },
+            {
+              "text": "a planet travels equal distances along its orbit in equal times",
+              "correct": false
+            },
+            {
+              "text": "a planet moves round the Sun at a constant speed",
+              "correct": false
+            },
+            {
+              "text": "the Sun is at the centre of every planet's orbit",
+              "correct": false
+            }
+          ],
+          "explain": "Equal areas in equal times. The speed is not constant, and the Sun is at a focus, not the centre.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the line from the Sun to a planet sweeps out equal areas in equal times"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-satellite-period-ratio",
+          "prompt": "Two satellites orbit the Earth in circular orbits. Satellite Y's orbital radius is 4.0 times that of satellite X. Satellite X has a period of $\\pu{1.5 h}$. What is the period of satellite Y, in hours? Give 2 significant figures.",
+          "hint": "$T \\propto r^{3/2}$, so multiply the period by $4.0^{1.5}$.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.5
+          },
+          "explain": "$T_\\text{Y} = 1.5 \\times 4.0^{1.5} = 1.5 \\times 8.0 = \\pu{12 h}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.5*4.0**1.5",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "newton",
+      "heading": "Newton's law of gravitation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Newton explained why planets obey Kepler's laws: every mass attracts every other mass."
+        },
+        {
+          "type": "text",
+          "text": "[[newton-s-law-of-gravitation|Newton's law of gravitation]] gives the size of the attractive [[force|force]] between two point masses $m_1$ and $m_2$ a distance $r$ apart."
+        },
+        {
+          "type": "formula",
+          "tex": "F = G\\frac{m_1 m_2}{r^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-4-1"
+        },
+        {
+          "type": "text",
+          "text": "$G$ is the gravitational constant, $\\pu{6.67e-11 N m2 kg-2}$. Like every constant in this lesson that a question does not give you, it comes from the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "The force is always attractive and acts along the line joining the two centres. Each body pulls the other with a force of the same size, in opposite directions: they form a [[newton-s-third-law|Newton's third law]] pair."
+        },
+        {
+          "type": "text",
+          "text": "It is an [[inverse-square-law|inverse square law]]: double $r$ and $F$ falls to $\\frac{1}{4}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-phobos-force",
+          "question": "Mars has a mass of $\\pu{6.42e23 kg}$. Its moon Phobos has a mass of $\\pu{1.07e16 kg}$ and orbits $\\pu{9.38e6 m}$ from the centre of Mars. Calculate the gravitational force that Mars exerts on Phobos.",
+          "steps": [
+            "Use $F = G\\frac{m_1 m_2}{r^{2}}$ with $r$ measured between the centres.",
+            "$F = \\frac{6.67 \\times 10^{-11} \\times 6.42 \\times 10^{23} \\times 1.07 \\times 10^{16}}{(9.38 \\times 10^{6})^{2}} = \\frac{4.582 \\times 10^{29}}{8.798 \\times 10^{13}}$.",
+            "$F = 5.208 \\times 10^{15}$ N, towards the centre of Mars."
+          ],
+          "answer": "$F \\approx 5.21 \\times 10^{15}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "G*6.42e23*1.07e16/(9.38e6)**2",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a circular orbit, the gravitational force is the centripetal force. With [[newton-s-second-law|Newton's second law]], a moon of mass $m$ orbiting a planet of mass $M$ obeys $\\frac{GMm}{r^{2}} = \\frac{4\\pi^{2}mr}{T^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "Taking the planet as fixed ($M \\gg m$), the moon's mass cancels, leaving Kepler's third law with a constant that depends only on $M$."
+        },
+        {
+          "type": "formula",
+          "tex": "T^{2} = \\frac{4\\pi^{2}}{GM}r^{3}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the radius and period of one orbit give the mass of the central body."
+        },
+        {
+          "type": "example",
+          "id": "ex-jupiter-mass",
+          "question": "Jupiter's moon Europa moves in a near-circular orbit of radius $\\pu{6.71e8 m}$, with a period of $\\pu{3.55 days}$. Determine the mass of Jupiter.",
+          "steps": [
+            "Gravitational force provides the centripetal force: $\\frac{GMm}{r^{2}} = \\frac{4\\pi^{2}mr}{T^{2}}$, so $M = \\frac{4\\pi^{2}r^{3}}{GT^{2}}$.",
+            "Convert the period to seconds: $T = 3.55 \\times 24 \\times 3600 = \\pu{3.067e5 s}$.",
+            "$M = \\frac{4\\pi^{2} \\times (6.71 \\times 10^{8})^{3}}{6.67 \\times 10^{-11} \\times (3.067 \\times 10^{5})^{2}} = \\frac{1.193 \\times 10^{28}}{6.275} = 1.901 \\times 10^{27}$ kg."
+          ],
+          "answer": "$M \\approx 1.90 \\times 10^{27}\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4*pi**2*(6.71e8)**3/(G*(3.55*24*3600)**2)",
+            "sf": 3,
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use the [[orbital-speed|orbital speed]] equation $v = \\sqrt{\\frac{GM}{r}}$, the [[escape-speed|escape speed]] of a body, and the energy needed to change orbit.",
+          "lesson": "4.3"
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping the period in days or hours in $T^{2} = \\frac{4\\pi^{2}}{GM}r^{3}$. With $G$ in SI units, $T$ must be in seconds and $r$ in metres."
+        },
+        {
+          "type": "check",
+          "id": "check-double-both",
+          "prompt": "Two small spheres attract each other with a gravitational force $F$. Both masses are doubled and the distance between their centres is also doubled. What happens to the force?",
+          "hint": "Doubling both masses multiplies $m_1 m_2$ by 4. What does doubling $r$ do to $r^{2}$?",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            },
+            {
+              "text": "it becomes four times bigger",
+              "correct": false
+            }
+          ],
+          "explain": "$m_1 m_2$ becomes 4 times bigger and $r^{2}$ becomes 4 times bigger, so $F = G\\frac{m_1 m_2}{r^{2}}$ is unchanged.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-star-mass",
+          "prompt": "A planet orbits a distant star in a circular orbit of radius $\\pu{1.2e11 m}$ with a period of $\\pu{2.6e7 s}$. What is the mass of the star, in kilograms? Give 2 significant figures.",
+          "hint": "Use $M = \\frac{4\\pi^{2}r^{3}}{GT^{2}}$, with $G$ from the data booklet.",
+          "answer": {
+            "value": 1.5e+30,
+            "tolerance": 5e+28
+          },
+          "explain": "$M = \\frac{4\\pi^{2} \\times (1.2 \\times 10^{11})^{3}}{6.67 \\times 10^{-11} \\times (2.6 \\times 10^{7})^{2}} \\approx \\pu{1.5e30 kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4*pi**2*(1.2e11)**3/(G*(2.6e7)**2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "point-masses",
+      "heading": "When a body is a point mass",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Newton's law is written for [[point-mass|point masses]], with no size. Real bodies are large, and their parts are at different distances. So when can you use one value of $r$?"
+        },
+        {
+          "type": "text",
+          "text": "Every body has a [[centre-of-mass|centre of mass]]: the point where its whole mass can be taken to act. For a uniform sphere, it is the geometric centre."
+        },
+        {
+          "type": "result",
+          "statement": "An extended body can be treated as a point mass at its centre of mass when (1) it is a sphere of uniform [[density|density]], or one whose density depends only on the distance from its centre, and the point you are looking at is on or outside its surface; or (2) it is very small compared with its distance from the other body, whatever its shape.",
+          "why": "The pulls of all the parts of a uniform sphere add up to the pull of one mass at its centre. Every part of a small, distant body is at almost the same distance."
+        },
+        {
+          "type": "text",
+          "text": "So for planets, moons and stars, $r$ is the distance between their centres. For a satellite at height $h$ above a planet of radius $R$, use $r = R + h$."
+        },
+        {
+          "type": "text",
+          "text": "Beyond the syllabus: inside a planet the formula with the full mass does not apply. You won't be asked about this."
+        },
+        {
+          "type": "example",
+          "id": "ex-touching-balls",
+          "question": "Two solid steel balls, each of mass $\\pu{7.5 kg}$ and radius $\\pu{6.1 cm}$, rest touching each other on a table. Calculate the gravitational force between them.",
+          "steps": [
+            "Each ball is a uniform sphere, so treat it as a point mass at its centre.",
+            "The centres are two radii apart: $r = 2 \\times 0.061 = \\pu{0.122 m}$. Using $r = 0$ (they touch) would be wrong.",
+            "$F = G\\frac{m_1 m_2}{r^{2}} = \\frac{6.67 \\times 10^{-11} \\times 7.5 \\times 7.5}{0.122^{2}} = 2.52 \\times 10^{-7}$ N.",
+            "Tiny: you never notice the pull between everyday objects."
+          ],
+          "answer": "$F \\approx 2.5 \\times 10^{-7}\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "G*7.5*7.5/(2*0.061)**2",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sun-earth-points",
+          "question": "Explain why Newton's law of gravitation can be used to calculate the force between the Sun and the Earth, even though both are very large bodies.",
+          "steps": [
+            "Give the condition, then say what it means for $r$. Each sentence is a marking point."
+          ],
+          "answer": "The Sun and the Earth are both very nearly spherical, and their density depends almost only on the distance from their centres. A body like this acts on anything outside it as if all its mass were concentrated at its centre. Their separation is also about 100 times the Sun's diameter, so each is small compared with the distance between them. So both can be treated as point masses, with $r$ equal to the distance between their centres.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spherical with density depending only on distance from centre; acts as if mass concentrated at centre; separation much larger than size; point masses with r between centres",
+            "requires": [
+              [
+                "spherical",
+                "sphere"
+              ],
+              [
+                "as if all its mass were concentrated at its centre",
+                "mass concentrated at its centre",
+                "mass were at its centre"
+              ],
+              [
+                "small compared with the distance",
+                "much larger than"
+              ],
+              "point masses",
+              "distance between their centres"
+            ],
+            "forbids": [
+              "distance between their surfaces",
+              "from the surface"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-satellite-r",
+          "prompt": "A satellite orbits $\\pu{400 km}$ above the Earth's surface. Which distance is $r$ when you calculate the gravitational force on it?",
+          "hint": "Where does the point-mass model put the Earth's mass?",
+          "options": [
+            {
+              "text": "from the centre of the Earth to the satellite",
+              "correct": true
+            },
+            {
+              "text": "from the Earth's surface up to the satellite",
+              "correct": false
+            },
+            {
+              "text": "the radius of the Earth only",
+              "correct": false
+            },
+            {
+              "text": "from the satellite to the top of the atmosphere",
+              "correct": false
+            }
+          ],
+          "explain": "The Earth acts as if its mass were at its centre, so $r$ runs from the centre to the satellite: the Earth's radius plus the height.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from the centre of the Earth to the satellite"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-spheres",
+          "prompt": "Two uniform spheres, each of mass $\\pu{4.0 kg}$, have their centres $\\pu{0.30 m}$ apart. What is the gravitational force between them, in newtons? Give 2 significant figures.",
+          "hint": "Treat each as a point mass at its centre. Remember to square $r$.",
+          "answer": {
+            "value": 1.2e-08,
+            "tolerance": 5e-10
+          },
+          "explain": "$F = \\frac{6.67 \\times 10^{-11} \\times 4.0 \\times 4.0}{0.30^{2}} = 1.19 \\times 10^{-8} \\approx \\pu{1.2e-8 N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "G*4.0*4.0/0.30**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-strength",
+      "heading": "Gravitational field strength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A planet pulls a rock and a heavy probe with different forces. To describe the pull at a point itself, use the force on each kilogram."
+        },
+        {
+          "type": "definition",
+          "term": "gravitational field strength",
+          "statement": "The gravitational force per unit mass on a small point mass placed at that point: $g = \\frac{F}{m}$. It is a vector, pointing towards the mass that causes the field. Unit: $\\pu{N kg-1}$, which is the same as $\\pu{m s-2}$.",
+          "plain": "How hard gravity pulls on each kilogram at that point."
+        },
+        {
+          "type": "text",
+          "text": "The test mass is small so it does not disturb the field. Put $F = \\frac{GMm}{r^{2}}$ into $g = \\frac{F}{m}$ and $m$ cancels."
+        },
+        {
+          "type": "formula",
+          "tex": "g = \\frac{F}{m} = G\\frac{M}{r^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-4-1"
+        },
+        {
+          "type": "text",
+          "text": "$M$ is the mass causing the field and $r$ the distance from its centre, on or outside a spherical body."
+        },
+        {
+          "type": "text",
+          "text": "A body's [[weight|weight]] is $mg$. If gravity is the only force on it, $a = \\frac{F}{m} = g$. So the field strength equals the [[acceleration-of-free-fall|acceleration of free fall]]: about $\\pu{9.8 N kg-1}$ at the Earth's surface."
+        },
+        {
+          "type": "example",
+          "id": "ex-mars-surface-g",
+          "question": "Mars has a mass of $\\pu{6.42e23 kg}$ and a radius of $\\pu{3.39e6 m}$. Calculate the gravitational field strength at its surface.",
+          "steps": [
+            "At the surface, $r$ equals the radius of Mars.",
+            "$g = \\frac{GM}{r^{2}} = \\frac{6.67 \\times 10^{-11} \\times 6.42 \\times 10^{23}}{(3.39 \\times 10^{6})^{2}} = \\frac{4.282 \\times 10^{13}}{1.149 \\times 10^{13}} = 3.726\\ \\text{N kg}^{-1}$."
+          ],
+          "answer": "$g \\approx 3.73\\ \\text{N kg}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "G*6.42e23/(3.39e6)**2",
+            "sf": 3,
+            "unit": "N kg-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Fields from two bodies add as vectors. You only need points on the line joining their centres. Between the bodies the two fields point in opposite directions, so subtract their sizes. Beyond either body they point the same way, so add."
+        },
+        {
+          "type": "text",
+          "text": "At one point between them, the two fields are equal and opposite, and the resultant field is zero. That point is closer to the smaller mass."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-null-point",
+          "alt": "A large planet of mass M on the left and a small moon of mass m on the right, not to scale, with a dashed line joining their centres. Point P is on this line, much closer to the moon. At P, an arrow labelled due to planet points left, towards the planet, and an arrow of the same length labelled due to moon points right, towards the moon. Below, the distance from the planet's centre to P is labelled d, and the distance from P to the moon's centre is labelled D minus d.",
+          "caption": "At P the two fields are equal and opposite, so the resultant field strength is zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-earth-moon-null",
+          "question": "The Earth has a mass of $\\pu{5.97e24 kg}$ and the Moon a mass of $\\pu{7.35e22 kg}$. Their centres are $\\pu{3.84e8 m}$ apart. Determine the distance from the centre of the Earth to the point on the line between them where the resultant gravitational field strength is zero.",
+          "steps": [
+            "Let the point be a distance $d$ from the Earth's centre, so $D - d$ from the Moon's, with $D = \\pu{3.84e8 m}$.",
+            "The fields cancel when their sizes are equal: $\\frac{GM_\\text{E}}{d^{2}} = \\frac{GM_\\text{M}}{(D - d)^{2}}$. $G$ cancels.",
+            "Take square roots: $\\frac{D - d}{d} = \\sqrt{\\frac{M_\\text{M}}{M_\\text{E}}} = \\sqrt{\\frac{7.35 \\times 10^{22}}{5.97 \\times 10^{24}}} = 0.1110$.",
+            "So $D = 1.1110\\,d$, giving $d = \\frac{3.84 \\times 10^{8}}{1.1110} = 3.456 \\times 10^{8}$ m."
+          ],
+          "answer": "$d \\approx 3.46 \\times 10^{8}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.84e8/(1 + sqrt(7.35e22/5.97e24))",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-g-one-radius-up",
+          "prompt": "A spacecraft is at a height above the Earth's surface equal to one Earth radius. What is the gravitational field strength there, in $\\pu{N kg-1}$? Give 3 significant figures.",
+          "hint": "How far is it from the Earth's centre, in Earth radii? Then use $g \\propto \\frac{1}{r^{2}}$ with $\\pu{9.8 N kg-1}$ at the surface.",
+          "answer": {
+            "value": 2.45,
+            "tolerance": 0.005
+          },
+          "explain": "The spacecraft is $2R$ from the centre, so $g = \\frac{9.8}{2^{2}} = \\pu{2.45 N kg-1}$. A height of one radius doubles $r$, so $g$ falls to a quarter, not a half.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "g/2**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-stars-resultant",
+          "prompt": "Star A has a mass of $\\pu{4.0e30 kg}$ and star B a mass of $\\pu{1.0e30 kg}$. Point X lies on the line joining them, $\\pu{3.0e11 m}$ from the centre of each. What is the size of the resultant gravitational field strength at X, in $\\pu{N kg-1}$? Give 2 significant figures.",
+          "hint": "Calculate each field with $g = \\frac{GM}{r^{2}}$. They point in opposite directions, so subtract.",
+          "answer": {
+            "value": 0.0022,
+            "tolerance": 5e-05
+          },
+          "explain": "$g_\\text{A} = \\frac{6.67 \\times 10^{-11} \\times 4.0 \\times 10^{30}}{(3.0 \\times 10^{11})^{2}} = \\pu{2.96e-3 N kg-1}$ and $g_\\text{B} = \\pu{7.4e-4 N kg-1}$. Resultant: $(2.96 - 0.74) \\times 10^{-3} = 2.22 \\times 10^{-3} \\approx \\pu{2.2e-3 N kg-1}$, towards star A.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "G*4.0e30/(3.0e11)**2 - G*1.0e30/(3.0e11)**2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-lines",
+      "heading": "Gravitational field lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Field lines turn a field into a picture. The arrow on a line shows the direction of the force on a small mass placed there. Where the lines are closer together, the field is stronger."
+        },
+        {
+          "type": "text",
+          "text": "Gravity only attracts, so the lines point towards masses. Lines never cross: the field has one direction at each point."
+        },
+        {
+          "type": "text",
+          "text": "Around an isolated sphere the lines are radial: straight, pointing to the centre and evenly spaced. They spread apart with distance as $g$ falls."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-field-lines",
+          "alt": "Left: a spherical planet with twelve straight field lines, evenly spaced around it, each with an arrow pointing in towards the centre. The lines are further apart far from the planet. Labelled radial field. Right: a zoomed-in box showing a small region just above the planet's surface. Here six field lines are parallel, equally spaced and point straight down at the surface. Labelled close to the surface: uniform field.",
+          "caption": "Far out, the radial lines spread apart and the field weakens. Over a small region near the surface, the lines are almost parallel: a uniform field."
+        },
+        {
+          "type": "text",
+          "text": "Over a small region near the surface, the lines are almost parallel and equally spaced. The field there is uniform: $g$ has the same size and direction everywhere."
+        },
+        {
+          "type": "example",
+          "id": "ex-uniform-near-surface",
+          "question": "The Earth has a mass of $\\pu{5.97e24 kg}$ and a radius of $\\pu{6.37e6 m}$. An aircraft flies $\\pu{9.0 km}$ above the surface. Calculate the percentage decrease in gravitational field strength from the surface to the aircraft's height.",
+          "steps": [
+            "At the surface: $g_0 = \\frac{GM}{R^{2}} = \\frac{6.67 \\times 10^{-11} \\times 5.97 \\times 10^{24}}{(6.37 \\times 10^{6})^{2}} = \\pu{9.813 N kg-1}$.",
+            "At the aircraft, $r = R + h = 6.37 \\times 10^{6} + 9.0 \\times 10^{3} = \\pu{6.379e6 m}$, so $g = \\pu{9.786 N kg-1}$.",
+            "Decrease: $\\frac{9.813 - 9.786}{9.813} \\times 100\\% = 0.28\\%$. Equivalently, $1 - \\left(\\frac{R}{R + h}\\right)^{2}$.",
+            "So the near-surface field is treated as uniform."
+          ],
+          "answer": "$\\text{decrease} \\approx 0.28\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1 - (6.37e6/(6.37e6 + 9.0e3))**2)*100",
+            "sf": 2,
+            "unit": "%"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-radial-lines",
+          "question": "Describe the gravitational field lines around an isolated, uniform spherical planet, and explain what they show about the field strength.",
+          "steps": [
+            "Describe the shape, then the direction, then the spacing, then what the spacing means."
+          ],
+          "answer": "The field lines are radial: straight lines along the radii of the planet. Each line has an arrow pointing towards the centre of the planet, the direction of the force on a small mass. The lines get further apart as the distance from the planet increases. The spacing of the lines shows the field strength, so the field gets weaker further from the planet. The lines never cross.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "radial lines; arrows towards the centre; further apart with distance; spacing shows strength so weaker further out; never cross",
+            "requires": [
+              "radial",
+              "towards the centre",
+              [
+                "further apart",
+                "spread out"
+              ],
+              [
+                "field gets weaker",
+                "weaker"
+              ],
+              "never cross"
+            ],
+            "forbids": [
+              "away from the centre",
+              "parallel",
+              "lines cross"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To 'sketch' the field of a planet, draw several straight lines that meet the surface at right angles, evenly spaced, each with an inward arrow. Lines that bend, cross or lack arrows lose the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-close-lines",
+          "prompt": "In a diagram of gravitational field lines, the lines are closer together in region X than in region Y. What does this show?",
+          "hint": "What does the spacing of field lines represent?",
+          "options": [
+            {
+              "text": "the field is stronger in X than in Y",
+              "correct": true
+            },
+            {
+              "text": "the field is weaker in X than in Y",
+              "correct": false
+            },
+            {
+              "text": "a mass placed in X would move along the lines at constant speed",
+              "correct": false
+            },
+            {
+              "text": "the field points in opposite directions in X and Y",
+              "correct": false
+            }
+          ],
+          "explain": "Closer lines mean a stronger field. The arrows, not the spacing, give the direction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the field is stronger in X than in Y"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-near-surface-direction",
+          "prompt": "What is the direction of the gravitational field lines just above the flat ground of a large planet?",
+          "hint": "Near the surface, the radial lines look parallel. Which way do they point?",
+          "options": [
+            {
+              "text": "at right angles to the ground, pointing down into it",
+              "correct": true
+            },
+            {
+              "text": "parallel to the ground",
+              "correct": false
+            },
+            {
+              "text": "at right angles to the ground, pointing up away from it",
+              "correct": false
+            },
+            {
+              "text": "at 45 degrees to the ground, pointing down",
+              "correct": false
+            }
+          ],
+          "explain": "The lines point towards the planet's centre, so near the surface they are perpendicular to the ground and point down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at right angles to the ground, pointing down into it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Kepler: (1) orbits are ellipses with the Sun at one focus; (2) the Sun–planet line sweeps out equal areas in equal times, so a planet is fastest when closest; (3) $T^{2} \\propto r^{3}$ for orbits around the same body.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F = G\\frac{m_1 m_2}{r^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-4-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Circular orbit: gravitational force = centripetal force, so $T^{2} = \\frac{4\\pi^{2}}{GM}r^{3}$. One orbit gives the central mass $M$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A uniform sphere acts as a point mass at its centre for points on or outside its surface; so does any body far away compared with its size. Measure $r$ between centres.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "g = \\frac{F}{m} = G\\frac{M}{r^{2}}",
+          "tag": "booklet",
+          "bookletId": "db-4-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Field strength is force per unit mass on a small mass, in $\\pu{N kg-1}$ (= $\\pu{m s-2}$). Between two bodies, on the line joining them, subtract the fields; the resultant is zero nearer the smaller mass.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Field lines point towards the mass, never cross, and are closer where the field is stronger: radial around a sphere, parallel and evenly spaced (uniform) near the surface.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Measuring $r$ from the surface of a planet. In $F = G\\frac{m_1 m_2}{r^{2}}$ and $g = \\frac{GM}{r^{2}}$, $r$ runs from the centre: add the planet's radius to any height.",
+    "Forgetting to square $r$. Double the distance and the force falls to a quarter, not a half.",
+    "Using $T \\propto r^{3}$ or $T^{2} \\propto r^{2}$. Kepler's third law is $T^{2} \\propto r^{3}$, and only for orbits around the same central body.",
+    "Adding the sizes of two fields that point in opposite directions. Between two bodies, subtract them: the resultant points towards the body with the larger field there.",
+    "Drawing field lines that point outwards, cross, or have no arrows. Gravitational field lines always point towards the mass."
+  ],
+  "examTips": [
+    "'State' Kepler's first or second law: name the ellipse and the Sun at one focus, or equal areas swept out in equal times. 'Equal distances' or 'equal arcs' earns nothing.",
+    "In a 'determine' orbit question, write gravitational force = centripetal force as an equation first, $\\frac{GMm}{r^{2}} = \\frac{4\\pi^{2}mr}{T^{2}}$. That line earns the method mark.",
+    "In Paper 1A ratio questions, use $g \\propto \\frac{M}{r^{2}}$ or $T^{2} \\propto r^{3}$ directly. You rarely need $G$.",
+    "Call it the gravitational force, not just 'gravity', when you identify the force that keeps a body in orbit."
+  ],
+  "readingMinutes": 30
+}

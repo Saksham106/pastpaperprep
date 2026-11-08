@@ -1,0 +1,20 @@
+[
+  {
+    "id": "reference-frame",
+    "term": "reference frame",
+    "definition": "A set of coordinate axes with an origin, together with clocks, that an observer uses to give the position and time of events.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "inertial-reference-frame",
+    "term": "inertial reference frame",
+    "definition": "A reference frame that is not accelerating, so Newton's first law holds in it; any frame moving at constant velocity relative to it is also inertial.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "galilean-relativity",
+    "term": "Galilean relativity",
+    "definition": "The principle that Newton's laws of motion are the same in every inertial reference frame, with events and velocities converted between frames by $x' = x - vt$, $t' = t$ and $u' = u - v$.",
+    "lesson": "1.15"
+  }
+]

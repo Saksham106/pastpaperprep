@@ -1,0 +1,20 @@
+[
+  {
+    "id": "angular-momentum",
+    "term": "angular momentum",
+    "definition": "The rotational partner of linear momentum: a body's moment of inertia times its angular speed, $L = I\\omega$, measured in kg m² s⁻¹.",
+    "lesson": "1.14"
+  },
+  {
+    "id": "conservation-of-angular-momentum",
+    "term": "conservation of angular momentum",
+    "definition": "The total angular momentum of a system stays constant unless a resultant external torque acts on it, so if its moment of inertia falls, its angular speed rises.",
+    "lesson": "1.14"
+  },
+  {
+    "id": "rotational-kinetic-energy",
+    "term": "rotational kinetic energy",
+    "definition": "The kinetic energy a body has because it is spinning, $E_\\text{k} = \\frac{1}{2}I\\omega^{2} = \\frac{L^{2}}{2I}$; a rolling body has this as well as its translational kinetic energy.",
+    "lesson": "1.14"
+  }
+]

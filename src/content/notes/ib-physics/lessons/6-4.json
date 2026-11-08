@@ -1,0 +1,1100 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "6.4",
+  "slug": "graphs-and-data-analysis",
+  "title": "Graphs and data analysis",
+  "level": "SL",
+  "topic": 6,
+  "summary": "A graph turns a table of results into a relationship you can see, test and measure. This lesson covers [[direct-proportionality|direct proportionality]], [[inverse-proportionality|inverse proportionality]] and [[correlation|correlation]], plotting with a [[line-of-best-fit|line of best fit]], [[gradient|gradients]], [[uncertainty-bar|uncertainty bars]], [[logarithmic-scale|logarithmic scales]] and [[linearisation|linearisation]].",
+  "goals": [
+    {
+      "text": "Tell direct and inverse proportionality from positive and negative correlation.",
+      "bullets": [
+        "T3.23"
+      ]
+    },
+    {
+      "text": "Sketch a graph with labelled but unscaled axes to show a trend.",
+      "bullets": [
+        "T3.24"
+      ]
+    },
+    {
+      "text": "Plot graphs with sensible scales and draw a line or curve of best fit.",
+      "bullets": [
+        "T3.26",
+        "T3.27"
+      ]
+    },
+    {
+      "text": "Find rates of change from gradients and tangents, and interpolate and extrapolate.",
+      "bullets": [
+        "T3.22",
+        "T3.29"
+      ]
+    },
+    {
+      "text": "Draw uncertainty bars and use them to find the [[uncertainty|uncertainty]] in a gradient.",
+      "bullets": [
+        "T3.28"
+      ]
+    },
+    {
+      "text": "Use logarithmic scales, and linearise a graph when theory predicts its form.",
+      "bullets": [
+        "T3.25",
+        "T3.30"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "6.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "gradient of a graph",
+    "line of best fit",
+    "error bars",
+    "maximum and minimum gradient",
+    "log scale graph",
+    "linearising data"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "A straight displacement–time graph passes through $(0, 0)$ and $(\\pu{5.0 s}, \\pu{12 m})$. What is its gradient, in $\\text{m s}^{-1}$?",
+      "hint": "Divide the change in $y$ by the change in $x$.",
+      "answer": {
+        "value": 2.4,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{12}{5.0} = \\pu{2.4 m s-1}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12/5.0",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-area",
+      "prompt": "What does the area between a velocity–time graph and the time axis represent?",
+      "hint": "Multiply the units on the two axes.",
+      "options": [
+        {
+          "text": "the displacement",
+          "correct": true
+        },
+        {
+          "text": "the acceleration",
+          "correct": false
+        },
+        {
+          "text": "the average velocity",
+          "correct": false
+        }
+      ],
+      "explain": "$\\text{m s}^{-1} \\times \\text{s} = \\text{m}$, a displacement. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the displacement"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percentage",
+      "prompt": "A length is measured as $(25.0 \\pm 0.5)\\ \\text{cm}$. What is its [[percentage-uncertainty|percentage uncertainty]]?",
+      "hint": "Divide the uncertainty by the measured value, then multiply by 100.",
+      "answer": {
+        "value": 2.0,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{0.5}{25.0} \\times 100 = 2.0\\,\\%$. Revise it in {{lesson:6.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.5/25.0*100",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "relationships",
+      "heading": "Relationships and sketches",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you plot anything, ask how $y$ should change when $x$ changes."
+        },
+        {
+          "type": "definition",
+          "term": "direct proportionality",
+          "statement": "$y$ is directly proportional to $x$, written $y \\propto x$, when $y = kx$ for a constant $k$. Its graph is a straight line through the origin.",
+          "plain": "Double $x$ and $y$ doubles; make $x$ zero and $y$ is zero."
+        },
+        {
+          "type": "text",
+          "text": "A straight line missing the origin, $y = mx + c$ with $c \\ne 0$, is linear but not proportional."
+        },
+        {
+          "type": "definition",
+          "term": "inverse proportionality",
+          "statement": "$y$ is inversely proportional to $x$ when $y = \\frac{k}{x}$ for a constant $k$, so the product $xy$ stays the same. Its graph is a curve that gets closer to both axes but never meets them.",
+          "plain": "Double $x$ and $y$ halves."
+        },
+        {
+          "type": "definition",
+          "term": "correlation",
+          "statement": "A trend between two variables. It is positive when $y$ tends to increase as $x$ increases, and negative when $y$ tends to decrease.",
+          "plain": "The variables change together, roughly."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-relationships",
+          "alt": "Four sketch graphs with labelled but unscaled axes, y up and x across. First, direct proportionality: a straight line through the origin. Second, linear but not proportional: a straight line that crosses the y-axis above the origin. Third, inverse proportionality: a curve that falls steeply and then more gently, getting closer to both axes without touching them. Fourth, negative correlation: scattered points that tend to fall from top left to bottom right.",
+          "caption": "Four patterns to recognise. Only the first is direct proportionality."
+        },
+        {
+          "type": "text",
+          "text": "Proportionality is an exact rule; a correlation is any trend. Even a strong correlation doesn't show cause, because a third factor may drive both variables."
+        },
+        {
+          "type": "text",
+          "text": "A **sketch** shows the shape, not the values. Label both axes with the quantities but give no scales. Show where the line starts and whether it is straight, steepening or flattening."
+        },
+        {
+          "type": "example",
+          "id": "ex-density-proportional",
+          "question": "Three samples of one metal have volumes $\\pu{2.0 cm3}$, $\\pu{5.0 cm3}$ and $\\pu{8.0 cm3}$ and masses $\\pu{15.8 g}$, $\\pu{39.5 g}$ and $\\pu{63.2 g}$. Show that mass $m \\propto$ volume $V$ and find the constant.",
+          "steps": [
+            "If $m \\propto V$, the ratio $\\frac{m}{V}$ is the same for every sample.",
+            "$\\frac{15.8}{2.0} = 7.9$, $\\frac{39.5}{5.0} = 7.9$ and $\\frac{63.2}{8.0} = 7.9$.",
+            "The ratio is constant, so $m \\propto V$. The constant is the density, in $\\text{g cm}^{-3}$."
+          ],
+          "answer": "$k = 7.9\\ \\text{g cm}^{-3}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "15.8/2.0",
+            "unit": "g cm-3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-kinetic-energy",
+          "question": "A ball falls from rest with negligible air resistance. Sketch how its kinetic energy $E_\\text{k}$ varies with time $t$, and describe the shape.",
+          "steps": [
+            "Find the rule first: $v = gt$, so $E_\\text{k} = \\frac{1}{2}mv^{2} = \\frac{1}{2}mg^{2}t^{2}$.",
+            "So $E_\\text{k} \\propto t^{2}$: zero at $t = 0$, and doubling $t$ multiplies it by 4."
+          ],
+          "answer": "Label the axes $E_\\text{k}$ (vertical) and $t$, with no scales. The curve starts at the origin, because the ball starts from rest. It curves upwards, getting steeper, because $E_\\text{k}$ is proportional to $t^{2}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "labelled axes; starts at origin; curves upwards (parabola) because Ek is proportional to t squared",
+            "requires": [
+              [
+                "label"
+              ],
+              [
+                "origin"
+              ],
+              [
+                "curves upwards",
+                "getting steeper"
+              ],
+              [
+                "t^{2}",
+                "t squared"
+              ]
+            ],
+            "forbids": [
+              "straight line"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-wavelength",
+          "prompt": "For sound in air at a fixed temperature, wavelength is inversely proportional to frequency. A $\\pu{320 Hz}$ note has a wavelength of $\\pu{1.07 m}$. What is the wavelength of a $\\pu{480 Hz}$ note, in metres, to 3 significant figures?",
+          "hint": "Frequency $\\times$ wavelength stays the same.",
+          "answer": {
+            "value": 0.713,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\lambda = \\frac{320 \\times 1.07}{480} = \\pu{0.713 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "320*1.07/480",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-correlation",
+          "prompt": "Over one summer, a town's daily sales of electric fans and its daily number of sunburn cases rise and fall together. What does this show?",
+          "hint": "Think about what drives both of them.",
+          "options": [
+            {
+              "text": "a positive correlation, not necessarily cause",
+              "correct": true
+            },
+            {
+              "text": "fan sales cause sunburn",
+              "correct": false
+            },
+            {
+              "text": "a negative correlation",
+              "correct": false
+            },
+            {
+              "text": "direct proportionality",
+              "correct": false
+            }
+          ],
+          "explain": "Both rise on hot, sunny days. The weather drives both; fans don't cause sunburn.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a positive correlation, not necessarily cause"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sketch-shape",
+          "prompt": "Which sketch shows $y$ directly proportional to $x$?",
+          "hint": "Put $x = 0$ into $y = kx$.",
+          "options": [
+            {
+              "text": "a straight line through the origin",
+              "correct": true
+            },
+            {
+              "text": "a straight line crossing the vertical axis above the origin",
+              "correct": false
+            },
+            {
+              "text": "a curve through the origin that steepens",
+              "correct": false
+            }
+          ],
+          "explain": "$y = kx$ is straight, and $y = 0$ when $x = 0$. A line with an intercept is not proportional.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a straight line through the origin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plotting",
+      "heading": "Plotting a graph and drawing the best fit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To **plot** a graph, mark each point accurately on a scaled grid:"
+        },
+        {
+          "type": "text",
+          "text": "1. Put the variable you change on the $x$-axis and the one you measure on the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "2. Label each axis as quantity / unit: $t$ / s, $F$ / N."
+        },
+        {
+          "type": "text",
+          "text": "3. Choose scales so the points fill more than half the grid each way. Use steps of 1, 2 or 5 per square, times a power of ten."
+        },
+        {
+          "type": "text",
+          "text": "4. Include the origin only if you need it, such as to read an intercept."
+        },
+        {
+          "type": "text",
+          "text": "5. Mark each point with a small, neat cross."
+        },
+        {
+          "type": "definition",
+          "term": "line of best fit",
+          "statement": "A single straight line or smooth curve drawn through the trend of the data, with the points scattered as evenly as possible on both sides of it.",
+          "plain": "The line that sums up all the points."
+        },
+        {
+          "type": "text",
+          "text": "Rule a straight line, or draw one smooth curve if the points clearly curve. Never join the dots: the line averages out the scatter."
+        },
+        {
+          "type": "text",
+          "text": "Don't force the line through the origin. Let the data decide where it crosses the axis."
+        },
+        {
+          "type": "text",
+          "text": "A point far from the trend is an anomalous result. Check or repeat it; if it still doesn't fit, leave it out of the line and say why."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-best-fit",
+          "alt": "A plotted graph with labelled axes, y over unit up and x over unit across. Eight crosses rise from left to right close to a straight line. One ruled straight line of best fit runs through their trend, with points scattered on both sides of it; it does not pass through every point and is not forced through the origin. A ninth cross lies well above the line and is circled and labelled anomalous: check it, then leave it out of the line.",
+          "caption": "The [[line-of-best-fit|line of best fit]] follows the trend, not every point. The circled point is anomalous."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-scale",
+          "question": "Current readings run from $\\pu{0.08 A}$ to $\\pu{0.46 A}$, and the grid has 10 large squares upwards. Suggest a scale and a label for the axis.",
+          "steps": [
+            "Divide the largest value by the squares: $\\frac{0.46}{10} = 0.046$ A per square.",
+            "Round up to a step of 1, 2 or 5 times a power of ten: $\\pu{0.05 A}$ per square."
+          ],
+          "answer": "Use a scale of 0.05 A per large square. The largest reading then reaches 9.2 squares, so the points fill most of the grid. A scale of 0.1 A per square would use less than half of it. Label the axis $I$ / A.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "0.05 A per square; fills most of the grid; label I / A",
+            "requires": [
+              [
+                "0.05 A per"
+              ],
+              [
+                "most of the grid",
+                "more than half"
+              ],
+              [
+                "I / A"
+              ]
+            ],
+            "forbids": [
+              "0.046 A per"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-anomalous-point",
+          "question": "Six of seven plotted points lie close to a straight line; one sits well above it. Describe how to draw the line of best fit.",
+          "steps": [
+            "Deal with the odd point first, then fit the rest."
+          ],
+          "answer": "First check or repeat the odd reading, because it is probably an anomalous result. If it still lies far from the trend, leave it out of the line and label it anomalous. Use a ruler to draw one straight line with the other six points scattered evenly above and below it. Don't join the dots or force the line through the origin.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "check or repeat the anomalous point, then ignore it; one ruled line with points evenly on both sides",
+            "requires": [
+              [
+                "check",
+                "repeat"
+              ],
+              [
+                "anomalous"
+              ],
+              [
+                "ruler"
+              ],
+              [
+                "evenly"
+              ]
+            ],
+            "forbids": [
+              "include the anomalous point in the line"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-axis-choice",
+          "prompt": "A student changes the length of a wire and measures its resistance. Which variable goes on the $x$-axis?",
+          "hint": "Which one does the student choose?",
+          "options": [
+            {
+              "text": "the length",
+              "correct": true
+            },
+            {
+              "text": "the resistance",
+              "correct": false
+            },
+            {
+              "text": "whichever has larger numbers",
+              "correct": false
+            }
+          ],
+          "explain": "The variable you change goes on the $x$-axis; the resistance depends on it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the length"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-curve-fit",
+          "prompt": "The points on a graph clearly follow a curve. What should you draw?",
+          "hint": "A best fit averages out the scatter.",
+          "options": [
+            {
+              "text": "one smooth curve through the trend",
+              "correct": true
+            },
+            {
+              "text": "straight lines joining the points",
+              "correct": false
+            },
+            {
+              "text": "the straight line through most points",
+              "correct": false
+            },
+            {
+              "text": "a curve through every point",
+              "correct": false
+            }
+          ],
+          "explain": "The best fit is one smooth curve through the trend. Passing through every point treats the scatter as real.",
+          "verify": {
+            "kind": "choice",
+            "truth": "one smooth curve through the trend"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rates",
+      "heading": "Gradients and reading values off a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rate of change, how fast $y$ changes with $x$, is the [[gradient|gradient]] of the graph."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\Delta y}{\\Delta x}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For a straight line, draw a large triangle using two points on the line that are far apart, not data points off it."
+        },
+        {
+          "type": "text",
+          "text": "Its unit is the $y$ unit over the $x$ unit: on a velocity–time graph, $\\text{m s}^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "On a curve, the rate changes from point to point. Draw the tangent, a straight line touching the curve at that point. Its gradient is the rate of change there."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-tangent",
+          "alt": "Velocity in metres per second, 0 to 10, against time in seconds, 0 to 10. A curve rises from the origin, steeply at first and then more gently. A straight tangent touches the curve at 4.0 seconds, where the velocity is 5.0 metres per second. The tangent passes through 2.6 metres per second at 0 seconds and 8.6 metres per second at 10.0 seconds. A dashed triangle under the tangent shows a change in time of 10.0 seconds and a change in velocity of 6.0 metres per second.",
+          "caption": "Draw the tangent at the point, then a large triangle on the tangent."
+        },
+        {
+          "type": "text",
+          "text": "The [[area-under-a-graph|area under a graph]] multiplies the axes instead: velocity times time gives displacement."
+        },
+        {
+          "type": "text",
+          "text": "**Interpolation** is reading a value between your data points. **Extrapolation** is extending the line beyond them, for example back to an axis to find an intercept."
+        },
+        {
+          "type": "text",
+          "text": "Extrapolation assumes the trend continues outside the measured range, and it may not: an overstretched spring changes behaviour."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-acceleration",
+          "question": "A cyclist's velocity–time graph is a curve. Its tangent at $t = \\pu{4.0 s}$ passes through $(0, \\pu{2.6 m s-1})$ and $(\\pu{10.0 s}, \\pu{8.6 m s-1})$. Determine the acceleration at $t = \\pu{4.0 s}$.",
+          "steps": [
+            "Acceleration is the gradient of the tangent.",
+            "$\\Delta v = 8.6 - 2.6 = \\pu{6.0 m s-1}$ and $\\Delta t = 10.0 - 0 = \\pu{10.0 s}$.",
+            "$a = \\frac{\\Delta v}{\\Delta t} = \\frac{6.0}{10.0} = 0.60$."
+          ],
+          "answer": "$a \\approx 0.60\\ \\text{m s}^{-2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(8.6-2.6)/(10.0-0)",
+            "sf": 2,
+            "unit": "m s-2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-extrapolate-spring",
+          "question": "Loads of $\\pu{1.5 N}$ to $\\pu{6.0 N}$ hang on a spring. The graph of length $L$ against load $F$ is a straight line through $(\\pu{1.5 N}, \\pu{18.4 cm})$ and $(\\pu{6.0 N}, \\pu{27.4 cm})$. Extrapolate to find the unloaded length.",
+          "steps": [
+            "Gradient: $\\frac{27.4 - 18.4}{6.0 - 1.5} = \\frac{9.0}{4.5} = \\pu{2.0 cm N-1}$.",
+            "Going back from $\\pu{1.5 N}$ to $\\pu{0 N}$, the length falls by $1.5 \\times 2.0 = \\pu{3.0 cm}$.",
+            "$L_{0} = 18.4 - 3.0 = 15.4$. This is extrapolation: $\\pu{0 N}$ is outside the range used."
+          ],
+          "answer": "$L_{0} = 15.4\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "18.4 - 1.5*(27.4-18.4)/(6.0-1.5)",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpolate-spring",
+          "prompt": "Using the same line, what is the spring's length with a load of $\\pu{4.0 N}$? Give your answer in cm to 3 significant figures.",
+          "hint": "Start from $(\\pu{1.5 N}, \\pu{18.4 cm})$ and add $\\pu{2.0 cm}$ for each newton.",
+          "answer": {
+            "value": 23.4,
+            "tolerance": 0.05
+          },
+          "explain": "$18.4 + (4.0 - 1.5) \\times 2.0 = \\pu{23.4 cm}$, by interpolation.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18.4 + (4.0-1.5)*(27.4-18.4)/(6.0-1.5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-meaning",
+          "prompt": "A graph shows momentum $p$ / kg m s⁻¹ against time $t$ / s for a moving object. What does its gradient represent?",
+          "hint": "The gradient is the rate of change of momentum.",
+          "options": [
+            {
+              "text": "the resultant force on the object",
+              "correct": true
+            },
+            {
+              "text": "the impulse on the object",
+              "correct": false
+            },
+            {
+              "text": "the object's velocity",
+              "correct": false
+            }
+          ],
+          "explain": "Rate of change of momentum is the resultant force, in $\\text{kg m s}^{-2} = \\text{N}$. Impulse is the change in momentum, read as the difference between two $p$ values on this graph; it is the area only on a force–time graph.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the resultant force on the object"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-extrapolation-risk",
+          "prompt": "Why is a value found by extrapolation less reliable than one found by interpolation?",
+          "hint": "Where are there no measurements?",
+          "options": [
+            {
+              "text": "it assumes the trend continues beyond the data",
+              "correct": true
+            },
+            {
+              "text": "it uses the gradient, not the intercept",
+              "correct": false
+            },
+            {
+              "text": "it only works on curves",
+              "correct": false
+            }
+          ],
+          "explain": "Between points you have evidence for the trend; beyond them you only assume it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it assumes the trend continues beyond the data"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uncertainty-bars",
+      "heading": "Uncertainty bars",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A graph shows each point's [[uncertainty|uncertainty]] with a bar."
+        },
+        {
+          "type": "definition",
+          "term": "uncertainty bar",
+          "statement": "A line through a plotted point that runs from the value minus its absolute uncertainty to the value plus its absolute uncertainty.",
+          "plain": "It shows the range in which the true point could lie."
+        },
+        {
+          "type": "text",
+          "text": "A point at $F = (3.6 \\pm 0.2)\\ \\text{N}$ has a vertical [[uncertainty-bar|uncertainty bar]] from $\\pu{3.4 N}$ to $\\pu{3.8 N}$. Draw bars on each axis with a noticeable uncertainty."
+        },
+        {
+          "type": "text",
+          "text": "A good line of best fit passes through every bar. If no straight line can, the data are not linear, some points are anomalous, or the uncertainties were underestimated."
+        },
+        {
+          "type": "text",
+          "text": "For the uncertainty in a gradient, draw the steepest and shallowest straight lines through every bar:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta(\\text{gradient}) = \\frac{\\text{max gradient} - \\text{min gradient}}{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "An intercept's uncertainty is found the same way, from the two lines' intercepts."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-gradient-lines",
+          "alt": "Force in newtons, 0 to 6, against extension in metres, 0 to 0.12. Five points at extensions 0.02, 0.04, 0.06, 0.08 and 0.10 metres rise in a straight trend, each with a vertical uncertainty bar of plus or minus 0.2 newtons. A solid line of best fit runs through every bar. A dashed steepest line, gradient 52.6 newtons per metre, and a dashed shallowest line, gradient 44.2 newtons per metre, also pass through every bar; they cross near the middle point. The best line has gradient 48.4 newtons per metre.",
+          "caption": "The steepest and shallowest lines must each pass through every bar."
+        },
+        {
+          "type": "text",
+          "text": "Data are consistent with direct proportionality only if some straight line through the origin passes through every bar."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-uncertainty",
+          "question": "On a graph of force $F$ against extension $x$, the best line has gradient $\\pu{48.4 N m-1}$. The steepest and shallowest lines through all the bars have gradients $\\pu{52.6 N m-1}$ and $\\pu{44.2 N m-1}$. Determine the uncertainty in the spring constant $k$, the gradient.",
+          "steps": [
+            "$\\Delta k = \\frac{52.6 - 44.2}{2} = \\frac{8.4}{2} = \\pu{4.2 N m-1}$.",
+            "Give it to 1 significant figure, and round $k$ to match: $k = (48 \\pm 4)\\ \\text{N m}^{-1}$."
+          ],
+          "answer": "$\\Delta k \\approx 4\\ \\text{N m}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(52.6-44.2)/2",
+            "sf": 1,
+            "unit": "N m-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-origin-test",
+          "question": "A graph of potential difference $V$ against current $I$ has uncertainty bars. The best line crosses the $V$-axis at $\\pu{0.35 V}$; the steepest and shallowest lines through all the bars cross it at $\\pu{0.12 V}$ and $\\pu{0.58 V}$. Deduce whether $V$ could be directly proportional to $I$.",
+          "steps": [
+            "Lines that fit the bars cross the $V$-axis between $\\pu{0.12 V}$ and $\\pu{0.58 V}$. Is zero in that range?"
+          ],
+          "answer": "Direct proportionality needs a straight line through the origin that passes through every uncertainty bar. The lines that fit the bars have intercepts from $\\pu{0.12 V}$ to $\\pu{0.58 V}$, a range that excludes zero. So the data are not consistent with $V$ being directly proportional to $I$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "intercepts 0.12 V to 0.58 V exclude zero, so no line through the origin fits: not proportional",
+            "requires": [
+              [
+                "through the origin"
+              ],
+              [
+                "$\\pu{0.12 V}$"
+              ],
+              [
+                "excludes zero"
+              ],
+              [
+                "not consistent"
+              ]
+            ],
+            "forbids": [
+              "the data are consistent"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bar-length",
+          "prompt": "A time is plotted at $(2.40 \\pm 0.05)\\ \\text{s}$. How long is its whole uncertainty bar, in seconds?",
+          "hint": "The bar reaches the uncertainty on each side of the point.",
+          "answer": {
+            "value": 0.1,
+            "tolerance": 0.005
+          },
+          "explain": "From $\\pu{2.35 s}$ to $\\pu{2.45 s}$: $2 \\times 0.05 = \\pu{0.10 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*0.05",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-percentage-k",
+          "prompt": "Before rounding, the spring example gave $k = 48.4\\ \\text{N m}^{-1}$ and $\\Delta k = 4.2\\ \\text{N m}^{-1}$. What is the percentage uncertainty in $k$, to 2 significant figures?",
+          "hint": "Divide the absolute uncertainty by the value, then multiply by 100.",
+          "answer": {
+            "value": 8.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{4.2}{48.4} \\times 100 = 8.7\\,\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(52.6-44.2)/2/48.4*100",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-line",
+          "prompt": "No straight line can be drawn through all the uncertainty bars on a graph. What can you conclude?",
+          "hint": "What does a bar tell you about where the true point lies?",
+          "options": [
+            {
+              "text": "the data are not linear, some points are anomalous, or the uncertainties are underestimated",
+              "correct": true
+            },
+            {
+              "text": "the bars should be drawn shorter",
+              "correct": false
+            },
+            {
+              "text": "the line should go through the origin",
+              "correct": false
+            }
+          ],
+          "explain": "A linear relationship with honest uncertainties would let a straight line fit every bar.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the data are not linear, some points are anomalous, or the uncertainties are underestimated"
+          }
+        }
+      ]
+    },
+    {
+      "id": "log-scales",
+      "heading": "Logarithmic scales",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some data span many powers of ten, such as star luminosities. On an ordinary axis the small values crowd into one corner."
+        },
+        {
+          "type": "definition",
+          "term": "logarithmic scale",
+          "statement": "An axis on which equal distances stand for equal factors, usually a factor of 10, instead of equal amounts.",
+          "plain": "Each step along the axis multiplies the value by 10: 1, 10, 100, 1000."
+        },
+        {
+          "type": "text",
+          "text": "Each factor-of-10 step is a decade. Zero never appears on a [[logarithmic-scale|logarithmic scale]]."
+        },
+        {
+          "type": "text",
+          "text": "The position of a value $y$ along the axis is set by $\\log_{10} y$. So a point a fraction $f$ of the way from $10^{n}$ to $10^{n+1}$ has the value $10^{n+f}$."
+        },
+        {
+          "type": "text",
+          "text": "So halfway between 100 and 1000 is $10^{2.5} \\approx 316$, not 550. Minor gridlines crowd towards the next power of ten."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-log-axis",
+          "alt": "A logarithmic axis of frequency in hertz with major marks at 1, 10, 100, 1000 and 10 000, equally spaced. Each gap is labelled times 10. Between the major marks, minor marks for 2 to 9 crowd closer together towards the next power of ten. A marker halfway between 100 and 1000 reads 316, not 550. A second marker 0.70 of the way from 100 to 1000 reads about 500.",
+          "caption": "Equal gaps are equal factors of 10."
+        },
+        {
+          "type": "text",
+          "text": "To construct one, use log paper, or plot $\\log_{10} y$ on an ordinary axis, labelled like $\\log_{10}(f\\,/\\,\\text{Hz})$."
+        },
+        {
+          "type": "text",
+          "text": "If both axes are logarithmic and the points are straight, then $y = kx^{n}$, with gradient $n = \\frac{\\Delta \\log_{10} y}{\\Delta \\log_{10} x}$."
+        },
+        {
+          "type": "text",
+          "text": "The HR diagram in {{lesson:5.13}} uses log scales."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-reading",
+          "question": "On a logarithmic frequency axis, a loudspeaker's output peak lies 0.70 of the way from the $\\pu{100 Hz}$ gridline to the $\\pu{1000 Hz}$ one. Find its frequency.",
+          "steps": [
+            "The gridlines are $10^{2}$ and $10^{3}$ Hz, so the peak is at $10^{2.70} = 501$ Hz.",
+            "Not $100 + 0.70 \\times 900 = \\pu{730 Hz}$: that treats the axis as linear."
+          ],
+          "answer": "$f \\approx 5.0 \\times 10^{2}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "10**(2 + 0.70)",
+            "sf": 2,
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-log-log-planets",
+          "question": "A straight log–log graph of orbital period $T$ against radius $r$ passes through Earth $(\\pu{1.00 AU}, \\pu{1.00 yr})$ and Jupiter $(\\pu{5.20 AU}, \\pu{11.9 yr})$. Find the gradient $n$.",
+          "steps": [
+            "$\\log_{10} 11.9 - \\log_{10} 1.00 = 1.0755$ and $\\log_{10} 5.20 - \\log_{10} 1.00 = 0.7160$.",
+            "$n = \\frac{1.0755}{0.7160} = 1.502$.",
+            "So $T \\propto r^{1.5}$, which means $T^{2} \\propto r^{3}$: Kepler's third law, from {{lesson:4.1}}."
+          ],
+          "answer": "$n \\approx 1.50$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(log(11.9, 10) - log(1.00, 10))/(log(5.20, 10) - log(1.00, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-log-midpoint",
+          "prompt": "On a logarithmic axis, which value lies exactly halfway between the gridlines for 10 and 1000?",
+          "hint": "Halfway on a log scale means halfway in the power of ten.",
+          "options": [
+            {
+              "text": "$100$",
+              "correct": true
+            },
+            {
+              "text": "$505$",
+              "correct": false
+            },
+            {
+              "text": "$500$",
+              "correct": false
+            },
+            {
+              "text": "$990$",
+              "correct": false
+            }
+          ],
+          "explain": "Halfway from $10^{1}$ to $10^{3}$ is $10^{2}$. 505 is the linear midpoint.",
+          "verify": {
+            "kind": "exact",
+            "truth": "10**((1 + 3)/2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-decades",
+          "prompt": "A logarithmic axis runs from $\\pu{1e-3 m}$ to $\\pu{1e2 m}$. How many decades (factors of 10) does it span?",
+          "hint": "Count the steps in the power of ten.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "The power rises by $2 - (-3) = 5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(10**2/10**-3, 10)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "linearising",
+      "heading": "Linearising a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Is a curve $y \\propto x^{2}$ or $y \\propto x^{3}$? You can't tell by eye, but a straight line is easy to test."
+        },
+        {
+          "type": "definition",
+          "term": "linearisation",
+          "statement": "Choosing what to plot on each axis, guided by a theoretical equation, so that the predicted relationship gives a straight line of the form $y = mx + c$.",
+          "plain": "Rearranging so the graph comes out straight."
+        },
+        {
+          "type": "text",
+          "text": "Match the equation to $y = mx + c$: what multiplies the $x$-axis quantity is the gradient."
+        },
+        {
+          "type": "text",
+          "text": "1. $y = kx^{2}$: plot $y$ against $x^{2}$. The gradient is $k$."
+        },
+        {
+          "type": "text",
+          "text": "2. $y = \\frac{k}{x}$: plot $y$ against $\\frac{1}{x}$. The gradient is $k$."
+        },
+        {
+          "type": "text",
+          "text": "3. $y = kx^{n}$ with $n$ unknown: plot $\\log_{10} y$ against $\\log_{10} x$. The gradient is $n$."
+        },
+        {
+          "type": "text",
+          "text": "A mass $m$ on a spring oscillates with period $T = 2\\pi\\sqrt{\\frac{m}{k}}$ ({{lesson:3.1}}). Squaring gives $T^{2} = \\frac{4\\pi^{2}}{k}\\,m$, so $T^{2}$ against $m$ is straight with gradient $\\frac{4\\pi^{2}}{k}$."
+        },
+        {
+          "type": "figure",
+          "id": "6-4-linearise",
+          "alt": "Two graphs of the same data for a mass on a spring. Left: period T in seconds, 0 to 0.4, against mass m in kilograms, 0 to 1.0. Six crosses follow a curve through the origin that rises steeply and then flattens. Right: T squared in seconds squared, 0 to 0.16, against mass in kilograms. The same six results now lie on a straight line through the origin, with gradient 0.162 seconds squared per kilogram.",
+          "caption": "The same results: a curve when you plot $T$, a straight line when you plot $T^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Linearise only when theory gives an equation to test. Data that are already straight need no change."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-constant-linear",
+          "question": "For one spring, a graph of $T^{2}$ against $m$ is a straight line through $(0, 0)$ with gradient $\\pu{0.162 s2 kg-1}$. Determine the spring constant $k$.",
+          "steps": [
+            "From $T^{2} = \\frac{4\\pi^{2}}{k}\\,m$, the gradient is $\\frac{4\\pi^{2}}{k}$.",
+            "$k = \\frac{4\\pi^{2}}{0.162} = 243.7$, to 3 significant figures like the gradient.",
+            "Check the unit: $\\frac{1}{\\text{s}^{2}\\,\\text{kg}^{-1}} = \\text{kg s}^{-2} = \\text{N m}^{-1}$."
+          ],
+          "answer": "$k \\approx 244\\ \\text{N m}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*pi**2/0.162",
+            "sf": 3,
+            "unit": "N m-1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-square-plan",
+          "question": "Theory suggests the light intensity $I$ at distance $d$ from a small lamp is $I = \\frac{k}{d^{2}}$. Suggest what graph to plot, and how it would test the theory.",
+          "steps": [
+            "Match $I = k \\times \\frac{1}{d^{2}}$ to $y = mx$."
+          ],
+          "answer": "Plot $I$ against $\\frac{1}{d^{2}}$, because the theory then has the form $y = mx$. If the theory is right, the points lie on a straight line through the origin, within their uncertainty bars. The gradient of that line is $k$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "plot I against 1/d^2; straight line through origin supports it; gradient = k",
+            "requires": [
+              [
+                "against"
+              ],
+              [
+                "$\\frac{1}{d^{2}}$"
+              ],
+              [
+                "straight line"
+              ],
+              [
+                "origin"
+              ],
+              [
+                "gradient"
+              ]
+            ],
+            "forbids": [
+              "plot I against d^{2}"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-suvat-gradient",
+          "prompt": "To test $v^{2} = u^{2} + 2as$ for constant acceleration, you plot $v^{2}$ against $s$. What does the gradient equal?",
+          "hint": "The gradient multiplies $s$.",
+          "options": [
+            {
+              "text": "$2a$",
+              "correct": true
+            },
+            {
+              "text": "$a$",
+              "correct": false
+            },
+            {
+              "text": "$u^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{a}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "In $v^{2} = 2as + u^{2}$, $s$ is multiplied by $2a$. The intercept is $u^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*a"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-suvat-value",
+          "prompt": "That graph has a gradient of $\\pu{3.2 m s-2}$. What is the acceleration, in $\\text{m s}^{-2}$, to 2 significant figures?",
+          "hint": "Set the gradient equal to $2a$.",
+          "answer": {
+            "value": 1.6,
+            "tolerance": 0.05
+          },
+          "explain": "$2a = 3.2$, so $a = \\pu{1.6 m s-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.2/2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Direct proportionality: $y = kx$, straight through the origin. Inverse: $y = \\frac{k}{x}$, so $xy$ is constant. Correlation is any trend, not proof of cause.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Independent variable on $x$; axes labelled quantity / unit; scales of 1, 2 or 5 filling over half the grid. Sketches: labelled axes, no scales.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Best fit: one ruled line or smooth curve, points evenly either side; never join dots or force it through the origin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gradient $= \\frac{\\Delta y}{\\Delta x}$ from a large triangle, in $y$ unit per $x$ unit; on a curve, use the tangent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Gradient uncertainty $= \\frac{\\text{max gradient} - \\text{min gradient}}{2}$, using lines through every bar.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Data fit $y \\propto x$ only if a line through the origin passes through every bar.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Log scale: equal steps are factors of 10; a fraction $f$ past $10^{n}$ is $10^{n+f}$. Straight log–log means $y = kx^{n}$, gradient $n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Linearise into $y = mx + c$ only when theory gives the equation.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forcing the line through the origin. Draw the best line for the points, then test the origin against the bars.",
+    "Taking a gradient from data points off the line, or close together. Use two far-apart points on the line.",
+    "Leaving the unit off a gradient. Divide the $y$ unit by the $x$ unit: $\\text{N}$ over $\\text{m}$ gives $\\text{N m}^{-1}$.",
+    "Joining the points dot to dot. Draw one smooth line or curve through the trend.",
+    "Reading a logarithmic axis as if it were linear. Halfway between 10 and 100 is $10^{1.5} \\approx 32$, not 55."
+  ],
+  "examTips": [
+    "\"Determine the gradient\": show a large triangle and the two points you read, then the value with its unit.",
+    "\"Sketch\": labelled axes and the right shape, no scale. \"Plot\" and \"draw\": accurate, on a scaled grid.",
+    "\"Deduce whether the data support\" proportionality: say whether a line through the origin passes through every bar, then conclude.",
+    "\"Outline why\" a graph is straight: rearrange into $y = mx + c$, name each axis, and say what the gradient equals."
+  ],
+  "readingMinutes": 32
+}

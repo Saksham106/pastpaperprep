@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "5.10",
+  "slug": "the-radioactive-decay-law",
+  "title": "The radioactive decay law",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "The [[radioactive-decay-law|radioactive decay law]], $N = N_0\\mathrm{e}^{-\\lambda t}$, tells you how many nuclei are left after any time, not only after whole [[half-life|half-lives]]. The [[decay-constant|decay constant]] $\\lambda$ sets how fast a nuclide decays. It links the number of nuclei to the [[activity|activity]], $A = \\lambda N$, and to the half-life, $T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$.",
+  "goals": [
+    {
+      "text": "Use $N = N_0\\mathrm{e}^{-\\lambda t}$ to find the number of nuclei left after any time, or the time taken to reach a given number.",
+      "bullets": [
+        "E.3-a6"
+      ]
+    },
+    {
+      "text": "Explain why $\\lambda$ is close to the probability of decay per unit time only when $\\lambda t$ is small.",
+      "bullets": [
+        "E.3-a7"
+      ]
+    },
+    {
+      "text": "Calculate activity from $A = \\lambda N$ and $A = A_0\\mathrm{e}^{-\\lambda t}$, including from the mass of a sample.",
+      "bullets": [
+        "E.3-a8"
+      ]
+    },
+    {
+      "text": "Convert between half-life and decay constant, and determine a half-life from a graph of $\\ln A$ against $t$.",
+      "bullets": [
+        "E.3-a9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.7",
+    "5.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "decay constant",
+    "N = N0 e^-lambda t",
+    "exponential decay equation",
+    "half-life and decay constant",
+    "activity A = lambda N",
+    "ln graph half-life"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-three-half-lives",
+      "prompt": "A pure sample of a radioactive nuclide is left for three half-lives. What fraction of the original undecayed nuclei is left?",
+      "hint": "Each half-life halves what is left. Halve three times.",
+      "options": [
+        {
+          "text": "$\\tfrac{1}{8}$",
+          "correct": true
+        },
+        {
+          "text": "$\\tfrac{1}{6}$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{1}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{1}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\tfrac{1}{2} \\times \\tfrac{1}{2} \\times \\tfrac{1}{2} = \\tfrac{1}{8}$. The fraction is not $\\tfrac{1}{6}$: half-lives multiply the amount by $\\tfrac{1}{2}$ each time, they don't subtract halves. Revise it in {{lesson:5.8}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(1, 2)**3"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-random-decay",
+      "prompt": "Which statement about the [[radioactive-decay|radioactive decay]] of one unstable nucleus is correct?",
+      "hint": "Think about what \"random\" means for a single nucleus.",
+      "options": [
+        {
+          "text": "You cannot predict when it will decay.",
+          "correct": true
+        },
+        {
+          "text": "It decays after exactly one half-life.",
+          "correct": false
+        },
+        {
+          "text": "It is more likely to decay the older it gets.",
+          "correct": false
+        },
+        {
+          "text": "Heating it makes it decay sooner.",
+          "correct": false
+        }
+      ],
+      "explain": "Decay is random and spontaneous: no one can say when a given nucleus will decay, and temperature or age doesn't change its chance. Revise it in {{lesson:5.7}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "You cannot predict when it will decay."
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-corrected-count",
+      "prompt": "A counter near a source reads $\\pu{316 counts min-1}$. With the source taken away, it reads $\\pu{22 counts min-1}$. What [[count-rate|count rate]], in counts per minute, is due to the source alone?",
+      "hint": "The second reading is the background, which is there with or without the source.",
+      "answer": {
+        "value": 294,
+        "tolerance": 0
+      },
+      "explain": "Subtract the background: $316 - 22 = \\pu{294 counts min-1}$. Revise it in {{lesson:5.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "316 - 22",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "decay-law",
+      "heading": "The decay constant and the decay law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.8}} you counted whole half-lives. But how many nuclei are left after 2.7 half-lives, or after 40 minutes when the half-life is 6 hours? You need an equation."
+        },
+        {
+          "type": "text",
+          "text": "Every nucleus of a nuclide has the same chance of decaying in the next second, whatever its age. So twice as many undecayed nuclei give twice as many decays per second."
+        },
+        {
+          "type": "text",
+          "text": "That means the rate of decay is proportional to $N$, the number of undecayed nuclei. The constant of proportionality is the decay constant, $\\lambda$."
+        },
+        {
+          "type": "definition",
+          "term": "decay constant",
+          "statement": "The rate of decay per undecayed nucleus: $\\lambda = \\frac{A}{N}$, where $A$ is the rate of decay and $N$ the number of undecayed nuclei. Its unit is $\\text{s}^{-1}$ (or any inverse time, such as $\\text{h}^{-1}$).",
+          "plain": "A number that says how quickly a nuclide decays: the bigger $\\lambda$, the faster the decay."
+        },
+        {
+          "type": "text",
+          "text": "A rate that is proportional to the amount left gives exponential decay. This is the [[radioactive-decay-law|radioactive decay law]]. It is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "N = N_0\\mathrm{e}^{-\\lambda t}",
+          "tag": "booklet",
+          "bookletId": "db-5-10"
+        },
+        {
+          "type": "text",
+          "text": "$N_0$ is the number of undecayed nuclei at $t = 0$ and $N$ is the number at time $t$. $\\mathrm{e}$ here is the number $2.718\\ldots$ (the $\\mathrm{e}^{x}$ key), not the electron charge."
+        },
+        {
+          "type": "text",
+          "text": "$\\lambda t$ has no unit, so $\\lambda$ and $t$ must use the same time unit. With $\\lambda$ in $\\text{h}^{-1}$, put $t$ in hours."
+        },
+        {
+          "type": "figure",
+          "id": "5-10-decay-curve",
+          "alt": "Graph of N, the number of undecayed nuclei, against time t. The curve starts at N0 and falls steeply, then more and more gently. Dashed lines show it reaches N0 over 2 at one half-life, N0 over 4 at two half-lives and N0 over 8 at three half-lives. The curve approaches zero but never reaches it.",
+          "caption": "In each half-life $N$ halves. In any equal time interval, $N$ is multiplied by the same factor, $\\mathrm{e}^{-\\lambda \\Delta t}$."
+        },
+        {
+          "type": "result",
+          "statement": "In equal time intervals, $N$ always falls by the same fraction, however many nuclei there are.",
+          "why": "Dividing $N_0\\mathrm{e}^{-\\lambda (t + \\Delta t)}$ by $N_0\\mathrm{e}^{-\\lambda t}$ gives $\\mathrm{e}^{-\\lambda \\Delta t}$, which does not depend on $t$."
+        },
+        {
+          "type": "example",
+          "id": "ex-nuclei-after-30h",
+          "question": "A sample contains $4.0 \\times 10^{18}$ undecayed nuclei of a nuclide with decay constant $\\pu{0.035 h-1}$. Calculate the number of undecayed nuclei after 30 hours.",
+          "steps": [
+            "Write the law: $N = N_0\\mathrm{e}^{-\\lambda t}$.",
+            "Check the units: $\\lambda$ is in $\\text{h}^{-1}$ and $t$ is in hours, so $\\lambda t = 0.035 \\times 30 = 1.05$ with no unit.",
+            "Substitute: $N = 4.0 \\times 10^{18} \\times \\mathrm{e}^{-1.05} = 4.0 \\times 10^{18} \\times 0.3499$.",
+            "$N = 1.40 \\times 10^{18}$, so 2 significant figures to match the data gives $1.4 \\times 10^{18}$.",
+            "Sense check: $1.05$ is about 1.5 half-lives' worth, so a bit more than a third should be left. $0.35$ fits."
+          ],
+          "answer": "$N \\approx 1.4 \\times 10^{18}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.0*10**18*exp(-0.035*30)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "To find a time, divide by $N_0$ and take the natural log of both sides. $\\ln(\\mathrm{e}^{-\\lambda t}) = -\\lambda t$, so $t = \\frac{1}{\\lambda}\\ln\\frac{N_0}{N}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-leak-tracer-time",
+          "question": "Engineers add a radioactive tracer to the water in an underground pipe to find a leak. The tracer has $\\lambda = \\pu{2.4e-6 s-1}$. Determine how many days pass before the number of tracer nuclei falls to $5.0\\%$ of its starting value.",
+          "steps": [
+            "Divide the law by $N_0$: $\\frac{N}{N_0} = 0.050 = \\mathrm{e}^{-\\lambda t}$.",
+            "Take natural logs: $\\ln 0.050 = -\\lambda t$, so $t = \\frac{-\\ln 0.050}{\\lambda} = \\frac{2.996}{2.4 \\times 10^{-6}}$.",
+            "$t = \\pu{1.25e6 s}$. Keep the unrounded value for the next step.",
+            "Convert: one day is $24 \\times 3600 = \\pu{86400 s}$, so $t = \\frac{1.248 \\times 10^{6}}{86400} = 14.4$ days."
+          ],
+          "answer": "$t \\approx 14\\ \\text{days}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(1/0.050)/(2.4*10**-6)/(24*3600)",
+            "sf": 2,
+            "unit": "days"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing time units, such as $\\lambda$ in $\\text{s}^{-1}$ with $t$ in days. Convert one of them first so that $\\lambda t$ has no unit."
+        },
+        {
+          "type": "check",
+          "id": "check-fraction-remaining",
+          "prompt": "A nuclide has $\\lambda = \\pu{0.12 min-1}$. What fraction of the original nuclei is still undecayed after 15 minutes? Give 2 significant figures.",
+          "hint": "$\\frac{N}{N_0} = \\mathrm{e}^{-\\lambda t}$. Both are in minutes already.",
+          "answer": {
+            "value": 0.17,
+            "tolerance": 0.005
+          },
+          "explain": "$\\lambda t = 0.12 \\times 15 = 1.8$, so $\\frac{N}{N_0} = \\mathrm{e}^{-1.8} = 0.165 \\approx 0.17$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp(-0.12*15)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-time-to-20-percent",
+          "prompt": "A nuclide has $\\lambda = \\pu{0.15 day-1}$. How many days pass before only $20\\%$ of its nuclei are undecayed? Give 2 significant figures.",
+          "hint": "Write $0.20 = \\mathrm{e}^{-\\lambda t}$, take natural logs, then make $t$ the subject.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0.5
+          },
+          "explain": "$\\ln 0.20 = -0.15t$, so $t = \\frac{-\\ln 0.20}{0.15} = \\frac{1.609}{0.15} = 10.7 \\approx 11$ days. A negative answer means the minus sign was lost.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(1/0.20)/0.15",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "probability",
+      "heading": "What the decay constant means",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You will often read that $\\lambda$ is \"the probability that a nucleus decays per unit time\". That is only an approximation, and it only works under one condition."
+        },
+        {
+          "type": "text",
+          "text": "The fraction of nuclei still undecayed after time $t$ is $\\frac{N}{N_0} = \\mathrm{e}^{-\\lambda t}$. That is also the probability that one particular nucleus survives for time $t$."
+        },
+        {
+          "type": "result",
+          "statement": "The probability that a nucleus decays within time $t$ is $P = 1 - \\mathrm{e}^{-\\lambda t}$. When $\\lambda t$ is small, $P \\approx \\lambda t$. So $\\lambda$ is close to the chance of a decay per unit time, but only when $\\lambda$ times one unit of time is small.",
+          "why": "For small $x$, $\\mathrm{e}^{-x} \\approx 1 - x$: for example $\\mathrm{e}^{-0.01} = 0.99005$. So $1 - \\mathrm{e}^{-\\lambda t} \\approx \\lambda t$."
+        },
+        {
+          "type": "text",
+          "text": "Compare the two as $\\lambda t$ grows. At $\\lambda t = 0.001$, $P = 0.0009995$: almost equal. At $\\lambda t = 0.1$, $P = 0.095$: close. At $\\lambda t = 1$, $P = 0.63$: far off."
+        },
+        {
+          "type": "text",
+          "text": "Two things go wrong for large $\\lambda t$. A probability can never be more than 1, but $\\lambda t$ can be 2 or 5. And during a long interval the number left keeps falling, so fewer nuclei decay than $\\lambda t$ predicts."
+        },
+        {
+          "type": "example",
+          "id": "ex-probability-one-second",
+          "question": "A nuclide has $\\lambda = \\pu{4.0e-3 s-1}$. Calculate the probability that one particular nucleus decays in the next $\\pu{1.0 s}$, and compare it with $\\lambda$.",
+          "steps": [
+            "Use the exact result: $P = 1 - \\mathrm{e}^{-\\lambda t}$, with $\\lambda t = 4.0 \\times 10^{-3} \\times 1.0 = 0.0040$.",
+            "$P = 1 - \\mathrm{e}^{-0.0040} = 1 - 0.996008 = 0.003992$.",
+            "Compare: $\\lambda \\times \\pu{1.0 s} = 0.0040$. The two agree to 2 significant figures, because $\\lambda t$ is small."
+          ],
+          "answer": "$P \\approx 0.00399$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1 - exp(-4.0*10**-3*1.0)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-large-lambda-t",
+          "question": "A nuclide has decay constant $\\pu{0.25 h-1}$. A student says the probability that a given nucleus decays in the next 6.0 hours is $0.25 \\times 6.0 = 1.5$. Explain why the student is wrong.",
+          "steps": [
+            "Marking point 1: a probability cannot be greater than 1.",
+            "Marking point 2: $\\lambda t$ is only a good estimate of the probability when $\\lambda t$ is small.",
+            "Marking point 3: here $\\lambda t = 1.5$ is not small, because the number of undecayed nuclei falls a lot in 6 hours.",
+            "A strong answer adds the correct value: $1 - \\mathrm{e}^{-1.5} = 0.78$."
+          ],
+          "answer": "A probability cannot be greater than 1, so 1.5 cannot be a probability. Multiplying $\\lambda$ by $t$ only gives a good estimate of the probability when $\\lambda t$ is small. Here $\\lambda t = 1.5$, which is not small, because the number of undecayed nuclei decreases a lot during the 6 hours. The correct probability is $1 - \\mathrm{e}^{-\\lambda t} = 1 - \\mathrm{e}^{-1.5} \\approx 0.78$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "probability cannot exceed 1; lambda t approximates the probability only when lambda t is small; here it is 1.5",
+            "requires": [
+              [
+                "cannot be greater than 1",
+                "cannot exceed 1",
+                "never more than 1"
+              ],
+              [
+                "only gives a good estimate",
+                "only a good approximation",
+                "only when"
+              ],
+              [
+                "is small",
+                "is not small"
+              ],
+              [
+                "decreases",
+                "falls"
+              ]
+            ],
+            "forbids": [
+              "certain to decay",
+              "probability is 1.5"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Outline\" or \"explain\" questions on this idea want the condition stated: $\\lambda$ approximates the probability of decay per unit time only when $\\lambda t$ is small."
+        },
+        {
+          "type": "check",
+          "id": "check-lambda-meaning",
+          "prompt": "Which statement about the decay constant $\\lambda$ is correct?",
+          "hint": "Ask when $1 - \\mathrm{e}^{-\\lambda t}$ is close to $\\lambda t$. Over one half-life, $\\lambda t = \\ln 2 = 0.69$.",
+          "options": [
+            {
+              "text": "It is close to the chance of decay per unit time, but only for time intervals much shorter than the half-life.",
+              "correct": true
+            },
+            {
+              "text": "It is exactly the chance of decay per unit time, over any time interval.",
+              "correct": false
+            },
+            {
+              "text": "It is the chance that a nucleus decays within one half-life.",
+              "correct": false
+            },
+            {
+              "text": "It is the number of nuclei that decay per second.",
+              "correct": false
+            }
+          ],
+          "explain": "The exact probability of decay within $t$ is $1 - \\mathrm{e}^{-\\lambda t}$, close to $\\lambda t$ only when $\\lambda t$ is small, which means $t$ is much shorter than the half-life. The chance of decay within one half-life is $0.5$ for every nuclide, and the number of decays per second is the activity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is close to the chance of decay per unit time, but only for time intervals much shorter than the half-life."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-probability-10-days",
+          "prompt": "A nuclide has $\\lambda = \\pu{0.050 day-1}$. What is the probability that a given nucleus decays within the next 10 days? Give 2 significant figures.",
+          "hint": "$\\lambda t = 0.50$ is not small, so use $1 - \\mathrm{e}^{-\\lambda t}$.",
+          "answer": {
+            "value": 0.39,
+            "tolerance": 0.005
+          },
+          "explain": "$P = 1 - \\mathrm{e}^{-0.050 \\times 10} = 1 - \\mathrm{e}^{-0.50} = 0.393 \\approx 0.39$. The shortcut $\\lambda t = 0.50$ overestimates it.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - exp(-0.050*10)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "activity",
+      "heading": "Activity and the decay law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[activity|Activity]] $A$ is the number of nuclei that decay per second. Its unit is the becquerel: $\\pu{1 Bq}$ is one decay per second."
+        },
+        {
+          "type": "text",
+          "text": "By the definition of $\\lambda$, each undecayed nucleus contributes $\\lambda$ decays per unit time. So the activity is $\\lambda N$. Substituting the decay law shows that $A$ falls exponentially too, with the same $\\lambda$."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lambda N = \\lambda N_0\\mathrm{e}^{-\\lambda t}",
+          "tag": "booklet",
+          "bookletId": "db-5-10"
+        },
+        {
+          "type": "text",
+          "text": "Since $A_0 = \\lambda N_0$ is the activity at $t = 0$, you can also write $A = A_0\\mathrm{e}^{-\\lambda t}$. Activity has the same half-life as $N$."
+        },
+        {
+          "type": "text",
+          "text": "Watch the units. For $A$ in becquerels from $A = \\lambda N$, $\\lambda$ must be in $\\text{s}^{-1}$. In $\\mathrm{e}^{-\\lambda t}$ alone, any time unit works, as long as $\\lambda$ and $t$ match."
+        },
+        {
+          "type": "text",
+          "text": "To find $N$ from a mass, use moles: $N = \\frac{m}{M} N_\\text{A}$, where $M$ is the molar mass and $N_\\text{A} = \\pu{6.02e23 mol-1}$ is the Avogadro constant from the data booklet."
+        },
+        {
+          "type": "text",
+          "text": "Hospitals choose tracer isotopes with this in mind. A half-life of a few hours gives a high activity for a short scan, then drops quickly so the patient's dose stays low."
+        },
+        {
+          "type": "example",
+          "id": "ex-tracer-activity",
+          "question": "A hospital tracer contains $2.0\\ \\mu\\text{g}$ of a gamma-emitting nuclide with molar mass $\\pu{99 g mol-1}$ and $\\lambda = \\pu{3.2e-5 s-1}$. Calculate the activity of the tracer.",
+          "steps": [
+            "Moles: $\\frac{m}{M} = \\frac{2.0 \\times 10^{-6}}{99} = 2.02 \\times 10^{-8}\\ \\text{mol}$.",
+            "Nuclei: $N = 2.02 \\times 10^{-8} \\times 6.02 \\times 10^{23} = 1.22 \\times 10^{16}$.",
+            "Activity: $A = \\lambda N = 3.2 \\times 10^{-5} \\times 1.22 \\times 10^{16} = 3.89 \\times 10^{11}\\ \\text{Bq}$.",
+            "Round to 2 significant figures, to match the mass and $\\lambda$."
+          ],
+          "answer": "$A \\approx 3.9 \\times 10^{11}\\ \\text{Bq}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.2*10**-5*(2.0*10**-6/99)*NA",
+            "sf": 2,
+            "unit": "Bq"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gauge-activity",
+          "question": "A paper mill measures the thickness of paper with a beta source. The source has $\\lambda = \\pu{0.065 y-1}$ and an activity of $\\pu{5.5e8 Bq}$ when it is installed. Calculate its activity 4.0 years later.",
+          "steps": [
+            "Use $A = A_0\\mathrm{e}^{-\\lambda t}$. $\\lambda$ is per year and $t$ is in years, so no conversion is needed.",
+            "$\\lambda t = 0.065 \\times 4.0 = 0.26$.",
+            "$A = 5.5 \\times 10^{8} \\times \\mathrm{e}^{-0.26} = 5.5 \\times 10^{8} \\times 0.771 = 4.24 \\times 10^{8}\\ \\text{Bq}$.",
+            "The activity is still in becquerels, because $A_0$ was."
+          ],
+          "answer": "$A \\approx 4.2 \\times 10^{8}\\ \\text{Bq}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "5.5*10**8*exp(-0.065*4.0)",
+            "sf": 2,
+            "unit": "Bq"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A detector only catches some of the radiation, so the [[count-rate|count rate]] is less than the activity. With the source and detector fixed in place, the corrected count rate is proportional to $A$. So it decays with the same $\\lambda$."
+        },
+        {
+          "type": "mistake",
+          "text": "Applying $\\mathrm{e}^{-\\lambda t}$ to a measured count rate that still includes [[background-radiation|background radiation]]. Subtract the background first, decay the rest, then add the background back if the question asks for the reading."
+        },
+        {
+          "type": "check",
+          "id": "check-activity-from-n",
+          "prompt": "A sample contains $6.0 \\times 10^{14}$ undecayed nuclei with $\\lambda = \\pu{8.0e-6 s-1}$. What is its activity, in Bq? Give 2 significant figures.",
+          "hint": "$A = \\lambda N$, and $\\lambda$ is already per second.",
+          "answer": {
+            "value": 4800000000,
+            "tolerance": 50000000
+          },
+          "explain": "$A = 8.0 \\times 10^{-6} \\times 6.0 \\times 10^{14} = \\pu{4.8e9 Bq}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.0*10**-6*6.0*10**14",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-rate-later",
+          "prompt": "Near a source, a counter reads $\\pu{860 counts min-1}$. The background is $\\pu{42 counts min-1}$, and the nuclide has $\\lambda = \\pu{0.020 h-1}$. What will the counter read 14 hours later, to 3 significant figures?",
+          "hint": "Only the part due to the source decays.",
+          "options": [
+            {
+              "text": "$\\approx 660\\ \\text{counts min}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 650\\ \\text{counts min}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 618\\ \\text{counts min}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 608\\ \\text{counts min}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Source alone: $860 - 42 = 818$. After 14 h: $818\\,\\mathrm{e}^{-0.28} = 618$. Add the background back: $618 + 42 = 660$. Decaying the whole 860 gives 650; forgetting to add the background back gives 618.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(860 - 42)*exp(-0.020*14) + 42",
+            "sf": 3,
+            "unit": "counts min-1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "half-life",
+      "heading": "Half-life and the decay constant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A large $\\lambda$ means fast decay, so a short [[half-life|half-life]]. To find the exact link, put $N = \\frac{N_0}{2}$ at $t = T_{\\frac{1}{2}}$ into the decay law."
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{1}{2} = \\mathrm{e}^{-\\lambda T_{\\frac{1}{2}}}$. Take natural logs: $\\ln\\frac{1}{2} = -\\lambda T_{\\frac{1}{2}}$. Since $\\ln\\frac{1}{2} = -\\ln 2$, this gives $\\lambda T_{\\frac{1}{2}} = \\ln 2$."
+        },
+        {
+          "type": "formula",
+          "tex": "T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}",
+          "tag": "booklet",
+          "bookletId": "db-5-10"
+        },
+        {
+          "type": "text",
+          "text": "$\\ln 2 = 0.693$. $T_{\\frac{1}{2}}$ comes out in the inverse of $\\lambda$'s unit: $\\lambda$ in $\\text{s}^{-1}$ gives $T_{\\frac{1}{2}}$ in seconds."
+        },
+        {
+          "type": "example",
+          "id": "ex-lambda-from-half-life",
+          "question": "A nuclide used in medical imaging has a half-life of 6.0 hours. Calculate its decay constant in $\\text{s}^{-1}$.",
+          "steps": [
+            "Rearrange: $\\lambda = \\frac{\\ln 2}{T_{\\frac{1}{2}}}$.",
+            "Convert the half-life to seconds, because the answer is wanted in $\\text{s}^{-1}$: $6.0 \\times 3600 = \\pu{21600 s}$.",
+            "$\\lambda = \\frac{0.6931}{21600} = 3.21 \\times 10^{-5}\\ \\text{s}^{-1}$.",
+            "Round to 2 significant figures, to match the half-life."
+          ],
+          "answer": "$\\lambda \\approx 3.2 \\times 10^{-5}\\ \\text{s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(2)/(6.0*3600)",
+            "sf": 2,
+            "unit": "s-1"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To determine a half-life in the lab, measure the count rate at regular times and subtract the background from each reading. Taking logs of $C = C_0\\mathrm{e}^{-\\lambda t}$ gives $\\ln C = \\ln C_0 - \\lambda t$."
+        },
+        {
+          "type": "text",
+          "text": "So a graph of $\\ln C$ against $t$ is a straight line with gradient $-\\lambda$. A best-fit line uses every reading, which beats reading one half-life off a curve."
+        },
+        {
+          "type": "figure",
+          "id": "5-10-ln-graph",
+          "alt": "Graph of the natural log of corrected count rate, in counts per minute, against time from 0 to 60 minutes. The vertical axis runs from 3 to 7. Seven points lie close to a straight best-fit line falling from 6.20 at time zero. A dashed gradient triangle on the line runs across from 10 minutes, where ln C is 5.78, to 50 minutes, then down to 4.10. Its horizontal side is labelled 40 minutes and its vertical side minus 1.68.",
+          "caption": "$\\ln C$ against $t$, where $C$ is the corrected count rate. The line's gradient is $-\\lambda$."
+        },
+        {
+          "type": "example",
+          "id": "ex-half-life-from-ln-graph",
+          "question": "A student measures the count rate from a short-lived source every 10 minutes and corrects each reading for background. The best-fit line of $\\ln(C / \\text{min}^{-1})$ against $t$ passes through $(10\\ \\text{min}, 5.78)$ and $(50\\ \\text{min}, 4.10)$. Determine the half-life of the nuclide.",
+          "steps": [
+            "Gradient: $\\frac{4.10 - 5.78}{50 - 10} = \\frac{-1.68}{40} = \\pu{-0.042 min-1}$.",
+            "The gradient is $-\\lambda$, so $\\lambda = \\pu{0.042 min-1}$. A log has no unit, so the gradient's unit is $\\text{min}^{-1}$.",
+            "$T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda} = \\frac{0.6931}{0.042} = 16.5\\ \\text{min}$.",
+            "Round to 2 significant figures, to match $\\lambda$."
+          ],
+          "answer": "$T_{\\frac{1}{2}} \\approx 17\\ \\text{min}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(2)/((5.78 - 4.10)/(50 - 10))",
+            "sf": 2,
+            "unit": "min"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some half-lives are far too long to see any fall in count rate. Then measure the activity $A$ and work out $N$ from the mass. $\\lambda = \\frac{A}{N}$, then $T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\log_{10}$ instead of $\\ln$. The decay law uses $\\mathrm{e}$, so only natural logs undo it: use the $\\ln$ key."
+        },
+        {
+          "type": "check",
+          "id": "check-double-lambda",
+          "prompt": "Nuclide Y has twice the decay constant of nuclide X. How does the half-life of Y compare with that of X?",
+          "hint": "$T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$: $\\lambda$ is on the bottom.",
+          "options": [
+            {
+              "text": "half as long",
+              "correct": true
+            },
+            {
+              "text": "twice as long",
+              "correct": false
+            },
+            {
+              "text": "the same",
+              "correct": false
+            },
+            {
+              "text": "four times as long",
+              "correct": false
+            }
+          ],
+          "explain": "Half-life is inversely proportional to $\\lambda$, so doubling $\\lambda$ halves $T_{\\frac{1}{2}}$. A nuclide that decays faster loses half its nuclei sooner.",
+          "verify": {
+            "kind": "choice",
+            "truth": "half as long"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-long-half-life",
+          "prompt": "A $\\pu{1.0 g}$ sample of a nuclide with molar mass $\\pu{238 g mol-1}$ has an activity of $\\pu{1.24e4 Bq}$. Determine the half-life in seconds. Give 2 significant figures.",
+          "hint": "Find $N$ from the mass, then $\\lambda = \\frac{A}{N}$, then $T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$.",
+          "answer": {
+            "value": 140000000000000000,
+            "tolerance": 5000000000000000
+          },
+          "explain": "$N = \\frac{1.0}{238} \\times 6.02 \\times 10^{23} = 2.53 \\times 10^{21}$. $\\lambda = \\frac{1.24 \\times 10^{4}}{2.53 \\times 10^{21}} = \\pu{4.90e-18 s-1}$. $T_{\\frac{1}{2}} = \\frac{0.693}{4.90 \\times 10^{-18}} = \\pu{1.4e17 s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(2)/(1.24*10**4/((1.0/238)*NA))",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "N = N_0\\mathrm{e}^{-\\lambda t}",
+          "tag": "booklet",
+          "bookletId": "db-5-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lambda N = \\lambda N_0\\mathrm{e}^{-\\lambda t}",
+          "tag": "booklet",
+          "bookletId": "db-5-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "T_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}",
+          "tag": "booklet",
+          "bookletId": "db-5-10",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The probability of decay within time $t$ is $1 - \\mathrm{e}^{-\\lambda t}$. It is close to $\\lambda t$ only when $\\lambda t$ is small.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\lambda$ and $t$ must use the same time unit. For $A$ in Bq from $A = \\lambda N$, use $\\lambda$ in $\\text{s}^{-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A graph of $\\ln C$ (corrected count rate) against $t$ is a straight line with gradient $-\\lambda$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking a bigger sample has a longer half-life. Half-life is a property of the nuclide, and it is the same however much of it there is.",
+    "Forgetting background. Subtract it from every count rate before using $\\mathrm{e}^{-\\lambda t}$ or plotting $\\ln C$.",
+    "Leaving $\\lambda$ in $\\text{h}^{-1}$ or $\\text{y}^{-1}$ in $A = \\lambda N$. Convert to $\\text{s}^{-1}$ to get becquerels.",
+    "Treating $\\lambda t$ as a probability when $\\lambda t$ is not small. Use $1 - \\mathrm{e}^{-\\lambda t}$.",
+    "Dropping the minus sign when taking logs, which gives a negative time. Write $t = \\frac{1}{\\lambda}\\ln\\frac{N_0}{N}$."
+  ],
+  "examTips": [
+    "\"Determine\" the age of a sample: show the ratio, the $\\ln$ step and the time in the unit asked for. Convert seconds to years only at the end.",
+    "\"Show that\" a half-life or decay constant is about a given value: show $\\ln 2$ and the substitution, then give one more significant figure than the stated value.",
+    "In a Paper 1B data question, find the half-life from the gradient of a $\\ln C$ against $t$ line. Use a large gradient triangle and state the unit, such as $\\text{min}^{-1}$.",
+    "Paper 1A options often mix $\\lambda$ and $T_{\\frac{1}{2}}$. Check whether $\\ln 2$ should multiply or divide."
+  ],
+  "readingMinutes": 24
+}

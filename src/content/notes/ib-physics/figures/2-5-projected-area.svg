@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" role="img" aria-labelledby="t25proj">
+  <title id="t25proj">Parallel sunlight falls on a sphere of radius R. The sphere blocks the rays over a disc of area pi R squared, shown as its shadow, while its whole surface has area 4 pi R squared. The left half is lit and the right half is the night side.</title>
+  <defs>
+    <marker id="a25proj" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--t3-ink)"/>
+    </marker>
+  </defs>
+  <g stroke="var(--t3-ink)" stroke-width="1.6" marker-end="url(#a25proj)">
+    <line x1="30" y1="45" x2="560" y2="45"/>
+    <line x1="30" y1="235" x2="560" y2="235"/>
+    <line x1="30" y1="90" x2="230" y2="90"/>
+    <line x1="30" y1="140" x2="212" y2="140"/>
+    <line x1="30" y1="190" x2="230" y2="190"/>
+  </g>
+  <path d="M290 60 A80 80 0 0 1 290 220 Z" fill="var(--muted)" fill-opacity="0.35"/>
+  <path d="M290 60 A80 80 0 0 0 290 220 Z" fill="var(--t3-ink)" fill-opacity="0.2"/>
+  <circle cx="290" cy="140" r="80" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="290" y1="140" x2="290" y2="60" stroke="currentColor" stroke-width="1.2"/>
+  <text x="298" y="105" font-size="13" fill="currentColor" font-style="italic">R</text>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="290" y1="60" x2="480" y2="60"/>
+    <line x1="290" y1="220" x2="480" y2="220"/>
+  </g>
+  <ellipse cx="480" cy="140" rx="22" ry="80" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <g font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="110" y="30">parallel rays of sunlight</text>
+    <text x="240" y="265">lit side</text>
+    <text x="345" y="265">night side</text>
+    <text x="290" y="285" fill="var(--muted)">surface area 4πR²</text>
+    <text x="560" y="132">shadow disc</text>
+    <text x="560" y="148">projected area</text>
+    <text x="560" y="164">πR²</text>
+  </g>
+</svg>

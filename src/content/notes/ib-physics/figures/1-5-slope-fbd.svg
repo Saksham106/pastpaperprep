@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 330" role="img" aria-labelledby="t">
+<title id="t">A block on a rough ramp that rises to the right at angle theta to the horizontal. The block is sliding down the ramp. Three labelled arrows start at a dot at the centre of the block: weight m g, the longest, pointing vertically down; normal force F N pointing away from the ramp, perpendicular to its surface; and a short friction arrow F f pointing up the ramp, against the sliding. Two dashed arrows show the components of the weight: m g sin theta down the ramp and m g cos theta into the ramp, perpendicular to the surface. The normal force arrow is the same length as the m g cos theta component.</title>
+<polygon points="40,300 340,300 340.0,112.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M80 300 A40 40 0 0 0 73.9 278.8" fill="none" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="88.0" y="292.0" fill="var(--muted)" text-anchor="start">θ</text>
+<rect x="153.7" y="180.3" width="44" height="32" fill="none" stroke="var(--muted)" stroke-width="1.4" transform="rotate(-32 175.7 196.3)"/>
+<path d="M175.7 196.3 L127.7 226.3" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<polygon points="121.8,230.0 125.3,222.5 130.1,230.1" fill="var(--muted)"/>
+<path d="M175.7 196.3 L225.9 276.7" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<polygon points="229.6,282.6 222.1,279.1 229.7,274.3" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="117.8" y="244.0" fill="var(--muted)" text-anchor="end">mg sin θ</text>
+<text font-family="inherit" font-size="11" x="235.6" y="284.6" fill="var(--muted)" text-anchor="start">mg cos θ</text>
+<path d="M175.7 196.3 L175.7 307.3" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="175.7,316.3 171.2,307.3 180.2,307.3" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="167.7" y="312.3" fill="var(--t1-ink)" text-anchor="end">weight mg</text>
+<path d="M175.7 196.3 L126.5 117.7" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="121.8,110.0 130.3,115.3 122.7,120.1" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="115.8" y="106.0" fill="var(--t2-ink)" text-anchor="middle">normal force F<tspan baseline-shift="sub" font-size="9">N</tspan></text>
+<path d="M175.7 196.3 L209.5 175.2" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="217.1,170.5 211.9,179.0 207.1,171.4" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="221.1" y="154.5" fill="var(--t4-ink)" text-anchor="start">friction F<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+<circle cx="175.7" cy="196.3" r="4.5" fill="currentColor"/>
+<path d="M290.2 108.3 L245.2 136.4" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="239.3,140.1 242.8,132.6 247.6,140.2" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="270.2" y="80.3" fill="var(--muted)" text-anchor="middle">motion</text>
+</svg>

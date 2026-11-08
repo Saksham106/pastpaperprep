@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 280" role="img" aria-labelledby="t">
+  <title id="t">Two panels. Left: a point source with four concentric circular wavefronts around it and eight rays pointing straight outwards from the source, each ray crossing the circles at right angles. Right: six parallel straight wavefronts, evenly spaced, with three parallel rays crossing them at right angles. The gap between neighbouring wavefronts is labelled lambda, one wavelength.</title>
+  <circle cx="140" cy="125" r="3.5" fill="currentColor"/>
+  <circle cx="140" cy="125" r="24" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <circle cx="140" cy="125" r="48" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <circle cx="140" cy="125" r="72" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <circle cx="140" cy="125" r="96" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M148.0 125.0 L245.0 125.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="252.0,125.0 245.0,128.5 245.0,121.5" fill="var(--t3-ink)"/>
+  <path d="M145.7 130.7 L214.2 199.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="219.2,204.2 211.8,201.7 216.7,196.8" fill="var(--t3-ink)"/>
+  <path d="M140.0 133.0 L140.0 230.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="140.0,237.0 136.5,230.0 143.5,230.0" fill="var(--t3-ink)"/>
+  <path d="M134.3 130.7 L65.8 199.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="60.8,204.2 63.3,196.8 68.2,201.7" fill="var(--t3-ink)"/>
+  <path d="M132.0 125.0 L35.0 125.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="28.0,125.0 35.0,121.5 35.0,128.5" fill="var(--t3-ink)"/>
+  <path d="M134.3 119.3 L65.8 50.8" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="60.8,45.8 68.2,48.3 63.3,53.2" fill="var(--t3-ink)"/>
+  <path d="M140.0 117.0 L140.0 20.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="140.0,13.0 143.5,20.0 136.5,20.0" fill="var(--t3-ink)"/>
+  <path d="M145.7 119.3 L214.2 50.8" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="219.2,45.8 216.7,53.2 211.8,48.3" fill="var(--t3-ink)"/>
+  <text x="140.0" y="252.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">point source: circular wavefronts,</text>
+  <text x="140.0" y="267.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">rays spread out from the source</text>
+  <path d="M345.0 45.0 L345.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M375.0 45.0 L375.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M405.0 45.0 L405.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M435.0 45.0 L435.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M465.0 45.0 L465.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M495.0 45.0 L495.0 205.0" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+  <path d="M320.0 75.0 L523.0 75.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="530.0,75.0 523.0,78.5 523.0,71.5" fill="var(--t3-ink)"/>
+  <path d="M320.0 125.0 L523.0 125.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="530.0,125.0 523.0,128.5 523.0,121.5" fill="var(--t3-ink)"/>
+  <path d="M320.0 175.0 L523.0 175.0" fill="none" stroke="var(--t3-ink)" stroke-width="1.4"/><polygon points="530.0,175.0 523.0,178.5 523.0,171.5" fill="var(--t3-ink)"/>
+  <path d="M375.0 30.0 L375.0 40.0" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <path d="M405.0 30.0 L405.0 40.0" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <path d="M390.0 35.0 L400.0 35.0" fill="none" stroke="currentColor" stroke-width="1.1"/><polygon points="405.0,35.0 400.0,37.5 400.0,32.5" fill="currentColor"/>
+  <path d="M390.0 35.0 L380.0 35.0" fill="none" stroke="currentColor" stroke-width="1.1"/><polygon points="375.0,35.0 380.0,32.5 380.0,37.5" fill="currentColor"/>
+  <text x="390.0" y="26.0" font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle" font-style="italic">λ</text>
+  <text x="495.0" y="222.0" font-size="11" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">wavefront</text>
+  <text x="535.0" y="92.0" font-size="11" fill="var(--t3-ink)" font-family="inherit" text-anchor="end">ray</text>
+  <text x="435.0" y="252.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">plane wavefronts,</text>
+  <text x="435.0" y="267.0" font-size="12" fill="currentColor" font-family="inherit" text-anchor="middle">parallel rays</text>
+</svg>

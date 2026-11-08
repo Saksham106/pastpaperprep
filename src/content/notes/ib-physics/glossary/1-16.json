@@ -1,0 +1,32 @@
+[
+  {
+    "id": "postulates-of-special-relativity",
+    "term": "postulates of special relativity",
+    "definition": "The two starting assumptions of special relativity: the laws of physics are the same in every inertial reference frame, and every inertial observer measures the speed of light in a vacuum as $c$, whatever the motion of the source.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "lorentz-transformation",
+    "term": "Lorentz transformation",
+    "definition": "The equations $x' = \\gamma(x - vt)$ and $t' = \\gamma(t - vx/c^{2})$ that convert an event's position and time from one inertial frame to another moving at velocity $v$ relative to it; they reduce to the Galilean equations when $v$ is much less than $c$.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "lorentz-factor",
+    "term": "Lorentz factor",
+    "definition": "$\\gamma = 1/\\sqrt{1 - v^{2}/c^{2}}$ for two inertial frames with relative speed $v$; it is never less than 1, equals 1 only when $v = 0$, and grows without limit as $v$ approaches $c$.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "relativistic-velocity-addition",
+    "term": "relativistic velocity addition",
+    "definition": "The rule $u' = (u - v)/(1 - uv/c^{2})$ for an object's velocity $u'$ in a frame moving at $v$, when the object has velocity $u$ in the original frame; for speeds below $c$ it never gives a result of $c$ or more.",
+    "lesson": "1.16"
+  },
+  {
+    "id": "space-time-interval",
+    "term": "space-time interval",
+    "definition": "The quantity $\\Delta s$ between two events, given by $(\\Delta s)^{2} = (c\\Delta t)^{2} - (\\Delta x)^{2}$; it has the same value in every inertial frame, even though $\\Delta t$ and $\\Delta x$ do not.",
+    "lesson": "1.16"
+  }
+]

@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.1",
+  "slug": "particles-density-and-temperature",
+  "title": "Particles, density and temperature",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Matter is made of tiny particles that are always moving. How closely they pack and how freely they move explains the differences between a solid, a liquid and a [[gas|gas]], and sets each substance's [[density|density]]. [[temperature|Temperature]], on the Celsius or [[kelvin-scale|kelvin scale]], measures the average [[kinetic-energy|kinetic energy]] of those particles.",
+  "goals": [
+    {
+      "text": "Describe solids, liquids and gases in terms of how their particles are arranged, how they move and the forces between them, and name the phase changes.",
+      "bullets": [
+        "B.1-s1"
+      ]
+    },
+    {
+      "text": "Calculate density with $\\rho = \\frac{m}{V}$, and rearrange it to find a mass or a volume, in SI units.",
+      "bullets": [
+        "B.1-s2"
+      ]
+    },
+    {
+      "text": "Convert temperatures between degrees Celsius and kelvin.",
+      "bullets": [
+        "B.1-s3"
+      ]
+    },
+    {
+      "text": "Explain why a temperature change has the same value in kelvin and in degrees Celsius, and when you must use kelvin.",
+      "bullets": [
+        "B.1-s4"
+      ]
+    },
+    {
+      "text": "Use $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ to link the kelvin temperature to the average kinetic energy of the particles.",
+      "bullets": [
+        "B.1-s5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "6.2",
+    "6.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "solids liquids and gases particle model",
+    "density formula rho m V",
+    "convert Celsius to kelvin",
+    "absolute zero",
+    "temperature and average kinetic energy",
+    "Boltzmann constant"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ke-ball",
+      "prompt": "A ball of mass $\\pu{0.40 kg}$ rolls at $\\pu{2.4 m s-1}$. Calculate its kinetic energy in joules, to 2 significant figures.",
+      "hint": "Use $E_\\text{k} = \\frac{1}{2}mv^{2}$, and square only the speed.",
+      "answer": {
+        "value": 1.2,
+        "tolerance": 0.05
+      },
+      "explain": "$E_\\text{k} = \\frac{1}{2}(0.40)(2.4)^{2} = \\pu{1.152 J} \\approx \\pu{1.2 J}$. Revise it in {{lesson:1.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*0.40*2.4**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-scalar",
+      "prompt": "Which of these quantities is a [[scalar|scalar]]?",
+      "hint": "A scalar has a size but no direction.",
+      "options": [
+        {
+          "text": "mass",
+          "correct": true
+        },
+        {
+          "text": "velocity",
+          "correct": false
+        },
+        {
+          "text": "force",
+          "correct": false
+        },
+        {
+          "text": "displacement",
+          "correct": false
+        }
+      ],
+      "explain": "Mass has only a size. Velocity, force and displacement all have a direction too, so they are vectors. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "mass"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-proportion",
+      "prompt": "$y$ is directly proportional to $x$. When $x = 4$, $y = 14$. Find $y$ when $x = 6$.",
+      "hint": "Directly proportional means $y = kx$. Find $k$ first.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$k = \\frac{14}{4} = 3.5$, so $y = 3.5 \\times 6 = 21$. Revise it in {{lesson:6.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(14, 4)*6",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "particles",
+      "heading": "Solids, liquids and gases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Everything around you is made of particles: atoms or molecules, far too small to see. A simple model of how they are arranged and how they move explains much of what you can see."
+        },
+        {
+          "type": "text",
+          "text": "The model has two ideas. The particles are always moving. They attract each other when they are close, and repel strongly if pushed even closer. Far apart, the forces between them are tiny."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-particle-model",
+          "alt": "Three boxes of particles drawn as circles. Left, solid: 25 particles packed touching in a regular 5 by 5 grid, with small marks beside some showing they vibrate about fixed positions. Middle, liquid: about 22 particles still close together and touching, but in an irregular arrangement filling the lower part of the box, with a few small gaps. Right, gas: 6 particles spread far apart across the whole box, each with an arrow showing it moving fast in a random direction.",
+          "caption": "The same particles in the three phases. Spacing and freedom to move change; the particles themselves do not."
+        },
+        {
+          "type": "text",
+          "text": "In a solid, the particles are packed close together in fixed positions, often in a regular pattern. Strong forces hold each one in place, so it can only vibrate about that position. A solid keeps its own shape and volume."
+        },
+        {
+          "type": "text",
+          "text": "In a liquid, the particles are still close together, so a liquid keeps its volume and is very hard to compress. They are not held in fixed positions, so they can slide past one another. A liquid flows and takes the shape of its container."
+        },
+        {
+          "type": "definition",
+          "term": "gas",
+          "statement": "A phase of matter with no fixed shape or volume, whose particles are far apart compared with their size and move fast and randomly.",
+          "plain": "Particles spread out and flying about, so a gas fills any container you put it in."
+        },
+        {
+          "type": "text",
+          "text": "In a [[gas|gas]], the forces between particles are negligible except during collisions. Each particle moves in a straight line until it hits another particle or the wall. Most of a gas is empty space, so it is easy to compress."
+        },
+        {
+          "type": "text",
+          "text": "Changes between phases have names you should know. Melting is solid to liquid and freezing is liquid to solid. Condensing is gas to liquid. Boiling and evaporation are both liquid to gas, but they differ."
+        },
+        {
+          "type": "text",
+          "text": "Boiling happens throughout the liquid and, for a pure liquid, at one temperature for a given pressure: the boiling point. Evaporation happens only at the surface, at any temperature. The particles in a liquid have a range of speeds, and the fastest ones near the surface can escape. You will see what happens to the energy during these changes in {{lesson:2.2}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the particles in a solid do not move. They vibrate all the time; only their average positions are fixed."
+        },
+        {
+          "type": "example",
+          "id": "ex-syringe-compress",
+          "question": "A sealed syringe full of air can be pushed in to a much smaller volume. The same syringe full of water hardly moves. Explain this difference using the molecular model.",
+          "steps": [
+            "Compare how far apart the particles are in each phase.",
+            "Say what pushing the plunger does to that spacing, and what stops it in the liquid."
+          ],
+          "answer": "In air, a gas, the particles are far apart compared with their size, so most of the volume is empty space. Pushing the plunger moves the particles closer together, so the volume of the air decreases. In water, a liquid, the particles are already close together. Moving them any closer needs very large forces, because the particles repel strongly when squeezed together. So the volume of the water hardly changes.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gas particles far apart with empty space between them, so they can be pushed closer; liquid particles already close and repel when squeezed",
+            "requires": [
+              "far apart",
+              "empty space",
+              "already close together",
+              [
+                "repel",
+                "repulsive"
+              ]
+            ],
+            "forbids": [
+              "water particles are bigger",
+              "particles in a liquid do not move"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-puddle-evaporates",
+          "question": "A puddle dries up on a cool day, at about $8\\,^{\\circ}\\text{C}$, far below the boiling point of water. Explain how the water can turn into a gas, and state one difference between evaporation and boiling.",
+          "steps": [
+            "Start from the fact that the particles do not all move at the same speed.",
+            "Say which particles leave, and from where.",
+            "Finish with one clear difference from boiling."
+          ],
+          "answer": "The water particles have a range of speeds, so a range of kinetic energies. Some of the fastest particles near the surface have enough energy to escape the attraction of their neighbours. They leave the surface and become a gas, so evaporation happens at any temperature. Evaporation happens only at the surface, while boiling happens throughout the liquid at the boiling point.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "particles have a range of energies; the fastest at the surface escape; evaporation is at the surface at any temperature, boiling throughout at the boiling point",
+            "requires": [
+              "range of",
+              [
+                "fastest",
+                "most energetic"
+              ],
+              "surface",
+              "escape",
+              "any temperature",
+              "throughout"
+            ],
+            "forbids": [
+              "all the particles have the same"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solid-shape",
+          "prompt": "Why does a solid keep its shape?",
+          "hint": "Think about what each particle in a solid can and cannot do.",
+          "options": [
+            {
+              "text": "strong forces hold its particles in fixed positions",
+              "correct": true
+            },
+            {
+              "text": "its particles do not move at all",
+              "correct": false
+            },
+            {
+              "text": "its particles are bigger than those in a liquid",
+              "correct": false
+            },
+            {
+              "text": "there are no forces between its particles",
+              "correct": false
+            }
+          ],
+          "explain": "Each particle is held in a fixed position by strong forces, so it can only vibrate there. The particles never stop moving, and they are the same particles as in the liquid.",
+          "verify": {
+            "kind": "choice",
+            "truth": "strong forces hold its particles in fixed positions"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phase-name",
+          "prompt": "On a cold morning, water vapour in the air turns into droplets on the inside of a window. What is this phase change called?",
+          "hint": "Which phase does the water start in, and which does it end in?",
+          "options": [
+            {
+              "text": "condensing",
+              "correct": true
+            },
+            {
+              "text": "evaporation",
+              "correct": false
+            },
+            {
+              "text": "freezing",
+              "correct": false
+            },
+            {
+              "text": "boiling",
+              "correct": false
+            }
+          ],
+          "explain": "Gas to liquid is condensing. Evaporation and boiling go the other way, and freezing is liquid to solid.",
+          "verify": {
+            "kind": "choice",
+            "truth": "condensing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "density",
+      "heading": "Density",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A suitcase of feathers and a small block of lead can have the same mass. The lead is tiny because far more mass is packed into each cubic metre of it."
+        },
+        {
+          "type": "definition",
+          "term": "density",
+          "statement": "The mass per unit volume of a substance.",
+          "plain": "How much mass is packed into each cubic metre."
+        },
+        {
+          "type": "text",
+          "text": "[[density|Density]] is given by this equation, which is in the data booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{m}{V}",
+          "tag": "booklet",
+          "bookletId": "db-2-1"
+        },
+        {
+          "type": "text",
+          "text": "$\\rho$ (the Greek letter rho) is the density, $m$ is the mass in kg and $V$ is the volume in $\\text{m}^{3}$. The SI unit of density is $\\text{kg m}^{-3}$. Density is a [[scalar|scalar]]: it has a size but no direction."
+        },
+        {
+          "type": "text",
+          "text": "Density is a property of the material, not of the object. Cut a steel bar in half and each half has half the mass and half the volume, so the same density."
+        },
+        {
+          "type": "text",
+          "text": "The particle model explains the numbers. Solids and liquids have similar densities, because their particles are close together in both. At everyday pressures, a gas is roughly a thousand times less dense than its liquid, because its particles are far apart. Water is about $\\pu{1000 kg m-3}$; air is about $\\pu{1.2 kg m-3}$."
+        },
+        {
+          "type": "text",
+          "text": "Lab data often come in grams and $\\text{cm}^{3}$. Since $\\pu{1 g} = 10^{-3}\\ \\text{kg}$ and $\\pu{1 cm3} = 10^{-6}\\ \\text{m}^{3}$, a density of $\\pu{1 g cm-3}$ is $\\pu{1000 kg m-3}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by 100 to turn $\\text{cm}^{3}$ into $\\text{m}^{3}$. A cube of side $\\pu{1 cm}$ has volume $(10^{-2}\\ \\text{m})^{3} = 10^{-6}\\ \\text{m}^{3}$, so divide by a million."
+        },
+        {
+          "type": "example",
+          "id": "ex-density-block",
+          "question": "A rectangular metal block measures $\\pu{4.0 cm}$ by $\\pu{2.5 cm}$ by $\\pu{1.2 cm}$. Its mass is $\\pu{103 g}$. Calculate the density of the metal in $\\text{kg m}^{-3}$.",
+          "steps": [
+            "Find the volume: $V = 4.0 \\times 2.5 \\times 1.2 = \\pu{12 cm3} = 12 \\times 10^{-6}\\ \\text{m}^{3} = 1.2 \\times 10^{-5}\\ \\text{m}^{3}$.",
+            "Convert the mass: $m = \\pu{103 g} = \\pu{0.103 kg}$.",
+            "Substitute into $\\rho = \\dfrac{m}{V}$: $\\rho = \\dfrac{0.103}{1.2 \\times 10^{-5}} = \\pu{8583 kg m-3}$.",
+            "The lengths have 2 significant figures, so give 2."
+          ],
+          "answer": "$\\rho \\approx 8.6 \\times 10^{3}\\ \\text{kg m}^{-3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "103*10**-3/(4.0*2.5*1.2*10**-6)",
+            "sf": 2,
+            "unit": "kg m-3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-density-rod",
+          "question": "An aluminium rod is a cylinder of radius $\\pu{6.0 mm}$ and length $\\pu{0.85 m}$. The density of aluminium is $\\pu{2.7e3 kg m-3}$. Determine the mass of the rod.",
+          "steps": [
+            "Convert the radius: $r = \\pu{6.0 mm} = 6.0 \\times 10^{-3}\\ \\text{m}$.",
+            "Volume of a cylinder: $V = \\pi r^{2} L = \\pi (6.0 \\times 10^{-3})^{2}(0.85) = 9.61 \\times 10^{-5}\\ \\text{m}^{3}$.",
+            "Rearrange $\\rho = \\dfrac{m}{V}$ to $m = \\rho V$.",
+            "Substitute: $m = (2.7 \\times 10^{3})(9.61 \\times 10^{-5}) = \\pu{0.2596 kg}$. Give 2 significant figures, like the data."
+          ],
+          "answer": "$m \\approx 0.26\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.7*10**3*pi*(6.0*10**-3)**2*0.85",
+            "sf": 2,
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-density-stone",
+          "prompt": "A stone of mass $\\pu{0.35 kg}$ is lowered into a measuring cylinder of water, and the water level rises by $\\pu{130 cm3}$. Calculate the density of the stone in $\\text{kg m}^{-3}$, to 2 significant figures.",
+          "hint": "The rise in water level is the stone's volume. Convert it to $\\text{m}^{3}$ first.",
+          "answer": {
+            "value": 2700,
+            "tolerance": 50
+          },
+          "explain": "$V = 130 \\times 10^{-6} = 1.30 \\times 10^{-4}\\ \\text{m}^{3}$, so $\\rho = \\dfrac{0.35}{1.30 \\times 10^{-4}} = \\pu{2692 kg m-3} \\approx \\pu{2700 kg m-3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.35/(130*10**-6)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-density-cubes",
+          "prompt": "Two solid cubes are made of the same metal. Cube B has sides twice as long as cube A. What is $\\dfrac{\\rho_\\text{B}}{\\rho_\\text{A}}$?",
+          "hint": "Both the mass and the volume change. What happens to their ratio?",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{8}$",
+              "correct": false
+            }
+          ],
+          "explain": "B has 8 times the volume and 8 times the mass, so the same density. Density belongs to the material, not to the size of the object. Choosing 8 compares the masses, not the densities.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**3/2**3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scales",
+      "heading": "Celsius and kelvin",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Celsius scale was built around water: ice melts at $0\\,^{\\circ}\\text{C}$ and water boils at $100\\,^{\\circ}\\text{C}$, at normal atmospheric pressure. It is handy for weather and cooking, but its zero is just a convenient choice."
+        },
+        {
+          "type": "text",
+          "text": "Cool anything down and its particles move more and more slowly. There is a lowest possible temperature, called absolute zero, at about $-273\\,^{\\circ}\\text{C}$. Nothing can be colder."
+        },
+        {
+          "type": "definition",
+          "term": "kelvin scale",
+          "statement": "The absolute temperature scale, with zero at absolute zero and steps the same size as degrees Celsius. Its unit is the kelvin, K.",
+          "plain": "The Celsius scale shifted down so that zero is the coldest anything can get."
+        },
+        {
+          "type": "text",
+          "text": "To convert, add 273. This conversion is printed in the data booklet's unit conversions:"
+        },
+        {
+          "type": "text",
+          "text": "$T\\ (\\text{in K}) = \\theta\\ (\\text{in } ^{\\circ}\\text{C}) + 273$"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\theta$ (theta) is a Celsius temperature and $T$ is the absolute temperature on the [[kelvin-scale|kelvin scale]]. The unit is written K, with no degree sign: $\\pu{300 K}$, not $300\\,^{\\circ}\\text{K}$. A kelvin temperature is never negative."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-temperature-scales",
+          "alt": "Two vertical temperature scales side by side, Celsius on the left and kelvin on the right, with horizontal dashed lines joining matching points. Absolute zero is minus 273 degrees Celsius and 0 kelvin. Ice melts at 0 degrees Celsius and 273 kelvin. Water boils at 100 degrees Celsius and 373 kelvin. A bracket between the melting and boiling lines is labelled: a rise of 100 kelvin equals a rise of 100 degrees Celsius.",
+          "caption": "The two scales are shifted by 273, but their steps are the same size."
+        },
+        {
+          "type": "text",
+          "text": "Because one kelvin is the same size as one degree Celsius, a temperature change has the same number on both scales. Warming from $20\\,^{\\circ}\\text{C}$ to $50\\,^{\\circ}\\text{C}$ is a rise of $30\\,^{\\circ}\\text{C}$. In kelvin it is $\\pu{293 K}$ to $\\pu{323 K}$, a rise of $\\pu{30 K}$."
+        },
+        {
+          "type": "text",
+          "text": "The algebra shows why: $\\Delta T = (\\theta_2 + 273) - (\\theta_1 + 273) = \\theta_2 - \\theta_1$. The 273s cancel. So for a change $\\Delta T$ you may use either scale, but a temperature that is multiplied, divided or put in a ratio must be in kelvin."
+        },
+        {
+          "type": "mistake",
+          "text": "Adding 273 to a temperature change. A rise of $15\\,^{\\circ}\\text{C}$ is a rise of $\\pu{15 K}$, not $\\pu{288 K}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-kelvin-nitrogen",
+          "question": "Liquid nitrogen boils at $-196\\,^{\\circ}\\text{C}$. Express this temperature in kelvin.",
+          "steps": [
+            "Use $T = \\theta + 273$, keeping the minus sign: $T = -196 + 273$.",
+            "Check: the answer is positive and well below $\\pu{273 K}$, the melting point of ice, as it should be."
+          ],
+          "answer": "$T = 77\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-196 + zero_celsius",
+            "unit": "K"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-kelvin-venus",
+            "prompt": "Now you try: the surface of Venus is at about $\\pu{740 K}$. Convert this to degrees Celsius.",
+            "hint": "Go the other way: subtract 273.",
+            "answer": {
+              "value": 467,
+              "tolerance": 0
+            },
+            "explain": "$\\theta = T - 273 = 740 - 273 = 467\\,^{\\circ}\\text{C}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "740 - zero_celsius",
+              "dp": 0
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mixed-units-rise",
+          "question": "A gas starts at $17\\,^{\\circ}\\text{C}$. After heating, a sensor reads its temperature as $\\pu{352 K}$. Determine the rise in temperature, in kelvin.",
+          "steps": [
+            "The two readings are on different scales, so first put both on one scale. Convert the start: $T_1 = 17 + 273 = \\pu{290 K}$.",
+            "Subtract: $\\Delta T = 352 - 290 = \\pu{62 K}$.",
+            "Check on the Celsius scale: $\\pu{352 K} = 79\\,^{\\circ}\\text{C}$, and $79 - 17 = 62\\,^{\\circ}\\text{C}$. The change is the same number on both scales."
+          ],
+          "answer": "$\\Delta T = 62\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "352 - (17 + zero_celsius)",
+            "unit": "K"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cooling-change",
+          "prompt": "A beaker of water cools by $12\\,^{\\circ}\\text{C}$. What is the decrease in its temperature in kelvin?",
+          "hint": "One kelvin is the same size as one degree Celsius.",
+          "options": [
+            {
+              "text": "$12\\ \\text{K}$",
+              "correct": true
+            },
+            {
+              "text": "$285\\ \\text{K}$",
+              "correct": false
+            },
+            {
+              "text": "$261\\ \\text{K}$",
+              "correct": false
+            }
+          ],
+          "explain": "A change is the same number on both scales, so the drop is $\\pu{12 K}$. $\\pu{285 K}$ adds 273 to a change, which only works for a single temperature.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(12 + zero_celsius) - zero_celsius",
+            "unit": "K"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-helium-celsius",
+          "prompt": "Helium boils at $\\pu{4.2 K}$. Convert this temperature to degrees Celsius, to 1 decimal place.",
+          "hint": "Subtract 273 and keep the sign.",
+          "answer": {
+            "value": -268.8,
+            "tolerance": 0.05
+          },
+          "explain": "$\\theta = 4.2 - 273 = -268.8\\,^{\\circ}\\text{C}$, just above absolute zero.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.2 - zero_celsius",
+            "dp": 1,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "kinetic-energy",
+      "heading": "Temperature and particle kinetic energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The particles in a hot cup of tea move faster, on average, than those in a glass of cold water. Temperature is a way of measuring this motion."
+        },
+        {
+          "type": "definition",
+          "term": "temperature",
+          "statement": "A measure of the average random kinetic energy of the particles of a substance. Net thermal energy flows from a region of higher temperature to one of lower temperature.",
+          "plain": "How hot something is: the hotter it is, the faster its particles move on average."
+        },
+        {
+          "type": "text",
+          "text": "The word random matters. A ball thrown across a room has extra [[kinetic-energy|kinetic energy]] as a whole, but that ordered motion does not make it any hotter. Only the jiggling of the particles relative to each other counts."
+        },
+        {
+          "type": "text",
+          "text": "For a gas, the kelvin [[temperature|temperature]] $T$ and the average kinetic energy of one particle are linked by this data booklet equation."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\frac{3}{2}k_\\text{B}T",
+          "tag": "booklet",
+          "bookletId": "db-2-1"
+        },
+        {
+          "type": "definition",
+          "term": "Boltzmann constant",
+          "statement": "The constant $k_\\text{B} = 1.38 \\times 10^{-23}\\ \\text{J K}^{-1}$ that links the absolute temperature of a substance to the average kinetic energy of one of its particles.",
+          "plain": "The conversion factor between a kelvin temperature and the energy of a single particle."
+        },
+        {
+          "type": "text",
+          "text": "Here $E_\\text{k}$ is the average kinetic energy of one particle, in J, from its random motion from place to place. $T$ must be in kelvin. The [[boltzmann-constant|Boltzmann constant]] $k_\\text{B}$ is in the data booklet's list of constants. It is per particle, so it is tiny; don't confuse it with the gas constant $R$, which is per mole and which you meet in {{lesson:2.8}}."
+        },
+        {
+          "type": "text",
+          "text": "$E_\\text{k}$ and $T$ are in [[direct-proportionality|direct proportionality]]. Double the kelvin temperature and the average kinetic energy doubles. In this model the average kinetic energy is zero at $\\pu{0 K}$, which is why absolute zero is the bottom of the scale."
+        },
+        {
+          "type": "text",
+          "text": "The equation does not contain the particle's mass. So at the same temperature, every kind of gas particle has the same average kinetic energy. Since $E_\\text{k} = \\frac{1}{2}mv^{2}$, lighter particles, such as helium atoms, move faster on average than heavier ones."
+        },
+        {
+          "type": "text",
+          "text": "$E_\\text{k}$ is an average. At any moment some particles move much faster and some much slower. That spread is what lets the fastest particles escape in evaporation."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a Celsius temperature into $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$. Warming from $10\\,^{\\circ}\\text{C}$ to $20\\,^{\\circ}\\text{C}$ does not double the average kinetic energy; $\\pu{283 K}$ to $\\pu{293 K}$ raises it by under 4%."
+        },
+        {
+          "type": "example",
+          "id": "ex-ek-room",
+          "question": "The air in a classroom is at $22\\,^{\\circ}\\text{C}$. Calculate the average kinetic energy of the air particles.",
+          "steps": [
+            "Convert to kelvin: $T = 22 + 273 = \\pu{295 K}$.",
+            "Substitute into $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ with $k_\\text{B}$ from the data booklet: $E_\\text{k} = \\frac{3}{2}(1.38 \\times 10^{-23})(295) = \\pu{6.107e-21 J}$.",
+            "The temperature has 2 significant figures, so give 2."
+          ],
+          "answer": "$E_\\text{k} \\approx 6.1 \\times 10^{-21}\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "Rational(3, 2)*kB*(22 + zero_celsius)",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ek-ratio",
+          "question": "A sample of gas is warmed from $15\\,^{\\circ}\\text{C}$ to $30\\,^{\\circ}\\text{C}$. A student says the average kinetic energy of its particles doubles. Determine the factor by which it actually increases, and comment on the student's claim.",
+          "steps": [
+            "$E_\\text{k} \\propto T$ only for $T$ in kelvin. Convert: $T_1 = \\pu{288 K}$ and $T_2 = \\pu{303 K}$.",
+            "Divide the two equations so $\\frac{3}{2}k_\\text{B}$ cancels: $\\dfrac{E_{\\text{k},2}}{E_{\\text{k},1}} = \\dfrac{T_2}{T_1} = \\dfrac{303}{288} = 1.052$.",
+            "Comment: the student doubled the Celsius value, which is not proportional to the energy. The average kinetic energy rises by only about 5%."
+          ],
+          "answer": "$\\dfrac{E_{\\text{k},2}}{E_{\\text{k},1}} \\approx 1.05$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(30 + zero_celsius)/(15 + zero_celsius)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ek-temperature",
+          "prompt": "At what temperature, in kelvin, is the average kinetic energy of gas particles $\\pu{5.0e-21 J}$? Give 2 significant figures.",
+          "hint": "Rearrange to $T = \\dfrac{2E_\\text{k}}{3k_\\text{B}}$.",
+          "answer": {
+            "value": 240,
+            "tolerance": 5
+          },
+          "explain": "$T = \\dfrac{2(5.0 \\times 10^{-21})}{3(1.38 \\times 10^{-23})} = \\pu{241.5 K} \\approx \\pu{240 K}$, about $-32\\,^{\\circ}\\text{C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*5.0*10**-21/(3*kB)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-helium-oxygen",
+          "prompt": "A container holds a mixture of helium atoms and oxygen molecules at the same temperature. An oxygen molecule has 8 times the mass of a helium atom. Which statement is correct?",
+          "hint": "Look at what $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ depends on, then use $E_\\text{k} = \\frac{1}{2}mv^{2}$.",
+          "options": [
+            {
+              "text": "same average kinetic energy, helium atoms faster on average",
+              "correct": true
+            },
+            {
+              "text": "same average kinetic energy, same average speed",
+              "correct": false
+            },
+            {
+              "text": "oxygen molecules have more average kinetic energy",
+              "correct": false
+            },
+            {
+              "text": "helium atoms have more average kinetic energy",
+              "correct": false
+            }
+          ],
+          "explain": "The average kinetic energy depends only on $T$, so it is the same for both. With equal $\\frac{1}{2}mv^{2}$, the lighter helium atoms must move faster.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same average kinetic energy, helium atoms faster on average"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{m}{V}",
+          "tag": "booklet",
+          "bookletId": "db-2-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\frac{3}{2}k_\\text{B}T",
+          "tag": "booklet",
+          "bookletId": "db-2-1",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solid: close, fixed positions, vibrating. Liquid: close, sliding past each other. Gas: far apart, fast and random, negligible forces except in collisions.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$T$ in K $= \\theta$ in $^{\\circ}\\text{C} + 273$. A temperature change has the same value in K and in $^{\\circ}\\text{C}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use kelvin whenever a temperature is multiplied, divided or put in a ratio.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\pu{1 cm3} = 10^{-6}\\ \\text{m}^{3}$, so $\\pu{1 g cm-3} = \\pu{1000 kg m-3}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Kelvin temperature measures the average random kinetic energy per particle, whatever the particle's mass.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using degrees Celsius in $E_\\text{k} = \\frac{3}{2}k_\\text{B}T$ or in any ratio of temperatures. Convert to kelvin first by adding 273.",
+    "Adding 273 to a temperature change. A change of $12\\,^{\\circ}\\text{C}$ is a change of $\\pu{12 K}$.",
+    "Writing the unit as $^{\\circ}\\text{K}$. The kelvin has no degree sign: write $\\pu{300 K}$.",
+    "Turning $\\text{cm}^{3}$ into $\\text{m}^{3}$ by dividing by 100. Divide by $10^{6}$, then the density comes out in $\\text{kg m}^{-3}$.",
+    "Saying temperature measures \"the energy\" or the total kinetic energy of the particles. It measures their average random kinetic energy.",
+    "Saying particles in a solid are still. They vibrate about fixed positions."
+  ],
+  "examTips": [
+    "\"Describe\" or \"explain\" a difference between phases: compare the spacing of the particles, how they move and the forces between them. Name the phase in each sentence and give one point per sentence.",
+    "\"Calculate\" a density: convert to kg and $\\text{m}^{3}$, write $\\rho = \\frac{m}{V}$, substitute, then give the answer in $\\text{kg m}^{-3}$ to the significant figures of the least precise datum.",
+    "In Paper 1A ratio questions, convert every temperature to kelvin before any multiplying or dividing; a temperature difference can stay in $^{\\circ}\\text{C}$.",
+    "\"State what is meant by\" temperature: say it is a measure of the average random kinetic energy of the particles. \"Energy\" on its own is too vague."
+  ],
+  "readingMinutes": 27
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" role="img" aria-labelledby="t114tt">
+  <title id="t114tt">Graph of resultant torque in newton metres against time in seconds for a rotor. The torque rises in a straight line from zero at time zero to 4.0 newton metres at 0.50 seconds, stays at 4.0 newton metres until 1.50 seconds, then falls in a straight line to zero at 2.00 seconds. The shaded area under the graph is labelled angular impulse.</title>
+  <!-- shaded area -->
+  <polygon points="60,220 120,80 240,80 300,220" fill="var(--t3-ink)" fill-opacity="0.15" stroke="none"/>
+  <!-- axes -->
+  <path d="M60 220 L383 220" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <polygon points="390,220 383,224.5 383,215.5" fill="currentColor"/>
+  <path d="M60 220 L60 27" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <polygon points="60,20 64.5,27 55.5,27" fill="currentColor"/>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="390" y="248" text-anchor="end">time t / s</text>
+    <text x="68" y="26">torque τ / N m</text>
+    <text x="52" y="224" text-anchor="end">0</text>
+    <text x="52" y="154" text-anchor="end">2.0</text>
+    <text x="52" y="84" text-anchor="end">4.0</text>
+    <text x="120" y="236" text-anchor="middle">0.50</text>
+    <text x="180" y="236" text-anchor="middle">1.00</text>
+    <text x="240" y="236" text-anchor="middle">1.50</text>
+    <text x="300" y="236" text-anchor="middle">2.00</text>
+  </g>
+  <!-- ticks -->
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="56" y1="150" x2="60" y2="150"/>
+    <line x1="56" y1="80" x2="60" y2="80"/>
+    <line x1="120" y1="220" x2="120" y2="224"/>
+    <line x1="180" y1="220" x2="180" y2="224"/>
+    <line x1="240" y1="220" x2="240" y2="224"/>
+    <line x1="300" y1="220" x2="300" y2="224"/>
+  </g>
+  <!-- guide lines -->
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="60" y1="80" x2="120" y2="80"/>
+    <line x1="120" y1="80" x2="120" y2="220"/>
+    <line x1="240" y1="80" x2="240" y2="220"/>
+  </g>
+  <!-- graph -->
+  <path d="M60 220 L120 80 L240 80 L300 220" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+  <text x="180" y="160" font-family="inherit" font-size="12" fill="var(--t3-ink)" text-anchor="middle">area = angular impulse</text>
+</svg>

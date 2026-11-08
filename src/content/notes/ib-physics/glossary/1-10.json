@@ -1,0 +1,26 @@
+[
+  {
+    "id": "kinetic-energy",
+    "term": "kinetic energy",
+    "definition": "The energy a body has because it is moving, $E_\\text{k} = \\tfrac{1}{2}mv^{2} = \\frac{p^{2}}{2m}$; a scalar that is never negative, measured in joules.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "gravitational-potential-energy",
+    "term": "gravitational potential energy",
+    "definition": "The energy a body has because of its position in a gravitational field; close to Earth's surface its change is $\\Delta E_\\text{p} = mg\\Delta h$, with $\\Delta h$ the vertical change in height.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "elastic-potential-energy",
+    "term": "elastic potential energy",
+    "definition": "The energy stored in a stretched or compressed body such as a spring; for a spring obeying Hooke's law it is $E_\\text{H} = \\tfrac{1}{2}k(\\Delta x)^{2}$.",
+    "lesson": "1.10"
+  },
+  {
+    "id": "mechanical-energy",
+    "term": "mechanical energy",
+    "definition": "The sum of a system's kinetic, gravitational potential and elastic potential energy; it stays constant when only weight and spring forces do work, with no friction, air resistance or driving force.",
+    "lesson": "1.10"
+  }
+]

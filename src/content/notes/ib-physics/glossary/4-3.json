@@ -1,0 +1,14 @@
+[
+  {
+    "id": "escape-speed",
+    "term": "escape speed",
+    "definition": "The minimum speed an unpowered object needs at a point in a gravitational field to reach infinity, ignoring air resistance: $v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}$. It does not depend on the object's mass.",
+    "lesson": "4.3"
+  },
+  {
+    "id": "orbital-speed",
+    "term": "orbital speed",
+    "definition": "The speed of a body in a circular orbit around a much larger mass, where gravity provides the centripetal force: $v_\\text{orbital} = \\sqrt{\\frac{GM}{r}}$, with $r$ measured from the centre. Lower orbits are faster.",
+    "lesson": "4.3"
+  }
+]

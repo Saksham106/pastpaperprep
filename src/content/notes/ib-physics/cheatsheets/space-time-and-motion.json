@@ -1,0 +1,69 @@
+{
+  "lines": [
+    {
+      "text": "Straight-line motion → constant acceleration: use the equation of motion that leaves out the quantity you neither know nor want; changing acceleration or a curved graph: use tangent gradients and areas instead ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Projectile launched horizontally or at an angle, air resistance negligible → resolve $u$ and treat horizontal (constant $u_x$) and vertical (acceleration $g$ down) motion separately; the time comes from the vertical ({{lesson:1.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Forces on one body → draw the free-body diagram; if it is at rest or at constant velocity the forces balance in each direction, otherwise resultant force $= ma$ along the acceleration ({{lesson:1.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Average force in an impact, or a force–time graph → impulse = change in momentum, $F\\Delta t = \\Delta p$, with the impulse as the area under the graph ({{lesson:1.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Collision or explosion along a line with no resultant external force → total momentum before = after, with signs; then compare total $E_\\text{k}$ to call it elastic or inelastic ({{lesson:1.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Collision or explosion at an angle → conserve the $x$ and $y$ components of momentum separately, then combine with Pythagoras ({{lesson:1.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Body moving in a circle → find the real forces; their resultant towards the centre equals $\\frac{mv^{2}}{r}$; at the top or bottom of a vertical circle, forces towards the centre minus forces away $= \\frac{mv^{2}}{r}$ ({{lesson:1.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Speed after a drop on a curved track, a slide or a spring launch → energy, not the equations of motion: $\\tfrac{1}{2}mv^{2}$, $mg\\Delta h$, $\\tfrac{1}{2}k(\\Delta x)^{2}$, plus the work done by friction if it acts ({{lesson:1.10}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Beam or shelf in balance with two unknown support forces → take torques about one support, so its force drops out, to find the other; then use force balance (upward forces = downward forces) for the first; put the beam's weight at its centre of mass ({{lesson:1.12}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Drum on a frictionless axle, turned by a rope with a hanging load → write $mg - T = ma$ for the load (down positive) and $Tr = I\\alpha$ for the drum, linked by $a = \\alpha r$ ({{lesson:1.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Spinning body pulls its mass in, or two discs on one axle start turning together, with no resultant external torque → conserve angular momentum, $I_{1}\\omega_{1} = I_{2}\\omega_{2}$, then find each $E_\\text{k}$ with its own $I$ ({{lesson:1.14}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Velocity of one fast object seen from another, near $c$ → relativistic velocity addition $u' = \\frac{u - v}{1 - uv/c^{2}}$, with signs on $u$ and $v$; the answer stays below $c$ ({{lesson:1.16}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Who measures the shorter time or the longer length → proper time is in the frame where both events happen at the same place ($\\Delta t = \\gamma\\Delta t_0$); proper length is in the object's rest frame ($L = L_0/\\gamma$) ({{lesson:1.17}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

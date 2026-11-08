@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t">
+  <title id="t">Wavefront diagram for a source moving to the right. Five circular wavefronts are drawn, each centred on a small open circle marking where the source was when it emitted that wavefront; the older, larger circles are centred further left. The source, a filled dot, is now at the right of the centres, with an arrow pointing right labelled source velocity. To the right of the source the wavefronts are crowded close together, marked short wavelength, and observer A on that side receives a higher frequency. To the left the wavefronts are spread further apart, marked long wavelength, and observer B on that side receives a lower frequency.</title>
+  <circle cx="255" cy="150" r="140" fill="none" stroke="var(--muted)" stroke-width="1.3"/>
+  <circle cx="255" cy="150" r="2.5" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <circle cx="266" cy="150" r="112" fill="none" stroke="var(--muted)" stroke-width="1.3"/>
+  <circle cx="266" cy="150" r="2.5" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <circle cx="277" cy="150" r="84" fill="none" stroke="var(--muted)" stroke-width="1.3"/>
+  <circle cx="277" cy="150" r="2.5" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <circle cx="288" cy="150" r="56" fill="none" stroke="var(--muted)" stroke-width="1.3"/>
+  <circle cx="288" cy="150" r="2.5" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <circle cx="299" cy="150" r="28" fill="none" stroke="var(--muted)" stroke-width="1.3"/>
+  <circle cx="299" cy="150" r="2.5" fill="none" stroke="var(--muted)" stroke-width="1"/>
+  <path d="M361 150 L378 150" stroke="var(--t1-ink)" stroke-width="3"/>
+  <path d="M154 150 L193 150" stroke="var(--t2-ink)" stroke-width="3"/>
+  <circle cx="310" cy="150" r="5" fill="currentColor"/>
+  <path d="M310 110 L346.0 110.0" fill="none" stroke="currentColor" stroke-width="1.8"/><polygon points="354,110 346.0,106.0 346.0,114.0" fill="currentColor"/>
+  <text x="332" y="102" font-size="11" fill="currentColor" font-family="inherit" text-anchor="middle">source velocity</text>
+  <text x="369.5" y="166" font-size="11" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">short λ</text>
+  <text x="173.5" y="166" font-size="11" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">long λ</text>
+  <circle cx="462" cy="150" r="5" fill="var(--t1-ink)"/>
+  <text x="462" y="136" font-size="12" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">observer A</text>
+  <text x="462" y="172" font-size="11" fill="var(--t1-ink)" font-family="inherit" text-anchor="middle">higher f</text>
+  <circle cx="58" cy="150" r="5" fill="var(--t2-ink)"/>
+  <text x="58" y="136" font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">observer B</text>
+  <text x="58" y="172" font-size="11" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">lower f</text>
+</svg>

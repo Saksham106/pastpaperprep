@@ -1,0 +1,915 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "6.2",
+  "slug": "scalars-and-vectors",
+  "title": "Scalars and vectors",
+  "level": "SL",
+  "topic": 6,
+  "summary": "A [[scalar|scalar]] has size only. A [[vector|vector]] has size and direction, so [[vector-addition|vector addition]] works with arrows placed head to tail, not plain sums. [[resolving-a-vector|Resolving a vector]] into two perpendicular components turns awkward angles into simple sums, and the [[radian|radian]] measures angles by arc length, which is how rotation and waves are described.",
+  "goals": [
+    {
+      "text": "Identify a quantity as a scalar or a vector, and use a sign to give a vector's direction along a line.",
+      "bullets": [
+        "T3.8"
+      ]
+    },
+    {
+      "text": "Draw a vector to scale, labelled with its magnitude, direction and point of application.",
+      "bullets": [
+        "T3.9"
+      ]
+    },
+    {
+      "text": "Multiply a vector by a scalar, including a negative one, and say what happens to its size and direction.",
+      "bullets": [
+        "T3.11"
+      ]
+    },
+    {
+      "text": "Add and subtract up to three vectors in a plane, by drawing and by calculation.",
+      "bullets": [
+        "T3.10"
+      ]
+    },
+    {
+      "text": "Resolve a vector into two perpendicular components, and use components to add vectors.",
+      "bullets": [
+        "T3.12"
+      ]
+    },
+    {
+      "text": "Measure angles in radians and convert between degrees and radians.",
+      "bullets": [
+        "T3.13",
+        "T3.14"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "scalar and vector quantities",
+    "resultant vector",
+    "head to tail",
+    "components of a vector",
+    "resolving forces",
+    "degrees to radians"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides of $\\pu{2.4 cm}$ and $\\pu{7.0 cm}$. How long is the hypotenuse, in cm? Give 2 significant figures.",
+      "hint": "Pythagoras: $c^{2} = a^{2} + b^{2}$.",
+      "answer": {
+        "value": 7.4,
+        "tolerance": 0.05
+      },
+      "explain": "$c = \\sqrt{2.4^{2} + 7.0^{2}} = \\sqrt{54.76} = 7.4$ cm.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(2.4**2 + 7.0**2)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sine-side",
+      "prompt": "A right-angled triangle has a hypotenuse of $\\pu{15 cm}$ and an angle of $40^{\\circ}$. How long is the side opposite that angle, in cm? Give 2 significant figures.",
+      "hint": "SOH: $\\sin\\theta = \\frac{\\text{opposite}}{\\text{hypotenuse}}$.",
+      "answer": {
+        "value": 9.6,
+        "tolerance": 0.05
+      },
+      "explain": "Opposite $= 15\\sin 40^{\\circ} = 9.64... \\approx 9.6$ cm.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "15*sind(40)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-circumference",
+      "prompt": "What is the circumference of a circle of radius $\\pu{0.30 m}$, in metres? Give 2 significant figures.",
+      "hint": "Circumference $= 2\\pi r$.",
+      "answer": {
+        "value": 1.9,
+        "tolerance": 0.05
+      },
+      "explain": "$2\\pi \\times 0.30 = 1.88... \\approx \\pu{1.9 m}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*pi*0.30",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scalar-or-vector",
+      "heading": "Scalar or vector?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "'Walk 50 m' doesn't tell you where you will end up. 'Walk 50 m north' does. Some quantities need a direction to be complete, and some don't."
+        },
+        {
+          "type": "definition",
+          "term": "scalar",
+          "statement": "A quantity that has magnitude only.",
+          "plain": "A number with a unit, and nothing about which way."
+        },
+        {
+          "type": "definition",
+          "term": "vector",
+          "statement": "A quantity that has both magnitude and direction.",
+          "plain": "A number with a unit, plus which way it points."
+        },
+        {
+          "type": "text",
+          "text": "Scalars include mass, [[distance|distance]], [[speed|speed]], time, [[energy|energy]], [[power|power]], temperature, pressure and charge."
+        },
+        {
+          "type": "text",
+          "text": "Vectors include [[displacement|displacement]], [[velocity|velocity]], [[acceleration|acceleration]], [[force|force]] (including weight), momentum and field strength."
+        },
+        {
+          "type": "result",
+          "statement": "To sort a quantity, ask whether it needs a direction to be complete. If it does, it is a vector. (Current is the exception: it has a sense round a circuit but adds as a plain number, so it is a scalar.) Distance and speed are the scalar partners of displacement and velocity.",
+          "why": "A force of 10 N to the left and one of 10 N to the right have very different effects, but 10 J of energy is the same whichever way it moves."
+        },
+        {
+          "type": "text",
+          "text": "Along a straight line, a vector's direction is just a sign. Choose a positive direction, then a vector pointing the other way is negative."
+        },
+        {
+          "type": "text",
+          "text": "A scalar can be negative too, such as a temperature of $-5\\,^{\\circ}\\text{C}$ or a negative charge. That sign is not a direction."
+        },
+        {
+          "type": "text",
+          "text": "Electric current flows one way round a circuit, but it is a scalar. Currents meeting at a junction add as plain numbers, whatever the angle between the wires."
+        },
+        {
+          "type": "example",
+          "id": "ex-hiker-gps",
+          "question": "A hiker's GPS watch shows she has walked $\\pu{9.0 km}$ along a winding trail. It also shows that she is $\\pu{2.0 km}$ from where she started. Explain how both readings can be correct.",
+          "steps": [
+            "Marking point 1: name what each reading measures, distance and displacement.",
+            "Marking point 2: distance is a scalar, the total length of the path.",
+            "Marking point 3: displacement is a vector, the straight-line change in position.",
+            "Marking point 4: the trail is not straight, so the path is longer than the straight line."
+          ],
+          "answer": "The first reading is her distance and the second is the magnitude of her displacement. Distance is a scalar: it is the total length of the path, with no direction. Displacement is a vector: it is the straight-line change in position from start to finish, with a direction. The trail winds, so the path is longer than the straight line. So the distance, 9.0 km, is larger than the displacement's magnitude, 2.0 km.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "distance is the scalar path length; displacement is the vector straight-line change in position; winding path is longer",
+            "requires": [
+              "distance",
+              "scalar",
+              [
+                "total length of the path",
+                "length of the path"
+              ],
+              "vector",
+              [
+                "straight-line change in position",
+                "straight line"
+              ],
+              [
+                "winds",
+                "not straight"
+              ],
+              [
+                "larger",
+                "longer"
+              ]
+            ],
+            "forbids": [
+              "distance is a vector",
+              "displacement is a scalar"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-displacement",
+          "question": "A lift rises $\\pu{18 m}$ from the ground floor, then goes down $\\pu{27 m}$ to an underground car park. Taking upwards as positive, determine the lift's displacement from the ground floor.",
+          "steps": [
+            "Up is positive, so the two displacements are $\\pu{+18 m}$ and $\\pu{-27 m}$.",
+            "Add them with their signs: $s = (+18) + (-27) = \\pu{-9 m}$.",
+            "The minus sign means $\\pu{9 m}$ below the ground floor.",
+            "Compare the distance travelled, a scalar: $18 + 27 = \\pu{45 m}$. Distances add without signs."
+          ],
+          "answer": "$s = \\pu{-9 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "18 + (-27)",
+            "unit": "m",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-only-vectors",
+          "prompt": "Which list contains only vector quantities?",
+          "hint": "For each quantity, ask: does it need a direction to be complete?",
+          "options": [
+            {
+              "text": "displacement, weight, momentum",
+              "correct": true
+            },
+            {
+              "text": "velocity, mass, force",
+              "correct": false
+            },
+            {
+              "text": "acceleration, speed, momentum",
+              "correct": false
+            },
+            {
+              "text": "energy, displacement, field strength",
+              "correct": false
+            }
+          ],
+          "explain": "Weight is a force, so it has a direction. Mass, speed and energy are scalars, so each other list contains one.",
+          "verify": {
+            "kind": "choice",
+            "truth": "displacement, weight, momentum"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-robot-track",
+          "prompt": "A robot moves $\\pu{4.5 m}$ forwards along a straight track, then $\\pu{7.0 m}$ backwards. Taking forwards as positive, what is its displacement, in metres?",
+          "hint": "Give the backward move a minus sign, then add.",
+          "answer": {
+            "value": -2.5,
+            "tolerance": 0.05
+          },
+          "explain": "$s = (+4.5) + (-7.0) = \\pu{-2.5 m}$: $\\pu{2.5 m}$ behind the start. The distance travelled is $\\pu{11.5 m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.5 - 7.0",
+            "dp": 1,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "drawing",
+      "heading": "Drawing vectors and multiplying by a scalar",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A vector is drawn as an arrow. Its length shows the magnitude, using a scale you state. Its arrowhead and angle show the direction."
+        },
+        {
+          "type": "text",
+          "text": "For a force, the arrow starts at the point of application: the point on the body where the force acts. A rope pulls where it is tied; weight acts at the centre of mass."
+        },
+        {
+          "type": "text",
+          "text": "Label each arrow with its symbol and magnitude, such as $T = \\pu{40 N}$, and give its angle from a reference line."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-drawing-a-force",
+          "alt": "A box rests on a horizontal floor. A rope is tied to the middle of its right-hand side, and a dot marks that point, labelled point of application. A force arrow starts at the dot and points up and to the right, at 30 degrees above a dashed horizontal reference line. The arrow is labelled T equals 40 N. Below, a scale bar shows that one quarter of the arrow's length represents 10 N.",
+          "caption": "The arrow is four scale lengths long, so it shows $\\pu{40 N}$, at $30^{\\circ}$ above the horizontal, starting where the rope is tied."
+        },
+        {
+          "type": "text",
+          "text": "In print a vector is often bold, $\\boldsymbol{F}$, and its magnitude plain, $F$. By hand, draw an arrow over the letter."
+        },
+        {
+          "type": "text",
+          "text": "Many equations multiply a vector by a scalar: weight is mass times $\\boldsymbol{g}$."
+        },
+        {
+          "type": "result",
+          "statement": "Multiplying a vector by a scalar $k$ multiplies its magnitude by the size of $k$. If $k$ is positive the direction is unchanged; if $k$ is negative the direction is reversed.",
+          "why": "$2\\boldsymbol{a}$ is $\\boldsymbol{a} + \\boldsymbol{a}$: two equal arrows head to tail in a line. $-\\boldsymbol{a}$ is the arrow that cancels $\\boldsymbol{a}$, so it points the opposite way."
+        },
+        {
+          "type": "text",
+          "text": "Dividing by a scalar follows the same rule. Mass and time are positive, so they never reverse a direction."
+        },
+        {
+          "type": "example",
+          "id": "ex-bag-weight",
+          "question": "A bag of mass $\\pu{2.4 kg}$ hangs from a hook. Calculate the magnitude of its weight and state its direction.",
+          "steps": [
+            "The acceleration of free fall is $g = \\pu{9.8 m s-2}$ (from the data booklet), vertically downwards.",
+            "Weight is the scalar $m$ times this vector: $F_\\text{g} = mg = 2.4 \\times 9.8 = \\pu{23.52 N}$.",
+            "The mass is positive, so the direction is unchanged: vertically downwards.",
+            "Round to 2 significant figures, like the mass."
+          ],
+          "answer": "$F_\\text{g} \\approx \\pu{24 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.4*g",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-displacement",
+          "question": "A delivery drone flies in a straight line at a constant velocity of $\\pu{4.5 m s-1}$ due west for $\\pu{12 s}$. Determine its displacement.",
+          "steps": [
+            "At constant velocity, displacement $=$ velocity $\\times$ time.",
+            "Time is a positive scalar, so the displacement points the same way as the velocity: due west.",
+            "Magnitude: $s = 4.5 \\times 12 = \\pu{54 m}$.",
+            "State both parts: 54 m due west."
+          ],
+          "answer": "$s = \\pu{54 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5*12",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-times-minus-two",
+          "prompt": "A vector is multiplied by $-2$. Which describes the new vector?",
+          "hint": "Deal with the size and the sign separately.",
+          "options": [
+            {
+              "text": "twice as long, in the opposite direction",
+              "correct": true
+            },
+            {
+              "text": "twice as long, in the same direction",
+              "correct": false
+            },
+            {
+              "text": "half as long, in the opposite direction",
+              "correct": false
+            },
+            {
+              "text": "the same length, in the opposite direction",
+              "correct": false
+            }
+          ],
+          "explain": "The size of $-2$ is 2, so the magnitude doubles. The minus sign reverses the direction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "twice as long, in the opposite direction"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-arrow",
+          "prompt": "On a scale drawing, $\\pu{1 cm}$ represents $\\pu{25 N}$. A force arrow is $\\pu{3.6 cm}$ long. What force does it represent, in newtons? Give 2 significant figures.",
+          "hint": "Each centimetre stands for 25 N.",
+          "answer": {
+            "value": 90,
+            "tolerance": 0.5
+          },
+          "explain": "$3.6 \\times 25 = \\pu{90 N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.6*25",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "adding",
+      "heading": "Adding and subtracting vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Walk 40 m east, then 30 m north. You have walked 70 m, but you are only 50 m from the start. Vectors at an angle don't add like plain numbers."
+        },
+        {
+          "type": "definition",
+          "term": "vector addition",
+          "statement": "Combining vectors by drawing them head to tail; the resultant runs from the tail of the first vector to the head of the last.",
+          "plain": "Follow each arrow in turn; the resultant is the shortcut from start to finish."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-head-to-tail",
+          "alt": "Left: two separate vectors. Vector a is a horizontal arrow pointing right. Vector b is a shorter arrow pointing up and to the right. Right: the same two vectors joined head to tail. Arrow a points right; arrow b starts at the head of a and points up and to the right. A third arrow, a plus b, runs straight from the tail of a to the head of b.",
+          "caption": "Move $\\boldsymbol{b}$ so its tail is at the head of $\\boldsymbol{a}$. The resultant $\\boldsymbol{a} + \\boldsymbol{b}$ closes the triangle."
+        },
+        {
+          "type": "text",
+          "text": "The order doesn't matter: $\\boldsymbol{a} + \\boldsymbol{b} = \\boldsymbol{b} + \\boldsymbol{a}$. For three vectors, add the third to the head of the second."
+        },
+        {
+          "type": "text",
+          "text": "There are three cases. Along one line, add with signs. At right angles, use Pythagoras and trigonometry. At any other angle, use a scale drawing or components (next section)."
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\sqrt{A^{2} + B^{2}} \\qquad \\tan\\theta = \\frac{B}{A}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $A$ and $B$ are perpendicular vectors, $R$ is the magnitude of the resultant, and $\\theta$ is the angle between $\\boldsymbol{R}$ and $\\boldsymbol{A}$."
+        },
+        {
+          "type": "text",
+          "text": "Two vectors give the biggest resultant when they point the same way, $A + B$, and the smallest when they are opposite, $|A - B|$. Every other angle gives a value between these."
+        },
+        {
+          "type": "example",
+          "id": "ex-hiker-three-legs",
+          "question": "A walker goes $\\pu{2.0 km}$ due north, then $\\pu{3.5 km}$ due east, then $\\pu{0.8 km}$ due south. Determine the magnitude of her displacement from her starting point.",
+          "steps": [
+            "Combine the two vectors along the north–south line first, with north positive: $(+2.0) + (-0.8) = \\pu{+1.2 km}$.",
+            "Now add $\\pu{1.2 km}$ north and $\\pu{3.5 km}$ east, which are perpendicular.",
+            "$s = \\sqrt{1.2^{2} + 3.5^{2}} = \\sqrt{13.69} = \\pu{3.7 km}$.",
+            "Direction: $\\tan\\theta = \\frac{3.5}{1.2}$, so $\\theta = 71.1^{\\circ}$ east of north."
+          ],
+          "answer": "$s = \\pu{3.7 km}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((2.0 - 0.8)**2 + 3.5**2)",
+            "unit": "km"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding magnitudes of vectors at an angle. 40 m east plus 30 m north is not 70 m; only vectors in the same direction add like that."
+        },
+        {
+          "type": "check",
+          "id": "check-perpendicular-forces",
+          "prompt": "Forces of $\\pu{9.0 N}$ and $\\pu{15 N}$ act on the same point, at right angles to each other. What is the magnitude of their resultant?",
+          "hint": "Draw them head to tail: the resultant is a hypotenuse.",
+          "options": [
+            {
+              "text": "$\\approx \\pu{17 N}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{24 N}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{6.0 N}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{12 N}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{9.0^{2} + 15^{2}} = \\sqrt{306} = 17.5... \\approx \\pu{17 N}$. 24 N and 6.0 N would need the forces along one line, and 12 N subtracts the squares.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(9.0**2 + 15**2)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Subtracting a vector means adding its negative: $\\boldsymbol{a} - \\boldsymbol{b} = \\boldsymbol{a} + (-\\boldsymbol{b})$. Reverse $\\boldsymbol{b}$, then add it head to tail as before."
+        },
+        {
+          "type": "text",
+          "text": "You subtract vectors whenever you need a change. The change in velocity is final minus initial."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta\\boldsymbol{v} = \\boldsymbol{v}_\\text{f} - \\boldsymbol{v}_\\text{i} = \\boldsymbol{v}_\\text{f} + (-\\boldsymbol{v}_\\text{i})",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Along a line, give each velocity its sign before subtracting. A body that reverses direction has a change in velocity bigger than either speed."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-change-in-velocity",
+          "alt": "Left: a puck's velocities. The initial velocity, 6.0 metres per second east, is a long arrow pointing right. The final velocity, 2.5 metres per second north, is a shorter arrow pointing up. Right: the subtraction drawn head to tail. The final velocity arrow points up. From its head, the reversed initial velocity, 6.0 metres per second, points left. The change in velocity runs from the tail of the final velocity to the head of the reversed initial velocity, pointing up and to the left, north of west, with magnitude 6.5 metres per second.",
+          "caption": "$\\Delta\\boldsymbol{v} = \\boldsymbol{v}_\\text{f} + (-\\boldsymbol{v}_\\text{i})$: reverse the initial velocity, then add head to tail."
+        },
+        {
+          "type": "example",
+          "id": "ex-puck-turn",
+          "question": "An ice-hockey puck slides due east at $\\pu{6.0 m s-1}$. A stick hits it, and it then slides due north at $\\pu{2.5 m s-1}$. Calculate the magnitude of the change in its velocity.",
+          "steps": [
+            "$\\Delta\\boldsymbol{v} = \\boldsymbol{v}_\\text{f} + (-\\boldsymbol{v}_\\text{i})$. Reversing the initial velocity gives $\\pu{6.0 m s-1}$ due west.",
+            "Add $\\pu{2.5 m s-1}$ north and $\\pu{6.0 m s-1}$ west. They are perpendicular, so use Pythagoras.",
+            "$\\Delta v = \\sqrt{2.5^{2} + 6.0^{2}} = \\sqrt{42.25} = \\pu{6.5 m s-1}$.",
+            "The change points north of west, so the stick pushed the puck north of west."
+          ],
+          "answer": "$\\Delta v = \\pu{6.5 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(2.5**2 + 6.0**2)",
+            "unit": "m s-1"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-puck-angle",
+            "prompt": "Now you try: what is the angle between $\\Delta\\boldsymbol{v}$ and due west?",
+            "hint": "In the right-hand triangle, 2.5 is opposite the angle at the west end and 6.0 is adjacent to it.",
+            "options": [
+              {
+                "text": "$\\approx 22.6^{\\circ}$",
+                "correct": true
+              },
+              {
+                "text": "$\\approx 67.4^{\\circ}$",
+                "correct": false
+              },
+              {
+                "text": "$\\approx 24.6^{\\circ}$",
+                "correct": false
+              }
+            ],
+            "explain": "$\\tan\\theta = \\frac{2.5}{6.0}$, so $\\theta \\approx 22.6^{\\circ}$ north of west. $67.4^{\\circ}$ is the angle from north, and $24.6^{\\circ}$ uses $\\sin$ with 6.0 as the hypotenuse.",
+            "verify": {
+              "kind": "angle",
+              "truth": "atand(2.5/6.0)"
+            }
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-p-minus-q",
+          "prompt": "How do you draw $\\boldsymbol{P} - \\boldsymbol{Q}$?",
+          "hint": "Write it as an addition first.",
+          "options": [
+            {
+              "text": "reverse Q, then add it to P head to tail",
+              "correct": true
+            },
+            {
+              "text": "reverse P, then add it to Q head to tail",
+              "correct": false
+            },
+            {
+              "text": "add P and Q head to tail, then reverse the resultant",
+              "correct": false
+            },
+            {
+              "text": "with tails together, draw from the head of P to the head of Q",
+              "correct": false
+            }
+          ],
+          "explain": "$\\boldsymbol{P} - \\boldsymbol{Q} = \\boldsymbol{P} + (-\\boldsymbol{Q})$. Reversing $\\boldsymbol{P}$ instead gives $\\boldsymbol{Q} - \\boldsymbol{P}$, and reversing the sum gives $-\\boldsymbol{P} - \\boldsymbol{Q}$. With tails together, $\\boldsymbol{P} - \\boldsymbol{Q}$ runs from the head of $\\boldsymbol{Q}$ to the head of $\\boldsymbol{P}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "reverse Q, then add it to P head to tail"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-car-reverse",
+          "prompt": "A car is moving at $\\pu{22 m s-1}$ due north. Later it is moving at $\\pu{15 m s-1}$ due south. Taking north as positive, what is the change in its velocity, in $\\pu{m s-1}$?",
+          "hint": "Final minus initial, with south negative.",
+          "answer": {
+            "value": -37,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta v = (-15) - (+22) = \\pu{-37 m s-1}$, southwards. Subtracting the speeds, $15 - 22$, ignores the reversal.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-15 - 22",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "resolving",
+      "heading": "Resolving a vector into components",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Resolving runs addition backwards: it replaces one vector with two perpendicular vectors that add up to it."
+        },
+        {
+          "type": "definition",
+          "term": "resolving a vector",
+          "statement": "Replacing a vector by two perpendicular components whose vector sum is the original vector.",
+          "plain": "Asking how much of a push acts sideways and how much acts up."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-components",
+          "alt": "A force F is an arrow from point O, pointing up and to the right at angle theta above the horizontal. Its horizontal component, F cos theta, runs along the horizontal from O to directly below the head of F. Its vertical component, F sin theta, is a dashed arrow from there straight up to the head of F. The two components meet at a right angle.",
+          "caption": "The components are the two shorter sides of a right-angled triangle, with $\\boldsymbol{F}$ as the hypotenuse."
+        },
+        {
+          "type": "formula",
+          "tex": "F_x = F\\cos\\theta \\qquad F_y = F\\sin\\theta",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\theta$ is measured from the $x$-direction. The component next to the angle uses $\\cos$; the one opposite it uses $\\sin$."
+        },
+        {
+          "type": "text",
+          "text": "Choose the directions to suit the problem: horizontal and vertical, or along and perpendicular to a slope. Give each component a sign from your positive directions."
+        },
+        {
+          "type": "text",
+          "text": "Components also add vectors at any angle. Resolve each vector, add all the $x$-components and all the $y$-components, then combine the two totals with Pythagoras."
+        },
+        {
+          "type": "example",
+          "id": "ex-suitcase-handle",
+          "question": "A suitcase is pulled along level ground by its handle. The force on the handle is $\\pu{60 N}$ at $25^{\\circ}$ above the horizontal. Calculate the horizontal component of this force.",
+          "steps": [
+            "The horizontal side of the triangle is next to the 25° angle, so it uses cos.",
+            "$F_x = 60\\cos 25^{\\circ} = \\pu{54.38 N}$.",
+            "For comparison, the vertical component is $60\\sin 25^{\\circ} = \\pu{25.4 N}$, which partly lifts the case.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$F_x \\approx \\pu{54 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "60*cosd(25)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ring-three-ropes",
+          "question": "Three ropes are tied to a metal ring lying on a smooth, horizontal floor. Seen from above, they pull with $\\pu{25 N}$ due east, $\\pu{18 N}$ at $60^{\\circ}$ north of east, and $\\pu{10 N}$ due west. Determine the magnitude of the resultant force on the ring.",
+          "steps": [
+            "Take east and north as positive.",
+            "East components: $25 + 18\\cos 60^{\\circ} - 10 = 25 + 9.0 - 10 = \\pu{24.0 N}$.",
+            "North components: $0 + 18\\sin 60^{\\circ} + 0 = \\pu{15.59 N}$.",
+            "Combine: $R = \\sqrt{24.0^{2} + 15.59^{2}} = \\pu{28.62 N}$.",
+            "Direction: $\\tan\\theta = \\frac{15.59}{24.0}$, so $\\theta = 33.0^{\\circ}$ north of east."
+          ],
+          "answer": "$R \\approx \\pu{29 N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((25 + 18*cosd(60) - 10)**2 + (18*sind(60))**2)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a \"determine\" question on Paper 2, set out the components in two lines, one per direction, before combining them. Each line can earn a method mark."
+        },
+        {
+          "type": "check",
+          "id": "check-ramp-component",
+          "prompt": "A box of weight $\\pu{50 N}$ rests on a ramp at $20^{\\circ}$ to the horizontal. What is the component of its weight along the ramp?",
+          "hint": "The angle between the weight and the line perpendicular to the ramp equals the ramp angle.",
+          "options": [
+            {
+              "text": "$\\approx \\pu{17 N}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx \\pu{47 N}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx \\pu{18 N}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{50 N}$",
+              "correct": false
+            }
+          ],
+          "explain": "The component along the ramp is opposite the $20^{\\circ}$ angle: $50\\sin 20^{\\circ} = 17.1... \\approx \\pu{17 N}$. $\\pu{47 N}$ is the component perpendicular to the ramp, and $\\pu{18 N}$ uses $\\tan$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "50*sind(20)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-downward-component",
+          "prompt": "A stone is thrown at $\\pu{7.5 m s-1}$, at $40^{\\circ}$ below the horizontal. Taking upwards as positive, what is the vertical component of its velocity, in $\\pu{m s-1}$? Give 2 significant figures.",
+          "hint": "The vertical side is opposite the angle. Then decide its sign.",
+          "answer": {
+            "value": -4.8,
+            "tolerance": 0.05
+          },
+          "explain": "$7.5\\sin 40^{\\circ} = 4.82...$, and it points down, so $v_y \\approx \\pu{-4.8 m s-1}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-7.5*sind(40)",
+            "sf": 2,
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "radians",
+      "heading": "Radians",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A degree is an arbitrary $\\frac{1}{360}$ of a turn. The radian measures an angle by the arc it cuts off a circle, which makes rotation and wave equations simpler."
+        },
+        {
+          "type": "definition",
+          "term": "radian",
+          "statement": "The angle at the centre of a circle when the arc it cuts off is equal in length to the radius.",
+          "plain": "Walk one radius along the edge of a circle; the angle you turn through is one radian."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-radian",
+          "alt": "A circle with centre O and radius r. Two radii run from O: one horizontally to the right, the other up and to the right. The arc of the circle between their ends is drawn thick and labelled arc length equals r. The angle at O between the two radii is labelled 1 rad, which is about 57 degrees.",
+          "caption": "An arc equal to the radius makes an angle of $\\pu{1 rad}$, about $57.3^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "In general, an arc of length $s$ on a circle of radius $r$ makes an angle $\\theta$ at the centre, in radians:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\theta = \\frac{s}{r}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A whole turn has arc length $2\\pi r$, the circumference, so it is $2\\pi$ rad. That fixes the conversion: $2\\pi\\ \\text{rad} = 360^{\\circ}$, so $\\pi\\ \\text{rad} = 180^{\\circ}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\theta_\\text{rad} = \\theta_\\text{deg} \\times \\frac{\\pi}{180} \\qquad \\theta_\\text{deg} = \\theta_\\text{rad} \\times \\frac{180}{\\pi}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A radian is a length divided by a length, so it has no dimensions. Still write 'rad', as in angular velocity in $\\pu{rad s-1}$."
+        },
+        {
+          "type": "text",
+          "text": "Set your calculator to radian mode to find $\\sin$ or $\\cos$ of an angle in radians, and back to degree mode for degrees."
+        },
+        {
+          "type": "example",
+          "id": "ex-degrees-to-radians",
+          "question": "Convert $72^{\\circ}$ to radians. Give your answer to 3 significant figures.",
+          "steps": [
+            "Multiply by $\\frac{\\pi}{180}$: $\\theta = 72 \\times \\frac{\\pi}{180} = \\frac{2\\pi}{5}$.",
+            "$\\frac{2\\pi}{5} = \\pu{1.2566 rad}$.",
+            "Sense check: $72^{\\circ}$ is a little more than $57.3^{\\circ}$, so a little more than 1 rad."
+          ],
+          "answer": "$\\theta \\approx \\pu{1.26 rad}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "72*pi/180",
+            "sf": 3,
+            "unit": "rad"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wiper-arc",
+          "question": "A car's windscreen wiper blade is $\\pu{0.48 m}$ long. It sweeps through $110^{\\circ}$ about its pivot. Calculate the length of the arc traced by the tip of the blade.",
+          "steps": [
+            "$\\theta = \\frac{s}{r}$ only works in radians, so convert first: $110 \\times \\frac{\\pi}{180} = \\pu{1.920 rad}$.",
+            "Rearrange: $s = r\\theta = 0.48 \\times 1.920 = \\pu{0.9215 m}$.",
+            "Using 110 directly would give $\\pu{52.8 m}$, which is far too long for a wiper.",
+            "Round to 2 significant figures, like the blade length."
+          ],
+          "answer": "$s \\approx \\pu{0.92 m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.48*110*pi/180",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using degrees in $s = r\\theta$, or leaving the calculator in degree mode for a radian angle. Check the mode before every trigonometry calculation."
+        },
+        {
+          "type": "check",
+          "id": "check-radians-to-degrees",
+          "prompt": "A pendulum swings through an angle of $\\pu{0.35 rad}$. What is this angle in degrees?",
+          "hint": "Multiply by $\\frac{180}{\\pi}$.",
+          "options": [
+            {
+              "text": "$\\approx 20.1^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 63.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 1.1^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.35 \\times \\frac{180}{\\pi} = 20.05... \\approx 20.1^{\\circ}$. $63.0^{\\circ}$ forgets to divide by $\\pi$, and $1.1^{\\circ}$ multiplies by $\\pi$ instead.",
+          "verify": {
+            "kind": "angle",
+            "truth": "0.35*180/pi"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arc-angle",
+          "prompt": "An arc of length $\\pu{0.15 m}$ is cut off a circle of radius $\\pu{0.60 m}$. What angle does it make at the centre, in radians? Give 2 decimal places.",
+          "hint": "Use $\\theta = \\frac{s}{r}$ with both lengths in metres.",
+          "answer": {
+            "value": 0.25,
+            "tolerance": 0.005
+          },
+          "explain": "$\\theta = \\frac{0.15}{0.60} = \\pu{0.25 rad}$, about $14^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.15/0.60",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Scalar: magnitude only (mass, distance, speed, time, energy, power, temperature, charge, current). Vector: magnitude and direction (displacement, velocity, acceleration, force, momentum, field strength).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Draw a vector as an arrow: length to a stated scale, direction from a reference line, starting at the point of application. $k\\boldsymbol{a}$ has magnitude $|k|a$; a negative $k$ reverses the direction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add vectors head to tail; the resultant runs from the first tail to the last head. Subtract by adding the negative: $\\Delta\\boldsymbol{v} = \\boldsymbol{v}_\\text{f} - \\boldsymbol{v}_\\text{i}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\sqrt{A^{2} + B^{2}} \\qquad \\tan\\theta = \\frac{B}{A} \\quad (\\boldsymbol{A} \\perp \\boldsymbol{B})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "F_x = F\\cos\\theta \\qquad F_y = F\\sin\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\theta = \\frac{s}{r} \\qquad 2\\pi\\ \\text{rad} = 360^{\\circ}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding the magnitudes of vectors that are not in the same direction. Draw them head to tail, then use Pythagoras or components.",
+    "Writing a change in velocity as final speed minus initial speed when the body reverses. Give each velocity its sign first: $(-15) - (+22) = -37$, not $-7$.",
+    "Swapping $\\sin$ and $\\cos$ when resolving. The component next to the angle uses $\\cos$, whichever way the diagram is drawn.",
+    "Calling a quantity a vector because it can be negative. Temperature and charge can be negative but have no direction.",
+    "Using degrees in $s = r\\theta$. Convert to radians first, with $\\pi\\ \\text{rad} = 180^{\\circ}$."
+  ],
+  "examTips": [
+    "In a Paper 1A \"which list\" question, test each quantity on its own: does it need a direction to be complete?",
+    "\"Draw and label\" a force: start the arrow at the point of application, make its length match the size, and label it with a symbol.",
+    "\"Calculate\" or \"determine\" a resultant: give the magnitude with a unit and the direction as an angle from a stated reference, such as 33° north of east.",
+    "When a question gives an angle in radians, write \"rad\" and check your calculator mode before using sin, cos or tan."
+  ],
+  "readingMinutes": 29
+}

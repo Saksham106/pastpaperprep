@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="t47pd">
+  <title id="t47pd">Two horizontal parallel plates, the top one positive and the bottom one negative, with straight, parallel electric field lines pointing down between them. An electron enters midway between the plates from the left, moving horizontally with velocity v. Between the plates its path curves upwards, towards the positive plate, along a parabola. An arrow on the electron points straight up, labelled electric force e E. After leaving the plates the electron travels in a straight line, still angled upwards.</title>
+  <defs>
+    <marker id="m47pd-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+    </marker>
+    <marker id="m47pd-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t5-ink)"/>
+    </marker>
+    <marker id="m47pd-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+  </defs>
+
+  <!-- plates -->
+  <rect x="120" y="40" width="260" height="10" fill="var(--t1-ink)" fill-opacity="0.25" stroke="var(--t1-ink)" stroke-width="1.3"/>
+  <rect x="120" y="200" width="260" height="10" fill="var(--t3-ink)" fill-opacity="0.25" stroke="var(--t3-ink)" stroke-width="1.3"/>
+  <g font-family="inherit" font-size="15" text-anchor="middle">
+    <text x="150" y="33" fill="var(--t1-ink)">+</text><text x="210" y="33" fill="var(--t1-ink)">+</text>
+    <text x="270" y="33" fill="var(--t1-ink)">+</text><text x="330" y="33" fill="var(--t1-ink)">+</text>
+    <text x="150" y="228" fill="var(--t3-ink)">−</text><text x="210" y="228" fill="var(--t3-ink)">−</text>
+    <text x="270" y="228" fill="var(--t3-ink)">−</text><text x="330" y="228" fill="var(--t3-ink)">−</text>
+  </g>
+
+  <!-- field lines, pointing down -->
+  <g stroke="var(--muted)" stroke-width="1.2" marker-end="url(#m47pd-e)">
+    <line x1="145" y1="56" x2="145" y2="194"/>
+    <line x1="195" y1="56" x2="195" y2="194"/>
+    <line x1="340" y1="56" x2="340" y2="194"/>
+    <line x1="370" y1="56" x2="370" y2="194"/>
+  </g>
+  <text x="350" y="178" font-family="inherit" font-size="13" font-style="italic" fill="var(--muted)">E</text>
+
+  <!-- path: straight in, parabola between plates, straight out -->
+  <line x1="40" y1="125" x2="120" y2="125" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <path d="M120,125 Q250,125 380,95" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="380" y1="95" x2="520" y2="62.7" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4"/>
+
+  <!-- velocity on entry -->
+  <line x1="50" y1="140" x2="105" y2="140" stroke="var(--t5-ink)" stroke-width="2" marker-end="url(#m47pd-v)"/>
+  <text x="70" y="160" font-family="inherit" font-size="13" font-style="italic" fill="var(--t5-ink)">v</text>
+
+  <!-- electron and the force on it -->
+  <circle cx="250" cy="117.5" r="6" fill="var(--t3-ink)" fill-opacity="0.35" stroke="var(--t3-ink)" stroke-width="1.4"/>
+  <line x1="250" y1="110" x2="250" y2="72" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#m47pd-f)"/>
+  <g font-family="inherit" font-size="12">
+    <text x="258" y="80" fill="var(--t2-ink)">electric</text>
+    <text x="258" y="95" fill="var(--t2-ink)">force <tspan font-style="italic">eE</tspan></text>
+    <text x="250" y="145" text-anchor="middle" fill="currentColor">electron</text>
+    <text x="250" y="250" text-anchor="middle" fill="var(--muted)">parabola between the plates, straight line outside</text>
+  </g>
+</svg>

@@ -1,0 +1,788 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "2.7",
+  "slug": "pressure-amount-of-substance-and-the-ideal-gas-model",
+  "title": "Pressure, amount of substance and the ideal gas model",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[gas|gas]] pushes on every surface it touches, and that push per unit area is its [[pressure|pressure]]. You count the molecules doing the pushing in [[mole|moles]], using the [[avogadro-constant|Avogadro constant]]. The [[ideal-gas|ideal gas]] model explains three gas laws found by experiment, which combine into one: $\\frac{PV}{T}$ is constant for a fixed amount of gas.",
+  "goals": [
+    {
+      "text": "Calculate a pressure from a [[force|force]] and an area, using only the part of the force perpendicular to the surface.",
+      "bullets": [
+        "B.3-s1"
+      ]
+    },
+    {
+      "text": "Convert between a number of molecules and an [[amount-of-substance|amount of substance]] in moles.",
+      "bullets": [
+        "B.3-s2"
+      ]
+    },
+    {
+      "text": "List what the ideal gas model assumes about molecules, and outline how a real gas differs.",
+      "bullets": [
+        "B.3-s3"
+      ]
+    },
+    {
+      "text": "Explain gas pressure, and each gas law, in terms of molecules hitting the container walls.",
+      "bullets": [
+        "B.3-s3",
+        "B.3-s4"
+      ]
+    },
+    {
+      "text": "Use the constant-temperature, constant-pressure and constant-volume gas laws, and show how they combine into $\\frac{PV}{T} = \\text{constant}$.",
+      "bullets": [
+        "B.3-s4"
+      ]
+    },
+    {
+      "text": "Represent changes of a gas as lines and curves on a pressure–volume diagram.",
+      "bullets": [
+        "B.3-s4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.1",
+    "6.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "Boyle's law",
+    "Charles's law and the pressure law",
+    "combined gas law PV/T constant",
+    "kinetic theory assumptions",
+    "ideal gas vs real gas",
+    "moles and Avogadro's number"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-kelvin",
+      "prompt": "Convert $-23\\,^{\\circ}\\text{C}$ to the [[kelvin-scale|kelvin scale]].",
+      "hint": "Add the offset between the two scales.",
+      "answer": {
+        "value": 250,
+        "tolerance": 0
+      },
+      "explain": "$T = -23 + 273 = \\pu{250 K}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-23 + zero_celsius",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-area-standard-form",
+      "prompt": "A piston has an area of $\\pu{4.0 cm2}$. Which is this area in square metres, written in [[scientific-notation|scientific notation]]?",
+      "hint": "$\\pu{1 cm} = 10^{-2}\\ \\text{m}$, so $\\pu{1 cm2} = (10^{-2})^{2}\\ \\text{m}^{2}$.",
+      "options": [
+        {
+          "text": "$4.0 \\times 10^{-4}$",
+          "correct": true
+        },
+        {
+          "text": "$4.0 \\times 10^{-2}$",
+          "correct": false
+        },
+        {
+          "text": "$4.0 \\times 10^{-6}$",
+          "correct": false
+        },
+        {
+          "text": "$4.0 \\times 10^{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$4.0 \\times (10^{-2})^{2} = \\pu{4.0e-4 m2}$. Choosing $10^{-2}$ forgets to square the conversion. Revise it in {{lesson:6.1}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "4.0*(10**-2)**2",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-third-law",
+      "prompt": "A gas molecule bounces off a wall, and the wall exerts a force on the molecule. What can you say about the force the molecule exerts on the wall?",
+      "hint": "The two forces form a Newton's third law pair.",
+      "options": [
+        {
+          "text": "equal in size and opposite in direction",
+          "correct": true
+        },
+        {
+          "text": "smaller and in the same direction",
+          "correct": false
+        },
+        {
+          "text": "zero, because the wall does not move",
+          "correct": false
+        },
+        {
+          "text": "larger and in the opposite direction",
+          "correct": false
+        }
+      ],
+      "explain": "By [[newton-s-third-law|Newton's third law]], the forces are equal in size and opposite in direction. The wall not moving doesn't make the force zero. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "equal in size and opposite in direction"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "pressure",
+      "heading": "Pressure",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a drawing pin into a board. Your thumb and the board feel the same force, yet only the point goes in. At the point, the force is spread over a tiny area, so the push on each square millimetre is enormous."
+        },
+        {
+          "type": "definition",
+          "term": "pressure",
+          "statement": "The force acting perpendicular to a surface divided by the area of the surface.",
+          "plain": "How concentrated a push is: force per square metre."
+        },
+        {
+          "type": "text",
+          "text": "[[pressure|Pressure]] $P$ is given by this data booklet equation."
+        },
+        {
+          "type": "formula",
+          "tex": "P = \\frac{F}{A}",
+          "tag": "booklet",
+          "bookletId": "db-2-7"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the force perpendicular to the surface, in N, and $A$ is the area in $\\text{m}^{2}$. The unit is the pascal: $\\pu{1 Pa} = \\pu{1 N m-2}$. Air at sea level is at about $\\pu{100 kPa}$; a question gives the value when you need it."
+        },
+        {
+          "type": "text",
+          "text": "Only the perpendicular part of a force presses on a surface. For a force $F$ at an angle $\\theta$ to the surface, that component is $F\\sin\\theta$. The parallel component slides along the surface and adds nothing to the pressure."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the area in $\\text{cm}^{2}$. $\\pu{1 cm2} = \\pu{1e-4 m2}$, so divide by $10^{4}$, not 100."
+        },
+        {
+          "type": "example",
+          "id": "ex-pressure-heel",
+          "question": "A dancer of weight $\\pu{530 N}$ balances on the heel of one shoe. The heel touches the floor over $\\pu{1.6 cm2}$. Calculate the pressure on the floor.",
+          "steps": [
+            "The weight acts straight down on a horizontal floor, so all of it is perpendicular to the surface.",
+            "Convert the area: $A = 1.6 \\times 10^{-4}\\ \\text{m}^{2}$.",
+            "Substitute: $P = \\dfrac{F}{A} = \\dfrac{530}{1.6 \\times 10^{-4}} = \\pu{3.31e6 Pa}$, to 2 significant figures like the area."
+          ],
+          "answer": "$P \\approx 3.3 \\times 10^{6}\\ \\text{Pa}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "530/(1.6*10**-4)",
+            "sf": 2,
+            "unit": "Pa"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pressure-angle",
+          "question": "A window cleaner pushes a rubber blade against a vertical window with a force of $\\pu{36 N}$ at $40^{\\circ}$ to the glass. The blade touches the glass over $\\pu{0.0030 m2}$. Determine the pressure on the glass, in kPa.",
+          "steps": [
+            "Find the perpendicular component: $F_{\\perp} = 36\\sin 40^{\\circ} = \\pu{23.1 N}$.",
+            "Substitute: $P = \\dfrac{23.1}{0.0030} = \\pu{7714 Pa}$, which is $\\pu{7.7 kPa}$ to 2 significant figures.",
+            "Check: the whole $\\pu{36 N}$ would give $\\pu{12 kPa}$, too big, because part of the push slides along the glass."
+          ],
+          "answer": "$P \\approx 7.7\\ \\text{kPa}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "36*sind(40)/0.0030/10**3",
+            "sf": 2,
+            "unit": "kPa"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pressure-table",
+          "prompt": "A table top measures $\\pu{1.2 m}$ by $\\pu{0.80 m}$. The air above it is at $\\pu{1.0e5 Pa}$. Calculate the force of the air on the top surface, in N to 2 significant figures.",
+          "hint": "Rearrange to $F = PA$.",
+          "answer": {
+            "value": 96000,
+            "tolerance": 500
+          },
+          "explain": "$F = PA = (1.0 \\times 10^{5})(1.2 \\times 0.80) = \\pu{9.6e4 N}$. Air underneath pushes up almost as hard, so the table survives.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.0*10**5*1.2*0.80",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pressure-component",
+          "prompt": "A force acts on a surface at an angle. Which part of it should you divide by the area to find the pressure?",
+          "hint": "Which part pushes into the surface?",
+          "options": [
+            {
+              "text": "the component perpendicular to the surface",
+              "correct": true
+            },
+            {
+              "text": "the component parallel to the surface",
+              "correct": false
+            },
+            {
+              "text": "the whole force",
+              "correct": false
+            },
+            {
+              "text": "the larger of the two components",
+              "correct": false
+            }
+          ],
+          "explain": "Pressure is defined with the perpendicular force. The parallel component pushes along the surface, not into it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the component perpendicular to the surface"
+          }
+        }
+      ]
+    },
+    {
+      "id": "amount",
+      "heading": "Amount of substance and the mole",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A breath of air holds about $10^{22}$ molecules. Numbers that big are awkward, so physicists count particles in fixed bundles, the way eggs come in dozens. The bundle is the [[mole|mole]]."
+        },
+        {
+          "type": "definition",
+          "term": "mole",
+          "statement": "The SI unit of amount of substance: one mole contains $N_\\text{A}$ particles.",
+          "plain": "A count of $6.02 \\times 10^{23}$ particles, whatever they are."
+        },
+        {
+          "type": "text",
+          "text": "$N_\\text{A} = \\pu{6.02e23 mol-1}$ is the [[avogadro-constant|Avogadro constant]], given in the data booklet like every constant in this lesson. The [[amount-of-substance|amount of substance]] $n$ is the number of particles measured in moles."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{N}{N_\\text{A}}",
+          "tag": "booklet",
+          "bookletId": "db-2-7"
+        },
+        {
+          "type": "text",
+          "text": "$N$ is a plain count, so $n$ comes out in mol. To go the other way, use $N = nN_\\text{A}$. If a question gives the molar mass $M$, the mass of one mole, then $n = \\frac{m}{M}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-amount-from-count",
+          "question": "A sealed light bulb contains $9.0 \\times 10^{21}$ argon atoms. Calculate the amount of argon in the bulb.",
+          "steps": [
+            "Use $n = \\dfrac{N}{N_\\text{A}}$.",
+            "Substitute: $n = \\dfrac{9.0 \\times 10^{21}}{6.02 \\times 10^{23}} = \\pu{0.01495 mol}$, to 2 significant figures like the count."
+          ],
+          "answer": "$n \\approx 0.015\\ \\text{mol}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "9.0*10**21/NA",
+            "sf": 2,
+            "unit": "mol"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-atoms-from-mass",
+          "question": "A party balloon holds $\\pu{2.4 g}$ of helium, of molar mass $\\pu{4.0 g mol-1}$. Determine the number of helium atoms in the balloon.",
+          "steps": [
+            "Find the amount: $n = \\dfrac{m}{M} = \\dfrac{2.4}{4.0} = \\pu{0.60 mol}$.",
+            "Count the atoms: $N = nN_\\text{A} = 0.60 \\times 6.02 \\times 10^{23} = 3.61 \\times 10^{23}$."
+          ],
+          "answer": "$N \\approx 3.6 \\times 10^{23}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.4/4.0*NA",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-molecules-from-n",
+          "prompt": "A cylinder holds $\\pu{2.5 mol}$ of nitrogen. Calculate the number of nitrogen molecules, to 2 significant figures.",
+          "hint": "Multiply the amount by the Avogadro constant.",
+          "answer": {
+            "value": 1.5e+24,
+            "tolerance": 5e+22
+          },
+          "explain": "$N = nN_\\text{A} = 2.5 \\times 6.02 \\times 10^{23} \\approx 1.5 \\times 10^{24}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.5*NA",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mole-same",
+          "prompt": "You have one mole of helium and one mole of oxygen. Which quantity is the same for both?",
+          "hint": "What does a mole count?",
+          "options": [
+            {
+              "text": "the number of particles",
+              "correct": true
+            },
+            {
+              "text": "the mass",
+              "correct": false
+            },
+            {
+              "text": "the mass of each particle",
+              "correct": false
+            },
+            {
+              "text": "the density at the same temperature and pressure",
+              "correct": false
+            }
+          ],
+          "explain": "A mole is a fixed count, $N_\\text{A}$ particles. Oxygen molecules are heavier than helium atoms, so the masses and densities differ.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the number of particles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ideal-gas",
+      "heading": "The ideal gas model",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tracking billions of tugging, tumbling molecules is impossible. So the kinetic theory uses a model: a huge number of tiny particles in random motion. The [[ideal-gas|ideal gas]] is the gas this model describes exactly."
+        },
+        {
+          "type": "definition",
+          "term": "ideal gas",
+          "statement": "A model gas whose molecules are point particles in random motion, exerting no forces on each other except in collisions, which are elastic.",
+          "plain": "Tiny bouncing points that ignore each other between collisions."
+        },
+        {
+          "type": "text",
+          "text": "1. A very large number of identical molecules move randomly in all directions."
+        },
+        {
+          "type": "text",
+          "text": "2. The molecules' own volume is negligible compared with the container's. They behave as points."
+        },
+        {
+          "type": "text",
+          "text": "3. There are no intermolecular forces except during collisions, so molecules move in straight lines between collisions."
+        },
+        {
+          "type": "text",
+          "text": "4. Collisions are elastic: no [[kinetic-energy|kinetic energy]] is lost. Each lasts a negligible time compared with the time between collisions."
+        },
+        {
+          "type": "text",
+          "text": "With no intermolecular forces there is no intermolecular potential energy. So the [[internal-energy|internal energy]] of an ideal gas is all random kinetic energy, and an ideal gas can never be liquefied."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-molecule-wall",
+          "alt": "Gas molecules are drawn as dots in a rectangular container, each with a short arrow pointing in a different random direction. One molecule is at the right-hand wall. Its path comes in towards the wall, labelled before, and goes back out, labelled after, so its motion towards the wall has reversed. An arrow at the wall points into the container, labelled force on molecule. A second arrow points out of the container from the wall, labelled force on wall, with a note saying the two forces are equal in size and opposite in direction.",
+          "caption": "The wall reverses each molecule's momentum towards it, so the molecule pushes back on the wall."
+        },
+        {
+          "type": "text",
+          "text": "The model explains pressure. A molecule bouncing off a wall reverses its momentum towards the wall. That needs a force from the wall, so by Newton's third law the molecule pushes the wall back. Countless collisions per second give a steady force per unit area: the pressure."
+        },
+        {
+          "type": "text",
+          "text": "Faster molecules hit harder, and more frequent hits push more, so both raise the pressure. Temperature fits too: from {{lesson:2.1}}, absolute temperature measures the average kinetic energy of the molecules. {{lesson:2.8}} turns this picture into equations."
+        },
+        {
+          "type": "text",
+          "text": "No real gas is ideal. Real molecules take up some space and attract each other weakly, so a real gas has some intermolecular potential energy and liquefies when cooled enough. It obeys the gas laws only approximately, best at low pressure and [[density|density]] and high temperature ({{lesson:2.8}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-pressure",
+          "question": "A sealed glass jar contains air. Explain, in terms of the molecules, how the air exerts a pressure on the inside of the lid.",
+          "steps": [
+            "Start with what the molecules do, then link each hit to a change in momentum and a force.",
+            "Finish with many collisions and force per unit area."
+          ],
+          "answer": "The air molecules move randomly at high speed and keep colliding with the lid. In each collision the molecule's momentum towards the lid reverses, so its momentum changes. A change in momentum needs a force, so the lid exerts a force on the molecule. By Newton's third law the molecule exerts an equal and opposite force on the lid. Huge numbers of collisions every second give a steady average force on the lid. The pressure is this force per unit area of the lid.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "molecules collide with the lid, their momentum changes, so they exert a force on it; many collisions give a force per unit area, the pressure",
+            "requires": [
+              "colliding with the lid",
+              [
+                "momentum changes",
+                "change in momentum"
+              ],
+              [
+                "Newton's third law",
+                "equal and opposite force"
+              ],
+              "collisions every second",
+              "per unit area"
+            ],
+            "forbids": [
+              "collide with each other",
+              "molecules repel the lid"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-real-gas-differences",
+          "question": "A student says that neon at room temperature is an ideal gas. Outline two ways in which neon differs from an ideal gas.",
+          "steps": [
+            "Compare each assumption of the model with what neon atoms really do.",
+            "Give each difference its own sentence, with its consequence."
+          ],
+          "answer": "Neon atoms have a small but non-zero volume, while the particles of an ideal gas are points with negligible volume. Neon atoms also attract each other weakly, so neon has some intermolecular potential energy, while an ideal gas has none. Because of these attractions, neon can be liquefied if it is cooled enough, which an ideal gas never can.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "real atoms have volume and attract each other (so have potential energy and can liquefy); ideal gas particles are points with no forces",
+            "requires": [
+              "non-zero volume",
+              "attract each other",
+              "potential energy",
+              "liquefied"
+            ],
+            "forbids": [
+              "neon atoms have no volume",
+              "an ideal gas can be liquefied"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-assumption",
+          "prompt": "Which statement is not part of the ideal gas model?",
+          "hint": "Which statement would give the gas intermolecular potential energy?",
+          "options": [
+            {
+              "text": "the molecules attract each other weakly",
+              "correct": true
+            },
+            {
+              "text": "collisions between molecules are elastic",
+              "correct": false
+            },
+            {
+              "text": "the volume of the molecules is negligible",
+              "correct": false
+            },
+            {
+              "text": "the molecules move randomly",
+              "correct": false
+            }
+          ],
+          "explain": "An ideal gas has no intermolecular forces except during collisions. Weak attractions belong to real gases, which is why they can liquefy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the molecules attract each other weakly"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ideal-internal-energy",
+          "prompt": "What is the internal energy of an ideal gas?",
+          "hint": "Which kind of energy is missing when there are no intermolecular forces?",
+          "options": [
+            {
+              "text": "the total random kinetic energy of its molecules",
+              "correct": true
+            },
+            {
+              "text": "the total intermolecular potential energy of its molecules",
+              "correct": false
+            },
+            {
+              "text": "zero, because there are no intermolecular forces",
+              "correct": false
+            },
+            {
+              "text": "the kinetic energy of the gas moving as a whole",
+              "correct": false
+            }
+          ],
+          "explain": "No intermolecular forces means no intermolecular potential energy, so all the internal energy is random kinetic energy. The gas moving as a whole, like wind, doesn't count.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the total random kinetic energy of its molecules"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gas-laws",
+      "heading": "The gas laws and pV diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A fixed amount of gas has a pressure $P$, a volume $V$ and a temperature $T$. Experimenters held one constant and varied the other two. The laws they found from these measurements are called empirical."
+        },
+        {
+          "type": "text",
+          "text": "At constant temperature (Boyle's law), $P \\propto \\frac{1}{V}$, so $PV$ is constant. Halve the volume and the pressure doubles."
+        },
+        {
+          "type": "text",
+          "text": "At constant pressure (Charles's law), $V \\propto T$, so $\\frac{V}{T}$ is constant. At constant volume (the pressure law), $P \\propto T$, so $\\frac{P}{T}$ is constant."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-gas-law-graphs",
+          "alt": "Three graphs side by side for a fixed amount of gas. Left, at constant temperature: pressure on the vertical axis against volume on the horizontal axis, a curve falling steeply then levelling off, labelled P proportional to 1 over V, Boyle. Middle, at constant pressure: volume against temperature in degrees Celsius, a straight rising line that crosses the volume axis above zero at 0 degrees Celsius, with a dashed extension reaching zero volume at minus 273 degrees Celsius. Right, at constant volume: pressure against temperature in kelvin, a straight line whose dashed extension passes through the origin.",
+          "caption": "Extend the constant-pressure line and it reaches zero volume at $-273\\,^{\\circ}\\text{C}$, which is $\\pu{0 K}$."
+        },
+        {
+          "type": "text",
+          "text": "In both temperature laws $T$ must be in kelvin. Only a scale starting at absolute zero gives a line through the origin."
+        },
+        {
+          "type": "text",
+          "text": "Each law has a molecular reason. Squeeze the gas at constant temperature and the molecules, at the same speed, hit each square metre of wall more often. Heat it at constant volume and they hit harder and more often. Heat it at constant pressure and the molecules hit harder, so the gas expands until fewer hits on each square metre per second keep the pressure the same."
+        },
+        {
+          "type": "result",
+          "statement": "For a fixed amount of an ideal gas, $\\frac{PV}{T}$ is constant, so $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$ for any two states, with $T$ in kelvin.",
+          "why": "Go from state 1 to state 2 in two steps. Heat at constant volume $V_1$ to $T_2$: the pressure law gives $P' = \\frac{P_1T_2}{T_1}$. Then change the volume to $V_2$ at constant $T_2$: Boyle's law gives $P_2V_2 = P'V_1 = \\frac{P_1V_1T_2}{T_1}$. Divide by $T_2$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{PV}{T} = \\text{constant}",
+          "tag": "booklet",
+          "bookletId": "db-2-7"
+        },
+        {
+          "type": "text",
+          "text": "Each of the three laws is a special case: cancel whichever quantity stays the same. The constant grows with the amount of gas, which leads to the ideal gas law in {{lesson:2.8}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting Celsius into the gas laws. Heating from $20\\,^{\\circ}\\text{C}$ to $40\\,^{\\circ}\\text{C}$ does not double the pressure: it is $\\pu{293 K}$ to $\\pu{313 K}$, a rise of under 7%."
+        },
+        {
+          "type": "example",
+          "id": "ex-pressure-law-can",
+          "question": "A sealed metal can holds air at $\\pu{152 kPa}$ and $18\\,^{\\circ}\\text{C}$. On a bonfire the air reaches $420\\,^{\\circ}\\text{C}$. Assuming the can does not expand, calculate the new pressure of the air.",
+          "steps": [
+            "The volume is constant, so $\\dfrac{P_1}{T_1} = \\dfrac{P_2}{T_2}$.",
+            "Convert to kelvin: $T_1 = 18 + 273 = \\pu{291 K}$ and $T_2 = 420 + 273 = \\pu{693 K}$.",
+            "Rearrange and substitute: $P_2 = 152 \\times \\dfrac{693}{291} = \\pu{362.0 kPa}$. The pressure can stay in kPa because it appears on both sides."
+          ],
+          "answer": "$P_2 \\approx 362\\ \\text{kPa}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "152*(420 + zero_celsius)/(18 + zero_celsius)",
+            "sf": 3,
+            "unit": "kPa"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bubble",
+          "question": "A diver breathes out an air bubble of volume $\\pu{2.0e-6 m3}$ where the pressure is $\\pu{350 kPa}$ and the water is at $8\\,^{\\circ}\\text{C}$. At the surface the pressure is $\\pu{101 kPa}$ and the water is at $20\\,^{\\circ}\\text{C}$. Calculate the bubble's volume at the surface.",
+          "steps": [
+            "The amount of air is fixed, but $P$, $V$ and $T$ all change, so use $\\dfrac{P_1V_1}{T_1} = \\dfrac{P_2V_2}{T_2}$.",
+            "Convert to kelvin: $T_1 = \\pu{281 K}$ and $T_2 = \\pu{293 K}$.",
+            "Rearrange and substitute: $V_2 = V_1 \\times \\dfrac{P_1}{P_2} \\times \\dfrac{T_2}{T_1} = 2.0 \\times 10^{-6} \\times \\dfrac{350}{101} \\times \\dfrac{293}{281} = \\pu{7.23e-6 m3}$.",
+            "Check: the pressure falls to under a third and the air warms a little, so the volume should grow a bit over 3.5 times. It does."
+          ],
+          "answer": "$V_2 \\approx 7.2 \\times 10^{-6}\\ \\text{m}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.0*10**-6*(350/101)*(20 + zero_celsius)/(8 + zero_celsius)",
+            "sf": 2,
+            "unit": "m3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[p-v-diagram|pressure–volume (pV) diagram]] shows each state of a gas as a point. At constant volume a change is a vertical line, and at constant pressure a horizontal one."
+        },
+        {
+          "type": "text",
+          "text": "At constant temperature it follows a curve on which $PV$ is constant, called an isotherm. A hotter isotherm lies further from the origin."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-pv-cycle",
+          "alt": "Pressure in kilopascals on the vertical axis against volume in units of 10 to the minus 3 cubic metres on the horizontal axis. Two curves fall from upper left to lower right: the lower one is labelled T1 equals 300 K and the upper one T2. Point A is at volume 1.0 and pressure 100 on the lower curve. A vertical arrow labelled constant volume rises from A to point B at volume 1.0 and pressure 200, on the upper curve. An arrow follows the upper curve, labelled constant temperature, down to point C at volume 2.0 and pressure 100. A horizontal arrow labelled constant pressure runs back from C to A.",
+          "caption": "A cycle: heating at constant volume (A to B), expansion at constant temperature (B to C), cooling at constant pressure (C to A)."
+        },
+        {
+          "type": "check",
+          "id": "check-pressure-law-ratio",
+          "prompt": "Gas in a rigid container is heated from $27\\,^{\\circ}\\text{C}$ to $177\\,^{\\circ}\\text{C}$. What is $\\dfrac{P_2}{P_1}$?",
+          "hint": "Convert both temperatures to kelvin before you divide.",
+          "options": [
+            {
+              "text": "$1.5$",
+              "correct": true
+            },
+            {
+              "text": "$6.6$",
+              "correct": false
+            },
+            {
+              "text": "$0.67$",
+              "correct": false
+            },
+            {
+              "text": "$2.0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dfrac{P_2}{P_1} = \\dfrac{T_2}{T_1} = \\dfrac{450}{300} = 1.5$. Dividing the Celsius values gives $6.6$, and dividing the wrong way round gives $0.67$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(177 + zero_celsius)/(27 + zero_celsius)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pv-t2",
+          "prompt": "In the pV diagram above, the gas at A is at $\\pu{300 K}$. Use point B to find the temperature $T_2$ of the upper isotherm, in kelvin.",
+          "hint": "From A to B the volume is constant. What happens to the pressure?",
+          "answer": {
+            "value": 600,
+            "tolerance": 0
+          },
+          "explain": "At constant volume $\\frac{P}{T}$ is constant, so $T_2 = 300 \\times \\dfrac{200}{100} = \\pu{600 K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "300*200/100",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combined-ratio",
+          "prompt": "The pressure of a fixed amount of ideal gas is tripled while its kelvin temperature is doubled. By what factor does its volume change?",
+          "hint": "$\\frac{V_2}{V_1} = \\frac{P_1}{P_2} \\times \\frac{T_2}{T_1}$.",
+          "options": [
+            {
+              "text": "$\\frac{2}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{6}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dfrac{V_2}{V_1} = \\dfrac{1}{3} \\times 2 = \\dfrac{2}{3}$. Tripling the pressure divides the volume by 3, and doubling the temperature doubles it.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 3)*2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "P = \\frac{F}{A}",
+          "tag": "booklet",
+          "bookletId": "db-2-7",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{N}{N_\\text{A}}",
+          "tag": "booklet",
+          "bookletId": "db-2-7",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{PV}{T} = \\text{constant}",
+          "tag": "booklet",
+          "bookletId": "db-2-7",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pressure uses only the force perpendicular to the surface; $\\pu{1 Pa} = \\pu{1 N m-2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fixed amount of gas: $PV$ constant at constant $T$; $\\frac{V}{T}$ constant at constant $P$; $\\frac{P}{T}$ constant at constant $V$; $T$ in kelvin.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ideal gas: point molecules in random motion, no intermolecular forces except in collisions, elastic collisions. Its internal energy is all random kinetic energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pressure comes from molecules changing momentum as they hit the walls: faster or more frequent hits mean higher pressure.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "pV diagram: constant volume is vertical, constant pressure is horizontal, constant temperature is an isotherm curve.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using Celsius in the gas laws. Add 273 to every temperature first.",
+    "Explaining gas pressure by molecules colliding with each other. Pressure comes from collisions with the walls of the container.",
+    "Dividing the whole force by the area when it acts at an angle. Use only the component perpendicular to the surface.",
+    "Using $\\frac{PV}{T}$ = constant when gas leaks in or out, as in a punctured tyre. The law needs a fixed amount of gas.",
+    "Saying a real gas differs from an ideal gas because its molecules move. Name a real difference: its molecules have volume and attract each other, so it can liquefy."
+  ],
+  "examTips": [
+    "\"Calculate\" with the gas laws: write the law, convert temperatures to kelvin, substitute, then give the answer with its unit.",
+    "\"Explain, in terms of molecules\" a pressure change: one sentence on the speed of the molecules, one on collisions with the walls (harder or more frequent). Each earns a mark.",
+    "\"Outline\" how a real gas differs from an ideal gas: one property per sentence, such as the volume of the molecules or the forces between them.",
+    "Paper 1A ratio questions: write $\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$, cancel what is constant, then apply each factor. Watch for temperatures in degrees Celsius."
+  ],
+  "readingMinutes": 25
+}

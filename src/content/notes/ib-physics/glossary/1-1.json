@@ -1,0 +1,44 @@
+[
+  {
+    "id": "position",
+    "term": "position",
+    "definition": "Where a body is, given as a distance and a direction from a chosen origin; a vector, measured in metres.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "displacement",
+    "term": "displacement",
+    "definition": "The change in a body's position, a vector from where it started to where it finished, whatever path it took.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "distance",
+    "term": "distance",
+    "definition": "The total length of the path a body travels, a scalar that never decreases, however often the body changes direction.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "velocity",
+    "term": "velocity",
+    "definition": "The rate of change of a body's position, a vector in $\\text{m s}^{-1}$ that gives both how fast it moves and which way.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "speed",
+    "term": "speed",
+    "definition": "The rate at which a body covers distance, a scalar in $\\text{m s}^{-1}$; instantaneous speed is the size of the instantaneous velocity.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "acceleration",
+    "term": "acceleration",
+    "definition": "The rate of change of a body's velocity, a vector in $\\text{m s}^{-2}$; it can change the speed, the direction or both, and a negative value does not by itself mean slowing down.",
+    "lesson": "1.1"
+  },
+  {
+    "id": "gradient",
+    "term": "gradient",
+    "definition": "The steepness of a graph, the change in the vertical quantity divided by the change in the horizontal quantity; the gradient of a tangent gives the rate of change at one point.",
+    "lesson": "1.1"
+  }
+]

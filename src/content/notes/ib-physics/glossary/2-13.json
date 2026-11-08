@@ -1,0 +1,38 @@
+[
+  {
+    "id": "conductor",
+    "term": "conductor",
+    "definition": "A material with a large number of charge carriers that are free to move through it, such as the free electrons in a metal, so a potential difference produces a significant current.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "insulator",
+    "term": "insulator",
+    "definition": "A material whose electrons are bound to their atoms or molecules, so it has very few mobile charge carriers and the current in it is negligible.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "resistance",
+    "term": "resistance",
+    "definition": "The potential difference across a component divided by the current in it, $R = \\frac{V}{I}$, measured in ohms ($\\Omega$); it depends on the component's material, shape and temperature.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "resistivity",
+    "term": "resistivity",
+    "definition": "A property of a material, $\\rho = \\frac{RA}{L}$, measured in $\\Omega\\ \\text{m}$, that sets how strongly it resists current whatever the length or thickness of the sample.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "ohm-s-law",
+    "term": "Ohm's law",
+    "definition": "The current in a metal conductor is directly proportional to the potential difference across it, provided its temperature stays constant; it is not the definition of resistance.",
+    "lesson": "2.13"
+  },
+  {
+    "id": "non-ohmic-conductor",
+    "term": "non-ohmic conductor",
+    "definition": "A component that does not obey Ohm's law, so its I–V graph is not a straight line through the origin, such as a filament lamp or a light-emitting diode.",
+    "lesson": "2.13"
+  }
+]

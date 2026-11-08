@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t48pw">
+  <title id="t48pw">Two panels, each with two long parallel vertical wires a distance r apart. Left: both currents flow up the page. The field of the left wire points into the page at the right wire, and the forces on the two wires point towards each other: they attract. Right: the currents flow in opposite directions, up in the left wire and down in the right wire. The forces point away from each other: they repel.</title>
+  <defs>
+    <marker id="m48pw-i" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t2-ink)"/>
+    </marker>
+    <marker id="m48pw-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--t3-ink)"/>
+    </marker>
+    <marker id="m48pw-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+    </marker>
+  </defs>
+
+  <!-- wires -->
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round">
+    <line x1="100" y1="30" x2="100" y2="240"/>
+    <line x1="200" y1="30" x2="200" y2="240"/>
+    <line x1="400" y1="30" x2="400" y2="240"/>
+    <line x1="500" y1="30" x2="500" y2="240"/>
+  </g>
+
+  <!-- currents -->
+  <g stroke="var(--t2-ink)" stroke-width="2.5" marker-end="url(#m48pw-i)">
+    <line x1="85" y1="90" x2="85" y2="50"/>
+    <line x1="215" y1="90" x2="215" y2="50"/>
+    <line x1="385" y1="90" x2="385" y2="50"/>
+    <line x1="515" y1="50" x2="515" y2="90"/>
+  </g>
+
+  <!-- field of the left wire at the right wire: into the page -->
+  <g stroke="var(--t1-ink)" stroke-width="1.8">
+    <circle cx="228" cy="200" r="9" fill="none"/>
+    <line x1="222" y1="194" x2="234" y2="206"/>
+    <line x1="234" y1="194" x2="222" y2="206"/>
+    <circle cx="528" cy="200" r="9" fill="none"/>
+    <line x1="522" y1="194" x2="534" y2="206"/>
+    <line x1="534" y1="194" x2="522" y2="206"/>
+  </g>
+
+  <!-- forces -->
+  <g stroke="var(--t3-ink)" stroke-width="2.5" marker-end="url(#m48pw-f)">
+    <line x1="108" y1="140" x2="148" y2="140"/>
+    <line x1="192" y1="140" x2="152" y2="140"/>
+    <line x1="392" y1="140" x2="352" y2="140"/>
+    <line x1="508" y1="140" x2="548" y2="140"/>
+  </g>
+
+  <!-- separation r -->
+  <line x1="104" y1="255" x2="196" y2="255" stroke="var(--muted)" stroke-width="1.2" marker-start="url(#m48pw-dim)" marker-end="url(#m48pw-dim)"/>
+  <line x1="404" y1="255" x2="496" y2="255" stroke="var(--muted)" stroke-width="1.2" marker-start="url(#m48pw-dim)" marker-end="url(#m48pw-dim)"/>
+
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="73" y="75" text-anchor="end" font-style="italic" fill="var(--t2-ink)">I<tspan font-size="10" baseline-shift="sub">1</tspan></text>
+    <text x="223" y="75" font-style="italic" fill="var(--t2-ink)">I<tspan font-size="10" baseline-shift="sub">2</tspan></text>
+    <text x="373" y="75" text-anchor="end" font-style="italic" fill="var(--t2-ink)">I<tspan font-size="10" baseline-shift="sub">1</tspan></text>
+    <text x="523" y="75" font-style="italic" fill="var(--t2-ink)">I<tspan font-size="10" baseline-shift="sub">2</tspan></text>
+    <text x="150" y="128" text-anchor="middle" fill="var(--t3-ink)" font-style="italic">F</text>
+    <text x="450" y="128" text-anchor="middle" fill="var(--t3-ink)" font-style="italic">F</text>
+    <text x="242" y="205" fill="var(--t1-ink)" font-size="12">field of</text>
+    <text x="242" y="219" fill="var(--t1-ink)" font-size="12">left wire</text>
+    <text x="542" y="205" fill="var(--t1-ink)" font-size="12">field of</text>
+    <text x="542" y="219" fill="var(--t1-ink)" font-size="12">left wire</text>
+    <text x="150" y="272" text-anchor="middle" font-style="italic">r</text>
+    <text x="450" y="272" text-anchor="middle" font-style="italic">r</text>
+    <text x="150" y="294" text-anchor="middle">Same direction: attract</text>
+    <text x="450" y="294" text-anchor="middle">Opposite directions: repel</text>
+  </g>
+</svg>

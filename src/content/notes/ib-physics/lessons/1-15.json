@@ -1,0 +1,671 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-physics-2025",
+  "item": "1.15",
+  "slug": "reference-frames-and-galilean-relativity",
+  "title": "Reference frames and Galilean relativity",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[reference-frame|reference frame]] is the set of axes and clocks you use to give the [[position|position]] and time of an event. Newton's laws work the same way in every frame that moves at constant [[velocity|velocity]]: this is [[galilean-relativity|Galilean relativity]]. Two short equations, $x' = x - vt$ and $u' = u - v$, convert positions and velocities from one such frame to another.",
+  "goals": [
+    {
+      "text": "Describe a [[reference-frame|reference frame]] and give the coordinates of an event in it.",
+      "bullets": [
+        "A.5-a1"
+      ]
+    },
+    {
+      "text": "State what makes a frame an [[inertial-reference-frame|inertial reference frame]], one in which [[newton-s-first-law|Newton's first law]] holds, and recognise a frame that is not.",
+      "bullets": [
+        "A.5-a1",
+        "A.5-a2"
+      ]
+    },
+    {
+      "text": "Explain [[galilean-relativity|Galilean relativity]]: Newton's laws take the same form in every inertial frame.",
+      "bullets": [
+        "A.5-a2"
+      ]
+    },
+    {
+      "text": "Use $x' = x - vt$ and $t' = t$ to find the coordinates of an event in a second frame.",
+      "bullets": [
+        "A.5-a3"
+      ]
+    },
+    {
+      "text": "Derive $u' = u - v$ and use it, with signs, to find a velocity in another frame.",
+      "bullets": [
+        "A.5-a4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.4",
+    "6.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "frame of reference",
+    "inertial frame",
+    "Galilean transformation",
+    "relative velocity",
+    "classical velocity addition",
+    "x' = x - vt"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-first-law",
+      "prompt": "A puck slides across smooth, level ice. The resultant force on it is zero. What happens to it?",
+      "hint": "Zero resultant force means zero acceleration.",
+      "options": [
+        {
+          "text": "it keeps moving at constant velocity",
+          "correct": true
+        },
+        {
+          "text": "it slows down steadily and stops",
+          "correct": false
+        },
+        {
+          "text": "it speeds up steadily",
+          "correct": false
+        },
+        {
+          "text": "it stops at once",
+          "correct": false
+        }
+      ],
+      "explain": "With no resultant force there is no acceleration, so the velocity stays the same: same speed, same direction. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it keeps moving at constant velocity"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-velocity",
+      "prompt": "A runner's position changes from $x = \\pu{12 m}$ to $x = \\pu{-18 m}$ in $\\pu{6.0 s}$. Taking the $+x$ direction as positive, what is her average velocity, in $\\text{m s}^{-1}$? Give 2 significant figures.",
+      "hint": "Velocity is displacement divided by time, and displacement is final position minus initial position.",
+      "answer": {
+        "value": -5,
+        "tolerance": 0.05
+      },
+      "explain": "Displacement $= -18 - 12 = \\pu{-30 m}$, so velocity $= \\frac{-30}{6.0} = \\pu{-5.0 m s-1}$. The minus sign says she ran in the $-x$ direction. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(-18 - 12)/6.0",
+        "sf": 2,
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-forces-in-line",
+      "prompt": "Two forces act on a crate along the same line: $\\pu{7.0 N}$ to the right and $\\pu{10.0 N}$ to the left. Taking right as positive, use [[vector-addition|vector addition]] to find the resultant force, in N.",
+      "hint": "Give the leftward force a minus sign, then add.",
+      "answer": {
+        "value": -3,
+        "tolerance": 0.05
+      },
+      "explain": "$7.0 + (-10.0) = \\pu{-3.0 N}$: a resultant of $\\pu{3.0 N}$ to the left. Revise it in {{lesson:6.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "7.0 + (-10.0)",
+        "sf": 2,
+        "signed": true
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "frames",
+      "heading": "Reference frames and inertial frames",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drop your keys in a smoothly moving train. To you, they fall straight down. To someone on the platform, they also move forwards with the train, so they follow a curved path."
+        },
+        {
+          "type": "text",
+          "text": "Both descriptions are correct. They are made from different [[reference-frame|reference frames]]."
+        },
+        {
+          "type": "definition",
+          "term": "reference frame",
+          "statement": "A set of coordinate axes with an origin, together with clocks, that an observer uses to give the position and time of events.",
+          "plain": "Your own ruler and stopwatch, carried along with you."
+        },
+        {
+          "type": "definition",
+          "term": "event",
+          "statement": "Something that happens at a single point in space at a single instant. Along one line, a frame gives it a position $x$ and a time $t$.",
+          "plain": "A flash, a click or a collision: a where and a when."
+        },
+        {
+          "type": "text",
+          "text": "Every observer can set up a frame in which they are at rest. Different frames can give the same event different coordinates."
+        },
+        {
+          "type": "text",
+          "text": "Some frames are special. In an [[inertial-reference-frame|inertial reference frame]], [[newton-s-first-law|Newton's first law]] holds: an object with zero resultant force on it stays at rest or keeps moving at constant velocity."
+        },
+        {
+          "type": "definition",
+          "term": "inertial reference frame",
+          "statement": "A reference frame that is not accelerating. Newton's first law holds in it.",
+          "plain": "A frame that is not speeding up, slowing down or turning."
+        },
+        {
+          "type": "text",
+          "text": "Any frame moving at constant velocity relative to an inertial frame is also inertial. The ground is very nearly inertial: the accelerations from the Earth's spin and orbit are small enough to ignore in most problems."
+        },
+        {
+          "type": "text",
+          "text": "A frame that is not inertial: a bus brakes hard, and a ball on its smooth floor rolls forwards with nothing pushing it. Newton's first law fails in the bus's frame."
+        },
+        {
+          "type": "result",
+          "statement": "[[galilean-relativity|Galilean relativity]]: Newton's three laws hold in the same form in every inertial reference frame. So no mechanics experiment inside a closed inertial frame can show whether that frame is moving.",
+          "why": "Observers in two inertial frames measure the same forces, the same masses and the same accelerations (the last section shows why), so $F = ma$ holds in both."
+        },
+        {
+          "type": "example",
+          "id": "ex-coin-train",
+          "question": "A train moves along a straight, level track at a constant $\\pu{30 m s-1}$. A passenger releases a coin from rest above the floor. Air resistance is negligible. Explain why the coin lands directly below the release point, and why this cannot show that the train is moving.",
+          "steps": [
+            "Decide whether the train's frame is inertial.",
+            "Use Galilean relativity to bring in Newton's laws.",
+            "Work in the train's frame: what horizontal force acts on the coin?",
+            "Compare with a train at rest."
+          ],
+          "answer": "The train moves at constant velocity, so it is not accelerating and its frame is an inertial reference frame. By Galilean relativity, Newton's laws hold in the train's frame just as on the platform. In that frame the coin starts with no horizontal velocity, and its weight acts vertically, so there is no horizontal force on it. So it falls straight down, landing directly below the release point. The same happens in a train at rest, so the passenger cannot tell that the train is moving.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "constant velocity so not accelerating, inertial frame; Galilean relativity: Newton's laws hold in the train frame; no horizontal force so horizontal velocity stays zero, falls straight down; same as a train at rest so motion undetectable",
+            "requires": [
+              "constant velocity",
+              "not accelerating",
+              [
+                "inertial reference frame",
+                "inertial frame"
+              ],
+              [
+                "Galilean relativity",
+                "Newton's laws hold"
+              ],
+              [
+                "no horizontal force",
+                "zero horizontal force"
+              ],
+              [
+                "straight down",
+                "directly below"
+              ],
+              [
+                "cannot tell",
+                "cannot detect"
+              ]
+            ],
+            "forbids": [
+              "force is needed to keep",
+              "train pushes the coin",
+              "air pushes the coin"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "From the platform, the coin keeps the train's horizontal velocity as it falls, so its path curves. The floor keeps pace, so both frames agree on where it lands."
+        },
+        {
+          "type": "figure",
+          "id": "1-15-lorry-pendulum",
+          "alt": "Side view of a lorry on a level road, accelerating to the right, shown by an arrow labelled acceleration a above the lorry. A small mass hangs on a string from a point on the roof inside the cargo box. The string is tilted backwards, towards the rear of the lorry, at an angle theta to a dashed vertical line. Two forces act on the mass: the tension T, pulling up along the string, and the weight m g, pulling straight down.",
+          "caption": "In the road's frame, $T$ and $mg$ add to a horizontal resultant force $ma$ in the direction of the acceleration."
+        },
+        {
+          "type": "example",
+          "id": "ex-lorry-pendulum",
+          "question": "A small mass hangs on a string from the roof of a lorry. The lorry accelerates along a straight, level road at $\\pu{1.50 m s-2}$, and the string settles at a steady angle $\\theta$ to the vertical. Determine $\\theta$, and explain why the lorry's frame is not inertial.",
+          "steps": [
+            "Work in the road's inertial frame, with the acceleration's direction positive. The mass accelerates with the lorry, so the resultant force on it is $ma$, horizontal.",
+            "Two forces act: tension $T$ along the string and weight $mg$. Vertically there is no acceleration, so $T\\cos\\theta = mg$.",
+            "Horizontally, $T\\sin\\theta = ma$.",
+            "Divide the two equations: $\\tan\\theta = \\frac{a}{g} = \\frac{1.50}{9.8} = 0.153$, so $\\theta = 8.70^{\\circ}$, or $8.7^{\\circ}$ to 2 significant figures. The value $g = \\pu{9.8 m s-2}$ is from the data booklet.",
+            "In the lorry's frame the mass is at rest, yet $T$ and $mg$ do not cancel. Newton's first law fails there, so the lorry's frame is not inertial."
+          ],
+          "answer": "$\\theta \\approx 8.7^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "atand(1.50/g)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a frame inertial because its speed is constant. A car rounding a bend at steady speed is accelerating, so its frame is not inertial."
+        },
+        {
+          "type": "check",
+          "id": "check-which-inertial",
+          "prompt": "Which of these is an inertial reference frame, to a good approximation?",
+          "hint": "Look for zero acceleration: no change of speed and no change of direction.",
+          "options": [
+            {
+              "text": "a ship sailing in a straight line at steady speed on a calm sea",
+              "correct": true
+            },
+            {
+              "text": "a fairground ride turning at a steady rate",
+              "correct": false
+            },
+            {
+              "text": "a lift slowing down as it reaches the top floor",
+              "correct": false
+            },
+            {
+              "text": "a sprinter speeding up out of the blocks",
+              "correct": false
+            }
+          ],
+          "explain": "The ship has constant velocity, so its acceleration is zero. The ride keeps changing direction, and the lift and the sprinter change speed, so all three accelerate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a ship sailing in a straight line at steady speed on a calm sea"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bus-ball",
+          "prompt": "A bus pulls away from a stop. A ball resting on its smooth floor rolls towards the back of the bus. Which statement is correct?",
+          "hint": "Ask what horizontal force acts on the ball, and in which frame Newton's first law can be trusted.",
+          "options": [
+            {
+              "text": "In the road's frame, the ball stays where it was while the bus speeds up beneath it.",
+              "correct": true
+            },
+            {
+              "text": "The bus pushes the ball backwards with a horizontal force.",
+              "correct": false
+            },
+            {
+              "text": "The bus's frame is inertial, because the floor is smooth.",
+              "correct": false
+            },
+            {
+              "text": "The ball's inertia is a backward force acting on it.",
+              "correct": false
+            }
+          ],
+          "explain": "On a smooth floor no horizontal force acts on the ball, so in the road's inertial frame it stays at rest. The bus accelerates forwards beneath it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "In the road's frame, the ball stays where it was while the bus speeds up beneath it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "transformation",
+      "heading": "The Galilean transformation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now compare two inertial frames. Frame $S$ is fixed to the ground. Frame $S'$ moves along the $x$-axis at constant velocity $v$ relative to $S$."
+        },
+        {
+          "type": "text",
+          "text": "Both clocks read zero at the instant the two origins, $O$ and $O'$, pass each other. By a later time $t$, $O'$ has moved a distance $vt$ from $O$."
+        },
+        {
+          "type": "figure",
+          "id": "1-15-two-frames",
+          "alt": "Two parallel horizontal x-axes. The lower axis belongs to frame S, with origin O at the left. The upper axis belongs to frame S prime, with origin O prime further to the right, and an arrow labelled v shows that frame S prime moves to the right relative to S. A dashed vertical line marks event P, to the right of both origins. Below the axes, an arrow from O to O prime is labelled v t, and a longer arrow from O to P is labelled x. Beside the upper axis, an arrow from O prime to P is labelled x prime. So x equals v t plus x prime.",
+          "caption": "At time $t$, the event's position in $S$ is $x = vt + x'$."
+        },
+        {
+          "type": "text",
+          "text": "An event P happens at time $t$. The figure shows that its distance from $O$ is $vt$ plus its distance from $O'$. Rearranging gives the first equation below."
+        },
+        {
+          "type": "formula",
+          "tex": "x' = x - vt",
+          "tag": "booklet",
+          "bookletId": "db-1-15"
+        },
+        {
+          "type": "formula",
+          "tex": "t' = t",
+          "tag": "booklet",
+          "bookletId": "db-1-15"
+        },
+        {
+          "type": "text",
+          "text": "Here $x$ and $t$ are the event's coordinates in $S$, and $x'$ and $t'$ are its coordinates in $S'$. $v$ is the velocity of $S'$ relative to $S$. All three of $x$, $x'$ and $v$ carry signs."
+        },
+        {
+          "type": "result",
+          "statement": "In Galilean relativity, time is absolute: $t' = t$. Every observer agrees on when an event happens, on the time between two events, and on which events are simultaneous.",
+          "why": "This is Newton's assumption of one universal time. It matches experiment at everyday speeds, but fails near the speed of light ({{lesson:1.16}})."
+        },
+        {
+          "type": "text",
+          "text": "Positions are not absolute: the same event has different $x$ and $x'$. But in Galilean relativity an object's length, found by marking both ends at the same instant, is the same in both frames."
+        },
+        {
+          "type": "example",
+          "id": "ex-heron-ferry",
+          "question": "A ferry sails downstream along a straight canal at a constant $\\pu{3.5 m s-1}$. Frame $S$ is fixed to the bank, with its origin at a bridge. Frame $S'$ moves with the ferry, with its origin at the bow, which passes the bridge at $t = 0$. At $t = \\pu{40 s}$ a heron lands on the bank $\\pu{110 m}$ downstream of the bridge. Determine the coordinates of this event in $S'$.",
+          "steps": [
+            "Take downstream as positive. Then $v = \\pu{+3.5 m s-1}$, $x = \\pu{+110 m}$ and $t = \\pu{40 s}$.",
+            "Time is the same in both frames: $t' = t = \\pu{40 s}$.",
+            "$x' = x - vt = 110 - 3.5 \\times 40 = 110 - 140 = \\pu{-30 m}$.",
+            "The minus sign means the heron lands $\\pu{30 m}$ behind the bow. Check: by $t = \\pu{40 s}$ the bow is $\\pu{140 m}$ past the bridge, so it has already passed the heron's spot."
+          ],
+          "answer": "$x' = \\pu{-30 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "110 - 3.5*40",
+            "unit": "m",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the moving object's velocity for $v$. In $x' = x - vt$, $v$ is the velocity of frame $S'$ relative to $S$, not of something moving within a frame."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-ball",
+          "question": "A drone flies in a straight line at a constant $\\pu{12 m s-1}$ over a level field. Frame $S$ is fixed to the field and frame $S'$ moves with the drone; their origins coincide at $t = 0$. Along the drone's path, a ball is kicked at $x = \\pu{18 m}$, $t = \\pu{1.5 s}$, and lands at $x = \\pu{63 m}$, $t = \\pu{4.0 s}$. Determine the distance between these two events in the drone's frame.",
+          "steps": [
+            "Take the drone's direction as positive, so $v = \\pu{+12 m s-1}$.",
+            "Kick: $x' = 18 - 12 \\times 1.5 = \\pu{0 m}$. The ball is kicked from directly below the drone.",
+            "Landing: $x' = 63 - 12 \\times 4.0 = \\pu{15 m}$.",
+            "Separation in $S'$: $\\Delta x' = 15 - 0 = \\pu{15 m}$. In $S$ it is $63 - 18 = \\pu{45 m}$.",
+            "The time between the events is $\\pu{2.5 s}$ in both frames, because $t' = t$. Only the distance changes."
+          ],
+          "answer": "$\\Delta x' = \\pu{15 m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(63 - 12*4.0) - (18 - 12*1.5)",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-event-xprime",
+          "prompt": "Frame $S'$ moves at $\\pu{+8.0 m s-1}$ relative to frame $S$, and their origins coincide at $t = 0$. An event happens at $x = \\pu{62 m}$, $t = \\pu{4.0 s}$ in $S$. What is $x'$, in m? Give 2 significant figures.",
+          "hint": "Use $x' = x - vt$ with $v = 8.0$ and $t = 4.0$.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0.5
+          },
+          "explain": "$x' = 62 - 8.0 \\times 4.0 = 62 - 32 = \\pu{30 m}$. The event is $\\pu{30 m}$ ahead of the origin of $S'$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "62 - 8.0*4.0",
+            "sf": 2,
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-galilean-agree",
+          "prompt": "Two observers are in different inertial frames moving relative to each other. According to Galilean relativity, which of these do they always agree on?",
+          "hint": "Look at which coordinate is unchanged by the transformation.",
+          "options": [
+            {
+              "text": "the time at which an event happens",
+              "correct": true
+            },
+            {
+              "text": "the position at which an event happens",
+              "correct": false
+            },
+            {
+              "text": "the velocity of a moving object",
+              "correct": false
+            },
+            {
+              "text": "the distance an object travels between two events",
+              "correct": false
+            }
+          ],
+          "explain": "$t' = t$, so times agree. Positions differ by $vt$, which grows with time, so velocities and distances travelled between events at different times differ too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the time at which an event happens"
+          }
+        }
+      ]
+    },
+    {
+      "id": "velocity-addition",
+      "heading": "Galilean velocity addition",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the drone example the ball moved $\\pu{45 m}$ in $\\pu{2.5 s}$ in the field's frame: $\\pu{18 m s-1}$. In the drone's frame it moved $\\pu{15 m}$: $\\pu{6 m s-1}$. The difference is the drone's velocity, $\\pu{12 m s-1}$."
+        },
+        {
+          "type": "result",
+          "statement": "Galilean velocity addition: an object with velocity $u$ in frame $S$ has velocity $u' = u - v$ in frame $S'$.",
+          "why": "Apply $x' = x - vt$ to two positions of the object: $\\Delta x' = \\Delta x - v\\Delta t$. Since $t' = t$, $\\Delta t' = \\Delta t$. Divide: $u' = \\frac{\\Delta x'}{\\Delta t'} = \\frac{\\Delta x}{\\Delta t} - v = u - v$."
+        },
+        {
+          "type": "formula",
+          "tex": "u' = u - v",
+          "tag": "booklet",
+          "bookletId": "db-1-15"
+        },
+        {
+          "type": "text",
+          "text": "Here $u$ is the object's velocity in $S$, $u'$ its velocity in $S'$, and $v$ the velocity of $S'$ relative to $S$. Choose a positive direction first. A velocity in the opposite direction is negative."
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, $u = u' + v$: an object's velocity relative to the ground is its velocity relative to a moving frame plus that frame's own velocity. Along a line, this is [[vector-addition|vector addition]] with signs."
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-cyclist",
+          "question": "A cyclist rides along a straight road at $\\pu{6.4 m s-1}$. A bus comes towards her at $\\pu{11.0 m s-1}$. Both speeds are relative to the road. Calculate the velocity of the bus in the cyclist's frame.",
+          "steps": [
+            "Take the cyclist's direction as positive. Frame $S$ is the road; frame $S'$ moves with the cyclist, so $v = \\pu{+6.4 m s-1}$.",
+            "The bus moves the opposite way: $u = \\pu{-11.0 m s-1}$.",
+            "$u' = u - v = -11.0 - 6.4 = \\pu{-17.4 m s-1}$.",
+            "So, to the cyclist, the bus approaches at $\\pu{17.4 m s-1}$ in the negative direction. Check: approaching objects close at the sum of their speeds."
+          ],
+          "answer": "$u' = \\pu{-17.4 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-11.0 - 6.4",
+            "unit": "m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-walkway-child",
+          "question": "A moving walkway at an airport carries passengers at $\\pu{0.90 m s-1}$ relative to the floor. A child walks the wrong way along it, at $\\pu{1.4 m s-1}$ relative to the walkway. Determine the child's velocity relative to the floor.",
+          "steps": [
+            "Take the walkway's direction of motion as positive. Frame $S$ is the floor; frame $S'$ moves with the walkway, so $v = \\pu{+0.90 m s-1}$.",
+            "The child's velocity in $S'$ is $u' = \\pu{-1.4 m s-1}$. You want $u$, the velocity in $S$.",
+            "Rearrange $u' = u - v$: $u = u' + v = -1.4 + 0.90 = \\pu{-0.50 m s-1}$.",
+            "The child moves slowly backwards relative to the floor, against the walkway's motion."
+          ],
+          "answer": "$u = \\pu{-0.50 m s-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-1.4 + 0.90",
+            "unit": "m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "Because $v$ is constant, a change in $u$ gives the same change in $u'$, so every inertial observer measures the same acceleration. Forces and masses are the same too, so $F = ma$ holds in both frames. This is why Galilean relativity works."
+        },
+        {
+          "type": "check",
+          "id": "check-trains-relative",
+          "prompt": "On parallel straight tracks, train P moves at $\\pu{+32 m s-1}$ and train Q at $\\pu{+27 m s-1}$, both relative to the ground. What is the velocity of Q in P's frame?",
+          "hint": "Here $S'$ is P's frame, so $v$ is P's velocity and $u$ is Q's.",
+          "options": [
+            {
+              "text": "$\\pu{-5 m s-1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\pu{5 m s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{59 m s-1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\pu{-59 m s-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$u' = u - v = 27 - 32 = \\pu{-5 m s-1}$. From P, the slower train Q drifts backwards at $\\pu{5 m s-1}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "27 - 32",
+            "unit": "m s-1",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-same-acceleration",
+          "prompt": "In frame $S$, a trolley's velocity rises steadily from $\\pu{+2.0 m s-1}$ to $\\pu{+8.0 m s-1}$ in $\\pu{3.0 s}$. Frame $S'$ moves at $\\pu{+5.0 m s-1}$ relative to $S$. What is the trolley's acceleration in $S'$, in $\\text{m s}^{-2}$? Give 2 significant figures.",
+          "hint": "Convert both velocities with $u' = u - v$, then divide the change by the time.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0.05
+          },
+          "explain": "In $S'$ the velocity goes from $2.0 - 5.0 = -3.0$ to $8.0 - 5.0 = \\pu{+3.0 m s-1}$. The change is $\\pu{6.0 m s-1}$ in $\\pu{3.0 s}$, so $a' = \\pu{2.0 m s-2}$: the same as in $S$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((8.0 - 5.0) - (2.0 - 5.0))/3.0",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "Galilean velocity addition works very well at everyday speeds but fails near the speed of light, $c$. For light travelling the same way as a spacecraft moving at $0.40c$, it predicts $c - 0.40c = 0.60c$ relative to the spacecraft. In fact light in a vacuum travels at $c$ relative to every inertial observer. {{lesson:1.16}} shows what replaces $t' = t$."
+        },
+        {
+          "type": "examTip",
+          "text": "If a question says \"using Galilean relativity\", give the $u - v$ value, even for light. Use the relativistic formula only when the question asks for it ({{lesson:1.16}})."
+        },
+        {
+          "type": "check",
+          "id": "check-galilean-valid",
+          "prompt": "For which situation does Galilean velocity addition give an accurate answer?",
+          "hint": "It fails when a speed involved is a large fraction of the speed of light.",
+          "options": [
+            {
+              "text": "a passenger walking along the aisle of a moving train",
+              "correct": true
+            },
+            {
+              "text": "an electron fired forwards from a particle moving at 0.9c",
+              "correct": false
+            },
+            {
+              "text": "light emitted forwards by a moving star",
+              "correct": false
+            },
+            {
+              "text": "two protons moving towards each other, each at 0.5c",
+              "correct": false
+            }
+          ],
+          "explain": "A walking passenger and a train move far slower than light, so $u' = u - v$ is accurate. The other three involve speeds that are a large fraction of $c$, where only relativistic velocity addition works.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a passenger walking along the aisle of a moving train"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A reference frame is a set of axes and clocks. An event has coordinates $(x, t)$ in each frame.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An inertial reference frame is not accelerating, and Newton's first law holds in it. Any frame at constant velocity relative to an inertial frame is inertial.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Galilean relativity: Newton's laws are the same in all inertial frames. All inertial observers measure the same time and the same acceleration.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "x' = x - vt",
+          "tag": "booklet",
+          "bookletId": "db-1-15",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "t' = t",
+          "tag": "booklet",
+          "bookletId": "db-1-15",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "u' = u - v",
+          "tag": "booklet",
+          "bookletId": "db-1-15",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$v$ is the velocity of frame $S'$ relative to $S$. Fix a positive direction first. Galilean velocity addition fails for speeds close to $c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Defining an inertial frame as one \"at rest\". Any frame that is not accelerating is inertial, whether or not it moves.",
+    "Dropping signs. Fix a positive direction, then give opposite velocities and positions a minus sign before using $u' = u - v$.",
+    "Using Galilean addition for light or particles near $c$. It predicts speeds that experiments never measure."
+  ],
+  "examTips": [
+    "\"State what is meant by an inertial reference frame\": say it is not accelerating (it moves at constant velocity), or that Newton's first law holds in it. \"At rest\" alone is not enough.",
+    "In \"calculate\" or \"determine\" questions, state your positive direction, write $u' = u - v$ or $x' = x - vt$ with values substituted, then give the answer with its sign and unit. \"Write down\" a Galilean answer needs no working.",
+    "\"Explain\" why an observer cannot detect uniform motion: say the frame is inertial, then quote Galilean relativity, that Newton's laws are the same in all inertial frames."
+  ],
+  "readingMinutes": 24
+}
