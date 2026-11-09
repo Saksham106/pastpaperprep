@@ -1,0 +1,688 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.5",
+  "slug": "exponents-and-introductory-logarithms",
+  "title": "Exponents and introductory logarithms",
+  "level": "SL",
+  "topic": 1,
+  "summary": "An exponent counts how many copies of a number are multiplied together. The [[laws-of-exponents|laws of exponents]] let you multiply, divide and raise powers quickly, and they explain zero and negative exponents. A [[logarithm|logarithm]] answers the reverse question, \"what power?\", and your GDC evaluates it in base $10$, base $\\mathrm{e}$ or any other base.",
+  "goals": [
+    {
+      "text": "Multiply, divide and raise powers using the [[laws-of-exponents|laws of exponents]], including in measurement and storage problems.",
+      "bullets": [
+        "1.5-b1"
+      ]
+    },
+    {
+      "text": "Use zero and negative integer exponents, and switch between forms such as $3x^{-3}$ and $\\frac{3}{x^{3}}$.",
+      "bullets": [
+        "1.5-b1"
+      ]
+    },
+    {
+      "text": "Rewrite $a^{x} = b$ as $\\log_{a} b = x$ and back, and explain why $b$ must be positive.",
+      "bullets": [
+        "1.5-b2"
+      ]
+    },
+    {
+      "text": "Recognise $\\log_{10} x$ and the [[natural-logarithm|natural logarithm]] $\\ln x = \\log_{\\mathrm{e}} x$.",
+      "bullets": [
+        "1.5-b2"
+      ]
+    },
+    {
+      "text": "Evaluate logarithms on your GDC, use them to solve $10^{x} = b$ or $\\mathrm{e}^{x} = b$, and say what the answer means in context.",
+      "bullets": [
+        "1.5-b2",
+        "1.5-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1"
+  ],
+  "synonyms": [
+    "laws of indices",
+    "negative exponents",
+    "what is a logarithm",
+    "log base 10",
+    "natural log ln",
+    "logs on a GDC"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-standard-form",
+      "prompt": "Write $0.00042$ in [[standard-form|standard form]].",
+      "hint": "Move the point so exactly one non-zero digit is in front of it. Count the places it moves.",
+      "options": [
+        {
+          "text": "$4.2 \\times 10^{-4}$",
+          "correct": true
+        },
+        {
+          "text": "$4.2 \\times 10^{4}$",
+          "correct": false
+        },
+        {
+          "text": "$4.2 \\times 10^{-3}$",
+          "correct": false
+        }
+      ],
+      "explain": "The point moves $4$ places right to sit after the $4$, and the number is less than $1$, so the power is $-4$: $4.2 \\times 10^{-4}$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "Rational(42, 100000)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-minus-power",
+      "prompt": "What is the value of $-2^{4}$?",
+      "hint": "The power is worked out before the minus sign, unless brackets say otherwise.",
+      "options": [
+        {
+          "text": "$16$",
+          "correct": false
+        },
+        {
+          "text": "$-16$",
+          "correct": true
+        },
+        {
+          "text": "$-8$",
+          "correct": false
+        }
+      ],
+      "explain": "Only the $2$ is raised to the power, so $-2^{4} = -(2^{4}) = -16$. With brackets, $(-2)^{4} = 16$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-(2**4)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "laws",
+      "heading": "The laws of exponents",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In $a^{n}$, the number $a$ is the base and $n$ is the exponent (also called the index or power). For a positive integer $n$, $a^{n}$ means $n$ copies of $a$ multiplied together."
+        },
+        {
+          "type": "text",
+          "text": "Look at $10^{2} \\times 10^{3}$. Written out, it is $(10 \\times 10) \\times (10 \\times 10 \\times 10)$: five $10$s, so $10^{5}$. Multiplying powers of the same base adds the exponents."
+        },
+        {
+          "type": "text",
+          "text": "The same counting gives the other [[laws-of-exponents|laws of exponents]]. Dividing cancels copies, so you subtract exponents. A power of a power repeats a whole block of copies, so you multiply exponents."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{m} \\times a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n} \\qquad \\left(a^{m}\\right)^{n} = a^{mn}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A power of a bracket goes onto every factor inside it. For example, $(3y)^{2} = 3y \\times 3y = 9y^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(ab)^{n} = a^{n}b^{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The first two laws need the same base: $2^{3} \\times 7^{2}$ can't be written as one power. None of these laws is in the formula booklet, so learn them."
+        },
+        {
+          "type": "example",
+          "id": "ex-laws-simplify",
+          "question": "Simplify $\\frac{(5m^{2}n^{3})^{2}}{5m^{3}n}$.",
+          "steps": [
+            "Square every factor in the bracket: $(5m^{2}n^{3})^{2} = 5^{2}\\left(m^{2}\\right)^{2}\\left(n^{3}\\right)^{2} = 25m^{4}n^{6}$.",
+            "Divide the numbers: $\\frac{25}{5} = 5$.",
+            "Subtract the exponents of $m$: $\\frac{m^{4}}{m^{3}} = m^{1} = m$.",
+            "Remember $n = n^{1}$, then subtract: $\\frac{n^{6}}{n^{1}} = n^{5}$.",
+            "Put the parts together: $5mn^{5}$."
+          ],
+          "answer": "$\\frac{(5m^{2}n^{3})^{2}}{5m^{3}n} = 5mn^{5}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(5*m**2*n**3)**2/(5*m**3*n)",
+            "form": "simplified"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-laws-bracket",
+          "prompt": "Simplify $(3k^{4})^{3}$.",
+          "hint": "The power $3$ goes onto the $3$ and onto $k^{4}$.",
+          "options": [
+            {
+              "text": "$3k^{12}$",
+              "correct": false
+            },
+            {
+              "text": "$27k^{12}$",
+              "correct": true
+            },
+            {
+              "text": "$9k^{12}$",
+              "correct": false
+            },
+            {
+              "text": "$27k^{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$(3k^{4})^{3} = 3^{3}\\left(k^{4}\\right)^{3} = 27k^{12}$. Leaving the $3$ alone gives $3k^{12}$, and $3 \\times 3$ gives $9k^{12}$. Adding $4 + 3$ gives the wrong exponent $7$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "(3*k**4)**3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Computer memory comes in powers of $2$, and metric units in powers of $10$. The laws turn questions about them into quick exponent sums."
+        },
+        {
+          "type": "example",
+          "id": "ex-laws-storage",
+          "question": "A memory card holds $2^{35}$ bytes. A camera saves each photo as a file of $2^{22}$ bytes. Find the greatest number of photos the card can hold.",
+          "steps": [
+            "The number of photos is the card's size divided by one photo's size: $N = \\frac{2^{35}}{2^{22}}$.",
+            "The bases match, so subtract the exponents: $N = 2^{35-22} = 2^{13}$.",
+            "Evaluate: $2^{13} = 8192$.",
+            "In context: the card holds at most $8192$ photos. In practice it holds slightly fewer, because the card also stores folder information."
+          ],
+          "answer": "$N = 2^{13} = 8192$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2**35/2**22"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-laws-area",
+          "prompt": "A park has an area of $3\\text{ km}^{2}$. Given that $1\\text{ km} = 10^{5}\\text{ cm}$, find the area of the park in $\\text{cm}^{2}$.",
+          "hint": "$1\\text{ km}^{2}$ is a square $10^{5}$ cm by $10^{5}$ cm. Only the units are squared, not the $3$.",
+          "options": [
+            {
+              "text": "$3 \\times 10^{10}$",
+              "correct": true
+            },
+            {
+              "text": "$3 \\times 10^{7}$",
+              "correct": false
+            },
+            {
+              "text": "$9 \\times 10^{10}$",
+              "correct": false
+            },
+            {
+              "text": "$3 \\times 10^{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1\\text{ km}^{2} = \\left(10^{5}\\right)^{2}\\text{ cm}^{2} = 10^{10}\\text{ cm}^{2}$, so $3\\text{ km}^{2} = 3 \\times 10^{10}\\text{ cm}^{2}$. Adding $5 + 2$ gives $10^{7}$, squaring the $3$ gives $9$, and forgetting to square gives $10^{5}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3*(10**5)**2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zero-negative",
+      "heading": "Zero and negative exponents",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Follow the powers of $10$ downwards: $10^{3} = 1000$, $10^{2} = 100$, $10^{1} = 10$. Each time the exponent drops by $1$, you divide by $10$."
+        },
+        {
+          "type": "text",
+          "text": "Keep going. Next come $10^{0} = 1$, then $10^{-1} = \\frac{1}{10}$, then $10^{-2} = \\frac{1}{100}$. These are the powers you already use for small numbers in [[standard-form|standard form]]."
+        },
+        {
+          "type": "text",
+          "text": "The quotient law agrees. $\\frac{a^{4}}{a^{4}} = a^{0}$, and anything non-zero divided by itself is $1$. Also $\\frac{a^{2}}{a^{6}} = a^{-4}$, while cancelling gives $\\frac{1}{a^{4}}$."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{0} = 1 \\qquad a^{-n} = \\frac{1}{a^{n}} \\qquad (a \\neq 0)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Every law from the first section still works with zero and negative integer exponents. For example, $y^{5} \\times y^{-8} = y^{-3}$ and $\\left(y^{-2}\\right)^{4} = y^{-8}$."
+        },
+        {
+          "type": "text",
+          "text": "Watch what the exponent is attached to. In $3x^{-3}$ only the $x$ has it, so $3x^{-3} = \\frac{3}{x^{3}}$. In $(3x)^{-3}$ the whole bracket has it, so $(3x)^{-3} = \\frac{1}{27x^{3}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-simplify",
+          "question": "Simplify $\\frac{12x^{3}}{4x^{6}}$, giving your answer with a negative exponent. Then write it as a fraction.",
+          "steps": [
+            "Divide the numbers: $\\frac{12}{4} = 3$.",
+            "Subtract the exponents of $x$: $\\frac{x^{3}}{x^{6}} = x^{3-6} = x^{-3}$.",
+            "So the expression is $3x^{-3}$. Only $x$ carries the $-3$.",
+            "As a fraction, $x^{-3} = \\frac{1}{x^{3}}$, so $3x^{-3} = \\frac{3}{x^{3}}$. The $3$ stays on top."
+          ],
+          "answer": "$\\frac{12x^{3}}{4x^{6}} = 3x^{-3} = \\frac{3}{x^{3}}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "12*x**3/(4*x**6)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading a negative exponent as a negative number. $5^{-2} = \\frac{1}{25}$, not $-25$: the minus sign in the exponent means \"one over\"."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-form",
+          "prompt": "Which expression is equal to $\\frac{5}{x^{4}}$?",
+          "hint": "Split it as $5 \\times \\frac{1}{x^{4}}$. Which part moves up with a negative exponent?",
+          "options": [
+            {
+              "text": "$(5x)^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$5x^{-4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x^{4}}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$-5x^{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{5}{x^{4}} = 5 \\times x^{-4} = 5x^{-4}$. The bracket in $(5x)^{-4}$ would also put the $5$ to the power $-4$, giving $\\frac{1}{625x^{4}}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "5/x**4"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-particles",
+          "question": "A grain of silt is $6 \\times 10^{-5}$ m across. A clay particle is $2 \\times 10^{-6}$ m across. How many times wider is the silt grain than the clay particle?",
+          "steps": [
+            "\"How many times\" means divide: $\\frac{6 \\times 10^{-5}}{2 \\times 10^{-6}}$.",
+            "Divide the front numbers: $\\frac{6}{2} = 3$.",
+            "Subtract the exponents: $\\frac{10^{-5}}{10^{-6}} = 10^{-5-(-6)} = 10^{1}$.",
+            "So the ratio is $3 \\times 10^{1} = 30$.",
+            "In context: about $30$ clay particles side by side span one silt grain."
+          ],
+          "answer": "$\\frac{6 \\times 10^{-5}}{2 \\times 10^{-6}} = 30$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6*10**-5/(2*10**-6)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-negative-model",
+          "prompt": "The number of bacteria in a dish is modelled by $N = 800 \\times 2^{t}$, where $t$ is the time in hours after 9 a.m. Use the model to find the number of bacteria at 7 a.m.",
+          "hint": "7 a.m. is $2$ hours before 9 a.m., so $t = -2$.",
+          "answer": {
+            "value": 200,
+            "tolerance": 0
+          },
+          "explain": "$N = 800 \\times 2^{-2} = 800 \\times \\frac{1}{4} = 200$. A negative $t$ means a time before the start, and a negative exponent divides, so there were fewer bacteria then.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "800*2**(-2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "logs",
+      "heading": "What a logarithm is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now ask the question the other way round. $10$ to what power gives $1000$? Since $10^{3} = 1000$, the answer is $3$. A [[logarithm|logarithm]] is the name for that missing exponent."
+        },
+        {
+          "type": "definition",
+          "term": "logarithm",
+          "statement": "For $a > 0$, $a \\neq 1$ and $b > 0$, $\\log_{a} b$ is the number $x$ such that $a^{x} = b$. The number $a$ is the base of the logarithm.",
+          "plain": "A logarithm is the power you raise the base to in order to get the number."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\iff x = \\log_{a} b, \\quad \\text{where } a > 0,\\ b > 0,\\ a \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-exp-log"
+        },
+        {
+          "type": "text",
+          "text": "This link is in the formula booklet, so you don't need to memorise it. You do need to use it both ways. The arrow $\\iff$ means each statement implies the other."
+        },
+        {
+          "type": "text",
+          "text": "In $2^{6} = 64$ the base is $2$ and the exponent is $6$. In log form the base stays the base, and the log equals the exponent: $\\log_{2} 64 = 6$."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-powers-of-ten",
+          "alt": "Three rows. The numbers 0.01, 0.1, 1, 10, 100 and 1000, each 10 times the one before. Below them the same numbers as powers of 10, from 10 to the power minus 2 up to 10 to the power 3. Below those, log base 10 of each number: minus 2, minus 1, 0, 1, 2 and 3. Numbers below 1 have negative logs.",
+          "caption": "$\\log_{10}$ of a power of $10$ is its exponent. A number between $0$ and $1$ has a negative log."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-small",
+          "question": "Find the value of $\\log_{10} 0.0001$.",
+          "steps": [
+            "Let $x = \\log_{10} 0.0001$. By the definition, $10^{x} = 0.0001$.",
+            "Write $0.0001$ as a power of $10$: $0.0001 = \\frac{1}{10\\,000} = \\frac{1}{10^{4}} = 10^{-4}$.",
+            "So $10^{x} = 10^{-4}$, which gives $x = -4$.",
+            "The log is negative because $0.0001$ lies between $0$ and $1$."
+          ],
+          "answer": "$\\log_{10} 0.0001 = -4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(Rational(1, 10000), 10)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-log-value",
+          "prompt": "Find the value of $\\log_{5} 0.04$.",
+          "hint": "Write $0.04$ as a fraction, then as a power of $5$.",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{1}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$-2$",
+              "correct": true
+            }
+          ],
+          "explain": "$0.04 = \\frac{1}{25} = 5^{-2}$, so $\\log_{5} 0.04 = -2$. A number between $0$ and $1$ has a negative log, which rules out $2$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(Rational(4, 100), 5)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Why must $b$ be positive? A positive base raised to any power gives a positive number. So $10^{x}$ is never $0$ or negative, and $\\log_{10} 0$ and $\\log_{10}(-5)$ don't exist."
+        },
+        {
+          "type": "text",
+          "text": "Why must $a \\neq 1$? Every power of $1$ is $1$, so base $1$ can't produce any other number."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-doubling",
+          "question": "A biologist starts with one cell. The number of cells doubles every day, so after $x$ days there are $2^{x}$ cells. Write the number of days needed to reach $1024$ cells as a logarithm, and find its value.",
+          "steps": [
+            "Set up the equation: $2^{x} = 1024$.",
+            "Use the definition with base $2$: $x = \\log_{2} 1024$.",
+            "Find the power: $2^{10} = 1024$, so $\\log_{2} 1024 = 10$.",
+            "In context: the culture reaches $1024$ cells after $10$ days, if it keeps doubling every day."
+          ],
+          "answer": "$x = \\log_{2} 1024 = 10$",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(1024, 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-log-negative",
+          "prompt": "A spreadsheet tries to work out $\\log_{10}(-100)$. Which statement is true?",
+          "hint": "Can $10$ raised to any power give a negative number?",
+          "options": [
+            {
+              "text": "It equals -2",
+              "correct": false
+            },
+            {
+              "text": "It does not exist, because every power of 10 is positive",
+              "correct": true
+            },
+            {
+              "text": "It equals 2, with the minus sign kept outside",
+              "correct": false
+            }
+          ],
+          "explain": "$10^{x} > 0$ for every $x$, so no power of $10$ equals $-100$. The log of a negative number (or of $0$) is not defined. Note that $10^{-2} = 0.01$, not $-100$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It does not exist, because every power of 10 is positive"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use the laws of logarithms to combine and split logs in base $10$ and base $\\mathrm{e}$.",
+          "lesson": "1.9"
+        }
+      ]
+    },
+    {
+      "id": "base-10-e-gdc",
+      "heading": "Base 10, base e and your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two bases are used so often that your GDC has a key for each. Base $10$ suits our number system, and scales such as pH and decibels are built on it."
+        },
+        {
+          "type": "text",
+          "text": "The other base is [[e|e]], an irrational number like $\\pi$: $\\mathrm{e} = 2.71828\\ldots$ It appears in models of continuous growth and decay, which you'll meet in {{lesson:2.5}}."
+        },
+        {
+          "type": "definition",
+          "term": "natural logarithm",
+          "statement": "The [[natural-logarithm|natural logarithm]] is the logarithm with base $\\mathrm{e}$, written $\\ln x = \\log_{\\mathrm{e}} x$, for $x > 0$.",
+          "plain": "ln is a log whose base is the number e."
+        },
+        {
+          "type": "formula",
+          "tex": "\\ln x = \\log_{\\mathrm{e}} x, \\quad x > 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "On a GDC, the LOG key gives $\\log_{10}$ and the LN key gives $\\ln$. For any other base, use the calculator's log-with-base template, shown below."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-base-three",
+          "question": "Use your calculator to find $\\log_{3} 200$. Give your answer to 3 s.f.",
+          "steps": [
+            "Estimate first: $3^{4} = 81$ and $3^{5} = 243$, so $\\log_{3} 200$ lies between $4$ and $5$.",
+            "Enter $\\log_{3} 200$ with the log-with-base template: $4.82268\\ldots$",
+            "Check with the definition: $3^{4.82268\\ldots} = 200$.",
+            "Round to 3 s.f.: $4.82$. It lies between $4$ and $5$, as the estimate said."
+          ],
+          "answer": "$\\log_{3} 200 \\approx 4.82$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(200, 3)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "number-logarithms",
+          "values": {
+            "value": 200,
+            "base": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ln-half",
+          "prompt": "Use your calculator to find $\\ln 0.5$, to 3 s.f.",
+          "hint": "Use the LN key, not the LOG key.",
+          "options": [
+            {
+              "text": "$\\ln 0.5 \\approx -0.301$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln 0.5 \\approx -0.693$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln 0.5 \\approx 0.693$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln 0.5 \\approx 1.65$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ln 0.5 = -0.693147\\ldots \\approx -0.693$. It is negative because $0.5 < 1$. The LOG key gives $\\log_{10} 0.5 = -0.301$, and $\\mathrm{e}^{0.5} = 1.65$ is the reverse operation.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(Rational(1, 2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Logs also solve equations where the unknown is the exponent. By the definition, $10^{x} = b$ gives $x = \\log_{10} b$, and $\\mathrm{e}^{x} = b$ gives $x = \\ln b$. Get the power on its own first."
+        },
+        {
+          "type": "example",
+          "id": "ex-app-users",
+          "question": "The number of users of a new app, $t$ weeks after launch, is modelled by $U = 200\\mathrm{e}^{0.4t}$. Find when the model predicts $5000$ users. Give your answer to 3 s.f.",
+          "steps": [
+            "Write down the equation: $200\\mathrm{e}^{0.4t} = 5000$.",
+            "Divide by $200$ to get the power on its own: $\\mathrm{e}^{0.4t} = 25$.",
+            "Use the definition with base $\\mathrm{e}$: $0.4t = \\ln 25$, so $t = \\frac{\\ln 25}{0.4} = 8.04718\\ldots$",
+            "Or solve $200\\mathrm{e}^{0.4t} = 5000$ with the GDC's numeric solver, which gives the same value.",
+            "In context: the app reaches $5000$ users about $8.05$ weeks after launch. The model assumes growth carries on at the same rate, which can't last for ever."
+          ],
+          "answer": "$t \\approx 8.05\\text{ weeks}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(25)/Rational(2, 5)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "200e^(0.4X)",
+            "rightSide": 5000,
+            "guess": 8,
+            "lower": 0,
+            "upper": 20
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find\" or \"calculate\" with a log: write the equation or the log you evaluate, such as $t = \\frac{\\ln 25}{0.4}$, before the decimal. That line earns the method mark if the final answer slips."
+        },
+        {
+          "type": "check",
+          "id": "check-town-model",
+          "prompt": "The time, $t$ years, for a town's population to grow to $P$ people is modelled by $t = 25\\ln\\left(\\frac{P}{12\\,000}\\right)$. Find the time for the population to reach $20\\,000$. Give your answer to 3 s.f.",
+          "hint": "Substitute $P = 20\\,000$, then use the LN key on the whole fraction.",
+          "answer": {
+            "value": 12.8,
+            "tolerance": 0.05
+          },
+          "explain": "$t = 25\\ln\\left(\\frac{20\\,000}{12\\,000}\\right) = 12.7706\\ldots \\approx 12.8$ years. Using the LOG key by mistake gives $5.55$. The model only makes sense for $P \\ge 12\\,000$: a smaller $P$ gives a negative time, before the model starts.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "25*log(Rational(20000, 12000))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "a^{m} \\times a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n} \\qquad \\left(a^{m}\\right)^{n} = a^{mn} \\qquad (ab)^{n} = a^{n}b^{n} \\qquad (a, b \\neq 0 \\text{ if an exponent is zero or negative})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $a \\neq 0$: $a^{0} = 1$ and $a^{-n} = \\frac{1}{a^{n}}$. A negative exponent gives a reciprocal, never a negative number, and $3x^{-3} = \\frac{3}{x^{3}}$ because only $x$ carries the exponent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a^{x} = b \\iff x = \\log_{a} b, \\quad \\text{where } a > 0,\\ b > 0,\\ a \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-5-exp-log",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "You can take the log only of a positive number. The log itself can be negative: for base $a > 1$, a number between $0$ and $1$ has a negative log.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\ln x = \\log_{\\mathrm{e}} x$ for $x > 0$, where $\\mathrm{e} = 2.71828\\ldots$ For $b > 0$, solve $10^{x} = b$ with $x = \\log_{10} b$ and $\\mathrm{e}^{x} = b$ with $x = \\ln b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On the GDC: LOG is base $10$, LN is base $\\mathrm{e}$, and the log-with-base template does any other base. Write the log you evaluate before the decimal answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving part of a bracket out of the power. $(2x)^{4} = 16x^{4}$, not $2x^{4}$: the exponent goes onto every factor inside the bracket.",
+    "Misreading a negative exponent. $4^{-1} = \\frac{1}{4}$, not $-4$, and $6x^{-2} = \\frac{6}{x^{2}}$, not $\\frac{1}{6x^{2}}$, because only $x$ carries the $-2$.",
+    "Pressing LN when the model says $\\log_{10}$, or LOG when it says $\\ln$. The two give very different values, so read the base before you press a key.",
+    "Losing the power of ten. A GDC display such as 3.7E-5 means $3.7 \\times 10^{-5}$; writing just $3.7$, or the calculator notation itself, loses the accuracy mark.",
+    "Ignoring what a model's output means. If a log model gives a negative count or time for some input, say the model is unrealistic there instead of reporting the number."
+  ],
+  "examTips": [
+    "\"Write down\" the value of a log such as $\\log_{10} 1000$: no working is needed. Ask yourself what power of the base gives the number.",
+    "When a question asks for an answer in the form $a \\times 10^{k}$ with $1 \\le a < 10$, give exactly that form. The right value in another form, or as 2.6E8, loses a mark.",
+    "\"Interpret\" or \"comment\" on a log model: say what the value means using the question's units and context. If the model gives an impossible value, such as a negative number of people, say so and explain why."
+  ],
+  "readingMinutes": 22
+}

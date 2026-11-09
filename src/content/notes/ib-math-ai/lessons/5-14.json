@@ -1,0 +1,572 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.14",
+  "slug": "setting-up-and-separating-differential-equations",
+  "title": "Setting up and separating differential equations",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[differential-equation|differential equation]] says how fast something changes, such as \"the drug leaves the blood at a rate proportional to the amount left\". You'll turn sentences like that into equations, then solve them by [[separation-of-variables|separation of variables]]. The answer is a model you can use to predict and interpret.",
+  "goals": [
+    {
+      "text": "Turn a description of a rate, such as \"decreases at a rate proportional to $\\sqrt{A}$\", into a differential equation, and find the constant from given data.",
+      "bullets": [
+        "5.14-b1"
+      ]
+    },
+    {
+      "text": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y)$ by separating the variables, and write down the [[general-solution|general solution]].",
+      "bullets": [
+        "5.14-b2"
+      ]
+    },
+    {
+      "text": "Show that $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$ gives the exponential model $y = A\\mathrm{e}^{kx}$, and use a known value to find the [[particular-solution|particular solution]].",
+      "bullets": [
+        "5.14-b2"
+      ]
+    },
+    {
+      "text": "Set up and solve a model in context, then use it to predict, and interpret its long-term behaviour and limits.",
+      "bullets": [
+        "5.14-b1",
+        "5.14-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "2.2",
+    "2.5",
+    "2.6",
+    "2.9",
+    "5.1",
+    "5.5",
+    "5.9",
+    "5.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "differential equations",
+    "separation of variables",
+    "separable differential equation",
+    "rate proportional to",
+    "Newton's law of cooling",
+    "general solution and particular solution"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-rate-meaning",
+      "prompt": "A tank holds $V$ litres of water $t$ minutes after a valve opens. At $t = 4$, $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = -3$. What does this tell you?",
+      "hint": "A [[derivative|derivative]] is a rate: litres per minute, at one instant.",
+      "options": [
+        {
+          "text": "At t = 4 the volume is falling at 3 litres per minute",
+          "correct": true
+        },
+        {
+          "text": "After 4 minutes, 3 litres have flowed out",
+          "correct": false
+        },
+        {
+          "text": "At t = 4 the tank holds 3 litres less than at the start",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}V}{\\mathrm{d}t}$ is the [[rate-of-change|rate of change]] of $V$ at that moment, in litres per minute. The minus sign means $V$ is falling. It says nothing about the total lost so far. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "At t = 4 the volume is falling at 3 litres per minute"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-int-linear",
+      "prompt": "Find $\\int \\frac{4}{2x + 1}\\,\\mathrm{d}x$.",
+      "hint": "Integrate as if the bracket were $x$, then divide by the $2$ in front of $x$.",
+      "options": [
+        {
+          "text": "$2\\ln|2x + 1| + C$",
+          "correct": true
+        },
+        {
+          "text": "$4\\ln|2x + 1| + C$",
+          "correct": false
+        },
+        {
+          "text": "$8\\ln|2x + 1| + C$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{4}{(2x + 1)^{2}} + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\int \\frac{1}{2x + 1}\\,\\mathrm{d}x = \\frac{1}{2}\\ln|2x + 1| + C$, so the $4$ becomes $4 \\times \\frac{1}{2} = 2$. Check: $\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(2\\ln|2x + 1|\\right) = \\frac{4}{2x + 1}$. Revise it in {{lesson:5.11}}.",
+      "verify": {
+        "kind": "antiderivative",
+        "truth": "4/(2*x + 1)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ln-solve",
+      "prompt": "Solve $50\\mathrm{e}^{-0.2t} = 15$. Give $t$ to 3 s.f.",
+      "hint": "Divide by $50$ first, then take $\\ln$ of both sides.",
+      "answer": {
+        "value": 6.02,
+        "tolerance": 0.005
+      },
+      "explain": "$\\mathrm{e}^{-0.2t} = 0.3$, so $-0.2t = \\ln 0.3$ and $t = \\frac{\\ln 0.3}{-0.2} = 6.0198\\ldots \\approx 6.02$. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "log(Rational(15, 50))/Rational(-2, 10)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "setting-up",
+      "heading": "Setting up a differential equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many models start from how fast something changes, not from a formula. A hot drink, for example, cools faster when it is much hotter than the room."
+        },
+        {
+          "type": "definition",
+          "term": "differential equation",
+          "statement": "A differential equation is an equation that contains a derivative, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ or $\\frac{\\mathrm{d}B}{\\mathrm{d}t}$. Solving it means finding the function.",
+          "plain": "It tells you how a quantity changes. You work out the quantity."
+        },
+        {
+          "type": "text",
+          "text": "To set one up, translate the sentence piece by piece. If a quantity $B$ changes with time $t$, \"the rate of change of $B$\" is $\\frac{\\mathrm{d}B}{\\mathrm{d}t}$."
+        },
+        {
+          "type": "text",
+          "text": "\"Proportional to\" means \"equals a constant times\". So \"the rate of change of $B$ is proportional to $B$\" becomes $\\frac{\\mathrm{d}B}{\\mathrm{d}t} = kB$. The constant $k$ is the constant of proportionality."
+        },
+        {
+          "type": "text",
+          "text": "If the quantity decreases, its rate is negative. Write $-k$ with $k > 0$, so the sign is visible: \"$T$ decreases at a rate proportional to $T - 21$\" becomes $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -k(T - 21)$, where $k > 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-setup-puddle",
+          "question": "After rain, a circular puddle dries in the sun. Its area, $A\\text{ cm}^{2}$, decreases at a rate proportional to $\\sqrt{A}$, where $t$ is the time in minutes. Write down a differential equation for $A$.",
+          "steps": [
+            "\"The rate of change of $A$\" with time is $\\frac{\\mathrm{d}A}{\\mathrm{d}t}$.",
+            "\"Proportional to $\\sqrt{A}$\" means a constant times $\\sqrt{A}$.",
+            "The area decreases, so the rate is negative. Use $-k$ with $k > 0$.",
+            "Why $\\sqrt{A}$ could be reasonable: if water is lost mainly at the edge, the rate follows the edge length, and a circle's circumference is proportional to $\\sqrt{A}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}A}{\\mathrm{d}t} = -k\\sqrt{A}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "-k*sqrt(A)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "An exam often gives one rate at one moment. Substitute both values into your equation to find $k$."
+        },
+        {
+          "type": "example",
+          "id": "ex-setup-find-k",
+          "question": "A culture contains $B$ bacteria $t$ hours after it is set up. The number grows at a rate proportional to $B$. When $B = 2400$, it is growing at $180$ bacteria per hour. Find the differential equation, and interpret the constant.",
+          "steps": [
+            "Translate: $\\frac{\\mathrm{d}B}{\\mathrm{d}t} = kB$. The number grows, so $k > 0$.",
+            "Substitute $\\frac{\\mathrm{d}B}{\\mathrm{d}t} = 180$ and $B = 2400$: $180 = 2400k$.",
+            "So $k = \\frac{180}{2400} = 0.075$, and $\\frac{\\mathrm{d}B}{\\mathrm{d}t} = 0.075B$.",
+            "Interpret: at every moment, the culture is growing at a rate of $7.5\\%$ of its current size per hour. Twice the bacteria means twice the growth rate."
+          ],
+          "answer": "$\\frac{\\mathrm{d}B}{\\mathrm{d}t} = 0.075B$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "Rational(180, 2400)*B"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $+k$ for a quantity that falls. If you write $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = k\\sqrt{A}$, say that $k < 0$; otherwise use $-k$ with $k > 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-setup-rumour",
+          "prompt": "In a town of $5000$ people, $H$ people have heard a rumour $t$ days after it starts. $H$ increases at a rate proportional to the number of people who have not yet heard it. Which equation models this, with $k > 0$?",
+          "hint": "Who has not heard it yet? Write that number in terms of $H$.",
+          "options": [
+            {
+              "text": "$\\frac{\\mathrm{d}H}{\\mathrm{d}t} = k(5000 - H)$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}H}{\\mathrm{d}t} = kH$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}H}{\\mathrm{d}t} = k(H - 5000)$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{\\mathrm{d}H}{\\mathrm{d}t} = k(5000 - H)H$",
+              "correct": false
+            }
+          ],
+          "explain": "The number who have not heard is $5000 - H$, so the rate is $k(5000 - H)$. With $k > 0$, $k(H - 5000)$ would be negative, but $H$ increases. $kH$ uses those who have heard instead.",
+          "verify": {
+            "kind": "expression",
+            "truth": "k*(5000 - H)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-setup-coffee",
+          "prompt": "A coffee's temperature $T$ °C falls at a rate proportional to $T - 21$, where $21$ °C is the room temperature, so $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -k(T - 21)$ with $t$ in minutes. When $T = 88$, it is cooling at $3.2$ °C per minute. Find $k$ to 3 s.f.",
+          "hint": "Cooling at $3.2$ °C per minute means $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -3.2$.",
+          "answer": {
+            "value": 0.0478,
+            "tolerance": 5e-05
+          },
+          "explain": "$-3.2 = -k(88 - 21) = -67k$, so $k = \\frac{3.2}{67} = 0.04776\\ldots \\approx 0.0478$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(32, 10)/(88 - 21)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "separating",
+      "heading": "Separating the variables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.5}} you solved $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)$ by integrating with respect to $x$. In $\\frac{\\mathrm{d}B}{\\mathrm{d}t} = 0.075B$ the right side contains $B$, which you don't know yet. So you can't integrate it with respect to $t$."
+        },
+        {
+          "type": "text",
+          "text": "The fix: move everything with $B$ to the side with $\\mathrm{d}B$, and everything with $t$ to the side with $\\mathrm{d}t$. Then integrate each side with respect to its own variable."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y) \\;\\Rightarrow\\; \\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "It works when the right side is a function of $x$ times a function of $y$, and needs $g(y) \\neq 0$, because you divide by it."
+        },
+        {
+          "type": "text",
+          "text": "1. Rearrange so that $y$ and $\\mathrm{d}y$ are on the left, and $x$ and $\\mathrm{d}x$ are on the right."
+        },
+        {
+          "type": "text",
+          "text": "2. Integrate both sides. Add one constant, $+\\,C$, as soon as you integrate: constants on both sides would combine into one."
+        },
+        {
+          "type": "text",
+          "text": "3. Rearrange to make $y$ the subject, if the question asks for it. Then use a known value to find the constant."
+        },
+        {
+          "type": "definition",
+          "term": "general solution",
+          "statement": "The general solution of a first-order differential equation is its solution written with one arbitrary constant. Each value of the constant gives a different solution curve.",
+          "plain": "One formula with a $C$ (or an $A$) in it covers the whole family."
+        },
+        {
+          "type": "definition",
+          "term": "particular solution",
+          "statement": "A particular solution is the member of the family that satisfies a given condition, such as $y = 5$ when $x = 0$.",
+          "plain": "The known value picks out one curve and fixes the constant."
+        },
+        {
+          "type": "text",
+          "text": "The most important case is $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$: the rate is proportional to the amount. Separating gives $\\int \\frac{1}{y}\\,\\mathrm{d}y = \\int k\\,\\mathrm{d}x$, so $\\ln|y| = kx + c$."
+        },
+        {
+          "type": "text",
+          "text": "Undo the log: $|y| = \\mathrm{e}^{kx + c} = \\mathrm{e}^{c}\\,\\mathrm{e}^{kx}$. Call $\\pm\\mathrm{e}^{c}$ the new constant $A$."
+        },
+        {
+          "type": "result",
+          "statement": "The general solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$ is $y = A\\mathrm{e}^{kx}$, where $A$ is an arbitrary constant. For $A > 0$ it is [[exponential-growth|exponential growth]] when $k > 0$ and [[exponential-decay|exponential decay]] when $k < 0$.",
+          "why": "Separating gives $\\ln|y| = kx + c$, so $y = \\pm\\mathrm{e}^{c}\\mathrm{e}^{kx}$. $A = 0$ gives $y = 0$, which also solves the equation."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky \\;\\Rightarrow\\; y = A\\mathrm{e}^{kx}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is why the [[exponential-function|exponential models]] of {{lesson:2.5}} work: they are the models whose growth rate is proportional to their size. At $x = 0$, $y = A$, so $A$ is the starting value."
+        },
+        {
+          "type": "example",
+          "id": "ex-sep-drug",
+          "question": "A patient is given $150$ mg of a drug. The amount left in the bloodstream $t$ hours later, $D$ mg, satisfies $\\frac{\\mathrm{d}D}{\\mathrm{d}t} = -0.23D$. Find the general solution, then find $D$ in terms of $t$.",
+          "steps": [
+            "Separate: $\\int \\frac{1}{D}\\,\\mathrm{d}D = \\int -0.23\\,\\mathrm{d}t$.",
+            "Integrate: $\\ln D = -0.23t + c$. No modulus is needed, because an amount of drug is positive.",
+            "Undo the log: $D = \\mathrm{e}^{c}\\,\\mathrm{e}^{-0.23t}$. The general solution is $D = A\\mathrm{e}^{-0.23t}$.",
+            "Use $D = 150$ when $t = 0$: $150 = A\\mathrm{e}^{0} = A$.",
+            "Check: $\\frac{\\mathrm{d}D}{\\mathrm{d}t} = 150 \\times (-0.23)\\mathrm{e}^{-0.23t} = -0.23D$, and $D(0) = 150$."
+          ],
+          "answer": "$D = 150\\mathrm{e}^{-0.23t}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "150*exp(Rational(-23, 100)*t)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-14-solution-family",
+          "alt": "Graph of amount of drug D in mg against time t in hours, from 0 to 12 hours. Four decreasing curves start on the D axis at 50, 100, 150 and 200 and all fall towards zero. The curve starting at 150 is highlighted and marked as passing through the point (0, 150).",
+          "caption": "Four members of the general solution $D = A\\mathrm{e}^{-0.23t}$. The condition $D = 150$ at $t = 0$ picks out the particular solution."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{e}^{kt + c}$ as $\\mathrm{e}^{kt} + \\mathrm{e}^{c}$. Powers add when you multiply, so $\\mathrm{e}^{kt + c} = \\mathrm{e}^{c}\\,\\mathrm{e}^{kt} = A\\mathrm{e}^{kt}$."
+        },
+        {
+          "type": "check",
+          "id": "check-sep-general",
+          "prompt": "Find the general solution of $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 0.06P$.",
+          "hint": "Separate to $\\int \\frac{1}{P}\\,\\mathrm{d}P = \\int 0.06\\,\\mathrm{d}t$.",
+          "options": [
+            {
+              "text": "$P = A\\mathrm{e}^{0.06t}$",
+              "correct": true
+            },
+            {
+              "text": "$P = \\mathrm{e}^{0.06t} + C$",
+              "correct": false
+            },
+            {
+              "text": "$P = 0.06Pt + C$",
+              "correct": false
+            },
+            {
+              "text": "$P = A\\mathrm{e}^{-0.06t}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ln|P| = 0.06t + c$, so $P = A\\mathrm{e}^{0.06t}$: the constant multiplies. $0.06Pt + C$ treats $P$ as a constant, which it isn't.",
+          "verify": {
+            "kind": "expression",
+            "truth": "A*exp(Float(0.06)*t)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The same steps work when the right side is not just $ky$. Write a root as a power before you integrate."
+        },
+        {
+          "type": "example",
+          "id": "ex-sep-puddle",
+          "question": "The puddle from earlier satisfies $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = -1.2\\sqrt{A}$, and $A = 900$ when $t = 0$. Find $A$ in terms of $t$, and state when the model stops being valid.",
+          "steps": [
+            "Separate, writing $\\frac{1}{\\sqrt{A}} = A^{-\\frac{1}{2}}$: $\\int A^{-\\frac{1}{2}}\\,\\mathrm{d}A = \\int -1.2\\,\\mathrm{d}t$.",
+            "Integrate: $2A^{\\frac{1}{2}} = -1.2t + c$.",
+            "Use $A = 900$ when $t = 0$: $2 \\times 30 = c$, so $c = 60$.",
+            "Divide by $2$: $\\sqrt{A} = 30 - 0.6t$. Square both sides, which is valid while $30 - 0.6t \\geq 0$.",
+            "Interpret: $A = 0$ when $t = 50$, so the puddle is dry after $50$ minutes. After that the formula gives a growing area, so the model only holds for $0 \\leq t \\leq 50$."
+          ],
+          "answer": "$A = (30 - 0.6t)^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "(30 - Rational(6, 10)*t)**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sep-half-life",
+          "prompt": "For the drug model $D = 150\\mathrm{e}^{-0.23t}$, find the [[half-life|half-life]] of the drug in the bloodstream, in hours, to 3 s.f.",
+          "hint": "Solve $150\\mathrm{e}^{-0.23t} = 75$.",
+          "answer": {
+            "value": 3.01,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{-0.23t} = 0.5$, so $t = \\frac{\\ln 2}{0.23} = 3.0136\\ldots \\approx 3.01$ hours. Every $3.01$ hours, the amount halves, whatever the starting dose.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(2)/Rational(23, 100)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Solving a model in context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exam questions join the two skills: set up the equation, solve it, then use the solution. Often the right side is a linear expression, such as $-k(T - 21)$. Integrate $\\frac{1}{T - 21}$ by inspection, as in {{lesson:5.11}}."
+        },
+        {
+          "type": "text",
+          "text": "Integrating gives $\\ln|T - 21|$. You may drop the modulus only when the context fixes the sign, and you should say why. Otherwise keep it."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-cooling",
+          "question": "A bowl of soup at $90$ °C is left in a room at $21$ °C. Its temperature $T$ °C after $t$ minutes satisfies $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -k(T - 21)$, with $k > 0$. After $5$ minutes it is at $70$ °C. Find how long the soup takes to cool to $40$ °C. Give your answer to 3 s.f.",
+          "steps": [
+            "Separate: $\\int \\frac{1}{T - 21}\\,\\mathrm{d}T = \\int -k\\,\\mathrm{d}t$, so $\\ln(T - 21) = -kt + c$. No modulus is needed: the soup stays warmer than the room, so $T - 21 > 0$.",
+            "Undo the log: $T - 21 = A\\mathrm{e}^{-kt}$. At $t = 0$, $T = 90$, so $A = 69$ and $T = 21 + 69\\mathrm{e}^{-kt}$.",
+            "Use $t = 5$, $T = 70$: $49 = 69\\mathrm{e}^{-5k}$, so $k = \\frac{1}{5}\\ln\\frac{69}{49} = 0.068457\\ldots$. Keep this full value.",
+            "Write down the equation you solve: $21 + 69\\mathrm{e}^{-0.068457\\ldots t} = 40$. Graph both sides on the GDC and find the intersection: $t = 18.839\\ldots$.",
+            "Interpret: as $t$ grows, $\\mathrm{e}^{-kt} \\to 0$, so $T \\to 21$. The soup approaches room temperature but never falls below it."
+          ],
+          "answer": "$t \\approx 18.8\\text{ minutes}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(Rational(69, 19))/(log(Rational(69, 49))/5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "21+69e^(-ln(69/49)/5*X)",
+            "function2": "40"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Typing $k$ as $\\frac{1}{5}\\ln\\frac{69}{49}$ into the GDC keeps its full value. Rounding $k$ to $0.068$ first gives $19.0$, which loses the final mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-app",
+          "question": "A new app has $N$ downloads $t$ weeks after launch, with $N = 400$ at $t = 0$. Its growth slows over time: $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 0.5N\\mathrm{e}^{-0.2t}$. Find $N$ in terms of $t$, and the long-term number of downloads the model predicts.",
+          "steps": [
+            "Separate: $\\int \\frac{1}{N}\\,\\mathrm{d}N = \\int 0.5\\mathrm{e}^{-0.2t}\\,\\mathrm{d}t$.",
+            "Integrate. On the right, divide by $-0.2$: $\\ln N = -2.5\\mathrm{e}^{-0.2t} + c$. No modulus is needed, since $N > 0$.",
+            "Use $N = 400$ at $t = 0$: $\\ln 400 = -2.5 + c$, so $c = \\ln 400 + 2.5$.",
+            "So $\\ln N - \\ln 400 = 2.5 - 2.5\\mathrm{e}^{-0.2t}$, which gives $\\frac{N}{400} = \\mathrm{e}^{2.5(1 - \\mathrm{e}^{-0.2t})}$.",
+            "Interpret: as $t$ grows, $\\mathrm{e}^{-0.2t} \\to 0$, so $N \\to 400\\mathrm{e}^{2.5} \\approx 4870$. The model predicts downloads level off at about $4870$."
+          ],
+          "answer": "$N = 400\\mathrm{e}^{2.5(1 - \\mathrm{e}^{-0.2t})}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "400*exp(Float(2.5))*exp(Float(-2.5)*exp(Float(-0.2)*t))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-drip",
+          "prompt": "A drip adds a medicine to a patient's blood at $3$ mg per minute, and the body removes it at $0.15M$ mg per minute, where $M$ mg is the amount in the blood. So $\\frac{\\mathrm{d}M}{\\mathrm{d}t} = 3 - 0.15M$, with $M = 0$ at $t = 0$. Which is the particular solution?",
+          "hint": "Separate to $\\int \\frac{1}{3 - 0.15M}\\,\\mathrm{d}M = \\int 1\\,\\mathrm{d}t$. While $M < 20$, $3 - 0.15M > 0$.",
+          "options": [
+            {
+              "text": "$M = 20 - 20\\mathrm{e}^{-0.15t}$",
+              "correct": true
+            },
+            {
+              "text": "$M = 20\\mathrm{e}^{-0.15t}$",
+              "correct": false
+            },
+            {
+              "text": "$M = 3 - 3\\mathrm{e}^{-0.15t}$",
+              "correct": false
+            },
+            {
+              "text": "$M = 20 - 20\\mathrm{e}^{0.15t}$",
+              "correct": false
+            }
+          ],
+          "explain": "$-\\frac{1}{0.15}\\ln(3 - 0.15M) = t + c$, so $3 - 0.15M = B\\mathrm{e}^{-0.15t}$. $M = 0$ at $t = 0$ gives $B = 3$, so $M = 20 - 20\\mathrm{e}^{-0.15t}$. $20\\mathrm{e}^{-0.15t}$ starts at $20$, not $0$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "20 - 20*exp(Rational(-15, 100)*t)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-drip-time",
+          "prompt": "Using $M = 20 - 20\\mathrm{e}^{-0.15t}$, find how long it takes for the amount of medicine to reach $15$ mg. Give your answer in minutes, to 3 s.f.",
+          "hint": "Solve $20 - 20\\mathrm{e}^{-0.15t} = 15$, by logs or on the GDC.",
+          "answer": {
+            "value": 9.24,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{-0.15t} = 0.25$, so $t = \\frac{\\ln 4}{0.15} = 9.2419\\ldots \\approx 9.24$ minutes. In the long term $M \\to 20$ mg: the drip and the body's removal balance there.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(4)/Rational(15, 100)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "\"Proportional to\" means \"equals a constant $k$ times\". For a quantity that decreases, write $-k$ with $k > 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Separating: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y)$, with $g(y) \\neq 0$, gives $\\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x$. Add one $+\\,C$ as soon as you integrate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The general solution has one arbitrary constant. A known value, such as the value at $t = 0$, fixes it and gives the particular solution.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$ has general solution $y = A\\mathrm{e}^{kx}$, where $A$ is the value of $y$ at $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{e}^{f(x) + c} = A\\mathrm{e}^{f(x)}$: the constant multiplies. Drop the modulus in $\\ln|y|$ only when the context fixes the sign of $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out $+\\,C$, or adding it only after rearranging. Without the constant you can't find the particular solution, and you usually lose the marks for the steps that use it. Add it the moment you integrate.",
+    "Integrating $ky$ with respect to $x$ as if $y$ were a number, giving $kxy + C$. $y$ changes with $x$, so separate the variables first.",
+    "Dropping the modulus from $\\ln|y|$ with no reason. Keep it, or state why $y$ (or $T - 21$) is positive in the context.",
+    "Rounding $k$ before using it. Keep its full GDC value or its exact $\\ln$ form until the final answer.",
+    "Using $+k$ for a quantity that decreases, then treating $k$ as positive. Write $-k$ with $k > 0$, or say that $k$ is negative."
+  ],
+  "examTips": [
+    "\"Write down a differential equation\": no working is needed, but every part of the sentence must appear, including the constant $k$ and the sign for a decrease.",
+    "\"Use separation of variables\": write the separated line $\\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x$. That line earns the method mark, and the $+\\,C$ is needed for the marks that follow.",
+    "\"Show that\" a given solution: work forwards from the differential equation, find the constant from the given value, and make your last line match the given result.",
+    "Write down the equation you solve before the GDC value. When asked to interpret, give the long-term value with its units and say what it means in the context."
+  ],
+  "readingMinutes": 20
+}

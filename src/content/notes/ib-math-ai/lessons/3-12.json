@@ -1,0 +1,794 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.12",
+  "slug": "kinematics-with-vectors",
+  "title": "Kinematics with vectors",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "When something moves, its [[position-vector|position vector]] changes with time. With constant [[velocity|velocity]], $\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}t$ tells you where it is at any moment, so you can find when two objects meet and when they are closest. When the velocity changes, you differentiate or integrate each component, which covers projectiles and circular motion.",
+  "goals": [
+    {
+      "text": "Model motion with constant velocity in 2D and 3D using $\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}t$: find positions, times, [[speed|speeds]] and [[bearing|bearings]], and describe the path.",
+      "bullets": [
+        "3.12-b1",
+        "3.12-b2"
+      ]
+    },
+    {
+      "text": "Use the [[relative-position|relative position]] $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{r}_{\\mathrm{B}} - \\boldsymbol{r}_{\\mathrm{A}}$ to decide whether two objects meet, where their paths cross, and when and how closely they approach.",
+      "bullets": [
+        "3.12-b1",
+        "3.12-b2"
+      ]
+    },
+    {
+      "text": "Write the position of an object that starts $a$ time units later as $f(t - a)$.",
+      "bullets": [
+        "3.12-b3"
+      ]
+    },
+    {
+      "text": "Find velocity from position by differentiating each component, and position from velocity by integrating, with a known position to fix the constants.",
+      "bullets": [
+        "3.12-b1",
+        "3.12-b3"
+      ]
+    },
+    {
+      "text": "Model projectile and circular motion as special cases of variable velocity, and interpret the results in context.",
+      "bullets": [
+        "3.12-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.13",
+    "3.3",
+    "3.10",
+    "3.11",
+    "5.5",
+    "5.9",
+    "5.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "vector kinematics",
+    "r = r0 + vt",
+    "closest approach vectors",
+    "relative position of two ships",
+    "projectile motion vectors",
+    "circular motion position vector"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-velocity-from-speed",
+      "prompt": "A boat moves at $34\\text{ km h}^{-1}$ in the direction $\\begin{pmatrix}8\\\\15\\end{pmatrix}$. Which is its velocity, in $\\text{km h}^{-1}$?",
+      "hint": "Find $\\left\\lvert\\begin{pmatrix}8\\\\15\\end{pmatrix}\\right\\rvert$, then scale the direction so that its length is $34$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}16\\\\30\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}8\\\\15\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}272\\\\510\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left\\lvert\\begin{pmatrix}8\\\\15\\end{pmatrix}\\right\\rvert = \\sqrt{64 + 225} = 17$, so multiply the direction by $\\frac{34}{17} = 2$. $\\begin{pmatrix}8\\\\15\\end{pmatrix}$ has speed $17$, and $\\begin{pmatrix}272\\\\510\\end{pmatrix}$ multiplies by $34$ without first dividing by $17$. Revise it in {{lesson:3.10}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "[34*8/sqrt(8**2 + 15**2), 34*15/sqrt(8**2 + 15**2)]"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-parameter-at-point",
+      "prompt": "The point $(14, 19)$ lies on the line $\\boldsymbol{r} = \\begin{pmatrix}2\\\\-1\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\5\\end{pmatrix}$. Find $\\lambda$.",
+      "hint": "Write the $x$-coordinate in terms of $\\lambda$ and set it equal to $14$.",
+      "answer": {
+        "value": 4,
+        "tolerance": 0
+      },
+      "explain": "$2 + 3\\lambda = 14$ gives $\\lambda = 4$. Check $y$: $-1 + 5(4) = 19$, so the same $\\lambda$ works in both. Revise it in {{lesson:3.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(14 - 2)/3",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-antiderivative",
+      "prompt": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 6t - 4$, and $y = 3$ when $t = 0$. Find $y$ in terms of $t$.",
+      "hint": "Integrate, add a constant $c$, then use $y = 3$ when $t = 0$ to find $c$.",
+      "options": [
+        {
+          "text": "$y = 3t^{2} - 4t + 3$",
+          "correct": true
+        },
+        {
+          "text": "$y = 3t^{2} - 4t$",
+          "correct": false
+        },
+        {
+          "text": "$y = 6t^{2} - 4t + 3$",
+          "correct": false
+        },
+        {
+          "text": "$y = 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$y = 3t^{2} - 4t + c$, and $t = 0$ gives $c = 3$. Leaving out $c$ ignores the starting value, and $y = 6$ differentiates instead of integrating. Revise it in {{lesson:5.5}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "integrate(6*t - 4, t) + 3"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "constant-velocity",
+      "heading": "Motion with constant velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.11}} the parameter $\\lambda$ picked out a point on a line. Make the parameter time, $t$, and the line becomes a route: each value of $t$ gives where the object is at that moment."
+        },
+        {
+          "type": "definition",
+          "term": "Displacement",
+          "statement": "The displacement from A to B is the [[vector|vector]] $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{b} - \\boldsymbol{a}$. It depends only on where the motion starts and ends, not on the route taken.",
+          "plain": "How far you end up from where you started, and in which direction."
+        },
+        {
+          "type": "text",
+          "text": "With constant velocity $\\boldsymbol{v}$, an object has [[displacement|displacement]] $\\boldsymbol{v}$ in every unit of time, so after time $t$ it is $t\\boldsymbol{v}$ from its start."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}t",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\boldsymbol{r}_{0}$ is the position vector at $t = 0$ and $\\boldsymbol{r}$ is the position at time $t$. This is the booklet's $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$ with $\\lambda = t$, in 2D or 3D."
+        },
+        {
+          "type": "text",
+          "text": "The speed is $\\lvert\\boldsymbol{v}\\rvert$, so in time $t$ the object travels $\\lvert\\boldsymbol{v}\\rvert t$. Positions in km and $t$ in hours give a speed in $\\text{km h}^{-1}$."
+        },
+        {
+          "type": "text",
+          "text": "With $x$ east and $y$ north, $\\boldsymbol{v}$ gives the bearing of travel: sketch it, find its angle from north with $\\tan$, and measure clockwise."
+        },
+        {
+          "type": "example",
+          "id": "ex-ferry-position",
+          "question": "A coordinate system has its origin at a lighthouse, with $x$ km east and $y$ km north. A ferry leaves port at 07:30, and $t$ hours later its position is $\\boldsymbol{r} = \\begin{pmatrix}4\\\\11\\end{pmatrix} + t\\begin{pmatrix}15\\\\-8\\end{pmatrix}$. (a) State the port's coordinates. (b) Find the ferry's speed. (c) Find the coordinates of the ferry at 09:00.",
+          "steps": [
+            "(a) At $t = 0$ the ferry is at the port, so the port is $(4, 11)$.",
+            "(b) $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{15^{2} + (-8)^{2}} = \\sqrt{289} = 17$, so the speed is $17\\text{ km h}^{-1}$.",
+            "(c) $t$ is the time since 07:30, so 09:00 is $t = 1.5$.",
+            "$\\boldsymbol{r} = \\begin{pmatrix}4 + 1.5(15)\\\\11 + 1.5(-8)\\end{pmatrix} = \\begin{pmatrix}26.5\\\\-1\\end{pmatrix}$, so the ferry is at $(26.5, -1)$.",
+            "Interpret: it is 26.5 km east and 1 km south of the lighthouse, having travelled $17 \\times 1.5 = 25.5$ km."
+          ],
+          "answer": "$(26.5, -1)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "[4 + 15*Rational(3, 2), 11 - 8*Rational(3, 2)]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Finding the speed from $\\boldsymbol{r}_{0}$. The speed is $\\lvert\\boldsymbol{v}\\rvert$; $\\boldsymbol{r}_{0}$ is only where the object starts."
+        },
+        {
+          "type": "example",
+          "id": "ex-glider-path",
+          "question": "A glider's position $t$ minutes after it is first tracked is $\\boldsymbol{r} = \\begin{pmatrix}2\\\\-5\\\\1.8\\end{pmatrix} + t\\begin{pmatrix}0.9\\\\1.2\\\\-0.06\\end{pmatrix}$, in km, with $x$ east, $y$ north and $z$ the height above level ground. (a) Describe the glider's path, making two statements. (b) Find the glider's position when it is 300 m above the ground.",
+          "steps": [
+            "(a) The velocity is constant, so the path is a straight line through $(2, -5, 1.8)$.",
+            "Its horizontal velocity is $0.9$ east and $1.2$ north, a bearing of $\\arctan\\left(\\frac{0.9}{1.2}\\right) \\approx 036.9^{\\circ}$.",
+            "The $z$-component, $-0.06$, means it loses 60 m of height each minute.",
+            "(b) Work in km: 300 m is $0.3$ km. From the $z$-component, $1.8 - 0.06t = 0.3$, so $t = 25$.",
+            "Then $x = 2 + 0.9(25) = 24.5$ and $y = -5 + 1.2(25) = 25$.",
+            "Interpret: after 25 minutes the glider is at $(24.5, 25, 0.3)$. A real glider's sink rate varies, so the model only suits a short time."
+          ],
+          "answer": "$(24.5, 25, 0.3)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "[2 + 0.9*((1.8 - 0.3)/0.06), -5 + 1.2*((1.8 - 0.3)/0.06), 1.8 - 0.06*((1.8 - 0.3)/0.06)]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bearing-from-velocity",
+          "prompt": "With $x$ east and $y$ north, a jet ski has velocity $\\begin{pmatrix}-20\\\\21\\end{pmatrix}\\text{ km h}^{-1}$. On what bearing is it travelling?",
+          "hint": "Sketch the vector: it points west of north. Find its angle from north, then measure clockwise from north.",
+          "options": [
+            {
+              "text": "$\\approx 043.6^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 316.4^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 313.6^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 136.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The angle west of north is $\\arctan\\left(\\frac{20}{21}\\right) = 43.6^{\\circ}$, so the bearing is $360^{\\circ} - 43.6^{\\circ} = 316.4^{\\circ}$. $043.6^{\\circ}$ heads east instead of west, $313.6^{\\circ}$ measures the angle from west instead of north, and $136.4^{\\circ}$ is the opposite direction.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "360 - atan(Rational(20, 21))*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-runner-road",
+          "prompt": "A runner's position $t$ minutes after the start is $\\boldsymbol{r} = \\begin{pmatrix}-1.8\\\\0.6\\end{pmatrix} + t\\begin{pmatrix}0.24\\\\0.07\\end{pmatrix}$, in km, with $x$ east and $y$ north. A straight road runs north–south along the $y$-axis. After how many minutes does the runner reach the road?",
+          "hint": "On the $y$-axis, $x = 0$. Write the $x$-component in terms of $t$.",
+          "answer": {
+            "value": 7.5,
+            "tolerance": 0
+          },
+          "explain": "$-1.8 + 0.24t = 0$ gives $t = 7.5$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0 - (-1.8))/0.24",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-objects",
+      "heading": "Two moving objects",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With two moving objects, use the same time $t$ in both position vectors."
+        },
+        {
+          "type": "definition",
+          "term": "Relative position",
+          "statement": "The relative position of B from A is $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{b} - \\boldsymbol{a}$. For two moving objects at time $t$ it is $\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)$, and its magnitude is the distance between them.",
+          "plain": "Where B is, as seen from A."
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting the wrong way. B's position relative to A is B's position minus A's. $\\boldsymbol{r}_{\\mathrm{A}} - \\boldsymbol{r}_{\\mathrm{B}}$ is the opposite vector, pointing from B to A."
+        },
+        {
+          "type": "text",
+          "text": "Two objects meet only if $\\boldsymbol{r}_{\\mathrm{A}}(t) = \\boldsymbol{r}_{\\mathrm{B}}(t)$ for some value of $t$, in every component. Their paths can cross without a collision if they reach the crossing at different times."
+        },
+        {
+          "type": "text",
+          "text": "To find where paths cross, give the second object its own time letter $s$ and solve $\\boldsymbol{r}_{\\mathrm{A}}(t) = \\boldsymbol{r}_{\\mathrm{B}}(s)$. In 3D, check the third component too."
+        },
+        {
+          "type": "example",
+          "id": "ex-hikers-paths",
+          "question": "Two hikers cross open moorland. Relative to a car park, in km with $x$ east and $y$ north, their positions $t$ hours after 10:00 are $\\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}0\\\\2\\end{pmatrix} + t\\begin{pmatrix}4\\\\2\\end{pmatrix}$ and $\\boldsymbol{r}_{\\mathrm{B}} = \\begin{pmatrix}14\\\\-6\\end{pmatrix} + t\\begin{pmatrix}-2\\\\4\\end{pmatrix}$. (a) Show that the hikers never meet. (b) Find the point where their paths cross, and the time each hiker passes it.",
+          "steps": [
+            "(a) To meet, both coordinates must agree at the same $t$. From $x$: $4t = 14 - 2t$, so $t = \\frac{7}{3}$.",
+            "At $t = \\frac{7}{3}$, A's $y$-coordinate is $2 + 2\\left(\\frac{7}{3}\\right) = \\frac{20}{3}$ but B's is $-6 + 4\\left(\\frac{7}{3}\\right) = \\frac{10}{3}$. The $y$-coordinates differ, so the hikers are never in the same place at the same time.",
+            "(b) Use $s$ for B's time: $\\begin{pmatrix}4t\\\\2 + 2t\\end{pmatrix} = \\begin{pmatrix}14 - 2s\\\\-6 + 4s\\end{pmatrix}$.",
+            "From $x$: $t = 3.5 - 0.5s$. Substitute into $y$: $2 + 2(3.5 - 0.5s) = -6 + 4s$, so $9 - s = -6 + 4s$, giving $s = 3$ and $t = 2$.",
+            "The point is $\\boldsymbol{r}_{\\mathrm{A}}(2) = \\begin{pmatrix}8\\\\6\\end{pmatrix}$. Check: $\\boldsymbol{r}_{\\mathrm{B}}(3) = \\begin{pmatrix}14 - 6\\\\-6 + 12\\end{pmatrix} = \\begin{pmatrix}8\\\\6\\end{pmatrix}$.",
+            "Interpret: A passes $(8, 6)$ at 12:00 and B at 13:00."
+          ],
+          "answer": "$(8, 6)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "[4*solve([4*t - (14 - 2*s), 2 + 2*t - (-6 + 4*s)], [t, s])[t], 2 + 2*solve([4*t - (14 - 2*s), 2 + 2*t - (-6 + 4*s)], [t, s])[t]]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-relative-position",
+          "prompt": "For the two hikers above, find the position of B relative to A at 11:00.",
+          "hint": "Find both positions at $t = 1$, then subtract A's from B's.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-8\\\\6\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}16\\\\2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}8\\\\-6\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}14\\\\-8\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "At $t = 1$, $\\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}4\\\\4\\end{pmatrix}$ and $\\boldsymbol{r}_{\\mathrm{B}} = \\begin{pmatrix}12\\\\-2\\end{pmatrix}$, so $\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}12 - 4\\\\-2 - 4\\end{pmatrix} = \\begin{pmatrix}8\\\\-6\\end{pmatrix}$: B is 8 km east and 6 km south of A, 10 km away. $\\begin{pmatrix}-8\\\\6\\end{pmatrix}$ is A relative to B, and $\\begin{pmatrix}14\\\\-8\\end{pmatrix}$ is the relative position at 10:00.",
+          "verify": {
+            "kind": "vector",
+            "truth": "[14 - 2*1 - 4*1, -6 + 4*1 - (2 + 2*1)]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When objects don't meet, a question may ask how close they come. Write $\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)$ as one vector, then $d(t) = \\lvert\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)\\rvert$. Find the minimum of $d(t)$ over the allowed times, usually $t \\ge 0$, and give the time and distance."
+        },
+        {
+          "type": "figure",
+          "id": "3-12-closest-approach",
+          "alt": "Axes with x pointing east and y pointing north. Ship A starts at the upper left and sails east and slightly south in a straight line. Ship B starts at the lower right and sails north-west in a straight line. The two paths cross. A short dashed arrow from A to B at the moment they are closest shows the relative position vector, with length about 2.77 km.",
+          "caption": "The ships' paths cross, but not at the same time. The dashed vector $\\boldsymbol{r}_{\\mathrm{B}} - \\boldsymbol{r}_{\\mathrm{A}}$ is shortest at $t \\approx 1.47$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ships-closest",
+          "question": "Two ships sail with constant velocities. Relative to a buoy, in km with $x$ east and $y$ north, their positions $t$ hours after 06:00 are $\\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}-5\\\\12\\end{pmatrix} + t\\begin{pmatrix}14\\\\-3\\end{pmatrix}$ and $\\boldsymbol{r}_{\\mathrm{B}} = \\begin{pmatrix}20\\\\-8\\end{pmatrix} + t\\begin{pmatrix}-4\\\\9\\end{pmatrix}$. (a) Find the position of B relative to A at time $t$. (b) Use your calculator to find the least distance between the ships, and the time when it happens. Give the distance to 3 s.f.",
+          "steps": [
+            "(a) $\\boldsymbol{r}_{\\mathrm{B}} - \\boldsymbol{r}_{\\mathrm{A}} = \\begin{pmatrix}20 - (-5)\\\\-8 - 12\\end{pmatrix} + t\\begin{pmatrix}-4 - 14\\\\9 - (-3)\\end{pmatrix} = \\begin{pmatrix}25 - 18t\\\\-20 + 12t\\end{pmatrix}$.",
+            "(b) Write down the distance you will minimise: $d(t) = \\sqrt{(25 - 18t)^{2} + (12t - 20)^{2}}$. This line earns the method mark.",
+            "Graph $d(t)$ for $t \\ge 0$ and find its minimum: $t = 1.47435\\ldots$ and $d = 2.77350\\ldots$.",
+            "$0.47435\\ldots \\times 60 = 28.46\\ldots$ minutes, so they are closest at 07:28.",
+            "Interpret: they start $d(0) = \\sqrt{25^{2} + 20^{2}} \\approx 32.0$ km apart and pass within about 2.77 km at 07:28."
+          ],
+          "answer": "$d \\approx 2.77\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "minimum(sqrt((20 - (-5) + (-4 - 14)*t)**2 + (-8 - 12 + (9 - (-3))*t)**2), t)",
+            "sf": 3,
+            "unit": "km"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "sqrt((25-18X)^2+(12X-20)^2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "By hand: $d$ is smallest when $d^{2}$ is, and $d^{2} = 468t^{2} - 1380t + 1025$ has its vertex at $t = \\frac{1380}{2(468)} = 1.474\\ldots$. If the vertex is at a negative $t$, the objects separate for all $t \\ge 0$, so they are closest at $t = 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-drones-least",
+          "prompt": "Two drones fly at constant heights. Their positions after $t$ seconds, in metres, are $\\boldsymbol{r}_{\\mathrm{P}} = \\begin{pmatrix}0\\\\0\\\\10\\end{pmatrix} + t\\begin{pmatrix}3\\\\4\\\\0\\end{pmatrix}$ and $\\boldsymbol{r}_{\\mathrm{Q}} = \\begin{pmatrix}40\\\\10\\\\16\\end{pmatrix} + t\\begin{pmatrix}-1\\\\2\\\\0\\end{pmatrix}$. Find the least distance between them, in metres, to 3 s.f.",
+          "hint": "Start with $\\boldsymbol{r}_{\\mathrm{Q}} - \\boldsymbol{r}_{\\mathrm{P}}$. Its third component stays $6$.",
+          "answer": {
+            "value": 10.8,
+            "tolerance": 0.05
+          },
+          "explain": "$\\boldsymbol{r}_{\\mathrm{Q}} - \\boldsymbol{r}_{\\mathrm{P}} = \\begin{pmatrix}40 - 4t\\\\10 - 2t\\\\6\\end{pmatrix}$, so $d^{2} = 20t^{2} - 360t + 1736$. The vertex is at $t = \\frac{360}{40} = 9$, where $d = \\sqrt{4^{2} + (-8)^{2} + 6^{2}} = \\sqrt{116} = 10.77\\ldots$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "minimum(sqrt((40 + (-1 - 3)*t)**2 + (10 + (2 - 4)*t)**2 + (16 - 10)**2), t)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "If a motion $\\boldsymbol{r} = f(t)$ starts at $t = 0$, the same motion started $a$ time units later is $\\boldsymbol{r} = f(t - a)$, for $t \\ge a$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}(t - a), \\quad t \\ge a",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "At $t = a$, $f(t - a) = f(0)$: the start. It is the same translation as a [[phase-shift|phase shift]] ({{lesson:1.13}}). For constant velocity, $\\boldsymbol{r}_{0}$ is now the position at $t = a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-coastguard-intercept",
+          "question": "Distances are in km, with $x$ east and $y$ north of a harbour O. A yacht's position $t$ hours after 12:00 is $\\boldsymbol{r}_{\\mathrm{Y}} = \\begin{pmatrix}3\\\\-2\\end{pmatrix} + t\\begin{pmatrix}8\\\\6\\end{pmatrix}$. A coastguard boat leaves O at 12:45 and travels with constant velocity $\\boldsymbol{v}$ to meet the yacht at 14:00. (a) Write an expression for the coastguard boat's position, using the same $t$. (b) Find the coastguard boat's speed. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) The boat leaves O at $t = 0.75$, so $\\boldsymbol{r}_{\\mathrm{C}} = \\boldsymbol{v}(t - 0.75)$ for $t \\ge 0.75$. At $t = 0.75$ this gives O, as it should.",
+            "(b) 14:00 is $t = 2$. The yacht is then at $\\begin{pmatrix}3 + 8(2)\\\\-2 + 6(2)\\end{pmatrix} = \\begin{pmatrix}19\\\\10\\end{pmatrix}$.",
+            "They meet there, so $\\boldsymbol{v}(2 - 0.75) = \\begin{pmatrix}19\\\\10\\end{pmatrix}$, giving $\\boldsymbol{v} = \\frac{1}{1.25}\\begin{pmatrix}19\\\\10\\end{pmatrix} = \\begin{pmatrix}15.2\\\\8\\end{pmatrix}$.",
+            "Speed: $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{15.2^{2} + 8^{2}} = 17.1767\\ldots\\text{ km h}^{-1}$.",
+            "Interpret: the coastguard boat needs about $17.2\\text{ km h}^{-1}$, faster than the yacht's $10\\text{ km h}^{-1}$, because it starts 45 minutes later."
+          ],
+          "answer": "$\\lvert\\boldsymbol{v}\\rvert \\approx 17.2\\text{ km h}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(((3 + 8*2)/(2 - Rational(3, 4)))**2 + ((-2 + 6*2)/(2 - Rational(3, 4)))**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "variable-velocity",
+      "heading": "Motion with variable velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a velocity component depends on $t$, the object speeds up, slows down or turns. Treat each component on its own: $x$ and $y$ are separate functions of $t$."
+        },
+        {
+          "type": "text",
+          "text": "Differentiate each component of $\\boldsymbol{r}$ to get $\\boldsymbol{v}$, and of $\\boldsymbol{v}$ to get the acceleration $\\boldsymbol{a}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} = \\frac{\\mathrm{d}\\boldsymbol{r}}{\\mathrm{d}t} = \\begin{pmatrix}\\frac{\\mathrm{d}x}{\\mathrm{d}t}\\\\\\frac{\\mathrm{d}y}{\\mathrm{d}t}\\end{pmatrix}, \\qquad \\boldsymbol{a} = \\frac{\\mathrm{d}\\boldsymbol{v}}{\\mathrm{d}t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Velocity components are written $v_{x}$ and $v_{y}$, or $\\dot{x}$ and $\\dot{y}$ (the dot means $\\frac{\\mathrm{d}}{\\mathrm{d}t}$)."
+        },
+        {
+          "type": "text",
+          "text": "Going back, integrate each component of $\\boldsymbol{v}$, with its own constant. A known position fixes both constants."
+        },
+        {
+          "type": "text",
+          "text": "The speed is $\\lvert\\boldsymbol{v}(t)\\rvert$. The object moves parallel to the $y$-axis when $v_{x} = 0$ and $v_{y} \\ne 0$, and parallel to the $x$-axis when $v_{y} = 0$ and $v_{x} \\ne 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-boat-integrate",
+          "question": "A remote-controlled boat starts at the point $(-5, 2)$ on a pond, in metres relative to a jetty, with $x$ east and $y$ north. Its velocity $t$ seconds later is $\\boldsymbol{v} = \\begin{pmatrix}8 - 2t\\\\3\\end{pmatrix}\\text{ m s}^{-1}$. Find an expression for the boat's position at time $t$.",
+          "steps": [
+            "Integrate each component, each with its own constant: $x = \\int (8 - 2t)\\,\\mathrm{d}t = 8t - t^{2} + c_{1}$ and $y = \\int 3\\,\\mathrm{d}t = 3t + c_{2}$.",
+            "At $t = 0$ the boat is at $(-5, 2)$, so $c_{1} = -5$ and $c_{2} = 2$.",
+            "So $\\boldsymbol{r} = \\begin{pmatrix}-5 + 8t - t^{2}\\\\2 + 3t\\end{pmatrix}$. Check: differentiating gives back $\\begin{pmatrix}8 - 2t\\\\3\\end{pmatrix}$, and $t = 0$ gives $(-5, 2)$.",
+            "Interpret: $v_{x} = 0$ at $t = 4$, so the boat is then at $(11, 14)$ heading due north, before curving back west."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}-5 + 8t - t^{2}\\\\2 + 3t\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "[integrate(8 - 2*t, t) - 5, integrate(3, t) + 2]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating with no constant, or one constant for both components. Add $c_{1}$ to $x$ and $c_{2}$ to $y$, and find each from the known position."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-differentiate",
+          "question": "A drone flies over a field. Its position after $t$ seconds is $\\boldsymbol{r} = \\begin{pmatrix}10t - t^{2}\\\\t^{3} - 6t^{2} + 9t\\end{pmatrix}$ metres, for $0 \\le t \\le 5$, with $x$ east and $y$ north. (a) Find the drone's velocity at time $t$. (b) Find the times when the drone is moving parallel to the $x$-axis. (c) Find the drone's speed at $t = 2$.",
+          "steps": [
+            "(a) Differentiate each component: $\\boldsymbol{v} = \\begin{pmatrix}10 - 2t\\\\3t^{2} - 12t + 9\\end{pmatrix}$.",
+            "(b) Parallel to the $x$-axis needs $v_{y} = 0$: $3t^{2} - 12t + 9 = 3(t - 1)(t - 3) = 0$, so $t = 1$ or $t = 3$.",
+            "Check: $v_{x}(1) = 8$ and $v_{x}(3) = 4$ are not $0$, so at both times it flies due east.",
+            "(c) $\\boldsymbol{v}(2) = \\begin{pmatrix}10 - 4\\\\12 - 24 + 9\\end{pmatrix} = \\begin{pmatrix}6\\\\-3\\end{pmatrix}$, so the speed is $\\sqrt{6^{2} + (-3)^{2}} = \\sqrt{45} = 6.7082\\ldots\\text{ m s}^{-1}$.",
+            "Interpret: at $t = 2$ it moves east and a little south at about $6.71\\text{ m s}^{-1}$."
+          ],
+          "answer": "$\\text{speed} \\approx 6.71\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((10 - 2*2)**2 + (3*2**2 - 12*2 + 9)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-velocity-from-position",
+          "prompt": "A particle has position $\\boldsymbol{r} = \\begin{pmatrix}t^{2} + 1\\\\4t - t^{3}\\end{pmatrix}$ at time $t$. Which is its velocity?",
+          "hint": "Differentiate each component separately. A constant differentiates to $0$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}\\frac{t^{3}}{3} + t\\\\2t^{2} - \\frac{t^{4}}{4}\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2t + 1\\\\4 - 3t^{2}\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2t\\\\4 - 3t^{2}\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}2t\\\\4t - 3t^{2}\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}}{\\mathrm{d}t}(t^{2} + 1) = 2t$ and $\\frac{\\mathrm{d}}{\\mathrm{d}t}(4t - t^{3}) = 4 - 3t^{2}$. The first option integrates instead, and the others keep the $+1$ or leave $4t$ undifferentiated.",
+          "verify": {
+            "kind": "vector",
+            "truth": "[diff(t**2 + 1, t), diff(4*t - t**3, t)]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-y",
+          "prompt": "A cyclist's velocity is $\\boldsymbol{v} = \\begin{pmatrix}12 - 3t\\\\2t + 1\\end{pmatrix}\\text{ m s}^{-1}$, for $0 \\le t \\le 6$ seconds. At what time is the cyclist moving parallel to the $y$-axis?",
+          "hint": "Moving parallel to the $y$-axis means there is no motion in the $x$ direction.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "Parallel to the $y$-axis needs $v_{x} = 0$ with $v_{y} \\ne 0$: $12 - 3t = 0$ gives $t = 4$, and then $v_{y} = 9 \\ne 0$. Setting $v_{y} = 0$ would look for motion parallel to the $x$-axis instead.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12/3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "projectile-circular",
+      "heading": "Projectile and circular motion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A projectile is launched and then moves under gravity alone. With $x$ horizontal and $y$ up, in metres and seconds, and ignoring air resistance, $\\boldsymbol{a} = \\begin{pmatrix}0\\\\-9.8\\end{pmatrix}\\text{ m s}^{-2}$."
+        },
+        {
+          "type": "text",
+          "text": "Integrate twice, with launch velocity $\\begin{pmatrix}u_{x}\\\\u_{y}\\end{pmatrix}$ and launch point $(x_{0}, y_{0})$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} = \\begin{pmatrix}u_{x}\\\\u_{y} - 9.8t\\end{pmatrix}, \\qquad \\boldsymbol{r} = \\begin{pmatrix}x_{0} + u_{x}t\\\\y_{0} + u_{y}t - 4.9t^{2}\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Only the vertical velocity changes. The highest point is where $v_{y} = 0$, and the object lands when $y = 0$ (take the positive root)."
+        },
+        {
+          "type": "text",
+          "text": "A launch speed $u$ at angle $\\theta$ above the horizontal gives $u_{x} = u\\cos\\theta$ and $u_{y} = u\\sin\\theta$."
+        },
+        {
+          "type": "figure",
+          "id": "3-12-projectile-path",
+          "alt": "A curved path like an upside-down U. A ball starts 1.6 m above the ground at the left, with a launch velocity arrow pointing up and to the right. The path rises to a highest point of 11.6 m, where the vertical velocity is zero, then falls to land on the ground 44.5 m to the right of the launch point.",
+          "caption": "The ball's path is a parabola. At the highest point $v_{y} = 0$; it lands when $y = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-throw",
+          "question": "A player throws a ball from a point 1.6 m above level ground. With $x$ horizontal and $y$ vertically up, in metres, its launch velocity is $\\begin{pmatrix}15\\\\14\\end{pmatrix}\\text{ m s}^{-1}$. Model the ball as a projectile with acceleration $\\begin{pmatrix}0\\\\-9.8\\end{pmatrix}\\text{ m s}^{-2}$. (a) Find the ball's position $t$ seconds after it is thrown. (b) Find its greatest height. (c) Find how far the ball travels horizontally before it hits the ground. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Integrate the acceleration, using the launch velocity at $t = 0$: $\\boldsymbol{v} = \\begin{pmatrix}15\\\\14 - 9.8t\\end{pmatrix}$.",
+            "Integrate again, starting from $(0, 1.6)$: $\\boldsymbol{r} = \\begin{pmatrix}15t\\\\1.6 + 14t - 4.9t^{2}\\end{pmatrix}$.",
+            "(b) At the highest point $v_{y} = 14 - 9.8t = 0$, so $t = 1.4285\\ldots$ s. Then $y = 1.6 + 14(1.4285\\ldots) - 4.9(1.4285\\ldots)^{2} = 11.6$ m.",
+            "(c) Write down the equation for landing: $-4.9t^{2} + 14t + 1.6 = 0$. The GDC gives $t = 2.96718\\ldots$ or $t = -0.110\\ldots$; reject the negative time.",
+            "Horizontal distance: $x = 15 \\times 2.96718\\ldots = 44.5078\\ldots$ m.",
+            "Interpret: about 44.5 m. Air resistance would make the real distance shorter."
+          ],
+          "answer": "$x \\approx 44.5\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "15*(14 + sqrt(14**2 + 4*4.9*1.6))/(2*4.9)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "-4.9, 14, 1.6"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fountain-height",
+          "prompt": "A fountain shoots water from ground level with velocity $\\begin{pmatrix}6\\\\14.7\\end{pmatrix}\\text{ m s}^{-1}$, with $x$ horizontal and $y$ up. Modelling the water as a projectile with acceleration $\\begin{pmatrix}0\\\\-9.8\\end{pmatrix}\\text{ m s}^{-2}$, find the greatest height of the water, in metres, to 3 s.f.",
+          "hint": "Find when $v_{y} = 14.7 - 9.8t$ is $0$, then substitute that time into $y$.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0.05
+          },
+          "explain": "$v_{y} = 0$ at $t = 1.5$ s, so $y = 14.7(1.5) - 4.9(1.5)^{2} = 11.025$, about $11.0$ m. The horizontal $6$ plays no part.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "14.7*(14.7/9.8) - 4.9*(14.7/9.8)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "An object moving round a circle of radius $R$ at a steady rate has a position such as $\\boldsymbol{r} = \\begin{pmatrix}R\\cos(\\omega t)\\\\R\\sin(\\omega t)\\end{pmatrix}$, with $\\omega > 0$ in radians per unit time. Its distance from the origin is $\\sqrt{R^{2}\\cos^{2}(\\omega t) + R^{2}\\sin^{2}(\\omega t)} = R$, which never changes."
+        },
+        {
+          "type": "text",
+          "text": "Differentiating gives $\\boldsymbol{v} = \\begin{pmatrix}-R\\omega\\sin(\\omega t)\\\\R\\omega\\cos(\\omega t)\\end{pmatrix}$, so the speed is $R\\omega$, also constant. One lap takes $\\frac{2\\pi}{\\omega}$."
+        },
+        {
+          "type": "text",
+          "text": "A circle centred at C adds C's position vector. Swapping $\\sin$ and $\\cos$ changes where it starts and which way it turns; replacing $t$ by $t - a$ only changes when it passes each point."
+        },
+        {
+          "type": "mistake",
+          "text": "Working in degrees. In $\\sin(\\omega t)$ and $\\cos(\\omega t)$, $\\omega t$ is in radians, so set your GDC to radians first."
+        },
+        {
+          "type": "example",
+          "id": "ex-wheel-capsule",
+          "question": "A capsule on an observation wheel has position $\\boldsymbol{r} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi t}{10}\\right)\\\\32 - 30\\cos\\left(\\frac{\\pi t}{10}\\right)\\end{pmatrix}$ metres, $t$ minutes after it passes its lowest point. Here $x$ is the horizontal distance from the vertical line through the wheel's centre, and $y$ is the height above the ground. (a) Show that the capsule moves on a circle, and find its centre and radius. (b) Find the capsule's speed. (c) Find when the capsule first reaches a height of 50 m. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Subtract the point $(0, 32)$: $\\boldsymbol{r} - \\begin{pmatrix}0\\\\32\\end{pmatrix} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi t}{10}\\right)\\\\-30\\cos\\left(\\frac{\\pi t}{10}\\right)\\end{pmatrix}$.",
+            "Its magnitude is $\\sqrt{900\\sin^{2}\\left(\\frac{\\pi t}{10}\\right) + 900\\cos^{2}\\left(\\frac{\\pi t}{10}\\right)} = \\sqrt{900} = 30$, using $\\sin^{2}\\theta + \\cos^{2}\\theta = 1$. The capsule stays 30 m from $(0, 32)$, so it moves on a circle with centre $(0, 32)$ and radius 30 m.",
+            "(b) Differentiate: $\\boldsymbol{v} = \\begin{pmatrix}3\\pi\\cos\\left(\\frac{\\pi t}{10}\\right)\\\\3\\pi\\sin\\left(\\frac{\\pi t}{10}\\right)\\end{pmatrix}$, so the speed is $\\sqrt{9\\pi^{2}} = 3\\pi \\approx 9.42\\text{ m min}^{-1}$ at every moment.",
+            "(c) Write down the equation: $32 - 30\\cos\\left(\\frac{\\pi t}{10}\\right) = 50$. With the GDC in radians, the first solution with $t > 0$ is $t = 7.0483\\ldots$.",
+            "Check: $\\cos\\left(\\frac{\\pi t}{10}\\right) = -0.6$, so $\\frac{\\pi t}{10} = \\arccos(-0.6) = 2.2142\\ldots$.",
+            "Interpret: a lap takes $\\frac{2\\pi}{\\pi/10} = 20$ minutes, and the capsule first reaches 50 m about 7.05 minutes after the lowest point."
+          ],
+          "answer": "$t \\approx 7.05\\text{ min}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "10*acos(Rational(32 - 50, 30))/pi",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "32-30cos(πX/10)",
+            "function2": "50"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-train-speed",
+          "prompt": "A toy train runs round a circular track. Its position after $t$ seconds is $\\boldsymbol{r} = \\begin{pmatrix}6\\cos\\left(\\frac{t}{2}\\right)\\\\6\\sin\\left(\\frac{t}{2}\\right)\\end{pmatrix}$ metres. What is its speed?",
+          "hint": "Compare with $R\\cos(\\omega t)$ and $R\\sin(\\omega t)$. The speed is $R\\omega$.",
+          "options": [
+            {
+              "text": "$6\\text{ m s}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$3\\text{ m s}^{-1}$",
+              "correct": true
+            },
+            {
+              "text": "$12\\text{ m s}^{-1}$",
+              "correct": false
+            },
+            {
+              "text": "$0.5\\text{ m s}^{-1}$",
+              "correct": false
+            }
+          ],
+          "explain": "Here $R = 6$ and $\\omega = \\frac{1}{2}$, so the speed is $R\\omega = 3\\text{ m s}^{-1}$. $6$ is the radius, $12$ is $R \\div \\omega$, and $0.5$ is $\\omega$ alone.",
+          "verify": {
+            "kind": "exact",
+            "truth": "simplify(sqrt(diff(6*cos(t/2), t)**2 + diff(6*sin(t/2), t)**2))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wheel-shift",
+          "prompt": "On the same wheel, a second capsule passes the lowest point 4 minutes after the first. Using the same $t$, which gives the second capsule's position?",
+          "hint": "The second capsule is where the first one was 4 minutes earlier.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi(t - 4)}{10}\\right)\\\\32 - 30\\cos\\left(\\frac{\\pi(t - 4)}{10}\\right)\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi(t + 4)}{10}\\right)\\\\32 - 30\\cos\\left(\\frac{\\pi(t + 4)}{10}\\right)\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi t}{10} - 4\\right)\\\\32 - 30\\cos\\left(\\frac{\\pi t}{10} - 4\\right)\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}30\\sin\\left(\\frac{\\pi t}{10}\\right) - 4\\\\28 - 30\\cos\\left(\\frac{\\pi t}{10}\\right)\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Replace $t$ by $t - 4$, so the second capsule is at the bottom when $t = 4$. $t + 4$ puts it ahead, $\\frac{\\pi t}{10} - 4$ shifts the angle by 4 radians, and the last option moves it 4 m.",
+          "verify": {
+            "kind": "vector",
+            "truth": "[30*sin(pi*(t - 4)/10), 32 - 30*cos(pi*(t - 4)/10)]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}t",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For constant velocity $\\boldsymbol{v}$: $\\boldsymbol{r}_{0}$ is the position at $t = 0$, the speed is $\\lvert\\boldsymbol{v}\\rvert$, and the distance travelled in time $t$ is $\\lvert\\boldsymbol{v}\\rvert t$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Relative position of B from A at time $t$: $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)$, B's position minus A's at the same $t$. Its magnitude is the distance between them, and the objects meet only if it is $\\boldsymbol{0}$ at some time.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Closest approach: minimise $d(t) = \\lvert\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)\\rvert$ over the allowed times with the GDC. For constant velocities, $d(t)^{2}$ is a quadratic: the minimum is at its vertex when that is an allowed time, otherwise at an end of the allowed times. Give the time and the distance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $\\boldsymbol{r} = f(t)$ is a motion that starts at $t = 0$, the same motion starting at $t = a$ is $\\boldsymbol{r} = f(t - a)$, for $t \\ge a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\boldsymbol{v} = \\frac{\\mathrm{d}\\boldsymbol{r}}{\\mathrm{d}t}$ and $\\boldsymbol{a} = \\frac{\\mathrm{d}\\boldsymbol{v}}{\\mathrm{d}t}$, component by component. Integrating back needs one constant per component, fixed by a known position or velocity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Projectile launched from $(x_{0}, y_{0})$ with velocity $\\begin{pmatrix}u_{x}\\\\u_{y}\\end{pmatrix}$ at $t = 0$, ignoring air resistance, with $y$ up and units of metres and seconds: $\\boldsymbol{a} = \\begin{pmatrix}0\\\\-9.8\\end{pmatrix}$, so $\\boldsymbol{r} = \\begin{pmatrix}x_{0} + u_{x}t\\\\y_{0} + u_{y}t - 4.9t^{2}\\end{pmatrix}$. The highest point is where $v_{y} = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\boldsymbol{r} = \\begin{pmatrix}R\\cos(\\omega t)\\\\R\\sin(\\omega t)\\end{pmatrix}$ ($R > 0$, $\\omega > 0$, $\\omega t$ in radians) is motion on a circle of radius $R$ about the origin, with speed $R\\omega$ and period $\\frac{2\\pi}{\\omega}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating crossing paths as a collision. Objects meet only if they are at the same point at the same time, so one value of $t$ must give every coordinate of both.",
+    "Using clock time as $t$. If $t$ is in hours after 06:00, then 07:30 is $t = 1.5$, and a late start at 06:45 needs $t - 0.75$.",
+    "Leaving the GDC in degrees. Wherever $\\sin(\\omega t)$ or $\\cos(\\omega t)$ appears, $\\omega t$ is in radians; a degree-mode answer earns no accuracy marks.",
+    "Integrating without constants, or with one shared constant. Each component needs its own constant, found from the known position.",
+    "Rounding the time of closest approach and then using it. Keep the GDC's full value of $t$, and round only the final distance or clock time."
+  ],
+  "examTips": [
+    "“Find the least distance”: write down $d(t)$ as an expression before the GDC's minimum, and state the minimum distance itself with units, not just the time.",
+    "“Describe the path”: make statements about the path, not the speed. For example: a straight line, its direction or bearing, a constant height, or a point it passes through.",
+    "“Show that” two objects never meet: find $t$ from one coordinate, substitute it into the other, and say that the coordinates differ at that time.",
+    "“Show that” motion is circular: find the distance from the centre, simplify with $\\sin^{2}\\theta + \\cos^{2}\\theta = 1$, and state that it is constant."
+  ],
+  "readingMinutes": 31
+}

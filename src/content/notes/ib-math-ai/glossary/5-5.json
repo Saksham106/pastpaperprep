@@ -2,31 +2,31 @@
   {
     "id": "antiderivative",
     "term": "antiderivative",
-    "definition": "TODO: A function F with F′(x) = f(x); antiderivatives of f differ only by a constant",
+    "definition": "A function $F$ whose derivative is $f$, so $F'(x) = f(x)$; on an interval, any two antiderivatives of $f$ differ only by a constant.",
     "lesson": "5.5"
   },
   {
     "id": "indefinite-integral",
     "term": "indefinite integral",
-    "definition": "TODO: ∫f(x) dx = F(x) + C, the family of all antiderivatives; ∫x^n dx = x^(n+1)/(n + 1) + C needs n ≠ −1",
+    "definition": "The family of all antiderivatives of $f$, written $\\int f(x)\\,\\mathrm{d}x = F(x) + C$; for a power, $\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C$ only when $n \\neq -1$.",
     "lesson": "5.5"
   },
   {
     "id": "constant-of-integration",
     "term": "constant of integration",
-    "definition": "TODO: The + C in an indefinite integral, there because a constant differentiates to 0",
+    "definition": "The $+\\,C$ at the end of an indefinite integral, there because any constant differentiates to $0$; a known point on the curve fixes its value.",
     "lesson": "5.5"
   },
   {
     "id": "boundary-condition",
     "term": "boundary condition",
-    "definition": "TODO: A known point, such as y = 10 when x = 1, used to find the constant of integration",
+    "definition": "A known pair of values, such as $y = 10$ when $x = 1$, substituted into the integrated function (not the derivative) to find the constant of integration.",
     "lesson": "5.5"
   },
   {
     "id": "definite-integral",
     "term": "definite integral",
-    "definition": "TODO: ∫ from a to b of f(x) dx, a number; it equals the area between the curve and the x-axis only where f(x) ≥ 0, and parts below the axis count as negative",
+    "definition": "The number $\\int_{a}^{b} f(x)\\,\\mathrm{d}x$, found from $f$ between the limits $x = a$ and $x = b$; with $a < b$, it equals the area between the curve and the $x$-axis only when $f(x) \\ge 0$ throughout, because parts below the axis count as negative.",
     "lesson": "5.5"
   }
 ]

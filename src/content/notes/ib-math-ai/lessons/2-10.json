@@ -1,0 +1,701 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.10",
+  "slug": "logarithmic-scales-and-linearizing-data",
+  "title": "Logarithmic scales and linearizing data",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A [[logarithmic-scale|logarithmic scale]] spaces values by multiplying factors, so data from $0.01$ to $1\\,000\\,000$ fit on one graph. Taking logs also straightens curved data: a straight line on a [[semi-log-graph|semi-log graph]] means an exponential model, and on a [[log-log-graph|log-log graph]] a power model. The line's [[gradient|gradient]] and intercept give you the model's [[parameter|parameters]].",
+  "goals": [
+    {
+      "text": "Choose a logarithmic scale for data with a very wide range or when growth rates matter, and read values off a log axis.",
+      "bullets": [
+        "2.10-b1"
+      ]
+    },
+    {
+      "text": "Linearize exponential data by plotting $\\ln y$ against $x$, then find $k$ and $a$ in $y = ka^{x}$ from the best-fit line.",
+      "bullets": [
+        "2.10-b2"
+      ]
+    },
+    {
+      "text": "Linearize power data by plotting $\\ln y$ against $\\ln x$, then find $k$ and $n$ in $y = kx^{n}$.",
+      "bullets": [
+        "2.10-b2"
+      ]
+    },
+    {
+      "text": "Interpret the gradient and intercept of semi-log and log-log graphs in context.",
+      "bullets": [
+        "2.10-b3"
+      ]
+    },
+    {
+      "text": "Decide between an exponential and a power model by comparing $r$ for the two linearized data sets, and justify the choice.",
+      "bullets": [
+        "2.10-b2",
+        "2.10-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.5",
+    "1.9",
+    "2.1",
+    "2.5",
+    "2.6",
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "linearising data",
+    "log-log graph",
+    "semi-log plot",
+    "logarithmic scale",
+    "exponential or power model",
+    "log transform regression"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ln-power-law",
+      "prompt": "Which expression equals $\\ln\\left(4x^{3}\\right)$, for $x > 0$?",
+      "hint": "Use the product law first, then the power law on $x^{3}$ only.",
+      "options": [
+        {
+          "text": "$\\ln 4 + 3\\ln x$",
+          "correct": true
+        },
+        {
+          "text": "$3\\ln(4x)$",
+          "correct": false
+        },
+        {
+          "text": "$12\\ln x$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ln\\left(4x^{3}\\right) = \\ln 4 + \\ln x^{3} = \\ln 4 + 3\\ln x$. The power $3$ belongs to $x$ only, so $3\\ln(4x)$ is wrong. Revise it in {{lesson:1.9}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "expand_log(log(4*x**3), force=True)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-log-standard-form",
+      "prompt": "Find $\\log_{10}\\left(3.2 \\times 10^{5}\\right)$. Give your answer to 3 s.f.",
+      "hint": "$\\log_{10}\\left(3.2 \\times 10^{5}\\right) = \\log_{10} 3.2 + 5$.",
+      "answer": {
+        "value": 5.51,
+        "tolerance": 0.005
+      },
+      "explain": "$\\log_{10} 3.2 = 0.505\\ldots$, so the log is $5.505\\ldots \\approx 5.51$. The power of ten gives the whole number part. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "log(3.2*10**5, 10)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pearson",
+      "prompt": "A [[regression-line|regression line]] has $r = -0.995$. What does this tell you about the data?",
+      "hint": "The sign gives the direction. The size gives how close the points are to a line.",
+      "options": [
+        {
+          "text": "a strong negative linear correlation",
+          "correct": true
+        },
+        {
+          "text": "a weak negative linear correlation",
+          "correct": false
+        },
+        {
+          "text": "no linear correlation",
+          "correct": false
+        }
+      ],
+      "explain": "$r$ near $-1$ means the points lie close to a falling line. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a strong negative linear correlation"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "log-scales",
+      "heading": "Logarithmic scales",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Animal masses run from grams to over $100$ tonnes. On an ordinary axis, every small animal piles up at $0$."
+        },
+        {
+          "type": "text",
+          "text": "A [[logarithmic-scale|logarithmic scale]] fixes this. Each gridline is $10$ times the one before, so equal distances stand for equal multiplying factors, not equal differences."
+        },
+        {
+          "type": "definition",
+          "term": "logarithmic scale",
+          "statement": "A scale on which a value $v > 0$ is placed at distance proportional to $\\log_{10} v$. Moving along by the length of one power of ten multiplies the value by $10$.",
+          "plain": "Each step along the axis multiplies by the same factor."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-log-axis",
+          "alt": "A horizontal log axis with equally spaced gridlines labelled 1, 10, 100, 1000 and 10 000, and an arc marked times 10 between each pair. Smaller ticks for 2 to 9 crowd towards the right of each gap. A dot halfway between 10 and 100 is labelled 31.6 is halfway, and a dashed pointer shows that 55 sits much closer to 100.",
+          "caption": "Equal gaps are equal factors. The midpoint of the $10$ to $100$ gap is $10^{1.5} \\approx 31.6$."
+        },
+        {
+          "type": "text",
+          "text": "To read a log axis, use exponents: a point a fraction $p$ of the way from $10^{a}$ to $10^{a+1}$ shows $10^{a + p}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-log-axis",
+          "question": "A chart shows the annual rainfall at weather stations on a $\\log_{10}$ axis, in mm. One station's point sits a quarter of the way from the $100$ gridline to the $1000$ gridline. Find its rainfall, to 3 s.f.",
+          "steps": [
+            "The $100$ gridline is at exponent $2$ and the $1000$ gridline at exponent $3$.",
+            "A quarter of the way along adds $0.25$ to the exponent: $2 + 0.25 = 2.25$.",
+            "The value is $10^{2.25} = 177.82\\ldots$, so about $178$ mm.",
+            "Reading the axis as linear would wrongly give $325$ mm."
+          ],
+          "answer": "$R \\approx 178\\text{ mm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "10**(2 + 0.25)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-manageable-scale",
+          "question": "A pygmy shrew has mass $0.004$ kg and a blue whale $140\\,000$ kg. On a $\\log_{10}$ axis drawn with $1.5$ cm for each power of ten, how far apart are the two animals? Give your answer to 3 s.f.",
+          "steps": [
+            "Positions are $\\log_{10}$ of the masses, so the gap is $\\log_{10} 140\\,000 - \\log_{10} 0.004$.",
+            "By the quotient law this is $\\log_{10}\\left(\\frac{140\\,000}{0.004}\\right) = \\log_{10}\\left(3.5 \\times 10^{7}\\right) = 7.544\\ldots$",
+            "Each power of ten takes $1.5$ cm: $7.544\\ldots \\times 1.5 = 11.316\\ldots$, so about $11.3$ cm.",
+            "Interpret: both animals fit on one page."
+          ],
+          "answer": "$d \\approx 11.3\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.5*log(140000/0.004, 10)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Log scales also show growth rates. With a log vertical axis and time across, constant percentage growth is a straight line."
+        },
+        {
+          "type": "text",
+          "text": "A steeper line means faster percentage growth, whatever the size of the numbers."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-growth-rates",
+          "alt": "Graph of cases on a log scale from 10 to 100 000 against days from 0 to 40. Line A starts at 2000 and rises gently to 8000. Line B starts at 20 and rises steeply to 5000. Both are straight. B stays below A but is much steeper.",
+          "caption": "Country A has more cases, but country B's cases grow faster in percentage terms."
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting two readings on a log axis as if the gap were the difference in values. A gap on a log axis is a ratio: convert each reading to a value first."
+        },
+        {
+          "type": "check",
+          "id": "check-read-log-axis",
+          "prompt": "On a $\\log_{10}$ axis, a point sits $60\\%$ of the way from the $100$ gridline to the $1000$ gridline. What value does it show? Give your answer to 3 s.f.",
+          "hint": "Add $0.6$ to the exponent of the lower gridline.",
+          "answer": {
+            "value": 398,
+            "tolerance": 0.5
+          },
+          "explain": "The exponent is $2 + 0.6 = 2.6$, so the value is $10^{2.6} = 398.1\\ldots \\approx 398$. Reading it as linear gives $640$, which is wrong.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10**(2 + 0.6)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-growth-rate",
+          "prompt": "In the figure above, which country's cases are growing faster in percentage terms?",
+          "hint": "On a log scale, the gradient shows the growth rate, not the height of the line.",
+          "options": [
+            {
+              "text": "country B",
+              "correct": true
+            },
+            {
+              "text": "country A",
+              "correct": false
+            },
+            {
+              "text": "both grow at the same rate",
+              "correct": false
+            }
+          ],
+          "explain": "B's line is steeper, so its cases multiply by a larger factor each day. A has more cases but grows more slowly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "country B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "semi-log",
+      "heading": "Exponential data: semi-log graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[linearizing-data|Linearizing data]] means taking logs so that curved data lie on a straight line. You used the log laws for this in {{lesson:1.9}}."
+        },
+        {
+          "type": "text",
+          "text": "Suppose $y = ka^{x}$ with $k > 0$ and $a > 0$. Taking $\\ln$ of both sides gives $\\ln y = \\ln k + x\\ln a$. So $\\ln y$ against $x$ is a straight line."
+        },
+        {
+          "type": "formula",
+          "tex": "y = ka^{x} \\;\\Rightarrow\\; \\ln y = (\\ln a)\\,x + \\ln k",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A graph of $\\ln y$ (or $\\log_{10} y$) against $x$ is a [[semi-log-graph|semi-log graph]]. If its points lie close to a straight line with gradient $m$ and intercept $c$, then $a = \\mathrm{e}^{m}$ and $k = \\mathrm{e}^{c}$."
+        },
+        {
+          "type": "text",
+          "text": "With $\\log_{10} y$, use $a = 10^{m}$ and $k = 10^{c}$ instead. The model can also be written $y = k\\mathrm{e}^{mx}$."
+        },
+        {
+          "type": "definition",
+          "term": "semi-log graph",
+          "statement": "A graph with a logarithmic scale on one axis only, usually the vertical axis, or a plot of $\\ln y$ against $x$.",
+          "plain": "One axis is logged; exponential data look straight."
+        },
+        {
+          "type": "example",
+          "id": "ex-semi-log-line",
+          "question": "A new online account's followers $F$ were counted each week. The graph of $\\log_{10} F$ against the week number $w$ is a straight line through $(0, 2.6)$ and $(10, 3.8)$. Write $F$ in the form $ka^{w}$, and interpret $a$.",
+          "steps": [
+            "Gradient: $m = \\frac{3.8 - 2.6}{10 - 0} = 0.12$. Intercept: $c = 2.6$. So $\\log_{10} F = 0.12w + 2.6$.",
+            "Undo the logs: $F = 10^{0.12w + 2.6} = 10^{2.6} \\times \\left(10^{0.12}\\right)^{w}$.",
+            "So $k = 10^{2.6} = 398.1\\ldots$ and $a = 10^{0.12} = 1.318\\ldots$, giving $F \\approx 398 \\times 1.32^{w}$.",
+            "Interpret: $k$ is the model's follower count at the start, about $398$. Each week $F$ is multiplied by $1.318\\ldots$, a growth of about $32\\%$ a week."
+          ],
+          "answer": "$k \\approx 398, \\; a \\approx 1.32$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"k\": 10**2.6, \"a\": 10**((3.8 - 2.6)/10)}]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-medicine-regression",
+          "question": "The concentration $C$ (mg per litre) of a medicine in a patient's blood is measured $t$ hours after a dose. $\\begin{array}{c|cccccc} t & 1 & 2 & 3 & 4 & 5 & 6 \\\\ \\hline C & 8.1 & 5.9 & 4.4 & 3.2 & 2.4 & 1.7 \\end{array}$ Find the regression line of $\\ln C$ on $t$. Hence write $C$ in the form $k\\mathrm{e}^{bt}$, with $k$ and $b$ to 3 s.f.",
+          "steps": [
+            "Take $\\ln$ of every $C$ value: $\\ln 8.1 = 2.0919\\ldots$, $\\ln 5.9 = 1.7749\\ldots$, and so on. Enter $t$ in one list and $\\ln C$ in another.",
+            "Linear regression of $\\ln C$ on $t$ gives $\\ln C = -0.309230\\ldots t + 2.40191\\ldots$, with $r = -0.9997\\ldots$, so the line fits very well.",
+            "Undo the logs: $C = \\mathrm{e}^{2.40191\\ldots} \\times \\mathrm{e}^{-0.309230\\ldots t}$, so $k = 11.044\\ldots$ and $b = -0.309230\\ldots$",
+            "So $C \\approx 11.0\\mathrm{e}^{-0.309t}$. Interpret: each hour $C$ is multiplied by $\\mathrm{e}^{-0.309\\ldots} = 0.734\\ldots$, so it falls by about $27\\%$ an hour."
+          ],
+          "answer": "$k \\approx 11.0, \\; b \\approx -0.309$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"k\": exp(regintercept([1, 2, 3, 4, 5, 6], [log(8.1), log(5.9), log(4.4), log(3.2), log(2.4), log(1.7)])), \"b\": regslope([1, 2, 3, 4, 5, 6], [log(8.1), log(5.9), log(4.4), log(3.2), log(2.4), log(1.7)])}]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "1, 2, 3, 4, 5, 6",
+            "yValues": "ln(8.1), ln(5.9), ln(4.4), ln(3.2), ln(2.4), ln(1.7)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write down that you used $\\ln C$, not $C$. The regression of $C$ on $t$ is a different line and earns no marks here."
+        },
+        {
+          "type": "check",
+          "id": "check-semi-log-model",
+          "prompt": "Data give a semi-log line, $\\ln y$ on $x$, sloping downwards. Which model fits the data?",
+          "hint": "A straight line on a semi-log graph means $y = ka^{x}$. What does a negative gradient say about $a$?",
+          "options": [
+            {
+              "text": "exponential decay",
+              "correct": true
+            },
+            {
+              "text": "exponential growth",
+              "correct": false
+            },
+            {
+              "text": "a power model",
+              "correct": false
+            },
+            {
+              "text": "inverse variation",
+              "correct": false
+            }
+          ],
+          "explain": "The gradient is $\\ln a$. A negative gradient means $\\ln a < 0$, so $0 < a < 1$: exponential decay.",
+          "verify": {
+            "kind": "choice",
+            "truth": "exponential decay"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-growth-percent",
+          "prompt": "A town's population $P$, $t$ years after 2020, fits the line $\\ln P = 0.042t + 9.1$. By what percentage does the model's population grow each year? Give your answer to 3 s.f.",
+          "hint": "Each year $\\ln P$ rises by $0.042$, so $P$ is multiplied by $\\mathrm{e}^{0.042}$.",
+          "answer": {
+            "value": 4.29,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{0.042} = 1.04289\\ldots$, so $P$ grows by about $4.29\\%$ a year. The intercept doesn't affect the rate.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(exp(0.042) - 1)*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "log-log",
+      "heading": "Power data: log-log graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now suppose $y = kx^{n}$, with $k > 0$ and $x > 0$. Taking $\\ln$ of both sides gives $\\ln y = \\ln k + n\\ln x$. So $\\ln y$ against $\\ln x$ is a straight line."
+        },
+        {
+          "type": "formula",
+          "tex": "y = kx^{n} \\;\\Rightarrow\\; \\ln y = n\\ln x + \\ln k",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A graph that logs both axes is a [[log-log-graph|log-log graph]]. The gradient is the power $n$. The intercept is $\\ln k$ (or $\\log_{10} k$ if both axes use base $10$)."
+        },
+        {
+          "type": "definition",
+          "term": "log-log graph",
+          "statement": "A graph with logarithmic scales on both axes, or a plot of $\\ln y$ against $\\ln x$. Data from $y = kx^{n}$, with $k > 0$ and $x > 0$, lie on a straight line with gradient $n$.",
+          "plain": "Both axes are logged; power data look straight."
+        },
+        {
+          "type": "text",
+          "text": "$n = 1$ is [[direct-variation|direct variation]], $n = -1$ is [[inverse-variation|inverse variation]], and $n = 2$ means doubling $x$ multiplies $y$ by $4$."
+        },
+        {
+          "type": "figure",
+          "id": "2-10-mammal-log-log",
+          "alt": "Log-log graph of metabolic rate B in watts against body mass M in kilograms, both axes marked 1, 10, 100 and 1000. A straight line rises from the point (1, 3.4) through the point (100, 108) to about 600 watts at 1000 kilograms.",
+          "caption": "On log-log axes, a straight line means $B = kM^{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-log-graph",
+          "question": "For mammals, a log-log graph of resting metabolic rate $B$ (watts) against body mass $M$ (kg) is a straight line through the points $(1, 3.4)$ and $(100, 108)$, as in the figure. Find $n$ in $B = kM^{n}$, then estimate $B$ for a $40$ kg mammal, to 3 s.f.",
+          "steps": [
+            "The axes are logged, so find the gradient from the logs of the coordinates: $n = \\frac{\\log_{10} 108 - \\log_{10} 3.4}{\\log_{10} 100 - \\log_{10} 1} = \\frac{\\log_{10} 31.76\\ldots}{2} = 0.75097\\ldots$",
+            "At $M = 1$, $B = k \\times 1^{n} = k$, so $k = 3.4$.",
+            "So $B = 3.4M^{0.75097\\ldots}$. For $M = 40$: $B = 3.4 \\times 40^{0.75097\\ldots} = 54.27\\ldots$",
+            "Interpret: $n < 1$, so a $40$ kg mammal uses only about $16$ times the power of a $1$ kg one."
+          ],
+          "answer": "$B \\approx 54.3\\text{ W}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.4*40**(log(108/3.4, 10)/2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-turbine-power",
+          "question": "An engineer records the blade length $L$ (m) and the rated power $P$ (kW) of six wind turbines. $\\begin{array}{c|cccccc} L & 10 & 20 & 30 & 45 & 60 & 80 \\\\ \\hline P & 33 & 120 & 290 & 640 & 1190 & 2050 \\end{array}$ Use power regression to write $P$ in the form $kL^{n}$, with $k$ and $n$ to 3 s.f. Interpret $n$.",
+          "steps": [
+            "Enter $L$ and $P$ as lists. Power regression fits a straight line to $\\ln P$ against $\\ln L$.",
+            "The GDC gives $P = 0.315381\\ldots \\times L^{2.00387\\ldots}$, with $r = 0.9997\\ldots$ for the log-log line.",
+            "Interpret: $n \\approx 2$, so power is close to proportional to $L^{2}$. Doubling the blade length multiplies the power by about $4$."
+          ],
+          "answer": "$k \\approx 0.315, \\; n \\approx 2.00$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"k\": powreg([10, 20, 30, 45, 60, 80], [33, 120, 290, 640, 1190, 2050])[0], \"n\": powreg([10, 20, 30, 45, 60, 80], [33, 120, 290, 640, 1190, 2050])[1]}]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-power",
+          "values": {
+            "xValues": "10, 20, 30, 45, 60, 80",
+            "yValues": "33, 120, 290, 640, 1190, 2050"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the gradient straight off log-labelled axes as $\\frac{108 - 3.4}{100 - 1}$. On log-log axes, take logs of both coordinates first."
+        },
+        {
+          "type": "check",
+          "id": "check-undo-log-log",
+          "prompt": "A log-log line is $\\ln y = 1.5\\ln x + 0.4$, for $x > 0$. Which equation gives $y$?",
+          "hint": "Raise $\\mathrm{e}$ to each side.",
+          "options": [
+            {
+              "text": "$y = \\mathrm{e}^{0.4}x^{1.5}$",
+              "correct": true
+            },
+            {
+              "text": "$y = 0.4x^{1.5}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 1.5x^{0.4}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\mathrm{e}^{0.4}\\mathrm{e}^{1.5x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{e}^{1.5\\ln x} = x^{1.5}$, so $y = \\mathrm{e}^{0.4}x^{1.5} \\approx 1.49x^{1.5}$. The intercept $0.4$ is $\\ln k$, not $k$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, exp(Float(0.4))*x**Float(1.5))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-signal-strength",
+          "prompt": "A log-log graph of a radio signal's strength $S$ against distance $d$ km from the mast is a straight line with gradient $-2$. When $d = 2$, $S = 45$. Find $S$ when $d = 5$.",
+          "hint": "Gradient $-2$ means $S = kd^{-2}$. Use $d = 2$ to find $k$.",
+          "answer": {
+            "value": 7.2,
+            "tolerance": 0.005
+          },
+          "explain": "$45 = k \\times 2^{-2}$, so $k = 180$ and $S = \\frac{180}{d^{2}}$. At $d = 5$, $S = \\frac{180}{25} = 7.2$. This is inverse-square variation.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "45*(5/2)**(-2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Exponential or power? Choosing the model",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To decide which model fits, linearize the data both ways and see which graph is straighter."
+        },
+        {
+          "type": "text",
+          "text": "1. Plot $\\ln y$ against $x$ (semi-log). Straight means exponential."
+        },
+        {
+          "type": "text",
+          "text": "2. Plot $\\ln y$ against $\\ln x$ (log-log). Straight means power."
+        },
+        {
+          "type": "text",
+          "text": "3. Compare $r$, [[pearsons-product-moment-correlation-coefficient|Pearson's correlation coefficient]], for the two transformed data sets. Choose the one with $|r|$ closer to $1$, then use its [[regression-line|regression line]] for the [[parameter|parameters]]."
+        },
+        {
+          "type": "result",
+          "statement": "For data with $y > 0$ (and $x > 0$ for the log-log graph): if $\\ln y$ against $x$ is closer to linear, choose $y = ka^{x}$. If $\\ln y$ against $\\ln x$ is closer to linear, choose $y = kx^{n}$.",
+          "why": "Each model is straight under its own transformation, and $r$ measures how close to straight the points are."
+        },
+        {
+          "type": "text",
+          "text": "Find $r$ for the transformed data, not the raw data. If neither graph is close to straight, neither model fits well."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-from-summary",
+          "question": "A messaging app's users $U$ (thousands) are recorded $m$ months after launch. An analyst fits two lines. Graph A, $\\ln U$ against $m$: gradient $0.186$, intercept $1.62$, $r = 0.997$. Graph B, $\\ln U$ against $\\ln m$: gradient $1.34$, intercept $1.05$, $r = 0.951$. Choose the better model, justify your choice, and write it as $U = k\\mathrm{e}^{bm}$ or $U = km^{n}$.",
+          "steps": [
+            "Graph A has $r = 0.997$, closer to $1$ than Graph B's $0.951$, so the semi-log graph is straighter.",
+            "So choose the exponential model: $\\ln U = 0.186m + 1.62$.",
+            "Undo the logs: $U = \\mathrm{e}^{1.62}\\mathrm{e}^{0.186m}$, with $k = \\mathrm{e}^{1.62} = 5.0530\\ldots$ and $b = 0.186$.",
+            "Interpret: about $5050$ users at launch, and $\\mathrm{e}^{0.186} = 1.204\\ldots$, so users grow by about $20\\%$ a month. This can't last, so long-term predictions are unreliable."
+          ],
+          "answer": "$k \\approx 5.05, \\; b \\approx 0.186$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"k\": exp(1.62), \"b\": 0.186}]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-running-times",
+          "question": "A club runner's best times $T$ (minutes) over distances $d$ (km) are shown. $\\begin{array}{c|ccccc} d & 1.5 & 5 & 10 & 21.1 & 42.2 \\\\ \\hline T & 4.6 & 17.0 & 35.2 & 77.5 & 165.0 \\end{array}$ Decide whether an exponential or a power model fits better, giving a reason. Use it to estimate the runner's time for $30$ km, to 3 s.f.",
+          "steps": [
+            "Semi-log: $r$ for $\\ln T$ against $d$ is $0.90260\\ldots$",
+            "Log-log: $r$ for $\\ln T$ against $\\ln d$ is $0.99997\\ldots$, much closer to $1$. So choose the power model $T = kd^{n}$.",
+            "Power regression gives $T = 2.99879\\ldots \\times d^{1.06987\\ldots}$.",
+            "At $d = 30$: $T = 2.99879\\ldots \\times 30^{1.06987\\ldots} = 114.10\\ldots$, so about $114$ minutes.",
+            "Interpret: $n$ is a little above $1$, so the runner's average pace slows slightly over longer races. $30$ km is inside the data, so the estimate is reasonable."
+          ],
+          "answer": "$T \\approx 114\\text{ minutes}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "powreg([1.5, 5, 10, 21.1, 42.2], [4.6, 17.0, 35.2, 77.5, 165.0])[0]*30**powreg([1.5, 5, 10, 21.1, 42.2], [4.6, 17.0, 35.2, 77.5, 165.0])[1]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "ln(1.5), ln(5), ln(10), ln(21.1), ln(42.2)",
+            "yValues": "ln(4.6), ln(17.0), ln(35.2), ln(77.5), ln(165.0)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-choose-model",
+          "prompt": "For a data set, $r = 0.981$ for $\\ln y$ against $x$, and $r = 0.912$ for $\\ln y$ against $\\ln x$. Which model should you choose?",
+          "hint": "Which transformation makes the data closer to a straight line?",
+          "options": [
+            {
+              "text": "an exponential model",
+              "correct": true
+            },
+            {
+              "text": "a power model",
+              "correct": false
+            },
+            {
+              "text": "a linear model in x and y",
+              "correct": false
+            }
+          ],
+          "explain": "The semi-log graph has $r$ closer to $1$, so the data are closer to $\\ln y = mx + c$, which is an exponential model.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an exponential model"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-constant",
+          "prompt": "Hot soup cools in a room at $20\\,^{\\circ}\\mathrm{C}$. Its temperature is modelled by $T = ka^{t} + 20$. Before you fit $k$ and $a$ from the data by taking logs, what should you do?",
+          "hint": "Taking logs works only on a pure product such as $ka^{t}$.",
+          "options": [
+            {
+              "text": "subtract 20 from each temperature",
+              "correct": true
+            },
+            {
+              "text": "take ln of each temperature as it is",
+              "correct": false
+            },
+            {
+              "text": "divide each temperature by 20",
+              "correct": false
+            }
+          ],
+          "explain": "$T - 20 = ka^{t}$, so $\\ln(T - 20) = \\ln k + t\\ln a$ is linear in $t$. $\\ln T$ is not, because the log of a sum can't be split.",
+          "verify": {
+            "kind": "choice",
+            "truth": "subtract 20 from each temperature"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "On a $\\log_{10}$ scale, equal steps are equal factors. A point a fraction $p$ of the way from $10^{a}$ to $10^{a+1}$ shows $10^{a+p}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "With a log vertical axis and time across, a straight line means a constant percentage growth rate, and a steeper line means faster percentage growth."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "If $y = ka^{x}$ with $k, a > 0$, then $\\ln y = (\\ln a)x + \\ln k$: straight on a semi-log graph, with $a = \\mathrm{e}^{\\text{gradient}}$ and $k = \\mathrm{e}^{\\text{intercept}}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "If $y = kx^{n}$ with $k > 0$ and $x > 0$, then $\\ln y = n\\ln x + \\ln k$: straight on a log-log graph, with $n = $ gradient and $k = \\mathrm{e}^{\\text{intercept}}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "With $\\log_{10}$ in place of $\\ln$, undo the logs with powers of $10$: $k = 10^{\\text{intercept}}$, and $a = 10^{\\text{gradient}}$ for an exponential model."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To choose between exponential and power models, find $r$ for $\\ln y$ against $x$ and for $\\ln y$ against $\\ln x$. Choose the one with $|r|$ closer to $1$, and say so."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Keep the GDC's full gradient and intercept until you have undone the logs. Round only the final parameters and predictions."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Running a linear regression of $y$ on $x$ when the question asks for $\\ln y$ on $x$. Take $\\ln$ of every $y$ value first; a line through the raw data is the wrong model.",
+    "Using the intercept $c$ as $k$. On a graph of $\\ln y$ the intercept is $\\ln k$, so $k = \\mathrm{e}^{c}$; with $\\log_{10} y$ it is $k = 10^{c}$.",
+    "Rounding the gradient or intercept before you undo the logs. Small changes in an exponent change $k$ and predictions a lot, so keep the GDC's full values.",
+    "Choosing a model with no reason. Quote $r$ (or $r^{2}$) for both linearized graphs and choose the one closer to $\\pm 1$.",
+    "Reading a log axis as linear. Halfway between the $10$ and $100$ gridlines is $10^{1.5} \\approx 31.6$, not $55$."
+  ],
+  "examTips": [
+    "“Find the regression line in the form $\\ln y = ax + b$”: write that you took $\\ln$ of the $y$ values, then give the equation with $\\ln y$ on the left and $a$ and $b$ to 3 s.f.",
+    "“Justify” a choice of model: state $r$ or $r^{2}$ for both linearized graphs and say which is closer to $1$ in size. A choice without a valid reason earns no marks.",
+    "“Interpret” a semi-log gradient as a growth or decay factor per unit of $x$, in context: “the concentration falls by about $27\\%$ each hour”.",
+    "You won't be asked to draw or sketch log graphs, but you must read them. First check whether each axis shows the value or its log, and which base."
+  ],
+  "readingMinutes": 26
+}

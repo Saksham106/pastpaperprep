@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.7",
+  "slug": "composite-and-inverse-functions",
+  "title": "Composite and inverse functions",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A [[composite-function|composite function]] feeds one [[function|function]]'s output into another: $(f \\circ g)(x) = f(g(x))$. In a model it chains quantities, such as time to items to cost. An [[inverse-function|inverse function]] undoes $f$, and a parabola gets one once you keep only one side of its vertex.",
+  "goals": [
+    {
+      "text": "Form and evaluate $(f \\circ g)(x) = f(g(x))$, applying the functions in the right order.",
+      "bullets": [
+        "2.7-b2"
+      ]
+    },
+    {
+      "text": "Build a [[composite-function|composite function]] from two models, interpret it in context, and solve equations it gives with your GDC.",
+      "bullets": [
+        "2.7-b1"
+      ]
+    },
+    {
+      "text": "Use $(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x$, and find $f^{-1}(x)$ and its [[domain|domain]].",
+      "bullets": [
+        "2.7-b2",
+        "2.7-b4"
+      ]
+    },
+    {
+      "text": "Restrict the domain of a quadratic so it has an inverse, choose the right sign of the square root, and interpret $f^{-1}(a)$ in context.",
+      "bullets": [
+        "2.7-b3",
+        "2.7-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P3"
+  ],
+  "synonyms": [
+    "composite functions in context",
+    "f of g of x",
+    "how to find an inverse function",
+    "restricting the domain for an inverse",
+    "domain of the inverse function",
+    "f inverse of f of x equals x"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-evaluate",
+      "prompt": "A stone's height is $h(t) = 50 - 4.9t^{2}$ metres after $t$ seconds. Find $h(2)$.",
+      "hint": "Square $2$ first, then multiply by $4.9$.",
+      "options": [
+        {
+          "text": "$30.4$",
+          "correct": true
+        },
+        {
+          "text": "$40.2$",
+          "correct": false
+        },
+        {
+          "text": "$-46.04$",
+          "correct": false
+        }
+      ],
+      "explain": "$h(2) = 50 - 4.9 \\times 4 = 30.4$ m. $40.2$ forgets to square, and $-46.04$ squares $4.9 \\times 2$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "50 - 4.9*2**2"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-domain",
+      "prompt": "A function $f$ has domain $0 \\le x \\le 5$ and [[range|range]] $2 \\le f(x) \\le 17$, and it has an inverse. What is the domain of $f^{-1}$?",
+      "hint": "The inverse swaps inputs and outputs.",
+      "options": [
+        {
+          "text": "$2 \\le x \\le 17$",
+          "correct": true
+        },
+        {
+          "text": "$0 \\le x \\le 5$",
+          "correct": false
+        },
+        {
+          "text": "$0 \\le x \\le 17$",
+          "correct": false
+        }
+      ],
+      "explain": "$f^{-1}$ takes the outputs of $f$ as its inputs, so its domain is the range of $f$: $2 \\le x \\le 17$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "And(x >= 2, x <= 17)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "composite",
+      "heading": "Composite functions and their notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Think of each function as a machine. Put $x$ into $g$, then put its output, $g(x)$, into $f$. The two machines together make one new function: a [[composite-function|composite function]]."
+        },
+        {
+          "type": "definition",
+          "term": "composite function",
+          "statement": "The composite function $f \\circ g$ is defined by $(f \\circ g)(x) = f(g(x))$. It applies $g$ first, then applies $f$ to the result.",
+          "plain": "Do $g$, then do $f$ to whatever $g$ gave you."
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ g)(x) = f(g(x))",
+          "tag": "learn",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "Read $f \\circ g$ as “$f$ of $g$”. The function written next to $x$ acts first. So in $f \\circ g$, $g$ acts first even though $f$ is written first."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-evaluate",
+          "question": "Let $f(x) = 2x + 5$ and $g(x) = x^{2} - 3$, for $x \\in \\mathbb{R}$. Find $(f \\circ g)(4)$ and $(g \\circ f)(4)$.",
+          "steps": [
+            "$(f \\circ g)(4) = f(g(4))$, so start with the inside function: $g(4) = 4^{2} - 3 = 13$.",
+            "Put this output into $f$: $f(13) = 2(13) + 5 = 31$.",
+            "For the other order, start with $f$: $f(4) = 2(4) + 5 = 13$.",
+            "Then $g(13) = 13^{2} - 3 = 166$. So $(g \\circ f)(4) = 166$: a different number, so the order matters."
+          ],
+          "answer": "$(f \\circ g)(4) = 31$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*(4**2 - 3) + 5"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-composite-order",
+          "prompt": "Let $f(x) = x + 4$ and $g(x) = 3x^{2}$, for $x \\in \\mathbb{R}$. Find $(g \\circ f)(x)$.",
+          "hint": "Which function acts on $x$ first? Put its output into the other one.",
+          "options": [
+            {
+              "text": "$3(x + 4)^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$3x^{2} + 4$",
+              "correct": false
+            },
+            {
+              "text": "$3x^{2} + 12$",
+              "correct": false
+            }
+          ],
+          "explain": "$f$ acts first, giving $x + 4$. Then $g$ squares it and multiplies by $3$: $g(x + 4) = 3(x + 4)^{2}$. The answer $3x^{2} + 4$ is $(f \\circ g)(x)$, the other order.",
+          "verify": {
+            "kind": "expression",
+            "truth": "3*((x) + 4)**2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:2.2}} you converted temperatures with $F = 1.8C + 32$. A composite can chain two conversions into one."
+        },
+        {
+          "type": "example",
+          "id": "ex-composite-kelvin",
+          "question": "A thermometer reads in kelvin (K). The function $g(x) = x - 273.15$ converts $x$ K to degrees Celsius, and $f(x) = 1.8x + 32$ converts $x$ degrees Celsius to degrees Fahrenheit. (a) Find $(f \\circ g)(x)$. (b) Find $(f \\circ g)(300)$ and say what it means.",
+          "steps": [
+            "(a) $g$ acts first: $(f \\circ g)(x) = f(x - 273.15) = 1.8(x - 273.15) + 32$.",
+            "Expand: $1.8x - 491.67 + 32 = 1.8x - 459.67$. This one function turns kelvin straight into degrees Fahrenheit.",
+            "(b) $(f \\circ g)(300) = 1.8(300) - 459.67 = 80.33$.",
+            "So a temperature of $300$ K is $80.33\\,^{\\circ}\\mathrm{F}$.",
+            "The order matters: $(g \\circ f)(x)$ would treat $x$ as degrees Celsius, then subtract $273.15$ from a Fahrenheit value, which means nothing."
+          ],
+          "answer": "$(f \\circ g)(x) = 1.8x - 459.67$",
+          "verify": {
+            "kind": "expression",
+            "truth": "1.8*(x - 273.15) + 32"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A composite only works where the output of $g$ is an input $f$ accepts. With $f(x) = \\sqrt{x}$ and $g(x) = x - 7$, $(f \\circ g)(3) = f(-4)$, which doesn't exist. So $g(x)$ must lie in the [[domain|domain]] of $f$."
+        },
+        {
+          "type": "check",
+          "id": "check-composite-number",
+          "prompt": "Let $f(x) = 4x - 1$ and $g(x) = x^{2} + 2$, for $x \\in \\mathbb{R}$. Find $(g \\circ f)(-1)$.",
+          "hint": "Work out $f(-1)$ first, then put that number into $g$.",
+          "answer": {
+            "value": 27,
+            "tolerance": 0
+          },
+          "explain": "$f(-1) = 4(-1) - 1 = -5$. Then $g(-5) = (-5)^{2} + 2 = 27$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(4*(-1) - 1)**2 + 2",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "heading": "Composite functions in context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a model, a composite chains quantities. If $g$ turns time into a number of items, and $f$ turns a number of items into a cost, then $f \\circ g$ turns time straight into cost."
+        },
+        {
+          "type": "text",
+          "text": "The output of $g$ must be the quantity $f$ expects as its input, in the same units. Swap the two and the composite usually changes, so say which step happens first."
+        },
+        {
+          "type": "example",
+          "id": "ex-context-order",
+          "question": "A bureau changes euros into US dollars. $c(x) = 1.08x$ gives the dollars received for $x$ euros, and $k(x) = x - 12$ takes off a fee of $12$ units of whatever currency it is applied to. (a) Describe $(c \\circ k)(x)$ and $(k \\circ c)(x)$ in context. (b) Which is better for the customer, and by how much?",
+          "steps": [
+            "(a) $(c \\circ k)(x) = c(x - 12) = 1.08(x - 12)$: a fee of $12$ euros is taken first, then the rest is changed into dollars.",
+            "$(k \\circ c)(x) = k(1.08x) = 1.08x - 12$: all $x$ euros are changed first, then a fee of $12$ dollars is taken.",
+            "(b) Expand the first: $1.08(x - 12) = 1.08x - 12.96$.",
+            "Subtract: $(k \\circ c)(x) - (c \\circ k)(x) = (1.08x - 12) - (1.08x - 12.96) = 0.96$.",
+            "So $k \\circ c$ is better: the customer gets $0.96$ dollars more, whatever the amount. A fee of $12$ euros is worth $12.96$ dollars, more than a fee of $12$ dollars."
+          ],
+          "answer": "$(k \\circ c)(x) - (c \\circ k)(x) = 0.96$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(1.08*x - 12) - 1.08*(x - 12)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-context-meaning",
+          "prompt": "A weather balloon is $h(t)$ metres high $t$ minutes after launch. The air temperature, in degrees Celsius, at a height of $h$ metres is $T(h)$. What does $(T \\circ h)(10)$ represent?",
+          "hint": "$(T \\circ h)(10) = T(h(10))$. What is $h(10)$, and what does $T$ do to it?",
+          "options": [
+            {
+              "text": "the air temperature at the balloon 10 minutes after launch",
+              "correct": true
+            },
+            {
+              "text": "the height of the balloon when the air temperature is 10 degrees Celsius",
+              "correct": false
+            },
+            {
+              "text": "the air temperature 10 metres above the ground",
+              "correct": false
+            },
+            {
+              "text": "the time when the balloon is 10 metres high",
+              "correct": false
+            }
+          ],
+          "explain": "$h(10)$ is the balloon's height after $10$ minutes. $T$ turns that height into the air temperature there.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the air temperature at the balloon 10 minutes after launch"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A composite model can give an equation you can't solve by hand. Write down the equation, then solve it with your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-context-gdc",
+          "question": "A car bought for $26\\,000$ dollars is worth $V(t) = 26\\,000(0.82)^{t}$ dollars after $t$ years. Its yearly insurance costs $I(V) = 350 + 0.045V$ dollars when the car is worth $V$ dollars. (a) Find $(I \\circ V)(t)$. (b) Use your GDC to find when the insurance falls to $950$ dollars. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) $V$ acts first: $(I \\circ V)(t) = 350 + 0.045 \\times 26\\,000(0.82)^{t} = 350 + 1170(0.82)^{t}$.",
+            "(b) Write down the equation: $350 + 1170(0.82)^{t} = 950$.",
+            "Graph $y = 350 + 1170(0.82)^{x}$ and $y = 950$, and find where they meet: $x = 3.3652\\ldots$",
+            "Interpret: the insurance falls to $950$ dollars about $3.37$ years after the car is bought.",
+            "Another route: solve $I(V) = 950$ first, giving $V = 13\\,333.3\\ldots$, then solve $V(t) = 13\\,333.3\\ldots$ Keep the full value of $V$, not a rounded one."
+          ],
+          "answer": "$t \\approx 3.37\\text{ years}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(Rational(950 - 350, 1)/0.045/26000)/log(0.82)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "350+1170*0.82^X",
+            "function2": "950"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-context-gdc",
+          "prompt": "A circular ripple has radius $r(t) = 0.6t + 0.2$ metres, $t$ seconds after a stone lands. Its area is $A(r) = \\pi r^{2}$. Find the time when the area of the ripple is $10\\text{ m}^{2}$, in seconds. Give your answer to 3 s.f.",
+          "hint": "Form $(A \\circ r)(t)$, set it equal to $10$, and keep only a positive time.",
+          "answer": {
+            "value": 2.64,
+            "tolerance": 0.005
+          },
+          "explain": "Solve $\\pi(0.6t + 0.2)^{2} = 10$. Then $0.6t + 0.2 = \\sqrt{10/\\pi} = 1.7841\\ldots$, so $t = 2.6402\\ldots \\approx 2.64$ s. The negative root gives a negative time, so reject it.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(sqrt(10/pi) - 0.2)/0.6",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping a solution the context rules out, such as a negative time. Say which solution you reject, and why."
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "heading": "Inverse functions: undo, then find",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.2}} you met the [[inverse-function|inverse function]] $f^{-1}$. It undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$."
+        },
+        {
+          "type": "text",
+          "text": "So doing $f$ and then $f^{-1}$ takes every input back to where it started. The same happens in the other order."
+        },
+        {
+          "type": "result",
+          "statement": "For a function $f$ with an inverse, $(f \\circ f^{-1})(x) = x$ for every $x$ in the domain of $f^{-1}$, and $(f^{-1} \\circ f)(x) = x$ for every $x$ in the domain of $f$.",
+          "why": "$f^{-1}$ reverses whatever $f$ does, and $f$ reverses whatever $f^{-1}$ does."
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x",
+          "tag": "learn",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "Use this to check an inverse you have found: compose the two and you should get back $x$."
+        },
+        {
+          "type": "text",
+          "text": "To find $f^{-1}(x)$, undo $f$ with algebra:"
+        },
+        {
+          "type": "text",
+          "text": "1. Write $y = f(x)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Swap $x$ and $y$. This step earns a method mark, so show it."
+        },
+        {
+          "type": "text",
+          "text": "3. Rearrange to make $y$ the subject, and write the result as $f^{-1}(x) = \\ldots$."
+        },
+        {
+          "type": "text",
+          "text": "4. The domain of $f^{-1}$ is the [[range|range]] of $f$. Check one value: if $f(a) = b$, then $f^{-1}(b)$ should be $a$."
+        },
+        {
+          "type": "text",
+          "text": "You may rearrange first and swap the letters last instead. Either order gives the same $f^{-1}(x)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-taxi",
+          "question": "A taxi fare is $F(d) = 3.5 + 2.5d$ dollars for a trip of $d$ km, where $d \\ge 0$. (a) Find $F^{-1}(x)$. (b) Find $F^{-1}(21.5)$ and interpret it.",
+          "steps": [
+            "(a) Write $y = 3.5 + 2.5x$, using $x$ for the input. Swap $x$ and $y$: $x = 3.5 + 2.5y$.",
+            "Make $y$ the subject: $2.5y = x - 3.5$, so $y = \\frac{x - 3.5}{2.5} = 0.4x - 1.4$.",
+            "Check with the identity: $F(F^{-1}(x)) = 3.5 + 2.5(0.4x - 1.4) = 3.5 + x - 3.5 = x$.",
+            "(b) $F^{-1}(21.5) = 0.4(21.5) - 1.4 = 7.2$.",
+            "Interpret: a fare of $21.50$ dollars pays for a trip of $7.2$ km. $F^{-1}$ turns a fare back into a distance."
+          ],
+          "answer": "$F^{-1}(x) = 0.4x - 1.4$",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(x, 3.5 + 2.5*y), y)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-compose",
+          "prompt": "Let $f(x) = 4x - 9$, for $x \\in \\mathbb{R}$. Which function $g$ gives $(f \\circ g)(x) = x$?",
+          "hint": "$g$ must undo $f$. $f$ multiplies by $4$ and then subtracts $9$. Undo those steps in reverse order.",
+          "options": [
+            {
+              "text": "$\\frac{x + 9}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x}{4} + 9$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{x - 9}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4x - 9}$",
+              "correct": false
+            }
+          ],
+          "explain": "Add $9$, then divide by $4$: $g(x) = \\frac{x + 9}{4}$. Check: $f\\left(\\frac{x + 9}{4}\\right) = (x + 9) - 9 = x$. $\\frac{1}{4x - 9}$ is $\\frac{1}{f(x)}$, not the inverse.",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(x, 4*y - 9), y)[0]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $f^{-1}(x) = \\frac{1}{f(x)}$. The $-1$ is a label meaning “inverse”, not a power. Find $f^{-1}$ by swapping $x$ and $y$ and rearranging."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-investment",
+          "question": "An investment is worth $A(t) = 2000\\mathrm{e}^{0.045t}$ dollars after $t$ years, where $t \\ge 0$. (a) Find $A^{-1}(x)$. (b) State the domain of $A^{-1}$. (c) Find $A^{-1}(3000)$ to 3 s.f., and interpret it.",
+          "steps": [
+            "(a) Swap: $x = 2000\\mathrm{e}^{0.045y}$. Divide by $2000$: $\\mathrm{e}^{0.045y} = \\frac{x}{2000}$.",
+            "Take natural logs: $0.045y = \\ln\\left(\\frac{x}{2000}\\right)$, so $A^{-1}(x) = \\frac{1}{0.045}\\ln\\left(\\frac{x}{2000}\\right)$.",
+            "(b) For $t \\ge 0$, $A(t)$ starts at $A(0) = 2000$ and grows without limit. So the range of $A$ is $A(t) \\ge 2000$, and the domain of $A^{-1}$ is $x \\ge 2000$.",
+            "(c) $A^{-1}(3000) = \\frac{1}{0.045}\\ln(1.5) = 9.0103\\ldots \\approx 9.01$.",
+            "Interpret: the investment takes about $9.01$ years to grow to $3000$ dollars."
+          ],
+          "answer": "$A^{-1}(x) = \\frac{1}{0.045}\\ln\\left(\\frac{x}{2000}\\right)$",
+          "verify": {
+            "kind": "expression",
+            "truth": "log(x/2000)/0.045"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-parking",
+          "prompt": "A car park charges $P(h) = 4 + 3.2h$ dollars for $h$ hours. Find $P^{-1}(20)$, the number of hours you can park for $20$ dollars.",
+          "hint": "Solve $4 + 3.2h = 20$, or find $P^{-1}(x)$ first and substitute $20$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$P^{-1}(x) = \\frac{x - 4}{3.2}$, so $P^{-1}(20) = \\frac{16}{3.2} = 5$. Twenty dollars buys $5$ hours of parking.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(20 - 4)/3.2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-rational",
+          "prompt": "Let $f(x) = 3 + \\frac{8}{x - 1}$, for $x > 1$. Find $f^{-1}(x)$.",
+          "hint": "Swap to get $x = 3 + \\frac{8}{y - 1}$. Subtract $3$ first, then flip both sides.",
+          "options": [
+            {
+              "text": "$1 + \\frac{8}{x - 3}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{8}{x - 3} - 1$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\frac{x - 3}{8}$",
+              "correct": false
+            },
+            {
+              "text": "$3 + \\frac{8}{x - 1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$x - 3 = \\frac{8}{y - 1}$, so $y - 1 = \\frac{8}{x - 3}$ and $f^{-1}(x) = 1 + \\frac{8}{x - 3}$. The last option is $f$ itself.",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(x, 3 + 8/(y - 1)), y)[0]"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "“Interpret $f^{-1}(a)$”: write one sentence that links both quantities, with units, such as “a fare of $21.50$ dollars pays for a $7.2$ km trip”."
+        }
+      ]
+    },
+    {
+      "id": "restrict",
+      "heading": "Restricting the domain",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.2}} you saw that only a [[one-to-one-function|one-to-one function]] has an inverse. A parabola fails: a horizontal line can meet it twice."
+        },
+        {
+          "type": "text",
+          "text": "Take $f(x) = (x - 1)^{2} + 2$. Both $x = -1$ and $x = 3$ give $6$, so $f^{-1}(6)$ would have two answers. On $x \\in \\mathbb{R}$, $f$ has no inverse."
+        },
+        {
+          "type": "text",
+          "text": "Fix this by keeping only one side of the vertex. On $x \\ge 1$ the graph only rises, so every output comes from one input."
+        },
+        {
+          "type": "figure",
+          "id": "2-7-restrict-parabola",
+          "alt": "The parabola y equals f of x, with vertex (1, 2). A dashed horizontal line y equals 6 meets it twice, at x equals minus 1 and x equals 3. The left half, for x less than 1, is faint and dashed; the right half, for x at least 1, is solid. The curve y equals f inverse of x is the reflection of the solid half in the dashed line y equals x, starting at (2, 1).",
+          "caption": "Keeping $x \\ge 1$ makes $f(x) = (x - 1)^{2} + 2$ one-to-one. Its inverse is the reflection of that half in $y = x$."
+        },
+        {
+          "type": "result",
+          "statement": "A function that only increases, or only decreases, over its domain is one-to-one, so it has an inverse. For a quadratic, restrict the domain to one side of the vertex: $x \\ge h$ or $x \\le h$, where $x = h$ is the axis of symmetry.",
+          "why": "If the graph never turns back, no horizontal line can meet it twice."
+        },
+        {
+          "type": "text",
+          "text": "Either side works, but each side gives a different inverse. With $x \\le 1$, the same $f$ would have the inverse $1 - \\sqrt{x - 2}$ instead of $1 + \\sqrt{x - 2}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the vertex (complete the square, or use your GDC's minimum or maximum) and keep the side you are given."
+        },
+        {
+          "type": "text",
+          "text": "2. Swap $x$ and $y$, and rearrange. A square root gives $\\pm$: the restricted domain decides the sign. Say why."
+        },
+        {
+          "type": "text",
+          "text": "3. The domain of $f^{-1}$ is the range of the restricted $f$, and the range of $f^{-1}$ is the restricted domain."
+        },
+        {
+          "type": "example",
+          "id": "ex-restrict-quadratic",
+          "question": "Let $f(x) = (x + 1)^{2} - 6$. (a) Show that $f$ has no inverse when its domain is $x \\in \\mathbb{R}$. (b) The domain is now restricted to $x \\le -1$. Find $f^{-1}(x)$.",
+          "steps": [
+            "(a) $f(-3) = (-2)^{2} - 6 = -2$ and $f(1) = 2^{2} - 6 = -2$. Two inputs share an output, so $f$ is not one-to-one and has no inverse.",
+            "(b) The vertex is $(-1, -6)$, and $x \\le -1$ is its left side, so $f$ only decreases there. Swap: $x = (y + 1)^{2} - 6$.",
+            "Rearrange: $(y + 1)^{2} = x + 6$, so $y + 1 = \\pm\\sqrt{x + 6}$.",
+            "Choose the sign: the range of $f^{-1}$ is $y \\le -1$, so $y + 1 \\le 0$. Take the negative root: $f^{-1}(x) = -1 - \\sqrt{x + 6}$.",
+            "Its domain is the range of the restricted $f$: $x \\ge -6$. Check: $f(-3) = -2$, and $-1 - \\sqrt{-2 + 6} = -3$."
+          ],
+          "answer": "$f^{-1}(x) = -1 - \\sqrt{x + 6}$",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(x, (y + 1)**2 - 6), y)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving $\\pm$ in the inverse. An inverse is a function, so it gives one output: use the restricted domain to choose the sign, and say so."
+        },
+        {
+          "type": "check",
+          "id": "check-restrict-k",
+          "prompt": "Let $f(x) = 2x^{2} - 12x + 7$, for $x \\ge k$. Find the smallest value of $k$ for which $f$ has an inverse.",
+          "hint": "Find the axis of symmetry, $x = -\\frac{b}{2a}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The axis is $x = \\frac{12}{2 \\times 2} = 3$. The parabola opens upwards, so it only increases for $x \\ge 3$. Any smaller $k$ takes in both sides of the vertex.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12/(2*2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-restrict-sign",
+          "prompt": "Let $h(x) = 9 - (x - 1)^{2}$, for $x \\ge 1$. Find $h^{-1}(x)$.",
+          "hint": "After swapping, you get $(y - 1)^{2} = 9 - x$. The range of $h^{-1}$ is $y \\ge 1$: which root keeps $y - 1 \\ge 0$?",
+          "options": [
+            {
+              "text": "$1 + \\sqrt{9 - x}$",
+              "correct": true
+            },
+            {
+              "text": "$1 - \\sqrt{9 - x}$",
+              "correct": false
+            },
+            {
+              "text": "$1 + \\sqrt{x - 9}$",
+              "correct": false
+            },
+            {
+              "text": "$-1 + \\sqrt{9 - x}$",
+              "correct": false
+            }
+          ],
+          "explain": "$y - 1 = \\pm\\sqrt{9 - x}$, and $y \\ge 1$ needs the positive root, so $h^{-1}(x) = 1 + \\sqrt{9 - x}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "solve(Eq(x, 9 - (y - 1)**2), y)[1]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-restrict-domain",
+          "prompt": "For the same function, $h(x) = 9 - (x - 1)^{2}$ with $x \\ge 1$, state the domain of $h^{-1}$.",
+          "hint": "The domain of $h^{-1}$ is the range of $h$. What is the largest value $h$ takes on $x \\ge 1$?",
+          "options": [
+            {
+              "text": "$x \\le 9$",
+              "correct": true
+            },
+            {
+              "text": "$x \\ge 1$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 9$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le 1$",
+              "correct": false
+            }
+          ],
+          "explain": "The largest value is $h(1) = 9$, and $h$ decreases from there, so the range of $h$ is $h(x) \\le 9$. That is the domain of $h^{-1}$. $x \\ge 1$ is the domain of $h$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "x <= 9 - (1 - 1)**2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a model, the context often restricts the domain for you. Time, length and speed can't be negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-restrict-braking",
+          "question": "A car travelling at $v$ km/h needs $d(v) = 0.006v^{2} + 0.2v$ metres to stop, where $v \\ge 0$. (a) Explain why $d$ has an inverse on this domain. (b) Use your GDC to find $d^{-1}(50)$. Give your answer to 3 s.f., and interpret it.",
+          "steps": [
+            "(a) The vertex of $y = 0.006v^{2} + 0.2v$ is at $v = -\\frac{0.2}{2 \\times 0.006} \\approx -16.7$, outside the domain. So for $v \\ge 0$, $d$ only increases, and it is one-to-one.",
+            "(b) $d^{-1}(50)$ is the speed $v$ with $d(v) = 50$. Write down the equation: $0.006v^{2} + 0.2v = 50$.",
+            "Graph $y = 0.006x^{2} + 0.2x$ and $y = 50$ for $x \\ge 0$, and find where they meet: $x = 76.129\\ldots$",
+            "The equation also has a negative solution, $x = -109.46\\ldots$, but it is outside the domain $v \\ge 0$, so reject it.",
+            "Interpret: a car that needs $50$ m to stop was travelling at about $76.1$ km/h."
+          ],
+          "answer": "$d^{-1}(50) \\approx 76.1\\text{ km/h}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(-0.2 + sqrt(0.2**2 + 4*0.006*50))/(2*0.006)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "0.006X^2+0.2X",
+            "function2": "50"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "“Find $f^{-1}(x)$, stating its domain”: the domain earns its own mark. Give the range of $f$ as an inequality in $x$, and match the endpoint: $\\le$ if $f$ reaches it, $<$ if it doesn't."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "(f \\circ g)(x) = f(g(x))",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $(f \\circ g)(x)$, the function next to $x$ acts first: do $g$, then $f$. The output of $g$ must lie in the domain of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In context, $(f \\circ g)(x)$ means “do the step $g$ models, then the step $f$ models”. Swapping the order usually changes the result.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find $f^{-1}(x)$ for a one-to-one $f$: write $y = f(x)$, swap $x$ and $y$, then make $y$ the subject. The domain of $f^{-1}$ is the range of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A function has an inverse only if it is one-to-one. A quadratic becomes one-to-one when its domain is restricted to one side of its vertex, $x \\ge h$ or $x \\le h$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When rearranging gives $\\pm\\sqrt{\\ }$, the restricted domain of $f$ (the range of $f^{-1}$) decides the sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Composing in the wrong order. In $(f \\circ g)(x)$ the function next to $x$ acts first, so substitute $g(x)$ into $f$.",
+    "Describing a composite in context without saying which step comes first. Say, for example, “the fee is taken before the money is converted”.",
+    "Leaving $\\pm\\sqrt{\\ }$ in $f^{-1}(x)$. Use the restricted domain to reject one sign, and show why.",
+    "Giving the domain of $f^{-1}$ from its formula, or with the wrong endpoint. It is the range of $f$: use $\\le$ where $f$ reaches the endpoint and $<$ where it doesn't.",
+    "Giving a negative time or speed as $f^{-1}(a)$ in a model. Check each solution against the domain and reject the ones outside it."
+  ],
+  "examTips": [
+    "“Find $f^{-1}(x)$”: show the line where you swap $x$ and $y$. It earns a method mark even if the algebra slips later.",
+    "“Describe the meaning of $(f \\circ g)(x)$” or “interpret”: answer in words about the context, saying which step happens first and naming the quantities with units.",
+    "To find $f^{-1}(a)$ without a formula, solve $f(x) = a$ on your GDC. Write down the equation first, then give the value in the domain, to 3 s.f."
+  ],
+  "readingMinutes": 25
+}

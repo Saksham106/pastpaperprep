@@ -2,19 +2,19 @@
   {
     "id": "vector-equation-of-a-line",
     "term": "vector equation of a line",
-    "definition": "TODO: r = a + λb, λ ∈ ℝ: a is the position vector of one point on the line and b a direction vector",
+    "definition": "An equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, $\\lambda \\in \\mathbb{R}$, where $\\boldsymbol{a}$ is the position vector of one point on the line and $\\boldsymbol{b}$ is a direction vector of the line, so each value of $\\lambda$ gives the position vector $\\boldsymbol{r}$ of one point on it.",
     "lesson": "3.11"
   },
   {
     "id": "direction-vector",
     "term": "direction vector",
-    "definition": "TODO: A non-zero vector parallel to a line; any non-zero multiple of it is also a direction vector of that line",
+    "definition": "A non-zero vector parallel to a line; any non-zero multiple of it is also a direction vector of that line.",
     "lesson": "3.11"
   },
   {
     "id": "parametric-form",
     "term": "parametric form",
-    "definition": "TODO: x = x0 + λl, y = y0 + λm, z = z0 + λn: each coordinate in terms of the parameter λ, one point for each value of λ",
+    "definition": "A line written as one equation per coordinate in terms of a parameter $\\lambda$, such as $x = x_0 + \\lambda l$, $y = y_0 + \\lambda m$, $z = z_0 + \\lambda n$, where $(x_0, y_0, z_0)$ is a point on the line and $\\begin{pmatrix}l\\\\m\\\\n\\end{pmatrix}$ is a direction vector; each value of $\\lambda$ gives one point.",
     "lesson": "3.11"
   }
 ]

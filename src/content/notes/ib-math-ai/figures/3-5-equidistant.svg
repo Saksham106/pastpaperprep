@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 360" role="img" aria-labelledby="t">
+  <title id="t">Coordinate grid from 0 to 9 on both axes. Segment HK joins H at (1, 2) and K at (7, 6), with midpoint M at (4, 4). Equal tick marks show HM equals MK. The perpendicular bisector, the line 3x + 2y - 20 = 0, passes through M at a right angle to HK. The point P at (2, 7) lies on the bisector, and dashed lines from P to H and from P to K are both labelled root 26.</title>
+  <g stroke="currentColor" stroke-width="0.5" opacity="0.18">
+    <line x1="70" y1="10" x2="70" y2="334"/><line x1="106" y1="10" x2="106" y2="334"/><line x1="142" y1="10" x2="142" y2="334"/><line x1="178" y1="10" x2="178" y2="334"/><line x1="214" y1="10" x2="214" y2="334"/><line x1="250" y1="10" x2="250" y2="334"/><line x1="286" y1="10" x2="286" y2="334"/><line x1="322" y1="10" x2="322" y2="334"/><line x1="358" y1="10" x2="358" y2="334"/>
+    <line x1="34" y1="298" x2="358" y2="298"/><line x1="34" y1="262" x2="358" y2="262"/><line x1="34" y1="226" x2="358" y2="226"/><line x1="34" y1="190" x2="358" y2="190"/><line x1="34" y1="154" x2="358" y2="154"/><line x1="34" y1="118" x2="358" y2="118"/><line x1="34" y1="82" x2="358" y2="82"/><line x1="34" y1="46" x2="358" y2="46"/><line x1="34" y1="10" x2="358" y2="10"/>
+  </g>
+  <line x1="34" y1="334" x2="362" y2="334" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="34" y1="334" x2="34" y2="6" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="10" fill="currentColor" opacity="0.7">
+    <text x="34" y="348" text-anchor="middle">0</text><text x="106" y="348" text-anchor="middle">2</text><text x="178" y="348" text-anchor="middle">4</text><text x="250" y="348" text-anchor="middle">6</text><text x="322" y="348" text-anchor="middle">8</text>
+    <text x="29" y="265" text-anchor="end">2</text><text x="29" y="193" text-anchor="end">4</text><text x="29" y="121" text-anchor="end">6</text><text x="29" y="49" text-anchor="end">8</text>
+    <text x="366" y="338">x</text><text x="30" y="8" text-anchor="end">y</text>
+  </g>
+  <line x1="58" y1="10" x2="274" y2="334" stroke="var(--t2-ink)" stroke-width="2.2"/>
+  <text x="244" y="300" font-size="11" fill="var(--t2-ink)" text-anchor="end">3x + 2y − 20 = 0</text>
+  <line x1="70" y1="262" x2="286" y2="118" stroke="currentColor" stroke-width="2"/>
+  <line x1="106" y1="82" x2="70" y2="262" stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="106" y1="82" x2="286" y2="118" stroke="var(--t1-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="58" y="176" font-size="11" fill="var(--t1-ink)">√26</text>
+  <text x="196" y="88" font-size="11" fill="var(--t1-ink)">√26</text>
+  <polyline points="186.3,184.5 180.8,176.2 172.5,181.7" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="126.8" y1="230.2" x2="121.2" y2="221.8" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="234.8" y1="158.2" x2="229.2" y2="149.8" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="70" cy="262" r="4" fill="currentColor"/>
+  <text x="76" y="280" font-size="12" fill="currentColor">H (1, 2)</text>
+  <circle cx="286" cy="118" r="4" fill="currentColor"/>
+  <text x="292" y="114" font-size="12" fill="currentColor">K (7, 6)</text>
+  <circle cx="178" cy="190" r="4" fill="currentColor"/>
+  <text x="188" y="206" font-size="12" fill="currentColor">M (4, 4)</text>
+  <circle cx="106" cy="82" r="4" fill="var(--t1-ink)"/>
+  <text x="114" y="74" font-size="12" fill="currentColor">P (2, 7)</text>
+</svg>

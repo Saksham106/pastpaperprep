@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.14",
+  "slug": "matrices-determinants-and-inverses",
+  "title": "Matrices, determinants and inverses",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[matrix|matrix]] is a table of numbers you can add, scale and multiply. Matrices total whole tables of costs at once, solve systems of equations with an [[inverse-matrix|inverse matrix]], and code messages. Your GDC does the arithmetic; you set them up and interpret.",
+  "goals": [
+    {
+      "text": "Describe a matrix by its order and elements, and add, subtract and scale matrices by hand and with your GDC.",
+      "bullets": [
+        "1.14-b1",
+        "1.14-b2"
+      ]
+    },
+    {
+      "text": "Multiply matrices, decide when a product exists, and use products to total costs.",
+      "bullets": [
+        "1.14-b3"
+      ]
+    },
+    {
+      "text": "Use the rules for matrix products, including that order matters, and the matrices $I$ and $0$.",
+      "bullets": [
+        "1.14-b4",
+        "1.14-b5"
+      ]
+    },
+    {
+      "text": "Find [[determinant|determinants]] and inverses of $2 \\times 2$ matrices by hand, and of larger ones with your GDC.",
+      "bullets": [
+        "1.14-b6"
+      ]
+    },
+    {
+      "text": "Write a [[system-of-linear-equations|system of linear equations]] as $A\\boldsymbol{x} = \\boldsymbol{b}$ and solve it with $A^{-1}$.",
+      "bullets": [
+        "1.14-b7",
+        "1.14-b8",
+        "1.14-b9"
+      ]
+    },
+    {
+      "text": "Code and decode messages with a key matrix and its inverse.",
+      "bullets": [
+        "1.14-b9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "matrix multiplication",
+    "inverse of a 2x2 matrix",
+    "determinant of a matrix",
+    "solve Ax = b",
+    "matrix code and decode",
+    "identity matrix"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solve-pair",
+      "prompt": "Solve the system $2x + y = 11$ and $x - y = 1$.",
+      "hint": "Add the two equations to remove $y$.",
+      "options": [
+        {
+          "text": "$x = 4, \\; y = 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = 3, \\; y = 4$",
+          "correct": false
+        },
+        {
+          "text": "$x = 5, \\; y = 1$",
+          "correct": false
+        }
+      ],
+      "explain": "Adding gives $3x = 12$, so $x = 4$ and $y = 3$. $x = 5, y = 1$ fits only the first equation. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "assignments",
+        "truth": "solve([2*x + y - 11, x - y - 1], [x, y])"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sum-products",
+      "prompt": "Work out $3 \\times 4 + 2 \\times (-5) + 1 \\times 6$.",
+      "hint": "Multiply first, then add.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "$12 - 10 + 6 = 8$. Matrix products are built from sums like this.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*4 + 2*(-5) + 1*6",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "matrices",
+      "heading": "Matrices: order, elements and algebra",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bike shop's two branches, North and South, sell city, mountain and electric bikes. One week's sales fit in a table with a row for each branch and a column for each type."
+        },
+        {
+          "type": "text",
+          "text": "As a [[matrix|matrix]], the table is $S = \\begin{pmatrix}12 & 7 & 4\\\\9 & 11 & 6\\end{pmatrix}$. The element in row 2, column 3, $s_{23} = 6$, says South sold $6$ electric bikes."
+        },
+        {
+          "type": "definition",
+          "term": "matrix",
+          "statement": "A matrix is a rectangular array of numbers in rows and columns. A matrix with $m$ rows and $n$ columns has order $m \\times n$. The element in row $i$ and column $j$ of $A$ is $a_{ij}$.",
+          "plain": "A table of numbers, sized rows first."
+        },
+        {
+          "type": "text",
+          "text": "Two matrices are equal when they have the same order and all matching elements are equal."
+        },
+        {
+          "type": "result",
+          "statement": "If $A$ and $B$ have the same order, $A + B$ and $A - B$ add or subtract matching elements. Matrices of different orders can't be added or subtracted. For any number $k$, $kA$ multiplies every element of $A$ by $k$.",
+          "why": "Each element keeps its meaning, so adding two weeks' sales gives the sales for both weeks."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-weeks",
+          "question": "The shop's sales the next week are $T = \\begin{pmatrix}15 & 5 & 3\\\\8 & 13 & 9\\end{pmatrix}$, with the same rows and columns as $S = \\begin{pmatrix}12 & 7 & 4\\\\9 & 11 & 6\\end{pmatrix}$. Write down the order of $S$, find $S + T$, and interpret its element in row 1, column 2.",
+          "steps": [
+            "$S$ has $2$ rows and $3$ columns, so its order is $2 \\times 3$. $T$ has the same order, so $S + T$ exists.",
+            "Add matching elements. Row 1: $12 + 15$, $7 + 5$, $4 + 3$. Row 2: $9 + 8$, $11 + 13$, $6 + 9$.",
+            "Row 1, column 2 is $12$: North sold $12$ mountain bikes over the two weeks."
+          ],
+          "answer": "$S + T = \\begin{pmatrix}27 & 12 & 7\\\\17 & 24 & 15\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[12, 7, 4], [9, 11, 6]]) + Matrix([[15, 5, 3], [8, 13, 9]])"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "On your GDC, store each matrix once, then type sums and multiples using the stored names."
+        },
+        {
+          "type": "example",
+          "id": "ex-pizza-prices",
+          "question": "$C = \\begin{pmatrix}8.50 & 11.00 & 14.50\\\\9.00 & 12.50 & 15.00\\end{pmatrix}$ gives the prices in dollars of small, medium and large pizzas (columns) at two restaurants (rows). Every price rises by $6\\%$. Use your GDC to find the new prices.",
+          "steps": [
+            "A $6\\%$ rise multiplies each price by $1.06$. Store $C$, then enter the scalar multiple $1.06C$.",
+            "Every element is multiplied: for example $1.06 \\times 8.50 = 9.01$.",
+            "Interpret: row 2, column 3 says a large pizza at the second restaurant now costs $15.90$ dollars."
+          ],
+          "answer": "$1.06C = \\begin{pmatrix}9.01 & 11.66 & 15.37\\\\9.54 & 13.25 & 15.90\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "1.06*Matrix([[8.50, 11.00, 14.50], [9.00, 12.50, 15.00]])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-enter",
+          "values": {
+            "rows": 2,
+            "columns": 3,
+            "entries": "8.5, 11, 14.5, 9, 12.5, 15"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding a $2 \\times 3$ matrix to a $3 \\times 2$ matrix. Sums need exactly the same order, so write the orders down first."
+        },
+        {
+          "type": "check",
+          "id": "check-order",
+          "prompt": "A matrix holds the scores of $5$ students in $3$ tests, one row per student. What is its order?",
+          "hint": "Rows first, then columns.",
+          "options": [
+            {
+              "text": "$5 \\times 3$",
+              "correct": true
+            },
+            {
+              "text": "$3 \\times 5$",
+              "correct": false
+            },
+            {
+              "text": "$15$",
+              "correct": false
+            }
+          ],
+          "explain": "$5$ rows (students) and $3$ columns (tests) give order $5 \\times 3$. The order is not the number of elements, $15$."
+        },
+        {
+          "type": "check",
+          "id": "check-equality",
+          "prompt": "$2\\begin{pmatrix}x & 3\\\\1 & 4\\end{pmatrix} - \\begin{pmatrix}5 & 1\\\\0 & y\\end{pmatrix} = \\begin{pmatrix}9 & 5\\\\2 & 3\\end{pmatrix}$. Find $x + y$.",
+          "hint": "Work out the left side element by element, then match each element with the right side.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "Top left: $2x - 5 = 9$, so $x = 7$. Bottom right: $8 - y = 3$, so $y = 5$. So $x + y = 12$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(2*x - 5 - 9, x)[0] + solve(2*4 - y - 3, y)[0]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiplying",
+      "heading": "Multiplying matrices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A café sold $40$ coffees, $25$ teas and $18$ cakes on Saturday, at $3.20$, $2.50$ and $4.00$ dollars each. Its takings, $40(3.20) + 25(2.50) + 18(4.00)$, are a row of amounts times a column of prices."
+        },
+        {
+          "type": "text",
+          "text": "That is [[matrix-multiplication|matrix multiplication]]: each row of one matrix times each column of another."
+        },
+        {
+          "type": "figure",
+          "id": "1-14-row-times-column",
+          "alt": "The 2 by 3 matrix Q with rows 40, 25, 18 and 52, 30, 24, times the 3 by 1 column P with 3.20, 2.50 and 4.00, equals the 2 by 1 column with 262.50 and 337.40. Row 1 of Q and the column P are highlighted, with the working 40 times 3.20 plus 25 times 2.50 plus 18 times 4.00 equals 262.50.",
+          "caption": "Row 1 of $Q$ times the column $P$ gives row 1 of $QP$."
+        },
+        {
+          "type": "result",
+          "statement": "The product $AB$ exists only when $A$ has as many columns as $B$ has rows. If $A$ is $m \\times n$ and $B$ is $n \\times p$, then $AB$ is $m \\times p$. The element in row $i$, column $j$ of $AB$ is row $i$ of $A$ times column $j$ of $B$: multiply matching pairs, then add.",
+          "why": "Each number in the row pairs with one in the column, so they need the same length."
+        },
+        {
+          "type": "example",
+          "id": "ex-cafe-takings",
+          "question": "The café's sales are $Q = \\begin{pmatrix}40 & 25 & 18\\\\52 & 30 & 24\\end{pmatrix}$ (rows Saturday and Sunday; columns coffee, tea, cake) and its prices in dollars are $P = \\begin{pmatrix}3.20\\\\2.50\\\\4.00\\end{pmatrix}$. Find $QP$ and interpret it.",
+          "steps": [
+            "Write the orders side by side: $(2 \\times 3)(3 \\times 1)$. The inside numbers match, and the outside numbers give the order of $QP$, $2 \\times 1$.",
+            "Row 1: $40(3.20) + 25(2.50) + 18(4.00) = 128 + 62.5 + 72 = 262.5$.",
+            "Row 2: $52(3.20) + 30(2.50) + 24(4.00) = 166.4 + 75 + 96 = 337.4$.",
+            "Interpret: the café took $262.50$ dollars on Saturday and $337.40$ dollars on Sunday."
+          ],
+          "answer": "$QP = \\begin{pmatrix}262.50\\\\337.40\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[40, 25, 18], [52, 30, 24]]) * Matrix([3.20, 2.50, 4.00])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-furniture-suppliers",
+          "question": "$M = \\begin{pmatrix}4 & 1 & 1\\\\9 & 2 & 3\\\\6 & 1 & 2\\end{pmatrix}$ gives the planks, screw packs and varnish tins (columns) for a chair, a table and a shelf (rows). $C = \\begin{pmatrix}7.50 & 6.60\\\\3.20 & 4.10\\\\11.00 & 13.40\\end{pmatrix}$ gives the material prices in dollars (rows) at suppliers X and Y. Use your GDC to find the cost of $10$ chairs, $4$ tables and $6$ shelves at each supplier.",
+          "steps": [
+            "$MC$ is $(3 \\times 3)(3 \\times 2) = 3 \\times 2$: the cost of one item at each supplier. The GDC gives $MC = \\begin{pmatrix}44.2 & 43.9\\\\106.9 & 107.8\\\\70.2 & 70.5\\end{pmatrix}$.",
+            "Put the order in a row $R = \\begin{pmatrix}10 & 4 & 6\\end{pmatrix}$. Write down $RMC$, a $1 \\times 2$ matrix, then enter it: the GDC gives $\\begin{pmatrix}1290.8 & 1293.2\\end{pmatrix}$.",
+            "Interpret: X is cheaper by $2.40$ dollars for this order, even though Y is cheaper for chairs."
+          ],
+          "answer": "$RMC = \\begin{pmatrix}1290.80 & 1293.20\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[10, 4, 6]]) * Matrix([[4, 1, 1], [9, 2, 3], [6, 1, 2]]) * Matrix([[7.50, 6.60], [3.20, 4.10], [11.00, 13.40]])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-multiply"
+        },
+        {
+          "type": "examTip",
+          "text": "Examiners can't see your screen. Write down the product you entered, such as $RMC$, before the GDC's answer: that line earns the method mark."
+        },
+        {
+          "type": "check",
+          "id": "check-defined",
+          "prompt": "$A$ is a $2 \\times 3$ matrix and $B$ is a $3 \\times 4$ matrix. What is the order of $AB$?",
+          "hint": "Write the orders side by side and look at the outside numbers.",
+          "options": [
+            {
+              "text": "$2 \\times 4$",
+              "correct": true
+            },
+            {
+              "text": "$3 \\times 3$",
+              "correct": false
+            },
+            {
+              "text": "$4 \\times 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$(2 \\times 3)(3 \\times 4)$ gives $2 \\times 4$. $BA$ would be $(3 \\times 4)(2 \\times 3)$, and $4 \\neq 2$, so $BA$ does not exist."
+        },
+        {
+          "type": "check",
+          "id": "check-product-entry",
+          "prompt": "Find the element in row 2, column 1 of $\\begin{pmatrix}2 & -1 & 3\\\\0 & 4 & 1\\end{pmatrix}\\begin{pmatrix}5 & 1\\\\2 & -2\\\\-1 & 6\\end{pmatrix}$.",
+          "hint": "Row 2 of the first matrix times column 1 of the second.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$0(5) + 4(2) + 1(-1) = 7$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0*5 + 4*2 + 1*(-1)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "properties",
+      "heading": "Rules for products, and the matrices I and 0",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With numbers, $3 \\times 5 = 5 \\times 3$. With matrices, $AB$ and $BA$ pair different rows and columns, so the order usually matters."
+        },
+        {
+          "type": "result",
+          "statement": "When the products are defined, matrix multiplication is associative, $(AB)C = A(BC)$, and distributive, $A(B + C) = AB + AC$ and $(A + B)C = AC + BC$. It is not commutative: in general $AB \\neq BA$.",
+          "why": "You may regroup a chain of products, but never change the order of the matrices."
+        },
+        {
+          "type": "example",
+          "id": "ex-swap-order",
+          "question": "$A = \\begin{pmatrix}2 & 1\\\\0 & 3\\end{pmatrix}$ and $B = \\begin{pmatrix}1 & 4\\\\2 & -1\\end{pmatrix}$. Find $AB$ and $BA$, and comment.",
+          "steps": [
+            "$AB$: row 1 of $A$ gives $2(1) + 1(2) = 4$ and $2(4) + 1(-1) = 7$. Row 2 gives $0(1) + 3(2) = 6$ and $0(4) + 3(-1) = -3$.",
+            "$BA$: row 1 of $B$ gives $1(2) + 4(0) = 2$ and $1(1) + 4(3) = 13$. Row 2 gives $2(2) + (-1)(0) = 4$ and $2(1) + (-1)(3) = -1$.",
+            "Comment: both products exist, but $AB \\neq BA$. Swapping the order changed the answer."
+          ],
+          "answer": "$AB = \\begin{pmatrix}4 & 7\\\\6 & -3\\end{pmatrix}, \\; BA = \\begin{pmatrix}2 & 13\\\\4 & -1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "definition",
+          "term": "identity matrix",
+          "statement": "The identity matrix $I$ is a square matrix with $1$s on the leading diagonal (top left to bottom right) and $0$s elsewhere. For any square matrix $A$ of the same order, $AI = IA = A$.",
+          "plain": "The matrix version of the number 1."
+        },
+        {
+          "type": "text",
+          "text": "The $2 \\times 2$ identity is $I = \\begin{pmatrix}1 & 0\\\\0 & 1\\end{pmatrix}$. The zero matrix $0$ has every element $0$: $A + 0 = A$ when the orders match, and any product with $0$ is a zero matrix."
+        },
+        {
+          "type": "example",
+          "id": "ex-cinema-two-weeks",
+          "question": "Tickets at a cinema cost $P = \\begin{pmatrix}11 & 7 & 9\\end{pmatrix}$ euros (adult, child, senior). Sales at its two screens in two weeks are $W_1 = \\begin{pmatrix}120 & 95\\\\64 & 80\\\\30 & 22\\end{pmatrix}$ and $W_2 = \\begin{pmatrix}134 & 88\\\\70 & 91\\\\25 & 30\\end{pmatrix}$ (rows adult, child, senior; columns screen 1, screen 2). Find each screen's ticket income over the two weeks.",
+          "steps": [
+            "Income is $PW_1 + PW_2$, which equals $P(W_1 + W_2)$ by the distributive law: one product instead of two.",
+            "$W_1 + W_2 = \\begin{pmatrix}254 & 183\\\\134 & 171\\\\55 & 52\\end{pmatrix}$.",
+            "Screen 1: $11(254) + 7(134) + 9(55) = 4227$. Screen 2: $11(183) + 7(171) + 9(52) = 3678$.",
+            "Check: $PW_1 + PW_2 = \\begin{pmatrix}2038 & 1803\\end{pmatrix} + \\begin{pmatrix}2189 & 1875\\end{pmatrix}$, the same. Screen 1 took $4227$ euros and screen 2 $3678$ euros."
+          ],
+          "answer": "$P(W_1 + W_2) = \\begin{pmatrix}4227 & 3678\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[11, 7, 9]]) * (Matrix([[120, 95], [64, 80], [30, 22]]) + Matrix([[134, 88], [70, 91], [25, 30]]))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-always-true",
+          "prompt": "Which law does matrix multiplication not obey in general?",
+          "hint": "What happened when the two matrices in the example swapped places?",
+          "options": [
+            {
+              "text": "commutative",
+              "correct": true
+            },
+            {
+              "text": "associative",
+              "correct": false
+            },
+            {
+              "text": "distributive",
+              "correct": false
+            }
+          ],
+          "explain": "In general $AB \\neq BA$, so it is not commutative. It is associative and distributive.",
+          "verify": {
+            "kind": "choice",
+            "truth": "commutative"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-identity-order",
+          "prompt": "$M$ is a $2 \\times 3$ matrix. What is the order of the identity matrix $I$ with $IM = M$?",
+          "hint": "$I$ needs as many columns as $M$ has rows.",
+          "options": [
+            {
+              "text": "$2 \\times 2$",
+              "correct": true
+            },
+            {
+              "text": "$3 \\times 3$",
+              "correct": false
+            },
+            {
+              "text": "$2 \\times 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$I$ needs $2$ columns, and an identity matrix is square, so it is $2 \\times 2$. The $3 \\times 3$ identity works on the right: $MI = M$."
+        }
+      ]
+    },
+    {
+      "id": "inverses",
+      "heading": "Determinants and inverses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Matrices have no division. Instead, a square matrix $A$ may have an [[inverse-matrix|inverse]] $A^{-1}$ that undoes it, as $\\frac{1}{5}$ undoes $5$. One number decides whether it does."
+        },
+        {
+          "type": "definition",
+          "term": "determinant",
+          "statement": "The determinant of a square matrix $A$ is a number, written $\\det A$ or $|A|$. For a $2 \\times 2$ matrix it is the leading diagonal product minus the other diagonal product.",
+          "plain": "One number that tells you whether a square matrix can be undone."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\begin{pmatrix} a & b\\\\ c & d \\end{pmatrix} \\Rightarrow \\det A = |A| = ad - bc",
+          "tag": "booklet",
+          "bookletId": "bk-1-14-determinant",
+          "cheatSheet": true
+        },
+        {
+          "type": "definition",
+          "term": "inverse matrix",
+          "statement": "The inverse of a square matrix $A$ is the matrix $A^{-1}$ with $AA^{-1} = A^{-1}A = I$. It exists only when $\\det A \\neq 0$.",
+          "plain": "The matrix that undoes $A$."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\begin{pmatrix} a & b\\\\ c & d \\end{pmatrix} \\Rightarrow A^{-1} = \\frac{1}{\\det A}\\begin{pmatrix} d & -b\\\\ -c & a \\end{pmatrix},\\ ad \\neq bc",
+          "tag": "booklet",
+          "bookletId": "bk-1-14-inverse",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Both are in the booklet. In words: swap $a$ and $d$, negate $b$ and $c$, divide by $\\det A$. If $\\det A = 0$, $A$ is singular: it has no inverse."
+        },
+        {
+          "type": "text",
+          "text": "For $3 \\times 3$ and larger matrices, use your GDC for both. Check an inverse by multiplying: $AA^{-1}$ must be $I$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-2x2",
+          "question": "Find $A^{-1}$ by hand for $A = \\begin{pmatrix}5 & 3\\\\4 & 2\\end{pmatrix}$, and check it.",
+          "steps": [
+            "$\\det A = 5(2) - 3(4) = -2$. This is not $0$, so $A^{-1}$ exists.",
+            "Swap $5$ and $2$, change the signs of $3$ and $4$, and divide by $-2$: $A^{-1} = -\\frac{1}{2}\\begin{pmatrix}2 & -3\\\\-4 & 5\\end{pmatrix}$.",
+            "Check $AA^{-1}$: $5(-1) + 3(2) = 1$, $5(\\frac{3}{2}) + 3(-\\frac{5}{2}) = 0$, $4(-1) + 2(2) = 0$ and $4(\\frac{3}{2}) + 2(-\\frac{5}{2}) = 1$. That is $I$."
+          ],
+          "answer": "$A^{-1} = \\begin{pmatrix}-1 & \\frac{3}{2}\\\\2 & -\\frac{5}{2}\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[5, 3], [4, 2]]).inv()"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-det-3x3",
+          "question": "$N = \\begin{pmatrix}3 & -1 & 2\\\\1 & 4 & 0\\\\2 & 5 & -3\\end{pmatrix}$. Use your GDC to find $\\det N$. Does $N$ have an inverse? If so, find it.",
+          "steps": [
+            "Store $N$, then use the determinant command: $\\det N = -45$.",
+            "$\\det N \\neq 0$, so $N$ has an inverse. The GDC gives $N^{-1} \\approx \\begin{pmatrix}0.267 & -0.156 & 0.178\\\\-0.0667 & 0.289 & -0.0444\\\\0.0667 & 0.378 & -0.289\\end{pmatrix}$, to 3 s.f.",
+            "Interpret: a system of three linear equations with coefficient matrix $N$ has exactly one solution."
+          ],
+          "answer": "$\\det N = -45$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Matrix([[3, -1, 2], [1, 4, 0], [2, 5, -3]]).det()"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-determinant"
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-inverse"
+        },
+        {
+          "type": "check",
+          "id": "check-det-value",
+          "prompt": "Find $\\det \\begin{pmatrix}-3 & 5\\\\2 & -4\\end{pmatrix}$.",
+          "hint": "Watch the two negative signs.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$(-3)(-4) - 5(2) = 12 - 10 = 2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Matrix([[-3, 5], [2, -4]]).det()",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-singular",
+          "prompt": "A code uses the key $K = \\begin{pmatrix}k & 6\\\\2 & 3\\end{pmatrix}$. For which $k$ could messages coded with $K$ not be decoded?",
+          "hint": "Decoding needs $K^{-1}$. When is $\\det K = 0$?",
+          "options": [
+            {
+              "text": "$k = 4$",
+              "correct": true
+            },
+            {
+              "text": "$k = -4$",
+              "correct": false
+            },
+            {
+              "text": "$k = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\det K = 3k - 12$, which is $0$ when $k = 4$. Then $K$ has no inverse, so nothing undoes the coding. $k = -4$ comes from adding the diagonal products.",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(3*k - 6*2, k)[0]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "systems",
+      "heading": "Solving systems with an inverse matrix",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.8}} you solved a [[system-of-linear-equations|system of linear equations]] with your GDC's solver. Matrices give another method. Since $\\begin{pmatrix}2 & 3\\\\4 & -1\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}2x + 3y\\\\4x - y\\end{pmatrix}$, the system $2x + 3y = 13$, $4x - y = 5$ is one matrix equation: $\\begin{pmatrix}2 & 3\\\\4 & -1\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}13\\\\5\\end{pmatrix}$."
+        },
+        {
+          "type": "result",
+          "statement": "A system of $n$ linear equations in $n$ unknowns can be written as $A\\boldsymbol{x} = \\boldsymbol{b}$: $A$ is the $n \\times n$ matrix of coefficients, $\\boldsymbol{x}$ the column of unknowns and $\\boldsymbol{b}$ the column of constants. If $\\det A \\neq 0$, the one solution is $\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$.",
+          "why": "Multiply both sides on the left by $A^{-1}$: $A^{-1}A\\boldsymbol{x} = I\\boldsymbol{x} = \\boldsymbol{x}$."
+        },
+        {
+          "type": "text",
+          "text": "In exams, $A$ always has an inverse when you solve a system this way. The exception is finding eigenvectors in {{lesson:1.15}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-play-tickets",
+          "question": "A school play sold $230$ tickets for $1710$ dollars. Adult tickets cost $9$ dollars and student tickets $6$ dollars. Write the system as $A\\boldsymbol{x} = \\boldsymbol{b}$ and solve it with $A^{-1}$, found by hand.",
+          "steps": [
+            "Let $a$ and $s$ be the numbers of adult and student tickets: $a + s = 230$ and $9a + 6s = 1710$. So $\\begin{pmatrix}1 & 1\\\\9 & 6\\end{pmatrix}\\begin{pmatrix}a\\\\s\\end{pmatrix} = \\begin{pmatrix}230\\\\1710\\end{pmatrix}$.",
+            "$\\det A = 1(6) - 1(9) = -3$, so $A^{-1} = -\\frac{1}{3}\\begin{pmatrix}6 & -1\\\\-9 & 1\\end{pmatrix} = \\begin{pmatrix}-2 & \\frac{1}{3}\\\\3 & -\\frac{1}{3}\\end{pmatrix}$.",
+            "Multiply on the left: $\\begin{pmatrix}a\\\\s\\end{pmatrix} = \\begin{pmatrix}-2 & \\frac{1}{3}\\\\3 & -\\frac{1}{3}\\end{pmatrix}\\begin{pmatrix}230\\\\1710\\end{pmatrix} = \\begin{pmatrix}-460 + 570\\\\690 - 570\\end{pmatrix}$.",
+            "Check: $110 + 120 = 230$ and $9(110) + 6(120) = 1710$. So $110$ adult and $120$ student tickets: whole numbers, as counts must be."
+          ],
+          "answer": "$a = 110, \\; s = 120$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([a + s - 230, 9*a + 6*s - 1710], [a, s])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-feed-mix",
+          "question": "Per kilogram, feeds X, Y and Z give these grams of protein, fibre and fat: X $120$, $150$, $40$; Y $200$, $60$, $90$; Z $80$, $250$, $30$. A farmer needs $1920$ g of protein, $2390$ g of fibre and $750$ g of fat. Use an inverse matrix to find the kilograms of each feed.",
+          "steps": [
+            "Let $x$, $y$, $z$ be the kilograms of X, Y, Z. One equation per nutrient gives $\\begin{pmatrix}120 & 200 & 80\\\\150 & 60 & 250\\\\40 & 90 & 30\\end{pmatrix}\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix} = \\begin{pmatrix}1920\\\\2390\\\\750\\end{pmatrix}$.",
+            "The GDC gives $\\det A = -496\\,000 \\neq 0$, so $A^{-1}$ exists.",
+            "Write down $\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$, then enter it: $x = 6$, $y = 4$, $z = 5$.",
+            "Interpret: mix $6$ kg of X, $4$ kg of Y and $5$ kg of Z. All three are positive, so the mix can be made."
+          ],
+          "answer": "$x = 6, \\; y = 4, \\; z = 5$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([120*x + 200*y + 80*z - 1920, 150*x + 60*y + 250*z - 2390, 40*x + 90*y + 30*z - 750], [x, y, z])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-solve-ax-b"
+        },
+        {
+          "type": "check",
+          "id": "check-coefficient-matrix",
+          "prompt": "Which matrix $A$ writes $4x - y = 9$, $x + 3y = 12$ as $A\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\boldsymbol{b}$?",
+          "hint": "Each equation gives one row: its $x$ coefficient, then its $y$ coefficient, with signs.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}4 & -1\\\\1 & 3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}4 & 1\\\\-1 & 3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}4 & 1\\\\1 & 3\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Row 1 is $4, -1$ and row 2 is $1, 3$. Writing the coefficients down the columns, or dropping the minus sign, gives a different system."
+        },
+        {
+          "type": "check",
+          "id": "check-notebook-price",
+          "prompt": "$4$ pens and $3$ notebooks cost $12$ dollars; $2$ pens and $5$ notebooks cost $13$ dollars. Use an inverse matrix to find the price of a notebook, in dollars.",
+          "hint": "The coefficient matrix is $\\begin{pmatrix}4 & 3\\\\2 & 5\\end{pmatrix}$ and $\\boldsymbol{b}$ holds $12$ and $13$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0.005
+          },
+          "explain": "$\\det A = 14$, so $A^{-1}\\boldsymbol{b} = \\frac{1}{14}\\begin{pmatrix}5(12) - 3(13)\\\\-2(12) + 4(13)\\end{pmatrix} = \\begin{pmatrix}1.5\\\\2\\end{pmatrix}$. A notebook costs $2.00$ dollars.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(4*13 - 2*12)/(4*5 - 3*2)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "coding",
+      "heading": "Coding and decoding messages",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To code a word, turn each letter into a number, $A = 1$ to $Z = 26$, with a space $= 0$. Then hide the numbers with a key matrix $K$."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the numbers in pairs as the columns of a matrix $M$ with $2$ rows. Add a space if the count is odd."
+        },
+        {
+          "type": "text",
+          "text": "2. Encode: send the numbers of $C = KM$, column by column."
+        },
+        {
+          "type": "text",
+          "text": "3. Decode: work out $K^{-1}C = K^{-1}KM = M$, and turn the numbers back into letters. This needs $\\det K \\neq 0$, so that $K^{-1}$ exists."
+        },
+        {
+          "type": "figure",
+          "id": "1-14-code-flow",
+          "alt": "Flow diagram. The word ROAD becomes the numbers 18, 15, 1, 4, written as the matrix M with columns 18, 15 and 1, 4. An arrow labelled encode, C equals K M, leads to the code matrix C with columns 69, 120 and 7, 13. An arrow back, labelled decode, M equals K inverse C, returns to M.",
+          "caption": "$K$ on the left codes the message; $K^{-1}$ on the left undoes it."
+        },
+        {
+          "type": "text",
+          "text": "A key of whole numbers with $\\det K = 1$ or $-1$ has a whole-number inverse, which makes decoding by hand easy."
+        },
+        {
+          "type": "example",
+          "id": "ex-encode-road",
+          "question": "Use the key $K = \\begin{pmatrix}3 & 1\\\\5 & 2\\end{pmatrix}$ to encode the word ROAD.",
+          "steps": [
+            "R $= 18$, O $= 15$, A $= 1$, D $= 4$. The pairs RO and AD are the columns: $M = \\begin{pmatrix}18 & 1\\\\15 & 4\\end{pmatrix}$.",
+            "$\\det K = 3(2) - 1(5) = 1 \\neq 0$, so the code can be undone.",
+            "Column 1: $3(18) + 1(15) = 69$ and $5(18) + 2(15) = 120$. Column 2: $3(1) + 1(4) = 7$ and $5(1) + 2(4) = 13$.",
+            "The numbers sent are $69, 120, 7, 13$."
+          ],
+          "answer": "$C = KM = \\begin{pmatrix}69 & 7\\\\120 & 13\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[3, 1], [5, 2]]) * Matrix([[18, 1], [15, 4]])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-decode-maps",
+          "question": "A message was coded with $K = \\begin{pmatrix}2 & 3\\\\1 & 2\\end{pmatrix}$. The numbers received, column by column, are $29, 15, 89, 54$. Decode it.",
+          "steps": [
+            "Rebuild the code matrix: $C = \\begin{pmatrix}29 & 89\\\\15 & 54\\end{pmatrix}$.",
+            "$\\det K = 2(2) - 3(1) = 1$, so $K^{-1} = \\begin{pmatrix}2 & -3\\\\-1 & 2\\end{pmatrix}$.",
+            "Multiply on the left (or enter $K^{-1}C$ on the GDC). Column 1: $2(29) - 3(15) = 13$ and $-29 + 2(15) = 1$. Column 2: $2(89) - 3(54) = 16$ and $-89 + 2(54) = 19$.",
+            "$13, 1, 16, 19$ is M, A, P, S: the message is MAPS. Whole numbers from $0$ to $26$ are a good sign."
+          ],
+          "answer": "$M = K^{-1}C = \\begin{pmatrix}13 & 16\\\\1 & 19\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[2, 3], [1, 2]]).inv() * Matrix([[29, 89], [15, 54]])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Decoding with $CK^{-1}$ instead of $K^{-1}C$. The key was used on the left, so undo it on the left. Numbers that aren't whole, or lie outside $0$ to $26$, signal this slip."
+        },
+        {
+          "type": "check",
+          "id": "check-encode-pair",
+          "prompt": "The key $K = \\begin{pmatrix}4 & 1\\\\3 & 1\\end{pmatrix}$ encodes the pair HI, which is $\\begin{pmatrix}8\\\\9\\end{pmatrix}$. What is the second number of the code?",
+          "hint": "Multiply row 2 of the key by the column.",
+          "answer": {
+            "value": 33,
+            "tolerance": 0
+          },
+          "explain": "$3(8) + 1(9) = 33$. The full code is $41, 33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*8 + 1*9",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-decode-word",
+          "prompt": "A word was coded with $K = \\begin{pmatrix}1 & 2\\\\1 & 3\\end{pmatrix}$, so $K^{-1} = \\begin{pmatrix}3 & -2\\\\-1 & 1\\end{pmatrix}$. The code matrix received is $C = \\begin{pmatrix}17 & 37\\\\22 & 55\\end{pmatrix}$. What is the word?",
+          "hint": "Work out $K^{-1}C$, then read down each column in turn.",
+          "options": [
+            {
+              "text": "GEAR",
+              "correct": true
+            },
+            {
+              "text": "GAER",
+              "correct": false
+            },
+            {
+              "text": "EGRA",
+              "correct": false
+            }
+          ],
+          "explain": "$K^{-1}C = \\begin{pmatrix}7 & 1\\\\5 & 18\\end{pmatrix}$. Down the columns: $7, 5, 1, 18$, which is GEAR. Reading along the rows gives GAER.",
+          "verify": {
+            "kind": "choice",
+            "truth": "GEAR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Order $m \\times n$ means $m$ rows and $n$ columns. Add or subtract matrices of the same order element by element; $kA$ multiplies every element by $k$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$AB$ exists only when $A$ has as many columns as $B$ has rows: $(m \\times n)(n \\times p)$ gives $m \\times p$. Each element is a row of $A$ times a column of $B$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "When the products are defined, $(AB)C = A(BC)$ and $A(B + C) = AB + AC$, but in general $AB \\neq BA$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$AI = IA = A$ for a square matrix $A$ and the identity $I$ of the same order; $A + 0 = A$ for the zero matrix of the same order."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A square matrix $A$ has an inverse only when $\\det A \\neq 0$; then $AA^{-1} = A^{-1}A = I$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$n$ linear equations in $n$ unknowns form $A\\boldsymbol{x} = \\boldsymbol{b}$. If $\\det A \\neq 0$, the solution is $\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$, with $A^{-1}$ on the left."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Coding: send $C = KM$, with the letter numbers in the columns of $M$. Decoding: $M = K^{-1}C$, which needs $\\det K \\neq 0$."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying in the wrong order. $AB$ and $BA$ are usually different, so keep the order the question gives; the right matrices in the wrong order lose the accuracy mark.",
+    "Putting the right numbers in the wrong places. Decide what each row and column stands for, and keep that order in every matrix you multiply.",
+    "Writing $\\boldsymbol{x} = \\boldsymbol{b}A^{-1}$. That product isn't defined; multiply on the left, $\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$.",
+    "Getting the $2 \\times 2$ inverse half right: swapping $b$ and $c$ instead of $a$ and $d$, or not dividing by $\\det A$. Check that $AA^{-1} = I$.",
+    "Rounding an inverse before using it. Keep the GDC's full values, or let the GDC work out $A^{-1}\\boldsymbol{b}$ in one step."
+  ],
+  "examTips": [
+    "\"Write down\" a matrix from a context: the right values earn the method mark, and the right values in the right places earn the accuracy mark.",
+    "\"Find\" with the GDC: write down the product, or $A^{-1}\\boldsymbol{b}$, that you entered before the answer. Give values exactly or to 3 s.f., and money to 2 d.p.",
+    "\"Show that\" for a $2 \\times 2$ determinant or inverse: write the $ad - bc$ line with the numbers in, and end on the given result.",
+    "\"Hence\" decode or solve: use the inverse you just found. A wrong inverse used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 31
+}

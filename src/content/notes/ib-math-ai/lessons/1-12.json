@@ -1,0 +1,758 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.12",
+  "slug": "complex-numbers-in-cartesian-form",
+  "title": "Complex numbers in Cartesian form",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[complex-number|complex number]] $z = a + b\\mathrm{i}$ adds one new number, $\\mathrm{i}$, whose square is $-1$. You calculate with complex numbers by hand and on your GDC, plot them on an [[argand-diagram|Argand diagram]], and use them to solve quadratics whose graphs never meet the $x$-axis.",
+  "goals": [
+    {
+      "text": "Use $\\mathrm{i}^{2} = -1$ to write [[complex-number|complex numbers]] in [[cartesian-form|Cartesian form]], and read off the [[real-part|real part]], [[imaginary-part|imaginary part]] and conjugate.",
+      "bullets": [
+        "1.12-b1",
+        "1.12-b2"
+      ]
+    },
+    {
+      "text": "Add, subtract, multiply and divide complex numbers by hand and with your GDC, and find powers with your GDC.",
+      "bullets": [
+        "1.12-b3"
+      ]
+    },
+    {
+      "text": "Plot complex numbers on an [[argand-diagram|Argand diagram]] and find their modulus and argument.",
+      "bullets": [
+        "1.12-b2",
+        "1.12-b4"
+      ]
+    },
+    {
+      "text": "Solve quadratic equations with $b^{2} - 4ac < 0$, and link the complex [[root|roots]] to the graph of the quadratic.",
+      "bullets": [
+        "1.12-b1",
+        "1.12-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "imaginary numbers",
+    "a + bi form",
+    "complex conjugate",
+    "modulus and argument",
+    "Argand diagram",
+    "complex roots of a quadratic"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-vertex-roots",
+      "prompt": "The graph of $y = x^{2} - 6x + 11$ is a parabola that opens upwards, with its vertex at $(3, 2)$. How many real roots does $x^{2} - 6x + 11 = 0$ have?",
+      "hint": "Real roots are where the graph meets the $x$-axis. Can a curve whose lowest point is $2$ units above the axis reach it?",
+      "options": [
+        {
+          "text": "No real roots",
+          "correct": true
+        },
+        {
+          "text": "One repeated real root",
+          "correct": false
+        },
+        {
+          "text": "Two distinct real roots",
+          "correct": false
+        }
+      ],
+      "explain": "The lowest point of the curve is at $y = 2$, so $y$ is never $0$ and the graph never meets the $x$-axis. There are no real roots. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "No real roots"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-positive-root",
+      "prompt": "Find the positive [[root|root]] of $x^{2} - 2x - 15 = 0$.",
+      "hint": "Use your GDC's polynomial solver, or factorise. Check your answer by substituting it back.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "The roots are $x = 5$ and $x = -3$: check $5^{2} - 2(5) - 15 = 0$. The positive root is $5$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(2 + sqrt(2**2 + 4*15))/2",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "number-i",
+      "heading": "The number i and Cartesian form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "No real number squared is negative, so $x^{2} = -25$ has no real solution. So mathematicians added one new number, $\\mathrm{i}$, whose square is $-1$. Then $x = \\pm 5\\mathrm{i}$, because $(5\\mathrm{i})^{2} = 25\\mathrm{i}^{2} = -25$."
+        },
+        {
+          "type": "definition",
+          "term": "The number i",
+          "statement": "$\\mathrm{i}$ is the number with $\\mathrm{i}^{2} = -1$. It is not a real number. For any real $k > 0$, $\\sqrt{-k} = \\sqrt{k}\\,\\mathrm{i}$.",
+          "plain": "i is a new number whose square is minus one."
+        },
+        {
+          "type": "definition",
+          "term": "Complex number in Cartesian form",
+          "statement": "A [[complex-number|complex number]] in [[cartesian-form|Cartesian form]] is $z = a + b\\mathrm{i}$, where $a, b \\in \\mathbb{R}$. Its [[real-part|real part]] is $\\mathrm{Re}(z) = a$ and its [[imaginary-part|imaginary part]] is $\\mathrm{Im}(z) = b$.",
+          "plain": "A real number plus a real number times i."
+        },
+        {
+          "type": "formula",
+          "tex": "z = a + b\\mathrm{i}",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-complex-cartesian"
+        },
+        {
+          "type": "text",
+          "text": "This form is in the formula booklet. A real number is the case $b = 0$. A number such as $-3\\mathrm{i}$, with $a = 0$, is called purely imaginary."
+        },
+        {
+          "type": "definition",
+          "term": "Complex conjugate",
+          "statement": "The [[complex-conjugate|conjugate]] of $z = a + b\\mathrm{i}$, with $a, b \\in \\mathbb{R}$, is $z^{*} = a - b\\mathrm{i}$: the same real part and the opposite imaginary part.",
+          "plain": "Change the sign in front of the i part."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $\\mathrm{Im}(2 - 9\\mathrm{i})$ as $-9\\mathrm{i}$. The imaginary part is a real number, the one that multiplies $\\mathrm{i}$: here it is $-9$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cartesian-parts",
+          "question": "Write $w = \\frac{8 - \\sqrt{-36}}{2}$ in Cartesian form. Then write down $\\mathrm{Re}(w)$, $\\mathrm{Im}(w)$ and $w^{*}$.",
+          "steps": [
+            "Write the square root with $\\mathrm{i}$: $\\sqrt{-36} = \\sqrt{36}\\,\\mathrm{i} = 6\\mathrm{i}$.",
+            "So $w = \\frac{8 - 6\\mathrm{i}}{2}$. Divide both parts by $2$: $w = 4 - 3\\mathrm{i}$.",
+            "Read off the parts: $\\mathrm{Re}(w) = 4$ and $\\mathrm{Im}(w) = -3$, with no $\\mathrm{i}$.",
+            "Change the sign of the imaginary part for the conjugate: $w^{*} = 4 + 3\\mathrm{i}$."
+          ],
+          "answer": "$w = 4 - 3\\mathrm{i}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(8 - sqrt(-36))/2"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Two complex numbers are equal only when their real parts are equal and their imaginary parts are equal. So one complex equation gives two real equations."
+        },
+        {
+          "type": "example",
+          "id": "ex-equate-parts",
+          "question": "Find the real numbers $p$ and $q$ such that $(p + 2q) + (3p - q)\\mathrm{i} = 1 + 17\\mathrm{i}$.",
+          "steps": [
+            "Equate the real parts: $p + 2q = 1$.",
+            "Equate the imaginary parts: $3p - q = 17$.",
+            "Solve the pair, by hand or with your GDC's simultaneous equation solver: $p = 5$ and $q = -2$.",
+            "Check: $p + 2q = 5 - 4 = 1$ and $3p - q = 15 + 2 = 17$."
+          ],
+          "answer": "$p = 5, \\; q = -2$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([p + 2*q - 1, 3*p - q - 17], [p, q])"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Complex numbers describe real things. Engineers write the impedance of a part of an AC circuit (how much it resists the current) as $Z = R + X\\mathrm{i}$ ohms. The real part $R$ is the resistance. The imaginary part $X$ is positive for a coil and negative for a capacitor. Engineers often write $\\mathrm{j}$ for $\\mathrm{i}$."
+        },
+        {
+          "type": "check",
+          "id": "check-imag-part",
+          "prompt": "Write down $\\mathrm{Im}(7 - 3\\mathrm{i})$.",
+          "hint": "The imaginary part is the real number that multiplies $\\mathrm{i}$, sign included.",
+          "options": [
+            {
+              "text": "$-3$",
+              "correct": true
+            },
+            {
+              "text": "$-3\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$7$",
+              "correct": false
+            }
+          ],
+          "explain": "$7 - 3\\mathrm{i} = 7 + (-3)\\mathrm{i}$, so $\\mathrm{Im} = -3$. It has no $\\mathrm{i}$, and it keeps its minus sign.",
+          "verify": {
+            "kind": "exact",
+            "truth": "im(7 - 3*I)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-impedance-reading",
+          "prompt": "A part of a circuit has impedance $Z = 40 - 30\\mathrm{i}$ ohms. Which statement interprets $Z$ correctly?",
+          "hint": "The real part is the resistance. The sign of the imaginary part tells you coil or capacitor.",
+          "options": [
+            {
+              "text": "Resistance 40 ohms, and it behaves like a capacitor",
+              "correct": true
+            },
+            {
+              "text": "Resistance 40 ohms, and it behaves like a coil",
+              "correct": false
+            },
+            {
+              "text": "Resistance 30 ohms, and it behaves like a capacitor",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Re}(Z) = 40$, so the resistance is $40$ ohms. $\\mathrm{Im}(Z) = -30$ is negative, so the part behaves like a capacitor.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Resistance 40 ohms, and it behaves like a capacitor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculating",
+      "heading": "Calculating with complex numbers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Add or subtract complex numbers by collecting the real parts and the imaginary parts: $(2 + 5\\mathrm{i}) - (6 - \\mathrm{i}) = -4 + 6\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "Multiply by expanding the brackets as in algebra, then replace $\\mathrm{i}^{2}$ with $-1$: $(1 + 2\\mathrm{i})(3 - \\mathrm{i}) = 3 - \\mathrm{i} + 6\\mathrm{i} - 2\\mathrm{i}^{2} = 5 + 5\\mathrm{i}$."
+        },
+        {
+          "type": "result",
+          "statement": "For $z = a + b\\mathrm{i}$ with $a, b \\in \\mathbb{R}$, $zz^{*} = a^{2} + b^{2}$, which is a real number.",
+          "why": "$(a + b\\mathrm{i})(a - b\\mathrm{i}) = a^{2} - ab\\mathrm{i} + ab\\mathrm{i} - b^{2}\\mathrm{i}^{2} = a^{2} + b^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "This is how you divide by hand. Multiply the top and the bottom of the fraction by the conjugate of the bottom. The bottom becomes real, and then you divide each part."
+        },
+        {
+          "type": "example",
+          "id": "ex-quotient-by-hand",
+          "question": "Write $\\frac{3 + 2\\mathrm{i}}{1 - 4\\mathrm{i}}$ in the form $a + b\\mathrm{i}$, without a calculator.",
+          "steps": [
+            "The conjugate of the bottom is $1 + 4\\mathrm{i}$. Multiply the top and the bottom by it.",
+            "Bottom: $(1 - 4\\mathrm{i})(1 + 4\\mathrm{i}) = 1^{2} + 4^{2} = 17$.",
+            "Top: $(3 + 2\\mathrm{i})(1 + 4\\mathrm{i}) = 3 + 12\\mathrm{i} + 2\\mathrm{i} + 8\\mathrm{i}^{2} = 3 + 14\\mathrm{i} - 8 = -5 + 14\\mathrm{i}$.",
+            "Divide each part by $17$: the answer is $-\\frac{5}{17} + \\frac{14}{17}\\mathrm{i}$.",
+            "Check on your GDC: $-0.294\\ldots + 0.823\\ldots\\mathrm{i}$ matches."
+          ],
+          "answer": "$\\frac{3 + 2\\mathrm{i}}{1 - 4\\mathrm{i}} = -\\frac{5}{17} + \\frac{14}{17}\\mathrm{i}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(3 + 2*I)/(1 - 4*I)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the parts separately. $\\frac{3 + 2\\mathrm{i}}{1 - 4\\mathrm{i}}$ is not $3 - \\frac{1}{2}\\mathrm{i}$. Multiply the top and the bottom by the conjugate of the bottom."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC does all four operations once it is in complex ($a + b\\mathrm{i}$) mode. Powers such as $(3 - 2\\mathrm{i})^{4}$ are done with technology: you are not expected to expand them by hand."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-operations",
+          "question": "Let $z = 3 - 2\\mathrm{i}$ and $w = -1 + 4\\mathrm{i}$. Use technology to find $zw$, $\\frac{z}{w}$ and $z^{4}$. Give exact answers.",
+          "steps": [
+            "Bracket each number. Write down what you enter: $(3 - 2\\mathrm{i})(-1 + 4\\mathrm{i})$, $(3 - 2\\mathrm{i}) \\div (-1 + 4\\mathrm{i})$ and $(3 - 2\\mathrm{i})^{4}$.",
+            "The GDC gives $zw = 5 + 14\\mathrm{i}$.",
+            "The GDC gives $\\frac{z}{w} = -0.647\\ldots - 0.588\\ldots\\mathrm{i}$. Convert to fractions on the GDC (or divide by $\\lvert w\\rvert^{2} = 17$): $-\\frac{11}{17} - \\frac{10}{17}\\mathrm{i}$.",
+            "The GDC gives $z^{4} = -119 - 120\\mathrm{i}$."
+          ],
+          "answer": "$5 + 14\\mathrm{i}, \\; -\\frac{11}{17} - \\frac{10}{17}\\mathrm{i}, \\; -119 - 120\\mathrm{i}$",
+          "verify": {
+            "kind": "list",
+            "truth": "[(3 - 2*I)*(-1 + 4*I), (3 - 2*I)/(-1 + 4*I), (3 - 2*I)**4]"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "complex-arithmetic",
+          "values": {
+            "z1": "3-2i",
+            "z2": "-1+4i",
+            "power": "4"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-circuit-current",
+          "question": "A coil of impedance $Z_{1} = 18 + 25\\mathrm{i}$ ohms and a capacitor of impedance $Z_{2} = 12 - 65\\mathrm{i}$ ohms are in series, so the total impedance is $Z = Z_{1} + Z_{2}$. The current is $I = \\frac{V}{Z}$ amps, where $V = 230$. (a) Find $Z$ and interpret it. (b) Use technology to find $I$ in Cartesian form.",
+          "steps": [
+            "(a) Add the real parts and the imaginary parts: $Z = (18 + 12) + (25 - 65)\\mathrm{i} = 30 - 40\\mathrm{i}$ ohms.",
+            "The total resistance is $\\mathrm{Re}(Z) = 30$ ohms. $\\mathrm{Im}(Z) = -40$ is negative, so the circuit as a whole behaves like a capacitor.",
+            "(b) Write down what you enter: $I = 230 \\div (30 - 40\\mathrm{i})$.",
+            "The GDC gives $I = 2.76 + 3.68\\mathrm{i}$ amps."
+          ],
+          "answer": "$I = 2.76 + 3.68\\mathrm{i}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "230/((18 + 25*I) + (12 - 65*I))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-quotient",
+          "prompt": "Write $\\frac{5 + 5\\mathrm{i}}{1 + 2\\mathrm{i}}$ in the form $a + b\\mathrm{i}$.",
+          "hint": "Multiply the top and the bottom by $1 - 2\\mathrm{i}$. The bottom becomes $1^{2} + 2^{2}$.",
+          "options": [
+            {
+              "text": "$3 - \\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$5 + 2.5\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-1 - \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$3 + \\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "Top: $(5 + 5\\mathrm{i})(1 - 2\\mathrm{i}) = 15 - 5\\mathrm{i}$. Bottom: $5$. So the answer is $3 - \\mathrm{i}$. $5 + 2.5\\mathrm{i}$ divides the parts separately.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(5 + 5*I)/(1 + 2*I)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-gdc",
+          "prompt": "Use technology to find $(3 + \\mathrm{i})^{3}$.",
+          "hint": "Type $(3 + \\mathrm{i})^{3}$ with the brackets, in $a + b\\mathrm{i}$ mode.",
+          "options": [
+            {
+              "text": "$18 + 26\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$27 + \\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$30 + 26\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$18 - 26\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "The GDC gives $18 + 26\\mathrm{i}$. $27 + \\mathrm{i}$ cubes each part separately, and $30 + 26\\mathrm{i}$ takes $\\mathrm{i}^{2} = 1$ in the last step.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(3 + I)**3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "argand",
+      "heading": "The Argand diagram, modulus and argument",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A complex number $a + b\\mathrm{i}$ is fixed by two real numbers, just as a point is fixed by two coordinates. So you can draw every complex number as a point."
+        },
+        {
+          "type": "definition",
+          "term": "Argand diagram",
+          "statement": "An [[argand-diagram|Argand diagram]] (the complex plane) has a horizontal real axis and a vertical imaginary axis. The number $a + b\\mathrm{i}$, with $a, b \\in \\mathbb{R}$, is the point $(a, b)$.",
+          "plain": "Real part across, imaginary part up."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-argand-plot",
+          "alt": "Argand diagram with a horizontal real axis labelled Re and a vertical imaginary axis labelled Im. The point z equals minus 4 plus 7i is in the second quadrant, joined to the origin by a line labelled modulus of z equals root 65. An arc marks arg z, turning anticlockwise from the positive real axis to this line, more than a right angle. Its conjugate, minus 4 minus 7i, is directly below in the third quadrant, joined to z by a dashed vertical line. The real number 5 sits on the real axis and minus 3i sits on the imaginary axis.",
+          "caption": "$z^{*}$ is the reflection of $z$ in the real axis. Real numbers lie on the real axis, purely imaginary numbers on the imaginary axis."
+        },
+        {
+          "type": "definition",
+          "term": "Modulus of a complex number",
+          "statement": "The [[modulus-of-a-complex-number|modulus]] of $z = a + b\\mathrm{i}$, with $a, b \\in \\mathbb{R}$, is its distance from $0$ on an Argand diagram: $\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}$.",
+          "plain": "How far the point is from zero."
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Argument of a complex number",
+          "statement": "The [[argument-of-a-complex-number|argument]] $\\arg z$ of $z \\neq 0$ is the angle from the positive real axis to the line from $0$ to $z$, measured anticlockwise. It is usually in radians, with $-\\pi < \\arg z \\le \\pi$, so points below the real axis have a negative argument.",
+          "plain": "The direction of the point, seen from zero."
+        },
+        {
+          "type": "text",
+          "text": "$\\arctan\\frac{b}{a}$ alone gives the argument only when $a > 0$, because two opposite directions have the same tangent. So find it in three steps."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch the point and note its quadrant."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the acute angle $\\alpha$ between the line from $0$ and the real axis: $\\tan\\alpha = \\frac{\\lvert b\\rvert}{\\lvert a\\rvert}$."
+        },
+        {
+          "type": "text",
+          "text": "3. First quadrant: $\\arg z = \\alpha$. Second: $\\pi - \\alpha$. Third: $-(\\pi - \\alpha)$. Fourth: $-\\alpha$."
+        },
+        {
+          "type": "example",
+          "id": "ex-mod-arg-by-hand",
+          "question": "Plot $z = -4 + 7\\mathrm{i}$ and $z^{*}$ on an Argand diagram. Find $\\lvert z\\rvert$ and $\\arg z$, where $-\\pi < \\arg z \\le \\pi$.",
+          "steps": [
+            "Plot $z$ at $(-4, 7)$ and $z^{*} = -4 - 7\\mathrm{i}$ at $(-4, -7)$, as in the diagram above.",
+            "Modulus: $\\lvert z\\rvert = \\sqrt{(-4)^{2} + 7^{2}} = \\sqrt{65} = 8.06$ to 3 s.f.",
+            "The real part is negative and the imaginary part is positive, so $z$ is in the second quadrant.",
+            "Acute angle: $\\alpha = \\arctan\\frac{7}{4} = 1.0516\\ldots$ radians. Keep the full value.",
+            "Second quadrant: $\\arg z = \\pi - 1.0516\\ldots = 2.0899\\ldots$, so $2.09$ to 3 s.f."
+          ],
+          "answer": "$\\arg z \\approx 2.09$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi - atan(Rational(7, 4))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $\\arctan\\left(\\frac{7}{-4}\\right)$ and stopping. That gives $-1.05$, a fourth-quadrant angle, but $-4 + 7\\mathrm{i}$ is in the second quadrant. Sketch first, then adjust."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-position",
+          "question": "A map is drawn as an Argand diagram, with the base at $0$, the real axis pointing east, the imaginary axis pointing north, and units in km. A drone is at $D = -6 + 4.5\\mathrm{i}$. Use technology to find $\\lvert D\\rvert$ and $\\arg D$, where $-\\pi < \\arg D \\le \\pi$, and interpret both.",
+          "steps": [
+            "Set the GDC to complex mode and radians. Write down what you enter: $\\lvert -6 + 4.5\\mathrm{i}\\rvert$ and $\\arg(-6 + 4.5\\mathrm{i})$.",
+            "Modulus: $\\lvert D\\rvert = \\sqrt{(-6)^{2} + 4.5^{2}} = \\sqrt{56.25} = 7.5$. The drone is $7.5$ km from the base.",
+            "Argument: the GDC gives $\\arg D = 2.4980\\ldots$, so $2.50$ to 3 s.f. It is between $\\frac{\\pi}{2}$ and $\\pi$, which matches the second quadrant.",
+            "Interpret: the drone is $2.50$ radians anticlockwise from east, so north-west of the base, nearer west than north."
+          ],
+          "answer": "$\\lvert D\\rvert = 7.5\\text{ km}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Abs(-6 + Rational(9, 2)*I)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "complex-to-polar",
+          "values": {
+            "re": "-6",
+            "im": "4.5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-arg-quadrant",
+          "prompt": "Find $\\arg(-2 - 2\\mathrm{i})$, where $-\\pi < \\arg z \\le \\pi$.",
+          "hint": "Which quadrant is the point in? The acute angle comes from $\\tan\\alpha = \\frac{2}{2}$.",
+          "options": [
+            {
+              "text": "$-\\frac{3\\pi}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{\\pi}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3\\pi}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{5\\pi}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Both parts are negative, so the point is in the third quadrant. $\\alpha = \\frac{\\pi}{4}$, so $\\arg z = -\\left(\\pi - \\frac{\\pi}{4}\\right) = -\\frac{3\\pi}{4}$. $\\frac{5\\pi}{4}$ points the same way but is outside the range, and $\\frac{\\pi}{4}$ is what $\\arctan\\frac{-2}{-2}$ gives.",
+          "verify": {
+            "kind": "exact",
+            "truth": "arg(-2 - 2*I)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-boat-distance",
+          "prompt": "On a map drawn as an Argand diagram, with the harbour at $0$ and units in km, a boat is at $5 - 3\\mathrm{i}$. How far is the boat from the harbour, in km? Give your answer to 3 s.f.",
+          "hint": "The distance from $0$ is the modulus.",
+          "answer": {
+            "value": 5.83,
+            "tolerance": 0.005
+          },
+          "explain": "$\\lvert 5 - 3\\mathrm{i}\\rvert = \\sqrt{5^{2} + (-3)^{2}} = \\sqrt{34} = 5.83$ km to 3 s.f. Square the $-3$ to get $+9$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs(5 - 3*I)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "quadratics",
+      "heading": "Complex roots of quadratic equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.5}} you met the [[quadratic-function|quadratic function]] $f(x) = ax^{2} + bx + c$. The real [[root|roots]] of $f(x) = 0$ are where its graph meets the $x$-axis. The [[discriminant|discriminant]] tells you how many there are."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta = b^{2} - 4ac",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-discriminant"
+        },
+        {
+          "type": "text",
+          "text": "For real $a \\neq 0$, $b$ and $c$: if $\\Delta > 0$ the graph crosses the $x$-axis twice. If $\\Delta = 0$ it touches the axis once. If $\\Delta < 0$ it never meets the axis, so there are no real roots."
+        },
+        {
+          "type": "text",
+          "text": "With $\\mathrm{i}$, the quadratic formula still works when $\\Delta < 0$: $x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$, and $\\sqrt{\\Delta}$ is now a real number times $\\mathrm{i}$. The formula is in the prior-learning section of the booklet."
+        },
+        {
+          "type": "result",
+          "statement": "If $a$, $b$ and $c$ are real, $a \\neq 0$ and $\\Delta < 0$, then $ax^{2} + bx + c = 0$ has two complex roots $x = -\\frac{b}{2a} \\pm \\frac{\\sqrt{4ac - b^{2}}}{2a}\\mathrm{i}$. They are conjugates, and their real part $-\\frac{b}{2a}$ is the $x$-coordinate of the vertex of the graph.",
+          "why": "$\\sqrt{\\Delta} = \\sqrt{4ac - b^{2}}\\,\\mathrm{i}$, since $4ac - b^{2} > 0$. Split $\\frac{-b \\pm \\sqrt{\\Delta}}{2a}$ into two fractions. The graph's axis of symmetry is $x = -\\frac{b}{2a}$."
+        },
+        {
+          "type": "figure",
+          "id": "1-12-no-real-roots",
+          "alt": "Graph of y equals 2x squared plus 2x plus 5, a parabola opening upwards that stays above the x-axis. Its vertex is at minus 0.5, 4.5, with a dashed vertical axis of symmetry at x equals minus 0.5. A note says it never meets the x-axis because the discriminant is minus 36, and that the roots are minus 0.5 plus or minus 1.5i, whose real part minus 0.5 is on the axis of symmetry.",
+          "caption": "No $x$-intercepts, so no real roots. The complex roots' real part is the vertex's $x$-coordinate."
+        },
+        {
+          "type": "example",
+          "id": "ex-complex-roots-by-hand",
+          "question": "Solve $2x^{2} + 2x + 5 = 0$. Give your answers in the form $a + b\\mathrm{i}$, and say what they tell you about the graph of $y = 2x^{2} + 2x + 5$.",
+          "steps": [
+            "Here $a = 2$, $b = 2$ and $c = 5$, so $\\Delta = 2^{2} - 4(2)(5) = 4 - 40 = -36$.",
+            "$\\Delta < 0$, so there are no real roots. Its square root is $\\sqrt{-36} = 6\\mathrm{i}$.",
+            "Quadratic formula: $x = \\frac{-2 \\pm 6\\mathrm{i}}{2 \\times 2} = \\frac{-2 \\pm 6\\mathrm{i}}{4}$.",
+            "Divide both parts by $4$: $x = -\\frac{1}{2} \\pm \\frac{3}{2}\\mathrm{i}$, a conjugate pair.",
+            "The graph never meets the $x$-axis. Its vertex is at $x = -\\frac{1}{2}$, the real part of the roots, and $f(-0.5) = 4.5 > 0$: the lowest point is above the axis."
+          ],
+          "answer": "$x = -\\frac{1}{2} \\pm \\frac{3}{2}\\mathrm{i}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(2*x**2 + 2*x + 5, x)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing only the real part by $2a$. In $\\frac{-2 \\pm 6\\mathrm{i}}{4}$ both parts are divided by $4$, giving $-\\frac{1}{2} \\pm \\frac{3}{2}\\mathrm{i}$, not $-\\frac{1}{2} \\pm 6\\mathrm{i}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-height",
+          "question": "A ball is thrown upwards. Its height after $t$ seconds is modelled by $h(t) = -5t^{2} + 20t + 1.8$ metres. Use technology to solve $h(t) = 26.8$, and interpret your answer.",
+          "steps": [
+            "Rearrange to $= 0$ and write it down: $-5t^{2} + 20t - 25 = 0$, or $5t^{2} - 20t + 25 = 0$.",
+            "Check the discriminant: $\\Delta = (-20)^{2} - 4(5)(25) = 400 - 500 = -100 < 0$.",
+            "Enter the coefficients $5$, $-20$, $25$ into the polynomial solver in $a + b\\mathrm{i}$ mode. It gives $t = 2 + \\mathrm{i}$ and $t = 2 - \\mathrm{i}$.",
+            "Interpret: neither root is real, so no time $t$ gives a height of $26.8$ m. The ball never gets that high.",
+            "The real part, $2$, is the $t$-coordinate of the vertex. The ball is highest after $2$ s, at $h(2) = -20 + 40 + 1.8 = 21.8$ m."
+          ],
+          "answer": "$t = 2 \\pm \\mathrm{i}$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(-5*t**2 + 20*t + Rational(18, 10), Rational(268, 10)), t)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE, choose a+bi on the complex row, 2nd, MODE (QUIT)",
+              "APPS, PlySmlt2, 1: Polynomial Root Finder",
+              "ORDER 2, and choose a+bi on the same screen (check on your model), then NEXT (GRAPH key)",
+              "Enter the coefficients 5, -20, 25 from the highest power down (a2 first), then SOLVE (GRAPH key)",
+              "Read x1 = 2+i and x2 = 2-i"
+            ],
+            "nspire": [
+              "Calculator page: Menu, Algebra, Polynomial Tools, Find Roots of Polynomial",
+              "Degree 2, Roots: Complex, OK (check on your model)",
+              "Enter the coefficients 5, -20, 25 from the highest power down, OK",
+              "Read the list {2+i, 2-i}"
+            ],
+            "casio": [
+              "SHIFT, MENU (SET UP): Complex Mode a+bi, EXIT",
+              "EQUA, POLY (F2), Degree 2 (F1)",
+              "Enter the coefficients 5, -20, 25 from the highest power down, EXE after each",
+              "SOLVE (F1), and read x1 = 2+i and x2 = 2-i (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solve-quadratic",
+          "prompt": "Solve $x^{2} - 8x + 25 = 0$.",
+          "hint": "Find $\\Delta$ first. Then write $\\sqrt{\\Delta}$ as a real number times $\\mathrm{i}$.",
+          "options": [
+            {
+              "text": "$x = 4 \\pm 3\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$x = -4 \\pm 3\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 4 \\pm 6\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$x = 8 \\pm 6\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\Delta = 64 - 100 = -36$, so $\\sqrt{\\Delta} = 6\\mathrm{i}$. Then $x = \\frac{8 \\pm 6\\mathrm{i}}{2} = 4 \\pm 3\\mathrm{i}$. Remember $-b = +8$, and divide both parts by $2$.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(x**2 - 8*x + 25, x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-vertex-roots",
+          "prompt": "The graph of $y = x^{2} + bx + c$, where $b$ and $c$ are real, has its vertex at $(-1, 4)$. Find the roots of $x^{2} + bx + c = 0$.",
+          "hint": "The vertex form is $y = (x + 1)^{2} + 4$. The real part of the roots is the vertex's $x$-coordinate.",
+          "options": [
+            {
+              "text": "$x = -1 \\pm 2\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$x = 1 \\pm 2\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -1 \\pm 4\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$x = -1 \\pm 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x + 1)^{2} + 4 = 0$ gives $(x + 1)^{2} = -4$, so $x + 1 = \\pm 2\\mathrm{i}$ and $x = -1 \\pm 2\\mathrm{i}$. The vertex is above the axis and the graph opens upwards, so there are no real roots.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve((x + 1)**2 + 4, x)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "z = a + b\\mathrm{i}",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-complex-cartesian",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{i}^{2} = -1$. For $z = a + b\\mathrm{i}$ with $a, b$ real: $\\mathrm{Re}(z) = a$, $\\mathrm{Im}(z) = b$ (a real number) and $z^{*} = a - b\\mathrm{i}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Divide by hand: multiply the top and the bottom by the conjugate of the bottom, using $zz^{*} = a^{2} + b^{2}$. Find powers with the GDC in $a + b\\mathrm{i}$ mode.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\arg z$ ($z \\neq 0$): the anticlockwise angle from the positive real axis, in radians, usually $-\\pi < \\arg z \\le \\pi$. Sketch the quadrant: $\\arctan\\frac{b}{a}$ alone is right only when $a > 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta = b^{2} - 4ac",
+          "tag": "booklet",
+          "bookletId": "bk-1-12-discriminant",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $a$, $b$, $c$ are real, $a \\neq 0$ and $\\Delta < 0$: the graph of $y = ax^{2} + bx + c$ never meets the $x$-axis, and the roots are a conjugate pair $-\\frac{b}{2a} \\pm \\frac{\\sqrt{4ac - b^{2}}}{2a}\\mathrm{i}$, with real part at the vertex's $x$-coordinate.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing the imaginary part with an $\\mathrm{i}$. $\\mathrm{Im}(6 - 5\\mathrm{i})$ is $-5$, not $-5\\mathrm{i}$.",
+    "Using $\\mathrm{i}^{2} = 1$ when expanding. Every $\\mathrm{i}^{2}$ becomes $-1$, so $-3\\mathrm{i}^{2} = +3$.",
+    "Taking the argument straight from $\\arctan\\frac{b}{a}$ when $a < 0$. Sketch the point and use its quadrant.",
+    "Rounding the acute angle or the modulus before the last step. Keep the GDC's full value, then give the answer to 3 s.f.",
+    "Giving extra values. If the question asks for one value, such as the root with a positive imaginary part, give only that one: extra answers lose marks."
+  ],
+  "examTips": [
+    "“Find” or “calculate” with technology: write down what you typed, such as $(3 - 2\\mathrm{i})^{4}$, then the answer in $a + b\\mathrm{i}$ form. The set-up earns the method mark.",
+    "“Show that” $zz^{*}$ or a quotient has a given value: expand by hand, show $\\mathrm{i}^{2} = -1$ being used, and end on the given result. A GDC answer does not show it.",
+    "“Solve” a quadratic with $\\Delta < 0$: show $\\Delta$ and the quadratic formula with your values, then give both roots in $a + b\\mathrm{i}$ form.",
+    "“Interpret”: say what a result means in context. Non-real roots mean the model never reaches that value."
+  ],
+  "readingMinutes": 25
+}

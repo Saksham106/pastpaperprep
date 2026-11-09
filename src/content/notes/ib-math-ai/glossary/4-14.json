@@ -2,19 +2,19 @@
   {
     "id": "linear-combination-of-random-variables",
     "term": "linear combination of random variables",
-    "definition": "TODO: aX + bY + …: expectations always add; Var(aX ± bY) = a²Var(X) + b²Var(Y) only when X and Y are independent, with variances adding even for a difference",
+    "definition": "A variable such as $a_{1}X_{1} + a_{2}X_{2} + \\dots + a_{n}X_{n}$ built by multiplying random variables by constants and adding; its expected value is always the same combination of the expected values, while its variance is $a_{1}^{2}\\mathrm{Var}(X_{1}) + \\dots + a_{n}^{2}\\mathrm{Var}(X_{n})$ only when the variables are independent, with every term added even for a difference.",
     "lesson": "4.14"
   },
   {
     "id": "variance-of-a-random-variable",
     "term": "variance of a random variable",
-    "definition": "TODO: Var(X) = E((X − μ)²), the expected squared distance from the mean; Var(aX + b) = a²Var(X), so adding b has no effect",
+    "definition": "The expected squared distance of a random variable from its mean, $\\mathrm{Var}(X) = \\mathrm{E}\\left((X - \\mu)^{2}\\right)$, in squared units; for constants $a$ and $b$, $\\mathrm{Var}(aX + b) = a^{2}\\mathrm{Var}(X)$, so adding a constant does not change it.",
     "lesson": "4.14"
   },
   {
     "id": "unbiased-estimate",
     "term": "unbiased estimate",
-    "definition": "TODO: An estimate whose expected value equals the parameter: x̄ for μ, and s²_(n−1) (dividing by n − 1, not n) for σ²",
+    "definition": "An estimate of a population parameter whose expected value over all random samples of the same size equals that parameter, such as $\\bar{x}$ for $\\mu$ and $s_{n-1}^{2} = \\frac{n}{n-1}s_{n}^{2}$ (dividing by $n - 1$, not $n$) for $\\sigma^{2}$.",
     "lesson": "4.14"
   }
 ]

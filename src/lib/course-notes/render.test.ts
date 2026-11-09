@@ -37,4 +37,11 @@ describe("a course with no calculators", () => {
     expect(calculatorErrors({ type: "calculator", steps: { casio: ["Press ="] } }, [])).toHaveLength(1);
     expect(calculatorErrors({ type: "calculator", snippet: "hcf" }, [], { hcf: { title: "HCF", steps: {} } })).toHaveLength(1);
   });
+
+  it("refuses a snippet step whose placeholder sits after ^ outside maths (it would show as raw TeX)", () => {
+    const snippet = (step: string) => ({ pow: { title: "Power", steps: { ti84: [step] } } });
+    expect(snippetFileErrors(snippet("Type ({z})^{power}, ENTER"), ["ti84"])).toEqual([expect.stringContaining('"^{power}" is not filled in')]);
+    expect(snippetFileErrors(snippet("Type ({z}) ^ {power}, ENTER"), ["ti84"])).toEqual([]);
+    expect(snippetFileErrors(snippet("Store $[[{u}]]$ as $x^{2}$"), ["ti84"])).toEqual([]);
+  });
 });

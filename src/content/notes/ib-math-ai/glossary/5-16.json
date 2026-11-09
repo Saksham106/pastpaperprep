@@ -2,19 +2,19 @@
   {
     "id": "eulers-method",
     "term": "Euler's method",
-    "definition": "TODO: A numerical method with step size h: y_(n+1) = y_n + h f(x_n, y_n), x_(n+1) = x_n + h; approximate, usually more accurate for smaller h; over- or underestimates by concavity only for one step from a point on the curve",
+    "definition": "A numerical method that estimates the solution of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ by repeated steps of constant length $h$: $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n})$ and $x_{n+1} = x_{n} + h$; the result is an approximation, usually closer for a smaller $h$.",
     "lesson": "5.16"
   },
   {
     "id": "coupled-differential-equations",
     "term": "coupled differential equations",
-    "definition": "TODO: Two differential equations, dx/dt and dy/dt, each depending on both variables, so they must be solved together",
+    "definition": "A pair of differential equations, one giving $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and one giving $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$, in which each rate can depend on both $x$ and $y$, so the two must be solved together.",
     "lesson": "5.16"
   },
   {
     "id": "predator-prey-model",
     "term": "predator–prey model",
-    "definition": "TODO: Coupled differential equations for two populations: predators reduce the prey's growth and the predators' growth depends on the prey",
+    "definition": "A pair of coupled differential equations for a prey population and a predator population, in which meetings between them lower the prey's growth rate and raise the predators' growth rate.",
     "lesson": "5.16"
   }
 ]

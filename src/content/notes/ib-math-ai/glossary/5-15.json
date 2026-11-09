@@ -2,7 +2,7 @@
   {
     "id": "slope-field",
     "term": "slope field",
-    "definition": "TODO: A grid of short line segments with gradient dy/dx = f(x, y) at each point; solution curves follow the segments",
+    "definition": "A diagram for a differential equation $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ with a short line segment at each grid point $(a, b)$, drawn with gradient $f(a, b)$; every solution curve is tangent to the segments it passes through.",
     "lesson": "5.15"
   }
 ]

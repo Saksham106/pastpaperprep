@@ -2,25 +2,25 @@
   {
     "id": "adjacency-matrix",
     "term": "adjacency matrix",
-    "definition": "TODO: A square matrix whose (i, j) entry is the number of edges directly from vertex i to vertex j; symmetric for an undirected graph",
+    "definition": "A square matrix with one row and one column for each vertex of a graph, whose entry in row $i$, column $j$ is the number of edges going directly from vertex $i$ to vertex $j$; it is symmetric when the graph is undirected.",
     "lesson": "3.15"
   },
   {
     "id": "walk",
     "term": "walk",
-    "definition": "TODO: A sequence of edges, each starting where the last one ended; vertices and edges may repeat; its length is the number of edges",
+    "definition": "A sequence of edges in which each edge starts at the vertex where the previous edge ended; vertices and edges may be repeated, and the length of the walk is the number of edges it uses.",
     "lesson": "3.15"
   },
   {
     "id": "weighted-adjacency-table",
     "term": "weighted adjacency table",
-    "definition": "TODO: A table of the weights of edges directly joining each pair of vertices; a blank (not 0) means no direct edge",
+    "definition": "A table with a row and a column for each vertex of a weighted graph, giving the weight (such as a cost, distance or time) of the direct edge from the row's vertex to the column's vertex, with a blank where there is no direct edge.",
     "lesson": "3.15"
   },
   {
     "id": "transition-matrix",
     "term": "transition matrix",
-    "definition": "TODO: A matrix of probabilities of moving between states; in IB AI T_ij is the probability of moving from j to i, so each column sums to 1",
+    "definition": "A square matrix of the probabilities of moving between states in one step; in IB notation $T_{ij}$ is the probability of moving from state $j$ to state $i$, so each column adds up to $1$.",
     "lesson": "3.15"
   }
 ]

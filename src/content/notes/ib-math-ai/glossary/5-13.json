@@ -2,13 +2,13 @@
   {
     "id": "acceleration",
     "term": "acceleration",
-    "definition": "TODO: The rate of change of velocity, a = dv/dt = d²s/dt² = v dv/ds; negative acceleration does not always mean slowing down",
+    "definition": "The rate of change of velocity with time, $a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}} = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$; in straight-line motion, a negative acceleration slows an object down only while its velocity is positive, because speed falls only when velocity and acceleration have opposite signs.",
     "lesson": "5.13"
   },
   {
     "id": "distance-travelled",
     "term": "distance travelled",
-    "definition": "TODO: The total length of path covered, ∫|v(t)| dt; equals |displacement| only if the direction never changes",
+    "definition": "The total length of path an object covers between two times, counting motion in either direction, $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$; it equals the size of the displacement only if the object never changes direction in that time.",
     "lesson": "5.13"
   }
 ]

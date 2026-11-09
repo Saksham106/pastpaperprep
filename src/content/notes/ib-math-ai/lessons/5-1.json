@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.1",
+  "slug": "limits-and-derivative-as-rate-of-change",
+  "title": "Limits and the derivative as a rate of change",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[limit|limit]] is the value a [[function|function]]'s output heads for as its input gets close to some number. Limits turn the [[gradient|gradient]] of a chord into the gradient of a curve at a single point. That gradient, written $f'(x)$ or $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, is the [[derivative|derivative]]: it tells you how steep a curve is and how fast a quantity is changing, such as users per week or profit per extra item.",
+  "goals": [
+    {
+      "text": "Estimate a [[limit|limit]] from a table of values, a graph or your GDC's table.",
+      "bullets": [
+        "5.1-b1"
+      ]
+    },
+    {
+      "text": "Explain the gradient of a curve at a point as the limit of chord gradients.",
+      "bullets": [
+        "5.1-b3"
+      ]
+    },
+    {
+      "text": "Read the [[derivative|derivative]] as the [[gradient-function|gradient function]], written $f'(x)$ or $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$.",
+      "bullets": [
+        "5.1-b2"
+      ]
+    },
+    {
+      "text": "Interpret a derivative such as $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$ or $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$ as a [[rate-of-change|rate of change]] in context, with its sign and units.",
+      "bullets": [
+        "5.1-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "limits",
+    "gradient of a curve",
+    "what is a derivative",
+    "rate of change",
+    "dy/dx meaning",
+    "chord and tangent"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-two-points",
+      "prompt": "Find the gradient of the line through $(-2, 7)$ and $(3, -8)$.",
+      "hint": "Divide the change in $y$ by the change in $x$, taking the points in the same order both times.",
+      "options": [
+        {
+          "text": "$-3$",
+          "correct": true
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$m = \\frac{-8 - 7}{3 - (-2)} = \\frac{-15}{5} = -3$. The line falls from left to right, so the gradient is negative. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-8 - 7)/(3 - (-2))"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-function-value",
+      "prompt": "For $f(x) = 3x^{2} - 2$, find $f(-2)$.",
+      "hint": "Square $-2$ first, then multiply by 3.",
+      "options": [
+        {
+          "text": "$10$",
+          "correct": true
+        },
+        {
+          "text": "$-14$",
+          "correct": false
+        },
+        {
+          "text": "$34$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(-2) = 3 \\times (-2)^{2} - 2 = 3 \\times 4 - 2 = 10$. Squaring first keeps the result positive. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3*(-2)**2 - 2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "heading": "The idea of a limit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $g(x) = \\dfrac{x^{2} + 3x}{x}$. At $x = 0$ it gives $\\frac{0}{0}$, which has no value. So $g(0)$ doesn't exist. You can still ask where $g(x)$ is heading as $x$ gets close to 0."
+        },
+        {
+          "type": "text",
+          "text": "Try $x = 0.1$ and $0.01$: you get $3.1$ and $3.01$. From below, $x = -0.1$ and $-0.01$ give $2.9$ and $2.99$. Both sides close in on 3."
+        },
+        {
+          "type": "definition",
+          "term": "limit",
+          "statement": "If $f(x)$ gets as close as you like to $L$ whenever $x$ is close enough to $a$ (but not equal to $a$), then $L$ is the limit of $f(x)$ as $x$ tends to $a$. You write $\\lim_{x \\to a} f(x) = L$.",
+          "plain": "The value the output is heading for, whether or not it ever gets there."
+        },
+        {
+          "type": "text",
+          "text": "Read the arrow $\\to$ as \"tends to\". A limit ignores what happens exactly at $x = a$. The function may be undefined there, or have a different value. Only the values near $a$ count."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-limit-gap",
+          "alt": "Graph of y equals f of x: a U-shaped curve with its lowest point at 1, 2. At x equals 3 the curve has an open circle at height 4, showing a missing point. A separate filled dot sits below it at the point 3, 1. Dashed guide lines mark x equals 3 on the x-axis and heights 1 and 4 on the y-axis.",
+          "caption": "The graph of $y = f(x)$. The open circle at $(3, 4)$ is a gap in the curve. The filled dot shows $f(3) = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Here $f(x) = \\frac{1}{2}(x - 1)^{2} + 2$ for every $x$ except 3, and $f(3) = 1$. Trace the curve towards $x = 3$ from the left and from the right."
+        },
+        {
+          "type": "check",
+          "id": "check-limit-gap",
+          "prompt": "Use the graph above. Write down $\\lim_{x \\to 3} f(x)$.",
+          "hint": "Follow the curve towards $x = 3$ from both sides. Ignore the single dot.",
+          "options": [
+            {
+              "text": "$4$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            }
+          ],
+          "explain": "Both parts of the curve head for height 4. The dot shows $f(3) = 1$, which is a different thing. And 3 is where $x$ is heading, not $f(x)$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "limit(Rational(1, 2)*(x - 1)**2 + 2, x, 3)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In this course you estimate limits from a table, a graph or your GDC's table, not by algebra. Check that the values from both sides settle on the same number."
+        },
+        {
+          "type": "example",
+          "id": "ex-limit-table",
+          "question": "The table shows values of $v(x) = \\dfrac{x^{2} - x - 12}{x - 4}$ near $x = 4$. $\\begin{array}{c|cccccc} x & 3.9 & 3.99 & 3.999 & 4.001 & 4.01 & 4.1 \\\\ \\hline v(x) & 6.9 & 6.99 & 6.999 & 7.001 & 7.01 & 7.1 \\end{array}$ Estimate $\\displaystyle\\lim_{x \\to 4} v(x)$.",
+          "steps": [
+            "Substituting $x = 4$ gives $\\frac{16 - 4 - 12}{0} = \\frac{0}{0}$. So use the values near 4 instead.",
+            "From the left, $6.9$, $6.99$, $6.999$ rise towards 7.",
+            "From the right, $7.1$, $7.01$, $7.001$ fall towards 7.",
+            "Both sides settle on the same number, 7."
+          ],
+          "answer": "$\\lim_{x \\to 4} v(x) = 7$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "limit((x**2 - x - 12)/(x - 4), x, 4)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-limit-interest",
+          "question": "You invest \\$1000 at a nominal annual interest rate of 8%, compounded $n$ times a year. The interest earned in the first year is $I(n) = 1000\\left[\\left(1 + \\frac{0.08}{n}\\right)^{n} - 1\\right]$ dollars. (a) Use your GDC's table to estimate $\\displaystyle\\lim_{n \\to \\infty} I(n)$, to the nearest cent. (b) Interpret your answer.",
+          "steps": [
+            "(a) Here $n$ grows without bound, so the table needs large values of $n$. Enter $1000\\left[\\left(1 + \\frac{0.08}{X}\\right)^{X} - 1\\right]$ and start the table at $1000$ in steps of $1000$.",
+            "$n = 1000$ gives $83.2836\\ldots$, $n = 2000$ gives $83.2853\\ldots$, $n = 5000$ gives $83.2864\\ldots$ and $n = 10000$ gives $83.2867\\ldots$",
+            "The values still rise, but by less each time. From $n = 5000$ on they all round to $83.29$.",
+            "(b) Compounding once a year earns \\$80. Adding interest more and more often earns more, but one year's interest gets closer and closer to about \\$83.29 and never goes above it."
+          ],
+          "answer": "$\\lim_{n \\to \\infty} I(n) \\approx 83.29\\text{ dollars}$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "1000*limit((1 + Rational(2, 25)/n)**n - 1, n, oo)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "1000((1+0.08/X)^X-1)",
+            "start": 1000,
+            "step": 1000,
+            "end": 10000
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-limit-table",
+          "prompt": "The table shows $k(x) = \\dfrac{1.2^{x} - 1}{x}$ near $x = 0$, to 5 decimal places. $\\begin{array}{c|cccccc} x & -0.1 & -0.01 & -0.001 & 0.001 & 0.01 & 0.1 \\\\ \\hline k(x) & 0.18067 & 0.18216 & 0.18230 & 0.18234 & 0.18249 & 0.18399 \\end{array}$ Estimate $\\displaystyle\\lim_{x \\to 0} k(x)$ to 3 s.f.",
+          "hint": "Which number are the values from both sides closing in on? Use the two values nearest $x = 0$.",
+          "answer": {
+            "value": 0.182,
+            "tolerance": 0.0005
+          },
+          "explain": "From the left the values rise to $0.18230$. From the right they fall to $0.18234$. The limit lies between them, and both round to $0.182$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "limit((Rational(6, 5)**x - 1)/x, x, 0)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "gradient-limit",
+      "heading": "From chords to the tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A straight line has the same [[gradient|gradient]] everywhere. A curve's steepness changes as you move along it. So what does \"the gradient at a point\" mean?"
+        },
+        {
+          "type": "text",
+          "text": "It is the gradient of the [[tangent|tangent]] there: the line that touches the curve at that point and runs in the curve's direction. But the gradient formula from {{lesson:2.1}} needs two points, and you know only one point on the tangent. The formula is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "text",
+          "text": "So take a second point $Q$ on the curve, a step $h$ along from $P$. The straight line $PQ$ is a chord, also called a secant. Now let $h$ shrink towards 0. $Q$ slides towards $P$, and the chord turns until it lies along the tangent."
+        },
+        {
+          "type": "interactive",
+          "widget": "secant-to-tangent",
+          "props": {
+            "h": 1,
+            "curve": "square"
+          },
+          "alt": "Graph of y equals x squared with a fixed point P at x equals 1 and a second point Q at x equals 1 plus h. The chord PQ is drawn as a solid line and the tangent at P as a dashed line. A slider moves Q towards P, and the chord gradient is shown beside the tangent gradient of 2."
+        },
+        {
+          "type": "text",
+          "text": "Drag $h$ down to $0.01$. The chord (secant) gradient reads $2.01$. As $h$ shrinks it heads for 2, the gradient of the tangent at $P(1, 1)$."
+        },
+        {
+          "type": "result",
+          "statement": "The gradient of the curve $y = f(x)$ at $x = a$ is the [[limit|limit]] of the chord gradients $\\dfrac{f(a + h) - f(a)}{h}$ as $h \\to 0$. It is written $f'(a)$.",
+          "why": "Each chord gradient is an average over a small step. As the step shrinks to nothing, the chord becomes the tangent."
+        },
+        {
+          "type": "text",
+          "text": "In context, a chord gradient is an average rate of change between two moments. The tangent's gradient is the rate of change at one instant. In this course you estimate it from chord gradients; you don't work out the limit by algebra."
+        },
+        {
+          "type": "example",
+          "id": "ex-chord-gradients",
+          "question": "Let $f(x) = x^{2} - 3x$. Find the gradients of the chords from $P(4, 4)$ to the points on the curve with $x = 4.1$, $4.01$ and $4.001$. Use them to estimate $f'(4)$.",
+          "steps": [
+            "$x = 4.1$: $f(4.1) = 16.81 - 12.3 = 4.51$, so the gradient is $\\dfrac{4.51 - 4}{4.1 - 4} = \\dfrac{0.51}{0.1} = 5.1$.",
+            "$x = 4.01$: $f(4.01) = 16.0801 - 12.03 = 4.0501$, so the gradient is $\\dfrac{0.0501}{0.01} = 5.01$.",
+            "$x = 4.001$: $f(4.001) = 4.005001$, so the gradient is $\\dfrac{0.005001}{0.001} = 5.001$.",
+            "As $Q$ moves towards $P$, the gradients close in on 5."
+          ],
+          "answer": "$f'(4) = 5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "limit(((4 + h)**2 - 3*(4 + h) - (4**2 - 3*4))/h, h, 0)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chord-pq",
+          "prompt": "On $y = x^{2} - 3x$, find the gradient of the chord from $P(4, 4)$ to $Q(6, 18)$.",
+          "hint": "Use $m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}$ with the two points.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$m = \\frac{18 - 4}{6 - 4} = \\frac{14}{2} = 7$. This chord is steeper than the tangent at $P$, which has gradient 5, because the curve gets steeper to the right of $P$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((6**2 - 3*6) - (4**2 - 3*4))/(6 - 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-stone-speed",
+          "question": "A stone is dropped from a cliff. After $t$ seconds it has fallen $s = 4.9t^{2}$ metres. (a) Find the stone's average speed between $t = 3$ and $t = 3.1$. (b) The table shows the average speed between $t = 3$ and $t = 3 + h$. $\\begin{array}{c|cccc} h & -0.01 & -0.001 & 0.001 & 0.01 \\\\ \\hline \\text{average speed (m s}^{-1}) & 29.351 & 29.3951 & 29.4049 & 29.449 \\end{array}$ Estimate the speed of the stone at $t = 3$, and interpret it.",
+          "steps": [
+            "(a) At $t = 3$ the stone has fallen $4.9 \\times 3^{2} = 44.1$ m. At $t = 3.1$ it has fallen $4.9 \\times 3.1^{2} = 47.089$ m.",
+            "Average speed is distance over time: $\\dfrac{47.089 - 44.1}{3.1 - 3} = \\dfrac{2.989}{0.1} = 29.89$ m s⁻¹. This is the gradient of the chord on the graph of $s$ against $t$.",
+            "(b) For negative $h$ the averages rise: $29.351$, $29.3951$. For positive $h$ they fall: $29.449$, $29.4049$. Both sides close in on $29.4$.",
+            "Interpret: exactly 3 seconds after it is dropped, the stone is falling at about $29.4$ metres per second."
+          ],
+          "answer": "$\\text{speed} = 29.4\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "limit((Rational(49, 10)*(3 + h)**2 - Rational(49, 10)*3**2)/h, h, 0)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-growth-rate-estimate",
+          "prompt": "A seedling's height is $H = 0.3t^{2} + 0.8t + 5$ cm, $t$ days after it is planted. Its average growth rates between $t = 2$ and $t = 2 + k$, for $k = 1$, $0.1$ and $0.01$, are $2.3$, $2.03$ and $2.003$ cm per day. Estimate its growth rate at $t = 2$, in cm per day.",
+          "hint": "Which number are the average rates heading for as $k$ shrinks?",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$2.003$",
+              "correct": false
+            },
+            {
+              "text": "$2.3$",
+              "correct": false
+            },
+            {
+              "text": "$7.8$",
+              "correct": false
+            }
+          ],
+          "explain": "Each average is $2 + 0.3k$, so they approach 2 cm per day. $2.003$ is still an average over a short interval. $7.8$ cm is the height at $t = 2$, not a rate.",
+          "verify": {
+            "kind": "exact",
+            "truth": "limit(((Rational(3, 10)*(2 + k)**2 + Rational(4, 5)*(2 + k) + 5) - (Rational(3, 10)*2**2 + Rational(4, 5)*2 + 5))/k, k, 0)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "derivative",
+      "heading": "The derivative: gradient function and rate of change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Repeat the chord method at other points on $y = x^{2} - 3x$. The gradient is $-1$ at $x = 1$, $1$ at $x = 2$, $3$ at $x = 3$ and $5$ at $x = 4$. Each one equals $2x - 3$. So the gradient is itself a [[function|function]] of $x$."
+        },
+        {
+          "type": "definition",
+          "term": "derivative",
+          "statement": "The derivative of $f$ is the function $f'$ whose value at each $x$ is the gradient of the curve $y = f(x)$ at that point. It is also called the gradient function.",
+          "plain": "A formula for how steep the curve is at any point."
+        },
+        {
+          "type": "text",
+          "text": "If $y = f(x)$, write the [[derivative|derivative]] as $f'(x)$, read \"f prime of x\", or as $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$, read \"d y by d x\". Both name the [[gradient-function|gradient function]]. Treat $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ as one symbol, not a fraction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) \\quad \\text{when } y = f(x)",
+          "tag": "learn"
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-function",
+          "prompt": "Chord estimates give the gradient of $y = x^{2} + 5x$ as 7 at $x = 1$, 9 at $x = 2$ and 11 at $x = 3$. Which gradient function fits?",
+          "hint": "Test each option at all three $x$-values.",
+          "options": [
+            {
+              "text": "$2x + 5$",
+              "correct": true
+            },
+            {
+              "text": "$x^{2} + 5x$",
+              "correct": false
+            },
+            {
+              "text": "$x + 6$",
+              "correct": false
+            }
+          ],
+          "explain": "$2(1) + 5 = 7$, $2(2) + 5 = 9$, $2(3) + 5 = 11$. $x + 6$ fits only $x = 1$. $x^{2} + 5x$ gives the heights of the curve (6, 14, 24), not its gradients.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(x**2 + 5*x, x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A gradient is the change in $y$ for each unit increase in $x$. So $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ is also the [[rate-of-change|rate of change]] of $y$ with respect to $x$, at one point."
+        },
+        {
+          "type": "text",
+          "text": "Other letters work the same way. $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r}$ is the rate of change of a volume $V$ with respect to a radius $r$, for example in cm³ per cm. $\\dfrac{\\mathrm{d}s}{\\mathrm{d}t}$ is the rate of change of a distance $s$ with respect to time $t$, for example in metres per second."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$ is the velocity of a moving object, and you use derivatives to study its motion.",
+          "lesson": "5.13"
+        },
+        {
+          "type": "result",
+          "statement": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x}$ is the rate of change of $y$ with respect to $x$. Its units are units of $y$ per unit of $x$. Where it is positive, $y$ is increasing as $x$ increases; where it is negative, $y$ is decreasing.",
+          "why": "A chord gradient is an average rate over an interval. Shrinking the interval to a point gives the rate at that point."
+        },
+        {
+          "type": "example",
+          "id": "ex-profit-rate",
+          "question": "A bakery's daily profit is $P$ dollars when it bakes $x$ loaves. A model gives $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x} = 6 - 0.04x$, for $0 \\le x \\le 250$. (a) Find $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x}$ when $x = 100$, and interpret it. (b) Find $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x}$ when $x = 200$, and say what its sign tells the bakery.",
+          "steps": [
+            "(a) Substitute $x = 100$: $6 - 0.04 \\times 100 = 2$.",
+            "The units are dollars of profit per loaf. When the bakery bakes 100 loaves, its profit rises by about \\$2 for each extra loaf.",
+            "(b) Substitute $x = 200$: $6 - 0.04 \\times 200 = -2$.",
+            "The rate is negative, so profit is decreasing. At 200 loaves, each extra loaf lowers the profit by about \\$2."
+          ],
+          "answer": "$\\frac{\\mathrm{d}P}{\\mathrm{d}x} = 2\\text{ dollars per loaf}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6 - Rational(1, 25)*100"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-snow",
+          "prompt": "The depth of snow on a roof is $D$ cm, $t$ hours after midnight. When $t = 6$, $\\frac{\\mathrm{d}D}{\\mathrm{d}t} = -0.8$. Which statement interprets this correctly?",
+          "hint": "A derivative is a rate. What do its sign and units tell you?",
+          "options": [
+            {
+              "text": "At 6 am the depth is falling at 0.8 cm per hour",
+              "correct": true
+            },
+            {
+              "text": "At 6 am the depth is 0.8 cm",
+              "correct": false
+            },
+            {
+              "text": "The depth has fallen by 0.8 cm since midnight",
+              "correct": false
+            },
+            {
+              "text": "At 6 am the depth is rising at 0.8 cm per hour",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}D}{\\mathrm{d}t}$ is a rate in cm per hour at one instant, $t = 6$. It is negative, so the depth is decreasing. It isn't the depth itself, or a total change since midnight.",
+          "verify": {
+            "kind": "choice",
+            "truth": "At 6 am the depth is falling at 0.8 cm per hour"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-balloon-rate",
+          "question": "A spherical balloon is being inflated. When its radius is $r$ cm, its volume is $V = \\frac{4}{3}\\pi r^{3}$ cm³ and $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 4\\pi r^{2}$. Find $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r}$ when $V = 500$, to 3 s.f., and interpret your answer.",
+          "steps": [
+            "The derivative is in terms of $r$, but you are given $V$. So find $r$ first: solve $\\frac{4}{3}\\pi r^{3} = 500$.",
+            "Your GDC's solver gives $r = 4.92372\\ldots$ Store it and keep the full value.",
+            "Substitute: $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 4\\pi \\times 4.92372\\ldots^{2} = 304.647\\ldots \\approx 305$. Rounding $r$ to $4.92$ first would give $304$, which is wrong to 3 s.f.",
+            "The units are cm³ per cm. When the volume is 500 cm³, it is increasing by about 305 cm³ for each extra cm of radius."
+          ],
+          "answer": "$\\frac{\\mathrm{d}V}{\\mathrm{d}r} \\approx 305\\text{ cm}^{3}\\text{ per cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*pi*nsolve(Rational(4, 3)*pi*r**3 - 500, r, 5)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "(4/3)πX^3",
+            "rightSide": 500,
+            "guess": 5,
+            "lower": 0,
+            "upper": 20
+          }
+        },
+        {
+          "type": "text",
+          "text": "From {{lesson:5.3}} you will find derivatives of powers of $x$ by rule. For other models, such as exponential or logistic ones, your GDC finds the derivative at a point."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also differentiate exponential, logarithmic and trigonometric functions by rule.",
+          "lesson": "5.9"
+        },
+        {
+          "type": "example",
+          "id": "ex-app-users-gdc",
+          "question": "The number of users of a new app $t$ weeks after launch is modelled by $U = \\dfrac{5000}{1 + 49\\mathrm{e}^{-0.3t}}$. (a) Use your GDC to find $\\dfrac{\\mathrm{d}U}{\\mathrm{d}t}$ when $t = 10$. Give your answer to 3 s.f. (b) Interpret your answer.",
+          "steps": [
+            "(a) Write down what you put into the GDC, for the method mark: $\\dfrac{\\mathrm{d}U}{\\mathrm{d}t}$ at $t = 10$, for $U = \\dfrac{5000}{1 + 49\\mathrm{e}^{-0.3t}}$.",
+            "The GDC gives $309.311\\ldots$ Round only at the end: $309$. The units are users per week.",
+            "(b) The rate is positive, so the number of users is increasing. Ten weeks after launch, the app is gaining users at about 309 users per week."
+          ],
+          "answer": "$\\frac{\\mathrm{d}U}{\\mathrm{d}t} \\approx 309\\text{ users per week}$",
+          "check": {
+            "type": "check",
+            "id": "check-app-users-later",
+            "prompt": "Now you try: for the same model, use your GDC to find $\\frac{\\mathrm{d}U}{\\mathrm{d}t}$ when $t = 20$, to 3 s.f.",
+            "hint": "Same function in the derivative tool, now at $x = 20$.",
+            "answer": {
+              "value": 145,
+              "tolerance": 0.5
+            },
+            "explain": "The GDC gives $144.86\\ldots \\approx 145$ users per week. It is still positive, so users are still increasing, but more slowly than the 309 per week at $t = 10$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "diff(5000/(1 + 49*exp(-Rational(3, 10)*t)), t).subs(t, 20)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "diff(5000/(1 + 49*exp(-Rational(3, 10)*t)), t).subs(t, 10)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "derivative-at-point",
+          "values": {
+            "function": "5000/(1+49e^(-0.3X))",
+            "xValue": 10
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Interpret\" a derivative: say what is changing, give the rate with its units, and say whether the quantity is increasing or decreasing at that moment."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\lim_{x \\to a} f(x) = L$: $f(x)$ gets closer and closer to $L$ as $x$ gets closer to $a$ from both sides. The value at $a$ itself doesn't matter.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Estimate a limit from values on both sides of $a$: a table, a graph or your GDC's table.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The gradient of a curve at $P$ is the gradient of the tangent at $P$: the limit of the gradients of chords $PQ$ as $Q$ approaches $P$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f'(x) \\quad \\text{when } y = f(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The derivative is the gradient function and a rate of change, such as $\\frac{\\mathrm{d}V}{\\mathrm{d}r}$ or $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$. Its units are units of the top variable per unit of the bottom one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Where $\\frac{\\mathrm{d}y}{\\mathrm{d}x} > 0$, $y$ is increasing as $x$ increases. Where $\\frac{\\mathrm{d}y}{\\mathrm{d}x} < 0$, $y$ is decreasing.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Stopping at $\\frac{0}{0}$. It only shows the function has no value at $x = a$. Estimate the limit from values on both sides of $a$.",
+    "Taking the limit to be $f(a)$. The limit is what $f(x)$ approaches near $a$; $f(a)$ can be different, or missing.",
+    "Giving the last chord gradient, such as $5.001$, as the gradient of the curve. Give the value the chord gradients approach.",
+    "Substituting the given $V$ into a derivative written in terms of $r$. Find $r$ first, then substitute.",
+    "Rounding an intermediate value, such as $r = 4.92$, before using it. Keep the GDC's full value and round only the final answer.",
+    "Interpreting a rate with no units, no context or the wrong sign. Say what is changing, how fast, in which units, and whether it is rising or falling."
+  ],
+  "examTips": [
+    "\"Estimate\" a limit: look at values on both sides of $a$, then state the single number they approach.",
+    "\"Interpret\" a derivative: give the rate in context with units, and say whether the quantity is increasing or decreasing.",
+    "On any paper, write down the function and the point you put into your GDC, such as $\\frac{\\mathrm{d}U}{\\mathrm{d}t}$ at $t = 10$. A bare answer earns marks only if it is right. Give 3 s.f. unless told otherwise."
+  ],
+  "readingMinutes": 24
+}

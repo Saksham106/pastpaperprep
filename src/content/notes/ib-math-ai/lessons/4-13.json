@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.13",
+  "slug": "non-linear-regression-and-r-squared",
+  "title": "Non-linear regression and R²",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Real data often follow a curve, not a line. Your GDC finds the best curve of the type you choose, and you judge the fit with the [[sum-of-square-residuals|sum of square residuals]] and $R^{2}$. A high $R^{2}$ never settles the choice alone: the context matters too.",
+  "goals": [
+    {
+      "text": "Fit quadratic, cubic, exponential, power and sine models with your GDC, and write the model in context.",
+      "bullets": [
+        "4.13-b1",
+        "4.13-b2"
+      ]
+    },
+    {
+      "text": "Find [[residual|residuals]] and the sum of square residuals for a model, and use $SS_{\\text{res}}$ to compare fits.",
+      "bullets": [
+        "4.13-b3"
+      ]
+    },
+    {
+      "text": "Find $R^{2}$ with your GDC and interpret it as the proportion of the variation in $y$ that the model accounts for.",
+      "bullets": [
+        "4.13-b4",
+        "4.13-b5"
+      ]
+    },
+    {
+      "text": "Use $R^{2} = r^{2}$ for a linear model, and see why $R^{2} = 1$ when $SS_{\\text{res}} = 0$.",
+      "bullets": [
+        "4.13-b4",
+        "4.13-b6"
+      ]
+    },
+    {
+      "text": "Choose between models using context, the shape of the data and [[extrapolation|extrapolation]], not $R^{2}$ alone.",
+      "bullets": [
+        "4.13-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "2.2",
+    "2.5",
+    "2.6",
+    "2.10",
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "non linear regression",
+    "R squared",
+    "coefficient of determination",
+    "sum of squared residuals",
+    "exponential regression",
+    "quadratic regression"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-r-strength",
+      "prompt": "A linear regression gives $r = -0.93$. Which description fits the data?",
+      "hint": "The sign gives the direction; the size gives the strength.",
+      "options": [
+        {
+          "text": "Strong negative linear correlation",
+          "correct": true
+        },
+        {
+          "text": "Weak negative linear correlation",
+          "correct": false
+        },
+        {
+          "text": "Strong positive linear correlation",
+          "correct": false
+        }
+      ],
+      "explain": "$r$ is negative and close to $-1$, so the points lie close to a falling line. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Strong negative linear correlation"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exp-model",
+      "prompt": "A model is $y = 120 \\times 0.8^{t}$. Find $y$ when $t = 3$. Give your answer to 3 s.f.",
+      "hint": "Work out $0.8^{3}$ first.",
+      "answer": {
+        "value": 61.4,
+        "tolerance": 0.05
+      },
+      "explain": "$120 \\times 0.8^{3} = 120 \\times 0.512 = 61.44 \\approx 61.4$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "120*0.8**3",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ln-line",
+      "prompt": "Data plotted as $\\ln y$ against $x$ lie on the line $\\ln y = 0.2x + 1.5$. Find $y$ when $x = 0$, to 3 s.f.",
+      "hint": "At $x = 0$, $\\ln y = 1.5$. Undo the $\\ln$.",
+      "answer": {
+        "value": 4.48,
+        "tolerance": 0.005
+      },
+      "explain": "$\\ln y = 1.5$, so $y = \\mathrm{e}^{1.5} = 4.4816\\ldots \\approx 4.48$. Revise it in {{lesson:2.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "exp(1.5)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "fitting-curves",
+      "heading": "Fitting curves with your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.4}} you fitted a straight line. Many real relationships curve instead: revenue that peaks, a drug that wears off, daylight that rises and falls through the year."
+        },
+        {
+          "type": "text",
+          "text": "You choose the type of model. Your GDC then finds its [[parameter|parameters]] by [[least-squares-regression|least squares regression]]: of all curves of that type, it picks the one that passes closest to the points, measured vertically. For exponential and power models, the GDC does this for $\\ln y$ instead of $y$."
+        },
+        {
+          "type": "definition",
+          "term": "Least squares regression curve",
+          "statement": "For a chosen model type, the least squares regression curve is the curve of that type whose parameters make the sum of the squared vertical distances from the data points to the curve as small as possible.",
+          "plain": "The best-fitting curve of the shape you picked, found by your calculator."
+        },
+        {
+          "type": "text",
+          "text": "The model types in exam questions, with the pattern that suggests each:"
+        },
+        {
+          "type": "text",
+          "text": "1. Linear $y = ax + b$: a steady rate of change. 2. Quadratic $y = ax^{2} + bx + c$: one peak or one trough. 3. Cubic $y = ax^{3} + bx^{2} + cx + d$: up to two turning points."
+        },
+        {
+          "type": "text",
+          "text": "4. Exponential $y = ab^{x}$: the same percentage change for each step in $x$, growth if $b > 1$ and decay if $0 < b < 1$. 5. Power $y = ax^{b}$: $y$ varies with a power of $x$, as mass varies with length. 6. Sine $y = a\\sin(bx + c) + d$: a repeating cycle, such as tides."
+        },
+        {
+          "type": "examTip",
+          "text": "If the question names the form, such as $y = ab^{x}$, run that regression even if another type looks closer. The marks are for the model asked for."
+        },
+        {
+          "type": "example",
+          "id": "ex-bakery-quadratic",
+          "question": "A bakery tries six prices $p$ (dollars) for its sourdough loaf, one per week, and records the weekly revenue $R$ (dollars). $p$: $3.0, 3.5, 4.0, 4.5, 5.0, 5.5$. $R$: $612, 695, 726, 748, 712, 671$. Use your GDC to find the least squares quadratic model for $R$ in terms of $p$. Hence find the price that gives the greatest revenue according to the model, to the nearest cent.",
+          "steps": [
+            "The revenue rises and then falls: one peak, so a quadratic suits the shape.",
+            "Enter $p$ in the first list and $R$ in the second, and run quadratic regression. Write down that you did: this earns the method mark.",
+            "The GDC gives $a = -63.428\\ldots$, $b = 560.171\\ldots$, $c = -494.8\\ldots$. So $R = -63.4p^{2} + 560p - 495$, with each parameter to 3 s.f.",
+            "The peak is at the vertex: $p = -\\frac{b}{2a} = -\\frac{560.171\\ldots}{2 \\times (-63.428\\ldots)} = 4.4157\\ldots$. Use the stored values, not the rounded ones.",
+            "Interpret: the model suggests charging about \\$4.42, which gives about \\$742 a week. This price lies inside the range tested, so the estimate is an interpolation."
+          ],
+          "answer": "$p \\approx 4.42\\text{ dollars}$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "-polyreg([3.0, 3.5, 4.0, 4.5, 5.0, 5.5], [612, 695, 726, 748, 712, 671], 2)[1]/(2*polyreg([3.0, 3.5, 4.0, 4.5, 5.0, 5.5], [612, 695, 726, 748, 712, 671], 2)[0])",
+            "dp": 2
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-quadratic",
+          "values": {
+            "xValues": "3.0, 3.5, 4.0, 4.5, 5.0, 5.5",
+            "yValues": "612, 695, 726, 748, 712, 671"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-caffeine-exponential",
+          "question": "The caffeine concentration $C$ (mg per litre) in a person's blood is measured $t$ hours after a strong coffee. $t$: $1, 2, 3, 4, 5, 6$. $C$: $7.4, 6.3, 5.2, 4.5, 3.7, 3.2$. Use exponential regression to find a model $C = ab^{t}$, and interpret $b$ in context. Give $a$ and $b$ to 3 s.f.",
+          "steps": [
+            "Each hour $C$ falls by a similar fraction: $\\frac{6.3}{7.4} \\approx 0.85$ and $\\frac{5.2}{6.3} \\approx 0.83$. That suggests exponential decay.",
+            "Enter $t$ and $C$ in two lists and run exponential regression ($y = ab^{x}$).",
+            "The GDC gives $a = 8.767\\ldots$ and $b = 0.8440\\ldots$, so $C = 8.77 \\times 0.844^{t}$.",
+            "Interpret $b$: each hour the concentration is multiplied by $0.844$, so it falls by about $15.6\\%$ per hour. The model's values at $t = 1, 2, 3, \\ldots$ form a [[geometric-sequence|geometric sequence]] with common ratio $0.844$.",
+            "Interpret $a$: $8.77$ mg per litre is the model's value at $t = 0$. Caffeine takes time to be absorbed, so the model only describes the fall after the first hour."
+          ],
+          "answer": "$a \\approx 8.77, \\; b \\approx 0.844$",
+          "video": null,
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"a\": expreg([1, 2, 3, 4, 5, 6], [7.4, 6.3, 5.2, 4.5, 3.7, 3.2])[0], \"b\": expreg([1, 2, 3, 4, 5, 6], [7.4, 6.3, 5.2, 4.5, 3.7, 3.2])[1]}]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-exponential",
+          "values": {
+            "xValues": "1, 2, 3, 4, 5, 6",
+            "yValues": "7.4, 6.3, 5.2, 4.5, 3.7, 3.2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some models add a known constant, such as $T = ab^{t} + 20$ for a drink cooling in a room at $20^{\\circ}\\text{C}$. The GDC's exponential regression has no added constant. So subtract $20$ from every $T$ first, then run the regression on $T - 20$ against $t$."
+        },
+        {
+          "type": "check",
+          "id": "check-apple-power",
+          "prompt": "Apples of diameter $d$ cm have mass $m$ g. $d$: $4, 5, 6, 7, 8$. $m$: $30, 61, 101, 162, 243$. Use power regression to fit $m = ad^{b}$. Find $b$ to 3 s.f.",
+          "hint": "Run power regression ($y = ax^{b}$) with $d$ as the first list and $m$ as the second.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0.005
+          },
+          "explain": "The GDC gives $a = 0.4767\\ldots$ and $b = 2.9969\\ldots \\approx 3.00$. Mass grows roughly with the cube of the diameter, as volume does.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "powreg([4, 5, 6, 7, 8], [30, 61, 101, 162, 243])[1]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-daylight-period",
+          "prompt": "Sine regression on daylight hours $H$ for day $t$ of the year gives $H = 3.6\\sin(0.0172t - 1.39) + 12.2$, with angles in radians. Find the period of the model in days, to 3 s.f.",
+          "hint": "For $y = a\\sin(bx + c) + d$ the period is $\\frac{2\\pi}{b}$.",
+          "answer": {
+            "value": 365,
+            "tolerance": 0.5
+          },
+          "explain": "Period $= \\frac{2\\pi}{0.0172} = 365.30\\ldots \\approx 365$ days. The cycle repeats once a year, which makes sense for daylight.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi/0.0172",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-harbour-model",
+          "prompt": "A harbour records the depth of water every hour for three days. Which type of model should you fit?",
+          "hint": "Tides rise and fall again and again.",
+          "options": [
+            {
+              "text": "Sine",
+              "correct": true
+            },
+            {
+              "text": "Exponential",
+              "correct": false
+            },
+            {
+              "text": "Quadratic",
+              "correct": false
+            },
+            {
+              "text": "Power",
+              "correct": false
+            }
+          ],
+          "explain": "The depth repeats in a cycle, so a sine model fits. A quadratic has only one turning point, and exponential and power models never repeat.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Sine"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Running linear regression on data that clearly curve, or regressing $C$ on $t$ when the question asks for $\\ln C$ against $t$. Use the variables and the form the question names."
+        }
+      ]
+    },
+    {
+      "id": "residuals",
+      "heading": "Residuals and the sum of square residuals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How close is a model to the data? Look at the vertical gap between each point and the curve. In {{lesson:4.4}} the [[regression-line|regression line]] made the squares of these gaps add up to as little as possible."
+        },
+        {
+          "type": "definition",
+          "term": "Residual",
+          "statement": "The residual of a data point is its observed $y$-value minus the value $\\hat{y}$ (read 'y hat') that the model predicts at the same $x$: residual $= y - \\hat{y}$.",
+          "plain": "How far the point sits above (positive) or below (negative) the curve."
+        },
+        {
+          "type": "figure",
+          "id": "4-13-residuals",
+          "alt": "Five data points around a rising curve labelled model. A dashed vertical segment joins each point to the curve. For the top point, the point is labelled observed y, the curve below it predicted, and the segment between them residual. A point below the curve is labelled negative residual.",
+          "caption": "Residuals are vertical gaps: positive above the curve, negative below it."
+        },
+        {
+          "type": "text",
+          "text": "Positive and negative residuals partly cancel, so their plain sum tells you little. Squaring makes every gap count, and big gaps count most."
+        },
+        {
+          "type": "definition",
+          "term": "Sum of square residuals",
+          "statement": "The sum of square residuals $SS_{\\text{res}}$ is the total of the squared residuals over all the data points.",
+          "plain": "Square each residual, then add them up."
+        },
+        {
+          "type": "formula",
+          "tex": "SS_{\\text{res}} = \\sum_{i=1}^{n} \\left(y_{i} - \\hat{y}_{i}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit, and $SS_{\\text{res}} = 0$ only when every point lies on the curve. The least squares curve of a chosen type has the smallest $SS_{\\text{res}}$ of all curves of that type.",
+          "why": "Each squared residual is at least $0$, so the total is $0$ only when every residual is $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-seedling-ssres",
+          "question": "A gardener models a seedling's height $h$ cm after $w$ weeks by $h = 2.5 \\times 1.3^{w}$. She measures $h = 3.1, 4.4, 5.3, 7.2$ at $w = 1, 2, 3, 4$. Find $SS_{\\text{res}}$ for this model, to 3 s.f.",
+          "steps": [
+            "Predicted heights: $2.5 \\times 1.3 = 3.25$, $2.5 \\times 1.3^{2} = 4.225$, $2.5 \\times 1.3^{3} = 5.4925$, $2.5 \\times 1.3^{4} = 7.14025$.",
+            "Residuals, observed minus predicted: $-0.15$, $0.175$, $-0.1925$, $0.05975$.",
+            "$SS_{\\text{res}} = (-0.15)^{2} + 0.175^{2} + (-0.1925)^{2} + 0.05975^{2} = 0.09375\\ldots$",
+            "Interpret: every prediction is within $0.2$ cm of the measured height, so the model fits these four weeks closely."
+          ],
+          "answer": "$SS_{\\text{res}} \\approx 0.0938$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3.1 - 2.5*1.3)**2 + (4.4 - 2.5*1.3**2)**2 + (5.3 - 2.5*1.3**3)**2 + (7.2 - 2.5*1.3**4)**2",
+            "sf": 3
+          },
+          "check": {
+            "type": "check",
+            "id": "check-seedling-residual",
+            "prompt": "Now you try: in week $5$ the seedling is $9.8$ cm tall. Find the residual for this point, to 3 s.f.",
+            "hint": "Work out $2.5 \\times 1.3^{5}$, then subtract it from $9.8$.",
+            "answer": {
+              "value": 0.518,
+              "tolerance": 0.0005
+            },
+            "explain": "Predicted: $2.5 \\times 1.3^{5} = 9.282325$. Residual $= 9.8 - 9.282325 = 0.517675 \\approx 0.518$ cm. It is positive: the seedling is taller than the model predicts.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "9.8 - 2.5*1.3**5",
+              "sf": 3
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-braking-least-squares",
+          "question": "A road-safety study models braking distance $d$ m against speed $v$ m/s by $d = kv^{2}$. Its data: $v = 10, 15, 20, 25$ give $d = 7.8, 17.0, 31.5, 48.9$. Write $SS_{\\text{res}}$ as a quadratic in $k$, and hence find the least squares value of $k$ to 3 s.f.",
+          "steps": [
+            "Predicted distances: $100k$, $225k$, $400k$ and $625k$.",
+            "$SS_{\\text{res}} = (7.8 - 100k)^{2} + (17.0 - 225k)^{2} + (31.5 - 400k)^{2} + (48.9 - 625k)^{2}$.",
+            "Collect terms. $k^{2}$: $100^{2} + 225^{2} + 400^{2} + 625^{2} = 611\\,250$. $k$: $-2(780 + 3825 + 12\\,600 + 30\\,562.5) = -95\\,535$. Constant: $7.8^{2} + 17.0^{2} + 31.5^{2} + 48.9^{2} = 3733.3$.",
+            "So $SS_{\\text{res}} = 611\\,250k^{2} - 95\\,535k + 3733.3$, a parabola that opens upwards.",
+            "Its minimum is at the vertex: $k = \\frac{95\\,535}{2 \\times 611\\,250} = 0.078147\\ldots$ You could also graph it and find the minimum on your GDC.",
+            "So the least squares model is $d = 0.0781v^{2}$. Any other $k$ gives a larger $SS_{\\text{res}}$: that is what least squares means."
+          ],
+          "answer": "$k \\approx 0.0781$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(7.8*100 + 17.0*225 + 31.5*400 + 48.9*625)/(100**2 + 225**2 + 400**2 + 625**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compare-ssres",
+          "prompt": "Two models are fitted to the same $10$ readings of a phone's battery temperature. Model A has $SS_{\\text{res}} = 14.2$ and model B has $SS_{\\text{res}} = 9.6$. Which statement is correct?",
+          "hint": "Smaller $SS_{\\text{res}}$ means the points are closer to the curve. Does that say anything about new readings?",
+          "options": [
+            {
+              "text": "Model B fits these readings more closely",
+              "correct": true
+            },
+            {
+              "text": "Model A fits these readings more closely",
+              "correct": false
+            },
+            {
+              "text": "Model B will predict every future reading more accurately",
+              "correct": false
+            }
+          ],
+          "explain": "$9.6 < 14.2$, so B is closer to these $10$ points. That says nothing certain about readings outside the data.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Model B fits these readings more closely"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Comparing $SS_{\\text{res}}$ for models fitted to different data sets, or with $y$ in different units. It only compares models on the same data points."
+        }
+      ]
+    },
+    {
+      "id": "r-squared",
+      "heading": "The coefficient of determination",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The $y$-values in a data set vary. Part of that variation follows the model: as $x$ changes, the model's $y$ changes too. The rest is scatter that the model misses."
+        },
+        {
+          "type": "definition",
+          "term": "Coefficient of determination",
+          "statement": "The [[coefficient-of-determination|coefficient of determination]] $R^{2}$ is the proportion of the variation in $y$ that the model accounts for. The value your GDC reports lies between $0$ and $1$.",
+          "plain": "$R^{2} = 0.9$ means the model accounts for $90\\%$ of how much $y$ varies."
+        },
+        {
+          "type": "text",
+          "text": "Close to $1$: the points lie close to the curve. Close to $0$: the model accounts for little of the variation. Interpret it with the context's variable names."
+        },
+        {
+          "type": "result",
+          "statement": "For a linear least squares model $y = ax + b$, $R^{2} = r^{2}$, where $r$ is [[pearsons-product-moment-correlation-coefficient|Pearson's product-moment correlation coefficient]]. So $r = \\pm\\sqrt{R^{2}}$, with the same sign as the gradient $a$.",
+          "why": "Both measure how close the points are to the same least squares line; your GDC shows $r$ and $r^{2}$ together after a linear regression."
+        },
+        {
+          "type": "example",
+          "id": "ex-rent-linear",
+          "question": "For eight one-bedroom flats, $x$ is the distance in km from a city centre and $y$ is the monthly rent in euros. $x$: $0.8, 2.1, 3.5, 5.2, 6.4, 8.0, 9.7, 11.3$. $y$: $1480, 1420, 1290, 1310, 1150, 1180, 1010, 1020$. Find $R^{2}$ for the linear regression model of $y$ on $x$ and interpret it.",
+          "steps": [
+            "Enter the lists and run linear regression. The GDC gives $r = -0.96563\\ldots$ and $r^{2} = 0.93244\\ldots$",
+            "For a linear model $R^{2} = r^{2}$, so $R^{2} = 0.932$ to 3 s.f.",
+            "Interpret: about $93.2\\%$ of the variation in rent between these flats is accounted for by the linear model in distance.",
+            "The other $6.8\\%$ comes from things the model leaves out, such as floor area or condition."
+          ],
+          "answer": "$R^{2} \\approx 0.932$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([0.8, 2.1, 3.5, 5.2, 6.4, 8.0, 9.7, 11.3], [1480, 1420, 1290, 1310, 1150, 1180, 1010, 1020])**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "0.8, 2.1, 3.5, 5.2, 6.4, 8.0, 9.7, 11.3",
+            "yValues": "1480, 1420, 1290, 1310, 1150, 1180, 1010, 1020"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-germination-quadratic",
+          "question": "A seed lab keeps batches of seeds at temperature $T$ (°C) and records the percentage $G$ that germinate. $T$: $10, 14, 18, 22, 26, 30, 34$. $G$: $31, 52, 70, 78, 74, 61, 38$. Use your GDC to find $R^{2}$ for the quadratic regression model of $G$ on $T$, and interpret it.",
+          "steps": [
+            "$G$ rises and then falls, so try a quadratic. On a TI-84, turn on stat diagnostics first or $R^{2}$ is not shown.",
+            "Quadratic regression gives $G = -0.297T^{2} + 13.4T - 75.4$ and $R^{2} = 0.99384\\ldots$",
+            "Interpret: about $99.4\\%$ of the variation in the germination percentage is accounted for by the quadratic model in temperature.",
+            "Compare: a linear model gives $r^{2} = 0.0335$. A straight line accounts for almost none of the variation, although the relationship is strong. It just isn't linear."
+          ],
+          "answer": "$R^{2} \\approx 0.994$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1 - (Matrix([[31, 52, 70, 78, 74, 61, 38]])*(eye(7) - Matrix([[10**2, 10, 1], [14**2, 14, 1], [18**2, 18, 1], [22**2, 22, 1], [26**2, 26, 1], [30**2, 30, 1], [34**2, 34, 1]])*(Matrix([[10**2, 10, 1], [14**2, 14, 1], [18**2, 18, 1], [22**2, 22, 1], [26**2, 26, 1], [30**2, 30, 1], [34**2, 34, 1]]).T*Matrix([[10**2, 10, 1], [14**2, 14, 1], [18**2, 18, 1], [22**2, 22, 1], [26**2, 26, 1], [30**2, 30, 1], [34**2, 34, 1]])).inv()*Matrix([[10**2, 10, 1], [14**2, 14, 1], [18**2, 18, 1], [22**2, 22, 1], [26**2, 26, 1], [30**2, 30, 1], [34**2, 34, 1]]).T)*Matrix([31, 52, 70, 78, 74, 61, 38]))[0]/(7*sdpop([31, 52, 70, 78, 74, 61, 38])**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-diagnostic-on",
+          "values": {}
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-quadratic",
+          "values": {
+            "xValues": "10, 14, 18, 22, 26, 30, 34",
+            "yValues": "31, 52, 70, 78, 74, 61, 38"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Where $R^{2}$ comes from (useful for understanding; the exam does not test this formula). Compare $SS_{\\text{res}}$ with the total variation of $y$ about its mean $\\bar{y}$:"
+        },
+        {
+          "type": "formula",
+          "tex": "R^{2} = 1 - \\frac{SS_{\\text{res}}}{SS_{\\text{tot}}}, \\qquad SS_{\\text{tot}} = \\sum_{i=1}^{n} \\left(y_{i} - \\bar{y}\\right)^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$SS_{\\text{tot}}$ is the $SS_{\\text{res}}$ of the flat model $y = \\bar{y}$, which ignores $x$ completely. If every point lies on the curve, $SS_{\\text{res}} = 0$, so $R^{2} = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-r-from-r2",
+          "prompt": "A linear model of a used car's value against its age has $R^{2} = 0.7225$. Find Pearson's $r$, to 3 s.f.",
+          "hint": "$R^{2} = r^{2}$. Does value rise or fall as age increases?",
+          "answer": {
+            "value": -0.85,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\sqrt{0.7225} = 0.85$. Value falls as age rises, so the gradient is negative and $r = -0.850$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-sqrt(0.7225)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-r2-formula",
+          "prompt": "A model has $SS_{\\text{res}} = 18.4$ and $SS_{\\text{tot}} = 152$. Find $R^{2}$, to 3 s.f.",
+          "hint": "Use $R^{2} = 1 - \\frac{SS_{\\text{res}}}{SS_{\\text{tot}}}$.",
+          "answer": {
+            "value": 0.879,
+            "tolerance": 0.0005
+          },
+          "explain": "$R^{2} = 1 - \\frac{18.4}{152} = 0.87894\\ldots \\approx 0.879$. The model accounts for about $87.9\\%$ of the variation in $y$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - 18.4/152",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-r2-meaning",
+          "prompt": "A quadratic model of wheat yield against rainfall has $R^{2} = 0.64$. Which statement is correct?",
+          "hint": "$R^{2}$ is about variation in $y$, not about individual points.",
+          "options": [
+            {
+              "text": "The model accounts for 64% of the variation in yield",
+              "correct": true
+            },
+            {
+              "text": "64% of the data points lie on the curve",
+              "correct": false
+            },
+            {
+              "text": "The model's predictions are 64% accurate",
+              "correct": false
+            }
+          ],
+          "explain": "$R^{2}$ is the proportion of the variation in the second variable, yield, that the model accounts for. It doesn't count points or measure the accuracy of single predictions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The model accounts for 64% of the variation in yield"
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Choosing between models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A high $R^{2}$ says the curve is close to the points you have. It doesn't say the model suits the situation, or that predictions outside the data can be trusted."
+        },
+        {
+          "type": "text",
+          "text": "Before you trust a model, check: 1. Context. Does it behave sensibly? Sales can't be negative, and a cooling drink levels off at room temperature."
+        },
+        {
+          "type": "text",
+          "text": "2. Extrapolation. A prediction outside the range of the data assumes the pattern carries on. Quadratic and cubic models often turn sharply just outside the data."
+        },
+        {
+          "type": "text",
+          "text": "3. Extra terms. On the same data a cubic never has a lower $R^{2}$ than a quadratic, because a quadratic is a cubic with $a = 0$. So a slightly higher $R^{2}$ from a cubic is weak evidence."
+        },
+        {
+          "type": "text",
+          "text": "4. Like with like. For exponential and power regression your GDC fits a straight line to $\\ln y$, and the $r^{2}$ it shows belongs to that line. Don't rank it directly against a quadratic's $R^{2}$."
+        },
+        {
+          "type": "result",
+          "statement": "$R^{2}$ alone is not a good way to choose between models. Use it together with the context, the shape of the [[scatter-diagram|scatter diagram]] and whether you need to extrapolate.",
+          "why": "$R^{2}$ only measures how close the model is to the data you already have."
+        },
+        {
+          "type": "figure",
+          "id": "4-13-game-sales",
+          "alt": "Eight data points for weekly game sales, falling from 52 thousand in week 1 to 13 thousand in week 8. A solid quadratic curve and a dashed exponential curve both pass close to the points. In the shaded region beyond week 8, the quadratic turns and rises to about 100 thousand by week 20, while the exponential keeps falling towards zero.",
+          "caption": "Both models fit weeks $1$ to $8$. Only one makes sense beyond them."
+        },
+        {
+          "type": "example",
+          "id": "ex-game-sales",
+          "question": "Weekly sales $S$ (thousands) of a new video game in weeks $t = 1$ to $8$ are $52, 41, 33, 27, 22, 18, 15, 13$. Fit a quadratic model, use it to predict sales in week $20$, and comment on the prediction.",
+          "steps": [
+            "Quadratic regression gives $S = 0.673t^{2} - 11.4t + 62.0$, with $R^{2} = 0.998$: a very close fit to weeks $1$ to $8$.",
+            "At $t = 20$: $0.6726\\ldots \\times 20^{2} - 11.446\\ldots \\times 20 + 61.982\\ldots = 102.10\\ldots$, so about $102$ thousand.",
+            "Comment: that is about $8$ times the week $8$ sales. The quadratic has its minimum near $t = 8.5$ and rises after it, but a game's sales don't climb back like this.",
+            "Week $20$ is far outside the data, so this is an extrapolation. Exponential regression gives $S = 61.0 \\times 0.819^{t}$, which keeps falling (about $1.13$ thousand in week $20$): a more sensible long-term shape."
+          ],
+          "answer": "$S \\approx 102$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "polyreg([1, 2, 3, 4, 5, 6, 7, 8], [52, 41, 33, 27, 22, 18, 15, 13], 2)[0]*20**2 + polyreg([1, 2, 3, 4, 5, 6, 7, 8], [52, 41, 33, 27, 22, 18, 15, 13], 2)[1]*20 + polyreg([1, 2, 3, 4, 5, 6, 7, 8], [52, 41, 33, 27, 22, 18, 15, 13], 2)[2]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-cubic",
+          "question": "A forester measures a tree's height $h$ m at ages $2, 4, 6, 8, 10, 12, 14$ years: $1.2, 2.6, 4.2, 5.7, 6.5, 7.1, 7.4$. A quadratic model has $R^{2} = 0.996$ and a cubic model has $R^{2} = 0.998$. She picks the cubic because its $R^{2}$ is higher, and uses it to predict the height at $25$ years. Comment on her choice.",
+          "steps": [
+            "A cubic is a quadratic plus one extra term, so on the same data its $R^{2}$ is never lower. A rise from $0.996$ to $0.998$ is no real evidence.",
+            "The cubic predicts $h \\approx -4.88$ m at $25$ years: impossible. The quadratic predicts $4.37$ m, shorter than the tree was at $14$: also impossible.",
+            "Age $25$ is far outside the data ($2$ to $14$ years), so both predictions are extrapolations. Trees slow down and level off, so a model that levels off would suit the context better."
+          ],
+          "answer": "Not a good choice: a cubic's $R^{2}$ is never lower than a quadratic's on the same data, and at $25$ years both models extrapolate to impossible heights.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "higher R² is guaranteed for the cubic; both extrapolations give impossible heights",
+            "requires": [
+              "never lower",
+              "extrapolate",
+              "impossible"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-museum-cubic",
+          "prompt": "A museum fits $V = -0.8t^{3} + 12t^{2} + 5t + 40$ to daily visitors $V$ on days $0 \\le t \\le 12$ of an exhibition. Find the model's value of $V$ at $t = 18$.",
+          "hint": "Substitute $t = 18$: you need $18^{3}$ and $18^{2}$.",
+          "answer": {
+            "value": -648,
+            "tolerance": 0.5
+          },
+          "explain": "$-0.8(5832) + 12(324) + 5(18) + 40 = -647.6 \\approx -648$ (3 s.f.). A negative number of visitors is impossible: day $18$ is outside the data, so the cubic can't be trusted there.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-0.8*18**3 + 12*18**2 + 5*18 + 40",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-justified-conclusion",
+          "prompt": "On the same data, model P has $R^{2} = 0.97$ and model Q has $R^{2} = 0.95$. Which conclusion is justified?",
+          "hint": "What does $R^{2}$ measure, and what does it leave out?",
+          "options": [
+            {
+              "text": "P fits these data slightly more closely, but the context must be checked too",
+              "correct": true
+            },
+            {
+              "text": "P is the correct model",
+              "correct": false
+            },
+            {
+              "text": "P will predict future values more accurately",
+              "correct": false
+            }
+          ],
+          "explain": "$R^{2}$ only compares closeness to these data. Whether P suits the situation, and whether it predicts well outside the data, depends on the context.",
+          "verify": {
+            "kind": "choice",
+            "truth": "P fits these data slightly more closely, but the context must be checked too"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Choose the model type from the context and the scatter diagram (or the form the question names); the GDC fits the parameters. Give them to 3 s.f.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Residual $= y - \\hat{y}$, observed minus predicted: positive above the curve, negative below.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "SS_{\\text{res}} = \\sum_{i=1}^{n} \\left(y_{i} - \\hat{y}_{i}\\right)^{2}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit; the least squares curve of a type has the smallest $SS_{\\text{res}}$ of that type.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$R^{2}$ is the proportion of the variation in $y$ that the model accounts for. For a linear least squares model, $R^{2} = r^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$R^{2}$ alone does not choose a model: check the context, the shape and any extrapolation. On the same data, a cubic regression's $R^{2}$ is never lower than a quadratic regression's.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Fitting the wrong model: linear regression on curved data, or $y$ against $x$ when the question asks for $\\ln y$ against $x$. Use the form and variables the question names.",
+    "Working out a residual as predicted minus observed. A residual is observed minus predicted, so a point above the curve has a positive residual.",
+    "Rounding parameters to 2 s.f., or using rounded parameters for later predictions. Give 3 s.f. and use the GDC's stored values.",
+    "Stating which model is better with no reason. Quote both values ($R^{2}$ or $SS_{\\text{res}}$), compare them, and add a reason from the context.",
+    "Ignoring a known added constant. For $y = ab^{x} + 20$, subtract $20$ from the $y$-values before running exponential regression.",
+    "Trusting a high $R^{2}$ far outside the data. Check what the model predicts there and whether it makes sense."
+  ],
+  "examTips": [
+    "Find the model: write which regression you ran, then the equation with each parameter to 3 s.f., using the question's variables (such as $C$ and $t$, not $y$ and $x$).",
+    "Find $SS_{\\text{res}}$: show the predicted values and the sum of squared differences before the final value. Those lines earn the method marks.",
+    "Interpret $R^{2}$: say what proportion of the variation in the named variable the model accounts for, such as 'about $93\\%$ of the variation in rent'.",
+    "Justify which model is better: compare the two values, then give a reason from the context, such as long-term behaviour. A choice with no reason earns no marks."
+  ],
+  "readingMinutes": 30
+}

@@ -2,7 +2,7 @@
   {
     "id": "poisson-distribution",
     "term": "Poisson distribution",
-    "definition": "TODO: X ~ Po(m): the number of events in a fixed interval when events are independent and occur at a uniform average rate; mean = variance = m",
+    "definition": "The distribution $X \\sim \\mathrm{Po}(m)$ of the number of events in a fixed interval of time or space, when the events happen independently at a uniform average rate of $m$ per interval; $X$ takes the values $0, 1, 2, \\ldots$ and has mean and variance both equal to $m$.",
     "lesson": "4.17"
   }
 ]

@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.15",
+  "slug": "sample-mean-and-the-central-limit-theorem",
+  "title": "Sample mean and the central limit theorem",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Add or subtract independent normal variables and the result is normal too. In particular, the mean $\\bar{X}$ of a [[random-sample|random sample]] of size $n$ from $\\mathrm{N}(\\mu, \\sigma^{2})$ is $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$. The [[central-limit-theorem|central limit theorem]] says that for a large [[sample|sample]] $\\bar{X}$ is approximately normal whatever the [[population|population]] looks like, and in exams $n > 30$ is large enough.",
+  "goals": [
+    {
+      "text": "Find probabilities for sums and differences of independent normal variables, such as a total mass or a race between two people.",
+      "bullets": [
+        "4.15-b1"
+      ]
+    },
+    {
+      "text": "Write down the [[distribution-of-the-sample-mean|distribution of the sample mean]] $\\bar{X}$ for a random sample from a normal population, and use it to find probabilities.",
+      "bullets": [
+        "4.15-b1"
+      ]
+    },
+    {
+      "text": "Use the central limit theorem to treat $\\bar{X}$ as approximately normal for a large sample from any population, and say when it applies.",
+      "bullets": [
+        "4.15-b2"
+      ]
+    },
+    {
+      "text": "Interpret a probability about a sample mean in context, and explain why means vary less than single values.",
+      "bullets": [
+        "4.15-b1",
+        "4.15-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.3",
+    "4.9",
+    "4.14"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "central limit theorem",
+    "distribution of the sample mean",
+    "sampling distribution of the mean",
+    "sum of independent normal random variables",
+    "X bar normal distribution",
+    "variance of the sample mean sigma squared over n"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-normal-below",
+      "prompt": "$X \\sim \\mathrm{N}(50, 6^{2})$. Find $\\mathrm{P}(X < 58)$. Give your answer to 3 s.f.",
+      "hint": "Use normal cdf on your GDC with a very large negative lower bound. Enter the [[standard-deviation|standard deviation]] $6$, not the variance.",
+      "answer": {
+        "value": 0.909,
+        "tolerance": 0.0005
+      },
+      "explain": "Normal cdf with lower $-10^{99}$, upper $58$, $\\mu = 50$, $\\sigma = 6$ gives $0.9087\\ldots \\approx 0.909$. Revise it in {{lesson:4.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "normcdf(-oo, 58, 50, 6)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-variance-of-total",
+      "prompt": "$X_{1}$, $X_{2}$ and $X_{3}$ are independent, and each has variance $4$. Find $\\mathrm{Var}(X_{1} + X_{2} + X_{3})$.",
+      "hint": "For independent variables, the variances add.",
+      "answer": {
+        "value": 12,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{Var}(X_{1} + X_{2} + X_{3}) = 4 + 4 + 4 = 12$. It is not $3^{2} \\times 4 = 36$, which is $\\mathrm{Var}(3X_{1})$. Revise it in {{lesson:4.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*4",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-random-sample-gym",
+      "prompt": "A gym wants a random sample of $40$ of its members. Which method gives one?",
+      "hint": "In a random sample, every member has the same chance of being picked.",
+      "options": [
+        {
+          "text": "Number every member and use a random number generator to pick 40",
+          "correct": true
+        },
+        {
+          "text": "Ask the first 40 members who arrive on Monday morning",
+          "correct": false
+        },
+        {
+          "text": "Ask 40 members who volunteer through the gym app",
+          "correct": false
+        }
+      ],
+      "explain": "Only the random number generator gives every member the same chance. Monday-morning members and volunteers are not typical of all members. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Number every member and use a random number generator to pick 40"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "combining-normals",
+      "heading": "Sums and differences of normal variables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.14}} you found the mean and variance of a [[linear-combination-of-random-variables|linear combination]] such as $X + Y$ or $X - Y$. That gives the centre and the spread, but not the shape. Without the shape, you can't find a probability."
+        },
+        {
+          "type": "text",
+          "text": "For variables with a [[normal-distribution|normal distribution]] the shape is settled too. Add or subtract independent normal variables, and the result is normal again."
+        },
+        {
+          "type": "result",
+          "statement": "If $X_{1}, X_{2}, \\dots, X_{n}$ are independent and each $X_{i} \\sim \\mathrm{N}(\\mu_{i}, \\sigma_{i}^{2})$, then $a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}$ is normally distributed, for any constants $a_{1}, \\dots, a_{n}$. Its mean and variance come from the linear combination rules.",
+          "why": "You need to know this, not prove it. The normal shape is the new fact; the mean and variance are the rules from {{lesson:4.14}}."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}\\mathrm{E}(X_{1}) \\pm a_{2}\\mathrm{E}(X_{2}) \\pm \\dots \\pm a_{n}\\mathrm{E}(X_{n})",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-combination-mean"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}^{2}\\,\\mathrm{Var}(X_{1}) + a_{2}^{2}\\,\\mathrm{Var}(X_{2}) + \\dots + a_{n}^{2}\\,\\mathrm{Var}(X_{n})",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-combination-variance"
+        },
+        {
+          "type": "text",
+          "text": "Both rules are in the formula booklet, and the variance rule is for independent variables. The normal shape needs two things: every $X_{i}$ is normal, and they are independent."
+        },
+        {
+          "type": "text",
+          "text": "1. Define the combination in words and symbols, such as $T = B + C$, the total mass."
+        },
+        {
+          "type": "text",
+          "text": "2. Find its mean and its variance, then write its distribution, such as $T \\sim \\mathrm{N}(3250, 4500)$."
+        },
+        {
+          "type": "text",
+          "text": "3. Use normal cdf on your GDC, entering the standard deviation $\\sqrt{\\text{variance}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-comb-hamper",
+          "question": "A gift hamper is packed in a basket whose mass $B$ grams is modelled by $\\mathrm{N}(850, 30^{2})$. The food inside has mass $C$ grams, where $C \\sim \\mathrm{N}(2400, 60^{2})$, independent of $B$. Find the probability that a packed hamper weighs more than $3.3$ kg.",
+          "steps": [
+            "Let $T = B + C$ be the total mass in grams. $B$ and $C$ are independent and normal, so $T$ is normal.",
+            "Mean: $\\mathrm{E}(T) = 850 + 2400 = 3250$.",
+            "Variance: $\\mathrm{Var}(T) = 30^{2} + 60^{2} = 900 + 3600 = 4500$, so $T \\sim \\mathrm{N}(3250, 4500)$.",
+            "Work in grams: $3.3$ kg is $3300$ g. On the GDC, normal cdf with lower $3300$, upper $10^{99}$, $\\mu = 3250$ and $\\sigma = \\sqrt{4500} = 67.08\\ldots$",
+            "$\\mathrm{P}(T > 3300) = 0.2280\\ldots$, so about $23\\%$ of packed hampers weigh more than $3.3$ kg."
+          ],
+          "answer": "$\\mathrm{P}(T > 3300) \\approx 0.228$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(3300, oo, 850 + 2400, sqrt(30**2 + 60**2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-comb-race",
+          "question": "Over $400$ m, Amara's time $A$ seconds is modelled by $\\mathrm{N}(58.2, 1.1^{2})$ and Bea's time $B$ seconds by $\\mathrm{N}(59.0, 0.8^{2})$. Their times are independent. Find the probability that Bea beats Amara in a race, and comment on the claim that Amara always wins. Give your answer to 3 s.f.",
+          "steps": [
+            "Bea wins when her time is shorter: $B < A$, that is $D = A - B > 0$.",
+            "Mean: $\\mathrm{E}(D) = 58.2 - 59.0 = -0.8$.",
+            "Variance: $\\mathrm{Var}(D) = 1.1^{2} + 0.8^{2} = 1.21 + 0.64 = 1.85$. The variances add, even for a difference.",
+            "$A$ and $B$ are normal and independent, so $D \\sim \\mathrm{N}(-0.8, 1.85)$.",
+            "GDC: normal cdf with lower $0$, upper $10^{99}$, $\\mu = -0.8$, $\\sigma = \\sqrt{1.85}$. So $\\mathrm{P}(D > 0) = 0.2782\\ldots$",
+            "Comment: Amara is faster on average, but Bea wins about $28\\%$ of races, more than $1$ in $4$. The claim that Amara always wins is wrong."
+          ],
+          "answer": "$\\mathrm{P}(A - B > 0) \\approx 0.278$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(0, oo, Rational(582, 10) - Rational(590, 10), sqrt(Rational(11, 10)**2 + Rational(8, 10)**2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": "0",
+            "upper": "1E99",
+            "mean": "-0.8",
+            "sd": "sqrt(1.85)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Entering the variance as $\\sigma$ in the GDC. For $D \\sim \\mathrm{N}(-0.8, 1.85)$, enter $\\sigma = \\sqrt{1.85}$, not $1.85$."
+        },
+        {
+          "type": "check",
+          "id": "check-comb-difference",
+          "prompt": "$X \\sim \\mathrm{N}(20, 3^{2})$ and $Y \\sim \\mathrm{N}(15, 4^{2})$ are independent, and $D = X - Y$. $D$ is normal with mean $5$. Find $\\mathrm{Var}(D)$.",
+          "hint": "Square each standard deviation, then add.",
+          "options": [
+            {
+              "text": "$\\mathrm{Var}(D) = 25$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{Var}(D) = 7$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{Var}(D) = 1$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{Var}(D) = 49$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Var}(D) = 3^{2} + 4^{2} = 25$, so $D \\sim \\mathrm{N}(5, 25)$. Subtracting the variances gives $7$; subtracting the standard deviations gives $1$; adding them before squaring gives $49$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3**2 + 4**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-comb-lift",
+          "prompt": "A lift carries at most $680$ kg. The masses of adults who use it are modelled by $\\mathrm{N}(78, 12^{2})$ kg, independently. Eight adults chosen at random get in. Find the probability that their total mass is more than $680$ kg. Give your answer to 3 s.f.",
+          "hint": "Eight different people: the total has variance $8 \\times 12^{2}$, not $8^{2} \\times 12^{2}$.",
+          "answer": {
+            "value": 0.0495,
+            "tolerance": 5e-05
+          },
+          "explain": "The total $T \\sim \\mathrm{N}(8 \\times 78, 8 \\times 12^{2}) = \\mathrm{N}(624, 1152)$. Then $\\mathrm{P}(T > 680) = 0.04948\\ldots \\approx 0.0495$: about $1$ random group of eight adults in $20$ is over the limit.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "normcdf(680, oo, 8*78, sqrt(8*12**2))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sample-mean",
+      "heading": "The mean of a sample from a normal population",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One bottle from a filling machine may be well off target. Average nine bottles, and the light and heavy ones partly cancel out. So the mean lands closer to the target than a single bottle usually does."
+        },
+        {
+          "type": "text",
+          "text": "Take a random sample $X_{1}, X_{2}, \\dots, X_{n}$ from a population with mean $\\mu$ and variance $\\sigma^{2}$. Each $X_{i}$ has the population's distribution, and you treat them as independent. Their mean $\\bar{X} = \\frac{1}{n}(X_{1} + X_{2} + \\dots + X_{n})$ is a linear combination with every coefficient $\\frac{1}{n}$."
+        },
+        {
+          "type": "text",
+          "text": "The rules give $\\mathrm{E}(\\bar{X}) = \\mu$ and $\\mathrm{Var}(\\bar{X}) = n \\times \\frac{1}{n^{2}}\\sigma^{2} = \\frac{\\sigma^{2}}{n}$. If the population is normal, $\\bar{X}$ is a linear combination of independent normal variables, so it is normal too. This is the [[distribution-of-the-sample-mean|distribution of the sample mean]]."
+        },
+        {
+          "type": "definition",
+          "term": "Distribution of the sample mean",
+          "statement": "For a random sample of size $n$ from a population with mean $\\mu$ and variance $\\sigma^{2}$, the sample mean $\\bar{X}$ has mean $\\mu$ and variance $\\frac{\\sigma^{2}}{n}$. If the population is $\\mathrm{N}(\\mu, \\sigma^{2})$, then $\\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$ exactly, for every $n$.",
+          "plain": "Means of samples are centred where single values are, but they spread out less."
+        },
+        {
+          "type": "formula",
+          "tex": "X \\sim \\mathrm{N}(\\mu, \\sigma^{2}) \\;\\Rightarrow\\; \\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The variance is divided by $n$, so the standard deviation of $\\bar{X}$ is $\\frac{\\sigma}{\\sqrt{n}}$. To halve the spread of the mean, you need four times as many values."
+        },
+        {
+          "type": "figure",
+          "id": "4-15-mean-narrower",
+          "alt": "Two normal curves centred on the same mean mu. The wide, low curve shows one value X, with standard deviation sigma. The tall, narrow curve shows the mean of a sample of 9 values, with standard deviation sigma over 3.",
+          "caption": "The mean of $9$ values has standard deviation $\\frac{\\sigma}{\\sqrt{9}} = \\frac{\\sigma}{3}$, so its curve is narrower and taller."
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-juice",
+          "question": "A machine fills bottles of juice. The volume $V$ ml is modelled by $\\mathrm{N}(505, 6^{2})$, and the label says $500$ ml. (a) Find the probability that one bottle holds less than $500$ ml. (b) An inspector buys $9$ bottles at random. Find the probability that their mean volume is less than $500$ ml. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) One bottle: normal cdf with lower $-10^{99}$, upper $500$, $\\mu = 505$, $\\sigma = 6$ gives $\\mathrm{P}(V < 500) = 0.2023\\ldots$",
+            "(b) The population is normal, so $\\bar{V} \\sim \\mathrm{N}\\left(505, \\frac{6^{2}}{9}\\right) = \\mathrm{N}(505, 4)$. Its standard deviation is $2$.",
+            "Normal cdf with lower $-10^{99}$, upper $500$, $\\mu = 505$, $\\sigma = 2$ gives $\\mathrm{P}(\\bar{V} < 500) = 0.006209\\ldots$",
+            "Interpret: about $1$ bottle in $5$ is under $500$ ml, but a mean of $9$ under $500$ ml happens only about $6$ times in $1000$. An inspector who found one would suspect the machine is under-filling."
+          ],
+          "answer": "$\\mathrm{P}(V < 500) \\approx 0.202, \\; \\mathrm{P}(\\bar{V} < 500) \\approx 0.00621$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[normcdf(-oo, 500, 505, 6), normcdf(-oo, 500, 505, 6/sqrt(9))]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-parkrun",
+          "question": "Finishing times at a weekly $5$ km park run are modelled by $T \\sim \\mathrm{N}(31.5, 4.8^{2})$ minutes. A random sample of $20$ runners is chosen. Write down the distribution of $\\bar{T}$, and find $\\mathrm{P}(29.5 < \\bar{T} < 32.5)$. Give your answer to 3 s.f.",
+          "steps": [
+            "$T$ is normal, so $\\bar{T}$ is normal for any $n$, with mean $31.5$.",
+            "Variance: $\\frac{4.8^{2}}{20} = \\frac{23.04}{20} = 1.152$. So $\\bar{T} \\sim \\mathrm{N}(31.5, 1.152)$. Write this line down: it earns marks on its own.",
+            "GDC: normal cdf with lower $29.5$, upper $32.5$, $\\mu = 31.5$, $\\sigma = \\frac{4.8}{\\sqrt{20}} = 1.073\\ldots$",
+            "$\\mathrm{P}(29.5 < \\bar{T} < 32.5) = 0.7930\\ldots$",
+            "Interpret: for one runner the same interval has probability only $0.244$. Most samples of $20$ have a mean within about a minute of $31.5$."
+          ],
+          "answer": "$\\mathrm{P}(29.5 < \\bar{T} < 32.5) \\approx 0.793$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(Rational(295, 10), Rational(325, 10), Rational(315, 10), Rational(48, 10)/sqrt(20))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": "29.5",
+            "upper": "32.5",
+            "mean": "31.5",
+            "sd": "4.8/sqrt(20)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the standard deviation by $n$, or the variance by $\\sqrt{n}$. Here $\\mathrm{Var}(\\bar{T}) = \\frac{4.8^{2}}{20}$ and the standard deviation is $\\frac{4.8}{\\sqrt{20}}$."
+        },
+        {
+          "type": "examTip",
+          "text": "Write down the distribution with both parameters, such as $\\bar{T} \\sim \\mathrm{N}(31.5, 1.152)$. The mean and the variance can earn marks separately, even if the probability goes wrong."
+        },
+        {
+          "type": "check",
+          "id": "check-mean-batteries",
+          "prompt": "Battery lifetimes are modelled by $\\mathrm{N}(80, 10^{2})$ hours. For a random sample of $25$ batteries, find $\\mathrm{Var}(\\bar{X})$.",
+          "hint": "Divide the variance $10^{2}$ by $n$.",
+          "options": [
+            {
+              "text": "$\\mathrm{Var}(\\bar{X}) = 4$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{Var}(\\bar{X}) = 0.4$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{Var}(\\bar{X}) = 20$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{Var}(\\bar{X}) = 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Var}(\\bar{X}) = \\frac{100}{25} = 4$. Dividing $\\sigma = 10$ by $25$ gives $0.4$; dividing $100$ by $\\sqrt{25}$ gives $20$; $2$ is the standard deviation $\\frac{10}{\\sqrt{25}}$, not the variance.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(10**2, 25)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mean-sample-size",
+          "prompt": "Bags of flour have masses with standard deviation $15$ g. Find the smallest sample size $n$ for which the standard deviation of $\\bar{X}$ is at most $3$ g.",
+          "hint": "Solve $\\frac{15}{\\sqrt{n}} \\le 3$.",
+          "answer": {
+            "value": 25,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{15}{\\sqrt{n}} \\le 3$ gives $\\sqrt{n} \\ge 5$, so $n \\ge 25$. Cutting the spread to a fifth needs $5^{2} = 25$ values.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling((15/3)**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mean-seedlings",
+          "prompt": "Seedling heights are modelled by $\\mathrm{N}(12, 2.5^{2})$ cm. Which is more likely: one seedling chosen at random is taller than $13$ cm, or the mean height of $10$ seedlings chosen at random is more than $13$ cm?",
+          "hint": "Both are centred on $12$. Which one has the smaller spread?",
+          "options": [
+            {
+              "text": "One seedling taller than 13 cm",
+              "correct": true
+            },
+            {
+              "text": "The mean of 10 seedlings more than 13 cm",
+              "correct": false
+            },
+            {
+              "text": "They are equally likely",
+              "correct": false
+            }
+          ],
+          "explain": "The mean of $10$ has standard deviation $\\frac{2.5}{\\sqrt{10}} \\approx 0.791$ cm, so it rarely strays $1$ cm from $12$. One seedling: $\\mathrm{P}(X > 13) \\approx 0.345$. The mean: $\\mathrm{P}(\\bar{X} > 13) \\approx 0.103$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "One seedling taller than 13 cm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "central-limit",
+      "heading": "The central limit theorem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many populations are not normal. Spending in a café is skewed: most bills are small, and a few are large. Scores on a die are all equally likely. Is the mean of a sample still normal?"
+        },
+        {
+          "type": "text",
+          "text": "Approximately, once the sample is large enough. Each mean averages many values, so the rare large ones are diluted. The bell shape appears whatever the population looks like."
+        },
+        {
+          "type": "definition",
+          "term": "Central limit theorem",
+          "statement": "For a random sample of size $n$ from any population with mean $\\mu$ and variance $\\sigma^{2}$, the distribution of $\\bar{X}$ gets closer to $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$ as $n$ grows. For large $n$, $\\bar{X}$ is approximately $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$.",
+          "plain": "Means of large random samples are roughly normal, even when single values are not."
+        },
+        {
+          "type": "figure",
+          "id": "4-15-clt-skewed",
+          "alt": "Left: a population curve that rises steeply, peaks early and has a long tail to the right, with its mean mu marked. Right, drawn on a stretched horizontal scale: the distribution of the mean of random samples of 40 from that population, a symmetric bell-shaped curve centred on the same mean mu.",
+          "caption": "A skewed population (left) and the means of samples of $40$ from it (right). The right panel is stretched sideways: the means are far less spread out."
+        },
+        {
+          "type": "text",
+          "text": "How large is large? It depends on the population. A roughly symmetric population needs only a small sample, and a strongly skewed one needs more. In IB exams, $n > 30$ counts as large enough."
+        },
+        {
+          "type": "text",
+          "text": "If the population is normal, you don't need the theorem: $\\bar{X}$ is exactly normal for every $n$. The theorem is for populations that are not normal, or whose shape you don't know."
+        },
+        {
+          "type": "text",
+          "text": "The theorem is about $\\bar{X}$, not about single values. A large sample does not make the population normal: one value keeps the population's shape."
+        },
+        {
+          "type": "example",
+          "id": "ex-clt-cafe",
+          "question": "The amount a customer spends in a café has mean $8.40$ dollars and standard deviation $5.10$ dollars, and its distribution is right-skewed. A random sample of $50$ customers is taken. Find the probability that their mean spend is more than $9$ dollars. Give your answer to 3 s.f.",
+          "steps": [
+            "The population is skewed, not normal. But $n = 50 > 30$, so by the central limit theorem $\\bar{X}$ is approximately normal.",
+            "$\\bar{X} \\approx \\mathrm{N}\\left(8.40, \\frac{5.10^{2}}{50}\\right) = \\mathrm{N}(8.40, 0.5202)$.",
+            "GDC: normal cdf with lower $9$, upper $10^{99}$, $\\mu = 8.40$, $\\sigma = \\frac{5.10}{\\sqrt{50}} = 0.7212\\ldots$",
+            "$\\mathrm{P}(\\bar{X} > 9) = 0.2027\\ldots$, so about $1$ random group of $50$ customers in $5$ averages more than $9$ dollars."
+          ],
+          "answer": "$\\mathrm{P}(\\bar{X} > 9) \\approx 0.203$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(9, oo, Rational(840, 100), Rational(510, 100)/sqrt(50))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-clt-car-occupancy",
+          "question": "The number of people in a car passing a checkpoint has mean $1.6$ and standard deviation $0.9$. Its distribution is right-skewed. (a) Explain why a normal distribution is a poor model for the number of people in one car. (b) A survey records $64$ cars chosen at random. Find the probability that the mean number of people per car is at least $1.75$. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) One car holds a whole number of people, at least $1$, and the distribution is skewed. A normal model is symmetric and continuous: $\\mathrm{N}(1.6, 0.9^{2})$ would put about $11\\%$ of cars below $0.5$ people, which is impossible.",
+            "(b) The population is not normal, but $n = 64 > 30$, so by the central limit theorem $\\bar{X} \\approx \\mathrm{N}\\left(1.6, \\frac{0.9^{2}}{64}\\right)$.",
+            "Standard deviation of $\\bar{X}$: $\\frac{0.9}{\\sqrt{64}} = \\frac{0.9}{8} = 0.1125$.",
+            "GDC: normal cdf with lower $1.75$, upper $10^{99}$, $\\mu = 1.6$, $\\sigma = 0.1125$, giving $0.09121\\ldots$",
+            "Interpret: a survey mean of $1.75$ or more would happen in about $9\\%$ of surveys of $64$ cars, so it would not be very unusual."
+          ],
+          "answer": "$\\mathrm{P}(\\bar{X} \\ge 1.75) \\approx 0.0912$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(Rational(175, 100), oo, Rational(16, 10), Rational(9, 10)/sqrt(64))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": "1.75",
+            "upper": "1E99",
+            "mean": "1.6",
+            "sd": "0.1125"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the central limit theorem for a small sample from a population that is not normal. With $n = 10$ from a skewed population, $\\bar{X}$ may still be skewed, so a normal model isn't justified."
+        },
+        {
+          "type": "check",
+          "id": "check-clt-small-sample",
+          "prompt": "A random sample of $12$ is taken from a strongly right-skewed population. Can you model $\\bar{X}$ with a normal distribution?",
+          "hint": "Is the population normal? Is the sample large?",
+          "options": [
+            {
+              "text": "No: the population is not normal and the sample is too small for the central limit theorem",
+              "correct": true
+            },
+            {
+              "text": "Yes: the central limit theorem works for any sample size",
+              "correct": false
+            },
+            {
+              "text": "Yes: a sample mean is always exactly normal",
+              "correct": false
+            }
+          ],
+          "explain": "$\\bar{X}$ is exactly normal only when the population is normal. Otherwise you need a large sample, and with strong skew $12$ is far too few.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No: the population is not normal and the sample is too small for the central limit theorem"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-clt-die",
+          "prompt": "A fair six-sided die gives scores with mean $3.5$ and variance $\\frac{35}{12}$. It is rolled $40$ times. Find the probability that the mean score is greater than $3.8$. Give your answer to 3 s.f.",
+          "hint": "$n = 40 > 30$, so $\\bar{X}$ is approximately $\\mathrm{N}\\left(3.5, \\frac{35}{12 \\times 40}\\right)$. Enter the standard deviation, not the variance.",
+          "answer": {
+            "value": 0.133,
+            "tolerance": 0.0005
+          },
+          "explain": "The scores are not normal, but by the central limit theorem $\\bar{X} \\approx \\mathrm{N}(3.5, 0.07291\\ldots)$. Normal cdf with lower $3.8$, upper $10^{99}$ and $\\sigma = \\sqrt{0.07291\\ldots} = 0.2700\\ldots$ gives $0.1332\\ldots \\approx 0.133$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "normcdf(Rational(38, 10), oo, Rational(7, 2), sqrt(Rational(35, 12)/40))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "If $X_{1}, \\dots, X_{n}$ are independent and each is normal, then $a_{1}X_{1} \\pm \\dots \\pm a_{n}X_{n}$ is normal. Find its mean and variance with the booklet rules, then enter $\\sigma = \\sqrt{\\text{variance}}$ in normal cdf.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "X \\sim \\mathrm{N}(\\mu, \\sigma^{2}) \\;\\Rightarrow\\; \\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right) \\quad \\text{for a random sample of size } n",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a random sample of size $n$ from a population with variance $\\sigma^{2}$, $\\mathrm{Var}(\\bar{X}) = \\frac{\\sigma^{2}}{n}$ and the standard deviation of $\\bar{X}$ is $\\frac{\\sigma}{\\sqrt{n}}$: four times the sample size halves the spread.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Central limit theorem: for a random sample of size $n$ from any population with mean $\\mu$ and variance $\\sigma^{2}$, $\\bar{X}$ is approximately $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$ when $n$ is large. How large depends on the population; in IB exams $n > 30$ is enough.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A normal population gives an exactly normal $\\bar{X}$ for every $n$. A population that is not normal needs a large sample before $\\bar{X}$ can be treated as normal.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing the wrong thing by $n$. For a random sample of size $n$, $\\mathrm{Var}(\\bar{X}) = \\frac{\\sigma^{2}}{n}$ and the standard deviation is $\\frac{\\sigma}{\\sqrt{n}}$, not $\\frac{\\sigma}{n}$.",
+    "Using the population's standard deviation for a question about a mean. A probability about $\\bar{X}$ needs $\\frac{\\sigma}{\\sqrt{n}}$ entered as the standard deviation in the GDC; entering $\\sigma$ gives the probability for a single value instead.",
+    "Subtracting variances for a difference. For independent $A$ and $B$, $\\mathrm{Var}(A - B) = \\mathrm{Var}(A) + \\mathrm{Var}(B)$.",
+    "Saying the central limit theorem makes the population normal. It is about $\\bar{X}$ only, and only for large $n$; single values keep the population's shape.",
+    "Giving a GDC probability with no distribution written down. State the distribution, such as $\\bar{X} \\sim \\mathrm{N}(8.40, 0.5202)$, then the probability."
+  ],
+  "examTips": [
+    "Write down the distribution of $\\bar{X}$ with its mean and variance, such as $\\bar{X} \\sim \\mathrm{N}\\left(64, \\frac{9}{20}\\right)$. These often earn their own marks, separate from the probability.",
+    "Justify a normal model in one line: either the population is normal, or $n > 30$ so the central limit theorem applies. Name which one.",
+    "State an assumption in context. For a total or a sample mean the key one is independence, such as one customer's spend not affecting another's, not just \"the data are independent\".",
+    "Interpret a probability about a mean in the question's words: a small value means a sample mean like that would be unusual if the model is right."
+  ],
+  "readingMinutes": 23
+}

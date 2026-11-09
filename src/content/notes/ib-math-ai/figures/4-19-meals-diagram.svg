@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 400 170" role="img" aria-labelledby="t419-meals">
+  <title id="t419-meals">Transition diagram with two states, H for cooking at home and E for eating out. A loop on H is labelled 0.75 and a loop on E is labelled 0.6. An arrow from H to E is labelled 0.25 and an arrow from E to H is labelled 0.4.</title>
+  <circle cx="100" cy="150" r="24" fill="none" stroke="currentColor" stroke-width="2"/><text x="100" y="156" font-size="17" text-anchor="middle" fill="currentColor">H</text>
+  <circle cx="300" cy="150" r="24" fill="none" stroke="currentColor" stroke-width="2"/><text x="300" y="156" font-size="17" text-anchor="middle" fill="currentColor">E</text>
+  <path d="M 124.0 150.0 Q 200.0 206.0 276.0 150.0" stroke="currentColor" stroke-width="2" fill="none"/><polygon points="207.0,178.0 193.0,183.6 193.0,172.4" fill="currentColor"/><text x="200.0" y="203.0" font-size="14" text-anchor="middle" fill="var(--t2-ink)">0.25</text>
+  <path d="M 276.0 150.0 Q 200.0 94.0 124.0 150.0" stroke="currentColor" stroke-width="2" fill="none"/><polygon points="193.0,122.0 207.0,116.4 207.0,127.6" fill="currentColor"/><text x="200.0" y="107.0" font-size="14" text-anchor="middle" fill="var(--t2-ink)">0.4</text>
+  <path d="M 89.9 128.2 C 49.2 89.5 150.8 89.5 110.1 128.2" stroke="currentColor" stroke-width="2" fill="none"/><polygon points="107.0,99.2 93.0,104.8 93.0,93.6" fill="currentColor"/><text x="100.0" y="84.2" font-size="14" text-anchor="middle" fill="var(--t2-ink)">0.75</text>
+  <path d="M 289.9 128.2 C 249.2 89.5 350.8 89.5 310.1 128.2" stroke="currentColor" stroke-width="2" fill="none"/><polygon points="307.0,99.2 293.0,104.8 293.0,93.6" fill="currentColor"/><text x="300.0" y="84.2" font-size="14" text-anchor="middle" fill="var(--t2-ink)">0.6</text>
+</svg>

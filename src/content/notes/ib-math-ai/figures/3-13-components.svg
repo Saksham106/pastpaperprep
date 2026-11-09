@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 215" role="img" aria-labelledby="t313co">
+  <title id="t313co">Vector a and vector b start from the same point O with the angle theta between them, b lying along a horizontal line. A dashed line drops from the tip of a to the line of b, meeting it at a right angle at F. The segment from O to F along b is labelled a dot b over the length of b, equal to the length of a times cos theta. The dashed perpendicular from the tip of a to F is labelled the length of a cross b over the length of b, equal to the length of a times sin theta.</title>
+  <defs><marker id="a313co" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <line x1="150" y1="170" x2="330" y2="170" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="40" y1="182" x2="220" y2="182" stroke="var(--t1-ink)" stroke-width="3"/>
+  <line x1="220" y1="60" x2="220" y2="170" stroke="var(--t3-ink)" stroke-width="2.4" stroke-dasharray="6 4"/>
+  <path d="M210,170 L210,160 L220,160" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="40" y1="170" x2="150" y2="170" stroke="var(--t5-ink)" stroke-width="2.4" marker-end="url(#a313co)"/>
+  <line x1="40" y1="170" x2="220" y2="60" stroke="var(--t2-ink)" stroke-width="2.4" marker-end="url(#a313co)"/>
+  <path d="M70,170 A30,30 0 0 0 65.6,154.4" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-size="13" fill="currentColor">
+    <text x="24" y="176">O</text>
+    <text x="226" y="194">F</text>
+    <text x="76" y="164">θ</text>
+  </g>
+  <g font-size="15" font-weight="600">
+    <text x="118" y="104" fill="var(--t2-ink)">a</text>
+    <text x="128" y="162" fill="var(--t5-ink)">b</text>
+  </g>
+  <g font-size="13">
+    <text x="56" y="204" fill="var(--t1-ink)">a · b / |b| = |a| cos θ</text>
+    <text x="228" y="112" fill="var(--t3-ink)">|a × b| / |b|</text>
+    <text x="228" y="128" fill="var(--t3-ink)">= |a| sin θ</text>
+  </g>
+</svg>

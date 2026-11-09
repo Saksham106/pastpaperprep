@@ -2,25 +2,25 @@
   {
     "id": "chain-rule",
     "term": "chain rule",
-    "definition": "TODO: For a composite function, dy/dx = dy/du × du/dx: derivative of the outside times derivative of the inside",
+    "definition": "The rule for differentiating a composite function: if $y = g(u)$ and $u = f(x)$, then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\frac{\\mathrm{d}u}{\\mathrm{d}x}$, so you differentiate the outside function and multiply by the derivative of the inside.",
     "lesson": "5.9"
   },
   {
     "id": "product-rule",
     "term": "product rule",
-    "definition": "TODO: If y = uv then dy/dx = u dv/dx + v du/dx",
+    "definition": "The rule for differentiating a product of two functions: if $y = uv$, then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$.",
     "lesson": "5.9"
   },
   {
     "id": "quotient-rule",
     "term": "quotient rule",
-    "definition": "TODO: If y = u/v then dy/dx = (v du/dx − u dv/dx)/v², with the minus sign order fixed",
+    "definition": "The rule for differentiating one function divided by another: if $y = \\frac{u}{v}$, then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{v\\frac{\\mathrm{d}u}{\\mathrm{d}x} - u\\frac{\\mathrm{d}v}{\\mathrm{d}x}}{v^{2}}$, with the two terms on top in that order.",
     "lesson": "5.9"
   },
   {
     "id": "related-rates",
     "term": "related rates",
-    "definition": "TODO: Rates of change of linked quantities connected by the chain rule, such as dV/dt = dV/dr × dr/dt",
+    "definition": "Rates of change over time of two or more quantities linked by an equation, so that one rate can be found from another with the chain rule, for example $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = \\frac{\\mathrm{d}A}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t}$.",
     "lesson": "5.9"
   }
 ]

@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.5",
+  "slug": "probability-foundations-and-expected-value",
+  "title": "Probability foundations and expected value",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Probability measures how likely an [[event|event]] is, on a scale from $0$ to $1$. When the outcomes are equally likely you count them: $\\mathrm{P}(A) = \\frac{n(A)}{n(U)}$. When you can't count, you estimate from data, and either way you can predict how often the event should happen in many trials.",
+  "goals": [
+    {
+      "text": "Use the words trial, outcome, [[sample-space|sample space]], event and equally likely, and list or tabulate a sample space.",
+      "bullets": [
+        "4.5-b1"
+      ]
+    },
+    {
+      "text": "Find a theoretical probability by counting equally likely outcomes, including from a two-way table of survey data.",
+      "bullets": [
+        "4.5-b2"
+      ]
+    },
+    {
+      "text": "Estimate a probability from data with [[relative-frequency|relative frequency]], and tell it apart from a theoretical probability.",
+      "bullets": [
+        "4.5-b1",
+        "4.5-b2"
+      ]
+    },
+    {
+      "text": "Use [[complementary-events|complementary events]], $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$, including for \"at least one\".",
+      "bullets": [
+        "4.5-b3"
+      ]
+    },
+    {
+      "text": "Find and interpret the [[expected-number-of-occurrences|expected number of occurrences]] of an event in a given number of trials.",
+      "bullets": [
+        "4.5-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "basic probability",
+    "sample space",
+    "experimental and theoretical probability",
+    "relative frequency",
+    "complementary events",
+    "expected number of occurrences"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-fraction-decimal",
+      "prompt": "Write $\\frac{9}{40}$ as a decimal.",
+      "hint": "Divide $9$ by $40$, or make the denominator $1000$ first.",
+      "answer": {
+        "value": 0.225,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{9}{40} = \\frac{225}{1000} = 0.225$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(9, 40)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percent-of",
+      "prompt": "Find $6\\%$ of $350$.",
+      "hint": "$6\\%$ as a decimal is $0.06$. Multiply.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$0.06 \\times 350 = 21$. Or: $1\\%$ of $350$ is $3.5$, and $6 \\times 3.5 = 21$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(6, 100)*350",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-one-minus",
+      "prompt": "Find $1 - 0.064$.",
+      "hint": "Write $1$ as $1.000$, then subtract.",
+      "answer": {
+        "value": 0.936,
+        "tolerance": 0
+      },
+      "explain": "$1.000 - 0.064 = 0.936$. Check by adding back: $0.936 + 0.064 = 1$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - Rational(64, 1000)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sample-spaces",
+      "heading": "Trials, outcomes and sample spaces",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't say which meal the next customer at a canteen will choose. You can say exactly which meals they could choose. Probability starts with that list."
+        },
+        {
+          "type": "definition",
+          "term": "Trial and outcome",
+          "statement": "A trial is one run of a random experiment, such as one roll of a die. An outcome is one possible result of a trial.",
+          "plain": "Rolling a die once is a trial; rolling a $3$ is an outcome."
+        },
+        {
+          "type": "definition",
+          "term": "Sample space",
+          "statement": "The sample space $U$ is the set of all possible outcomes of a trial. $n(U)$ is the number of outcomes in $U$.",
+          "plain": "The sample space is the complete list of what could happen."
+        },
+        {
+          "type": "definition",
+          "term": "Event",
+          "statement": "An event is a set of outcomes from $U$, named with a capital letter such as $A$. The event happens when the outcome of the trial is one of its outcomes. $n(A)$ is the number of outcomes in $A$.",
+          "plain": "An event is a description, such as \"an odd number\", together with the outcomes that fit it."
+        },
+        {
+          "type": "definition",
+          "term": "Equally likely outcomes",
+          "statement": "Outcomes are equally likely when each one has the same chance of happening.",
+          "plain": "Words such as \"fair\", \"unbiased\" and \"chosen at random\" tell you the outcomes are equally likely."
+        },
+        {
+          "type": "text",
+          "text": "For one roll of a fair six-sided die, $U = \\{1, 2, 3, 4, 5, 6\\}$ and $n(U) = 6$. The event $A$, \"an odd number\", is $A = \\{1, 3, 5\\}$, so $n(A) = 3$."
+        },
+        {
+          "type": "text",
+          "text": "When a trial has two stages, write each outcome as a pair. A list works for a few pairs; a table is quicker for more, and you can't miss any."
+        },
+        {
+          "type": "example",
+          "id": "ex-meal-deal-list",
+          "question": "A school canteen's meal deal is one main (pasta, curry or wrap) and one drink (water or juice). A student picks a main and a drink at random. (a) List the sample space. (b) Write down $n(U)$.",
+          "steps": [
+            "Write each outcome as a pair: the main, then the drink. Take each main in turn and go through both drinks.",
+            "(a) Pasta–water, pasta–juice, curry–water, curry–juice, wrap–water, wrap–juice.",
+            "(b) Count them: $n(U) = 6$.",
+            "Check: there are $3$ mains and $2$ drinks, and each main pairs with every drink, so $3 \\times 2 = 6$."
+          ],
+          "answer": "$n(U) = 6$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "3*2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-larger-number-table",
+          "question": "In a board game you roll two fair four-sided dice, each numbered $1$ to $4$. Your score is the larger of the two numbers, or that number if both are the same. (a) Draw a table of the sample space. (b) Let $F$ be the event \"the score is $4$\". Find $n(F)$.",
+          "steps": [
+            "(a) Put the first die down the side and the second along the top. Fill each cell with the larger of its row and column numbers.",
+            "$\\begin{array}{c|cccc} \\text{larger} & 1 & 2 & 3 & 4 \\\\ \\hline 1 & 1 & 2 & 3 & 4 \\\\ 2 & 2 & 2 & 3 & 4 \\\\ 3 & 3 & 3 & 3 & 4 \\\\ 4 & 4 & 4 & 4 & 4 \\end{array}$",
+            "Each cell is one outcome, so $n(U) = 4 \\times 4 = 16$.",
+            "(b) The score is $4$ whenever either die shows $4$: the whole last column ($4$ cells) and the rest of the last row ($3$ more cells).",
+            "So $n(F) = 4 + 3 = 7$. Check: the cells with no $4$ form a $3 \\times 3$ block, and $16 - 9 = 7$."
+          ],
+          "answer": "$n(F) = 7$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4*4 - 3*3"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-5-larger-number-grid",
+          "alt": "Four by four grid of outcomes for two four-sided dice, first die down the side and second die along the top. Each cell shows the larger of the two numbers. The seven cells with score 4, which are the whole last row and the whole last column, are shaded.",
+          "caption": "The $16$ equally likely outcomes. The $7$ shaded cells make up the event \"the score is $4$\"."
+        },
+        {
+          "type": "mistake",
+          "text": "Counting \"first die $1$, second die $3$\" and \"first die $3$, second die $1$\" as one outcome. They are two different cells of the table, so count both."
+        },
+        {
+          "type": "check",
+          "id": "check-die-and-coin",
+          "prompt": "A fair six-sided die is rolled and a fair coin is tossed. Write down the number of outcomes in the sample space.",
+          "hint": "Each die result pairs with heads and with tails.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0
+          },
+          "explain": "There are $6$ die results and $2$ coin results, so $6 \\times 2 = 12$ pairs: $1\\text{H}, 1\\text{T}, 2\\text{H}, \\ldots, 6\\text{T}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-score-two",
+          "prompt": "Use the table of scores for the two four-sided dice. How many outcomes give a score of $2$?",
+          "hint": "Look for every cell holding $2$. Don't forget the cell where both dice match.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The cells are (first $1$, second $2$), (first $2$, second $1$) and (first $2$, second $2$). That is $3$ outcomes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2**2 - 1**2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "probability",
+      "heading": "Theoretical and experimental probability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In the board game, $7$ of the $16$ equally likely cells give a score of $4$. So you expect a score of $4$ in $7$ out of every $16$ rolls, in the long run. Counting like this gives a theoretical probability."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) = \\frac{n(A)}{n(U)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-probability"
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet, so you don't need to memorise it. You do need its condition: it works only when the outcomes in $U$ are equally likely."
+        },
+        {
+          "type": "text",
+          "text": "Every probability lies between $0$ and $1$. An impossible event has probability $0$, and a certain event has probability $1$. A negative answer, or one above $1$, means a slip."
+        },
+        {
+          "type": "example",
+          "id": "ex-score-at-least-three",
+          "question": "Use the table of scores for the two fair four-sided dice. Find the probability that the score is at least $3$.",
+          "steps": [
+            "Each die is fair, so the $16$ cells are equally likely and $n(U) = 16$.",
+            "\"At least $3$\" means a score of $3$ or $4$. Count the cells: score $4$ fills $7$ cells and score $3$ fills $5$ cells.",
+            "So $n(\\text{score} \\ge 3) = 7 + 5 = 12$ and $\\mathrm{P}(\\text{score} \\ge 3) = \\frac{12}{16} = \\frac{3}{4}$.",
+            "Check: the cells with a score below $3$ form a $2 \\times 2$ block in the corner, and $16 - 4 = 12$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{score} \\ge 3) = \\frac{3}{4}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(4*4 - 2*2, 16)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the list of scores, $1, 2, 3, 4$, as the sample space and saying $\\mathrm{P}(\\text{score} = 4) = \\frac{1}{4}$. The scores are not equally likely: $4$ fills seven cells but $1$ fills only one. Count the equally likely cells instead."
+        },
+        {
+          "type": "text",
+          "text": "Survey results are often given in a two-way table. Choosing one person \"at random\" makes every person equally likely, so $n(U)$ is the grand total."
+        },
+        {
+          "type": "example",
+          "id": "ex-gym-survey",
+          "question": "A gym asks $250$ members their age group and when they prefer to train. $\\begin{array}{l|cc} & \\text{morning} & \\text{evening} \\\\ \\hline \\text{under } 25 & 38 & 57 \\\\ 25 \\text{ and over} & 91 & 64 \\end{array}$ One member is chosen at random. Find the probability that this member prefers to train in the morning.",
+          "steps": [
+            "Every member is equally likely to be chosen, so $n(U) = 250$, the grand total.",
+            "Let $M$ be the event \"prefers the morning\". Add the morning column: $n(M) = 38 + 91 = 129$.",
+            "Use the formula: $\\mathrm{P}(M) = \\frac{129}{250} = 0.516$.",
+            "Interpret: just over half of the members, $51.6\\%$, prefer to train in the morning."
+          ],
+          "answer": "$\\mathrm{P}(M) = \\frac{129}{250} = 0.516$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(38 + 91, 250)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gym-cell",
+          "prompt": "Use the gym table. One member is chosen at random. Find the probability that the member is under $25$ and prefers the evening.",
+          "hint": "Find the one cell that fits both descriptions. What is $n(U)$ when any member can be chosen?",
+          "options": [
+            {
+              "text": "$\\frac{57}{250}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{57}{95}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{57}{121}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{121}{250}$",
+              "correct": false
+            }
+          ],
+          "explain": "One cell fits both: $57$ members. Any of the $250$ members could be chosen, so the probability is $\\frac{57}{250} = 0.228$. Dividing by a row or column total answers a different question.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(57, 38 + 57 + 91 + 64)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Give a probability as an exact fraction or as a decimal to 3 s.f., such as $\\frac{129}{250}$ or $0.516$. Write $\\frac{7}{16} = 0.4375$ as $0.438$, never $0.44$."
+        },
+        {
+          "type": "text",
+          "text": "Some events can't be counted. A bus is either on time or late, but the two are not equally likely. To estimate the probability, you collect data on many trials."
+        },
+        {
+          "type": "definition",
+          "term": "Relative frequency",
+          "statement": "The relative frequency of an event is the number of times it happened divided by the number of trials.",
+          "plain": "It is the fraction of the trials in which the event happened."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{relative frequency} = \\frac{\\text{number of times the event happens}}{\\text{number of trials}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A relative frequency is an experimental probability: an estimate from data. A theoretical probability comes from counting equally likely outcomes, with no experiment at all."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-coin-simulation",
+          "alt": "Line graph of the relative frequency of heads after each toss of a fair coin, for 400 tosses simulated by a computer. The first toss is a head, so the line starts at 1. It falls to about 0.23 by the twenty-second toss, then climbs back. After about 100 tosses it stays between about 0.47 and 0.52, and it ends very close to a dashed horizontal line at 0.5.",
+          "caption": "A simulation of $400$ tosses of a fair coin. The relative frequency of heads jumps about at first, then settles near the theoretical $0.5$."
+        },
+        {
+          "type": "text",
+          "text": "The more trials you do, the closer the relative frequency tends to get to the true probability. A GDC or spreadsheet can simulate thousands of trials in seconds."
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-on-time",
+          "question": "A transport company tracks $1200$ journeys on one bus route. $846$ of them arrive on time. Estimate the probability that a journey on this route arrives on time.",
+          "steps": [
+            "Arriving on time and arriving late are not equally likely, so you can't count outcomes. Use the data.",
+            "Let $T$ be the event \"arrives on time\". Its relative frequency is $\\frac{846}{1200} = 0.705$.",
+            "This estimates $\\mathrm{P}(T)$. It comes from many journeys, so it should be fairly reliable while conditions on the route stay the same."
+          ],
+          "answer": "$\\text{estimate of } \\mathrm{P}(T) = \\frac{846}{1200} = 0.705$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(846, 1200)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mystery-box",
+          "question": "A phone game states that each mystery box holds a rare item with probability $0.05$. Aiko opens $40$ boxes and gets $5$ rare items. On a fan forum, players report $2000$ boxes with $108$ rare items. (a) Find each relative frequency of a rare item. (b) State which is the better estimate of the probability, with a reason. (c) Comment on the game's claim.",
+          "steps": [
+            "(a) Aiko: $\\frac{5}{40} = 0.125$. Forum: $\\frac{108}{2000} = 0.054$.",
+            "(b) The forum's estimate is better: it comes from $50$ times as many boxes.",
+            "(c) The forum's $0.054$ is close to the stated $0.05$, so the data give no strong reason to doubt the claim. Aiko's $0.125$ is far off most likely because $40$ boxes is a small experiment.",
+            "A limitation: players may be more likely to post lucky results, which would push the forum's figure up."
+          ],
+          "answer": "$\\text{estimate of } \\mathrm{P}(\\text{rare}) = \\frac{108}{2000} = 0.054$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(108, 2000)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-seeds",
+          "prompt": "A garden centre plants $360$ seeds of a new variety, and $297$ of them germinate. Estimate the probability that a seed of this variety germinates.",
+          "hint": "Use the relative frequency: successes divided by trials.",
+          "answer": {
+            "value": 0.825,
+            "tolerance": 0
+          },
+          "explain": "The relative frequency is $\\frac{297}{360} = 0.825$. It is an estimate from $360$ seeds, not an exact probability.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(297, 360)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-theoretical",
+          "prompt": "Which of these is a theoretical probability?",
+          "hint": "A theoretical probability comes from counting equally likely outcomes, not from data.",
+          "options": [
+            {
+              "text": "The chance of drawing a heart from a well-shuffled standard pack of cards",
+              "correct": true
+            },
+            {
+              "text": "The chance of rain tomorrow, worked out from past weather records",
+              "correct": false
+            },
+            {
+              "text": "The fraction of a factory's phone batteries that failed a quality test",
+              "correct": false
+            }
+          ],
+          "explain": "A shuffled pack has $52$ equally likely cards and $13$ are hearts, so you can count: $\\frac{13}{52} = \\frac{1}{4}$. The other two come from data, so they are relative frequencies.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The chance of drawing a heart from a well-shuffled standard pack of cards"
+          }
+        }
+      ]
+    },
+    {
+      "id": "complement",
+      "heading": "Complementary events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each bus journey either arrives on time or it doesn't. Exactly one of the two happens. So their probabilities must add up to $1$."
+        },
+        {
+          "type": "definition",
+          "term": "Complementary events",
+          "statement": "The complement of an event $A$ is the event $A'$, read \"not $A$\". It holds every outcome in $U$ that is not in $A$. $A$ and $A'$ are complementary events.",
+          "plain": "$A'$ is everything else that could happen."
+        },
+        {
+          "type": "text",
+          "text": "Every outcome is in exactly one of $A$ and $A'$, so $n(A) + n(A') = n(U)$. Divide by $n(U)$ to get the rule below."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) + \\mathrm{P}(A') = 1",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-complement"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. You will mostly use it rearranged: $\\mathrm{P}(A') = 1 - \\mathrm{P}(A)$. It holds for estimated probabilities from data too, not just counted ones."
+        },
+        {
+          "type": "example",
+          "id": "ex-passport",
+          "question": "The probability that a randomly chosen adult in a town holds a passport is $0.67$. Let $H$ be the event \"holds a passport\". Find $\\mathrm{P}(H')$ and say what it means.",
+          "steps": [
+            "$H'$ is \"does not hold a passport\". Every adult either holds one or doesn't, so $H$ and $H'$ are complementary.",
+            "Use the complement: $\\mathrm{P}(H') = 1 - 0.67 = 0.33$.",
+            "Interpret: about $33\\%$ of the town's adults have no passport."
+          ],
+          "answer": "$\\mathrm{P}(H') = 0.33$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(67, 100)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The complement is most useful for \"at least one\". \"At least one\" covers many cases. Its complement, \"none\", is a single case, and that is much quicker to count."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-lock",
+          "question": "A bike lock has three dials, each showing a digit from $0$ to $9$. A code is set at random, with every code equally likely. Find the probability that the code contains at least one $0$.",
+          "steps": [
+            "Each dial has $10$ digits, so there are $10 \\times 10 \\times 10 = 1000$ equally likely codes. $n(U) = 1000$.",
+            "Let $Z$ be \"at least one $0$\". Then $Z'$ is \"no $0$ at all\". With no $0$, each dial has $9$ choices, so $n(Z') = 9 \\times 9 \\times 9 = 729$.",
+            "So $\\mathrm{P}(Z') = \\frac{729}{1000}$, and $\\mathrm{P}(Z) = 1 - \\frac{729}{1000} = \\frac{271}{1000} = 0.271$.",
+            "Counting the codes with at least one $0$ directly means handling one, two or three zeros. The complement avoids all of that."
+          ],
+          "answer": "$\\mathrm{P}(Z) = 0.271$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(9**3, 10**3)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the complement of \"at least one\" as \"exactly one\". The complement of \"at least one\" is \"none\". In the same way, the complement of \"at least $3$\" is \"at most $2$\", not \"at most $3$\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-household-cars",
+          "question": "A survey of $520$ randomly chosen households in a city finds that $143$ have no car. (a) Estimate the probability that a randomly chosen household in the city has at least one car. (b) Comment on how reliable your estimate is.",
+          "steps": [
+            "(a) Let $C$ be \"at least one car\". Its complement $C'$ is \"no car\", and the survey estimates $\\mathrm{P}(C') = \\frac{143}{520}$.",
+            "Use the complement: $\\mathrm{P}(C) = 1 - \\frac{143}{520} = \\frac{377}{520} = 0.725$.",
+            "(b) It comes from $520$ randomly chosen households, so it should be fairly reliable for the city.",
+            "It would be less reliable if the households were not representative, for example all from one area."
+          ],
+          "answer": "$\\text{estimate of } \\mathrm{P}(C) = 1 - \\frac{143}{520} = 0.725$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(143, 520)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-at-least-one-one",
+          "prompt": "A fair four-sided die numbered $1$ to $4$ is rolled three times. Find the probability of getting at least one $1$.",
+          "hint": "There are $4 \\times 4 \\times 4 = 64$ outcomes. How many have no $1$ at all?",
+          "options": [
+            {
+              "text": "$\\frac{37}{64}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{27}{64}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{3}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{64}$",
+              "correct": false
+            }
+          ],
+          "explain": "With no $1$, each roll has $3$ choices, so $3 \\times 3 \\times 3 = 27$ outcomes and $\\mathrm{P}(\\text{no } 1) = \\frac{27}{64}$. So $\\mathrm{P}(\\text{at least one } 1) = 1 - \\frac{27}{64} = \\frac{37}{64}$. Adding $\\frac{1}{4}$ three times counts the outcomes with two or three $1$s more than once.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(3**3, 4**3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-not-faulty",
+          "prompt": "The probability that a randomly chosen phone charger from a large batch is faulty is $0.026$. Find the probability that it is not faulty.",
+          "hint": "\"Not faulty\" is the complement of \"faulty\".",
+          "answer": {
+            "value": 0.974,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(\\text{not faulty}) = 1 - 0.026 = 0.974$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - Rational(26, 1000)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "expected",
+      "heading": "Expected number of occurrences",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "About $0.705$ of the bus journeys arrive on time. So in $200$ journeys you would expect about $0.705 \\times 200 = 141$ on time. The real count might be $135$ or $148$, but $141$ is the long-run average."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{expected number of occurrences of } A = n \\times \\mathrm{P}(A), \\quad \\text{where } n \\text{ is the number of trials}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This one is not in the booklet, so learn it. The expected number need not be a whole number. It is an average over many repeats, so $22.1$ is a perfectly good answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-sore-arm",
+          "question": "After a vaccine, the probability that a person has a sore arm the next day is $0.065$. A clinic vaccinates $340$ people. Find the expected number of people with a sore arm the next day.",
+          "steps": [
+            "Each person is one trial, so $n = 340$, and $\\mathrm{P}(\\text{sore arm}) = 0.065$.",
+            "Multiply: $340 \\times 0.065 = 22.1$.",
+            "Leave it as $22.1$. It is the average over many such clinics, not a count you must round."
+          ],
+          "answer": "$340 \\times 0.065 = 22.1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "340*Rational(65, 1000)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-late",
+          "question": "Use the bus company's data from earlier: $846$ of $1200$ journeys arrived on time. Next month the route will run $950$ journeys. Estimate the number of these journeys that will not arrive on time.",
+          "steps": [
+            "No theoretical probability is given, so use the relative frequency: $\\mathrm{P}(T) \\approx \\frac{846}{1200} = 0.705$.",
+            "The question asks about \"not on time\", the complement: $\\mathrm{P}(T') \\approx 1 - 0.705 = 0.295$.",
+            "Multiply by the number of journeys: $950 \\times 0.295 = 280.25$.",
+            "This is an estimate twice over: the probability came from data, and the real count varies around the average. It also assumes next month is like the months in the data."
+          ],
+          "answer": "$950 \\times 0.295 = 280.25$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "950*(1 - Rational(846, 1200))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fair-prizes",
+          "question": "At a school fair, a game uses the two fair four-sided dice from the board game. A player wins a prize when the score is $4$. During the fair, $120$ people play once each. (a) Find the expected number of winners. (b) The organiser buys $53$ prizes. Comment on this decision.",
+          "steps": [
+            "(a) From the table, $\\mathrm{P}(\\text{score} = 4) = \\frac{7}{16}$.",
+            "Expected number of winners: $120 \\times \\frac{7}{16} = 52.5$.",
+            "(b) $53$ prizes covers the expected number, but $52.5$ is only an average. The actual number of winners varies, and could well be more than $53$.",
+            "So the organiser could run out. Buying a few extra prizes would be safer."
+          ],
+          "answer": "$120 \\times \\frac{7}{16} = 52.5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "120*Rational(7, 16)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding an expected number to a whole number, such as $22.1$ to $22$. Give the exact value, or 3 s.f. if it has more figures, never a forced whole number."
+        },
+        {
+          "type": "examTip",
+          "text": "For \"find the expected number\", write the product with its numbers, such as $340 \\times 0.065$, before the answer. That line shows the method."
+        },
+        {
+          "type": "check",
+          "id": "check-no-review",
+          "prompt": "The probability that an online customer leaves a review is $0.12$. A shop has $450$ customers this week. Find the expected number who do not leave a review.",
+          "hint": "First find the probability of not leaving a review. Then multiply by the number of customers.",
+          "options": [
+            {
+              "text": "$396$",
+              "correct": true
+            },
+            {
+              "text": "$54$",
+              "correct": false
+            },
+            {
+              "text": "$3750$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(\\text{no review}) = 1 - 0.12 = 0.88$, so the expected number is $450 \\times 0.88 = 396$. $54$ is the expected number who do leave a review, and $3750$ comes from dividing instead of multiplying.",
+          "verify": {
+            "kind": "exact",
+            "truth": "450*(1 - Rational(12, 100))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chargers-reverse",
+          "prompt": "In a box of $250$ cables, the expected number of faulty cables is $6$. Find the probability that a randomly chosen cable is faulty.",
+          "hint": "Write $250 \\times \\mathrm{P}(\\text{faulty}) = 6$ and solve.",
+          "answer": {
+            "value": 0.024,
+            "tolerance": 0
+          },
+          "explain": "$250 \\times \\mathrm{P}(\\text{faulty}) = 6$, so $\\mathrm{P}(\\text{faulty}) = \\frac{6}{250} = 0.024$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(6, 250)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A trial has outcomes; the sample space $U$ lists them all; an event is a set of outcomes. For two stages, list pairs or draw a table.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) = \\frac{n(A)}{n(U)} \\quad \\text{when the outcomes in } U \\text{ are equally likely}",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-probability",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every probability is between $0$ and $1$. From a two-way table with one person chosen at random from everyone in it, divide by the grand total.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Relative frequency $= \\frac{\\text{times the event happens}}{\\text{number of trials}}$ is an experimental estimate of a probability. More trials usually give a better estimate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A) + \\mathrm{P}(A') = 1",
+          "tag": "booklet",
+          "bookletId": "bk-4-5-complement",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For \"at least one\", use $1 - \\mathrm{P}(\\text{none})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expected number of occurrences $= n \\times \\mathrm{P}(A)$ for $n$ trials. It is a long-run average, so it need not be a whole number.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating outcomes as equally likely when they are not, such as the scores from two dice. List or tabulate the outcomes that really are equally likely, then count those.",
+    "Using the wrong total in a two-way table. When anyone in the survey can be chosen, the denominator is the grand total, not a row or column total.",
+    "Taking the complement of \"at least one\" as \"exactly one\", or of \"at least $3$\" as \"at most $3$\". The complements are \"none\" and \"at most $2$\".",
+    "Calling a relative frequency the exact probability. It is an estimate, and one from a few trials can be far off.",
+    "Rounding too early or too far, such as $0.4375$ to $0.44$. Give an exact value or 3 s.f. ($0.438$).",
+    "Rounding an expected number to a whole number, such as $22.1$ to $22$. An expected number is an average, so give the exact value or 3 s.f."
+  ],
+  "examTips": [
+    "Write down a probability from a table: no working is needed, but give an exact fraction or 3 s.f., and check it lies between $0$ and $1$.",
+    "List or tabulate a sample space: show every outcome, in pairs for a two-stage trial, so the examiner can see none is missing.",
+    "Comment on an experimental result: compare the relative frequency with the stated or theoretical probability using both numbers, and say which estimate uses more trials.",
+    "Find an expected number: write $n \\times \\mathrm{P}(A)$ with the numbers in, then the value, exact or to 3 s.f., not forced to a whole number."
+  ],
+  "readingMinutes": 33
+}

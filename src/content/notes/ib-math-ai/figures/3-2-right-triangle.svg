@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-labelledby="t">
+  <title id="t">A right-angled triangle with the angle theta at the bottom left and the right angle at the bottom right. The sloping side is labelled hypotenuse. The vertical side, facing theta, is labelled opposite. The bottom side, next to theta, is labelled adjacent.</title>
+  <polygon points="40,190 300,190 300,40" fill="var(--t1-ink)" fill-opacity="0.08" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <polyline points="284,190 284,174 300,174" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M 84,190 A 44,44 0 0 0 78.2,168.1" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <text x="90" y="182" font-size="15" fill="var(--t3-ink)" font-style="italic">θ</text>
+  <text x="130" y="100" font-size="14" fill="currentColor" transform="rotate(-30 150 105)">hypotenuse</text>
+  <text x="310" y="120" font-size="14" fill="currentColor">opposite</text>
+  <text x="140" y="210" font-size="14" fill="currentColor">adjacent</text>
+</svg>

@@ -1,0 +1,785 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.3",
+  "slug": "geometric-sequences-and-series",
+  "title": "Geometric sequences and series",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A [[geometric-sequence|geometric sequence]] is built by multiplying by one fixed number, the [[common-ratio|common ratio]] $r$, at each step: $5, 15, 45, 135, \\dots$ has $r = 3$. Two booklet formulas give you any single term, or the total of the first $n$ terms. They model anything that changes by a fixed percentage each period, such as salaries, outbreaks and populations.",
+  "goals": [
+    {
+      "text": "Recognise a [[geometric-sequence|geometric sequence]] and work out any term using $u_{n} = u_{1}r^{n-1}$.",
+      "bullets": [
+        "1.3-b1"
+      ]
+    },
+    {
+      "text": "Add up the first $n$ terms, using the formula or your GDC.",
+      "bullets": [
+        "1.3-b2"
+      ]
+    },
+    {
+      "text": "Use [[sigma-notation|sigma notation]] for geometric sums, and evaluate them.",
+      "bullets": [
+        "1.3-b3"
+      ]
+    },
+    {
+      "text": "Model salaries, disease spread and populations, stating $u_{1}$ and $r$ and using technology.",
+      "bullets": [
+        "1.3-b4"
+      ]
+    },
+    {
+      "text": "Link geometric sequences to exponential models, and choose between a geometric and a linear model for data.",
+      "bullets": [
+        "1.3-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "geometric progression",
+    "common ratio",
+    "sum of a geometric series",
+    "nth term of a geometric sequence",
+    "percentage growth sequence",
+    "sigma notation geometric sum"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-arith-term",
+      "prompt": "An arithmetic sequence has first term $12$ and common difference $5$. Find $u_{20}$.",
+      "hint": "There are $19$ steps from $u_{1}$ to $u_{20}$.",
+      "answer": {
+        "value": 107,
+        "tolerance": 0
+      },
+      "explain": "$u_{20} = 12 + 19 \\times 5 = 107$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12 + (20 - 1)*5",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sigma-arith",
+      "prompt": "Evaluate $\\sum_{k=1}^{4} (3k - 1)$.",
+      "hint": "Substitute $k = 1, 2, 3, 4$ into $3k - 1$, then add the four results.",
+      "answer": {
+        "value": 26,
+        "tolerance": 0
+      },
+      "explain": "The terms are $2, 5, 8, 11$, and they add to $26$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(3*1 - 1) + (3*2 - 1) + (3*3 - 1) + (3*4 - 1)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "nth-term",
+      "heading": "Geometric sequences and the nth term",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.2}} you added the same number each time. In $5, 15, 45, 135, \\dots$ you multiply by $3$ each time instead."
+        },
+        {
+          "type": "definition",
+          "term": "geometric sequence",
+          "statement": "A [[sequence|sequence]] in which every term after the first is $r$ times the term before it, for a fixed non-zero number $r$ called the [[common-ratio|common ratio]], and $u_{1} \\ne 0$. So $u_{n+1} = r\\,u_{n}$ for every $n$.",
+          "plain": "To get from any term to the next, multiply by the same number."
+        },
+        {
+          "type": "text",
+          "text": "You find $r$ by dividing a term by the term in front of it. In a geometric sequence, every such quotient comes out the same."
+        },
+        {
+          "type": "text",
+          "text": "$r$ can be a fraction or negative. $72, 36, 18, \\dots$ has $r = 0.5$. $2, -6, 18, \\dots$ has $r = -3$, so its signs alternate."
+        },
+        {
+          "type": "check",
+          "id": "check-which-geometric",
+          "prompt": "Which of these could be the first four terms of a geometric sequence?",
+          "hint": "Work out each term divided by the previous term. All three quotients must match, not just the first two.",
+          "options": [
+            {
+              "text": "$2, 8, 14, 20$",
+              "correct": false
+            },
+            {
+              "text": "$2, 8, 32, 64$",
+              "correct": false
+            },
+            {
+              "text": "$2, 8, 32, 128$",
+              "correct": true
+            },
+            {
+              "text": "$2, 4, 8, 14$",
+              "correct": false
+            }
+          ],
+          "explain": "Only $2, 8, 32, 128$ multiplies by $4$ at every step. $2, 8, 14, 20$ adds $6$ each time, and in $2, 8, 32, 64$ the last step multiplies by $2$.",
+          "verify": {
+            "kind": "list",
+            "truth": "[2, 2*4, 2*4**2, 2*4**3]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "From $u_{1}$ to $u_{n}$ is $n - 1$ steps, and each step multiplies by $r$."
+        },
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1}r^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-1-3-geom-nth"
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet. You need to know what $u_{1}$, $r$ and $n$ mean in each question."
+        },
+        {
+          "type": "example",
+          "id": "ex-tenth-term",
+          "question": "Show that $6250, 5000, 4000, 3200, \\dots$ is a geometric sequence. Then find $u_{10}$.",
+          "steps": [
+            "Divide each term by the previous one: $\\frac{5000}{6250} = 0.8$, $\\frac{4000}{5000} = 0.8$ and $\\frac{3200}{4000} = 0.8$.",
+            "The quotient never changes, so it is geometric: $u_{1} = 6250$ and $r = 0.8$.",
+            "The 10th term is $9$ steps after the first: $u_{10} = 6250 \\times 0.8^{9}$.",
+            "Evaluate: $0.8^{9} = 0.134217728$, so $u_{10} = 838.8608$.",
+            "Sense check: $r$ is less than $1$, so the terms keep shrinking, and $838.86$ is well below $3200$."
+          ],
+          "answer": "$u_{10} = 838.8608$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6250*Rational(4, 5)**9"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Raising $r$ to the power $n$. The 10th term needs only $9$ multiplications, so it is $u_{1}r^{9}$, not $u_{1}r^{10}$."
+        },
+        {
+          "type": "text",
+          "text": "Questions often give two terms instead. Write each with the formula, then divide so $u_{1}$ cancels."
+        },
+        {
+          "type": "example",
+          "id": "ex-pollutant",
+          "question": "The mass of a pollutant in a lake is measured at the end of each year, and the masses form a geometric sequence. At the end of year $2$ there are $40$ tonnes, and at the end of year $5$ there are $5$ tonnes. Find the common ratio, and hence the mass at the end of year $1$.",
+          "steps": [
+            "Express both given terms using the formula: $u_{1}r = 40$ and $u_{1}r^{4} = 5$.",
+            "Divide the year-5 equation by the year-2 one, so $u_{1}$ cancels: $r^{3} = \\frac{5}{40} = 0.125$.",
+            "Take the cube root: $r = 0.5$, the only real value.",
+            "Substitute back: $u_{1} \\times 0.5 = 40$, so $u_{1} = 80$ tonnes.",
+            "Interpret: $r = 0.5$ means half of the pollutant is still there at the end of each year, a $50\\%$ fall every year."
+          ],
+          "answer": "$u_{1} = 80\\text{ tonnes}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "40/(Rational(5, 40))**Rational(1, 3)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing a negative ratio. $r^{2} = 25$ gives $r = 5$ or $r = -5$. Keep both unless the context rules one out."
+        },
+        {
+          "type": "check",
+          "id": "check-even-power",
+          "prompt": "A geometric sequence has $u_{2} = 2$ and $u_{4} = 32$. Find every possible value of $r$.",
+          "hint": "Write $u_{4}$ and $u_{2}$ with the formula and divide. How many numbers square to your result?",
+          "options": [
+            {
+              "text": "$r = 4$",
+              "correct": false
+            },
+            {
+              "text": "$r = 4 \\text{ or } r = -4$",
+              "correct": true
+            },
+            {
+              "text": "$r = 16 \\text{ or } r = -16$",
+              "correct": false
+            },
+            {
+              "text": "$r = 2 \\text{ or } r = -2$",
+              "correct": false
+            }
+          ],
+          "explain": "Dividing gives $r^{2} = \\frac{32}{2} = 16$, so $r = 4$ or $r = -4$. Each gives a valid sequence: $0.5, 2, 8, 32$ and $-0.5, 2, -8, 32$.",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(Eq(r**2, Rational(32, 2)), r, dict=True)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sum",
+      "heading": "The sum of the first n terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The total of a geometric sequence's terms is a [[geometric-series|geometric series]]. $S_{n}$ stands for the first $n$ terms added together."
+        },
+        {
+          "type": "result",
+          "statement": "For $r \\ne 1$, the first $n$ terms add up to $S_{n} = \\dfrac{u_{1}(r^{n} - 1)}{r - 1}$.",
+          "why": "Write out $rS_{n}$ and subtract $S_{n}$: only $u_{1}r^{n}$ and $-u_{1}$ survive, so $(r - 1)S_{n} = u_{1}(r^{n} - 1)$."
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{u_{1}(r^{n} - 1)}{r - 1} = \\frac{u_{1}(1 - r^{n})}{1 - r}, \\quad r \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-3-geom-sum"
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the booklet. For $r$ between $-1$ and $1$, the second keeps both brackets positive."
+        },
+        {
+          "type": "text",
+          "text": "With $r = 1$ the terms are all $u_{1}$ and the total is $nu_{1}$. The formula would divide by $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-seven",
+          "question": "Find the sum of the first $7$ terms of $1.5 + 6 + 24 + \\dots$",
+          "steps": [
+            "Read off the first term and ratio: $u_{1} = 1.5$ and $r = \\frac{6}{1.5} = 4$.",
+            "As $r > 1$, the first form is easier: $S_{7} = \\frac{1.5(4^{7} - 1)}{4 - 1}$.",
+            "Work it out: $4^{7} = 16\\,384$, so $S_{7} = \\frac{1.5 \\times 16\\,383}{3} = 8191.5$.",
+            "Sense check: the 7th term alone is $1.5 \\times 4^{6} = 6144$, a bit less than the total."
+          ],
+          "answer": "$S_{7} = 8191.5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(3, 2)*(4**7 - 1)/(4 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist",
+          "question": "Mia is training for a cycling event. She rides $20$ km on day $1$, and on each later day she rides $8\\%$ further than the day before. Find the total distance she rides over the first $14$ days. Give your answer to 3 s.f.",
+          "steps": [
+            "An $8\\%$ increase multiplies by $1.08$, so the daily distances are geometric with $u_{1} = 20$ and $r = 1.08$.",
+            "Write down the sum you are finding, for the method mark: $S_{14} = \\frac{20(1.08^{14} - 1)}{1.08 - 1}$.",
+            "Type it into your GDC with brackets: $S_{14} = 484.298\\dots$, so about $484$ km.",
+            "Interpret: on day $14$ alone she rides $20 \\times 1.08^{13} \\approx 54.4$ km. The model only works while she can keep this up."
+          ],
+          "answer": "$S_{14} \\approx 484\\text{ km}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "20*(Rational(108, 100)**14 - 1)/(Rational(108, 100) - 1)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sum-first-term",
+          "prompt": "A geometric series has common ratio $3$, and its first $6$ terms add up to $1456$. Find $u_{1}$.",
+          "hint": "Use $S_{n}$ with $r = 3$ and $n = 6$, make it equal $1456$, and solve for $u_{1}$.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$S_{6} = \\frac{u_{1}(3^{6} - 1)}{3 - 1} = 364u_{1}$, so $364u_{1} = 1456$ and $u_{1} = 4$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1456*(3 - 1)/(3**6 - 1)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sum-negative",
+          "prompt": "Find the sum of the first $5$ terms of $162 - 54 + 18 - \\dots$",
+          "hint": "The ratio is negative. Keep it in brackets: $\\left(-\\frac{1}{3}\\right)^{5}$.",
+          "options": [
+            {
+              "text": "$242$",
+              "correct": false
+            },
+            {
+              "text": "$120$",
+              "correct": false
+            },
+            {
+              "text": "$122$",
+              "correct": true
+            }
+          ],
+          "explain": "$r = -\\frac{1}{3}$, so $S_{5} = \\frac{162\\left(1 - \\left(-\\frac{1}{3}\\right)^{5}\\right)}{1 + \\frac{1}{3}} = 122$. Check: $162 - 54 + 18 - 6 + 2 = 122$. Dropping the minus sign gives $242$, and stopping after $4$ terms gives $120$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "162*(1 - Rational(-1, 3)**5)/(1 - Rational(-1, 3))"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find the sum to infinity of a geometric series whose ratio lies between $-1$ and $1$.",
+          "lesson": "1.11"
+        }
+      ]
+    },
+    {
+      "id": "sigma",
+      "heading": "Sigma notation for geometric sums",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sigma notation from {{lesson:1.2}} works the same way: substitute each value of $k$ into the expression, then add."
+        },
+        {
+          "type": "text",
+          "text": "In a geometric sum $k$ is in a power, as in $\\sum_{k=1}^{6} 4 \\times 3^{k-1}$. To evaluate one:"
+        },
+        {
+          "type": "text",
+          "text": "1. Substitute the lowest $k$ to get the first term."
+        },
+        {
+          "type": "text",
+          "text": "2. When the power is $k$ plus or minus a fixed number, as here, the ratio is the number being raised to that power."
+        },
+        {
+          "type": "text",
+          "text": "3. The number of terms is the top value minus the bottom value, plus $1$. Then use $S_{n}$, or your GDC's sum function."
+        },
+        {
+          "type": "example",
+          "id": "ex-sigma-write",
+          "question": "Write $5 + 20 + 80 + \\dots + 20\\,480$ in sigma notation, and find its value.",
+          "steps": [
+            "With $u_{1} = 5$ and $r = \\frac{20}{5} = 4$, term $k$ is $5 \\times 4^{k-1}$.",
+            "Locate $20\\,480$ in the sequence: $5 \\times 4^{k-1} = 20\\,480$ gives $4^{k-1} = 4096 = 4^{6}$, so $k = 7$.",
+            "So the sum is $\\sum_{k=1}^{7} 5 \\times 4^{k-1}$. Check the ends: $k = 1$ gives $5$, and $k = 7$ gives $20\\,480$.",
+            "Evaluate with the formula: $S_{7} = \\frac{5(4^{7} - 1)}{4 - 1} = \\frac{5 \\times 16\\,383}{3} = 27\\,305$."
+          ],
+          "answer": "$\\sum_{k=1}^{7} 5 \\times 4^{k-1} = 27305$",
+          "verify": {
+            "kind": "exact",
+            "truth": "5*(4**7 - 1)/(4 - 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sigma-gdc",
+          "question": "Use your calculator to evaluate $\\sum_{k=5}^{12} 10 \\times 1.2^{k}$. Give your answer to 3 s.f.",
+          "steps": [
+            "Write down what you enter: $10 \\times 1.2^{k}$ for $k$ from $5$ to $12$.",
+            "The GDC gives $410.550\\dots$, so the sum is $411$ to 3 s.f.",
+            "Check by formula. The first term is $10 \\times 1.2^{5} = 24.8832$, the ratio is $1.2$, and there are $12 - 5 + 1 = 8$ terms.",
+            "So $S_{8} = \\frac{24.8832(1.2^{8} - 1)}{1.2 - 1} = 410.550\\dots$, which agrees."
+          ],
+          "answer": "$\\sum_{k=5}^{12} 10 \\times 1.2^{k} \\approx 411$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "10*Rational(12, 10)**5*(Rational(12, 10)**8 - 1)/(Rational(12, 10) - 1)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, STAT (LIST), MATH, 5: sum(",
+              "2nd, STAT (LIST), OPS, 5: seq(",
+              "Type 10*1.2^X,X,5,12)) and ENTER",
+              "Read 410.550..., so 411 to 3 s.f."
+            ],
+            "nspire": [
+              "Calculator page: Menu, Calculus, Sum",
+              "Fill the template: 10*1.2^n with n from 5 to 12",
+              "enter",
+              "Read 410.550..., so 411 to 3 s.f."
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ▷ (F6), Σ(",
+              "Type 10*1.2^X,X,5,12) (Linear input) or fill the template (Math input)",
+              "EXE",
+              "Read 410.550..., so 411 to 3 s.f."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting $\\sum_{k=5}^{12}$ as $7$ terms. Both ends are included, so there are $12 - 5 + 1 = 8$."
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-zero",
+          "prompt": "Evaluate $\\sum_{k=0}^{5} 3 \\times 2^{k}$.",
+          "hint": "The counter starts at $k = 0$. What is the first term, and how many terms are there?",
+          "answer": {
+            "value": 189,
+            "tolerance": 0
+          },
+          "explain": "With $k = 0$ the first term is $3 \\times 2^{0} = 3$; the ratio is $2$, and the count of terms is $5 - 0 + 1 = 6$, giving $\\frac{3(2^{6} - 1)}{2 - 1} = 189$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*(2**6 - 1)/(2 - 1)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-meaning",
+          "prompt": "A shop's sales in month $k$ are modelled as $u_{k} = 300 \\times 1.04^{k-1}$ dollars. What does $\\sum_{k=1}^{12} u_{k}$ represent?",
+          "hint": "Sigma adds every term from the bottom value of $k$ to the top value.",
+          "options": [
+            {
+              "text": "the sales in month 12",
+              "correct": false
+            },
+            {
+              "text": "the total sales over the first 12 months",
+              "correct": true
+            },
+            {
+              "text": "the rise in monthly sales during the year",
+              "correct": false
+            }
+          ],
+          "explain": "The sum adds $u_{1} + u_{2} + \\dots + u_{12}$, the sales of all twelve months. The sales in month $12$ alone are $u_{12}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the total sales over the first 12 months"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applications",
+      "heading": "Growth and decay in context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When something grows or shrinks by a fixed percentage every period, its values make a [[geometric-sequence|geometric sequence]]. The percentage tells you $r$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{increase of } p\\%\\text{: } r = 1 + \\frac{p}{100}; \\qquad \\text{decrease of } p\\%\\text{: } r = 1 - \\frac{p}{100}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For example, $4\\%$ up means $r = 1.04$, while $4\\%$ down means $r = 0.96$, since $96\\%$ remains."
+        },
+        {
+          "type": "text",
+          "text": "Next, pin down $u_{1}$. Is it the starting value, or the value one period later? Label the first few terms before using a formula."
+        },
+        {
+          "type": "text",
+          "text": "You can also list the terms on a GDC or spreadsheet. When you use technology, still state $u_{1}$ and $r$."
+        },
+        {
+          "type": "example",
+          "id": "ex-salary-total",
+          "question": "Jun's salary is $46\\,800$ AUD in his first year, and it rises by $3.2\\%$ each year. Find his total earnings over his first $10$ years, to the nearest dollar.",
+          "steps": [
+            "A $3.2\\%$ rise multiplies by $1.032$, so the yearly salaries are geometric with $u_{1} = 46\\,800$ and $r = 1.032$.",
+            "The total for $10$ years is $S_{10}$. Write it down: $S_{10} = \\frac{46\\,800(1.032^{10} - 1)}{1.032 - 1}$.",
+            "Evaluate on your GDC: $S_{10} = 541\\,477.53\\dots$, so $541\\,478$ AUD.",
+            "Sense check: $10$ years at the first salary is $468\\,000$ AUD, and the rises add about $73\\,000$ AUD on top."
+          ],
+          "answer": "$S_{10} \\approx 541478\\text{ AUD}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "46800*(Rational(1032, 1000)**10 - 1)/(Rational(1032, 1000) - 1)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-outbreak-week",
+          "question": "In week $1$ of a measles outbreak, $18$ new cases are reported. New cases grow by a factor of $1.35$ from one week to the next. Use your GDC to find when weekly new cases first exceed $500$, and comment on the model.",
+          "steps": [
+            "The weekly new cases are geometric with $u_{1} = 18$ and $r = 1.35$, so $u_{n} = 18 \\times 1.35^{n-1}$.",
+            "Write down the inequality, for the method mark: $18 \\times 1.35^{n-1} > 500$.",
+            "Make a table of $y = 18 \\times 1.35^{x-1}$ from $x = 1$ in steps of $1$. It shows $u_{12} = 488.6\\dots$ and $u_{13} = 659.6\\dots$",
+            "Week $13$ is the first above $500$. Quoting both cross-over values shows why.",
+            "Comment: recoveries and vaccination slow a real outbreak, so the model only suits the early weeks."
+          ],
+          "answer": "$n = 13$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling(1 + log(Rational(500, 18))/log(Rational(135, 100)))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "18*1.35^(X-1)",
+            "start": 1,
+            "step": 1,
+            "end": 15
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $n$ to the closest whole number. The equation gives $n = 12.08\\dots$, but week $12$ is still below $500$. Check both neighbours, and give one answer."
+        },
+        {
+          "type": "check",
+          "id": "check-deer",
+          "prompt": "A herd of $2600$ deer shrinks by $4\\%$ each year. Using this model, how many deer are there $6$ years later, to the nearest whole number?",
+          "hint": "A $4\\%$ fall keeps $96\\%$. How many times do you multiply in $6$ years?",
+          "options": [
+            {
+              "text": "$N \\approx 2120$",
+              "correct": false
+            },
+            {
+              "text": "$N \\approx 2035$",
+              "correct": true
+            },
+            {
+              "text": "$N \\approx 1976$",
+              "correct": false
+            },
+            {
+              "text": "$N \\approx 3290$",
+              "correct": false
+            }
+          ],
+          "explain": "$2600 \\times 0.96^{6} = 2035.17\\dots$, so about $2035$. The power $5$ gives $2120$, subtracting $104$ a year gives $1976$, and $1.04$ makes the herd grow.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "2600*(1 - Rational(4, 100))**6",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charity-total",
+          "prompt": "A charity raises $1200$ euros in month $1$ of an appeal. Each month it raises $5\\%$ more than the month before. In which month does the total raised first go over $20\\,000$ euros?",
+          "hint": "Solve $S_{n} > 20\\,000$ with $u_{1} = 1200$ and $r = 1.05$, then check the whole numbers either side.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1200(1.05^{n} - 1)}{0.05} > 20\\,000$ gives $n > 12.42\\dots$ The total is $19\\,100.55$ euros after $12$ months and $21\\,255.58$ euros after $13$, so month $13$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling(log(1 + 20000*Rational(5, 100)/1200)/log(Rational(105, 100)))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Exponential models and data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The term number $n$ sits in the exponent of $u_{n} = u_{1}r^{n-1}$. That makes a geometric sequence an [[exponential-function|exponential function]] of $n$, like the models $f(x) = ka^{x}$ in {{lesson:2.5}}."
+        },
+        {
+          "type": "text",
+          "text": "$80, 60, 45, 33.75, \\dots$ has $u_{1} = 80$ and $r = 0.75$. Evaluating $f(x) = 80 \\times 0.75^{x-1}$ for $x = 1, 2, 3, \\dots$ gives exactly these terms, and the curve fills the gaps between them."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-sequence-on-curve",
+          "alt": "Axes with n from 0 to 7 across and the term value from 0 to 90 up the side. Six points sit at heights 80, 60, 45, 33.75, about 25.3 and about 19.0 above n equals 1 to 6. Each point is 0.75 times the height of the previous point. A dashed curve falls steeply at first and then more gently, passing through all six points.",
+          "caption": "The curve $y = 80 \\times 0.75^{x-1}$ passes through every term of $80, 60, 45, \\dots$"
+        },
+        {
+          "type": "text",
+          "text": "Models in context often start the clock at $t = 0$. Then the first term is the value at $t = 0$, and term $n$ is the value at $t = n - 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-model",
+          "question": "The number of fish in a lake is modelled by $N(t) = 3200 \\times 0.92^{t}$, with $t$ measured in years from the start of 2020. Take $u_{1} = N(0)$, $u_{2} = N(1)$, $u_{3} = N(2)$, and continue. Write $u_{n}$ in terms of $n$, then use it to estimate the number of fish at the start of 2027, to the nearest whole number.",
+          "steps": [
+            "The first term is the value at $t = 0$: $u_{1} = 3200 \\times 0.92^{0} = 3200$.",
+            "Each extra year multiplies $N$ by $0.92$, so $r = 0.92$.",
+            "Term $n$ is the value at $t = n - 1$, so $u_{n} = N(n - 1) = 3200 \\times 0.92^{n-1}$.",
+            "The start of 2027 is $t = 7$, which is term $n = 8$: $u_{8} = 3200 \\times 0.92^{7} = 1785.10\\dots$, so about $1785$ fish.",
+            "Interpret: $r = 0.92$ means $92\\%$ of the fish are left after each year, an $8\\%$ fall per year."
+          ],
+          "answer": "$u_{8} \\approx 1785$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3200*Rational(92, 100)**((2027 - 2020 + 1) - 1)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-which-term",
+          "prompt": "A town's population is modelled by $P(t) = 5000 \\times 1.03^{t}$, with $t$ counted in years from 2024. With $u_{1} = P(0)$, which term of the sequence is the population in 2030?",
+          "hint": "Find $t$ for 2030 first. Term $n$ is the value at $t = n - 1$.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "2030 is $t = 6$, and $t = n - 1$ gives $n = 7$. So the 2030 population is $u_{7}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2030 - 2024) + 1",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Real data is rarely exactly geometric. Work out the gaps between neighbouring values, and their quotients. Steady gaps suggest a linear model; steady quotients suggest an exponential one."
+        },
+        {
+          "type": "text",
+          "text": "So check before you fit a regression line ({{lesson:4.4}}). When the quotients stay about the same, the points curve, and a straight line predicts badly."
+        },
+        {
+          "type": "example",
+          "id": "ex-podcast",
+          "question": "A podcast's subscribers at the end of months $1$ to $5$ are $850, 1020, 1230, 1470, 1765$. Explain why a geometric model suits these data better than an arithmetic model. Use the first and last values to estimate $r$, then predict the subscribers at the end of month $9$, to the nearest whole number.",
+          "steps": [
+            "Differences: $170, 210, 240, 295$. The gaps increase every month, which rules out a good arithmetic fit.",
+            "Ratios: $\\frac{1020}{850} = 1.2$, then about $1.21$, $1.20$ and $1.20$. These are all close to $1.2$, which supports a geometric model.",
+            "Estimate $r$: four steps separate month $1$ from month $5$, so $r^{4} = \\frac{1765}{850}$ and $r = 1.2004\\dots$ Keep the full value in your GDC.",
+            "Month $9$ is $4$ steps after month $5$: $u_{9} = 1765r^{4} = 3664.97\\dots$, about $3665$ subscribers.",
+            "Comment: month $9$ is outside the data, so this is extrapolation. Growth of $20\\%$ a month can't last, so treat it as a rough estimate."
+          ],
+          "answer": "$u_{9} \\approx 3665$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "1765*((Rational(1765, 850))**Rational(1, 4))**4",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you fit an exponential model to data with your GDC's exponential regression, and judge the fit with $R^{2}$.",
+          "lesson": "4.13"
+        },
+        {
+          "type": "check",
+          "id": "check-model-choice",
+          "prompt": "A café's weekly sales of a new drink over five weeks are $410, 452, 497, 546, 601$. Which model fits best?",
+          "hint": "Find the gaps and the quotients of neighbouring values. Which is close to constant?",
+          "options": [
+            {
+              "text": "arithmetic, because the differences are nearly equal",
+              "correct": false
+            },
+            {
+              "text": "arithmetic, because the sales go up every week",
+              "correct": false
+            },
+            {
+              "text": "geometric, because the ratios are nearly equal",
+              "correct": true
+            }
+          ],
+          "explain": "The differences $42, 45, 49, 55$ keep growing, but every ratio is close to $1.10$. Rising values don't decide the model: an arithmetic sequence with $d > 0$ rises too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "geometric, because the ratios are nearly equal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A sequence is geometric when every quotient $\\frac{u_{n+1}}{u_{n}}$ equals the same number $r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1}r^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-1-3-geom-nth",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{u_{1}(r^{n} - 1)}{r - 1} = \\frac{u_{1}(1 - r^{n})}{1 - r}, \\quad r \\neq 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-3-geom-sum",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Growing by $p\\%$ per period means $r = 1 + \\frac{p}{100}$; shrinking by $p\\%$ per period means $r = 1 - \\frac{p}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If you know two terms of a geometric sequence, express each as $u_{1}$ times a power of $r$, then divide to eliminate $u_{1}$. An even power, e.g. $r^{2} = 16$, gives two possible ratios, $r = \\pm 4$, unless the context rules one out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The sum $\\sum_{k=a}^{b}$ contains $b - a + 1$ terms, and its first term comes from $k = a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For the least whole $n$ that meets a condition, solve or tabulate on your GDC, check the whole numbers on both sides, and give one value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$u_{n} = u_{1}r^{n-1}$ is an exponential function of $n$. In data, nearly equal ratios suggest a geometric model; nearly equal differences suggest a linear one.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Raising $r$ to the power $n$ rather than $n - 1$. The 8th term is $u_{1}r^{7}$, because it is $7$ steps after $u_{1}$.",
+    "Using the percentage itself as $r$. A $6\\%$ fall leaves $94\\%$, so $r = 0.94$, not $0.06$ or $1.06$.",
+    "Rounding the ratio or an earlier answer too soon. Keep the full GDC value, or the final answer can come out wrong.",
+    "Mixing units. If the terms are in centimetres and the target is in metres, convert one of them before you compare.",
+    "Giving two values of $n$, or rounding $n$ down. Give one whole number: the first that meets the condition."
+  ],
+  "examTips": [
+    "\"Show that\" a sequence is geometric: divide each consecutive pair you're given, then say the quotient is always the same. One quotient is not enough.",
+    "With technology, write down $u_{1}$, $r$ and what you entered, such as $S_{10} = \\frac{46\\,800(1.032^{10} - 1)}{0.032}$. That set-up earns the method marks; a bare answer scores only if it is right.",
+    "\"Find the least $n$\" or \"which week\": write the inequality, show the GDC solution or the two cross-over values from a table, then give a single whole number.",
+    "\"Comment\" on a geometric model: refer to the model and the context, for example that counts are whole numbers, or that fixed-percentage growth can't go on for ever."
+  ],
+  "readingMinutes": 28
+}

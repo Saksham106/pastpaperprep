@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-labelledby="t">
+  <title id="t">Two shaded regions. Left: a ring sector, the part of a slice between two arcs with the same centre O, an outer arc of radius R and an inner arc of radius r, with the same angle theta at O. Right: a circle slice with centre O and radius r cut by the straight chord AB. The triangle OAB is lightly shaded and the segment between the chord and the arc is shaded darker.</title>
+  <!-- left: ring sector -->
+  <path d="M188.9,132.1 A90,90 0 0,0 51.1,132.1 L81.7,157.9 A50,50 0 0,1 158.3,157.9 Z" fill="var(--t3-ink)" fill-opacity="0.22" stroke="var(--t3-ink)" stroke-width="2"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.7">
+    <line x1="120" y1="190" x2="81.7" y2="157.9"/>
+    <line x1="120" y1="190" x2="158.3" y2="157.9"/>
+  </g>
+  <path d="M135.3,177.1 A20,20 0 0,0 104.7,177.1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="120" cy="190" r="2.5" fill="currentColor"/>
+  <!-- right: segment -->
+  <polygon points="360,190 436.6,125.7 283.4,125.7" fill="var(--t1-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M436.6,125.7 A100,100 0 0,0 283.4,125.7 Z" fill="var(--t1-ink)" fill-opacity="0.35" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M375.3,177.1 A20,20 0 0,0 344.7,177.1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="360" cy="190" r="2.5" fill="currentColor"/>
+  <g font-family="inherit" fill="currentColor" font-size="15">
+    <text x="114" y="210">O</text>
+    <text x="354" y="210">O</text>
+    <text x="441" y="123">A</text>
+    <text x="266" y="123">B</text>
+    <text x="72" y="240">ring sector</text>
+    <text x="270" y="240">segment = sector − triangle</text>
+  </g>
+  <g font-family="inherit" fill="currentColor" font-size="16" font-style="italic">
+    <text x="115" y="172">θ</text>
+    <text x="355" y="172">θ</text>
+    <text x="196" y="126">R</text>
+    <text x="146" y="160">r</text>
+    <text x="406" y="168">r</text>
+  </g>
+</svg>

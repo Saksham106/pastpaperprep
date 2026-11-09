@@ -1,0 +1,822 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.9",
+  "slug": "differentiation-rules-and-related-rates",
+  "title": "Differentiation rules and related rates",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "Six standard [[derivative|derivatives]], for $x^{n}$, $\\sin x$, $\\cos x$, $\\tan x$, $\\mathrm{e}^{x}$ and $\\ln x$, plus three rules let you differentiate most models in this course. The [[chain-rule|chain rule]] handles a function inside another, and the [[product-rule|product rule]] and [[quotient-rule|quotient rule]] handle products and fractions. The chain rule also links [[related-rates|related rates]], and every rule helps you find maximum and minimum points.",
+  "goals": [
+    {
+      "text": "Differentiate $x^{n}$ for rational $n$, and $\\sin x$, $\\cos x$, $\\tan x$, $\\mathrm{e}^{x}$ and $\\ln x$, with $x$ in [[radian|radians]].",
+      "bullets": [
+        "5.9-b1"
+      ]
+    },
+    {
+      "text": "Use the chain rule, product rule and quotient rule, setting out $u$, $v$ and their derivatives.",
+      "bullets": [
+        "5.9-b2"
+      ]
+    },
+    {
+      "text": "Solve related rates problems, giving each rate with its sign and units, and interpret the answer in context.",
+      "bullets": [
+        "5.9-b3"
+      ]
+    },
+    {
+      "text": "Use these derivatives to find maximum and minimum points of models and solve [[optimisation|optimisation]] problems, by hand or with a GDC.",
+      "bullets": [
+        "5.9-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "1.10",
+    "2.5",
+    "2.7",
+    "3.7",
+    "5.1",
+    "5.3",
+    "5.6",
+    "5.7"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "chain rule",
+    "product rule and quotient rule",
+    "related rates of change",
+    "derivative of tan x",
+    "differentiate e^x and ln x",
+    "derivative of sin and cos"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-negative-power",
+      "prompt": "Differentiate $y = \\frac{6}{x^{2}}$.",
+      "hint": "Write it as $6x^{-2}$ first. Multiply by the power, then lower the power by 1.",
+      "options": [
+        {
+          "text": "$-\\frac{12}{x^{3}}$",
+          "correct": true
+        },
+        {
+          "text": "$-12x^{-1}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{12}{x^{3}}$",
+          "correct": false
+        },
+        {
+          "text": "$12x$",
+          "correct": false
+        }
+      ],
+      "explain": "$6x^{-2}$ gives $6 \\times (-2)x^{-3} = -12x^{-3} = -\\frac{12}{x^{3}}$. Lowering $-2$ by 1 gives $-3$, not $-1$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(6/x**2, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-composite",
+      "prompt": "Let $f(x) = x^{2} + 1$ and $g(x) = 3x - 2$. Find $(f \\circ g)(x)$.",
+      "hint": "$(f \\circ g)(x) = f\\bigl(g(x)\\bigr)$: put $3x - 2$ in place of $x$ in $f$.",
+      "options": [
+        {
+          "text": "$(3x - 2)^{2} + 1$",
+          "correct": true
+        },
+        {
+          "text": "$3x^{2} + 1$",
+          "correct": false
+        },
+        {
+          "text": "$(x^{2} + 1)(3x - 2)$",
+          "correct": false
+        }
+      ],
+      "explain": "Apply $g$ first, then $f$: $f(3x - 2) = (3x - 2)^{2} + 1$. Doing $f$ first gives $g(x^{2} + 1) = 3x^{2} + 1$, which is $(g \\circ f)(x)$. Revise it in {{lesson:2.7}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "(3*x - 2)**2 + 1"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-radians",
+      "prompt": "Write $135^{\\circ}$ in radians.",
+      "hint": "$180^{\\circ} = \\pi$ radians, so multiply by $\\frac{\\pi}{180}$.",
+      "options": [
+        {
+          "text": "$\\frac{3\\pi}{4}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{4\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\pi}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$135 \\times \\frac{\\pi}{180} = \\frac{3\\pi}{4}$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "135*pi/180"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "standard",
+      "heading": "Derivatives of the standard functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.3}} you differentiated integer powers of $x$. Models in AI also use roots, $\\sin x$, $\\cos x$, $\\tan x$, $\\mathrm{e}^{x}$ and $\\ln x$. Each has a standard derivative, and all of them are in the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "Start with powers. The [[power-rule|power rule]] works for every rational power $n$, not just whole numbers. Write roots and fractions as powers of $x$ first: $\\sqrt{x} = x^{\\frac{1}{2}}$ and $\\frac{1}{\\sqrt{x}} = x^{-\\frac{1}{2}}$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-derivative-power"
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-powers",
+          "question": "Let $f(x) = 4x^{\\frac{3}{2}} - \\frac{6}{\\sqrt{x}}$, for $x > 0$. Find $f'(x)$.",
+          "steps": [
+            "Write every term as a power of $x$: $f(x) = 4x^{\\frac{3}{2}} - 6x^{-\\frac{1}{2}}$.",
+            "First term: $4 \\times \\frac{3}{2}x^{\\frac{1}{2}} = 6x^{\\frac{1}{2}}$.",
+            "Second term: $-6 \\times \\left(-\\frac{1}{2}\\right)x^{-\\frac{3}{2}} = 3x^{-\\frac{3}{2}}$. Lowering $-\\frac{1}{2}$ by 1 gives $-\\frac{3}{2}$.",
+            "So $f'(x) = 6x^{\\frac{1}{2}} + 3x^{-\\frac{3}{2}}$, which you can also write as $6\\sqrt{x} + \\frac{3}{x\\sqrt{x}}$."
+          ],
+          "answer": "$f'(x) = 6x^{\\frac{1}{2}} + 3x^{-\\frac{3}{2}}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(4*x**Rational(3, 2) - 6/sqrt(x), x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now the trig functions. On the graph of $y = \\sin x$ the gradient is 1 at $x = 0$, 0 at $x = \\frac{\\pi}{2}$ and $-1$ at $x = \\pi$. Those are the values of $\\cos x$. So the gradient function of $\\sin x$ is $\\cos x$."
+        },
+        {
+          "type": "text",
+          "text": "These trig results are true only when $x$ is in [[radian|radians]]. In calculus, always work in radians, and set your GDC to radians too."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\sin x \\Rightarrow f'(x) = \\cos x",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-derivative-sin"
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\cos x \\Rightarrow f'(x) = -\\sin x",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-derivative-cos"
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\tan x \\Rightarrow f'(x) = \\frac{1}{\\cos^{2} x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-derivative-tan"
+        },
+        {
+          "type": "text",
+          "text": "The function $\\mathrm{e}^{x}$ is special: its gradient at every point equals its height. And $\\ln x$, the [[natural-logarithm|natural logarithm]], has gradient $\\frac{1}{x}$, for $x > 0$."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\mathrm{e}^{x} \\Rightarrow f'(x) = \\mathrm{e}^{x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-derivative-exp"
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\ln x \\Rightarrow f'(x) = \\frac{1}{x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-derivative-ln"
+        },
+        {
+          "type": "text",
+          "text": "Sums and constant multiples work as they did in {{lesson:5.3}}. Differentiate term by term and keep the constant in front. A constant on its own, such as $\\ln 5$ or $\\mathrm{e}^{2}$, differentiates to 0."
+        },
+        {
+          "type": "check",
+          "id": "check-standard-trig",
+          "prompt": "Differentiate $y = 3\\tan x - 2\\cos x$.",
+          "hint": "Use the booklet results for $\\tan x$ and $\\cos x$. Watch the sign that $\\cos x$ brings.",
+          "options": [
+            {
+              "text": "$\\frac{3}{\\cos^{2} x} + 2\\sin x$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{3}{\\cos^{2} x} - 2\\sin x$",
+              "correct": false
+            },
+            {
+              "text": "$-\\frac{3}{\\cos^{2} x} - 2\\sin x$",
+              "correct": false
+            }
+          ],
+          "explain": "$3\\tan x$ gives $\\frac{3}{\\cos^{2} x}$. $\\cos x$ gives $-\\sin x$, so $-2\\cos x$ gives $-2(-\\sin x) = +2\\sin x$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(3*tan(x) - 2*cos(x), x)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-standard-revenue",
+          "question": "A company models its monthly revenue as $R(x) = 50\\ln x + 2x$, where $R$ and the advertising spend $x$ are both in thousands of dollars, for $x \\ge 1$. (a) Find $R'(x)$. (b) Find $R'(25)$ and interpret it in context.",
+          "steps": [
+            "(a) $\\ln x$ gives $\\frac{1}{x}$ and $2x$ gives $2$, so $R'(x) = \\frac{50}{x} + 2$.",
+            "(b) Substitute $x = 25$: $R'(25) = \\frac{50}{25} + 2 = 4$.",
+            "Interpret: when the company spends \\$25 000 on advertising, each extra \\$1000 brings in about \\$4000 more revenue."
+          ],
+          "answer": "$R'(25) = 4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(50*log(x) + 2*x, x).subs(x, 25)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-standard-flat",
+          "prompt": "Find the $x$-coordinate of the point on $y = 2\\mathrm{e}^{x} - 5x$ where the gradient is zero. Give your answer to 3 s.f.",
+          "hint": "Differentiate, set $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$, then take $\\ln$ of both sides.",
+          "answer": {
+            "value": 0.916,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2\\mathrm{e}^{x} - 5 = 0$, so $\\mathrm{e}^{x} = 2.5$ and $x = \\ln 2.5 = 0.91629\\ldots \\approx 0.916$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(Rational(5, 2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Doing trig calculus in degrees. $\\sin x \\to \\cos x$ is true only in radians, so check your GDC shows radians before you graph or solve."
+        }
+      ]
+    },
+    {
+      "id": "chain",
+      "heading": "The chain rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$(3x^{2} - 1)^{5}$ is not a power of $x$. It is the fifth power applied to $3x^{2} - 1$: a [[composite-function|composite function]] with an inside, $3x^{2} - 1$, and an outside, $(\\ldots)^{5}$."
+        },
+        {
+          "type": "text",
+          "text": "The key idea is that rates multiply. If $u$ changes 4 times as fast as $x$, and $y$ changes 3 times as fast as $u$, then $y$ changes $3 \\times 4 = 12$ times as fast as $x$."
+        },
+        {
+          "type": "formula",
+          "tex": "y = g(u),\\ \\text{where } u = f(x) \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y}{\\mathrm{d}u} \\times \\frac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-chain-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[chain-rule|chain rule]], and it is in the booklet. In words: differentiate the outside, leave the inside alone, then multiply by the [[derivative|derivative]] of the inside."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the inside: let $u$ be the expression in the brackets, under the root or in the power."
+        },
+        {
+          "type": "text",
+          "text": "2. Write $y$ in terms of $u$. Find $\\frac{\\mathrm{d}y}{\\mathrm{d}u}$ and $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$."
+        },
+        {
+          "type": "text",
+          "text": "3. Multiply them, then write $u$ back in terms of $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-power",
+          "question": "Differentiate $y = (3x^{2} - 1)^{5}$.",
+          "steps": [
+            "Let $u = 3x^{2} - 1$, so $y = u^{5}$.",
+            "Then $\\frac{\\mathrm{d}y}{\\mathrm{d}u} = 5u^{4}$ and $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 6x$.",
+            "Chain rule: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 5u^{4} \\times 6x = 30x u^{4}$.",
+            "Write $u$ back: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 30x(3x^{2} - 1)^{4}$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 30x(3x^{2} - 1)^{4}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "diff((3*x**2 - 1)**5, x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "With practice you can skip naming $u$. These patterns appear in many AI models, where $f(x)$ is the inside and $k$ is a constant:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\,\\mathrm{e}^{kx} = k\\mathrm{e}^{kx} \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\sin(kx) = k\\cos(kx) \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\cos(kx) = -k\\sin(kx)",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\,\\mathrm{e}^{f(x)} = f'(x)\\,\\mathrm{e}^{f(x)} \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln\\bigl(f(x)\\bigr) = \\frac{f'(x)}{f(x)}",
+          "tag": "learn"
+        },
+        {
+          "type": "check",
+          "id": "check-chain-ln",
+          "prompt": "Differentiate $y = \\ln(4x + 1)$, for $x > -\\frac{1}{4}$.",
+          "hint": "The outside is $\\ln$, which gives $\\frac{1}{\\text{inside}}$. What does the inside differentiate to?",
+          "options": [
+            {
+              "text": "$\\frac{4}{4x + 1}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{4x + 1}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{4x}$",
+              "correct": false
+            }
+          ],
+          "explain": "Outside: $\\frac{1}{4x + 1}$. Inside: $4x + 1$ gives $4$. Multiply: $\\frac{4}{4x + 1}$. Leaving out the inside's derivative gives $\\frac{1}{4x + 1}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(log(4*x + 1), x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-chain-coffee",
+          "prompt": "A cup of coffee cools so that its temperature is $T(t) = 21 + 64\\mathrm{e}^{-0.05t}$ $^{\\circ}\\mathrm{C}$, $t$ minutes after it is poured. Find $T'(10)$, in $^{\\circ}\\mathrm{C}$ per minute, to 3 s.f. Include the sign.",
+          "hint": "$\\mathrm{e}^{-0.05t}$ differentiates to $-0.05\\mathrm{e}^{-0.05t}$. The constant 21 gives 0.",
+          "answer": {
+            "value": -1.94,
+            "tolerance": 0.005
+          },
+          "explain": "$T'(t) = 64 \\times (-0.05)\\mathrm{e}^{-0.05t} = -3.2\\mathrm{e}^{-0.05t}$, so $T'(10) = -3.2\\mathrm{e}^{-0.5} = -1.94089\\ldots \\approx -1.94$. The minus sign means that after 10 minutes the coffee is cooling by about $1.94\\,^{\\circ}\\mathrm{C}$ per minute.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(21 + 64*exp(-Rational(1, 20)*t), t).subs(t, 10)",
+            "sf": 3,
+            "signed": true
+          }
+        },
+        {
+          "type": "text",
+          "text": "The chain rule also finds the maximum or minimum of a model with a root in it, as in {{lesson:5.6}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-ship",
+          "question": "A ship sails past a lighthouse. Its distance from the lighthouse is modelled by $D(t) = \\sqrt{25t^{2} - 36t + 40}$ km, $t$ hours after noon, for $0 \\le t \\le 2$. (a) Find $D'(t)$. (b) Find the least distance between the ship and the lighthouse, and the time when it happens.",
+          "steps": [
+            "(a) Let $u = 25t^{2} - 36t + 40$, so $D = u^{\\frac{1}{2}}$. Then $\\frac{\\mathrm{d}D}{\\mathrm{d}u} = \\frac{1}{2}u^{-\\frac{1}{2}}$ and $\\frac{\\mathrm{d}u}{\\mathrm{d}t} = 50t - 36$.",
+            "Chain rule: $D'(t) = \\frac{1}{2}(25t^{2} - 36t + 40)^{-\\frac{1}{2}} \\times (50t - 36) = \\frac{25t - 18}{\\sqrt{25t^{2} - 36t + 40}}$.",
+            "(b) The bottom is a square root of a positive number, so it is never zero. A fraction is zero only when its top is zero, so solve $25t - 18 = 0$: $t = 0.72$.",
+            "Check the type: $D'(0.5)$ has top $-5.5 < 0$ and $D'(1)$ has top $7 > 0$. The distance falls, then rises, so $t = 0.72$ gives a minimum.",
+            "Find the distance: $D(0.72) = \\sqrt{12.96 - 25.92 + 40} = \\sqrt{27.04} = 5.2$. Compare the end points: $D(0) = \\sqrt{40} \\approx 6.32$ and $D(2) = \\sqrt{68} \\approx 8.25$ are both larger.",
+            "Interpret: the ship is closest to the lighthouse, 5.2 km away, at about 12:43 (0.72 hours after noon)."
+          ],
+          "answer": "$D = 5.2\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((25*t**2 - 36*t + 40).subs(t, solve(diff(25*t**2 - 36*t + 40, t), t)[0]))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the inside's derivative. $\\mathrm{e}^{-0.05t}$ gives $-0.05\\mathrm{e}^{-0.05t}$, not $\\mathrm{e}^{-0.05t}$, and $\\sqrt{x^{2} + 5}$ needs the factor $2x$ from its inside."
+        }
+      ]
+    },
+    {
+      "id": "product-quotient",
+      "heading": "The product and quotient rules",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$t\\mathrm{e}^{-0.5t}$ is two functions multiplied together. Its derivative is not the product of their derivatives: $x \\times x = x^{2}$ has derivative $2x$, not $1 \\times 1 = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Picture $uv$ as the area of a rectangle with sides $u$ and $v$. If both sides grow a little, the area gains a strip $u$ times the growth of $v$, plus a strip $v$ times the growth of $u$. The tiny corner piece is too small to matter."
+        },
+        {
+          "type": "formula",
+          "tex": "y = uv \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-product-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[product-rule|product rule]], from the booklet. Write down $u$, $v$, $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ first, then fill in the formula. Each part may need the [[chain-rule|chain rule]] on its own."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-drug",
+          "question": "The concentration of a medicine in a patient's blood is modelled by $C(t) = 12t\\mathrm{e}^{-0.5t}$ mg per litre, $t$ hours after a dose, for $0 \\le t \\le 10$. (a) Find $C'(t)$. (b) Find the greatest concentration, and when it happens.",
+          "steps": [
+            "(a) Let $u = 12t$ and $v = \\mathrm{e}^{-0.5t}$. Then $\\frac{\\mathrm{d}u}{\\mathrm{d}t} = 12$ and, by the chain rule, $\\frac{\\mathrm{d}v}{\\mathrm{d}t} = -0.5\\mathrm{e}^{-0.5t}$.",
+            "Product rule: $C'(t) = 12t\\left(-0.5\\mathrm{e}^{-0.5t}\\right) + \\mathrm{e}^{-0.5t}(12) = 6\\mathrm{e}^{-0.5t}(2 - t)$.",
+            "(b) $\\mathrm{e}^{-0.5t}$ is never zero, so $C'(t) = 0$ only when $2 - t = 0$, at $t = 2$.",
+            "For $t < 2$, $C'(t) > 0$; for $t > 2$, $C'(t) < 0$. The concentration rises, then falls, so $t = 2$ gives the maximum. The end values $C(0) = 0$ and $C(10) = 120\\mathrm{e}^{-5} \\approx 0.809$ are smaller.",
+            "$C(2) = 24\\mathrm{e}^{-1} = 8.8291\\ldots \\approx 8.83$. The concentration peaks at about 8.83 mg per litre, 2 hours after the dose."
+          ],
+          "answer": "$C(2) \\approx 8.83\\text{ mg L}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(12*t*exp(-t/2)).subs(t, solve(diff(12*t*exp(-t/2), t), t)[0])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To solve $f'(x) = 0$, factorise the derivative. An exponential factor such as $\\mathrm{e}^{-0.5t}$ is never zero, so say so and divide it out."
+        },
+        {
+          "type": "check",
+          "id": "check-product-ln",
+          "prompt": "Differentiate $y = x^{2}\\ln x$, for $x > 0$.",
+          "hint": "Let $u = x^{2}$ and $v = \\ln x$. Write down $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ first.",
+          "options": [
+            {
+              "text": "$2x\\ln x + x$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$2x\\ln x$",
+              "correct": false
+            }
+          ],
+          "explain": "$u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x} = x^{2} \\times \\frac{1}{x} + \\ln x \\times 2x = x + 2x\\ln x$. Multiplying the two derivatives gives $2x \\times \\frac{1}{x} = 2$, which is wrong.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(x**2*log(x), x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "For one function divided by another, use the [[quotient-rule|quotient rule]]. It is in the booklet too."
+        },
+        {
+          "type": "formula",
+          "tex": "y = \\frac{u}{v} \\Rightarrow \\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{v\\frac{\\mathrm{d}u}{\\mathrm{d}x} - u\\frac{\\mathrm{d}v}{\\mathrm{d}x}}{v^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-5-9-quotient-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Order matters, because of the minus sign. The top starts with $v$, the bottom of the fraction. Say it as: bottom times the derivative of the top, minus top times the derivative of the bottom, all over the bottom squared."
+        },
+        {
+          "type": "result",
+          "statement": "The quotient rule gives the booklet's derivative of $\\tan x$.",
+          "why": "Write $\\tan x = \\frac{\\sin x}{\\cos x}$, with $u = \\sin x$ and $v = \\cos x$. Then $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\cos x \\cos x - \\sin x(-\\sin x)}{\\cos^{2} x} = \\frac{\\cos^{2} x + \\sin^{2} x}{\\cos^{2} x} = \\frac{1}{\\cos^{2} x}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-quotient-typing",
+          "question": "A student learning to touch-type has a typing speed of $W(x) = \\frac{60x}{x + 4}$ words per minute after $x$ weeks of practice, for $x \\ge 0$. (a) Show that $W'(x) = \\frac{240}{(x + 4)^{2}}$. (b) Find $W'(6)$ and interpret it. (c) Comment on how $W'(x)$ changes as $x$ increases.",
+          "steps": [
+            "(a) Let $u = 60x$ and $v = x + 4$, so $\\frac{\\mathrm{d}u}{\\mathrm{d}x} = 60$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x} = 1$.",
+            "Quotient rule: $W'(x) = \\frac{(x + 4)(60) - 60x(1)}{(x + 4)^{2}} = \\frac{60x + 240 - 60x}{(x + 4)^{2}} = \\frac{240}{(x + 4)^{2}}$, as required.",
+            "(b) $W'(6) = \\frac{240}{10^{2}} = 2.4$. After 6 weeks of practice, the typing speed is rising by about 2.4 words per minute each week.",
+            "(c) $W'(x)$ is always positive, so the speed keeps improving. But the bottom $(x + 4)^{2}$ grows, so $W'(x)$ gets smaller: each week of practice adds less than the one before."
+          ],
+          "answer": "$W'(6) = 2.4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(60*x/(x + 4), x).subs(x, 6)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Starting the top of the quotient rule with $u\\frac{\\mathrm{d}v}{\\mathrm{d}x}$. That flips the sign of the whole answer. Copy the booklet's order: $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ first."
+        },
+        {
+          "type": "check",
+          "id": "check-quotient-linear",
+          "prompt": "Let $f(x) = \\frac{2x + 3}{x - 1}$, for $x \\neq 1$. Find $f'(x)$.",
+          "hint": "Use $u = 2x + 3$ and $v = x - 1$. Put brackets round $u$ when you multiply it by $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$.",
+          "options": [
+            {
+              "text": "$-\\frac{5}{(x - 1)^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{5}{(x - 1)^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{1}{(x - 1)^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{(x - 1)(2) - (2x + 3)(1)}{(x - 1)^{2}} = \\frac{2x - 2 - 2x - 3}{(x - 1)^{2}} = -\\frac{5}{(x - 1)^{2}}$. Swapping the order gives $+5$, and forgetting the bracket gives $-2 + 3 = 1$ on top.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff((2*x + 3)/(x - 1), x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you often find $f'(x)$ by hand, then let the GDC solve $f'(x) = 0$. Write down the equation you solve: that line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-product-ruler",
+          "question": "The end of a vibrating ruler is $y$ cm from its rest position $t$ seconds after it is flicked, where $y = 4\\mathrm{e}^{-0.3t}\\sin(2t)$, for $t \\ge 0$. (a) Find $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$. (b) Use your GDC to find the first time $t > 0$ when $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0$. Give your answer to 3 s.f. (c) Find the value of $y$ at this time and interpret it.",
+          "steps": [
+            "(a) Let $u = 4\\mathrm{e}^{-0.3t}$ and $v = \\sin(2t)$. By the chain rule, $\\frac{\\mathrm{d}u}{\\mathrm{d}t} = -1.2\\mathrm{e}^{-0.3t}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}t} = 2\\cos(2t)$.",
+            "Product rule: $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 8\\mathrm{e}^{-0.3t}\\cos(2t) - 1.2\\mathrm{e}^{-0.3t}\\sin(2t) = \\mathrm{e}^{-0.3t}\\bigl(8\\cos(2t) - 1.2\\sin(2t)\\bigr)$.",
+            "(b) Set the GDC to radians. Write down the equation: $\\mathrm{e}^{-0.3t}\\bigl(8\\cos(2t) - 1.2\\sin(2t)\\bigr) = 0$.",
+            "Graph the left side and find its first zero after $t = 0$: $t = 0.710953\\ldots \\approx 0.711$ s.",
+            "(c) Use the stored value: $y = 4\\mathrm{e}^{-0.3(0.710953\\ldots)}\\sin(1.42190\\ldots) = 3.19594\\ldots \\approx 3.20$ cm.",
+            "Interpret: about 0.711 s after the flick, the ruler's end turns back, 3.20 cm from rest, at the far end of its first swing."
+          ],
+          "answer": "$t \\approx 0.711\\text{ s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(diff(4*exp(-0.3*t)*sin(2*t), t), t, 0.7)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Radian"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 3,
+            "yMin": -10,
+            "yMax": 10
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-zeros",
+          "values": {
+            "function": "e^(-0.3X)(8cos(2X)-1.2sin(2X))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rates",
+      "heading": "Related rates of change",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Oil leaking from a ship spreads as a circle. Its radius $r$ and area $A$ both grow with time, and their rates are linked."
+        },
+        {
+          "type": "text",
+          "text": "Rates like these are [[related-rates|related rates]]. $A$ depends on $r$, and $r$ depends on time $t$, so the [[chain-rule|chain rule]] links them:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}A}{\\mathrm{d}t} = \\frac{\\mathrm{d}A}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A [[rate-of-change|rate of change]] is positive when the quantity is increasing and negative when it is decreasing. Its units are per unit of time, such as $\\text{m}^{2}\\text{ min}^{-1}$ for $\\frac{\\mathrm{d}A}{\\mathrm{d}t}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Name the variables. Write down the rate you know, with its sign, and the rate you want."
+        },
+        {
+          "type": "text",
+          "text": "2. Write an equation linking the two quantities that is true at every moment, not just at the instant in the question."
+        },
+        {
+          "type": "text",
+          "text": "3. Differentiate it, then write the chain rule linking the rates."
+        },
+        {
+          "type": "text",
+          "text": "4. Only now substitute the values at the instant. Give the answer with its units."
+        },
+        {
+          "type": "example",
+          "id": "ex-rates-slick",
+          "question": "An oil slick is a circle whose radius grows at $0.3\\text{ m min}^{-1}$. Find the rate at which its area is increasing when the radius is 12 m. Give your answer to 3 s.f.",
+          "steps": [
+            "Let the radius be $r$ m and the area $A\\text{ m}^{2}$ at time $t$ minutes. You know $\\frac{\\mathrm{d}r}{\\mathrm{d}t} = 0.3$ and want $\\frac{\\mathrm{d}A}{\\mathrm{d}t}$.",
+            "Link them: $A = \\pi r^{2}$ at every moment, so $\\frac{\\mathrm{d}A}{\\mathrm{d}r} = 2\\pi r$.",
+            "Chain rule: $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = \\frac{\\mathrm{d}A}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t} = 2\\pi r \\times 0.3$.",
+            "At the instant $r = 12$: $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = 2\\pi(12)(0.3) = 7.2\\pi = 22.619\\ldots \\approx 22.6$.",
+            "Interpret: at that moment the slick covers about $22.6\\text{ m}^{2}$ more sea each minute."
+          ],
+          "answer": "$\\frac{\\mathrm{d}A}{\\mathrm{d}t} \\approx 22.6\\text{ m}^{2}\\text{ min}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "diff(pi*r**2, r).subs(r, 12)*Rational(3, 10)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rates-snowball",
+          "prompt": "A spherical snowball melts so that its volume falls by $10\\text{ cm}^{3}$ each minute. Use $V = \\frac{4}{3}\\pi r^{3}$ to find $\\frac{\\mathrm{d}r}{\\mathrm{d}t}$, in cm per minute, when $r = 5$.",
+          "hint": "Is $\\frac{\\mathrm{d}V}{\\mathrm{d}t}$ positive or negative? Then use $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = 4\\pi r^{2}\\frac{\\mathrm{d}r}{\\mathrm{d}t}$.",
+          "options": [
+            {
+              "text": "$-\\frac{1}{10\\pi}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{10\\pi}$",
+              "correct": false
+            },
+            {
+              "text": "$-1000\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "The volume is falling, so $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = -10$. Then $-10 = 4\\pi(5^{2})\\frac{\\mathrm{d}r}{\\mathrm{d}t} = 100\\pi\\frac{\\mathrm{d}r}{\\mathrm{d}t}$, so $\\frac{\\mathrm{d}r}{\\mathrm{d}t} = -\\frac{1}{10\\pi}$. Multiplying $-10$ by $100\\pi$ instead of dividing gives $-1000\\pi$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-10/diff(Rational(4, 3)*pi*r**3, r).subs(r, 5)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rates-cyclist",
+          "prompt": "The power a cyclist needs to overcome air resistance is modelled by $P = 0.2v^{3}$ watts, where $v$ is the speed in $\\text{m s}^{-1}$. The cyclist's speed is $9\\text{ m s}^{-1}$ and increasing at $0.4\\text{ m s}^{-2}$. Find $\\frac{\\mathrm{d}P}{\\mathrm{d}t}$, in watts per second, to 3 s.f.",
+          "hint": "Find $\\frac{\\mathrm{d}P}{\\mathrm{d}v}$, then use $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = \\frac{\\mathrm{d}P}{\\mathrm{d}v} \\times \\frac{\\mathrm{d}v}{\\mathrm{d}t}$.",
+          "answer": {
+            "value": 19.4,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{\\mathrm{d}P}{\\mathrm{d}v} = 0.6v^{2} = 0.6(81) = 48.6$, so $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 48.6 \\times 0.4 = 19.44 \\approx 19.4$. The power needed is rising by about 19.4 watts each second.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(Rational(1, 5)*v**3, v).subs(v, 9)*Rational(2, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some problems link two lengths in a right-angled triangle. Make the length you want the subject with Pythagoras, then use the chain rule."
+        },
+        {
+          "type": "figure",
+          "id": "5-9-drone-triangle",
+          "alt": "Right-angled triangle. An observer O stands on level ground 40 metres from point B, where a drone took off. The drone D is directly above B at height h, with the vertical side BD marked h and an arrow showing the drone rising. The hypotenuse OD, from the observer to the drone, is marked s, and the angle of elevation at O is marked theta.",
+          "caption": "The drone rises straight up from $B$. At every moment $s^{2} = h^{2} + 40^{2}$ and $h = 40\\tan\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rates-drone",
+          "question": "A drone rises vertically from a point $B$ at a constant $3\\text{ m s}^{-1}$. An observer $O$ stands on level ground 40 m from $B$. The drone is $h$ m above $B$ and $s$ m from $O$. Find the rate at which $s$ is increasing when $h = 30$.",
+          "steps": [
+            "You know $\\frac{\\mathrm{d}h}{\\mathrm{d}t} = 3$ and want $\\frac{\\mathrm{d}s}{\\mathrm{d}t}$.",
+            "Pythagoras, true at every moment: $s = \\sqrt{h^{2} + 1600}$.",
+            "Chain rule, with inside $h^{2} + 1600$: $\\frac{\\mathrm{d}s}{\\mathrm{d}h} = \\frac{1}{2}(h^{2} + 1600)^{-\\frac{1}{2}} \\times 2h = \\frac{h}{\\sqrt{h^{2} + 1600}}$.",
+            "Link the rates: $\\frac{\\mathrm{d}s}{\\mathrm{d}t} = \\frac{\\mathrm{d}s}{\\mathrm{d}h} \\times \\frac{\\mathrm{d}h}{\\mathrm{d}t} = \\frac{3h}{\\sqrt{h^{2} + 1600}}$.",
+            "At $h = 30$: $\\sqrt{900 + 1600} = 50$, so $\\frac{\\mathrm{d}s}{\\mathrm{d}t} = \\frac{90}{50} = 1.8$."
+          ],
+          "answer": "$\\frac{\\mathrm{d}s}{\\mathrm{d}t} = 1.8\\text{ m s}^{-1}$",
+          "check": {
+            "type": "check",
+            "id": "check-rates-angle",
+            "prompt": "Now you try. For the same drone, the angle of elevation $\\theta$ from $O$ satisfies $h = 40\\tan\\theta$. Find $\\frac{\\mathrm{d}\\theta}{\\mathrm{d}t}$, in radians per second, when $h = 30$. Give your answer to 3 s.f.",
+            "hint": "$\\frac{\\mathrm{d}h}{\\mathrm{d}\\theta} = \\frac{40}{\\cos^{2}\\theta}$. When $h = 30$ the triangle has sides 30, 40 and 50, so $\\cos\\theta = \\frac{40}{50}$.",
+            "answer": {
+              "value": 0.048,
+              "tolerance": 0.00005
+            },
+            "explain": "$\\frac{\\mathrm{d}h}{\\mathrm{d}t} = \\frac{40}{\\cos^{2}\\theta} \\times \\frac{\\mathrm{d}\\theta}{\\mathrm{d}t}$, so $3 = \\frac{40}{0.64}\\frac{\\mathrm{d}\\theta}{\\mathrm{d}t} = 62.5\\frac{\\mathrm{d}\\theta}{\\mathrm{d}t}$. So $\\frac{\\mathrm{d}\\theta}{\\mathrm{d}t} = 0.0480$ radians per second: the observer's line of sight is tilting upwards.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "3*cos(atan(Rational(30, 40)))**2/40",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(sqrt(h**2 + 40**2), h).subs(h, 30)*3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting $h = 30$ before you differentiate. Then $h$ looks like a constant and its rate disappears. Differentiate the general equation first, then substitute."
+        },
+        {
+          "type": "examTip",
+          "text": "Write the chain rule line, such as $\\frac{\\mathrm{d}s}{\\mathrm{d}t} = \\frac{\\mathrm{d}s}{\\mathrm{d}h} \\times \\frac{\\mathrm{d}h}{\\mathrm{d}t}$, before you put numbers in. It earns the method mark and shows whether to multiply or divide."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "For $x$ in radians: $x^{n} \\to nx^{n-1}$ for any rational $n$; $\\sin x \\to \\cos x$; $\\cos x \\to -\\sin x$; $\\tan x \\to \\frac{1}{\\cos^{2} x}$; $\\mathrm{e}^{x} \\to \\mathrm{e}^{x}$; $\\ln x \\to \\frac{1}{x}$ for $x > 0$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chain rule in words: differentiate the outside, keep the inside, multiply by the inside's derivative. So, for a constant $k$, $\\mathrm{e}^{kx} \\to k\\mathrm{e}^{kx}$ and $\\sin(kx) \\to k\\cos(kx)$ in radians.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a product or a quotient, write down $u$, $v$, $\\frac{\\mathrm{d}u}{\\mathrm{d}x}$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}x}$ first. The top of the quotient rule starts with $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Related rates: link the quantities with an equation true at every moment, differentiate, write the chain rule, then substitute the values at the instant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A decreasing quantity has a negative rate of change. Give every rate with its units, such as $\\text{m}^{2}\\text{ min}^{-1}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find a maximum or minimum of a model, find $f'(x)$ with these rules and solve $f'(x) = 0$. Check the sign of $f'(x)$ either side, and compare with the values at the end points of the domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing the derivative of $\\mathrm{e}^{-0.5t}$ as $\\mathrm{e}^{-0.5t}$. The chain rule brings down the $-0.5$: it is $-0.5\\mathrm{e}^{-0.5t}$.",
+    "Multiplying the two derivatives for a product. The derivative of $uv$ is $u\\frac{\\mathrm{d}v}{\\mathrm{d}x} + v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$, never $\\frac{\\mathrm{d}u}{\\mathrm{d}x} \\times \\frac{\\mathrm{d}v}{\\mathrm{d}x}$.",
+    "Reversing the top of the quotient rule. Start with $v\\frac{\\mathrm{d}u}{\\mathrm{d}x}$, or the sign of the whole answer flips.",
+    "Giving a falling quantity a positive rate. If a volume drops by $10\\text{ cm}^{3}$ each minute, write $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = -10$.",
+    "Using degree mode for trig derivatives on the GDC. Set radians before you graph, solve or find a gradient."
+  ],
+  "examTips": [
+    "Find $f'(x)$ for a product or quotient: show the rule with $u$, $v$ and their derivatives filled in. That line earns the method mark even if a later slip costs the answer.",
+    "Hence find the maximum: write down your derivative set equal to zero, then solve it by hand or on the GDC. A wrong derivative used correctly can still earn follow-through marks.",
+    "Interpret a rate: say what changes, by about how much, per unit of what, at that moment. For a decreasing quantity the rate is negative, but how fast it falls is the size of the rate."
+  ],
+  "readingMinutes": 27
+}

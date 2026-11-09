@@ -2,25 +2,25 @@
   {
     "id": "parameter",
     "term": "parameter",
-    "definition": "TODO: A constant in a model, such as k, a or c, fitted to the situation and fixed for that model, unlike the variable",
+    "definition": "A constant in a model, such as $k$, $a$ or $c$ in $f(x) = ka^{x} + c$, found from the situation and then kept fixed while the variable changes.",
     "lesson": "2.6"
   },
   {
     "id": "extrapolation",
     "term": "extrapolation",
-    "definition": "TODO: Predicting outside the range of data the model was built from; unreliable because the trend may not continue",
+    "definition": "Using a model to predict a value outside the range of data it was built from; less reliable, because the trend may not continue there.",
     "lesson": "2.6"
   },
   {
     "id": "interpolation",
     "term": "interpolation",
-    "definition": "TODO: Predicting inside the range of data the model was built from; more reliable than extrapolation but only as good as the model",
+    "definition": "Using a model to predict a value inside the range of data it was built from; usually more reliable than extrapolation, but only as good as the model's fit.",
     "lesson": "2.6"
   },
   {
     "id": "initial-condition",
     "term": "initial condition",
-    "definition": "TODO: A known value at the start, often at t = 0, used to find a parameter or constant",
+    "definition": "A known value at the start of a situation, usually at $t = 0$, which you substitute into a model to find a parameter.",
     "lesson": "2.6"
   }
 ]

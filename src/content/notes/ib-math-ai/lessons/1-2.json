@@ -1,0 +1,771 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.2",
+  "slug": "arithmetic-sequences-and-series",
+  "title": "Arithmetic sequences and series",
+  "level": "SL",
+  "topic": 1,
+  "summary": "An [[arithmetic-sequence|arithmetic sequence]] changes by the same amount at every step. Its first term and that step give you any term, and the total of as many terms as you need. You'll use it for steady growth and decline, [[simple-interest|simple interest]] and real data that changes roughly steadily.",
+  "goals": [
+    {
+      "text": "Recognise an [[arithmetic-sequence|arithmetic sequence]], find its [[common-difference|common difference]] and use the $n$th term formula, including from two given terms.",
+      "bullets": [
+        "1.2-b1"
+      ]
+    },
+    {
+      "text": "Find the sum of the first $n$ terms, and find $n$ when the sum is given.",
+      "bullets": [
+        "1.2-b2"
+      ]
+    },
+    {
+      "text": "Write a sum in [[sigma-notation|sigma notation]] and evaluate it, by formula or on your calculator.",
+      "bullets": [
+        "1.2-b3"
+      ]
+    },
+    {
+      "text": "Model [[simple-interest|simple interest]] and other steady changes, using a spreadsheet or your calculator to list terms and read off the first term and common difference.",
+      "bullets": [
+        "1.2-b4"
+      ]
+    },
+    {
+      "text": "Estimate a common difference from data that is only roughly steady, predict from it and judge the prediction.",
+      "bullets": [
+        "1.2-b5"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "arithmetic progression",
+    "nth term of an arithmetic sequence",
+    "sum of an arithmetic series",
+    "sigma notation",
+    "simple interest sequence",
+    "approximate common difference"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $12 + 5(n - 1) = 87$.",
+      "hint": "Subtract $12$, then divide by $5$. That gives $n - 1$, not $n$.",
+      "options": [
+        {
+          "text": "$n = 16$",
+          "correct": true
+        },
+        {
+          "text": "$n = 15$",
+          "correct": false
+        },
+        {
+          "text": "$n = 17.4$",
+          "correct": false
+        }
+      ],
+      "explain": "$5(n - 1) = 75$, so $n - 1 = 15$ and $n = 16$. You'll solve equations like this to find which term has a given value.",
+      "verify": {
+        "kind": "exact",
+        "truth": "1 + (87 - 12)/5"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic-positive",
+      "prompt": "Solve $n^{2} + 9n - 190 = 0$, given that $n > 0$.",
+      "hint": "Find two numbers that multiply to $-190$ and add to $9$, or use the quadratic formula.",
+      "options": [
+        {
+          "text": "$n = 10$",
+          "correct": true
+        },
+        {
+          "text": "$n = 19$",
+          "correct": false
+        },
+        {
+          "text": "$n = -19$",
+          "correct": false
+        }
+      ],
+      "explain": "$n^{2} + 9n - 190 = (n + 19)(n - 10)$, so $n = -19$ or $n = 10$. Only $n = 10$ is positive. Questions about sums often lead to a quadratic like this.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-9 + sqrt(9**2 + 4*190))/2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "nth-term",
+      "heading": "Arithmetic sequences and the nth term",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A runner's long run is $3200$ m in week 1, and she adds $450$ m each week: $3200, 3650, 4100, \\ldots$ Every step adds the same amount, so you can find week $20$ without listing the weeks before it."
+        },
+        {
+          "type": "text",
+          "text": "An ordered list of numbers like this is a [[sequence|sequence]]. Its numbers are its terms, and $u_{n}$ is the $n$th term: here $u_{1} = 3200$."
+        },
+        {
+          "type": "definition",
+          "term": "arithmetic sequence",
+          "statement": "A sequence is arithmetic when the difference between each term and the one before it is constant. That constant is the common difference, $d = u_{n+1} - u_{n}$.",
+          "plain": "You add the same number every time to get the next term."
+        },
+        {
+          "type": "text",
+          "text": "To test a list, subtract each term from the next. If every [[common-difference|common difference]] is the same, it is arithmetic. A negative $d$ means the terms fall."
+        },
+        {
+          "type": "text",
+          "text": "From $u_{1}$ to $u_{n}$ you take $n - 1$ steps of $d$, not $n$."
+        },
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1} + (n - 1)d",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-arith-nth"
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-water-tank",
+          "question": "At the end of day $1$ a water tank holds $2350$ litres. Each day after that, $85$ litres are used and none is added. Find the amount at the end of day $12$, and the last day on which the model gives a positive amount.",
+          "steps": [
+            "The same amount goes each day, so the amounts are arithmetic with $u_{1} = 2350$ and $d = -85$.",
+            "Substitute: $u_{12} = 2350 + (12 - 1)(-85) = 1415$ litres.",
+            "Positive amount: $2350 - 85(n - 1) > 0$ gives $n - 1 < 27.64\\ldots$, so $n \\le 28$.",
+            "Check: $u_{28} = 55$ litres but $u_{29} = -30$.",
+            "Interpret: the tank runs dry during day $29$, so the model only makes sense up to day $28$."
+          ],
+          "answer": "$u_{12} = 1415$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2350 + (12 - 1)*(-85)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Questions often give two terms instead. Write each with the formula to get two equations in $u_{1}$ and $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-club-fee",
+          "question": "A swimming club's yearly fee rises by the same amount every year. The fee was $236$ dollars in the club's 3rd year and $302$ dollars in its 9th year. Find the fee in the 1st year and the yearly rise. Hence find the first year in which the fee is more than $400$ dollars.",
+          "steps": [
+            "Write the two terms with the formula: $u_{1} + 2d = 236$ and $u_{1} + 8d = 302$.",
+            "Subtract: $6d = 66$, so $d = 11$ dollars a year. Then $u_{1} = 236 - 22 = 214$ dollars.",
+            "Solve $214 + 11(n - 1) > 400$: $n - 1 > 16.90\\ldots$, so $n > 17.90\\ldots$",
+            "$n$ is a whole number of years, so round up to $n = 18$. Check: $u_{17} = 390$ and $u_{18} = 401$."
+          ],
+          "answer": "$n = 18$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor((400 - (236 - 2*(302 - 236)/6))/((302 - 236)/6)) + 2"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the change by a term number. From $u_{3}$ to $u_{9}$ there are $9 - 3 = 6$ steps, so divide $302 - 236$ by $6$."
+        },
+        {
+          "type": "check",
+          "id": "check-recognise",
+          "prompt": "Which forms an arithmetic sequence?",
+          "hint": "Work out the first few values. Is the same amount added each time?",
+          "options": [
+            {
+              "text": "a gym's total cost: 50 dollars to join, then 30 dollars a month",
+              "correct": true
+            },
+            {
+              "text": "a town's population growing by 4% a year",
+              "correct": false
+            },
+            {
+              "text": "the areas of squares with sides 1, 2, 3, ... cm",
+              "correct": false
+            }
+          ],
+          "explain": "The gym totals are $80, 110, 140, \\ldots$, so $d = 30$. A $4\\%$ rise adds more each year, and the areas $1, 4, 9, \\ldots$ have growing gaps.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a gym's total cost: 50 dollars to join, then 30 dollars a month"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reading-challenge",
+          "prompt": "Ana reads $25$ pages on day $1$ of a reading challenge, and each day $4$ pages more than the day before. How many pages does she read on day $30$?",
+          "hint": "From day $1$ to day $30$ there are $29$ steps.",
+          "answer": {
+            "value": 141,
+            "tolerance": 0
+          },
+          "explain": "$u_{30} = 25 + 29 \\times 4 = 141$ pages.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "25 + (30 - 1)*4",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sum",
+      "heading": "The sum of the first n terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A café sells $12$ cakes on day $1$ and $3$ more each day, up to $33$ on day $8$. To add them quickly, pair the first and last: $12 + 33 = 45$, and so do $15 + 30$, $18 + 27$, $21 + 24$."
+        },
+        {
+          "type": "text",
+          "text": "Write the sum forwards, then backwards underneath. There are $8$ columns of $45$, so twice the sum is $360$ and the café sold $180$ cakes."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-pairing",
+          "alt": "Eight bars with heights 12, 15, 18, 21, 24, 27, 30 and 33 form a rising staircase. A dashed copy of the staircase, turned upside down, sits on top with heights 33, 30, 27, 24, 21, 18, 15 and 12, so every column is 45 high. Together they make a rectangle 8 columns wide and 45 high.",
+          "caption": "Two copies of the sum make an $8 \\times 45$ rectangle, so one copy is half of $360$."
+        },
+        {
+          "type": "text",
+          "text": "The sum of the terms of a sequence is a [[series|series]]. $S_{n}$ is the sum of the first $n$ terms. Every column adds to $u_{1} + u_{n}$, and there are $n$ columns, so $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$. Replacing $u_{n}$ with $u_{1} + (n - 1)d$ gives the other form."
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right); \\quad S_{n} = \\frac{n}{2}\\left(u_{1} + u_{n}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-arith-sum"
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the formula booklet. Use $\\frac{n}{2}(u_{1} + u_{n})$ when you know the last term, and the other when you know $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-savings-jar",
+          "question": "Kofi puts $15$ dollars in a savings jar in week $1$. Each week he puts in $2.50$ dollars more than the week before. Find how much he has saved after $26$ weeks, and how much he puts in during week $26$.",
+          "steps": [
+            "The weekly amounts are arithmetic with $u_{1} = 15$ and $d = 2.5$.",
+            "You know $d$, so use $S_{26} = \\frac{26}{2}\\left(2 \\times 15 + 25 \\times 2.5\\right) = 13 \\times 92.5 = 1202.50$ dollars.",
+            "Week $26$: $u_{26} = 15 + 25 \\times 2.5 = 77.50$ dollars. Check: $13 \\times (15 + 77.5) = 1202.50$.",
+            "Interpret: by week $26$ he puts in over five times his first amount. Could he keep that up?"
+          ],
+          "answer": "$S_{26} = 1202.50\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "26/2*(2*15 + (26 - 1)*2.5)"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "If you know the total and need $n$, the sum formula gives a quadratic in $n$. Solve it on your calculator and keep the root that fits."
+        },
+        {
+          "type": "example",
+          "id": "ex-push-ups",
+          "question": "An athlete does $25$ push-ups on day $1$ and $4$ more each day than the day before. Use your calculator to find the first day on which her total number of push-ups is more than $1200$.",
+          "steps": [
+            "The daily numbers are arithmetic with $u_{1} = 25$ and $d = 4$; the total after $n$ days is $S_{n}$.",
+            "Write down the boundary equation: $\\frac{n}{2}\\left(2 \\times 25 + 4(n - 1)\\right) = 1200$, so $2n^{2} + 23n - 1200 = 0$.",
+            "Solve on the calculator: $n = 19.41\\ldots$ or $n = -30.91\\ldots$ Reject the negative root: $n$ counts days.",
+            "The total first passes $1200$ on day $20$, so round up. Check: $S_{19} = 1159$ and $S_{20} = 1260$."
+          ],
+          "answer": "$n = 20$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling((-(25 - 4/2) + sqrt((25 - 4/2)**2 + 4*(4/2)*1200))/(2*(4/2)))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "2, 23, -1200"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving both roots as the answer. A number of days or terms is a positive integer, so reject the negative root and say why."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-formula",
+          "prompt": "An arithmetic sequence has $u_{1} = -12$ and $d = 4$. Find $S_{15}$.",
+          "hint": "Use $S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right)$. Here $n - 1 = 14$.",
+          "options": [
+            {
+              "text": "$240$",
+              "correct": true
+            },
+            {
+              "text": "$270$",
+              "correct": false
+            },
+            {
+              "text": "$480$",
+              "correct": false
+            }
+          ],
+          "explain": "$S_{15} = 7.5\\left(-24 + 14 \\times 4\\right) = 7.5 \\times 32 = 240$. Using $15d$ instead of $14d$ gives $270$, and forgetting to halve gives $480$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "15/2*(2*(-12) + (15 - 1)*4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-log-pile",
+          "prompt": "A pile of logs has $9$ logs in its top layer. Each layer below has one more log than the layer above, and the bottom layer has $24$ logs. How many logs are in the pile?",
+          "hint": "Count the layers first: $9$ to $24$ in steps of $1$. Then use the first and last terms.",
+          "answer": {
+            "value": 264,
+            "tolerance": 0
+          },
+          "explain": "There are $24 - 9 + 1 = 16$ layers, so the total is $\\frac{16}{2}(9 + 24) = 264$ logs.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(24 - 9 + 1)/2*(9 + 24)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sigma",
+      "heading": "Sigma notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Writing out $8 + 13 + 18 + \\cdots + 103$ is slow. [[sigma-notation|Sigma notation]] writes it in one line; the Greek capital $\\sum$ (sigma) means \"add up\"."
+        },
+        {
+          "type": "definition",
+          "term": "sigma notation",
+          "statement": "In $\\sum_{r=a}^{b} f(r)$, the counter $r$ takes every whole number from $a$ to $b$, including both. Put each value into the general term $f(r)$, then add the results.",
+          "plain": "Put each counter value into the expression, then add up all the answers."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum_{r=1}^{n} u_{r} = u_{1} + u_{2} + \\cdots + u_{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The counter can be any letter and need not start at $1$. From $r = a$ to $r = b$ there are $b - a + 1$ terms: $r = 4$ to $9$ is $6$ terms."
+        },
+        {
+          "type": "result",
+          "statement": "If the general term is linear in the counter, $mr + c$, the terms form an [[arithmetic-sequence|arithmetic sequence]] with [[common-difference|common difference]] $m$.",
+          "why": "Raising $r$ by $1$ raises $mr + c$ by exactly $m$ every time."
+        },
+        {
+          "type": "text",
+          "text": "To evaluate the sum, find the first term, last term and number of terms, then use $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$ or your calculator."
+        },
+        {
+          "type": "example",
+          "id": "ex-sigma-evaluate",
+          "question": "Evaluate $\\sum_{r=1}^{24}(5r - 2)$.",
+          "steps": [
+            "First term, $r = 1$: $5(1) - 2 = 3$. Last term, $r = 24$: $5(24) - 2 = 118$.",
+            "There are $24$ terms, rising by $5$, so the sum is arithmetic.",
+            "Use $S_{n} = \\frac{n}{2}(u_{1} + u_{n})$: $\\frac{24}{2}(3 + 118) = 1452$."
+          ],
+          "answer": "$\\sum_{r=1}^{24}(5r - 2) = 1452$",
+          "verify": {
+            "kind": "exact",
+            "truth": "24/2*((5*1 - 2) + (5*24 - 2))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "2nd, STAT (LIST), MATH, 5: sum(",
+              "2nd, STAT (LIST), OPS, 5: seq(",
+              "Type 5X-2,X,1,24)) and ENTER",
+              "Read the sum, 1452"
+            ],
+            "nspire": [
+              "Calculator page: Menu, Calculus, Sum",
+              "Fill the template: 5n-2 with n from 1 to 24",
+              "enter",
+              "Read the sum, 1452"
+            ],
+            "casio": [
+              "RUN-MAT, OPTN, CALC, ▷ (F6), Σ(",
+              "Type 5X-2,X,1,24) (Linear input) or fill the template (Math input)",
+              "EXE",
+              "Read the sum, 1452"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "To write a sum in sigma notation, find its general term, then the counter values of the first and last terms."
+        },
+        {
+          "type": "example",
+          "id": "ex-game-levels",
+          "question": "Level $1$ of a puzzle game takes $40$ seconds, and each level takes $15$ seconds longer than the one before. The last level takes $340$ seconds. Write the total time for all the levels in sigma notation, and find it in minutes.",
+          "steps": [
+            "The times are arithmetic with $u_{1} = 40$ and $d = 15$, so $u_{r} = 40 + 15(r - 1) = 15r + 25$.",
+            "Last level: $15r + 25 = 340$ gives $r = 21$, so the counter runs from $1$ to $21$.",
+            "Sigma form: $\\sum_{r=1}^{21}(15r + 25)$. Check: $r = 1$ gives $40$.",
+            "Evaluate: $\\frac{21}{2}(40 + 340) = 3990$ seconds, which is $66.5$ minutes for all $21$ levels."
+          ],
+          "answer": "$66.5\\text{ minutes}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "21/2*(40 + 340)/60"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-count",
+          "prompt": "How many terms are added in $\\sum_{k=6}^{20}(3k + 1)$?",
+          "hint": "Test your rule on a small case: $k = 6, 7, 8$ is how many terms?",
+          "options": [
+            {
+              "text": "$15$",
+              "correct": true
+            },
+            {
+              "text": "$14$",
+              "correct": false
+            },
+            {
+              "text": "$20$",
+              "correct": false
+            }
+          ],
+          "explain": "From $k = 6$ to $k = 20$ there are $20 - 6 + 1 = 15$ terms. Subtracting alone misses one end.",
+          "verify": {
+            "kind": "exact",
+            "truth": "20 - 6 + 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sigma-evaluate",
+          "prompt": "Evaluate $\\sum_{k=3}^{18}(50 - 3k)$.",
+          "hint": "The counter starts at $3$. Find the first term, the last term and the number of terms.",
+          "answer": {
+            "value": 296,
+            "tolerance": 0
+          },
+          "explain": "The first term is $50 - 9 = 41$ and the last is $50 - 54 = -4$. There are $18 - 3 + 1 = 16$ terms, so the sum is $\\frac{16}{2}(41 - 4) = 296$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(18 - 3 + 1)/2*((50 - 3*3) + (50 - 3*18))",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "contexts",
+      "heading": "Simple interest and technology",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With [[simple-interest|simple interest]], the bank pays a fixed percentage of the amount you first put in, every year. Interest never earns interest, so the same amount is added each year and the balances form an [[arithmetic-sequence|arithmetic sequence]]."
+        },
+        {
+          "type": "text",
+          "text": "At $R\\%$ a year on $P$, the yearly interest is $P \\times \\frac{R}{100}$. [[compound-interest|Compound interest]] multiplies the balance instead: that is a [[geometric-sequence|geometric sequence]], taught in {{lesson:1.4}}."
+        },
+        {
+          "type": "text",
+          "text": "Decide what $u_{1}$ means first. If $u_{n}$ is the balance at the end of year $n$, then $u_{1}$ already includes one year's interest."
+        },
+        {
+          "type": "example",
+          "id": "ex-simple-interest",
+          "question": "A savings bond pays $2.8\\%$ simple interest a year on the $3600$ euros Mei pays in. Her balance at the end of year $n$ is $u_{n}$ euros. Write down $u_{1}$ and the common difference, and find the balance at the end of year $7$.",
+          "steps": [
+            "Yearly interest: $3600 \\times \\frac{2.8}{100} = 100.80$ euros every year, so $d = 100.80$.",
+            "End of year $1$: $u_{1} = 3600 + 100.80 = 3700.80$ euros.",
+            "Then $u_{7} = 3700.80 + 6 \\times 100.80 = 4305.60$ euros. Check: $3600 + 7 \\times 100.80 = 4305.60$."
+          ],
+          "answer": "$u_{7} = 4305.60\\text{ euros}$",
+          "verify": {
+            "kind": "money",
+            "truth": "3600 + 7*3600*2.8/100"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A spreadsheet builds the same list: $3700.80$ in A1, =A1+100.80 in A2, then fill down. A calculator table or sequence command lists terms too. If you use technology in an exam, still write down the first term and common difference you read off."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-plans",
+          "question": "Plan A invests $5000$ dollars at $3.2\\%$ simple interest a year. Plan B invests $4600$ dollars at $4.4\\%$ simple interest a year. Use your calculator to list each plan's balance at the end of years $1$ to $12$, and find the first year in which Plan B's balance is higher.",
+          "steps": [
+            "Plan A adds $5000 \\times 0.032 = 160$ dollars a year: $u_{1} = 5160$, $d = 160$, balance $5000 + 160n$.",
+            "Plan B adds $4600 \\times 0.044 = 202.40$ dollars a year: $u_{1} = 4802.40$, $d = 202.40$, balance $4600 + 202.4n$.",
+            "Show both balances in a table from year $1$ (steps below for Plan B; enter $5000 + 160X$ as a second function).",
+            "Year $9$: $6440$ (A) and $6421.60$ (B). Year $10$: $6600$ (A) and $6624$ (B).",
+            "Interpret: B gains $42.40$ dollars a year on A, so B is better only if the money stays $10$ years or more."
+          ],
+          "answer": "$n = 10$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor((5000 - 4600)/(4600*4.4/100 - 5000*3.2/100)) + 1"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "4600+202.4X",
+            "start": 1,
+            "step": 1,
+            "end": 12
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding interest on interest in a simple interest question. Simple interest is always worked out on the original amount, so the same sum is added every year."
+        },
+        {
+          "type": "check",
+          "id": "check-spreadsheet-fuel",
+          "prompt": "A spreadsheet models the fuel in a generator, in litres, at the end of each hour. Cell B1 (hour $1$) holds $85$, B2 holds =B1-3.5, and this is filled down. At the end of which hour is there first less than $10$ litres?",
+          "hint": "Solve $85 - 3.5(n - 1) < 10$, then check the hours either side.",
+          "answer": {
+            "value": 23,
+            "tolerance": 0
+          },
+          "explain": "$3.5(n - 1) > 75$ gives $n > 22.4\\ldots$, so hour $23$. Check: hour $22$ leaves $11.5$ litres and hour $23$ leaves $8$ litres.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "floor((85 - 10)/3.5) + 2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interest-rate",
+          "prompt": "Lena invests $1250$ pounds at simple interest. After $6$ years her balance is $1475$ pounds. Find the yearly interest rate, as a percentage.",
+          "hint": "Find the total interest, then the interest for one year. What percentage of $1250$ is that?",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The interest is $1475 - 1250 = 225$ pounds over $6$ years, so $37.50$ pounds a year. That is $\\frac{37.5}{1250} \\times 100 = 3\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1475 - 1250)/6/1250*100",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-data",
+      "heading": "Data that is only roughly arithmetic",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Real data rarely changes by exactly the same amount each time. If the differences are close, an [[arithmetic-sequence|arithmetic sequence]] is still a useful [[mathematical-model|model]]."
+        },
+        {
+          "type": "text",
+          "text": "Estimate the [[common-difference|common difference]] by the mean of the differences. The middle values cancel when you add the differences, so this is the change from first to last value, divided by the number of gaps."
+        },
+        {
+          "type": "formula",
+          "tex": "d \\approx \\frac{\\text{last value} - \\text{first value}}{\\text{number of values} - 1}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-charging-points",
+          "question": "A town counts its electric car charging points at the start of each year from 2020 to 2025: $46$, $61$, $73$, $90$, $104$ and $119$. Let $u_{1}$ be the 2020 count. Estimate the common difference, and use an arithmetic model to predict the count at the start of 2028.",
+          "steps": [
+            "Differences: $15$, $12$, $17$, $14$, $15$. They are close, so an arithmetic model is reasonable.",
+            "Six values have five gaps: $d \\approx \\frac{119 - 46}{5} = 14.6$, so $u_{n} = 46 + 14.6(n - 1)$.",
+            "2028 is year $9$: $u_{9} = 46 + 8 \\times 14.6 = 162.8$.",
+            "Interpret: about $163$ charging points, if the town keeps adding them at the same rate."
+          ],
+          "answer": "$u_{9} \\approx 163$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "46 + (9 - 1)*(119 - 46)/5",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "1-2-charging-points",
+          "alt": "Graph of charging points against year n, where year 1 is 2020. Six measured points for years 1 to 6 lie close to, but not exactly on, a straight dashed line from 46 to 119. The line continues past the data to year 9, where a circled point marks the prediction of 162.8.",
+          "caption": "The model line passes through the first and last data points; the middle points wobble around it."
+        },
+        {
+          "type": "text",
+          "text": "Judge a prediction before you trust it. Just beyond the data is fairly safe; far beyond assumes the steady change carries on."
+        },
+        {
+          "type": "example",
+          "id": "ex-glacier",
+          "question": "The distance from a marker post to the front of a glacier is measured once a year for five years: $312$, $298$, $287$, $271$ and $260$ m. Use an arithmetic model to estimate the year in which the glacier front reaches the post, and comment on your answer.",
+          "steps": [
+            "Differences: $-14$, $-11$, $-16$, $-11$. Roughly steady, so use an arithmetic model.",
+            "Five values have four gaps: $d \\approx \\frac{260 - 312}{4} = -13$ m a year, so $u_{n} = 312 - 13(n - 1)$.",
+            "The front reaches the post when $u_{n} = 0$: $13(n - 1) = 312$, so $n = 25$.",
+            "Comment: year $25$ is $20$ years past the data. The melting rate could change a lot, so this is a rough estimate only."
+          ],
+          "answer": "$n = 25$",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 312/((312 - 260)/4)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-approx-d",
+          "prompt": "A museum has $520$, $547$, $571$, $600$, $622$ and $653$ visitors in six weeks in a row. Estimate the common difference.",
+          "hint": "How many gaps are there between six values?",
+          "options": [
+            {
+              "text": "$26.6$",
+              "correct": true
+            },
+            {
+              "text": "$22.2$",
+              "correct": false
+            },
+            {
+              "text": "$31$",
+              "correct": false
+            }
+          ],
+          "explain": "There are five gaps, so $d \\approx \\frac{653 - 520}{5} = 26.6$. Dividing by $6$ gives $22.2$, and $31$ is only the last difference.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(653 - 520)/5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-comment",
+          "prompt": "With $u_{1} = 520$ and $d \\approx 26.6$, the museum's model predicts $1823$ visitors in week $50$. Which comment is best?",
+          "hint": "How far is week $50$ from the six weeks of data?",
+          "options": [
+            {
+              "text": "Unreliable: week 50 is far beyond the data, and the steady rise may not continue.",
+              "correct": true
+            },
+            {
+              "text": "Reliable, because d is the mean of the differences.",
+              "correct": false
+            },
+            {
+              "text": "Reliable, because every difference is positive.",
+              "correct": false
+            }
+          ],
+          "explain": "A good estimate of $d$ only describes the weeks measured. By week $50$ visitor numbers could level off or change with the seasons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Unreliable: week 50 is far beyond the data, and the steady rise may not continue."
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "u_{n} = u_{1} + (n - 1)d",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-arith-nth",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "S_{n} = \\frac{n}{2}\\left(2u_{1} + (n - 1)d\\right); \\quad S_{n} = \\frac{n}{2}\\left(u_{1} + u_{n}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-1-2-arith-sum",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A sequence is arithmetic when $d = u_{n+1} - u_{n}$ is the same for every pair of consecutive terms. From $u_{m}$ to $u_{n}$ there are $n - m$ steps.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sum_{r=a}^{b}$ adds the terms for every whole number $r$ from $a$ to $b$, both included: $b - a + 1$ terms. A general term $mr + c$ gives an arithmetic sum with $d = m$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Simple interest at $R\\%$ a year on $P$ adds $P \\times \\frac{R}{100}$ every year, so the yearly balances are arithmetic. If $u_{n}$ is the balance at the end of year $n$, then $u_{1} = P + P \\times \\frac{R}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Roughly arithmetic data: $d \\approx \\frac{\\text{last value} - \\text{first value}}{\\text{number of values} - 1}$. Predictions far beyond the data are less reliable.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A number of terms $n$ is a positive integer. With a limit, round in the direction the limit needs and check the values either side.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing $u_{n} = u_{1} + nd$. The 12th term is $u_{1} + 11d$: one step fewer than the term number.",
+    "Leaving two answers for $n$. A number of terms is a positive integer, so reject the negative root and say why.",
+    "Rounding $n$ to the nearest whole number in a \"first time over\" question. Round the way the limit needs, and check either side.",
+    "Using an arithmetic model for growth by a percentage. If the differences keep growing but the ratios stay the same, the model is geometric.",
+    "Rounding too early. Keep full values of $u_{1}$ and $d$, and round only the final answer."
+  ],
+  "examTips": [
+    "\"Write down\" the common difference needs no working. \"Find\" a term or sum needs the formula with your numbers in: that earns the method mark even if the arithmetic slips.",
+    "When you use your calculator, write down what you entered, such as $\\frac{n}{2}(50 + 4(n - 1)) = 1200$ or the first term, last term and number of terms of a sigma sum. Then say which root you keep and why.",
+    "\"Show that\" a list is arithmetic: find every consecutive difference you are given and state that they are equal. One difference is not enough.",
+    "\"Comment\" on a prediction: say how far beyond the data it lies, and why the steady change might not continue."
+  ],
+  "readingMinutes": 29
+}

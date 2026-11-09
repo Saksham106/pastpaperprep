@@ -1,0 +1,684 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.6",
+  "slug": "rounding-bounds-and-percentage-error",
+  "title": "Rounding, bounds and percentage error",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Measured and rounded numbers are never quite exact. You'll round to [[significant-figures|significant figures]] or decimal places, find the [[lower-bound|lower]] and [[upper-bound|upper bounds]] a rounded value came from, and measure how far off an approximation is with [[percentage-error|percentage error]]. Quick estimates then tell you whether a calculator answer makes sense.",
+  "goals": [
+    {
+      "text": "Round to a number of decimal places or [[significant-figures|significant figures]], and choose an accuracy that suits the data and the context.",
+      "bullets": [
+        "1.6-b1"
+      ]
+    },
+    {
+      "text": "Write down the [[lower-bound|lower]] and [[upper-bound|upper bounds]] of a rounded value, and use bounds in a calculation.",
+      "bullets": [
+        "1.6-b2"
+      ]
+    },
+    {
+      "text": "Calculate a [[percentage-error|percentage error]], including the greatest percentage error caused by rounding a measurement.",
+      "bullets": [
+        "1.6-b3"
+      ]
+    },
+    {
+      "text": "Estimate an answer by rounding, and decide whether a result is reasonable in its context.",
+      "bullets": [
+        "1.6-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "significant figures and decimal places",
+    "upper and lower bounds",
+    "error interval",
+    "percentage error formula",
+    "maximum percentage error",
+    "estimation and reasonable answers"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-standard-form-product",
+      "prompt": "Calculate $0.0018 \\times 0.35$. Give your answer in [[standard-form|standard form]].",
+      "hint": "Work out the product, then move the decimal point until one non-zero digit is in front of it.",
+      "options": [
+        {
+          "text": "$6.3 \\times 10^{-4}$",
+          "correct": true
+        },
+        {
+          "text": "$6.3 \\times 10^{-3}$",
+          "correct": false
+        },
+        {
+          "text": "$63 \\times 10^{-5}$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.0018 \\times 0.35 = 0.00063 = 6.3 \\times 10^{-4}$: the point moves $4$ places. $63 \\times 10^{-5}$ has the right value, but $63$ is not between $1$ and $10$. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "0.0018*0.35"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-round-hundred",
+      "prompt": "Round $3462$ to the nearest hundred.",
+      "hint": "Look at the tens digit. Is it $5$ or more?",
+      "answer": {
+        "value": 3500,
+        "tolerance": 0
+      },
+      "explain": "The hundreds digit is $4$ and the next digit is $6$, which is $5$ or more. So round up: $3500$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "floor(3462/100 + Rational(1, 2))*100",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "rounding",
+      "heading": "Decimal places and significant figures",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To round, look at the digit after the last one you keep. If it is $5$ or more, add one to the kept digit; otherwise leave it."
+        },
+        {
+          "type": "text",
+          "text": "Decimal places (d.p.) count digits after the decimal point. So $2.71828$ to $2$ d.p. is $2.72$, and to $3$ d.p. is $2.718$."
+        },
+        {
+          "type": "definition",
+          "term": "significant figures",
+          "statement": "The significant figures of a number are its digits counted from the first non-zero digit. Zeros before that digit are not significant. Zeros between non-zero digits are significant.",
+          "plain": "Significant figures are the digits that carry the size and detail of a number, not the zeros that only place the decimal point."
+        },
+        {
+          "type": "text",
+          "text": "$0.004072$ has $4$ [[significant-figures|significant figures]]: $4$, $0$, $7$ and $2$. To $2$ s.f. it is $0.0041$. The zeros in front stay, because they place the digits."
+        },
+        {
+          "type": "text",
+          "text": "Large numbers keep their place-holding zeros too. $86\\,390$ to $2$ s.f. is $86\\,000$, not $86$."
+        },
+        {
+          "type": "text",
+          "text": "A zero you create by rounding is kept. $5.698$ to $3$ s.f. is $5.70$, not $5.7$: the final zero shows the answer is accurate to $3$ s.f."
+        },
+        {
+          "type": "text",
+          "text": "IB answers are exact or $3$ s.f. unless the question says otherwise; money is usually $2$ d.p. Round only the final answer."
+        },
+        {
+          "type": "text",
+          "text": "When you choose the accuracy, match the data: a result can't be more accurate than the measurements it came from."
+        },
+        {
+          "type": "text",
+          "text": "The context matters too. If $4.3$ coaches' worth of people need seats, you book $5$ coaches. If there is enough paint for $12.8$ fences, you can finish $12$ of them."
+        },
+        {
+          "type": "example",
+          "id": "ex-rice-grain",
+          "question": "A cook weighs $250$ grains of rice together. Their total mass is $5.124$ g. Find the mean mass of one grain, to $3$ s.f.",
+          "steps": [
+            "Divide the total by the number of grains: $5.124 \\div 250 = 0.020496$ g.",
+            "Find the first non-zero digit. It is the $2$; the zeros in front of it don't count.",
+            "Keep $3$ figures from there: $2$, $0$, $4$. The zero between $2$ and $4$ counts.",
+            "The next digit is $9$, so round the $4$ up to $5$: $0.0205$ g."
+          ],
+          "answer": "$m \\approx 0.0205\\text{ g}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "5.124/250",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-field-area",
+          "question": "A school field is a rectangle. A student measures it as $31.4$ m by $22.7$ m, each to the nearest $0.1$ m. Her calculator gives the area as $712.78$. Give the area to an accuracy that suits the data.",
+          "steps": [
+            "Each length has $3$ significant figures.",
+            "The area can't be more accurate than the lengths it came from. So give it to $3$ s.f. too.",
+            "$712.78$ to $3$ s.f.: the digit after the $2$ is $7$, so round up to $713$.",
+            "$712.78$ would claim an accuracy the tape measure can't give."
+          ],
+          "answer": "$A \\approx 713\\text{ m}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "31.4*22.7",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-runner-speed",
+          "prompt": "A runner covers $400$ m in $49.41$ seconds. Find her mean speed, to $3$ s.f.",
+          "hint": "Speed is distance divided by time. Count $3$ figures from the first non-zero digit, and keep any zero the rounding makes.",
+          "options": [
+            {
+              "text": "$v \\approx 8.10\\text{ m/s}$",
+              "correct": true
+            },
+            {
+              "text": "$v \\approx 8.1\\text{ m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$v \\approx 8.09\\text{ m/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$400 \\div 49.41 = 8.0955\\ldots$ The third figure is $9$ and the next digit is $5$, so it rounds up to $8.10$. Writing $8.1$ gives only $2$ s.f.; $8.09$ cuts off instead of rounding.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "400/49.41",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-exchange-money",
+          "prompt": "A traveller changes $315$ euros into dollars at $1$ euro $= 1.08736$ dollars. How many dollars does she get, to the nearest cent?",
+          "hint": "Multiply, then round to $2$ d.p.",
+          "answer": {
+            "value": 342.52,
+            "tolerance": 0.005
+          },
+          "explain": "$315 \\times 1.08736 = 342.5184$. The third decimal place is $8$, so round up to $342.52$ dollars.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "315*1.08736",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-minibuses",
+          "prompt": "$137$ students go on a trip. Each minibus seats $16$ students. How many minibuses are needed?",
+          "hint": "Divide, then think: can anyone be left behind?",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$137 \\div 16 = 8.5625$. Eight minibuses seat only $128$ students, so you need $9$. Here the context says round up, whatever the next digit is.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ceiling(137/16)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "bounds",
+      "heading": "Upper and lower bounds",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A seedling's height is recorded as $7.3$ cm to $1$ d.p. Its true height is some value that rounds to $7.3$."
+        },
+        {
+          "type": "text",
+          "text": "Any height from $7.25$ cm up to, but not including, $7.35$ cm rounds to $7.3$. A height of exactly $7.35$ cm would round up to $7.4$."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-bounds-number-line",
+          "alt": "Number line from 7.2 to 7.4 with ticks at 7.2, 7.25, 7.3, 7.35 and 7.4. The part from 7.25 to 7.35 is shaded. There is a filled circle at 7.25, labelled lower bound, included, and an open circle at 7.35, labelled upper bound, not included. Every value in the shaded part rounds to 7.3.",
+          "caption": "The true value can equal the lower bound but stays below the upper bound."
+        },
+        {
+          "type": "definition",
+          "term": "lower and upper bounds",
+          "statement": "If a value is rounded to the nearest $u$ (for example $u = 0.1$, $1$ or $1000$), its lower bound is the rounded value minus $\\frac{u}{2}$ and its upper bound is the rounded value plus $\\frac{u}{2}$. The true value $x$ satisfies $\\text{lower bound} \\le x < \\text{upper bound}$.",
+          "plain": "Go half a rounding step down and half a rounding step up from the rounded value."
+        },
+        {
+          "type": "text",
+          "text": "So the seedling's height $h$ has [[lower-bound|lower bound]] $7.25$ cm and [[upper-bound|upper bound]] $7.35$ cm: $7.25 \\le h < 7.35$. You may also write this as an interval, $h \\in [7.25, 7.35[$."
+        },
+        {
+          "type": "text",
+          "text": "For significant figures, first find the place value of the last figure kept. $48\\,000$ to $2$ s.f. is rounded to the nearest $1000$, so the true value lies in $47\\,500 \\le x < 48\\,500$."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing the upper bound as $7.34$ or $7.349$. The upper bound is $7.35$ exactly; the strict $<$ is what shows the true value can't equal it."
+        },
+        {
+          "type": "example",
+          "id": "ex-bounds-rainfall",
+          "question": "A city's yearly rainfall is reported as $1350$ mm, to $3$ s.f. Write down the inequality for the true rainfall $R$ mm.",
+          "steps": [
+            "The third significant figure, $5$, is in the tens place. So $1350$ is rounded to the nearest $10$.",
+            "Half of $10$ is $5$. Lower bound: $1350 - 5 = 1345$. Upper bound: $1350 + 5 = 1355$.",
+            "The true value can equal the lower bound but not the upper bound."
+          ],
+          "answer": "$1345 \\le R < 1355$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval.Ropen(1350 - 10/2, 1350 + 10/2)",
+            "var": "R"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Bounds also feed into calculations. For positive quantities, a product is largest when every factor is at its upper bound. A quotient $\\frac{a}{b}$ is largest when $a$ is at its upper bound and $b$ at its lower bound."
+        },
+        {
+          "type": "example",
+          "id": "ex-tank-volume",
+          "question": "A cylindrical water tank has radius $0.8$ m and height $1.5$ m, each measured to $1$ d.p. Find the upper bound for the tank's volume, to $3$ s.f.",
+          "steps": [
+            "Bounds: $0.75 \\le r < 0.85$ and $1.45 \\le h < 1.55$.",
+            "$V = \\pi r^{2}h$ (in the prior-learning part of the formula booklet). Both $r$ and $h$ are positive, so the largest volume uses both upper bounds.",
+            "$V = \\pi \\times 0.85^{2} \\times 1.55 = 3.5181\\ldots$ m³.",
+            "So the tank holds less than $3.52$ m³, well above the $3.02$ m³ the rounded measurements give."
+          ],
+          "answer": "$V \\approx 3.52\\text{ m}^{3}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*(0.8 + 0.1/2)**2*(1.5 + 0.1/2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-crowd-lower",
+          "prompt": "A festival's attendance is reported as $3650$, to the nearest $50$. Write down the lower bound for the attendance.",
+          "hint": "Go half a rounding step down.",
+          "answer": {
+            "value": 3625,
+            "tolerance": 0
+          },
+          "explain": "Half of $50$ is $25$, so the lower bound is $3650 - 25 = 3625$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3650 - 50/2",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lift-load",
+          "prompt": "A lift's safe load is $630$ kg. Eight people step in, and each person's mass is $78$ kg to the nearest kg. Is it certain that their total mass is below the safe load?",
+          "hint": "Find the largest the total could be. Each person could be up to, but not including, half a kilogram heavier.",
+          "options": [
+            {
+              "text": "Yes: the total is less than 8 × 78.5 = 628 kg",
+              "correct": true
+            },
+            {
+              "text": "No: the total could be as much as 8 × 79 = 632 kg",
+              "correct": false
+            },
+            {
+              "text": "Yes: the total is exactly 8 × 78 = 624 kg",
+              "correct": false
+            }
+          ],
+          "explain": "Each mass is below the upper bound $78.5$ kg, so the total is below $8 \\times 78.5 = 628$ kg, which is under $630$ kg. Using $79$ kg goes past the bound; $624$ kg ignores the rounding.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Yes: the total is less than 8 × 78.5 = 628 kg"
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentage-error",
+      "heading": "Percentage error",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An estimate, a rounded value or a measurement is usually a little off. [[percentage-error|Percentage error]] says how far off, as a percentage of the exact value."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = \\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%",
+          "tag": "booklet",
+          "bookletId": "bk-1-6-percentage-error"
+        },
+        {
+          "type": "text",
+          "text": "$v_{A}$ is the approximate value (an estimate, rounded value or measurement). $v_{E}$ is the exact, or accepted, value. The formula is in the booklet."
+        },
+        {
+          "type": "text",
+          "text": "The bars make a percentage error never negative. Put both values in the same units first."
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the approximate value. The denominator is always the exact value $v_{E}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-classroom-estimate",
+          "question": "Rafael estimates the floor area of a classroom as $60$ m². The architect's plan gives the exact area as $54.6$ m². Find the percentage error in his estimate.",
+          "steps": [
+            "Here $v_{A} = 60$ (the estimate) and $v_{E} = 54.6$ (the exact value).",
+            "Substitute: $\\varepsilon = \\left|\\frac{60 - 54.6}{54.6}\\right| \\times 100\\% = 9.8901\\ldots\\%$.",
+            "Round to $3$ s.f.: $9.89\\%$.",
+            "In context: his estimate is about $10\\%$ more than the true area."
+          ],
+          "answer": "$\\varepsilon \\approx 9.89\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(60 - 54.6)/54.6*100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A rounded measurement makes any result built from it uncertain. You can find the largest percentage error the rounding could cause."
+        },
+        {
+          "type": "text",
+          "text": "1. Work out the result from the rounded measurement. This is $v_{A}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Work out the result at the lower and upper bounds. Each is a possible $v_{E}$ (the true value can get as close to the upper bound as you like)."
+        },
+        {
+          "type": "text",
+          "text": "3. Find the percentage error for each bound. The larger one is the maximum percentage error."
+        },
+        {
+          "type": "example",
+          "id": "ex-pond-area",
+          "question": "Mai measures the radius of a circular pond as $3.8$ m, to $1$ d.p. She uses it to calculate the pond's area. Find the maximum percentage error in her area, to $3$ s.f.",
+          "steps": [
+            "Her area: $v_{A} = \\pi \\times 3.8^{2} = 45.3645\\ldots$ m².",
+            "Bounds for the radius: $3.75 \\le r < 3.85$. Areas: $\\pi \\times 3.75^{2} = 44.1786\\ldots$ and $\\pi \\times 3.85^{2} = 46.5662\\ldots$ m².",
+            "Lower bound: $\\left|\\frac{45.3645\\ldots - 44.1786\\ldots}{44.1786\\ldots}\\right| \\times 100\\% = 2.6844\\ldots\\%$.",
+            "Upper bound: $\\left|\\frac{45.3645\\ldots - 46.5662\\ldots}{46.5662\\ldots}\\right| \\times 100\\% = 2.5805\\ldots\\%$.",
+            "The larger is $2.68\\%$. Her area could be up to about $2.7\\%$ too big. That is about twice the radius's own error of $1.3\\%$, because the radius is squared."
+          ],
+          "answer": "$\\varepsilon \\approx 2.68\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Max(Abs(pi*3.8**2 - pi*3.75**2)/(pi*3.75**2), Abs(pi*3.8**2 - pi*3.85**2)/(pi*3.85**2))*100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-walk-time",
+          "prompt": "A navigation app says a walk will take $25$ minutes. It actually takes $28$ minutes. Find the percentage error in the app's estimate, to $3$ s.f.",
+          "hint": "The actual time is the exact value, so it goes in the denominator.",
+          "answer": {
+            "value": 10.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\left|\\frac{25 - 28}{28}\\right| \\times 100\\% = 10.714\\ldots\\%$, so $10.7\\%$. Dividing by $25$ instead gives $12\\%$, which is wrong.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs(25 - 28)/28*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-jug-units",
+          "prompt": "Sam estimates that a jug holds $1.8$ litres. Its exact volume is $1750$ mL. Find the percentage error in his estimate.",
+          "hint": "Change both values to millilitres first. Which one is exact?",
+          "options": [
+            {
+              "text": "$\\varepsilon \\approx 2.86\\%$",
+              "correct": true
+            },
+            {
+              "text": "$\\varepsilon \\approx 2.78\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\varepsilon \\approx 99.9\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$1.8$ L $= 1800$ mL, so $\\varepsilon = \\left|\\frac{1800 - 1750}{1750}\\right| \\times 100\\% = 2.857\\ldots\\%$. $2.78\\%$ divides by $1800$, the estimate. $99.9\\%$ mixes litres with millilitres.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(1.8*1000 - 1750)/1750*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-square-plot",
+          "prompt": "A square vegetable plot has side $6.4$ m, to $1$ d.p. Its area is calculated from $6.4$ m. Find the maximum percentage error in that area.",
+          "hint": "Find the area at each bound of the side, then the percentage error for each. Keep the larger.",
+          "options": [
+            {
+              "text": "$\\varepsilon \\approx 1.58\\%$",
+              "correct": true
+            },
+            {
+              "text": "$\\varepsilon \\approx 1.54\\%$",
+              "correct": false
+            },
+            {
+              "text": "$\\varepsilon \\approx 0.787\\%$",
+              "correct": false
+            }
+          ],
+          "explain": "$v_{A} = 6.4^{2} = 40.96$. At $6.35$ m the area is $40.3225$, an error of $1.581\\ldots\\%$; at $6.45$ m it is $41.6025$, an error of $1.544\\ldots\\%$. The larger is $1.58\\%$. $0.787\\%$ is the error in the side, not the area.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Max(Abs(6.4**2 - 6.35**2)/6.35**2, Abs(6.4**2 - 6.45**2)/6.45**2)*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "estimation",
+      "heading": "Estimating and checking answers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An estimate is a quick, rough answer. Round each number to $1$ s.f., then work it out in your head or on paper."
+        },
+        {
+          "type": "text",
+          "text": "If your GDC answer is far from the estimate, look for a typing slip, a missing bracket or a wrong unit."
+        },
+        {
+          "type": "text",
+          "text": "Then check the answer makes sense in context. A length, area, mass or time can't be negative, and a count of people is a whole number."
+        },
+        {
+          "type": "example",
+          "id": "ex-light-year",
+          "question": "Light travels $2.99792458 \\times 10^{5}$ km every second. Taking a year as $365.25$ days, estimate how far light travels in one year. Then use your GDC to find the distance, in standard form to $3$ s.f.",
+          "steps": [
+            "Seconds in a year: $365.25 \\times 24 \\times 60 \\times 60$. Rounded to $1$ s.f., that is about $400 \\times 20 \\times 60 \\times 60 = 28\\,800\\,000 \\approx 3 \\times 10^{7}$.",
+            "Estimate: $3 \\times 10^{5} \\times 3 \\times 10^{7} = 9 \\times 10^{12}$ km.",
+            "GDC: enter $2.99792458 \\times 10^{5} \\times 365.25 \\times 24 \\times 60 \\times 60 = 9.4607\\ldots \\times 10^{12}$.",
+            "To $3$ s.f. that is $9.46 \\times 10^{12}$ km. It is close to the estimate, so the calculator entry is reasonable."
+          ],
+          "answer": "$d \\approx 9.46 \\times 10^{12}\\text{ km}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.99792458*10**5*365.25*24*60*60",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "number-standard-form",
+          "values": {
+            "mantissa": 2.99792458,
+            "exponent": 5
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-bed",
+          "question": "A rectangular garden bed is $3$ m longer than it is wide. Its area is $40$ m². Let the width be $x$ m. Find the width.",
+          "steps": [
+            "The length is $x + 3$, so the area gives $x(x + 3) = 40$, which is $x^{2} + 3x - 40 = 0$.",
+            "Use the GDC's polynomial solver with coefficients $1$, $3$, $-40$: $x = 5$ or $x = -8$.",
+            "A width can't be negative, so reject $x = -8$.",
+            "Check: $5 \\times 8 = 40$ m². The width is $5$ m."
+          ],
+          "answer": "$x = 5\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-3 + sqrt(3**2 + 4*40))/2"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "1, 3, -40"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-estimate-tickets",
+          "prompt": "A school sells $38$ concert tickets at $19.75$ euros each. Which is the best estimate of the takings, in euros?",
+          "hint": "Round each number to $1$ s.f., then multiply.",
+          "options": [
+            {
+              "text": "$800$",
+              "correct": true
+            },
+            {
+              "text": "$80$",
+              "correct": false
+            },
+            {
+              "text": "$8000$",
+              "correct": false
+            }
+          ],
+          "explain": "$38 \\approx 40$ and $19.75 \\approx 20$, so about $40 \\times 20 = 800$ euros. The exact takings are $750.50$ euros, close to the estimate. The other options are a place value out.",
+          "verify": {
+            "kind": "exact",
+            "truth": "40*20"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-negative",
+          "prompt": "A model for the depth of water, $d$ metres, in a draining pool gives $d = -0.4$ when $t = 12$ hours. What should you conclude?",
+          "hint": "Can a depth be negative?",
+          "options": [
+            {
+              "text": "The model is not valid at 12 hours, because a depth can't be negative",
+              "correct": true
+            },
+            {
+              "text": "The pool is 0.4 m deep at 12 hours",
+              "correct": false
+            },
+            {
+              "text": "The water is 0.4 m below the floor of the pool at 12 hours",
+              "correct": false
+            }
+          ],
+          "explain": "A depth of water can't be negative, so the model doesn't describe the pool at $12$ hours. The pool has probably emptied before then. Dropping the minus sign hides the problem instead of explaining it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The model is not valid at 12 hours, because a depth can't be negative"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Significant figures count from the first non-zero digit. Keep place-holding zeros ($86\\,390 \\to 86\\,000$ to $2$ s.f.) and zeros made by rounding ($5.698 \\to 5.70$ to $3$ s.f.).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Give answers exactly or to $3$ s.f. unless told otherwise, and money usually to $2$ d.p. Keep full calculator values until the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A value rounded to the nearest $u$ has bounds half a step either side: $\\text{rounded} - \\frac{u}{2} \\le x < \\text{rounded} + \\frac{u}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For positive quantities, a product is largest with every factor at its upper bound, and $\\frac{a}{b}$ is largest with $a$ at its upper bound and $b$ at its lower bound.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = \\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%",
+          "tag": "booklet",
+          "bookletId": "bk-1-6-percentage-error",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Maximum percentage error from a rounded measurement: find the result at each bound, use each as $v_{E}$ with the rounded result as $v_{A}$, and keep the larger percentage error.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Estimate by rounding each number to $1$ s.f. Reject answers that are impossible in context, such as a negative length.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing by the approximate value in a percentage error. The exact value always goes in the denominator.",
+    "Mixing units in a percentage error. Change litres and millilitres (or metres and centimetres) to the same unit before you substitute.",
+    "Rounding in the middle of a calculation. Rounding $\\pi r^{2}$ before using it again changes the final digits; keep the full value and round once at the end.",
+    "Writing an upper bound as $7.349$, or with $\\le$. The upper bound is $7.35$, and the true value is strictly less than it.",
+    "Dropping place-holding zeros. $86\\,390$ to $2$ s.f. is $86\\,000$, not $86$.",
+    "Keeping a negative solution for a length or a time. Reject it, and say why."
+  ],
+  "examTips": [
+    "\"Write down\" a bound: no working is needed, but give the exact bound ($7.35$, not $7.349$). If an inequality or interval is asked for, give both ends.",
+    "\"Find\" or \"calculate\" a percentage error: write the formula with your numbers substituted for the method mark, then the answer to $3$ s.f. with the $\\%$ sign.",
+    "\"Determine whether it is certain\": use the extreme bound, compare it with the limit, and state a conclusion in the context of the question.",
+    "Keep full calculator values for later parts. A wrong earlier answer used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 25
+}

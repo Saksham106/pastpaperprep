@@ -2,13 +2,13 @@
   {
     "id": "displacement",
     "term": "displacement",
-    "definition": "TODO: Change in position, a vector (AB→ = b − a); in one dimension a signed distance from the origin; not the distance travelled",
+    "definition": "A change in position, given as a vector: from A to B it is $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$, which depends only on the start and end points and not on the route, so it is not the distance travelled; in one dimension it is a signed distance, such as a position measured from the origin.",
     "lesson": "3.12"
   },
   {
     "id": "relative-position",
     "term": "relative position",
-    "definition": "TODO: The position of B relative to A is AB→ = b − a, B's position minus A's, not the other way round",
+    "definition": "The position of B relative to A is the vector from A to B, $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$ (B's position minus A's, not the other way round); for two moving objects it is $\\boldsymbol{r}_{B}(t) - \\boldsymbol{r}_{A}(t)$ at the same time $t$, and its magnitude is the distance between them.",
     "lesson": "3.12"
   }
 ]

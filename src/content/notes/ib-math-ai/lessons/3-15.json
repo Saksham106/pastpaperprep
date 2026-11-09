@@ -1,0 +1,743 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.15",
+  "slug": "adjacency-matrices-and-walks",
+  "title": "Adjacency matrices and walks",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "An [[adjacency-matrix|adjacency matrix]] stores a graph as a grid of numbers, and its powers count [[walk|walks]]: entry $(i, j)$ of $A^{k}$ is the number of walks of length $k$ from $i$ to $j$. You also use [[weighted-adjacency-table|weighted adjacency tables]] and build the [[transition-matrix|transition matrix]] behind Google's PageRank.",
+  "goals": [
+    {
+      "text": "Write the adjacency matrix of a graph, and read a graph from its [[matrix|matrix]].",
+      "bullets": [
+        "3.15-b1"
+      ]
+    },
+    {
+      "text": "Describe a walk and its length.",
+      "bullets": [
+        "3.15-b2"
+      ]
+    },
+    {
+      "text": "Count walks of exactly $k$, or at most $k$, edges with powers of the adjacency matrix, and decide which vertices can be reached.",
+      "bullets": [
+        "3.15-b3",
+        "3.15-b2"
+      ]
+    },
+    {
+      "text": "Use a weighted adjacency table of costs, distances or times.",
+      "bullets": [
+        "3.15-b4"
+      ]
+    },
+    {
+      "text": "Construct the transition matrix for a random walk on a [[strongly-connected-graph|strongly connected graph]], as in PageRank.",
+      "bullets": [
+        "3.15-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.14",
+    "3.14"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "adjacency matrix of a graph",
+    "number of walks of length k",
+    "powers of adjacency matrix walks",
+    "weighted adjacency table",
+    "transition matrix from a graph",
+    "Google PageRank matrix"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-matrix-element",
+      "prompt": "$A = \\begin{pmatrix}3 & 1\\\\2 & 4\\end{pmatrix}$ and $B = \\begin{pmatrix}0 & 5\\\\1 & 2\\end{pmatrix}$. Find the element in row $2$, column $2$ of $AB$.",
+      "hint": "Multiply row 2 of $A$ by column 2 of $B$, term by term, and add.",
+      "answer": {
+        "value": 18,
+        "tolerance": 0
+      },
+      "explain": "$2 \\times 5 + 4 \\times 2 = 18$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(Matrix([[3, 1], [2, 4]])*Matrix([[0, 5], [1, 2]]))[1, 1]",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-in-degree",
+      "prompt": "A [[directed-graph|directed graph]] has edges J → K, J → L, J → M, K → L, L → J and M → L. What is the in-degree of L?",
+      "hint": "Count only the arrows that end at L.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "J → L, K → L and M → L end at L, so the in-degree is $3$. Revise it in {{lesson:3.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 + 1 + 1",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "adjacency",
+      "heading": "Adjacency matrices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A drawing of a graph is easy to read but hard to calculate with. An adjacency matrix holds the same information as numbers."
+        },
+        {
+          "type": "definition",
+          "term": "Adjacency matrix",
+          "statement": "For a [[graph|graph]] with $n$ [[graph-vertex|vertices]], the [[adjacency-matrix|adjacency matrix]] $A$ is the $n \\times n$ matrix whose entry $a_{ij}$, in row $i$ and column $j$, is the number of [[graph-edge|edges]] going directly from vertex $i$ to vertex $j$.",
+          "plain": "Row is where you start, column is where you go."
+        },
+        {
+          "type": "text",
+          "text": "Label the rows and columns in the same order, usually alphabetical. A $0$ means no direct edge, and two separate edges give a $2$."
+        },
+        {
+          "type": "text",
+          "text": "Undirected graph: each edge works both ways, so $a_{ij} = a_{ji}$ and the matrix is symmetric about the leading diagonal. With no loops, each row adds up to the [[degree-of-a-vertex|degree]] of its vertex."
+        },
+        {
+          "type": "text",
+          "text": "[[directed-graph|Directed graph]]: an edge from $i$ to $j$ adds $1$ to row $i$, column $j$ only. Rows add up to out-degrees and columns to in-degrees."
+        },
+        {
+          "type": "text",
+          "text": "A loop at $i$ puts $1$ on the leading diagonal: going round it is one step from $i$ back to $i$. A [[simple-graph|simple graph]] has only $0$s and $1$s, with $0$s on the diagonal."
+        },
+        {
+          "type": "figure",
+          "id": "3-15-park-paths",
+          "alt": "An undirected graph with five vertices F, G, K, L and V. Edges: F to G, F to K, F to L, G to K, K to L, K to V and L to V.",
+          "caption": "Paths in a park between the fountain F, gate G, kiosk K, lake L and viewpoint V."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-matrix",
+          "question": "Write down the adjacency matrix $A$ for the park paths in the figure. Use the order F, G, K, L, V.",
+          "steps": [
+            "F is joined to G, K and L, so row F is $0, 1, 1, 1, 0$. G is joined to F and K: $1, 0, 1, 0, 0$.",
+            "K is joined to F, G, L and V: $1, 1, 0, 1, 1$. L to F, K and V: $1, 0, 1, 0, 1$. V to K and L: $0, 0, 1, 1, 0$.",
+            "Check: $A$ is symmetric with $0$s on the diagonal. The row sums $3, 2, 4, 3, 2$ add to $14 = 2 \\times 7$, matching the $7$ paths."
+          ],
+          "answer": "$A = \\begin{pmatrix}0 & 1 & 1 & 1 & 0\\\\1 & 0 & 1 & 0 & 0\\\\1 & 1 & 0 & 1 & 1\\\\1 & 0 & 1 & 0 & 1\\\\0 & 0 & 1 & 1 & 0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "3-15-ski-area",
+          "alt": "A directed graph with four vertices P, Q, R and S. Arrows: P to Q and Q to P (two separate edges), Q to R, R to S, S to P, and R to P along the diagonal.",
+          "caption": "Lifts and runs in a ski area. The gondola between P and Q runs both ways; every other link is one way."
+        },
+        {
+          "type": "example",
+          "id": "ex-ski-matrix",
+          "question": "Each arrow in the ski area is a lift or a run, used only in its direction. Write down its adjacency matrix $M$ (order P, Q, R, S). How many lifts and runs arrive at P?",
+          "steps": [
+            "Rows are “from”, columns are “to”. Row P: $0, 1, 0, 0$. Row Q: $1, 0, 1, 0$. Row R: $1, 0, 0, 1$. Row S: $1, 0, 0, 0$.",
+            "$M$ is not symmetric: row R, column S is $1$ but row S, column R is $0$, because the run from R to S is one way.",
+            "Column P adds to $3$, the in-degree of P. In context: a skier can reach P directly from Q, R or S, but there is only one way out of P."
+          ],
+          "answer": "$M = \\begin{pmatrix}0 & 1 & 0 & 0\\\\1 & 0 & 1 & 0\\\\1 & 0 & 0 & 1\\\\1 & 0 & 0 & 0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "“Write down the adjacency matrix”: label rows and columns, or state the order. For a directed graph, say that rows are “from”."
+        },
+        {
+          "type": "check",
+          "id": "check-count-edges",
+          "prompt": "An undirected graph with no loops has adjacency matrix $\\begin{pmatrix}0 & 1 & 2 & 0\\\\1 & 0 & 1 & 1\\\\2 & 1 & 0 & 1\\\\0 & 1 & 1 & 0\\end{pmatrix}$. How many edges does it have?",
+          "hint": "Each edge appears twice in the matrix.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "The entries add to $12$. Each edge is counted twice, so there are $6$ edges, two of them between the first and third vertices.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0 + 1 + 2 + 0 + 1 + 0 + 1 + 1 + 2 + 1 + 0 + 1 + 0 + 1 + 1 + 0)/Integer(2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-row-meaning",
+          "prompt": "In the adjacency matrix of a directed graph, rows are “from”. What does the sum of row Q give?",
+          "hint": "Every entry in row Q counts edges that start at Q.",
+          "options": [
+            {
+              "text": "The out-degree of Q",
+              "correct": true
+            },
+            {
+              "text": "The in-degree of Q",
+              "correct": false
+            },
+            {
+              "text": "The degree of Q, counted twice",
+              "correct": false
+            },
+            {
+              "text": "The number of vertices that can reach Q",
+              "correct": false
+            }
+          ],
+          "explain": "Row Q counts the edges leaving Q, so it adds up to the out-degree. Column Q gives the in-degree.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The out-degree of Q"
+          }
+        }
+      ]
+    },
+    {
+      "id": "walks",
+      "heading": "Walks and powers of the adjacency matrix",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Walk",
+          "statement": "A [[walk|walk]] is a sequence of edges in which each edge starts at the vertex where the previous edge ended. Vertices and edges may repeat. Its length is the number of edges.",
+          "plain": "A journey along edges, where going back over old ground is allowed."
+        },
+        {
+          "type": "text",
+          "text": "Write a walk as a list of vertices. F–K–L–K has length $3$ and visits K twice. In a directed graph a walk follows the arrows. {{lesson:3.16}} adds trails, which never repeat an edge, and paths, which never repeat a vertex."
+        },
+        {
+          "type": "text",
+          "text": "Count the walks of length $2$ from $i$ to $j$. Each is $i \\to m \\to j$ for some middle vertex $m$, and there are $a_{im}a_{mj}$ of them through $m$."
+        },
+        {
+          "type": "text",
+          "text": "Adding over every $m$ gives $a_{i1}a_{1j} + \\dots + a_{in}a_{nj}$: row $i$ of $A$ times column $j$ of $A$. That is entry $(i, j)$ of $A^{2}$."
+        },
+        {
+          "type": "result",
+          "statement": "If $A$ is the adjacency matrix of a graph, entry $(i, j)$ of $A^{k}$ (row $i$, column $j$) is the number of walks of length $k$ from vertex $i$ to vertex $j$.",
+          "why": "$A^{k} = A^{k-1}A$, so each extra factor of $A$ adds one step, counted by the same row-times-column sum."
+        },
+        {
+          "type": "text",
+          "text": "The leading diagonal of $A^{k}$ counts closed walks: entry $(i, i)$ counts the walks of length $k$ from $i$ back to $i$."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-two-step",
+          "question": "Without a calculator, use the park matrix $A$ to find the number of walks of length $2$ from F to V. List them to check.",
+          "steps": [
+            "You need entry (F, V) of $A^{2}$: row F of $A$ times column V of $A$.",
+            "Row F is $(0, 1, 1, 1, 0)$ and column V is $(0, 0, 1, 1, 0)$, so $0 + 0 + 1 + 1 + 0 = 2$.",
+            "The non-zero products come from K and L, so the walks are F–K–V and F–L–V, as in the figure."
+          ],
+          "answer": "$2\\text{ walks}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Matrix([[0, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [0, 0, 1, 1, 0]])**2)[0, 4]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ski-six",
+          "question": "A skier starts at Q, uses exactly $6$ lifts or runs and finishes at P. Use your calculator to find the number of possible walks, and write down one.",
+          "steps": [
+            "Write down what you need: entry (Q, P) of $M^{6}$. This earns the method mark.",
+            "Enter $M$ in the order P, Q, R, S and find $M^{6} = \\begin{pmatrix}4 & 2 & 2 & 1\\\\5 & 4 & 2 & 2\\\\4 & 3 & 2 & 1\\\\2 & 2 & 1 & 1\\end{pmatrix}$. Row Q, column P is $5$.",
+            "One walk is Q–R–P–Q–R–S–P. It uses the lift from Q to R twice, which a walk allows."
+          ],
+          "answer": "$5\\text{ walks}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Matrix([[0, 1, 0, 0], [1, 0, 1, 0], [1, 0, 0, 1], [1, 0, 0, 0]])**6)[1, 0]"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-enter",
+          "values": {
+            "rows": 4,
+            "columns": 4,
+            "entries": "0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-power",
+          "values": {
+            "power": 6
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ski-four",
+          "prompt": "For the ski area, $M^{4} = \\begin{pmatrix}2 & 1 & 1 & 0\\\\2 & 2 & 1 & 1\\\\2 & 1 & 1 & 1\\\\1 & 1 & 0 & 1\\end{pmatrix}$ (order P, Q, R, S). Can a skier go from P to S using exactly $4$ lifts or runs?",
+          "hint": "Row is the start and column is the finish.",
+          "options": [
+            {
+              "text": "No: row P, column S is 0",
+              "correct": true
+            },
+            {
+              "text": "Yes: row S, column P is 1",
+              "correct": false
+            },
+            {
+              "text": "Yes: row P has non-zero entries",
+              "correct": false
+            },
+            {
+              "text": "No: there is no arrow from P to S",
+              "correct": false
+            }
+          ],
+          "explain": "Walks from P to S are in row P, column S, which is $0$. Row S, column P counts walks from S to P. A missing direct arrow says nothing about walks of length $4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No: row P, column S is 0"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-closed-walks",
+          "prompt": "Use your calculator to find $A^{3}$ for the park. How many walks of length $3$ start and end at the same place, counting all five places?",
+          "hint": "Add the leading diagonal of $A^{3}$.",
+          "answer": {
+            "value": 18,
+            "tolerance": 0
+          },
+          "explain": "The diagonal is $4, 2, 6, 4, 2$, which adds to $18$. Each goes round a triangle of paths, such as F–G–K–F.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Matrix([[0, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [0, 0, 1, 1, 0]])**3).trace()",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "at-most",
+      "heading": "Walks of at most k edges, and reaching every vertex",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When any number of edges up to a limit is allowed, add the counts for each length."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{walks of length } 1 \\text{ to } k \\text{ from } i \\text{ to } j = \\text{entry } (i, j) \\text{ of } A + A^{2} + \\dots + A^{k}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "“At most $k$” means lengths $1$ to $k$. “Fewer than $k$” stops at $k - 1$."
+        },
+        {
+          "type": "text",
+          "text": "A $0$ in entry $(i, j)$ of $A^{k}$ means no walk of exactly $k$ edges goes from $i$ to $j$. If every entry off the leading diagonal of $A + A^{2} + \\dots + A^{k}$ is non-zero, every vertex can reach every other in at most $k$ steps."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-at-most",
+          "question": "Find the number of walks from G to V in the park that use at most $3$ paths.",
+          "steps": [
+            "Add entry (G, V) of $A$, $A^{2}$ and $A^{3}$: $0 + 1 + 3$.",
+            "These are G–K–V, then G–F–K–V, G–F–L–V and G–K–L–V.",
+            "In context: there are $4$ ways from the gate to the viewpoint along at most three paths."
+          ],
+          "answer": "$4\\text{ walks}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Matrix([[0, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [0, 0, 1, 1, 0]]) + Matrix([[0, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [0, 0, 1, 1, 0]])**2 + Matrix([[0, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [0, 0, 1, 1, 0]])**3)[1, 4]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ski-reach",
+          "question": "For the ski area, use $M + M^{2}$ and $M + M^{2} + M^{3}$ to decide whether a skier can get from every point to every other using (a) at most $2$, (b) at most $3$ lifts or runs.",
+          "steps": [
+            "(a) $M + M^{2} = \\begin{pmatrix}1 & 1 & 1 & 0\\\\2 & 1 & 1 & 1\\\\2 & 1 & 0 & 1\\\\1 & 1 & 0 & 0\\end{pmatrix}$. Off the diagonal, row S, column R is $0$ (and so is row P, column S).",
+            "So no: there is no walk of $1$ or $2$ edges from S to R.",
+            "(b) $M + M^{2} + M^{3} = \\begin{pmatrix}2 & 2 & 1 & 1\\\\4 & 2 & 2 & 1\\\\3 & 2 & 1 & 1\\\\2 & 1 & 1 & 0\\end{pmatrix}$. Every entry off the leading diagonal is non-zero, so yes. For example, S to R is S–P–Q–R.",
+            "The $0$ in row S, column S only means a skier can't return to S within $3$ steps."
+          ],
+          "answer": "(a) No: no walk from S to R. (b) Yes: every entry off the leading diagonal of $M + M^{2} + M^{3}$ is non-zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "At most 2: no (S to R impossible); at most 3: yes, no zero off the diagonal of M + M^2 + M^3",
+            "requires": [
+              [
+                "S to R",
+                "P to S"
+              ],
+              [
+                "yes"
+              ],
+              [
+                "non-zero",
+                "no zero"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fewer-than",
+          "prompt": "You need the number of walks from X to Y with fewer than $4$ edges. Which matrix do you read?",
+          "hint": "Is a walk of length 4 allowed?",
+          "options": [
+            {
+              "text": "$A + A^{2} + A^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$A + A^{2} + A^{3} + A^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$A^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$A^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "Fewer than $4$ edges means lengths $1$, $2$ and $3$. $A^{3}$ alone counts only walks of exactly $3$ edges.",
+          "verify": {
+            "kind": "expression",
+            "truth": "A + A**2 + A**3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reach-direction",
+          "prompt": "$M + M^{2} + M^{3}$ has a $0$ in row E, column B, and no other zeros off the leading diagonal. Which is correct?",
+          "hint": "Row is the start, and the sum covers walks of up to 3 edges.",
+          "options": [
+            {
+              "text": "You can't get from E to B in 3 steps or fewer",
+              "correct": true
+            },
+            {
+              "text": "You can't get from B to E in 3 steps or fewer",
+              "correct": false
+            },
+            {
+              "text": "Every vertex can reach every other in 3 steps or fewer",
+              "correct": false
+            },
+            {
+              "text": "You can't get from E to B at all",
+              "correct": false
+            }
+          ],
+          "explain": "Row E, column B counts walks from E to B of length 1 to 3. A longer walk might still exist, so “at all” goes too far.",
+          "verify": {
+            "kind": "choice",
+            "truth": "You can't get from E to B in 3 steps or fewer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weighted",
+      "heading": "Weighted adjacency tables",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Weighted adjacency table",
+          "statement": "A [[weighted-adjacency-table|weighted adjacency table]] for a [[weighted-graph|weighted graph]] has a row and a column for each vertex. Entry $(i, j)$ is the weight of the direct edge from $i$ to $j$, such as a cost, distance or time, and is blank (or –) when there is no direct edge.",
+          "plain": "An adjacency matrix with weights in place of the 1s."
+        },
+        {
+          "type": "text",
+          "text": "Never write $0$ for a missing edge: $0$ would mean a link that is free or instant. Undirected weights give a symmetric table; for directed weights, rows are “from”."
+        },
+        {
+          "type": "text",
+          "text": "The table shows only direct edges, so the cheapest way between two vertices may go through others. Raising a table of weights to a power doesn't count walks."
+        },
+        {
+          "type": "example",
+          "id": "ex-ferry-table",
+          "question": "Crossing times, in minutes, between five islands are shown; – means no direct ferry. $\\begin{array}{c|ccccc} & \\mathrm{V} & \\mathrm{W} & \\mathrm{X} & \\mathrm{Y} & \\mathrm{Z} \\\\ \\hline \\mathrm{V} & \\text{–} & 25 & 40 & \\text{–} & \\text{–} \\\\ \\mathrm{W} & 25 & \\text{–} & 10 & 32 & \\text{–} \\\\ \\mathrm{X} & 40 & 10 & \\text{–} & 20 & 55 \\\\ \\mathrm{Y} & \\text{–} & 32 & 20 & \\text{–} & 15 \\\\ \\mathrm{Z} & \\text{–} & \\text{–} & 55 & 15 & \\text{–} \\end{array}$ (a) Draw the weighted graph. (b) Ignoring waiting times, find the quickest journey time from V to Z.",
+          "steps": [
+            "(a) One vertex per island, and one edge for each entry above the leading diagonal, labelled with its time (figure below).",
+            "(b) Quickest to X: V–W–X $= 35$, less than V–X $= 40$. Quickest to Y: V–W–X–Y $= 55$, less than V–W–Y $= 57$ or V–X–Y $= 60$.",
+            "Z is reached from Y ($15$) or X ($55$): $55 + 15 = 70$ beats $35 + 55 = 90$. So V–W–X–Y–Z takes $70$ minutes.",
+            "Interpret: the quickest journey uses four ferries. Waiting at each change could make a route with fewer ferries better in practice."
+          ],
+          "answer": "$70\\text{ minutes}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Min(25 + 10 + 20 + 15, 25 + 32 + 15, 40 + 20 + 15, 25 + 10 + 55, 40 + 55, 40 + 10 + 32 + 15, 25 + 32 + 20 + 55)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-15-ferry-routes",
+          "alt": "A weighted graph with five vertices V, W, X, Y and Z. Edge weights in minutes: V to W 25, V to X 40, W to X 10, W to Y 32, X to Y 20, X to Z 55 and Y to Z 15.",
+          "caption": "The ferry table as a weighted graph, in minutes. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-hill-cycling",
+          "question": "Cycling times, in minutes, between three hillside villages are shown, rows as the start. $\\begin{array}{c|ccc} \\text{from} \\backslash \\text{to} & \\mathrm{F} & \\mathrm{G} & \\mathrm{H} \\\\ \\hline \\mathrm{F} & \\text{–} & 18 & 30 \\\\ \\mathrm{G} & 12 & \\text{–} & 14 \\\\ \\mathrm{H} & 22 & 9 & \\text{–} \\end{array}$ (a) Explain why the table is not symmetric. (b) A cyclist leaves F, visits G and H, and returns to F. Find the shorter total time.",
+          "steps": [
+            "(a) Uphill is slower than downhill, so times depend on direction: F to H takes $30$ minutes, H to F only $22$.",
+            "(b) F–G–H–F: $18 + 14 + 22 = 54$. F–H–G–F: $30 + 9 + 12 = 51$.",
+            "So F–H–G–F, $51$ minutes: it does the slow climb to H early and freewheels down to G."
+          ],
+          "answer": "$51\\text{ minutes}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Min(18 + 14 + 22, 30 + 9 + 12)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-blank-meaning",
+          "prompt": "In a weighted table of bus fares, row B, column D is blank. What does this mean?",
+          "hint": "The table only shows direct links.",
+          "options": [
+            {
+              "text": "No direct bus runs from B to D",
+              "correct": true
+            },
+            {
+              "text": "The bus from B to D is free",
+              "correct": false
+            },
+            {
+              "text": "You can't get from B to D by bus",
+              "correct": false
+            },
+            {
+              "text": "The fare is the same both ways",
+              "correct": false
+            }
+          ],
+          "explain": "A blank means no direct edge; you may still get there by changing. A free bus would be written $0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No direct bus runs from B to D"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ferry-total",
+          "prompt": "An inspector sails every ferry route in the island table once. Find the total crossing time, in minutes.",
+          "hint": "Add only the entries above the leading diagonal.",
+          "answer": {
+            "value": 197,
+            "tolerance": 0
+          },
+          "explain": "$25 + 40 + 10 + 32 + 20 + 55 + 15 = 197$. The whole table gives $394$, counting every route twice.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "25 + 40 + 10 + 32 + 20 + 55 + 15",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "transition",
+      "heading": "Transition matrices for a random walk",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a visitor who keeps moving along an edge chosen at random. A transition matrix holds the probability of each move."
+        },
+        {
+          "type": "definition",
+          "term": "Transition matrix of a graph",
+          "statement": "For a [[strongly-connected-graph|strongly connected]] directed graph, or a connected undirected graph, the [[transition-matrix|transition matrix]] $T$ has $T_{ij}$ = the probability of moving from vertex $j$ to vertex $i$. In a simple graph with equally likely edges, $T_{ij} = \\frac{1}{\\text{out-degree of } j}$ if there is an edge from $j$ to $i$, and $0$ otherwise.",
+          "plain": "Each column is where you are now, sharing a probability of 1 equally between its edges out."
+        },
+        {
+          "type": "text",
+          "text": "For an undirected graph, the out-degree is the degree. Each column adds up to $1$. Columns are “from”, as in {{lesson:4.19}}: the other way round from $A$, so $T$ is $A$ transposed with each column divided by its total."
+        },
+        {
+          "type": "text",
+          "text": "The graph must be strongly connected: a vertex with no edge out would give a column of zeros, and a walker could get stuck in one part of the graph."
+        },
+        {
+          "type": "figure",
+          "id": "3-15-museum-rooms",
+          "alt": "An undirected graph with four vertices A, B, C and D. Edges: A to B, A to C, B to C and C to D.",
+          "caption": "Four museum rooms; each edge is a doorway."
+        },
+        {
+          "type": "example",
+          "id": "ex-museum-transition",
+          "question": "A visitor moves round the museum rooms, each time choosing a doorway of their room at random. Construct the transition matrix $T$ (order A, B, C, D).",
+          "steps": [
+            "Degrees: A $2$, B $2$, C $3$, D $1$.",
+            "Column A: B and C each get $\\frac{1}{2}$. Column B: A and C each get $\\frac{1}{2}$. Column C: A, B and D each get $\\frac{1}{3}$. Column D: C gets $1$.",
+            "Check: each column adds up to $1$. Interpret: row C, column D is $1$ because D's only doorway leads to C."
+          ],
+          "answer": "$T = \\begin{pmatrix}0 & \\frac{1}{2} & \\frac{1}{3} & 0\\\\\\frac{1}{2} & 0 & \\frac{1}{3} & 0\\\\\\frac{1}{2} & \\frac{1}{2} & 0 & 1\\\\0 & 0 & \\frac{1}{3} & 0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Google's PageRank works this way. Pages are vertices and links are directed edges. A surfer clicks a random link on each page, and the pages visited most in the long run rank highest. The full algorithm also adds random jumps; {{lesson:4.19}} finds the long-run proportions."
+        },
+        {
+          "type": "figure",
+          "id": "3-15-web-pages",
+          "alt": "A directed graph with four vertices H, N, S and W. Arrows: H to N and N to H, H to S and S to H (each pair as two separate edges), N to S, H to W, and W to S.",
+          "caption": "Links between four web pages: home H, news N, sport S and weather W."
+        },
+        {
+          "type": "example",
+          "id": "ex-web-transition",
+          "question": "A surfer clicks one of the links on their page at random. Construct the transition matrix $T$ for the website (order H, N, S, W).",
+          "steps": [
+            "Out-degrees: H $3$ (to N, S, W), N $2$ (to H, S), S $1$ (to H), W $1$ (to S). Every page can reach every other, so the graph is strongly connected.",
+            "Column H: N, S, W each $\\frac{1}{3}$. Column N: H, S each $\\frac{1}{2}$. Column S: H gets $1$. Column W: S gets $1$.",
+            "Interpret: S has the most links in, but it passes every visitor to H. In the long run the surfer is on H about $40\\%$ of the time and on S about $33\\%$: links from a busy page count for more."
+          ],
+          "answer": "$T = \\begin{pmatrix}0 & \\frac{1}{2} & 1 & 0\\\\\\frac{1}{3} & 0 & 0 & 0\\\\\\frac{1}{3} & \\frac{1}{2} & 0 & 1\\\\\\frac{1}{3} & 0 & 0 & 0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Building $T$ with rows as “from”. In IB transition matrices each column is the starting vertex, so columns add up to $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-column-sum",
+          "prompt": "Which is true for every column of the transition matrix of a strongly connected graph?",
+          "hint": "A column lists every possible move from one vertex.",
+          "options": [
+            {
+              "text": "Its entries add up to 1",
+              "correct": true
+            },
+            {
+              "text": "Its entries add up to the degree",
+              "correct": false
+            },
+            {
+              "text": "It equals the matching row",
+              "correct": false
+            },
+            {
+              "text": "It has one non-zero entry",
+              "correct": false
+            }
+          ],
+          "explain": "From any vertex the walker must move somewhere, so the column adds to $1$. Rows usually differ, as in the museum matrix.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Its entries add up to 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-clicks",
+          "prompt": "A surfer starts on page H. Find the probability that they are on page S after exactly $2$ clicks.",
+          "hint": "List the 2-click walks from H to S and multiply the probabilities along each.",
+          "answer": {
+            "value": 0.5,
+            "tolerance": 0.0005
+          },
+          "explain": "H–N–S: $\\frac{1}{3} \\times \\frac{1}{2} = \\frac{1}{6}$. H–W–S: $\\frac{1}{3}$. Total $\\frac{1}{2}$, which is entry (S, H) of $T^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Matrix([[0, Rational(1, 2), 1, 0], [Rational(1, 3), 0, 0, 0], [Rational(1, 3), Rational(1, 2), 0, 1], [Rational(1, 3), 0, 0, 0]])**2)[2, 0]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Adjacency matrix: entry $(i, j)$ is the number of edges directly from $i$ to $j$. Symmetric for an undirected graph; for a directed graph, rows are “from”.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A walk is a sequence of edges, each starting where the last ended; vertices and edges may repeat. Its length is its number of edges.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{entry } (i, j) \\text{ of } A^{k} = \\text{number of walks of length } k \\text{ from } i \\text{ to } j",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{walks of length } 1 \\text{ to } k \\text{ from } i \\text{ to } j = \\text{entry } (i, j) \\text{ of } A + A^{2} + \\dots + A^{k}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The leading diagonal of $A^{k}$ counts closed walks of length $k$. No zero off the diagonal of $A + \\dots + A^{k}$ means every vertex reaches every other in at most $k$ steps.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Weighted adjacency table: entries are weights of direct edges; blank (not $0$) means no direct edge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Transition matrix of a strongly connected graph: $T_{ij}$ is the probability of moving from $j$ to $i$, so columns add to $1$. With equally likely edges in a simple graph, $T_{ij} = \\frac{1}{\\text{out-degree of } j}$ when $j \\to i$ is an edge.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "A matrix of the wrong size or with no labels. $n$ vertices give an $n \\times n$ matrix; label the rows and columns.",
+    "Reading the wrong entry. Row is the start, so walks from E to B are in row E, column B.",
+    "Using $A^{k}$ alone when shorter walks count. “At most $k$” needs $A + \\dots + A^{k}$; “fewer than $k$” stops at $A^{k-1}$.",
+    "Treating walks as real routes. A walk can pass its end vertex early or repeat edges, so if the journey must stop at the target, the true count may be smaller."
+  ],
+  "examTips": [
+    "“Find the number of walks”: write the entry you need, such as “row Q, column P of $M^{6}$”, before the number. That earns the method mark.",
+    "“State, with justification” whether every vertex can be reached: quote the zero or non-zero entries and say what they mean, such as “no walk from S to R in $2$ steps”.",
+    "“Hence”: use your own matrix from the earlier part. A wrong matrix used correctly can still earn follow-through marks."
+  ],
+  "readingMinutes": 31
+}

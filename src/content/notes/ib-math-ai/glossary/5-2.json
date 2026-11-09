@@ -2,19 +2,19 @@
   {
     "id": "increasing-function",
     "term": "increasing function",
-    "definition": "TODO: f(x) rises as x rises on an interval, shown by f′(x) > 0 there; always give the interval",
+    "definition": "A function is increasing on an interval if its output gets bigger as $x$ gets bigger there, so $a < b$ gives $f(a) < f(b)$; this holds whenever $f'(x) > 0$ for every $x$ in the interval.",
     "lesson": "5.2"
   },
   {
     "id": "decreasing-function",
     "term": "decreasing function",
-    "definition": "TODO: f(x) falls as x rises on an interval, shown by f′(x) < 0 there; always give the interval",
+    "definition": "A function is decreasing on an interval if its output gets smaller as $x$ gets bigger there, so $a < b$ gives $f(a) > f(b)$; this holds whenever $f'(x) < 0$ for every $x$ in the interval.",
     "lesson": "5.2"
   },
   {
     "id": "stationary-point",
     "term": "stationary point",
-    "definition": "TODO: A point where f′(x) = 0, so the tangent is horizontal; not every stationary point is a maximum or minimum",
+    "definition": "A point on a curve where $f'(x) = 0$, so the tangent is horizontal; it may be a local maximum, a local minimum or neither.",
     "lesson": "5.2"
   }
 ]

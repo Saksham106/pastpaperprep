@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 220" role="img" aria-labelledby="t">
+  <title id="t">A graph G with six vertices A to F. Edges: A to B, A to C, B to C, B to D, C to E, D to E, D to F and E to F.</title>
+  <line x1="50" y1="110" x2="150" y2="40" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="50" y1="110" x2="150" y2="180" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="150" y1="40" x2="150" y2="180" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="150" y1="40" x2="280" y2="40" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="150" y1="180" x2="280" y2="180" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="280" y1="40" x2="280" y2="180" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="280" y1="40" x2="380" y2="110" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="280" y1="180" x2="380" y2="110" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="110" r="5" fill="currentColor"/>
+  <text x="36" y="115" font-size="14" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="150" cy="40" r="5" fill="currentColor"/>
+  <text x="150" y="28" font-size="14" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="150" cy="180" r="5" fill="currentColor"/>
+  <text x="150" y="204" font-size="14" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="280" cy="40" r="5" fill="currentColor"/>
+  <text x="280" y="28" font-size="14" text-anchor="middle" fill="currentColor">D</text>
+  <circle cx="280" cy="180" r="5" fill="currentColor"/>
+  <text x="280" y="204" font-size="14" text-anchor="middle" fill="currentColor">E</text>
+  <circle cx="380" cy="110" r="5" fill="currentColor"/>
+  <text x="394" y="115" font-size="14" text-anchor="middle" fill="currentColor">F</text>
+</svg>

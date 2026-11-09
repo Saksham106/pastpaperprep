@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.15",
+  "slug": "slope-fields",
+  "title": "Slope fields",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[slope-field|slope field]] draws a short line at each grid point with the gradient that a [[differential-equation|differential equation]] gives there. Solution curves run along these lines, so you can sketch a solution and see its long-term behaviour without solving the equation. In a model, the field shows where a quantity rises, falls, peaks or levels off.",
+  "goals": [
+    {
+      "text": "Work out the segments of a slope field, and match a differential equation to its field.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Sketch the solution curve through a given point, with its turning points where the segments are flat.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Find the curve where the segments are horizontal, and any horizontal line that is itself a solution.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    },
+    {
+      "text": "Interpret a slope field in context: where a quantity rises or falls, where it peaks, and the value it levels off towards.",
+      "bullets": [
+        "5.15-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.14"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "slope field",
+    "direction field",
+    "sketch a solution curve on a slope field",
+    "gradient field differential equation",
+    "interpret a slope field",
+    "slope field dy/dx"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-general-solution",
+      "prompt": "Which is the [[general-solution|general solution]] of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2y$?",
+      "hint": "Separate the variables: $\\int \\frac{1}{y}\\,\\mathrm{d}y = \\int 2\\,\\mathrm{d}x$.",
+      "options": [
+        {
+          "text": "$y = A\\mathrm{e}^{2x}$",
+          "correct": true
+        },
+        {
+          "text": "$y = \\mathrm{e}^{2x} + C$",
+          "correct": false
+        },
+        {
+          "text": "$y = 2x + C$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\ln|y| = 2x + c$, so $y = A\\mathrm{e}^{2x}$ for a constant $A$. The constant comes in when you integrate, not at the end. Revise it in {{lesson:5.14}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "y - A*exp(2*x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-particular-solution",
+      "prompt": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x$ and the curve passes through $(1, 7)$. Find $y$.",
+      "hint": "Integrate to get $y = 3x^{2} + C$, then substitute $x = 1$, $y = 7$.",
+      "options": [
+        {
+          "text": "$y = 3x^{2} + 4$",
+          "correct": true
+        },
+        {
+          "text": "$y = 3x^{2} + 7$",
+          "correct": false
+        },
+        {
+          "text": "$y = 6x^{2} + 1$",
+          "correct": false
+        }
+      ],
+      "explain": "$y = 3x^{2} + C$ and $7 = 3 + C$, so $C = 4$. Revise it in {{lesson:5.14}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "y - (3*x**2 + 7 - 3*1**2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rate-from-model",
+      "prompt": "A town's population $P$ is modelled by $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 0.035P$, with $t$ in years. Find the rate of change of $P$ when $P = 4800$.",
+      "hint": "Substitute $P = 4800$ into the right-hand side.",
+      "answer": {
+        "value": 168,
+        "tolerance": 0
+      },
+      "explain": "$0.035 \\times 4800 = 168$, so the population is growing by $168$ people per year at that moment. Revise setting up models like this in {{lesson:5.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(35, 1000)*4800",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "fields",
+      "heading": "What a slope field shows",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.14}} you solved differential equations by separating the variables. Many can't be solved that way. But an equation $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ still tells you the gradient of a solution at every point $(x, y)$."
+        },
+        {
+          "type": "text",
+          "text": "So pick a grid of points. At each one, draw a short line with that gradient. Together the lines show which way a solution heads as it passes through each point."
+        },
+        {
+          "type": "definition",
+          "term": "Slope field",
+          "statement": "The [[slope-field|slope field]] of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ is a grid of short line segments. The segment at the point $(a, b)$ has gradient $f(a, b)$.",
+          "plain": "A picture of the gradient a solution would have at every point."
+        },
+        {
+          "type": "text",
+          "text": "A solution curve is tangent to every segment it passes through. You don't need its equation: you follow the segments."
+        },
+        {
+          "type": "text",
+          "text": "To draw a segment, substitute the point into $f(x, y)$. Then draw a short line with that gradient, centred on the point. A positive gradient rises to the right, a negative one falls, and $0$ gives a horizontal segment."
+        },
+        {
+          "type": "figure",
+          "id": "5-15-field-x-minus-y",
+          "alt": "Slope field of dy/dx equals x minus y for x and y from minus 2 to 4. Short segments sit on a grid of points. Along the dashed line y equals x every segment is horizontal. Above the line the segments slope downwards, more steeply further from the line. Below the line they slope upwards.",
+          "caption": "The slope field of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x - y$. The segments are horizontal on the dashed line $y = x$, where $x - y = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-segment-gradients",
+          "question": "For $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x - y$, find the gradients of the segments at $A(3, 1)$, $B(2, 2)$ and $C(-1, 1)$, in that order. Describe each segment.",
+          "steps": [
+            "At $A$: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3 - 1 = 2$. The segment rises steeply to the right.",
+            "At $B$: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2 - 2 = 0$. The segment is horizontal.",
+            "At $C$: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = -1 - 1 = -2$. The segment falls steeply.",
+            "Check against the figure. Every point on $y = x$ gives $0$, so the segments on that line are flat. Above the line $y > x$, so the segments fall. Below it they rise."
+          ],
+          "answer": "$2,\\; 0,\\; -2$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[3 - 1, 2 - 2, -1 - 1]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Three features help you match an equation to its field."
+        },
+        {
+          "type": "text",
+          "text": "1. If $f$ contains $x$ only, the gradient is the same all the way up each vertical column. The segments in a column are parallel."
+        },
+        {
+          "type": "text",
+          "text": "2. If $f$ contains $y$ only, the segments along each horizontal row are parallel."
+        },
+        {
+          "type": "text",
+          "text": "3. The segments are horizontal wherever $f(x, y) = 0$. Solve this to find where: it may be a horizontal line, a vertical line or a curve."
+        },
+        {
+          "type": "mistake",
+          "text": "Solving $f(x, y) = 0$ for the wrong letter. For $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1 - x$ the flat segments lie on the vertical line $x = 1$, not on $y = 1$."
+        },
+        {
+          "type": "figure",
+          "id": "5-15-match-fields",
+          "alt": "Three small slope fields labelled A, B and C, each for x and y from minus 1 to 3. In A the segments along each row are parallel, horizontal on the row y equals 1, rising above it and falling below it. In B the segments in each column are parallel, horizontal on the column x equals 1, rising to the left of it and falling to the right. In C the segments along each row are parallel, horizontal on the row y equals 1, falling above it and rising below it.",
+          "caption": "Three slope fields, each drawn for $-1 \\le x \\le 3$ and $-1 \\le y \\le 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-match-field",
+          "question": "Which of the slope fields $A$, $B$ and $C$ in the figure belongs to $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1 - y$? Give a reason.",
+          "steps": [
+            "$1 - y$ contains $y$ only, so each row of segments should be parallel. In $B$ the segments change along a row but not up a column, so $B$ belongs to an equation in $x$. Rule it out.",
+            "$1 - y = 0$ when $y = 1$. Both $A$ and $C$ have horizontal segments along $y = 1$.",
+            "Test a point below that line. At $(0, 0)$, $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1 - 0 = 1 > 0$, so the segment there rises.",
+            "In $C$ the segments below $y = 1$ rise. In $A$ they fall. So the field is $C$."
+          ],
+          "answer": "$C$, because its segments are horizontal along $y = 1$ and rise below it: at $(0, 0)$ the gradient is $1$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "C: horizontal along y = 1 and rising below it (gradient 1 at the origin)",
+            "requires": [
+              "C",
+              "y = 1",
+              [
+                "rise",
+                "positive"
+              ]
+            ],
+            "forbids": [
+              "fall below"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-coffee-segment",
+          "prompt": "A coffee's temperature $T$ °C after $t$ minutes is modelled by $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -0.12(T - 22)$. What does the slope field's segment at $(5, 72)$ tell you?",
+          "hint": "Substitute $T = 72$. The sign of the gradient tells you rising or falling, and its units are °C per minute.",
+          "options": [
+            {
+              "text": "A coffee at 72 °C after 5 minutes is cooling at 6 °C per minute",
+              "correct": true
+            },
+            {
+              "text": "A coffee at 72 °C after 5 minutes is warming at 6 °C per minute",
+              "correct": false
+            },
+            {
+              "text": "A coffee at 72 °C after 5 minutes is cooling at 50 °C per minute",
+              "correct": false
+            },
+            {
+              "text": "The coffee will be at 22 °C after 5 minutes",
+              "correct": false
+            }
+          ],
+          "explain": "$-0.12(72 - 22) = -6$. The gradient is the rate $\\frac{\\mathrm{d}T}{\\mathrm{d}t}$ in °C per minute, and it is negative, so the coffee is cooling. $50$ is $T - 22$ before you multiply by $-0.12$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A coffee at 72 °C after 5 minutes is cooling at 6 °C per minute"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-column-parallel",
+          "prompt": "In the slope field of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{2} - 4$, which segments are parallel to each other?",
+          "hint": "Which letter does $x^{2} - 4$ contain? Which points share the same value of that letter?",
+          "options": [
+            {
+              "text": "The segments in each vertical column",
+              "correct": true
+            },
+            {
+              "text": "The segments along each horizontal row",
+              "correct": false
+            },
+            {
+              "text": "The segments along the line y = x",
+              "correct": false
+            }
+          ],
+          "explain": "Only $x$ appears, so every point in a vertical column has the same gradient. Also, $x^{2} - 4 = 0$ at $x = \\pm 2$, so the flat segments lie on the vertical lines $x = -2$ and $x = 2$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The segments in each vertical column"
+          }
+        }
+      ]
+    },
+    {
+      "id": "solution-curves",
+      "heading": "Sketching solution curves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A solution through a given point is a [[particular-solution|particular solution]]. Its graph is called a solution curve. To sketch it on a slope field:"
+        },
+        {
+          "type": "text",
+          "text": "1. Mark the given point."
+        },
+        {
+          "type": "text",
+          "text": "2. Move right from the point a little at a time, always in the direction of the nearby segments. Never cut across them."
+        },
+        {
+          "type": "text",
+          "text": "3. Go back to the point and do the same to the left, unless the question asks for only part of the curve."
+        },
+        {
+          "type": "text",
+          "text": "4. Check the turning points: the curve is flat exactly where the segments are flat."
+        },
+        {
+          "type": "result",
+          "statement": "Along a solution curve of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$, the gradient at each point is $f(x, y)$. So the curve has a [[stationary-point|stationary point]] exactly where it meets the curve $f(x, y) = 0$.",
+          "why": "On the solution curve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$ at exactly the points where $f(x, y) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "To tell a maximum from a minimum, check the gradient just before and just after. Rising then falling is a maximum. Falling then rising is a minimum."
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-x-minus-y",
+          "question": "On the slope field of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x - y$, sketch the solution curve through $(0, 2)$ and describe its shape.",
+          "steps": [
+            "Mark $(0, 2)$. There $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0 - 2 = -2$, so the curve starts by falling.",
+            "Moving right, the curve falls towards the dashed line $y = x$. The segments get flatter as it gets close.",
+            "It crosses $y = x$ where the segments are horizontal. It falls before and rises after, so this is a minimum, at about $(1.1, 1.1)$.",
+            "After the minimum the curve lies below $y = x$, where the segments rise. It gets closer and closer to the line $y = x - 1$. On that line every segment has gradient $x - (x - 1) = 1$, the line's own gradient, so the line is itself a solution.",
+            "Moving left from $(0, 2)$, $x - y$ becomes more negative, so the segments get steeper. Going left, the curve climbs steeply."
+          ],
+          "answer": "The curve falls from $(0, 2)$ to a minimum on $y = x$, at about $(1.1, 1.1)$. It then rises, getting closer and closer to the line $y = x - 1$. To the left of $x = 0$ it climbs steeply.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Falls from (0, 2) to a minimum on y = x near (1.1, 1.1), then rises towards y = x - 1; climbs steeply to the left",
+            "requires": [
+              "minimum",
+              "y = x",
+              "y = x - 1",
+              "left"
+            ],
+            "forbids": [
+              "maximum"
+            ]
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-15-solution-curve",
+          "alt": "The slope field of dy/dx equals x minus y with one solution curve drawn through the marked point (0, 2). Going right, the curve falls to a minimum on the dashed line y equals x, at about (1.1, 1.1), then rises and runs just above the dotted line y equals x minus 1, getting closer to it. Going left from (0, 2), the curve climbs steeply off the top of the diagram.",
+          "caption": "The solution through $(0, 2)$: a minimum on the dashed line $y = x$, then it closes in on the dotted line $y = x - 1$."
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing the curve only to the right of the given point. Unless the question gives a domain, continue it across the whole diagram in both directions."
+        },
+        {
+          "type": "example",
+          "id": "ex-medicine-peak",
+          "question": "The concentration of a medicine in a patient's blood is $C$ mg per litre, $t$ hours after a tablet is taken. It is modelled by $\\frac{\\mathrm{d}C}{\\mathrm{d}t} = 8\\mathrm{e}^{-t} - C$, with $C = 0$ when $t = 0$. This solution curve has a stationary point when $t = 1$. Find $C$ there, decide whether it is a maximum or a minimum, and interpret it. Give $C$ to 3 s.f.",
+          "steps": [
+            "At a stationary point $\\frac{\\mathrm{d}C}{\\mathrm{d}t} = 0$, so $8\\mathrm{e}^{-t} - C = 0$ and $C = 8\\mathrm{e}^{-t}$. The point lies on this curve, dashed in the figure.",
+            "Substitute $t = 1$: $C = 8\\mathrm{e}^{-1} = 2.943\\ldots$",
+            "Just before, at $(0.9, 2.943)$: $8\\mathrm{e}^{-0.9} - 2.943 = 0.309\\ldots > 0$, so $C$ is rising.",
+            "Just after, at $(1.1, 2.943)$: $8\\mathrm{e}^{-1.1} - 2.943 = -0.280\\ldots < 0$, so $C$ is falling.",
+            "Rising then falling: a maximum. The concentration peaks at about $2.94$ mg per litre, $1$ hour after the tablet is taken."
+          ],
+          "answer": "$C \\approx 2.94\\text{ mg per litre}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "8*exp(-1)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-15-medicine-peak",
+          "alt": "Slope field of dC/dt equals 8 e to the minus t minus C, for t and C from 0 to 4. A dashed curve C equals 8 e to the minus t falls from the top left towards the t-axis. The solution curve starts at the origin, rises steeply, reaches a maximum where it meets the dashed curve at about t equals 1 and C equals 2.94, then falls slowly towards the t-axis.",
+          "caption": "The field of $\\frac{\\mathrm{d}C}{\\mathrm{d}t} = 8\\mathrm{e}^{-t} - C$. The solution from $(0, 0)$ peaks where it meets the dashed curve $C = 8\\mathrm{e}^{-t}$."
+        },
+        {
+          "type": "check",
+          "id": "check-stationary-line",
+          "prompt": "A solution curve of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + y - 4$ has a minimum point. On which line must the minimum lie?",
+          "hint": "At a minimum $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$.",
+          "options": [
+            {
+              "text": "$y = 4 - x$",
+              "correct": true
+            },
+            {
+              "text": "$y = x - 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = 4$",
+              "correct": false
+            }
+          ],
+          "explain": "At a stationary point $x + y - 4 = 0$, so $y = 4 - x$. The line $y = x - 4$ comes from a sign slip, and $y = 4$ ignores the $x$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "x + y - 4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-horizontal-solution",
+          "prompt": "Which line is itself a solution curve of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = (y - 3)(x + 1)$?",
+          "hint": "On a solution line every segment must have the line's own gradient. A horizontal line has gradient $0$.",
+          "options": [
+            {
+              "text": "$y = 3$",
+              "correct": true
+            },
+            {
+              "text": "$x = -1$",
+              "correct": false
+            },
+            {
+              "text": "$y = -1$",
+              "correct": false
+            }
+          ],
+          "explain": "On $y = 3$, $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0 \\times (x + 1) = 0$ for every $x$, which matches the line's gradient of $0$. The segments on $x = -1$ are flat too, but a vertical line can't run along flat segments.",
+          "verify": {
+            "kind": "equation",
+            "truth": "y - 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "in-context",
+      "heading": "Interpreting slope fields in context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a model the horizontal axis is usually time $t$. The slope field then shows how the quantity changes from any starting value: where it rises or falls, how fast, and where it levels off."
+        },
+        {
+          "type": "text",
+          "text": "Look for rows of flat segments. If $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(y)$ and $f(c) = 0$, then $y = c$ is a solution: a quantity that starts at $c$ stays at $c$."
+        },
+        {
+          "type": "result",
+          "statement": "For $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(y)$ with $f(c) = 0$: if the segments just below $y = c$ rise and those just above it fall, a solution that starts close to $c$ moves towards $c$ as $t$ increases.",
+          "why": "Below $c$ the quantity grows and above $c$ it shrinks. The segments flatten as they near $y = c$, so the curve levels off towards it."
+        },
+        {
+          "type": "text",
+          "text": "If instead the segments point away from $y = c$ on both sides, solutions that start near $c$ move away from it."
+        },
+        {
+          "type": "figure",
+          "id": "5-15-fish-population",
+          "alt": "Slope field of dN/dt equals 0.0005 N times 1200 minus N, for t from 0 to 15 years and N from 0 to 1600. Segments along each row are parallel. They are horizontal on the dashed line N equals 1200, rise between N equals 0 and 1200, steepest near N equals 600, and fall above 1200. One solution starts at N equals 300, rises in an S shape and levels off just below 1200. Another starts at N equals 1500 and falls, levelling off just above 1200.",
+          "caption": "The field of $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 0.0005N(1200 - N)$, with the solutions that start at $N = 300$ and at $N = 1500$."
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-long-term",
+          "question": "The number of fish $N$ in a lake, $t$ years after it is restocked, is modelled by $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 0.0005N(1200 - N)$. Use the slope field to describe what happens to the population if it starts at $300$ fish, and if it starts at $1500$ fish.",
+          "steps": [
+            "The right-hand side contains $N$ only, so each row of segments is parallel.",
+            "The segments are flat where $0.0005N(1200 - N) = 0$: at $N = 0$ and $N = 1200$.",
+            "For $0 < N < 1200$ both factors are positive, so the segments rise. For $N > 1200$, $1200 - N < 0$, so they fall.",
+            "From $300$ the curve rises, steepest in the middle, then flattens towards $N = 1200$. From $1500$ it falls and flattens towards $N = 1200$.",
+            "In context: whatever the starting population (above $0$), the number of fish settles towards $1200$, the most the lake supports in the long run."
+          ],
+          "answer": "From $300$ fish the population increases towards $1200$. From $1500$ fish it decreases towards $1200$. In the long term the lake holds about $1200$ fish.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "From 300 it increases towards 1200; from 1500 it decreases towards 1200; long-term value 1200",
+            "requires": [
+              "increases",
+              "decreases",
+              "1200"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fastest-growth",
+          "prompt": "For the fish model $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 0.0005N(1200 - N)$, the segments that rise most steeply lie along one horizontal line. Find the value of $N$ on that line.",
+          "hint": "$0.0005N(1200 - N)$ is a quadratic in $N$ with roots $0$ and $1200$. Where is its maximum?",
+          "answer": {
+            "value": 600,
+            "tolerance": 0
+          },
+          "explain": "A quadratic's maximum is midway between its roots, at $N = 600$. Here the population grows fastest: $0.0005 \\times 600 \\times 600 = 180$ fish per year.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(diff(Rational(5, 10000)*x*(1200 - x), x), x)[0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parcel-terminal",
+          "question": "A parcel is dropped from a hovering drone. Its speed is $v\\text{ m s}^{-1}$, $t$ seconds after release, and $\\frac{\\mathrm{d}v}{\\mathrm{d}t} = 9.8 - 0.28v$, with $v = 0$ when $t = 0$. Draw the slope field and this solution curve, using technology if your GDC can. Describe how the speed changes, and find the value it approaches.",
+          "steps": [
+            "Enter the equation with $t$ as $x$ and $v$ as $y$, and the starting point $(0, 0)$. The steps for each GDC are below.",
+            "The gradient contains $v$ only, so each row of segments is parallel. At $v = 0$ the gradient is $9.8$: the parcel speeds up quickly at first.",
+            "The segments are flat where $9.8 - 0.28v = 0$, so $v = \\frac{9.8}{0.28} = 35$.",
+            "Below $v = 35$ the gradient is positive but shrinks as $v$ grows. So the curve rises more and more slowly, levelling off towards $v = 35$.",
+            "In context: the speed increases towards $35\\text{ m s}^{-1}$ but never quite reaches it. The model only applies while the parcel is still falling."
+          ],
+          "answer": "$v = 35\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Rational(98, 10) - Rational(28, 100)*v, v)[0]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On the TI-Nspire, $t$ is $x$ and $v$ is y1. The TI-84 Plus CE and the fx-CG50 can't draw a slope field, so on those you work out a few gradients and sketch."
+        },
+        {
+          "type": "calculator",
+          "snippet": "slope-field",
+          "values": {
+            "derivative": "9.8-0.28*y1",
+            "x0": 0,
+            "y0": 0
+          }
+        },
+        {
+          "type": "figure",
+          "id": "5-15-parcel-speed",
+          "alt": "Slope field of dv/dt equals 9.8 minus 0.28 v, for t from 0 to 20 seconds and v from 0 to 50. Segments along each row are parallel, steep near v equals 0, horizontal on the dashed line v equals 35 and falling above it. The solution curve starts at the origin, rises steeply, then flattens and levels off just below v equals 35.",
+          "caption": "The field of $\\frac{\\mathrm{d}v}{\\mathrm{d}t} = 9.8 - 0.28v$ and the solution from $(0, 0)$, levelling off towards $v = 35$."
+        },
+        {
+          "type": "examTip",
+          "text": "When you interpret, name the quantity, its direction and its units: ‘the speed increases towards $35\\text{ m s}^{-1}$’, not just ‘$35$’."
+        },
+        {
+          "type": "check",
+          "id": "check-drug-infusion",
+          "prompt": "A drip feeds a drug into a patient. The concentration is $C$ mg per litre after $t$ hours, with $\\frac{\\mathrm{d}C}{\\mathrm{d}t} = 2 - 0.5C$. The concentration starts at $6$ mg per litre. What does the slope field show?",
+          "hint": "Find where $2 - 0.5C = 0$. Then find the sign of the gradient at $C = 6$.",
+          "options": [
+            {
+              "text": "The concentration decreases towards 4 mg per litre",
+              "correct": true
+            },
+            {
+              "text": "The concentration increases without limit",
+              "correct": false
+            },
+            {
+              "text": "The concentration decreases to 0",
+              "correct": false
+            },
+            {
+              "text": "The concentration stays at 6 mg per litre",
+              "correct": false
+            }
+          ],
+          "explain": "$2 - 0.5C = 0$ at $C = 4$. At $C = 6$ the gradient is $2 - 3 = -1 < 0$, so $C$ falls, and the segments flatten as $C$ nears $4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The concentration decreases towards 4 mg per litre"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The slope field of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ has a short segment at each grid point $(a, b)$ with gradient $f(a, b)$. A solution curve is tangent to every segment it passes through.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In the slope field of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$: if $f$ contains $x$ only, the segments in each vertical column are parallel. If $f$ contains $y$ only, the segments along each horizontal row are parallel.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The segments of $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$ are horizontal where $f(x, y) = 0$. A solution curve has a stationary point exactly where it meets this curve.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To sketch a solution on a slope field: go through the given point, follow the segments in both directions across the diagram, and put the turning points where the segments are flat.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(y)$ with $f(c) = 0$, the line $y = c$ is a solution. If the segments just below it rise and those just above it fall, solutions that start close to $c$ move towards $c$ as $t$ increases.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Sketching the solution only to the right of the given point. Unless the question gives a domain, draw it across the whole diagram, left and right.",
+    "Drawing a curve that cuts across the segments, or misses the given point. Keep it tangent to the segments it passes, and start it exactly on the point.",
+    "Putting a turning point in the wrong place. A solution curve is flat exactly where it meets the curve $f(x, y) = 0$, so its maxima and minima lie on that curve.",
+    "Mixing up $x = c$ and $y = c$. For $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2 - x$ the flat segments lie on the vertical line $x = 2$, not on the horizontal line $y = 2$.",
+    "Answering an interpretation question with a number only. Say what happens to the quantity, with its units, such as ‘the population decreases towards $1200$ fish’."
+  ],
+  "examTips": [
+    "Sketch: the curve must pass through the given point, follow the segments, run across the diagram in both directions, and have its turning points where the segments are flat. Each of these features can earn a mark.",
+    "Identify the slope field and give a reason: state one feature, checked at a point, that the other diagrams don't share. For example, ‘at $(0, 0)$ the gradient is $1$, so the segments there rise’.",
+    "Find the curve where $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$: write $f(x, y) = 0$ first, then rearrange it. Show that line before your answer, so a slip later still leaves your method visible.",
+    "Describe or interpret long-term behaviour: give the value the quantity approaches, say whether it rises or falls towards it, and include units."
+  ],
+  "readingMinutes": 23
+}

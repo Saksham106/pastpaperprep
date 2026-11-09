@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 200" role="img" aria-labelledby="t">
+  <title id="t">Three graphs. G1: a square A, B, C, D with edges AB, BC, CD, DA and a loop at C. G2: four vertices P, Q, R, S with all six edges, including the two diagonals, which cross without a vertex. G3: a triangle V, W, X and, separately, an edge joining Y and Z.</title>
+  <text x="90" y="20" font-size="14" text-anchor="middle" fill="currentColor">G₁</text>
+  <text x="270" y="20" font-size="14" text-anchor="middle" fill="currentColor">G₂</text>
+  <text x="450" y="20" font-size="14" text-anchor="middle" fill="currentColor">G₃</text>
+  <line x1="40" y1="50" x2="140" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="140" y1="50" x2="140" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="140" y1="150" x2="40" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="40" y1="150" x2="40" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 140 150 C 200 140, 190 210, 140 150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="40" cy="50" r="5" fill="currentColor"/>
+  <text x="28" y="50" font-size="14" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="140" cy="50" r="5" fill="currentColor"/>
+  <text x="152" y="50" font-size="14" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="140" cy="150" r="5" fill="currentColor"/>
+  <text x="130" y="172" font-size="14" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="40" cy="150" r="5" fill="currentColor"/>
+  <text x="28" y="158" font-size="14" text-anchor="middle" fill="currentColor">D</text>
+  <line x1="220" y1="50" x2="320" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="320" y1="50" x2="320" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="320" y1="150" x2="220" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="220" y1="150" x2="220" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="220" y1="50" x2="320" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="320" y1="50" x2="220" y2="150" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="220" cy="50" r="5" fill="currentColor"/>
+  <text x="208" y="50" font-size="14" text-anchor="middle" fill="currentColor">P</text>
+  <circle cx="320" cy="50" r="5" fill="currentColor"/>
+  <text x="332" y="50" font-size="14" text-anchor="middle" fill="currentColor">Q</text>
+  <circle cx="320" cy="150" r="5" fill="currentColor"/>
+  <text x="332" y="170" font-size="14" text-anchor="middle" fill="currentColor">R</text>
+  <circle cx="220" cy="150" r="5" fill="currentColor"/>
+  <text x="208" y="170" font-size="14" text-anchor="middle" fill="currentColor">S</text>
+  <line x1="400" y1="50" x2="470" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="470" y1="50" x2="435" y2="110" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="435" y1="110" x2="400" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="400" y1="160" x2="490" y2="160" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="400" cy="50" r="5" fill="currentColor"/>
+  <text x="388" y="50" font-size="14" text-anchor="middle" fill="currentColor">V</text>
+  <circle cx="470" cy="50" r="5" fill="currentColor"/>
+  <text x="482" y="50" font-size="14" text-anchor="middle" fill="currentColor">W</text>
+  <circle cx="435" cy="110" r="5" fill="currentColor"/>
+  <text x="435" y="134" font-size="14" text-anchor="middle" fill="currentColor">X</text>
+  <circle cx="400" cy="160" r="5" fill="currentColor"/>
+  <text x="400" y="182" font-size="14" text-anchor="middle" fill="currentColor">Y</text>
+  <circle cx="490" cy="160" r="5" fill="currentColor"/>
+  <text x="490" y="182" font-size="14" text-anchor="middle" fill="currentColor">Z</text>
+</svg>

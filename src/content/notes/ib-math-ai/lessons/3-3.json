@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.3",
+  "slug": "applied-triangle-trigonometry",
+  "title": "Applied triangle trigonometry",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A beach rescue, a kite, a mast or a drone route becomes a triangle problem once you draw it. Turn the words into a labelled diagram, then solve it with Pythagoras, right-angled trigonometry, the [[sine-rule|sine rule]] and the [[cosine-rule|cosine rule]]. You also use [[angle-of-elevation|angles of elevation]] and depression, and [[bearing|bearings]].",
+  "goals": [
+    {
+      "text": "Turn a written description into a clear, labelled diagram.",
+      "bullets": [
+        "3.3-b3"
+      ]
+    },
+    {
+      "text": "Choose the right triangle and the right tool, and chain the steps across two triangles.",
+      "bullets": [
+        "3.3-b1"
+      ]
+    },
+    {
+      "text": "Use angles of elevation and depression to find heights and distances, and say what the answer means.",
+      "bullets": [
+        "3.3-b2"
+      ]
+    },
+    {
+      "text": "Work with three-figure bearings, back bearings and the angles between north lines.",
+      "bullets": [
+        "3.3-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "angle of elevation",
+    "angle of depression",
+    "three-figure bearings",
+    "back bearing",
+    "trigonometry word problems",
+    "bearings and the cosine rule"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-right-ratio",
+      "prompt": "In a right-angled triangle, the hypotenuse is $8.4$ cm and one angle is $52^{\\circ}$. Find the side, $x$, opposite the $52^{\\circ}$ angle, to 3 s.f.",
+      "hint": "Opposite and hypotenuse: which ratio links them?",
+      "options": [
+        {
+          "text": "$x \\approx 6.62\\text{ cm}$",
+          "correct": true
+        },
+        {
+          "text": "$x \\approx 5.17\\text{ cm}$",
+          "correct": false
+        },
+        {
+          "text": "$x \\approx 10.7\\text{ cm}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin 52^{\\circ} = \\frac{\\text{opp}}{8.4}$, so the side is $8.4\\sin 52^{\\circ} = 6.619\\ldots \\approx 6.62$ cm. Using $\\cos$ gives $5.17$ cm, the adjacent side. Dividing by $\\sin 52^{\\circ}$ instead of multiplying gives $10.7$ cm. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "8.4*sin(52*pi/180)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cosine-rule",
+      "prompt": "Two sides of a triangle are $9$ m and $14$ m, and the angle between them is $63^{\\circ}$. Find the third side, $c$, to 3 s.f.",
+      "hint": "Two sides and the angle between them: use the cosine rule, with your GDC in degrees.",
+      "options": [
+        {
+          "text": "$c \\approx 12.8\\text{ m}$",
+          "correct": true
+        },
+        {
+          "text": "$c \\approx 14.8\\text{ m}$",
+          "correct": false
+        },
+        {
+          "text": "$c \\approx 5.34\\text{ m}$",
+          "correct": false
+        }
+      ],
+      "explain": "$c^{2} = 9^{2} + 14^{2} - 2(9)(14)\\cos 63^{\\circ} = 162.59\\ldots$, so $c \\approx 12.8$ m. Dropping the $2$ gives $14.8$ m. Radian mode gives $5.34$ m. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "sqrt(9**2 + 14**2 - 2*9*14*cos(63*pi/180))",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sine-rule",
+      "prompt": "In triangle PQR, $\\text{QR} = 11$ cm, $\\text{PR} = 9$ cm and $\\text{Q}\\hat{\\text{P}}\\text{R} = 48^{\\circ}$. Find $\\text{P}\\hat{\\text{Q}}\\text{R}$, to 1 d.p.",
+      "hint": "Pair each side with the angle opposite it. PR faces the angle at Q.",
+      "options": [
+        {
+          "text": "$\\text{P}\\hat{\\text{Q}}\\text{R} \\approx 37.4^{\\circ}$",
+          "correct": true
+        },
+        {
+          "text": "$\\text{P}\\hat{\\text{Q}}\\text{R} \\approx 65.3^{\\circ}$",
+          "correct": false
+        },
+        {
+          "text": "$\\text{P}\\hat{\\text{Q}}\\text{R} \\approx 52.6^{\\circ}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\sin Q}{9} = \\frac{\\sin 48^{\\circ}}{11}$, so $\\sin Q = 0.6080\\ldots$ and $Q = 37.4^{\\circ}$. Swapping the sides gives $65.3^{\\circ}$. $52.6^{\\circ}$ is $90^{\\circ} - 37.4^{\\circ}$. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "angle",
+        "truth": "asin(9*sin(48*pi/180)/11)*180/pi"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "diagrams",
+      "heading": "From words to a labelled diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many questions describe a situation in words, with no picture. The triangle work is from {{lesson:3.2}}. The new skill is drawing it from the sentences, then picking the right triangle."
+        },
+        {
+          "type": "text",
+          "text": "“Vertical”, “upright” and “directly below” give a right angle with the ground. “Level” ground is a horizontal line."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw the horizontal ground first. Stand anything vertical on it and mark the right angle."
+        },
+        {
+          "type": "text",
+          "text": "2. Read one sentence at a time. Place and label each point, then write on every given length and angle, with units."
+        },
+        {
+          "type": "text",
+          "text": "3. Mark the unknown. Find a triangle that holds it and three known facts. If none does, find a missing length in a neighbouring triangle first."
+        },
+        {
+          "type": "text",
+          "text": "With a right angle, use Pythagoras or the [[trigonometric-ratios|trigonometric ratios]]. Below, $c$ is the hypotenuse (the side opposite the right angle), and O, A, H are the sides opposite $\\theta$, adjacent to it, and the hypotenuse. These are not in the booklet: learn them."
+        },
+        {
+          "type": "formula",
+          "tex": "a^{2} + b^{2} = c^{2}, \\qquad \\sin\\theta = \\frac{\\text{O}}{\\text{H}}, \\quad \\cos\\theta = \\frac{\\text{A}}{\\text{H}}, \\quad \\tan\\theta = \\frac{\\text{O}}{\\text{A}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "Without a right angle, use the [[sine-rule|sine rule]] or the [[cosine-rule|cosine rule]]. Both are in the formula booklet; you need to know when each applies."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-sine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "c^{2} = a^{2} + b^{2} - 2ab\\cos C; \\quad \\cos C = \\frac{a^{2} + b^{2} - c^{2}}{2ab}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-cosine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "result",
+          "statement": "In a triangle with no right angle, use the sine rule when you know a side and the angle opposite it, plus one more side or angle. Use the cosine rule when you know two sides and the angle between them, or all three sides.",
+          "why": "Each rule links four quantities, so three known give the fourth."
+        },
+        {
+          "type": "text",
+          "text": "Every paper allows your GDC. Set it to degrees before the first calculation: a radian answer earns no accuracy marks."
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-post-rope",
+          "question": "A straight rope $3.4$ m long runs from the top of a vertical post $1.9$ m tall to a peg on level ground. Draw a labelled diagram. (a) Find how far the peg is from the foot of the post. (b) Find the angle the rope makes with the ground, to 1 d.p.",
+          "steps": [
+            "Draw the ground as a horizontal line and the post [TF] standing on it, with a right angle at the foot F. Join the top T to the peg P: that is the rope.",
+            "Label $\\text{TF} = 1.9$ m and $\\text{TP} = 3.4$ m. The rope is opposite the right angle, so it is the hypotenuse.",
+            "(a) Pythagoras: $\\text{FP} = \\sqrt{3.4^{2} - 1.9^{2}} = \\sqrt{7.95} = 2.8195\\ldots \\approx 2.82$ m.",
+            "(b) The angle $\\theta$ at P faces the post, so TF is opposite and TP is the hypotenuse: $\\sin\\theta = \\frac{1.9}{3.4}$.",
+            "So $\\theta = \\sin^{-1}\\left(\\frac{1.9}{3.4}\\right) = 33.974\\ldots^{\\circ}$. Using the given lengths, not the rounded $2.82$, keeps the answer accurate."
+          ],
+          "answer": "$\\theta \\approx 34.0^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asin(1.9/3.4)*180/pi"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rowing-distance",
+          "prompt": "A rowing boat goes $4.2$ km due east, then $5.6$ km due north. How far, in km, is it from where it started?",
+          "hint": "East and north are at right angles. Sketch the two legs.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "The two legs meet at a right angle, so the distance is $\\sqrt{4.2^{2} + 5.6^{2}} = \\sqrt{49} = 7$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(4.2**2 + 5.6**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "A height is a perpendicular. Drawing it into a triangle with no right angle splits it into two right-angled triangles."
+        },
+        {
+          "type": "example",
+          "id": "ex-lifeguard-swimmer",
+          "question": "Lifeguard towers A and B stand $120$ m apart on a straight beach. A swimmer S is out at sea. At A, the angle between the beach and the direction of the swimmer is $64^{\\circ}$. At B, it is $48^{\\circ}$. (a) Find AS. (b) Find the shortest distance, $d$, from the swimmer to the beach. (c) Interpret $d$ in context. Give your answers to 3 s.f.",
+          "steps": [
+            "Draw [AB] as the beach and S above it. Mark $120$ m, $64^{\\circ}$ at A and $48^{\\circ}$ at B. The shortest distance to the beach is the perpendicular SD, so draw it with a right angle at D.",
+            "(a) The angle at S is $180^{\\circ} - 64^{\\circ} - 48^{\\circ} = 68^{\\circ}$. It faces AB, and AS faces the $48^{\\circ}$ angle. Sine rule: $\\frac{\\text{AS}}{\\sin 48^{\\circ}} = \\frac{120}{\\sin 68^{\\circ}}$, so $\\text{AS} = 96.180\\ldots \\approx 96.2$ m. Store it.",
+            "(b) In the right-angled triangle ADS, AS is the hypotenuse and SD is opposite the $64^{\\circ}$ angle. So $d = 96.180\\ldots \\times \\sin 64^{\\circ} = 86.446\\ldots$ m.",
+            "(c) $d$ is how far the swimmer is from the nearest point of the beach. A rescuer entering the water at D swims about $86.4$ m, if the beach is straight and the swimmer doesn't drift."
+          ],
+          "answer": "$d \\approx 86.4\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "120*sin(48*pi/180)/sin(68*pi/180)*sin(64*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-3-lifeguard-swimmer",
+          "alt": "Towers A and B are 120 m apart on a straight beach. A swimmer S is out at sea. The line from A to S makes 64 degrees with the beach and the line from B to S makes 48 degrees. A dashed line d runs from S straight down to the point D on the beach, at right angles to it.",
+          "caption": "The perpendicular SD splits the triangle into two right-angled triangles."
+        },
+        {
+          "type": "check",
+          "id": "check-plot-angle",
+          "prompt": "A triangular vegetable plot has sides of $45$ m, $60$ m and $70$ m. Find the largest angle, $C$, of the plot, to 1 d.p.",
+          "hint": "The largest angle is opposite the longest side. You know all three sides: which rule?",
+          "options": [
+            {
+              "text": "$C \\approx 82.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$C \\approx 74.4^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$C \\approx 39.6^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos C = \\frac{45^{2} + 60^{2} - 70^{2}}{2(45)(60)} = 0.1343\\ldots$, so $C \\approx 82.3^{\\circ}$. Dropping the $2$ gives $74.4^{\\circ}$. $39.6^{\\circ}$ is the angle opposite the $45$ m side, the smallest.",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos((45**2 + 60**2 - 70**2)/(2*45*60))*180/pi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "elevation",
+      "heading": "Angles of elevation and depression",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look up at the top of a tower and your eyes turn up from the horizontal. Look down from the top and they turn down by the same amount."
+        },
+        {
+          "type": "definition",
+          "term": "Angle of elevation",
+          "statement": "The [[angle-of-elevation|angle of elevation]] of an object is the angle between the horizontal and the line of sight up to it.",
+          "plain": "How far you tilt your head up."
+        },
+        {
+          "type": "definition",
+          "term": "Angle of depression",
+          "statement": "The [[angle-of-depression|angle of depression]] of an object is the angle between the horizontal and the line of sight down to it.",
+          "plain": "How far you tilt your head down."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-elevation-depression",
+          "alt": "A vertical tower FT stands on level ground on the right, and a point P is on the ground to the left. A dashed horizontal line runs left from the top T. The line of sight joins T and P. The angle of depression is at T, between the dashed horizontal and the line of sight. The angle of elevation is at P, between the ground and the line of sight. The two angles are equal.",
+          "caption": "Both angles are measured from a horizontal line, never from the vertical."
+        },
+        {
+          "type": "result",
+          "statement": "When the ground is horizontal, the angle of depression of P from T equals the angle of elevation of T from P. So you can move the angle to the ground end, inside the right-angled triangle.",
+          "why": "The horizontal through T is parallel to the ground, so the two angles are alternate angles."
+        },
+        {
+          "type": "example",
+          "id": "ex-kite-height",
+          "question": "Mia holds the string of a kite $1.3$ m above level ground. The string is $42$ m long and straight, and the angle of elevation of the kite from her hand is $38^{\\circ}$. (a) Find the height of the kite above the ground. (b) Comment on the assumption that the string is straight.",
+          "steps": [
+            "Draw a horizontal line through Mia's hand H, the string HK up to the kite K, and the vertical from K down to M on that line. Mark $42$ m and $38^{\\circ}$ at H, with a right angle at M.",
+            "(a) KM is opposite the $38^{\\circ}$ angle and HK is the hypotenuse, so $\\text{KM} = 42\\sin 38^{\\circ} = 25.857\\ldots$ m.",
+            "The triangle starts at her hand, not the ground. Add the $1.3$ m: height $= 25.857\\ldots + 1.3 = 27.157\\ldots$ m.",
+            "(b) A real string sags under its weight, so the kite is a little lower than this. The answer is an upper estimate."
+          ],
+          "answer": "$\\text{height} \\approx 27.2\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "42*sin(38*pi/180) + 1.3",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Ignoring the height of the observer. If the angle is measured from someone's eye or hand, the triangle starts at that level, so add that height at the end."
+        },
+        {
+          "type": "check",
+          "id": "check-lighthouse-depression",
+          "prompt": "The lamp of a lighthouse is $95$ m vertically above a point F at sea level. A boat is $410$ m from F, at sea level. Find the angle of depression, $\\theta$, of the boat from the lamp, to 1 d.p.",
+          "hint": "Move the angle to the boat's end. Which sides are opposite and adjacent to it?",
+          "options": [
+            {
+              "text": "$\\theta \\approx 13.0^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 77.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 13.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan\\theta = \\frac{95}{410}$, so $\\theta \\approx 13.0^{\\circ}$. The angle $77.0^{\\circ}$ is measured from the vertical. $13.4^{\\circ}$ uses $\\sin^{-1}$, treating $410$ m as the sloping distance.",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(Rational(95, 410))*180/pi"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When two angles of elevation are measured from two points in a line with the foot of a tall object, neither right-angled triangle has a known side. Use the triangle between the two observers and the top instead: it has one."
+        },
+        {
+          "type": "example",
+          "id": "ex-mast-two-points",
+          "question": "A vertical mast FT stands on level ground. Points A and B are on the ground, in a straight line with the foot F, with B between A and F, and $\\text{AB} = 60$ m. The angle of elevation of the top T is $21^{\\circ}$ from A and $34^{\\circ}$ from B. Find the height, $h$ m, of the mast, to 3 s.f.",
+          "steps": [
+            "Draw the ground with A, B and F in that order, and the mast [FT] vertical with a right angle at F. Join T to A and to B, and mark $21^{\\circ}$ at A, $34^{\\circ}$ at B and $60$ m on [AB].",
+            "In triangle ABT, the angle at B is $180^{\\circ} - 34^{\\circ} = 146^{\\circ}$, so the angle at T is $180^{\\circ} - 21^{\\circ} - 146^{\\circ} = 13^{\\circ}$.",
+            "Sine rule: BT faces the $21^{\\circ}$ angle and AB faces the $13^{\\circ}$ angle, so $\\text{BT} = \\frac{60\\sin 21^{\\circ}}{\\sin 13^{\\circ}} = 95.585\\ldots$ m. Store it.",
+            "In the right-angled triangle BFT, $h = \\text{BT}\\sin 34^{\\circ} = 95.585\\ldots \\times \\sin 34^{\\circ} = 53.450\\ldots$ m.",
+            "GDC check: $\\text{AF} - \\text{BF} = 60$ gives $\\frac{h}{\\tan 21^{\\circ}} - \\frac{h}{\\tan 34^{\\circ}} = 60$. Write this equation down, then solve it: $h = 53.450\\ldots$, the same.",
+            "Sense check: the angles were measured from ground level. If they were measured at eye height, add that height to $h$."
+          ],
+          "answer": "$h \\approx 53.5\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "60*sin(21*pi/180)/sin(13*pi/180)*sin(34*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-3-mast-two-points",
+          "alt": "A vertical mast FT of height h metres stands on level ground on the right. Points A and B are on the ground to the left, in line with the foot F, with A furthest away and AB equal to 60 m. Lines of sight run from A and from B to the top T. The angle of elevation is 21 degrees at A and 34 degrees at B.",
+          "caption": "Two angles of elevation and the distance between the observers. Triangle ABT has an angle of $13^{\\circ}$ at T."
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "X/tan(21)-X/tan(34)",
+            "rightSide": 60,
+            "guess": 50,
+            "lower": 0,
+            "upper": 200
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-window-car",
+          "prompt": "From a window $18$ m above level ground, the angle of depression of a parked car is $25^{\\circ}$. Find the horizontal distance, in metres, from the car to the foot of the building, to 3 s.f.",
+          "hint": "Move the $25^{\\circ}$ angle to the car. The $18$ m height is opposite it, and the distance you want is adjacent.",
+          "answer": {
+            "value": 38.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\tan 25^{\\circ} = \\frac{18}{d}$, so $d = \\frac{18}{\\tan 25^{\\circ}} = 38.601\\ldots \\approx 38.6$ m. $18\\tan 25^{\\circ} = 8.39$ m has the ratio upside down.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18/tan(25*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring an angle of elevation or depression from the vertical. Both are measured from the horizontal, so the angle sits between the ground (or a horizontal line) and the line of sight."
+        }
+      ]
+    },
+    {
+      "id": "bearings",
+      "heading": "Bearings",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hikers, sailors and pilots give a direction as an exact angle, not just “north-east”. That angle is a bearing."
+        },
+        {
+          "type": "definition",
+          "term": "Bearing",
+          "statement": "The [[bearing|bearing]] of B from A is the angle measured clockwise from north at A to the line AB, written with three figures before any decimal point.",
+          "plain": "Face north at A, turn clockwise until you face B: that turn is the bearing."
+        },
+        {
+          "type": "text",
+          "text": "Due east is $090^{\\circ}$, due south $180^{\\circ}$ and due west $270^{\\circ}$. A bearing under $100^{\\circ}$ gets leading zeros, such as $045^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "Going back reverses the direction, a half turn. That reverse direction is the back bearing. Add $180^{\\circ}$ to a bearing under $180^{\\circ}$; otherwise subtract $180^{\\circ}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{bearing of } A \\text{ from } B = \\text{bearing of } B \\text{ from } A \\pm 180^{\\circ}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-hiker-back-bearing",
+          "question": "A hiker walks $3.8$ km due north from a camp C, then $2.5$ km due east to a lake L. (a) Find CL. (b) Find the bearing of L from C. (c) Find the bearing the hiker should walk on to go straight back to camp. Give bearings to 1 d.p.",
+          "steps": [
+            "Draw a north line at C. Go $3.8$ km up to a point M, then $2.5$ km right to L. North and east meet at a right angle at M.",
+            "(a) Pythagoras: $\\text{CL} = \\sqrt{3.8^{2} + 2.5^{2}} = \\sqrt{20.69} = 4.5486\\ldots \\approx 4.55$ km.",
+            "(b) The bearing is the angle at C between north (CM) and CL. LM is opposite and CM adjacent: $\\tan(\\text{M}\\hat{\\text{C}}\\text{L}) = \\frac{2.5}{3.8}$, so the angle is $33.340\\ldots^{\\circ}$. Write it as $033.3^{\\circ}$.",
+            "(c) Going back is the back bearing: $33.340\\ldots^{\\circ} + 180^{\\circ} = 213.340\\ldots^{\\circ}$. Sense check: camp is south-west of the lake, and $213^{\\circ}$ is between south ($180^{\\circ}$) and west ($270^{\\circ}$)."
+          ],
+          "answer": "$\\text{bearing} \\approx 213.3^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "bearing",
+            "truth": "atan(2.5/3.8)*180/pi + 180",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-back-bearing",
+          "prompt": "A ferry sails straight from port A to an island B on a bearing of $238^{\\circ}$. On what bearing must it sail to go straight back to A?",
+          "hint": "Add or take away $180^{\\circ}$, so that the answer lies between $000^{\\circ}$ and $360^{\\circ}$.",
+          "options": [
+            {
+              "text": "$058^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$122^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$302^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$238^{\\circ} - 180^{\\circ} = 058^{\\circ}$. The value $122^{\\circ}$ is $360^{\\circ} - 238^{\\circ}$, an anticlockwise angle, and $302^{\\circ}$ adds $180^{\\circ}$ to it.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "238 - 180"
+          }
+        },
+        {
+          "type": "text",
+          "text": "For an angle inside a triangle, draw a north line at every turning point. At each point, subtract two bearings measured from that point's north line. If the difference is more than $180^{\\circ}$, the angle inside the triangle is $360^{\\circ}$ minus it. The back bearing gives the direction you came from."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-route",
+          "question": "A delivery drone flies from its depot D to a village V, which is $16$ km from D on a bearing of $105^{\\circ}$. To avoid an airfield, it flies on a bearing of $040^{\\circ}$ to a waypoint W, then on a bearing of $150^{\\circ}$ straight to V. (a) Find the three angles of triangle DWV. (b) Find DW and WV. (c) Find the total length of the route. (d) The drone flies at $60$ km/h and its battery allows $30$ minutes of flight. Can it complete the route? State one assumption. Give lengths to 3 s.f.",
+          "steps": [
+            "Sketch it: north lines at D and W, $040^{\\circ}$ and $105^{\\circ}$ marked at D, $150^{\\circ}$ marked at W, and $16$ km on [DV].",
+            "(a) At D, both bearings are measured from D's north line: $\\text{W}\\hat{\\text{D}}\\text{V} = 105^{\\circ} - 40^{\\circ} = 65^{\\circ}$. At W, the bearing of D from W is $040^{\\circ} + 180^{\\circ} = 220^{\\circ}$ and V is on $150^{\\circ}$, so $\\text{D}\\hat{\\text{W}}\\text{V} = 220^{\\circ} - 150^{\\circ} = 70^{\\circ}$. Angles in a triangle: $\\text{D}\\hat{\\text{V}}\\text{W} = 180^{\\circ} - 65^{\\circ} - 70^{\\circ} = 45^{\\circ}$.",
+            "(b) You know DV and the angle opposite it, $70^{\\circ}$ at W: sine rule. DW faces the $45^{\\circ}$ angle: $\\text{DW} = \\frac{16\\sin 45^{\\circ}}{\\sin 70^{\\circ}} = 12.039\\ldots \\approx 12.0$ km. WV faces the $65^{\\circ}$ angle: $\\text{WV} = \\frac{16\\sin 65^{\\circ}}{\\sin 70^{\\circ}} = 15.431\\ldots \\approx 15.4$ km. Store both.",
+            "(c) Route $= 12.039\\ldots + 15.431\\ldots = 27.471\\ldots \\approx 27.5$ km, about $11.5$ km longer than flying straight to V.",
+            "(d) Time $= \\frac{27.471\\ldots}{60} = 0.45785\\ldots$ h, about $27.5$ minutes. That is under $30$ minutes, so yes, with about $2.5$ minutes to spare. This assumes still air and a steady speed along straight legs; a headwind could use up the margin."
+          ],
+          "answer": "$\\text{DW} + \\text{WV} \\approx 27.5\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "16*sin(45*pi/180)/sin(70*pi/180) + 16*sin(65*pi/180)/sin(70*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-3-drone-route",
+          "alt": "A drone flies from depot D on a bearing of 040 degrees to a waypoint W, then on a bearing of 150 degrees to a village V. V is 16 km from D on a bearing of 105 degrees, shown by a dashed line. North lines are drawn at D and W. Question marks on DW and WV show the unknown lengths.",
+          "caption": "The angle at W comes from the back bearing $220^{\\circ}$ and the bearing $150^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-bearing-sighting",
+          "prompt": "From a lookout post L, a harbour H is on a bearing of $312^{\\circ}$. A yacht Y is sighted $75^{\\circ}$ clockwise from the harbour, so $\\text{H}\\hat{\\text{L}}\\text{Y} = 75^{\\circ}$. Find the bearing of Y from L.",
+          "hint": "Turn clockwise from $312^{\\circ}$. If you pass north ($360^{\\circ}$), subtract $360^{\\circ}$.",
+          "options": [
+            {
+              "text": "$027^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$237^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$207^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$312^{\\circ} + 75^{\\circ} = 387^{\\circ}$, which passes north, so the bearing is $387^{\\circ} - 360^{\\circ} = 027^{\\circ}$. $237^{\\circ}$ turns anticlockwise ($312^{\\circ} - 75^{\\circ}$), and $207^{\\circ}$ starts from the back bearing $132^{\\circ}$ instead of $312^{\\circ}$.",
+          "verify": {
+            "kind": "bearing",
+            "truth": "312 + 75 - 360"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring a bearing anticlockwise, or from the north line at the wrong point. A bearing is clockwise from north at the point you start from."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Draw the diagram first: horizontal ground, vertical lines at right angles, every given value and the unknown labelled.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a triangle with no right angle: sine rule with a side, its opposite angle and one more side or angle; cosine rule with two sides and the angle between them, or three sides.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Elevation and depression are measured from the horizontal. Over horizontal ground, the depression of B from A equals the elevation of A from B.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A bearing is clockwise from north, with three figures before any decimal point. The back bearing is the bearing $\\pm 180^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Set the GDC to degrees. Store intermediate values and round only the final answer, with its unit.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the GDC in radian mode. A radian answer earns no accuracy marks, so switch to degrees before the first calculation.",
+    "Rounding a length partway through and reusing it. Store the full value and round only the final answer.",
+    "Leaving off units. Write m, km or degrees on every final answer.",
+    "Dropping the $2$ in $2ab\\cos C$. Write the rule out in full, then substitute.",
+    "Giving the sloping distance when the question wants the distance along the ground. Check whether you need the hypotenuse or the horizontal side.",
+    "Finding the angle between two bearings the wrong way round. Draw a north line at each point and use the back bearing."
+  ],
+  "examTips": [
+    "If a question asks you to label a diagram, put each given length and angle in its exact place. Even when it doesn't ask, sketch one first.",
+    "“Find” needs working. Write the ratio or rule with the numbers in before the GDC answer. That line earns the method mark, even if a later slip costs the answer.",
+    "Give lengths to 3 s.f. with units, and angles to 1 d.p. unless the question says otherwise. Write bearings with three figures before the decimal point, such as $097.0^{\\circ}$. If the question asks for the nearest whole number, round to it.",
+    "When a later part uses an earlier answer, use the stored value. A wrong earlier answer used correctly can still earn follow-through (FT) marks."
+  ],
+  "readingMinutes": 25
+}

@@ -2,13 +2,13 @@
   {
     "id": "tangent",
     "term": "tangent",
-    "definition": "TODO: The line that touches a curve at a point and has the curve's gradient there: y − f(a) = f′(a)(x − a)",
+    "definition": "The straight line that touches the curve $y = f(x)$ at the point $(a, f(a))$ and has the curve's gradient $f'(a)$ there, so its equation is $y - f(a) = f'(a)(x - a)$.",
     "lesson": "5.4"
   },
   {
     "id": "normal-to-a-curve",
     "term": "normal to a curve",
-    "definition": "TODO: The line through a point of a curve perpendicular to the tangent there; gradient −1/f′(a), or vertical when f′(a) = 0",
+    "definition": "The straight line through a point $(a, f(a))$ of the curve $y = f(x)$ that is perpendicular to the tangent there; its gradient is $-\\frac{1}{f'(a)}$ when $f'(a) \\neq 0$, and it is the vertical line $x = a$ when $f'(a) = 0$.",
     "lesson": "5.4"
   }
 ]

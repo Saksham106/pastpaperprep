@@ -1,0 +1,816 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.1",
+  "slug": "3d-distance-midpoint-and-measurement",
+  "title": "3D distance, midpoint and measurement",
+  "level": "SL",
+  "topic": 3,
+  "summary": "Distance in 3D is Pythagoras with a third coordinate, and the midpoint averages each coordinate. You'll find volumes and surface areas of pyramids, cones, spheres, hemispheres and solids built from them. Then you'll find lengths and angles inside real objects by spotting right-angled triangles.",
+  "goals": [
+    {
+      "text": "Find the distance between two points in 3D and their midpoint, and say what they mean in context.",
+      "bullets": [
+        "3.1-b1"
+      ]
+    },
+    {
+      "text": "Find the volume and surface area of right pyramids, right cones, spheres, hemispheres and solids built from them.",
+      "bullets": [
+        "3.1-b2"
+      ]
+    },
+    {
+      "text": "Spot right-angled triangles inside a solid and use them to find lengths.",
+      "bullets": [
+        "3.1-b4"
+      ]
+    },
+    {
+      "text": "Find the angle between two lines that meet, and the [[angle-between-a-line-and-a-plane|angle between a line and a plane]].",
+      "bullets": [
+        "3.1-b3",
+        "3.1-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "3d pythagoras",
+    "distance between two points in 3d",
+    "midpoint in 3d",
+    "volume of a cone",
+    "surface area of a hemisphere",
+    "angle between a line and a plane"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A right-angled triangle has shorter sides $9$ cm and $40$ cm. Find the hypotenuse, in cm.",
+      "hint": "Square the two shorter sides, add, then take the square root.",
+      "options": [
+        {
+          "text": "$41$",
+          "correct": true
+        },
+        {
+          "text": "$49$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{1519}$",
+          "correct": false
+        }
+      ],
+      "explain": "$9^{2} + 40^{2} = 81 + 1600 = 1681$, and $\\sqrt{1681} = 41$. Adding the sides gives $49$; subtracting the squares gives $\\sqrt{1519}$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt(9**2 + 40**2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse-tan",
+      "prompt": "In a right-angled triangle, the side opposite angle $\\theta$ is $6$ cm and the side next to it is $11$ cm. Find $\\theta$ in degrees, to 1 d.p.",
+      "hint": "Opposite and adjacent: use tangent, then the inverse tangent.",
+      "options": [
+        {
+          "text": "$\\theta \\approx 28.6^{\\circ}$",
+          "correct": true
+        },
+        {
+          "text": "$\\theta \\approx 61.4^{\\circ}$",
+          "correct": false
+        },
+        {
+          "text": "$\\theta \\approx 33.1^{\\circ}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\tan\\theta = \\frac{6}{11}$, so $\\theta = \\tan^{-1}\\left(\\frac{6}{11}\\right) \\approx 28.6^{\\circ}$. Swapping the sides gives $61.4^{\\circ}$; using sine gives $33.1^{\\circ}$. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "angle",
+        "truth": "atan(Rational(6, 11))*180/pi"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-circle-area",
+      "prompt": "A circle has diameter $18$ cm. Find its area to 3 s.f.",
+      "hint": "$\\pi r^{2}$ needs the radius, which is half the diameter.",
+      "options": [
+        {
+          "text": "$A \\approx 254\\text{ cm}^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$A \\approx 1020\\text{ cm}^{2}$",
+          "correct": false
+        },
+        {
+          "text": "$A \\approx 56.5\\text{ cm}^{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$r = 9$, so $A = \\pi \\times 9^{2} = 254.46\\ldots \\approx 254\\text{ cm}^{2}$. Using $18$ as the radius gives $1020$; $56.5$ is the circumference.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "pi*(18/2)**2",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "distance-midpoint",
+      "heading": "Distance and midpoint in 3D",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In 3D a point has three coordinates, $(x, y, z)$. Think of $x$ and $y$ as directions across the ground, and $z$ as height above it."
+        },
+        {
+          "type": "text",
+          "text": "To get from A to B, you move along $x$, then $y$, then $z$. Those three moves are the edges of a box, and AB is the diagonal through the middle of the box."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-box-diagonal",
+          "alt": "A cuboid with edges a, b and c. A dashed floor diagonal f runs from corner A to corner N, directly below corner B, and meets the vertical edge c at a right angle at N. The space diagonal d joins A to B.",
+          "caption": "Pythagoras on the floor gives $f$. Then $f$, $c$ and $d$ make a second right-angled triangle."
+        },
+        {
+          "type": "text",
+          "text": "So use Pythagoras twice: $f^{2} = a^{2} + b^{2}$, then $d^{2} = f^{2} + c^{2} = a^{2} + b^{2} + c^{2}$. The edges $a$, $b$ and $c$ are the differences between the coordinates of A and B."
+        },
+        {
+          "type": "formula",
+          "tex": "d = \\sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2} + (z_{1} - z_{2})^{2}}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-distance-3d"
+        },
+        {
+          "type": "text",
+          "text": "Here $(x_{1}, y_{1}, z_{1})$ and $(x_{2}, y_{2}, z_{2})$ are the two points. The formula is in the booklet; you need to know what goes where."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-distance",
+          "question": "At a light show, positions are measured in metres from a launch pad: $x$ east, $y$ north and $z$ up. Drone A is at $(12, -5, 30)$ and drone B is at $(-4, 7, 9)$. Find the distance between the drones.",
+          "steps": [
+            "Subtract coordinate by coordinate: $12 - (-4) = 16$, $-5 - 7 = -12$ and $30 - 9 = 21$.",
+            "Square each: $256$, $144$ and $441$. Squaring removes the signs, so the order of subtraction doesn't matter.",
+            "Add and take the square root: $\\text{AB} = \\sqrt{256 + 144 + 441} = \\sqrt{841} = 29$.",
+            "Give the unit: the coordinates are in metres, so AB is $29$ m."
+          ],
+          "answer": "$\\text{AB} = 29\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((12 - (-4))**2 + (-5 - 7)**2 + (30 - 9)**2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The midpoint of a segment is halfway along it. Each of its coordinates is the mean of the matching coordinates of the two ends. This is in the booklet too."
+        },
+        {
+          "type": "formula",
+          "tex": "\\left(\\frac{x_{1} + x_{2}}{2}, \\frac{y_{1} + y_{2}}{2}, \\frac{z_{1} + z_{2}}{2}\\right)",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-midpoint-3d"
+        },
+        {
+          "type": "text",
+          "text": "For the two drones, the midpoint is $\\left(\\frac{12 - 4}{2}, \\frac{-5 + 7}{2}, \\frac{30 + 9}{2}\\right) = (4, 1, 19.5)$. A signal relay there would be $14.5$ m from each drone, half of AB."
+        },
+        {
+          "type": "text",
+          "text": "Notation: $[\\text{AB}]$ is the line segment from A to B, and AB is its length. So \"find AB\" asks for a distance."
+        },
+        {
+          "type": "example",
+          "id": "ex-zip-line",
+          "question": "A zip line runs in a straight line from a platform at $\\text{P}(0, 0, 42)$ to a landing point $\\text{L}(160, 120, 2)$, in metres, where $z = 0$ is ground level. (a) Find the length of the cable, to 3 s.f. (b) Find the height above the ground of the middle of the cable. (c) Comment on the straight-line model.",
+          "steps": [
+            "(a) The differences are $160$, $120$ and $42 - 2 = 40$.",
+            "Write the substitution down, as it earns the method mark: $\\text{PL} = \\sqrt{160^{2} + 120^{2} + 40^{2}} = \\sqrt{41600} = 203.96\\ldots$ m, so $204$ m to 3 s.f.",
+            "(b) The midpoint is $\\left(\\frac{0 + 160}{2}, \\frac{0 + 120}{2}, \\frac{42 + 2}{2}\\right) = (80, 60, 22)$. Its $z$-coordinate is the height: $22$ m above the ground.",
+            "(c) A real cable sags under a rider's weight. So it is longer than $204$ m, and its middle is lower than $22$ m."
+          ],
+          "answer": "$\\text{PL} \\approx 204\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((160 - 0)**2 + (120 - 0)**2 + (42 - 2)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-midpoint-3d",
+          "prompt": "A straight support beam joins the points $(3, -8, 2.5)$ and $(11, 4, 6.1)$, in metres. Find the coordinates of its midpoint.",
+          "hint": "Add the two $x$-coordinates and halve. Repeat for $y$ and $z$.",
+          "options": [
+            {
+              "text": "$(7, -2, 4.3)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 6, 1.8)$",
+              "correct": false
+            },
+            {
+              "text": "$(14, -4, 8.6)$",
+              "correct": false
+            },
+            {
+              "text": "$(8, 12, 3.6)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{3 + 11}{2} = 7$, $\\frac{-8 + 4}{2} = -2$ and $\\frac{2.5 + 6.1}{2} = 4.3$. Halving the differences gives $(4, 6, 1.8)$; forgetting to halve gives $(14, -4, 8.6)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "((3 + 11)/2, (-8 + 4)/2, (2.5 + 6.1)/2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-router-range",
+          "prompt": "In an office, a Wi-Fi router is at $(1, 2, 2.6)$ and a laptop is at $(7.5, 9, 0.8)$, in metres. The router reaches devices up to $10$ m away. Is the laptop within range?",
+          "hint": "Find the distance between the two points, then compare it with $10$ m.",
+          "options": [
+            {
+              "text": "Yes, it is within range",
+              "correct": true
+            },
+            {
+              "text": "No, it is out of range",
+              "correct": false
+            }
+          ],
+          "explain": "The differences are $6.5$, $7$ and $1.8$, so the distance is $\\sqrt{94.49} \\approx 9.72$ m. That is less than $10$ m.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Yes, it is within range"
+          }
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "heading": "Volume and surface area of solids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A pyramid narrows from its base to a point, the apex. It holds one third of the prism with the same base and height."
+        },
+        {
+          "type": "text",
+          "text": "In a right pyramid the apex is directly above the centre of the base. The height $h$ is measured straight down, at right angles to the base."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}Ah",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-pyramid-volume"
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the area of the base, whatever its shape. A right cone is the same idea with a circular base of radius $r$. Its sloping side has length $l$, the [[slant-height|slant height]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-cone-parts",
+          "alt": "A right cone with vertex V. A dashed vertical height h runs from V down to O, the centre of the circular base. A radius r runs from O to the edge of the base, and the slant height l runs down the side from V to the same point, so h, r and l form a shaded right-angled triangle with the right angle at O.",
+          "caption": "$r$, $h$ and $l$ make a right-angled triangle, with $l$ as the hypotenuse."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{1}{3}\\pi r^{2}h",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-cone-volume"
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\pi r l",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-cone-curved-area"
+        },
+        {
+          "type": "text",
+          "text": "This $A$ is the curved area only; a solid cone also has a circular base, $\\pi r^{2}$. Use $h$ for the volume and $l$ for the curved area. Pythagoras links them, and this one is not in the booklet:"
+        },
+        {
+          "type": "formula",
+          "tex": "l = \\sqrt{r^{2} + h^{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For a sphere of radius $r$:"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{4}{3}\\pi r^{3}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-sphere-volume"
+        },
+        {
+          "type": "formula",
+          "tex": "A = 4\\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-3-1-sphere-area"
+        },
+        {
+          "type": "text",
+          "text": "A hemisphere is half a sphere: volume $\\frac{2}{3}\\pi r^{3}$ and curved surface $2\\pi r^{2}$. A solid hemisphere also has a flat circular face, $\\pi r^{2}$, so its total surface area is $3\\pi r^{2}$. Learn these; they aren't in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{2}{3}\\pi r^{3}, \\quad A_{\\text{total}} = 3\\pi r^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Cuboids, cylinders and prisms are in the prior-learning part of the booklet. Real objects are modelled as one of these solids or a mix of them."
+        },
+        {
+          "type": "check",
+          "id": "check-lampshade-area",
+          "prompt": "A lampshade is modelled as the curved surface of a right cone, open at the bottom, with base radius $11$ cm and height $19$ cm. Find the area of fabric needed, to 3 s.f.",
+          "hint": "The curved area $\\pi r l$ needs the slant height. Find $l$ with Pythagoras first.",
+          "options": [
+            {
+              "text": "$A \\approx 759\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$A \\approx 657\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 535\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$l = \\sqrt{11^{2} + 19^{2}} = 21.954\\ldots$ cm, so $A = \\pi \\times 11 \\times 21.954\\ldots \\approx 759\\text{ cm}^{2}$. The height in place of $l$ gives $657$; subtracting the squares gives $535$. The shade is open, so there is no base to add.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*11*sqrt(11**2 + 19**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the height $h$ into $\\pi r l$. The curved area needs the slant height, so find $l = \\sqrt{r^{2} + h^{2}}$ first."
+        },
+        {
+          "type": "text",
+          "text": "For a solid built from pieces, add the volumes. For the surface area, count only the outside surfaces: where two pieces join, those faces are hidden."
+        },
+        {
+          "type": "example",
+          "id": "ex-grain-silo",
+          "question": "A grain silo is modelled as a cylinder of radius $3.5$ m and height $12$ m with a cone-shaped roof of height $2.4$ m. (a) Find the volume of the silo, to 3 s.f. (b) A farmer has $470\\text{ m}^{3}$ of grain. Will it all fit?",
+          "steps": [
+            "(a) Cylinder (prior learning in the booklet): $\\pi \\times 3.5^{2} \\times 12 = 461.81\\ldots\\text{ m}^{3}$.",
+            "Cone roof, with the same radius: $\\frac{1}{3}\\pi \\times 3.5^{2} \\times 2.4 = 30.78\\ldots\\text{ m}^{3}$.",
+            "Add the unrounded values: $V = 492.60\\ldots \\approx 493\\text{ m}^{3}$.",
+            "(b) $470 < 492.6$, so the model says yes. Real walls have thickness and grain doesn't fill the roof neatly, so the spare space is less than $23\\text{ m}^{3}$."
+          ],
+          "answer": "$V \\approx 493\\text{ m}^{3}$",
+          "check": {
+            "type": "check",
+            "id": "check-silo-roof",
+            "prompt": "Now you try: the roof is covered in metal sheet. Find the area of the roof, in $\\text{m}^{2}$, to 3 s.f.",
+            "hint": "Only the curved surface of the cone is outside. Find its slant height first.",
+            "answer": {
+              "value": 46.7,
+              "tolerance": 0.05
+            },
+            "explain": "$l = \\sqrt{3.5^{2} + 2.4^{2}} = 4.2438\\ldots$ m, so the area is $\\pi \\times 3.5 \\times 4.2438\\ldots = 46.66\\ldots \\approx 46.7\\text{ m}^{2}$. The cone's base is hidden on top of the cylinder.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "pi*3.5*sqrt(3.5**2 + 2.4**2)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*3.5**2*12 + Rational(1, 3)*pi*3.5**2*2.4",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-paperweight-area",
+          "prompt": "A solid glass paperweight is a hemisphere of diameter $7$ cm. Find its total surface area, to 3 s.f.",
+          "hint": "Halve the diameter. Then add the curved surface and the flat circular face.",
+          "options": [
+            {
+              "text": "$A \\approx 115\\text{ cm}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$A \\approx 77.0\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 462\\text{ cm}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 154\\text{ cm}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = 3.5$, so $A = 2\\pi r^{2} + \\pi r^{2} = 3\\pi \\times 3.5^{2} = 115.45\\ldots \\approx 115\\text{ cm}^{2}$. The curved part alone is $77.0$; using $7$ as the radius gives $462$; $154$ is a whole sphere.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3*pi*(7/2)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "When the volume is given and a length is unknown, write the equation, then solve it on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-capsule-radius",
+          "question": "A medicine capsule is modelled as a cylinder of length $15$ mm with a hemisphere of radius $r$ mm on each end. It holds $650\\text{ mm}^{3}$. Use your calculator to find $r$, to 3 s.f.",
+          "steps": [
+            "The cylinder has radius $r$ and length $15$: volume $15\\pi r^{2}$.",
+            "Two hemispheres make one sphere: $\\frac{4}{3}\\pi r^{3}$.",
+            "Write down the equation you solve, as it earns the method mark: $15\\pi r^{2} + \\frac{4}{3}\\pi r^{3} = 650$.",
+            "Solve it on the GDC (steps below): $r = 3.2691\\ldots$, so $r \\approx 3.27$ mm.",
+            "Check: $15\\pi \\times 3.27^{2} + \\frac{4}{3}\\pi \\times 3.27^{3} \\approx 650.3$. The whole capsule is $15 + 2r \\approx 21.5$ mm long."
+          ],
+          "answer": "$r \\approx 3.27\\text{ mm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(15*pi*r**2 + Rational(4, 3)*pi*r**3 - 650, r, 3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "15πX^2+(4/3)πX^3",
+            "rightSide": 650,
+            "guess": 3,
+            "lower": 0,
+            "upper": 10
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Give units with every length, area and volume, such as $\\text{cm}$, $\\text{cm}^{2}$, $\\text{cm}^{3}$. Mark schemes can withhold the final mark when units are missing or wrong."
+        },
+        {
+          "type": "mistake",
+          "text": "Counting a hidden face. In the silo, the top of the cylinder and the base of the roof are covered, so neither is part of the surface."
+        }
+      ]
+    },
+    {
+      "id": "triangles",
+      "heading": "Right-angled triangles inside solids",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "At SL, 3D questions are set so that right-angled triangles are enough. The skill is finding them."
+        },
+        {
+          "type": "text",
+          "text": "Right angles come from vertical lines. A vertical height or edge meets every horizontal line through its foot at $90^{\\circ}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Mark the length or angle you want on a sketch of the solid."
+        },
+        {
+          "type": "text",
+          "text": "2. Find a right-angled triangle that contains it, with other sides you know or can find."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw that triangle flat, with the right angle marked. Then use Pythagoras or SOH CAH TOA."
+        },
+        {
+          "type": "example",
+          "id": "ex-container-pipe",
+          "question": "A shipping container is modelled as a cuboid $12$ m long, $2.4$ m wide and $2.6$ m high. (a) Find the length of the longest straight pipe that fits inside, to 3 s.f. (b) Will a pipe of length $12.6$ m fit?",
+          "steps": [
+            "(a) The longest pipe runs from a bottom corner to the opposite top corner. Floor diagonal first: $f^{2} = 12^{2} + 2.4^{2} = 149.76$.",
+            "The vertical edge meets the floor diagonal at a right angle, so $d^{2} = 149.76 + 2.6^{2} = 156.52$.",
+            "$d = \\sqrt{156.52} = 12.510\\ldots$ m. The distance formula from $(0, 0, 0)$ to $(12, 2.4, 2.6)$ gives the same.",
+            "(b) $12.6 > 12.51$, so no: the pipe is too long even on the diagonal."
+          ],
+          "answer": "$d \\approx 12.5\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(12**2 + 2.4**2 + 2.6**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a right pyramid, the height VX drops from the apex V to the centre X of the base. So V, X and a corner C make a right-angled triangle, with the right angle at X."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-pyramid-triangle",
+          "alt": "A right pyramid on a square base ABCD with apex V. A dashed height runs from V straight down to X, the centre of the base. Triangle VXC is shaded, with a right angle at X and the angle theta marked at the corner C. XC is half of the base diagonal AC.",
+          "caption": "Triangle VXC has its right angle at X. XC is half of the diagonal AC."
+        },
+        {
+          "type": "example",
+          "id": "ex-tent-height",
+          "question": "A tent is modelled as a right pyramid with a square base of side $2.8$ m. Each sloping pole, from a corner to the top, is $2.5$ m long. (a) Find the height of the tent, to 3 s.f. (b) Can a person $1.6$ m tall stand up straight at the centre?",
+          "steps": [
+            "(a) Use triangle VXC. The base diagonal is $\\text{AC} = \\sqrt{2.8^{2} + 2.8^{2}} = 3.9597\\ldots$ m.",
+            "X is halfway along it: $\\text{XC} = 1.9798\\ldots$ m.",
+            "VC is the hypotenuse: $\\text{VX}^{2} = 2.5^{2} - 1.9798\\ldots^{2} = 6.25 - 3.92 = 2.33$.",
+            "So $\\text{VX} = \\sqrt{2.33} = 1.5264\\ldots \\approx 1.53$ m.",
+            "(b) $1.53 < 1.6$, so no: the person would have to stoop, even at the highest point."
+          ],
+          "answer": "$h \\approx 1.53\\text{ m}$",
+          "check": {
+            "type": "check",
+            "id": "check-tent-volume",
+            "prompt": "Now you try: find the volume of air inside the tent, in $\\text{m}^{3}$, to 3 s.f.",
+            "hint": "$V = \\frac{1}{3}Ah$, with the base area $2.8^{2}$ and the unrounded height.",
+            "answer": {
+              "value": 3.99,
+              "tolerance": 0.005
+            },
+            "explain": "$V = \\frac{1}{3} \\times 7.84 \\times 1.5264\\ldots = 3.989\\ldots \\approx 3.99\\text{ m}^{3}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Rational(1, 3)*2.8**2*sqrt(2.5**2 - (sqrt(2.8**2 + 2.8**2)/2)**2)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2.5**2 - (sqrt(2.8**2 + 2.8**2)/2)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole base diagonal for XC. The centre is halfway along the diagonal, so XC is half of it."
+        },
+        {
+          "type": "check",
+          "id": "check-tent-fabric",
+          "prompt": "The tent's four sloping faces are fabric; it has no floor. Find the area of fabric, to 3 s.f.",
+          "hint": "Each face is a triangle with base $2.8$ m. Find its height from the pole and half the base edge, $1.4$ m.",
+          "options": [
+            {
+              "text": "$A \\approx 11.6\\text{ m}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$A \\approx 8.55\\text{ m}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 14.0\\text{ m}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 19.4\\text{ m}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "Face height: $\\sqrt{2.5^{2} - 1.4^{2}} = 2.0712\\ldots$ m, so $A = 4 \\times \\frac{1}{2} \\times 2.8 \\times 2.0712\\ldots \\approx 11.6\\text{ m}^{2}$. The tent's height gives $8.55$; the pole gives $14.0$; adding a floor gives $19.4$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "4*Rational(1, 2)*2.8*sqrt(2.5**2 - (2.8/2)**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "angles",
+      "heading": "Angles between lines and planes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two lines that meet make an angle where they cross. Put both lines in one triangle, find a right angle, and use SOH CAH TOA."
+        },
+        {
+          "type": "text",
+          "text": "To measure how steeply a line leans against a plane (a flat surface, such as the ground), compare it with the right line in the plane."
+        },
+        {
+          "type": "definition",
+          "term": "angle between a line and a plane",
+          "statement": "A line meets a plane at A. From a point P on the line, other than A, drop a perpendicular to the plane, meeting it at N. The angle between the line and the plane is $\\text{P}\\hat{\\text{A}}\\text{N}$, the angle at A between AP and AN.",
+          "plain": "It is the angle between the line and its shadow when the light shines straight down onto the plane."
+        },
+        {
+          "type": "figure",
+          "id": "3-1-line-plane-angle",
+          "alt": "A flat plane drawn as a parallelogram. A line meets the plane at A and rises to the point P above it. A dashed perpendicular drops from P straight down to N on the plane, with a right angle at N. The angle theta at A is between the line AP and AN, the projection of the line on the plane.",
+          "caption": "AN is the projection of AP on the plane. The right angle is at N."
+        },
+        {
+          "type": "text",
+          "text": "AN is called the projection of the line on the plane. Triangle PAN has its right angle at N, so the [[angle-between-a-line-and-a-plane|angle between a line and a plane]] is never more than $90^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-line-plane-which",
+          "prompt": "In the figure, P is on a line that meets the plane at A, and PN is perpendicular to the plane. Which angle is the angle between the line and the plane?",
+          "hint": "Find the line's projection on the plane first.",
+          "options": [
+            {
+              "text": "The angle at A between AP and AN",
+              "correct": true
+            },
+            {
+              "text": "The angle at P between PA and PN",
+              "correct": false
+            },
+            {
+              "text": "The angle at A between AP and a different line in the plane through A",
+              "correct": false
+            }
+          ],
+          "explain": "AN is the projection of AP, so the angle is at A between AP and AN. The angle at P is its complement, and other lines through A give larger angles.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The angle at A between AP and AN"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-camera-angle",
+          "question": "A security camera C is fixed at $(0, 0, 6)$ in a warehouse, in metres, where the floor is $z = 0$. It must point at a parcel P on the floor at $(8, 5, 0)$. (a) Find the angle between the line CP and the floor, to 1 d.p. (b) The camera can tilt at most $35^{\\circ}$ below the horizontal. Can it point at the parcel?",
+          "steps": [
+            "(a) $\\text{F}(0, 0, 0)$ is directly below C, so FP is the projection of CP and triangle CFP has its right angle at F.",
+            "$\\text{CF} = 6$ and $\\text{FP} = \\sqrt{8^{2} + 5^{2}} = \\sqrt{89}$ m.",
+            "CF is opposite the angle at P and FP is next to it. In degree mode (steps below): $\\theta = \\tan^{-1}\\left(\\frac{6}{\\sqrt{89}}\\right) = 32.456\\ldots^{\\circ}$.",
+            "(b) The floor is horizontal, so the camera tilts $32.5^{\\circ}$ below the horizontal. That is less than $35^{\\circ}$, so yes."
+          ],
+          "answer": "$\\theta \\approx 32.5^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(6/sqrt(8**2 + 5**2))*180/pi"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Set degree mode before any angle unless radians are asked for. In radian mode the camera angle comes out as $0.566$, which loses the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-container-angle",
+          "prompt": "In the shipping container ($12$ m by $2.4$ m by $2.6$ m high), find the angle between the longest pipe and the floor, to 1 d.p.",
+          "hint": "The floor diagonal is the projection of the pipe. It is the side next to the angle.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 12.0^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 12.2^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 78.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 47.3^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "The floor diagonal is $\\sqrt{149.76} = 12.237\\ldots$, so $\\tan\\theta = \\frac{2.6}{12.237\\ldots}$ and $\\theta \\approx 12.0^{\\circ}$. Using the $12$ m edge instead of the diagonal gives $12.2^{\\circ}$; $78.0^{\\circ}$ is the angle with the vertical; the $2.4$ m width gives $47.3^{\\circ}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(2.6/sqrt(12**2 + 2.4**2))*180/pi"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-spotlight-angle",
+          "question": "A spotlight $3.2$ m above a stage lights a circle of radius $1.1$ m directly below it. The beam is modelled as a right cone. Find the angle between two lines from the spotlight to opposite ends of a diameter of the circle, to 1 d.p.",
+          "steps": [
+            "The two lines and the diameter make an isosceles triangle. The cone's height splits it into two right-angled triangles.",
+            "In one half, the radius $1.1$ is opposite the angle $\\alpha$ at the spotlight and the height $3.2$ is next to it: $\\alpha = \\tan^{-1}\\left(\\frac{1.1}{3.2}\\right) = 18.970\\ldots^{\\circ}$.",
+            "The angle between the lines is $\\theta = 2\\alpha = 37.940\\ldots^{\\circ}$: the width of the beam."
+          ],
+          "answer": "$\\theta \\approx 37.9^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "2*atan(Rational(11, 32))*180/pi"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tent-pole-angle",
+          "prompt": "For the tent (base side $2.8$ m, poles $2.5$ m), find the angle between a pole and the ground, in degrees, to 1 d.p.",
+          "hint": "XC is the pole's projection on the ground. In triangle VXC you know the hypotenuse VC and the side XC next to the angle.",
+          "answer": {
+            "value": 37.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\cos\\theta = \\frac{1.9798\\ldots}{2.5}$, so $\\theta = 37.63\\ldots^{\\circ} \\approx 37.6^{\\circ}$. Using the rounded height in $\\tan\\theta = \\frac{1.53}{1.98}$ gives $37.7^{\\circ}$, which can lose the accuracy mark.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "acos((sqrt(2.8**2 + 2.8**2)/2)/2.5)*180/pi",
+            "dp": 1
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, 3D questions can also need the sine or cosine rule in a triangle with no right angle.",
+          "lesson": "3.2"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Distance in 3D: $d = \\sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2} + (z_{1} - z_{2})^{2}}$. The midpoint is the mean of each coordinate.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Right pyramid: $V = \\frac{1}{3}Ah$. Right cone: $V = \\frac{1}{3}\\pi r^{2}h$ and curved area $\\pi r l$. Sphere: $V = \\frac{4}{3}\\pi r^{3}$ and $A = 4\\pi r^{2}$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Right cone: slant height $l = \\sqrt{r^{2} + h^{2}}$. Use $h$ for the volume and $l$ for the curved area.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hemisphere: $V = \\frac{2}{3}\\pi r^{3}$, curved area $2\\pi r^{2}$, and total area $3\\pi r^{2}$ when solid. Combined solids: add the volumes and count only the outside surfaces.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A vertical height meets every horizontal line through its foot at $90^{\\circ}$. In a square-based right pyramid, the centre of the base to a corner is half the diagonal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The angle between a line and a plane is the angle between the line and its projection on the plane, found from a perpendicular dropped to the plane.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using a diameter as the radius. Halve it before using a sphere, hemisphere, cone or cylinder formula.",
+    "Putting the vertical height into $\\pi r l$. A cone's curved area needs the slant height, $l = \\sqrt{r^{2} + h^{2}}$.",
+    "Leaving out the flat face of a solid hemisphere, or counting a face hidden where two solids join.",
+    "Using the whole base diagonal from the centre of a square base to a corner. That distance is half the diagonal.",
+    "Rounding a length, then reusing it. Keep the full GDC value and round only the final answer.",
+    "Leaving the calculator in radian mode when the angle is wanted in degrees."
+  ],
+  "examTips": [
+    "\"Find\" or \"calculate\" a length, area or volume: write the formula with the numbers substituted. That line earns the method mark.",
+    "On a GDC question, write down the equation you solve, then the answer. A bare wrong answer earns nothing.",
+    "Draw the right-angled triangle you use on its own, with the right angle and known sides marked.",
+    "\"Comment\" on a model: say how the real object differs from the shape, such as a sagging cable or thick walls, and which way that moves the answer."
+  ],
+  "readingMinutes": 28
+}

@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.9",
+  "slug": "laws-of-logarithms",
+  "title": "Laws of logarithms",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "The [[laws-of-logarithms|laws of logarithms]] turn a product inside a log into a sum, a quotient into a difference and a power into a multiple. In AI you use them with base $10$ and base $\\mathrm{e}$ to simplify expressions, to turn exponential and power models into straight lines, and to compare values on log scales such as decibels.",
+  "goals": [
+    {
+      "text": "Use the product, quotient and power laws to split one [[logarithm|logarithm]] into several, or to combine several into one.",
+      "bullets": [
+        "1.9-b1"
+      ]
+    },
+    {
+      "text": "Say when the laws apply: positive values inside every log, base $10$ or $\\mathrm{e}$ in exams, and no law for the log of a sum.",
+      "bullets": [
+        "1.9-b1",
+        "1.9-b2"
+      ]
+    },
+    {
+      "text": "Take $\\ln$ or $\\log_{10}$ of an exponential or power model to get a straight line, and undo the logs to recover the model.",
+      "bullets": [
+        "1.9-b1",
+        "1.9-b2"
+      ]
+    },
+    {
+      "text": "Use the laws to compare values on a log scale and to solve log equations, rejecting any value that makes a log undefined.",
+      "bullets": [
+        "1.9-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "laws of logs",
+    "log rules",
+    "ln rules",
+    "combine logs into one",
+    "expand a logarithm",
+    "log of a product"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-log-form",
+      "prompt": "Rewrite $\\mathrm{e}^{x} = 7$ with $x$ as the subject.",
+      "hint": "A logarithm is the missing exponent. Which log has base $\\mathrm{e}$?",
+      "options": [
+        {
+          "text": "$x = \\ln 7$",
+          "correct": true
+        },
+        {
+          "text": "$x = \\log_{10} 7$",
+          "correct": false
+        },
+        {
+          "text": "$x = \\mathrm{e}^{7}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\mathrm{e}^{x} = 7$ means $x$ is the power of $\\mathrm{e}$ that gives $7$, so $x = \\ln 7$. $\\log_{10} 7$ uses the wrong base. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "log(7)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exponent-product",
+      "prompt": "Simplify $10^{4} \\times 10^{-1}$.",
+      "hint": "Multiplying powers of the same base adds the exponents.",
+      "options": [
+        {
+          "text": "$10^{3}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{-4}$",
+          "correct": false
+        },
+        {
+          "text": "$100^{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$10^{4} \\times 10^{-1} = 10^{4 + (-1)} = 10^{3}$. Multiplying the exponents gives $10^{-4}$, and multiplying the bases gives the wrong base. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**4*10**(-1)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "laws",
+      "heading": "The three laws",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[logarithm|logarithm]] is an exponent. $\\log_{10} 100 = 2$ because $10^{2} = 100$, and $\\log_{10} 1000 = 3$ because $10^{3} = 1000$."
+        },
+        {
+          "type": "text",
+          "text": "Multiply the two numbers: $100 \\times 1000 = 10^{2} \\times 10^{3} = 10^{5}$. By the [[laws-of-exponents|laws of exponents]], multiplying powers adds the exponents. So $\\log_{10}(100 \\times 1000) = 5 = 2 + 3$."
+        },
+        {
+          "type": "text",
+          "text": "So the log of a product is the sum of the logs. Dividing powers subtracts exponents, and a power of a power multiplies them. These give the other two laws."
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} xy = \\log_{a} x + \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-product"
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} \\frac{x}{y} = \\log_{a} x - \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-quotient"
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x^{m} = m\\log_{a} x",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-power"
+        },
+        {
+          "type": "text",
+          "text": "These are the [[laws-of-logarithms|laws of logarithms]]. They hold when $a$, $x$ and $y$ are positive and $a \\neq 1$. They are in the formula booklet; you need to spot when to use them."
+        },
+        {
+          "type": "text",
+          "text": "In AI exams the base $a$ is always $10$ or $\\mathrm{e}$. Base $\\mathrm{e}$ is the [[natural-logarithm|natural logarithm]], so the product law reads $\\ln xy = \\ln x + \\ln y$."
+        },
+        {
+          "type": "text",
+          "text": "Since $\\log_{10} 10 = 1$ and $\\ln \\mathrm{e} = 1$, the power law gives $\\log_{10} 10^{k} = k$ and $\\ln \\mathrm{e}^{k} = k$."
+        },
+        {
+          "type": "mistake",
+          "text": "Splitting the log of a sum. There is no law for $\\ln(x + y)$. It is not $\\ln x + \\ln y$, because that equals $\\ln xy$."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-numbers",
+          "question": "Write $\\ln 18 + \\ln 5 - 2\\ln 3$ as a single logarithm. Check your answer on your GDC.",
+          "steps": [
+            "Use the power law first, so every term is a single log: $2\\ln 3 = \\ln 3^{2} = \\ln 9$.",
+            "Adding logs multiplies the numbers inside: $\\ln 18 + \\ln 5 = \\ln 90$.",
+            "Subtracting logs divides them: $\\ln 90 - \\ln 9 = \\ln \\frac{90}{9} = \\ln 10$.",
+            "GDC check: $\\ln 18 + \\ln 5 - 2\\ln 3 = 2.302585\\ldots$ and $\\ln 10 = 2.302585\\ldots$, so they agree."
+          ],
+          "answer": "$\\ln 18 + \\ln 5 - 2\\ln 3 = \\ln 10$",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(18) + log(5) - 2*log(3)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-expand-log10",
+          "question": "Given that $p, q > 0$, write $\\log_{10}\\left(\\frac{1000p^{2}}{q}\\right)$ in terms of $\\log_{10} p$ and $\\log_{10} q$.",
+          "steps": [
+            "Quotient law: $\\log_{10}\\left(\\frac{1000p^{2}}{q}\\right) = \\log_{10}\\left(1000p^{2}\\right) - \\log_{10} q$.",
+            "Product law on the first term: $\\log_{10} 1000 + \\log_{10} p^{2} - \\log_{10} q$.",
+            "$\\log_{10} 1000 = 3$, since $10^{3} = 1000$. Power law: $\\log_{10} p^{2} = 2\\log_{10} p$.",
+            "So the expression is $3 + 2\\log_{10} p - \\log_{10} q$. The factor $1000$ inside became $+3$ outside: multiplying by $1000$ adds $3$ to a base-$10$ log."
+          ],
+          "answer": "$\\log_{10}\\left(\\frac{1000p^{2}}{q}\\right) = 3 + 2\\log_{10} p - \\log_{10} q$",
+          "verify": {
+            "kind": "expression",
+            "truth": "expand_log(log(1000*p**2/q, 10), force=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Applying a power to only part of the inside. $3\\ln(2x) = \\ln\\left((2x)^{3}\\right) = \\ln(8x^{3})$, not $\\ln(2x^{3})$. Keep the bracket until the power is applied."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-of-logs",
+          "prompt": "Find the exact value of $\\log_{10} 4 + \\log_{10} 25$.",
+          "hint": "Use the product law, then ask: $10$ to what power gives the result?",
+          "options": [
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$\\log_{10} 29$",
+              "correct": false
+            },
+            {
+              "text": "$100$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\log_{10} 4 + \\log_{10} 25 = \\log_{10} 100 = 2$. Adding the insides gives $\\log_{10} 29$, which is the log-of-a-sum mistake.",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(4, 10) + log(25, 10)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-times-100",
+          "prompt": "A positive quantity $Q$ is multiplied by $100$. What happens to $\\log_{10} Q$?",
+          "hint": "Write $\\log_{10}(100Q)$ with the product law.",
+          "options": [
+            {
+              "text": "It increases by 2.",
+              "correct": true
+            },
+            {
+              "text": "It is multiplied by 100.",
+              "correct": false
+            },
+            {
+              "text": "It is multiplied by 2.",
+              "correct": false
+            },
+            {
+              "text": "It increases by 100.",
+              "correct": false
+            }
+          ],
+          "explain": "$\\log_{10}(100Q) = \\log_{10} 100 + \\log_{10} Q = 2 + \\log_{10} Q$. Multiplying $Q$ by $100$ adds $2$ to its base-$10$ log, which is why log scales squeeze huge ranges into small ones.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It increases by 2."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combine-variables",
+          "prompt": "For $x > 1$, write $\\ln(x + 3) + 2\\ln x - \\ln(x - 1)$ as a single logarithm.",
+          "hint": "Bring the $2$ inside as a power first. Then add logs by multiplying and subtract by dividing.",
+          "options": [
+            {
+              "text": "$\\ln\\left(\\frac{x^{2}(x + 3)}{x - 1}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln\\left(\\frac{2x(x + 3)}{x - 1}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln\\left(x^{2} + 4\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln\\left(x^{2}(x + 3)(x - 1)\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "$2\\ln x = \\ln x^{2}$, so the expression is $\\ln\\left(\\frac{x^{2}(x + 3)}{x - 1}\\right)$. Writing $2x$ instead of $x^{2}$ misuses the power law, adding or subtracting the insides is the log-of-a-sum mistake, and multiplying by $x - 1$ ignores the minus sign in front of $\\ln(x - 1)$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "logcombine(log(x + 3) + 2*log(x) - log(x - 1), force=True)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Straight lines from exponential and power models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many AI models are exponential, $y = k\\mathrm{e}^{bx}$, or power, $y = kx^{n}$. Their graphs curve, but taking logs of both sides turns each into a straight line."
+        },
+        {
+          "type": "text",
+          "text": "Exponential model: $\\ln y = \\ln\\left(k\\mathrm{e}^{bx}\\right) = \\ln k + \\ln \\mathrm{e}^{bx} = \\ln k + bx$. That is the product law, then the power law with $\\ln \\mathrm{e} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "So $\\ln y$ against $x$ is a straight line, with gradient $b$ and vertical intercept $\\ln k$."
+        },
+        {
+          "type": "text",
+          "text": "Power model: $\\log_{10} y = \\log_{10} k + \\log_{10} x^{n} = \\log_{10} k + n\\log_{10} x$. So $\\log_{10} y$ against $\\log_{10} x$ is a straight line, with gradient $n$ and intercept $\\log_{10} k$. It works with $\\ln$ too."
+        },
+        {
+          "type": "result",
+          "statement": "For $k > 0$: if $y = k\\mathrm{e}^{bx}$, then $\\ln y = \\ln k + bx$. If $y = kx^{n}$ with $x > 0$, then $\\ln y = \\ln k + n\\ln x$.",
+          "why": "The product law splits off $\\ln k$. The power law brings $bx$ or $n$ down in front, and $\\ln \\mathrm{e} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "To undo it, run the laws backwards: combine the right-hand side into one log, then drop the logs from both sides. You'll use this to fit models to data in {{lesson:2.10}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-exponential-to-line",
+          "question": "A biologist models the number of bacteria in a culture, $t$ hours after it is set up, by $N = 2400\\mathrm{e}^{0.35t}$. Show that $\\ln N$ is a linear function of $t$, and interpret its gradient.",
+          "steps": [
+            "Take $\\ln$ of both sides: $\\ln N = \\ln\\left(2400\\mathrm{e}^{0.35t}\\right)$.",
+            "Product law: $\\ln N = \\ln 2400 + \\ln \\mathrm{e}^{0.35t}$.",
+            "Power law, with $\\ln \\mathrm{e} = 1$: $\\ln \\mathrm{e}^{0.35t} = 0.35t\\ln \\mathrm{e} = 0.35t$. So $\\ln N = \\ln 2400 + 0.35t$, a straight line in $t$.",
+            "Interpret: the gradient $0.35$ is added to $\\ln N$ each hour, so $N$ is multiplied by $\\mathrm{e}^{0.35} = 1.419\\ldots$ each hour, about $42\\%$ growth per hour."
+          ],
+          "answer": "$\\ln N = \\ln 2400 + 0.35t$",
+          "verify": {
+            "kind": "expression",
+            "truth": "expand_log(log(2400*exp(0.35*t)), force=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "1-9-log-log-line",
+          "alt": "Straight line graph of log base 10 of M against log base 10 of L. The line starts at the vertical intercept minus 4.7 and rises to 1.3 when log L is 2. A dashed triangle shows that going across 0.5 takes the line up 1.5, so the gradient is 3. A dot marks the point for a 40 centimetre fish, just above the horizontal axis.",
+          "caption": "$\\log_{10} M = 3\\log_{10} L - 4.7$: gradient $3$ is the power of $L$, and the intercept gives $k = 10^{-4.7}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-to-power",
+          "question": "For one species of fish, a plot of $\\log_{10} M$ against $\\log_{10} L$ is the straight line $\\log_{10} M = 3\\log_{10} L - 4.7$, where $M$ is the mass in kg and $L$ is the length in cm. Write $M$ in the form $kL^{n}$, then estimate the mass of a fish $40$ cm long. Give your answer to 3 s.f.",
+          "steps": [
+            "Power law, read backwards: $3\\log_{10} L = \\log_{10} L^{3}$.",
+            "Write the constant as a log: $-4.7 = \\log_{10} 10^{-4.7}$.",
+            "Product law, read backwards: $\\log_{10} M = \\log_{10}\\left(10^{-4.7}L^{3}\\right)$. Equal logs mean equal numbers, so $M = 10^{-4.7}L^{3}$, with $k = 10^{-4.7} = 1.995\\ldots \\times 10^{-5}$ and $n = 3$.",
+            "Substitute $L = 40$, keeping $k$ exact: $M = 10^{-4.7} \\times 40^{3} = 1.2768\\ldots$",
+            "So the fish has a mass of about $1.28$ kg. Since $n = 3$, doubling the length multiplies the mass by $2^{3} = 8$."
+          ],
+          "answer": "$M \\approx 1.28\\text{ kg}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "10**(-4.7)*40**3",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding the intercept or gradient before you undo the logs. A small change in an exponent changes the answer a lot, so keep or store the full values and round only at the end."
+        },
+        {
+          "type": "check",
+          "id": "check-ln-of-model",
+          "prompt": "A town's population is modelled by $P = 800\\mathrm{e}^{0.05t}$. Which expression equals $\\ln P$?",
+          "hint": "Use the product law, then the power law with $\\ln \\mathrm{e} = 1$.",
+          "options": [
+            {
+              "text": "$\\ln P = \\ln 800 + 0.05t$",
+              "correct": true
+            },
+            {
+              "text": "$\\ln P = 0.05t\\ln 800$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln P = \\ln 800 + \\ln(0.05t)$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln P = 800 + 0.05t$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\ln P = \\ln 800 + \\ln \\mathrm{e}^{0.05t} = \\ln 800 + 0.05t$. The $800$ stays inside a log, and the $0.05t$ comes down because $\\ln \\mathrm{e} = 1$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "expand_log(log(800*exp(0.05*t)), force=True)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-x",
+          "prompt": "A power model is $\\ln y = 0.8\\ln x + 2$, for $x > 0$. By what factor is $y$ multiplied when $x$ doubles? Give your answer to 3 s.f.",
+          "hint": "Undo the logs to write the model as $y = kx^{0.8}$. Then compare $y$ at $2x$ with $y$ at $x$.",
+          "answer": {
+            "value": 1.74,
+            "tolerance": 0.005
+          },
+          "explain": "$y = \\mathrm{e}^{2}x^{0.8}$, so replacing $x$ by $2x$ multiplies $y$ by $2^{0.8} = 1.741\\ldots \\approx 1.74$. The constant $\\mathrm{e}^{2}$ cancels, so the answer is the same for every $x$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2**0.8",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "scales-equations",
+      "heading": "Log scales and log equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sound level in decibels (dB) is $L = 10\\log_{10}\\left(\\frac{I}{I_{0}}\\right)$. Here $I$ is the sound's intensity and $I_{0}$ is a fixed reference intensity."
+        },
+        {
+          "type": "text",
+          "text": "Multiply the intensity by $c$. The product law gives $10\\log_{10}\\left(\\frac{cI}{I_{0}}\\right) = 10\\log_{10} c + 10\\log_{10}\\left(\\frac{I}{I_{0}}\\right)$. So the level rises by $10\\log_{10} c$ dB, whatever it was to start with."
+        },
+        {
+          "type": "example",
+          "id": "ex-decibels",
+          "question": "One hairdryer has a sound level of $64$ dB. Assume that the intensities of identical sources add. Find the sound level when $5$ identical hairdryers run together. Give your answer to 1 d.p.",
+          "steps": [
+            "Five hairdryers give $5$ times the intensity, so $c = 5$.",
+            "The level rises by $10\\log_{10} 5 = 6.9897\\ldots$ dB.",
+            "New level: $64 + 6.9897\\ldots = 70.9897\\ldots$, so $71.0$ dB to 1 d.p.",
+            "Interpret: five times the intensity adds only about $7$ dB, because decibels measure the log of the intensity."
+          ],
+          "answer": "$L \\approx 71.0\\text{ dB}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "64 + 10*log(5, 10)",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The laws also help you solve equations. Combine the logs on each side into a single log, then drop the logs. Always check each answer in the original equation, because a log of zero or a negative number doesn't exist."
+        },
+        {
+          "type": "example",
+          "id": "ex-log-equation",
+          "question": "Solve $\\ln x + \\ln(x + 5) = \\ln 14$.",
+          "steps": [
+            "Product law on the left: $\\ln\\left(x(x + 5)\\right) = \\ln 14$.",
+            "Equal logs mean equal numbers: $x(x + 5) = 14$, so $x^{2} + 5x - 14 = 0$.",
+            "Factorise: $(x + 7)(x - 2) = 0$, so $x = -7$ or $x = 2$.",
+            "Check in the original equation. $x = -7$ gives $\\ln(-7)$, which doesn't exist, so reject it.",
+            "For $x = 2$: $\\ln 2 + \\ln 7 = \\ln 14$, so $x = 2$ is the only solution. Your GDC's solver confirms it."
+          ],
+          "answer": "$x = 2$",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(Eq(log(x) + log(x + 5), log(14)), x, dict=True)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "ln(X)+ln(X+5)",
+            "rightSide": "ln(14)",
+            "guess": 1,
+            "lower": 1,
+            "upper": 10
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you solve a log equation, give every valid solution and say in a few words why you rejected any other value, for example \"$\\ln(-7)$ is undefined\"."
+        },
+        {
+          "type": "check",
+          "id": "check-decibel-ratio",
+          "prompt": "A concert measures $110$ dB and a busy street measures $80$ dB. How many times as intense is the concert sound?",
+          "hint": "The difference in level is $10\\log_{10} c$, where $c$ is the intensity ratio.",
+          "answer": {
+            "value": 1000,
+            "tolerance": 0
+          },
+          "explain": "$110 - 80 = 30 = 10\\log_{10} c$, so $\\log_{10} c = 3$ and $c = 10^{3} = 1000$. The concert is $1000$ times as intense, even though $110$ is not much bigger than $80$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10**((110 - 80)/10)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reject-root",
+          "prompt": "Solve $\\log_{10} x + \\log_{10}(x - 15) = 2$.",
+          "hint": "Combine the left side into one log, then use $\\log_{10} 100 = 2$.",
+          "options": [
+            {
+              "text": "$x = 20$",
+              "correct": true
+            },
+            {
+              "text": "$x = 20 \\text{ or } x = -5$",
+              "correct": false
+            },
+            {
+              "text": "$x = -5$",
+              "correct": false
+            },
+            {
+              "text": "$x = \\frac{17}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\log_{10}\\left(x(x - 15)\\right) = 2$, so $x(x - 15) = 100$ and $x^{2} - 15x - 100 = 0$. That gives $(x - 20)(x + 5) = 0$. Reject $x = -5$ because $\\log_{10}(-5)$ doesn't exist, so $x = 20$. $x = \\frac{17}{2}$ comes from dropping the logs and adding the insides.",
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(Eq(log(x, 10) + log(x - 15, 10), 2), x, dict=True)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\log_{a} xy = \\log_{a} x + \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-product",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} \\frac{x}{y} = \\log_{a} x - \\log_{a} y",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-quotient",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\log_{a} x^{m} = m\\log_{a} x",
+          "tag": "booklet",
+          "bookletId": "bk-1-9-log-power",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The laws need $a$, $x$ and $y$ positive with $a \\neq 1$. In exams the base is $10$ or $\\mathrm{e}$. There is no law for the log of a sum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $k > 0$: $y = k\\mathrm{e}^{bx}$ gives $\\ln y = \\ln k + bx$, and $y = kx^{n}$ with $x > 0$ gives $\\ln y = \\ln k + n\\ln x$. Both are straight lines.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiplying a positive quantity by $c > 0$ adds $\\log_{10} c$ to its base-$10$ log. On the decibel scale, it adds $10\\log_{10} c$ dB.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "After solving a log equation, check each value in the original equation and reject any value that makes the inside of a log zero or negative.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Splitting the log of a sum. $\\ln(x + 4)$ can't be split: the laws only work on products, quotients and powers inside the log.",
+    "Applying a power to only part of the inside. $2\\log_{10}(5x) = \\log_{10} 25x^{2}$, not $\\log_{10} 5x^{2}$.",
+    "Treating $\\frac{\\ln x}{\\ln y}$ as $\\ln x - \\ln y$. The quotient law is about $\\ln \\frac{x}{y}$, the log of a fraction, not a fraction of two logs.",
+    "Rounding the gradient or intercept of a log line, often read from your GDC, before you undo the logs. A small change in an exponent changes the answer a lot, so store full values and round only the final answer.",
+    "In a \"show that\", substituting values into the given result to see that it works. Working backwards earns no marks: start from the given model and apply the laws until you reach the result."
+  ],
+  "examTips": [
+    "\"Show that\" with logs: start from the given expression, use one law per line and name it. Your final line must match the given result exactly, or the last mark is lost.",
+    "When asked to write an expression in the form $\\ln g(x)$, write each step. A correct use of one law can earn a method mark even if a later step slips.",
+    "Check a simplification on your GDC: put the same test value, such as $x = 3$, into the original expression and into your answer. The two values must agree.",
+    "\"Solve\" means find every valid solution. With a GDC, write down the equation you give the GDC, then the solution, and say why you rejected any value."
+  ],
+  "readingMinutes": 18
+}

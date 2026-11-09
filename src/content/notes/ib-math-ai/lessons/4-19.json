@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.19",
+  "slug": "transition-matrices-and-markov-chains",
+  "title": "Transition matrices and Markov chains",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "A [[markov-chain|Markov chain]] moves between states, such as shops a customer uses, where the next step depends only on the current state. A [[transition-matrix|transition matrix]] $T$ holds the step probabilities, and $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$ predicts the state after $n$ steps. The [[steady-state|steady state]], an [[eigenvector|eigenvector]] of $T$ for the [[eigenvalue|eigenvalue]] $1$, gives the long-term proportions.",
+  "goals": [
+    {
+      "text": "Build a transition matrix from a description or a [[transition-diagram|transition diagram]], and interpret its entries in context.",
+      "bullets": [
+        "4.19-b1"
+      ]
+    },
+    {
+      "text": "Find powers of a transition matrix and use $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$ to find probabilities after $n$ steps.",
+      "bullets": [
+        "4.19-b2",
+        "4.19-b4"
+      ]
+    },
+    {
+      "text": "Decide whether a Markov chain is regular, and say what that means for the long term.",
+      "bullets": [
+        "4.19-b3"
+      ]
+    },
+    {
+      "text": "Find the steady state by repeated multiplication or by solving linear equations, exactly when asked.",
+      "bullets": [
+        "4.19-b5"
+      ]
+    },
+    {
+      "text": "Find the steady state as an eigenvector for the eigenvalue 1, scaled so its entries add up to 1.",
+      "bullets": [
+        "4.19-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "1.14",
+    "1.15",
+    "3.14",
+    "3.15"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "markov chains",
+    "transition matrix probability",
+    "steady state vector",
+    "long term probability markov",
+    "regular markov chain",
+    "transition diagram"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-matrix-column",
+      "prompt": "Find $\\begin{pmatrix}0.5 & 0.2\\\\0.5 & 0.8\\end{pmatrix}\\begin{pmatrix}10\\\\20\\end{pmatrix}$.",
+      "hint": "Each entry is a row of the [[matrix|matrix]] times the column.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}9\\\\21\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}15\\\\18\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}5\\\\16\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.5(10) + 0.2(20) = 9$ and $0.5(10) + 0.8(20) = 21$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([[5, 2], [5, 8]])*Matrix([10, 20])/10"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-eigenvalue",
+      "prompt": "$M = \\begin{pmatrix}0.6 & 0.2\\\\0.4 & 0.8\\end{pmatrix}$ and $\\boldsymbol{v} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$. $M\\boldsymbol{v} = \\lambda\\boldsymbol{v}$. Find $\\lambda$.",
+      "hint": "Work out $M\\boldsymbol{v}$ and compare it with $\\boldsymbol{v}$.",
+      "answer": {
+        "value": 1,
+        "tolerance": 0
+      },
+      "explain": "$M\\boldsymbol{v} = \\begin{pmatrix}0.6 + 0.4\\\\0.4 + 1.6\\end{pmatrix} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$, so $\\lambda = 1$. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(Matrix([[6, 2], [4, 8]])*Matrix([1, 2])/10)[0]/1",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-simultaneous",
+      "prompt": "Solve $0.3x = 0.5y$ and $x + y = 1$ for $x$.",
+      "hint": "Substitute $y = 1 - x$ into the first equation.",
+      "answer": {
+        "value": 0.625,
+        "tolerance": 0.0005
+      },
+      "explain": "$0.3x = 0.5 - 0.5x$, so $0.8x = 0.5$ and $x = 0.625$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(5, 10)/(Rational(3, 10) + Rational(5, 10))",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "markov-chains",
+      "heading": "Markov chains, transition diagrams and transition matrices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each evening Priya cooks at home or eats out. Tomorrow depends only on today, not on earlier days. That makes it a Markov chain."
+        },
+        {
+          "type": "definition",
+          "term": "Markov chain",
+          "statement": "A Markov chain is a process that moves between a fixed set of states in steps. The probability of moving to each state at the next step depends only on the current state, not on the states before it.",
+          "plain": "Only where you are now matters for where you go next, not how you got there."
+        },
+        {
+          "type": "text",
+          "text": "A transition diagram has one circle per state and a labelled arrow for each possible move. A loop is the probability of staying put."
+        },
+        {
+          "type": "text",
+          "text": "The arrows leaving any state cover every possibility, so their probabilities add up to $1$. Use this to find a missing label."
+        },
+        {
+          "type": "definition",
+          "term": "Transition matrix",
+          "statement": "For states $1, 2, \\ldots, k$, the transition matrix $T$ is the $k \\times k$ matrix whose entry $T_{ij}$ is the chance of going to state $i$ at the next step, given the chain is in state $j$ now. Each column of $T$ adds up to $1$.",
+          "plain": "Read each column as “from” and each row as “to”."
+        },
+        {
+          "type": "text",
+          "text": "Use the same state order for rows and columns. Column $j$ lists the arrows leaving state $j$. You met this layout for random walks in {{lesson:3.15}}."
+        },
+        {
+          "type": "figure",
+          "id": "4-19-meals-diagram",
+          "alt": "Transition diagram with two states, H for cooking at home and E for eating out. A loop on H is labelled 0.75 and a loop on E is labelled 0.6. An arrow from H to E is labelled 0.25 and an arrow from E to H is labelled 0.4.",
+          "caption": "Priya's evenings: H is home, E is eating out."
+        },
+        {
+          "type": "example",
+          "id": "ex-meals-matrix",
+          "question": "The diagram shows how Priya's evening choice changes from one day to the next. Write down the transition matrix $T$, with the states in the order H, E.",
+          "steps": [
+            "Column H holds the arrows leaving H: stay at H $0.75$, move to E $0.25$.",
+            "Column E holds the arrows leaving E: move to H $0.4$, stay at E $0.6$.",
+            "Check: each column adds up to $1$ ($0.75 + 0.25 = 1$ and $0.4 + 0.6 = 1$).",
+            "Interpret: the entry in row H, column E is $0.4$. If Priya eats out tonight, the probability she cooks at home tomorrow is $0.4$."
+          ],
+          "answer": "$T = \\begin{pmatrix}0.75 & 0.4\\\\0.25 & 0.6\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-19-book-diagram",
+          "alt": "Transition diagram with three states: S on the shelf, L on loan and R in repair. Loops: S 0.6, L 0.45, R 0.3. Arrows: S to L 0.38, L to S 0.5, S to R 0.02, R to S 0.7, L to R 0.05. There is no arrow from R to L.",
+          "caption": "A library book's state from one day to the next."
+        },
+        {
+          "type": "example",
+          "id": "ex-book-matrix",
+          "question": "A library tracks one copy of a popular book each day. It is on the shelf (S), on loan (L) or in repair (R). The diagram shows the daily transitions. Write down the transition matrix $T$, in the order S, L, R.",
+          "steps": [
+            "Column S: S to S $0.6$, S to L $0.38$, S to R $0.02$. These add up to $1$.",
+            "Column L: L to S $0.5$, L to L $0.45$, L to R $0.05$.",
+            "Column R: R to S $0.7$, R to R $0.3$. There is no arrow from R to L, so that entry is $0$.",
+            "Check each column adds up to $1$. Interpret: row L, column R is $0$ because a book is always shelved after a repair before it can be borrowed again."
+          ],
+          "answer": "$T = \\begin{pmatrix}0.6 & 0.5 & 0.7\\\\0.38 & 0.45 & 0\\\\0.02 & 0.05 & 0.3\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $T$ with rows as “from”. In the IB layout the columns are “from”, so each column adds up to $1$. If your rows add up to $1$ instead, you have the transpose."
+        },
+        {
+          "type": "check",
+          "id": "check-book-entry",
+          "prompt": "In the library book's matrix, what does the entry $0.05$ in row R, column L mean?",
+          "hint": "Column tells you where the book is now; row tells you where it is next.",
+          "options": [
+            {
+              "text": "A book on loan today is in repair tomorrow with probability 0.05",
+              "correct": true
+            },
+            {
+              "text": "A book in repair today is on loan tomorrow with probability 0.05",
+              "correct": false
+            },
+            {
+              "text": "5% of all the library's books are in repair",
+              "correct": false
+            },
+            {
+              "text": "A book stays on loan for 0.05 days on average",
+              "correct": false
+            }
+          ],
+          "explain": "Column L means the book is on loan today and row R means it is in repair tomorrow. So $0.05$ is the probability that a book on loan today is in repair tomorrow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A book on loan today is in repair tomorrow with probability 0.05"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-missing-q",
+          "prompt": "A town's weather is sunny, cloudy or rainy each day. In its transition diagram, the arrows leaving cloudy are: to sunny $0.25$, a loop on cloudy $0.45$, and to rainy $q$. Find $q$.",
+          "hint": "The arrows leaving one state add up to $1$.",
+          "answer": {
+            "value": 0.3,
+            "tolerance": 0.0005
+          },
+          "explain": "$q = 1 - 0.25 - 0.45 = 0.3$. In the matrix this fills the cloudy column, row rainy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - Rational(25, 100) - Rational(45, 100)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "powers",
+      "heading": "Powers of T and the state after n steps",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Where will Priya be in three days' time? Multiply by $T$ once for each day."
+        },
+        {
+          "type": "text",
+          "text": "Write the probabilities of being in each state as a column, in the same order as $T$. The [[initial-state-matrix|initial state matrix]] $\\boldsymbol{s}_0$ is this column at the start. It could be certain, like $\\begin{pmatrix}1\\\\0\\end{pmatrix}$, or proportions of a population, like $\\begin{pmatrix}0.5\\\\0.3\\\\0.2\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "One step gives $\\boldsymbol{s}_1 = T\\boldsymbol{s}_0$. Then $\\boldsymbol{s}_2 = T\\boldsymbol{s}_1 = T^{2}\\boldsymbol{s}_0$, and so on."
+        },
+        {
+          "type": "formula",
+          "tex": "T^{n}\\boldsymbol{s}_0 = \\boldsymbol{s}_n, \\quad \\text{where } \\boldsymbol{s}_0 \\text{ is the initial state}",
+          "tag": "booklet",
+          "bookletId": "bk-4-19-transition-matrices",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. The entries of each $\\boldsymbol{s}_n$ add up to $1$, just like those of $\\boldsymbol{s}_0$."
+        },
+        {
+          "type": "text",
+          "text": "$T^{n}$ is a transition matrix too: $(T^{n})_{ij}$ is the probability of being in state $i$ after $n$ steps, starting from state $j$. Find $T^{n}$ by [[matrix-multiplication|matrix multiplication]], by hand for a small $n$ or with the GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-meals-thursday",
+          "question": "Priya cooks at home on Monday evening. Use $T = \\begin{pmatrix}0.75 & 0.4\\\\0.25 & 0.6\\end{pmatrix}$ (order H, E) to find the probability that she eats out on Thursday evening.",
+          "steps": [
+            "Monday to Thursday is $3$ steps, and $\\boldsymbol{s}_0 = \\begin{pmatrix}1\\\\0\\end{pmatrix}$, so you need $T^{3}\\boldsymbol{s}_0$.",
+            "$T^{2} = \\begin{pmatrix}0.75(0.75) + 0.4(0.25) & 0.75(0.4) + 0.4(0.6)\\\\0.25(0.75) + 0.6(0.25) & 0.25(0.4) + 0.6(0.6)\\end{pmatrix} = \\begin{pmatrix}0.6625 & 0.54\\\\0.3375 & 0.46\\end{pmatrix}$.",
+            "$T^{3} = T\\,T^{2} = \\begin{pmatrix}0.631875 & 0.589\\\\0.368125 & 0.411\\end{pmatrix}$. Check: each column still adds up to $1$.",
+            "$T^{3}\\begin{pmatrix}1\\\\0\\end{pmatrix}$ is the first column of $T^{3}$. The probability she eats out on Thursday is its E entry, $0.368125$.",
+            "Interpret: starting from a home-cooked Monday, she eats out on about $37\\%$ of Thursdays."
+          ],
+          "answer": "$(T^{3})_{21} \\approx 0.368$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Matrix([[75, 40], [25, 60]])**3/100**3)[1, 0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-broadband-s4",
+          "question": "Households in a city use one of three broadband providers, P, Q and R. Each year, the switching between them is modelled by $T = \\begin{pmatrix}0.82 & 0.06 & 0.15\\\\0.1 & 0.87 & 0.05\\\\0.08 & 0.07 & 0.8\\end{pmatrix}$ (order P, Q, R). This year the market shares are $50\\%$, $30\\%$ and $20\\%$. Use your GDC to find provider P's share after $4$ years, to 3 s.f.",
+          "steps": [
+            "Read the model: each year $82\\%$ of P's customers stay with P, $10\\%$ move to Q and $8\\%$ to R. Each column adds up to $1$.",
+            "Initial state: $\\boldsymbol{s}_0 = \\begin{pmatrix}0.5\\\\0.3\\\\0.2\\end{pmatrix}$, so you need $\\boldsymbol{s}_4 = T^{4}\\boldsymbol{s}_0$. Write this down: it earns the method mark.",
+            "Store $T$ as matrix A and $\\boldsymbol{s}_0$ as matrix B. Calculate $A^{4}B$.",
+            "The GDC gives $\\boldsymbol{s}_4 = \\begin{pmatrix}0.391116\\ldots\\\\0.354878\\ldots\\\\0.254005\\ldots\\end{pmatrix}$. The entries add up to $1$, as they should.",
+            "Interpret: after $4$ years provider P has about $39.1\\%$ of households, down from $50\\%$. Q and R have gained customers."
+          ],
+          "answer": "$s_{4,\\mathrm{P}} \\approx 0.391$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "((Matrix([[82, 6, 15], [10, 87, 5], [8, 7, 80]])/100)**4*Matrix([5, 3, 2])/10)[0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-enter",
+          "values": {
+            "rows": 3,
+            "columns": 3,
+            "entries": "0.82, 0.06, 0.15, 0.1, 0.87, 0.05, 0.08, 0.07, 0.8"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-power",
+          "values": {
+            "power": 4
+          }
+        },
+        {
+          "type": "text",
+          "text": "Store $\\boldsymbol{s}_0$ as a $3 \\times 1$ matrix B. In the multiply steps below, type $A^{4}$ where they say A, so you calculate $A^{4}B$, not $AB$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-multiply"
+        },
+        {
+          "type": "examTip",
+          "text": "Find: write $\\boldsymbol{s}_4 = T^{4}\\boldsymbol{s}_0$ with both matrices shown before the GDC value. A bare answer earns the A mark only if it is right; the written set-up earns the M mark."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up “in state E on day $3$” with “in state E on every day up to day $3$”. The first is an entry of $T^{3}\\boldsymbol{s}_0$. The second is a product of single-step probabilities along one path."
+        },
+        {
+          "type": "check",
+          "id": "check-path-prob",
+          "prompt": "Priya eats out tonight. Using the same $T$, find the probability that she eats out on each of the next $3$ evenings.",
+          "hint": "This is one path, E then E then E. Multiply the probability of each step.",
+          "answer": {
+            "value": 0.216,
+            "tolerance": 0.0005
+          },
+          "explain": "Each step is E to E, with probability $0.6$, so the answer is $0.6^{3} = 0.216$. This is not an entry of $T^{3}$, which also counts paths through H.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(6, 10)**3",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-previous-month",
+          "prompt": "Commuters drive (D) or take the train (R). Each month $T = \\begin{pmatrix}0.93 & 0.14\\\\0.07 & 0.86\\end{pmatrix}$ (order D, R). This month $42\\%$ drive. Assuming the model held last month too, find the proportion who drove last month, to 3 s.f.",
+          "hint": "$\\boldsymbol{s}_{\\text{now}} = T\\boldsymbol{s}_{\\text{last}}$, so $\\boldsymbol{s}_{\\text{last}} = T^{-1}\\boldsymbol{s}_{\\text{now}}$.",
+          "answer": {
+            "value": 0.354,
+            "tolerance": 0.0005
+          },
+          "explain": "$T^{-1}\\begin{pmatrix}0.42\\\\0.58\\end{pmatrix} = \\begin{pmatrix}0.354430\\ldots\\\\0.645569\\ldots\\end{pmatrix}$, so about $35.4\\%$ drove last month. You can also solve $0.93d + 0.14r = 0.42$ with $d + r = 1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((Matrix([[93, 14], [7, 86]])/100).inv()*Matrix([42, 58])/100)[0]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "regular",
+      "heading": "Regular Markov chains",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A zero in $T$ means one move is impossible in one step. It might still be possible in two or three steps. If there is one number of steps after which every state can be reached from every state, the chain is a [[regular-markov-chain|regular Markov chain]]."
+        },
+        {
+          "type": "definition",
+          "term": "Regular Markov chain",
+          "statement": "A Markov chain is regular when some power $T^{k}$ of its transition matrix has every entry strictly positive.",
+          "plain": "After some fixed number of steps, you could be in any state, wherever you started."
+        },
+        {
+          "type": "text",
+          "text": "If every entry of $T$ is already positive, the chain is regular ($k = 1$). If $T$ has zeros, work out $T^{2}, T^{3}, \\ldots$ and look for a power with no zeros."
+        },
+        {
+          "type": "result",
+          "statement": "For a regular Markov chain, as $n$ grows, every column of $T^{n}$ gets closer to the same column $\\boldsymbol{s}$. So $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$ approaches $\\boldsymbol{s}$ whatever the initial state $\\boldsymbol{s}_0$.",
+          "why": "Each column of $T^{n+1} = T^{n}T$ is a weighted average of the columns of $T^{n}$, so the columns are pulled together. For Priya's meals both columns of $T^{20}$ round to $0.615$ and $0.385$."
+        },
+        {
+          "type": "example",
+          "id": "ex-robot-regular",
+          "question": "A robot vacuum cleans three rooms, A, B and C, and moves to a different room every $15$ minutes. Its moves follow $T = \\begin{pmatrix}0 & 0.5 & 0.4\\\\0.7 & 0 & 0.6\\\\0.3 & 0.5 & 0\\end{pmatrix}$ (order A, B, C). Find $T^{2}$ and hence show that the chain is regular. Write down the probability that the robot is back in room A two moves after leaving it.",
+          "steps": [
+            "$T$ has zeros on its diagonal: the robot never stays in a room for two periods in a row.",
+            "Row A of $T$ times column A of $T$: $0(0) + 0.5(0.7) + 0.4(0.3) = 0.47$. Work out the other entries the same way, or use the GDC.",
+            "$T^{2} = \\begin{pmatrix}0.47 & 0.2 & 0.3\\\\0.18 & 0.65 & 0.28\\\\0.35 & 0.15 & 0.42\\end{pmatrix}$. Every column still adds up to $1$.",
+            "Every entry of $T^{2}$ is positive, so the chain is regular.",
+            "Interpret: $(T^{2})_{11} = 0.47$. Starting in room A, the robot is back in A after two moves with probability $0.47$."
+          ],
+          "answer": "$(T^{2})_{11} = 0.47$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Matrix([[0, 5, 4], [7, 0, 6], [3, 5, 0]])**2/100)[0, 0]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-app-not-regular",
+          "question": "A study tracks users of a fitness app each week. An active user deletes the app with probability $0.2$, and a user who deletes it never comes back. With states D (deleted) and A (active), $T = \\begin{pmatrix}1 & 0.2\\\\0 & 0.8\\end{pmatrix}$. Explain why this Markov chain is not regular.",
+          "steps": [
+            "Column D is $\\begin{pmatrix}1\\\\0\\end{pmatrix}$: from D the user stays in D.",
+            "So from D you can never reach A, in any number of steps. Check with $T^{2} = \\begin{pmatrix}1 & 0.36\\\\0 & 0.64\\end{pmatrix}$: the zero is still there.",
+            "In general $T^{n} = \\begin{pmatrix}1 & 1 - 0.8^{n}\\\\0 & 0.8^{n}\\end{pmatrix}$, with a $0$ in row A, column D for every $n$.",
+            "Interpret: in the long term every user deletes the app. The chain still settles, but not because it is regular."
+          ],
+          "answer": "Every power $T^{n}$ has a $0$ in row A, column D, because a user who has deleted the app can never become active again. So no power of $T$ has all its entries positive, and the chain is not regular.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Every power of T keeps a zero (D to A is impossible), so no power is all positive: not regular.",
+            "requires": [
+              [
+                "0",
+                "zero"
+              ],
+              [
+                "every power",
+                "all powers",
+                "each power",
+                "no power"
+              ],
+              [
+                "not regular"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Deciding a chain is not regular because $T$ has a zero. Regular needs only some power of $T$ with no zeros: check $T^{2}$, $T^{3}$, and so on."
+        },
+        {
+          "type": "check",
+          "id": "check-which-regular",
+          "prompt": "Which of these transition matrices are regular? $X = \\begin{pmatrix}0.5 & 1\\\\0.5 & 0\\end{pmatrix}$ and $Y = \\begin{pmatrix}1 & 0.3\\\\0 & 0.7\\end{pmatrix}$.",
+          "hint": "Work out $X^{2}$. For $Y$, ask whether the first state can ever be left.",
+          "options": [
+            {
+              "text": "X only",
+              "correct": true
+            },
+            {
+              "text": "Y only",
+              "correct": false
+            },
+            {
+              "text": "Both X and Y",
+              "correct": false
+            },
+            {
+              "text": "Neither",
+              "correct": false
+            }
+          ],
+          "explain": "$X^{2} = \\begin{pmatrix}0.75 & 0.5\\\\0.25 & 0.5\\end{pmatrix}$ has no zeros, so $X$ is regular. In $Y$ the first state is never left, so every power keeps the $0$ and $Y$ is not regular.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X only"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-book-two-days",
+          "prompt": "For the library book, with $T = \\begin{pmatrix}0.6 & 0.5 & 0.7\\\\0.38 & 0.45 & 0\\\\0.02 & 0.05 & 0.3\\end{pmatrix}$ (order S, L, R), find the probability that a book in repair today is on loan two days later.",
+          "hint": "You need the entry of $T^{2}$ in row L, column R: row L of $T$ times column R of $T$.",
+          "answer": {
+            "value": 0.266,
+            "tolerance": 0.0005
+          },
+          "explain": "$0.38(0.7) + 0.45(0) + 0(0.3) = 0.266$. It is $0$ after one day but positive after two: in fact every entry of $T^{2}$ is positive, so this chain is regular.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Matrix([[60, 50, 70], [38, 45, 0], [2, 5, 30]])**2/10000)[1, 2]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "steady-state",
+      "heading": "Steady state and long-term probabilities",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A column $\\boldsymbol{s}$ with $T\\boldsymbol{s} = \\boldsymbol{s}$ never changes again. It is the steady state."
+        },
+        {
+          "type": "definition",
+          "term": "Steady state",
+          "statement": "A steady state of a Markov chain with transition matrix $T$ is a column $\\boldsymbol{s}$ with $T\\boldsymbol{s} = \\boldsymbol{s}$, whose entries are non-negative and add up to $1$.",
+          "plain": "The mix of states that one more step leaves exactly the same."
+        },
+        {
+          "type": "text",
+          "text": "For a regular chain the steady state is unique, and it gives the long-term probabilities: the proportion of steps spent in each state in the long run, whatever the start."
+        },
+        {
+          "type": "formula",
+          "tex": "T\\boldsymbol{s} = \\boldsymbol{s}, \\quad s_1 + s_2 + \\cdots + s_k = 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "There are two methods. 1. Repeated multiplication: raise $T$ to a high power, such as $T^{50}$, on the GDC. For a regular chain every column of $T^{n}$ is close to $\\boldsymbol{s}$. Check that $T^{51}$ gives the same values to the accuracy you need."
+        },
+        {
+          "type": "text",
+          "text": "2. A [[system-of-linear-equations|system of linear equations]]: write out $T\\boldsymbol{s} = \\boldsymbol{s}$. One of these equations always follows from the others, so drop one and use $s_1 + \\cdots + s_k = 1$ instead. Solve by hand or with the GDC."
+        },
+        {
+          "type": "text",
+          "text": "Use the equations when a question asks for an exact answer. The exam says when it wants one."
+        },
+        {
+          "type": "example",
+          "id": "ex-meals-steady",
+          "question": "For Priya's evenings, $T = \\begin{pmatrix}0.75 & 0.4\\\\0.25 & 0.6\\end{pmatrix}$ (order H, E). Find the exact long-term probability that she cooks at home.",
+          "steps": [
+            "Let $\\boldsymbol{s} = \\begin{pmatrix}h\\\\e\\end{pmatrix}$. The top row of $T\\boldsymbol{s} = \\boldsymbol{s}$ is $0.75h + 0.4e = h$, so $0.4e = 0.25h$.",
+            "The bottom row, $0.25h + 0.6e = e$, gives the same equation. Use $h + e = 1$ instead.",
+            "Substitute $e = 1 - h$: $0.4(1 - h) = 0.25h$, so $0.4 = 0.65h$ and $h = \\frac{0.4}{0.65} = \\frac{8}{13}$.",
+            "Check: $e = \\frac{5}{13}$, and $0.75\\left(\\frac{8}{13}\\right) + 0.4\\left(\\frac{5}{13}\\right) = \\frac{6 + 2}{13} = \\frac{8}{13}$.",
+            "Interpret: in the long run Priya cooks at home on about $61.5\\%$ of evenings. $T^{20}$ on the GDC agrees: both columns round to $0.615$ and $0.385$."
+          ],
+          "answer": "$h = \\frac{8}{13}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(4, 10)/(Rational(4, 10) + Rational(25, 100))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-broadband-steady",
+          "question": "For the broadband providers, $T = \\begin{pmatrix}0.82 & 0.06 & 0.15\\\\0.1 & 0.87 & 0.05\\\\0.08 & 0.07 & 0.8\\end{pmatrix}$ (order P, Q, R). Find the long-term market share of provider P, to 3 s.f. Comment on the model.",
+          "steps": [
+            "Let $\\boldsymbol{s} = \\begin{pmatrix}p\\\\q\\\\r\\end{pmatrix}$. Rows P and Q of $T\\boldsymbol{s} = \\boldsymbol{s}$: $0.82p + 0.06q + 0.15r = p$ and $0.1p + 0.87q + 0.05r = q$.",
+            "Rearranged: $-0.18p + 0.06q + 0.15r = 0$ and $0.1p - 0.13q + 0.05r = 0$. Add $p + q + r = 1$. Write this system down before using the GDC.",
+            "The GDC gives $p = 0.352112\\ldots$, $q = 0.375586\\ldots$, $r = 0.272300\\ldots$.",
+            "Check by repeated multiplication: every column of $T^{50}$ shows $0.352$, $0.376$ and $0.272$ to 3 s.f., and $T^{51}$ agrees.",
+            "Interpret: in the long run P keeps about $35.2\\%$ of households, whatever the shares are now. Comment: this assumes the switching rates never change and no households join or leave, so treat it as a trend, not a forecast."
+          ],
+          "answer": "$p \\approx 0.352$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Matrix([[-18, 6, 15], [10, -13, 5], [1, 1, 1]]).inv()*Matrix([0, 0, 1]))[0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-3",
+          "values": {
+            "a1": -0.18,
+            "b1": 0.06,
+            "c1": 0.15,
+            "d1": 0,
+            "a2": 0.1,
+            "b2": -0.13,
+            "c2": 0.05,
+            "d2": 0,
+            "a3": 1,
+            "b3": 1,
+            "c3": 1,
+            "d3": 1
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-power",
+          "values": {
+            "power": 50
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the whole of $T^{50}$ as the steady state. The steady state is one column, $\\boldsymbol{s}$, whose entries add up to $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-streaming-steady",
+          "prompt": "A streaming service's customers are subscribed (S) or cancelled (C) each month, with $T = \\begin{pmatrix}0.9 & 0.35\\\\0.1 & 0.65\\end{pmatrix}$ (order S, C). Find the long-term proportion of customers who are subscribed, to 3 s.f.",
+          "hint": "Use the top row of $T\\boldsymbol{s} = \\boldsymbol{s}$ and $s + c = 1$.",
+          "answer": {
+            "value": 0.778,
+            "tolerance": 0.0005
+          },
+          "explain": "$0.9s + 0.35c = s$ gives $0.1s = 0.35c$. With $c = 1 - s$: $0.45s = 0.35$, so $s = \\frac{7}{9} \\approx 0.778$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(35, 100)/(Rational(35, 100) + Rational(10, 100))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tea-coffee-steady",
+          "prompt": "A café regular orders tea or coffee each visit, with $T = \\begin{pmatrix}0.8 & 0.5\\\\0.2 & 0.5\\end{pmatrix}$ (order tea, coffee). Which is the steady state?",
+          "hint": "Solve $0.8t + 0.5c = t$ with $t + c = 1$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}\\frac{5}{7}\\\\\\frac{2}{7}\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}\\frac{2}{7}\\\\\\frac{5}{7}\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}0.8\\\\0.2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}0.5\\\\0.5\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.2t = 0.5c$, so $t : c = 5 : 2$ and $\\boldsymbol{s} = \\begin{pmatrix}\\frac{5}{7}\\\\\\frac{2}{7}\\end{pmatrix}$. Swapping the entries, or reading off a column of $T$, does not satisfy $T\\boldsymbol{s} = \\boldsymbol{s}$.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([Rational(5, 10), Rational(2, 10)])/(Rational(5, 10) + Rational(2, 10))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eigenvector",
+      "heading": "The steady state as an eigenvector",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Look again at $T\\boldsymbol{s} = \\boldsymbol{s}$. It says $T\\boldsymbol{s} = 1\\boldsymbol{s}$, so $\\boldsymbol{s}$ is an [[eigenvector|eigenvector]] of $T$ with [[eigenvalue|eigenvalue]] $1$. You found eigenvectors in {{lesson:1.15}}."
+        },
+        {
+          "type": "result",
+          "statement": "A steady state of a Markov chain is an eigenvector of $T$ for the eigenvalue $1$, scaled so that its entries add up to $1$. For a regular chain there is only one.",
+          "why": "$T\\boldsymbol{s} = \\boldsymbol{s}$ is the eigenvector equation with $\\lambda = 1$. Any non-zero multiple is also an eigenvector, and dividing by the sum of the entries picks the one that is a list of probabilities."
+        },
+        {
+          "type": "text",
+          "text": "To scale an eigenvector $\\begin{pmatrix}a\\\\b\\end{pmatrix}$, divide each entry by $a + b$. A GDC may give a unit eigenvector, or one with negative entries: dividing by the sum fixes both."
+        },
+        {
+          "type": "text",
+          "text": "Every transition matrix has $1$ as an eigenvalue. In a regular chain the other eigenvalues have modulus less than $1$, so their parts die away as $n$ grows. That is why $T^{n}\\boldsymbol{s}_0$ settles at the steady state."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-eigen",
+          "question": "A commuter cycles (C) or takes the bus (B) each day, with $T = \\begin{pmatrix}0.7 & 0.18\\\\0.3 & 0.82\\end{pmatrix}$ (order C, B). Find an eigenvector of $T$ for the eigenvalue $1$. Hence find the steady state, and interpret it.",
+          "steps": [
+            "Solve $(T - I)\\boldsymbol{v} = \\boldsymbol{0}$: $T - I = \\begin{pmatrix}-0.3 & 0.18\\\\0.3 & -0.18\\end{pmatrix}$, so $-0.3x + 0.18y = 0$. The second row says the same.",
+            "$0.3x = 0.18y$, so $5x = 3y$. Take $x = 3$, $y = 5$: $\\boldsymbol{v} = \\begin{pmatrix}3\\\\5\\end{pmatrix}$.",
+            "Scale so the entries add up to $1$: divide by $3 + 5 = 8$.",
+            "Check: $0.7\\left(\\frac{3}{8}\\right) + 0.18\\left(\\frac{5}{8}\\right) = \\frac{2.1 + 0.9}{8} = \\frac{3}{8}$.",
+            "Interpret: in the long run the commuter cycles on $\\frac{3}{8}$ of days, $37.5\\%$, and takes the bus on $62.5\\%$."
+          ],
+          "answer": "$\\boldsymbol{s} = \\begin{pmatrix}\\frac{3}{8}\\\\\\frac{5}{8}\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([Rational(18, 100), Rational(30, 100)])/(Rational(18, 100) + Rational(30, 100))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-robot-eigen",
+          "question": "For the robot vacuum, $T = \\begin{pmatrix}0 & 0.5 & 0.4\\\\0.7 & 0 & 0.6\\\\0.3 & 0.5 & 0\\end{pmatrix}$ (order A, B, C). A TI-Nspire gives this eigenvector for the eigenvalue $1$: $\\begin{pmatrix}0.538956\\ldots\\\\0.677545\\ldots\\\\0.500459\\ldots\\end{pmatrix}$. Find the long-term proportion of time the robot spends in room B, to 3 s.f.",
+          "steps": [
+            "This is a unit eigenvector: its length is $1$, but its entries do not add up to $1$.",
+            "Sum of entries: $0.538956\\ldots + 0.677545\\ldots + 0.500459\\ldots = 1.716960\\ldots$. Keep the full values.",
+            "Divide each entry by the sum: $\\boldsymbol{s} = \\begin{pmatrix}0.313901\\ldots\\\\0.394618\\ldots\\\\0.291479\\ldots\\end{pmatrix}$.",
+            "On a TI-84 or Casio, which have no eigenvector command, find the same column from $T^{50}$ or by solving the linear equations.",
+            "Interpret: in the long run the robot is in room B about $39.5\\%$ of the time, the most of the three rooms."
+          ],
+          "answer": "$s_{\\mathrm{B}} \\approx 0.395$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Matrix([[-10, 5, 4], [7, -10, 6], [1, 1, 1]]).inv()*Matrix([0, 0, 1]))[1]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-eigen",
+          "values": {}
+        },
+        {
+          "type": "examTip",
+          "text": "Hence find the long-term probability: when you have just found an eigenvector for $\\lambda = 1$, divide by the sum of its entries and say which entry answers the question, in context."
+        },
+        {
+          "type": "check",
+          "id": "check-eigen-scale",
+          "prompt": "Readers of a news site use its app (X) or its website (Y). An eigenvector of the transition matrix for the eigenvalue $1$ is $\\begin{pmatrix}4\\\\9\\end{pmatrix}$ (order X, Y). Find the long-term proportion of readers using the app, to 3 s.f.",
+          "hint": "Scale the eigenvector so its entries add up to $1$.",
+          "answer": {
+            "value": 0.308,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{4}{4 + 9} = \\frac{4}{13} \\approx 0.308$. So about $30.8\\%$ of readers use the app in the long run.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(4, 4 + 9)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-eigen",
+          "prompt": "A GDC gives $\\begin{pmatrix}-0.6\\\\-0.8\\end{pmatrix}$ as an eigenvector of a $2 \\times 2$ transition matrix for the eigenvalue $1$. What is the steady state?",
+          "hint": "Divide each entry by the sum of the entries, $-1.4$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}\\frac{3}{7}\\\\\\frac{4}{7}\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}0.6\\\\0.8\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-0.6\\\\-0.8\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}\\frac{4}{7}\\\\\\frac{3}{7}\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{-0.6}{-1.4} = \\frac{3}{7}$ and $\\frac{-0.8}{-1.4} = \\frac{4}{7}$. The unit vector has length $1$, but only the scaled one has entries adding up to $1$.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-6, -8])/(-6 - 8)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Transition matrix: $T_{ij}$ is the chance of going to state $i$ at the next step, given the chain is in state $j$ now, so each column adds up to $1$. Columns are “from”, rows are “to”.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a transition diagram the probabilities on the arrows leaving any one state, including its loop, add up to $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$(T^{n})_{ij}$ is the probability of being in state $i$ after $n$ steps, starting in state $j$. A probability along one fixed path is a product of single-step probabilities instead.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A Markov chain is regular when some power of $T$ has all its entries positive. Then the columns of $T^{n}$ all approach the steady state, whatever the start.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Steady state $\\boldsymbol{s}$: $T\\boldsymbol{s} = \\boldsymbol{s}$ with entries adding up to $1$. For a regular chain it is unique: find it from a column of a high power of $T$, or exactly by solving $T\\boldsymbol{s} = \\boldsymbol{s}$ with one equation replaced by the sum $= 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A steady state is an eigenvector of $T$ for the eigenvalue $1$, divided by the sum of its entries. For a regular chain there is only one.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Building $T$ with each row as “from”. In IB notation $T_{ij}$ is the step from state $j$ to state $i$, so each column adds up to $1$; check the column sums before you use $T$.",
+    "Giving a whole matrix such as $T^{50}$ when the question asks for the steady state. Give one column, with entries adding up to $1$.",
+    "Leaving an eigenvector unscaled. $\\begin{pmatrix}3\\\\5\\end{pmatrix}$ is not a steady state; divide by $3 + 5$ to get $\\begin{pmatrix}\\frac{3}{8}\\\\\\frac{5}{8}\\end{pmatrix}$.",
+    "Counting steps wrongly. From Monday to Thursday is $3$ transitions, so use $T^{3}$, not $T^{4}$.",
+    "Rounding entries of $T^{n}$ or $\\boldsymbol{s}_n$ before using them again. Keep the GDC's full values and round only the final answer, in the form asked (for example, as a percentage).",
+    "Stopping at a number when the question asks what it means. Say what the probability or proportion is about, in the context of the question."
+  ],
+  "examTips": [
+    "Write down $T$: label the states in the same order for rows and columns, put each “from” state in a column, and check each column adds up to $1$.",
+    "Find a probability after $n$ steps: write $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$ with your matrices, then pick out the entry you need. The set-up earns the M mark even if a GDC slip loses the answer.",
+    "Show that a given column is the only steady state: solve $T\\boldsymbol{s} = \\boldsymbol{s}$ with the entries adding up to $1$, and reach the given values. Checking $T\\boldsymbol{s} = \\boldsymbol{s}$ alone does not show it is the only one.",
+    "Interpret a steady state: give it as the long-term proportion or probability of each state, in context, for example “about $35\\%$ of households use provider P in the long run”."
+  ],
+  "readingMinutes": 35
+}

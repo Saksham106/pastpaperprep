@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" role="img" aria-labelledby="t">
+  <title id="t">A cube-shaped tank with volume V. One edge is labelled side s equals V to the power one third. The square base is shaded and labelled base area equals s squared, which is V to the power two thirds.</title>
+  <polygon points="60,190 190,190 250,150 120,150" fill="var(--t1-ink)" fill-opacity="0.18" stroke="none"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+    <rect x="60" y="60" width="130" height="130"/>
+    <polyline points="60,60 120,20 250,20 190,60"/>
+    <polyline points="250,20 250,150 190,190"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.6">
+    <polyline points="60,190 120,150 250,150"/>
+    <line x1="120" y1="150" x2="120" y2="20"/>
+  </g>
+  <g font-family="inherit" fill="currentColor" font-size="16">
+    <text x="125" y="115" text-anchor="middle">V</text>
+    <text x="125" y="214" text-anchor="middle">s = V<tspan font-size="11" dy="-7">1/3</tspan></text>
+  </g>
+  <g font-family="inherit" font-size="15" fill="var(--t1-ink)">
+    <text x="268" y="160">base area</text>
+    <text x="268" y="182">= s<tspan font-size="11" dy="-7">2</tspan><tspan dy="7"> = V</tspan><tspan font-size="11" dy="-7">2/3</tspan></text>
+  </g>
+</svg>

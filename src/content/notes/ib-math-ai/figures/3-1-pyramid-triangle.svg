@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 240" role="img" aria-labelledby="t">
+  <title id="t">A right pyramid on a square base ABCD with apex V. A dashed height runs from V straight down to X, the centre of the base. Triangle VXC is shaded, with a right angle at X and the angle theta marked at the corner C. XC is half of the base diagonal AC.</title>
+  <polygon points="180,30 180,180 300,150" fill="var(--t1-ink)" fill-opacity="0.15" stroke="none"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+    <polyline points="60,210 240,210 300,150"/>
+    <line x1="180" y1="30" x2="60" y2="210"/>
+    <line x1="180" y1="30" x2="240" y2="210"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.55">
+    <polyline points="300,150 120,150 60,210"/>
+    <line x1="180" y1="30" x2="120" y2="150"/>
+    <line x1="60" y1="210" x2="180" y2="180"/>
+  </g>
+  <g fill="none" stroke="var(--t1-ink)" stroke-width="2">
+    <line x1="180" y1="30" x2="300" y2="150"/>
+    <line x1="180" y1="30" x2="180" y2="180" stroke-dasharray="6 4"/>
+    <line x1="180" y1="180" x2="300" y2="150" stroke-dasharray="6 4"/>
+  </g>
+  <polyline points="180,170 189.7,167.6 189.7,177.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M284.4,134.4 A22,22 0 0,0 278.7,155.3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-family="inherit" fill="currentColor" font-size="15">
+    <text x="173" y="22">V</text>
+    <text x="166" y="196">X</text>
+    <text x="306" y="155">C</text>
+    <text x="44" y="224">A</text>
+    <text x="242" y="226">B</text>
+    <text x="106" y="146">D</text>
+  </g>
+  <text x="258" y="148" font-family="inherit" font-size="15" font-style="italic" fill="var(--t1-ink)">θ</text>
+</svg>

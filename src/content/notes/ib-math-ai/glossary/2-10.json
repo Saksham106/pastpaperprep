@@ -2,25 +2,25 @@
   {
     "id": "logarithmic-scale",
     "term": "logarithmic scale",
-    "definition": "TODO: A scale where equal steps stand for equal multiplying factors (often ×10), used when data cover a very wide range",
+    "definition": "A scale on which equal distances stand for equal multiplying factors, such as each gridline being $10$ times the one before, used when positive values cover a very wide range.",
     "lesson": "2.10"
   },
   {
     "id": "linearizing-data",
     "term": "linearizing data",
-    "definition": "TODO: Taking logs to turn a curve into a straight line: ln y against x linear means exponential; ln y against ln x linear means a power relationship",
+    "definition": "Taking logarithms of one or both variables so that curved data lie on a straight line: for positive data, $\\ln y$ against $x$ is straight for an exponential model and $\\ln y$ against $\\ln x$ is straight for a power model.",
     "lesson": "2.10"
   },
   {
     "id": "log-log-graph",
     "term": "log-log graph",
-    "definition": "TODO: A graph with log y against log x; a straight line means y = ax^n, with gradient n",
+    "definition": "A graph with logarithmic scales on both axes, or of $\\ln y$ against $\\ln x$, on which data from a power model $y = kx^{n}$ with $k > 0$ and $x > 0$ lie on a straight line with gradient $n$.",
     "lesson": "2.10"
   },
   {
     "id": "semi-log-graph",
     "term": "semi-log graph",
-    "definition": "TODO: A graph with only one axis logarithmic, usually log y against x; a straight line means an exponential relationship",
+    "definition": "A graph with a logarithmic scale on one axis only, usually the vertical one, on which data from an exponential model $y = ka^{x}$ with $k, a > 0$ lie on a straight line.",
     "lesson": "2.10"
   }
 ]

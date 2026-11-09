@@ -2,25 +2,25 @@
   {
     "id": "half-life",
     "term": "half-life",
-    "definition": "TODO: The time for an exponentially decaying quantity to halve; the same whatever the starting amount",
+    "definition": "The time an exponentially decaying quantity takes to fall to half its value; for $N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$ it is $\\frac{\\ln 2}{k}$, the same whatever the starting amount.",
     "lesson": "2.9"
   },
   {
     "id": "logistic-function",
     "term": "logistic function",
-    "definition": "TODO: f(x) = L/(1 + Ce^(−kx)) with L, C, k > 0: S-shaped growth that is restricted, levelling off towards L",
+    "definition": "A function $f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$, used to model restricted growth: its S-shaped graph rises almost exponentially at first, then slows and levels off towards $L$.",
     "lesson": "2.9"
   },
   {
     "id": "carrying-capacity",
     "term": "carrying capacity",
-    "definition": "TODO: The horizontal asymptote f(x) = L of a logistic model: the long-term limit, approached but not reached",
+    "definition": "In a logistic model $f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$, the value $L$: the horizontal asymptote $y = L$, a long-term limit the quantity approaches but never reaches.",
     "lesson": "2.9"
   },
   {
     "id": "continuous-function",
     "term": "continuous function",
-    "definition": "TODO: Informally, a function whose graph has no breaks or jumps; a piecewise model is continuous when its pieces meet at each joining point; no formal definition needed",
+    "definition": "Informally, a function whose graph has no breaks or jumps on an interval, so it can be drawn there without lifting your pen; a piecewise function is continuous at a joining point when the rules on both sides give the same value there.",
     "lesson": "2.9"
   }
 ]

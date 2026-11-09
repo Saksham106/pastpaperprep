@@ -2,31 +2,31 @@
   {
     "id": "second-derivative",
     "term": "second derivative",
-    "definition": "TODO: f″(x) or d²y/dx², the derivative of the derivative: how fast the gradient is changing",
+    "definition": "The derivative of the derivative, written $f''(x)$ or $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$; it measures how fast the gradient is changing.",
     "lesson": "5.10"
   },
   {
     "id": "second-derivative-test",
     "term": "second derivative test",
-    "definition": "TODO: At a stationary point, f″(x) > 0 means a local minimum and f″(x) < 0 a local maximum; f″(x) = 0 decides nothing",
+    "definition": "A way to classify a stationary point at $x = a$: if $f''(a) > 0$ it is a local minimum, if $f''(a) < 0$ it is a local maximum, and if $f''(a) = 0$ the test decides nothing.",
     "lesson": "5.10"
   },
   {
     "id": "point-of-inflexion",
     "term": "point of inflexion",
-    "definition": "TODO: A point where the concavity changes; f″(x) = 0 there for a smooth curve, but f″(x) = 0 alone is not enough (x⁴ at 0); it need not be stationary",
+    "definition": "A point on a graph where the concavity changes, from concave-up to concave-down or the other way; if $f''$ exists there it equals $0$, but $f''(x) = 0$ alone does not make a point of inflexion, and the gradient there need not be $0$.",
     "lesson": "5.10"
   },
   {
     "id": "concave-up",
     "term": "concave-up",
-    "definition": "TODO: Bending upwards on an interval: the gradient increases there, as it does wherever f″(x) > 0",
+    "definition": "Bending upwards on an interval, with the gradient increasing as $x$ increases; a graph is concave-up on any interval where $f''(x) > 0$ throughout.",
     "lesson": "5.10"
   },
   {
     "id": "concave-down",
     "term": "concave-down",
-    "definition": "TODO: Bending downwards on an interval: the gradient decreases there, as it does wherever f″(x) < 0",
+    "definition": "Bending downwards on an interval, with the gradient decreasing as $x$ increases; a graph is concave-down on any interval where $f''(x) < 0$ throughout.",
     "lesson": "5.10"
   }
 ]

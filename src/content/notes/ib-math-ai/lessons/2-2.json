@@ -1,0 +1,778 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.2",
+  "slug": "function-concepts-domain-and-range",
+  "title": "Function concepts, domain and range",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A [[function|function]] gives exactly one output for each input. Its [[domain|domain]] is the inputs it accepts and its [[range|range]] is the outputs it gives. An [[inverse-function|inverse function]] undoes it: for a one-to-one $f$, solving $f(x) = 10$ means finding $f^{-1}(10)$.",
+  "goals": [
+    {
+      "text": "Explain functions and their graphs, and use notation such as $f(x)$, $v(t)$ and $C(n)$.",
+      "bullets": [
+        "2.2-b1"
+      ]
+    },
+    {
+      "text": "Find the domain and range of a function, using a graph to see the range.",
+      "bullets": [
+        "2.2-b1",
+        "2.2-b2"
+      ]
+    },
+    {
+      "text": "Use a function as a [[mathematical-model|mathematical model]], with a domain that fits the context.",
+      "bullets": [
+        "2.2-b2"
+      ]
+    },
+    {
+      "text": "Describe an inverse as undoing a function, and as a reflection in $y = x$.",
+      "bullets": [
+        "2.2-b3"
+      ]
+    },
+    {
+      "text": "Solve $f(x) = k$ as $f^{-1}(k)$, knowing that only [[one-to-one-function|one-to-one]] functions have inverses.",
+      "bullets": [
+        "2.2-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "domain and range",
+    "function notation",
+    "inverse function",
+    "one to one function",
+    "range of a function",
+    "f inverse"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-substitute",
+      "prompt": "Find the value of $2x^{2} - 3x + 4$ when $x = -3$.",
+      "hint": "Put $(-3)$ in place of each $x$, brackets included.",
+      "answer": {
+        "value": 31,
+        "tolerance": 0
+      },
+      "explain": "$2(-3)^{2} - 3(-3) + 4 = 18 + 9 + 4 = 31$. The brackets keep $(-3)^{2}$ positive.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*(-3)**2 - 3*(-3) + 4",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-solve-linear",
+      "prompt": "Solve $5x - 8 = 27$.",
+      "hint": "Add $8$ to both sides first.",
+      "answer": {
+        "value": 7,
+        "tolerance": 0
+      },
+      "explain": "$5x = 35$, so $x = 7$. Check: $5(7) - 8 = 27$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(27 + 8)/5",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inequality",
+      "prompt": "Solve $6 - 2x \\ge 0$.",
+      "hint": "Dividing both sides by a negative number flips the inequality.",
+      "options": [
+        {
+          "text": "$x \\le 3$",
+          "correct": true
+        },
+        {
+          "text": "$x \\ge 3$",
+          "correct": false
+        },
+        {
+          "text": "$x \\le -3$",
+          "correct": false
+        }
+      ],
+      "explain": "$-2x \\ge -6$. Dividing by $-2$ flips the sign: $x \\le 3$. Test $x = 0$: $6 \\ge 0$, true.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "6 - 2*x >= 0"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "functions",
+      "heading": "Functions and function notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[function|function]] is like a vending machine: press B4 and you always get the same snack."
+        },
+        {
+          "type": "definition",
+          "term": "function",
+          "statement": "A function $f$ is a rule that assigns to each input $x$ in its domain exactly one output, written $f(x)$.",
+          "plain": "One input in, one output out, and the same input always gives the same output."
+        },
+        {
+          "type": "text",
+          "text": "In $f(x) = 3x - 2$, $f$ names the function and $x$ is the input. $f(4)$ is the output for the input $4$, so $f(4) = 10$. It never means $f$ times $4$."
+        },
+        {
+          "type": "text",
+          "text": "Other letters work the same way: $v(t)$ could be a velocity at time $t$, and $C(n)$ the cost of $n$ tickets."
+        },
+        {
+          "type": "text",
+          "text": "The graph of $f$ is every point $(x, f(x))$, drawn as $y = f(x)$."
+        },
+        {
+          "type": "result",
+          "statement": "A graph shows a function only if every vertical line meets it at most once.",
+          "why": "A vertical line $x = a$ meets every point with input $a$. Two crossings would mean two outputs for one input."
+        },
+        {
+          "type": "example",
+          "id": "ex-tea-temperature",
+          "question": "A cup of tea is $T(t) = 21 + 64(0.94)^{t}$ °C, $t$ minutes after it is poured. Find $T(15)$ to 3 s.f. and say what it means.",
+          "steps": [
+            "Replace $t$ with $15$ and type it into the GDC in one go: $T(15) = 21 + 64(0.94)^{15} = 46.2986\\ldots$",
+            "In context: $15$ minutes after it is poured, the tea is about $46.3$ °C.",
+            "Sense check: $T(0) = 85$, so the tea has cooled."
+          ],
+          "answer": "$T(15) \\approx 46.3$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "21 + 64*0.94**15",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sunflower-notation",
+          "question": "A sunflower is $h(w) = 2.5w^{2} + 3w + 5$ cm tall $w$ weeks after planting, for $0 \\le w \\le 8$. (a) Find $h(6)$. (b) Find $h(6) - h(5)$ and say what it means.",
+          "steps": [
+            "(a) $h(6) = 2.5(36) + 3(6) + 5 = 113$. After $6$ weeks it is $113$ cm tall.",
+            "(b) $h(5) = 2.5(25) + 3(5) + 5 = 82.5$, so $h(6) - h(5) = 113 - 82.5 = 30.5$.",
+            "It means the sunflower grew $30.5$ cm during its sixth week."
+          ],
+          "answer": "$h(6) - h(5) = 30.5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2.5*6**2 + 3*6 + 5) - (2.5*5**2 + 3*5 + 5)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-bike-share",
+          "prompt": "A bike-share ride of $m$ minutes costs $C(m) = 1.25 + 0.15m$ dollars. Find $C(24)$.",
+          "hint": "Replace $m$ with $24$.",
+          "answer": {
+            "value": 4.85,
+            "tolerance": 0.005
+          },
+          "explain": "$C(24) = 1.25 + 0.15(24) = 4.85$. A $24$-minute ride costs $4.85$ dollars.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.25 + 0.15*24",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-is-function",
+          "prompt": "Which of these rules is NOT a function?",
+          "hint": "A function needs exactly one output for every input. Can one input give two outputs, or none?",
+          "options": [
+            {
+              "text": "each student in a class goes to their height in cm",
+              "correct": false
+            },
+            {
+              "text": "each height in cm goes to a student in the class with that height",
+              "correct": true
+            },
+            {
+              "text": "each day of a month goes to the noon temperature on that day",
+              "correct": false
+            }
+          ],
+          "explain": "Two students can share a height, so one height can give two students, and some heights give none. The other two rules give one output per input.",
+          "verify": {
+            "kind": "choice",
+            "truth": "each height in cm goes to a student in the class with that height"
+          }
+        }
+      ]
+    },
+    {
+      "id": "domain-range",
+      "heading": "Domain and range",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some inputs break a rule: you can't take the square root of a negative number or divide by zero."
+        },
+        {
+          "type": "definition",
+          "term": "domain",
+          "statement": "The [[domain|domain]] of a function is the set of all input values for which it is defined.",
+          "plain": "The inputs you are allowed to put in."
+        },
+        {
+          "type": "definition",
+          "term": "range",
+          "statement": "The [[range|range]] of a function is the set of all output values it takes over its domain.",
+          "plain": "The outputs you can actually get out."
+        },
+        {
+          "type": "text",
+          "text": "This is not the range of a data set, which is one number: largest minus smallest."
+        },
+        {
+          "type": "text",
+          "text": "A question may state the domain, as in “$f(x) = x^{2}$, $0 \\le x \\le 4$”. If not, use every real number that works. Two common rules find the ones that don't:"
+        },
+        {
+          "type": "text",
+          "text": "1. A square root needs the expression inside it to be $\\ge 0$."
+        },
+        {
+          "type": "text",
+          "text": "2. A denominator can't be $0$. So $\\frac{8}{x - 1}$ has domain $x \\ne 1$."
+        },
+        {
+          "type": "text",
+          "text": "Write a domain with the input, such as $x \\ge 4$, and a range with the output, such as $f(x) \\ge 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-domain-range-root",
+          "question": "Find the domain and range of $f(x) = 5 - \\sqrt{x + 3}$.",
+          "steps": [
+            "Domain: the square root needs $x + 3 \\ge 0$, so $x \\ge -3$.",
+            "Range: a square root is never negative, and it is $0$ at $x = -3$, where $f(-3) = 5$.",
+            "As $x$ grows, $\\sqrt{x + 3}$ grows without limit, so $f(x)$ falls without limit. Every output is at most $5$.",
+            "Check: $f(6) = 5 - 3 = 2 \\le 5$."
+          ],
+          "answer": "$\\text{domain: } x \\ge -3, \\quad \\text{range: } f(x) \\le 5$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "A graph shows the range: it is every height on the $y$-axis that the graph reaches. Look for its lowest and highest points, if it has them."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-range-from-graph",
+          "alt": "Graph of g of x equals x squared minus 4 x plus 7, drawn only from x equals 0 to x equals 5. It starts at the point 0, 7, falls to its lowest point 2, 3, then rises to the end point 5, 12, the highest point. Dashed lines carry the lowest and highest points across to a thick bar on the right, labelled range, which runs from height 3 to height 12.",
+          "caption": "The end values alone, $7$ and $12$, would miss the dip to $3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-range-restricted",
+          "question": "Let $g(x) = x^{2} - 4x + 7$, for $0 \\le x \\le 5$. Use your GDC to find the range of $g$.",
+          "steps": [
+            "Graph $y = x^{2} - 4x + 7$ for $0 \\le x \\le 5$. The minimum tool gives $(2, 3)$, inside the domain.",
+            "Work out both end values: $g(0) = 7$ and $g(5) = 12$.",
+            "The lowest output is $3$, at the turning point, and the highest is $12$, at the right-hand end. The graph is unbroken, so every value between is taken."
+          ],
+          "answer": "$3 \\le g(x) \\le 12$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "X^2-4X+7"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-domain-root",
+          "prompt": "Find the domain of $p(x) = \\sqrt{3x - 12}$.",
+          "hint": "Set the inside $\\ge 0$ and solve.",
+          "options": [
+            {
+              "text": "$x \\ge 4$",
+              "correct": true
+            },
+            {
+              "text": "$x \\le 4$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 12$",
+              "correct": false
+            },
+            {
+              "text": "$x > 4$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x - 12 \\ge 0$ gives $x \\ge 4$. At $x = 4$, $\\sqrt{0} = 0$ is allowed, so $x > 4$ is wrong.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "3*x - 12 >= 0"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-range-ends",
+          "prompt": "Find the range of $h(x) = 10 - (x - 3)^{2}$ for $1 \\le x \\le 6$.",
+          "hint": "Its top is at $x = 3$. Is that inside the domain?",
+          "options": [
+            {
+              "text": "$1 \\le h(x) \\le 10$",
+              "correct": true
+            },
+            {
+              "text": "$1 \\le h(x) \\le 6$",
+              "correct": false
+            },
+            {
+              "text": "$6 \\le h(x) \\le 10$",
+              "correct": false
+            },
+            {
+              "text": "$h(x) \\le 10$",
+              "correct": false
+            }
+          ],
+          "explain": "The top, $h(3) = 10$, is inside the domain. The ends give $h(1) = 6$ and $h(6) = 1$. So the outputs run from $1$ to $10$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "imageset(Lambda(x, 10 - (x - 3)**2), Interval(1, 6))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Functions as models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Functions describe real things: a cost, a height, a temperature. The letters are quantities with units."
+        },
+        {
+          "type": "definition",
+          "term": "mathematical model",
+          "statement": "A [[mathematical-model|mathematical model]] is a function or equation that describes a real situation approximately. It is only valid over a domain the context allows.",
+          "plain": "A rule that matches reality well enough, for a while."
+        },
+        {
+          "type": "text",
+          "text": "The context sets the [[domain|domain]]. Time can't be negative, a count is a whole number, and a model may stop at an event, such as landing. Outside its domain a model can give nonsense."
+        },
+        {
+          "type": "example",
+          "id": "ex-balloon-model",
+          "question": "A hot-air balloon descends. Its height in metres $t$ minutes after it starts to descend is $H(t) = 850 - 12.5t$, until it lands. (a) Find when it lands. (b) Write down a suitable domain and the range of $H$. (c) Interpret the $12.5$.",
+          "steps": [
+            "(a) Solve $850 - 12.5t = 0$: $t = \\frac{850}{12.5} = 68$ minutes.",
+            "(b) The model runs from $t = 0$ to landing: $0 \\le t \\le 68$.",
+            "$H$ falls steadily from $850$ to $0$, so the range is $0 \\le H(t) \\le 850$.",
+            "(c) The balloon descends $12.5$ metres every minute."
+          ],
+          "answer": "$\\text{domain: } 0 \\le t \\le 68, \\quad \\text{range: } 0 \\le H(t) \\le 850$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-greenhouse-range",
+          "question": "A greenhouse's temperature in °C, $t$ hours after 06:00, is modelled by $T(t) = 0.04t^{3} - 0.9t^{2} + 5.4t + 12$, $0 \\le t \\le 14$. (a) Use your GDC to find the range of $T$, to 3 s.f. (b) Comment on using the model at $t = 24$.",
+          "steps": [
+            "(a) Graph $y = 0.04x^{3} - 0.9x^{2} + 5.4x + 12$ for $0 \\le x \\le 14$. The turning points are $(4.14589\\ldots, 21.7686\\ldots)$ and $(10.8541\\ldots, 15.7313\\ldots)$.",
+            "The end values are $T(0) = 12$ and $T(14) = 20.96$. The lowest of the four outputs is $12$, at the start, below the local minimum $15.7$.",
+            "So $12 \\le T(t) \\le 21.8$: from 06:00 to 20:00 the greenhouse stays between $12$ °C and about $21.8$ °C.",
+            "(b) $T(24) = 176.16$, about $176$ °C, which is impossible. The model only holds for $0 \\le t \\le 14$."
+          ],
+          "answer": "$12 \\le T(t) \\le 21.8$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "0.04X^3-0.9X^2+5.4X+12"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-domain",
+          "prompt": "A car starts with $52$ litres of fuel. After $t$ hours of driving, $F(t) = 52 - 6.5t$ litres are left, until the tank is empty. Which is a suitable domain?",
+          "hint": "Time starts at $0$. When is the tank empty?",
+          "options": [
+            {
+              "text": "$0 \\le t \\le 8$",
+              "correct": true
+            },
+            {
+              "text": "$t \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le 52$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le 6.5$",
+              "correct": false
+            }
+          ],
+          "explain": "The tank is empty when $52 - 6.5t = 0$, so $t = 8$. $52$ is an amount of fuel, not a time.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(0, 52/6.5)",
+            "var": "t"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-negative",
+          "prompt": "A ball's height in metres, $t$ seconds after it is thrown, is modelled by $h(t)$. A student finds $h(3.1) = -2.4$. What is the best interpretation?",
+          "hint": "Can a ball be below the ground? What does that say about $t = 3.1$?",
+          "options": [
+            {
+              "text": "The ball has already landed, so t = 3.1 is outside the domain of the model.",
+              "correct": true
+            },
+            {
+              "text": "The ball is 2.4 m below the ground after 3.1 seconds.",
+              "correct": false
+            },
+            {
+              "text": "The ball is falling at 2.4 m per second after 3.1 seconds.",
+              "correct": false
+            }
+          ],
+          "explain": "A negative height can't happen: the ball landed before $t = 3.1$, so the model no longer applies. $h$ gives a height, not a speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The ball has already landed, so t = 3.1 is outside the domain of the model."
+          }
+        }
+      ]
+    },
+    {
+      "id": "inverses",
+      "heading": "Inverse functions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To turn °C into °F, multiply by $1.8$, then add $32$. To go back, undo the steps in reverse order: subtract $32$, then divide by $1.8$. That undoing rule is the [[inverse-function|inverse function]], written $f^{-1}$."
+        },
+        {
+          "type": "definition",
+          "term": "inverse function",
+          "statement": "The inverse function $f^{-1}$ reverses $f$: if $f(a) = b$, then $f^{-1}(b) = a$.",
+          "plain": "It takes each output back to the input it came from."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $f^{-1}(x)$ as $\\frac{1}{f(x)}$. The $-1$ is a label meaning “inverse”, not a power."
+        },
+        {
+          "type": "text",
+          "text": "So if $(a, b)$ is on the graph of $f$, then $(b, a)$ is on the graph of $f^{-1}$."
+        },
+        {
+          "type": "result",
+          "statement": "The graph of $y = f^{-1}(x)$ is the reflection of the graph of $y = f(x)$ in the line $y = x$.",
+          "why": "Reflecting in $y = x$ sends each point $(a, b)$ to $(b, a)$, which is exactly what the inverse does."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-inverse-reflection",
+          "alt": "The graph of y equals f of x, where f of x is 2 to the power x minus 1, rises more and more steeply through the origin and the point 2, 3. Its reflection in the dashed line y equals x is the graph of y equals f inverse of x, which rises more and more slowly through the origin and the point 3, 2. A dotted segment joins 2, 3 to 3, 2 and crosses the line y equals x at right angles.",
+          "caption": "$f(x) = 2^{x} - 1$ and its inverse. The point $(2, 3)$ on $f$ becomes $(3, 2)$ on $f^{-1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-temperature-inverse",
+          "question": "The function $F(c) = 1.8c + 32$ converts a temperature of $c$ °C into °F. (a) Describe in words what $F^{-1}$ does. (b) Find $F^{-1}(98.6)$ and interpret it.",
+          "steps": [
+            "(a) $F$ multiplies by $1.8$, then adds $32$. So $F^{-1}$ subtracts $32$, then divides by $1.8$: it converts °F back into °C.",
+            "(b) $F^{-1}(98.6) = \\frac{98.6 - 32}{1.8} = 37$. So $98.6$ °F is $37$ °C.",
+            "Check forwards: $F(37) = 1.8(37) + 32 = 98.6$."
+          ],
+          "answer": "$F^{-1}(98.6) = 37$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(98.6 - 32)/1.8"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-swap",
+          "question": "Let $f(x) = 2^{x} - 1$, as in the figure. (a) Find $f(4)$. (b) Hence write down a point on the graph of $y = f^{-1}(x)$, and $f^{-1}(15)$.",
+          "steps": [
+            "(a) $f(4) = 2^{4} - 1 = 15$, so $(4, 15)$ is on the graph of $f$.",
+            "(b) Reflecting in $y = x$ swaps the coordinates, so $(15, 4)$ is on the graph of $f^{-1}$.",
+            "That point says the input $15$ gives the output $4$: $f^{-1}(15) = 4$."
+          ],
+          "answer": "$f^{-1}(15) = 4$",
+          "verify": {
+            "kind": "exact",
+            "truth": "log(15 + 1, 2)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-point",
+          "prompt": "The point $(4, -1)$ lies on the graph of $y = f(x)$. Which point must lie on the graph of $y = f^{-1}(x)$?",
+          "hint": "Reflecting in $y = x$ swaps the two coordinates.",
+          "options": [
+            {
+              "text": "$(-1, 4)$",
+              "correct": true
+            },
+            {
+              "text": "$(-4, 1)$",
+              "correct": false
+            },
+            {
+              "text": "$(1, -4)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(4) = -1$, so $f^{-1}(-1) = 4$: the point $(-1, 4)$. Swapping doesn't change signs.",
+          "verify": {
+            "kind": "point",
+            "truth": "Tuple(4, -1)[::-1]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pool-inverse",
+          "prompt": "A pool holds $V(t) = 1800 + 240t$ litres of water $t$ minutes after a tap is turned on. Find $V^{-1}(9480)$.",
+          "hint": "Undo the steps of $V$: subtract $1800$, then divide by $240$.",
+          "answer": {
+            "value": 32,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{9480 - 1800}{240} = 32$: the pool holds $9480$ litres after $32$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(9480 - 1800)/240",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "solving-inverse",
+      "heading": "Solving equations with inverses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Solving $f(x) = 10$ asks which input gives the output $10$. When $f$ has an inverse, that input is $f^{-1}(10)$. So find $f^{-1}(10)$ by solving $f(x) = 10$, for example by graphing $y = f(x)$ and $y = 10$ on your GDC."
+        },
+        {
+          "type": "text",
+          "text": "Not every function can be undone. Water from a fountain is $h(t) = 12t - 4t^{2}$ metres high, $t$ seconds after it leaves the nozzle. It is $8$ m high twice: at $t = 1$ and at $t = 2$."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-horizontal-line",
+          "alt": "Graph of h against t for h of t equals 12 t minus 4 t squared, from t equals 0 to t equals 3. It rises from the origin to its top at 1.5, 9, then falls back to 0 at t equals 3. The rising part up to the top is drawn solid; the falling part is dashed. A dashed horizontal line at h equals 8 crosses the curve twice, at 1, 8 and at 2, 8.",
+          "caption": "$h = 8$ meets the whole curve twice, but the solid rising part only once."
+        },
+        {
+          "type": "definition",
+          "term": "one-to-one function",
+          "statement": "A function is [[one-to-one-function|one-to-one]] if no two different inputs in its domain give the same output.",
+          "plain": "Every output comes from exactly one input."
+        },
+        {
+          "type": "result",
+          "statement": "A function has an inverse only if it is one-to-one. On a graph: a function is one-to-one when every horizontal line meets its graph at most once.",
+          "why": "Two crossings of $y = b$ mean two inputs with output $b$, so $f^{-1}(b)$ would need two values: here $h^{-1}(8)$ would be $1$ and $2$."
+        },
+        {
+          "type": "text",
+          "text": "A smaller domain can fix this. On $0 \\le t \\le 1.5$, while the water rises, each height comes from one time."
+        },
+        {
+          "type": "result",
+          "statement": "The inverse swaps inputs and outputs, so the domain of $f^{-1}$ is the range of $f$, and the range of $f^{-1}$ is the domain of $f$.",
+          "why": "$f^{-1}$ accepts the outputs of $f$ and gives back its inputs."
+        },
+        {
+          "type": "example",
+          "id": "ex-fountain-inverse",
+          "question": "Use the fountain model $h(t) = 12t - 4t^{2}$, $0 \\le t \\le 1.5$. (a) Find the range of $h$. (b) Write down the domain of $h^{-1}$. (c) Find $h^{-1}(8)$ and interpret it.",
+          "steps": [
+            "(a) $h(0) = 0$ and $h(1.5) = 9$, and the water rises the whole time. So the range is $0 \\le h(t) \\le 9$.",
+            "(b) The domain of $h^{-1}$ is the range of $h$: $0 \\le x \\le 9$.",
+            "(c) Solve $12t - 4t^{2} = 8$, which is $t^{2} - 3t + 2 = 0$, so $t = 1$ or $t = 2$. Only $t = 1$ is in the domain, so $h^{-1}(8) = 1$.",
+            "In context: the water is $8$ m high one second after it leaves the nozzle."
+          ],
+          "answer": "$h^{-1}(8) = 1$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Min(solve(12*t - 4*t**2 - 8, t)[0], solve(12*t - 4*t**2 - 8, t)[1])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-medicine-inverse",
+          "question": "The amount of a medicine in a patient's blood, in mg, $t$ hours after a dose is $M(t) = 40(0.82)^{t}$, $t \\ge 0$. (a) Use your GDC to find $M^{-1}(10)$, to 3 s.f., and interpret it. (b) Write down the domain of $M^{-1}$.",
+          "steps": [
+            "(a) $M$ always decreases, so it is one-to-one. $M^{-1}(10)$ is the time when $10$ mg is left: write down $40(0.82)^{t} = 10$.",
+            "Graph $y = 40(0.82)^{x}$ and $y = 10$. They meet at $x = 6.98557\\ldots$",
+            "So $M^{-1}(10) \\approx 6.99$: $10$ mg is left about $6.99$ hours after the dose.",
+            "(b) $M(0) = 40$, then $M$ falls towards $0$ without reaching it. The range of $M$ is $0 < M(t) \\le 40$, so the domain of $M^{-1}$ is $0 < x \\le 40$."
+          ],
+          "answer": "$M^{-1}(10) \\approx 6.99$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(10/40)/log(0.82)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "40*0.82^X",
+            "function2": "10"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Give the answer with its notation, $M^{-1}(10) \\approx 6.99$, not just $x = 6.99$."
+        },
+        {
+          "type": "check",
+          "id": "check-podcast-inverse",
+          "prompt": "A podcast has $P(t) = 2400(1.035)^{t}$ subscribers $t$ months after launch. Use your GDC to find $P^{-1}(4000)$, to 3 s.f.",
+          "hint": "Solve $2400(1.035)^{t} = 4000$.",
+          "answer": {
+            "value": 14.8,
+            "tolerance": 0.05
+          },
+          "explain": "The graphs of $y = 2400(1.035)^{x}$ and $y = 4000$ meet at $x = 14.8489\\ldots$ The podcast reaches $4000$ subscribers after about $14.8$ months.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(4000/2400)/log(1.035)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-domain",
+          "prompt": "The function $g$ is defined by $g(x) = 5 + \\sqrt{x - 2}$ for $x \\ge 2$. What is the domain of $g^{-1}$?",
+          "hint": "The domain of $g^{-1}$ is the range of $g$. What is the smallest output of $g$?",
+          "options": [
+            {
+              "text": "$x \\ge 5$",
+              "correct": true
+            },
+            {
+              "text": "$x \\ge 2$",
+              "correct": false
+            },
+            {
+              "text": "$x \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$x \\le 5$",
+              "correct": false
+            }
+          ],
+          "explain": "The smallest output is $g(2) = 5$, and outputs grow from there. So the range of $g$, and the domain of $g^{-1}$, is $x \\ge 5$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "imageset(Lambda(x, 5 + sqrt(x - 2)), Interval(2, oo))"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you find inverse functions algebraically and restrict domains yourself to make them exist.",
+          "lesson": "2.7"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A function gives exactly one output $f(x)$ for each input $x$ in its domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Domain: the inputs allowed. A square root needs its inside $\\ge 0$, a denominator can't be $0$, and in a model the context limits the inputs too.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Range: the outputs over the domain, written with $f(x)$ or $y$. Read it from the graph, checking end points and turning points.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f^{-1}$ undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$. Its graph is the reflection of $y = f(x)$ in $y = x$. $f^{-1}(x)$ is not $\\frac{1}{f(x)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only a one-to-one function has an inverse. The domain of $f^{-1}$ is the range of $f$, and the range of $f^{-1}$ is the domain of $f$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a one-to-one $f$ and a value $k$ in its range, solving $f(x) = k$ gives $x = f^{-1}(k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing a range in terms of $x$, or as a point. A range lists outputs: write it with $f(x)$ or $y$, such as $3 \\le g(x) \\le 12$.",
+    "Finding a range from the end points alone. Check every turning point inside the domain too.",
+    "Reading $f^{-1}(x)$ as $\\frac{1}{f(x)}$. The $-1$ means “inverse”, not a power.",
+    "Keeping every solution of $f(x) = k$. Reject any outside the domain, such as a negative time.",
+    "Interpreting without context. Say what the value means, with units: “$10$ mg is left after $6.99$ hours”, not just “$t = 6.99$”."
+  ],
+  "examTips": [
+    "**Write down** the domain or range: no working is needed, but the notation must be right. Use the input, $x \\ge -3$, for a domain and the output, $f(x) \\le 5$, for a range.",
+    "To **find** $f^{-1}(k)$, write down the equation $f(x) = k$, then solve it on your GDC. The written equation earns the method mark.",
+    "**Interpret** means say what the value means in context, with units. Check it is sensible: a time can't be negative."
+  ],
+  "readingMinutes": 27
+}

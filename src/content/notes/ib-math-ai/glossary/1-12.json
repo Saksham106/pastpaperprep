@@ -2,55 +2,55 @@
   {
     "id": "complex-number",
     "term": "complex number",
-    "definition": "TODO: A number z = a + bi with a, b real and i² = −1 (i is not a real number); real numbers are the case b = 0",
+    "definition": "A number $z = a + b\\mathrm{i}$, where $a$ and $b$ are real and $\\mathrm{i}$ is the non-real number with $\\mathrm{i}^{2} = -1$; real numbers are the complex numbers with $b = 0$.",
     "lesson": "1.12"
   },
   {
     "id": "cartesian-form",
     "term": "Cartesian form",
-    "definition": "TODO: A complex number written z = a + bi with a and b real, real part first",
+    "definition": "A complex number written as $z = a + b\\mathrm{i}$ with $a$ and $b$ real: the real part first, then the imaginary part times $\\mathrm{i}$.",
     "lesson": "1.12"
   },
   {
     "id": "real-part",
     "term": "real part",
-    "definition": "TODO: For z = a + bi with a, b real, Re(z) = a",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, the real part is $\\mathrm{Re}(z) = a$.",
     "lesson": "1.12"
   },
   {
     "id": "imaginary-part",
     "term": "imaginary part",
-    "definition": "TODO: For z = a + bi with a, b real, Im(z) = b, a real number (not bi)",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, the imaginary part is the real number $\\mathrm{Im}(z) = b$, not $b\\mathrm{i}$.",
     "lesson": "1.12"
   },
   {
     "id": "complex-conjugate",
     "term": "complex conjugate",
-    "definition": "TODO: For z = a + bi, z* = a − bi, the reflection of z in the real axis; non-real roots of a real quadratic come as a conjugate pair",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, the conjugate is $z^{*} = a - b\\mathrm{i}$, the reflection of $z$ in the real axis of an Argand diagram; the non-real roots of a quadratic with real coefficients are a conjugate pair.",
     "lesson": "1.12"
   },
   {
     "id": "modulus-of-a-complex-number",
     "term": "modulus of a complex number",
-    "definition": "TODO: |z| = √(a² + b²), the distance of z from 0 on an Argand diagram; never negative",
+    "definition": "For $z = a + b\\mathrm{i}$ with $a$ and $b$ real, $\\lvert z\\rvert = \\sqrt{a^{2} + b^{2}}$, the distance from $0$ to $z$ on an Argand diagram; it is never negative.",
     "lesson": "1.12"
   },
   {
     "id": "argument-of-a-complex-number",
     "term": "argument of a complex number",
-    "definition": "TODO: The angle arg z from the positive real axis to z, anticlockwise positive; check the quadrant, since arctan(b/a) alone is wrong when a < 0; usually −π < arg z ≤ π",
+    "definition": "For $z = a + b\\mathrm{i} \\neq 0$, the angle $\\arg z$ from the positive real axis to the line from $0$ to $z$ on an Argand diagram, measured anticlockwise and usually with $-\\pi < \\arg z \\le \\pi$; $\\arctan\\frac{b}{a}$ gives it only when $a > 0$, so check the quadrant.",
     "lesson": "1.12"
   },
   {
     "id": "argand-diagram",
     "term": "Argand diagram",
-    "definition": "TODO: The complex plane: real axis horizontal, imaginary axis vertical, a + bi plotted at (a, b)",
+    "definition": "A drawing of the complex plane, with a horizontal real axis and a vertical imaginary axis, on which $a + b\\mathrm{i}$ ($a$, $b$ real) is the point $(a, b)$.",
     "lesson": "1.12"
   },
   {
     "id": "discriminant",
     "term": "discriminant",
-    "definition": "TODO: Δ = b² − 4ac for ax² + bx + c with real coefficients, a ≠ 0; Δ < 0 means no real roots, but the quadratic formula gives two complex conjugate roots",
+    "definition": "For $ax^{2} + bx + c$ with $a \\neq 0$, the number $\\Delta = b^{2} - 4ac$; when $a$, $b$ and $c$ are real, $ax^{2} + bx + c = 0$ has two distinct real roots if $\\Delta > 0$, one repeated real root if $\\Delta = 0$, and no real roots but two complex conjugate roots if $\\Delta < 0$.",
     "lesson": "1.12"
   }
 ]

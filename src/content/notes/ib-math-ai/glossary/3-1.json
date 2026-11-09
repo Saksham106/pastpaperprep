@@ -2,13 +2,13 @@
   {
     "id": "slant-height",
     "term": "slant height",
-    "definition": "TODO: On a right cone, the length l from the vertex to the edge of the base along the surface, l = √(r² + h²); not the vertical height",
+    "definition": "On a right cone, the slant height $l$ is the distance from the vertex to the edge of the base, measured along the sloping surface; $l = \\sqrt{r^{2} + h^{2}}$, so it is longer than the vertical height $h$.",
     "lesson": "3.1"
   },
   {
     "id": "angle-between-a-line-and-a-plane",
     "term": "angle between a line and a plane",
-    "definition": "TODO: The angle between the line and its projection on the plane, found with a perpendicular dropped to the plane; not the angle to just any line in the plane",
+    "definition": "For a line that meets a plane, the angle between the line and its projection on the plane, the line joining the meeting point to the foot of a perpendicular dropped from a point on the line to the plane; it is never more than $90^{\\circ}$.",
     "lesson": "3.1"
   }
 ]

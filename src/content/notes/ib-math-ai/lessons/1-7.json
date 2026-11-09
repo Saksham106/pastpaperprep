@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.7",
+  "slug": "amortization-and-annuities",
+  "title": "Amortization and annuities",
+  "level": "SL",
+  "topic": 1,
+  "summary": "Most real money problems have a payment every month: saving for a deposit, drawing an income from an [[annuity|annuity]], or paying off a loan by [[amortization|amortization]]. Your calculator's finance solver handles all three once you enter the payment as $PMT$. In IB exams the payments are always made at the end of each period.",
+  "goals": [
+    {
+      "text": "Explain why a payment made at the end of a period earns no interest in that period, and how regular savings add up as a [[geometric-series|geometric series]].",
+      "bullets": [
+        "1.7-b2",
+        "1.7-b3"
+      ]
+    },
+    {
+      "text": "Use the finance solver to find the value of regular savings, and the interest they earn.",
+      "bullets": [
+        "1.7-b1",
+        "1.7-b2"
+      ]
+    },
+    {
+      "text": "Find how much an [[annuity|annuity]] costs now, and how many payments it can make.",
+      "bullets": [
+        "1.7-b1"
+      ]
+    },
+    {
+      "text": "Find the regular payment on a loan, the balance still owed after some payments, and the total interest, with a GDC or a spreadsheet.",
+      "bullets": [
+        "1.7-b1"
+      ]
+    },
+    {
+      "text": "Interpret each answer in context and state the assumptions behind it.",
+      "bullets": [
+        "1.7-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "annuity",
+    "amortization schedule",
+    "loan repayments",
+    "monthly payment on a loan",
+    "regular savings finance solver",
+    "PMT on TVM solver"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-geometric-sum",
+      "prompt": "A [[geometric-sequence|geometric sequence]] has first term $u_{1} = 200$ and common ratio $r = 1.1$. Find the sum of its first $4$ terms, $S_{4}$.",
+      "hint": "Use $S_{n} = \\frac{u_{1}(r^{n} - 1)}{r - 1}$, or list the four terms and add them.",
+      "options": [
+        {
+          "text": "$928.2$",
+          "correct": true
+        },
+        {
+          "text": "$292.82$",
+          "correct": false
+        },
+        {
+          "text": "$800$",
+          "correct": false
+        }
+      ],
+      "explain": "The terms are $200, 220, 242, 266.2$, which add to $928.2$. $292.82$ is the fifth term, $u_{5}$, not a sum. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "200*(Rational(11, 10)**4 - 1)/(Rational(11, 10) - 1)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-compound-monthly",
+      "prompt": "$2750$ dollars is invested at a nominal $2.4\\%$ a year, compounded monthly, with no further payments. Find its value after $3$ years, to the nearest cent.",
+      "hint": "Monthly compounding for $3$ years is $36$ periods of $\\frac{2.4}{12}\\%$ each.",
+      "answer": {
+        "value": 2955.09,
+        "tolerance": 0.005
+      },
+      "explain": "$FV = 2750\\left(1 + \\frac{2.4}{1200}\\right)^{36} = 2955.0897\\ldots$, so $2955.09$ dollars. On the finance solver: $N = 36$, $I\\% = 2.4$, $PV = -2750$, $PMT = 0$, $P/Y = C/Y = 12$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2750*(1 + 2.4/1200)**36",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "savings",
+      "heading": "Saving with regular payments",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.4}} you paid in one amount and left it to grow. Most people save a fixed amount every month instead. Each payment then grows for a different length of time."
+        },
+        {
+          "type": "text",
+          "text": "Pay $1000$ into an account at the end of each year for $3$ years, at $5\\%$ [[compound-interest|compound interest]] added yearly. The first payment earns interest for $2$ years, the second for $1$ year, and the third for none."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-end-payments",
+          "alt": "Timeline from year 0 to the end of year 3. Nothing is paid at year 0. A payment of 1000 at the end of year 1 grows for 2 years to 1102.50. A payment of 1000 at the end of year 2 grows for 1 year to 1050.00. The payment of 1000 at the end of year 3 has earned no interest yet. The three values add to 3152.50.",
+          "caption": "Payments at the end of each year: the last payment has had no time to earn interest."
+        },
+        {
+          "type": "text",
+          "text": "Add them: $1000 + 1000 \\times 1.05 + 1000 \\times 1.05^{2} = 3152.50$. These values form a [[geometric-series|geometric series]] with common ratio $1.05$."
+        },
+        {
+          "type": "result",
+          "statement": "When a fixed payment $PMT$ is made into an account that starts empty, at the end of each of $N$ periods, and interest is added once per period at rate $i$ (as a decimal), the value just after the last payment is the sum of a geometric series.",
+          "why": "The last payment has earned nothing, the one before has been multiplied by $1 + i$ once, and so on back to the first, multiplied $N - 1$ times."
+        },
+        {
+          "type": "formula",
+          "tex": "FV = PMT \\times \\frac{(1 + i)^{N} - 1}{i}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is the annuity formula. Knowing it shows you what the calculator is doing, but it is not examined and it is not in the booklet. In an exam, use the finance solver."
+        },
+        {
+          "type": "text",
+          "text": "On the finance solver, the regular payment goes in $PMT$. Money you pay in is negative, so a saver enters $PMT = -175$ for $175$ a month. $N$ is the number of payments, and $PMT\\text{: END}$ means payments at the end of each period."
+        },
+        {
+          "type": "example",
+          "id": "ex-yearly-savings",
+          "question": "Leila pays $600$ euros into a savings account at the end of each year for $4$ years. The account pays $3.5\\%$ a year, compounded yearly. Find the value of her savings just after the fourth payment, to the nearest cent, and the interest earned.",
+          "steps": [
+            "The first payment grows for $3$ years, the last for none: $FV = 600 + 600 \\times 1.035 + 600 \\times 1.035^{2} + 600 \\times 1.035^{3}$.",
+            "Sum the geometric series with the formula: $FV = 600 \\times \\frac{1.035^{4} - 1}{0.035} = 2528.9657\\ldots$",
+            "Check on the finance solver: $N = 4$, $I\\% = 3.5$, $PV = 0$, $PMT = -600$, $P/Y = C/Y = 1$. Solving for $FV$ gives the same $2528.97$ euros.",
+            "She paid in $4 \\times 600 = 2400$ euros, so the interest earned is $2528.97 - 2400 = 128.97$ euros."
+          ],
+          "answer": "$FV \\approx 2528.97\\text{ euros}$",
+          "verify": {
+            "kind": "money",
+            "truth": "tvm_fv(4, 3.5, 0, -600, 1, 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-monthly-savings",
+          "question": "Jonas pays $175$ dollars into an account at the end of every month for $6$ years. The account pays a nominal $3.9\\%$ a year, compounded monthly. Use your calculator to find the value of his account at the end of the $6$ years, to the nearest cent. How much of it is interest?",
+          "steps": [
+            "Monthly payments for $6$ years: $N = 12 \\times 6 = 72$, with $P/Y = C/Y = 12$.",
+            "Write down the entries, for the method mark: $N = 72$, $I\\% = 3.9$, $PV = 0$, $PMT = -175$, $P/Y = 12$, $C/Y = 12$.",
+            "Solving for $FV$ gives $14\\,170.4295\\ldots$, so $14\\,170.43$ dollars.",
+            "He paid in $72 \\times 175 = 12\\,600$ dollars, so $1570.43$ dollars is interest.",
+            "This assumes the rate stays at $3.9\\%$ for all $6$ years and every payment is made on time."
+          ],
+          "answer": "$FV \\approx 14170.43\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "tvm_fv(12*6, 3.9, 0, -175, 12, 12)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "tvm-solve-fv",
+          "values": {
+            "n": 72,
+            "rate": 3.9,
+            "pv": 0,
+            "pmt": -175,
+            "ppy": 12,
+            "cpy": 12
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Entering years as $N$. $N$ counts payments: monthly payments for $6$ years means $N = 72$, not $N = 6$."
+        },
+        {
+          "type": "check",
+          "id": "check-quarterly-savings",
+          "prompt": "A club pays $250$ dollars into an account at the end of every quarter for $5$ years. The account pays a nominal $4\\%$ a year, compounded quarterly. What is the account worth just after the last payment?",
+          "hint": "Quarterly payments for $5$ years: how many payments is that?",
+          "options": [
+            {
+              "text": "$5504.75$",
+              "correct": true
+            },
+            {
+              "text": "$1275.25$",
+              "correct": false
+            },
+            {
+              "text": "$5559.80$",
+              "correct": false
+            }
+          ],
+          "explain": "$N = 4 \\times 5 = 20$, $I\\% = 4$, $PV = 0$, $PMT = -250$, $P/Y = C/Y = 4$ gives $FV = 5504.75$ dollars. $1275.25$ uses $N = 5$. $5559.80$ treats the payments as made at the start of each quarter, so each earns one extra quarter of interest.",
+          "verify": {
+            "kind": "money",
+            "truth": "tvm_fv(4*5, 4, 0, -250, 4, 4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-savings-interest",
+          "prompt": "Ayesha pays $85$ euros into a savings plan for $4$ years, paying at the end of every month. It pays a nominal $2.7\\%$ a year, compounded monthly. How much interest has she earned by the end of the $4$ years, to the nearest cent?",
+          "hint": "Find $FV$ with $N = 48$, then subtract everything she paid in.",
+          "answer": {
+            "value": 223.36,
+            "tolerance": 0.005
+          },
+          "explain": "The solver gives $FV = 4303.3648\\ldots$ euros. She paid in $48 \\times 85 = 4080$ euros, so the interest is $4303.3648\\ldots - 4080 = 223.36$ euros.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "tvm_fv(48, 2.7, 0, -85, 12, 12) - 48*85",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "annuities",
+      "heading": "Annuities: an income from a lump sum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now run it the other way. A retiree pays a large amount into a fund once. The fund then pays them a fixed amount every month until the money runs out."
+        },
+        {
+          "type": "text",
+          "text": "Each month, interest is added to what is left, then the payment is taken out. The interest makes the money last longer than the lump sum alone would."
+        },
+        {
+          "type": "definition",
+          "term": "annuity",
+          "statement": "An annuity is a lump sum invested now that pays out a fixed amount at the end of each period for a set number of periods. The money still in the fund keeps earning compound interest.",
+          "plain": "You hand over a big amount once, and get it back in equal slices, plus interest."
+        },
+        {
+          "type": "text",
+          "text": "On the finance solver, the lump sum is money you pay in, so $PV$ is negative. The income is money you receive, so $PMT$ is positive. When the fund runs out at the end, $FV = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-annuity-cost",
+          "question": "Graham wants an [[annuity|annuity]] that pays him $1150$ GBP at the end of every month for $15$ years. The fund earns a nominal $4.8\\%$ a year, compounded monthly. Find how much he must pay in now, to the nearest penny, and interpret your answer.",
+          "steps": [
+            "Monthly for $15$ years: $N = 12 \\times 15 = 180$.",
+            "Write down the entries: $N = 180$, $I\\% = 4.8$, $PMT = 1150$, $FV = 0$, $P/Y = C/Y = 12$. Solve for $PV$.",
+            "The solver gives $PV = -147\\,357.6023\\ldots$ The minus sign only says Graham pays this in, so he needs $147\\,357.60$ GBP.",
+            "Interpret: he receives $180 \\times 1150 = 207\\,000$ GBP in total. The other $59\\,642.40$ GBP is interest earned on the money while it waits in the fund."
+          ],
+          "answer": "$PV \\approx 147357.60\\text{ GBP}$",
+          "verify": {
+            "kind": "money",
+            "truth": "-tvm_pv(12*15, 4.8, 1150, 0, 12, 12)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "tvm-solve-pv",
+          "values": {
+            "n": 180,
+            "rate": 4.8,
+            "pmt": 1150,
+            "fv": 0,
+            "ppy": 12,
+            "cpy": 12
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-annuity-length",
+          "question": "Marta puts $185\\,000$ euros into an annuity fund earning a nominal $3.2\\%$ a year, compounded monthly. She withdraws $1400$ euros at the end of every month. Use your calculator to find how many full withdrawals she can make.",
+          "steps": [
+            "The fund runs out when the balance reaches $0$, so $FV = 0$ and $N$ is unknown.",
+            "Write down the entries: $I\\% = 3.2$, $PV = -185\\,000$, $PMT = 1400$, $FV = 0$, $P/Y = C/Y = 12$. Solve for $N$.",
+            "The solver gives $N = 163.13\\ldots$",
+            "Only $163$ withdrawals of the full $1400$ euros are possible, so round down. After the $163$rd, about $191$ euros is left: not enough for another full payment.",
+            "That is $13$ years and $7$ months of full income, if the rate stays at $3.2\\%$."
+          ],
+          "answer": "$N = 163$",
+          "verify": {
+            "kind": "exact",
+            "truth": "floor(tvm_n(3.2, -185000, 1400, 0, 12, 12))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "tvm-solve-n",
+          "values": {
+            "rate": 3.2,
+            "pv": -185000,
+            "pmt": 1400,
+            "fv": 0,
+            "ppy": 12,
+            "cpy": 12
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding a number of withdrawals up. If the solver gives $N = 163.13$, the $164$th payment can't be made in full, so the answer is $163$."
+        },
+        {
+          "type": "check",
+          "id": "check-annuity-signs",
+          "prompt": "You pay a lump sum into an annuity, and it pays you a fixed amount each month. Which signs do you enter in the finance solver?",
+          "hint": "Which money leaves your hands, and which comes back to you?",
+          "options": [
+            {
+              "text": "PV negative, PMT positive",
+              "correct": true
+            },
+            {
+              "text": "PV positive, PMT negative",
+              "correct": false
+            },
+            {
+              "text": "PV and PMT both negative",
+              "correct": false
+            }
+          ],
+          "explain": "The lump sum is paid out by you, so $PV$ is negative. The monthly income is received, so $PMT$ is positive. A loan is the other way round: the bank pays you $PV$, and you pay $PMT$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "PV negative, PMT positive"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-annuity-quarterly",
+          "prompt": "An annuity is to pay $500$ dollars at the end of every month for $10$ years. The fund earns a nominal $3\\%$ a year, compounded quarterly. How much must be paid in now?",
+          "hint": "Payments are monthly but interest is added quarterly, so $P/Y$ and $C/Y$ differ.",
+          "options": [
+            {
+              "text": "$51799.37$",
+              "correct": true
+            },
+            {
+              "text": "$51780.88$",
+              "correct": false
+            },
+            {
+              "text": "$4257.73$",
+              "correct": false
+            }
+          ],
+          "explain": "$N = 120$, $I\\% = 3$, $PMT = 500$, $FV = 0$, $P/Y = 12$, $C/Y = 4$ gives $PV = -51\\,799.37$, so $51\\,799.37$ dollars. $51\\,780.88$ uses $C/Y = 12$. $4257.73$ treats the $500$ as a yearly payment ($N = 10$, $P/Y = 1$).",
+          "verify": {
+            "kind": "money",
+            "truth": "-tvm_pv(120, 3, 500, 0, 12, 4)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "loans",
+      "heading": "Amortization: paying off a loan",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A loan is an annuity from the bank's side. The bank hands you the money now, and you pay it back in equal amounts, with interest, at the end of each month."
+        },
+        {
+          "type": "definition",
+          "term": "amortization",
+          "statement": "A loan is amortized when it is repaid by equal payments at the end of each period. Each payment covers the interest for that period, and the rest reduces the amount owed, which reaches $0$ with the last payment.",
+          "plain": "Every payment pays this month's interest first, then chips away at the debt."
+        },
+        {
+          "type": "text",
+          "text": "Take a loan of $12\\,000$ dollars at a nominal $6\\%$ a year, compounded monthly, repaid over $4$ years. Each month's interest is $\\frac{6}{12} = 0.5\\%$ of the amount still owed, and the payment is $281.82$ dollars."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-amortization-schedule",
+          "alt": "Table for a 12000 dollar loan repaid at 281.82 dollars a month for 48 months. Month 1: interest 60.00, 221.82 off the loan, 11778.18 still owed. Month 2: interest 58.89, 222.93 off the loan, 11555.25 owed. Month 3: interest 57.78, 224.04 off the loan, 11331.21 owed. Month 47: interest 2.80, 279.02 off the loan, 280.42 owed. Month 48: interest 1.40, 280.42 off the loan, 0.00 owed.",
+          "caption": "An [[amortization|amortization]] schedule. The payment stays the same, but less of it goes on interest each month."
+        },
+        {
+          "type": "text",
+          "text": "A spreadsheet builds this table with one row per month. Interest $=$ amount owed $\\times 0.005$. Off the loan $=$ payment $-$ interest. New amount owed $=$ old amount owed $-$ off the loan. Fill the formulas down for $48$ rows."
+        },
+        {
+          "type": "text",
+          "text": "On the finance solver, the bank gives you the loan, so $PV$ is positive. You pay it back, so $PMT$ is negative. The loan is cleared at the end, so $FV = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-loan",
+          "question": "Mateo borrows $16\\,500$ dollars for a car. He repays it over $5$ years with equal payments at the end of every month, at a nominal $7.2\\%$ a year, compounded monthly. Find his monthly payment, to the nearest cent, and the total interest he pays.",
+          "steps": [
+            "Monthly for $5$ years: $N = 60$.",
+            "Write down the entries: $N = 60$, $I\\% = 7.2$, $PV = 16\\,500$, $FV = 0$, $P/Y = C/Y = 12$. Solve for $PMT$.",
+            "The solver gives $PMT = -328.2789\\ldots$, so he pays $328.28$ dollars a month.",
+            "Total repaid: $60 \\times 328.2789\\ldots = 19\\,696.74$ dollars. Total interest: $19\\,696.74 - 16\\,500 = 3196.74$ dollars.",
+            "Interpret: borrowing the money for $5$ years costs him about $3200$ dollars on top of the price of the car."
+          ],
+          "answer": "$PMT \\approx 328.28\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "-tvm_pmt(60, 7.2, 16500, 0, 12, 12)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "tvm-solve-pmt",
+          "values": {
+            "n": 60,
+            "rate": 7.2,
+            "pv": 16500,
+            "fv": 0,
+            "ppy": 12,
+            "cpy": 12
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the total repaid as the interest. Interest is the total of all the payments minus the amount borrowed."
+        },
+        {
+          "type": "example",
+          "id": "ex-mortgage-rate-change",
+          "question": "The Okafors take out a $240\\,000$ dollar mortgage over $20$ years at a nominal $5.1\\%$ a year, compounded monthly, with payments at the end of each month. After exactly $7$ years the rate rises to $6.3\\%$, still compounded monthly. They keep the same end date. Find the amount they still owe after $7$ years, and their new monthly payment, to the nearest cent.",
+          "steps": [
+            "Original payment: $N = 240$, $I\\% = 5.1$, $PV = 240\\,000$, $FV = 0$, $P/Y = C/Y = 12$ gives $PMT = -1597.1818\\ldots$ Keep the full value.",
+            "Amount owed after $7$ years ($84$ payments): $N = 84$, $I\\% = 5.1$, $PV = 240\\,000$, $PMT = -1597.1818\\ldots$, $P/Y = C/Y = 12$. Solve for $FV$ to get $-181\\,880.4707\\ldots$; they still owe $181\\,880.47$ dollars. The $\\text{bal}$ function below gives the same amount, with a positive sign.",
+            "After $7$ of the $20$ years, over a third of the time has passed but less than a quarter of the loan, $58\\,119.53$ dollars, has been paid off. Early payments are mostly interest.",
+            "New payment over the remaining $13$ years: $N = 156$, $I\\% = 6.3$, $PV = 181\\,880.47$, $FV = 0$, $P/Y = C/Y = 12$. Solving gives $PMT = -1710.6825\\ldots$",
+            "Their payment rises to $1710.68$ dollars a month, about $113.50$ dollars more."
+          ],
+          "answer": "$PMT \\approx 1710.68\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "-tvm_pmt(156, 6.3, -tvm_fv(84, 5.1, 240000, tvm_pmt(240, 5.1, 240000, 0, 12, 12), 12, 12), 0, 12, 12)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "tvm-amortization-balance",
+          "values": {
+            "k": 84,
+            "n": 240,
+            "rate": 5.1,
+            "pv": 240000,
+            "pmt": -1597.181857,
+            "fv": 0,
+            "ppy": 12,
+            "cpy": 12
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a multi-part loan question, carry the full calculator value of the payment and the balance into the next part. If an earlier answer was wrong but you use it correctly, you can still earn follow-through marks."
+        },
+        {
+          "type": "check",
+          "id": "check-loan-payment",
+          "prompt": "A family borrows $8400$ dollars for solar panels. They repay it over $3$ years with equal payments at the end of every month, at a nominal $9.9\\%$ a year, compounded monthly. Find the monthly payment, to the nearest cent.",
+          "hint": "$PV = 8400$, $FV = 0$, $N = 36$. Solve for $PMT$.",
+          "answer": {
+            "value": 270.65,
+            "tolerance": 0.005
+          },
+          "explain": "$N = 36$, $I\\% = 9.9$, $PV = 8400$, $FV = 0$, $P/Y = C/Y = 12$ gives $PMT = -270.650\\ldots$, so $270.65$ dollars a month.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-tvm_pmt(36, 9.9, 8400, 0, 12, 12)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interest-share",
+          "prompt": "A loan is repaid by equal monthly payments, with the rate fixed for the whole term. Which payment contains the most interest?",
+          "hint": "Interest each month is a percentage of the amount still owed. When is that largest?",
+          "options": [
+            {
+              "text": "The first payment",
+              "correct": true
+            },
+            {
+              "text": "The last payment",
+              "correct": false
+            },
+            {
+              "text": "Every payment contains the same interest",
+              "correct": false
+            }
+          ],
+          "explain": "The amount owed is largest at the start, so the first month's interest is largest. As the debt falls, the interest part shrinks and more of each payment goes off the loan.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The first payment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "In IB exams, payments are made at the end of each period: set $PMT\\text{: END}$. The last payment earns no interest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$N$ is the number of payments. $P/Y$ is payments per year and $C/Y$ is how many times interest is added per year; they can differ.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Signs: savings have $PMT < 0$ and $FV > 0$. An annuity has $PV < 0$, $PMT > 0$ and $FV = 0$ when it runs out. A loan has $PV > 0$, $PMT < 0$ and $FV = 0$ when it is cleared.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Interest on a loan $=$ total of all payments $-$ amount borrowed. Interest on savings $=$ final value $-$ total paid in.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The number of full withdrawals an annuity can make is the solver's $N$ rounded down.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Annuity formula, not examined: $FV = PMT \\times \\frac{(1 + i)^{N} - 1}{i}$ is the value just after $N$ end-of-period payments into an empty account, with interest added once per period at rate $i$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing only the final answer. List the solver entries ($N$, $I\\%$, $PV$, $PMT$, $FV$, $P/Y$, $C/Y$): they earn the method marks, even if a slip spoils the answer.",
+    "Giving the wrong accuracy. If money is asked for to $2$ decimal places, $328.28$ earns the mark and $328$ or $328.3$ does not.",
+    "Copying the solver's minus sign into the answer. A monthly payment of $-328.28$ should be written as $328.28$ dollars.",
+    "Using years for $N$, or the same number for $P/Y$ and $C/Y$ when payments are monthly but interest is added quarterly or half-yearly.",
+    "Calling the total repaid the interest. Subtract the amount borrowed (or the total paid in, for savings).",
+    "Rounding a number of full withdrawals up. The solver's $163.13$ means $163$ full payments."
+  ],
+  "examTips": [
+    "\"Calculate\" or \"find\" with the finance solver: write every entry down, e.g. $N = 60$, $I\\% = 7.2$, $PV = 16\\,500$, $FV = 0$, $P/Y = C/Y = 12$. Several entries earn the method mark; all of them correct earn the next mark.",
+    "Read the accuracy the question asks for (nearest cent, nearest dollar) and give exactly that. A 3 s.f. amount of money is not accepted when 2 decimal places were asked for.",
+    "\"Explain\" or \"comment\" on a prediction by naming an assumption of the model: the rate stays fixed, every payment is made on time and in full, payments are at the end of each period."
+  ],
+  "readingMinutes": 24
+}

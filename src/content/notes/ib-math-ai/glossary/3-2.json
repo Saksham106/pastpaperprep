@@ -2,25 +2,25 @@
   {
     "id": "trigonometric-ratios",
     "term": "trigonometric ratios",
-    "definition": "TODO: sin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent, for an acute angle in a right-angled triangle",
+    "definition": "For an acute angle $\\theta$ in a right-angled triangle, $\\sin\\theta$ is opposite over hypotenuse, $\\cos\\theta$ is adjacent over hypotenuse and $\\tan\\theta$ is opposite over adjacent, and each depends only on $\\theta$.",
     "lesson": "3.2"
   },
   {
     "id": "sine-rule",
     "term": "sine rule",
-    "definition": "TODO: a/sin A = b/sin B = c/sin C in any triangle, each side opposite the angle with the same letter",
+    "definition": "In any triangle $ABC$, $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}$, where each side is opposite the angle with the same letter.",
     "lesson": "3.2"
   },
   {
     "id": "cosine-rule",
     "term": "cosine rule",
-    "definition": "TODO: c² = a² + b² − 2ab cos C in any triangle, where C is the angle between sides a and b",
+    "definition": "In any triangle $ABC$, $c^{2} = a^{2} + b^{2} - 2ab\\cos C$, where $C$ is the angle between sides $a$ and $b$ and $c$ is the side opposite it.",
     "lesson": "3.2"
   },
   {
     "id": "inverse-trigonometric-function",
     "term": "inverse trigonometric function",
-    "definition": "TODO: sin⁻¹, cos⁻¹, tan⁻¹ give an angle from a ratio; the calculator returns only one angle, so other solutions may exist",
+    "definition": "$\\sin^{-1}$, $\\cos^{-1}$ and $\\tan^{-1}$ give an angle from a ratio, but a calculator returns only one angle ($\\sin^{-1}$ and $\\tan^{-1}$ between $-90^{\\circ}$ and $90^{\\circ}$, $\\cos^{-1}$ between $0^{\\circ}$ and $180^{\\circ}$), so other angles with the same ratio may exist.",
     "lesson": "3.2"
   }
 ]

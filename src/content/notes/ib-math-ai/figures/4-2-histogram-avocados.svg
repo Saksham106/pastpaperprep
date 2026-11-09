@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-labelledby="t">
+  <title id="t">Frequency histogram of the masses of 24 avocados: four touching bars of height 4, 9, 8 and 3 over the classes 150 to 175, 175 to 200, 200 to 225 and 225 to 250 grams</title>
+  <g stroke="var(--muted)" stroke-width="0.6">
+    <line x1="48" y1="172.0" x2="340" y2="172.0"/>
+    <line x1="48" y1="134.0" x2="340" y2="134.0"/>
+    <line x1="48" y1="96.0" x2="340" y2="96.0"/>
+    <line x1="48" y1="58.0" x2="340" y2="58.0"/>
+    <line x1="48" y1="20.0" x2="340" y2="20.0"/>
+  </g>
+  <g fill="var(--t4-ink)" fill-opacity="0.22" stroke="var(--t4-ink)" stroke-width="1.6">
+    <rect x="48.0" y="134.0" width="73.0" height="76.0"/>
+    <rect x="121.0" y="39.0" width="73.0" height="171.0"/>
+    <rect x="194.0" y="58.0" width="73.0" height="152.0"/>
+    <rect x="267.0" y="153.0" width="73.0" height="57.0"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="48" y1="210" x2="340" y2="210"/>
+    <line x1="48" y1="210" x2="48" y2="20"/>
+    <line x1="48.0" y1="210" x2="48.0" y2="215"/>
+    <line x1="121.0" y1="210" x2="121.0" y2="215"/>
+    <line x1="194.0" y1="210" x2="194.0" y2="215"/>
+    <line x1="267.0" y1="210" x2="267.0" y2="215"/>
+    <line x1="340.0" y1="210" x2="340.0" y2="215"/>
+    <line x1="43" y1="210.0" x2="48" y2="210.0"/>
+    <line x1="43" y1="172.0" x2="48" y2="172.0"/>
+    <line x1="43" y1="134.0" x2="48" y2="134.0"/>
+    <line x1="43" y1="96.0" x2="48" y2="96.0"/>
+    <line x1="43" y1="58.0" x2="48" y2="58.0"/>
+    <line x1="43" y1="20.0" x2="48" y2="20.0"/>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit">
+    <text x="48.0" y="228" text-anchor="middle">150</text>
+    <text x="121.0" y="228" text-anchor="middle">175</text>
+    <text x="194.0" y="228" text-anchor="middle">200</text>
+    <text x="267.0" y="228" text-anchor="middle">225</text>
+    <text x="340.0" y="228" text-anchor="middle">250</text>
+    <text x="40" y="214.0" text-anchor="end">0</text>
+    <text x="40" y="176.0" text-anchor="end">2</text>
+    <text x="40" y="138.0" text-anchor="end">4</text>
+    <text x="40" y="100.0" text-anchor="end">6</text>
+    <text x="40" y="62.0" text-anchor="end">8</text>
+    <text x="40" y="24.0" text-anchor="end">10</text>
+    <text x="194.0" y="248" text-anchor="middle">Mass, m grams</text>
+    <text x="14" y="115.0" text-anchor="middle" transform="rotate(-90 14 115.0)">Frequency</text>
+  </g>
+</svg>

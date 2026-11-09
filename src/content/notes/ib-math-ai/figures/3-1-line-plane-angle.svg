@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220" role="img" aria-labelledby="t">
+  <title id="t">A flat plane drawn as a parallelogram. A line meets the plane at A and rises to the point P above it. A dashed perpendicular drops from P straight down to N on the plane, with a right angle at N. The angle theta at A is between the line AP and AN, the projection of the line on the plane.</title>
+  <polygon points="40,190 300,190 360,120 100,120" fill="var(--t2-ink)" fill-opacity="0.12" stroke="currentColor" stroke-width="1.4"/>
+  <g fill="none" stroke="var(--t1-ink)" stroke-width="2">
+    <line x1="110" y1="165" x2="300" y2="40"/>
+    <line x1="110" y1="165" x2="300" y2="165"/>
+    <line x1="300" y1="40" x2="300" y2="165" stroke-dasharray="6 4"/>
+  </g>
+  <polyline points="300,155 290,155 290,165" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M140,165 A30,30 0 0,0 135.1,148.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-family="inherit" fill="currentColor" font-size="15">
+    <text x="94" y="182">A</text>
+    <text x="306" y="38">P</text>
+    <text x="290" y="184">N</text>
+  </g>
+  <text x="148" y="160" font-family="inherit" font-size="15" font-style="italic" fill="var(--t1-ink)">θ</text>
+</svg>

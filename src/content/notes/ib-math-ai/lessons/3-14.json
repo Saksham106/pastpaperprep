@@ -1,0 +1,889 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.14",
+  "slug": "graph-theory-basics",
+  "title": "Graph theory basics",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A [[graph|graph]] is a set of points, called [[graph-vertex|vertices]], joined by lines, called [[graph-edge|edges]]. It records only what is linked to what, so it can model road maps, circuits, networks and one-way streets. Here you learn the words for describing graphs and how to turn a real situation into one.",
+  "goals": [
+    {
+      "text": "Describe a graph with the words vertex, edge, adjacent and [[degree-of-a-vertex|degree]], and use the fact that the degrees add up to twice the number of edges.",
+      "bullets": [
+        "3.14-b1"
+      ]
+    },
+    {
+      "text": "Represent a real situation, such as a road map or a circuit, as an unweighted or a [[weighted-graph|weighted graph]].",
+      "bullets": [
+        "3.14-b1",
+        "3.14-b2"
+      ]
+    },
+    {
+      "text": "Decide whether a graph is [[simple-graph|simple]], [[complete-graph|complete]] or [[connected-graph|connected]], and give the reason.",
+      "bullets": [
+        "3.14-b2"
+      ]
+    },
+    {
+      "text": "Find in-degrees and out-degrees in a [[directed-graph|directed graph]], and decide whether it is [[strongly-connected-graph|strongly connected]].",
+      "bullets": [
+        "3.14-b3",
+        "3.14-b2"
+      ]
+    },
+    {
+      "text": "Identify [[subgraph|subgraphs]] and [[tree|trees]], and use the fact that a tree with $n$ vertices has $n - 1$ edges.",
+      "bullets": [
+        "3.14-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "graph theory vocabulary",
+    "degree of a vertex",
+    "complete graph K_n edges",
+    "directed graph in-degree out-degree",
+    "strongly connected graph",
+    "what is a tree in graph theory"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-handshakes",
+      "prompt": "Six friends meet, and each pair of friends shakes hands once. How many handshakes are there?",
+      "hint": "Count the hands each person shakes, then ask how many times each handshake has been counted.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "Each of the $6$ friends shakes $5$ hands: $6 \\times 5 = 30$. That counts every handshake twice, once for each person in it, so there are $30 \\div 2 = 15$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6*5/Integer(2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-route-time",
+      "prompt": "Bus times are Ashby to Brook $12$ minutes, Ashby to Corfe $25$ minutes and Brook to Corfe $17$ minutes. How long does Ashby to Brook to Corfe take?",
+      "hint": "Add the two legs you actually travel.",
+      "options": [
+        {
+          "text": "$29\\text{ minutes}$",
+          "correct": true
+        },
+        {
+          "text": "$25\\text{ minutes}$",
+          "correct": false
+        },
+        {
+          "text": "$42\\text{ minutes}$",
+          "correct": false
+        },
+        {
+          "text": "$54\\text{ minutes}$",
+          "correct": false
+        }
+      ],
+      "explain": "The route uses Ashby to Brook, then Brook to Corfe: $12 + 17 = 29$ minutes. $25$ is the direct bus, and $42$ adds the direct time to one leg.",
+      "verify": {
+        "kind": "exact",
+        "truth": "12 + 17"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "vertices-edges",
+      "heading": "Vertices, edges and degree",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A metro map, a ferry network and an office computer network all show some places and which pairs are linked. A graph keeps only that."
+        },
+        {
+          "type": "definition",
+          "term": "Graph",
+          "statement": "A [[graph|graph]] is a set of [[graph-vertex|vertices]] together with a set of [[graph-edge|edges]]. Each edge joins two vertices, or joins a vertex to itself.",
+          "plain": "Dots joined by lines; only the connections matter."
+        },
+        {
+          "type": "text",
+          "text": "A vertex (plural vertices, or node) is a point. An edge joins two vertices. An edge from a vertex back to itself is a loop. Two or more edges joining the same pair are multiple edges."
+        },
+        {
+          "type": "text",
+          "text": "Where you draw the vertices, and how long or curved the edges are, means nothing. Edges that cross on paper don't meet unless there is a vertex there."
+        },
+        {
+          "type": "text",
+          "text": "Two vertices are adjacent if an edge joins them. Two edges are adjacent if they share a vertex."
+        },
+        {
+          "type": "definition",
+          "term": "Degree of a vertex",
+          "statement": "The [[degree-of-a-vertex|degree]] of a vertex $V$, written $\\deg(V)$, is the number of edge ends at $V$. A loop at $V$ adds $2$ to $\\deg(V)$.",
+          "plain": "Count the line ends at the dot."
+        },
+        {
+          "type": "result",
+          "statement": "In every graph, the degrees of all the vertices add up to twice the number of edges.",
+          "why": "Each edge has two ends, and each end adds $1$ to a degree."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum \\deg(V) = 2 \\times \\text{number of edges}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the degrees always add to an even number."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-hut-trails",
+          "alt": "A graph with five vertices A, B, C, D and E. Edges: A to B, A to C, B to C, B to D, two separate edges between C and D, D to E, and a loop at E.",
+          "caption": "Trails between five huts. Two trails join C and D; a circular trail starts and ends at E."
+        },
+        {
+          "type": "example",
+          "id": "ex-hut-degrees",
+          "question": "For the hut trails in the figure: (a) write down the huts adjacent to B; (b) find the degree of each hut, in the order A, B, C, D, E.",
+          "steps": [
+            "(a) B's edges go to A, C and D, so these are adjacent to B.",
+            "(b) A: edges to B and C, so $\\deg(\\mathrm{A}) = 2$. B: edges to A, C and D, so $\\deg(\\mathrm{B}) = 3$.",
+            "C: edges to A and B, plus two to D, so $\\deg(\\mathrm{C}) = 4$. D: edges to B and E, plus two to C, so $\\deg(\\mathrm{D}) = 4$.",
+            "E: one edge to D, and the loop adds $2$, so $\\deg(\\mathrm{E}) = 3$.",
+            "Check: there are $8$ edges, and $2 + 3 + 4 + 4 + 3 = 16 = 2 \\times 8$."
+          ],
+          "answer": "$2, 3, 4, 4, 3$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[1 + 1, 1 + 1 + 1, 1 + 1 + 2, 1 + 2 + 1, 1 + 2]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-switch-cables",
+          "question": "An office network has $14$ switches. Each switch is cabled directly to exactly $5$ other switches, with at most one cable between any two. Find the number of cables.",
+          "steps": [
+            "Each switch is a vertex of degree $5$, and each cable is an edge.",
+            "The degrees add to $14 \\times 5 = 70$, which is twice the number of edges.",
+            "So there are $70 \\div 2 = 35$ cables. In context: $14 \\times 5$ counts every cable twice, once at each end."
+          ],
+          "answer": "$35\\text{ cables}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "14*5/Integer(2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-adjacent-edges",
+          "prompt": "In the hut graph, which pair of edges is adjacent?",
+          "hint": "Adjacent edges share a vertex. Look for a letter that appears in both.",
+          "options": [
+            {
+              "text": "AB and BD",
+              "correct": true
+            },
+            {
+              "text": "AC and BD",
+              "correct": false
+            },
+            {
+              "text": "AB and DE",
+              "correct": false
+            },
+            {
+              "text": "AC and DE",
+              "correct": false
+            }
+          ],
+          "explain": "AB and BD share vertex B. The other pairs share no vertex.",
+          "verify": {
+            "kind": "choice",
+            "truth": "AB and BD"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-degree-sum",
+          "prompt": "A graph has $6$ vertices with degrees $1, 2, 2, 3, 3$ and $5$. How many edges does it have?",
+          "hint": "Add the degrees first.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "The degrees add to $1 + 2 + 2 + 3 + 3 + 5 = 16$, which is twice the number of edges. So there are $16 \\div 2 = 8$ edges.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1 + 2 + 2 + 3 + 3 + 5)/Integer(2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-odd-sensors",
+          "prompt": "An engineer wants to link $7$ sensors so that each sensor is joined directly to exactly $3$ others. Which statement is correct?",
+          "hint": "Add up what the degrees would be.",
+          "options": [
+            {
+              "text": "Impossible: the degrees would add to 21, an odd number",
+              "correct": true
+            },
+            {
+              "text": "Possible, with 21 links",
+              "correct": false
+            },
+            {
+              "text": "Possible, with 7 links",
+              "correct": false
+            },
+            {
+              "text": "Impossible, because 7 is prime",
+              "correct": false
+            }
+          ],
+          "explain": "The degrees would add to $7 \\times 3 = 21$. A sum of degrees is twice the number of edges, so it must be even.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Impossible: the degrees would add to 21, an odd number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modelling",
+      "heading": "Turning a real situation into a graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To model a situation, decide what the vertices are (places or objects) and what the edges are (direct links). Leave out real positions and the shapes of roads."
+        },
+        {
+          "type": "text",
+          "text": "On a map, towns are vertices and roads are edges. In a circuit, junctions are vertices and each component between two junctions is an edge."
+        },
+        {
+          "type": "definition",
+          "term": "Weighted graph",
+          "statement": "A [[weighted-graph|weighted graph]] is a graph with a number, called a weight, on each edge. Weights usually stand for distances, times or costs.",
+          "plain": "Each line says how far, how long or how much."
+        },
+        {
+          "type": "text",
+          "text": "An unweighted graph only says whether two things are linked. A weighted graph is not drawn to scale, so read the weights, never the line lengths."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-circuit-graph",
+          "alt": "A graph with three vertices P, Q and R. Two separate edges join P and Q, one labelled battery and one labelled bulb. An edge labelled resistor joins P and R, and an edge labelled switch joins R and Q.",
+          "caption": "The circuit as a graph."
+        },
+        {
+          "type": "example",
+          "id": "ex-circuit-graph",
+          "question": "In a circuit, a battery and a bulb are each connected directly between junctions P and Q. A resistor joins P to a junction R, and a switch joins R to Q. Model the circuit as a graph, and find the degrees of P, Q and R.",
+          "steps": [
+            "Vertices: junctions P, Q and R. Edges: one per component, so $4$ edges.",
+            "The battery and bulb both join P and Q: draw two edges between P and Q. The resistor gives PR and the switch gives RQ (see the figure).",
+            "P meets the battery, bulb and resistor: $\\deg(\\mathrm{P}) = 3$. Q meets the battery, bulb and switch: $\\deg(\\mathrm{Q}) = 3$. R: $\\deg(\\mathrm{R}) = 2$.",
+            "Check: $3 + 3 + 2 = 8 = 2 \\times 4$."
+          ],
+          "answer": "$3, 3, 2$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[1 + 1 + 1, 1 + 1 + 1, 1 + 1]"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "3-14-village-roads",
+          "alt": "A weighted graph with vertices F, G, H and I. Edge weights: F to G 15, F to H 9, G to H 4, G to I 8, H to I 18, and F to I 24, drawn as a long curve over the top.",
+          "caption": "Roads between four villages, in km. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-village-roads",
+          "question": "The roads between four villages are: Fenby–Garth $15$ km, Fenby–Holt $9$ km, Garth–Holt $4$ km, Garth–Ince $8$ km, Holt–Ince $18$ km and a mountain road Fenby–Ince $24$ km. (a) Represent the roads as a weighted graph. (b) Find the shortest distance by road from Fenby to Ince.",
+          "steps": [
+            "(a) One vertex per village and one edge per road, labelled with its length (see the figure).",
+            "(b) Routes from F to I: F–I $= 24$, F–G–I $= 23$, F–H–I $= 27$, F–H–G–I $= 9 + 4 + 8 = 21$, F–G–H–I $= 37$.",
+            "The shortest is $21$ km, via Holt and Garth. In context: the direct mountain road is $3$ km longer than going through two villages."
+          ],
+          "answer": "$21\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Min(24, 15 + 8, 9 + 18, 9 + 4 + 8, 15 + 4 + 18)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-weight-meaning",
+          "prompt": "On a weighted graph of roads, edge DS has weight $12$ km and is drawn shorter than edge DT, with weight $7$ km. Which is correct?",
+          "hint": "Is a weighted graph drawn to scale?",
+          "options": [
+            {
+              "text": "The road from D to T is shorter",
+              "correct": true
+            },
+            {
+              "text": "The road from D to S is shorter",
+              "correct": false
+            },
+            {
+              "text": "The two roads are the same length",
+              "correct": false
+            }
+          ],
+          "explain": "The weights give the lengths, and $7 < 12$. The drawing is not to scale.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The road from D to T is shorter"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-vertices",
+          "prompt": "A rail map shows $6$ stations and the direct lines between them. You model it as a graph. What are the vertices?",
+          "hint": "Vertices are the places; edges are the links between them.",
+          "options": [
+            {
+              "text": "The stations",
+              "correct": true
+            },
+            {
+              "text": "The lines between stations",
+              "correct": false
+            },
+            {
+              "text": "The points where lines cross on the map",
+              "correct": false
+            },
+            {
+              "text": "The train timetables",
+              "correct": false
+            }
+          ],
+          "explain": "The stations are the vertices and each direct line is an edge. A crossing on the map is not a vertex.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The stations"
+          }
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "heading": "Simple, complete and connected graphs",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Simple graph",
+          "statement": "A [[simple-graph|simple graph]] has no loops and no multiple edges, so each pair of vertices is joined by at most one edge.",
+          "plain": "No loops, no doubled lines."
+        },
+        {
+          "type": "definition",
+          "term": "Complete graph",
+          "statement": "A [[complete-graph|complete graph]] is a simple graph in which every pair of distinct vertices is joined by an edge. The complete graph on $n$ vertices is written $K_n$.",
+          "plain": "Every dot joined to every other dot, once."
+        },
+        {
+          "type": "text",
+          "text": "In $K_n$ each vertex has degree $n - 1$, so the degrees add to $n(n - 1)$, and the number of edges is half of that."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of edges of } K_n = \\frac{n(n-1)}{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Connected graph",
+          "statement": "A graph is [[connected-graph|connected]] if you can travel along edges from any vertex to any other vertex.",
+          "plain": "The graph is all in one piece."
+        },
+        {
+          "type": "text",
+          "text": "Every complete graph is connected. A connected graph need not be complete: some pairs may have no direct edge."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-graph-types",
+          "alt": "Three graphs. G1: a square A, B, C, D with edges AB, BC, CD, DA and a loop at C. G2: four vertices P, Q, R, S with all six edges, including the two diagonals, which cross without a vertex. G3: a triangle V, W, X and, separately, an edge joining Y and Z.",
+          "caption": "Three graphs to classify. In $G_2$ the diagonals cross, but there is no vertex where they cross."
+        },
+        {
+          "type": "example",
+          "id": "ex-classify-graphs",
+          "question": "For each graph in the figure, state whether it is simple, connected and complete. Give a reason for each answer.",
+          "steps": [
+            "$G_1$: the loop at C means not simple. The square reaches every vertex, so connected. A and C are not adjacent, so not complete.",
+            "$G_2$: no loops or multiple edges, and all $6$ pairs of vertices are joined, so it is complete ($K_4$) and connected.",
+            "$G_3$: simple, but there is no route from V to Y, so not connected and not complete."
+          ],
+          "answer": "$G_1$: not simple (loop at C), connected, not complete. $G_2$: simple, connected and complete ($K_4$). $G_3$: simple, not connected, not complete.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "G1 not simple (loop), connected, not complete; G2 is K4; G3 simple, not connected",
+            "requires": [
+              [
+                "not simple"
+              ],
+              [
+                "loop"
+              ],
+              [
+                "K_4",
+                "K4"
+              ],
+              [
+                "not connected"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-chess-games",
+          "question": "In a chess tournament, each player plays every other player exactly once. (a) Explain why the games can be modelled by a complete graph, and find the number of games for $16$ players. (b) The hall is booked for at most $100$ games. Use your calculator to find the largest number of players the tournament can take.",
+          "steps": [
+            "(a) Players are vertices and games are edges. Every pair of players meets once, so the graph is $K_{16}$, with $\\frac{16 \\times 15}{2} = 120$ games.",
+            "(b) Write down the condition: $\\frac{n(n-1)}{2} \\le 100$.",
+            "Table of $y = \\frac{x(x-1)}{2}$: $x = 14$ gives $91$ and $x = 15$ gives $105$.",
+            "$91 \\le 100 < 105$, so at most $14$ players. In context: a $15$th player adds $14$ games, going over the limit."
+          ],
+          "answer": "$14\\text{ players}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "floor((1 + sqrt(1 + 8*100))/2)"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "X*(X-1)/2",
+            "start": 10,
+            "step": 1,
+            "end": 16
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hub-routes",
+          "prompt": "A courier firm wants a direct flight route between every pair of its $11$ hubs. How many routes is that?",
+          "hint": "The routes form a complete graph. How many edges does $K_{11}$ have?",
+          "answer": {
+            "value": 55,
+            "tolerance": 0
+          },
+          "explain": "$K_{11}$ has $\\frac{11 \\times 10}{2} = 55$ edges. $11 \\times 10$ alone counts each route twice.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "11*10/Integer(2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-connected-not-complete",
+          "prompt": "A graph has vertices A, B, C, D and edges AB, BC and CD only. Which description is correct?",
+          "hint": "Can you get from every vertex to every other? Is every pair joined directly?",
+          "options": [
+            {
+              "text": "Simple and connected, but not complete",
+              "correct": true
+            },
+            {
+              "text": "Simple, connected and complete",
+              "correct": false
+            },
+            {
+              "text": "Simple, but not connected",
+              "correct": false
+            },
+            {
+              "text": "Not simple, because A and D are not joined",
+              "correct": false
+            }
+          ],
+          "explain": "No loops or multiple edges: simple. A–B–C–D reaches every vertex: connected. A and D are not adjacent: not complete.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Simple and connected, but not complete"
+          }
+        }
+      ]
+    },
+    {
+      "id": "directed",
+      "heading": "Directed graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some links work one way only, like one-way streets. Arrows on the edges record this."
+        },
+        {
+          "type": "definition",
+          "term": "Directed graph",
+          "statement": "A [[directed-graph|directed graph]] is a graph in which every edge has a direction, shown by an arrow. An edge directed from A to B can be travelled from A to B only.",
+          "plain": "A graph of one-way links."
+        },
+        {
+          "type": "text",
+          "text": "A two-way link is drawn as two arrows, one each way."
+        },
+        {
+          "type": "definition",
+          "term": "In-degree and out-degree",
+          "statement": "The in-degree of a vertex is the number of edges directed into it. The out-degree is the number of edges directed out of it.",
+          "plain": "Arrows in, arrows out."
+        },
+        {
+          "type": "result",
+          "statement": "In a directed graph, the in-degrees of all the vertices add up to the number of edges, and so do the out-degrees.",
+          "why": "Every directed edge leaves exactly one vertex and arrives at exactly one vertex."
+        },
+        {
+          "type": "definition",
+          "term": "Strongly connected",
+          "statement": "A directed graph is [[strongly-connected-graph|strongly connected]] if, for every pair of vertices A and B, you can travel from A to B and from B to A, following the arrows.",
+          "plain": "Everyone can reach everyone, obeying the arrows."
+        },
+        {
+          "type": "text",
+          "text": "In a directed graph with two or more vertices, a vertex with in-degree $0$ can't be reached, and one with out-degree $0$ is a dead end. Either means the graph is not strongly connected."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-one-way",
+          "alt": "A directed graph with four vertices K, L, M and N. Arrows: K to L, L to M, M to K, L to N, and N to M.",
+          "caption": "One-way streets between four junctions."
+        },
+        {
+          "type": "example",
+          "id": "ex-one-way-degrees",
+          "question": "The figure shows one-way streets between junctions K, L, M and N. Find the in-degree and out-degree of each junction.",
+          "steps": [
+            "The $5$ edges are K→L, L→M, M→K, L→N and N→M.",
+            "K: in from M, out to L. L: in from K, out to M and N. M: in from L and N, out to K. N: in from L, out to M.",
+            "Check: in-degrees $1 + 1 + 2 + 1 = 5$ and out-degrees $1 + 2 + 1 + 1 = 5$, the number of edges."
+          ],
+          "answer": "K: in $1$, out $1$; L: in $1$, out $2$; M: in $2$, out $1$; N: in $1$, out $1$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "K 1/1, L 1/2, M 2/1, N 1/1",
+            "requires": [
+              "K: in 1, out 1",
+              "L: in 1, out 2",
+              "M: in 2, out 1",
+              "N: in 1, out 1"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-reverse-street",
+          "question": "For the streets in the figure: (a) show that the network is strongly connected; (b) the council reverses the street from K to L, so it now runs from L to K. Determine whether the network is still strongly connected, and interpret your answer.",
+          "steps": [
+            "(a) The route K→L→N→M→K follows the arrows and visits every junction. Going round it, any junction reaches any other.",
+            "(b) Now both of K's streets, L→K and M→K, arrive at K, so K has out-degree $0$.",
+            "No street leaves K, so the network is not strongly connected. In context: traffic at K would be trapped."
+          ],
+          "answer": "(a) The route K→L→N→M→K visits every junction, so it is strongly connected. (b) K would have out-degree $0$, so the network is not strongly connected: drivers at K could not leave.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a closed route through all vertices; after reversal K has out-degree 0",
+            "requires": [
+              [
+                "visits every junction"
+              ],
+              [
+                "out-degree 0"
+              ],
+              [
+                "not strongly connected"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-missing-out-degree",
+          "prompt": "A directed graph has $5$ vertices and $9$ edges. The out-degrees of four of the vertices are $2, 1, 0$ and $3$. Find the out-degree of the fifth vertex.",
+          "hint": "What do all the out-degrees add up to?",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The out-degrees add to the number of edges, $9$. The four given add to $6$, so the fifth is $9 - 6 = 3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "9 - (2 + 1 + 0 + 3)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-follows",
+          "prompt": "On a social app, an arrow from X to Y means X follows Y. Ana follows Ben and Cara, Ben follows Cara, and Cara follows Ana. Is the “follows” graph strongly connected?",
+          "hint": "From each person, try to reach the other two along the arrows.",
+          "options": [
+            {
+              "text": "Yes: everyone can reach everyone along the arrows",
+              "correct": true
+            },
+            {
+              "text": "No: Ben does not follow Ana",
+              "correct": false
+            },
+            {
+              "text": "No: Cara follows only one person",
+              "correct": false
+            }
+          ],
+          "explain": "Ana reaches both directly. Ben reaches Cara, then Ana. Cara reaches Ana, then Ben. Direct arrows are not needed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Yes: everyone can reach everyone along the arrows"
+          }
+        }
+      ]
+    },
+    {
+      "id": "subgraphs-trees",
+      "heading": "Subgraphs and trees",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Subgraph",
+          "statement": "A [[subgraph|subgraph]] of a graph $G$ is a graph whose vertices and edges all belong to $G$. Every edge in the subgraph must have both of its end vertices in the subgraph.",
+          "plain": "Part of a graph."
+        },
+        {
+          "type": "text",
+          "text": "You may keep a vertex without its edges, but not an edge without its ends, and you can't add new edges."
+        },
+        {
+          "type": "figure",
+          "id": "3-14-pipe-graph",
+          "alt": "A graph G with six vertices A to F. Edges: A to B, A to C, B to C, B to D, C to E, D to E, D to F and E to F.",
+          "caption": "Graph $G$, with $6$ vertices and $8$ edges."
+        },
+        {
+          "type": "example",
+          "id": "ex-is-subgraph",
+          "question": "For the graph $G$ in the figure, decide which of these are subgraphs of $G$. $H_1$: vertices A, B, C with edges AB and BC. $H_2$: vertices B, D, F with edges BD and BF. $H_3$: vertices D and E with edges DE and EF.",
+          "steps": [
+            "$H_1$: AB and BC are edges of $G$, with both ends kept. It is a subgraph.",
+            "$H_2$: BF is not an edge of $G$, so it is not a subgraph.",
+            "$H_3$: edge EF is kept but its end F is not, so it is not a subgraph."
+          ],
+          "answer": "Only $H_1$ is a subgraph of $G$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "H1 only",
+            "requires": [
+              [
+                "only H_1",
+                "only H1"
+              ],
+              [
+                "subgraph"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A cycle is a closed route along edges back to its start, repeating no edge and no other vertex. A loop, or two edges between the same pair, is already a cycle. Cycles are studied in {{lesson:3.16}}."
+        },
+        {
+          "type": "definition",
+          "term": "Tree",
+          "statement": "A [[tree|tree]] is a connected graph with no cycles.",
+          "plain": "All joined up, with no spare links."
+        },
+        {
+          "type": "result",
+          "statement": "A tree with $n$ vertices has exactly $n - 1$ edges.",
+          "why": "Grow the tree from one vertex: each edge brings in exactly one new vertex, as joining two vertices already reached would make a cycle."
+        },
+        {
+          "type": "text",
+          "text": "The reverse needs a condition: a graph with $n$ vertices and $n - 1$ edges is a tree only if it is connected."
+        },
+        {
+          "type": "text",
+          "text": "Trees model networks with no wasted link, such as water pipes. In {{lesson:3.16}} you find the cheapest tree joining every vertex."
+        },
+        {
+          "type": "example",
+          "id": "ex-farm-pipes",
+          "question": "A water company plans to link $9$ farms with $8$ pipes. The plan includes pipes PQ, QR and RP between farms P, Q and R. Explain why the plan is not a tree, and what this means for the farms.",
+          "steps": [
+            "P–Q–R–P is a cycle, so the plan is not a tree.",
+            "A connected graph with $9$ vertices and $8$ edges is a tree, with no cycle. This plan has a cycle, so it is not connected.",
+            "In context: one triangle pipe is spare, and at least one farm is cut off."
+          ],
+          "answer": "The triangle PQR is a cycle, so the plan is not a tree. With $9$ farms and $8$ pipes it is therefore not connected: at least one farm is cut off.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the triangle is a cycle; 9 vertices and 8 edges with a cycle cannot be connected",
+            "requires": [
+              [
+                "cycle"
+              ],
+              [
+                "not a tree"
+              ],
+              [
+                "not connected"
+              ],
+              [
+                "cut off"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tree-vertices",
+          "prompt": "A tree has $12$ edges. How many vertices does it have?",
+          "hint": "A tree with $n$ vertices has $n - 1$ edges.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0
+          },
+          "explain": "$n - 1 = 12$, so $n = 13$ vertices.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12 + 1",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-tree",
+          "prompt": "Each graph below has vertices A, B, C and D. Which one is a tree?",
+          "hint": "A tree is connected and has no cycle. With $4$ vertices it has $3$ edges.",
+          "options": [
+            {
+              "text": "Edges AB, AC and AD",
+              "correct": true
+            },
+            {
+              "text": "Edges AB, BC and CA",
+              "correct": false
+            },
+            {
+              "text": "Edges AB, BC, CD and DA",
+              "correct": false
+            },
+            {
+              "text": "Edges AB and CD",
+              "correct": false
+            }
+          ],
+          "explain": "AB, AC, AD is connected with no cycle. AB, BC, CA is a cycle and misses D; AB, BC, CD, DA is a cycle; AB and CD is in two pieces.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Edges AB, AC and AD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sum \\deg(V) = 2 \\times \\text{number of edges}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Degree counts edge ends at a vertex: a loop adds $2$, and each of several edges between the same two vertices counts.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Weighted graph: each edge carries a distance, time or cost. The drawing is not to scale, so read the weights.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Simple: no loops and no multiple edges. Complete $K_n$: simple, with every pair of its $n$ vertices joined, so it has $\\frac{n(n-1)}{2}$ edges.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Connected: you can travel along edges between any two vertices. Strongly connected (directed graph): you can travel from any vertex to any other following the arrows.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a directed graph, the in-degrees add up to the number of edges, and so do the out-degrees.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Subgraph: vertices and edges taken from $G$, with both ends of every kept edge also kept.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Tree: connected with no cycles. A tree with $n$ vertices has $n - 1$ edges, and a connected graph with $n$ vertices and $n - 1$ edges is a tree.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Counting a loop once. Both ends of a loop are at the same vertex, so it adds $2$ to that vertex's degree.",
+    "Calling a connected graph complete. Complete means every pair of vertices is joined directly; connected only needs a route between every pair.",
+    "Judging distances from the drawing. Weighted graphs are not to scale, and a route through other vertices can beat a direct edge.",
+    "Swapping in-degree and out-degree. In-degree counts arrows arriving at a vertex; out-degree counts arrows leaving it.",
+    "Calling a graph a tree from its edge count alone. A graph with $n$ vertices and $n - 1$ edges is a tree only if it is also connected.",
+    "Drawing a graph with unlabelled vertices or needless crossings. Label every vertex and avoid crossing edges where you can."
+  ],
+  "examTips": [
+    "“Write down the degree”: no working is needed, but count a loop twice and count every edge between the same two vertices.",
+    "“State, giving a reason” (simple, connected, complete): name the feature that decides it, such as a loop at C, or a pair of vertices with no edge between them.",
+    "“Explain why” a graph is connected but not complete: give both halves. Show a route that reaches every vertex, then name one pair of vertices that are not adjacent.",
+    "“Draw” a graph: one labelled vertex per place, one edge per direct link, weights on the edges if they are given, and arrows only for one-way links."
+  ],
+  "readingMinutes": 32
+}

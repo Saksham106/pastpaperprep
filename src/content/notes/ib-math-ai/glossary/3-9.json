@@ -2,13 +2,13 @@
   {
     "id": "transformation-matrix",
     "term": "transformation matrix",
-    "definition": "TODO: A 2 × 2 matrix A mapping each point x to its image Ax (+ b for a translation), e.g. enlargement kI or rotation (cos θ, −sin θ; sin θ, cos θ) about the origin; |det A| is the area scale factor",
+    "definition": "A $2 \\times 2$ matrix $A$ that moves each point $\\boldsymbol{x}$ of the plane to its image $A\\boldsymbol{x}$ (plus a translation vector $\\boldsymbol{b}$ if there is one), such as a stretch, an enlargement, a rotation about the origin or a reflection in a line through the origin; $\\lvert\\det A\\rvert$ is its area scale factor.",
     "lesson": "3.9"
   },
   {
     "id": "fractal",
     "term": "fractal",
-    "definition": "TODO: A shape built by applying transformations over and over, so it shows detail at every scale; total length or area often comes from a geometric series",
+    "definition": "A shape made by applying the same transformations again and again for ever, so it shows detail at every scale; its length or area at each stage often forms a geometric sequence.",
     "lesson": "3.9"
   }
 ]

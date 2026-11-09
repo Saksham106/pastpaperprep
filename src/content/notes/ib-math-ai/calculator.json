@@ -1346,18 +1346,18 @@
      "Enter A with matrix-enter",
      "Home screen: 2nd, x⁻¹ (MATRIX), NAMES, 1: [A], ^, {power}",
      "ENTER",
-     "Read A^{power}"
+     "Read the matrix A to the power {power}"
     ],
     "nspire": [
      "Store the matrix as a",
-     "Calculator page: type a^{power}, enter",
-     "Read A^{power}"
+     "Calculator page: type a ^ {power}, enter",
+     "Read the matrix A to the power {power}"
     ],
     "casio": [
      "Store Mat A",
      "RUN-MAT: OPTN, MAT/VCT, Mat, A, ^, {power}",
      "EXE",
-     "Read A^{power}"
+     "Read the matrix A to the power {power}"
     ]
    }
   },
@@ -1499,19 +1499,19 @@
    "steps": {
     "ti84": [
      "MODE: a+bi (complex-mode)",
-     "Type ({z1})×({z2}), ({z1})/({z2}) or ({z1})^{power} with brackets round each number (i is 2nd, .)",
+     "Type ({z1})×({z2}), ({z1})/({z2}) or ({z1}) ^ {power} with brackets round each number (i is 2nd, .)",
      "ENTER",
      "Read the answer as a + bi (or switch MODE to re^(θi) for polar form)"
     ],
     "nspire": [
      "Document Settings: Rectangular (complex-mode)",
-     "Calculator page: type ({z1})·({z2}), ({z1})/({z2}) or ({z1})^{power} with brackets round each number",
+     "Calculator page: type ({z1})·({z2}), ({z1})/({z2}) or ({z1}) ^ {power} with brackets round each number",
      "enter",
      "Read the answer as a + bi (or set Polar for r∠θ)"
     ],
     "casio": [
      "SET UP: Complex Mode a+bi (complex-mode)",
-     "RUN-MAT: type ({z1})×({z2}), ({z1})÷({z2}) or ({z1})^{power} with brackets round each number (i is SHIFT, 0)",
+     "RUN-MAT: type ({z1})×({z2}), ({z1})÷({z2}) or ({z1}) ^ {power} with brackets round each number (i is SHIFT, 0)",
      "EXE",
      "Read the answer as a + bi (or set r∠θ for polar form)"
     ]

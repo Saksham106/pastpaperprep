@@ -2,13 +2,13 @@
   {
     "id": "arc",
     "term": "arc",
-    "definition": "TODO: Part of a circle's circumference; arc length = (θ/360°) × 2πr with θ in degrees",
+    "definition": "Part of the circumference of a circle; with radius $r$ and angle $\\theta$ degrees at the centre, its length is $\\frac{\\theta}{360} \\times 2\\pi r$.",
     "lesson": "3.4"
   },
   {
     "id": "sector",
     "term": "sector",
-    "definition": "TODO: The region between two radii and the arc joining them; area = (θ/360°) × πr² with θ in degrees",
+    "definition": "The region of a circle between two radii and the arc joining their ends; with radius $r$ and angle $\\theta$ degrees at the centre, its area is $\\frac{\\theta}{360} \\times \\pi r^{2}$.",
     "lesson": "3.4"
   }
 ]

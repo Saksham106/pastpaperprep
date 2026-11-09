@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.18",
+  "slug": "second-order-differential-equations",
+  "title": "Second-order differential equations",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[second-order-differential-equation|second-order differential equation]] gives an acceleration, $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$, such as for a spring or a bouncing diving board. Put $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and it becomes two [[coupled-differential-equations|coupled differential equations]]. Then you can use [[eulers-method|Euler's method]], find an exact solution from [[eigenvalue|eigenvalues]], or read the motion from a [[phase-portrait|phase portrait]].",
+  "goals": [
+    {
+      "text": "Rewrite a second-order equation as coupled first-order equations with $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, and use both [[initial-condition|initial conditions]].",
+      "bullets": [
+        "5.18-b1",
+        "5.18-b3"
+      ]
+    },
+    {
+      "text": "Estimate $x$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ with Euler's method, by hand and on a GDC.",
+      "bullets": [
+        "5.18-b1"
+      ]
+    },
+    {
+      "text": "Find the exact solution of $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$ when the eigenvalues are real and distinct.",
+      "bullets": [
+        "5.18-b2"
+      ]
+    },
+    {
+      "text": "Use the eigenvalues and a phase portrait of displacement against velocity to describe the motion in context.",
+      "bullets": [
+        "5.18-b2",
+        "5.18-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.15",
+    "2.6",
+    "5.10",
+    "5.14",
+    "5.16",
+    "5.17"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "second order differential equation",
+    "d2x/dt2 coupled equations",
+    "damped oscillation differential equation",
+    "Euler's method second order",
+    "spring differential equation",
+    "displacement velocity phase portrait"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-eigenvalues",
+      "prompt": "Find the eigenvalues of $\\begin{pmatrix}1 & 2\\\\ 3 & 0\\end{pmatrix}$.",
+      "hint": "Solve $\\det\\begin{pmatrix}1 - \\lambda & 2\\\\ 3 & -\\lambda\\end{pmatrix} = 0$.",
+      "options": [
+        {
+          "text": "$3, -2$",
+          "correct": true
+        },
+        {
+          "text": "$-3, 2$",
+          "correct": false
+        },
+        {
+          "text": "$1, 0$",
+          "correct": false
+        }
+      ],
+      "explain": "$(1 - \\lambda)(-\\lambda) - 6 = \\lambda^{2} - \\lambda - 6 = (\\lambda - 3)(\\lambda + 2) = 0$. The diagonal entries are not the eigenvalues. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve((Matrix([[1, 2], [3, 0]]) - x*eye(2)).det(), x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-euler-coupled",
+      "prompt": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = x - y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2x$, with $x = 3$ and $y = 1$ at $t = 0$. Use one step of Euler's method with $h = 0.1$ to estimate $x$ at $t = 0.1$.",
+      "hint": "$x_{1} = x_{0} + h \\times (x_{0} - y_{0})$.",
+      "answer": {
+        "value": 3.2,
+        "tolerance": 0.005
+      },
+      "explain": "$x_{1} = 3 + 0.1(3 - 1) = 3.2$. Revise it in {{lesson:5.16}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3 + 0.1*(3 - 1)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-spiral",
+      "prompt": "A linear system has eigenvalues $-1 \\pm 2\\mathrm{i}$. What do its trajectories do?",
+      "hint": "Complex eigenvalues mean the paths turn. Look at the sign of the real part.",
+      "options": [
+        {
+          "text": "spiral towards the origin",
+          "correct": true
+        },
+        {
+          "text": "spiral away from the origin",
+          "correct": false
+        },
+        {
+          "text": "form closed ellipses",
+          "correct": false
+        }
+      ],
+      "explain": "Complex eigenvalues give a spiral, and the real part $-1$ is negative, so it goes inwards. Revise it in {{lesson:5.17}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "spiral towards the origin"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "coupled-form",
+      "heading": "Writing it as two first-order equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "So far your [[differential-equation|differential equations]] held only a first derivative. Many laws of motion are about acceleration, the [[second-derivative|second derivative]] of displacement: $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$."
+        },
+        {
+          "type": "definition",
+          "term": "Second-order differential equation",
+          "statement": "A [[second-order-differential-equation|second-order differential equation]] is a [[differential-equation|differential equation]] whose highest derivative is a second derivative. Here it has the form $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = f\\left(x, \\frac{\\mathrm{d}x}{\\mathrm{d}t}, t\\right)$.",
+          "plain": "An equation that gives the acceleration from the position, the velocity and the time."
+        },
+        {
+          "type": "text",
+          "text": "For example, a spring pulls a mass back to its rest position and friction opposes its velocity: $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = -26x - 2\\frac{\\mathrm{d}x}{\\mathrm{d}t}$. In the exam the equation is always given. You solve it and interpret it."
+        },
+        {
+          "type": "text",
+          "text": "The key step is to give the velocity its own letter. Let $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$. Then $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$, so the one second-order equation becomes two first-order ones:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y, \\qquad \\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(x, y, t)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "These are [[coupled-differential-equations|coupled differential equations]], as in {{lesson:5.16}}. Here $x$ is the displacement and $y$ is the velocity."
+        },
+        {
+          "type": "text",
+          "text": "When the equation is $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$ with constants $a$ and $b$, rearrange it to $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -bx - ay$. In matrix form:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}\\\\[6pt] \\dfrac{\\mathrm{d}y}{\\mathrm{d}t}\\end{pmatrix} = \\begin{pmatrix}0 & 1\\\\ -b & -a\\end{pmatrix}\\begin{pmatrix}x\\\\ y\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A solution needs two [[initial-condition|initial conditions]]: the starting displacement $x$ and the starting velocity $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$. \"Released from rest\" or \"let go from rest\" means $y = 0$ at the start."
+        },
+        {
+          "type": "mistake",
+          "text": "Moving terms across the equals sign without changing their signs. From $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$, the bottom row of the matrix is $-b$ and $-a$, not $b$ and $a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rewrite-forced",
+          "question": "Use the substitution $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ to write $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 0.4\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 3x = 2t$ as a pair of coupled first-order equations.",
+          "steps": [
+            "Let $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$. Differentiate both sides: $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$.",
+            "Substitute both into the equation: $\\frac{\\mathrm{d}y}{\\mathrm{d}t} + 0.4y + 3x = 2t$.",
+            "Make $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ the subject: $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2t - 3x - 0.4y$.",
+            "So the system is $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2t - 3x - 0.4y$. The $2t$ term means it doesn't fit the matrix form below, but Euler's method still works on it."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2t - 3x - 0.4y$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "2*t - 3*x - 0.4*y"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-diving-board-acceleration",
+          "question": "After a diver jumps, the tip of a diving board is $x$ cm above its rest position at time $t$ seconds. A model is $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 2\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 26x = 0$. (a) Write the model in matrix form, using $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$. (b) At one moment the tip is $5$ cm above its rest position, moving down at $10\\text{ cm s}^{-1}$. Find $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ and interpret it.",
+          "steps": [
+            "(a) $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -26x - 2y$, so $\\begin{pmatrix}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}\\\\[6pt] \\dfrac{\\mathrm{d}y}{\\mathrm{d}t}\\end{pmatrix} = \\begin{pmatrix}0 & 1\\\\ -26 & -2\\end{pmatrix}\\begin{pmatrix}x\\\\ y\\end{pmatrix}$.",
+            "(b) Moving down means the velocity is negative: $x = 5$ and $y = -10$.",
+            "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -26(5) - 2(-10) = -130 + 20 = -110$.",
+            "Interpret: $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ is the acceleration, $110\\text{ cm s}^{-2}$ downwards. It points the same way as the motion, so the tip is speeding up as it heads back towards its rest position."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -110$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-26*5 - 2*(-10)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-matrix-row",
+          "prompt": "$\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 3\\frac{\\mathrm{d}x}{\\mathrm{d}t} - 10x = 0$ is written as coupled equations with $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$. Which expression is $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$?",
+          "hint": "Replace $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$ by $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ by $y$, then make $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ the subject.",
+          "options": [
+            {
+              "text": "$10x - 3y$",
+              "correct": true
+            },
+            {
+              "text": "$-10x + 3y$",
+              "correct": false
+            },
+            {
+              "text": "$-3x + 10y$",
+              "correct": false
+            },
+            {
+              "text": "$3x - 10y$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} + 3y - 10x = 0$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 10x - 3y$. Both terms change sign when they cross the equals sign.",
+          "verify": {
+            "kind": "expression",
+            "truth": "10*x - 3*y"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-acceleration",
+          "prompt": "A ball is thrown straight up. Its height $x$ m at time $t$ s is modelled by $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = -9.8 - 0.05\\frac{\\mathrm{d}x}{\\mathrm{d}t}$. It leaves the hand moving up at $12\\text{ m s}^{-1}$. With $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, find $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at that moment.",
+          "hint": "Up is positive, so $y = 12$ at the start.",
+          "answer": {
+            "value": -10.4,
+            "tolerance": 0.05
+          },
+          "explain": "$-9.8 - 0.05(12) = -10.4$. The ball is slowing at $10.4\\text{ m s}^{-2}$: gravity and air resistance both act downwards while it rises.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-9.8 - 0.05*12",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "euler",
+      "heading": "Euler's method for second-order equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many second-order equations have no exact solution you can find, for example when the velocity is squared. Euler's method still works on the coupled form. You step $x$ and $y$ forward together, as in {{lesson:5.16}}."
+        },
+        {
+          "type": "formula",
+          "tex": "x_{n+1} = x_{n} + h \\times f_{1}(x_{n}, y_{n}, t_{n}), \\quad y_{n+1} = y_{n} + h \\times f_{2}(x_{n}, y_{n}, t_{n}), \\quad t_{n+1} = t_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-euler-coupled"
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet, with step length $h$. Here $f_{1}(x, y, t) = y$, so the first line becomes $x_{n+1} = x_{n} + hy_{n}$. For $f_{2}$, use the right-hand side $f(x, y, t)$ of the given equation."
+        },
+        {
+          "type": "result",
+          "statement": "Each new row uses only the old row: $x_{n+1} = x_{n} + hy_{n}$ and $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n}, t_{n})$.",
+          "why": "Euler's method uses the rates at the start of each step, which come from the old row. Set out a table with columns $n$, $t$, $x$ and $y$."
+        },
+        {
+          "type": "example",
+          "id": "ex-skydiver-by-hand",
+          "question": "A skydiver falls from rest. Her distance fallen, $x$ m after $t$ s, is modelled by $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = 9.8 - 0.1\\left(\\frac{\\mathrm{d}x}{\\mathrm{d}t}\\right)^{2}$. Use Euler's method with $h = 0.5$ to estimate her distance fallen and her speed after $1$ second.",
+          "steps": [
+            "Let $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, her speed. Then $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 9.8 - 0.1y^{2}$, with $x_{0} = 0$ and $y_{0} = 0$ at $t_{0} = 0$.",
+            "Formulas: $x_{n+1} = x_{n} + 0.5y_{n}$ and $y_{n+1} = y_{n} + 0.5(9.8 - 0.1y_{n}^{2})$.",
+            "Row 1 ($t = 0.5$): $x_{1} = 0 + 0.5(0) = 0$ and $y_{1} = 0 + 0.5(9.8 - 0) = 4.9$. The first step uses her starting speed, $0$, so $x$ doesn't change yet.",
+            "Row 2 ($t = 1$): $x_{2} = 0 + 0.5(4.9) = 2.45$ and $y_{2} = 4.9 + 0.5(9.8 - 0.1 \\times 4.9^{2}) = 4.9 + 0.5(7.399) = 8.5995$.",
+            "Interpret: after $1$ second she has fallen about $2.45$ m and is falling at about $8.60\\text{ m s}^{-1}$. Two steps give only a rough estimate: a smaller $h$ gives a better one."
+          ],
+          "answer": "$x = 2.45, \\; y = 8.5995$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'x': 0 + 0.5*(0 + 0.5*(9.8 - 0.1*0**2)), 'y': (0 + 0.5*(9.8 - 0.1*0**2)) + 0.5*(9.8 - 0.1*(0 + 0.5*(9.8 - 0.1*0**2))**2)}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-first-step-old-row",
+          "prompt": "For $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = -6x - 0.2\\frac{\\mathrm{d}x}{\\mathrm{d}t}$, $x = 2$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 1$ at $t = 0$. One Euler step with $h = 0.1$ gives $x_{1} = 2.1$. Find $y_{1}$, the estimate of $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at $t = 0.1$.",
+          "hint": "$y_{1} = y_{0} + 0.1(-6x_{0} - 0.2y_{0})$, with $x_{0} = 2$, not $x_{1}$.",
+          "options": [
+            {
+              "text": "$y_{1} = -0.22$",
+              "correct": true
+            },
+            {
+              "text": "$y_{1} = -0.28$",
+              "correct": false
+            },
+            {
+              "text": "$y_{1} = -1.22$",
+              "correct": false
+            },
+            {
+              "text": "$y_{1} = -11.2$",
+              "correct": false
+            }
+          ],
+          "explain": "$y_{1} = 1 + 0.1(-12 - 0.2) = -0.22$. Using $x_{1} = 2.1$ instead of $x_{0}$ gives $-0.28$; leaving out $y_{0}$ gives $-1.22$; forgetting $h$ gives $-11.2$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1 + 0.1*(-6*2 - 0.2*1)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-buoy-gdc",
+          "question": "A buoy bobs on waves. Its height above its rest level is $x$ m at time $t$ s, where $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 0.6\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 5x = 2\\cos t$. At $t = 0$, $x = 0.5$ and the buoy is at rest. Use Euler's method with $h = 0.1$ to estimate $x$ and $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ when $t = 1$. Give your answers to 3 s.f. and interpret them.",
+          "steps": [
+            "Coupled form: $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2\\cos t - 5x - 0.6y$, with $t_{0} = 0$, $x_{0} = 0.5$ and $y_{0} = 0$.",
+            "Write down what you enter: $x_{n+1} = x_{n} + 0.1y_{n}$, $y_{n+1} = y_{n} + 0.1(2\\cos t_{n} - 5x_{n} - 0.6y_{n})$ and $t_{n+1} = t_{n} + 0.1$. This line earns the method mark.",
+            "Check the first row by hand: $x_{1} = 0.5 + 0.1(0) = 0.5$ and $y_{1} = 0 + 0.1(2 - 2.5 - 0) = -0.05$.",
+            "Set the GDC to radians, because $t$ is a time, not an angle in degrees. Run $10$ steps to $t = 1$: $x_{10} = 0.30503\\ldots$ and $y_{10} = -0.38051\\ldots$.",
+            "Interpret: after $1$ second the buoy is about $0.305$ m above its rest level and moving down at about $0.381\\text{ m s}^{-1}$."
+          ],
+          "answer": "$x \\approx 0.305, \\; y \\approx -0.381$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-buoy-half-step",
+            "prompt": "Now you try: repeat the buoy calculation with $h = 0.05$ ($20$ steps). Estimate $x$ when $t = 1$, to 3 s.f.",
+            "hint": "Change every $0.1$ in the formulas to $0.05$, and read row $20$.",
+            "answer": {
+              "value": 0.303,
+              "tolerance": 0.0005
+            },
+            "explain": "With $h = 0.05$, $x_{20} = 0.30336\\ldots \\approx 0.303$. It is close to the $h = 0.1$ value of $0.305$, which suggests both estimates are reasonable."
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Radian"
+          }
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "MODE: choose SEQ on the FUNCTION PARAMETRIC POLAR SEQ row, ENTER, then 2nd, MODE (QUIT)",
+              "Y=: nMin = 0; u(n) = u(n-1)+0.1×v(n-1); u(nMin) = 0.5 (u is 2nd, 7; v is 2nd, 8; n is X,T,θ,n)",
+              "v(n) = v(n-1)+0.1×(2cos(0.1(n-1))-5u(n-1)-0.6v(n-1)); v(nMin) = 0",
+              "2nd, WINDOW (TBLSET): TblStart 0, ΔTbl 1",
+              "2nd, GRAPH (TABLE): row n is t = 0.1n; read u(10) = x and v(10) = y",
+              "Set MODE back to FUNCTION afterwards"
+            ],
+            "nspire": [
+              "Calculator page: type euler({y,2cos(t)-5x-0.6y},t,{x,y},{0,1},{0.5,0},0.1), enter (check on your model)",
+              "The answer is a matrix: the top row is t, then a row for x and a row for y",
+              "Read the last column: x and y at t = 1"
+            ],
+            "casio": [
+              "MENU, RECUR, TYPE (F3), an+1 (F2)",
+              "a(n+1) = a(n)+0.1×b(n), with a(n) and b(n) from the n.an menu (F4) (check on your model)",
+              "b(n+1) = b(n)+0.1×(2cos(0.1n)-5a(n)-0.6b(n)) (check on your model)",
+              "SET (F5): Start 0, End 10, a0 0.5, b0 0, EXIT",
+              "TABLE (F6); read a(n) = x and b(n) = y at n = 10"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-terminal-speed",
+          "prompt": "In the skydiver model $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = 9.8 - 0.1\\left(\\frac{\\mathrm{d}x}{\\mathrm{d}t}\\right)^{2}$, her speed stops changing when her acceleration is $0$. Find this speed, in $\\text{m s}^{-1}$ to 3 s.f.",
+          "hint": "Put $9.8 - 0.1y^{2} = 0$ and solve for $y > 0$.",
+          "answer": {
+            "value": 9.9,
+            "tolerance": 0.005
+          },
+          "explain": "$0.1y^{2} = 9.8$, so $y^{2} = 98$ and $y = \\sqrt{98} \\approx 9.90\\text{ m s}^{-1}$. This is her terminal speed: in the model her speed approaches it as $t$ grows.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(9.8/0.1)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "exact",
+      "heading": "Exact solutions from eigenvalues",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When the equation is linear, $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$, you can solve it exactly as in {{lesson:5.17}}. Use the matrix $M = \\begin{pmatrix}0 & 1\\\\ -b & -a\\end{pmatrix}$ of the coupled form."
+        },
+        {
+          "type": "result",
+          "statement": "The [[eigenvalue|eigenvalues]] of $M = \\begin{pmatrix}0 & 1\\\\ -b & -a\\end{pmatrix}$ are the solutions of $\\lambda^{2} + a\\lambda + b = 0$. For each eigenvalue $\\lambda$, an [[eigenvector|eigenvector]] is $\\begin{pmatrix}1\\\\ \\lambda\\end{pmatrix}$.",
+          "why": "$\\det(M - \\lambda I) = (-\\lambda)(-a - \\lambda) - (1)(-b) = \\lambda^{2} + a\\lambda + b$. The top row of $(M - \\lambda I)\\boldsymbol{p} = \\boldsymbol{0}$ is $-\\lambda p_{1} + p_{2} = 0$, so $p_{2} = \\lambda p_{1}$."
+        },
+        {
+          "type": "text",
+          "text": "In the exam, still write $\\det(M - \\lambda I) = 0$ before the quadratic. That line earns the method mark."
+        },
+        {
+          "type": "text",
+          "text": "When the eigenvalues $\\lambda_{1}$ and $\\lambda_{2}$ are real and distinct, the exact solution is the booklet formula:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-coupled-exact"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\boldsymbol{x} = \\begin{pmatrix}x\\\\ y\\end{pmatrix}$. With $\\boldsymbol{p}_{1} = \\begin{pmatrix}1\\\\ \\lambda_{1}\\end{pmatrix}$ and $\\boldsymbol{p}_{2} = \\begin{pmatrix}1\\\\ \\lambda_{2}\\end{pmatrix}$, the top row is the displacement and the bottom row is its velocity:"
+        },
+        {
+          "type": "formula",
+          "tex": "x = A\\mathrm{e}^{\\lambda_{1}t} + B\\mathrm{e}^{\\lambda_{2}t}, \\qquad \\frac{\\mathrm{d}x}{\\mathrm{d}t} = A\\lambda_{1}\\mathrm{e}^{\\lambda_{1}t} + B\\lambda_{2}\\mathrm{e}^{\\lambda_{2}t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is the [[general-solution|general solution]]. Find the constants $A$ and $B$ by putting $t = 0$: the starting displacement is $A + B$, and the starting velocity is $A\\lambda_{1} + B\\lambda_{2}$."
+        },
+        {
+          "type": "mistake",
+          "text": "Finding $A$ and $B$ from the starting displacement alone. You need two equations, so also use the starting velocity: differentiate the general solution first."
+        },
+        {
+          "type": "example",
+          "id": "ex-door-closer",
+          "question": "A door closer swings a door shut. The door is open $x$ degrees at time $t$ seconds, where $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 6\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 8x = 0$. It is let go from rest when it is open $90$ degrees. Find $x$ in terms of $t$, and describe how the door closes.",
+          "steps": [
+            "Characteristic equation: $\\det\\begin{pmatrix}-\\lambda & 1\\\\ -8 & -6 - \\lambda\\end{pmatrix} = \\lambda^{2} + 6\\lambda + 8 = 0$, so $(\\lambda + 2)(\\lambda + 4) = 0$ and $\\lambda = -2$ or $\\lambda = -4$.",
+            "These are real and distinct, so $x = A\\mathrm{e}^{-2t} + B\\mathrm{e}^{-4t}$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -2A\\mathrm{e}^{-2t} - 4B\\mathrm{e}^{-4t}$.",
+            "At $t = 0$: $x = 90$ gives $A + B = 90$. Starting from rest gives $-2A - 4B = 0$, so $A = -2B$.",
+            "Then $-2B + B = 90$, so $B = -90$ and $A = 180$.",
+            "Describe: both eigenvalues are negative, so $x \\to 0$. Also $180\\mathrm{e}^{-2t} > 90\\mathrm{e}^{-4t}$ for all $t \\ge 0$, so $x$ stays positive: the door closes smoothly and never swings past the closed position."
+          ],
+          "answer": "$x = 180\\mathrm{e}^{-2t} - 90\\mathrm{e}^{-4t}$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, solve([A + B - 90, -2*A - 4*B], [A, B])[A]*exp(-2*t) + solve([A + B - 90, -2*A - 4*B], [A, B])[B]*exp(-4*t))"
+          },
+          "check": {
+            "type": "check",
+            "id": "check-door-one-degree",
+            "prompt": "Now you try: find the time when the door is open $1$ degree. Give your answer in seconds to 3 s.f.",
+            "hint": "Solve $180\\mathrm{e}^{-2t} - 90\\mathrm{e}^{-4t} = 1$ with your GDC's solver, starting from $t = 3$.",
+            "answer": {
+              "value": 2.6,
+              "tolerance": 0.005
+            },
+            "explain": "$180\\mathrm{e}^{-2t} - 90\\mathrm{e}^{-4t} = 1$ gives $t = 2.595\\ldots \\approx 2.60$ s. The door takes a few seconds to close fully: it slows down as it nears the frame.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "nsolve(180*exp(-2*t) - 90*exp(-4*t) - 1, t, 3)",
+              "sf": 3
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-seismometer",
+          "question": "A tremor jolts the arm of a seismometer. Its displacement is $x$ mm at time $t$ seconds, where $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 9\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 14x = 0$. At $t = 0$, $x = 0$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 40$. (a) Find $x$ in terms of $t$. (b) Use your GDC to find the greatest displacement of the arm, to 3 s.f.",
+          "steps": [
+            "$\\det(M - \\lambda I) = \\lambda^{2} + 9\\lambda + 14 = 0$, so $(\\lambda + 2)(\\lambda + 7) = 0$ and $\\lambda = -2$ or $\\lambda = -7$.",
+            "$x = A\\mathrm{e}^{-2t} + B\\mathrm{e}^{-7t}$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -2A\\mathrm{e}^{-2t} - 7B\\mathrm{e}^{-7t}$.",
+            "At $t = 0$: $A + B = 0$ and $-2A - 7B = 40$. So $A = -B$, then $2B - 7B = 40$, giving $B = -8$ and $A = 8$.",
+            "(a) $x = 8\\mathrm{e}^{-2t} - 8\\mathrm{e}^{-7t}$.",
+            "(b) Graph $8\\mathrm{e}^{-2t} - 8\\mathrm{e}^{-7t}$ for $t \\ge 0$, with $X$ for $t$, and find the maximum: $x = 3.4620\\ldots$ at $t = 0.25055\\ldots$.",
+            "Interpret: the arm swings out about $3.46$ mm in the first quarter of a second. Then it returns towards $0$ without oscillating, because both eigenvalues are real and negative."
+          ],
+          "answer": "$x \\approx 3.46$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "maximum(solve([A + B, -2*A - 7*B - 40], [A, B])[A]*exp(-2*t) + solve([A + B, -2*A - 7*B - 40], [A, B])[B]*exp(-7*t), t, Interval(0, oo))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "8e^(-2X)-8e^(-7X)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-char-roots",
+          "prompt": "Find the eigenvalues for $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 7\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 12x = 0$.",
+          "hint": "Solve $\\lambda^{2} + 7\\lambda + 12 = 0$.",
+          "options": [
+            {
+              "text": "$-3, -4$",
+              "correct": true
+            },
+            {
+              "text": "$3, 4$",
+              "correct": false
+            },
+            {
+              "text": "$0, -7$",
+              "correct": false
+            }
+          ],
+          "explain": "$(\\lambda + 3)(\\lambda + 4) = 0$, so $\\lambda = -3$ or $-4$. The diagonal entries $0$ and $-7$ of $M$ are not its eigenvalues.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(x**2 + 7*x + 12, x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-B",
+          "prompt": "The general solution of a model is $x = A\\mathrm{e}^{-t} + B\\mathrm{e}^{-5t}$. At $t = 0$, $x = 4$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$. Find $B$.",
+          "hint": "Differentiate first: $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -A\\mathrm{e}^{-t} - 5B\\mathrm{e}^{-5t}$. Then put $t = 0$ in both.",
+          "answer": {
+            "value": -1,
+            "tolerance": 0
+          },
+          "explain": "$A + B = 4$ and $-A - 5B = 0$. Adding gives $-4B = 4$, so $B = -1$ (and $A = 5$).",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve([A + B - 4, -A - 5*B], [A, B])[B]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase",
+      "heading": "Phase portraits of displacement against velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For the coupled form, a [[phase-portrait|phase portrait]] has the displacement $x$ across and the velocity $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ up. Each [[trajectory|trajectory]] shows how position and velocity change together."
+        },
+        {
+          "type": "text",
+          "text": "Where a trajectory crosses the $x$-axis, $y = 0$: the object is momentarily at rest, at the end of a swing. Where it crosses the $y$-axis, $x = 0$: the object is passing through its rest position. The origin is the [[equilibrium-point|equilibrium point]], at rest in the rest position."
+        },
+        {
+          "type": "result",
+          "statement": "When $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$, trajectories move right above the $x$-axis and left below it. So a spiral or ellipse in this phase portrait always turns clockwise.",
+          "why": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$, so $x$ increases exactly where $y > 0$ and decreases where $y < 0$."
+        },
+        {
+          "type": "text",
+          "text": "The eigenvalues, from $\\lambda^{2} + a\\lambda + b = 0$, tell you the motion of $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$. These are the rules from {{lesson:5.17}}, read in context:"
+        },
+        {
+          "type": "text",
+          "text": "1. Real, distinct and both negative: trajectories go into the origin. The object returns to rest without oscillating."
+        },
+        {
+          "type": "text",
+          "text": "2. Complex with negative real part: trajectories spiral in. The object oscillates, and its swings get smaller."
+        },
+        {
+          "type": "text",
+          "text": "3. Imaginary ($a = 0$ and $b > 0$): trajectories are closed ellipses. The object oscillates for ever with the same size of swing."
+        },
+        {
+          "type": "text",
+          "text": "4. A positive eigenvalue, or complex eigenvalues with positive real part: almost every trajectory moves away from the origin, so the displacement grows."
+        },
+        {
+          "type": "figure",
+          "id": "5-18-diving-board",
+          "alt": "Two graphs of the diving board model, starting at x equals 10 at rest. Left: displacement x in centimetres against time t from 0 to 5 seconds, an oscillation that starts at 10 and dies away towards 0. Right: the phase portrait with x across and velocity y up; the trajectory starts at the point 10, 0 and spirals clockwise into the origin.",
+          "caption": "The diving board model $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 2\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 26x = 0$ from $x = 10$ at rest. Each full up-and-down swing on the left is one turn of the spiral on the right."
+        },
+        {
+          "type": "example",
+          "id": "ex-diving-board-spiral",
+          "question": "For the diving board model $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 2\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 26x = 0$, the tip starts at rest $10$ cm above its rest position. Find the eigenvalues. Describe the trajectory on a phase portrait of $x$ against $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, and interpret it.",
+          "steps": [
+            "$\\lambda^{2} + 2\\lambda + 26 = 0$, so $\\lambda = \\frac{-2 \\pm \\sqrt{4 - 104}}{2} = \\frac{-2 \\pm 10\\mathrm{i}}{2} = -1 \\pm 5\\mathrm{i}$.",
+            "Complex with negative real part: the trajectory spirals into the origin.",
+            "It starts at $(10, 0)$. There $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -26(10) - 2(0) = -260 < 0$, so it moves down: the spiral is clockwise, as always when $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$.",
+            "Interpret: the tip bounces up and down past its rest position, each swing smaller than the last, and settles at rest. The spiral crosses the $x$-axis at the top and bottom of each bounce."
+          ],
+          "answer": "$\\lambda = -1 \\pm 5\\mathrm{i}$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "solve(x**2 + 2*x + 26, x)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-air-track",
+          "question": "A glider on a frictionless air track is attached to a spring. Its displacement is $x$ cm at time $t$ seconds, where $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 9x = 0$. It is let go from rest at $x = 2$. Use the eigenvalues to describe its trajectory on a phase portrait and its motion. Comment on the model.",
+          "steps": [
+            "Here $a = 0$ and $b = 9$: $\\lambda^{2} + 9 = 0$, so $\\lambda = \\pm 3\\mathrm{i}$. These are imaginary.",
+            "So the trajectory through $(2, 0)$ is a closed ellipse centred on the origin, traced clockwise.",
+            "Motion: the glider swings between $x = 2$ and $x = -2$, where the ellipse crosses the $x$-axis, and repeats this for ever.",
+            "Comment: a real glider has some friction, so its swings slowly shrink. Adding a small $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ term with $a > 0$ makes the eigenvalues complex with negative real part, so the trajectory spirals in instead."
+          ],
+          "answer": "Imaginary eigenvalues $\\pm 3\\mathrm{i}$ give a closed clockwise ellipse: the glider oscillates between $x = -2$ and $x = 2$ for ever. Real friction makes the swings shrink.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Imaginary eigenvalues: a closed clockwise ellipse, oscillation for ever; friction would make the swings shrink.",
+            "requires": [
+              "ellipse",
+              "clockwise",
+              [
+                "for ever",
+                "forever"
+              ],
+              "friction"
+            ],
+            "forbids": [
+              "spirals in"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-motion-type",
+          "prompt": "A model is $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 5\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 4x = 0$. Which describes the motion?",
+          "hint": "Solve $\\lambda^{2} + 5\\lambda + 4 = 0$. Are the eigenvalues real or complex, and what are their signs?",
+          "options": [
+            {
+              "text": "It returns to rest without oscillating",
+              "correct": true
+            },
+            {
+              "text": "It oscillates with smaller and smaller swings",
+              "correct": false
+            },
+            {
+              "text": "It oscillates for ever with the same size of swing",
+              "correct": false
+            },
+            {
+              "text": "Its displacement grows without limit",
+              "correct": false
+            }
+          ],
+          "explain": "$(\\lambda + 1)(\\lambda + 4) = 0$, so $\\lambda = -1$ or $-4$: real, distinct and negative. Trajectories go straight into the origin, so there is no oscillation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It returns to rest without oscillating"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trajectory-gradient",
+          "prompt": "For $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + 0.4\\frac{\\mathrm{d}x}{\\mathrm{d}t} + 9x = 0$ with $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, find the gradient $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ of the trajectory through $(2, 3)$, to 3 s.f.",
+          "hint": "Find $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(2, 3)$, then divide.",
+          "answer": {
+            "value": -6.4,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -9(2) - 0.4(3) = -19.2$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 3$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{-19.2}{3} = -6.40$. The path heads right and steeply down: the object moves forward while its velocity drops fast.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-9*2 - 0.4*3)/3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To solve $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = f\\left(x, \\frac{\\mathrm{d}x}{\\mathrm{d}t}, t\\right)$, let $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$: then $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(x, y, t)$. You need two initial conditions, $x$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at the start.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Euler's method for a second-order equation, with $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$: $x_{n+1} = x_{n} + hy_{n}$ and $y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n}, t_{n})$, both from the old row. Keep full values until the end.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$: the matrix is $\\begin{pmatrix}0 & 1\\\\ -b & -a\\end{pmatrix}$, the eigenvalues solve $\\lambda^{2} + a\\lambda + b = 0$, and $\\begin{pmatrix}1\\\\ \\lambda\\end{pmatrix}$ is an eigenvector for each eigenvalue $\\lambda$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}\\quad\\text{(real distinct eigenvalues)}",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-coupled-exact",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$ with real distinct eigenvalues: $x = A\\mathrm{e}^{\\lambda_{1}t} + B\\mathrm{e}^{\\lambda_{2}t}$. Find $A$ and $B$ from $x$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at $t = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Phase portrait of $x$ against $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ for $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$: real, distinct, negative eigenvalues mean a return to rest without oscillating; complex with negative real part, oscillations that die away (a clockwise spiral in); imaginary, oscillations for ever (a clockwise ellipse).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the new $x_{n+1}$ to work out $y_{n+1}$ in Euler's method. Both new values come from the old row $(t_{n}, x_{n}, y_{n})$.",
+    "Forgetting the starting velocity. A second-order equation needs $x$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at the start; \"from rest\" means $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$.",
+    "Sign slips in the matrix. Rearranging $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$ gives the bottom row $-b$, $-a$.",
+    "Rounding Euler values partway down the table. Keep full calculator values and round only the final answer, usually to 3 s.f.",
+    "Finding $A$ and $B$ from $x$ at $t = 0$ alone. Differentiate the general solution and use $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at $t = 0$ for the second equation.",
+    "Stopping at the eigenvalues when the question asks about the motion. Say what the object does: settles without oscillating, oscillates with shrinking swings, or oscillates for ever."
+  ],
+  "examTips": [
+    "\"Use the substitution $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$\": write $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$, then both equations of the coupled system. Each line can earn a mark.",
+    "\"Use Euler's method\": write both iteration formulas with the numbers in, and show at least the first row of the table. That earns the method marks even if a later value is wrong.",
+    "\"Hence write down the general solution\": $x = A\\mathrm{e}^{\\lambda_{1}t} + B\\mathrm{e}^{\\lambda_{2}t}$ or the vector form both earn the mark. Any non-zero multiple of an eigenvector is accepted.",
+    "\"Sketch $x$ against $t$\": start at the given $x$ with the starting gradient $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$, show any maximum or minimum, and show $x$ tending to $0$ when both eigenvalues are negative."
+  ],
+  "readingMinutes": 26
+}

@@ -2,7 +2,7 @@
   {
     "id": "power-rule",
     "term": "power rule",
-    "definition": "TODO: The derivative of ax^n is anx^(n−1): integer n at SL, rational n at AHL; it does not apply to a^x",
+    "definition": "The rule that the derivative of $ax^{n}$ is $anx^{n-1}$ (multiply by the power, then lower the power by one), used at SL for integer $n$ and at HL also for rational $n$; it does not apply to an exponential such as $a^{x}$, where the variable is in the power.",
     "lesson": "5.3"
   }
 ]

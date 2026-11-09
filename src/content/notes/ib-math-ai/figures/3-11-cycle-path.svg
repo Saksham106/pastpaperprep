@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 270" role="img" aria-labelledby="t311cp">
+  <title id="t311cp">Axes with origin O. A straight cycle path runs from the cafe C at (-20, 50) down to the gate G at (60, -10), and a dashed line continues it beyond both ends. A vector a runs from O to C. A bold vector b runs along the path from C to G. Points on the line are marked lambda equals 0 at C, lambda equals 0.5 halfway along, and lambda equals 1 at G. A dashed vector r runs from O to the point where lambda equals 0.5.</title>
+  <defs><marker id="a311" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="24" y1="181" x2="372" y2="181" marker-end="url(#a311)"/>
+    <line x1="126" y1="256" x2="126" y2="12" marker-end="url(#a311)"/>
+  </g>
+  <g font-size="12" fill="currentColor" opacity="0.8">
+    <text x="364" y="196">x</text>
+    <text x="132" y="18">y</text>
+    <text x="110" y="196">O</text>
+  </g>
+  <line x1="30" y1="31.5" x2="318" y2="238.5" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4" opacity="0.6"/>
+  <line x1="78" y1="66" x2="270" y2="204" stroke="var(--t2-ink)" stroke-width="3" marker-end="url(#a311)"/>
+  <line x1="126" y1="181" x2="80" y2="70" stroke="var(--t1-ink)" stroke-width="2" marker-end="url(#a311)"/>
+  <line x1="126" y1="181" x2="170" y2="138" stroke="var(--t3-ink)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a311)"/>
+  <circle cx="78" cy="66" r="4" fill="currentColor"/>
+  <circle cx="174" cy="135" r="4" fill="currentColor"/>
+  <circle cx="270" cy="204" r="4" fill="currentColor"/>
+  <g font-size="12" fill="currentColor">
+    <text x="12" y="88">C (−20, 50)</text>
+    <text x="88" y="60" font-size="11" opacity="0.8">λ = 0</text>
+    <text x="184" y="128" font-size="11" opacity="0.8">λ = 0.5</text>
+    <text x="276" y="198">G (60, −10)</text>
+    <text x="250" y="222" font-size="11" opacity="0.8">λ = 1</text>
+  </g>
+  <g font-size="14" font-weight="bold">
+    <text x="84" y="128" fill="var(--t1-ink)">a</text>
+    <text x="210" y="148" fill="var(--t2-ink)">b</text>
+    <text x="150" y="176" fill="var(--t3-ink)">r</text>
+  </g>
+</svg>

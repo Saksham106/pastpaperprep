@@ -50,8 +50,14 @@ export function calculatorErrors(block: CalculatorBlock, ids: readonly string[],
 
 /** Problems with a calculator.json: every snippet titled, with steps for exactly the course's calculators. */
 export function snippetFileErrors(snippets: CalculatorSnippets, ids: readonly string[]): string[] {
+  // Outside $…$, `^{name}` looks like a placeholder but is read as TeX, so the student would see "^{name}" verbatim.
+  const texLookalike = (step: string) => step.replace(/\$(?:[^$\\]|\\.)*\$/g, "").match(/[\^_}]\{[a-z][A-Za-z0-9]*\}/)?.[0];
   return Object.entries(snippets).flatMap(([id, snippet]) => [
     ...(snippet.title?.trim() ? [] : [`snippet ${id} needs a title`]),
+    ...Object.entries(snippet.steps ?? {}).flatMap(([model, steps]) => (Array.isArray(steps) ? steps : []).flatMap((step) => {
+      const hit = typeof step === "string" ? texLookalike(step) : undefined;
+      return hit ? [`snippet ${id} (${model}): "${hit}" is not filled in (TeX after ^, _ or }); write "^ {name}" or put it in $…$`] : [];
+    })),
     ...calculatorErrors({ type: "calculator", steps: snippet.steps }, ids).map((error) => `snippet ${id}: ${error}`),
   ]);
 }

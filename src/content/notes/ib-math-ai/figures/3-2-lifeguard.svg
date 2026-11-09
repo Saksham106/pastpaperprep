@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 240" role="img" aria-labelledby="t">
+  <title id="t">A straight beach along the bottom with lifeguard tower P on the left and tower Q on the right, 240 metres apart. A swimmer S is out at sea above the beach. The angle at P between the beach and the line to S is 61 degrees, and the angle at Q is 52 degrees.</title>
+  <line x1="10" y1="200" x2="370" y2="200" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <polygon points="60,200 320,200 166,9" fill="var(--t4-ink)" fill-opacity="0.08" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="60" cy="200" r="4" fill="currentColor"/>
+  <circle cx="320" cy="200" r="4" fill="currentColor"/>
+  <circle cx="166" cy="9" r="4" fill="currentColor"/>
+  <g font-size="15" fill="currentColor" font-weight="bold">
+    <text x="44" y="222">P</text>
+    <text x="324" y="222">Q</text>
+    <text x="176" y="16">S (swimmer)</text>
+  </g>
+  <text x="166" y="222" font-size="14" fill="currentColor">240 m</text>
+  <path d="M 100,200 A 40,40 0 0 0 79.4,165" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <text x="104" y="190" font-size="14" fill="var(--t3-ink)">61°</text>
+  <path d="M 280,200 A 40,40 0 0 1 295.4,168.5" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <text x="246" y="190" font-size="14" fill="var(--t3-ink)">52°</text>
+  <text x="20" y="236" font-size="12" fill="var(--muted)">beach</text>
+</svg>

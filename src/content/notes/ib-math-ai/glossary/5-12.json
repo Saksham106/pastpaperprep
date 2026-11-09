@@ -2,7 +2,7 @@
   {
     "id": "volume-of-revolution",
     "term": "volume of revolution",
-    "definition": "TODO: The volume swept when a region is rotated a full turn about an axis: ∫π y² dx about the x-axis, ∫π x² dy about the y-axis, with limits on that axis",
+    "definition": "The volume of the solid swept out when a region is rotated one full turn ($2\\pi$ radians or $360^{\\circ}$) about an axis: for the region between a curve and the $x$-axis rotated about the $x$-axis it is $\\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x$ with $x$-values as limits, and for the region between a curve and the $y$-axis rotated about the $y$-axis it is $\\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y$ with $y$-values as limits.",
     "lesson": "5.12"
   }
 ]

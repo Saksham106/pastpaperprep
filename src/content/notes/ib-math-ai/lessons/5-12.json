@@ -1,0 +1,597 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.12",
+  "slug": "areas-and-volumes-of-revolution",
+  "title": "Areas and volumes of revolution",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[definite-integral|definite integral]] counts area below an axis as negative, so an area adds the sizes of the parts. Turn a region once about the $x$- or $y$-axis and it sweeps out a solid, whose [[volume-of-revolution|volume of revolution]] adds up thin discs.",
+  "goals": [
+    {
+      "text": "Find the area between a curve and the $x$-axis when part of it is below the axis.",
+      "bullets": [
+        "5.12-b1"
+      ]
+    },
+    {
+      "text": "Find the area between a curve and the $y$-axis by integrating with respect to $y$.",
+      "bullets": [
+        "5.12-b1"
+      ]
+    },
+    {
+      "text": "Find the volume of revolution of a region rotated a full turn about the $x$-axis.",
+      "bullets": [
+        "5.12-b2"
+      ]
+    },
+    {
+      "text": "Find the volume when a region is rotated about the $y$-axis, and interpret it.",
+      "bullets": [
+        "5.12-b2"
+      ]
+    },
+    {
+      "text": "Write each area or volume as an integral, then evaluate it on your GDC.",
+      "bullets": [
+        "5.12-b1",
+        "5.12-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.5"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "volume of revolution",
+    "solid of revolution",
+    "negative integral area",
+    "area between a curve and the y axis",
+    "rotate about the y axis",
+    "disc method"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-area-above",
+      "prompt": "The curve $y = x^{2} + 3$ is above the $x$-axis. Find the area between the curve, the $x$-axis and the lines $x = 1$ and $x = 4$.",
+      "hint": "Write $A = \\int_{1}^{4} (x^{2} + 3)\\,\\mathrm{d}x$, then evaluate it.",
+      "options": [
+        {
+          "text": "$30$",
+          "correct": true
+        },
+        {
+          "text": "$21$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{100}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$F(4) - F(1) = \\frac{100}{3} - \\frac{10}{3} = 30$, with $F(x) = \\frac{x^{3}}{3} + 3x$. $21$ leaves out the $+\\,3$. Revise it in {{lesson:5.5}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "integrate(x**2 + 3, (x, 1, 4))"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-x-squared",
+      "prompt": "A curve has equation $y = 0.5x^{2} + 1$. Write $x^{2}$ in terms of $y$.",
+      "hint": "Subtract $1$ from both sides first, then undo the $0.5$.",
+      "options": [
+        {
+          "text": "$x^{2} = 2y - 2$",
+          "correct": true
+        },
+        {
+          "text": "$x^{2} = \\frac{y - 1}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$x^{2} = 2y - 1$",
+          "correct": false
+        }
+      ],
+      "explain": "$y - 1 = 0.5x^{2}$, so $x^{2} = 2y - 2$. Dividing by $2$ instead gives $\\frac{y - 1}{2}$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(y, Rational(1, 2)*x**2 + 1)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "negative-integrals",
+      "heading": "Areas and negative integrals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.5}} every region was above the $x$-axis, so its definite integral was its area. Now let the curve dip below the axis."
+        },
+        {
+          "type": "text",
+          "text": "Each thin strip adds $y\\,\\mathrm{d}x$ to the total. Below the axis $y$ is negative, so a region below the $x$-axis gives a negative integral."
+        },
+        {
+          "type": "figure",
+          "id": "5-12-signed-areas",
+          "alt": "The curve y equals 0.1 times (x plus 2)(x minus 2)(x minus 6) crosses the x-axis at x equals minus 2, 2 and 6. Between minus 2 and 2 the curve is above the axis and the shaded region is labelled plus 6.4. Between 2 and 6 the curve is below the axis and the shaded region is labelled minus 6.4.",
+          "caption": "The two regions have equal areas, but their integrals have opposite signs, so $\\int_{-2}^{6} y\\,\\mathrm{d}x = 0$."
+        },
+        {
+          "type": "text",
+          "text": "An area is never negative, so the booklet uses the modulus $|y|$: the size of $y$ without its sign. The first form is the area between a curve, the $x$-axis and the lines $x = a$ and $x = b$."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} |y|\\,\\mathrm{d}x \\quad \\text{or} \\quad A = \\int_{a}^{b} |x|\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-area"
+        },
+        {
+          "type": "text",
+          "text": "It is in the booklet, so you don't need to memorise it. The $\\mathrm{d}y$ form is for the $y$-axis, in the next section."
+        },
+        {
+          "type": "text",
+          "text": "1. Find where the curve crosses the $x$-axis between $a$ and $b$ (solve $y = 0$, or use your GDC's zero tool)."
+        },
+        {
+          "type": "text",
+          "text": "2. Integrate separately between neighbouring crossings. A part below the axis gives a negative value."
+        },
+        {
+          "type": "text",
+          "text": "3. Add the sizes of the parts. Or integrate $|y|$ on your GDC in one go, with its abs( function (check on your model)."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-flood-channel",
+          "question": "The cross-section of a flood channel is modelled by $y = 0.25x^{2} - 2x$ for $0 \\le x \\le 8$, with $x$ and $y$ in metres and the $x$-axis at ground level. Find the area of the cross-section, and interpret it.",
+          "steps": [
+            "The curve meets the axis where $0.25x(x - 8) = 0$, at $x = 0$ and $x = 8$. At $x = 4$, $y = -4$, so the channel is below ground.",
+            "Integrate: $\\int_{0}^{8} (0.25x^{2} - 2x)\\,\\mathrm{d}x = \\Big[\\frac{x^{3}}{12} - x^{2}\\Big]_{0}^{8} = \\frac{512}{12} - 64 = -\\frac{64}{3}$.",
+            "It is negative because the region is below the axis. The area is its size: $A = \\frac{64}{3} = 21.333\\ldots$",
+            "Interpret: a full channel carries about $21.3\\text{ m}^{2}$ of water in each cross-section."
+          ],
+          "answer": "$A \\approx 21.3\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(integrate(Rational(1, 4)*x**2 - 2*x, (x, 0, 8)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-area-split-cubic",
+          "question": "The curve $y = 0.1(x + 2)(x - 2)(x - 6)$ meets the $x$-axis at $x = -2$, $x = 2$ and $x = 6$. (a) Use your GDC to find $\\int_{-2}^{6} y\\,\\mathrm{d}x$. (b) Find the total area of the two regions enclosed by the curve and the $x$-axis.",
+          "steps": [
+            "(a) The GDC gives $\\int_{-2}^{6} 0.1(x + 2)(x - 2)(x - 6)\\,\\mathrm{d}x = 0$. That can't be the area: the graph encloses two regions.",
+            "(b) Test a point in each part. At $x = 0$, $y = 2.4 > 0$, so the curve is above the axis for $-2 < x < 2$. At $x = 4$, $y = -2.4 < 0$, so it is below for $2 < x < 6$.",
+            "Split at $x = 2$. The GDC gives $\\int_{-2}^{2} y\\,\\mathrm{d}x = 6.4$ and $\\int_{2}^{6} y\\,\\mathrm{d}x = -6.4$. They cancel, which is why (a) gave $0$.",
+            "Add the sizes: $A = 6.4 + 6.4 = 12.8$. $\\int_{-2}^{6} |y|\\,\\mathrm{d}x$ gives the same in one line."
+          ],
+          "answer": "$A = 12.8$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "integrate(Rational(1, 10)*(x + 2)*(x - 2)*(x - 6), (x, -2, 2)) - integrate(Rational(1, 10)*(x + 2)*(x - 2)*(x - 6), (x, 2, 6))"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 2,
+            "upper": 6,
+            "function": "0.1(X+2)(X-2)(X-6)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating straight across a crossing point. The parts above and below cancel, so the value is too small, or even $0$. Split at the crossings."
+        },
+        {
+          "type": "check",
+          "id": "check-area-from-integrals",
+          "prompt": "A curve $y = f(x)$ is below the $x$-axis for $1 < x < 3$ and above it for $3 < x < 5$. You are told $\\int_{1}^{3} f(x)\\,\\mathrm{d}x = -4.8$ and $\\int_{3}^{5} f(x)\\,\\mathrm{d}x = 2.6$. Find the total area between the curve, the $x$-axis and the lines $x = 1$ and $x = 5$.",
+          "hint": "An area is never negative. Take the size of each part before you add.",
+          "options": [
+            {
+              "text": "$7.4$",
+              "correct": true
+            },
+            {
+              "text": "$-2.2$",
+              "correct": false
+            },
+            {
+              "text": "$2.2$",
+              "correct": false
+            },
+            {
+              "text": "$-7.4$",
+              "correct": false
+            }
+          ],
+          "explain": "The parts have areas $4.8$ and $2.6$, so the total is $7.4$. $-2.2$ is $\\int_{1}^{5} f(x)\\,\\mathrm{d}x$, where the parts cancel.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Abs(-4.8) + Abs(2.6)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-crossing",
+          "prompt": "Find the total area between the curve $y = x^{2} - 2x - 3$, the $x$-axis and the lines $x = 0$ and $x = 5$. Give your answer to 3 s.f.",
+          "hint": "The curve crosses the $x$-axis at $x = 3$, inside the interval. Split there.",
+          "answer": {
+            "value": 19.7,
+            "tolerance": 0.05
+          },
+          "explain": "$\\int_{0}^{3} (x^{2} - 2x - 3)\\,\\mathrm{d}x = -9$ and $\\int_{3}^{5} (x^{2} - 2x - 3)\\,\\mathrm{d}x = \\frac{32}{3}$, so $A = 9 + \\frac{32}{3} \\approx 19.7$. Integrating straight from $0$ to $5$ gives $\\frac{5}{3}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-integrate(x**2 - 2*x - 3, (x, 0, 3)) + integrate(x**2 - 2*x - 3, (x, 3, 5))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "y-axis-area",
+      "heading": "Area between a curve and the y-axis",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A region against the $y$-axis is easier to cut into horizontal strips. The strip at height $y$ runs from the $y$-axis to the curve: length $|x|$, thickness $\\mathrm{d}y$."
+        },
+        {
+          "type": "text",
+          "text": "Adding them gives the second booklet form, $A = \\int_{a}^{b} |x|\\,\\mathrm{d}y$, where $a$ and $b$ are $y$-values. Left of the $y$-axis $x < 0$, so the integral there is negative."
+        },
+        {
+          "type": "text",
+          "text": "1. Rewrite the curve as $x$ in terms of $y$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the limits as $y$-values, where the region starts and stops."
+        },
+        {
+          "type": "text",
+          "text": "3. Integrate with respect to $y$. Take the size of any negative part."
+        },
+        {
+          "type": "example",
+          "id": "ex-yarea-left",
+          "question": "The curve $x = 0.5y^{2} - 3y$ and the $y$-axis enclose a region. Find its area.",
+          "steps": [
+            "It meets the $y$-axis where $x = 0$: $0.5y(y - 6) = 0$, so $y = 0$ and $y = 6$.",
+            "At $y = 3$, $x = -4.5$. The region is left of the $y$-axis, so expect a negative integral.",
+            "$\\int_{0}^{6} (0.5y^{2} - 3y)\\,\\mathrm{d}y = \\Big[\\frac{y^{3}}{6} - 1.5y^{2}\\Big]_{0}^{6} = 36 - 54 = -18$.",
+            "The area is its size: $A = 18$."
+          ],
+          "answer": "$A = 18$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Abs(integrate(Rational(1, 2)*y**2 - 3*y, (y, 0, 6)))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If the curve is given as $y$ in terms of $x$, make $x$ the subject first."
+        },
+        {
+          "type": "example",
+          "id": "ex-yarea-mural",
+          "question": "A painted region on a wall is bounded by the curve $y = 0.2x^{2}$ for $x \\ge 0$, the $y$-axis and the line $y = 1.8$. Lengths are in metres. Find the area of the painted region, and interpret it.",
+          "steps": [
+            "The region is against the $y$-axis, so integrate in $y$. Make $x$ the subject: $x^{2} = 5y$, and $x \\ge 0$, so $x = \\sqrt{5y}$.",
+            "The region runs from $y = 0$ up to $y = 1.8$. Write down $A = \\int_{0}^{1.8} \\sqrt{5y}\\,\\mathrm{d}y$, typed with $X$ for $y$.",
+            "The GDC gives $3.6$.",
+            "Check: at $y = 1.8$, $x = 3$. The $3$ by $1.8$ rectangle, minus the area under the curve, $\\int_{0}^{3} 0.2x^{2}\\,\\mathrm{d}x = 1.8$, is $5.4 - 1.8 = 3.6$.",
+            "Interpret: $3.6\\text{ m}^{2}$ of wall needs paint."
+          ],
+          "answer": "$A = 3.6\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "integrate(sqrt(5*y), (y, 0, Rational(9, 5)))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $x$-values as the limits of a $\\mathrm{d}y$ integral. Above, $x$ runs up to $3$, but the limits are $y = 0$ and $y = 1.8$."
+        },
+        {
+          "type": "check",
+          "id": "check-yarea-parabola",
+          "prompt": "Find the area of the region enclosed by the curve $x = 9 - y^{2}$ and the $y$-axis.",
+          "hint": "Find the two $y$-values where $x = 0$. Those are the limits.",
+          "options": [
+            {
+              "text": "$36$",
+              "correct": true
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$-162$",
+              "correct": false
+            }
+          ],
+          "explain": "$x = 0$ at $y = \\pm 3$, and $\\int_{-3}^{3} (9 - y^{2})\\,\\mathrm{d}y = 36$. $18$ stops at $y = 0$, and $-162$ uses the $x$-values $0$ and $9$ as limits.",
+          "verify": {
+            "kind": "exact",
+            "truth": "integrate(9 - y**2, (y, -3, 3))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-yarea-plate",
+          "prompt": "A metal plate has the shape of the region between the curve $y = 2x^{3}$ for $x \\ge 0$, the $y$-axis and the lines $y = 2$ and $y = 16$. Lengths are in cm. Find the area of the plate in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Make $x$ the subject: $x = \\left(\\frac{y}{2}\\right)^{\\frac{1}{3}}$. The limits are $y = 2$ and $y = 16$.",
+          "answer": {
+            "value": 22.5,
+            "tolerance": 0.05
+          },
+          "explain": "$A = \\int_{2}^{16} \\left(\\frac{y}{2}\\right)^{\\frac{1}{3}}\\mathrm{d}y = 22.5\\text{ cm}^{2}$ on the GDC.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate((y/2)**Rational(1, 3), (y, 2, 16))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "volumes",
+      "heading": "Volumes of revolution",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Rotate a region one full turn ($2\\pi$ radians, or $360^{\\circ}$) about an axis and it sweeps out a solid, such as a bowl, a vase or a nose cone."
+        },
+        {
+          "type": "definition",
+          "term": "volume of revolution",
+          "statement": "The volume of the solid formed when a region is rotated through $2\\pi$ radians about the $x$-axis or the $y$-axis.",
+          "plain": "The space a flat shape sweeps out in one full turn about a line."
+        },
+        {
+          "type": "text",
+          "text": "About the $x$-axis, slice the solid at right angles to the axis. The slice at $x$ is a thin disc of radius $y$ and thickness $\\mathrm{d}x$, so its volume is about $\\pi y^{2}\\,\\mathrm{d}x$."
+        },
+        {
+          "type": "interactive",
+          "widget": "revolution-slice",
+          "props": {
+            "shape": "sqrt",
+            "b": 2,
+            "x0": 1
+          },
+          "alt": "The curve y equals root x from 0 to b, with its dashed mirror image in the x-axis, outlines a solid. An upright disc stands at x0 with radius root x0. Sliders move b and x0, and the disc's radius, the disc's area and the total volume are shown as numbers."
+        },
+        {
+          "type": "text",
+          "text": "Adding every disc from $0$ to $b$ gives $V = \\pi\\int_{0}^{b} x\\,\\mathrm{d}x$, because $(\\sqrt{x})^{2} = x$."
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x \\quad \\text{or} \\quad V = \\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-volume-revolution"
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the booklet. The first rotates the region between a curve and the $x$-axis about the $x$-axis, with $x$-limits. The second does the same with the $y$-axis, with $y$-limits."
+        },
+        {
+          "type": "example",
+          "id": "ex-volx-nose-cone",
+          "question": "The nose cone of a model rocket is formed by rotating the region between $y = 0.6\\sqrt{x}$, the $x$-axis and the line $x = 9$ through $2\\pi$ about the $x$-axis. Lengths are in cm. (a) Write down an integral for its volume. (b) Find the volume, and interpret it.",
+          "steps": [
+            "(a) About the $x$-axis, $V = \\int \\pi y^{2}\\,\\mathrm{d}x$, from $x = 0$ to $x = 9$: $V = \\int_{0}^{9} \\pi\\left(0.6\\sqrt{x}\\right)^{2}\\mathrm{d}x$.",
+            "(b) Square the radius: $(0.6\\sqrt{x})^{2} = 0.36x$. So $V = \\pi\\Big[0.18x^{2}\\Big]_{0}^{9} = 14.58\\pi = 45.804\\ldots$",
+            "Check: a cylinder of radius $1.8$ (the widest disc) and length $9$ has volume $29.16\\pi$. The nose cone narrows to a point, so less makes sense.",
+            "Interpret: a solid nose cone needs about $45.8\\text{ cm}^{3}$ of material."
+          ],
+          "answer": "$V \\approx 45.8\\text{ cm}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*integrate((Rational(3, 5)*sqrt(x))**2, (x, 0, 9))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out $\\pi$, not squaring $y$, or putting $2\\pi$ in front. The $2\\pi$ in the question is the angle of one full turn, not part of the formula."
+        },
+        {
+          "type": "check",
+          "id": "check-volx-line",
+          "prompt": "Rotating the region between $y = x + 1$, the $x$-axis, $x = 0$ and $x = 3$ one full turn about the $x$-axis forms a solid. Find its exact volume.",
+          "hint": "Write $V = \\int_{0}^{3} \\pi(x + 1)^{2}\\,\\mathrm{d}x$. Square the radius before you integrate.",
+          "options": [
+            {
+              "text": "$21\\pi$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{15\\pi}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$42\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\pi\\int_{0}^{3} (x + 1)^{2}\\,\\mathrm{d}x = \\pi\\Big[\\frac{(x + 1)^{3}}{3}\\Big]_{0}^{3} = 21\\pi$. Not squaring gives $\\frac{15\\pi}{2}$, and $2\\pi$ in front gives $42\\pi$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*integrate((x + 1)**2, (x, 0, 3))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "About the $y$-axis, slice horizontally. The slice at height $y$ is a disc of radius $x$ and thickness $\\mathrm{d}y$. So write $x^{2}$ in terms of $y$, and use $y$-limits."
+        },
+        {
+          "type": "figure",
+          "id": "5-12-candle-holder",
+          "alt": "The curve y equals 0.1 x cubed for x from 0 to 4 and its dashed mirror image outline a cup shape, with a dashed rim at y equals 6.4. The region R between the curve and the y-axis, up to the rim, is shaded. A thin horizontal disc is highlighted at about y equals 3.2. It reaches from the y-axis out to the curve on each side, so its radius is x and its thickness is d y.",
+          "caption": "The disc at height $y$ has volume about $\\pi x^{2}\\,\\mathrm{d}y$."
+        },
+        {
+          "type": "example",
+          "id": "ex-voly-candle",
+          "question": "The inside of a glass candle holder is formed by rotating the region $R$ between $y = 0.1x^{3}$ for $x \\ge 0$, the $y$-axis and the line $y = 6.4$ through $360^{\\circ}$ about the $y$-axis. Lengths are in cm. Find the volume of the inside of the holder. Give your answer to 3 s.f.",
+          "steps": [
+            "About the $y$-axis, $V = \\int \\pi x^{2}\\,\\mathrm{d}y$. $R$ runs from $y = 0$ up to the rim, $y = 6.4$.",
+            "Make $x$ the subject: $x^{3} = 10y$, so $x^{2} = (10y)^{\\frac{2}{3}}$.",
+            "Write down the integral you key in: $V = \\int_{0}^{6.4} \\pi(10y)^{\\frac{2}{3}}\\,\\mathrm{d}y$. This line earns the method mark.",
+            "The GDC gives $193.019\\ldots$, so $V \\approx 193\\text{ cm}^{3}$.",
+            "Check: a cylinder of radius $4$ and height $6.4$ holds about $322\\text{ cm}^{3}$. The holder narrows towards the bottom, so less makes sense. It takes about $193\\text{ cm}^{3}$ of wax."
+          ],
+          "answer": "$V \\approx 193\\text{ cm}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pi*integrate((10*y)**Rational(2, 3), (y, 0, Rational(32, 5)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 0,
+            "upper": 6.4,
+            "function": "π(10X)^(2/3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-voly-wax-depth",
+          "prompt": "$100\\text{ cm}^{3}$ of wax is poured into the candle holder above. Find the depth of the wax, in cm, to 3 s.f.",
+          "hint": "The wax fills from $y = 0$ up to an unknown height $h$. Solve $\\int_{0}^{h} \\pi(10y)^{\\frac{2}{3}}\\,\\mathrm{d}y = 100$ on your GDC.",
+          "answer": {
+            "value": 4.31,
+            "tolerance": 0.005
+          },
+          "explain": "The GDC gives $h = 4.313\\ldots$, so the wax is about $4.31$ cm deep: over half the height for about half the volume, as the holder is narrow at the bottom.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(100/(pi*Rational(3, 5)*10**Rational(2, 3)))**Rational(3, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "If the region doesn't reach the axis of rotation, the solid has a hole. Find the volume without the hole, then subtract the hole's volume."
+        },
+        {
+          "type": "check",
+          "id": "check-volx-hole",
+          "prompt": "The region between $y = x^{2}$, the line $y = 9$ and the $y$-axis is turned once about the $x$-axis. Find the exact volume of the solid formed.",
+          "hint": "Without the hole, it is a cylinder of radius $9$ and length $3$. The hole comes from the region under $y = x^{2}$ for $0 \\le x \\le 3$.",
+          "options": [
+            {
+              "text": "$\\frac{972\\pi}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{648\\pi}{5}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{243\\pi}{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$V = \\pi \\times 9^{2} \\times 3 - \\pi\\int_{0}^{3} x^{4}\\,\\mathrm{d}x = 243\\pi - \\frac{243\\pi}{5} = \\frac{972\\pi}{5}$. $\\frac{648\\pi}{5}$ squares the gap, $9 - x^{2}$, and $\\frac{243\\pi}{5}$ is the hole alone.",
+          "verify": {
+            "kind": "exact",
+            "truth": "pi*9**2*3 - pi*integrate(x**4, (x, 0, 3))"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Read the angle. $2\\pi$ or $360^{\\circ}$ is a full turn. A half turn, $\\pi$ or $180^{\\circ}$, sweeps half the solid, so halve the volume."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} |y|\\,\\mathrm{d}x \\quad \\text{or} \\quad A = \\int_{a}^{b} |x|\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A definite integral counts a region below the $x$-axis, or left of the $y$-axis, as negative. If the curve crosses the axis inside the interval, split at each crossing and add the sizes.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For an area against the $y$-axis, or a volume about the $y$-axis, write $x$ (or $x^{2}$) in terms of $y$, and use $y$-values as the limits.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x \\quad \\text{or} \\quad V = \\int_{a}^{b} \\pi x^{2}\\,\\mathrm{d}y",
+          "tag": "booklet",
+          "bookletId": "bk-5-12-volume-revolution",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a volume of revolution, $\\pi$ comes from each disc's area, $\\pi r^{2}$. Square the radius, and never put $2\\pi$ in front: $2\\pi$ or $360^{\\circ}$ is one full turn.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\int_{a}^{b} \\pi y^{2}\\,\\mathrm{d}x$ is the volume when the region between the curve and the $x$-axis turns once about the $x$-axis. If a region doesn't reach the axis of rotation, the solid has a hole: subtract the volume of the hole.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a negative integral as an area, or integrating across a crossing point so the parts cancel. Split at each crossing and add the sizes.",
+    "Using $x$-values as the limits of a $\\mathrm{d}y$ integral. Use the $y$-values where the region starts and stops.",
+    "Leaving out $\\pi$, not squaring, or putting $2\\pi$ in front. About the $x$-axis the volume is $\\int \\pi y^{2}\\,\\mathrm{d}x$.",
+    "Using $\\int \\pi y^{2}\\,\\mathrm{d}x$ for a rotation about the $y$-axis. Write $x^{2}$ in terms of $y$ and use $\\int \\pi x^{2}\\,\\mathrm{d}y$.",
+    "Writing only the GDC's value, or rounding a limit early. Write the integral first, and keep full values of GDC limits."
+  ],
+  "examTips": [
+    "\"Write down an integral\" for a volume: show $\\pi$, the squared radius, both limits and $\\mathrm{d}x$ or $\\mathrm{d}y$. Each earns marks, so don't evaluate yet.",
+    "\"Find the area\" with part of the region below the $x$-axis: show the split (or $\\int |y|\\,\\mathrm{d}x$) and give a positive answer.",
+    "Give areas and volumes to 3 s.f. with units, such as $\\text{cm}^{3}$, unless an exact value is asked for. Round only at the end."
+  ],
+  "readingMinutes": 20
+}

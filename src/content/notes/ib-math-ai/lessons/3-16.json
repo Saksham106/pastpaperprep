@@ -1,0 +1,951 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.16",
+  "slug": "spanning-trees-postman-salesman",
+  "title": "Spanning trees, postman and salesman problems",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "Graph algorithms answer route questions: can you cover every road once, how cheaply can you connect every site, and what is the shortest round trip along every road or through every place? You name routes, find [[minimum-spanning-tree|minimum spanning trees]], and solve the Chinese postman and [[travelling-salesman-problem|travelling salesman problems]].",
+  "goals": [
+    {
+      "text": "Name a route as a [[walk|walk]], [[trail|trail]], [[path|path]], [[circuit|circuit]] or [[cycle|cycle]].",
+      "bullets": [
+        "3.16-b2"
+      ]
+    },
+    {
+      "text": "Decide from the odd vertices whether an [[eulerian-trail|Eulerian trail]] or circuit exists, and find [[hamiltonian-path|Hamiltonian paths]] and cycles.",
+      "bullets": [
+        "3.16-b3",
+        "3.16-b4"
+      ]
+    },
+    {
+      "text": "Find a minimum spanning tree with [[kruskals-algorithm|Kruskal's algorithm]], [[prims-algorithm|Prim's algorithm]] and Prim's matrix method.",
+      "bullets": [
+        "3.16-b5",
+        "3.16-b1"
+      ]
+    },
+    {
+      "text": "Solve the [[chinese-postman-problem|Chinese postman problem]] with up to four odd vertices, explain why the method works and justify your choice of algorithm.",
+      "bullets": [
+        "3.16-b6",
+        "3.16-b1"
+      ]
+    },
+    {
+      "text": "Turn a practical travelling salesman problem into a [[table-of-least-distances|table of least distances]], and bound the best tour with the nearest neighbour and [[deleted-vertex-algorithm|deleted vertex algorithms]].",
+      "bullets": [
+        "3.16-b7",
+        "3.16-b8",
+        "3.16-b9",
+        "3.16-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "3.14",
+    "3.15"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "kruskal's algorithm",
+    "prim's algorithm matrix method",
+    "chinese postman problem",
+    "travelling salesman upper and lower bound",
+    "eulerian circuit odd vertices",
+    "nearest neighbour deleted vertex algorithm"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-tree-edges",
+      "prompt": "A [[tree|tree]] has $11$ vertices. How many edges does it have?",
+      "hint": "A tree on $n$ vertices has one edge fewer than it has vertices.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "A tree with $n$ vertices has $n - 1$ edges: $11 - 1 = 10$. Revise it in {{lesson:3.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "11 - 1",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-walk-repeat",
+      "prompt": "In a walk, may an edge be used more than once?",
+      "hint": "A walk is the most general kind of route.",
+      "options": [
+        {
+          "text": "Yes: a walk may repeat edges and vertices",
+          "correct": true
+        },
+        {
+          "text": "No: a walk never repeats an edge",
+          "correct": false
+        },
+        {
+          "text": "Only if the walk finishes where it started",
+          "correct": false
+        }
+      ],
+      "explain": "A walk is any sequence of edges, each starting where the last one finished; edges and vertices may repeat. Revise it in {{lesson:3.15}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Yes: a walk may repeat edges and vertices"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "routes",
+      "heading": "Walks, trails, paths, circuits and cycles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.15}} a walk was any sequence of edges, each starting where the last one finished. Adding a rule, such as never reusing a road, gives the route a new name."
+        },
+        {
+          "type": "definition",
+          "term": "Trail",
+          "statement": "A trail is a walk in which no edge is used more than once. Vertices may be repeated.",
+          "plain": "Never the same road twice."
+        },
+        {
+          "type": "definition",
+          "term": "Path",
+          "statement": "A path is a walk in which no vertex is visited more than once, so no edge is repeated either.",
+          "plain": "Never the same place twice."
+        },
+        {
+          "type": "definition",
+          "term": "Circuit",
+          "statement": "A circuit is a trail that starts and finishes at the same vertex.",
+          "plain": "A round trip that never reuses a road."
+        },
+        {
+          "type": "definition",
+          "term": "Cycle",
+          "statement": "A cycle is a circuit in which no vertex is repeated, except that the start vertex is also the end vertex.",
+          "plain": "A round trip that never revisits a place."
+        },
+        {
+          "type": "text",
+          "text": "So every path is a trail, and every cycle is a circuit, but not the other way round. Name a route by its vertices in order: ABDA is closed, because it finishes where it starts."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-garden",
+          "alt": "A graph with five vertices A, B, C, D and E. Edges: A to B, B to C, C to D, D to A, B to D, D to E and C to E.",
+          "caption": "Footpaths between five features of a garden."
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-routes",
+          "question": "Use the garden graph. For each route, write down the most specific name: walk, trail, path, circuit or cycle. (a) ADEC (b) ABDCB (c) DABDCED",
+          "steps": [
+            "(a) ADEC uses the edges AD, DE and EC. No vertex appears twice, so no edge can repeat. It is a path.",
+            "(b) ABDCB uses four different edges, but B appears twice. It is a trail, not a path, and it is not closed.",
+            "(c) DABDCED uses six different edges and finishes at its start, D, so it is a circuit. D also appears in the middle, so it is not a cycle."
+          ],
+          "answer": "(a) path, (b) trail, (c) circuit",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "(a) path, (b) trail, (c) circuit",
+            "requires": [
+              "(a) path",
+              "(b) trail",
+              "(c) circuit"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-route-walk",
+          "prompt": "In the garden graph, what is the route BDCBDA?",
+          "hint": "List its edges in order and look for one that appears twice.",
+          "options": [
+            {
+              "text": "A walk, but not a trail",
+              "correct": true
+            },
+            {
+              "text": "A trail, but not a path",
+              "correct": false
+            },
+            {
+              "text": "A path",
+              "correct": false
+            },
+            {
+              "text": "A circuit",
+              "correct": false
+            }
+          ],
+          "explain": "Its edges are BD, DC, CB, BD, DA. BD is used twice, so it is only a walk.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A walk, but not a trail"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-cycles-de",
+          "question": "How many different cycles in the garden graph use the footpath DE? List them.",
+          "steps": [
+            "Go from D to E. E's only other edge is EC, so every such cycle begins D, E, C.",
+            "From C, return to D without repeating a vertex: along CD, via B, or via B and A.",
+            "So the cycles are DECD, DECBD and DECBAD. Always starting D, E stops you counting a cycle twice, once in each direction."
+          ],
+          "answer": "$3\\text{ cycles}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Calling every closed route a cycle. If a vertex repeats in the middle, the route is at best a circuit."
+        }
+      ]
+    },
+    {
+      "id": "euler-hamilton",
+      "heading": "Eulerian and Hamiltonian routes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Can you travel every edge exactly once (Euler)? Can you visit every vertex exactly once (Hamilton)?"
+        },
+        {
+          "type": "definition",
+          "term": "Eulerian trail",
+          "statement": "An Eulerian trail is a trail that uses every edge of the graph exactly once.",
+          "plain": "Travel every road once, with no repeats."
+        },
+        {
+          "type": "definition",
+          "term": "Eulerian circuit",
+          "statement": "An Eulerian circuit is an Eulerian trail that starts and finishes at the same vertex.",
+          "plain": "Travel every road once and finish where you began."
+        },
+        {
+          "type": "text",
+          "text": "A vertex with odd degree is an [[odd-vertex|odd vertex]]. A route passing through a vertex uses two of its edges, one in and one out."
+        },
+        {
+          "type": "result",
+          "statement": "In a [[connected-graph|connected graph]]: every vertex even means there is an Eulerian circuit. Exactly two odd vertices means there is an Eulerian trail from one odd vertex to the other, but no circuit. More than two odd vertices means there is no Eulerian trail.",
+          "why": "Edges are used in pairs at every vertex passed through, so only the two ends of an open trail can be odd."
+        },
+        {
+          "type": "text",
+          "text": "The degrees add up to twice the number of edges, so every graph has an even number of odd vertices."
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-euler",
+          "question": "Use the garden graph. (a) Find the degree of each vertex. (b) Hence decide whether a visitor can walk along every footpath exactly once, and whether they can also finish where they started. (c) Write down an Eulerian trail.",
+          "steps": [
+            "(a) $\\deg(\\mathrm{A}) = 2$, $\\deg(\\mathrm{B}) = 3$, $\\deg(\\mathrm{C}) = 3$, $\\deg(\\mathrm{D}) = 4$, $\\deg(\\mathrm{E}) = 2$. Check: $2 + 3 + 3 + 4 + 2 = 14 = 2 \\times 7$ edges.",
+            "(b) The graph is connected with exactly two odd vertices, B and C. So there is an Eulerian trail between B and C, but no Eulerian circuit: the visitor can walk every footpath once, but can't finish where they started.",
+            "(c) Start at B and finish at C: BA, AD, DB, BC, CD, DE, EC uses all $7$ edges once."
+          ],
+          "answer": "$\\mathrm{BADBCDEC}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euler-degrees",
+          "prompt": "A connected graph has vertex degrees $2, 4, 3, 2, 5$ and $4$. Which statement is true?",
+          "hint": "Count the odd degrees.",
+          "options": [
+            {
+              "text": "An Eulerian trail, but no Eulerian circuit",
+              "correct": true
+            },
+            {
+              "text": "An Eulerian circuit",
+              "correct": false
+            },
+            {
+              "text": "No Eulerian trail",
+              "correct": false
+            },
+            {
+              "text": "An Eulerian trail that may start at any vertex",
+              "correct": false
+            }
+          ],
+          "explain": "Exactly two degrees, $3$ and $5$, are odd, so there is an Eulerian trail between those two vertices, and no circuit.",
+          "verify": {
+            "kind": "choice",
+            "truth": "An Eulerian trail, but no Eulerian circuit"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Hamiltonian path",
+          "statement": "A Hamiltonian path is a path that visits every vertex of the graph exactly once.",
+          "plain": "Visit every place once."
+        },
+        {
+          "type": "definition",
+          "term": "Hamiltonian cycle",
+          "statement": "A Hamiltonian cycle is a cycle that visits every vertex exactly once and returns to its start vertex.",
+          "plain": "Visit every place once and get back to the start."
+        },
+        {
+          "type": "text",
+          "text": "There is no simple test like the odd-vertex rule. Find a Hamiltonian path or cycle by trying; rule one out with a reason. For example, a vertex of degree $1$ rules out a Hamiltonian cycle, which must enter and leave every vertex by different edges."
+        },
+        {
+          "type": "text",
+          "text": "Eulerian: every edge once, vertices may repeat. Hamiltonian: every vertex once, edges may go unused."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-gallery",
+          "alt": "A graph with six vertices A to F. Edges: A to B, A to C, B to C, B to D, B to E, C to E, D to E and D to F.",
+          "caption": "Doorways between six galleries in a museum."
+        },
+        {
+          "type": "example",
+          "id": "ex-gallery-hamilton",
+          "question": "A visitor to the museum wants to see every gallery exactly once. (a) Explain why there is no Hamiltonian cycle. (b) Find a Hamiltonian path that starts at A.",
+          "steps": [
+            "(a) F has degree $1$ (only DF). A cycle needs two different edges at F, so there is no Hamiltonian cycle: the visitor can't see every gallery once and return to the start.",
+            "(b) A path from A must finish at F, so it ends D, F.",
+            "Try A, C, E, B, D, F: AC, CE, EB, BD and DF are all edges, and each gallery appears once."
+          ],
+          "answer": "$\\mathrm{ACEBDF}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-garden-hamilton-cycle",
+          "prompt": "Which route is a Hamiltonian cycle of the garden graph?",
+          "hint": "Check that every step is an edge, and that each vertex appears once before you return to the start.",
+          "options": [
+            {
+              "text": "ABCEDA",
+              "correct": true
+            },
+            {
+              "text": "ABCDA",
+              "correct": false
+            },
+            {
+              "text": "ADBCEDA",
+              "correct": false
+            },
+            {
+              "text": "ABDECA",
+              "correct": false
+            }
+          ],
+          "explain": "ABCEDA uses AB, BC, CE, ED, DA and visits each vertex once. ABCDA misses E, ADBCEDA repeats D, and ABDECA needs CA, which is not an edge."
+        }
+      ]
+    },
+    {
+      "id": "spanning-trees",
+      "heading": "Minimum spanning trees: Kruskal's and Prim's algorithms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The cheapest network joining every site has no cycle, since one of its edges could go. So it is a tree."
+        },
+        {
+          "type": "text",
+          "text": "Recall from {{lesson:3.14}}: a tree with $n$ vertices has $n - 1$ edges."
+        },
+        {
+          "type": "definition",
+          "term": "Spanning tree",
+          "statement": "A spanning tree of a connected graph is a [[subgraph|subgraph]] that is a tree and includes every vertex of the graph.",
+          "plain": "A skeleton that reaches every vertex with no loops."
+        },
+        {
+          "type": "definition",
+          "term": "Minimum spanning tree",
+          "statement": "A minimum spanning tree (MST) of a connected [[weighted-graph|weighted graph]] is a spanning tree of least total weight. There may be several, all of the same weight.",
+          "plain": "The cheapest way to connect everything."
+        },
+        {
+          "type": "text",
+          "text": "Kruskal's algorithm builds the tree cheapest edge first:"
+        },
+        {
+          "type": "text",
+          "text": "1. List the edges in order of weight, smallest first."
+        },
+        {
+          "type": "text",
+          "text": "2. Take each edge in turn. Add it, unless it would make a cycle with the edges already chosen; then reject it."
+        },
+        {
+          "type": "text",
+          "text": "3. Stop when you have $n - 1$ edges."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-fields",
+          "alt": "A weighted graph with six vertices A to F. Edges and weights: A to B 8, A to C 11, A to F 15, B to C 6, B to D 13, C to D 9, C to E 7, D to E 10, D to F 17, E to F 12.",
+          "caption": "Cost, in thousands of dollars, of laying a pipe between two fields. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-fields-kruskal",
+          "question": "A farm will lay irrigation pipes so that all six fields A to F are connected. Use Kruskal's algorithm to find a minimum spanning tree, listing the edges in the order you consider them. Hence find the least cost.",
+          "steps": [
+            "There are $6$ vertices, so the tree needs $6 - 1 = 5$ edges.",
+            "In order of weight: BC $6$, CE $7$, AB $8$, CD $9$, DE $10$, AC $11$, EF $12$, and so on.",
+            "Add BC, CE, AB and CD. None of them makes a cycle.",
+            "Reject DE ($10$): it would make the cycle C–D–E. Reject AC ($11$): it would make A–B–C.",
+            "Add EF ($12$). That makes $5$ edges, so stop.",
+            "Cost $= 6 + 7 + 8 + 9 + 12 = 42$, so the least cost is \\$42\\,000."
+          ],
+          "answer": "$\\mathrm{BC},\\ \\mathrm{CE},\\ \\mathrm{AB},\\ \\mathrm{CD},\\ \\mathrm{EF};\\ \\text{cost} = 42\\text{ thousand dollars}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Prim's algorithm grows one tree from a starting vertex:"
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a start vertex."
+        },
+        {
+          "type": "text",
+          "text": "2. Add the least-weight edge that joins a vertex already in the tree to a vertex not yet in it."
+        },
+        {
+          "type": "text",
+          "text": "3. Repeat until every vertex is in the tree. Each edge reaches a new vertex, so no cycle can form."
+        },
+        {
+          "type": "check",
+          "id": "check-fields-prim",
+          "prompt": "Use Prim's algorithm on the fields graph, starting at F. Which edge is added third?",
+          "hint": "From F the cheapest edge is EF. Then compare every edge leaving F or E that reaches a new vertex.",
+          "options": [
+            {
+              "text": "BC",
+              "correct": true
+            },
+            {
+              "text": "CE",
+              "correct": false
+            },
+            {
+              "text": "AB",
+              "correct": false
+            },
+            {
+              "text": "DE",
+              "correct": false
+            }
+          ],
+          "explain": "EF ($12$), then CE ($7$), then BC ($6$): each is the cheapest edge from the tree to a new vertex."
+        },
+        {
+          "type": "text",
+          "text": "When the weights are given in a table, run Prim's algorithm on the table itself. This is the matrix method:"
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a start vertex. Cross out its row and number its column $1$."
+        },
+        {
+          "type": "text",
+          "text": "2. In the numbered columns, find the smallest entry not crossed out. It is the next edge; its row is the next vertex."
+        },
+        {
+          "type": "text",
+          "text": "3. Cross out the new vertex's row and give its column the next number."
+        },
+        {
+          "type": "text",
+          "text": "4. Repeat until every column has a number."
+        },
+        {
+          "type": "example",
+          "id": "ex-hospital-prim-table",
+          "question": "A hospital plans pneumatic tubes to send samples between five departments, V, W, X, Y and Z. The table gives the tube length, in metres, for each pair. $\\begin{array}{c|ccccc} & \\mathrm{V} & \\mathrm{W} & \\mathrm{X} & \\mathrm{Y} & \\mathrm{Z} \\\\ \\hline \\mathrm{V} & - & 52 & 41 & 62 & 45 \\\\ \\mathrm{W} & 52 & - & 33 & 57 & 68 \\\\ \\mathrm{X} & 41 & 33 & - & 44 & 54 \\\\ \\mathrm{Y} & 62 & 57 & 44 & - & 36 \\\\ \\mathrm{Z} & 45 & 68 & 54 & 36 & - \\end{array}$ Use Prim's algorithm on the table, starting at V, to find the least total length of tube. State the order in which the departments join the tree.",
+          "steps": [
+            "Cross out row V; number column V as $1$. Its smallest entry is $41$ (row X): add VX.",
+            "Cross out row X; number column X as $2$. Columns V and X now show $52, 62, 45$ and $33, 44, 54$. Smallest: $33$ (row W). Add XW.",
+            "Cross out row W; number column W as $3$. Rows Y and Z remain; columns V, X and W show $62, 45$; $44, 54$; $57, 68$. Smallest: $44$ (row Y). Add XY.",
+            "Cross out row Y; number column Y as $4$. Row Z shows $45, 54, 68, 36$. Smallest: $36$. Add YZ.",
+            "Order V, X, W, Y, Z. Total $= 41 + 33 + 44 + 36 = 154$ m. The last edge is the shortest: Prim's adds edges as they reach new vertices, not by weight."
+          ],
+          "answer": "$\\mathrm{V},\\ \\mathrm{X},\\ \\mathrm{W},\\ \\mathrm{Y},\\ \\mathrm{Z};\\ \\text{total} = 154\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "For Prim's matrix method, state the order in which the vertices join and the edge each one brings. The whole table need not be copied."
+        },
+        {
+          "type": "check",
+          "id": "check-kiosk-mst",
+          "prompt": "Cable lengths, in metres, between four kiosks are AB $43$, AC $36$, AD $57$, BC $39$, BD $32$ and CD $49$. Find the total length of a minimum spanning tree.",
+          "hint": "Four vertices need three edges. Take the shortest first and skip any that make a cycle.",
+          "answer": {
+            "value": 107,
+            "tolerance": 0
+          },
+          "explain": "BD $32$, AC $36$, then BC $39$, which joins the two pieces: $32 + 36 + 39 = 107$ m."
+        },
+        {
+          "type": "check",
+          "id": "check-choose-algorithm",
+          "prompt": "Distances between $20$ towns are given in a table. Which algorithm suits a minimum spanning tree best, and why?",
+          "hint": "Both give the same total weight. Think about the work each needs.",
+          "options": [
+            {
+              "text": "Prim's, because it can be run directly on the table",
+              "correct": true
+            },
+            {
+              "text": "Kruskal's, because only Kruskal's gives a minimum spanning tree",
+              "correct": false
+            },
+            {
+              "text": "Prim's, because it gives a smaller total than Kruskal's",
+              "correct": false
+            },
+            {
+              "text": "Kruskal's, because it never needs to check for cycles",
+              "correct": false
+            }
+          ],
+          "explain": "Both give the same total weight, but Kruskal's means sorting $190$ edges and checking for cycles. Prim's matrix method works straight from the table.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Prim's, because it can be run directly on the table"
+          }
+        }
+      ]
+    },
+    {
+      "id": "postman",
+      "heading": "The Chinese postman problem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A machine must paint the centre line of every street and return to its depot. Now every edge must be covered, with as little extra distance as possible."
+        },
+        {
+          "type": "definition",
+          "term": "Chinese postman problem",
+          "statement": "The Chinese postman problem is to find the least-weight closed route that travels along every edge of a connected weighted graph at least once.",
+          "plain": "Cover every road and get home, with as little extra as possible."
+        },
+        {
+          "type": "text",
+          "text": "If every vertex is even, an Eulerian circuit is the answer: its weight is the total weight of the graph."
+        },
+        {
+          "type": "result",
+          "statement": "Why the method works: a closed route uses edges in pairs at every vertex, so at an odd vertex some edge must be travelled twice. Repeating the shortest routes for the least-weight pairing of the odd vertices makes every degree even at the least extra cost, and then an Eulerian circuit exists.",
+          "why": "Repeating a route is like adding copies of its edges: only its two end vertices change from odd to even."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the odd vertices."
+        },
+        {
+          "type": "text",
+          "text": "2. List every way to pair them up. Find the shortest route for each pair; it may pass through other vertices."
+        },
+        {
+          "type": "text",
+          "text": "3. Choose the pairing with the least total, and repeat those routes."
+        },
+        {
+          "type": "text",
+          "text": "4. Least weight $=$ total weight of all the edges $+$ weight of the repeated routes."
+        },
+        {
+          "type": "text",
+          "text": "Four odd vertices A, B, C, D give three pairings: AB with CD, AC with BD, AD with BC."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-estate",
+          "alt": "A weighted graph with five vertices A to E. Edges and lengths in metres: A to B 380, A to C 650, B to C 270, B to D 720, C to D 410, C to E 820, D to E 230.",
+          "caption": "Streets in a housing estate, lengths in metres. The depot is at A. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-estate-postman",
+          "question": "The painting machine starts and finishes at the depot A and must paint every street in the estate. Find the least distance it travels.",
+          "steps": [
+            "Degrees: A $2$, B $3$, C $4$, D $3$, E $2$. The odd vertices are B and D.",
+            "Shortest B to D: direct BD is $720$ m, but B–C–D is $270 + 410 = 680$ m.",
+            "Total length of all streets: $380 + 650 + 270 + 720 + 410 + 820 + 230 = 3480$ m.",
+            "Repeat BC and CD. Least distance $= 3480 + 680 = 4160$ m.",
+            "One such route is ABCDBCDECA: $9$ edges, the $7$ streets plus BC and CD a second time."
+          ],
+          "answer": "$4160\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-estate-repeats",
+          "prompt": "In the estate example, which streets does the machine travel twice?",
+          "hint": "Find the shortest route between the two odd vertices.",
+          "options": [
+            {
+              "text": "BC and CD",
+              "correct": true
+            },
+            {
+              "text": "BD only",
+              "correct": false
+            },
+            {
+              "text": "AB and DE",
+              "correct": false
+            },
+            {
+              "text": "BC, CD and BD",
+              "correct": false
+            }
+          ],
+          "explain": "The odd vertices are B and D, and their shortest route is B–C–D ($680$ m, beating BD's $720$ m)."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-warehouse",
+          "alt": "A weighted graph with six vertices A to F. Edges and lengths in metres: A to B 61, A to C 31, A to D 55, B to C 26, B to E 47, C to D 38, C to F 64, D to F 29, E to F 33.",
+          "caption": "Corridors in a warehouse, lengths in metres. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-warehouse-postman",
+          "question": "A security guard must walk along every corridor of the warehouse at least once, starting and finishing at the office at C. Find the least distance the guard walks.",
+          "steps": [
+            "Degrees: A $3$, B $3$, C $4$, D $3$, E $2$, F $3$. The odd vertices are A, B, D and F.",
+            "Shortest routes: AB is $61$ direct, but A–C–B is $31 + 26 = 57$. AD $= 55$. AF: A–D–F $= 84$. BD: B–C–D $= 64$. BF: B–E–F $= 80$. DF $= 29$.",
+            "Pairings: AB, DF: $57 + 29 = 86$. AD, BF: $55 + 80 = 135$. AF, BD: $84 + 64 = 148$. The least is $86$.",
+            "All corridors: $61 + 31 + 55 + 26 + 47 + 38 + 64 + 29 + 33 = 384$ m.",
+            "Least distance $= 384 + 86 = 470$ m, walking AC, CB and DF twice. Starting at C changes nothing: a closed route can start anywhere on it."
+          ],
+          "answer": "$470\\text{ m}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-warehouse-open",
+          "prompt": "The guard may now start and finish at any two different places. Find the least distance needed to walk along every corridor.",
+          "hint": "Start and finish at two odd vertices, so only the other two need joining.",
+          "answer": {
+            "value": 413,
+            "tolerance": 0
+          },
+          "explain": "Repeat only the cheapest pair's route, DF ($29$ m), and start and finish at A and B: $384 + 29 = 413$ m."
+        },
+        {
+          "type": "check",
+          "id": "check-why-repeat",
+          "prompt": "Why must a closed route covering every edge repeat an edge at an odd vertex?",
+          "hint": "How many edges does a route use each time it passes through a vertex?",
+          "options": [
+            {
+              "text": "Edges are used in pairs at each vertex, so an odd number can't each be used once",
+              "correct": true
+            },
+            {
+              "text": "Every graph has an even number of odd vertices",
+              "correct": false
+            },
+            {
+              "text": "Odd vertices are furthest from the start",
+              "correct": false
+            }
+          ],
+          "explain": "Each visit uses one edge in and one out. With an odd number of edges, one must be used again.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Edges are used in pairs at each vertex, so an odd number can't each be used once"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tsp-upper",
+      "heading": "Travelling salesman: least distances and an upper bound",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A piano tuner visits each client once and drives home. Now every vertex must be visited, as quickly as possible."
+        },
+        {
+          "type": "definition",
+          "term": "Travelling salesman problem",
+          "statement": "The travelling salesman problem (TSP) is to find the Hamiltonian cycle of least total weight in a weighted [[complete-graph|complete graph]].",
+          "plain": "Visit every place once and get home as quickly as possible."
+        },
+        {
+          "type": "text",
+          "text": "In the classical problem every pair of vertices is joined, and no detour beats a direct edge. On real maps some pairs have no direct road, and some detours are quicker."
+        },
+        {
+          "type": "definition",
+          "term": "Table of least distances",
+          "statement": "A table of least distances gives, for every pair of vertices, the weight of the shortest route between them, direct or through other vertices.",
+          "plain": "The quickest way between each pair, whatever roads it uses."
+        },
+        {
+          "type": "text",
+          "text": "This table turns a practical problem into the classical one. A tour using an entry may really drive past other vertices, which is fine: each client is still visited once."
+        },
+        {
+          "type": "figure",
+          "id": "3-16-tuner",
+          "alt": "A weighted graph with five vertices H, P, Q, R and S. Edges and times in minutes: H to P 84, H to Q 30, H to S 33, P to Q 48, P to R 51, Q to R 63, Q to S 45, R to S 24. There is no direct road from H to R or from P to S.",
+          "caption": "Driving times, in minutes, between a piano tuner's home H and four clients P, Q, R and S. Not to scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-tuner-least-distances",
+          "question": "Complete the table of least distances for the tuner's graph. Write down every entry that is not simply a direct road.",
+          "steps": [
+            "HP: direct $84$ minutes, but H–Q–P takes $30 + 48 = 78$. Use $78$.",
+            "HR: no direct road. H–S–R takes $33 + 24 = 57$; H–Q–R takes $93$. Use $57$.",
+            "PS: no direct road. P–R–S takes $51 + 24 = 75$; P–Q–S takes $93$. Use $75$.",
+            "Every other pair keeps its direct time (QR: $63$ direct, $69$ via S). The table is $\\begin{array}{c|ccccc} & \\mathrm{H} & \\mathrm{P} & \\mathrm{Q} & \\mathrm{R} & \\mathrm{S} \\\\ \\hline \\mathrm{H} & - & 78 & 30 & 57 & 33 \\\\ \\mathrm{P} & 78 & - & 48 & 51 & 75 \\\\ \\mathrm{Q} & 30 & 48 & - & 63 & 45 \\\\ \\mathrm{R} & 57 & 51 & 63 & - & 24 \\\\ \\mathrm{S} & 33 & 75 & 45 & 24 & - \\end{array}$"
+          ],
+          "answer": "$\\mathrm{HP} = 78,\\ \\mathrm{HR} = 57,\\ \\mathrm{PS} = 75$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "The [[nearest-neighbour-algorithm|nearest neighbour algorithm]] builds a tour quickly:"
+        },
+        {
+          "type": "text",
+          "text": "1. Start at the given vertex."
+        },
+        {
+          "type": "text",
+          "text": "2. Go to the nearest vertex you have not yet visited."
+        },
+        {
+          "type": "text",
+          "text": "3. When every vertex has been visited, return to the start."
+        },
+        {
+          "type": "result",
+          "statement": "The weight of a nearest neighbour tour is an [[upper-bound|upper bound]] for the TSP.",
+          "why": "It is the weight of a real tour, so the best tour weighs no more. It may not be the best: an early cheap choice can force a dear one later."
+        },
+        {
+          "type": "example",
+          "id": "ex-tuner-nearest-neighbour",
+          "question": "Starting at H, use the nearest neighbour algorithm on the table of least distances to bound the tuner's driving time from above.",
+          "steps": [
+            "From H the nearest client is Q ($30$).",
+            "From Q: P $48$, R $63$, S $45$. Go to S. From S: P $75$, R $24$. Go to R.",
+            "From R only P is left ($51$). Return P to H ($78$).",
+            "HQSRPH: $30 + 45 + 24 + 51 + 78 = 228$, so the best tour takes at most $228$ minutes. The last leg is really the drive P–Q–H, passing Q without visiting."
+          ],
+          "answer": "$\\mathrm{HQSRPH},\\ \\text{upper bound} = 228\\text{ minutes}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-nn-from-p",
+          "prompt": "Use the nearest neighbour algorithm on the same table, but start at P. Find the weight of the tour, in minutes.",
+          "hint": "From P the nearest vertex is Q. Keep going to the nearest unvisited vertex, then return to P.",
+          "answer": {
+            "value": 186,
+            "tolerance": 0
+          },
+          "explain": "PQHSRP: $48 + 30 + 33 + 24 + 51 = 186$ minutes, a better upper bound. The tuner can drive the same cycle from home: H, S, R, P, Q, H."
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the last vertex. A nearest neighbour tour must return to the start."
+        }
+      ]
+    },
+    {
+      "id": "tsp-lower",
+      "heading": "A lower bound: the deleted vertex algorithm",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An upper bound says the best tour is no worse; a [[lower-bound|lower bound]] says no tour can do better."
+        },
+        {
+          "type": "text",
+          "text": "The deleted vertex algorithm:"
+        },
+        {
+          "type": "text",
+          "text": "1. Delete one vertex and every edge joined to it."
+        },
+        {
+          "type": "text",
+          "text": "2. Find a minimum spanning tree of the vertices that remain."
+        },
+        {
+          "type": "text",
+          "text": "3. Add the two least-weight edges that joined the deleted vertex to the others. The total is a lower bound."
+        },
+        {
+          "type": "result",
+          "statement": "The deleted vertex algorithm gives a lower bound for the TSP.",
+          "why": "Remove that vertex from any tour: what is left is a path through the other vertices, at least as heavy as their MST, and the two removed edges are at least as heavy as the two lightest there."
+        },
+        {
+          "type": "text",
+          "text": "Keep the largest lower bound and the smallest upper bound."
+        },
+        {
+          "type": "example",
+          "id": "ex-tuner-delete-h",
+          "question": "Use the deleted vertex algorithm, deleting H, to find a lower bound for the tuner's driving time. Use the table of least distances.",
+          "steps": [
+            "Delete H. Kruskal's on P, Q, R, S: RS $24$, QS $45$, PQ $48$, which is $3$ edges of weight $117$.",
+            "The two least-weight edges from H are HQ $30$ and HS $33$.",
+            "Lower bound $= 117 + 30 + 33 = 180$ minutes.",
+            "With the upper bound from H: $180 \\le T \\le 228$, where $T$ minutes is the least driving time."
+          ],
+          "answer": "$180\\text{ minutes}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tuner-optimal",
+          "question": "(a) Delete P instead to find another lower bound for the tuner's driving time. (b) Hence, using the $186$-minute tour found by starting at P, find the least driving time.",
+          "steps": [
+            "(a) Delete P. Kruskal's on H, Q, R, S: RS $24$, HQ $30$, HS $33$, weight $87$.",
+            "Add the two least edges from P, PQ $48$ and PR $51$: lower bound $= 87 + 48 + 51 = 186$ minutes, better than $180$.",
+            "(b) A real tour takes $186$ minutes, so $186 \\le T \\le 186$, giving $T = 186$. The tour H, S, R, P, Q, H is optimal: no order of visits needs less driving."
+          ],
+          "answer": "$T = 186\\text{ minutes}$",
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "If your best lower bound equals a tour's weight, that tour is optimal: say so."
+        },
+        {
+          "type": "check",
+          "id": "check-tuner-home",
+          "prompt": "The tuner's least driving time is $186$ minutes. They also spend $50$ minutes with each of the $4$ clients. Find the total time, in minutes, from leaving home to getting back.",
+          "hint": "Add the driving time to the time spent with all four clients.",
+          "answer": {
+            "value": 386,
+            "tolerance": 0
+          },
+          "explain": "$186 + 4 \\times 50 = 386$ minutes, or $6$ h $26$ min. Leaving at 08:45, the tuner is home at 15:11 at the earliest.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "186 + 4*50",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-best-interval",
+          "prompt": "For one travelling salesman problem, deleting different vertices gives lower bounds of $412$, $437$ and $425$ km. Two nearest neighbour tours weigh $468$ and $451$ km. Which interval for the least tour length $T$ km is best?",
+          "hint": "Keep the largest lower bound and the smallest upper bound.",
+          "options": [
+            {
+              "text": "$437 \\le T \\le 451$",
+              "correct": true
+            },
+            {
+              "text": "$412 \\le T \\le 468$",
+              "correct": false
+            },
+            {
+              "text": "$437 \\le T \\le 468$",
+              "correct": false
+            },
+            {
+              "text": "$412 \\le T \\le 451$",
+              "correct": false
+            }
+          ],
+          "explain": "The largest lower bound, $437$, and the smallest upper bound, $451$, give the narrowest true interval.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(Max(412, 437, 425), Min(468, 451))",
+            "var": "T"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Trail: no repeated edge. Path: no repeated vertex. Circuit: a closed trail. Cycle: a circuit with no repeated vertex except the start, which is also the end.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Connected graph: all vertices even gives an Eulerian circuit; exactly two odd vertices gives an Eulerian trail between them, but no circuit; more than two odd gives no Eulerian trail.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hamiltonian path or cycle: every vertex exactly once. No degree test; find one by trying, or give a reason none exists (a vertex of degree $1$ rules out a cycle).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An MST of a connected weighted graph with $n$ vertices has $n - 1$ edges. Kruskal's: cheapest edges first, rejecting cycles. Prim's: grow from one vertex by the cheapest edge to a new vertex; it runs on a table.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Chinese postman (closed route, every edge, connected graph): least weight $=$ total edge weight $+$ least total of shortest routes over the pairings of the odd vertices.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Travelling salesman: use the table of least distances. Nearest neighbour gives an upper bound; deleted vertex (MST of the rest plus the two lightest edges at the deleted vertex) gives a lower bound. Keep the largest lower and smallest upper bound.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Listing Kruskal's edges in any order, or finding the tree by eye. Write edges in the order considered, with the rejected ones.",
+    "Giving an open Eulerian trail when the route must return to its start. A closed route repeats the shortest routes between odd vertices.",
+    "Running a travelling salesman algorithm on the road map itself, so missing roads and quicker detours are missed. Complete the least distances table first.",
+    "In the deleted vertex algorithm, putting the deleted vertex in the spanning tree, or adding the two lightest edges in the whole graph instead of at the deleted vertex.",
+    "Calling a nearest neighbour total a lower bound. It is a real tour's weight, so it is an upper bound."
+  ],
+  "examTips": [
+    "“Use Kruskal's / Prim's algorithm”: show the edges, or Prim's vertices, in the order added, and state that $n - 1$ edges are needed. A tree with no order shown loses marks.",
+    "“Explain why” the Chinese postman method works: edges are used in pairs at each vertex, so odd vertices force repeats, and repeating the least-weight pairing makes every vertex even.",
+    "“Justify your choice of algorithm”: every edge at least once is the Chinese postman problem; every vertex once and back is the travelling salesman problem; connecting everything cheaply is a minimum spanning tree."
+  ],
+  "readingMinutes": 40
+}

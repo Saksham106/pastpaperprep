@@ -2,7 +2,7 @@
   {
     "id": "sum-to-infinity",
     "term": "sum to infinity",
-    "definition": "TODO: The limit S_∞ of the partial sums of an infinite geometric series; the series converges only when |r| < 1, and then S_∞ = u_1/(1 − r)",
+    "definition": "The value $S_{\\infty}$ that the partial sums $S_{n}$ of an infinite geometric series get closer and closer to as $n$ grows; it exists only when the common ratio satisfies $\\lvert r\\rvert < 1$, and then $S_{\\infty} = \\frac{u_{1}}{1 - r}$.",
     "lesson": "1.11"
   }
 ]

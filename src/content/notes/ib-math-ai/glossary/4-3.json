@@ -2,25 +2,25 @@
   {
     "id": "mean",
     "term": "mean",
-    "definition": "TODO: The total of the data values divided by how many there are, written x̄ (μ for a population)",
+    "definition": "The total of the data values divided by how many values there are, written $\\bar{x}$ ($\\mu$ for a whole population).",
     "lesson": "4.3"
   },
   {
     "id": "modal-class",
     "term": "modal class",
-    "definition": "TODO: For grouped data with equal class widths, the class with the highest frequency",
+    "definition": "For grouped data with equal class widths, the class with the highest frequency.",
     "lesson": "4.3"
   },
   {
     "id": "standard-deviation",
     "term": "standard deviation",
-    "definition": "TODO: The square root of the variance, the typical distance of values from the mean; adding a constant leaves it unchanged, multiplying all values by k multiplies it by |k|",
+    "definition": "The square root of the variance, measuring how far data values typically lie from the mean; adding a constant to every value leaves it unchanged, and multiplying every value by $k$ multiplies it by $\\lvert k\\rvert$.",
     "lesson": "4.3"
   },
   {
     "id": "variance",
     "term": "variance",
-    "definition": "TODO: The mean of the squared distances from the mean, the square of the standard deviation; for a data set IB divides by n (the n − 1 version is the AHL unbiased estimate)",
+    "definition": "The mean of the squared distances of the data values from the mean, equal to the square of the standard deviation; for a data set it divides by $n$, the number of values.",
     "lesson": "4.3"
   }
 ]

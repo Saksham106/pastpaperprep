@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.7",
+  "slug": "optimisation-problems",
+  "title": "Optimisation problems",
+  "level": "SL",
+  "topic": 5,
+  "summary": "[[optimisation|Optimisation]] means finding the best value of something in a real situation: the greatest profit, the least cost, the largest volume. Write the quantity as a function of one variable, solve where its [[derivative|derivative]] is zero, then check that point against the ends of the allowed values. Always finish by answering the question in context.",
+  "goals": [
+    {
+      "text": "Write the quantity to optimise as a function of one variable, using a constraint to remove a second unknown.",
+      "bullets": [
+        "5.7-b1"
+      ]
+    },
+    {
+      "text": "Solve $f'(x) = 0$ by hand or with your GDC, and justify whether the point is a maximum or a minimum.",
+      "bullets": [
+        "5.7-b1"
+      ]
+    },
+    {
+      "text": "Find the greatest or least value on a restricted domain, checking the endpoints and whole-number values.",
+      "bullets": [
+        "5.7-b1"
+      ]
+    },
+    {
+      "text": "Interpret an optimum in context, such as profit, cost, area or volume, and know that motion (kinematics) questions are not set at SL.",
+      "bullets": [
+        "5.7-b1",
+        "5.7-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.4",
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "maximise profit",
+    "minimise cost",
+    "maximum volume for a given surface area",
+    "optimisation word problems",
+    "max and min problems calculus"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate-reciprocal",
+      "prompt": "Differentiate $f(x) = 3x^{2} + \\frac{50}{x}$.",
+      "hint": "Write $\\frac{50}{x}$ as $50x^{-1}$, then use the power rule.",
+      "options": [
+        {
+          "text": "$f'(x) = 6x - \\frac{50}{x^{2}}$",
+          "correct": true
+        },
+        {
+          "text": "$f'(x) = 6x + \\frac{50}{x^{2}}$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 6x - \\frac{50}{x}$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 6x + 50$",
+          "correct": false
+        }
+      ],
+      "explain": "$50x^{-1}$ differentiates to $(-1)(50)x^{-2} = -\\frac{50}{x^{2}}$, and $3x^{2}$ gives $6x$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(3*x**2 + 50/x, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-stationary-cubic",
+      "prompt": "Find the $x$-coordinates of the [[stationary-point|stationary points]] of $y = x^{3} - 27x$.",
+      "hint": "Solve $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0$. A square number has two square roots.",
+      "options": [
+        {
+          "text": "$x = -3 \\text{ or } x = 3$",
+          "correct": true
+        },
+        {
+          "text": "$x = 3$",
+          "correct": false
+        },
+        {
+          "text": "$x = 9$",
+          "correct": false
+        },
+        {
+          "text": "$x = 0 \\text{ or } x = 27$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 27 = 0$ gives $x^{2} = 9$, so $x = -3$ or $x = 3$. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve(diff(x**3 - 27*x, x), x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-greatest-value",
+      "prompt": "On the domain $0 \\le x \\le 10$, a function has $f(0) = 5$, its only [[local-maximum|local maximum]] at $(2, 12)$, and $f(10) = 30$. What is the greatest value of $f$ on this domain?",
+      "hint": "A local maximum is only the top of a nearby hill. Compare it with the values at the ends.",
+      "options": [
+        {
+          "text": "$30$",
+          "correct": true
+        },
+        {
+          "text": "$12$",
+          "correct": false
+        },
+        {
+          "text": "$10$",
+          "correct": false
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        }
+      ],
+      "explain": "The candidates are $f(0) = 5$, the local maximum $12$ and $f(10) = 30$. The greatest is $30$, at the end of the domain. Revise it in {{lesson:5.6}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Max(5, 12, 30)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "method",
+      "heading": "Finding the best value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Which price brings in the most money? Which box uses the least card? Finding the greatest or least value of a quantity is [[optimisation|optimisation]]. On a smooth graph the best value is often at a [[stationary-point|stationary point]], where the derivative is zero."
+        },
+        {
+          "type": "definition",
+          "term": "optimisation",
+          "statement": "Finding the greatest or least value of a quantity over the values its variable is allowed to take, and the value of the variable that gives it.",
+          "plain": "Finding the best possible outcome, such as the most profit or the least cost."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the quantity you want to optimise as a function of one variable. Note the values that variable can take, its [[domain|domain]]."
+        },
+        {
+          "type": "text",
+          "text": "2. Differentiate. Then solve $f'(x) = 0$, by hand or with your GDC."
+        },
+        {
+          "type": "text",
+          "text": "3. Justify that the point is the maximum or minimum you want. Check the ends of the domain too."
+        },
+        {
+          "type": "text",
+          "text": "4. Answer the question asked, in context and with units. If it asks for the greatest profit, give the profit, not just $x$."
+        },
+        {
+          "type": "text",
+          "text": "To justify at SL, show that $f'(x)$ changes from positive to negative (a [[local-maximum|local maximum]]) or negative to positive (a [[local-minimum|local minimum]]). Or say which way the parabola opens, or sketch the GDC graph with the point marked."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-profit",
+          "question": "A workshop refurbishes and sells $x$ bicycles a month. Its monthly profit, in dollars, is modelled by $P(x) = -1.5x^{2} + 168x - 2400$, for $0 \\le x \\le 100$. (a) Find $P'(x)$. (b) Find the number of bicycles that gives the greatest monthly profit, and justify that it is a maximum. (c) Find the greatest monthly profit.",
+          "steps": [
+            "(a) Use the power rule on each term: $P'(x) = -3x + 168$.",
+            "(b) Set the derivative to zero: $-3x + 168 = 0$, so $x = 56$. This is inside the domain $0 \\le x \\le 100$.",
+            "Justify: $P'(50) = 18 > 0$ and $P'(60) = -12 < 0$. The profit rises and then falls, so $x = 56$ is a maximum. (Or: $P$ is a quadratic with a negative $x^{2}$ coefficient, so its only stationary point is a maximum.)",
+            "Check the ends: $P(0) = -2400$ and $P(100) = -600$. Both are much lower.",
+            "(c) Substitute into $P$, not $P'$: $P(56) = -1.5(3136) + 168(56) - 2400 = -4704 + 9408 - 2400 = 2304$.",
+            "Interpret: selling 56 bicycles a month gives the greatest profit, 2304 dollars a month."
+          ],
+          "answer": "$P(56) = 2304\\text{ dollars}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(-Rational(3, 2)*x**2 + 168*x - 2400).subs(x, Rational(168, 3))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting $x = 56$ into $P'(x)$ always gives $0$: that is how you found it. The profit comes from $P(x)$."
+        },
+        {
+          "type": "text",
+          "text": "If you can't differentiate the model by hand, as with $\\mathrm{e}^{x}$ at SL, graph it on your GDC and use the maximum or minimum tool. Write down the function you graphed: that line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-streaming-price",
+          "question": "A streaming service charges $x$ dollars a month. It models the number of subscribers as $n = 5000\\mathrm{e}^{-0.08x}$. (a) Write down an expression for the monthly revenue $R$, in dollars, in terms of $x$. (b) Use your GDC to find the price that gives the greatest revenue, and the greatest revenue. Give the revenue to the nearest cent. (c) Interpret the shape of the model.",
+          "steps": [
+            "(a) Revenue is price times number of subscribers: $R = 5000x\\mathrm{e}^{-0.08x}$.",
+            "(b) Write down what you graph: $y = 5000x\\mathrm{e}^{-0.08x}$, for $x \\ge 0$. A window of $0 \\le x \\le 40$ and $0 \\le y \\le 25000$ shows the whole hill.",
+            "The GDC's maximum tool gives the turning point $(12.5, 22992.465\\ldots)$. The graph rises and then falls, so this is the maximum.",
+            "The greatest revenue is $22992.465\\ldots \\approx 22992.47$ dollars a month, at a price of $12.50$ dollars.",
+            "(c) A low price brings many subscribers but little money from each. A high price brings few subscribers. The best price is in between."
+          ],
+          "answer": "$R \\approx 22992.47\\text{ dollars}$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "5000*(1/0.08)*exp(-0.08*(1/0.08))"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 40,
+            "yMin": 0,
+            "yMax": 25000
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "5000Xe^(-0.08X)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tomato-fertiliser",
+          "prompt": "The yield of a tomato plant, in kg, is modelled by $Y = 1.2 + 0.08f - 0.0004f^{2}$, where $f$ is the mass of fertiliser in grams, $0 \\le f \\le 200$. Find the greatest yield, in kg.",
+          "hint": "Solve $\\frac{\\mathrm{d}Y}{\\mathrm{d}f} = 0$ for $f$. Then put that $f$ into $Y$, not into the derivative.",
+          "answer": {
+            "value": 5.2,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{\\mathrm{d}Y}{\\mathrm{d}f} = 0.08 - 0.0008f = 0$ gives $f = 100$ g. Then $Y = 1.2 + 8 - 4 = 5.2$ kg. The parabola opens downwards, so this is the maximum.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.2 + 0.08*(0.08/0.0008) - 0.0004*(0.08/0.0008)**2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-justify-max",
+          "prompt": "For a profit model $P(x) = -2x^{2} + 40x - 75$, a student solves $P'(x) = 0$, gets $x = 10$ and writes \"maximum\". Which reason would earn the reasoning mark?",
+          "hint": "A zero derivative tells you the point is stationary. It doesn't tell you which kind.",
+          "options": [
+            {
+              "text": "The graph of P is a parabola that opens downwards",
+              "correct": true
+            },
+            {
+              "text": "The derivative is zero at this point",
+              "correct": false
+            },
+            {
+              "text": "The value of P is positive at this point",
+              "correct": false
+            },
+            {
+              "text": "The value 10 lies inside the domain",
+              "correct": false
+            }
+          ],
+          "explain": "A zero derivative is true at a minimum too, so it can't decide. The $x^{2}$ coefficient is negative, so the parabola opens downwards and its only stationary point is a maximum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The graph of P is a parabola that opens downwards"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you can also use the second derivative to decide between a maximum and a minimum.",
+          "lesson": "5.10"
+        },
+        {
+          "type": "text",
+          "text": "At SL, exam optimisation questions use contexts such as profit, cost, area and volume. Questions on motion (kinematics) are not set at SL."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also study motion: displacement, velocity and acceleration as derivatives of each other.",
+          "lesson": "5.13"
+        }
+      ]
+    },
+    {
+      "id": "constraint",
+      "heading": "Using a constraint",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often the quantity depends on two unknowns, such as a length and a width. A fixed fact links them: an area, a volume or an amount of material. This is the constraint. Rearrange it for one unknown and substitute, so one variable is left."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-pen-fencing",
+          "alt": "A rectangular pen against a straight barn wall at the top. The side parallel to the wall is labelled x metres and the two sides at right angles to the wall are each labelled y metres. These three sides are drawn as fence; the side along the wall has no fence. The inside is labelled area 450 square metres.",
+          "caption": "Fence on three sides only: the length of fence is $x + 2y$."
+        },
+        {
+          "type": "example",
+          "id": "ex-pen-fencing",
+          "question": "A farmer builds a rectangular pen of area $450\\text{ m}^{2}$ against a long barn wall. Fencing is needed on the other three sides only. The side parallel to the wall is $x$ m and the other two sides are $y$ m each. (a) Show that the length of fencing is $L = x + \\dfrac{900}{x}$. (b) Find the dimensions that use the least fencing, and justify that it is a minimum. (c) Find the least length of fencing.",
+          "steps": [
+            "(a) The constraint is the area: $xy = 450$, so $y = \\dfrac{450}{x}$.",
+            "The fence is one side of $x$ and two sides of $y$: $L = x + 2y = x + 2\\left(\\dfrac{450}{x}\\right) = x + \\dfrac{900}{x}$, as required.",
+            "(b) Write $L = x + 900x^{-1}$ and differentiate: $\\dfrac{\\mathrm{d}L}{\\mathrm{d}x} = 1 - \\dfrac{900}{x^{2}}$.",
+            "Set it to zero: $1 - \\dfrac{900}{x^{2}} = 0$, so $x^{2} = 900$. A length is positive, so $x = 30$, not $-30$. Then $y = \\dfrac{450}{30} = 15$.",
+            "Justify: at $x = 20$ the derivative is $1 - 2.25 = -1.25 < 0$, and at $x = 40$ it is $1 - 0.5625 = 0.4375 > 0$. Falling then rising means a minimum.",
+            "(c) $L = 30 + \\dfrac{900}{30} = 60$. The pen is 30 m along the wall and 15 m deep, using 60 m of fence."
+          ],
+          "answer": "$L = 60\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(2*450) + 2*450/sqrt(2*450)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Show that\": start from the constraint and work forwards to the given expression, and write the given result as your last line. If you can't show it, still use the given expression in the later parts."
+        },
+        {
+          "type": "text",
+          "text": "A classic design problem fixes the material and asks for the largest volume. The area and volume formulas are in the prior-learning section of the formula booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-tank-volume",
+          "question": "A closed cylindrical water tank has radius $r$ m and height $h$ m. It is made from $24\\text{ m}^{2}$ of sheet metal, which forms the whole surface. (a) Show that $h = \\dfrac{12}{\\pi r} - r$. (b) Show that the volume is $V = 12r - \\pi r^{3}$. (c) Find the radius that gives the greatest volume. (d) Find the greatest volume. Give your answers to 3 s.f. (e) Comment on the shape of this tank.",
+          "steps": [
+            "(a) The surface is two circles plus the curved side: $2\\pi r^{2} + 2\\pi rh = 24$. So $2\\pi rh = 24 - 2\\pi r^{2}$ and $h = \\dfrac{24 - 2\\pi r^{2}}{2\\pi r} = \\dfrac{12}{\\pi r} - r$.",
+            "(b) $V = \\pi r^{2}h = \\pi r^{2}\\left(\\dfrac{12}{\\pi r} - r\\right) = 12r - \\pi r^{3}$. The height must be positive, so $r$ is between $0$ and about $1.95$.",
+            "(c) $\\dfrac{\\mathrm{d}V}{\\mathrm{d}r} = 12 - 3\\pi r^{2} = 0$, so $r^{2} = \\dfrac{4}{\\pi}$ and $r = 1.1283\\ldots$ (or graph $V$ on your GDC and use its maximum tool).",
+            "The graph of $V$ rises to this point and then falls, so it is a maximum. So $r \\approx 1.13$ m.",
+            "(d) Use the full value of $r$: $V = 12(1.1283\\ldots) - \\pi(1.1283\\ldots)^{3} = 9.0270\\ldots \\approx 9.03\\text{ m}^{3}$.",
+            "(e) $h = \\dfrac{12}{\\pi(1.1283\\ldots)} - 1.1283\\ldots = 2.2567\\ldots$ m, which is $2r$. The best tank is as tall as it is wide."
+          ],
+          "answer": "$V \\approx 9.03\\text{ m}^{3}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "12*sqrt(12/(3*pi)) - pi*sqrt(12/(3*pi))**3",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "12X-πX^3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $r$ to $1.13$ before you work out $V$ can change the last figure. Store the GDC's full value and round only the final answer."
+        },
+        {
+          "type": "check",
+          "id": "check-crate-surface",
+          "prompt": "A closed storage crate has a square base of side $x$ cm and a volume of $2000\\text{ cm}^{3}$. Which expression gives its total surface area, $S\\text{ cm}^{2}$, in terms of $x$?",
+          "hint": "Use the volume to write the height as $\\frac{2000}{x^{2}}$. The crate has two square faces and four rectangular ones.",
+          "options": [
+            {
+              "text": "$S = 2x^{2} + \\frac{8000}{x}$",
+              "correct": true
+            },
+            {
+              "text": "$S = x^{2} + \\frac{8000}{x}$",
+              "correct": false
+            },
+            {
+              "text": "$S = 2x^{2} + \\frac{2000}{x}$",
+              "correct": false
+            },
+            {
+              "text": "$S = 2x^{2} + \\frac{8000}{x^{2}}$",
+              "correct": false
+            }
+          ],
+          "explain": "The height is $h = \\frac{2000}{x^{2}}$. The top and base give $2x^{2}$, and the four sides give $4xh = \\frac{8000}{x}$. So $S = 2x^{2} + \\frac{8000}{x}$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "2*x**2 + 4*x*(2000/x**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-crate-minimum",
+          "prompt": "For the crate above, $S = 2x^{2} + \\frac{8000}{x}$. Find the value of $x$ that makes the surface area least. Give your answer in cm to 3 s.f.",
+          "hint": "Write $\\frac{8000}{x}$ as $8000x^{-1}$, set $\\frac{\\mathrm{d}S}{\\mathrm{d}x} = 0$, and solve for $x^{3}$.",
+          "answer": {
+            "value": 12.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{\\mathrm{d}S}{\\mathrm{d}x} = 4x - \\frac{8000}{x^{2}} = 0$ gives $x^{3} = 2000$, so $x = 12.599\\ldots \\approx 12.6$ cm. The derivative goes from negative to positive there, so it is a minimum.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(8000/4)**Rational(1, 3)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "domain",
+      "heading": "Endpoints, whole numbers and the answer",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a restricted domain the greatest or least value can be at an end, not at a stationary point. So work out the quantity at every stationary point inside the domain and at both endpoints. The greatest is the [[global-maximum|global maximum]]."
+        },
+        {
+          "type": "figure",
+          "id": "5-7-endpoint-max",
+          "alt": "Graph of membership N against time t from 0 to 15 months. The curve starts at 10, rises to a local maximum of about 26.3 near t equals 4.7, falls to a local minimum of about 19.3 near t equals 11.3, then rises steeply to 28.75 at t equals 15. The local maximum and the endpoint are marked, and the endpoint is higher.",
+          "caption": "The local maximum is not the greatest value: the end of the domain, $t = 15$, is higher."
+        },
+        {
+          "type": "example",
+          "id": "ex-gym-members",
+          "question": "The number of members of a new climbing gym, in hundreds, is modelled by $N(t) = 0.05t^{3} - 1.2t^{2} + 8t + 10$, where $t$ is the number of months after opening, $0 \\le t \\le 15$. (a) Find $N'(t)$. (b) Use your GDC to solve $N'(t) = 0$. (c) Find the greatest number of members during the first 15 months. (d) Comment on using this model after 15 months.",
+          "steps": [
+            "(a) $N'(t) = 0.15t^{2} - 2.4t + 8$.",
+            "(b) Write down the equation: $0.15t^{2} - 2.4t + 8 = 0$. The GDC's polynomial solver gives $t = 4.7340\\ldots$ and $t = 11.265\\ldots$",
+            "(c) List the candidates. $N(0) = 10$, $N(4.7340\\ldots) = 26.283\\ldots$ (local maximum), $N(11.265\\ldots) = 19.316\\ldots$ (local minimum) and $N(15) = 28.75$.",
+            "The greatest is $N(15) = 28.75$ hundred, at the end of the domain. So the greatest membership is $2875$, at 15 months.",
+            "(d) The cubic keeps rising faster and faster after $t = 15$. A real gym has limited space, so the model is unlikely to be reliable beyond its domain."
+          ],
+          "answer": "$\\text{greatest membership} = 2875$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "100*Max(10, 0.05*15**3 - 1.2*15**2 + 8*15 + 10, (0.05*t**3 - 1.2*t**2 + 8*t + 10).subs(t, (2.4 - sqrt(2.4**2 - 4*0.15*8))/(2*0.15)))"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "0.15, -2.4, 8"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some quantities must be whole numbers: chairs, tickets, workers. If the stationary point is not a whole number, work out the quantity at the whole numbers on each side and compare them."
+        },
+        {
+          "type": "example",
+          "id": "ex-chairs-whole",
+          "question": "A carpenter makes $n$ chairs a week. The average cost per chair, in dollars, is modelled by $A(n) = 0.7n + 30 + \\dfrac{1800}{n}$, for $n > 0$. (a) Find $A'(n)$. (b) Find the number of chairs a week that gives the least average cost, and that cost.",
+          "steps": [
+            "(a) Write $\\dfrac{1800}{n}$ as $1800n^{-1}$: $A'(n) = 0.7 - \\dfrac{1800}{n^{2}}$.",
+            "(b) Set it to zero: $0.7 = \\dfrac{1800}{n^{2}}$, so $n^{2} = \\dfrac{1800}{0.7}$ and $n = 50.709\\ldots$, taking the positive root.",
+            "The derivative goes from negative to positive here, so it is a minimum. But $n$ must be a whole number.",
+            "Compare the whole numbers either side: $A(50) = 35 + 30 + 36 = 101$ and $A(51) = 35.7 + 30 + 35.294\\ldots = 100.994\\ldots$",
+            "$A(51)$ is lower. So 51 chairs a week gives the least average cost, $100.99$ dollars per chair."
+          ],
+          "answer": "$n = 51$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Piecewise((50, 0.7*50 + 30 + 1800/50 < 0.7*51 + 30 + 1800/51), (51, 0.7*50 + 30 + 1800/50 >= 0.7*51 + 30 + 1800/51))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $50.709\\ldots$ to the nearest whole number is not enough. The nearest whole number is not always the better one, so work out the quantity at both."
+        },
+        {
+          "type": "check",
+          "id": "check-bakery-profit",
+          "prompt": "A bakery's daily profit, in dollars, from baking $x$ dozen cookies is $P(x) = -2x^{2} + 64x - 150$. Find the greatest daily profit, in dollars.",
+          "hint": "Solve $P'(x) = 0$ first. Then the profit is $P$ at that $x$.",
+          "options": [
+            {
+              "text": "$362$",
+              "correct": true
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$512$",
+              "correct": false
+            },
+            {
+              "text": "$-150$",
+              "correct": false
+            }
+          ],
+          "explain": "$P'(x) = -4x + 64 = 0$ gives $x = 16$ dozen. Then $P(16) = -512 + 1024 - 150 = 362$ dollars. The value $16$ is where the maximum happens, not the profit.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(-2*x**2 + 64*x - 150).subs(x, Rational(64, 4))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-share-endpoint",
+          "prompt": "The price of a share, in dollars, is modelled by $S(t) = 0.4t^{3} - 4.8t^{2} + 14.4t + 12$, where $t$ is the time in months, $0 \\le t \\le 9$. Find the greatest share price in this period, in dollars to the nearest cent.",
+          "hint": "$S'(t) = 1.2t^{2} - 9.6t + 14.4$ is zero at $t = 2$ and $t = 6$. Compare the local maximum with both endpoints.",
+          "answer": {
+            "value": 44.4,
+            "tolerance": 0.005
+          },
+          "explain": "$S(0) = 12$, the local maximum is $S(2) = 24.8$, the local minimum is $S(6) = 12$, and $S(9) = 44.4$. The greatest is $44.40$ dollars, at the end of the period.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Max(12, 0.4*2**3 - 4.8*2**2 + 14.4*2 + 12, 0.4*9**3 - 4.8*9**2 + 14.4*9 + 12)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Interpret\" or \"comment\": say what the value means in the situation, with units. Then judge the model, for example whether it still makes sense outside its domain."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "To optimise: write the quantity as a function of one variable, solve $f'(x) = 0$, justify the maximum or minimum, compare it with the endpoints of the domain, then answer in context with units.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With two unknowns, use the constraint (a fixed area, volume or amount of material) to write one in terms of the other before you differentiate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "At a stationary point, $f'(x)$ changing from positive to negative means a local maximum; from negative to positive means a local minimum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a function you can differentiate on all of $a \\le x \\le b$, the greatest or least value is at a stationary point inside the domain or at an endpoint, so compare them all.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If the variable must be a whole number and the optimum is at a stationary point that is not, compare the whole numbers on each side of it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With a GDC, write down the function you graph or the equation you solve, keep full values, and round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving where the optimum happens when the question asks for the optimum itself. For \"the greatest profit\", substitute back into $P(x)$ and give the profit.",
+    "Writing \"maximum\" with no reason. Show $f'(x)$ changing sign, say the parabola opens downwards, or sketch the GDC graph with the point marked.",
+    "Stopping at the local maximum on a restricted domain. Work out the quantity at both endpoints too: the greatest value may be at an end.",
+    "Keeping a value the situation rules out, such as a negative length, or giving a fraction of a chair. Reject it and say why, or compare the whole numbers either side.",
+    "Rounding an intermediate value, such as the radius, before using it. Keep the GDC's full value and round only the final answer."
+  ],
+  "examTips": [
+    "\"Find the value of $x$ that maximises ...\": write $P'(x) = 0$ or the function you graph before the GDC answer. That written set-up earns the method mark even if the final value slips.",
+    "\"Justify\" a maximum or minimum: give a reason, such as the sign of $f'(x)$ on each side or \"negative quadratic, so its only stationary point is a maximum\". A bare \"maximum\" earns no reasoning mark.",
+    "In a multi-part optimisation question, use the given \"show that\" result in later parts even if you couldn't show it. A wrong earlier answer used correctly can still earn follow-through (FT) marks."
+  ],
+  "readingMinutes": 24
+}

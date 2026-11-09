@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.4",
+  "slug": "tangents-and-normals",
+  "title": "Tangents and normals",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A [[tangent|tangent]] is the straight line that touches a curve at a point and has the curve's [[gradient|gradient]] there. The [[normal-to-a-curve|normal]] goes through the same point at right angles to the tangent. For either line you need the point, from $f(a)$, and the gradient, from $f'(a)$, which you find by differentiating or with your GDC.",
+  "goals": [
+    {
+      "text": "Write the [[tangent|tangent]] to $y = f(x)$ at $x = a$, taking the point from $f(a)$ and the gradient from $f'(a)$.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Write the [[normal-to-a-curve|normal]] using the negative reciprocal of the tangent's gradient, including when the tangent is horizontal.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Find the point where the tangent has a given gradient.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    },
+    {
+      "text": "Use your GDC to find $f'(a)$ and where lines meet curves, then interpret a tangent in context.",
+      "bullets": [
+        "5.4-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "5.1",
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "equation of a tangent",
+    "equation of a normal",
+    "tangent line to a curve",
+    "normal perpendicular to tangent",
+    "gradient at a point gdc"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate",
+      "prompt": "Differentiate $f(x) = 2x^{3} - 5x + \\frac{6}{x}$.",
+      "hint": "Write $\\frac{6}{x}$ as $6x^{-1}$, then use the power rule on each term.",
+      "options": [
+        {
+          "text": "$f'(x) = 6x^{2} - 5 - \\frac{6}{x^{2}}$",
+          "correct": true
+        },
+        {
+          "text": "$f'(x) = 6x^{2} - 5 + \\frac{6}{x^{2}}$",
+          "correct": false
+        },
+        {
+          "text": "$f'(x) = 6x^{2} - 5$",
+          "correct": false
+        }
+      ],
+      "explain": "$6x^{-1}$ differentiates to $(-1)(6)x^{-2} = -\\frac{6}{x^{2}}$. With $6x^{2}$ and $-5$ from the other terms, $f'(x) = 6x^{2} - 5 - \\frac{6}{x^{2}}$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(2*x**3 - 5*x + 6/x, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-line-point-gradient",
+      "prompt": "Find the equation of the line through $(-3, 4)$ with gradient $-2$.",
+      "hint": "Use $y - y_{1} = m(x - x_{1})$ with $x_{1} = -3$, so the bracket is $(x + 3)$.",
+      "options": [
+        {
+          "text": "$y = -2x - 2$",
+          "correct": true
+        },
+        {
+          "text": "$y = -2x + 10$",
+          "correct": false
+        },
+        {
+          "text": "$y = -2x - 10$",
+          "correct": false
+        }
+      ],
+      "explain": "$y - 4 = -2(x + 3)$ gives $y - 4 = -2x - 6$, so $y = -2x - 2$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(y - 4, -2*(x - (-3)))"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular",
+      "prompt": "A line has gradient $\\frac{2}{5}$. What is the gradient of a line perpendicular to it?",
+      "hint": "Perpendicular gradients multiply to $-1$.",
+      "options": [
+        {
+          "text": "$-\\frac{5}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{5}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{2}{5}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{2}{5} \\times m = -1$, so $m = -\\frac{5}{2}$: flip the fraction and change the sign. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-1/Rational(2, 5)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "tangent",
+      "heading": "The tangent at a point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Zoom in far enough on a smooth curve and it looks straight. That straight line is the [[tangent|tangent]] at the point. It touches the curve there and runs in exactly the curve's direction."
+        },
+        {
+          "type": "definition",
+          "term": "tangent",
+          "statement": "At the point $(a, f(a))$ on $y = f(x)$, the tangent is the straight line through that point with gradient $f'(a)$.",
+          "plain": "The straight line that runs along the curve at that one point."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:5.3}} you found $f'(a)$, the [[gradient|gradient]] of the curve at $x = a$. In {{lesson:2.1}} you wrote a line from a point and a gradient. A tangent needs exactly those two things."
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms"
+        },
+        {
+          "type": "text",
+          "text": "These forms of a line are in the formula booklet. The last one, the [[point-gradient-form|point-gradient form]], is the quickest for tangents: put in the point $(x_{1}, y_{1})$ and the gradient $m$."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the point. Its $x$-coordinate is $a$ and its $y$-coordinate is $f(a)$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the gradient. Differentiate, then substitute: $m = f'(a)$. It must be a number, with no $x$ left in it."
+        },
+        {
+          "type": "text",
+          "text": "3. Put the point and the gradient into $y - y_{1} = m(x - x_{1})$. Rearrange only if the question asks for a particular form."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-cubic",
+          "question": "Find the equation of the tangent to $y = x^{3} - 4x^{2} + 7$ at the point where $x = 3$.",
+          "steps": [
+            "Find the point. When $x = 3$, $y = 27 - 36 + 7 = -2$, so the point is $(3, -2)$.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 8x$.",
+            "Substitute $x = 3$ for the gradient: $m = 3(9) - 8(3) = 27 - 24 = 3$.",
+            "Use the point-gradient form: $y - (-2) = 3(x - 3)$, so $y + 2 = 3x - 9$ and $y = 3x - 11$.",
+            "Check on your GDC: graph $y = x^{3} - 4x^{2} + 7$ and $y = 3x - 11$. The line should just touch the curve at $(3, -2)$."
+          ],
+          "answer": "$y = 3x - 11$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (3**3 - 4*3**2 + 7), (3*3**2 - 8*3)*(x - 3))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "The point comes from $f$ and the gradient from $f'$. Taking $y_{1} = f'(a)$ gives a line through the wrong point."
+        },
+        {
+          "type": "example",
+          "id": "ex-tangent-headlights",
+          "question": "A road on a map is modelled by $y = 0.05x^{3} - 0.6x^{2} + 2x$ for $0 \\le x \\le 8$, with $x$ and $y$ in km east and north of a junction. A car drives along it with $x$ increasing. At night its headlights shine straight ahead, along the tangent. (a) Find the equation of the tangent where $x = 2$. (b) A barn stands at $B(7, 3)$. Determine whether the headlights shine on the barn when the car is at $x = 2$. (c) Interpret the gradient of the tangent.",
+          "steps": [
+            "(a) Find the point: $y = 0.05(8) - 0.6(4) + 2(2) = 0.4 - 2.4 + 4 = 2$, so the car is at $(2, 2)$.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 0.15x^{2} - 1.2x + 2$. At $x = 2$: $m = 0.6 - 2.4 + 2 = 0.2$.",
+            "Tangent: $y - 2 = 0.2(x - 2)$, so $y = 0.2x + 1.6$.",
+            "(b) Substitute $x = 7$ into the tangent: $y = 0.2(7) + 1.6 = 3$. B lies on the line, and $x = 7$ is ahead of the car, so the headlights shine on the barn.",
+            "(c) At that moment the car is heading $0.2$ km north for every 1 km it travels east."
+          ],
+          "answer": "$y = 0.2x + 1.6$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (0.05*2**3 - 0.6*2**2 + 2*2), (0.15*2**2 - 1.2*2 + 2)*(x - 2))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tangent-cubic",
+          "prompt": "Find the equation of the tangent to $y = x^{3} + 3x^{2} - 1$ at the point where $x = -1$.",
+          "hint": "Find $y$ at $x = -1$ from the curve, and the gradient from $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ at $x = -1$. Watch the signs when you square and cube $-1$.",
+          "options": [
+            {
+              "text": "$y = -3x - 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3x - 6$",
+              "correct": false
+            },
+            {
+              "text": "$y = -3x + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = 9x + 10$",
+              "correct": false
+            }
+          ],
+          "explain": "The point is $(-1, -1 + 3 - 1) = (-1, 1)$. $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} + 6x$ gives $m = 3 - 6 = -3$. So $y - 1 = -3(x + 1)$, which is $y = -3x - 2$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - ((-1)**3 + 3*(-1)**2 - 1), (3*(-1)**2 + 6*(-1))*(x - (-1)))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sometimes a question gives the tangent's gradient and asks for the point. Solve $f'(x) = m$ for $x$, then use $f$, not $f'$, to find $y$."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-point",
+          "prompt": "The tangent to $y = 0.5x^{2} + 3x - 4$ at the point Q is parallel to the line $y = 7x + 1$. Find the coordinates of Q.",
+          "hint": "Parallel lines have equal gradients, so set $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 7$. Then use the curve for $y$.",
+          "options": [
+            {
+              "text": "$(4, 16)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 7)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, 29)$",
+              "correct": false
+            },
+            {
+              "text": "$(7, 41.5)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + 3 = 7$ gives $x = 4$. Then $y = 0.5(16) + 12 - 4 = 16$, so Q is $(4, 16)$. The point $(4, 29)$ is on the given line, not on the curve.",
+          "verify": {
+            "kind": "point",
+            "truth": "[7 - 3, Rational(1, 2)*(7 - 3)**2 + 3*(7 - 3) - 4]"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find the equation of the tangent\": show $f'(x)$, the value $f'(a)$ and the point $(a, f(a))$ before the line. Unless a form is asked for, $y + 2 = 3(x - 3)$ is a complete answer."
+        }
+      ]
+    },
+    {
+      "id": "normal",
+      "heading": "The normal at a point",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "\"Normal\" means \"at right angles\". The [[normal-to-a-curve|normal]] goes through the same point of the curve as the [[tangent|tangent]], but crosses the tangent at $90^{\\circ}$."
+        },
+        {
+          "type": "figure",
+          "id": "5-4-tangent-normal",
+          "alt": "The parabola y equals x squared minus 2x plus 3 with the point P at 3, 6 marked. A solid line, the tangent, touches the curve at P and rises steeply with gradient 4. A dashed line, the normal, passes through P and falls gently with gradient minus one quarter. A small square at P shows the two lines meet at a right angle.",
+          "caption": "At $P(3, 6)$ the tangent has gradient $4$ and the normal has gradient $-\\frac{1}{4}$."
+        },
+        {
+          "type": "definition",
+          "term": "normal to a curve",
+          "statement": "At the point $(a, f(a))$ on $y = f(x)$, the normal is the straight line through that point perpendicular to the tangent.",
+          "plain": "The line that sticks straight out from the curve at that point."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:2.1}} you saw that [[perpendicular-lines|perpendicular lines]] have gradients that multiply to $-1$. So the normal's gradient is the negative reciprocal of the tangent's: flip the fraction and change the sign."
+        },
+        {
+          "type": "formula",
+          "tex": "m_{\\text{normal}} = -\\frac{1}{f'(a)}, \\quad f'(a) \\neq 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The method is the tangent's, with one extra step. Find the point, find $f'(a)$, turn it into $-\\frac{1}{f'(a)}$, then write the line."
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-quadratic",
+          "question": "Find the equation of the normal to $y = x^{2} - 2x + 3$ at the point $P(3, 6)$. Give it in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "steps": [
+            "Check that P is on the curve: $9 - 6 + 3 = 6$. It is.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 2x - 2$, so the tangent's gradient at $x = 3$ is $2(3) - 2 = 4$.",
+            "Take the negative reciprocal: the normal's gradient is $-\\frac{1}{4}$. Check: $4 \\times \\left(-\\frac{1}{4}\\right) = -1$.",
+            "Line through $(3, 6)$: $y - 6 = -\\frac{1}{4}(x - 3)$.",
+            "Multiply by 4: $4y - 24 = -x + 3$. Move every term to one side: $x + 4y - 27 = 0$."
+          ],
+          "answer": "$x + 4y - 27 = 0$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (3**2 - 2*3 + 3), -1/(2*3 - 2)*(x - 3))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Turning $4$ into $\\frac{1}{4}$ is only half the job. The normal's gradient also changes sign, so it is $-\\frac{1}{4}$. Check that the two gradients multiply to $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "If $f'(a) = 0$, the tangent at $(a, f(a))$ is the horizontal line $y = f(a)$, and the normal there is the vertical line $x = a$.",
+          "why": "You can't divide by $0$, so $-\\frac{1}{f'(a)}$ doesn't exist. A line at right angles to a horizontal line is vertical, and a vertical line through $(a, f(a))$ has equation $x = a$."
+        },
+        {
+          "type": "check",
+          "id": "check-normal-vertical",
+          "prompt": "Find the equation of the normal to $y = 2x^{3} - 6x + 1$ at the point where $x = 1$.",
+          "hint": "Work out $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ at $x = 1$. If it is $0$, the tangent is horizontal, so the normal is vertical.",
+          "options": [
+            {
+              "text": "$x = 1$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3$",
+              "correct": false
+            },
+            {
+              "text": "$x = -3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 6x^{2} - 6$ is $0$ at $x = 1$, and the point is $(1, -3)$. The tangent is the horizontal line $y = -3$, so the normal is the vertical line $x = 1$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, 1)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-normal-strut",
+          "question": "The cross-section of a greenhouse roof is modelled by $y = 4 - 0.25x^{2}$ for $-4 \\le x \\le 4$, in metres, with the floor along $y = 0$. A straight strut is fixed to the roof at the point where $x = 2$. It runs along the normal to the roof, down to the floor. (a) Find the equation of the normal at $x = 2$. (b) Find where the strut meets the floor. (c) Find the length of the strut. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) The point: $y = 4 - 0.25(4) = 3$, so the strut is fixed at $(2, 3)$.",
+            "Differentiate: $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -0.5x$. At $x = 2$ the roof's gradient is $-1$, so the normal's gradient is $-\\frac{1}{-1} = 1$.",
+            "Normal: $y - 3 = 1(x - 2)$, so $y = x + 1$.",
+            "(b) The floor is $y = 0$: $0 = x + 1$ gives $x = -1$. The strut meets the floor at $(-1, 0)$, 1 m on the other side of the centre and inside the 8 m wide floor.",
+            "(c) Use the distance between two points: $\\sqrt{(2 - (-1))^{2} + (3 - 0)^{2}} = \\sqrt{18} = 4.2426\\ldots$ m."
+          ],
+          "answer": "$\\text{length} \\approx 4.24\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(((4 - 0.25*2**2)/(-1/(-0.5*2)))**2 + (4 - 0.25*2**2)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-normal-equation",
+          "prompt": "Find the equation of the normal to $y = x^{3} - 5x + 4$ at the point where $x = 1$.",
+          "hint": "Find the point and the tangent's gradient at $x = 1$ first. Then flip the gradient and change its sign.",
+          "options": [
+            {
+              "text": "$x - 2y - 1 = 0$",
+              "correct": true
+            },
+            {
+              "text": "$y = -2x + 2$",
+              "correct": false
+            },
+            {
+              "text": "$x + 2y - 1 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2x - 2$",
+              "correct": false
+            }
+          ],
+          "explain": "The point is $(1, 0)$. $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3x^{2} - 5$ gives $-2$, so the normal's gradient is $\\frac{1}{2}$. Then $y = \\frac{1}{2}(x - 1)$, which rearranges to $x - 2y - 1 = 0$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (1**3 - 5*1 + 4), -1/(3*1**2 - 5)*(x - 1))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-normal-axis",
+          "prompt": "The normal to $y = 0.5x^{3}$ at the point where $x = 2$ meets the $x$-axis. Find the $x$-coordinate of the meeting point.",
+          "hint": "The point is $(2, 4)$. Find the normal's gradient, write the line, then set $y = 0$.",
+          "answer": {
+            "value": 26,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1.5x^{2} = 6$ at $x = 2$, so the normal's gradient is $-\\frac{1}{6}$. Setting $y = 0$: $0 - 4 = -\\frac{1}{6}(x - 2)$, so $x - 2 = 24$ and $x = 26$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2 + (0.5*2**3)*(1.5*2**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Tangents and normals with a GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many AI models use functions you can't differentiate by hand at SL, such as $68\\mathrm{e}^{-0.09t}$. Your GDC still gives $f'(a)$ as a number."
+        },
+        {
+          "type": "text",
+          "text": "The GDC gives only the gradient. You still find the point and write the line. Write down the GDC's value, then keep its full value for the next step."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-coffee",
+          "question": "The temperature of a cup of coffee is modelled by $T(t) = 22 + 68\\mathrm{e}^{-0.09t}$ degrees Celsius, $t$ minutes after it is poured. (a) Use your GDC to find $T'(5)$. (b) Find an equation for the tangent line at $t = 5$. (c) The room is at $22$ degrees. Find the time at which this tangent line reaches $22$. Give your answer to 3 s.f. (d) Interpret your answer, and comment on it.",
+          "steps": [
+            "(a) Write what you put into the GDC: the [[derivative|derivative]] of $22 + 68\\mathrm{e}^{-0.09t}$ at $t = 5$. It gives $T'(5) = -3.9022\\ldots$ degrees per minute.",
+            "(b) The point: $T(5) = 22 + 68\\mathrm{e}^{-0.45} = 65.358\\ldots$ Tangent: $T - 65.358\\ldots = -3.9022\\ldots(t - 5)$.",
+            "(c) Set $T = 22$: $22 - 65.358\\ldots = -3.9022\\ldots(t - 5)$. Divide by $-3.9022\\ldots$: $t - 5 = 11.111\\ldots$, so $t = 16.111\\ldots$",
+            "(d) If the coffee kept cooling at its rate at 5 minutes, it would reach room temperature about 16.1 minutes after it was poured.",
+            "The model slows its cooling as the coffee gets closer to $22$, so the coffee doesn't reach room temperature then. At $t = 16.1$ the model gives about $38$ degrees."
+          ],
+          "answer": "$t \\approx 16.1$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "5 + (22 - (22 + 68*exp(-0.09*5)))/diff(22 + 68*exp(-0.09*t), t).subs(t, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "derivative-at-point",
+          "values": {
+            "function": "22+68e^(-0.09X)",
+            "xValue": 5
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding the gradient to $-3.90$ before you use it can change the third figure of a later answer. Store the full value and round once, at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-normal-meets",
+          "question": "Let $f(x) = 0.1x^{3} - 0.5x^{2} + 4$. The point $P(2, 2.8)$ lies on the graph of $f$. (a) Find the equation of the normal at P. (b) The normal meets the graph of $f$ at two other points. Use your GDC to find their $x$-coordinates. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Differentiate: $f'(x) = 0.3x^{2} - x$, so $f'(2) = 1.2 - 2 = -0.8$.",
+            "The normal's gradient is $-\\frac{1}{-0.8} = 1.25$. Normal: $y - 2.8 = 1.25(x - 2)$, so $y = 1.25x + 0.3$.",
+            "(b) Write down the equation you solve: $0.1x^{3} - 0.5x^{2} + 4 = 1.25x + 0.3$.",
+            "Graph both sides on your GDC and find each intersection: $x = -3.0552\\ldots$, $x = 2$ and $x = 6.0552\\ldots$",
+            "The root $x = 2$ is P itself, so the other two points have $x \\approx -3.06$ and $x \\approx 6.06$."
+          ],
+          "answer": "$x \\approx -3.06 \\text{ or } x \\approx 6.06$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "solve((0.1*x**3 - 0.5*x**2 + 4 - (2.8 - 1/(0.3*2**2 - 2)*(x - 2)))/(x - 2), x)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "0.1X^3-0.5X^2+4",
+            "function2": "1.25X+0.3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-tree",
+          "prompt": "The height of a young tree is modelled by $H(t) = \\frac{25}{1 + 9\\mathrm{e}^{-0.3t}}$ metres, $t$ years after planting. Use your GDC to find $H'(4)$. Then use the tangent at $t = 4$ to estimate the height at $t = 5$, in metres. Give your answer to 3 s.f.",
+          "hint": "The point is $(4, H(4))$. Put the GDC value of $H'(4)$ into $y - y_{1} = m(x - x_{1})$, then substitute $t = 5$.",
+          "answer": {
+            "value": 8.21,
+            "tolerance": 0.005
+          },
+          "explain": "$H(4) = 6.7371\\ldots$ and the GDC gives $H'(4) = 1.4764\\ldots$ m per year. The tangent at $t = 5$ gives $6.7371\\ldots + 1.4764\\ldots \\times 1 = 8.2136\\ldots \\approx 8.21$ m. The model itself gives $H(5) = 8.31$ m, so here the estimate is a little low.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "25/(1 + 9*exp(-0.3*4)) + diff(25/(1 + 9*exp(-0.3*t)), t).subs(t, 4)*(5 - 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write the GDC value, such as $T'(5) = -3.9022\\ldots$, before the line. A bare final answer earns its marks only if it is correct; the written set-up can still earn method marks."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also differentiate functions such as $\\mathrm{e}^{x}$, $\\sin x$ and $\\ln x$ by hand, with the chain, product and quotient rules.",
+          "lesson": "5.9"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Tangent to $y = f(x)$ at $x = a$: the point is $(a, f(a))$ and the gradient is $f'(a)$, so $y - f(a) = f'(a)(x - a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "m_{\\text{normal}} = -\\frac{1}{f'(a)}, \\quad f'(a) \\neq 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f'(a) = 0$, the tangent at $(a, f(a))$ is $y = f(a)$ and the normal is $x = a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find where the tangent to $y = f(x)$ has gradient $m$, solve $f'(x) = m$ for $x$, then use $f$ for $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With a GDC: write down the value it gives for $f'(a)$, keep every digit, write the line, and round only the final answer.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the $y$-coordinate from $f'(a)$ instead of $f(a)$. The point is on the curve, so use $f$. Only the gradient comes from $f'$.",
+    "Leaving $x$ in the gradient, as in $y + 2 = (3x^{2} - 8x)(x - 3)$. Substitute $x = a$ into $f'(x)$ first, so $m$ is a number.",
+    "Using the tangent's gradient for the normal. The normal's gradient is $-\\frac{1}{f'(a)}$, and the two gradients multiply to $-1$.",
+    "Flipping the gradient but not changing its sign, so $-2$ becomes $-\\frac{1}{2}$ instead of $\\frac{1}{2}$.",
+    "Rounding $f'(a)$ from the GDC to 3 s.f. and then using it. Keep the full value until the final answer.",
+    "Giving both coordinates when a question asks only for $x$, or including the point you started from among the \"other\" intersections."
+  ],
+  "examTips": [
+    "\"Write down the equation of the normal\" straight after you found its gradient needs no new working: put that gradient and the point into $y - y_{1} = m(x - x_{1})$. A wrong gradient used correctly can still earn follow-through (FT) marks.",
+    "\"Draw the normal\" on given axes: a straight line through the point, crossing the curve at roughly a right angle and with the right intercepts. A line that looks like a tangent loses the mark.",
+    "\"Find\" with a GDC: write the equation you solve or the derivative you evaluate, then the result to 3 s.f. The written set-up earns the method mark even if the final value slips."
+  ],
+  "readingMinutes": 21
+}

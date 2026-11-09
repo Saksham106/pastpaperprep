@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.8",
+  "slug": "transformations-of-graphs",
+  "title": "Transformations of graphs",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "A [[translation|translation]], [[reflection|reflection]] or stretch turns a graph you know into a new one. Changes outside the function act on $y$ as they look; changes inside the bracket act on $x$ the opposite way, so $f(x - 3)$ moves right. In models, each transformation has a meaning: a delay, a new starting level, a faster cycle.",
+  "goals": [
+    {
+      "text": "Translate a graph with $y = f(x - a) + b$, and write the translation as a vector.",
+      "bullets": [
+        "2.8-b2"
+      ]
+    },
+    {
+      "text": "Reflect a graph in the $x$-axis with $y = -f(x)$ and in the $y$-axis with $y = f(-x)$.",
+      "bullets": [
+        "2.8-b3"
+      ]
+    },
+    {
+      "text": "Stretch a graph with $y = pf(x)$ and $y = f(qx)$, and say which axis stays [[invariant|invariant]].",
+      "bullets": [
+        "2.8-b4"
+      ]
+    },
+    {
+      "text": "Combine transformations in the right order, and track a point, an [[asymptote|asymptote]] or a domain through them.",
+      "bullets": [
+        "2.8-b5"
+      ]
+    },
+    {
+      "text": "Read the constants of a model as transformations of a base graph, and say what each one means in context.",
+      "bullets": [
+        "2.8-b1",
+        "2.8-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.4",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "graph transformations",
+    "translation by a vector",
+    "reflect a graph in the x-axis",
+    "stretch parallel to the x-axis",
+    "invariant axis",
+    "order of transformations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-exp-asymptote",
+      "prompt": "Write down the equation of the horizontal asymptote of the graph of $y = 6(0.5)^{x} + 3$.",
+      "hint": "As $x$ grows, $(0.5)^{x}$ gets closer and closer to $0$.",
+      "options": [
+        {
+          "text": "$y = 3$",
+          "correct": true
+        },
+        {
+          "text": "$y = 6$",
+          "correct": false
+        },
+        {
+          "text": "$y = 0$",
+          "correct": false
+        }
+      ],
+      "explain": "The term $6(0.5)^{x}$ tends to $0$, so $y$ tends to $3$. The asymptote is $y = 3$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(y, limit(6*Rational(1, 2)**x + 3, x, oo))"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-vertex",
+      "prompt": "Find the coordinates of the vertex of the graph of $y = -2x^{2} + 10x + 1$.",
+      "hint": "The vertex is on the axis of symmetry $x = -\\frac{b}{2a}$. Or use your GDC's maximum tool.",
+      "options": [
+        {
+          "text": "$(2.5, 13.5)$",
+          "correct": true
+        },
+        {
+          "text": "$(-2.5, -36.5)$",
+          "correct": false
+        },
+        {
+          "text": "$(5, 1)$",
+          "correct": false
+        }
+      ],
+      "explain": "$x = -\\frac{10}{2(-2)} = 2.5$, and $y = -2(2.5)^{2} + 10(2.5) + 1 = 13.5$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "(-10/(2*(-2)), -2*(-10/(2*(-2)))**2 + 10*(-10/(2*(-2))) + 1)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "translations",
+      "heading": "Translations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A ball is thrown and its height is $h(t)$ metres after $t$ seconds. A second ball follows the same path, but is thrown $2$ seconds later. At time $t$ it has only been flying for $t - 2$ seconds, so its height is $h(t - 2)$."
+        },
+        {
+          "type": "text",
+          "text": "So $t - 2$ moves the graph $2$ units right, not left. Throwing from $1.5$ m higher gives $h(t) + 1.5$: a change outside acts on the output, as it looks."
+        },
+        {
+          "type": "text",
+          "text": "Each of these moves is a [[translation|translation]]: the graph slides without turning or changing size."
+        },
+        {
+          "type": "definition",
+          "term": "translation",
+          "statement": "A translation moves every point of a graph the same distance in the same direction. The translation by the vector $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$ moves each point $a$ units across and $b$ units up.",
+          "plain": "The graph slides; its shape doesn't change."
+        },
+        {
+          "type": "formula",
+          "tex": "y = f(x - a) + b \\;:\\; \\text{translation by } \\begin{pmatrix} a \\\\ b \\end{pmatrix} \\text{, so } a \\text{ units right and } b \\text{ units up}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In the vector, the top number is the horizontal move (positive is right) and the bottom number is the vertical move (positive is up). So $\\begin{pmatrix} -4 \\\\ 1 \\end{pmatrix}$ moves a graph $4$ units left and $1$ unit up, giving $y = f(x + 4) + 1$."
+        },
+        {
+          "type": "result",
+          "statement": "Under the translation by $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$, each point $(x, y)$ on $y = f(x)$ moves to $(x + a, y + b)$. [[asymptote|Asymptotes]], turning points and the ends of the domain move with it.",
+          "why": "If $f(x_{0}) = y_{0}$, then $f(x - a) + b$ at $x = x_{0} + a$ gives $f(x_{0}) + b = y_{0} + b$."
+        },
+        {
+          "type": "example",
+          "id": "ex-translate-exp-vector",
+          "question": "The graph of $y = 2^{x}$ is translated by the vector $\\begin{pmatrix} -3 \\\\ 5 \\end{pmatrix}$. Write down the equation of the new graph, and the equation of its horizontal asymptote.",
+          "steps": [
+            "The vector gives $a = -3$ (left $3$) and $b = 5$ (up $5$).",
+            "Replace $x$ by $x - (-3) = x + 3$, and add $5$ outside: $y = 2^{x + 3} + 5$.",
+            "The asymptote of $y = 2^{x}$ is $y = 0$. Moving up $5$ carries it to $y = 5$; moving left doesn't change a horizontal line.",
+            "Check: $(0, 1)$ moves to $(-3, 6)$, and $2^{-3 + 3} + 5 = 6$."
+          ],
+          "answer": "$y = 2^{x + 3} + 5$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, 2**(x - (-3)) + 5)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $2^{x + 3}$ as a move right because of the plus sign. Inside, the sign works the other way: $x + 3$ moves the graph $3$ units left."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-ball-translation",
+          "alt": "Two parabolas of height in metres against time in seconds. The first, h of t, starts at 1.4 metres, peaks at 9.5 metres at about 1.29 seconds, and comes back down. The second, g of t, is the same shape starting at time 0.8 seconds, 2 metres higher, and peaks at 11.5 metres at about 2.09 seconds. An arrow joins the two peaks, labelled with the vector 0.8 across and 2 up.",
+          "caption": "$g(t) = h(t - 0.8) + 2$: every point of $h$ moves $0.8$ right and $2$ up."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-delay",
+          "question": "A ball's height is $h(t) = -4.9t^{2} + 12.6t + 1.4$ metres, $t$ seconds after it is thrown. A second ball is thrown $0.8$ seconds later, from a point $2$ m higher, and follows the same shape of path. (a) Write $g(t)$, the second ball's height, in terms of $h$. (b) Use your GDC to find the maximum point of $y = h(t)$. Hence find the coordinates of the maximum point of $y = g(t)$, and interpret them. Give values to 3 s.f.",
+          "steps": [
+            "(a) $0.8$ s later is a move right: replace $t$ by $t - 0.8$. $2$ m higher is a move up. So $g(t) = h(t - 0.8) + 2$, the translation by $\\begin{pmatrix} 0.8 \\\\ 2 \\end{pmatrix}$.",
+            "(b) Graph $y = -4.9x^{2} + 12.6x + 1.4$ and find its maximum: $(1.285714\\ldots, 9.5)$.",
+            "Translate that point: $(1.285714\\ldots + 0.8,\\ 9.5 + 2) = (2.085714\\ldots, 11.5)$.",
+            "Interpret: the second ball is highest, at $11.5$ m, about $2.09$ s after the first ball was thrown."
+          ],
+          "answer": "$(t, g) \\approx (2.09, 11.5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(12.6/(2*4.9) + 0.8, 1.4 + 12.6**2/(4*4.9) + 2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "-4.9X^2+12.6X+1.4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-translate-point",
+          "prompt": "The point $(6, -1)$ lies on the graph of $y = f(x)$. The graph is translated by the vector $\\begin{pmatrix} -4 \\\\ 3 \\end{pmatrix}$. Find the image of the point.",
+          "hint": "Add the top number to $x$ and the bottom number to $y$.",
+          "options": [
+            {
+              "text": "$(2, 2)$",
+              "correct": true
+            },
+            {
+              "text": "$(10, 2)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, -4)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(6 + (-4),\\ -1 + 3) = (2, 2)$. The new graph is $y = f(x + 4) + 3$, and at $x = 2$ it gives $f(6) + 3 = 2$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(6 + (-4), -1 + 3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-translate-interpret",
+          "prompt": "Town A's population, in thousands, $t$ years from now is modelled by $P(t) = 120(1.05)^{t}$. Town B's population is modelled by $Q(t) = P(t + 6)$. Which statement is true?",
+          "hint": "$t + 6$ inside the bracket is a translation $6$ units left. What does $Q$ equal now, at $t = 0$?",
+          "options": [
+            {
+              "text": "Town B always has the population town A will have 6 years later",
+              "correct": true
+            },
+            {
+              "text": "Town B always has the population town A had 6 years earlier",
+              "correct": false
+            },
+            {
+              "text": "Town B always has 6 thousand more people than town A",
+              "correct": false
+            }
+          ],
+          "explain": "$Q(t) = P(t + 6)$: at any time, B has A's value $6$ years ahead. For example, $Q(0) = P(6)$. Adding $6$ thousand would be $P(t) + 6$, a change outside the bracket.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Town B always has the population town A will have 6 years later"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reflections",
+      "heading": "Reflections in the axes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put a minus sign outside: $y = -f(x)$. Every output changes sign, so $(x, y)$ moves to $(x, -y)$. The graph flips over the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Put the minus sign on the input: $y = f(-x)$. At $x$ the new graph does what the old one did at $-x$. So $(x, y)$ moves to $(-x, y)$, and the graph flips over the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Each flip is a [[reflection|reflection]] in an axis."
+        },
+        {
+          "type": "definition",
+          "term": "reflection",
+          "statement": "A reflection in a line sends each point to its mirror image: the point the same distance away on the other side of the line.",
+          "plain": "The graph flips over the line, as in a mirror."
+        },
+        {
+          "type": "formula",
+          "tex": "y = -f(x) \\;:\\; \\text{reflection in the } x\\text{-axis} \\qquad y = f(-x) \\;:\\; \\text{reflection in the } y\\text{-axis}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Points on the mirror line don't move: they are [[invariant|invariant]]. So $y = -f(x)$ keeps every $x$-intercept, and $y = f(-x)$ keeps the $y$-intercept."
+        },
+        {
+          "type": "example",
+          "id": "ex-reflect-cubic",
+          "question": "Let $f(x) = x^{3} - 4x^{2} + 3x + 5$. The graph of $y = g(x)$ is the reflection of the graph of $y = f(x)$ in the $y$-axis. Find $g(x)$ in expanded form.",
+          "steps": [
+            "A reflection in the $y$-axis is $g(x) = f(-x)$. Replace every $x$ by $(-x)$, keeping the brackets.",
+            "$g(x) = (-x)^{3} - 4(-x)^{2} + 3(-x) + 5$.",
+            "An odd power keeps the minus sign and an even power loses it: $(-x)^{3} = -x^{3}$ and $(-x)^{2} = x^{2}$.",
+            "So $g(x) = -x^{3} - 4x^{2} - 3x + 5$. Check: $g(0) = f(0) = 5$, because the $y$-intercept is invariant."
+          ],
+          "answer": "$g(x) = -x^{3} - 4x^{2} - 3x + 5$",
+          "verify": {
+            "kind": "expression",
+            "truth": "(-x)**3 - 4*(-x)**2 + 3*(-x) + 5",
+            "form": "expanded"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two reflections. $-f(x)$ changes the sign of every term; $f(-x)$ changes only the odd powers. Here $-f(x) = -x^{3} + 4x^{2} - 3x - 5$, a different graph."
+        },
+        {
+          "type": "figure",
+          "id": "2-8-riverbed",
+          "alt": "Graph for x from 0 to 20 metres. The riverbed curve, y equals f of x, starts at 0, dips to a lowest point of minus 5 at x equals 10, and rises back to 0 at x equals 20. The depth curve, y equals minus f of x, is its mirror image in the x-axis, rising to 5 at x equals 10. Both curves meet at the two banks, (0, 0) and (20, 0), which are marked as invariant points.",
+          "caption": "Depth $d(x) = -f(x)$ is the riverbed reflected in the $x$-axis. The banks, on the mirror line, stay put."
+        },
+        {
+          "type": "example",
+          "id": "ex-river-depth",
+          "question": "Across a river $20$ m wide, the height of the riverbed relative to the water surface is $f(x) = 0.05x^{2} - x$ metres, $x$ metres from one bank. Negative values are below the surface. The depth of water is $d(x) = -f(x)$. Find the coordinates of the maximum point of $y = d(x)$ and interpret them.",
+          "steps": [
+            "$y = -f(x)$ is a reflection in the $x$-axis: $(x, y)$ moves to $(x, -y)$. The lowest point of $f$ becomes the highest point of $d$.",
+            "The minimum of the [[quadratic-function|quadratic]] $f$ is at $x = -\\frac{-1}{2(0.05)} = 10$, where $f(10) = 0.05(100) - 10 = -5$.",
+            "Reflect $(10, -5)$ in the $x$-axis: $(10, 5)$.",
+            "Interpret: the river is deepest, $5$ m, in the middle, $10$ m from the bank.",
+            "The banks $(0, 0)$ and $(20, 0)$ are on the $x$-axis, so they are invariant: the depth there is $0$, as it should be."
+          ],
+          "answer": "$(10, 5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(1/(2*Rational(1, 20)), -(Rational(1, 20)*(1/(2*Rational(1, 20)))**2 - 1/(2*Rational(1, 20))))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-x-axis",
+          "prompt": "Find the equation of the reflection of the graph of $y = 3^{x} + 2$ in the $x$-axis.",
+          "hint": "Every $y$-value changes sign, the $+2$ included.",
+          "options": [
+            {
+              "text": "$y = -3^{x} - 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = -3^{x} + 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3^{-x} + 2$",
+              "correct": false
+            }
+          ],
+          "explain": "$y = -(3^{x} + 2) = -3^{x} - 2$. $y = 3^{-x} + 2$ is the reflection in the $y$-axis.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, -(3**x + 2))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-turning",
+          "prompt": "The graph of $y = f(x)$ has a local maximum point at $(-2, 7)$. What is the corresponding point on the graph of $y = f(-x)$?",
+          "hint": "A reflection in the $y$-axis changes the sign of $x$ only.",
+          "options": [
+            {
+              "text": "$(2, 7)$",
+              "correct": true
+            },
+            {
+              "text": "$(-2, -7)$",
+              "correct": false
+            },
+            {
+              "text": "$(2, -7)$",
+              "correct": false
+            }
+          ],
+          "explain": "$(x, y)$ moves to $(-x, y)$, so $(-2, 7)$ moves to $(2, 7)$. A left–right flip keeps the graph the right way up, so the peak stays a maximum. $(-2, -7)$ is the image under $-f(x)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(-1*(-2), 1*7)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stretches",
+      "heading": "Stretches",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To change a model's output from metres to centimetres, multiply it by $100$: $y = 100f(x)$. Points move away from the $x$-axis; points on it stay put."
+        },
+        {
+          "type": "text",
+          "text": "This is a [[vertical-stretch|vertical stretch]]."
+        },
+        {
+          "type": "definition",
+          "term": "vertical stretch",
+          "statement": "For $p > 0$, the graph of $y = pf(x)$ is a vertical stretch of $y = f(x)$ with scale factor $p$. Each point $(x, y)$ moves to $(x, py)$, and the $x$-axis is invariant.",
+          "plain": "Every height is multiplied by $p$."
+        },
+        {
+          "type": "text",
+          "text": "A scale factor between $0$ and $1$ squashes the graph towards the $x$-axis, but it is still called a stretch. A negative $p$ also reflects: $y = -2f(x)$ is a stretch with scale factor $2$ and a reflection in the $x$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Now change the input. A wheel that turns twice as fast reaches, after $t$ minutes, the place the old wheel reached after $2t$ minutes. Its height is $h(2t)$, and each event happens in half the time."
+        },
+        {
+          "type": "text",
+          "text": "This is a [[horizontal-stretch|horizontal stretch]], and its scale factor is the reciprocal of the number inside."
+        },
+        {
+          "type": "definition",
+          "term": "horizontal stretch",
+          "statement": "For $q > 0$, the graph of $y = f(qx)$ is a horizontal stretch of $y = f(x)$ with scale factor $\\frac{1}{q}$. Each point $(x, y)$ moves to $\\left(\\frac{x}{q}, y\\right)$, and the $y$-axis is invariant.",
+          "plain": "Every $x$-coordinate is divided by $q$."
+        },
+        {
+          "type": "formula",
+          "tex": "y = pf(x) \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx) \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Exam questions may say which axis stays fixed. A vertical stretch acts parallel to the $y$-axis and leaves the $x$-axis invariant. A horizontal stretch acts parallel to the $x$-axis and leaves the $y$-axis invariant."
+        },
+        {
+          "type": "example",
+          "id": "ex-profit-euros",
+          "question": "A company's monthly profit is $P(x) = -0.5x^{2} + 28x - 150$ thousand dollars, when it sells $x$ hundred units. It reports profit in euros, using $1$ dollar $= 0.92$ euros, so the profit in thousand euros is $E(x) = 0.92P(x)$. (a) Describe the transformation from $y = P(x)$ to $y = E(x)$. (b) Find the maximum profit in thousand euros. (c) Explain why the break-even sales don't change.",
+          "steps": [
+            "(a) A vertical stretch with scale factor $0.92$, with the $x$-axis invariant.",
+            "(b) The maximum of $P$ is at $x = -\\frac{28}{2(-0.5)} = 28$, where $P(28) = -0.5(784) + 28(28) - 150 = 242$.",
+            "The stretch keeps $x = 28$ and multiplies the height: $E(28) = 0.92 \\times 242 = 222.64$.",
+            "(c) Break-even is where profit is $0$: $P(x) = 0$ at $x = 6$ and $x = 50$. These points are on the $x$-axis, so they are invariant. Zero dollars is zero euros."
+          ],
+          "answer": "$E(28) = 222.64\\text{ thousand euros}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.92*(-0.5*(28/(2*0.5))**2 + 28*(28/(2*0.5)) - 150)"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-8-wheel-stretch",
+          "alt": "Graph of height in metres against time in minutes, from 0 to 30 minutes. The dashed curve h of t starts at 2 metres, rises to 30 metres at 15 minutes and returns to 2 metres at 30 minutes. The solid curve h of 1.5 t has the same lowest and highest heights but reaches 30 metres at 10 minutes and is back at 2 metres at 20 minutes. Both curves start at the point (0, 2), on the vertical axis.",
+          "caption": "$y = h(1.5t)$ squeezes $y = h(t)$ towards the vertical axis with scale factor $\\frac{1}{1.5}$. Heights don't change; times do."
+        },
+        {
+          "type": "example",
+          "id": "ex-wheel-faster",
+          "question": "A rider's height on an observation wheel is $h(t) = 16 - 14\\cos(12t)$ metres, $t$ minutes after boarding, with the angle in degrees. On a busy day the wheel turns $1.5$ times as fast, and the height is $H(t) = h(1.5t)$. (a) Describe the transformation from $y = h(t)$ to $y = H(t)$. (b) Find when a rider first reaches the top on the faster wheel.",
+          "steps": [
+            "(a) $h(qt)$ with $q = 1.5$: a horizontal stretch with scale factor $\\frac{1}{1.5} = \\frac{2}{3}$, with the vertical axis invariant.",
+            "(b) On the normal wheel, the top is where $\\cos(12t) = -1$, so $12t = 180$ and $t = 15$ minutes. The height there is $16 + 14 = 30$ m.",
+            "The stretch divides every time by $1.5$ and keeps every height: $(15, 30)$ moves to $\\left(\\frac{15}{1.5}, 30\\right) = (10, 30)$.",
+            "Interpret: the rider reaches the top, still $30$ m up, after $10$ minutes instead of $15$. One turn takes $\\frac{360}{12} \\div 1.5 = 20$ minutes instead of $30$."
+          ],
+          "answer": "$t = 10\\text{ minutes}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(180/12)/1.5"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $1.5$ as the scale factor of $h(1.5t)$. Multiplying the input by $1.5$ divides every time by $1.5$, so the scale factor is $\\frac{1}{1.5}$."
+        },
+        {
+          "type": "check",
+          "id": "check-stretch-describe",
+          "prompt": "Which transformation maps the graph of $y = f(x)$ onto the graph of $y = f(2.5x)$?",
+          "hint": "The change is inside the bracket. The scale factor is $\\frac{1}{q}$.",
+          "options": [
+            {
+              "text": "Horizontal stretch, scale factor 0.4",
+              "correct": true
+            },
+            {
+              "text": "Horizontal stretch, scale factor 2.5",
+              "correct": false
+            },
+            {
+              "text": "Vertical stretch, scale factor 2.5",
+              "correct": false
+            },
+            {
+              "text": "Vertical stretch, scale factor 0.4",
+              "correct": false
+            }
+          ],
+          "explain": "Inside the bracket means horizontal, and $q = 2.5$ gives scale factor $\\frac{1}{2.5} = 0.4$. The graph becomes narrower.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Horizontal stretch, scale factor 0.4"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stretch-invariant",
+          "prompt": "The graph of $y = f(x)$ passes through $(0, 4)$, $(-2, 0)$ and $(3, 1)$. Which of these points is invariant under the vertical stretch $y = 3f(x)$?",
+          "hint": "A vertical stretch multiplies each $y$-coordinate by $3$. Which point has a $y$-coordinate that stays the same?",
+          "options": [
+            {
+              "text": "$(-2, 0)$",
+              "correct": true
+            },
+            {
+              "text": "$(0, 4)$",
+              "correct": false
+            },
+            {
+              "text": "$(3, 1)$",
+              "correct": false
+            }
+          ],
+          "explain": "$3 \\times 0 = 0$, so $(-2, 0)$ stays put: it lies on the $x$-axis, which is invariant. $(0, 4)$ moves to $(0, 12)$ and $(3, 1)$ to $(3, 3)$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(-2, 3*0)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "heading": "Combining transformations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Start with $y = x^{2}$. Stretch vertically with scale factor $2$, giving $y = 2x^{2}$. Then translate by $\\begin{pmatrix} 0 \\\\ -3 \\end{pmatrix}$, giving $y = 2x^{2} - 3$."
+        },
+        {
+          "type": "text",
+          "text": "Swap the order. Translating first gives $y = x^{2} - 3$. The stretch then doubles every output, the $-3$ included: $y = 2x^{2} - 6$. That is a different graph, so order matters."
+        },
+        {
+          "type": "result",
+          "statement": "Outside the bracket, follow the order of operations. For $y = pf(x) + b$ with $p > 0$, stretch vertically with scale factor $p$ first, then translate by $\\begin{pmatrix} 0 \\\\ b \\end{pmatrix}$.",
+          "why": "To get $pf(x) + b$ from $f(x)$, you multiply by $p$ and then add $b$."
+        },
+        {
+          "type": "text",
+          "text": "Inside the bracket the order is reversed. For $y = f(qx - c)$, translate $c$ units right first, then stretch horizontally with scale factor $\\frac{1}{q}$. Or stretch first and then translate $\\frac{c}{q}$ units right, since $qx - c = q\\left(x - \\frac{c}{q}\\right)$."
+        },
+        {
+          "type": "text",
+          "text": "Horizontal and vertical changes don't interfere, so the inside changes can go before, after or between the outside ones."
+        },
+        {
+          "type": "result",
+          "statement": "To find the image of a point $(x_{0}, y_{0})$ on $y = pf(qx - c) + b$, with $q \\ne 0$: solve $qx - c = x_{0}$ for the new $x$, and the new $y$ is $py_{0} + b$.",
+          "why": "At that $x$, the bracket equals $x_{0}$, so the function gives $pf(x_{0}) + b = py_{0} + b$."
+        },
+        {
+          "type": "text",
+          "text": "Try it below. Choose the base $x^{2}$ and set the vertical stretch to $2$ and the shift up to $-3$. The vertex sits at $(0, -3)$. The sliders use their own letters, so go by their names."
+        },
+        {
+          "type": "interactive",
+          "widget": "transformations",
+          "props": {},
+          "alt": "A dashed base curve and its transformed image drawn solid, with sliders for a vertical stretch, a horizontal scale, a shift right and a shift up. An open dot on the base curve and a filled dot on the image show where one point moves, and the image's equation is printed above the sliders."
+        },
+        {
+          "type": "example",
+          "id": "ex-combine-point",
+          "question": "Let $g(x) = 3f(2x - 10) + 1$. (a) Describe a sequence of transformations that maps the graph of $y = f(x)$ onto the graph of $y = g(x)$. (b) The point $(4, -2)$ lies on the graph of $y = f(x)$. Find its image on the graph of $y = g(x)$.",
+          "steps": [
+            "(a) Inside: $2x - 10$. Translate by $\\begin{pmatrix} 10 \\\\ 0 \\end{pmatrix}$, then stretch horizontally with scale factor $\\frac{1}{2}$.",
+            "Outside: stretch vertically with scale factor $3$, then translate by $\\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix}$.",
+            "(b) New $x$: solve $2x - 10 = 4$, so $x = 7$.",
+            "New $y$: $3(-2) + 1 = -5$. So the image is $(7, -5)$.",
+            "Check: $g(7) = 3f(2 \\times 7 - 10) + 1 = 3f(4) + 1 = 3(-2) + 1 = -5$."
+          ],
+          "answer": "$(7, -5)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((4 + 10)/2, 3*(-2) + 1)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Stretching $f(2x - 10)$ first and then translating $10$ right. After the stretch the translation is only $\\frac{10}{2} = 5$ units. Solving the bracket for $x$ avoids this slip."
+        },
+        {
+          "type": "example",
+          "id": "ex-sequel-downloads",
+          "question": "Weekly downloads of a game, in thousands, are modelled by $R(t) = -0.4t^{3} + 4.5t^{2} + 3t + 20$, for $0 \\le t \\le 12$ weeks after launch. A sequel launches $5$ weeks after the game, and its weekly downloads are modelled by $S(t) = 1.4R(t - 5)$, with $t$ still counted from the first game's launch. (a) Describe the transformations from $y = R(t)$ to $y = S(t)$. (b) Use your GDC to find the maximum point of $y = R(t)$. Hence find the maximum point of $y = S(t)$ and interpret it. Give values to 3 s.f.",
+          "steps": [
+            "(a) A translation by $\\begin{pmatrix} 5 \\\\ 0 \\end{pmatrix}$ and a vertical stretch with scale factor $1.4$. One is horizontal and one vertical, so either order works.",
+            "(b) Graph $y = -0.4x^{3} + 4.5x^{2} + 3x + 20$ with the window $0 \\le x \\le 12$, $0 \\le y \\le 150$. Its maximum is $(7.819705\\ldots, 127.3610\\ldots)$. Keep these full values.",
+            "Transform the point: $t = 7.819705\\ldots + 5 = 12.819705\\ldots$ and $S = 1.4 \\times 127.3610\\ldots = 178.3055\\ldots$.",
+            "Interpret: sequel downloads peak about $12.8$ weeks after the first launch, at about $178$ thousand a week.",
+            "The domain moves too: $S$ is defined for $5 \\le t \\le 17$, and $12.8$ is inside it. Graph $y = S(t)$ itself to check."
+          ],
+          "answer": "$(t, S) \\approx (12.8, 178)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((9 + sqrt(9**2 + 4*1.2*3))/(2*1.2) + 5, 1.4*(-0.4*((9 + sqrt(9**2 + 4*1.2*3))/(2*1.2))**3 + 4.5*((9 + sqrt(9**2 + 4*1.2*3))/(2*1.2))**2 + 3*((9 + sqrt(9**2 + 4*1.2*3))/(2*1.2)) + 20))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "-0.4X^3+4.5X^2+3X+20"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On a GDC question, write the function you graphed and the maximum you read, then the transformation you applied. That written set-up earns the method marks even if a value slips."
+        },
+        {
+          "type": "check",
+          "id": "check-combine-order",
+          "prompt": "The graph of $y = 2^{x}$ is translated by $\\begin{pmatrix} 0 \\\\ 4 \\end{pmatrix}$ and then stretched vertically with scale factor $0.5$. Find the equation of the new graph.",
+          "hint": "Write the equation after the translation, then multiply all of it by $0.5$.",
+          "options": [
+            {
+              "text": "$y = 0.5 \\times 2^{x} + 2$",
+              "correct": true
+            },
+            {
+              "text": "$y = 0.5 \\times 2^{x} + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = 2^{0.5x} + 4$",
+              "correct": false
+            }
+          ],
+          "explain": "The translation gives $y = 2^{x} + 4$. The stretch halves every output, the $4$ included: $y = 0.5(2^{x} + 4) = 0.5 \\times 2^{x} + 2$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, Rational(1, 2)*(2**x + 4))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combine-inside",
+          "prompt": "The graph of $y = f(x)$ has a local minimum point at $(-3, 8)$. Find the $x$-coordinate of the corresponding point on the graph of $y = f(0.5x + 2) - 1$.",
+          "hint": "Solve ‘bracket $= -3$’ for $x$.",
+          "answer": {
+            "value": -10,
+            "tolerance": 0
+          },
+          "explain": "$0.5x + 2 = -3$ gives $x = -10$. The $y$-coordinate is $8 - 1 = 7$, so the point is $(-10, 7)$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(-3 - 2)/0.5",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Transformations in models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most models in this topic are a simple graph, transformed: lines, [[quadratic-function|quadratics]], exponentials, cubics and waves. Each constant is one transformation, with a meaning in context."
+        },
+        {
+          "type": "text",
+          "text": "Take a [[sinusoidal-function|sinusoidal]] model $y = a\\sin(bx) + d$, with $a, b > 0$ and $x$ in degrees. From $y = \\sin x$: a vertical stretch with scale factor $a$ sets the amplitude. A horizontal stretch with scale factor $\\frac{1}{b}$ sets the period, $\\frac{360^{\\circ}}{b}$. A translation by $\\begin{pmatrix} 0 \\\\ d \\end{pmatrix}$ sets the principal axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-temperature-describe",
+          "question": "The temperature in a greenhouse is modelled by $T(t) = 6\\sin(15t) + 18$ degrees Celsius, $t$ hours after 9 am, with the angle in degrees. Describe a sequence of transformations that maps the graph of $y = \\sin t$ onto the graph of $y = T(t)$, and say what each one means.",
+          "steps": [
+            "Vertical stretch, scale factor $6$: the temperature swings $6^{\\circ}\\mathrm{C}$ above and below its middle value.",
+            "Horizontal stretch, scale factor $\\frac{1}{15}$: one cycle takes $\\frac{360}{15} = 24$ hours, one day.",
+            "Translation by $\\begin{pmatrix} 0 \\\\ 18 \\end{pmatrix}$, after the vertical stretch: the middle temperature is $18^{\\circ}\\mathrm{C}$.",
+            "The vertical stretch must come before the translation, or the $18$ would be stretched too."
+          ],
+          "answer": "Vertical stretch, scale factor $6$; horizontal stretch, scale factor $\\frac{1}{15}$; then translation by $\\begin{pmatrix} 0 \\\\ 18 \\end{pmatrix}$.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "vertical stretch sf 6, horizontal stretch sf 1/15, translation (0, 18)",
+            "requires": [
+              "vertical stretch",
+              "horizontal stretch",
+              "translation"
+            ],
+            "forbids": [
+              "scale factor 15"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "An exponential model $y = k a^{t} + c$, with $k > 0$, works the same way. From $y = a^{t}$: a vertical stretch with scale factor $k$, then a translation by $\\begin{pmatrix} 0 \\\\ c \\end{pmatrix}$. The [[asymptote|asymptote]] $y = 0$ moves to $y = c$, the level the quantity approaches."
+        },
+        {
+          "type": "example",
+          "id": "ex-tea-cooling",
+          "question": "A cup of tea cools in a room at $21^{\\circ}\\mathrm{C}$. Its temperature is $T(t) = 68(0.9)^{t} + 21$ degrees Celsius, $t$ minutes after it is poured. A second cup is poured $3$ minutes later, in a room at $25^{\\circ}\\mathrm{C}$, starting $68^{\\circ}\\mathrm{C}$ above the room. Its temperature is $U(t) = T(t - 3) + 4$, with $t$ counted from the first pour. (a) Write down the horizontal asymptote of $y = U(t)$ and interpret it. (b) Use your GDC to find when the second cup reaches $50^{\\circ}\\mathrm{C}$. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) $U$ is $T$ translated by $\\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}$. The asymptote $T = 21$ moves up $4$ to $U = 25$: the tea cools towards the room's temperature, $25^{\\circ}\\mathrm{C}$.",
+            "(b) Write the model out: $U(t) = 68(0.9)^{t - 3} + 25$.",
+            "Solve $68(0.9)^{t - 3} + 25 = 50$: graph $y = 68(0.9)^{x - 3} + 25$ and $y = 50$ with the window $0 \\le x \\le 20$, $0 \\le y \\le 100$, and find the intersection.",
+            "The GDC gives $x = 12.49721\\ldots$, so about $12.5$ minutes after the first pour.",
+            "That is $9.5$ minutes after the second cup was poured."
+          ],
+          "answer": "$t \\approx 12.5\\text{ minutes}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3 + log((50 - 25)/68)/log(0.9)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "68*0.9^(X-3)+25",
+            "function2": "50"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-period",
+          "prompt": "A wave model is $y = 1.2\\sin(40x) + 3$, with $x$ in degrees. It comes from $y = \\sin x$ by stretches and a translation. Find the scale factor of the horizontal stretch.",
+          "hint": "The horizontal stretch comes from the number multiplying $x$ inside the bracket. Its scale factor is $\\frac{1}{q}$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{40}$",
+              "correct": true
+            },
+            {
+              "text": "$40$",
+              "correct": false
+            },
+            {
+              "text": "$9$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin(40x)$ is a horizontal stretch with scale factor $\\frac{1}{40}$, so the period is $\\frac{360^{\\circ}}{40} = 9^{\\circ}$. $9$ is the period, not the scale factor. The $1.2$ sets the amplitude and the $3$ the principal axis.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/Integer(40)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-model-interpret",
+          "prompt": "A drink's temperature is modelled by $T(t) = 55(0.85)^{t} + 19$ degrees Celsius, $t$ minutes after it is made in a room at $19^{\\circ}\\mathrm{C}$. The model comes from $y = (0.85)^{t}$ by a vertical stretch with scale factor $55$, then a translation by $\\begin{pmatrix} 0 \\\\ 19 \\end{pmatrix}$. What does the $55$ represent?",
+          "hint": "Find $T(0)$, and compare it with the temperature the drink approaches.",
+          "options": [
+            {
+              "text": "how far the drink starts above the room temperature",
+              "correct": true
+            },
+            {
+              "text": "the drink's starting temperature",
+              "correct": false
+            },
+            {
+              "text": "the temperature the drink cools towards",
+              "correct": false
+            }
+          ],
+          "explain": "$T(0) = 55 + 19 = 74^{\\circ}\\mathrm{C}$, and the drink cools towards the asymptote $T = 19$. So $55$ is the starting gap above the room, not the starting temperature.",
+          "verify": {
+            "kind": "choice",
+            "truth": "how far the drink starts above the room temperature"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "y = f(x - a) + b \\;:\\; \\text{translation by } \\begin{pmatrix} a \\\\ b \\end{pmatrix} \\text{, so } a \\text{ units right and } b \\text{ units up}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = -f(x) \\;:\\; \\text{reflection in the } x\\text{-axis} \\qquad y = f(-x) \\;:\\; \\text{reflection in the } y\\text{-axis}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = pf(x) \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx) \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Outside the bracket acts on $y$ as it looks. Inside acts on $x$ the opposite way: $x - a$ moves right, and $qx$ divides $x$-coordinates by $q$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A vertical stretch $y = pf(x)$ keeps the $x$-axis invariant; a horizontal stretch $y = f(qx)$ keeps the $y$-axis invariant.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $y = pf(x) + b$ with $p > 0$: stretch first, then translate by $\\begin{pmatrix} 0 \\\\ b \\end{pmatrix}$. Horizontal and vertical changes can be done in either order relative to each other.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Image of $(x_{0}, y_{0})$ on $y = pf(qx - c) + b$, with $q \\ne 0$: solve $qx - c = x_{0}$ for $x$; the new $y$ is $py_{0} + b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Asymptotes, turning points and the ends of the domain move with the graph. In a model, say what each transformation means.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Moving $y = f(x - 4)$ left, or $y = f(x + 4)$ right. Inside the bracket the sign works the other way: $x - 4$ moves the graph $4$ units right.",
+    "Giving $q$ as the scale factor of $y = f(qx)$. The scale factor is $\\frac{1}{q}$, so $y = f(2x)$ halves every $x$-coordinate.",
+    "Translating before stretching. $y = pf(x) + b$ means stretch by $p$, then translate by $b$; the other order gives $pf(x) + pb$.",
+    "Confusing $-f(x)$ with $f(-x)$. $-f(x)$ changes the outputs and mirrors in the $x$-axis; $f(-x)$ changes the inputs and mirrors in the $y$-axis.",
+    "Moving the curve but not its asymptotes or domain. Transform them too: a model for $0 \\le t \\le 12$ translated $5$ right holds for $5 \\le t \\le 17$.",
+    "Rounding a turning point before transforming it. Keep the GDC's full values and round only the final coordinates."
+  ],
+  "examTips": [
+    "‘Describe’ a transformation: name it and give every detail, such as ‘horizontal stretch, scale factor $\\frac{1}{2}$’ or ‘translation by $\\begin{pmatrix} -3 \\\\ 0 \\end{pmatrix}$’. For several, give them in an order that works: the right transformations in the wrong order can lose a mark.",
+    "‘Sketch’ a transformed graph: move the endpoints, turning points, intercepts and asymptotes first, then join them with the right shape. Mark schemes check where those points land.",
+    "When a question asks for $g(x)$ after a transformation, writing it in terms of $f$, such as $g(x) = f(x - a) + b$ with the numbers in, is usually enough. Substitute the formula for $f$ only if the question needs it."
+  ],
+  "readingMinutes": 33
+}

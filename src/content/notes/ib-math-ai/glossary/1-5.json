@@ -2,25 +2,25 @@
   {
     "id": "laws-of-exponents",
     "term": "laws of exponents",
-    "definition": "TODO: a^m × a^n = a^(m+n), a^m ÷ a^n = a^(m−n), (a^m)^n = a^(mn), a^0 = 1, a^(−n) = 1/a^n, for a ≠ 0; the first two need the same base",
+    "definition": "The rules for powers of a non-zero base $a$ with integer exponents: $a^{m} \\times a^{n} = a^{m+n}$ and $a^{m} \\div a^{n} = a^{m-n}$ (both need the same base), $(a^{m})^{n} = a^{mn}$, $a^{0} = 1$ and $a^{-n} = \\frac{1}{a^{n}}$.",
     "lesson": "1.5"
   },
   {
     "id": "logarithm",
     "term": "logarithm",
-    "definition": "TODO: log_a b = x means a^x = b; needs a > 0, a ≠ 1 and b > 0",
+    "definition": "For $a > 0$, $a \\neq 1$ and $b > 0$, $\\log_{a} b$ is the exponent $x$ for which $a^{x} = b$, so $\\log_{10} 1000 = 3$ because $10^{3} = 1000$.",
     "lesson": "1.5"
   },
   {
     "id": "natural-logarithm",
     "term": "natural logarithm",
-    "definition": "TODO: ln x = log_e x, the inverse of e^x; defined only for x > 0",
+    "definition": "The logarithm with base $\\mathrm{e}$, written $\\ln x = \\log_{\\mathrm{e}} x$ and defined only for $x > 0$, so $\\ln b = x$ means $\\mathrm{e}^{x} = b$.",
     "lesson": "1.5"
   },
   {
     "id": "e",
     "term": "e (Euler's number)",
-    "definition": "TODO: The irrational constant e ≈ 2.718 used as a base for exponentials and natural logarithms",
+    "definition": "The irrational constant $\\mathrm{e} = 2.71828\\ldots$, used as the base of exponential growth and decay models and of the natural logarithm.",
     "lesson": "1.5"
   }
 ]

@@ -1,0 +1,705 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.8",
+  "slug": "binomial-distribution",
+  "title": "Binomial distribution",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[binomial-distribution|binomial distribution]] counts how many times something happens in a fixed number of independent tries, each with the same chance. You write $X \\sim \\mathrm{B}(n, p)$, find its probabilities on your GDC, and use $np$ for the number you expect.",
+  "goals": [
+    {
+      "text": "Decide whether a binomial distribution fits a situation, write it as $X \\sim \\mathrm{B}(n, p)$, and state its assumptions in context.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Find $\\mathrm{P}(X = r)$ with your GDC, and see where it comes from in a small case.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Turn \"at most\", \"at least\", \"fewer than\", \"more than\" and \"between\" into the right GDC calculation.",
+      "bullets": [
+        "4.8-b1"
+      ]
+    },
+    {
+      "text": "Find and interpret the mean and [[variance|variance]] of $X \\sim \\mathrm{B}(n, p)$.",
+      "bullets": [
+        "4.8-b2"
+      ]
+    },
+    {
+      "text": "Use $np$ as an [[expected-number-of-occurrences|expected number of occurrences]], including for batches that meet a condition.",
+      "bullets": [
+        "4.8-b2",
+        "4.8-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.3",
+    "4.5",
+    "4.6",
+    "4.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "binomial probability",
+    "X ~ B(n, p)",
+    "binompdf and binomcdf",
+    "mean and variance of a binomial",
+    "binomial assumptions",
+    "number of successes in n trials"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expected-number",
+      "prompt": "The probability that a parcel is delivered late is $0.06$. A courier delivers $350$ parcels. Find the expected number delivered late.",
+      "hint": "Multiply the number of trials by the probability.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$350 \\times 0.06 = 21$ parcels. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "350*Rational(6, 100)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-independent",
+      "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.3$ and $\\mathrm{P}(B) = 0.8$. Find $\\mathrm{P}(A \\cap B)$.",
+      "hint": "For [[independent-events|independent events]], multiply the probabilities.",
+      "answer": {
+        "value": 0.24,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\cap B) = 0.3 \\times 0.8 = 0.24$. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(3, 10)*Rational(8, 10)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-expected-value",
+      "prompt": "A [[random-variable|random variable]] $Y$ takes the values $1$, $2$ and $4$ with probabilities $0.25$, $0.45$ and $0.3$. Find $\\mathrm{E}(Y)$.",
+      "hint": "Multiply each value by its probability, then add.",
+      "answer": {
+        "value": 2.35,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{E}(Y) = 1 \\times 0.25 + 2 \\times 0.45 + 4 \\times 0.3 = 2.35$. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1*Rational(25, 100) + 2*Rational(45, 100) + 4*Rational(3, 10)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "model",
+      "heading": "When is a situation binomial?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How many of $25$ batteries are faulty? How many of $30$ patients recover? Each question counts successes in a fixed number of tries. When every try behaves the same way, a binomial distribution gives the probability of each count."
+        },
+        {
+          "type": "definition",
+          "term": "Binomial distribution",
+          "statement": "Let $X$ be the number of successes in $n$ trials. $X$ has a [[binomial-distribution|binomial distribution]], written $X \\sim \\mathrm{B}(n, p)$, when all four conditions hold: the number of trials $n$ is fixed; each trial has two outcomes, success or failure; the probability of success $p$ is the same for every trial; the trials are [[independent-events|independent]].",
+          "plain": "You repeat the same yes-or-no situation a set number of times and count the yeses."
+        },
+        {
+          "type": "text",
+          "text": "\"Success\" is only a label for the outcome you count: it can be a faulty battery. Independent means one trial's result doesn't change the chances for any other, as in {{lesson:4.6}}."
+        },
+        {
+          "type": "text",
+          "text": "In real situations these conditions are assumptions of the model. Questions often ask you to state one, or to judge whether it is reasonable."
+        },
+        {
+          "type": "example",
+          "id": "ex-batteries-model",
+          "question": "A factory makes thousands of phone batteries a day, and $3\\%$ of them are faulty. An inspector picks $25$ batteries at random from one day's output. Let $X$ be the number of faulty batteries. (a) Write down the distribution of $X$. (b) State two assumptions you have made, and comment on whether each is reasonable.",
+          "steps": [
+            "Each battery picked is a trial: faulty (the success you count) or not. There are $n = 25$ trials.",
+            "(a) Each battery is faulty with probability $p = 0.03$, so $X \\sim \\mathrm{B}(25, 0.03)$.",
+            "(b) Same probability, $0.03$, for every battery picked. They are picked without replacement, but from thousands, so $25$ picks barely change the proportion. Reasonable.",
+            "Independence: one battery being faulty doesn't affect another. This could fail if a machine fault produces a run of bad batteries."
+          ],
+          "answer": "$n = 25, \\; p = 0.03$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"n\": 25, \"p\": Rational(3, 100)}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-not-binomial",
+          "question": "Is a binomial model suitable for $X$? If not, say which condition fails. (a) A darts player throws until she hits the bullseye; $X$ is the number of throws. (b) $X$ is the number of rainy days in the next $10$ days. (c) A teacher picks $4$ students, one at a time, from a class of $15$ boys and $10$ girls; $X$ is the number of girls picked.",
+          "steps": [
+            "(a) She stops when she succeeds, so the number of throws is not fixed.",
+            "(b) There are $10$ trials, each rainy or dry. But wet weather comes in spells, so the days are not independent. A binomial model is doubtful.",
+            "(c) The first pick is a girl with probability $\\frac{10}{25}$. If it is, the second is a girl with probability $\\frac{9}{24}$. The probability changes from pick to pick."
+          ],
+          "answer": "(a) No: the number of trials is not fixed. (b) Doubtful: the days are not independent. (c) No: the probability of a girl changes from pick to pick.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a: trials not fixed; b: days not independent; c: probability changes without replacement",
+            "requires": [
+              "not fixed",
+              "not independent",
+              "changes"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving \"there are $25$ batteries\" as an assumption. That number is a fact from the question. State independence or the constant probability, in context."
+        },
+        {
+          "type": "examTip",
+          "text": "For \"state an assumption\", name the condition in context: \"each battery is faulty independently of the others, with the same probability $0.03$\". \"$3\\%$ of the batteries will be faulty\" describes a result, not the trials, so it earns no mark."
+        },
+        {
+          "type": "check",
+          "id": "check-gym-assumption",
+          "prompt": "A gym finds that $70\\%$ of new members still attend after three months. For a group of $18$ new members, it models $X$, the number still attending, as $X \\sim \\mathrm{B}(18, 0.7)$. Which is an assumption of this model?",
+          "hint": "An assumption is about the trials: how each member behaves, and whether members affect each other.",
+          "options": [
+            {
+              "text": "Each member still attends with the same probability, 0.7, independently of the others",
+              "correct": true
+            },
+            {
+              "text": "Exactly 70% of the 18 members will still attend",
+              "correct": false
+            },
+            {
+              "text": "There are 18 members in the group",
+              "correct": false
+            },
+            {
+              "text": "All the members are equally fit",
+              "correct": false
+            }
+          ],
+          "explain": "The model needs a constant probability and independence. The group size is given, \"exactly $70\\%$\" is a result, and fitness is not a model condition.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Each member still attends with the same probability, 0.7, independently of the others"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-binomial",
+          "prompt": "Which of these random variables has a binomial distribution?",
+          "hint": "Check all four conditions: fixed $n$, two outcomes, constant $p$, independent trials.",
+          "options": [
+            {
+              "text": "The number of heads in 15 tosses of a fair coin",
+              "correct": true
+            },
+            {
+              "text": "The number of tosses of a fair coin until the first head",
+              "correct": false
+            },
+            {
+              "text": "The number of aces among 5 cards dealt from one pack",
+              "correct": false
+            },
+            {
+              "text": "The score on one roll of a fair die",
+              "correct": false
+            }
+          ],
+          "explain": "Fifteen tosses are fixed, independent trials with $p = 0.5$. The others fail: no fixed $n$; $p$ changes as cards aren't replaced; one roll is a score, not a count.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The number of heads in 15 tosses of a fair coin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exact",
+      "heading": "The probability of exactly r successes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you hand the work to your GDC, see where a binomial probability comes from. A small case is enough."
+        },
+        {
+          "type": "example",
+          "id": "ex-traffic-lights",
+          "question": "On her ride to school, Mei passes $3$ sets of traffic lights. Each is red when she arrives with probability $0.4$, independently of the others. Find the probability that exactly $2$ of the lights are red.",
+          "steps": [
+            "Let $X$ be the number of red lights, so $X \\sim \\mathrm{B}(3, 0.4)$. Write R for red and G for not red, with $\\mathrm{P}(\\text{G}) = 1 - 0.4 = 0.6$.",
+            "Two reds can happen in $3$ orders: RRG, RGR and GRR. The tree diagram below shows all $8$ paths.",
+            "The lights are independent, so multiply along a path: $\\mathrm{P}(\\text{RRG}) = 0.4 \\times 0.4 \\times 0.6 = 0.096$. The other two orders use the same three numbers, so each is $0.096$ too.",
+            "Add the $3$ paths: $\\mathrm{P}(X = 2) = 3 \\times 0.096 = 0.288$."
+          ],
+          "answer": "$\\mathrm{P}(X = 2) = 0.288$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "binompdf(3, Rational(4, 10), 2)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-8-lights-tree",
+          "alt": "Tree diagram with three stages, one per traffic light. Each stage branches to R, red, with probability 0.4 and G, not red, with probability 0.6. The eight path probabilities are shown at the ends. The three paths with exactly two reds, RRG, RGR and GRR, are highlighted, each 0.4 times 0.4 times 0.6, which is 0.096.",
+          "caption": "Three of the eight paths have exactly two reds, and each has probability $0.096$."
+        },
+        {
+          "type": "text",
+          "text": "Two counts need only one path: $\\mathrm{P}(X = 0) = (1-p)^{n}$, as every trial fails, and $\\mathrm{P}(X = n) = p^{n}$."
+        },
+        {
+          "type": "text",
+          "text": "With more trials the number of orders grows fast: $9$ successes in $20$ trials can happen in $167\\,960$ orders. Your GDC's binomial pdf counts them and adds them up for you."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclists-gdc",
+          "question": "In a large city, $35\\%$ of adults cycle to work at least once a week. A random sample of $20$ adults from the city is taken. Use your calculator to find the probability that exactly $9$ of them cycle to work at least once a week. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number in the sample who cycle. There are $n = 20$ trials, each a yes or no.",
+            "The city is large, so $20$ picks hardly change the proportion. Take $p = 0.35$ each time, independently: $X \\sim \\mathrm{B}(20, 0.35)$.",
+            "Write down what you want: $\\mathrm{P}(X = 9)$. Binomial pdf with $n = 20$, $p = 0.35$ and $x = 9$ gives $0.115841\\ldots$",
+            "Round only at the end: $0.116$ to 3 s.f.",
+            "Interpret: in about $12\\%$ of random samples of $20$ adults, exactly $9$ would cycle to work."
+          ],
+          "answer": "$\\mathrm{P}(X = 9) \\approx 0.116$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "binompdf(20, Rational(35, 100), 9)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "binomial-pdf",
+          "values": {
+            "n": 20,
+            "p": 0.35,
+            "k": 9
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the distribution and the probability before the GDC value, such as $X \\sim \\mathrm{B}(20, 0.35)$ and $\\mathrm{P}(X = 9)$. Calculator notation such as binompdf(20, 0.35, 9) is usually accepted as method too."
+        },
+        {
+          "type": "check",
+          "id": "check-puzzle-all-four",
+          "prompt": "Ravi wins each game of an online puzzle with probability $0.85$, independently of other games. He plays $4$ games, and $X$ is the number he wins. Find the probability that he wins all $4$.",
+          "hint": "Winning all $4$ is a single path through the tree. Multiply along it.",
+          "options": [
+            {
+              "text": "$\\mathrm{P}(X = 4) \\approx 0.522$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{P}(X = 4) \\approx 0.368$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X = 4) \\approx 0.000506$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X = 4) \\approx 0.850$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.85^{4} = 0.522006\\ldots \\approx 0.522$. $0.368$ is $\\mathrm{P}(X = 3)$, $0.000506$ is $0.15^{4}$, and $0.850$ is one game.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "binompdf(4, Rational(85, 100), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electric-cars",
+          "prompt": "In a large city, $14\\%$ of cars are electric. A random sample of $32$ cars is taken. Find the probability that exactly $6$ of them are electric. Give your answer to 3 s.f.",
+          "hint": "Let $X$ be the number of electric cars, $X \\sim \\mathrm{B}(32, 0.14)$. Use binomial pdf with $x = 6$.",
+          "answer": {
+            "value": 0.135,
+            "tolerance": 0.0005
+          },
+          "explain": "$X \\sim \\mathrm{B}(32, 0.14)$, and binomial pdf gives $\\mathrm{P}(X = 6) = 0.135191\\ldots \\approx 0.135$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "binompdf(32, Rational(14, 100), 6)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "cumulative",
+      "heading": "At most, at least and between",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most questions ask about a range of counts, such as \"at most $3$\". Your GDC's binomial cdf adds $\\mathrm{P}(X = 0)$ up to $\\mathrm{P}(X = k)$, giving $\\mathrm{P}(X \\le k)$ in one step."
+        },
+        {
+          "type": "text",
+          "text": "Everything else comes from $\\mathrm{P}(X \\le k)$ and the [[complementary-events|complement]]. $X$ only takes whole numbers, so \"fewer than $5$\" means $X \\le 4$, and \"more than $5$\" means $X \\ge 6$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{array}{ll} \\text{at most } k & \\mathrm{P}(X \\le k) \\\\ \\text{fewer than } k & \\mathrm{P}(X \\le k - 1) \\\\ \\text{at least } k & \\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1) \\\\ \\text{more than } k & \\mathrm{P}(X > k) = 1 - \\mathrm{P}(X \\le k) \\\\ a \\text{ to } b \\text{ inclusive} & \\mathrm{P}(a \\le X \\le b) = \\mathrm{P}(X \\le b) - \\mathrm{P}(X \\le a - 1) \\end{array}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In the chart below, \"at least $8$\" shades the bars from $8$ up. Its complement is the bars $0$ to $7$, so you subtract $\\mathrm{P}(X \\le 7)$."
+        },
+        {
+          "type": "interactive",
+          "widget": "binomial-shaded",
+          "props": {
+            "n": 20,
+            "p": 0.3,
+            "k": 8,
+            "mode": "ge"
+          },
+          "alt": "Bar chart of a binomial distribution with 20 trials and success probability 0.3, one bar for each count from 0 to 20. The bars for 8 or more are shaded, with their total probability below. Sliders change n, p and k, and a menu switches the event between equal to, at most and at least k."
+        },
+        {
+          "type": "example",
+          "id": "ex-airline-overbooking",
+          "question": "An airline sells $160$ tickets for a flight with $154$ seats. Each ticket holder turns up with probability $0.92$. (a) Find the probability that more passengers turn up than there are seats. Give your answer to 3 s.f. (b) Interpret your answer, and comment on one assumption of your model.",
+          "steps": [
+            "Let $X$ be the number of ticket holders who turn up. Assume each turns up with probability $0.92$, independently of the others. Then $X \\sim \\mathrm{B}(160, 0.92)$.",
+            "(a) Someone has no seat when more than $154$ turn up. $X$ is a whole number, so that is $X \\ge 155$.",
+            "Use the complement: $\\mathrm{P}(X \\ge 155) = 1 - \\mathrm{P}(X \\le 154)$.",
+            "Binomial cdf with $n = 160$, $p = 0.92$ and $x = 154$ gives $0.990142\\ldots$ So $\\mathrm{P}(X \\ge 155) = 0.009857\\ldots \\approx 0.00986$.",
+            "(b) On about $1\\%$ of such flights, a ticket holder has no seat. Independence is doubtful: families and groups turn up, or not, together."
+          ],
+          "answer": "$\\mathrm{P}(X \\ge 155) \\approx 0.00986$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1 - binomcdf(160, Rational(92, 100), 154)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "binomial-at-least",
+          "values": {
+            "n": 160,
+            "p": 0.92,
+            "k": 155
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $\\mathrm{P}(X \\ge 155) = 1 - \\mathrm{P}(X \\le 155)$. That throws away $X = 155$, which you wanted to keep. Subtract $\\mathrm{P}(X \\le 154)$ instead."
+        },
+        {
+          "type": "example",
+          "id": "ex-library-between",
+          "question": "A library finds that $22\\%$ of borrowed books are returned late. On one day, $45$ books are borrowed. Assume each book is returned late with probability $0.22$, independently of the others. Find the probability that between $9$ and $13$ of these books, inclusive, are returned late. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number returned late, so $X \\sim \\mathrm{B}(45, 0.22)$.",
+            "\"Between $9$ and $13$ inclusive\" keeps $9, 10, 11, 12$ and $13$. Take $\\mathrm{P}(X \\le 13)$, then remove $0$ to $8$: $\\mathrm{P}(9 \\le X \\le 13) = \\mathrm{P}(X \\le 13) - \\mathrm{P}(X \\le 8)$.",
+            "Binomial cdf twice: $0.899395\\ldots - 0.316611\\ldots = 0.582784\\ldots$",
+            "So the probability is $0.583$ to 3 s.f. Subtracting $\\mathrm{P}(X \\le 9)$ would wrongly remove $X = 9$."
+          ],
+          "answer": "$\\mathrm{P}(9 \\le X \\le 13) \\approx 0.583$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "binomcdf(45, Rational(22, 100), 13) - binomcdf(45, Rational(22, 100), 8)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fewer-than-five",
+          "prompt": "$X \\sim \\mathrm{B}(25, 0.3)$. Find $\\mathrm{P}(X < 5)$.",
+          "hint": "$X$ is a whole number, so $X < 5$ means $X \\le 4$.",
+          "options": [
+            {
+              "text": "$\\mathrm{P}(X < 5) \\approx 0.0905$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{P}(X < 5) \\approx 0.193$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 5) \\approx 0.910$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 5) \\approx 0.0332$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(X < 5) = \\mathrm{P}(X \\le 4) = 0.090471\\ldots \\approx 0.0905$. $0.193$ is $\\mathrm{P}(X \\le 5)$, $0.910$ is $\\mathrm{P}(X \\ge 5)$ and $0.0332$ is $\\mathrm{P}(X \\le 3)$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "binomcdf(25, Rational(3, 10), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-missed-appointments",
+          "prompt": "A clinic finds that $8\\%$ of booked appointments are missed. On one day, $40$ appointments are booked. Assuming appointments are missed independently, find the probability that at least $5$ are missed. Give your answer to 3 s.f.",
+          "hint": "Let $X \\sim \\mathrm{B}(40, 0.08)$. The complement of \"at least $5$\" is \"at most $4$\".",
+          "answer": {
+            "value": 0.213,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\mathrm{P}(X \\ge 5) = 1 - \\mathrm{P}(X \\le 4) = 1 - 0.786792\\ldots = 0.213207\\ldots \\approx 0.213$. Using $1 - \\mathrm{P}(X \\le 5)$ gives $0.0967$, which leaves out $X = 5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - binomcdf(40, Rational(8, 100), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Never round $\\mathrm{P}(X \\le k)$ before you subtract it. Keep the full GDC value, then give the final answer to 3 s.f., keeping any trailing zero: $0.250$, not $0.25$."
+        }
+      ]
+    },
+    {
+      "id": "mean-variance",
+      "heading": "Mean, variance and expected number",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.5}} you found an [[expected-number-of-occurrences|expected number of occurrences]] as $n \\times \\mathrm{P}(A)$. A binomial count is the same idea. With $n$ trials and success probability $p$, you expect $np$ successes."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = np",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-mean"
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{E}(X)$ is the mean of $X$: the average number of successes if you repeated all $n$ trials many times. It need not be a whole number."
+        },
+        {
+          "type": "text",
+          "text": "The [[variance|variance]] measures how widely the count spreads around its mean. Its square root is the [[standard-deviation|standard deviation]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = np(1-p)",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-variance"
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the formula booklet; you don't need to prove them. Since $1 - p < 1$, the variance is smaller than the mean whenever $p > 0$: a quick check."
+        },
+        {
+          "type": "example",
+          "id": "ex-call-centre",
+          "question": "At a call centre, $15\\%$ of calls are complaints. In one shift the centre takes $240$ calls. Let $X$ be the number of complaints, and assume $X \\sim \\mathrm{B}(240, 0.15)$. (a) Find the mean and the variance of $X$. (b) Interpret the mean in context.",
+          "steps": [
+            "(a) Here $n = 240$ and $p = 0.15$, so $1 - p = 0.85$.",
+            "Mean: $\\mathrm{E}(X) = np = 240 \\times 0.15 = 36$.",
+            "Variance: $\\mathrm{Var}(X) = np(1-p) = 36 \\times 0.85 = 30.6$. Check: it is smaller than the mean.",
+            "If a question asks for the standard deviation, it is $\\sqrt{30.6} = 5.531\\ldots \\approx 5.53$.",
+            "(b) Over many shifts of $240$ calls, the centre averages $36$ complaints per shift."
+          ],
+          "answer": "$\\mathrm{Var}(X) = 30.6$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "240*Rational(15, 100)*(1 - Rational(15, 100))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bakery-trays",
+          "question": "A bakery bakes croissants in trays of $16$. Each croissant comes out perfect with probability $0.93$, independently of the others. A tray sells at full price if at least $14$ of its croissants are perfect. (a) Find the probability that a tray sells at full price. (b) The bakery bakes $40$ trays in a week. Find the expected number of trays that sell at full price. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Let $X$ be the number of perfect croissants on a tray: $X \\sim \\mathrm{B}(16, 0.93)$.",
+            "\"At least $14$\" is $X \\ge 14$, so $\\mathrm{P}(X \\ge 14) = 1 - \\mathrm{P}(X \\le 13) = 0.903118\\ldots \\approx 0.903$.",
+            "(b) Now each tray is one trial, with success probability $0.903118\\ldots$",
+            "Expected number of trays $= 40 \\times 0.903118\\ldots = 36.124\\ldots \\approx 36.1$, using the unrounded probability.",
+            "Interpret: on average, about $36$ of the $40$ trays sell at full price each week."
+          ],
+          "answer": "$\\text{expected number of trays} \\approx 36.1$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "40*(1 - binomcdf(16, Rational(93, 100), 13))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $np$ as the variance, or giving the variance when the standard deviation is asked for. $\\mathrm{Var}(X) = np(1-p)$, and the standard deviation is its square root."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also use the binomial distribution to test a claim about a proportion, such as whether a coin is biased.",
+          "lesson": "4.18"
+        },
+        {
+          "type": "check",
+          "id": "check-variance",
+          "prompt": "$X \\sim \\mathrm{B}(60, 0.35)$. Find $\\mathrm{Var}(X)$.",
+          "hint": "Use $np(1-p)$, not $np$.",
+          "options": [
+            {
+              "text": "$13.65$",
+              "correct": true
+            },
+            {
+              "text": "$21$",
+              "correct": false
+            },
+            {
+              "text": "$39$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{13.65}$",
+              "correct": false
+            }
+          ],
+          "explain": "$60 \\times 0.35 \\times 0.65 = 13.65$. $21$ is the mean, $39$ is $n(1-p)$, and $\\sqrt{13.65}$ is the standard deviation.",
+          "verify": {
+            "kind": "exact",
+            "truth": "60*Rational(35, 100)*(1 - Rational(35, 100))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-mean",
+          "prompt": "A courier models the number of late parcels in a van of $50$ as $X \\sim \\mathrm{B}(50, 0.25)$, so $\\mathrm{E}(X) = 12.5$. Which statement is correct?",
+          "hint": "An expected number is a long-run average, not a prediction for one van.",
+          "options": [
+            {
+              "text": "Over many vans, the mean number of late parcels per van is 12.5",
+              "correct": true
+            },
+            {
+              "text": "Exactly 12.5 parcels in every van will be late",
+              "correct": false
+            },
+            {
+              "text": "Every van will have 12 or 13 late parcels",
+              "correct": false
+            },
+            {
+              "text": "The mean is wrong, since a count must be a whole number",
+              "correct": false
+            }
+          ],
+          "explain": "$np = 12.5$ is an average over many vans. One van can have any count from $0$ to $50$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Over many vans, the mean number of late parcels per van is 12.5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-replies-above-mean",
+          "prompt": "A charity texts $850$ supporters. Each replies with probability $0.06$, independently of the others. Find the probability that more supporters reply than the expected number. Give your answer to 3 s.f.",
+          "hint": "First find $np$. Then \"more than $np$\" starts at the next whole number.",
+          "answer": {
+            "value": 0.463,
+            "tolerance": 0.0005
+          },
+          "explain": "$X \\sim \\mathrm{B}(850, 0.06)$ and $\\mathrm{E}(X) = 850 \\times 0.06 = 51$. $\\mathrm{P}(X > 51) = 1 - \\mathrm{P}(X \\le 51) = 1 - 0.537166\\ldots = 0.462833\\ldots \\approx 0.463$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - binomcdf(850, Rational(6, 100), 850*Rational(6, 100))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$X \\sim \\mathrm{B}(n, p)$ counts the successes in a fixed number $n$ of independent trials, each with two outcomes and the same probability $p$ of success.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a GDC, binomial pdf gives $\\mathrm{P}(X = r)$ and binomial cdf gives $\\mathrm{P}(X \\le k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For binomial $X$ (whole numbers only): $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1)$ and $\\mathrm{P}(X > k) = 1 - \\mathrm{P}(X \\le k)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = np",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = np(1-p)",
+          "tag": "booklet",
+          "bookletId": "bk-4-8-binomial-variance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $X \\sim \\mathrm{B}(n, p)$, $np$ is the expected number of successes: a long-run average that need not be a whole number. The standard deviation is $\\sqrt{np(1-p)}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k)$. That throws away $X = k$ as well. Use $1 - \\mathrm{P}(X \\le k - 1)$.",
+    "Reading \"fewer than $5$\" as $X \\le 5$, or \"more than $5$\" as $X \\ge 5$. For a whole-number count they are $X \\le 4$ and $X \\ge 6$.",
+    "Using a binomial model when picking without replacement from a small group. The probability changes after each pick.",
+    "Rounding a GDC value before subtracting or multiplying with it. Carry the full value and round only the final answer."
+  ],
+  "examTips": [
+    "Find a binomial probability: write $X \\sim \\mathrm{B}(n, p)$ and the probability statement, such as $\\mathrm{P}(X \\ge 6) = 1 - \\mathrm{P}(X \\le 5)$, before the GDC value.",
+    "State an assumption: name independence or the constant probability, in context.",
+    "Give probabilities to 3 s.f., keeping trailing zeros: $0.250$, not $0.25$; $0.00986$, not $0.01$.",
+    "Find an expected number: write $np$, or $n$ times a probability, with the numbers in, then the value. Don't round it to a whole number."
+  ],
+  "readingMinutes": 25
+}

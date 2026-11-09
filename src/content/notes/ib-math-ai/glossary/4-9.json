@@ -2,25 +2,25 @@
   {
     "id": "normal-distribution",
     "term": "normal distribution",
-    "definition": "TODO: A continuous distribution with a symmetric bell-shaped curve centred on its mean; X ~ N(μ, σ²) has variance σ², not standard deviation σ²",
+    "definition": "A continuous probability distribution whose curve is symmetric and bell-shaped about its mean $\\mu$; $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$ has mean $\\mu$ and variance $\\sigma^{2}$, so its standard deviation is $\\sigma$.",
     "lesson": "4.9"
   },
   {
     "id": "continuous-random-variable",
     "term": "continuous random variable",
-    "definition": "TODO: A random variable that can take any value in an interval; probabilities are areas, so P(X = a) = 0 and P(X < a) = P(X ≤ a)",
+    "definition": "A random variable that can take any value in an interval, such as a time or a mass; its probabilities are areas under a curve, so $\\mathrm{P}(X = a) = 0$ and $\\mathrm{P}(X < a) = \\mathrm{P}(X \\le a)$.",
     "lesson": "4.9"
   },
   {
     "id": "68-95-99-7-rule",
     "term": "68–95–99.7 rule",
-    "definition": "TODO: For a normal distribution about 68%, 95% and 99.7% of values lie within 1, 2 and 3 standard deviations of the mean; approximate, not exact",
+    "definition": "For a normal distribution, approximately $68\\%$, $95\\%$ and $99.7\\%$ of values lie within $1$, $2$ and $3$ standard deviations of the mean.",
     "lesson": "4.9"
   },
   {
     "id": "inverse-normal",
     "term": "inverse normal",
-    "definition": "TODO: Working back from a probability to a value: finding k with P(X < k) = p for a normal X with given mean and standard deviation; check which tail the GDC uses",
+    "definition": "Working back from a probability to a value: for a normal variable $X$ with known mean and standard deviation, finding $k$ so that $\\mathrm{P}(X < k) = p$; for $\\mathrm{P}(X > k) = p$, use the area $1 - p$ or set the GDC's tail to right.",
     "lesson": "4.9"
   }
 ]

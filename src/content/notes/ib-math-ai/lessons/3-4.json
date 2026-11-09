@@ -1,0 +1,574 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.4",
+  "slug": "arc-length-and-sector-area",
+  "title": "Arc length and sector area",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A [[sector|sector]] is a slice of a circle, and its [[arc|arc]] is the curved edge. With the angle at the centre in degrees, both are a fraction $\\frac{\\theta}{360}$ of the whole circle: of the circumference for the arc, of the area for the sector. Exams set them in real shapes, often inside a shaded region.",
+  "goals": [
+    {
+      "text": "Find the length of an arc and the area of a sector from the radius and the angle in degrees.",
+      "bullets": [
+        "3.4-b1",
+        "3.4-b2"
+      ]
+    },
+    {
+      "text": "Find the perimeter of a sector, and work with major sectors.",
+      "bullets": [
+        "3.4-b1"
+      ]
+    },
+    {
+      "text": "Work backwards from an arc or an area to the angle or the radius, using your GDC where it helps.",
+      "bullets": [
+        "3.4-b1"
+      ]
+    },
+    {
+      "text": "Find shaded areas made from sectors, such as rings and segments, and interpret them in context.",
+      "bullets": [
+        "3.4-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "arc length formula degrees",
+    "area of a sector",
+    "perimeter of a sector",
+    "major sector",
+    "area of a segment",
+    "fraction of a circle"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-circumference",
+      "prompt": "A circle has radius $3.5$ cm. Find its circumference in cm, to 3 s.f.",
+      "hint": "The circumference is $2\\pi r$. The area is $\\pi r^{2}$.",
+      "options": [
+        {
+          "text": "$C \\approx 22.0$",
+          "correct": true
+        },
+        {
+          "text": "$C \\approx 38.5$",
+          "correct": false
+        },
+        {
+          "text": "$C \\approx 11.0$",
+          "correct": false
+        }
+      ],
+      "explain": "$2 \\times \\pi \\times 3.5 = 7\\pi = 21.99\\ldots \\approx 22.0$. $38.5$ is the area, $\\pi r^{2}$, and $11.0$ forgets the $2$. Both formulas are in the prior-learning part of the formula booklet.",
+      "verify": {
+        "kind": "rounded",
+        "truth": "2*pi*3.5",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fraction-turn",
+      "prompt": "What fraction of a full turn is $45^{\\circ}$?",
+      "hint": "A full turn is $360^{\\circ}$.",
+      "options": [
+        {
+          "text": "$\\frac{1}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{1}{8}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{6}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{45}{360} = \\frac{1}{8}$. A quarter turn is $90^{\\circ}$, and a sixth of a turn is $60^{\\circ}$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(45, 360)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-triangle-sine-area",
+      "prompt": "A triangle has sides $7$ cm and $9$ cm with an angle of $50^{\\circ}$ between them. Find its area in $\\text{cm}^{2}$, to 3 s.f.",
+      "hint": "Use $\\frac{1}{2}ab\\sin C$, with your GDC in degree mode.",
+      "answer": {
+        "value": 24.1,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{1}{2} \\times 7 \\times 9 \\times \\sin 50^{\\circ} = 24.13\\ldots \\approx 24.1$. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*7*9*sin(50*pi/180)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "arc-sector",
+      "heading": "Arc length and sector area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sprinkler turning through part of a circle wets a slice of lawn with a curved outer edge. How big is the slice, and how long is its edge?"
+        },
+        {
+          "type": "definition",
+          "term": "Arc and sector",
+          "statement": "An [[arc|arc]] is part of the circumference of a circle. A [[sector|sector]] is the region between two radii and the arc joining their ends.",
+          "plain": "A sector is a pizza slice; its arc is the crust."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-sector-parts",
+          "alt": "A circle with centre O and radius r. Two radii run from O to points A and B on the circle, with angle theta between them at O. The slice between the two radii is the minor sector, shaded. Its curved edge, the arc AB, is drawn thick. The rest of the circle is the major sector, with angle 360 degrees minus theta at O.",
+          "caption": "Two radii make a minor sector (angle $\\theta$) and a major sector (angle $360^{\\circ} - \\theta$)."
+        },
+        {
+          "type": "text",
+          "text": "Say the angle at the centre is $\\theta$ degrees. A full turn is $360^{\\circ}$, so the sector is the fraction $\\frac{\\theta}{360}$ of the whole circle."
+        },
+        {
+          "type": "text",
+          "text": "So its arc is $\\frac{\\theta}{360}$ of the circumference $2\\pi r$. Its area is $\\frac{\\theta}{360}$ of the circle's area $\\pi r^{2}$."
+        },
+        {
+          "type": "formula",
+          "tex": "l = \\frac{\\theta}{360} \\times 2\\pi r",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-arc-degrees"
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{\\theta}{360} \\times \\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-sector-degrees"
+        },
+        {
+          "type": "text",
+          "text": "Both are in the formula booklet, so you don't need to memorise them. In each, $r$ is the radius and $\\theta$ is the angle at the centre in degrees. At SL you always work in degrees."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also measure angles in radians. Then the arc is $r\\theta$ and the sector's area is $\\frac{1}{2}r^{2}\\theta$.",
+          "lesson": "3.7"
+        },
+        {
+          "type": "example",
+          "id": "ex-sprinkler-area",
+          "question": "A sprinkler waters the ground up to $6.4$ m away and turns through $110^{\\circ}$. Find the area of ground it waters. Give your answer to 3 s.f.",
+          "steps": [
+            "The wet patch is a sector with $r = 6.4$ m and $\\theta = 110^{\\circ}$.",
+            "Substitute into the sector formula: $A = \\frac{110}{360} \\times \\pi \\times 6.4^{2}$. This line earns the method mark.",
+            "$A = 39.318\\ldots \\approx 39.3\\text{ m}^{2}$.",
+            "Check: $110^{\\circ}$ is a bit less than a third of a turn. A third of the circle, $\\frac{1}{3} \\times \\pi \\times 6.4^{2} \\approx 42.9$, is a bit more."
+          ],
+          "answer": "$A \\approx 39.3\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(110, 360)*pi*6.4**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Give units with every length and area, such as $\\text{m}$ and $\\text{m}^{2}$. Mark schemes can withhold the final mark when units are missing or wrong."
+        },
+        {
+          "type": "text",
+          "text": "The perimeter of a sector is the whole way round its edge: the arc plus two straight radii. So the perimeter is $l + 2r$."
+        },
+        {
+          "type": "example",
+          "id": "ex-flower-bed-edging",
+          "question": "A flower bed is a sector of radius $3.6$ m with an angle of $125^{\\circ}$. Plastic edging goes all the way round it. Edging is sold in $2$ m lengths. Find how many lengths are needed.",
+          "steps": [
+            "Arc: $l = \\frac{125}{360} \\times 2\\pi \\times 3.6 = 7.8539\\ldots$ m.",
+            "Perimeter: arc plus two radii, $7.8539\\ldots + 2 \\times 3.6 = 15.0539\\ldots$ m.",
+            "Number of lengths: $15.0539\\ldots \\div 2 = 7.526\\ldots$",
+            "Interpret: $7$ lengths only cover $14$ m and leave a gap, so round up to $8$."
+          ],
+          "answer": "$n = 8$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling((Rational(125, 360)*2*pi*3.6 + 2*3.6)/2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-roundabout-arc",
+          "prompt": "A child sits on the edge of a playground roundabout of radius $1.8$ m. It turns through $230^{\\circ}$. How far, in m, does the child travel? Give 3 s.f.",
+          "hint": "The child moves along an arc. Use $\\frac{\\theta}{360} \\times 2\\pi r$.",
+          "answer": {
+            "value": 7.23,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{230}{360} \\times 2\\pi \\times 1.8 = 7.225\\ldots \\approx 7.23$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(230, 360)*2*pi*1.8",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Two radii split a circle into two sectors. The smaller is the minor sector, with angle $\\theta$. The larger is the major sector, and its angle is the rest of the turn, $360^{\\circ} - \\theta$."
+        },
+        {
+          "type": "check",
+          "id": "check-pizza-major",
+          "prompt": "A pizza has radius $15$ cm. A slice with an angle of $50^{\\circ}$ is eaten. Find the area of pizza left, in $\\text{cm}^{2}$.",
+          "hint": "The pizza left is the major sector. What is its angle?",
+          "options": [
+            {
+              "text": "$A \\approx 98.2$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 609$",
+              "correct": true
+            },
+            {
+              "text": "$A \\approx 81.2$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 707$",
+              "correct": false
+            }
+          ],
+          "explain": "The angle left is $360^{\\circ} - 50^{\\circ} = 310^{\\circ}$, so the area is $\\frac{310}{360} \\times \\pi \\times 15^{2} = 608.6\\ldots \\approx 609$. $98.2$ is the slice eaten, $81.2$ is the arc of the pizza left, and $707$ is the whole pizza.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(360 - 50, 360)*pi*15**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-camera-compare",
+          "prompt": "Camera P covers a sector of radius $25$ m and angle $100^{\\circ}$. Camera Q covers a sector of radius $50$ m and angle $50^{\\circ}$. How many times as much ground does Q cover as P?",
+          "hint": "Doubling the radius multiplies $r^{2}$ by $4$. Halving the angle halves the fraction.",
+          "options": [
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": true
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            }
+          ],
+          "explain": "Q's area is $\\frac{50}{360} \\times \\pi \\times 50^{2}$ and P's is $\\frac{100}{360} \\times \\pi \\times 25^{2}$. The ratio is $\\frac{1}{2} \\times 4 = 2$. Their arcs are equal, which makes $1$ tempting.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(50, 360)*pi*50**2)/(Rational(100, 360)*pi*25**2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "working-back",
+      "heading": "Finding the angle or the radius",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the arc or the area and need the angle or the radius. Write the formula with the numbers you know, then solve for the unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-angle",
+          "question": "The bob of a pendulum $75$ cm long swings along an arc $42$ cm long. Find the angle the pendulum swings through, to 1 d.p.",
+          "steps": [
+            "The radius is the pendulum's length, $75$ cm.",
+            "Write the arc formula with what you know: $42 = \\frac{\\theta}{360} \\times 2\\pi \\times 75$.",
+            "Rearrange: $\\theta = \\frac{42 \\times 360}{2\\pi \\times 75} = 32.085\\ldots$",
+            "Check: $42$ cm is just under a tenth of the circumference, about $471$ cm. A tenth of $360^{\\circ}$ is $36^{\\circ}$, so $32.1^{\\circ}$ is sensible."
+          ],
+          "answer": "$\\theta \\approx 32.1^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "42*360/(2*pi*75)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "When the radius is unknown, the area equation has $r^{2}$ in it. Rearrange and take the square root, or use your GDC. Write the equation down first."
+        },
+        {
+          "type": "example",
+          "id": "ex-fan-radius",
+          "question": "A paper fan opens out to a sector with an angle of $160^{\\circ}$ and an area of $1150\\text{ cm}^{2}$. Use your calculator to find the length of the fan's ribs, the radius, to 3 s.f.",
+          "steps": [
+            "Write down the equation: $\\frac{160}{360} \\times \\pi r^{2} = 1150$. This line earns the method mark.",
+            "Solve it on the GDC with a positive starting guess, such as $30$: $r = 28.698\\ldots$",
+            "Interpret: $r^{2}$ also gives $r = -28.698\\ldots$, but a length can't be negative, so reject it.",
+            "Check by hand: $r^{2} = \\frac{1150 \\times 360}{160\\pi} = 823.6\\ldots$, and $\\sqrt{823.6\\ldots} = 28.698\\ldots$"
+          ],
+          "answer": "$r \\approx 28.7\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(1150*360/(160*pi))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "(160/360)πX^2",
+            "rightSide": 1150,
+            "guess": 30,
+            "lower": 0,
+            "upper": 100
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-to-angle",
+          "prompt": "A sector of radius $9.2$ cm has an area of $50\\text{ cm}^{2}$. Find the angle at the centre, to 1 d.p.",
+          "hint": "Write $50 = \\frac{\\theta}{360} \\times \\pi \\times 9.2^{2}$, then rearrange for $\\theta$.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 67.7^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 33.8^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 311.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\theta = \\frac{50 \\times 360}{\\pi \\times 9.2^{2}} = 67.69\\ldots \\approx 67.7^{\\circ}$. Using $180$ instead of $360$ gives $33.8^{\\circ}$. Using the arc formula by mistake gives $311.4^{\\circ}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "50*360/(pi*9.2**2)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bench-angle",
+          "prompt": "A curved bench follows an arc of a circle of radius $4$ m. The bench is $5.5$ m long. Find the angle the bench makes at the circle's centre, in degrees to 1 d.p.",
+          "hint": "The bench's length is the arc length.",
+          "answer": {
+            "value": 78.8,
+            "tolerance": 0.05
+          },
+          "explain": "$5.5 = \\frac{\\theta}{360} \\times 2\\pi \\times 4$, so $\\theta = \\frac{5.5 \\times 360}{8\\pi} = 78.78\\ldots \\approx 78.8^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.5*360/(2*pi*4)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "shaded-regions",
+      "heading": "Shaded regions: rings and segments",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many exam shapes are built from sectors. Find the area of each piece, then add or subtract."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-shaded-regions",
+          "alt": "Two shaded regions. Left: a ring sector, the part of a slice between two arcs with the same centre O, an outer arc of radius R and an inner arc of radius r, with the same angle theta at O. Right: a circle slice with centre O and radius r cut by the straight chord AB. The triangle OAB is lightly shaded and the segment between the chord and the arc is shaded darker.",
+          "caption": "Left: big sector minus small sector. Right: sector minus triangle."
+        },
+        {
+          "type": "text",
+          "text": "A ring sector lies between two arcs with the same centre and the same angle. Its area is the big sector minus the small one: $\\frac{\\theta}{360} \\times \\pi R^{2} - \\frac{\\theta}{360} \\times \\pi r^{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gravel-path",
+          "question": "A curved gravel path lies between two arcs with the same centre, of radii $5$ m and $6.2$ m. Both arcs make an angle of $150^{\\circ}$ at the centre. Find the area of the path, to 3 s.f.",
+          "steps": [
+            "Big sector: $\\frac{150}{360} \\times \\pi \\times 6.2^{2} = 50.31\\ldots\\text{ m}^{2}$.",
+            "Small sector: $\\frac{150}{360} \\times \\pi \\times 5^{2} = 32.72\\ldots\\text{ m}^{2}$.",
+            "Path: $50.31\\ldots - 32.72\\ldots = 17.59\\ldots\\text{ m}^{2}$. Subtract the full values, not rounded ones.",
+            "Check: the path is $1.2$ m wide and its middle arc, of radius $5.6$ m, is about $14.7$ m long. $1.2 \\times 14.7 \\approx 17.6$."
+          ],
+          "answer": "$A \\approx 17.6\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(150, 360)*pi*(6.2**2 - 5**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the path's width, $R - r$, as a radius. Work out both sectors with their own radii, then subtract."
+        },
+        {
+          "type": "text",
+          "text": "A chord is a straight line joining two points on a circle. It cuts a sector into a triangle and a segment: the piece between the chord and the arc."
+        },
+        {
+          "type": "text",
+          "text": "So the segment's area is the sector's area minus the triangle's. The triangle has two sides $r$ with the angle $\\theta$ between them, so its area is $\\frac{1}{2}r^{2}\\sin\\theta$ ({{lesson:3.2}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-table-segment",
+          "question": "A round table has radius $48$ cm. A straight cut along a chord removes a piece so the table fits against a wall. The chord makes an angle of $100^{\\circ}$ at the centre. (a) Find the area of the piece removed, to 3 s.f. (b) What percentage of the tabletop is removed?",
+          "steps": [
+            "(a) Set your GDC to degree mode. Sector: $\\frac{100}{360} \\times \\pi \\times 48^{2} = 2010.61\\ldots\\text{ cm}^{2}$.",
+            "Triangle: $\\frac{1}{2} \\times 48^{2} \\times \\sin 100^{\\circ} = 1134.49\\ldots\\text{ cm}^{2}$.",
+            "Segment: $2010.61\\ldots - 1134.49\\ldots = 876.12\\ldots \\approx 876\\text{ cm}^{2}$.",
+            "(b) The whole table is $\\pi \\times 48^{2} = 7238.22\\ldots\\text{ cm}^{2}$, so $\\frac{876.12\\ldots}{7238.22\\ldots} \\times 100 \\approx 12.1\\%$.",
+            "Interpret: about an eighth of the tabletop is lost to fit the wall."
+          ],
+          "answer": "$A \\approx 876\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(100, 360)*pi*48**2 - Rational(1, 2)*48**2*sin(100*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $\\sin 100$ in radian mode. It gives $-0.506$ instead of $0.985$. Check your GDC is in degree mode before any trig."
+        },
+        {
+          "type": "check",
+          "id": "check-mirror-segment",
+          "prompt": "A circular mirror has radius $13$ cm. A straight cut along a chord removes a piece; the chord makes $64^{\\circ}$ at the centre. Find the area of the piece removed in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Sector minus triangle. The triangle has two sides of $13$ cm with $64^{\\circ}$ between them.",
+          "answer": {
+            "value": 18.4,
+            "tolerance": 0.05
+          },
+          "explain": "Sector: $\\frac{64}{360} \\times \\pi \\times 13^{2} = 94.38\\ldots$ Triangle: $\\frac{1}{2} \\times 13^{2} \\times \\sin 64^{\\circ} = 75.94\\ldots$ Segment: $18.43\\ldots \\approx 18.4$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(64, 360)*pi*13**2 - Rational(1, 2)*13**2*sin(64*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stage-ring",
+          "prompt": "A stage is the region between two arcs with the same centre, of radii $12$ m and $20$ m, both with an angle of $60^{\\circ}$. Find the area of the stage, in $\\text{m}^{2}$.",
+          "hint": "Find the big sector and the small sector, then subtract.",
+          "options": [
+            {
+              "text": "$A \\approx 33.5$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 209$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 134$",
+              "correct": true
+            }
+          ],
+          "explain": "$\\frac{60}{360} \\times \\pi \\times (20^{2} - 12^{2}) = 134.04\\ldots \\approx 134$. $33.5$ uses the width $8$ as a radius, and $209$ is the big sector alone.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(60, 360)*pi*(20**2 - 12**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "l = \\frac{\\theta}{360} \\times 2\\pi r",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-arc-degrees",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{\\theta}{360} \\times \\pi r^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-3-4-sector-degrees",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In both formulas $\\theta$ is the angle at the centre in degrees and $r$ is the radius.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Perimeter of a sector $=$ arc $+ 2r$: the arc plus the two radii.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The major sector made by two radii has angle $360^{\\circ} - \\theta$, where $\\theta$ is the minor sector's angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Segment between a chord and its arc $=$ sector $-$ triangle $= \\frac{\\theta}{360} \\times \\pi r^{2} - \\frac{1}{2}r^{2}\\sin\\theta$, with $\\theta$ the angle at the centre in degrees (GDC in degree mode).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the arc as the perimeter. A sector's perimeter is the arc plus two radii.",
+    "Using the minor angle for a major sector. The larger sector's angle is $360^{\\circ} - \\theta$, so check which region the question means.",
+    "Working out $\\sin\\theta$ in radian mode. Set degree mode before any trig on the GDC.",
+    "Rounding a sector's area before subtracting. Keep the full GDC values and round only the final answer.",
+    "Using the width of a ring, $R - r$, as a radius. Find both sectors, then subtract."
+  ],
+  "examTips": [
+    "Find or calculate: write the formula with your numbers substituted, such as $\\frac{110}{360} \\times \\pi \\times 6.4^{2}$, before the answer. That line earns the method mark.",
+    "Show that: substitute into the formula and give your unrounded value, such as $28.698\\ldots$, before the rounded one asked for. Never work backwards from the given answer.",
+    "Determine which region is larger: work out both areas, state which is larger, and give the difference with units."
+  ],
+  "readingMinutes": 18
+}

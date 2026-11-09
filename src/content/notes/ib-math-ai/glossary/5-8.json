@@ -2,7 +2,7 @@
   {
     "id": "trapezoidal-rule",
     "term": "trapezoidal rule",
-    "definition": "TODO: Estimates the integral from a to b using n strips of equal width h = (b − a)/n and n + 1 ordinates: (h/2)[y0 + yn + 2(y1 + … + y(n−1))]; overestimates only if the curve is concave-up across the whole interval",
+    "definition": "A way to estimate $\\int_{a}^{b} y\\,\\mathrm{d}x$ by splitting the interval into $n$ strips of equal width $h = \\frac{b-a}{n}$ and treating each strip as a trapezoid, giving $\\frac{1}{2}h\\left((y_{0} + y_{n}) + 2(y_{1} + \\dots + y_{n-1})\\right)$; it overestimates when the curve is concave up across the whole interval and underestimates when it is concave down across the whole interval.",
     "lesson": "5.8"
   }
 ]

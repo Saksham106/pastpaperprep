@@ -2,25 +2,25 @@
   {
     "id": "differential-equation",
     "term": "differential equation",
-    "definition": "TODO: An equation containing a derivative, such as dy/dx = ky; solving it means finding the function",
+    "definition": "An equation that contains a derivative, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$; solving it means finding the function itself.",
     "lesson": "5.14"
   },
   {
     "id": "separation-of-variables",
     "term": "separation of variables",
-    "definition": "TODO: Solving dy/dx = f(x)g(y) by rearranging to ∫ dy/g(y) = ∫ f(x) dx and integrating both sides, with one constant",
+    "definition": "A method for solving $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x)\\,g(y)$ where $g(y) \\neq 0$: rearrange to $\\int \\frac{1}{g(y)}\\,\\mathrm{d}y = \\int f(x)\\,\\mathrm{d}x$, then integrate both sides with one constant.",
     "lesson": "5.14"
   },
   {
     "id": "general-solution",
     "term": "general solution",
-    "definition": "TODO: The family of all solutions of a differential equation, with an arbitrary constant",
+    "definition": "The solution of a first-order differential equation written with one arbitrary constant, so that it describes a whole family of solution curves.",
     "lesson": "5.14"
   },
   {
     "id": "particular-solution",
     "term": "particular solution",
-    "definition": "TODO: The one solution of a differential equation that fits a given condition, such as a known point",
+    "definition": "The one solution of a differential equation that also fits a given condition, such as a known value at $t = 0$; the condition fixes the constant in the general solution.",
     "lesson": "5.14"
   }
 ]
