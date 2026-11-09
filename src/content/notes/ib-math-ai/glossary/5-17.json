@@ -2,31 +2,31 @@
   {
     "id": "phase-portrait",
     "term": "phase portrait",
-    "definition": "TODO: A diagram in the (x, y) plane showing trajectories of a coupled system with arrows for direction; time is not an axis",
+    "definition": "A diagram in the $(x, y)$ plane showing the trajectories of a pair of coupled differential equations, with arrows for the direction of motion as time increases; time itself is not an axis.",
     "lesson": "5.17"
   },
   {
     "id": "trajectory",
     "term": "trajectory",
-    "definition": "TODO: The path traced by a solution (x(t), y(t)) of a coupled system in the phase plane",
+    "definition": "The path a solution $(x(t), y(t))$ of a pair of coupled differential equations traces in the $(x, y)$ plane as $t$ increases.",
     "lesson": "5.17"
   },
   {
     "id": "equilibrium-point",
     "term": "equilibrium point",
-    "definition": "TODO: A point where dx/dt = 0 and dy/dt = 0 together, so the system stays there; for dx/dt = ax + by, dy/dt = cx + dy with non-zero eigenvalues it is the origin",
+    "definition": "A point where $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ at the same time, so a solution that starts there stays there; for $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ with non-zero eigenvalues it is the origin only.",
     "lesson": "5.17"
   },
   {
     "id": "saddle-point",
     "term": "saddle point",
-    "definition": "TODO: An equilibrium where the eigenvalues are real with opposite signs: trajectories come in along one eigenvector direction and leave along the other; unstable",
+    "definition": "An equilibrium point of a linear system whose eigenvalues are real with opposite signs: trajectories come in alongside the negative eigenvalue's eigenvector line and leave alongside the positive one's, so it is unstable.",
     "lesson": "5.17"
   },
   {
     "id": "stable-equilibrium",
     "term": "stable equilibrium",
-    "definition": "TODO: An equilibrium that nearby solutions move towards: both eigenvalues negative, or complex with negative real part",
+    "definition": "An equilibrium point that all nearby solutions move towards as time increases; for $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ the origin is stable when both eigenvalues are negative or complex with negative real part.",
     "lesson": "5.17"
   }
 ]

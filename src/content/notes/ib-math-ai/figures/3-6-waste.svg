@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 320" role="img" aria-labelledby="t">
+  <title id="t">Voronoi diagram of four villages P at (4, 6), Q at (5, 11), R at (9, 11) and S at (13, 3) in a 15 by 13 rectangle. It has two vertices, U at (7, 8) and W at (9, 6). A dotted circle centred on U passes through P, Q and R, with radius about 3.6. A larger dotted circle centred on W passes through P, R and S, with radius 5. No village lies inside either circle.</title>
+  <defs><clipPath id="box36"><rect x="30" y="14" width="330" height="286"/></clipPath></defs>
+  <polygon points="30,300 184,300 228,168 184,124 30,93.2" fill="var(--t1-ink)" opacity="0.1" stroke="none"/>
+  <polygon points="184,14 30,14 30,93.2 184,124" fill="var(--t2-ink)" opacity="0.1" stroke="none"/>
+  <polygon points="360,102 360,14 184,14 184,124 228,168" fill="var(--t3-ink)" opacity="0.1" stroke="none"/>
+  <polygon points="184,300 360,300 360,102 228,168" fill="var(--t4-ink)" opacity="0.1" stroke="none"/>
+  <rect x="30" y="14" width="330" height="286" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="184" y1="300" x2="228" y2="168" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="228" y1="168" x2="184" y2="124" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="184" y1="124" x2="30" y2="93.2" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="184" y1="124" x2="184" y2="14" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="228" y1="168" x2="360" y2="102" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <g font-size="10" fill="currentColor" opacity="0.7"><text x="30" y="314" text-anchor="middle">0</text><text x="74" y="314" text-anchor="middle">2</text><text x="118" y="314" text-anchor="middle">4</text><text x="162" y="314" text-anchor="middle">6</text><text x="206" y="314" text-anchor="middle">8</text><text x="250" y="314" text-anchor="middle">10</text><text x="294" y="314" text-anchor="middle">12</text><text x="338" y="314" text-anchor="middle">14</text><text x="25" y="260" text-anchor="end">2</text><text x="25" y="216" text-anchor="end">4</text><text x="25" y="172" text-anchor="end">6</text><text x="25" y="128" text-anchor="end">8</text><text x="25" y="84" text-anchor="end">10</text><text x="25" y="40" text-anchor="end">12</text></g>
+  <circle cx="118" cy="168" r="4" fill="currentColor"/>
+  <text x="104" y="162" font-size="12" fill="currentColor">P</text>
+  <circle cx="140" cy="58" r="4" fill="currentColor"/>
+  <text x="147" y="52" font-size="12" fill="currentColor">Q</text>
+  <circle cx="228" cy="58" r="4" fill="currentColor"/>
+  <text x="235" y="52" font-size="12" fill="currentColor">R</text>
+  <circle cx="316" cy="234" r="4" fill="currentColor"/>
+  <text x="323" y="228" font-size="12" fill="currentColor">S</text>
+  <g clip-path="url(#box36)" fill="none" stroke="var(--t4-ink)" stroke-width="1.5" stroke-dasharray="2 3"><circle cx="184" cy="124" r="79.3"/><circle cx="228" cy="168" r="110"/></g>
+  <circle cx="184" cy="124" r="4.5" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <text x="130" y="128" font-size="12" fill="currentColor">U (7, 8)</text>
+  <circle cx="228" cy="168" r="4.5" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <text x="236" y="184" font-size="12" fill="currentColor">W (9, 6)</text>
+</svg>

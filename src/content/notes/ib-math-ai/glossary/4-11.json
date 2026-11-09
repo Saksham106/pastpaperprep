@@ -2,73 +2,73 @@
   {
     "id": "null-hypothesis",
     "term": "null hypothesis",
-    "definition": "TODO: H0, the claim assumed true for the test (no association, no difference, or a parameter equal to a value); a test rejects it or fails to reject it, never proves it",
+    "definition": "The statement $\\mathrm{H}_0$ assumed true during a hypothesis test, such as no association, no difference between population means, or data fitting a claimed distribution; a test either rejects it or does not, and never proves it.",
     "lesson": "4.11"
   },
   {
     "id": "alternative-hypothesis",
     "term": "alternative hypothesis",
-    "definition": "TODO: H1, what is accepted if H0 is rejected; it fixes whether the test is one-tailed or two-tailed",
+    "definition": "The statement $\\mathrm{H}_1$ accepted if a test rejects $\\mathrm{H}_0$; its form ($\\neq$, or $>$ or $<$) decides whether a t-test is two-tailed or one-tailed.",
     "lesson": "4.11"
   },
   {
     "id": "significance-level",
     "term": "significance level",
-    "definition": "TODO: The threshold probability for rejecting H0, such as 5%, chosen before the test; for a continuous test it equals the probability of a Type I error",
+    "definition": "The probability threshold, such as $5\\%$, chosen before a hypothesis test: $\\mathrm{H}_0$ is rejected when the p-value is less than it.",
     "lesson": "4.11"
   },
   {
     "id": "p-value",
     "term": "p-value",
-    "definition": "TODO: The probability, assuming H0 is true, of a result at least as extreme as the one observed; reject H0 when it is less than the significance level; not the probability that H0 is true",
+    "definition": "The probability, assuming $\\mathrm{H}_0$ is true, of a result at least as extreme as the one observed; reject $\\mathrm{H}_0$ when it is less than the significance level. It is not the probability that $\\mathrm{H}_0$ is true.",
     "lesson": "4.11"
   },
   {
     "id": "expected-frequency",
     "term": "expected frequency",
-    "definition": "TODO: The count predicted if H0 is true, compared with the observed (recorded) count; in a contingency table row total × column total ÷ grand total; IB requires each to be greater than 5",
+    "definition": "The count predicted for a category if $\\mathrm{H}_0$ is true, compared with the observed (recorded) count; in a contingency table it is row total × column total ÷ grand total, and in IB exam χ² questions each one is greater than $5$.",
     "lesson": "4.11"
   },
   {
     "id": "contingency-table",
     "term": "contingency table",
-    "definition": "TODO: A two-way table of observed frequencies for two categorical variables, used in the χ² test for independence",
+    "definition": "A two-way table of observed frequencies, with one categorical variable in the rows and another in the columns, used in the χ² test for independence.",
     "lesson": "4.11"
   },
   {
     "id": "degrees-of-freedom",
     "term": "degrees of freedom",
-    "definition": "TODO: The number of values free to vary: (rows − 1)(columns − 1) for independence; classes − 1 − (parameters estimated from the data) for goodness of fit",
+    "definition": "The number of values free to vary once the totals are fixed: $(r - 1)(c - 1)$ for a contingency table with $r$ rows and $c$ columns, and $n - 1$ for an SL goodness of fit test with $n$ categories (one fewer for each parameter estimated from the data).",
     "lesson": "4.11"
   },
   {
     "id": "chi-squared-test-for-independence",
     "term": "χ² test for independence",
-    "definition": "TODO: Tests H0 'the two variables are independent' with a contingency table; upper-tail only; needs expected frequencies greater than 5",
+    "definition": "A test of $\\mathrm{H}_0$: two categorical variables are independent, using a contingency table; it uses the upper tail only and needs every expected frequency greater than $5$.",
     "lesson": "4.11"
   },
   {
     "id": "chi-squared-goodness-of-fit-test",
     "term": "χ² goodness of fit test",
-    "definition": "TODO: Tests whether observed frequencies fit a claimed distribution; degrees of freedom are classes − 1 at SL, less one more for each parameter estimated (AHL)",
+    "definition": "A test of $\\mathrm{H}_0$: observed frequencies fit a claimed distribution; with $n$ categories and no parameters estimated from the data it has $n - 1$ degrees of freedom, uses the upper tail only and needs every expected frequency greater than $5$.",
     "lesson": "4.11"
   },
   {
     "id": "t-test",
     "term": "t-test",
-    "definition": "TODO: A test of means using the t-distribution; SL uses the pooled two-sample t-test: unpaired samples from normal populations with unknown but equal variances",
+    "definition": "A test about population means using the t-distribution; at SL it is the pooled two-sample t-test, for unpaired samples from normal populations with unknown but equal variances.",
     "lesson": "4.11"
   },
   {
     "id": "one-tailed-test",
     "term": "one-tailed test",
-    "definition": "TODO: A test whose H1 states a direction (> or <), so the critical region is in one tail",
+    "definition": "A test whose $\\mathrm{H}_1$ states a direction, such as $\\mu_1 > \\mu_2$, so the p-value is the area in one tail only.",
     "lesson": "4.11"
   },
   {
     "id": "two-tailed-test",
     "term": "two-tailed test",
-    "definition": "TODO: A test whose H1 is ≠, so the critical region is split between both tails",
+    "definition": "A test whose $\\mathrm{H}_1$ uses $\\neq$, such as $\\mu_1 \\neq \\mu_2$, so the p-value counts results as extreme in both tails.",
     "lesson": "4.11"
   }
 ]

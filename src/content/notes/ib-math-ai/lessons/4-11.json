@@ -1,0 +1,852 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.11",
+  "slug": "chi-squared-tests-and-the-t-test",
+  "title": "Chi-squared tests and the t-test",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A hypothesis test asks whether data give real evidence for a claim or could be chance. You set up hypotheses, use [[p-value|p-values]] and [[significance-level|significance levels]], and run three GDC tests: χ² for independence, χ² goodness of fit and the [[t-test|t-test]] for two means.",
+  "goals": [
+    {
+      "text": "Write $\\mathrm{H}_0$ and $\\mathrm{H}_1$ in words, as an equation or as an inequality.",
+      "bullets": [
+        "4.11-b1"
+      ]
+    },
+    {
+      "text": "Decide with a significance level and a p-value, and conclude in context.",
+      "bullets": [
+        "4.11-b2",
+        "4.11-b3"
+      ]
+    },
+    {
+      "text": "Find expected frequencies from a [[contingency-table|contingency table]] or a claimed distribution.",
+      "bullets": [
+        "4.11-b4"
+      ]
+    },
+    {
+      "text": "Run χ² tests for independence and goodness of fit, with [[degrees-of-freedom|degrees of freedom]], a [[critical-value|critical value]] or a p-value.",
+      "bullets": [
+        "4.11-b5",
+        "4.11-b6",
+        "4.11-b7"
+      ]
+    },
+    {
+      "text": "Run a pooled t-test for two means, one-tailed or two-tailed, and interpret it.",
+      "bullets": [
+        "4.11-b8",
+        "4.11-b9",
+        "4.11-b10"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.4",
+    "4.5",
+    "4.6"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "chi squared test",
+    "chi-square test for independence",
+    "goodness of fit test",
+    "two sample t test",
+    "p-value",
+    "null and alternative hypothesis"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-independent-and",
+      "prompt": "$A$ and $B$ are independent, $\\mathrm{P}(A) = 0.3$ and $\\mathrm{P}(B) = 0.6$. Find $\\mathrm{P}(A \\cap B)$.",
+      "hint": "For [[independent-events|independent events]], multiply the probabilities.",
+      "answer": {
+        "value": 0.18,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\cap B) = 0.3 \\times 0.6 = 0.18$. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(3, 10)*Rational(6, 10)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-expected-count",
+      "prompt": "$\\mathrm{P}(\\text{a bottle is underfilled}) = 0.04$. How many of $350$ bottles do you expect to be underfilled?",
+      "hint": "Multiply the number of trials by the probability.",
+      "answer": {
+        "value": 14,
+        "tolerance": 0
+      },
+      "explain": "$350 \\times 0.04 = 14$ bottles. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "350*Rational(4, 100)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-critical-r",
+      "prompt": "For $10$ pairs of data, $r = 0.583$. The critical value of $r$ at the $5\\%$ level is $0.632$. What can you conclude?",
+      "hint": "Compare the size of $r$ with the critical value.",
+      "options": [
+        {
+          "text": "The correlation is significant",
+          "correct": false
+        },
+        {
+          "text": "The correlation is not significant",
+          "correct": true
+        },
+        {
+          "text": "There is a perfect correlation",
+          "correct": false
+        }
+      ],
+      "explain": "$0.583 < 0.632$: not significant at the $5\\%$ level. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The correlation is not significant"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "hypotheses",
+      "heading": "Hypotheses, significance levels and p-values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A difference in a small [[sample|sample]] could be luck. A hypothesis test asks whether data are too unusual for luck. It starts with two statements about the [[population|population]], not the sample."
+        },
+        {
+          "type": "definition",
+          "term": "Null hypothesis",
+          "statement": "The [[null-hypothesis|null hypothesis]] $\\mathrm{H}_0$ is the statement you assume is true while you test: no difference, no association, or the data fit a claimed model.",
+          "plain": "The \"nothing special is going on\" claim."
+        },
+        {
+          "type": "definition",
+          "term": "Alternative hypothesis",
+          "statement": "The [[alternative-hypothesis|alternative hypothesis]] $\\mathrm{H}_1$ is the statement you accept if the data give enough evidence against $\\mathrm{H}_0$.",
+          "plain": "The claim you are looking for evidence for."
+        },
+        {
+          "type": "text",
+          "text": "Write them in words, as an equation or as an inequality. For population means, $\\mathrm{H}_0$: $\\mu_1 = \\mu_2$, and $\\mathrm{H}_1$ is $\\mu_1 \\neq \\mu_2$, $\\mu_1 > \\mu_2$ or $\\mu_1 < \\mu_2$."
+        },
+        {
+          "type": "text",
+          "text": "For two categorical variables, $\\mathrm{H}_0$: they are independent; $\\mathrm{H}_1$: they are not independent. Mark schemes refuse \"not correlated\" and \"not related\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-hypotheses-write",
+          "question": "Write down $\\mathrm{H}_0$ and $\\mathrm{H}_1$. (a) A council asks whether the way people travel to work depends on their district. (b) A coach thinks a new warm-up raises her athletes' mean jump height, $\\mu_{\\text{new}}$, above the old mean, $\\mu_{\\text{old}}$.",
+          "steps": [
+            "(a) District and travel method are categorical, so the hypotheses are about independence.",
+            "(b) This compares two population means. The coach expects an increase, so $\\mathrm{H}_1$ has a direction: $>$."
+          ],
+          "answer": "(a) $\\mathrm{H}_0$: travel method is independent of district; $\\mathrm{H}_1$: travel method is not independent of district. (b) $\\mathrm{H}_0$: $\\mu_{\\text{new}} = \\mu_{\\text{old}}$; $\\mathrm{H}_1$: $\\mu_{\\text{new}} > \\mu_{\\text{old}}$ (population mean is greater with the new warm-up).",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "independence for two categorical variables; equal population means against a one-sided increase",
+            "requires": [
+              "is independent of district",
+              "is not independent of district",
+              "population mean",
+              "greater"
+            ],
+            "forbids": [
+              "correlated"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-h1-sleep",
+          "prompt": "A health visitor thinks teenagers in town A sleep less, on average, than teenagers in town B. Which is the correct $\\mathrm{H}_1$?",
+          "hint": "$\\mathrm{H}_1$ is about population means, and it follows the direction of the claim.",
+          "options": [
+            {
+              "text": "Population mean for A is less than for B",
+              "correct": true
+            },
+            {
+              "text": "Population mean for A is greater than for B",
+              "correct": false
+            },
+            {
+              "text": "Population means for A and B differ",
+              "correct": false
+            },
+            {
+              "text": "Sample mean for A is less than for B",
+              "correct": false
+            }
+          ],
+          "explain": "\"Less on average\" for the whole population is $\\mu_A < \\mu_B$. Hypotheses use population means, never sample means.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Population mean for A is less than for B"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Significance level",
+          "statement": "The [[significance-level|significance level]] is the probability threshold for rejecting $\\mathrm{H}_0$, chosen before the test. IB questions use $1\\%$, $5\\%$ or $10\\%$.",
+          "plain": "How unlikely a result must be, if $\\mathrm{H}_0$ is true, before you stop believing $\\mathrm{H}_0$."
+        },
+        {
+          "type": "definition",
+          "term": "p-value",
+          "statement": "The [[p-value|p-value]] is the probability, assuming $\\mathrm{H}_0$ is true, of getting a result at least as extreme as the one observed.",
+          "plain": "How surprising your data would be if nothing special were going on."
+        },
+        {
+          "type": "result",
+          "statement": "If the p-value is less than the significance level, reject $\\mathrm{H}_0$. If the p-value is greater than the significance level, do not reject $\\mathrm{H}_0$.",
+          "why": "A small p-value means data like yours would be rare if $\\mathrm{H}_0$ were true."
+        },
+        {
+          "type": "text",
+          "text": "Not rejecting $\\mathrm{H}_0$ does not prove it: there is just not enough evidence against it. And a p-value is not the probability that $\\mathrm{H}_0$ is true."
+        },
+        {
+          "type": "example",
+          "id": "ex-pvalue-decide",
+          "question": "A fitness app tests whether hitting a weekly step goal is independent of phone brand. The p-value is $0.0372$. State the conclusion at the (a) $5\\%$, (b) $1\\%$ significance level.",
+          "steps": [
+            "(a) Compare the p-value with $0.05$. It is smaller, so reject $\\mathrm{H}_0$.",
+            "(b) Compare the p-value with $0.01$. It is bigger, so do not reject $\\mathrm{H}_0$.",
+            "The conclusions differ because $1\\%$ demands stronger evidence. That is why the level is fixed before the test."
+          ],
+          "answer": "(a) $0.0372 < 0.05$: reject $\\mathrm{H}_0$; the step goal is not independent of phone brand. (b) $0.0372 > 0.01$: do not reject $\\mathrm{H}_0$; insufficient evidence of dependence.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "reject at 5%, do not reject at 1%",
+            "requires": [
+              "0.0372 < 0.05",
+              "0.0372 > 0.01",
+              "do not reject",
+              [
+                "insufficient evidence",
+                "not enough evidence"
+              ]
+            ],
+            "forbids": [
+              "proves",
+              "accept H1 at 1%"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-levels-reject",
+          "prompt": "A test gives a p-value of $0.063$. At which of the usual significance levels do you reject $\\mathrm{H}_0$?",
+          "hint": "Reject only where the p-value is less than the level.",
+          "options": [
+            {
+              "text": "1%, 5% and 10%",
+              "correct": false
+            },
+            {
+              "text": "5% and 10% only",
+              "correct": false
+            },
+            {
+              "text": "10% only",
+              "correct": true
+            },
+            {
+              "text": "None of them",
+              "correct": false
+            }
+          ],
+          "explain": "$0.063 > 0.01$ and $0.063 > 0.05$, but $0.063 < 0.10$. So only at the $10\\%$ level.",
+          "verify": {
+            "kind": "choice",
+            "truth": "10% only"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet Type I and Type II errors: rejecting a true $\\mathrm{H}_0$, and failing to reject a false one.",
+          "lesson": "4.18"
+        }
+      ]
+    },
+    {
+      "id": "expected",
+      "heading": "Observed and expected frequencies",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A χ² (chi-squared) test compares the counts you recorded with the counts $\\mathrm{H}_0$ predicts."
+        },
+        {
+          "type": "definition",
+          "term": "Expected frequency",
+          "statement": "An [[expected-frequency|expected frequency]] $f_e$ is the count expected in a category if $\\mathrm{H}_0$ is true. The observed frequency $f_o$ is the count recorded.",
+          "plain": "What the counts should look like if nothing special is going on."
+        },
+        {
+          "type": "text",
+          "text": "It works like the [[expected-number-of-occurrences|expected number of occurrences]]: when $\\mathrm{H}_0$ gives the probabilities, multiply each by the total count."
+        },
+        {
+          "type": "definition",
+          "term": "Contingency table",
+          "statement": "A [[contingency-table|contingency table]] is a two-way table of observed frequencies, with one categorical variable in the rows and another in the columns.",
+          "plain": "A table that counts people by two things at once."
+        },
+        {
+          "type": "text",
+          "text": "In a contingency table, $\\mathrm{H}_0$ says the variables are independent, so $\\mathrm{P}(\\text{row and column}) = \\mathrm{P}(\\text{row}) \\times \\mathrm{P}(\\text{column})$, as for [[independent-events|independent events]]. Multiplying by the grand total gives:"
+        },
+        {
+          "type": "formula",
+          "tex": "f_e = \\frac{\\text{row total} \\times \\text{column total}}{\\text{grand total}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "example",
+          "id": "ex-expected-commuters",
+          "question": "A survey of $200$ commuters records region and travel method. North: car $30$, bus $23$, bike $27$. South: car $20$, bus $37$, bike $63$. If region and travel method are independent, how many southern commuters would you expect to cycle?",
+          "steps": [
+            "Row total for South: $20 + 37 + 63 = 120$. Column total for bike: $27 + 63 = 90$. Grand total: $200$.",
+            "$f_e = \\frac{120 \\times 90}{200} = 54$.",
+            "Interpret: $63$ southerners cycle against $54$ expected. A test decides whether that gap is too big to be chance."
+          ],
+          "answer": "$f_e = 54$",
+          "check": {
+            "type": "check",
+            "id": "check-expected-north-car",
+            "prompt": "Now you try: find the expected number of northern commuters who travel by car.",
+            "hint": "Row total for North times column total for car, divided by $200$.",
+            "answer": {
+              "value": 20,
+              "tolerance": 0
+            },
+            "explain": "North row total $30 + 23 + 27 = 80$; car column total $30 + 20 = 50$. $f_e = \\frac{80 \\times 50}{200} = 20$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(30 + 23 + 27)*(30 + 20)/Integer(200)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(20 + 37 + 63)*(27 + 63)/Integer(200)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-expected-seeds",
+          "question": "A seed company claims its wildflower mix grows $40\\%$ red, $25\\%$ yellow, $20\\%$ white and $15\\%$ purple flowers. A gardener grows $220$ plants from the mix. Find the expected frequency of each colour if the claim is true.",
+          "steps": [
+            "Multiply each claimed probability by $220$. Red: $220 \\times 0.40 = 88$. Yellow: $220 \\times 0.25 = 55$.",
+            "White: $220 \\times 0.20 = 44$. Purple: $220 \\times 0.15 = 33$.",
+            "Check: $88 + 55 + 44 + 33 = 220$, the observed total."
+          ],
+          "answer": "$88, 55, 44, 33$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[220*Rational(40, 100), 220*Rational(25, 100), 220*Rational(20, 100), 220*Rational(15, 100)]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-expected-cinema",
+          "prompt": "A cinema thinks its $4$ screens are equally popular. It sells $236$ tickets one evening. Find the expected number for each screen under $\\mathrm{H}_0$.",
+          "hint": "Equally popular means each screen has probability $\\frac{1}{4}$.",
+          "answer": {
+            "value": 59,
+            "tolerance": 0
+          },
+          "explain": "$236 \\times \\frac{1}{4} = 59$ tickets each.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Integer(236)/4",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding expected frequencies to whole numbers, or rounding them before the χ² calculation. A value like $30.07$ is normal: keep full accuracy."
+        }
+      ]
+    },
+    {
+      "id": "independence",
+      "heading": "The χ² test for independence",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "χ² test for independence",
+          "statement": "The [[chi-squared-test-for-independence|χ² test for independence]] tests $\\mathrm{H}_0$: the two variables in a contingency table are independent, against $\\mathrm{H}_1$: they are not independent.",
+          "plain": "Does one thing depend on the other?"
+        },
+        {
+          "type": "text",
+          "text": "The test statistic adds up the gaps between observed and expected counts, each squared and scaled. Small gaps fit $\\mathrm{H}_0$; big gaps are evidence against it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\chi^2_{\\text{calc}} = \\sum \\frac{(f_o - f_e)^2}{f_e}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In exams your GDC calculates it. The test also needs its [[degrees-of-freedom|degrees of freedom]]: how many cells can vary once the totals are fixed. For $r$ rows and $c$ columns:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{df} = (r - 1)(c - 1)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Only a large $\\chi^2_{\\text{calc}}$ counts against $\\mathrm{H}_0$, so χ² tests use the upper tail only. Compare $\\chi^2_{\\text{calc}}$ with the [[critical-value|critical value]] given, or the p-value with the significance level."
+        },
+        {
+          "type": "figure",
+          "id": "4-11-chi2-upper-tail",
+          "alt": "A right-skewed chi-squared curve. A dashed vertical line marks the critical value. The small area to its right is shaded and labelled shaded area equals significance level. Below the axis, values to the left are labelled small chi-squared, do not reject H0, and values to the right are labelled large chi-squared, reject H0.",
+          "caption": "Reject $\\mathrm{H}_0$ when $\\chi^2_{\\text{calc}}$ is greater than the critical value."
+        },
+        {
+          "type": "text",
+          "text": "In exam questions, tables have at most $4$ rows or columns, df is more than $1$, and every expected frequency is greater than $5$. With expected frequencies of $5$ or less the test is unreliable: remember this in your exploration."
+        },
+        {
+          "type": "example",
+          "id": "ex-independence-commuters",
+          "question": "Use the commuter survey (North: car $30$, bus $23$, bike $27$; South: car $20$, bus $37$, bike $63$) to test whether travel method is independent of region, at the $5\\%$ level. Use the critical value $5.991$.",
+          "steps": [
+            "$\\mathrm{H}_0$: travel method is independent of region. $\\mathrm{H}_1$: travel method is not independent of region.",
+            "Expected frequencies: North $20$, $24$, $36$; South $30$, $36$, $54$. All are greater than $5$.",
+            "$\\text{df} = (2 - 1)(3 - 1) = 2$.",
+            "Contributions $\\frac{(f_o - f_e)^2}{f_e}$: North $5$, $0.0416\\ldots$, $2.25$; South $3.3333\\ldots$, $0.0277\\ldots$, $1.5$.",
+            "Add them: $\\chi^2_{\\text{calc}} = 12.152\\ldots \\approx 12.2$.",
+            "Compare: $12.2 > 5.991$, so reject $\\mathrm{H}_0$. There is evidence at the $5\\%$ level that travel method is not independent of region.",
+            "The biggest contributions are in the car and bike columns: southerners cycle more, and drive less, than independence predicts."
+          ],
+          "answer": "$\\chi^2_{\\text{calc}} \\approx 12.2$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2indep([[30, 23, 27], [20, 37, 63]])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-independence-streaming",
+          "question": "A streaming service records the age group and favourite genre of $371$ subscribers. Under 25: drama $44$, comedy $29$, documentary $24$. Aged 25 to 44: drama $38$, comedy $41$, documentary $36$. Aged 45 and over: drama $33$, comedy $49$, documentary $77$. Use your calculator to find the p-value of a χ² test for independence, to 3 s.f., and conclude at the $1\\%$ level.",
+          "steps": [
+            "$\\mathrm{H}_0$: favourite genre is independent of age group. $\\mathrm{H}_1$: favourite genre is not independent of age group.",
+            "Enter the observed counts as a $3 \\times 3$ matrix and run the χ² 2-way test.",
+            "Read off $\\chi^2_{\\text{calc}} = 23.252\\ldots$, $\\text{df} = 4$ and p-value $= 0.00011271\\ldots$. The smallest expected value is $30.067\\ldots$, so all are greater than $5$.",
+            "Compare: $0.000113 < 0.01$, so reject $\\mathrm{H}_0$.",
+            "There is evidence at the $1\\%$ level that favourite genre is not independent of age group. Older subscribers chose documentaries more often than expected."
+          ],
+          "answer": "$p \\approx 0.000113$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2cdf(chi2indep([[44, 29, 24], [38, 41, 36], [33, 49, 77]]), oo, chi2df([[44, 29, 24], [38, 41, 36], [33, 49, 77]]))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "chi2-independence",
+          "values": {
+            "rows": 3,
+            "columns": 3,
+            "observed": "44, 29, 24; 38, 41, 36; 33, 49, 77"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-df-table",
+          "prompt": "A contingency table has $3$ rows and $4$ columns. Write down the degrees of freedom for a χ² test for independence.",
+          "hint": "Use $(r - 1)(c - 1)$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$(3 - 1)(4 - 1) = 2 \\times 3 = 6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(3 - 1)*(4 - 1)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-independence-conclusion",
+          "prompt": "A school tests at the $5\\%$ level whether lunch choice is independent of year group. $\\chi^2_{\\text{calc}} = 4.12$ and the critical value is $7.815$. Which conclusion is correct?",
+          "hint": "Is $\\chi^2_{\\text{calc}}$ bigger or smaller than the critical value?",
+          "options": [
+            {
+              "text": "Reject H₀: lunch choice depends on year group",
+              "correct": false
+            },
+            {
+              "text": "Do not reject H₀: insufficient evidence of dependence",
+              "correct": true
+            },
+            {
+              "text": "H₀ is proved: the variables are independent",
+              "correct": false
+            }
+          ],
+          "explain": "$4.12 < 7.815$, so do not reject $\\mathrm{H}_0$: insufficient evidence of dependence. This does not prove independence.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Do not reject H₀: insufficient evidence of dependence"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Comparing a p-value with the critical value, or $\\chi^2_{\\text{calc}}$ with the significance level. Compare p-value with level, $\\chi^2_{\\text{calc}}$ with critical value."
+        }
+      ]
+    },
+    {
+      "id": "goodness-of-fit",
+      "heading": "The χ² goodness of fit test",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes one variable comes with a claim about how its counts split: equally, or in stated proportions."
+        },
+        {
+          "type": "definition",
+          "term": "χ² goodness of fit test",
+          "statement": "The [[chi-squared-goodness-of-fit-test|χ² goodness of fit test]] tests $\\mathrm{H}_0$: the data fit a claimed distribution, against $\\mathrm{H}_1$: they do not fit it.",
+          "plain": "It checks whether counts match a claim."
+        },
+        {
+          "type": "text",
+          "text": "The statistic is the same, with expected frequencies from the claimed probabilities. At SL, with $n$ categories:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{df} = n - 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "One is lost because the expected total must equal the observed total. On the GDC, enter observed and expected counts as lists and type the df."
+        },
+        {
+          "type": "example",
+          "id": "ex-gof-library",
+          "question": "A library records the weekday of $150$ book returns: Monday $38$, Tuesday $27$, Wednesday $30$, Thursday $22$, Friday $33$. Test at the $10\\%$ level whether returns are equally likely on each weekday. Use your calculator and give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: returns are equally likely on each weekday (a uniform distribution). $\\mathrm{H}_1$: returns are not equally likely on each weekday.",
+            "Expected: $150 \\times \\frac{1}{5} = 30$ each, all greater than $5$. $\\text{df} = 5 - 1 = 4$.",
+            "GDC with observed $38, 27, 30, 22, 33$ and expected $30$ each: $\\chi^2_{\\text{calc}} = 4.8666\\ldots$, p-value $= 0.30125\\ldots$.",
+            "Compare: $0.301 > 0.10$, so do not reject $\\mathrm{H}_0$.",
+            "There is insufficient evidence at the $10\\%$ level that returns are more likely on some weekdays."
+          ],
+          "answer": "$p \\approx 0.301$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2cdf(chi2gof([38, 27, 30, 22, 33], [30, 30, 30, 30, 30]), oo, 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "chi2-goodness-of-fit",
+          "values": {
+            "observed": "38, 27, 30, 22, 33",
+            "expected": "30, 30, 30, 30, 30",
+            "df": 4
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gof-seeds",
+          "question": "The gardener's $220$ plants were red $70$, yellow $70$, white $48$ and purple $32$. The company claims $40\\%$, $25\\%$, $20\\%$ and $15\\%$. Test the claim at the $5\\%$ level, using the critical value $7.815$.",
+          "steps": [
+            "$\\mathrm{H}_0$: the colours follow the claimed proportions. $\\mathrm{H}_1$: the colours do not follow the claimed proportions.",
+            "Expected frequencies (found earlier): $88, 55, 44, 33$, all greater than $5$. $\\text{df} = 4 - 1 = 3$.",
+            "GDC with observed $70, 70, 48, 32$ and expected $88, 55, 44, 33$: $\\chi^2_{\\text{calc}} = 8.1666\\ldots \\approx 8.17$.",
+            "Compare: $8.17 > 7.815$, so reject $\\mathrm{H}_0$.",
+            "There is evidence at the $5\\%$ level that the mix does not grow the claimed proportions: fewer red and more yellow flowers than claimed."
+          ],
+          "answer": "$\\chi^2_{\\text{calc}} \\approx 8.17$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2gof([70, 70, 48, 32], [220*Rational(40, 100), 220*Rational(25, 100), 220*Rational(20, 100), 220*Rational(15, 100)])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gof-df",
+          "prompt": "A goodness of fit test checks whether a six-sided dice is fair. Write down the degrees of freedom.",
+          "hint": "There are $6$ categories, one for each face.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$\\text{df} = 6 - 1 = 5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6 - 1",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gof-conclusion",
+          "prompt": "A bakery claims its four bread types sell equally well. A goodness of fit test at the $10\\%$ level gives a p-value of $0.0418$. Which conclusion is correct?",
+          "hint": "Compare the p-value with $0.10$.",
+          "options": [
+            {
+              "text": "Reject H₀: they do not sell equally well",
+              "correct": true
+            },
+            {
+              "text": "Do not reject H₀: they sell equally well",
+              "correct": false
+            },
+            {
+              "text": "Reject H₀: they sell equally well",
+              "correct": false
+            }
+          ],
+          "explain": "$0.0418 < 0.10$, so reject $\\mathrm{H}_0$: there is evidence that the bread types do not sell equally well.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Reject H₀: they do not sell equally well"
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, when a parameter of the claimed distribution is estimated from the data, you lose one more degree of freedom for each parameter.",
+          "lesson": "4.12"
+        }
+      ]
+    },
+    {
+      "id": "t-test",
+      "heading": "The t-test for two means",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For measurements, compare two means."
+        },
+        {
+          "type": "definition",
+          "term": "t-test",
+          "statement": "At SL, the [[t-test|t-test]] is the pooled two-sample t-test. It tests $\\mathrm{H}_0$: $\\mu_1 = \\mu_2$ for two population means, using two independent samples.",
+          "plain": "It asks whether two groups really differ on average."
+        },
+        {
+          "type": "text",
+          "text": "Conditions: both variables are normally distributed; the samples are unpaired (different individuals, chosen independently); the population variances are unknown but assumed equal, so the GDC pools them."
+        },
+        {
+          "type": "text",
+          "text": "The samples can differ in size. Always use technology: enter both samples as lists and read the p-value."
+        },
+        {
+          "type": "definition",
+          "term": "One-tailed test",
+          "statement": "A [[one-tailed-test|one-tailed test]] has an $\\mathrm{H}_1$ with a direction, such as $\\mu_1 > \\mu_2$ or $\\mu_1 < \\mu_2$.",
+          "plain": "You are looking for a difference one particular way."
+        },
+        {
+          "type": "definition",
+          "term": "Two-tailed test",
+          "statement": "A [[two-tailed-test|two-tailed test]] has $\\mathrm{H}_1$: $\\mu_1 \\neq \\mu_2$.",
+          "plain": "Any difference counts, in either direction."
+        },
+        {
+          "type": "figure",
+          "id": "4-11-tails",
+          "alt": "Two bell-shaped curves side by side. Left, labelled two-tailed with H1 mu1 not equal to mu2: both tails beyond minus t and t are shaded, and the label says p equals both shaded tails. Right, labelled one-tailed with H1 mu1 greater than mu2: only the right tail beyond t is shaded, and the label says p equals one shaded tail.",
+          "caption": "Two-tailed: the p-value counts both tails. One-tailed: only the tail $\\mathrm{H}_1$ points to."
+        },
+        {
+          "type": "example",
+          "id": "ex-t-test-plants",
+          "question": "Seedling heights, in cm, under two lamps. Lamp $A$: $41.2, 38.5, 44.0, 39.8, 42.6, 40.1, 43.3, 37.9$. Lamp $B$: $36.4, 39.0, 35.2, 38.1, 34.7, 37.5, 36.9$. Assume normal distributions with equal variances. Test at the $5\\%$ level whether the mean heights differ. Use your calculator and give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\mu_A = \\mu_B$; $\\mathrm{H}_1$: $\\mu_A \\neq \\mu_B$, for the population mean heights. \"Differ\" with no direction means two-tailed.",
+            "Pooled two-sample t-test: lamp $A$ in list 1, lamp $B$ in list 2, $\\mu_1 \\neq \\mu_2$, Pooled: Yes.",
+            "The GDC gives $t = 4.0723\\ldots$, $\\text{df} = 13$ and p-value $= 0.0013198\\ldots$.",
+            "Compare: $0.00132 < 0.05$, so reject $\\mathrm{H}_0$.",
+            "There is evidence at the $5\\%$ level that mean seedling height differs between the lamps. The sample means suggest lamp $A$ grows taller seedlings."
+          ],
+          "answer": "$p \\approx 0.00132$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*tcdf(Abs(ttest2([41.2, 38.5, 44.0, 39.8, 42.6, 40.1, 43.3, 37.9], [36.4, 39.0, 35.2, 38.1, 34.7, 37.5, 36.9])), oo, ttest2df([41.2, 38.5, 44.0, 39.8, 42.6, 40.1, 43.3, 37.9], [36.4, 39.0, 35.2, 38.1, 34.7, 37.5, 36.9]))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "t-test-two-sample",
+          "values": {
+            "sample1": "41.2, 38.5, 44.0, 39.8, 42.6, 40.1, 43.3, 37.9",
+            "sample2": "36.4, 39.0, 35.2, 38.1, 34.7, 37.5, 36.9",
+            "alternative": "≠"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-t-test-reaction",
+          "question": "Simulator reaction times, in seconds. Drivers without a phone: $0.312, 0.298, 0.285, 0.301, 0.276, 0.290, 0.305, 0.281, 0.294$. Other drivers on a hands-free phone: $0.305, 0.318, 0.296, 0.322, 0.309, 0.299, 0.314, 0.311$. Assume normal distributions with equal variances. Test at the $1\\%$ level whether mean reaction time is lower without a phone. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\mu_N = \\mu_P$; $\\mathrm{H}_1$: $\\mu_N < \\mu_P$, for the population mean reaction times without and with a phone. \"Lower\" gives a direction, so one-tailed.",
+            "The groups are different drivers, so the samples are unpaired. No-phone data in list 1, phone data in list 2, $\\mu_1 < \\mu_2$, Pooled: Yes.",
+            "The GDC gives $t = -3.0686\\ldots$, $\\text{df} = 15$ and p-value $= 0.0039000\\ldots$.",
+            "Compare: $0.00390 < 0.01$, so reject $\\mathrm{H}_0$.",
+            "There is evidence at the $1\\%$ level that mean reaction time is lower without a phone. The test shows the difference is unlikely to be chance, not how big it is."
+          ],
+          "answer": "$p \\approx 0.00390$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "tcdf(-oo, ttest2([0.312, 0.298, 0.285, 0.301, 0.276, 0.290, 0.305, 0.281, 0.294], [0.305, 0.318, 0.296, 0.322, 0.309, 0.299, 0.314, 0.311]), ttest2df([0.312, 0.298, 0.285, 0.301, 0.276, 0.290, 0.305, 0.281, 0.294], [0.305, 0.318, 0.296, 0.322, 0.309, 0.299, 0.314, 0.311]))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-t-test-condition",
+          "prompt": "Which of these is not a condition for the pooled two-sample t-test at SL?",
+          "hint": "Recall the three conditions: distribution, pairing and variances.",
+          "options": [
+            {
+              "text": "Normal distributions",
+              "correct": false
+            },
+            {
+              "text": "Unpaired samples",
+              "correct": false
+            },
+            {
+              "text": "Equal population variances",
+              "correct": false
+            },
+            {
+              "text": "Equal sample sizes",
+              "correct": true
+            }
+          ],
+          "explain": "The samples can differ in size, as in the reaction-time example. Normality, unpaired samples and equal variances are all needed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Equal sample sizes"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-one-tail-half",
+          "prompt": "A two-tailed t-test gives a p-value of $0.074$. The sample means differ in the direction a one-tailed $\\mathrm{H}_1$ predicts. Find the one-tailed p-value for the same data.",
+          "hint": "The two-tailed p-value adds two equal tails. The one-tailed test uses one.",
+          "answer": {
+            "value": 0.037,
+            "tolerance": 0
+          },
+          "explain": "$0.074 \\div 2 = 0.037$. At the $5\\%$ level the one-tailed test rejects $\\mathrm{H}_0$; the two-tailed test does not.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(74, 1000)/2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing hypotheses with sample means, such as $\\bar{x}_A = \\bar{x}_B$. The sample means are known; the test is about the population means $\\mu_A$ and $\\mu_B$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$\\mathrm{H}_0$ is the no-effect claim: independent, fits the claimed distribution, or $\\mu_1 = \\mu_2$ for population means.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reject $\\mathrm{H}_0$ when the p-value is less than the significance level, or $\\chi^2_{\\text{calc}}$ is greater than the critical value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expected frequencies are what $\\mathrm{H}_0$ predicts. In IB exam χ² questions every expected frequency is greater than $5$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "χ² tests use the upper tail only. df $= (r - 1)(c - 1)$ for an $r \\times c$ contingency table; df $= n - 1$ for goodness of fit at SL ($n$ categories).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "SL t-test: pooled two-sample, unpaired samples, normal populations, equal variances. $\\neq$ is two-tailed; $>$ or $<$ is one-tailed.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every conclusion gives the comparison, the decision and its meaning in context.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"not correlated\" or \"not related\" in χ² hypotheses. Use \"independent\" and \"not independent\".",
+    "Concluding with no comparison. Write the numbers, such as $0.0372 < 0.05$, before the decision.",
+    "Leaving out the context, or saying the test proves $\\mathrm{H}_0$. Say what it means for the variables.",
+    "Writing hypotheses with sample means $\\bar{x}$. They are about population means $\\mu$.",
+    "Rounding the p-value too far, such as $0.03$ for $0.0297\\ldots$. Give 3 s.f.",
+    "Setting Pooled to No, or choosing the wrong tail for $\\mu_1$ on the GDC."
+  ],
+  "examTips": [
+    "State the hypotheses: name the variables and say \"independent\", \"follow the claimed distribution\" or \"population mean\".",
+    "Find the p-value: write the test you ran and the data you entered, then the p-value to 3 s.f.",
+    "Write down the degrees of freedom: $(r - 1)(c - 1)$ for a contingency table, $n - 1$ for goodness of fit at SL.",
+    "State the conclusion, justify it: comparison, decision, meaning in context. A decision with no reason scores nothing."
+  ],
+  "readingMinutes": 30
+}

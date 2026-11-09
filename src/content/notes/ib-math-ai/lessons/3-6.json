@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.6",
+  "slug": "voronoi-diagrams",
+  "title": "Voronoi diagrams",
+  "level": "SL",
+  "topic": 3,
+  "summary": "A [[voronoi-diagram|Voronoi diagram]] splits a map into cells, one per [[site|site]], so each point belongs to its nearest site. You find edges as [[perpendicular-bisector|perpendicular bisectors]], add sites, estimate values from the nearest site, and find the point furthest from all sites.",
+  "goals": [
+    {
+      "text": "Name the sites, [[voronoi-cell|cells]], [[voronoi-edge|edges]] and [[voronoi-vertex|vertices]] of a Voronoi diagram, and find the site closest to a point.",
+      "bullets": [
+        "3.6-b1",
+        "3.6-b5"
+      ]
+    },
+    {
+      "text": "Find the equation of an edge from two sites, and the coordinates of a vertex.",
+      "bullets": [
+        "3.6-b5",
+        "3.6-b1"
+      ]
+    },
+    {
+      "text": "Add a site to a Voronoi diagram and find its new edges and vertices.",
+      "bullets": [
+        "3.6-b2"
+      ]
+    },
+    {
+      "text": "Estimate values with [[nearest-neighbour-interpolation|nearest neighbour interpolation]], and find the area of a cell.",
+      "bullets": [
+        "3.6-b3",
+        "3.6-b5"
+      ]
+    },
+    {
+      "text": "Solve the [[toxic-waste-dump-problem|toxic waste dump problem]] by comparing the vertices.",
+      "bullets": [
+        "3.6-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.6",
+    "3.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "voronoi diagram",
+    "voronoi cell area",
+    "adding a site to a voronoi diagram",
+    "nearest neighbour interpolation",
+    "toxic waste dump problem",
+    "perpendicular bisector edge"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-midpoint",
+      "prompt": "Find the midpoint of $(3, 8)$ and $(9, 2)$.",
+      "hint": "Add the $x$-coordinates and halve, then do the same for the $y$-coordinates.",
+      "options": [
+        {
+          "text": "$(6, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, -3)$",
+          "correct": false
+        },
+        {
+          "text": "$(12, 10)$",
+          "correct": false
+        },
+        {
+          "text": "$(6, 3)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left(\\frac{3 + 9}{2}, \\frac{8 + 2}{2}\\right) = (6, 5)$. Revise it in {{lesson:3.5}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "((3 + 9)/2, (8 + 2)/2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-perp-gradient",
+      "prompt": "A line has gradient $\\frac{2}{5}$. Write down the gradient of a line perpendicular to it.",
+      "hint": "Perpendicular gradients multiply to $-1$: flip the fraction and change the sign.",
+      "answer": {
+        "value": -2.5,
+        "tolerance": 0
+      },
+      "explain": "$-1 \\div \\frac{2}{5} = -\\frac{5}{2} = -2.5$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "-1/Rational(2, 5)",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-distance",
+      "prompt": "Find the distance between $(1, 2)$ and $(7, 10)$.",
+      "hint": "Use $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "$\\sqrt{6^2 + 8^2} = \\sqrt{100} = 10$. The distance formula is in the prior-learning part of the formula booklet; revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt((7 - 1)**2 + (10 - 2)**2)",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "parts",
+      "heading": "Sites, cells, edges and vertices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A town has three libraries, and each reader uses the nearest one. A Voronoi diagram shows which streets belong to which library."
+        },
+        {
+          "type": "definition",
+          "term": "Voronoi diagram",
+          "statement": "A [[voronoi-diagram|Voronoi diagram]] splits a region into [[voronoi-cell|cells]], one for each given point, called a [[site|site]]. Each cell holds the points that are closer to its site than to any other site.",
+          "plain": "Each site gets the area nearest to it."
+        },
+        {
+          "type": "definition",
+          "term": "Edge",
+          "statement": "An [[voronoi-edge|edge]] is a boundary between two neighbouring cells. Every point on it is the same distance from the two sites on either side, so it lies on the [[perpendicular-bisector|perpendicular bisector]] of those two sites.",
+          "plain": "Equally close to two sites."
+        },
+        {
+          "type": "definition",
+          "term": "Vertex",
+          "statement": "A [[voronoi-vertex|vertex]] is a point where three or more edges meet. It is the same distance from the sites of all the cells that meet there.",
+          "plain": "In exam questions, equally close to three sites."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-parts",
+          "alt": "Voronoi diagram in a 12 by 10 rectangle with three sites, A at (2, 1), B at (11, 4) and C at (3, 8). Three dashed edges meet at the vertex V at (6, 4) and split the rectangle into three shaded cells, one around each site.",
+          "caption": "Libraries A, B and C. The three edges meet at the vertex $V$."
+        },
+        {
+          "type": "text",
+          "text": "The site closest to a point is the site of the cell it lies in. Near an edge, don't trust your eye: calculate the distances with $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$ (prior learning in the booklet)."
+        },
+        {
+          "type": "example",
+          "id": "ex-nearest-library",
+          "question": "The libraries in the figure are at $A(2, 1)$, $B(11, 4)$ and $C(3, 8)$, with distances in km. A reader lives at $H(7, 2)$. Find the library nearest to $H$. Justify your answer.",
+          "steps": [
+            "$H$ is near an edge, so calculate each distance.",
+            "$HA = \\sqrt{(7 - 2)^2 + (2 - 1)^2} = \\sqrt{26} \\approx 5.10$ km.",
+            "$HB = \\sqrt{(7 - 11)^2 + (2 - 4)^2} = \\sqrt{20} \\approx 4.47$ km.",
+            "$HC = \\sqrt{(7 - 3)^2 + (2 - 8)^2} = \\sqrt{52} \\approx 7.21$ km.",
+            "$HB$ is the smallest, so $H$ lies in the cell of B."
+          ],
+          "answer": "Library B: $H$ is closer to B ($\\sqrt{20}$ km) than to A or C.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "B is nearest; HB = sqrt(20) is the smallest distance",
+            "requires": [
+              [
+                "Library B"
+              ],
+              [
+                "closer to B"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-vertex-meaning",
+          "question": "The town wants a book drop-off point that is equally far from all three libraries. Explain why the vertex $V(6, 4)$ works, and find its distance from each library.",
+          "steps": [
+            "$V$ is on the edge between A and B, so $VA = VB$. It is also on the edge between B and C, so $VB = VC$.",
+            "$VA = \\sqrt{(6 - 2)^2 + (4 - 1)^2} = \\sqrt{25} = 5$ km.",
+            "Check: $VB = \\sqrt{(6 - 11)^2 + 0^2} = 5$ km and $VC = \\sqrt{(6 - 3)^2 + (4 - 8)^2} = 5$ km."
+          ],
+          "answer": "$V$ is a vertex, so it is equidistant from all three libraries: $5$ km from each.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "V is a vertex, equidistant from A, B and C, 5 km",
+            "requires": [
+              [
+                "vertex"
+              ],
+              [
+                "equidistant",
+                "same distance"
+              ],
+              [
+                "5"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cell-meaning",
+          "prompt": "A point $X$ is inside the cell of site C, not on an edge. What must be true?",
+          "hint": "What does every point of a cell have in common?",
+          "options": [
+            {
+              "text": "X is closer to C than to any other site",
+              "correct": true
+            },
+            {
+              "text": "X is equally far from two sites",
+              "correct": false
+            },
+            {
+              "text": "X is a vertex",
+              "correct": false
+            }
+          ],
+          "explain": "That is what a cell means. Equal distances happen only on edges.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X is closer to C than to any other site"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-closed-library",
+          "prompt": "Library A is closed for repairs. A reader at $(5, 4)$ goes to the nearest open library. Which one?",
+          "hint": "Compare the distances to B and C only.",
+          "options": [
+            {
+              "text": "Library A",
+              "correct": false
+            },
+            {
+              "text": "Library B",
+              "correct": false
+            },
+            {
+              "text": "Library C",
+              "correct": true
+            }
+          ],
+          "explain": "To B: $\\sqrt{(5 - 11)^2 + 0^2} = 6$ km. To C: $\\sqrt{(5 - 3)^2 + (4 - 8)^2} = \\sqrt{20} \\approx 4.47$ km. So C.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Library C"
+          }
+        }
+      ]
+    },
+    {
+      "id": "edges",
+      "heading": "Equations of edges and vertices",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exams give the sites' coordinates, and you calculate an edge as the perpendicular bisector of its two sites ({{lesson:3.5}}). You never construct it."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the midpoint of the two sites."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the gradient $m$ of the segment joining them."
+        },
+        {
+          "type": "text",
+          "text": "3. [[perpendicular-lines|Perpendicular lines]] have gradients that multiply to $-1$, so the edge has gradient $-\\frac{1}{m}$."
+        },
+        {
+          "type": "text",
+          "text": "4. Put the midpoint and the edge's gradient into $y - y_1 = m(x - x_1)$."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms"
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the booklet. Sites with the same $y$-coordinate have a vertical edge through their midpoint; sites with the same $x$-coordinate, a horizontal one."
+        },
+        {
+          "type": "example",
+          "id": "ex-edge-bc",
+          "question": "Find the equation of the edge between libraries $B(11, 4)$ and $C(3, 8)$. Give your answer in the form $y = mx + c$.",
+          "steps": [
+            "Midpoint: $\\left(\\frac{11 + 3}{2}, \\frac{4 + 8}{2}\\right) = (7, 6)$.",
+            "Gradient of BC: $\\frac{8 - 4}{3 - 11} = \\frac{4}{-8} = -\\frac{1}{2}$.",
+            "The edge is perpendicular, so its gradient is $2$.",
+            "$y - 6 = 2(x - 7)$, so $y = 2x - 8$.",
+            "Check: $V(6, 4)$ is on it, as $2 \\times 6 - 8 = 4$."
+          ],
+          "answer": "$y = 2x - 8$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (4 + 8)/2, -1/Rational(8 - 4, 3 - 11)*(x - (11 + 3)/2))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the gradient of the segment for the edge. The edge is perpendicular to the segment, so use the negative reciprocal."
+        },
+        {
+          "type": "text",
+          "text": "A vertex lies on two edges, so solve their equations simultaneously. Your GDC can do this."
+        },
+        {
+          "type": "example",
+          "id": "ex-ambulance-vertex",
+          "question": "Ambulance stations are at $A(7, 2)$, $B(3, 6)$ and $C(11, 4)$, with distances in km. (a) Find the equation of the boundary of the cells of A and B. (b) The boundary of the cells of B and C is $y = 4x - 23$. Use your calculator to find the vertex where the cells of A, B and C meet. Give your answer to 3 s.f. (c) Interpret the vertex in context.",
+          "steps": [
+            "(a) Midpoint of A and B: $\\left(\\frac{7 + 3}{2}, \\frac{2 + 6}{2}\\right) = (5, 4)$. Gradient of AB: $\\frac{6 - 2}{3 - 7} = -1$, so the edge has gradient $1$.",
+            "$y - 4 = 1(x - 5)$, so $y = x - 1$.",
+            "(b) Write down what you solve: $y = x - 1$ and $y = 4x - 23$. The GDC's intersection is $x = 7.3333\\ldots$, $y = 6.3333\\ldots$.",
+            "So the vertex is $(7.33, 6.33)$ to 3 s.f.",
+            "(c) It is equally far, about $4.35$ km, from all three stations."
+          ],
+          "answer": "$V \\approx (7.33, 6.33)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "((23 - 1)/(4 - 1), (23 - 1)/(4 - 1) - 1)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "X-1",
+            "function2": "4X-23"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-edge-equation",
+          "prompt": "Two water fountains in a park are at $K(2, 5)$ and $L(8, 7)$. Which is the equation of the edge between their cells?",
+          "hint": "Midpoint, then the negative reciprocal of KL's gradient.",
+          "options": [
+            {
+              "text": "$y = -3x + 21$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{1}{3}x + \\frac{13}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3x - 9$",
+              "correct": false
+            },
+            {
+              "text": "$y = -3x + 11$",
+              "correct": false
+            }
+          ],
+          "explain": "Midpoint $(5, 6)$; KL has gradient $\\frac{1}{3}$, so $y - 6 = -3(x - 5)$, giving $y = -3x + 21$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (5 + 7)/2, -1/Rational(7 - 5, 8 - 2)*(x - (2 + 8)/2))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-vertex-distance",
+          "prompt": "A vertex is at $(4, 7)$ and one of its three sites at $(1, 3)$, with distances in km. How far, in km, is it from the other two?",
+          "hint": "A vertex is equidistant from its three sites.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$\\sqrt{3^2 + 4^2} = 5$, and a vertex is equally far from its three sites.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((4 - 1)**2 + (7 - 3)**2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-site",
+      "heading": "Adding a site",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A new site takes area from the cells around it. Cells far away don't change."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the cell the new site lies in."
+        },
+        {
+          "type": "text",
+          "text": "2. Draw the bisector of the new site and that cell's site, until it meets an old edge: a new vertex."
+        },
+        {
+          "type": "text",
+          "text": "3. Continue along the bisector with the site across that edge. Repeat until the new cell closes."
+        },
+        {
+          "type": "text",
+          "text": "4. Erase the old edges inside the new cell."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-add-site",
+          "alt": "Two Voronoi diagrams of the same 12 by 10 rectangle. Before: sites A, B and C with three edges meeting at vertex V at (6, 4). After adding site D at (3, 4): D gets a new shaded cell bounded by the edge x = 7 with B, the edge y = 6 with C and a sloping edge with A. The new vertices are at (7, 1) and (7, 6). V is now inside the cell of D, so it is no longer a vertex.",
+          "caption": "Adding D: A, B and C all lose area, and the old vertex $V$ disappears."
+        },
+        {
+          "type": "example",
+          "id": "ex-third-station",
+          "question": "Fuel stations at $F(2, 4)$ and $G(10, 4)$ (in km) have the edge $x = 6$. A third opens at $H(6, 10)$. Find the new edges and the new vertex.",
+          "steps": [
+            "F–H: midpoint $(4, 7)$, gradient of FH $\\frac{3}{2}$, so the edge is $y - 7 = -\\frac{2}{3}(x - 4)$, or $2x + 3y = 29$.",
+            "G–H: midpoint $(8, 7)$, gradient of GH $-\\frac{3}{2}$, so the edge is $y - 7 = \\frac{2}{3}(x - 8)$, or $2x - 3y = -5$.",
+            "The new vertex is on the old edge $x = 6$: $12 + 3y = 29$, so $y = \\frac{17}{3}$. The old edge now stops there."
+          ],
+          "answer": "$(6, \\tfrac{17}{3})$",
+          "check": {
+            "type": "check",
+            "id": "check-third-station-distance",
+            "prompt": "Now you try: how far, in km, is the new vertex from each station? Give 3 s.f.",
+            "hint": "Find its distance to H; a vertex is equidistant from its sites.",
+            "answer": {
+              "value": 4.33,
+              "tolerance": 0.005
+            },
+            "explain": "To H: $10 - \\frac{17}{3} = \\frac{13}{3} \\approx 4.33$ km, the same as to F and G.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "sqrt((6 - 2)**2 + (solve(Eq((6 - 2)**2 + (y - 4)**2, (6 - 6)**2 + (y - 10)**2), y)[0] - 4)**2)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "(6, solve(Eq((6 - 2)**2 + (y - 4)**2, (6 - 6)**2 + (y - 10)**2), y)[0])"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-new-library",
+          "question": "A fourth library opens at $D(3, 4)$ in the map of $A(2, 1)$, $B(11, 4)$ and $C(3, 8)$. (a) Show that D is in the cell of A. (b) Write down the edges between D and B, and between D and C. (c) Find the vertex where the cells of B, C and D meet. (d) Explain why $V(6, 4)$ is no longer a vertex.",
+          "steps": [
+            "(a) $DA = \\sqrt{10} \\approx 3.16$, $DB = 8$ and $DC = 4$. $DA$ is the smallest.",
+            "(b) D and B are level, so their edge is vertical through the midpoint $(7, 4)$: $x = 7$. D and C are one above the other, so their edge is $y = 6$.",
+            "(c) The two edges meet where $x = 7$ and $y = 6$.",
+            "(d) $VD = 3$, less than $VA = 5$, so $V$ is now inside the cell of D."
+          ],
+          "answer": "$(7, 6)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "((3 + 11)/2, (4 + 8)/2)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping old edges that run through the new cell. Every point there is now closer to the new site, so erase them."
+        },
+        {
+          "type": "check",
+          "id": "check-add-cells",
+          "prompt": "A new site is added to a Voronoi diagram. Which cells can change?",
+          "hint": "A point far from the new site is still closest to its old site.",
+          "options": [
+            {
+              "text": "Only the cells next to the new cell",
+              "correct": true
+            },
+            {
+              "text": "Every cell",
+              "correct": false
+            },
+            {
+              "text": "Only the cell the new site lies in",
+              "correct": false
+            }
+          ],
+          "explain": "Only cells next to the new cell lose area.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Only the cells next to the new cell"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-new-edge-ad",
+          "prompt": "The edge between $A(2, 1)$ and $D(3, 4)$ meets the line $x = 0$ at $(0, k)$. Find $k$ to 3 s.f.",
+          "hint": "Midpoint $(2.5, 2.5)$; the gradient of AD is $3$, so the edge's gradient is $-\\frac{1}{3}$.",
+          "answer": {
+            "value": 3.33,
+            "tolerance": 0.005
+          },
+          "explain": "$y - 2.5 = -\\frac{1}{3}(x - 2.5)$. At $x = 0$: $y = 2.5 + \\frac{2.5}{3} = 3.333\\ldots \\approx 3.33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(1 + 4)/2 + ((2 + 3)/2)/((4 - 1)/(3 - 2))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "interpolation",
+      "heading": "Nearest neighbour interpolation and cell areas",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rain gauge measures rainfall at one place. The simplest estimate anywhere else copies the nearest gauge."
+        },
+        {
+          "type": "definition",
+          "term": "Nearest neighbour interpolation",
+          "statement": "[[nearest-neighbour-interpolation|Nearest neighbour interpolation]] estimates a quantity at a point as the value at its nearest site. So every point in a cell gets its site's value.",
+          "plain": "Copy the reading from the closest station."
+        },
+        {
+          "type": "text",
+          "text": "It is a kind of [[interpolation|interpolation]]: estimating between known data points. It is quick but rough: it ignores every site except the nearest."
+        },
+        {
+          "type": "example",
+          "id": "ex-rain-farm",
+          "question": "Rain gauges are at $P(2, 7)$, $Q(8, 9)$ and $R(6, 2)$, with distances in km. Last month they recorded $23$ mm, $31$ mm and $17$ mm. (a) Use nearest neighbour interpolation to estimate last month's rainfall at a farm at $F(5, 6)$. (b) Comment on your estimate.",
+          "steps": [
+            "(a) $FP = \\sqrt{3^2 + 1^2} = \\sqrt{10} \\approx 3.16$ km.",
+            "$FQ = \\sqrt{3^2 + 3^2} = \\sqrt{18} \\approx 4.24$ km and $FR = \\sqrt{1^2 + 4^2} = \\sqrt{17} \\approx 4.12$ km.",
+            "P is nearest, so the farm is in the cell of P and gets P's reading.",
+            "(b) The farm is only about $1$ km further from Q and R, which recorded quite different amounts ($31$ mm and $17$ mm), so the estimate is rough."
+          ],
+          "answer": "F is nearest to P, so the estimate is $23$ mm.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "nearest gauge is P, estimate 23 mm",
+            "requires": [
+              [
+                "nearest to P"
+              ],
+              [
+                "23"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "For the area of a cell, find its corners from the edges' equations. Then split it into rectangles, triangles and trapezoids."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-field",
+          "alt": "A field drawn as a rectangle 8 units wide and 6 units tall, with sensors S at (2, 3) and T at (6, 1). A straight dashed edge runs from (3, 0) on the bottom side to (6, 6) on the top side. The cell of S, to the left of the edge, is shaded: a trapezoid with parallel sides of 3 units along the bottom and 6 units along the top, 6 units apart.",
+          "caption": "The cell of S is a trapezoid."
+        },
+        {
+          "type": "example",
+          "id": "ex-field-area",
+          "question": "A field is the rectangle $0 \\le x \\le 8$, $0 \\le y \\le 6$, where $1$ unit is $10$ m. Soil sensors are at $S(2, 3)$ and $T(6, 1)$. (a) Find the equation of the edge between their cells. (b) Find the area of the cell of S, in $\\text{m}^{2}$.",
+          "steps": [
+            "(a) Midpoint $(4, 2)$. Gradient of ST: $\\frac{1 - 3}{6 - 2} = -\\frac{1}{2}$, so the edge has gradient $2$: $y - 2 = 2(x - 4)$, so $y = 2x - 6$.",
+            "(b) The edge meets $y = 0$ at $x = 3$ and $y = 6$ at $x = 6$. So the cell of S is a trapezoid with parallel sides $3$ and $6$ units, $6$ units apart.",
+            "Area $= \\frac{1}{2}(3 + 6) \\times 6 = 27$ square units.",
+            "$1$ square unit is $10 \\times 10 = 100\\text{ m}^{2}$, so the area is $2700\\text{ m}^{2}$."
+          ],
+          "answer": "$A = 2700\\text{ m}^{2}$",
+          "check": {
+            "type": "check",
+            "id": "check-field-water",
+            "prompt": "Now you try: sensor T shows the soil needs $3$ litres of water per $\\text{m}^{2}$. Estimate the water, in litres, for the whole cell of T.",
+            "hint": "The cell of T is the rest of the field.",
+            "answer": {
+              "value": 6300,
+              "tolerance": 0
+            },
+            "explain": "Field: $8 \\times 6 = 48$ square units, so T's cell is $48 - 27 = 21$ square units $= 2100\\text{ m}^{2}$. Water: $2100 \\times 3 = 6300$ litres.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(8*6 - ((0 + 6)/2 + (6 + 6)/2)/2*6)*10**2*3",
+              "dp": 0
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "((0 + 6)/2 + (6 + 6)/2)/2*6*10**2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying an area in square units by the scale instead of its square. If $1$ unit is $10$ m, $1$ square unit is $100\\text{ m}^{2}$."
+        },
+        {
+          "type": "check",
+          "id": "check-nn-limitation",
+          "prompt": "Gauges P and Q recorded $23$ mm and $31$ mm. A village is in the cell of P, very close to the edge with Q. Why might its nearest neighbour estimate be poor?",
+          "hint": "Which gauge does the method ignore?",
+          "options": [
+            {
+              "text": "It ignores Q, which is almost as close",
+              "correct": true
+            },
+            {
+              "text": "It averages every gauge",
+              "correct": false
+            },
+            {
+              "text": "It only works at a vertex",
+              "correct": false
+            }
+          ],
+          "explain": "Only P's reading is used, though Q is almost as close.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It ignores Q, which is almost as close"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-area",
+          "prompt": "On a park map, $1$ unit is $0.4$ km. A cell is the triangle bounded by the $x$-axis, the $y$-axis and the edge $4x + 3y = 24$. Find its area in $\\text{km}^{2}$, to 3 s.f.",
+          "hint": "Find where the edge meets each axis, then use $\\frac{1}{2}bh$. Square the scale.",
+          "answer": {
+            "value": 3.84,
+            "tolerance": 0.005
+          },
+          "explain": "Intercepts $(6, 0)$ and $(0, 8)$ give $\\frac{1}{2} \\times 6 \\times 8 = 24$ square units. Each is $0.4^2 = 0.16\\text{ km}^{2}$, so $3.84\\text{ km}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*(24/4)*(24/3)*Rational(4, 10)**2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "toxic-waste",
+      "heading": "The toxic waste dump problem",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A waste dump should be placed well away from people. Now the sites are towns, and you want the point whose distance to the nearest town is largest."
+        },
+        {
+          "type": "definition",
+          "term": "Toxic waste dump problem",
+          "statement": "The [[toxic-waste-dump-problem|toxic waste dump problem]] asks for the point in a region whose distance to the nearest site is as large as possible.",
+          "plain": "Find the spot that keeps furthest from everyone."
+        },
+        {
+          "type": "text",
+          "text": "Why a vertex? Moving away from your nearest site helps until you reach an edge, then moving along the edge helps until you reach a vertex. In real regions the best point can be on the boundary. In IB exams it is always a vertex where three edges meet."
+        },
+        {
+          "type": "result",
+          "statement": "In an IB exam toxic waste dump question, find each vertex's distance to one of its own three sites. The vertex with the largest distance is the answer.",
+          "why": "No site is closer to a vertex than its own three sites."
+        },
+        {
+          "type": "figure",
+          "id": "3-6-waste",
+          "alt": "Voronoi diagram of four villages P at (4, 6), Q at (5, 11), R at (9, 11) and S at (13, 3) in a 15 by 13 rectangle. It has two vertices, U at (7, 8) and W at (9, 6). A dotted circle centred on U passes through P, Q and R, with radius about 3.6. A larger dotted circle centred on W passes through P, R and S, with radius 5. No village lies inside either circle.",
+          "caption": "No village is inside either circle, so each radius is that vertex's distance to the nearest village."
+        },
+        {
+          "type": "example",
+          "id": "ex-waste-vertices",
+          "question": "Villages are at $P(4, 6)$, $Q(5, 11)$, $R(9, 11)$ and $S(13, 3)$, with distances in km. The Voronoi vertices are $U(7, 8)$, shared by the cells of P, Q and R, and $W(9, 6)$, shared by P, R and S. A waste dump inside PQRS must be as far as it can be from its nearest village. Find where, and that distance.",
+          "steps": [
+            "The best point is a vertex, so compare $U$ and $W$.",
+            "$U$ is equidistant from P, Q and R: $UP = \\sqrt{(7 - 4)^2 + (8 - 6)^2} = \\sqrt{13} \\approx 3.61$ km.",
+            "$W$ is equidistant from P, R and S: $WP = \\sqrt{(9 - 4)^2 + (6 - 6)^2} = 5$ km.",
+            "$5 > 3.61$, so the dump goes at $W(9, 6)$, $5$ km from the nearest villages."
+          ],
+          "answer": "$WP = 5\\text{ km}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(sqrt((7 - 4)**2 + (8 - 6)**2), sqrt((9 - 4)**2 + (6 - 6)**2))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-waste-gdc",
+          "question": "Villages are at $A(4, 11)$, $B(10, 11)$, $C(10, 5)$ and $D(5, 2)$, in km. A recycling plant inside ABCD must be as far as it can be from its nearest village. The Voronoi vertices are $(7, 8)$, shared by A, B and C, and a second one shared by A, C and D. (a) The edge between A and C is $y = x + 1$. Find the edge between C and D. (b) Use your calculator to find the second vertex. (c) Determine where to build the plant. (d) State one limitation of this model.",
+          "steps": [
+            "(a) Midpoint of C and D: $(7.5, 3.5)$. Gradient of CD: $\\frac{2 - 5}{5 - 10} = \\frac{3}{5}$, so the edge has gradient $-\\frac{5}{3}$.",
+            "$y - 3.5 = -\\frac{5}{3}(x - 7.5)$, so $y = -\\frac{5}{3}x + 16$.",
+            "(b) Solve $y = x + 1$ and $y = -\\frac{5}{3}x + 16$ on the GDC, as in the ambulance example: the vertex is $(5.625, 6.625)$.",
+            "(c) From $(7, 8)$ to its site B: $\\sqrt{3^2 + 3^2} = \\sqrt{18} \\approx 4.24$ km.",
+            "From $(5.625, 6.625)$ to its site D: $\\sqrt{0.625^2 + 4.625^2} = 4.6670\\ldots \\approx 4.67$ km.",
+            "$4.67 > 4.24$, so build at $(5.625, 6.625)$.",
+            "(d) The model treats each village as a point and ignores roads and wind."
+          ],
+          "answer": "$(5.625, 6.625)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "((16 - 1)/(1 + Rational(5, 3)), (16 - 1)/(1 + Rational(5, 3)) + 1)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring from a vertex to a site that isn't one of its own three. That distance is too big."
+        },
+        {
+          "type": "check",
+          "id": "check-waste-where",
+          "prompt": "In an IB exam, where is the solution to a toxic waste dump problem?",
+          "hint": "Think about where the distance to the nearest site is largest.",
+          "options": [
+            {
+              "text": "At a vertex where three edges meet",
+              "correct": true
+            },
+            {
+              "text": "At the midpoint of two sites",
+              "correct": false
+            },
+            {
+              "text": "At the site with the largest cell",
+              "correct": false
+            }
+          ],
+          "explain": "In IB exams it is always at a vertex where three edges meet.",
+          "verify": {
+            "kind": "choice",
+            "truth": "At a vertex where three edges meet"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-waste-max",
+          "prompt": "A Voronoi diagram has two vertices: $X(6, 9)$, with $(2, 6)$ one of its sites, and $Y(10, 4)$, with $(12, 9)$ one of its sites. Distances are in km. Find the largest distance, in km, to the nearest site, to 3 s.f.",
+          "hint": "Find each vertex's distance to its given site, then take the larger.",
+          "answer": {
+            "value": 5.39,
+            "tolerance": 0.005
+          },
+          "explain": "$X$: $\\sqrt{4^2 + 3^2} = 5$. $Y$: $\\sqrt{2^2 + 5^2} \\approx 5.39$. The larger is at $Y$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Max(sqrt((6 - 2)**2 + (9 - 6)**2), sqrt((10 - 12)**2 + (4 - 9)**2))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Every point inside a site's cell is closer to that site than to any other site.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An edge lies on the perpendicular bisector of its two sites.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A vertex is equally far from the sites of all the cells meeting there.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Edge: through the midpoint of two sites, with gradient $-\\frac{1}{m}$ if the segment's gradient is $m \\neq 0$ (level sites: vertical edge; one above the other: horizontal edge). Vertex: solve two edges simultaneously.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Adding a site: draw its bisectors with neighbouring sites and erase old edges inside its new cell.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Nearest neighbour interpolation: every point in a cell gets its site's value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Toxic waste dump problem (IB exams): compare each vertex's distance to one of its own sites; the largest wins.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $1$ unit is $k$ km on a map, $1$ square unit is $k^2\\text{ km}^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the segment's gradient for the edge. Use its negative reciprocal.",
+    "Writing a point without brackets, or an edge as just a gradient. Give $(x, y)$ and a full equation.",
+    "Judging the nearest site by eye near an edge. Calculate the distances.",
+    "Scaling an area by the scale, not its square: $1$ unit $= 2$ km means $1$ square unit $= 4\\text{ km}^{2}$.",
+    "Rounding a vertex before using it. Keep the GDC's full values.",
+    "Averaging readings in nearest neighbour interpolation. Use the nearest site only."
+  ],
+  "examTips": [
+    "Justify the nearest site: say the point is in its cell, or closer to it than to any other site.",
+    "Find an edge: show the midpoint, the gradient and the perpendicular gradient. Any correct form is fine unless one is asked for.",
+    "Write down both equations before the GDC's vertex: that earns the method mark. Give coordinates in brackets, to 3 s.f.",
+    "Interpret a vertex: equally far from its three sites, with no site closer."
+  ],
+  "readingMinutes": 29
+}
