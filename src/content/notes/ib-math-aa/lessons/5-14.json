@@ -379,10 +379,12 @@
           "type": "calculator",
           "steps": {
             "ti84": [
-              "MATH, Solver",
-              "Enter 0=4πX^3/75-300, then press ENTER (check on your model)",
-              "Put the cursor on X, then ALPHA ENTER (SOLVE): X = 12.1429... (check on your model)",
-              "The solver leaves this value in X. On the home screen type 375/(4πX^2), ENTER: 0.20238... (check on your model)"
+              "MATH, ▲ to C: Numeric Solver..., ENTER",
+              "Type 4πX^3/75=300, then press the OK soft key",
+              "Move to X and type a starting guess of 10",
+              "SOLVE (GRAPH key)",
+              "Read X = 12.1429...",
+              "Back on the home screen (2nd, MODE), type 375/(4πX^2), ENTER: 0.20238... If X still holds an old value, type 12.1429 in its place (check on your model)"
             ],
             "nspire": [
               "Calculator page, Menu, Algebra, Numerical Solve",

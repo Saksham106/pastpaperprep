@@ -510,9 +510,10 @@
           "steps": {
             "ti84": [
               "MODE, select DEGREE",
-              "MATH, Solver",
-              "Enter the equation as 0.5*X*(X+4)*sin(65)-30 = 0 (check on your model)",
-              "Set the guess X = 5, then ALPHA, ENTER (SOLVE) (check on your model)",
+              "MATH, ▲ to C: Numeric Solver..., ENTER",
+              "Type 0.5*X*(X+4)*sin(65)=30, then press the OK soft key",
+              "Move to X and type a starting guess of 5",
+              "SOLVE (GRAPH key)",
               "Read X = 6.3787..., so x = 6.38 to 3 s.f."
             ],
             "nspire": [

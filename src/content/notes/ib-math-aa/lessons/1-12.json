@@ -572,9 +572,9 @@
             "ti84": [
               "MODE, RADIAN",
               "MODE, a+bi",
-              "MATH, CPX, 5: abs(, type -5-2i (i is 2nd, decimal point), ENTER (check on your model)",
+              "MATH, CMPLX, 5: abs(, type -5-2i (i is 2nd, decimal point), ENTER (check on your model)",
               "Read 5.3851..., so the modulus is 5.39 to 3 s.f.",
-              "MATH, CPX, 4: angle(, type -5-2i, ENTER (check on your model)",
+              "MATH, CMPLX, 4: angle(, type -5-2i, ENTER (check on your model)",
               "Read -2.7610..., so the argument is -2.76 to 3 s.f."
             ],
             "nspire": [

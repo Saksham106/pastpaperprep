@@ -533,8 +533,10 @@
               "Read 10.8857..., so the area is 10.9 to 3 s.f."
             ],
             "casio": [
-              "RUN-MAT, OPTN, MAT/VCT, VCT, CrossP(, then complete CrossP([3,2,-2],[-2,5,-1]), EXE (check on your model)",
-              "OPTN, MAT/VCT, VCT, Norm(, then complete Norm(Ans)/2, EXE (check on your model)",
+              "RUN-MAT: type $[[3,2,-2]]$, →, Vct A, EXE ([ is SHIFT, +; Vct is OPTN, MAT/VCT, ▷ (F6), ▷ (F6), Vct) (check on your model)",
+              "Type $[[-2,5,-1]]$, →, Vct B, EXE (check on your model)",
+              "OPTN, MAT/VCT, ▷ (F6), ▷ (F6), CrossP(, then complete CrossP(Vct A,Vct B)→Vct C, EXE: the vector product is (8, 7, 19) (check on your model)",
+              "OPTN, MAT/VCT, ▷ (F6), ▷ (F6), ▷ (F6), Norm(, then complete Norm(Vct C)/2, EXE (check on your model)",
               "Read 10.8857..., so the area is 10.9 to 3 s.f."
             ]
           }
