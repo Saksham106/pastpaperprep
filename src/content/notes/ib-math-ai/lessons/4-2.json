@@ -580,7 +580,7 @@
         },
         {
           "type": "text",
-          "text": "Shape matters too. If the median sits in the middle of the box and the two whiskers are about the same length, the data is symmetric, so it may be normally distributed ({{lesson:4.9}}). A lopsided box or one long whisker means skewed data, which is unlikely to be normal."
+          "text": "Shape matters too. If the median sits in the middle of the box and the two whiskers are about the same length, the data is roughly symmetric, so it may be normally distributed ({{lesson:4.9}}). A lopsided box or one long whisker means skewed data, which is unlikely to be normal."
         },
         {
           "type": "figure",
@@ -701,8 +701,8 @@
           "cheatSheet": true
         },
         {
-          "type": "formula",
-          "tex": "Q_{1} \\text{ at } \\tfrac{n}{4}, \\qquad \\text{median at } \\tfrac{n}{2}, \\qquad Q_{3} \\text{ at } \\tfrac{3n}{4}, \\qquad k\\text{th percentile at } \\tfrac{k}{100} \\times n",
+          "type": "fact",
+          "text": "On a cumulative frequency graph of $n$ values, read across from $\\frac{n}{4}$ for $Q_{1}$, $\\frac{n}{2}$ for the median, $\\frac{3n}{4}$ for $Q_{3}$ and $\\frac{k}{100} \\times n$ for the $k$th percentile.",
           "tag": "learn",
           "cheatSheet": true
         },

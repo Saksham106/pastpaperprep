@@ -255,7 +255,7 @@
         },
         {
           "type": "text",
-          "text": "One step gives $\\boldsymbol{s}_1 = T\\boldsymbol{s}_0$. Then $\\boldsymbol{s}_2 = T\\boldsymbol{s}_1 = T^{2}\\boldsymbol{s}_0$, and so on."
+          "text": "One step gives $\\boldsymbol{s}_1 = T\\boldsymbol{s}_0$. Then $\\boldsymbol{s}_2 = T\\boldsymbol{s}_1 = T^{2}\\boldsymbol{s}_0$, and so on. Using the same $T$ at every step assumes the transition probabilities don't change over time."
         },
         {
           "type": "formula",

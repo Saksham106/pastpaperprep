@@ -561,7 +561,7 @@
         },
         {
           "type": "text",
-          "text": "Only the vertical velocity changes. The highest point is where $v_{y} = 0$, and the object lands when $y = 0$ (take the positive root)."
+          "text": "Only the vertical velocity changes. For an upward launch ($u_{y} > 0$), the highest point is where $v_{y} = 0$. With $y$ measured from the ground, the object lands when $y = 0$ (take the positive root)."
         },
         {
           "type": "text",
@@ -746,7 +746,7 @@
         },
         {
           "type": "fact",
-          "text": "Closest approach: minimise $d(t) = \\lvert\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)\\rvert$ over the allowed times with the GDC. For constant velocities, $d(t)^{2}$ is a quadratic: the minimum is at its vertex when that is an allowed time, otherwise at an end of the allowed times. Give the time and the distance.",
+          "text": "Closest approach: minimise $d(t) = \\lvert\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)\\rvert$ over the allowed times with the GDC. For constant velocities, $d(t)^{2}$ is a quadratic (or constant, if the velocities are equal): the minimum is at its vertex when that is an allowed time, otherwise at an end of the allowed times. Give the time and the distance.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -764,7 +764,7 @@
         },
         {
           "type": "fact",
-          "text": "Projectile launched from $(x_{0}, y_{0})$ with velocity $\\begin{pmatrix}u_{x}\\\\u_{y}\\end{pmatrix}$ at $t = 0$, ignoring air resistance, with $y$ up and units of metres and seconds: $\\boldsymbol{a} = \\begin{pmatrix}0\\\\-9.8\\end{pmatrix}$, so $\\boldsymbol{r} = \\begin{pmatrix}x_{0} + u_{x}t\\\\y_{0} + u_{y}t - 4.9t^{2}\\end{pmatrix}$. The highest point is where $v_{y} = 0$.",
+          "text": "Projectile launched from $(x_{0}, y_{0})$ with velocity $\\begin{pmatrix}u_{x}\\\\u_{y}\\end{pmatrix}$ at $t = 0$, ignoring air resistance, with $y$ up and units of metres and seconds: $\\boldsymbol{a} = \\begin{pmatrix}0\\\\-9.8\\end{pmatrix}$, so $\\boldsymbol{r} = \\begin{pmatrix}x_{0} + u_{x}t\\\\y_{0} + u_{y}t - 4.9t^{2}\\end{pmatrix}$. For $u_{y} > 0$, the highest point is where $v_{y} = 0$.",
           "tag": "learn",
           "cheatSheet": true
         },

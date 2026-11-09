@@ -433,7 +433,7 @@
         },
         {
           "type": "text",
-          "text": "A chord is a straight line joining two points on a circle. It cuts a sector into a triangle and a segment: the piece between the chord and the arc."
+          "text": "A chord is a straight line joining two points on a circle. It cuts a minor sector ($\\theta < 180^{\\circ}$) into a triangle and a segment: the piece between the chord and the arc."
         },
         {
           "type": "text",
@@ -551,7 +551,7 @@
         },
         {
           "type": "fact",
-          "text": "Segment between a chord and its arc $=$ sector $-$ triangle $= \\frac{\\theta}{360} \\times \\pi r^{2} - \\frac{1}{2}r^{2}\\sin\\theta$, with $\\theta$ the angle at the centre in degrees (GDC in degree mode).",
+          "text": "Segment between a chord and its minor arc $=$ sector $-$ triangle $= \\frac{\\theta}{360} \\times \\pi r^{2} - \\frac{1}{2}r^{2}\\sin\\theta$, with $\\theta$ the angle at the centre in degrees (GDC in degree mode).",
           "tag": "learn",
           "cheatSheet": true
         }
@@ -570,5 +570,5 @@
     "Show that: substitute into the formula and give your unrounded value, such as $28.698\\ldots$, before the rounded one asked for. Never work backwards from the given answer.",
     "Determine which region is larger: work out both areas, state which is larger, and give the difference with units."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

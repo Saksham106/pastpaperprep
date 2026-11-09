@@ -302,7 +302,7 @@
         },
         {
           "type": "text",
-          "text": "For the $x$-axis, $\\theta = 0^{\\circ}$ gives $\\begin{pmatrix}1 & 0\\\\0 & -1\\end{pmatrix}$. For the line $y = x$, $\\theta = 45^{\\circ}$ gives $\\begin{pmatrix}0 & 1\\\\1 & 0\\end{pmatrix}$. All four rotation and reflection formulas are in the booklet."
+          "text": "For the $x$-axis, $\\theta = 0^{\\circ}$ gives $\\begin{pmatrix}1 & 0\\\\0 & -1\\end{pmatrix}$. For the line $y = x$, $\\theta = 45^{\\circ}$ gives $\\begin{pmatrix}0 & 1\\\\1 & 0\\end{pmatrix}$. For the $y$-axis, $\\theta = 90^{\\circ}$ gives $\\begin{pmatrix}-1 & 0\\\\0 & 1\\end{pmatrix}$, even though $\\tan 90^{\\circ}$ is undefined. All four rotation and reflection formulas are in the booklet."
         },
         {
           "type": "example",
@@ -587,7 +587,7 @@
         },
         {
           "type": "text",
-          "text": "If $\\det A < 0$, the image is also flipped over. If $\\det A = 0$, the shape is squashed onto a line, and $A$ has no inverse."
+          "text": "If $\\det A < 0$, the image is also flipped over. If $\\det A = 0$, the shape is squashed onto a line (or a single point), and $A$ has no inverse."
         },
         {
           "type": "text",

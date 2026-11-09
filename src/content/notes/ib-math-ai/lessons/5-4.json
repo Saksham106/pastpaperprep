@@ -567,7 +567,7 @@
   "mistakes": [
     "Taking the $y$-coordinate from $f'(a)$ instead of $f(a)$. The point is on the curve, so use $f$. Only the gradient comes from $f'$.",
     "Leaving $x$ in the gradient, as in $y + 2 = (3x^{2} - 8x)(x - 3)$. Substitute $x = a$ into $f'(x)$ first, so $m$ is a number.",
-    "Using the tangent's gradient for the normal. The normal's gradient is $-\\frac{1}{f'(a)}$, and the two gradients multiply to $-1$.",
+    "Using the tangent's gradient for the normal. When $f'(a) \\neq 0$, the normal's gradient is $-\\frac{1}{f'(a)}$, and the two gradients multiply to $-1$.",
     "Flipping the gradient but not changing its sign, so $-2$ becomes $-\\frac{1}{2}$ instead of $\\frac{1}{2}$.",
     "Rounding $f'(a)$ from the GDC to 3 s.f. and then using it. Keep the full value until the final answer.",
     "Giving both coordinates when a question asks only for $x$, or including the point you started from among the \"other\" intersections."

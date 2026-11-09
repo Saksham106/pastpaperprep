@@ -151,7 +151,7 @@
         },
         {
           "type": "text",
-          "text": "4. Exponential $y = ab^{x}$: the same percentage change for each step in $x$, growth if $b > 1$ and decay if $0 < b < 1$. 5. Power $y = ax^{b}$: $y$ varies with a power of $x$, as mass varies with length. 6. Sine $y = a\\sin(bx + c) + d$: a repeating cycle, such as tides."
+          "text": "4. Exponential $y = ab^{x}$: the same percentage change for each step in $x$, with $a > 0$, growth if $b > 1$ and decay if $0 < b < 1$. 5. Power $y = ax^{b}$: $y$ varies with a power of $x$, as mass varies with length. 6. Sine $y = a\\sin(bx + c) + d$: a repeating cycle, such as tides."
         },
         {
           "type": "examTip",
@@ -319,7 +319,7 @@
         },
         {
           "type": "result",
-          "statement": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit, and $SS_{\\text{res}} = 0$ only when every point lies on the curve. The least squares curve of a chosen type has the smallest $SS_{\\text{res}}$ of all curves of that type.",
+          "statement": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit, and $SS_{\\text{res}} = 0$ only when every point lies on the curve. The least squares curve of a chosen type has the smallest $SS_{\\text{res}}$ of all curves of that type (but the GDC's exponential and power models minimise it for $\\ln y$, so they may not).",
           "why": "Each squared residual is at least $0$, so the total is $0$ only when every residual is $0$."
         },
         {
@@ -700,7 +700,7 @@
         },
         {
           "type": "fact",
-          "text": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit; the least squares curve of a type has the smallest $SS_{\\text{res}}$ of that type.",
+          "text": "For models fitted to the same data, a smaller $SS_{\\text{res}}$ means a closer fit; the least squares curve of a type has the smallest $SS_{\\text{res}}$ of that type (the GDC's exponential and power regressions minimise it for $\\ln y$ instead).",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -598,7 +598,7 @@
   ],
   "examTips": [
     "Write down the distribution of $\\bar{X}$ with its mean and variance, such as $\\bar{X} \\sim \\mathrm{N}\\left(64, \\frac{9}{20}\\right)$. These often earn their own marks, separate from the probability.",
-    "Justify a normal model in one line: either the population is normal, or $n > 30$ so the central limit theorem applies. Name which one.",
+    "Justify a normal model for $\\bar{X}$ in one line: either the population is normal, or $n > 30$ so the central limit theorem applies. Name which one.",
     "State an assumption in context. For a total or a sample mean the key one is independence, such as one customer's spend not affecting another's, not just \"the data are independent\".",
     "Interpret a probability about a mean in the question's words: a small value means a sample mean like that would be unusual if the model is right."
   ],

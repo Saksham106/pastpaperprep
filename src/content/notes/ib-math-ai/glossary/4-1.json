@@ -44,7 +44,7 @@
   {
     "id": "quartile",
     "term": "quartile",
-    "definition": "One of the values that split ordered data into quarters: a quarter of the data lies below the lower quartile $Q_{1}$ and three quarters below the upper quartile $Q_{3}$; methods differ, so a GDC and a hand method can give slightly different values.",
+    "definition": "One of the values that split ordered data into quarters: about a quarter of the data lies below the lower quartile $Q_{1}$ and about three quarters below the upper quartile $Q_{3}$; methods differ, so a GDC and a hand method can give slightly different values.",
     "lesson": "4.1"
   },
   {
@@ -68,7 +68,7 @@
   {
     "id": "systematic-sampling",
     "term": "systematic sampling",
-    "definition": "Choosing every $k$th member of an ordered list of the population, where $k = \\frac{N}{n}$ (rounded down if not whole) for a population of $N$ and a sample of $n$, starting from a member picked at random among the first $k$.",
+    "definition": "Choosing every $k$th member of an ordered list of the population, where $k = \\frac{N}{n}$ (rounded down if not whole) for a population of $N$ and a sample of $n$, starting from a member picked at random among the first $k$ and stopping once there are $n$.",
     "lesson": "4.1"
   },
   {

@@ -2,7 +2,7 @@
   {
     "id": "least-squares-regression",
     "term": "least squares regression",
-    "definition": "Fitting a line or curve of a chosen type (linear, quadratic, cubic, exponential, power or sine) by choosing its parameters so that the sum of the squared vertical distances from the data points to it is as small as possible.",
+    "definition": "Fitting a line or curve of a chosen type (linear, quadratic, cubic, exponential, power or sine) by choosing its parameters so that the sum of the squared vertical distances from the data points to it is as small as possible; for exponential and power models the GDC does this for $\\ln y$ rather than $y$.",
     "lesson": "4.13"
   },
   {

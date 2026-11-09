@@ -574,7 +574,7 @@
         },
         {
           "type": "text",
-          "text": "The [[mean|mean]] of a [[sample|sample]] is a linear combination too: $\\bar{X} = \\frac{1}{n}(X_{1} + \\dots + X_{n})$. The rules give $\\mathrm{E}(\\bar{X}) = \\frac{1}{n} \\times n\\mu = \\mu$ and $\\mathrm{Var}(\\bar{X}) = \\frac{1}{n^{2}} \\times n\\sigma^{2} = \\frac{\\sigma^{2}}{n}$. You will meet $\\bar{X}$ again in {{lesson:4.15}}."
+          "text": "The [[mean|mean]] of a random [[sample|sample]], with independent $X_{i}$, is a linear combination too: $\\bar{X} = \\frac{1}{n}(X_{1} + \\dots + X_{n})$. The rules give $\\mathrm{E}(\\bar{X}) = \\frac{1}{n} \\times n\\mu = \\mu$ and $\\mathrm{Var}(\\bar{X}) = \\frac{1}{n^{2}} \\times n\\sigma^{2} = \\frac{\\sigma^{2}}{n}$. You will meet $\\bar{X}$ again in {{lesson:4.15}}."
         },
         {
           "type": "mistake",

@@ -332,7 +332,7 @@
         },
         {
           "type": "text",
-          "text": "In ordered data, a quarter of the values lie below the lower quartile $Q_{1}$, and three quarters below the upper quartile $Q_{3}$. Read them from your GDC's one-variable statistics."
+          "text": "In ordered data, about a quarter of the values lie below the lower quartile $Q_{1}$, and about three quarters below the upper quartile $Q_{3}$. Read them from your GDC's one-variable statistics."
         },
         {
           "type": "text",
@@ -493,7 +493,7 @@
         {
           "type": "definition",
           "term": "Systematic sampling",
-          "statement": "In [[systematic-sampling|systematic sampling]], you list the population in order and take every $k$th member, where $k = \\frac{N}{n}$ for a population of $N$ and a sample of $n$, rounded down if it is not a whole number. The first member is chosen at random from the first $k$.",
+          "statement": "In [[systematic-sampling|systematic sampling]], you list the population in order and take every $k$th member, where $k = \\frac{N}{n}$ for a population of $N$ and a sample of $n$, rounded down if it is not a whole number. The first member is chosen at random from the first $k$, and you stop once you have $n$.",
           "plain": "A random start, then every $k$th one."
         },
         {
@@ -703,7 +703,7 @@
         },
         {
           "type": "fact",
-          "text": "Simple random: every sample of that size equally likely. Systematic: every $k$th of an ordered list, $k = \\frac{N}{n}$ (rounded down if not whole), random start in the first $k$. Stratified: random within groups, in proportion. Quota: fixed numbers per group, collector chooses. Convenience: easiest to reach.",
+          "text": "Simple random: every sample of that size equally likely. Systematic: every $k$th of an ordered list, $k = \\frac{N}{n}$ (rounded down if not whole), random start in the first $k$, stop at $n$. Stratified: random within groups, in proportion. Quota: fixed numbers per group, collector chooses. Convenience: easiest to reach.",
           "tag": "learn",
           "cheatSheet": true
         },

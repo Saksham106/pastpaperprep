@@ -408,7 +408,7 @@
         },
         {
           "type": "examTip",
-          "text": "For $n$ years compounded monthly, mark schemes also accept $N = n$ with $P/Y = 1$ and $C/Y = 12$ (here $N = 7$). Either way, write all the entries down: they earn the method mark."
+          "text": "With no regular payments ($PMT = 0$) and $n$ years compounded monthly, mark schemes also accept $N = n$ with $P/Y = 1$ and $C/Y = 12$ (here $N = 7$). Either way, write all the entries down: they earn the method mark."
         },
         {
           "type": "check",
@@ -730,8 +730,8 @@
           "cheatSheet": true
         },
         {
-          "type": "formula",
-          "tex": "FV_{\\text{real}} = PV \\times \\left(1 + \\frac{r - i}{100k}\\right)^{kn}",
+          "type": "fact",
+          "text": "Real value, using the real rate: interest rate $r$ minus inflation rate $i$ (an approximation): $FV_{\\text{real}} = PV \\times \\left(1 + \\frac{r - i}{100k}\\right)^{kn}$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -757,5 +757,5 @@
     "Give the accuracy asked for (nearest cent, nearest dollar), and keep full calculator values for later parts. A wrong earlier answer used correctly can still earn follow-through marks.",
     "\"Comment\" on a prediction with a reason tied to the model's assumptions: the rate stays the same, no money is added or taken out, inflation stays as stated."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }

@@ -107,7 +107,7 @@
         {
           "type": "definition",
           "term": "significant figures",
-          "statement": "The significant figures of a number are its digits counted from the first non-zero digit. Zeros before that digit are not significant. Zeros between non-zero digits are significant.",
+          "statement": "The significant figures of a number are its digits counted from the first non-zero digit. Zeros before that digit are not significant. Zeros between non-zero digits are significant. Zeros at the end of a whole number may only hold places: $86\\,000$ to $2$ s.f. has $2$ significant figures.",
           "plain": "Significant figures are the digits that carry the size and detail of a number, not the zeros that only place the decimal point."
         },
         {
@@ -511,7 +511,7 @@
         },
         {
           "type": "text",
-          "text": "Then check the answer makes sense in context. A length, area, mass or time can't be negative, and a count of people is a whole number."
+          "text": "Then check the answer makes sense in context. A length, area, mass or time taken can't be negative, and a count of people is a whole number."
         },
         {
           "type": "example",
@@ -672,7 +672,7 @@
     "Rounding in the middle of a calculation. Rounding $\\pi r^{2}$ before using it again changes the final digits; keep the full value and round once at the end.",
     "Writing an upper bound as $7.349$, or with $\\le$. The upper bound is $7.35$, and the true value is strictly less than it.",
     "Dropping place-holding zeros. $86\\,390$ to $2$ s.f. is $86\\,000$, not $86$.",
-    "Keeping a negative solution for a length or a time. Reject it, and say why."
+    "Keeping a negative solution for a length or a time taken. Reject it, and say why."
   ],
   "examTips": [
     "\"Write down\" a bound: no working is needed, but give the exact bound ($7.35$, not $7.349$). If an inequality or interval is asked for, give both ends.",
@@ -680,5 +680,5 @@
     "\"Determine whether it is certain\": use the extreme bound, compare it with the limit, and state a conclusion in the context of the question.",
     "Keep full calculator values for later parts. A wrong earlier answer used correctly can still earn follow-through marks."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

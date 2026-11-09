@@ -574,7 +574,7 @@
         },
         {
           "type": "text",
-          "text": "Logs also solve equations where the unknown is the exponent. By the definition, $10^{x} = b$ gives $x = \\log_{10} b$, and $\\mathrm{e}^{x} = b$ gives $x = \\ln b$. Get the power on its own first."
+          "text": "Logs also solve equations where the unknown is the exponent. By the definition, for $b > 0$, $10^{x} = b$ gives $x = \\log_{10} b$, and $\\mathrm{e}^{x} = b$ gives $x = \\ln b$. Get the power on its own first."
         },
         {
           "type": "example",

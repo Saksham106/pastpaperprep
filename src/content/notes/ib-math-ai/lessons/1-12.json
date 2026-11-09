@@ -419,7 +419,7 @@
         {
           "type": "definition",
           "term": "Argument of a complex number",
-          "statement": "The [[argument-of-a-complex-number|argument]] $\\arg z$ of $z \\neq 0$ is the angle from the positive real axis to the line from $0$ to $z$, measured anticlockwise. It is usually in radians, with $-\\pi < \\arg z \\le \\pi$, so points below the real axis have a negative argument.",
+          "statement": "The [[argument-of-a-complex-number|argument]] $\\arg z$ of $z \\neq 0$ is the angle from the positive real axis to the line from $0$ to $z$, measured anticlockwise. It is usually in radians, with $-\\pi < \\arg z \\le \\pi$, so points below the real axis have a negative argument, measured clockwise.",
           "plain": "The direction of the point, seen from zero."
         },
         {
@@ -428,7 +428,7 @@
         },
         {
           "type": "text",
-          "text": "1. Sketch the point and note its quadrant."
+          "text": "1. Sketch the point and note its quadrant. A point on an axis needs no calculation: $\\arg z$ is $0$ or $\\pi$ on the real axis, and $\\frac{\\pi}{2}$ or $-\\frac{\\pi}{2}$ on the imaginary axis."
         },
         {
           "type": "text",
@@ -754,5 +754,5 @@
     "“Solve” a quadratic with $\\Delta < 0$: show $\\Delta$ and the quadratic formula with your values, then give both roots in $a + b\\mathrm{i}$ form.",
     "“Interpret”: say what a result means in context. Non-real roots mean the model never reaches that value."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

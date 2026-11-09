@@ -367,7 +367,7 @@
         },
         {
           "type": "result",
-          "statement": "If $\\lvert r\\rvert$ is greater than the given critical value, the linear correlation is significant. If it is less, the correlation could be chance.",
+          "statement": "If $\\lvert r\\rvert$ is greater than the critical value for that number of pairs and significance level, the linear correlation is significant at that level. If it is less, the correlation could be chance.",
           "why": "Unrelated variables give an $\\lvert r\\rvert$ that large only rarely, such as in $5\\%$ of samples."
         },
         {
@@ -895,7 +895,7 @@
         },
         {
           "type": "fact",
-          "text": "If $\\lvert r\\rvert$ is greater than the given critical value, the linear correlation is significant.",
+          "text": "If $\\lvert r\\rvert$ is greater than the critical value for that number of pairs and significance level, the linear correlation is significant at that level.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -913,13 +913,13 @@
         },
         {
           "type": "fact",
-          "text": "In the regression line $y = ax + b$, $a$ is the predicted change in $y$ for each increase of $1$ in $x$, and $b$ is the predicted $y$ when $x = 0$.",
+          "text": "In the regression line $y = ax + b$, $a$ is the predicted change in $y$ for each increase of $1$ in $x$, and $b$ is the predicted $y$ when $x = 0$, which only means something if $x = 0$ makes sense and is near the data.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Use the $y$ on $x$ line only to predict $y$, for $x$ inside the data range; it cannot reliably predict $x$ from $y$.",
+          "text": "Use the $y$ on $x$ line only to predict $y$, for $x$ inside the data range and when the correlation is strong; it cannot reliably predict $x$ from $y$.",
           "tag": "learn",
           "cheatSheet": true
         }

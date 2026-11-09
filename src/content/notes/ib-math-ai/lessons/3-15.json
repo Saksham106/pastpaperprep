@@ -721,7 +721,7 @@
         },
         {
           "type": "fact",
-          "text": "Transition matrix of a strongly connected graph: $T_{ij}$ is the probability of moving from $j$ to $i$, so columns add to $1$. With equally likely edges in a simple graph, $T_{ij} = \\frac{1}{\\text{out-degree of } j}$ when $j \\to i$ is an edge.",
+          "text": "Transition matrix of a strongly connected directed graph, or a connected undirected one: $T_{ij}$ is the probability of moving from $j$ to $i$, so columns add to $1$. With equally likely edges in a simple graph, $T_{ij} = \\frac{1}{\\text{out-degree of } j}$ when $j \\to i$ is an edge, and $0$ otherwise.",
           "tag": "learn",
           "cheatSheet": true
         }

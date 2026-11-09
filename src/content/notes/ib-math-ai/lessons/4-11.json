@@ -217,7 +217,7 @@
         },
         {
           "type": "result",
-          "statement": "If the p-value is less than the significance level, reject $\\mathrm{H}_0$. If the p-value is greater than the significance level, do not reject $\\mathrm{H}_0$.",
+          "statement": "If the p-value is less than the significance level, reject $\\mathrm{H}_0$. Otherwise, do not reject $\\mathrm{H}_0$.",
           "why": "A small p-value means data like yours would be rare if $\\mathrm{H}_0$ were true."
         },
         {
@@ -821,7 +821,7 @@
         },
         {
           "type": "fact",
-          "text": "SL t-test: pooled two-sample, unpaired samples, normal populations, equal variances. $\\neq$ is two-tailed; $>$ or $<$ is one-tailed.",
+          "text": "SL t-test: pooled two-sample, unpaired samples, normal populations, equal population variances. $\\neq$ is two-tailed; $>$ or $<$ is one-tailed.",
           "tag": "learn",
           "cheatSheet": true
         },

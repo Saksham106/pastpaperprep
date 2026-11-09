@@ -391,7 +391,7 @@
         },
         {
           "type": "text",
-          "text": "On a GDC, use one-variable statistics with the values as data and the probabilities as frequencies. The mean $\\bar{x}$ is $\\mathrm{E}(X)$, and the total frequency $n$ should be $1$, which checks the table. If your model refuses decimal frequencies, multiply every probability by $100$ first: the mean doesn't change, and $n$ should then be $100$."
+          "text": "On a GDC, use one-variable statistics with the values as data and the probabilities as frequencies. The mean $\\bar{x}$ is $\\mathrm{E}(X)$, and the total frequency $n$ should be $1$, which checks the table. If your model refuses decimal frequencies and every probability has at most two decimal places, multiply every probability by $100$ first: the mean doesn't change, and $n$ should then be $100$."
         },
         {
           "type": "example",

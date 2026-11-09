@@ -6,7 +6,7 @@
   "title": "Local maximum and minimum points",
   "level": "SL",
   "topic": 5,
-  "summary": "At a [[local-maximum|local maximum]] or [[local-minimum|local minimum]] of a smooth curve the [[gradient|gradient]] is zero, so you find these points by solving $f'(x) = 0$. On Paper 2 your GDC can draw $y = f'(x)$ from $f(x)$ and solve the equation for you. A local maximum need not be the greatest value on the [[domain|domain]]: check the end points too.",
+  "summary": "At a [[local-maximum|local maximum]] or [[local-minimum|local minimum]] inside the [[domain|domain]] of a smooth curve, the [[gradient|gradient]] is zero, so you find these points by solving $f'(x) = 0$. On Paper 2 your GDC can draw $y = f'(x)$ from $f(x)$ and solve the equation for you. A local maximum need not be the greatest value on the [[domain|domain]]: check the end points too.",
   "goals": [
     {
       "text": "Solve $f'(x) = 0$ to find the $x$-values at which a curve has a horizontal [[tangent|tangent]].",
@@ -157,7 +157,7 @@
         },
         {
           "type": "text",
-          "text": "3. Decide what each point is, from the graph or from the sign of $f'(x)$ just either side. Test values closer to the point than any other solution."
+          "text": "3. Decide what each point is, from the graph or from the sign of $f'(x)$ just either side. Test values closer to the point than any other solution, with no break in the graph in between."
         },
         {
           "type": "result",
@@ -271,7 +271,7 @@
         },
         {
           "type": "text",
-          "text": "There are two routes. If $f(x)$ is a sum of integer powers of $x$, differentiate it by hand as in {{lesson:5.3}}. Then let the GDC solve $f'(x) = 0$ with its polynomial solver or by graphing."
+          "text": "There are two routes. If $f(x)$ is a sum of integer powers of $x$, differentiate it by hand as in {{lesson:5.3}}. Then let the GDC solve $f'(x) = 0$: with its polynomial solver if $f'(x)$ is a polynomial, or by graphing $y = f'(x)$ if it has a negative power, such as $-\\frac{450}{x^{2}}$."
         },
         {
           "type": "text",

@@ -191,11 +191,11 @@
         },
         {
           "type": "text",
-          "text": "3. Find the acute angle $\\alpha$ between the line and the real axis: $\\tan\\alpha = \\left\\lvert\\frac{b}{a}\\right\\rvert$. (If $a = 0$, the point is on the imaginary axis: $\\theta = \\frac{\\pi}{2}$ or $-\\frac{\\pi}{2}$.)"
+          "text": "3. Find the acute angle $\\alpha$ between the line and the real axis: $\\tan\\alpha = \\left\\lvert\\frac{b}{a}\\right\\rvert$. (On an axis, skip this: $\\theta = 0$ or $\\pi$ on the real axis, and $\\frac{\\pi}{2}$ or $-\\frac{\\pi}{2}$ on the imaginary axis.)"
         },
         {
           "type": "text",
-          "text": "4. Turn $\\alpha$ into $\\theta$. First quadrant: $\\theta = \\alpha$. Second: $\\theta = \\pi - \\alpha$. Third: $\\theta = -(\\pi - \\alpha)$. Fourth: $\\theta = -\\alpha$."
+          "text": "4. Turn $\\alpha$ into $\\theta$. First quadrant: $\\theta = \\alpha$. Second: $\\theta = \\pi - \\alpha$. Third: $\\theta = -(\\pi - \\alpha)$. Fourth: $\\theta = -\\alpha$. These give $-\\pi < \\theta \\le \\pi$; for $0 \\le \\theta < 2\\pi$, add $2\\pi$ to a negative answer."
         },
         {
           "type": "example",
@@ -242,7 +242,7 @@
         },
         {
           "type": "text",
-          "text": "For an unfamiliar angle, use the GDC in radian mode. It gives $\\theta$ in the right quadrant."
+          "text": "For an unfamiliar angle, use the GDC in radian mode. It gives $\\theta$ in the right quadrant, with $-\\pi < \\theta \\le \\pi$: add $2\\pi$ to a negative value if the range is $0 \\le \\theta < 2\\pi$."
         },
         {
           "type": "example",
@@ -427,7 +427,7 @@
         },
         {
           "type": "text",
-          "text": "The same rules hold in cis notation. Afterwards, add or subtract $2\\pi$ if the argument has left the range."
+          "text": "The same rules hold in cis notation. Afterwards, if the argument has left the range, add or subtract $2\\pi$ as many times as needed to bring it back."
         },
         {
           "type": "example",
@@ -660,7 +660,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Two AC voltages can share a frequency but peak at different times. Their sum is again a wave with that frequency, and complex numbers find it quickly."
+          "text": "Two AC voltages can share a frequency but peak at different times. Their sum is again a wave with that frequency (unless they cancel out exactly), and complex numbers find it quickly."
         },
         {
           "type": "text",
@@ -795,7 +795,7 @@
         },
         {
           "type": "fact",
-          "text": "Multiply: multiply the moduli, add the arguments. Divide: divide the moduli, subtract the arguments. For an integer $n$, $\\left(r\\mathrm{e}^{\\mathrm{i}\\theta}\\right)^{n} = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta}$. Then add or subtract $2\\pi$ to bring the argument into range.",
+          "text": "Multiply: multiply the moduli, add the arguments. Divide: divide the moduli, subtract the arguments. For an integer $n$, $\\left(r\\mathrm{e}^{\\mathrm{i}\\theta}\\right)^{n} = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta}$. Then add or subtract multiples of $2\\pi$ to bring the argument into range.",
           "tag": "learn",
           "cheatSheet": true
         },

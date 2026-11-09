@@ -698,8 +698,8 @@
   "examTips": [
     "Find a binomial probability: write $X \\sim \\mathrm{B}(n, p)$ and the probability statement, such as $\\mathrm{P}(X \\ge 6) = 1 - \\mathrm{P}(X \\le 5)$, before the GDC value.",
     "State an assumption: name independence or the constant probability, in context.",
-    "Give probabilities to 3 s.f., keeping trailing zeros: $0.250$, not $0.25$; $0.00986$, not $0.01$.",
+    "Give a probability exactly or to 3 s.f.; when you round, keep trailing zeros: $0.250$, not $0.25$; $0.00986$, not $0.01$.",
     "Find an expected number: write $np$, or $n$ times a probability, with the numbers in, then the value. Don't round it to a whole number."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

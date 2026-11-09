@@ -150,12 +150,12 @@
       "blocks": [
         {
           "type": "text",
-          "text": "In exponential decay, each equal step in time multiplies the amount by the same factor. So the time to halve is always the same, whatever the starting amount."
+          "text": "In exponential decay towards $0$, each equal step in time multiplies the amount by the same factor. So the time to halve is always the same, whatever the starting amount."
         },
         {
           "type": "definition",
           "term": "half-life",
-          "statement": "The half-life of a quantity in exponential decay is the time it takes to fall to half its value. For $N(t) = N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$, the half-life is $\\frac{\\ln 2}{k}$.",
+          "statement": "The half-life of a quantity in exponential decay towards $0$ is the time it takes to fall to half its value. For $N(t) = N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$, the half-life is $\\frac{\\ln 2}{k}$.",
           "plain": "After one half-life half is left, after two a quarter, after three an eighth."
         },
         {

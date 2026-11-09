@@ -574,8 +574,8 @@
   "examTips": [
     "\"Show that\" with logs: start from the given expression, use one law per line and name it. Your final line must match the given result exactly, or the last mark is lost.",
     "When asked to write an expression in the form $\\ln g(x)$, write each step. A correct use of one law can earn a method mark even if a later step slips.",
-    "Check a simplification on your GDC: put the same test value, such as $x = 3$, into the original expression and into your answer. The two values must agree.",
+    "Check a simplification on your GDC: put the same test value, one where every log is defined, into the original expression and into your answer. The two values must agree; if they don't, the simplification is wrong.",
     "\"Solve\" means find every valid solution. With a GDC, write down the equation you give the GDC, then the solution, and say why you rejected any value."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

@@ -308,7 +308,7 @@
         },
         {
           "type": "text",
-          "text": "To pick out one curve you need one more fact, such as a point on it. This is a [[boundary-condition|boundary condition]], and it fixes the [[constant-of-integration|constant of integration]]."
+          "text": "To pick out one curve you need one more fact, such as a point on it. This is a [[boundary-condition|boundary condition]], and it fixes the [[constant-of-integration|constant of integration]]. One point fixes $C$ only on a domain with no breaks: with a term like $\\frac{5}{x^{2}}$, work on $x > 0$ or on $x < 0$, not both."
         },
         {
           "type": "text",
@@ -730,7 +730,7 @@
         },
         {
           "type": "fact",
-          "text": "Boundary condition: integrate with $+\\,C$, substitute the known point into the integrated function (not the derivative), solve for $C$, then write the full function.",
+          "text": "Boundary condition, on a domain with no breaks: integrate with $+\\,C$, substitute the known point into the integrated function (not the derivative), solve for $C$, then write the full function.",
           "tag": "learn",
           "cheatSheet": true
         },

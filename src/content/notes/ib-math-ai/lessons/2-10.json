@@ -279,7 +279,7 @@
         },
         {
           "type": "text",
-          "text": "With $\\log_{10} y$, use $a = 10^{m}$ and $k = 10^{c}$ instead. The model can also be written $y = k\\mathrm{e}^{mx}$."
+          "text": "With $\\ln y$, the model can also be written $y = k\\mathrm{e}^{mx}$. With $\\log_{10} y$, use $a = 10^{m}$ and $k = 10^{c}$ instead."
         },
         {
           "type": "definition",
@@ -407,7 +407,7 @@
         },
         {
           "type": "text",
-          "text": "$n = 1$ is [[direct-variation|direct variation]], $n = -1$ is [[inverse-variation|inverse variation]], and $n = 2$ means doubling $x$ multiplies $y$ by $4$."
+          "text": "A power model can have any $n$, such as $0.75$. When $n$ is a positive integer it is [[direct-variation|direct variation]], and when $n$ is a negative integer it is [[inverse-variation|inverse variation]] ({{lesson:2.5}}). $n = 2$ means doubling $x$ multiplies $y$ by $4$."
         },
         {
           "type": "figure",
@@ -649,7 +649,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "With a log vertical axis and time across, a straight line means a constant percentage growth rate, and a steeper line means faster percentage growth."
+          "text": "With a log vertical axis and time across, a straight line means a constant percentage rate of change (growth if it rises, decay if it falls), and a steeper rising line means faster percentage growth."
         },
         {
           "type": "fact",
@@ -673,7 +673,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "To choose between exponential and power models, find $r$ for $\\ln y$ against $x$ and for $\\ln y$ against $\\ln x$. Choose the one with $|r|$ closer to $1$, and say so."
+          "text": "To choose between exponential and power models for positive data, find $r$ for $\\ln y$ against $x$ and for $\\ln y$ against $\\ln x$. Choose the one with $|r|$ closer to $1$, and say so."
         },
         {
           "type": "fact",
@@ -694,7 +694,7 @@
   "examTips": [
     "“Find the regression line in the form $\\ln y = ax + b$”: write that you took $\\ln$ of the $y$ values, then give the equation with $\\ln y$ on the left and $a$ and $b$ to 3 s.f.",
     "“Justify” a choice of model: state $r$ or $r^{2}$ for both linearized graphs and say which is closer to $1$ in size. A choice without a valid reason earns no marks.",
-    "“Interpret” a semi-log gradient as a growth or decay factor per unit of $x$, in context: “the concentration falls by about $27\\%$ each hour”.",
+    "“Interpret” a semi-log gradient $m$ through its factor per unit of $x$, $\\mathrm{e}^{m}$ (or $10^{m}$ with $\\log_{10}$), in context: “the concentration falls by about $27\\%$ each hour”.",
     "You won't be asked to draw or sketch log graphs, but you must read them. First check whether each axis shows the value or its log, and which base."
   ],
   "readingMinutes": 26

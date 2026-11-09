@@ -150,7 +150,7 @@
         },
         {
           "type": "text",
-          "text": "3. Mark the unknown. Find a triangle that holds it and three known facts. If none does, find a missing length in a neighbouring triangle first."
+          "text": "3. Mark the unknown. Find a triangle that holds it and three known facts, at least one of them a length. If none does, find a missing length in a neighbouring triangle first."
         },
         {
           "type": "text",
@@ -232,7 +232,7 @@
         },
         {
           "type": "text",
-          "text": "A height is a perpendicular. Drawing it into a triangle with no right angle splits it into two right-angled triangles."
+          "text": "A height is a perpendicular. Drawn from a corner to the opposite side, it splits a triangle with no right angle into two right-angled triangles, as long as both angles on that side are acute. If one is obtuse, the height lands outside the triangle."
         },
         {
           "type": "example",
@@ -365,7 +365,7 @@
         },
         {
           "type": "text",
-          "text": "When two angles of elevation are measured from two points in a line with the foot of a tall object, neither right-angled triangle has a known side. Use the triangle between the two observers and the top instead: it has one."
+          "text": "When two angles of elevation are measured from two points in a line with the foot of a tall object, and only the distance between the points is known, neither right-angled triangle has a known side. Use the triangle between the two observers and the top instead: it has one."
         },
         {
           "type": "example",
@@ -608,5 +608,5 @@
     "Give lengths to 3 s.f. with units, and angles to 1 d.p. unless the question says otherwise. Write bearings with three figures before the decimal point, such as $097.0^{\\circ}$. If the question asks for the nearest whole number, round to it.",
     "When a later part uses an earlier answer, use the stored value. A wrong earlier answer used correctly can still earn follow-through (FT) marks."
   ],
-  "readingMinutes": 25
+  "readingMinutes": 26
 }

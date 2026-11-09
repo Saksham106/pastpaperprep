@@ -127,7 +127,7 @@
         },
         {
           "type": "text",
-          "text": "It's in the formula booklet. You must check the condition: $\\lvert r\\rvert < 1$ means $-1 < r < 1$. Otherwise the terms never shrink, so the totals never settle and there is no sum to infinity."
+          "text": "It's in the formula booklet. You must check the condition: $\\lvert r\\rvert < 1$ means $-1 < r < 1$. Otherwise the terms never shrink in size, so the totals never settle and there is no sum to infinity."
         },
         {
           "type": "text",
@@ -339,7 +339,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A [[fractal|fractal]] is built by applying the same transformations again and again, as in {{lesson:3.9}}. If each stage adds a fixed fraction of what the stage before added, those amounts are geometric. $S_{\\infty}$ then gives the size of the finished fractal."
+          "text": "A [[fractal|fractal]] is built by applying the same transformations again and again, as in {{lesson:3.9}}. If each stage adds a fixed fraction of what the stage before added, those amounts are geometric. When that fraction is less than $1$, $S_{\\infty}$ gives the total added, and the starting size plus $S_{\\infty}$ is the size of the finished fractal."
         },
         {
           "type": "figure",
@@ -477,7 +477,7 @@
         },
         {
           "type": "fact",
-          "text": "Least $n$ for a total to pass a target: solve $S_{n} > \\text{target}$ on the GDC, then test the whole numbers either side and give the first that works.",
+          "text": "Least $n$ for a total of positive terms to pass a target: if $0 < r < 1$, first check the target is below $S_{\\infty}$, or it is never passed. Then solve $S_{n} > \\text{target}$ on the GDC, test the whole numbers either side and give the first that works.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -498,8 +498,8 @@
     "A limitation that ignores the context. Say what breaks the fixed ratio, such as the process stopping."
   ],
   "examTips": [
-    "Find the smallest value the total can never exceed: write $\\frac{u_{1}}{1 - r}$ with the numbers in, add any starting amount, and give units.",
-    "Determine whether a total reaches a target: compare $S_{\\infty}$ with the target, then answer in words, in context.",
+    "Find the value a total of positive terms never exceeds: write $\\frac{u_{1}}{1 - r}$ with the numbers in, add any starting amount, and give units.",
+    "Determine whether a total of positive terms reaches a target: it does only if the target is less than $S_{\\infty}$. Compare them, then answer in words, in context.",
     "Justify a rejected ratio: say $\\lvert r\\rvert \\ge 1$ gives no sum to infinity, or say why the context rules it out."
   ],
   "readingMinutes": 19

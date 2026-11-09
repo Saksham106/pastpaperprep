@@ -496,7 +496,7 @@
             "$n = 4$ and $h = 2.5$ as before.",
             "$A_{\\max} = \\frac{1}{2} \\times 2.5 \\times \\left((4.25 + 3.75) + 2(5.15 + 5.65 + 4.85)\\right) = 1.25 \\times 39.3 = 49.125$",
             "Check: each height rose by $0.05$, which adds $0.05 \\times (10 - 0) = 0.5$ to the earlier $48.625$.",
-            "So the trapezoidal estimate is at most $49.125$ m², about $49.1$ m², whatever the true widths were."
+            "So the trapezoidal estimate is less than $49.125$ m², about $49.1$ m², whatever the true widths were."
           ],
           "answer": "$A_{\\max} \\approx 49.1\\text{ m}^{2}$",
           "video": null,

@@ -26,7 +26,7 @@
   {
     "id": "critical-value",
     "term": "critical value",
-    "definition": "The boundary value of a test statistic for a given significance level: correlation is significant when $\\lvert r\\rvert$ is greater than the critical value of $r$, and in a $\\chi^{2}$ test $\\mathrm{H}_0$ is rejected when $\\chi^{2}$ is greater than its critical value.",
+    "definition": "The boundary value of a test statistic for a given significance level and sample size (number of pairs or degrees of freedom): correlation is significant when $\\lvert r\\rvert$ is greater than the critical value of $r$, and in a $\\chi^{2}$ test $\\mathrm{H}_0$ is rejected when $\\chi^{2}$ is greater than its critical value.",
     "lesson": "4.4"
   },
   {
@@ -44,7 +44,7 @@
   {
     "id": "regression-line",
     "term": "regression line",
-    "definition": "The least-squares line of $y$ on $x$, $y = ax + b$, used to predict $y$ from a value of $x$ inside the range of the data; it cannot reliably predict $x$ from $y$.",
+    "definition": "The least-squares line of $y$ on $x$, $y = ax + b$, used to predict $y$ from a value of $x$ inside the range of the data when the correlation is strong; it cannot reliably predict $x$ from $y$.",
     "lesson": "4.4"
   }
 ]

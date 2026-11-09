@@ -390,7 +390,7 @@
         },
         {
           "type": "result",
-          "statement": "Pearson's $r$ tests only for a linear relationship: $r = \\pm 1$ only when the points lie on a straight line. Spearman's $r_s$ measures any monotonic relationship: $r_s = \\pm 1$ whenever one variable always increases, or always decreases, as the other increases.",
+          "statement": "Pearson's $r$ measures only a linear relationship: $r = \\pm 1$ only when the points lie on a straight line. Spearman's $r_s$ measures any monotonic relationship: $r_s = \\pm 1$ whenever one variable always increases, or always decreases, as the other increases.",
           "why": "Ranking keeps only the order of the values. Points that always rise get matching ranks, however curved they are."
         },
         {

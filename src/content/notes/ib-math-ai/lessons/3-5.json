@@ -166,7 +166,7 @@
         },
         {
           "type": "text",
-          "text": "To show a line is the perpendicular bisector of $[AB]$, check that it passes through the midpoint, and that its gradient times the gradient of $[AB]$ is $-1$ (or, if $[AB]$ is horizontal, that the line is vertical)."
+          "text": "To show a line is the perpendicular bisector of $[AB]$, check that it passes through the midpoint, and that its gradient times the gradient of $[AB]$ is $-1$ (or, if $[AB]$ is horizontal, that the line is vertical; if $[AB]$ is vertical, that the line is horizontal)."
         },
         {
           "type": "example",
@@ -278,7 +278,7 @@
         },
         {
           "type": "text",
-          "text": "3. The bisector's gradient is the negative reciprocal, $-\\frac{1}{m}$: flip the fraction and change its sign."
+          "text": "3. If $m \\neq 0$, the bisector's gradient is the negative reciprocal, $-\\frac{1}{m}$: flip the fraction and change its sign."
         },
         {
           "type": "text",

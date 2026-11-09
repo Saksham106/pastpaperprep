@@ -587,7 +587,7 @@
         },
         {
           "type": "fact",
-          "text": "Multiply: multiply the front numbers, add the powers. Divide: divide, subtract the powers. Power: $(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}$. Then rewrite the result so that $1 \\le a < 10$, changing the power to balance.",
+          "text": "Multiply: multiply the front numbers, add the powers. Divide: divide, subtract the powers. Integer power $n$: $(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}$. Then rewrite the result so that $1 \\le a < 10$, changing the power to balance.",
           "tag": "learn",
           "cheatSheet": true
         },

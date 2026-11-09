@@ -532,7 +532,7 @@
         },
         {
           "type": "examTip",
-          "text": "Read the angle. $2\\pi$ or $360^{\\circ}$ is a full turn. A half turn, $\\pi$ or $180^{\\circ}$, sweeps half the solid, so halve the volume."
+          "text": "Read the angle. $2\\pi$ or $360^{\\circ}$ is a full turn. A half turn, $\\pi$ or $180^{\\circ}$, of a region on one side of the axis sweeps half the solid, so halve the volume."
         }
       ]
     },
@@ -549,7 +549,7 @@
         },
         {
           "type": "fact",
-          "text": "A definite integral counts a region below the $x$-axis, or left of the $y$-axis, as negative. If the curve crosses the axis inside the interval, split at each crossing and add the sizes.",
+          "text": "With the lower limit smaller than the upper, a definite integral counts a region below the $x$-axis, or left of the $y$-axis, as negative. If the curve crosses the axis inside the interval, split at each crossing and add the sizes.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -593,5 +593,5 @@
     "\"Find the area\" with part of the region below the $x$-axis: show the split (or $\\int |y|\\,\\mathrm{d}x$) and give a positive answer.",
     "Give areas and volumes to 3 s.f. with units, such as $\\text{cm}^{3}$, unless an exact value is asked for. Round only at the end."
   ],
-  "readingMinutes": 20
+  "readingMinutes": 21
 }

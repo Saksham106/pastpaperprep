@@ -271,7 +271,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Exams give the sites' coordinates, and you calculate an edge as the perpendicular bisector of its two sites ({{lesson:3.5}}). You never construct it."
+          "text": "Exams give the sites' coordinates, and you calculate the equation of an edge: it lies on the perpendicular bisector of its two sites ({{lesson:3.5}}). You never construct it."
         },
         {
           "type": "text",
@@ -283,7 +283,7 @@
         },
         {
           "type": "text",
-          "text": "3. [[perpendicular-lines|Perpendicular lines]] have gradients that multiply to $-1$, so the edge has gradient $-\\frac{1}{m}$."
+          "text": "3. [[perpendicular-lines|Perpendicular lines]] have gradients that multiply to $-1$, so if $m \\neq 0$ the edge has gradient $-\\frac{1}{m}$."
         },
         {
           "type": "text",
@@ -423,7 +423,7 @@
         },
         {
           "type": "text",
-          "text": "3. Continue along the bisector with the site across that edge. Repeat until the new cell closes."
+          "text": "3. Continue along the bisector with the site across that edge. Repeat until the new cell closes. If you reach the boundary of the region, go back and trace the first bisector the other way too."
         },
         {
           "type": "text",

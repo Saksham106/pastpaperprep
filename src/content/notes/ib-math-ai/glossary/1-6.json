@@ -2,7 +2,7 @@
   {
     "id": "significant-figures",
     "term": "significant figures",
-    "definition": "The digits of a number counted from its first non-zero digit, so $0.0407$ has $3$ significant figures; zeros between non-zero digits count, and so does a zero kept at the end after rounding ($5.70$); IB answers are exact or given to $3$ significant figures unless the question says otherwise.",
+    "definition": "The digits of a number counted from its first non-zero digit, so $0.0407$ has $3$ significant figures; zeros between non-zero digits count, and so does a zero kept at the end after rounding ($5.70$), but zeros at the end of a whole number may only hold places ($86\\,000$ to $2$ s.f.); IB answers are exact or given to $3$ significant figures unless the question says otherwise.",
     "lesson": "1.6"
   },
   {

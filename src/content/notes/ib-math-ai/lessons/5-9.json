@@ -346,7 +346,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\,\\mathrm{e}^{f(x)} = f'(x)\\,\\mathrm{e}^{f(x)} \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln\\bigl(f(x)\\bigr) = \\frac{f'(x)}{f(x)}",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\,\\mathrm{e}^{f(x)} = f'(x)\\,\\mathrm{e}^{f(x)} \\qquad \\frac{\\mathrm{d}}{\\mathrm{d}x}\\ln\\bigl(f(x)\\bigr) = \\frac{f'(x)}{f(x)}\\ \\text{ for } f(x) > 0",
           "tag": "learn"
         },
         {

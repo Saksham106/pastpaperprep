@@ -244,7 +244,7 @@
         },
         {
           "type": "text",
-          "text": "Both are in the booklet. The magnitudes are positive, so the sign of $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ gives the type of angle: positive is acute, zero is a right angle, negative is obtuse. Drag the tips below and watch the sign change at $90^{\\circ}$."
+          "text": "Both are in the booklet. For non-zero vectors the magnitudes are positive, so the sign of $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ gives the type of angle: positive means $\\theta < 90^{\\circ}$, zero a right angle, negative $\\theta > 90^{\\circ}$. Drag the tips below and watch the sign change at $90^{\\circ}$."
         },
         {
           "type": "interactive",
@@ -802,7 +802,7 @@
         },
         {
           "type": "fact",
-          "text": "For non-zero vectors, $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ exactly when they are perpendicular. A positive scalar product means an acute angle, and a negative one means an obtuse angle.",
+          "text": "For non-zero vectors, $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ exactly when they are perpendicular. A positive scalar product means $\\theta < 90^{\\circ}$, and a negative one means $\\theta > 90^{\\circ}$.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -821,7 +821,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$ with $\\theta$ the angle between $\\boldsymbol{v}$ and $\\boldsymbol{w}$. It is perpendicular to both, since $\\boldsymbol{n}$ is a unit vector at right angles to each, pointing the way the right-hand screw rule gives. Order matters: $\\boldsymbol{w} \\times \\boldsymbol{v} = -(\\boldsymbol{v} \\times \\boldsymbol{w})$.",
+          "text": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$ with $\\theta$ the angle between $\\boldsymbol{v}$ and $\\boldsymbol{w}$. It is perpendicular to both, since $\\boldsymbol{n}$ is a unit vector at right angles to each, pointing the way the right-hand screw rule gives; it is $\\boldsymbol{0}$ when they are parallel. Order matters: $\\boldsymbol{w} \\times \\boldsymbol{v} = -(\\boldsymbol{v} \\times \\boldsymbol{w})$.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -1,0 +1,84 @@
+{
+  "lines": [
+    {
+      "text": "Length or angle inside a solid, or between a line and the ground → find a right-angled triangle (a vertical height, or the line's projection on the plane), then Pythagoras or SOH CAH TOA; two points given as $(x, y, z)$ → the 3D distance formula, midpoint = mean of each coordinate ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Triangle with no right angle: a side and the angle facing it known → sine rule; two sides and the angle between them, or all three sides → cosine rule; area from two sides and the angle between them → $\\frac{1}{2}ab\\sin C$ ({{lesson:3.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Bearing', 'angle of elevation' or 'depression' in words → sketch first: north lines at every point, bearings clockwise from north, back bearing = bearing $\\pm 180^{\\circ}$, elevation and depression from the horizontal; then the triangle rules, GDC in degree mode ({{lesson:3.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Slice of a circle with the angle at the centre in degrees → arc $\\frac{\\theta}{360} \\times 2\\pi r$, sector $\\frac{\\theta}{360} \\times \\pi r^{2}$, perimeter = arc $+ 2r$; minor segment = sector $- \\frac{1}{2}r^{2}\\sin\\theta$ in degree mode ({{lesson:3.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Equally far from two places', a Voronoi edge or 'which site is nearest' → perpendicular bisector: through the midpoint, gradient $-\\frac{1}{m}$ if $m \\neq 0$; a vertex: solve two edges on the GDC; 'as far as possible from the nearest site' → in IB exams, the vertex furthest from its own three sites ({{lesson:3.5}}, {{lesson:3.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Angle in radians (no degree sign) → arc $l = r\\theta$, sector $A = \\frac{1}{2}r^{2}\\theta$ with $\\theta$ in radians; radian mode before any $\\sin$, $\\cos$ or $\\tan$ ({{lesson:3.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Two sides and an angle not between them, 'find the two possible values' → ambiguous case: sine rule gives $\\sin C = k$; test $\\sin^{-1}k$ and $180^{\\circ} - \\sin^{-1}k$, keeping each whose sum with the known angle is under $180^{\\circ}$; $k > 1$ means no triangle ({{lesson:3.8}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Solve' a trigonometric equation in an interval → graph both sides on the GDC in the matching angle mode, with a window covering the whole interval, and find every intersection ({{lesson:3.8}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Stretch, enlargement, rotation or reflection of points → the booklet matrix in $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$; $A$ followed by $B$ is the single matrix $BA$; 'area of the image' → area of object $\\times \\lvert\\det A\\rvert$ ({{lesson:3.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Line through a point in a given direction, or through P and Q → $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$ with $\\boldsymbol{b} = \\boldsymbol{q} - \\boldsymbol{p}$; 'where does it meet the ground' → parametric form: solve $z = 0$ for $\\lambda$, then substitute into every coordinate ({{lesson:3.11}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Constant velocity, 'where is it at time $t$' → $\\boldsymbol{r} = \\boldsymbol{r}_{0} + \\boldsymbol{v}t$, speed $\\lvert\\boldsymbol{v}\\rvert$; 'do they meet' → one $t$ for every component; 'closest approach' → minimise $\\lvert\\boldsymbol{r}_{\\mathrm{B}}(t) - \\boldsymbol{r}_{\\mathrm{A}}(t)\\rvert$ over the allowed times on the GDC; velocity in terms of $t$ → differentiate or integrate each component, one constant each ({{lesson:3.12}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Angle between two vectors, or 'show that they are perpendicular' → scalar product: $\\cos\\theta = \\frac{\\boldsymbol{v} \\cdot \\boldsymbol{w}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}$, with both vectors leaving the same point; non-zero vectors are perpendicular exactly when $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$; between two lines take the acute (or right) angle ({{lesson:3.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Area of a triangle or parallelogram from 3D points, or a direction perpendicular to two non-parallel vectors → vector product of two sides from the same vertex: parallelogram $\\lvert\\boldsymbol{v} \\times \\boldsymbol{w}\\rvert$, triangle $\\frac{1}{2}\\lvert\\boldsymbol{v} \\times \\boldsymbol{w}\\rvert$; part of $\\boldsymbol{a}$ along $\\boldsymbol{b}$ → $\\frac{\\boldsymbol{a} \\cdot \\boldsymbol{b}}{\\lvert\\boldsymbol{b}\\rvert}$ ({{lesson:3.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Number of walks of length $k$ from $i$ to $j$' → entry $(i, j)$ of $A^{k}$ on the GDC, rows 'from'; 'at most $k$' → $A + A^{2} + \\dots + A^{k}$; random surfer or PageRank → transition matrix with columns 'from', each adding to $1$ ({{lesson:3.15}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Travel every edge exactly once' in a connected graph → count odd vertices: none gives an Eulerian circuit, two give a trail between them, more give neither; 'every edge at least once and back to the start' → Chinese postman: total weight + least-weight pairing of the odd vertices ({{lesson:3.16}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Connect every site as cheaply as possible' → minimum spanning tree by Kruskal's or Prim's ($n - 1$ edges; Prim's runs on a table); 'visit every place and return' → travelling salesman on a table of least distances: nearest neighbour gives an upper bound, deleted vertex a lower bound ({{lesson:3.16}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

@@ -541,12 +541,12 @@
     "Giving the arc as the perimeter. A sector's perimeter is $2r + r\\theta$, so add the two radii.",
     "Finding $\\sin\\theta$ in degree mode for an angle in radians. Set radian mode first.",
     "Rounding too early, such as rounding a sector's area before subtracting a triangle. Keep the full GDC values until the final answer.",
-    "Giving answers to more than 3 s.f. when no accuracy is stated. Round the final answer to 3 s.f., or leave it exact."
+    "Giving answers to more than 3 s.f. when no accuracy is stated. Round the final answer to 3 s.f. (an angle in degrees to 1 d.p.), or leave it exact."
   ],
   "examTips": [
     "Find the exact value: leave $\\pi$ in, as in $27\\pi\\text{ m}^{2}$. Otherwise give 3 s.f.; a radian angle such as $1.25$ needs no unit sign.",
     "Find or calculate: write the formula with your numbers substituted, such as $\\frac{1}{2} \\times 9^{2} \\times \\frac{2\\pi}{3}$, before the answer. That line earns the method mark.",
-    "Solve from two facts about a sector: write both equations, then the one equation you put into the GDC. Reject any solution that breaks a stated condition, such as an angle less than $\\pi$.",
+    "Solve from two facts about a sector: write both equations, then the one equation you put into the GDC. Reject any solution that breaks a stated condition, such as $\\theta < \\pi$.",
     "Show that an angle rounds to a given value: write a more accurate value first, such as $5.882\\ldots$, then the given $5.88$."
   ],
   "readingMinutes": 20

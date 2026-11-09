@@ -360,7 +360,7 @@
         },
         {
           "type": "text",
-          "text": "The $2 \\times 2$ identity is $I = \\begin{pmatrix}1 & 0\\\\0 & 1\\end{pmatrix}$. The zero matrix $0$ has every element $0$: $A + 0 = A$ when the orders match, and any product with $0$ is a zero matrix."
+          "text": "The $2 \\times 2$ identity is $I = \\begin{pmatrix}1 & 0\\\\0 & 1\\end{pmatrix}$. The zero matrix $0$ has every element $0$: $A + 0 = A$ when the orders match, and any product with $0$, when it exists, is a zero matrix."
         },
         {
           "type": "example",

@@ -2,13 +2,13 @@
   {
     "id": "half-life",
     "term": "half-life",
-    "definition": "The time an exponentially decaying quantity takes to fall to half its value; for $N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$ it is $\\frac{\\ln 2}{k}$, the same whatever the starting amount.",
+    "definition": "The time a quantity decaying exponentially towards $0$ takes to fall to half its value; for $N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$ it is $\\frac{\\ln 2}{k}$, the same whatever the starting amount.",
     "lesson": "2.9"
   },
   {
     "id": "logistic-function",
     "term": "logistic function",
-    "definition": "A function $f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$, used to model restricted growth: its S-shaped graph rises almost exponentially at first, then slows and levels off towards $L$.",
+    "definition": "A function $f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$, used to model restricted growth: its S-shaped graph rises almost exponentially while $f(x)$ is small compared with $L$, then slows and levels off towards $L$.",
     "lesson": "2.9"
   },
   {

@@ -286,7 +286,7 @@
             "Formulas: $x_{n+1} = x_{n} + 0.5y_{n}$ and $y_{n+1} = y_{n} + 0.5(9.8 - 0.1y_{n}^{2})$.",
             "Row 1 ($t = 0.5$): $x_{1} = 0 + 0.5(0) = 0$ and $y_{1} = 0 + 0.5(9.8 - 0) = 4.9$. The first step uses her starting speed, $0$, so $x$ doesn't change yet.",
             "Row 2 ($t = 1$): $x_{2} = 0 + 0.5(4.9) = 2.45$ and $y_{2} = 4.9 + 0.5(9.8 - 0.1 \\times 4.9^{2}) = 4.9 + 0.5(7.399) = 8.5995$.",
-            "Interpret: after $1$ second she has fallen about $2.45$ m and is falling at about $8.60\\text{ m s}^{-1}$. Two steps give only a rough estimate: a smaller $h$ gives a better one."
+            "Interpret: after $1$ second she has fallen about $2.45$ m and is falling at about $8.60\\text{ m s}^{-1}$. Two steps give only a rough estimate: a smaller $h$ usually gives a better one."
           ],
           "answer": "$x = 2.45, \\; y = 8.5995$",
           "video": null,
@@ -570,7 +570,7 @@
         },
         {
           "type": "text",
-          "text": "1. Real, distinct and both negative: trajectories go into the origin. The object returns to rest without oscillating."
+          "text": "1. Real, distinct and both negative: trajectories go into the origin. The object returns to rest without oscillating: it passes through the rest position at most once."
         },
         {
           "type": "text",
@@ -582,7 +582,7 @@
         },
         {
           "type": "text",
-          "text": "4. A positive eigenvalue, or complex eigenvalues with positive real part: almost every trajectory moves away from the origin, so the displacement grows."
+          "text": "4. A positive eigenvalue, or complex eigenvalues with positive real part: almost every trajectory moves away from the origin, so the displacement, or the size of each swing, grows."
         },
         {
           "type": "figure",
@@ -741,5 +741,5 @@
     "\"Hence write down the general solution\": $x = A\\mathrm{e}^{\\lambda_{1}t} + B\\mathrm{e}^{\\lambda_{2}t}$ or the vector form both earn the mark. Any non-zero multiple of an eigenvector is accepted.",
     "\"Sketch $x$ against $t$\": start at the given $x$ with the starting gradient $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$, show any maximum or minimum, and show $x$ tending to $0$ when both eigenvalues are negative."
   ],
-  "readingMinutes": 26
+  "readingMinutes": 27
 }

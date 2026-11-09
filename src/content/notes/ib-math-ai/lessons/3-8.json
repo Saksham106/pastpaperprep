@@ -382,7 +382,7 @@
         },
         {
           "type": "result",
-          "statement": "You know $\\hat{A}$, the side $a$ facing it and one other side $c$. If the sine rule gives $\\sin C = k$ with $0 < k < 1$, the candidates are $C_{1} = \\sin^{-1}k$ (acute) and $C_{2} = 180^{\\circ} - C_{1}$ (obtuse). Each gives a triangle only if $\\hat{A} + C < 180^{\\circ}$. If $k > 1$ there is no triangle.",
+          "statement": "You know $\\hat{A}$, the side $a$ facing it and one other side $c$. If the sine rule gives $\\sin C = k$ with $0 < k < 1$, the candidates are $C_{1} = \\sin^{-1}k$ (acute) and $C_{2} = 180^{\\circ} - C_{1}$ (obtuse). Each gives a triangle only if $\\hat{A} + C < 180^{\\circ}$. If $k = 1$, $C = 90^{\\circ}$ and there is one triangle when $\\hat{A}$ is acute. If $k > 1$ there is no triangle.",
           "why": "Every angle from $0^{\\circ}$ to $180^{\\circ}$ is an angle of some triangle, and $\\sin C_{2} = \\sin C_{1}$, so the sine rule alone can't tell them apart."
         },
         {
@@ -554,7 +554,7 @@
         },
         {
           "type": "text",
-          "text": "In models, the variable is usually time and the angle is in degrees, as in {{lesson:2.5}}. The method is the same: graph the model and a horizontal line at the value you want. Sinusoidal models with a horizontal shift come in {{lesson:2.9}}."
+          "text": "In models, the variable is usually time. The angle is in degrees in {{lesson:2.5}}; in {{lesson:2.9}} it is in radians unless a degree sign is shown, so set the mode to match. The method is the same: graph the model and a horizontal line at the value you want."
         },
         {
           "type": "figure",
@@ -691,7 +691,7 @@
         },
         {
           "type": "fact",
-          "text": "Ambiguous case (two sides and an angle not between them): if the sine rule gives $\\sin C = k$ with $0 < k < 1$, test both $C_{1} = \\sin^{-1}k$ and $180^{\\circ} - C_{1}$; keep each one whose sum with the known angle is under $180^{\\circ}$. If $k > 1$ there is no triangle.",
+          "text": "Ambiguous case (two sides and an angle not between them): if the sine rule gives $\\sin C = k$ with $0 < k < 1$, test both $C_{1} = \\sin^{-1}k$ and $180^{\\circ} - C_{1}$; keep each one whose sum with the known angle is under $180^{\\circ}$. If $k = 1$, $C = 90^{\\circ}$; if $k > 1$ there is no triangle.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -708,11 +708,11 @@
     "Working in the wrong angle mode. Check DEG or RAD against the question before every calculation: an interval in $\\pi$ means radians.",
     "Giving only the angle $\\sin^{-1}$ returns. In the ambiguous case test $180^{\\circ}$ minus it, and in an equation look for every crossing in the interval.",
     "Keeping $+$ after a square root from the Pythagorean identity. Decide the sign from where $P$ is on the circle.",
-    "Rounding $\\sin C$ or an angle and then reusing it. Store the full GDC value and round only the final answer to 3 s.f.",
+    "Rounding $\\sin C$ or an angle and then reusing it. Store the full GDC value and round only the final answer.",
     "Writing GDC answers with no working. Write the equation you graphed; that line can earn the method mark even if a value is wrong."
   ],
   "examTips": [
-    "\"Solve\" with a GDC: write the equation you entered, then give every solution in the interval to 3 s.f., with units in context.",
+    "\"Solve\" with a GDC: write the equation you entered, then give every solution in the interval to 3 s.f. (angles in degrees to 1 d.p.) unless told otherwise, with units in context.",
     "\"Sketch\" a sine or cosine graph: start and end points, maximums, minimums and zeros in the right places across the given domain.",
     "\"Show that\" with the Pythagorean identity: write the step where you replace $\\cos^{2}\\theta + \\sin^{2}\\theta$ by $1$. Using the identity is a method mark, and the last line must match the given result.",
     "\"Find the two possible values\" of an angle or side points to the ambiguous case: give both, and say which fits any extra fact you are given."

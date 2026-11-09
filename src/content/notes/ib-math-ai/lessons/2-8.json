@@ -300,7 +300,7 @@
         },
         {
           "type": "mistake",
-          "text": "Mixing up the two reflections. $-f(x)$ changes the sign of every term; $f(-x)$ changes only the odd powers. Here $-f(x) = -x^{3} + 4x^{2} - 3x - 5$, a different graph."
+          "text": "Mixing up the two reflections. $-f(x)$ changes the sign of every term; for a polynomial, $f(-x)$ changes the sign of only the odd powers of $x$. Here $-f(x) = -x^{3} + 4x^{2} - 3x - 5$, a different graph."
         },
         {
           "type": "figure",
@@ -542,7 +542,7 @@
         },
         {
           "type": "text",
-          "text": "Inside the bracket the order is reversed. For $y = f(qx - c)$, translate $c$ units right first, then stretch horizontally with scale factor $\\frac{1}{q}$. Or stretch first and then translate $\\frac{c}{q}$ units right, since $qx - c = q\\left(x - \\frac{c}{q}\\right)$."
+          "text": "Inside the bracket the order is reversed. For $y = f(qx - c)$ with $q > 0$, translate $c$ units right first, then stretch horizontally with scale factor $\\frac{1}{q}$. Or stretch first and then translate $\\frac{c}{q}$ units right, since $qx - c = q\\left(x - \\frac{c}{q}\\right)$."
         },
         {
           "type": "text",
@@ -697,7 +697,7 @@
         },
         {
           "type": "text",
-          "text": "An exponential model $y = k a^{t} + c$, with $k > 0$, works the same way. From $y = a^{t}$: a vertical stretch with scale factor $k$, then a translation by $\\begin{pmatrix} 0 \\\\ c \\end{pmatrix}$. The [[asymptote|asymptote]] $y = 0$ moves to $y = c$, the level the quantity approaches."
+          "text": "An exponential model $y = k a^{t} + c$, with $k > 0$, works the same way. From $y = a^{t}$: a vertical stretch with scale factor $k$, then a translation by $\\begin{pmatrix} 0 \\\\ c \\end{pmatrix}$. The [[asymptote|asymptote]] $y = 0$ moves to $y = c$. When $0 < a < 1$, that is the level the quantity approaches over time."
         },
         {
           "type": "example",

@@ -163,7 +163,7 @@
             "The quotient never changes, so it is geometric: $u_{1} = 6250$ and $r = 0.8$.",
             "The 10th term is $9$ steps after the first: $u_{10} = 6250 \\times 0.8^{9}$.",
             "Evaluate: $0.8^{9} = 0.134217728$, so $u_{10} = 838.8608$.",
-            "Sense check: $r$ is less than $1$, so the terms keep shrinking, and $838.86$ is well below $3200$."
+            "Sense check: $r$ is between $0$ and $1$, so the terms keep shrinking, and $838.86$ is well below $3200$."
           ],
           "answer": "$u_{10} = 838.8608$",
           "verify": {
@@ -601,7 +601,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "The term number $n$ sits in the exponent of $u_{n} = u_{1}r^{n-1}$. That makes a geometric sequence an [[exponential-function|exponential function]] of $n$, like the models $f(x) = ka^{x}$ in {{lesson:2.5}}."
+          "text": "The term number $n$ sits in the exponent of $u_{n} = u_{1}r^{n-1}$. For $r > 0$ and $r \\ne 1$, that makes a geometric sequence an [[exponential-function|exponential function]] of $n$, like the models $f(x) = ka^{x}$ in {{lesson:2.5}}."
         },
         {
           "type": "text",
@@ -615,7 +615,7 @@
         },
         {
           "type": "text",
-          "text": "Models in context often start the clock at $t = 0$. Then the first term is the value at $t = 0$, and term $n$ is the value at $t = n - 1$."
+          "text": "Models in context often start the clock at $t = 0$. If the question takes $u_{1}$ as the value at $t = 0$, then term $n$ is the value at $t = n - 1$. If $u_{1}$ is the value after one period, term $n$ is the value at $t = n$."
         },
         {
           "type": "example",
@@ -658,7 +658,7 @@
         },
         {
           "type": "text",
-          "text": "So check before you fit a regression line ({{lesson:4.4}}). When the quotients stay about the same, the points curve, and a straight line predicts badly."
+          "text": "So check before you fit a regression line ({{lesson:4.4}}). When the quotients stay about the same and are not close to $1$, the points curve, and a straight line predicts badly."
         },
         {
           "type": "example",
@@ -761,7 +761,7 @@
         },
         {
           "type": "fact",
-          "text": "$u_{n} = u_{1}r^{n-1}$ is an exponential function of $n$. In data, nearly equal ratios suggest a geometric model; nearly equal differences suggest a linear one.",
+          "text": "For $r > 0$ and $r \\ne 1$, $u_{n} = u_{1}r^{n-1}$ is an exponential function of $n$. In data, nearly equal ratios suggest a geometric model; nearly equal differences suggest a linear one.",
           "tag": "learn",
           "cheatSheet": true
         }
