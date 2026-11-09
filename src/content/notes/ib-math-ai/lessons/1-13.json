@@ -822,7 +822,7 @@
   ],
   "mistakes": [
     "Taking $\\theta = \\arctan\\frac{b}{a}$ without a sketch. When the real part is negative it points the opposite way; find the quadrant first.",
-    "Working in degree mode. $\\mathrm{e}^{2.4\\mathrm{i}}$ then turns $2.4^{\\circ}$, not $2.4$ radians. Set radians before any complex calculation.",
+    "Working in degree mode. $\\cos 2.4$ and $\\sin 2.4$ then use $2.4^{\\circ}$, and arguments can be read or shown in degrees. Set radians before any complex calculation.",
     "Giving the right number in the wrong form, such as $a + b\\mathrm{i}$ when $r\\mathrm{e}^{\\mathrm{i}\\theta}$ was asked, or an argument outside the stated range. Match the form and the range exactly.",
     "Describing a transformation as “a stretch and a rotation” with no values. Give the scale factor, the angle and its direction, and the centre O.",
     "Rounding $r$ or $\\theta$ and then using them again. Keep the full GDC values until the final answer."

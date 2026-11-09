@@ -498,8 +498,8 @@
     "A limitation that ignores the context. Say what breaks the fixed ratio, such as the process stopping."
   ],
   "examTips": [
-    "Find the value a total of positive terms never exceeds: write $\\frac{u_{1}}{1 - r}$ with the numbers in, add any starting amount, and give units.",
-    "Determine whether a total of positive terms reaches a target: it does only if the target is less than $S_{\\infty}$. Compare them, then answer in words, in context.",
+    "Find the value a total of positive terms with $0 < r < 1$ never exceeds: write $\\frac{u_{1}}{1 - r}$ with the numbers in, add any starting amount, and give units.",
+    "Determine whether a total of positive terms with $0 < r < 1$ reaches a target: it does only if the target is less than $S_{\\infty}$. Compare them, then answer in words, in context.",
     "Justify a rejected ratio: say $\\lvert r\\rvert \\ge 1$ gives no sum to infinity, or say why the context rules it out."
   ],
   "readingMinutes": 19

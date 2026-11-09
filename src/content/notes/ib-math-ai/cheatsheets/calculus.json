@@ -46,7 +46,7 @@
       "level": "AHL"
     },
     {
-      "text": "'Justify that it is a maximum' → second derivative test at a stationary point: $f''(a) < 0$ maximum, $f''(a) > 0$ minimum, and if $f''(a) = 0$ use the sign of $f'$ either side; 'when is it increasing fastest?' → point of inflexion: solve $f''(x) = 0$ and check $f''$ changes sign, or find the turning points of $y = f'(x)$ on the GDC ({{lesson:5.10}})",
+      "text": "'Justify that it is a maximum' → second derivative test at a stationary point: $f''(a) < 0$ maximum, $f''(a) > 0$ minimum, and if $f''(a) = 0$ use the sign of $f'$ either side; 'when is it increasing fastest?' → the maximum of $f'$: a point of inflexion where $f''$ changes from positive to negative, or the maximum of $y = f'(x)$ on the GDC; on a closed domain also compare the end points ({{lesson:5.10}})",
       "tag": "learn",
       "level": "AHL"
     },
@@ -76,7 +76,7 @@
       "level": "AHL"
     },
     {
-      "text": "Linear coupled pair $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$, 'phase portrait' or 'long-term behaviour' → eigenvalues of the matrix: real distinct → $\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}$, both negative → stable, opposite signs → saddle point; complex with real part $\\neq 0$ → spiral, inwards if the real part is negative; imaginary → closed ellipses; turning direction from the sign of $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(1, 0)$ ({{lesson:5.17}})",
+      "text": "Linear coupled pair $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$, 'phase portrait' or 'long-term behaviour' → eigenvalues of the matrix: real distinct → $\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}$, both negative → stable, opposite signs → saddle point; complex with real part $\\neq 0$ → spiral, inwards if the real part is negative; purely imaginary → closed ellipses; turning direction from the sign of $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(1, 0)$ ({{lesson:5.17}})",
       "tag": "learn",
       "level": "AHL"
     },

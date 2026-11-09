@@ -634,7 +634,7 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "a^{m} \\times a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n} \\qquad \\left(a^{m}\\right)^{n} = a^{mn} \\qquad (ab)^{n} = a^{n}b^{n} \\qquad (a, b \\neq 0 \\text{ if an exponent is zero or negative})",
+          "tex": "a^{m} \\times a^{n} = a^{m+n} \\qquad \\frac{a^{m}}{a^{n}} = a^{m-n} \\qquad \\left(a^{m}\\right)^{n} = a^{mn} \\qquad (ab)^{n} = a^{n}b^{n} \\qquad (m, n \\in \\mathbb{Z};\\ a, b \\neq 0 \\text{ if an exponent is zero or negative})",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -545,13 +545,13 @@
         },
         {
           "type": "fact",
-          "text": "For $k > 0$: $y = k\\mathrm{e}^{bx}$ gives $\\ln y = \\ln k + bx$, and $y = kx^{n}$ with $x > 0$ gives $\\ln y = \\ln k + n\\ln x$. Both are straight lines.",
+          "text": "For $k > 0$: $y = k\\mathrm{e}^{bx}$ gives $\\ln y = \\ln k + bx$, a straight line of $\\ln y$ against $x$; $y = kx^{n}$ with $x > 0$ gives $\\ln y = \\ln k + n\\ln x$, a straight line of $\\ln y$ against $\\ln x$.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "Multiplying a positive quantity by $c > 0$ adds $\\log_{10} c$ to its base-$10$ log. On the decibel scale, it adds $10\\log_{10} c$ dB.",
+          "text": "Multiplying a positive quantity by $c > 0$ adds $\\log_{10} c$ to its base-$10$ log. Multiplying a sound's intensity by $c$ adds $10\\log_{10} c$ dB.",
           "tag": "learn",
           "cheatSheet": true
         },

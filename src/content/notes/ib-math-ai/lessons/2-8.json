@@ -796,7 +796,7 @@
         },
         {
           "type": "formula",
-          "tex": "y = pf(x) \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx) \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
+          "tex": "y = pf(x),\\ p > 0 \\;:\\; \\text{vertical stretch, scale factor } p \\qquad y = f(qx),\\ q > 0 \\;:\\; \\text{horizontal stretch, scale factor } \\tfrac{1}{q}",
           "tag": "learn",
           "cheatSheet": true
         },

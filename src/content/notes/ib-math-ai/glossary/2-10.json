@@ -8,7 +8,7 @@
   {
     "id": "linearizing-data",
     "term": "linearizing data",
-    "definition": "Taking logarithms of one or both variables so that curved data lie on a straight line: for positive data, $\\ln y$ against $x$ is straight for an exponential model and $\\ln y$ against $\\ln x$ is straight for a power model.",
+    "definition": "Taking logarithms of one or both variables so that curved data lie on a straight line: for positive data, $\\ln y$ against $x$ is straight for an exponential model $y = ka^{x}$ and $\\ln y$ against $\\ln x$ is straight for a power model $y = kx^{n}$.",
     "lesson": "2.10"
   },
   {

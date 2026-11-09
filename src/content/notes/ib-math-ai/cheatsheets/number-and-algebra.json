@@ -11,7 +11,7 @@
       "level": "SL"
     },
     {
-      "text": "One lump sum left to grow, compounded k times a year, or depreciation at a fixed r% a year → $FV = PV\\left(1 + \\frac{r}{100k}\\right)^{kn}$ or the finance solver with $PMT = 0$, $P/Y = C/Y = k$, $N = kn$; depreciation uses $I\\% = -r$ with $k = 1$ ({{lesson:1.4}})",
+      "text": "One lump sum left to grow, compounded k times a year, or depreciation at a fixed r% a year → $FV = PV\\left(1 + \\frac{r}{100k}\\right)^{kn}$ or the finance solver with $PMT = 0$, $P/Y = C/Y = k$, $N = kn$, $PV$ negative and $FV$ positive; depreciation uses $I\\% = -r$ with $k = 1$ ({{lesson:1.4}})",
       "tag": "learn",
       "level": "SL"
     },
@@ -51,7 +51,7 @@
       "level": "AHL"
     },
     {
-      "text": "'Total in the long run', 'the most a total of positive terms can reach', or a fractal's area → $S_{\\infty} = \\frac{u_{1}}{1 - r}$, only if $\\lvert r\\rvert < 1$, plus any starting amount; 'first $n$ when the total passes…' → check the target is below $S_{\\infty}$, then $S_{n}$ on the GDC and test both neighbours ({{lesson:1.11}})",
+      "text": "'Total in the long run', 'the most a total of positive terms can reach', or a fractal's area → $S_{\\infty} = \\frac{u_{1}}{1 - r}$, only if $\\lvert r\\rvert < 1$, approached but never reached, plus any starting amount; 'first $n$ when the total passes…' → check the target is below $S_{\\infty}$, then $S_{n}$ on the GDC and test both neighbours ({{lesson:1.11}})",
       "tag": "learn",
       "level": "AHL"
     },

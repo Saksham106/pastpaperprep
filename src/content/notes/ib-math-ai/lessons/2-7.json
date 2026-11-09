@@ -696,7 +696,7 @@
         },
         {
           "type": "formula",
-          "tex": "(f \\circ f^{-1})(x) = (f^{-1} \\circ f)(x) = x",
+          "tex": "(f \\circ f^{-1})(x) = x \\text{ for } x \\text{ in the domain of } f^{-1} \\qquad (f^{-1} \\circ f)(x) = x \\text{ for } x \\text{ in the domain of } f",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -708,7 +708,7 @@
         },
         {
           "type": "fact",
-          "text": "A function has an inverse only if it is one-to-one. A quadratic becomes one-to-one when its domain is restricted to one side of its vertex, $x \\ge h$ or $x \\le h$.",
+          "text": "A function has an inverse only if it is one-to-one. A quadratic becomes one-to-one when its domain is restricted to one side of its vertex $(h, k)$: $x \\ge h$ or $x \\le h$.",
           "tag": "learn",
           "cheatSheet": true
         },

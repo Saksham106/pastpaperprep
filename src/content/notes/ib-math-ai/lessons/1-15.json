@@ -766,7 +766,7 @@
         },
         {
           "type": "formula",
-          "tex": "M^{n} = PD^{n}P^{-1}, \\quad D^{n} = \\begin{pmatrix}\\lambda_{1}^{\\,n} & 0\\\\ 0 & \\lambda_{2}^{\\,n}\\end{pmatrix}",
+          "tex": "M = PDP^{-1} \\Rightarrow M^{n} = PD^{n}P^{-1}, \\quad D^{n} = \\begin{pmatrix}\\lambda_{1}^{\\,n} & 0\\\\ 0 & \\lambda_{2}^{\\,n}\\end{pmatrix}",
           "tag": "booklet",
           "bookletId": "bk-1-15-matrix-power",
           "cheatSheet": true

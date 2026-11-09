@@ -36,7 +36,7 @@
       "level": "SL"
     },
     {
-      "text": "A measurement modelled as $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$, 'find the probability' → normal cdf with $\\sigma$, not $\\sigma^{2}$; 'find the value the top $10\\%$ exceed' → inverse normal with left area $0.9$ (or tail set to right) ({{lesson:4.9}})",
+      "text": "A measurement modelled as $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$, 'find the probability' → normal cdf with $\\sigma$, not $\\sigma^{2}$; 'find the value the top $10\\%$ exceed' → inverse normal with left area $0.9$ (or area $0.1$ with the tail set to right) ({{lesson:4.9}})",
       "tag": "learn",
       "level": "SL"
     },
@@ -86,7 +86,7 @@
       "level": "AHL"
     },
     {
-      "text": "States that change step by step, where the next depends only on the current state ('after 3 days', 'in the long run') → transition matrix with columns 'from', each adding up to $1$, and $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$; long run → steady state $T\\boldsymbol{s} = \\boldsymbol{s}$ with entries adding up to $1$ (an eigenvector for eigenvalue $1$, scaled), unique for a regular chain ({{lesson:4.19}})",
+      "text": "States that change step by step, where the next depends only on the current state ('after 3 days', 'in the long run') → transition matrix with columns 'from', each adding up to $1$, and $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$; long run → for a regular chain, the unique steady state $T\\boldsymbol{s} = \\boldsymbol{s}$ with entries adding up to $1$ (an eigenvector for eigenvalue $1$, scaled), which $\\boldsymbol{s}_n$ approaches from any start ({{lesson:4.19}})",
       "tag": "learn",
       "level": "AHL"
     }
