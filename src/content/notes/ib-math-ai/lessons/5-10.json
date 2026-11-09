@@ -655,14 +655,14 @@
   "mistakes": [
     "Dropping the inner factor when you differentiate again: the derivative of $\\mathrm{e}^{-0.4t}$ is $-0.4\\mathrm{e}^{-0.4t}$. Write the product or chain rule out in full for each derivative.",
     "Squaring the first derivative instead of differentiating it. $f''(x)$ means differentiate $f'(x)$ once more.",
-    "Writing \"minimum\" with no reason. Give $f''(a)$ or its sign and the conclusion, such as \"$C''(v) > 0$ for all $v > 0$, so the point is a minimum\".",
+    "Writing \"minimum\" with no reason. Give $f''(a)$ or its sign and the conclusion, such as \"$C''(v) > 0$ for all $v > 0$, so the stationary point is a minimum\".",
     "Calling a point a point of inflexion just because $f''(x) = 0$ there. Check that $f''(x)$ changes sign: $y = x^{4}$ has $f''(0) = 0$ and a minimum.",
     "Using the sign of $f'(x)$ for concavity. Increasing is about $f'$; concave-up is about $f''$.",
     "Leaving out units or context in the final answer, such as giving 161.58 with no dollars, or a time with no units. Answer the question in its own terms."
   ],
   "examTips": [
     "\"Find $\\dfrac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$\": show the first derivative and each rule you use. The method marks are for the product or chain rule seen in your working.",
-    "\"Justify\" or \"show that\" a point is a minimum: substitute into $f''$ (or explain why $f''$ is always positive) and state the conclusion. The reasoning mark needs both the sign and the word \"minimum\".",
+    "\"Justify\" or \"show that\" a stationary point is a minimum: substitute its $x$-value into $f''$ (or explain why $f''$ is always positive) and state the conclusion. The reasoning mark needs both the sign and the word \"minimum\".",
     "\"Hence or otherwise find the points of inflexion\": write the equation $f''(x) = 0$, or say you are finding the turning points of the graph of $f'$, before you give the GDC values to 3 s.f.",
     "\"Interpret\": say which rate is greatest or least at the point of inflexion, in the units of the question."
   ],

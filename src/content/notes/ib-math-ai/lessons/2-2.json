@@ -743,7 +743,7 @@
         },
         {
           "type": "fact",
-          "text": "$f^{-1}$ undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$. Its graph is the reflection of $y = f(x)$ in $y = x$. $f^{-1}(x)$ is not $\\frac{1}{f(x)}$.",
+          "text": "For a one-to-one $f$, $f^{-1}$ undoes $f$: if $f(a) = b$, then $f^{-1}(b) = a$. Its graph is the reflection of $y = f(x)$ in $y = x$. $f^{-1}(x)$ is not $\\frac{1}{f(x)}$.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -564,7 +564,7 @@
         },
         {
           "type": "fact",
-          "text": "To find local maximum and minimum points, solve $f'(x) = 0$ for $x$, then find each $y$-coordinate from $f(x)$, not from $f'(x)$.",
+          "text": "To find local maximum and minimum points, solve $f'(x) = 0$ for $x$, check whether each is a maximum, a minimum or neither, then find each $y$-coordinate from $f(x)$, not from $f'(x)$.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -902,7 +902,7 @@
     "Keeping a zero the context rules out, such as a negative time. Reject it and say why.",
     "Interpreting a constant by its graph name. \"$c$ is the $y$-intercept\" earns nothing; say what it means, such as the platform's height.",
     "Giving $y = 0$ as the asymptote of $ka^{x} + c$. The exponential part tends to $0$, so the asymptote is $y = c$.",
-    "Using $b$ as the period, or a negative amplitude. The period is $\\frac{360^{\\circ}}{b}$ and the amplitude is $|a|$.",
+    "Using $b$ as the period, or a negative amplitude. With $bx$ in degrees, the period is $\\frac{360^{\\circ}}{b}$ ($b > 0$), and the amplitude is $|a|$.",
     "Rounding too early. Keep the GDC's full value and round only the final answer."
   ],
   "examTips": [

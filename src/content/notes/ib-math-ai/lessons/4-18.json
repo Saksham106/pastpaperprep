@@ -890,7 +890,7 @@
       "blocks": [
         {
           "type": "formula",
-          "tex": "\\bar{X} \\sim \\mathrm{N}\\left(\\mu_0, \\frac{\\sigma^{2}}{n}\\right) \\text{ under } \\mathrm{H}_0\\text{: } \\mu = \\mu_0",
+          "tex": "\\bar{X} \\sim \\mathrm{N}\\left(\\mu_0, \\frac{\\sigma^{2}}{n}\\right) \\text{ under } \\mathrm{H}_0\\text{: } \\mu = \\mu_0 \\quad (\\text{normal population, } \\sigma \\text{ known})",
           "tag": "learn",
           "cheatSheet": true
         },

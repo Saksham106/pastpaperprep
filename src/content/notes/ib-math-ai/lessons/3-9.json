@@ -682,7 +682,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "$\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$: the matrix acts first, then the translation $\\boldsymbol{b}$. The columns of $A$ are the images of $(1, 0)$ and $(0, 1)$."
+          "text": "$\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$: the matrix acts first, then the translation $\\boldsymbol{b}$. The columns of $A$ are the images of $(1, 0)$ and $(0, 1)$ under $A$ alone, before the translation."
         },
         {
           "type": "fact",

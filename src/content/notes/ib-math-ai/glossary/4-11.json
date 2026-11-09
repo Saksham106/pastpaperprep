@@ -8,7 +8,7 @@
   {
     "id": "alternative-hypothesis",
     "term": "alternative hypothesis",
-    "definition": "The statement $\\mathrm{H}_1$ accepted if a test rejects $\\mathrm{H}_0$; its form ($\\neq$, or $>$ or $<$) decides whether a t-test is two-tailed or one-tailed.",
+    "definition": "The statement $\\mathrm{H}_1$ that a test finds evidence for when it rejects $\\mathrm{H}_0$; its form ($\\neq$, or $>$ or $<$) decides whether a t-test is two-tailed or one-tailed.",
     "lesson": "4.11"
   },
   {
@@ -26,7 +26,7 @@
   {
     "id": "expected-frequency",
     "term": "expected frequency",
-    "definition": "The count predicted for a category if $\\mathrm{H}_0$ is true, compared with the observed (recorded) count; in a contingency table it is row total × column total ÷ grand total, and in IB exam χ² questions each one is greater than $5$.",
+    "definition": "The count predicted for a category if $\\mathrm{H}_0$ is true, compared with the observed (recorded) count; in a contingency table it is row total × column total ÷ grand total, and a χ² test needs each one greater than $5$.",
     "lesson": "4.11"
   },
   {

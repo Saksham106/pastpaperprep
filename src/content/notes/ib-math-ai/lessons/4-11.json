@@ -809,7 +809,7 @@
         },
         {
           "type": "fact",
-          "text": "Expected frequencies are what $\\mathrm{H}_0$ predicts. In IB exam χ² questions every expected frequency is greater than $5$.",
+          "text": "Expected frequencies are what $\\mathrm{H}_0$ predicts. The test needs every expected frequency greater than $5$: SL exam questions always meet this; at HL you may need to merge classes first.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -848,5 +848,5 @@
     "Write down the degrees of freedom: $(r - 1)(c - 1)$ for a contingency table, $n - 1$ for goodness of fit at SL.",
     "State the conclusion, justify it: comparison, decision, meaning in context. A decision with no reason scores nothing."
   ],
-  "readingMinutes": 30
+  "readingMinutes": 31
 }

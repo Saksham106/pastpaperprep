@@ -610,7 +610,7 @@
         },
         {
           "type": "formula",
-          "tex": "\\mathrm{P}(X > k) = p \\iff \\mathrm{P}(X < k) = 1 - p",
+          "tex": "\\mathrm{P}(X > k) = p \\iff \\mathrm{P}(X < k) = 1 - p \\quad (X \\text{ continuous})",
           "tag": "learn",
           "cheatSheet": true
         },
