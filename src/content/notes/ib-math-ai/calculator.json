@@ -1602,7 +1602,7 @@
      "MENU, RECUR, TYPE (F3), an+1 (F2)",
      "a(n+1) = a(n) + {h}×f({x0}+{h}n, a(n)) with f written out from {derivative} (n and a(n) from the n.an menu, F4)",
      "SET (F5): Start 0, End {steps}, a0 {y0}, EXIT",
-     "TABLE (F6); read a(n) at n = {steps} (x = {x0} + {steps}{h})"
+     "TABLE (F6); read a(n) at n = {steps} (x = {x0} + {steps} × {h})"
     ]
    }
   },
