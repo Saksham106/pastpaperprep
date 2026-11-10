@@ -493,7 +493,7 @@
         {
           "type": "definition",
           "term": "Systematic sampling",
-          "statement": "In [[systematic-sampling|systematic sampling]], you list the population in order and take every $k$th member, where $k = \\frac{N}{n}$ for a population of $N$ and a sample of $n$, rounded down if it is not a whole number. The first member is chosen at random from the first $k$, and you stop once you have $n$.",
+          "statement": "In [[systematic-sampling|systematic sampling]], you list the population in order and take every $k$th member, where $k = \\frac{N}{n}$ for a population of $N$ and a sample of $n$, rounded down if it is not a whole number. The first member is chosen at random from the first $k$, and you stop once you have $n$. When $N$ is not a multiple of $n$, the last few members of the list can never be chosen, so the sample is slightly biased against them.",
           "plain": "A random start, then every $k$th one."
         },
         {
@@ -703,7 +703,7 @@
         },
         {
           "type": "fact",
-          "text": "Simple random: every sample of that size equally likely. Systematic: every $k$th of an ordered list, $k = \\frac{N}{n}$ (rounded down if not whole), random start in the first $k$, stop at $n$. Stratified: random within groups, in proportion. Quota: fixed numbers per group, collector chooses. Convenience: easiest to reach.",
+          "text": "Simple random: every sample of that size equally likely. Systematic: every $k$th of an ordered list, $k = \\frac{N}{n}$ (rounded down if not whole), random start in the first $k$, stop at $n$ (if $n$ doesn't divide $N$, the end of the list is never chosen). Stratified: random within groups, in proportion. Quota: fixed numbers per group, collector chooses. Convenience: easiest to reach.",
           "tag": "learn",
           "cheatSheet": true
         },

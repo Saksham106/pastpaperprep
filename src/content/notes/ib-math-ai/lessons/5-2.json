@@ -414,11 +414,11 @@
       "blocks": [
         {
           "type": "text",
-          "text": "You need the sign of $f'(x)$ for every $x$. For the functions in this course, $f'(x)$ can only change sign where $f'(x) = 0$ or where $f$ is undefined. Those values cut the number line into pieces, and the sign stays the same on each piece."
+          "text": "You need the sign of $f'(x)$ for every $x$. For the integer-power functions of this lesson, $f'(x)$ can only change sign where $f'(x) = 0$ or where $f$ is undefined. (At HL, with fractional powers, also check where $f'$ is undefined but $f$ is not: $y = x^{2/3}$ turns at $x = 0$.) Those values cut the number line into pieces, and the sign stays the same on each piece."
         },
         {
           "type": "text",
-          "text": "1. Find where $f'(x) = 0$, and any values where $f$ is undefined, such as a vertical asymptote."
+          "text": "1. Find where $f'(x) = 0$, and any values where $f$ or $f'$ is undefined, such as a vertical asymptote."
         },
         {
           "type": "text",
@@ -561,7 +561,7 @@
         },
         {
           "type": "fact",
-          "text": "To find the intervals: find where $f'(x) = 0$ or $f$ is undefined, find the sign of $f'(x)$ on each piece, then answer with inequalities inside the domain.",
+          "text": "To find the intervals: find where $f'(x) = 0$ or $f$ or $f'$ is undefined, find the sign of $f'(x)$ on each piece, then answer with inequalities inside the domain.",
           "tag": "learn",
           "cheatSheet": true
         }

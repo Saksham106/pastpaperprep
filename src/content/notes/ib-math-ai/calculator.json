@@ -275,21 +275,21 @@
      "I% {rate}, PV {pv}, PMT {pmt}, FV {fv}. Money paid out is negative, money received positive",
      "P/Y {ppy}, then C/Y {cpy}, PMT: END",
      "Move the cursor to N, ALPHA, ENTER (SOLVE)",
-     "Read N in periods (divide by P/Y for years); round up if a whole period is needed"
+     "Read N in periods (divide by P/Y for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
     ],
     "nspire": [
      "Calculator page: Menu, Finance, Finance Solver",
      "I(%) {rate}, PV {pv}, Pmt {pmt}, FV {fv}. Money paid out is negative, money received positive",
      "PpY {ppy}, CpY {cpy}, PmtAt END",
      "Tab to N, enter",
-     "Read N in periods (divide by PpY for years); round up if a whole period is needed"
+     "Read N in periods (divide by PpY for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
     ],
     "casio": [
      "Financial (TVM), COMPND (F2)",
      "SHIFT, MENU (SET UP): Payment End, EXIT",
      "I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
      "n (F1)",
-     "Read n in periods (divide by P/Y for years); round up if a whole period is needed"
+     "Read n in periods (divide by P/Y for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
     ]
    }
   },

@@ -447,7 +447,7 @@
         },
         {
           "type": "text",
-          "text": "To find one: solve $f''(x) = 0$, then check that $f''(x)$ changes sign there. Both parts matter. For $y = x^{4}$, $f''(x) = 12x^{2}$ is $0$ at the origin but positive on both sides, so the graph stays concave-up and the origin is a minimum."
+          "text": "To find one: solve $f''(x) = 0$ (and note any $x$ where $f''$ is undefined but $f$ is defined, such as $x = 0$ for $y = x^{5/3}$), then check that $f''(x)$ changes sign there. Both parts matter. For $y = x^{4}$, $f''(x) = 12x^{2}$ is $0$ at the origin but positive on both sides, so the graph stays concave-up and the origin is a minimum."
         },
         {
           "type": "text",
@@ -633,7 +633,7 @@
         },
         {
           "type": "fact",
-          "text": "A point of inflexion is where the concavity changes. Find it by solving $f''(x) = 0$ and checking that $f''(x)$ changes sign: $y = x^{4}$ has $f''(0) = 0$ but no point of inflexion. The gradient there need not be $0$.",
+          "text": "A point of inflexion is where the concavity changes. Find it by solving $f''(x) = 0$ (and checking any $x$ where $f''$ is undefined but $f$ exists) and checking that $f''(x)$ changes sign: $y = x^{4}$ has $f''(0) = 0$ but no point of inflexion. The gradient there need not be $0$.",
           "tag": "learn",
           "cheatSheet": true
         },

@@ -336,7 +336,7 @@
         {
           "type": "check",
           "id": "check-open-circle",
-          "prompt": "The domain of a function $g$ is $0 < x \\le 5$. How should your sketch show the left end of the graph, where $x = 0$?",
+          "prompt": "A model $g(x) = 3x + 2$ has domain $0 < x \\le 5$. How should your sketch show the left end of the graph, at the point $(0, 2)$?",
           "hint": "Is $x = 0$ in the domain?",
           "options": [
             {
@@ -352,7 +352,7 @@
               "correct": false
             }
           ],
-          "explain": "$0 < x$ leaves out $x = 0$, so use an open circle. The included right end, $x = 5$, gets a filled dot.",
+          "explain": "$0 < x$ leaves out $x = 0$, so the graph stops just before $(0, 2)$: draw an open circle there. The included right end, $(5, 17)$, gets a filled dot. (A function that has no finite value as $x$ approaches the excluded end, such as $\\frac{1}{x}$ near $0$, gets an asymptote instead.)",
           "verify": {
             "kind": "choice",
             "truth": "an open circle"

@@ -250,7 +250,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Usually you don't know $\\sigma$. You estimate it from the sample with $s_{n-1}$, the [[unbiased-estimate|unbiased estimate]] from {{lesson:4.14}}."
+          "text": "Usually you don't know $\\sigma$. You estimate it from the sample with $s_{n-1}$. Its square $s_{n-1}^{2}$ is the [[unbiased-estimate|unbiased estimate]] of $\\sigma^{2}$ from {{lesson:4.14}}; $s_{n-1}$ itself is the usual estimate of $\\sigma$, though not exactly unbiased."
         },
         {
           "type": "text",
@@ -316,7 +316,7 @@
           "question": "A botanist measures $40$ randomly chosen seedlings of a new variety after three weeks. Their mean height is $12.6$ cm and $s_{n} = 2.3$ cm, and heights follow a normal distribution. Give a $90\\%$ confidence interval for the mean height of all seedlings of this variety, to 3 s.f.",
           "steps": [
             "$\\sigma$ is unknown, so use t, even though $n = 40$ is large: $\\nu = 39$.",
-            "Convert to the unbiased estimate: $s_{n-1} = \\sqrt{\\frac{40}{39}} \\times 2.3 = 2.3293\\ldots$ cm.",
+            "Convert to $s_{n-1}$, the square root of the unbiased variance estimate: $s_{n-1} = \\sqrt{\\frac{40}{39}} \\times 2.3 = 2.3293\\ldots$ cm.",
             "$t^{*}$ has $\\mathrm{P}(T < t^{*}) = 0.95$ with $\\nu = 39$: $t^{*} = 1.6848\\ldots$ Margin: $1.6848\\ldots \\times \\frac{2.3293\\ldots}{\\sqrt{40}} = 0.62053\\ldots$",
             "Interval: $12.6 \\pm 0.62053\\ldots = [11.979\\ldots, 13.220\\ldots]$. On the GDC: T interval with Stats input, $\\bar{x} = 12.6$, Sx $= 2.3293\\ldots$, $n = 40$, C-Level $0.9$.",
             "We are $90\\%$ confident that the mean three-week height of all seedlings of this variety is between $12.0$ and $13.2$ cm."

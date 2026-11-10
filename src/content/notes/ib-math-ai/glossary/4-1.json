@@ -68,7 +68,7 @@
   {
     "id": "systematic-sampling",
     "term": "systematic sampling",
-    "definition": "Choosing every $k$th member of an ordered list of the population, where $k = \\frac{N}{n}$ (rounded down if not whole) for a population of $N$ and a sample of $n$, starting from a member picked at random among the first $k$ and stopping once there are $n$.",
+    "definition": "Choosing every $k$th member of an ordered list of the population, where $k = \\frac{N}{n}$ (rounded down if not whole) for a population of $N$ and a sample of $n$, starting from a member picked at random among the first $k$ and stopping once there are $n$. If $n$ doesn't divide $N$, the last members of the list can never be picked.",
     "lesson": "4.1"
   },
   {
