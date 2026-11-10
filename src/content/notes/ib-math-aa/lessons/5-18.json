@@ -733,10 +733,10 @@
               "Type y, enter and read 5.2842… (check on your model)"
             ],
             "casio": [
-              "RUN-MAT: type 1, →, X, EXE, then 3, →, ALPHA, Y, EXE (check on your model)",
-              "Type Y+0.2*sqrt(X+Y)→Y, then a colon (PRGM menu), then X+0.2→X, EXE (check on your model)",
-              "Press EXE four more times to repeat the line, until it shows 2 (check on your model)",
-              "Type Y, EXE and read 5.2842… (check on your model)"
+              "MENU, RECUR, TYPE (F3), an+1 (F2) (check on your model)",
+              "After an+1 =, type a(n)+0.2*sqrt(1+0.2n+a(n)), taking n and a(n) from the n.an menu (F4), EXE; here x = 1+0.2n (check on your model)",
+              "SET (F5): Start 0, End 5, a0 3, EXIT (check on your model)",
+              "TABLE (F6): read a(n) at n = 5 (x = 2), 5.2842… (check on your model)"
             ]
           }
         },

@@ -370,9 +370,10 @@
           "type": "calculator",
           "steps": {
             "ti84": [
-              "MATH, Solver",
-              "Enter 0 = 500*0.9^X-1, then type a guess such as X = 50",
-              "ALPHA, ENTER (SOLVE) (check on your model)",
+              "MATH, ▲ to C: Numeric Solver..., ENTER",
+              "Type 500*0.9^X=1, then press the OK soft key",
+              "Move to X and type a starting guess of 50",
+              "SOLVE (GRAPH key)",
               "Read X = 58.984..."
             ],
             "nspire": [

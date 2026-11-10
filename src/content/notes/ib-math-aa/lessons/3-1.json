@@ -410,9 +410,10 @@
           "type": "calculator",
           "steps": {
             "ti84": [
-              "MATH, Solver",
-              "Enter the equation as 0 = X^3+2X^2-400, then ENTER (check on your model)",
-              "Type a guess of 6 for X, then ALPHA, ENTER (SOLVE) (check on your model)",
+              "MATH, ▲ to C: Numeric Solver..., ENTER",
+              "Type X^3+2X^2=400, then press the OK soft key",
+              "Move to X and type a starting guess of 6",
+              "SOLVE (GRAPH key)",
               "Read X = 6.758104..."
             ],
             "nspire": [
