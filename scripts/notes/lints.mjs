@@ -5,7 +5,8 @@
 //   glossaryOwnershipErrors  glossary/<item>.json holds only terms the plan gives to this item
 //   readingMinutes           prose words / 150 + 1 per worked example, rounded (a $maths$ span is one word)
 //   duplicateCheatSheetErrors the same formula TeX or fact text is not flagged for the cheat sheet twice
-//   numberSetErrors          no example or check shares 3+ distinctive numbers with one part of a source-pack question
+//   numberSetErrors          no example or check shares 3+ numbers (2+ of them not round) with one part of a pack question
+//   fixGlossaryFirstUse      the --fix for glossaryFirstUseErrors: wraps each plain first use in [[id|…]]
 
 // ------------------------------------------------------------------------------------------------ inline text
 
@@ -97,9 +98,72 @@ export function glossaryFirstUseErrors(lesson, plan) {
       }
       if (verdict) break;
     }
-    if (verdict && verdict !== "ok") errors.push(`first use of the glossary term "${entry.term}" (${verdict}) is not underlined: write [[${entry.id}|…]] there`);
+    if (verdict && verdict !== "ok") errors.push(`first use of the glossary term "${entry.term}" (${verdict}) is not underlined: write [[${entry.id}|…]] there, or run with --fix`);
   }
   return errors;
+}
+
+/** Inline text as segments with their offsets in the raw string (same grammar as tokens()). */
+function segments(text) {
+  const out = [];
+  const pattern = /\\\$|\$(?:[^$\\]|\\.)*\$|\[\[([a-z0-9-]+)\|([^\]|]+)\]\]|\{\{lesson:([^}]*)\}\}/g;
+  let last = 0;
+  const push = (kind, start, end, extra = {}) => out.push({ kind, start, end, value: text.slice(start, end), ...extra });
+  for (const match of text.matchAll(pattern)) {
+    if (match.index > last) push("text", last, match.index);
+    const end = match.index + match[0].length;
+    if (match[0] === "\\$") push("escaped", match.index, end);
+    else if (match[0].startsWith("$")) push("math", match.index, end);
+    else if (match[1]) out.push({ kind: "term", id: match[1], value: match[2], start: match.index, end });
+    else push("lesson", match.index, end);
+    last = end;
+  }
+  if (last < text.length) push("text", last, text.length);
+  return out;
+}
+
+/** Sets the prose string at a proseInOrder path ("summary", "goals[0]", "sections[1].blocks[2].steps[0]", ...). */
+function setProse(lesson, path, text) {
+  const keys = [...path.matchAll(/([A-Za-z]+)|\[(\d+)\]/g)].map((m) => (m[1] !== undefined ? m[1] : Number(m[2])));
+  const last = keys.pop();
+  const parent = keys.reduce((node, key) => node[key], lesson);
+  if (parent[last] !== null && typeof parent[last] === "object") parent[last].text = text; // a goal
+  else parent[last] = text;
+}
+
+/**
+ * The mechanical fix for glossaryFirstUseErrors: wraps each plain first use in [[id|…]], keeping the words as written.
+ * Mutates `lesson` and returns one line per fix. A first use that sits inside another term's link label can't be wrapped
+ * and is left for the writer (glossaryFirstUseErrors still reports it).
+ */
+export function fixGlossaryFirstUse(lesson, plan) {
+  const fixed = [];
+  for (const entry of planTermsFor(plan, lesson.item)) {
+    const own = termPattern(entry.term);
+    const longer = plan.filter((other) => other.id !== entry.id && other.term.length > entry.term.length && own.test(other.term)).map((other) => termPattern(other.term));
+    const plain = (text) => longer.reduce((acc, pattern) => blank(acc, pattern), text);
+    let done = false;
+    for (const piece of proseInOrder(lesson)) {
+      for (const segment of segments(String(piece.text))) {
+        if (segment.kind === "term" && segment.id === entry.id) done = true;
+        else if (segment.kind === "text" || segment.kind === "term") {
+          const hit = plain(segment.value).match(own);
+          if (hit) {
+            done = true;
+            if (segment.kind === "text" && !piece.defines) {
+              const start = segment.start + hit.index;
+              const words = piece.text.slice(start, start + hit[0].length);
+              setProse(lesson, piece.path, `${piece.text.slice(0, start)}[[${entry.id}|${words}]]${piece.text.slice(start + hit[0].length)}`);
+              fixed.push(`underlined the first use of "${entry.term}" at ${piece.path}`);
+            }
+          }
+        }
+        if (done) break;
+      }
+      if (done) break;
+    }
+  }
+  return fixed;
 }
 
 /** Every entry in glossary/<item>.json is a term the plan gives to this item, filed under that item. */
@@ -219,10 +283,21 @@ const packQuestions = (pack) => {
 };
 
 /**
- * An example or check whose question shares 3 or more distinctive numbers with one block of a pack question (its stem
- * with one part) reuses that question's set-up: fail, naming both. Each lesson block's question (an example's question, a
- * check's prompt) is compared on its own. At least one shared number must be more than a single digit (11, 0.3, 24):
- * three of 3-9 alone are everywhere in maths questions and are not a set-up.
+ * Round numbers: whole numbers up to 12, multiples of 5, one-significant-figure decimals below 1 (0.1, 0.05) and halves
+ * below 10 (1.5, 2.5), plus 0.25 and 0.75. Any question might use them, so sharing them says nothing about a set-up.
+ */
+export function isRoundNumber(value) {
+  const x = Number(value);
+  if (Number.isInteger(x)) return x <= 12 || x % 5 === 0;
+  return /^0\.0*[1-9]$/.test(value) || (x < 10 && Number.isInteger(x * 2)) || value === "0.25" || value === "0.75";
+}
+export const DISTINCTIVE_SHARED = 2;
+
+/**
+ * An example or check whose question shares 3 or more numbers with one block of a pack question (its stem with one
+ * part), at least 2 of them not round (isRoundNumber), reuses that question's set-up: fail, naming both. Each lesson
+ * block's question (an example's question, a check's prompt) is compared on its own. Round-only overlaps (3, 4, 20;
+ * 0.1, 0.2, 0.3) were three in four of this lint's hits across two courses and never a copied set-up.
  */
 export function numberSetErrors(lesson, pack) {
   const blocks = [];
@@ -243,7 +318,7 @@ export function numberSetErrors(lesson, pack) {
     const mine = questionNumbers(block.text);
     if (mine.size < NUMBER_SET_SIZE) continue;
     for (const question of questions) {
-      const shared = question.parts.map((part) => [...mine].filter((number) => part.has(number))).find((common) => common.length >= NUMBER_SET_SIZE && common.some((number) => !/^[3-9]$/.test(number)));
+      const shared = question.parts.map((part) => [...mine].filter((number) => part.has(number))).find((common) => common.length >= NUMBER_SET_SIZE && common.filter((number) => !isRoundNumber(number)).length >= DISTINCTIVE_SHARED);
       if (shared) errors.push(`${block.id} (${block.path}) shares the numbers ${shared.join(", ")} with pack question ${question.id}${question.tier ? ` (${question.tier})` : ""}: change the set-up`);
     }
   }
