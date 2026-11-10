@@ -569,7 +569,7 @@
               "MODE, a+bi",
               "Type 4e^(0.9i)+1-2i and press ENTER (e^( is 2nd LN and i is 2nd . ; check on your model)",
               "Read 3.486439... + 1.133307...i",
-              "MATH, CMPLX, abs( on Ans gives 3.666012..., and angle( on Ans gives 0.314287... (check on your model)",
+              "MATH, CMPLX, abs(4e^(0.9i)+1-2i) gives 3.666012..., then MATH, CMPLX, angle(4e^(0.9i)+1-2i) gives 0.314287... (type the sum each time: after abs(, Ans holds the modulus; check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ],
             "nspire": [
@@ -577,7 +577,7 @@
               "Settings, Real or Complex: Rectangular",
               "Calculator page: type 4*e^(0.9*i)+1-2*i, enter (e^ is the e^x key and i is in the pi key menu; check on your model)",
               "Read 3.486439... + 1.133307...i",
-              "Menu, Number, Complex Number Tools, Magnitude, then Polar Angle, each on ans (check on your model)",
+              "Menu, Number, Complex Number Tools, Magnitude on 4*e^(0.9*i)+1-2*i, then Polar Angle on the same sum, not on the magnitude (check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ],
             "casio": [
@@ -585,7 +585,7 @@
               "SET UP (SHIFT MENU), Complex Mode: a+bi",
               "RUN-MAT: type 4e^(0.9i)+1-2i, EXE (e^ is SHIFT ln and i is SHIFT 0; check on your model)",
               "Read 3.486439... + 1.133307...i",
-              "OPTN, COMPLEX, Abs, then Arg, each on Ans (check on your model)",
+              "OPTN, COMPLEX, Abs (4e^(0.9i)+1-2i), then Arg (4e^(0.9i)+1-2i): type the sum each time, as Ans is the modulus after Abs (check on your model)",
               "So r = 3.67 and theta = 0.314 to 3 s.f."
             ]
           }
