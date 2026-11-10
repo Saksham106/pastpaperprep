@@ -59,7 +59,7 @@ function assessmentGroups(papers: AssessmentPaper[]) {
     }));
 }
 
-export function QualificationHub({ qualification, title, intro, notesHref, chemistryNotesHref, physicsNotesHref }: { qualification: Qualification; title: string; intro: string; notesHref?: string; chemistryNotesHref?: string; physicsNotesHref?: string }) {
+export function QualificationHub({ qualification, title, intro, notesHref, chemistryNotesHref, physicsNotesHref, mathsAiNotesHref }: { qualification: Qualification; title: string; intro: string; notesHref?: string; chemistryNotesHref?: string; physicsNotesHref?: string; mathsAiNotesHref?: string }) {
   const banks = getCatalogBanksForDisplay().filter((bank) => bank.qualification === qualification);
   const path = qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse";
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
@@ -78,6 +78,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
         <section className="landing-method" aria-labelledby="ib-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="ib-resources-heading">More IB study resources</h2></div>
           {notesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={notesHref}>Notes: IB Maths AA course notes</Link> with worked examples and checks for every topic.</p> : null}
+          {mathsAiNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={mathsAiNotesHref}>Notes: IB Maths AI course notes</Link> with worked examples and checks for every topic.</p> : null}
           {chemistryNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={chemistryNotesHref}>Notes: IB Chemistry course notes</Link> with worked examples and checks for every topic.</p> : null}
           {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IB Physics course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>

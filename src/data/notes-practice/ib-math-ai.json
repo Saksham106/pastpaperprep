@@ -31,6 +31,10 @@
       "SL": 9,
       "HL": 8
     },
+    "Algebraic manipulation": {
+      "SL": 7,
+      "HL": 5
+    },
     "Laws of logarithms": {
       "SL": 0,
       "HL": 4
@@ -63,6 +67,18 @@
       "SL": 16,
       "HL": 21
     },
+    "Modelling with linear and piecewise functions": {
+      "SL": 1,
+      "HL": 6
+    },
+    "Direct and inverse variation": {
+      "SL": 7,
+      "HL": 7
+    },
+    "Sinusoidal models": {
+      "SL": 15,
+      "HL": 17
+    },
     "Modelling with exponential functions": {
       "SL": 13,
       "HL": 15
@@ -78,6 +94,14 @@
     "Logistic models": {
       "SL": 0,
       "HL": 7
+    },
+    "Logarithmic models": {
+      "SL": 0,
+      "HL": 5
+    },
+    "Non-linear piecewise models": {
+      "SL": 0,
+      "HL": 3
     },
     "Non-linear regression and linearizing": {
       "SL": 0,
@@ -143,9 +167,21 @@
       "SL": 0,
       "HL": 13
     },
+    "Chinese postman problem": {
+      "SL": 0,
+      "HL": 7
+    },
+    "Travelling salesman problem": {
+      "SL": 0,
+      "HL": 12
+    },
     "Sampling and data collection": {
       "SL": 6,
       "HL": 10
+    },
+    "Outliers and data interpretation": {
+      "SL": 13,
+      "HL": 8
     },
     "Statistical measures and frequency tables": {
       "SL": 30,
@@ -179,6 +215,10 @@
       "SL": 20,
       "HL": 22
     },
+    "The t-test": {
+      "SL": 15,
+      "HL": 16
+    },
     "Linear combinations of random variables": {
       "SL": 0,
       "HL": 13
@@ -199,6 +239,10 @@
       "SL": 0,
       "HL": 35
     },
+    "Type I and Type II errors": {
+      "SL": 0,
+      "HL": 11
+    },
     "Transition matrices and Markov chains": {
       "SL": 0,
       "HL": 18
@@ -215,6 +259,10 @@
       "SL": 13,
       "HL": 5
     },
+    "Applications of integration": {
+      "SL": 20,
+      "HL": 28
+    },
     "Modelling with differentiation": {
       "SL": 14,
       "HL": 6
@@ -227,6 +275,14 @@
       "SL": 0,
       "HL": 16
     },
+    "Related rates of change": {
+      "SL": 0,
+      "HL": 8
+    },
+    "Differentiating special functions": {
+      "SL": 0,
+      "HL": 3
+    },
     "Second order derivatives and concavity": {
       "SL": 0,
       "HL": 4
@@ -234,6 +290,10 @@
     "Techniques of integration": {
       "SL": 0,
       "HL": 7
+    },
+    "Integrating special functions": {
+      "SL": 0,
+      "HL": 3
     },
     "Volumes of revolution": {
       "SL": 0,
@@ -258,24 +318,24 @@
   },
   "topics": {
     "1": {
-      "SL": 82,
-      "HL": 119
+      "SL": 84,
+      "HL": 121
     },
     "2": {
-      "SL": 55,
-      "HL": 78
+      "SL": 74,
+      "HL": 105
     },
     "3": {
       "SL": 90,
-      "HL": 136
+      "HL": 138
     },
     "4": {
-      "SL": 114,
-      "HL": 145
+      "SL": 121,
+      "HL": 147
     },
     "5": {
-      "SL": 60,
-      "HL": 130
+      "SL": 63,
+      "HL": 136
     }
   },
   "parents": {
@@ -284,6 +344,7 @@
     "Financial mathematics": "Number and algebra",
     "Exponents and logarithms": "Number and algebra",
     "Solving equations with a GDC": "Number and algebra",
+    "Algebraic manipulation": "Number and algebra",
     "Laws of logarithms": "Functions",
     "Sum to infinity": "Number and algebra",
     "Complex numbers": "Number and algebra",
@@ -292,10 +353,15 @@
     "Linear functions and graphs": "Functions",
     "Properties of functions and graphs": "Functions",
     "Modelling with quadratic and cubic functions": "Functions",
+    "Modelling with linear and piecewise functions": "Functions",
+    "Direct and inverse variation": "Functions",
+    "Sinusoidal models": "Functions",
     "Modelling with exponential functions": "Functions",
     "Composite and inverse functions": "Functions",
     "Transformations of graphs": "Functions",
     "Logistic models": "Functions",
+    "Logarithmic models": "Functions",
+    "Non-linear piecewise models": "Functions",
     "Non-linear regression and linearizing": "Statistics and probability",
     "Volume and surface area of 3D shapes": "Geometry and trigonometry",
     "Non right-angled trigonometry": "Geometry and trigonometry",
@@ -312,7 +378,10 @@
     "Graph theory": "Geometry and trigonometry",
     "Adjacency matrices and walks": "Geometry and trigonometry",
     "Minimum spanning trees": "Geometry and trigonometry",
+    "Chinese postman problem": "Geometry and trigonometry",
+    "Travelling salesman problem": "Geometry and trigonometry",
     "Sampling and data collection": "Statistics and probability",
+    "Outliers and data interpretation": "Statistics and probability",
     "Statistical measures and frequency tables": "Statistics and probability",
     "Correlation and regression": "Statistics and probability",
     "Probability and types of events": "Statistics and probability",
@@ -321,20 +390,26 @@
     "Binomial distribution": "Statistics and probability",
     "Normal distribution": "Statistics and probability",
     "Chi-squared tests": "Statistics and probability",
+    "The t-test": "Statistics and probability",
     "Linear combinations of random variables": "Statistics and probability",
     "Unbiased estimates and sample mean distribution": "Statistics and probability",
     "Confidence intervals for the mean": "Statistics and probability",
     "Poisson distribution": "Statistics and probability",
     "Further hypothesis testing": "Statistics and probability",
+    "Type I and Type II errors": "Statistics and probability",
     "Transition matrices and Markov chains": "Statistics and probability",
     "Introduction to differentiation": "Calculus",
     "Applications of differentiation": "Calculus",
     "Introduction to integration": "Calculus",
+    "Applications of integration": "Calculus",
     "Modelling with differentiation": "Calculus",
     "Trapezoidal rule": "Calculus",
     "Techniques of differentiation": "Calculus",
+    "Related rates of change": "Calculus",
+    "Differentiating special functions": "Calculus",
     "Second order derivatives and concavity": "Calculus",
     "Techniques of integration": "Calculus",
+    "Integrating special functions": "Calculus",
     "Volumes of revolution": "Calculus",
     "Kinematics": "Calculus",
     "Differential equations": "Calculus",

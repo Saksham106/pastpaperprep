@@ -144,6 +144,8 @@ export type PracticeInfo = {
   name?: string;
   counts: PerView<number>;
   hrefs: PerView<string>;
+  /** Other bank subtopics the lesson also teaches (a `bank-subtopics` item's `alsoPractises`), each with its own counts and links. */
+  more?: { name: string; counts: PerView<number>; hrefs: PerView<string> }[];
   /** The item is stored at the course's extension level (AA: AHL), not merely empty in one view. */
   extensionOnly: boolean;
 };
@@ -165,14 +167,13 @@ export function lessonPractice(course: Course, item: string): PracticeInfo | und
     const extensionOnly = isExtension(course, entry.level);
     const levelOf = (view: ViewLevel) => course.levels.labels[view];
     // An extension-level lesson has no base-view questions: its base view points at the extension bank (the band then says so).
-    return {
-      group: item,
-      items: item,
-      name: label,
-      extensionOnly,
-      counts: perView((view) => (view === "base" && extensionOnly ? 0 : file.subtopics[label]?.[levelOf(view)] ?? 0)),
-      hrefs: perView((view) => subtopicPracticeHref(file, label, levelOf(view === "base" && extensionOnly ? "extension" : view))),
-    };
+    const band = (name: string) => ({
+      name,
+      counts: perView((view) => (view === "base" && extensionOnly ? 0 : file.subtopics[name]?.[levelOf(view)] ?? 0)),
+      hrefs: perView((view) => subtopicPracticeHref(file, name, levelOf(view === "base" && extensionOnly ? "extension" : view))),
+    });
+    const more = (entry.alsoPractises ?? []).map(band);
+    return { group: item, items: item, extensionOnly, ...band(label), ...(more.length ? { more } : {}) };
   }
   if (!course.items.items.some((entry) => entry.item === item)) return undefined;
   // An Extended-only section has no Core code: its base view points at the Extended questions (the band then says so).

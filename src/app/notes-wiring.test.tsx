@@ -58,6 +58,16 @@ describe("course notes wiring (spec section 11), gated by visibility", () => {
     expect(find(IbPage(), QualificationHub)[0].props.chemistryNotesHref).toBe("/revision-notes/ib-chemistry");
   });
 
+  it("/ib hub links the Maths AI notes only when that course is visible", () => {
+    const restore = setCoursePublishedForTests(false, "ib-math-ai");
+    try {
+      expect(find(IbPage(), QualificationHub)[0].props.mathsAiNotesHref).toBeUndefined();
+    } finally {
+      restore();
+    }
+    expect(find(IbPage(), QualificationHub)[0].props.mathsAiNotesHref).toBe("/revision-notes/ib-math-ai");
+  });
+
   it("/ib hub links the Physics notes only when that course is visible", () => {
     hide();
     expect(find(IbPage(), QualificationHub)[0].props.physicsNotesHref).toBeUndefined();

@@ -163,6 +163,8 @@ export type ItemsFile = {
     booklet: { id: string; label: string }[];
     /** The bank subtopic label the item practises (a `bank-subtopics` course; several items may share one). */
     practice?: string;
+    /** Other bank subtopic labels the lesson teaches (IB Maths AI: "The t-test" on the chi-squared lesson), so every label links to a lesson. */
+    alsoPractises?: string[];
   }[];
 };
 

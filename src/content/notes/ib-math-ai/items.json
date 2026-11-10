@@ -220,6 +220,7 @@
    "level": "SL",
    "name": "Solving equations with technology",
    "practice": "Solving equations with a GDC",
+   "alsoPractises": ["Algebraic manipulation"],
    "bullets": [
     {
      "id": "1.8-b1",
@@ -587,6 +588,7 @@
    "level": "SL",
    "name": "Modelling with functions",
    "practice": "Modelling with quadratic and cubic functions",
+   "alsoPractises": ["Modelling with linear and piecewise functions", "Direct and inverse variation", "Sinusoidal models"],
    "bullets": [
     {
      "id": "2.5-b1",
@@ -728,6 +730,7 @@
    "level": "AHL",
    "name": "Further function models",
    "practice": "Logistic models",
+   "alsoPractises": ["Logarithmic models", "Non-linear piecewise models"],
    "bullets": [
     {
      "id": "2.9-b1",
@@ -1309,6 +1312,7 @@
    "level": "AHL",
    "name": "Spanning trees, postman and salesman problems",
    "practice": "Minimum spanning trees",
+   "alsoPractises": ["Chinese postman problem", "Travelling salesman problem"],
    "bullets": [
     {
      "id": "3.16-b1",
@@ -1355,6 +1359,7 @@
    "level": "SL",
    "name": "Sampling, data quality and outliers",
    "practice": "Sampling and data collection",
+   "alsoPractises": ["Outliers and data interpretation"],
    "bullets": [
     {
      "id": "4.1-b1",
@@ -1681,6 +1686,7 @@
    "level": "SL",
    "name": "Chi-squared tests and the t-test",
    "practice": "Chi-squared tests",
+   "alsoPractises": ["The t-test"],
    "bullets": [
     {
      "id": "4.11-b1",
@@ -1942,6 +1948,7 @@
    "level": "AHL",
    "name": "Further hypothesis tests and errors",
    "practice": "Further hypothesis testing",
+   "alsoPractises": ["Type I and Type II errors"],
    "bullets": [
     {
      "id": "4.18-b1",
@@ -2096,6 +2103,7 @@
    "level": "SL",
    "name": "Antidifferentiation, definite integrals and area",
    "practice": "Introduction to integration",
+   "alsoPractises": ["Applications of integration"],
    "bullets": [
     {
      "id": "5.5-b1",
@@ -2190,6 +2198,7 @@
    "level": "AHL",
    "name": "Differentiation rules and related rates",
    "practice": "Techniques of differentiation",
+   "alsoPractises": ["Related rates of change", "Differentiating special functions"],
    "bullets": [
     {
      "id": "5.9-b1",
@@ -2275,6 +2284,7 @@
    "level": "AHL",
    "name": "Standard integrals and substitution",
    "practice": "Techniques of integration",
+   "alsoPractises": ["Integrating special functions"],
    "bullets": [
     {
      "id": "5.11-b1",

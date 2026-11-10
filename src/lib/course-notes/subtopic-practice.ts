@@ -18,6 +18,9 @@ export type SubtopicPracticeFile = {
   parents: Record<string, string>;
 };
 
+/** Every bank subtopic label an item practises: its own, then any it also teaches. */
+export const itemPracticeLabels = (entry: { practice?: string; alsoPractises?: string[] }): string[] => (entry.practice ? [entry.practice, ...(entry.alsoPractises ?? [])] : []);
+
 /**
  * The bank page filtered to one subtopic. A bank with free years opens free-only for visitors without a plan, so the
  * link says free=0: locked questions stay locked, but the page lists exactly the questions the count names.

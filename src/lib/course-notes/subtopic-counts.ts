@@ -5,7 +5,7 @@ import { parseExplorerState } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import type { UnifiedQuestion } from "@/lib/questions";
 import type { CourseConfig } from "./config";
-import { subtopicHref, type SubtopicPracticeFile } from "./subtopic-practice";
+import { itemPracticeLabels, subtopicHref, type SubtopicPracticeFile } from "./subtopic-practice";
 import type { ItemsFile } from "./types";
 
 /** The ids the bank page lists for that link, through the explorer's own URL parsing and filter (with full access). */
@@ -19,7 +19,7 @@ export function idsShown(questions: readonly UnifiedQuestion[], href: string): s
 }
 
 /** Every distinct label in item order. */
-export const practiceLabels = (items: ItemsFile): string[] => [...new Set(items.items.flatMap((entry) => entry.practice ?? []))];
+export const practiceLabels = (items: ItemsFile): string[] => [...new Set(items.items.flatMap(itemPracticeLabels))];
 
 /** Builds the course's practice file from each level's bank questions. */
 export function buildSubtopicPractice(
@@ -39,7 +39,7 @@ export function buildSubtopicPractice(
   const topicNumbers = [...new Set(items.items.map((entry) => entry.topic))].sort((a, b) => a - b);
   const topics = Object.fromEntries(topicNumbers.map((n) => {
     const entries = items.items.filter((entry) => entry.topic === n && entry.practice);
-    const distinct = (level: string, keep: (entryLevel: string) => boolean) => new Set(entries.filter((entry) => keep(entry.level)).flatMap((entry) => shown.get(entry.practice!)![level])).size;
+    const distinct = (level: string, keep: (entryLevel: string) => boolean) => new Set(entries.filter((entry) => keep(entry.level)).flatMap((entry) => itemPracticeLabels(entry).flatMap((label) => shown.get(label)![level]))).size;
     return [String(n), { [labels.base]: distinct(labels.base, (level) => level === base), [labels.extension]: distinct(labels.extension, () => true) }];
   }));
   const parents = Object.fromEntries([...shown.keys()].flatMap((label) => {

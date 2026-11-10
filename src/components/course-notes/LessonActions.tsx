@@ -26,6 +26,8 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
   const shown = practice.counts[bankLevel];
   // What the band practises: the item (AA, 0580) or the bank subtopic it shares with other lessons (IB Chemistry).
   const topic = practice.name ?? practice.items;
+  // Other subtopics the lesson teaches, in the same bank as the main button, when they have questions there.
+  const more = (practice.more ?? []).filter((extra) => extra.counts[bankLevel] > 0);
   return (
     <section id="practise" className={styles.practise} data-practise>
       <div>
@@ -41,6 +43,11 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
         ) : (
           <p><b>{plural(shown)}</b> on {topic}{` in the ${bankPrefix} `}{course.levels.labels[level]} bank, each with a mark scheme and a worked explanation.</p>
         )}
+        {more.length ? (
+          <p className={styles.practiseMore}>Also: {more.map((extra, index) => (
+            <span key={extra.name}>{index ? " · " : null}<Link href={extra.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, course.banks[bankLevel], practice.group)}>{extra.name}</Link> ({extra.counts[bankLevel]})</span>
+          ))}</p>
+        ) : null}
       </div>
       {shown === 0 ? null : <Link className={`${styles.btn} ${styles.btnPrimary}`} href={practice.hrefs[bankLevel]} onClick={() => trackPracticeClick(ctx, course.banks[bankLevel], practice.group)}>Practise {topic} →</Link>}
     </section>

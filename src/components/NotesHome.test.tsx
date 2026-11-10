@@ -47,6 +47,18 @@ describe("notes home", () => {
     expect(row().notes).toEqual({ href: "/revision-notes/ib-chemistry", label: "71 lessons" });
   });
 
+  it("keeps IB Maths AI 'Coming soon' while its course is unpublished, and links it once visible", () => {
+    const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"))[0];
+    const restore = setCoursePublishedForTests(false, "ib-math-ai");
+    try {
+      expect(row().notes).toBeUndefined();
+    } finally {
+      restore();
+    }
+    expect(getCourse("ib-math-ai")!.lessons).toHaveLength(78);
+    expect(row().notes).toEqual({ href: "/revision-notes/ib-math-ai", label: "78 lessons" });
+  });
+
   it("keeps IB Physics 'Coming soon' while its course is unpublished, and links it once visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-physics-hl" || bank.slug === "ib-physics-sl"))[0];
     const restore = setCoursePublishedForTests(false, "ib-physics");
