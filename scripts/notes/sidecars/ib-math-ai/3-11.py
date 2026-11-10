@@ -14,7 +14,7 @@ from pathlib import Path
 from sympy import Matrix, S, diff, simplify, solve, symbols
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from mathparse import check_same_line, parse_answer, parse_vector, parse_vector_line  # noqa: E402
+from mathparse import check_same_line, keep_constant, parse_answer, parse_vector, parse_vector_line  # noqa: E402
 
 lam = symbols("lambda")
 
@@ -103,4 +103,5 @@ NUMERIC = {}
 def verify(id, value, tolerance=None):
     if id not in CHECKS:
         raise KeyError(f"no assertion for {id}")
-    CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)
+    with keep_constant():  # nothing here is an antiderivative: a trailing + C is part of the answer
+        CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)

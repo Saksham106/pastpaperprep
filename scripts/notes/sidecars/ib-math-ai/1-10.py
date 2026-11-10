@@ -11,7 +11,7 @@ from pathlib import Path
 from sympy import Rational, Symbol, simplify, sqrt
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from mathparse import parse_answer  # noqa: E402
+from mathparse import keep_constant, parse_answer  # noqa: E402
 
 x = Symbol("x", positive=True)
 
@@ -38,4 +38,5 @@ NUMERIC = {}
 def verify(id, value, tolerance=None):
     if id not in CHECKS:
         raise KeyError(f"no assertion for {id}")
-    CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)
+    with keep_constant():  # nothing here is an antiderivative: a trailing + C is part of the answer
+        CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)

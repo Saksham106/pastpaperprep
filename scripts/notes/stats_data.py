@@ -469,6 +469,9 @@ def tvm_rate(n, pv, pmt, fv, py=1, cy=None):
         grid = [floor * (1 - mpmath.mpf(10) ** -k) for k in range(12, 0, -1)] + [mpmath.mpf(x) for x in (-50, -20, -10, -5, -2, -1, "-0.1", "1e-9", "0.1", 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000)]
         grid = sorted(g for g in grid if g > floor)
         signs = [(g, f(g)) for g in grid]
+        exact = [g for g, fg in signs if fg == 0]
+        if len(exact) == 1 and not [1 for (_, fa), (_, fb) in zip(signs, signs[1:]) if fa * fb < 0]:
+            return _float(exact[0])  # a grid point, such as the 1000% end, is the root itself
         brackets = [(a, b, fa) for (a, fa), (b, fb) in zip(signs, signs[1:]) if fa == 0 or fa * fb < 0]
         if not brackets:
             raise ValueError("no rate above -100% and up to 1000% balances these cash flows")

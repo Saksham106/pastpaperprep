@@ -317,7 +317,7 @@
         },
         {
           "type": "mistake",
-          "text": "Writing \"maximum\" with no reason earns no reasoning mark. Write the value or sign of $h''$ and what it shows: \"$h''(5) = -0.6 < 0$, so maximum\"."
+          "text": "Writing \"maximum\" with no reason earns no reasoning mark. At the stationary point, write the value or sign of $h''$ and what it shows: \"$h'(5) = 0$ and $h''(5) = -0.6 < 0$, so local maximum\"."
         },
         {
           "type": "text",
@@ -666,5 +666,5 @@
     "\"Hence or otherwise find the points of inflexion\": write the equation $f''(x) = 0$, or say you are finding the turning points of the graph of $f'$, before you give the GDC values to 3 s.f.",
     "\"Interpret\": say which rate is greatest or least at the point of inflexion, in the units of the question."
   ],
-  "readingMinutes": 24
+  "readingMinutes": 25
 }

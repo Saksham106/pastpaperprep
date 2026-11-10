@@ -141,6 +141,7 @@ def test_tvm():
     close(sd.tvm_fv(12, 5, -1000, 0, 12), 1051.161898, 1e-9)
     close(sd.tvm_rate(5, -20000, 0, 12000), (0.6 ** 0.2 - 1) * 100, 1e-9)
     assert sd.tvm_rate(4, -100, 0, 100) == 0
+    close(sd.tvm_rate(1, -100, 0, 1100), 1000)  # the root is the search's own end point (#483 review)
     fails(lambda: sd.tvm_fv(10, -150, -1000, 0))
     fails(lambda: sd.tvm_n(5, 1000, 0, 2000))
     fails(lambda: sd.tvm_rate(10, 1000, 0, 2000))

@@ -13,23 +13,14 @@ from pathlib import Path
 from sympy import Matrix, simplify, zeros
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from mathparse import parse_answer  # noqa: E402
+from mathparse import parse_matrices  # noqa: E402
 
-_PMATRIX = re.compile(r"\\begin\{pmatrix\}(.*?)\\end\{pmatrix\}", re.S)
 
 
 def _matrices(tex):
-    """Every pmatrix in the text, in order, as SymPy matrices."""
-    found = []
-    for body in _PMATRIX.findall(tex):
-        rows = [row for row in re.split(r"\\\\", body) if row.strip()]
-        parsed = [[parse_answer(entry.strip()) for entry in row.split("&")] for row in rows]
-        if len({len(row) for row in parsed}) != 1:
-            raise ValueError(f"ragged matrix in {tex!r}")
-        found.append(Matrix(parsed))
-    if not found:
-        raise ValueError(f"no matrix in {tex!r}")
-    return found
+    """Every matrix in the text, in order, each times any scalar written before it (mathparse.parse_matrices: text
+    outside the matrices that isn't a label or that scalar is refused, and entries keep + C)."""
+    return [matrix for _, matrix in parse_matrices(tex)]
 
 
 def matrices(*truths):

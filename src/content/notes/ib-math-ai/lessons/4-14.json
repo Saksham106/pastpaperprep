@@ -578,7 +578,7 @@
         },
         {
           "type": "mistake",
-          "text": "Writing $nX$ when $n$ separate items are added. Ask whether the items are different (add $n$ variables: variance $n\\sigma^{2}$) or one amount is scaled (variance $n^{2}\\sigma^{2}$)."
+          "text": "Writing $nX$ when $n$ separate items are added. Ask whether the items are different (add $n$ independent variables: variance $n\\sigma^{2}$) or one amount is scaled (variance $n^{2}\\sigma^{2}$)."
         },
         {
           "type": "check",

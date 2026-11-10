@@ -609,7 +609,7 @@
         },
         {
           "type": "mistake",
-          "text": "Using $1 - \\mathrm{P}(X \\le x)$ for $\\mathrm{P}(X \\ge x)$. That leaves out $x$ itself: $\\mathrm{P}(X \\ge x) = 1 - \\mathrm{P}(X \\le x - 1)$."
+          "text": "Using $1 - \\mathrm{P}(X \\le x)$ for $\\mathrm{P}(X \\ge x)$. For a whole-number count, that leaves out $x$ itself: $\\mathrm{P}(X \\ge x) = 1 - \\mathrm{P}(X \\le x - 1)$."
         }
       ]
     },

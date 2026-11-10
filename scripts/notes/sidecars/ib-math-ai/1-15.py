@@ -19,11 +19,10 @@ from pathlib import Path
 from sympy import Float, Matrix, Rational, Symbol, diag, expand, simplify
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from mathparse import parse_answer  # noqa: E402
+from mathparse import keep_constant, parse_answer, parse_matrices  # noqa: E402
 
 LAM = Symbol("lambda")
 N = Symbol("n")
-PMATRIX = re.compile(r"\\begin\{pmatrix\}(.*?)\\end\{pmatrix\}", re.S)
 
 
 def _exact(expr):
@@ -36,19 +35,16 @@ def _body(tex):
     return tex.strip().strip("$").strip()
 
 
-def _matrix(inner, tex):
-    rows = [row.strip() for row in inner.split("\\\\") if row.strip()]
+def _scaled(tex):
+    """[(start, matrix)] for every matrix, each times the scalar written before it; stray text is an error."""
     try:
-        return Matrix([[_exact(parse_answer(entry.strip())) for entry in row.split("&")] for row in rows])
+        return [(start, _exact(matrix)) for start, matrix in parse_matrices(tex)]
     except ValueError as error:
-        raise AssertionError(f"{tex!r}: cannot read a matrix entry ({error})") from error
+        raise AssertionError(f"{tex!r}: cannot read the matrices ({error})") from error
 
 
 def _last_matrix(tex):
-    found = PMATRIX.findall(tex)
-    if not found:
-        raise AssertionError(f"{tex!r} has no matrix or column vector")
-    return _matrix(found[-1], tex)
+    return _scaled(tex)[-1][1]
 
 
 def _zero(expr):
@@ -71,43 +67,54 @@ def charpoly(A):
     return check
 
 
+def _eigvec_matrix(A, v, lam, tex):
+    if v.shape != (2, 1):
+        raise AssertionError(f"{tex!r} is not a column vector with 2 entries")
+    if all(_zero(x) for x in v):
+        raise AssertionError(f"{tex!r} is the zero vector, which is never an eigenvector")
+    Av = A * v
+    if lam is not None:
+        if not all(_zero(x) for x in Av - lam * v):
+            raise AssertionError(f"A v = {list(Av)} is not {lam} v")
+    elif not _zero(Av[0] * v[1] - Av[1] * v[0]):
+        raise AssertionError(f"A v = {list(Av)} is not a multiple of v = {list(v)}")
+
+
 def eigvec(A, lam=None):
     def check(tex):
-        v = _last_matrix(tex)
-        if v.shape != (2, 1):
-            raise AssertionError(f"{tex!r} is not a column vector with 2 entries")
-        if all(_zero(x) for x in v):
-            raise AssertionError(f"{tex!r} is the zero vector, which is never an eigenvector")
-        Av = A * v
-        if lam is not None:
-            if not all(_zero(x) for x in Av - lam * v):
-                raise AssertionError(f"A v = {list(Av)} is not {lam} v")
-        elif not _zero(Av[0] * v[1] - Av[1] * v[0]):
-            raise AssertionError(f"A v = {list(Av)} is not a multiple of v = {list(v)}")
+        _eigvec_matrix(A, _last_matrix(tex), lam, tex)
     return check
 
 
 def eigpairs(A):
     """`\\lambda = 2: \\begin{pmatrix}..\\end{pmatrix},\\; \\lambda = 5: ...`: one eigenvector for every eigenvalue."""
     def check(tex):
-        pairs = re.findall(r"\\lambda\s*=\s*([^:]+?)\s*:\s*\\begin\{pmatrix\}(.*?)\\end\{pmatrix\}", tex, re.S)
-        if not pairs:
+        labels = [(m.end(), m.group(1)) for m in re.finditer(r"\\lambda\s*=\s*([^:]+?)\s*:", tex)]
+        if not labels:
             raise AssertionError(f"{tex!r} has no 'lambda = k: vector' pairs")
-        published = sorted((_exact(parse_answer(value)) for value, _ in pairs), key=float)
+        vectors = _scaled(tex)
+        if len(vectors) != len(labels):
+            raise AssertionError(f"{tex!r} has {len(labels)} eigenvalues but {len(vectors)} vectors")
+        with keep_constant():
+            values = [_exact(parse_answer(value)) for _, value in labels]
         truth = sorted(A.eigenvals(), key=float)
-        if len(published) != len(truth) or not all(_zero(p - t) for p, t in zip(published, truth)):
-            raise AssertionError(f"eigenvalues {published} are not {truth}")
-        for value, inner in pairs:
-            lam = _exact(parse_answer(value))
-            eigvec(A, lam)("\\begin{pmatrix}" + inner + "\\end{pmatrix}")
+        if len(values) != len(truth) or not all(_zero(p - t) for p, t in zip(sorted(values, key=float), truth)):
+            raise AssertionError(f"eigenvalues {values} are not {truth}")
+        for (after, _), lam, (start, v) in zip(labels, values, vectors):
+            if start < after:
+                raise AssertionError(f"{tex!r}: each eigenvector must follow its eigenvalue")
+            _eigvec_matrix(A, v, lam, tex)
     return check
 
 
 def _named(tex, name):
-    match = re.search(name + r"\s*=\s*\\begin\{pmatrix\}(.*?)\\end\{pmatrix\}", tex, re.S)
+    match = re.search(name + r"\s*=", tex)
     if not match:
         raise AssertionError(f"{tex!r} has no {name} = matrix")
-    return _matrix(match.group(1), tex)
+    after = [matrix for start, matrix in _scaled(tex) if start >= match.end()]
+    if not after:
+        raise AssertionError(f"{tex!r} has no matrix after {name} =")
+    return after[0]
 
 
 def _check_d(D, P, A):
@@ -138,9 +145,7 @@ def power(A):
         start = rhs.find("\\begin{pmatrix}")
         if start < 0:
             raise AssertionError(f"{tex!r} has no matrix")
-        prefix = rhs[:start].strip()
-        scalar = _exact(parse_answer(prefix)) if prefix else 1
-        published = scalar * _last_matrix(rhs)
+        published = _last_matrix(rhs)
         P, D = A.diagonalize()
         truth = P * diag(*[D[i, i] ** N for i in range(2)]) * P.inv()
         if not _matrices_equal(published, truth):

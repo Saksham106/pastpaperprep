@@ -14,7 +14,7 @@ from pathlib import Path
 from sympy import Abs, Float, I, N, Rational, Symbol, atan2, cos, exp, expand_complex, expand_trig, im, pi, re as re_part, simplify, sin, sqrt
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from mathparse import check_rounded, parse_answer  # noqa: E402
+from mathparse import check_rounded, keep_constant, parse_answer  # noqa: E402
 
 t = Symbol("t")
 
@@ -210,4 +210,5 @@ NUMERIC = {}
 def verify(id, value, tolerance=None):
     if id not in CHECKS:
         raise KeyError(f"no assertion for {id}")
-    CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)
+    with keep_constant():  # nothing here is an antiderivative: a trailing + C is part of the answer
+        CHECKS[id](value) if tolerance is None else CHECKS[id](value, tolerance)
