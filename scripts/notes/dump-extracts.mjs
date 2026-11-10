@@ -1,5 +1,5 @@
 // Every line of a course that a student reads on its own, out of its lesson: cheat-sheet facts and formulas, topic
-// "which method when" lines, glossary definitions, exam tips, mistakes and command terms. The extracts audit reads this
+// "which method when" lines, glossary definitions, exam tips and mistakes (lesson-level and inline blocks) and command terms. The extracts audit reads this
 // dump with no lesson open, the way a student revising from the cheat sheet would (docs/course-notes/process-v3.md).
 //
 //   node scripts/notes/dump-extracts.mjs --course <slug> [--topic <n>] > extracts.md
@@ -29,6 +29,8 @@ for (const name of list(course.lessonsDir)) {
       if (block.type === "fact" && block.cheatSheet) line(`${file} sections[${s}].blocks[${b}].text`, block.text, level);
       if (block.type === "formula" && block.cheatSheet) line(`${file} sections[${s}].blocks[${b}].tex`, `$${block.tex}$`, level);
       if (section.id === "takeaways" && block.type === "text") line(`${file} sections[${s}].blocks[${b}].text`, block.text, level);
+      if (block.type === "examTip") line(`${file} sections[${s}].blocks[${b}].text`, `Exam tip: ${block.text}`, level);
+      if (block.type === "mistake") line(`${file} sections[${s}].blocks[${b}].text`, `Mistake: ${block.text}`, level);
     }),
   );
   lesson.examTips.forEach((text, i) => line(`${file} examTips[${i}]`, `Exam tip: ${text}`));
@@ -37,14 +39,17 @@ for (const name of list(course.lessonsDir)) {
   if (existsSync(glossaryFile)) read(glossaryFile).forEach((term, i) => line(`glossary/${name} [${i}].definition`, `**${term.term}**: ${term.definition}`));
   out.push("");
 }
-if (!onlyTopic) {
-  for (const name of list(join(course.root, "cheatsheets"))) {
+// A topic's sheet is cheatsheets/<topic slug>.json; with --topic only that one, and the course-wide command terms are left
+// for a full-course run.
+const sheetTopic = onlyTopic ? course.config.topics.find((topic) => topic.n === onlyTopic)?.slug : null;
+{
+  for (const name of list(join(course.root, "cheatsheets")).filter((name) => !onlyTopic || name === `${sheetTopic}.json`)) {
     out.push(`## Topic sheet ${name}`, "");
     read(join(course.root, "cheatsheets", name)).lines.forEach((entry, i) => line(`cheatsheets/${name} lines[${i}].text`, entry.text, entry.level));
     out.push("");
   }
   const terms = join(course.root, "command-terms.json");
-  if (existsSync(terms)) {
+  if (!onlyTopic && existsSync(terms)) {
     out.push("## Command terms", "");
     read(terms).forEach((term, i) => line(`command-terms.json [${i}].definition`, `**${term.term}**: ${term.definition}`));
   }
