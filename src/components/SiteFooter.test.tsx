@@ -65,6 +65,20 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "IB Chemistry notes" })).toHaveAttribute("href", "/revision-notes/ib-chemistry");
   });
 
+  it("links the IB Maths AI notes only while that course is visible", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    const restore = setCoursePublishedForTests(false, "ib-math-ai");
+    try {
+      const view = render(<SiteFooter />);
+      expect(screen.queryByRole("link", { name: "IB Maths AI notes" })).not.toBeInTheDocument();
+      view.unmount();
+    } finally {
+      restore();
+    }
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "IB Maths AI notes" })).toHaveAttribute("href", "/revision-notes/ib-math-ai");
+  });
+
   it("links the IB Physics notes only while that course is visible", () => {
     vi.stubEnv("NOTES_PREVIEW", "");
     const restore = setCoursePublishedForTests(false, "ib-physics");
