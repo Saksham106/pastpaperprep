@@ -4,7 +4,7 @@ import { COURSES, isCourseVisible, lessonPath, lessonsForTopic, type Course } fr
 import { GROUPS } from "./groups";
 import { compareItems } from "./items";
 import type { PracticeLevel } from "./practice";
-import { subtopicPracticeFile } from "./subtopic-practice";
+import { itemPracticeLabels, subtopicPracticeFile } from "./subtopic-practice";
 import type { Lesson, ViewLevel } from "./types";
 
 export type LessonLink = { href: string; label: string };
@@ -66,7 +66,7 @@ function codeLinks(course: Course): Record<string, LessonLink> {
 const bankView = (course: Course, bankSlug: string): ViewLevel => (course.banks[course.levels.labels.extension] === bankSlug ? "extension" : "base");
 
 /**
- * Bank-subtopics course: each practice label with a written lesson, in item order, and the first such lesson (the
+ * Bank-subtopics course: each practice label (an item's own, then any it also teaches) with a written lesson, in item order, and the first such lesson (the
  * base level's bank only links base lessons). `shared` when more items than one practise the label.
  */
 function subtopicLessons(course: Course, bankSlug: string): { label: string; lesson: Lesson; shared: boolean }[] {
@@ -74,9 +74,11 @@ function subtopicLessons(course: Course, bankSlug: string): { label: string; les
   const entries = [...course.items.items].sort((a, b) => a.topic - b.topic || compareItems(a.item, b.item));
   const found = new Map<string, { label: string; lesson: Lesson; shared: boolean }>();
   for (const entry of entries) {
-    if (!entry.practice || found.has(entry.practice)) continue;
     const lesson = course.lessons.find((candidate) => candidate.item === entry.item && (view === "extension" || candidate.level === course.levels.base));
-    if (lesson) found.set(entry.practice, { label: entry.practice, lesson, shared: entries.filter((other) => other.practice === entry.practice).length > 1 });
+    if (!lesson) continue;
+    for (const label of itemPracticeLabels(entry)) {
+      if (!found.has(label)) found.set(label, { label, lesson, shared: entries.filter((other) => itemPracticeLabels(other).includes(label)).length > 1 });
+    }
   }
   return [...found.values()];
 }

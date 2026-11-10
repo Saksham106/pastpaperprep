@@ -11,7 +11,7 @@ import { loadBankQuestions } from "@/lib/question-loader";
 import { COURSES } from "./course";
 import { lessonPractice, topicQuestionTotals, topicStages } from "./practice";
 import { buildSubtopicPractice, idsShown, practiceLabels } from "./subtopic-counts";
-import { subtopicPracticeFile } from "./subtopic-practice";
+import { itemPracticeLabels, subtopicPracticeFile } from "./subtopic-practice";
 import type { ViewLevel } from "./types";
 
 const VIEWS: ViewLevel[] = ["base", "extension"];
@@ -86,7 +86,7 @@ describe.each(COURSES.filter((course) => course.practice.kind === "bank-subtopic
       const totals = topicQuestionTotals(course, topic);
       for (const view of VIEWS) {
         const level = course.levels.labels[view];
-        const labels = [...new Set(course.items.items.filter((entry) => entry.topic === topic.n && (view === "extension" || entry.level === course.levels.base)).map((entry) => entry.practice!))];
+        const labels = [...new Set(course.items.items.filter((entry) => entry.topic === topic.n && (view === "extension" || entry.level === course.levels.base)).flatMap(itemPracticeLabels))];
         const counts = labels.map((label) => file.subtopics[label][level]);
         expect(totals[view], `${topic.slug} ${view}`).toBeGreaterThanOrEqual(Math.max(0, ...counts));
         expect(totals[view], `${topic.slug} ${view}`).toBeLessThanOrEqual(counts.reduce((sum, n) => sum + n, 0));

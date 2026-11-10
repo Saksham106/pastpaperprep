@@ -17,7 +17,10 @@ let restorePublished: (() => void) | undefined;
 let restore0580: (() => void) | undefined;
 let restoreChem: (() => void) | undefined;
 let restorePhysics: (() => void) | undefined;
+let restoreMathsAi: (() => void) | undefined;
 afterEach(() => {
+  restoreMathsAi?.();
+  restoreMathsAi = undefined;
   restorePhysics?.();
   restorePhysics = undefined;
   restoreChem?.();
@@ -81,6 +84,7 @@ describe("surface lookups follow visibility", () => {
     restore0580 = setCoursePublishedForTests(false, "igcse-maths-0580");
     restoreChem = setCoursePublishedForTests(false, "ib-chemistry");
     restorePhysics = setCoursePublishedForTests(false, "ib-physics");
+    restoreMathsAi = setCoursePublishedForTests(false, "ib-math-ai");
     vi.stubEnv("NOTES_PREVIEW", "");
     expect(course.published).toBe(false);
     expect(notesLinksForBank("ib-hl")).toBeUndefined();
