@@ -1,0 +1,733 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.9",
+  "slug": "matrix-transformations",
+  "title": "Matrix transformations",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A [[transformation-matrix|transformation matrix]] moves every point of a shape at once: $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$ can stretch, enlarge, rotate, reflect and translate. Multiplying matrices combines moves, repeating them builds [[fractal|fractals]], and $\\lvert\\det A\\rvert$ scales areas.",
+  "goals": [
+    {
+      "text": "Transform points with $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$: stretches, enlargements and [[translation|translations]].",
+      "bullets": [
+        "3.9-b1"
+      ]
+    },
+    {
+      "text": "Write down and describe matrices for rotations and [[reflection|reflections]].",
+      "bullets": [
+        "3.9-b1"
+      ]
+    },
+    {
+      "text": "Combine transformations into one [[matrix|matrix]], in the right order.",
+      "bullets": [
+        "3.9-b2"
+      ]
+    },
+    {
+      "text": "Repeat transformations to make spirals and fractals.",
+      "bullets": [
+        "3.9-b2"
+      ]
+    },
+    {
+      "text": "Use $\\lvert\\det A\\rvert$ to find the area of an image or of the original shape.",
+      "bullets": [
+        "3.9-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "1.11",
+    "1.14",
+    "2.8"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "rotation matrix",
+    "reflection matrix",
+    "transformation matrix",
+    "determinant area scale factor",
+    "composite transformation matrix",
+    "fractal with matrices"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-matrix-vector",
+      "prompt": "Find $\\begin{pmatrix}3 & -2\\\\1 & 4\\end{pmatrix}\\begin{pmatrix}5\\\\2\\end{pmatrix}$.",
+      "hint": "Row 1 times the column gives the top entry; row 2 times the column gives the bottom one.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}11\\\\13\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}17\\\\-2\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}19\\\\13\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "Top: $3(5) + (-2)(2) = 11$. Bottom: $1(5) + 4(2) = 13$. Using the columns instead of the rows gives $\\begin{pmatrix}17\\\\-2\\end{pmatrix}$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([[3, -2], [1, 4]]) * Matrix([5, 2])"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-determinant",
+      "prompt": "Find $\\det \\begin{pmatrix}5 & -3\\\\2 & -1\\end{pmatrix}$.",
+      "hint": "$\\det A = ad - bc$. Watch the signs.",
+      "answer": {
+        "value": 1,
+        "tolerance": 0
+      },
+      "explain": "$5(-1) - (-3)(2) = -5 + 6 = 1$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Matrix([[5, -3], [2, -1]]).det()",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sum-infinity",
+      "prompt": "Find the [[sum-to-infinity|sum to infinity]] of $36 + 27 + 20.25 + \\dots$",
+      "hint": "Find $r$ first, then use $S_{\\infty} = \\frac{u_{1}}{1 - r}$.",
+      "answer": {
+        "value": 144,
+        "tolerance": 0
+      },
+      "explain": "$r = \\frac{27}{36} = 0.75$, so $S_{\\infty} = \\frac{36}{1 - 0.75} = 144$. Revise it in {{lesson:1.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "36/(1 - Rational(27, 36))",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "points",
+      "heading": "Transforming points with a matrix",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.8}} you transformed graphs. Now you move points. Write each point $(x, y)$ as a column $\\begin{pmatrix}x\\\\y\\end{pmatrix}$, and one matrix moves every point of a shape at once."
+        },
+        {
+          "type": "text",
+          "text": "For example, $\\begin{pmatrix}3 & 0\\\\0 & 2\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} = \\begin{pmatrix}3x\\\\2y\\end{pmatrix}$. Every $x$-coordinate is tripled and every $y$-coordinate doubled."
+        },
+        {
+          "type": "definition",
+          "term": "transformation matrix",
+          "statement": "The transformation $\\begin{pmatrix}x'\\\\y'\\end{pmatrix} = \\begin{pmatrix}a & b\\\\c & d\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} + \\begin{pmatrix}e\\\\f\\end{pmatrix}$, or $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$, maps each point $(x, y)$ to its image $(x', y')$. $A$ is the transformation matrix and $\\boldsymbol{b}$ is a translation vector.",
+          "plain": "A matrix that tells every point where to go."
+        },
+        {
+          "type": "text",
+          "text": "The matrix acts first, then the translation slides every point $e$ across and $f$ up."
+        },
+        {
+          "type": "text",
+          "text": "The columns of $A$ are the images of $(1, 0)$ and $(0, 1)$: $A\\begin{pmatrix}1\\\\0\\end{pmatrix} = \\begin{pmatrix}a\\\\c\\end{pmatrix}$ and $A\\begin{pmatrix}0\\\\1\\end{pmatrix} = \\begin{pmatrix}b\\\\d\\end{pmatrix}$. To find a matrix, ask where those two points go."
+        },
+        {
+          "type": "text",
+          "text": "With no translation, $A\\begin{pmatrix}0\\\\0\\end{pmatrix} = \\begin{pmatrix}0\\\\0\\end{pmatrix}$: the origin is [[invariant|invariant]]. So every booklet matrix acts relative to the origin."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}k & 0\\\\0 & 1\\end{pmatrix}:\\ \\text{horizontal stretch, scale factor } k",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-horizontal-stretch",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}1 & 0\\\\0 & k\\end{pmatrix}:\\ \\text{vertical stretch, scale factor } k",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-vertical-stretch",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}k & 0\\\\0 & k\\end{pmatrix}:\\ \\text{enlargement, scale factor } k,\\ \\text{centre } (0, 0)",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-enlargement",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "These are in the booklet. A [[horizontal-stretch|horizontal stretch]] multiplies each $x$-coordinate by $k$ and fixes the $y$-axis. A [[vertical-stretch|vertical stretch]] does the same to $y$ and fixes the $x$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-sticker-resize",
+          "question": "A photo app stores a sticker's corner at $(6, 4)$. The app moves every point by $\\begin{pmatrix}x'\\\\y'\\end{pmatrix} = \\begin{pmatrix}1.5 & 0\\\\0 & 1.5\\end{pmatrix}\\begin{pmatrix}x\\\\y\\end{pmatrix} + \\begin{pmatrix}-2\\\\3\\end{pmatrix}$. Describe the transformation, and find the new position of the corner.",
+          "steps": [
+            "The matrix is the enlargement form with $k = 1.5$: an enlargement, scale factor $1.5$, centre $(0, 0)$. The vector then translates every point by $\\begin{pmatrix}-2\\\\3\\end{pmatrix}$.",
+            "Multiply first: $\\begin{pmatrix}1.5 & 0\\\\0 & 1.5\\end{pmatrix}\\begin{pmatrix}6\\\\4\\end{pmatrix} = \\begin{pmatrix}9\\\\6\\end{pmatrix}$.",
+            "Then add the translation: $\\begin{pmatrix}9 - 2\\\\6 + 3\\end{pmatrix} = \\begin{pmatrix}7\\\\9\\end{pmatrix}$.",
+            "Interpret: the corner moves to $(7, 9)$, and every length on the sticker is $1.5$ times longer."
+          ],
+          "answer": "$\\begin{pmatrix}x'\\\\y'\\end{pmatrix} = \\begin{pmatrix}7\\\\9\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([[1.5, 0], [0, 1.5]]) * Matrix([6, 4]) + Matrix([-2, 3])"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-find-matrix-vector",
+          "question": "A design tool uses $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$. It maps $(0, 0)$ to $(-2, 5)$, $(1, 0)$ to $(1, 5)$ and $(0, 1)$ to $(-2, 5.5)$. Find $\\boldsymbol{b}$ and $A$, describe $A$, and find the image of $(4, -2)$.",
+          "steps": [
+            "The origin maps to $\\boldsymbol{b}$, so $\\boldsymbol{b} = \\begin{pmatrix}-2\\\\5\\end{pmatrix}$.",
+            "Subtract $\\boldsymbol{b}$ from the other images: $A\\begin{pmatrix}1\\\\0\\end{pmatrix} = \\begin{pmatrix}3\\\\0\\end{pmatrix}$ and $A\\begin{pmatrix}0\\\\1\\end{pmatrix} = \\begin{pmatrix}0\\\\0.5\\end{pmatrix}$.",
+            "These are the columns, so $A = \\begin{pmatrix}3 & 0\\\\0 & 0.5\\end{pmatrix}$: a horizontal stretch, scale factor $3$, and a vertical stretch, scale factor $0.5$.",
+            "Image of $(4, -2)$: $\\begin{pmatrix}3 & 0\\\\0 & 0.5\\end{pmatrix}\\begin{pmatrix}4\\\\-2\\end{pmatrix} + \\begin{pmatrix}-2\\\\5\\end{pmatrix} = \\begin{pmatrix}12\\\\-1\\end{pmatrix} + \\begin{pmatrix}-2\\\\5\\end{pmatrix} = \\begin{pmatrix}10\\\\4\\end{pmatrix}$.",
+            "Check: $3(4) - 2 = 10$ and $0.5(-2) + 5 = 4$."
+          ],
+          "answer": "$(10, 4)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[1 - (-2), 0], [0, Rational(55, 10) - 5]]) * Matrix([4, -2]) + Matrix([-2, 5])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the translation before multiplying. In $A\\boldsymbol{x} + \\boldsymbol{b}$ the matrix acts first; $A(\\boldsymbol{x} + \\boldsymbol{b})$ is a different transformation."
+        },
+        {
+          "type": "check",
+          "id": "check-image-column",
+          "prompt": "Under the matrix $\\begin{pmatrix}4 & -1\\\\2 & 3\\end{pmatrix}$, what is the image of $(0, 1)$?",
+          "hint": "The image of $(0, 1)$ is one of the columns.",
+          "options": [
+            {
+              "text": "$(-1, 3)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 2)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, -1)$",
+              "correct": false
+            }
+          ],
+          "explain": "It is the second column. $(4, 2)$ is the image of $(1, 0)$; $(4, -1)$ is a row.",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[4, -1], [2, 3]]) * Matrix([0, 1])"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-undo-transformation",
+          "prompt": "The matrix $\\begin{pmatrix}2 & 1\\\\1 & 1\\end{pmatrix}$ maps a point $P$ to $(7, 4)$. Find $P$.",
+          "hint": "Undo the matrix with its [[inverse-matrix|inverse]]: $P = A^{-1}\\begin{pmatrix}7\\\\4\\end{pmatrix}$.",
+          "options": [
+            {
+              "text": "$(3, 1)$",
+              "correct": true
+            },
+            {
+              "text": "$(18, 11)$",
+              "correct": false
+            },
+            {
+              "text": "$(11, 15)$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\det A = 2 - 1 = 1$, so $A^{-1} = \\begin{pmatrix}1 & -1\\\\-1 & 2\\end{pmatrix}$ and $A^{-1}\\begin{pmatrix}7\\\\4\\end{pmatrix} = \\begin{pmatrix}3\\\\1\\end{pmatrix}$. $(18, 11)$ applies $A$ again instead of undoing it.",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[2, 1], [1, 1]]).inv() * Matrix([7, 4])"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rotations-reflections",
+      "heading": "Rotations and reflections",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Turn $(1, 0)$ anticlockwise through $\\theta$ about the origin: it lands on $(\\cos\\theta, \\sin\\theta)$. $(0, 1)$ lands on $(-\\sin\\theta, \\cos\\theta)$. These images are the columns of the rotation matrix."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}\\cos\\theta & -\\sin\\theta\\\\\\sin\\theta & \\cos\\theta\\end{pmatrix}:\\ \\text{anticlockwise rotation of angle } \\theta \\text{ about the origin } (\\theta > 0)",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-rotation-anticlockwise",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}\\cos\\theta & \\sin\\theta\\\\-\\sin\\theta & \\cos\\theta\\end{pmatrix}:\\ \\text{clockwise rotation of angle } \\theta \\text{ about the origin } (\\theta > 0)",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-rotation-clockwise",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The two rotation matrices differ only in the signs of $\\sin\\theta$. A clockwise turn of $\\theta$ is an anticlockwise turn of $-\\theta$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}\\cos 2\\theta & \\sin 2\\theta\\\\\\sin 2\\theta & -\\cos 2\\theta\\end{pmatrix}:\\ \\text{reflection in the line } y = (\\tan\\theta)x",
+          "tag": "booklet",
+          "bookletId": "bk-3-9-reflection",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The mirror line passes through the origin, and $\\theta$ is its angle with the positive $x$-axis. The matrix uses $2\\theta$, not $\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "For the $x$-axis, $\\theta = 0^{\\circ}$ gives $\\begin{pmatrix}1 & 0\\\\0 & -1\\end{pmatrix}$. For the line $y = x$, $\\theta = 45^{\\circ}$ gives $\\begin{pmatrix}0 & 1\\\\1 & 0\\end{pmatrix}$. For the $y$-axis, $\\theta = 90^{\\circ}$ gives $\\begin{pmatrix}-1 & 0\\\\0 & 1\\end{pmatrix}$, even though $\\tan 90^{\\circ}$ is undefined. All four rotation and reflection formulas are in the booklet."
+        },
+        {
+          "type": "example",
+          "id": "ex-turbine-tip",
+          "question": "The tip of a wind-turbine blade is at $(0, 42)$, in metres, relative to the hub at the origin. The blade turns $50^{\\circ}$ clockwise about the hub. Find the new position of the tip, to 3 s.f.",
+          "steps": [
+            "Clockwise, so use $\\begin{pmatrix}\\cos\\theta & \\sin\\theta\\\\-\\sin\\theta & \\cos\\theta\\end{pmatrix}$ with $\\theta = 50^{\\circ}$. Set the GDC to degrees.",
+            "Write down the product: $\\begin{pmatrix}\\cos 50^{\\circ} & \\sin 50^{\\circ}\\\\-\\sin 50^{\\circ} & \\cos 50^{\\circ}\\end{pmatrix}\\begin{pmatrix}0\\\\42\\end{pmatrix} = \\begin{pmatrix}42\\sin 50^{\\circ}\\\\42\\cos 50^{\\circ}\\end{pmatrix}$.",
+            "Evaluate: $42\\sin 50^{\\circ} = 32.173\\ldots$ and $42\\cos 50^{\\circ} = 26.997\\ldots$",
+            "Check: $\\sqrt{32.173\\ldots^{2} + 26.997\\ldots^{2}} = 42$, as a rotation keeps distances.",
+            "Interpret: the tip is now $32.2$ m to the right of the hub and $27.0$ m above it."
+          ],
+          "answer": "$(x', y') \\approx (32.2, 27.0)$",
+          "verify": {
+            "kind": "point",
+            "sf": 3,
+            "truth": "Matrix([[cos(50*pi/180), sin(50*pi/180)], [-sin(50*pi/180), cos(50*pi/180)]]) * Matrix([0, 42])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-mirror",
+          "question": "A garden is symmetric about a straight path along the line $y = 3x$. A tree stands at $(10, 5)$. Use a reflection matrix to find where its mirror image stands.",
+          "steps": [
+            "The path makes angle $\\theta$ with the $x$-axis, with $\\tan\\theta = 3$. So $\\theta = \\tan^{-1} 3 = 71.565\\ldots^{\\circ}$ and $2\\theta = 143.130\\ldots^{\\circ}$.",
+            "The GDC gives $\\cos 2\\theta = -0.8$ and $\\sin 2\\theta = 0.6$ exactly, so the matrix is $\\begin{pmatrix}-0.8 & 0.6\\\\0.6 & 0.8\\end{pmatrix}$.",
+            "Multiply: $\\begin{pmatrix}-0.8 & 0.6\\\\0.6 & 0.8\\end{pmatrix}\\begin{pmatrix}10\\\\5\\end{pmatrix} = \\begin{pmatrix}-8 + 3\\\\6 + 4\\end{pmatrix} = \\begin{pmatrix}-5\\\\10\\end{pmatrix}$.",
+            "Check: the midpoint of $(10, 5)$ and $(-5, 10)$ is $(2.5, 7.5)$, and $7.5 = 3 \\times 2.5$: it lies on the path, as it must."
+          ],
+          "answer": "$(-5, 10)$",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[cos(2*atan(3)), sin(2*atan(3))], [sin(2*atan(3)), -cos(2*atan(3))]]) * Matrix([10, 5])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\theta$ instead of $2\\theta$ in the reflection matrix. Test a point: its midpoint with its image lies on the mirror line."
+        },
+        {
+          "type": "check",
+          "id": "check-describe-matrix",
+          "prompt": "Describe fully the transformation with matrix $\\begin{pmatrix}0 & 1\\\\-1 & 0\\end{pmatrix}$.",
+          "hint": "Find the images of $(1, 0)$ and $(0, 1)$: they are the columns.",
+          "options": [
+            {
+              "text": "a clockwise rotation of 90 degrees about the origin",
+              "correct": true
+            },
+            {
+              "text": "an anticlockwise rotation of 90 degrees about the origin",
+              "correct": false
+            },
+            {
+              "text": "a reflection in the line y = x",
+              "correct": false
+            }
+          ],
+          "explain": "$(1, 0)$ goes to $(0, -1)$ and $(0, 1)$ goes to $(1, 0)$: each turns a quarter-turn clockwise. It is the clockwise matrix with $\\theta = 90^{\\circ}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a clockwise rotation of 90 degrees about the origin"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reflect-negative-diagonal",
+          "prompt": "Which matrix reflects points in the line $y = -x$?",
+          "hint": "The line makes $\\theta = 135^{\\circ}$ with the positive $x$-axis, so $2\\theta = 270^{\\circ}$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}0 & -1\\\\-1 & 0\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}0 & 1\\\\1 & 0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}0 & -1\\\\1 & 0\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos 270^{\\circ} = 0$ and $\\sin 270^{\\circ} = -1$ give $\\begin{pmatrix}0 & -1\\\\-1 & 0\\end{pmatrix}$. Check: $(1, 0)$ goes to $(0, -1)$, its mirror image in $y = -x$. The second option reflects in $y = x$; the third is a rotation."
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "heading": "Combining and repeating transformations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Apply $A$ to a point, then apply $B$ to its image. The result is $B(A\\boldsymbol{x}) = (BA)\\boldsymbol{x}$, so the single matrix $BA$ does both."
+        },
+        {
+          "type": "result",
+          "statement": "Transformation $A$ followed by transformation $B$ has the single matrix $BA$: the first one goes on the right. With translations, $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{a}$ followed by $\\boldsymbol{x}'' = B\\boldsymbol{x}' + \\boldsymbol{b}$ gives $\\boldsymbol{x}'' = BA\\boldsymbol{x} + B\\boldsymbol{a} + \\boldsymbol{b}$.",
+          "why": "The matrix next to $\\boldsymbol{x}$ acts on it first, and in general $AB \\neq BA$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rotate-then-reflect",
+          "question": "A drawing app rotates a shape $90^{\\circ}$ anticlockwise about the origin, then reflects the result in the $x$-axis. Find the single matrix for the combined transformation, and describe it fully.",
+          "steps": [
+            "Rotation, $\\theta = 90^{\\circ}$ anticlockwise: $R = \\begin{pmatrix}0 & -1\\\\1 & 0\\end{pmatrix}$. Reflection in the $x$-axis: $M = \\begin{pmatrix}1 & 0\\\\0 & -1\\end{pmatrix}$.",
+            "$R$ acts first, so it goes on the right: $MR = \\begin{pmatrix}1 & 0\\\\0 & -1\\end{pmatrix}\\begin{pmatrix}0 & -1\\\\1 & 0\\end{pmatrix} = \\begin{pmatrix}0 & -1\\\\-1 & 0\\end{pmatrix}$.",
+            "Match the reflection form: $\\cos 2\\theta = 0$ and $\\sin 2\\theta = -1$ give $\\theta = 135^{\\circ}$. So it is a reflection in $y = -x$.",
+            "Check: $(1, 0)$ rotates to $(0, 1)$, then reflects to $(0, -1)$, the first column of $MR$.",
+            "The other order, $RM = \\begin{pmatrix}0 & 1\\\\1 & 0\\end{pmatrix}$, is a reflection in $y = x$: a different answer."
+          ],
+          "answer": "$MR = \\begin{pmatrix}0 & -1\\\\-1 & 0\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-product-order",
+          "prompt": "A shape is reflected using matrix $Y$, then stretched using matrix $S$. Which single matrix gives the combined transformation?",
+          "hint": "The transformation applied first sits next to $\\boldsymbol{x}$.",
+          "options": [
+            {
+              "text": "$SY$",
+              "correct": true
+            },
+            {
+              "text": "$YS$",
+              "correct": false
+            },
+            {
+              "text": "$S + Y$",
+              "correct": false
+            }
+          ],
+          "explain": "$S(Y\\boldsymbol{x}) = (SY)\\boldsymbol{x}$: reflect first, so $Y$ is on the right. Adding matrices doesn't combine transformations."
+        },
+        {
+          "type": "text",
+          "text": "Now repeat one transformation. With $\\boldsymbol{x}_{1} = A\\boldsymbol{x}_{0}$, $\\boldsymbol{x}_{2} = A\\boldsymbol{x}_{1} = A^{2}\\boldsymbol{x}_{0}$ and so on, the point after $n$ steps is $\\boldsymbol{x}_{n} = A^{n}\\boldsymbol{x}_{0}$. Your GDC's matrix power jumps straight there."
+        },
+        {
+          "type": "text",
+          "text": "A rotation of $30^{\\circ}$ applied $12$ times is a full turn of $360^{\\circ}$, so its 12th power is the [[identity-matrix|identity matrix]] $I$."
+        },
+        {
+          "type": "example",
+          "id": "ex-spiral-animation",
+          "question": "An animation moves a dot by the matrix $C = 0.9\\begin{pmatrix}\\cos 30^{\\circ} & -\\sin 30^{\\circ}\\\\\\sin 30^{\\circ} & \\cos 30^{\\circ}\\end{pmatrix}$ once every frame. The dot starts at $P_{0}(10, 0)$. (a) Describe $C$ fully. (b) Use your GDC to find its position $P_{8}$ after $8$ frames, to 3 s.f.",
+          "steps": [
+            "(a) An enlargement, scale factor $0.9$, centre $(0, 0)$, and an anticlockwise rotation of $30^{\\circ}$ about the origin. An enlargement $kI$ commutes with every matrix, so their order doesn't matter.",
+            "(b) In degree mode, enter $C$ with exact entries such as $0.9\\cos 30^{\\circ}$, so nothing is rounded.",
+            "Write down what you enter, $C^{8}\\begin{pmatrix}10\\\\0\\end{pmatrix}$. The GDC gives $\\begin{pmatrix}-2.1523\\ldots\\\\-3.7279\\ldots\\end{pmatrix}$.",
+            "Check: $8$ frames turn the dot $240^{\\circ}$ and scale its distance by $0.9^{8}$, giving $10(0.9^{8})(\\cos 240^{\\circ}, \\sin 240^{\\circ})$.",
+            "Interpret: each frame the dot turns $30^{\\circ}$ and gets $10\\%$ closer to the origin: it spirals in."
+          ],
+          "answer": "$P_{8} \\approx (-2.15, -3.73)$",
+          "verify": {
+            "kind": "point",
+            "sf": 3,
+            "truth": "(Rational(9, 10) * Matrix([[cos(pi/6), -sin(pi/6)], [sin(pi/6), cos(pi/6)]]))**8 * Matrix([10, 0])"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "3-9-spiral",
+          "alt": "Axes from minus 10 to 10. Thirteen dots spiral anticlockwise in towards the origin, joined by a dashed line. P0 is at (10, 0). P8 is below and to the left of the origin, at about (minus 2.15, minus 3.73). P12 is back on the positive x-axis, closer to the origin.",
+          "caption": "Each frame turns the dot $30^{\\circ}$ and multiplies its distance from the origin by $0.9$."
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-enter",
+          "values": {
+            "rows": 2,
+            "columns": 2,
+            "entries": "0.9cos(30), -0.9sin(30), 0.9sin(30), 0.9cos(30)"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-power",
+          "values": {
+            "power": 8
+          }
+        },
+        {
+          "type": "text",
+          "text": "Then multiply $C^{8}$ by $\\begin{pmatrix}10\\\\0\\end{pmatrix}$, or take its first column times $10$."
+        },
+        {
+          "type": "check",
+          "id": "check-spiral-return",
+          "prompt": "In the animation, the dot is first back on the positive $x$-axis after $12$ frames. How far from the origin is it then? Give 3 s.f.",
+          "hint": "Each frame multiplies the distance from the origin by $0.9$.",
+          "answer": {
+            "value": 2.82,
+            "tolerance": 0.005
+          },
+          "explain": "$12 \\times 30^{\\circ} = 360^{\\circ}$, a full turn, and the distance is $10(0.9^{12}) = 2.824\\ldots \\approx 2.82$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10*Rational(9, 10)**12",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[fractal|fractal]] repeats a set of transformations for ever. Each stage replaces every piece with smaller transformed copies, giving detail at every scale."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-sierpinski-stages",
+          "alt": "Three right-angled triangles side by side, each with the right angle at the bottom left. Stage 0 is one shaded triangle. Stage 1 has three shaded half-size triangles, in the bottom-left, bottom-right and top corners, with the middle part empty. Stage 2 repeats this inside each of the three, giving nine shaded quarter-size triangles.",
+          "caption": "Stages $0$, $1$ and $2$: each triangle is replaced by its images under three maps."
+        },
+        {
+          "type": "example",
+          "id": "ex-triangle-fractal",
+          "question": "A fractal starts with the triangle with vertices $(0, 0)$, $(16, 0)$ and $(0, 16)$, in cm. Each stage applies $T_{1}: \\boldsymbol{x}' = 0.5\\boldsymbol{x}$, $T_{2}: \\boldsymbol{x}' = 0.5\\boldsymbol{x} + \\begin{pmatrix}8\\\\0\\end{pmatrix}$ and $T_{3}: \\boldsymbol{x}' = 0.5\\boldsymbol{x} + \\begin{pmatrix}0\\\\8\\end{pmatrix}$ to every triangle, and keeps only the images. (a) Find the image of the starting triangle under $T_{2}$. (b) Find the shaded area after $5$ stages.",
+          "steps": [
+            "(a) $T_{2}$ halves each vertex, then adds $8$ to $x$: $(0, 0) \\mapsto (8, 0)$, $(16, 0) \\mapsto (16, 0)$, $(0, 16) \\mapsto (8, 8)$. That is the bottom-right copy.",
+            "(b) The start has area $\\frac{1}{2}(16)(16) = 128\\text{ cm}^{2}$. Each map is an enlargement with scale factor $0.5$, so each copy has $0.5^{2} = \\frac{1}{4}$ of its parent's area.",
+            "The three copies don't overlap, so each stage keeps $3 \\times \\frac{1}{4} = \\frac{3}{4}$ of the area. The areas $128, 96, 72, \\dots$ form a [[geometric-sequence|geometric sequence]] with $r = \\frac{3}{4}$.",
+            "After $5$ stages: $128\\left(\\frac{3}{4}\\right)^{5} = 30.375\\text{ cm}^{2}$.",
+            "Interpret: the areas removed, $32, 24, 18, \\dots$, have [[sum-to-infinity|sum to infinity]] $\\frac{32}{1 - 0.75} = 128$. In the limit the shaded area shrinks to $0$."
+          ],
+          "answer": "$A_{5} = 30.375\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*16*16*(3*Rational(1, 2)**2)**5"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-carpet-fraction",
+          "prompt": "Each stage of a fractal replaces every square with $8$ non-overlapping copies, each enlarged by scale factor $\\frac{1}{3}$. What fraction of the area is left after $4$ stages? Give 3 s.f.",
+          "hint": "Each copy has $\\left(\\frac{1}{3}\\right)^{2}$ of its parent's area.",
+          "answer": {
+            "value": 0.624,
+            "tolerance": 0.0005
+          },
+          "explain": "Each stage keeps $8 \\times \\frac{1}{9} = \\frac{8}{9}$ of the area, so after $4$ stages $\\left(\\frac{8}{9}\\right)^{4} = 0.6242\\ldots \\approx 0.624$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(8*Rational(1, 3)**2)**4",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "determinant-area",
+      "heading": "The determinant and area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Under $A = \\begin{pmatrix}3 & 1\\\\1 & 2\\end{pmatrix}$, the unit square becomes a parallelogram with sides along the columns $(3, 1)$ and $(1, 2)$."
+        },
+        {
+          "type": "figure",
+          "id": "3-9-unit-square",
+          "alt": "Axes from 0 to 4 across and 0 to 3 up. A small shaded unit square with corners (0, 0), (1, 0), (1, 1) and (0, 1) is labelled 1. A larger shaded parallelogram with corners (0, 0), (3, 1), (4, 3) and (1, 2) is labelled area 5.",
+          "caption": "The unit square's image has area $\\det A = 3(2) - 1(1) = 5$."
+        },
+        {
+          "type": "result",
+          "statement": "When a shape is transformed by $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$, area of image $= \\lvert\\det A\\rvert \\times$ area of object. The translation $\\boldsymbol{b}$ doesn't change the area.",
+          "why": "Every small square in the shape becomes a parallelogram scaled by the same factor, $\\lvert ad - bc\\rvert$."
+        },
+        {
+          "type": "text",
+          "text": "So the [[determinant|determinant]]'s size, $\\lvert\\det A\\rvert$, is the area scale factor. Rotations and reflections keep area: $\\lvert\\det A\\rvert = 1$. An enlargement $kI$ has $\\det = k^{2}$; a stretch has $\\det = k$."
+        },
+        {
+          "type": "text",
+          "text": "If $\\det A < 0$, the image is also flipped over. If $\\det A = 0$, the shape is squashed onto a line (or a single point), and $A$ has no inverse."
+        },
+        {
+          "type": "text",
+          "text": "Two transformations in turn multiply their area factors: $\\det(BA) = \\det B \\times \\det A$."
+        },
+        {
+          "type": "example",
+          "id": "ex-logo-area",
+          "question": "A logo of area $15\\text{ cm}^{2}$ is transformed by $\\begin{pmatrix}2 & -1\\\\3 & 1.5\\end{pmatrix}$. Find the area of the image.",
+          "steps": [
+            "$\\det = 2(1.5) - (-1)(3) = 3 + 3 = 6$.",
+            "Area of image $= \\lvert 6\\rvert \\times 15 = 90\\text{ cm}^{2}$.",
+            "Interpret: the image covers $6$ times the logo's area."
+          ],
+          "answer": "$A = 90\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Abs(Matrix([[2, -1], [3, Rational(3, 2)]]).det())*15"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-design-k",
+          "question": "A design of area $8\\text{ m}^{2}$ is transformed by $M = \\begin{pmatrix}k & 2\\\\3 & k\\end{pmatrix}$, where $k > 0$. The image has area $40\\text{ m}^{2}$. Find the possible values of $k$.",
+          "steps": [
+            "$\\det M = k^{2} - 6$, so $\\lvert k^{2} - 6\\rvert \\times 8 = 40$, which gives $\\lvert k^{2} - 6\\rvert = 5$.",
+            "Two cases: $k^{2} - 6 = 5$ gives $k^{2} = 11$, and $k^{2} - 6 = -5$ gives $k^{2} = 1$.",
+            "Keep only $k > 0$: $k = \\sqrt{11}$ or $k = 1$.",
+            "Check $k = 1$: $\\det M = 1 - 6 = -5$, and $\\lvert -5\\rvert \\times 8 = 40$. The image is flipped, but its area is still $40\\text{ m}^{2}$."
+          ],
+          "answer": "$k = 1 \\text{ or } k = \\sqrt{11}$",
+          "verify": {
+            "kind": "set",
+            "var": "k",
+            "truth": "solveset((k**2 - 6)**2 - (Rational(40, 8))**2, k, Interval.open(0, oo))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the modulus. Area uses $\\lvert\\det A\\rvert$, so a negative determinant still gives a positive area, and $\\lvert\\det A\\rvert = c$ has two cases. Then keep only the values the question allows."
+        },
+        {
+          "type": "check",
+          "id": "check-object-area",
+          "prompt": "A triangle is transformed by $\\begin{pmatrix}4 & -1\\\\2 & 3\\end{pmatrix}$, and its image has area $54\\text{ cm}^{2}$. Find the area of the original triangle, in $\\text{cm}^{2}$, to 3 s.f.",
+          "hint": "Divide the image's area by $\\lvert\\det A\\rvert$.",
+          "answer": {
+            "value": 3.86,
+            "tolerance": 0.005
+          },
+          "explain": "$\\det A = 4(3) - (-1)(2) = 14$, so the original area is $\\frac{54}{14} = 3.857\\ldots \\approx 3.86\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "54/Abs(Matrix([[4, -1], [2, 3]]).det())",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-combined-area",
+          "prompt": "A shape of area $12\\text{ cm}^{2}$ is enlarged by scale factor $3$, centre O, then rotated $40^{\\circ}$ about O. Find the area of the final image, in $\\text{cm}^{2}$.",
+          "hint": "For $A$ then $B$, $\\det(BA) = \\det B \\times \\det A$.",
+          "options": [
+            {
+              "text": "$108$",
+              "correct": true
+            },
+            {
+              "text": "$36$",
+              "correct": false
+            },
+            {
+              "text": "$82.7$",
+              "correct": false
+            }
+          ],
+          "explain": "The enlargement has $\\det = 3^{2} = 9$; the rotation has $\\det = \\cos^{2} 40^{\\circ} + \\sin^{2} 40^{\\circ} = 1$. So the area is $9 \\times 12 = 108\\text{ cm}^{2}$. $36$ uses $3$, not $3^{2}$; $82.7$ wrongly multiplies by $\\cos 40^{\\circ}$, but a rotation keeps area.",
+          "verify": {
+            "kind": "exact",
+            "truth": "12*Abs((Matrix([[cos(2*pi/9), -sin(2*pi/9)], [sin(2*pi/9), cos(2*pi/9)]]) * Matrix([[3, 0], [0, 3]])).det())"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$: the matrix acts first, then the translation $\\boldsymbol{b}$. The columns of $A$ are the images of $(1, 0)$ and $(0, 1)$ under $A$ alone, before the translation."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The booklet's rotations are about the origin, with $\\theta > 0$. Its reflection matrix uses $2\\theta$, where the mirror line $y = (\\tan\\theta)x$ passes through the origin."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Transformation $A$ followed by transformation $B$ has the single matrix $BA$: the first one goes on the right."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "With no translation, applying $A$ $n$ times gives $\\boldsymbol{x}_{n} = A^{n}\\boldsymbol{x}_{0}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Area of image $= \\lvert\\det A\\rvert \\times$ area of object for $\\boldsymbol{x}' = A\\boldsymbol{x} + \\boldsymbol{b}$; translations don't change area. For $A$ then $B$, $\\det(BA) = \\det B \\times \\det A$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A fractal stage making $m$ non-overlapping copies of each piece, each with area factor $\\lvert\\det A\\rvert$, multiplies the area by $m\\lvert\\det A\\rvert$: a geometric sequence."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying in the wrong order. $A$ followed by $B$ is $BA$; the right matrices in the wrong order lose the accuracy mark.",
+    "Using the anticlockwise matrix for a clockwise turn. Check the direction, then test the point $(1, 0)$.",
+    "Putting $\\theta$ instead of $2\\theta$ into the reflection matrix. Here $\\theta$ is the mirror line's angle with the positive $x$-axis.",
+    "Forgetting the modulus in area $= \\lvert\\det A\\rvert \\times$ area. An equation in $\\lvert\\det A\\rvert$ has two cases; give only the values the question allows.",
+    "Rounding entries such as $\\cos 30^{\\circ}$ before taking powers. Enter exact entries, in the right angle mode, and round only the final answer."
+  ],
+  "examTips": [
+    "\"Describe fully\" a transformation: name it and give every detail. Rotation: angle, direction, centre. Enlargement or stretch: scale factor, and centre or direction. Reflection: the mirror line.",
+    "\"Write down\" a matrix: substitute into the booklet form, with the angle and direction the question gives.",
+    "\"Find\" with the GDC: write down the product or power you entered, such as $C^{8}\\boldsymbol{x}_{0}$, then the answer to 3 s.f. A bare GDC answer can lose the method marks."
+  ],
+  "readingMinutes": 25
+}

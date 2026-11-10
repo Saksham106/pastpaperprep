@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 270" role="img" aria-labelledby="t">
+  <title id="t">A circle with centre O and radius r. Two radii run from O to points A and B on the circle, with angle theta between them at O. The slice between the two radii is the minor sector, shaded. Its curved edge, the arc AB, is drawn thick. The rest of the circle is the major sector, with angle 360 degrees minus theta at O.</title>
+  <path d="M160,140 L246.6,90 A100,100 0 0,0 83.4,75.7 Z" fill="var(--t2-ink)" fill-opacity="0.18" stroke="none"/>
+  <circle cx="160" cy="140" r="100" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <line x1="160" y1="140" x2="246.6" y2="90"/>
+    <line x1="160" y1="140" x2="83.4" y2="75.7"/>
+  </g>
+  <path d="M246.6,90 A100,100 0 0,0 83.4,75.7" fill="none" stroke="var(--t2-ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M177.3,130 A20,20 0 0,0 144.7,127.1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="160" cy="140" r="2.5" fill="currentColor"/>
+  <g font-family="inherit" fill="currentColor" font-size="15">
+    <text x="153" y="160">O</text>
+    <text x="252" y="88">A</text>
+    <text x="66" y="72">B</text>
+    <text x="118" y="210">major sector</text>
+    <text x="114" y="228">angle 360° − θ</text>
+  </g>
+  <g font-family="inherit" fill="var(--t2-ink)" font-size="15">
+    <text x="141" y="70">minor</text>
+    <text x="137" y="87">sector</text>
+    <text x="150" y="30">arc</text>
+  </g>
+  <g font-family="inherit" fill="currentColor" font-size="16" font-style="italic">
+    <text x="155" y="113">θ</text>
+    <text x="206" y="128">r</text>
+  </g>
+</svg>

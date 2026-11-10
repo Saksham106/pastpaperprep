@@ -4,7 +4,8 @@
 // visibility.ts.
 import * as ibChemistry from "@/content/notes/ib-chemistry";
 import * as ibMathAa from "@/content/notes/ib-math-aa";
+import * as ibMathAi from "@/content/notes/ib-math-ai";
 import * as ibPhysics from "@/content/notes/ib-physics";
 import * as igcseMaths0580 from "@/content/notes/igcse-maths-0580";
 
-export const COURSE_CONTENT = [ibMathAa, igcseMaths0580, ibChemistry, ibPhysics] as const;
+export const COURSE_CONTENT = [ibMathAa, igcseMaths0580, ibChemistry, ibPhysics, ibMathAi] as const;

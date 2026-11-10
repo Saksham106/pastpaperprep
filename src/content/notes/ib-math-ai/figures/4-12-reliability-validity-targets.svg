@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-labelledby="t">
+  <title id="t">Three targets. Left: hits scattered all over the target, labelled not reliable and not valid. Middle: hits tightly grouped but away from the centre, labelled reliable but not valid. Right: hits tightly grouped at the centre, labelled reliable and valid.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle cx="70" cy="85" r="55" />
+    <circle cx="70" cy="85" r="36" />
+    <circle cx="70" cy="85" r="17" />
+    <circle cx="200" cy="85" r="55" />
+    <circle cx="200" cy="85" r="36" />
+    <circle cx="200" cy="85" r="17" />
+    <circle cx="330" cy="85" r="55" />
+    <circle cx="330" cy="85" r="36" />
+    <circle cx="330" cy="85" r="17" />
+  </g>
+  <g fill="currentColor">
+    <circle cx="70" cy="85" r="2" />
+    <circle cx="200" cy="85" r="2" />
+    <circle cx="330" cy="85" r="2" />
+  </g>
+  <g fill="var(--t2-ink)">
+    <circle cx="36" cy="64" r="4" />
+    <circle cx="101" cy="112" r="4" />
+    <circle cx="61" cy="126" r="4" />
+    <circle cx="108" cy="61" r="4" />
+    <circle cx="43" cy="114" r="4" />
+    <circle cx="76" cy="44" r="4" />
+  </g>
+  <g fill="var(--t4-ink)">
+    <circle cx="224" cy="58" r="4" />
+    <circle cx="232" cy="63" r="4" />
+    <circle cx="221" cy="67" r="4" />
+    <circle cx="229" cy="54" r="4" />
+    <circle cx="235" cy="58" r="4" />
+    <circle cx="226" cy="62" r="4" />
+  </g>
+  <g fill="var(--t3-ink)">
+    <circle cx="327" cy="82" r="4" />
+    <circle cx="335" cy="86" r="4" />
+    <circle cx="329" cy="91" r="4" />
+    <circle cx="324" cy="88" r="4" />
+    <circle cx="333" cy="79" r="4" />
+    <circle cx="331" cy="85" r="4" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="70" y="166">not reliable</text>
+    <text x="70" y="182">not valid</text>
+    <text x="200" y="166">reliable</text>
+    <text x="200" y="182">not valid</text>
+    <text x="330" y="166">reliable</text>
+    <text x="330" y="182">valid</text>
+  </g>
+</svg>

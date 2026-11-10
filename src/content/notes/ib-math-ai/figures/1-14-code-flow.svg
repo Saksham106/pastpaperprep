@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" font-family="sans-serif" font-size="14">
+<rect x="10" y="70" width="90" height="50" rx="8" fill="none" stroke="currentColor"/>
+<text x="55" y="101" text-anchor="middle" fill="currentColor" font-weight="bold">ROAD</text>
+<line x1="102" y1="95" x2="170" y2="95" stroke="currentColor"/>
+<polygon points="170,90 180,95 170,100" fill="currentColor"/>
+<text x="141" y="85" text-anchor="middle" fill="var(--muted)" font-size="12">A = 1, …</text>
+<text x="141" y="118" text-anchor="middle" fill="var(--muted)" font-size="12">Z = 26</text>
+<text x="235" y="40" text-anchor="middle" fill="var(--muted)">message M</text>
+<path d="M 202 58 Q 190 95 202 132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M 268 58 Q 280 95 268 132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="218" y="83" text-anchor="middle" fill="currentColor">18</text>
+<text x="252" y="83" text-anchor="middle" fill="currentColor">1</text>
+<text x="218" y="117" text-anchor="middle" fill="currentColor">15</text>
+<text x="252" y="117" text-anchor="middle" fill="currentColor">4</text>
+<line x1="290" y1="72" x2="430" y2="72" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="430,67 440,72 430,77" fill="var(--t1-ink)"/>
+<text x="365" y="60" text-anchor="middle" fill="currentColor">encode: C = KM</text>
+<line x1="440" y1="122" x2="300" y2="122" stroke="var(--t2-ink)" stroke-width="2"/>
+<polygon points="300,117 290,122 300,127" fill="var(--t2-ink)"/>
+<text x="365" y="146" text-anchor="middle" fill="currentColor">decode: M = K⁻¹C</text>
+<text x="505" y="40" text-anchor="middle" fill="var(--muted)">code C (sent)</text>
+<path d="M 462 58 Q 450 95 462 132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M 548 58 Q 560 95 548 132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="485" y="83" text-anchor="middle" fill="currentColor">69</text>
+<text x="525" y="83" text-anchor="middle" fill="currentColor">7</text>
+<text x="485" y="117" text-anchor="middle" fill="currentColor">120</text>
+<text x="525" y="117" text-anchor="middle" fill="currentColor">13</text>
+<text x="300" y="184" text-anchor="middle" fill="currentColor">Key K has rows 3, 1 and 5, 2, so det K = 1.</text>
+<text x="300" y="208" text-anchor="middle" fill="currentColor">The code is sent column by column: 69, 120, 7, 13.</text>
+</svg>

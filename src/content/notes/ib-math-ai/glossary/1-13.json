@@ -1,0 +1,20 @@
+[
+  {
+    "id": "polar-form",
+    "term": "polar form",
+    "definition": "A non-zero complex number written $z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\,\\mathrm{cis}\\,\\theta$, where $r = \\lvert z\\rvert > 0$ is its modulus and $\\theta = \\arg z$ is its argument; also called modulus-argument form.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "exponential-form",
+    "term": "exponential form",
+    "definition": "A non-zero complex number written $z = r\\mathrm{e}^{\\mathrm{i}\\theta}$, also called Euler form, with the same modulus $r = \\lvert z\\rvert > 0$ and argument $\\theta$ as in polar form, and $\\theta$ in radians.",
+    "lesson": "1.13"
+  },
+  {
+    "id": "phase-shift",
+    "term": "phase shift",
+    "definition": "The horizontal translation of a sinusoidal graph: in $f(x) = a\\sin(b(x - c)) + d$ or $a\\cos(b(x - c)) + d$ it is $c$, to the right when $c > 0$, so $a\\cos(bx + B)$ with $b > 0$ is shifted $\\frac{B}{b}$ to the left, not $B$.",
+    "lesson": "1.13"
+  }
+]

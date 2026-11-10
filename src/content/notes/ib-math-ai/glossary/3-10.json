@@ -1,0 +1,50 @@
+[
+  {
+    "id": "vector",
+    "term": "vector",
+    "definition": "A quantity with both a magnitude (size) and a direction, such as a displacement, velocity or force, printed in bold as $\\boldsymbol{v}$ or written $\\overrightarrow{AB}$, unlike a scalar, which has a magnitude only.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "unit-vector",
+    "term": "unit vector",
+    "definition": "A vector of magnitude 1; the unit vector in the direction of a non-zero vector $\\boldsymbol{v}$ is $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$, found by dividing every component by $\\lvert\\boldsymbol{v}\\rvert$ (normalising).",
+    "lesson": "3.10"
+  },
+  {
+    "id": "base-vectors",
+    "term": "base vectors",
+    "definition": "The unit vectors $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$, one unit along the positive $x$-, $y$- and $z$-axes, so that any vector can be written $v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "component-of-a-vector",
+    "term": "component of a vector",
+    "definition": "One of the numbers $v_{1}$, $v_{2}$, $v_{3}$ in $\\boldsymbol{v} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$, giving how far the vector goes along the $x$-, $y$- or $z$-axis, written in that order in a column vector.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "magnitude-of-a-vector",
+    "term": "magnitude of a vector",
+    "definition": "The length of a vector, $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}$ for $\\boldsymbol{v} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$, which is a scalar and never negative.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "position-vector",
+    "term": "position vector",
+    "definition": "The arrow from a fixed origin O to a point A, labelled $\\overrightarrow{OA}$ or $\\boldsymbol{a}$; its components equal the coordinates of A.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "velocity",
+    "term": "velocity",
+    "definition": "The rate of change of position, a vector that gives both how fast and in which direction an object moves; its magnitude is the speed, and in one dimension its sign gives the direction.",
+    "lesson": "3.10"
+  },
+  {
+    "id": "speed",
+    "term": "speed",
+    "definition": "How fast an object moves, whatever its direction: the magnitude $\\lvert\\boldsymbol{v}\\rvert$ of its velocity, a scalar that is never negative.",
+    "lesson": "3.10"
+  }
+]

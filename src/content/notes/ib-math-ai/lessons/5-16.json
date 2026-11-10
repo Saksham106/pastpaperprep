@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.16",
+  "slug": "eulers-method",
+  "title": "Euler's method",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "[[eulers-method|Euler's method]] estimates the solution of a [[differential-equation|differential equation]] that you can't solve exactly. From a known point, you follow the gradient for a short step, then repeat. A spreadsheet or GDC does the repeating, for one equation or for a pair of [[coupled-differential-equations|coupled differential equations]] such as a [[predator-prey-model|predator–prey model]].",
+  "goals": [
+    {
+      "text": "Explain Euler's method as a chain of short tangent steps, and use its formula by hand for $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$.",
+      "bullets": [
+        "5.16-b1",
+        "5.16-b2"
+      ]
+    },
+    {
+      "text": "Run many steps on a spreadsheet or GDC, and say how the step length affects the estimate.",
+      "bullets": [
+        "5.16-b1",
+        "5.16-b2"
+      ]
+    },
+    {
+      "text": "Use Euler's method on a coupled system $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = f_1(x, y, t)$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f_2(x, y, t)$, such as a predator–prey model.",
+      "bullets": [
+        "5.16-b1",
+        "5.16-b3"
+      ]
+    },
+    {
+      "text": "Interpret Euler estimates in context, and comment on how far they can be trusted.",
+      "bullets": [
+        "5.16-b1",
+        "5.16-b2",
+        "5.16-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.6",
+    "5.14",
+    "5.15"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "Euler's method",
+    "numerical solution of a differential equation",
+    "Euler method spreadsheet",
+    "Euler's method coupled equations",
+    "predator prey model",
+    "step length h"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-value",
+      "prompt": "For $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{2} - 2y$, find the gradient of the solution curve through $(3, 1)$.",
+      "hint": "Substitute $x = 3$ and $y = 1$ into the right-hand side.",
+      "answer": {
+        "value": 7,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 3^{2} - 2(1) = 9 - 2 = 7$. Revise it in {{lesson:5.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3**2 - 2*1",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-tangent-estimate",
+      "prompt": "A solution curve passes through $(2, 5)$, where its gradient is $0.4$. Follow the tangent from that point to estimate $y$ when $x = 2.5$.",
+      "hint": "Along the tangent, $y$ changes by gradient $\\times$ change in $x$.",
+      "answer": {
+        "value": 5.2,
+        "tolerance": 0
+      },
+      "explain": "The change in $x$ is $0.5$, so $y$ changes by $0.4 \\times 0.5 = 0.2$. The estimate is $5 + 0.2 = 5.2$. Revise it in {{lesson:5.15}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "5 + 0.4*(2.5 - 2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-particular-solution",
+      "prompt": "$\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 2P$, and $P = 30$ when $t = 0$. Which is the [[particular-solution|particular solution]]?",
+      "hint": "The general solution is $P = A\\mathrm{e}^{2t}$. Use the [[initial-condition|initial condition]] to find $A$.",
+      "options": [
+        {
+          "text": "$P = 30\\mathrm{e}^{2t}$",
+          "correct": true
+        },
+        {
+          "text": "$P = \\mathrm{e}^{2t} + 30$",
+          "correct": false
+        },
+        {
+          "text": "$P = 30\\mathrm{e}^{-2t}$",
+          "correct": false
+        }
+      ],
+      "explain": "At $t = 0$, $P = A\\mathrm{e}^{0} = A$, so $A = 30$. The answer $\\mathrm{e}^{2t} + 30$ gives $31$ at $t = 0$. Revise it in {{lesson:5.14}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "30*exp(2*t)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "euler-idea",
+      "heading": "Following the gradient in small steps",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.14}} you solved differential equations exactly by separating the variables. Many can't be solved that way, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0.5x + \\sqrt{y}$. But the equation still tells you the gradient at every point, just as a [[slope-field|slope field]] does."
+        },
+        {
+          "type": "text",
+          "text": "So start at the known point. Move a short distance $h$ along the tangent: $y$ changes by about gradient $\\times\\ h$. At the new point, work out the new gradient and take another step. Repeat until you reach the $x$ you want."
+        },
+        {
+          "type": "formula",
+          "tex": "y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n}), \\quad x_{n+1} = x_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-euler"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = f(x, y)$, the starting point $(x_{0}, y_{0})$ comes from the initial condition, and $h$ is the constant step length. This is Euler's method. The formula is in the booklet, so you need to know how to use it, not memorise it."
+        },
+        {
+          "type": "text",
+          "text": "The number of steps is $\\frac{\\text{end } x - x_{0}}{h}$. Set out the work as a table with columns $n$, $x_{n}$, $y_{n}$ and $f(x_{n}, y_{n})$. Each row is built only from the row above it."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-two-steps",
+          "question": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + 2y$ and $y = 2$ when $x = 0$, use Euler's method with step length $0.5$ to estimate $y$ when $x = 1$.",
+          "steps": [
+            "Here $f(x, y) = x + 2y$, $h = 0.5$, $x_{0} = 0$ and $y_{0} = 2$. Going from $x = 0$ to $x = 1$ takes $\\frac{1 - 0}{0.5} = 2$ steps.",
+            "Write the formula with this $f$ and $h$: $y_{n+1} = y_{n} + 0.5(x_{n} + 2y_{n})$, $x_{n+1} = x_{n} + 0.5$.",
+            "Step 1: $f(0, 2) = 0 + 4 = 4$, so $y_{1} = 2 + 0.5 \\times 4 = 4$, at $x_{1} = 0.5$.",
+            "Step 2: work out the gradient again at the new point. $f(0.5, 4) = 0.5 + 8 = 8.5$, so $y_{2} = 4 + 0.5 \\times 8.5 = 8.25$, at $x_{2} = 1$."
+          ],
+          "answer": "$y_{2} = 8.25$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(2 + 0.5*(0 + 2*2)) + 0.5*(0.5 + 2*(2 + 0.5*(0 + 2*2)))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cooling-coffee",
+          "question": "A cup of coffee cools in a room at $21\\,^{\\circ}\\text{C}$. Its temperature $T\\,^{\\circ}\\text{C}$ after $t$ minutes satisfies $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -0.08(T - 21)$, and $T = 85$ when $t = 0$. Use Euler's method with $h = 1$ to estimate the temperature after 3 minutes. The exact solution is $T = 21 + 64\\mathrm{e}^{-0.08t}$. Compare your estimate with it.",
+          "steps": [
+            "Here $t$ plays the part of $x$ and $T$ the part of $y$: $T_{n+1} = T_{n} - 0.08(T_{n} - 21)$, $t_{n+1} = t_{n} + 1$. Three steps take $t$ from $0$ to $3$.",
+            "Step 1: $T_{1} = 85 - 0.08(64) = 79.88$.",
+            "Step 2: $T_{2} = 79.88 - 0.08(58.88) = 75.1696$.",
+            "Step 3: $T_{3} = 75.1696 - 0.08(54.1696) = 70.836032$. Keep every digit until the end.",
+            "Exact value: $21 + 64\\mathrm{e}^{-0.24} = 71.344\\ldots$ So the estimate is about $0.5\\,^{\\circ}\\text{C}$ too low.",
+            "Interpret: the coffee is about $71\\,^{\\circ}\\text{C}$ after 3 minutes. Each step uses the cooling rate at the start of the minute, but the coffee cools more slowly as it nears room temperature. So Euler takes off a little too much each time."
+          ],
+          "answer": "$T_{3} \\approx 70.8$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euler-by-hand",
+          "prompt": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x^{2} + y$ and $y = 2$ when $x = 0$, use Euler's method with $h = 0.2$ to estimate $y$ when $x = 0.4$. Give your answer to 3 s.f.",
+          "hint": "That is two steps. For the second, use $x_{1} = 0.2$ and your $y_{1}$.",
+          "answer": {
+            "value": 2.89,
+            "tolerance": 0.005
+          },
+          "explain": "$y_{1} = 2 + 0.2(0 + 2) = 2.4$. Then $f(0.2, 2.4) = 0.04 + 2.4 = 2.44$, so $y_{2} = 2.4 + 0.2 \\times 2.44 = 2.888 \\approx 2.89$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2 + 0.2*(0**2 + 2)) + 0.2*(0.2**2 + (2 + 0.2*(0**2 + 2)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-halve-step",
+          "prompt": "You estimate $y$ at $x = 2$ with $h = 0.2$, then again with $h = 0.1$. What usually happens?",
+          "hint": "Think about how many steps you take, and how far each one can drift from the curve.",
+          "options": [
+            {
+              "text": "Twice as many steps, and the estimate is usually closer to the true value",
+              "correct": true
+            },
+            {
+              "text": "The same number of steps, and the estimate becomes exact",
+              "correct": false
+            },
+            {
+              "text": "Half as many steps, and the estimate is usually further from the true value",
+              "correct": false
+            }
+          ],
+          "explain": "Halving $h$ doubles the number of steps. Each step is shorter, so the tangent drifts less from the curve. The estimate usually improves, but it is still only an approximation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Twice as many steps, and the estimate is usually closer to the true value"
+          }
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Spreadsheets, the GDC and step length",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "By hand, two or three steps is the limit. With more, use a spreadsheet, or your GDC in an exam. Both repeat the same row rule many times."
+        },
+        {
+          "type": "text",
+          "text": "A spreadsheet layout: column A holds $x$, column B holds $y$. Put $x_{0}$ in A2 and $y_{0}$ in B2. In A3 type =A2+h, and in B3 type =B2+h*f(A2, B2), with your $h$ and $f$ written out. Then fill both formulas down."
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-spreadsheet",
+          "question": "A lake is stocked with $100$ fish. A model for the number of fish $P$ after $t$ years is $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 0.6P\\left(1 - \\frac{P}{800}\\right)$. Use a spreadsheet and Euler's method with $h = 0.5$ to estimate the number of fish after 3 years.",
+          "steps": [
+            "Three years in steps of $0.5$ is $6$ steps. The rule is $P_{n+1} = P_{n} + 0.5 \\times 0.6P_{n}\\left(1 - \\frac{P_{n}}{800}\\right)$, $t_{n+1} = t_{n} + 0.5$.",
+            "Spreadsheet: A2 = 0, B2 = 100. A3 is =A2+0.5 and B3 is =B2+0.5*0.6*B2*(1-B2/800). Fill down to row 8.",
+            "Check the first row by hand: $P_{1} = 100 + 0.3 \\times 100 \\times \\frac{7}{8} = 126.25$.",
+            "The column then gives $158.15\\ldots$, $196.21\\ldots$, $240.64\\ldots$, $291.12\\ldots$ and $P_{6} = 346.67\\ldots$ at $t = 3$.",
+            "Interpret: about $347$ fish after 3 years. The model has the population levelling off at $800$, where $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 0$. The growth rate keeps rising until $P = 400$, half of $800$, and only then slows as the population levels off."
+          ],
+          "answer": "$P_{6} \\approx 347$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-step-sizes",
+          "question": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 0.5x + \\sqrt{y}$ and $y = 1$ when $x = 2$, use Euler's method with step length $0.2$ to estimate $y$ when $x = 3$. Give your answer to 3 s.f. Repeating with $h = 0.1$ and $h = 0.05$ gives $3.6405\\ldots$ and $3.6817\\ldots$ Comment on these results.",
+          "steps": [
+            "Five steps take $x$ from $2$ to $3$. Write down the rule you enter: $y_{n+1} = y_{n} + 0.2\\left(0.5x_{n} + \\sqrt{y_{n}}\\right)$, $x_{n+1} = x_{n} + 0.2$.",
+            "First row by hand: $y_{1} = 1 + 0.2(1 + 1) = 1.4$, at $x_{1} = 2.2$.",
+            "The GDC gives $y_{2} = 1.8566\\ldots$, $y_{3} = 2.3692\\ldots$, $y_{4} = 2.9370\\ldots$ and $y_{5} = 3.5598\\ldots$",
+            "Comment: as $h$ halves, the estimates rise from $3.56$ to $3.64$ to $3.68$, and each rise is about half the one before. So they are closing in on a value a little above $3.68$, and the estimate with $h = 0.2$ is too small."
+          ],
+          "answer": "$y_{5} \\approx 3.56$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "euler-method",
+          "values": {
+            "derivative": "0.5x+sqrt(y)",
+            "x0": 2,
+            "y0": 1,
+            "h": 0.2,
+            "steps": 5,
+            "xEnd": 3
+          }
+        },
+        {
+          "type": "interactive",
+          "widget": "euler-step",
+          "props": {
+            "h": 0.25
+          },
+          "alt": "The exact solution curve of dy/dx equals x plus y through (0, 1), from x equals 0 to 1, with the Euler polygon for the chosen step length below it. A slider picks h from 0.05 to 0.5; smaller steps bring the end of the polygon closer to the exact value at x equals 1."
+        },
+        {
+          "type": "text",
+          "text": "The widget uses $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x + y$ with $y = 1$ at $x = 0$, where the exact value at $x = 1$ is $2\\mathrm{e} - 2 \\approx 3.44$. With $h = 0.25$ Euler gives about $2.88$. Slide to $h = 0.05$ and the gap shrinks to about $0.13$."
+        },
+        {
+          "type": "examTip",
+          "text": "In an exam the GDC does the rows, but write down the rule with your $f$ and $h$, and at least one row of values. That earns the method marks even if a later value slips."
+        },
+        {
+          "type": "check",
+          "id": "check-euler-gdc",
+          "prompt": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{x}{y + 1}$ and $y = 1$ when $x = 0$, use Euler's method on your GDC with $h = 0.25$ to estimate $y$ when $x = 2$. Give your answer to 3 s.f.",
+          "hint": "That is $8$ steps. The first step gives $y_{1} = 1$, because the gradient at $(0, 1)$ is $0$.",
+          "answer": {
+            "value": 1.76,
+            "tolerance": 0.005
+          },
+          "explain": "With $y_{n+1} = y_{n} + 0.25 \\times \\frac{x_{n}}{y_{n} + 1}$, the rows run $1$, $1$, $1.03125$, $1.0928\\ldots$, $1.1824\\ldots$ and on to $y_{8} = 1.7562\\ldots \\approx 1.76$."
+        },
+        {
+          "type": "check",
+          "id": "check-spreadsheet-formula",
+          "prompt": "A spreadsheet runs Euler's method for $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = x - y$ with $h = 0.2$. Column A holds $x$ and column B holds $y$, starting in row 2. Which cells should the formula in B3, the next $y$, use?",
+          "hint": "The new $y$ is the old $y$ plus $h$ times the gradient at the old point.",
+          "options": [
+            {
+              "text": "A2 and B2, the row above",
+              "correct": true
+            },
+            {
+              "text": "A3 and B3, its own row",
+              "correct": false
+            },
+            {
+              "text": "Only B2, the old value",
+              "correct": false
+            }
+          ],
+          "explain": "B3 is =B2+0.2*(A2-B2), so it uses only row 2: $y_{n+1} = y_{n} + 0.2(x_{n} - y_{n})$. A formula in B3 can't refer to B3 itself, and B2 alone leaves out the gradient.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A2 and B2, the row above"
+          }
+        }
+      ]
+    },
+    {
+      "id": "coupled",
+      "heading": "Coupled systems and predator–prey models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some situations have two quantities that change together, such as rabbits and the foxes that eat them. The rate of each depends on both. Time $t$ is the variable you step through."
+        },
+        {
+          "type": "definition",
+          "term": "Coupled differential equations",
+          "statement": "Coupled differential equations are a pair $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = f_1(x, y, t)$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f_2(x, y, t)$ in which each rate can depend on both $x$ and $y$. They have to be solved together.",
+          "plain": "Two quantities whose changes depend on each other."
+        },
+        {
+          "type": "formula",
+          "tex": "x_{n+1} = x_{n} + h \\times f_1(x_{n}, y_{n}, t_{n}), \\quad y_{n+1} = y_{n} + h \\times f_2(x_{n}, y_{n}, t_{n}), \\quad t_{n+1} = t_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-euler-coupled"
+        },
+        {
+          "type": "text",
+          "text": "This is Euler's method once for each equation, and it is in the booklet. The key rule: both new values come from the old row. Work out $f_1$ and $f_2$ with $x_{n}$, $y_{n}$ and $t_{n}$ before you update anything."
+        },
+        {
+          "type": "example",
+          "id": "ex-coupled-two-steps",
+          "question": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 2x - y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = x + t$. When $t = 0$, $x = 1$ and $y = 3$. Use Euler's method with $h = 0.1$ to estimate $x$ and $y$ when $t = 0.2$.",
+          "steps": [
+            "The rules are $x_{n+1} = x_{n} + 0.1(2x_{n} - y_{n})$, $y_{n+1} = y_{n} + 0.1(x_{n} + t_{n})$ and $t_{n+1} = t_{n} + 0.1$. Two steps reach $t = 0.2$.",
+            "Step 1, from $(t, x, y) = (0, 1, 3)$: $x_{1} = 1 + 0.1(2 - 3) = 0.9$ and $y_{1} = 3 + 0.1(1 + 0) = 3.1$.",
+            "Step 2, from $(0.1, 0.9, 3.1)$: $x_{2} = 0.9 + 0.1(1.8 - 3.1) = 0.77$.",
+            "$y_{2} = 3.1 + 0.1(0.9 + 0.1) = 3.2$. It uses the old $x_{1} = 0.9$ and $t_{1} = 0.1$, not the new $x_{2}$."
+          ],
+          "answer": "$x = 0.77, \\; y = 3.2$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"x\": (1 + 0.1*(2*1 - 3)) + 0.1*(2*(1 + 0.1*(2*1 - 3)) - (3 + 0.1*(1 + 0))), \"y\": (3 + 0.1*(1 + 0)) + 0.1*((1 + 0.1*(2*1 - 3)) + 0.1)}"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "Predator–prey model",
+          "statement": "A predator–prey model is a pair of coupled differential equations for a prey population and a predator population. Meetings between them lower the prey's growth rate and raise the predators'.",
+          "plain": "The more prey there is, the more predators it feeds, and the more predators there are, the more prey they eat."
+        },
+        {
+          "type": "example",
+          "id": "ex-rabbits-foxes",
+          "question": "On an island, $R$ is the number of rabbits in hundreds and $F$ the number of foxes in tens, $t$ years after a survey. A model is $\\frac{\\mathrm{d}R}{\\mathrm{d}t} = 0.9R - 0.05RF$ and $\\frac{\\mathrm{d}F}{\\mathrm{d}t} = 0.02RF - 0.6F$. At the survey $R = 40$ and $F = 10$. Explain what the terms $-0.05RF$ and $-0.6F$ mean. Then use Euler's method with $h = 0.25$ to estimate $R$ and $F$ one year after the survey.",
+          "steps": [
+            "Meaning: $RF$ grows with the number of rabbit–fox meetings, so $-0.05RF$ is rabbits being eaten. $-0.6F$ says that with no rabbits, the foxes would decline.",
+            "Rules: $R_{n+1} = R_{n} + 0.25(0.9R_{n} - 0.05R_{n}F_{n})$, $F_{n+1} = F_{n} + 0.25(0.02R_{n}F_{n} - 0.6F_{n})$, $t_{n+1} = t_{n} + 0.25$. One year is $4$ steps.",
+            "Step 1: $R_{1} = 40 + 0.25(36 - 20) = 44$ and $F_{1} = 10 + 0.25(8 - 6) = 10.5$, at $t = 0.25$.",
+            "The GDC or spreadsheet continues: $(48.125, 11.235)$, $(52.19\\ldots, 12.25\\ldots)$, then $R_{4} = 55.943\\ldots$ and $F_{4} = 13.612\\ldots$ at $t = 1$.",
+            "Interpret: about $5590$ rabbits and $136$ foxes after one year. Both are still rising, the foxes because there is plenty of food."
+          ],
+          "answer": "$R \\approx 55.9, \\; F \\approx 13.6$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Home screen: type 40, STO→, ALPHA, R, then ALPHA, . (colon), 10, STO→, ALPHA, F, colon, 0, STO→, ALPHA, T, ENTER (check on your model)",
+              "Type R+0.25(0.9R-0.05RF), STO→, ALPHA, A, colon, F+0.25(0.02RF-0.6F), STO→, ALPHA, F, colon, A, STO→, ALPHA, R, colon, T+0.25, STO→, ALPHA, T, ENTER; the screen shows 0.25 (check on your model)",
+              "Press ENTER three more times, until the screen shows 1 (check on your model)",
+              "Type R, ENTER and read 55.943…; type F, ENTER and read 13.612… (check on your model)"
+            ],
+            "nspire": [
+              "Calculator page: type r:=40:f:=10:t:=0, enter (check on your model)",
+              "Type a:=r+0.25*(0.9*r-0.05*r*f):f:=f+0.25*(0.02*r*f-0.6*f):r:=a:t:=t+0.25, enter (check on your model)",
+              "Press ▲ to highlight that line, enter to paste it, enter to run it; repeat until t reaches 1 (check on your model)",
+              "Type r, enter and read 55.943…; type f, enter and read 13.612… (check on your model)"
+            ],
+            "casio": [
+              "RUN-MAT: type 40, →, ALPHA, R, then a colon (PRGM menu), 10, →, ALPHA, F, colon, 0, →, ALPHA, T, EXE (check on your model)",
+              "Type R+0.25(0.9R-0.05RF)→A, colon, F+0.25(0.02RF-0.6F)→F, colon, A→R, colon, T+0.25→T, EXE (check on your model)",
+              "Press EXE three more times, until the screen shows 1 (check on your model)",
+              "Type R, EXE and read 55.943…; type F, EXE and read 13.612… (check on your model)"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The new rabbit value is stored in A first. If you stored it straight in R, the fox line would use the new $R$ and break the key rule. On a spreadsheet, use columns for $t$, $R$ and $F$, with every formula in row 3 pointing at row 2."
+        },
+        {
+          "type": "mistake",
+          "text": "Updating $y$ with the $x$ you have just calculated. Both new values come from the old row: work out $f_1$ and $f_2$ first, then update."
+        },
+        {
+          "type": "figure",
+          "id": "5-16-predator-prey",
+          "alt": "Graph of the two populations against time t from 0 to 20 years. The rabbit curve, R in hundreds, rises from 40 to a peak near 58 at about t equals 1.5, falls to about 13, then repeats roughly every 9 years. The fox curve, F in tens, starts at 10, peaks near 31 at about t equals 3, about one and a half years after each rabbit peak, then falls to about 9 and repeats.",
+          "caption": "The rabbit–fox model run for 20 years by Euler's method with a small step, $h = 0.01$."
+        },
+        {
+          "type": "text",
+          "text": "Run for longer, the model gives cycles. Rabbits increase, so the foxes have more food and increase. More foxes eat more rabbits, so the rabbits fall. Then the foxes starve and fall, and the rabbits recover. The fox peaks come after the rabbit peaks."
+        },
+        {
+          "type": "text",
+          "text": "How far can you trust this? Euler only approximates the model's solution. The model itself also ignores disease, weather, hunting and other food sources. So treat the numbers as a guide to the pattern, not exact counts."
+        },
+        {
+          "type": "check",
+          "id": "check-coupled-step",
+          "prompt": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = x - y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2x + y$, with $x = 3$ and $y = 1$ when $t = 0$. Use Euler's method with $h = 0.2$ to estimate $y$ when $t = 0.4$.",
+          "hint": "Two steps. Find $x_{1}$ and $y_{1}$ from $(3, 1)$, then use both of them for step 2.",
+          "options": [
+            {
+              "text": "$4.24$",
+              "correct": true
+            },
+            {
+              "text": "$4.4992$",
+              "correct": false
+            },
+            {
+              "text": "$2.4$",
+              "correct": false
+            }
+          ],
+          "explain": "$x_{1} = 3 + 0.2(2) = 3.4$ and $y_{1} = 1 + 0.2(7) = 2.4$. Then $y_{2} = 2.4 + 0.2(6.8 + 2.4) = 4.24$. $4.4992$ comes from updating $y$ with the new $x$, and $2.4$ stops after one step.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 + 0.2*(2*3 + 1)) + 0.2*(2*(3 + 0.2*(3 - 1)) + (1 + 0.2*(2*3 + 1)))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rabbit-max",
+          "prompt": "Continue the rabbit–fox table with $h = 0.25$ up to $t = 2$. What is the largest estimate of $R$ in the table, in hundreds? Give your answer to 3 s.f.",
+          "hint": "That is $8$ steps in all. Scan the $R$ column for its largest value; it is not the last one.",
+          "answer": {
+            "value": 61.2,
+            "tolerance": 0.05
+          },
+          "explain": "The $R$ column reaches $59.01\\ldots$ at $t = 1.25$, $60.95\\ldots$ at $1.5$ and $61.24\\ldots$ at $1.75$, then falls to $59.46\\ldots$ at $t = 2$. So the largest estimate is about $61.2$ hundred rabbits, at $t = 1.75$."
+        },
+        {
+          "type": "check",
+          "id": "check-fox-term",
+          "prompt": "In the model $\\frac{\\mathrm{d}F}{\\mathrm{d}t} = 0.02RF - 0.6F$, what does the term $-0.6F$ tell you?",
+          "hint": "Put $R = 0$ and look at what is left.",
+          "options": [
+            {
+              "text": "With no rabbits, the fox population would decrease",
+              "correct": true
+            },
+            {
+              "text": "Each fox eats 0.6 rabbits per year",
+              "correct": false
+            },
+            {
+              "text": "Foxes increase fastest when there are few rabbits",
+              "correct": false
+            }
+          ],
+          "explain": "With $R = 0$, $\\frac{\\mathrm{d}F}{\\mathrm{d}t} = -0.6F < 0$ for $F > 0$, so the foxes decline. Eating rabbits is the $0.02RF$ term, which helps the foxes grow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "With no rabbits, the fox population would decrease"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "y_{n+1} = y_{n} + h \\times f(x_{n}, y_{n}), \\quad x_{n+1} = x_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-euler",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "x_{n+1} = x_{n} + h f_1(x_{n}, y_{n}, t_{n}), \\quad y_{n+1} = y_{n} + h f_2(x_{n}, y_{n}, t_{n}), \\quad t_{n+1} = t_{n} + h",
+          "tag": "booklet",
+          "bookletId": "bk-5-16-euler-coupled",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Euler's method gives an estimate, not the exact solution. A smaller step length means more steps and usually a closer estimate.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Number of steps $= \\frac{\\text{end value} - \\text{start value}}{h}$. Each row uses only the row above, and in a coupled system both new values come from the old row.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Spreadsheet: put $x_{0}$ and $y_{0}$ in row 2, write row 3 as $x + h$ and $y + h \\times f(x, y)$ using row 2's cells, then fill down.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing only $x_{n+1} = x_{n} + h$. The method mark needs the $y$ update with your own $f$ and $h$, such as $y_{n+1} = y_{n} + 0.1(x_{n} + y_{n})$.",
+    "Rounding each row before the next step. The error grows with every row; keep the full GDC or spreadsheet values and round only the final answer.",
+    "Taking the wrong number of steps. Work out $\\frac{\\text{end} - \\text{start}}{h}$ first, and check that your last row is at the value the question asks for.",
+    "Giving the step number as the time. If a question asks when something happens, answer with $t$, not the row number: with $h = 0.1$ from $t = 0$, row $n = 20$ is $t = 2$ seconds.",
+    "In a coupled system, updating the second variable with the first one's new value. Both new values come from the old row.",
+    "Leaving $t$ out of a rate that depends on it. Use $t_{n}$ in each row, and step it on by $h$ as well."
+  ],
+  "examTips": [
+    "Use Euler's method: write the iteration with your own $f$ and $h$, then show at least one correct row, such as $y_{1}$. These earn the method marks before the GDC finishes the job.",
+    "Give the final estimate to the accuracy the question asks for, such as 3 decimal places. A wrong earlier value, rounded correctly, can still earn follow-through marks.",
+    "Interpret or state what the model predicts in context, with units: \"about $5590$ rabbits after one year\", not just $R = 55.9$.",
+    "Suggest a reason a prediction may not happen: Euler's method only approximates the solution, and the model leaves out real factors such as disease or hunting."
+  ],
+  "readingMinutes": 23
+}

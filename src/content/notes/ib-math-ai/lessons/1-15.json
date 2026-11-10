@@ -1,0 +1,797 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.15",
+  "slug": "eigenvalues-and-eigenvectors",
+  "title": "Eigenvalues and eigenvectors",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "An [[eigenvector|eigenvector]] of a [[matrix|matrix]] is a direction the matrix only stretches: $M\\boldsymbol{v} = \\lambda\\boldsymbol{v}$, where the number $\\lambda$ is its [[eigenvalue|eigenvalue]]. When a $2 \\times 2$ matrix has two different real eigenvalues, they turn any power $M^{n}$ into a formula in $n$. That is how you predict where a population moving between two towns ends up, years ahead.",
+  "goals": [
+    {
+      "text": "Test whether a vector is an eigenvector of a matrix, and find its eigenvalue.",
+      "bullets": [
+        "1.15-b1"
+      ]
+    },
+    {
+      "text": "Find the [[characteristic-polynomial|characteristic polynomial]] of a $2 \\times 2$ matrix and solve it for the eigenvalues, by hand or with a GDC.",
+      "bullets": [
+        "1.15-b2",
+        "1.15-b1",
+        "1.15-b5"
+      ]
+    },
+    {
+      "text": "Find an eigenvector for each eigenvalue of a $2 \\times 2$ matrix.",
+      "bullets": [
+        "1.15-b1",
+        "1.15-b5"
+      ]
+    },
+    {
+      "text": "Diagonalize a $2 \\times 2$ matrix with two different real eigenvalues as $PDP^{-1}$.",
+      "bullets": [
+        "1.15-b3"
+      ]
+    },
+    {
+      "text": "Use $M^{n} = PD^{n}P^{-1}$ to find powers and long-term behaviour, and interpret them in context.",
+      "bullets": [
+        "1.15-b4",
+        "1.15-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "1.14"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "eigenvalues and eigenvectors",
+    "characteristic polynomial 2x2",
+    "diagonalize a matrix",
+    "PDP^-1",
+    "matrix powers with eigenvalues",
+    "M^n = PD^nP^-1"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-determinant",
+      "prompt": "Find $\\det\\begin{pmatrix}3 & 5\\\\1 & 4\\end{pmatrix}$.",
+      "hint": "For $\\begin{pmatrix}a & b\\\\ c & d\\end{pmatrix}$ the [[determinant|determinant]] is $ad - bc$.",
+      "answer": {
+        "value": 7,
+        "tolerance": 0
+      },
+      "explain": "$3 \\times 4 - 5 \\times 1 = 12 - 5 = 7$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*4 - 5*1",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-matrix-vector",
+      "prompt": "Find $\\begin{pmatrix}2 & 1\\\\3 & 4\\end{pmatrix}\\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+      "hint": "Each entry is a row of the matrix times the column vector.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}4\\\\11\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}8\\\\9\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\7\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "Row times column: $2(1) + 1(2) = 4$ and $3(1) + 4(2) = 11$. Multiplying the columns of the matrix by the vector instead gives $\\begin{pmatrix}8\\\\ 9\\end{pmatrix}$. Revise it in {{lesson:1.14}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([[2, 1], [3, 4]])*Matrix([1, 2])"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-quadratic",
+      "prompt": "Solve $x^{2} - 1.3x + 0.3 = 0$.",
+      "hint": "Factorise, use the quadratic formula, or use your GDC's [[polynomial|polynomial]] solver.",
+      "options": [
+        {
+          "text": "$0.3, 1$",
+          "correct": true
+        },
+        {
+          "text": "$-0.3, -1$",
+          "correct": false
+        },
+        {
+          "text": "$0.3, 1.3$",
+          "correct": false
+        }
+      ],
+      "explain": "$(x - 1)(x - 0.3) = 0$, so $x = 1$ or $x = 0.3$. Check: the roots add to $1.3$ and multiply to $0.3$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve(x**2 - 1.3*x + 0.3, x)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "eigen-idea",
+      "heading": "Eigenvalues and eigenvectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.14}} you multiplied a matrix by a column vector. Usually the result points in a new direction. For a few special vectors it stays on the same line: the matrix only stretches them."
+        },
+        {
+          "type": "text",
+          "text": "Take $A = \\begin{pmatrix}2 & 1\\\\1 & 2\\end{pmatrix}$. Then $A\\begin{pmatrix}1\\\\0\\end{pmatrix} = \\begin{pmatrix}2\\\\1\\end{pmatrix}$, which has turned. But $A\\begin{pmatrix}1\\\\1\\end{pmatrix} = \\begin{pmatrix}3\\\\3\\end{pmatrix} = 3\\begin{pmatrix}1\\\\1\\end{pmatrix}$: the same direction, three times as long."
+        },
+        {
+          "type": "figure",
+          "id": "1-15-stretch",
+          "alt": "Axes from 0 to 3. The vector v from the origin to (1, 1) and the vector Av from the origin to (3, 3) lie on the same dashed line y equals x, with Av three times as long as v. The vector w from the origin to (1, 0) and the vector Aw from the origin to (2, 1) point in different directions.",
+          "caption": "For $A = \\begin{pmatrix}2 & 1\\\\1 & 2\\end{pmatrix}$, $\\boldsymbol{v}$ keeps its direction and is stretched by $3$. $\\boldsymbol{w}$ is turned."
+        },
+        {
+          "type": "definition",
+          "term": "Eigenvalue and eigenvector",
+          "statement": "Let $A$ be a square matrix. A non-zero vector $\\boldsymbol{v}$ is an eigenvector of $A$ if $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$ for some number $\\lambda$. The number $\\lambda$ is the eigenvalue that goes with $\\boldsymbol{v}$.",
+          "plain": "An eigenvector is a direction the matrix only stretches, shrinks or flips. Its eigenvalue is the scale factor."
+        },
+        {
+          "type": "text",
+          "text": "So $\\begin{pmatrix}1\\\\ 1\\end{pmatrix}$ is an eigenvector of $A$ with eigenvalue $3$. Two facts follow from $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Any non-zero multiple of an eigenvector is also an eigenvector, with the same eigenvalue. $\\begin{pmatrix}2\\\\ 2\\end{pmatrix}$ and $\\begin{pmatrix}-5\\\\ -5\\end{pmatrix}$ work just as well as $\\begin{pmatrix}1\\\\ 1\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "2. The zero vector never counts, even though $A\\boldsymbol{0} = \\lambda\\boldsymbol{0}$ for every $\\lambda$. An eigenvalue, though, can be $0$ or negative. A negative eigenvalue flips the vector to point the opposite way."
+        },
+        {
+          "type": "text",
+          "text": "To test a vector, work out $A\\boldsymbol{v}$ and see whether it is a multiple of $\\boldsymbol{v}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-check-eigenvector",
+          "question": "Let $A = \\begin{pmatrix}4 & -2\\\\1 & 1\\end{pmatrix}$. Show that $\\boldsymbol{v} = \\begin{pmatrix}2\\\\1\\end{pmatrix}$ is an eigenvector of $A$, and find its eigenvalue. Is $\\boldsymbol{w} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$ an eigenvector of $A$?",
+          "steps": [
+            "Multiply: $A\\boldsymbol{v} = \\begin{pmatrix}4(2) - 2(1)\\\\ 1(2) + 1(1)\\end{pmatrix} = \\begin{pmatrix}6\\\\3\\end{pmatrix}$.",
+            "Compare with $\\boldsymbol{v}$: $\\begin{pmatrix}6\\\\3\\end{pmatrix} = 3\\begin{pmatrix}2\\\\1\\end{pmatrix}$. So $A\\boldsymbol{v} = 3\\boldsymbol{v}$, and $\\boldsymbol{v}$ is an eigenvector with eigenvalue $3$.",
+            "Test $\\boldsymbol{w}$: $A\\boldsymbol{w} = \\begin{pmatrix}4 - 4\\\\ 1 + 2\\end{pmatrix} = \\begin{pmatrix}0\\\\3\\end{pmatrix}$.",
+            "No single number times $\\begin{pmatrix}1\\\\2\\end{pmatrix}$ gives $\\begin{pmatrix}0\\\\3\\end{pmatrix}$: the top entries need the multiplier $0$, the bottom ones $1.5$. So $\\boldsymbol{w}$ is not an eigenvector."
+          ],
+          "answer": "$\\lambda = 3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4*2 - 2*1)/2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-towns-balance",
+          "question": "Each year $6\\%$ of the people living in Northby move to Southam, and $3\\%$ of Southam's people move to Northby. No one else arrives or leaves. Let $x_n$ and $y_n$ be the populations, in thousands, after $n$ years. Then $\\begin{pmatrix}x_{n+1}\\\\ y_{n+1}\\end{pmatrix} = M\\begin{pmatrix}x_n\\\\ y_n\\end{pmatrix}$, where $M = \\begin{pmatrix}0.94 & 0.03\\\\0.06 & 0.97\\end{pmatrix}$. Show that $\\begin{pmatrix}1\\\\2\\end{pmatrix}$ is an eigenvector of $M$, find its eigenvalue, and interpret it.",
+          "steps": [
+            "Read the matrix by columns: column 1 says where Northby's people go ($94\\%$ stay, $6\\%$ move). Column 2 does the same for Southam's.",
+            "$M\\begin{pmatrix}1\\\\2\\end{pmatrix} = \\begin{pmatrix}0.94 + 0.06\\\\ 0.06 + 1.94\\end{pmatrix} = \\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+            "So $M\\boldsymbol{v} = 1\\boldsymbol{v}$: an eigenvector with eigenvalue $1$.",
+            "Interpret: if the populations are in the ratio $1 : 2$, they stay exactly the same the next year, and every year after. The $6\\%$ leaving the smaller Northby balances the $3\\%$ leaving the larger Southam."
+          ],
+          "answer": "$\\lambda = 1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.94*1 + 0.03*2)/1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pick-eigenvector",
+          "prompt": "Which vector is an eigenvector of $\\begin{pmatrix}3 & 1\\\\0 & 2\\end{pmatrix}$?",
+          "hint": "Multiply each vector by the matrix. Is the result a multiple of the vector you started with?",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}1\\\\-1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}0\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}0\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}1\\\\1\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}3 & 1\\\\0 & 2\\end{pmatrix}\\begin{pmatrix}1\\\\-1\\end{pmatrix} = \\begin{pmatrix}2\\\\-2\\end{pmatrix} = 2\\begin{pmatrix}1\\\\-1\\end{pmatrix}$, so it is an eigenvector with eigenvalue $2$. The zero vector never counts. $\\begin{pmatrix}0\\\\1\\end{pmatrix}$ goes to $\\begin{pmatrix}1\\\\2\\end{pmatrix}$ and $\\begin{pmatrix}1\\\\1\\end{pmatrix}$ to $\\begin{pmatrix}4\\\\2\\end{pmatrix}$: both have turned.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([1, -(3 - 2)/1])"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-lambda",
+          "prompt": "$\\begin{pmatrix}3\\\\2\\end{pmatrix}$ is an eigenvector of $\\begin{pmatrix}7 & -3\\\\2 & 2\\end{pmatrix}$. Find its eigenvalue.",
+          "hint": "Multiply, then compare the result with $\\begin{pmatrix}3\\\\2\\end{pmatrix}$.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0
+          },
+          "explain": "$\\begin{pmatrix}21 - 6\\\\ 6 + 4\\end{pmatrix} = \\begin{pmatrix}15\\\\10\\end{pmatrix} = 5\\begin{pmatrix}3\\\\2\\end{pmatrix}$, so $\\lambda = 5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(7*3 - 3*2)/3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "characteristic-polynomial",
+      "heading": "The characteristic polynomial",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Guessing eigenvectors is slow. Find the eigenvalues first. Write $I$ for the $2 \\times 2$ [[identity-matrix|identity matrix]], so that $\\lambda\\boldsymbol{v} = \\lambda I\\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "Then $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$ rearranges to $(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$. If $A - \\lambda I$ had an inverse, multiplying by it would give $\\boldsymbol{v} = \\boldsymbol{0}$. An eigenvector is never $\\boldsymbol{0}$, so $A - \\lambda I$ has no inverse: its determinant is $0$."
+        },
+        {
+          "type": "result",
+          "statement": "A number $\\lambda$ is an eigenvalue of a square matrix $A$ exactly when $\\det(A - \\lambda I) = 0$.",
+          "why": "$\\det(A - \\lambda I) = 0$ is exactly when $(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$ has a solution other than $\\boldsymbol{v} = \\boldsymbol{0}$."
+        },
+        {
+          "type": "definition",
+          "term": "Characteristic polynomial",
+          "statement": "For a $2 \\times 2$ matrix $A$, the characteristic polynomial is $\\det(A - \\lambda I)$. It is a quadratic in $\\lambda$, and its roots are the eigenvalues of $A$. The equation $\\det(A - \\lambda I) = 0$ is the characteristic equation.",
+          "plain": "The quadratic you solve to find the eigenvalues."
+        },
+        {
+          "type": "text",
+          "text": "Subtract $\\lambda$ from each entry on the leading diagonal, then use $ad - bc$:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\det\\begin{pmatrix}a - \\lambda & b\\\\ c & d - \\lambda\\end{pmatrix} = (a - \\lambda)(d - \\lambda) - bc = \\lambda^{2} - (a + d)\\lambda + (ad - bc)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is not in the formula booklet, but it is quick to rebuild. A $2 \\times 2$ matrix has at most two eigenvalues. You are only expected to find eigenvalues, by hand or with technology, for $2 \\times 2$ matrices."
+        },
+        {
+          "type": "example",
+          "id": "ex-charpoly-hand",
+          "question": "Find the characteristic polynomial of $A = \\begin{pmatrix}6 & -2\\\\2 & 1\\end{pmatrix}$. Hence find the eigenvalues of $A$.",
+          "steps": [
+            "Subtract $\\lambda$ on the leading diagonal: $A - \\lambda I = \\begin{pmatrix}6 - \\lambda & -2\\\\ 2 & 1 - \\lambda\\end{pmatrix}$.",
+            "Determinant: $(6 - \\lambda)(1 - \\lambda) - (-2)(2) = 6 - 7\\lambda + \\lambda^{2} + 4$.",
+            "So the characteristic polynomial is $\\lambda^{2} - 7\\lambda + 10$. Check with the formula: $a + d = 7$ and $ad - bc = 6 + 4 = 10$.",
+            "Hence solve $\\lambda^{2} - 7\\lambda + 10 = 0$: $(\\lambda - 2)(\\lambda - 5) = 0$, so the eigenvalues are $\\lambda = 2$ and $\\lambda = 5$."
+          ],
+          "answer": "$\\det(A - \\lambda I) = \\lambda^{2} - 7\\lambda + 10$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the diagonal entries, here $6$ and $1$, as the eigenvalues. That only works when an off-diagonal entry is $0$. Always solve $\\det(A - \\lambda I) = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-juvenile-adult",
+          "question": "A biologist splits a bird population into $j_n$ juveniles and $a_n$ adults, in hundreds, after $n$ years. Each year an adult raises $1.6$ juveniles on average, $30\\%$ of juveniles become adults, and $70\\%$ of adults survive. So $\\begin{pmatrix}j_{n+1}\\\\ a_{n+1}\\end{pmatrix} = \\begin{pmatrix}0 & 1.6\\\\ 0.3 & 0.7\\end{pmatrix}\\begin{pmatrix}j_n\\\\ a_n\\end{pmatrix}$. Use your GDC to find the eigenvalues of the matrix, to 3 s.f. Interpret the positive eigenvalue.",
+          "steps": [
+            "Write down the equation you solve: $\\det\\begin{pmatrix}-\\lambda & 1.6\\\\ 0.3 & 0.7 - \\lambda\\end{pmatrix} = 0$.",
+            "Expand: $(-\\lambda)(0.7 - \\lambda) - (1.6)(0.3) = \\lambda^{2} - 0.7\\lambda - 0.48 = 0$.",
+            "GDC polynomial solver with coefficients $1$, $-0.7$, $-0.48$: $\\lambda = 1.126208\\ldots$ or $\\lambda = -0.426208\\ldots$",
+            "Interpret: suppose the juveniles and adults are in the proportions of the eigenvector for $1.126\\ldots$ Then each year the matrix multiplies both groups by $1.126\\ldots$ The population grows by about $12.6\\%$ a year and keeps those proportions."
+          ],
+          "answer": "$\\lambda \\approx 1.13 \\text{ or } \\lambda \\approx -0.426$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "solve((Matrix([[0, 1.6], [0.3, 0.7]]) - x*eye(2)).det(), x)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "1, -0.7, -0.48"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-eigen",
+          "values": {}
+        },
+        {
+          "type": "examTip",
+          "text": "Find the eigenvalues: write $\\det(M - \\lambda I) = 0$ and the quadratic before the values. That line earns the method mark, even when your GDC solves the quadratic."
+        },
+        {
+          "type": "check",
+          "id": "check-eigenvalues-mc",
+          "prompt": "Find the eigenvalues of $\\begin{pmatrix}7 & -4\\\\3 & 0\\end{pmatrix}$.",
+          "hint": "Expand $(7 - \\lambda)(0 - \\lambda) - (-4)(3)$ and set it equal to $0$.",
+          "options": [
+            {
+              "text": "$3, 4$",
+              "correct": true
+            },
+            {
+              "text": "$-3, -4$",
+              "correct": false
+            },
+            {
+              "text": "$7, 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda^{2} - 7\\lambda + 12 = (\\lambda - 3)(\\lambda - 4) = 0$. The diagonal entries $7$ and $0$ are not the eigenvalues, because neither off-diagonal entry is $0$.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve((Matrix([[7, -4], [3, 0]]) - x*eye(2)).det(), x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-larger-eigenvalue",
+          "prompt": "Use your GDC to find the larger eigenvalue of $\\begin{pmatrix}0.5 & 0.8\\\\0.6 & 0.9\\end{pmatrix}$. Give your answer to 3 s.f.",
+          "hint": "Use $\\lambda^{2} - (a + d)\\lambda + (ad - bc) = 0$. Here $ad - bc$ is negative.",
+          "answer": {
+            "value": 1.42,
+            "tolerance": 0.005
+          },
+          "explain": "$a + d = 1.4$ and $ad - bc = 0.45 - 0.48 = -0.03$. Solving $\\lambda^{2} - 1.4\\lambda - 0.03 = 0$ gives $\\lambda = 1.42111\\ldots$ or $\\lambda = -0.0211\\ldots$",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((0.5 + 0.9) + sqrt((0.5 + 0.9)**2 - 4*(0.5*0.9 - 0.8*0.6)))/2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "eigenvectors",
+      "heading": "Finding the eigenvectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Once you have an eigenvalue $\\lambda$, find an eigenvector by solving $(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$ with $\\boldsymbol{v} = \\begin{pmatrix}x\\\\ y\\end{pmatrix}$."
+        },
+        {
+          "type": "text",
+          "text": "1. Write out $A - \\lambda I$ with the value of $\\lambda$ put in."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the two equations from $(A - \\lambda I)\\begin{pmatrix}x\\\\ y\\end{pmatrix} = \\begin{pmatrix}0\\\\ 0\\end{pmatrix}$. Because $\\det(A - \\lambda I) = 0$, they say the same thing: one is a multiple of the other."
+        },
+        {
+          "type": "text",
+          "text": "3. Use an equation that isn't $0 = 0$ to write $y$ in terms of $x$, or $x$ in terms of $y$. Give the free one a simple non-zero value, such as $x = 1$, or whatever makes both entries whole numbers."
+        },
+        {
+          "type": "text",
+          "text": "4. Check that $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$."
+        },
+        {
+          "type": "mistake",
+          "text": "If your two equations only allow $x = 0$ and $y = 0$, your eigenvalue is wrong. Recheck the characteristic equation: for a true eigenvalue they always share a non-zero solution."
+        },
+        {
+          "type": "example",
+          "id": "ex-eigenvectors-hand",
+          "question": "$A = \\begin{pmatrix}6 & -2\\\\2 & 1\\end{pmatrix}$ has eigenvalues $2$ and $5$. Find an eigenvector for each eigenvalue.",
+          "steps": [
+            "$\\lambda = 2$: $A - 2I = \\begin{pmatrix}4 & -2\\\\ 2 & -1\\end{pmatrix}$, giving $4x - 2y = 0$ and $2x - y = 0$.",
+            "Both say $y = 2x$. Take $x = 1$: $\\boldsymbol{v}_1 = \\begin{pmatrix}1\\\\2\\end{pmatrix}$.",
+            "$\\lambda = 5$: $A - 5I = \\begin{pmatrix}1 & -2\\\\ 2 & -4\\end{pmatrix}$, giving $x - 2y = 0$, so $x = 2y$. Take $y = 1$: $\\boldsymbol{v}_2 = \\begin{pmatrix}2\\\\1\\end{pmatrix}$.",
+            "Check: $A\\begin{pmatrix}1\\\\2\\end{pmatrix} = \\begin{pmatrix}2\\\\4\\end{pmatrix} = 2\\begin{pmatrix}1\\\\2\\end{pmatrix}$ and $A\\begin{pmatrix}2\\\\1\\end{pmatrix} = \\begin{pmatrix}10\\\\5\\end{pmatrix} = 5\\begin{pmatrix}2\\\\1\\end{pmatrix}$."
+          ],
+          "answer": "$\\lambda = 2: \\begin{pmatrix}1\\\\2\\end{pmatrix},\\; \\lambda = 5: \\begin{pmatrix}2\\\\1\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-rental-steady",
+          "question": "A bike-hire firm keeps $250$ bikes at two stations, A and B. Each day $20\\%$ of the bikes at A end the day at B, and $30\\%$ of those at B end at A. So the numbers at A and B are multiplied by $M = \\begin{pmatrix}0.8 & 0.3\\\\0.2 & 0.7\\end{pmatrix}$ each day. One eigenvalue of $M$ is $1$. Find an eigenvector for it. Hence find how many bikes should be at each station so that the numbers stay the same from day to day.",
+          "steps": [
+            "$M - I = \\begin{pmatrix}-0.2 & 0.3\\\\ 0.2 & -0.3\\end{pmatrix}$, giving $-0.2x + 0.3y = 0$. The second equation is the same multiplied by $-1$.",
+            "So $0.2x = 0.3y$, or $2x = 3y$. Take $x = 3$, $y = 2$: $\\boldsymbol{v} = \\begin{pmatrix}3\\\\2\\end{pmatrix}$.",
+            "Every multiple $k\\begin{pmatrix}3\\\\2\\end{pmatrix}$ is also unchanged by $M$. The total must be $250$: $3k + 2k = 250$, so $k = 50$.",
+            "Interpret: with $150$ bikes at A and $100$ at B, the $30$ bikes leaving A each day exactly match the $30$ arriving from B. The numbers stay put."
+          ],
+          "answer": "$\\begin{pmatrix}150\\\\100\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "250*Matrix([0.3, 1 - 0.8])/(0.3 + 1 - 0.8)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "You meet this balanced state again in {{lesson:4.19}}, as the steady state of a Markov chain."
+        },
+        {
+          "type": "check",
+          "id": "check-eigvec-lambda4",
+          "prompt": "$\\begin{pmatrix}1 & 3\\\\2 & 2\\end{pmatrix}$ has eigenvalues $4$ and $-1$. Which is an eigenvector for $\\lambda = 4$?",
+          "hint": "Solve $(A - 4I)\\boldsymbol{v} = \\boldsymbol{0}$. The first equation is $-3x + 3y = 0$.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}1\\\\1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}3\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}1\\\\-1\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$-3x + 3y = 0$ gives $y = x$, so $\\begin{pmatrix}1\\\\1\\end{pmatrix}$. Check: $A\\begin{pmatrix}1\\\\1\\end{pmatrix} = \\begin{pmatrix}4\\\\4\\end{pmatrix}$. $\\begin{pmatrix}3\\\\-2\\end{pmatrix}$ is the eigenvector for $\\lambda = -1$, not $4$.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([1, -(1 - 4)/3])"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-steady-k",
+          "prompt": "A gym's members use morning or evening sessions. Each month $15\\%$ of morning members switch to evenings and $45\\%$ of evening members switch to mornings, so $M = \\begin{pmatrix}0.85 & 0.45\\\\0.15 & 0.55\\end{pmatrix}$. An eigenvector for the eigenvalue $1$ is $\\begin{pmatrix}k\\\\ 1\\end{pmatrix}$. Find $k$.",
+          "hint": "Use the first row of $(M - I)\\boldsymbol{v} = \\boldsymbol{0}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$(0.85 - 1)k + 0.45(1) = 0$, so $0.15k = 0.45$ and $k = 3$. Members split $3 : 1$ between mornings and evenings stay split that way.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.45/(1 - 0.85)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "diagonalize",
+      "heading": "Diagonalizing a 2 × 2 matrix",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A diagonal matrix has $0$s everywhere off the leading diagonal. Diagonal matrices are easy to work with: to multiply two of them, or to raise one to a power, you just work with the diagonal entries."
+        },
+        {
+          "type": "text",
+          "text": "To diagonalize $A$, put its eigenvectors side by side as the columns of a matrix $P$. Put the matching eigenvalues on the diagonal of $D$, in the same order:"
+        },
+        {
+          "type": "formula",
+          "tex": "P = \\begin{pmatrix}\\boldsymbol{v}_{1} & \\boldsymbol{v}_{2}\\end{pmatrix}, \\quad D = \\begin{pmatrix}\\lambda_{1} & 0\\\\ 0 & \\lambda_{2}\\end{pmatrix}, \\quad A = PDP^{-1}",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "If a $2 \\times 2$ matrix $A$ has two different real eigenvalues $\\lambda_1$ and $\\lambda_2$, with eigenvectors $\\boldsymbol{v}_1$ and $\\boldsymbol{v}_2$, then $A = PDP^{-1}$ with $P$ and $D$ as above.",
+          "why": "Column by column, $AP = \\begin{pmatrix}A\\boldsymbol{v}_1 & A\\boldsymbol{v}_2\\end{pmatrix} = \\begin{pmatrix}\\lambda_1\\boldsymbol{v}_1 & \\lambda_2\\boldsymbol{v}_2\\end{pmatrix} = PD$. Eigenvectors of different eigenvalues are not parallel, so $\\det P \\neq 0$ and $P^{-1}$ exists. Multiply $AP = PD$ on the right by $P^{-1}$."
+        },
+        {
+          "type": "definition",
+          "term": "Diagonalization",
+          "statement": "[[diagonalization|Diagonalization]] writes a square matrix as $A = PDP^{-1}$. The columns of $P$ are eigenvectors of $A$, and $D$ is a diagonal matrix with the matching eigenvalues in the same order.",
+          "plain": "Rewriting a matrix so that its eigenvalues do all the work."
+        },
+        {
+          "type": "text",
+          "text": "You only diagonalize $2 \\times 2$ matrices with two different real eigenvalues. $P$ is not unique: you may multiply either eigenvector by a non-zero number, or swap the columns. If you swap the columns of $P$, swap the eigenvalues in $D$ too."
+        },
+        {
+          "type": "example",
+          "id": "ex-diagonalize-hand",
+          "question": "Diagonalize $A = \\begin{pmatrix}6 & -2\\\\2 & 1\\end{pmatrix}$, whose eigenvalues and eigenvectors you found above. Check that $PDP^{-1} = A$.",
+          "steps": [
+            "Eigenvalue $2$ goes with $\\begin{pmatrix}1\\\\2\\end{pmatrix}$, and eigenvalue $5$ with $\\begin{pmatrix}2\\\\1\\end{pmatrix}$.",
+            "Columns in that order: $P = \\begin{pmatrix}1 & 2\\\\2 & 1\\end{pmatrix}$ and $D = \\begin{pmatrix}2 & 0\\\\0 & 5\\end{pmatrix}$.",
+            "$\\det P = 1 - 4 = -3$, so $P^{-1} = -\\frac{1}{3}\\begin{pmatrix}1 & -2\\\\-2 & 1\\end{pmatrix}$.",
+            "$PD = \\begin{pmatrix}2 & 10\\\\4 & 5\\end{pmatrix}$. Then $PDP^{-1} = -\\frac{1}{3}\\begin{pmatrix}2 - 20 & -4 + 10\\\\4 - 10 & -8 + 5\\end{pmatrix} = -\\frac{1}{3}\\begin{pmatrix}-18 & 6\\\\-6 & -3\\end{pmatrix} = \\begin{pmatrix}6 & -2\\\\2 & 1\\end{pmatrix}$, which is $A$."
+          ],
+          "answer": "$P = \\begin{pmatrix}1 & 2\\\\2 & 1\\end{pmatrix},\\; D = \\begin{pmatrix}2 & 0\\\\0 & 5\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-towns-diagonalize",
+          "question": "For the towns model $M = \\begin{pmatrix}0.94 & 0.03\\\\0.06 & 0.97\\end{pmatrix}$, find both eigenvalues and an eigenvector for each. Hence write $M = PDP^{-1}$, and interpret the second eigenvalue.",
+          "steps": [
+            "$a + d = 1.91$ and $ad - bc = 0.9118 - 0.0018 = 0.91$, so the characteristic equation is $\\lambda^{2} - 1.91\\lambda + 0.91 = 0$.",
+            "Solve by factorising or with your GDC: $(\\lambda - 1)(\\lambda - 0.91) = 0$, so $\\lambda = 1$ or $\\lambda = 0.91$.",
+            "For $\\lambda = 1$ you already have $\\begin{pmatrix}1\\\\2\\end{pmatrix}$. For $\\lambda = 0.91$: $M - 0.91I = \\begin{pmatrix}0.03 & 0.03\\\\0.06 & 0.06\\end{pmatrix}$, so $x + y = 0$ and $\\begin{pmatrix}1\\\\-1\\end{pmatrix}$.",
+            "So $P = \\begin{pmatrix}1 & 1\\\\2 & -1\\end{pmatrix}$ and $D = \\begin{pmatrix}1 & 0\\\\0 & 0.91\\end{pmatrix}$.",
+            "Interpret: $\\begin{pmatrix}1\\\\-1\\end{pmatrix}$ moves people from one town to the other with the total fixed. Each year $M$ multiplies that part of the populations by $0.91$. So any gap between the populations and the $1 : 2$ split shrinks by $9\\%$ a year."
+          ],
+          "answer": "$P = \\begin{pmatrix}1 & 1\\\\2 & -1\\end{pmatrix},\\; D = \\begin{pmatrix}1 & 0\\\\0 & 0.91\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-d-order",
+          "prompt": "$A = \\begin{pmatrix}2 & 1\\\\3 & 0\\end{pmatrix}$ has eigenvalue $3$ with eigenvector $\\begin{pmatrix}1\\\\1\\end{pmatrix}$, and eigenvalue $-1$ with eigenvector $\\begin{pmatrix}1\\\\-3\\end{pmatrix}$. You choose $P = \\begin{pmatrix}1 & 1\\\\-3 & 1\\end{pmatrix}$. Which $D$ gives $A = PDP^{-1}$?",
+          "hint": "Which eigenvector is in the first column of $P$?",
+          "options": [
+            {
+              "text": "$D = \\begin{pmatrix}-1 & 0\\\\0 & 3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$D = \\begin{pmatrix}3 & 0\\\\0 & -1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$D = \\begin{pmatrix}1 & 0\\\\0 & -3\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The first column of $P$ is $\\begin{pmatrix}1\\\\-3\\end{pmatrix}$, the eigenvector for $-1$, so $-1$ comes first in $D$. Then $3$ goes second, to match $\\begin{pmatrix}1\\\\1\\end{pmatrix}$."
+        },
+        {
+          "type": "check",
+          "id": "check-top-left-d",
+          "prompt": "$A = \\begin{pmatrix}5 & 4\\\\1 & 2\\end{pmatrix}$ is diagonalized as $PDP^{-1}$, with $\\begin{pmatrix}4\\\\1\\end{pmatrix}$ as the first column of $P$. Find the top-left entry of $D$.",
+          "hint": "The top-left entry of $D$ is the eigenvalue of the first column of $P$. Work out $A\\begin{pmatrix}4\\\\1\\end{pmatrix}$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$A\\begin{pmatrix}4\\\\1\\end{pmatrix} = \\begin{pmatrix}24\\\\6\\end{pmatrix} = 6\\begin{pmatrix}4\\\\1\\end{pmatrix}$, so the entry is $6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(5*4 + 4*1)/4",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "powers",
+      "heading": "Powers of a matrix",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a model $\\boldsymbol{x}_{n+1} = M\\boldsymbol{x}_n$, the state after $n$ steps is $\\boldsymbol{x}_n = M^{n}\\boldsymbol{x}_0$. A GDC finds $M^{10}$ for you. To see what happens for every $n$, or as $n$ grows, you need a formula for $M^{n}$."
+        },
+        {
+          "type": "text",
+          "text": "Diagonalizing gives one. In $M^{2} = PDP^{-1}PDP^{-1}$, the middle $P^{-1}P$ is $I$, so $M^{2} = PD^{2}P^{-1}$. The same happens for every power:"
+        },
+        {
+          "type": "formula",
+          "tex": "M^{n} = PD^{n}P^{-1}",
+          "tag": "booklet",
+          "bookletId": "bk-1-15-matrix-power"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, with $P$ the matrix of eigenvectors and $D$ the diagonal matrix of eigenvalues. $D^{n}$ is easy: raise each diagonal entry to the power $n$. Then multiply out the three matrices."
+        },
+        {
+          "type": "formula",
+          "tex": "D^{n} = \\begin{pmatrix}\\lambda_{1}^{\\,n} & 0\\\\ 0 & \\lambda_{2}^{\\,n}\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Long-term behaviour comes from the eigenvalues. As $n \\to \\infty$, $\\lambda^{n} \\to 0$ if $\\lvert\\lambda\\rvert < 1$. If $\\lambda = 1$, then $\\lambda^{n} = 1$ for every $n$. If $\\lvert\\lambda\\rvert > 1$, $\\lambda^{n}$ grows in size without limit, changing sign each step when $\\lambda < -1$."
+        },
+        {
+          "type": "mistake",
+          "text": "Raising each entry of $M$ to the power $n$. That only works for a diagonal matrix, which is why you go through $D^{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-towns-power",
+          "question": "For Northby and Southam, $M = PDP^{-1}$ with $P = \\begin{pmatrix}1 & 1\\\\2 & -1\\end{pmatrix}$ and $D = \\begin{pmatrix}1 & 0\\\\0 & 0.91\\end{pmatrix}$. Find $M^{n}$ in terms of $n$. The towns start with $50$ thousand and $40$ thousand people. Find the populations after $n$ years, and describe the long-term behaviour.",
+          "steps": [
+            "$P^{-1} = \\frac{1}{-3}\\begin{pmatrix}-1 & -1\\\\-2 & 1\\end{pmatrix} = \\frac{1}{3}\\begin{pmatrix}1 & 1\\\\2 & -1\\end{pmatrix}$.",
+            "$PD^{n} = \\begin{pmatrix}1 & 1\\\\2 & -1\\end{pmatrix}\\begin{pmatrix}1 & 0\\\\0 & 0.91^{n}\\end{pmatrix} = \\begin{pmatrix}1 & 0.91^{n}\\\\2 & -0.91^{n}\\end{pmatrix}$.",
+            "$M^{n} = PD^{n}P^{-1} = \\frac{1}{3}\\begin{pmatrix}1 + 2(0.91)^{n} & 1 - 0.91^{n}\\\\2 - 2(0.91)^{n} & 2 + 0.91^{n}\\end{pmatrix}$. Check: $n = 0$ gives $I$, and $n = 1$ gives $M$.",
+            "Populations: $M^{n}\\begin{pmatrix}50\\\\40\\end{pmatrix} = \\frac{1}{3}\\begin{pmatrix}90 + 60(0.91)^{n}\\\\ 180 - 60(0.91)^{n}\\end{pmatrix} = \\begin{pmatrix}30 + 20(0.91)^{n}\\\\ 60 - 20(0.91)^{n}\\end{pmatrix}$ thousand.",
+            "Long term: $0.91^{n} \\to 0$, so Northby tends to $30$ thousand people and Southam to $60$ thousand. The total stays $90$ thousand, split $1 : 2$ as in the eigenvector for $\\lambda = 1$.",
+            "Comment: the model assumes the same moving rates every year, with no births, deaths or other migration. That is unlikely to hold for decades, so the short-term figures are more reliable."
+          ],
+          "answer": "$M^{n} = \\frac{1}{3}\\begin{pmatrix}1 + 2(0.91)^{n} & 1 - 0.91^{n}\\\\2 - 2(0.91)^{n} & 2 + 0.91^{n}\\end{pmatrix}$",
+          "check": {
+            "type": "check",
+            "id": "check-northby-10",
+            "prompt": "Now you try: find Northby's population after $10$ years, in thousands, to 3 s.f.",
+            "hint": "Put $n = 10$ into $30 + 20(0.91)^{n}$. Don't round $0.91^{10}$ first.",
+            "answer": {
+              "value": 37.8,
+              "tolerance": 0.05
+            },
+            "explain": "$30 + 20(0.91)^{10} = 30 + 20(0.389416\\ldots) = 37.788\\ldots$, about $37\\,800$ people. A GDC gives the same top entry for $M^{10}\\begin{pmatrix}50\\\\40\\end{pmatrix}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "(Matrix([[0.94, 0.03], [0.06, 0.97]])**10*Matrix([50, 40]))[0]",
+              "sf": 3
+            }
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-enter",
+          "values": {
+            "rows": 2,
+            "columns": 2,
+            "entries": "0.94, 0.03, 0.06, 0.97"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-power",
+          "values": {
+            "power": 10
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-15-towns-long-term",
+          "alt": "Graph of population in thousands against years n from 0 to 40. Northby starts at 50 and falls, levelling off towards a dashed line at 30. Southam starts at 40 and rises, levelling off towards a dashed line at 60.",
+          "caption": "Northby, $30 + 20(0.91)^{n}$, and Southam, $60 - 20(0.91)^{n}$, settle at the $1 : 2$ split."
+        },
+        {
+          "type": "example",
+          "id": "ex-foxes-rabbits",
+          "question": "On an island there are $f_n$ foxes and $r_n$ rabbits, in hundreds, after $n$ years. A model is $\\begin{pmatrix}f_{n+1}\\\\ r_{n+1}\\end{pmatrix} = M\\begin{pmatrix}f_n\\\\ r_n\\end{pmatrix}$ with $M = \\begin{pmatrix}0.6 & 0.5\\\\-0.2 & 1.3\\end{pmatrix}$. At the start there are $300$ foxes and $600$ rabbits. Use $M^{n} = PD^{n}P^{-1}$ to find a formula for $f_n$. Find the number of foxes after $10$ years, in hundreds to 3 s.f., and describe the long-term behaviour.",
+          "steps": [
+            "Read the model: with no rabbits, the foxes fall to $60\\%$ each year. With no foxes, the rabbits grow by $30\\%$. The $-0.2$ is rabbits eaten by foxes.",
+            "$a + d = 1.9$ and $ad - bc = 0.78 + 0.1 = 0.88$, so $\\lambda^{2} - 1.9\\lambda + 0.88 = 0$. Then $\\lambda = 1.1$ or $\\lambda = 0.8$.",
+            "$\\lambda = 1.1$: $-0.5x + 0.5y = 0$ gives $\\begin{pmatrix}1\\\\1\\end{pmatrix}$. $\\lambda = 0.8$: $-0.2x + 0.5y = 0$ gives $\\begin{pmatrix}5\\\\2\\end{pmatrix}$. So $P = \\begin{pmatrix}1 & 5\\\\1 & 2\\end{pmatrix}$, $D = \\begin{pmatrix}1.1 & 0\\\\0 & 0.8\\end{pmatrix}$ and $P^{-1} = \\frac{1}{3}\\begin{pmatrix}-2 & 5\\\\1 & -1\\end{pmatrix}$.",
+            "Start with $P^{-1}\\begin{pmatrix}3\\\\6\\end{pmatrix} = \\frac{1}{3}\\begin{pmatrix}-6 + 30\\\\ 3 - 6\\end{pmatrix} = \\begin{pmatrix}8\\\\-1\\end{pmatrix}$. Then $\\begin{pmatrix}f_n\\\\ r_n\\end{pmatrix} = PD^{n}\\begin{pmatrix}8\\\\-1\\end{pmatrix} = \\begin{pmatrix}8(1.1)^{n} - 5(0.8)^{n}\\\\ 8(1.1)^{n} - 2(0.8)^{n}\\end{pmatrix}$.",
+            "$n = 10$: $f_{10} = 8(1.1)^{10} - 5(0.8)^{10} = 20.2130\\ldots$ hundred, about $2020$ foxes.",
+            "Long term: $0.8^{n} \\to 0$, so $f_n$ and $r_n$ both get close to $8(1.1)^{n}$. Both populations grow by about $10\\%$ a year, in the ratio $1 : 1$ of the eigenvector for $\\lambda = 1.1$.",
+            "Comment: growth cannot go on for ever on an island with limited space and food, so the model only suits the short term."
+          ],
+          "answer": "$f_{10} \\approx 20.2$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Matrix([[0.6, 0.5], [-0.2, 1.3]])**10*Matrix([3, 6]))[0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Hence find $M^{n}$: write $M^{n} = PD^{n}P^{-1}$ with your own $P$, $D^{n}$ and $P^{-1}$ before you multiply. Check that your answer gives $I$ at $n = 0$ and $M$ at $n = 1$."
+        },
+        {
+          "type": "check",
+          "id": "check-d-cubed",
+          "prompt": "$D = \\begin{pmatrix}0.5 & 0\\\\0 & 1\\end{pmatrix}$. Find $D^{3}$.",
+          "hint": "For a diagonal matrix, cube each diagonal entry.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}0.125 & 0\\\\0 & 1\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}1.5 & 0\\\\0 & 3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}0.125 & 0\\\\0 & 3\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.5^{3} = 0.125$ and $1^{3} = 1$. Multiplying by $3$ instead of cubing gives $1.5$ and $3$."
+        },
+        {
+          "type": "check",
+          "id": "check-deer-long-term",
+          "prompt": "Deer move between two parks, X and Y. Each year the numbers in X and Y are multiplied by $M = \\begin{pmatrix}0.76 & 0.16\\\\0.24 & 0.84\\end{pmatrix}$. The eigenvalues are $1$ and $0.6$, with eigenvectors $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ and $\\begin{pmatrix}1\\\\-1\\end{pmatrix}$. There are $400$ deer in total. In the long term, how many deer are in park X?",
+          "hint": "As $n \\to \\infty$, $0.6^{n} \\to 0$. Only the part along $\\begin{pmatrix}2\\\\3\\end{pmatrix}$ is left, and the total stays $400$.",
+          "answer": {
+            "value": 160,
+            "tolerance": 0
+          },
+          "explain": "The deer end up split $2 : 3$, as in the eigenvector for $\\lambda = 1$. So park X has $\\frac{2}{5} \\times 400 = 160$ deer, and park Y has $240$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "400*0.16/(0.16 + (1 - 0.76))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "For a square matrix $A$, $\\lambda$ is an eigenvalue with eigenvector $\\boldsymbol{v}$ when $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$ and $\\boldsymbol{v} \\neq \\boldsymbol{0}$. Any non-zero multiple of $\\boldsymbol{v}$ is also an eigenvector for $\\lambda$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\det(A - \\lambda I) = \\lambda^{2} - (a + d)\\lambda + (ad - bc) \\quad \\text{for } A = \\begin{pmatrix}a & b\\\\ c & d\\end{pmatrix}\\text{; its roots are the eigenvalues}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find an eigenvector for an eigenvalue $\\lambda$ of a $2 \\times 2$ matrix $A$, solve $(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$. The two equations are multiples of each other: pick any non-zero solution.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A $2 \\times 2$ matrix with two different real eigenvalues can be written $A = PDP^{-1}$: eigenvectors as the columns of $P$, and the matching eigenvalues, in the same order, on the diagonal of $D$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "M = PDP^{-1} \\Rightarrow M^{n} = PD^{n}P^{-1}, \\quad D^{n} = \\begin{pmatrix}\\lambda_{1}^{\\,n} & 0\\\\ 0 & \\lambda_{2}^{\\,n}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-1-15-matrix-power",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $\\boldsymbol{x}_n = M^{n}\\boldsymbol{x}_0$ with $M = PDP^{-1}$, the part of $\\boldsymbol{x}_0$ along each eigenvector is multiplied by its eigenvalue at every step. As $n \\to \\infty$ that part dies away if $\\lvert\\lambda\\rvert < 1$ and stays the same if $\\lambda = 1$. If it is not zero and $\\lvert\\lambda\\rvert > 1$, it grows without limit.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting the eigenvalues in $D$ in a different order from their eigenvectors in $P$. Column $k$ of $P$ must be the eigenvector of the $k$th diagonal entry of $D$.",
+    "Writing $M^{n} = P^{-1}D^{n}P$. With eigenvectors as the columns of $P$, it is $PD^{n}P^{-1}$: $P$ first, $P^{-1}$ last.",
+    "Giving the zero vector, or no vector, as an eigenvector. Choose a non-zero solution of $(A - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$ and check that $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$.",
+    "Rounding an eigenvalue before raising it to a power. Small errors grow when the power is large, so keep the GDC's full value.",
+    "Stopping at $M^{n}$ or the eigenvalues when the question asks about the context. Say what happens to the quantities, with units, and comment on whether the model is realistic."
+  ],
+  "examTips": [
+    "Describe the long-term behaviour: say which terms tend to $0$ because $\\lvert\\lambda\\rvert < 1$, give the limiting values in context with units, and comment on whether the model stays realistic.",
+    "Find an eigenvector: any non-zero multiple of a correct eigenvector earns the marks, so choose whole numbers. Show the equation you get from $(M - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$.",
+    "Write down $D$: put the eigenvalues in the same order as their eigenvectors in the columns of $P$. If $P$ is given, first read which eigenvector is in each column.",
+    "Show that $\\boldsymbol{v}$ is an eigenvector: work out $M\\boldsymbol{v}$ and write it as $\\lambda\\boldsymbol{v}$. Work forwards from $M$ and $\\boldsymbol{v}$; don't start from the answer."
+  ],
+  "readingMinutes": 31
+}

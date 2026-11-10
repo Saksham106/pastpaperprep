@@ -1,0 +1,14 @@
+[
+  {
+    "id": "distribution-of-the-sample-mean",
+    "term": "distribution of the sample mean",
+    "definition": "How the mean $\\bar{X}$ of a random sample of size $n$ varies from sample to sample: it has mean $\\mu$ and variance $\\frac{\\sigma^{2}}{n}$ (the variance, not the standard deviation, is divided by $n$), and it is exactly $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$ when the population is $\\mathrm{N}(\\mu, \\sigma^{2})$.",
+    "lesson": "4.15"
+  },
+  {
+    "id": "central-limit-theorem",
+    "term": "central limit theorem",
+    "definition": "The result that the mean $\\bar{X}$ of a random sample of size $n$ from any population with mean $\\mu$ and variance $\\sigma^{2}$ is approximately $\\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$ when $n$ is large, where how large depends on the population and IB exams treat $n > 30$ as enough.",
+    "lesson": "4.15"
+  }
+]

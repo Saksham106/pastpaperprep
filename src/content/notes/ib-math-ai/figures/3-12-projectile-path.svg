@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 255" role="img" aria-labelledby="t312pp">
+  <title id="t312pp">A curved path like an upside-down U. A ball starts 1.6 m above the ground at the left, with a launch velocity arrow pointing up and to the right. The path rises to a highest point of 11.6 m, where the vertical velocity is zero, then falls to land on the ground 44.5 m to the right of the launch point.</title>
+  <defs><marker id="a312p" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="220" x2="435" y2="220" marker-end="url(#a312p)"/>
+    <line x1="40" y1="230" x2="40" y2="12" marker-end="url(#a312p)"/>
+  </g>
+  <g font-size="12" fill="currentColor" opacity="0.8">
+    <text x="424" y="212">x</text>
+    <text x="46" y="20">y</text>
+    <text x="8" y="200">1.6</text>
+  </g>
+  <path d="M40,196 Q218,-115.6 396.1,220" fill="none" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="40" y1="196" x2="85" y2="154" stroke="var(--t2-ink)" stroke-width="2" marker-end="url(#a312p)"/>
+  <line x1="211.4" y1="46" x2="211.4" y2="220" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>
+  <line x1="40" y1="240" x2="396.1" y2="240" stroke="currentColor" stroke-width="1" opacity="0.6" marker-start="url(#a312p)" marker-end="url(#a312p)"/>
+  <circle cx="40" cy="196" r="4" fill="currentColor"/>
+  <circle cx="211.4" cy="46" r="4" fill="currentColor"/>
+  <circle cx="396.1" cy="220" r="4" fill="currentColor"/>
+  <g font-size="12" fill="currentColor">
+    <text x="90" y="192" fill="var(--t2-ink)">launch (15, 14)</text>
+    <text x="222" y="40">highest point: vy = 0</text>
+    <text x="218" y="140">11.6 m</text>
+    <text x="196" y="252">44.5 m</text>
+  </g>
+</svg>

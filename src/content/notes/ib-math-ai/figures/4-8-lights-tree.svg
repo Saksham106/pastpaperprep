@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 400" role="img" aria-labelledby="t">
+  <title id="t">Tree diagram for three traffic lights, each red (R) with probability 0.4 or not red (G) with probability 0.6. The eight paths and their probabilities are RRR 0.064, RRG 0.096, RGR 0.096, RGG 0.144, GRR 0.096, GRG 0.144, GGR 0.144 and GGG 0.216. The three paths with exactly two reds, RRG, RGR and GRR, are highlighted, each with probability 0.096.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="20" y1="200" x2="120" y2="100"/>
+    <line x1="20" y1="200" x2="120" y2="300"/>
+    <line x1="135" y1="100" x2="230" y2="50"/>
+    <line x1="135" y1="100" x2="230" y2="150"/>
+    <line x1="135" y1="300" x2="230" y2="250"/>
+    <line x1="135" y1="300" x2="230" y2="350"/>
+    <line x1="250" y1="50" x2="325" y2="25"/>
+    <line x1="250" y1="50" x2="325" y2="75"/>
+    <line x1="250" y1="150" x2="325" y2="125"/>
+    <line x1="250" y1="150" x2="325" y2="175"/>
+    <line x1="250" y1="250" x2="325" y2="225"/>
+    <line x1="250" y1="250" x2="325" y2="275"/>
+    <line x1="250" y1="350" x2="325" y2="325"/>
+    <line x1="250" y1="350" x2="325" y2="375"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor">
+    <text x="124" y="105" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="124" y="305" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="234" y="55" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="234" y="155" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="234" y="255" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="234" y="355" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="329" y="30" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="329" y="80" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="329" y="130" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="329" y="180" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="329" y="230" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="329" y="280" fill="var(--t1-ink)" font-weight="bold">G</text>
+    <text x="329" y="330" fill="var(--t1-ink)" font-weight="bold">R</text>
+    <text x="329" y="380" fill="var(--t1-ink)" font-weight="bold">G</text>
+  </g>
+  <g font-family="inherit" font-size="12" fill="currentColor">
+    <text x="60" y="144">0.4</text>
+    <text x="60" y="266">0.6</text>
+    <text x="174" y="70">0.4</text>
+    <text x="174" y="140">0.6</text>
+    <text x="174" y="270">0.4</text>
+    <text x="174" y="340">0.6</text>
+    <text x="279" y="33">0.4</text>
+    <text x="279" y="76">0.6</text>
+    <text x="279" y="133">0.4</text>
+    <text x="279" y="176">0.6</text>
+    <text x="279" y="233">0.4</text>
+    <text x="279" y="276">0.6</text>
+    <text x="279" y="333">0.4</text>
+    <text x="279" y="376">0.6</text>
+  </g>
+  <g font-family="inherit" font-size="13">
+    <text x="355" y="30" fill="var(--muted)">RRR: 0.4 × 0.4 × 0.4 = 0.064</text>
+    <text x="355" y="80" fill="var(--t2-ink)" font-weight="bold">RRG: 0.4 × 0.4 × 0.6 = 0.096</text>
+    <text x="355" y="130" fill="var(--t2-ink)" font-weight="bold">RGR: 0.4 × 0.6 × 0.4 = 0.096</text>
+    <text x="355" y="180" fill="var(--muted)">RGG: 0.4 × 0.6 × 0.6 = 0.144</text>
+    <text x="355" y="230" fill="var(--t2-ink)" font-weight="bold">GRR: 0.6 × 0.4 × 0.4 = 0.096</text>
+    <text x="355" y="280" fill="var(--muted)">GRG: 0.6 × 0.4 × 0.6 = 0.144</text>
+    <text x="355" y="330" fill="var(--muted)">GGR: 0.6 × 0.6 × 0.4 = 0.144</text>
+    <text x="355" y="380" fill="var(--muted)">GGG: 0.6 × 0.6 × 0.6 = 0.216</text>
+  </g>
+</svg>

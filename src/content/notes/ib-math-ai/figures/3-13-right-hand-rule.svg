@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 245" role="img" aria-labelledby="t313rh">
+  <title id="t313rh">Vectors v and w are drawn from the same point in a flat shaded plane, with the angle theta between them and a curved arrow turning from v towards w. The vector v cross w points straight up out of the plane. A dashed vector w cross v points straight down, the opposite way.</title>
+  <defs><marker id="a313rh" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+  <path d="M30,190 L240,190 L310,130 L100,130 Z" fill="var(--muted)" fill-opacity="0.15" stroke="var(--muted)" stroke-width="1"/>
+  <line x1="140" y1="165" x2="140" y2="228" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a313rh)"/>
+  <line x1="140" y1="165" x2="250" y2="170" stroke="var(--t1-ink)" stroke-width="2.4" marker-end="url(#a313rh)"/>
+  <line x1="140" y1="165" x2="190" y2="137" stroke="var(--t2-ink)" stroke-width="2.4" marker-end="url(#a313rh)"/>
+  <line x1="140" y1="165" x2="140" y2="32" stroke="var(--t3-ink)" stroke-width="2.4" marker-end="url(#a313rh)"/>
+  <path d="M172,166.5 A32,32 0 0 0 168,149.5" fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#a313rh)"/>
+  <g font-size="15" font-weight="600">
+    <text x="252" y="186" fill="var(--t1-ink)">v</text>
+    <text x="194" y="133" fill="var(--t2-ink)">w</text>
+    <text x="178" y="164" fill="currentColor" font-weight="400" font-size="13">θ</text>
+    <text x="148" y="42" fill="var(--t3-ink)">v × w</text>
+    <text x="148" y="232" fill="currentColor" opacity="0.7">w × v</text>
+  </g>
+</svg>

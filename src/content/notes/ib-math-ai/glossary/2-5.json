@@ -1,0 +1,74 @@
+[
+  {
+    "id": "piecewise-function",
+    "term": "piecewise function",
+    "definition": "A function that uses different rules on different intervals of its domain, with each input using exactly one rule; check which interval an input is in, endpoints included, before substituting.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "quadratic-function",
+    "term": "quadratic function",
+    "definition": "A function of the form $f(x) = ax^{2} + bx + c$, where $a$, $b$ and $c$ are constants and $a \\ne 0$; its graph is a parabola.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "parabola",
+    "term": "parabola",
+    "definition": "The U-shaped graph of a quadratic function $y = ax^{2} + bx + c$, which opens upwards when $a > 0$ and downwards when $a < 0$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-function",
+    "term": "exponential function",
+    "definition": "A function with the variable in the exponent, such as $f(x) = ka^{x} + c$ with $a > 0$, $a \\ne 1$, $k \\ne 0$, or $f(x) = k\\mathrm{e}^{rx} + c$ with $k \\ne 0$, $r \\ne 0$; its graph has the horizontal asymptote $y = c$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-growth",
+    "term": "exponential growth",
+    "definition": "An increase in which equal steps in $x$ multiply the gap $f(x) - c$ by the same factor greater than $1$, as in $ka^{x} + c$ with $k > 0$ and $a > 1$, or $k\\mathrm{e}^{rx} + c$ with $k > 0$ and $r > 0$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "exponential-decay",
+    "term": "exponential decay",
+    "definition": "A decrease in which equal steps in $x$ multiply the gap $f(x) - c$ by the same factor between $0$ and $1$, as in $ka^{x} + c$ with $k > 0$ and $0 < a < 1$, $ka^{-x} + c$ with $k > 0$ and $a > 1$, or $k\\mathrm{e}^{rx} + c$ with $k > 0$ and $r < 0$; the values approach $y = c$ but never reach it.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "direct-variation",
+    "term": "direct variation",
+    "definition": "A relationship $y = ax^{n}$ with $a \\ne 0$ and $n$ a positive integer, read \"$y$ is proportional to $x^{n}$\"; then $y = 0$ when $x = 0$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "inverse-variation",
+    "term": "inverse variation",
+    "definition": "A relationship $y = ax^{n}$ with $a \\ne 0$ and $n$ a negative integer, such as $y = \\frac{a}{x}$; the $y$-axis is a vertical asymptote, and $xy$ is constant only when $n = -1$.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "sinusoidal-function",
+    "term": "sinusoidal function",
+    "definition": "A wave-shaped function $a\\sin(bx) + d$ or $a\\cos(bx) + d$ with $b > 0$; its period is $\\frac{360^{\\circ}}{b}$ when $bx$ is in degrees and $\\frac{2\\pi}{b}$ when it is in radians.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "amplitude",
+    "term": "amplitude",
+    "definition": "For a sine or cosine wave, half the difference between its maximum and minimum values; for $a\\sin(bx) + d$ or $a\\cos(bx) + d$ it is $|a|$, which is never negative.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "period",
+    "term": "period",
+    "definition": "The horizontal length of one complete cycle of a repeating graph; for $a\\sin(bx) + d$ or $a\\cos(bx) + d$ with $b > 0$ it is $\\frac{360^{\\circ}}{b}$ in degrees, or $\\frac{2\\pi}{b}$ in radians.",
+    "lesson": "2.5"
+  },
+  {
+    "id": "principal-axis",
+    "term": "principal axis",
+    "definition": "The horizontal line $y = d$ halfway between the maximum and minimum values of $a\\sin(bx) + d$ or $a\\cos(bx) + d$.",
+    "lesson": "2.5"
+  }
+]

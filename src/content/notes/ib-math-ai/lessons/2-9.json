@@ -1,0 +1,912 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.9",
+  "slug": "further-function-models",
+  "title": "Further function models",
+  "level": "AHL",
+  "topic": 2,
+  "summary": "AHL adds [[half-life|half-life]], $a + b\\ln x$, sine waves in [[radian|radians]] with a [[phase-shift|phase shift]], [[logistic-function|logistic]] growth that levels off, and piecewise models whose pieces join up. Each time: find the [[parameter|parameters]], use your GDC, and say what the numbers mean.",
+  "goals": [
+    {
+      "text": "Find the half-life of an [[exponential-decay|exponential decay]] model and use it to predict.",
+      "bullets": [
+        "2.9-b1"
+      ]
+    },
+    {
+      "text": "Use natural logarithmic models $f(x) = a + b\\ln x$, find $a$ and $b$ from data, and interpret them.",
+      "bullets": [
+        "2.9-b2"
+      ]
+    },
+    {
+      "text": "Use sinusoidal models $f(x) = a\\sin(b(x - c)) + d$ in radians, with [[period|period]] $\\frac{2\\pi}{b}$ and phase shift $c$.",
+      "bullets": [
+        "2.9-b3"
+      ]
+    },
+    {
+      "text": "Use logistic models, find their parameters, and interpret the [[carrying-capacity|carrying capacity]].",
+      "bullets": [
+        "2.9-b4"
+      ]
+    },
+    {
+      "text": "Find a parameter that makes a piecewise model [[continuous-function|continuous]].",
+      "bullets": [
+        "2.9-b5"
+      ]
+    },
+    {
+      "text": "Use and interpret a model the question gives you.",
+      "bullets": [
+        "2.9-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "1.13",
+    "2.2",
+    "2.4",
+    "2.5",
+    "2.6",
+    "2.8",
+    "3.7"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "half-life exponential decay",
+    "logistic model carrying capacity",
+    "natural log model a + b ln x",
+    "sinusoidal model phase shift radians",
+    "piecewise function continuous parameter"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solve-exp",
+      "prompt": "Solve $\\mathrm{e}^{x} = 5$. Give $x$ to 3 s.f.",
+      "hint": "Take the [[natural-logarithm|natural logarithm]] of both sides.",
+      "answer": {
+        "value": 1.61,
+        "tolerance": 0.005
+      },
+      "explain": "$x = \\ln 5 = 1.609\\ldots \\approx 1.61$. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "log(5)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-exp-asymptote",
+      "prompt": "Which is the horizontal [[asymptote|asymptote]] of $y = 50(0.7)^{t} + 12$?",
+      "hint": "What does $50(0.7)^{t}$ get close to as $t$ grows?",
+      "options": [
+        {
+          "text": "$y = 12$",
+          "correct": true
+        },
+        {
+          "text": "$y = 0$",
+          "correct": false
+        },
+        {
+          "text": "$y = 62$",
+          "correct": false
+        },
+        {
+          "text": "$y = 50$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.7^{t}$ tends to $0$, so $y$ tends to $12$. $62$ is the value at $t = 0$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(y, limit(50*Rational(7, 10)**t + 12, t, oo))"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-degrees-radians",
+      "prompt": "Write $45^{\\circ}$ in radians.",
+      "hint": "$180^{\\circ}$ is $\\pi$ radians.",
+      "options": [
+        {
+          "text": "$\\tfrac{\\pi}{4}$",
+          "correct": true
+        },
+        {
+          "text": "$\\tfrac{\\pi}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$45\\pi$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{4}{\\pi}$",
+          "correct": false
+        }
+      ],
+      "explain": "$45 \\times \\frac{\\pi}{180} = \\frac{\\pi}{4}$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "45*pi/180"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "half-life",
+      "heading": "Half-life",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In exponential decay towards $0$, each equal step in time multiplies the amount by the same factor. So the time to halve is always the same, whatever the starting amount."
+        },
+        {
+          "type": "definition",
+          "term": "half-life",
+          "statement": "The half-life of a quantity in exponential decay towards $0$ is the time it takes to fall to half its value. For $N(t) = N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$, the half-life is $\\frac{\\ln 2}{k}$.",
+          "plain": "After one half-life half is left, after two a quarter, after three an eighth."
+        },
+        {
+          "type": "formula",
+          "tex": "N(t) = N_{0}\\mathrm{e}^{-kt},\\ k > 0 \\;\\Rightarrow\\; \\text{half-life} = \\frac{\\ln 2}{k}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Why: in $N_{0}\\mathrm{e}^{-kt} = \\tfrac{1}{2}N_{0}$ the $N_{0}$ cancels, so $t = \\frac{\\ln 2}{k}$. It is not in the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "If you know the half-life $T$ instead, the same model is $N(t) = N_{0}\\left(\\tfrac{1}{2}\\right)^{t/T}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-caffeine-half-life",
+          "question": "The mass of caffeine in a person's body, $C$ mg, $t$ hours after a coffee is modelled by $C(t) = 95\\mathrm{e}^{-0.13t}$. Find the half-life of caffeine in the body, to 3 s.f., and interpret it.",
+          "steps": [
+            "Half of the starting $95$ mg is $47.5$ mg. Solve $95\\mathrm{e}^{-0.13t} = 47.5$.",
+            "$\\mathrm{e}^{-0.13t} = 0.5$, so $-0.13t = \\ln 0.5$ and $t = \\frac{\\ln 2}{0.13} = 5.3319\\ldots$",
+            "About $5.33$ hours. Every $5.33$ hours, the caffeine left in the body halves."
+          ],
+          "answer": "$t \\approx 5.33\\text{ hours}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(2)/0.13",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-tracer-half-life",
+          "question": "A hospital receives $40$ mg of a radioactive tracer. After $9$ hours, $31.5$ mg is left. The mass, $m$ mg, after $t$ hours is modelled by $m(t) = 40\\mathrm{e}^{-kt}$. (a) Use your GDC to find $k$. (b) Find the half-life, to 3 s.f. (c) Find how long it takes until $5$ mg is left.",
+          "steps": [
+            "(a) Write down the equation: $40\\mathrm{e}^{-9k} = 31.5$. The solver gives $k = 0.026543\\ldots$ Store the full value.",
+            "(b) Solve $40\\mathrm{e}^{-kt} = 20$: $t = \\frac{\\ln 2}{k} = 26.113\\ldots$, so about $26.1$ hours.",
+            "(c) $5$ mg is $\\tfrac{1}{8}$ of $40$ mg: three halvings. $3 \\times 26.113\\ldots = 78.34\\ldots$, so about $78.3$ hours."
+          ],
+          "answer": "$t \\approx 26.1\\text{ hours}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(2)/(log(40/31.5)/9)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "40e^(-9X)",
+            "rightSide": 31.5,
+            "guess": 0.03,
+            "lower": 0,
+            "upper": 1
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $k$ to $0.0265$ and then using it. That gives a half-life of $26.2$ hours, not $26.1$. Keep the GDC's full value until the end."
+        },
+        {
+          "type": "check",
+          "id": "check-medicine-left",
+          "prompt": "A medicine has a half-life of $6$ hours in the blood. A patient takes $200$ mg. Find the amount left after $15$ hours, in mg, to 3 s.f.",
+          "hint": "Use $N(t) = N_{0}\\left(\\tfrac{1}{2}\\right)^{t/T}$ with $T = 6$.",
+          "answer": {
+            "value": 35.4,
+            "tolerance": 0.05
+          },
+          "explain": "$200 \\times 0.5^{15/6} = 200 \\times 0.5^{2.5} = 35.355\\ldots \\approx 35.4$ mg.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "200*Rational(1, 2)**(Rational(15, 6))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-half-life-sample",
+          "prompt": "A sample of $80$ g of a radioactive substance has a half-life of $5$ days. What is the half-life of a $20$ g sample of the same substance?",
+          "hint": "Does the time to halve depend on how much you start with?",
+          "options": [
+            {
+              "text": "5 days, the same as the larger sample",
+              "correct": true
+            },
+            {
+              "text": "1.25 days, a quarter as long",
+              "correct": false
+            },
+            {
+              "text": "20 days, four times as long",
+              "correct": false
+            }
+          ],
+          "explain": "In $N_{0}\\mathrm{e}^{-kt}$ the half-life is $\\frac{\\ln 2}{k}$: $N_{0}$ cancels, so it does not depend on the amount.",
+          "verify": {
+            "kind": "choice",
+            "truth": "5 days, the same as the larger sample"
+          }
+        }
+      ]
+    },
+    {
+      "id": "log-models",
+      "heading": "Natural logarithmic models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A young tree grows fast, then more slowly, but it keeps growing. Doubling its age adds the same height whether it is $2$ or $20$ years old. A natural logarithm model behaves like this."
+        },
+        {
+          "type": "definition",
+          "term": "natural logarithmic model",
+          "statement": "A natural logarithmic model has the form $f(x) = a + b\\ln x$, for $x > 0$, where $a$ and $b$ are constants and $b \\neq 0$.",
+          "plain": "Multiplying $x$ by the same factor always adds the same amount to $f$."
+        },
+        {
+          "type": "text",
+          "text": "$\\ln 1 = 0$, so $a = f(1)$: the value when $x = 1$, not when $x = 0$. The model has no value at $x = 0$, and the $y$-axis is a vertical asymptote."
+        },
+        {
+          "type": "text",
+          "text": "$\\ln(mx) = \\ln m + \\ln x$, so multiplying $x$ by $m$ adds $b\\ln m$ to $f$. With $b > 0$ the graph keeps rising, more and more slowly, and has no horizontal asymptote."
+        },
+        {
+          "type": "example",
+          "id": "ex-tree-log",
+          "question": "The height, $h$ m, of a tree $t$ years after it is planted is modelled by $h(t) = 1.2 + 2.5\\ln t$, $t \\ge 1$. (a) Find the height after $6$ years. (b) Interpret the value $1.2$. (c) Find when the tree reaches $7$ m, to 3 s.f.",
+          "steps": [
+            "(a) $h(6) = 1.2 + 2.5\\ln 6 = 5.679\\ldots$, about $5.68$ m.",
+            "(b) $\\ln 1 = 0$, so $h(1) = 1.2$: the tree is $1.2$ m tall one year after planting.",
+            "(c) Solve $1.2 + 2.5\\ln t = 7$: $\\ln t = \\frac{5.8}{2.5} = 2.32$.",
+            "$t = \\mathrm{e}^{2.32} = 10.175\\ldots$, so about $10.2$ years after planting."
+          ],
+          "answer": "$t \\approx 10.2\\text{ years}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "exp((7 - 1.2)/2.5)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-wheat-log",
+          "question": "A farm trial models the yield of wheat, $Y$ tonnes per hectare, against the fertiliser used, $x$ kg per hectare, by $Y = a + b\\ln x$. With $20$ kg the yield is $3.1$ tonnes; with $80$ kg it is $4.6$ tonnes. (a) Find $a$ and $b$. (b) Predict the yield with $150$ kg, to 3 s.f. (c) Comment on the model for small $x$.",
+          "steps": [
+            "(a) Substitute both points: $a + b\\ln 20 = 3.1$ and $a + b\\ln 80 = 4.6$.",
+            "Subtract: $b(\\ln 80 - \\ln 20) = 1.5$, so $b = \\frac{1.5}{\\ln 4} = 1.0820\\ldots$ and $a = 3.1 - b\\ln 20 = -0.14144\\ldots$",
+            "(b) $Y = -0.14144\\ldots + 1.0820\\ldots \\times \\ln 150 = 5.280\\ldots$, about $5.28$ tonnes per hectare.",
+            "(c) Below $x \\approx 1.14$ the model predicts a negative yield, and at $x = 0$ it has no value at all. Use it only for amounts like those in the trial."
+          ],
+          "answer": "$Y \\approx 5.28$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.1 + (4.6 - 3.1)/log(80/20)*log(150/20)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-skill-hours",
+          "prompt": "A games company models a player's skill score, $S$, after $h$ hours of practice by $S = 35 + 18\\ln h$, $h \\ge 1$. Find the number of hours of practice for a score of $100$, to 3 s.f.",
+          "hint": "Rearrange to $\\ln h = \\ldots$, then use $\\mathrm{e}$.",
+          "answer": {
+            "value": 37,
+            "tolerance": 0.05
+          },
+          "explain": "$\\ln h = \\frac{100 - 35}{18} = 3.611\\ldots$, so $h = \\mathrm{e}^{3.611\\ldots} = 37.007\\ldots \\approx 37.0$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp((100 - 35)/18)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-log-doubling",
+          "prompt": "For the model $S = 35 + 18\\ln h$, by how much does $S$ increase each time $h$ doubles, from any starting value?",
+          "hint": "$\\ln(2h) = \\ln 2 + \\ln h$.",
+          "options": [
+            {
+              "text": "$18\\ln 2$",
+              "correct": true
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$\\ln 2$",
+              "correct": false
+            },
+            {
+              "text": "$36$",
+              "correct": false
+            }
+          ],
+          "explain": "$S(2h) - S(h) = 18\\ln(2h) - 18\\ln h = 18\\ln 2 \\approx 12.5$ points, whatever $h$ is.",
+          "verify": {
+            "kind": "exact",
+            "truth": "18*log(2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sinusoidal",
+      "heading": "Sinusoidal models with a phase shift",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.5}} the waves were in degrees. Now the angle is in radians, unless a degree sign is shown as in $\\sin x^{\\circ}$, and the wave can slide sideways."
+        },
+        {
+          "type": "definition",
+          "term": "sinusoidal model",
+          "statement": "A sinusoidal model has the form $f(x) = a\\sin(b(x - c)) + d$, with $b > 0$ and the angle in radians. Its [[amplitude|amplitude]] is $|a|$, its [[principal-axis|principal axis]] is $y = d$ and its period is $\\frac{2\\pi}{b}$.",
+          "plain": "The wave $a\\sin(bx) + d$, slid $c$ units sideways."
+        },
+        {
+          "type": "text",
+          "text": "The phase shift $c$ is a horizontal [[translation|translation]]: $c > 0$ moves the wave $c$ units right. With $a > 0$, the wave crosses its principal axis going up at $x = c$, and reaches its maximum a quarter of a period later."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-greenhouse-wave",
+          "alt": "Graph of greenhouse temperature in degrees Celsius against hours after midnight, from 0 to 24 hours. The wave has a minimum of 14 at 4 hours and a maximum of 30 at 16 hours. A dashed line at 22 is labelled principal axis. An arrow just above it runs from 0 to 10 hours, labelled phase shift c equals 10, ending where the wave crosses the principal axis going up.",
+          "caption": "$T(t) = 8\\sin\\left(\\frac{\\pi}{12}(t - 10)\\right) + 22$ crosses $T = 22$ going up at $t = 10$."
+        },
+        {
+          "type": "example",
+          "id": "ex-greenhouse-wave",
+          "question": "The temperature in a greenhouse, $T\\,^{\\circ}\\mathrm{C}$, $t$ hours after midnight is modelled by $T(t) = 8\\sin\\left(\\frac{\\pi}{12}(t - 10)\\right) + 22$. (a) Write down the amplitude and the phase shift. (b) Find the period. (c) Find when the greenhouse is warmest, and that temperature.",
+          "steps": [
+            "(a) Amplitude $8\\,^{\\circ}\\mathrm{C}$; phase shift $10$ hours.",
+            "(b) $b = \\frac{\\pi}{12}$, so the period is $\\frac{2\\pi}{\\pi/12} = 24$ hours: one cycle a day.",
+            "(c) The wave crosses $T = 22$ going up at $t = 10$. The maximum is a quarter period later: $t = 10 + 6 = 16$, at $22 + 8 = 30\\,^{\\circ}\\mathrm{C}$.",
+            "So it is warmest at 4 p.m. Check: $\\sin\\left(\\frac{\\pi}{12} \\times 6\\right) = \\sin\\frac{\\pi}{2} = 1$."
+          ],
+          "answer": "$t = 16$",
+          "verify": {
+            "kind": "exact",
+            "truth": "10 + (2*pi/(pi/12))/4"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-daylight-wave",
+          "question": "In a city, the hours of daylight, $D$, on day $t$ of the year are modelled by $D(t) = a\\sin(b(t - c)) + d$, with $a > 0$, $b > 0$ and $0 < c < 365$. The longest day has $15.7$ hours of daylight, on day $171$, and the shortest has $8.1$ hours. The period is $365$ days. (a) Find $a$, $b$, $c$ and $d$. (b) Use your GDC to find for how many days of the year there are more than $13$ hours of daylight.",
+          "steps": [
+            "(a) $a = \\frac{15.7 - 8.1}{2} = 3.8$ and $d = \\frac{15.7 + 8.1}{2} = 11.9$.",
+            "$\\frac{2\\pi}{b} = 365$, so $b = \\frac{2\\pi}{365} = 0.017214\\ldots$",
+            "The maximum comes a quarter period after $c$: $c + \\frac{365}{4} = 171$, so $c = 79.75$.",
+            "(b) In radian mode, graph $D = 3.8\\sin\\left(\\frac{2\\pi}{365}(t - 79.75)\\right) + 11.9$ and $D = 13$, and intersect: $t = 96.810\\ldots$ and $t = 245.18\\ldots$",
+            "$D > 13$ between them: $245.18\\ldots - 96.810\\ldots = 148.37\\ldots$, so about $148$ days."
+          ],
+          "answer": "$t_{2} - t_{1} \\approx 148$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "365/(2*pi)*(pi - 2*asin((13 - (15.7 + 8.1)/2)/((15.7 - 8.1)/2)))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Radian"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "3.8sin((2π/365)(X-79.75))+11.9",
+            "function2": "13"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Graphing a radian model in degree mode. The wave looks almost flat and every answer is wrong. Check that the screen shows RAD before you start."
+        },
+        {
+          "type": "check",
+          "id": "check-buoy-period",
+          "prompt": "The height of a buoy above the sea floor, $h$ m, $t$ seconds after a timer starts is $h(t) = 0.4\\sin(2.5(t - 0.3)) + 11$. Find the period, in seconds, to 3 s.f.",
+          "hint": "Radians, so the period is $\\frac{2\\pi}{b}$.",
+          "answer": {
+            "value": 2.51,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{2\\pi}{2.5} = 2.513\\ldots \\approx 2.51$ seconds. The phase shift $0.3$ does not change the period.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi/2.5",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dock-deepest",
+          "prompt": "The depth of water at a dock, $D$ m, $t$ hours after 6 a.m. is $D(t) = 1.5\\sin(0.5(t - 2)) + 4$, in radians. At what value of $t$ is the water first deepest after $t = 2$?",
+          "hint": "$\\sin$ first reaches $1$ when its angle is $\\frac{\\pi}{2}$. Solve $0.5(t - 2) = \\frac{\\pi}{2}$.",
+          "options": [
+            {
+              "text": "$2 + \\pi$",
+              "correct": true
+            },
+            {
+              "text": "$\\pi$",
+              "correct": false
+            },
+            {
+              "text": "$2 + \\tfrac{\\pi}{2}$",
+              "correct": false
+            },
+            {
+              "text": "$2 + 4\\pi$",
+              "correct": false
+            }
+          ],
+          "explain": "$t - 2 = \\frac{\\pi/2}{0.5} = \\pi$, so $t = 2 + \\pi \\approx 5.14$. $\\pi$ ignores the phase shift, and $2 + \\tfrac{\\pi}{2}$ forgets to divide by $b$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2 + (pi/2)/Rational(1, 2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "logistic",
+      "heading": "Logistic models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[exponential-growth|Exponential growth]] goes on for ever, but real growth runs out of food or space. Rabbits on an island multiply fast, then the island fills up."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}},\\ L, k, C > 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-9-logistic"
+        },
+        {
+          "type": "text",
+          "text": "This logistic function is in the formula booklet. Use it where growth is restricted, such as a seedling's height."
+        },
+        {
+          "type": "text",
+          "text": "At $x = 0$, $\\mathrm{e}^{0} = 1$, so $f(0) = \\frac{L}{1 + C}$: the starting value. As $x$ grows, $C\\mathrm{e}^{-kx}$ shrinks towards $0$, so $f(x)$ gets closer and closer to $L$."
+        },
+        {
+          "type": "definition",
+          "term": "carrying capacity",
+          "statement": "In a logistic model $f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$, the line $y = L$ is a horizontal asymptote. $L$ is called the carrying capacity: the long-term limit of the quantity.",
+          "plain": "The most the situation can support. The model gets ever closer to it but never reaches it."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-rabbits-logistic",
+          "alt": "S-shaped graph of the number of rabbits against years after release, from 0 to 12 years. It starts at 43, rises slowly and then steeply, and levels off just below a dashed horizontal line at 860 labelled carrying capacity. The early part is labelled almost exponential and the later part growth slows.",
+          "caption": "$R(t) = \\frac{860}{1 + 19\\mathrm{e}^{-0.62t}}$ never reaches $860$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rabbits-logistic",
+          "question": "Rabbits are released on an island. The number of rabbits $t$ years later is modelled by $R(t) = \\frac{860}{1 + 19\\mathrm{e}^{-0.62t}}$. (a) Find the number released. (b) Write down the carrying capacity and interpret it. (c) Use your GDC to find when there are $600$ rabbits, to 3 s.f.",
+          "steps": [
+            "(a) $R(0) = \\frac{860}{1 + 19} = 43$ rabbits.",
+            "(b) $L = 860$: in the long term the island can support about $860$ rabbits. The number gets ever closer to $860$ but never reaches it.",
+            "(c) Write down the equation: $\\frac{860}{1 + 19\\mathrm{e}^{-0.62t}} = 600$.",
+            "Graph both sides and intersect: $t = 6.0978\\ldots$, so about $6.10$ years after release."
+          ],
+          "answer": "$t \\approx 6.10\\text{ years}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(19/(860/600 - 1))/0.62",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "860/(1+19e^(-0.62X))",
+            "function2": "600"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sunflower-logistic",
+          "question": "The height, $h$ cm, of a sunflower $t$ days after it is planted out is modelled by $h(t) = \\frac{240}{1 + C\\mathrm{e}^{-kt}}$. It is $4$ cm tall at $t = 0$ and $102$ cm tall at $t = 30$. (a) Find $C$. (b) Find $k$. (c) Find how many days it takes to reach $200$ cm, to 3 s.f.",
+          "steps": [
+            "(a) $h(0) = \\frac{240}{1 + C} = 4$, so $1 + C = 60$ and $C = 59$.",
+            "(b) Substitute $t = 30$: $\\frac{240}{1 + 59\\mathrm{e}^{-30k}} = 102$.",
+            "Rearrange: $59\\mathrm{e}^{-30k} = \\frac{240}{102} - 1 = 1.3529\\ldots$, so $k = -\\frac{1}{30}\\ln\\frac{1.3529\\ldots}{59} = 0.12584\\ldots$ Store it.",
+            "(c) Solve $\\frac{240}{1 + 59\\mathrm{e}^{-kt}} = 200$: $59\\mathrm{e}^{-kt} = 0.2$, so $t = \\frac{\\ln 295}{k} = 45.191\\ldots$",
+            "About $45.2$ days. With $k$ rounded to $0.126$ you would get $45.1$."
+          ],
+          "answer": "$t \\approx 45.2\\text{ days}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(59/0.2)/(log(59/(240/102 - 1))/30)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Calling $L$ the starting value. The start is $f(0) = \\frac{L}{1 + C}$; $L$ is the long-term limit."
+        },
+        {
+          "type": "check",
+          "id": "check-fish-capacity",
+          "prompt": "The number of fish in a lake $t$ years after it is stocked is modelled by $P(t) = \\frac{5400}{1 + 8\\mathrm{e}^{-0.3t}}$. Write down the carrying capacity.",
+          "hint": "What does $8\\mathrm{e}^{-0.3t}$ get close to as $t$ grows?",
+          "options": [
+            {
+              "text": "$5400$",
+              "correct": true
+            },
+            {
+              "text": "$600$",
+              "correct": false
+            },
+            {
+              "text": "$43200$",
+              "correct": false
+            },
+            {
+              "text": "$675$",
+              "correct": false
+            }
+          ],
+          "explain": "$8\\mathrm{e}^{-0.3t}$ tends to $0$, so $P$ tends to $5400$ fish. $600 = P(0)$ is the number stocked.",
+          "verify": {
+            "kind": "exact",
+            "truth": "limit(5400/(1 + 8*exp(-Rational(3, 10)*t)), t, oo)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-petri-half",
+          "prompt": "The number of bacteria in a petri dish, $N$ thousand, $t$ hours after an experiment starts is $N(t) = \\frac{1500}{1 + 499\\mathrm{e}^{-0.9t}}$. Find when the number reaches half the carrying capacity. Give your answer in hours, to 3 s.f.",
+          "hint": "Half of $1500$ is $750$, so $1 + 499\\mathrm{e}^{-0.9t} = 2$.",
+          "answer": {
+            "value": 6.9,
+            "tolerance": 0.005
+          },
+          "explain": "$\\mathrm{e}^{-0.9t} = \\frac{1}{499}$, so $t = \\frac{\\ln 499}{0.9} = 6.902\\ldots \\approx 6.90$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "log(499/(1500/(1500/2) - 1))/0.9",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "piecewise",
+      "heading": "Continuous piecewise models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If the rules of a piecewise model give different values where they join, the graph jumps. For a price or a concentration, a jump is often unrealistic."
+        },
+        {
+          "type": "definition",
+          "term": "continuous function",
+          "statement": "A function is continuous on an interval when its graph has no breaks or jumps there, so you can draw it without lifting your pen. A [[piecewise-function|piecewise function]] is continuous at a joining point when the rules on both sides give the same value there.",
+          "plain": "The pieces meet."
+        },
+        {
+          "type": "text",
+          "text": "You don't need a formal definition of continuity. To make a piecewise model continuous at $x = p$:"
+        },
+        {
+          "type": "text",
+          "text": "1. Substitute $x = p$ into the rule on each side, even the one whose interval stops just before $p$."
+        },
+        {
+          "type": "text",
+          "text": "2. Set the two values equal."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve for the unknown parameter."
+        },
+        {
+          "type": "figure",
+          "id": "2-9-parcel-join",
+          "alt": "Graph of cost in dollars against parcel mass from 0 to 10 kg. A solid line rises from 6 dollars at 0 kg to 16 dollars at 5 kg, labelled pieces meet at 5, 16. A less steep solid line, labelled a equals 8.5, continues from that point to 23.5 dollars at 10 kg. A dashed line for a equals 4 starts lower, at an open circle at 11.5 dollars at 5 kg, showing a jump.",
+          "caption": "With $a = 8.5$ the pieces meet; with $a = 4$ the price would jump down at $5$ kg."
+        },
+        {
+          "type": "example",
+          "id": "ex-parcel-continuous",
+          "question": "A courier charges $C$ dollars to send a parcel of mass $m$ kg, where $C(m) = 6 + 2m$ for $0 < m \\le 5$ and $C(m) = a + 1.5m$ for $5 < m \\le 10$. Find $a$ so that $C$ is continuous, and interpret the result.",
+          "steps": [
+            "The pieces join at $m = 5$.",
+            "Left rule: $6 + 2(5) = 16$. Right rule: $a + 1.5(5) = a + 7.5$.",
+            "Set them equal: $a + 7.5 = 16$, so $a = 8.5$.",
+            "So the price has no sudden jump at $5$ kg: a parcel just over $5$ kg costs just over $16$ dollars."
+          ],
+          "answer": "$a = 8.5$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6 + 2*5 - Rational(3, 2)*5"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-drip-continuous",
+          "question": "A drug is given through a drip for $2$ hours. Its concentration in the blood, $c$ mg per litre, $t$ hours after the drip starts is modelled by $c(t) = 6t$ for $0 \\le t \\le 2$ and $c(t) = A\\mathrm{e}^{-0.35t}$ for $t > 2$. The model is continuous. (a) Find $A$. (b) Find when the concentration falls back to $3$ mg per litre, to 3 s.f.",
+          "steps": [
+            "(a) Join at $t = 2$: the first rule gives $6 \\times 2 = 12$, the second $A\\mathrm{e}^{-0.35 \\times 2} = A\\mathrm{e}^{-0.7}$.",
+            "So $A\\mathrm{e}^{-0.7} = 12$ and $A = 12\\mathrm{e}^{0.7} = 24.165\\ldots \\approx 24.2$.",
+            "(b) On the way up $c = 3$ at $t = 0.5$, but \"falls back\" means $t > 2$. Solve $24.165\\ldots \\times \\mathrm{e}^{-0.35t} = 3$.",
+            "$t = \\frac{1}{0.35}\\ln\\frac{24.165\\ldots}{3} = 5.9608\\ldots$, so about $5.96$ hours after the drip starts."
+          ],
+          "answer": "$t \\approx 5.96\\text{ hours}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "2 + log((6*2)/3)/0.35",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting a different $x$ into each rule. Both rules must use the same joining value."
+        },
+        {
+          "type": "check",
+          "id": "check-cyclist-join",
+          "prompt": "A cyclist's distance from home, $d$ km, $t$ hours after setting off is $d = 18t$ for $0 \\le t \\le 1.5$ and $d = 12t + q$ for $t > 1.5$. Find $q$ so that the model is continuous.",
+          "hint": "Substitute $t = 1.5$ into both rules.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$18 \\times 1.5 = 27$ and $12 \\times 1.5 + q = 18 + q$, so $q = 9$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18*1.5 - 12*1.5",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-revenue-join",
+          "prompt": "A company's monthly revenue, $R$ thousand dollars, in month $t$ is modelled by $R = 2t^{2}$ for $0 \\le t \\le 3$ and $R = k(t - 1)$ for $t > 3$. Which value of $k$ makes the model continuous?",
+          "hint": "Both rules must give the same $R$ at $t = 3$.",
+          "options": [
+            {
+              "text": "$9$",
+              "correct": true
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            }
+          ],
+          "explain": "$2(3)^{2} = 18$ and $k(3 - 1) = 2k$, so $k = 9$. $6$ comes from $3k = 18$, which drops the $-1$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*3**2/(3 - 1)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "given-models",
+      "heading": "Models given in a question",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A question may give a model you have never met. Use the same skills: substitute, use the GDC for graphs and equations, check large and small inputs, and interpret with units."
+        },
+        {
+          "type": "example",
+          "id": "ex-advert-visitors",
+          "question": "After an advert is shown, the number of visitors per hour to a website, $V$, $t$ hours later is modelled by $V(t) = 900t\\mathrm{e}^{-0.25t}$. (a) Find $V(2)$ and interpret it. (b) Use your GDC to find the greatest number of visitors per hour, and when it happens. (c) Describe what the model predicts in the long term.",
+          "steps": [
+            "(a) $V(2) = 900 \\times 2\\mathrm{e}^{-0.5} = 1091.7\\ldots$: about $1092$ visitors per hour, $2$ hours after the advert.",
+            "(b) Graph $V$ and find the maximum: $x = 4$, $y = 1324.36\\ldots$ So the greatest is about $1324$ visitors per hour, $4$ hours after the advert.",
+            "(c) $\\mathrm{e}^{-0.25t}$ shrinks faster than $t$ grows, so $V$ tends to $0$: interest in the advert dies away."
+          ],
+          "answer": "$V_{\\max} \\approx 1324$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "900*(1/0.25)*exp(-0.25*(1/0.25))",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "900Xe^(-0.25X)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pumpkin-model",
+          "question": "A grower models the mass, $m$ kg, of a giant pumpkin $t$ weeks after it starts to swell by $m(t) = 36\\mathrm{e}^{-3.5\\mathrm{e}^{-0.6t}}$. (a) Find the mass at $t = 0$. (b) Find the mass the model predicts in the long term. (c) Find when the mass reaches $30$ kg, to 3 s.f.",
+          "steps": [
+            "(a) $m(0) = 36\\mathrm{e}^{-3.5} = 1.087\\ldots$, about $1.09$ kg.",
+            "(b) As $t$ grows, $\\mathrm{e}^{-0.6t} \\to 0$, so the power tends to $0$ and $m \\to 36\\mathrm{e}^{0} = 36$ kg.",
+            "(c) Write down the equation: $36\\mathrm{e}^{-3.5\\mathrm{e}^{-0.6t}} = 30$. The solver gives $t = 4.9245\\ldots$, so about $4.92$ weeks.",
+            "Like a logistic model, it levels off: $36$ kg is a limit the pumpkin approaches but never reaches."
+          ],
+          "answer": "$t \\approx 4.92\\text{ weeks}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "-log(log(36/30)/3.5)/0.6",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "36e^(-3.5e^(-0.6X))",
+            "rightSide": 30,
+            "guess": 5,
+            "lower": 0,
+            "upper": 20
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speaker-level",
+          "prompt": "The sound level, $L$ decibels, at a distance $d$ m from a loudspeaker is modelled by $L = 120 - 20\\log_{10} d$, $d \\ge 1$. Find the sound level $8$ m away, in decibels, to 3 s.f.",
+          "hint": "Substitute $d = 8$ and use the $\\log$ key, which is base $10$.",
+          "answer": {
+            "value": 102,
+            "tolerance": 0.5
+          },
+          "explain": "$120 - 20\\log_{10} 8 = 120 - 18.06\\ldots = 101.93\\ldots \\approx 102$ decibels.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "120 - 20*log(8, 10)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-game-sales",
+          "prompt": "Total sales of a new game, $S$ thousand copies, $t$ months after launch are modelled by $S(t) = 50 - 35\\mathrm{e}^{-0.2t}$. What does the value $50$ represent?",
+          "hint": "What happens to $35\\mathrm{e}^{-0.2t}$ as $t$ grows?",
+          "options": [
+            {
+              "text": "the long-term limit of total sales, in thousands of copies",
+              "correct": true
+            },
+            {
+              "text": "the total sales, in thousands of copies, at launch",
+              "correct": false
+            },
+            {
+              "text": "the number of thousands of copies sold each month",
+              "correct": false
+            }
+          ],
+          "explain": "$35\\mathrm{e}^{-0.2t}$ tends to $0$, so $S$ tends to $50$ thousand copies. At launch $S(0) = 15$ thousand.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the long-term limit of total sales, in thousands of copies"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Exponential decay $N_{0}\\mathrm{e}^{-kt}$ with $N_{0} > 0$ and $k > 0$: half-life $= \\frac{\\ln 2}{k}$, the same whatever the starting amount. After $n$ half-lives, $\\left(\\tfrac{1}{2}\\right)^{n}$ of it is left.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f(x) = a + b\\ln x$ with $x > 0$ and $b \\neq 0$: $a = f(1)$, and multiplying $x$ by $m$ adds $b\\ln m$. No value at $x = 0$ and no horizontal asymptote.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f(x) = a\\sin(b(x - c)) + d$ with $b > 0$ and the angle in radians (assumed unless a degree sign is shown): amplitude $|a|$, period $\\frac{2\\pi}{b}$, principal axis $y = d$, phase shift $c$ (to the right if $c > 0$).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = \\frac{L}{1 + C\\mathrm{e}^{-kx}},\\ L, k, C > 0",
+          "tag": "booklet",
+          "bookletId": "bk-2-9-logistic",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Logistic $\\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$: value at $x = 0$ is $\\frac{L}{1 + C}$; carrying capacity $L$, the horizontal asymptote $y = L$, approached but never reached.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A piecewise model is continuous at a joining point $x = p$ when both rules give the same value at $p$: substitute $p$ into each rule, set them equal and solve for the parameter.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Rounding $k$ or $C$ to 3 s.f. and then using it. Keep the GDC's full values, or later answers can be wrong in the last figure.",
+    "Calling the carrying capacity the starting value. The start is $f(0) = \\frac{L}{1 + C}$; $L$ is the long-term limit.",
+    "Reading the phase shift before factorising. $\\sin(2t - 6) = \\sin(2(t - 3))$, so $c = 3$, not $6$.",
+    "Working in degrees on a radian model. Unless the question shows a degree sign, set the GDC to radians.",
+    "Using the wrong $t$. Read what $t = 0$ means: if $t$ is years after 2020, the year 2032 is $t = 12$, not $t = 2032$.",
+    "Interpreting with no context. \"$L$ is the asymptote\" is not enough; say what it means, such as \"the island can support at most about $860$ rabbits\"."
+  ],
+  "examTips": [
+    "\"Write down\" the carrying capacity, or a phase shift from a model in the form $a\\sin(b(x - c)) + d$: read it from the model, with units. No working is needed.",
+    "\"Find\" a parameter from data: write the substituted equation before solving it on the GDC. It earns the method mark, and lets a wrong value earn follow-through later.",
+    "\"Interpret\": say what a value means in the situation, with units, such as \"the long-term limit of the population\".",
+    "\"Comment\" on a model: test it against the context, such as a negative yield for small inputs or growth that never stops."
+  ],
+  "readingMinutes": 33
+}

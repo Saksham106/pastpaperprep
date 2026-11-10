@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t">
+  <title id="t">A vertical tower FT stands on level ground on the right, and a point P is on the ground to the left. A dashed horizontal line runs left from the top T. The line of sight joins T and P. The angle of depression is at T, between the dashed horizontal and the line of sight. The angle of elevation is at P, between the ground and the line of sight. The two angles are equal.</title>
+  <line x1="20" y1="190" x2="300" y2="190" stroke="currentColor" stroke-width="2"/>
+  <line x1="260" y1="190" x2="260" y2="50" stroke="currentColor" stroke-width="2.5"/>
+  <polyline points="260,180 250,180 250,190" fill="none" stroke="currentColor" stroke-width="1"/>
+  <line x1="260" y1="50" x2="20" y2="50" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="260" y1="50" x2="60" y2="190" stroke="var(--t1-ink)" stroke-width="2"/>
+  <path d="M210,50 A50,50 0 0 0 219,78.7" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <path d="M110,190 A50,50 0 0 0 101,161.3" fill="none" stroke="var(--t5-ink)" stroke-width="2"/>
+  <g fill="currentColor">
+    <circle cx="260" cy="50" r="3.5"/>
+    <circle cx="260" cy="190" r="3"/>
+    <circle cx="60" cy="190" r="3.5"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="268" y="46" font-style="italic">T</text>
+    <text x="268" y="206" font-style="italic">F</text>
+    <text x="54" y="208" font-style="italic">P</text>
+    <text x="24" y="42" fill="var(--muted)" font-size="12">horizontal</text>
+    <text x="130" y="74" fill="var(--t3-ink)">depression</text>
+    <text x="114" y="180" fill="var(--t5-ink)">elevation</text>
+    <text x="104" y="128" fill="var(--t1-ink)" font-size="12">line of sight</text>
+  </g>
+</svg>

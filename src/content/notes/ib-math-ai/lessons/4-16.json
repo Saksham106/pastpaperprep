@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.16",
+  "slug": "confidence-intervals-for-the-mean",
+  "title": "Confidence intervals for the mean",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "A [[confidence-interval|confidence interval]] is a range of plausible values for a [[population|population]] mean, worked out from one [[sample|sample]]. If $\\sigma$ is known you use the [[normal-distribution|normal distribution]]; if not, the [[t-distribution|t-distribution]]. Then you say what the interval means in context.",
+  "goals": [
+    {
+      "text": "Find a confidence interval for the mean of a normal population when $\\sigma$ is known, using the normal distribution.",
+      "bullets": [
+        "4.16-b1"
+      ]
+    },
+    {
+      "text": "Find a confidence interval when $\\sigma$ is unknown, using the t-distribution with $n - 1$ [[degrees-of-freedom|degrees of freedom]], whatever the sample size.",
+      "bullets": [
+        "4.16-b1"
+      ]
+    },
+    {
+      "text": "Interpret a confidence interval in context and use it to judge a claimed mean.",
+      "bullets": [
+        "4.16-b2"
+      ]
+    },
+    {
+      "text": "Explain how the confidence level and the sample size change an interval's width.",
+      "bullets": [
+        "4.16-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.3",
+    "4.9",
+    "4.11",
+    "4.14",
+    "4.15"
+  ],
+  "papers": [
+    "P1",
+    "P3"
+  ],
+  "synonyms": [
+    "confidence interval for the mean",
+    "z interval",
+    "t interval",
+    "95% confidence interval",
+    "TInterval on calculator",
+    "margin of error"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-invnorm-08",
+      "prompt": "$Z \\sim \\mathrm{N}(0, 1)$. Find $z$ such that $\\mathrm{P}(Z < z) = 0.8$.",
+      "hint": "Use [[inverse-normal|inverse normal]] with mean 0, [[standard-deviation|standard deviation]] 1 and area 0.8 to the left.",
+      "answer": {
+        "value": 0.842,
+        "tolerance": 0.0005
+      },
+      "explain": "Inverse normal gives $z = 0.84162\\ldots \\approx 0.842$. Revise it in {{lesson:4.9}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "invnorm(Rational(8, 10), 0, 1)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sd-of-mean",
+      "prompt": "$X \\sim \\mathrm{N}(\\mu, 15^{2})$. Find the standard deviation of $\\bar{X}$, the mean of a random sample of $9$ values of $X$.",
+      "hint": "The variance of $\\bar{X}$ is $\\frac{\\sigma^{2}}{n}$.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{Var}(\\bar{X}) = \\frac{15^{2}}{9} = 25$, so the standard deviation is $\\frac{15}{\\sqrt{9}} = 5$. Revise it in {{lesson:4.15}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "15/sqrt(9)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-unbiased-variance",
+      "prompt": "A sample of $10$ values has $s_{n} = 4.2$. Find $s_{n-1}^{2}$, the [[unbiased-estimate|unbiased estimate]] of the population variance.",
+      "hint": "$s_{n-1}^{2} = \\frac{n}{n-1}s_{n}^{2}$.",
+      "answer": {
+        "value": 19.6,
+        "tolerance": 0.05
+      },
+      "explain": "$s_{n-1}^{2} = \\frac{10}{9} \\times 4.2^{2} = 19.6$. Revise it in {{lesson:4.14}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(10, 9)*Rational(42, 10)**2",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sigma-known",
+      "heading": "Intervals when σ is known",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sample mean $\\bar{x}$ estimates the population mean $\\mu$, but another sample would give a different $\\bar{x}$. So you give a range of plausible values for $\\mu$ instead, with a level of confidence."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:4.15}} you met the [[distribution-of-the-sample-mean|distribution of the sample mean]]. For a normal population with standard deviation $\\sigma$, $\\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$. So $95\\%$ of sample means lie within $1.96\\frac{\\sigma}{\\sqrt{n}}$ of $\\mu$."
+        },
+        {
+          "type": "figure",
+          "id": "4-16-middle-95",
+          "alt": "A bell-shaped curve for the sample mean, centred on mu. The middle region between mu minus 1.96 standard errors and mu plus 1.96 standard errors is shaded and labelled 95 percent. Each small tail outside it is labelled 2.5 percent. The standard error is sigma over root n.",
+          "caption": "$95\\%$ of sample means land within $1.96\\frac{\\sigma}{\\sqrt{n}}$ of $\\mu$."
+        },
+        {
+          "type": "text",
+          "text": "Turn that round: if $\\bar{x}$ is within $1.96\\frac{\\sigma}{\\sqrt{n}}$ of $\\mu$, then $\\mu$ is within $1.96\\frac{\\sigma}{\\sqrt{n}}$ of $\\bar{x}$. So $\\bar{x} \\pm 1.96\\frac{\\sigma}{\\sqrt{n}}$ contains $\\mu$ for $95\\%$ of samples."
+        },
+        {
+          "type": "definition",
+          "term": "Confidence interval",
+          "statement": "A $c\\%$ [[confidence-interval|confidence interval]] for $\\mu$ is an interval calculated from a random sample, by a method that gives an interval containing $\\mu$ for $c\\%$ of all such samples.",
+          "plain": "A range of believable values for the population mean, with a stated level of confidence."
+        },
+        {
+          "type": "formula",
+          "tex": "\\bar{x} \\pm z^{*}\\frac{\\sigma}{\\sqrt{n}} \\qquad (\\text{normal population, } \\sigma \\text{ known})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "The multiplier $z^{*}$ cuts off the middle $c\\%$ of $\\mathrm{N}(0, 1)$. For $95\\%$, $\\mathrm{P}(Z < z^{*}) = 0.975$, so $z^{*} = 1.960$. For $90\\%$ it is $1.645$, and for $99\\%$ it is $2.576$."
+        },
+        {
+          "type": "text",
+          "text": "The part after $\\pm$ is the margin of error, and the interval is centred on $\\bar{x}$. The GDC's Z interval does the whole calculation."
+        },
+        {
+          "type": "example",
+          "id": "ex-z-trout",
+          "question": "A fisheries officer knows that the lengths of adult trout in a lake are normally distributed with standard deviation $3.2$ cm. She measures $20$ randomly caught adult trout and finds a mean length of $41.6$ cm. Find a $95\\%$ confidence interval for the mean length of all adult trout in the lake.",
+          "steps": [
+            "$\\sigma = 3.2$ is known, so use the normal distribution: $z^{*} = 1.95996\\ldots$",
+            "Margin of error: $1.95996\\ldots \\times \\frac{3.2}{\\sqrt{20}} = 1.40243\\ldots$ cm.",
+            "Interval: $41.6 \\pm 1.40243\\ldots$, which is $[40.1975\\ldots, 43.0024\\ldots]$.",
+            "Round each end only now: $[40.2, 43.0]$ cm."
+          ],
+          "answer": "$\\text{lower} \\approx 40.2,\\ \\text{upper} \\approx 43.0$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(416, 10) - invnorm(Rational(975, 1000), 0, 1)*Rational(32, 10)/sqrt(20), Rational(416, 10) + invnorm(Rational(975, 1000), 0, 1)*Rational(32, 10)/sqrt(20)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-z-battery",
+          "question": "Long testing shows that a phone model's battery life on a standard video test is normally distributed with standard deviation $2.4$ hours. A random sample of $15$ phones from a new batch has a mean battery life of $18.7$ hours. Use your calculator to find a $99\\%$ confidence interval for the mean battery life of the batch, to 3 s.f., and interpret it.",
+          "steps": [
+            "$\\sigma$ is known, so this is a Z interval. Write down what you enter: $\\sigma = 2.4$, $\\bar{x} = 18.7$, $n = 15$, C-Level $0.99$.",
+            "The GDC gives $[17.1038\\ldots, 20.2961\\ldots]$, so $[17.1, 20.3]$ hours.",
+            "Check: $18.7 \\pm 2.5758\\ldots \\times \\frac{2.4}{\\sqrt{15}}$ agrees.",
+            "Interpret: we are $99\\%$ confident that the mean battery life of all phones in the batch is between $17.1$ and $20.3$ hours."
+          ],
+          "answer": "$\\text{lower} \\approx 17.1,\\ \\text{upper} \\approx 20.3$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(187, 10) - invnorm(Rational(995, 1000), 0, 1)*Rational(24, 10)/sqrt(15), Rational(187, 10) + invnorm(Rational(995, 1000), 0, 1)*Rational(24, 10)/sqrt(15)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "interval-z",
+          "values": {
+            "sigma": 2.4,
+            "mean": 18.7,
+            "n": 15,
+            "level": 0.99
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\sigma$ instead of $\\frac{\\sigma}{\\sqrt{n}}$. The interval is for the mean, so its spread is the standard deviation of $\\bar{X}$."
+        },
+        {
+          "type": "check",
+          "id": "check-z-star-90",
+          "prompt": "Which multiplier $z^{*}$ gives a $90\\%$ confidence interval when $\\sigma$ is known?",
+          "hint": "The middle $90\\%$ leaves $5\\%$ in each tail, so you need $\\mathrm{P}(Z < z^{*}) = 0.95$.",
+          "options": [
+            {
+              "text": "$z^{*} \\approx 1.282$",
+              "correct": false
+            },
+            {
+              "text": "$z^{*} \\approx 1.645$",
+              "correct": true
+            },
+            {
+              "text": "$z^{*} \\approx 1.960$",
+              "correct": false
+            },
+            {
+              "text": "$z^{*} \\approx 2.326$",
+              "correct": false
+            }
+          ],
+          "explain": "Inverse normal with area $0.95$ to the left gives $1.645$. The value $1.282$ puts all $10\\%$ in one tail, and $1.960$ is for $95\\%$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "invnorm(Rational(95, 100), 0, 1)",
+            "dp": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-z-balance",
+          "prompt": "A lab balance's readings are normally distributed with known standard deviation $0.15$ g. Twelve weighings of one sample have mean $8.42$ g. Find the upper end of a $95\\%$ confidence interval for the mean reading, to 3 s.f.",
+          "hint": "$\\sigma$ is known: add $1.960 \\times \\frac{0.15}{\\sqrt{12}}$ to $8.42$.",
+          "answer": {
+            "value": 8.5,
+            "tolerance": 0.005
+          },
+          "explain": "Margin $= 1.95996\\ldots \\times \\frac{0.15}{\\sqrt{12}} = 0.08486\\ldots$, so the upper end is $8.50486\\ldots \\approx 8.50$ g.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(842, 100) + invnorm(Rational(975, 1000), 0, 1)*Rational(15, 100)/sqrt(12)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sigma-unknown",
+      "heading": "Intervals when σ is unknown",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Usually you don't know $\\sigma$. You estimate it from the sample with $s_{n-1}$. Its square $s_{n-1}^{2}$ is the [[unbiased-estimate|unbiased estimate]] of $\\sigma^{2}$ from {{lesson:4.14}}; $s_{n-1}$ itself is the usual estimate of $\\sigma$, though not exactly unbiased."
+        },
+        {
+          "type": "text",
+          "text": "The estimate adds uncertainty, so the multiplier must be bigger than $z^{*}$. The t-distribution gives it: the same distribution as the [[t-test|t-test]] in {{lesson:4.11}}."
+        },
+        {
+          "type": "definition",
+          "term": "t-distribution",
+          "statement": "The [[t-distribution|t-distribution]] with $\\nu$ [[degrees-of-freedom|degrees of freedom]] is a symmetric, bell-shaped distribution centred on $0$, with heavier tails than $\\mathrm{N}(0, 1)$. For an interval from one sample, $\\nu = n - 1$.",
+          "plain": "A slightly more spread-out version of the standard normal curve, which allows for not knowing σ."
+        },
+        {
+          "type": "text",
+          "text": "As $n$ grows, it gets closer to $\\mathrm{N}(0, 1)$. For $95\\%$, $t^{*} = 2.306$ when $\\nu = 8$ and $2.023$ when $\\nu = 39$, against $z^{*} = 1.960$."
+        },
+        {
+          "type": "result",
+          "statement": "For the mean of a normal population: if $\\sigma$ is known, use the normal distribution. If $\\sigma$ is unknown, use the t-distribution with $n - 1$ degrees of freedom, whatever the sample size.",
+          "why": "When $\\sigma$ is estimated by $s_{n-1}$, the t-distribution is the right one for every $n$; for large $n$ it is almost normal anyway."
+        },
+        {
+          "type": "formula",
+          "tex": "\\bar{x} \\pm t^{*}\\frac{s_{n-1}}{\\sqrt{n}} \\qquad (\\text{normal population, } \\sigma \\text{ unknown, } \\nu = n - 1)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$t^{*}$ cuts off the middle $c\\%$ of that t-distribution. The GDC's T interval does it all, from a list of data or from $\\bar{x}$, $s_{n-1}$ and $n$."
+        },
+        {
+          "type": "mistake",
+          "text": "Entering $s_{n}$ where the GDC asks for Sx, which is $s_{n-1}$. If a question gives $s_{n}$, convert first: $s_{n-1} = \\sqrt{\\frac{n}{n-1}}\\,s_{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-t-caffeine",
+          "question": "A café measures the caffeine content, in mg, of $9$ randomly chosen cups of its filter coffee: $92, 105, 88, 110, 97, 101, 94, 108, 99$. Caffeine content is normally distributed. Use your calculator to find a $95\\%$ confidence interval for the mean caffeine content of a cup, to 3 s.f.",
+          "steps": [
+            "$\\sigma$ is unknown, so use a T interval with $9 - 1 = 8$ degrees of freedom.",
+            "Enter the $9$ values in a list and run the T interval with C-Level $0.95$.",
+            "The GDC shows $\\bar{x} = 99.333\\ldots$, $s_{n-1} = 7.4161\\ldots$ and the interval $[93.6327\\ldots, 105.033\\ldots]$.",
+            "Round each end: $[93.6, 105]$ mg. So we are $95\\%$ confident the mean caffeine content of the café's cups is between $93.6$ and $105$ mg."
+          ],
+          "answer": "$\\text{lower} \\approx 93.6,\\ \\text{upper} \\approx 105$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[avg([92, 105, 88, 110, 97, 101, 94, 108, 99]) - invt(Rational(975, 1000), 8)*sdsample([92, 105, 88, 110, 97, 101, 94, 108, 99])/3, avg([92, 105, 88, 110, 97, 101, 94, 108, 99]) + invt(Rational(975, 1000), 8)*sdsample([92, 105, 88, 110, 97, 101, 94, 108, 99])/3]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "interval-t",
+          "values": {
+            "level": 0.95
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-t-seedlings",
+          "question": "A botanist measures $40$ randomly chosen seedlings of a new variety after three weeks. Their mean height is $12.6$ cm and $s_{n} = 2.3$ cm, and heights follow a normal distribution. Give a $90\\%$ confidence interval for the mean height of all seedlings of this variety, to 3 s.f.",
+          "steps": [
+            "$\\sigma$ is unknown, so use t, even though $n = 40$ is large: $\\nu = 39$.",
+            "Convert to $s_{n-1}$, the square root of the unbiased variance estimate: $s_{n-1} = \\sqrt{\\frac{40}{39}} \\times 2.3 = 2.3293\\ldots$ cm.",
+            "$t^{*}$ has $\\mathrm{P}(T < t^{*}) = 0.95$ with $\\nu = 39$: $t^{*} = 1.6848\\ldots$ Margin: $1.6848\\ldots \\times \\frac{2.3293\\ldots}{\\sqrt{40}} = 0.62053\\ldots$",
+            "Interval: $12.6 \\pm 0.62053\\ldots = [11.979\\ldots, 13.220\\ldots]$. On the GDC: T interval with Stats input, $\\bar{x} = 12.6$, Sx $= 2.3293\\ldots$, $n = 40$, C-Level $0.9$.",
+            "We are $90\\%$ confident that the mean three-week height of all seedlings of this variety is between $12.0$ and $13.2$ cm."
+          ],
+          "answer": "$\\text{lower} \\approx 12.0,\\ \\text{upper} \\approx 13.2$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(126, 10) - invt(Rational(95, 100), 39)*sqrt(Rational(40, 39))*Rational(23, 10)/sqrt(40), Rational(126, 10) + invt(Rational(95, 100), 39)*sqrt(Rational(40, 39))*Rational(23, 10)/sqrt(40)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-distribution",
+          "prompt": "A council weighs $60$ random household bins; the weights are normally distributed with unknown $\\sigma$. Which distribution gives the multiplier for a confidence interval for the mean weight?",
+          "hint": "Ask whether $\\sigma$ is known, not how big the sample is.",
+          "options": [
+            {
+              "text": "t-distribution with 59 degrees of freedom",
+              "correct": true
+            },
+            {
+              "text": "Normal, because the sample is large",
+              "correct": false
+            },
+            {
+              "text": "t-distribution with 60 degrees of freedom",
+              "correct": false
+            },
+            {
+              "text": "Normal, with the sample standard deviation",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma$ is unknown, so use t with $n - 1 = 59$ degrees of freedom. The sample size never switches you to the normal distribution.",
+          "verify": {
+            "kind": "choice",
+            "truth": "t-distribution with 59 degrees of freedom"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-t-reaction",
+          "prompt": "A random sample of drivers has reaction times, in ms, of $312, 287, 335, 298, 321$. Reaction times are normally distributed. Find the lower end of a $95\\%$ confidence interval for the mean reaction time, to 3 s.f.",
+          "hint": "$\\sigma$ is unknown: run a T interval on the list, with $4$ degrees of freedom.",
+          "answer": {
+            "value": 287,
+            "tolerance": 0.5
+          },
+          "explain": "$\\bar{x} = 310.6$, $s_{n-1} = 18.849\\ldots$ and $t^{*} = 2.7764\\ldots$, so the interval is $[287.195\\ldots, 334.004\\ldots]$. The lower end is $287$ ms.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "avg([312, 287, 335, 298, 321]) - invt(Rational(975, 1000), 4)*sdsample([312, 287, 335, 298, 321])/sqrt(5)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "interpret",
+      "heading": "Interpreting a confidence interval",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The $95\\%$ describes the method, not one interval. $\\mu$ is fixed, so a particular interval either contains it or doesn't. Build intervals from many random samples, and about $95\\%$ of them contain $\\mu$."
+        },
+        {
+          "type": "figure",
+          "id": "4-16-many-intervals",
+          "alt": "Twenty horizontal line segments stacked one above another, each a 95 percent confidence interval from a different random sample, with a dot at its sample mean. A dashed vertical line marks the true population mean mu. Nineteen segments cross the dashed line. One segment, drawn in a different colour, lies entirely to the right of it and misses mu.",
+          "caption": "Each sample gives a different interval. In the long run about $95\\%$ of them contain $\\mu$."
+        },
+        {
+          "type": "text",
+          "text": "So write: 'We are $95\\%$ confident that the mean [quantity] of all [population] is between $a$ and $b$ [units].' Never say there is a $95\\%$ probability that $\\mu$ is in your interval."
+        },
+        {
+          "type": "text",
+          "text": "To judge a claimed value of $\\mu$, see where it falls. Inside the interval, it is plausible: no evidence against the claim. Outside, the data give evidence against the claim. An interval never proves a claim."
+        },
+        {
+          "type": "text",
+          "text": "A higher confidence level uses a bigger multiplier, so a wider interval. For the same standard deviation, a larger sample gives a narrower one: four times the sample size roughly halves the width."
+        },
+        {
+          "type": "text",
+          "text": "Both intervals assume a normally distributed population and a random sample, so the values are independent. Exam questions often ask you to state one of these."
+        },
+        {
+          "type": "example",
+          "id": "ex-interpret-caffeine",
+          "question": "The café's $95\\%$ confidence interval for the mean caffeine content of a cup is $[93.6, 105]$ mg. (a) Interpret the interval. (b) The menu says a cup contains $100$ mg on average. Comment on this claim. (c) A health website says the café's cups average $110$ mg. Comment on this claim.",
+          "steps": [
+            "(a) Name the population, the mean and the units.",
+            "(b) $100$ lies inside $[93.6, 105]$, so $100$ mg is a plausible value of the mean.",
+            "(c) $110$ lies outside the interval, above its upper end, so $110$ mg is not a plausible value of the mean.",
+            "Give the reason (inside or outside) first, then the conclusion about the claim."
+          ],
+          "answer": "(a) We are $95\\%$ confident that the mean caffeine content of all the café's cups is between $93.6$ and $105$ mg. (b) $100$ is inside the interval, so it is plausible: no evidence against the menu's claim. (c) $110$ is outside the interval, so the data give evidence against the website's claim.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "interpretation with population mean; 100 inside so plausible; 110 outside so evidence against",
+            "requires": [
+              "95\\% confident",
+              "mean caffeine content of all",
+              "inside the interval",
+              "plausible",
+              "outside the interval",
+              "evidence against"
+            ],
+            "forbids": [
+              "probability",
+              "chance",
+              "proves"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-width-sugar",
+          "question": "A dietitian records the daily sugar intake of $30$ randomly chosen adults: $\\bar{x} = 52.4$ g and $s_{n-1} = 14.0$ g. Intake is normally distributed, and the $95\\%$ confidence interval for the mean is $[47.2, 57.6]$ g. (a) Find the $99\\%$ confidence interval, to 3 s.f. (b) Explain why it is wider. (c) Describe how the $95\\%$ interval would change with $120$ adults and the same $\\bar{x}$ and $s_{n-1}$.",
+          "steps": [
+            "(a) $\\sigma$ is unknown, so use t with $29$ degrees of freedom: $t^{*} = 2.7563\\ldots$ Margin: $2.7563\\ldots \\times \\frac{14.0}{\\sqrt{30}} = 7.0453\\ldots$",
+            "Interval: $52.4 \\pm 7.0453\\ldots = [45.354\\ldots, 59.445\\ldots]$, so $[45.4, 59.4]$ g.",
+            "(b) To catch $\\mu$ for $99\\%$ of samples instead of $95\\%$, the interval must reach further: $t^{*}$ rises from $2.045$ to $2.756$.",
+            "(c) With $120$ adults, $\\frac{s_{n-1}}{\\sqrt{n}}$ halves and $t^{*}$ drops a little, so the interval becomes about half as wide: $[49.9, 54.9]$ g."
+          ],
+          "answer": "$\\text{lower} \\approx 45.4,\\ \\text{upper} \\approx 59.4$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(524, 10) - invt(Rational(995, 1000), 29)*14/sqrt(30), Rational(524, 10) + invt(Rational(995, 1000), 29)*14/sqrt(30)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-meaning-commute",
+          "prompt": "A $95\\%$ confidence interval for the mean commute time of a city's workers is $[31.2, 36.8]$ minutes. Which statement is correct?",
+          "hint": "The interval is about the population mean, and the 95% describes the method.",
+          "options": [
+            {
+              "text": "We are 95% confident the mean commute time of all the city's workers is in this interval",
+              "correct": true
+            },
+            {
+              "text": "95% of the city's workers have a commute time in this interval",
+              "correct": false
+            },
+            {
+              "text": "There is a 95% chance that the sample mean is in this interval",
+              "correct": false
+            },
+            {
+              "text": "95% of all samples will have a mean in this interval",
+              "correct": false
+            }
+          ],
+          "explain": "The interval estimates the population mean. It says nothing about individual workers, and the sample mean is always its centre.",
+          "verify": {
+            "kind": "choice",
+            "truth": "We are 95% confident the mean commute time of all the city's workers is in this interval"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-claim-juice",
+          "prompt": "A $95\\%$ confidence interval for the mean volume of a brand's juice cartons is $[496.1, 499.3]$ ml. The label says $500$ ml. What is the best comment?",
+          "hint": "Is 500 inside or outside the interval?",
+          "options": [
+            {
+              "text": "500 is outside the interval: evidence against the label",
+              "correct": true
+            },
+            {
+              "text": "500 is close to the interval, so the label is plausible",
+              "correct": false
+            },
+            {
+              "text": "It proves every carton holds less than 500 ml",
+              "correct": false
+            },
+            {
+              "text": "500 is not the sample mean, so the label is false",
+              "correct": false
+            }
+          ],
+          "explain": "500 lies outside the interval, so it is not a plausible mean. The interval says nothing certain about single cartons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "500 is outside the interval: evidence against the label"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "For the mean of a normal population: $\\sigma$ known, use the normal distribution; $\\sigma$ unknown, use the t-distribution with $n - 1$ degrees of freedom and $s_{n-1}$, whatever the sample size.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Normal multipliers ($\\sigma$ known): $z^{*} = 1.645$ for $90\\%$, $1.960$ for $95\\%$, $2.576$ for $99\\%$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A $95\\%$ confidence interval comes from a method that captures $\\mu$ for about $95\\%$ of random samples. One interval either contains $\\mu$ or not.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A claimed mean inside the interval is plausible (no evidence against it); one outside the interval is evidence against the claim.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From the same sample, a higher confidence level gives a wider interval. At the same confidence level and standard deviation, a larger sample gives a narrower one.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the normal distribution because the sample is large. If $\\sigma$ is estimated from the sample, use the t-distribution with $n - 1$ degrees of freedom, whatever $n$ is.",
+    "Saying there is a $95\\%$ probability that $\\mu$ is in your interval. The $95\\%$ belongs to the method: about $95\\%$ of intervals built this way contain $\\mu$.",
+    "Commenting on a claim with no reason. Say whether the value is inside or outside the interval, then what that means for the claim.",
+    "Writing the interval in terms of $\\bar{x}$, such as $93.6 < \\bar{x} < 105$. The interval estimates the population mean $\\mu$.",
+    "Rounding early or to the wrong accuracy. Each end usually earns its own mark: keep full GDC values and round only the ends, as asked."
+  ],
+  "examTips": [
+    "**Find** a confidence interval: name the interval (T if $\\sigma$ is unknown, Z if known) and the values entered, then both ends to the accuracy asked.",
+    "**Comment** on a claim: say the value is inside or outside the interval, then conclude about the claim in context. A conclusion with no reason scores nothing.",
+    "**State** an assumption: the variable is normally distributed in the population, or the sample is random (independent values).",
+    "**Interpret** an interval: 'We are $95\\%$ confident that the mean [quantity] of all [population] is between $a$ and $b$ [units].'"
+  ],
+  "readingMinutes": 22
+}

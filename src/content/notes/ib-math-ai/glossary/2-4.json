@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vertex-of-a-parabola",
+    "term": "vertex of a parabola",
+    "definition": "The turning point of a parabola, which lies on its axis of symmetry: a minimum point when the parabola opens upwards ($a > 0$ in $y = ax^{2} + bx + c$) and a maximum point when it opens downwards ($a < 0$).",
+    "lesson": "2.4"
+  },
+  {
+    "id": "axis-of-symmetry",
+    "term": "axis of symmetry",
+    "definition": "A line that a graph can be folded along so the two halves match; for the parabola $y = ax^{2} + bx + c$ it is the vertical line $x = -\\frac{b}{2a}$ through the vertex.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "local-maximum",
+    "term": "local maximum",
+    "definition": "A point on a graph that is at least as high as every point near it; it need not give the greatest value on the domain, which may be at an end point.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "local-minimum",
+    "term": "local minimum",
+    "definition": "A point on a graph that is at least as low as every point near it; it need not give the least value on the domain, which may be at an end point.",
+    "lesson": "2.4"
+  },
+  {
+    "id": "asymptote",
+    "term": "asymptote",
+    "definition": "A straight line that a graph gets closer and closer to as $x$ or $y$ grows without limit, written as an equation such as $x = 3$ (vertical) or $y = 2$ (horizontal); a graph may cross a horizontal asymptote at a finite value of $x$.",
+    "lesson": "2.4"
+  }
+]

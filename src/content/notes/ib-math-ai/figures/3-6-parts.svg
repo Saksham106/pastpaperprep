@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 318" role="img" aria-labelledby="t">
+  <title id="t">Voronoi diagram in a 12 by 10 rectangle with three sites, A at (2, 1), B at (11, 4) and C at (3, 8). Three dashed edges meet at the vertex V at (6, 4) and split the rectangle into three shaded cells, one around each site.</title>
+  <polygon points="34,294 239.3,294 202,182 34,158" fill="var(--t1-ink)" opacity="0.1" stroke="none"/>
+  <polygon points="239.3,294 370,294 370,14 286,14 202,182" fill="var(--t2-ink)" opacity="0.1" stroke="none"/>
+  <polygon points="286,14 34,14 34,158 202,182" fill="var(--t3-ink)" opacity="0.1" stroke="none"/>
+  <rect x="34" y="14" width="336" height="280" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="239.3" y1="294" x2="202" y2="182" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="202" y1="182" x2="34" y2="158" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="286" y1="14" x2="202" y2="182" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <g font-size="10" fill="currentColor" opacity="0.7"><text x="34" y="308" text-anchor="middle">0</text><text x="90" y="308" text-anchor="middle">2</text><text x="146" y="308" text-anchor="middle">4</text><text x="202" y="308" text-anchor="middle">6</text><text x="258" y="308" text-anchor="middle">8</text><text x="314" y="308" text-anchor="middle">10</text><text x="370" y="308" text-anchor="middle">12</text><text x="29" y="242" text-anchor="end">2</text><text x="29" y="186" text-anchor="end">4</text><text x="29" y="130" text-anchor="end">6</text><text x="29" y="74" text-anchor="end">8</text><text x="29" y="18" text-anchor="end">10</text></g>
+  <circle cx="90" cy="266" r="4" fill="currentColor"/>
+  <text x="97" y="260" font-size="12" fill="currentColor">A (2, 1)</text>
+  <circle cx="342" cy="182" r="4" fill="currentColor"/>
+  <text x="280" y="174" font-size="12" fill="currentColor">B (11, 4)</text>
+  <circle cx="118" cy="70" r="4" fill="currentColor"/>
+  <text x="125" y="64" font-size="12" fill="currentColor">C (3, 8)</text>
+  <circle cx="202" cy="182" r="4.5" fill="var(--surface, white)" stroke="currentColor" stroke-width="2"/>
+  <text x="210" y="198" font-size="12" fill="currentColor">V (6, 4)</text>
+  <g font-size="12" fill="currentColor" font-style="italic"><text x="291.6" y="249.2">cell of B</text><text x="50.8" y="221.2">cell of A</text><text x="67.6" y="36.4">cell of C</text><text x="260.8" y="81.2">edge</text></g>
+</svg>

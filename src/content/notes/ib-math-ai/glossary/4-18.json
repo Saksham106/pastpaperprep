@@ -1,0 +1,32 @@
+[
+  {
+    "id": "critical-region",
+    "term": "critical region",
+    "definition": "The values of a test statistic that lead to rejecting $\\mathrm{H}_0$; for a binomial or Poisson test it is the tail with the largest probability under $\\mathrm{H}_0$ that is still less than the significance level.",
+    "lesson": "4.18"
+  },
+  {
+    "id": "type-i-error",
+    "term": "Type I error",
+    "definition": "Rejecting the null hypothesis $\\mathrm{H}_0$ when $\\mathrm{H}_0$ is actually true: a false alarm.",
+    "lesson": "4.18"
+  },
+  {
+    "id": "type-ii-error",
+    "term": "Type II error",
+    "definition": "Not rejecting the null hypothesis $\\mathrm{H}_0$ when $\\mathrm{H}_0$ is actually false; its probability can only be found for a stated true value of the parameter.",
+    "lesson": "4.18"
+  },
+  {
+    "id": "matched-pairs",
+    "term": "matched pairs",
+    "definition": "Two measurements on each subject, such as before and after, analysed by testing the differences as one sample.",
+    "lesson": "4.18"
+  },
+  {
+    "id": "population-product-moment-correlation-coefficient",
+    "term": "population product-moment correlation coefficient",
+    "definition": "The correlation $\\rho$ between two variables in the whole population, estimated by the sample's $r$; testing $\\mathrm{H}_0$: $\\rho = 0$ assumes the data come from a bivariate normal distribution.",
+    "lesson": "4.18"
+  }
+]

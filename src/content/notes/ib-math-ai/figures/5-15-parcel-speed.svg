@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 330" role="img" aria-labelledby="t">
+  <title id="t">Slope field of dv/dt equals 9.8 minus 0.28 v, for t from 0 to 20 seconds and v from 0 to 50. Segments along each row are parallel, steep near v equals 0, horizontal on the dashed line v equals 35 and falling above it. The solution curve starts at the origin, rises steeply, then flattens and levels off just below v equals 35.</title>
+  <g font-family="inherit">
+  <line x1="50" y1="300.0" x2="340" y2="300.0" stroke="var(--muted)" stroke-width="1" />
+  <line x1="50.0" y1="300" x2="50.0" y2="30" stroke="var(--muted)" stroke-width="1" />
+  <line x1="122.5" y1="297.0" x2="122.5" y2="303.0" stroke="var(--muted)" />
+  <text x="122.5" y="315.0" text-anchor="middle" fill="var(--muted)" font-size="11">5</text>
+  <line x1="195.0" y1="297.0" x2="195.0" y2="303.0" stroke="var(--muted)" />
+  <text x="195.0" y="315.0" text-anchor="middle" fill="var(--muted)" font-size="11">10</text>
+  <line x1="267.5" y1="297.0" x2="267.5" y2="303.0" stroke="var(--muted)" />
+  <text x="267.5" y="315.0" text-anchor="middle" fill="var(--muted)" font-size="11">15</text>
+  <line x1="340.0" y1="297.0" x2="340.0" y2="303.0" stroke="var(--muted)" />
+  <text x="340.0" y="315.0" text-anchor="middle" fill="var(--muted)" font-size="11">20</text>
+  <line x1="47.0" y1="246.0" x2="53.0" y2="246.0" stroke="var(--muted)" />
+  <text x="44.0" y="250.0" text-anchor="end" fill="var(--muted)" font-size="11">10</text>
+  <line x1="47.0" y1="192.0" x2="53.0" y2="192.0" stroke="var(--muted)" />
+  <text x="44.0" y="196.0" text-anchor="end" fill="var(--muted)" font-size="11">20</text>
+  <line x1="47.0" y1="138.0" x2="53.0" y2="138.0" stroke="var(--muted)" />
+  <text x="44.0" y="142.0" text-anchor="end" fill="var(--muted)" font-size="11">30</text>
+  <line x1="47.0" y1="84.0" x2="53.0" y2="84.0" stroke="var(--muted)" />
+  <text x="44.0" y="88.0" text-anchor="end" fill="var(--muted)" font-size="11">40</text>
+  <line x1="47.0" y1="30.0" x2="53.0" y2="30.0" stroke="var(--muted)" />
+  <text x="44.0" y="34.0" text-anchor="end" fill="var(--muted)" font-size="11">50</text>
+  <text x="340.0" y="293.0" text-anchor="end" font-style="italic" fill="currentColor" font-size="13">t</text>
+  <text x="57.0" y="40.0" font-style="italic" fill="currentColor" font-size="13">v</text>
+  <line x1="47.9" y1="307.7" x2="52.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="47.6" y1="280.6" x2="52.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="47.1" y1="253.5" x2="52.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="46.5" y1="226.2" x2="53.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="45.7" y1="198.7" x2="54.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="44.5" y1="170.8" x2="55.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="42.9" y1="141.7" x2="57.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="42.0" y1="111.0" x2="58.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="42.9" y1="80.3" x2="57.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="44.5" y1="51.2" x2="55.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="45.7" y1="23.3" x2="54.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="76.9" y1="307.7" x2="81.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="76.6" y1="280.6" x2="81.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="76.1" y1="253.5" x2="81.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="75.5" y1="226.2" x2="82.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="74.7" y1="198.7" x2="83.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="73.5" y1="170.8" x2="84.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="71.9" y1="141.7" x2="86.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="71.0" y1="111.0" x2="87.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="71.9" y1="80.3" x2="86.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="73.5" y1="51.2" x2="84.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="74.7" y1="23.3" x2="83.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="105.9" y1="307.7" x2="110.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="105.6" y1="280.6" x2="110.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="105.1" y1="253.5" x2="110.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="104.5" y1="226.2" x2="111.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="103.7" y1="198.7" x2="112.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="102.5" y1="170.8" x2="113.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="100.9" y1="141.7" x2="115.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="100.0" y1="111.0" x2="116.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="100.9" y1="80.3" x2="115.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="102.5" y1="51.2" x2="113.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="103.7" y1="23.3" x2="112.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="134.9" y1="307.7" x2="139.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="134.6" y1="280.6" x2="139.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="134.1" y1="253.5" x2="139.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="133.5" y1="226.2" x2="140.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="132.7" y1="198.7" x2="141.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="131.5" y1="170.8" x2="142.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="129.9" y1="141.7" x2="144.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="129.0" y1="111.0" x2="145.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="129.9" y1="80.3" x2="144.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="131.5" y1="51.2" x2="142.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="132.7" y1="23.3" x2="141.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="163.9" y1="307.7" x2="168.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="163.6" y1="280.6" x2="168.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="163.1" y1="253.5" x2="168.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="162.5" y1="226.2" x2="169.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="161.7" y1="198.7" x2="170.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="160.5" y1="170.8" x2="171.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="158.9" y1="141.7" x2="173.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="158.0" y1="111.0" x2="174.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="158.9" y1="80.3" x2="173.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="160.5" y1="51.2" x2="171.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="161.7" y1="23.3" x2="170.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="192.9" y1="307.7" x2="197.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="192.6" y1="280.6" x2="197.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="192.1" y1="253.5" x2="197.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="191.5" y1="226.2" x2="198.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="190.7" y1="198.7" x2="199.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="189.5" y1="170.8" x2="200.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="187.9" y1="141.7" x2="202.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="187.0" y1="111.0" x2="203.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="187.9" y1="80.3" x2="202.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="189.5" y1="51.2" x2="200.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="190.7" y1="23.3" x2="199.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="221.9" y1="307.7" x2="226.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="221.6" y1="280.6" x2="226.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="221.1" y1="253.5" x2="226.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="220.5" y1="226.2" x2="227.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="219.7" y1="198.7" x2="228.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="218.5" y1="170.8" x2="229.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="216.9" y1="141.7" x2="231.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="216.0" y1="111.0" x2="232.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="216.9" y1="80.3" x2="231.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="218.5" y1="51.2" x2="229.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="219.7" y1="23.3" x2="228.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="250.9" y1="307.7" x2="255.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="250.6" y1="280.6" x2="255.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="250.1" y1="253.5" x2="255.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="249.5" y1="226.2" x2="256.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="248.7" y1="198.7" x2="257.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="247.5" y1="170.8" x2="258.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="245.9" y1="141.7" x2="260.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="245.0" y1="111.0" x2="261.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="245.9" y1="80.3" x2="260.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="247.5" y1="51.2" x2="258.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="248.7" y1="23.3" x2="257.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="279.9" y1="307.7" x2="284.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="279.6" y1="280.6" x2="284.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="279.1" y1="253.5" x2="284.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="278.5" y1="226.2" x2="285.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="277.7" y1="198.7" x2="286.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="276.5" y1="170.8" x2="287.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="274.9" y1="141.7" x2="289.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="274.0" y1="111.0" x2="290.0" y2="111.0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="274.9" y1="80.3" x2="289.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="276.5" y1="51.2" x2="287.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="277.7" y1="23.3" x2="286.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="308.9" y1="307.7" x2="313.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="308.6" y1="280.6" x2="313.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="308.1" y1="253.5" x2="313.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="307.5" y1="226.2" x2="314.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="306.7" y1="198.7" x2="315.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="305.5" y1="170.8" x2="316.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="303.9" y1="141.7" x2="318.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="303.9" y1="80.3" x2="318.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="305.5" y1="51.2" x2="316.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="306.7" y1="23.3" x2="315.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="337.9" y1="307.7" x2="342.1" y2="292.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="337.6" y1="280.6" x2="342.4" y2="265.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="337.1" y1="253.5" x2="342.9" y2="238.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="336.5" y1="226.2" x2="343.5" y2="211.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="335.7" y1="198.7" x2="344.3" y2="185.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="334.5" y1="170.8" x2="345.5" y2="159.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="332.9" y1="141.7" x2="347.1" y2="134.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="332.9" y1="80.3" x2="347.1" y2="87.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="334.5" y1="51.2" x2="345.5" y2="62.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <line x1="335.7" y1="23.3" x2="344.3" y2="36.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+  <polyline points="50.0,111.0 51.0,111.0 51.9,111.0 52.9,111.0 53.9,111.0 54.8,111.0 55.8,111.0 56.8,111.0 57.7,111.0 58.7,111.0 59.7,111.0 60.6,111.0 61.6,111.0 62.6,111.0 63.5,111.0 64.5,111.0 65.5,111.0 66.4,111.0 67.4,111.0 68.4,111.0 69.3,111.0 70.3,111.0 71.3,111.0 72.2,111.0 73.2,111.0 74.2,111.0 75.1,111.0 76.1,111.0 77.1,111.0 78.0,111.0 79.0,111.0 80.0,111.0 80.9,111.0 81.9,111.0 82.9,111.0 83.8,111.0 84.8,111.0 85.8,111.0 86.7,111.0 87.7,111.0 88.7,111.0 89.6,111.0 90.6,111.0 91.6,111.0 92.5,111.0 93.5,111.0 94.5,111.0 95.4,111.0 96.4,111.0 97.4,111.0 98.3,111.0 99.3,111.0 100.3,111.0 101.2,111.0 102.2,111.0 103.2,111.0 104.1,111.0 105.1,111.0 106.1,111.0 107.0,111.0 108.0,111.0 109.0,111.0 109.9,111.0 110.9,111.0 111.9,111.0 112.8,111.0 113.8,111.0 114.8,111.0 115.7,111.0 116.7,111.0 117.7,111.0 118.6,111.0 119.6,111.0 120.6,111.0 121.5,111.0 122.5,111.0 123.5,111.0 124.4,111.0 125.4,111.0 126.4,111.0 127.3,111.0 128.3,111.0 129.3,111.0 130.2,111.0 131.2,111.0 132.2,111.0 133.1,111.0 134.1,111.0 135.1,111.0 136.0,111.0 137.0,111.0 138.0,111.0 138.9,111.0 139.9,111.0 140.9,111.0 141.8,111.0 142.8,111.0 143.8,111.0 144.7,111.0 145.7,111.0 146.7,111.0 147.6,111.0 148.6,111.0 149.6,111.0 150.5,111.0 151.5,111.0 152.5,111.0 153.4,111.0 154.4,111.0 155.4,111.0 156.3,111.0 157.3,111.0 158.3,111.0 159.2,111.0 160.2,111.0 161.2,111.0 162.1,111.0 163.1,111.0 164.1,111.0 165.0,111.0 166.0,111.0 167.0,111.0 167.9,111.0 168.9,111.0 169.9,111.0 170.8,111.0 171.8,111.0 172.8,111.0 173.7,111.0 174.7,111.0 175.7,111.0 176.6,111.0 177.6,111.0 178.6,111.0 179.5,111.0 180.5,111.0 181.5,111.0 182.4,111.0 183.4,111.0 184.4,111.0 185.3,111.0 186.3,111.0 187.3,111.0 188.2,111.0 189.2,111.0 190.2,111.0 191.1,111.0 192.1,111.0 193.1,111.0 194.0,111.0 195.0,111.0 196.0,111.0 196.9,111.0 197.9,111.0 198.9,111.0 199.8,111.0 200.8,111.0 201.8,111.0 202.7,111.0 203.7,111.0 204.7,111.0 205.6,111.0 206.6,111.0 207.6,111.0 208.5,111.0 209.5,111.0 210.5,111.0 211.4,111.0 212.4,111.0 213.4,111.0 214.3,111.0 215.3,111.0 216.3,111.0 217.2,111.0 218.2,111.0 219.2,111.0 220.1,111.0 221.1,111.0 222.1,111.0 223.0,111.0 224.0,111.0 225.0,111.0 225.9,111.0 226.9,111.0 227.9,111.0 228.8,111.0 229.8,111.0 230.8,111.0 231.7,111.0 232.7,111.0 233.7,111.0 234.6,111.0 235.6,111.0 236.6,111.0 237.5,111.0 238.5,111.0 239.5,111.0 240.4,111.0 241.4,111.0 242.4,111.0 243.3,111.0 244.3,111.0 245.3,111.0 246.2,111.0 247.2,111.0 248.2,111.0 249.1,111.0 250.1,111.0 251.1,111.0 252.0,111.0 253.0,111.0 254.0,111.0 254.9,111.0 255.9,111.0 256.9,111.0 257.8,111.0 258.8,111.0 259.8,111.0 260.7,111.0 261.7,111.0 262.7,111.0 263.6,111.0 264.6,111.0 265.6,111.0 266.5,111.0 267.5,111.0 268.5,111.0 269.4,111.0 270.4,111.0 271.4,111.0 272.3,111.0 273.3,111.0 274.3,111.0 275.2,111.0 276.2,111.0 277.2,111.0 278.1,111.0 279.1,111.0 280.1,111.0 281.0,111.0 282.0,111.0 283.0,111.0 283.9,111.0 284.9,111.0 285.9,111.0 286.8,111.0 287.8,111.0 288.8,111.0 289.7,111.0 290.7,111.0 291.7,111.0 292.6,111.0 293.6,111.0 294.6,111.0 295.5,111.0 296.5,111.0 297.5,111.0 298.4,111.0 299.4,111.0 300.4,111.0 301.3,111.0 302.3,111.0 303.3,111.0 304.2,111.0 305.2,111.0 306.2,111.0 307.1,111.0 308.1,111.0 309.1,111.0 310.0,111.0 311.0,111.0 312.0,111.0 312.9,111.0 313.9,111.0 314.9,111.0 315.8,111.0 316.8,111.0 317.8,111.0 318.7,111.0 319.7,111.0 320.7,111.0 321.6,111.0 322.6,111.0 323.6,111.0 324.5,111.0 325.5,111.0 326.5,111.0 327.4,111.0 328.4,111.0 329.4,111.0 330.3,111.0 331.3,111.0 332.3,111.0 333.2,111.0 334.2,111.0 335.2,111.0 336.1,111.0 337.1,111.0 338.1,111.0 339.0,111.0 340.0,111.0" fill="none" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 4" />
+  <polyline points="50.0,300.0 51.0,296.5 51.9,293.1 52.9,289.7 53.9,286.4 54.8,283.2 55.8,280.0 56.8,276.8 57.7,273.8 58.7,270.8 59.7,267.8 60.6,264.9 61.6,262.1 62.6,259.3 63.5,256.5 64.5,253.8 65.5,251.2 66.4,248.6 67.4,246.1 68.4,243.6 69.3,241.1 70.3,238.7 71.3,236.3 72.2,234.0 73.2,231.8 74.2,229.5 75.1,227.3 76.1,225.2 77.1,223.1 78.0,221.0 79.0,219.0 80.0,217.0 80.9,215.0 81.9,213.1 82.9,211.2 83.8,209.3 84.8,207.5 85.8,205.7 86.7,204.0 87.7,202.3 88.7,200.6 89.6,198.9 90.6,197.3 91.6,195.7 92.5,194.1 93.5,192.6 94.5,191.1 95.4,189.6 96.4,188.1 97.4,186.7 98.3,185.3 99.3,183.9 100.3,182.6 101.2,181.3 102.2,180.0 103.2,178.7 104.1,177.4 105.1,176.2 106.1,175.0 107.0,173.8 108.0,172.7 109.0,171.5 109.9,170.4 110.9,169.3 111.9,168.2 112.8,167.2 113.8,166.1 114.8,165.1 115.7,164.1 116.7,163.1 117.7,162.2 118.6,161.2 119.6,160.3 120.6,159.4 121.5,158.5 122.5,157.6 123.5,156.7 124.4,155.9 125.4,155.1 126.4,154.3 127.3,153.5 128.3,152.7 129.3,151.9 130.2,151.1 131.2,150.4 132.2,149.7 133.1,149.0 134.1,148.3 135.1,147.6 136.0,146.9 137.0,146.2 138.0,145.6 138.9,144.9 139.9,144.3 140.9,143.7 141.8,143.1 142.8,142.5 143.8,141.9 144.7,141.3 145.7,140.8 146.7,140.2 147.6,139.7 148.6,139.2 149.6,138.6 150.5,138.1 151.5,137.6 152.5,137.1 153.4,136.6 154.4,136.2 155.4,135.7 156.3,135.2 157.3,134.8 158.3,134.4 159.2,133.9 160.2,133.5 161.2,133.1 162.1,132.7 163.1,132.3 164.1,131.9 165.0,131.5 166.0,131.1 167.0,130.7 167.9,130.4 168.9,130.0 169.9,129.7 170.8,129.3 171.8,129.0 172.8,128.7 173.7,128.3 174.7,128.0 175.7,127.7 176.6,127.4 177.6,127.1 178.6,126.8 179.5,126.5 180.5,126.2 181.5,125.9 182.4,125.6 183.4,125.4 184.4,125.1 185.3,124.9 186.3,124.6 187.3,124.3 188.2,124.1 189.2,123.9 190.2,123.6 191.1,123.4 192.1,123.2 193.1,122.9 194.0,122.7 195.0,122.5 196.0,122.3 196.9,122.1 197.9,121.9 198.9,121.7 199.8,121.5 200.8,121.3 201.8,121.1 202.7,120.9 203.7,120.7 204.7,120.5 205.6,120.4 206.6,120.2 207.6,120.0 208.5,119.8 209.5,119.7 210.5,119.5 211.4,119.4 212.4,119.2 213.4,119.1 214.3,118.9 215.3,118.8 216.3,118.6 217.2,118.5 218.2,118.3 219.2,118.2 220.1,118.1 221.1,117.9 222.1,117.8 223.0,117.7 224.0,117.6 225.0,117.4 225.9,117.3 226.9,117.2 227.9,117.1 228.8,117.0 229.8,116.9 230.8,116.8 231.7,116.7 232.7,116.5 233.7,116.4 234.6,116.3 235.6,116.2 236.6,116.2 237.5,116.1 238.5,116.0 239.5,115.9 240.4,115.8 241.4,115.7 242.4,115.6 243.3,115.5 244.3,115.4 245.3,115.4 246.2,115.3 247.2,115.2 248.2,115.1 249.1,115.0 250.1,115.0 251.1,114.9 252.0,114.8 253.0,114.7 254.0,114.7 254.9,114.6 255.9,114.5 256.9,114.5 257.8,114.4 258.8,114.4 259.8,114.3 260.7,114.2 261.7,114.2 262.7,114.1 263.6,114.1 264.6,114.0 265.6,113.9 266.5,113.9 267.5,113.8 268.5,113.8 269.4,113.7 270.4,113.7 271.4,113.6 272.3,113.6 273.3,113.5 274.3,113.5 275.2,113.4 276.2,113.4 277.2,113.4 278.1,113.3 279.1,113.3 280.1,113.2 281.0,113.2 282.0,113.1 283.0,113.1 283.9,113.1 284.9,113.0 285.9,113.0 286.8,113.0 287.8,112.9 288.8,112.9 289.7,112.8 290.7,112.8 291.7,112.8 292.6,112.7 293.6,112.7 294.6,112.7 295.5,112.6 296.5,112.6 297.5,112.6 298.4,112.6 299.4,112.5 300.4,112.5 301.3,112.5 302.3,112.4 303.3,112.4 304.2,112.4 305.2,112.4 306.2,112.3 307.1,112.3 308.1,112.3 309.1,112.3 310.0,112.2 311.0,112.2 312.0,112.2 312.9,112.2 313.9,112.2 314.9,112.1 315.8,112.1 316.8,112.1 317.8,112.1 318.7,112.1 319.7,112.0 320.7,112.0 321.6,112.0 322.6,112.0 323.6,112.0 324.5,111.9 325.5,111.9 326.5,111.9 327.4,111.9 328.4,111.9 329.4,111.9 330.3,111.8 331.3,111.8 332.3,111.8 333.2,111.8 334.2,111.8 335.2,111.8 336.1,111.8 337.1,111.7 338.1,111.7 339.0,111.7 340.0,111.7" fill="none" stroke="var(--t1-ink)" stroke-width="2.6" />
+  <circle cx="50.0" cy="300.0" r="3.5" fill="var(--t1-ink)" />
+  <text x="338.0" y="127.0" text-anchor="end" fill="var(--t2-ink)" font-size="12" font-style="italic">v = 35</text>
+  </g>
+</svg>

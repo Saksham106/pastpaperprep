@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="t">
+  <title id="t">A right cone with vertex V. A dashed vertical height h runs from V down to O, the centre of the circular base. A radius r runs from O to the edge of the base, and the slant height l runs down the side from V to the same point, so h, r and l form a shaded right-angled triangle with the right angle at O.</title>
+  <polygon points="160,30 160,200 250,200" fill="var(--t1-ink)" fill-opacity="0.15" stroke="none"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+    <path d="M70,200 A90,22 0 0,0 250,200"/>
+    <line x1="160" y1="30" x2="70" y2="200"/>
+  </g>
+  <path d="M70,200 A90,22 0 0,1 250,200" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.55"/>
+  <g fill="none" stroke="var(--t1-ink)" stroke-width="2">
+    <line x1="160" y1="30" x2="250" y2="200"/>
+    <line x1="160" y1="200" x2="250" y2="200"/>
+    <line x1="160" y1="30" x2="160" y2="200" stroke-dasharray="6 4"/>
+  </g>
+  <polyline points="160,190 170,190 170,200" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <g font-family="inherit" fill="currentColor" font-size="15">
+    <text x="153" y="22">V</text>
+    <text x="146" y="218">O</text>
+  </g>
+  <g font-family="inherit" fill="var(--t1-ink)" font-size="16" font-style="italic">
+    <text x="144" y="125">h</text>
+    <text x="203" y="216">r</text>
+    <text x="214" y="112">l</text>
+  </g>
+</svg>

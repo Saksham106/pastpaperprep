@@ -1,0 +1,949 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.18",
+  "slug": "further-hypothesis-tests-and-errors",
+  "title": "Further hypothesis tests and errors",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "HL adds tests for a mean (z or t), a proportion (binomial), a Poisson rate and [[correlation|correlation]] ($\\rho = 0$). You also find [[critical-region|critical regions]] and the probabilities of [[type-i-error|Type I]] and [[type-ii-error|Type II errors]].",
+  "goals": [
+    {
+      "text": "Find [[critical-value|critical values]] and critical regions for a test on a normal mean, and decide a test with them.",
+      "bullets": [
+        "4.18-b1"
+      ]
+    },
+    {
+      "text": "Test a [[population|population]] mean with a z-test when $\\sigma$ is known and a [[t-test|t-test]] when it is not, including [[matched-pairs|matched pairs]].",
+      "bullets": [
+        "4.18-b2"
+      ]
+    },
+    {
+      "text": "Test a proportion with the [[binomial-distribution|binomial distribution]] and a mean rate with the [[poisson-distribution|Poisson distribution]], one-tailed, and choose the critical region.",
+      "bullets": [
+        "4.18-b3",
+        "4.18-b4",
+        "4.18-b7"
+      ]
+    },
+    {
+      "text": "Use your GDC to test $\\mathrm{H}_0$: $\\rho = 0$ and interpret the result.",
+      "bullets": [
+        "4.18-b5"
+      ]
+    },
+    {
+      "text": "Describe Type I and Type II errors in context and calculate their probabilities.",
+      "bullets": [
+        "4.18-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.4",
+    "4.7",
+    "4.8",
+    "4.9",
+    "4.11",
+    "4.14",
+    "4.15",
+    "4.16",
+    "4.17"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "critical region hypothesis test",
+    "one sample z test",
+    "paired t test",
+    "binomial hypothesis test",
+    "poisson hypothesis test",
+    "type 1 and type 2 errors"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sample-mean-sd",
+      "prompt": "$X \\sim \\mathrm{N}(80, 12^{2})$. A random sample of $16$ values is taken. Write down the standard deviation of the sample mean $\\bar{X}$.",
+      "hint": "The standard deviation of $\\bar{X}$ is $\\frac{\\sigma}{\\sqrt{n}}$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{12}{\\sqrt{16}} = \\frac{12}{4} = 3$. Revise it in {{lesson:4.15}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12/sqrt(16)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-tail",
+      "prompt": "$X \\sim \\mathrm{B}(10, 0.2)$. Find $\\mathrm{P}(X \\ge 4)$, to 3 s.f.",
+      "hint": "$\\mathrm{P}(X \\ge 4) = 1 - \\mathrm{P}(X \\le 3)$.",
+      "answer": {
+        "value": 0.121,
+        "tolerance": 0.0005
+      },
+      "explain": "$1 - \\mathrm{P}(X \\le 3) = 1 - 0.87913 = 0.121$ (3 s.f.). Revise it in {{lesson:4.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - binomcdf(10, 0.2, 3)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-p-value-decide",
+      "prompt": "A test at the $5\\%$ [[significance-level|significance level]] gives a [[p-value|p-value]] of $0.072$. What do you conclude?",
+      "hint": "Reject $\\mathrm{H}_0$ only when the p-value is less than the significance level.",
+      "options": [
+        {
+          "text": "Reject H₀",
+          "correct": false
+        },
+        {
+          "text": "Do not reject H₀",
+          "correct": true
+        },
+        {
+          "text": "H₀ is proved true",
+          "correct": false
+        }
+      ],
+      "explain": "$0.072 > 0.05$, so do not reject $\\mathrm{H}_0$: there is insufficient evidence for $\\mathrm{H}_1$. Revise it in {{lesson:4.11}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Do not reject H₀"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "critical",
+      "heading": "Critical values and critical regions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.11}} you decided with a p-value. Another route: fix in advance which results reject $\\mathrm{H}_0$, then see where your result lands."
+        },
+        {
+          "type": "definition",
+          "term": "Critical region",
+          "statement": "The [[critical-region|critical region]] is the set of values of the test statistic that lead to rejecting $\\mathrm{H}_0$. Its boundary is the [[critical-value|critical value]].",
+          "plain": "The \"reject\" zone, fixed before you look at the data."
+        },
+        {
+          "type": "text",
+          "text": "To test the mean of a [[normal-distribution|normal distribution]] with known $\\sigma$, use $\\bar{x}$ as the test statistic. If $\\mathrm{H}_0$: $\\mu = \\mu_0$ is true, the [[distribution-of-the-sample-mean|distribution of the sample mean]] is:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\bar{X} \\sim \\mathrm{N}\\left(\\mu_0, \\frac{\\sigma^{2}}{n}\\right)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The critical region is the tail $\\mathrm{H}_1$ points to, with area equal to the [[significance-level|significance level]]; a [[two-tailed-test|two-tailed test]] puts half in each tail. Find the boundary with the [[inverse-normal|inverse normal]]."
+        },
+        {
+          "type": "text",
+          "text": "Standardising, $z = \\frac{\\bar{x} - \\mu_0}{\\sigma/\\sqrt{n}}$, gives critical values of $z$ instead, such as $-1.645$ for a lower-tail $5\\%$ test. The decision is the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-critical-rice",
+          "question": "Bags of rice have masses that are normally distributed with $\\sigma = 15$ g. The label says the mean is $1000$ g. An inspector weighs $9$ bags and tests $\\mathrm{H}_0$: $\\mu = 1000$ against $\\mathrm{H}_1$: $\\mu < 1000$ at the $5\\%$ level. Find the critical value of $\\bar{x}$, to 1 decimal place, and state the critical region.",
+          "steps": [
+            "Under $\\mathrm{H}_0$, $\\bar{X} \\sim \\mathrm{N}\\left(1000, \\frac{15^{2}}{9}\\right)$, a standard deviation of $\\frac{15}{\\sqrt{9}} = 5$ g.",
+            "$\\mathrm{H}_1$ is \"less than\": inverse normal with area $0.05$ to the left, $\\mu = 1000$, $\\sigma = 5$, gives $c = 991.7757\\ldots$.",
+            "Critical region: $\\bar{x} < 991.8$ g. A sample mean in it is evidence that the bags are underfilled on average."
+          ],
+          "answer": "$c \\approx 991.8$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "invnorm(0.05, 1000, 15/sqrt(9))",
+            "dp": 1
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-normal",
+          "values": {
+            "area": 0.05,
+            "mean": 1000,
+            "sd": 5,
+            "tail": "LEFT"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-critical-bolts",
+          "question": "A machine cuts bolts whose lengths are normally distributed with $\\sigma = 0.12$ mm. The target mean is $40$ mm. A sample of $16$ bolts is used to test, at the $1\\%$ level, whether the mean length has changed. Find the critical region for $\\bar{x}$, giving the critical values to 3 decimal places.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\mu = 40$; $\\mathrm{H}_1$: $\\mu \\neq 40$, two-tailed. Under $\\mathrm{H}_0$, $\\bar{X} \\sim \\mathrm{N}(40, 0.03^{2})$, since $\\frac{0.12}{\\sqrt{16}} = 0.03$.",
+            "Put $0.005$ in each tail. Inverse normal with area $0.005$ to the left gives $39.92272\\ldots$; area $0.995$ gives $40.07727\\ldots$.",
+            "Critical region: $\\bar{x} < 39.923$ or $\\bar{x} > 40.077$. A sample mean of $40.05$ mm would not be evidence of a change."
+          ],
+          "answer": "$c \\approx 39.923 \\text{ or } c \\approx 40.077$",
+          "check": {
+            "type": "check",
+            "id": "check-bolts-sample",
+            "prompt": "Now you try: a sample of $16$ bolts has mean length $39.915$ mm. What do you conclude at the $1\\%$ level?",
+            "hint": "Is $39.915$ in the critical region?",
+            "options": [
+              {
+                "text": "Reject H₀: evidence that the mean length has changed",
+                "correct": true
+              },
+              {
+                "text": "Do not reject H₀: the mean length is 40 mm",
+                "correct": false
+              },
+              {
+                "text": "Do not reject H₀: 39.915 is close to 40",
+                "correct": false
+              }
+            ],
+            "explain": "$39.915 < 39.923$, so it is in the critical region: reject $\\mathrm{H}_0$. There is evidence at the $1\\%$ level that the mean length has changed.",
+            "verify": {
+              "kind": "choice",
+              "truth": "Reject H₀: evidence that the mean length has changed"
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[invnorm(0.005, 40, 0.12/sqrt(16)), invnorm(0.995, 40, 0.12/sqrt(16))]",
+            "dp": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-critical-z",
+          "prompt": "Find the critical value of $z$ for a test with $\\mathrm{H}_1$: $\\mu > \\mu_0$ at the $1\\%$ level. Give it to 3 s.f.",
+          "hint": "The upper tail has area $0.01$, so the area to the left is $0.99$.",
+          "answer": {
+            "value": 2.33,
+            "tolerance": 0.005
+          },
+          "explain": "Inverse normal, area $0.99$, $\\mu = 0$, $\\sigma = 1$: $z = 2.326\\ldots \\approx 2.33$. Reject $\\mathrm{H}_0$ if $z > 2.33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "invnorm(0.99, 0, 1)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "normal-mean",
+      "heading": "Testing a population mean: z or t",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "For a normally distributed population, test $\\mathrm{H}_0$: $\\mu = \\mu_0$ with a z-test when $\\sigma$ is known, and with a one-sample [[t-test|t-test]] when $\\sigma$ is unknown, whatever the sample size.",
+          "why": "Estimating $\\sigma$ from the sample adds uncertainty; the [[t-distribution|t-distribution]] allows for it."
+        },
+        {
+          "type": "text",
+          "text": "$\\sigma$ is known only when the question gives the population value. A standard deviation from the sample is not $\\sigma$. The t-test uses $t = \\frac{\\bar{x} - \\mu_0}{s_{n-1}/\\sqrt{n}}$ with $n - 1$ [[degrees-of-freedom|degrees of freedom]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-z-cereal",
+          "question": "A machine fills cereal boxes. The mass is normally distributed with $\\sigma = 3.2$ g, and the target mean is $375$ g. A sample of $10$ boxes has masses, in grams: $373.1, 376.0, 371.5, 374.3, 372.8, 375.2, 370.9, 373.7, 374.6, 372.0$. Test at the $10\\%$ level whether the mean mass is below target. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\mu = 375$; $\\mathrm{H}_1$: $\\mu < 375$, where $\\mu$ is the population mean mass in grams.",
+            "$\\sigma$ is known, so use a z-test: data list, $\\mu_0 = 375$, $\\sigma = 3.2$, $\\mu < \\mu_0$. The GDC gives $\\bar{x} = 373.41$, $z = -1.5712\\ldots$, p-value $= 0.058061\\ldots$.",
+            "$0.0581 < 0.10$, so reject $\\mathrm{H}_0$: there is evidence at the $10\\%$ level that the mean mass is below $375$ g. At $5\\%$ it would not be enough."
+          ],
+          "answer": "$p \\approx 0.0581$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(-oo, avg([373.1, 376.0, 371.5, 374.3, 372.8, 375.2, 370.9, 373.7, 374.6, 372.0]), 375, 3.2/sqrt(10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "z-test-one-sample",
+          "values": {
+            "sample": "373.1, 376.0, 371.5, 374.3, 372.8, 375.2, 370.9, 373.7, 374.6, 372.0",
+            "mu0": 375,
+            "sigma": 3.2,
+            "alternative": "<"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-t-helpline",
+          "question": "A helpline says its mean waiting time is $6$ minutes. A journalist thinks it is longer. She records $9$ waits, in minutes: $6.8, 7.4, 5.9, 8.1, 6.5, 7.0, 6.2, 7.7, 6.9$. Assume waiting times are normally distributed. Test her claim at the $5\\%$ level, giving the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\mu = 6$; $\\mathrm{H}_1$: $\\mu > 6$, where $\\mu$ is the population mean waiting time in minutes.",
+            "No population $\\sigma$ is given, so use a one-sample t-test with $\\mu_0 = 6$ and $\\mu > \\mu_0$.",
+            "The GDC gives $\\bar{x} = 6.9444\\ldots$, $t = 4.0158\\ldots$, $\\text{df} = 8$ and p-value $= 0.0019316\\ldots$.",
+            "$0.00193 < 0.05$, so reject $\\mathrm{H}_0$: there is evidence at the $5\\%$ level that the mean wait is longer than $6$ minutes."
+          ],
+          "answer": "$p \\approx 0.00193$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "tcdf(ttest1([6.8, 7.4, 5.9, 8.1, 6.5, 7.0, 6.2, 7.7, 6.9], 6), oo, 9 - 1)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "t-test-one-sample",
+          "values": {
+            "sample": "6.8, 7.4, 5.9, 8.1, 6.5, 7.0, 6.2, 7.7, 6.9",
+            "mu0": 6,
+            "alternative": ">"
+          }
+        },
+        {
+          "type": "text",
+          "text": "You won't be asked for a critical region in a t-test: decide with the p-value."
+        },
+        {
+          "type": "check",
+          "id": "check-z-delivery",
+          "prompt": "A courier's delivery times are normally distributed with $\\sigma = 6$ minutes. The usual mean is $50$ minutes. On a new route, $12$ deliveries have mean $52.6$ minutes. Find the p-value for testing $\\mathrm{H}_0$: $\\mu = 50$ against $\\mathrm{H}_1$: $\\mu > 50$. Give it to 3 s.f.",
+          "hint": "Under $\\mathrm{H}_0$, $\\bar{X} \\sim \\mathrm{N}\\left(50, \\frac{6^{2}}{12}\\right)$. Find $\\mathrm{P}(\\bar{X} \\ge 52.6)$.",
+          "answer": {
+            "value": 0.0667,
+            "tolerance": 0.00005
+          },
+          "explain": "$\\mathrm{P}(\\bar{X} \\ge 52.6) = 0.0667$ (3 s.f.). At the $5\\%$ level that is insufficient evidence that the new route is slower.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "normcdf(52.6, oo, 50, 6/sqrt(12))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-z-or-t",
+          "prompt": "Bottle volumes are normally distributed. A sample of $200$ bottles has mean $498.6$ ml and $s_{n-1} = 4.1$ ml. Which test of $\\mathrm{H}_0$: $\\mu = 500$ should you use?",
+          "hint": "Was the $4.1$ ml given for the population or found from the sample?",
+          "options": [
+            {
+              "text": "A t-test, because σ is unknown",
+              "correct": true
+            },
+            {
+              "text": "A z-test, because the sample is large",
+              "correct": false
+            },
+            {
+              "text": "A z-test, because the population is normal",
+              "correct": false
+            }
+          ],
+          "explain": "The $4.1$ ml comes from the sample, so $\\sigma$ is unknown: use a t-test, whatever the sample size.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A t-test, because σ is unknown"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a z-test because the sample is large, or entering the sample's $s_{n-1}$ as $\\sigma$. Unless the population $\\sigma$ is given, use the t-test."
+        }
+      ]
+    },
+    {
+      "id": "matched-pairs",
+      "heading": "Matched pairs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes each subject is measured twice, such as before and after a course. The lists are linked, so the two-sample t-test from {{lesson:4.11}} does not apply."
+        },
+        {
+          "type": "definition",
+          "term": "Matched pairs",
+          "statement": "Data are [[matched-pairs|matched pairs]] when each value in one sample is paired with one value in the other, because both come from the same subject.",
+          "plain": "Two measurements on each person, compared person by person."
+        },
+        {
+          "type": "result",
+          "statement": "For matched pairs, find each difference $d$, always in the same order. Then run a one-sample t-test on the differences, with $\\mathrm{H}_0$: $\\mu_d = 0$, assuming the differences are normally distributed.",
+          "why": "Each subject is their own control, so the differences remove the variation between subjects."
+        },
+        {
+          "type": "example",
+          "id": "ex-paired-runners",
+          "question": "Eight runners time a $5$ km run before and after a six-week training plan. Times, in minutes, before: $24.6, 26.1, 22.8, 25.4, 27.0, 23.5, 24.9, 26.3$. After (same runners, same order): $24.1, 25.3, 22.9, 24.6, 26.2, 23.4, 24.0, 25.8$. Assume the differences are normally distributed. Test at the $5\\%$ level whether the plan reduces the mean time. Give the p-value to 3 s.f.",
+          "steps": [
+            "Matched pairs: let $d = \\text{before} - \\text{after}$, so a faster time after gives $d > 0$. $\\mathrm{H}_0$: $\\mu_d = 0$; $\\mathrm{H}_1$: $\\mu_d > 0$, where $\\mu_d$ is the population mean difference.",
+            "Differences: $0.5, 0.8, -0.1, 0.8, 0.8, 0.1, 0.9, 0.5$. One-sample t-test on them with $\\mu_0 = 0$: $t = 4.1514\\ldots$, $\\text{df} = 7$, p-value $= 0.0021437\\ldots$.",
+            "$0.00214 < 0.05$: reject $\\mathrm{H}_0$. There is evidence at the $5\\%$ level that the plan reduces the mean time. With no comparison group, other causes (such as cooler weather) can't be ruled out."
+          ],
+          "answer": "$p \\approx 0.00214$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "tcdf(ttest1([24.6 - 24.1, 26.1 - 25.3, 22.8 - 22.9, 25.4 - 24.6, 27.0 - 26.2, 23.5 - 23.4, 24.9 - 24.0, 26.3 - 25.8], 0), oo, 8 - 1)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "t-test-paired",
+          "values": {
+            "before": "24.6, 26.1, 22.8, 25.4, 27.0, 23.5, 24.9, 26.3",
+            "after": "24.1, 25.3, 22.9, 24.6, 26.2, 23.4, 24.0, 25.8",
+            "alternative": ">"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-paired-design",
+          "question": "A teacher gives $12$ students a spelling test in silence and a similar test with music playing. (a) Explain why a matched pairs test is suitable. (b) Write down hypotheses to test whether music changes the mean score.",
+          "steps": [
+            "(a) Each student sits both tests, so the scores pair up. Each student's difference removes the big variation in spelling ability.",
+            "(b) Let $d = \\text{silent score} - \\text{music score}$. \"Changes\" has no direction, so $\\mathrm{H}_1$ uses $\\neq$."
+          ],
+          "answer": "(a) Both scores come from the same student, so the data are matched pairs: analyse the differences as one sample. (b) $\\mathrm{H}_0$: $\\mu_d = 0$; $\\mathrm{H}_1$: $\\mu_d \\neq 0$, where $\\mu_d$ is the population mean difference, silent minus music.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same student sits both tests, so test the differences as one sample; H0 mu_d = 0 against mu_d not equal to 0",
+            "requires": [
+              "same student",
+              "differences",
+              "one sample",
+              "population mean difference"
+            ],
+            "forbids": [
+              "two-sample",
+              "sample mean difference is"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-paired-which",
+          "prompt": "Which study gives matched pairs?",
+          "hint": "Look for two measurements on the same subjects.",
+          "options": [
+            {
+              "text": "Blood pressure of 20 patients, before and after a drug",
+              "correct": true
+            },
+            {
+              "text": "Heights of 20 boys and 20 girls from one school",
+              "correct": false
+            },
+            {
+              "text": "Test scores from two different classes",
+              "correct": false
+            }
+          ],
+          "explain": "Only the blood pressure study measures the same patients twice, so only it gives matched pairs. The others compare two separate groups.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Blood pressure of 20 patients, before and after a drug"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-paired-grip",
+          "prompt": "Six people have their grip strength measured with each hand. The differences, right minus left, in kg, are $2.1, -0.4, 1.8, 0.9, 1.5, 0.6$. Find the t statistic for testing $\\mathrm{H}_0$: $\\mu_d = 0$. Give it to 3 s.f.",
+          "hint": "Run a one-sample t-test on the differences with $\\mu_0 = 0$.",
+          "answer": {
+            "value": 2.9,
+            "tolerance": 0.005
+          },
+          "explain": "The GDC gives $\\bar{d} = 1.0833\\ldots$, $s_{n-1} = 0.91524\\ldots$ and $t = \\frac{1.0833\\ldots}{0.91524\\ldots/\\sqrt{6}} = 2.899\\ldots \\approx 2.90$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "ttest1([2.1, -0.4, 1.8, 0.9, 1.5, 0.6], 0)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Running a two-sample t-test on paired data. If the same subjects give both values, test the differences as one sample."
+        }
+      ]
+    },
+    {
+      "id": "discrete",
+      "heading": "Tests with the binomial and Poisson distributions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When the test counts things, the count is a [[discrete-random-variable|discrete random variable]]. Test a proportion $p$ with the [[binomial-distribution|binomial distribution]] $X \\sim \\mathrm{B}(n, p)$, and a mean rate $m$ with the [[poisson-distribution|Poisson distribution]] $X \\sim \\mathrm{Po}(m)$."
+        },
+        {
+          "type": "result",
+          "statement": "Binomial and Poisson tests are [[one-tailed-test|one-tailed]] in this course. With observed count $x$ and $X$ following the $\\mathrm{H}_0$ distribution, the p-value is $\\mathrm{P}(X \\le x)$ when $\\mathrm{H}_1$ says the parameter is smaller, and $\\mathrm{P}(X \\ge x)$ when it says larger.",
+          "why": "These are the results at least as extreme as the one observed, in the direction of $\\mathrm{H}_1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-binomial-seeds",
+          "question": "A seed company claims $85\\%$ of its tomato seeds germinate. A gardener plants $40$ seeds and $29$ germinate. Test at the $5\\%$ level whether the germination rate is lower than claimed. Give the p-value to 3 s.f.",
+          "steps": [
+            "Let $p$ be the proportion of all the company's seeds that germinate. $\\mathrm{H}_0$: $p = 0.85$; $\\mathrm{H}_1$: $p < 0.85$.",
+            "Under $\\mathrm{H}_0$, $X \\sim \\mathrm{B}(40, 0.85)$. p-value $= \\mathrm{P}(X \\le 29) = 0.029920\\ldots$.",
+            "$0.0299 < 0.05$: reject $\\mathrm{H}_0$. There is evidence at the $5\\%$ level that fewer than $85\\%$ of the seeds germinate."
+          ],
+          "answer": "$\\mathrm{P}(X \\le 29) \\approx 0.0299$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "binomcdf(40, 0.85, 29)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "binomial-test",
+          "values": {
+            "n": 40,
+            "p0": 0.85,
+            "observed": 29
+          }
+        },
+        {
+          "type": "result",
+          "statement": "For a binomial or Poisson test, the critical region is the tail with the largest probability under $\\mathrm{H}_0$ that is still less than the significance level.",
+          "why": "The probabilities jump from one count to the next, so a tail can rarely hit the level exactly."
+        },
+        {
+          "type": "example",
+          "id": "ex-binomial-airline",
+          "question": "An airline finds that $12\\%$ of passengers with bookings don't turn up. It thinks this rate has risen. It will check $50$ bookings and test at the $5\\%$ level. Find the critical region for $X$, the number of passengers who don't turn up.",
+          "steps": [
+            "$\\mathrm{H}_0$: $p = 0.12$; $\\mathrm{H}_1$: $p > 0.12$, where $p$ is the proportion of all booked passengers who don't turn up. Under $\\mathrm{H}_0$, $X \\sim \\mathrm{B}(50, 0.12)$. A rise means large $X$, so find the smallest $c$ with $\\mathrm{P}(X \\ge c) < 0.05$.",
+            "Use $\\mathrm{P}(X \\ge c) = 1 - \\mathrm{P}(X \\le c - 1)$: $\\mathrm{P}(X \\ge 10) = 0.0707\\ldots$, too big; $\\mathrm{P}(X \\ge 11) = 0.0324\\ldots < 0.05$.",
+            "Critical region: $X \\ge 11$. If $11$ or more of the $50$ don't turn up, the airline rejects $\\mathrm{H}_0$."
+          ],
+          "answer": "$X \\ge 11$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "var": "X",
+            "truth": "X >= Piecewise((11, And(1 - binomcdf(50, 0.12, 10) < 0.05, 1 - binomcdf(50, 0.12, 9) >= 0.05)), (-1, S.true))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-poisson-road",
+          "question": "Accidents on a road have happened at a mean rate of $2.4$ per week. After a speed camera is installed, the council will count accidents over $3$ weeks and test at the $5\\%$ level whether the rate has fallen. Assume the number of accidents follows a Poisson distribution. (a) Find the critical region. (b) There are $3$ accidents in the $3$ weeks. State the conclusion.",
+          "steps": [
+            "(a) Over $3$ weeks, $\\mathrm{H}_0$: $m = 3 \\times 2.4 = 7.2$; $\\mathrm{H}_1$: $m < 7.2$, where $m$ is the mean number of accidents in $3$ weeks. So $X \\sim \\mathrm{Po}(7.2)$.",
+            "A fall means small $X$: find the largest $c$ with $\\mathrm{P}(X \\le c) < 0.05$. $\\mathrm{P}(X \\le 2) = 0.0254\\ldots$ and $\\mathrm{P}(X \\le 3) = 0.0719\\ldots$, so the critical region is $X \\le 2$.",
+            "(b) $3$ is not in the critical region: do not reject $\\mathrm{H}_0$. There is insufficient evidence at the $5\\%$ level that the accident rate has fallen."
+          ],
+          "answer": "$X \\le 2$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "var": "X",
+            "truth": "X <= Piecewise((2, And(poissoncdf(3*2.4, 2) < 0.05, poissoncdf(3*2.4, 3) >= 0.05)), (-1, S.true))"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "poisson-cdf",
+          "values": {
+            "mean": 7.2,
+            "k": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-poisson-region",
+          "prompt": "Emails reach a help desk at a mean rate of $4.5$ per hour. A manager thinks the rate has increased. She counts emails in one hour and tests at the $5\\%$ level, assuming a Poisson distribution. Which is the critical region?",
+          "hint": "Find the smallest $c$ with $\\mathrm{P}(X \\ge c) < 0.05$, using $1 - \\mathrm{P}(X \\le c - 1)$ with $m = 4.5$.",
+          "options": [
+            {
+              "text": "$X \\ge 8$",
+              "correct": false
+            },
+            {
+              "text": "$X \\ge 9$",
+              "correct": true
+            },
+            {
+              "text": "$X \\ge 10$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(X \\ge 8) = 0.0866 > 0.05$ but $\\mathrm{P}(X \\ge 9) = 0.0403 < 0.05$. $X \\ge 10$ is also below $0.05$, but $X \\ge 9$ has the larger probability.",
+          "verify": {
+            "kind": "inequality",
+            "var": "X",
+            "truth": "X >= Piecewise((9, And(1 - poissoncdf(4.5, 8) < 0.05, 1 - poissoncdf(4.5, 7) >= 0.05)), (-1, S.true))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-binomial-walk",
+          "prompt": "A school says $30\\%$ of its students walk to school. A student thinks the proportion is higher. In a random sample of $20$ students, $10$ walk. Find the p-value for her test, to 3 s.f.",
+          "hint": "Under $\\mathrm{H}_0$, $X \\sim \\mathrm{B}(20, 0.3)$. You need $\\mathrm{P}(X \\ge 10)$.",
+          "answer": {
+            "value": 0.048,
+            "tolerance": 0.00005
+          },
+          "explain": "$\\mathrm{P}(X \\ge 10) = 1 - \\mathrm{P}(X \\le 9) = 0.0480$ (3 s.f.), less than $0.05$: she would reject $\\mathrm{H}_0$ at the $5\\%$ level.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - binomcdf(20, 0.3, 9)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $1 - \\mathrm{P}(X \\le x)$ for $\\mathrm{P}(X \\ge x)$. For a whole-number count, that leaves out $x$ itself: $\\mathrm{P}(X \\ge x) = 1 - \\mathrm{P}(X \\le x - 1)$."
+        }
+      ]
+    },
+    {
+      "id": "correlation",
+      "heading": "Testing for correlation: is ρ = 0?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.4}} you found [[pearsons-product-moment-correlation-coefficient|Pearson's product-moment correlation coefficient]] $r$ for a sample. A sample can show some [[correlation|correlation]] even when the [[population|population]] has none. This test asks whether $r$ is far enough from $0$ to count as evidence."
+        },
+        {
+          "type": "definition",
+          "term": "Population product-moment correlation coefficient",
+          "statement": "The [[population-product-moment-correlation-coefficient|population product-moment correlation coefficient]] $\\rho$ (rho) measures linear correlation in the whole population. The sample value $r$ estimates it.",
+          "plain": "The correlation you would get if you could measure every pair in the population."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{H}_0$: $\\rho = 0$, and $\\mathrm{H}_1$ is $\\rho > 0$, $\\rho < 0$ or $\\rho \\neq 0$, following the claim. The test assumes the [[bivariate-data|bivariate data]] come from a bivariate normal distribution. Your GDC gives $r$ and the p-value."
+        },
+        {
+          "type": "example",
+          "id": "ex-rho-advertising",
+          "question": "A chain of $10$ shops records weekly advertising spend, $x$ (£ hundred), and weekly sales, $y$ (units). $x$: $3.2, 5.8, 7.1, 4.5, 8.3, 6.0, 2.9, 7.6, 5.1, 6.7$. $y$: $410, 470, 520, 520, 560, 430, 440, 490, 500, 610$. Assume a bivariate normal distribution. Test at the $5\\%$ level whether there is positive correlation between spend and sales. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\rho = 0$; $\\mathrm{H}_1$: $\\rho > 0$, where $\\rho$ is the population correlation between spend and sales.",
+            "Linear regression t-test with $\\rho > 0$: the GDC gives $r = 0.62339\\ldots$ and p-value $= 0.027071\\ldots$.",
+            "$0.0271 < 0.05$: reject $\\mathrm{H}_0$. There is evidence at the $5\\%$ level of positive correlation between spend and sales. It doesn't show that advertising causes the sales."
+          ],
+          "answer": "$p \\approx 0.0271$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "tcdf(pearson([3.2, 5.8, 7.1, 4.5, 8.3, 6.0, 2.9, 7.6, 5.1, 6.7], [410, 470, 520, 520, 560, 430, 440, 490, 500, 610])*sqrt((10 - 2)/(1 - pearson([3.2, 5.8, 7.1, 4.5, 8.3, 6.0, 2.9, 7.6, 5.1, 6.7], [410, 470, 520, 520, 560, 430, 440, 490, 500, 610])**2)), oo, 10 - 2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "STAT, 1: Edit: x-values in L1, y-values in L2",
+              "STAT, TESTS, F: LinRegTTest",
+              "Xlist: L1, Ylist: L2, Freq: 1, β & ρ: >0 (choose ≠0 or <0 to match H₁), RegEQ blank, Calculate",
+              "Read p, then scroll down to read r"
+            ],
+            "nspire": [
+              "Lists & Spreadsheet page: x-values in column xdata, y-values in column ydata",
+              "Menu, Statistics, Stat Tests, Linear Reg t Test (check on your model)",
+              "X List: xdata, Y List: ydata, Frequency List: 1, Alternate Hyp: β & ρ > 0 (or ≠ 0, < 0 to match H₁), OK (check on your model)",
+              "Read PVal and r"
+            ],
+            "casio": [
+              "MENU, STAT: x-values in List 1, y-values in List 2",
+              "TEST (F3), t (F2), REG (F3), then LinearReg if offered (check on your model)",
+              "XList: List1, YList: List2, Freq: 1, β & ρ: >0 (or ≠0, <0 to match H₁), Execute (check on your model)",
+              "Read p and r"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rho-commute",
+          "question": "For $12$ houses, $x$ is the distance from a city centre (km) and $y$ is the price (£ thousand). $x$: $11, 35, 48, 20, 62, 41, 29, 55, 8, 33, 70, 18$. $y$: $148, 131, 140, 152, 118, 126, 135, 139, 141, 122, 127, 150$. Assume a bivariate normal distribution. Test at the $1\\%$ level whether distance and price are correlated. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: $\\rho = 0$; $\\mathrm{H}_1$: $\\rho \\neq 0$. \"Correlated\" has no direction, so choose $\\neq 0$ on the GDC.",
+            "The GDC gives $r = -0.65591\\ldots$ and p-value $= 0.020552\\ldots$.",
+            "$0.0206 > 0.01$: do not reject $\\mathrm{H}_0$. There is insufficient evidence at the $1\\%$ level of correlation between distance and price, though at $5\\%$ there would be."
+          ],
+          "answer": "$p \\approx 0.0206$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*tcdf(Abs(pearson([11, 35, 48, 20, 62, 41, 29, 55, 8, 33, 70, 18], [148, 131, 140, 152, 118, 126, 135, 139, 141, 122, 127, 150])*sqrt((12 - 2)/(1 - pearson([11, 35, 48, 20, 62, 41, 29, 55, 8, 33, 70, 18], [148, 131, 140, 152, 118, 126, 135, 139, 141, 122, 127, 150])**2))), oo, 12 - 2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rho-hypotheses",
+          "prompt": "A biologist thinks that, in a bird species, longer wings go with lower body mass. Which hypotheses should she test?",
+          "hint": "Hypotheses are about the population, and $\\mathrm{H}_1$ follows the direction of the claim.",
+          "options": [
+            {
+              "text": "H₀: no population correlation; H₁: negative population correlation",
+              "correct": true
+            },
+            {
+              "text": "H₀: no sample correlation; H₁: negative sample correlation",
+              "correct": false
+            },
+            {
+              "text": "H₀: no population correlation; H₁: some population correlation",
+              "correct": false
+            },
+            {
+              "text": "H₀: negative population correlation; H₁: no population correlation",
+              "correct": false
+            }
+          ],
+          "explain": "This is negative correlation in the population: $\\mathrm{H}_0$: $\\rho = 0$, $\\mathrm{H}_1$: $\\rho < 0$. Hypotheses never use the sample $r$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "H₀: no population correlation; H₁: negative population correlation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rho-conclusion",
+          "prompt": "A test of $\\mathrm{H}_0$: $\\rho = 0$ against $\\mathrm{H}_1$: $\\rho > 0$ at the $5\\%$ level gives $r = 0.41$ and a p-value of $0.12$. Which conclusion is correct?",
+          "hint": "Compare the p-value with $0.05$.",
+          "options": [
+            {
+              "text": "Do not reject H₀: insufficient evidence of positive correlation",
+              "correct": true
+            },
+            {
+              "text": "Reject H₀: r = 0.41 shows positive correlation",
+              "correct": false
+            },
+            {
+              "text": "Do not reject H₀: this proves there is no correlation",
+              "correct": false
+            }
+          ],
+          "explain": "$0.12 > 0.05$, so do not reject $\\mathrm{H}_0$. A positive $r$ in the sample is not enough on its own.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Do not reject H₀: insufficient evidence of positive correlation"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing hypotheses about $r$, the sample value. Hypotheses are about the population, so use $\\rho$."
+        }
+      ]
+    },
+    {
+      "id": "errors",
+      "heading": "Type I and Type II errors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A test decides from a sample, so it can go wrong in two ways."
+        },
+        {
+          "type": "definition",
+          "term": "Type I error",
+          "statement": "A [[type-i-error|Type I error]] is rejecting $\\mathrm{H}_0$ when $\\mathrm{H}_0$ is true.",
+          "plain": "A false alarm."
+        },
+        {
+          "type": "definition",
+          "term": "Type II error",
+          "statement": "A [[type-ii-error|Type II error]] is not rejecting $\\mathrm{H}_0$ when $\\mathrm{H}_0$ is false.",
+          "plain": "Missing a real effect."
+        },
+        {
+          "type": "result",
+          "statement": "$\\mathrm{P}(\\text{Type I error})$ is the probability that the test statistic is in the critical region when $\\mathrm{H}_0$ is true. For a normal test with known $\\sigma$ it equals the significance level; for a binomial or Poisson test it is the critical region's probability under $\\mathrm{H}_0$, which is less than the significance level.",
+          "why": "A Type I error happens exactly when $\\mathrm{H}_0$ is true and the result lands in the critical region."
+        },
+        {
+          "type": "result",
+          "statement": "$\\mathrm{P}(\\text{Type II error})$ is the probability that the test statistic is not in the critical region, worked out with a stated true value of the parameter.",
+          "why": "A false $\\mathrm{H}_0$ allows many true values, so you need one specific value to get a probability."
+        },
+        {
+          "type": "text",
+          "text": "So for a Type II probability: find the critical region with the $\\mathrm{H}_0$ distribution, switch to the true parameter value, then find the probability of landing outside the region."
+        },
+        {
+          "type": "figure",
+          "id": "4-18-error-types",
+          "alt": "Two normal curves for the sample mean bulb life. The right curve, centred on 1500 hours, is the distribution if H0 is true. The left curve, centred on 1440 hours, is the distribution if the true mean is 1440. A dashed vertical line at the critical value 1460.5 splits the axis into reject H0 on the left and do not reject H0 on the right. The small area under the H0 curve left of the line is shaded and labelled Type I, 0.05. The area under the 1440 curve right of the line is shaded and labelled Type II, 0.196.",
+          "caption": "Type I: the $\\mathrm{H}_0$ curve inside the critical region. Type II: the true curve outside it."
+        },
+        {
+          "type": "example",
+          "id": "ex-errors-bulbs",
+          "question": "A maker claims its bulbs last a mean of $1500$ hours. Lifetimes are normally distributed with $\\sigma = 96$ hours. A buyer tests $16$ bulbs, with $\\mathrm{H}_0$: $\\mu = 1500$ against $\\mathrm{H}_1$: $\\mu < 1500$ at the $5\\%$ level. (a) Find the critical region. (b) Write down $\\mathrm{P}(\\text{Type I error})$. (c) The true mean is $1440$ hours. Find $\\mathrm{P}(\\text{Type II error})$, to 3 s.f.",
+          "steps": [
+            "(a) Under $\\mathrm{H}_0$, $\\bar{X} \\sim \\mathrm{N}(1500, 24^{2})$, since $\\frac{96}{\\sqrt{16}} = 24$. Inverse normal, area $0.05$: $c = 1460.523\\ldots$, so the critical region is $\\bar{x} < 1460.5$ hours.",
+            "(b) $\\bar{X}$ is continuous, so $\\mathrm{P}(\\text{Type I error}) = 0.05$ exactly.",
+            "(c) Now $\\bar{X} \\sim \\mathrm{N}(1440, 24^{2})$. Type II means $\\bar{x}$ is outside the critical region: $\\mathrm{P}(\\bar{X} \\ge 1460.523\\ldots) = 0.19623\\ldots$. Use the stored $c$, not $1460.5$.",
+            "Interpret: if the bulbs really average $1440$ hours, this test misses it about $1$ time in $5$."
+          ],
+          "answer": "$\\mathrm{P}(\\text{Type II error}) \\approx 0.196$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(invnorm(0.05, 1500, 96/sqrt(16)), oo, 1440, 96/sqrt(16))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": "1460.5235",
+            "upper": "1E99",
+            "mean": 1440,
+            "sd": 24
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-errors-airline",
+          "question": "In the airline test, $X \\sim \\mathrm{B}(50, 0.12)$ under $\\mathrm{H}_0$ and the critical region is $X \\ge 11$. (a) Find $\\mathrm{P}(\\text{Type I error})$. (b) In fact $25\\%$ of passengers now don't turn up. Find $\\mathrm{P}(\\text{Type II error})$, to 3 s.f.",
+          "steps": [
+            "(a) Type I: $X \\ge 11$ when $p = 0.12$. $1 - \\mathrm{P}(X \\le 10) = 0.0324\\ldots \\approx 0.0325$, below the $5\\%$ level as the discrete rule requires.",
+            "(b) Type II: $X \\le 10$ when the true $p$ is $0.25$. With $X \\sim \\mathrm{B}(50, 0.25)$, $\\mathrm{P}(X \\le 10) = 0.26220\\ldots$.",
+            "Interpret: even though the no-show rate has more than doubled, the test misses it about $26\\%$ of the time."
+          ],
+          "answer": "$\\mathrm{P}(\\text{Type II error}) \\approx 0.262$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "binomcdf(50, 0.25, 10)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-errors-road",
+          "prompt": "In the road test, $X \\sim \\mathrm{Po}(7.2)$ under $\\mathrm{H}_0$ and the critical region is $X \\le 2$. With the camera, the true rate is $1.2$ accidents per week. Find $\\mathrm{P}(\\text{Type II error})$ for the $3$-week count, to 3 s.f.",
+          "hint": "The true mean over $3$ weeks is $3 \\times 1.2$. A Type II error is a count outside the critical region: $X \\ge 3$.",
+          "answer": {
+            "value": 0.697,
+            "tolerance": 0.0005
+          },
+          "explain": "$X \\sim \\mathrm{Po}(3.6)$, so $\\mathrm{P}(X \\ge 3) = 1 - \\mathrm{P}(X \\le 2) = 0.697$ (3 s.f.). Even if the rate halves, a $3$-week count usually misses it.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - poissoncdf(3*1.2, 2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-type-i-context",
+          "prompt": "A food inspector tests $\\mathrm{H}_0$: a restaurant meets hygiene standards. Which is a Type I error?",
+          "hint": "A Type I error rejects $\\mathrm{H}_0$ when it is true.",
+          "options": [
+            {
+              "text": "Deciding it fails the standards when it actually meets them",
+              "correct": true
+            },
+            {
+              "text": "Deciding it meets the standards when it actually fails them",
+              "correct": false
+            },
+            {
+              "text": "Deciding it fails the standards when it actually fails them",
+              "correct": false
+            }
+          ],
+          "explain": "Rejecting \"meets the standards\" when it actually does meet them is a Type I error. Passing a restaurant that fails is a Type II error.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Deciding it fails the standards when it actually meets them"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Finding a Type II probability with the $\\mathrm{H}_0$ parameter. Take the critical region from $\\mathrm{H}_0$, then use the true parameter value."
+        },
+        {
+          "type": "examTip",
+          "text": "To state the meaning of a Type I or Type II error, write it in context: \"concluding the mean life is less than $1500$ hours when it is $1500$ hours\"."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\bar{X} \\sim \\mathrm{N}\\left(\\mu_0, \\frac{\\sigma^{2}}{n}\\right) \\text{ under } \\mathrm{H}_0\\text{: } \\mu = \\mu_0 \\quad (\\text{normal population, } \\sigma \\text{ known})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mean of a normal population: z-test when $\\sigma$ is known, t-test when $\\sigma$ is unknown, whatever the sample size. IB questions don't ask for a critical region in a t-test: decide with the p-value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Matched pairs: take differences $d$ in a fixed order, then a one-sample t-test with $\\mathrm{H}_0$: $\\mu_d = 0$, assuming the differences are normally distributed.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In IB AI, binomial and Poisson tests are one-tailed. The critical region has the largest probability under $\\mathrm{H}_0$ that is still less than the significance level.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Correlation: test $\\mathrm{H}_0$: $\\rho = 0$ with the GDC, assuming a bivariate normal distribution.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Type I error: rejecting a true $\\mathrm{H}_0$. Its probability is the significance level for a normal test with known $\\sigma$, and the critical region's probability under $\\mathrm{H}_0$ for a binomial or Poisson test.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Type II error: not rejecting a false $\\mathrm{H}_0$. Its probability is $\\mathrm{P}(\\text{not in the critical region})$, using a stated true parameter value.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing hypotheses about the sample, such as $\\mathrm{H}_0$: $\\bar{x} = 375$. Use population parameters: $\\mu$, $p$, $m$ or $\\rho$.",
+    "Stating \"reject $\\mathrm{H}_0$\" with no reason. Compare first (p-value with level, or result with critical region), then decide.",
+    "Picking a discrete critical region whose probability is closest to $5\\%$ but above it. It must stay below the significance level.",
+    "Rounding the critical value before a Type II calculation. Store the full GDC value and round only the final answer."
+  ],
+  "examTips": [
+    "**State** hypotheses with the parameter ($\\mu$, $p$, $m$ or $\\rho$) and say in words what it is, such as \"the population mean waiting time\".",
+    "**Find** a discrete critical region: show the tail probabilities either side of the boundary, such as $\\mathrm{P}(X \\ge 10) = 0.0708$ and $\\mathrm{P}(X \\ge 11) = 0.0325$.",
+    "A conclusion needs its reason: the comparison, the decision and the meaning in context, such as \"$0.0299 < 0.05$, so reject $\\mathrm{H}_0$: evidence that fewer than $85\\%$ germinate\". Never write \"proves\".",
+    "Write down the test and what you enter in the GDC: the distribution, its parameters and the direction of $\\mathrm{H}_1$."
+  ],
+  "readingMinutes": 39
+}

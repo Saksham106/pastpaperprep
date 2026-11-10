@@ -1,0 +1,14 @@
+[
+  {
+    "id": "integration-by-inspection",
+    "term": "integration by inspection",
+    "definition": "Finding an integral by recognising the integrand as the derivative of a known function, often by reversing the chain rule, then differentiating the guess to check it and fix any constant factor.",
+    "lesson": "5.11"
+  },
+  {
+    "id": "integration-by-substitution",
+    "term": "integration by substitution",
+    "definition": "Finding $\\int f(g(x))\\,g'(x)\\,\\mathrm{d}x$ by letting $u = g(x)$, so that $g'(x)\\,\\mathrm{d}x$ becomes $\\mathrm{d}u$, integrating with respect to $u$ and writing the answer in terms of $x$ again; for a definite integral, you can change the limits to values of $u$ instead of writing $x$ back.",
+    "lesson": "5.11"
+  }
+]

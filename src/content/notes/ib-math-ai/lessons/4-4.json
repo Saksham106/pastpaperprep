@@ -1,0 +1,942 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.4",
+  "slug": "correlation-and-regression-y-on-x",
+  "title": "Correlation and regression (y on x)",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Pairs of measurements, such as a café's distance from a station and its daily customers, are [[bivariate-data|bivariate data]]. You describe how the two move together, measure a straight-line link with Pearson's $r$, and predict with the [[regression-line|regression line]] of $y$ on $x$. You also learn when a prediction can't be trusted.",
+  "goals": [
+    {
+      "text": "Describe the [[correlation|correlation]] on a [[scatter-diagram|scatter diagram]] by direction and strength.",
+      "bullets": [
+        "4.4-b1"
+      ]
+    },
+    {
+      "text": "Draw a [[line-of-best-fit|line of best fit]] by eye through the [[mean|mean]] point.",
+      "bullets": [
+        "4.4-b3"
+      ]
+    },
+    {
+      "text": "Find Pearson's $r$ on your GDC, compare it with a [[critical-value|critical value]], and know it measures straight-line links only.",
+      "bullets": [
+        "4.4-b2"
+      ]
+    },
+    {
+      "text": "Explain why correlation does not show [[causation|causation]].",
+      "bullets": [
+        "4.4-b4"
+      ]
+    },
+    {
+      "text": "Find $y = ax + b$ on your GDC, predict with it, and interpret $a$ and $b$.",
+      "bullets": [
+        "4.4-b5",
+        "4.4-b6"
+      ]
+    },
+    {
+      "text": "Spot unreliable predictions: [[extrapolation|extrapolation]], or using the line to predict $x$.",
+      "bullets": [
+        "4.4-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.6",
+    "4.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "scatter graph",
+    "line of best fit",
+    "pearson correlation coefficient",
+    "linear regression",
+    "correlation vs causation",
+    "regression line prediction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-points",
+      "prompt": "Find the [[gradient|gradient]] of the line through $(3, 10)$ and $(8, 25)$.",
+      "hint": "Change in $y$ over change in $x$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$m = \\frac{25 - 10}{8 - 3} = \\frac{15}{5} = 3$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(25 - 10)/Integer(8 - 3)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-substitute-line",
+      "prompt": "For the line $y = 2.5x - 4$, find $y$ when $x = 12$.",
+      "hint": "Replace $x$ with $12$.",
+      "answer": {
+        "value": 26,
+        "tolerance": 0
+      },
+      "explain": "$y = 2.5 \\times 12 - 4 = 30 - 4 = 26$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(5, 2)*12 - 4",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mean-four",
+      "prompt": "Find the mean of $19$, $34$, $28$ and $27$.",
+      "hint": "Add them, then divide by $4$.",
+      "answer": {
+        "value": 27,
+        "tolerance": 0
+      },
+      "explain": "$19 + 34 + 28 + 27 = 108$, and $108 \\div 4 = 27$. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Integer(19 + 34 + 28 + 27)/4",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scatter",
+      "heading": "Scatter diagrams and lines of best fit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Do cafés further from a station get fewer customers? You need two measurements from each café, kept as a pair. Data in pairs is [[bivariate-data|bivariate data]]."
+        },
+        {
+          "type": "definition",
+          "term": "Scatter diagram",
+          "statement": "A [[scatter-diagram|scatter diagram]] plots each pair $(x, y)$ of bivariate data as one point.",
+          "plain": "One dot for each thing you measured."
+        },
+        {
+          "type": "text",
+          "text": "Put the variable that might explain the other on the $x$-axis, and the one you want to predict on the $y$-axis."
+        },
+        {
+          "type": "definition",
+          "term": "Correlation",
+          "statement": "Linear [[correlation|correlation]] describes how closely the points follow a straight line, and whether that line slopes up or down.",
+          "plain": "How strongly, and which way, two variables move together."
+        },
+        {
+          "type": "text",
+          "text": "Direction: positive if $y$ tends to rise as $x$ rises, negative if it tends to fall, zero if there is no trend. Strength: strong if the points lie close to a line, weak if loosely spread, none if there is no pattern."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-correlation-types",
+          "alt": "Six small scatter diagrams. Strong positive: points rise in a narrow band. Weak positive: points rise but are widely spread. No correlation: points scattered with no trend. Weak negative: points fall but are widely spread. Strong negative: points fall in a narrow band. Curved: points rise and then fall along a smooth curve.",
+          "caption": "The last panel has a clear pattern, but not a straight-line one."
+        },
+        {
+          "type": "example",
+          "id": "ex-cafe-scatter",
+          "question": "Eight cafés record their distance $x$ km from a train station and their mean number of customers $y$ per day. $x$: $0.2, 0.5, 0.9, 1.3, 1.8, 2.4, 3.0, 3.6$. $y$: $310, 284, 262, 221, 205, 168, 150, 119$. Draw a scatter diagram and describe the correlation in context.",
+          "steps": [
+            "Distance goes on the $x$-axis. Plot the eight points (diagram below).",
+            "As $x$ increases, $y$ decreases: negative. The points lie close to a line: strong.",
+            "In context: cafés further from the station tend to have fewer customers."
+          ],
+          "answer": "Strong negative correlation: cafés further from the station tend to have fewer customers.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "strong negative correlation, in context",
+            "requires": [
+              "strong",
+              "negative",
+              [
+                "fewer customers",
+                "less customers"
+              ]
+            ],
+            "forbids": [
+              "positive",
+              "weak"
+            ]
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-4-cafe-scatter",
+          "alt": "Scatter diagram of customers per day against distance from the station in kilometres for eight cafes. The points fall from about 310 customers at 0.2 km to about 120 customers at 3.6 km, lying close to a straight line."
+        },
+        {
+          "type": "check",
+          "id": "check-describe-screen-sleep",
+          "prompt": "Teenagers with more screen time tend to sleep fewer hours, but the points are widely spread. Describe the correlation.",
+          "hint": "Does sleep rise or fall as screen time rises? Are the points close to a line?",
+          "options": [
+            {
+              "text": "Strong negative correlation",
+              "correct": false
+            },
+            {
+              "text": "Weak negative correlation",
+              "correct": true
+            },
+            {
+              "text": "Weak positive correlation",
+              "correct": false
+            },
+            {
+              "text": "No correlation",
+              "correct": false
+            }
+          ],
+          "explain": "Sleep falls as screen time rises: negative. Widely spread points: weak.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Weak negative correlation"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A straight line through the middle of the points sums up a strong trend."
+        },
+        {
+          "type": "definition",
+          "term": "Line of best fit",
+          "statement": "A [[line-of-best-fit|line of best fit]] by eye follows the trend of the points and passes through the mean point $(\\bar{x}, \\bar{y})$, made of the [[mean|means]] of the $x$ and $y$ values.",
+          "plain": "A ruled line through the middle of the points."
+        },
+        {
+          "type": "text",
+          "text": "Plot the mean point, then rule a line through it with about as many points above as below. For its equation, read a second point off the line and use these booklet formulas from {{lesson:2.1}}."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms"
+        },
+        {
+          "type": "example",
+          "id": "ex-parcels-line",
+          "question": "A courier records the number of parcels $x$ and the time $y$ minutes for six delivery rounds. $x$: $36, 42, 47, 53, 58, 64$. $y$: $71, 80, 89, 97, 106, 115$. (a) Find the mean point. (b) A line of best fit drawn by eye through the mean point also passes through $(40, 77)$. Find its equation. (c) Interpret its gradient.",
+          "steps": [
+            "(a) $\\bar{x} = \\frac{300}{6} = 50$ and $\\bar{y} = \\frac{558}{6} = 93$, so the mean point is $(50, 93)$.",
+            "(b) $m = \\frac{93 - 77}{50 - 40} = 1.6$. Then $y - 93 = 1.6(x - 50)$, so $y = 1.6x + 13$.",
+            "Check: $1.6 \\times 40 + 13 = 77$. Correct.",
+            "(c) Each extra parcel adds about $1.6$ minutes to a round."
+          ],
+          "answer": "$y = 1.6x + 13$",
+          "check": {
+            "type": "check",
+            "id": "check-parcels-estimate",
+            "prompt": "Now you try: use $y = 1.6x + 13$ to estimate the time, in minutes, for a round with $55$ parcels.",
+            "hint": "Substitute $x = 55$.",
+            "answer": {
+              "value": 101,
+              "tolerance": 0
+            },
+            "explain": "$1.6 \\times 55 + 13 = 101$ minutes.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Rational(16, 10)*55 + 13",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, (Rational(71 + 80 + 89 + 97 + 106 + 115, 6) - 77)/(Rational(36 + 42 + 47 + 53 + 58 + 64, 6) - 40)*(x - 40) + 77)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-4-parcels-best-fit",
+          "alt": "Scatter diagram of delivery time in minutes against number of parcels for six rounds. The mean point at 50 parcels and 93 minutes is circled. A straight line of best fit passes through the mean point and through the point 40 parcels, 77 minutes, with the data points close to it on both sides.",
+          "caption": "The line passes through the mean point $(50, 93)$."
+        },
+        {
+          "type": "mistake",
+          "text": "Joining the first and last points, or forcing the line through $(0, 0)$. Rule it through $(\\bar{x}, \\bar{y})$."
+        }
+      ]
+    },
+    {
+      "id": "pearson",
+      "heading": "Pearson's correlation coefficient",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Strong and weak are judgements. Pearson's $r$ turns the correlation into one number."
+        },
+        {
+          "type": "definition",
+          "term": "Pearson's product-moment correlation coefficient",
+          "statement": "[[pearsons-product-moment-correlation-coefficient|Pearson's product-moment correlation coefficient]], $r$, measures the strength and direction of the linear correlation between two variables.",
+          "plain": "One number for how close the points are to a straight line, and which way it slopes."
+        },
+        {
+          "type": "formula",
+          "tex": "-1 \\le r \\le 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The sign gives the direction. $r = \\pm 1$ means every point lies on a straight line, $r = 0$ means no linear correlation, and the closer $\\lvert r\\rvert$ is to $1$, the stronger the correlation. If a question gives a table of strengths, use it."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC gives $r$ with the regression line. Exams expect the GDC value, not a hand calculation."
+        },
+        {
+          "type": "example",
+          "id": "ex-cafe-r",
+          "question": "Use your GDC to find Pearson's $r$ for the café data ($x$: distance in km, $y$: customers per day). Interpret the value.",
+          "steps": [
+            "Enter distances in the first list and customers in the second. Run linear regression: $r = -0.98996\\ldots \\approx -0.990$.",
+            "$r$ is very close to $-1$: very strong negative linear correlation. Customer numbers fall steadily with distance."
+          ],
+          "answer": "$r \\approx -0.990$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([0.2, 0.5, 0.9, 1.3, 1.8, 2.4, 3.0, 3.6], [310, 284, 262, 221, 205, 168, 150, 119])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "0.2, 0.5, 0.9, 1.3, 1.8, 2.4, 3.0, 3.6",
+            "yValues": "310, 284, 262, 221, 205, 168, 150, 119"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-r-meaning",
+          "prompt": "A data set has $r = -0.93$. Which statement is correct?",
+          "hint": "Sign for direction, size for strength.",
+          "options": [
+            {
+              "text": "Strong negative linear correlation",
+              "correct": true
+            },
+            {
+              "text": "Weak negative linear correlation",
+              "correct": false
+            },
+            {
+              "text": "Strong positive linear correlation",
+              "correct": false
+            },
+            {
+              "text": "The value of y falls by 0.93 for each increase of 1 in x",
+              "correct": false
+            }
+          ],
+          "explain": "$-0.93$ is close to $-1$: strong and negative. $r$ is not a gradient.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Strong negative linear correlation"
+          }
+        },
+        {
+          "type": "text",
+          "text": "With few points, a fairly large $\\lvert r\\rvert$ can happen by chance. A [[critical-value|critical value]], given in the question, says how large $\\lvert r\\rvert$ must be for that number of pairs."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\lvert r\\rvert$ is greater than the critical value for that number of pairs and significance level, the linear correlation is significant at that level. If it is less, the correlation could be chance.",
+          "why": "Unrelated variables give an $\\lvert r\\rvert$ that large only rarely, such as in $5\\%$ of samples."
+        },
+        {
+          "type": "example",
+          "id": "ex-lakes-critical",
+          "question": "For $13$ lakes, water temperature and dissolved oxygen have $r = -0.61$. The critical value for $13$ pairs is $0.553$. Determine whether there is significant linear correlation, and interpret the result.",
+          "steps": [
+            "Compare the size of $r$ with the critical value: $\\lvert r\\rvert = 0.61 > 0.553$, so it is significant.",
+            "It is negative: warmer lakes tend to hold less oxygen."
+          ],
+          "answer": "Significant negative linear correlation, since $0.61 > 0.553$: warmer lakes tend to hold less oxygen.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "|r| above the critical value: significant negative correlation",
+            "requires": [
+              "significant",
+              "negative",
+              "0.61 > 0.553"
+            ],
+            "forbids": [
+              "not significant"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-critical-not",
+          "prompt": "For $16$ pairs, $r = 0.43$ and the critical value is $0.497$. What can you conclude?",
+          "hint": "Compare $\\lvert r\\rvert$ with the critical value.",
+          "options": [
+            {
+              "text": "There is no significant linear correlation",
+              "correct": true
+            },
+            {
+              "text": "There is significant positive linear correlation",
+              "correct": false
+            },
+            {
+              "text": "The two variables are not related in any way",
+              "correct": false
+            }
+          ],
+          "explain": "$0.43 < 0.497$: not significant, so it could be chance. That doesn't prove the variables are unrelated.",
+          "verify": {
+            "kind": "choice",
+            "truth": "There is no significant linear correlation"
+          }
+        },
+        {
+          "type": "text",
+          "text": "$r$ only measures closeness to a straight line. Data on a clear curve can still have $r$ near $0$, so look at the scatter diagram too."
+        },
+        {
+          "type": "example",
+          "id": "ex-speed-fuel",
+          "question": "A car's fuel use $y$, in litres per $100$ km, is measured at speeds $x$ km/h. $x$: $40, 60, 80, 100, 120$. $y$: $8.2, 6.1, 5.4, 6.1, 8.2$. (a) Use your GDC to find $r$. (b) A student says speed and fuel use are not related. Comment.",
+          "steps": [
+            "(a) Linear regression gives $r = 0$.",
+            "(b) The points form a U-shape, lowest at $80$ km/h. Speed and fuel use are related, just not linearly, so the student is wrong."
+          ],
+          "answer": "$r = 0$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "pearson([40, 60, 80, 100, 120], [8.2, 6.1, 5.4, 6.1, 8.2])"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-4-speed-fuel",
+          "alt": "Scatter diagram of fuel use in litres per 100 kilometres against speed in kilometres per hour. The five points form a U shape: 8.2 at 40, 6.1 at 60, a lowest value of 5.4 at 80, then 6.1 at 100 and 8.2 at 120. A dashed curve joins them.",
+          "caption": "A clear pattern, but not a straight line. Here $r = 0$."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying variables are unrelated because $r$ is near $0$. It only rules out a straight-line link."
+        }
+      ]
+    },
+    {
+      "id": "causation",
+      "heading": "Correlation is not causation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Correlation shows two variables move together. It doesn't show that changing one changes the other."
+        },
+        {
+          "type": "definition",
+          "term": "Causation",
+          "statement": "There is [[causation|causation]] when a change in one variable directly produces a change in the other.",
+          "plain": "One thing actually makes the other happen."
+        },
+        {
+          "type": "text",
+          "text": "Often a third variable drives both, or the link is a coincidence. So correlation does not imply causation, however strong."
+        },
+        {
+          "type": "example",
+          "id": "ex-ski-drinks",
+          "question": "Over $16$ weeks at a ski resort, the number of hot drinks sold and the number of ski injuries have $r = 0.79$. The critical value for $16$ pairs is $0.497$. (a) Describe the correlation. (b) The manager says selling fewer hot drinks would reduce injuries. Comment.",
+          "steps": [
+            "(a) $r$ is close to $1$ and $0.79 > 0.497$: strong, significant positive correlation.",
+            "(b) Busy weeks bring more visitors, who buy more drinks and have more accidents. Visitors drive both, so fewer drinks wouldn't reduce injuries."
+          ],
+          "answer": "Strong positive correlation, but correlation does not imply causation: the number of visitors drives both.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "strong positive correlation; a third variable (visitors) drives both",
+            "requires": [
+              "strong",
+              "positive",
+              [
+                "does not imply causation",
+                "does not show causation"
+              ],
+              "visitors"
+            ],
+            "forbids": [
+              "proves"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gyms-life",
+          "question": "For $11$ towns, the number of gyms per $10\\,000$ people and the mean life expectancy have $r = 0.74$. The critical value for $11$ pairs is $0.602$. A headline says building more gyms will make people live longer. Comment on the headline.",
+          "steps": [
+            "$0.74 > 0.602$: significant positive linear correlation.",
+            "But wealthier towns have more gyms and also better healthcare. Wealth could drive both, so the data can't support the headline."
+          ],
+          "answer": "Significant positive correlation, but correlation does not imply causation: wealth could drive both.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "significant correlation, but a third variable (wealth) could drive both",
+            "requires": [
+              "significant",
+              "positive",
+              [
+                "does not imply causation",
+                "does not show causation"
+              ],
+              "wealth"
+            ],
+            "forbids": [
+              "proves"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Commenting on a causal claim: name a likely third variable from the context, not just the rule."
+        },
+        {
+          "type": "check",
+          "id": "check-umbrellas",
+          "prompt": "Daily umbrella sales and traffic delays in a city have strong positive correlation. Which is the best explanation?",
+          "hint": "What makes both go up on the same days?",
+          "options": [
+            {
+              "text": "Buying umbrellas makes people drive badly",
+              "correct": false
+            },
+            {
+              "text": "Rainy days bring more umbrella sales and more delays",
+              "correct": true
+            },
+            {
+              "text": "Traffic delays make people buy umbrellas",
+              "correct": false
+            }
+          ],
+          "explain": "Rain is a third variable that drives both.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Rainy days bring more umbrella sales and more delays"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sunglasses-pool",
+          "prompt": "Over $18$ months, sales of sunglasses and of pool tickets have $r = 0.91$; the critical value is $0.468$. Which comment is best?",
+          "hint": "Compare $\\lvert r\\rvert$ with $0.468$, then look for a third variable.",
+          "options": [
+            {
+              "text": "Sunglasses cause swimming, as the correlation is significant",
+              "correct": false
+            },
+            {
+              "text": "The correlation is significant, but sunny weather could drive both",
+              "correct": true
+            },
+            {
+              "text": "It is not significant, so there is no link",
+              "correct": false
+            }
+          ],
+          "explain": "$0.91 > 0.468$: significant. But sunny months raise both, so weather is a likely third variable.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The correlation is significant, but sunny weather could drive both"
+          }
+        }
+      ]
+    },
+    {
+      "id": "regression",
+      "heading": "The regression line of y on x",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Lines drawn by eye differ from person to person. The regression line comes from a fixed rule."
+        },
+        {
+          "type": "definition",
+          "term": "Regression line of y on x",
+          "statement": "The [[regression-line|regression line]] of $y$ on $x$ is the line $y = ax + b$ that minimises the sum of the squared vertical distances from the points. It passes through $(\\bar{x}, \\bar{y})$.",
+          "plain": "The best straight line for predicting $y$ from $x$."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-vertical-distances",
+          "alt": "Six points with a straight regression line through them. A short vertical dashed segment joins each point to the line, some above the line and some below.",
+          "caption": "The squared vertical distances add up to as little as possible."
+        },
+        {
+          "type": "text",
+          "text": "Here $a$ is the [[gradient|gradient]] and $b$ is the [[y-intercept|y-intercept]]: $y = mx + c$ with new letters. Your GDC finds $a$, $b$ and $r$ together."
+        },
+        {
+          "type": "example",
+          "id": "ex-ebike-regression",
+          "question": "A shop tests eight used e-bike batteries: $x$ is the number of charge cycles, in hundreds, and $y$ is the capacity as a percentage of its value when new. $x$: $1, 2, 3, 4, 5, 6, 8, 9$. $y$: $97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6$. (a) Use your GDC to find the regression line of $y$ on $x$. (b) Estimate the capacity after $550$ charge cycles. Give your answers to 3 s.f.",
+          "steps": [
+            "(a) Enter $x$ and $y$ in two lists and run linear regression: $a = -2.27072\\ldots$, $b = 99.7734\\ldots$, $r = -0.99787\\ldots$",
+            "Write it as an equation: $y = -2.27x + 99.8$.",
+            "(b) $550$ cycles is $x = 5.5$. With the full values, $y = -2.27072\\ldots \\times 5.5 + 99.7734\\ldots = 87.284\\ldots$, so about $87.3\\%$."
+          ],
+          "answer": "$a \\approx -2.27, \\; b \\approx 99.8$",
+          "check": {
+            "type": "check",
+            "id": "check-ebike-250",
+            "prompt": "Now you try: estimate the capacity, as a percentage, after $250$ charge cycles. Give your answer to 3 s.f.",
+            "hint": "Use $x = 2.5$ and the full values.",
+            "answer": {
+              "value": 94.1,
+              "tolerance": 0.05
+            },
+            "explain": "$-2.27072\\ldots \\times 2.5 + 99.7734\\ldots = 94.096\\ldots \\approx 94.1$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "regslope([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6])*Rational(25, 10) + regintercept([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6])",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "solutions",
+            "truth": "[{\"a\": regslope([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6]), \"b\": regintercept([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6])}]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "1, 2, 3, 4, 5, 6, 8, 9",
+            "yValues": "97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-predict",
+          "values": {
+            "xValue": "5.5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the lists. For $y$ on $x$, the $x$ values go in the first list."
+        },
+        {
+          "type": "examTip",
+          "text": "Give the line as an equation with $a$ and $b$ to 3 s.f., but predict with the full values: rounding first can change the last figure."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also fit curves, such as exponential models, and judge the fit with $R^{2}$.",
+          "lesson": "4.13"
+        },
+        {
+          "type": "result",
+          "statement": "In the regression line $y = ax + b$, $a$ is the predicted change in $y$ for each increase of $1$ in $x$, and $b$ is the predicted value of $y$ when $x = 0$.",
+          "why": "$a$ is the gradient; $b$ is where the line meets the $y$-axis."
+        },
+        {
+          "type": "text",
+          "text": "Interpret them with the question's variables and units. $b$ only means something if $x = 0$ makes sense and is near the data."
+        },
+        {
+          "type": "example",
+          "id": "ex-ebike-interpret",
+          "question": "For the e-bike batteries, the regression line is $y = -2.27x + 99.8$. Interpret $a = -2.27$ and $b = 99.8$ in context.",
+          "steps": [
+            "$a$: for each extra $100$ charge cycles, the capacity falls by about $2.27$ percentage points.",
+            "$b$: a new battery ($0$ cycles) is predicted to have $99.8\\%$. That is sensible, as $x = 0$ is just outside the data."
+          ],
+          "answer": "For each extra $100$ charge cycles the capacity falls by about $2.27$ percentage points; a new battery is predicted to have $99.8\\%$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a: fall per 100 cycles; b: predicted capacity when new",
+            "requires": [
+              "100 charge cycles",
+              "2.27",
+              "falls",
+              "new",
+              "99.8"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-petrol",
+          "question": "The regression line of daily bus passengers $y$ (thousands) on petrol price $x$ (dollars per litre) is $y = 14.2x + 21.5$, for prices from $1.40$ to $2.20$. (a) Interpret $14.2$. (b) Explain why $21.5$ has no real meaning. (c) Find the change in passengers when the price rises by $0.20$.",
+          "steps": [
+            "(a) Each extra dollar per litre goes with about $14.2$ thousand more daily passengers, on average.",
+            "(b) $21.5$ is the prediction for free petrol, far outside the data.",
+            "(c) The change is $0.20a = 14.2 \\times 0.20 = 2.84$ thousand. Substituting $x = 0.20$ would give passengers at a price of $0.20$, not the change."
+          ],
+          "answer": "$14.2 \\times 0.20 = 2.84\\text{ thousand passengers}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(142, 10)*Rational(20, 100)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-a",
+          "prompt": "In $y = -2.27x + 99.8$ ($x$ in hundreds of cycles), what does $-2.27$ mean?",
+          "hint": "What is $1$ unit of $x$?",
+          "options": [
+            {
+              "text": "Capacity falls about 2.27 points per 100 extra cycles",
+              "correct": true
+            },
+            {
+              "text": "Capacity falls about 2.27 points per extra cycle",
+              "correct": false
+            },
+            {
+              "text": "Capacity falls as cycles rise",
+              "correct": false
+            }
+          ],
+          "explain": "$1$ unit of $x$ is $100$ cycles. \"Capacity falls\" gives only the direction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Capacity falls about 2.27 points per 100 extra cycles"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-interpret-b",
+          "prompt": "A runner's time $y$ minutes on air temperature $x$ °C is $y = 0.35x + 41.2$, from races at $12$ to $30$ °C. What is $41.2$?",
+          "hint": "$b$ is $y$ when $x = 0$. Is $0$ in the data?",
+          "options": [
+            {
+              "text": "The predicted time at 0 °C, outside the data, so it may be unreliable",
+              "correct": true
+            },
+            {
+              "text": "The runner's fastest time",
+              "correct": false
+            },
+            {
+              "text": "The extra time per degree warmer",
+              "correct": false
+            }
+          ],
+          "explain": "$b$ is the prediction at $x = 0$, below the coldest race. The time per degree is $a$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The predicted time at 0 °C, outside the data, so it may be unreliable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prediction",
+      "heading": "Reliable predictions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Trust a prediction from the $y$ on $x$ line only if the correlation is strong, $x$ is inside the data, and you are predicting $y$."
+        },
+        {
+          "type": "text",
+          "text": "Inside the data is [[interpolation|interpolation]]. Outside is [[extrapolation|extrapolation]]: the trend may not carry on there."
+        },
+        {
+          "type": "text",
+          "text": "The line minimises vertical distances, which suits predicting $y$. It was not fitted to predict $x$, so rearranging it is not reliable."
+        },
+        {
+          "type": "example",
+          "id": "ex-ebike-reliable",
+          "question": "For the e-bike batteries ($x$ from $1$ to $9$, $r = -0.998$), estimate the capacity after (a) $700$ cycles and (b) $5000$ cycles. Comment on each.",
+          "steps": [
+            "(a) $x = 7$: $y = -2.27072\\ldots \\times 7 + 99.7734\\ldots = 83.878\\ldots \\approx 83.9\\%$. Interpolation with $r$ near $-1$: reliable.",
+            "(b) $x = 50$: $y = -2.27072\\ldots \\times 50 + 99.7734\\ldots = -13.76\\ldots$, an impossible negative capacity. Extrapolation: the straight-line trend can't continue."
+          ],
+          "answer": "$y \\approx 83.9$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "regslope([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6])*7 + regintercept([1, 2, 3, 4, 5, 6, 8, 9], [97.4, 95.1, 93.6, 90.2, 88.9, 85.7, 81.4, 79.6])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ebike-predict-x",
+          "question": "A battery has $84\\%$ capacity. Explain why you should not solve $84 = -2.27x + 99.8$ to estimate its charge cycles.",
+          "steps": [
+            "That rearranges the $y$ on $x$ line to predict $x$.",
+            "The line was fitted for predicting $y$ from $x$, by vertical distances. A line fitted the other way round is different unless $r = \\pm 1$."
+          ],
+          "answer": "The line of $y$ on $x$ is for predicting $y$ from $x$, so it cannot reliably predict $x$ from a value of $y$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a y on x line predicts y from x, not x from y",
+            "requires": [
+              "predicting y from x",
+              [
+                "cannot reliably predict x",
+                "can't reliably predict x"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-most-reliable",
+          "prompt": "The e-bike data cover $100$ to $900$ cycles. Which prediction is most reliable?",
+          "hint": "Which is inside the data?",
+          "options": [
+            {
+              "text": "A battery after 450 cycles",
+              "correct": true
+            },
+            {
+              "text": "A battery after 1500 cycles",
+              "correct": false
+            },
+            {
+              "text": "A battery after 3000 cycles",
+              "correct": false
+            }
+          ],
+          "explain": "$450$ is inside $100$ to $900$: interpolation. The others are extrapolation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A battery after 450 cycles"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-predict-x",
+          "prompt": "You have the line of exam mark $y$ on revision hours $x$. Which is correct for finding the hours that give a mark of $70$?",
+          "hint": "Which variable does the line predict?",
+          "options": [
+            {
+              "text": "Rearranging the line for x is reliable",
+              "correct": false
+            },
+            {
+              "text": "Substitute 70 for x",
+              "correct": false
+            },
+            {
+              "text": "The line cannot reliably predict hours from a mark",
+              "correct": true
+            }
+          ],
+          "explain": "The line predicts the mark from the hours, not the other way round.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The line cannot reliably predict hours from a mark"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Predicting with no comment on reliability. Say whether $x$ is inside the data and how strong $r$ is."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Describe correlation by direction (positive, negative or zero) and strength (strong, weak or none), in context.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "-1 \\le r \\le 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pearson's $r$ measures linear correlation only: $r$ near $0$ means no straight-line link, but there may be a curve.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $\\lvert r\\rvert$ is greater than the critical value for that number of pairs and significance level, the linear correlation is significant at that level.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A line of best fit by eye and the regression line of $y$ on $x$ both pass through the mean point $(\\bar{x}, \\bar{y})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Correlation does not imply causation: a third variable may drive both.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In the regression line $y = ax + b$, $a$ is the predicted change in $y$ for each increase of $1$ in $x$, and $b$ is the predicted $y$ when $x = 0$, which only means something if $x = 0$ makes sense and is near the data.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Use the $y$ on $x$ line only to predict $y$, for $x$ inside the data range and when the correlation is strong; it cannot reliably predict $x$ from $y$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing only $a$ and $b$. Give the line as an equation, such as $y = -2.27x + 99.8$.",
+    "Giving too few figures, such as $r = 0.85$ for $0.847\\ldots$. Give 3 s.f., and predict with the full GDC values.",
+    "Rearranging the $y$ on $x$ line to predict $x$. It is built to predict $y$ only.",
+    "Interpreting $a$ without context, or saying only that $y$ rises. Say how much $y$ changes per unit of $x$.",
+    "Claiming causation because $r$ is close to $1$. Correlation does not imply causation."
+  ],
+  "examTips": [
+    "Write down $r$: read it off your GDC, to 3 s.f. with its sign.",
+    "Estimate: write the substitution into the line before the answer. That earns the method mark.",
+    "Explain why an estimate may be unreliable: extrapolation, weak correlation, or predicting $x$ from a $y$ on $x$ line, in context."
+  ],
+  "readingMinutes": 32
+}

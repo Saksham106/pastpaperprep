@@ -1,0 +1,44 @@
+[
+  {
+    "id": "gradient",
+    "term": "gradient",
+    "definition": "The steepness of a straight line, written $m$: the change in $y$ divided by the change in $x$ between any two points on it, positive when the line rises from left to right, negative when it falls, and undefined for a vertical line.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "y-intercept",
+    "term": "y-intercept",
+    "definition": "The point where a graph meets the $y$-axis, found by putting $x = 0$; for the line $y = mx + c$ it is $(0, c)$.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "x-intercept",
+    "term": "x-intercept",
+    "definition": "A point where a graph meets the $x$-axis, crossing or just touching it, found by putting $y = 0$.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "gradient-intercept-form",
+    "term": "gradient-intercept form",
+    "definition": "The equation of a non-vertical line written as $y = mx + c$, where $m$ is the gradient and the line crosses the $y$-axis at $(0, c)$.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "general-form-of-a-line",
+    "term": "general form of a line",
+    "definition": "The equation of a straight line written as $ax + by + d = 0$, with every term on one side and $a$ and $b$ not both zero; it can describe any line, including a vertical one.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "point-gradient-form",
+    "term": "point-gradient form",
+    "definition": "The equation $y - y_{1} = m(x - x_{1})$ of the straight line with gradient $m$ that passes through the point $(x_{1}, y_{1})$.",
+    "lesson": "2.1"
+  },
+  {
+    "id": "perpendicular-lines",
+    "term": "perpendicular lines",
+    "definition": "Lines that meet at a right angle; two non-vertical lines with gradients $m_{1}$ and $m_{2}$ are perpendicular exactly when $m_{1} \\times m_{2} = -1$, and a horizontal line is perpendicular to a vertical one.",
+    "lesson": "2.1"
+  }
+]

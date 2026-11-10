@@ -753,9 +753,63 @@ def parse_point(tex: str):
     return [_parse(piece.strip(), tex) for piece in _split(inner, cuts)]
 
 
+
+# ------------------------------------------------------------------------------------------------ matrices
+MATRIX_ENV = re.compile(r"\\begin\{([pb]matrix)\}(.*?)\\end\{\1\}", re.S)
+#: Where a label or list item ends: what follows (up to the matrix) is the matrix's scalar factor.
+_MATRIX_DELIMITER = re.compile(r"=|:|,|;|\\approx|\\text\{\s*(?:and|or)\s*\}|\\q?quad|\\[;:]")
+_MATRIX_SPACING = re.compile(r"\\[,!>]|\\left|\\right|\\cdot|\\times")
+
+
+def _matrix_body(body: str, tex: str):
+    rows = [row for row in re.split(r"\\\\", body) if row.strip()]
+    parsed = [[parse_answer(entry.strip()) for entry in row.split("&")] for row in rows]
+    if not parsed or len({len(row) for row in parsed}) != 1:
+        raise ValueError(f"empty or ragged matrix in {tex!r}")
+    return Matrix(parsed)
+
+
+def parse_matrices(tex: str):
+    """Every matrix in an answer, in order, each multiplied by the scalar written straight before it
+    (`\\frac{1}{2}\\begin{pmatrix}…`, `-\\begin{pmatrix}…`, `0\\begin{pmatrix}…`), as SymPy matrices.
+
+    Before a matrix, only a label ending in `=` / `:` / `,` (`A^{-1} =`, `\\lambda = 2:`) and that scalar may appear; after it,
+    only a delimiter or the next matrix. Anything else (`\\begin{pmatrix}…\\end{pmatrix} + C`, `… \\times 2`) raises
+    ValueError, so no part of the answer goes unchecked. Entries keep a `+ C` as an ordinary symbol (matrices are never
+    antiderivatives). Returns [(start, matrix)], start being the offset of the scalar's first character in `tex`."""
+    found, pos = [], 0
+    with keep_constant():
+        for match in MATRIX_ENV.finditer(tex):
+            before = tex[pos:match.start()]
+            cut = [m.end() for m in _MATRIX_DELIMITER.finditer(before)]
+            start = pos + (cut[-1] if cut else 0)
+            scalar_text = _MATRIX_SPACING.sub(" ", tex[start:match.start()]).strip().strip("$").strip()
+            if found and not cut and scalar_text:
+                raise ValueError(f"{tex!r}: {scalar_text!r} between two matrices is not read; write the product out")
+            if scalar_text in ("", "+"):
+                scalar = Integer(1)
+            elif scalar_text == "-":
+                scalar = Integer(-1)
+            else:
+                scalar = parse_answer(scalar_text)
+            found.append((start, scalar * _matrix_body(match.group(2), tex)))
+            pos = match.end()
+            following = tex[pos:]
+            stop, nxt = _MATRIX_DELIMITER.search(following), MATRIX_ENV.search(following)
+            if stop and (not nxt or stop.start() < nxt.start()):
+                stray = following[:stop.start()]
+            else:
+                stray = "" if nxt else following  # text before the next matrix is that matrix's scalar
+            stray = _MATRIX_SPACING.sub(" ", stray).strip().strip("$").strip().rstrip(".").strip()
+            if stray:
+                raise ValueError(f"{tex!r}: {stray!r} after a matrix is not read")
+    if not found:
+        raise ValueError(f"no matrix in {tex!r}")
+    return found
+
 __all__ = [
     "parse_answer", "parse_list", "parse_assignments", "parse_approx", "parse_with_unit", "split_unit", "parse_degrees", "parse_vector",
-    "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "keep_constant", "strip_constant", "check_rounded",
+    "parse_vector_line", "parse_point", "parse_set", "parse_equation", "round_half_up", "check_antiderivative", "keep_constant", "strip_constant", "check_rounded", "parse_matrices",
     "check_rounded_list", "check_numeric", "check_assignments", "check_same_line", "check_same_set", "check_same_equation",
     "check_same_cartesian_line", "check_self_inverse", "proves_zero", "with_real_odd_roots", "RealRoot",
 ]

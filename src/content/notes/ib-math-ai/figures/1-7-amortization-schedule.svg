@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 250" role="img" font-family="sans-serif" font-size="13">
+<text x="50" y="30" text-anchor="middle" fill="currentColor" font-weight="bold">Month</text>
+<text x="150" y="30" text-anchor="middle" fill="currentColor" font-weight="bold">Interest</text>
+<text x="250" y="30" text-anchor="middle" fill="currentColor" font-weight="bold">Payment</text>
+<text x="350" y="30" text-anchor="middle" fill="currentColor" font-weight="bold">Off the loan</text>
+<text x="455" y="30" text-anchor="middle" fill="currentColor" font-weight="bold">Still owed</text>
+<line x1="10" y1="40" x2="510" y2="40" stroke="currentColor"/>
+<text x="50" y="62" text-anchor="middle" fill="currentColor">0</text>
+<text x="455" y="62" text-anchor="middle" fill="currentColor">12000.00</text>
+<text x="50" y="88" text-anchor="middle" fill="currentColor">1</text>
+<text x="150" y="88" text-anchor="middle" fill="var(--t5-ink)">60.00</text>
+<text x="250" y="88" text-anchor="middle" fill="currentColor">281.82</text>
+<text x="350" y="88" text-anchor="middle" fill="var(--t1-ink)">221.82</text>
+<text x="455" y="88" text-anchor="middle" fill="currentColor">11778.18</text>
+<text x="50" y="114" text-anchor="middle" fill="currentColor">2</text>
+<text x="150" y="114" text-anchor="middle" fill="var(--t5-ink)">58.89</text>
+<text x="250" y="114" text-anchor="middle" fill="currentColor">281.82</text>
+<text x="350" y="114" text-anchor="middle" fill="var(--t1-ink)">222.93</text>
+<text x="455" y="114" text-anchor="middle" fill="currentColor">11555.25</text>
+<text x="50" y="140" text-anchor="middle" fill="currentColor">3</text>
+<text x="150" y="140" text-anchor="middle" fill="var(--t5-ink)">57.78</text>
+<text x="250" y="140" text-anchor="middle" fill="currentColor">281.82</text>
+<text x="350" y="140" text-anchor="middle" fill="var(--t1-ink)">224.04</text>
+<text x="455" y="140" text-anchor="middle" fill="currentColor">11331.21</text>
+<text x="50" y="168" text-anchor="middle" fill="var(--muted)">⋮</text>
+<text x="250" y="168" text-anchor="middle" fill="var(--muted)">⋮</text>
+<text x="455" y="168" text-anchor="middle" fill="var(--muted)">⋮</text>
+<text x="50" y="196" text-anchor="middle" fill="currentColor">47</text>
+<text x="150" y="196" text-anchor="middle" fill="var(--t5-ink)">2.80</text>
+<text x="250" y="196" text-anchor="middle" fill="currentColor">281.82</text>
+<text x="350" y="196" text-anchor="middle" fill="var(--t1-ink)">279.02</text>
+<text x="455" y="196" text-anchor="middle" fill="currentColor">280.42</text>
+<text x="50" y="222" text-anchor="middle" fill="currentColor">48</text>
+<text x="150" y="222" text-anchor="middle" fill="var(--t5-ink)">1.40</text>
+<text x="250" y="222" text-anchor="middle" fill="currentColor">281.82</text>
+<text x="350" y="222" text-anchor="middle" fill="var(--t1-ink)">280.42</text>
+<text x="455" y="222" text-anchor="middle" fill="currentColor">0.00</text>
+<line x1="10" y1="234" x2="510" y2="234" stroke="currentColor"/>
+</svg>

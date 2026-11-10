@@ -1,0 +1,995 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.12",
+  "slug": "data-collection-reliability-and-validity",
+  "title": "Data collection, reliability and validity",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Good statistics start before any calculation: honest, precise questions, the right variables and the right data. You also group numerical data so a χ² test works, adjust the [[degrees-of-freedom|degrees of freedom]] when you estimate [[parameter|parameters]], and judge whether a method is reliable and valid.",
+  "goals": [
+    {
+      "text": "Write survey questions that are unbiased, precise and structured, and spot ones that are not.",
+      "bullets": [
+        "4.12-b1"
+      ]
+    },
+    {
+      "text": "Choose the variables and the data that answer a question, and say why.",
+      "bullets": [
+        "4.12-b2",
+        "4.12-b3"
+      ]
+    },
+    {
+      "text": "Group numerical data for a χ² test so every [[expected-frequency|expected frequency]] is greater than $5$, and justify the grouping.",
+      "bullets": [
+        "4.12-b4"
+      ]
+    },
+    {
+      "text": "Find the degrees of freedom for a [[chi-squared-goodness-of-fit-test|χ² goodness of fit test]] when parameters are estimated from the data.",
+      "bullets": [
+        "4.12-b5"
+      ]
+    },
+    {
+      "text": "Define [[reliability|reliability]] and [[validity|validity]], and use test–retest, parallel forms, content and criterion-related checks.",
+      "bullets": [
+        "4.12-b6",
+        "4.12-b7",
+        "4.12-b8"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.6",
+    "4.1",
+    "4.2",
+    "4.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "reliability and validity",
+    "test retest reliability",
+    "parallel forms reliability",
+    "criterion related validity",
+    "questionnaire design",
+    "chi squared degrees of freedom estimated parameters"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-expected-from-probability",
+      "prompt": "A model gives a category probability $0.15$. Find the expected frequency of that category in $240$ observations.",
+      "hint": "Multiply the probability by the number of observations.",
+      "answer": {
+        "value": 36,
+        "tolerance": 0
+      },
+      "explain": "$240 \\times 0.15 = 36$. Revise it in {{lesson:4.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "240*Rational(15, 100)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-df-contingency",
+      "prompt": "Write down the degrees of freedom for a [[chi-squared-test-for-independence|χ² test for independence]] on a [[contingency-table|contingency table]] with $3$ rows and $4$ columns.",
+      "hint": "Use $(r - 1)(c - 1)$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$(3 - 1)(4 - 1) = 6$. Revise it in {{lesson:4.11}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(3 - 1)*(4 - 1)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sampling-method",
+      "prompt": "A reporter interviews the first $30$ people who walk past her desk in a train station. Which sampling method is this?",
+      "hint": "How were the people chosen: at random, by a rule, or because they were easy to reach?",
+      "options": [
+        {
+          "text": "Convenience sampling",
+          "correct": true
+        },
+        {
+          "text": "Systematic sampling",
+          "correct": false
+        },
+        {
+          "text": "Stratified sampling",
+          "correct": false
+        }
+      ],
+      "explain": "She takes whoever is easiest to reach, so it is convenience sampling, and it is likely to be biased. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Convenience sampling"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "survey-design",
+      "heading": "Designing surveys and questionnaires",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A survey is only as good as its questions. A badly worded question collects answers that don't show what you wanted to know, however carefully you analyse them."
+        },
+        {
+          "type": "text",
+          "text": "Check every question for four things: bias, how personal it is, its structure and its precision."
+        },
+        {
+          "type": "definition",
+          "term": "Biased question",
+          "statement": "A biased question pushes people towards one answer, with leading words (\"Don't you agree…\"), loaded words (\"wasteful\", \"overpriced\") or by naming only one side. An unbiased question is neutral: every answer is equally easy to give.",
+          "plain": "A fair question doesn't hint at the answer it wants."
+        },
+        {
+          "type": "definition",
+          "term": "Personal question",
+          "statement": "A personal question asks about something private, such as income, health or breaking rules. People may refuse or give the answer that sounds acceptable. Ask it only if you need it, and make answers anonymous or use ranges instead of exact amounts.",
+          "plain": "People are less honest about private things, so make them feel safe answering."
+        },
+        {
+          "type": "definition",
+          "term": "Structured and unstructured questions",
+          "statement": "An unstructured (open) question lets people answer in their own words. A structured (closed) question gives a fixed list of answer choices. The choices must be consistent: they don't overlap, they cover every possible answer, and similar questions use the same scale.",
+          "plain": "Open answers give detail; fixed choices give data you can count."
+        },
+        {
+          "type": "definition",
+          "term": "Precise question",
+          "statement": "A precise question has only one meaning. It asks one thing, states the time period and units, and avoids vague words such as \"often\", \"regularly\" or \"a lot\".",
+          "plain": "Everyone who reads it understands exactly the same thing."
+        },
+        {
+          "type": "text",
+          "text": "Unstructured questions suit a small pilot survey, to learn what answers people give. A large survey needs structured questions, because their answers go straight into a table you can analyse and test."
+        },
+        {
+          "type": "example",
+          "id": "ex-survey-cafe",
+          "question": "A student council drafts four questions about the school café. (i) Don't you agree that the café's prices are too high? (ii) What is your family's yearly income? (iii) Do you eat at the café regularly? (iv) What do you think of the café? Name the problem with each question and rewrite it.",
+          "steps": [
+            "(i) is biased: \"Don't you agree\" leads, and \"too high\" names one side. Rewrite: \"How would you rate the café's prices? Very low / Low / About right / High / Very high\".",
+            "(ii) is personal, and family income isn't needed to judge the café. Leave it out. If spending matters, ask: \"How much did you spend at the café last week? Nothing / Less than €5 / €5 to less than €10 / €10 or more\".",
+            "(iii) is imprecise: \"regularly\" means daily to one student and monthly to another. Rewrite: \"On how many school days last week did you buy food at the café? 0 / 1 / 2 / 3 / 4 / 5\".",
+            "(iv) is unstructured. It is fine in a pilot, but its answers are hard to count. Rewrite: \"Overall, how satisfied are you with the café? Very dissatisfied / Dissatisfied / Neutral / Satisfied / Very satisfied\"."
+          ],
+          "answer": "(i) is biased; (ii) is personal and not needed; (iii) is imprecise; (iv) is unstructured. Each becomes a neutral, precise question with consistent fixed answer choices.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "biased, personal, imprecise, unstructured; rewrite neutral, precise, fixed choices",
+            "requires": [
+              "biased",
+              "personal",
+              [
+                "imprecise",
+                "not precise"
+              ],
+              "unstructured"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sleep-choices",
+          "question": "A researcher asks $400$ teenagers \"How much sleep do you get?\" with the choices 4–6 hours, 6–8 hours and 8–10 hours. Explain the problems with this question and design better answer choices.",
+          "steps": [
+            "The choices overlap: a teenager who sleeps exactly $6$ hours fits two boxes. Use boundaries written with \"less than\".",
+            "They don't cover every answer: someone who sleeps $3.5$ or $10.5$ hours has no box. Add an open class at each end.",
+            "The question is imprecise: school nights or weekends, and over what period? State it.",
+            "Better: \"On a typical school night last week, how many hours did you sleep? Less than 6 / 6 to less than 7 / 7 to less than 8 / 8 to less than 9 / 9 or more\".",
+            "Now every amount of sleep fits exactly one box, so the counts go straight into a frequency table."
+          ],
+          "answer": "The choices overlap and do not cover every value, and the time period is not stated. Use classes that do not overlap, with \"less than\" boundaries and open end classes, and name the time period.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "choices overlap, do not cover every value, no time period; fix with non-overlapping classes and open ends",
+            "requires": [
+              "overlap",
+              "cover every",
+              "time period"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-neutral-question",
+          "prompt": "A town council surveys residents about a planned skate park. Which question is unbiased?",
+          "hint": "Look for words that push one way, and for questions that ask two things at once.",
+          "options": [
+            {
+              "text": "Do you support the skate park, which will attract noisy crowds?",
+              "correct": false
+            },
+            {
+              "text": "Wouldn't a skate park be a great addition to the town?",
+              "correct": false
+            },
+            {
+              "text": "How strongly do you support or oppose the skate park? (5-point scale from strongly oppose to strongly support)",
+              "correct": true
+            },
+            {
+              "text": "Do you support the skate park and the new car park?",
+              "correct": false
+            }
+          ],
+          "explain": "The third question gives every view the same weight. The first and second push towards an answer. The fourth asks about two things at once, so a \"yes\" is unclear.",
+          "verify": {
+            "kind": "choice",
+            "truth": "How strongly do you support or oppose the skate park? (5-point scale from strongly oppose to strongly support)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-journey-choices",
+          "prompt": "A survey asks \"How long was your journey to school this morning, in minutes?\" Which set of answer choices is structured best? Set A: 0–10, 10–20, 20–30, 30 or more. Set B: less than 10, 10 to less than 20, 20 to less than 30, 30 or more. Set C: short, medium, long. Set D: 0–9, 10–19, 20–29.",
+          "hint": "Every possible journey time should fit exactly one choice.",
+          "options": [
+            {
+              "text": "Set A",
+              "correct": false
+            },
+            {
+              "text": "Set B",
+              "correct": true
+            },
+            {
+              "text": "Set C",
+              "correct": false
+            },
+            {
+              "text": "Set D",
+              "correct": false
+            }
+          ],
+          "explain": "Set B covers every time with no overlaps. Set A puts $10$ minutes in two classes, Set C is vague, and Set D has no box for $30$ minutes or more, or for $9.5$ minutes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Set B"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Starting with \"Do you agree that…\" or adding a loaded word. Ask neutrally and offer the full range of answers."
+        }
+      ]
+    },
+    {
+      "id": "choosing-data",
+      "heading": "Choosing variables and data",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Real data sets hold far more variables than you need. Start from the question: it tells you which variable is the response, and which ones might explain it."
+        },
+        {
+          "type": "text",
+          "text": "1. Keep a variable if it could plausibly affect the response and you have enough trustworthy values of it."
+        },
+        {
+          "type": "text",
+          "text": "2. Drop identifiers, such as names and ID numbers, and variables with no link to the question."
+        },
+        {
+          "type": "text",
+          "text": "3. With several numerical candidates that look linearly related to the response, find [[pearsons-product-moment-correlation-coefficient|Pearson's correlation coefficient]] $r$ between each one and the response ({{lesson:4.4}}). Compare the size of $r$, not its sign."
+        },
+        {
+          "type": "text",
+          "text": "Choosing the data matters just as much. Use data from the population the question is about, measured in the same way under the same conditions. Leave out values that belong to a different situation, and say what you left out and why."
+        },
+        {
+          "type": "text",
+          "text": "No analysis can fix data from a [[sample|sample]] with [[sampling-bias|sampling bias]]. If the data don't represent the population, collect them again."
+        },
+        {
+          "type": "example",
+          "id": "ex-flat-variables",
+          "question": "An estate agent records $8$ flats in one city. Price (€ thousand): $212, 348, 265, 410, 189, 302, 375, 240$. Floor area (m²): $53, 79, 66, 98, 47, 81, 88, 54$. Distance to the nearest station (km): $1.8, 0.6, 2.2, 0.9, 2.6, 1.4, 0.8, 2.4$. Age of building (years): $35, 12, 8, 40, 23, 15, 5, 30$. The agent also has each owner's name. Which variable is most useful for predicting price with a linear model? Use your calculator to find $r$ for each candidate, and give the chosen $r$ to 3 s.f.",
+          "steps": [
+            "The response is price. The owner's name is an identifier with no link to price, so drop it.",
+            "GDC linear regression of price on each variable: floor area $r = 0.97616\\ldots$, distance $r = -0.88682\\ldots$, age $r = -0.15059\\ldots$.",
+            "Compare sizes: $0.976 > 0.887 > 0.151$, so floor area has the strongest linear relationship with price.",
+            "Interpret: bigger flats cost more. Distance also matters (flats nearer a station cost more), but age has almost no linear link with price here."
+          ],
+          "answer": "$r \\approx 0.976$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([53, 79, 66, 98, 47, 81, 88, 54], [212, 348, 265, 410, 189, 302, 375, 240])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "53, 79, 66, 98, 47, 81, 88, 54",
+            "yValues": "212, 348, 265, 410, 189, 302, 375, 240"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-data",
+          "question": "A city wants the typical weekday journey time of the 8 am bus on route 12 since a new timetable started. Times (minutes): Mon $34.2$, Tue $36.8$, Wed $35.5$, Thu $57.9$ (a burst water main closed a road), Fri $36.1$, Sat $22.4$, Sun $20.9$, Mon $33.4$. Choose the appropriate data and find the mean journey time.",
+          "steps": [
+            "The question is about weekdays, so Saturday and Sunday belong to a different situation. Leave them out.",
+            "Thursday's time came from a one-off road closure, not from the timetable. It isn't typical, so leave it out and report that you did.",
+            "Use the five remaining weekday times: $\\bar{x} = \\frac{34.2 + 36.8 + 35.5 + 36.1 + 33.4}{5} = \\frac{176}{5} = 35.2$.",
+            "Interpret: a typical weekday 8 am journey now takes about $35$ minutes. All $8$ values would give $34.65$ minutes, mixing in quiet weekends and a road closure."
+          ],
+          "answer": "$\\bar{x} = 35.2\\text{ minutes}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(Rational(342, 10) + Rational(368, 10) + Rational(355, 10) + Rational(361, 10) + Rational(334, 10))/5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-strongest-predictor",
+          "prompt": "A school compares $60$ students' final exam marks with three variables. Hours of revision: $r = 0.64$. Hours on social media per week: $r = -0.79$. Distance from home to school: $r = 0.08$. Which variable has the strongest linear relationship with the mark?",
+          "hint": "Compare the sizes of the $r$ values, ignoring the signs.",
+          "options": [
+            {
+              "text": "Hours of revision",
+              "correct": false
+            },
+            {
+              "text": "Hours on social media",
+              "correct": true
+            },
+            {
+              "text": "Distance from home to school",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lvert -0.79 \\rvert = 0.79$ is the largest. More social media goes with lower marks, though a correlation alone doesn't show that one causes the other.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Hours on social media"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-relevant-data",
+          "prompt": "A researcher asks whether daily screen time affects sleep for 14 to 16-year-olds. She has a national data set covering every age. Which data should she analyse?",
+          "hint": "Which population is the question about, and which two variables does it name?",
+          "options": [
+            {
+              "text": "Screen time and sleep for every age",
+              "correct": false
+            },
+            {
+              "text": "Screen time and sleep for 14 to 16-year-olds only",
+              "correct": true
+            },
+            {
+              "text": "Sleep for 14 to 16-year-olds only",
+              "correct": false
+            },
+            {
+              "text": "Screen time and exam marks for 14 to 16-year-olds",
+              "correct": false
+            }
+          ],
+          "explain": "The question names one age group and two variables. Other ages belong to a different population, and exam marks don't answer a question about sleep.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Screen time and sleep for 14 to 16-year-olds only"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing the variable with the largest positive $r$. A correlation of $r = -0.9$ is just as strong as $r = 0.9$."
+        }
+      ]
+    },
+    {
+      "id": "categorising",
+      "heading": "Grouping numerical data for a χ² test",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A χ² test works with counts in categories. Numerical data, such as ages, masses or the number of successes, must be grouped first."
+        },
+        {
+          "type": "text",
+          "text": "The test can only be trusted when every expected frequency is large enough. In IB questions every expected frequency must be greater than $5$."
+        },
+        {
+          "type": "result",
+          "statement": "To group numerical data for a χ² test, choose [[class-interval|class intervals]] that don't overlap and cover every value, then find the expected frequencies. Merge any class with an expected frequency of $5$ or less with an adjacent class, merging its observed frequency too, and repeat until every expected frequency is greater than $5$. Count the categories again before finding the degrees of freedom.",
+          "why": "A small $f_e$ in the denominator of $\\frac{(f_o - f_e)^2}{f_e}$ lets one category dominate $\\chi^2_{\\text{calc}}$, and the χ² distribution then models the statistic badly."
+        },
+        {
+          "type": "text",
+          "text": "Justify a grouping in words: the merged classes are adjacent on the number scale, so the new class is still one interval, and every expected frequency is now greater than $5$. Merge as few classes as you can, so you keep detail."
+        },
+        {
+          "type": "example",
+          "id": "ex-gym-ages",
+          "question": "A gym asks $131$ members their age and favourite class. Age 18–29: cardio $21$, weights $15$, yoga $11$. Age 30–44: cardio $17$, weights $20$, yoga $9$. Age 45–59: cardio $8$, weights $11$, yoga $4$. Age 60 and over: cardio $2$, weights $7$, yoga $6$. The gym will test whether favourite class is independent of age group. Show that the table must be regrouped, regroup it, and write down the degrees of freedom.",
+          "steps": [
+            "Expected frequency $=$ row total $\\times$ column total $\\div 131$. Column totals: cardio $48$, weights $53$, yoga $30$.",
+            "Row 60 and over (total $15$): $\\frac{15 \\times 48}{131} = 5.50$, $\\frac{15 \\times 53}{131} = 6.07$, but $\\frac{15 \\times 30}{131} = 3.44$ for yoga. That is not greater than $5$. Every other expected frequency is greater than $5$.",
+            "Ages are numerical, so merge the oldest group with the adjacent group 45–59 into \"45 and over\". Observed: $10, 18, 10$ (total $38$). Expected: $\\frac{38 \\times 48}{131} = 13.92$, $\\frac{38 \\times 53}{131} = 15.37$, $\\frac{38 \\times 30}{131} = 8.70$.",
+            "The first two rows give expected $17.22, 19.02, 10.76$ and $16.85, 18.61, 10.53$. Every expected frequency is now greater than $5$.",
+            "The new table is $3 \\times 3$, so $\\text{df} = (3 - 1)(3 - 1) = 4$."
+          ],
+          "answer": "$\\text{df} = 4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "chi2df([[21, 15, 11], [17, 20, 9], [8 + 2, 11 + 7, 4 + 6]])"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-seed-germination",
+          "question": "A seed packet claims $70\\%$ of its seeds germinate. A gardener plants $5$ seeds in each of $80$ pots and counts how many germinate in each pot. Number germinating: $0$ in $1$ pot, $1$ in $4$ pots, $2$ in $18$, $3$ in $23$, $4$ in $21$, $5$ in $13$. Assume seeds germinate independently. Test the claim with a goodness of fit test at the $5\\%$ level, using a binomial model. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: the number germinating per pot follows $\\mathrm{B}(5, 0.7)$. $\\mathrm{H}_1$: it does not follow $\\mathrm{B}(5, 0.7)$.",
+            "Expected frequencies are $80 \\times \\mathrm{P}(X = k)$ for $X \\sim \\mathrm{B}(5, 0.7)$: $0.1944$, $2.268$, $10.584$, $24.696$, $28.812$, $13.4456$.",
+            "Classes $0$ and $1$ are below $5$, and even together ($2.462$) they are too small. Merge them with the adjacent class $2$ into \"2 or fewer\": expected $13.0464$, observed $1 + 4 + 18 = 23$.",
+            "Four categories remain. The claim gives $p$, so nothing is estimated: $\\text{df} = 4 - 1 = 3$.",
+            "GDC goodness of fit with observed $23, 23, 21, 13$, expected $13.0464, 24.696, 28.812, 13.4456$ and df $3$: $\\chi^2_{\\text{calc}} = 9.8433\\ldots$, p-value $= 0.019945\\ldots$.",
+            "$0.0199 < 0.05$, so reject $\\mathrm{H}_0$. There is evidence at the $5\\%$ level that germination doesn't follow the claimed model: far more pots than expected had $2$ or fewer seeds germinate."
+          ],
+          "answer": "$p \\approx 0.0199$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2cdf(chi2gof([1 + 4 + 18, 23, 21, 13], [80*(binompdf(5, Rational(7, 10), 0) + binompdf(5, Rational(7, 10), 1) + binompdf(5, Rational(7, 10), 2)), 80*binompdf(5, Rational(7, 10), 3), 80*binompdf(5, Rational(7, 10), 4), 80*binompdf(5, Rational(7, 10), 5)]), oo, 3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "chi2-goodness-of-fit",
+          "values": {
+            "observed": "23, 23, 21, 13",
+            "expected": "13.0464, 24.696, 28.812, 13.4456",
+            "df": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-merge-count",
+          "prompt": "A goodness of fit test with no estimated parameters has $6$ classes of a numerical variable. In order, their expected frequencies are $3.2, 11.5, 18.7, 14.9, 6.1, 2.6$. Merge each small class with its neighbour, then write down the degrees of freedom.",
+          "hint": "Merge $3.2$ with the class above it and $2.6$ with the class below it, then count the classes.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "Merging gives $14.7, 18.7, 14.9, 8.7$: four categories, all greater than $5$. $\\text{df} = 4 - 1 = 3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(6 - 2) - 1",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-adjacent",
+          "prompt": "Why do you merge a small class with an adjacent class, rather than with any other small class?",
+          "hint": "Think about what the merged category would mean.",
+          "options": [
+            {
+              "text": "So the merged class is still one interval of values",
+              "correct": true
+            },
+            {
+              "text": "So the χ² statistic becomes smaller",
+              "correct": false
+            },
+            {
+              "text": "So the degrees of freedom stay the same",
+              "correct": false
+            }
+          ],
+          "explain": "Classes \"under 10\" and \"50 or more\" together make no sensible category, but adjacent classes give one interval. Merging always reduces the degrees of freedom.",
+          "verify": {
+            "kind": "choice",
+            "truth": "So the merged class is still one interval of values"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Merging the expected frequencies but not the observed ones, or finding df from the original number of classes. Merge both, then count again."
+        }
+      ]
+    },
+    {
+      "id": "estimated-parameters",
+      "heading": "Degrees of freedom when parameters are estimated",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.11}} the claimed distribution was fully given, so $\\text{df} = n - 1$ for $n$ categories. Often you choose a model but don't know its parameters, so you estimate them from the same data you then test."
+        },
+        {
+          "type": "text",
+          "text": "Each estimated parameter pulls the expected frequencies closer to the data. So each one costs a degree of freedom."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{df} = k - 1 - m",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $k$ is the number of categories after any merging, and $m$ is the number of parameters estimated from the data."
+        },
+        {
+          "type": "text",
+          "text": "Binomial $\\mathrm{B}(n, p)$: $n$ is known from the set-up, and estimating $p$ gives $m = 1$. Normal $\\mathrm{N}(\\mu, \\sigma^{2})$: estimating both $\\mu$ and $\\sigma$ gives $m = 2$. A parameter stated in the question, such as a claim, is not estimated, so it costs nothing."
+        },
+        {
+          "type": "text",
+          "text": "To estimate $p$ for a binomial model, divide the total number of successes by the total number of trials. Call the estimate $\\hat{p}$ (\"p hat\")."
+        },
+        {
+          "type": "example",
+          "id": "ex-quiz-estimated-p",
+          "question": "A quiz app gives each user $5$ hard bonus questions. For $120$ users, the number answered correctly was: $0$ by $11$ users, $1$ by $28$, $2$ by $40$, $3$ by $29$, $4$ by $10$, $5$ by $2$. A binomial model is fitted, with $p$ estimated from the data. Estimate $p$, find the expected frequencies, and write down the degrees of freedom for a goodness of fit test.",
+          "steps": [
+            "Total correct: $0 \\times 11 + 1 \\times 28 + 2 \\times 40 + 3 \\times 29 + 4 \\times 10 + 5 \\times 2 = 245$. Total questions: $5 \\times 120 = 600$. So $\\hat{p} = \\frac{245}{600} = 0.40833\\ldots$.",
+            "Expected frequencies, $120 \\times \\mathrm{P}(X = k)$ with $X \\sim \\mathrm{B}(5, 0.40833\\ldots)$: $8.70, 30.02, 41.44, 28.60, 9.87, 1.36$ (keep the full values on your GDC).",
+            "Class $5$ has expected frequency $1.36$, which is not greater than $5$. Merge it with the adjacent class $4$ into \"4 or more\": expected $11.23$, observed $12$.",
+            "Five categories remain, and one parameter, $p$, was estimated: $\\text{df} = 5 - 1 - 1 = 3$.",
+            "A GDC test with df $3$ gives a p-value of $0.837$. There is no evidence against the binomial model, so it is a reasonable model for these data."
+          ],
+          "answer": "$\\text{df} = 3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(6 - 1) - 1 - 1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-apple-normal",
+          "question": "An orchard weighs $150$ apples. Mass $m$ (g): $m < 160$: $9$; $160 \\le m < 170$: $25$; $170 \\le m < 180$: $40$; $180 \\le m < 190$: $34$; $190 \\le m < 200$: $23$; $m \\ge 200$: $19$. From the raw data, the mean is estimated as $181.4$ g and the standard deviation as $13.2$ g. Test at the $10\\%$ level whether a normal model fits the masses. Give the p-value to 3 s.f.",
+          "steps": [
+            "$\\mathrm{H}_0$: apple mass follows a normal distribution. $\\mathrm{H}_1$: apple mass does not follow a normal distribution.",
+            "Expected frequency $= 150 \\times \\mathrm{P}(\\text{class})$ with $M \\sim \\mathrm{N}(181.4, 13.2^{2})$. For example, $150 \\times \\mathrm{P}(160 \\le M < 170) = 21.21$. All six: $7.87, 21.21, 39.58, 42.73, 26.69, 11.91$, each greater than $5$.",
+            "Both $\\mu$ and $\\sigma$ were estimated from the data: $\\text{df} = 6 - 1 - 2 = 3$.",
+            "GDC goodness of fit with the observed counts, the unrounded expected counts and df $3$: $\\chi^2_{\\text{calc}} = 7.357\\ldots$, p-value $= 0.061341\\ldots$.",
+            "$0.0613 < 0.10$, so reject $\\mathrm{H}_0$. There is evidence at the $10\\%$ level that apple masses are not normally distributed: fewer apples than expected lie between $180$ and $190$ g, and more weigh $200$ g or over.",
+            "Typing df $5$ instead would give a p-value of $0.195$, and you would wrongly fail to reject $\\mathrm{H}_0$."
+          ],
+          "answer": "$p \\approx 0.0613$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "chi2cdf(chi2gof([9, 25, 40, 34, 23, 19], [150*normcdf(-oo, 160, Rational(1814, 10), Rational(132, 10)), 150*normcdf(160, 170, Rational(1814, 10), Rational(132, 10)), 150*normcdf(170, 180, Rational(1814, 10), Rational(132, 10)), 150*normcdf(180, 190, Rational(1814, 10), Rational(132, 10)), 150*normcdf(190, 200, Rational(1814, 10), Rational(132, 10)), 150*normcdf(200, oo, Rational(1814, 10), Rational(132, 10))]), oo, 3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": 160,
+            "upper": 170,
+            "mean": 181.4,
+            "sd": 13.2
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "chi2-goodness-of-fit",
+          "values": {
+            "observed": "9, 25, 40, 34, 23, 19",
+            "expected": "7.87291, 21.2112, 39.5810, 42.7314, 26.6929, 11.9106",
+            "df": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-df-normal",
+          "prompt": "A normal model is fitted to reaction times, with the mean and standard deviation both estimated from the data. After merging there are $7$ categories. Write down the degrees of freedom.",
+          "hint": "Subtract $1$, then $1$ more for each estimated parameter.",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "$\\text{df} = 7 - 1 - 2 = 4$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7 - 1 - 2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-df-given-p",
+          "prompt": "A factory says $15\\%$ of its light bulbs fail within a year. The model $\\mathrm{B}(4, 0.15)$ is tested on boxes of $4$ bulbs, with $4$ categories after merging. What are the degrees of freedom?",
+          "hint": "Was $p$ estimated from the data, or given?",
+          "options": [
+            {
+              "text": "$3$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "$p = 0.15$ is the factory's claim, not an estimate, so $m = 0$: $\\text{df} = 4 - 1 = 3$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4 - 1"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Typing $k - 1$ into the GDC when parameters were estimated. The calculator can't know: subtract one more for each estimated parameter yourself."
+        }
+      ]
+    },
+    {
+      "id": "reliability",
+      "heading": "Reliability and validity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A bathroom scale that always reads $2$ kg too heavy gives the same reading every morning. It is consistent, but it is wrong. Consistency and correctness are different questions."
+        },
+        {
+          "type": "definition",
+          "term": "Reliability",
+          "statement": "[[reliability|Reliability]] is how consistently a method gives the same results when it is repeated under the same conditions.",
+          "plain": "Would you get the same results again?"
+        },
+        {
+          "type": "definition",
+          "term": "Validity",
+          "statement": "[[validity|Validity]] is whether a method measures what it claims to measure, so its results and conclusions are accurate.",
+          "plain": "Are you measuring the right thing?"
+        },
+        {
+          "type": "text",
+          "text": "The scale is reliable but not valid, so a method can be reliable without being valid. A method that gives very different results each time can't measure anything accurately, so poor reliability also limits validity."
+        },
+        {
+          "type": "figure",
+          "id": "4-12-reliability-validity-targets",
+          "alt": "Three targets. Left: hits scattered all over the target, labelled not reliable and not valid. Middle: hits tightly grouped but away from the centre, labelled reliable but not valid. Right: hits tightly grouped at the centre, labelled reliable and valid.",
+          "caption": "Reliability is how tightly the results group. Validity is whether they hit what you meant to measure."
+        },
+        {
+          "type": "text",
+          "text": "To check reliability, measure the same people twice and find $r$ between the two sets of scores. A strong positive correlation suggests the method is reliable."
+        },
+        {
+          "type": "definition",
+          "term": "Test–retest reliability",
+          "statement": "In a [[test-retest-reliability|test–retest]] check, the same group takes the same test twice, some time apart. A strong positive correlation between the two sets of scores suggests the test is reliable.",
+          "plain": "Same people, same test, two different times."
+        },
+        {
+          "type": "definition",
+          "term": "Parallel forms reliability",
+          "statement": "In a [[parallel-forms-reliability|parallel forms]] check, the same group takes two equivalent versions of a test: different questions on the same content at the same difficulty. A strong positive correlation between the two sets of scores suggests the test is reliable.",
+          "plain": "Same people, two matching versions of the test."
+        },
+        {
+          "type": "text",
+          "text": "Test–retest needs a gap long enough that people don't just remember their answers, but short enough that what is measured hasn't changed. Parallel forms avoids the memory problem, but two truly equivalent versions are hard to write."
+        },
+        {
+          "type": "text",
+          "text": "A question may give a value of $r$ to compare with. If not, describe the correlation as strong, moderate or weak, and say what that suggests."
+        },
+        {
+          "type": "example",
+          "id": "ex-balance-retest",
+          "question": "A physiotherapist scores $8$ patients on a balance test out of $50$, then repeats the same test two weeks later. First: $43, 36, 47, 41, 33, 45, 37, 49$. Second: $42, 37, 46, 44, 34, 47, 35, 48$. Name the reliability check, find $r$ to 3 s.f. and comment on the reliability of the balance test.",
+          "steps": [
+            "Same patients, same test, two different times: this is a test–retest check.",
+            "GDC linear regression with the first scores as $x$ and the second as $y$: $r = 0.95141\\ldots$.",
+            "$r \\approx 0.951$ is a strong positive correlation: patients who scored high the first time scored high again.",
+            "So the balance test appears reliable. That alone doesn't make it valid: it could consistently measure something other than balance."
+          ],
+          "answer": "$r \\approx 0.951$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([43, 36, 47, 41, 33, 45, 37, 49], [42, 37, 46, 44, 34, 47, 35, 48])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "43, 36, 47, 41, 33, 45, 37, 49",
+            "yValues": "42, 37, 46, 44, 34, 47, 35, 48"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-vocab-parallel",
+          "question": "A language teacher writes two versions, A and B, of a $60$-word vocabulary quiz, using different words of the same difficulty. Ten students take both on the same day. A: $47, 53, 34, 58, 41, 39, 50, 43, 56, 36$. B: $45, 55, 37, 54, 42, 35, 52, 40, 57, 39$. Name the reliability check and say why the teacher used it rather than test–retest. Find $r$ to 3 s.f. and comment.",
+          "steps": [
+            "Two equivalent versions taken by the same students: a parallel forms check.",
+            "With the same quiz twice, students might remember the words and score higher the second time. Different words avoid that.",
+            "GDC linear regression with A as $x$ and B as $y$: $r = 0.94154\\ldots \\approx 0.942$.",
+            "A strong positive correlation: the two versions rank students in much the same order. The quiz appears reliable, and either version can be used."
+          ],
+          "answer": "$r \\approx 0.942$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([47, 53, 34, 58, 41, 39, 50, 43, 56, 36], [45, 55, 37, 54, 42, 35, 52, 40, 57, 39])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-name-reliability",
+          "prompt": "A gym gives $12$ members a grip-strength test on Monday and the same test the following Monday, then finds the correlation between the two sets of results. Which check is this?",
+          "hint": "Is it the same test, or a different version?",
+          "options": [
+            {
+              "text": "Test–retest reliability",
+              "correct": true
+            },
+            {
+              "text": "Parallel forms reliability",
+              "correct": false
+            },
+            {
+              "text": "Criterion-related validity",
+              "correct": false
+            }
+          ],
+          "explain": "Same people, same test, two times: test–retest. A strong positive correlation would suggest the grip test is reliable.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Test–retest reliability"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-retest-r",
+          "prompt": "Six children take a reading test, then the same test a month later. First: $42, 55, 38, 61, 47, 50$. Second: $45, 53, 40, 63, 44, 52$. Find $r$ to 3 s.f.",
+          "hint": "Enter the first scores as $x$ and the second as $y$, then run linear regression on your GDC.",
+          "answer": {
+            "value": 0.955,
+            "tolerance": 0.0005
+          },
+          "explain": "$r = 0.95517\\ldots \\approx 0.955$: a strong positive correlation, so the reading test appears reliable over a month.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "pearson([42, 55, 38, 61, 47, 50], [45, 53, 40, 63, 44, 52])",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "validity",
+      "heading": "Testing validity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Reliability is checked by repeating. Validity is checked by asking whether the test measures the right thing. You need to know two ways."
+        },
+        {
+          "type": "definition",
+          "term": "Content validity",
+          "statement": "A test has [[content-validity|content validity]] when its questions cover every part of what it is meant to measure, in sensible proportions. You judge it by comparing the questions with a full list of what should be covered, often with experts' help.",
+          "plain": "Does it test everything it should?"
+        },
+        {
+          "type": "definition",
+          "term": "Criterion-related validity",
+          "statement": "A test has [[criterion-related-validity|criterion-related validity]] when its results agree with an established measure of the same thing, called the criterion. Give both to the same people: a strong correlation in the expected direction suggests the test is valid.",
+          "plain": "Does it agree with a trusted measure?"
+        },
+        {
+          "type": "text",
+          "text": "The criterion can be measured at the same time, such as a quick new test against a longer trusted one. It can also come later, such as an entrance test against final grades."
+        },
+        {
+          "type": "example",
+          "id": "ex-driving-content",
+          "question": "A driving school's $40$-question theory test is meant to show whether learners know the rules of the road. All $40$ questions are about road signs. Comment on the test's validity and suggest an improvement.",
+          "steps": [
+            "The rules of the road also cover speed limits, right of way, parking and hazards. The test samples only one part.",
+            "So it lacks content validity: a learner could score highly while knowing nothing about right of way.",
+            "It may still be reliable: a learner would probably get a similar score again. Reliability doesn't fix a validity problem.",
+            "Improve it: list every topic in the rules of the road, then write questions on each topic, roughly in proportion to its importance. Ask experienced instructors to check the coverage."
+          ],
+          "answer": "The test lacks content validity, because it covers only road signs. Add questions on every topic in the rules of the road.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "lacks content validity, only road signs; add questions on every topic",
+            "requires": [
+              "content validity",
+              [
+                "only road signs",
+                "covers only"
+              ],
+              [
+                "every topic",
+                "each topic"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fitness-criterion",
+          "question": "A sports club designs a $5$-minute step test as a quick fitness score. To check it, $8$ athletes take the step test and a laboratory treadmill test of VO₂ max (ml/kg/min), the trusted measure of fitness. Step test: $62, 48, 75, 55, 81, 40, 68, 58$. VO₂ max: $44.1, 38.5, 47.9, 45.6, 52.3, 33.0, 43.2, 41.8$. Name the validity check, find $r$ to 3 s.f. and comment.",
+          "steps": [
+            "The new test is compared with an established measure of the same thing: a criterion-related validity check, with the treadmill test as the criterion.",
+            "GDC linear regression with step score as $x$ and VO₂ max as $y$: $r = 0.92071\\ldots$.",
+            "$r \\approx 0.921$ is a strong positive correlation: athletes who score high on the step test also have a high VO₂ max.",
+            "So the step test appears to have criterion-related validity for athletes like these. With only $8$ athletes, the club should check it on a larger sample before relying on it."
+          ],
+          "answer": "$r \\approx 0.921$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "pearson([62, 48, 75, 55, 81, 40, 68, 58], [Rational(441, 10), Rational(385, 10), Rational(479, 10), Rational(456, 10), Rational(523, 10), 33, Rational(432, 10), Rational(418, 10)])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-name-validity",
+          "prompt": "A company compares the scores on its new $10$-minute job aptitude test with the same employees' performance ratings from their managers a year later. What does this check?",
+          "hint": "Is the test compared with a list of topics, or with another measure?",
+          "options": [
+            {
+              "text": "Criterion-related validity",
+              "correct": true
+            },
+            {
+              "text": "Content validity",
+              "correct": false
+            },
+            {
+              "text": "Parallel forms reliability",
+              "correct": false
+            },
+            {
+              "text": "Test–retest reliability",
+              "correct": false
+            }
+          ],
+          "explain": "The test's results are compared with an outside measure of the same thing, job performance, so this checks criterion-related validity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Criterion-related validity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reliable-not-valid",
+          "prompt": "A kitchen scale always reads $50$ g more than the true mass. Which statement is correct?",
+          "hint": "Does it give the same reading each time? Is that reading the true mass?",
+          "options": [
+            {
+              "text": "It is reliable but not valid",
+              "correct": true
+            },
+            {
+              "text": "It is valid but not reliable",
+              "correct": false
+            },
+            {
+              "text": "It is reliable and valid",
+              "correct": false
+            },
+            {
+              "text": "It is neither reliable nor valid",
+              "correct": false
+            }
+          ],
+          "explain": "It gives the same wrong reading every time. That is consistent, so reliable, but it doesn't show the true mass, so it is not valid.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is reliable but not valid"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two words. Reliable means you'd get the same results again; valid means the method measures the right thing. A bigger sample makes results more consistent, but it can't fix a method that measures the wrong thing."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Good survey questions are unbiased (neutral wording) and precise (one meaning, a stated time period). Structured answer choices don't overlap and cover every possible answer. Ask personal questions only if needed, and anonymously.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Choose variables linked to the question. For a linear model, compare candidates by the size of $r$, not its sign. Use only data from the population and conditions the question is about, and say what you left out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In IB χ² questions every expected frequency must be greater than $5$. Merge a small class with an adjacent class, observed and expected together, until every expected frequency is greater than $5$, then count the categories again.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Goodness of fit: $\\text{df} = k - 1 - m$, with $k$ categories after merging and $m$ parameters estimated from the data. Binomial $p$ estimated: $m = 1$; normal $\\mu$ and $\\sigma$ estimated: $m = 2$; parameters given in the question: $m = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reliability: the same results when the method is repeated under the same conditions. Validity: the method measures what it claims to. Reliable does not mean valid.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reliability checks: test–retest (same test, same people, two times) and parallel forms (two equivalent versions, same people). A strong positive correlation between the two sets of scores suggests reliability.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Validity checks: content (the test covers every part of what it should) and criterion-related (a strong correlation, in the expected direction, with an established measure of the same thing).",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a decision with no comparison or no context. Write the comparison, such as $0.0613 < 0.10$, then the decision about $\\mathrm{H}_0$ and what it means.",
+    "Merging the expected frequencies but not the observed ones, or finding df from the original number of classes.",
+    "Using $\\text{df} = k - 1$ when parameters were estimated from the data. Subtract one more for each estimated parameter.",
+    "Saying a test is valid because it is reliable. A consistent method can still measure the wrong thing.",
+    "Giving a vague validity criticism such as \"the sample is too small\". Link it to what is measured: a self-rated fitness score may not reflect actual fitness.",
+    "Truncating $r$ or a p-value, such as $0.920$ for $0.92071\\ldots$. Keep the GDC value and round to 3 s.f. at the end."
+  ],
+  "examTips": [
+    "Describe a way to improve reliability or validity: name one concrete change and link it to the word asked. Reliability: repeat the measurement and average the results, or use a larger random sample. Validity: measure the intended thing directly, cover every part of it, or compare with an established measure.",
+    "Justify a grouping: say which classes you merged, that they are adjacent, and that every expected frequency is now greater than $5$.",
+    "Write down the degrees of freedom with the reason, such as \"$6$ categories, $2$ parameters estimated, so df $= 6 - 1 - 2 = 3$\".",
+    "State the conclusion of a χ² test and justify it: the p-value comparison, the decision about $\\mathrm{H}_0$, and its meaning in context. A decision with no reason scores nothing."
+  ],
+  "readingMinutes": 46
+}

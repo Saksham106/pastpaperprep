@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 225" role="img" aria-labelledby="t2">
+  <title id="t2">Twenty horizontal line segments stacked one above another, each a 95 percent confidence interval from a different random sample, with a dot at its sample mean. A dashed vertical line marks the true population mean mu. Nineteen segments cross the dashed line. One segment, drawn in a different colour, lies entirely to the right of it and misses mu.</title>
+  <line x1="180" y1="20" x2="180" y2="178.6" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3" />
+  <line x1="105.4" y1="30.0" x2="254.4" y2="30.0" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="179.9" cy="30.0" r="2" fill="var(--t3-ink)" />
+  <line x1="110.3" y1="37.4" x2="259.2" y2="37.4" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="184.8" cy="37.4" r="2" fill="var(--t3-ink)" />
+  <line x1="56.3" y1="44.8" x2="205.3" y2="44.8" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="130.8" cy="44.8" r="2" fill="var(--t3-ink)" />
+  <line x1="78.6" y1="52.2" x2="227.6" y2="52.2" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="153.1" cy="52.2" r="2" fill="var(--t3-ink)" />
+  <line x1="102.2" y1="59.6" x2="251.1" y2="59.6" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="176.6" cy="59.6" r="2" fill="var(--t3-ink)" />
+  <line x1="74.0" y1="67.0" x2="223.0" y2="67.0" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="148.5" cy="67.0" r="2" fill="var(--t3-ink)" />
+  <line x1="81.7" y1="74.4" x2="230.7" y2="74.4" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="156.2" cy="74.4" r="2" fill="var(--t3-ink)" />
+  <line x1="160.9" y1="81.8" x2="309.9" y2="81.8" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="235.4" cy="81.8" r="2" fill="var(--t3-ink)" />
+  <line x1="54.5" y1="89.2" x2="203.4" y2="89.2" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="128.9" cy="89.2" r="2" fill="var(--t3-ink)" />
+  <line x1="124.7" y1="96.6" x2="273.6" y2="96.6" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="199.2" cy="96.6" r="2" fill="var(--t3-ink)" />
+  <line x1="106.8" y1="104.0" x2="255.8" y2="104.0" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="181.3" cy="104.0" r="2" fill="var(--t3-ink)" />
+  <line x1="94.9" y1="111.4" x2="243.8" y2="111.4" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="169.4" cy="111.4" r="2" fill="var(--t3-ink)" />
+  <line x1="158.8" y1="118.8" x2="307.7" y2="118.8" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="233.2" cy="118.8" r="2" fill="var(--t3-ink)" />
+  <line x1="194.8" y1="126.2" x2="343.8" y2="126.2" stroke="var(--t5-ink)" stroke-width="2.6" />
+  <circle cx="269.3" cy="126.2" r="2" fill="var(--t5-ink)" />
+  <line x1="108.9" y1="133.6" x2="257.9" y2="133.6" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="183.4" cy="133.6" r="2" fill="var(--t3-ink)" />
+  <line x1="94.0" y1="141.0" x2="243.0" y2="141.0" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="168.5" cy="141.0" r="2" fill="var(--t3-ink)" />
+  <line x1="114.5" y1="148.4" x2="263.4" y2="148.4" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="188.9" cy="148.4" r="2" fill="var(--t3-ink)" />
+  <line x1="150.1" y1="155.8" x2="299.1" y2="155.8" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="224.6" cy="155.8" r="2" fill="var(--t3-ink)" />
+  <line x1="111.7" y1="163.2" x2="260.7" y2="163.2" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="186.2" cy="163.2" r="2" fill="var(--t3-ink)" />
+  <line x1="142.7" y1="170.6" x2="291.7" y2="170.6" stroke="var(--t3-ink)" stroke-width="1.8" />
+  <circle cx="217.2" cy="170.6" r="2" fill="var(--t3-ink)" />
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="180" y="16" font-style="italic">true μ</text>
+    <text x="180" y="194.6" fill="var(--muted)">19 of these 20 intervals contain μ; one misses</text>
+  </g>
+</svg>

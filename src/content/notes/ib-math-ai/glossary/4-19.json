@@ -1,0 +1,32 @@
+[
+  {
+    "id": "markov-chain",
+    "term": "Markov chain",
+    "definition": "A process that moves between a fixed set of states in steps, where the probability of each possible next state depends only on the current state, not on the states before it.",
+    "lesson": "4.19"
+  },
+  {
+    "id": "transition-diagram",
+    "term": "transition diagram",
+    "definition": "A diagram of a Markov chain with one node per state and an arrow, labelled with its probability, for each possible one-step move (a loop for staying in the same state); the probabilities on the arrows leaving any one state add up to $1$.",
+    "lesson": "4.19"
+  },
+  {
+    "id": "initial-state-matrix",
+    "term": "initial state matrix",
+    "definition": "The column $\\boldsymbol{s}_0$ of probabilities (or proportions) of being in each state at the start, in the same order as the transition matrix $T$; its entries add up to $1$, and after $n$ steps the state matrix is $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$.",
+    "lesson": "4.19"
+  },
+  {
+    "id": "regular-markov-chain",
+    "term": "regular Markov chain",
+    "definition": "A Markov chain whose transition matrix $T$ has some power $T^{k}$ with every entry strictly positive; such a chain has exactly one steady state, and the state matrix approaches it from any initial state.",
+    "lesson": "4.19"
+  },
+  {
+    "id": "steady-state",
+    "term": "steady state",
+    "definition": "A column $\\boldsymbol{s}$ of non-negative entries adding up to $1$ with $T\\boldsymbol{s} = \\boldsymbol{s}$ for the transition matrix $T$: an eigenvector of $T$ for the eigenvalue $1$, scaled so its entries add up to $1$; for a regular Markov chain it is unique and gives the long-term probabilities.",
+    "lesson": "4.19"
+  }
+]

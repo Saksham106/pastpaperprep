@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 230" role="img" aria-labelledby="t">
+  <title id="t">A graph with three vertices P, Q and R. Two separate edges join P and Q, one labelled battery and one labelled bulb. An edge labelled resistor joins P and R, and an edge labelled switch joins R and Q.</title>
+  <path d="M 60 90 Q 200 0 340 90" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="60" y1="90" x2="340" y2="90" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="60" y1="90" x2="200" y2="200" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="200" y1="200" x2="340" y2="90" stroke="currentColor" stroke-width="2" fill="none"/>
+  <text x="200" y="38" font-size="13" text-anchor="middle" fill="var(--t1-ink)">battery</text>
+  <text x="200" y="82" font-size="13" text-anchor="middle" fill="var(--t1-ink)">bulb</text>
+  <text x="112" y="160" font-size="13" text-anchor="middle" fill="var(--t1-ink)">resistor</text>
+  <text x="290" y="160" font-size="13" text-anchor="middle" fill="var(--t1-ink)">switch</text>
+  <circle cx="60" cy="90" r="5" fill="currentColor"/>
+  <text x="46" y="95" font-size="14" text-anchor="middle" fill="currentColor">P</text>
+  <circle cx="340" cy="90" r="5" fill="currentColor"/>
+  <text x="354" y="95" font-size="14" text-anchor="middle" fill="currentColor">Q</text>
+  <circle cx="200" cy="200" r="5" fill="currentColor"/>
+  <text x="200" y="224" font-size="14" text-anchor="middle" fill="currentColor">R</text>
+</svg>

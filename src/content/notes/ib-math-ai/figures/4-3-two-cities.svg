@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" role="img" font-family="sans-serif" font-size="13">
+<line x1="240" y1="28" x2="240" y2="160" stroke="var(--muted)" stroke-dasharray="5 4"/>
+<text x="246" y="24" fill="var(--muted)">mean 30</text>
+<text x="40" y="48" fill="currentColor">City A: standard deviation 2</text>
+<circle cx="180" cy="68" r="7" fill="var(--t2-ink)"/>
+<circle cx="220" cy="68" r="7" fill="var(--t2-ink)"/>
+<circle cx="240" cy="68" r="7" fill="var(--t2-ink)"/>
+<circle cx="260" cy="68" r="7" fill="var(--t2-ink)"/>
+<circle cx="300" cy="68" r="7" fill="var(--t2-ink)"/>
+<text x="40" y="106" fill="currentColor">City B: standard deviation about 6.84</text>
+<circle cx="60" cy="126" r="7" fill="var(--t4-ink)"/>
+<circle cx="120" cy="126" r="7" fill="var(--t4-ink)"/>
+<circle cx="240" cy="126" r="7" fill="var(--t4-ink)"/>
+<circle cx="360" cy="126" r="7" fill="var(--t4-ink)"/>
+<circle cx="420" cy="126" r="7" fill="var(--t4-ink)"/>
+<line x1="30" y1="160" x2="450" y2="160" stroke="currentColor"/>
+<line x1="40" y1="155" x2="40" y2="165" stroke="currentColor"/>
+<text x="40" y="182" text-anchor="middle" fill="currentColor">20</text>
+<line x1="140" y1="155" x2="140" y2="165" stroke="currentColor"/>
+<text x="140" y="182" text-anchor="middle" fill="currentColor">25</text>
+<line x1="240" y1="155" x2="240" y2="165" stroke="currentColor"/>
+<text x="240" y="182" text-anchor="middle" fill="currentColor">30</text>
+<line x1="340" y1="155" x2="340" y2="165" stroke="currentColor"/>
+<text x="340" y="182" text-anchor="middle" fill="currentColor">35</text>
+<line x1="440" y1="155" x2="440" y2="165" stroke="currentColor"/>
+<text x="440" y="182" text-anchor="middle" fill="currentColor">40</text>
+<text x="472" y="182" text-anchor="end" fill="var(--muted)">°C</text>
+</svg>

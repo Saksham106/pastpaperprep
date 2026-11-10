@@ -1,0 +1,584 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.2",
+  "slug": "increasing-and-decreasing-functions",
+  "title": "Increasing and decreasing functions",
+  "level": "SL",
+  "topic": 5,
+  "summary": "A function is [[increasing-function|increasing]] where its graph rises from left to right, and [[decreasing-function|decreasing]] where it falls. The sign of the [[derivative|derivative]] tells you which: $f'(x) > 0$ means rising, $f'(x) < 0$ means falling, and $f'(x) = 0$ means a flat tangent at a [[stationary-point|stationary point]]. In a model, this tells you when a quantity such as a population, a profit or a temperature is going up or down.",
+  "goals": [
+    {
+      "text": "Decide whether a function is [[increasing-function|increasing]] or [[decreasing-function|decreasing]] at a point from the sign of $f'(x)$, and say what that means in context.",
+      "bullets": [
+        "5.2-b1",
+        "5.2-b2"
+      ]
+    },
+    {
+      "text": "Describe what $f'(x) > 0$, $f'(x) = 0$ and $f'(x) < 0$ look like on the graph of $y = f(x)$.",
+      "bullets": [
+        "5.2-b2"
+      ]
+    },
+    {
+      "text": "Read when a quantity is increasing or decreasing from a graph of its rate of change.",
+      "bullets": [
+        "5.2-b2",
+        "5.2-b1"
+      ]
+    },
+    {
+      "text": "Find the intervals where a function is increasing or decreasing, from $f'(x)$ or with your GDC.",
+      "bullets": [
+        "5.2-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.4",
+    "5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "increasing and decreasing intervals",
+    "where is the function increasing",
+    "sign of the derivative",
+    "graph of f prime",
+    "stationary point meaning",
+    "positive or negative gradient"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-line-gradient",
+      "prompt": "Find the [[gradient|gradient]] of the line through $(2, 9)$ and $(6, -3)$.",
+      "hint": "Divide the change in $y$ by the change in $x$, taking the points in the same order both times.",
+      "options": [
+        {
+          "text": "$-3$",
+          "correct": true
+        },
+        {
+          "text": "$3$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{1}{3}$",
+          "correct": false
+        }
+      ],
+      "explain": "$m = \\frac{-3 - 9}{6 - 2} = \\frac{-12}{4} = -3$. The line falls from left to right, so its gradient is negative. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-3 - 9)/(6 - 2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-derivative-value",
+      "prompt": "A function has derivative $f'(x) = 3x^{2} - 12$. Find $f'(-1)$.",
+      "hint": "Substitute $x = -1$. Square $-1$ before you multiply by 3.",
+      "options": [
+        {
+          "text": "$-9$",
+          "correct": true
+        },
+        {
+          "text": "$-15$",
+          "correct": false
+        },
+        {
+          "text": "$9$",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(-1) = 3 \\times (-1)^{2} - 12 = 3 - 12 = -9$. This is the gradient of the curve $y = f(x)$ at $x = -1$. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3*(-1)**2 - 12"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gdc-minimum",
+      "prompt": "Use your GDC to find the $x$-coordinate of the [[local-minimum|local minimum]] point of $y = x^{3} - 4x + 1$. Give it to 3 s.f.",
+      "hint": "Graph the curve and use the minimum tool near the low point to the right of the $y$-axis.",
+      "answer": {
+        "value": 1.15,
+        "tolerance": 0.005
+      },
+      "explain": "The GDC gives the local minimum at $x = 1.15470\\ldots \\approx 1.15$, where $y \\approx -2.08$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "solve(diff(x**3 - 4*x + 1, x), x)[1]",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sign",
+      "heading": "The sign of the derivative",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture walking along the graph of $y = f(x)$ from left to right. Where the path climbs, the function is [[increasing-function|increasing]]. Where it drops, the function is [[decreasing-function|decreasing]]."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you met $f'(x)$ as the gradient of the tangent. Climbing means tangents slope up, so $f'(x) > 0$; dropping means $f'(x) < 0$."
+        },
+        {
+          "type": "definition",
+          "term": "increasing function",
+          "statement": "A function $f$ is increasing on an interval if, for any two values $a < b$ in that interval, $f(a) < f(b)$.",
+          "plain": "As the input gets bigger, the output gets bigger too."
+        },
+        {
+          "type": "definition",
+          "term": "decreasing function",
+          "statement": "A function $f$ is decreasing on an interval if, for any two values $a < b$ in that interval, $f(a) > f(b)$.",
+          "plain": "As the input gets bigger, the output gets smaller."
+        },
+        {
+          "type": "result",
+          "statement": "If $f'(x) > 0$ for every $x$ in an interval, $f$ is increasing on that interval. If $f'(x) < 0$ for every $x$ in an interval, $f$ is decreasing on that interval.",
+          "why": "$f'(x)$ is the gradient of the tangent. A positive gradient means the graph rises as you move right; a negative one means it falls."
+        },
+        {
+          "type": "text",
+          "text": "Where $f'(x) = 0$, the tangent is horizontal and the graph is flat for an instant. A point like this is a [[stationary-point|stationary point]]."
+        },
+        {
+          "type": "text",
+          "text": "The graph often turns at a stationary point, but not always. $y = x^{3}$ has a horizontal tangent at the origin, yet it rises on both sides of it. You will sort out these cases in {{lesson:5.6}}."
+        },
+        {
+          "type": "text",
+          "text": "Move the slider along $f(x) = x^{3} - 3x$. Its derivative is $f'(x) = 3x^{2} - 3$; you will learn to find it in {{lesson:5.3}}. Watch the sign of $f'(x)$ change at $x = -1$ and $x = 1$, where the tangent is flat."
+        },
+        {
+          "type": "interactive",
+          "widget": "derivative-sign",
+          "props": {
+            "x": -1.5
+          },
+          "alt": "Graph of f of x equals x cubed minus 3x with a point you can move and its tangent line. The curve is marked increasing for x below minus 1 and above 1, and decreasing between minus 1 and 1. The stationary points at x equals minus 1 and 1 are circled."
+        },
+        {
+          "type": "text",
+          "text": "In a model, $f'(x)$ is a rate of change. Its sign tells you whether the quantity is going up or down at that moment."
+        },
+        {
+          "type": "example",
+          "id": "ex-advert-profit",
+          "question": "A shop's weekly profit is $P$ thousand dollars when it spends $x$ thousand dollars a week on adverts. A model gives $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x} = 4 - 0.5x$, for $0 \\le x \\le 16$. (a) Find $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x}$ when $x = 10$. (b) Is the profit increasing or decreasing at this level of spending? Interpret your answer.",
+          "steps": [
+            "(a) Substitute $x = 10$: $\\dfrac{\\mathrm{d}P}{\\mathrm{d}x} = 4 - 0.5 \\times 10 = -1$.",
+            "(b) The derivative is negative, so $P$ is decreasing as $x$ increases.",
+            "The units are thousand dollars of profit per thousand dollars of adverts. At \\$10 000 a week, spending an extra \\$1000 on adverts lowers the weekly profit by about \\$1000."
+          ],
+          "answer": "$\\frac{\\mathrm{d}P}{\\mathrm{d}x} = -1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4 - 0.5*10"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-birds-stationary",
+          "question": "The number of birds in a nature reserve is $B$, $t$ years after it opens. A model gives $\\dfrac{\\mathrm{d}B}{\\mathrm{d}t} = 90 - 6t$, for $0 \\le t \\le 25$. (a) Find the value of $t$ for which $\\dfrac{\\mathrm{d}B}{\\mathrm{d}t} = 0$. (b) Describe how the number of birds changes before and after this time.",
+          "steps": [
+            "(a) Set the rate equal to zero: $90 - 6t = 0$, so $6t = 90$ and $t = 15$.",
+            "(b) Test a time before 15: at $t = 10$, $\\dfrac{\\mathrm{d}B}{\\mathrm{d}t} = 90 - 60 = 30 > 0$, so the number of birds is increasing.",
+            "Test a time after 15: at $t = 20$, $\\dfrac{\\mathrm{d}B}{\\mathrm{d}t} = 90 - 120 = -30 < 0$, so the number is decreasing.",
+            "In context: the bird population grows for the first 15 years, stops growing at $t = 15$, then falls. It is largest 15 years after the reserve opens."
+          ],
+          "answer": "$t = 15$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(90 - 6*t, t)[0]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "A quantity that is falling has a negative rate of change. A pond losing 3 m³ of water per day has $\\dfrac{\\mathrm{d}V}{\\mathrm{d}t} = -3$, not $3$."
+        },
+        {
+          "type": "check",
+          "id": "check-sign-word",
+          "prompt": "A function has derivative $f'(x) = x^{2} - 7x + 10$. At $x = 4$, is $f$ increasing, decreasing or stationary?",
+          "hint": "Work out $f'(4)$ and look at its sign.",
+          "options": [
+            {
+              "text": "Increasing",
+              "correct": false
+            },
+            {
+              "text": "Decreasing",
+              "correct": true
+            },
+            {
+              "text": "Stationary",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(4) = 16 - 28 + 10 = -2$. This is negative, so $f$ is decreasing at $x = 4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Decreasing"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stationary-meaning",
+          "prompt": "The volume of water in a pond is $V$ m³, $t$ days after a dry spell starts. When $t = 6$, $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = 0$. Which statement must be true?",
+          "hint": "A derivative is a rate of change, not the quantity itself. What does a rate of zero say?",
+          "options": [
+            {
+              "text": "On day 6 the volume is, for that moment, neither rising nor falling",
+              "correct": true
+            },
+            {
+              "text": "On day 6 the pond is empty",
+              "correct": false
+            },
+            {
+              "text": "On day 6 the pond holds its greatest volume",
+              "correct": false
+            }
+          ],
+          "explain": "A zero rate means the volume is not changing at that instant. It says nothing about the volume being zero. It could be a greatest value, a least value or neither, like $y = x^{3}$ at the origin.",
+          "verify": {
+            "kind": "choice",
+            "truth": "On day 6 the volume is, for that moment, neither rising nor falling"
+          }
+        }
+      ]
+    },
+    {
+      "id": "graphs",
+      "heading": "Reading increasing and decreasing from graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On the graph of $y = f(x)$, look at the direction of the curve. It rises where $f'(x) > 0$ and falls where $f'(x) < 0$. At a [[local-maximum|local maximum]] or [[local-minimum|local minimum]], the tangent is horizontal, so $f'(x) = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-cubic-graph",
+          "alt": "Graph of y equals f of x for x from about minus 0.3 to 4.2. The curve rises steeply through the point 0, 1 to a local maximum at 1, 5. It then falls to a local minimum at 3, 1, and rises steeply again after that.",
+          "caption": "The graph of $y = f(x)$, where $f(x) = x^{3} - 6x^{2} + 9x + 1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-graph-decreasing",
+          "question": "Use the graph of $y = f(x)$ above. (a) Write down the interval on which $f$ is decreasing. (b) Write down the values of $x$ for which $f'(x) = 0$.",
+          "steps": [
+            "(a) Read the curve from left to right. It rises up to the local maximum at $x = 1$, falls down to the local minimum at $x = 3$, then rises again.",
+            "So $f$ is decreasing between the two turning points: $1 < x < 3$. Mark schemes give strict inequalities here: at $x = 1$ and $x = 3$ themselves, $f'(x) = 0$.",
+            "(b) $f'(x) = 0$ where the tangent is horizontal: at the turning points, $x = 1$ and $x = 3$.",
+            "Check: outside these values, for $x < 1$ or $x > 3$, the curve rises, so $f'(x) > 0$ there."
+          ],
+          "answer": "$1 < x < 3$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "truth": "diff(x**3 - 6*x**2 + 9*x + 1, x) < 0"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sign-from-graph",
+          "prompt": "Use the same graph of $y = f(x)$. What is the sign of $f'(2)$?",
+          "hint": "Is the curve going up or down as it passes $x = 2$?",
+          "options": [
+            {
+              "text": "Negative",
+              "correct": true
+            },
+            {
+              "text": "Positive",
+              "correct": false
+            },
+            {
+              "text": "Zero",
+              "correct": false
+            }
+          ],
+          "explain": "At $x = 2$ the curve is falling from the local maximum to the local minimum, so the tangent slopes down and $f'(2) < 0$. The height $f(2) = 3$ is positive, but the sign of $f'$ depends on the slope, not the height.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Negative"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Sometimes you are given the graph of the rate of change, $y = f'(x)$, not the graph of $f$. Don't read it as if it were $f$. Look only at its sign: is the curve above or below the horizontal axis?"
+        },
+        {
+          "type": "text",
+          "text": "Above the axis, $f'(x) > 0$, so $f$ is [[increasing-function|increasing]]. Below it, $f'(x) < 0$, so $f$ is [[decreasing-function|decreasing]]. Where the curve meets the axis, $f'(x) = 0$, and the graph of $f$ has a horizontal tangent: a [[stationary-point|stationary point]]."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-greenhouse-rate",
+          "alt": "Graph of the rate of change of temperature, dT by dt in degrees Celsius per hour, against t in hours from 0 to 10. The curve starts at 1.75 when t is 0, rises to a highest point at 3, 4, then falls. It crosses the t-axis at t equals 7 and keeps falling to about minus 8 at t equals 10.",
+          "caption": "The graph of $y = \\frac{\\mathrm{d}T}{\\mathrm{d}t}$ for a greenhouse. It shows how fast the temperature changes, not the temperature itself."
+        },
+        {
+          "type": "example",
+          "id": "ex-greenhouse-rising",
+          "question": "The temperature in a greenhouse is $T$ °C, $t$ hours after 06:00. Its rate of change, shown in the graph above, is modelled by $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = 0.25(7 - t)(t + 1)$, for $0 \\le t \\le 10$. (a) Find the values of $t$ for which the temperature is increasing. (b) Interpret your answer in context.",
+          "steps": [
+            "(a) $T$ is increasing where $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} > 0$: where the graph is above the $t$-axis.",
+            "The graph meets the axis where $0.25(7 - t)(t + 1) = 0$. In the domain that is only $t = 7$, since $t = -1$ is outside it.",
+            "The graph is above the axis from $t = 0$ up to $t = 7$, and below it after that. Check: at $t = 8$, $0.25 \\times (-1) \\times 9 = -2.25 < 0$.",
+            "So the temperature increases for $0 \\le t < 7$. Include $t = 0$, the start of the model, where the rate is $1.75 > 0$.",
+            "(b) The greenhouse warms up from 06:00 until 13:00, then cools. It is hottest at 13:00, when the rate changes from positive to negative."
+          ],
+          "answer": "$0 \\le t < 7$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(t >= 0, t <= 10, Rational(1, 4)*(7 - t)*(t + 1) > 0)",
+            "var": "t"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "The highest point of the rate graph, at $t = 3$, is not the hottest time. It is when the temperature rises fastest. The temperature keeps rising until the rate reaches zero, at $t = 7$."
+        },
+        {
+          "type": "check",
+          "id": "check-greenhouse-hottest",
+          "prompt": "Use the same model, $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = 0.25(7 - t)(t + 1)$ for $0 \\le t \\le 10$. Write down the value of $t$ at which the greenhouse is hottest.",
+          "hint": "The temperature rises while the rate is positive and falls once it is negative. Where does it switch?",
+          "options": [
+            {
+              "text": "$t = 7$",
+              "correct": true
+            },
+            {
+              "text": "$t = 3$",
+              "correct": false
+            },
+            {
+              "text": "$t = 10$",
+              "correct": false
+            }
+          ],
+          "explain": "The rate is positive for $t < 7$ and negative after, so $T$ rises until $t = 7$ and then falls. At $t = 3$ the temperature is rising fastest, but it is still rising.",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Rational(1, 4)*(7 - t)*(t + 1), t)[1]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-greenhouse-five",
+          "prompt": "At $t = 5$, the graph of $\\frac{\\mathrm{d}T}{\\mathrm{d}t}$ is going down. Is the temperature increasing or decreasing at $t = 5$?",
+          "hint": "Read the sign of $\\frac{\\mathrm{d}T}{\\mathrm{d}t}$ at $t = 5$, not the direction of its graph.",
+          "options": [
+            {
+              "text": "Increasing, because the rate is still positive",
+              "correct": true
+            },
+            {
+              "text": "Decreasing, because the rate graph is going down",
+              "correct": false
+            },
+            {
+              "text": "Neither, because the rate is zero",
+              "correct": false
+            }
+          ],
+          "explain": "At $t = 5$, $\\frac{\\mathrm{d}T}{\\mathrm{d}t} = 0.25 \\times 2 \\times 6 = 3$ °C per hour, which is positive. The temperature is still rising, just more slowly than at $t = 3$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Increasing, because the rate is still positive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intervals",
+      "heading": "Finding the intervals",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You need the sign of $f'(x)$ for every $x$. For the integer-power functions of this lesson, $f'(x)$ can only change sign where $f'(x) = 0$ or where $f$ is undefined. (At HL, with fractional powers, also check where $f'$ is undefined but $f$ is not: $y = x^{2/3}$ turns at $x = 0$.) Those values cut the number line into pieces, and the sign stays the same on each piece."
+        },
+        {
+          "type": "text",
+          "text": "1. Find where $f'(x) = 0$, and any values where $f$ or $f'$ is undefined, such as a vertical asymptote."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the sign of $f'(x)$ on each piece. Sketch $y = f'(x)$, or test one value in each piece."
+        },
+        {
+          "type": "text",
+          "text": "3. Answer with inequalities: $f'(x) > 0$ where $f$ is [[increasing-function|increasing]], $f'(x) < 0$ where it is [[decreasing-function|decreasing]]. In a model, keep inside its domain."
+        },
+        {
+          "type": "example",
+          "id": "ex-intervals-quadratic",
+          "question": "A function $f$ has derivative $f'(x) = x^{2} + 2x - 15$. Find the values of $x$ for which $f$ is increasing.",
+          "steps": [
+            "$f$ is increasing where $f'(x) > 0$, so solve $x^{2} + 2x - 15 > 0$.",
+            "Find where the sign can change: $x^{2} + 2x - 15 = (x + 5)(x - 3) = 0$, so $x = -5$ or $x = 3$.",
+            "$y = f'(x)$ is a parabola that opens upwards, so it is above the $x$-axis outside its roots.",
+            "Test one value in each piece: $f'(-6) = 9 > 0$, $f'(0) = -15 < 0$ and $f'(4) = 9 > 0$. So $f$ increases on two separate pieces."
+          ],
+          "answer": "$x < -5 \\text{ or } x > 3$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "truth": "x**2 + 2*x - 15 > 0"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Write down the interval\" or \"find the values of $x$\" needs an inequality, such as $x > 3$, or an interval, such as $\\left]3, \\infty\\right[$. The end point alone, $x = 3$, is not the answer: both the end point and the direction of the inequality earn marks."
+        },
+        {
+          "type": "check",
+          "id": "check-intervals-asymptote",
+          "prompt": "The function $g(x) = 2x + \\frac{18}{x}$, $x \\ne 0$, has derivative $g'(x) = 2 - \\frac{18}{x^{2}}$. Find the values of $x$ for which $g$ is decreasing.",
+          "hint": "Solve $g'(x) = 0$ first. Then remember that $g$ is not defined at $x = 0$, so the number line is also cut there.",
+          "options": [
+            {
+              "text": "$-3 < x < 0 \\text{ or } 0 < x < 3$",
+              "correct": true
+            },
+            {
+              "text": "$-3 < x < 3$",
+              "correct": false
+            },
+            {
+              "text": "$x < -3 \\text{ or } x > 3$",
+              "correct": false
+            }
+          ],
+          "explain": "$2 - \\frac{18}{x^{2}} = 0$ gives $x^{2} = 9$, so $x = \\pm 3$. Testing $x = \\pm 1$ gives $g'(x) = -16 < 0$, and testing $x = \\pm 4$ gives $0.875 > 0$. $g$ has a vertical asymptote at $x = 0$, so the decreasing part comes in two pieces, either side of it.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(2 - 18/x**2 < 0, Ne(x, 0))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you may be given only the model $f(x)$. You don't need $f'(x)$: graph $y = f(x)$ on your GDC and find its local maximum and minimum points, as in {{lesson:2.4}}. At those points $f'(x) = 0$, and between them a graph with no breaks only rises or only falls."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-reservoir",
+          "question": "The volume of water in a reservoir is $V$ million litres, $t$ months after 1 January. It is modelled by $V(t) = 0.05t^{3} - 0.9t^{2} + 3.6t + 40$, for $0 \\le t \\le 12$. (a) Use your GDC to find the values of $t$ for which $V$ is decreasing. Give the end points to 3 s.f. (b) Interpret your answer in context.",
+          "steps": [
+            "(a) Write down what you graph: $y = 0.05x^{3} - 0.9x^{2} + 3.6x + 40$ for $0 \\le x \\le 12$. A window of $0 \\le y \\le 50$ shows the whole curve.",
+            "The GDC's maximum and minimum tools give a local maximum at $(2.53589\\ldots, 44.1569\\ldots)$ and a local minimum at $(9.46410\\ldots, 35.8430\\ldots)$.",
+            "The curve rises up to the local maximum, falls to the local minimum, then rises again. So $V$ is decreasing between the two turning points.",
+            "Keep the full values, then round each end point to 3 s.f.: $2.54 < t < 9.46$.",
+            "(b) About $2\\tfrac{1}{2}$ months after 1 January is mid-March, and about $9\\tfrac{1}{2}$ months is mid-October. The model says the reservoir loses water from mid-March to mid-October and gains water for the rest of the year."
+          ],
+          "answer": "$2.54 < t < 9.46$",
+          "check": {
+            "type": "check",
+            "id": "check-drug-increasing",
+            "prompt": "Now you try. The concentration of a drug in a patient's blood is $C(t) = 15t\\mathrm{e}^{-0.35t}$ mg per litre, $t$ hours after a dose, for $t \\ge 0$. $C$ is increasing for $0 \\le t < b$. Use your GDC to find $b$, to 3 s.f.",
+            "hint": "Graph $y = 15x\\mathrm{e}^{-0.35x}$ for $x \\ge 0$. Where does the curve stop rising?",
+            "answer": {
+              "value": 2.86,
+              "tolerance": 0.005
+            },
+            "explain": "The GDC's maximum tool gives the local maximum at $t = 2.85714\\ldots$, where $C \\approx 15.8$ mg per litre. The concentration rises until then and falls after it, so $b \\approx 2.86$ hours.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "solve(diff(15*t*exp(-0.35*t), t), t)[0]",
+              "sf": 3
+            }
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 12,
+            "yMin": 0,
+            "yMax": 50
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "0.05X^3-0.9X^2+3.6X+40"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write down the function you graphed and the turning points the GDC gave, then the inequality. A bare inequality earns the marks only if every end point is right."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "If $f'(x) > 0$ for every $x$ in an interval, $f$ is increasing on that interval: its graph rises from left to right.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f'(x) < 0$ for every $x$ in an interval, $f$ is decreasing on that interval: its graph falls from left to right.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$f'(x) = 0$ at a stationary point, where the tangent is horizontal. It may be a local maximum, a local minimum or neither.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a graph of $y = f'(x)$, read only the sign: where it is above the horizontal axis $f$ is increasing, and where it is below, $f$ is decreasing.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find the intervals: find where $f'(x) = 0$ or $f$ or $f'$ is undefined, find the sign of $f'(x)$ on each piece, then answer with inequalities inside the domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving only the end points of $f'(x) = 0$ as the answer. They show where the sign can change; the answer is an inequality such as $x > 3$ or $1 < x < 3$.",
+    "Reading a graph of $y = f'(x)$ as if it were $f$. A rate graph that is going down but is still above the axis means the quantity is still increasing, just more slowly.",
+    "Writing one interval across a value where $f$ is undefined, such as a vertical asymptote. Split the answer into two pieces there.",
+    "Giving a GDC answer with no working, or rounding the turning points before you use them. Write down the function you graphed, keep the full values, and round each end point to 3 s.f. at the end.",
+    "Treating every stationary point as a maximum or minimum. $f'(x) = 0$ only says the tangent is horizontal, so check the sign of $f'(x)$ on both sides."
+  ],
+  "examTips": [
+    "\"Show that $f$ is increasing at $x = a$\": find $f'(a)$, write down its value, and state that it is positive. The comparison with 0 is the reasoning mark.",
+    "\"Interpret\" a zero rate, such as $\\frac{\\mathrm{d}P}{\\mathrm{d}t} = 0$: say in the context's words that the quantity is, at that moment, neither increasing nor decreasing.",
+    "\"Write down the interval\": give an inequality or an interval, not a single value, and keep to the model's domain. Use 3 s.f. for end points read from a GDC."
+  ],
+  "readingMinutes": 23
+}

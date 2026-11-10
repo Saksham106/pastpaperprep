@@ -1,0 +1,89 @@
+{
+  "lines": [
+    {
+      "text": "'Find $f'(x)$' for a sum of terms $ax^{n}$, $n$ an integer → power rule term by term, after rewriting $\\frac{a}{x^{n}}$ as $ax^{-n}$ and expanding brackets; a model with $\\mathrm{e}^{x}$ → GDC numerical derivative, which gives only the value at one point ({{lesson:5.3}}, {{lesson:5.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Find the values of $x$ for which $f$ is increasing (decreasing)' → solve $f'(x) = 0$, note any $x$ where $f$ or $f'$ is undefined, find the sign of $f'(x)$ on each piece; answer with inequalities inside the domain, not end points alone ({{lesson:5.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Equation of the tangent (normal) at $x = a$' → point $(a, f(a))$, gradient $f'(a)$, then $y - y_{1} = m(x - x_{1})$; the normal's gradient is $-\\frac{1}{f'(a)}$ when $f'(a) \\neq 0$, and the normal is $x = a$ when $f'(a) = 0$ ({{lesson:5.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Coordinates of the local maximum (minimum)' → solve $f'(x) = 0$ (GDC: the zeros of $y = f'(x)$, or the polynomial solver when $f'(x)$ is a polynomial), $y$ from $f(x)$; classify by the sign change of $f'(x)$; for the greatest value on $a \\le x \\le b$ of a graph with no breaks, also compare $f(a)$ and $f(b)$ ({{lesson:5.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Maximise the volume', 'least cost', a fixed area or amount of material → use the constraint to get one variable, solve $f'(x) = 0$, justify with the sign change of $f'(x)$, compare with the end points of the domain; a whole-number variable: compare the whole numbers either side ({{lesson:5.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Given $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$ and a point, 'find $y$ in terms of $x$' → integrate term by term with $+\\,C$ ($n \\neq -1$), substitute the point into the integrated function (not the derivative), write the full function; one point fixes $C$ only on a domain with no breaks ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Total change' from a rate, or 'area under the curve' where $f(x) \\ge 0$ for $a \\le x \\le b$ → write $\\int_{a}^{b} f(x)\\,\\mathrm{d}x$, then evaluate it on the GDC; for a region enclosed with the $x$-axis, the limits are the curve's zeros, kept in full ({{lesson:5.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "A table at equal intervals, or 'use the trapezoidal rule' → $\\frac{1}{2}h\\left((y_{0} + y_{n}) + 2(y_{1} + \\dots + y_{n-1})\\right)$ with $n$ intervals, $n + 1$ values and $h = \\frac{b - a}{n}$; concave up across the whole interval overestimates, concave down across the whole interval underestimates ({{lesson:5.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "A rate linked to another quantity's rate, 'how fast is the area increasing when $r = 3$?' → related rates: an equation true at every moment, differentiate, write the chain rule such as $\\frac{\\mathrm{d}A}{\\mathrm{d}t} = \\frac{\\mathrm{d}A}{\\mathrm{d}r} \\times \\frac{\\mathrm{d}r}{\\mathrm{d}t}$, then substitute the values at the instant; a decreasing quantity has a negative rate ({{lesson:5.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Justify that it is a maximum' → second derivative test at a stationary point: $f''(a) < 0$ maximum, $f''(a) > 0$ minimum, and if $f''(a) = 0$ use the sign of $f'$ either side; 'when is it increasing fastest?' → the maximum of $f'$: a point of inflexion where $f''$ changes from positive to negative, or the maximum of $y = f'(x)$ on the GDC; on a closed domain also compare the end points ({{lesson:5.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Find the exact value' of an integral → antiderivative by hand: a linear inside $ax + b$ → integrate as if it were $x$ and divide by $a$; a constant times $g'(x)\\,f(g(x))$, including $\\frac{g'(x)}{g(x)} \\to \\ln|g(x)|$ → inspection or substitution $u = g(x)$, changing the limits to $u$-values; the GDC value is only a check ({{lesson:5.11}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Area with part of the curve below the $x$-axis → split at the crossings and add the sizes, or $\\int_{a}^{b} |y|\\,\\mathrm{d}x$ on the GDC; region against the $y$-axis → $\\int |x|\\,\\mathrm{d}y$ with $y$-limits; a full turn about the $x$-axis → $\\int \\pi y^{2}\\,\\mathrm{d}x$, about the $y$-axis → $\\int \\pi x^{2}\\,\\mathrm{d}y$ with $y$-limits ({{lesson:5.12}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Straight-line motion → differentiate $s$ for $v$ and $a$; $v$ given in terms of $s$ → $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$; 'displacement' from $t_{1}$ to $t_{2}$ → $\\int_{t_{1}}^{t_{2}} v\\,\\mathrm{d}t$; 'distance travelled' → $\\int_{t_{1}}^{t_{2}} |v|\\,\\mathrm{d}t$ on the GDC; speeding up when $v$ and $a$ have the same sign ({{lesson:5.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'The rate is proportional to…' → $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = k \\times (\\ldots)$, with $-k$ and $k > 0$ for a decrease; right side of the form $f(x)\\,g(y)$ → separate the variables (dividing by $g(y) \\neq 0$), add one $+\\,C$ as you integrate, then use the known value; $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = ky$ → $y = A\\mathrm{e}^{kx}$ ({{lesson:5.14}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "A differential equation you can't separate → 'sketch the solution through a point' or 'describe the long-term behaviour': slope field, follow the segments both ways, turning points where $f(x, y) = 0$; 'use Euler's method to estimate': $y_{n+1} = y_{n} + h f(x_{n}, y_{n})$ on the GDC or a spreadsheet, $\\frac{\\text{end} - \\text{start}}{h}$ steps, and for a coupled pair both new values from the old row ({{lesson:5.15}}, {{lesson:5.16}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Linear coupled pair $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$, 'phase portrait' or 'long-term behaviour' → eigenvalues of the matrix: real distinct → $\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}$, both negative → stable, opposite signs → saddle point; complex with real part $\\neq 0$ → spiral, inwards if the real part is negative; purely imaginary → closed ellipses; turning direction from the sign of $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(1, 0)$ ({{lesson:5.17}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Second-order $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} + a\\frac{\\mathrm{d}x}{\\mathrm{d}t} + bx = 0$ → let $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$, matrix $\\begin{pmatrix}0 & 1\\\\ -b & -a\\end{pmatrix}$, eigenvalues from $\\lambda^{2} + a\\lambda + b = 0$; real distinct → $x = A\\mathrm{e}^{\\lambda_{1}t} + B\\mathrm{e}^{\\lambda_{2}t}$ with $A$ and $B$ from both $x$ and $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ at $t = 0$; any other second-order equation → Euler's method on the coupled form ({{lesson:5.18}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

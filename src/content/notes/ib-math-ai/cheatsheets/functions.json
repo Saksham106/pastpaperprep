@@ -1,0 +1,74 @@
+{
+  "lines": [
+    {
+      "text": "Line parallel or perpendicular to a given line → same gradient, or $m_{1} \\times m_{2} = -1$, then $y - y_{1} = m(x - x_{1})$ through the given point; for vertical or horizontal lines use $x = h$ or $y = c$ ({{lesson:2.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Solve $f(x) = k$ or $f(x) = g(x)$, or when are two quantities equal → write the equation down, graph both sides and use the GDC's intersection tool on every crossing; reject solutions outside the domain ({{lesson:2.2}}, {{lesson:2.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Range, or greatest and least values on a domain → graph over that domain and compare the end values with every local maximum and minimum (GDC max/min tool); a value the graph only approaches is not included ({{lesson:2.2}}, {{lesson:2.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Zeros, $x$-intercepts, break-even, or when something runs out → solve $f(x) = 0$ with the GDC's zero tool or polynomial solver; reject zeros outside the domain ({{lesson:2.3}}, {{lesson:2.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Long-term value, or a level the model approaches but never reaches → the horizontal asymptote, as an equation: $y = c$ for $ka^{x} + c$ with $k \\ne 0$ and $0 < a < 1$ ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "$y$ is proportional, or inversely proportional, to a power of $x$ → $y = ax^{n}$ with $n$ from the words (inversely as the square: $n = -2$), never from whether the data rise or fall; one known pair gives $a$ ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Wave from a maximum, a minimum and the length of one cycle → $|a| = \\frac{\\max - \\min}{2}$, $d = \\frac{\\max + \\min}{2}$, $b = \\frac{360^{\\circ}}{\\text{period}}$ with $b > 0$, and the GDC in degrees ({{lesson:2.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Which type of model? → for equal steps in $x$, equal differences in $y$ suggest linear and equal ratios suggest exponential; a symmetric rise to a peak and fall suggests quadratic; a regular repeat suggests sinusoidal ({{lesson:2.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Parameters from given points → one equation per unknown parameter; for $ax^{2} + bx + c$ through three points with different $x$-values, solve the three linear equations on the GDC ({{lesson:2.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Find $f^{-1}(x)$ (only a one-to-one $f$ has one) → write $y = f(x)$, swap $x$ and $y$, rearrange; the domain of $f^{-1}$ is the range of $f$. For a quadratic, first restrict to one side of the vertex, and let that domain choose the sign of the square root ({{lesson:2.7}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Describe how $y = f(x)$ becomes $y = pf(qx - c) + b$, with $p, q > 0$ → vertical stretch, scale factor $p$, then translation $b$ units up; translation $c$ units right, then horizontal stretch, scale factor $\\frac{1}{q}$. Image of $(x_{0}, y_{0})$: solve $qx - c = x_{0}$, and $y = py_{0} + b$ ({{lesson:2.8}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Half-life of $N_{0}\\mathrm{e}^{-kt}$ with $N_{0}, k > 0$ → $\\frac{\\ln 2}{k}$, the same from any starting amount; for any other level, solve $N(t) = $ that level on the GDC ({{lesson:2.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Restricted growth that levels off at a carrying capacity → logistic $\\frac{L}{1 + C\\mathrm{e}^{-kx}}$ with $L, C, k > 0$: $f(0) = \\frac{L}{1 + C}$ gives $C$, and one more point gives $k$ on the GDC ({{lesson:2.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Exponential or power model for positive data? → find $r$ for $\\ln y$ against $x$ and for $\\ln y$ against $\\ln x$, and choose the one with $|r|$ closer to $1$; then $y = ka^{x}$ has $a = \\mathrm{e}^{\\text{gradient}}$, $y = kx^{n}$ has $n = $ gradient, and both have $k = \\mathrm{e}^{\\text{intercept}}$ ({{lesson:2.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

@@ -1,0 +1,820 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.6",
+  "slug": "probability-diagrams-rules-and-independence",
+  "title": "Probability diagrams, rules and independence",
+  "level": "SL",
+  "topic": 4,
+  "summary": "[[venn-diagram|Venn diagrams]], [[tree-diagram|tree diagrams]] and tables turn a wordy probability question into regions and branches you can read off, often with no formula at all. A few rules cover the rest: the addition rule for \"or\", [[mutually-exclusive-events|mutually exclusive events]], [[conditional-probability|conditional probability]] for \"given that\", and multiplying for [[independent-events|independent events]].",
+  "goals": [
+    {
+      "text": "Read probabilities straight off a Venn diagram, a sample-space diagram or a table of outcomes, often with no formula.",
+      "bullets": [
+        "4.6-b1",
+        "4.6-b6"
+      ]
+    },
+    {
+      "text": "Use the addition rule $\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)$, knowing that \"or\" includes both.",
+      "bullets": [
+        "4.6-b2"
+      ]
+    },
+    {
+      "text": "Recognise mutually exclusive events and use $\\mathrm{P}(A \\cap B) = 0$.",
+      "bullets": [
+        "4.6-b3"
+      ]
+    },
+    {
+      "text": "Find a conditional probability from a table or the formula, and use $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$.",
+      "bullets": [
+        "4.6-b4"
+      ]
+    },
+    {
+      "text": "Draw and use tree diagrams for two stages, with and [[without-replacement|without replacement]], and interpret the result.",
+      "bullets": [
+        "4.6-b1",
+        "4.6-b4",
+        "4.6-b6"
+      ]
+    },
+    {
+      "text": "Use independence to multiply probabilities, and test whether two [[event|events]] are independent.",
+      "bullets": [
+        "4.6-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "venn diagram probability",
+    "tree diagram probability",
+    "conditional probability",
+    "independent events",
+    "mutually exclusive events",
+    "with and without replacement"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-complement-bus",
+      "prompt": "The probability that the 08:15 bus is full is $0.27$. Find the probability that it is not full.",
+      "hint": "\"Full\" and \"not full\" are [[complementary-events|complementary events]].",
+      "answer": {
+        "value": 0.73,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A') = 1 - \\mathrm{P}(A) = 1 - 0.27 = 0.73$. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - Rational(27, 100)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-grand-total",
+      "prompt": "In a club of $28$ members, $11$ are left-handed. One member is chosen at random. Find the probability that the member is left-handed.",
+      "hint": "Every member is equally likely to be chosen. How many could be chosen?",
+      "options": [
+        {
+          "text": "$\\frac{11}{28}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{11}{17}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{17}{28}$",
+          "correct": false
+        }
+      ],
+      "explain": "$11$ of the $28$ equally likely members are left-handed: $\\frac{11}{28}$. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Rational(11, 28)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-coin-and-die",
+      "prompt": "A fair coin is tossed and a fair four-sided die is rolled. Write down the number of outcomes in the [[sample-space|sample space]].",
+      "hint": "Each coin result pairs with each of the $4$ die results.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "There are $2 \\times 4 = 8$ pairs, from $\\text{H}1$ to $\\text{T}4$. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2*4",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "venn",
+      "heading": "Venn diagrams and the addition rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A station survey asks commuters whether they own a bike or a car. Some own both, so adding the two groups counts them twice. A picture stops that."
+        },
+        {
+          "type": "definition",
+          "term": "Venn diagram",
+          "statement": "A Venn diagram draws the sample space $U$ as a rectangle and each event as a circle inside it. Where two circles overlap, the outcomes are in both events.",
+          "plain": "Each region of the picture is one kind of outcome, and you write a count or a probability in it."
+        },
+        {
+          "type": "definition",
+          "term": "Intersection and union",
+          "statement": "The intersection $A \\cap B$ is the event \"$A$ and $B$\": both happen. The [[union-of-events|union]] $A \\cup B$ is the event \"$A$ or $B$\": at least one of them happens.",
+          "plain": "The intersection is the overlap. The union is everything inside either circle."
+        },
+        {
+          "type": "text",
+          "text": "In maths, \"or\" includes both. \"$A$ or $B$\" means $A$ only, $B$ only, or both. So $A \\cup B$ is three regions: $A \\cap B'$, $A \\cap B$ and $A' \\cap B$."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{P}(A)$ covers two regions, and so does $\\mathrm{P}(B)$. Adding them counts the overlap twice. Take it away once and you get the addition rule."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-combined"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. Given any three of its four probabilities, you can find the fourth."
+        },
+        {
+          "type": "example",
+          "id": "ex-commuters-venn",
+          "question": "A survey of $150$ commuters finds that $84$ own a bike, $57$ own a car and $26$ own both. Let $B$ be \"owns a bike\" and $C$ be \"owns a car\". (a) Draw a Venn diagram showing the number of commuters in each region. (b) One commuter is chosen at random. Find the probability that they own neither a bike nor a car.",
+          "steps": [
+            "(a) Fill the overlap first: $26$ commuters are in $B \\cap C$.",
+            "Bike only: $84 - 26 = 58$. Car only: $57 - 26 = 31$.",
+            "Outside both circles: $150 - (58 + 26 + 31) = 150 - 115 = 35$. Check: $58 + 26 + 31 + 35 = 150$.",
+            "(b) \"Neither\" is the region outside both circles, $B' \\cap C'$. Read it off: $\\mathrm{P}(B' \\cap C') = \\frac{35}{150} = \\frac{7}{30}$.",
+            "Interpret: about $23\\%$ of these commuters own neither a bike nor a car."
+          ],
+          "answer": "$\\mathrm{P}(B' \\cap C') = \\frac{7}{30}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(150 - (84 + 57 - 26), 150)"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-6-venn-commuters",
+          "alt": "Venn diagram of 150 commuters with circles B, owns a bike, and C, owns a car. Bike only 58, both 26, car only 31, and 35 outside both circles.",
+          "caption": "Fill from the middle out. The four regions add up to $150$."
+        },
+        {
+          "type": "mistake",
+          "text": "Taking \"neither\" as $1 - \\mathrm{P}(A \\cap B)$. That still includes the one-circle regions. Neither is $1 - \\mathrm{P}(A \\cup B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-streaming-exactly-one",
+          "question": "For a streaming service, the probability that a subscriber watches drama is $0.62$, watches comedy is $0.48$, and watches drama or comedy is $0.81$. (a) Find the probability that a subscriber watches both. (b) Find the probability that a subscriber watches exactly one of the two, and interpret it.",
+          "steps": [
+            "Let $D$ be \"watches drama\" and $C$ be \"watches comedy\". \"Drama or comedy\" includes both, so $\\mathrm{P}(D \\cup C) = 0.81$.",
+            "(a) Put the known values into the addition rule: $0.81 = 0.62 + 0.48 - \\mathrm{P}(D \\cap C)$.",
+            "Rearrange: $\\mathrm{P}(D \\cap C) = 0.62 + 0.48 - 0.81 = 0.29$.",
+            "(b) Exactly one is the union without the overlap: $0.81 - 0.29 = 0.52$.",
+            "Interpret: about $52\\%$ of subscribers watch one of these genres but not both."
+          ],
+          "answer": "$\\mathrm{P}(\\text{exactly one}) = 0.52$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(81, 100) - (Rational(62, 100) + Rational(48, 100) - Rational(81, 100))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hotel-union",
+          "prompt": "At a hotel, the probability that a guest uses the pool is $0.35$, uses the gym is $0.44$, and uses both is $0.12$. Find the probability that a guest uses the pool or the gym.",
+          "hint": "Add the two probabilities, then take away the part you counted twice.",
+          "answer": {
+            "value": 0.67,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(\\text{pool} \\cup \\text{gym}) = 0.35 + 0.44 - 0.12 = 0.67$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(35, 100) + Rational(44, 100) - Rational(12, 100)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-club-both",
+          "prompt": "A sports club has $90$ members. $52$ play tennis, $37$ play squash and $11$ play neither. One member is chosen at random. Find the probability that they play both.",
+          "hint": "How many members play at least one sport? Compare that with $52 + 37$.",
+          "options": [
+            {
+              "text": "$\\frac{1}{9}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{79}{90}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{7}{15}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{90}$",
+              "correct": false
+            }
+          ],
+          "explain": "$90 - 11 = 79$ play at least one sport, so $52 + 37 - 79 = 10$ play both: $\\frac{10}{90} = \\frac{1}{9}$. $\\frac{7}{15}$ is tennis only, and $\\frac{79}{90}$ is tennis or squash.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(52 + 37 - (90 - 11), 90)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exclusive",
+      "heading": "Mutually exclusive events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On one journey, a commuter either takes the train or takes the bus, never both. On a Venn diagram, those two circles don't overlap."
+        },
+        {
+          "type": "definition",
+          "term": "Mutually exclusive events",
+          "statement": "Events $A$ and $B$ are mutually exclusive when they cannot both happen. Then $A \\cap B$ has no outcomes, so $\\mathrm{P}(A \\cap B) = 0$.",
+          "plain": "If one of them happens, the other can't."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Put $\\mathrm{P}(A \\cap B) = 0$ into the addition rule and the last term disappears. This version is in the booklet too, but use it only when $A$ and $B$ can't happen together."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-mutually-exclusive"
+        },
+        {
+          "type": "example",
+          "id": "ex-spinner-game",
+          "question": "At a fair, two fair spinners, numbered $1$ to $4$ and $1$ to $5$, are spun and their numbers multiplied. You win if the product is odd or a multiple of $4$. Let $A$ be \"the product is odd\" and $M$ be \"the product is a multiple of $4$\". (a) Show that $A$ and $M$ are mutually exclusive. (b) Find the probability of winning.",
+          "steps": [
+            "Draw a sample-space diagram of the products. Its $20$ cells are equally likely.",
+            "$\\begin{array}{c|ccccc} \\times & 1 & 2 & 3 & 4 & 5 \\\\ \\hline 1 & 1 & 2 & 3 & 4 & 5 \\\\ 2 & 2 & 4 & 6 & 8 & 10 \\\\ 3 & 3 & 6 & 9 & 12 & 15 \\\\ 4 & 4 & 8 & 12 & 16 & 20 \\end{array}$",
+            "(a) A multiple of $4$ is even, so never odd. No cell is in both events, so they are mutually exclusive.",
+            "(b) Count the cells: $6$ odd products ($1, 3, 5, 3, 9, 15$) and $9$ multiples of $4$ ($4$; $4, 8$; $12$; and all of row $4$).",
+            "The events are mutually exclusive, so add: $\\mathrm{P}(A \\cup M) = \\frac{6}{20} + \\frac{9}{20} = \\frac{15}{20} = \\frac{3}{4}$.",
+            "Interpret: in the long run, players win three games in every four."
+          ],
+          "answer": "$\\mathrm{P}(A \\cup M) = \\frac{3}{4}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(6 + 9, 4*5)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-phone-contracts",
+          "question": "Each customer at a phone shop takes contract $A$, contract $B$ or no contract, and nobody takes both contracts. Contract $B$ is twice as likely as contract $A$, and the probability of no contract is $0.31$. Find the probability that a customer takes contract $A$.",
+          "steps": [
+            "Let $\\mathrm{P}(A) = p$, so $\\mathrm{P}(B) = 2p$.",
+            "Nobody takes both, so $A$ and $B$ are mutually exclusive and $\\mathrm{P}(A \\cup B) = p + 2p = 3p$.",
+            "Every customer either takes a contract or doesn't, so $\\mathrm{P}(A \\cup B) = 1 - 0.31 = 0.69$.",
+            "Solve $3p = 0.69$: $p = 0.23$. So $\\mathrm{P}(B) = 0.46$. Check: $0.23 + 0.46 + 0.31 = 1$.",
+            "Interpret: about $23\\%$ of customers take contract $A$."
+          ],
+          "answer": "$\\mathrm{P}(A) = 0.23$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 - Rational(31, 100))/3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-could-exclusive",
+          "prompt": "In a town, the probability that an adult reads news online is $0.57$, and the probability that they read a printed newspaper is $0.49$. Can these two events be mutually exclusive?",
+          "hint": "If they were, what would the probability of \"online or printed\" be?",
+          "options": [
+            {
+              "text": "No, the probabilities add up to more than 1",
+              "correct": true
+            },
+            {
+              "text": "Yes, the probabilities are different",
+              "correct": false
+            },
+            {
+              "text": "Yes, each probability is below 1",
+              "correct": false
+            }
+          ],
+          "explain": "Mutually exclusive would give $\\mathrm{P}(\\text{online or printed}) = 0.57 + 0.49 = 1.06 > 1$, which is impossible.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No, the probabilities add up to more than 1"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-exclusive-missing",
+          "prompt": "Events $A$ and $B$ are mutually exclusive, with $\\mathrm{P}(A) = 0.26$ and $\\mathrm{P}(A' \\cap B') = 0.41$. Find $\\mathrm{P}(B)$.",
+          "hint": "The three regions $A$, $B$ and \"neither\" add up to $1$. There is nothing in the overlap.",
+          "answer": {
+            "value": 0.33,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(A \\cup B) = 1 - 0.41 = 0.59$, and with no overlap $\\mathrm{P}(B) = 0.59 - 0.26 = 0.33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - Rational(41, 100) - Rational(26, 100)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "conditional",
+      "heading": "Conditional probability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A phone repair shop records $250$ repairs by phone brand and whether the repair was finished the same day."
+        },
+        {
+          "type": "text",
+          "text": "$\\begin{array}{l|cc|c} & \\text{Same day} & \\text{Later} & \\text{Total} \\\\ \\hline \\text{Brand X} & 48 & 32 & 80 \\\\ \\text{Brand Y} & 36 & 54 & 90 \\\\ \\text{Brand Z} & 51 & 29 & 80 \\\\ \\hline \\text{Total} & 135 & 115 & 250 \\end{array}$"
+        },
+        {
+          "type": "text",
+          "text": "A random repair was finished the same day with probability $\\frac{135}{250} = 0.54$. If you know the phone is brand Y, only that row matters: $\\frac{36}{90} = 0.4$."
+        },
+        {
+          "type": "text",
+          "text": "Knowing that an event has happened shrinks the sample space to that event. The new probability is a conditional probability."
+        },
+        {
+          "type": "definition",
+          "term": "Conditional probability",
+          "statement": "$\\mathrm{P}(A \\mid B)$ is the probability that $A$ happens, given that $B$ has happened. Read the bar as \"given\". It needs $\\mathrm{P}(B) > 0$.",
+          "plain": "Look only where $B$ happened, and ask what fraction of that is also $A$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional"
+        },
+        {
+          "type": "text",
+          "text": "Given $B$, only the outcomes in $B$ are left, so divide the overlap by all of $B$. The given event always goes on the bottom. This is in the booklet."
+        },
+        {
+          "type": "text",
+          "text": "Multiply both sides by $\\mathrm{P}(B)$ for a second form, which finds the probability of both. Learn it: the booklet shows only the first form."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-repairs-given-later",
+          "question": "Use the repair table. A repair is chosen at random. Given that it was not finished the same day, find the probability that the phone was brand Z.",
+          "steps": [
+            "Let $Z$ be \"brand Z\" and $N$ be \"not finished the same day\". The given event is $N$.",
+            "From the table: only the Later column matters. It has $115$ repairs, and $29$ of them are brand Z.",
+            "So $\\mathrm{P}(Z \\mid N) = \\frac{29}{115} \\approx 0.252$.",
+            "The formula gives the same: $\\frac{\\mathrm{P}(Z \\cap N)}{\\mathrm{P}(N)} = \\frac{29/250}{115/250} = \\frac{29}{115}$.",
+            "Interpret: about a quarter of the slow repairs were brand Z phones."
+          ],
+          "answer": "$\\mathrm{P}(Z \\mid N) = \\frac{29}{115}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(29, 32 + 54 + 29)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the wrong total. For \"brand Z, given later\" the given event is Later, so divide by the Later total, $115$, not by the brand Z total, $80$, or by $250$."
+        },
+        {
+          "type": "example",
+          "id": "ex-solar-battery",
+          "question": "In a town, $38\\%$ of households have solar panels. Of the households with solar panels, $45\\%$ also have a home battery. (a) Find the probability that a randomly chosen household has solar panels and a battery. (b) A local newspaper reports that \"$45\\%$ of households in the town have a home battery\". Comment on this claim.",
+          "steps": [
+            "Let $S$ be \"has solar panels\" and $H$ be \"has a home battery\". Then $\\mathrm{P}(S) = 0.38$.",
+            "\"$45\\%$ of the households with solar panels\" means $\\mathrm{P}(H \\mid S) = 0.45$, not the probability of both.",
+            "(a) Use the second form, with $S$ as the given event: $\\mathrm{P}(S \\cap H) = \\mathrm{P}(S)\\,\\mathrm{P}(H \\mid S) = 0.38 \\times 0.45 = 0.171$.",
+            "Interpret: about $17\\%$ of all households have both.",
+            "(b) The $45\\%$ is only for households with solar panels, so the claim is not supported."
+          ],
+          "answer": "$\\mathrm{P}(S \\cap H) = 0.171$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(38, 100)*Rational(45, 100)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For a \"given that\" question, write the probability as a fraction first. Mark schemes often give one mark for the right numerator and one for the right denominator."
+        },
+        {
+          "type": "check",
+          "id": "check-repairs-brand-x",
+          "prompt": "Use the repair table. A repair is chosen at random. Given that the phone was brand X, find the probability that the repair was finished the same day.",
+          "hint": "Look only at the Brand X row.",
+          "options": [
+            {
+              "text": "$\\frac{3}{5}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{16}{45}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{24}{125}$",
+              "correct": false
+            }
+          ],
+          "explain": "$48$ of the $80$ brand X repairs were same day: $\\frac{48}{80} = \\frac{3}{5}$. $\\frac{48}{135}$ divides by the same-day total, and $\\frac{48}{250}$ is the probability of both.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(48, 48 + 32)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-loyalty-flowers",
+          "prompt": "At a supermarket, the probability that a customer uses a loyalty card is $0.56$. The probability that a customer uses a loyalty card and buys flowers is $0.14$. Find the probability that a customer buys flowers, given that they use a loyalty card.",
+          "hint": "The given event is \"uses a loyalty card\", so its probability goes on the bottom.",
+          "answer": {
+            "value": 0.25,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(\\text{flowers} \\mid \\text{card}) = \\frac{0.14}{0.56} = 0.25$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(14, 100)/Rational(56, 100)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "trees",
+      "heading": "Tree diagrams, with and without replacement",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some experiments happen in stages: first the serve, then the rally. What happens at the first stage can change the chances at the second."
+        },
+        {
+          "type": "definition",
+          "term": "Tree diagram",
+          "statement": "A [[tree-diagram|tree diagram]] has one set of branches for each stage of an experiment. Branches from one point add up to $1$. A second-stage branch carries a conditional probability: its chance given the branch before it.",
+          "plain": "Each path from left to right is one way the experiment can turn out."
+        },
+        {
+          "type": "text",
+          "text": "1. Multiply along a path. This is $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B \\mid A)$, with $A$ the first stage."
+        },
+        {
+          "type": "text",
+          "text": "2. Add the paths you want. Different paths can't both happen, so they are mutually exclusive."
+        },
+        {
+          "type": "figure",
+          "id": "4-6-tennis-tree",
+          "alt": "Tree diagram. First serve in 0.62, out 0.38. After in: win 0.71, lose 0.29. After out: win 0.48, lose 0.52. Path products: 0.4402, 0.1798, 0.1824 and 0.1976.",
+          "caption": "The tree for the tennis serve. Multiply along each path; the four path probabilities add up to $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tennis-serve",
+          "question": "A tennis player gets her first serve in with probability $0.62$. If it goes in, she wins the point with probability $0.71$. If it is out, she plays a second serve and wins the point with probability $0.48$. (a) Find the probability that she wins a point. (b) Given that she won a point, find the probability that her first serve went in.",
+          "steps": [
+            "Let $F$ be \"first serve in\" and $W$ be \"wins the point\". Draw the tree: $F$ or $F'$, then $W$ or $W'$, with $\\mathrm{P}(W \\mid F) = 0.71$ and $\\mathrm{P}(W \\mid F') = 0.48$.",
+            "(a) Two paths end in a win. Multiply along each: $\\mathrm{P}(F \\cap W) = 0.62 \\times 0.71 = 0.4402$ and $\\mathrm{P}(F' \\cap W) = 0.38 \\times 0.48 = 0.1824$.",
+            "Add the two paths: $\\mathrm{P}(W) = 0.4402 + 0.1824 = 0.6226$.",
+            "(b) Now $W$ is the given event, so it goes on the bottom: $\\mathrm{P}(F \\mid W) = \\frac{\\mathrm{P}(F \\cap W)}{\\mathrm{P}(W)} = \\frac{0.4402}{0.6226} = 0.70703\\ldots$",
+            "So $\\mathrm{P}(F \\mid W) \\approx 0.707$. Interpret: about $71\\%$ of the points she wins began with a first serve in."
+          ],
+          "answer": "$\\mathrm{P}(F \\mid W) \\approx 0.707$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(62, 100)*Rational(71, 100)/(Rational(62, 100)*Rational(71, 100) + Rational(38, 100)*Rational(48, 100))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "With replacement, you put the first item back, so the second pick has the same chances. Without replacement, you keep it out, so the totals and the second-stage probabilities change."
+        },
+        {
+          "type": "example",
+          "id": "ex-volunteers-without",
+          "question": "A team of $14$ volunteers includes $5$ teenagers. Two volunteers are chosen at random, one after the other, without replacement, for a radio interview. (a) Find the probability that at least one of them is a teenager. (b) Explain why the answer would be different if the same person could be chosen twice.",
+          "steps": [
+            "Let $T$ be \"a teenager\". First pick, from $14$: $\\mathrm{P}(T) = \\frac{5}{14}$ and $\\mathrm{P}(T') = \\frac{9}{14}$.",
+            "\"At least one teenager\" is three paths. Its complement, \"no teenager\", is one: $T'$ then $T'$.",
+            "Second pick, after a non-teenager: $8$ of the $13$ left are not teenagers. So $\\mathrm{P}(\\text{no teenager}) = \\frac{9}{14} \\times \\frac{8}{13} = \\frac{72}{182}$.",
+            "(a) $\\mathrm{P}(\\text{at least one}) = 1 - \\frac{72}{182} = \\frac{110}{182} = \\frac{55}{91} \\approx 0.604$.",
+            "(b) With replacement it would be $1 - \\left(\\frac{9}{14}\\right)^{2} \\approx 0.587$. Keeping a non-teenager out leaves a larger share of teenagers for the second pick."
+          ],
+          "answer": "$\\mathrm{P}(\\text{at least one teenager}) = \\frac{55}{91}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - Rational(9, 14)*Rational(8, 13)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the probabilities along a path. Along a path you multiply. You add only across different paths."
+        },
+        {
+          "type": "check",
+          "id": "check-train-two-days",
+          "prompt": "The probability that a train is late on Monday is $0.15$. If it is late on Monday, the probability that it is late on Tuesday is $0.4$. If not, it is $0.1$. Find the probability that the train is late on exactly one of the two days.",
+          "hint": "Two paths have exactly one late day: late then on time, or on time then late.",
+          "options": [
+            {
+              "text": "$0.175$",
+              "correct": true
+            },
+            {
+              "text": "$0.06$",
+              "correct": false
+            },
+            {
+              "text": "$0.09$",
+              "correct": false
+            },
+            {
+              "text": "$0.765$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.15 \\times 0.6 + 0.85 \\times 0.1 = 0.175$. $0.06$ is late on both days, $0.09$ is one path only, and $0.765$ is late on neither day.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(15, 100)*(1 - Rational(4, 10)) + (1 - Rational(15, 100))*Rational(1, 10)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-batteries-without",
+          "prompt": "A drawer holds $11$ batteries, and $4$ of them are flat. Two batteries are taken at random without replacement. Find the probability that both work. Give your answer to 3 s.f.",
+          "hint": "After one working battery is taken, how many working ones, and how many in total, are left?",
+          "answer": {
+            "value": 0.382,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\frac{7}{11} \\times \\frac{6}{10} = \\frac{42}{110} = 0.38181\\ldots \\approx 0.382$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(7, 11)*Rational(6, 10)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "independent",
+      "heading": "Independent events",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Roll a die and check tomorrow's weather. Rain doesn't change the chance of a six: it is still $\\frac{1}{6}$."
+        },
+        {
+          "type": "definition",
+          "term": "Independent events",
+          "statement": "Events $A$ and $B$ are independent when one happening does not change the probability of the other: $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$, where $\\mathrm{P}(B) > 0$. Equivalently, $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$.",
+          "plain": "Neither event cares whether the other one happened."
+        },
+        {
+          "type": "text",
+          "text": "Put $\\mathrm{P}(A \\mid B) = \\mathrm{P}(A)$ into $\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$ and you get the multiplication rule below. It is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent"
+        },
+        {
+          "type": "text",
+          "text": "If you're told the events are independent, multiply. To test whether they are, compare $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ with $\\mathrm{P}(A \\cap B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-repairs-independent",
+          "question": "Use the repair table. Let $X$ be \"brand X\" and $S$ be \"finished the same day\". Find $\\mathrm{P}(X) \\times \\mathrm{P}(S)$, and hence determine whether $X$ and $S$ are independent.",
+          "steps": [
+            "From the table: $\\mathrm{P}(X) = \\frac{80}{250} = 0.32$, $\\mathrm{P}(S) = \\frac{135}{250} = 0.54$ and $\\mathrm{P}(X \\cap S) = \\frac{48}{250} = 0.192$.",
+            "Multiply: $\\mathrm{P}(X) \\times \\mathrm{P}(S) = 0.32 \\times 0.54 = 0.1728$.",
+            "Compare, showing both values: $0.1728 \\ne 0.192$, so $X$ and $S$ are not independent.",
+            "Interpret: $\\mathrm{P}(S \\mid X) = \\frac{48}{80} = 0.6 > 0.54$, so brand X repairs were more often finished the same day."
+          ],
+          "answer": "$\\mathrm{P}(X) \\times \\mathrm{P}(S) = 0.1728$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(80, 250)*Rational(135, 250)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To show that events are independent, or not, write both numbers and compare them, as in $0.1728 \\ne 0.192$. A conclusion with no comparison doesn't earn the reasoning mark."
+        },
+        {
+          "type": "result",
+          "statement": "If $\\mathrm{P}(A) > 0$ and $\\mathrm{P}(B) > 0$, then mutually exclusive events are never independent.",
+          "why": "Mutually exclusive gives $\\mathrm{P}(A \\cap B) = 0$, but $\\mathrm{P}(A)\\,\\mathrm{P}(B) > 0$, so the two can't be equal."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up mutually exclusive and independent. Mutually exclusive means $\\mathrm{P}(A \\cap B) = 0$. Independent means $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-generators-gdc",
+          "question": "A hospital has two backup generators, which start independently of each other in a power cut. Generator 2 is $0.08$ less likely to start than generator 1. The probability that at least one of them starts is $0.97$. Use your calculator to find the probability that generator 1 starts. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $A$ be \"generator 1 starts\" and $B$ be \"generator 2 starts\". Let $\\mathrm{P}(A) = p$, so $\\mathrm{P}(B) = p - 0.08$.",
+            "\"At least one starts\" is $A \\cup B$. Independence gives $\\mathrm{P}(A \\cap B) = p(p - 0.08)$.",
+            "Write the addition rule with these in: $p + (p - 0.08) - p(p - 0.08) = 0.97$.",
+            "Rearrange to a quadratic and write it down before using the GDC: $p^{2} - 2.08p + 1.05 = 0$.",
+            "The polynomial solver gives $p = 1.21776\\ldots$ or $p = 0.862236\\ldots$",
+            "A probability can't be above $1$, so reject $1.218$. Then $\\mathrm{P}(B) = 0.782\\ldots$, which is valid. Generator 1 starts in about $86\\%$ of power cuts."
+          ],
+          "answer": "$\\mathrm{P}(A) \\approx 0.862$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(Rational(208, 100) - sqrt(Rational(208, 100)**2 - 4*Rational(105, 100)))/2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": "2",
+            "coefficients": "1, -2.08, 1.05"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-instrument-sport",
+          "prompt": "For a student at a school, the probability of playing a musical instrument is $0.3$, of playing a team sport is $0.45$, and of playing an instrument or a team sport is $0.615$. Are the two events independent?",
+          "hint": "Find the probability of both with the addition rule, then compare it with $0.3 \\times 0.45$.",
+          "options": [
+            {
+              "text": "Yes, the probability of both equals the product",
+              "correct": true
+            },
+            {
+              "text": "No, a student can do both",
+              "correct": false
+            },
+            {
+              "text": "No, the probabilities don't add up to 1",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(\\text{both}) = 0.3 + 0.45 - 0.615 = 0.135 = 0.3 \\times 0.45$, so they are independent. Doing both rules out mutually exclusive, not independent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Yes, the probability of both equals the product"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-component-tests",
+          "prompt": "A component passes test 1 with probability $0.92$ and test 2 with probability $0.85$, independently. Find the probability that it passes test 1 but fails test 2.",
+          "hint": "Fails test 2 has probability $1 - 0.85$. The tests are independent, so multiply.",
+          "answer": {
+            "value": 0.138,
+            "tolerance": 0
+          },
+          "explain": "$0.92 \\times (1 - 0.85) = 0.92 \\times 0.15 = 0.138$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(92, 100)*(1 - Rational(85, 100))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Fill a Venn diagram from the middle out: the overlap, then the rest of each circle, then the outside. \"Or\" includes both: $A \\cup B$ means $A$, $B$ or both.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) - \\mathrm{P}(A \\cap B)",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-combined",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Mutually exclusive events can't both happen, so $\\mathrm{P}(A \\cap B) = 0$. That is not the same as independent.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cup B) = \\mathrm{P}(A) + \\mathrm{P}(B) \\quad \\text{for mutually exclusive } A, B",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-mutually-exclusive",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}, \\quad \\mathrm{P}(B) > 0",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-conditional",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Tree diagrams: multiply along a path, add across paths. Without replacement, the totals and second-stage probabilities change.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B) \\quad \\text{for independent } A, B",
+          "tag": "booklet",
+          "bookletId": "bk-4-6-independent",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding $\\mathrm{P}(A)$ and $\\mathrm{P}(B)$ and forgetting the overlap. Unless the events are mutually exclusive, subtract $\\mathrm{P}(A \\cap B)$.",
+    "Using the wrong denominator for \"given that\". Divide by the given event's total, or its probability.",
+    "Multiplying $\\mathrm{P}(A) \\times \\mathrm{P}(B)$ for events not known to be independent. Use a diagram, the addition rule or $\\mathrm{P}(B)\\,\\mathrm{P}(A \\mid B)$.",
+    "Treating picks without replacement as if the item went back. After each pick, reduce the total, and that type's count, by one.",
+    "Calling events independent, or not, with no numbers. Compare $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ with $\\mathrm{P}(A \\cap B)$ first."
+  ],
+  "examTips": [
+    "Write down a probability from a table or diagram: no working needed; give a fraction or 3 s.f.",
+    "Find a conditional probability: show the fraction before the decimal. The numerator and denominator can each earn a mark.",
+    "Determine whether events are independent: write $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ and $\\mathrm{P}(A \\cap B)$ as numbers, compare them, then conclude.",
+    "Solve for an unknown probability with the GDC: write the equation first, then reject any root outside $0$ to $1$, saying why."
+  ],
+  "readingMinutes": 31
+}

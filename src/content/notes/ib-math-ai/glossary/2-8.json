@@ -1,0 +1,32 @@
+[
+  {
+    "id": "translation",
+    "term": "translation",
+    "definition": "A move that slides every point of a graph the same distance in the same direction; the translation by the vector $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$ turns $y = f(x)$ into $y = f(x - a) + b$, moving it $a$ units right and $b$ units up.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "reflection",
+    "term": "reflection",
+    "definition": "A transformation that flips a graph over a mirror line, sending each point to the point the same distance away on the other side; $y = -f(x)$ is the reflection of $y = f(x)$ in the $x$-axis and $y = f(-x)$ is its reflection in the $y$-axis.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "vertical-stretch",
+    "term": "vertical stretch",
+    "definition": "For $p > 0$, the transformation from $y = f(x)$ to $y = pf(x)$, with scale factor $p$: every $y$-coordinate is multiplied by $p$, every $x$-coordinate stays the same, and the $x$-axis is invariant.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "horizontal-stretch",
+    "term": "horizontal stretch",
+    "definition": "For $q > 0$, the transformation from $y = f(x)$ to $y = f(qx)$, with scale factor $\\frac{1}{q}$, not $q$: every $x$-coordinate is divided by $q$, every $y$-coordinate stays the same, and the $y$-axis is invariant.",
+    "lesson": "2.8"
+  },
+  {
+    "id": "invariant",
+    "term": "invariant",
+    "definition": "Unchanged by a transformation: an invariant point maps to itself, such as a point on the $x$-axis under the vertical stretch $y = pf(x)$, or on the mirror line under a reflection.",
+    "lesson": "2.8"
+  }
+]

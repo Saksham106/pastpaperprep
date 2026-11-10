@@ -1,0 +1,44 @@
+[
+  {
+    "id": "class-interval",
+    "term": "class interval",
+    "definition": "A group of values in a grouped frequency table, written as an inequality such as $20 \\le t < 25$; the classes leave no gaps and don't overlap, so each value belongs to exactly one class.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "histogram",
+    "term": "histogram",
+    "definition": "A chart of grouped data on a continuous scale, with one bar per class and no gaps between bars; when every class has the same width, each bar's height is the class frequency.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "cumulative-frequency",
+    "term": "cumulative frequency",
+    "definition": "The number of data values less than or equal to a given value, a running total of the frequencies; on a cumulative frequency graph it is plotted at each class's upper boundary.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "median",
+    "term": "median",
+    "definition": "The middle value of the data when it is put in order; with an even number of values it is the mean of the middle two.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "percentile",
+    "term": "percentile",
+    "definition": "The $k$th percentile is the value with $k\\%$ of the data below it, so the median is the 50th percentile.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "range-of-a-data-set",
+    "term": "range of a data set",
+    "definition": "The largest data value minus the smallest, a single number that measures spread; it is not the range of a function.",
+    "lesson": "4.2"
+  },
+  {
+    "id": "box-and-whisker-diagram",
+    "term": "box and whisker diagram",
+    "definition": "A diagram drawn to scale with a box from $Q_1$ to $Q_3$, a line at the median, whiskers out to the smallest and largest values that are not outliers, and a cross for each outlier.",
+    "lesson": "4.2"
+  }
+]

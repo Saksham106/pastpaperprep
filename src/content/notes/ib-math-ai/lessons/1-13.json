@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.13",
+  "slug": "complex-numbers-in-polar-and-exponential-form",
+  "title": "Complex numbers in polar and exponential form",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "A [[complex-number|complex number]] is a point on the [[argand-diagram|Argand diagram]], so you can give it by its distance from O and its angle: $r\\,\\mathrm{cis}\\,\\theta$ or $r\\mathrm{e}^{\\mathrm{i}\\theta}$. In these forms multiplying is quick, because you multiply the distances and add the angles: a stretch and a rotation. The same idea adds two waves of the same frequency, such as AC voltages, into one wave.",
+  "goals": [
+    {
+      "text": "Write a complex number in [[polar-form|polar form]] $r\\,\\mathrm{cis}\\,\\theta$, with the argument in the range asked for.",
+      "bullets": [
+        "1.13-b1"
+      ]
+    },
+    {
+      "text": "Write it in [[exponential-form|exponential form]] $r\\mathrm{e}^{\\mathrm{i}\\theta}$, and move between all three forms, exactly or on a GDC.",
+      "bullets": [
+        "1.13-b2",
+        "1.13-b3"
+      ]
+    },
+    {
+      "text": "Multiply, divide and raise to whole-number powers using moduli and arguments (roots are not examined).",
+      "bullets": [
+        "1.13-b4",
+        "1.13-b5"
+      ]
+    },
+    {
+      "text": "Describe adding and subtracting as moves of [[vector|vectors]], and multiplying as an enlargement and a rotation about O.",
+      "bullets": [
+        "1.13-b7"
+      ]
+    },
+    {
+      "text": "Add two [[sinusoidal-function|sinusoidal functions]] with the same frequency, such as two AC voltages, into one wave, and interpret its [[amplitude|amplitude]].",
+      "bullets": [
+        "1.13-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "1.12",
+    "2.5",
+    "3.7",
+    "3.8",
+    "3.10"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "modulus argument form",
+    "polar form of a complex number",
+    "Euler form",
+    "exponential form complex number",
+    "cis form",
+    "adding sinusoids with complex numbers"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-modulus",
+      "prompt": "Find the modulus of $-9 + 12\\mathrm{i}$.",
+      "hint": "The modulus is the distance from O to the point on the Argand diagram.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0
+      },
+      "explain": "$\\lvert -9 + 12\\mathrm{i}\\rvert = \\sqrt{(-9)^{2} + 12^{2}} = \\sqrt{225} = 15$. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Abs(-9 + 12*I)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-radians",
+      "prompt": "Write $150^{\\circ}$ in radians.",
+      "hint": "$180^{\\circ}$ is $\\pi$ radians, so multiply by $\\frac{\\pi}{180}$.",
+      "options": [
+        {
+          "text": "$\\frac{5\\pi}{6}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{6\\pi}{5}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{5\\pi}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3\\pi}{5}$",
+          "correct": false
+        }
+      ],
+      "explain": "$150 \\times \\frac{\\pi}{180} = \\frac{150\\pi}{180} = \\frac{5\\pi}{6}$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "150*pi/180"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-amplitude",
+      "prompt": "Write down the amplitude of $y = -6\\cos(2x) + 1$.",
+      "hint": "The amplitude is a distance, so it is never negative. The $+1$ moves the graph up; it doesn't change its height.",
+      "options": [
+        {
+          "text": "$6$",
+          "correct": true
+        },
+        {
+          "text": "$-6$",
+          "correct": false
+        },
+        {
+          "text": "$7$",
+          "correct": false
+        },
+        {
+          "text": "$2$",
+          "correct": false
+        }
+      ],
+      "explain": "The amplitude is $\\lvert -6\\rvert = 6$: the graph goes $6$ above and $6$ below its principal axis $y = 1$. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "Abs(-6)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "polar",
+      "heading": "Polar (modulus-argument) form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.12}} you plotted $z = a + b\\mathrm{i}$ as the point $(a, b)$ on an Argand diagram. That is the [[cartesian-form|Cartesian form]]: how far across and how far up."
+        },
+        {
+          "type": "text",
+          "text": "You can fix the same point another way: its distance from O and its direction. The distance is the [[modulus-of-a-complex-number|modulus]] $r = \\lvert z\\rvert$. The direction is the [[argument-of-a-complex-number|argument]] $\\theta = \\arg z$, the angle from the positive real axis, anticlockwise positive."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-polar-point",
+          "alt": "Argand diagram with the point z equals minus 4.2 plus 5.6 i in the second quadrant. A line of length r equals 7 joins the origin O to the point. A dashed vertical line of length 5.6 drops from the point to the real axis, and the distance 4.2 is marked along the negative real axis. The angle theta is marked anticlockwise from the positive real axis to the line, and the acute angle alpha between the line and the negative real axis is also marked.",
+          "caption": "$\\theta$ is measured from the positive real axis. The acute angle $\\alpha$ is only a step to it."
+        },
+        {
+          "type": "text",
+          "text": "The right-angled triangle gives $a = r\\cos\\theta$ and $b = r\\sin\\theta$. So $z = r\\cos\\theta + \\mathrm{i}\\,r\\sin\\theta = r(\\cos\\theta + \\mathrm{i}\\sin\\theta)$. The bracket is shortened to $\\mathrm{cis}\\,\\theta$, for “cos plus i sin”."
+        },
+        {
+          "type": "definition",
+          "term": "Polar (modulus-argument) form",
+          "statement": "A non-zero complex number is in polar form when it is written $z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\,\\mathrm{cis}\\,\\theta$, where $r = \\lvert z\\rvert > 0$ and $\\theta = \\arg z$.",
+          "plain": "Say how far the point is from O, and in which direction."
+        },
+        {
+          "type": "formula",
+          "tex": "z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\mathrm{e}^{\\mathrm{i}\\theta} = r\\,\\mathrm{cis}\\,\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-13-polar-euler"
+        },
+        {
+          "type": "text",
+          "text": "This line is in the formula booklet, so you don't need to memorise it. You do need to find $r$ and $\\theta$ correctly."
+        },
+        {
+          "type": "text",
+          "text": "Adding a full turn, $2\\pi$, to $\\theta$ lands on the same point. So questions fix a range: usually $-\\pi < \\theta \\le \\pi$, sometimes $0 \\le \\theta < 2\\pi$. Arguments are in radians unless the question says degrees."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the modulus: $r = \\sqrt{a^{2} + b^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Sketch the point, so you know its quadrant."
+        },
+        {
+          "type": "text",
+          "text": "3. Find the acute angle $\\alpha$ between the line and the real axis: $\\tan\\alpha = \\left\\lvert\\frac{b}{a}\\right\\rvert$. (On an axis, skip this: $\\theta = 0$ or $\\pi$ on the real axis, and $\\frac{\\pi}{2}$ or $-\\frac{\\pi}{2}$ on the imaginary axis.)"
+        },
+        {
+          "type": "text",
+          "text": "4. Turn $\\alpha$ into $\\theta$. First quadrant: $\\theta = \\alpha$. Second: $\\theta = \\pi - \\alpha$. Third: $\\theta = -(\\pi - \\alpha)$. Fourth: $\\theta = -\\alpha$. These give $-\\pi < \\theta \\le \\pi$; for $0 \\le \\theta < 2\\pi$, add $2\\pi$ to a negative answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-polar-exact",
+          "question": "Write $z = -3 + 3\\mathrm{i}$ in polar form, with $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Modulus: $r = \\sqrt{(-3)^{2} + 3^{2}} = \\sqrt{18} = 3\\sqrt{2}$.",
+            "The [[real-part|real part]] is negative and the [[imaginary-part|imaginary part]] is positive, so $z$ is in the second quadrant.",
+            "Acute angle: $\\tan\\alpha = \\frac{3}{3} = 1$, so $\\alpha = \\frac{\\pi}{4}$.",
+            "Second quadrant: $\\theta = \\pi - \\frac{\\pi}{4} = \\frac{3\\pi}{4}$.",
+            "Check: $3\\sqrt{2}\\left(\\cos\\frac{3\\pi}{4} + \\mathrm{i}\\sin\\frac{3\\pi}{4}\\right) = 3\\sqrt{2}\\left(-\\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{2}}{2}\\mathrm{i}\\right) = -3 + 3\\mathrm{i}$."
+          ],
+          "answer": "$z = 3\\sqrt{2}\\,\\mathrm{cis}\\,\\frac{3\\pi}{4}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Trusting $\\arctan\\frac{b}{a}$ alone. Here $\\arctan\\frac{3}{-3} = -\\frac{\\pi}{4}$, which points into the fourth quadrant. Sketch the point, then adjust."
+        },
+        {
+          "type": "check",
+          "id": "check-polar-fourth",
+          "prompt": "Write $z = 5\\sqrt{3} - 5\\mathrm{i}$ in polar form, with $-\\pi < \\theta \\le \\pi$.",
+          "hint": "Sketch it first. Which quadrant is it in, and is $\\theta$ positive or negative there?",
+          "options": [
+            {
+              "text": "$10\\,\\mathrm{cis}\\,\\left(-\\frac{\\pi}{6}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$10\\,\\mathrm{cis}\\,\\frac{\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$10\\,\\mathrm{cis}\\,\\frac{11\\pi}{6}$",
+              "correct": false
+            },
+            {
+              "text": "$100\\,\\mathrm{cis}\\,\\left(-\\frac{\\pi}{6}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\sqrt{75 + 25} = 10$ and $\\tan\\alpha = \\frac{5}{5\\sqrt{3}}$, so $\\alpha = \\frac{\\pi}{6}$. The point is in the fourth quadrant, so $\\theta = -\\frac{\\pi}{6}$. $\\frac{11\\pi}{6}$ is the same direction but outside the range."
+        },
+        {
+          "type": "text",
+          "text": "For an unfamiliar angle, use the GDC in radian mode. It gives $\\theta$ in the right quadrant, with $-\\pi < \\theta \\le \\pi$: add $2\\pi$ to a negative value if the range is $0 \\le \\theta < 2\\pi$."
+        },
+        {
+          "type": "example",
+          "id": "ex-robot-polar",
+          "question": "A robot vacuum's charging dock is at O. Its position is $z = -4.2 + 5.6\\mathrm{i}$, in metres, with the real axis pointing east and the imaginary axis north. Use your GDC to write $z$ in polar form with $-\\pi < \\theta \\le \\pi$, giving $\\theta$ to 3 s.f. Interpret $r$ and $\\theta$.",
+          "steps": [
+            "Write down what you find: $r = \\lvert -4.2 + 5.6\\mathrm{i}\\rvert$ and $\\theta = \\arg(-4.2 + 5.6\\mathrm{i})$, in radian mode.",
+            "$r = \\sqrt{4.2^{2} + 5.6^{2}} = \\sqrt{49} = 7$.",
+            "The GDC gives $\\theta = 2.214297\\ldots$, in the second quadrant as the sketch expects. By hand: $\\pi - \\arctan\\frac{5.6}{4.2} = 2.214297\\ldots$",
+            "Interpret: the robot is $7$ m from the dock, in the direction $2.21$ radians (about $127^{\\circ}$) anticlockwise from east, so roughly north-west of the dock."
+          ],
+          "answer": "$z \\approx 7\\,\\mathrm{cis}\\,2.21$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "complex-to-polar",
+          "values": {
+            "re": "-4.2",
+            "im": "5.6"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Going back to Cartesian form is easier: work out $r\\cos\\theta$ and $r\\sin\\theta$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cis-to-cartesian",
+          "question": "Write $z = 6\\,\\mathrm{cis}\\,\\left(-\\frac{3\\pi}{4}\\right)$ in Cartesian form.",
+          "steps": [
+            "Exact values: $\\cos\\left(-\\frac{3\\pi}{4}\\right) = -\\frac{\\sqrt{2}}{2}$ and $\\sin\\left(-\\frac{3\\pi}{4}\\right) = -\\frac{\\sqrt{2}}{2}$.",
+            "Multiply by $6$: $z = 6\\left(-\\frac{\\sqrt{2}}{2}\\right) + 6\\left(-\\frac{\\sqrt{2}}{2}\\right)\\mathrm{i} = -3\\sqrt{2} - 3\\sqrt{2}\\mathrm{i}$.",
+            "Sense check: an argument of $-\\frac{3\\pi}{4}$ points into the third quadrant, and both parts are negative."
+          ],
+          "answer": "$z = -3\\sqrt{2} - 3\\sqrt{2}\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cis-cartesian",
+          "prompt": "Write $4\\,\\mathrm{cis}\\,\\frac{2\\pi}{3}$ in Cartesian form.",
+          "hint": "Which quadrant is $\\frac{2\\pi}{3}$ in? That fixes the signs of the two parts.",
+          "options": [
+            {
+              "text": "$-2 + 2\\sqrt{3}\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$2\\sqrt{3} - 2\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-2\\sqrt{3} + 2\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$2 + 2\\sqrt{3}\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\cos\\frac{2\\pi}{3} = -\\frac{1}{2}$ and $\\sin\\frac{2\\pi}{3} = \\frac{\\sqrt{3}}{2}$, so $4\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}\\mathrm{i}\\right) = -2 + 2\\sqrt{3}\\mathrm{i}$."
+        }
+      ]
+    },
+    {
+      "id": "exponential",
+      "heading": "Exponential (Euler) form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "There is a shorter way to write $\\cos\\theta + \\mathrm{i}\\sin\\theta$: as a power of [[e|Euler's number]] $\\mathrm{e}$."
+        },
+        {
+          "type": "result",
+          "statement": "Euler's formula: $\\mathrm{e}^{\\mathrm{i}\\theta} = \\cos\\theta + \\mathrm{i}\\sin\\theta$ for every real $\\theta$ in radians.",
+          "why": "You don't need to prove it in AI. It matches the laws of exponents, as the next section shows."
+        },
+        {
+          "type": "definition",
+          "term": "Exponential (Euler) form",
+          "statement": "A non-zero complex number is in exponential form when it is written $z = r\\mathrm{e}^{\\mathrm{i}\\theta}$, with the same $r = \\lvert z\\rvert > 0$ and $\\theta = \\arg z$ as in polar form, and $\\theta$ in radians.",
+          "plain": "It is the polar form written as a power of e."
+        },
+        {
+          "type": "text",
+          "text": "So $r\\,\\mathrm{cis}\\,\\theta = r\\mathrm{e}^{\\mathrm{i}\\theta}$. You may also see $\\mathrm{e}^{\\theta\\mathrm{i}}$, which means the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-euler-axis",
+          "question": "Write $z = -8$ in exponential form, with $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "$-8$ is on the negative real axis, $8$ units from O, so $r = 8$.",
+            "The negative real axis is half a turn from the positive real axis, so $\\theta = \\pi$. ($-\\pi$ is outside the range.)",
+            "Check: $8(\\cos\\pi + \\mathrm{i}\\sin\\pi) = 8(-1 + 0) = -8$."
+          ],
+          "answer": "$z = 8\\mathrm{e}^{\\pi\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "With a decimal argument, find $\\cos\\theta$ and $\\sin\\theta$ on the GDC in radian mode."
+        },
+        {
+          "type": "example",
+          "id": "ex-disc-point",
+          "question": "A sticker on a spinning disc is at $z = 5\\mathrm{e}^{2.4\\mathrm{i}}$, in cm from the centre O, with the real axis horizontal. Find $z$ in Cartesian form, giving each part to 3 s.f. Interpret your answer.",
+          "steps": [
+            "Set radian mode. In degrees, $2.4$ would be read as $2.4^{\\circ}$.",
+            "Real part: $5\\cos 2.4 = -3.686968\\ldots$",
+            "Imaginary part: $5\\sin 2.4 = 3.377315\\ldots$",
+            "Sense check: $2.4$ is between $\\frac{\\pi}{2} \\approx 1.57$ and $\\pi \\approx 3.14$, so the point is in the second quadrant: negative real part, positive imaginary part.",
+            "Interpret: the sticker is $3.69$ cm to the left of the centre and $3.38$ cm above it."
+          ],
+          "answer": "$z \\approx -3.69 + 3.38\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-euler-decimal",
+          "prompt": "Write $-2.4 - 7\\mathrm{i}$ in the form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$. Give $\\theta$ to 3 s.f.",
+          "hint": "$r = \\sqrt{2.4^{2} + 7^{2}}$. The point is in the third quadrant, so $\\theta$ is between $-\\pi$ and $-\\frac{\\pi}{2}$.",
+          "options": [
+            {
+              "text": "$7.4\\mathrm{e}^{-1.90\\mathrm{i}}$",
+              "correct": true
+            },
+            {
+              "text": "$7.4\\mathrm{e}^{1.24\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$7.4\\mathrm{e}^{1.90\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$7.4\\mathrm{e}^{-1.24\\mathrm{i}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\sqrt{5.76 + 49} = 7.4$. The acute angle is $\\arctan\\frac{7}{2.4} = 1.2404\\ldots$, and in the third quadrant $\\theta = -(\\pi - 1.2404\\ldots) = -1.9010\\ldots$"
+        },
+        {
+          "type": "check",
+          "id": "check-arg-range",
+          "prompt": "Find the argument of $-2.4 - 7\\mathrm{i}$ in the range $0 \\le \\theta < 2\\pi$. Give your answer to 3 s.f.",
+          "hint": "Start from the argument in $-\\pi < \\theta \\le \\pi$ and add a full turn.",
+          "answer": {
+            "value": 4.38,
+            "tolerance": 0.005
+          },
+          "explain": "In $-\\pi < \\theta \\le \\pi$ the argument is $-1.9010\\ldots$ Adding $2\\pi$ gives $4.3820\\ldots \\approx 4.38$, the same direction.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi + arg(-2.4 - 7*I)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiply",
+      "heading": "Products, quotients and powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Try one product. $(1 + \\mathrm{i})^{2} = 1 + 2\\mathrm{i} + \\mathrm{i}^{2} = 2\\mathrm{i}$."
+        },
+        {
+          "type": "text",
+          "text": "In polar form, $1 + \\mathrm{i} = \\sqrt{2}\\,\\mathrm{cis}\\,\\frac{\\pi}{4}$ and $2\\mathrm{i} = 2\\,\\mathrm{cis}\\,\\frac{\\pi}{2}$. The moduli multiplied, $\\sqrt{2} \\times \\sqrt{2} = 2$, and the arguments added, $\\frac{\\pi}{4} + \\frac{\\pi}{4} = \\frac{\\pi}{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Exponential form shows why: multiplying powers of $\\mathrm{e}$ adds the exponents. Dividing subtracts them, and a power $n$ multiplies them by $n$."
+        },
+        {
+          "type": "formula",
+          "tex": "r_{1}\\mathrm{e}^{\\mathrm{i}\\theta_{1}} \\times r_{2}\\mathrm{e}^{\\mathrm{i}\\theta_{2}} = r_{1}r_{2}\\,\\mathrm{e}^{\\mathrm{i}(\\theta_{1} + \\theta_{2})} \\qquad \\frac{r_{1}\\mathrm{e}^{\\mathrm{i}\\theta_{1}}}{r_{2}\\mathrm{e}^{\\mathrm{i}\\theta_{2}}} = \\frac{r_{1}}{r_{2}}\\,\\mathrm{e}^{\\mathrm{i}(\\theta_{1} - \\theta_{2})} \\qquad \\left(r\\mathrm{e}^{\\mathrm{i}\\theta}\\right)^{n} = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The same rules hold in cis notation. Afterwards, if the argument has left the range, add or subtract $2\\pi$ as many times as needed to bring it back."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-divide",
+          "question": "Let $z = 6\\mathrm{e}^{0.4\\mathrm{i}}$ and $w = 1.5\\mathrm{e}^{1.1\\mathrm{i}}$. Find $zw$ and $\\frac{z}{w}$ in exponential form, with $-\\pi < \\theta \\le \\pi$.",
+          "steps": [
+            "Product: multiply the moduli, $6 \\times 1.5 = 9$, and add the arguments, $0.4 + 1.1 = 1.5$.",
+            "Quotient: divide the moduli, $\\frac{6}{1.5} = 4$, and subtract the arguments, $0.4 - 1.1 = -0.7$.",
+            "Both arguments are already in range.",
+            "Read it as a picture: multiplying by $w$ moved $z$ $1.5$ times as far from O and turned it $1.1$ radians anticlockwise. Dividing by $w$ undid both."
+          ],
+          "answer": "$zw = 9\\mathrm{e}^{1.5\\mathrm{i}},\\; \\frac{z}{w} = 4\\mathrm{e}^{-0.7\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-power-by-hand",
+          "question": "Use polar form to find $(1 + \\sqrt{3}\\mathrm{i})^{7}$ in Cartesian form.",
+          "steps": [
+            "Write the number in exponential form: $r = \\sqrt{1 + 3} = 2$ and $\\tan\\theta = \\sqrt{3}$ in the first quadrant, so $\\theta = \\frac{\\pi}{3}$. So $1 + \\sqrt{3}\\mathrm{i} = 2\\mathrm{e}^{\\frac{\\pi}{3}\\mathrm{i}}$.",
+            "Raise to the power $7$: $2^{7}\\mathrm{e}^{\\frac{7\\pi}{3}\\mathrm{i}} = 128\\mathrm{e}^{\\frac{7\\pi}{3}\\mathrm{i}}$.",
+            "$\\frac{7\\pi}{3}$ is more than a full turn: $\\frac{7\\pi}{3} - 2\\pi = \\frac{\\pi}{3}$. So the answer is $128\\mathrm{e}^{\\frac{\\pi}{3}\\mathrm{i}}$.",
+            "Convert back: $128\\left(\\cos\\frac{\\pi}{3} + \\mathrm{i}\\sin\\frac{\\pi}{3}\\right) = 128\\left(\\frac{1}{2} + \\frac{\\sqrt{3}}{2}\\mathrm{i}\\right) = 64 + 64\\sqrt{3}\\mathrm{i}$."
+          ],
+          "answer": "$(1 + \\sqrt{3}\\mathrm{i})^{7} = 64 + 64\\sqrt{3}\\mathrm{i}$",
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-power-range",
+          "prompt": "Given $z = 2\\mathrm{e}^{\\frac{2\\pi}{3}\\mathrm{i}}$, find $z^{4}$ in exponential form with $-\\pi < \\theta \\le \\pi$.",
+          "hint": "Raise the modulus to the power $4$ and multiply the argument by $4$. Then bring the argument into range.",
+          "options": [
+            {
+              "text": "$16\\mathrm{e}^{\\frac{2\\pi}{3}\\mathrm{i}}$",
+              "correct": true
+            },
+            {
+              "text": "$16\\mathrm{e}^{\\frac{8\\pi}{3}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$8\\mathrm{e}^{\\frac{2\\pi}{3}\\mathrm{i}}$",
+              "correct": false
+            },
+            {
+              "text": "$16\\mathrm{e}^{-\\frac{2\\pi}{3}\\mathrm{i}}$",
+              "correct": false
+            }
+          ],
+          "explain": "$2^{4} = 16$ and $4 \\times \\frac{2\\pi}{3} = \\frac{8\\pi}{3}$. That is out of range, so subtract $2\\pi$: $\\frac{8\\pi}{3} - 2\\pi = \\frac{2\\pi}{3}$."
+        },
+        {
+          "type": "text",
+          "text": "The GDC multiplies in Cartesian form and can then give the modulus and argument."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-product-power",
+          "question": "Let $z = 4 - \\mathrm{i}$ and $w = 2 + 3\\mathrm{i}$. Use your GDC to find $zw$ and $z^{3}$ in exponential form, with $-\\pi < \\theta \\le \\pi$. Give $r$ and $\\theta$ to 3 s.f.",
+          "steps": [
+            "Write down what you enter: $(4 - \\mathrm{i})(2 + 3\\mathrm{i})$ and $(4 - \\mathrm{i})^{3}$, in radian mode.",
+            "The GDC gives $zw = 11 + 10\\mathrm{i}$, with modulus $14.866068\\ldots$ and argument $0.737815\\ldots$",
+            "It gives $z^{3} = 52 - 47\\mathrm{i}$, with modulus $70.092795\\ldots$ and argument $-0.734935\\ldots$",
+            "Check against the rules: $\\lvert z\\rvert\\lvert w\\rvert = \\sqrt{17} \\times \\sqrt{13} = \\sqrt{221} = 14.866\\ldots$, and $\\lvert z\\rvert^{3} = \\sqrt{17}^{\\,3} = 70.09\\ldots$ They agree."
+          ],
+          "answer": "$zw \\approx 14.9\\mathrm{e}^{0.738\\mathrm{i}},\\; z^{3} \\approx 70.1\\mathrm{e}^{-0.735\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "complex-arithmetic",
+          "values": {
+            "z1": "4-i",
+            "z2": "2+3i",
+            "power": "3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Only integer powers are on the syllabus. Finding roots of complex numbers, such as solving $z^{3} = 8\\mathrm{i}$, is not examined in AI."
+        }
+      ]
+    },
+    {
+      "id": "argand",
+      "heading": "Vectors and transformations on the Argand diagram",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A complex number $a + b\\mathrm{i}$ acts like the vector $\\begin{pmatrix} a \\\\ b \\end{pmatrix}$, drawn as an arrow from O to the point."
+        },
+        {
+          "type": "text",
+          "text": "Adding: put the arrows end to end. $z + w$ is the far corner of the parallelogram on $z$ and $w$, just as for vectors in {{lesson:3.10}}."
+        },
+        {
+          "type": "text",
+          "text": "Subtracting: $z - w$ is the arrow from the point $w$ to the point $z$, so $\\lvert z - w\\rvert$ is the distance between them."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-sum-difference",
+          "alt": "Argand diagram with arrows from the origin O to z and to w. They form a parallelogram whose fourth corner is z plus w, joined to O by the long diagonal. The other diagonal is a dashed arrow from w to z, labelled z minus w.",
+          "caption": "The sum is the diagonal from O. The dashed diagonal, from $w$ to $z$, is $z - w$."
+        },
+        {
+          "type": "text",
+          "text": "Polar form doesn't help with adding: there is no rule that adds moduli or arguments. Add in Cartesian form, then convert if the question asks."
+        },
+        {
+          "type": "example",
+          "id": "ex-hike",
+          "question": "A hiker walks from camp O along $u = 2.5\\mathrm{e}^{0.6\\mathrm{i}}$ and then along $v = 1.8\\mathrm{e}^{2.1\\mathrm{i}}$, in km, with the real axis east and the imaginary axis north. Use your GDC to write the final position $u + v$ in exponential form, with $r$ and $\\theta$ to 3 s.f. Interpret your answer.",
+          "steps": [
+            "Add in Cartesian form: $u + v = (2.5\\cos 0.6 + 1.8\\cos 2.1) + (2.5\\sin 0.6 + 1.8\\sin 2.1)\\mathrm{i}$.",
+            "In radian mode this is $1.154616\\ldots + 2.965383\\ldots\\mathrm{i}$.",
+            "Modulus: $r = 3.182237\\ldots$ Argument: the point is in the first quadrant, and $\\theta = 1.199491\\ldots$",
+            "Interpret: the hiker ends $3.18$ km from camp, although they walked $2.5 + 1.8 = 4.3$ km. The direction is $1.20$ radians (about $69^{\\circ}$) anticlockwise from east."
+          ],
+          "answer": "$u + v \\approx 3.18\\mathrm{e}^{1.20\\mathrm{i}}$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Finding $u + v$ by adding the moduli and the arguments. Here that gives $4.3\\mathrm{e}^{2.7\\mathrm{i}}$, far from the true position. Add in Cartesian form."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying: if $w = R\\mathrm{e}^{\\mathrm{i}\\varphi}$, then $wz$ has modulus $R\\lvert z\\rvert$ and argument $\\arg z + \\varphi$. So multiplying by $w$ is an enlargement with scale factor $R$, centre O, and a rotation through $\\varphi$ about O."
+        },
+        {
+          "type": "text",
+          "text": "The rotation is anticlockwise when $\\varphi > 0$ and clockwise when $\\varphi < 0$. Multiplying by $\\mathrm{i} = \\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}}$ is a quarter turn anticlockwise, with no stretch."
+        },
+        {
+          "type": "text",
+          "text": "Move the sliders: $zw$ always has length $\\lvert z\\rvert\\lvert w\\rvert$ and angle $\\arg z + \\arg w$."
+        },
+        {
+          "type": "interactive",
+          "widget": "argand-multiply",
+          "props": {},
+          "alt": "An Argand diagram with z, w and their product zw drawn as arrows from the origin. Sliders change the modulus and argument of z and of w. The length of zw is always the product of the lengths of z and w, and its angle is the sum of their angles."
+        },
+        {
+          "type": "example",
+          "id": "ex-transform",
+          "question": "A drawing app maps each point $z$ to $(2 - 2\\mathrm{i})z$. Describe fully this transformation, and find the image of the point $3 + \\mathrm{i}$.",
+          "steps": [
+            "Write the multiplier in exponential form: $\\lvert 2 - 2\\mathrm{i}\\rvert = \\sqrt{8} = 2\\sqrt{2}$. It is in the fourth quadrant with acute angle $\\frac{\\pi}{4}$, so $2 - 2\\mathrm{i} = 2\\sqrt{2}\\mathrm{e}^{-\\frac{\\pi}{4}\\mathrm{i}}$.",
+            "The modulus $2\\sqrt{2}$ is the scale factor of an enlargement, centre O.",
+            "The argument $-\\frac{\\pi}{4}$ is a rotation of $\\frac{\\pi}{4}$ clockwise about O.",
+            "Image: $(2 - 2\\mathrm{i})(3 + \\mathrm{i}) = 6 + 2\\mathrm{i} - 6\\mathrm{i} - 2\\mathrm{i}^{2} = 8 - 4\\mathrm{i}$.",
+            "Check: $\\lvert 8 - 4\\mathrm{i}\\rvert = \\sqrt{80} = 2\\sqrt{2} \\times \\sqrt{10} = 2\\sqrt{2}\\,\\lvert 3 + \\mathrm{i}\\rvert$. The distance from O grew by the scale factor."
+          ],
+          "answer": "An enlargement with scale factor $2\\sqrt{2}$, centre O, and a rotation of $\\frac{\\pi}{4}$ clockwise about O. The image of $3 + \\mathrm{i}$ is $8 - 4\\mathrm{i}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Enlargement, scale factor 2 sqrt 2, centre O, and rotation pi/4 clockwise about O; 3 + i maps to 8 - 4i",
+            "requires": [
+              [
+                "enlargement",
+                "stretch"
+              ],
+              "scale factor",
+              "rotation",
+              "clockwise",
+              [
+                "centre O",
+                "about O"
+              ]
+            ],
+            "forbids": [
+              "anticlockwise"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "“Describe fully” needs every value: the scale factor, the angle with its direction, and the centre O. “A stretch and a rotation” with no values earns little."
+        },
+        {
+          "type": "check",
+          "id": "check-rotate",
+          "prompt": "The point that represents $5 + 2\\mathrm{i}$ is rotated $\\frac{\\pi}{2}$ anticlockwise about O. Which complex number represents its image?",
+          "hint": "An anticlockwise quarter turn about O is multiplication by $\\mathrm{i}$.",
+          "options": [
+            {
+              "text": "$-2 + 5\\mathrm{i}$",
+              "correct": true
+            },
+            {
+              "text": "$2 - 5\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$-5 + 2\\mathrm{i}$",
+              "correct": false
+            },
+            {
+              "text": "$5 - 2\\mathrm{i}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{i}(5 + 2\\mathrm{i}) = 5\\mathrm{i} + 2\\mathrm{i}^{2} = -2 + 5\\mathrm{i}$. $2 - 5\\mathrm{i}$ is the clockwise turn, and $5 - 2\\mathrm{i}$ is a reflection in the real axis."
+        },
+        {
+          "type": "check",
+          "id": "check-buoys",
+          "prompt": "Two buoys are at $4 + 6\\mathrm{i}$ and $1 - 2\\mathrm{i}$ on an Argand diagram, in km. Find the distance between them, to 3 s.f.",
+          "hint": "The distance between the points $z$ and $w$ is $\\lvert z - w\\rvert$.",
+          "answer": {
+            "value": 8.54,
+            "tolerance": 0.005
+          },
+          "explain": "$(4 + 6\\mathrm{i}) - (1 - 2\\mathrm{i}) = 3 + 8\\mathrm{i}$, so the distance is $\\sqrt{3^{2} + 8^{2}} = \\sqrt{73} \\approx 8.54$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs((4 + 6*I) - (1 - 2*I))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sinusoids",
+      "heading": "Adding waves with the same frequency",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two AC voltages can share a frequency but peak at different times. Their sum is again a wave with that frequency (unless they cancel out exactly), and complex numbers find it quickly."
+        },
+        {
+          "type": "text",
+          "text": "Each wave $A\\cos(\\omega t + \\alpha)$ is the real part of $A\\mathrm{e}^{\\mathrm{i}(\\omega t + \\alpha)} = A\\mathrm{e}^{\\mathrm{i}\\alpha} \\times \\mathrm{e}^{\\mathrm{i}\\omega t}$. The fixed part $A\\mathrm{e}^{\\mathrm{i}\\alpha}$ holds the amplitude $A$ and the phase angle $\\alpha$."
+        },
+        {
+          "type": "text",
+          "text": "Two waves with the same $\\omega$ share the factor $\\mathrm{e}^{\\mathrm{i}\\omega t}$. So you only add the fixed parts, as complex numbers."
+        },
+        {
+          "type": "formula",
+          "tex": "A_{1}\\cos(\\omega t + \\alpha_{1}) + A_{2}\\cos(\\omega t + \\alpha_{2}) = R\\cos(\\omega t + B), \\quad \\text{where } R\\mathrm{e}^{\\mathrm{i}B} = A_{1}\\mathrm{e}^{\\mathrm{i}\\alpha_{1}} + A_{2}\\mathrm{e}^{\\mathrm{i}\\alpha_{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The same works for two sine waves with the same $\\omega$, using imaginary parts: $A\\sin(\\omega t + \\alpha)$ is the imaginary part of $A\\mathrm{e}^{\\mathrm{i}(\\omega t + \\alpha)}$. It only works when the frequencies match."
+        },
+        {
+          "type": "text",
+          "text": "So add the numbers $A\\mathrm{e}^{\\mathrm{i}\\alpha}$ on the GDC. The modulus of the sum is the new amplitude $R$, and its argument is the new phase angle $B$."
+        },
+        {
+          "type": "figure",
+          "id": "1-13-phasor-sum",
+          "alt": "Argand diagram. An arrow of length 12 runs from the origin O along the positive real axis. From its tip a second arrow of length 9 points up and to the right, at 1.2 radians to the horizontal. A third arrow, labelled R e to the i B, joins O to the tip of the second arrow and makes angle B with the real axis.",
+          "caption": "The voltages $12\\cos(50t)$ and $9\\cos(50t + 1.2)$ add like the arrows $12$ and $9\\mathrm{e}^{1.2\\mathrm{i}}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ac-voltages",
+          "question": "Two AC sources in a circuit give voltages $V_{1} = 12\\cos(50t)$ and $V_{2} = 9\\cos(50t + 1.2)$, in volts, with $t$ in seconds. Find the total voltage in the form $V = A\\cos(50t + B)$, with $A$ and $B$ to 3 s.f. Interpret $A$.",
+          "steps": [
+            "Fixed parts: $12\\mathrm{e}^{0\\mathrm{i}} = 12$ and $9\\mathrm{e}^{1.2\\mathrm{i}}$.",
+            "Write down the sum you enter, in radian mode: $12 + 9\\mathrm{e}^{1.2\\mathrm{i}}$.",
+            "The GDC gives modulus $17.414628\\ldots$ and argument $0.502575\\ldots$",
+            "So $V = 17.414628\\ldots\\cos(50t + 0.502575\\ldots)$.",
+            "Interpret: the total voltage peaks at $17.4$ V, not $12 + 9 = 21$ V, because the two sources never peak at the same moment."
+          ],
+          "answer": "$V \\approx 17.4\\cos(50t + 0.503)$",
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "complex-to-polar",
+          "values": {
+            "re": "12+9cos(1.2)",
+            "im": "9sin(1.2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The phase angle $B$ is not itself a shift along the $t$-axis. Since $\\cos(50t + B) = \\cos\\left(50\\left(t + \\frac{B}{50}\\right)\\right)$, the graph is the curve $A\\cos(50t)$ moved $\\frac{B}{50}$ to the left. That horizontal translation is the [[phase-shift|phase shift]]: here about $0.0101$ s."
+        },
+        {
+          "type": "example",
+          "id": "ex-sound-waves",
+          "question": "Two speakers produce pressure waves $p_{1} = 0.6\\sin(800t + 0.3)$ and $p_{2} = 0.4\\sin(800t - 1.1)$, in pascals. Write $p_{1} + p_{2}$ in the form $A\\sin(800t + B)$, where $A > 0$ and $-\\pi < B \\le \\pi$, giving $A$ and $B$ to 3 s.f. Comment on the loudness.",
+          "steps": [
+            "These are sines, so use imaginary parts: $p_{1} + p_{2} = \\mathrm{Im}\\left[\\left(0.6\\mathrm{e}^{0.3\\mathrm{i}} + 0.4\\mathrm{e}^{-1.1\\mathrm{i}}\\right)\\mathrm{e}^{800\\mathrm{i}t}\\right]$.",
+            "Write down the sum you enter, in radian mode: $0.6\\mathrm{e}^{0.3\\mathrm{i}} + 0.4\\mathrm{e}^{-1.1\\mathrm{i}}$.",
+            "The GDC gives $0.754640\\ldots - 0.179170\\ldots\\mathrm{i}$, with modulus $0.775618\\ldots$ and argument $-0.233109\\ldots$",
+            "So $p_{1} + p_{2} = 0.775618\\ldots\\sin(800t - 0.233109\\ldots)$.",
+            "Comment: the combined amplitude, $0.776$ Pa, is more than either speaker alone but well below $0.6 + 0.4 = 1$ Pa. The waves are $1.4$ radians out of step, so they never peak together."
+          ],
+          "answer": "$p \\approx 0.776\\sin(800t - 0.233)$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the amplitudes. $12\\cos(50t) + 9\\cos(50t + 1.2)$ has amplitude $17.4$, not $21$: add the complex numbers $12$ and $9\\mathrm{e}^{1.2\\mathrm{i}}$, not their lengths."
+        },
+        {
+          "type": "check",
+          "id": "check-exact-sum",
+          "prompt": "Write $V = 6\\cos(100t) + 6\\cos\\left(100t + \\frac{2\\pi}{3}\\right)$ in the form $A\\cos(100t + B)$.",
+          "hint": "Add $6$ and $6\\mathrm{e}^{\\frac{2\\pi}{3}\\mathrm{i}}$ in Cartesian form first.",
+          "options": [
+            {
+              "text": "$V = 6\\cos\\left(100t + \\frac{\\pi}{3}\\right)$",
+              "correct": true
+            },
+            {
+              "text": "$V = 12\\cos\\left(100t + \\frac{\\pi}{3}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$V = 6\\cos\\left(100t + \\frac{2\\pi}{3}\\right)$",
+              "correct": false
+            },
+            {
+              "text": "$V = 12\\cos\\left(100t + \\frac{2\\pi}{3}\\right)$",
+              "correct": false
+            }
+          ],
+          "explain": "$6 + 6\\mathrm{e}^{\\frac{2\\pi}{3}\\mathrm{i}} = 6 + (-3 + 3\\sqrt{3}\\mathrm{i}) = 3 + 3\\sqrt{3}\\mathrm{i}$. Its modulus is $\\sqrt{9 + 27} = 6$ and its argument is $\\frac{\\pi}{3}$."
+        },
+        {
+          "type": "check",
+          "id": "check-max-voltage",
+          "prompt": "Voltages $V_{1} = 8\\cos(60t)$ and $V_{2} = 15\\cos\\left(60t + \\frac{\\pi}{2}\\right)$ act together. Find the maximum total voltage, in volts.",
+          "hint": "The maximum is the amplitude of the sum: the modulus of $8 + 15\\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}}$.",
+          "answer": {
+            "value": 17,
+            "tolerance": 0
+          },
+          "explain": "$15\\mathrm{e}^{\\frac{\\pi}{2}\\mathrm{i}} = 15\\mathrm{i}$, so the sum is $8 + 15\\mathrm{i}$ with modulus $\\sqrt{64 + 225} = 17$. The maximum is $17$ V, not $23$ V.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs(8 + 15*exp(I*pi/2))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "z = r(\\cos\\theta + \\mathrm{i}\\sin\\theta) = r\\mathrm{e}^{\\mathrm{i}\\theta} = r\\,\\mathrm{cis}\\,\\theta",
+          "tag": "booklet",
+          "bookletId": "bk-1-13-polar-euler",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $z = a + b\\mathrm{i} \\ne 0$: $r = \\sqrt{a^{2} + b^{2}}$. For $\\theta$, sketch the point: $\\arctan\\frac{b}{a}$ alone points the wrong way when $a < 0$. Use $-\\pi < \\theta \\le \\pi$, in radians, unless told otherwise.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply: multiply the moduli, add the arguments. Divide: divide the moduli, subtract the arguments. For an integer $n$, $\\left(r\\mathrm{e}^{\\mathrm{i}\\theta}\\right)^{n} = r^{n}\\mathrm{e}^{\\mathrm{i}n\\theta}$. Then add or subtract multiples of $2\\pi$ to bring the argument into range.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add and subtract in Cartesian form, like vectors. $\\lvert z - w\\rvert$ is the distance between the points $z$ and $w$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiplying by $w = R\\mathrm{e}^{\\mathrm{i}\\varphi}$ ($R > 0$) is an enlargement with scale factor $R$, centre O, and a rotation through $\\varphi$ about O: anticlockwise if $\\varphi > 0$, clockwise if $\\varphi < 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Same $\\omega$ only: $A_{1}\\cos(\\omega t + \\alpha_{1}) + A_{2}\\cos(\\omega t + \\alpha_{2}) = R\\cos(\\omega t + B)$, where $R\\mathrm{e}^{\\mathrm{i}B} = A_{1}\\mathrm{e}^{\\mathrm{i}\\alpha_{1}} + A_{2}\\mathrm{e}^{\\mathrm{i}\\alpha_{2}}$. The same holds with $\\sin$ throughout.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking $\\theta = \\arctan\\frac{b}{a}$ without a sketch. When the real part is negative it points the opposite way; find the quadrant first.",
+    "Working in degree mode. $\\cos 2.4$ and $\\sin 2.4$ then use $2.4^{\\circ}$, and arguments can be read or shown in degrees. Set radians before any complex calculation.",
+    "Giving the right number in the wrong form, such as $a + b\\mathrm{i}$ when $r\\mathrm{e}^{\\mathrm{i}\\theta}$ was asked, or an argument outside the stated range. Match the form and the range exactly.",
+    "Describing a transformation as “a stretch and a rotation” with no values. Give the scale factor, the angle and its direction, and the centre O.",
+    "Rounding $r$ or $\\theta$ and then using them again. Keep the full GDC values until the final answer."
+  ],
+  "examTips": [
+    "“Write $z$ in the form $r\\mathrm{e}^{\\mathrm{i}\\theta}$, where $r > 0$ and $-\\pi < \\theta \\le \\pi$”: both conditions are marked. Give $\\theta$ in radians unless degrees are asked for.",
+    "“Find” with a GDC: write down the complex expression you entered, such as $12 + 9\\mathrm{e}^{1.2\\mathrm{i}}$, before the answer. That line earns the method mark if the final value slips.",
+    "“Describe fully” the map $z \\mapsto wz$: an enlargement with scale factor $\\lvert w\\rvert$, centre O, and a rotation through $\\arg w$ about O, with its direction."
+  ],
+  "readingMinutes": 31
+}

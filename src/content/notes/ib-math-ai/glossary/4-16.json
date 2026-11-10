@@ -1,0 +1,14 @@
+[
+  {
+    "id": "confidence-interval",
+    "term": "confidence interval",
+    "definition": "A range of values for a population mean, calculated from one random sample by a method that gives an interval containing the true mean for a stated percentage of all such samples; a 95% interval does not mean a 95% chance that this particular interval contains the mean.",
+    "lesson": "4.16"
+  },
+  {
+    "id": "t-distribution",
+    "term": "t-distribution",
+    "definition": "A symmetric, bell-shaped distribution with heavier tails than the standard normal, fixed by its degrees of freedom ($n - 1$ for one sample of size $n$); for the mean of a normal population it replaces the normal distribution whenever $\\sigma$ is unknown and estimated by $s_{n-1}$, whatever the sample size.",
+    "lesson": "4.16"
+  }
+]

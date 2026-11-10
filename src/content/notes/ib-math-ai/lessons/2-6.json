@@ -1,0 +1,839 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.6",
+  "slug": "fitting-and-testing-models",
+  "title": "Fitting and testing models",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Modelling is a cycle: choose a model type, find its [[parameter|parameters]], test it against the facts, then use it to predict. Most marks go to the reasons: why this model, which [[domain|domain]], and how far you can trust a prediction.",
+  "goals": [
+    {
+      "text": "Follow the modelling process to choose, fit, test and use a model from {{lesson:2.5}}.",
+      "bullets": [
+        "2.6-b1",
+        "2.6-b2"
+      ]
+    },
+    {
+      "text": "Justify a model from the shape of the data, the properties of its graph or the context.",
+      "bullets": [
+        "2.6-b6"
+      ]
+    },
+    {
+      "text": "Find parameters from an [[initial-condition|initial condition]], from given points, or from up to three linear equations solved on your GDC.",
+      "bullets": [
+        "2.6-b4",
+        "2.6-b8"
+      ]
+    },
+    {
+      "text": "State a reasonable domain for a model in context.",
+      "bullets": [
+        "2.6-b3"
+      ]
+    },
+    {
+      "text": "Test a model against data and comment on whether it is appropriate and reasonable.",
+      "bullets": [
+        "2.6-b5"
+      ]
+    },
+    {
+      "text": "Make predictions from a model and explain the dangers of [[extrapolation|extrapolation]].",
+      "bullets": [
+        "2.6-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.2",
+    "2.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "modelling process",
+    "find the parameters of a model",
+    "reasonable domain for a model",
+    "is the model reasonable",
+    "extrapolation and interpolation",
+    "choose an appropriate model"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-asymptote",
+      "prompt": "What is the equation of the horizontal asymptote of $y = 8 + 50(0.7)^{x}$?",
+      "hint": "What does $(0.7)^{x}$ tend to as $x$ gets large?",
+      "options": [
+        {
+          "text": "$y = 8$",
+          "correct": true
+        },
+        {
+          "text": "$y = 0$",
+          "correct": false
+        },
+        {
+          "text": "$y = 58$",
+          "correct": false
+        },
+        {
+          "text": "$y = 50$",
+          "correct": false
+        }
+      ],
+      "explain": "$(0.7)^{x} \\to 0$, so $y \\to 8$. $y = 58$ is the value at $x = 0$, not the asymptote. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(y, 8)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-system",
+      "prompt": "Solve the system $x + y = 14$ and $3x + y = 30$. What is the value of $x$?",
+      "hint": "Subtract the first equation from the second.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "Subtracting gives $2x = 16$, so $x = 8$ and $y = 6$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(30 - 14)/(3 - 1)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-domain",
+      "prompt": "A model $h(t) = 30 - 6t$ gives the height in cm of a melting ice sculpture after $t$ hours. Which is a sensible domain?",
+      "hint": "Time starts at $0$, and a height can't be negative.",
+      "options": [
+        {
+          "text": "$0 \\le t \\le 5$",
+          "correct": true
+        },
+        {
+          "text": "$t \\ge 0$",
+          "correct": false
+        },
+        {
+          "text": "$0 \\le t \\le 30$",
+          "correct": false
+        },
+        {
+          "text": "$0 \\le t \\le 6$",
+          "correct": false
+        }
+      ],
+      "explain": "$h(t) = 0$ when $t = 5$, and after that the height would be negative. So $0 \\le t \\le 5$. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "Interval(0, 30/6)",
+        "var": "t"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "process",
+      "heading": "The modelling process",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[mathematical-model|mathematical model]] is a function that describes a real situation, approximately. You build one in four steps, and you go round again if the test fails."
+        },
+        {
+          "type": "figure",
+          "id": "2-6-modelling-cycle",
+          "alt": "Flow chart with four boxes in a row: 1 choose a model type, 2 fit the parameters, 3 test against data, 4 use to predict. A dashed arrow runs from test back to choose, labelled: not reasonable? choose again or change the domain.",
+          "caption": "The modelling cycle."
+        },
+        {
+          "type": "definition",
+          "term": "parameter",
+          "statement": "A parameter is a constant in a model, such as $k$, $a$ or $c$ in $f(x) = ka^{x} + c$. You find it from the situation, and it stays fixed while the variable $x$ changes.",
+          "plain": "The numbers you fix to make the general model fit this situation."
+        },
+        {
+          "type": "text",
+          "text": "Step 1 uses the families from {{lesson:2.5}}. Choose from the context, the shape of the data, or both."
+        },
+        {
+          "type": "text",
+          "text": "Same change each step, such as a fixed charge per hour: linear. Rises to a peak and falls back symmetrically (or falls to a lowest point and rises again): quadratic."
+        },
+        {
+          "type": "text",
+          "text": "Same percentage change each step, or changing fastest at the start and then levelling off towards a value: exponential. Repeats at regular intervals: sinusoidal. Different rules on different intervals: piecewise."
+        },
+        {
+          "type": "text",
+          "text": "With a table of data, test the pattern. Equal differences between $y$-values (for equal steps in $x$) suggest linear. Equal ratios suggest exponential."
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-contexts",
+          "question": "Choose a type of model for each situation, and give a reason. (a) A plumber charges a call-out fee plus a fixed amount per hour. (b) A pie taken out of the oven cools towards the kitchen's temperature of $22\\,^{\\circ}\\mathrm{C}$. (c) The water depth at a harbour over two days.",
+          "steps": [
+            "(a) Each extra hour adds the same amount, so the cost is linear: $C = mt + c$. $c$ is the call-out fee and $m$ the rate per hour.",
+            "(b) The pie cools fast at first, then slowly, levelling off at $22\\,^{\\circ}\\mathrm{C}$. An exponential model with an asymptote fits: $T = 22 + k\\mathrm{e}^{-rt}$.",
+            "(c) Tides rise and fall again and again with a regular period. A sinusoidal model fits: $D = a\\cos(bt) + d$."
+          ],
+          "answer": "(a) linear; (b) exponential, levelling off at $22\\,^{\\circ}\\mathrm{C}$; (c) sinusoidal.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "linear, exponential with asymptote 22, sinusoidal",
+            "requires": [
+              "linear",
+              "exponential",
+              [
+                "sinusoidal",
+                "cosine",
+                "sine"
+              ]
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-ratio-data",
+          "question": "The area, $A\\text{ m}^{2}$, of a pond covered by water lilies is measured each week. Weeks $w$: $0, 1, 2, 3$. Areas: $20, 26, 33.8, 43.94$. (a) Show that a linear model is not suitable. (b) Justify an exponential model, and find it.",
+          "steps": [
+            "(a) Differences: $26 - 20 = 6$, $33.8 - 26 = 7.8$, $43.94 - 33.8 = 10.14$. They grow, so the data is not linear.",
+            "(b) Ratios: $\\frac{26}{20} = 1.3$, $\\frac{33.8}{26} = 1.3$, $\\frac{43.94}{33.8} = 1.3$. A constant ratio means the same percentage growth each week: exponential.",
+            "The initial value is $20$ and the weekly factor is $1.3$, so $A = 20 \\times 1.3^{w}$.",
+            "Check: $20 \\times 1.3^{3} = 43.94$, which matches the data."
+          ],
+          "answer": "$A = 20 \\times 1.3^{w}$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(A, 20*(Float(26)/20)**w)"
+          },
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also fit logarithmic and logistic models, and sinusoidal models with a horizontal shift.",
+          "lesson": "2.9"
+        },
+        {
+          "type": "check",
+          "id": "check-table-pattern",
+          "prompt": "A table gives $y = 7, 11, 15, 19$ for $x = 0, 1, 2, 3$. Which type of model fits it?",
+          "hint": "Work out $y_{2} - y_{1}$ for each step.",
+          "options": [
+            {
+              "text": "linear",
+              "correct": true
+            },
+            {
+              "text": "exponential",
+              "correct": false
+            },
+            {
+              "text": "quadratic",
+              "correct": false
+            },
+            {
+              "text": "sinusoidal",
+              "correct": false
+            }
+          ],
+          "explain": "Each step adds $4$, a constant difference, so the model is linear: $y = 4x + 7$. Exponential would need a constant ratio, but $\\frac{11}{7} \\ne \\frac{15}{11}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "linear"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-context-model",
+          "prompt": "The percentage of a city's homes with solar panels is $4\\%$ now. It grows quickly at first, but can never pass $100\\%$. Which model suits this best?",
+          "hint": "Which family can level off towards a fixed value?",
+          "options": [
+            {
+              "text": "an exponential model that levels off at 100",
+              "correct": true
+            },
+            {
+              "text": "a linear model",
+              "correct": false
+            },
+            {
+              "text": "a quadratic model",
+              "correct": false
+            },
+            {
+              "text": "a sinusoidal model",
+              "correct": false
+            }
+          ],
+          "explain": "A percentage can't pass $100$, so the model needs a horizontal asymptote at $100$, such as $P = 100 - 96a^{-t}$ with $a > 1$. A line or a quadratic eventually passes $100$ or turns back down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an exponential model that levels off at 100"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parameters",
+      "heading": "Finding the parameters",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Once you've chosen the type, each unknown parameter needs one fact about the situation. There are three ways to use those facts."
+        },
+        {
+          "type": "definition",
+          "term": "initial condition",
+          "statement": "An initial condition is a known value at the start, usually at $t = 0$. Substituting it into the model gives an equation for a parameter.",
+          "plain": "What you know at time zero."
+        },
+        {
+          "type": "text",
+          "text": "1. Initial condition: put $t = 0$. In $ka^{t} + c$ this gives $k + c$, since $a^{0} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute a point: a known value, such as $f(10) = 95$, gives one equation. Solve it on your GDC, writing the equation down first."
+        },
+        {
+          "type": "text",
+          "text": "3. Simultaneous equations: if several parameters are unknown, substitute one point per parameter. For $ax^{2} + bx + c$ each point gives a linear equation in $a$, $b$ and $c$. Solve the [[system-of-linear-equations|system]] on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-bread-cooling",
+          "question": "A loaf of bread comes out of the oven at $180\\,^{\\circ}\\mathrm{C}$ into a kitchen at $22\\,^{\\circ}\\mathrm{C}$. Its temperature after $t$ minutes is modelled by $T(t) = 22 + k\\mathrm{e}^{-rt}$. After $15$ minutes it is $95\\,^{\\circ}\\mathrm{C}$. (a) Find $k$. (b) Find $r$, to 3 s.f.",
+          "steps": [
+            "(a) Initial condition: $T(0) = 180$. Since $\\mathrm{e}^{0} = 1$, $22 + k = 180$, so $k = 158$.",
+            "(b) Substitute the point $(15, 95)$. Write the equation down: $22 + 158\\mathrm{e}^{-15r} = 95$.",
+            "Solve on the GDC (solver, or graph both sides and intersect): $r = 0.051475\\ldots$",
+            "Store the full value of $r$ for later parts. Check: $22 + 158\\mathrm{e}^{-15 \\times 0.051475} = 95.0$."
+          ],
+          "answer": "$r \\approx 0.0515$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(158/(95 - 22))/15",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "22+158e^(-15X)",
+            "rightSide": "95",
+            "guess": "0.1",
+            "lower": "0",
+            "upper": "1"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-basketball-three",
+          "question": "A basketball's path is modelled by $h = ax^{2} + bx + c$, where $h$ m is its height when it is $x$ m horizontally from the player. It passes through $(1, 2.6)$, $(3, 4.2)$ and $(5, 3.8)$. (a) Use your GDC to find $a$, $b$ and $c$. (b) Find the greatest height of the ball.",
+          "steps": [
+            "Substitute each point: $a + b + c = 2.6$, $9a + 3b + c = 4.2$ and $25a + 5b + c = 3.8$.",
+            "On the GDC, $x$, $y$ and $z$ stand for $a$, $b$ and $c$. Enter the rows $1, 1, 1, 2.6$; $9, 3, 1, 4.2$; $25, 5, 1, 3.8$.",
+            "The solver gives $a = -0.25$, $b = 1.8$ and $c = 1.05$. So $h = -0.25x^{2} + 1.8x + 1.05$.",
+            "Check with $(3, 4.2)$: $-2.25 + 5.4 + 1.05 = 4.2$.",
+            "(b) $a < 0$, so the vertex is a maximum. Axis: $x = -\\frac{1.8}{2(-0.25)} = 3.6$, and $h(3.6) = 4.29$ m."
+          ],
+          "answer": "$a = -0.25, \\; b = 1.8, \\; c = 1.05$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([a + b + c - 2.6, 9*a + 3*b + c - 4.2, 25*a + 5*b + c - 3.8], [a, b, c])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-3",
+          "values": {
+            "a1": 1,
+            "b1": 1,
+            "c1": 1,
+            "d1": 2.6,
+            "a2": 9,
+            "b2": 3,
+            "c2": 1,
+            "d2": 4.2,
+            "a3": 25,
+            "b3": 5,
+            "c3": 1,
+            "d3": 3.8
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "If a question asks for the exact value of a parameter, give it exactly, such as $b = 1.025$ rather than $b \\approx 1.03$, or the final mark is lost."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also fit non-linear models to data by regression on your GDC, and compare fits with $R^{2}$.",
+          "lesson": "4.13"
+        },
+        {
+          "type": "check",
+          "id": "check-club-members",
+          "prompt": "Membership of a new climbing club, $t$ months after it opens, is modelled by $M(t) = a - b(0.6)^{t}$. It opens with $40$ members, and after $2$ months it has $104$. Find $a$, the number the membership levels off at.",
+          "hint": "$t = 0$ gives $a - b = 40$. $t = 2$ gives $a - 0.36b = 104$. Solve the pair.",
+          "options": [
+            {
+              "text": "$140$",
+              "correct": true
+            },
+            {
+              "text": "$100$",
+              "correct": false
+            },
+            {
+              "text": "$104$",
+              "correct": false
+            },
+            {
+              "text": "$40$",
+              "correct": false
+            }
+          ],
+          "explain": "Subtracting gives $0.64b = 64$, so $b = 100$ and $a = 140$. $(0.6)^{t} \\to 0$, so membership levels off at $140$. $100$ is $b$, not $a$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve([a - b - 40, a - Rational(36, 100)*b - 104], [a, b])[a]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plant-k",
+          "prompt": "A plant's height in cm, $t$ days after planting, is modelled by $H(t) = k(1.08)^{t} + 3$. It is $5$ cm tall when planted. Find $H(10)$, to 3 s.f.",
+          "hint": "Use the initial condition first: $H(0) = k + 3$.",
+          "answer": {
+            "value": 7.32,
+            "tolerance": 0.005
+          },
+          "explain": "$k + 3 = 5$, so $k = 2$. Then $H(10) = 2(1.08)^{10} + 3 = 7.3178\\ldots \\approx 7.32$ cm.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(5 - 3)*1.08**10 + 3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "domain",
+      "heading": "A reasonable domain",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A formula may give an output for any $x$, but the situation does not allow every $x$. The [[domain|domain]] of a model is the set of inputs where it makes sense."
+        },
+        {
+          "type": "text",
+          "text": "Ask three questions. Where does it start (often $t \\ge 0$)? Where does it stop making sense (a height or a price reaches $0$, a tank is empty)? Must the input be a whole number (people, tickets, items)?"
+        },
+        {
+          "type": "example",
+          "id": "ex-cliff-stone",
+          "question": "A stone is thrown upwards from a cliff. Its height above the sea, $h$ m, $t$ seconds later is modelled by $h(t) = 10 + 5t - 5t^{2}$. State a reasonable domain.",
+          "steps": [
+            "The model starts when the stone is thrown, so $t \\ge 0$.",
+            "It stops when the stone hits the sea: solve $10 + 5t - 5t^{2} = 0$, giving $t = 2$ or $t = -1$.",
+            "Reject $t = -1$, a time before the throw. After $t = 2$ the model gives negative heights."
+          ],
+          "answer": "$0 \\le t \\le 2$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(0, Max(solve(10 + 5*t - 5*t**2, t)[0], solve(10 + 5*t - 5*t**2, t)[1]))",
+            "var": "t"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-ticket-revenue",
+          "question": "A theatre sets the ticket price at $p$ dollars. It expects to sell $800 - 40p$ tickets, so its revenue is $R(p) = p(800 - 40p)$ dollars. (a) State a reasonable domain for $p$. (b) Comment on using the model for $p = 2.35$.",
+          "steps": [
+            "(a) A price can't be negative, so $p \\ge 0$.",
+            "The number of tickets can't be negative: $800 - 40p \\ge 0$, so $p \\le 20$.",
+            "So $0 \\le p \\le 20$. At $p = 20$ nobody buys a ticket.",
+            "(b) $800 - 40(2.35) = 706$ tickets, a whole number, so it is fine here. For a price like $p = 2.37$ it gives $705.2$ tickets: the model is only approximate."
+          ],
+          "answer": "$0 \\le p \\le 20$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(0, 800/40)",
+            "var": "p"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $t \\ge 0$ and stopping there. Also find where the model stops making sense, such as a height reaching $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-pool-drain",
+          "prompt": "A pool holds $54\\,000$ litres. When it is drained, the volume left after $t$ minutes is $V(t) = 54\\,000 - 1800t$. Which is a reasonable domain?",
+          "hint": "When is the pool empty?",
+          "options": [
+            {
+              "text": "$0 \\le t \\le 30$",
+              "correct": true
+            },
+            {
+              "text": "$t \\ge 0$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le 54000$",
+              "correct": false
+            },
+            {
+              "text": "$0 \\le t \\le 1800$",
+              "correct": false
+            }
+          ],
+          "explain": "$V = 0$ when $t = \\frac{54\\,000}{1800} = 30$. After that the volume would be negative, so $0 \\le t \\le 30$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(0, 54000/1800)",
+            "var": "t"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-whole-number-domain",
+          "prompt": "A bakery's daily profit is modelled by $P(n) = 2.4n - 90$ dollars, where $n$ is the number of loaves sold. Its oven bakes at most $160$ loaves a day. Which describes a reasonable domain?",
+          "hint": "Can the bakery sell part of a loaf? What is the most it can sell?",
+          "options": [
+            {
+              "text": "whole numbers from 0 to 160",
+              "correct": true
+            },
+            {
+              "text": "all numbers from 0 to 160",
+              "correct": false
+            },
+            {
+              "text": "whole numbers from 38 to 160",
+              "correct": false
+            },
+            {
+              "text": "all numbers greater than 0",
+              "correct": false
+            }
+          ],
+          "explain": "Loaves are counted, so $n$ is a whole number, and the oven limits $n$ to $160$. Days with $n < 37.5$ make a loss, but they are still possible, so they stay in the domain.",
+          "verify": {
+            "kind": "choice",
+            "truth": "whole numbers from 0 to 160"
+          }
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "heading": "Testing a model",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A model is appropriate if it matches the data and behaves sensibly where the data stops. Test both."
+        },
+        {
+          "type": "text",
+          "text": "1. Test against data: compare the model's values $v_{A}$ with the measured values $v_{E}$. A small percentage error $\\varepsilon = \\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%$, from {{lesson:1.6}}, means a close fit."
+        },
+        {
+          "type": "text",
+          "text": "2. Test against the context: check the graph's features. Does it go negative when it can't? Does it keep rising when it must level off? Does an asymptote or a maximum match a real limit?"
+        },
+        {
+          "type": "example",
+          "id": "ex-water-test",
+          "question": "A town's yearly water use, in megalitres, $t$ years after 2016 is modelled by $W(t) = 420(1.035)^{t}$. The actual use in 2024 was $545$ megalitres. (a) Find the percentage error of the model for 2024. (b) Comment on the model.",
+          "steps": [
+            "(a) 2024 is $t = 8$. $W(8) = 420(1.035)^{8} = 553.059\\ldots$ megalitres.",
+            "Percentage error: $\\varepsilon = \\left|\\frac{553.059\\ldots - 545}{545}\\right| \\times 100\\% = 1.4788\\ldots\\%$.",
+            "(b) The error is under $2\\%$, so the model fits 2024 well.",
+            "But it assumes $3.5\\%$ growth every year for ever. Water saving or a drought could break that, so check it against new data."
+          ],
+          "answer": "$\\varepsilon \\approx 1.48\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Abs(420*1.035**8 - 545)/545*100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "2-6-game-sales",
+          "alt": "Graph of cumulative sales S in thousands against weeks w from 0 to 12. Five data points for weeks 1 to 5 rise from 12 to 28 and are shaded as the data range. Model A, a parabola, passes close to the points, peaks near week 4.6, then falls below zero by week 10. Model B, an exponential curve, also passes close to the points and levels off towards a dashed horizontal asymptote at S equals 30. The region after week 5 is labelled extrapolation.",
+          "caption": "Both models fit the data. Only one makes sense beyond it."
+        },
+        {
+          "type": "example",
+          "id": "ex-game-two-models",
+          "question": "Total sales of a new video game, $S$ thousand copies, after $w$ weeks: weeks $1$ to $5$ give $12, 20, 25, 27, 28$. Two models are suggested: A: $S = -1.25w^{2} + 11.5w + 1.5$; B: $S = 30 - 30(0.55)^{w}$. Both fit the data closely. Find each model's prediction for week $12$, and justify which model is more appropriate.",
+          "steps": [
+            "Model A: $S(12) = -1.25(144) + 11.5(12) + 1.5 = -40.5$.",
+            "Model B: $S(12) = 30 - 30(0.55)^{12} = 29.977\\ldots$",
+            "Total sales can never decrease, let alone be negative. Model A is a downward parabola, so it must turn and fall: its maximum is at $w = 4.6$.",
+            "Model B increases for all $w$ and levels off at its asymptote $S = 30$. That fits total sales slowing down as most buyers already have the game."
+          ],
+          "answer": "Model B: total sales cannot decrease, but model A falls after $w = 4.6$ and predicts $-40.5$ thousand at week 12; model B keeps increasing towards its asymptote $S = 30$.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "Model B; A gives -40.5 and decreases, B increases to asymptote 30",
+            "requires": [
+              "Model B",
+              [
+                "cannot decrease",
+                "can never decrease",
+                "cannot fall"
+              ],
+              "asymptote"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Asked for a mathematical reason, giving only a real-world one, such as \"people lose interest\". Name a property of the graph: an asymptote, a maximum, a negative value."
+        },
+        {
+          "type": "check",
+          "id": "check-asymptote-reason",
+          "prompt": "The percentage of homes in a town with fast broadband, $t$ years from now, is modelled by $P = 100 - 70(0.6)^{t}$. Which is a mathematical reason the model never reaches $100\\%$?",
+          "hint": "\"Mathematical\" means a property of the function or its graph.",
+          "options": [
+            {
+              "text": "the graph has a horizontal asymptote at P = 100",
+              "correct": true
+            },
+            {
+              "text": "some homes may never want broadband",
+              "correct": false
+            },
+            {
+              "text": "the graph passes through (0, 30)",
+              "correct": false
+            },
+            {
+              "text": "the model only holds for a few years",
+              "correct": false
+            }
+          ],
+          "explain": "$70(0.6)^{t} > 0$ for every $t$, so $P < 100$ always: the graph approaches the asymptote $P = 100$ but never meets it. The other options are a context reason, a true but irrelevant fact, and a limitation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the graph has a horizontal asymptote at P = 100"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-visitors-error",
+          "prompt": "A museum's model predicts $1240$ visitors on a Saturday. The actual number is $1310$. Find the percentage error of the model, to 3 s.f.",
+          "hint": "Divide by the actual value, not the predicted one.",
+          "answer": {
+            "value": 5.34,
+            "tolerance": 0.005
+          },
+          "explain": "$\\varepsilon = \\left|\\frac{1240 - 1310}{1310}\\right| \\times 100\\% = 5.3435\\ldots\\% \\approx 5.34\\%$. Dividing by $1240$ gives $5.65\\%$, which is wrong.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs(1240 - 1310)/1310*100",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "using",
+      "heading": "Predictions and extrapolation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Using a model means substituting into it, or solving it for an input. Then say what the answer means in context, with units."
+        },
+        {
+          "type": "definition",
+          "term": "interpolation",
+          "statement": "Interpolation is predicting a value inside the range of data the model was built from.",
+          "plain": "Filling a gap between measurements. It is as reliable as the model's fit."
+        },
+        {
+          "type": "definition",
+          "term": "extrapolation",
+          "statement": "Extrapolation is predicting a value outside the range of data the model was built from. It is less reliable, because the trend may not continue.",
+          "plain": "Guessing beyond what was measured."
+        },
+        {
+          "type": "text",
+          "text": "Exponential growth is the classic danger. Food, space or money runs out, so real growth slows. The further you extrapolate, the less you should trust the answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-rabbits-extrapolate",
+          "question": "Rabbits are introduced to an island. Counts for years $0$ to $4$ fit the model $N(t) = 60(1.4)^{t}$, where $t$ is in years. (a) Estimate the number of rabbits after $2.5$ years. (b) Use the model to predict the number after $15$ years. (c) Comment on both predictions.",
+          "steps": [
+            "(a) $N(2.5) = 60(1.4)^{2.5} = 139.14\\ldots$, so about $139$ rabbits.",
+            "(b) $N(15) = 60(1.4)^{15} = 9334.08\\ldots$, so about $9334$ rabbits.",
+            "(c) $t = 2.5$ is inside the data range $0 \\le t \\le 4$: interpolation, so the estimate is reliable if the model fits well.",
+            "$t = 15$ is far outside it: extrapolation. The island's food and space are limited, so growth will slow. The prediction is probably far too high."
+          ],
+          "answer": "$N(15) \\approx 9334$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "60*1.4**15",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-app-downloads",
+          "question": "An app's total downloads, $D$ thousand, $t$ months after launch are modelled by $D(t) = 2.5 \\times 1.6^{t}$. The model was built from data for the first $4$ months. (a) Use your GDC to find when downloads reach $62$ thousand. (b) Comment on the reliability of your answer.",
+          "steps": [
+            "(a) Write the equation: $2.5 \\times 1.6^{t} = 62$.",
+            "Graph $y = 2.5 \\times 1.6^{x}$ and $y = 62$ with a window such as $0 \\le x \\le 10$, $0 \\le y \\le 80$, and find the intersection: $t = 6.8315\\ldots$",
+            "So downloads reach $62$ thousand after about $6.83$ months, during the seventh month.",
+            "(b) $6.83$ is outside the data range $0 \\le t \\le 4$, so this is extrapolation. Growth may slow as the app's market fills up, so it may take longer."
+          ],
+          "answer": "$t \\approx 6.83$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(62/2.5)/log(1.6)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "2.5*1.6^X",
+            "function2": "62"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "A count of people, animals or items is a whole number. If the question asks for the nearest integer, round once at the end, and check the answer is realistic."
+        },
+        {
+          "type": "check",
+          "id": "check-interpolation",
+          "prompt": "A model for the temperature of an oven was built from readings taken every minute from $t = 2$ to $t = 10$ minutes. Which prediction is interpolation?",
+          "hint": "Is the time inside the range of the readings?",
+          "options": [
+            {
+              "text": "the temperature after 6.5 minutes",
+              "correct": true
+            },
+            {
+              "text": "the temperature after 1 minute",
+              "correct": false
+            },
+            {
+              "text": "the temperature after 12 minutes",
+              "correct": false
+            },
+            {
+              "text": "the temperature after 30 minutes",
+              "correct": false
+            }
+          ],
+          "explain": "Only $6.5$ minutes lies inside $2 \\le t \\le 10$. The others are outside the data range, so they are extrapolation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the temperature after 6.5 minutes"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fish-integer",
+          "prompt": "The number of fish in a lake $t$ years after a survey is modelled by $F(t) = 1800(0.92)^{t}$. Use the model to estimate the number of fish after $5$ years, to the nearest integer.",
+          "hint": "Substitute $t = 5$ and round only at the end.",
+          "answer": {
+            "value": 1186,
+            "tolerance": 0
+          },
+          "explain": "$F(5) = 1800(0.92)^{5} = 1186.34\\ldots$, so about $1186$ fish.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1800*0.92**5",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Modelling process: choose a model type, fit its parameters, test it against data and context, then use it. If the test fails, change the model or its domain."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For equal steps in $x$: equal differences in $y$ suggest a linear model; equal ratios suggest an exponential model."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Parameters: an initial condition ($t = 0$) gives one equation, and each known point gives another. A quadratic through three points with different $x$-values gives three linear equations in $a$, $b$, $c$: solve them on the GDC."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A reasonable domain starts where the situation starts, stops where the model stops making sense (such as a height reaching $0$), and uses whole numbers for counts."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Test a model: compare it with data (percentage error $\\varepsilon = \\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%$, with $v_{A}$ the model value and $v_{E}$ the actual value) and check its graph's features, such as asymptotes and maxima, against the context."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Interpolation predicts inside the data range; extrapolation predicts outside it and is less reliable, because the trend may not continue."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Rounding a parameter, then using the rounded value. Store the GDC's full value and round only the final answer.",
+    "Giving a 3 s.f. decimal when the exact value of a parameter is asked for. Write the exact value.",
+    "Accepting an impossible prediction, such as negative sales or more people than live in a country. Say the model fails there.",
+    "Giving a context reason when a mathematical one is asked for. Name a feature of the graph, such as the asymptote.",
+    "Leaving a count as a decimal when the nearest integer is asked for. Round once, at the end."
+  ],
+  "examTips": [
+    "\"Find\" a parameter: write the equation you substitute into, then solve it. The written equation earns the method mark even if the GDC answer slips.",
+    "\"Comment\" on a model: give a judgement (reasonable or not) and a reason from the data or the context.",
+    "\"Justify\" a model choice: point to the data's pattern (differences, ratios, levelling off) or a property of the curve that matches the context."
+  ],
+  "readingMinutes": 30
+}

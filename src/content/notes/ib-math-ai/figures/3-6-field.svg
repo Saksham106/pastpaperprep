@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 280" role="img" aria-labelledby="t">
+  <title id="t">A field drawn as a rectangle 8 units wide and 6 units tall, with sensors S at (2, 3) and T at (6, 1). A straight dashed edge runs from (3, 0) on the bottom side to (6, 6) on the top side. The cell of S, to the left of the edge, is shaded: a trapezium with parallel sides of 3 units along the bottom and 6 units along the top, 6 units apart.</title>
+  <polygon points="30,254 150,254 270,14 30,14" fill="var(--t1-ink)" opacity="0.28" stroke="none"/>
+  <polygon points="150,254 350,254 350,14 270,14" fill="var(--t2-ink)" opacity="0.1" stroke="none"/>
+  <rect x="30" y="14" width="320" height="240" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="150" y1="254" x2="270" y2="14" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <g font-size="10" fill="currentColor" opacity="0.7"><text x="30" y="268" text-anchor="middle">0</text><text x="70" y="268" text-anchor="middle">1</text><text x="110" y="268" text-anchor="middle">2</text><text x="150" y="268" text-anchor="middle">3</text><text x="190" y="268" text-anchor="middle">4</text><text x="230" y="268" text-anchor="middle">5</text><text x="270" y="268" text-anchor="middle">6</text><text x="310" y="268" text-anchor="middle">7</text><text x="350" y="268" text-anchor="middle">8</text><text x="25" y="218" text-anchor="end">1</text><text x="25" y="178" text-anchor="end">2</text><text x="25" y="138" text-anchor="end">3</text><text x="25" y="98" text-anchor="end">4</text><text x="25" y="58" text-anchor="end">5</text><text x="25" y="18" text-anchor="end">6</text></g>
+  <circle cx="110" cy="134" r="4" fill="currentColor"/>
+  <text x="117" y="128" font-size="12" fill="currentColor">S (2, 3)</text>
+  <circle cx="270" cy="214" r="4" fill="currentColor"/>
+  <text x="250" y="205" font-size="12" fill="currentColor">T (6, 1)</text>
+  <g font-size="12" fill="currentColor" font-style="italic"><text x="226" y="122">edge</text></g>
+</svg>

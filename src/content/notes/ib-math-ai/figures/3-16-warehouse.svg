@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" role="img" aria-labelledby="t">
+  <title id="t">A weighted graph with six vertices A to F. Edges and lengths in metres: A to B 61, A to C 31, A to D 55, B to C 26, B to E 47, C to D 38, C to F 64, D to F 29, E to F 33.</title>
+  <line x1="60" y1="150" x2="200" y2="45" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="150" x2="200" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="150" x2="200" y2="260" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="45" x2="200" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="45" x2="360" y2="45" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="150" x2="200" y2="260" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="150" x2="360" y2="200" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="260" x2="360" y2="200" stroke="currentColor" stroke-width="2"/>
+  <line x1="360" y1="45" x2="360" y2="200" stroke="currentColor" stroke-width="2"/>
+  <text x="122" y="91" font-size="14" text-anchor="middle" fill="var(--t2-ink)">61</text>
+  <text x="130" y="143" font-size="14" text-anchor="middle" fill="var(--t2-ink)">31</text>
+  <text x="121" y="221" font-size="14" text-anchor="middle" fill="var(--t2-ink)">55</text>
+  <text x="216" y="102" font-size="14" text-anchor="middle" fill="var(--t2-ink)">26</text>
+  <text x="280" y="38" font-size="14" text-anchor="middle" fill="var(--t2-ink)">47</text>
+  <text x="216" y="210" font-size="14" text-anchor="middle" fill="var(--t2-ink)">38</text>
+  <text x="276" y="193" font-size="14" text-anchor="middle" fill="var(--t2-ink)">64</text>
+  <text x="275" y="222" font-size="14" text-anchor="middle" fill="var(--t2-ink)">29</text>
+  <text x="378" y="128" font-size="14" text-anchor="middle" fill="var(--t2-ink)">33</text>
+  <circle cx="60" cy="150" r="5" fill="currentColor"/>
+  <text x="46" y="155" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="200" cy="45" r="5" fill="currentColor"/>
+  <text x="200" y="36" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="200" cy="150" r="5" fill="currentColor"/>
+  <text x="212" y="173" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="200" cy="260" r="5" fill="currentColor"/>
+  <text x="200" y="287" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">D</text>
+  <circle cx="360" cy="45" r="5" fill="currentColor"/>
+  <text x="360" y="36" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">E</text>
+  <circle cx="360" cy="200" r="5" fill="currentColor"/>
+  <text x="376" y="219" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">F</text>
+</svg>

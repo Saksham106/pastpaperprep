@@ -76,6 +76,25 @@ describe.skipIf(!research || !python)("validate-lesson.mjs", () => {
     expect(result.status).toBe(1);
   });
 
+  it("--fix sets the reading time and underlines a plain first use, writing the file, then passes those lints", () => {
+    const dir = mkdtempSync(join(tmpdir(), "notes-fix-"));
+    const lesson = JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/igcse-maths-0580/lessons/1-1.json"), "utf8"));
+    const marked = "[[highest-common-factor|highest common factor]]";
+    const holder = lesson.sections.flatMap((section: { blocks: { text?: string }[] }) => section.blocks).find((block: { text?: string }) => block.text?.includes(marked));
+    holder.text = holder.text.replace(marked, "highest common factor");
+    lesson.readingMinutes = 9;
+    writeFileSync(join(dir, "1-1.json"), JSON.stringify(lesson));
+    const result = spawnSync(process.execPath, [script, "--course", "igcse-maths-0580", "--fix", "1.1"], { encoding: "utf8", timeout: 120_000, env: { ...process.env, AA_NOTES_LESSONS_DIR: dir } });
+    expect(result.stdout, result.stdout + result.stderr).toMatch(/^FIXED underlined the first use of "highest common factor"/m);
+    expect(result.stdout).toMatch(/^FIXED readingMinutes 9 -> \d+/m);
+    expect(result.stdout).toMatch(/^PASS reading-time/m);
+    expect(result.stdout).toMatch(/^PASS glossary$/m);
+    expect(result.status).toBe(0);
+    const written = readFileSync(join(dir, "1-1.json"), "utf8");
+    expect(written).toContain(marked);
+    expect(JSON.parse(written).readingMinutes).toBe(JSON.parse(readFileSync(resolve(process.cwd(), "src/content/notes/igcse-maths-0580/lessons/1-1.json"), "utf8")).readingMinutes);
+  });
+
   it("exits 2 for an unknown item", () => {
     expect(run("9.99").status).toBe(2);
   });

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "system-of-linear-equations",
+    "term": "system of linear equations",
+    "definition": "Two or more linear equations in the same unknowns, solved together, where a solution makes every equation true at once; in IB AI exams a system has up to $3$ unknowns and always exactly one solution.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "polynomial",
+    "term": "polynomial",
+    "definition": "A sum of terms $ax^{n}$, where each coefficient $a$ is a constant and each power $n$ is a whole number $0, 1, 2, \\ldots$; the highest power with a non-zero coefficient is its degree.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "root",
+    "term": "root",
+    "definition": "A value of the unknown that makes an equation true; the roots of $f(x) = 0$ are the zeros of $f$.",
+    "lesson": "1.8"
+  },
+  {
+    "id": "zero-of-a-function",
+    "term": "zero of a function",
+    "definition": "A value $a$ with $f(a) = 0$: the $x$-coordinate of a point where the graph of $y = f(x)$ meets the $x$-axis. The $y$-intercept is a zero only if the graph passes through the origin.",
+    "lesson": "1.8"
+  }
+]

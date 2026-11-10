@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.1",
+  "slug": "standard-form",
+  "title": "Standard form",
+  "level": "SL",
+  "topic": 1,
+  "summary": "[[standard-form|Standard form]] writes a number as a number from 1 to just under 10, times a power of 10, such as $7.2 \\times 10^{-7}$. It keeps the huge and tiny numbers of real data short and easy to compare. You'll convert numbers, calculate with them, and turn your calculator's display into the form examiners accept.",
+  "goals": [
+    {
+      "text": "Write a number in [[standard-form|standard form]] $a \\times 10^{k}$, and back again.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Compare the sizes of numbers in standard form.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Multiply, divide and raise to powers numbers in standard form, and say what the result means in context.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Add and subtract numbers in standard form by matching their powers of 10.",
+      "bullets": [
+        "1.1-b1"
+      ]
+    },
+    {
+      "text": "Turn a calculator display such as 6.08E-5 into $6.08 \\times 10^{-5}$, correct to 3 significant figures.",
+      "bullets": [
+        "1.1-b2"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "scientific notation",
+    "standard index form",
+    "a times 10 to the power k",
+    "calculator E notation",
+    "multiply numbers in standard form"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-multiply-powers",
+      "prompt": "Work out $10^{6} \\times 10^{-4}$.",
+      "hint": "When you multiply powers of the same number, add the indices.",
+      "options": [
+        {
+          "text": "$10^{2}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{-24}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{10}$",
+          "correct": false
+        }
+      ],
+      "explain": "$6 + (-4) = 2$, so the answer is $10^{2}$, which is $100$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**6*10**(-4)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-divide-powers",
+      "prompt": "Work out $\\dfrac{10^{3}}{10^{-2}}$.",
+      "hint": "When you divide powers of the same number, subtract the indices. Bracket the negative one.",
+      "options": [
+        {
+          "text": "$10^{5}$",
+          "correct": true
+        },
+        {
+          "text": "$10^{1}$",
+          "correct": false
+        },
+        {
+          "text": "$10^{-6}$",
+          "correct": false
+        }
+      ],
+      "explain": "$3 - (-2) = 5$, so the answer is $10^{5}$.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**3/10**(-2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negative-power",
+      "prompt": "Write $10^{-4}$ as a decimal.",
+      "hint": "A negative index means one over the positive power: $10^{-4} = \\frac{1}{10^{4}}$.",
+      "options": [
+        {
+          "text": "$0.0001$",
+          "correct": true
+        },
+        {
+          "text": "$-10000$",
+          "correct": false
+        },
+        {
+          "text": "$0.00001$",
+          "correct": false
+        },
+        {
+          "text": "$-0.0001$",
+          "correct": false
+        }
+      ],
+      "explain": "$10^{-4} = \\frac{1}{10\\,000} = 0.0001$. A negative power makes a number small, not negative.",
+      "verify": {
+        "kind": "exact",
+        "truth": "10**(-4)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "writing",
+      "heading": "Writing numbers in standard form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A government budget of $1\\,460\\,000\\,000\\,000$ dollars and a bacterium $0.000\\,000\\,72$ m long are both hard to read. One zero miscounted changes the size tenfold."
+        },
+        {
+          "type": "text",
+          "text": "[[standard-form|Standard form]] writes the digits once and lets a power of $10$ carry the size: $1.46 \\times 10^{12}$ dollars and $7.2 \\times 10^{-7}$ m."
+        },
+        {
+          "type": "definition",
+          "term": "standard form",
+          "statement": "A number is in standard form when it is written as $a \\times 10^{k}$, where $1 \\le a < 10$ and $k$ is an integer (positive, negative or zero).",
+          "plain": "One non-zero digit before the decimal point, then a power of 10 that says how far to move the point."
+        },
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k}, \\quad 1 \\le a < 10, \\quad k \\in \\mathbb{Z}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "1. Put the decimal point just after the first non-zero digit. This gives $a$, the front number."
+        },
+        {
+          "type": "text",
+          "text": "2. Count how many places the point moved. That number is the size of $k$."
+        },
+        {
+          "type": "text",
+          "text": "3. A number of $10$ or more has $k > 0$. A number between $0$ and $1$ has $k < 0$. A number from $1$ to just under $10$ has $k = 0$."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-moving-the-point",
+          "alt": "In 0.000064 the decimal point moves 5 places right to sit after the 6, giving 6.4 times 10 to the power minus 5. In 38200000 the point moves 7 places left from the end to sit after the 3, giving 3.82 times 10 to the power 7.",
+          "caption": "Count the places the point moves. Moving right (a number below 1) makes $k$ negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-write-bacterium",
+          "question": "A bacterium is $0.000\\,000\\,72$ m long. Write this length in standard form.",
+          "steps": [
+            "The first non-zero digit is the $7$, so $a = 7.2$.",
+            "The point moves from just after the first $0$ to just after the $7$: $7$ places right.",
+            "The length is less than $1$, so $k$ is negative: $k = -7$.",
+            "Check by going back: moving the point in $7.2$ seven places left gives $0.000\\,000\\,72$."
+          ],
+          "answer": "$L = 7.2 \\times 10^{-7}\\text{ m}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "72/10**8"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "To go back to an ordinary number, move the point $k$ places: right if $k > 0$, left if $k < 0$. So $5.3 \\times 10^{4} = 53\\,000$ and $1.9 \\times 10^{-3} = 0.0019$."
+        },
+        {
+          "type": "example",
+          "id": "ex-write-budget",
+          "question": "A country plans to spend $1460$ billion dollars on health care. One billion is $10^{9}$. Write the amount in standard form.",
+          "steps": [
+            "Write the amount as a number times a power of $10$: $1460 \\times 10^{9}$ dollars.",
+            "$1460$ is bigger than $10$, so this is not yet standard form. Write $1460 = 1.46 \\times 10^{3}$.",
+            "Multiply the powers of $10$ by adding the indices: $1.46 \\times 10^{3} \\times 10^{9} = 1.46 \\times 10^{3 + 9} = 1.46 \\times 10^{12}$.",
+            "The front number got $1000$ times smaller, so the power went up by $3$."
+          ],
+          "answer": "$1460 \\times 10^{9} = 1.46 \\times 10^{12}\\text{ dollars}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1460*10**9"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-write-plays",
+          "prompt": "A song has been streamed $2\\,870\\,000\\,000$ times. Write this number in standard form.",
+          "hint": "Put the point just after the $2$. How many places did it move from the end of the number?",
+          "options": [
+            {
+              "text": "$2.87 \\times 10^{9}$",
+              "correct": true
+            },
+            {
+              "text": "$2.87 \\times 10^{10}$",
+              "correct": false
+            },
+            {
+              "text": "$28.7 \\times 10^{8}$",
+              "correct": false
+            },
+            {
+              "text": "$2.87 \\times 10^{-9}$",
+              "correct": false
+            }
+          ],
+          "explain": "The point moves $9$ places left, to just after the $2$. Counting all $10$ digits gives $10^{10}$, ten times too big. $28.7$ is not less than $10$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "287*10**7"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To compare two positive numbers in standard form, compare the powers first. Each step up in $k$ makes a number $10$ times bigger. Compare the front numbers only when the powers match. With negative powers, $-7$ is bigger than $-8$."
+        },
+        {
+          "type": "check",
+          "id": "check-compare-microbes",
+          "prompt": "A bacterium is $7.2 \\times 10^{-7}$ m long and a virus is $9.5 \\times 10^{-8}$ m across. Which statement is correct?",
+          "hint": "Compare the powers of $10$ first. Which is bigger, $-7$ or $-8$?",
+          "options": [
+            {
+              "text": "The bacterium is larger, by a factor of about 8",
+              "correct": true
+            },
+            {
+              "text": "The virus is larger, by a factor of about 8",
+              "correct": false
+            },
+            {
+              "text": "They are about the same size",
+              "correct": false
+            }
+          ],
+          "explain": "$-7 > -8$, so the bacterium is larger, even though $7.2 < 9.5$. $\\frac{7.2 \\times 10^{-7}}{9.5 \\times 10^{-8}} \\approx 7.6$, so about $8$ times.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The bacterium is larger, by a factor of about 8"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving a number between $0$ and $1$ a positive power. Its $k$ is always negative: $0.000\\,064 = 6.4 \\times 10^{-5}$, not $6.4 \\times 10^{5}$."
+        }
+      ]
+    },
+    {
+      "id": "multiply-divide",
+      "heading": "Multiplying, dividing and powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Multiplication can be done in any order, so group the front numbers and the powers of $10$: $(2 \\times 10^{3}) \\times (4 \\times 10^{5}) = 8 \\times 10^{3 + 5} = 8 \\times 10^{8}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(a \\times 10^{m}) \\times (b \\times 10^{n}) = ab \\times 10^{m+n}",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a \\times 10^{m}}{b \\times 10^{n}} = \\frac{a}{b} \\times 10^{m-n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The new front number may land outside $1$ to $10$. Then rewrite it: $30 = 3 \\times 10^{1}$ pushes the power up by $1$, and $0.7 = 7 \\times 10^{-1}$ pulls it down by $1$."
+        },
+        {
+          "type": "example",
+          "id": "ex-multiply-water",
+          "question": "A country has $6.7 \\times 10^{7}$ people. On average, each person uses $1.42 \\times 10^{5}$ litres of water a year. Find the total water used in the country in a year. Give your answer in standard form, correct to 3 significant figures.",
+          "steps": [
+            "Total = people $\\times$ litres per person $= (6.7 \\times 10^{7}) \\times (1.42 \\times 10^{5})$.",
+            "Multiply the front numbers: $6.7 \\times 1.42 = 9.514$.",
+            "Add the powers: $7 + 5 = 12$. So the total is $9.514 \\times 10^{12}$ litres, and $9.514$ is already between $1$ and $10$.",
+            "Round the front number to 3 s.f.: $9.51 \\times 10^{12}$ litres, about $9.5$ million million litres a year."
+          ],
+          "answer": "$W \\approx 9.51 \\times 10^{12}\\text{ litres}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "6.7*10**7*1.42*10**5",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-divide-debt",
+          "question": "A country's national debt is $2.38 \\times 10^{12}$ dollars and its population is $3.4 \\times 10^{7}$. Find the debt per person. Give your answer in standard form, and as an ordinary number.",
+          "steps": [
+            "Debt per person = total debt $\\div$ population $= \\frac{2.38 \\times 10^{12}}{3.4 \\times 10^{7}}$.",
+            "Divide the front numbers: $\\frac{2.38}{3.4} = 0.7$.",
+            "Subtract the powers: $12 - 7 = 5$. So you have $0.7 \\times 10^{5}$.",
+            "$0.7$ is less than $1$. Write $0.7 = 7 \\times 10^{-1}$, so $0.7 \\times 10^{5} = 7 \\times 10^{-1 + 5} = 7 \\times 10^{4}$.",
+            "As an ordinary number this is $70\\,000$ dollars: each person's share of the debt, children included."
+          ],
+          "answer": "$\\text{debt per person} = 7 \\times 10^{4}\\text{ dollars}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.38*10**12/(3.4*10**7)"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Losing the sign when you subtract a negative power. $10^{4} \\div 10^{-3} = 10^{4 - (-3)} = 10^{7}$, not $10^{1}$. Write the subtraction out with brackets."
+        },
+        {
+          "type": "check",
+          "id": "check-multiply-renormalise",
+          "prompt": "Work out $(6 \\times 10^{5}) \\times (5 \\times 10^{-9})$. Give your answer in standard form.",
+          "hint": "Multiply $6 \\times 5$ and add the powers. Then check that the front number is less than $10$.",
+          "options": [
+            {
+              "text": "$3 \\times 10^{-3}$",
+              "correct": true
+            },
+            {
+              "text": "$30 \\times 10^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$3 \\times 10^{-5}$",
+              "correct": false
+            },
+            {
+              "text": "$3 \\times 10^{-4}$",
+              "correct": false
+            }
+          ],
+          "explain": "$6 \\times 5 = 30$ and $5 + (-9) = -4$, giving $30 \\times 10^{-4}$. Since $30 = 3 \\times 10^{1}$, the answer is $3 \\times 10^{-3}$. $30 \\times 10^{-4}$ has the right value but is not in standard form.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "6*10**5*5*10**(-9)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-paper-stack",
+          "prompt": "One sheet of paper is $1.0 \\times 10^{-4}$ m thick. How many sheets make a stack $2.5$ m high?",
+          "hint": "Divide the height of the stack by the thickness of one sheet. Write $2.5$ as $2.5 \\times 10^{0}$.",
+          "options": [
+            {
+              "text": "$2.5 \\times 10^{4}$",
+              "correct": true
+            },
+            {
+              "text": "$2.5 \\times 10^{-4}$",
+              "correct": false
+            },
+            {
+              "text": "$2.5 \\times 10^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{2.5 \\times 10^{0}}{1.0 \\times 10^{-4}} = 2.5 \\times 10^{0 - (-4)} = 2.5 \\times 10^{4}$, so $25\\,000$ sheets. A count of sheets must be large, so a negative power can't be right.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.5/(1.0*10**(-4))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To raise a number in standard form to a power, raise both parts. The index of the power of $10$ is multiplied, because $(10^{m})^{n} = 10^{mn}$."
+        },
+        {
+          "type": "formula",
+          "tex": "(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}",
+          "tag": "learn"
+        },
+        {
+          "type": "check",
+          "id": "check-power-solar-farm",
+          "prompt": "A solar farm is a square with sides $3.5 \\times 10^{3}$ m long. Find its area, in $\\text{m}^{2}$, in standard form.",
+          "hint": "Square both parts: $3.5^{2}$ and $(10^{3})^{2}$. Then check the front number.",
+          "options": [
+            {
+              "text": "$1.225 \\times 10^{7}$",
+              "correct": true
+            },
+            {
+              "text": "$1.225 \\times 10^{9}$",
+              "correct": false
+            },
+            {
+              "text": "$7 \\times 10^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$1.225 \\times 10^{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "$3.5^{2} = 12.25$ and $(10^{3})^{2} = 10^{6}$, so the area is $12.25 \\times 10^{6} = 1.225 \\times 10^{7}\\text{ m}^{2}$. Squaring the index gives $10^{9}$; doubling instead of squaring gives $7 \\times 10^{3}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "(3.5*10**3)**2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-subtract-gdc",
+      "heading": "Adding, subtracting and calculator answers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Adding is different: $3 \\times 10^{4} + 2 \\times 10^{3} = 30\\,000 + 2000 = 32\\,000$. You can't just add the powers."
+        },
+        {
+          "type": "text",
+          "text": "Write both numbers with the same power of $10$. Then add or subtract the front numbers, and put the result back in [[standard-form|standard form]]."
+        },
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k} \\pm b \\times 10^{k} = (a \\pm b) \\times 10^{k}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-add-cargo",
+          "question": "A port handles $2.4 \\times 10^{5}$ tonnes of cargo in March and $8.6 \\times 10^{4}$ tonnes in April. Find the total for the two months, in standard form.",
+          "steps": [
+            "Rewrite the March figure with the smaller power, $10^{4}$: $2.4 \\times 10^{5} = 24 \\times 10^{4}$.",
+            "Add the front numbers: $24 \\times 10^{4} + 8.6 \\times 10^{4} = 32.6 \\times 10^{4}$.",
+            "Fix the front number: $32.6 = 3.26 \\times 10^{1}$, so the total is $3.26 \\times 10^{5}$ tonnes.",
+            "Check with ordinary numbers: $240\\,000 + 86\\,000 = 326\\,000$."
+          ],
+          "answer": "$\\text{total} = 3.26 \\times 10^{5}\\text{ tonnes}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2.4*10**5 + 8.6*10**4"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the powers when you add the numbers. $4 \\times 10^{6} + 3 \\times 10^{6} = 7 \\times 10^{6}$, not $7 \\times 10^{12}$. Powers add only when you multiply."
+        },
+        {
+          "type": "check",
+          "id": "check-subtract-reservoir",
+          "prompt": "A reservoir holds $5.1 \\times 10^{6}$ $\\text{m}^{3}$ of water. During a dry month, $7.5 \\times 10^{5}$ $\\text{m}^{3}$ is used. How much is left, in standard form?",
+          "hint": "Write $5.1 \\times 10^{6}$ with the power $10^{5}$ first.",
+          "options": [
+            {
+              "text": "$4.35 \\times 10^{6}$",
+              "correct": true
+            },
+            {
+              "text": "$43.5 \\times 10^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$4.35 \\times 10^{5}$",
+              "correct": false
+            },
+            {
+              "text": "$-2.4 \\times 10^{1}$",
+              "correct": false
+            }
+          ],
+          "explain": "$5.1 \\times 10^{6} = 51 \\times 10^{5}$, and $51 - 7.5 = 43.5$. So $43.5 \\times 10^{5} = 4.35 \\times 10^{6}\\text{ m}^{3}$ is left.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "5.1*10**6 - 7.5*10**5"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Your GDC does the arithmetic on every paper. Enter the numbers correctly, write down what you entered, and give the answer in standard form."
+        },
+        {
+          "type": "text",
+          "text": "Calculators show very large or small answers in a short form such as 2.125E25. The E means \"times $10$ to the power of\", so 2.125E25 is $2.125 \\times 10^{25}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-bacteria",
+          "question": "A lab culture starts with $4.5 \\times 10^{3}$ bacteria. A simple model says the number doubles every $20$ minutes. Use your calculator to find the number of bacteria the model predicts after $24$ hours, in standard form to 3 s.f. Comment on the model.",
+          "steps": [
+            "In $24$ hours there are $\\frac{24 \\times 60}{20} = 72$ doublings, so the model gives $N = 4.5 \\times 10^{3} \\times 2^{72}$. Write this line down: it earns the method mark.",
+            "Enter 4.5E3 × 2^72, using the standard-form key for 4.5E3 (steps below).",
+            "The screen shows about 2.125064917E25, which means $2.125\\ldots \\times 10^{25}$.",
+            "Keep the full value until the end, then round the front number to 3 s.f.: $N \\approx 2.13 \\times 10^{25}$. Never write 2.13E25.",
+            "Comment: at about $10^{-12}$ g per bacterium, that is about $2 \\times 10^{10}$ kg of bacteria. Food and space run out long before that, so the model only works for a short time."
+          ],
+          "answer": "$N \\approx 2.13 \\times 10^{25}$",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "4.5*10**3*2**72",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "number-standard-form",
+          "values": {
+            "mantissa": 4.5,
+            "exponent": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Type standard form with the calculator's own key (EE or $\\times 10^{x}$). Then 4.5E3 stays one number inside a longer calculation."
+        },
+        {
+          "type": "check",
+          "id": "check-calculator-display",
+          "prompt": "Your calculator shows the answer 6.08E-5. How should you write it on your exam paper?",
+          "hint": "E means times $10$ to the power of the number after it. Keep the sign of that number.",
+          "options": [
+            {
+              "text": "$6.08 \\times 10^{-5}$",
+              "correct": true
+            },
+            {
+              "text": "6.08E-5",
+              "correct": false
+            },
+            {
+              "text": "$6.08^{-5}$",
+              "correct": false
+            },
+            {
+              "text": "$6.08 \\times 10^{5}$",
+              "correct": false
+            }
+          ],
+          "explain": "6.08E-5 means $6.08 \\times 10^{-5}$, which is $0.000\\,060\\,8$. Calculator notation such as 6.08E-5 is not accepted, and $6.08^{-5}$ is a different number.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "608/10**7"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "a \\times 10^{k}, \\quad 1 \\le a < 10, \\quad k \\in \\mathbb{Z}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To write a number in standard form, put the point after the first non-zero digit. $k$ counts the places it moved, and is negative for numbers between $0$ and $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Multiply: multiply the front numbers, add the powers. Divide: divide, subtract the powers. Integer power $n$: $(a \\times 10^{m})^{n} = a^{n} \\times 10^{mn}$. Then rewrite the result so that $1 \\le a < 10$, changing the power to balance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Add or subtract only after writing both numbers with the same power of $10$. To compare positive numbers in standard form, compare the powers first.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Never give calculator notation such as 6.08E-5 as an answer: write $6.08 \\times 10^{-5}$, with $a$ exact or to 3 s.f. unless told otherwise.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Copying the calculator display, such as 2.13E25. It is not accepted: write $2.13 \\times 10^{25}$.",
+    "Stopping with the front number outside $1$ to $10$, as in $32.6 \\times 10^{4}$. Rewrite it as $3.26 \\times 10^{5}$, changing the power to balance.",
+    "Moving the power the wrong way when you fix the front number. $0.7 \\times 10^{5}$ is $7 \\times 10^{4}$, not $7 \\times 10^{6}$: a bigger front number needs a smaller power.",
+    "Adding the powers when you add or subtract. Match the powers first, then add the front numbers.",
+    "Rounding the calculator value part-way through. Keep the full value and round only the final front number."
+  ],
+  "examTips": [
+    "When a question asks for the form $a \\times 10^{k}$, marks can be given separately for $a$ and for $k$. An answer like $32.6 \\times 10^{4}$ can lose the mark for the form, even though its value is right.",
+    "\"Find\" or \"calculate\": write down the expression you enter into the GDC, with its numbers, before the answer. That line earns the method mark if the answer is wrong.",
+    "Give $a$ exactly or to 3 significant figures unless the question asks for another accuracy, and keep units: $9.51 \\times 10^{12}$ litres, not just $9.51 \\times 10^{12}$."
+  ],
+  "readingMinutes": 18
+}

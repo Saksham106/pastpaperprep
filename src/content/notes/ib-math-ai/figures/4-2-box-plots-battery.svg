@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 196" role="img" aria-labelledby="t">
+  <title id="t">Two box and whisker diagrams of battery life on one scale from 20 to 50 hours. Model P: whiskers from 21.5 to 43.5, box from 28.5 to 36.5, median 32.5, symmetric. Model Q: whiskers from 22.5 to 46.5, box from 25.5 to 39.5, median 28.5, with the median near the left of the box. Neither model has an outlier</title>
+  <g stroke="var(--muted)" stroke-width="0.6">
+    <line x1="70.0" y1="18" x2="70.0" y2="132"/>
+    <line x1="115.0" y1="18" x2="115.0" y2="132"/>
+    <line x1="160.0" y1="18" x2="160.0" y2="132"/>
+    <line x1="205.0" y1="18" x2="205.0" y2="132"/>
+    <line x1="250.0" y1="18" x2="250.0" y2="132"/>
+    <line x1="295.0" y1="18" x2="295.0" y2="132"/>
+    <line x1="340.0" y1="18" x2="340.0" y2="132"/>
+  </g>
+  <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
+    <rect x="146.5" y="36" width="72.0" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <line x1="182.5" y1="36" x2="182.5" y2="64"/>
+    <line x1="83.5" y1="50" x2="146.5" y2="50"/>
+    <line x1="218.5" y1="50" x2="281.5" y2="50"/>
+    <line x1="83.5" y1="42" x2="83.5" y2="58"/>
+    <line x1="281.5" y1="42" x2="281.5" y2="58"/>
+  </g>
+  <text x="60" y="54" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">Model P</text>
+  <g stroke="var(--t4-ink)" stroke-width="2" fill="none">
+    <rect x="119.5" y="100" width="126.0" height="28" fill="var(--t4-ink)" fill-opacity="0.14"/>
+    <line x1="146.5" y1="100" x2="146.5" y2="128"/>
+    <line x1="92.5" y1="114" x2="119.5" y2="114"/>
+    <line x1="245.5" y1="114" x2="308.5" y2="114"/>
+    <line x1="92.5" y1="106" x2="92.5" y2="122"/>
+    <line x1="308.5" y1="106" x2="308.5" y2="122"/>
+  </g>
+  <text x="60" y="118" fill="currentColor" font-size="12" font-family="inherit" text-anchor="end">Model Q</text>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="70" y1="132" x2="340" y2="132"/>
+    <line x1="70.0" y1="132" x2="70.0" y2="137"/>
+    <line x1="115.0" y1="132" x2="115.0" y2="137"/>
+    <line x1="160.0" y1="132" x2="160.0" y2="137"/>
+    <line x1="205.0" y1="132" x2="205.0" y2="137"/>
+    <line x1="250.0" y1="132" x2="250.0" y2="137"/>
+    <line x1="295.0" y1="132" x2="295.0" y2="137"/>
+    <line x1="340.0" y1="132" x2="340.0" y2="137"/>
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="70.0" y="150">20</text>
+    <text x="115.0" y="150">25</text>
+    <text x="160.0" y="150">30</text>
+    <text x="205.0" y="150">35</text>
+    <text x="250.0" y="150">40</text>
+    <text x="295.0" y="150">45</text>
+    <text x="340.0" y="150">50</text>
+    <text x="205.0" y="170">Battery life, hours</text>
+  </g>
+</svg>

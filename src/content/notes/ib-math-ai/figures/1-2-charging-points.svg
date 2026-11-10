@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 310" role="img" font-family="sans-serif" font-size="12">
+<line x1="60" y1="260" x2="460" y2="260" stroke="currentColor"/>
+<line x1="60" y1="260" x2="60" y2="30" stroke="currentColor"/>
+<line x1="55" y1="260.0" x2="60" y2="260.0" stroke="currentColor"/>
+<text x="52" y="264.0" text-anchor="end" fill="currentColor">0</text>
+<line x1="55" y1="212.0" x2="60" y2="212.0" stroke="currentColor"/>
+<text x="52" y="216.0" text-anchor="end" fill="currentColor">40</text>
+<line x1="55" y1="164.0" x2="60" y2="164.0" stroke="currentColor"/>
+<text x="52" y="168.0" text-anchor="end" fill="currentColor">80</text>
+<line x1="55" y1="116.0" x2="60" y2="116.0" stroke="currentColor"/>
+<text x="52" y="120.0" text-anchor="end" fill="currentColor">120</text>
+<line x1="55" y1="68.0" x2="60" y2="68.0" stroke="currentColor"/>
+<text x="52" y="72.0" text-anchor="end" fill="currentColor">160</text>
+<line x1="70" y1="260" x2="70" y2="265" stroke="currentColor"/>
+<text x="70" y="278" text-anchor="middle" fill="currentColor">1</text>
+<line x1="115" y1="260" x2="115" y2="265" stroke="currentColor"/>
+<text x="115" y="278" text-anchor="middle" fill="currentColor">2</text>
+<line x1="160" y1="260" x2="160" y2="265" stroke="currentColor"/>
+<text x="160" y="278" text-anchor="middle" fill="currentColor">3</text>
+<line x1="205" y1="260" x2="205" y2="265" stroke="currentColor"/>
+<text x="205" y="278" text-anchor="middle" fill="currentColor">4</text>
+<line x1="250" y1="260" x2="250" y2="265" stroke="currentColor"/>
+<text x="250" y="278" text-anchor="middle" fill="currentColor">5</text>
+<line x1="295" y1="260" x2="295" y2="265" stroke="currentColor"/>
+<text x="295" y="278" text-anchor="middle" fill="currentColor">6</text>
+<line x1="340" y1="260" x2="340" y2="265" stroke="currentColor"/>
+<text x="340" y="278" text-anchor="middle" fill="currentColor">7</text>
+<line x1="385" y1="260" x2="385" y2="265" stroke="currentColor"/>
+<text x="385" y="278" text-anchor="middle" fill="currentColor">8</text>
+<line x1="430" y1="260" x2="430" y2="265" stroke="currentColor"/>
+<text x="430" y="278" text-anchor="middle" fill="currentColor">9</text>
+<line x1="70" y1="204.8" x2="430" y2="64.6" stroke="var(--t2-ink)" stroke-width="2" stroke-dasharray="6 4"/>
+<circle cx="70" cy="204.8" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="115" cy="186.8" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="160" cy="172.4" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="205" cy="152.0" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="250" cy="135.2" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="295" cy="117.2" r="4.5" fill="var(--t4-ink)"/>
+<circle cx="430" cy="64.6" r="5" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<text x="422" y="54.6" text-anchor="end" fill="currentColor">prediction 162.8</text>
+<line x1="317" y1="40" x2="317" y2="260" stroke="var(--muted)" stroke-dasharray="2 4"/>
+<text x="313" y="52" text-anchor="end" fill="var(--muted)">data</text>
+<text x="321" y="52" fill="var(--muted)">beyond the data</text>
+<text x="260" y="300" text-anchor="middle" fill="currentColor">Year n (year 1 is 2020)</text>
+<text x="16" y="150" text-anchor="middle" fill="currentColor" transform="rotate(-90 16 150)">Charging points</text>
+</svg>

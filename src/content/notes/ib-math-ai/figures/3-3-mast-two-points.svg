@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t">
+  <title id="t">A vertical mast FT of height h metres stands on level ground on the right. Points A and B are on the ground to the left, in line with the foot F, with A furthest away and AB equal to 60 m. Lines of sight run from A and from B to the top T. The angle of elevation is 21 degrees at A and 34 degrees at B.</title>
+  <line x1="20" y1="190" x2="305" y2="190" stroke="currentColor" stroke-width="2"/>
+  <line x1="290" y1="190" x2="290" y2="104.5" stroke="currentColor" stroke-width="2.5"/>
+  <polyline points="290,180 280,180 280,190" fill="none" stroke="currentColor" stroke-width="1"/>
+  <line x1="67.2" y1="190" x2="290" y2="104.5" stroke="var(--t1-ink)" stroke-width="2"/>
+  <line x1="163.2" y1="190" x2="290" y2="104.5" stroke="var(--t3-ink)" stroke-width="2"/>
+  <path d="M107.2,190 A40,40 0 0 0 104.5,175.7" fill="none" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <path d="M193.2,190 A30,30 0 0 0 188.1,173.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="67.2" cy="190" r="3.5"/>
+    <circle cx="163.2" cy="190" r="3.5"/>
+    <circle cx="290" cy="104.5" r="3.5"/>
+    <circle cx="290" cy="190" r="3"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="62" y="208" font-style="italic">A</text>
+    <text x="158" y="208" font-style="italic">B</text>
+    <text x="286" y="96" font-style="italic">T</text>
+    <text x="286" y="208" font-style="italic">F</text>
+    <text x="296" y="152" font-style="italic">h</text>
+    <text x="110" y="184" fill="var(--t1-ink)" font-size="12">21°</text>
+    <text x="196" y="184" fill="var(--t3-ink)" font-size="12">34°</text>
+    <text x="98" y="214">60 m</text>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" role="img" font-family="sans-serif" font-size="12">
+<line x1="50" y1="330" x2="450" y2="330" stroke="currentColor"/>
+<line x1="290" y1="362" x2="290" y2="42" stroke="currentColor"/>
+<text x="450" y="322" text-anchor="end" fill="currentColor">x</text>
+<text x="298" y="54" fill="currentColor">y</text>
+<line x1="130" y1="330" x2="130" y2="335" stroke="currentColor"/>
+<text x="130" y="348" text-anchor="middle" fill="currentColor">−2</text>
+<line x1="210" y1="330" x2="210" y2="335" stroke="currentColor"/>
+<text x="210" y="348" text-anchor="middle" fill="currentColor">−1</text>
+<line x1="370" y1="330" x2="370" y2="335" stroke="currentColor"/>
+<text x="370" y="348" text-anchor="middle" fill="currentColor">1</text>
+<line x1="285" y1="250" x2="290" y2="250" stroke="currentColor"/>
+<text x="298" y="254" fill="currentColor">5</text>
+<line x1="285" y1="170" x2="290" y2="170" stroke="currentColor"/>
+<text x="298" y="174" fill="currentColor">10</text>
+<line x1="285" y1="90" x2="290" y2="90" stroke="currentColor"/>
+<text x="298" y="94" fill="currentColor">15</text>
+<polyline points="54.0,65.9 58.0,73.7 62.0,81.3 66.0,88.7 70.0,96.0 74.0,103.1 78.0,110.1 82.0,116.9 86.0,123.5 90.0,130.0 94.0,136.3 98.0,142.5 102.0,148.5 106.0,154.3 110.0,160.0 114.0,165.5 118.0,170.9 122.0,176.1 126.0,181.1 130.0,186.0 134.0,190.7 138.0,195.3 142.0,199.7 146.0,203.9 150.0,208.0 154.0,211.9 158.0,215.7 162.0,219.3 166.0,222.7 170.0,226.0 174.0,229.1 178.0,232.1 182.0,234.9 186.0,237.5 190.0,240.0 194.0,242.3 198.0,244.5 202.0,246.5 206.0,248.3 210.0,250.0 214.0,251.5 218.0,252.9 222.0,254.1 226.0,255.1 230.0,256.0 234.0,256.7 238.0,257.3 242.0,257.7 246.0,257.9 250.0,258.0 254.0,257.9 258.0,257.7 262.0,257.3 266.0,256.7 270.0,256.0 274.0,255.1 278.0,254.1 282.0,252.9 286.0,251.5 290.0,250.0 294.0,248.3 298.0,246.5 302.0,244.5 306.0,242.3 310.0,240.0 314.0,237.5 318.0,234.9 322.0,232.1 326.0,229.1 330.0,226.0 334.0,222.7 338.0,219.3 342.0,215.7 346.0,211.9 350.0,208.0 354.0,203.9 358.0,199.7 362.0,195.3 366.0,190.7 370.0,186.0 374.0,181.1 378.0,176.1 382.0,170.9 386.0,165.5 390.0,160.0 394.0,154.3 398.0,148.5 402.0,142.5 406.0,136.3 410.0,130.0 414.0,123.5 418.0,116.9 422.0,110.1 426.0,103.1 430.0,96.0 434.0,88.7 438.0,81.3 442.0,73.7 446.0,65.9" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<line x1="250.0" y1="354.0" x2="250.0" y2="58" stroke="var(--muted)" stroke-dasharray="5 4"/>
+<text x="244.0" y="58" text-anchor="end" fill="var(--muted)">x = −0.5</text>
+<circle cx="250.0" cy="258.0" r="4.5" fill="var(--t3-ink)"/>
+<text x="242" y="278" text-anchor="end" fill="var(--t3-ink)">vertex (−0.5, 4.5)</text>
+<text x="302.0" y="74" fill="var(--t1-ink)">y = 2x² + 2x + 5</text>
+<text x="58" y="372" fill="var(--t2-ink)">Never meets the x-axis: Δ = −36</text>
+<text x="58" y="390" fill="var(--t2-ink)">Roots −0.5 ± 1.5i: real part −0.5 is on the axis of symmetry</text>
+</svg>

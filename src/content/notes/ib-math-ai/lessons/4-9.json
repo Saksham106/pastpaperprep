@@ -1,0 +1,791 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.9",
+  "slug": "normal-distribution",
+  "title": "Normal distribution",
+  "level": "SL",
+  "topic": 4,
+  "summary": "Heights, masses and many other measurements are often modelled by the [[normal-distribution|normal distribution]]: a symmetric bell-shaped curve centred on the [[mean|mean]]. Its probabilities are areas under the curve. You estimate them with the [[68-95-99-7-rule|68–95–99.7 rule]], find them with your GDC, and run the GDC backwards to find a value from a probability.",
+  "goals": [
+    {
+      "text": "Describe the normal curve, its properties and where it occurs, read $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$, and sketch it with a region shaded.",
+      "bullets": [
+        "4.9-b1"
+      ]
+    },
+    {
+      "text": "Use the 68–95–99.7 rule to estimate probabilities and expected numbers, and to judge whether a model is sensible.",
+      "bullets": [
+        "4.9-b2"
+      ]
+    },
+    {
+      "text": "Find normal probabilities with your GDC and say what they mean in context.",
+      "bullets": [
+        "4.9-b3"
+      ]
+    },
+    {
+      "text": "Find a value from a probability with [[inverse-normal|inverse normal]], for a lower tail, an upper tail or a middle region.",
+      "bullets": [
+        "4.9-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.2",
+    "4.3",
+    "4.5",
+    "4.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "normal distribution",
+    "bell curve",
+    "normalcdf",
+    "invNorm",
+    "inverse normal",
+    "68 95 99.7 rule"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sd-from-variance",
+      "prompt": "A data set has variance $64$. Find its [[standard-deviation|standard deviation]].",
+      "hint": "The variance is the standard deviation squared.",
+      "answer": {
+        "value": 8,
+        "tolerance": 0
+      },
+      "explain": "$\\sigma = \\sqrt{64} = 8$. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(64)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-expected-seeds",
+      "prompt": "The probability that a seed fails to sprout is $0.15$. How many of $240$ seeds do you expect to fail?",
+      "hint": "Multiply the number of trials by the probability.",
+      "answer": {
+        "value": 36,
+        "tolerance": 0
+      },
+      "explain": "$240 \\times 0.15 = 36$ seeds. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "240*Rational(15, 100)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-complement-rv",
+      "prompt": "A [[random-variable|random variable]] $X$ has $\\mathrm{P}(X \\le 3) = 0.71$. Find $\\mathrm{P}(X > 3)$.",
+      "hint": "Every value is either at most $3$ or more than $3$.",
+      "answer": {
+        "value": 0.29,
+        "tolerance": 0
+      },
+      "explain": "The probabilities add to $1$, so $\\mathrm{P}(X > 3) = 1 - 0.71 = 0.29$. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - Rational(71, 100)",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "curve",
+      "heading": "The normal curve",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw a [[histogram|histogram]] of 2000 adult heights with narrow bars. Most heights sit near the average, and extreme ones are rare on both sides. The outline is a smooth, symmetric bell: the normal curve."
+        },
+        {
+          "type": "text",
+          "text": "This shape appears when many small, independent effects add up. Heights, masses, machine-made lengths and measurement errors are often close to normal. Incomes and waiting times are usually skewed, so they are not."
+        },
+        {
+          "type": "text",
+          "text": "A height is a [[continuous-random-variable|continuous random variable]]: it can take any value in a range, unlike the separate values in {{lesson:4.7}}. Its probabilities are areas under a curve."
+        },
+        {
+          "type": "definition",
+          "term": "Normal distribution",
+          "statement": "A continuous random variable $X$ with mean $\\mu$ and variance $\\sigma^{2}$ is normally distributed if its probabilities are areas under the normal curve: a symmetric bell-shaped curve centred on $\\mu$, whose spread is set by $\\sigma$. You write $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$.",
+          "plain": "Most values are near the mean, and values get rarer the further you go from it on either side."
+        },
+        {
+          "type": "text",
+          "text": "The second number in $\\mathrm{N}(\\mu, \\sigma^{2})$ is the variance, not the standard deviation. So $X \\sim \\mathrm{N}(30, 16)$ has $\\sigma = 4$. Questions often write $\\mathrm{N}(30, 4^{2})$ to make $\\sigma$ easy to see."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-bell-curve",
+          "alt": "Bell-shaped normal curve, symmetric about a dashed vertical line at the mean mu. The area under the curve between two values a and b, to the right of the mean, is shaded and labelled as the probability that X lies between a and b. The whole area under the curve is 1.",
+          "caption": "The probability that $X$ lies between $a$ and $b$ is the area under the curve between them."
+        },
+        {
+          "type": "text",
+          "text": "1. The curve is symmetric about the vertical line through $\\mu$. So the mean, median and mode all equal $\\mu$."
+        },
+        {
+          "type": "text",
+          "text": "2. The total area under the curve is $1$, because $X$ is certain to take some value."
+        },
+        {
+          "type": "text",
+          "text": "3. The curve gets closer and closer to the horizontal axis on both sides but never touches it. Values far from $\\mu$ are possible, just very unlikely."
+        },
+        {
+          "type": "text",
+          "text": "4. $\\mu$ sets where the centre is. $\\sigma$ sets the spread: a larger $\\sigma$ gives a lower, wider curve, because the area must stay $1$."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-spread",
+          "alt": "Two normal curves with the same mean mu. The curve with the smaller standard deviation is tall and narrow. The curve with the larger standard deviation is lower and wider. Each encloses a total area of 1.",
+          "caption": "Same $\\mu$, different $\\sigma$: the wider curve is lower, so both areas are $1$."
+        },
+        {
+          "type": "result",
+          "statement": "For a continuous random variable, $\\mathrm{P}(X = a) = 0$ for any single value $a$. So $\\mathrm{P}(X < a) = \\mathrm{P}(X \\le a)$.",
+          "why": "A single value is a line with no width, so the area above it is zero."
+        },
+        {
+          "type": "text",
+          "text": "Symmetry gives some probabilities with no working: half the area lies on each side of $\\mu$, and tails the same distance $d$ from $\\mu$ have equal areas."
+        },
+        {
+          "type": "formula",
+          "tex": "X \\sim \\mathrm{N}(\\mu, \\sigma^{2}): \\quad \\mathrm{P}(X < \\mu) = \\mathrm{P}(X > \\mu) = 0.5, \\qquad \\mathrm{P}(X < \\mu - d) = \\mathrm{P}(X > \\mu + d)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "To sketch a normal curve, draw a symmetric bell that flattens towards the axis without touching it. Mark $\\mu$ in the centre, label each bound on the correct side of $\\mu$, and shade the region you want."
+        },
+        {
+          "type": "example",
+          "id": "ex-curve-hand-spans",
+          "question": "The hand spans $S$ cm of adults in a town are modelled by $S \\sim \\mathrm{N}(20.4, 2.25)$. Write down (a) the standard deviation of $S$, (b) $\\mathrm{P}(S < 20.4)$.",
+          "steps": [
+            "(a) Read the model: the mean is $20.4$ and the variance is $2.25$. The standard deviation is the square root of the variance: $\\sqrt{2.25} = 1.5$ cm.",
+            "(b) $20.4$ is the mean, and the curve is symmetric about it. So half of all hand spans are below $20.4$ cm."
+          ],
+          "answer": "$1.5, \\; 0.5$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[sqrt(Rational(225, 100)), Rational(1, 2)]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-curve-rice-symmetry",
+          "question": "The masses $R$ grams of bags of rice are normally distributed, with $\\mathrm{P}(R < 994) = \\mathrm{P}(R > 1010) = 0.07$. Find the mean mass, $m$ grams, and $p = \\mathrm{P}(994 < R < m)$.",
+          "steps": [
+            "The two tails have equal areas, so $994$ and $1010$ are the same distance from the mean.",
+            "The mean is halfway between them: $m = \\frac{994 + 1010}{2} = 1002$.",
+            "The area to the left of the mean is $0.5$. Take away the tail below $994$: $p = 0.5 - 0.07 = 0.43$.",
+            "Sketch check: the strip from $994$ to $1002$ is much bigger than the tail, as $0.43 > 0.07$ says."
+          ],
+          "answer": "$m = 1002, \\; p = 0.43$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"m\": Rational(994 + 1010, 2), \"p\": Rational(1, 2) - Rational(7, 100)}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-normal",
+          "prompt": "Which of these is most likely to be well modelled by a normal distribution?",
+          "hint": "Look for a continuous measurement that clusters symmetrically around an average.",
+          "options": [
+            {
+              "text": "The heights of adult women in one country",
+              "correct": true
+            },
+            {
+              "text": "The number of cars owned by each household",
+              "correct": false
+            },
+            {
+              "text": "The annual incomes of workers in a city",
+              "correct": false
+            }
+          ],
+          "explain": "Heights are continuous and roughly symmetric about the mean. Car counts are discrete, and incomes are skewed: a few people earn far more than the rest.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The heights of adult women in one country"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-point-prob",
+          "prompt": "The times $T$ seconds that club runners take for $400$ m are modelled by $T \\sim \\mathrm{N}(52, 4^{2})$. Find $\\mathrm{P}(T = 52)$.",
+          "hint": "What is the area above a single point?",
+          "options": [
+            {
+              "text": "$0$",
+              "correct": true
+            },
+            {
+              "text": "$0.5$",
+              "correct": false
+            },
+            {
+              "text": "$0.0997$",
+              "correct": false
+            }
+          ],
+          "explain": "$T$ is continuous, so the probability of one exact value is $0$. The value $0.5$ is $\\mathrm{P}(T < 52)$. The value $0.0997$ is the height of the curve at $52$ (normal pdf), not an area.",
+          "verify": {
+            "kind": "exact",
+            "truth": "normcdf(52, 52, 52, 4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-k-side",
+          "prompt": "$X \\sim \\mathrm{N}(50, 6^{2})$ and $\\mathrm{P}(X < k) = 0.8$. Where is $k$?",
+          "hint": "How much area lies to the left of the mean?",
+          "options": [
+            {
+              "text": "Above 50",
+              "correct": true
+            },
+            {
+              "text": "Below 50",
+              "correct": false
+            },
+            {
+              "text": "Exactly at 50",
+              "correct": false
+            }
+          ],
+          "explain": "Only $0.5$ of the area lies left of $50$. To have $0.8$ to its left, $k$ must be further right, above the mean.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Above 50"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "heading": "The 68–95–99.7 rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every normal curve has the same shape: $\\mu$ slides it along and $\\sigma$ stretches it. So the fraction within one standard deviation of the mean is the same for every normal distribution."
+        },
+        {
+          "type": "formula",
+          "tex": "X \\sim \\mathrm{N}(\\mu, \\sigma^{2}): \\quad \\begin{aligned} \\mathrm{P}(\\mu - \\sigma < X < \\mu + \\sigma) &\\approx 0.68 \\\\ \\mathrm{P}(\\mu - 2\\sigma < X < \\mu + 2\\sigma) &\\approx 0.95 \\\\ \\mathrm{P}(\\mu - 3\\sigma < X < \\mu + 3\\sigma) &\\approx 0.997 \\end{aligned}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "This is the [[68-95-99-7-rule|68–95–99.7 rule]], for normal distributions only. Learn it: it is not in the formula booklet. The values are rounded; the GDC gives $0.6827$ for one standard deviation."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-empirical-rule",
+          "alt": "Normal curve with vertical lines at one, two and three standard deviations either side of the mean. Brackets underneath show that about 68 percent of values lie within one standard deviation of the mean, about 95 percent within two, and about 99.7 percent within three. The two strips next to the mean each hold about 34 percent, and the next two strips each hold about 13.5 percent.",
+          "caption": "Split each band in half at $\\mu$: the curve is symmetric."
+        },
+        {
+          "type": "text",
+          "text": "Use symmetry to split the bands. Half of $68\\%$ is $34\\%$, between $\\mu$ and $\\mu + \\sigma$. Half of $95\\%$ is $47.5\\%$, so $47.5\\% - 34\\% = 13.5\\%$ lies between $\\mu + \\sigma$ and $\\mu + 2\\sigma$."
+        },
+        {
+          "type": "text",
+          "text": "Half of $99.7\\%$ is $49.85\\%$. So $0.15\\%$ lies above $\\mu + 3\\sigma$, and the same below $\\mu - 3\\sigma$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rule-salmon",
+          "question": "The lengths $L$ cm of adult salmon in a river are modelled by $L \\sim \\mathrm{N}(72, 5^{2})$. Use the 68–95–99.7 rule to estimate $\\mathrm{P}(62 < L < 82)$.",
+          "steps": [
+            "Write each bound as standard deviations from the mean: $62 = 72 - 2 \\times 5 = \\mu - 2\\sigma$ and $82 = 72 + 2 \\times 5 = \\mu + 2\\sigma$.",
+            "The interval is $\\mu \\pm 2\\sigma$, which holds about $95\\%$ of values."
+          ],
+          "answer": "$\\mathrm{P}(62 < L < 82) \\approx 0.95$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(95, 100)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rule-phone-batteries",
+          "question": "The battery life $B$ hours of a phone model is modelled by $B \\sim \\mathrm{N}(18, 1.5^{2})$. A shop tests $2000$ phones. Estimate how many have a battery life between $19.5$ and $22.5$ hours.",
+          "steps": [
+            "Convert the bounds: $19.5 = 18 + 1.5 = \\mu + \\sigma$ and $22.5 = 18 + 3 \\times 1.5 = \\mu + 3\\sigma$.",
+            "From $\\mu$ to $\\mu + 3\\sigma$ is half of $0.997$: $0.4985$.",
+            "From $\\mu$ to $\\mu + \\sigma$ is half of $0.68$: $0.34$. Take it away: $\\mathrm{P}(19.5 < B < 22.5) \\approx 0.4985 - 0.34 = 0.1585$.",
+            "The expected number is $n \\times p$: $2000 \\times 0.1585 = 317$.",
+            "Interpret: about $317$ of the $2000$ phones last between $19.5$ and $22.5$ hours."
+          ],
+          "answer": "$\\text{number of phones} \\approx 317$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2000*(Rational(997, 2000) - Rational(34, 100))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using all of $0.68$ when only one side of the mean is needed. $\\mathrm{P}(X < \\mu + \\sigma) \\approx 0.5 + 0.34 = 0.84$, not $0.5 + 0.68$."
+        },
+        {
+          "type": "check",
+          "id": "check-rule-commute-sigma",
+          "prompt": "Commute times in a city are normally distributed. About $99.7\\%$ of them lie between $26$ and $50$ minutes, an interval centred on the mean. Estimate the standard deviation, in minutes.",
+          "hint": "Find the mean first. How many standard deviations is $50$ above it?",
+          "answer": {
+            "value": 4,
+            "tolerance": 0
+          },
+          "explain": "The mean is $\\frac{26 + 50}{2} = 38$. Then $50 = \\mu + 3\\sigma$, so $3\\sigma = 12$ and $\\sigma = 4$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(50 - 26)/6",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rule-sunflower-tail",
+          "prompt": "The heights $H$ cm of sunflowers in a field are modelled by $H \\sim \\mathrm{N}(180, 15^{2})$. Use the 68–95–99.7 rule to estimate $\\mathrm{P}(H > 195)$.",
+          "hint": "$195 = \\mu + \\sigma$. Outside $\\mu \\pm \\sigma$ lies $1 - 0.68$, shared by two tails.",
+          "options": [
+            {
+              "text": "$0.16$",
+              "correct": true
+            },
+            {
+              "text": "$0.32$",
+              "correct": false
+            },
+            {
+              "text": "$0.34$",
+              "correct": false
+            },
+            {
+              "text": "$0.84$",
+              "correct": false
+            }
+          ],
+          "explain": "Outside $165$ to $195$ lies $1 - 0.68 = 0.32$, split equally, so $\\mathrm{P}(H > 195) \\approx 0.16$. The value $0.34$ is the strip from $180$ to $195$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1 - Rational(68, 100))/2",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rule-test-marks",
+          "prompt": "A test is marked out of $50$. A teacher models the marks by $\\mathrm{N}(40, 5^{2})$. Use the 68–95–99.7 rule to comment on the model.",
+          "hint": "Where is $\\mu + 2\\sigma$? What fraction of the model lies above it?",
+          "options": [
+            {
+              "text": "About 2.5% of marks would be above 50, which is impossible",
+              "correct": true
+            },
+            {
+              "text": "About 5% of marks would be above 50, which is impossible",
+              "correct": false
+            },
+            {
+              "text": "About 16% of marks would be above 50, which is impossible",
+              "correct": false
+            },
+            {
+              "text": "No marks can be above 50, so the model fits well",
+              "correct": false
+            }
+          ],
+          "explain": "$50 = 40 + 2 \\times 5 = \\mu + 2\\sigma$, and about $2.5\\%$ of a normal distribution lies above $\\mu + 2\\sigma$. A real mark can't exceed $50$, so the model is not fully realistic at the top end.",
+          "verify": {
+            "kind": "choice",
+            "truth": "About 2.5% of marks would be above 50, which is impossible"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gdc",
+      "heading": "Normal probabilities on your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The rule only works at whole numbers of standard deviations. For other bounds, use your GDC's normal cdf."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch the curve, mark $\\mu$ and the bounds, and shade the area you want."
+        },
+        {
+          "type": "text",
+          "text": "2. Write the probability and the model, such as $\\mathrm{P}(248 < V < 255)$ with $V \\sim \\mathrm{N}(252, 3.2^{2})$."
+        },
+        {
+          "type": "text",
+          "text": "3. Enter the lower bound, upper bound, $\\mu$ and $\\sigma$. Enter $\\sigma$, not the variance."
+        },
+        {
+          "type": "text",
+          "text": "4. For less than $b$, use the lower bound $-10^{99}$ (type -1E99). For more than $a$, use the upper bound $10^{99}$ (1E99)."
+        },
+        {
+          "type": "result",
+          "statement": "$\\mathrm{P}(X > a) = 1 - \\mathrm{P}(X < a)$ and $\\mathrm{P}(a < X < b) = \\mathrm{P}(X < b) - \\mathrm{P}(X < a)$.",
+          "why": "The whole area is $1$, and areas of pieces that don't overlap add up."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-juice",
+          "question": "The volume $V$ ml of juice in a carton is modelled by $V \\sim \\mathrm{N}(252, 3.2^{2})$. Use your calculator to find the probability that a carton holds between $248$ and $255$ ml. Give your answer to 3 s.f.",
+          "steps": [
+            "Sketch: $252$ in the centre, $248$ to its left and $255$ to its right. Shade between them.",
+            "Write the calculation: $\\mathrm{P}(248 < V < 255)$ with $\\mu = 252$, $\\sigma = 3.2$.",
+            "Normal cdf with lower bound $248$, upper bound $255$, $\\mu = 252$, $\\sigma = 3.2$ gives $0.720099\\ldots$",
+            "Sense check: the interval is a little wider than $252 \\pm 3.2$, which holds about $68\\%$. So a value a little above $0.68$ makes sense."
+          ],
+          "answer": "$\\mathrm{P}(248 < V < 255) \\approx 0.720$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(248, 255, 252, 3.2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "normal-cdf",
+          "values": {
+            "lower": "248",
+            "upper": "255",
+            "mean": "252",
+            "sd": "3.2"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write $\\mathrm{P}(248 < V < 255)$, or the GDC syntax with all four numbers, before the answer. That line earns the method mark if the final value is wrong."
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-parkrun",
+          "question": "The finishing times $T$ minutes in a $5$ km park run are modelled by $T \\sim \\mathrm{N}(27.5, 3.6^{2})$. (a) Find the probability that a runner finishes in under $24$ minutes. (b) $180$ runners take part. Find the expected number who finish in under $24$ minutes.",
+          "steps": [
+            "(a) Sketch: $24$ is left of the mean, so expect a small left tail, under $0.5$.",
+            "(a) Write $\\mathrm{P}(T < 24)$. Normal cdf with lower bound $-10^{99}$, upper bound $24$, $\\mu = 27.5$, $\\sigma = 3.6$ gives $0.165470\\ldots$",
+            "(b) Expected number $= n \\times p$. Use the stored value: $180 \\times 0.165470\\ldots = 29.7846\\ldots$",
+            "(b) Give it to 3 s.f.: $29.8$. An expected number need not be a whole number.",
+            "Interpret: about $30$ of the $180$ runners are expected to finish in under $24$ minutes."
+          ],
+          "answer": "$p \\approx 0.165, \\; \\text{expected number} \\approx 29.8$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[normcdf(-oo, 24, Rational(275, 10), Rational(36, 10)), 180*normcdf(-oo, 24, Rational(275, 10), Rational(36, 10))]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-gdc-cafe-model",
+          "question": "A café owner models the time $T$ minutes a customer waits for a coffee by $T \\sim \\mathrm{N}(4, 2.5^{2})$. Find $\\mathrm{P}(T < 0)$, and comment on the model.",
+          "steps": [
+            "Write $\\mathrm{P}(T < 0)$. Normal cdf with lower bound $-10^{99}$, upper bound $0$, $\\mu = 4$, $\\sigma = 2.5$ gives $0.0547992\\ldots$",
+            "Interpret: the model says about $5.5\\%$ of customers wait a negative time.",
+            "Comment: a waiting time can't be negative, so the model is not realistic for short waits. A curve this wide, centred this close to $0$, spills below $0$."
+          ],
+          "answer": "$\\mathrm{P}(T < 0) \\approx 0.0548$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(-oo, 0, 4, Rational(25, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Typing the variance into the standard deviation field. For $\\mathrm{N}(30, 16)$, enter $\\sigma = 4$, not $16$."
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-lambs",
+          "prompt": "The birth masses $M$ kg of lambs on a farm are modelled by $M \\sim \\mathrm{N}(4.6, 0.7^{2})$. Find the probability that a lamb weighs more than $5.5$ kg. Give your answer to 3 s.f.",
+          "hint": "Lower bound $5.5$, upper bound $10^{99}$, then $\\mu$ and $\\sigma$.",
+          "answer": {
+            "value": 0.0993,
+            "tolerance": 5e-05
+          },
+          "explain": "$\\mathrm{P}(M > 5.5) = 0.0992713\\ldots \\approx 0.0993$. It is a right tail, so it must be less than $0.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "normcdf(Rational(55, 10), oo, Rational(46, 10), Rational(7, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gdc-variance",
+          "prompt": "$X \\sim \\mathrm{N}(30, 16)$. Find $\\mathrm{P}(X > 25)$, to 3 s.f.",
+          "hint": "The second number is the variance. What is $\\sigma$?",
+          "options": [
+            {
+              "text": "$\\approx 0.894$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 0.623$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.106$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma = \\sqrt{16} = 4$, and normal cdf from $25$ to $10^{99}$ gives $0.894350\\ldots$ The value $0.623$ uses $\\sigma = 16$. The value $0.106$ is $\\mathrm{P}(X < 25)$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "normcdf(25, oo, 30, sqrt(16))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "inverse",
+      "heading": "Inverse normal: from a probability to a value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the area and need the boundary: the time the fastest $10\\%$ beat, or the length only the longest $5\\%$ exceed. This is an [[inverse-normal|inverse normal]] calculation."
+        },
+        {
+          "type": "result",
+          "statement": "If $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$ and $\\mathrm{P}(X < k) = p$, the GDC's inverse normal function, given the area $p$, $\\mu$ and $\\sigma$, returns $k$.",
+          "why": "It runs normal cdf backwards: it finds the value with area $p$ to its left."
+        },
+        {
+          "type": "text",
+          "text": "In inverse normal questions $\\mu$ and $\\sigma$ are always given. You only need the area, and which side of $k$ it is on."
+        },
+        {
+          "type": "text",
+          "text": "1. $\\mathrm{P}(X < k) = p$: enter the area $p$ with the tail set to left (the default)."
+        },
+        {
+          "type": "text",
+          "text": "2. $\\mathrm{P}(X > k) = p$: the area to the left of $k$ is $1 - p$. Enter $1 - p$, or enter $p$ with the tail set to right if your GDC has that option."
+        },
+        {
+          "type": "figure",
+          "id": "4-9-right-tail",
+          "alt": "Normal curve with mean mu and a value k to the right of the mean. The small tail to the right of k is shaded darker and labelled area p. Everything to the left of k is shaded lighter and labelled area 1 minus p.",
+          "caption": "If the area to the right of $k$ is $p$, the area to its left is $1 - p$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{P}(X > k) = p \\iff \\mathrm{P}(X < k) = 1 - p \\quad (X \\text{ continuous})",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "3. A middle region of probability $p$, centred on $\\mu$: the two tails share $1 - p$, so each holds $\\frac{1 - p}{2}$. The lower bound has $\\frac{1 - p}{2}$ to its left, and the upper bound has $\\frac{1 + p}{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-desk",
+          "question": "The time $T$ minutes to assemble a flat-pack desk is modelled by $T \\sim \\mathrm{N}(47, 6.5^{2})$. The fastest $10\\%$ of assemblers win a badge. Find the time $t$ they must beat.",
+          "steps": [
+            "Sketch: the fastest times are a small left tail, so $t$ is below $47$.",
+            "Write the condition: $\\mathrm{P}(T < t) = 0.1$. It is already a left-hand area.",
+            "Inverse normal with area $0.1$, $\\mu = 47$, $\\sigma = 6.5$ gives $38.6699\\ldots$",
+            "Check and interpret: $38.7 < 47$, as the sketch said. An assembler needs under about $38.7$ minutes to win a badge."
+          ],
+          "answer": "$t \\approx 38.7\\text{ minutes}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "invnorm(Rational(1, 10), 47, Rational(65, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-cucumbers",
+          "question": "The lengths $C$ cm of cucumbers from a greenhouse are modelled by $C \\sim \\mathrm{N}(31, 2.4^{2})$. The longest $5\\%$ are sold as extra long. Use your calculator to find the shortest length $k$ an extra-long cucumber can have.",
+          "steps": [
+            "Write the condition: $\\mathrm{P}(C > k) = 0.05$.",
+            "Turn it into a left-hand area: $\\mathrm{P}(C < k) = 1 - 0.05 = 0.95$.",
+            "Inverse normal with area $0.95$, $\\mu = 31$, $\\sigma = 2.4$ gives $34.9476\\ldots$ (Or area $0.05$ with the tail set to right.)",
+            "Check: the longest cucumbers are above the mean, and $34.9 > 31$."
+          ],
+          "answer": "$k \\approx 34.9\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "invnorm(Rational(95, 100), 31, Rational(24, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "inverse-normal",
+          "values": {
+            "area": "0.95",
+            "mean": "31",
+            "sd": "2.4",
+            "tail": "LEFT"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Entering $0.05$ as a left-hand area for the longest $5\\%$. That gives $27.1$, below the mean, which can't be right for the longest cucumbers. Enter $0.95$, or set the tail to right."
+        },
+        {
+          "type": "example",
+          "id": "ex-inverse-wingspans",
+          "question": "The wingspans $W$ cm of a bird species are modelled by $W \\sim \\mathrm{N}(38.5, 1.8^{2})$. The middle $90\\%$ of wingspans lie between $p$ and $q$, symmetric about the mean. Find $p$ and $q$.",
+          "steps": [
+            "Outside the middle $90\\%$ lies $10\\%$, shared equally: $5\\%$ in each tail.",
+            "Lower bound: $\\mathrm{P}(W < p) = 0.05$, so inverse normal gives $p = 35.5392\\ldots$",
+            "Upper bound: the area to the left of $q$ is $0.05 + 0.90 = 0.95$, so $q = 41.4607\\ldots$",
+            "Check the symmetry: $38.5 - 35.539 = 2.961$ and $41.461 - 38.5 = 2.961$.",
+            "Interpret: $90\\%$ of these birds have wingspans between about $35.5$ cm and $41.5$ cm."
+          ],
+          "answer": "$p \\approx 35.5, \\; q \\approx 41.5$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[invnorm(Rational(5, 100), Rational(385, 10), Rational(18, 10)), invnorm(Rational(95, 100), Rational(385, 10), Rational(18, 10))]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-data-use",
+          "prompt": "Monthly mobile data use, $D$ GB, is modelled by $D \\sim \\mathrm{N}(6.2, 1.4^{2})$. $30\\%$ of users use more than $k$ GB. Find $k$.",
+          "hint": "What area lies to the left of $k$? Should $k$ be above or below $6.2$?",
+          "options": [
+            {
+              "text": "$k \\approx 6.93$",
+              "correct": true
+            },
+            {
+              "text": "$k \\approx 5.47$",
+              "correct": false
+            },
+            {
+              "text": "$k \\approx 7.23$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(D < k) = 0.7$, and inverse normal gives $k = 6.93416\\ldots \\approx 6.93$. The value $5.47$ uses $0.3$ as a left-hand area. The value $7.23$ enters the variance $1.96$ as $\\sigma$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "invnorm(Rational(7, 10), Rational(62, 10), Rational(14, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inverse-screen-quartile",
+          "prompt": "Weekly screen time, $S$ hours, for students at a school is modelled by $S \\sim \\mathrm{N}(21, 5^{2})$. Find the lower quartile of $S$. Give your answer to 3 s.f.",
+          "hint": "The lower quartile has $25\\%$ of the values below it.",
+          "answer": {
+            "value": 17.6,
+            "tolerance": 0.05
+          },
+          "explain": "$\\mathrm{P}(S < Q_1) = 0.25$, so inverse normal gives $Q_1 = 17.6275\\ldots \\approx 17.6$ hours. A quarter of students spend less than about $17.6$ hours a week on screens.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "invnorm(Rational(1, 4), 21, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also combine independent normal variables, such as the total mass of several bags, and use the normal distribution for sample means.",
+          "lesson": "4.14"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$: a symmetric bell-shaped curve about $\\mu$, with total area $1$. Mean, median and mode all equal $\\mu$. The second number is the variance.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a continuous random variable, $\\mathrm{P}(X = a) = 0$, so $<$ and $\\le$ give the same probability.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Normal cdf takes lower bound, upper bound, $\\mu$ and $\\sigma$. Use $-10^{99}$ as the lower bound for less than, and $10^{99}$ as the upper bound for more than.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Inverse normal, with the tail set to left, returns $k$ from $\\mathrm{P}(X < k) = p$. For a middle region of probability $p$ centred on $\\mu$, each tail holds $\\frac{1 - p}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expected number of $n$ independent items in a region $= n \\times p$, using the unrounded probability. Give it to 3 s.f.: it need not be a whole number.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Typing the variance into the GDC's standard deviation field. In $\\mathrm{N}(\\mu, \\sigma^{2})$ the second number is $\\sigma^{2}$, so take its square root first.",
+    "Using $p$ as a left-hand area when $\\mathrm{P}(X > k) = p$. Enter $1 - p$, or set the tail to right.",
+    "Putting all the leftover area in one tail. For the middle $80\\%$, each tail holds $10\\%$: the bounds have $0.1$ and $0.9$ to their left.",
+    "Rounding an expected number to a whole number, such as $30$ for $29.8$, or using a rounded probability to find it. Use the stored value and give 3 s.f.",
+    "Copying a GDC display such as 6.13E-3 as $6.13$. A probability can't be more than $1$: write $0.00613$.",
+    "Giving a bare answer to 2 s.f., such as $0.17$ for $0.165\\ldots$ With no working shown, it loses the accuracy mark and there is no method mark to fall back on. Write the set-up and give 3 s.f."
+  ],
+  "examTips": [
+    "Find / calculate: write the probability statement, such as $\\mathrm{P}(T < 24)$, or the GDC syntax with its four numbers, then the answer to 3 s.f. The written line earns the method mark.",
+    "Sketch: a symmetric bell that flattens towards the axis, the mean in the centre, each bound labelled on the correct side of the mean, and the region shaded.",
+    "Write down: $\\mathrm{P}(X < \\mu) = 0.5$ needs no working. Use symmetry and the 68–95–99.7 rule for quick answers and to sense-check GDC results.",
+    "Comment on a model: find the probability of an impossible value, such as a negative time or a mark above the maximum, and say what it means in context."
+  ],
+  "readingMinutes": 30
+}

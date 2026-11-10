@@ -1,0 +1,26 @@
+[
+  {
+    "id": "significant-figures",
+    "term": "significant figures",
+    "definition": "The digits of a number counted from its first non-zero digit, so $0.0407$ has $3$ significant figures; zeros between non-zero digits count, and so does a zero kept at the end after rounding ($5.70$), but zeros at the end of a whole number may only hold places ($86\\,000$ to $2$ s.f.); IB answers are exact or given to $3$ significant figures unless the question says otherwise.",
+    "lesson": "1.6"
+  },
+  {
+    "id": "upper-bound",
+    "term": "upper bound",
+    "definition": "For a value rounded to the nearest $u$, the rounded value plus $\\frac{u}{2}$, which the true value is strictly less than ($7.3$ to $1$ d.p. has upper bound $7.35$); in graph theory, a value that the length of the shortest travelling salesman tour cannot be greater than.",
+    "lesson": "1.6"
+  },
+  {
+    "id": "lower-bound",
+    "term": "lower bound",
+    "definition": "For a value rounded to the nearest $u$, the rounded value minus $\\frac{u}{2}$, which the true value can equal ($7.3$ to $1$ d.p. has lower bound $7.25$); in graph theory, a value that the length of the shortest travelling salesman tour cannot be less than.",
+    "lesson": "1.6"
+  },
+  {
+    "id": "percentage-error",
+    "term": "percentage error",
+    "definition": "How far an approximate value $v_{A}$ is from the exact value $v_{E}$, as a percentage of the exact value: $\\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%$; always divide by the exact value, never by the approximation.",
+    "lesson": "1.6"
+  }
+]

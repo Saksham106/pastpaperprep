@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sequence",
+    "term": "sequence",
+    "definition": "An ordered list of numbers, called terms; $u_{n}$ is the $n$th term itself, not the sum of the terms up to it.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "arithmetic-sequence",
+    "term": "arithmetic sequence",
+    "definition": "A sequence in which each term is the previous term plus the same constant $d$ (positive, negative or zero), so the terms rise, fall or stay level in equal steps.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "common-difference",
+    "term": "common difference",
+    "definition": "In an arithmetic sequence, the constant $d = u_{n+1} - u_{n}$, the same for every pair of consecutive terms and negative when the terms fall; for real data that is only roughly arithmetic it can only be estimated.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "series",
+    "term": "series",
+    "definition": "The sum of the terms of a sequence; $S_{n}$ is the sum of the first $n$ terms, not the $n$th term.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "sigma-notation",
+    "term": "sigma notation",
+    "definition": "A short way to write a sum: $\\sum_{r=a}^{b} f(r)$ means put every whole number $r$ from $a$ to $b$, both included, into $f(r)$ and add the results.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "simple-interest",
+    "term": "simple interest",
+    "definition": "Interest worked out each period on the original amount only, so the same sum is added every period and the balances form an arithmetic sequence rather than a geometric one.",
+    "lesson": "1.2"
+  }
+]

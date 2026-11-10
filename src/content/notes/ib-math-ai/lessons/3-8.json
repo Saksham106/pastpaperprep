@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.8",
+  "slug": "unit-circle-trigonometry-and-equations",
+  "title": "Unit-circle trigonometry and equations",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "The [[unit-circle|unit circle]] defines sine and cosine for any angle, which explains the graphs of $\\sin x$ and $\\cos x$, the [[pythagorean-identity|Pythagorean identity]] and $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$. It also explains the [[ambiguous-case|ambiguous case]] of the [[sine-rule|sine rule]], where two triangles can fit the same data. You solve trigonometric equations by finding where graphs cross on your GDC.",
+  "goals": [
+    {
+      "text": "Define $\\cos\\theta$ and $\\sin\\theta$ for any angle with the [[unit-circle|unit circle]], and explain how the graphs of $\\sin x$ and $\\cos x$ come from it.",
+      "bullets": [
+        "3.8-b1",
+        "3.8-b6"
+      ]
+    },
+    {
+      "text": "Use $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$ to find one ratio from another, choosing the sign from where the angle lies.",
+      "bullets": [
+        "3.8-b2"
+      ]
+    },
+    {
+      "text": "Use $\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}$ as the gradient of a line through the origin.",
+      "bullets": [
+        "3.8-b3"
+      ]
+    },
+    {
+      "text": "Decide whether two sides and an angle not between them give two triangles, one or none, and find each one.",
+      "bullets": [
+        "3.8-b4"
+      ]
+    },
+    {
+      "text": "Solve a trigonometric equation in a given interval by graphing both sides on your GDC, using calculator values rather than exact values.",
+      "bullets": [
+        "3.8-b5",
+        "3.8-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.5",
+    "3.2",
+    "3.7"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "unit circle",
+    "sin squared plus cos squared",
+    "ambiguous case sine rule",
+    "two possible triangles",
+    "solve trig equation graphically",
+    "tan equals sin over cos"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sine-rule-angle",
+      "prompt": "In triangle ABC, $a = 14$ cm, $b = 9$ cm and $\\hat{A} = 70^{\\circ}$. Find $\\hat{B}$.",
+      "hint": "Use $\\frac{\\sin B}{b} = \\frac{\\sin A}{a}$, then $\\sin^{-1}$.",
+      "options": [
+        {
+          "text": "$\\approx 37.2^{\\circ}$",
+          "correct": true
+        },
+        {
+          "text": "$\\approx 40.0^{\\circ}$",
+          "correct": false
+        },
+        {
+          "text": "$\\approx 142.8^{\\circ}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sin B = \\frac{9\\sin 70^{\\circ}}{14} = 0.6040\\ldots$, so $\\hat{B} = 37.16\\ldots^{\\circ}$. $40.0^{\\circ}$ leaves out $\\sin 70^{\\circ}$, and $142.8^{\\circ} + 70^{\\circ}$ is over $180^{\\circ}$. Revise it in {{lesson:3.2}}.",
+      "verify": {
+        "kind": "angle",
+        "truth": "asin(9*sin(70*pi/180)/14)*180/pi"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-degrees-to-radians",
+      "prompt": "Convert $135^{\\circ}$ to [[radian|radians]]. Give your answer to 3 s.f.",
+      "hint": "Multiply by $\\frac{\\pi}{180}$.",
+      "answer": {
+        "value": 2.36,
+        "tolerance": 0.005
+      },
+      "explain": "$135 \\times \\frac{\\pi}{180} = \\frac{3\\pi}{4} \\approx 2.36$. Revise it in {{lesson:3.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "135*pi/180",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-period",
+      "prompt": "Write down the [[period|period]], in degrees, of $y = 4\\sin(3x) + 1$.",
+      "hint": "For $a\\sin(bx) + d$ the period is $\\frac{360^{\\circ}}{b}$.",
+      "answer": {
+        "value": 120,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{360^{\\circ}}{3} = 120^{\\circ}$. The $4$ and the $1$ change the height, not the period. Revise it in {{lesson:2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "360/3",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "unit-circle",
+      "heading": "Sine and cosine on the unit circle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.2}} sine and cosine came from right-angled triangles, so the angle had to be acute. A turbine blade, a wheel or a tide turns through any angle. A circle lets you define sine and cosine for all of them."
+        },
+        {
+          "type": "text",
+          "text": "Draw the [[unit-circle|unit circle]]: centre the origin $O$, radius $1$. Start at $(1, 0)$ and turn anticlockwise through an angle $\\theta$ (theta). Call the point you reach $P$. A negative angle means you turn clockwise."
+        },
+        {
+          "type": "definition",
+          "term": "Sine and cosine of any angle",
+          "statement": "Let $P$ be the point on the unit circle at an angle $\\theta$ anticlockwise from the positive $x$-axis. Then $\\cos\\theta$ is the $x$-coordinate of $P$ and $\\sin\\theta$ is its $y$-coordinate: $P = (\\cos\\theta, \\sin\\theta)$.",
+          "plain": "Cosine is how far across the point is; sine is how high it is."
+        },
+        {
+          "type": "text",
+          "text": "For an acute angle this matches SOH CAH TOA. Drop a line from $P$ to the $x$-axis: the right-angled triangle has hypotenuse $1$. So $\\cos\\theta = \\frac{\\text{adjacent}}{1}$ and $\\sin\\theta = \\frac{\\text{opposite}}{1}$."
+        },
+        {
+          "type": "text",
+          "text": "The signs come from where $P$ is. Between $90^{\\circ}$ and $180^{\\circ}$, $P$ is left of the $y$-axis, so $\\cos\\theta < 0$, but above the $x$-axis, so $\\sin\\theta > 0$. Between $180^{\\circ}$ and $270^{\\circ}$ both are negative. Between $270^{\\circ}$ and $360^{\\circ}$ only $\\cos\\theta$ is positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-point-at-215",
+          "question": "$P$ is the point on the unit circle at an angle of $215^{\\circ}$ from the positive $x$-axis. Find the coordinates of $P$, to 3 s.f., and explain their signs.",
+          "steps": [
+            "By the definition, $P = (\\cos 215^{\\circ}, \\sin 215^{\\circ})$. Check your GDC is in degree mode.",
+            "$\\cos 215^{\\circ} = -0.81915\\ldots$ and $\\sin 215^{\\circ} = -0.57357\\ldots$.",
+            "$215^{\\circ}$ is between $180^{\\circ}$ and $270^{\\circ}$, so $P$ is below and to the left of $O$. Both coordinates are negative, as found."
+          ],
+          "answer": "$P \\approx (-0.819, -0.574)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "(cos(215*pi/180), sin(215*pi/180))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "A circle of radius $r$ is the unit circle enlarged by a factor of $r$. So the point at angle $\\theta$ is $(r\\cos\\theta, r\\sin\\theta)$. This is how you model anything that turns."
+        },
+        {
+          "type": "example",
+          "id": "ex-turbine-tip",
+          "question": "The hub of a wind turbine is $50$ m above the ground and each blade is $28$ m long. Take the hub as the origin, with $\\theta$ measured anticlockwise from the horizontal. (a) Find the height of a blade tip above the ground when $\\theta = 250^{\\circ}$. Give your answer to 3 s.f. (b) Interpret the sign of $\\sin 250^{\\circ}$ in this context.",
+          "steps": [
+            "(a) The tip is at $(28\\cos\\theta, 28\\sin\\theta)$ from the hub, so it is $28\\sin\\theta$ m above the hub.",
+            "Height above the ground $= 50 + 28\\sin 250^{\\circ} = 50 + 28 \\times (-0.93969\\ldots) = 23.688\\ldots$ m.",
+            "(b) $\\sin 250^{\\circ}$ is negative because the tip is below the hub. So $28\\sin 250^{\\circ} \\approx -26.3$ m means the tip is about $26.3$ m below the hub."
+          ],
+          "answer": "$h \\approx 23.7\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "50 + 28*sin(250*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now let $\\theta$ run from $0$ to $2\\pi$ [[radian|radians]] (one full turn). Plot the height of $P$ against $\\theta$ and you get the graph of $y = \\sin x$. Plot the distance across and you get $y = \\cos x$."
+        },
+        {
+          "type": "interactive",
+          "widget": "unit-circle-graphs",
+          "props": {
+            "theta": 2.2
+          },
+          "alt": "A unit circle on the left and the graphs of y = sin x and y = cos x for x from 0 to 2 pi on the right. A slider moves the point P round the circle. The height of P is marked on the sine graph and its distance across on the cosine graph, at x equal to the angle."
+        },
+        {
+          "type": "text",
+          "text": "The picture explains the graphs' features. $P$ never goes above $1$ or below $-1$, so both graphs stay between $-1$ and $1$. After one full turn, $P$ is back where it started, so both graphs repeat with [[period|period]] $2\\pi$, or $360^{\\circ}$. This is why sine and cosine model repeating patterns, the [[sinusoidal-function|sinusoidal functions]] of {{lesson:2.5}}."
+        },
+        {
+          "type": "text",
+          "text": "Exact values such as $\\sin 30^{\\circ} = \\frac{1}{2}$ are not examined in this course: you use your GDC. Some values still help you picture the graphs. The points $(1, 0)$, $(0, 1)$, $(-1, 0)$ and $(0, -1)$ give $\\sin 90^{\\circ} = 1$, $\\cos 180^{\\circ} = -1$ and the zeros of each graph."
+        },
+        {
+          "type": "check",
+          "id": "check-x-at-160",
+          "prompt": "Find the $x$-coordinate of the point on the unit circle at $160^{\\circ}$ from the positive $x$-axis. Give your answer to 3 s.f.",
+          "hint": "The $x$-coordinate is the cosine of the angle. Should it be positive or negative?",
+          "answer": {
+            "value": -0.94,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\cos 160^{\\circ} = -0.9396\\ldots \\approx -0.940$. It is negative because the point is left of the $y$-axis.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "cos(160*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sin-90-to-180",
+          "prompt": "As $\\theta$ increases from $90^{\\circ}$ to $180^{\\circ}$, what happens to $\\sin\\theta$?",
+          "hint": "Follow the height of $P$ as it moves from the top of the circle to the left-hand end.",
+          "options": [
+            {
+              "text": "It falls from 1 to 0",
+              "correct": true
+            },
+            {
+              "text": "It rises from 0 to 1",
+              "correct": false
+            },
+            {
+              "text": "It falls from 0 to -1",
+              "correct": false
+            }
+          ],
+          "explain": "$P$ moves from $(0, 1)$ to $(-1, 0)$, so its height drops from $1$ to $0$. That is the falling part of the sine graph before its first zero after $0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It falls from 1 to 0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identities",
+      "heading": "The Pythagorean identity and tangent",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$P(\\cos\\theta, \\sin\\theta)$ is $1$ unit from $O$. Pythagoras on the triangle under $OP$ gives $x^{2} + y^{2} = 1$. Putting in $P$'s coordinates gives an identity: an equation that is true for every angle."
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos^{2}\\theta + \\sin^{2}\\theta = 1",
+          "tag": "booklet",
+          "bookletId": "bk-3-8-pythagorean-identity"
+        },
+        {
+          "type": "text",
+          "text": "This is the [[pythagorean-identity|Pythagorean identity]], and it is in the formula booklet. $\\cos^{2}\\theta$ means $(\\cos\\theta)^{2}$. It turns one ratio into the other: $\\sin^{2}\\theta = 1 - \\cos^{2}\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "Square-rooting gives two signs. Decide the sign from where $P$ lies. Every angle in a triangle is between $0^{\\circ}$ and $180^{\\circ}$, so $P$ is above the $x$-axis and its sine is positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-flower-bed",
+          "question": "A triangular flower bed PQR has $\\text{PQ} = 6.4$ m and $\\text{QR} = 8.5$ m. The angle at Q is obtuse, with $\\cos Q = -0.28$. (a) Use the Pythagorean identity to find $\\sin Q$, and explain your choice of sign. (b) Find the area of the bed, to 3 s.f.",
+          "steps": [
+            "(a) $\\sin^{2}Q = 1 - \\cos^{2}Q = 1 - (-0.28)^{2} = 1 - 0.0784 = 0.9216$.",
+            "So $\\sin Q = \\pm\\sqrt{0.9216} = \\pm 0.96$. $Q$ is an angle of a triangle, so it is between $0^{\\circ}$ and $180^{\\circ}$ and its sine is positive: $\\sin Q = 0.96$.",
+            "(b) PQ and QR meet at Q, so use area $= \\frac{1}{2}ab\\sin C$ from {{lesson:3.2}}.",
+            "Area $= \\frac{1}{2} \\times 6.4 \\times 8.5 \\times 0.96 = 26.112\\text{ m}^{2}$."
+          ],
+          "answer": "$\\text{area} \\approx 26.1\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*6.4*8.5*sqrt(1 - (-0.28)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sin-from-cos",
+          "prompt": "An angle $\\theta$ has $270^{\\circ} < \\theta < 360^{\\circ}$ and $\\cos\\theta = 0.45$. Find $\\sin\\theta$, to 3 s.f.",
+          "hint": "Find $\\sin^{2}\\theta$ first. Is $P$ above or below the $x$-axis?",
+          "answer": {
+            "value": -0.893,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\sin^{2}\\theta = 1 - 0.45^{2} = 0.7975$, so $\\sin\\theta = \\pm 0.8930\\ldots$. Between $270^{\\circ}$ and $360^{\\circ}$, $P$ is below the $x$-axis, so $\\sin\\theta \\approx -0.893$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-sqrt(1 - 0.45**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "The line $OP$ joins $(0, 0)$ to $(\\cos\\theta, \\sin\\theta)$. Its gradient is rise over run, $\\frac{\\sin\\theta}{\\cos\\theta}$. For an acute angle this is $\\frac{\\text{opposite}}{\\text{adjacent}}$, the $\\tan\\theta$ you already know. So this defines $\\tan\\theta$ for any angle."
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-8-tan-identity"
+        },
+        {
+          "type": "text",
+          "text": "It is in the formula booklet. When $\\cos\\theta = 0$, at $90^{\\circ}$ and $270^{\\circ}$, $OP$ is vertical and $\\tan\\theta$ is undefined. $\\tan\\theta$ is positive when sine and cosine have the same sign, and negative when they differ."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-path",
+          "question": "A straight path leaves a park gate $O$. Take the $x$-axis pointing east and the $y$-axis north, in metres. The path makes an angle $\\theta$ anticlockwise from east, where $90^{\\circ} < \\theta < 180^{\\circ}$ and $\\cos\\theta = -0.6$. (a) Find $\\sin\\theta$ and $\\tan\\theta$. (b) Find the equation of the path. (c) Interpret its gradient.",
+          "steps": [
+            "(a) $\\sin^{2}\\theta = 1 - (-0.6)^{2} = 0.64$. Between $90^{\\circ}$ and $180^{\\circ}$ the sine is positive, so $\\sin\\theta = 0.8$.",
+            "$\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta} = \\frac{0.8}{-0.6} = -\\frac{4}{3}$.",
+            "(b) The path is a line through the origin with gradient $\\tan\\theta$, so $y = -\\frac{4}{3}x$.",
+            "(c) For every $3$ m the path goes west ($x$ falls by $3$), it goes $4$ m north. The negative gradient shows it heads north-west."
+          ],
+          "answer": "$y = -\\tfrac{4}{3}x$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, sqrt(1 - (-0.6)**2)/(-0.6)*x)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the positive square root out of habit. Mark where $P$ is on the circle, then give the sign that matches."
+        },
+        {
+          "type": "check",
+          "id": "check-tan-gradient",
+          "prompt": "A point $P$ on the unit circle is $(0.8824, -0.4706)$. Find $\\tan\\theta$, the gradient of $OP$, to 3 s.f.",
+          "hint": "Divide the $y$-coordinate by the $x$-coordinate.",
+          "options": [
+            {
+              "text": "$\\approx -0.533$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx -1.88$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 0.533$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta} = \\frac{-0.4706}{0.8824} = -0.5333\\ldots$. $-1.88$ divides the wrong way round, and $0.533$ loses the sign.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "-0.4706/0.8824",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "ambiguous",
+      "heading": "The ambiguous case of the sine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Reflect $P$ in the $y$-axis. The new point is at $180^{\\circ} - \\theta$ and has the same height. So $\\sin(180^{\\circ} - \\theta) = \\sin\\theta$: an acute angle and an obtuse angle share each sine between $0$ and $1$."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC's $\\sin^{-1}$ gives only the acute one. When the [[sine-rule|sine rule]] gives you $\\sin C$, the obtuse angle $180^{\\circ} - C$ is a second candidate. If both fit, two different triangles match the data. This is the [[ambiguous-case|ambiguous case]]."
+        },
+        {
+          "type": "text",
+          "text": "It can only happen when you know two sides and an angle that is not between them. Picture the angle at A and the side next to it as fixed. The third side swings like a gate from the far end, and it can meet the other arm of the angle in two places."
+        },
+        {
+          "type": "result",
+          "statement": "You know $\\hat{A}$, the side $a$ facing it and one other side $c$. If the sine rule gives $\\sin C = k$ with $0 < k < 1$, the candidates are $C_{1} = \\sin^{-1}k$ (acute) and $C_{2} = 180^{\\circ} - C_{1}$ (obtuse). Each gives a triangle only if $\\hat{A} + C < 180^{\\circ}$. If $k = 1$, $C = 90^{\\circ}$ and there is one triangle when $\\hat{A}$ is acute. If $k > 1$ there is no triangle.",
+          "why": "Every angle from $0^{\\circ}$ to $180^{\\circ}$ is an angle of some triangle, and $\\sin C_{2} = \\sin C_{1}$, so the sine rule alone can't tell them apart."
+        },
+        {
+          "type": "text",
+          "text": "A quick test: if $a$, the side facing the known angle, is longer than $c$, then $C$ is smaller than $\\hat{A}$. So $C$ can't be obtuse, and there is exactly one triangle."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-two-posts",
+          "alt": "Fence AB of 120 m along the bottom. A hedge leaves A at 35 degrees to the fence. A dashed arc of radius 80 m centred at B cuts the hedge at two points, C1 far from A and C2 close to A, so two triangles fit the measurements.",
+          "caption": "An $80$ m side from B meets the hedge twice: at $C_{1}$ and at $C_{2}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-posts",
+          "question": "A straight fence AB is $120$ m long. A straight hedge leaves A at $35^{\\circ}$ to the fence. A post C on the hedge is $80$ m from B. (a) Find the two possible sizes of the angle $\\text{A}\\hat{\\text{C}}\\text{B}$. (b) Find the two possible distances AC, in metres, to 3 s.f. (c) Explain what the two answers mean.",
+          "steps": [
+            "(a) BC $= 80$ faces the $35^{\\circ}$ angle and AB $= 120$ faces C. Sine rule: $\\frac{\\sin C}{120} = \\frac{\\sin 35^{\\circ}}{80}$, so $\\sin C = \\frac{120\\sin 35^{\\circ}}{80} = 0.8603\\ldots$.",
+            "$C_{1} = \\sin^{-1}(0.8603\\ldots) = 59.357\\ldots^{\\circ}$ and $C_{2} = 180^{\\circ} - C_{1} = 120.642\\ldots^{\\circ}$. Test: $35^{\\circ} + 120.6^{\\circ} < 180^{\\circ}$, so both triangles exist.",
+            "(b) The angle at B is $180^{\\circ} - 35^{\\circ} - C$: $85.642\\ldots^{\\circ}$ or $24.357\\ldots^{\\circ}$.",
+            "$\\text{AC} = \\frac{80\\sin B}{\\sin 35^{\\circ}}$, giving $\\frac{80\\sin 85.642\\ldots^{\\circ}}{\\sin 35^{\\circ}} = 139.07\\ldots$ m or $\\frac{80\\sin 24.357\\ldots^{\\circ}}{\\sin 35^{\\circ}} = 57.52\\ldots$ m.",
+            "(c) The post could be at either point where an $80$ m line from B reaches the hedge. You need one more fact, such as whether the angle at C is obtuse, to choose."
+          ],
+          "answer": "$\\text{AC} \\approx 139 \\text{ or } \\text{AC} \\approx 57.5$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[80*sin(pi - 35*pi/180 - asin(120*sin(35*pi/180)/80))/sin(35*pi/180), 80*sin(asin(120*sin(35*pi/180)/80) - 35*pi/180)/sin(35*pi/180)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at the angle $\\sin^{-1}$ gives. With two sides and an angle not between them, always test $180^{\\circ}$ minus that angle as well."
+        },
+        {
+          "type": "example",
+          "id": "ex-ferry-island",
+          "question": "A ferry route leaves port A at $48^{\\circ}$ to the straight coastline AB, where $\\text{AB} = 7.2$ km. An island C on the route is $9.5$ km from B. Find the angle $\\text{A}\\hat{\\text{C}}\\text{B}$, and explain why there is only one possible answer.",
+          "steps": [
+            "Sine rule: $\\frac{\\sin C}{7.2} = \\frac{\\sin 48^{\\circ}}{9.5}$, so $\\sin C = \\frac{7.2\\sin 48^{\\circ}}{9.5} = 0.5632\\ldots$.",
+            "$C_{1} = \\sin^{-1}(0.5632\\ldots) = 34.279\\ldots^{\\circ}$.",
+            "The obtuse candidate is $180^{\\circ} - 34.279\\ldots^{\\circ} = 145.72\\ldots^{\\circ}$. With $48^{\\circ}$ this makes $193.7^{\\circ}$, more than $180^{\\circ}$, so it is rejected.",
+            "Quick check: BC $= 9.5$ km faces the known angle and is longer than AB $= 7.2$ km, so only one triangle was possible."
+          ],
+          "answer": "$\\text{A}\\hat{\\text{C}}\\text{B} \\approx 34.3^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asin(7.2*sin(48*pi/180)/9.5)*180/pi"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Phrases such as \"find the two possible values\" or \"given that the angle is obtuse\" signal the ambiguous case. Write the sine rule with your numbers in before you solve: that line earns the method mark."
+        },
+        {
+          "type": "check",
+          "id": "check-how-many-triangles",
+          "prompt": "Triangle XYZ is to have $\\hat{X} = 52^{\\circ}$, $\\text{XY} = 10$ cm and $\\text{YZ} = 7$ cm. How many triangles fit these measurements?",
+          "hint": "Use the sine rule to find $\\sin Z$. Can a sine have that value?",
+          "options": [
+            {
+              "text": "None",
+              "correct": true
+            },
+            {
+              "text": "One",
+              "correct": false
+            },
+            {
+              "text": "Two",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin Z = \\frac{10\\sin 52^{\\circ}}{7} = 1.125\\ldots$. No sine is bigger than $1$, so no triangle exists: a $7$ cm side from Y can't reach the other arm of the angle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "None"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-obtuse-f",
+          "prompt": "In triangle DEF, $\\hat{D} = 28^{\\circ}$, $\\text{DE} = 15$ cm and $\\text{EF} = 9$ cm. The angle at F is obtuse. Find $\\hat{F}$.",
+          "hint": "DE faces F. Find the acute angle with the sine rule, then take it from $180^{\\circ}$.",
+          "options": [
+            {
+              "text": "$\\approx 128.5^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 51.5^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 16.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin F = \\frac{15\\sin 28^{\\circ}}{9} = 0.7824\\ldots$, so the acute angle is $51.48\\ldots^{\\circ}$ and the obtuse one is $128.51\\ldots^{\\circ}$. It fits, as $28^{\\circ} + 128.5^{\\circ} < 180^{\\circ}$. $16.4^{\\circ}$ pairs the sides with the wrong angles.",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - asin(15*sin(28*pi/180)/9)*180/pi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "graphical",
+      "heading": "Solving trigonometric equations with graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your GDC gives $\\sin^{-1}(0.35) = 0.357\\ldots$ radians. But the sine graph repeats, so it reaches $0.35$ again and again. A trigonometric equation can have many solutions, which is why a question always gives an interval, such as $0 \\le x \\le 2\\pi$."
+        },
+        {
+          "type": "text",
+          "text": "Solving $f(x) = g(x)$ means finding where the graphs $y = f(x)$ and $y = g(x)$ cross. Each crossing inside the interval is one solution. This works for any equation, including ones with no algebraic method, such as $\\sin x = 0.2x$."
+        },
+        {
+          "type": "text",
+          "text": "1. Set the angle mode to match the interval: degrees if it is in degrees, radians otherwise."
+        },
+        {
+          "type": "text",
+          "text": "2. Graph both sides, with a window that covers the whole interval."
+        },
+        {
+          "type": "text",
+          "text": "3. Count the crossings, then find each one with the intersection tool."
+        },
+        {
+          "type": "text",
+          "text": "4. Write down the equation you graphed, then every solution in the interval."
+        },
+        {
+          "type": "example",
+          "id": "ex-sin-035",
+          "question": "Solve $\\sin x = 0.35$ for $0 \\le x \\le 2\\pi$. Give your answers to 3 s.f.",
+          "steps": [
+            "The interval is in radians, so set radian mode. Graph $y = \\sin x$ and $y = 0.35$ for $0 \\le x \\le 2\\pi$.",
+            "The line crosses the curve twice: once on the way up, once on the way down.",
+            "The intersections are at $x = 0.35757\\ldots$ and $x = 2.7840\\ldots$.",
+            "Check with the unit circle: the two points of height $0.35$ are mirror images in the $y$-axis. So the second angle is $\\pi - 0.35757\\ldots = 2.7840\\ldots$."
+          ],
+          "answer": "$x \\approx 0.358 \\text{ or } x \\approx 2.78$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[asin(0.35), pi - asin(0.35)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Radian"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "sin(X)",
+            "function2": "0.35"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In models, the variable is usually time. The angle is in degrees in {{lesson:2.5}}; in {{lesson:2.9}} it is in radians unless a degree sign is shown, so set the mode to match. The method is the same: graph the model and a horizontal line at the value you want."
+        },
+        {
+          "type": "figure",
+          "id": "3-8-tide-crossings",
+          "alt": "Graph of water depth d against time t from 0 to 12 hours. The curve starts at 7.7 m, falls to 2.5 m at t = 6 and rises back to 7.7 m at t = 12. The horizontal line d = 6.5 crosses it twice, near t = 1.91 and t = 10.1. The curve is above the line before the first crossing and after the second.",
+          "caption": "The depth is at least $6.5$ m in the shaded times."
+        },
+        {
+          "type": "example",
+          "id": "ex-harbour-depth",
+          "question": "The depth of water in a harbour is modelled by $d(t) = 2.6\\cos(30t) + 5.1$, where $d$ is in metres, $t$ is the time in hours after midnight, $0 \\le t \\le 12$, and the angle is in degrees. A boat needs a depth of at least $6.5$ m. (a) Use your GDC to solve $d(t) = 6.5$. Give your answers to 3 s.f. (b) Hence state when the boat can use the harbour.",
+          "steps": [
+            "(a) Set degree mode. Write down the equation: $2.6\\cos(30t) + 5.1 = 6.5$.",
+            "Graph $y = 2.6\\cos(30x) + 5.1$ and $y = 6.5$ with $0 \\le x \\le 12$ and $0 \\le y \\le 9$. They cross twice.",
+            "The intersections are at $t = 1.9140\\ldots$ and $t = 10.085\\ldots$.",
+            "(b) The curve is above $6.5$ before the first crossing and after the second. So the depth is enough for $0 \\le t \\le 1.91$ and $10.1 \\le t \\le 12$.",
+            "In clock times, $1.914$ h is $1$ h $55$ min and $10.086$ h is $10$ h $5$ min. The boat can use the harbour until about 01:55 and again from about 10:05 until noon."
+          ],
+          "answer": "$t \\approx 1.91 \\text{ or } t \\approx 10.1$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[acos((6.5 - 5.1)/2.6)*180/pi/30, (360 - acos((6.5 - 5.1)/2.6)*180/pi)/30]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 12,
+            "yMin": 0,
+            "yMax": 9
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "2.6cos(30X)+5.1",
+            "function2": "6.5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Missing a solution because the window shows only part of the interval. Set the $x$-range to the whole interval and count the crossings before you read any."
+        },
+        {
+          "type": "check",
+          "id": "check-count-cos",
+          "prompt": "How many solutions does $\\cos x = -0.6$ have for $0^{\\circ} \\le x \\le 540^{\\circ}$?",
+          "hint": "Sketch $y = \\cos x$ over one and a half turns and draw the line $y = -0.6$.",
+          "options": [
+            {
+              "text": "Two",
+              "correct": false
+            },
+            {
+              "text": "Three",
+              "correct": true
+            },
+            {
+              "text": "Four",
+              "correct": false
+            }
+          ],
+          "explain": "Each full turn has two solutions: $126.9^{\\circ}$ and $233.1^{\\circ}$. The next is $126.9^{\\circ} + 360^{\\circ} = 486.9^{\\circ}$, inside the interval. The one after, $593.1^{\\circ}$, is outside.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Three"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sin-line",
+          "prompt": "Use your GDC to solve $\\sin x = 0.2x$ for $0 < x \\le 2\\pi$. Give your answer to 3 s.f.",
+          "hint": "Radian mode. Graph $y = \\sin x$ and $y = 0.2x$; ignore the crossing at $x = 0$, which is outside the interval.",
+          "answer": {
+            "value": 2.6,
+            "tolerance": 0.005
+          },
+          "explain": "The graphs cross at $x = 0$ and at $x = 2.5957\\ldots \\approx 2.60$. For $\\pi < x \\le 2\\pi$, $\\sin x \\le 0$ but $0.2x > 0$, so there are no more crossings.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "nsolve(sin(x) - x/5, x, 2.6)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "On the unit circle, the point at angle $\\theta$ anticlockwise from the positive $x$-axis is $(\\cos\\theta, \\sin\\theta)$. On a circle of radius $r$ centred at the origin it is $(r\\cos\\theta, r\\sin\\theta)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\sin x$ and $\\cos x$ stay between $-1$ and $1$ and repeat every $360^{\\circ}$ ($2\\pi$ radians).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos^{2}\\theta + \\sin^{2}\\theta = 1",
+          "tag": "booklet",
+          "bookletId": "bk-3-8-pythagorean-identity",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\tan\\theta = \\frac{\\sin\\theta}{\\cos\\theta}",
+          "tag": "booklet",
+          "bookletId": "bk-3-8-tan-identity",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\tan\\theta$ is the gradient of $OP$; it is undefined when $\\cos\\theta = 0$. After a square root, choose the sign of $\\sin\\theta$ or $\\cos\\theta$ from where $P$ lies; in a triangle $\\sin\\theta > 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ambiguous case (two sides and an angle not between them): if the sine rule gives $\\sin C = k$ with $0 < k < 1$, test both $C_{1} = \\sin^{-1}k$ and $180^{\\circ} - C_{1}$; keep each one whose sum with the known angle is under $180^{\\circ}$. If $k = 1$, $C = 90^{\\circ}$; if $k > 1$ there is no triangle.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solve a trigonometric equation in an interval by graphing both sides in the right angle mode over the whole interval, then finding every intersection.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Working in the wrong angle mode. Check DEG or RAD against the question before every calculation: an interval in $\\pi$ means radians.",
+    "Giving only the angle $\\sin^{-1}$ returns. In the ambiguous case test $180^{\\circ}$ minus it, and in an equation look for every crossing in the interval.",
+    "Keeping $+$ after a square root from the Pythagorean identity. Decide the sign from where $P$ is on the circle.",
+    "Rounding $\\sin C$ or an angle and then reusing it. Store the full GDC value and round only the final answer.",
+    "Writing GDC answers with no working. Write the equation you graphed; that line can earn the method mark even if a value is wrong."
+  ],
+  "examTips": [
+    "\"Solve\" with a GDC: write the equation you entered, then give every solution in the interval to 3 s.f. (angles in degrees to 1 d.p.) unless told otherwise, with units in context.",
+    "\"Sketch\" a sine or cosine graph: start and end points, maximums, minimums and zeros in the right places across the given domain.",
+    "\"Show that\" with the Pythagorean identity: write the step where you replace $\\cos^{2}\\theta + \\sin^{2}\\theta$ by $1$. Using the identity is a method mark, and the last line must match the given result.",
+    "\"Find the two possible values\" of an angle or side points to the ambiguous case: give both, and say which fits any extra fact you are given."
+  ],
+  "readingMinutes": 28
+}

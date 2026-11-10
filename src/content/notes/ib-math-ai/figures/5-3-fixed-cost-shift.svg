@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t" font-family="sans-serif" font-size="13">
+  <title id="t">Two cost curves, C equals 0.5 x squared plus 20 and C equals 0.5 x squared plus 50, one 30 units above the other. At x equals 6 each has a dashed tangent, and the two tangents are parallel, each with gradient 6.</title>
+  <line x1="50" y1="260" x2="440" y2="260" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="50" y1="260" x2="50" y2="30" stroke="currentColor" stroke-width="1.5"/>
+  <g fill="var(--muted)" text-anchor="middle">
+    <text x="50" y="278">0</text>
+    <text x="126" y="278">2</text>
+    <text x="202" y="278">4</text>
+    <text x="278" y="278">6</text>
+    <text x="354" y="278">8</text>
+    <text x="430" y="278">10</text>
+  </g>
+  <g fill="var(--muted)" text-anchor="end">
+    <text x="42" y="224">20</text>
+    <text x="42" y="184">40</text>
+    <text x="42" y="144">60</text>
+    <text x="42" y="104">80</text>
+    <text x="42" y="64">100</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="126" y1="260" x2="126" y2="265"/>
+    <line x1="202" y1="260" x2="202" y2="265"/>
+    <line x1="278" y1="260" x2="278" y2="265"/>
+    <line x1="354" y1="260" x2="354" y2="265"/>
+    <line x1="430" y1="260" x2="430" y2="265"/>
+    <line x1="45" y1="220" x2="50" y2="220"/>
+    <line x1="45" y1="180" x2="50" y2="180"/>
+    <line x1="45" y1="140" x2="50" y2="140"/>
+    <line x1="45" y1="100" x2="50" y2="100"/>
+    <line x1="45" y1="60" x2="50" y2="60"/>
+  </g>
+  <text x="445" y="264" fill="currentColor">x</text>
+  <text x="56" y="34" fill="currentColor">C</text>
+  <polyline fill="none" stroke="var(--t2-ink)" stroke-width="2.5" points="50.0,220.0 69.0,219.8 88.0,219.0 107.0,217.8 126.0,216.0 145.0,213.8 164.0,211.0 183.0,207.8 202.0,204.0 221.0,199.8 240.0,195.0 259.0,189.8 278.0,184.0 297.0,177.8 316.0,171.0 335.0,163.8 354.0,156.0 373.0,147.8 392.0,139.0 411.0,129.8 430.0,120.0"/>
+  <polyline fill="none" stroke="var(--t4-ink)" stroke-width="2.5" points="50.0,160.0 69.0,159.8 88.0,159.0 107.0,157.8 126.0,156.0 145.0,153.8 164.0,151.0 183.0,147.8 202.0,144.0 221.0,139.8 240.0,135.0 259.0,129.8 278.0,124.0 297.0,117.8 316.0,111.0 335.0,103.8 354.0,96.0 373.0,87.8 392.0,79.0 411.0,69.8 430.0,60.0"/>
+  <line x1="221" y1="202" x2="335" y2="166" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="221" y1="142" x2="335" y2="106" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <circle cx="278" cy="184" r="4" fill="var(--t2-ink)"/>
+  <circle cx="278" cy="124" r="4" fill="var(--t4-ink)"/>
+  <line x1="278" y1="260" x2="278" y2="188" stroke="var(--muted)" stroke-width="1" stroke-dasharray="2 3"/>
+  <text x="300" y="236" fill="var(--t2-ink)">C = 0.5x² + 20</text>
+  <text x="120" y="130" fill="var(--t4-ink)">C = 0.5x² + 50</text>
+  <text x="340" y="182" fill="currentColor">gradient 6</text>
+  <text x="340" y="122" fill="currentColor">gradient 6</text>
+</svg>

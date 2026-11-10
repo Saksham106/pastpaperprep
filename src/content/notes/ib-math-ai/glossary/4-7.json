@@ -1,0 +1,32 @@
+[
+  {
+    "id": "random-variable",
+    "term": "random variable",
+    "definition": "A quantity whose value is decided by the outcome of a random trial, such as the number of cars a randomly chosen household owns. It is named with a capital letter, such as $X$; a lower-case $x$ is one value it can take.",
+    "lesson": "4.7"
+  },
+  {
+    "id": "discrete-random-variable",
+    "term": "discrete random variable",
+    "definition": "A random variable whose possible values can be listed one by one, such as $0, 1, 2, 3$. Counts and scores are discrete.",
+    "lesson": "4.7"
+  },
+  {
+    "id": "probability-distribution",
+    "term": "probability distribution",
+    "definition": "Every value a discrete random variable $X$ can take, together with its probability $\\mathrm{P}(X = x)$, given as a table or a formula. Each probability lies between $0$ and $1$, and together they add up to $1$.",
+    "lesson": "4.7"
+  },
+  {
+    "id": "expected-value",
+    "term": "expected value",
+    "definition": "The long-run mean of a discrete random variable $X$ over many repeats of the trial: $\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)$. It need not be a value $X$ can take.",
+    "lesson": "4.7"
+  },
+  {
+    "id": "fair-game",
+    "term": "fair game",
+    "definition": "A game in which a player's expected gain is $0$: $\\mathrm{E}(X) = 0$, where $X$ is the player's gain (prize minus cost) in one game.",
+    "lesson": "4.7"
+  }
+]

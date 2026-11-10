@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" font-family="sans-serif" font-size="13">
+<line x1="40" y1="250" x2="450" y2="250" stroke="currentColor" stroke-dasharray="4 4"/>
+<line x1="80" y1="250" x2="380" y2="250" stroke="currentColor" stroke-width="2"/>
+<line x1="380" y1="250" x2="380" y2="70" stroke="currentColor" stroke-width="2"/>
+<line x1="80" y1="250" x2="380" y2="70" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<polyline fill="none" stroke="currentColor" points="366,250 366,236 380,236"/>
+<path d="M 130 250 A 50 50 0 0 0 122.9 224.3" fill="none" stroke="currentColor"/>
+<text x="138" y="238" fill="currentColor" font-style="italic">θ</text>
+<circle cx="80" cy="250" r="4.5" fill="currentColor"/>
+<text x="80" y="272" text-anchor="middle" fill="currentColor">O (observer)</text>
+<circle cx="380" cy="250" r="4.5" fill="currentColor"/>
+<text x="380" y="272" text-anchor="middle" fill="currentColor">B (take-off point)</text>
+<circle cx="380" cy="70" r="6" fill="var(--t2-ink)"/>
+<text x="392" y="74" fill="currentColor">D (drone)</text>
+<line x1="420" y1="140" x2="420" y2="90" stroke="currentColor"/>
+<polyline fill="none" stroke="currentColor" points="414,98 420,90 426,98"/>
+<text x="428" y="122" fill="currentColor">rising</text>
+<text x="230" y="244" text-anchor="middle" fill="currentColor">40 m</text>
+<text x="368" y="164" text-anchor="end" fill="currentColor" font-style="italic">h</text>
+<text x="218" y="150" text-anchor="end" fill="var(--t2-ink)" font-style="italic">s</text>
+</svg>

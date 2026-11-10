@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.5",
+  "slug": "antidifferentiation-definite-integrals-and-area",
+  "title": "Antidifferentiation, definite integrals and area",
+  "level": "SL",
+  "topic": 5,
+  "summary": "Integration runs differentiation backwards: given a rate of change, you rebuild the function, then use one known point to pin down its constant. A [[definite-integral|definite integral]], found on your GDC, turns a rate into a total change. For a curve above the $x$-axis, it is also the area under the curve.",
+  "goals": [
+    {
+      "text": "Integrate a sum of terms $ax^{n}$, for integers $n \\neq -1$, ending with $+\\,C$.",
+      "bullets": [
+        "5.5-b1"
+      ]
+    },
+    {
+      "text": "Use a [[boundary-condition|boundary condition]] to find the constant, and interpret it in context.",
+      "bullets": [
+        "5.5-b2"
+      ]
+    },
+    {
+      "text": "Evaluate a definite integral on your GDC and interpret it as a total change.",
+      "bullets": [
+        "5.5-b3"
+      ]
+    },
+    {
+      "text": "Write the integral for the area between a curve above the $x$-axis and the axis, then evaluate it.",
+      "bullets": [
+        "5.5-b4"
+      ]
+    },
+    {
+      "text": "Explain how [[antiderivative|antiderivatives]], definite integrals and area are linked.",
+      "bullets": [
+        "5.5-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "integration",
+    "reverse power rule",
+    "find the constant of integration",
+    "area under a curve",
+    "definite integral on GDC"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate-quartic",
+      "prompt": "Differentiate $y = 0.5x^{4} - 3x^{2} + 7x - 1$.",
+      "hint": "One term at a time: multiply by the power, then lower the power by one. What does a constant give?",
+      "options": [
+        {
+          "text": "$2x^{3} - 6x + 7$",
+          "correct": true
+        },
+        {
+          "text": "$2x^{3} - 6x + 6$",
+          "correct": false
+        },
+        {
+          "text": "$0.5x^{3} - 3x + 7$",
+          "correct": false
+        },
+        {
+          "text": "$2x^{3} - 6x$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.5 \\times 4 = 2$, $-3 \\times 2 = -6$, $7x$ gives $7$ and $-1$ gives $0$. So $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 2x^{3} - 6x + 7$. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(Rational(1, 2)*x**4 - 3*x**2 + 7*x - 1, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rewrite-power",
+      "prompt": "Write $\\frac{6}{x^{2}}$ as a number times a power of $x$.",
+      "hint": "Use $\\frac{1}{x^{n}} = x^{-n}$. Only the power of $x$ changes.",
+      "options": [
+        {
+          "text": "$6x^{-2}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{6}x^{-2}$",
+          "correct": false
+        },
+        {
+          "text": "$6x^{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{6}{x^{2}} = 6 \\times \\frac{1}{x^{2}} = 6x^{-2}$. The $6$ stays on top. You rewrote terms like this before differentiating in {{lesson:5.3}}; integration needs the same first step. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "6/x**2"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "antiderivatives",
+      "heading": "Integration undoes differentiation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Differentiating $x^{4}$ gives $4x^{3}$. Now ask the reverse question: which function has derivative $4x^{3}$? One answer is $x^{4}$."
+        },
+        {
+          "type": "text",
+          "text": "Going from a derivative back to a function is called antidifferentiation, or integration. The function you get is an [[antiderivative|antiderivative]]."
+        },
+        {
+          "type": "text",
+          "text": "$x^{4} + 3$ and $x^{4} - 10$ also differentiate to $4x^{3}$, because a constant differentiates to $0$. So every antiderivative of $4x^{3}$ is $x^{4} + C$, where $C$ is the [[constant-of-integration|constant of integration]]."
+        },
+        {
+          "type": "definition",
+          "term": "indefinite integral",
+          "statement": "The indefinite integral of $f(x)$ is $\\int f(x)\\,\\mathrm{d}x = F(x) + C$, where $F'(x) = f(x)$ and $C$ is any constant.",
+          "plain": "It answers: what could I have differentiated to get this?"
+        },
+        {
+          "type": "text",
+          "text": "The [[power-rule|power rule]] multiplies by the power, then lowers it by one. To undo it, raise the power by one, then divide by the new power."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C,\\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-integral-power"
+        },
+        {
+          "type": "text",
+          "text": "This rule is in the formula booklet, so you don't need to memorise it. In this lesson $n$ is an integer, positive, zero or negative, but never $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "A number in front stays in front: $\\int ax^{n}\\,\\mathrm{d}x = \\frac{ax^{n+1}}{n+1} + C$ for $n \\neq -1$. Integrate a sum one term at a time, with one $+\\,C$ at the end. A constant $k$ integrates to $kx$.",
+          "why": "Both rules hold for derivatives, so they hold in reverse: differentiate the answer and every term comes back."
+        },
+        {
+          "type": "example",
+          "id": "ex-integrate-poly",
+          "question": "Find $\\int (9x^{2} - 0.8x + 6)\\,\\mathrm{d}x$.",
+          "steps": [
+            "Take one term at a time. $9x^{2}$: raise the power to $3$ and divide by $3$, giving $3x^{3}$.",
+            "$-0.8x = -0.8x^{1}$ gives $-0.4x^{2}$, and the constant $6$ gives $6x$.",
+            "Add the terms and the constant: $3x^{3} - 0.4x^{2} + 6x + C$.",
+            "Check by differentiating: you get back $9x^{2} - 0.8x + 6$."
+          ],
+          "answer": "$\\int (9x^{2} - 0.8x + 6)\\,\\mathrm{d}x = 3x^{3} - 0.4x^{2} + 6x + C$",
+          "video": null,
+          "verify": {
+            "kind": "antiderivative",
+            "truth": "9*x**2 - Rational(4, 5)*x + 6"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Differentiating out of habit. $\\int 9x^{2}\\,\\mathrm{d}x$ is $3x^{3} + C$, not $18x$: when you integrate, the power goes up."
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-power",
+          "prompt": "Find $\\int 12x^{5}\\,\\mathrm{d}x$.",
+          "hint": "Raise the power by one, then divide by the new power.",
+          "options": [
+            {
+              "text": "$2x^{6} + C$",
+              "correct": true
+            },
+            {
+              "text": "$60x^{4} + C$",
+              "correct": false
+            },
+            {
+              "text": "$12x^{6} + C$",
+              "correct": false
+            },
+            {
+              "text": "$2x^{5} + C$",
+              "correct": false
+            }
+          ],
+          "explain": "The power goes from $5$ to $6$, and $12 \\div 6 = 2$, giving $2x^{6} + C$. $60x^{4}$ is the derivative, and $12x^{6}$ forgets to divide.",
+          "verify": {
+            "kind": "antiderivative",
+            "truth": "12*x**5"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Negative powers work the same way, as long as the power is not $-1$. First rewrite each term as $ax^{n}$: $\\frac{8}{x^{3}} = 8x^{-3}$. Raising $-3$ by one gives $-2$, not $-4$."
+        },
+        {
+          "type": "text",
+          "text": "Why not $n = -1$? The rule would divide by $n + 1 = 0$, so $\\int \\frac{1}{x}\\,\\mathrm{d}x$ needs a different rule."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also integrate $\\frac{1}{x}$, fractional powers and functions such as $\\mathrm{e}^{x}$ and $\\sin x$.",
+          "lesson": "5.11"
+        },
+        {
+          "type": "example",
+          "id": "ex-integrate-negative",
+          "question": "Find $\\int \\left(6x - \\frac{8}{x^{3}}\\right)\\mathrm{d}x$, for $x \\neq 0$.",
+          "steps": [
+            "Rewrite every term as a power of $x$: $6x - 8x^{-3}$.",
+            "$6x$: raise the power to $2$ and divide by $2$, giving $3x^{2}$.",
+            "$-8x^{-3}$: raise the power to $-2$ and divide by $-2$. $\\frac{-8}{-2} = 4$, so this gives $4x^{-2}$.",
+            "Put it together: $3x^{2} + 4x^{-2} + C$, or $3x^{2} + \\frac{4}{x^{2}} + C$.",
+            "Check: $4x^{-2}$ differentiates to $-8x^{-3}$, which matches."
+          ],
+          "answer": "$\\int \\left(6x - \\frac{8}{x^{3}}\\right)\\mathrm{d}x = 3x^{2} + \\frac{4}{x^{2}} + C$",
+          "video": null,
+          "verify": {
+            "kind": "antiderivative",
+            "truth": "6*x - 8/x**3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Integrating each factor of a product separately. Expand brackets first, so that every term is $ax^{n}$, and then integrate."
+        },
+        {
+          "type": "check",
+          "id": "check-integrate-brackets",
+          "prompt": "Find $\\int x(3x - 4)\\,\\mathrm{d}x$.",
+          "hint": "Expand the brackets first.",
+          "options": [
+            {
+              "text": "$x^{3} - 2x^{2} + C$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{x^{2}}{2}\\left(\\frac{3x^{2}}{2} - 4x\\right) + C$",
+              "correct": false
+            },
+            {
+              "text": "$3x^{3} - 4x^{2} + C$",
+              "correct": false
+            },
+            {
+              "text": "$6x - 4 + C$",
+              "correct": false
+            }
+          ],
+          "explain": "$x(3x - 4) = 3x^{2} - 4x$, which integrates to $x^{3} - 2x^{2} + C$. The other answers integrate the factors separately, forget to divide by the new powers, or differentiate.",
+          "verify": {
+            "kind": "antiderivative",
+            "truth": "x*(3*x - 4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-constant-meaning",
+          "prompt": "$N$ people are inside a stadium $t$ minutes after timing starts. People enter at a rate of $\\frac{\\mathrm{d}N}{\\mathrm{d}t} = 900 - 30t$ per minute, for $0 \\le t \\le 30$, so $N = 900t - 15t^{2} + C$. What does $C$ represent?",
+          "hint": "Put $t = 0$ into the expression for $N$.",
+          "options": [
+            {
+              "text": "the number of people inside when timing starts",
+              "correct": true
+            },
+            {
+              "text": "the rate at which people enter when timing starts",
+              "correct": false
+            },
+            {
+              "text": "the number of people who enter in the first minute",
+              "correct": false
+            }
+          ],
+          "explain": "At $t = 0$, $N = C$: the number already inside at the start. The starting rate, $900$ per minute, is a different quantity.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the number of people inside when timing starts"
+          }
+        }
+      ]
+    },
+    {
+      "id": "boundary",
+      "heading": "Finding the constant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$\\int (2x - 2)\\,\\mathrm{d}x = x^{2} - 2x + C$ is a whole family of curves. Each value of $C$ moves the curve up or down, without changing its gradient at any $x$."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-family-of-curves",
+          "alt": "Five parabolas y equals x squared minus 2x plus C, for C from minus 2 to 2, each the same shape shifted up or down. The curve with C equal to 1 is highlighted and passes through the marked point (3, 4).",
+          "caption": "Only one curve of the family $y = x^{2} - 2x + C$ passes through $(3, 4)$: the one with $C = 1$."
+        },
+        {
+          "type": "text",
+          "text": "To pick out one curve you need one more fact, such as a point on it. This is a [[boundary-condition|boundary condition]], and it fixes the [[constant-of-integration|constant of integration]]. One point fixes $C$ only on a domain with no breaks: with a term like $\\frac{5}{x^{2}}$, work on $x > 0$ or on $x < 0$, not both."
+        },
+        {
+          "type": "text",
+          "text": "1. Integrate, and include $+\\,C$."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute the known $x$ and $y$ values into the integrated function, not into the derivative."
+        },
+        {
+          "type": "text",
+          "text": "3. Solve for $C$, then write the full function with the value of $C$ in it."
+        },
+        {
+          "type": "example",
+          "id": "ex-boundary-curve",
+          "question": "A curve has gradient function $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 4x^{3} + 3x^{2} - 5$, and it passes through the point $(1, 6)$. Find the equation of the curve.",
+          "steps": [
+            "Integrate term by term, with $+\\,C$: $y = x^{4} + x^{3} - 5x + C$.",
+            "The point $(1, 6)$ means $x = 1$ and $y = 6$. Substitute into the equation for $y$: $6 = 1 + 1 - 5 + C$.",
+            "Solve: $6 = -3 + C$, so $C = 9$.",
+            "Write the full equation: $y = x^{4} + x^{3} - 5x + 9$."
+          ],
+          "answer": "$y = x^{4} + x^{3} - 5x + 9$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, 6 + integrate(4*u**3 + 3*u**2 - 5, (u, 1, x)))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the point into $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$. The point lies on the curve, so it goes into the integrated function $y = \\ldots + C$."
+        },
+        {
+          "type": "example",
+          "id": "ex-boundary-reservoir",
+          "question": "In a dry spell, the volume of water in a reservoir, $V$ million litres, changes at the rate $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = 0.12t^{2} - 3.6t$, where $t$ is in days, $0 \\le t \\le 30$. After $10$ days the volume is $412$ million litres. (a) Express $V$ as a function of $t$. (b) Interpret the constant term.",
+          "steps": [
+            "(a) Integrate, with $+\\,C$: $V = 0.04t^{3} - 1.8t^{2} + C$.",
+            "Substitute $t = 10$ and $V = 412$: $412 = 40 - 180 + C$, so $C = 552$.",
+            "So $V = 0.04t^{3} - 1.8t^{2} + 552$.",
+            "(b) At $t = 0$, $V = 552$: the reservoir held $552$ million litres at the start of the dry spell.",
+            "Sense check: $\\frac{\\mathrm{d}V}{\\mathrm{d}t} = 0.12t(t - 30) < 0$ for $0 < t < 30$, so the volume falls throughout."
+          ],
+          "answer": "$V = 0.04t^{3} - 1.8t^{2} + 552$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-reservoir-300",
+            "prompt": "Now you try: use your GDC to find when the volume has fallen to $300$ million litres. Give your answer to 3 s.f.",
+            "hint": "Write down $0.04t^{3} - 1.8t^{2} + 552 = 300$, then solve it for $0 \\le t \\le 30$.",
+            "answer": {
+              "value": 14.3,
+              "tolerance": 0.05
+            },
+            "explain": "The GDC gives $t = 14.3328\\ldots$ in the domain; the other solutions lie outside it. So the volume reaches $300$ million litres after about $14.3$ days.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "nsolve(412 + integrate(Rational(3, 25)*u**2 - Rational(18, 5)*u, (u, 10, t)) - 300, t, 14)",
+              "sf": 3
+            }
+          },
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(V, 412 + integrate(Rational(3, 25)*u**2 - Rational(18, 5)*u, (u, 10, t)))"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "0.04X^3-1.8X^2+552",
+            "rightSide": 300,
+            "guess": 14,
+            "lower": 0,
+            "upper": 30
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find an expression for $V$\" wants $V = \\ldots$ with the value of $C$ in it. Stopping at $C = 552$ doesn't answer the question."
+        },
+        {
+          "type": "check",
+          "id": "check-find-constant",
+          "prompt": "A curve has $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 8x - 3$, and $y = 20$ when $x = 2$. Find the value of the constant of integration, $C$.",
+          "hint": "Integrate first, with $+\\,C$. Then substitute $x = 2$ and $y = 20$.",
+          "answer": {
+            "value": 10,
+            "tolerance": 0
+          },
+          "explain": "$y = 4x^{2} - 3x + C$, so $20 = 16 - 6 + C$ and $C = 10$. Substituting into $8x - 3$ gives $13$, the gradient at $x = 2$, not the height.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "20 - integrate(8*x - 3, (x, 0, 2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-boundary-function",
+          "prompt": "Given $f'(x) = 3x^{2} - \\frac{5}{x^{2}}$, for $x > 0$, and $f(2) = 10$, find $f(x)$.",
+          "hint": "Rewrite $\\frac{5}{x^{2}}$ as $5x^{-2}$ and integrate. Then substitute $x = 2$ into $f(x)$, not $f'(x)$.",
+          "options": [
+            {
+              "text": "$f(x) = x^{3} + \\frac{5}{x} - 0.5$",
+              "correct": true
+            },
+            {
+              "text": "$f(x) = x^{3} + \\frac{5}{x} - 0.75$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) = x^{3} - \\frac{5}{x} + 4.5$",
+              "correct": false
+            },
+            {
+              "text": "$f(x) = x^{3} + \\frac{5}{x} + 10$",
+              "correct": false
+            }
+          ],
+          "explain": "$-5x^{-2}$ integrates to $5x^{-1}$, so $f(x) = x^{3} + \\frac{5}{x} + C$. Then $8 + 2.5 + C = 10$ gives $C = -0.5$. Using $f'(2)$ gives $-0.75$, and a sign slip on $5x^{-1}$ gives $4.5$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "10 + integrate(3*u**2 - 5/u**2, (u, 2, x))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "definite",
+      "heading": "Definite integrals on your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An indefinite integral is a function. Put a number at each end of the integral sign and you get a single number instead: a [[definite-integral|definite integral]]."
+        },
+        {
+          "type": "definition",
+          "term": "definite integral",
+          "statement": "$\\int_{a}^{b} f(x)\\,\\mathrm{d}x$ is the definite integral of $f(x)$ from $x = a$ to $x = b$. The number $a$ is the lower limit and $b$ is the upper limit.",
+          "plain": "It turns a function and an interval into one number."
+        },
+        {
+          "type": "text",
+          "text": "In AI the GDC evaluates definite integrals. Your job is to write the integral correctly and key it in exactly as written."
+        },
+        {
+          "type": "result",
+          "statement": "If $F$ is an antiderivative of $f$, and $f$ is continuous for $a \\le x \\le b$, then $\\int_{a}^{b} f(x)\\,\\mathrm{d}x = F(b) - F(a)$. So integrating a rate of change from $a$ to $b$ gives the total change between $a$ and $b$.",
+          "why": "The area section below shows why. Any $+\\,C$ cancels in $F(b) - F(a)$."
+        },
+        {
+          "type": "text",
+          "text": "Continuous means no breaks in the graph between $a$ and $b$. A term like $\\frac{4}{x^{2}}$ breaks at $x = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-definite-gdc",
+          "question": "Use your GDC to find $\\int_{2}^{6} \\left(0.3x^{2} + 1.5x - \\frac{4}{x^{2}}\\right)\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "steps": [
+            "The interval $2 \\le x \\le 6$ does not include $x = 0$, where $\\frac{4}{x^{2}}$ breaks.",
+            "Enter $0.3x^{2} + 1.5x - 4/(x^{2})$, with brackets around the denominator, lower limit $2$, upper limit $6$.",
+            "The GDC gives $43.4666\\ldots$, which is $43.5$ to 3 s.f.",
+            "Check with an antiderivative: $F(x) = 0.1x^{3} + 0.75x^{2} + 4x^{-1}$, and $F(6) - F(2) = 49.2666\\ldots - 5.8 = 43.4666\\ldots$"
+          ],
+          "answer": "$\\int_{2}^{6} \\left(0.3x^{2} + 1.5x - \\frac{4}{x^{2}}\\right)\\mathrm{d}x \\approx 43.5$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(Rational(3, 10)*x**2 + Rational(3, 2)*x - 4/x**2, (x, 2, 6))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 2,
+            "upper": 6,
+            "function": "0.3X^2+1.5X-4/(X^2)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the limits. $\\int_{4}^{1}$ gives the negative of $\\int_{1}^{4}$. The lower limit goes at the bottom of the integral sign and goes first on the GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-definite-flow",
+          "question": "Water flows into a tank at $R(t) = 12 + 1.5t - 0.1t^{2}$ litres per minute, where $t$ is in minutes, $0 \\le t \\le 15$. (a) Write down an integral for the volume that flows in during the first $10$ minutes. (b) Find this volume and interpret it.",
+          "steps": [
+            "(a) Integrating a rate gives a total change, from $t = 0$ to $t = 10$: $\\int_{0}^{10} (12 + 1.5t - 0.1t^{2})\\,\\mathrm{d}t$.",
+            "(b) The GDC gives $161.666\\ldots$",
+            "The link: $W(t) = 12t + 0.75t^{2} - \\frac{0.1}{3}t^{3}$ has $W'(t) = R(t)$, and $W(10) - W(0) = 161.666\\ldots$ too.",
+            "Interpret: about $162$ litres flow into the tank in the first $10$ minutes."
+          ],
+          "answer": "$\\int_{0}^{10} R(t)\\,\\mathrm{d}t \\approx 162\\text{ litres}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(12 + Rational(3, 2)*t - Rational(1, 10)*t**2, (t, 0, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-definite-value",
+          "prompt": "Use your GDC to find $\\int_{-1}^{2} (x^{4} - 3x + 2)\\,\\mathrm{d}x$. Give your answer to 3 s.f.",
+          "hint": "Lower limit $-1$, upper limit $2$. Use the negative key, not the subtract key, for $-1$.",
+          "answer": {
+            "value": 8.1,
+            "tolerance": 0.005
+          },
+          "explain": "The GDC gives $8.1$, or $8.10$ to 3 s.f. By hand, $F(x) = 0.2x^{5} - 1.5x^{2} + 2x$ gives $F(2) - F(-1) = 4.4 - (-3.7) = 8.1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(x**4 - 3*x + 2, (x, -1, 2))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-integral-meaning",
+          "prompt": "An oven uses electricity at a rate of $E(t)$ kilowatts, $t$ hours after 6 a.m., and $\\int_{1}^{3} E(t)\\,\\mathrm{d}t = 46$. What does $46$ represent?",
+          "hint": "Which clock times are $t = 1$ and $t = 3$?",
+          "options": [
+            {
+              "text": "the energy in kWh used from 7 a.m. to 9 a.m.",
+              "correct": true
+            },
+            {
+              "text": "the energy in kWh used from 6 a.m. to 9 a.m.",
+              "correct": false
+            },
+            {
+              "text": "the rate of use in kW at 9 a.m.",
+              "correct": false
+            }
+          ],
+          "explain": "A rate in kilowatts integrated over hours gives energy in kilowatt hours, and $t = 1$ to $t = 3$ is 7 a.m. to 9 a.m.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the energy in kWh used from 7 a.m. to 9 a.m."
+          }
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Area under a curve",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take the region under $y = x^{2}$ from $x = 0$ to $x = 2$. Cover it with thin rectangles and add their areas. The thinner they are, the closer the total gets to the true area."
+        },
+        {
+          "type": "interactive",
+          "widget": "riemann-sums",
+          "props": {
+            "n": 4,
+            "mode": "mid"
+          },
+          "alt": "Rectangles under the curve y equals x squared from x equals 0 to x equals 2. A slider sets the number of rectangles, and the total of their areas gets closer to 8 thirds, about 2.667, as they get thinner."
+        },
+        {
+          "type": "text",
+          "text": "The totals head towards $\\frac{8}{3} \\approx 2.667$, the value of $\\int_{0}^{2} x^{2}\\,\\mathrm{d}x$. Each rectangle is $f(x)$ times a small width: that is where $f(x)\\,\\mathrm{d}x$ comes from, and $\\int$ is a stretched S for \"sum\"."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\int_{a}^{b} y\\,\\mathrm{d}x",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$A$ is the area between $y = f(x)$, the $x$-axis and the lines $x = a$ and $x = b$, with $a < b$. It holds when $f(x) \\ge 0$ for every $x$ from $a$ to $b$."
+        },
+        {
+          "type": "text",
+          "text": "Where the curve is below the $x$-axis, with $a < b$, the definite integral is negative, so it is not an area. In this lesson every region lies above the axis, and a negative area means a slip."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find areas of regions below the $x$-axis, using $\\lvert y\\rvert$, and areas between a curve and the $y$-axis.",
+          "lesson": "5.12"
+        },
+        {
+          "type": "result",
+          "statement": "If $f(x) \\ge 0$ for $a \\le x \\le b$, $f$ is continuous there, and $F$ is an antiderivative of $f$, then the area under the curve from $a$ to $b$ is $F(b) - F(a)$.",
+          "why": "Let $A(x)$ be the area from $a$ up to $x$. A tiny step in $x$ adds a strip of height about $f(x)$, so $A' = f$ and $A(a) = 0$."
+        },
+        {
+          "type": "text",
+          "text": "So antiderivatives give definite integrals, and the definite integral of a function above the axis is an area."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-limits",
+          "question": "Find the area of the region between the curve $y = 0.5x^{2} + 1$, the $x$-axis and the lines $x = 1$ and $x = 3$. Give your answer to 3 s.f.",
+          "steps": [
+            "The curve is above the $x$-axis: $0.5x^{2} + 1 \\ge 1$.",
+            "Write the integral first: $A = \\int_{1}^{3} (0.5x^{2} + 1)\\,\\mathrm{d}x$. The GDC gives $6.3333\\ldots$",
+            "Check with an antiderivative: $F(x) = \\frac{x^{3}}{6} + x$, so $F(3) - F(1) = 7.5 - 1.1666\\ldots = 6.3333\\ldots$",
+            "So the area is $6.33$ to 3 s.f."
+          ],
+          "answer": "$A \\approx 6.33$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(Rational(1, 2)*x**2 + 1, (x, 1, 3))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the integral in full before its value: limits in the right places, the function, and $\\mathrm{d}x$. This line earns marks."
+        },
+        {
+          "type": "text",
+          "text": "For a region enclosed by the curve and the $x$-axis alone, the limits are where the curve meets the axis. Find these zeros on your GDC and keep their full values."
+        },
+        {
+          "type": "figure",
+          "id": "5-5-bridge-opening",
+          "alt": "A downward parabola, the underside of a bridge arch, above the x-axis, which is the water level. It meets the water near x equals minus 2.35 and x equals 10.07, and its highest point is about 4.2 metres up near x equals 4. The region between arch and water is shaded and labelled opening.",
+          "caption": "The opening under the arch is the region enclosed by $y = 2.6 + 0.85x - 0.11x^{2}$ and the $x$-axis."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-bridge",
+          "question": "The underside of a bridge arch is modelled by $y = 2.6 + 0.85x - 0.11x^{2}$, where $x$ and $y$ are in metres and the $x$-axis is the water level. Find the area of the opening between the arch and the water. Give your answer to 3 s.f.",
+          "steps": [
+            "The opening runs between the points where the arch meets the water. Find the zeros of $2.6 + 0.85x - 0.11x^{2}$ on your GDC: $x = -2.34635\\ldots$ and $x = 10.0736\\ldots$",
+            "Store the zeros, or use at least 6 s.f., so rounding doesn't change the area.",
+            "The arch is above the water between them, so write down $A = \\int_{-2.34635\\ldots}^{10.0736\\ldots} (2.6 + 0.85x - 0.11x^{2})\\,\\mathrm{d}x$.",
+            "The GDC gives $35.124\\ldots$, so $A \\approx 35.1$ m².",
+            "Interpret: the opening that boats and floodwater pass through has a cross-sectional area of about $35.1$ m²."
+          ],
+          "answer": "$A \\approx 35.1\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(Rational(13, 5) + Rational(17, 20)*x - Rational(11, 100)*x**2, (x, solve(Rational(13, 5) + Rational(17, 20)*x - Rational(11, 100)*x**2, x)[0], solve(Rational(13, 5) + Rational(17, 20)*x - Rational(11, 100)*x**2, x)[1]))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-zeros",
+          "values": {
+            "function": "2.6+0.85X-0.11X^2"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": -2.34636,
+            "upper": 10.0736,
+            "function": "2.6+0.85X-0.11X^2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-gdc",
+          "prompt": "The curve $y = 0.4x^{3} - 2x + 5$ is above the $x$-axis for $0 \\le x \\le 3$. Use your GDC to find the area under it from $x = 0$ to $x = 3$, to 3 s.f.",
+          "hint": "Write $A = \\int_{0}^{3} (0.4x^{3} - 2x + 5)\\,\\mathrm{d}x$, then evaluate it.",
+          "answer": {
+            "value": 14.1,
+            "tolerance": 0.05
+          },
+          "explain": "$A = \\int_{0}^{3} (0.4x^{3} - 2x + 5)\\,\\mathrm{d}x = 14.1$. By hand: $F(3) - F(0)$ with $F(x) = 0.1x^{4} - x^{2} + 5x$ gives $8.1 - 9 + 15 = 14.1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(Rational(2, 5)*x**3 - 2*x + 5, (x, 0, 3))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-enclosed",
+          "prompt": "The curve $y = 12 + x - x^{2}$ and the $x$-axis enclose a region. Find its area, to 3 s.f.",
+          "hint": "First find where the curve meets the $x$-axis. Those $x$ values are the limits.",
+          "answer": {
+            "value": 57.2,
+            "tolerance": 0.05
+          },
+          "explain": "$12 + x - x^{2} = 0$ at $x = -3$ and $x = 4$, and the curve is above the axis between them, so $A = \\int_{-3}^{4} (12 + x - x^{2})\\,\\mathrm{d}x = 57.1666\\ldots \\approx 57.2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(12 + x - x**2, (x, solve(12 + x - x**2, x)[0], solve(12 + x - x**2, x)[1]))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "With only a table of values, estimate the area with trapezoids instead: see {{lesson:5.8}}."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C,\\quad n \\neq -1",
+          "tag": "booklet",
+          "bookletId": "bk-5-5-integral-power",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Integrate a sum one term at a time: $ax^{n}$ becomes $\\frac{ax^{n+1}}{n+1}$, for integers $n \\neq -1$. Rewrite $\\frac{a}{x^{n}}$ as $ax^{-n}$ and expand brackets first, and end with one $+\\,C$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Boundary condition, on a domain with no breaks: integrate with $+\\,C$, substitute the known point into the integrated function (not the derivative), solve for $C$, then write the full function.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $F'(x) = f(x)$ and $f$ is continuous for $a \\le x \\le b$, then $\\int_{a}^{b} f(x)\\,\\mathrm{d}x = F(b) - F(a)$. Integrating a rate of change gives the total change, in units of the rate times units of $x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f(x) \\ge 0$ for $a \\le x \\le b$, the area between $y = f(x)$, the $x$-axis and the lines $x = a$ and $x = b$ is $A = \\int_{a}^{b} f(x)\\,\\mathrm{d}x$. Write this integral down before you evaluate it on the GDC.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out $+\\,C$. A boundary condition then has no constant to find.",
+    "Substituting the given point into the derivative. It goes into $y = \\ldots + C$, the integrated function.",
+    "Differentiating instead of integrating. $\\int 6x^{2}\\,\\mathrm{d}x = 2x^{3} + C$, not $12x$.",
+    "Raising a negative power the wrong way. $\\int x^{-3}\\,\\mathrm{d}x = \\frac{x^{-2}}{-2} + C$: one more than $-3$ is $-2$.",
+    "An area integral without $\\mathrm{d}x$, with swapped limits, or with the derivative as the function. A negative area shows something is wrong.",
+    "A bare or early-rounded GDC answer. Write the integral or equation first, and keep full values of zeros used as limits."
+  ],
+  "examTips": [
+    "\"Find an expression for $f(x)$\": show the integration with $+\\,C$, the substituted point, and $f(x)$ with the value of $C$ in it.",
+    "\"Write down the integral\" for an area: lower limit at the bottom, upper at the top, the function, and $\\mathrm{d}x$.",
+    "\"Interpret\" a definite integral of a rate: it is the total change over the interval, in context, with units.",
+    "On GDC parts, write the integral or equation you entered, then the answer to 3 s.f. A bare wrong answer earns nothing."
+  ],
+  "readingMinutes": 26
+}

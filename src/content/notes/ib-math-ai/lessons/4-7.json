@@ -1,0 +1,742 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.7",
+  "slug": "discrete-random-variables-and-expected-value",
+  "title": "Discrete random variables and expected value",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A [[random-variable|random variable]] is a number decided by chance, such as the number of cars a household owns. Its [[probability-distribution|probability distribution]] gives each value with its probability, and the probabilities add up to $1$. The [[expected-value|expected value]] $\\mathrm{E}(X)$ is the long-run average: it predicts totals, sets fair prices and tells you whether a game is fair.",
+  "goals": [
+    {
+      "text": "Work with a [[discrete-random-variable|discrete random variable]] and its [[probability-distribution|probability distribution]], given as a table or as a formula.",
+      "bullets": [
+        "4.7-b1"
+      ]
+    },
+    {
+      "text": "Use the fact that the probabilities add up to $1$ to find an unknown, and find probabilities such as $\\mathrm{P}(X \\ge 2)$.",
+      "bullets": [
+        "4.7-b1"
+      ]
+    },
+    {
+      "text": "Find the [[expected-value|expected value]] $\\mathrm{E}(X)$ by hand or with a GDC, and interpret it in context.",
+      "bullets": [
+        "4.7-b2"
+      ]
+    },
+    {
+      "text": "Use $\\mathrm{E}(X)$ in problems: decide whether a game is a [[fair-game|fair game]], find a prize or fee that makes it fair, and predict a total over many trials.",
+      "bullets": [
+        "4.7-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.3",
+    "4.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "discrete random variable",
+    "probability distribution table",
+    "expected value",
+    "expectation of a random variable",
+    "fair game",
+    "expected gain"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-missing-probability",
+      "prompt": "A trial has four possible outcomes. Three of them have probabilities $0.15$, $0.4$ and $0.3$. Find the probability of the fourth outcome.",
+      "hint": "The probabilities of all the outcomes add up to $1$.",
+      "answer": {
+        "value": 0.15,
+        "tolerance": 0
+      },
+      "explain": "$1 - (0.15 + 0.4 + 0.3) = 1 - 0.85 = 0.15$. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - (Rational(15, 100) + Rational(4, 10) + Rational(3, 10))",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-frequency-mean",
+      "prompt": "A class records how many pets each student has: $\\begin{array}{c|ccc} \\text{pets} & 1 & 2 & 3 \\\\ \\hline \\text{frequency} & 4 & 10 & 6 \\end{array}$ Find the [[mean|mean]] number of pets.",
+      "hint": "Multiply each value by its frequency, add, then divide by the total frequency.",
+      "answer": {
+        "value": 2.1,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{1(4) + 2(10) + 3(6)}{4 + 10 + 6} = \\frac{42}{20} = 2.1$ pets. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "avg([1, 2, 3], [4, 10, 6])",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-expected-number",
+      "prompt": "The probability that a train is cancelled on a given day is $0.02$. Find the expected number of cancellations in $250$ days.",
+      "hint": "Expected number $= n \\times \\mathrm{P}(A)$.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$250 \\times 0.02 = 5$ cancellations. Revise it in {{lesson:4.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "250*Rational(2, 100)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "distributions",
+      "heading": "Random variables and their distributions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A town survey picks a household at random and counts its cars. Before the survey you can't know the count. But you can list every value it could take, and how likely each one is."
+        },
+        {
+          "type": "definition",
+          "term": "Random variable",
+          "statement": "A [[random-variable|random variable]] is a quantity whose value is decided by the outcome of a random trial. It is named with a capital letter, such as $X$. A lower-case $x$ stands for one particular value of $X$.",
+          "plain": "$X$ is \"the number of cars\"; $x = 2$ is one value it could take."
+        },
+        {
+          "type": "definition",
+          "term": "Discrete random variable",
+          "statement": "A random variable is [[discrete-random-variable|discrete]] when its possible values can be listed one by one, such as $0, 1, 2, 3$.",
+          "plain": "Counts and scores are discrete: cars, goals, phone calls, points."
+        },
+        {
+          "type": "definition",
+          "term": "Probability distribution",
+          "statement": "The [[probability-distribution|probability distribution]] of a discrete random variable $X$ gives every value $x$ that $X$ can take, with its probability $\\mathrm{P}(X = x)$. It can be a table or a formula.",
+          "plain": "It says what can happen and how likely each value is."
+        },
+        {
+          "type": "result",
+          "statement": "In a probability distribution, every $\\mathrm{P}(X = x)$ lies between $0$ and $1$, and the probabilities add up to $1$.",
+          "why": "On each trial $X$ takes exactly one of its values, so the values share the total probability of $1$ between them."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum \\mathrm{P}(X = x) = 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The symbol $\\sum$ means \"add up over every value of $x$\". This rule is not in the formula booklet. It is how you find a missing probability or an unknown such as $k$."
+        },
+        {
+          "type": "example",
+          "id": "ex-household-cars",
+          "question": "The number of cars, $X$, owned by a household in a town is modelled by this distribution: $\\begin{array}{c|ccccc} x & 0 & 1 & 2 & 3 & 4 \\\\ \\hline \\mathrm{P}(X = x) & 0.12 & 0.41 & k & 0.09 & 0.03 \\end{array}$ (a) Find $k$. (b) Find $\\mathrm{P}(X \\ge 2)$ and interpret it for the town's $2400$ households.",
+          "steps": [
+            "(a) The probabilities add up to $1$: $0.12 + 0.41 + k + 0.09 + 0.03 = 1$.",
+            "So $0.65 + k = 1$ and $k = 0.35$. It lies between $0$ and $1$, as a probability must.",
+            "(b) \"At least $2$\" means $X = 2$, $3$ or $4$: $\\mathrm{P}(X \\ge 2) = 0.35 + 0.09 + 0.03 = 0.47$.",
+            "Check with the complement: $1 - \\mathrm{P}(X \\le 1) = 1 - (0.12 + 0.41) = 0.47$.",
+            "Interpret: $47\\%$ of households own two or more cars. In $2400$ households, expect about $0.47 \\times 2400 = 1128$ of them."
+          ],
+          "answer": "$\\mathrm{P}(X \\ge 2) = 0.47$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1 - (Rational(12, 100) + Rational(41, 100))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $\\mathrm{P}(X > 2)$ as $\\mathrm{P}(X \\ge 2)$. \"Greater than $2$\" leaves out $2$ itself. When $X$ takes whole-number values, $X > 2$ means $X \\ge 3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-driving-attempts",
+          "question": "A driving school models $X$, the number of attempts a learner needs to pass the practical test: $\\begin{array}{c|cccc} x & 1 & 2 & 3 & 4 \\\\ \\hline \\mathrm{P}(X = x) & 0.46 & 0.3 & a & b \\end{array}$ The probability of needing three attempts is three times the probability of needing four. (a) Find $a$ and $b$. (b) State one limitation of this model.",
+          "steps": [
+            "(a) Write the two facts as equations. The probabilities add up to $1$: $0.46 + 0.3 + a + b = 1$, so $a + b = 0.24$.",
+            "\"Three times\" gives $a = 3b$.",
+            "Substitute: $3b + b = 0.24$, so $4b = 0.24$ and $b = 0.06$. Then $a = 3 \\times 0.06 = 0.18$.",
+            "Check: $0.46 + 0.3 + 0.18 + 0.06 = 1$, and each value lies between $0$ and $1$.",
+            "(b) The model says no learner ever needs more than $4$ attempts. Some learners do, so the real distribution has a longer tail."
+          ],
+          "answer": "$a = 0.18, \\; b = 0.06$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([Rational(46, 100) + Rational(3, 10) + a + b - 1, a - 3*b], [a, b])"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the values of $x$ instead of the probabilities. The values $1, 2, 3, 4$ are outcomes, not probabilities: only the $\\mathrm{P}(X = x)$ row adds up to $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-helpdesk-k",
+          "prompt": "The number of calls, $X$, that a help desk receives in one minute has this distribution: $\\begin{array}{c|cccccc} x & 0 & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\mathrm{P}(X = x) & 0.08 & 0.22 & 0.31 & k & 0.11 & 0.04 \\end{array}$ Find $k$.",
+          "hint": "The six probabilities must add up to $1$.",
+          "answer": {
+            "value": 0.24,
+            "tolerance": 0
+          },
+          "explain": "$0.08 + 0.22 + 0.31 + 0.11 + 0.04 = 0.76$, so $k = 1 - 0.76 = 0.24$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1 - Rational(8 + 22 + 31 + 11 + 4, 100)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-helpdesk-more-than-three",
+          "prompt": "Use the help desk distribution with $k = 0.24$. Find the probability that the desk receives more than $3$ calls in a minute.",
+          "hint": "Which whole-number values are strictly greater than $3$?",
+          "options": [
+            {
+              "text": "$0.15$",
+              "correct": true
+            },
+            {
+              "text": "$0.39$",
+              "correct": false
+            },
+            {
+              "text": "$0.85$",
+              "correct": false
+            }
+          ],
+          "explain": "More than $3$ means $X = 4$ or $X = 5$: $0.11 + 0.04 = 0.15$. The answer $0.39$ wrongly includes $X = 3$, and $0.85$ is $\\mathrm{P}(X \\le 3)$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(11, 100) + Rational(4, 100)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-driving-meaning",
+          "prompt": "In the driving school's model, $\\mathrm{P}(X = 1) = 0.46$. What does this mean?",
+          "hint": "$X$ counts attempts. What is the event $X = 1$?",
+          "options": [
+            {
+              "text": "Just under half of learners pass at their first attempt",
+              "correct": true
+            },
+            {
+              "text": "Learners need just under half an attempt on average",
+              "correct": false
+            },
+            {
+              "text": "Just under half of learners need exactly two attempts",
+              "correct": false
+            }
+          ],
+          "explain": "$X = 1$ is the event \"passes at the first attempt\", and its probability is $0.46$, so $46\\%$ of learners pass first time. An average number of attempts would be $\\mathrm{E}(X)$, which comes next.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Just under half of learners pass at their first attempt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "formula",
+      "heading": "Distributions given by a formula",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A distribution can also be given by a formula, such as $\\mathrm{P}(X = x) = \\frac{x}{10}$ for $x \\in \\{1, 2, 3, 4\\}$. The set after \"for\" lists the values $X$ can take. The formula gives the probability of each one."
+        },
+        {
+          "type": "text",
+          "text": "A formula is a short way to write a table. Substitute each value of $x$, write the table out, and then work exactly as before."
+        },
+        {
+          "type": "example",
+          "id": "ex-cycling-days",
+          "question": "The number of days, $X$, that a student cycles to school in a five-day week is modelled by $\\mathrm{P}(X = x) = k(6 - x)$ for $x \\in \\{1, 2, 3, 4, 5\\}$. (a) Find $k$. (b) Find $\\mathrm{P}(X \\ge 4)$. (c) Find the expected number of weeks, out of a $38$-week school year, in which the student cycles on at least $4$ days.",
+          "steps": [
+            "Substitute each value: $\\begin{array}{c|ccccc} x & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\mathrm{P}(X = x) & 5k & 4k & 3k & 2k & k \\end{array}$",
+            "(a) The probabilities add up to $1$: $5k + 4k + 3k + 2k + k = 15k = 1$, so $k = \\frac{1}{15}$.",
+            "(b) $\\mathrm{P}(X \\ge 4) = \\mathrm{P}(X = 4) + \\mathrm{P}(X = 5) = \\frac{2}{15} + \\frac{1}{15} = \\frac{3}{15} = \\frac{1}{5}$.",
+            "(c) Each week is one trial, so use $n \\times \\mathrm{P}$: $38 \\times \\frac{1}{5} = 7.6$ weeks.",
+            "Interpret: about $7.6$ weeks a year, on average. It is a long-run average, so it need not be a whole number."
+          ],
+          "answer": "$\\mathrm{P}(X \\ge 4) = \\frac{1}{5}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational((6 - 4) + (6 - 5), (6 - 1) + (6 - 2) + (6 - 3) + (6 - 4) + (6 - 5))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hotel-complaints",
+          "question": "A hotel models the number of complaints, $X$, it receives in a day by $\\mathrm{P}(X = x) = \\frac{k}{x + 1}$ for $x \\in \\{0, 1, 2, 3\\}$. (a) Find $k$. (b) Find the probability that the hotel receives at most one complaint in a day, and interpret it.",
+          "steps": [
+            "Substitute each value: $x = 0$ gives $\\frac{k}{1}$, $x = 1$ gives $\\frac{k}{2}$, $x = 2$ gives $\\frac{k}{3}$ and $x = 3$ gives $\\frac{k}{4}$.",
+            "(a) Add and set equal to $1$: $k\\left(1 + \\frac{1}{2} + \\frac{1}{3} + \\frac{1}{4}\\right) = 1$. The bracket is $\\frac{12 + 6 + 4 + 3}{12} = \\frac{25}{12}$, so $k = \\frac{12}{25} = 0.48$.",
+            "The table is $\\begin{array}{c|cccc} x & 0 & 1 & 2 & 3 \\\\ \\hline \\mathrm{P}(X = x) & 0.48 & 0.24 & 0.16 & 0.12 \\end{array}$ and these add up to $1$.",
+            "(b) At most one means $X = 0$ or $X = 1$: $\\mathrm{P}(X \\le 1) = 0.48 + 0.24 = 0.72$.",
+            "Interpret: on about $72\\%$ of days the hotel gets no more than one complaint."
+          ],
+          "answer": "$\\mathrm{P}(X \\le 1) = 0.72$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 + Rational(1, 2))/(1 + Rational(1, 2) + Rational(1, 3) + Rational(1, 4))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The values of $X$ don't have to be positive or whole. Only the probabilities are restricted: each one lies between $0$ and $1$, and they add up to $1$."
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping $k$ from some terms, or setting the sum of the $x$-values equal to $1$. Every probability keeps its $k$, and it is the probabilities that add up to $1$."
+        },
+        {
+          "type": "check",
+          "id": "check-formula-denominator",
+          "prompt": "A random variable has $\\mathrm{P}(X = x) = \\frac{2x + 1}{k}$ for $x \\in \\{0, 1, 2, 3\\}$. Find $k$.",
+          "hint": "Substitute each $x$ into $2x + 1$, then set the total of the four probabilities equal to $1$.",
+          "options": [
+            {
+              "text": "$16$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{1}{16}$",
+              "correct": false
+            },
+            {
+              "text": "$6$",
+              "correct": false
+            }
+          ],
+          "explain": "The probabilities are $\\frac{1}{k}, \\frac{3}{k}, \\frac{5}{k}, \\frac{7}{k}$. Their total is $\\frac{16}{k} = 1$, so $k = 16$. The answer $6$ adds only the $x$-values, $0 + 1 + 2 + 3$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2*0 + 1) + (2*1 + 1) + (2*2 + 1) + (2*3 + 1)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-formula-at-least-two",
+          "prompt": "Use $\\mathrm{P}(X = x) = \\frac{2x + 1}{16}$ for $x \\in \\{0, 1, 2, 3\\}$. Find $\\mathrm{P}(X \\ge 2)$.",
+          "hint": "Add the probabilities for $x = 2$ and $x = 3$.",
+          "answer": {
+            "value": 0.75,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{P}(X \\ge 2) = \\frac{5}{16} + \\frac{7}{16} = \\frac{12}{16} = 0.75$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(2*2 + 1 + 2*3 + 1, 16)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "expected-value",
+      "heading": "Expected value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Go back to the car survey. In $100$ households you'd expect about $12$ with no car, $41$ with one, $35$ with two, $9$ with three and $3$ with four. That is $0(12) + 1(41) + 2(35) + 3(9) + 4(3) = 150$ cars, or $1.5$ cars per household."
+        },
+        {
+          "type": "text",
+          "text": "Dividing by $100$ turns each count back into its probability. So the average is $\\sum x\\,\\mathrm{P}(X = x)$: each value times its probability, added up."
+        },
+        {
+          "type": "definition",
+          "term": "Expected value",
+          "statement": "The [[expected-value|expected value]] $\\mathrm{E}(X)$ of a discrete random variable is the mean of $X$ in the long run, over many repeats of the trial.",
+          "plain": "It is the average value you would see over a very large number of trials."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)",
+          "tag": "booklet",
+          "bookletId": "bk-4-7-expected-value"
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet. It is the mean of a frequency table from {{lesson:4.3}}, with probabilities in place of frequencies."
+        },
+        {
+          "type": "figure",
+          "id": "4-7-cars-distribution",
+          "alt": "Bar chart of the number of cars a household owns. The bars have heights 0.12 at 0 cars, 0.41 at 1 car, 0.35 at 2 cars, 0.09 at 3 cars and 0.03 at 4 cars. A dashed vertical line at 1.5, halfway between the bars for 1 and 2, marks the expected value.",
+          "caption": "The expected value $\\mathrm{E}(X) = 1.5$ sits where the distribution would balance. No household owns $1.5$ cars."
+        },
+        {
+          "type": "text",
+          "text": "No household owns $1.5$ cars. That is fine: $\\mathrm{E}(X)$ is an average, so it need not be a value $X$ can take. It must lie between the smallest and largest values of $X$."
+        },
+        {
+          "type": "text",
+          "text": "On a GDC, use one-variable statistics with the values as data and the probabilities as frequencies. The mean $\\bar{x}$ is $\\mathrm{E}(X)$, and the total frequency $n$ should be $1$, which checks the table. If your model refuses decimal frequencies and every probability has at most two decimal places, multiply every probability by $100$ first: the mean doesn't change, and $n$ should then be $100$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cars-expected",
+          "question": "Use the car distribution: $\\begin{array}{c|ccccc} x & 0 & 1 & 2 & 3 & 4 \\\\ \\hline \\mathrm{P}(X = x) & 0.12 & 0.41 & 0.35 & 0.09 & 0.03 \\end{array}$ (a) Find $\\mathrm{E}(X)$. (b) The town has $2400$ households. Estimate the total number of cars in the town, and state an assumption you have made.",
+          "steps": [
+            "(a) Write the sum with every term in: $\\mathrm{E}(X) = 0(0.12) + 1(0.41) + 2(0.35) + 3(0.09) + 4(0.03)$.",
+            "Work it out: $0 + 0.41 + 0.70 + 0.27 + 0.12 = 1.5$. On the GDC: values $0$ to $4$ in a list, probabilities as frequencies, and $\\bar{x} = 1.5$ with $n = 1$.",
+            "Interpret: households in the town own $1.5$ cars on average.",
+            "(b) $2400 \\times 1.5 = 3600$ cars.",
+            "Assumption: the survey's distribution holds for every household in the town."
+          ],
+          "answer": "$\\mathrm{E}(X) = 1.5$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "avg([0, 1, 2, 3, 4], [12, 41, 35, 9, 3])"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable-frequency",
+          "values": {
+            "values": "0, 1, 2, 3, 4",
+            "frequencies": "0.12, 0.41, 0.35, 0.09, 0.03"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Averaging the values of $X$, such as $\\frac{0 + 1 + 2 + 3 + 4}{5} = 2$. That treats every value as equally likely. Weight each value by its probability instead."
+        },
+        {
+          "type": "example",
+          "id": "ex-checked-bags",
+          "question": "An airline models $X$, the number of checked bags per passenger: $\\begin{array}{c|cccc} x & 0 & 1 & 2 & 3 \\\\ \\hline \\mathrm{P}(X = x) & 0.25 & p & q & 0.05 \\end{array}$ Given that $\\mathrm{E}(X) = 1.1$, find $p$ and $q$. Then find the expected number of checked bags on a flight with $180$ passengers.",
+          "steps": [
+            "The probabilities add up to $1$: $0.25 + p + q + 0.05 = 1$, so $p + q = 0.7$.",
+            "Write $\\mathrm{E}(X)$ with every term in: $0(0.25) + 1p + 2q + 3(0.05) = 1.1$, so $p + 2q = 0.95$.",
+            "Solve the two equations on the GDC (or subtract them): $q = 0.25$ and $p = 0.45$.",
+            "Check: $0.25 + 0.45 + 0.25 + 0.05 = 1$, and $0.45 + 2(0.25) + 0.15 = 1.1$.",
+            "Each passenger checks $1.1$ bags on average, so $180$ passengers check about $180 \\times 1.1 = 198$ bags."
+          ],
+          "answer": "$p = 0.45, \\; q = 0.25$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([Rational(25, 100) + p + q + Rational(5, 100) - 1, p + 2*q + 3*Rational(5, 100) - Rational(11, 10)], [p, q])"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-2",
+          "values": {
+            "a1": "1",
+            "b1": "1",
+            "c1": "0.7",
+            "a2": "1",
+            "b2": "2",
+            "c2": "0.95"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out an $x$ in the equation for $\\mathrm{E}(X)$, such as writing $q$ where the term is $2q$. Write every term as $x \\times \\mathrm{P}(X = x)$ before you simplify."
+        },
+        {
+          "type": "examTip",
+          "text": "Find $\\mathrm{E}(X)$: write the sum with its numbers in, such as $0(0.12) + 1(0.41) + \\ldots$, before the value. That line earns the method mark, even when you use the GDC."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also find $\\mathrm{E}(aX + b)$ and the expected value of a sum of random variables.",
+          "lesson": "4.14"
+        },
+        {
+          "type": "check",
+          "id": "check-helpdesk-expected",
+          "prompt": "Use the help desk distribution: $\\begin{array}{c|cccccc} x & 0 & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\mathrm{P}(X = x) & 0.08 & 0.22 & 0.31 & 0.24 & 0.11 & 0.04 \\end{array}$ Find $\\mathrm{E}(X)$.",
+          "hint": "Multiply each number of calls by its probability, then add. Or use one-variable statistics with the probabilities as frequencies.",
+          "answer": {
+            "value": 2.2,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{E}(X) = 0 + 0.22 + 0.62 + 0.72 + 0.44 + 0.20 = 2.2$ calls per minute.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "avg([0, 1, 2, 3, 4, 5], [8, 22, 31, 24, 11, 4])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-helpdesk-meaning",
+          "prompt": "For the help desk, $\\mathrm{E}(X) = 2.2$. Which statement interprets this correctly?",
+          "hint": "Expected value is an average over many trials. Here each trial is one minute.",
+          "options": [
+            {
+              "text": "Over many minutes, the desk averages about 2.2 calls per minute",
+              "correct": true
+            },
+            {
+              "text": "Every minute, the desk receives 2.2 calls",
+              "correct": false
+            },
+            {
+              "text": "The most likely number of calls in a minute is 2.2",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{E}(X)$ is a long-run mean. No single minute has $2.2$ calls, and the most likely value is $2$ calls, with probability $0.31$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Over many minutes, the desk averages about 2.2 calls per minute"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-formula-expected",
+          "prompt": "Use $\\mathrm{P}(X = x) = \\frac{2x + 1}{16}$ for $x \\in \\{0, 1, 2, 3\\}$. Find $\\mathrm{E}(X)$. Give the exact value as a decimal.",
+          "hint": "The probabilities are $\\frac{1}{16}, \\frac{3}{16}, \\frac{5}{16}, \\frac{7}{16}$. Multiply each by its $x$.",
+          "answer": {
+            "value": 2.125,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{E}(X) = \\frac{0(1) + 1(3) + 2(5) + 3(7)}{16} = \\frac{34}{16} = 2.125$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(0*1 + 1*3 + 2*5 + 3*7, 16)",
+            "dp": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "fair-games",
+      "heading": "Games, fairness and other applications",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many games cost money to play and sometimes pay a prize. Let $X$ be a player's gain in one game: prize minus cost. A loss is a negative gain."
+        },
+        {
+          "type": "text",
+          "text": "$\\mathrm{E}(X)$ is then the player's average gain per game in the long run. If it is positive, players come out ahead on average. If it is negative, the organiser does, which is how stalls, lotteries and casinos make money."
+        },
+        {
+          "type": "definition",
+          "term": "Fair game",
+          "statement": "A game is a [[fair-game|fair game]] when $\\mathrm{E}(X) = 0$, where $X$ is the gain of a player.",
+          "plain": "Over many games, neither the player nor the organiser comes out ahead on average."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{fair game: } \\mathrm{E}(X) = 0, \\quad \\text{where } X \\text{ is the player's gain}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Over $n$ games, the expected total gain is $n \\times \\mathrm{E}(X)$. The same idea predicts totals anywhere: cars in a town, bags on a flight, an insurer's payouts."
+        },
+        {
+          "type": "example",
+          "id": "ex-duck-stall",
+          "question": "At a funfair, one go on a hook-a-duck stall costs \\$2. There are $50$ ducks, and the player hooks one at random. $2$ ducks win \\$15, $8$ ducks win \\$4 and the rest win nothing. Let $X$ be the player's gain in dollars. (a) Find $\\mathrm{E}(X)$ and interpret it. (b) The stall expects $300$ goes in a day. Find the stall's expected profit.",
+          "steps": [
+            "Take the \\$2 off each prize to get the gains: $15 - 2 = 13$, $4 - 2 = 2$ and $0 - 2 = -2$.",
+            "The probabilities are $\\frac{2}{50} = 0.04$, $\\frac{8}{50} = 0.16$ and $\\frac{40}{50} = 0.8$. So $\\begin{array}{c|ccc} x & 13 & 2 & -2 \\\\ \\hline \\mathrm{P}(X = x) & 0.04 & 0.16 & 0.8 \\end{array}$",
+            "(a) $\\mathrm{E}(X) = 13(0.04) + 2(0.16) + (-2)(0.8) = 0.52 + 0.32 - 1.6 = -0.76$.",
+            "$\\mathrm{E}(X) \\ne 0$, so the game is not fair. On average a player loses \\$0.76 per go.",
+            "(b) Each go gives the stall the player's loss, so its expected profit is $300 \\times 0.76 = 228$ dollars."
+          ],
+          "answer": "$\\mathrm{E}(X) = -0.76$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "13*Rational(2, 50) + 2*Rational(8, 50) + (-2)*Rational(40, 50)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Say whether $X$ is the prize or the gain. To get the gain, take the cost off every prize, including the prize of $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-putting-prize",
+          "question": "A golf club runs a putting challenge. Each go costs \\$4. A player holes the putt with probability $0.2$ and receives \\$$w$. The ball stops within $1$ m of the hole with probability $0.3$, and the player receives \\$3. Otherwise the player receives nothing. Find the value of $w$ that makes the game fair.",
+          "steps": [
+            "Let $X$ be the gain. Take the \\$4 off each prize: $\\begin{array}{c|ccc} x & w - 4 & -1 & -4 \\\\ \\hline \\mathrm{P}(X = x) & 0.2 & 0.3 & 0.5 \\end{array}$ The last probability is $1 - 0.2 - 0.3 = 0.5$.",
+            "A fair game needs $\\mathrm{E}(X) = 0$: $0.2(w - 4) + (-1)(0.3) + (-4)(0.5) = 0$.",
+            "Expand: $0.2w - 0.8 - 0.3 - 2 = 0$, so $0.2w = 3.1$ and $w = 15.5$.",
+            "Check another way: a game is fair when the expected prize equals the cost. $0.2(15.5) + 0.3(3) = 3.1 + 0.9 = 4$, the cost of a go.",
+            "Interpret: a prize of \\$15.50 makes the game fair. The club would set a smaller prize to raise money."
+          ],
+          "answer": "$w = 15.50\\text{ dollars}$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "(4 - 3*Rational(3, 10))/Rational(2, 10)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stating \"not fair\" with no value. Find $\\mathrm{E}(X)$ for the gain, write its value, and compare it with $0$. The conclusion earns its mark only when the value is there."
+        },
+        {
+          "type": "check",
+          "id": "check-wheel-verdict",
+          "prompt": "A prize wheel has $8$ equal sectors. One go costs $3$ tokens. One sector pays $10$ tokens, two sectors pay $5$ tokens each, and the rest pay nothing. Which statement is true?",
+          "hint": "Find the expected prize, then take off the $3$ tokens you paid.",
+          "options": [
+            {
+              "text": "Players lose on average",
+              "correct": true
+            },
+            {
+              "text": "The game is fair",
+              "correct": false
+            },
+            {
+              "text": "Players gain on average",
+              "correct": false
+            }
+          ],
+          "explain": "The expected prize is $10 \\times \\frac{1}{8} + 5 \\times \\frac{2}{8} = 2.5$ tokens. The expected gain is $2.5 - 3 = -0.5$ tokens, which is below $0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Players lose on average"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-darts-fee",
+          "prompt": "At a darts stall, a player hits the bullseye with probability $0.05$ and wins \\$40, or hits the inner ring with probability $0.2$ and wins \\$5. Otherwise the player wins nothing. Find the entry fee, in dollars, that makes the game fair.",
+          "hint": "A game is fair when the fee equals the expected prize.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The expected prize is $40(0.05) + 5(0.2) + 0 = 2 + 1 = 3$. A fee of \\$3.00 makes the expected gain $0$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "40*Rational(5, 100) + 5*Rational(2, 10)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bike-insurance",
+          "prompt": "A bike insurer charges \\$60 a year for a policy. In a year, it pays out \\$800 with probability $0.04$, pays out \\$200 with probability $0.06$, and pays nothing otherwise. Find the insurer's expected profit per policy, in dollars.",
+          "hint": "Find the expected payout first, then take it off the \\$60.",
+          "answer": {
+            "value": 16,
+            "tolerance": 0
+          },
+          "explain": "The expected payout is $800(0.04) + 200(0.06) = 32 + 12 = 44$ dollars. The expected profit is $60 - 44 = 16$ dollars per policy. For a customer, the expected gain is $-16$, yet many still buy cover to avoid one large loss.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "60 - (800*Rational(4, 100) + 200*Rational(6, 100))",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-crop-choice",
+          "prompt": "A farmer can plant crop A, with a sure profit of \\$12 000, or crop B. Crop B makes \\$30 000 if the season is good, with probability $0.6$, and loses \\$5000 otherwise. Which statement is correct?",
+          "hint": "Work out the expected profit of crop B. Then think about what can happen in one season.",
+          "options": [
+            {
+              "text": "Crop B has the higher expected profit, but in any one season it could lose money",
+              "correct": true
+            },
+            {
+              "text": "Crop A has the higher expected profit, so it is the better choice",
+              "correct": false
+            },
+            {
+              "text": "Crop B is certain to make more money than crop A this season",
+              "correct": false
+            }
+          ],
+          "explain": "For crop B, $\\mathrm{E}(\\text{profit}) = 30\\,000(0.6) + (-5000)(0.4) = 16\\,000$ dollars, above \\$12 000. But $\\mathrm{E}$ is a long-run average: in a single season, crop B loses \\$5000 with probability $0.4$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Crop B has the higher expected profit, but in any one season it could lose money"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A discrete random variable $X$ has a list of possible values $x$. Its probability distribution gives $\\mathrm{P}(X = x)$ for each one, as a table or a formula.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\sum \\mathrm{P}(X = x) = 1, \\quad 0 \\le \\mathrm{P}(X = x) \\le 1",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)",
+          "tag": "booklet",
+          "bookletId": "bk-4-7-expected-value",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\mathrm{E}(X)$ is the long-run mean of $X$. It need not be a value $X$ can take. Over $n$ independent repeats of the trial, expect a total of $n \\times \\mathrm{E}(X)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "GDC: one-variable statistics with the values as data and the probabilities as frequencies gives $\\bar{x} = \\mathrm{E}(X)$; with the probabilities entered as they are, the total frequency should be $1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{fair game: } \\mathrm{E}(X) = 0, \\quad \\text{where } X \\text{ is the player's gain (prize minus cost)}",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Averaging the values of $X$ to find $\\mathrm{E}(X)$, as if they were equally likely. Weight each value by its probability: $\\sum x\\,\\mathrm{P}(X = x)$.",
+    "Setting the sum of the $x$-values equal to $1$, or dropping $k$ from some terms. It is the probabilities that add up to $1$.",
+    "Treating $X > 2$ as $X \\ge 2$. For whole-number values, \"greater than $2$\" starts at $3$.",
+    "Using the prizes instead of the gains when deciding whether a game is fair. Take the cost off every prize, including the prize of $0$.",
+    "Concluding \"fair\" or \"not fair\" without writing the value of $\\mathrm{E}(X)$. The value and its comparison with $0$ must both be seen.",
+    "Rounding $\\mathrm{E}(X)$ before multiplying by the number of trials. Multiply the full value, then round the final answer."
+  ],
+  "examTips": [
+    "Find $k$: write $\\sum \\mathrm{P}(X = x) = 1$ with every term in, then solve. Check each probability lies between $0$ and $1$.",
+    "Find $\\mathrm{E}(X)$: write the sum with its numbers in before the value, even when the GDC does the arithmetic. That line earns the method mark.",
+    "Determine whether a game is fair: define $X$ as the gain, find $\\mathrm{E}(X)$, write its value, and state whether it equals $0$.",
+    "Interpret $\\mathrm{E}(X)$: say it is a long-run average per trial, in the context's units, such as \"a player loses \\$0.76 per go on average\"."
+  ],
+  "readingMinutes": 28
+}

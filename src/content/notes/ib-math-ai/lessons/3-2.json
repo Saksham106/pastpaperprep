@@ -1,0 +1,786 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.2",
+  "slug": "triangle-trigonometry",
+  "title": "Triangle trigonometry",
+  "level": "SL",
+  "topic": 3,
+  "summary": "Trigonometry finds lengths and angles you can't measure directly. Right-angled triangles use sine, cosine and tangent. Any other triangle uses the [[sine-rule|sine rule]], the [[cosine-rule|cosine rule]] and $\\frac{1}{2}ab\\sin C$ for the area.",
+  "goals": [
+    {
+      "text": "Find a side or an angle of a right-angled triangle with $\\sin$, $\\cos$ or $\\tan$, using $\\sin^{-1}$, $\\cos^{-1}$ or $\\tan^{-1}$ for an angle.",
+      "bullets": [
+        "3.2-b1",
+        "3.2-b5"
+      ]
+    },
+    {
+      "text": "Use the [[sine-rule|sine rule]] when you know a side and the angle opposite it.",
+      "bullets": [
+        "3.2-b2"
+      ]
+    },
+    {
+      "text": "Use the [[cosine-rule|cosine rule]] to find a side from two sides and the angle between them, or an angle from all three sides.",
+      "bullets": [
+        "3.2-b3"
+      ]
+    },
+    {
+      "text": "Find the area of any triangle with $\\frac{1}{2}ab\\sin C$, and solve for a missing length on your GDC.",
+      "bullets": [
+        "3.2-b4"
+      ]
+    },
+    {
+      "text": "Sketch a labelled diagram, choose the right rule, and interpret the answer in context.",
+      "bullets": [
+        "3.2-b5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sohcahtoa",
+    "sine rule",
+    "cosine rule",
+    "area of a triangle half ab sin c",
+    "find a missing angle in a triangle",
+    "non right angled trigonometry"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pythagoras",
+      "prompt": "A phone screen is $6$ cm wide and $11$ cm tall. Find the length of its diagonal in cm, to 3 s.f.",
+      "hint": "The diagonal is the longest side of a right-angled triangle. Use Pythagoras.",
+      "answer": {
+        "value": 12.5,
+        "tolerance": 0.05
+      },
+      "explain": "$d^{2} = 6^{2} + 11^{2} = 157$, so $d = \\sqrt{157} \\approx 12.5$ cm. Pythagoras is prior learning.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(6**2 + 11**2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-inverse",
+      "prompt": "The function $f(x) = 4x + 7$ has inverse $f^{-1}$. Find $f^{-1}(31)$.",
+      "hint": "$f^{-1}(31)$ is the input that $f$ turns into $31$. Solve $4x + 7 = 31$.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "$4x + 7 = 31$ gives $x = 6$. An inverse undoes a function, which is how you get an angle back from a ratio. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(31 - 7)/4",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "right-angled",
+      "heading": "Right-angled triangles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Right-angled triangles with the same angle $\\theta$ (theta) are enlargements of each other. So the ratio of two sides depends only on $\\theta$, not on the size. These ratios are the [[trigonometric-ratios|trigonometric ratios]]: sine, cosine and tangent."
+        },
+        {
+          "type": "text",
+          "text": "Name the sides from the angle $\\theta$. The hypotenuse is the longest side, opposite the right angle. The opposite side faces $\\theta$. The adjacent side runs from $\\theta$ to the right angle."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-right-triangle",
+          "alt": "A right-angled triangle with the angle theta at the bottom left and the right angle at the bottom right. The sloping side is labelled hypotenuse. The vertical side, facing theta, is labelled opposite. The bottom side, next to theta, is labelled adjacent.",
+          "caption": "Opposite and adjacent depend on which angle you stand at. The hypotenuse never changes."
+        },
+        {
+          "type": "definition",
+          "term": "trigonometric ratios",
+          "statement": "For an acute angle $\\theta$ in a right-angled triangle, $\\sin\\theta = \\frac{\\text{opposite}}{\\text{hypotenuse}}$, $\\cos\\theta = \\frac{\\text{adjacent}}{\\text{hypotenuse}}$ and $\\tan\\theta = \\frac{\\text{opposite}}{\\text{adjacent}}$.",
+          "plain": "Each one compares two sides, and its value depends only on the angle."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\frac{\\text{O}}{\\text{H}}, \\quad \\cos\\theta = \\frac{\\text{A}}{\\text{H}}, \\quad \\tan\\theta = \\frac{\\text{O}}{\\text{A}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "They are not in the formula booklet: learn them as SOH CAH TOA. Pick the ratio that links the side you know with the side you want."
+        },
+        {
+          "type": "text",
+          "text": "To find an angle, undo the ratio with an [[inverse-trigonometric-function|inverse trigonometric function]], just as an [[inverse-function|inverse function]] undoes a function in {{lesson:2.2}}. If $\\tan\\theta = 0.6$, then $\\theta = \\tan^{-1}(0.6)$."
+        },
+        {
+          "type": "mistake",
+          "text": "$\\sin^{-1}x$ is not $\\frac{1}{\\sin x}$. It answers the question: which angle has a sine of $x$?"
+        },
+        {
+          "type": "examTip",
+          "text": "Set your GDC to degree mode before the first calculation, unless the question works in radians."
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ladder-height",
+          "question": "A $6.5$ m ladder leans against a vertical wall, at $72^{\\circ}$ to the level ground. Find how far up the wall it reaches.",
+          "steps": [
+            "Sketch it: wall, ground and ladder make a right-angled triangle, with the ladder as hypotenuse.",
+            "The height faces the $72^{\\circ}$ angle (opposite). Opposite and hypotenuse means sine.",
+            "Write it down: $\\sin 72^{\\circ} = \\frac{h}{6.5}$.",
+            "Multiply both sides by $6.5$: $h = 6.5\\sin 72^{\\circ} = 6.1818\\ldots$",
+            "Sense check: it is less than the ladder's length."
+          ],
+          "answer": "$h \\approx 6.18\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.5*sin(72*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-roof-pitch",
+          "question": "A roof rises $1.9$ m over a horizontal distance of $4.6$ m. (a) Find its angle to the horizontal. (b) A roof tile needs a slope of at least $20^{\\circ}$. Can it be used?",
+          "steps": [
+            "Sketch a right-angled triangle: horizontal $4.6$ m, vertical $1.9$ m, angle $\\theta$ at the bottom.",
+            "Rise is opposite, horizontal is adjacent, so use tangent: $\\tan\\theta = \\frac{1.9}{4.6}$.",
+            "Undo the tangent: $\\theta = \\tan^{-1}\\left(\\frac{1.9}{4.6}\\right) = 22.442\\ldots^{\\circ}$, so $22.4^{\\circ}$ to 1 d.p.",
+            "(b) $22.4^{\\circ} > 20^{\\circ}$, so the roof is steep enough for the tile."
+          ],
+          "answer": "$\\theta \\approx 22.4^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(Rational(19, 46))*180/pi"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cable-length",
+          "prompt": "A cable runs from the top of a vertical $1.8$ m post to level ground, at $38^{\\circ}$ to the ground. Find its length in m, to 3 s.f.",
+          "hint": "The post faces the $38^{\\circ}$ angle and the cable is the hypotenuse. Which ratio links opposite and hypotenuse?",
+          "answer": {
+            "value": 2.92,
+            "tolerance": 0.005
+          },
+          "explain": "$\\sin 38^{\\circ} = \\frac{1.8}{L}$, so $L = \\frac{1.8}{\\sin 38^{\\circ}} \\approx 2.92$ m. $1.8\\sin 38^{\\circ} = 1.11$ m is shorter than the post, so it can't be the hypotenuse.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.8/sin(38*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trail-angle",
+          "prompt": "A hiking trail climbs $240$ m vertically over a horizontal distance of $1100$ m. Find the angle the trail makes with the horizontal, to 1 d.p.",
+          "hint": "You know the vertical rise and the horizontal distance. They are the opposite and adjacent sides.",
+          "options": [
+            {
+              "text": "$\\theta \\approx 12.3^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\theta \\approx 12.6^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\theta \\approx 77.7^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\theta = \\tan^{-1}\\left(\\frac{240}{1100}\\right) = 12.30\\ldots^{\\circ}$. $12.6^{\\circ}$ wrongly treats $1100$ m as the hypotenuse. $77.7^{\\circ}$ has the fraction upside down.",
+          "verify": {
+            "kind": "angle",
+            "truth": "atan(Rational(240, 1100))*180/pi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sine-rule",
+      "heading": "The sine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most real triangles have no right angle. Two rules work in every triangle. The first links each side to the angle facing it."
+        },
+        {
+          "type": "text",
+          "text": "Label the triangle the standard way. Capital letters $A$, $B$, $C$ are the angles at the corners. Lower-case $a$ is the side opposite angle $A$, $b$ is opposite $B$, and $c$ is opposite $C$."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-labelled-triangle",
+          "alt": "A triangle with corners A at the bottom left, B at the bottom right and C at the top. Side a, from B to C, faces A. Side b, from C to A, faces B. Side c, along the bottom from A to B, faces C.",
+          "caption": "Each side has the same letter as the angle it faces."
+        },
+        {
+          "type": "definition",
+          "term": "sine rule",
+          "statement": "In any triangle $ABC$, $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}$, where each side is opposite the angle with the same letter.",
+          "plain": "Each side divided by the sine of the angle facing it gives the same number."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-sine-rule"
+        },
+        {
+          "type": "text",
+          "text": "The [[sine-rule|sine rule]] is in the booklet. Use it when you know a side and the angle facing it, plus one more side or angle. You only use two of the fractions."
+        },
+        {
+          "type": "text",
+          "text": "Two known angles give the third, since angles add to $180^{\\circ}$. For an angle, flip both fractions so the unknown is on top: $\\frac{\\sin A}{a} = \\frac{\\sin B}{b}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-lifeguard",
+          "alt": "A straight beach along the bottom with lifeguard tower P on the left and tower Q on the right, 240 metres apart. A swimmer S is out at sea above the beach. The angle at P between the beach and the line to S is 61 degrees, and the angle at Q is 52 degrees.",
+          "caption": "Two towers sight the same swimmer."
+        },
+        {
+          "type": "example",
+          "id": "ex-lifeguard",
+          "question": "Lifeguard towers P and Q are $240$ m apart on a straight beach. A swimmer S has $\\text{S}\\hat{\\text{P}}\\text{Q} = 61^{\\circ}$ and $\\text{S}\\hat{\\text{Q}}\\text{P} = 52^{\\circ}$, as in the figure. (a) Find QS. (b) Which tower is closer to the swimmer?",
+          "steps": [
+            "Third angle: $\\text{P}\\hat{\\text{S}}\\text{Q} = 180^{\\circ} - 61^{\\circ} - 52^{\\circ} = 67^{\\circ}$, which faces PQ $= 240$ m.",
+            "QS faces the $61^{\\circ}$ angle at P. Sine rule: $\\frac{\\text{QS}}{\\sin 61^{\\circ}} = \\frac{240}{\\sin 67^{\\circ}}$.",
+            "Multiply by $\\sin 61^{\\circ}$: $\\text{QS} = \\frac{240\\sin 61^{\\circ}}{\\sin 67^{\\circ}} = 228.03\\ldots$ m.",
+            "(b) PS faces the $52^{\\circ}$ angle, so $\\text{PS} = \\frac{240\\sin 52^{\\circ}}{\\sin 67^{\\circ}} = 205.45\\ldots$ m.",
+            "PS is shorter, so tower P is closer, by about $23$ m."
+          ],
+          "answer": "$\\text{QS} \\approx 228\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "240*sin(61*pi/180)/sin(67*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "$\\sin^{-1}$ only gives an acute angle, but an obtuse angle has the same sine. An angle facing a shorter side than the known angle's side is smaller than that angle, so it must be acute."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also meet the ambiguous case, where two different triangles fit the same data and both angles must be checked.",
+          "lesson": "3.8"
+        },
+        {
+          "type": "example",
+          "id": "ex-flower-bed",
+          "question": "A flower bed is the triangle PQR, with $\\text{PQ} = 7.4$ m, $\\text{QR} = 5.9$ m and $\\hat{\\text{R}} = 74^{\\circ}$. Find PR, the length of edging needed along the third side.",
+          "steps": [
+            "Pair up: PQ $= 7.4$ faces $\\hat{\\text{R}}$, QR $= 5.9$ faces $\\hat{\\text{P}}$, and PR faces the unknown $\\hat{\\text{Q}}$.",
+            "Find $\\hat{\\text{P}}$, unknown on top: $\\frac{\\sin P}{5.9} = \\frac{\\sin 74^{\\circ}}{7.4}$, so $\\hat{\\text{P}} = \\sin^{-1}\\left(\\frac{5.9\\sin 74^{\\circ}}{7.4}\\right) = 50.032\\ldots^{\\circ}$. It is acute, since $5.9 < 7.4$. Store it.",
+            "Angle sum: $\\hat{\\text{Q}} = 180^{\\circ} - 74^{\\circ} - 50.032\\ldots^{\\circ} = 55.967\\ldots^{\\circ}$.",
+            "PR faces $\\hat{\\text{Q}}$: $\\text{PR} = \\frac{7.4\\sin 55.967\\ldots^{\\circ}}{\\sin 74^{\\circ}} = 6.3796\\ldots$ m."
+          ],
+          "answer": "$\\text{PR} \\approx 6.38\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "7.4*sin(pi - 74*pi/180 - asin(5.9*sin(74*pi/180)/7.4))/sin(74*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sail-side",
+          "prompt": "A triangular sail DEF has $\\hat{\\text{D}} = 44^{\\circ}$, $\\hat{\\text{E}} = 79^{\\circ}$ and $\\text{DF} = 3.6$ m. Find EF in m, to 3 s.f.",
+          "hint": "DF faces the angle at E. EF faces the angle at D.",
+          "answer": {
+            "value": 2.55,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\text{EF}}{\\sin 44^{\\circ}} = \\frac{3.6}{\\sin 79^{\\circ}}$, so $\\text{EF} = \\frac{3.6\\sin 44^{\\circ}}{\\sin 79^{\\circ}} = 2.5475\\ldots \\approx 2.55$ m. If you got $5.09$, you paired DF with the wrong angle.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.6*sin(44*pi/180)/sin(79*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sine-angle",
+          "prompt": "A hiker walks from camp C to a waterfall W, then on to a lookout L. The angle at the waterfall is $\\hat{\\text{W}} = 64^{\\circ}$, the lookout is $13.2$ km from camp, and $\\text{WL} = 9.4$ km. Find the angle at the camp, $\\hat{\\text{C}}$, to 1 d.p.",
+          "hint": "CL faces the $64^{\\circ}$ angle and WL faces $\\hat{\\text{C}}$. WL is shorter than CL: is $\\hat{\\text{C}}$ acute or obtuse?",
+          "options": [
+            {
+              "text": "$\\hat{\\text{C}} \\approx 39.8^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\hat{\\text{C}} \\approx 140.2^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\hat{\\text{C}} \\approx 45.4^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{\\sin C}{9.4} = \\frac{\\sin 64^{\\circ}}{13.2}$, so $\\sin C = \\frac{9.4\\sin 64^{\\circ}}{13.2}$ and $\\hat{\\text{C}} = 39.79\\ldots^{\\circ} \\approx 39.8^{\\circ}$. It is acute because WL is shorter than CL. $140.2^{\\circ} + 64^{\\circ}$ is more than $180^{\\circ}$, and $45.4^{\\circ}$ leaves out $\\sin 64^{\\circ}$.",
+          "verify": {
+            "kind": "angle",
+            "truth": "asin(9.4*sin(64*pi/180)/13.2)*180/pi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cosine-rule",
+      "heading": "The cosine rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Suppose you know two sides and the angle between them. No side is paired with the angle facing it, so the [[sine-rule|sine rule]] is stuck. The [[cosine-rule|cosine rule]] handles it: it is Pythagoras with a correction for a corner that isn't $90^{\\circ}$."
+        },
+        {
+          "type": "definition",
+          "term": "cosine rule",
+          "statement": "In any triangle $ABC$, $c^{2} = a^{2} + b^{2} - 2ab\\cos C$, where $C$ is the angle between sides $a$ and $b$. Rearranged for the angle, $\\cos C = \\frac{a^{2} + b^{2} - c^{2}}{2ab}$.",
+          "plain": "It finds the third side from two sides and the angle between them, or any angle from all three sides."
+        },
+        {
+          "type": "formula",
+          "tex": "c^{2} = a^{2} + b^{2} - 2ab\\cos C; \\quad \\cos C = \\frac{a^{2} + b^{2} - c^{2}}{2ab}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-cosine-rule"
+        },
+        {
+          "type": "text",
+          "text": "Both forms are in the booklet. $C$ is the angle between $a$ and $b$, and $c$ faces it: relabel to fit your triangle."
+        },
+        {
+          "type": "text",
+          "text": "If $C = 90^{\\circ}$, then $\\cos C = 0$ and the rule becomes Pythagoras. If $C$ is obtuse, $\\cos C$ is negative, so $c$ comes out longer than Pythagoras would give."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-paths",
+          "question": "Two straight paths leave a park gate: $380$ m to a café and $520$ m to a car park, with $63^{\\circ}$ between them. (a) Find the direct distance $d$ from café to car park. (b) How much shorter is it than walking via the gate?",
+          "steps": [
+            "Two sides and the angle between them: use the cosine rule.",
+            "Substitute: $d^{2} = 380^{2} + 520^{2} - 2(380)(520)\\cos 63^{\\circ}$.",
+            "On the GDC: $d = 485.16\\ldots$ m.",
+            "(b) Via the gate is $900$ m, so the direct route saves about $415$ m."
+          ],
+          "answer": "$d \\approx 485\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(380**2 + 520**2 - 2*380*520*cos(63*pi/180))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "To find an angle from three sides, use the second form. The side facing the angle you want goes after the minus sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-field-corner",
+          "question": "A triangular field has sides of $85$ m, $112$ m and $150$ m. (a) Find the largest angle of the field. (b) The farmer thinks this corner is a right angle. Comment.",
+          "steps": [
+            "The largest angle faces the longest side, $150$ m. So $c = 150$, with $a = 85$ and $b = 112$.",
+            "Substitute: $\\cos C = \\frac{85^{2} + 112^{2} - 150^{2}}{2(85)(112)} = \\frac{-2731}{19\\,040} = -0.14343\\ldots$",
+            "$\\hat{C} = \\cos^{-1}(-0.14343\\ldots) = 98.246\\ldots^{\\circ}$. A negative cosine gives an obtuse angle, and $\\cos^{-1}$ returns it correctly.",
+            "(b) $98.2^{\\circ}$ is about $8^{\\circ}$ over a right angle, so the farmer is wrong."
+          ],
+          "answer": "$\\hat{C} \\approx 98.2^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "acos(Rational(85**2 + 112**2 - 150**2, 2*85*112))*180/pi"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the $2$ in $2ab\\cos C$, or losing the minus sign. Write the rule out in full, then substitute your numbers into it."
+        },
+        {
+          "type": "check",
+          "id": "check-robot-arm",
+          "prompt": "A robot arm has parts $34$ cm and $27$ cm long, with $118^{\\circ}$ between them at the elbow. Find the distance from shoulder to hand in cm, to 3 s.f.",
+          "hint": "Two sides and the angle between them: use $c^{2} = a^{2} + b^{2} - 2ab\\cos C$, then square root.",
+          "answer": {
+            "value": 52.4,
+            "tolerance": 0.05
+          },
+          "explain": "$c^{2} = 34^{2} + 27^{2} - 2(34)(27)\\cos 118^{\\circ}$, so $c = 52.41\\ldots \\approx 52.4$ cm, longer than Pythagoras gives since $\\cos 118^{\\circ} < 0$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(34**2 + 27**2 - 2*34*27*cos(118*pi/180))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-corner-type",
+          "prompt": "A carpenter cuts a triangular shelf with sides $4.4$ cm, $6.5$ cm and $8.1$ cm. Is its largest angle acute, right or obtuse?",
+          "hint": "Find the sign of $\\cos C$, with $8.1$ as the side after the minus sign.",
+          "options": [
+            {
+              "text": "Obtuse",
+              "correct": true
+            },
+            {
+              "text": "Right",
+              "correct": false
+            },
+            {
+              "text": "Acute",
+              "correct": false
+            }
+          ],
+          "explain": "$4.4^{2} + 6.5^{2} = 61.61$, which is less than $8.1^{2} = 65.61$. So $\\cos C = \\frac{61.61 - 65.61}{2(4.4)(6.5)}$ is negative, and the angle is obtuse ($94.0^{\\circ}$).",
+          "verify": {
+            "kind": "choice",
+            "truth": "Obtuse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "The area of a triangle",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You know area $= \\frac{1}{2} \\times \\text{base} \\times \\text{height}$ (prior learning in the formula booklet). In real problems the height is rarely given."
+        },
+        {
+          "type": "text",
+          "text": "In the labelled triangle, take $a$ as the base. The height from A is $b\\sin C$, so the area is $\\frac{1}{2}ab\\sin C$."
+        },
+        {
+          "type": "definition",
+          "term": "area of a triangle",
+          "statement": "For any triangle $ABC$, $\\text{area} = \\frac{1}{2}ab\\sin C$, where $C$ is the angle between sides $a$ and $b$.",
+          "plain": "Half the product of two sides, times the sine of the angle between them."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}ab\\sin C",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-triangle-area"
+        },
+        {
+          "type": "text",
+          "text": "It is in the booklet. The two sides must meet at the angle you use. Obtuse angles work too: their sine is positive."
+        },
+        {
+          "type": "example",
+          "id": "ex-plot-seed",
+          "question": "Two fences of a triangular plot, $47$ m and $58$ m long, meet at $71^{\\circ}$. (a) Find the area. (b) A box of grass seed covers $30\\text{ m}^{2}$. Find the number of boxes $N$ needed.",
+          "steps": [
+            "The $71^{\\circ}$ angle is between the two given sides, so use $\\frac{1}{2}ab\\sin C$.",
+            "$\\text{area} = \\frac{1}{2}(47)(58)\\sin 71^{\\circ} = 1288.74\\ldots\\text{ m}^{2}$, so $1290\\text{ m}^{2}$ to 3 s.f.",
+            "(b) $1288.74\\ldots \\div 30 = 42.95\\ldots$ boxes.",
+            "$42$ boxes would leave ground bare, so round up."
+          ],
+          "answer": "$N = 43$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling(Rational(1, 2)*47*58*sin(71*pi/180)/30)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using two sides that don't meet at the angle, or putting $\\cos C$ in place of $\\sin C$. Mark the angle on your sketch and check both sides touch it."
+        },
+        {
+          "type": "text",
+          "text": "Given the area, write the area formula as an equation and solve it on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-solar-panel",
+          "question": "A triangular solar panel has edges $x$ m and $(x + 1.5)$ m with $50^{\\circ}$ between them, and area $4.6\\text{ m}^{2}$. Use your GDC to find $x$, to 3 s.f.",
+          "steps": [
+            "The $50^{\\circ}$ angle is between the two edges, so use the area formula.",
+            "Write down the equation you solve: $\\frac{1}{2}x(x + 1.5)\\sin 50^{\\circ} = 4.6$. This line earns the method mark.",
+            "Solve it on the GDC in degree mode with a positive guess: $x = 2.7957\\ldots$",
+            "The quadratic also has the root $x = -4.2957\\ldots$, but a length can't be negative.",
+            "So the panel's edges are $2.80$ m and $4.30$ m."
+          ],
+          "answer": "$x \\approx 2.80$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(-1.5 + sqrt(1.5**2 + 8*4.6/sin(50*pi/180)))/2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "0.5*X*(X+1.5)*sin(50)",
+            "rightSide": 4.6,
+            "guess": 2,
+            "lower": 0,
+            "upper": 10
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sail-area",
+          "prompt": "A triangular sail has edges $3.8$ m and $2.9$ m with an angle of $112^{\\circ}$ between them. Find its area, to 3 s.f.",
+          "hint": "Use $\\frac{1}{2}ab\\sin C$ with $C = 112^{\\circ}$. The sine of an obtuse angle is positive.",
+          "options": [
+            {
+              "text": "$\\text{area} \\approx 5.11\\text{ m}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$\\text{area} \\approx 10.2\\text{ m}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$\\text{area} \\approx 5.51\\text{ m}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{2}(3.8)(2.9)\\sin 112^{\\circ} = 5.108\\ldots$ $10.2$ forgets the $\\frac{1}{2}$; $5.51$ leaves out the sine.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*3.8*2.9*sin(112*pi/180)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-area-angle",
+          "prompt": "A triangle has sides $9$ cm and $12$ cm and an area of $40\\text{ cm}^{2}$. The angle $\\theta$ between those sides is acute. Find $\\theta$ in degrees, to 1 d.p.",
+          "hint": "Solve $\\frac{1}{2}(9)(12)\\sin\\theta = 40$ for $\\sin\\theta$, then use $\\sin^{-1}$.",
+          "answer": {
+            "value": 47.8,
+            "tolerance": 0.05
+          },
+          "explain": "$54\\sin\\theta = 40$, so $\\theta = \\sin^{-1}\\left(\\frac{40}{54}\\right) \\approx 47.8^{\\circ}$. The obtuse $132.2^{\\circ}$ gives the same area, hence acute.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "asin(Rational(40, 54))*180/pi",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Diagrams and choosing a rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exam questions often chain rules. A labelled sketch makes each choice clear."
+        },
+        {
+          "type": "text",
+          "text": "1. Sketch the triangle, even if a diagram is given. Mark what you know and what you want."
+        },
+        {
+          "type": "text",
+          "text": "2. A right angle? Use $\\sin$, $\\cos$ or $\\tan$, or Pythagoras."
+        },
+        {
+          "type": "text",
+          "text": "3. A side and the angle facing it? Use the [[sine-rule|sine rule]]."
+        },
+        {
+          "type": "text",
+          "text": "4. Two sides and the angle between them, or all three sides? Use the [[cosine-rule|cosine rule]]."
+        },
+        {
+          "type": "text",
+          "text": "5. An area by $\\frac{1}{2}ab\\sin C$ needs two sides and the angle between them. Find a missing one first."
+        },
+        {
+          "type": "examTip",
+          "text": "Store intermediate values in your GDC and round only the final answer."
+        },
+        {
+          "type": "example",
+          "id": "ex-garden-area",
+          "question": "A triangular garden has sides of $14.5$ m, $11.2$ m and $18.3$ m. Find its area.",
+          "steps": [
+            "The area needs an angle; three sides means the cosine rule.",
+            "Take the angle $B$ between the sides $14.5$ and $11.2$, so the side facing it is $18.3$: $\\cos B = \\frac{14.5^{2} + 11.2^{2} - 18.3^{2}}{2(14.5)(11.2)} = 0.00246\\ldots$",
+            "$\\hat{B} = 89.858\\ldots^{\\circ}$: nearly, but not exactly, a right angle. Store it.",
+            "$B$ is between $14.5$ and $11.2$: $\\text{area} = \\frac{1}{2}(14.5)(11.2)\\sin 89.858\\ldots^{\\circ} = 81.199\\ldots\\text{ m}^{2}$."
+          ],
+          "answer": "$\\text{area} \\approx 81.2\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*14.5*11.2*sin(acos((14.5**2 + 11.2**2 - 18.3**2)/(2*14.5*11.2)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Split a four-sided shape along a diagonal. Find the diagonal in one triangle, then use it in the other."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-plot-quadrilateral",
+          "alt": "A four-sided plot ABCD split by the diagonal AC into two triangles. In triangle ABC, AB is 44 metres, BC is 33 metres and the angle at B is a right angle. In triangle ACD, CD is 48 metres and the angle at C between CA and CD is 66 degrees. AD is the unknown side.",
+          "caption": "The diagonal AC belongs to both triangles."
+        },
+        {
+          "type": "example",
+          "id": "ex-plot-fence",
+          "question": "The plot ABCD in the figure has $\\text{AB} = 44$ m, $\\text{BC} = 33$ m, $\\text{A}\\hat{\\text{B}}\\text{C} = 90^{\\circ}$, $\\text{CD} = 48$ m and $\\text{A}\\hat{\\text{C}}\\text{D} = 66^{\\circ}$. (a) Find AD. (b) Fencing comes in $10$ m rolls. How many rolls fence the whole plot?",
+          "steps": [
+            "Triangle ABC has a right angle, so Pythagoras gives the diagonal: $\\text{AC} = \\sqrt{44^{2} + 33^{2}} = 55$ m.",
+            "Triangle ACD now has two sides, $55$ and $48$, and the $66^{\\circ}$ angle between them. Cosine rule: $\\text{AD}^{2} = 55^{2} + 48^{2} - 2(55)(48)\\cos 66^{\\circ}$.",
+            "So $\\text{AD} = 56.404\\ldots$ m, which is $56.4$ m to 3 s.f.",
+            "(b) Perimeter $= 44 + 33 + 48 + 56.404\\ldots = 181.40\\ldots$ m, so $181.40\\ldots \\div 10 = 18.14\\ldots$ rolls. Round up: $19$ rolls.",
+            "A wrong AD used correctly in (b) can still earn follow-through marks."
+          ],
+          "answer": "$\\text{AD} \\approx 56.4\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(55**2 + 48**2 - 2*55*48*cos(66*pi/180))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-choose-rule",
+          "prompt": "You know two sides of a triangle and the angle between them. Which finds the third side?",
+          "hint": "Is any known side paired with the angle facing it?",
+          "options": [
+            {
+              "text": "The cosine rule",
+              "correct": true
+            },
+            {
+              "text": "The sine rule",
+              "correct": false
+            },
+            {
+              "text": "Tangent, as opposite over adjacent",
+              "correct": false
+            }
+          ],
+          "explain": "The sine rule needs a side with its opposite angle, and tangent needs a right angle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The cosine rule"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-choose-area",
+          "prompt": "A triangular nature reserve has a straight $42$ m fence AB along a river. The other two boundaries leave the fence at $\\hat{\\text{A}} = 53^{\\circ}$ and $\\hat{\\text{B}} = 68^{\\circ}$ and meet at a gate G. Find the area of the reserve in $\\text{m}^{2}$, to 3 s.f.",
+          "hint": "The angles add to $180^{\\circ}$, which gives $\\hat{\\text{G}}$. AG faces $\\hat{\\text{B}}$, so the sine rule gives AG. Then you know two sides and the angle between them.",
+          "answer": {
+            "value": 762,
+            "tolerance": 0.5
+          },
+          "explain": "$\\hat{\\text{G}} = 180^{\\circ} - 53^{\\circ} - 68^{\\circ} = 59^{\\circ}$. By the sine rule, $\\text{AG} = \\frac{42\\sin 68^{\\circ}}{\\sin 59^{\\circ}} = 45.430\\ldots$ m. AB and AG meet at the $53^{\\circ}$ angle, so $\\text{area} = \\frac{1}{2}(42)(45.430\\ldots)\\sin 53^{\\circ} = 761.93\\ldots \\approx 762\\text{ m}^{2}$. Keep AG unrounded until the end.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(1, 2)*42*(42*sin(68*pi/180)/sin((180 - 53 - 68)*pi/180))*sin(53*pi/180)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\sin\\theta = \\frac{\\text{O}}{\\text{H}}, \\quad \\cos\\theta = \\frac{\\text{A}}{\\text{H}}, \\quad \\tan\\theta = \\frac{\\text{O}}{\\text{A}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a right-angled triangle, find an acute angle by undoing the ratio with $\\sin^{-1}$, $\\cos^{-1}$ or $\\tan^{-1}$, with the GDC in degree mode.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-sine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "c^{2} = a^{2} + b^{2} - 2ab\\cos C; \\quad \\cos C = \\frac{a^{2} + b^{2} - c^{2}}{2ab}",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-cosine-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}ab\\sin C",
+          "tag": "booklet",
+          "bookletId": "bk-3-2-triangle-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sine rule: you know a side and the angle facing it, plus one more side or angle. Cosine rule: you know two sides and the angle between them, or all three sides. Area $\\frac{1}{2}ab\\sin C$: two sides and the angle between them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a triangle, a negative cosine means an obtuse angle, and $\\sin^{-1}$ never gives an obtuse angle. An angle found with the sine rule is acute when the side facing it is shorter than the side facing the known angle.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the GDC in radian mode when the angles are in degrees. Set degree mode before the first calculation.",
+    "Rounding a length or angle, then using the rounded value in the next rule. Store the full value and round only the final answer, to the accuracy asked.",
+    "Pairing a side with the wrong angle in the sine rule. Each side goes with the angle facing it, so mark those pairs on your sketch.",
+    "Dropping the $2$ in $2ab\\cos C$, or using two sides in $\\frac{1}{2}ab\\sin C$ that don't meet at $C$.",
+    "Leaving off units, or not giving a whole number when the context needs one. Either can cost the final mark."
+  ],
+  "examTips": [
+    "Find and Calculate need working: write the rule with your numbers substituted. That line earns the M mark.",
+    "Give lengths to 3 s.f. and angles to 1 d.p. unless told otherwise, with units. A 2 s.f. answer, such as 6.2 for 6.18, can lose the final A mark.",
+    "Sketch and label every triangle, marking side-angle pairs, to see which rule to use.",
+    "Interpret answers in context: reject a negative length, and round counts up when part of one won't do."
+  ],
+  "readingMinutes": 29
+}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 260" role="img" aria-labelledby="t">
+  <title id="t">A four-sided plot ABCD split by the diagonal AC into two triangles. In triangle ABC, AB is 44 metres, BC is 33 metres and the angle at B is a right angle. In triangle ACD, CD is 48 metres and the angle at C between CA and CD is 66 degrees. AD is the unknown side.</title>
+  <polygon points="68,230 200,230 200,131 74,61" fill="var(--t5-ink)" fill-opacity="0.08" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <line x1="68" y1="230" x2="200" y2="131" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <polyline points="186,230 186,216 200,216" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <g font-size="15" fill="currentColor" font-weight="bold">
+    <text x="52" y="248">A</text>
+    <text x="204" y="248">B</text>
+    <text x="206" y="130">C</text>
+    <text x="62" y="54">D</text>
+  </g>
+  <g font-size="13" fill="currentColor">
+    <text x="118" y="248">44 m</text>
+    <text x="206" y="186">33 m</text>
+    <text x="142" y="84">48 m</text>
+    <text x="50" y="150">?</text>
+  </g>
+  <path d="M 180.8,145.4 A 24,24 0 0 1 179,119.3" fill="none" stroke="var(--t3-ink)" stroke-width="2"/>
+  <text x="146" y="138" font-size="13" fill="var(--t3-ink)">66°</text>
+</svg>

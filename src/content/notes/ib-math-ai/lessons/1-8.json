@@ -1,0 +1,585 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.8",
+  "slug": "solving-equations-with-technology",
+  "title": "Solving equations with technology",
+  "level": "SL",
+  "topic": 1,
+  "summary": "A [[system-of-linear-equations|system of linear equations]] is a set of linear equations in the same unknowns that must all be true at once. A [[polynomial|polynomial]] equation asks for the [[root|roots]] that make it true. Your GDC solves both on every paper: you write down the equations, it does the solving, and you say what the answers mean.",
+  "goals": [
+    {
+      "text": "Turn the facts in a question into a system of linear equations, with each unknown defined.",
+      "bullets": [
+        "1.8-b1"
+      ]
+    },
+    {
+      "text": "Solve systems in $2$ or $3$ unknowns with your GDC, and write down what you entered.",
+      "bullets": [
+        "1.8-b1",
+        "1.8-b3"
+      ]
+    },
+    {
+      "text": "Know that an exam system always has exactly one solution, and that any correct method earns the marks.",
+      "bullets": [
+        "1.8-b3"
+      ]
+    },
+    {
+      "text": "Use the words polynomial, [[root|root]] and [[zero-of-a-function|zero]] correctly, and link zeros to where a graph meets the $x$-axis.",
+      "bullets": [
+        "1.8-b2"
+      ]
+    },
+    {
+      "text": "Solve polynomial equations with your GDC, and keep only the roots that fit the context.",
+      "bullets": [
+        "1.8-b2"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "simultaneous equations calculator",
+    "solve 3 equations 3 unknowns",
+    "polynomial root finder",
+    "roots and zeros",
+    "PlySmlt2 app",
+    "EQUA mode Casio"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-satisfy-both",
+      "prompt": "Does $x = 3$, $y = -1$ satisfy $2x + 5y = 1$ and $x + y = 4$?",
+      "hint": "Substitute both values into each equation and compare the two sides.",
+      "options": [
+        {
+          "text": "only the first equation",
+          "correct": true
+        },
+        {
+          "text": "both equations",
+          "correct": false
+        },
+        {
+          "text": "only the second equation",
+          "correct": false
+        },
+        {
+          "text": "neither equation",
+          "correct": false
+        }
+      ],
+      "explain": "$2(3) + 5(-1) = 1$, so the first is true. $3 + (-1) = 2$, not $4$, so the second is false. A solution of a system has to make every equation true.",
+      "verify": {
+        "kind": "choice",
+        "truth": "only the first equation"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rearrange-quadratic",
+      "prompt": "Solve $x^{2} + 4x = 21$.",
+      "hint": "Move $21$ to the left so one side is $0$, then factorise.",
+      "options": [
+        {
+          "text": "$x = 3 \\text{ or } x = -7$",
+          "correct": true
+        },
+        {
+          "text": "$x = -3 \\text{ or } x = 7$",
+          "correct": false
+        },
+        {
+          "text": "$x = 3$",
+          "correct": false
+        }
+      ],
+      "explain": "$x^{2} + 4x - 21 = 0$ factorises to $(x + 7)(x - 3) = 0$, so $x = -7$ or $x = 3$. A quadratic can have two roots: don't stop at the first.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve(Eq(x**2 + 4*x, 21), x)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "linear-systems",
+      "heading": "Systems of linear equations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A climbing gym charges a one-off joining fee, $f$ euros, plus a monthly fee, $m$ euros. Ana paid $141$ euros for her first $3$ months, so $f + 3m = 141$."
+        },
+        {
+          "type": "text",
+          "text": "That one equation has endless solutions: $f = 141$ and $m = 0$, or $f = 81$ and $m = 20$, and so on. Ben paid $266$ euros for his first $8$ months, so $f + 8m = 266$. Only one pair fits both."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-gym-lines",
+          "alt": "Graph with the monthly fee m from 0 to 30 euros across and the joining fee f from 0 to 300 euros up. The line f + 3m = 141 falls gently from 141. The line f + 8m = 266 falls steeply from 266. They cross at the point (25, 66).",
+          "caption": "Each equation is a straight line. The one pair that fits both is where the lines cross: $m = 25$, $f = 66$."
+        },
+        {
+          "type": "definition",
+          "term": "system of linear equations",
+          "statement": "A system of linear equations is a set of two or more equations in the same unknowns, each of the form $ax + by = c$ or $ax + by + cz = d$, where $a$, $b$, $c$ and $d$ are constants. A solution is a set of values of the unknowns that makes every equation true at once.",
+          "plain": "Several facts about the same unknowns, which must all be true together."
+        },
+        {
+          "type": "result",
+          "statement": "In IB AI exams, every system of linear equations you are asked to solve has exactly one solution: one value for each unknown. No particular method is required, so any correct method earns the marks.",
+          "why": "Two lines can be parallel (no solution) or the same line (endless solutions), but exam systems are set so that this never happens. If your GDC reports no unique solution, check what you typed."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a letter for each unknown and say what it stands for, with units."
+        },
+        {
+          "type": "text",
+          "text": "2. Write one equation for each fact in the question."
+        },
+        {
+          "type": "text",
+          "text": "3. Write the system down, then solve it with your GDC's simultaneous equation solver."
+        },
+        {
+          "type": "text",
+          "text": "4. Check the values in the original facts, and answer in the words of the question."
+        },
+        {
+          "type": "example",
+          "id": "ex-gym-fees",
+          "question": "A climbing gym charges a joining fee of $f$ euros plus $m$ euros a month. Ana paid $141$ euros in total for her first $3$ months, and Ben paid $266$ euros for his first $8$ months. Find $f$ and $m$.",
+          "steps": [
+            "Write the system: $f + 3m = 141$ and $f + 8m = 266$.",
+            "By hand: subtract the first equation from the second. The $f$ terms cancel, leaving $5m = 125$, so $m = 25$.",
+            "Substitute back: $f + 3(25) = 141$, so $f = 66$.",
+            "On the GDC, $x$ stands for $f$ and $y$ for $m$. Enter the rows $1, 3, 141$ and $1, 8, 266$. The solver gives the same values.",
+            "Check with Ben: $66 + 8 \\times 25 = 266$. So the joining fee is $66$ euros and the monthly fee is $25$ euros."
+          ],
+          "answer": "$f = 66, \\; m = 25$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([f + 3*m - 141, f + 8*m - 266], [f, m])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-2",
+          "values": {
+            "a1": 1,
+            "b1": 3,
+            "c1": 141,
+            "a2": 1,
+            "b2": 8,
+            "c2": 266
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-acid-mix",
+          "question": "A lab technician needs $450$ ml of an $18\\%$ acid solution. She has a $12\\%$ acid solution and a $30\\%$ acid solution. How much of each should she mix?",
+          "steps": [
+            "Let $x$ ml be the amount of $12\\%$ solution and $y$ ml the amount of $30\\%$ solution.",
+            "Total volume: $x + y = 450$.",
+            "Pure acid: $12\\%$ of $x$ plus $30\\%$ of $y$ must equal $18\\%$ of $450$, which is $81$ ml. So $0.12x + 0.3y = 81$.",
+            "Enter the rows $1, 1, 450$ and $0.12, 0.3, 81$ in the solver. It gives $x = 300$ and $y = 150$.",
+            "Interpret: mix $300$ ml of the $12\\%$ solution with $150$ ml of the $30\\%$ solution. Both amounts are positive and add up to $450$ ml, so the answer makes sense."
+          ],
+          "answer": "$x = 300, \\; y = 150$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([x + y - 450, Rational(12, 100)*x + Rational(30, 100)*y - Rational(18, 100)*450], [x, y])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $12x + 30y = 18$. Each percentage is a share of its own amount, so write $0.12x + 0.3y = 0.18 \\times 450$."
+        },
+        {
+          "type": "examTip",
+          "text": "Examiners can't see your screen. Write down the system you entered, then the values: the system earns the method marks even if a typing slip spoils the answer."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you also write a system as a matrix equation $A\\boldsymbol{x} = \\boldsymbol{b}$ and solve it with an inverse matrix.",
+          "lesson": "1.14"
+        },
+        {
+          "type": "check",
+          "id": "check-solve-pair",
+          "prompt": "Solve the system $3x + 2y = 19$ and $5x - 4y = 6$. What is the value of $y$?",
+          "hint": "Enter each equation as a row: the coefficient of $x$, the coefficient of $y$, then the right-hand side. Keep the minus sign on $-4$.",
+          "answer": {
+            "value": 3.5,
+            "tolerance": 0
+          },
+          "explain": "The solver gives $x = 4$ and $y = 3.5$. Check: $3(4) + 2(3.5) = 19$ and $5(4) - 4(3.5) = 6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(3*6 - 5*19)/(3*(-4) - 5*2)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-taxi-fare",
+          "prompt": "A taxi fare is a fixed charge plus a rate per kilometre. A $6$ km ride costs $13.40$ dollars and a $15$ km ride costs $27.80$ dollars. What is the fixed charge, in dollars?",
+          "hint": "Let $c$ be the fixed charge and $r$ the rate per km. Write one equation for each ride.",
+          "options": [
+            {
+              "text": "$3.80$",
+              "correct": true
+            },
+            {
+              "text": "$1.60$",
+              "correct": false
+            },
+            {
+              "text": "$2.23$",
+              "correct": false
+            }
+          ],
+          "explain": "$c + 6r = 13.40$ and $c + 15r = 27.80$ give $r = 1.6$ and $c = 3.8$. The fixed charge, $3.80$ dollars, is what you pay before any distance. $1.60$ is the rate per km, and $13.40 \\div 6$ ignores the fixed charge.",
+          "verify": {
+            "kind": "money",
+            "truth": "13.40 - 6*(27.80 - 13.40)/(15 - 6)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "three-unknowns",
+      "heading": "Three unknowns",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With three unknowns you need three equations, and there is no flat picture to read. The method is the same, and the GDC does the solving."
+        },
+        {
+          "type": "text",
+          "text": "Before typing, line each equation up as $ax + by + cz = d$: the unknowns in the same order, the constant on the right. Put $0$ for a missing unknown."
+        },
+        {
+          "type": "example",
+          "id": "ex-exercise-rates",
+          "question": "Kai logs his exercise for three weeks. Week 1: $2$ hours climbing, $3$ hours swimming and $1$ hour running, burning $2820$ kcal. Week 2: $1$, $2$ and $3$ hours, burning $3120$ kcal. Week 3: $3$, $1$ and $2$ hours, burning $3060$ kcal. Each activity burns a fixed number of kcal per hour. Find the three rates, and say which activity burns energy fastest.",
+          "steps": [
+            "Let $c$, $s$ and $r$ be the kcal burned per hour climbing, swimming and running.",
+            "One equation per week: $2c + 3s + r = 2820$, $c + 2s + 3r = 3120$ and $3c + s + 2r = 3060$.",
+            "On the GDC, $x$, $y$ and $z$ stand for $c$, $s$ and $r$. Enter the rows $2, 3, 1, 2820$; $1, 2, 3, 3120$; $3, 1, 2, 3060$.",
+            "The solver gives $c = 480$, $s = 420$ and $r = 600$. Check week 1: $2(480) + 3(420) + 600 = 2820$.",
+            "Running burns energy fastest, at $600$ kcal per hour. This relies on each rate staying the same from week to week."
+          ],
+          "answer": "$c = 480, \\; s = 420, \\; r = 600$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([2*c + 3*s + r - 2820, c + 2*s + 3*r - 3120, 3*c + s + 2*r - 3060], [c, s, r])"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-3",
+          "values": {
+            "a1": 2,
+            "b1": 3,
+            "c1": 1,
+            "d1": 2820,
+            "a2": 1,
+            "b2": 2,
+            "c2": 3,
+            "d2": 3120,
+            "a3": 3,
+            "b3": 1,
+            "c3": 2,
+            "d3": 3060
+          }
+        },
+        {
+          "type": "text",
+          "text": "A curve through known points also gives a system. If $y = ax^{2} + bx + c$ passes through a point, substituting its coordinates gives one linear equation in $a$, $b$ and $c$. Three points give three equations. You model with quadratics in {{lesson:2.5}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-bridge-arch",
+          "question": "The underside of a footbridge arch is modelled by $h = ax^{2} + bx + c$, where $h$ m is the height above the river and $x$ m is the horizontal distance from the left bank. The arch is $7.2$ m high at $x = 2$, and $12$ m high at both $x = 5$ and $x = 10$. (a) Write down three equations in $a$, $b$ and $c$. (b) Find $a$, $b$ and $c$. (c) Interpret $c$.",
+          "steps": [
+            "(a) Substitute each point into the model: $4a + 2b + c = 7.2$, $25a + 5b + c = 12$ and $100a + 10b + c = 12$.",
+            "(b) Enter the rows $4, 2, 1, 7.2$; $25, 5, 1, 12$; $100, 10, 1, 12$. The solver gives $a = -0.2$, $b = 3$ and $c = 2$.",
+            "Check the first point: $-0.2(4) + 3(2) + 2 = 7.2$. Also $a < 0$, so the curve opens downwards, as an arch should.",
+            "(c) At $x = 0$ the model gives $h = c$. So at the left bank the arch is $2$ m above the river."
+          ],
+          "answer": "$a = -0.2, \\; b = 3, \\; c = 2$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([4*a + 2*b + c - Rational(72, 10), 25*a + 5*b + c - 12, 100*a + 10*b + c - 12], [a, b, c])"
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Write down the equations\" asks for the substituted equations. Quadratic regression on your GDC also gives $a$, $b$ and $c$, but it earns none of those marks."
+        },
+        {
+          "type": "check",
+          "id": "check-row-entry",
+          "prompt": "Your solver shows the row $3, 0, 5, 12$: the coefficients of $x$, $y$ and $z$, then the constant. Which equation does it stand for?",
+          "hint": "Read the entries in the order $x$, $y$, $z$, then the right-hand side. What does a $0$ tell you?",
+          "options": [
+            {
+              "text": "$3x + 5z = 12$",
+              "correct": true
+            },
+            {
+              "text": "$3x + 5y = 12$",
+              "correct": false
+            },
+            {
+              "text": "$5x + 3z = 12$",
+              "correct": false
+            }
+          ],
+          "explain": "The row means $3x + 0y + 5z = 12$, that is $3x + 5z = 12$. The $0$ holds the place of $y$: without it, the $5$ would slide into the $y$ place. So when you enter $5z + 3x = 12$, reorder it and type $3, 0, 5, 12$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(3*x + 0*y + 5*z, 12)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pump-rates",
+          "prompt": "Pumps A, B and C each pump water at a steady rate. In one hour, A and B together pump $2700$ litres, and B and C together pump $3300$ litres. All three together pump $3000$ litres in $40$ minutes. Find the rate of pump C, in litres per hour.",
+          "hint": "Use $a$, $b$ and $c$ litres per hour. $40$ minutes is $\\frac{2}{3}$ of an hour, and a pump that isn't running has coefficient $0$.",
+          "answer": {
+            "value": 1800,
+            "tolerance": 0
+          },
+          "explain": "$a + b = 2700$, $b + c = 3300$ and $\\frac{2}{3}(a + b + c) = 3000$. The solver gives $a = 1200$, $b = 1500$ and $c = 1800$, so pump C pumps $1800$ litres per hour, the fastest of the three.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3000*60/40 - 2700",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "polynomials",
+      "heading": "Polynomial equations: roots and zeros",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Many AI models are polynomials. If $h(t) = -4.9t^{2} + 20t + 1.5$ gives a ball's height after $t$ seconds, then asking when it lands means solving $h(t) = 0$."
+        },
+        {
+          "type": "definition",
+          "term": "polynomial",
+          "statement": "A polynomial in $x$ is a sum of terms $ax^{n}$, where each coefficient $a$ is a constant and each power $n$ is a whole number $0, 1, 2, \\ldots$ The highest power with a non-zero coefficient is the degree.",
+          "plain": "Powers of x, each multiplied by a number, added together."
+        },
+        {
+          "type": "text",
+          "text": "$4x^{3} - x + 7$ is a polynomial of degree $3$, a cubic. $\\frac{1}{x} = x^{-1}$ is not: its power is negative. Nor is $\\sqrt{x} = x^{1/2}$, or $2^{x}$, where the variable is the power."
+        },
+        {
+          "type": "definition",
+          "term": "zero of a function",
+          "statement": "A zero of a function $f$ is a value $a$ with $f(a) = 0$. It is the $x$-coordinate of a point where the graph of $y = f(x)$ meets the $x$-axis.",
+          "plain": "An input that makes the output 0."
+        },
+        {
+          "type": "text",
+          "text": "A [[root|root]] of an equation is a value that makes the equation true. So the roots of $f(x) = 0$ are the zeros of $f$: two words for the same numbers."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-cubic-zeros",
+          "alt": "Graph of y = 2x cubed plus 3x squared minus 11x minus 6, for x from minus 3.5 to 2.5. The curve rises and crosses the x-axis at x = minus 3, peaks near y = 12, crosses again at x = minus 0.5, dips to about minus 12, then crosses a third time at x = 2. The y-intercept (0, minus 6) is marked and labelled as not a zero.",
+          "caption": "The zeros of $f(x) = 2x^{3} + 3x^{2} - 11x - 6$ are where the graph meets the $x$-axis. The $y$-intercept, $f(0) = -6$, is not a zero."
+        },
+        {
+          "type": "result",
+          "statement": "To solve a polynomial equation with your GDC, first rearrange it so that one side is $0$: $p(x) = 0$. Its roots are the zeros of $p$. A polynomial equation of degree $n \\ge 1$ has at most $n$ real roots.",
+          "why": "The root finder only takes the coefficients of $p(x) = 0$, from the highest power down. Each real root $r$ gives a factor $(x - r)$ of $p(x)$, and a degree-$n$ polynomial can't have more than $n$ such factors."
+        },
+        {
+          "type": "example",
+          "id": "ex-cubic-roots",
+          "question": "Solve $2x^{3} + 3x^{2} = 11x + 6$.",
+          "steps": [
+            "Rearrange so one side is $0$: $2x^{3} + 3x^{2} - 11x - 6 = 0$.",
+            "Root finder: degree $3$, coefficients $2, 3, -11, -6$ from the highest power down.",
+            "It gives $x = -3$, $x = -0.5$ and $x = 2$: three roots, the most a cubic can have.",
+            "Check $x = 2$ in the original equation: $2(8) + 3(4) = 28$ and $11(2) + 6 = 28$."
+          ],
+          "answer": "$x = -3 \\text{ or } x = -0.5 \\text{ or } x = 2$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(2*x**3 + 3*x**2, 11*x + 6), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 3,
+            "coefficients": "2, 3, -11, -6"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If your root finder doesn't take the degree you need, graph $y = p(x)$ and use the zero tool to find each place where it meets the $x$-axis."
+        },
+        {
+          "type": "mistake",
+          "text": "Typing coefficients before rearranging. $2x^{3} + 3x^{2} = 11x + 6$ is not $2, 3, 11, 6$: move every term to one side first, signs and all."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-lands",
+          "question": "A drone's height, $h$ m, $t$ seconds after it takes off from the ground is modelled by $h(t) = -0.4t^{3} + 3t^{2} + 1.5t$. Find when the drone lands. Give your answer to 3 s.f.",
+          "steps": [
+            "It lands when its height is $0$, so solve $-0.4t^{3} + 3t^{2} + 1.5t = 0$.",
+            "Root finder: degree $3$, coefficients $-0.4, 3, 1.5, 0$. Don't drop the constant term $0$.",
+            "It gives $t = -0.4704\\ldots$, $t = 0$ and $t = 7.9704\\ldots$",
+            "Reject $t = -0.4704\\ldots$: time after take-off can't be negative. Reject $t = 0$: that is the take-off, not the landing.",
+            "So the drone lands after $7.97$ seconds. Give only this root: listing all three as the answer loses the mark."
+          ],
+          "answer": "$t \\approx 7.97\\text{ s}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3 + sqrt(3**2 + 4*0.4*1.5))/(2*0.4)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, a quadratic with real coefficients and no real roots has two complex roots, and you find those too.",
+          "lesson": "1.12"
+        },
+        {
+          "type": "check",
+          "id": "check-zeros-factorised",
+          "prompt": "Which are the zeros of $f(x) = (x - 4)(x + 1)(2x - 3)$?",
+          "hint": "A product is $0$ when one of its brackets is $0$.",
+          "options": [
+            {
+              "text": "$x = -1 \\text{ or } x = 1.5 \\text{ or } x = 4$",
+              "correct": true
+            },
+            {
+              "text": "$x = -4 \\text{ or } x = 1 \\text{ or } x = -1.5$",
+              "correct": false
+            },
+            {
+              "text": "$x = -1 \\text{ or } x = 3 \\text{ or } x = 4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 12$",
+              "correct": false
+            }
+          ],
+          "explain": "$x - 4 = 0$ gives $4$, $x + 1 = 0$ gives $-1$ and $2x - 3 = 0$ gives $1.5$. Each sign flips when you solve its bracket. $2x - 3 = 0$ means $x = 1.5$, not $3$, and $12 = f(0)$ is the $y$-intercept.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve((x - 4)*(x + 1)*(2*x - 3), x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-planter-width",
+          "prompt": "A planter box is $x$ dm wide, $(x + 5)$ dm long and $(x + 2)$ dm high. It holds $200$ litres, and $1$ litre is $1\\text{ dm}^{3}$. Find its width, to 3 s.f.",
+          "hint": "Write the volume as an equation, expand it, and rearrange to $= 0$ before using the root finder.",
+          "answer": {
+            "value": 3.86,
+            "tolerance": 0.005
+          },
+          "explain": "$x(x + 5)(x + 2) = 200$ expands to $x^{3} + 7x^{2} + 10x - 200 = 0$. The root finder gives one real root, $x = 3.8562\\ldots$, so the box is $3.86$ dm wide.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "real_roots(Poly(x*(x + 5)*(x + 2) - 200, x))[0]",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To solve a system: name each unknown with its units, write one equation per fact, write the system down, then use the GDC's simultaneous equation solver."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Line each equation up as $ax + by = c$ (or $ax + by + cz = d$ with three unknowns) before entering it, with $0$ for a missing unknown."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In IB AI exams, a system of linear equations (up to $3$ unknowns) always has exactly one solution, and any correct method earns the marks."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For a curve $y = ax^{2} + bx + c$ through three given points, substitute each point to get three linear equations in $a$, $b$ and $c$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The roots of $p(x) = 0$ are the zeros of $p$: the $x$-coordinates where $y = p(x)$ meets the $x$-axis. The $y$-intercept $p(0)$ is not a zero unless $p(0) = 0$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rearrange a polynomial equation to $p(x) = 0$ before using the root finder. A polynomial equation of degree $n \\ge 1$ has at most $n$ real roots."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In context, keep only the roots that fit the model, and say why you reject the others."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving every root the GDC finds when the context allows only one. If a time can't be negative, reject the others and say why; listing them all loses the answer mark.",
+    "Writing only the GDC's answer. A wrong answer with no working earns nothing, so write the system or the equation you entered first.",
+    "Using quadratic regression when the question says write down the equations. Substitute each point into the model instead.",
+    "Entering a row in the wrong order, or leaving out the $0$ for a missing unknown. Line every equation up as $ax + by + cz = d$ first.",
+    "Calling the $y$-intercept a zero. A zero is where $y = 0$; the $y$-intercept, where $x = 0$, is a zero only when the graph passes through the origin.",
+    "Accepting a non-whole answer for something you count, such as people or boxes. If the solver gives $37.4$ boxes, recheck your equations."
+  ],
+  "examTips": [
+    "\"Solve\" or \"find\" with the GDC: write down the system, or the equation $p(x) = 0$, that you entered, then the values. The written set-up earns the method marks.",
+    "\"Write down the equations\": substitute the given values into the model and show each equation. A regression on your GDC does not earn these marks.",
+    "\"Hence find\": solve the equations you have just written. If they were wrong but you solve them correctly, you can still earn follow-through marks.",
+    "\"Interpret\": say what the value means in the words of the question, with units, such as \"the arch is $2$ m above the river at the left bank\". Give exact values or 3 s.f."
+  ],
+  "readingMinutes": 23
+}

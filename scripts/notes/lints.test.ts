@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { duplicateCheatSheetErrors, glossaryFirstUseErrors, glossaryOwnershipErrors, numberSetErrors, questionNumbers, readingMinutes, tokens } from "./lints.mjs";
+import { duplicateCheatSheetErrors, fixGlossaryFirstUse, glossaryFirstUseErrors, glossaryOwnershipErrors, isRoundNumber, numberSetErrors, questionNumbers, readingMinutes, tokens } from "./lints.mjs";
 
 type AnyLesson = Record<string, unknown> & { sections: { id: string; heading: string; blocks: Record<string, unknown>[]; level?: string }[] };
 
@@ -51,6 +51,30 @@ describe("glossary first use", () => {
 
   it("ignores terms the lesson neither owns nor uses, and maths", () => {
     expect(glossaryFirstUseErrors(lesson([{ type: "text", text: "A vector, and $\\text{factor}$." }]), plan)).toEqual([]);
+  });
+});
+
+describe("glossary first-use fix", () => {
+  it("wraps each plain first use in place, keeping the words, and then the lint passes", () => {
+    const plain = lesson(
+      [{ type: "text", text: "Factors of $12$ cost \\$5. A factor divides; the highest common factor is shared." }, { type: "example", id: "e", question: "Is $0.3$ a recurring decimal?", steps: ["No."], answer: "No", video: null }],
+      { goals: [{ text: "Find a prime number.", bullets: [] }] },
+    );
+    const fixed = fixGlossaryFirstUse(plain, plan);
+    expect(fixed).toHaveLength(4);
+    expect(plain.goals).toEqual([{ text: "Find a [[prime-number|prime number]].", bullets: [] }]);
+    expect(plain.sections[0].blocks[0].text).toBe("[[factor|Factors]] of $12$ cost \\$5. A factor divides; the [[highest-common-factor|highest common factor]] is shared.");
+    expect(plain.sections[0].blocks[1].question).toBe("Is $0.3$ a [[recurring-decimal|recurring decimal]]?");
+    expect(glossaryFirstUseErrors(plain, plan)).toEqual([]);
+    expect(fixGlossaryFirstUse(plain, plan)).toEqual([]);
+  });
+
+  it("leaves maths, definitions and a use inside another term's label alone", () => {
+    const tricky = lesson([{ type: "definition", term: "Prime number", statement: "Exactly two factors.", plain: "p" }, { type: "text", text: "$\\text{factor}$ and [[vector|a factor vector]]." }]);
+    const before = JSON.stringify(tricky);
+    expect(fixGlossaryFirstUse(tricky, plan)).toEqual([expect.stringContaining('"factor" at sections[0].blocks[0].statement')]);
+    expect(JSON.stringify(tricky)).not.toBe(before);
+    expect((tricky.sections[0].blocks[0] as { term: string }).term).toBe("Prime number");
   });
 });
 
@@ -110,5 +134,18 @@ describe("number sets", () => {
     expect(numberSetErrors(ex("Find the HCF of $18$ and $30$."), pack)).toEqual([]);
     expect(numberSetErrors(ex("Use $48$, $15$ and $60$."), pack)).toEqual([]); // 48 is in (a), 15 and 60 in (c), no stem
     expect(numberSetErrors(ex("A triangle has sides $3$, $4$ and $5$ cm."), pack)).toEqual([]);
+  });
+
+  it("needs 2 shared numbers that are not round: round-only overlaps pass, a copied data set fails", () => {
+    const data = { questions: [{ id: "q-data", text: "The times were 41, 48, 54, 22, 20 and 3 minutes, and 0.1 0.2 0.3 of them were late." }] };
+    expect(numberSetErrors(ex("Use $20$, $3$ and $0.1$."), data)).toEqual([]);
+    expect(numberSetErrors(ex("Probabilities $0.1$, $0.2$ and $0.3$."), data)).toEqual([]);
+    expect(numberSetErrors(ex("Use $41$, $20$ and $3$."), data)).toEqual([]); // only 41 is distinctive
+    expect(numberSetErrors(ex("Times $41$, $48$ and $20$ minutes."), data)).toEqual([expect.stringContaining("shares the numbers 41, 48, 20 with pack question q-data")]);
+  });
+
+  it("knows which numbers are round", () => {
+    for (const value of ["3", "12", "20", "45", "150", "0.1", "0.05", "1.5", "2.5", "0.25"]) expect(isRoundNumber(value), value).toBe(true);
+    for (const value of ["13", "24", "36", "7.4", "0.15", "0.35", "12.5", "9.81", "237"]) expect(isRoundNumber(value), value).toBe(false);
   });
 });

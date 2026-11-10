@@ -1,0 +1,344 @@
+{
+  "course": "ib-math-ai",
+  "banks": {
+    "SL": {
+      "slug": "ib-ai-sl",
+      "freeTier": true
+    },
+    "HL": {
+      "slug": "ib-ai-hl",
+      "freeTier": true
+    }
+  },
+  "subtopics": {
+    "Rounding, estimation and percentage error": {
+      "SL": 21,
+      "HL": 12
+    },
+    "Sequences and series": {
+      "SL": 26,
+      "HL": 25
+    },
+    "Financial mathematics": {
+      "SL": 25,
+      "HL": 19
+    },
+    "Exponents and logarithms": {
+      "SL": 10,
+      "HL": 11
+    },
+    "Solving equations with a GDC": {
+      "SL": 9,
+      "HL": 8
+    },
+    "Laws of logarithms": {
+      "SL": 0,
+      "HL": 4
+    },
+    "Sum to infinity": {
+      "SL": 0,
+      "HL": 10
+    },
+    "Complex numbers": {
+      "SL": 0,
+      "HL": 19
+    },
+    "Matrices and determinants": {
+      "SL": 0,
+      "HL": 10
+    },
+    "Eigenvalues and eigenvectors": {
+      "SL": 0,
+      "HL": 26
+    },
+    "Linear functions and graphs": {
+      "SL": 10,
+      "HL": 6
+    },
+    "Properties of functions and graphs": {
+      "SL": 33,
+      "HL": 18
+    },
+    "Modelling with quadratic and cubic functions": {
+      "SL": 16,
+      "HL": 21
+    },
+    "Modelling with exponential functions": {
+      "SL": 13,
+      "HL": 15
+    },
+    "Composite and inverse functions": {
+      "SL": 0,
+      "HL": 12
+    },
+    "Transformations of graphs": {
+      "SL": 0,
+      "HL": 11
+    },
+    "Logistic models": {
+      "SL": 0,
+      "HL": 7
+    },
+    "Non-linear regression and linearizing": {
+      "SL": 0,
+      "HL": 15
+    },
+    "Volume and surface area of 3D shapes": {
+      "SL": 27,
+      "HL": 16
+    },
+    "Non right-angled trigonometry": {
+      "SL": 26,
+      "HL": 19
+    },
+    "Right-angled trigonometry": {
+      "SL": 25,
+      "HL": 19
+    },
+    "Arcs and sectors": {
+      "SL": 16,
+      "HL": 11
+    },
+    "Coordinate geometry": {
+      "SL": 27,
+      "HL": 18
+    },
+    "Voronoi diagrams": {
+      "SL": 16,
+      "HL": 12
+    },
+    "Radian measure": {
+      "SL": 0,
+      "HL": 3
+    },
+    "Further trigonometry and identities": {
+      "SL": 0,
+      "HL": 3
+    },
+    "Matrix transformations": {
+      "SL": 0,
+      "HL": 14
+    },
+    "Vectors": {
+      "SL": 0,
+      "HL": 28
+    },
+    "Vector equations of lines": {
+      "SL": 0,
+      "HL": 13
+    },
+    "Kinematics with vectors": {
+      "SL": 0,
+      "HL": 19
+    },
+    "Graph theory": {
+      "SL": 0,
+      "HL": 16
+    },
+    "Adjacency matrices and walks": {
+      "SL": 0,
+      "HL": 13
+    },
+    "Minimum spanning trees": {
+      "SL": 0,
+      "HL": 13
+    },
+    "Sampling and data collection": {
+      "SL": 6,
+      "HL": 10
+    },
+    "Statistical measures and frequency tables": {
+      "SL": 30,
+      "HL": 16
+    },
+    "Correlation and regression": {
+      "SL": 20,
+      "HL": 23
+    },
+    "Probability and types of events": {
+      "SL": 27,
+      "HL": 24
+    },
+    "Conditional probability": {
+      "SL": 18,
+      "HL": 14
+    },
+    "Discrete probability distributions": {
+      "SL": 13,
+      "HL": 10
+    },
+    "Binomial distribution": {
+      "SL": 21,
+      "HL": 26
+    },
+    "Normal distribution": {
+      "SL": 20,
+      "HL": 26
+    },
+    "Chi-squared tests": {
+      "SL": 20,
+      "HL": 22
+    },
+    "Linear combinations of random variables": {
+      "SL": 0,
+      "HL": 13
+    },
+    "Unbiased estimates and sample mean distribution": {
+      "SL": 0,
+      "HL": 12
+    },
+    "Confidence intervals for the mean": {
+      "SL": 0,
+      "HL": 4
+    },
+    "Poisson distribution": {
+      "SL": 0,
+      "HL": 19
+    },
+    "Further hypothesis testing": {
+      "SL": 0,
+      "HL": 35
+    },
+    "Transition matrices and Markov chains": {
+      "SL": 0,
+      "HL": 18
+    },
+    "Introduction to differentiation": {
+      "SL": 17,
+      "HL": 5
+    },
+    "Applications of differentiation": {
+      "SL": 36,
+      "HL": 39
+    },
+    "Introduction to integration": {
+      "SL": 13,
+      "HL": 5
+    },
+    "Modelling with differentiation": {
+      "SL": 14,
+      "HL": 6
+    },
+    "Trapezoidal rule": {
+      "SL": 15,
+      "HL": 10
+    },
+    "Techniques of differentiation": {
+      "SL": 0,
+      "HL": 16
+    },
+    "Second order derivatives and concavity": {
+      "SL": 0,
+      "HL": 4
+    },
+    "Techniques of integration": {
+      "SL": 0,
+      "HL": 7
+    },
+    "Volumes of revolution": {
+      "SL": 0,
+      "HL": 18
+    },
+    "Kinematics": {
+      "SL": 0,
+      "HL": 15
+    },
+    "Differential equations": {
+      "SL": 0,
+      "HL": 32
+    },
+    "Euler's method for differential equations": {
+      "SL": 0,
+      "HL": 19
+    },
+    "Coupled differential equations": {
+      "SL": 0,
+      "HL": 20
+    }
+  },
+  "topics": {
+    "1": {
+      "SL": 82,
+      "HL": 119
+    },
+    "2": {
+      "SL": 55,
+      "HL": 78
+    },
+    "3": {
+      "SL": 90,
+      "HL": 136
+    },
+    "4": {
+      "SL": 114,
+      "HL": 145
+    },
+    "5": {
+      "SL": 60,
+      "HL": 130
+    }
+  },
+  "parents": {
+    "Rounding, estimation and percentage error": "Number and algebra",
+    "Sequences and series": "Number and algebra",
+    "Financial mathematics": "Number and algebra",
+    "Exponents and logarithms": "Number and algebra",
+    "Solving equations with a GDC": "Number and algebra",
+    "Laws of logarithms": "Functions",
+    "Sum to infinity": "Number and algebra",
+    "Complex numbers": "Number and algebra",
+    "Matrices and determinants": "Geometry and trigonometry",
+    "Eigenvalues and eigenvectors": "Calculus",
+    "Linear functions and graphs": "Functions",
+    "Properties of functions and graphs": "Functions",
+    "Modelling with quadratic and cubic functions": "Functions",
+    "Modelling with exponential functions": "Functions",
+    "Composite and inverse functions": "Functions",
+    "Transformations of graphs": "Functions",
+    "Logistic models": "Functions",
+    "Non-linear regression and linearizing": "Statistics and probability",
+    "Volume and surface area of 3D shapes": "Geometry and trigonometry",
+    "Non right-angled trigonometry": "Geometry and trigonometry",
+    "Right-angled trigonometry": "Geometry and trigonometry",
+    "Arcs and sectors": "Geometry and trigonometry",
+    "Coordinate geometry": "Geometry and trigonometry",
+    "Voronoi diagrams": "Geometry and trigonometry",
+    "Radian measure": "Geometry and trigonometry",
+    "Further trigonometry and identities": "Geometry and trigonometry",
+    "Matrix transformations": "Geometry and trigonometry",
+    "Vectors": "Geometry and trigonometry",
+    "Vector equations of lines": "Geometry and trigonometry",
+    "Kinematics with vectors": "Geometry and trigonometry",
+    "Graph theory": "Geometry and trigonometry",
+    "Adjacency matrices and walks": "Geometry and trigonometry",
+    "Minimum spanning trees": "Geometry and trigonometry",
+    "Sampling and data collection": "Statistics and probability",
+    "Statistical measures and frequency tables": "Statistics and probability",
+    "Correlation and regression": "Statistics and probability",
+    "Probability and types of events": "Statistics and probability",
+    "Conditional probability": "Statistics and probability",
+    "Discrete probability distributions": "Statistics and probability",
+    "Binomial distribution": "Statistics and probability",
+    "Normal distribution": "Statistics and probability",
+    "Chi-squared tests": "Statistics and probability",
+    "Linear combinations of random variables": "Statistics and probability",
+    "Unbiased estimates and sample mean distribution": "Statistics and probability",
+    "Confidence intervals for the mean": "Statistics and probability",
+    "Poisson distribution": "Statistics and probability",
+    "Further hypothesis testing": "Statistics and probability",
+    "Transition matrices and Markov chains": "Statistics and probability",
+    "Introduction to differentiation": "Calculus",
+    "Applications of differentiation": "Calculus",
+    "Introduction to integration": "Calculus",
+    "Modelling with differentiation": "Calculus",
+    "Trapezoidal rule": "Calculus",
+    "Techniques of differentiation": "Calculus",
+    "Second order derivatives and concavity": "Calculus",
+    "Techniques of integration": "Calculus",
+    "Volumes of revolution": "Calculus",
+    "Kinematics": "Calculus",
+    "Differential equations": "Calculus",
+    "Euler's method for differential equations": "Calculus",
+    "Coupled differential equations": "Calculus"
+  }
+}

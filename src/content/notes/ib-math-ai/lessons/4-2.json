@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.2",
+  "slug": "data-presentation",
+  "title": "Data presentation",
+  "level": "SL",
+  "topic": 4,
+  "summary": "A long list of numbers says little until you organise it. You sort data into frequency tables, draw [[histogram|histograms]], read the [[median|median]], [[quartile|quartiles]] and [[percentile|percentiles]] off a [[cumulative-frequency|cumulative frequency]] graph, and use [[box-and-whisker-diagram|box and whisker diagrams]] to compare two data sets and judge whether data may be normal.",
+  "goals": [
+    {
+      "text": "Present [[discrete-data|discrete]] and [[continuous-data|continuous data]] in frequency tables, with [[class-interval|class intervals]] written as inequalities that leave no gaps.",
+      "bullets": [
+        "4.2-b1"
+      ]
+    },
+    {
+      "text": "Draw and read a frequency histogram with equal class widths, and describe its shape in context.",
+      "bullets": [
+        "4.2-b2"
+      ]
+    },
+    {
+      "text": "Use a cumulative frequency graph to estimate the median, quartiles, percentiles, range and IQR, and interpret them.",
+      "bullets": [
+        "4.2-b3"
+      ]
+    },
+    {
+      "text": "Draw and read a box and whisker diagram, with each [[outlier|outlier]] marked by a cross.",
+      "bullets": [
+        "4.2-b4"
+      ]
+    },
+    {
+      "text": "Compare two distributions using their box plots, and judge from symmetry whether data may be normally distributed.",
+      "bullets": [
+        "4.2-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "grouped frequency table",
+    "how to draw a histogram",
+    "cumulative frequency curve median",
+    "box plot outliers",
+    "compare two box plots",
+    "percentile from a graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-continuous",
+      "prompt": "Which of these is continuous data?",
+      "hint": "Is each one counted or measured?",
+      "options": [
+        {
+          "text": "The number of emails received in a day",
+          "correct": false
+        },
+        {
+          "text": "The mass of a newborn baby",
+          "correct": true
+        },
+        {
+          "text": "The number of seats in a cinema",
+          "correct": false
+        }
+      ],
+      "explain": "Mass is measured, so it is continuous. Emails and seats are counted, so they are discrete. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "The mass of a newborn baby"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-upper-fence",
+      "prompt": "For the ages of the members of a sports club, $Q_{1} = 15$ and $Q_{3} = 27$. Find the upper fence, $Q_{3} + 1.5 \\times \\mathrm{IQR}$.",
+      "hint": "Work out $\\mathrm{IQR} = Q_{3} - Q_{1}$ first.",
+      "answer": {
+        "value": 45,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{IQR} = 27 - 15 = 12$, so the upper fence is $27 + 1.5 \\times 12 = 45$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "27 + Rational(3, 2)*(27 - 15)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-which-outlier",
+      "prompt": "The upper fence for the club's ages is $45$. Is a member aged exactly $45$ an outlier?",
+      "hint": "An outlier lies strictly beyond a fence.",
+      "options": [
+        {
+          "text": "No, because an outlier must be greater than the fence",
+          "correct": true
+        },
+        {
+          "text": "Yes, because a value on the fence counts as an outlier",
+          "correct": false
+        }
+      ],
+      "explain": "$45 > 45$ is false, so $45$ is not an outlier. A member aged $46$ would be. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "No, because an outlier must be greater than the fence"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "tables",
+      "heading": "Frequency tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Thirty numbers in a row are hard to take in. Count how often each value occurs, and the pattern jumps out."
+        },
+        {
+          "type": "definition",
+          "term": "Frequency table",
+          "statement": "The frequency of a value is the number of times it occurs in the data. A frequency table lists each value, or each group of values, next to its frequency.",
+          "plain": "What happened, and how many times."
+        },
+        {
+          "type": "text",
+          "text": "For [[discrete-data|discrete data]] with only a few different values, give each value its own row or column. Tally the list once, then count the tally marks."
+        },
+        {
+          "type": "example",
+          "id": "ex-carpool-table",
+          "question": "At a checkpoint, an officer counts the people in each of $30$ cars: $2, 1, 1, 3, 2, 1, 4, 1, 2, 5, 1, 3, 2, 1, 1, 2, 3, 4, 1, 2, 1, 5, 2, 3, 1, 2, 4, 1, 3, 2$. (a) Present the data in a frequency table. (b) A carpool lane may only be used by cars carrying at least $2$ people. Find the percentage of these cars that could use it.",
+          "steps": [
+            "(a) The values run from $1$ to $5$, so the table needs a column for each of them.",
+            "Work through the list once, putting a tally mark under each value, then count. $\\begin{array}{c|ccccc} \\text{people in car} & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\text{frequency} & 11 & 9 & 5 & 3 & 2 \\end{array}$",
+            "Check the total: $11 + 9 + 5 + 3 + 2 = 30$ cars.",
+            "(b) “At least $2$” means $2$, $3$, $4$ or $5$ people: $9 + 5 + 3 + 2 = 19$ cars.",
+            "As a percentage: $\\frac{19}{30} \\times 100 = 63.33\\ldots \\approx 63.3\\%$. So almost two thirds of the cars could use the lane."
+          ],
+          "answer": "$\\frac{19}{30} \\times 100 \\approx 63.3\\%$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(9 + 5 + 3 + 2, 30)*100",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "[[continuous-data|Continuous data]] is different. Measured values are rarely equal, so you group them into classes."
+        },
+        {
+          "type": "definition",
+          "term": "Class interval",
+          "statement": "A [[class-interval|class interval]] is a group of values written as an inequality, such as $150 \\le m < 175$. Its ends are the lower and upper boundaries, and the class width is the upper boundary minus the lower one.",
+          "plain": "Each class is a bucket, and its inequality says exactly which values go in."
+        },
+        {
+          "type": "text",
+          "text": "The classes must leave no gaps and must not overlap. With $150$–$174$ and $175$–$199$, a mass of $174.6$ g fits nowhere. With $150 \\le m < 175$ and $175 \\le m < 200$, every mass fits exactly one class."
+        },
+        {
+          "type": "text",
+          "text": "A value on a boundary goes in the class whose inequality it satisfies. Some tables use the other form, such as $10 < t \\le 20$, so read the signs every time."
+        },
+        {
+          "type": "example",
+          "id": "ex-avocado-table",
+          "question": "A greengrocer weighs $24$ avocados, in grams: $162.4, 183.6, 200.0, 231.5, 175.0, 190.2, 212.7, 171.8, 199.6, 205.4, 224.9, 158.3, 178.4, 218.3, 240.2, 187.1, 209.6, 168.9, 194.5, 203.8, 181.9, 227.7, 196.3, 215.2$. (a) Present the data in a frequency table with classes $150 \\le m < 175$, $175 \\le m < 200$, $200 \\le m < 225$ and $225 \\le m < 250$. (b) Avocados of $200$ g or more are sold as “large”. How many of these are large?",
+          "steps": [
+            "(a) Place the awkward values first. $175.0$ satisfies $175 \\le m < 200$, and $200.0$ satisfies $200 \\le m < 225$.",
+            "$199.6$ is less than $200$, so it goes in $175 \\le m < 200$. $224.9$ goes in $200 \\le m < 225$.",
+            "Tally the rest, then count. $\\begin{array}{c|c} \\text{mass, } m \\text{ grams} & \\text{frequency} \\\\ \\hline 150 \\le m < 175 & 4 \\\\ 175 \\le m < 200 & 9 \\\\ 200 \\le m < 225 & 8 \\\\ 225 \\le m < 250 & 3 \\end{array}$",
+            "Check: $4 + 9 + 8 + 3 = 24$ avocados.",
+            "(b) “$200$ g or more” is the last two classes: $8 + 3 = 11$ large avocados, a little under half the batch."
+          ],
+          "answer": "$8 + 3 = 11$",
+          "verify": {
+            "kind": "exact",
+            "truth": "8 + 3"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-no-gaps",
+          "prompt": "A botanist measures leaf lengths, $L$ mm, to the nearest $0.1$ mm. Which set of classes is suitable? Set A: $35$–$44$, $45$–$54$, $55$–$64$. Set B: $35 \\le L \\le 45$, $45 \\le L \\le 55$, $55 \\le L \\le 65$. Set C: $35 \\le L < 45$, $45 \\le L < 55$, $55 \\le L < 65$.",
+          "hint": "Where would a length of $44.5$ mm go? Where would $45$ mm go?",
+          "options": [
+            {
+              "text": "Set A",
+              "correct": false
+            },
+            {
+              "text": "Set B",
+              "correct": false
+            },
+            {
+              "text": "Set C",
+              "correct": true
+            }
+          ],
+          "explain": "Set A has gaps: $44.5$ fits no class. Set B overlaps: $45$ fits two classes. Only set C puts every length in exactly one class.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Set C"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sunflower-frequency",
+          "prompt": "The heights of $40$ sunflowers are grouped into the classes $100 < h \\le 120$, $120 < h \\le 140$, $140 < h \\le 160$ and $160 < h \\le 180$ cm. The frequencies are $6$, $13$, $k$ and $7$. Find $k$.",
+          "hint": "The frequencies add up to the number of sunflowers.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0
+          },
+          "explain": "$6 + 13 + k + 7 = 40$, so $k = 40 - 26 = 14$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "40 - (6 + 13 + 7)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "histograms",
+      "heading": "Histograms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A table gives you the numbers. A picture shows at a glance where the data bunches up, and whether it trails off to one side."
+        },
+        {
+          "type": "definition",
+          "term": "Frequency histogram",
+          "statement": "A [[histogram|histogram]] draws each class as a bar on a continuous scale. Each bar runs from the class's lower boundary to its upper boundary, and neighbouring bars touch.",
+          "plain": "A bar chart for grouped data, with no gaps, because the scale has no gaps."
+        },
+        {
+          "type": "text",
+          "text": "In this course every class in a histogram has the same width. Then each bar's height is simply its frequency, and a taller bar always means more values."
+        },
+        {
+          "type": "example",
+          "id": "ex-avocado-histogram",
+          "question": "Draw a frequency histogram for the $24$ avocado masses. $\\begin{array}{c|c} \\text{mass, } m \\text{ grams} & \\text{frequency} \\\\ \\hline 150 \\le m < 175 & 4 \\\\ 175 \\le m < 200 & 9 \\\\ 200 \\le m < 225 & 8 \\\\ 225 \\le m < 250 & 3 \\end{array}$",
+          "steps": [
+            "Horizontal axis: mass, $m$ grams, from $150$ to $250$, marked at each class boundary.",
+            "Vertical axis: frequency, from $0$ to $10$ with an even scale, so the tallest bar, $9$, fits.",
+            "Draw each bar from its lower to its upper boundary, as tall as its frequency: $4$, $9$, $8$ and $3$. The bars touch."
+          ],
+          "answer": "Four touching bars from $150$ to $250$ g, with heights $4$, $9$, $8$ and $3$.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "touching bars of heights 4, 9, 8, 3 on 150 to 250",
+            "requires": [
+              "touching",
+              "4, 9, 8 and 3"
+            ],
+            "forbids": [
+              "gaps"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-2-histogram-avocados",
+          "alt": "Frequency histogram of the masses of 24 avocados. The horizontal axis shows mass from 150 to 250 grams, marked every 25 grams, and the vertical axis shows frequency from 0 to 10. Four touching bars have heights 4, 9, 8 and 3.",
+          "caption": "The bars touch: $175 \\le m < 200$ starts exactly where $150 \\le m < 175$ ends."
+        },
+        {
+          "type": "text",
+          "text": "Now look at the shape. If the two sides roughly mirror each other, the data is symmetric. If one side trails off in a long tail, the data is skewed: positively if the tail is on the right, negatively if it is on the left."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-histogram-homework",
+          "alt": "Frequency histogram of the homework times of 80 students. The horizontal axis shows time from 0 to 120 minutes in classes of 20 minutes, each including its lower end and excluding its upper end. The vertical axis shows frequency from 0 to 25. The bar heights are 6, 18, 24, 16, 10 and 6.",
+          "caption": "Homework times of $80$ students. The tail on the right is longer."
+        },
+        {
+          "type": "example",
+          "id": "ex-homework-histogram",
+          "question": "The histogram shows the time, $t$ minutes, that each of $80$ students spent on homework one evening. The classes are $0 \\le t < 20$, $20 \\le t < 40$, $\\ldots$, $100 \\le t < 120$. (a) Find the percentage of these students who spent at least an hour on homework. (b) Describe the shape of the distribution, and interpret it in context.",
+          "steps": [
+            "(a) “At least an hour” is $t \\ge 60$: the three bars from $60$ to $120$. Their heights are $16$, $10$ and $6$.",
+            "So $16 + 10 + 6 = 32$ students, and $\\frac{32}{80} \\times 100 = 40\\%$.",
+            "(b) The bars rise to a peak at $40 \\le t < 60$, then fall away slowly to $120$. The long tail is on the right, so the times are positively skewed.",
+            "In context: most students spent under an hour, but a few spent far longer than the rest."
+          ],
+          "answer": "$\\frac{32}{80} \\times 100 = 40\\%$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(16 + 10 + 6, 80)*100"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-homework-under-40",
+          "prompt": "Use the homework histogram. How many students spent less than $40$ minutes on homework?",
+          "hint": "Which bars lie to the left of $40$?",
+          "answer": {
+            "value": 24,
+            "tolerance": 0
+          },
+          "explain": "The bars for $0 \\le t < 20$ and $20 \\le t < 40$ have heights $6$ and $18$, so $6 + 18 = 24$ students.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6 + 18",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-retirement-shape",
+          "prompt": "A histogram shows the ages of the $48$ residents of a retirement village, in six equal classes from $60$ to $90$ years. From left to right, the bar heights are $3$, $5$, $9$, $11$, $14$ and $6$. Which describes the shape?",
+          "hint": "On which side do the bars fall away slowly?",
+          "options": [
+            {
+              "text": "Roughly symmetric",
+              "correct": false
+            },
+            {
+              "text": "Positively skewed, with the tail on the right",
+              "correct": false
+            },
+            {
+              "text": "Negatively skewed, with the tail on the left",
+              "correct": true
+            }
+          ],
+          "explain": "The peak is near the right, and the bars shrink slowly towards the left. A tail on the left is negative skew: most residents are over $75$, with fewer younger ones.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Negatively skewed, with the tail on the left"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cumulative",
+      "heading": "Cumulative frequency graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A helpline logs the length of $200$ calls. How many ended within $10$ minutes? Add the frequencies of every class up to $10$: a running total."
+        },
+        {
+          "type": "definition",
+          "term": "Cumulative frequency",
+          "statement": "The [[cumulative-frequency|cumulative frequency]] at a value is the number of data values less than or equal to it: the running total of the frequencies.",
+          "plain": "How many so far, counting up from the smallest value."
+        },
+        {
+          "type": "text",
+          "text": "1. Add a cumulative frequency column to the table, adding each class's frequency to the total so far."
+        },
+        {
+          "type": "text",
+          "text": "2. Plot each cumulative frequency above the upper boundary of its class, because only there has the whole class been counted. Start with a point at the first lower boundary, with cumulative frequency $0$."
+        },
+        {
+          "type": "text",
+          "text": "3. Join the points with straight lines or a smooth curve. This lesson uses straight lines; a curve gives slightly different readings, and both are accepted as estimates."
+        },
+        {
+          "type": "example",
+          "id": "ex-calls-cf-table",
+          "question": "The lengths of $200$ calls to a helpline are shown in the table. $\\begin{array}{c|c} \\text{length, } t \\text{ minutes} & \\text{frequency} \\\\ \\hline 0 < t \\le 5 & 18 \\\\ 5 < t \\le 10 & 32 \\\\ 10 < t \\le 15 & 50 \\\\ 15 < t \\le 20 & 30 \\\\ 20 < t \\le 25 & 50 \\\\ 25 < t \\le 30 & 20 \\end{array}$ Find the cumulative frequencies, and write down the points to plot.",
+          "steps": [
+            "Keep a running total, adding the next frequency each time.",
+            "$\\begin{array}{c|c} t & \\text{cumulative frequency} \\\\ \\hline t \\le 5 & 18 \\\\ t \\le 10 & 18 + 32 = 50 \\\\ t \\le 15 & 50 + 50 = 100 \\\\ t \\le 20 & 100 + 30 = 130 \\\\ t \\le 25 & 130 + 50 = 180 \\\\ t \\le 30 & 180 + 20 = 200 \\end{array}$",
+            "The last total equals the number of calls, $200$. That is your check.",
+            "Plot $(0, 0)$, $(5, 18)$, $(10, 50)$, $(15, 100)$, $(20, 130)$, $(25, 180)$ and $(30, 200)$, then join them in order."
+          ],
+          "answer": "$18, 50, 100, 130, 180, 200$",
+          "verify": {
+            "kind": "list",
+            "truth": "[18, 18 + 32, 18 + 32 + 50, 18 + 32 + 50 + 30, 18 + 32 + 50 + 30 + 50, 18 + 32 + 50 + 30 + 50 + 20]"
+          },
+          "video": null
+        },
+        {
+          "type": "figure",
+          "id": "4-2-cumulative-calls",
+          "alt": "Cumulative frequency graph of 200 call lengths. Straight lines join the points (0, 0), (5, 18), (10, 50), (15, 100), (20, 130), (25, 180) and (30, 200). Dashed lines go across from cumulative frequencies 50, 100 and 150 to the graph, then down to the time axis at 10, 15 and 22 minutes, labelled Q1, median and Q3.",
+          "caption": "Read across from the cumulative frequency to the graph, then down to the time axis."
+        },
+        {
+          "type": "text",
+          "text": "Now read the graph the other way. The [[median|median]] has half the data below it. The lower quartile $Q_{1}$ has a quarter below it, and the upper quartile $Q_{3}$ three quarters. With $n$ values, read across from these heights:"
+        },
+        {
+          "type": "formula",
+          "tex": "Q_{1} \\text{ at } \\tfrac{n}{4}, \\qquad \\text{median at } \\tfrac{n}{2}, \\qquad Q_{3} \\text{ at } \\tfrac{3n}{4}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Percentile",
+          "statement": "The $k$th [[percentile|percentile]] is the value with $k\\%$ of the data below it. On a cumulative frequency graph, read across from $\\frac{k}{100} \\times n$.",
+          "plain": "So $Q_{1}$, the median and $Q_{3}$ are the 25th, 50th and 75th percentiles."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] measures the spread of the middle half of the data. It is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr"
+        },
+        {
+          "type": "text",
+          "text": "The [[range-of-a-data-set|range]] is the largest value minus the smallest. A grouped graph hides the actual values, so estimate it from where the graph starts and ends: here $30 - 0 = 30$ minutes. The true range can't be larger than this."
+        },
+        {
+          "type": "example",
+          "id": "ex-calls-cf-read",
+          "question": "Use the cumulative frequency graph of the $200$ call lengths. (a) Estimate the median and the interquartile range. (b) The helpline wants a time $T$ within which $90\\%$ of calls finish. Estimate $T$, and interpret it.",
+          "steps": [
+            "(a) The median is at $\\frac{200}{2} = 100$. Read across and down: $15$ minutes.",
+            "$Q_{1}$ is at $\\frac{200}{4} = 50$, which gives $Q_{1} = 10$ minutes.",
+            "$Q_{3}$ is at $\\frac{3 \\times 200}{4} = 150$. That lies between $(20, 130)$ and $(25, 180)$: $150$ is $\\frac{20}{50} = 0.4$ of the way up, so $Q_{3} = 20 + 0.4 \\times 5 = 22$ minutes.",
+            "So $\\mathrm{IQR} = 22 - 10 = 12$ minutes: the middle half of the calls spans about $12$ minutes.",
+            "(b) $T$ is the $90$th percentile, at $\\frac{90}{100} \\times 200 = 180$. Read across and down: $T = 25$ minutes.",
+            "Interpret: about $90\\%$ of calls lasted $25$ minutes or less, and about $10\\%$ lasted longer."
+          ],
+          "answer": "$\\mathrm{IQR} = 22 - 10 = 12$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(20 + 5*Rational(150 - 130, 180 - 130)) - (5 + 5*Rational(50 - 18, 50 - 18))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Reading “more than” straight off the graph. The graph counts values at or below a point, so subtract your reading from $n$. For the top $10\\%$, read across from $90\\%$ of $n$."
+        },
+        {
+          "type": "check",
+          "id": "check-calls-30th",
+          "prompt": "Use the call-length graph to estimate the $30$th percentile, in minutes.",
+          "hint": "Find $30\\%$ of $200$, then read across and down.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{30}{100} \\times 200 = 60$. That is $\\frac{10}{50}$ of the way from $50$ to $100$, so the time is $10 + \\frac{1}{5} \\times 5 = 11$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "10 + 5*Rational(60 - 50, 100 - 50)",
+            "dp": 0,
+            "reading": true,
+            "maxTolerance": 0.5
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calls-over-12",
+          "prompt": "Use the call-length graph. Estimate how many calls lasted more than $12$ minutes.",
+          "hint": "The graph gives the number that lasted $12$ minutes or less.",
+          "answer": {
+            "value": 130,
+            "tolerance": 2
+          },
+          "explain": "Reading up from $12$ gives about $70$ calls of $12$ minutes or less. So about $200 - 70 = 130$ calls lasted longer.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "200 - (50 + Rational(12 - 10, 5)*(100 - 50))",
+            "dp": 0,
+            "reading": true,
+            "maxTolerance": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-calls-between",
+          "prompt": "Use the call-length graph. How many calls lasted more than $10$ minutes but no more than $20$ minutes?",
+          "hint": "Subtract the cumulative frequency at $10$ from the one at $20$.",
+          "answer": {
+            "value": 80,
+            "tolerance": 0
+          },
+          "explain": "$130$ calls lasted $20$ minutes or less, and $50$ lasted $10$ minutes or less. So $130 - 50 = 80$ calls lie between.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "130 - 50",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "box-plots",
+      "heading": "Box and whisker diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A box and whisker diagram, or box plot, draws five key values to scale. You see at once where the data starts and ends, and where its middle half lies."
+        },
+        {
+          "type": "definition",
+          "term": "Box and whisker diagram",
+          "statement": "A [[box-and-whisker-diagram|box and whisker diagram]] has a box from $Q_{1}$ to $Q_{3}$, a line across the box at the median, and a whisker out from each side of the box.",
+          "plain": "The box holds the middle half of the data, and the whiskers reach out to the rest."
+        },
+        {
+          "type": "text",
+          "text": "1. Draw a scale. Draw the box from $Q_{1}$ to $Q_{3}$, with a line across it at the median."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the fences $Q_{1} - 1.5 \\times \\mathrm{IQR}$ and $Q_{3} + 1.5 \\times \\mathrm{IQR}$ from {{lesson:4.1}}. Any value strictly beyond a fence is an [[outlier|outlier]]."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw each whisker to the most extreme value that is not an outlier. Mark each outlier with a cross."
+        },
+        {
+          "type": "example",
+          "id": "ex-hotel-box-plot",
+          "question": "A hotel records the number of nights each of $50$ guests stayed. $\\begin{array}{c|cccccccc} \\text{nights} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 13 \\\\ \\hline \\text{guests} & 9 & 14 & 10 & 7 & 5 & 3 & 1 & 1 \\end{array}$ (a) Use your GDC to find $Q_{1}$, the median $Q_{2}$ and $Q_{3}$. (b) Determine which values are outliers. (c) Draw the box and whisker diagram, and comment on whether the outlier should be kept.",
+          "steps": [
+            "(a) Enter the nights in one list and the guests in a second, and run one-variable statistics with the second list as the frequency list. Check that $n = 50$.",
+            "Write down what you read: smallest $1$, $Q_{1} = 2$, $Q_{2} = 3$, $Q_{3} = 4$, largest $13$.",
+            "(b) $\\mathrm{IQR} = 4 - 2 = 2$. The fences are $2 - 1.5 \\times 2 = -1$ and $4 + 1.5 \\times 2 = 7$.",
+            "Nothing is below $-1$. $7$ equals the upper fence, so it is not an outlier. Only $13 > 7$, so $13$ nights is an outlier.",
+            "(c) Box from $2$ to $4$ with a line at $3$. Left whisker to $1$, right whisker to $7$, and a cross at $13$.",
+            "A stay of $13$ nights is unusual but quite possible, for example a work trip. It is a genuine value, so keep it."
+          ],
+          "answer": "$\\text{upper fence} = 4 + 1.5 \\times 2 = 7$",
+          "verify": {
+            "kind": "exact",
+            "truth": "quartile3([1, 2, 3, 4, 5, 6, 7, 13], [9, 14, 10, 7, 5, 3, 1, 1]) + Rational(3, 2)*(quartile3([1, 2, 3, 4, 5, 6, 7, 13], [9, 14, 10, 7, 5, 3, 1, 1]) - quartile1([1, 2, 3, 4, 5, 6, 7, 13], [9, 14, 10, 7, 5, 3, 1, 1]))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable-frequency",
+          "values": {
+            "values": "1, 2, 3, 4, 5, 6, 7, 13",
+            "frequencies": "9, 14, 10, 7, 5, 3, 1, 1"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-2-box-plot-hotel",
+          "alt": "Box and whisker diagram of the nights stayed by 50 hotel guests, on a scale from 0 to 14 nights. The left whisker runs from 1 to 2. The box spans 2 to 4, with a line inside it at the median, 3. The right whisker runs from 4 to 7, and a cross marks the outlier at 13.",
+          "caption": "The whisker stops at $7$, the longest stay that is not an outlier. The cross at $13$ is the outlier."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving out the frequency list on the GDC. The calculator then treats the table as eight single values, and the quartiles come out wrong. Check that $n$ equals the total frequency."
+        },
+        {
+          "type": "text",
+          "text": "Reading a box plot: about a quarter of the data lies in each of the four parts, from the smallest value to $Q_{1}$, $Q_{1}$ to the median, the median to $Q_{3}$, and $Q_{3}$ to the largest."
+        },
+        {
+          "type": "text",
+          "text": "To compare two data sets, draw their box plots on one scale. Make two comparisons, each with numbers and in context: the medians for a typical value, and the IQRs or ranges for spread. A box plot doesn't show the mean, so don't compare means."
+        },
+        {
+          "type": "text",
+          "text": "Shape matters too. If the median sits in the middle of the box and the two whiskers are about the same length, the data is roughly symmetric, so it may be normally distributed ({{lesson:4.9}}). A lopsided box or one long whisker means skewed data, which is unlikely to be normal."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-box-plots-battery",
+          "alt": "Two box and whisker diagrams of battery life on one scale from 20 to 50 hours. Model P: whiskers from 21.5 to 43.5, box from 28.5 to 36.5, median 32.5; the box and whiskers are symmetric. Model Q: whiskers from 22.5 to 46.5, box from 25.5 to 39.5, median 28.5, so the median is near the left of the box. Neither model has an outlier.",
+          "caption": "Model P is symmetric. Model Q's median sits near the left of its box."
+        },
+        {
+          "type": "example",
+          "id": "ex-battery-compare",
+          "question": "A reviewer tests the battery life, in hours, of $60$ phones of model P and $60$ of model Q. The five values (smallest, $Q_{1}$, median, $Q_{3}$, largest) are $21.5, 28.5, 32.5, 36.5, 43.5$ for model P and $22.5, 25.5, 28.5, 39.5, 46.5$ for model Q, as in the box plots. (a) Compare the two distributions. (b) State which model's battery life may be normally distributed, with a reason.",
+          "steps": [
+            "First check for outliers. Model P: $\\mathrm{IQR} = 36.5 - 28.5 = 8$, fences $28.5 - 12 = 16.5$ and $36.5 + 12 = 48.5$. Model Q: $\\mathrm{IQR} = 39.5 - 25.5 = 14$, fences $25.5 - 21 = 4.5$ and $39.5 + 21 = 60.5$. Every value is inside its fences.",
+            "(a) Typical value: model P has the higher median, $32.5$ h against $28.5$ h. So a model P battery typically lasts longer.",
+            "Spread: model P has the smaller IQR, $8$ h against $14$ h. So model P's battery life is more consistent.",
+            "(b) Model P: the median is $4$ h from each quartile, and both whiskers are $7$ h long. Model P is symmetric, so it may be normally distributed.",
+            "Model Q: the median is $3$ h above $Q_{1}$ but $11$ h below $Q_{3}$. Model Q is positively skewed, so it is unlikely to be normal."
+          ],
+          "answer": "Model P has the higher median ($32.5$ h against $28.5$ h) and the smaller IQR ($8$ h against $14$ h), so it typically lasts longer and more consistently. Model P is symmetric, so it may be normal; model Q is positively skewed.",
+          "verify": {
+            "kind": "explanation",
+            "truth": "P has higher median and smaller IQR; P symmetric so may be normal; Q positively skewed",
+            "requires": [
+              "higher median",
+              "smaller IQR",
+              "P is symmetric",
+              [
+                "Q is positively skewed",
+                "Q is skewed"
+              ]
+            ],
+            "forbids": [
+              "higher mean",
+              "Q is symmetric"
+            ]
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-battery-percent",
+          "prompt": "Use the box plots. About what percentage of model P phones had a battery life of more than $28.5$ hours?",
+          "hint": "Which of the five values is $28.5$ for model P?",
+          "answer": {
+            "value": 75,
+            "tolerance": 0
+          },
+          "explain": "$28.5$ h is model P's $Q_{1}$. About $25\\%$ of the data lies below $Q_{1}$, so about $75\\%$ lies above it.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "100 - 25",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-commute-whisker",
+          "prompt": "The commuting distances of a company's staff have $Q_{1} = 6$ km and $Q_{3} = 14$ km. The four longest are $22$, $24$, $27$ and $31$ km. Where does the right whisker end, in km?",
+          "hint": "Work out the upper fence. The whisker stops at the largest value that is not beyond it.",
+          "answer": {
+            "value": 24,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{IQR} = 8$, so the upper fence is $14 + 1.5 \\times 8 = 26$. $27$ and $31$ are outliers, shown as crosses, and the whisker ends at $24$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Max(22, 24)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-normal-shape",
+          "prompt": "Each data set below has no outliers, and gives the smallest value, $Q_{1}$, median, $Q_{3}$ and largest value. Which may be normally distributed? Set A: $40, 44, 47, 58, 75$. Set B: $40, 50, 55, 60, 70$. Set C: $30, 46, 56, 60, 64$.",
+          "hint": "Compare the median's distance to each quartile, and the lengths of the two whiskers.",
+          "options": [
+            {
+              "text": "Set A",
+              "correct": false
+            },
+            {
+              "text": "Set B",
+              "correct": true
+            },
+            {
+              "text": "Set C",
+              "correct": false
+            }
+          ],
+          "explain": "In set B the median is $5$ from each quartile and both whiskers are $10$ long, so it is symmetric. Set A has a long right whisker, and set C a long left whisker.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Set B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Class intervals are inequalities with no gaps and no overlaps, such as $150 \\le m < 175$ and $175 \\le m < 200$. A boundary value goes in the class whose inequality it satisfies.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a histogram with equal class widths, each bar's height is its frequency and neighbouring bars touch.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plot cumulative frequency at each upper class boundary, starting from $0$ at the first lower boundary. It counts values at or below a point, so for “more than” subtract the reading from $n$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "On a cumulative frequency graph of $n$ values, read across from $\\frac{n}{4}$ for $Q_{1}$, $\\frac{n}{2}$ for the median, $\\frac{3n}{4}$ for $Q_{3}$ and $\\frac{k}{100} \\times n$ for the $k$th percentile.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Box plot: box from $Q_{1}$ to $Q_{3}$, a line at the median, whiskers to the most extreme values that are not outliers, and a cross for each outlier.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare two box plots by their medians and their IQRs or ranges, with numbers and in context. A symmetric box with equal whiskers means the data may be normal; a skewed one is unlikely to be.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing classes with gaps, such as $50$–$59$ and $60$–$69$, for measured data. Use inequalities such as $50 \\le t < 60$ and $60 \\le t < 70$.",
+    "Plotting cumulative frequency at class mid-points. Plot it at each upper class boundary.",
+    "Reading “more than” straight off a cumulative frequency graph. The graph counts values at or below, so subtract the reading from $n$.",
+    "Drawing a whisker out to an outlier, or leaving the outlier off. The whisker stops at the most extreme value that is not an outlier, and the outlier gets a cross.",
+    "Leaving out the frequency list when you enter a frequency table on the GDC. Each value then counts once, and the quartiles are wrong.",
+    "Comparing means when asked to use box plots. A box plot shows medians, quartiles and the range, so compare those."
+  ],
+  "examTips": [
+    "Estimate from a cumulative frequency graph: write down the height you read across from, such as $\\frac{3n}{4}$ for $Q_{3}$, and draw the reading lines on the graph. That earns the method mark.",
+    "Draw a box plot: plot all five values accurately on the given scale, with whiskers to the most extreme non-outliers and a cross for each outlier. The mark needs both whiskers and every outlier right.",
+    "Compare two distributions: write one sentence on the medians and one on the IQRs or ranges, each with the values and in the context of the question."
+  ],
+  "readingMinutes": 30
+}

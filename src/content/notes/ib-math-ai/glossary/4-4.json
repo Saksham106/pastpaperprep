@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bivariate-data",
+    "term": "bivariate data",
+    "definition": "Data that comes in pairs: two measurements, such as height and mass, taken from each member of a sample.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "scatter-diagram",
+    "term": "scatter diagram",
+    "definition": "A graph that plots each pair $(x, y)$ of bivariate data as one point, to show how the two variables are related.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "correlation",
+    "term": "correlation",
+    "definition": "How closely the points of a scatter diagram follow a straight line, described by direction (positive, negative or zero) and strength (strong, weak or none).",
+    "lesson": "4.4"
+  },
+  {
+    "id": "pearsons-product-moment-correlation-coefficient",
+    "term": "Pearson's product-moment correlation coefficient",
+    "definition": "The number $r$, with $-1 \\le r \\le 1$, that measures the strength and direction of linear correlation only; $r$ near $0$ means no straight-line link, though the variables may still follow a curve.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "critical-value",
+    "term": "critical value",
+    "definition": "The boundary value of a test statistic for a given significance level and sample size (number of pairs or degrees of freedom): correlation is significant when $\\lvert r\\rvert$ is greater than the critical value of $r$, and in a $\\chi^{2}$ test $\\mathrm{H}_0$ is rejected when $\\chi^{2}$ is greater than its critical value.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "line-of-best-fit",
+    "term": "line of best fit",
+    "definition": "A straight line drawn by eye that follows the trend of the points on a scatter diagram and passes through the mean point $(\\bar{x}, \\bar{y})$.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "causation",
+    "term": "causation",
+    "definition": "When a change in one variable directly produces a change in another; a correlation alone, however strong, does not show causation.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "regression-line",
+    "term": "regression line",
+    "definition": "The least-squares line of $y$ on $x$, $y = ax + b$, used to predict $y$ from a value of $x$ inside the range of the data when the correlation is strong; it cannot reliably predict $x$ from $y$.",
+    "lesson": "4.4"
+  }
+]

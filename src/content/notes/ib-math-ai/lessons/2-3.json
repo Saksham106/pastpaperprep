@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.3",
+  "slug": "graphs-of-functions",
+  "title": "Graphs of functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "The graph of $y = f(x)$ is every point $(x, f(x))$. You'll read graphs from equations, sketch them from facts or a story, and copy them from your GDC onto paper, labelling what a sketch or drawing needs.",
+  "goals": [
+    {
+      "text": "Decide whether a point lies on the graph of $y = f(x)$, find the intercepts, and say what they mean in context.",
+      "bullets": [
+        "2.3-b1"
+      ]
+    },
+    {
+      "text": "Tell a sketch from a drawing, and label the axes, intercepts, turning points, end points and asymptotes.",
+      "bullets": [
+        "2.3-b4"
+      ]
+    },
+    {
+      "text": "Sketch a graph from given facts or from a real-life situation.",
+      "bullets": [
+        "2.3-b2"
+      ]
+    },
+    {
+      "text": "Graph [[function|functions]] on your GDC, including sums and differences of functions, and copy the graph from the screen onto paper.",
+      "bullets": [
+        "2.3-b3",
+        "2.3-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "sketch a graph",
+    "draw vs sketch",
+    "graph of y = f(x)",
+    "graphing on a GDC",
+    "sum of two functions graph",
+    "screen to paper graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-evaluate",
+      "prompt": "Let $f(x) = 3x^{2} - 5$. Find $f(-2)$.",
+      "hint": "Replace $x$ with $(-2)$, brackets included, and square before you multiply by 3.",
+      "options": [
+        {
+          "text": "$7$",
+          "correct": true
+        },
+        {
+          "text": "$-17$",
+          "correct": false
+        },
+        {
+          "text": "$31$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(-2) = 3(4) - 5 = 7$. Reading $(-2)^{2}$ as $-4$ gives $-17$; squaring $3x$ gives 31. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "3*(-2)**2 - 5"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-range",
+      "prompt": "Let $f(x) = 2x + 1$, for $0 \\le x \\le 4$. Which inequality gives the range of $f$?",
+      "hint": "The range is the set of outputs. Work out $f$ at both ends of the domain.",
+      "options": [
+        {
+          "text": "$1 \\le y \\le 9$",
+          "correct": true
+        },
+        {
+          "text": "$0 \\le y \\le 4$",
+          "correct": false
+        },
+        {
+          "text": "$2 \\le y \\le 10$",
+          "correct": false
+        }
+      ],
+      "explain": "$f(0) = 1$ and $f(4) = 9$, so the range is $1 \\le y \\le 9$. The interval from 0 to 4 is the domain. Revise it in {{lesson:2.2}}.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "And(y >= 2*0 + 1, y <= 2*4 + 1)",
+        "var": "y"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "graph-equation",
+      "heading": "A graph from its equation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $f(x) = 10 - x^{2}$. The input $x = 3$ gives $f(3) = 1$, so plot $(3, 1)$. Do this for every input in the [[domain|domain]] and the points form the graph of $y = f(x)$."
+        },
+        {
+          "type": "result",
+          "statement": "The point $(a, b)$ lies on the graph of $y = f(x)$ exactly when $a$ is in the domain of $f$ and $f(a) = b$.",
+          "why": "The graph is made of the points $(x, f(x))$ and nothing else."
+        },
+        {
+          "type": "text",
+          "text": "The [[y-intercept|y-intercept]] is where the graph meets the $y$-axis, at $(0, f(0))$. The [[x-intercept|x-intercepts]] are where it meets the $x$-axis. They come from the [[zero-of-a-function|zeros]] of $f$: solve $f(x) = 0$."
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept: } (0, f(0)) \\qquad x\\text{-intercepts: solve } f(x) = 0",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In a [[mathematical-model|model]], the vertical intercept is usually the starting value. A horizontal intercept is when the quantity is zero, such as a break-even point."
+        },
+        {
+          "type": "example",
+          "id": "ex-oven-point",
+          "question": "The temperature of an oven, $T\\,^{\\circ}\\mathrm{C}$, $t$ minutes after it is switched on is modelled by $T(t) = 220 - 200(0.8)^{t}$, for $t \\ge 0$. (a) Does the point $(3, 120)$ lie on the graph of $T$? (b) Find the $T$-intercept and interpret it.",
+          "steps": [
+            "(a) $T(3) = 220 - 200(0.8)^{3} = 220 - 102.4 = 117.6$.",
+            "So the graph passes through $(3, 117.6)$, and $(3, 120)$ is not on it.",
+            "(b) At $t = 0$: $T(0) = 220 - 200(0.8)^{0} = 220 - 200 = 20$.",
+            "The oven is at $20\\,^{\\circ}\\mathrm{C}$, room temperature, when it is switched on."
+          ],
+          "answer": "$T(0) = 20$",
+          "verify": {
+            "kind": "exact",
+            "truth": "220 - 200*0.8**0"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For an unfamiliar function, graph it on your GDC. Its tools find zeros, turning points and intersections."
+        },
+        {
+          "type": "example",
+          "id": "ex-profit-zeros",
+          "question": "A company launches a seasonal product. Its monthly profit, $P$ thousand euros, $t$ months after launch is modelled by $P(t) = 0.2t^{3} - 2.4t^{2} + 7t - 3$, for $0 \\le t \\le 9$. (a) Write down $P(0)$ and interpret it. (b) Use your GDC to find the $t$-intercepts, to 3 s.f. (c) Interpret them.",
+          "steps": [
+            "(a) $P(0) = -3$: at launch the model gives a loss of 3 thousand euros a month.",
+            "(b) Write down the equation you solve: $0.2t^{3} - 2.4t^{2} + 7t - 3 = 0$.",
+            "Graph $y = 0.2x^{3} - 2.4x^{2} + 7x - 3$ for $0 \\le x \\le 9$ and use the zero tool on each crossing: $t = 0.51590\\ldots$, $3.76827\\ldots$ and $7.71582\\ldots$",
+            "(c) The company breaks even at these times. It makes a profit from about 0.516 to 3.77 months, a loss until about 7.72 months, then a profit again."
+          ],
+          "answer": "$t \\approx 0.516 \\text{ or } t \\approx 3.77 \\text{ or } t \\approx 7.72$",
+          "verify": {
+            "kind": "list",
+            "truth": "real_roots(0.2*t**3 - 2.4*t**2 + 7*t - 3)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-zeros",
+          "values": {
+            "function": "0.2X^3-2.4X^2+7X-3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing a point such as $(3.77, 0)$ when the question asks for a value of $t$, or a value when it asks for coordinates. Give exactly what is asked."
+        },
+        {
+          "type": "check",
+          "id": "check-point-on-curve",
+          "prompt": "Which point lies on the graph of $y = 12 - 0.5x^{2}$?",
+          "hint": "Substitute each $x$-coordinate. Square $x$ before you multiply by $0.5$.",
+          "options": [
+            {
+              "text": "$(4, 4)$",
+              "correct": true
+            },
+            {
+              "text": "$(4, 10)$",
+              "correct": false
+            },
+            {
+              "text": "$(4, 8)$",
+              "correct": false
+            },
+            {
+              "text": "$(-4, 20)$",
+              "correct": false
+            }
+          ],
+          "explain": "$12 - 0.5(4)^{2} = 4$. 10 forgets to square, 8 squares $0.5x$, and 20 treats $(-4)^{2}$ as $-16$.",
+          "verify": {
+            "kind": "point",
+            "truth": "(4, 12 - Rational(1, 2)*4**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-javelin-intercept",
+          "prompt": "A javelin's height, $h$ m, at $x$ m horizontally from the throwing line is modelled by $h(x) = 1.9 + 0.84x - 0.016x^{2}$. Use your GDC to find the positive $x$-intercept, to 3 s.f.",
+          "hint": "Solve $1.9 + 0.84x - 0.016x^{2} = 0$ and keep the positive root.",
+          "answer": {
+            "value": 54.7,
+            "tolerance": 0.05
+          },
+          "explain": "The zeros are $x = 54.672\\ldots$ and $x = -2.172\\ldots$ The negative one is behind the thrower. The javelin lands about 54.7 m from the line.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.84 + sqrt(0.84**2 + 4*0.016*1.9))/(2*0.016)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sketch-draw",
+      "heading": "Sketch or draw",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exam questions use two command terms for graphs, with different accuracy."
+        },
+        {
+          "type": "definition",
+          "term": "sketch",
+          "statement": "A sketch shows the general shape and position of a graph, with the relevant key features labelled. It need not be to scale.",
+          "plain": "A neat, labelled picture of the shape."
+        },
+        {
+          "type": "definition",
+          "term": "draw",
+          "statement": "A drawing is accurate: points plotted to the grid's scale, joined by a smooth curve or ruled line.",
+          "plain": "Accurate enough to read values off."
+        },
+        {
+          "type": "text",
+          "text": "Both need labelled axes, with variables and units in a context. On a sketch, also label the intercepts, turning points ([[local-maximum|local maximum]] and [[local-minimum|minimum]] points), end points and any [[asymptote|asymptotes]], as coordinates or equations."
+        },
+        {
+          "type": "text",
+          "text": "Mark an end point with a filled dot if it is in the domain, or an open circle if not."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-algae",
+          "question": "The area covered by algae on a pond, $A$ m², $t$ days after it is first measured is modelled by $A(t) = 3(1.5)^{t}$, for $0 \\le t \\le 5$. (a) Use your GDC to complete the table, giving values to 1 d.p. $\\begin{array}{c|cccccc} t & 0 & 1 & 2 & 3 & 4 & 5 \\\\ \\hline A & 3 & 4.5 & 6.8 & 10.1 & p & 22.8 \\end{array}$ (b) Draw the graph of $A$ on a grid.",
+          "steps": [
+            "(a) $p = A(4) = 3(1.5)^{4} = 15.1875$, so $p = 15.2$: about 15.2 m² after 4 days.",
+            "(b) \"Draw\" means accurate: plot all six points at their exact grid positions.",
+            "Join them with one smooth curve, not straight segments. It gets steeper, because each day multiplies the area by 1.5.",
+            "Use filled dots at $(0, 3)$ and $(5, 22.8)$, and label the axes $t$ (days) and $A$ (m²)."
+          ],
+          "answer": "$p \\approx 15.2$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "3*1.5**4",
+            "dp": 1
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "3*1.5^X",
+            "start": "0",
+            "step": "1",
+            "end": "5"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Graph questions can use any [[function|function]], not only this topic's families."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-drug-sketch",
+          "alt": "Sketch on axes labelled t in hours and C in milligrams per litre. The curve starts at a filled dot at the origin, rises steeply to a maximum at 2, 10, then falls slowly to a filled dot at 12, 3.24. All three points are labelled with their coordinates.",
+          "caption": "A sketch of $C(t) = \\frac{40t}{t^{2} + 4}$ for $0 \\le t \\le 12$, with every key feature labelled."
+        },
+        {
+          "type": "example",
+          "id": "ex-sketch-drug",
+          "question": "The concentration of a drug in a patient's blood, $C$ mg/L, $t$ hours after an injection is modelled by $C(t) = \\dfrac{40t}{t^{2} + 4}$, for $0 \\le t \\le 12$. (a) Use your GDC to find the maximum point. (b) Sketch the graph of $C$, labelling the key features. (c) Interpret the maximum point.",
+          "steps": [
+            "(a) Graph $y = \\frac{40x}{x^{2} + 4}$ for $0 \\le x \\le 12$, the domain, with $y$ from $-1$ to $12$.",
+            "The maximum tool gives $x = 2$ and $y = 10$ (it may show $1.9999\\ldots$), so the maximum point is $(2, 10)$.",
+            "(b) $C(0) = 0$, so the graph starts at the origin. $C(12) = \\frac{480}{148} = 3.2432\\ldots$, so it ends at $(12, 3.24)$.",
+            "Copy the screen's shape, as in the figure: a steep rise, then a long, slow fall. Use filled end dots and label the axes $t$ (hours) and $C$ (mg/L).",
+            "(c) The concentration is highest, 10 mg/L, 2 hours after the injection."
+          ],
+          "answer": "$\\text{maximum} = (2, 10)$",
+          "verify": {
+            "kind": "point",
+            "truth": "(sqrt(4), 40*sqrt(4)/(sqrt(4)**2 + 4))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "40X/(X^2+4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-min",
+          "prompt": "You are asked to sketch $y = x^{3} - 4x + 1$ for $-3 \\le x \\le 3$. Use your GDC to find the $y$-coordinate of the local minimum point, to 3 s.f.",
+          "hint": "Graph it for $-3 \\le x \\le 3$ and use the minimum tool on the low point right of the $y$-axis.",
+          "answer": {
+            "value": -2.08,
+            "tolerance": 0.005
+          },
+          "explain": "The local minimum is at $x = 1.1547\\ldots$, where $y = -2.0792\\ldots$ It is not the lowest point: the end point $(-3, -14)$ is lower.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2/sqrt(3))**3 - 4*(2/sqrt(3)) + 1",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-open-circle",
+          "prompt": "A model $g(x) = 3x + 2$ has domain $0 < x \\le 5$. How should your sketch show the left end of the graph, at the point $(0, 2)$?",
+          "hint": "Is $x = 0$ in the domain?",
+          "options": [
+            {
+              "text": "an open circle",
+              "correct": true
+            },
+            {
+              "text": "a filled dot",
+              "correct": false
+            },
+            {
+              "text": "an arrow",
+              "correct": false
+            }
+          ],
+          "explain": "$0 < x$ leaves out $x = 0$, so the graph stops just before $(0, 2)$: draw an open circle there. The included right end, $(5, 17)$, gets a filled dot. (A function that has no finite value as $x$ approaches the excluded end, such as $\\frac{1}{x}$ near $0$, gets an asymptote instead.)",
+          "verify": {
+            "kind": "choice",
+            "truth": "an open circle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "heading": "Sketching from facts or a context",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes there is no equation, only facts about the graph or a story. Turn each fact into a point or a feature, then join them the way the facts describe."
+        },
+        {
+          "type": "text",
+          "text": "Between two neighbouring key points, an unbroken graph with no turning point and no flat stretch in between only goes up or only goes down. So it takes each height between the two ends exactly once."
+        },
+        {
+          "type": "example",
+          "id": "ex-facts-sketch",
+          "question": "A function $f$ has domain $0 \\le x \\le 8$ and an unbroken graph. The graph starts at $(0, 5)$, falls to a minimum at $(3, -4)$, rises to a maximum at $(6, 2)$ and falls to end at $(8, -1)$. There are no other turning points. (a) Sketch the graph of $f$. (b) Write down the range of $f$.",
+          "steps": [
+            "(a) Plot the four points, with filled dots at the end points. Join them smoothly, rounding off each turning point, and label all four.",
+            "Each stretch joins heights of opposite signs, so the graph crosses the $x$-axis once on each.",
+            "(b) The range is the set of heights. The lowest is the minimum, $-4$. The highest is the start, 5, not the maximum, 2: a local maximum need not be the highest point."
+          ],
+          "answer": "$-4 \\le y \\le 5$",
+          "verify": {
+            "kind": "inequality",
+            "truth": "Interval(Min(5, -4, 2, -1), Max(5, -4, 2, -1))",
+            "var": "y"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-solutions-count",
+          "prompt": "A function $h$ has domain $-2 \\le x \\le 4$ and an unbroken graph. It starts at $(-2, -3)$, rises to a maximum at $(0, 5)$, falls to a minimum at $(3, 1)$ and rises to end at $(4, 2)$, with no other turning points. How many solutions does $h(x) = 1.5$ have?",
+          "hint": "Sketch it and add the line $y = 1.5$. Count the crossings on each stretch.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "The graph passes height 1.5 once going up from $-3$ to 5, once coming down to 1, and once going up to 2: 3 solutions.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Heaviside(-(5 - 1.5)*(-3 - 1.5)) + Heaviside(-(1 - 1.5)*(5 - 1.5)) + Heaviside(-(2 - 1.5)*(1 - 1.5))",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "From a story, read off where the graph starts, whether it rises or falls, whether it gets steeper, and any level it heads towards. That level is a horizontal [[asymptote|asymptote]]: draw it dashed, label its equation, and let the curve get closer and closer to it."
+        },
+        {
+          "type": "example",
+          "id": "ex-skydiver-sketch",
+          "question": "A skydiver jumps from a plane. Her speed, $v$ m/s, $t$ seconds later starts at 0 and increases, quickly at first and then more and more slowly. In the model it approaches 55 m/s but never reaches it. (a) Sketch the graph of $v$ for $0 \\le t \\le 40$. (b) Write down the equation of the horizontal asymptote, and interpret it.",
+          "steps": [
+            "(a) Label the axes $t$ (s) and $v$ (m/s). Start at the origin with a filled dot: her speed is 0 when she jumps.",
+            "The speed rises fast, then slowly, so the curve is steep at first and flattens out.",
+            "Draw the dashed line $v = 55$ and let the curve approach it from below. Stop at $t = 40$ with a filled dot.",
+            "(b) The asymptote is $v = 55$, not just 55: her speed approaches 55 m/s, its long-run value, but in the model never reaches it."
+          ],
+          "answer": "$v = 55$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(v, 55)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-vase-shape",
+          "prompt": "Water is poured at a constant rate into a vase that is wide at the bottom and narrow at the top. Which describes the graph of the water's depth against time?",
+          "hint": "Where the vase is narrow, a litre of water fills more height.",
+          "options": [
+            {
+              "text": "increasing, and getting steeper",
+              "correct": true
+            },
+            {
+              "text": "increasing, and getting less steep",
+              "correct": false
+            },
+            {
+              "text": "increasing in a straight line",
+              "correct": false
+            },
+            {
+              "text": "increasing, then decreasing",
+              "correct": false
+            }
+          ],
+          "explain": "The same volume goes in each second. Higher up the vase is narrower, so the depth rises faster: the graph gets steeper.",
+          "verify": {
+            "kind": "choice",
+            "truth": "increasing, and getting steeper"
+          }
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Graphing with technology",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your GDC graphs almost any function. First set the viewing window: the $x$ and $y$ ranges the screen shows."
+        },
+        {
+          "type": "text",
+          "text": "Match the $x$-range to the domain. Choose a $y$-range that shows every turning point, intercept and end point; a table of values helps."
+        },
+        {
+          "type": "text",
+          "text": "To move a graph from screen to paper: 1. Mark the key points the GDC gives, to 3 s.f. 2. Copy the shape between them: steep, flat, which way it bends. 3. Label the axes, points and asymptotes."
+        },
+        {
+          "type": "mistake",
+          "text": "Trusting the default window. A turning point just off the screen is easy to miss, so set the window from the domain."
+        },
+        {
+          "type": "text",
+          "text": "You can also graph sums and differences of functions. $(f + g)(x)$ means $f(x) + g(x)$: at each $x$, add the two heights."
+        },
+        {
+          "type": "formula",
+          "tex": "(f + g)(x) = f(x) + g(x) \\qquad (f - g)(x) = f(x) - g(x)",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "2-3-fish-sum",
+          "alt": "Three curves for t from 0 to 12 years, with the number of fish from 0 to 5000 on the vertical axis. The trout curve rises from 200, slowly at first and then steeply. The perch curve falls from 3000 towards zero, levelling off. The total curve lies above both: it starts at 0, 3200, falls to a minimum at 5.24, 1720, then rises to 12, 4870.",
+          "caption": "The total $F = T + P$ has a minimum, although neither $T$ nor $P$ has one."
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-sum",
+          "question": "A lake holds two species of fish. $t$ years after a survey, the number of trout is modelled by $T(t) = 200(1.3)^{t}$ and the number of perch by $P(t) = 3000(0.8)^{t}$, for $0 \\le t \\le 12$. The total number of fish is $F(t) = T(t) + P(t)$. (a) Find $F(0)$. (b) Use your GDC to find the value of $t$ at which $F$ is least, to 3 s.f., and the least number of fish. (c) Sketch $T$, $P$ and $F$ on one set of axes.",
+          "steps": [
+            "(a) $F(0) = 200 + 3000 = 3200$.",
+            "(b) Enter $y = 200(1.3)^{x} + 3000(0.8)^{x}$, with $0 \\le x \\le 12$ and $0 \\le y \\le 5000$, since $F(12) = 4865.7\\ldots$",
+            "The minimum tool gives $x = 5.2442\\ldots$ and $y = 1722.6\\ldots$ So the lake holds the fewest fish, about 1720, about 5.24 years after the survey.",
+            "(c) As in the figure: $T$ rises from 200, $P$ falls from 3000, and $F$ lies above both. Label the three curves and the points $(0, 3200)$, $(5.24, 1720)$ and $(12, 4870)$."
+          ],
+          "answer": "$t \\approx 5.24$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(-3000*log(0.8)/(200*log(1.3)))/log(1.3/0.8)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "200*1.3^X+3000*0.8^X"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Where $f(x) - g(x) = 0$, the graphs of $f$ and $g$ meet. Where $f(x) - g(x) > 0$, the graph of $f$ is above the graph of $g$."
+        },
+        {
+          "type": "example",
+          "id": "ex-towns-difference",
+          "question": "The populations of two towns, in thousands, $t$ years after the start of 2020 are modelled by $A(t) = 12 + 0.8t$ and $B(t) = 30(0.95)^{t}$. Let $D(t) = (A - B)(t)$. (a) Write down $D(t)$. (b) Use your GDC to solve $D(t) = 0$, to 3 s.f. (c) Interpret the sign of $D(t)$ after this time.",
+          "steps": [
+            "(a) $D(t) = A(t) - B(t) = 12 + 0.8t - 30(0.95)^{t}$.",
+            "(b) Write down the equation you solve: $12 + 0.8t - 30(0.95)^{t} = 0$.",
+            "Graph $y = 12 + 0.8x - 30(0.95)^{x}$ for $0 \\le x \\le 20$, $-20 \\le y \\le 20$. The zero tool gives $x = 8.8351\\ldots$, so $t \\approx 8.84$.",
+            "(c) After this $D(t) > 0$: town A is larger. A overtakes B about 8.84 years after the start of 2020, late in 2028."
+          ],
+          "answer": "$t \\approx 8.84$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(12 + 0.8*t - 30*0.95**t, t, 9)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-zeros",
+          "values": {
+            "function": "12+0.8X-30*0.95^X"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sum-value",
+          "prompt": "Let $f(x) = 2x + 1$ and $g(x) = \\dfrac{6}{x}$, for $x > 0$. Find $(f + g)(3)$.",
+          "hint": "Work out $f(3)$ and $g(3)$ first, then add them.",
+          "options": [
+            {
+              "text": "$9$",
+              "correct": true
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$14$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(3) = 7$ and $g(3) = 2$, so $(f + g)(3) = 9$. 5 is $(f - g)(3)$, and 14 multiplies the heights.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(2*3 + 1) + 6/3"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-savings-gdc",
+          "prompt": "A student's savings, in dollars, $t$ years from now are modelled by $S(t) = 1000(1.04)^{t}$. She owes $L(t) = 2400 - 150t$ dollars on a loan. Use your GDC to solve $(S - L)(t) = 0$, to 3 s.f.",
+          "hint": "Graph $y = 1000(1.04)^{x} - (2400 - 150x)$ and use the zero tool.",
+          "answer": {
+            "value": 7.17,
+            "tolerance": 0.005
+          },
+          "explain": "The zero is $t = 7.1688\\ldots \\approx 7.17$. After about 7.17 years her savings first exceed what she owes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "nsolve(1000*1.04**t - (2400 - 150*t), t, 7)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Before a GDC answer, write down the equation or function you entered. That line can earn the method mark even if the final value is wrong."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$(a, b)$ is on the graph of $y = f(x)$ exactly when $a$ is in the domain and $f(a) = b$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept: } (0, f(0)) \\qquad x\\text{-intercepts: solve } f(x) = 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sketch: the right shape, key features labelled, not to scale. Draw: accurate, to the grid's scale, joined smoothly.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Label the axes (with units), intercepts, turning points, end points (filled dot if included, open circle if not) and asymptotes (dashed, with equations).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "GDC: set the window from the domain, find key points to 3 s.f., then copy the shape and labels onto paper.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "(f + g)(x) = f(x) + g(x) \\qquad (f - g)(x) = f(x) - g(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The graphs of $f$ and $g$ meet where $f(x) - g(x) = 0$. Where $f(x) - g(x) > 0$, $f$'s graph is above $g$'s.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Copying a GDC graph loosely, such as drawing a curve that flattens out as a straight line. Match where the screen's graph is steep, flat and bending.",
+    "Running the curve past the ends of the domain, or leaving its end points unmarked. Stop at the end points, with filled dots or open circles.",
+    "Giving an asymptote as a bare number. It is a line, so write its equation, such as $v = 55$, and draw it dashed.",
+    "Giving only a real-life reason when a mathematical one is asked for. Name the graph's feature, such as its horizontal asymptote, then say what it means."
+  ],
+  "examTips": [
+    "\"Sketch\": the right shape in the right place, with every requested feature labelled; tick each one off. \"Draw\": points plotted to the grid's scale and joined smoothly.",
+    "\"Write down\" an asymptote: no working needed, but give an equation such as $y = 3$.",
+    "In a context, label the axes with variables and units, and sketch only over the domain the context allows, such as $t \\ge 0$."
+  ],
+  "readingMinutes": 26
+}
