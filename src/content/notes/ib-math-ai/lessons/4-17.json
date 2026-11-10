@@ -1,0 +1,646 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.17",
+  "slug": "poisson-distribution",
+  "title": "Poisson distribution",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "A [[poisson-distribution|Poisson distribution]] counts events in a fixed stretch of time or space, when they happen independently at a steady average rate. Its mean and variance are both $m$, your GDC gives its probabilities, and independent Poisson counts add to another Poisson count.",
+  "goals": [
+    {
+      "text": "Decide whether a Poisson model fits, write $X \\sim \\mathrm{Po}(m)$, and state its assumptions in context.",
+      "bullets": [
+        "4.17-b1"
+      ]
+    },
+    {
+      "text": "Use the mean and variance of $\\mathrm{Po}(m)$, both equal to $m$, without proving them, including to judge whether data look Poisson.",
+      "bullets": [
+        "4.17-b1",
+        "4.17-b4"
+      ]
+    },
+    {
+      "text": "Find Poisson probabilities on your GDC, after scaling the mean to the interval.",
+      "bullets": [
+        "4.17-b1"
+      ]
+    },
+    {
+      "text": "Add independent Poisson counts by adding their means.",
+      "bullets": [
+        "4.17-b2"
+      ]
+    },
+    {
+      "text": "Choose between normal, binomial and Poisson models, and combine them in multi-step questions.",
+      "bullets": [
+        "4.17-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.6",
+    "4.7",
+    "4.8",
+    "4.9",
+    "4.14"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "Poisson probability",
+    "X ~ Po(m)",
+    "poissonpdf and poissoncdf",
+    "mean and variance of a Poisson",
+    "sum of Poisson variables",
+    "binomial or Poisson or normal"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-independent-product",
+      "prompt": "Events $A$ and $B$ are independent, with $\\mathrm{P}(A) = 0.45$ and $\\mathrm{P}(B) = 0.6$. Find $\\mathrm{P}(A \\cap B)$.",
+      "hint": "For [[independent-events|independent events]], multiply the probabilities.",
+      "answer": {
+        "value": 0.27,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{P}(A \\cap B) = 0.45 \\times 0.6 = 0.27$. Revise it in {{lesson:4.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(45, 100)*Rational(6, 10)",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-at-least",
+      "prompt": "$Y \\sim \\mathrm{B}(12, 0.35)$. Find $\\mathrm{P}(Y \\ge 3)$. Give your answer to 3 s.f.",
+      "hint": "Use the complement: $\\mathrm{P}(Y \\ge 3) = 1 - \\mathrm{P}(Y \\le 2)$.",
+      "answer": {
+        "value": 0.849,
+        "tolerance": 0.0005
+      },
+      "explain": "Binomial cdf gives $\\mathrm{P}(Y \\le 2) = 0.151287\\ldots$, so $\\mathrm{P}(Y \\ge 3) = 0.848712\\ldots \\approx 0.849$. Revise it in {{lesson:4.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1 - binomcdf(12, Rational(35, 100), 2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-linear-variance",
+      "prompt": "A [[random-variable|random variable]] $W$ has $\\mathrm{Var}(W) = 3$. Find $\\mathrm{Var}(4W + 7)$.",
+      "hint": "Adding a constant doesn't change the spread. Multiplying by $a$ multiplies the variance by $a^{2}$.",
+      "options": [
+        {
+          "text": "$48$",
+          "correct": true
+        },
+        {
+          "text": "$12$",
+          "correct": false
+        },
+        {
+          "text": "$19$",
+          "correct": false
+        },
+        {
+          "text": "$55$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\mathrm{Var}(4W + 7) = 4^{2} \\times 3 = 48$. $12$ forgets to square the $4$; $19$ and $55$ wrongly add the $7$. Revise it in {{lesson:4.14}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "4**2*3"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "model",
+      "heading": "When a Poisson model fits",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How many orders reach a website in an hour? How many potholes are on a kilometre of road? Each counts events in a fixed interval of time or space. There is no fixed number of trials, so the count has no upper limit."
+        },
+        {
+          "type": "definition",
+          "term": "Poisson distribution",
+          "statement": "Let $X$ be the number of events in a fixed interval of time, length, area or volume. If the events happen independently of each other, at a uniform average rate of $m$ per interval, then $X$ has a [[poisson-distribution|Poisson distribution]], written $X \\sim \\mathrm{Po}(m)$. $X$ can take any of the values $0, 1, 2, 3, \\ldots$",
+          "plain": "You count random, unconnected events in a set stretch of time or space, and they arrive at a steady rate on average."
+        },
+        {
+          "type": "text",
+          "text": "Independent means one event doesn't make another more or less likely. Uniform average rate means the rate stays the same throughout the interval you care about: a café's lunchtime rush and quiet afternoon have different rates."
+        },
+        {
+          "type": "text",
+          "text": "$X$ is a [[discrete-random-variable|discrete random variable]], and the single number $m$ fixes its whole distribution. It is the mean, and it is also the [[variance-of-a-random-variable|variance]]. Both results are in the formula booklet, and you don't need to prove them."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = m",
+          "tag": "booklet",
+          "bookletId": "bk-4-17-poisson-mean"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = m",
+          "tag": "booklet",
+          "bookletId": "bk-4-17-poisson-variance"
+        },
+        {
+          "type": "example",
+          "id": "ex-bookshop-orders",
+          "question": "During its opening hours, an online bookshop receives orders at an average rate of $3.8$ per hour. Let $X$ be the number of orders in a randomly chosen hour. (a) Write down the distribution of $X$, and state two assumptions you have made, in context. (b) Find the standard deviation of $X$.",
+          "steps": [
+            "(a) $X$ counts events in one hour, with mean $3.8$. So $X \\sim \\mathrm{Po}(3.8)$.",
+            "Assumption 1: customers order independently of each other. A promotional email that makes many people order at once would break this.",
+            "Assumption 2: orders arrive at a uniform average rate during the hour. Across a whole day this is doubtful, as evenings may be busier.",
+            "(b) $\\mathrm{Var}(X) = 3.8$, so the standard deviation is $\\sqrt{3.8} = 1.949\\ldots \\approx 1.95$ orders."
+          ],
+          "answer": "$\\text{standard deviation} \\approx 1.95$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(Rational(38, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For \"state an assumption\", name independence or the uniform rate in context: \"orders are placed independently of each other\". \"The data are independent\" ignores the context, so it earns no mark."
+        },
+        {
+          "type": "text",
+          "text": "With data, compare the sample mean with the [[unbiased-estimate|unbiased estimate]] of the variance, $s_{n-1}^{2}$, from {{lesson:4.14}}. If they are close, a Poisson model is worth trying. If they are far apart, it probably isn't suitable."
+        },
+        {
+          "type": "example",
+          "id": "ex-proofreader-errors",
+          "question": "A proofreader counts the typing errors on each of $50$ pages. Number of errors: $0, 1, 2, 3, 4, 5$. Number of pages: $10, 17, 12, 7, 3, 1$. (a) Find the mean and the unbiased estimate of the variance, to 3 s.f. (b) Explain why a Poisson model may be suitable.",
+          "steps": [
+            "(a) Enter the errors as data and the pages as frequencies, then run one-variable statistics. Check that $n = 50$.",
+            "It gives $\\bar{x} = 1.58$ and $s_{n-1} = 1.24687\\ldots$ Square the unrounded value: $s_{n-1}^{2} = 1.55469\\ldots \\approx 1.55$.",
+            "(b) A Poisson distribution has mean equal to variance, and $1.58$ and $1.55$ are very close. So $\\mathrm{Po}(1.58)$ is worth trying, if errors happen independently at a steady rate across pages."
+          ],
+          "answer": "$s_{n-1}^{2} \\approx 1.55$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sdsample([0, 1, 2, 3, 4, 5], [10, 17, 12, 7, 3, 1])**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Squaring $\\sigma_{x}$, which divides by $n$, instead of $s_{x}$, which divides by $n - 1$. Here that gives $1.52$, not $1.55$."
+        },
+        {
+          "type": "check",
+          "id": "check-mean-from-sd",
+          "prompt": "$X \\sim \\mathrm{Po}(m)$ has standard deviation $1.5$. Find $\\mathrm{E}(X)$.",
+          "hint": "The variance is the square of the standard deviation. For a Poisson distribution it equals the mean.",
+          "answer": {
+            "value": 2.25,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{Var}(X) = 1.5^{2} = 2.25$, and the mean equals the variance, so $\\mathrm{E}(X) = 2.25$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(3, 2)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cafe-arrivals",
+          "prompt": "A café records how many customers walk in during each minute over several lunchtimes. The sample mean is $2.1$ and the unbiased estimate of the variance is $6.8$. Which comment is best?",
+          "hint": "What must be true of the mean and variance of a Poisson distribution?",
+          "options": [
+            {
+              "text": "The variance is much larger than the mean, so a Poisson model looks unsuitable",
+              "correct": true
+            },
+            {
+              "text": "The data are counts, so a Poisson model must fit",
+              "correct": false
+            },
+            {
+              "text": "The variance is larger than the mean, which is what a Poisson model predicts",
+              "correct": false
+            },
+            {
+              "text": "A Poisson model fits, with a mean of 6.8 customers per minute",
+              "correct": false
+            }
+          ],
+          "explain": "A Poisson model needs the mean and variance about equal, and $6.8$ is over three times $2.1$. Customers often arrive in groups, so arrivals aren't independent.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The variance is much larger than the mean, so a Poisson model looks unsuitable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "probabilities",
+      "heading": "Poisson probabilities on your GDC",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Poisson pdf gives $\\mathrm{P}(X = k)$. Poisson cdf gives $\\mathrm{P}(X \\le k)$. Both need only the mean $m$."
+        },
+        {
+          "type": "text",
+          "text": "$X$ takes only whole numbers, so the rules from {{lesson:4.8}} still work: \"fewer than $4$\" is $X \\le 3$, and $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-server-errors",
+          "question": "A web server logs errors at an average rate of $2.7$ per day, following a Poisson distribution. Find the probability of exactly $4$ errors on a given day. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $X$ be the number of errors in a day, so $X \\sim \\mathrm{Po}(2.7)$. You want $\\mathrm{P}(X = 4)$.",
+            "Poisson pdf with mean $2.7$ and $x = 4$ gives $0.148815\\ldots \\approx 0.149$.",
+            "Interpret: on about $15\\%$ of days the server logs exactly $4$ errors."
+          ],
+          "answer": "$\\mathrm{P}(X = 4) \\approx 0.149$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "poissonpdf(Rational(27, 10), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "poisson-pdf",
+          "values": {
+            "mean": 2.7,
+            "k": 4
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-17-server-errors",
+          "alt": "Bar chart of the Poisson distribution with mean 2.7, for 0 to 10 errors in a day. The bars rise to a peak at 2, then shrink towards zero but never stop. The bar at 4 is highlighted, and a dashed line marks the mean 2.7.",
+          "caption": "$\\mathrm{Po}(2.7)$: the highlighted bar is $\\mathrm{P}(X = 4)$. The bars carry on past $10$, ever smaller."
+        },
+        {
+          "type": "text",
+          "text": "Because the rate is uniform, the mean grows in proportion to the interval. A mean of $m$ per hour becomes $mt$ in $t$ hours."
+        },
+        {
+          "type": "example",
+          "id": "ex-ambulance-arrivals",
+          "question": "Ambulances arrive at a hospital at an average rate of $0.85$ every $10$ minutes, following a Poisson distribution. (a) Find the probability that at least $5$ arrive in one hour. Give your answer to 3 s.f. (b) Comment on one assumption of your model.",
+          "steps": [
+            "(a) One hour is $6 \\times 10$ minutes, so the mean is $6 \\times 0.85 = 5.1$, and $Y \\sim \\mathrm{Po}(5.1)$.",
+            "$\\mathrm{P}(Y \\ge 5) = 1 - \\mathrm{P}(Y \\le 4)$. Poisson cdf with mean $5.1$ and upper bound $4$ gives $0.423125\\ldots$",
+            "So $\\mathrm{P}(Y \\ge 5) = 0.576874\\ldots \\approx 0.577$.",
+            "(b) The model assumes a uniform average rate. Some times of day may be busier, so one hour's rate may differ from the average."
+          ],
+          "answer": "$\\mathrm{P}(Y \\ge 5) \\approx 0.577$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1 - poissoncdf(6*Rational(85, 100), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "poisson-cdf",
+          "values": {
+            "mean": 5.1,
+            "k": 4
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the distribution with its scaled mean and the probability statement before the GDC value: $Y \\sim \\mathrm{Po}(5.1)$, $1 - \\mathrm{P}(Y \\le 4)$. Using $0.85$ for a one-hour question is the usual slip."
+        },
+        {
+          "type": "check",
+          "id": "check-fewer-than-three",
+          "prompt": "$X \\sim \\mathrm{Po}(2.2)$. Find $\\mathrm{P}(X < 3)$.",
+          "hint": "$X$ is a whole number, so $X < 3$ means $X \\le 2$.",
+          "options": [
+            {
+              "text": "$\\mathrm{P}(X < 3) \\approx 0.623$",
+              "correct": true
+            },
+            {
+              "text": "$\\mathrm{P}(X < 3) \\approx 0.819$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 3) \\approx 0.268$",
+              "correct": false
+            },
+            {
+              "text": "$\\mathrm{P}(X < 3) \\approx 0.377$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{P}(X \\le 2) = 0.622713\\ldots \\approx 0.623$. $0.819$ is $\\mathrm{P}(X \\le 3)$, $0.268$ is $\\mathrm{P}(X = 2)$, and $0.377$ is $\\mathrm{P}(X \\ge 3)$.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "poissoncdf(Rational(22, 10), 2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cycle-route-potholes",
+          "prompt": "Potholes on a country road occur at an average rate of $0.45$ per kilometre, following a Poisson distribution. A cycle route uses $8$ km of the road. Find the probability that the route has at most $1$ pothole. Give your answer to 3 s.f.",
+          "hint": "First find the mean for $8$ km.",
+          "answer": {
+            "value": 0.126,
+            "tolerance": 0.0005
+          },
+          "explain": "The mean is $8 \\times 0.45 = 3.6$, and Poisson cdf gives $\\mathrm{P}(X \\le 1) = 0.125689\\ldots \\approx 0.126$. Using $\\mathrm{Po}(0.45)$ gives $0.925$, the answer for $1$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "poissoncdf(8*Rational(45, 100), 1)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sum",
+      "heading": "Adding independent Poisson counts",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A help-desk inbox gets emails from staff and from customers. If each stream arrives independently at a steady rate, so does the combined stream, at the two rates added together."
+        },
+        {
+          "type": "result",
+          "statement": "If $X \\sim \\mathrm{Po}(m_{1})$ and $Y \\sim \\mathrm{Po}(m_{2})$ are independent, then $X + Y \\sim \\mathrm{Po}(m_{1} + m_{2})$.",
+          "why": "The combined events still happen independently at a uniform rate, and [[expected-value|expected values]] add, as in {{lesson:4.14}}."
+        },
+        {
+          "type": "text",
+          "text": "This is also why the mean scales with the interval: two independent hours, each $\\mathrm{Po}(m)$, add to $\\mathrm{Po}(2m)$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cycle-shop-repairs",
+          "question": "A cycle shop repairs punctures at an average rate of $1.9$ per day and brakes at $1.4$ per day. Each follows a Poisson distribution, independently of the other. Find the probability of more than $5$ repairs in total on one day. Give your answer to 3 s.f.",
+          "steps": [
+            "Let $P \\sim \\mathrm{Po}(1.9)$ and $B \\sim \\mathrm{Po}(1.4)$. They are independent, so $T = P + B \\sim \\mathrm{Po}(3.3)$.",
+            "\"More than $5$\" is $T \\ge 6$: $\\mathrm{P}(T > 5) = 1 - \\mathrm{P}(T \\le 5)$.",
+            "Poisson cdf with mean $3.3$ and upper bound $5$ gives $0.882876\\ldots$, so $\\mathrm{P}(T > 5) = 0.117123\\ldots \\approx 0.117$."
+          ],
+          "answer": "$\\mathrm{P}(T > 5) \\approx 0.117$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1 - poissoncdf(Rational(19, 10) + Rational(14, 10), 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-library-returns",
+          "question": "A library takes back books at its desk at an average rate of $4.6$ per hour and through its drop box at $2.5$ per hour. Both follow Poisson distributions, independently. Find the probability that fewer than $12$ books are returned in total in $2$ hours. Give your answer to 3 s.f.",
+          "steps": [
+            "In one hour the total is $\\mathrm{Po}(4.6 + 2.5) = \\mathrm{Po}(7.1)$.",
+            "For $2$ hours the mean is $2 \\times 7.1 = 14.2$, so $R \\sim \\mathrm{Po}(14.2)$.",
+            "\"Fewer than $12$\" is $R \\le 11$. Poisson cdf gives $0.243530\\ldots \\approx 0.244$.",
+            "Check: $11$ is below the mean $14.2$, so a probability under $0.5$ makes sense."
+          ],
+          "answer": "$\\mathrm{P}(R < 12) \\approx 0.244$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "poissoncdf(2*(Rational(46, 10) + Rational(25, 10)), 11)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Treating $2X$ as the count for $2$ hours. $2X$ takes only even values, and its variance $4m$ isn't its mean $2m$. The count for $2$ hours is a sum of two independent hours, $\\mathrm{Po}(2m)$."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-exactly-four",
+          "prompt": "$X \\sim \\mathrm{Po}(1.7)$ and $Y \\sim \\mathrm{Po}(3.1)$ are independent. Find $\\mathrm{P}(X + Y = 4)$. Give your answer to 3 s.f.",
+          "hint": "Add the means first. Then use Poisson pdf once.",
+          "answer": {
+            "value": 0.182,
+            "tolerance": 0.0005
+          },
+          "explain": "$X + Y \\sim \\mathrm{Po}(4.8)$, and Poisson pdf gives $0.182028\\ldots \\approx 0.182$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "poissonpdf(Rational(17, 10) + Rational(31, 10), 4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-stays-poisson",
+          "prompt": "A taxi firm has two phone lines. The numbers of calls to line A and to line B in an hour are independent, and each is Poisson. Which of these is also Poisson?",
+          "hint": "Only one of these is a sum of independent Poisson counts.",
+          "options": [
+            {
+              "text": "The total number of calls to both lines in an hour",
+              "correct": true
+            },
+            {
+              "text": "Twice the number of calls to line A in an hour",
+              "correct": false
+            },
+            {
+              "text": "The number of calls to line A minus the number to line B in an hour",
+              "correct": false
+            },
+            {
+              "text": "The hourly cost of the calls, at a fixed fee plus a charge per call",
+              "correct": false
+            }
+          ],
+          "explain": "The total is a sum of independent Poisson counts. Doubling gives only even values, a difference can be negative, and the cost isn't a count of events: it starts at the fixed fee and rises in steps of the charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The total number of calls to both lines in an hour"
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Normal, binomial or Poisson?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Exam questions often leave you to choose the model. Ask what the random variable is."
+        },
+        {
+          "type": "text",
+          "text": "1. A continuous measurement, such as a mass or time, with a symmetric bell-shaped spread: a [[normal-distribution|normal distribution]], from {{lesson:4.9}}."
+        },
+        {
+          "type": "text",
+          "text": "2. Successes in a fixed number $n$ of independent trials with the same probability $p$: a [[binomial-distribution|binomial distribution]]. The count can't exceed $n$."
+        },
+        {
+          "type": "text",
+          "text": "3. Events in an interval of time or space, independent and at a uniform average rate, with no upper limit: a Poisson distribution."
+        },
+        {
+          "type": "example",
+          "id": "ex-pick-the-model",
+          "question": "Choose a normal, binomial or Poisson model for each, with a reason. (a) The mass of a bag of rice from a packing machine. (b) The number of seeds that germinate out of $30$, each germinating with probability $0.8$, independently. (c) The number of bicycles passing a counter in $5$ minutes on a weekday morning.",
+          "steps": [
+            "(a) A mass is a continuous measurement that varies symmetrically about the target. Normal.",
+            "(b) $30$ independent trials, each with $p = 0.8$. Binomial, $\\mathrm{B}(30, 0.8)$.",
+            "(c) Events counted in a fixed time, with no fixed number of trials. If cyclists pass independently at a steady rate, Poisson."
+          ],
+          "answer": "(a) Normal: a continuous measurement. (b) Binomial: a fixed number of independent trials. (c) Poisson: events counted in a time interval.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a: normal, continuous measurement; b: binomial, fixed number of independent trials; c: Poisson, events in an interval",
+            "requires": [
+              "Normal",
+              "Binomial",
+              "Poisson"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some questions use two models in turn. A Poisson probability for one interval becomes the $p$ of a binomial across several independent intervals."
+        },
+        {
+          "type": "example",
+          "id": "ex-dolphin-trips",
+          "question": "On a boat trip, the number of dolphins seen follows a Poisson distribution with mean $1.3$. A company runs $10$ independent trips in a week. Find the probability that at least one dolphin is seen on exactly $8$ of the $10$ trips. Give your answer to 3 s.f.",
+          "steps": [
+            "For one trip, $D \\sim \\mathrm{Po}(1.3)$, and $\\mathrm{P}(D \\ge 1) = 1 - \\mathrm{P}(D = 0) = 0.727468\\ldots$",
+            "Each trip is now a trial with $p = 0.727468\\ldots$, so the number of trips with a dolphin is $S \\sim \\mathrm{B}(10, 0.727468\\ldots)$.",
+            "Binomial pdf with $n = 10$, the stored $p$ and $x = 8$ gives $\\mathrm{P}(S = 8) = 0.262155\\ldots \\approx 0.262$.",
+            "Rounding $p$ to $0.727$ first gives $0.261705\\ldots$ Here it still rounds to $0.262$, but in other questions an early-rounded $p$ can change the final answer."
+          ],
+          "answer": "$\\mathrm{P}(S = 8) \\approx 0.262$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "binompdf(10, 1 - poissonpdf(Rational(13, 10), 0), 8)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-screws-model",
+          "prompt": "Each screw in a box of $50$ is faulty with probability $0.02$, independently. Which model suits $X$, the number of faulty screws in the box?",
+          "hint": "Is there a fixed number of trials?",
+          "options": [
+            {
+              "text": "Binomial",
+              "correct": true
+            },
+            {
+              "text": "Poisson",
+              "correct": false
+            },
+            {
+              "text": "Normal",
+              "correct": false
+            }
+          ],
+          "explain": "There are $50$ independent trials with the same $p$, and $X$ can't exceed $50$, so $X \\sim \\mathrm{B}(50, 0.02)$. A count isn't a continuous measurement.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Binomial"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ticket-machine",
+          "prompt": "A ticket machine jams at an average rate of $0.6$ times per day, following a Poisson distribution. Days are independent. Find the probability that in $7$ days the machine jams on at most $2$ of the days. Give your answer to 3 s.f.",
+          "hint": "Find $p$, the probability of at least one jam in a day. Then count jam days with a binomial.",
+          "answer": {
+            "value": 0.314,
+            "tolerance": 0.0005
+          },
+          "explain": "$p = 1 - \\mathrm{P}(J = 0) = 0.451188\\ldots$ for $J \\sim \\mathrm{Po}(0.6)$. Then $\\mathrm{B}(7, 0.451188\\ldots)$ and binomial cdf give $0.314131\\ldots \\approx 0.314$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "binomcdf(7, 1 - poissonpdf(Rational(6, 10), 0), 2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "$X \\sim \\mathrm{Po}(m)$ models the number of events in a fixed interval of time or space when the events happen independently at a uniform average rate of $m$ per interval. $X$ can be $0, 1, 2, \\ldots$ with no upper limit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X) = m",
+          "tag": "booklet",
+          "bookletId": "bk-4-17-poisson-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(X) = m",
+          "tag": "booklet",
+          "bookletId": "bk-4-17-poisson-variance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Because the rate is uniform, a Poisson mean of $m$ per unit interval becomes $mt$ for an interval $t$ times as long.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $X \\sim \\mathrm{Po}(m_{1})$ and $Y \\sim \\mathrm{Po}(m_{2})$ are independent, then $X + Y \\sim \\mathrm{Po}(m_{1} + m_{2})$. Multiples such as $2X$ and differences such as $X - Y$ are not Poisson.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Choosing a model: a continuous measurement with a symmetric bell-shaped spread is normal; successes in a fixed number of independent trials with constant $p$ are binomial; independent events in an interval at a uniform average rate, with no upper limit, are Poisson.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the mean for the wrong interval. Scale $m$ to the question's interval first, and write the new distribution down.",
+    "Writing $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k)$, which drops $X = k$. Use $1 - \\mathrm{P}(X \\le k - 1)$.",
+    "Saying \"the mean and variance differ\" to explain why a situation may not be Poisson when no data are given. Give a reason from the context: events that cluster, or a rate that changes.",
+    "Rounding a Poisson probability before using it as $p$ in a binomial. Store the full value and round only the final answer."
+  ],
+  "examTips": [
+    "Find a Poisson probability: write $X \\sim \\mathrm{Po}(m)$ for the right interval and the probability statement, then the GDC value to 3 s.f.",
+    "Explain why a Poisson model suits a situation: independence or a uniform average rate, in context. From data: the sample mean and variance are about equal.",
+    "A switch from \"in an interval\" to \"on how many of the days\" usually means a binomial, with the Poisson probability as $p$."
+  ],
+  "readingMinutes": 24
+}

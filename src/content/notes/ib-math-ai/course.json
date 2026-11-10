@@ -1,0 +1,80 @@
+{
+ "slug": "ib-math-ai",
+ "name": "IB Maths AI",
+ "published": false,
+ "levels": {
+  "base": "SL",
+  "extension": "AHL",
+  "labels": {
+   "base": "SL",
+   "extension": "HL",
+   "extensionOnly": "HL only"
+  }
+ },
+ "banks": {
+  "SL": "ib-ai-sl",
+  "HL": "ib-ai-hl"
+ },
+ "items": "src/content/notes/ib-math-ai/items.json",
+ "practice": {
+  "kind": "bank-subtopics"
+ },
+ "gate": {
+  "sidecars": "scripts/notes/sidecars/ib-math-ai",
+  "packs": "course-notes-ai/packs",
+  "glossaryPlan": "course-notes-ai/glossary-plan.json"
+ },
+ "calculators": [
+  {
+   "id": "ti84",
+   "name": "TI-84"
+  },
+  {
+   "id": "nspire",
+   "name": "TI-Nspire"
+  },
+  {
+   "id": "casio",
+   "name": "Casio"
+  }
+ ],
+ "copy": {
+  "crumbs": [
+   "IB",
+   "Maths AI"
+  ],
+  "guide": "Follows the IB guide for exams up to Nov 2028.",
+  "sheetFooter": "Follows the IB Maths AI guide (first assessment 2021). Not affiliated with the IB.",
+  "board": "IB",
+  "educationalLevel": "IB Diploma",
+  "bankPrefix": "AI",
+  "bankPhrase": "in the AI {level} bank"
+ },
+ "topics": [
+  {
+   "n": 1,
+   "slug": "number-and-algebra",
+   "name": "Number and algebra"
+  },
+  {
+   "n": 2,
+   "slug": "functions",
+   "name": "Functions"
+  },
+  {
+   "n": 3,
+   "slug": "geometry-and-trigonometry",
+   "name": "Geometry and trigonometry"
+  },
+  {
+   "n": 4,
+   "slug": "statistics-and-probability",
+   "name": "Statistics and probability"
+  },
+  {
+   "n": 5,
+   "slug": "calculus",
+   "name": "Calculus"
+  }
+ ]
+}

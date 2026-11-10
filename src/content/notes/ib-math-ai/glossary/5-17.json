@@ -1,0 +1,32 @@
+[
+  {
+    "id": "phase-portrait",
+    "term": "phase portrait",
+    "definition": "A diagram in the $(x, y)$ plane showing the trajectories of a pair of coupled differential equations, with arrows for the direction of motion as time increases; time itself is not an axis.",
+    "lesson": "5.17"
+  },
+  {
+    "id": "trajectory",
+    "term": "trajectory",
+    "definition": "The path a solution $(x(t), y(t))$ of a pair of coupled differential equations traces in the $(x, y)$ plane as $t$ increases.",
+    "lesson": "5.17"
+  },
+  {
+    "id": "equilibrium-point",
+    "term": "equilibrium point",
+    "definition": "A point where $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ at the same time, so a solution that starts there stays there; for $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ with non-zero eigenvalues it is the origin only.",
+    "lesson": "5.17"
+  },
+  {
+    "id": "saddle-point",
+    "term": "saddle point",
+    "definition": "An equilibrium point of a linear system whose eigenvalues are real with opposite signs: trajectories come in alongside the negative eigenvalue's eigenvector line and leave alongside the positive one's, so it is unstable.",
+    "lesson": "5.17"
+  },
+  {
+    "id": "stable-equilibrium",
+    "term": "stable equilibrium",
+    "definition": "An equilibrium point that all nearby solutions move towards as time increases; for $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ the origin is stable when both eigenvalues are negative or complex with negative real part.",
+    "lesson": "5.17"
+  }
+]

@@ -1,0 +1,586 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.8",
+  "slug": "trapezoidal-rule",
+  "title": "Trapezoidal rule",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[trapezoidal-rule|trapezoidal rule]] estimates the area under a curve. It splits the area into strips of equal width and treats each strip as a trapezoid with a straight top. It works from a table of measurements or from a function, and when the curve bends the same way throughout, its shape tells you whether the estimate is too big or too small.",
+  "goals": [
+    {
+      "text": "Estimate an area with the trapezoidal rule from a table of values at equal intervals, counting the intervals correctly.",
+      "bullets": [
+        "5.8-b1"
+      ]
+    },
+    {
+      "text": "Use the trapezoidal rule when the curve is given as a function, finding its values on your GDC.",
+      "bullets": [
+        "5.8-b1"
+      ]
+    },
+    {
+      "text": "Interpret a trapezoidal estimate in context, with units, including a total found from a rate.",
+      "bullets": [
+        "5.8-b1"
+      ]
+    },
+    {
+      "text": "Explain from the shape of the curve whether an estimate is too big or too small, and find its [[percentage-error|percentage error]] against the [[definite-integral|definite integral]].",
+      "bullets": [
+        "5.8-b2"
+      ]
+    },
+    {
+      "text": "Find the [[upper-bound|upper bound]] and [[lower-bound|lower bound]] of an estimate made from rounded measurements.",
+      "bullets": [
+        "5.8-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.6",
+    "5.5"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "trapezium rule",
+    "trapezoid rule",
+    "estimate area from a table",
+    "numerical integration",
+    "overestimate or underestimate area"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-area-gdc",
+      "prompt": "Use your GDC to find the area between the curve $y = 0.5x^{2} + 3$, the $x$-axis and the lines $x = 1$ and $x = 4$. Give your answer to 3 s.f.",
+      "hint": "The curve is above the $x$-axis, so the area is $\\int_{1}^{4} (0.5x^{2} + 3)\\,\\mathrm{d}x$.",
+      "answer": {
+        "value": 19.5,
+        "tolerance": 0.05
+      },
+      "explain": "Write down $\\int_{1}^{4} (0.5x^{2} + 3)\\,\\mathrm{d}x$ and evaluate it on the GDC: $19.5$. Revise it in {{lesson:5.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "integrate(0.5*x**2 + 3, (x, 1, 4))",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-percentage-error",
+      "prompt": "An estimate of a quantity is $63$, and its exact value is $60.8$. Find the percentage error of the estimate. Give your answer to 3 s.f.",
+      "hint": "Divide the difference by the exact value, not by the estimate.",
+      "answer": {
+        "value": 3.62,
+        "tolerance": 0.005
+      },
+      "explain": "$\\left|\\frac{63 - 60.8}{60.8}\\right| \\times 100\\% = 3.618\\ldots\\%$, so $3.62\\%$. Dividing by $63$ gives $3.49\\%$, which is wrong. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Abs(63 - 60.8)/60.8*100",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "rule",
+      "heading": "The trapezoidal rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Often you need an area under a curve but have only measurements, such as a width every few metres. The trapezoidal rule turns a table like this into an estimate."
+        },
+        {
+          "type": "text",
+          "text": "Join each pair of neighbouring points with a straight line. The region splits into vertical strips of equal width $h$. Each strip is a trapezoid (also called a trapezium): two parallel vertical sides and a straight top."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-trapezoid-strips",
+          "alt": "A curve above the x-axis from x equals a to x equals b, split into four vertical strips of equal width h. The heights y0, y1, y2, y3 and y4 are marked at the edges of the strips, and neighbouring points on the curve are joined by straight lines, so each strip is a shaded trapezoid that almost matches the region under the curve.",
+          "caption": "Four strips of width $h$ use five heights, $y_{0}$ to $y_{4}$. The straight tops follow the curve closely."
+        },
+        {
+          "type": "text",
+          "text": "A trapezoid whose parallel sides $p$ and $q$ are a distance $h$ apart has area $\\frac{1}{2}(p + q)h$. This is in the prior-learning section of the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "Now add the strips. The first uses heights $y_{0}$ and $y_{1}$, the second $y_{1}$ and $y_{2}$, and so on. Each inside height is a side of two strips, so it is counted twice. The two end heights belong to one strip each."
+        },
+        {
+          "type": "formula",
+          "tex": "\\int_{a}^{b} y\\,\\mathrm{d}x \\approx \\frac{1}{2}h\\left((y_{0} + y_{n}) + 2(y_{1} + y_{2} + \\dots + y_{n-1})\\right),\\quad \\text{where } h = \\frac{b - a}{n}",
+          "tag": "booklet",
+          "bookletId": "bk-5-8-trapezoidal-rule"
+        },
+        {
+          "type": "text",
+          "text": "Here $y_{0}, y_{1}, \\dots, y_{n}$ are the heights at equally spaced $x$-values from $a$ to $b$. With $n$ intervals there are $n + 1$ heights. The rule is in the formula booklet: your job is to count $n$, find $h$ and substitute correctly."
+        },
+        {
+          "type": "text",
+          "text": "Adding the areas of the separate trapezoids one by one gives exactly the same total. The formula is just faster."
+        },
+        {
+          "type": "example",
+          "id": "ex-flower-bed",
+          "question": "A flower bed lies between a straight wall and a curved path. Its width, $y$ metres, is measured every $2.5$ m along the wall, at distance $x$ metres from one end. $\\begin{array}{c|ccccc} x & 0 & 2.5 & 5 & 7.5 & 10 \\\\ \\hline y & 4.2 & 5.1 & 5.6 & 4.8 & 3.7 \\end{array}$ Use the trapezoidal rule to estimate the area of the flower bed. Give your answer to 3 s.f.",
+          "steps": [
+            "Count the intervals: $5$ values give $n = 4$ intervals, so $h = \\frac{10 - 0}{4} = 2.5$.",
+            "The end values are $y_{0} = 4.2$ and $y_{4} = 3.7$. The inside values are $5.1$, $5.6$ and $4.8$.",
+            "Substitute: $A \\approx \\frac{1}{2} \\times 2.5 \\times \\left((4.2 + 3.7) + 2(5.1 + 5.6 + 4.8)\\right)$.",
+            "$= 1.25 \\times (7.9 + 31) = 48.625$, so about $48.6$ m².",
+            "Sense check: the widths are all about $5$ m over a length of $10$ m, and $5 \\times 10 = 50$."
+          ],
+          "answer": "$A \\approx 48.6\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.5/2*((4.2 + 3.7) + 2*(5.1 + 5.6 + 4.8))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting the values instead of the intervals. Five values in a table give $n = 4$ intervals, so $h = \\frac{b - a}{4}$, not $\\frac{b - a}{5}$."
+        },
+        {
+          "type": "check",
+          "id": "check-count-intervals",
+          "prompt": "A table gives the depth of a canal at $9$ equally spaced points across it, from $x = 0$ to $x = 12$ metres. For the trapezoidal rule, what are $n$ and $h$?",
+          "hint": "The number of intervals is one less than the number of values.",
+          "options": [
+            {
+              "text": "$n = 8, \\; h = 1.5$",
+              "correct": true
+            },
+            {
+              "text": "$n = 9, \\; h = \\frac{4}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$n = 8, \\; h = \\frac{4}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$n = 9, \\; h = 1.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$9$ points mark out $8$ gaps, so $n = 8$ and $h = \\frac{12 - 0}{8} = 1.5$ m. Dividing $12$ by $9$ counts the points, not the gaps.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"n\": 9 - 1, \"h\": (12 - 0)/(9 - 1)}"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The rule estimates any definite integral, not only a geometric area. If $y$ is a rate, the area under its graph is a total change ({{lesson:5.5}}). Its units are the rate's units times the $x$-units."
+        },
+        {
+          "type": "example",
+          "id": "ex-solar-energy",
+          "question": "A solar panel's power output, $P$ kilowatts (kW), is recorded every $2$ hours, $t$ hours after 06:00. $\\begin{array}{c|ccccccc} t & 0 & 2 & 4 & 6 & 8 & 10 & 12 \\\\ \\hline P & 0 & 1.8 & 3.9 & 4.6 & 3.5 & 1.6 & 0.2 \\end{array}$ The energy produced, $E$ kilowatt hours (kWh), is the area under the graph of $P$ against $t$. Use the trapezoidal rule to estimate $E$ from 06:00 to 18:00, and interpret your answer.",
+          "steps": [
+            "$7$ values give $n = 6$ intervals, and $h = \\frac{12 - 0}{6} = 2$.",
+            "Ends: $y_{0} = 0$, $y_{6} = 0.2$. Inside: $1.8 + 3.9 + 4.6 + 3.5 + 1.6 = 15.4$.",
+            "Substitute: $E \\approx \\frac{1}{2} \\times 2 \\times \\left((0 + 0.2) + 2 \\times 15.4\\right) = 31.0$.",
+            "Units: kilowatts times hours gives kilowatt hours.",
+            "Interpret: the panel produced about $31.0$ kWh of energy between 06:00 and 18:00. It is an estimate, because the output between readings is assumed to change in a straight line."
+          ],
+          "answer": "$E \\approx 31.0\\text{ kWh}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2/2*((0 + 0.2) + 2*(1.8 + 3.9 + 4.6 + 3.5 + 1.6))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the substituted rule, with $h$ and every value in place, before the answer. That line earns the method mark even if you slip in the arithmetic."
+        },
+        {
+          "type": "check",
+          "id": "check-car-distance",
+          "prompt": "A car's speed, $v$ m s⁻¹, is recorded every $4$ seconds as it pulls away. $\\begin{array}{c|ccccc} t & 0 & 4 & 8 & 12 & 16 \\\\ \\hline v & 0 & 6.5 & 11.2 & 14.0 & 15.3 \\end{array}$ The distance travelled is the area under the speed–time graph. Use the trapezoidal rule to estimate the distance, in metres, travelled in the $16$ seconds. Give your answer to 3 s.f.",
+          "hint": "$n = 4$ and $h = 4$. Which values are counted twice?",
+          "answer": {
+            "value": 157,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{1}{2} \\times 4 \\times \\left((0 + 15.3) + 2(6.5 + 11.2 + 14.0)\\right) = 2 \\times 78.7 = 157.4$, so about $157$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4/2*((0 + 15.3) + 2*(6.5 + 11.2 + 14.0))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "function",
+      "heading": "Estimating from a function",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When the curve is a function $y = f(x)$, work out the heights yourself: $y_{0} = f(a)$, $y_{1} = f(a + h)$, $y_{2} = f(a + 2h)$, and so on, up to $y_{n} = f(b)$. Then the rule is the same."
+        },
+        {
+          "type": "text",
+          "text": "A table of values on your GDC, starting at $a$ with step $h$, lists the heights for you. Keep their full values and round only the final estimate."
+        },
+        {
+          "type": "example",
+          "id": "ex-glass-wall",
+          "question": "The top edge of a glass wall is modelled by $y = 6 + 1.5x - 0.25x^{2}$, for $0 \\le x \\le 8$, where $x$ and $y$ are in metres and the ground is the $x$-axis. Estimate the area of glass with the trapezoidal rule, using four intervals.",
+          "steps": [
+            "$h = \\frac{8 - 0}{4} = 2$, so the $x$-values are $0, 2, 4, 6, 8$.",
+            "Substitute each into $f(x) = 6 + 1.5x - 0.25x^{2}$: $f(0) = 6$, $f(2) = 6 + 3 - 1 = 8$, $f(4) = 6 + 6 - 4 = 8$, $f(6) = 6 + 9 - 9 = 6$, $f(8) = 6 + 12 - 16 = 2$.",
+            "Ends $6$ and $2$, inside $8 + 8 + 6 = 22$.",
+            "$A \\approx \\frac{1}{2} \\times 2 \\times \\left((6 + 2) + 2 \\times 22\\right) = 52$.",
+            "So the wall has about $52.0$ m² of glass."
+          ],
+          "answer": "$A \\approx 52.0\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2/2*((6 + 1.5*0 - 0.25*0**2) + (6 + 1.5*8 - 0.25*8**2) + 2*((6 + 1.5*2 - 0.25*2**2) + (6 + 1.5*4 - 0.25*4**2) + (6 + 1.5*6 - 0.25*6**2)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-function-estimate",
+          "prompt": "Estimate the area under $y = 0.4x^{2} + 3$ from $x = 0$ to $x = 3$ with the trapezoidal rule, using three intervals.",
+          "hint": "Find $y$ at $x = 0, 1, 2, 3$. Only the first and last count once.",
+          "options": [
+            {
+              "text": "$12.8$",
+              "correct": true
+            },
+            {
+              "text": "$8.8$",
+              "correct": false
+            },
+            {
+              "text": "$25.6$",
+              "correct": false
+            },
+            {
+              "text": "$17.6$",
+              "correct": false
+            }
+          ],
+          "explain": "The heights are $3$, $3.4$, $4.6$ and $6.6$, with $h = 1$. So $\\frac{1}{2} \\times 1 \\times \\left((3 + 6.6) + 2(3.4 + 4.6)\\right) = 12.8$. $8.8$ forgets to double the inside values, $25.6$ drops the $\\frac{1}{2}$, and $17.6$ doubles the end values too.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/2*((0.4*0**2 + 3) + (0.4*3**2 + 3) + 2*((0.4*1**2 + 3) + (0.4*2**2 + 3)))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If you know the function, your GDC can also find the exact [[definite-integral|definite integral]] ({{lesson:5.5}}). Questions often ask for both, to judge the estimate."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-speed",
+          "question": "A car's speed is modelled by $v(t) = 25(1 - 0.8^{t})$ m s⁻¹, for $0 \\le t \\le 10$ seconds. The distance travelled is $\\int_{0}^{10} v\\,\\mathrm{d}t$. Use the trapezoidal rule with five intervals to estimate the distance travelled in the first $10$ seconds. Give your answer to 3 s.f.",
+          "steps": [
+            "$h = \\frac{10 - 0}{5} = 2$, so you need $v$ at $t = 0, 2, 4, 6, 8, 10$.",
+            "From the GDC table: $0$, $9$, $14.76$, $18.4464$, $20.805696$, $22.31564544$. Keep these full values.",
+            "Ends: $0 + 22.31564544$. Inside: $9 + 14.76 + 18.4464 + 20.805696 = 63.012096$.",
+            "Distance $\\approx \\frac{1}{2} \\times 2 \\times \\left(22.31564544 + 2 \\times 63.012096\\right) = 148.339\\ldots$",
+            "Interpret: the car travels about $148$ m in the first $10$ seconds."
+          ],
+          "answer": "$\\text{distance} \\approx 148\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2/2*(25*(1 - 0.8**0) + 25*(1 - 0.8**10) + 2*summation(25*(1 - 0.8**(2*k)), (k, 1, 4)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "trapezoidal-check",
+          "values": {
+            "function": "25(1-0.8^X)",
+            "a": 0,
+            "b": 10,
+            "h": 2
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding each height before adding. Small rounding errors add up across the strips, so keep the GDC's full values and round only the estimate."
+        },
+        {
+          "type": "check",
+          "id": "check-pipe-volume",
+          "prompt": "Water flows from a pipe at a rate of $r(t) = 12 \\times 1.2^{t}$ litres per minute, for $0 \\le t \\le 6$ minutes. Estimate the volume of water, in litres, that flows in the $6$ minutes, with the trapezoidal rule and $n = 3$ strips. Give your answer to 3 s.f.",
+          "hint": "$h = 2$, so find $r(0)$, $r(2)$, $r(4)$ and $r(6)$.",
+          "answer": {
+            "value": 132,
+            "tolerance": 0.5
+          },
+          "explain": "The rates are $12$, $17.28$, $24.8832$ and $35.831808$. So $\\frac{1}{2} \\times 2 \\times \\left((12 + 35.831808) + 2(17.28 + 24.8832)\\right) = 132.158\\ldots$, about $132$ litres.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2/2*(12*1.2**0 + 12*1.2**6 + 2*(12*1.2**2 + 12*1.2**4))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "accuracy",
+      "heading": "How good is the estimate?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each trapezoid has a straight top, but the curve bends. The thin gap between them is that strip's error."
+        },
+        {
+          "type": "figure",
+          "id": "5-8-over-under",
+          "alt": "Two panels, each showing one strip under a curve with a straight line joining the curve's ends. Left: the curve bends upwards, so the straight top lies above the curve and the gap between them is extra area inside the trapezoid, labelled overestimate. Right: the curve bends downwards, so the straight top lies below the curve and the gap is area the trapezoid misses, labelled underestimate.",
+          "caption": "The dark gap is the error in one strip. It is counted when the curve bends upwards and missed when it bends downwards."
+        },
+        {
+          "type": "result",
+          "statement": "Take the trapezoidal estimate of $\\int_{a}^{b} y\\,\\mathrm{d}x$. If the curve bends upwards (is concave up) across the whole interval from $a$ to $b$, the estimate is too big: an overestimate. If it bends downwards (is concave down) across the whole interval, the estimate is too small: an underestimate.",
+          "why": "Where the curve bends upwards, every straight top lies above the curve, so each trapezoid includes extra area. Where it bends downwards, every straight top lies below the curve, so each trapezoid misses some area."
+        },
+        {
+          "type": "text",
+          "text": "If the curve bends upwards in some places and downwards in others, the errors partly cancel. Then the shape alone can't tell you which way the estimate is out: compare it with the definite integral instead. For a straight line the estimate is exact."
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-explain",
+          "question": "The curved side of a skateboard ramp is modelled by $y = 0.3x^{2} + 0.4$, for $0 \\le x \\le 3$, in metres. Lena estimates the area of the side with the trapezoidal rule and six intervals, and gets $3.94$ m². Without finding the exact area, explain whether her estimate is an overestimate or an underestimate.",
+          "steps": [
+            "Look at the shape: $y = 0.3x^{2} + 0.4$ is a parabola that opens upwards, so it bends upwards (is concave up) across the whole of $0 \\le x \\le 3$.",
+            "Join any two neighbouring points on it with a straight line. The line lies above the curve between them.",
+            "So each trapezoid includes a thin piece of area above the ramp's edge, and the total is too big."
+          ],
+          "answer": "It is an overestimate. The curve is concave up across the whole interval, so the straight top of each trapezoid lies above the curve and each trapezoid includes extra area.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Overestimate: the curve is concave up on the whole interval, so each trapezoid's straight top lies above the curve and includes extra area.",
+            "requires": [
+              "overestimate",
+              [
+                "concave up",
+                "bends upwards"
+              ],
+              "above the curve"
+            ],
+            "forbids": [
+              "underestimate",
+              "below the curve"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Explain\" whether an estimate is too big or too small: describe the curve's shape and say where the straight tops sit compared with the curve. Comparing with an exact value you only find in a later part may not earn the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-over-under",
+          "prompt": "A curve lies above the $x$-axis and bends downwards across the whole interval $0 \\le x \\le 5$. How does the trapezoidal estimate of the area under it compare with the true area?",
+          "hint": "Sketch one strip. Is the straight top above or below the curve?",
+          "options": [
+            {
+              "text": "less than the true area",
+              "correct": true
+            },
+            {
+              "text": "greater than the true area",
+              "correct": false
+            },
+            {
+              "text": "equal to the true area",
+              "correct": false
+            }
+          ],
+          "explain": "When the curve bends downwards, each straight top lies below the curve, so every trapezoid misses a little area. The estimate is an underestimate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "less than the true area"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When you can also find the exact value, $\\int_{a}^{b} y\\,\\mathrm{d}x$ on your GDC, measure the estimate's accuracy with the [[percentage-error|percentage error]] from {{lesson:1.6}}. The estimate is $v_{A}$ and the exact integral is $v_{E}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\varepsilon = \\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%",
+          "tag": "booklet",
+          "bookletId": "bk-1-6-percentage-error"
+        },
+        {
+          "type": "example",
+          "id": "ex-car-error",
+          "question": "For the car with speed $v(t) = 25(1 - 0.8^{t})$ m s⁻¹, the trapezoidal estimate of the distance in the first $10$ seconds was $148.339\\ldots$ m. (a) Explain why this is an underestimate. (b) Use your GDC to find the exact distance, and hence the percentage error of the estimate. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) The speed rises more and more slowly, so the graph of $v$ bends downwards across the whole interval. Each straight top lies below the curve, so each strip misses some area.",
+            "(b) Write down the integral: $\\int_{0}^{10} 25(1 - 0.8^{t})\\,\\mathrm{d}t$. The GDC gives $149.994\\ldots$ m.",
+            "This is larger than the estimate, as part (a) predicts.",
+            "$\\varepsilon = \\left|\\frac{148.339\\ldots - 149.994\\ldots}{149.994\\ldots}\\right| \\times 100\\% = 1.1029\\ldots\\%$",
+            "So the estimate is about $1.10\\%$ below the true distance. Using the stored values, not $148$ and $150$, keeps this accurate."
+          ],
+          "answer": "$\\varepsilon \\approx 1.10\\%$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "N(Abs(2/2*(25*(1 - 0.8**0) + 25*(1 - 0.8**10) + 2*summation(25*(1 - 0.8**(2*k)), (k, 1, 4))) - integrate(25*(1 - 0.8**t), (t, 0, 10)))/(integrate(25*(1 - 0.8**t), (t, 0, 10)))*100, 30)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 0,
+            "upper": 10,
+            "function": "25(1-0.8^X)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the estimate in a percentage error. The exact value, here the definite integral, always goes in the denominator."
+        },
+        {
+          "type": "check",
+          "id": "check-wall-error",
+          "prompt": "The glass wall $y = 6 + 1.5x - 0.25x^{2}$, $0 \\le x \\le 8$, had a trapezoidal estimate of $52$ m². Use your GDC to find the exact area, then the percentage error of the estimate. Give your answer to 3 s.f.",
+          "hint": "Find $\\int_{0}^{8} (6 + 1.5x - 0.25x^{2})\\,\\mathrm{d}x$ first, and divide by it.",
+          "answer": {
+            "value": 2.5,
+            "tolerance": 0.005
+          },
+          "explain": "The exact area is $53.333\\ldots$ m², so $\\varepsilon = \\left|\\frac{52 - 53.333\\ldots}{53.333\\ldots}\\right| \\times 100\\% = 2.50\\%$. The estimate is low because the parabola bends downwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Abs(2/2*((6 + 1.5*0 - 0.25*0**2) + (6 + 1.5*8 - 0.25*8**2) + 2*((6 + 1.5*2 - 0.25*2**2) + (6 + 1.5*4 - 0.25*4**2) + (6 + 1.5*6 - 0.25*6**2))) - integrate(6 + 1.5*x - 0.25*x**2, (x, 0, 8)))/(integrate(6 + 1.5*x - 0.25*x**2, (x, 0, 8)))*100",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "More intervals usually give a closer estimate, because shorter straight tops follow the curve more closely."
+        },
+        {
+          "type": "text",
+          "text": "Measurements in a table are usually rounded. Take the $x$-values, and so $h$, as exact: each height then lies between its [[lower-bound|lower bound]] and [[upper-bound|upper bound]] ({{lesson:1.6}}). Every height in the rule is multiplied by a positive number. So putting in all the upper bounds gives the upper bound of the estimate, and all the lower bounds give its lower bound."
+        },
+        {
+          "type": "example",
+          "id": "ex-bed-bounds",
+          "question": "The widths of the flower bed, $4.2, 5.1, 5.6, 4.8, 3.7$ m at $x = 0, 2.5, 5, 7.5, 10$, were each measured to the nearest $0.1$ m. Find the upper bound of the trapezoidal estimate of its area. Give your answer to 3 s.f.",
+          "steps": [
+            "Each width is rounded to the nearest $0.1$ m, so its upper bound is $0.05$ m more: $4.25, 5.15, 5.65, 4.85, 3.75$.",
+            "$n = 4$ and $h = 2.5$ as before.",
+            "$A_{\\max} = \\frac{1}{2} \\times 2.5 \\times \\left((4.25 + 3.75) + 2(5.15 + 5.65 + 4.85)\\right) = 1.25 \\times 39.3 = 49.125$",
+            "Check: each height rose by $0.05$, which adds $0.05 \\times (10 - 0) = 0.5$ to the earlier $48.625$.",
+            "So the trapezoidal estimate is less than $49.125$ m², about $49.1$ m², whatever the true widths were."
+          ],
+          "answer": "$A_{\\max} \\approx 49.1\\text{ m}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.5/2*((4.2 + 0.05) + (3.7 + 0.05) + 2*((5.1 + 0.05) + (5.6 + 0.05) + (4.8 + 0.05)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stream-bounds",
+          "prompt": "The depth of a stream, measured to the nearest $0.1$ m every $0.5$ m across it, is $0.7, 1.1, 1.6, 1.5, 0.9$ m. Find the upper bound of the trapezoidal estimate of the stream's cross-sectional area, in m². Give your answer to 3 s.f.",
+          "hint": "Add $0.05$ to every depth, then use $n = 4$ and $h = 0.5$.",
+          "answer": {
+            "value": 2.6,
+            "tolerance": 0.005
+          },
+          "explain": "The upper bounds are $0.75, 1.15, 1.65, 1.55, 0.95$. So $\\frac{1}{2} \\times 0.5 \\times \\left((0.75 + 0.95) + 2(1.15 + 1.65 + 1.55)\\right) = 0.25 \\times 10.4 = 2.60$ m².",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.5/2*((0.7 + 0.05) + (0.9 + 0.05) + 2*((1.1 + 0.05) + (1.6 + 0.05) + (1.5 + 0.05)))",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\int_{a}^{b} y\\,\\mathrm{d}x \\approx \\frac{1}{2}h\\left((y_{0} + y_{n}) + 2(y_{1} + y_{2} + \\dots + y_{n-1})\\right),\\quad \\text{where } h = \\frac{b - a}{n}",
+          "tag": "booklet",
+          "bookletId": "bk-5-8-trapezoidal-rule",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$n$ intervals of equal width use $n + 1$ values, and $h = \\frac{b - a}{n}$. The end values $y_{0}$ and $y_{n}$ count once; every other value counts twice.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $y \\ge 0$ the rule estimates the area under the curve. For a rate, it estimates the total change, in the rate's units times the $x$-units.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If the curve bends upwards (concave up) across the whole interval, the trapezoidal rule overestimates $\\int_{a}^{b} y\\,\\mathrm{d}x$. If it bends downwards (concave down) across the whole interval, it underestimates. If the bending changes, the shape alone can't tell you.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Percentage error of a trapezoidal estimate: $\\left|\\frac{\\text{estimate} - \\text{exact}}{\\text{exact}}\\right| \\times 100\\%$, where the exact value is the definite integral from your GDC.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If every height is rounded and the $x$-values are exact, using all the upper bounds gives the upper bound of the trapezoidal estimate, and all the lower bounds its lower bound.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Counting values instead of intervals. Six values give $n = 5$, so $h = \\frac{b - a}{5}$.",
+    "Doubling the end values, or forgetting to double the inside ones. Only $y_{0}$ and $y_{n}$ appear once.",
+    "Leaving out the $\\frac{1}{2}$, or putting the $x$-values into the rule instead of the heights.",
+    "Rounding each height before adding. Keep full GDC values and round only the final estimate.",
+    "Dividing by the estimate in a percentage error. Divide by the exact value.",
+    "Explaining \"overestimate\" only with a number from a later part. Describe the curve's shape and where the straight tops lie."
+  ],
+  "examTips": [
+    "\"Use the trapezoidal rule\": write the rule with $h$ and every value substituted, then the answer. The substitution earns the method mark.",
+    "\"Explain\" an over- or underestimate: say how the curve bends and whether the straight tops lie above or below it.",
+    "\"Write down the integral\" for the exact area: the limits, the function and $\\mathrm{d}x$. Then evaluate it on your GDC and give the answer to 3 s.f.",
+    "Give units: m² for an area, and the rate's units times the $x$-units for a total, such as kW × hours = kWh."
+  ],
+  "readingMinutes": 24
+}

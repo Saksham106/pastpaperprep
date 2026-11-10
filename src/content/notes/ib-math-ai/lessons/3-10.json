@@ -1,0 +1,898 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.10",
+  "slug": "vectors-in-2d-and-3d",
+  "title": "Vectors in 2D and 3D",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "[[vector|Vectors]] describe anything that has a size and points somewhere: a walk across a map, a pull on a rope, a drone's flight. This lesson writes them as columns or with $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$, combines them into a resultant, measures their length, and turns a [[speed|speed]] plus a direction into a [[velocity|velocity]].",
+  "goals": [
+    {
+      "text": "Tell a vector from a scalar, and draw and read vectors as arrows.",
+      "bullets": [
+        "3.10-b1",
+        "3.10-b2"
+      ]
+    },
+    {
+      "text": "Use columns or the [[base-vectors|base vectors]] $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ to write a vector, and describe points with [[position-vector|position vectors]].",
+      "bullets": [
+        "3.10-b3",
+        "3.10-b4",
+        "3.10-b6"
+      ]
+    },
+    {
+      "text": "Add and subtract vectors, find a resultant, and use the zero vector and $-\\boldsymbol{v}$.",
+      "bullets": [
+        "3.10-b4",
+        "3.10-b5"
+      ]
+    },
+    {
+      "text": "Multiply a vector by a scalar and spot parallel vectors.",
+      "bullets": [
+        "3.10-b4"
+      ]
+    },
+    {
+      "text": "Find the [[magnitude-of-a-vector|magnitude of a vector]] and the distance between two points.",
+      "bullets": [
+        "3.10-b4",
+        "3.10-b6"
+      ]
+    },
+    {
+      "text": "Find a [[unit-vector|unit vector]] and rescale a vector, for example to get a velocity from a speed and a direction.",
+      "bullets": [
+        "3.10-b3",
+        "3.10-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "vectors in 3d",
+    "unit vector",
+    "magnitude of a vector",
+    "resultant vector",
+    "velocity from speed and direction",
+    "position vector"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-distance-3d",
+      "prompt": "Find the distance between the points $(1, 4, -2)$ and $(7, 1, 0)$.",
+      "hint": "Subtract matching coordinates, square each difference, add, then take the square root.",
+      "options": [
+        {
+          "text": "$7$",
+          "correct": true
+        },
+        {
+          "text": "$49$",
+          "correct": false
+        },
+        {
+          "text": "$\\sqrt{5}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\sqrt{(7 - 1)^{2} + (1 - 4)^{2} + (0 - (-2))^{2}} = \\sqrt{36 + 9 + 4} = \\sqrt{49} = 7$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "sqrt((7 - 1)**2 + (1 - 4)**2 + (0 - (-2))**2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-midpoint-3d",
+      "prompt": "Find the midpoint of the points $(2, -6, 5)$ and $(8, 0, -1)$.",
+      "hint": "Add matching coordinates, then halve each total.",
+      "options": [
+        {
+          "text": "$(5, -3, 2)$",
+          "correct": true
+        },
+        {
+          "text": "$(3, 3, -3)$",
+          "correct": false
+        },
+        {
+          "text": "$(10, -6, 4)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left(\\frac{2 + 8}{2}, \\frac{-6 + 0}{2}, \\frac{5 + (-1)}{2}\\right) = (5, -3, 2)$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "((2 + 8)/2, (-6 + 0)/2, (5 + (-1))/2)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "vectors",
+      "heading": "Vectors and scalars",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A mass of 65 kg, a time of 40 s and a temperature of 18 °C are each just a size. A quantity like this is a scalar."
+        },
+        {
+          "type": "text",
+          "text": "Telling a friend to “cycle 2 km” leaves them guessing. “Cycle 2 km due south” also tells them which way to go."
+        },
+        {
+          "type": "definition",
+          "term": "vector",
+          "statement": "A vector has a size, called its magnitude, and a direction. A scalar has a size and nothing else.",
+          "plain": "A vector tells you how much and which way."
+        },
+        {
+          "type": "text",
+          "text": "Displacement, velocity and force are vectors. Distance, speed, mass and time are scalars. A wind of 30 km/h from the west is a vector; “30 km/h” on its own is a scalar."
+        },
+        {
+          "type": "check",
+          "id": "check-scalar-or-vector",
+          "prompt": "Which of these is a scalar?",
+          "hint": "A scalar has a size but no direction.",
+          "options": [
+            {
+              "text": "A cyclist's speed of 8 m/s",
+              "correct": true
+            },
+            {
+              "text": "A wind of 20 km/h from the north",
+              "correct": false
+            },
+            {
+              "text": "A force of 50 N pushing straight down",
+              "correct": false
+            }
+          ],
+          "explain": "The speed gives only a size. The wind and the force each say which way, so they are vectors.",
+          "verify": {
+            "kind": "choice",
+            "truth": "A cyclist's speed of 8 m/s"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On paper a [[vector|vector]] is an arrow, called a directed line segment. The longer the arrow, the bigger the magnitude; the arrowhead shows which way it points."
+        },
+        {
+          "type": "text",
+          "text": "$\\overrightarrow{AB}$ names the arrow that starts at A and ends at B. Printed books use bold for a single vector, like $\\boldsymbol{v}$; in handwriting, draw a line under the letter: $\\underline{v}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-10-orienteering-map",
+          "alt": "Map grid numbered 0 to 10 across (east) and 0 to 7 up (north). Arrow G H goes from (1, 1) to (4, 3). Arrow K L goes from (2, 4) to (5, 6), the same length and direction as G H. Arrow M N goes from (9, 2) up and to the left to (7, 7).",
+          "caption": "An orienteering map, 1 square = 100 m. $\\overrightarrow{GH}$ and $\\overrightarrow{KL}$ are equal vectors: each goes 3 squares east and 2 north."
+        },
+        {
+          "type": "result",
+          "statement": "Arrows with the same length that point the same way are the same vector, even when they start in different places.",
+          "why": "A vector stores the move itself, not its starting point."
+        },
+        {
+          "type": "text",
+          "text": "To read a vector off a grid, count squares from tail to head. $\\overrightarrow{GH}$ moves 3 squares right and 2 up, which is $\\begin{pmatrix}3\\\\2\\end{pmatrix}$. A move to the left or downwards gets a minus sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-grid-read",
+          "question": "On the orienteering map, east is to the right and north is up. A runner goes straight from checkpoint M to checkpoint N. Write the displacement $\\overrightarrow{MN}$ as a column vector in metres, and describe the run.",
+          "steps": [
+            "Locate the ends: M is at $(9, 2)$ and N is at $(7, 7)$, in grid squares.",
+            "East–west: 9 to 7 is 2 squares left, so the first component is $-2 \\times 100 = -200$ m.",
+            "North–south: 2 to 7 is 5 squares up, so the second component is $5 \\times 100 = 500$ m.",
+            "Interpret: the runner covers 200 m west and 500 m north. Check: 2 squares left and 5 up from M lands on N."
+          ],
+          "answer": "$\\overrightarrow{MN} = \\begin{pmatrix}-200\\\\500\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "100*(Matrix([7, 7]) - Matrix([9, 2]))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A 3D vector needs a third component, for the $z$-direction. Each [[base-vectors|base vector]] is a step of length 1 along one axis:"
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "\\boldsymbol{i} = \\begin{pmatrix}1\\\\0\\\\0\\end{pmatrix}, \\quad \\boldsymbol{j} = \\begin{pmatrix}0\\\\1\\\\0\\end{pmatrix}, \\quad \\boldsymbol{k} = \\begin{pmatrix}0\\\\0\\\\1\\end{pmatrix}"
+        },
+        {
+          "type": "text",
+          "text": "Every vector is built from steps along the axes, so the column form and the $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ form say the same thing:"
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "\\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}"
+        },
+        {
+          "type": "text",
+          "text": "$v_{1}$, $v_{2}$ and $v_{3}$ are its [[component-of-a-vector|components]]. If a base vector doesn't appear, that component is 0. A 2D vector uses only $\\boldsymbol{i}$ and $\\boldsymbol{j}$: $\\begin{pmatrix}3\\\\2\\end{pmatrix} = 3\\boldsymbol{i} + 2\\boldsymbol{j}$."
+        },
+        {
+          "type": "check",
+          "id": "check-ijk-column",
+          "prompt": "Write $6\\boldsymbol{i} - 4\\boldsymbol{k}$ as a column vector.",
+          "hint": "Which of $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ doesn't appear? That entry is 0.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}6\\\\0\\\\-4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}6\\\\-4\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}6\\\\-4\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The $\\boldsymbol{j}$ entry is empty, so the middle number is 0. A $\\boldsymbol{k}$ term makes it 3D, so the column needs all three entries.",
+          "verify": {
+            "kind": "vector",
+            "truth": "6*Matrix([1, 0, 0]) - 4*Matrix([0, 0, 1])"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Choose a fixed origin O. The arrow $\\overrightarrow{OA}$ from O to a point A is A's [[position-vector|position vector]], labelled $\\boldsymbol{a}$, and its entries are A's coordinates. The point $(4, 0, -3)$ has position vector $\\begin{pmatrix}4\\\\0\\\\-3\\end{pmatrix}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-position",
+          "question": "A drone takes off from a point O. The $x$-axis points east, the $y$-axis north and the $z$-axis straight up, in metres. A minute later the drone's position vector is $\\boldsymbol{r} = 35\\boldsymbol{i} - 20\\boldsymbol{j} + 15\\boldsymbol{k}$. Write $\\boldsymbol{r}$ as a column vector, and describe where the drone is.",
+          "steps": [
+            "Read off the components in the order $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$: 35, $-20$ and 15.",
+            "So $\\boldsymbol{r} = \\begin{pmatrix}35\\\\-20\\\\15\\end{pmatrix}$, and the drone is at the point $(35, -20, 15)$.",
+            "Interpret each component with its axis: 35 m east of O, and $-20$ m north, which is 20 m south.",
+            "The last component is the height: the drone is 15 m above the take-off point."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}35\\\\-20\\\\15\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "35*Matrix([1, 0, 0]) - 20*Matrix([0, 1, 0]) + 15*Matrix([0, 0, 1])"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up a point and its position vector. “Write down the coordinates” wants $(35, -20, 15)$ in round brackets; “find the position vector” wants the column."
+        }
+      ]
+    },
+    {
+      "id": "add-subtract",
+      "heading": "Adding vectors and the resultant",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Adding vectors means doing one move and then the next. Draw $\\boldsymbol{v}$ starting where $\\boldsymbol{u}$ ends; the arrow from the first tail to the last head is $\\boldsymbol{u} + \\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "The sum of two or more vectors is called their resultant. For forces, the resultant is the one force that has the same effect as all of them together."
+        },
+        {
+          "type": "text",
+          "text": "In components, add the $x$-parts together, the $y$-parts together and the $z$-parts together."
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "\\boldsymbol{u} + \\boldsymbol{v} = \\begin{pmatrix}u_{1} + v_{1}\\\\u_{2} + v_{2}\\\\u_{3} + v_{3}\\end{pmatrix}"
+        },
+        {
+          "type": "figure",
+          "id": "3-10-force-resultant",
+          "alt": "Three force arrows drawn head to tail. F1 goes 140 right and 60 up. F2 starts at the head of F1 and goes 50 left and 85 up. F3 starts at the head of F2 and goes 35 left and 110 down. A thicker arrow R goes straight from the start of F1 to the head of F3: 55 right and 35 up.",
+          "caption": "Head to tail: the resultant $\\boldsymbol{R}$ joins the start of $\\boldsymbol{F}_{1}$ to the end of $\\boldsymbol{F}_{3}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-resultant-forces",
+          "question": "Three people pull a crate across a flat floor with ropes. Their forces, in newtons, are $\\boldsymbol{F}_{1} = 140\\boldsymbol{i} + 60\\boldsymbol{j}$, $\\boldsymbol{F}_{2} = -50\\boldsymbol{i} + 85\\boldsymbol{j}$ and $\\boldsymbol{F}_{3} = -35\\boldsymbol{i} - 110\\boldsymbol{j}$, where $\\boldsymbol{i}$ points east and $\\boldsymbol{j}$ north. Find the resultant force $\\boldsymbol{R}$.",
+          "steps": [
+            "The resultant is the sum: $\\boldsymbol{R} = \\boldsymbol{F}_{1} + \\boldsymbol{F}_{2} + \\boldsymbol{F}_{3}$.",
+            "$\\boldsymbol{i}$ components: $140 + (-50) + (-35) = 55$.",
+            "$\\boldsymbol{j}$ components: $60 + 85 + (-110) = 35$.",
+            "Interpret: together the three ropes act like one rope pulling 55 N east and 35 N north at the same time."
+          ],
+          "answer": "$\\boldsymbol{R} = \\begin{pmatrix}55\\\\35\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([140, 60]) + Matrix([-50, 85]) + Matrix([-35, -110])"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The zero vector $\\boldsymbol{0}$ is all zeros: no movement at all. Adding it changes nothing: $\\boldsymbol{v} + \\boldsymbol{0} = \\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "$-\\boldsymbol{v}$ is $\\boldsymbol{v}$ turned round: equal length, reversed direction, every component's sign flipped. A move and its reverse cancel, $\\boldsymbol{v} + (-\\boldsymbol{v}) = \\boldsymbol{0}$, and for any points A and B, $\\overrightarrow{BA} = -\\overrightarrow{AB}$."
+        },
+        {
+          "type": "text",
+          "text": "When the resultant of the forces on an object is $\\boldsymbol{0}$, the forces balance: together they have no effect on its motion."
+        },
+        {
+          "type": "check",
+          "id": "check-balancing-force",
+          "prompt": "Two forces act on a hanging sign: $\\begin{pmatrix}40\\\\25\\end{pmatrix}$ N and $\\begin{pmatrix}-15\\\\30\\end{pmatrix}$ N. Find the third force $\\boldsymbol{F}$ that makes the resultant $\\boldsymbol{0}$.",
+          "hint": "Add the two forces. $\\boldsymbol{F}$ must cancel that sum.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-25\\\\-55\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}25\\\\55\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-55\\\\5\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The two forces add to $\\begin{pmatrix}25\\\\55\\end{pmatrix}$. The third force is its negative, $\\begin{pmatrix}-25\\\\-55\\end{pmatrix}$, so all three add to $\\boldsymbol{0}$.",
+          "verify": {
+            "kind": "vector",
+            "truth": "-(Matrix([40, 25]) + Matrix([-15, 30]))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Subtraction is adding the reverse: $\\boldsymbol{u} - \\boldsymbol{v} = \\boldsymbol{u} + (-\\boldsymbol{v})$. In components, take each entry of $\\boldsymbol{v}$ away from the matching entry of $\\boldsymbol{u}$."
+        },
+        {
+          "type": "text",
+          "text": "For a route from A to B through the origin, travel back along $\\overrightarrow{OA}$ to O, then out along $\\overrightarrow{OB}$:"
+        },
+        {
+          "type": "result",
+          "statement": "For points A and B with position vectors $\\boldsymbol{a}$ and $\\boldsymbol{b}$, $\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$.",
+          "why": "A to O is $\\overrightarrow{OA}$ reversed, so it is $-\\boldsymbol{a}$; O to B is $\\boldsymbol{b}$. Together, $-\\boldsymbol{a} + \\boldsymbol{b}$."
+        },
+        {
+          "type": "text",
+          "text": "Read it as “end minus start”. It gives the position of B relative to A."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-relative",
+          "question": "Two drones are filming a race. Relative to the start line O, in metres, drone P is at $(120, 45, 30)$ and drone Q is at $(80, 105, 55)$, with $x$ east, $y$ north and $z$ up. Find $\\overrightarrow{PQ}$, and describe where Q is relative to P.",
+          "steps": [
+            "Write the [[position-vector|position vectors]]: $\\boldsymbol{p} = \\begin{pmatrix}120\\\\45\\\\30\\end{pmatrix}$ and $\\boldsymbol{q} = \\begin{pmatrix}80\\\\105\\\\55\\end{pmatrix}$.",
+            "End minus start: $\\overrightarrow{PQ} = \\boldsymbol{q} - \\boldsymbol{p} = \\begin{pmatrix}80 - 120\\\\105 - 45\\\\55 - 30\\end{pmatrix} = \\begin{pmatrix}-40\\\\60\\\\25\\end{pmatrix}$.",
+            "Check: P plus $\\overrightarrow{PQ}$ is $(120 - 40, 45 + 60, 30 + 25) = (80, 105, 55)$, which is Q.",
+            "Interpret: from P, drone Q is 40 m west, 60 m north and 25 m higher."
+          ],
+          "answer": "$\\overrightarrow{PQ} = \\begin{pmatrix}-40\\\\60\\\\25\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([80, 105, 55]) - Matrix([120, 45, 30])"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\boldsymbol{a} - \\boldsymbol{b}$ for $\\overrightarrow{AB}$. That vector runs from B back to A. Always subtract the start from the end."
+        },
+        {
+          "type": "check",
+          "id": "check-ferry-end",
+          "prompt": "A ferry leaves a port with position vector $\\begin{pmatrix}-4\\\\9\\end{pmatrix}$ km. Its displacement on the crossing is $\\begin{pmatrix}13\\\\-6\\end{pmatrix}$ km. Find the position vector of the ferry when it arrives.",
+          "hint": "End = start + the move.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}9\\\\3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}17\\\\-15\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-17\\\\15\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\begin{pmatrix}-4\\\\9\\end{pmatrix} + \\begin{pmatrix}13\\\\-6\\end{pmatrix} = \\begin{pmatrix}9\\\\3\\end{pmatrix}$. The other options subtract instead of adding.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([-4, 9]) + Matrix([13, -6])"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scalar-multiples",
+      "heading": "Scalar multiples and parallel vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Doing the move $\\boldsymbol{v}$ twice in a row gives $\\boldsymbol{v} + \\boldsymbol{v}$: an arrow in the same direction and double the length. It is written $2\\boldsymbol{v}$."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying by a scalar $k$ multiplies each component by $k$. A positive $k$ keeps the direction and a negative $k$ reverses it. Either way, the new length is $\\lvert k\\rvert$ times the old one."
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "k\\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = \\begin{pmatrix}kv_{1}\\\\kv_{2}\\\\kv_{3}\\end{pmatrix}"
+        },
+        {
+          "type": "example",
+          "id": "ex-balloon-drift",
+          "question": "A hot-air balloon drifts with the wind. For the first 2 hours, each hour moves it by $\\boldsymbol{u} = 9\\boldsymbol{i} + 4\\boldsymbol{j} + 0.6\\boldsymbol{k}$ km. The wind then changes, and for the next 1.5 hours each hour moves it by $\\boldsymbol{w} = -3\\boldsymbol{i} + 7\\boldsymbol{j} - 0.4\\boldsymbol{k}$ km. Here $\\boldsymbol{i}$ points east, $\\boldsymbol{j}$ north and $\\boldsymbol{k}$ up. Find the balloon's total displacement, and describe where it ends up.",
+          "steps": [
+            "The total displacement is $2\\boldsymbol{u} + 1.5\\boldsymbol{w}$: two hours of $\\boldsymbol{u}$, then one and a half hours of $\\boldsymbol{w}$.",
+            "Scale: $2\\boldsymbol{u} = \\begin{pmatrix}18\\\\8\\\\1.2\\end{pmatrix}$ and $1.5\\boldsymbol{w} = \\begin{pmatrix}-4.5\\\\10.5\\\\-0.6\\end{pmatrix}$.",
+            "Add matching components: $\\begin{pmatrix}18 + (-4.5)\\\\8 + 10.5\\\\1.2 + (-0.6)\\end{pmatrix} = \\begin{pmatrix}13.5\\\\18.5\\\\0.6\\end{pmatrix}$.",
+            "Interpret: the balloon ends 13.5 km east and 18.5 km north of its start, and 0.6 km (600 m) higher."
+          ],
+          "answer": "$2\\boldsymbol{u} + 1.5\\boldsymbol{w} = \\begin{pmatrix}13.5\\\\18.5\\\\0.6\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "2*Matrix([9, 4, Rational(6, 10)]) + Rational(3, 2)*Matrix([-3, 7, Rational(-4, 10)])"
+          }
+        },
+        {
+          "type": "result",
+          "statement": "If $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are non-zero, they are parallel exactly when one is a scalar multiple of the other: $\\boldsymbol{w} = k\\boldsymbol{v}$ for a scalar $k$.",
+          "why": "A scalar can stretch, shrink or flip an arrow, but it can't rotate it."
+        },
+        {
+          "type": "text",
+          "text": "To check, divide each component of one vector by the matching component of the other. Parallel vectors give the same ratio $k$ every time. Where one has a 0, the other must have a 0 too."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-which",
+          "prompt": "Which vector is parallel to $\\begin{pmatrix}4\\\\-10\\\\6\\end{pmatrix}$?",
+          "hint": "Find a single multiplier $k$ that works for every entry.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-6\\\\15\\\\-9\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}6\\\\-15\\\\-9\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2\\\\-5\\\\6\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiplying $\\begin{pmatrix}4\\\\-10\\\\6\\end{pmatrix}$ by $-\\frac{3}{2}$ gives $\\begin{pmatrix}-6\\\\15\\\\-9\\end{pmatrix}$. The negative $k$ reverses the direction, which still counts as parallel. Each other option breaks the pattern in one entry.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Rational(-3, 2)*Matrix([4, -10, 6])"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-forces",
+          "question": "Two tugboats pull on a floating platform. Their forces, in newtons, are $\\boldsymbol{F} = \\begin{pmatrix}15\\\\-6\\\\9\\end{pmatrix}$ and $\\boldsymbol{G} = \\begin{pmatrix}-10\\\\t\\\\-6\\end{pmatrix}$, and the two forces are parallel. Find $t$. Then say whether the forces pull the same way or opposite ways, and compare their sizes.",
+          "steps": [
+            "Parallel means $\\boldsymbol{G} = k\\boldsymbol{F}$, so $-10 = 15k$, $t = -6k$ and $-6 = 9k$.",
+            "The first equation gives $k = -\\frac{10}{15} = -\\frac{2}{3}$. The third agrees: $9 \\times \\left(-\\frac{2}{3}\\right) = -6$.",
+            "So $t = -6 \\times \\left(-\\frac{2}{3}\\right) = 4$.",
+            "Interpret: $k < 0$, so $\\boldsymbol{G}$ pulls the opposite way to $\\boldsymbol{F}$. As $\\lvert k\\rvert = \\frac{2}{3}$, $\\boldsymbol{G}$ is two-thirds as strong."
+          ],
+          "answer": "$t = 4$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(-10, 15)*(-6)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-meaning",
+          "prompt": "A boat's velocity is $\\boldsymbol{v}$. What does a velocity of $-2\\boldsymbol{v}$ mean?",
+          "hint": "What do the size and the sign of $k$ each do?",
+          "options": [
+            {
+              "text": "Twice as fast, in the opposite direction",
+              "correct": true
+            },
+            {
+              "text": "Half as fast, in the opposite direction",
+              "correct": false
+            },
+            {
+              "text": "Twice as fast, in the same direction",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lvert -2\\rvert = 2$ doubles the length, and the minus sign reverses the direction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Twice as fast, in the opposite direction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnitude",
+      "heading": "Magnitude and distance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[magnitude-of-a-vector|magnitude]] $\\lvert\\boldsymbol{v}\\rvert$ is how long the arrow is. A 2D vector's components form the two shorter sides of a right-angled triangle with the arrow as its hypotenuse, so $\\left\\lvert\\begin{pmatrix}3\\\\2\\end{pmatrix}\\right\\rvert = \\sqrt{3^{2} + 2^{2}} = \\sqrt{13}$."
+        },
+        {
+          "type": "text",
+          "text": "In 3D, use Pythagoras twice, as for the diagonal of a cuboid in {{lesson:3.1}}. You don't need to memorise the result: it is in the formula booklet."
+        },
+        {
+          "type": "formula",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-magnitude",
+          "tex": "\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}"
+        },
+        {
+          "type": "text",
+          "text": "For a 2D vector, drop the $v_{3}$ term. As a length, a magnitude is a scalar and can't be negative. Reversing a vector keeps its length, $\\lvert -\\boldsymbol{v}\\rvert = \\lvert\\boldsymbol{v}\\rvert$, and scaling by $k$ multiplies the length by $\\lvert k\\rvert$: $\\lvert k\\boldsymbol{v}\\rvert = \\lvert k\\rvert\\,\\lvert\\boldsymbol{v}\\rvert$."
+        },
+        {
+          "type": "example",
+          "id": "ex-resultant-magnitude",
+          "question": "The resultant force on the crate in the earlier example is $\\boldsymbol{R} = 55\\boldsymbol{i} + 35\\boldsymbol{j}$ newtons. Find $\\lvert\\boldsymbol{R}\\rvert$, and say what it means. Give your answer to 3 s.f.",
+          "steps": [
+            "Use the magnitude formula: $\\lvert\\boldsymbol{R}\\rvert = \\sqrt{55^{2} + 35^{2}} = \\sqrt{3025 + 1225} = \\sqrt{4250}$.",
+            "$\\sqrt{4250} = 65.192\\ldots$, so $\\lvert\\boldsymbol{R}\\rvert \\approx 65.2$ N.",
+            "Interpret: the three ropes together have the same effect as one rope pulling with a force of 65.2 N in the direction of $\\boldsymbol{R}$.",
+            "That is less than the first rope pulls on its own, because the other two ropes partly pull against it."
+          ],
+          "answer": "$\\lvert\\boldsymbol{R}\\rvert \\approx 65.2\\text{ N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((140 - 50 - 35)**2 + (60 + 85 - 110)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-magnitude-3d",
+          "prompt": "Find $\\lvert 2\\boldsymbol{i} - 6\\boldsymbol{j} + 9\\boldsymbol{k}\\rvert$.",
+          "hint": "Square each component, including the sign: $(-6)^{2} = 36$.",
+          "answer": {
+            "value": 11,
+            "tolerance": 0
+          },
+          "explain": "$\\sqrt{2^{2} + (-6)^{2} + 9^{2}} = \\sqrt{4 + 36 + 81} = \\sqrt{121} = 11$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(2**2 + (-6)**2 + 9**2)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "How far apart two points are is the magnitude of the vector from one to the other:"
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "AB = \\lvert\\overrightarrow{AB}\\rvert = \\lvert\\boldsymbol{b} - \\boldsymbol{a}\\rvert"
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-distance",
+          "question": "For the two filming drones, $\\overrightarrow{PQ} = \\begin{pmatrix}-40\\\\60\\\\25\\end{pmatrix}$ metres. Safety rules say the drones must stay at least 80 m apart. Use your calculator to find the distance PQ, and comment on whether the rule is met.",
+          "steps": [
+            "Write down what you calculate: $PQ = \\lvert\\overrightarrow{PQ}\\rvert = \\sqrt{(-40)^{2} + 60^{2} + 25^{2}}$.",
+            "The GDC gives $76.321\\ldots$, so $PQ \\approx 76.3$ m.",
+            "Compare: $76.3 < 80$, so the drones are too close.",
+            "Comment: the rule is broken, and one drone should move further away."
+          ],
+          "answer": "$PQ \\approx 76.3\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt((80 - 120)**2 + (105 - 45)**2 + (55 - 30)**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-magnitude",
+          "values": {
+            "u": "-40,60,25"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Write the square-root expression with the components before the calculator's value. That line earns the method mark if the final value is wrong."
+        },
+        {
+          "type": "example",
+          "id": "ex-signal-range",
+          "question": "A survey drone flies at a constant height of 4 m. During one sweep, its position vector relative to the pilot is $\\begin{pmatrix}k\\\\2k - 3\\\\4\\end{pmatrix}$ metres, where $k > 0$. The controller's signal reaches 10 m. Use your calculator to find the value of $k$ at which the drone reaches the edge of the signal. Give your answer to 3 s.f.",
+          "steps": [
+            "The distance from the pilot is the magnitude, so $\\sqrt{k^{2} + (2k - 3)^{2} + 4^{2}} = 10$.",
+            "Square both sides: $k^{2} + (2k - 3)^{2} + 16 = 100$.",
+            "Expand and rearrange: $k^{2} + 4k^{2} - 12k + 9 + 16 = 100$, so $5k^{2} - 12k - 75 = 0$. Write this down before using the GDC.",
+            "The root finder gives $k = 5.2546\\ldots$ or $k = -2.8546\\ldots$.",
+            "Reject the negative root because the question says $k > 0$. So $k \\approx 5.25$."
+          ],
+          "answer": "$k \\approx 5.25$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(k**2 + (2*k - 3)**2 + 4**2 - 10**2, k, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "5, -12, -75"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-distance-lifeboats",
+          "prompt": "Two lifeboats have position vectors $\\begin{pmatrix}3.5\\\\-1.2\\end{pmatrix}$ km and $\\begin{pmatrix}-0.7\\\\2.4\\end{pmatrix}$ km relative to a harbour. Find the distance between them, in km, to 3 s.f.",
+          "hint": "Subtract the position vectors, then find the magnitude.",
+          "answer": {
+            "value": 5.53,
+            "tolerance": 0.005
+          },
+          "explain": "The vector between them is $\\begin{pmatrix}-4.2\\\\3.6\\end{pmatrix}$, so the distance is $\\sqrt{17.64 + 12.96} = \\sqrt{30.6} = 5.5317\\ldots \\approx 5.53$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((-0.7 - 3.5)**2 + (2.4 - (-1.2))**2)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "unit-vectors",
+      "heading": "Unit vectors, rescaling and velocity",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "unit vector",
+          "statement": "A unit vector is any vector of magnitude 1. For a non-zero vector $\\boldsymbol{v}$, the unit vector pointing the same way is $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$.",
+          "plain": "Keep the direction, make the length 1."
+        },
+        {
+          "type": "text",
+          "text": "Working out $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$ is called normalising $\\boldsymbol{v}$: every component is divided by the magnitude. $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$ already have length 1, so the [[base-vectors|base vectors]] are [[unit-vector|unit vectors]]. $\\boldsymbol{0}$ has no direction, so it can't be normalised."
+        },
+        {
+          "type": "example",
+          "id": "ex-normalise",
+          "question": "Normalise $\\boldsymbol{v} = 2\\boldsymbol{i} - 3\\boldsymbol{j} + 6\\boldsymbol{k}$.",
+          "steps": [
+            "Length first: $\\lvert\\boldsymbol{v}\\rvert = \\sqrt{4 + 9 + 36} = \\sqrt{49} = 7$. Square the $-3$ as $(-3)^{2} = 9$.",
+            "Divide every component by 7: $\\frac{1}{7}\\begin{pmatrix}2\\\\-3\\\\6\\end{pmatrix}$.",
+            "Check the length is 1: $\\frac{4}{49} + \\frac{9}{49} + \\frac{36}{49} = 1$."
+          ],
+          "answer": "$\\begin{pmatrix}\\frac{2}{7}\\\\-\\frac{3}{7}\\\\\\frac{6}{7}\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([2, -3, 6])/sqrt(2**2 + (-3)**2 + 6**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unit-vector",
+          "prompt": "Give the unit vector that points the same way as $8\\boldsymbol{i} - 15\\boldsymbol{j}$.",
+          "hint": "Find the magnitude first, then divide each component by it.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}\\frac{8}{17}\\\\-\\frac{15}{17}\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}\\frac{8}{23}\\\\-\\frac{15}{23}\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-\\frac{8}{7}\\\\\\frac{15}{7}\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{8^{2} + (-15)^{2}} = \\sqrt{289} = 17$. Dividing by $8 + 15$ or by $8 - 15$ does not give length 1.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([8, -15])/sqrt(8**2 + (-15)**2)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To give a vector a chosen length $L$, normalise it, then multiply by $L$: $L\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$. Multiplying by $-L$ instead gives length $L$ pointing the other way."
+        },
+        {
+          "type": "text",
+          "text": "[[velocity|Velocity]] is a vector: it says how fast something moves and in which direction. Its magnitude is the [[speed|speed]], a scalar."
+        },
+        {
+          "type": "text",
+          "text": "So a velocity is a speed times a unit vector in the direction of motion:"
+        },
+        {
+          "type": "formula",
+          "tag": "learn",
+          "tex": "\\text{velocity} = \\text{speed} \\times \\frac{\\boldsymbol{d}}{\\lvert\\boldsymbol{d}\\rvert}, \\text{ where } \\boldsymbol{d} \\text{ is any non-zero vector in the direction of motion}"
+        },
+        {
+          "type": "example",
+          "id": "ex-kayak-velocity",
+          "question": "A kayak moves at $3.9\\text{ m s}^{-1}$ in the direction $12\\boldsymbol{i} - 5\\boldsymbol{j}$. Find its velocity vector.",
+          "steps": [
+            "Magnitude of the direction: $\\sqrt{12^{2} + (-5)^{2}} = \\sqrt{169} = 13$.",
+            "Unit vector: $\\frac{1}{13}\\begin{pmatrix}12\\\\-5\\end{pmatrix}$.",
+            "Rescale to the speed: $\\frac{3.9}{13}\\begin{pmatrix}12\\\\-5\\end{pmatrix} = 0.3\\begin{pmatrix}12\\\\-5\\end{pmatrix} = \\begin{pmatrix}3.6\\\\-1.5\\end{pmatrix}$.",
+            "Check the speed: $\\sqrt{3.6^{2} + (-1.5)^{2}} = \\sqrt{15.21} = 3.9$."
+          ],
+          "answer": "$\\boldsymbol{v} = \\begin{pmatrix}3.6\\\\-1.5\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "3.9*Matrix([12, -5])/sqrt(12**2 + (-5)**2)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the direction vector by the speed without normalising: $3.9\\begin{pmatrix}12\\\\-5\\end{pmatrix}$ has speed $50.7$, not $3.9$. Divide by the magnitude first."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-descent",
+          "question": "A delivery drone flies at $17.5\\text{ m s}^{-1}$ in the direction $\\begin{pmatrix}6\\\\2\\\\-3\\end{pmatrix}$, where the third component is vertical. Find its velocity. Interpret the vertical component, and find how long the drone takes to drop 30 m at this velocity.",
+          "steps": [
+            "Magnitude of the direction: $\\sqrt{6^{2} + 2^{2} + (-3)^{2}} = \\sqrt{49} = 7$.",
+            "Rescale: $\\frac{17.5}{7}\\begin{pmatrix}6\\\\2\\\\-3\\end{pmatrix} = 2.5\\begin{pmatrix}6\\\\2\\\\-3\\end{pmatrix} = \\begin{pmatrix}15\\\\5\\\\-7.5\\end{pmatrix}$.",
+            "Interpret: the vertical component is $-7.5$, so the drone is descending at $7.5\\text{ m s}^{-1}$.",
+            "If it keeps this velocity, the time to drop 30 m is $\\frac{30}{7.5} = 4$ s."
+          ],
+          "answer": "$\\boldsymbol{v} = \\begin{pmatrix}15\\\\5\\\\-7.5\\end{pmatrix}$",
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "17.5*Matrix([6, 2, -3])/sqrt(6**2 + 2**2 + (-3)**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-swimmer-velocity",
+          "prompt": "A swimmer swims at $1.5\\text{ m s}^{-1}$ in the direction $-4\\boldsymbol{i} + 3\\boldsymbol{j}$. Find the swimmer's velocity.",
+          "hint": "Normalise the direction first, then multiply by the speed.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}-1.2\\\\0.9\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}-6\\\\4.5\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-0.8\\\\0.6\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lvert -4\\boldsymbol{i} + 3\\boldsymbol{j}\\rvert = 5$, so the velocity is $\\frac{1.5}{5}\\begin{pmatrix}-4\\\\3\\end{pmatrix} = \\begin{pmatrix}-1.2\\\\0.9\\end{pmatrix}$. The second option skips normalising; the third is only the unit vector.",
+          "verify": {
+            "kind": "vector",
+            "truth": "1.5*Matrix([-4, 3])/sqrt((-4)**2 + 3**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hawk-speed",
+          "prompt": "A hawk's velocity is $\\begin{pmatrix}-8\\\\4\\\\1\\end{pmatrix}\\text{ m s}^{-1}$. Find its speed in $\\text{m s}^{-1}$.",
+          "hint": "Speed is the magnitude of velocity.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "$\\sqrt{(-8)^{2} + 4^{2} + 1^{2}} = \\sqrt{81} = 9\\text{ m s}^{-1}$. The speed is a scalar, so give a number, not a vector.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt((-8)**2 + 4**2 + 1**2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tag": "booklet",
+          "bookletId": "bk-3-10-magnitude",
+          "cheatSheet": true,
+          "tex": "\\lvert\\boldsymbol{v}\\rvert = \\sqrt{v_{1}^{2} + v_{2}^{2} + v_{3}^{2}}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$\\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix} = v_{1}\\boldsymbol{i} + v_{2}\\boldsymbol{j} + v_{3}\\boldsymbol{k}$; a base vector that doesn't appear has component 0."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The resultant of two or more vectors is their sum: add matching components. Forces whose resultant is $\\boldsymbol{0}$ balance."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a}$: subtract the start from the end. The distance between A and B is $\\lvert\\boldsymbol{b} - \\boldsymbol{a}\\rvert$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "If $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are non-zero, they are parallel exactly when $\\boldsymbol{w} = k\\boldsymbol{v}$ for some scalar $k$; a negative $k$ means they point in opposite directions."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For non-zero $\\boldsymbol{v}$, the unit vector with the same direction is $\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$, and the vector of length $L$ in that direction is $L\\frac{\\boldsymbol{v}}{\\lvert\\boldsymbol{v}\\rvert}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Velocity = speed $\\times$ the unit vector in the direction of motion. Speed is the magnitude of velocity, never negative."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking $\\boldsymbol{a} - \\boldsymbol{b}$ as $\\overrightarrow{AB}$: that arrow runs from B to A. Use end minus start, $\\boldsymbol{b} - \\boldsymbol{a}$.",
+    "Squaring a negative component without brackets: $-6^{2}$ means $-36$, but the magnitude needs $(-6)^{2} = 36$.",
+    "Multiplying a direction by the speed without normalising it first. Divide by its magnitude, then multiply by the speed.",
+    "Answering in the wrong form: a column when the question wants coordinates, or a vector when it wants a speed or a distance. Check what is asked before writing the answer.",
+    "Rounding a magnitude before using it again, or giving more than 3 s.f. at the end. Keep the GDC's full value and round once."
+  ],
+  "examTips": [
+    "**Write down** the coordinates of a point: give $(x, y, z)$ in round brackets. **Find** a vector: give a column vector or $\\boldsymbol{i}$, $\\boldsymbol{j}$, $\\boldsymbol{k}$ form.",
+    "**Find** a magnitude or distance: write the square-root expression with the components, then the value, exact or to 3 s.f., with units.",
+    "**Find** a velocity from a speed and a direction: show the magnitude of the direction and the unit vector before you multiply by the speed.",
+    "**Interpret** a vector: say what each component means in context, with its direction and units, such as “25 m higher”."
+  ],
+  "readingMinutes": 32
+}

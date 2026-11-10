@@ -1,0 +1,865 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.13",
+  "slug": "scalar-and-vector-products",
+  "title": "Scalar and vector products",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "There are two ways to multiply [[vector|vectors]]. The [[scalar-product|scalar product]] $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ gives a number, which finds angles and tests for right angles. The [[vector-product|vector product]] $\\boldsymbol{v} \\times \\boldsymbol{w}$ gives a vector at right angles to both, and its length is an area. Together they split a wind or a force into the part along a direction and the part across it.",
+  "goals": [
+    {
+      "text": "Calculate a [[scalar-product|scalar product]] from components and say what it means in context, such as a total cost.",
+      "bullets": [
+        "3.13-b1"
+      ]
+    },
+    {
+      "text": "Find the angle between two vectors and the acute angle between two lines, and use $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ to test whether non-zero vectors are perpendicular.",
+      "bullets": [
+        "3.13-b2"
+      ]
+    },
+    {
+      "text": "Calculate a [[vector-product|vector product]], check it is perpendicular to both vectors, and use the right-hand screw rule for its direction, with no proofs needed.",
+      "bullets": [
+        "3.13-b3",
+        "3.13-b4"
+      ]
+    },
+    {
+      "text": "Find the area of a parallelogram or a triangle from $\\lvert\\boldsymbol{v} \\times \\boldsymbol{w}\\rvert$.",
+      "bullets": [
+        "3.13-b5"
+      ]
+    },
+    {
+      "text": "Find the [[component-of-a-vector-in-a-direction|component of a vector in a direction]] and at right angles to it, and interpret each in context.",
+      "bullets": [
+        "3.13-b6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.10",
+    "3.11"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "dot product",
+    "cross product",
+    "angle between two vectors",
+    "acute angle between two lines",
+    "area of a triangle using vectors",
+    "component of a vector in a direction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-magnitude",
+      "prompt": "Find $\\lvert\\boldsymbol{u}\\rvert$ for $\\boldsymbol{u} = \\begin{pmatrix}6\\\\-2\\\\9\\end{pmatrix}$.",
+      "hint": "Square each component, add, then take the square root.",
+      "answer": {
+        "value": 11,
+        "tolerance": 0
+      },
+      "explain": "$\\lvert\\boldsymbol{u}\\rvert = \\sqrt{6^{2} + (-2)^{2} + 9^{2}} = \\sqrt{121} = 11$. Revise it in {{lesson:3.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(6**2 + (-2)**2 + 9**2)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-displacement",
+      "prompt": "A is $(2, 5, -1)$ and B is $(6, 3, 4)$. Find $\\overrightarrow{AB}$.",
+      "hint": "Start at A and finish at B: subtract A's coordinates from B's.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}4\\\\-2\\\\5\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}-4\\\\2\\\\-5\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}8\\\\8\\\\3\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{AB} = \\boldsymbol{b} - \\boldsymbol{a} = \\begin{pmatrix}6 - 2\\\\3 - 5\\\\4 - (-1)\\end{pmatrix} = \\begin{pmatrix}4\\\\-2\\\\5\\end{pmatrix}$. Revise it in {{lesson:3.10}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "Matrix([6, 3, 4]) - Matrix([2, 5, -1])"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-direction",
+      "prompt": "Which vector is a [[direction-vector|direction vector]] of the line $\\boldsymbol{r} = \\begin{pmatrix}1\\\\0\\\\4\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-5\\\\3\\end{pmatrix}$?",
+      "hint": "The direction is the vector multiplied by the parameter, or any non-zero multiple of it.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-4\\\\10\\\\-6\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\0\\\\4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\-5\\\\7\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\begin{pmatrix}-4\\\\10\\\\-6\\end{pmatrix} = -2\\begin{pmatrix}2\\\\-5\\\\3\\end{pmatrix}$, a multiple of the vector beside $\\lambda$. The vector $\\begin{pmatrix}1\\\\0\\\\4\\end{pmatrix}$ is a point on the line, not its direction. Revise it in {{lesson:3.11}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "-2*Matrix([2, -5, 3])"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "scalar",
+      "heading": "The scalar product",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:3.10}} you added vectors and scaled them. The [[scalar-product|scalar product]] multiplies two vectors: multiply matching [[component-of-a-vector|components]], then add."
+        },
+        {
+          "type": "text",
+          "text": "For example, $\\begin{pmatrix}3\\\\2\\end{pmatrix} \\cdot \\begin{pmatrix}5\\\\-4\\end{pmatrix} = 15 - 8 = 7$. The answer is one number, a scalar, which gives the product its name."
+        },
+        {
+          "type": "definition",
+          "term": "Scalar product",
+          "statement": "The scalar product of $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is the number $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ found by multiplying their matching components and adding the results.",
+          "plain": "Read it as v dot w. Many books call it the dot product."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v}\\cdot\\boldsymbol{w} = v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-product"
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet. In 2D, leave out the third product. Order doesn't matter: $\\boldsymbol{v} \\cdot \\boldsymbol{w} = \\boldsymbol{w} \\cdot \\boldsymbol{v}$. In context it often adds up a total, such as a total cost."
+        },
+        {
+          "type": "example",
+          "id": "ex-dot-basic",
+          "question": "Find $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ for $\\boldsymbol{v} = \\begin{pmatrix}4\\\\-1\\\\3\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}2\\\\5\\\\-2\\end{pmatrix}$.",
+          "steps": [
+            "Multiply matching components, keeping the signs: $4 \\times 2 = 8$, $(-1) \\times 5 = -5$ and $3 \\times (-2) = -6$.",
+            "Add: $8 - 5 - 6 = -3$. A scalar product can be negative, and it has no components."
+          ],
+          "answer": "$\\boldsymbol{v} \\cdot \\boldsymbol{w} = -3$",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*2 + (-1)*5 + 3*(-2)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-dot-basket",
+          "question": "A café orders $12$ kg of coffee, $30$ kg of sugar and $8$ kg of cocoa, so $\\boldsymbol{q} = \\begin{pmatrix}12\\\\30\\\\8\\end{pmatrix}$. The prices per kilogram, in dollars, are $\\boldsymbol{p} = \\begin{pmatrix}14.50\\\\1.20\\\\9.75\\end{pmatrix}$. Find $\\boldsymbol{q} \\cdot \\boldsymbol{p}$ and interpret it.",
+          "steps": [
+            "Multiply matching components: $12 \\times 14.50 = 174$, $30 \\times 1.20 = 36$ and $8 \\times 9.75 = 78$. Each is kilograms times dollars per kilogram, the cost of one item.",
+            "Add: $174 + 36 + 78 = 288$. So $\\boldsymbol{q} \\cdot \\boldsymbol{p}$ is the total cost of the order, $288.00$ dollars."
+          ],
+          "answer": "$\\boldsymbol{q} \\cdot \\boldsymbol{p} = 288.00\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "12*14.50 + 30*1.20 + 8*9.75"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-dot-ijk",
+          "prompt": "Find $(3\\boldsymbol{i} - 2\\boldsymbol{j} + \\boldsymbol{k}) \\cdot (-\\boldsymbol{i} + 4\\boldsymbol{j} + 5\\boldsymbol{k})$.",
+          "hint": "The coefficients of $\\boldsymbol{i}$, $\\boldsymbol{j}$ and $\\boldsymbol{k}$ are the components. Watch the signs.",
+          "answer": {
+            "value": -6,
+            "tolerance": 0
+          },
+          "explain": "$3 \\times (-1) + (-2) \\times 4 + 1 \\times 5 = -3 - 8 + 5 = -6$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*(-1) + (-2)*4 + 1*5",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-work-done",
+          "prompt": "A rope pulls a sledge with force $\\boldsymbol{F} = \\begin{pmatrix}25\\\\-10\\\\40\\end{pmatrix}$ N through displacement $\\boldsymbol{s} = \\begin{pmatrix}6\\\\3\\\\0.5\\end{pmatrix}$ m. The work done, in joules, is $\\boldsymbol{F} \\cdot \\boldsymbol{s}$. Find it.",
+          "hint": "Multiply matching components, then add.",
+          "answer": {
+            "value": 140,
+            "tolerance": 0
+          },
+          "explain": "$25 \\times 6 + (-10) \\times 3 + 40 \\times 0.5 = 150 - 30 + 20 = 140$ J.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "25*6 + (-10)*3 + 40*0.5",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "angle",
+      "heading": "Angles and perpendicular vectors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[scalar-product|scalar product]] also measures how much two vectors point the same way. The angle $\\theta$ between $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is measured with both drawn from the same point, and lies from $0^{\\circ}$ to $180^{\\circ}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v}\\cdot\\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-scalar-product-angle"
+        },
+        {
+          "type": "text",
+          "text": "Rearranged for $\\cos\\theta$, it finds an angle:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\frac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between-vectors"
+        },
+        {
+          "type": "text",
+          "text": "Both are in the booklet. For non-zero vectors the magnitudes are positive, so the sign of $\\boldsymbol{v} \\cdot \\boldsymbol{w}$ gives the type of angle: positive means $\\theta < 90^{\\circ}$, zero a right angle, negative $\\theta > 90^{\\circ}$. Drag the tips below and watch the sign change at $90^{\\circ}$."
+        },
+        {
+          "type": "interactive",
+          "widget": "vector-angle",
+          "props": {},
+          "alt": "Two vectors a and b drawn from the origin on a grid, with an arc marking the angle between them. Dragging either tip updates the scalar product, both magnitudes, cos theta and the angle in degrees. When the scalar product is zero, a right-angle mark appears and the vectors are reported as perpendicular."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-ropes",
+          "question": "Two guy ropes run from the top T of a tent pole to pegs A and B. In metres, $\\overrightarrow{TA} = \\begin{pmatrix}3\\\\-2\\\\-6\\end{pmatrix}$ and $\\overrightarrow{TB} = \\begin{pmatrix}-1\\\\4\\\\-8\\end{pmatrix}$. Find the angle between the ropes, to 1 d.p.",
+          "steps": [
+            "Both vectors start at T. Scalar product: $-3 - 8 + 48 = 37$, which is positive, so expect an acute angle.",
+            "Magnitudes: $\\sqrt{9 + 4 + 36} = 7$ and $\\sqrt{1 + 16 + 64} = 9$. These are the rope lengths in metres.",
+            "$\\cos\\theta = \\frac{37}{7 \\times 9} = \\frac{37}{63}$, so in degree mode $\\theta = 54.034\\ldots^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 54.0^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos((3*(-1) + (-2)*4 + (-6)*(-8))/(sqrt(3**2 + 2**2 + 6**2)*sqrt(1**2 + 4**2 + 8**2)))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "For an angle at a corner of a triangle, use two vectors that both leave that corner. For the angle at A, use $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-survey",
+          "question": "A surveyor stands at $\\mathrm{A}(2, 1, 0)$ and sights two marker poles at $\\mathrm{B}(10, 7, 3)$ and $\\mathrm{C}(-4, 9, 5)$, in metres. Use your calculator to find angle BAC, to 1 d.p.",
+          "steps": [
+            "Both vectors must leave A: $\\overrightarrow{AB} = \\begin{pmatrix}8\\\\6\\\\3\\end{pmatrix}$ and $\\overrightarrow{AC} = \\begin{pmatrix}-6\\\\8\\\\5\\end{pmatrix}$.",
+            "Scalar product: $-48 + 48 + 15 = 15$. Magnitudes: $\\sqrt{109}$ and $\\sqrt{125}$.",
+            "Write the expression down: $\\cos\\theta = \\frac{15}{\\sqrt{109}\\sqrt{125}}$. This line earns the method mark.",
+            "Type $\\cos^{-1}$ of it in one line, in degree mode: $\\theta = 82.616\\ldots^{\\circ}$. Round only now. The poles are close to, but not at, a right angle as seen from A."
+          ],
+          "answer": "$\\theta \\approx 82.6^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "acos(((10 - 2)*(-4 - 2) + (7 - 1)*(9 - 1) + (3 - 0)*(5 - 0))/(sqrt(8**2 + 6**2 + 3**2)*sqrt(6**2 + 8**2 + 5**2)))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-dot",
+          "values": {
+            "u": "8,6,3",
+            "v": "-6,8,5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the position vectors $\\boldsymbol{b}$ and $\\boldsymbol{c}$ for angle BAC. They start at the origin, not at A. Find $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$ first."
+        },
+        {
+          "type": "result",
+          "statement": "For non-zero vectors, $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ exactly when $\\boldsymbol{v}$ and $\\boldsymbol{w}$ are perpendicular.",
+          "why": "$\\lvert\\boldsymbol{v}\\rvert$ and $\\lvert\\boldsymbol{w}\\rvert$ are not zero, so $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\cos\\theta = 0$ only when $\\cos\\theta = 0$, which means $\\theta = 90^{\\circ}$."
+        },
+        {
+          "type": "check",
+          "id": "check-perp-k",
+          "prompt": "In a frame design, a strut has direction $\\begin{pmatrix}3\\\\k\\\\-1\\end{pmatrix}$ and must be perpendicular to a beam with direction $\\begin{pmatrix}k\\\\-2\\\\5\\end{pmatrix}$. Find $k$.",
+          "hint": "Set the scalar product equal to $0$. The unknown appears in two of the products.",
+          "options": [
+            {
+              "text": "$k = 5$",
+              "correct": true
+            },
+            {
+              "text": "$k = -5$",
+              "correct": false
+            },
+            {
+              "text": "$k = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$3k + k(-2) + (-1)(5) = 0$, so $3k - 2k - 5 = 0$ and $k = 5$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(3*k + k*(-2) + (-1)*5, k)[0]"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A line's [[direction-vector|direction vector]] can point either way along it, so two lines make angles $\\theta$ and $180^{\\circ} - \\theta$. The angle between the lines is the acute one. Find the angle between the direction vectors, and if it is obtuse, subtract it from $180^{\\circ}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-acute-lines",
+          "question": "Two straight tunnels are modelled by the lines $\\boldsymbol{r} = \\begin{pmatrix}0\\\\0\\\\-20\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}10\\\\5\\\\-20\\end{pmatrix} + \\mu\\begin{pmatrix}-3\\\\6\\\\2\\end{pmatrix}$. Find the acute angle between the tunnels, to 1 d.p.",
+          "steps": [
+            "Use only the direction vectors $\\begin{pmatrix}2\\\\-1\\\\2\\end{pmatrix}$ and $\\begin{pmatrix}-3\\\\6\\\\2\\end{pmatrix}$. Scalar product: $-6 - 6 + 4 = -8$. Magnitudes: $3$ and $7$.",
+            "$\\cos\\theta = -\\frac{8}{21}$, so $\\theta = 112.39\\ldots^{\\circ}$, obtuse because the scalar product is negative.",
+            "The acute angle is $180^{\\circ} - 112.39\\ldots^{\\circ} = 67.607\\ldots^{\\circ}$: the tunnels' directions cross at about $67.6^{\\circ}$."
+          ],
+          "answer": "$\\theta \\approx 67.6^{\\circ}$",
+          "verify": {
+            "kind": "angle",
+            "truth": "180 - acos((2*(-3) + (-1)*6 + 2*2)/(sqrt(2**2 + 1**2 + 2**2)*sqrt(3**2 + 6**2 + 2**2)))*180/pi"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-acute-lines",
+          "prompt": "Find the acute angle between the lines $\\boldsymbol{r} = \\begin{pmatrix}4\\\\1\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-2\\\\2\\end{pmatrix}$ and $\\boldsymbol{r} = \\begin{pmatrix}-2\\\\0\\\\7\\end{pmatrix} + \\mu\\begin{pmatrix}6\\\\2\\\\-3\\end{pmatrix}$. Give your answer in degrees, to 1 d.p.",
+          "hint": "Use the direction vectors only. If the angle is obtuse, subtract it from 180 degrees.",
+          "answer": {
+            "value": 79,
+            "tolerance": 0.05
+          },
+          "explain": "Scalar product $6 - 4 - 6 = -4$, magnitudes $3$ and $7$. So $\\cos\\theta = -\\frac{4}{21}$ and $\\theta = 100.98\\ldots^{\\circ}$. The acute angle is $180^{\\circ} - 100.98\\ldots^{\\circ} \\approx 79.0^{\\circ}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "acos(Abs(1*6 + (-2)*2 + 2*(-3))/(sqrt(1 + 4 + 4)*sqrt(36 + 4 + 9)))*180/pi",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "vector-product",
+      "heading": "The vector product",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you need a direction at right angles to two vectors, such as the way a solar panel faces. The [[vector-product|vector product]] gives it. Two non-parallel vectors from one point lie in a plane, and a rule picks one of the two directions perpendicular to it."
+        },
+        {
+          "type": "definition",
+          "term": "Vector product",
+          "statement": "For two vectors with angle $\\theta$ between them, $\\boldsymbol{v} \\times \\boldsymbol{w}$ is the vector of length $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$ along $\\boldsymbol{n}$, a [[unit-vector|unit vector]] at right angles to both $\\boldsymbol{v}$ and $\\boldsymbol{w}$. The right-hand screw rule fixes which of the two perpendicular directions $\\boldsymbol{n}$ takes.",
+          "plain": "Read it as v cross w. Many books call it the cross product."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The right-hand screw rule: point the fingers of your right hand along $\\boldsymbol{v}$ and curl them towards $\\boldsymbol{w}$. Your thumb points along $\\boldsymbol{v} \\times \\boldsymbol{w}$, the way a screw moves when turned from $\\boldsymbol{v}$ to $\\boldsymbol{w}$."
+        },
+        {
+          "type": "figure",
+          "id": "3-13-right-hand-rule",
+          "alt": "Vectors v and w are drawn from the same point in a flat shaded plane, with the angle theta between them and a curved arrow turning from v towards w. The vector v cross w points straight up out of the plane. A dashed vector w cross v points straight down, the opposite way.",
+          "caption": "Turning from $\\boldsymbol{v}$ to $\\boldsymbol{w}$ sends $\\boldsymbol{v} \\times \\boldsymbol{w}$ up. Turning the other way sends $\\boldsymbol{w} \\times \\boldsymbol{v}$ down."
+        },
+        {
+          "type": "text",
+          "text": "Swap the order and you curl the other way: $\\boldsymbol{w} \\times \\boldsymbol{v} = -(\\boldsymbol{v} \\times \\boldsymbol{w})$. In practice you use this booklet formula. It needs 3D vectors, so give a 2D vector a third component of $0$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v}\\times\\boldsymbol{w} = \\begin{pmatrix}v_{2}w_{3} - v_{3}w_{2}\\\\v_{3}w_{1} - v_{1}w_{3}\\\\v_{1}w_{2} - v_{2}w_{1}\\end{pmatrix}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-vector-product"
+        },
+        {
+          "type": "text",
+          "text": "You won't be asked to prove anything about either product. Use them as tools, and check each vector product: its scalar product with both vectors must be $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cross-basic",
+          "question": "Find $\\boldsymbol{v} \\times \\boldsymbol{w}$ for $\\boldsymbol{v} = \\begin{pmatrix}2\\\\1\\\\-3\\end{pmatrix}$ and $\\boldsymbol{w} = \\begin{pmatrix}1\\\\-2\\\\4\\end{pmatrix}$.",
+          "steps": [
+            "First component: $v_{2}w_{3} - v_{3}w_{2} = 1 \\times 4 - (-3) \\times (-2) = 4 - 6 = -2$.",
+            "Second component: $v_{3}w_{1} - v_{1}w_{3} = (-3) \\times 1 - 2 \\times 4 = -3 - 8 = -11$.",
+            "Third component: $v_{1}w_{2} - v_{2}w_{1} = 2 \\times (-2) - 1 \\times 1 = -4 - 1 = -5$.",
+            "Check: with $\\boldsymbol{v}$, $-4 - 11 + 15 = 0$, and with $\\boldsymbol{w}$, $-2 + 22 - 20 = 0$. The answer is perpendicular to both."
+          ],
+          "answer": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\begin{pmatrix}-2\\\\-11\\\\-5\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([2, 1, -3]).cross(Matrix([1, -2, 4]))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-roof-normal",
+          "question": "A flat solar panel has its lowest corner at the origin, with $z$ pointing up. One edge runs along $\\boldsymbol{p} = \\begin{pmatrix}5\\\\1\\\\0\\end{pmatrix}$ and the other up the roof along $\\boldsymbol{q} = \\begin{pmatrix}-1\\\\4\\\\2.5\\end{pmatrix}$, in metres. (a) Find $\\boldsymbol{p} \\times \\boldsymbol{q}$. (b) Does it point up, away from the roof, or down into it? What about $\\boldsymbol{q} \\times \\boldsymbol{p}$?",
+          "steps": [
+            "(a) Components: $1(2.5) - 0(4) = 2.5$, $0(-1) - 5(2.5) = -12.5$ and $5(4) - 1(-1) = 21$.",
+            "Check: the scalar products with $\\boldsymbol{p}$ and $\\boldsymbol{q}$ are $12.5 - 12.5 + 0 = 0$ and $-2.5 - 50 + 52.5 = 0$. It is perpendicular to the panel.",
+            "(b) The $z$-component, $21$, is positive, so $\\boldsymbol{p} \\times \\boldsymbol{q}$ points up, away from the roof.",
+            "$\\boldsymbol{q} \\times \\boldsymbol{p} = -(\\boldsymbol{p} \\times \\boldsymbol{q})$ lies along the same line but points down into the roof."
+          ],
+          "answer": "$\\boldsymbol{p} \\times \\boldsymbol{q} = \\begin{pmatrix}2.5\\\\-12.5\\\\21\\end{pmatrix}$",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([5, 1, 0]).cross(Matrix([-1, 4, 2.5]))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-cross",
+          "values": {
+            "u": "5,1,0",
+            "v": "-1,4,2.5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Getting the sign of the middle component wrong. It is $v_{3}w_{1} - v_{1}w_{3}$. The two scalar-product checks catch this slip, so always do them."
+        },
+        {
+          "type": "check",
+          "id": "check-cross-compute",
+          "prompt": "Find $\\begin{pmatrix}1\\\\0\\\\-3\\end{pmatrix} \\times \\begin{pmatrix}2\\\\4\\\\1\\end{pmatrix}$.",
+          "hint": "Use the booklet formula one component at a time, then check your answer against both vectors.",
+          "options": [
+            {
+              "text": "$\\begin{pmatrix}12\\\\-7\\\\4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\begin{pmatrix}12\\\\7\\\\4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}-12\\\\7\\\\-4\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\begin{pmatrix}2\\\\0\\\\-3\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$0(1) - (-3)(4) = 12$, $(-3)(2) - 1(1) = -7$ and $1(4) - 0(2) = 4$. The wrong options come from a middle-sign slip, the reversed order, and multiplying matching components.",
+          "verify": {
+            "kind": "vector",
+            "truth": "Matrix([1, 0, -3]).cross(Matrix([2, 4, 1]))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When you know two lengths and the angle, but not the components, use the booklet formula for the length:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta, \\text{ where } \\theta \\text{ is the angle between } \\boldsymbol{v} \\text{ and } \\boldsymbol{w}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-vector-product-magnitude"
+        },
+        {
+          "type": "check",
+          "id": "check-cross-length",
+          "prompt": "$\\lvert\\boldsymbol{v}\\rvert = 6$, $\\lvert\\boldsymbol{w}\\rvert = 3.5$ and the angle between $\\boldsymbol{v}$ and $\\boldsymbol{w}$ is $40^{\\circ}$. Find $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$, correct to 3 significant figures.",
+          "hint": "Use $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$, with your GDC in degree mode.",
+          "answer": {
+            "value": 13.5,
+            "tolerance": 0.05
+          },
+          "explain": "$6 \\times 3.5 \\times \\sin 40^{\\circ} = 21\\sin 40^{\\circ} = 13.498\\ldots \\approx 13.5$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6*3.5*sin(40*pi/180)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "heading": "Areas from the vector product",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Draw a parallelogram with adjacent sides $\\boldsymbol{v}$ and $\\boldsymbol{w}$, angle $\\theta$ between them, and $\\boldsymbol{v}$ as the base."
+        },
+        {
+          "type": "figure",
+          "id": "3-13-parallelogram-area",
+          "alt": "A parallelogram with base v along the bottom and side w leaving the same corner at angle theta. A dashed vertical height of length w sin theta drops from the top of w to the base, meeting it at a right angle. A diagonal from the end of v to the end of w cuts off a shaded triangle with sides v and w.",
+          "caption": "The height is $\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$. The shaded triangle is half the parallelogram."
+        },
+        {
+          "type": "text",
+          "text": "Base times height (prior learning in the booklet) gives $\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta$, which is exactly $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$."
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two adjacent sides of a parallelogram}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-parallelogram-area"
+        },
+        {
+          "type": "text",
+          "text": "A diagonal cuts the parallelogram into two equal triangles, so a triangle has half the area:"
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ are two sides of a triangle from the same vertex}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For triangle PQR, use two sides leaving one corner, such as $\\overrightarrow{PQ}$ and $\\overrightarrow{PR}$, never the corners' position vectors."
+        },
+        {
+          "type": "example",
+          "id": "ex-area-skylight",
+          "question": "A parallelogram-shaped skylight has adjacent edges $\\begin{pmatrix}3\\\\1\\\\0\\end{pmatrix}$ m and $\\begin{pmatrix}1\\\\2\\\\2\\end{pmatrix}$ m. Find its area, to 3 s.f.",
+          "steps": [
+            "Vector product: $\\begin{pmatrix}1 \\times 2 - 0 \\times 2\\\\0 \\times 1 - 3 \\times 2\\\\3 \\times 2 - 1 \\times 1\\end{pmatrix} = \\begin{pmatrix}2\\\\-6\\\\5\\end{pmatrix}$.",
+            "Its length is the area: $\\sqrt{4 + 36 + 25} = \\sqrt{65} = 8.0622\\ldots$ square metres. $\\sqrt{65}$ is the exact value."
+          ],
+          "answer": "$A \\approx 8.06\\text{ m}^{2}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Matrix([3, 1, 0]).cross(Matrix([1, 2, 2])).norm()",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-sail-cost",
+          "question": "A triangular shade sail is fixed at $\\mathrm{P}(0, 0, 2.5)$, $\\mathrm{Q}(4.2, 0.6, 3.1)$ and $\\mathrm{R}(1.5, 3.8, 2.2)$, in metres. The fabric costs $18.50$ dollars per square metre. Use your calculator to find the cost of the fabric for the sail.",
+          "steps": [
+            "Two sides leaving P: $\\overrightarrow{PQ} = \\begin{pmatrix}4.2\\\\0.6\\\\0.6\\end{pmatrix}$ and $\\overrightarrow{PR} = \\begin{pmatrix}1.5\\\\3.8\\\\-0.3\\end{pmatrix}$.",
+            "Vector product: $\\overrightarrow{PQ} \\times \\overrightarrow{PR} = \\begin{pmatrix}-2.46\\\\2.16\\\\15.06\\end{pmatrix}$.",
+            "Area: $\\frac{1}{2}\\sqrt{(-2.46)^{2} + 2.16^{2} + 15.06^{2}} = 7.7058\\ldots\\text{ m}^{2}$. Keep the full value.",
+            "Cost: $18.50 \\times 7.7058\\ldots = 142.558\\ldots$ dollars, rounded only now. Rounding the area to $7.71$ first gives $142.64$, which is wrong."
+          ],
+          "answer": "$\\text{cost} \\approx 142.56\\text{ dollars}$",
+          "verify": {
+            "kind": "money",
+            "truth": "18.50*Rational(1, 2)*(Matrix([4.2, 0.6, 3.1]) - Matrix([0, 0, 2.5])).cross(Matrix([1.5, 3.8, 2.2]) - Matrix([0, 0, 2.5])).norm()"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-cross",
+          "values": {
+            "u": "4.2,0.6,0.6",
+            "v": "1.5,3.8,-0.3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting the $\\frac{1}{2}$ for a triangle, or putting it in for a parallelogram. $\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert$ is the parallelogram, and the triangle is half of it."
+        },
+        {
+          "type": "check",
+          "id": "check-triangle-area",
+          "prompt": "A triangular flower bed on a slope has corners $\\mathrm{K}(1, 0, 2)$, $\\mathrm{L}(4, 2, 2)$ and $\\mathrm{M}(0, 5, 3)$, in metres. Find its area.",
+          "hint": "Use $\\overrightarrow{KL}$ and $\\overrightarrow{KM}$, both leaving K. Then halve the length of their vector product.",
+          "options": [
+            {
+              "text": "$A \\approx 8.69\\text{ m}^{2}$",
+              "correct": true
+            },
+            {
+              "text": "$A \\approx 17.4\\text{ m}^{2}$",
+              "correct": false
+            },
+            {
+              "text": "$A \\approx 3.74\\text{ m}^{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{KL} \\times \\overrightarrow{KM} = \\begin{pmatrix}3\\\\2\\\\0\\end{pmatrix} \\times \\begin{pmatrix}-1\\\\5\\\\1\\end{pmatrix} = \\begin{pmatrix}2\\\\-3\\\\17\\end{pmatrix}$, with length $\\sqrt{302} = 17.37\\ldots$. Half is $8.69$ m$^{2}$. $17.4$ forgets the half, and $3.74$ uses the position vectors of K and L.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*(Matrix([4, 2, 2]) - Matrix([1, 0, 2])).cross(Matrix([0, 5, 3]) - Matrix([1, 0, 2])).norm()",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-field-area",
+          "prompt": "Two adjacent sides of a parallelogram-shaped field are $\\boldsymbol{u}$ and $\\boldsymbol{v}$, in metres, and $\\boldsymbol{u} \\times \\boldsymbol{v} = \\begin{pmatrix}40\\\\-30\\\\120\\end{pmatrix}$. Find the area of the field, in square metres.",
+          "hint": "The area is the length of the vector product, not the vector itself.",
+          "answer": {
+            "value": 130,
+            "tolerance": 0
+          },
+          "explain": "$\\sqrt{40^{2} + (-30)^{2} + 120^{2}} = \\sqrt{16900} = 130$ m$^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(40**2 + (-30)**2 + 120**2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "heading": "Components along and across a direction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A pilot taking off cares about two parts of the wind: the part along the runway and the part pushing sideways across it. So you often split a vector $\\boldsymbol{a}$ into a part along a direction $\\boldsymbol{b}$ and a part at right angles to it."
+        },
+        {
+          "type": "figure",
+          "id": "3-13-components",
+          "alt": "Vector a and vector b start from the same point O with the angle theta between them, b lying along a horizontal line. A dashed line drops from the tip of a to the line of b, meeting it at a right angle at F. The segment from O to F along b is labelled a dot b over the length of b, equal to the length of a times cos theta. The dashed perpendicular from the tip of a to F is labelled the length of a cross b over the length of b, equal to the length of a times sin theta.",
+          "caption": "Along $\\boldsymbol{b}$: $\\lvert\\boldsymbol{a}\\rvert\\cos\\theta$. Across $\\boldsymbol{b}$, in the plane of the two vectors: $\\lvert\\boldsymbol{a}\\rvert\\sin\\theta$."
+        },
+        {
+          "type": "text",
+          "text": "The right-angled triangle gives $\\lvert\\boldsymbol{a}\\rvert\\cos\\theta$ and $\\lvert\\boldsymbol{a}\\rvert\\sin\\theta$. Divide the two product formulas by $\\lvert\\boldsymbol{b}\\rvert$ to get these from components."
+        },
+        {
+          "type": "definition",
+          "term": "Component of a vector in a direction",
+          "statement": "For a non-zero vector $\\boldsymbol{b}$, the component of $\\boldsymbol{a}$ in the direction of $\\boldsymbol{b}$ is the scalar $\\frac{\\boldsymbol{a} \\cdot \\boldsymbol{b}}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\cos\\theta$. The component of $\\boldsymbol{a}$ perpendicular to $\\boldsymbol{b}$, in the plane of the two vectors, is $\\frac{\\lvert \\boldsymbol{a} \\times \\boldsymbol{b} \\rvert}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\sin\\theta$.",
+          "plain": "How much of a points along b, and how much points straight across it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{along } \\boldsymbol{b}: \\ \\frac{\\boldsymbol{a} \\cdot \\boldsymbol{b}}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\cos\\theta \\qquad \\text{perpendicular to } \\boldsymbol{b}: \\ \\frac{\\lvert \\boldsymbol{a} \\times \\boldsymbol{b} \\rvert}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\sin\\theta",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Learn these: they are not in the booklet. The component along $\\boldsymbol{b}$ is negative when $\\theta > 90^{\\circ}$, meaning that part of $\\boldsymbol{a}$ points against $\\boldsymbol{b}$. The perpendicular component is a length, so it is never negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-wind-headwind",
+          "question": "A plane takes off in the direction $\\boldsymbol{d} = \\begin{pmatrix}4\\\\3\\\\0\\end{pmatrix}$, with $x$ east, $y$ north and $z$ up. The wind velocity is $\\boldsymbol{w} = \\begin{pmatrix}-15\\\\8\\\\0\\end{pmatrix}$ km h$^{-1}$. Find the component of the wind in the direction of take-off, and interpret it.",
+          "steps": [
+            "$\\boldsymbol{w} \\cdot \\boldsymbol{d} = -60 + 24 + 0 = -36$ and $\\lvert\\boldsymbol{d}\\rvert = \\sqrt{16 + 9} = 5$.",
+            "Component along $\\boldsymbol{d}$: $\\frac{-36}{5} = -7.2$ km h$^{-1}$.",
+            "Interpret: it is negative, so this part of the wind blows against the plane, a headwind of $7.2$ km h$^{-1}$."
+          ],
+          "answer": "$\\text{component} = -7.2\\text{ km h}^{-1}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "((-15)*4 + 8*3 + 0*0)/sqrt(4**2 + 3**2 + 0**2)"
+          },
+          "video": null,
+          "check": {
+            "id": "check-crosswind",
+            "prompt": "Now find the crosswind: the component of $\\boldsymbol{w}$ perpendicular to $\\boldsymbol{d}$, in km h$^{-1}$.",
+            "hint": "Take the length of $\\boldsymbol{w} \\times \\boldsymbol{d}$, then divide by $\\lvert\\boldsymbol{d}\\rvert = 5$.",
+            "answer": {
+              "value": 15.4,
+              "tolerance": 0.05
+            },
+            "explain": "$\\boldsymbol{w} \\times \\boldsymbol{d} = \\begin{pmatrix}0\\\\0\\\\-45 - 32\\end{pmatrix} = \\begin{pmatrix}0\\\\0\\\\-77\\end{pmatrix}$, so the crosswind is $\\frac{77}{5} = 15.4$ km h$^{-1}$. Check: $7.2^{2} + 15.4^{2} = 289 = \\lvert\\boldsymbol{w}\\rvert^{2}$.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Matrix([-15, 8, 0]).cross(Matrix([4, 3, 0])).norm()/sqrt(4**2 + 3**2)",
+              "dp": 1
+            }
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-force",
+          "question": "A winch cable pulls a cart up a straight ramp with force $\\boldsymbol{F} = \\begin{pmatrix}40\\\\25\\\\30\\end{pmatrix}$ N. The ramp runs in the direction $\\boldsymbol{d} = \\begin{pmatrix}2\\\\1\\\\0.5\\end{pmatrix}$. Use your calculator to find (a) the component of $\\boldsymbol{F}$ along the ramp and (b) the component perpendicular to the ramp, in the plane of $\\boldsymbol{F}$ and $\\boldsymbol{d}$. Give answers to 3 s.f.",
+          "steps": [
+            "$\\lvert\\boldsymbol{d}\\rvert = \\sqrt{4 + 1 + 0.25} = \\sqrt{5.25}$.",
+            "(a) $\\boldsymbol{F} \\cdot \\boldsymbol{d} = 80 + 25 + 15 = 120$, so along the ramp: $\\frac{120}{\\sqrt{5.25}} = 52.372\\ldots \\approx 52.4$ N. This part pulls the cart up the ramp.",
+            "(b) $\\boldsymbol{F} \\times \\boldsymbol{d} = \\begin{pmatrix}-17.5\\\\40\\\\-10\\end{pmatrix}$, so perpendicular: $\\frac{\\sqrt{2006.25}}{\\sqrt{5.25}} = 19.548\\ldots \\approx 19.5$ N. This part doesn't move the cart along the ramp.",
+            "Check: $52.372\\ldots^{2} + 19.548\\ldots^{2} = 3125 = \\lvert\\boldsymbol{F}\\rvert^{2}$."
+          ],
+          "answer": "(a) $\\approx 52.4\\text{ N}$ along the ramp; (b) $\\text{perpendicular component} \\approx 19.5\\text{ N}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Matrix([40, 25, 30]).cross(Matrix([2, 1, 0.5])).norm()/Matrix([2, 1, 0.5]).norm()",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-cross",
+          "values": {
+            "u": "40,25,30",
+            "v": "2,1,0.5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the wrong length. The component of $\\boldsymbol{a}$ along $\\boldsymbol{b}$ divides by $\\lvert\\boldsymbol{b}\\rvert$, the direction you are measuring along, not by $\\lvert\\boldsymbol{a}\\rvert$."
+        },
+        {
+          "type": "check",
+          "id": "check-component-velocity",
+          "prompt": "A drone flies with velocity $\\begin{pmatrix}6\\\\-2\\\\3\\end{pmatrix}$ m s$^{-1}$. Find the component of its velocity in the direction $\\begin{pmatrix}2\\\\2\\\\1\\end{pmatrix}$, in m s$^{-1}$.",
+          "hint": "Find the scalar product, then divide by the length of the direction vector.",
+          "options": [
+            {
+              "text": "$\\frac{11}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$11$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\frac{11}{9}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{12 - 4 + 3}{\\sqrt{4 + 4 + 1}} = \\frac{11}{3}$ m s$^{-1}$. $\\frac{11}{7}$ divides by the drone's speed, and $\\frac{11}{9}$ by the length squared.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(6*2 + (-2)*2 + 3*1)/sqrt(2**2 + 2**2 + 1**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-component-angle",
+          "prompt": "A force of $20$ N acts at $35^{\\circ}$ to the direction a box can slide. Find the component of the force in that direction, to 3 s.f.",
+          "hint": "You know the magnitude and the angle, so use $\\lvert\\boldsymbol{a}\\rvert\\cos\\theta$.",
+          "answer": {
+            "value": 16.4,
+            "tolerance": 0.05
+          },
+          "explain": "$20\\cos 35^{\\circ} = 16.383\\ldots \\approx 16.4$ N.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "20*cos(35*pi/180)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\cos\\theta = \\frac{v_{1}w_{1} + v_{2}w_{2} + v_{3}w_{3}}{\\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-angle-between-vectors",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For non-zero vectors, $\\boldsymbol{v} \\cdot \\boldsymbol{w} = 0$ exactly when they are perpendicular. A positive scalar product means $\\theta < 90^{\\circ}$, and a negative one means $\\theta > 90^{\\circ}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The angle between two lines is the angle between their direction vectors, taken as acute or right: if you get $\\theta > 90^{\\circ}$, use $180^{\\circ} - \\theta$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{v}\\times\\boldsymbol{w} = \\begin{pmatrix}v_{2}w_{3} - v_{3}w_{2}\\\\v_{3}w_{1} - v_{1}w_{3}\\\\v_{1}w_{2} - v_{2}w_{1}\\end{pmatrix}, \\text{ where } \\boldsymbol{v} = \\begin{pmatrix}v_{1}\\\\v_{2}\\\\v_{3}\\end{pmatrix}, \\; \\boldsymbol{w} = \\begin{pmatrix}w_{1}\\\\w_{2}\\\\w_{3}\\end{pmatrix}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-vector-product",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$\\boldsymbol{v} \\times \\boldsymbol{w} = \\lvert\\boldsymbol{v}\\rvert\\lvert\\boldsymbol{w}\\rvert\\sin\\theta\\,\\boldsymbol{n}$ with $\\theta$ the angle between $\\boldsymbol{v}$ and $\\boldsymbol{w}$. It is perpendicular to both, since $\\boldsymbol{n}$ is a unit vector at right angles to each, pointing the way the right-hand screw rule gives; it is $\\boldsymbol{0}$ when they are parallel. Order matters: $\\boldsymbol{w} \\times \\boldsymbol{v} = -(\\boldsymbol{v} \\times \\boldsymbol{w})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ form two adjacent sides of a parallelogram}",
+          "tag": "booklet",
+          "bookletId": "bk-3-13-parallelogram-area",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "A = \\frac{1}{2}\\lvert \\boldsymbol{v} \\times \\boldsymbol{w} \\rvert, \\text{ where } \\boldsymbol{v} \\text{ and } \\boldsymbol{w} \\text{ are two sides of a triangle from the same vertex}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{along } \\boldsymbol{b}: \\ \\frac{\\boldsymbol{a} \\cdot \\boldsymbol{b}}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\cos\\theta \\qquad \\text{perpendicular to } \\boldsymbol{b}: \\ \\frac{\\lvert \\boldsymbol{a} \\times \\boldsymbol{b} \\rvert}{\\lvert\\boldsymbol{b}\\rvert} = \\lvert\\boldsymbol{a}\\rvert\\sin\\theta",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using position vectors for an angle or an area. First find sides that leave the same corner, such as $\\overrightarrow{AB}$ and $\\overrightarrow{AC}$.",
+    "Giving an obtuse angle between two lines. That angle is never obtuse, so use $180^{\\circ} - \\theta$ if $\\theta > 90^{\\circ}$.",
+    "A sign slip in the middle entry of $\\boldsymbol{v} \\times \\boldsymbol{w}$, which is $v_{3}w_{1} - v_{1}w_{3}$. Check that your answer has a scalar product of $0$ with both vectors.",
+    "Missing out the $\\frac{1}{2}$ for a triangle, or putting it in for a parallelogram.",
+    "Rounding $\\cos\\theta$, an area or a component before the last step. Keep the calculator's full value.",
+    "Finding an angle in radian mode when the question wants degrees. Check the mode before you use $\\cos^{-1}$."
+  ],
+  "examTips": [
+    "“Find” an angle: write $\\cos\\theta$ with your numbers substituted before giving the angle. That line earns the method mark, and a wrong value used correctly later can still earn follow-through marks.",
+    "“Show that” two vectors are perpendicular: show the scalar product is $0$ and say “so the vectors are perpendicular”. A bare “$90^{\\circ}$” earns nothing.",
+    "“Find” an area: show the vector product's components, then its length. Write the expression you enter and give the area to 3 s.f., in square units.",
+    "“Interpret” a component: say what it means in context, with its unit. A negative component along a direction points against it, such as a headwind."
+  ],
+  "readingMinutes": 29
+}

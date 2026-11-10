@@ -1,0 +1,20 @@
+[
+  {
+    "id": "geometric-sequence",
+    "term": "geometric sequence",
+    "definition": "A sequence with a non-zero first term in which each term after the first is the term before multiplied by the same non-zero number $r$, the common ratio, as in $5, 15, 45, 135, \\dots$ where $r = 3$.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "common-ratio",
+    "term": "common ratio",
+    "definition": "The number $r = \\frac{u_{n+1}}{u_{n}}$ that every term of a geometric sequence is multiplied by to give the next term; it is the same for every pair of consecutive terms, and it can be negative or a fraction but never $0$.",
+    "lesson": "1.3"
+  },
+  {
+    "id": "geometric-series",
+    "term": "geometric series",
+    "definition": "The sum of the terms of a geometric sequence; for a common ratio $r \\ne 1$ the first $n$ terms add up to $S_{n} = \\frac{u_{1}(r^{n} - 1)}{r - 1}$.",
+    "lesson": "1.3"
+  }
+]

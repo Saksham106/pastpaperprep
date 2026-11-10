@@ -1,0 +1,822 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.13",
+  "slug": "kinematics",
+  "title": "Kinematics",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "[[displacement|Displacement]] $s$, [[velocity|velocity]] $v$ and [[acceleration|acceleration]] $a$ are linked by calculus: differentiate to go from $s$ to $v$ to $a$, and integrate to go back. [[speed|Speed]] is the size of $v$. [[distance-travelled|Distance travelled]] counts every metre, either way, so it integrates $\\lvert v\\rvert$.",
+  "goals": [
+    {
+      "text": "Differentiate displacement to find velocity and acceleration, and find when an object is at rest.",
+      "bullets": [
+        "5.13-b1"
+      ]
+    },
+    {
+      "text": "Use $\\dot{x}$ and $\\ddot{x}$ for the first and second time [[derivative|derivatives]].",
+      "bullets": [
+        "5.13-b4"
+      ]
+    },
+    {
+      "text": "Find speed as the magnitude of velocity, and tell when an object speeds up or slows down.",
+      "bullets": [
+        "5.13-b3",
+        "5.13-b1"
+      ]
+    },
+    {
+      "text": "Use $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$ when velocity is given in terms of displacement.",
+      "bullets": [
+        "5.13-b1"
+      ]
+    },
+    {
+      "text": "Find displacement as $\\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t$ and distance travelled as $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$, and interpret both.",
+      "bullets": [
+        "5.13-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.10",
+    "3.12",
+    "5.1",
+    "5.5",
+    "5.9",
+    "5.10"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "displacement velocity acceleration",
+    "particle moving in a straight line",
+    "x dot and x double dot notation",
+    "v dv/ds acceleration",
+    "total distance travelled integral",
+    "speed is magnitude of velocity"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-diff-exp",
+      "prompt": "Differentiate $8\\mathrm{e}^{-0.5t}$ with respect to $t$.",
+      "hint": "Use the chain rule: the derivative of $\\mathrm{e}^{kt}$ is $k\\mathrm{e}^{kt}$.",
+      "options": [
+        {
+          "text": "$-4\\mathrm{e}^{-0.5t}$",
+          "correct": true
+        },
+        {
+          "text": "$8\\mathrm{e}^{-0.5t}$",
+          "correct": false
+        },
+        {
+          "text": "$4\\mathrm{e}^{-0.5t}$",
+          "correct": false
+        },
+        {
+          "text": "$-4\\mathrm{e}^{-1.5t}$",
+          "correct": false
+        }
+      ],
+      "explain": "Multiply by the $-0.5$ from the power: $8 \\times (-0.5)\\mathrm{e}^{-0.5t} = -4\\mathrm{e}^{-0.5t}$. The power itself doesn't change. Revise it in {{lesson:5.9}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(8*exp(-0.5*t), t)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-second-derivative",
+      "prompt": "Find $f''(t)$ for $f(t) = 2t^{3} - 5t^{2} + t$.",
+      "hint": "Differentiate once to get $f'(t)$, then differentiate that.",
+      "options": [
+        {
+          "text": "$12t - 10$",
+          "correct": true
+        },
+        {
+          "text": "$6t^{2} - 10t + 1$",
+          "correct": false
+        },
+        {
+          "text": "$12t - 10 + 1$",
+          "correct": false
+        },
+        {
+          "text": "$6t - 10$",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(t) = 6t^{2} - 10t + 1$, so $f''(t) = 12t - 10$. The constant $1$ differentiates to $0$. Revise it in {{lesson:5.10}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(2*t**3 - 5*t**2 + t, t, 2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-definite-integral",
+      "prompt": "Find $\\int_{1}^{3} (4t - 1)\\,\\mathrm{d}t$.",
+      "hint": "An antiderivative is $2t^{2} - t$. Substitute $3$, then $1$, and subtract.",
+      "answer": {
+        "value": 14,
+        "tolerance": 0
+      },
+      "explain": "$\\left[2t^{2} - t\\right]_{1}^{3} = (18 - 3) - (2 - 1) = 14$. Revise it in {{lesson:5.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "integrate(4*t - 1, (t, 1, 3))",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "motion",
+      "heading": "Displacement, velocity and acceleration",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fix a point O on a straight line and choose one direction as positive. An object's displacement $s$ is its position measured from O: positive on one side, negative on the other."
+        },
+        {
+          "type": "text",
+          "text": "The [[rate-of-change|rate of change]] of $s$ with time is the velocity $v$. The rate of change of $v$ is the acceleration $a$."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{\\mathrm{d}s}{\\mathrm{d}t}",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}} = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-acceleration"
+        },
+        {
+          "type": "text",
+          "text": "The acceleration line is in the booklet; learn the velocity line. The form $v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$ has its own section below."
+        },
+        {
+          "type": "text",
+          "text": "With $s$ in metres and $t$ in seconds, $v$ is in $\\text{m s}^{-1}$ and $a$ in $\\text{m s}^{-2}$. An object is at rest when $v = 0$, and \"initially\" means at $t = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-robot-rest",
+          "question": "A warehouse robot moves along a straight rail. Its displacement from a charging point O is $s = 0.5t^{3} - 4.5t^{2} + 12t$ metres, where $t$ is the time in seconds, $0 \\le t \\le 6$. Find when the robot is at rest, and its acceleration at each of those times. Interpret your answers.",
+          "steps": [
+            "Differentiate for the velocity: $v = \\frac{\\mathrm{d}s}{\\mathrm{d}t} = 1.5t^{2} - 9t + 12$.",
+            "Differentiate again for the acceleration: $a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = 3t - 9$.",
+            "At rest: $1.5(t - 2)(t - 4) = 0$, so $t = 2$ or $t = 4$, both in $0 \\le t \\le 6$.",
+            "At $t = 2$: $a = -3\\text{ m s}^{-2}$. At $t = 4$: $a = 3\\text{ m s}^{-2}$.",
+            "Interpret: at $t = 2$ the robot stops $10$ m from O, and the negative acceleration sends it back towards O. At $t = 4$ it stops $8$ m from O and the positive acceleration sends it forwards again."
+          ],
+          "answer": "$t = 2 \\text{ or } t = 4$",
+          "video": null,
+          "verify": {
+            "kind": "solutions",
+            "truth": "solve(diff(0.5*t**3 - 4.5*t**2 + 12*t, t), t, dict=True)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-accel-second-rest",
+          "prompt": "A particle moves in a straight line with displacement $s = t^{3} - 10.5t^{2} + 18t$ metres at time $t$ seconds, $t \\ge 0$. It is at rest twice. Find its acceleration, in $\\text{m s}^{-2}$, the second time it is at rest.",
+          "hint": "Solve $v = 3t^{2} - 21t + 18 = 0$, take the larger root, then substitute it into $a$.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$v = 3(t - 1)(t - 6)$, so it is at rest at $t = 1$ and $t = 6$. With $a = 6t - 21$, $a(6) = 15\\text{ m s}^{-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(t**3 - 10.5*t**2 + 18*t, t, 2).subs(t, 6)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "A dot over a letter means its derivative with respect to time: one dot for once, two dots for twice."
+        },
+        {
+          "type": "formula",
+          "tex": "\\dot{x} = \\frac{\\mathrm{d}x}{\\mathrm{d}t}, \\qquad \\ddot{x} = \\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So if $x$ is a displacement, $\\dot{x}$ is the velocity and $\\ddot{x}$ the acceleration. Dots always mean $\\frac{\\mathrm{d}}{\\mathrm{d}t}$, never a derivative with respect to $x$."
+        },
+        {
+          "type": "example",
+          "id": "ex-train-dot",
+          "question": "A train leaves a station along a straight track. Its displacement from the station after $t$ seconds is $x = 25t - 625 + 625\\mathrm{e}^{-0.04t}$ metres. (a) Find $\\dot{x}$ and $\\ddot{x}$. (b) Find the train's velocity after $30$ seconds, to 3 s.f. (c) Describe what happens to $\\dot{x}$ and $\\ddot{x}$ as $t$ increases, and comment on the model.",
+          "steps": [
+            "(a) Differentiate, with the chain rule on the exponential: $\\dot{x} = 25 + 625 \\times (-0.04)\\mathrm{e}^{-0.04t} = 25 - 25\\mathrm{e}^{-0.04t}$.",
+            "Differentiate again: $\\ddot{x} = -25 \\times (-0.04)\\mathrm{e}^{-0.04t} = \\mathrm{e}^{-0.04t}$.",
+            "(b) $\\dot{x}(30) = 25 - 25\\mathrm{e}^{-1.2} = 17.4701\\ldots \\approx 17.5\\text{ m s}^{-1}$. The GDC's numerical derivative at $t = 30$ checks it.",
+            "(c) As $t$ grows, $\\mathrm{e}^{-0.04t} \\to 0$, so $\\dot{x} \\to 25\\text{ m s}^{-1}$ and $\\ddot{x}$ stays positive but tends to $0$.",
+            "Interpret: the train speeds up ever more gently towards $25\\text{ m s}^{-1}$ (90 km/h). The model never lets the train slow down, but a real train must brake to stop at the next station, so the model fits only the first part of the trip."
+          ],
+          "answer": "$\\dot{x}(30) \\approx 17.5\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "diff(25*t - 625 + 625*exp(-0.04*t), t).subs(t, 30)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "derivative-at-point",
+          "values": {
+            "function": "25X-625+625e^(-0.04X)",
+            "xValue": 30
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dot-meaning",
+          "prompt": "A swimmer's displacement from the end of a pool is $x$ metres after $t$ seconds. At $t = 8$, $\\dot{x} = 1.2$ and $\\ddot{x} = -0.3$. What do these values tell you?",
+          "hint": "One dot is the first derivative of displacement; two dots is the second.",
+          "options": [
+            {
+              "text": "Her velocity is 1.2 m/s and her acceleration is −0.3 m/s²",
+              "correct": true
+            },
+            {
+              "text": "She is 1.2 m from the end, and her velocity is −0.3 m/s",
+              "correct": false
+            },
+            {
+              "text": "Her velocity is −0.3 m/s and her acceleration is 1.2 m/s²",
+              "correct": false
+            }
+          ],
+          "explain": "$\\dot{x}$ is velocity and $\\ddot{x}$ is acceleration. Her position is $x$ itself, which you are not given.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Her velocity is 1.2 m/s and her acceleration is −0.3 m/s²"
+          }
+        }
+      ]
+    },
+    {
+      "id": "speed",
+      "heading": "Speed and direction",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The sign of $v$ gives the direction: $v > 0$ means moving in the positive direction, $v < 0$ the negative direction."
+        },
+        {
+          "type": "definition",
+          "term": "Speed",
+          "statement": "The speed of an object is the magnitude of its velocity. In a straight line, $\\text{speed} = \\lvert v\\rvert$. For a velocity vector, speed $= \\lvert\\boldsymbol{v}\\rvert$.",
+          "plain": "Speed is how fast the object goes, with no direction, so it is never negative."
+        },
+        {
+          "type": "text",
+          "text": "A lift going down at $3\\text{ m s}^{-1}$, with up positive, has velocity $-3\\text{ m s}^{-1}$ but speed $3\\text{ m s}^{-1}$. For vector velocities, see {{lesson:3.12}}."
+        },
+        {
+          "type": "result",
+          "statement": "An object moving in a straight line is at rest when $v = 0$. It changes direction at a time when $v$ changes sign; $v = 0$ alone is not enough.",
+          "why": "$v = (t - 4)^{2}$ is $0$ at $t = 4$ but positive either side, so the object pauses and carries on the same way."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-speed",
+          "question": "A ball is thrown straight up. Taking up as positive, its velocity is $v = 14 - 9.8t$ in $\\text{m s}^{-1}$, $t$ seconds after it is thrown, until it lands. Find the speed of the ball at $t = 2$, and its direction of motion then.",
+          "steps": [
+            "Substitute: $v(2) = 14 - 19.6 = -5.6\\text{ m s}^{-1}$.",
+            "Speed is the magnitude: $\\lvert -5.6\\rvert = 5.6\\text{ m s}^{-1}$.",
+            "The sign is negative, so the ball is moving down. It passed the top of its flight, where $v = 0$, at $t = 1.43$ s (3 s.f.)."
+          ],
+          "answer": "$\\lvert v(2)\\rvert = 5.6\\text{ m s}^{-1}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Abs(14 - 9.8*2)"
+          }
+        },
+        {
+          "type": "result",
+          "statement": "An object moving in a straight line is speeding up when $v$ and $a$ have the same sign, and slowing down when they have opposite signs.",
+          "why": "Speed is $\\lvert v\\rvert$. If $v$ and $a$ are both negative, $v$ gets more negative, so its size grows. If their signs differ, $v$ moves towards $0$."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading a negative acceleration as slowing down. If $v$ is negative too, the object is speeding up. Compare the signs of $v$ and $a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rc-car-speeding",
+          "question": "A remote-controlled car moves along a straight test track with velocity $v = 0.5t^{2} - 5.5t + 12$ in $\\text{m s}^{-1}$, for $0 \\le t \\le 10$ seconds. Find the intervals of time when it is speeding up.",
+          "steps": [
+            "Factorise: $v = 0.5(t - 3)(t - 8)$. So $v > 0$ for $0 \\le t < 3$ and $8 < t \\le 10$, and $v < 0$ for $3 < t < 8$.",
+            "Differentiate: $a = t - 5.5$. So $a < 0$ for $t < 5.5$ and $a > 0$ for $t > 5.5$.",
+            "Same signs: both negative for $3 < t < 5.5$; both positive for $8 < t \\le 10$.",
+            "Interpret: the car slows to a stop at $t = 3$, then reverses faster and faster until $t = 5.5$. From $t = 5.5$ to $t = 8$ it slows to a stop again, and after $t = 8$ it drives forwards faster and faster."
+          ],
+          "answer": "$3 < t < 5.5 \\text{ or } 8 < t \\le 10$",
+          "video": null,
+          "verify": {
+            "kind": "inequality",
+            "truth": "Union(Interval.open(3, Rational(11, 2)), Interval.Lopen(8, 10))",
+            "var": "t"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speed-vector",
+          "prompt": "A drone flies with velocity $\\begin{pmatrix}6\\\\-2.5\\end{pmatrix}\\text{ m s}^{-1}$. Find its speed, in $\\text{m s}^{-1}$.",
+          "hint": "Speed is the magnitude of the velocity vector: $\\sqrt{v_{1}^{2} + v_{2}^{2}}$.",
+          "answer": {
+            "value": 6.5,
+            "tolerance": 0.005
+          },
+          "explain": "$\\sqrt{6^{2} + (-2.5)^{2}} = \\sqrt{42.25} = 6.50\\text{ m s}^{-1}$. The minus sign is only a direction.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(6**2 + 2.5**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speeding-negative",
+          "prompt": "At one moment a cyclist on a straight road has $v = -3\\text{ m s}^{-1}$ and $a = -1.5\\text{ m s}^{-2}$. Which is true at that moment?",
+          "hint": "Compare the signs of $v$ and $a$, not the sign of $a$ alone.",
+          "options": [
+            {
+              "text": "She is speeding up, moving in the negative direction",
+              "correct": true
+            },
+            {
+              "text": "She is slowing down, because her acceleration is negative",
+              "correct": false
+            },
+            {
+              "text": "She is at rest",
+              "correct": false
+            }
+          ],
+          "explain": "Both are negative, so $v$ becomes more negative and her speed $\\lvert v\\rvert$ grows.",
+          "verify": {
+            "kind": "choice",
+            "truth": "She is speeding up, moving in the negative direction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v-dv-ds",
+      "heading": "Acceleration in terms of displacement",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know the velocity at each position, not each time: a test track might log a car's speed at every distance marker. Then $v$ is a function of $s$, and the chain rule gives $a$."
+        },
+        {
+          "type": "result",
+          "statement": "If the velocity $v$ is known as a function of the displacement $s$, then $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$.",
+          "why": "By the chain rule, $a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = \\frac{\\mathrm{d}v}{\\mathrm{d}s} \\times \\frac{\\mathrm{d}s}{\\mathrm{d}t} = \\frac{\\mathrm{d}v}{\\mathrm{d}s} \\times v$."
+        },
+        {
+          "type": "text",
+          "text": "$\\frac{\\mathrm{d}v}{\\mathrm{d}s}$ alone is the change in velocity per metre. Multiplying by $v$ turns it into the change per second."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-vdvds",
+          "question": "A cyclist rides along a straight road. Her velocity is $v = 3 + 0.25s$ in $\\text{m s}^{-1}$ when her displacement from the start is $s$ metres, for $0 \\le s \\le 40$. Find her acceleration when $s = 20$, and interpret it.",
+          "steps": [
+            "Differentiate with respect to $s$: $\\frac{\\mathrm{d}v}{\\mathrm{d}s} = 0.25$.",
+            "At $s = 20$: $v = 3 + 5 = 8\\text{ m s}^{-1}$.",
+            "Use $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s} = 8 \\times 0.25 = 2\\text{ m s}^{-2}$.",
+            "Interpret: her velocity rises by $0.25\\text{ m s}^{-1}$ every metre, but she covers metres faster as she speeds up. So her acceleration grows: at $s = 0$ it was only $0.75\\text{ m s}^{-2}$."
+          ],
+          "answer": "$a = 2\\text{ m s}^{-2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "((3 + 0.25*s)*diff(3 + 0.25*s, s)).subs(s, 20)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A shortcut when $v^{2}$ is simple: by the chain rule, $\\frac{\\mathrm{d}}{\\mathrm{d}s}\\left(\\tfrac{1}{2}v^{2}\\right) = v\\frac{\\mathrm{d}v}{\\mathrm{d}s} = a$."
+        },
+        {
+          "type": "example",
+          "id": "ex-braking-car",
+          "question": "A car brakes on a straight road. After it has travelled $s$ metres from the point where braking starts, its velocity is $v = \\sqrt{625 - 10s}$ in $\\text{m s}^{-1}$. (a) Find the acceleration of the car. (b) Find the stopping distance, and interpret your answers.",
+          "steps": [
+            "(a) Square to simplify: $v^{2} = 625 - 10s$, so $\\tfrac{1}{2}v^{2} = 312.5 - 5s$.",
+            "Differentiate with respect to $s$: $a = \\frac{\\mathrm{d}}{\\mathrm{d}s}\\left(\\tfrac{1}{2}v^{2}\\right) = -5\\text{ m s}^{-2}$.",
+            "Check with $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}$: $\\frac{\\mathrm{d}v}{\\mathrm{d}s} = \\frac{-10}{2\\sqrt{625 - 10s}}$, and multiplying by $v = \\sqrt{625 - 10s}$ gives $-5$.",
+            "(b) The car stops when $v = 0$: $625 - 10s = 0$, so $s = 62.5$ m.",
+            "Interpret: braking from $\\sqrt{625} = 25\\text{ m s}^{-1}$ (90 km/h) at a constant $5\\text{ m s}^{-2}$, the car needs $62.5$ m to stop."
+          ],
+          "answer": "$a = -5\\text{ m s}^{-2}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(625 - 10*s)*diff(sqrt(625 - 10*s), s)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-vdvds-value",
+          "prompt": "An object moves in a straight line. Its velocity is $v = 0.2s^{2} + 3$ in $\\text{m s}^{-1}$ when its displacement is $s$ metres. Find its acceleration, in $\\text{m s}^{-2}$, when $s = 5$.",
+          "hint": "Find $v$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}s}$ at $s = 5$, then multiply them.",
+          "answer": {
+            "value": 16,
+            "tolerance": 0
+          },
+          "explain": "At $s = 5$, $v = 5 + 3 = 8$ and $\\frac{\\mathrm{d}v}{\\mathrm{d}s} = 0.4s = 2$. So $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s} = 8 \\times 2 = 16\\text{ m s}^{-2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "((0.2*s**2 + 3)*diff(0.2*s**2 + 3, s)).subs(s, 5)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-times-v",
+          "prompt": "For the cyclist with $v = 3 + 0.25s$, a student says her acceleration is $0.25\\text{ m s}^{-2}$ everywhere. What is wrong?",
+          "hint": "What are the units of $\\frac{\\mathrm{d}v}{\\mathrm{d}s}$?",
+          "options": [
+            {
+              "text": "0.25 is a change per metre, not per second: multiply it by v",
+              "correct": true
+            },
+            {
+              "text": "Differentiating with respect to t gives 0, so a = 0",
+              "correct": false
+            },
+            {
+              "text": "Acceleration is v divided by s",
+              "correct": false
+            }
+          ],
+          "explain": "The acceleration is $a = v\\frac{\\mathrm{d}v}{\\mathrm{d}s} = 0.25(3 + 0.25s)$, which changes with $s$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "0.25 is a change per metre, not per second: multiply it by v"
+          }
+        }
+      ]
+    },
+    {
+      "id": "displacement",
+      "heading": "Displacement from velocity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now go the other way. Integrating $v$ gives $s$, up to a constant $C$ that one known position fixes. Likewise integrating $a$ gives $v$; \"starts from rest\" means $v = 0$ when $t = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-scooter-position",
+          "question": "An e-scooter starts from rest at a point O and moves in a straight line. For $0 \\le t \\le 5$ seconds, its acceleration is $a = 3 - 0.6t$ in $\\text{m s}^{-2}$. Find its velocity and its displacement from O at $t = 5$.",
+          "steps": [
+            "Integrate $a$: $v = 3t - 0.3t^{2} + C$. It starts from rest, so $v = 0$ at $t = 0$, giving $C = 0$.",
+            "Integrate $v$: $s = 1.5t^{2} - 0.1t^{3} + D$. It starts at O, so $s = 0$ at $t = 0$, giving $D = 0$.",
+            "At $t = 5$: $v = 15 - 7.5 = 7.5\\text{ m s}^{-1}$ and $s = 37.5 - 12.5 = 25$ m.",
+            "Interpret: $a > 0$ until $t = 5$, so the scooter speeds up all the way, reaching $7.5\\text{ m s}^{-1}$ when $25$ m from O."
+          ],
+          "answer": "$s(5) = 25\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "integrate(integrate(3 - 0.6*u, (u, 0, w)), (w, 0, 5))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Often you only need the change in position between times $t_{1}$ and $t_{2}$. That is $s(t_{2}) - s(t_{1})$, the [[definite-integral|definite integral]] of $v$, and the constant cancels."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{displacement} = \\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-displacement"
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet. A negative answer means the object ends on the negative side of where it was at $t_{1}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-boat-displacement",
+          "question": "A remote-controlled boat moves along a straight canal. Its velocity is $v(t) = 2.4\\cos(0.3t) + 0.6$ in $\\text{m s}^{-1}$, $t$ seconds after it starts, for $0 \\le t \\le 12$. Use your GDC to find the displacement of the boat from $t = 0$ to $t = 12$. Give your answer to 3 s.f., and interpret it.",
+          "steps": [
+            "Write down the integral: $\\int_{0}^{12} \\left(2.4\\cos(0.3t) + 0.6\\right)\\mathrm{d}t$.",
+            "Set your GDC to radians, then evaluate: $3.65983\\ldots \\approx 3.66$ m.",
+            "Interpret: after $12$ seconds the boat is $3.66$ m from its start, in the positive direction. That is where it ends, not how far it went."
+          ],
+          "answer": "$\\int_{0}^{12} v(t)\\,\\mathrm{d}t \\approx 3.66\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(2.4*cos(0.3*t) + 0.6, (t, 0, 12))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Radian"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 0,
+            "upper": 12,
+            "function": "2.4cos(0.3X)+0.6"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-displacement-hand",
+          "prompt": "A particle has velocity $v = 0.9t^{2} - 6t + 8$ in $\\text{m s}^{-1}$. Find its displacement, in metres, from $t = 1$ to $t = 4$. Give your answer to 3 s.f.",
+          "hint": "An antiderivative is $0.3t^{3} - 3t^{2} + 8t$. Substitute $4$, then $1$, and subtract.",
+          "answer": {
+            "value": -2.1,
+            "tolerance": 0.005
+          },
+          "explain": "$(19.2 - 48 + 32) - (0.3 - 3 + 8) = 3.2 - 5.3 = -2.10$ m: it ends $2.10$ m on the negative side of where it was at $t = 1$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(0.9*t**2 - 6*t + 8, (t, 1, 4))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-position-after",
+          "prompt": "A particle is at $s = 5$ when $t = 1$. Its displacement from $t = 1$ to $t = 3$ is $-2$ m. Where is it at $t = 3$?",
+          "hint": "The displacement is the change in $s$, so add it to the starting position.",
+          "options": [
+            {
+              "text": "$s = 3$",
+              "correct": true
+            },
+            {
+              "text": "$s = -2$",
+              "correct": false
+            },
+            {
+              "text": "$s = 7$",
+              "correct": false
+            }
+          ],
+          "explain": "$s(3) = s(1) + (-2) = 5 - 2 = 3$. The option $s = -2$ treats the displacement as the position.",
+          "verify": {
+            "kind": "exact",
+            "truth": "5 + (-2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "distance",
+      "heading": "Total distance travelled",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Distance travelled is what a mileage counter records: every metre counts, forwards or backwards. It is never negative."
+        },
+        {
+          "type": "definition",
+          "term": "Distance travelled",
+          "statement": "The total distance travelled between $t_{1}$ and $t_{2}$ is the total length of path the object covers in that time, in either direction.",
+          "plain": "It adds up every metre moved, including the way back."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{distance} = \\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-distance"
+        },
+        {
+          "type": "text",
+          "text": "This is in the booklet. The modulus makes backward stretches count as positive, so nothing cancels. Distance equals the size of the displacement only if the object never changes direction. By hand, split the time where $v$ changes sign:"
+        },
+        {
+          "type": "text",
+          "text": "1. Solve $v = 0$ to find the times inside the interval when the object may turn."
+        },
+        {
+          "type": "text",
+          "text": "2. Integrate $v$ over each piece between those times."
+        },
+        {
+          "type": "text",
+          "text": "3. Add the sizes of the pieces, ignoring their signs."
+        },
+        {
+          "type": "figure",
+          "id": "5-13-dolly-areas",
+          "alt": "Graph of velocity against time for v equals 1.5t squared minus 12t plus 18, from t equals 0 to 7. The curve starts at 18, crosses the t-axis at t equals 2, dips to minus 6 at t equals 4, crosses back at t equals 6 and rises to 7.5 at t equals 7. The region above the axis from 0 to 2 has area 16, the region below the axis from 2 to 6 has area 16, and the region above the axis from 6 to 7 has area 3.5.",
+          "caption": "The regions between the graph of $v$ and the $t$-axis have areas $16$, $16$ and $3.5$. The integral of $v$ gives $16 - 16 + 3.5 = 3.5$; the distance is $16 + 16 + 3.5 = 35.5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-printer-distance",
+          "question": "A 3D-printer head moves along a straight rail with velocity $v = 1.5t^{2} - 12t + 18$ in $\\text{cm s}^{-1}$, for $0 \\le t \\le 7$ seconds. Find the total distance the head travels, and compare it with its displacement.",
+          "steps": [
+            "Solve $v = 0$: $1.5(t - 2)(t - 6) = 0$, so the head may turn at $t = 2$ and $t = 6$.",
+            "An antiderivative is $F(t) = 0.5t^{3} - 6t^{2} + 18t$, with $F(0) = 0$, $F(2) = 16$, $F(6) = 0$ and $F(7) = 3.5$.",
+            "Pieces: $\\int_{0}^{2} v\\,\\mathrm{d}t = 16$, $\\int_{2}^{6} v\\,\\mathrm{d}t = -16$, $\\int_{6}^{7} v\\,\\mathrm{d}t = 3.5$.",
+            "Add the sizes: $16 + 16 + 3.5 = 35.5$ cm.",
+            "Compare: the displacement is $16 - 16 + 3.5 = 3.5$ cm. The head goes $16$ cm forwards, $16$ cm back to its start, then $3.5$ cm forwards again."
+          ],
+          "answer": "$\\text{distance} = 35.5\\text{ cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "integrate(Abs(1.5*t**2 - 12*t + 18), (t, 0, 7))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $\\int v\\,\\mathrm{d}t$ for distance: backward motion is subtracted, giving $3.5$ cm instead of $35.5$ cm above."
+        },
+        {
+          "type": "text",
+          "text": "With a GDC, integrate $\\lvert v\\rvert$ in one go using abs(: TI-84 MATH, NUM; Casio OPTN, NUM; Nspire, type abs( (check on your model)."
+        },
+        {
+          "type": "example",
+          "id": "ex-boat-distance",
+          "question": "The boat above has velocity $v(t) = 2.4\\cos(0.3t) + 0.6$ in $\\text{m s}^{-1}$, for $0 \\le t \\le 12$. Use your GDC to find the total distance the boat travels in these $12$ seconds, to 3 s.f. Find its average speed, and compare the distance with the displacement.",
+          "steps": [
+            "Write down the integral: $\\text{distance} = \\int_{0}^{12} \\lvert 2.4\\cos(0.3t) + 0.6\\rvert\\,\\mathrm{d}t$.",
+            "In radians, the GDC gives $19.1260\\ldots$, so the distance is about $19.1$ m.",
+            "Average speed is distance over time: $\\frac{19.1260\\ldots}{12} = 1.59\\text{ m s}^{-1}$ (3 s.f.).",
+            "Compare: the displacement was only $3.66$ m. $v < 0$ from $t = 6.08$ (3 s.f.), so the boat turns and comes back about $7.73$ m."
+          ],
+          "answer": "$\\int_{0}^{12} \\lvert v(t)\\rvert\\,\\mathrm{d}t \\approx 19.1\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "integrate(Abs(2.4*cos(0.3*t) + 0.6), (t, 0, 12))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "integral-definite",
+          "values": {
+            "lower": 0,
+            "upper": 12,
+            "function": "abs(2.4cos(0.3X)+0.6)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-distance-linear",
+          "prompt": "A particle has velocity $v = 5 - 2t$ in $\\text{m s}^{-1}$, for $0 \\le t \\le 4$. Find the total distance, in metres, that it travels. Give your answer to 3 s.f.",
+          "hint": "$v = 0$ at $t = 2.5$. Integrate from $0$ to $2.5$ and from $2.5$ to $4$ separately.",
+          "answer": {
+            "value": 8.5,
+            "tolerance": 0.005
+          },
+          "explain": "With $F(t) = 5t - t^{2}$, the pieces are $6.25$ and $4 - 6.25 = -2.25$. Distance $= 6.25 + 2.25 = 8.50$ m; the displacement is only $4$ m.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(Abs(5 - 2*t), (t, 0, 4))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-distance-gdc",
+          "prompt": "A toy car on a straight track has velocity $v = 5\\mathrm{e}^{-0.3t} - 2$ in $\\text{m s}^{-1}$. Use your GDC to find the total distance, in metres, it travels from $t = 0$ to $t = 8$. Give your answer to 3 s.f.",
+          "hint": "Integrate $\\lvert 5\\mathrm{e}^{-0.3t} - 2\\rvert$ from $0$ to $8$, with the abs( function.",
+          "answer": {
+            "value": 8.63,
+            "tolerance": 0.005
+          },
+          "explain": "$\\int_{0}^{8} \\lvert 5\\mathrm{e}^{-0.3t} - 2\\rvert\\,\\mathrm{d}t = 8.6281\\ldots$ m. Without the modulus you get $-0.845$ m, the displacement: the car turns back at $t = 3.05$ s.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "integrate(5*exp(-0.3*t) - 2, (t, 0, log(5/2)/0.3)) - integrate(5*exp(-0.3*t) - 2, (t, log(5/2)/0.3, 8))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zero-displacement",
+          "prompt": "A jogger runs along a straight path. Her velocity $v$ satisfies $\\int_{0}^{600} v(t)\\,\\mathrm{d}t = 0$. What does this tell you?",
+          "hint": "The integral of $v$ is the change in position, not the distance.",
+          "options": [
+            {
+              "text": "After 600 seconds she is back where she started",
+              "correct": true
+            },
+            {
+              "text": "She did not move during the 600 seconds",
+              "correct": false
+            },
+            {
+              "text": "The total distance she ran is 0",
+              "correct": false
+            }
+          ],
+          "explain": "Zero displacement means she ends where she began. She may have run far out and back; that distance is $\\int_{0}^{600} \\lvert v\\rvert\\,\\mathrm{d}t$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "After 600 seconds she is back where she started"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "v = \\frac{\\mathrm{d}s}{\\mathrm{d}t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{\\mathrm{d}v}{\\mathrm{d}t} = \\frac{\\mathrm{d}^{2}s}{\\mathrm{d}t^{2}} = v\\frac{\\mathrm{d}v}{\\mathrm{d}s}",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-acceleration",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dot notation means derivatives with respect to time: $\\dot{x} = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and $\\ddot{x} = \\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In straight-line motion: at rest when $v = 0$; changes direction when $v$ changes sign; speed $= \\lvert v\\rvert$, the magnitude of the velocity.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In straight-line motion, an object speeds up when $v$ and $a$ have the same sign and slows down when their signs differ.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{displacement} = \\int_{t_{1}}^{t_{2}} v(t)\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-displacement",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{distance} = \\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t",
+          "tag": "booklet",
+          "bookletId": "bk-5-13-distance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Distance by hand: split the interval at each time $v$ changes sign, integrate $v$ over each piece, and add the sizes.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the GDC in degrees for a velocity with $\\sin$ or $\\cos$: the boat's displacement becomes $36.0$ m, not $3.66$ m. Set radians first.",
+    "Using $\\int v\\,\\mathrm{d}t$ for distance travelled, so backward motion cancels forward motion. Integrate $\\lvert v\\rvert$.",
+    "Mixing up $v = 0$ and $a = 0$. At rest means $v = 0$; where $a = 0$, the velocity may be at a maximum or minimum.",
+    "Giving the position $s(t_{2})$ as the displacement from $t_{1}$ to $t_{2}$. The displacement is $s(t_{2}) - s(t_{1})$.",
+    "Writing an integral with no limits or no $\\mathrm{d}t$. The method mark needs the correct limits to be seen."
+  ],
+  "examTips": [
+    "\"Write down an integral expression\" for distance: give $\\int_{t_{1}}^{t_{2}} \\lvert v(t)\\rvert\\,\\mathrm{d}t$ with the numbers in. The limits, modulus and $\\mathrm{d}t$ all count.",
+    "\"Find\" with a GDC: write the derivative, equation or integral you entered before the value. That set-up earns the method mark even if the value slips.",
+    "\"Justify\" a change of direction: show $v$ changes sign, with a value of $v$ either side. $v = 0$ alone is not enough.",
+    "Give exact answers or 3 s.f., unless the question asks for other accuracy, with units such as $\\text{m s}^{-1}$, and keep full GDC values for later parts. A wrong earlier answer used correctly can still earn follow-through (FT) marks."
+  ],
+  "readingMinutes": 29
+}

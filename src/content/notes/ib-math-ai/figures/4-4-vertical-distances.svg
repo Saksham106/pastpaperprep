@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 250" role="img" aria-labelledby="t" font-family="sans-serif" font-size="12">
+<title id="t">Six points with a straight regression line through them. A short vertical dashed segment joins each point to the line, some above the line and some below.</title>
+<line x1="40" y1="220" x2="420" y2="220" stroke="currentColor"/>
+<line x1="40" y1="20" x2="40" y2="220" stroke="currentColor"/>
+<text x="420" y="238" text-anchor="end" fill="currentColor">x</text>
+<text x="26" y="28" fill="currentColor">y</text>
+<line x1="56.3" y1="188.1" x2="409.1" y2="37.1" stroke="var(--t1-ink)" stroke-width="2"/>
+<line x1="94.3" y1="182.7" x2="94.3" y2="171.9" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="148.6" y1="124.0" x2="148.6" y2="148.6" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="202.9" y1="148.0" x2="202.9" y2="125.4" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="257.1" y1="76.0" x2="257.1" y2="102.2" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="311.4" y1="108.0" x2="311.4" y2="78.9" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="365.7" y1="44.0" x2="365.7" y2="55.7" stroke="var(--t3-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="94.3" cy="182.7" r="4" fill="var(--t2-ink)"/>
+<circle cx="148.6" cy="124.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="202.9" cy="148.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="257.1" cy="76.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="311.4" cy="108.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="365.7" cy="44.0" r="4" fill="var(--t2-ink)"/>
+</svg>

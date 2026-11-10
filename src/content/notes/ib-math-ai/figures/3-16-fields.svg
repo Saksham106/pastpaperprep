@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t">
+  <title id="t">A weighted graph with six vertices A to F. Edges and weights: A to B 8, A to C 11, A to F 15, B to C 6, B to D 13, C to D 9, C to E 7, D to E 10, D to F 17, E to F 12.</title>
+  <line x1="60" y1="250" x2="60" y2="50" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="250" x2="180" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="250" x2="400" y2="250" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="50" x2="180" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="50" x2="400" y2="50" stroke="currentColor" stroke-width="2"/>
+  <line x1="180" y1="150" x2="400" y2="50" stroke="currentColor" stroke-width="2"/>
+  <line x1="180" y1="150" x2="300" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="400" y1="50" x2="300" y2="150" stroke="currentColor" stroke-width="2"/>
+  <line x1="400" y1="50" x2="400" y2="250" stroke="currentColor" stroke-width="2"/>
+  <line x1="300" y1="150" x2="400" y2="250" stroke="currentColor" stroke-width="2"/>
+  <text x="74" y="155" font-size="14" text-anchor="middle" fill="var(--t2-ink)">8</text>
+  <text x="111" y="194" font-size="14" text-anchor="middle" fill="var(--t2-ink)">11</text>
+  <text x="230" y="239" font-size="14" text-anchor="middle" fill="var(--t2-ink)">15</text>
+  <text x="111" y="116" font-size="14" text-anchor="middle" fill="var(--t2-ink)">6</text>
+  <text x="230" y="69" font-size="14" text-anchor="middle" fill="var(--t2-ink)">13</text>
+  <text x="284" y="92" font-size="14" text-anchor="middle" fill="var(--t2-ink)">9</text>
+  <text x="240" y="169" font-size="14" text-anchor="middle" fill="var(--t2-ink)">7</text>
+  <text x="360" y="115" font-size="14" text-anchor="middle" fill="var(--t2-ink)">10</text>
+  <text x="414" y="155" font-size="14" text-anchor="middle" fill="var(--t2-ink)">17</text>
+  <text x="340" y="215" font-size="14" text-anchor="middle" fill="var(--t2-ink)">12</text>
+  <circle cx="60" cy="50" r="5" fill="currentColor"/>
+  <text x="46" y="51" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="400" cy="50" r="5" fill="currentColor"/>
+  <text x="414" y="51" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">D</text>
+  <circle cx="60" cy="250" r="5" fill="currentColor"/>
+  <text x="46" y="261" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="400" cy="250" r="5" fill="currentColor"/>
+  <text x="414" y="261" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">F</text>
+  <circle cx="180" cy="150" r="5" fill="currentColor"/>
+  <text x="164" y="159" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="300" cy="150" r="5" fill="currentColor"/>
+  <text x="318" y="159" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">E</text>
+</svg>

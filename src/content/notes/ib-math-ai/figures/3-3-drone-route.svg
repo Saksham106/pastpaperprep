@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="t">
+  <title id="t">A drone flies from depot D on a bearing of 040 degrees to a waypoint W, then on a bearing of 150 degrees to a village V. V is 16 km from D on a bearing of 105 degrees, shown by a dashed line. North lines are drawn at D and W. Question marks on DW and WV show the unknown lengths.</title>
+  <line x1="50" y1="135" x2="50" y2="75" stroke="var(--muted)" stroke-width="1.5"/>
+  <path d="M46,83 L50,75 L54,83" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="127.4" y1="42.8" x2="127.4" y2="8" stroke="var(--muted)" stroke-width="1.5"/>
+  <path d="M123.4,16 L127.4,8 L131.4,16" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="50" y1="135" x2="127.4" y2="42.8" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="127.4" y1="42.8" x2="204.5" y2="176.4" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="50" y1="135" x2="204.5" y2="176.4" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <path d="M50,109 A26,26 0 0 1 66.7,115.1" fill="none" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <path d="M50,95 A40,40 0 0 1 88.6,145.4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M127.4,24.8 A18,18 0 0 1 136.4,58.4" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="50" cy="135" r="3.5"/>
+    <circle cx="127.4" cy="42.8" r="3.5"/>
+    <circle cx="204.5" cy="176.4" r="3.5"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="34" y="150" font-style="italic">D</text>
+    <text x="108" y="46" font-style="italic">W</text>
+    <text x="210" y="190" font-style="italic">V</text>
+    <text x="44" y="70" fill="var(--muted)" font-size="12">N</text>
+    <text x="112" y="18" fill="var(--muted)" font-size="12">N</text>
+    <text x="53" y="90" fill="var(--t1-ink)" font-size="12">040°</text>
+    <text x="94" y="128" font-size="12">105°</text>
+    <text x="150" y="40" fill="var(--t3-ink)" font-size="12">150°</text>
+    <text x="64" y="76" fill="var(--t1-ink)">?</text>
+    <text x="172" y="110" fill="var(--t3-ink)">?</text>
+    <text x="112" y="176">16 km</text>
+  </g>
+</svg>

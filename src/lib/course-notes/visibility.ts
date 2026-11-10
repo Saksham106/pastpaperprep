@@ -2,11 +2,12 @@
 // Keep this list in step with registry.ts (a test checks it).
 import ibChemistryJson from "@/content/notes/ib-chemistry/course.json";
 import ibMathAaJson from "@/content/notes/ib-math-aa/course.json";
+import ibMathAiJson from "@/content/notes/ib-math-ai/course.json";
 import ibPhysicsJson from "@/content/notes/ib-physics/course.json";
 import igcseMaths0580Json from "@/content/notes/igcse-maths-0580/course.json";
 
 /** Every course's slug and publish flag (the JSON objects themselves, so tests can flip `published`). */
-export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson, igcseMaths0580Json, ibChemistryJson, ibPhysicsJson];
+export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson, igcseMaths0580Json, ibChemistryJson, ibPhysicsJson, ibMathAiJson];
 
 /** The IB Maths AA notes, linked from the footer and the IB hub. */
 export const NOTES_INDEX_HREF = `/revision-notes/${ibMathAaJson.slug}`;
@@ -19,6 +20,9 @@ export const IB_CHEMISTRY_NOTES_HREF = `/revision-notes/${ibChemistryJson.slug}`
 
 /** The IB Physics notes, linked from the footer and the IB hub. */
 export const IB_PHYSICS_NOTES_HREF = `/revision-notes/${ibPhysicsJson.slug}`;
+
+/** The IB Maths AI notes, linked from the footer and the IB hub. */
+export const IB_MATHS_AI_NOTES_HREF = `/revision-notes/${ibMathAiJson.slug}`;
 
 /** The notes home: every subject, with notes that are out linked and the rest marked coming soon. */
 export const NOTES_HOME_HREF = "/revision-notes";
@@ -40,6 +44,9 @@ export const ibChemistryNotesVisible = (): boolean => courseNotesVisible(ibChemi
 
 /** True once the IB Physics course is visible (the footer and IB hub link to it). */
 export const ibPhysicsNotesVisible = (): boolean => courseNotesVisible(ibPhysicsJson.slug);
+
+/** True once the IB Maths AI course is visible (the footer and IB hub link to it). */
+export const ibMathsAiNotesVisible = (): boolean => courseNotesVisible(ibMathAiJson.slug);
 
 /** The header's Notes link: shown once any course is visible. */
 export const notesNavVisible = (): boolean => COURSE_FLAGS.some((course) => isVisibleWhen(course.published));

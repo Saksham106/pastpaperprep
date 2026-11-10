@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-labelledby="t">
+  <title id="t">A graph with five vertices A, B, C, D and E. Edges: A to B, A to C, B to C, B to D, two separate edges between C and D, D to E, and a loop at E.</title>
+  <line x1="60" y1="70" x2="200" y2="40" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="60" y1="70" x2="100" y2="190" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="200" y1="40" x2="100" y2="190" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="200" y1="40" x2="260" y2="190" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 100 190 Q 180 150 260 190" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 100 190 Q 180 230 260 190" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="260" y1="190" x2="390" y2="120" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 390 120 C 450 70, 470 160, 390 120" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="60" cy="70" r="5" fill="currentColor"/>
+  <text x="46" y="74" font-size="14" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="200" cy="40" r="5" fill="currentColor"/>
+  <text x="200" y="28" font-size="14" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="100" cy="190" r="5" fill="currentColor"/>
+  <text x="86" y="198" font-size="14" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="260" cy="190" r="5" fill="currentColor"/>
+  <text x="268" y="214" font-size="14" text-anchor="middle" fill="currentColor">D</text>
+  <circle cx="390" cy="120" r="5" fill="currentColor"/>
+  <text x="384" y="106" font-size="14" text-anchor="middle" fill="currentColor">E</text>
+</svg>

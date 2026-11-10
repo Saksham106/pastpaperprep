@@ -1,0 +1,32 @@
+[
+  {
+    "id": "second-derivative",
+    "term": "second derivative",
+    "definition": "The derivative of the derivative, written $f''(x)$ or $\\frac{\\mathrm{d}^{2}y}{\\mathrm{d}x^{2}}$; it measures how fast the gradient is changing.",
+    "lesson": "5.10"
+  },
+  {
+    "id": "second-derivative-test",
+    "term": "second derivative test",
+    "definition": "A way to classify a stationary point at $x = a$: if $f''(a) > 0$ it is a local minimum, if $f''(a) < 0$ it is a local maximum, and if $f''(a) = 0$ the test decides nothing.",
+    "lesson": "5.10"
+  },
+  {
+    "id": "point-of-inflexion",
+    "term": "point of inflexion",
+    "definition": "A point on a graph where the concavity changes, from concave-up to concave-down or the other way; if $f''$ exists there it equals $0$, but $f''(x) = 0$ alone does not make a point of inflexion, and the gradient there need not be $0$.",
+    "lesson": "5.10"
+  },
+  {
+    "id": "concave-up",
+    "term": "concave-up",
+    "definition": "Bending upwards on an interval, with the gradient increasing as $x$ increases; a graph is concave-up on any interval where $f''(x) > 0$ throughout.",
+    "lesson": "5.10"
+  },
+  {
+    "id": "concave-down",
+    "term": "concave-down",
+    "definition": "Bending downwards on an interval, with the gradient decreasing as $x$ increases; a graph is concave-down on any interval where $f''(x) < 0$ throughout.",
+    "lesson": "5.10"
+  }
+]

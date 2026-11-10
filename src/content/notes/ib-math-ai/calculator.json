@@ -1,0 +1,1654 @@
+{
+ "snippets": {
+  "setup-angle-mode": {
+   "title": "Set degrees or radians",
+   "steps": {
+    "ti84": [
+     "MODE",
+     "Move down to the RADIAN DEGREE row, highlight {angleUnit}, ENTER",
+     "2nd, MODE (QUIT)",
+     "Read the status bar at the top: it shows RADIAN or DEGREE"
+    ],
+    "nspire": [
+     "home (on), 5: Settings, 2: Document Settings (inside an open document the same keys change that document)",
+     "Tab to Angle, open the list and choose {angleUnit}",
+     "Tab to OK, enter",
+     "Check the RAD or DEG indicator in the top bar of the page before you calculate"
+    ],
+    "casio": [
+     "SHIFT, MENU (SET UP)",
+     "Scroll down to Angle, then F1 (Deg) or F2 (Rad) for {angleUnit}",
+     "EXIT",
+     "Read the status bar at the top: it shows Deg or Rad"
+    ]
+   }
+  },
+  "lists-enter-data": {
+   "title": "Enter data into lists (data with a y or frequency list)",
+   "steps": {
+    "ti84": [
+     "STAT, 1: Edit",
+     "To clear an old list, move onto its heading (L1), CLEAR, ENTER; do the same for L2",
+     "Type {firstList} into L1, ENTER after each value",
+     "Move right and type {secondList} into L2 (y-values or frequencies), ENTER after each",
+     "Check L1 and L2 end on the same row: the data are in L1 and L2"
+    ],
+    "nspire": [
+     "Add a Lists & Spreadsheet page: ctrl, doc, then 4: Add Lists & Spreadsheet",
+     "In the name cell at the top of column A type xdata, enter; at the top of column B type ydata (or freq for frequencies), enter",
+     "Type {firstList} down column A and {secondList} down column B, enter after each value",
+     "Check both columns end on the same row: the lists xdata and ydata (or freq) are ready"
+    ],
+    "casio": [
+     "MENU, STAT",
+     "To clear an old list, highlight any cell in it, F6 (▷), DEL-ALL, F1 (Yes)",
+     "Type {firstList} into List 1, EXE after each value",
+     "Type {secondList} into List 2 (y-values or frequencies), EXE after each",
+     "Check List 1 and List 2 end on the same row"
+    ]
+   }
+  },
+  "setup-diagnostic-on": {
+   "title": "Show r and r² after a regression (TI-84 DiagnosticOn)",
+   "steps": {
+    "ti84": [
+     "MODE",
+     "Scroll down to STAT DIAGNOSTICS, highlight ON, ENTER",
+     "2nd, MODE (QUIT)",
+     "Run the regression again: r² and r now appear under a and b"
+    ],
+    "nspire": [
+     "No setting needed",
+     "Run the regression from Menu, Statistics, Stat Calculations",
+     "Read r² (and r for linear, exponential and power fits) in the results"
+    ],
+    "casio": [
+     "No setting needed",
+     "Run the regression from STAT, CALC (F2), REG (F3)",
+     "Read r and r² under the coefficients (r is shown for linear, log, exponential and power fits only)"
+    ]
+   }
+  },
+  "number-standard-form": {
+   "title": "Enter and read standard form",
+   "steps": {
+    "ti84": [
+     "Home screen: type {mantissa}, then 2nd, comma (EE), then {exponent}; use (-) for a negative exponent",
+     "Finish the calculation, ENTER",
+     "To show every answer in standard form: MODE, SCI, ENTER, then 2nd, MODE (QUIT)",
+     "Read 1.23E4 as 1.23 × 10^4"
+    ],
+    "nspire": [
+     "Calculator page: type {mantissa}, the EE key, then {exponent}; use (-) for a negative exponent",
+     "Finish the calculation, enter",
+     "To show every answer in standard form: home, 5: Settings, 2: Document Settings, Exponential Format: Scientific",
+     "Read 1.23E4 as 1.23 × 10^4"
+    ],
+    "casio": [
+     "RUN-MAT: type {mantissa}, ×10^x, then {exponent}; use (-) for a negative exponent",
+     "Finish the calculation, EXE",
+     "To show every answer in standard form: SHIFT, MENU (SET UP), Display: Sci, then the number of significant figures, EXIT",
+     "Read ×10^k (shown as Ek when space is short) as × 10^k"
+    ]
+   }
+  },
+  "number-logarithms": {
+   "title": "Logarithms: log, ln and any base",
+   "steps": {
+    "ti84": [
+     "Base 10: LOG, type {value}, ), ENTER",
+     "Natural log: LN, type {value}, ), ENTER",
+     "Any base: MATH, A: logBASE(, type {value}, move to the base box and type {base}, ENTER",
+     "Read the decimal value"
+    ],
+    "nspire": [
+     "Base 10: ctrl, 10^x (log), type {value}, enter",
+     "Natural log: ctrl, e^x (ln), type {value}, enter",
+     "Any base: type log({value},{base}) or fill the base box of the log template, enter",
+     "Read the decimal value (ctrl, enter forces a decimal)"
+    ],
+    "casio": [
+     "Base 10: RUN-MAT, log, type {value}, EXE",
+     "Natural log: ln, type {value}, EXE",
+     "Any base: OPTN, CALC (F4), ▷ (F6), logab (F4), type {base},{value}), EXE (Math input: MATH (F4), logab (F2), base box first)",
+     "Read the decimal value"
+    ]
+   }
+  },
+  "solve-equation": {
+   "title": "Solve an equation in one unknown (numeric solver)",
+   "steps": {
+    "ti84": [
+     "MATH, ▲ to C: Numeric Solver..., ENTER",
+     "Type the equation as {leftSide}={rightSide}, then press the OK soft key",
+     "Move to X and type a starting guess {guess}; if there is more than one root, set the bounds to {lower} and {upper}",
+     "SOLVE (GRAPH key)",
+     "Read X (marked with a small square) and check E1-E2 = 0; change the guess for other roots"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Algebra, Numerical Solve",
+     "Complete nSolve({leftSide}={rightSide},x={guess}), enter",
+     "For a root in a range add the condition: nSolve({leftSide}={rightSide},x)|{lower}≤x≤{upper}",
+     "Read the value; change the guess or range for other roots"
+    ],
+    "casio": [
+     "EQUA, SOLVER (F3)",
+     "Type {leftSide}={rightSide} (= is SHIFT, .), EXE",
+     "In the variable list set X to the starting guess {guess}; set Lower and Upper to {lower} and {upper} if needed (EXE after each)",
+     "Highlight X, SOLVE (F6)",
+     "Read X and check that Lft and Rgt agree"
+    ]
+   }
+  },
+  "solve-simultaneous-2": {
+   "title": "Simultaneous linear equations, 2 unknowns",
+   "steps": {
+    "ti84": [
+     "APPS, PlySmlt2, any key past the info screen",
+     "2: Simultaneous Eqn Solver; choose 2 equations, 2 unknowns, then NEXT (GRAPH key)",
+     "Row 1: {a1}, {b1}, {c1}. Row 2: {a2}, {b2}, {c2} (ENTER after each)",
+     "SOLVE (GRAPH key)",
+     "Read X1 = x and X2 = y; if fractions show, use the decimal-toggle soft key"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Algebra, Solve System of Linear Equations",
+     "Number of equations 2, variables x,y, OK",
+     "Type {a1}x+{b1}y={c1} and {a2}x+{b2}y={c2} in the template, enter",
+     "Read x and y (ctrl, enter gives decimals)"
+    ],
+    "casio": [
+     "EQUA, SIMUL (F1)",
+     "Number of unknowns: 2 (F1)",
+     "Row 1: {a1}, {b1}, {c1}. Row 2: {a2}, {b2}, {c2} (EXE after each)",
+     "SOLVE (F1)",
+     "Read x and y"
+    ]
+   }
+  },
+  "solve-simultaneous-3": {
+   "title": "Simultaneous linear equations, 3 unknowns",
+   "steps": {
+    "ti84": [
+     "APPS, PlySmlt2, any key past the info screen",
+     "2: Simultaneous Eqn Solver; choose 3 equations, 3 unknowns, then NEXT (GRAPH key)",
+     "Row 1: {a1}, {b1}, {c1}, {d1}. Row 2: {a2}, {b2}, {c2}, {d2}. Row 3: {a3}, {b3}, {c3}, {d3}",
+     "SOLVE (GRAPH key)",
+     "Read X1, X2, X3 as x, y, z"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Algebra, Solve System of Linear Equations",
+     "Number of equations 3, variables x,y,z, OK",
+     "Type {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}, enter",
+     "Read x, y and z (ctrl, enter gives decimals)"
+    ],
+    "casio": [
+     "EQUA, SIMUL (F1)",
+     "Number of unknowns: 3 (F2)",
+     "Row 1: {a1}, {b1}, {c1}, {d1}. Row 2: {a2}, {b2}, {c2}, {d2}. Row 3: {a3}, {b3}, {c3}, {d3}",
+     "SOLVE (F1)",
+     "Read x, y and z"
+    ]
+   }
+  },
+  "solve-polynomial-roots": {
+   "title": "Roots of a polynomial (degree 2 to 4)",
+   "steps": {
+    "ti84": [
+     "APPS, PlySmlt2, any key past the info screen",
+     "1: Polynomial Root Finder; ORDER {degree}, then NEXT (GRAPH key)",
+     "Enter the coefficients {coefficients} from the highest power down to the constant",
+     "SOLVE (GRAPH key)",
+     "Read x1, x2, ...; use the decimal-toggle soft key if fractions show"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Algebra, Polynomial Tools, Find Roots of Polynomial",
+     "Degree {degree} (Roots: Real if the dialog asks), OK (check on your model)",
+     "Enter the coefficients {coefficients} from the highest power down to the constant, OK",
+     "Read the list of real roots"
+    ],
+    "casio": [
+     "EQUA, POLY (F2)",
+     "Degree: F1 (2), F2 (3) or F3 (4) for {degree}",
+     "Enter the coefficients {coefficients} from the highest power down to the constant, EXE after each",
+     "SOLVE (F1)",
+     "Read x1, x2, ..."
+    ]
+   }
+  },
+  "tvm-solve-fv": {
+   "title": "Finance solver: future value",
+   "steps": {
+    "ti84": [
+     "APPS, 1: Finance, 1: TVM Solver",
+     "N {n}, I% {rate}, PV {pv}, PMT {pmt}. Money paid out is negative, money received positive",
+     "P/Y {ppy}, then C/Y {cpy} (typing P/Y copies it into C/Y), PMT: END",
+     "Move the cursor to FV, ALPHA, ENTER (SOLVE)",
+     "Read FV (marked with a square); positive means money you receive"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Finance Solver",
+     "N {n}, I(%) {rate}, PV {pv}, Pmt {pmt}. Money paid out is negative, money received positive",
+     "PpY {ppy}, CpY {cpy}, PmtAt END",
+     "Tab to FV, enter",
+     "Read FV; positive means money you receive"
+    ],
+    "casio": [
+     "Financial (TVM), COMPND (F2)",
+     "SHIFT, MENU (SET UP): Payment End, EXIT",
+     "n {n}, I% {rate}, PV {pv}, PMT {pmt}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
+     "FV (F5)",
+     "Read FV; positive means money you receive"
+    ]
+   }
+  },
+  "tvm-solve-pv": {
+   "title": "Finance solver: present value",
+   "steps": {
+    "ti84": [
+     "APPS, 1: Finance, 1: TVM Solver",
+     "N {n}, I% {rate}, PMT {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "P/Y {ppy}, then C/Y {cpy} (typing P/Y copies it into C/Y), PMT: END",
+     "Move the cursor to PV, ALPHA, ENTER (SOLVE)",
+     "Read PV; negative means an amount you pay in now"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Finance Solver",
+     "N {n}, I(%) {rate}, Pmt {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "PpY {ppy}, CpY {cpy}, PmtAt END",
+     "Tab to PV, enter",
+     "Read PV; negative means an amount you pay in now"
+    ],
+    "casio": [
+     "Financial (TVM), COMPND (F2)",
+     "SHIFT, MENU (SET UP): Payment End, EXIT",
+     "n {n}, I% {rate}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
+     "PV (F3)",
+     "Read PV; negative means an amount you pay in now"
+    ]
+   }
+  },
+  "tvm-solve-n": {
+   "title": "Finance solver: number of periods",
+   "steps": {
+    "ti84": [
+     "APPS, 1: Finance, 1: TVM Solver",
+     "I% {rate}, PV {pv}, PMT {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "P/Y {ppy}, then C/Y {cpy}, PMT: END",
+     "Move the cursor to N, ALPHA, ENTER (SOLVE)",
+     "Read N in periods (divide by P/Y for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Finance Solver",
+     "I(%) {rate}, PV {pv}, Pmt {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "PpY {ppy}, CpY {cpy}, PmtAt END",
+     "Tab to N, enter",
+     "Read N in periods (divide by PpY for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
+    ],
+    "casio": [
+     "Financial (TVM), COMPND (F2)",
+     "SHIFT, MENU (SET UP): Payment End, EXIT",
+     "I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
+     "n (F1)",
+     "Read n in periods (divide by P/Y for years); then round to a whole number of periods the way the question needs: up to reach a target (the first period that gets there), down to count full payments or withdrawals the money covers"
+    ]
+   }
+  },
+  "tvm-solve-rate": {
+   "title": "Finance solver: interest rate",
+   "steps": {
+    "ti84": [
+     "APPS, 1: Finance, 1: TVM Solver",
+     "N {n}, PV {pv}, PMT {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "P/Y {ppy}, then C/Y {cpy}, PMT: END",
+     "Move the cursor to I%, ALPHA, ENTER (SOLVE)",
+     "Read I%, the annual nominal rate as a percentage"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Finance Solver",
+     "N {n}, PV {pv}, Pmt {pmt}, FV {fv}. Money paid out is negative, money received positive",
+     "PpY {ppy}, CpY {cpy}, PmtAt END",
+     "Tab to I(%), enter",
+     "Read I(%), the annual nominal rate as a percentage"
+    ],
+    "casio": [
+     "Financial (TVM), COMPND (F2)",
+     "SHIFT, MENU (SET UP): Payment End, EXIT",
+     "n {n}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
+     "I% (F2)",
+     "Read I%, the annual nominal rate as a percentage"
+    ]
+   }
+  },
+  "tvm-solve-pmt": {
+   "title": "Finance solver: regular payment",
+   "steps": {
+    "ti84": [
+     "APPS, 1: Finance, 1: TVM Solver",
+     "N {n}, I% {rate}, PV {pv}, FV {fv}. Money paid out is negative, money received positive",
+     "P/Y {ppy}, then C/Y {cpy}, PMT: END (or BEGIN if payments are at the start)",
+     "Move the cursor to PMT, ALPHA, ENTER (SOLVE)",
+     "Read PMT; negative means a payment you make each period"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Finance Solver",
+     "N {n}, I(%) {rate}, PV {pv}, FV {fv}. Money paid out is negative, money received positive",
+     "PpY {ppy}, CpY {cpy}, PmtAt END (or BEGIN)",
+     "Tab to Pmt, enter",
+     "Read Pmt; negative means a payment you make each period"
+    ],
+    "casio": [
+     "Financial (TVM), COMPND (F2)",
+     "SHIFT, MENU (SET UP): Payment End (or Begin), EXIT",
+     "n {n}, I% {rate}, PV {pv}, FV {fv}, P/Y {ppy}, C/Y {cpy}. Money paid out is negative, money received positive",
+     "PMT (F4)",
+     "Read PMT; negative means a payment you make each period"
+    ]
+   }
+  },
+  "tvm-amortization-balance": {
+   "title": "Loan balance after k payments",
+   "steps": {
+    "ti84": [
+     "Set up the loan in APPS, 1: Finance, 1: TVM Solver: N {n}, I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy} (solve for PMT first if it is unknown)",
+     "2nd, MODE (QUIT)",
+     "APPS, 1: Finance, 9: bal(, type {k}), ENTER",
+     "Read the balance still owed after payment {k} (its sign follows PV)"
+    ],
+    "nspire": [
+     "Calculator page: type bal( (also under Menu, Finance, Amortization)",
+     "Complete bal({k},{n},{rate},{pv},{pmt},{fv},{ppy},{cpy}), enter",
+     "Read the balance after payment {k}; bal() rounds to 2 decimal places by default"
+    ],
+    "casio": [
+     "Financial (TVM), AMORTZN (F4)",
+     "PM1 1, PM2 {k}, n {n}, I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}",
+     "BAL (F1)",
+     "Read BAL, the balance after payment PM2 = {k}"
+    ]
+   }
+  },
+  "tvm-amortization-interest": {
+   "title": "Total interest paid in payments 1 to k",
+   "steps": {
+    "ti84": [
+     "Set up the loan in APPS, 1: Finance, 1: TVM Solver: N {n}, I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}",
+     "2nd, MODE (QUIT)",
+     "APPS, 1: Finance, A: ΣInt(, type 1,{k}), ENTER",
+     "Read the total interest in payments 1 to {k} (shown with the sign of PMT; quote its size)"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Finance, Amortization, then the ΣInt( item (or insert ΣInt( from the Catalog) (check on your model)",
+     "Complete ΣInt(1,{k},{n},{rate},{pv},{pmt},{fv},{ppy},{cpy}), enter",
+     "Read the total interest in payments 1 to {k} (quote its size)"
+    ],
+    "casio": [
+     "Financial (TVM), AMORTZN (F4)",
+     "PM1 1, PM2 {k}, n {n}, I% {rate}, PV {pv}, PMT {pmt}, FV {fv}, P/Y {ppy}, C/Y {cpy}",
+     "ΣINT (F4)",
+     "Read ΣINT, the interest paid from PM1 to PM2 (quote its size)"
+    ]
+   }
+  },
+  "tvm-effective-rate": {
+   "title": "Effective annual rate from a nominal rate",
+   "steps": {
+    "ti84": [
+     "Home screen: APPS, 1: Finance, C: ►Eff(",
+     "Type {rate},{cpy}), ENTER",
+     "Read the effective annual rate as a percentage"
+    ],
+    "nspire": [
+     "Calculator page: type eff( (also under Menu, Finance, Interest Conversion)",
+     "Complete eff({rate},{cpy}), enter",
+     "Read the effective annual rate as a percentage"
+    ],
+    "casio": [
+     "Financial (TVM), CONVERT (F5)",
+     "n {cpy}, I% {rate}",
+     "▶EFF (F1)",
+     "Read EFF, the effective annual rate as a percentage"
+    ]
+   }
+  },
+  "sequence-terms": {
+   "title": "List the terms of a sequence",
+   "steps": {
+    "ti84": [
+     "2nd, STAT (LIST), OPS, 5: seq(",
+     "Type {term},X,{start},{end}) using X as the term number (with the wizard: Expr {term}, Variable X, start {start}, end {end}, step 1, Paste)",
+     "ENTER",
+     "Read the list of terms; scroll right with ▶"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, List Operations, Sequence",
+     "Complete seq({term},n,{start},{end}) using n as the term number",
+     "enter",
+     "Read the list of terms"
+    ],
+    "casio": [
+     "RUN-MAT, OPTN, LIST, Seq",
+     "Type {term},X,{start},{end},1) using X as the term number",
+     "EXE",
+     "Read the list of terms (stored in ListAns)"
+    ]
+   }
+  },
+  "sequence-sum": {
+   "title": "Sum of a sequence",
+   "steps": {
+    "ti84": [
+     "2nd, STAT (LIST), MATH, 5: sum(",
+     "2nd, STAT (LIST), OPS, 5: seq(",
+     "Type {term},X,{start},{end})) and ENTER",
+     "Read the sum"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Calculus, Sum",
+     "Fill the template: {term} with n from {start} to {end}",
+     "enter",
+     "Read the sum"
+    ],
+    "casio": [
+     "RUN-MAT, OPTN, CALC, ▷ (F6), Σ(",
+     "Type {term},X,{start},{end}) (Linear input) or fill the template (Math input)",
+     "EXE",
+     "Read the sum"
+    ]
+   }
+  },
+  "graph-enter-draw": {
+   "title": "Enter and graph functions",
+   "steps": {
+    "ti84": [
+     "Y=, type {function} in Y1 (X is the X,T,θ,n key); add a second function in Y2 if needed",
+     "Clear or deselect any other Y= rows and turn off Plot1-3 at the top",
+     "ZOOM, 6: ZStandard (or set the window first)",
+     "GRAPH and look at the whole shape"
+    ],
+    "nspire": [
+     "Add a Graphs page: ctrl, doc, then 2: Add Graphs",
+     "Type {function} after f1(x)=, enter; add f2(x) if needed",
+     "Menu, Window/Zoom, Zoom - Standard (or set the window first)",
+     "Look at the whole shape"
+    ],
+    "casio": [
+     "MENU, GRAPH",
+     "Type {function} in Y1, EXE (X is the X,θ,T key); add Y2 if needed",
+     "Deselect unused rows with SELECT (F1)",
+     "DRAW (F6) and look at the whole shape"
+    ]
+   }
+  },
+  "graph-window": {
+   "title": "Set the viewing window",
+   "steps": {
+    "ti84": [
+     "WINDOW",
+     "Xmin {xMin}, Xmax {xMax}, Ymin {yMin}, Ymax {yMax}",
+     "GRAPH",
+     "Check the feature you need is on screen"
+    ],
+    "nspire": [
+     "On the Graphs page: Menu, Window/Zoom, Window Settings",
+     "XMin {xMin}, XMax {xMax}, YMin {yMin}, YMax {yMax}, OK",
+     "Check the feature you need is on screen"
+    ],
+    "casio": [
+     "In GRAPH: SHIFT, F3 (V-Window)",
+     "Xmin {xMin}, max {xMax}, Ymin {yMin}, max {yMax}, then EXIT",
+     "DRAW (F6)",
+     "Check the feature you need is on screen"
+    ]
+   }
+  },
+  "graph-intersection": {
+   "title": "Intersection of two graphs",
+   "steps": {
+    "ti84": [
+     "Y=, enter Y1 = {function1} and Y2 = {function2}, then GRAPH",
+     "2nd, TRACE (CALC), 5: intersect",
+     "ENTER on the first curve, ENTER on the second curve, move the cursor near the crossing, ENTER (guess)",
+     "Read X and Y at the intersection; repeat near each other crossing"
+    ],
+    "nspire": [
+     "Graphs page: f1(x) = {function1}, f2(x) = {function2}",
+     "Menu, Analyze Graph, Intersection",
+     "Click to the left and then to the right of the crossing",
+     "Read the coordinates; repeat for each other crossing"
+    ],
+    "casio": [
+     "GRAPH: Y1 = {function1}, Y2 = {function2}, DRAW (F6)",
+     "SHIFT, F5 (G-SOLV), INTSECT (F5)",
+     "Read X and Y",
+     "Press ▶ for the next intersection"
+    ]
+   }
+  },
+  "graph-zeros": {
+   "title": "Zeros (x-intercepts) of a graph",
+   "steps": {
+    "ti84": [
+     "Y=, enter Y1 = {function}, then GRAPH",
+     "2nd, TRACE (CALC), 2: zero",
+     "Move left of the crossing, ENTER (Left Bound); right of it, ENTER (Right Bound); ENTER (Guess)",
+     "Read X; repeat for each other zero"
+    ],
+    "nspire": [
+     "Graphs page: f1(x) = {function}",
+     "Menu, Analyze Graph, Zero",
+     "Click to the left and then to the right of the crossing",
+     "Read x; repeat for each other zero"
+    ],
+    "casio": [
+     "GRAPH: Y1 = {function}, DRAW (F6)",
+     "SHIFT, F5 (G-SOLV), ROOT (F1)",
+     "Read X",
+     "Press ▶ for the next root"
+    ]
+   }
+  },
+  "graph-max-min": {
+   "title": "Local maximum or minimum",
+   "steps": {
+    "ti84": [
+     "Y=, enter Y1 = {function}, then GRAPH",
+     "2nd, TRACE (CALC), 4: maximum (or 3: minimum)",
+     "Move left of the turning point, ENTER; right of it, ENTER; then ENTER (Guess)",
+     "Read X and Y of the turning point"
+    ],
+    "nspire": [
+     "Graphs page: f1(x) = {function}",
+     "Menu, Analyze Graph, Maximum (or Minimum)",
+     "Click to the left and then to the right of the turning point",
+     "Read x and y of the turning point"
+    ],
+    "casio": [
+     "GRAPH: Y1 = {function}, DRAW (F6)",
+     "SHIFT, F5 (G-SOLV), MAX (F2) (or MIN, F3)",
+     "Press ▶ if the wrong turning point is shown",
+     "Read X and Y of the turning point"
+    ]
+   }
+  },
+  "graph-value-at-x": {
+   "title": "Value of a function at a given x",
+   "steps": {
+    "ti84": [
+     "Y=, enter Y1 = {function}, then GRAPH",
+     "2nd, TRACE (CALC), 1: value",
+     "Type X = {xValue}, ENTER",
+     "Read Y (▲ ▼ moves to the other functions at the same X)"
+    ],
+    "nspire": [
+     "Define the function on a Graphs page as f1(x) = {function}",
+     "Add or go to a Calculator page and type f1({xValue}), enter",
+     "Read the value"
+    ],
+    "casio": [
+     "GRAPH: Y1 = {function}, DRAW (F6)",
+     "SHIFT, F5 (G-SOLV), ▷ (F6), Y-CAL (F1)",
+     "Choose the graph, EXE, then type X = {xValue}, EXE",
+     "Read Y"
+    ]
+   }
+  },
+  "derivative-at-point": {
+   "title": "Numerical derivative at a point",
+   "steps": {
+    "ti84": [
+     "Home screen: MATH, 8: nDeriv(",
+     "Fill the template: d/dX of {function} at X = {xValue} (or type nDeriv({function},X,{xValue}))",
+     "ENTER",
+     "Read the gradient f'({xValue})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Calculus, Numerical Derivative at a Point",
+     "Variable x, value {xValue}, 1st derivative, OK (check on your model)",
+     "Type {function} in the template, enter",
+     "Read the gradient f'({xValue})"
+    ],
+    "casio": [
+     "RUN-MAT, OPTN, CALC, d/dx",
+     "Enter {function} and the point {xValue} in the template (Linear input: d/dx({function},{xValue}))",
+     "EXE",
+     "Read the gradient f'({xValue})"
+    ]
+   }
+  },
+  "integral-definite": {
+   "title": "Definite integral (numerical)",
+   "steps": {
+    "ti84": [
+     "Home screen: MATH, 9: fnInt(",
+     "Fill the template: lower limit {lower}, upper limit {upper}, function {function} in X (or type fnInt({function},X,{lower},{upper}))",
+     "ENTER",
+     "Read the value of the integral"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Calculus, Numerical Integral (listed as Numerical Definite Integral in some versions)",
+     "Lower limit {lower}, upper limit {upper}, then {function}, then x in the box after d",
+     "enter",
+     "Read the value of the integral"
+    ],
+    "casio": [
+     "RUN-MAT, OPTN, CALC, ∫dx",
+     "Fill the template with {function}, lower limit {lower}, upper limit {upper} (Linear input: ∫({function},{lower},{upper}))",
+     "EXE",
+     "Read the value of the integral"
+    ]
+   }
+  },
+  "graph-table": {
+   "title": "Table of values",
+   "steps": {
+    "ti84": [
+     "Y=, enter Y1 = {function}",
+     "2nd, WINDOW (TBLSET): TblStart {start}, ΔTbl {step}, Indpnt: Auto",
+     "2nd, GRAPH (TABLE)",
+     "Scroll down to {end} and read the Y1 values"
+    ],
+    "nspire": [
+     "Graphs page: f1(x) = {function}",
+     "Menu, Table, Split-screen Table (or ctrl, T)",
+     "In the table: Menu, Table, Edit Table Settings: Table Start {start}, Table Step {step}, OK",
+     "Scroll down to {end} and read the f1(x) values"
+    ],
+    "casio": [
+     "MENU, TABLE, enter Y1 = {function}, EXE",
+     "SET (F5): Start {start}, End {end}, Step {step}, EXIT",
+     "TABLE (F6)",
+     "Read the Y1 values"
+    ]
+   }
+  },
+  "regression-linear": {
+   "title": "Linear regression y = ax + b with r and r²",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2 (STAT, 1: Edit); turn STAT DIAGNOSTICS ON in MODE",
+     "STAT, CALC, 4: LinReg(ax+b)",
+     "Xlist: L1, Ylist: L2, FreqList blank, Store RegEQ: Y1 (optional), Calculate",
+     "Read a, b, r² and r"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in column xdata, {yValues} in column ydata",
+     "Menu, Statistics, Stat Calculations, Linear Regression (mx+b)",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read m (gradient, the a in y = ax + b), b, r² and r"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2",
+     "CALC (F2), SET (F6): 2Var XList List1, 2Var YList List2, 2Var Freq 1, EXIT",
+     "CALC (F2), REG (F3), X (F1), ax+b (F1)",
+     "Read a, b, r and r²"
+    ]
+   }
+  },
+  "regression-quadratic": {
+   "title": "Quadratic regression y = ax² + bx + c",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2",
+     "STAT, CALC, 5: QuadReg",
+     "Xlist: L1, Ylist: L2, Store RegEQ: Y1 (optional), Calculate",
+     "Read a, b, c (and R² with STAT DIAGNOSTICS ON)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Quadratic Regression",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read a, b, c and R²"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2 (CALC, SET as for linear)",
+     "CALC (F2), REG (F3), X² ",
+     "Read a, b, c and r²"
+    ]
+   }
+  },
+  "regression-cubic": {
+   "title": "Cubic regression y = ax³ + bx² + cx + d",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2",
+     "STAT, CALC, 6: CubicReg",
+     "Xlist: L1, Ylist: L2, Store RegEQ: Y1 (optional), Calculate",
+     "Read a, b, c, d (and R² with STAT DIAGNOSTICS ON)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Cubic Regression",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read a, b, c, d and R²"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2 (CALC, SET as for linear)",
+     "CALC (F2), REG (F3), X³",
+     "Read a, b, c, d and r²"
+    ]
+   }
+  },
+  "regression-exponential": {
+   "title": "Exponential regression y = a·b^x",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2; STAT DIAGNOSTICS ON for r",
+     "STAT, CALC, 0: ExpReg",
+     "Xlist: L1, Ylist: L2, Store RegEQ: Y1 (optional), Calculate",
+     "Read a and b (y = a·b^x), then r² and r"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Exponential Regression",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read a and b (y = a·b^x), then r² and r"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2 (CALC, SET as for linear)",
+     "CALC (F2), REG (F3), ▷ (F6), EXP, then ab^x (not ae^bx)",
+     "Read a and b (y = a·b^x), then r and r²"
+    ]
+   }
+  },
+  "regression-power": {
+   "title": "Power regression y = a·x^b",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2; STAT DIAGNOSTICS ON for r",
+     "STAT, CALC, A: PwrReg",
+     "Xlist: L1, Ylist: L2, Store RegEQ: Y1 (optional), Calculate",
+     "Read a and b (y = a·x^b), then r² and r"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Power Regression",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read a and b (y = a·x^b), then r² and r"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2 (CALC, SET as for linear)",
+     "CALC (F2), REG (F3), ▷ (F6), Power",
+     "Read a and b (y = a·x^b), then r and r²"
+    ]
+   }
+  },
+  "regression-sinusoidal": {
+   "title": "Sinusoidal regression y = a sin(bx + c) + d",
+   "steps": {
+    "ti84": [
+     "MODE, RADIAN; enter {xValues} in L1 and {yValues} in L2",
+     "STAT, CALC, C: SinReg",
+     "Iterations 3 (default), Xlist: L1, Ylist: L2, Period: {periodGuess} (optional), Store RegEQ: Y1 (optional), Calculate",
+     "Read a, b, c, d (b and c in radians)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Sinusoidal Regression",
+     "X List: xdata, Y List: ydata, Period: {periodGuess} (optional), Save RegEqn to: f1, OK (check on your model)",
+     "Read a, b, c, d (always in radians)"
+    ],
+    "casio": [
+     "SHIFT, MENU (SET UP): Angle Rad; STAT: {xValues} in List 1, {yValues} in List 2",
+     "CALC (F2), REG (F3), ▷ (F6), Sin",
+     "Read a, b, c, d (in radians)"
+    ]
+   }
+  },
+  "regression-logistic": {
+   "title": "Logistic regression y = c / (1 + a e^(-bx))",
+   "steps": {
+    "ti84": [
+     "Enter {xValues} in L1 and {yValues} in L2",
+     "STAT, CALC, B: Logistic",
+     "Xlist: L1, Ylist: L2, Store RegEQ: Y1 (optional), Calculate",
+     "Read a, b, c in y = c/(1 + a e^(-bx))"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {xValues} in xdata, {yValues} in ydata",
+     "Menu, Statistics, Stat Calculations, Logistic Regression (d=0)",
+     "X List: xdata, Y List: ydata, Save RegEqn to: f1, OK",
+     "Read a, b, c in y = c/(1 + a e^(-bx))"
+    ],
+    "casio": [
+     "STAT: {xValues} in List 1, {yValues} in List 2 (CALC, SET as for linear)",
+     "CALC (F2), REG (F3), ▷ (F6), Logistic (on the next ▷ page if not shown)",
+     "Read a, b, c in y = c/(1 + a e^(-bx))"
+    ]
+   }
+  },
+  "regression-predict": {
+   "title": "Predict a value from a regression model",
+   "steps": {
+    "ti84": [
+     "Run the regression with Store RegEQ: Y1 (VARS, Y-VARS, 1: Function, 1: Y1)",
+     "Home screen: VARS, Y-VARS, 1: Function, 1: Y1",
+     "Type ({xValue}), ENTER",
+     "Read the predicted y"
+    ],
+    "nspire": [
+     "Run the regression with Save RegEqn to: f1",
+     "Calculator page: type f1({xValue}), enter",
+     "Read the predicted y"
+    ],
+    "casio": [
+     "On the regression result screen press COPY (F6), highlight an empty Y row, EXE",
+     "MENU, GRAPH, DRAW (F6)",
+     "SHIFT, F5 (G-SOLV), ▷ (F6), Y-CAL (F1), choose the copied graph, EXE",
+     "X = {xValue}, EXE, then read Y"
+    ]
+   }
+  },
+  "stats-one-variable": {
+   "title": "One-variable statistics from a list",
+   "steps": {
+    "ti84": [
+     "Enter the data {values} in L1 (STAT, 1: Edit)",
+     "STAT, CALC, 1: 1-Var Stats",
+     "List: L1, FreqList: blank, Calculate",
+     "Read x̄, Sx, σx, n, then scroll down for minX, Q1, Med, Q3, maxX"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {values} in column data",
+     "Calculator page: Menu, Statistics, Stat Calculations, One-Variable Statistics; Num of Lists 1, OK",
+     "X1 List: data, Frequency List: 1, OK",
+     "Read x̄, sx := sn-1x, σx := σnx, n, MinX, Q₁X, MedianX, Q₃X, MaxX"
+    ],
+    "casio": [
+     "STAT: {values} in List 1",
+     "CALC (F2), SET (F6): 1Var XList List1, 1Var Freq 1, EXIT",
+     "1-VAR (F1)",
+     "Read x̄, σx, sx, n, then scroll down for minX, Q1, Med, Q3, maxX"
+    ]
+   }
+  },
+  "stats-one-variable-frequency": {
+   "title": "One-variable statistics from a frequency table",
+   "steps": {
+    "ti84": [
+     "Values {values} in L1, frequencies {frequencies} in L2",
+     "STAT, CALC, 1: 1-Var Stats",
+     "List: L1, FreqList: L2, Calculate",
+     "Check n equals the total frequency, then read x̄, σx (and Sx), Q1, Med, Q3"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: values {values} in column data, frequencies {frequencies} in column freq",
+     "Calculator page: Menu, Statistics, Stat Calculations, One-Variable Statistics; Num of Lists 1, OK",
+     "X1 List: data, Frequency List: freq, OK",
+     "Check n equals the total frequency, then read x̄, σx := σnx, Q₁X, MedianX, Q₃X"
+    ],
+    "casio": [
+     "STAT: values {values} in List 1, frequencies {frequencies} in List 2",
+     "CALC (F2), SET (F6): 1Var XList List1, 1Var Freq List2, EXIT",
+     "1-VAR (F1)",
+     "Check n equals the total frequency, then read x̄, σx, Q1, Med, Q3"
+    ]
+   }
+  },
+  "stats-grouped-midpoints": {
+   "title": "Grouped data: mean and standard deviation from midpoints",
+   "steps": {
+    "ti84": [
+     "Work out each class midpoint {midpoints} = (lower + upper)/2",
+     "Midpoints in L1, frequencies {frequencies} in L2",
+     "STAT, CALC, 1: 1-Var Stats, List: L1, FreqList: L2, Calculate",
+     "Read x̄ and σx as estimates of the mean and standard deviation"
+    ],
+    "nspire": [
+     "Work out each class midpoint {midpoints} = (lower + upper)/2",
+     "Lists & Spreadsheet: midpoints in column data, frequencies {frequencies} in column freq",
+     "Calculator page: Menu, Statistics, Stat Calculations, One-Variable Statistics, Num of Lists 1, OK; X1 List: data, Frequency List: freq, OK",
+     "Read x̄ and σx := σnx as estimates of the mean and standard deviation"
+    ],
+    "casio": [
+     "Work out each class midpoint {midpoints} = (lower + upper)/2",
+     "STAT: midpoints in List 1, frequencies {frequencies} in List 2",
+     "CALC (F2), SET (F6): 1Var XList List1, 1Var Freq List2, EXIT, then 1-VAR (F1)",
+     "Read x̄ and σx as estimates of the mean and standard deviation"
+    ]
+   }
+  },
+  "spearman-rank": {
+   "title": "Spearman's rank correlation",
+   "steps": {
+    "ti84": [
+     "Rank each data set by hand (1 = smallest; tied values share the mean of their ranks)",
+     "Enter the ranks {xRanks} in L3 and {yRanks} in L4; STAT DIAGNOSTICS ON",
+     "STAT, CALC, 4: LinReg(ax+b), Xlist: L3, Ylist: L4, Calculate",
+     "Read r: this is Spearman's rs"
+    ],
+    "nspire": [
+     "Rank each data set by hand (1 = smallest; tied values share the mean of their ranks)",
+     "Lists & Spreadsheet: ranks {xRanks} in column xrank, {yRanks} in column yrank",
+     "Menu, Statistics, Stat Calculations, Linear Regression (mx+b), X List: xrank, Y List: yrank, OK",
+     "Read r: this is Spearman's rs"
+    ],
+    "casio": [
+     "Rank each data set by hand (1 = smallest; tied values share the mean of their ranks)",
+     "STAT: ranks {xRanks} in List 3, {yRanks} in List 4",
+     "CALC (F2), SET (F6): 2Var XList List3, 2Var YList List4, EXIT; CALC, REG (F3), X (F1), ax+b (F1)",
+     "Read r: this is Spearman's rs"
+    ]
+   }
+  },
+  "binomial-pdf": {
+   "title": "Binomial probability P(X = k)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), A: binompdf(",
+     "trials {n}, p {p}, x value {k}, Paste",
+     "ENTER",
+     "Read P(X = {k})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Binomial Pdf",
+     "Num Trials {n}, Prob Success {p}, X Value {k}, OK",
+     "Read P(X = {k})"
+    ],
+    "casio": [
+     "STAT, DIST (F5), BINOMIAL (F5), Bpd (F1)",
+     "Data: Variable (F2), x {k}, Numtrial {n}, p {p}",
+     "Move to Execute, EXE",
+     "Read p = P(X = {k})"
+    ]
+   }
+  },
+  "binomial-cdf": {
+   "title": "Binomial cumulative probability P(X ≤ k)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), B: binomcdf(",
+     "trials {n}, p {p}, x value {k}, Paste",
+     "ENTER",
+     "Read P(X ≤ {k})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Binomial Cdf",
+     "Num Trials {n}, Prob Success {p}, Lower Bound 0, Upper Bound {k}, OK",
+     "Read P(X ≤ {k})"
+    ],
+    "casio": [
+     "STAT, DIST (F5), BINOMIAL (F5), Bcd (F2)",
+     "Data: Variable (F2), Lower 0, Upper {k}, Numtrial {n}, p {p}",
+     "Move to Execute, EXE",
+     "Read p = P(X ≤ {k})"
+    ]
+   }
+  },
+  "binomial-at-least": {
+   "title": "Binomial P(X ≥ k) as 1 - P(X ≤ k - 1)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), B: binomcdf(",
+     "trials {n}, p {p}, x value {k}-1 (one less than k), Paste, ENTER",
+     "Type 1 - Ans (Ans is 2nd, (-)), ENTER",
+     "Read P(X ≥ {k})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Binomial Cdf",
+     "Num Trials {n}, Prob Success {p}, Lower Bound 0, Upper Bound {k}-1, OK",
+     "Type 1 - ans (ctrl, (-)), enter",
+     "Read P(X ≥ {k})"
+    ],
+    "casio": [
+     "STAT, DIST (F5), BINOMIAL (F5), Bcd (F2)",
+     "Data: Variable (F2), Lower 0, Upper {k}-1, Numtrial {n}, p {p}, Execute, EXE",
+     "In RUN-MAT work out 1 minus this value",
+     "Read P(X ≥ {k})"
+    ]
+   }
+  },
+  "normal-cdf": {
+   "title": "Normal probability P(a < X < b)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), 2: normalcdf(",
+     "lower {lower}, upper {upper}, μ {mean}, σ {sd}, Paste",
+     "ENTER",
+     "Read the probability"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Normal Cdf",
+     "Lower Bound {lower}, Upper Bound {upper}, μ {mean}, σ {sd}, OK",
+     "Read the probability"
+    ],
+    "casio": [
+     "STAT, DIST (F5), NORM (F1), Ncd (F2)",
+     "Data: Variable (F2), Lower {lower}, Upper {upper}, then σ {sd} before μ {mean}",
+     "Move to Execute, EXE",
+     "Read p (the probability)"
+    ]
+   }
+  },
+  "inverse-normal": {
+   "title": "Inverse normal: find x from a probability",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), 3: invNorm(",
+     "area {area}, μ {mean}, σ {sd}, Tail: {tail} (LEFT, RIGHT or CENTER), Paste",
+     "ENTER",
+     "Read x (for CENTER, read the bounds shown) (check on your model)"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Inverse Normal",
+     "Area is always the area to the LEFT of x: for {tail} left use {area}; right use 1-{area}; centre use (1+{area})/2 for the upper bound. Then μ {mean}, σ {sd}, OK",
+     "Read x (for a central area the lower bound is 2{mean} minus the upper bound)"
+    ],
+    "casio": [
+     "STAT, DIST (F5), NORM (F1), InvN (F3)",
+     "Data: Variable (F2), Tail: {tail} (Left, Right or Central), Area {area}, then σ {sd} before μ {mean}",
+     "Move to Execute, EXE",
+     "Read x (Central gives the lower and upper bounds)"
+    ]
+   }
+  },
+  "poisson-pdf": {
+   "title": "Poisson probability P(X = k)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), C: poissonpdf(",
+     "μ {mean}, x value {k}, Paste",
+     "ENTER",
+     "Read P(X = {k})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Poisson Pdf",
+     "λ {mean}, X Value {k}, OK",
+     "Read P(X = {k})"
+    ],
+    "casio": [
+     "STAT, DIST (F5), ▷ (F6), POISSON (F1), Ppd (F1)",
+     "Data: Variable (F2), x {k}, λ {mean}",
+     "Move to Execute, EXE",
+     "Read p = P(X = {k})"
+    ]
+   }
+  },
+  "poisson-cdf": {
+   "title": "Poisson cumulative probability P(X ≤ k)",
+   "steps": {
+    "ti84": [
+     "2nd, VARS (DISTR), D: poissoncdf(",
+     "μ {mean}, x value {k}, Paste",
+     "ENTER",
+     "Read P(X ≤ {k})"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Distributions, Poisson Cdf",
+     "λ {mean}, Lower Bound 0, Upper Bound {k}, OK",
+     "Read P(X ≤ {k})"
+    ],
+    "casio": [
+     "STAT, DIST (F5), ▷ (F6), POISSON (F1), Pcd (F2)",
+     "Data: Variable (F2), Lower 0, Upper {k}, λ {mean}",
+     "Move to Execute, EXE",
+     "Read p = P(X ≤ {k})"
+    ]
+   }
+  },
+  "chi2-independence": {
+   "title": "χ² test of independence (contingency table)",
+   "steps": {
+    "ti84": [
+     "2nd, x⁻¹ (MATRIX), EDIT, 1: [A]; set {rows} × {columns}, then type the observed counts {observed} row by row",
+     "2nd, MODE (QUIT); STAT, TESTS, C: χ²-Test",
+     "Observed: [A], Expected: [B], Calculate",
+     "Read χ², p and df",
+     "For the expected counts: 2nd, x⁻¹ (MATRIX), EDIT, 2: [B]"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Matrix & Vector, Create, Matrix, {rows} rows, {columns} columns, OK; type the observed counts {observed}",
+     "Store it: ctrl, var (sto→), type obs, enter",
+     "Menu, Statistics, Stat Tests, χ² 2-way Test, Observed Matrix: obs (pick it from the drop-box), OK",
+     "Read χ², PVal and df",
+     "For the expected counts: type stat.expmat, enter"
+    ],
+    "casio": [
+     "STAT, TEST (F3), CHI (F3), 2WAY (F2)",
+     "Observed: Mat A; press ▶MAT (F2), set Mat A to {rows} × {columns} and type the observed counts {observed}, then EXIT back",
+     "Expected: Mat B, then move to Execute, CALC (F1)",
+     "Read χ², p and df",
+     "For the expected counts: ▶MAT (F6) and open Mat B"
+    ]
+   }
+  },
+  "chi2-goodness-of-fit": {
+   "title": "χ² goodness of fit test",
+   "steps": {
+    "ti84": [
+     "Observed counts {observed} in L1, expected counts {expected} in L2 (STAT, 1: Edit)",
+     "STAT, TESTS, D: χ²GOF-Test",
+     "Observed: L1, Expected: L2, df: {df}, Calculate",
+     "Read χ², p and df"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: observed counts {observed} in column obs, expected counts {expected} in column exp",
+     "Menu, Statistics, Stat Tests, χ² GOF",
+     "Observed List: obs, Expected List: exp, Deg of Freedom: {df}, OK (check on your model)",
+     "Read χ², PVal and df"
+    ],
+    "casio": [
+     "STAT: observed counts {observed} in List 1, expected counts {expected} in List 2",
+     "TEST (F3), CHI (F3), GOF (F1)",
+     "Observed: List1, Expected: List2, df: {df}, CNTRB: List3, then move to Execute, CALC (F1)",
+     "Read χ², p and df"
+    ]
+   }
+  },
+  "t-test-two-sample": {
+   "title": "Two-sample t-test (pooled)",
+   "steps": {
+    "ti84": [
+     "Sample 1 {sample1} in L1, sample 2 {sample2} in L2",
+     "STAT, TESTS, 4: 2-SampTTest; Inpt: Data",
+     "List1: L1, List2: L2, Freq1: 1, Freq2: 1, μ1: {alternative} μ2, Pooled: Yes",
+     "Calculate; read t, p and df (also x̄1, x̄2, Sx1, Sx2, Sxp)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: sample 1 {sample1} in column s1, sample 2 {sample2} in column s2",
+     "Menu, Statistics, Stat Tests, 2-Sample t Test; Data Input Method: Data, OK",
+     "List 1: s1, List 2: s2, Frequency 1 and 2: 1, Alternate Hyp: {alternative}, Pooled: Yes, OK (check on your model)",
+     "Read t, PVal and df"
+    ],
+    "casio": [
+     "STAT: sample 1 {sample1} in List 1, sample 2 {sample2} in List 2",
+     "TEST (F3), t (F2), 2-SAMPLE (F2)",
+     "Data: List (F1), μ1: {alternative} μ2, List(1): List1, List(2): List2, Freq 1, Pooled: On, then Execute, CALC (F1)",
+     "Read t, p and df (sp is the pooled standard deviation)"
+    ]
+   }
+  },
+  "t-test-one-sample": {
+   "title": "One-sample t-test for a mean",
+   "steps": {
+    "ti84": [
+     "Data {sample} in L1",
+     "STAT, TESTS, 2: T-Test; Inpt: Data",
+     "μ0: {mu0}, List: L1, Freq: 1, μ: {alternative} μ0",
+     "Calculate; read t and p (also x̄, Sx, n)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: data {sample} in column data",
+     "Menu, Statistics, Stat Tests, t Test; Data Input Method: Data, OK",
+     "μ0: {mu0}, List: data, Frequency List: 1, Alternate Hyp: {alternative}, OK (check on your model)",
+     "Read t, PVal and df"
+    ],
+    "casio": [
+     "STAT: data {sample} in List 1",
+     "TEST (F3), t (F2), 1-SAMPLE (F1)",
+     "Data: List (F1), μ: {alternative} μ0, μ0: {mu0}, List: List1, Freq: 1, then Execute, CALC (F1)",
+     "Read t and p"
+    ]
+   }
+  },
+  "z-test-one-sample": {
+   "title": "One-sample z-test for a mean (σ known)",
+   "steps": {
+    "ti84": [
+     "Data {sample} in L1 (or use Inpt: Stats with x̄ and n)",
+     "STAT, TESTS, 1: Z-Test; Inpt: Data",
+     "μ0: {mu0}, σ: {sigma}, List: L1, Freq: 1, μ: {alternative} μ0",
+     "Calculate; read z and p"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: data {sample} in column data",
+     "Menu, Statistics, Stat Tests, z Test; Data Input Method: Data, OK",
+     "μ0: {mu0}, σ: {sigma}, List: data, Frequency List: 1, Alternate Hyp: {alternative}, OK (check on your model)",
+     "Read z and PVal"
+    ],
+    "casio": [
+     "STAT: data {sample} in List 1",
+     "TEST (F3), Z (F1), 1-SAMPLE (F1)",
+     "Data: List (F1), μ: {alternative} μ0, μ0: {mu0}, σ: {sigma}, List: List1, Freq: 1, then Execute, CALC (F1)",
+     "Read z and p"
+    ]
+   }
+  },
+  "t-test-paired": {
+   "title": "Paired t-test (one-sample t-test on differences)",
+   "steps": {
+    "ti84": [
+     "First values {before} in L1, second values {after} in L2",
+     "Move onto the L3 heading, type L1 - L2 (L1 is 2nd, 1), ENTER",
+     "STAT, TESTS, 2: T-Test; Inpt: Data, μ0: 0, List: L3, Freq: 1, μ: {alternative} μ0",
+     "Calculate; read t and p"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: {before} in column before, {after} in column after; name column C diff",
+     "In column C's formula cell (the row under the name) type =before-after, enter",
+     "Menu, Statistics, Stat Tests, t Test; Data, μ0: 0, List: diff, Alternate Hyp: {alternative}, OK",
+     "Read t and PVal"
+    ],
+    "casio": [
+     "STAT: {before} in List 1, {after} in List 2",
+     "Highlight the List 3 name, type List 1 - List 2 (List is SHIFT, 1), EXE",
+     "TEST (F3), t (F2), 1-SAMPLE (F1): Data List, μ: {alternative} μ0, μ0: 0, List: List3, Freq: 1, Execute, CALC (F1)",
+     "Read t and p"
+    ]
+   }
+  },
+  "interval-z": {
+   "title": "Confidence interval for a mean, σ known (Z interval)",
+   "steps": {
+    "ti84": [
+     "STAT, TESTS, 7: ZInterval",
+     "Inpt: Stats, σ {sigma}, x̄ {mean}, n {n}, C-Level {level} (or Inpt: Data with the list)",
+     "Calculate",
+     "Read the interval (lower, upper)"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Statistics, Confidence Intervals, z Interval; Data Input Method: Stats, OK",
+     "σ {sigma}, x̄ {mean}, n {n}, C Level {level}, OK (check on your model)",
+     "Read CLower and CUpper (and ME, the margin of error)"
+    ],
+    "casio": [
+     "STAT, INTR (F4), Z (F1), 1-SAMPLE (F1)",
+     "Data: Var (F2), C-Level {level}, σ {sigma}, x̄ {mean}, n {n} (or Data: List) (check on your model)",
+     "Move to Execute, CALC (F1)",
+     "Read Lower and Upper"
+    ]
+   }
+  },
+  "interval-t": {
+   "title": "Confidence interval for a mean, σ unknown (t interval)",
+   "steps": {
+    "ti84": [
+     "Data in L1 (or use Inpt: Stats with x̄, Sx, n)",
+     "STAT, TESTS, 8: TInterval; Inpt: Data",
+     "List: L1, Freq: 1, C-Level {level}, Calculate",
+     "Read the interval (lower, upper)"
+    ],
+    "nspire": [
+     "Lists & Spreadsheet: data in column data",
+     "Menu, Statistics, Confidence Intervals, t Interval; Data Input Method: Data, OK",
+     "List: data, Frequency List: 1, C Level {level}, OK (check on your model)",
+     "Read CLower and CUpper"
+    ],
+    "casio": [
+     "STAT: data in List 1",
+     "INTR (F4), t (F2), 1-SAMPLE (F1)",
+     "Data: List (F1), C-Level {level}, List: List1, Freq: 1, then Execute, CALC (F1) (check on your model)",
+     "Read Lower and Upper"
+    ]
+   }
+  },
+  "binomial-test": {
+   "title": "Binomial hypothesis test via the cdf (p-value)",
+   "steps": {
+    "ti84": [
+     "Under H0, X ~ B({n}, {p0}); observed value {observed}",
+     "H1 'p less than': 2nd, VARS (DISTR), B: binomcdf(, trials {n}, p {p0}, x value {observed}, Paste, ENTER",
+     "H1 'p greater than': same with x value {observed}-1, ENTER, then 1 - Ans, ENTER",
+     "Read the p-value and compare it with the significance level"
+    ],
+    "nspire": [
+     "Under H0, X ~ B({n}, {p0}); observed value {observed}",
+     "Menu, Statistics, Distributions, Binomial Cdf: Num Trials {n}, Prob Success {p0}",
+     "H1 'p less than': Lower 0, Upper {observed}. H1 'p greater than': Lower {observed}, Upper {n}. OK",
+     "Read the p-value and compare it with the significance level"
+    ],
+    "casio": [
+     "Under H0, X ~ B({n}, {p0}); observed value {observed}",
+     "STAT, DIST (F5), BINOMIAL (F5), Bcd (F2), Data: Variable, Numtrial {n}, p {p0}",
+     "H1 'p less than': Lower 0, Upper {observed}. H1 'p greater than': Lower {observed}, Upper {n}. Execute, EXE",
+     "Read p, the p-value, and compare it with the significance level"
+    ]
+   }
+  },
+  "matrix-enter": {
+   "title": "Enter a matrix",
+   "steps": {
+    "ti84": [
+     "2nd, x⁻¹ (MATRIX), EDIT, 1: [A]",
+     "Type the size {rows}, ENTER, {columns}, ENTER",
+     "Type the entries {entries} row by row, ENTER after each",
+     "2nd, MODE (QUIT); the matrix is stored as [A] (paste it from 2nd, x⁻¹ (MATRIX), NAMES)"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Matrix & Vector, Create, Matrix",
+     "Number of rows {rows}, columns {columns}, OK",
+     "Type the entries {entries}, tab between them",
+     "Press ctrl, var (sto→), type a, enter: the matrix is stored as a"
+    ],
+    "casio": [
+     "RUN-MAT, F3 (▶MAT/VCT): the Matrix Editor opens",
+     "Highlight Mat A, DIM (F3): rows {rows}, EXE, columns {columns}, EXE, EXE",
+     "Type the entries {entries}, EXE after each (the cursor moves right along each row)",
+     "EXIT twice; the matrix is stored as Mat A (OPTN, MAT/VCT, Mat, A in calculations)"
+    ]
+   }
+  },
+  "matrix-multiply": {
+   "title": "Multiply matrices",
+   "steps": {
+    "ti84": [
+     "Enter A and B with matrix-enter",
+     "Home screen: 2nd, x⁻¹ (MATRIX), NAMES, 1: [A], ×, 2nd, x⁻¹ (MATRIX), NAMES, 2: [B]",
+     "ENTER",
+     "Read the product AB (scroll right if it is wide)"
+    ],
+    "nspire": [
+     "Store the matrices as a and b (matrix-enter)",
+     "Calculator page: type a·b (× key), enter",
+     "Read the product AB"
+    ],
+    "casio": [
+     "Store Mat A and Mat B (matrix-enter)",
+     "RUN-MAT: OPTN, MAT/VCT, Mat, A, ×, Mat, B",
+     "EXE",
+     "Read the product AB (shown in MatAns)"
+    ]
+   }
+  },
+  "matrix-power": {
+   "title": "Power of a matrix",
+   "steps": {
+    "ti84": [
+     "Enter A with matrix-enter",
+     "Home screen: 2nd, x⁻¹ (MATRIX), NAMES, 1: [A], ^, {power}",
+     "ENTER",
+     "Read the matrix A to the power {power}"
+    ],
+    "nspire": [
+     "Store the matrix as a",
+     "Calculator page: type a ^ {power}, enter",
+     "Read the matrix A to the power {power}"
+    ],
+    "casio": [
+     "Store Mat A",
+     "RUN-MAT: OPTN, MAT/VCT, Mat, A, ^, {power}",
+     "EXE",
+     "Read the matrix A to the power {power}"
+    ]
+   }
+  },
+  "matrix-inverse": {
+   "title": "Inverse of a matrix",
+   "steps": {
+    "ti84": [
+     "Enter A with matrix-enter",
+     "Home screen: 2nd, x⁻¹ (MATRIX), NAMES, 1: [A], then x⁻¹",
+     "ENTER",
+     "Read A⁻¹ (MATH, 1: ►Frac, ENTER shows fractions)"
+    ],
+    "nspire": [
+     "Store the matrix as a",
+     "Calculator page: type a^-1, enter",
+     "Read A⁻¹"
+    ],
+    "casio": [
+     "Store Mat A",
+     "RUN-MAT: OPTN, MAT/VCT, Mat, A, then SHIFT, ) (x⁻¹)",
+     "EXE",
+     "Read A⁻¹"
+    ]
+   }
+  },
+  "matrix-determinant": {
+   "title": "Determinant of a matrix",
+   "steps": {
+    "ti84": [
+     "Enter A with matrix-enter",
+     "Home screen: 2nd, x⁻¹ (MATRIX), MATH, 1: det(, then NAMES, 1: [A], )",
+     "ENTER",
+     "Read det A"
+    ],
+    "nspire": [
+     "Store the matrix as a",
+     "Calculator page: Menu, Matrix & Vector, Determinant, complete det(a), enter",
+     "Read det A"
+    ],
+    "casio": [
+     "Store Mat A",
+     "RUN-MAT: OPTN, MAT/VCT, Det, then Mat, A",
+     "EXE",
+     "Read det A"
+    ]
+   }
+  },
+  "matrix-solve-ax-b": {
+   "title": "Solve AX = B with matrices",
+   "steps": {
+    "ti84": [
+     "Enter the coefficient matrix as [A] and the constants as the column matrix [B] (matrix-enter)",
+     "Home screen: [A], x⁻¹, [B] (names from 2nd, x⁻¹ (MATRIX), NAMES)",
+     "ENTER",
+     "Read X = A⁻¹B, one row per unknown"
+    ],
+    "nspire": [
+     "Store the coefficient matrix as a and the column of constants as b",
+     "Calculator page: Menu, Matrix & Vector, Simultaneous, complete simult(a,b), enter (or type a^-1·b)",
+     "Read X, one row per unknown"
+    ],
+    "casio": [
+     "Store the coefficient matrix as Mat A and the column of constants as Mat B",
+     "RUN-MAT: OPTN, MAT/VCT, Mat, A, SHIFT, ) (x⁻¹), ×, Mat, B",
+     "EXE",
+     "Read X = A⁻¹B, one row per unknown"
+    ]
+   }
+  },
+  "matrix-eigen": {
+   "title": "Eigenvalues and eigenvectors",
+   "steps": {
+    "ti84": [
+     "No eigenvalue command on the TI-84 Plus CE",
+     "Form the characteristic equation det(A - λI) = 0 by hand (for 2 × 2: λ² - (a + d)λ + (ad - bc) = 0)",
+     "Solve it with solve-polynomial-roots to get the eigenvalues",
+     "For each λ solve (A - λI)v = 0 by hand and read an eigenvector"
+    ],
+    "nspire": [
+     "Store the matrix as a",
+     "Calculator page: Menu, Matrix & Vector, Advanced, Eigenvalues: eigVl(a), enter",
+     "Menu, Matrix & Vector, Advanced, Eigenvectors: eigVc(a), enter",
+     "Read the eigenvalues; each column of eigVc is a unit eigenvector for the eigenvalue in the same position (scale it to simple numbers)"
+    ],
+    "casio": [
+     "No eigenvalue command on the fx-CG50",
+     "Form the characteristic equation det(A - λI) = 0 by hand (for 2 × 2: λ² - (a + d)λ + (ad - bc) = 0)",
+     "Solve it with EQUA, POLY (solve-polynomial-roots) to get the eigenvalues",
+     "For each λ solve (A - λI)v = 0 by hand and read an eigenvector"
+    ]
+   }
+  },
+  "complex-mode": {
+   "title": "Set complex number mode (a + bi or polar)",
+   "steps": {
+    "ti84": [
+     "MODE",
+     "On the REAL a+bi re^(θi) row choose a+bi (or re^(θi) for polar answers), ENTER",
+     "Set RADIAN on the angle row if arguments should be in radians",
+     "2nd, MODE (QUIT); i is 2nd, . (decimal point)"
+    ],
+    "nspire": [
+     "home (on), 5: Settings, 2: Document Settings",
+     "Real or Complex: Rectangular (or Polar for r∠θ answers); Angle: Radian if needed",
+     "OK; i is in the π key list (check on your model)"
+    ],
+    "casio": [
+     "SHIFT, MENU (SET UP)",
+     "Complex Mode: a+bi (or r∠θ for polar answers); Angle: Rad if needed",
+     "EXIT; i is SHIFT, 0 (or OPTN, COMPLEX, i)"
+    ]
+   }
+  },
+  "complex-to-polar": {
+   "title": "Modulus, argument and polar form of a + bi",
+   "steps": {
+    "ti84": [
+     "MODE: a+bi and RADIAN (complex-mode)",
+     "MATH, CMPLX, 5: abs(, type {re}+{im}i, ), ENTER: the modulus r",
+     "MATH, CMPLX, 4: angle(, type {re}+{im}i, ), ENTER: the argument θ",
+     "Or type {re}+{im}i, MATH, CMPLX, 7: ►Polar, ENTER to see re^(θi); read r and θ"
+    ],
+    "nspire": [
+     "Document Settings: Real or Complex Rectangular, Angle Radian (complex-mode)",
+     "Calculator page: Menu, Number, Complex Number Tools, Magnitude, type {re}+{im}i, enter: the modulus r",
+     "Menu, Number, Complex Number Tools, Polar Angle, type {re}+{im}i, enter: the argument θ",
+     "Or type {re}+{im}i, then ►Polar from the Catalog, enter (radian mode shows re^(iθ)); read r and θ"
+    ],
+    "casio": [
+     "SET UP: Complex Mode a+bi, Angle Rad (complex-mode)",
+     "RUN-MAT: OPTN, COMPLEX, Abs, type {re}+{im}i, EXE: the modulus r",
+     "OPTN, COMPLEX, Arg, type ({re}+{im}i), EXE: the argument θ",
+     "Or type {re}+{im}i, then OPTN, COMPLEX, ▷ (F6), ▶r∠θ, EXE; read r∠θ"
+    ]
+   }
+  },
+  "complex-arithmetic": {
+   "title": "Multiply, divide and raise complex numbers to powers",
+   "steps": {
+    "ti84": [
+     "MODE: a+bi (complex-mode)",
+     "Type ({z1})×({z2}), ({z1})/({z2}) or ({z1}) ^ {power} with brackets round each number (i is 2nd, .)",
+     "ENTER",
+     "Read the answer as a + bi (or switch MODE to re^(θi) for polar form)"
+    ],
+    "nspire": [
+     "Document Settings: Rectangular (complex-mode)",
+     "Calculator page: type ({z1})·({z2}), ({z1})/({z2}) or ({z1}) ^ {power} with brackets round each number",
+     "enter",
+     "Read the answer as a + bi (or set Polar for r∠θ)"
+    ],
+    "casio": [
+     "SET UP: Complex Mode a+bi (complex-mode)",
+     "RUN-MAT: type ({z1})×({z2}), ({z1})÷({z2}) or ({z1}) ^ {power} with brackets round each number (i is SHIFT, 0)",
+     "EXE",
+     "Read the answer as a + bi (or set r∠θ for polar form)"
+    ]
+   }
+  },
+  "vector-dot": {
+   "title": "Scalar (dot) product of two vectors",
+   "steps": {
+    "ti84": [
+     "No dot product command on the TI-84 Plus CE: use lists",
+     "Home screen: 2nd, STAT (LIST), MATH, 5: sum(",
+     "Type the components {u} inside list braces, ×, then {v} inside list braces, then ) (braces are 2nd, ( and 2nd, )), ENTER",
+     "Read u · v"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Matrix & Vector, Vector, Dot Product",
+     "Complete dotP([{u}],[{v}]), enter",
+     "Read u · v"
+    ],
+    "casio": [
+     "RUN-MAT: store the vectors: $[[{u}]]$ → Vct A and $[[{v}]]$ → Vct B ([ is SHIFT, +; Vct is OPTN, MAT/VCT, ▷, ▷, Vct)",
+     "OPTN, MAT/VCT, ▷ (F6), ▷ (F6), DotP(",
+     "Complete DotP(Vct A,Vct B), EXE",
+     "Read u · v"
+    ]
+   }
+  },
+  "vector-cross": {
+   "title": "Vector (cross) product",
+   "steps": {
+    "ti84": [
+     "No vector product command on the TI-84 Plus CE",
+     "Work out u × v by hand from u = ({u}) and v = ({v}): (u2v3 - u3v2, u3v1 - u1v3, u1v2 - u2v1)",
+     "Check each component on the home screen if needed",
+     "Read the three components"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Matrix & Vector, Vector, Cross Product",
+     "Complete crossP([{u}],[{v}]), enter",
+     "Read the three components of u × v"
+    ],
+    "casio": [
+     "RUN-MAT: store $[[{u}]]$ → Vct A and $[[{v}]]$ → Vct B (see vector-dot)",
+     "OPTN, MAT/VCT, ▷ (F6), ▷ (F6), CrossP(",
+     "Complete CrossP(Vct A,Vct B), EXE",
+     "Read the three components of u × v"
+    ]
+   }
+  },
+  "vector-magnitude": {
+   "title": "Magnitude of a vector",
+   "steps": {
+    "ti84": [
+     "Home screen: 2nd, x² (√)",
+     "2nd, STAT (LIST), MATH, 5: sum(, type the components {u} inside list braces, then x², and close both brackets",
+     "ENTER",
+     "Read |u|"
+    ],
+    "nspire": [
+     "Calculator page: Menu, Matrix & Vector, Norms, Norm",
+     "Complete norm([{u}]), enter",
+     "Read |u|"
+    ],
+    "casio": [
+     "RUN-MAT: store $[[{u}]]$ → Vct A (see vector-dot)",
+     "OPTN, MAT/VCT, ▷ (F6), ▷ (F6), ▷ (F6), Norm(",
+     "Complete Norm(Vct A), EXE",
+     "Read |u|"
+    ]
+   }
+  },
+  "euler-method": {
+   "title": "Euler's method for dy/dx = f(x, y)",
+   "steps": {
+    "ti84": [
+     "MODE: choose SEQ on the FUNCTION PARAMETRIC POLAR SEQ row, ENTER, then 2nd, MODE (QUIT)",
+     "Y=: nMin = 0; u(n) = u(n-1) + {h}×f({x0}+{h}(n-1), u(n-1)) with f written out from {derivative}; u(nMin) = {y0} (u is 2nd, 7; n is X,T,θ,n)",
+     "2nd, WINDOW (TBLSET): TblStart 0, ΔTbl 1",
+     "2nd, GRAPH (TABLE): row n holds y at x = {x0} + n{h}; read u(n) at n = {steps}",
+     "Set MODE back to FUNCTION afterwards"
+    ],
+    "nspire": [
+     "Calculator page: type euler({derivative},x,y,L,{y0},{h}) where L is the list {x0},{xEnd} inside list braces, enter (euler( is also in the Catalog)",
+     "The answer is a matrix: the top row is x, the bottom row is y",
+     "Read the last y value (or the one under the x you need)"
+    ],
+    "casio": [
+     "MENU, RECUR, TYPE (F3), an+1 (F2)",
+     "a(n+1) = a(n) + {h}×f({x0}+{h}n, a(n)) with f written out from {derivative} (n and a(n) from the n.an menu, F4)",
+     "SET (F5): Start 0, End {steps}, a0 {y0}, EXIT",
+     "TABLE (F6); read a(n) at n = {steps} (x = {x0} + {steps} × {h})"
+    ]
+   }
+  },
+  "slope-field": {
+   "title": "Slope field for a differential equation",
+   "steps": {
+    "ti84": [
+     "The TI-84 Plus CE has no built-in slope field",
+     "Work out the gradient {derivative} at each grid point by hand (or on the home screen)",
+     "Sketch a short segment with that gradient at each point"
+    ],
+    "nspire": [
+     "Graphs page: Menu, Graph Entry/Edit, Diff Eq",
+     "Type y1' = {derivative}; enter the initial condition x0 = {x0}, y1(x0) = {y0}",
+     "Select Edit Parameters for the equation and set Field: Slope, then OK",
+     "Read the slope field and the solution curve through ({x0}, {y0})"
+    ],
+    "casio": [
+     "The fx-CG50 has no built-in slope field",
+     "Work out the gradient {derivative} at each grid point by hand (or in RUN-MAT)",
+     "Sketch a short segment with that gradient at each point"
+    ]
+   }
+  },
+  "trapezoidal-check": {
+   "title": "Trapezoidal rule, checked against a numeric integral",
+   "steps": {
+    "ti84": [
+     "Y=, Y1 = {function}; 2nd, WINDOW (TBLSET): TblStart {a}, ΔTbl {h}",
+     "2nd, GRAPH (TABLE): read y0, y1, ..., yn from x = {a} to x = {b}",
+     "Home screen: type ({h}/2)×(y0 + yn + 2×(y1 + ... + y(n-1))), ENTER",
+     "Check: MATH, 9: fnInt( from {a} to {b} of {function}; read both values"
+    ],
+    "nspire": [
+     "Graphs page: f1(x) = {function}; Menu, Table, Split-screen Table, then Menu, Table, Edit Table Settings: Table Start {a}, Table Step {h}",
+     "Read y0, y1, ..., yn from x = {a} to x = {b}",
+     "Calculator page: type ({h}/2)·(y0 + yn + 2·(y1 + ... + y(n-1))), enter",
+     "Check: Menu, Calculus, Numerical Integral from {a} to {b} of {function}; read both values"
+    ],
+    "casio": [
+     "MENU, TABLE: Y1 = {function}; SET (F5): Start {a}, End {b}, Step {h}, EXIT, TABLE (F6)",
+     "Read y0, y1, ..., yn",
+     "RUN-MAT: type ({h}÷2)×(y0 + yn + 2×(y1 + ... + y(n-1))), EXE",
+     "Check: OPTN, CALC, ∫dx from {a} to {b} of {function}; read both values"
+    ]
+   }
+  }
+ }
+}

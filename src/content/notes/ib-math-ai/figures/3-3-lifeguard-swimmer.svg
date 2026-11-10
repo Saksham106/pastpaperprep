@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 230" role="img" aria-labelledby="t">
+  <title id="t">Towers A and B are 120 m apart on a straight beach. A swimmer S is out at sea. The line from A to S makes 64 degrees with the beach and the line from B to S makes 48 degrees. A dashed line d runs from S straight down to the point D on the beach, at right angles to it.</title>
+  <line x1="20" y1="190" x2="300" y2="190" stroke="var(--muted)" stroke-width="2"/>
+  <line x1="60" y1="190" x2="260" y2="190" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="60" y1="190" x2="130.3" y2="45.9" stroke="var(--t1-ink)" stroke-width="2.5"/>
+  <line x1="260" y1="190" x2="130.3" y2="45.9" stroke="var(--t3-ink)" stroke-width="2.5"/>
+  <line x1="130.3" y1="45.9" x2="130.3" y2="190" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <polyline points="130.3,180 140.3,180 140.3,190" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M88,190 A28,28 0 0 0 72.3,164.8" fill="none" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <path d="M232,190 A28,28 0 0 1 241.3,169.2" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <g fill="currentColor">
+    <circle cx="60" cy="190" r="3.5"/>
+    <circle cx="260" cy="190" r="3.5"/>
+    <circle cx="130.3" cy="45.9" r="3.5"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="50" y="208" font-style="italic">A</text>
+    <text x="256" y="208" font-style="italic">B</text>
+    <text x="126" y="36" font-style="italic">S</text>
+    <text x="126" y="208" font-style="italic">D</text>
+    <text x="136" y="124" font-style="italic">d</text>
+    <text x="92" y="174" fill="var(--t1-ink)" font-size="12">64°</text>
+    <text x="206" y="174" fill="var(--t3-ink)" font-size="12">48°</text>
+    <text x="170" y="224">120 m</text>
+    <text x="226" y="184" fill="var(--muted)" font-size="11">beach</text>
+  </g>
+</svg>

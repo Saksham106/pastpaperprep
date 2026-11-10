@@ -1,0 +1,914 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.5",
+  "slug": "modelling-with-functions",
+  "title": "Modelling with functions",
+  "level": "SL",
+  "topic": 2,
+  "summary": "Six [[function|function]] families model real situations: lines, [[parabola|parabolas]], exponentials, powers of $x$, cubics and waves. Each constant means something in context. Find the key features with your GDC, then say what they mean.",
+  "goals": [
+    {
+      "text": "Build and use linear and [[piecewise-function|piecewise]] linear models, and interpret the [[gradient|gradient]] and the starting value.",
+      "bullets": [
+        "2.5-b1"
+      ]
+    },
+    {
+      "text": "Find the [[axis-of-symmetry|axis of symmetry]], vertex, zeros and intercepts of a quadratic model, using your GDC for the [[root|roots]].",
+      "bullets": [
+        "2.5-b2"
+      ]
+    },
+    {
+      "text": "Use [[exponential-growth|exponential growth]] and decay models and write down the equation of the horizontal [[asymptote|asymptote]].",
+      "bullets": [
+        "2.5-b3"
+      ]
+    },
+    {
+      "text": "Model direct and [[inverse-variation|inverse variation]] with $y = ax^{n}$, and explain the vertical asymptote when $n < 0$.",
+      "bullets": [
+        "2.5-b4"
+      ]
+    },
+    {
+      "text": "Use cubic models, finding zeros and turning points with your GDC.",
+      "bullets": [
+        "2.5-b5"
+      ]
+    },
+    {
+      "text": "Find the [[amplitude|amplitude]], [[period|period]] and [[principal-axis|principal axis]] of a sine or cosine model, and use the model to predict.",
+      "bullets": [
+        "2.5-b6",
+        "2.5-b7"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.8",
+    "2.1",
+    "2.2",
+    "2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "piecewise linear model",
+    "quadratic model vertex and roots",
+    "exponential decay horizontal asymptote",
+    "direct and inverse proportion",
+    "cubic model",
+    "amplitude period principal axis"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient",
+      "prompt": "A line passes through the points $(2, 7)$ and $(6, 19)$. Find its gradient.",
+      "hint": "Gradient is the change in $y$ divided by the change in $x$.",
+      "options": [
+        {
+          "text": "$3$",
+          "correct": true
+        },
+        {
+          "text": "$\\tfrac{1}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$12$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{19 - 7}{6 - 2} = \\frac{12}{4} = 3$. $\\tfrac{1}{3}$ divides the wrong way round, and $12$ is only the change in $y$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(19 - 7)/(6 - 2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gdc-root",
+      "prompt": "Use your GDC to solve $x^{2} - 3x - 5 = 0$. Give the positive solution to 3 s.f.",
+      "hint": "Use the [[polynomial|polynomial]] root finder with coefficients $1, -3, -5$.",
+      "answer": {
+        "value": 4.19,
+        "tolerance": 0.005
+      },
+      "explain": "The solutions are $x = 4.1925\\ldots$ and $x = -1.1925\\ldots$, so the positive one is $4.19$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(3 + sqrt(3**2 + 4*5))/2",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "linear",
+      "heading": "Linear and piecewise linear models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A taxi charges $4$ dollars, plus $2.5$ dollars per kilometre. Each extra kilometre adds the same amount, so the graph is a straight line."
+        },
+        {
+          "type": "definition",
+          "term": "linear model",
+          "statement": "A linear model has the form $f(x) = mx + c$. The gradient $m$ is the rate of change, and $c = f(0)$ is the starting value.",
+          "plain": "Equal steps in $x$ add equal amounts to $f$."
+        },
+        {
+          "type": "text",
+          "text": "$m$ has units such as dollars per kilometre. The values $f(0), f(1), f(2), \\ldots$ form an [[arithmetic-sequence|arithmetic sequence]] with [[common-difference|common difference]] $m$."
+        },
+        {
+          "type": "text",
+          "text": "Some situations change rule partway. A pool floor is flat, then slopes, then is flat again. Each part is a straight line."
+        },
+        {
+          "type": "definition",
+          "term": "piecewise function",
+          "statement": "A piecewise function uses different rules on different intervals of its [[domain|domain]]. Each $x$ in the domain uses exactly one rule.",
+          "plain": "Find which interval your $x$ is in before you substitute."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-pool-depth",
+          "alt": "Graph of pool depth in metres against distance from the shallow end, from 0 to 25 metres. The depth is 1.1 metres from 0 to 8 metres, rises in a straight line with gradient 0.19 to 3 metres at 18 metres, then stays at 3 metres up to 25 metres.",
+          "caption": "Three straight pieces make one model."
+        },
+        {
+          "type": "example",
+          "id": "ex-candle-linear",
+          "question": "A candle is $24$ cm tall when lit and $15$ cm tall $2.5$ hours later, burning at a constant rate. (a) Find a model $h(t) = mt + c$ for its height in cm after $t$ hours. (b) Interpret the gradient. (c) Find how long it lasts.",
+          "steps": [
+            "(a) $c = h(0) = 24$, and $m = \\frac{15 - 24}{2.5} = -3.6$. So $h(t) = -3.6t + 24$.",
+            "(b) The candle gets $3.6$ cm shorter every hour.",
+            "(c) Solve $-3.6t + 24 = 0$: $t = \\frac{24}{3.6} = 6.666\\ldots$, so about $6.67$ hours.",
+            "After that the model gives a negative height, so it only holds for $0 \\le t \\le 6.67$."
+          ],
+          "answer": "$t \\approx 6.67\\text{ hours}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "24/((24 - 15)/2.5)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-pool-piecewise",
+          "question": "The figure shows the depth $d$ m of a $25$ m pool, $x$ m from the shallow end: $1.1$ m for $0 \\le x < 8$, rising steadily to $3$ m at $x = 18$, then $3$ m to the end. (a) Write down the piecewise model. (b) Find where the depth is $2$ m.",
+          "steps": [
+            "(a) Middle gradient: $\\frac{3 - 1.1}{18 - 8} = 0.19$, through $(8, 1.1)$.",
+            "So $d(x) = \\begin{cases} 1.1, & 0 \\le x < 8 \\\\ 1.1 + 0.19(x - 8), & 8 \\le x \\le 18 \\\\ 3, & 18 < x \\le 25 \\end{cases}$",
+            "(b) $2$ m is between $1.1$ m and $3$ m, so use the middle rule: $1.1 + 0.19(x - 8) = 2$.",
+            "$x = 8 + \\frac{0.9}{0.19} = 12.736\\ldots$, which is inside $8 \\le x \\le 18$. So about $12.7$ m."
+          ],
+          "answer": "$x \\approx 12.7\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "8 + (2 - 1.1)/((3 - 1.1)/(18 - 8))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a rule outside its interval. Check that your $x$, and your answer, lie in that rule's interval."
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-meaning",
+          "prompt": "A household's monthly electricity bill is modelled by $B = 0.28k + 12$ dollars, where $k$ is the number of kilowatt-hours used. What does $0.28$ represent?",
+          "hint": "Which number changes the bill when $k$ goes up by $1$?",
+          "options": [
+            {
+              "text": "the cost in dollars of each extra kilowatt-hour",
+              "correct": true
+            },
+            {
+              "text": "the fixed monthly charge in dollars",
+              "correct": false
+            },
+            {
+              "text": "the bill in dollars when 1 kilowatt-hour is used",
+              "correct": false
+            }
+          ],
+          "explain": "$0.28$ is the rate of change: each extra kilowatt-hour adds $0.28$ dollars. $12$ dollars is the fixed charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the cost in dollars of each extra kilowatt-hour"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phone-plan",
+          "prompt": "A phone plan costs $15$ dollars a month and includes $5$ GB of data. Extra data costs $4$ dollars per GB, with part of a GB charged in proportion. Find the cost, in dollars, of a month in which $8.5$ GB is used.",
+          "hint": "The rule changes at $5$ GB. Only the data above $5$ GB costs extra.",
+          "answer": {
+            "value": 29,
+            "tolerance": 0
+          },
+          "explain": "For $x > 5$ GB the cost is $15 + 4(x - 5)$, so $15 + 4(3.5) = 29$ dollars.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15 + 4*(8.5 - 5)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "quadratic",
+      "heading": "Quadratic models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rocket's height or a profit as the price rises goes up to a peak and back down, symmetrically. A quadratic model fits."
+        },
+        {
+          "type": "definition",
+          "term": "quadratic function",
+          "statement": "A quadratic function has the form $f(x) = ax^{2} + bx + c$, where $a$, $b$ and $c$ are constants and $a \\ne 0$. Its graph is a parabola: it opens upwards if $a > 0$ and downwards if $a < 0$.",
+          "plain": "A U-shaped curve, maybe upside down, with one turning point."
+        },
+        {
+          "type": "text",
+          "text": "The [[y-intercept|y-intercept]] is $(0, c)$. The [[vertex-of-a-parabola|vertex]] is the turning point: a maximum if $a < 0$, a minimum if $a > 0$."
+        },
+        {
+          "type": "text",
+          "text": "The [[axis-of-symmetry|axis of symmetry]] is the vertical line through the vertex. The [[zero-of-a-function|zeros]], where $f(x) = 0$, give the [[x-intercept|x-intercepts]]."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = ax^{2} + bx + c \\;\\Rightarrow\\; \\text{axis of symmetry is } x = -\\frac{b}{2a}",
+          "tag": "booklet",
+          "bookletId": "bk-2-5-axis-symmetry"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. Substitute that $x$ into $f$ to get the maximum or minimum value."
+        },
+        {
+          "type": "text",
+          "text": "Find the zeros, the [[root|roots]] of $f(x) = 0$, on the GDC. Reject any the context rules out, such as a negative time."
+        },
+        {
+          "type": "example",
+          "id": "ex-smoothie-profit",
+          "question": "A juice stall sells smoothies at $x$ dollars each. Its daily profit, in dollars, is modelled by $P(x) = -40x^{2} + 520x - 900$. (a) Write down $P(0)$ and interpret it. (b) Find the price that gives the greatest profit, and the greatest profit.",
+          "steps": [
+            "(a) $P(0) = -900$: selling at $0$ dollars loses $900$ dollars a day, the stall's daily costs.",
+            "(b) $a < 0$, so the vertex is a maximum. Axis: $x = -\\frac{520}{2 \\times (-40)} = 6.5$.",
+            "$P(6.5) = -1690 + 3380 - 900 = 790$. A price of $6.50$ dollars gives the greatest profit, $790$ dollars."
+          ],
+          "answer": "$P(6.5) = 790\\text{ dollars}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "-40*(520/80)**2 + 520*(520/80) - 900"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-rocket-roots",
+          "question": "A model rocket's height, $h$ m, $t$ seconds after launch from a platform is $h(t) = -4.9t^{2} + 31t + 0.6$. (a) Write down the platform's height. (b) Use your GDC to find when the rocket lands, to 3 s.f. (c) State a suitable domain.",
+          "steps": [
+            "(a) $h(0) = 0.6$, so the platform is $0.6$ m high.",
+            "(b) Write down the equation: $-4.9t^{2} + 31t + 0.6 = 0$. The GDC gives $t = 6.3458\\ldots$ or $t = -0.0192\\ldots$",
+            "A negative time is before launch, so reject it: about $6.35$ seconds.",
+            "(c) $0 \\le t \\le 6.35$. Outside it the height is negative."
+          ],
+          "answer": "$t \\approx 6.35$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(31 + sqrt(31**2 + 4*4.9*0.6))/(2*4.9)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "-4.9, 31, 0.6"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the vertex $(6.5, 790)$ when the maximum value is asked for. The value is $790$ dollars."
+        },
+        {
+          "type": "check",
+          "id": "check-cable-lowest",
+          "prompt": "A power cable hangs between two poles. Its height above the ground is $y = 0.015x^{2} - 0.6x + 12$ metres, where $x$ is the horizontal distance in metres from the left pole. Find the height of the cable at its lowest point, in metres.",
+          "hint": "Find the axis of symmetry with $x = -\\frac{b}{2a}$, then substitute that $x$.",
+          "options": [
+            {
+              "text": "$6$",
+              "correct": true
+            },
+            {
+              "text": "$20$",
+              "correct": false
+            },
+            {
+              "text": "$12$",
+              "correct": false
+            },
+            {
+              "text": "$30$",
+              "correct": false
+            }
+          ],
+          "explain": "Axis: $x = \\frac{0.6}{2 \\times 0.015} = 20$, so $y = 6 - 12 + 12 = 6$ m. $20$ is where the lowest point is, and $12$ is the height at the pole.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.015*(0.6/(2*0.015))**2 - 0.6*(0.6/(2*0.015)) + 12"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-break-even",
+          "prompt": "A workshop's monthly profit, in thousands of dollars, from making $x$ thousand chairs is $P(x) = -0.8x^{2} + 9.6x - 14$. Use your GDC to find the smaller value of $x$ at which the workshop breaks even ($P = 0$). Give your answer to 3 s.f.",
+          "hint": "Solve $-0.8x^{2} + 9.6x - 14 = 0$ with the polynomial root finder.",
+          "answer": {
+            "value": 1.7,
+            "tolerance": 0.005
+          },
+          "explain": "The zeros are $x = 1.6988\\ldots$ and $x = 9.3011\\ldots$ The workshop makes a profit only between them.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(9.6 - sqrt(9.6**2 - 4*0.8*14))/(2*0.8)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "exponential",
+      "heading": "Exponential growth and decay",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A hot drink cools fast, then slowly, towards room temperature. Each minute the gap shrinks by the same factor, as with [[depreciation|depreciation]] in {{lesson:1.4}}."
+        },
+        {
+          "type": "definition",
+          "term": "exponential model",
+          "statement": "An exponential model has the form $f(x) = ka^{x} + c$ or $ka^{-x} + c$, with $a > 0$, $a \\ne 1$, or $k\\mathrm{e}^{rx} + c$ with $r \\ne 0$. Here $k \\ne 0$.",
+          "plain": "Equal steps in $x$ multiply the gap $f(x) - c$ by the same number."
+        },
+        {
+          "type": "text",
+          "text": "With $k > 0$, the model shows [[exponential-growth|exponential growth]] when $a > 1$ in $ka^{x} + c$, or $r > 0$. It shows [[exponential-decay|exponential decay]] when $0 < a < 1$ in $ka^{x} + c$, when $a > 1$ in $ka^{-x} + c$, or when $r < 0$."
+        },
+        {
+          "type": "text",
+          "text": "At $x = 0$, $f(0) = k + c$. In a decay model the exponential term shrinks towards $0$, so $f(x)$ approaches $c$ but never reaches it."
+        },
+        {
+          "type": "result",
+          "statement": "For $k \\ne 0$, the graph of $f(x) = ka^{x} + c$ or $f(x) = ka^{-x} + c$ (with $a > 0$, $a \\ne 1$), or $f(x) = k\\mathrm{e}^{rx} + c$ (with $r \\ne 0$), has the horizontal asymptote $y = c$.",
+          "why": "The exponential term is never $0$, but on one side it gets as close to $0$ as you like."
+        },
+        {
+          "type": "text",
+          "text": "In a decay model it is the long-term value, such as room temperature. Write it as an equation in the question's letters, such as $T = 21$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tea-cooling",
+          "question": "The temperature of a cup of tea, $T\\,^{\\circ}\\mathrm{C}$, $t$ minutes after it is made is modelled by $T(t) = 70(0.93)^{t} + 21$. (a) Find the temperature when the tea is made. (b) Find the temperature after $10$ minutes, to 3 s.f. (c) Write down the equation of the horizontal asymptote and interpret it.",
+          "steps": [
+            "(a) $T(0) = 70(0.93)^{0} + 21 = 70 + 21 = 91\\,^{\\circ}\\mathrm{C}$.",
+            "(b) $T(10) = 70(0.93)^{10} + 21 = 54.878\\ldots$, so about $54.9\\,^{\\circ}\\mathrm{C}$.",
+            "(c) $0.93^{t}$ tends to $0$, so the asymptote is $T = 21$.",
+            "The tea cools towards room temperature, $21\\,^{\\circ}\\mathrm{C}$, but in the model never reaches it."
+          ],
+          "answer": "$T(10) \\approx 54.9$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "70*0.93**10 + 21",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-bacteria-gdc",
+          "question": "The number of bacteria in a culture after $t$ hours is modelled by $N(t) = 450\\mathrm{e}^{0.32t}$. (a) Use your GDC to find when it reaches $10\\,000$, to 3 s.f. (b) Give one limitation of the model.",
+          "steps": [
+            "(a) Write down the equation: $450\\mathrm{e}^{0.32t} = 10\\,000$.",
+            "Graph both sides (window $0 \\le x \\le 15$, $0 \\le y \\le 12\\,000$) and intersect: $x = 9.6909\\ldots$, so about $9.69$ hours.",
+            "(b) The model grows without limit, but a real culture runs out of food and space."
+          ],
+          "answer": "$t \\approx 9.69$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "log(10000/450)/0.32",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "450e^(0.32X)",
+            "function2": "10000"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $T = 0$ as the asymptote of $70(0.93)^{t} + 21$. The asymptote is the constant left over, $T = 21$."
+        },
+        {
+          "type": "check",
+          "id": "check-asymptote-car",
+          "prompt": "A car's value, in dollars, $t$ years after it is bought is modelled by $V(t) = 18000(0.85)^{t} + 2000$. Which is the equation of the horizontal asymptote of the graph?",
+          "hint": "What does $18000(0.85)^{t}$ get close to as $t$ grows?",
+          "options": [
+            {
+              "text": "$V = 2000$",
+              "correct": true
+            },
+            {
+              "text": "$V = 0$",
+              "correct": false
+            },
+            {
+              "text": "$V = 20000$",
+              "correct": false
+            },
+            {
+              "text": "$V = 18000$",
+              "correct": false
+            }
+          ],
+          "explain": "$0.85^{t}$ tends to $0$, so $V$ tends to $2000$. $20000$ is $V(0)$, the price when new.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(V, 20000 - 18000)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-drug-decay",
+          "prompt": "The amount of a medicine in a patient's blood, $t$ hours after a dose, is modelled by $D(t) = 240 \\times 1.6^{-t}$ milligrams. Find the amount after $3$ hours, in milligrams, to 3 s.f.",
+          "hint": "$1.6^{-3} = \\frac{1}{1.6^{3}}$. Keep the minus sign in the power.",
+          "answer": {
+            "value": 58.6,
+            "tolerance": 0.05
+          },
+          "explain": "$D(3) = \\frac{240}{1.6^{3}} = 58.59\\ldots \\approx 58.6$ mg. With $a^{-t}$ and $a > 1$, this is decay.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "240*1.6**(-3)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "variation",
+      "heading": "Direct and inverse variation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Double a circle's radius and its area is $4$ times bigger. Double your speed and a journey takes half the time. Both are models $y = ax^{n}$, with $n$ an integer."
+        },
+        {
+          "type": "definition",
+          "term": "direct variation",
+          "statement": "$y$ varies directly as $x^{n}$, or $y$ is proportional to $x^{n}$, when $y = ax^{n}$ for a constant $a \\ne 0$ and a positive integer $n$. Then $y = 0$ when $x = 0$.",
+          "plain": "The graph passes through the origin."
+        },
+        {
+          "type": "definition",
+          "term": "inverse variation",
+          "statement": "$y$ varies inversely as $x^{m}$ when $y = \\frac{a}{x^{m}} = ax^{-m}$ for a constant $a \\ne 0$ and a positive integer $m$. This is $y = ax^{n}$ with $n = -m < 0$, and the $y$-axis is a vertical asymptote.",
+          "plain": "For $a > 0$ and $x > 0$, $y$ shrinks as $x$ grows."
+        },
+        {
+          "type": "text",
+          "text": "Why the asymptote? $\\frac{a}{x^{m}}$ has no value at $x = 0$, and its size grows without limit as $x$ gets close to $0$."
+        },
+        {
+          "type": "text",
+          "text": "$xy$ is constant only when $n = -1$. For $n = -2$, doubling $x$ divides $y$ by $4$."
+        },
+        {
+          "type": "text",
+          "text": "Take $n$ from the words: \"inversely as the square\" means $n = -2$. Then substitute one known pair to find $a$. Never choose $n$ from whether the data rise or fall."
+        },
+        {
+          "type": "example",
+          "id": "ex-braking-direct",
+          "question": "The braking distance, $d$ metres, of a car is proportional to the square of its speed, $v$ km/h. At $50$ km/h the braking distance is $14$ m. (a) Find a model for $d$. (b) Find the braking distance at $90$ km/h, to 3 s.f.",
+          "steps": [
+            "(a) $d = av^{2}$, and $14 = a \\times 50^{2}$ gives $a = 0.0056$. So $d = 0.0056v^{2}$.",
+            "(b) $d = 0.0056 \\times 90^{2} = 45.36$, so about $45.4$ m.",
+            "Check: $1.8$ times the speed gives $1.8^{2} = 3.24$ times the distance."
+          ],
+          "answer": "$d \\approx 45.4\\text{ m}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "14/50**2*90**2",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-inverse",
+          "question": "Light intensity $I$ lux from a lamp is inversely proportional to the square of the distance $x$ m. At $2$ m it is $45$ lux. (a) Find a model for $I$. (b) Find where it is $5$ lux. (c) Comment on the model as $x$ gets close to $0$.",
+          "steps": [
+            "(a) $I = ax^{-2}$, and $45 = \\frac{a}{4}$ gives $a = 180$. So $I = 180x^{-2}$.",
+            "(b) $5 = \\frac{180}{x^{2}}$, so $x^{2} = 36$ and $x = 6$ (a distance is positive).",
+            "(c) $I$ grows without limit: the $I$-axis is a vertical asymptote. A real lamp gives finite light, so the model fails very close to it."
+          ],
+          "answer": "$x = 6\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(45*2**2/5)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-painters",
+          "prompt": "The time, $t$ hours, to paint a hall is inversely proportional to the number of painters, $w$. Four painters take $9$ hours. How many hours do six painters take?",
+          "hint": "Write $t = \\frac{a}{w}$ and use the four painters to find $a$.",
+          "options": [
+            {
+              "text": "$6$",
+              "correct": true
+            },
+            {
+              "text": "$13.5$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            }
+          ],
+          "explain": "$a = 9 \\times 4 = 36$, so $t = \\frac{36}{6} = 6$ hours. $13.5$ treats it as direct variation.",
+          "verify": {
+            "kind": "exact",
+            "truth": "9*4/6"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-power",
+          "prompt": "Which statement is true for the model $y = 12x^{-3}$, $x > 0$?",
+          "hint": "Write it as $y = \\frac{12}{x^{3}}$ and try a small $x$, then double $x$.",
+          "options": [
+            {
+              "text": "As x gets close to 0, y increases without limit",
+              "correct": true
+            },
+            {
+              "text": "The graph passes through the origin",
+              "correct": false
+            },
+            {
+              "text": "When x doubles, y halves",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{12}{x^{3}}$ is huge for small $x$, so the $y$-axis is an asymptote. Doubling $x$ divides $y$ by $8$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "As x gets close to 0, y increases without limit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cubic",
+      "heading": "Cubic models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some quantities rise, dip and rise again. A parabola has one turning point; a cubic can have two."
+        },
+        {
+          "type": "definition",
+          "term": "cubic model",
+          "statement": "A cubic model has the form $f(x) = ax^{3} + bx^{2} + cx + d$, where $a \\ne 0$. Its graph has at most two turning points and at most three zeros.",
+          "plain": "A curve that can turn twice, such as rising, dipping and rising again."
+        },
+        {
+          "type": "text",
+          "text": "Find a cubic's zeros and turning points on the GDC, and write down what you entered."
+        },
+        {
+          "type": "text",
+          "text": "A context limits the domain: lengths can't be negative. Use only the part of the graph inside it."
+        },
+        {
+          "type": "example",
+          "id": "ex-open-box",
+          "question": "Squares of side $x$ cm are cut from the corners of a $30$ cm by $20$ cm card, and the sides folded up into an open box. (a) Show that its volume is $V(x) = 4x^{3} - 100x^{2} + 600x$. (b) State the domain. (c) Use your GDC to find the greatest volume, to the nearest cm³.",
+          "steps": [
+            "(a) The base is $(30 - 2x)$ by $(20 - 2x)$ and the height is $x$, so $V = x(30 - 2x)(20 - 2x)$.",
+            "Expand: $(30 - 2x)(20 - 2x) = 600 - 100x + 4x^{2}$, so $V = 4x^{3} - 100x^{2} + 600x$.",
+            "(b) Every length must be positive: $x > 0$ and $20 - 2x > 0$. So $0 < x < 10$.",
+            "(c) Graph $V$ for $0 < x < 10$ and find the maximum: $x = 3.9237\\ldots$, $y = 1056.30\\ldots$ So about $1056$ cm³."
+          ],
+          "answer": "$V \\approx 1056\\text{ cm}^{3}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "((200 - sqrt(11200))/24)*(30 - 2*(200 - sqrt(11200))/24)*(20 - 2*(200 - sqrt(11200))/24)",
+            "dp": 0
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "4X^3-100X^2+600X"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cafe-cubic",
+          "question": "A café's monthly profit, $P$ thousand dollars, $t$ months after opening is $P(t) = 0.05t^{3} - 1.2t^{2} + 8t - 10$, $0 \\le t \\le 14$. (a) Interpret $P(0)$. (b) Use your GDC to solve $P(t) = 0$, to 3 s.f. (c) When does the model predict a loss?",
+          "steps": [
+            "(a) $P(0) = -10$: when it opens, the café is losing $10\\,000$ dollars a month.",
+            "(b) Solve $0.05t^{3} - 1.2t^{2} + 8t - 10 = 0$ with the polynomial root finder (degree $3$): $t = 1.6148\\ldots$, $10$ or $12.385\\ldots$",
+            "(c) $P(0) < 0$ and the sign changes at each zero, so there is a loss for $0 \\le t < 1.61$ and $10 < t < 12.4$."
+          ],
+          "answer": "$t \\approx 1.61 \\text{ or } t = 10 \\text{ or } t \\approx 12.4$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(0.05*t**3 - 1.2*t**2 + 8*t - 10, t)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-cubic-shape",
+          "prompt": "A scatter graph of data rises to a peak, falls to a low point, then rises again. Which type of model fits it best?",
+          "hint": "Count the turning points each model can have.",
+          "options": [
+            {
+              "text": "a cubic model",
+              "correct": true
+            },
+            {
+              "text": "a quadratic model",
+              "correct": false
+            },
+            {
+              "text": "an exponential decay model",
+              "correct": false
+            }
+          ],
+          "explain": "Two turning points: a quadratic has one and an exponential none, but a cubic can have two.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a cubic model"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-park-visitors",
+          "prompt": "The number of people in a theme park $t$ hours after it opens is modelled by $N(t) = -4t^{3} + 54t^{2} + 150$, for $0 \\le t \\le 13.5$. Use your GDC to find the greatest number of people in the park.",
+          "hint": "Graph $N$ on $0 \\le x \\le 13.5$ and find the maximum.",
+          "answer": {
+            "value": 1608,
+            "tolerance": 0
+          },
+          "explain": "The maximum is at $t = 9$: $N = -2916 + 4374 + 150 = 1608$ people.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "-4*(2*54/(3*4))**3 + 54*(2*54/(3*4))**2 + 150",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sinusoidal",
+      "heading": "Sinusoidal models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tides, a seat on a Ferris wheel and the hours of daylight repeat in smooth waves. A sinusoidal model describes them."
+        },
+        {
+          "type": "definition",
+          "term": "sinusoidal model",
+          "statement": "A sinusoidal model has the form $f(x) = a\\sin(bx) + d$ or $f(x) = a\\cos(bx) + d$, where $b > 0$. At SL the angle $bx$ is in degrees.",
+          "plain": "A wave that swings the same distance above and below a middle line, repeating at equal intervals."
+        },
+        {
+          "type": "text",
+          "text": "The [[amplitude|amplitude]] $|a|$ is the height of the wave above its middle line, the [[principal-axis|principal axis]] $y = d$. The [[period|period]] is the length of one full wave."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{amplitude} = |a| = \\frac{\\text{max} - \\text{min}}{2}, \\qquad d = \\frac{\\text{max} + \\text{min}}{2}, \\qquad \\text{period} = \\frac{360^{\\circ}}{b}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the maximum is $d + |a|$ and the minimum is $d - |a|$. If $x$ is a time, the period is in that time unit."
+        },
+        {
+          "type": "figure",
+          "id": "2-5-harbour-depth",
+          "alt": "Graph of water depth in metres against hours after midnight, from 0 to 24 hours, for D equals 2.6 cos 30t plus 6.2. The curve starts at a maximum of 8.8, falls to a minimum of 3.6 at 6 hours, and is back at 8.8 at 12 hours. A dashed horizontal line at 6.2 is labelled principal axis. An arrow from the principal axis up to the maximum is labelled amplitude 2.6, and an arrow from 0 to 12 hours is labelled period 12 hours.",
+          "caption": "$D(t) = 2.6\\cos(30t) + 6.2$: amplitude $2.6$, principal axis $D = 6.2$, period $\\frac{360}{30} = 12$ hours."
+        },
+        {
+          "type": "text",
+          "text": "You only find or use these three features; you won't convert between sine and cosine. Set the GDC to degrees first."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the model gains a horizontal shift, $a\\sin(b(x - c)) + d$, and radians are used unless degrees are shown.",
+          "lesson": "2.9"
+        },
+        {
+          "type": "example",
+          "id": "ex-ferris-parameters",
+          "question": "A Ferris wheel seat moves between $2$ m and $38$ m above the ground, one turn every $15$ minutes. Its height $t$ minutes after it is at the bottom is $h(t) = a\\cos(bt) + d$, $b > 0$. Find $a$, $b$ and $d$.",
+          "steps": [
+            "$d = \\frac{38 + 2}{2} = 20$, the height of the centre. $|a| = \\frac{38 - 2}{2} = 18$, the radius.",
+            "At $t = 0$ the seat is at the bottom: $h(0) = a + 20 = 2$, so $a = -18$.",
+            "$\\frac{360}{b} = 15$, so $b = 24$. Check: $h(7.5) = -18\\cos(180^{\\circ}) + 20 = 38$, the top."
+          ],
+          "answer": "$a = -18, \\; b = 24, \\; d = 20$",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{\"a\": -(38 - 2)/2, \"b\": 360/15, \"d\": (38 + 2)/2}"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-harbour-gdc",
+          "question": "The depth of a harbour, $D$ m, $t$ hours after midnight is $D(t) = 2.6\\cos(30t) + 6.2$, with $30t$ in degrees. (a) Write down the amplitude, the period and the principal axis. (b) A boat needs $5$ m of water. Use your GDC to find when the depth first falls to $5$ m, to 3 s.f.",
+          "steps": [
+            "(a) Amplitude $2.6$ m, period $\\frac{360}{30} = 12$ hours, principal axis $D = 6.2$.",
+            "(b) In degree mode, solve $2.6\\cos(30t) + 6.2 = 5$: graph both sides and intersect, first at $x = 3.9162\\ldots$",
+            "So about $3.92$ hours after midnight; the boat must leave before then."
+          ],
+          "answer": "$t \\approx 3.92$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "acos((5 - 6.2)/2.6)*180/pi/30",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "setup-angle-mode",
+          "values": {
+            "angleUnit": "Degree"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "2.6cos(30X)+6.2",
+            "function2": "5"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking $b$ as the period. In $\\cos(30t)$, with $30t$ in degrees, the period is $\\frac{360}{30} = 12$, not $30$."
+        },
+        {
+          "type": "check",
+          "id": "check-fridge-min",
+          "prompt": "During its cooling cycle, the temperature inside a fridge is $T(t) = 1.2\\sin(24t) + 4$ degrees Celsius, $t$ minutes after the motor starts, with $24t$ in degrees. What is the lowest temperature?",
+          "hint": "The minimum is the principal axis minus the amplitude.",
+          "options": [
+            {
+              "text": "$2.8$",
+              "correct": true
+            },
+            {
+              "text": "$5.2$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            },
+            {
+              "text": "$-1.2$",
+              "correct": false
+            }
+          ],
+          "explain": "$4 - 1.2 = 2.8$ degrees Celsius. $5.2$ is the highest and $4$ the middle.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4 - 1.2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tide-period",
+          "prompt": "The height of the tide at a pier, $H$ metres, $t$ hours after noon is modelled by $H(t) = 1.8\\sin(28.8t) + 3.5$, with $28.8t$ in degrees. Find the time, in hours, between one high tide and the next.",
+          "hint": "The time between two high tides is one period.",
+          "answer": {
+            "value": 12.5,
+            "tolerance": 0.05
+          },
+          "explain": "One period: $\\frac{360}{28.8} = 12.5$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "360/28.8",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Linear model $f(x) = mx + c$: $m$ is the rate of change and $c = f(0)$ the starting value. A piecewise model uses one rule on each interval.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = ax^{2} + bx + c \\;\\Rightarrow\\; \\text{axis of symmetry is } x = -\\frac{b}{2a}",
+          "tag": "booklet",
+          "bookletId": "bk-2-5-axis-symmetry",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quadratic $ax^{2} + bx + c$, $a \\ne 0$: $y$-intercept $(0, c)$; the vertex is a maximum if $a < 0$, a minimum if $a > 0$. Reject zeros the context rules out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $k \\ne 0$, $ka^{x} + c$ and $ka^{-x} + c$ (with $a > 0$, $a \\ne 1$) and $k\\mathrm{e}^{rx} + c$ (with $r \\ne 0$) have the horizontal asymptote $y = c$, and $f(0) = k + c$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y = ax^{n}$ with $a \\ne 0$ and $n$ an integer: $n > 0$ is direct variation (through the origin); $n < 0$ is inverse variation, with the $y$-axis as a vertical asymptote.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Cubic $ax^{3} + bx^{2} + cx + d$, $a \\ne 0$: at most two turning points and three zeros; $y$-intercept $(0, d)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$a\\sin(bx) + d$ or $a\\cos(bx) + d$, with $b > 0$ and $bx$ in degrees: amplitude $|a| = \\frac{\\text{max} - \\text{min}}{2}$, period $\\frac{360^{\\circ}}{b}$, principal axis $y = d = \\frac{\\text{max} + \\text{min}}{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Keeping a zero the context rules out, such as a negative time. Reject it and say why.",
+    "Interpreting a constant by its graph name. \"$c$ is the $y$-intercept\" earns nothing; say what it means, such as the platform's height.",
+    "Giving $y = 0$ as the asymptote of $ka^{x} + c$. The exponential part tends to $0$, so the asymptote is $y = c$.",
+    "Using $b$ as the period, or a negative amplitude. With $bx$ in degrees, the period is $\\frac{360^{\\circ}}{b}$ ($b > 0$), and the amplitude is $|a|$.",
+    "Rounding too early. Keep the GDC's full value and round only the final answer."
+  ],
+  "examTips": [
+    "\"Write down\" needs no working: read $f(0)$, an asymptote or an amplitude from the model. For \"find\", write the equation you solve on the GDC: it earns the method mark.",
+    "\"Interpret\": say what the value means in context, with units.",
+    "For a limitation or a domain, use the context: heights can't be negative and growth can't go on for ever."
+  ],
+  "readingMinutes": 34
+}

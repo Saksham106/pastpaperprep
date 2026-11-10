@@ -1,0 +1,618 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.3",
+  "slug": "differentiation-of-integer-power-polynomials",
+  "title": "Differentiation of integer-power polynomials",
+  "level": "SL",
+  "topic": 5,
+  "summary": "The [[power-rule|power rule]] turns $ax^{n}$ into $anx^{n-1}$: multiply by the power, then lower the power by one. It works for every integer power, including negative ones such as $\\frac{5}{x^{2}} = 5x^{-2}$. Differentiate a sum one term at a time, and you can find the rate of change of any [[polynomial|polynomial]] model, such as a cost or a temperature, in a few lines.",
+  "goals": [
+    {
+      "text": "Differentiate $ax^{n}$ with the [[power-rule|power rule]], including constant terms and terms like $3x$.",
+      "bullets": [
+        "5.3-b1"
+      ]
+    },
+    {
+      "text": "Rewrite terms such as $\\frac{4}{x^{3}}$ as $4x^{-3}$, then differentiate them.",
+      "bullets": [
+        "5.3-b1"
+      ]
+    },
+    {
+      "text": "Differentiate a sum of power terms one term at a time, expanding brackets or splitting a fraction first.",
+      "bullets": [
+        "5.3-b2"
+      ]
+    },
+    {
+      "text": "Find and interpret a rate of change at a point, and use your GDC to check it or to solve an equation involving $f'(x)$.",
+      "bullets": [
+        "5.3-b1",
+        "5.3-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5",
+    "1.8",
+    "5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "power rule",
+    "derivative of x to the n",
+    "differentiate a polynomial",
+    "differentiate 1 over x",
+    "term by term differentiation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-derivative-meaning",
+      "prompt": "A curve $y = f(x)$ has $f(x) = 2x^{2} - 7x + 1$ and $f'(x) = 4x - 7$. Find the gradient of the curve at $x = 3$.",
+      "hint": "$f'$ is the [[gradient-function|gradient function]]. Which of $f$ and $f'$ gives the gradient?",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "The gradient at $x = 3$ is $f'(3) = 4 \\times 3 - 7 = 5$. Putting $3$ into $f$ instead gives $f(3) = -2$, the height of the curve, not its gradient. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "diff(2*x**2 - 7*x + 1, x).subs(x, 3)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negative-exponent",
+      "prompt": "Write $\\frac{2}{x^{5}}$ as a number times a power of $x$.",
+      "hint": "Use $\\frac{1}{x^{n}} = x^{-n}$. What happens to the $2$ on top?",
+      "options": [
+        {
+          "text": "$2x^{-5}$",
+          "correct": true
+        },
+        {
+          "text": "$\\frac{1}{2}x^{-5}$",
+          "correct": false
+        },
+        {
+          "text": "$2x^{5}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{2}{x^{5}} = 2 \\times \\frac{1}{x^{5}} = 2x^{-5}$. The $2$ is on top, so it stays as $2$. Only the power of $x$ changes sign. Revise it in {{lesson:1.5}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "2*x**(-5)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "power-rule",
+      "heading": "The power rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1}} you estimated gradients from chords, one point at a time. That is slow. Look at the gradient functions it produces and a pattern appears."
+        },
+        {
+          "type": "text",
+          "text": "$y = x^{2}$ has gradient function $2x$. $y = x^{3}$ has $3x^{2}$, and $y = x^{4}$ has $4x^{3}$. Each time, the power comes down in front and the new power is one less."
+        },
+        {
+          "type": "definition",
+          "term": "power rule",
+          "statement": "For an integer $n$, the [[derivative|derivative]] of $f(x) = ax^{n}$ is $f'(x) = anx^{n-1}$.",
+          "plain": "Multiply by the power, then lower the power by one."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-derivative-power"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet, so you don't need to memorise it. You do need to use it quickly and without slips. A number in front, the coefficient $a$, just comes along: multiply it by the power."
+        },
+        {
+          "type": "formula",
+          "tex": "f(x) = ax^{n} \\Rightarrow f'(x) = anx^{n-1}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "In this lesson $n$ is an integer: positive, zero or negative. The rule needs the variable in the base. It does not apply to an exponential such as $2^{x}$, where the variable is in the power."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL the same rule covers rational powers, such as $\\sqrt{x} = x^{\\frac{1}{2}}$, and you also differentiate products and quotients.",
+          "lesson": "5.9"
+        },
+        {
+          "type": "text",
+          "text": "Two special cases appear in almost every polynomial. A term $ax$ is $ax^{1}$, so it gives $a \\times 1 \\times x^{0} = a$. A straight line $y = ax$ has the same gradient $a$ everywhere, so this fits."
+        },
+        {
+          "type": "text",
+          "text": "A constant $a$ differentiates to $0$. Its graph $y = a$ is a horizontal line, and a horizontal line has gradient $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-power-0-4x5",
+          "question": "Differentiate $f(x) = 0.4x^{5}$.",
+          "steps": [
+            "Read off the coefficient and the power: $a = 0.4$ and $n = 5$.",
+            "Multiply the coefficient by the power: $0.4 \\times 5 = 2$.",
+            "Lower the power by one: $5 - 1 = 4$.",
+            "Put it together: $f'(x) = 2x^{4}$."
+          ],
+          "answer": "$f'(x) = 2x^{4}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(Rational(2, 5)*x**5, x)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-power-braking",
+          "question": "A car's braking distance on a dry road is modelled by $D = 0.0075v^{2}$ metres, where $v$ is its speed in km/h. (a) Find $\\dfrac{\\mathrm{d}D}{\\mathrm{d}v}$. (b) Find its value when $v = 80$ and interpret it.",
+          "steps": [
+            "(a) The variable is $v$, not $x$, but the rule is the same. Multiply $0.0075$ by the power $2$, and lower the power to $1$: $\\dfrac{\\mathrm{d}D}{\\mathrm{d}v} = 0.015v$.",
+            "(b) Substitute $v = 80$: $0.015 \\times 80 = 1.2$.",
+            "The units are metres of braking distance per km/h of speed.",
+            "Interpret: at 80 km/h, each extra 1 km/h adds about $1.2$ m to the braking distance. The rate is positive, so faster cars need more distance to stop."
+          ],
+          "answer": "$\\frac{\\mathrm{d}D}{\\mathrm{d}v} = 1.2\\text{ metres per km/h}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(Rational(3, 400)*v**2, v).subs(v, 80)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-power-basic",
+          "prompt": "Differentiate $g(x) = 2.5x^{4}$.",
+          "hint": "Multiply $2.5$ by the power, then lower the power by one.",
+          "options": [
+            {
+              "text": "$10x^{3}$",
+              "correct": true
+            },
+            {
+              "text": "$10x^{4}$",
+              "correct": false
+            },
+            {
+              "text": "$2.5x^{3}$",
+              "correct": false
+            },
+            {
+              "text": "$4x^{3}$",
+              "correct": false
+            }
+          ],
+          "explain": "$2.5 \\times 4 = 10$ and $4 - 1 = 3$, so $g'(x) = 10x^{3}$. Keeping the power at $4$, forgetting to multiply by the power, or dropping the $2.5$ are the usual slips.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(Rational(5, 2)*x**4, x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oil-slick-rate",
+          "prompt": "A circular oil slick has area $A = \\pi r^{2}$ square metres when its radius is $r$ metres. Find $\\dfrac{\\mathrm{d}A}{\\mathrm{d}r}$ when $r = 15$, to 3 s.f.",
+          "hint": "$\\pi$ is just a number. Differentiate $\\pi r^{2}$, then substitute $r = 15$.",
+          "answer": {
+            "value": 94.2,
+            "tolerance": 0.05
+          },
+          "explain": "$\\dfrac{\\mathrm{d}A}{\\mathrm{d}r} = 2\\pi r$, so at $r = 15$ it is $30\\pi = 94.247\\ldots \\approx 94.2$. When the radius is 15 m, the area grows by about $94.2$ m² for each extra metre of radius.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(pi*r**2, r).subs(r, 15)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative-powers",
+      "heading": "Negative powers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[power-rule|power rule]] works for negative integer powers too. First write each term as a power of $x$, using $\\frac{1}{x^{n}} = x^{-n}$ from {{lesson:1.5}}."
+        },
+        {
+          "type": "text",
+          "text": "Take $y = \\frac{1}{x} = x^{-1}$. Bring down the $-1$, then lower the power to $-2$. That gives $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = -x^{-2} = -\\frac{1}{x^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "The minus sign matches the graph. For $x > 0$, the curve $y = \\frac{1}{x}$ falls as $x$ grows, so its gradient is negative."
+        },
+        {
+          "type": "text",
+          "text": "Lowering a negative power by one makes it more negative. So $-1$ becomes $-2$, and $-3$ becomes $-4$, not $-2$."
+        },
+        {
+          "type": "text",
+          "text": "1. Rewrite each term as $ax^{n}$. Only the power of $x$ moves: $\\frac{7}{x^{3}} = 7x^{-3}$."
+        },
+        {
+          "type": "text",
+          "text": "2. Apply the power rule: multiply by the power, then lower the power by one."
+        },
+        {
+          "type": "text",
+          "text": "3. If you like, write the answer back as a fraction: $-21x^{-4} = -\\frac{21}{x^{4}}$. Both forms earn the marks."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-4x3",
+          "question": "Differentiate $f(x) = \\frac{4}{x^{3}}$, for $x \\ne 0$.",
+          "steps": [
+            "Rewrite as a power of $x$: $f(x) = 4x^{-3}$.",
+            "Multiply by the power: $4 \\times (-3) = -12$.",
+            "Lower the power by one: $-3 - 1 = -4$. So $f'(x) = -12x^{-4}$.",
+            "As a fraction: $f'(x) = -\\frac{12}{x^{4}}$."
+          ],
+          "answer": "$f'(x) = -\\frac{12}{x^{4}}$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(4/x**3, x)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Only the $x$ moves when you rewrite. $\\frac{1}{5x^{2}}$ is $\\frac{1}{5}x^{-2} = 0.2x^{-2}$, not $5x^{-2}$, because the $5$ is not raised to a power."
+        },
+        {
+          "type": "example",
+          "id": "ex-negative-light",
+          "question": "The illuminance from a small lamp is modelled by $E = \\frac{720}{x^{2}}$ lux, where $x$ is the distance from the lamp in metres. (a) Find $\\dfrac{\\mathrm{d}E}{\\mathrm{d}x}$. (b) Find its value when $x = 4$ and interpret it.",
+          "steps": [
+            "(a) Rewrite as a power: $E = 720x^{-2}$.",
+            "Multiply by the power and lower it by one: $\\dfrac{\\mathrm{d}E}{\\mathrm{d}x} = 720 \\times (-2)x^{-3} = -1440x^{-3}$, or $-\\frac{1440}{x^{3}}$.",
+            "(b) Substitute $x = 4$: $-\\frac{1440}{4^{3}} = -\\frac{1440}{64} = -22.5$.",
+            "Interpret: the units are lux per metre. At 4 m from the lamp, the illuminance is decreasing by about $22.5$ lux for each extra metre you move away."
+          ],
+          "answer": "$\\frac{\\mathrm{d}E}{\\mathrm{d}x} = -22.5\\text{ lux per metre}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff(720/x**2, x).subs(x, 4)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-power",
+          "prompt": "Differentiate $y = \\frac{9}{x}$.",
+          "hint": "Write $\\frac{9}{x}$ as $9x^{-1}$ first.",
+          "options": [
+            {
+              "text": "$-\\frac{9}{x^{2}}$",
+              "correct": true
+            },
+            {
+              "text": "$\\frac{9}{x^{2}}$",
+              "correct": false
+            },
+            {
+              "text": "$-9$",
+              "correct": false
+            }
+          ],
+          "explain": "$9x^{-1}$ differentiates to $9 \\times (-1)x^{-2} = -9x^{-2}$, which is $-\\frac{9}{x^{2}}$. The power drops from $-1$ to $-2$, not to $0$, and the minus sign from the power stays.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(9/x, x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-negative-gradient",
+          "prompt": "For $f(x) = \\frac{3}{2x^{2}}$, find the gradient of the graph of $f$ at $x = -1$.",
+          "hint": "The $2$ has no power on it, so $f(x) = 1.5x^{-2}$. Differentiate, then substitute $x = -1$ into $f'$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$f'(x) = 1.5 \\times (-2)x^{-3} = -3x^{-3}$. At $x = -1$, $(-1)^{-3} = -1$, so $f'(-1) = 3$. Substitute into $f'$, not $f$: $f(-1) = 1.5$ is the height of the curve.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "diff(Rational(3, 2)/x**2, x).subs(x, -1)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sums",
+      "heading": "Sums of terms",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most models are sums of power terms, such as a [[polynomial|polynomial]]. To differentiate a sum, differentiate each term and add the results."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(f(x) + g(x)\\right) = f'(x) + g'(x)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A constant term only moves the graph up or down. That doesn't change how steep it is, so the constant differentiates to $0$. In a cost model, a higher fixed cost raises every total cost but doesn't change the rate at which cost grows."
+        },
+        {
+          "type": "figure",
+          "id": "5-3-fixed-cost-shift",
+          "alt": "Two cost curves on the same axes, C equals 0.5 x squared plus 20 and C equals 0.5 x squared plus 50, for x from 0 to 10. The second curve is 30 units directly above the first. At x equals 6 each curve has a dashed tangent, and the two tangents are parallel, each labelled gradient 6.",
+          "caption": "Raising the fixed cost from $20$ to $50$ lifts the curve but leaves the gradient at every $x$ the same."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-cubic",
+          "question": "Differentiate $f(x) = 0.2x^{3} - 1.5x^{2} + 4x - 9$.",
+          "steps": [
+            "Take one term at a time. $0.2x^{3}$ gives $0.6x^{2}$.",
+            "$-1.5x^{2}$ gives $-3x$. Keep each minus sign with its term.",
+            "$4x$ gives $4$, and the constant $-9$ gives $0$.",
+            "Add the results: $f'(x) = 0.6x^{2} - 3x + 4$."
+          ],
+          "answer": "$f'(x) = 0.6x^{2} - 3x + 4$",
+          "video": null,
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(Rational(1, 5)*x**3 - Rational(3, 2)*x**2 + 4*x - 9, x)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "A lone $x$ term does not vanish. The derivative of $-x$ is $-1$, not $0$. Only the constant term differentiates to $0$."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-poly",
+          "prompt": "Differentiate $g(x) = 3x^{4} - x^{2} + 7x - 2$.",
+          "hint": "One term at a time. What does $7x$ give? What does $-2$ give?",
+          "options": [
+            {
+              "text": "$12x^{3} - 2x + 7$",
+              "correct": true
+            },
+            {
+              "text": "$12x^{3} - 2x$",
+              "correct": false
+            },
+            {
+              "text": "$12x^{3} - 2x + 5$",
+              "correct": false
+            },
+            {
+              "text": "$3x^{3} - x + 7$",
+              "correct": false
+            }
+          ],
+          "explain": "$3x^{4}$ gives $12x^{3}$, $-x^{2}$ gives $-2x$, $7x$ gives $7$ and $-2$ gives $0$. So $g'(x) = 12x^{3} - 2x + 7$. Keeping the $-2$, or losing the $7$, costs a mark.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff(3*x**4 - x**2 + 7*x - 2, x)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Term by term works on sums only. A product or a fraction must be rewritten as a sum of powers first."
+        },
+        {
+          "type": "text",
+          "text": "Why not differentiate each factor of a product? Take $y = x^{2} \\times x$. Multiplying the derivatives gives $2x \\times 1 = 2x$. But $y = x^{3}$, whose derivative is $3x^{2}$. So expand the brackets first."
+        },
+        {
+          "type": "text",
+          "text": "A fraction with a single term underneath splits into separate terms: divide every term on top by it. For example, $\\frac{x^{2} + 6}{x} = x + 6x^{-1}$. A denominator such as $x + 1$ can't be split like this, so these rules don't reach it; your GDC can still find its gradient at a point."
+        },
+        {
+          "type": "check",
+          "id": "check-expand-first",
+          "prompt": "Differentiate $y = (2x + 1)(x - 3)$.",
+          "hint": "Expand the brackets and collect like terms first.",
+          "options": [
+            {
+              "text": "$4x - 5$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$4x - 6$",
+              "correct": false
+            },
+            {
+              "text": "$4x + 5$",
+              "correct": false
+            }
+          ],
+          "explain": "Expanding gives $y = 2x^{2} - 6x + x - 3 = 2x^{2} - 5x - 3$, so $\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 4x - 5$. Multiplying the derivatives of the factors, $2 \\times 1$, gives the wrong answer $2$.",
+          "verify": {
+            "kind": "expression",
+            "truth": "diff((2*x + 1)*(x - 3), x)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-average-cost",
+          "question": "A workshop's weekly cost of making $x$ chairs is $0.5x^{2} + 30x + 800$ dollars. So the average cost per chair is $C(x) = \\dfrac{0.5x^{2} + 30x + 800}{x}$ dollars, for $x > 0$. (a) Find $C'(x)$. (b) Find $C'(20)$ and interpret it.",
+          "steps": [
+            "(a) Split the fraction: divide each term on top by $x$. $C(x) = 0.5x + 30 + 800x^{-1}$.",
+            "Differentiate term by term. The $30$ is a constant, so it gives $0$: $C'(x) = 0.5 - 800x^{-2}$, or $0.5 - \\frac{800}{x^{2}}$.",
+            "(b) Substitute $x = 20$: $C'(20) = 0.5 - \\frac{800}{400} = 0.5 - 2 = -1.5$.",
+            "Interpret: the units are dollars per chair, per extra chair. At 20 chairs a week, making one more chair lowers the average cost per chair by about \\$1.50.",
+            "Check with your GDC: the numerical derivative of $0.5x + 30 + \\frac{800}{x}$ at $x = 20$ also gives $-1.5$."
+          ],
+          "answer": "$C'(20) = -1.5\\text{ dollars per chair}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "diff((Rational(1, 2)*x**2 + 30*x + 800)/x, x).subs(x, 20)"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "derivative-at-point",
+          "values": {
+            "function": "0.5X+30+800/X",
+            "xValue": 20
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Your GDC gives the gradient at one point, not the formula for $f'(x)$. When a question says \"find $f'(x)$\", differentiate by hand; use the GDC only to check a value."
+        },
+        {
+          "type": "check",
+          "id": "check-unknown-coefficient",
+          "prompt": "The curve $y = kx^{3} - 5x$ has gradient $19$ at $x = 2$. Find the value of $k$.",
+          "hint": "Differentiate with $k$ as a constant, substitute $x = 2$, then set the result equal to $19$.",
+          "answer": {
+            "value": 2,
+            "tolerance": 0
+          },
+          "explain": "$\\dfrac{\\mathrm{d}y}{\\mathrm{d}x} = 3kx^{2} - 5$. At $x = 2$ this is $12k - 5 = 19$, so $12k = 24$ and $k = 2$. Setting $y$, not $\\frac{\\mathrm{d}y}{\\mathrm{d}x}$, equal to $19$ is the usual slip.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "solve(Eq(diff(k*x**3 - 5*x, x).subs(x, 2), 19), k)[0]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "On Paper 2 you often differentiate by hand, then use the GDC to solve the equation that follows. Write down the equation before you solve it: that line earns the method mark."
+        },
+        {
+          "type": "example",
+          "id": "ex-sum-gdc-compost",
+          "question": "The temperature of a compost heap $t$ days after it is built is modelled by $T = 0.02t^{3} - 0.9t^{2} + 12t + 15$ °C, for $0 \\le t \\le 20$. Use your GDC to find when the temperature is rising at $3$ °C per day. Give your answer to 3 s.f.",
+          "steps": [
+            "\"Rising at 3 °C per day\" is a rate, so it is about $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t}$, not $T$.",
+            "Differentiate term by term: $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t} = 0.06t^{2} - 1.8t + 12$.",
+            "Write down the equation to solve: $0.06t^{2} - 1.8t + 12 = 3$.",
+            "The GDC solver, with bounds $0$ and $20$, gives $t = 6.33974\\ldots$ The other solution, $t = 23.66\\ldots$, is outside the model's domain, so reject it.",
+            "Interpret: about $6.34$ days after it is built, the heap is warming at 3 °C per day."
+          ],
+          "answer": "$t \\approx 6.34\\text{ days}$",
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-compost-day-18",
+            "prompt": "Now you try: for the same model, find $\\dfrac{\\mathrm{d}T}{\\mathrm{d}t}$ when $t = 18$, to 2 decimal places.",
+            "hint": "Substitute $t = 18$ into $0.06t^{2} - 1.8t + 12$.",
+            "answer": {
+              "value": -0.96,
+              "tolerance": 0.005
+            },
+            "explain": "$0.06 \\times 324 - 1.8 \\times 18 + 12 = 19.44 - 32.4 + 12 = -0.96$. The rate is negative, so 18 days after it is built the heap is cooling, by about $0.96$ °C per day.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "diff(Rational(1, 50)*t**3 - Rational(9, 10)*t**2 + 12*t + 15, t).subs(t, 18)",
+              "dp": 2
+            }
+          },
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(diff(Rational(1, 50)*t**3 - Rational(9, 10)*t**2 + 12*t + 15, t) - 3, t, 6)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-equation",
+          "values": {
+            "leftSide": "0.06X^2-1.8X+12",
+            "rightSide": 3,
+            "guess": 6,
+            "lower": 0,
+            "upper": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "f(x) = x^{n} \\Rightarrow f'(x) = nx^{n-1}",
+          "tag": "booklet",
+          "bookletId": "bk-5-3-derivative-power",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For an integer $n$, $ax^{n}$ differentiates to $anx^{n-1}$: multiply by the power, then lower the power by one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A constant term differentiates to $0$, and $ax$ differentiates to $a$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Rewrite $\\frac{a}{x^{n}}$ as $ax^{-n}$ before differentiating. One less than $-n$ is $-n - 1$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}}{\\mathrm{d}x}\\left(f(x) + g(x)\\right) = f'(x) + g'(x)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Differentiate a sum term by term. Expand brackets and split a fraction with a single-term denominator first; never multiply the derivatives of the factors.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The gradient of $y = f(x)$ at $x = a$ is $f'(a)$. The height of the curve there is $f(a)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Keeping the constant. In $x^{3} + 8$ the $8$ differentiates to $0$, so the answer is $3x^{2}$. An extra term in $f'(x)$ loses a mark even when the other terms are right.",
+    "Losing a linear term. The derivative of $-4x$ is $-4$, not $0$. Only the constant term differentiates to $0$.",
+    "Lowering a negative power the wrong way. $x^{-2}$ gives $-2x^{-3}$, because one less than $-2$ is $-3$, not $-1$.",
+    "Moving the number along with the $x$. $\\frac{3}{4x^{2}} = \\frac{3}{4}x^{-2}$, not $12x^{-2}$ or $\\frac{3}{4}x^{2}$. Only the power of $x$ changes sign.",
+    "Differentiating each factor of a product. Expand $(2x + 1)(x - 3)$ to $2x^{2} - 5x - 3$ first, then differentiate.",
+    "Mixing up $f(a)$ and $f'(a)$, or a value and a rate. The gradient or rate at $x = a$ is $f'(a)$; $f(a)$ is the $y$-coordinate."
+  ],
+  "examTips": [
+    "\"Find $f'(x)$\": show the line where you rewrite terms as powers, such as $\\frac{4}{x^{3}} = 4x^{-3}$. Marks are often given per correct term, so a slip in one term doesn't cost the others.",
+    "\"Write down the gradient at $x = 1$\" after finding $f'(x)$: substitute into $f'$. If your $f'(x)$ was wrong but you use it correctly, you can still earn follow-through (FT) marks.",
+    "\"Interpret\" $f'(a)$: give the rate with units of $y$ per unit of $x$, in context, and say whether the quantity is increasing or decreasing.",
+    "When the GDC solves an equation in $f'(x)$, write down the derivative and the equation first. A bare GDC answer earns marks only if it is correct; give it to 3 s.f. and reject solutions outside the domain."
+  ],
+  "readingMinutes": 21
+}

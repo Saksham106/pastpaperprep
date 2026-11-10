@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.6",
+  "slug": "local-maximum-and-minimum-points",
+  "title": "Local maximum and minimum points",
+  "level": "SL",
+  "topic": 5,
+  "summary": "At a [[local-maximum|local maximum]] or [[local-minimum|local minimum]] inside the [[domain|domain]] of a smooth curve, the [[gradient|gradient]] is zero, so you find these points by solving $f'(x) = 0$. On Paper 2 your GDC can draw $y = f'(x)$ from $f(x)$ and solve the equation for you. A local maximum need not be the greatest value on the [[domain|domain]]: check the end points too.",
+  "goals": [
+    {
+      "text": "Solve $f'(x) = 0$ to find the $x$-values at which a curve has a horizontal [[tangent|tangent]].",
+      "bullets": [
+        "5.6-b1"
+      ]
+    },
+    {
+      "text": "Use your GDC to generate $f'(x)$ from $f(x)$ and solve $f'(x) = 0$, writing down the equation you solve.",
+      "bullets": [
+        "5.6-b2"
+      ]
+    },
+    {
+      "text": "Find the coordinates of local maximum and minimum points, decide which is which, and say what they mean in context.",
+      "bullets": [
+        "5.6-b3",
+        "5.6-b1"
+      ]
+    },
+    {
+      "text": "Find the greatest and least values of a model on its domain, checking the end points as well as the local maximum and minimum points.",
+      "bullets": [
+        "5.6-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1",
+    "2.2",
+    "2.4",
+    "5.1",
+    "5.2",
+    "5.3",
+    "5.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "turning points",
+    "solve f'(x) = 0",
+    "stationary points maximum minimum",
+    "greatest value on a domain",
+    "local maximum vs global maximum",
+    "gdc derivative graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-differentiate-cubic",
+      "prompt": "Let $f(x) = 4x^{3} - 5x^{2} + 7$. Find $f'(x)$.",
+      "hint": "Multiply by the power, then lower the power by 1. A constant term has gradient 0.",
+      "options": [
+        {
+          "text": "$12x^{2} - 10x$",
+          "correct": true
+        },
+        {
+          "text": "$12x^{2} - 10x + 7$",
+          "correct": false
+        },
+        {
+          "text": "$4x^{2} - 5x$",
+          "correct": false
+        }
+      ],
+      "explain": "$4x^{3}$ gives $12x^{2}$, $-5x^{2}$ gives $-10x$, and the constant 7 gives 0. Revise it in {{lesson:5.3}}.",
+      "verify": {
+        "kind": "expression",
+        "truth": "diff(4*x**3 - 5*x**2 + 7, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sign-of-derivative",
+      "prompt": "A function has [[derivative|derivative]] $f'(x) = x^{2} - 9$. Is $f$ increasing or decreasing at $x = 2$?",
+      "hint": "Work out $f'(2)$ and look at its sign.",
+      "options": [
+        {
+          "text": "Decreasing",
+          "correct": true
+        },
+        {
+          "text": "Increasing",
+          "correct": false
+        }
+      ],
+      "explain": "$f'(2) = 4 - 9 = -5$, which is negative, so $f$ is decreasing at $x = 2$. Revise it in {{lesson:5.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "Decreasing"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gdc-local-max",
+      "prompt": "Use your GDC to find the $y$-coordinate of the local maximum point of $y = -x^{3} + 5x + 2$. Give it to 3 s.f.",
+      "hint": "Graph the curve and use the maximum tool on the high point to the right of the $y$-axis.",
+      "answer": {
+        "value": 6.3,
+        "tolerance": 0.005
+      },
+      "explain": "The GDC gives the local maximum at $(1.29099\\ldots, 6.30331\\ldots)$, so $y \\approx 6.30$. Revise it in {{lesson:2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(-x**3 + 5*x + 2).subs(x, solve(diff(-x**3 + 5*x + 2, x), x)[1])",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "zero-gradient",
+      "heading": "Where the gradient is zero",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The graph below shows a fish population. It falls to a low point, then climbs to a high point. At each turning point the curve is flat for an instant: the [[tangent|tangent]] there is horizontal."
+        },
+        {
+          "type": "figure",
+          "id": "5-6-fish-turning",
+          "alt": "Graph of P against t for t from 0 to 7. The curve starts at 8 when t is 0, falls to a local minimum at 2, 4.8, rises to a local maximum at 6, 8, then falls to about 7.3 at t equals 7. A dashed horizontal tangent line touches the curve at each turning point.",
+          "caption": "$P(t) = -0.1t^{3} + 1.2t^{2} - 3.6t + 8$. The tangent is horizontal at each turning point."
+        },
+        {
+          "type": "text",
+          "text": "A horizontal tangent has gradient 0. So at a local maximum or local minimum of a smooth curve, $f'(x) = 0$. In {{lesson:5.2}} you called points like this [[stationary-point|stationary points]]."
+        },
+        {
+          "type": "result",
+          "statement": "If a smooth curve $y = f(x)$ (no breaks or sharp corners) has a local maximum or local minimum at $x = a$, inside its domain, then $f'(a) = 0$.",
+          "why": "Just left of a local maximum the curve rises, so $f'(x) > 0$. Just right of it the curve falls, so $f'(x) < 0$. The gradient passes through 0 at the top. A local minimum works the same way, from negative to positive."
+        },
+        {
+          "type": "text",
+          "text": "The reverse is not always true. $f'(a) = 0$ only says the tangent is flat. You saw in {{lesson:5.2}} that $y = x^{3}$ is flat at the origin but rises on both sides of it."
+        },
+        {
+          "type": "text",
+          "text": "1. Find $f'(x)$ and solve $f'(x) = 0$. The solutions are the $x$-values where the gradient is zero. Keep only those in the domain."
+        },
+        {
+          "type": "text",
+          "text": "2. Substitute each solution into $f(x)$, not $f'(x)$, to find the $y$-coordinate."
+        },
+        {
+          "type": "text",
+          "text": "3. Decide what each point is, from the graph or from the sign of $f'(x)$ just either side. Test values closer to the point than any other solution, with no break in the graph in between."
+        },
+        {
+          "type": "result",
+          "statement": "Let $f'(a) = 0$. If $f'(x)$ changes from positive to negative as $x$ increases through $a$, there is a local maximum at $x = a$. If it changes from negative to positive, there is a local minimum. If it has the same sign on both sides, there is neither.",
+          "why": "Positive then negative means the curve rises then falls, so it peaks at $x = a$. Negative then positive means it falls then rises."
+        },
+        {
+          "type": "example",
+          "id": "ex-stationary-cubic",
+          "question": "Let $f(x) = 2x^{3} - 9x^{2} + 12x - 1$. Find the coordinates of the points on the graph of $f$ where the gradient is zero. Decide whether each is a local maximum or a local minimum.",
+          "steps": [
+            "Differentiate: $f'(x) = 6x^{2} - 18x + 12$.",
+            "Set $f'(x) = 0$ and take out the common factor 6: $6(x^{2} - 3x + 2) = 0$, so $6(x - 1)(x - 2) = 0$. So $x = 1$ or $x = 2$.",
+            "Find the $y$-coordinates from $f(x)$: $f(1) = 2 - 9 + 12 - 1 = 4$ and $f(2) = 16 - 36 + 24 - 1 = 3$.",
+            "Test the sign of $f'(x)$ on each side: $f'(0) = 12 > 0$, $f'(1.5) = 13.5 - 27 + 12 = -1.5 < 0$ and $f'(3) = 54 - 54 + 12 = 12 > 0$.",
+            "So $(1, 4)$ is a local maximum, where the sign goes from $+$ to $-$. And $(2, 3)$ is a local minimum, where it goes from $-$ to $+$."
+          ],
+          "answer": "$(1, 4) \\text{ and } (2, 3)$",
+          "video": null,
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(solve(diff(2*x**3 - 9*x**2 + 12*x - 1, x), x)[0], (2*x**3 - 9*x**2 + 12*x - 1).subs(x, solve(diff(2*x**3 - 9*x**2 + 12*x - 1, x), x)[0])), (solve(diff(2*x**3 - 9*x**2 + 12*x - 1, x), x)[1], (2*x**3 - 9*x**2 + 12*x - 1).subs(x, solve(diff(2*x**3 - 9*x**2 + 12*x - 1, x), x)[1]))]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Substituting $x = 1$ into $f'(x)$ always gives 0: that is how you found $x = 1$. The $y$-coordinate comes from $f(x)$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL you can also tell a local maximum from a local minimum with the second derivative.",
+          "lesson": "5.10"
+        },
+        {
+          "type": "example",
+          "id": "ex-fish-population",
+          "question": "After a disease outbreak, the number of fish in a lake is modelled by $P(t) = -0.1t^{3} + 1.2t^{2} - 3.6t + 8$, where $P$ is in thousands and $t$ is the time in years, for $0 \\le t \\le 7$. This is the graph above. (a) Find $P'(t)$. (b) Find the coordinates of the local minimum point and the local maximum point. (c) Interpret these points in context.",
+          "steps": [
+            "(a) $P'(t) = -0.3t^{2} + 2.4t - 3.6$.",
+            "(b) Solve $P'(t) = 0$. Divide both sides by $-0.3$: $t^{2} - 8t + 12 = 0$, so $(t - 2)(t - 6) = 0$ and $t = 2$ or $t = 6$. Both are in the domain.",
+            "Find the $P$-values: $P(2) = -0.8 + 4.8 - 7.2 + 8 = 4.8$ and $P(6) = -21.6 + 43.2 - 21.6 + 8 = 8$.",
+            "Check the types with the sign of $P'(t)$: $P'(1) = -1.5 < 0$, $P'(4) = 1.2 > 0$ and $P'(7) = -1.5 < 0$. So $(2, 4.8)$ is the local minimum and $(6, 8)$ is the local maximum, as the graph shows.",
+            "(c) The population falls for the first 2 years, to a low of 4800 fish. It then recovers to 8000 fish after 6 years, its starting level, before it starts to fall again."
+          ],
+          "answer": "$(2, 4.8) \\text{ and } (6, 8)$",
+          "video": null,
+          "verify": {
+            "kind": "solutions",
+            "truth": "[(solve(diff(-0.1*t**3 + 1.2*t**2 - 3.6*t + 8, t), t)[0], (-0.1*t**3 + 1.2*t**2 - 3.6*t + 8).subs(t, solve(diff(-0.1*t**3 + 1.2*t**2 - 3.6*t + 8, t), t)[0])), (solve(diff(-0.1*t**3 + 1.2*t**2 - 3.6*t + 8, t), t)[1], (-0.1*t**3 + 1.2*t**2 - 3.6*t + 8).subs(t, solve(diff(-0.1*t**3 + 1.2*t**2 - 3.6*t + 8, t), t)[1]))]"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zero-gradient-x",
+          "prompt": "Let $f(x) = x^{3} - 3x^{2} - 24x + 10$. Find the values of $x$ where the gradient of the graph of $f$ is zero.",
+          "hint": "Differentiate and set $f'(x) = 0$. Take out the common factor 3 before you factorise.",
+          "options": [
+            {
+              "text": "$x = -2 \\text{ or } x = 4$",
+              "correct": true
+            },
+            {
+              "text": "$x = 2 \\text{ or } x = -4$",
+              "correct": false
+            },
+            {
+              "text": "$x = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$f'(x) = 3x^{2} - 6x - 24 = 3(x^{2} - 2x - 8) = 3(x - 4)(x + 2)$. So $f'(x) = 0$ when $x = -2$ or $x = 4$. Mixing up the signs in the brackets gives $2$ and $-4$.",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(diff(x**3 - 3*x**2 - 24*x + 10, x), x)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-classify-neither",
+          "prompt": "Let $g(x) = x^{4} - 4x^{3}$, so $g'(x) = 4x^{3} - 12x^{2} = 4x^{2}(x - 3)$. The gradient is zero at $x = 0$ and at $x = 3$. What is the point on the graph at $x = 0$?",
+          "hint": "Work out $g'(-1)$ and $g'(1)$. Does the sign change?",
+          "options": [
+            {
+              "text": "Neither a local maximum nor a local minimum",
+              "correct": true
+            },
+            {
+              "text": "A local maximum",
+              "correct": false
+            },
+            {
+              "text": "A local minimum",
+              "correct": false
+            }
+          ],
+          "explain": "$g'(-1) = 4 \\times 1 \\times (-4) = -16 < 0$ and $g'(1) = 4 \\times 1 \\times (-2) = -8 < 0$. The gradient is negative on both sides, so the graph keeps falling through $x = 0$. At $x = 3$ the sign goes from $-$ to $+$, so that point is a local minimum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Neither a local maximum nor a local minimum"
+          }
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "heading": "Solving $f'(x) = 0$ with technology",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On Paper 2 a model can be hard to differentiate, or $f'(x) = 0$ hard to solve by hand. Your GDC does that work. You still write down the equation you are solving, then give the GDC's values."
+        },
+        {
+          "type": "text",
+          "text": "There are two routes. If $f(x)$ is a sum of integer powers of $x$, differentiate it by hand as in {{lesson:5.3}}. Then let the GDC solve $f'(x) = 0$: with its polynomial solver if $f'(x)$ is a polynomial, or by graphing $y = f'(x)$ if it has a negative power, such as $-\\frac{450}{x^{2}}$."
+        },
+        {
+          "type": "text",
+          "text": "If you can't differentiate $f(x)$, for example because it contains $\\mathrm{e}^{x}$, let the GDC generate $f'(x)$. It can't write $f'(x)$ as a formula, but its numerical derivative tool draws the graph of $y = f'(x)$ from $f(x)$. The zeros of that graph are the solutions of $f'(x) = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-trail-height",
+          "question": "A hiking trail climbs over a hill. Its height above sea level is modelled by $h(x) = 0.4x^{3} - 5x^{2} + 16x + 300$ metres, where $x$ km is the distance along the trail, for $0 \\le x \\le 9$. (a) Find $h'(x)$. (b) Use your GDC to solve $h'(x) = 0$. Give your answers to 3 s.f. (c) Find the coordinates of the local maximum point, and interpret them.",
+          "steps": [
+            "(a) $h'(x) = 1.2x^{2} - 10x + 16$.",
+            "(b) Write down the equation: $1.2x^{2} - 10x + 16 = 0$. The GDC's polynomial solver gives $x = 2.15973\\ldots$ or $x = 6.17359\\ldots$, so $x \\approx 2.16$ or $x \\approx 6.17$.",
+            "(c) Test the first solution: $h'(1) = 7.2 > 0$ and $h'(3) = -3.2 < 0$. The sign goes from $+$ to $-$, so $x = 2.15973\\ldots$ gives the local maximum.",
+            "Use the full value in $h(x)$: $h(2.15973\\ldots) = 315.263\\ldots \\approx 315$. Store the GDC's value instead of retyping 2.16.",
+            "So the local maximum point is $(2.16, 315)$. The top of the hill is about 2.16 km along the trail, 315 m above sea level."
+          ],
+          "answer": "$(x, h) \\approx (2.16, 315)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "(nsolve(diff(0.4*x**3 - 5*x**2 + 16*x + 300, x), x, 2), (0.4*x**3 - 5*x**2 + 16*x + 300).subs(x, nsolve(diff(0.4*x**3 - 5*x**2 + 16*x + 300, x), x, 2)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "1.2, -10, 16"
+          }
+        },
+        {
+          "type": "text",
+          "text": "You can check part (c) another way. The GDC's maximum tool on $y = h(x)$ finds the same point, because the local maximum is where $h'(x) = 0$. Set a window that shows the hill first: the heights are near 300, far above the standard window."
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 9,
+            "yMin": 290,
+            "yMax": 340
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "0.4X^3-5X^2+16X+300"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Use your GDC to solve $f'(x) = 0$\": first write down the equation with your derivative in it. That line earns the method mark, and a wrong derivative used correctly can still earn follow-through marks."
+        },
+        {
+          "type": "check",
+          "id": "check-unit-cost",
+          "prompt": "A factory's average cost per item, $C$ dollars, when it makes $x$ hundred items a day is modelled by $C(x) = 0.002x^{2} + 3 + \\frac{450}{x}$, for $x > 0$. Find $C'(x)$, then use your GDC to find the value of $x$ for which $C'(x) = 0$. Give your answer to 3 s.f.",
+          "hint": "Write $\\frac{450}{x}$ as $450x^{-1}$ before you differentiate. Then graph $y = C'(x)$ and find where it crosses the $x$-axis.",
+          "answer": {
+            "value": 48.3,
+            "tolerance": 0.05
+          },
+          "explain": "$C'(x) = 0.004x - 450x^{-2}$. Solving $0.004x - \\frac{450}{x^{2}} = 0$ on the GDC gives $x = 48.2744\\ldots \\approx 48.3$. $C'(x)$ goes from negative to positive there, so the cost per item is least at about 4830 items a day.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "nsolve(diff(0.002*x**2 + 3 + 450/x, x), x, 50)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-subscribers-zeros",
+          "question": "A streaming service models its number of subscribers by $S(t) = 40 + 25t\\mathrm{e}^{-0.2t} + 2t$, where $S$ is in thousands and $t$ is the number of months after launch, for $0 \\le t \\le 30$. (a) Use your GDC to find the values of $t$ for which $S'(t) = 0$. Give your answers to 3 s.f. (b) Interpret the smaller value in context.",
+          "steps": [
+            "(a) You can't differentiate $25t\\mathrm{e}^{-0.2t}$ by hand at SL, so let the GDC generate $S'(t)$. Enter $S(t)$ as the first function and its numerical derivative as the second.",
+            "Write down what you solve: $S'(t) = 0$, from the graph of $y = S'(t)$ for $0 \\le t \\le 30$.",
+            "The graph of $y = S'(t)$ crosses the $t$-axis twice. The zero tool gives $t = 6.45439\\ldots$ and $t = 17.0102\\ldots$, so $t \\approx 6.45$ or $t \\approx 17.0$.",
+            "Check: the GDC's maximum and minimum tools on $y = S(t)$ give turning points at the same values of $t$.",
+            "(b) The graph of $S'(t)$ goes from above the axis to below it at $t \\approx 6.45$, so this is a local maximum. About 6.45 months after launch, the number of subscribers stops rising and starts to fall for a while."
+          ],
+          "answer": "$t \\approx 6.45 \\text{ or } t \\approx 17.0$",
+          "check": {
+            "type": "check",
+            "id": "check-bees-peak",
+            "prompt": "Now you try. The number of bees in a hive, $B$ thousand, $w$ weeks after the start of spring is modelled by $B(w) = 10 + 0.3w^{2}\\mathrm{e}^{-0.12w}$, for $0 \\le w \\le 40$. Use your GDC to find the value of $w$, with $w > 0$, for which $B'(w) = 0$. Give your answer to 3 s.f.",
+            "hint": "Graph the numerical derivative of $B$ and find where it crosses the axis to the right of $w = 0$.",
+            "answer": {
+              "value": 16.7,
+              "tolerance": 0.05
+            },
+            "explain": "The graph of $y = B'(w)$ crosses the axis at $w = 16.6666\\ldots \\approx 16.7$; it is also 0 at the start, $w = 0$. At $w \\approx 16.7$ the sign of $B'(w)$ goes from positive to negative, so the number of bees reaches a local maximum about 16.7 weeks into spring.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "nsolve(diff(10 + 0.3*w**2*exp(-0.12*w), w), w, 15)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[nsolve(diff(40 + 25*t*exp(-0.2*t) + 2*t, t), t, 6), nsolve(diff(40 + 25*t*exp(-0.2*t) + 2*t, t), t, 17)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "steps": {
+            "ti84": [
+              "Y=, type 40+25Xe^(-0.2X)+2X in Y1; for e^( press 2nd, LN",
+              "Move to Y2, press MATH, 8: nDeriv( and fill the template d/dX(Y1)|X=X, taking Y1 from VARS, Y-VARS, 1: Function (or type nDeriv(Y1,X,X)) (check on your model)",
+              "Put the cursor on the = sign of Y1 and press ENTER, so only Y2 is drawn",
+              "WINDOW: Xmin 0, Xmax 30, Ymin -5, Ymax 30, then GRAPH",
+              "2nd, TRACE (CALC), 2: zero; set Left Bound, Right Bound and Guess around each crossing",
+              "Read X = 6.4543... and X = 17.010..."
+            ],
+            "nspire": [
+              "Graphs page: f1(x) = 40+25x*e^(-0.2x)+2x, enter",
+              "In f2(x), choose the derivative template from the templates key and type d/dx(f1(x)), enter (check on your model)",
+              "Menu, Window/Zoom, Window Settings: XMin 0, XMax 30, YMin -5, YMax 30, OK",
+              "Menu, Analyze Graph, Zero; choose the graph of f2, then click to the left and to the right of each crossing",
+              "Read x = 6.4543... and x = 17.010..."
+            ],
+            "casio": [
+              "MENU, GRAPH: Y1 = 40+25Xe^(-0.2X)+2X, EXE (e^ is SHIFT, ln)",
+              "In Y2: OPTN, CALC, d/dx, then enter d/dx(Y1, X), taking Y1 from VARS, GRAPH, Y (check on your model)",
+              "Deselect Y1 with SELECT (F1); SHIFT, F3 (V-Window): Xmin 0, max 30, Ymin -5, max 30, EXIT",
+              "DRAW (F6), then SHIFT, F5 (G-SOLV), ROOT (F1); press ▶ for the next root",
+              "Read X = 6.4543... and X = 17.010..."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Rounding $t$ to 6.45 and then substituting it into $S(t)$. Store the GDC's full value and round only the final answer."
+        }
+      ]
+    },
+    {
+      "id": "global",
+      "heading": "Local is not always the greatest or least",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A local maximum is only the highest point near it. On a restricted domain, the graph may climb higher somewhere else, often at an end point. The same goes for a local minimum."
+        },
+        {
+          "type": "definition",
+          "term": "global maximum",
+          "statement": "The global maximum of $f$ is the greatest value of $f(x)$ for $x$ in the domain of $f$. The global minimum is the least value.",
+          "plain": "The very highest point of the whole graph, not just the top of one hill."
+        },
+        {
+          "type": "figure",
+          "id": "5-6-profit-ends",
+          "alt": "Graph of P against x for x from 0 to 10. The curve starts at 0, minus 20, rises to a local maximum at 3, 61, falls to a local minimum at 7, 29, then rises steeply to 10, 110. The end point 0, minus 20 is labelled least and the end point 10, 110 is labelled greatest.",
+          "caption": "$P(x) = x^{3} - 15x^{2} + 63x - 20$ for $0 \\le x \\le 10$. The greatest and least values are at the end points, not at the turning points."
+        },
+        {
+          "type": "result",
+          "statement": "If the graph of $f$ has no breaks or sharp corners for $a \\le x \\le b$, then the greatest and least values of $f$ on $a \\le x \\le b$ are each at a local maximum or minimum point, or at an end point, $x = a$ or $x = b$.",
+          "why": "At any other point inside the interval the curve is still rising or falling, so a point just next to it is higher and another is lower."
+        },
+        {
+          "type": "text",
+          "text": "So list the candidates: the local maximum and minimum points, and both end points. Work out $f$ at each and compare the values."
+        },
+        {
+          "type": "example",
+          "id": "ex-profit-ends",
+          "question": "A workshop's weekly profit is modelled by $P(x) = x^{3} - 15x^{2} + 63x - 20$, where $P$ is in thousands of dollars and $x$ is the number of items made, in hundreds, for $0 \\le x \\le 10$. This is the graph above. (a) Find the local maximum point. (b) Find the greatest weekly profit the model predicts, and comment on your answer to (a).",
+          "steps": [
+            "(a) $P'(x) = 3x^{2} - 30x + 63 = 3(x - 3)(x - 7)$, so $P'(x) = 0$ at $x = 3$ and $x = 7$.",
+            "$P(3) = 27 - 135 + 189 - 20 = 61$ and $P(7) = 343 - 735 + 441 - 20 = 29$. The graph rises to $(3, 61)$ and then falls, so the local maximum point is $(3, 61)$.",
+            "(b) Work out the end points too: $P(0) = -20$ and $P(10) = 1000 - 1500 + 630 - 20 = 110$.",
+            "Compare all four values: $-20$, $61$, $29$ and $110$. The greatest is $110$, at $x = 10$.",
+            "Comment: the local maximum at $x = 3$ is only the best output among those near 300 items. Making 1000 items a week gives the greatest profit, \\$110 000."
+          ],
+          "answer": "$P = 110$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(0**3 - 15*0**2 + 63*0 - 20, 3**3 - 15*3**2 + 63*3 - 20, 7**3 - 15*7**2 + 63*7 - 20, 10**3 - 15*10**2 + 63*10 - 20)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the local maximum as the greatest value on a restricted domain. Work out the value at each end point as well, and compare."
+        },
+        {
+          "type": "check",
+          "id": "check-greatest-cubic",
+          "prompt": "Let $f(x) = x^{3} - 7.5x^{2} + 12x + 2.5$, for $0 \\le x \\le 6$. Its graph has a local maximum point $(1, 8)$ and a local minimum point $(4, -5.5)$. Find the greatest value of $f$ on this domain.",
+          "hint": "Work out $f(0)$ and $f(6)$, then compare them with the values at the turning points.",
+          "options": [
+            {
+              "text": "$20.5$",
+              "correct": true
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$2.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$f(0) = 2.5$ and $f(6) = 216 - 270 + 72 + 2.5 = 20.5$. The greatest of $2.5$, $8$, $-5.5$ and $20.5$ is $20.5$, at the end point $x = 6$, not at the local maximum.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Max(0**3 - 7.5*0**2 + 12*0 + 2.5, 1**3 - 7.5*1**2 + 12*1 + 2.5, 4**3 - 7.5*4**2 + 12*4 + 2.5, 6**3 - 7.5*6**2 + 12*6 + 2.5)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-subscribers-greatest",
+          "question": "Use the streaming model from the previous section: $S(t) = 40 + 25t\\mathrm{e}^{-0.2t} + 2t$ thousand subscribers, for $0 \\le t \\le 30$. Its local maximum is at $t = 6.45439\\ldots$ and its local minimum at $t = 17.0102\\ldots$. Find the greatest number of subscribers in the first 30 months, to 3 s.f., and comment on your answer.",
+          "steps": [
+            "A local minimum has higher points right next to it, so it can't be the greatest value. The candidates are the local maximum and the two end points.",
+            "Local maximum: $S(6.45439\\ldots) = 97.2874\\ldots$. Use the stored GDC value of $t$, not 6.45.",
+            "End points: $S(0) = 40$ and $S(30) = 40 + 750\\mathrm{e}^{-6} + 60 = 101.859\\ldots$.",
+            "The greatest is $S(30) = 101.859\\ldots \\approx 102$: about 102 000 subscribers, at the end of the 30 months.",
+            "Comment: the peak at about 6.45 months is only a local maximum. After a dip, the subscriber numbers climb higher by month 30. The model says nothing about what happens after 30 months."
+          ],
+          "answer": "$S \\approx 102$",
+          "check": {
+            "type": "check",
+            "id": "check-trail-highest",
+            "prompt": "Now you try. Use the hiking trail from the previous section: $h(x) = 0.4x^{3} - 5x^{2} + 16x + 300$ metres, for $0 \\le x \\le 9$, with local maximum point $(2.16, 315)$. Find the height of the highest point of the trail, in metres, to 3 s.f.",
+            "hint": "Work out $h(0)$ and $h(9)$ and compare them with the hilltop.",
+            "answer": {
+              "value": 331,
+              "tolerance": 0.5
+            },
+            "explain": "$h(0) = 300$ and $h(9) = 291.6 - 405 + 144 + 300 = 330.6$. This is higher than the hilltop at $315.26\\ldots$, so the highest point is the end of the trail, about 331 m above sea level.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Max(0.4*0**3 - 5*0**2 + 16*0 + 300, 0.4*9**3 - 5*9**2 + 16*9 + 300, (0.4*x**3 - 5*x**2 + 16*x + 300).subs(x, nsolve(diff(0.4*x**3 - 5*x**2 + 16*x + 300, x), x, 2)))",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Max(40 + 25*0*exp(-0.2*0) + 2*0, 40 + 25*30*exp(-0.2*30) + 2*30, (40 + 25*t*exp(-0.2*t) + 2*t).subs(t, nsolve(diff(40 + 25*t*exp(-0.2*t) + 2*t, t), t, 6)))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "To find $S(30)$ on the GDC, set a window that includes $t = 30$ first: the TI-84's value tool only accepts an $x$ inside the window."
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-window",
+          "values": {
+            "xMin": 0,
+            "xMax": 30,
+            "yMin": 0,
+            "yMax": 110
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-value-at-x",
+          "values": {
+            "function": "40+25Xe^(-0.2X)+2X",
+            "xValue": 30
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Find the greatest value\" or \"find the maximum value\" asks for the value of the function, such as $S \\approx 102$, not the $t$ where it happens. On a restricted domain, show the end-point values you compared."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "At a local maximum or local minimum inside the domain of a smooth curve, $f'(x) = 0$: the tangent there is horizontal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find local maximum and minimum points, solve $f'(x) = 0$ for $x$, check whether each is a maximum, a minimum or neither, then find each $y$-coordinate from $f(x)$, not from $f'(x)$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "If $f'(a) = 0$ and $f'(x)$ changes from $+$ to $-$ as $x$ increases through $a$, there is a local maximum at $x = a$. From $-$ to $+$ it is a local minimum. With no change of sign it is neither.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With a GDC, write down $f'(x) = 0$, then solve it with the equation solver, or draw $y = f'(x)$ with the numerical derivative and find its zeros.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A local maximum or minimum need not be the greatest or least value on the domain. For a graph with no breaks or sharp corners on $a \\le x \\le b$, compare $f$ at the local maximum and minimum points and at both end points.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Substituting the $x$-value into $f'(x)$ to find the $y$-coordinate. That always gives 0; use $f(x)$.",
+    "Giving the local maximum as the greatest value of a model on a restricted domain. Work out the value at each end point and compare.",
+    "Writing only a GDC answer. Write down the equation $f'(x) = 0$ with your derivative in it, so the method mark can be awarded.",
+    "Rounding $x$ before substituting it into $f(x)$. Keep the GDC's full value and round only the final answer to 3 s.f.",
+    "Answering with $x$ when the question asks for the maximum value. \"Find the maximum value\" wants $f(x)$ there; \"find where\" wants $x$.",
+    "Keeping a solution of $f'(x) = 0$ that lies outside the domain, such as a negative time. Reject it and say why."
+  ],
+  "examTips": [
+    "\"Find the coordinates\" of a local maximum or minimum: give both, $(x, y)$, with the $y$-value worked out from $f(x)$ and given exactly or to 3 s.f.",
+    "\"Use your answer to (a) to find\" or \"hence\": set the derivative you found equal to zero and show that line. Using only the GDC's maximum tool on $f$ may not earn the method marks.",
+    "\"Justify\" that a point is a local maximum: give the sign of $f'(x)$ just either side, such as $h'(1) = 7.2 > 0$ and $h'(3) = -3.2 < 0$ either side of $x \\approx 2.16$."
+  ],
+  "readingMinutes": 26
+}

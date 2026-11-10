@@ -27,7 +27,14 @@ Add a line whenever a review finds a new class of error. Each line is the genera
 15. **Speed versus acceleration in analogies.** Steepest slope gives the greatest acceleration, not the greatest speed (Physics 4.2).
 16. **Command-term examples are correct physics or maths too.** "No resultant force, so constant momentum, so no change in velocity" (Physics command terms).
 
+19. **Rounding a number of periods depends on the question.** Up to reach a target, down to count full payments or withdrawals the money covers (AI 1.7).
+20. **A graph's excluded end is an open circle only when the function has a finite value there.** Otherwise it is an asymptote (AI 2.3).
+21. **Systematic sampling with k = ⌊N/n⌋ never picks the end of the list** when n doesn't divide N (AI 4.1).
+22. **Candidates for turning points and inflexions include where f′ or f″ is undefined but f exists** (x^(2/3), x^(5/3)), once fractional powers are taught (AI 5.2, 5.10).
+23. **s_{n−1}² is unbiased for σ²; s_{n−1} is not exactly unbiased for σ** (AI 4.16).
+
 ## Rules for the answer gate
 
 17. **Every new answer kind gets mutation tests before it ships.** Each review of a new gate found 3–4 holes: containment instead of equivalence, sample points instead of proof, a zero factor accepted, denominator exclusions dropped, `+ C` erased, an isomer accepted by composition (AA, 0580, Chemistry).
 18. **Numeric checks must not accept 0 for a tiny answer, and must parse standard form.** The browser check scales its tolerance and reads 1.5e24 or 1.5×10^24 (Physics, fixed in the component).
+24. **A sidecar reads the whole answer, not just the parts it extracts.** Matrix sidecars ignored a scalar written before the matrix (½ × the right inverse passed; 0 × an eigenvector passed) and erased a `+ C`. Use `mathparse.parse_matrices`, and `keep_constant()` anywhere that isn't an antiderivative (AI 1.14, 1.15, 3.9, 3.15, 4.19).

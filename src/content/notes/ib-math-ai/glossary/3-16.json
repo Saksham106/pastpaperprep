@@ -1,0 +1,110 @@
+[
+  {
+    "id": "trail",
+    "term": "trail",
+    "definition": "A walk in which no edge is used more than once, although vertices may be repeated.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "path",
+    "term": "path",
+    "definition": "A walk in which no vertex is visited more than once, so no edge is repeated either.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "circuit",
+    "term": "circuit",
+    "definition": "A trail that starts and finishes at the same vertex, so it is closed and repeats no edge.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "cycle",
+    "term": "cycle",
+    "definition": "A circuit that repeats no vertex, except that the start vertex is also the end vertex.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "odd-vertex",
+    "term": "odd vertex",
+    "definition": "A vertex whose degree is odd; every graph has an even number of odd vertices.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "eulerian-trail",
+    "term": "Eulerian trail",
+    "definition": "A trail that uses every edge of a graph exactly once; a connected graph has one exactly when it has 0 or 2 odd vertices, and with 2 odd vertices the trail starts at one and finishes at the other.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "eulerian-circuit",
+    "term": "Eulerian circuit",
+    "definition": "A circuit that uses every edge of a graph exactly once; a connected graph has one exactly when every vertex has even degree.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "hamiltonian-path",
+    "term": "Hamiltonian path",
+    "definition": "A path that visits every vertex of a graph exactly once; there is no simple test for whether one exists.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "hamiltonian-cycle",
+    "term": "Hamiltonian cycle",
+    "definition": "A cycle that visits every vertex of a graph exactly once and returns to its start vertex.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "spanning-tree",
+    "term": "spanning tree",
+    "definition": "A subgraph of a connected graph that is a tree and includes every vertex of the graph.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "minimum-spanning-tree",
+    "term": "minimum spanning tree",
+    "definition": "A spanning tree of a connected weighted graph with the least possible total weight; there may be more than one, all with the same weight.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "kruskals-algorithm",
+    "term": "Kruskal's algorithm",
+    "definition": "A way to find a minimum spanning tree: take the edges in increasing order of weight, add each one unless it makes a cycle, and stop at $n - 1$ edges for $n$ vertices.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "prims-algorithm",
+    "term": "Prim's algorithm",
+    "definition": "A way to find a minimum spanning tree: from a start vertex, keep adding the least-weight edge from a vertex in the tree to a vertex not yet in it; it can be run directly on a table (the matrix method).",
+    "lesson": "3.16"
+  },
+  {
+    "id": "chinese-postman-problem",
+    "term": "Chinese postman problem",
+    "definition": "Finding the least-weight closed route along every edge of a connected weighted graph at least once, by repeating the shortest routes for the least-weight pairing of the odd vertices.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "travelling-salesman-problem",
+    "term": "travelling salesman problem",
+    "definition": "Finding the Hamiltonian cycle of least total weight in a weighted complete graph; a practical problem is first turned into one with a table of least distances.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "table-of-least-distances",
+    "term": "table of least distances",
+    "definition": "A table giving the weight of the shortest route, direct or not, between every pair of vertices; it turns a practical travelling salesman problem into the classical one on a complete graph.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "nearest-neighbour-algorithm",
+    "term": "nearest neighbour algorithm",
+    "definition": "Building a tour by going from the start to the nearest unvisited vertex each time, then back to the start; its weight is an upper bound for the travelling salesman problem, not always the best tour.",
+    "lesson": "3.16"
+  },
+  {
+    "id": "deleted-vertex-algorithm",
+    "term": "deleted vertex algorithm",
+    "definition": "Deleting one vertex, finding a minimum spanning tree of the rest and adding the two least-weight edges from the deleted vertex; the total is a lower bound for the travelling salesman problem, and the largest such bound is the best.",
+    "lesson": "3.16"
+  }
+]

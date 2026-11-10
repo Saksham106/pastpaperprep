@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" role="img" font-family="sans-serif" font-size="12">
+<line x1="40" y1="200" x2="456" y2="200" stroke="currentColor"/>
+<line x1="232" y1="376" x2="232" y2="24" stroke="currentColor"/>
+<text x="456" y="192" text-anchor="end" fill="currentColor">Re</text>
+<text x="240" y="36" fill="currentColor">Im</text>
+<line x1="56" y1="200" x2="56" y2="205" stroke="currentColor"/>
+<text x="56" y="218" text-anchor="middle" fill="currentColor">−8</text>
+<line x1="78" y1="200" x2="78" y2="205" stroke="currentColor"/>
+<line x1="100" y1="200" x2="100" y2="205" stroke="currentColor"/>
+<text x="100" y="218" text-anchor="middle" fill="currentColor">−6</text>
+<line x1="122" y1="200" x2="122" y2="205" stroke="currentColor"/>
+<line x1="144" y1="200" x2="144" y2="205" stroke="currentColor"/>
+<text x="144" y="218" text-anchor="middle" fill="currentColor">−4</text>
+<line x1="166" y1="200" x2="166" y2="205" stroke="currentColor"/>
+<line x1="188" y1="200" x2="188" y2="205" stroke="currentColor"/>
+<text x="188" y="218" text-anchor="middle" fill="currentColor">−2</text>
+<line x1="210" y1="200" x2="210" y2="205" stroke="currentColor"/>
+<line x1="254" y1="200" x2="254" y2="205" stroke="currentColor"/>
+<line x1="276" y1="200" x2="276" y2="205" stroke="currentColor"/>
+<text x="276" y="218" text-anchor="middle" fill="currentColor">2</text>
+<line x1="298" y1="200" x2="298" y2="205" stroke="currentColor"/>
+<line x1="320" y1="200" x2="320" y2="205" stroke="currentColor"/>
+<text x="320" y="218" text-anchor="middle" fill="currentColor">4</text>
+<line x1="342" y1="200" x2="342" y2="205" stroke="currentColor"/>
+<line x1="364" y1="200" x2="364" y2="205" stroke="currentColor"/>
+<text x="364" y="218" text-anchor="middle" fill="currentColor">6</text>
+<line x1="386" y1="200" x2="386" y2="205" stroke="currentColor"/>
+<line x1="408" y1="200" x2="408" y2="205" stroke="currentColor"/>
+<line x1="430" y1="200" x2="430" y2="205" stroke="currentColor"/>
+<line x1="227" y1="354" x2="232" y2="354" stroke="currentColor"/>
+<line x1="227" y1="332" x2="232" y2="332" stroke="currentColor"/>
+<text x="240" y="336" fill="currentColor">−6</text>
+<line x1="227" y1="310" x2="232" y2="310" stroke="currentColor"/>
+<line x1="227" y1="288" x2="232" y2="288" stroke="currentColor"/>
+<text x="240" y="292" fill="currentColor">−4</text>
+<line x1="227" y1="266" x2="232" y2="266" stroke="currentColor"/>
+<line x1="227" y1="244" x2="232" y2="244" stroke="currentColor"/>
+<text x="240" y="248" fill="currentColor">−2</text>
+<line x1="227" y1="222" x2="232" y2="222" stroke="currentColor"/>
+<line x1="227" y1="178" x2="232" y2="178" stroke="currentColor"/>
+<line x1="227" y1="156" x2="232" y2="156" stroke="currentColor"/>
+<text x="240" y="160" fill="currentColor">2</text>
+<line x1="227" y1="134" x2="232" y2="134" stroke="currentColor"/>
+<line x1="227" y1="112" x2="232" y2="112" stroke="currentColor"/>
+<text x="240" y="116" fill="currentColor">4</text>
+<line x1="227" y1="90" x2="232" y2="90" stroke="currentColor"/>
+<line x1="227" y1="68" x2="232" y2="68" stroke="currentColor"/>
+<text x="240" y="72" fill="currentColor">6</text>
+<line x1="227" y1="46" x2="232" y2="46" stroke="currentColor"/>
+<line x1="144" y1="46" x2="144" y2="354" stroke="var(--muted)" stroke-dasharray="5 4"/>
+<line x1="232" y1="200" x2="144" y2="46" stroke="var(--t1-ink)" stroke-width="2"/>
+<text x="170" y="84" fill="var(--t1-ink)">|z| = √65</text>
+<polyline points="266.0,200.0 266.0,198.2 265.8,196.5 265.6,194.7 265.3,192.9 264.8,191.2 264.3,189.5 263.8,187.8 263.1,186.2 262.3,184.6 261.5,183.0 260.5,181.5 259.5,180.1 258.5,178.6 257.3,177.3 256.1,176.0 254.8,174.8 253.4,173.6 252.0,172.5 250.6,171.5 249.1,170.6 247.5,169.7 245.9,169.0 244.3,168.3 242.6,167.7 240.9,167.2 239.2,166.8 237.4,166.4 235.7,166.2 233.9,166.1 232.1,166.0 230.3,166.0 228.6,166.2 226.8,166.4 225.1,166.7 223.3,167.1 221.6,167.6 219.9,168.2 218.3,168.9 216.7,169.6 215.1,170.5" fill="none" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<text x="262" y="170" fill="var(--t3-ink)">arg z</text>
+<circle cx="144" cy="46" r="4.5" fill="var(--t1-ink)"/>
+<text x="136" y="42" text-anchor="end" fill="var(--t1-ink)">z = −4 + 7i</text>
+<circle cx="144" cy="354" r="4.5" fill="var(--t2-ink)"/>
+<text x="136" y="358" text-anchor="end" fill="var(--t2-ink)">z* = −4 − 7i</text>
+<circle cx="342" cy="200" r="4.5" fill="var(--t4-ink)"/>
+<text x="342" y="190" text-anchor="middle" fill="var(--t4-ink)">5</text>
+<circle cx="232" cy="266" r="4.5" fill="var(--t4-ink)"/>
+<text x="240" y="270" text-anchor="start" fill="var(--t4-ink)">−3i</text>
+</svg>

@@ -1,0 +1,2507 @@
+{
+ "schemaVersion": 1,
+ "edition": "ib-math-ai-2021",
+ "source": "IB Mathematics: applications and interpretation guide, first assessment 2021 (updated November 2020)",
+ "items": [
+  {
+   "item": "1.1",
+   "topic": 1,
+   "level": "SL",
+   "name": "Standard form",
+   "practice": "Rounding, estimation and percentage error",
+   "bullets": [
+    {
+     "id": "1.1-b1",
+     "text": "Do arithmetic with numbers in standard form a × 10^k, taking 1 ≤ a < 10 and k any integer."
+    },
+    {
+     "id": "1.1-b2",
+     "text": "Write standard form properly (5.2 × 10^30), never in calculator notation such as 5.2E30."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.2",
+   "topic": 1,
+   "level": "SL",
+   "name": "Arithmetic sequences and series",
+   "practice": "Sequences and series",
+   "bullets": [
+    {
+     "id": "1.2-b1",
+     "text": "Recognise an arithmetic sequence and find its nth term from the first term and common difference."
+    },
+    {
+     "id": "1.2-b2",
+     "text": "Find the sum of the first n terms of an arithmetic sequence."
+    },
+    {
+     "id": "1.2-b3",
+     "text": "Write and evaluate arithmetic sums in sigma notation."
+    },
+    {
+     "id": "1.2-b4",
+     "text": "Apply arithmetic sequences to contexts such as simple interest, using technology (spreadsheet or GDC) to list terms and identify first term and difference."
+    },
+    {
+     "id": "1.2-b5",
+     "text": "Judge and predict from real data that is only roughly arithmetic, approximating the common difference."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-2-arith-nth",
+     "label": "The nth term of an arithmetic sequence"
+    },
+    {
+     "id": "bk-1-2-arith-sum",
+     "label": "The sum of n terms of an arithmetic sequence"
+    }
+   ]
+  },
+  {
+   "item": "1.3",
+   "topic": 1,
+   "level": "SL",
+   "name": "Geometric sequences and series",
+   "practice": "Sequences and series",
+   "bullets": [
+    {
+     "id": "1.3-b1",
+     "text": "Recognise a geometric sequence and find its nth term from the first term and common ratio."
+    },
+    {
+     "id": "1.3-b2",
+     "text": "Find the sum of the first n terms of a geometric sequence."
+    },
+    {
+     "id": "1.3-b3",
+     "text": "Write and evaluate geometric sums in sigma notation."
+    },
+    {
+     "id": "1.3-b4",
+     "text": "Apply geometric sequences to contexts such as disease spread, salary change and population growth, using technology and identifying first term and ratio."
+    },
+    {
+     "id": "1.3-b5",
+     "text": "Link geometric sequences to exponential models (topic 2) and regression (topic 4)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-3-geom-nth",
+     "label": "The nth term of a geometric sequence"
+    },
+    {
+     "id": "bk-1-3-geom-sum",
+     "label": "The sum of n terms of a finite geometric sequence"
+    }
+   ]
+  },
+  {
+   "item": "1.4",
+   "topic": 1,
+   "level": "SL",
+   "name": "Compound interest and depreciation",
+   "practice": "Financial mathematics",
+   "bullets": [
+    {
+     "id": "1.4-b1",
+     "text": "Model compound interest with geometric sequences, compounding yearly, half-yearly, quarterly or monthly."
+    },
+    {
+     "id": "1.4-b2",
+     "text": "Model annual depreciation with geometric sequences."
+    },
+    {
+     "id": "1.4-b3",
+     "text": "Use technology, including built-in financial packages, for these problems; simple interest can lead in to compound interest."
+    },
+    {
+     "id": "1.4-b4",
+     "text": "Find the real value of an investment given an interest rate and an inflation rate."
+    },
+    {
+     "id": "1.4-b5",
+     "text": "Deriving the compound-interest formula is not examined."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-4-compound-interest",
+     "label": "Compound interest"
+    }
+   ]
+  },
+  {
+   "item": "1.5",
+   "topic": 1,
+   "level": "SL",
+   "name": "Exponents and introductory logarithms",
+   "practice": "Exponents and logarithms",
+   "bullets": [
+    {
+     "id": "1.5-b1",
+     "text": "Apply the laws of exponents to integer exponents (products, quotients, powers, negative exponents), e.g. 6^4 ÷ 6^3 = 6 and 2x^−3 = 2/x^3."
+    },
+    {
+     "id": "1.5-b2",
+     "text": "Know that a^x = b means log_a b = x (with b > 0), and that log_e x is ln x; introduce base-10 and base-e logarithms."
+    },
+    {
+     "id": "1.5-b3",
+     "text": "Evaluate logarithms numerically with technology."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-5-exp-log",
+     "label": "Exponents and logarithms"
+    }
+   ]
+  },
+  {
+   "item": "1.6",
+   "topic": 1,
+   "level": "SL",
+   "name": "Rounding, bounds and percentage error",
+   "practice": "Rounding, estimation and percentage error",
+   "bullets": [
+    {
+     "id": "1.6-b1",
+     "text": "Round to a given number of decimal places or significant figures, choosing an accuracy that suits the given data."
+    },
+    {
+     "id": "1.6-b2",
+     "text": "Find upper and lower bounds of rounded numbers, e.g. x = 4.1 to one decimal place means 4.05 ≤ x < 4.15."
+    },
+    {
+     "id": "1.6-b3",
+     "text": "Calculate percentage errors, including measurement errors from rounding or measurement limits, e.g. the maximum percentage error in a circle's area when the radius is measured as 2.5 cm to one decimal place."
+    },
+    {
+     "id": "1.6-b4",
+     "text": "Estimate, and recognise whether the results of calculations are reasonable, e.g. a length cannot be negative."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-6-percentage-error",
+     "label": "Percentage error"
+    }
+   ]
+  },
+  {
+   "item": "1.7",
+   "topic": 1,
+   "level": "SL",
+   "name": "Amortization and annuities",
+   "practice": "Financial mathematics",
+   "bullets": [
+    {
+     "id": "1.7-b1",
+     "text": "Solve amortization and annuity problems using technology, such as the built-in financial packages of a GDC or a spreadsheet."
+    },
+    {
+     "id": "1.7-b2",
+     "text": "In exams, payments are made at the end of each period."
+    },
+    {
+     "id": "1.7-b3",
+     "text": "Knowing the annuity formula helps understanding but is not examined."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.8",
+   "topic": 1,
+   "level": "SL",
+   "name": "Solving equations with technology",
+   "practice": "Solving equations with a GDC",
+   "bullets": [
+    {
+     "id": "1.8-b1",
+     "text": "Use technology to solve systems of linear equations in up to 3 variables."
+    },
+    {
+     "id": "1.8-b2",
+     "text": "Use technology to solve polynomial equations, using standard terms such as zeros and roots."
+    },
+    {
+     "id": "1.8-b3",
+     "text": "In exams no specific method of solution is required, and a system of equations always has a unique solution."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.9",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Laws of logarithms",
+   "practice": "Laws of logarithms",
+   "bullets": [
+    {
+     "id": "1.9-b1",
+     "text": "Use the laws of logarithms: log_a xy = log_a x + log_a y, log_a (x/y) = log_a x − log_a y and log_a x^m = m log_a x, for a, x, y > 0."
+    },
+    {
+     "id": "1.9-b2",
+     "text": "In exams the base a is 10 or e."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-9-log-product",
+     "label": "Laws of logarithms: product"
+    },
+    {
+     "id": "bk-1-9-log-quotient",
+     "label": "Laws of logarithms: quotient"
+    },
+    {
+     "id": "bk-1-9-log-power",
+     "label": "Laws of logarithms: power"
+    }
+   ]
+  },
+  {
+   "item": "1.10",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Rational exponents",
+   "practice": "Exponents and logarithms",
+   "bullets": [
+    {
+     "id": "1.10-b1",
+     "text": "Simplify numerical and algebraic expressions with rational exponents, e.g. 5^(1/2) × 5^(1/3) = 5^(5/6), 6^(3/4) ÷ 6^(1/2) = 6^(1/4), 32^(3/5) = 8 and x^(−1/2) = 1/√x."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "1.11",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Infinite geometric series",
+   "practice": "Sum to infinity",
+   "bullets": [
+    {
+     "id": "1.11-b1",
+     "text": "Find the sum of an infinite geometric sequence."
+    },
+    {
+     "id": "1.11-b2",
+     "text": "Link to limits (SL 5.1), fractals (AHL 3.9) and Markov chains (AHL 4.19)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-11-geom-infinite",
+     "label": "The sum of an infinite geometric sequence"
+    }
+   ]
+  },
+  {
+   "item": "1.12",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Complex numbers in Cartesian form",
+   "practice": "Complex numbers",
+   "bullets": [
+    {
+     "id": "1.12-b1",
+     "text": "Know the number i, where i^2 = −1."
+    },
+    {
+     "id": "1.12-b2",
+     "text": "Write complex numbers in Cartesian form z = a + bi, and use the terms real part, imaginary part, conjugate, modulus and argument."
+    },
+    {
+     "id": "1.12-b3",
+     "text": "Calculate sums, differences, products and quotients by hand and with technology, and powers of complex numbers in Cartesian form with technology."
+    },
+    {
+     "id": "1.12-b4",
+     "text": "Use the complex plane, using and drawing Argand diagrams."
+    },
+    {
+     "id": "1.12-b5",
+     "text": "Find complex solutions of quadratic equations ax^2 + bx + c = 0 (a ≠ 0, real coefficients) where b^2 − 4ac < 0, linking the quadratic formula to the graph of f(x) = ax^2 + bx + c."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-12-complex-cartesian",
+     "label": "Complex numbers"
+    },
+    {
+     "id": "bk-1-12-discriminant",
+     "label": "Discriminant"
+    }
+   ]
+  },
+  {
+   "item": "1.13",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Complex numbers in polar and exponential form",
+   "practice": "Complex numbers",
+   "bullets": [
+    {
+     "id": "1.13-b1",
+     "text": "Write a complex number in modulus–argument (polar) form z = r(cosθ + i sinθ) = r cisθ."
+    },
+    {
+     "id": "1.13-b2",
+     "text": "Write a complex number in exponential (Euler) form z = re^(iθ)."
+    },
+    {
+     "id": "1.13-b3",
+     "text": "Convert between Cartesian, polar and exponential forms, by hand and with technology."
+    },
+    {
+     "id": "1.13-b4",
+     "text": "Calculate products, quotients and integer powers in polar or exponential form."
+    },
+    {
+     "id": "1.13-b5",
+     "text": "Finding the roots of complex numbers is not examined."
+    },
+    {
+     "id": "1.13-b6",
+     "text": "Add sinusoidal functions with the same frequency but different phase shift angles, e.g. combine AC voltages V1 = 10cos(40t) and V2 = 20cos(40t + 10) into V = A cos(40t + B)."
+    },
+    {
+     "id": "1.13-b7",
+     "text": "Interpret complex numbers geometrically: addition and subtraction as vector addition and subtraction, and multiplication as a rotation and a stretch in the Argand diagram."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-13-polar-euler",
+     "label": "Modulus-argument (polar) and exponential (Euler) form"
+    }
+   ]
+  },
+  {
+   "item": "1.14",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Matrices, determinants and inverses",
+   "practice": "Matrices and determinants",
+   "bullets": [
+    {
+     "id": "1.14-b1",
+     "text": "Define a matrix and use the terms element, row, column and order for m × n matrices."
+    },
+    {
+     "id": "1.14-b2",
+     "text": "Use matrix algebra for m × n matrices: equality, addition, subtraction and multiplication by a scalar, including with technology."
+    },
+    {
+     "id": "1.14-b3",
+     "text": "Multiply matrices, including to solve practical problems."
+    },
+    {
+     "id": "1.14-b4",
+     "text": "Know that matrix multiplication is associative and distributive but not commutative."
+    },
+    {
+     "id": "1.14-b5",
+     "text": "Use the identity matrix I and the zero matrix 0."
+    },
+    {
+     "id": "1.14-b6",
+     "text": "Find determinants and inverses of n × n matrices with technology, and of 2 × 2 matrices by hand."
+    },
+    {
+     "id": "1.14-b7",
+     "text": "Know that a system of linear equations can be written as Ax = b."
+    },
+    {
+     "id": "1.14-b8",
+     "text": "Solve systems of equations using the inverse matrix; in exams A is always invertible, except when solving for eigenvectors."
+    },
+    {
+     "id": "1.14-b9",
+     "text": "Model and solve real-life problems such as coding and decoding messages and solving systems of equations."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-14-determinant",
+     "label": "Determinant of a 2×2 matrix"
+    },
+    {
+     "id": "bk-1-14-inverse",
+     "label": "Inverse of a 2×2 matrix"
+    }
+   ]
+  },
+  {
+   "item": "1.15",
+   "topic": 1,
+   "level": "AHL",
+   "name": "Eigenvalues and eigenvectors",
+   "practice": "Eigenvalues and eigenvectors",
+   "bullets": [
+    {
+     "id": "1.15-b1",
+     "text": "Find eigenvalues and eigenvectors."
+    },
+    {
+     "id": "1.15-b2",
+     "text": "Find the characteristic polynomial of a 2 × 2 matrix."
+    },
+    {
+     "id": "1.15-b3",
+     "text": "Diagonalize a 2 × 2 matrix, restricted to the case where there are distinct real eigenvalues."
+    },
+    {
+     "id": "1.15-b4",
+     "text": "Apply this to powers of 2 × 2 matrices with M^n = PD^nP^(−1), where P is a matrix of eigenvectors and D a diagonal matrix of eigenvalues, e.g. movement of population between two towns or predator–prey models."
+    },
+    {
+     "id": "1.15-b5",
+     "text": "Calculations by hand and with technology are only expected for 2 × 2 matrices."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-1-15-matrix-power",
+     "label": "Power formula for a matrix"
+    }
+   ]
+  },
+  {
+   "item": "2.1",
+   "topic": 2,
+   "level": "SL",
+   "name": "Straight-line equations",
+   "practice": "Linear functions and graphs",
+   "bullets": [
+    {
+     "id": "2.1-b1",
+     "text": "Write and convert between gradient-intercept, general and point-gradient forms of a line."
+    },
+    {
+     "id": "2.1-b2",
+     "text": "Find the gradient and intercepts of a line."
+    },
+    {
+     "id": "2.1-b3",
+     "text": "Use m1 = m2 for parallel lines and m1 × m2 = −1 for perpendicular lines."
+    },
+    {
+     "id": "2.1-b4",
+     "text": "Calculate gradients in real settings such as roads and bridges."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-2-1-line-forms",
+     "label": "Equations of a straight line"
+    },
+    {
+     "id": "bk-2-1-gradient",
+     "label": "Gradient formula"
+    }
+   ]
+  },
+  {
+   "item": "2.2",
+   "topic": 2,
+   "level": "SL",
+   "name": "Function concepts, domain and range",
+   "practice": "Properties of functions and graphs",
+   "bullets": [
+    {
+     "id": "2.2-b1",
+     "text": "Explain function, domain, range and graph, and use notation such as f(x), v(t), C(n); e.g. f(x) = √(2 − x) has domain x ≤ 2 and range f(x) ≥ 0."
+    },
+    {
+     "id": "2.2-b2",
+     "text": "Treat a function as a mathematical model; a graph helps to see the range."
+    },
+    {
+     "id": "2.2-b3",
+     "text": "Understand an inverse as undoing the function, as a reflection in y = x, written f^−1(x)."
+    },
+    {
+     "id": "2.2-b4",
+     "text": "Solve f(x) = 10 as finding f^−1(10); inverses exist for one-to-one functions, and the domain of f^−1 is the range of f."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.3",
+   "topic": 2,
+   "level": "SL",
+   "name": "Graphs of functions",
+   "practice": "Properties of functions and graphs",
+   "bullets": [
+    {
+     "id": "2.3-b1",
+     "text": "Know the graph of y = f(x) from its equation."
+    },
+    {
+     "id": "2.3-b2",
+     "text": "Sketch a graph from given information or a context, including moving a graph from screen to paper."
+    },
+    {
+     "id": "2.3-b3",
+     "text": "Use technology to graph functions, including sums and differences of functions."
+    },
+    {
+     "id": "2.3-b4",
+     "text": "Distinguish draw from sketch, and label axes and key features; graphs may include functions not named in topic 2."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.4",
+   "topic": 2,
+   "level": "SL",
+   "name": "Key features of graphs",
+   "practice": "Properties of functions and graphs",
+   "bullets": [
+    {
+     "id": "2.4-b1",
+     "text": "Read key features off graphs with technology: extremes, intercepts, symmetry, vertex, zeros, and vertical or horizontal asymptotes."
+    },
+    {
+     "id": "2.4-b2",
+     "text": "Find intersection points of two curves or lines with technology."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.5",
+   "topic": 2,
+   "level": "SL",
+   "name": "Modelling with functions",
+   "practice": "Modelling with quadratic and cubic functions",
+   "bullets": [
+    {
+     "id": "2.5-b1",
+     "text": "Model with linear functions f(x) = mx + c, including piecewise linear models such as the depth of a swimming pool or mobile phone charges."
+    },
+    {
+     "id": "2.5-b2",
+     "text": "Model with quadratic functions f(x) = ax^2 + bx + c (a ≠ 0): axis of symmetry, vertex, zeros and roots, and intercepts on the x- and y-axes; technology can be used to find roots."
+    },
+    {
+     "id": "2.5-b3",
+     "text": "Model exponential growth and decay with f(x) = ka^x + c, f(x) = ka^(−x) + c (a > 0) and f(x) = ke^(rx) + c, and find the equation of the horizontal asymptote."
+    },
+    {
+     "id": "2.5-b4",
+     "text": "Model direct and inverse variation with f(x) = ax^n, n ∈ ℤ, where the y-axis is a vertical asymptote when n < 0."
+    },
+    {
+     "id": "2.5-b5",
+     "text": "Model with cubic functions f(x) = ax^3 + bx^2 + cx + d."
+    },
+    {
+     "id": "2.5-b6",
+     "text": "Model with sinusoidal functions f(x) = a sin(bx) + d and f(x) = a cos(bx) + d."
+    },
+    {
+     "id": "2.5-b7",
+     "text": "For sinusoidal models you only predict or find the amplitude |a|, the period 360°/b and the principal axis y = d; translating between sin x and cos x is not expected."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-2-5-axis-symmetry",
+     "label": "Axis of symmetry of the graph of a quadratic function"
+    }
+   ]
+  },
+  {
+   "item": "2.6",
+   "topic": 2,
+   "level": "SL",
+   "name": "Fitting and testing models",
+   "practice": "Modelling with exponential functions",
+   "bullets": [
+    {
+     "id": "2.6-b1",
+     "text": "Use the modelling process to create, fit and use the models of SL 2.5 and their graphs."
+    },
+    {
+     "id": "2.6-b2",
+     "text": "Develop and fit a model: given a context, recognise and choose an appropriate model and possible parameters."
+    },
+    {
+     "id": "2.6-b3",
+     "text": "Determine a reasonable domain for a model."
+    },
+    {
+     "id": "2.6-b4",
+     "text": "Find the parameters of a model by solving equations simultaneously with technology, from initial conditions, or by substituting points into a given function."
+    },
+    {
+     "id": "2.6-b5",
+     "text": "Test and reflect: comment on whether a model is appropriate and reasonable."
+    },
+    {
+     "id": "2.6-b6",
+     "text": "Justify the choice of a model from the shape of the data, the properties of the curve and/or the context."
+    },
+    {
+     "id": "2.6-b7",
+     "text": "Use the model: read, interpret and make predictions from it, aware of the dangers of extrapolation."
+    },
+    {
+     "id": "2.6-b8",
+     "text": "At SL non-linear regression is not expected (regression is in topic 4), but you set up and solve up to three linear equations in three variables with technology."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.7",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Composite and inverse functions",
+   "practice": "Composite and inverse functions",
+   "bullets": [
+    {
+     "id": "2.7-b1",
+     "text": "Use composite functions in context."
+    },
+    {
+     "id": "2.7-b2",
+     "text": "Use the notation (f ∘ g)(x) = f(g(x)), with (f ∘ f^−1)(x) = (f^−1 ∘ f)(x) = x."
+    },
+    {
+     "id": "2.7-b3",
+     "text": "Use the inverse function f^−1, including domain restriction, e.g. f(x) = (x − 3)^2 − 2 has an inverse if the domain is restricted to x ≥ 3 or to x ≤ 3."
+    },
+    {
+     "id": "2.7-b4",
+     "text": "Find an inverse function."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.8",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Transformations of graphs",
+   "practice": "Transformations of graphs",
+   "bullets": [
+    {
+     "id": "2.8-b1",
+     "text": "Transform the graphs of all functions in topic 2 (SL and AHL), and others met when modelling real-life situations."
+    },
+    {
+     "id": "2.8-b2",
+     "text": "Apply translations y = f(x) + b and y = f(x − a); a translation by the vector (3, −2) moves the graph 3 units right and 2 units down."
+    },
+    {
+     "id": "2.8-b3",
+     "text": "Apply reflections in the x-axis, y = −f(x), and in the y-axis, y = f(−x)."
+    },
+    {
+     "id": "2.8-b4",
+     "text": "Apply a vertical stretch with scale factor p, y = pf(x), and a horizontal stretch with scale factor 1/q, y = f(qx); the x- and y-axes are invariant."
+    },
+    {
+     "id": "2.8-b5",
+     "text": "Combine transformations, where order matters, e.g. y = x^2 to y = 3x^2 + 2 by a vertical stretch of scale factor 3 then a translation by (0, 2), or y = sin x to y = 4sin2x by a vertical stretch of scale factor 4 and a horizontal stretch of scale factor 1/2."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "2.9",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Further function models",
+   "practice": "Logistic models",
+   "bullets": [
+    {
+     "id": "2.9-b1",
+     "text": "Beyond the SL models, use exponential models to calculate half-life."
+    },
+    {
+     "id": "2.9-b2",
+     "text": "Model with natural logarithmic functions f(x) = a + b ln x."
+    },
+    {
+     "id": "2.9-b3",
+     "text": "Model with sinusoidal functions f(x) = a sin(b(x − c)) + d; radians are assumed unless degrees are shown (e.g. f(x) = sin x°), the period in radians is 2π/b, and a horizontal translation c is called a phase shift."
+    },
+    {
+     "id": "2.9-b4",
+     "text": "Model with logistic functions f(x) = L/(1 + Ce^(−kx)), L, C, k > 0, where growth is restricted (e.g. population on an island, bacteria in a petri dish, height of a person or seedling); the horizontal asymptote f(x) = L is the carrying capacity."
+    },
+    {
+     "id": "2.9-b5",
+     "text": "Model with piecewise functions, finding parameters that make the function continuous, e.g. a so that f(x) = 1 + x for 0 ≤ x < 2 and f(x) = ax^2 + x for x ≥ 2 is continuous; the formal definition of continuity is not required."
+    },
+    {
+     "id": "2.9-b6",
+     "text": "Interpret and use other models introduced in an exam question."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-2-9-logistic",
+     "label": "Logistic function"
+    }
+   ]
+  },
+  {
+   "item": "2.10",
+   "topic": 2,
+   "level": "AHL",
+   "name": "Logarithmic scales and linearizing data",
+   "practice": "Non-linear regression and linearizing",
+   "bullets": [
+    {
+     "id": "2.10-b1",
+     "text": "Scale very large or very small numbers using logarithms, choosing a manageable scale when data have a wide range or when the rate of growth matters more than the absolute value."
+    },
+    {
+     "id": "2.10-b2",
+     "text": "Linearize data with logarithms to decide whether it has an exponential or a power relationship, using best-fit straight lines to find the parameters."
+    },
+    {
+     "id": "2.10-b3",
+     "text": "Interpret log-log and semi-log graphs; you will not be asked to draw or sketch them in exams."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.1",
+   "topic": 3,
+   "level": "SL",
+   "name": "3D distance, midpoint and measurement",
+   "practice": "Volume and surface area of 3D shapes",
+   "bullets": [
+    {
+     "id": "3.1-b1",
+     "text": "Find the distance between two points in 3D and their midpoint."
+    },
+    {
+     "id": "3.1-b2",
+     "text": "Find volume and surface area of right pyramids, right cones, spheres, hemispheres and combinations of these solids."
+    },
+    {
+     "id": "3.1-b3",
+     "text": "Measure the angle where two lines meet, or the angle a line makes with a plane."
+    },
+    {
+     "id": "3.1-b4",
+     "text": "At SL, only right-angled trigonometry is set in 3D; identify right-angled triangles inside solids to find lengths and angles."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-1-distance-3d",
+     "label": "Distance between two points (x1, y1, z1) and (x2, y2, z2)"
+    },
+    {
+     "id": "bk-3-1-midpoint-3d",
+     "label": "Coordinates of the midpoint of a line segment with endpoints (x1, y1, z1) and (x2, y2, z2)"
+    },
+    {
+     "id": "bk-3-1-pyramid-volume",
+     "label": "Volume of a right-pyramid"
+    },
+    {
+     "id": "bk-3-1-cone-volume",
+     "label": "Volume of a right cone"
+    },
+    {
+     "id": "bk-3-1-cone-curved-area",
+     "label": "Area of the curved surface of a cone"
+    },
+    {
+     "id": "bk-3-1-sphere-volume",
+     "label": "Volume of a sphere"
+    },
+    {
+     "id": "bk-3-1-sphere-area",
+     "label": "Surface area of a sphere"
+    }
+   ]
+  },
+  {
+   "item": "3.2",
+   "topic": 3,
+   "level": "SL",
+   "name": "Triangle trigonometry",
+   "practice": "Non right-angled trigonometry",
+   "bullets": [
+    {
+     "id": "3.2-b1",
+     "text": "Use sine, cosine and tangent to find sides and angles of right-angled triangles."
+    },
+    {
+     "id": "3.2-b2",
+     "text": "Use the sine rule a/sinA = b/sinB = c/sinC."
+    },
+    {
+     "id": "3.2-b3",
+     "text": "Use the cosine rule c^2 = a^2 + b^2 − 2ab cosC and cosC = (a^2 + b^2 − c^2)/(2ab)."
+    },
+    {
+     "id": "3.2-b4",
+     "text": "Find a triangle's area as ½ab sinC."
+    },
+    {
+     "id": "3.2-b5",
+     "text": "Draw well-labelled diagrams; use inverse functions for angles (SL 2.2); the ambiguous case of the sine rule is not included here."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-2-sine-rule",
+     "label": "Sine rule"
+    },
+    {
+     "id": "bk-3-2-cosine-rule",
+     "label": "Cosine rule"
+    },
+    {
+     "id": "bk-3-2-triangle-area",
+     "label": "Area of a triangle"
+    }
+   ]
+  },
+  {
+   "item": "3.3",
+   "topic": 3,
+   "level": "SL",
+   "name": "Applied triangle trigonometry",
+   "practice": "Right-angled trigonometry",
+   "bullets": [
+    {
+     "id": "3.3-b1",
+     "text": "Solve applied problems with right-angled and non-right-angled trigonometry plus Pythagoras's theorem; contexts may involve bearings."
+    },
+    {
+     "id": "3.3-b2",
+     "text": "Use angles of elevation and depression."
+    },
+    {
+     "id": "3.3-b3",
+     "text": "Draw labelled diagrams from a written description."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.4",
+   "topic": 3,
+   "level": "SL",
+   "name": "Arc length and sector area",
+   "practice": "Arcs and sectors",
+   "bullets": [
+    {
+     "id": "3.4-b1",
+     "text": "Find the length of an arc and the area of a sector of a circle."
+    },
+    {
+     "id": "3.4-b2",
+     "text": "Radians are not required at SL."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-4-arc-degrees",
+     "label": "Length of an arc"
+    },
+    {
+     "id": "bk-3-4-sector-degrees",
+     "label": "Area of a sector"
+    }
+   ]
+  },
+  {
+   "item": "3.5",
+   "topic": 3,
+   "level": "SL",
+   "name": "Perpendicular bisectors",
+   "practice": "Coordinate geometry",
+   "bullets": [
+    {
+     "id": "3.5-b1",
+     "text": "Find the equation of a perpendicular bisector, given either two points or the equation of a line segment and its midpoint."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.6",
+   "topic": 3,
+   "level": "SL",
+   "name": "Voronoi diagrams",
+   "practice": "Voronoi diagrams",
+   "bullets": [
+    {
+     "id": "3.6-b1",
+     "text": "Use the terms of Voronoi diagrams: sites, vertices, edges and cells."
+    },
+    {
+     "id": "3.6-b2",
+     "text": "Add a site to an existing Voronoi diagram."
+    },
+    {
+     "id": "3.6-b3",
+     "text": "Use nearest neighbour interpolation: every point in a cell can be estimated to have the same value (e.g. rainfall) as its site."
+    },
+    {
+     "id": "3.6-b4",
+     "text": "Apply Voronoi diagrams to the 'toxic waste dump' problem; in exams the solution point is always at an intersection of three edges."
+    },
+    {
+     "id": "3.6-b5",
+     "text": "In exams, site coordinates are given for calculating perpendicular bisector equations and you will not construct bisectors; questions may ask for the equation of a boundary, the site closest to a given point, or the area of a region."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.7",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Radians, arc length and sector area",
+   "practice": "Radian measure",
+   "bullets": [
+    {
+     "id": "3.7-b1",
+     "text": "Define a radian and convert between degrees and radians."
+    },
+    {
+     "id": "3.7-b2",
+     "text": "Use radians to find the area of a sector and the length of an arc, with radian measure as exact multiples of π or decimals."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-7-arc-radians",
+     "label": "Length of an arc"
+    },
+    {
+     "id": "bk-3-7-sector-radians",
+     "label": "Area of a sector"
+    }
+   ]
+  },
+  {
+   "item": "3.8",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Unit-circle trigonometry and equations",
+   "practice": "Further trigonometry and identities",
+   "bullets": [
+    {
+     "id": "3.8-b1",
+     "text": "Define cosθ and sinθ using the unit circle, and see how the graphs of sin x and cos x are built from it."
+    },
+    {
+     "id": "3.8-b2",
+     "text": "Use the Pythagorean identity cos^2θ + sin^2θ = 1."
+    },
+    {
+     "id": "3.8-b3",
+     "text": "Define tanθ as sinθ/cosθ."
+    },
+    {
+     "id": "3.8-b4",
+     "text": "Extend the sine rule to the ambiguous case."
+    },
+    {
+     "id": "3.8-b5",
+     "text": "Solve trigonometric equations in a finite interval using graphical methods."
+    },
+    {
+     "id": "3.8-b6",
+     "text": "Exact values of cosθ, sinθ and tanθ are not examined."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-8-pythagorean-identity",
+     "label": "Identities: Pythagorean identity"
+    },
+    {
+     "id": "bk-3-8-tan-identity",
+     "label": "Identities: tangent"
+    }
+   ]
+  },
+  {
+   "item": "3.9",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Matrix transformations",
+   "practice": "Matrix transformations",
+   "bullets": [
+    {
+     "id": "3.9-b1",
+     "text": "Transform points in two dimensions with matrices of the form (a b; c d)(x; y) + (e; f): reflections, horizontal and vertical stretches, enlargements, translations and rotations."
+    },
+    {
+     "id": "3.9-b2",
+     "text": "Compose these transformations, including iterative techniques to generate fractals."
+    },
+    {
+     "id": "3.9-b3",
+     "text": "Interpret the determinant of a transformation matrix geometrically: area of image = |det A| × area of object."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-9-reflection",
+     "label": "Transformation matrices: reflection in y = (tan θ)x"
+    },
+    {
+     "id": "bk-3-9-horizontal-stretch",
+     "label": "Transformation matrices: horizontal stretch"
+    },
+    {
+     "id": "bk-3-9-vertical-stretch",
+     "label": "Transformation matrices: vertical stretch"
+    },
+    {
+     "id": "bk-3-9-enlargement",
+     "label": "Transformation matrices: enlargement"
+    },
+    {
+     "id": "bk-3-9-rotation-anticlockwise",
+     "label": "Transformation matrices: anticlockwise rotation"
+    },
+    {
+     "id": "bk-3-9-rotation-clockwise",
+     "label": "Transformation matrices: clockwise rotation"
+    }
+   ]
+  },
+  {
+   "item": "3.10",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Vectors in 2D and 3D",
+   "practice": "Vectors",
+   "bullets": [
+    {
+     "id": "3.10-b1",
+     "text": "Know the concepts of a vector and a scalar."
+    },
+    {
+     "id": "3.10-b2",
+     "text": "Represent vectors as directed line segments."
+    },
+    {
+     "id": "3.10-b3",
+     "text": "Use unit vectors and the base vectors i, j, k."
+    },
+    {
+     "id": "3.10-b4",
+     "text": "Write a vector in components and as a column, v = (v1, v2, v3) = v1 i + v2 j + v3 k; add and subtract vectors, multiply by a scalar kv (parallel vectors) and find the magnitude |v| from components, algebraically and geometrically, including the resultant of two or more vectors."
+    },
+    {
+     "id": "3.10-b5",
+     "text": "Use the zero vector 0 and the vector −v."
+    },
+    {
+     "id": "3.10-b6",
+     "text": "Use position vectors OA→ = a."
+    },
+    {
+     "id": "3.10-b7",
+     "text": "Rescale and normalize vectors, with v/|v| the unit vector, e.g. find the velocity of a particle with speed 7 m s^−1 in the direction 3i + 4j."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-10-magnitude",
+     "label": "Magnitude of a vector"
+    }
+   ]
+  },
+  {
+   "item": "3.11",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Vector equations of lines",
+   "practice": "Vector equations of lines",
+   "bullets": [
+    {
+     "id": "3.11-b1",
+     "text": "Write the vector equation of a line in two and three dimensions, r = a + λb, where b is a direction vector of the line."
+    },
+    {
+     "id": "3.11-b2",
+     "text": "Convert to parametric form x = x0 + λl, y = y0 + λm, z = z0 + λn."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-11-vector-line",
+     "label": "Vector equation of a line"
+    },
+    {
+     "id": "bk-3-11-parametric-line",
+     "label": "Parametric form of the equation of a line"
+    }
+   ]
+  },
+  {
+   "item": "3.12",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Kinematics with vectors",
+   "practice": "Kinematics with vectors",
+   "bullets": [
+    {
+     "id": "3.12-b1",
+     "text": "Apply vectors to kinematics."
+    },
+    {
+     "id": "3.12-b2",
+     "text": "Model linear motion with constant velocity in two and three dimensions with r = r0 + vt: find positions, intersections, paths, times, and the time and distance when two objects are closest to each other; the relative position of B from A is AB→."
+    },
+    {
+     "id": "3.12-b3",
+     "text": "Model motion with variable velocity in two dimensions, e.g. (vx, vy) = (7, 6 − 4t); projectile and circular motion are special cases, and f(t − a) indicates a time shift of a."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-11-vector-line",
+     "label": "Vector equation of a line"
+    }
+   ]
+  },
+  {
+   "item": "3.13",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Scalar and vector products",
+   "practice": "Vectors",
+   "bullets": [
+    {
+     "id": "3.13-b1",
+     "text": "Define and calculate the scalar product of two vectors."
+    },
+    {
+     "id": "3.13-b2",
+     "text": "Find the angle between two vectors using v · w = |v||w|cosθ, and the acute angle between two lines; v · w = 0 means the non-zero vectors are perpendicular."
+    },
+    {
+     "id": "3.13-b3",
+     "text": "Define and calculate the vector product v × w = |v||w|sinθ n, where n is the unit normal vector given by the right-hand screw rule."
+    },
+    {
+     "id": "3.13-b4",
+     "text": "Generalized properties and proofs of the scalar and vector products are not required."
+    },
+    {
+     "id": "3.13-b5",
+     "text": "Interpret |v × w| geometrically, using it for the area of a parallelogram (and hence a triangle)."
+    },
+    {
+     "id": "3.13-b6",
+     "text": "Find components of vectors: the component of a in the direction of b is (a · b)/|b| = |a|cosθ, and the component of a perpendicular to b, in the plane of the two vectors, is |a × b|/|b| = |a|sinθ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-3-13-scalar-product",
+     "label": "Scalar product"
+    },
+    {
+     "id": "bk-3-13-scalar-product-angle",
+     "label": "Scalar product (angle form)"
+    },
+    {
+     "id": "bk-3-13-angle-between-vectors",
+     "label": "Angle between two vectors"
+    },
+    {
+     "id": "bk-3-13-vector-product",
+     "label": "Vector product"
+    },
+    {
+     "id": "bk-3-13-vector-product-magnitude",
+     "label": "Vector product (magnitude)"
+    },
+    {
+     "id": "bk-3-13-parallelogram-area",
+     "label": "Area of a parallelogram"
+    }
+   ]
+  },
+  {
+   "item": "3.14",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Graph theory basics",
+   "practice": "Graph theory",
+   "bullets": [
+    {
+     "id": "3.14-b1",
+     "text": "Use the terms graph, vertex, edge, adjacent vertices, adjacent edges and degree of a vertex, and represent real-world structures (circuits, maps) as weighted or unweighted graphs."
+    },
+    {
+     "id": "3.14-b2",
+     "text": "Recognise simple, complete and weighted graphs, and know the terms connected and strongly connected."
+    },
+    {
+     "id": "3.14-b3",
+     "text": "Use directed graphs, with the in-degree and out-degree of a vertex."
+    },
+    {
+     "id": "3.14-b4",
+     "text": "Identify subgraphs and trees."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.15",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Adjacency matrices and walks",
+   "practice": "Adjacency matrices and walks",
+   "bullets": [
+    {
+     "id": "3.15-b1",
+     "text": "Write and use adjacency matrices."
+    },
+    {
+     "id": "3.15-b2",
+     "text": "Understand walks."
+    },
+    {
+     "id": "3.15-b3",
+     "text": "Find the number of walks of length k (or less than k) between two vertices: the (i, j)th entry of A^k gives the number of k-length walks from i to j."
+    },
+    {
+     "id": "3.15-b4",
+     "text": "Use weighted adjacency tables, where weights could be costs, distances or lengths of time."
+    },
+    {
+     "id": "3.15-b5",
+     "text": "Construct the transition matrix for a strongly connected, undirected or directed graph, e.g. simple graphs as in the Google PageRank algorithm."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "3.16",
+   "topic": 3,
+   "level": "AHL",
+   "name": "Spanning trees, postman and salesman problems",
+   "practice": "Minimum spanning trees",
+   "bullets": [
+    {
+     "id": "3.16-b1",
+     "text": "Use tree and cycle algorithms with undirected graphs."
+    },
+    {
+     "id": "3.16-b2",
+     "text": "Use the terms walk, trail, path, circuit and cycle."
+    },
+    {
+     "id": "3.16-b3",
+     "text": "Determine whether an Eulerian trail or circuit exists."
+    },
+    {
+     "id": "3.16-b4",
+     "text": "Find Hamiltonian paths and cycles."
+    },
+    {
+     "id": "3.16-b5",
+     "text": "Find minimum spanning trees with Kruskal's and Prim's algorithms, including the matrix method for Prim's."
+    },
+    {
+     "id": "3.16-b6",
+     "text": "Solve the Chinese postman problem to find the shortest route around a weighted graph with up to four odd vertices, going along each edge at least once; explain why the algorithm works, apply it and justify your choice of algorithm."
+    },
+    {
+     "id": "3.16-b7",
+     "text": "Use the travelling salesman problem to find the Hamiltonian cycle of least weight in a weighted complete graph, converting practical problems to the classical problem by completing a table of least distances where needed."
+    },
+    {
+     "id": "3.16-b8",
+     "text": "Find an upper bound for the travelling salesman problem with the nearest neighbour algorithm."
+    },
+    {
+     "id": "3.16-b9",
+     "text": "Find a lower bound for the travelling salesman problem with the deleted vertex algorithm."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.1",
+   "topic": 4,
+   "level": "SL",
+   "name": "Sampling, data quality and outliers",
+   "practice": "Sampling and data collection",
+   "bullets": [
+    {
+     "id": "4.1-b1",
+     "text": "Use the terms population, sample, random sample, discrete data and continuous data."
+    },
+    {
+     "id": "4.1-b2",
+     "text": "Judge how reliable a data source is and where sampling bias arises, including missing data and recording errors."
+    },
+    {
+     "id": "4.1-b3",
+     "text": "Interpret outliers: a value more than 1.5 × IQR beyond the nearest quartile; some are valid sample members, some are errors."
+    },
+    {
+     "id": "4.1-b4",
+     "text": "Know sampling techniques and their effectiveness: simple random, convenience, systematic, quota, stratified."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.2",
+   "topic": 4,
+   "level": "SL",
+   "name": "Data presentation",
+   "practice": "Statistical measures and frequency tables",
+   "bullets": [
+    {
+     "id": "4.2-b1",
+     "text": "Present discrete and continuous data in frequency tables (class intervals as inequalities without gaps)."
+    },
+    {
+     "id": "4.2-b2",
+     "text": "Draw histograms: frequency histograms with equal class intervals; frequency density histograms are not required."
+    },
+    {
+     "id": "4.2-b3",
+     "text": "Use cumulative frequency graphs to find median, quartiles, percentiles, range and IQR."
+    },
+    {
+     "id": "4.2-b4",
+     "text": "Draw and read box and whisker diagrams, with outliers marked by crosses; compare two distributions and judge from symmetry whether data may be normal."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-2-iqr",
+     "label": "Interquartile range"
+    }
+   ]
+  },
+  {
+   "item": "4.3",
+   "topic": 4,
+   "level": "SL",
+   "name": "Central tendency and dispersion",
+   "practice": "Statistical measures and frequency tables",
+   "bullets": [
+    {
+     "id": "4.3-b1",
+     "text": "Find mean, median and mode; find the mean both by formula and with technology."
+    },
+    {
+     "id": "4.3-b2",
+     "text": "Estimate the mean of grouped data from mid-interval values; find the modal class (equal class intervals only)."
+    },
+    {
+     "id": "4.3-b3",
+     "text": "Find IQR, standard deviation and variance; standard deviation and variance of a data set use technology only, and squaring the standard deviation gives the variance."
+    },
+    {
+     "id": "4.3-b4",
+     "text": "Say how adding to or scaling all data values changes mean and standard deviation (e.g. subtract 3, or double all values)."
+    },
+    {
+     "id": "4.3-b5",
+     "text": "Find quartiles of discrete data using technology, knowing that methods differ so by-hand and technology values may differ."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-2-iqr",
+     "label": "Interquartile range"
+    },
+    {
+     "id": "bk-4-3-mean",
+     "label": "Mean, x̄, of a set of data"
+    }
+   ]
+  },
+  {
+   "item": "4.4",
+   "topic": 4,
+   "level": "SL",
+   "name": "Correlation and regression (y on x)",
+   "practice": "Correlation and regression",
+   "bullets": [
+    {
+     "id": "4.4-b1",
+     "text": "Describe linear correlation of bivariate data: positive, zero, negative; strong, weak, none."
+    },
+    {
+     "id": "4.4-b2",
+     "text": "Find Pearson's r with technology (hand calculation optional); critical values are given; r is only meaningful for linear relationships."
+    },
+    {
+     "id": "4.4-b3",
+     "text": "Draw scatter diagrams and lines of best fit by eye through the mean point."
+    },
+    {
+     "id": "4.4-b4",
+     "text": "Separate correlation from causation: correlation does not imply causation."
+    },
+    {
+     "id": "4.4-b5",
+     "text": "Find the regression line of y on x with technology, and use it for prediction."
+    },
+    {
+     "id": "4.4-b6",
+     "text": "Interpret the parameters a and b in y = ax + b."
+    },
+    {
+     "id": "4.4-b7",
+     "text": "Know the dangers of extrapolation, and that a y on x line cannot reliably predict x from y."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.5",
+   "topic": 4,
+   "level": "SL",
+   "name": "Probability foundations and expected value",
+   "practice": "Probability and types of events",
+   "bullets": [
+    {
+     "id": "4.5-b1",
+     "text": "Use the vocabulary of probability: trial, outcome, equally likely, relative frequency, sample space (U), event; list sample spaces or tabulate them."
+    },
+    {
+     "id": "4.5-b2",
+     "text": "Find P(A) = n(A)/n(U), and tell experimental (relative frequency) from theoretical probability."
+    },
+    {
+     "id": "4.5-b3",
+     "text": "Use complementary events A and A′."
+    },
+    {
+     "id": "4.5-b4",
+     "text": "Find the expected number of occurrences, e.g. 128 students, P(absent) = 0.1, expect 12.8."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-5-probability",
+     "label": "Probability of an event A"
+    },
+    {
+     "id": "bk-4-5-complement",
+     "label": "Complementary events"
+    }
+   ]
+  },
+  {
+   "item": "4.6",
+   "topic": 4,
+   "level": "SL",
+   "name": "Probability diagrams, rules and independence",
+   "practice": "Conditional probability",
+   "bullets": [
+    {
+     "id": "4.6-b1",
+     "text": "Find probabilities from Venn, tree and sample-space diagrams or outcome tables, with or without replacement."
+    },
+    {
+     "id": "4.6-b2",
+     "text": "Use P(A ∪ B) = P(A) + P(B) − P(A ∩ B), including the non-exclusive meaning of 'or'."
+    },
+    {
+     "id": "4.6-b3",
+     "text": "Use mutually exclusive events: P(A ∩ B) = 0."
+    },
+    {
+     "id": "4.6-b4",
+     "text": "Use conditional probability P(A|B) = P(A ∩ B)/P(B) and P(A ∩ B) = P(B)P(A|B)."
+    },
+    {
+     "id": "4.6-b5",
+     "text": "Use independent events: P(A ∩ B) = P(A)P(B)."
+    },
+    {
+     "id": "4.6-b6",
+     "text": "Problems can be solved from diagrams without explicit formulae."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-6-combined",
+     "label": "Combined events"
+    },
+    {
+     "id": "bk-4-6-mutually-exclusive",
+     "label": "Mutually exclusive events"
+    },
+    {
+     "id": "bk-4-6-conditional",
+     "label": "Conditional probability"
+    },
+    {
+     "id": "bk-4-6-independent",
+     "label": "Independent events"
+    }
+   ]
+  },
+  {
+   "item": "4.7",
+   "topic": 4,
+   "level": "SL",
+   "name": "Discrete random variables and expected value",
+   "practice": "Discrete probability distributions",
+   "bullets": [
+    {
+     "id": "4.7-b1",
+     "text": "Work with discrete random variables and probability distributions given as a table or a formula such as P(X = x) = (1/18)(4 + x) for x in {1, 2, 3}."
+    },
+    {
+     "id": "4.7-b2",
+     "text": "Find the expected value E(X) of a discrete random variable."
+    },
+    {
+     "id": "4.7-b3",
+     "text": "Apply to problems; E(X) = 0 means a fair game where X is a player's gain."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-7-expected-value",
+     "label": "Expected value of a discrete random variable X"
+    }
+   ]
+  },
+  {
+   "item": "4.8",
+   "topic": 4,
+   "level": "SL",
+   "name": "Binomial distribution",
+   "practice": "Binomial distribution",
+   "bullets": [
+    {
+     "id": "4.8-b1",
+     "text": "Recognise situations modelled by a binomial distribution and find binomial probabilities with technology."
+    },
+    {
+     "id": "4.8-b2",
+     "text": "Use the mean and variance of a binomial distribution; the formal proof is not required."
+    },
+    {
+     "id": "4.8-b3",
+     "text": "Link to expected number of occurrences (SL 4.5)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-8-binomial-mean",
+     "label": "Binomial distribution X ~ B(n, p): Mean"
+    },
+    {
+     "id": "bk-4-8-binomial-variance",
+     "label": "Binomial distribution X ~ B(n, p): Variance"
+    }
+   ]
+  },
+  {
+   "item": "4.9",
+   "topic": 4,
+   "level": "SL",
+   "name": "Normal distribution",
+   "practice": "Normal distribution",
+   "bullets": [
+    {
+     "id": "4.9-b1",
+     "text": "Know the normal distribution and curve, its properties and diagrams, and its natural occurrence."
+    },
+    {
+     "id": "4.9-b2",
+     "text": "Know about 68%, 95% and 99.7% of data within 1, 2 and 3 standard deviations of the mean."
+    },
+    {
+     "id": "4.9-b3",
+     "text": "Find normal probabilities with technology."
+    },
+    {
+     "id": "4.9-b4",
+     "text": "Find inverse normal values with technology when mean and standard deviation are given; no standardising to z is involved."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.10",
+   "topic": 4,
+   "level": "SL",
+   "name": "Spearman's rank correlation",
+   "practice": "Correlation and regression",
+   "bullets": [
+    {
+     "id": "4.10-b1",
+     "text": "Find Spearman's rank correlation coefficient r_s using technology, averaging the ranks of equal data items."
+    },
+    {
+     "id": "4.10-b2",
+     "text": "Know when Pearson's and Spearman's coefficients are appropriate and their limitations: Pearson's tests only for linearity, Spearman's for any monotonic relationship, and Spearman's is less sensitive to outliers."
+    },
+    {
+     "id": "4.10-b3",
+     "text": "Derivation or proof of either coefficient is not required."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.11",
+   "topic": 4,
+   "level": "SL",
+   "name": "Chi-squared tests and the t-test",
+   "practice": "Chi-squared tests",
+   "bullets": [
+    {
+     "id": "4.11-b1",
+     "text": "Formulate null and alternative hypotheses H0 and H1, as an equation, an inequality or in words."
+    },
+    {
+     "id": "4.11-b2",
+     "text": "Use significance levels."
+    },
+    {
+     "id": "4.11-b3",
+     "text": "Use p-values."
+    },
+    {
+     "id": "4.11-b4",
+     "text": "Find expected and observed frequencies."
+    },
+    {
+     "id": "4.11-b5",
+     "text": "Carry out the χ^2 test for independence using contingency tables, degrees of freedom and a critical value."
+    },
+    {
+     "id": "4.11-b6",
+     "text": "Carry out the χ^2 goodness of fit test."
+    },
+    {
+     "id": "4.11-b7",
+     "text": "In χ^2 exam questions: at most 4 rows or columns, degrees of freedom greater than one (n − 1 for goodness of fit at SL), critical values given where appropriate, the p-value and χ^2 statistic found with technology, upper-tail tests only at 1%, 5% or 10%, and expected frequencies greater than 5; compare the p-value with the significance level or the χ^2 statistic with the critical value."
+    },
+    {
+     "id": "4.11-b8",
+     "text": "Carry out the t-test, with calculations made using technology."
+    },
+    {
+     "id": "4.11-b9",
+     "text": "Use the p-value to compare the means of two populations: at SL samples are unpaired, population variance is unknown and assumed equal (pooled two-sample t-test), and the variables must be normally distributed; interpret the result of the test."
+    },
+    {
+     "id": "4.11-b10",
+     "text": "Use one-tailed and two-tailed tests."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.12",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Data collection, reliability and validity",
+   "practice": "Sampling and data collection",
+   "bullets": [
+    {
+     "id": "4.12-b1",
+     "text": "Design valid data collection methods such as surveys and questionnaires, knowing biased and unbiased, personal, unstructured and structured (consistent answer choices), and precise questioning."
+    },
+    {
+     "id": "4.12-b2",
+     "text": "Select relevant variables from many variables."
+    },
+    {
+     "id": "4.12-b3",
+     "text": "Choose relevant and appropriate data to analyse."
+    },
+    {
+     "id": "4.12-b4",
+     "text": "Categorize numerical data in a χ^2 table and justify the categories, choosing them so that expected frequencies are greater than 5."
+    },
+    {
+     "id": "4.12-b5",
+     "text": "Choose an appropriate number of degrees of freedom when parameters are estimated from the data in a χ^2 goodness of fit test."
+    },
+    {
+     "id": "4.12-b6",
+     "text": "Define reliability and validity and know the difference."
+    },
+    {
+     "id": "4.12-b7",
+     "text": "Use reliability tests: test-retest and parallel forms."
+    },
+    {
+     "id": "4.12-b8",
+     "text": "Use validity tests: content and criterion-related."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.13",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Non-linear regression and R²",
+   "practice": "Non-linear regression and linearizing",
+   "bullets": [
+    {
+     "id": "4.13-b1",
+     "text": "Use regression with non-linear functions."
+    },
+    {
+     "id": "4.13-b2",
+     "text": "Evaluate least squares regression curves using technology; exam questions may use linear, quadratic, cubic, exponential, power and sine functions."
+    },
+    {
+     "id": "4.13-b3",
+     "text": "Use the sum of square residuals SS_res as a measure of fit for a model."
+    },
+    {
+     "id": "4.13-b4",
+     "text": "Use the coefficient of determination R^2, the proportion of variability in the second variable accounted for by the model, and know its connection to Pearson's r for linear models."
+    },
+    {
+     "id": "4.13-b5",
+     "text": "Evaluate R^2 using technology, aware that many factors affect a model's validity and R^2 alone is not a good way to decide between models."
+    },
+    {
+     "id": "4.13-b6",
+     "text": "Knowing R^2 = 1 − SS_res/SS_tot (so R^2 = 1 when SS_res = 0) helps understanding but is not examined."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.14",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Linear combinations and unbiased estimates",
+   "practice": "Linear combinations of random variables",
+   "bullets": [
+    {
+     "id": "4.14-b1",
+     "text": "Apply a linear transformation to a single random variable: E(aX + b) = aE(X) + b and Var(aX + b) = a^2 Var(X); the variance formula itself is not required in exams."
+    },
+    {
+     "id": "4.14-b2",
+     "text": "Find the expected value of a linear combination of n random variables."
+    },
+    {
+     "id": "4.14-b3",
+     "text": "Find the variance of a linear combination of n independent random variables."
+    },
+    {
+     "id": "4.14-b4",
+     "text": "Use x̄ = Σ x_i/n as an unbiased estimate of μ."
+    },
+    {
+     "id": "4.14-b5",
+     "text": "Use s_(n−1)^2 = (n/(n − 1)) s_n^2 = Σ f_i(x_i − x̄)^2/(n − 1), where n = Σ f_i, as an unbiased estimate of σ^2."
+    },
+    {
+     "id": "4.14-b6",
+     "text": "Showing that E(X̄) = μ and E(s_(n−1)^2) = σ^2 is not examined."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-14-linear-transformation-mean",
+     "label": "Linear transformation of a single random variable: expectation"
+    },
+    {
+     "id": "bk-4-14-linear-transformation-variance",
+     "label": "Linear transformation of a single random variable: variance"
+    },
+    {
+     "id": "bk-4-14-linear-combination-mean",
+     "label": "Linear combinations of n independent random variables: expectation"
+    },
+    {
+     "id": "bk-4-14-linear-combination-variance",
+     "label": "Linear combinations of n independent random variables: variance"
+    },
+    {
+     "id": "bk-4-14-unbiased-variance",
+     "label": "Sample statistics: unbiased estimate of population variance"
+    }
+   ]
+  },
+  {
+   "item": "4.15",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Sample mean and the central limit theorem",
+   "practice": "Unbiased estimates and sample mean distribution",
+   "bullets": [
+    {
+     "id": "4.15-b1",
+     "text": "Know that a linear combination of n independent normal random variables is normally distributed; in particular X ~ N(μ, σ^2) ⇒ X̄ ~ N(μ, σ^2/n)."
+    },
+    {
+     "id": "4.15-b2",
+     "text": "Use the central limit theorem: X̄ approaches normality for large n, how large depending on the distribution sampled; in exams n > 30 is sufficient."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-14-linear-combination-mean",
+     "label": "Linear combinations of n independent random variables: expectation"
+    },
+    {
+     "id": "bk-4-14-linear-combination-variance",
+     "label": "Linear combinations of n independent random variables: variance"
+    }
+   ]
+  },
+  {
+   "item": "4.16",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Confidence intervals for the mean",
+   "practice": "Confidence intervals for the mean",
+   "bullets": [
+    {
+     "id": "4.16-b1",
+     "text": "Find confidence intervals for the mean of a normal population, using the normal distribution when σ is known and the t-distribution when σ is unknown, regardless of sample size."
+    },
+    {
+     "id": "4.16-b2",
+     "text": "Interpret the results in context."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.17",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Poisson distribution",
+   "practice": "Poisson distribution",
+   "bullets": [
+    {
+     "id": "4.17-b1",
+     "text": "Use the Poisson distribution and its mean and variance, as a model when events are independent and occur at a uniform average rate."
+    },
+    {
+     "id": "4.17-b2",
+     "text": "Use the fact that the sum of two independent Poisson distributions has a Poisson distribution."
+    },
+    {
+     "id": "4.17-b3",
+     "text": "Choose between the normal, binomial and Poisson distributions for a given context."
+    },
+    {
+     "id": "4.17-b4",
+     "text": "Formal proofs of means and variances are not required."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-17-poisson-mean",
+     "label": "Poisson distribution X ~ Po(m): Mean"
+    },
+    {
+     "id": "bk-4-17-poisson-variance",
+     "label": "Poisson distribution X ~ Po(m): Variance"
+    }
+   ]
+  },
+  {
+   "item": "4.18",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Further hypothesis tests and errors",
+   "practice": "Further hypothesis testing",
+   "bullets": [
+    {
+     "id": "4.18-b1",
+     "text": "Find critical values and critical regions; critical regions for t-tests are not required."
+    },
+    {
+     "id": "4.18-b2",
+     "text": "Test for a population mean of a normal distribution, using the normal distribution when σ is known and the t-distribution when σ is unknown, regardless of sample size; treat matched pairs as a single-sample technique."
+    },
+    {
+     "id": "4.18-b3",
+     "text": "Test for a proportion using the binomial distribution."
+    },
+    {
+     "id": "4.18-b4",
+     "text": "Test for a population mean using the Poisson distribution; Poisson and binomial tests are one-tailed only."
+    },
+    {
+     "id": "4.18-b5",
+     "text": "Use technology to test the hypothesis that the population product moment correlation coefficient ρ is 0 for bivariate normal distributions; in exams the data will be given."
+    },
+    {
+     "id": "4.18-b6",
+     "text": "Find Type I and Type II errors and calculate their probabilities, for normal (known variance), Poisson and binomial distributions."
+    },
+    {
+     "id": "4.18-b7",
+     "text": "For discrete random variables, tests and critical regions are one-tailed only, and the critical region maximizes the probability of a Type I error while keeping it less than the stated significance level."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "4.19",
+   "topic": 4,
+   "level": "AHL",
+   "name": "Transition matrices and Markov chains",
+   "practice": "Transition matrices and Markov chains",
+   "bullets": [
+    {
+     "id": "4.19-b1",
+     "text": "Use transition matrices, with T_ij the probability of moving from state j to state i, and transition diagrams for discrete dynamical systems."
+    },
+    {
+     "id": "4.19-b2",
+     "text": "Find powers of transition matrices."
+    },
+    {
+     "id": "4.19-b3",
+     "text": "Use regular Markov chains."
+    },
+    {
+     "id": "4.19-b4",
+     "text": "Use initial state probability matrices: after n transitions the column state matrix is s_n = T^n s_0."
+    },
+    {
+     "id": "4.19-b5",
+     "text": "Find steady state and long-term probabilities by repeated multiplication of the transition matrix or by solving a system of linear equations; exam questions say when exact solutions are required."
+    },
+    {
+     "id": "4.19-b6",
+     "text": "Know that the steady state is the eigenvector for eigenvalue 1, with entries scaled to sum to 1."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-4-19-transition-matrices",
+     "label": "Transition matrices"
+    }
+   ]
+  },
+  {
+   "item": "5.1",
+   "topic": 5,
+   "level": "SL",
+   "name": "Limits and derivative as rate of change",
+   "practice": "Introduction to differentiation",
+   "bullets": [
+    {
+     "id": "5.1-b1",
+     "text": "Meet the idea of a limit, estimating limit values from a table or graph; formal analytic methods of finding limits are not required."
+    },
+    {
+     "id": "5.1-b2",
+     "text": "Treat the derivative both as the slope function and as a rate of change; write it as dy/dx, f′(x), dV/dr or ds/dt."
+    },
+    {
+     "id": "5.1-b3",
+     "text": "Understand the gradient of a curve informally as a limit."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.2",
+   "topic": 5,
+   "level": "SL",
+   "name": "Increasing and decreasing functions",
+   "practice": "Introduction to differentiation",
+   "bullets": [
+    {
+     "id": "5.2-b1",
+     "text": "Identify increasing and decreasing functions and the intervals where they occur."
+    },
+    {
+     "id": "5.2-b2",
+     "text": "Interpret f′(x) > 0, f′(x) = 0 and f′(x) < 0 graphically."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.3",
+   "topic": 5,
+   "level": "SL",
+   "name": "Differentiation of integer-power polynomials",
+   "practice": "Introduction to differentiation",
+   "bullets": [
+    {
+     "id": "5.3-b1",
+     "text": "Differentiate f(x) = ax^n to get anx^(n−1), for n an integer."
+    },
+    {
+     "id": "5.3-b2",
+     "text": "Differentiate sums of such terms, e.g. ax^n + bx^(n−1) + …, where all exponents are integers."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-3-derivative-power",
+     "label": "Derivative of x^n"
+    }
+   ]
+  },
+  {
+   "item": "5.4",
+   "topic": 5,
+   "level": "SL",
+   "name": "Tangents and normals",
+   "practice": "Applications of differentiation",
+   "bullets": [
+    {
+     "id": "5.4-b1",
+     "text": "Get the equation of the tangent and of the normal at a chosen point, analytically and with technology."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.5",
+   "topic": 5,
+   "level": "SL",
+   "name": "Antidifferentiation, definite integrals and area",
+   "practice": "Introduction to integration",
+   "bullets": [
+    {
+     "id": "5.5-b1",
+     "text": "Integrate ax^n + bx^(n−1) + … as anti-differentiation, for integer n ≠ −1."
+    },
+    {
+     "id": "5.5-b2",
+     "text": "Use a boundary condition to find the constant, e.g. dy/dx = 3x^2 + x with y = 10 at x = 1."
+    },
+    {
+     "id": "5.5-b3",
+     "text": "Evaluate definite integrals with technology."
+    },
+    {
+     "id": "5.5-b4",
+     "text": "Find the area between a curve y = f(x) > 0 and the x-axis; link anti-derivatives, definite integrals and area, and write a correct integral expression first."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-5-integral-power",
+     "label": "Integral of x^n"
+    }
+   ]
+  },
+  {
+   "item": "5.6",
+   "topic": 5,
+   "level": "SL",
+   "name": "Local maximum and minimum points",
+   "practice": "Applications of differentiation",
+   "bullets": [
+    {
+     "id": "5.6-b1",
+     "text": "Find the values of x where the gradient of a curve is zero."
+    },
+    {
+     "id": "5.6-b2",
+     "text": "Solve f′(x) = 0, using technology to generate f′(x) from f(x) and to find the solutions."
+    },
+    {
+     "id": "5.6-b3",
+     "text": "Find local maximum and minimum points, aware that a local maximum or minimum is not necessarily the greatest or least value of the function in the given domain."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.7",
+   "topic": 5,
+   "level": "SL",
+   "name": "Optimisation problems",
+   "practice": "Modelling with differentiation",
+   "bullets": [
+    {
+     "id": "5.7-b1",
+     "text": "Solve optimisation problems in context, e.g. maximizing profit, minimizing cost, maximizing volume for a given surface area."
+    },
+    {
+     "id": "5.7-b2",
+     "text": "Kinematics questions are not set in SL exams."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.8",
+   "topic": 5,
+   "level": "SL",
+   "name": "Trapezoidal rule",
+   "practice": "Trapezoidal rule",
+   "bullets": [
+    {
+     "id": "5.8-b1",
+     "text": "Estimate an area with the trapezoidal rule, from a table of data or a function, using intervals of equal width."
+    },
+    {
+     "id": "5.8-b2",
+     "text": "Link to upper and lower bounds (SL 1.6) and areas under curves (SL 5.5)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-8-trapezoidal-rule",
+     "label": "The trapezoidal rule"
+    }
+   ]
+  },
+  {
+   "item": "5.9",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Differentiation rules and related rates",
+   "practice": "Techniques of differentiation",
+   "bullets": [
+    {
+     "id": "5.9-b1",
+     "text": "Differentiate sin x, cos x, tan x, e^x, ln x and x^n where n ∈ ℚ."
+    },
+    {
+     "id": "5.9-b2",
+     "text": "Use the chain rule, product rule and quotient rule."
+    },
+    {
+     "id": "5.9-b3",
+     "text": "Solve related rates of change problems."
+    },
+    {
+     "id": "5.9-b4",
+     "text": "Link to maximum and minimum points (SL 5.6) and optimisation (SL 5.7)."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-3-derivative-power",
+     "label": "Derivative of x^n"
+    },
+    {
+     "id": "bk-5-9-derivative-sin",
+     "label": "Derivative of sin x"
+    },
+    {
+     "id": "bk-5-9-derivative-cos",
+     "label": "Derivative of cos x"
+    },
+    {
+     "id": "bk-5-9-derivative-tan",
+     "label": "Derivative of tan x"
+    },
+    {
+     "id": "bk-5-9-derivative-exp",
+     "label": "Derivative of e^x"
+    },
+    {
+     "id": "bk-5-9-derivative-ln",
+     "label": "Derivative of ln x"
+    },
+    {
+     "id": "bk-5-9-chain-rule",
+     "label": "Chain rule"
+    },
+    {
+     "id": "bk-5-9-product-rule",
+     "label": "Product rule"
+    },
+    {
+     "id": "bk-5-9-quotient-rule",
+     "label": "Quotient rule"
+    }
+   ]
+  },
+  {
+   "item": "5.10",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Second derivative and concavity",
+   "practice": "Second order derivatives and concavity",
+   "bullets": [
+    {
+     "id": "5.10-b1",
+     "text": "Find the second derivative, using the notation d^2y/dx^2 and f″(x)."
+    },
+    {
+     "id": "5.10-b2",
+     "text": "Use the second derivative test to distinguish between a maximum and a minimum point."
+    },
+    {
+     "id": "5.10-b3",
+     "text": "Know that a point of inflexion is where the concavity changes, interpret it in context, and use concave-up for f″(x) > 0 and concave-down for f″(x) < 0."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.11",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Standard integrals and substitution",
+   "practice": "Techniques of integration",
+   "bullets": [
+    {
+     "id": "5.11-b1",
+     "text": "Find definite and indefinite integrals of x^n where n ∈ ℚ (including n = −1), sin x, cos x, 1/cos^2 x and e^x."
+    },
+    {
+     "id": "5.11-b2",
+     "text": "Integrate by inspection, or by substitution of the form ∫ f(g(x))g′(x) dx, e.g. ∫ sin(2x + 5) dx, ∫ 1/(3x + 2) dx, ∫ 4x sin x^2 dx, ∫ sin x/cos x dx."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-5-integral-power",
+     "label": "Integral of x^n"
+    },
+    {
+     "id": "bk-5-11-integral-reciprocal",
+     "label": "Standard integrals: 1/x"
+    },
+    {
+     "id": "bk-5-11-integral-sin",
+     "label": "Standard integrals: sin x"
+    },
+    {
+     "id": "bk-5-11-integral-cos",
+     "label": "Standard integrals: cos x"
+    },
+    {
+     "id": "bk-5-11-integral-sec2",
+     "label": "Standard integrals: 1/cos²x"
+    },
+    {
+     "id": "bk-5-11-integral-exp",
+     "label": "Standard integrals: e^x"
+    }
+   ]
+  },
+  {
+   "item": "5.12",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Areas and volumes of revolution",
+   "practice": "Volumes of revolution",
+   "bullets": [
+    {
+     "id": "5.12-b1",
+     "text": "Find the area of the region enclosed by a curve and the x- or y-axis in a given interval, including negative integrals."
+    },
+    {
+     "id": "5.12-b2",
+     "text": "Find volumes of revolution about the x-axis or y-axis, V = ∫ πy^2 dx or V = ∫ πx^2 dy from a to b."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-12-area",
+     "label": "Area of region enclosed by a curve and x or y-axes"
+    },
+    {
+     "id": "bk-5-12-volume-revolution",
+     "label": "Volume of revolution about x or y-axes"
+    }
+   ]
+  },
+  {
+   "item": "5.13",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Kinematics",
+   "practice": "Kinematics",
+   "bullets": [
+    {
+     "id": "5.13-b1",
+     "text": "Solve kinematic problems involving displacement s, velocity v and acceleration a, with v = ds/dt and a = dv/dt = d^2s/dt^2 = v dv/ds."
+    },
+    {
+     "id": "5.13-b2",
+     "text": "Find displacement from t1 to t2 as ∫ v(t) dt and total distance travelled as ∫ |v(t)| dt."
+    },
+    {
+     "id": "5.13-b3",
+     "text": "Know that speed is the magnitude of velocity."
+    },
+    {
+     "id": "5.13-b4",
+     "text": "Use the notation ẋ = dx/dt and ẍ = d^2x/dt^2."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-13-acceleration",
+     "label": "Acceleration"
+    },
+    {
+     "id": "bk-5-13-distance",
+     "label": "Distance travelled from t1 to t2"
+    },
+    {
+     "id": "bk-5-13-displacement",
+     "label": "Displacement from t1 to t2"
+    }
+   ]
+  },
+  {
+   "item": "5.14",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Setting up and separating differential equations",
+   "practice": "Differential equations",
+   "bullets": [
+    {
+     "id": "5.14-b1",
+     "text": "Set up a model or differential equation from a context, e.g. the growth of algae G at time t is proportional to √G."
+    },
+    {
+     "id": "5.14-b2",
+     "text": "Solve by separation of variables, e.g. an exponential model as the solution of dy/dx = ky, using the term 'general solution'."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.15",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Slope fields",
+   "practice": "Differential equations",
+   "bullets": [
+    {
+     "id": "5.15-b1",
+     "text": "Use and interpret slope fields and their diagrams."
+    }
+   ],
+   "booklet": []
+  },
+  {
+   "item": "5.16",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Euler's method",
+   "practice": "Euler's method for differential equations",
+   "bullets": [
+    {
+     "id": "5.16-b1",
+     "text": "Use Euler's method to find approximate solutions to first-order differential equations, using spreadsheets; in exams the values are generated using permissible technology."
+    },
+    {
+     "id": "5.16-b2",
+     "text": "Solve dy/dx = f(x, y) numerically."
+    },
+    {
+     "id": "5.16-b3",
+     "text": "Solve the coupled system dx/dt = f1(x, y, t) and dy/dt = f2(x, y, t) numerically, e.g. in predator–prey models."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-16-euler",
+     "label": "Euler's method"
+    },
+    {
+     "id": "bk-5-16-euler-coupled",
+     "label": "Euler's method for coupled systems"
+    }
+   ]
+  },
+  {
+   "item": "5.17",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Phase portraits for coupled equations",
+   "practice": "Coupled differential equations",
+   "bullets": [
+    {
+     "id": "5.17-b1",
+     "text": "Draw phase portraits for the solutions of coupled differential equations dx/dt = ax + by and dy/dt = cx + dy; systems have distinct, non-zero eigenvalues."
+    },
+    {
+     "id": "5.17-b2",
+     "text": "Analyse future paths qualitatively for distinct real, complex and imaginary eigenvalues: positive (or complex with positive real part) means all solutions move away from the origin; negative (or complex with negative real part) means they move towards it; complex gives a spiral; imaginary gives a circle or ellipse; real with different signs makes the origin a saddle point."
+    },
+    {
+     "id": "5.17-b3",
+     "text": "Sketch trajectories and use phase portraits to identify key features such as equilibrium points, stable populations and saddle points."
+    },
+    {
+     "id": "5.17-b4",
+     "text": "Exact solutions are only required for real distinct eigenvalues."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-17-coupled-exact",
+     "label": "Exact solution for coupled linear differential equations"
+    }
+   ]
+  },
+  {
+   "item": "5.18",
+   "topic": 5,
+   "level": "AHL",
+   "name": "Second-order differential equations",
+   "practice": "Coupled differential equations",
+   "bullets": [
+    {
+     "id": "5.18-b1",
+     "text": "Solve d^2x/dt^2 = f(x, dx/dt, t) by Euler's method, writing it as the coupled first-order equations dx/dt = y and dy/dt = f(x, y, t)."
+    },
+    {
+     "id": "5.18-b2",
+     "text": "Find exact solutions as in AHL 5.17; solutions of d^2x/dt^2 + a dx/dt + bx = 0 can also be investigated with the phase portrait method."
+    },
+    {
+     "id": "5.18-b3",
+     "text": "In exams the differential equation will be given."
+    }
+   ],
+   "booklet": [
+    {
+     "id": "bk-5-16-euler-coupled",
+     "label": "Euler's method for coupled systems"
+    },
+    {
+     "id": "bk-5-17-coupled-exact",
+     "label": "Exact solution for coupled linear differential equations"
+    }
+   ]
+  }
+ ]
+}

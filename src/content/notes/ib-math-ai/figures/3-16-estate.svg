@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 280" role="img" aria-labelledby="t">
+  <title id="t">A weighted graph with five vertices A to E. Edges and lengths in metres: A to B 380, A to C 650, B to C 270, B to D 720, C to D 410, C to E 820, D to E 230.</title>
+  <line x1="60" y1="140" x2="200" y2="50" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="140" x2="200" y2="230" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="50" x2="200" y2="230" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="50" x2="380" y2="110" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="230" x2="380" y2="110" stroke="currentColor" stroke-width="2"/>
+  <line x1="200" y1="230" x2="380" y2="250" stroke="currentColor" stroke-width="2"/>
+  <line x1="380" y1="110" x2="380" y2="250" stroke="currentColor" stroke-width="2"/>
+  <text x="121" y="87" font-size="14" text-anchor="middle" fill="var(--t2-ink)">380</text>
+  <text x="121" y="203" font-size="14" text-anchor="middle" fill="var(--t2-ink)">650</text>
+  <text x="178" y="145" font-size="14" text-anchor="middle" fill="var(--t2-ink)">270</text>
+  <text x="294" y="72" font-size="14" text-anchor="middle" fill="var(--t2-ink)">720</text>
+  <text x="281" y="162" font-size="14" text-anchor="middle" fill="var(--t2-ink)">410</text>
+  <text x="288" y="261" font-size="14" text-anchor="middle" fill="var(--t2-ink)">820</text>
+  <text x="402" y="185" font-size="14" text-anchor="middle" fill="var(--t2-ink)">230</text>
+  <circle cx="60" cy="140" r="5" fill="currentColor"/>
+  <text x="46" y="145" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="200" cy="50" r="5" fill="currentColor"/>
+  <text x="200" y="41" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="200" cy="230" r="5" fill="currentColor"/>
+  <text x="200" y="257" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="380" cy="110" r="5" fill="currentColor"/>
+  <text x="394" y="103" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">D</text>
+  <circle cx="380" cy="250" r="5" fill="currentColor"/>
+  <text x="394" y="273" font-size="15" font-weight="bold" text-anchor="middle" fill="currentColor">E</text>
+</svg>

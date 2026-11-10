@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mean",
+    "term": "mean",
+    "definition": "The total of the data values divided by how many values there are, written $\\bar{x}$ ($\\mu$ for a whole population).",
+    "lesson": "4.3"
+  },
+  {
+    "id": "modal-class",
+    "term": "modal class",
+    "definition": "For grouped data with equal class widths, the class with the highest frequency.",
+    "lesson": "4.3"
+  },
+  {
+    "id": "standard-deviation",
+    "term": "standard deviation",
+    "definition": "The square root of the variance, measuring how far data values typically lie from the mean; adding a constant to every value leaves it unchanged, and multiplying every value by $k$ multiplies it by $\\lvert k\\rvert$.",
+    "lesson": "4.3"
+  },
+  {
+    "id": "variance",
+    "term": "variance",
+    "definition": "The mean of the squared distances of the data values from the mean, equal to the square of the standard deviation; for a data set it divides by $n$, the number of values.",
+    "lesson": "4.3"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "logarithmic-scale",
+    "term": "logarithmic scale",
+    "definition": "A scale on which equal distances stand for equal multiplying factors, such as each gridline being $10$ times the one before, used when positive values cover a very wide range.",
+    "lesson": "2.10"
+  },
+  {
+    "id": "linearizing-data",
+    "term": "linearizing data",
+    "definition": "Taking logarithms of one or both variables so that curved data lie on a straight line: for positive data, $\\ln y$ against $x$ is straight for an exponential model $y = ka^{x}$ and $\\ln y$ against $\\ln x$ is straight for a power model $y = kx^{n}$.",
+    "lesson": "2.10"
+  },
+  {
+    "id": "log-log-graph",
+    "term": "log-log graph",
+    "definition": "A graph with logarithmic scales on both axes, or of $\\ln y$ against $\\ln x$, on which data from a power model $y = kx^{n}$ with $k > 0$ and $x > 0$ lie on a straight line with gradient $n$.",
+    "lesson": "2.10"
+  },
+  {
+    "id": "semi-log-graph",
+    "term": "semi-log graph",
+    "definition": "A graph with a logarithmic scale on one axis only, usually the vertical one, on which data from an exponential model $y = ka^{x}$ with $k, a > 0$ lie on a straight line.",
+    "lesson": "2.10"
+  }
+]

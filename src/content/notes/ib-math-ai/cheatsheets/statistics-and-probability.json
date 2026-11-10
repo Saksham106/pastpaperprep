@@ -1,0 +1,94 @@
+{
+  "lines": [
+    {
+      "text": "'Is this value an outlier?' → GDC one-variable stats for $Q_{1}$, $Q_{3}$; outlier if $x < Q_{1} - 1.5 \\times \\mathrm{IQR}$ or $x > Q_{3} + 1.5 \\times \\mathrm{IQR}$ (a value on a fence is not one) ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Estimate the median, quartiles or a percentile' from grouped data → cumulative frequency graph, plotted at upper class boundaries; read across from $\\frac{n}{4}$, $\\frac{n}{2}$, $\\frac{3n}{4}$, $\\frac{k}{100} \\times n$ ({{lesson:4.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Find the mean and standard deviation' of data or a frequency table → GDC one-variable stats with the frequency list; quote $\\sigma_{x}$, not $s_{x}$; grouped data uses mid-interval values, so the mean is an estimate ({{lesson:4.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Is there linear correlation? Predict $y$' → GDC linear regression for $r$ and $y = ax + b$; significant if $\\lvert r\\rvert$ is above the given critical value; predict $y$ only, for $x$ inside the data, when the correlation is strong ({{lesson:4.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Given that', or 'or' / 'and' with an overlap → Venn diagram, two-way table or tree; $\\mathrm{P}(A \\mid B) = \\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$; multiply $\\mathrm{P}(A)\\,\\mathrm{P}(B)$ only for independent events ({{lesson:4.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "A table of values with probabilities, 'find $k$', 'is the game fair?' → $\\sum \\mathrm{P}(X = x) = 1$ and $\\mathrm{E}(X) = \\sum x\\,\\mathrm{P}(X = x)$; fair when $\\mathrm{E}(X) = 0$ for the player's gain ({{lesson:4.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Number of successes in $n$ trials', fixed $n$, same $p$, independent trials → $X \\sim \\mathrm{B}(n, p)$; binomial pdf for $\\mathrm{P}(X = r)$, binomial cdf for $\\mathrm{P}(X \\le k)$; $\\mathrm{P}(X \\ge k) = 1 - \\mathrm{P}(X \\le k - 1)$ ({{lesson:4.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "A measurement modelled as $X \\sim \\mathrm{N}(\\mu, \\sigma^{2})$, 'find the probability' → normal cdf with $\\sigma$, not $\\sigma^{2}$; 'find the value the top $10\\%$ exceed' → inverse normal with left area $0.9$ (or area $0.1$ with the tail set to right) ({{lesson:4.9}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Ranked data, a curved but always rising or falling link, or an outlier → Spearman's $r_s$: rank both variables the same way, tied values take the mean rank, then GDC linear regression on the ranks ({{lesson:4.10}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Counts in categories → χ² test on the GDC: two categorical variables in a table, 'is X independent of Y?' → test for independence, df $= (r - 1)(c - 1)$; one variable against claimed proportions ('equally likely', stated percentages) → goodness of fit, expected $=$ total × claimed proportion, df $= n - 1$ for $n$ categories; every expected frequency must be greater than $5$ ({{lesson:4.11}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Two independent (unpaired) groups of measurements, 'is the mean of A different from / greater than B?' → pooled two-sample t-test on the GDC, $\\mathrm{H}_0$: $\\mu_1 = \\mu_2$, assuming normal populations with equal variances; $\\neq$ is two-tailed, $>$ or $<$ one-tailed ({{lesson:4.11}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Goodness of fit to a binomial or normal model whose parameters are estimated from the data → merge adjacent classes (observed and expected) until every expected frequency is greater than $5$, then df $= k - 1 - m$ ($k$ classes after merging, $m$ parameters estimated) ({{lesson:4.12}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Curved scatter, or a named model such as $y = ab^{x}$, $y = ax^{b}$, quadratic, cubic or sine → GDC regression of that type, parameters to 3 s.f.; compare models on the same data by $SS_{\\text{res}}$ or $R^{2}$, together with the context and any extrapolation, never $R^{2}$ alone ({{lesson:4.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Probability for a total or difference of independent normal quantities → mean by the $\\mathrm{E}$ rules, variance $\\sum a_{i}^{2}\\mathrm{Var}(X_{i})$ (added even for a difference), then normal cdf with $\\sigma = \\sqrt{\\text{variance}}$; for the mean of a random sample → $\\bar{X} \\sim \\mathrm{N}\\left(\\mu, \\frac{\\sigma^{2}}{n}\\right)$, exactly for a normal population, approximately by the central limit theorem when $n > 30$ ({{lesson:4.14}}, {{lesson:4.15}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Events in a fixed interval of time or space, happening independently at a uniform average rate, 'how many in…' → $X \\sim \\mathrm{Po}(m)$ with $m$ scaled to the interval, independent Poisson counts add; a fixed number $n$ of independent trials with constant $p$ → binomial instead ({{lesson:4.17}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Estimating or testing the mean of one normal population → $\\sigma$ given: Z interval or z-test; $\\sigma$ unknown: T interval or t-test with $s_{n-1}$ and $n - 1$ degrees of freedom, whatever $n$; the same subjects measured twice → one-sample t-test on the differences, $\\mathrm{H}_0$: $\\mu_{d} = 0$ ({{lesson:4.16}}, {{lesson:4.18}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "A count tested against a claimed proportion or rate → one-tailed binomial $\\mathrm{B}(n, p)$ or Poisson $\\mathrm{Po}(m)$ test, p-value from the tail $\\mathrm{H}_1$ points to; 'is there correlation in the population?' → GDC test of $\\mathrm{H}_0$: $\\rho = 0$, assuming bivariate normal data ({{lesson:4.18}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "States that change step by step, where the next depends only on the current state ('after 3 days', 'in the long run') → transition matrix with columns 'from', each adding up to $1$, and $\\boldsymbol{s}_n = T^{n}\\boldsymbol{s}_0$; long run → for a regular chain, the unique steady state $T\\boldsymbol{s} = \\boldsymbol{s}$ with entries adding up to $1$ (an eigenvector for eigenvalue $1$, scaled), which $\\boldsymbol{s}_n$ approaches from any start ({{lesson:4.19}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

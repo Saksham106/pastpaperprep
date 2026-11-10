@@ -1,0 +1,38 @@
+[
+  {
+    "id": "function",
+    "term": "function",
+    "definition": "A rule that gives exactly one output for each input in its domain.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "domain",
+    "term": "domain",
+    "definition": "The set of input values a function is defined for; in a model, the context can limit it further, for example to times $t \\ge 0$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "range",
+    "term": "range",
+    "definition": "The set of output values a function takes over its domain; this is not the range of a data set, which is the largest value minus the smallest.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "mathematical-model",
+    "term": "mathematical model",
+    "definition": "A function or equation that describes a real situation approximately, and is only valid over a domain the context allows.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "inverse-function",
+    "term": "inverse function",
+    "definition": "The function $f^{-1}$ that undoes a one-to-one function $f$: if $f(a) = b$ then $f^{-1}(b) = a$, its graph is the reflection of the graph of $f$ in $y = x$, its domain is the range of $f$, and $f^{-1}(x)$ is not $\\frac{1}{f(x)}$.",
+    "lesson": "2.2"
+  },
+  {
+    "id": "one-to-one-function",
+    "term": "one-to-one function",
+    "definition": "A function in which no two different inputs give the same output, so every horizontal line meets its graph at most once and the function has an inverse.",
+    "lesson": "2.2"
+  }
+]

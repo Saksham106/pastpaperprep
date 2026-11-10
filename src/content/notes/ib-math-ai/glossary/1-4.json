@@ -1,0 +1,32 @@
+[
+  {
+    "id": "compound-interest",
+    "term": "compound interest",
+    "definition": "Interest that is added to the balance at the end of each period and then earns interest itself; at a nominal annual rate of $r\\%$ compounded $k$ times a year, the balance is multiplied by $1 + \\frac{r}{100k}$ each period.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "depreciation",
+    "term": "depreciation",
+    "definition": "The loss of an item's value over time; at a fixed rate of $r\\%$ a year the value is multiplied by $1 - \\frac{r}{100}$ each year, so in this model it falls by a smaller amount each year and never reaches $0$.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "present-value",
+    "term": "present value",
+    "definition": "The value at the start ($PV$), such as the amount invested or borrowed; in a calculator's finance solver with no regular payments, it has the opposite sign to the future value, because the money moves the other way.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "future-value",
+    "term": "future value",
+    "definition": "The value after a given number of periods ($FV$); in a calculator's finance solver with no regular payments, it has the opposite sign to the present value, because the money moves the other way.",
+    "lesson": "1.4"
+  },
+  {
+    "id": "real-value",
+    "term": "real value",
+    "definition": "What a future amount of money is worth in today's prices once inflation, the yearly percentage rise in prices, is allowed for; it is less than the future value whenever inflation is positive.",
+    "lesson": "1.4"
+  }
+]

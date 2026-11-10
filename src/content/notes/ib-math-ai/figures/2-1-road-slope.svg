@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 210" role="img" aria-labelledby="t" font-family="sans-serif" font-size="13">
+  <title id="t">A sloping road as the hypotenuse of a right-angled triangle, with the vertical rise and the horizontal distance as the other two sides</title>
+  <line x1="40" y1="160" x2="400" y2="160" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="400" y1="160" x2="400" y2="60" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="40" y1="160" x2="400" y2="60" stroke="var(--t2-ink)" stroke-width="4"/>
+  <path d="M388,160 L388,148 L400,148" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="220" y="182" text-anchor="middle" fill="currentColor">horizontal distance (the run)</text>
+  <text x="408" y="104" fill="currentColor">vertical</text>
+  <text x="408" y="120" fill="currentColor">rise</text>
+  <text x="200" y="98" text-anchor="middle" fill="var(--t2-ink)" transform="rotate(-15.5 200 98)">length along the road</text>
+  <text x="220" y="202" text-anchor="middle" fill="var(--muted)">gradient = vertical rise ÷ horizontal distance</text>
+</svg>

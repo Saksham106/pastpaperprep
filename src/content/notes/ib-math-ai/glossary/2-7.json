@@ -1,0 +1,8 @@
+[
+  {
+    "id": "composite-function",
+    "term": "composite function",
+    "definition": "The function $f \\circ g$ that applies $g$ first and then $f$ to the result, so $(f \\circ g)(x) = f(g(x))$; it exists only where $g(x)$ lies in the domain of $f$, and swapping the order usually gives a different function.",
+    "lesson": "2.7"
+  }
+]

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240" role="img" aria-labelledby="tski-area">
+  <title id="tski-area">A directed graph with four vertices P, Q, R and S. Arrows: P to Q and Q to P (two separate edges), Q to R, R to S, S to P, and R to P along the diagonal.</title>
+  <path d="M 70 200 Q 89.2 130.0 70 60" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="79.6,123.0 85.6,137.0 73.6,137.0" fill="currentColor"/>
+  <path d="M 70 60 Q 50.8 130.0 70 200" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="60.4,137.0 54.4,123.0 66.4,123.0" fill="currentColor"/>
+  <line x1="70.0" y1="60.0" x2="290.0" y2="60.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="198.0,60.0 184.0,66.0 184.0,54.0" fill="currentColor"/>
+  <line x1="290.0" y1="60.0" x2="290.0" y2="200.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="290.0,144.0 284.0,130.0 296.0,130.0" fill="currentColor"/>
+  <line x1="290.0" y1="200.0" x2="70.0" y2="200.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="162.0,200.0 176.0,194.0 176.0,206.0" fill="currentColor"/>
+  <line x1="290.0" y1="60.0" x2="70.0" y2="200.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="163.1,140.8 171.7,128.2 178.1,138.3" fill="currentColor"/>
+  <circle cx="70" cy="200" r="5" fill="currentColor"/>
+  <text x="52" y="216" font-size="14" text-anchor="middle" fill="currentColor">P</text>
+  <circle cx="70" cy="60" r="5" fill="currentColor"/>
+  <text x="52" y="52" font-size="14" text-anchor="middle" fill="currentColor">Q</text>
+  <circle cx="290" cy="60" r="5" fill="currentColor"/>
+  <text x="306" y="52" font-size="14" text-anchor="middle" fill="currentColor">R</text>
+  <circle cx="290" cy="200" r="5" fill="currentColor"/>
+  <text x="306" y="216" font-size="14" text-anchor="middle" fill="currentColor">S</text>
+</svg>

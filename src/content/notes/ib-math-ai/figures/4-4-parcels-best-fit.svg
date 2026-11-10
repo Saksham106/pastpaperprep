@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 300" role="img" aria-labelledby="t" font-family="sans-serif" font-size="12">
+<title id="t">Scatter diagram of delivery time in minutes against number of parcels for six rounds. The mean point at 50 parcels and 93 minutes is circled. A straight line of best fit passes through the mean point and through the point 40 parcels, 77 minutes, with the data points close to it on both sides.</title>
+<line x1="60.0" y1="30" x2="60.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="60.0" y1="250" x2="60.0" y2="255" stroke="currentColor"/>
+<text x="60.0" y="268" text-anchor="middle" fill="currentColor">30</text>
+<line x1="155.0" y1="30" x2="155.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="155.0" y1="250" x2="155.0" y2="255" stroke="currentColor"/>
+<text x="155.0" y="268" text-anchor="middle" fill="currentColor">40</text>
+<line x1="250.0" y1="30" x2="250.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="250.0" y1="250" x2="250.0" y2="255" stroke="currentColor"/>
+<text x="250.0" y="268" text-anchor="middle" fill="currentColor">50</text>
+<line x1="345.0" y1="30" x2="345.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="345.0" y1="250" x2="345.0" y2="255" stroke="currentColor"/>
+<text x="345.0" y="268" text-anchor="middle" fill="currentColor">60</text>
+<line x1="440.0" y1="30" x2="440.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="440.0" y1="250" x2="440.0" y2="255" stroke="currentColor"/>
+<text x="440.0" y="268" text-anchor="middle" fill="currentColor">70</text>
+<line x1="60" y1="250.0" x2="440" y2="250.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="250.0" x2="60" y2="250.0" stroke="currentColor"/>
+<text x="52" y="254.0" text-anchor="end" fill="currentColor">60</text>
+<line x1="60" y1="216.2" x2="440" y2="216.2" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="216.2" x2="60" y2="216.2" stroke="currentColor"/>
+<text x="52" y="220.2" text-anchor="end" fill="currentColor">70</text>
+<line x1="60" y1="182.3" x2="440" y2="182.3" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="182.3" x2="60" y2="182.3" stroke="currentColor"/>
+<text x="52" y="186.3" text-anchor="end" fill="currentColor">80</text>
+<line x1="60" y1="148.5" x2="440" y2="148.5" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="148.5" x2="60" y2="148.5" stroke="currentColor"/>
+<text x="52" y="152.5" text-anchor="end" fill="currentColor">90</text>
+<line x1="60" y1="114.6" x2="440" y2="114.6" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="114.6" x2="60" y2="114.6" stroke="currentColor"/>
+<text x="52" y="118.6" text-anchor="end" fill="currentColor">100</text>
+<line x1="60" y1="80.8" x2="440" y2="80.8" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="80.8" x2="60" y2="80.8" stroke="currentColor"/>
+<text x="52" y="84.8" text-anchor="end" fill="currentColor">110</text>
+<line x1="60" y1="46.9" x2="440" y2="46.9" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="46.9" x2="60" y2="46.9" stroke="currentColor"/>
+<text x="52" y="50.9" text-anchor="end" fill="currentColor">120</text>
+<line x1="60" y1="250" x2="440" y2="250" stroke="currentColor"/>
+<line x1="60" y1="30" x2="60" y2="250" stroke="currentColor"/>
+<text x="440" y="286" text-anchor="end" fill="currentColor">number of parcels x</text>
+<text x="64" y="20" fill="currentColor">time y (minutes)</text>
+<line x1="79.0" y1="235.8" x2="430.5" y2="35.4" stroke="var(--t1-ink)" stroke-width="2"/>
+<circle cx="117.0" cy="212.8" r="4" fill="var(--t2-ink)"/>
+<circle cx="174.0" cy="182.3" r="4" fill="var(--t2-ink)"/>
+<circle cx="221.5" cy="151.8" r="4" fill="var(--t2-ink)"/>
+<circle cx="278.5" cy="124.8" r="4" fill="var(--t2-ink)"/>
+<circle cx="326.0" cy="94.3" r="4" fill="var(--t2-ink)"/>
+<circle cx="383.0" cy="63.8" r="4" fill="var(--t2-ink)"/>
+<circle cx="250.0" cy="138.3" r="7" fill="none" stroke="var(--t3-ink)" stroke-width="2.2"/>
+<text x="260.0" y="156.3" fill="var(--t3-ink)">mean point (50, 93)</text>
+<circle cx="155.0" cy="192.5" r="3" fill="var(--t1-ink)"/>
+<text x="163.0" y="208.5" fill="var(--t1-ink)">(40, 77)</text>
+</svg>

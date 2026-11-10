@@ -1,0 +1,79 @@
+{
+  "lines": [
+    {
+      "text": "Same amount added each step (equal differences, simple interest), 'find the 20th term' or 'total after n weeks' → arithmetic sequence: $u_{n} = u_{1} + (n - 1)d$ and $S_{n} = \\frac{n}{2}(2u_{1} + (n - 1)d)$ ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Grows or falls by a fixed percentage each period, or equal ratios between terms → geometric sequence with $r = 1 \\pm \\frac{p}{100}$: $u_{n} = u_{1}r^{n-1}$, and $S_{n}$ ($r \\ne 1$) for a total; for 'first n that…', solve or tabulate on the GDC and check both neighbours ({{lesson:1.3}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "One lump sum left to grow, compounded k times a year, or depreciation at a fixed r% a year → $FV = PV\\left(1 + \\frac{r}{100k}\\right)^{kn}$ or the finance solver with $PMT = 0$, $P/Y = C/Y = k$, $N = kn$, $PV$ negative and $FV$ positive; depreciation uses $I\\% = -r$ with $k = 1$ ({{lesson:1.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'In today's prices' or 'allowing for inflation' → real value: use the real rate $r - i$ (an approximation) in the compound interest formula or the finance solver ({{lesson:1.4}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "A regular payment each period: saving monthly, an annuity paying out, or repaying a loan → finance solver with $PMT$ entered, $N$ = number of payments, payments at the end of each period, money paid out negative ({{lesson:1.7}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Maximum percentage error' caused by rounding a measurement → find the result at the lower and upper bounds, use each as $v_{E}$ with the rounded result as $v_{A}$, and keep the larger $\\left|\\frac{v_{A} - v_{E}}{v_{E}}\\right| \\times 100\\%$ ({{lesson:1.6}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Unknown in the exponent, such as $10^{x} = b$ or $\\mathrm{e}^{x} = b$ with $b > 0$ → $x = \\log_{10} b$ or $x = \\ln b$, or the GDC's equation solver; get the power on its own first ({{lesson:1.5}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "Several facts about the same 2 or 3 unknowns, or a quadratic through three given points → write the system, then the GDC's simultaneous equation solver; a polynomial equation → rearrange to $p(x) = 0$, use the root finder and keep only the roots that fit the context ({{lesson:1.8}})",
+      "tag": "learn",
+      "level": "SL"
+    },
+    {
+      "text": "'Write as a single logarithm', 'expand', or a log equation such as $\\ln x + \\ln(x + 5) = \\ln 14$ → laws of logarithms (booklet; base $10$ or $\\mathrm{e}$, every inside positive): product → sum, quotient → difference, power → multiple, no law for $\\log(x + y)$; reject any solution that makes a log undefined ({{lesson:1.9}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Fractional powers: 'exact value of $81^{-\\frac{3}{4}}$', 'write in the form $kx^{p}$', or solve $x^{\\frac{m}{n}} = c$ → for $a > 0$, $a^{\\frac{m}{n}} = \\left(\\sqrt[n]{a}\\right)^{m}$ (root first), laws of exponents with positive bases; for $x, c > 0$, $x = c^{\\frac{n}{m}}$, with the exponent bracketed on the GDC ({{lesson:1.10}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "'Total in the long run', 'the most a total of positive terms can reach', or a fractal's area → $S_{\\infty} = \\frac{u_{1}}{1 - r}$, only if $\\lvert r\\rvert < 1$, approached but never reached, plus any starting amount; 'first $n$ when the total passes…' → check the target is below $S_{\\infty}$, then $S_{n}$ on the GDC and test both neighbours ({{lesson:1.11}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Quadratic with real coefficients and $b^{2} - 4ac < 0$, or add, subtract, multiply or divide complex numbers → Cartesian form: quadratic formula with $\\sqrt{\\Delta} = \\sqrt{4ac - b^{2}}\\,\\mathrm{i}$ (a conjugate pair); divide by hand by multiplying top and bottom by the conjugate of the bottom; powers on the GDC in $a + b\\mathrm{i}$ mode ({{lesson:1.12}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Products, quotients or powers of complex numbers, or 'describe fully' $z \\mapsto wz$ → exponential form: multiply moduli and add arguments (scale factor $\\lvert w\\rvert$, rotation $\\arg w$ about O), then bring the argument back into range; adding $A_{1}\\cos(\\omega t + \\alpha_{1}) + A_{2}\\cos(\\omega t + \\alpha_{2})$ with the same $\\omega$ → $A_{1}\\mathrm{e}^{\\mathrm{i}\\alpha_{1}} + A_{2}\\mathrm{e}^{\\mathrm{i}\\alpha_{2}}$ on the GDC in radians: modulus = amplitude, argument = phase ({{lesson:1.13}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Tables of amounts and prices, $n$ linear equations in $n$ unknowns 'using an inverse matrix', or coding a message → matrices: $AB$ needs columns of $A$ = rows of $B$, and order matters; $A\\boldsymbol{x} = \\boldsymbol{b}$ gives $\\boldsymbol{x} = A^{-1}\\boldsymbol{b}$ when $\\det A \\neq 0$; decode with $M = K^{-1}C$ ({{lesson:1.14}})",
+      "tag": "learn",
+      "level": "AHL"
+    },
+    {
+      "text": "Two groups or places swapping members each step, '$M^{n}$ in terms of $n$' or 'long-term' for a $2 \\times 2$ matrix → eigenvalues from $\\det(M - \\lambda I) = 0$, eigenvectors from $(M - \\lambda I)\\boldsymbol{v} = \\boldsymbol{0}$, then $M^{n} = PD^{n}P^{-1}$ (two different real eigenvalues); parts with $\\lvert\\lambda\\rvert < 1$ die away and an eigenvector for $\\lambda = 1$ gives the steady split ({{lesson:1.15}})",
+      "tag": "learn",
+      "level": "AHL"
+    }
+  ]
+}

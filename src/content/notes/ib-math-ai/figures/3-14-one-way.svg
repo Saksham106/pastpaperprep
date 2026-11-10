@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 250" role="img" aria-labelledby="t">
+  <title id="t">A directed graph with four vertices K, L, M and N. Arrows: K to L, L to M, M to K, L to N, and N to M.</title>
+  <line x1="60" y1="50" x2="260" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="176.5,50.0 163.5,44.0 163.5,56.0" fill="currentColor"/>
+  <line x1="260" y1="50" x2="60" y2="210" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="144.9,142.1 158.8,138.6 151.3,129.3" fill="currentColor"/>
+  <line x1="60" y1="210" x2="60" y2="50" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="60.0,115.5 54.0,128.5 66.0,128.5" fill="currentColor"/>
+  <line x1="260" y1="50" x2="260" y2="210" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="260.0,144.5 266.0,131.5 254.0,131.5" fill="currentColor"/>
+  <line x1="260" y1="210" x2="60" y2="210" stroke="currentColor" stroke-width="2" fill="none"/>
+  <polygon points="143.5,210.0 156.5,216.0 156.5,204.0" fill="currentColor"/>
+  <circle cx="60" cy="50" r="5" fill="currentColor"/>
+  <text x="48" y="50" font-size="14" text-anchor="middle" fill="currentColor">K</text>
+  <circle cx="260" cy="50" r="5" fill="currentColor"/>
+  <text x="272" y="50" font-size="14" text-anchor="middle" fill="currentColor">L</text>
+  <circle cx="60" cy="210" r="5" fill="currentColor"/>
+  <text x="48" y="230" font-size="14" text-anchor="middle" fill="currentColor">M</text>
+  <circle cx="260" cy="210" r="5" fill="currentColor"/>
+  <text x="272" y="230" font-size="14" text-anchor="middle" fill="currentColor">N</text>
+</svg>

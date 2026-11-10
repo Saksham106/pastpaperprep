@@ -1,0 +1,26 @@
+[
+  {
+    "id": "least-squares-regression",
+    "term": "least squares regression",
+    "definition": "Fitting a line or curve of a chosen type (linear, quadratic, cubic, exponential, power or sine) by choosing its parameters so that the sum of the squared vertical distances from the data points to it is as small as possible; for exponential and power models the GDC does this for $\\ln y$ rather than $y$.",
+    "lesson": "4.13"
+  },
+  {
+    "id": "residual",
+    "term": "residual",
+    "definition": "For one data point, the observed $y$-value minus the value the model predicts at the same $x$; it is positive when the point lies above the curve and negative when it lies below.",
+    "lesson": "4.13"
+  },
+  {
+    "id": "sum-of-square-residuals",
+    "term": "sum of square residuals",
+    "definition": "$SS_{\\text{res}}$, the total of the squared residuals of a model; for models fitted to the same data a smaller value means a closer fit, and $0$ means every point lies on the curve.",
+    "lesson": "4.13"
+  },
+  {
+    "id": "coefficient-of-determination",
+    "term": "coefficient of determination",
+    "definition": "$R^2$, the proportion of the variation in $y$ that a model accounts for; it equals $r^2$ for a linear least squares model, and a high $R^2$ on its own does not show that a model is the right choice.",
+    "lesson": "4.13"
+  }
+]

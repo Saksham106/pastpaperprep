@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" role="img" aria-labelledby="t">
+  <title id="t">A triangle with corners A at the bottom left, B at the bottom right and C at the top. Side a, from B to C, faces A. Side b, from C to A, faces B. Side c, along the bottom from A to B, faces C.</title>
+  <polygon points="40,190 320,190 210,40" fill="var(--t2-ink)" fill-opacity="0.08" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <g font-size="16" fill="currentColor" font-weight="bold">
+    <text x="22" y="206">A</text>
+    <text x="326" y="206">B</text>
+    <text x="203" y="32">C</text>
+  </g>
+  <g font-size="16" fill="var(--t3-ink)" font-style="italic">
+    <text x="274" y="110">a</text>
+    <text x="108" y="110">b</text>
+    <text x="176" y="214">c</text>
+  </g>
+</svg>

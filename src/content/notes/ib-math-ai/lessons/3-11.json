@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.11",
+  "slug": "vector-equations-of-lines",
+  "title": "Vector equations of lines",
+  "level": "AHL",
+  "topic": 3,
+  "summary": "A straight line is fixed by one point on it and one direction. The [[vector-equation-of-a-line|vector equation of a line]], $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, gives every point on it, one for each value of $\\lambda$. Split into [[parametric-form|parametric form]], it gives each coordinate on its own, which is how you find where a path meets the ground, a wall or a given point.",
+  "goals": [
+    {
+      "text": "Write a vector equation of a line from a point and a direction, or from two points, in 2D and 3D.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    },
+    {
+      "text": "Read the point, the direction and the parameter $\\lambda$ in context, and test whether a point lies on a line.",
+      "bullets": [
+        "3.11-b1"
+      ]
+    },
+    {
+      "text": "Convert between $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$ and parametric form, and use parametric form to find the point where a line meets a condition.",
+      "bullets": [
+        "3.11-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "3.10"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "vector equation of a line",
+    "r = a + lambda b",
+    "parametric equations of a line",
+    "direction vector",
+    "line through two points vectors",
+    "does a point lie on a line"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-displacement",
+      "prompt": "The points $\\mathrm{A}(4, -2, 1)$ and $\\mathrm{B}(1, 3, 5)$ are given. Find $\\overrightarrow{\\mathrm{AB}}$.",
+      "hint": "End point minus start point: $\\overrightarrow{\\mathrm{AB}} = \\boldsymbol{b} - \\boldsymbol{a}$.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}-3\\\\5\\\\4\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\-5\\\\-4\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}5\\\\1\\\\6\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}1\\\\3\\\\5\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\overrightarrow{\\mathrm{AB}} = \\begin{pmatrix}1 - 4\\\\3 - (-2)\\\\5 - 1\\end{pmatrix} = \\begin{pmatrix}-3\\\\5\\\\4\\end{pmatrix}$. Subtracting the other way round reverses the direction, and $\\begin{pmatrix}1\\\\3\\\\5\\end{pmatrix}$ is the [[position-vector|position vector]] of B. Revise it in {{lesson:3.10}}.",
+      "verify": {
+        "kind": "vector",
+        "truth": "[1 - 4, 3 - (-2), 5 - 1]"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-magnitude",
+      "prompt": "Find $\\left\\lvert\\begin{pmatrix}2\\\\-6\\\\9\\end{pmatrix}\\right\\rvert$.",
+      "hint": "Square each component, add the squares, then take the square root.",
+      "answer": {
+        "value": 11,
+        "tolerance": 0
+      },
+      "explain": "$\\sqrt{2^{2} + (-6)^{2} + 9^{2}} = \\sqrt{4 + 36 + 81} = \\sqrt{121} = 11$. Revise it in {{lesson:3.10}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sqrt(2**2 + (-6)**2 + 9**2)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-parallel",
+      "prompt": "Which [[vector|vector]] is parallel to $\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$?",
+      "hint": "Parallel vectors are scalar multiples of each other: every component is multiplied by the same number.",
+      "options": [
+        {
+          "text": "$\\begin{pmatrix}4\\\\-1\\\\6\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix}$",
+          "correct": true
+        },
+        {
+          "text": "$\\begin{pmatrix}2\\\\1\\\\3\\end{pmatrix}$",
+          "correct": false
+        },
+        {
+          "text": "$\\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\begin{pmatrix}-4\\\\2\\\\-6\\end{pmatrix} = -2\\begin{pmatrix}2\\\\-1\\\\3\\end{pmatrix}$, so it is parallel (it points the opposite way). In $\\begin{pmatrix}4\\\\-1\\\\6\\end{pmatrix}$ only two components were doubled. Revise it in {{lesson:3.10}}."
+    }
+  ],
+  "sections": [
+    {
+      "id": "vector-equation",
+      "heading": "The vector equation of a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.1}} you fixed a line in 2D by a point and a gradient. A line in 3D has no single gradient, so you give its direction as a [[vector|vector]] instead. One point and one direction pin down exactly one line."
+        },
+        {
+          "type": "text",
+          "text": "Picture standing at a point A on a straight path. You reach every other point on the path by walking some multiple of the path's direction, forwards or backwards. A [[vector-equation-of-a-line|vector equation]] says this in symbols."
+        },
+        {
+          "type": "definition",
+          "term": "Vector equation of a line",
+          "statement": "The line through the point with position vector $\\boldsymbol{a}$, parallel to the non-zero vector $\\boldsymbol{b}$, has vector equation $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, where $\\lambda \\in \\mathbb{R}$.",
+          "plain": "Start at a known point, then add any multiple of the direction."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}",
+          "tag": "booklet",
+          "bookletId": "bk-3-11-vector-line"
+        },
+        {
+          "type": "text",
+          "text": "$\\boldsymbol{a}$ is the [[position-vector|position vector]] $\\overrightarrow{\\mathrm{OA}}$ of a known point A on the line. $\\boldsymbol{b}$ is a [[direction-vector|direction vector]]: any non-zero vector parallel to the line. $\\boldsymbol{r}$ is the position vector of a general point on the line."
+        },
+        {
+          "type": "text",
+          "text": "$\\lambda$ (lambda) is the parameter, a real number. Each value of $\\lambda$ gives one point: $\\lambda = 0$ gives A, $\\lambda = 1$ gives the point one step of $\\boldsymbol{b}$ further on, and negative values go backwards. As $\\lambda$ takes every real value, the points fill the whole line."
+        },
+        {
+          "type": "text",
+          "text": "The formula is in the booklet. Always start with $\\boldsymbol{r} =$. Without it you have an expression, not an equation. The same equation works in 2D, with two components, and in 3D, with three."
+        },
+        {
+          "type": "text",
+          "text": "For a line through two points P and Q, start at either point. For the direction, use the displacement $\\overrightarrow{\\mathrm{PQ}} = \\boldsymbol{q} - \\boldsymbol{p}$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{p} + \\lambda(\\boldsymbol{q} - \\boldsymbol{p})",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "3-11-cycle-path",
+          "alt": "Axes with origin O. A straight cycle path runs from the cafe C at (-20, 50) down to the gate G at (60, -10), and a dashed line continues it beyond both ends. A vector a runs from O to C. A bold vector b runs along the path from C to G. Points on the line are marked lambda equals 0 at C, lambda equals 0.5 halfway along, and lambda equals 1 at G. A dashed vector r runs from O to the point where lambda equals 0.5.",
+          "caption": "With $\\boldsymbol{a} = \\overrightarrow{\\mathrm{OC}}$ and $\\boldsymbol{b} = \\overrightarrow{\\mathrm{CG}}$, values $0 \\le \\lambda \\le 1$ give the path itself. Here $\\boldsymbol{r} = \\boldsymbol{a} + 0.5\\boldsymbol{b}$ is its midpoint."
+        },
+        {
+          "type": "example",
+          "id": "ex-cycle-path",
+          "question": "A park is mapped with its entrance at the origin O, $x$ metres east and $y$ metres north. A straight cycle path runs from a café at $\\mathrm{C}(-20, 50)$ to a gate at $\\mathrm{G}(60, -10)$. Find a vector equation of the line along the path, starting at C. Find and interpret the point given by $\\lambda = 0.25$.",
+          "steps": [
+            "Direction: $\\overrightarrow{\\mathrm{CG}} = \\begin{pmatrix}60 - (-20)\\\\-10 - 50\\end{pmatrix} = \\begin{pmatrix}80\\\\-60\\end{pmatrix}$.",
+            "Start at C: $\\boldsymbol{r} = \\begin{pmatrix}-20\\\\50\\end{pmatrix} + \\lambda\\begin{pmatrix}80\\\\-60\\end{pmatrix}$.",
+            "Check: $\\lambda = 1$ gives $\\begin{pmatrix}-20 + 80\\\\50 - 60\\end{pmatrix} = \\begin{pmatrix}60\\\\-10\\end{pmatrix}$, the gate.",
+            "$\\lambda = 0.25$ gives $\\begin{pmatrix}-20 + 0.25(80)\\\\50 + 0.25(-60)\\end{pmatrix} = \\begin{pmatrix}0\\\\35\\end{pmatrix}$: the point $(0, 35)$, 35 m due north of the entrance.",
+            "Interpret: the path is $\\lvert\\overrightarrow{\\mathrm{CG}}\\rvert = \\sqrt{80^{2} + (-60)^{2}} = 100$ m long, so this point is a quarter of the way along, 25 m from the café. Values of $\\lambda$ outside $0 \\le \\lambda \\le 1$ give points on the line beyond the ends of the path."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}-20\\\\50\\end{pmatrix} + \\lambda\\begin{pmatrix}80\\\\-60\\end{pmatrix}$",
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-ski-lift",
+          "question": "A ski lift's cable runs in a straight line from the bottom station $\\mathrm{B}(120, 40, 15)$ to the top station $\\mathrm{T}(-80, 290, 515)$. Coordinates are in metres: $x$ east, $y$ north and $z$ height above a reference level. (a) Write down a vector equation of the cable's line in the form $\\boldsymbol{r} = \\overrightarrow{\\mathrm{OB}} + \\lambda\\overrightarrow{\\mathrm{BT}}$. (b) The top of a support tower is at $(40, 140, 215)$. Show that it lies on the line, find the value of $\\lambda$ there and interpret it.",
+          "steps": [
+            "Direction: $\\overrightarrow{\\mathrm{BT}} = \\begin{pmatrix}-80 - 120\\\\290 - 40\\\\515 - 15\\end{pmatrix} = \\begin{pmatrix}-200\\\\250\\\\500\\end{pmatrix}$.",
+            "(a) $\\boldsymbol{r} = \\begin{pmatrix}120\\\\40\\\\15\\end{pmatrix} + \\lambda\\begin{pmatrix}-200\\\\250\\\\500\\end{pmatrix}$.",
+            "(b) Set the general point equal to the tower top. From $x$: $120 - 200\\lambda = 40$, so $\\lambda = 0.4$.",
+            "Check the other components with $\\lambda = 0.4$: $y = 40 + 250(0.4) = 140$ and $z = 15 + 500(0.4) = 215$. One value of $\\lambda$ gives all three coordinates, so the tower top lies on the line.",
+            "Interpret: $\\lambda = 0$ is B and $\\lambda = 1$ is T, so the tower top is $40\\%$ of the way along the cable from the bottom station."
+          ],
+          "answer": "$\\boldsymbol{r} = \\begin{pmatrix}120\\\\40\\\\15\\end{pmatrix} + \\lambda\\begin{pmatrix}-200\\\\250\\\\500\\end{pmatrix}, \\; \\lambda = 0.4$",
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Testing a point with one component only. Any single equation gives some $\\lambda$. The point is on the line only if the same $\\lambda$ works in every component."
+        },
+        {
+          "type": "text",
+          "text": "A line has many vector equations. You can start at any point on it, and any non-zero multiple of $\\boldsymbol{b}$ is also a direction vector. Above, $\\begin{pmatrix}-200\\\\250\\\\500\\end{pmatrix} = 50\\begin{pmatrix}-4\\\\5\\\\10\\end{pmatrix}$, so $\\begin{pmatrix}-4\\\\5\\\\10\\end{pmatrix}$ gives the same line."
+        },
+        {
+          "type": "text",
+          "text": "The meaning of $\\lambda$ changes with the equation, though. With direction $\\begin{pmatrix}-4\\\\5\\\\10\\end{pmatrix}$, $\\lambda = 1$ is no longer the top station. So read $\\lambda$ from the equation you were given."
+        },
+        {
+          "type": "text",
+          "text": "In 2D, the line $y = mx + c$ passes through $(0, c)$ and rises $m$ for every $1$ across. So $\\boldsymbol{r} = \\begin{pmatrix}0\\\\c\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\m\\end{pmatrix}$ is a vector equation of it. Going back, a direction $\\begin{pmatrix}p\\\\q\\end{pmatrix}$ with $p \\ne 0$ gives the gradient $\\frac{q}{p}$."
+        },
+        {
+          "type": "check",
+          "id": "check-line-two-points",
+          "prompt": "Which is a vector equation of the line through $\\mathrm{P}(3, -1, 2)$ and $\\mathrm{Q}(5, 2, -2)$?",
+          "hint": "The direction is $\\overrightarrow{\\mathrm{PQ}}$: subtract the coordinates of P from those of Q.",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}5\\\\2\\\\-2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}2\\\\3\\\\-4\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}8\\\\1\\\\0\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}2\\\\3\\\\-4\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\-1\\\\2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\overrightarrow{\\mathrm{PQ}} = \\begin{pmatrix}5 - 3\\\\2 - (-1)\\\\-2 - 2\\end{pmatrix} = \\begin{pmatrix}2\\\\3\\\\-4\\end{pmatrix}$. Using $\\begin{pmatrix}5\\\\2\\\\-2\\end{pmatrix}$ treats Q's position vector as a direction, and the last option swaps the point and the direction."
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-form",
+          "prompt": "Which is a vector equation of the line $y = 3x - 2$?",
+          "hint": "Find one point on the line, such as where $x = 0$. Then move $1$ across: how far up do you go?",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\1\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}-2\\\\0\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\-2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\3\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}0\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\-2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "$x = 0$ gives $y = -2$, so $(0, -2)$ is on the line. A gradient of $3$ means $3$ up for $1$ across, so the direction is $\\begin{pmatrix}1\\\\3\\end{pmatrix}$. The point $(-2, 0)$ is not on the line: $3(-2) - 2 = -8$."
+        }
+      ]
+    },
+    {
+      "id": "parametric",
+      "heading": "Parametric form",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[vector-equation-of-a-line|vector equation]] holds two or three equations in one. Write $\\boldsymbol{r}$ as $\\begin{pmatrix}x\\\\y\\\\z\\end{pmatrix}$, the known point as $(x_{0}, y_{0}, z_{0})$ and the direction as $\\begin{pmatrix}l\\\\m\\\\n\\end{pmatrix}$. Then each row gives one coordinate."
+        },
+        {
+          "type": "formula",
+          "tex": "x = x_{0} + \\lambda l, \\quad y = y_{0} + \\lambda m, \\quad z = z_{0} + \\lambda n",
+          "tag": "booklet",
+          "bookletId": "bk-3-11-parametric-line"
+        },
+        {
+          "type": "text",
+          "text": "This is the [[parametric-form|parametric form]] of the line, and it is in the booklet too. Each coordinate is written in terms of the parameter $\\lambda$. In 2D you have only the $x$ and $y$ equations."
+        },
+        {
+          "type": "text",
+          "text": "Parametric form is how you use a line. A condition such as “on the ground” ($z = 0$) or “at the wall $x = 5$” gives one equation in $\\lambda$. Solve it, then put that $\\lambda$ into every coordinate. If that coordinate has no $\\lambda$ term, the line is parallel to the ground or wall: it never meets it, or lies in it."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-landing",
+          "question": "Relative to a depot O, a delivery drone descends along the line $\\boldsymbol{r} = \\begin{pmatrix}12\\\\-5\\\\60\\end{pmatrix} + \\lambda\\begin{pmatrix}4\\\\3\\\\-15\\end{pmatrix}$. Distances are in metres: $x$ east, $y$ north and $z$ height above flat ground. Write the line in parametric form, and find the coordinates of the point where the drone lands.",
+          "steps": [
+            "Read off each row: $x = 12 + 4\\lambda$, $y = -5 + 3\\lambda$ and $z = 60 - 15\\lambda$.",
+            "On the ground $z = 0$: $60 - 15\\lambda = 0$, so $\\lambda = 4$.",
+            "Substitute $\\lambda = 4$ into the other two: $x = 12 + 4(4) = 28$ and $y = -5 + 3(4) = 7$.",
+            "Interpret: the drone lands 28 m east and 7 m north of the depot, assuming it keeps to the straight line until it touches down."
+          ],
+          "answer": "$(28, 7, 0)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "[12 + 4*(60/15), -5 + 3*(60/15), 60 - 15*(60/15)]"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Answering in the wrong form. When a question asks for coordinates, write $(28, 7, 0)$. Some mark schemes condone a column vector, but give one only when a position vector is asked for."
+        },
+        {
+          "type": "text",
+          "text": "Going back from parametric to vector form is reading off. The constants give the point and the coefficients of $\\lambda$ give the direction. A coordinate with no $\\lambda$ term has direction component $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-zip-line",
+          "question": "A zip line is modelled by $x = 25 - 8\\lambda$, $y = 12 + 6\\lambda$, $z = 30 - 5\\lambda$, where distances are in metres and $z$ is the height above the ground. A rider starts at $\\lambda = 0$. (a) Write down a vector equation of the zip line. (b) The zip line ends at a landing platform where $x = -15$. Find the length of the zip line. Give your answer to 3 s.f.",
+          "steps": [
+            "(a) Constants give the start, coefficients of $\\lambda$ give the direction: $\\boldsymbol{r} = \\begin{pmatrix}25\\\\12\\\\30\\end{pmatrix} + \\lambda\\begin{pmatrix}-8\\\\6\\\\-5\\end{pmatrix}$.",
+            "(b) At the landing platform, $25 - 8\\lambda = -15$, so $\\lambda = 5$. The end point is $(25 - 8(5), 12 + 6(5), 30 - 5(5)) = (-15, 42, 5)$.",
+            "Displacement from start to end: $\\begin{pmatrix}-15 - 25\\\\42 - 12\\\\5 - 30\\end{pmatrix} = \\begin{pmatrix}-40\\\\30\\\\-25\\end{pmatrix}$. That is $5$ times the direction vector, as $\\lambda = 5$ says.",
+            "Write down what you enter: length $= \\left\\lvert\\begin{pmatrix}-40\\\\30\\\\-25\\end{pmatrix}\\right\\rvert = \\sqrt{(-40)^{2} + 30^{2} + (-25)^{2}} = 55.9016\\ldots$ m.",
+            "Interpret: each unit of $\\lambda$ moves $\\sqrt{125} = 11.18\\ldots$ m along the line, and the rider travels $5$ units. The end is still $5$ m above the ground, a sensible height for a landing platform."
+          ],
+          "answer": "$\\text{length} \\approx 55.9\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(((25 + 15)/8)**2*((-8)**2 + 6**2 + (-5)**2))",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "vector-magnitude",
+          "values": {
+            "u": "-40,30,-25"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "On Paper 2, write the vector or expression you put into the GDC before its value. That line earns the method mark even if the final figure slips."
+        },
+        {
+          "type": "check",
+          "id": "check-point-k",
+          "prompt": "The point $(7, k, 26)$ lies on the line $x = -1 + 2\\lambda$, $y = 4 - 3\\lambda$, $z = 6 + 5\\lambda$. Find $k$.",
+          "hint": "Use a coordinate without $k$ to find $\\lambda$. Check it in the other one.",
+          "answer": {
+            "value": -8,
+            "tolerance": 0
+          },
+          "explain": "From $x$: $-1 + 2\\lambda = 7$, so $\\lambda = 4$. The $z$-coordinate agrees: $6 + 5(4) = 26$. Then $k = 4 - 3(4) = -8$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4 - 3*((7 + 1)/2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parametric-to-vector",
+          "prompt": "A line has parametric form $x = 1 - 4\\lambda$, $y = 6$, $z = 3 + 2\\lambda$. Which is a vector equation of the line?",
+          "hint": "Collect the constants into the point and the coefficients of $\\lambda$ into the direction. What is the coefficient of $\\lambda$ in $y = 6$?",
+          "options": [
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\6\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}-4\\\\6\\\\2\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\6\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}-4\\\\0\\\\2\\end{pmatrix}$",
+              "correct": true
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}-4\\\\0\\\\2\\end{pmatrix} + \\lambda\\begin{pmatrix}1\\\\6\\\\3\\end{pmatrix}$",
+              "correct": false
+            },
+            {
+              "text": "$\\boldsymbol{r} = \\begin{pmatrix}1\\\\6\\\\3\\end{pmatrix} + \\lambda\\begin{pmatrix}4\\\\0\\\\2\\end{pmatrix}$",
+              "correct": false
+            }
+          ],
+          "explain": "The constants $1$, $6$ and $3$ give the point. The coefficients of $\\lambda$ are $-4$, $0$ and $2$: $y$ stays at $6$, so the line never moves in the $y$-direction. The sign of $-4\\lambda$ belongs in the direction."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}",
+          "tag": "booklet",
+          "bookletId": "bk-3-11-vector-line",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$, $\\boldsymbol{a}$ is the position vector of any point on the line and $\\boldsymbol{b}$ is any non-zero vector parallel to it. Through P and Q, use $\\boldsymbol{b} = \\overrightarrow{\\mathrm{PQ}} = \\boldsymbol{q} - \\boldsymbol{p}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $\\boldsymbol{r} = \\overrightarrow{\\mathrm{OP}} + \\lambda\\overrightarrow{\\mathrm{PQ}}$: $\\lambda = 0$ is P, $\\lambda = 1$ is Q, and $0 \\le \\lambda \\le 1$ is the segment PQ. With a different point or direction, $\\lambda$ means something different.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A point lies on a line only if one value of $\\lambda$ gives every one of its coordinates.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "x = x_{0} + \\lambda l, \\quad y = y_{0} + \\lambda m, \\quad z = z_{0} + \\lambda n",
+          "tag": "booklet",
+          "bookletId": "bk-3-11-parametric-line",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From parametric form back to $\\boldsymbol{r} = \\boldsymbol{a} + \\lambda\\boldsymbol{b}$: the constants give the point, the coefficients of $\\lambda$ give the direction, and a coordinate with no $\\lambda$ term has direction component $0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find where a line meets a condition such as $z = 0$: solve that coordinate's equation for $\\lambda$, then substitute that $\\lambda$ into every coordinate. If that coordinate has no $\\lambda$ term, there is no single meeting point.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving out $\\boldsymbol{r} =$. On its own, $\\begin{pmatrix}2\\\\1\\end{pmatrix} + \\lambda\\begin{pmatrix}3\\\\4\\end{pmatrix}$ is an expression, not an equation, and can lose a mark.",
+    "Using a position vector as the direction. For the line through P and Q, the direction is $\\boldsymbol{q} - \\boldsymbol{p}$, not $\\boldsymbol{q}$.",
+    "Testing a point with one coordinate only. Find $\\lambda$ from one coordinate, then show that the same $\\lambda$ gives the others too.",
+    "Mixing up the parts of parametric form: putting a constant into the direction, or forgetting that a coordinate with no $\\lambda$ term has direction component $0$.",
+    "Rounding $\\lambda$ before substituting it. Keep the full value and round only the final coordinates or length."
+  ],
+  "examTips": [
+    "“Write down” a vector equation: no working is needed, but give the whole equation, starting $\\boldsymbol{r} =$. The point and the direction vector can earn separate marks.",
+    "“Show that” a point lies on a line: find $\\lambda$ from one coordinate, substitute it into the others, and state the conclusion. The reasoning mark needs evidence that every coordinate agrees.",
+    "“Find the coordinates” of a point on a line: write the equation you solve for $\\lambda$, such as $60 - 15\\lambda = 0$, then substitute. Give coordinates, not a column vector, unless a position vector is asked for.",
+    "“Interpret” $\\lambda$ in context: say which points $\\lambda = 0$ and $\\lambda = 1$ are. In {{lesson:3.12}} the parameter is time and the direction vector is a velocity."
+  ],
+  "readingMinutes": 17
+}

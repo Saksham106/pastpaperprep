@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "3.5",
+  "slug": "perpendicular-bisectors",
+  "title": "Perpendicular bisectors",
+  "level": "SL",
+  "topic": 3,
+  "summary": "The [[perpendicular-bisector|perpendicular bisector]] of a segment is the line through its midpoint at right angles to it. Every point on it is equally far from the two ends, which is why Voronoi diagrams are built from these lines. You find its equation from the two end points, or from the segment's equation and its midpoint.",
+  "goals": [
+    {
+      "text": "Say what a [[perpendicular-bisector|perpendicular bisector]] is, and use the fact that each of its points is equally far from both ends of the segment.",
+      "bullets": [
+        "3.5-b1"
+      ]
+    },
+    {
+      "text": "Find the equation of a perpendicular bisector from the coordinates of two points.",
+      "bullets": [
+        "3.5-b1"
+      ]
+    },
+    {
+      "text": "Find the equation of a perpendicular bisector from the equation of a segment and its midpoint.",
+      "bullets": [
+        "3.5-b1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "perpendicular bisector equation",
+    "equation of perpendicular bisector from two points",
+    "perpendicular bisector from midpoint",
+    "equidistant from two points",
+    "negative reciprocal gradient"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-midpoint-2d",
+      "prompt": "Find the midpoint of $(-4, 9)$ and $(6, 1)$.",
+      "hint": "Add the two $x$-coordinates and halve. Do the same for the $y$-coordinates.",
+      "options": [
+        {
+          "text": "$(1, 5)$",
+          "correct": true
+        },
+        {
+          "text": "$(5, -4)$",
+          "correct": false
+        },
+        {
+          "text": "$(2, 10)$",
+          "correct": false
+        },
+        {
+          "text": "$(-5, 4)$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\left(\\frac{-4 + 6}{2}, \\frac{9 + 1}{2}\\right) = (1, 5)$. The midpoint formula is in the prior-learning part of the formula booklet; revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "((-4 + 6)/2, (9 + 1)/2)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-perpendicular-gradient",
+      "prompt": "A line has [[gradient|gradient]] $-\\frac{3}{5}$. Find the gradient of a line perpendicular to it.",
+      "hint": "Flip the fraction and change its sign.",
+      "options": [
+        {
+          "text": "$\\frac{5}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{5}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{5}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\frac{3}{5}$",
+          "correct": false
+        }
+      ],
+      "explain": "Perpendicular gradients multiply to $-1$: $-\\frac{3}{5} \\times \\frac{5}{3} = -1$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-1/Rational(-3, 5)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-general-form-gradient",
+      "prompt": "Find the gradient of the line $4x - 6y + 1 = 0$.",
+      "hint": "Make $y$ the subject.",
+      "options": [
+        {
+          "text": "$\\frac{2}{3}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\frac{2}{3}$",
+          "correct": false
+        },
+        {
+          "text": "$\\frac{3}{2}$",
+          "correct": false
+        },
+        {
+          "text": "$4$",
+          "correct": false
+        }
+      ],
+      "explain": "$6y = 4x + 1$, so $y = \\frac{2}{3}x + \\frac{1}{6}$ and the gradient is $\\frac{2}{3}$. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "-Rational(4, -6)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "meaning",
+      "heading": "What a perpendicular bisector is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two friends want to meet equally far from both their homes. The halfway point works, and so do many other places, all on one straight line."
+        },
+        {
+          "type": "definition",
+          "term": "Perpendicular bisector",
+          "statement": "The [[perpendicular-bisector|perpendicular bisector]] of a line segment $[AB]$ is the line that passes through the midpoint of $[AB]$ and is perpendicular to $[AB]$.",
+          "plain": "It cuts the segment in half, at a right angle."
+        },
+        {
+          "type": "text",
+          "text": "\"Bisect\" means cut into two equal parts. \"Perpendicular\" means at right angles, as for [[perpendicular-lines|perpendicular lines]]. The notation $[AB]$ means the segment from $A$ to $B$."
+        },
+        {
+          "type": "result",
+          "statement": "In a plane, every point on the perpendicular bisector of $[AB]$ is the same distance from $A$ as from $B$, and every point that is the same distance from $A$ and $B$ lies on it.",
+          "why": "From a point $P$ on it, the triangles $PMA$ and $PMB$ (with $M$ the midpoint) share the side $PM$, have $MA = MB$ and a right angle at $M$, so $PA = PB$."
+        },
+        {
+          "type": "figure",
+          "id": "3-5-equidistant",
+          "alt": "Coordinate grid from 0 to 9 on both axes. Segment HK joins H at (1, 2) and K at (7, 6), with midpoint M at (4, 4). Equal tick marks show HM equals MK. The perpendicular bisector, the line 3x + 2y - 20 = 0, passes through M at a right angle to HK. The point P at (2, 7) lies on the bisector, and dashed lines from P to H and from P to K are both labelled root 26.",
+          "caption": "$P$ is on the perpendicular bisector of $[HK]$, so $PH = PK$."
+        },
+        {
+          "type": "text",
+          "text": "The midpoint of $(x_{1}, y_{1})$ and $(x_{2}, y_{2})$ is $\\left(\\frac{x_{1} + x_{2}}{2}, \\frac{y_{1} + y_{2}}{2}\\right)$. It is in the prior-learning section of the formula booklet."
+        },
+        {
+          "type": "text",
+          "text": "To show a line is the perpendicular bisector of $[AB]$, check that it passes through the midpoint, and that its gradient times the gradient of $[AB]$ is $-1$ (or, if $[AB]$ is horizontal, that the line is vertical; if $[AB]$ is vertical, that the line is horizontal)."
+        },
+        {
+          "type": "example",
+          "id": "ex-show-bisector-houses",
+          "question": "On a street plan, $1$ unit represents $10$ m. Two houses are at $H(1, 2)$ and $K(7, 6)$. Show that the line $3x + 2y - 20 = 0$ is the perpendicular bisector of $[HK]$.",
+          "steps": [
+            "Midpoint of $[HK]$: $\\left(\\frac{1 + 7}{2}, \\frac{2 + 6}{2}\\right) = (4, 4)$.",
+            "Substitute it into the line: $3(4) + 2(4) - 20 = 0$. So the line passes through the midpoint.",
+            "Gradient of $[HK]$: $\\frac{6 - 2}{7 - 1} = \\frac{4}{6} = \\frac{2}{3}$.",
+            "Gradient of the line: $2y = -3x + 20$, so $y = -\\frac{3}{2}x + 10$ and the gradient is $-\\frac{3}{2}$.",
+            "$\\frac{2}{3} \\times \\left(-\\frac{3}{2}\\right) = -1$, so the line is perpendicular to $[HK]$."
+          ],
+          "answer": "The line passes through the midpoint $(4, 4)$ of $[HK]$ and is perpendicular to $[HK]$, so it is the perpendicular bisector.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "passes through midpoint (4, 4) and gradient product is -1, so perpendicular",
+            "requires": [
+              [
+                "midpoint"
+              ],
+              [
+                "perpendicular"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-equidistant",
+          "question": "A street lamp will stand at $P(2, 7)$ on the same plan. (a) Find the distance from $P$ to each house, in metres. Give your answers to 3 s.f. (b) Interpret your answer.",
+          "steps": [
+            "(a) $PH = \\sqrt{(2 - 1)^2 + (7 - 2)^2} = \\sqrt{26} = 5.0990\\ldots$ units.",
+            "$PK = \\sqrt{(2 - 7)^2 + (7 - 6)^2} = \\sqrt{26}$ units, the same.",
+            "$1$ unit is $10$ m, so each distance is $50.990\\ldots \\approx 51.0$ m.",
+            "(b) $P$ is on $3x + 2y - 20 = 0$, since $3(2) + 2(7) - 20 = 0$. So, like every point on the bisector, the lamp is equally far from both houses."
+          ],
+          "answer": "$PH = PK \\approx 51.0\\text{ m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "10*sqrt((2 - 1)**2 + (7 - 2)**2)",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bisector-meaning",
+          "prompt": "A point $T$ lies on the perpendicular bisector of $[AB]$. Which statement must be true?",
+          "hint": "Think about the lamp and the two houses.",
+          "options": [
+            {
+              "text": "T is the same distance from A as from B",
+              "correct": true
+            },
+            {
+              "text": "T is the midpoint of the segment AB",
+              "correct": false
+            },
+            {
+              "text": "T lies on the line through A and B",
+              "correct": false
+            },
+            {
+              "text": "T is closer to A than to B",
+              "correct": false
+            }
+          ],
+          "explain": "Every point on the perpendicular bisector is equally far from $A$ and $B$. The midpoint is only one of these points.",
+          "verify": {
+            "kind": "choice",
+            "truth": "T is the same distance from A as from B"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gate-on-bisector",
+          "prompt": "A garden gate is at $G(6, k)$, on the perpendicular bisector $3x + 2y - 20 = 0$ of $[HK]$. Find $k$.",
+          "hint": "Substitute $x = 6$ and $y = k$ into the equation.",
+          "answer": {
+            "value": 1,
+            "tolerance": 0
+          },
+          "explain": "$3(6) + 2k - 20 = 0$, so $2k = 2$ and $k = 1$. Check: $GH = \\sqrt{5^2 + 1^2}$ and $GK = \\sqrt{1^2 + 5^2}$ are equal.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(20 - 3*6)/2",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "two-points",
+      "heading": "From two points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line is fixed by its [[gradient|gradient]] and one point on it. For a perpendicular bisector, the point is the midpoint and the gradient comes from the segment."
+        },
+        {
+          "type": "text",
+          "text": "1. Find the midpoint of $A$ and $B$."
+        },
+        {
+          "type": "text",
+          "text": "2. Find the gradient $m$ of $[AB]$."
+        },
+        {
+          "type": "text",
+          "text": "3. If $m \\neq 0$, the bisector's gradient is the negative reciprocal, $-\\frac{1}{m}$: flip the fraction and change its sign."
+        },
+        {
+          "type": "text",
+          "text": "4. Put the midpoint and this gradient into [[point-gradient-form|point-gradient form]], $y - y_{1} = m(x - x_{1})$. Rearrange if the question asks for a given form."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms"
+        },
+        {
+          "type": "text",
+          "text": "Both formulas are in the booklet. In step 4, the $m$ you substitute is the bisector's gradient, not the gradient of $[AB]$."
+        },
+        {
+          "type": "example",
+          "id": "ex-bisector-two-points",
+          "question": "Points $A(-2, 5)$ and $B(4, -3)$ are given. Write the perpendicular bisector of $[AB]$ in the form $y = mx + c$.",
+          "steps": [
+            "Midpoint: $\\left(\\frac{-2 + 4}{2}, \\frac{5 + (-3)}{2}\\right) = (1, 1)$.",
+            "Gradient of $[AB]$: $\\frac{-3 - 5}{4 - (-2)} = \\frac{-8}{6} = -\\frac{4}{3}$.",
+            "Perpendicular gradient: $\\frac{3}{4}$. Check: $-\\frac{4}{3} \\times \\frac{3}{4} = -1$.",
+            "$y - 1 = \\frac{3}{4}(x - 1)$, so $y = \\frac{3}{4}x - \\frac{3}{4} + 1$.",
+            "Check with the distances: the point $(5, 4)$ is on it, and is $\\sqrt{50}$ from both $A$ and $B$."
+          ],
+          "answer": "$y = \\frac{3}{4}x + \\frac{1}{4}$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (5 + -3)/2, -1/Rational(-3 - 5, 4 - (-2))*(x - (-2 + 4)/2))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-schools-bus-stop",
+          "question": "On a map with distances in km, two schools are at $S(3, 12)$ and $T(15, 4)$. A shared bus stop must be equally far from both schools. (a) Find an equation for the perpendicular bisector of $[ST]$, in the form $ax + by + d = 0$ with $a, b, d \\in \\mathbb{Z}$. (b) The bus stop will be on the road $y = 2$. Find its coordinates.",
+          "steps": [
+            "(a) Midpoint: $\\left(\\frac{3 + 15}{2}, \\frac{12 + 4}{2}\\right) = (9, 8)$.",
+            "Gradient of $[ST]$: $\\frac{4 - 12}{15 - 3} = -\\frac{8}{12} = -\\frac{2}{3}$, so the bisector has gradient $\\frac{3}{2}$.",
+            "$y - 8 = \\frac{3}{2}(x - 9)$. Multiply by $2$: $2y - 16 = 3x - 27$, so $3x - 2y - 11 = 0$.",
+            "The stop is equally far from both schools, so it is on this line.",
+            "(b) Put $y = 2$: $3x - 4 - 11 = 0$, so $x = 5$. The stop is at $(5, 2)$."
+          ],
+          "answer": "$3x - 2y - 11 = 0$",
+          "check": {
+            "type": "check",
+            "id": "check-bus-stop-distance",
+            "prompt": "Now you try: find the distance from the bus stop at $(5, 2)$ to each school, in km. Give your answer to 3 s.f.",
+            "hint": "Find the distance to one school; the other must be the same.",
+            "answer": {
+              "value": 10.2,
+              "tolerance": 0.05
+            },
+            "explain": "To $S$: $\\sqrt{(5 - 3)^2 + (2 - 12)^2} = \\sqrt{104} \\approx 10.2$ km. To $T$: $\\sqrt{10^2 + 2^2} = \\sqrt{104}$ too.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "sqrt(((11 + 2*2)/3 - 3)**2 + (2 - 12)**2)",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (12 + 4)/2, -1/Rational(4 - 12, 15 - 3)*(x - (3 + 15)/2))"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the gradient of the segment for the bisector, or flipping it without changing the sign. Multiply the two gradients: you must get $-1$."
+        },
+        {
+          "type": "text",
+          "text": "If $A$ and $B$ share a $y$-coordinate, $[AB]$ is horizontal, so the bisector is vertical: $x = $ the midpoint's $x$-coordinate. If they share an $x$-coordinate, the bisector is $y = $ the midpoint's $y$-coordinate."
+        },
+        {
+          "type": "check",
+          "id": "check-bisector-options",
+          "prompt": "Which line is the perpendicular bisector of the segment joining $(-1, 3)$ and $(5, 7)$?",
+          "hint": "The midpoint is $(2, 5)$. Then flip the segment's gradient and change its sign.",
+          "options": [
+            {
+              "text": "$y = -\\frac{3}{2}x + 8$",
+              "correct": true
+            },
+            {
+              "text": "$y = \\frac{2}{3}x + \\frac{11}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{3}{2}x + 2$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{3}{2}x + \\frac{3}{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "The segment's gradient is $\\frac{4}{6} = \\frac{2}{3}$, so the bisector's is $-\\frac{3}{2}$. Then $y - 5 = -\\frac{3}{2}(x - 2)$ gives $y = -\\frac{3}{2}x + 8$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (3 + 7)/2, -1/Rational(7 - 3, 5 - (-1))*(x - (-1 + 5)/2))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-buoys-horizontal",
+          "prompt": "Two buoys are at $(3, 8)$ and $(3, -2)$. Which line is the perpendicular bisector of the segment joining them?",
+          "hint": "The buoys have the same $x$-coordinate, so the segment is vertical.",
+          "options": [
+            {
+              "text": "$y = 3$",
+              "correct": true
+            },
+            {
+              "text": "$x = 3$",
+              "correct": false
+            },
+            {
+              "text": "$y = 5$",
+              "correct": false
+            }
+          ],
+          "explain": "The segment is vertical, so the bisector is horizontal through the midpoint $\\left(3, \\frac{8 + (-2)}{2}\\right) = (3, 3)$: $y = 3$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, (8 + -2)/2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-and-midpoint",
+      "heading": "From a segment's equation and its midpoint",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you know a segment's line and midpoint, but not its ends. The gradient comes from the equation."
+        },
+        {
+          "type": "text",
+          "text": "1. Read the segment's gradient $m$ from its equation. In [[gradient-intercept-form|gradient-intercept form]] $y = mx + c$ it is $m$. In [[general-form-of-a-line|general form]], make $y$ the subject first."
+        },
+        {
+          "type": "text",
+          "text": "2. The bisector's gradient is $-\\frac{1}{m}$ (if $m \\neq 0$)."
+        },
+        {
+          "type": "text",
+          "text": "3. Use the midpoint as $(x_{1}, y_{1})$ in $y - y_{1} = m(x - x_{1})$."
+        },
+        {
+          "type": "text",
+          "text": "Substitute the midpoint into the segment's equation as a quick check."
+        },
+        {
+          "type": "example",
+          "id": "ex-line-and-midpoint",
+          "question": "The segment $[PQ]$ lies on the line $y = 4x - 7$, and its midpoint is $M(3, 5)$. Find an equation for the perpendicular bisector of $[PQ]$.",
+          "steps": [
+            "Check: $4(3) - 7 = 5$, so $M$ is on the line.",
+            "The segment's gradient is $4$, so the bisector's gradient is $-\\frac{1}{4}$.",
+            "$y - 5 = -\\frac{1}{4}(x - 3)$.",
+            "Expand: $y = -\\frac{1}{4}x + \\frac{3}{4} + 5$."
+          ],
+          "answer": "$y = -\\frac{1}{4}x + \\frac{23}{4}$",
+          "video": null,
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 5, -1/Rational(4)*(x - 3))"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pipeline-gdc",
+          "question": "On a map with distances in km, a straight section of water pipe $[AB]$ lies on the line $5x + 2y - 46 = 0$. Its midpoint is $M(6, 8)$. (a) Find an equation for the perpendicular bisector of $[AB]$, in the form $y = mx + c$. (b) A service road follows $y = -0.9x + 15.3$. Use your calculator to find the point $R$ where the road meets the perpendicular bisector. Give coordinates to 3 s.f. (c) Interpret $R$ in context.",
+          "steps": [
+            "(a) Check: $5(6) + 2(8) - 46 = 0$, so $M$ is on the pipe's line.",
+            "$2y = -5x + 46$, so $y = -\\frac{5}{2}x + 23$. The pipe's gradient is $-\\frac{5}{2}$, so the bisector's is $\\frac{2}{5} = 0.4$.",
+            "$y - 8 = 0.4(x - 6)$, so $y = 0.4x + 5.6$.",
+            "(b) Write down what you solve: $y = 0.4x + 5.6$ and $y = -0.9x + 15.3$. The GDC's intersection is $x = 7.4615\\ldots$, $y = 8.5846\\ldots$.",
+            "So $R$ is $(7.46, 8.58)$ to 3 s.f.",
+            "(c) $R$ is the point on the service road that is the same distance from both ends, $A$ and $B$, of the pipe section."
+          ],
+          "answer": "$R \\approx (7.46, 8.58)$",
+          "video": null,
+          "verify": {
+            "kind": "point",
+            "truth": "((15.3 - (8 - (-1/Rational(-5, 2))*6))/((-1/Rational(-5, 2)) + 0.9), 15.3 - 0.9*(15.3 - (8 - (-1/Rational(-5, 2))*6))/((-1/Rational(-5, 2)) + 0.9))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "0.4X+5.6",
+            "function2": "-0.9X+15.3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the coefficient of $x$ in the general form as the gradient. For $5x + 2y - 46 = 0$ the gradient is $-\\frac{5}{2}$, not $5$: make $y$ the subject first."
+        },
+        {
+          "type": "check",
+          "id": "check-line-midpoint-options",
+          "prompt": "A segment lies on the line $3x - y + 4 = 0$, and its midpoint is $(-1, 1)$. Find the equation of its perpendicular bisector.",
+          "hint": "Rearrange to $y = 3x + 4$ to read the gradient.",
+          "options": [
+            {
+              "text": "$y = -\\frac{1}{3}x + \\frac{2}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$y = 3x + 4$",
+              "correct": false
+            },
+            {
+              "text": "$y = \\frac{1}{3}x + \\frac{4}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$y = -\\frac{1}{3}x$",
+              "correct": false
+            }
+          ],
+          "explain": "The segment's gradient is $3$, so the bisector's is $-\\frac{1}{3}$. Then $y - 1 = -\\frac{1}{3}(x + 1)$ gives $y = -\\frac{1}{3}x + \\frac{2}{3}$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 1, -1/Rational(-3, -1)*(x - (-1)))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fence-axis",
+          "prompt": "A straight fence $[CD]$ lies on the line $2x + 3y = 24$, with midpoint $(6, 4)$. Its perpendicular bisector meets the $x$-axis at $(k, 0)$. Find $k$. Give your answer to 3 s.f.",
+          "hint": "The fence's gradient is $-\\frac{2}{3}$. Find the bisector, then put $y = 0$.",
+          "answer": {
+            "value": 3.33,
+            "tolerance": 0.005
+          },
+          "explain": "The bisector has gradient $\\frac{3}{2}$: $y - 4 = \\frac{3}{2}(x - 6)$. At $y = 0$: $-4 = \\frac{3}{2}(x - 6)$, so $x = 6 - \\frac{8}{3} = 3.333\\ldots \\approx 3.33$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6 + (0 - 4)/(-1/Rational(-2, 3))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "Perpendicular bisectors are the edges of Voronoi diagrams, which you meet in {{lesson:3.6}}."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The perpendicular bisector of $[AB]$ passes through the midpoint of $[AB]$ at right angles to it. In a plane, a point is on it exactly when it is the same distance from $A$ as from $B$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From two points: find the midpoint and the gradient $m$ of $[AB]$. If $m \\neq 0$, the bisector has gradient $-\\frac{1}{m}$; use it with the midpoint in $y - y_{1} = m(x - x_{1})$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From a segment's equation and midpoint: read the segment's gradient $m$ from the equation (make $y$ the subject). If $m \\neq 0$, use $-\\frac{1}{m}$ through the midpoint.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A horizontal segment has a vertical bisector, $x = $ the midpoint's $x$-coordinate. A vertical segment has a horizontal bisector, $y = $ the midpoint's $y$-coordinate.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the segment's gradient for the bisector. Use its negative reciprocal: the two gradients multiply to $-1$.",
+    "Flipping the gradient but keeping its sign. The perpendicular to $-\\frac{2}{3}$ is $\\frac{3}{2}$, not $-\\frac{3}{2}$.",
+    "Putting an end point, not the midpoint, into $y - y_{1} = m(x - x_{1})$. The bisector passes through the midpoint.",
+    "Reading the gradient of $ax + by + d = 0$ as $a$. Make $y$ the subject: if $b \\neq 0$, the gradient is $-\\frac{a}{b}$.",
+    "Rounding the gradient before finding $c$. Keep exact fractions or the GDC's full value.",
+    "Giving only the gradient, or a point without brackets. A bisector answer is a full equation, and a point is $(x, y)$."
+  ],
+  "examTips": [
+    "\"Find\" a perpendicular bisector: show the midpoint, the segment's gradient and the perpendicular gradient. Each can earn a mark.",
+    "Any correct form of the equation earns the marks unless the question asks for a specific one.",
+    "Where a bisector meets another line, write down both equations before giving the GDC's intersection, with coordinates in brackets to 3 s.f. unless the question asks otherwise.",
+    "\"Interpret\" a point on a perpendicular bisector: it is the same distance from both named places, in context."
+  ],
+  "readingMinutes": 19
+}

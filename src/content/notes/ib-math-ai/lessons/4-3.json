@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.3",
+  "slug": "central-tendency-and-dispersion",
+  "title": "Central tendency and dispersion",
+  "level": "SL",
+  "topic": 4,
+  "summary": "The [[mean|mean]], [[median|median]] and mode describe the centre of a data set; the IQR and [[standard-deviation|standard deviation]] describe its spread. You find them with your GDC, estimate the mean of grouped data, and see what shifting or scaling the data does.",
+  "goals": [
+    {
+      "text": "Find the mean, median and mode of a list or frequency table, and the mean both by formula and with your GDC.",
+      "bullets": [
+        "4.3-b1"
+      ]
+    },
+    {
+      "text": "Estimate the mean of grouped data from mid-interval values, and find the [[modal-class|modal class]].",
+      "bullets": [
+        "4.3-b2"
+      ]
+    },
+    {
+      "text": "Find [[quartile|quartiles]] and the IQR with your GDC, and explain why a by-hand quartile can differ.",
+      "bullets": [
+        "4.3-b3",
+        "4.3-b5"
+      ]
+    },
+    {
+      "text": "Find the standard deviation and [[variance|variance]] with your GDC, and interpret them in context.",
+      "bullets": [
+        "4.3-b3"
+      ]
+    },
+    {
+      "text": "Say how adding to or multiplying every value changes the mean and standard deviation.",
+      "bullets": [
+        "4.3-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.6",
+    "4.1",
+    "4.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "mean median mode",
+    "standard deviation and variance",
+    "estimate mean of grouped data",
+    "modal class",
+    "interquartile range on GDC",
+    "effect of adding a constant on mean and standard deviation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-sigma-sum",
+      "prompt": "Find $\\sum_{i=1}^{4} (2i + 1)$.",
+      "hint": "Substitute $i = 1, 2, 3, 4$ and add the four terms.",
+      "answer": {
+        "value": 24,
+        "tolerance": 0
+      },
+      "explain": "$3 + 5 + 7 + 9 = 24$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "summation(2*i + 1, (i, 1, 4))",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-round-sf",
+      "prompt": "A reservoir holds $2648.7$ megalitres. Round this to 3 [[significant-figures|significant figures]].",
+      "hint": "Count from the first non-zero digit, then look at the next digit.",
+      "answer": {
+        "value": 2650,
+        "tolerance": 0
+      },
+      "explain": "The 3rd figure is $4$ and the next digit is $8$, so round up: $2650$. Revise it in {{lesson:1.6}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(26487, 10)",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-class-holds",
+      "prompt": "Lap times, $t$ seconds, are grouped as $40 \\le t < 45$, $45 \\le t < 50$ and $50 \\le t < 55$. Which class holds a time of exactly $45$ seconds?",
+      "hint": "Which class includes its left end?",
+      "options": [
+        {
+          "text": "$40 \\le t < 45$",
+          "correct": false
+        },
+        {
+          "text": "$45 \\le t < 50$",
+          "correct": true
+        },
+        {
+          "text": "$50 \\le t < 55$",
+          "correct": false
+        }
+      ],
+      "explain": "$45 \\le t < 50$ includes $45$; $40 \\le t < 45$ stops just below it. Revise it in {{lesson:4.2}}.",
+      "verify": {
+        "kind": "inequality",
+        "truth": "And(t >= 45, t < 50)",
+        "var": "t"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "averages",
+      "heading": "Mean, median and mode",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A podcast's last $8$ episodes lasted $42, 37, 51, 37, 45, 40, 37, 47$ minutes. How long is a typical episode? Three different averages answer that."
+        },
+        {
+          "type": "definition",
+          "term": "Mean",
+          "statement": "The [[mean|mean]] of $n$ values is their total divided by $n$: $\\bar{x} = \\frac{\\sum x}{n}$. In this [[sigma-notation|sigma notation]], $\\sum x$ means the sum of all the values.",
+          "plain": "Share the total out equally between the values."
+        },
+        {
+          "type": "definition",
+          "term": "Median",
+          "statement": "The [[median|median]] is the middle value when the data are in order: the $\\frac{n+1}{2}$th value. When $n$ is even, it is the mean of the two middle values.",
+          "plain": "At least half the data lie at or below it, and at least half at or above it."
+        },
+        {
+          "type": "definition",
+          "term": "Mode",
+          "statement": "The mode is the value that occurs most often. A data set can have more than one mode, or none.",
+          "plain": "The most common value."
+        },
+        {
+          "type": "example",
+          "id": "ex-podcast-averages",
+          "question": "The lengths, in minutes, of $8$ podcast episodes are $42, 37, 51, 37, 45, 40, 37, 47$. Find the mean, median and mode, and comment on which best describes a typical episode.",
+          "steps": [
+            "Mean: the total is $336$ and $n = 8$, so $\\bar{x} = \\frac{336}{8} = 42$ minutes.",
+            "Median: in order, $37, 37, 37, 40, 42, 45, 47, 51$. With $n = 8$, average the $4$th and $5$th values: $\\frac{40 + 42}{2} = 41$ minutes.",
+            "Mode: $37$ appears three times, more than any other length.",
+            "Comment: the mean and median are close, so either describes a typical episode. The mode, $37$, is the shortest length, so it doesn't."
+          ],
+          "answer": "$\\bar{x} = 42, \\; \\text{median} = 41, \\; \\text{mode} = 37$",
+          "verify": {
+            "kind": "list",
+            "truth": "[avg([42, 37, 51, 37, 45, 40, 37, 47]), med([42, 37, 51, 37, 45, 40, 37, 47]), 37]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "In a frequency table, each value $x_{i}$ occurs $f_{i}$ times, so it adds $f_{i}x_{i}$ to the total. This formula is in the booklet."
+        },
+        {
+          "type": "formula",
+          "tex": "\\bar{x} = \\frac{\\sum_{i=1}^{k} f_{i}x_{i}}{n}, \\quad \\text{where } n = \\sum_{i=1}^{k} f_{i}",
+          "tag": "booklet",
+          "bookletId": "bk-4-3-mean",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "Here $k$ is the number of different values, and $n$ is the total frequency, not the number of columns."
+        },
+        {
+          "type": "example",
+          "id": "ex-hotel-nights",
+          "question": "A hotel records how many nights, $x$, each of $60$ guests stayed. $\\begin{array}{c|ccccc} x & 1 & 2 & 3 & 4 & 5 \\\\ \\hline f & 18 & 15 & 12 & 9 & 6 \\end{array}$ (a) Find the mean by the formula, and check it with your GDC. (b) Find the median and the mode.",
+          "steps": [
+            "(a) $\\sum f_{i}x_{i} = 18 + 30 + 36 + 36 + 30 = 150$, so $\\bar{x} = \\frac{150}{60} = 2.5$ nights.",
+            "On the GDC, enter the values $1$ to $5$ in one list and the frequencies in another, then run one-variable statistics. Check $n = 60$, then read $\\bar{x} = 2.5$.",
+            "(b) With $n = 60$, the median is the mean of the $30$th and $31$st values. The first $18$ guests stayed $1$ night, and guests $19$ to $33$ stayed $2$, so both are $2$.",
+            "The median is $2$ nights. The mode is $1$ night, the value with the highest frequency, $18$.",
+            "The mean is above the median because a few long stays pull it up."
+          ],
+          "answer": "$\\bar{x} = 2.5, \\; \\text{median} = 2, \\; \\text{mode} = 1$",
+          "verify": {
+            "kind": "list",
+            "truth": "[avg([1, 2, 3, 4, 5], [18, 15, 12, 9, 6]), med([1, 2, 3, 4, 5], [18, 15, 12, 9, 6]), 1]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable-frequency",
+          "values": {
+            "values": "1, 2, 3, 4, 5",
+            "frequencies": "18, 15, 12, 9, 6"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the middle column of a frequency table, here $x = 3$, as the median. Count through the frequencies to the middle data value."
+        },
+        {
+          "type": "check",
+          "id": "check-tram-median",
+          "prompt": "A tram was late by $3, 11, 6, 8, 14, 5$ minutes on six days. Find the median delay.",
+          "hint": "Put the values in order first. There is an even number of them.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "In order: $3, 5, 6, 8, 11, 14$. The middle two are $6$ and $8$, so the median is $7$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "med([3, 11, 6, 8, 14, 5])",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-siblings-mean",
+          "prompt": "Find the mean number of siblings, $x$, of these $25$ students. $\\begin{array}{c|ccccc} x & 0 & 1 & 2 & 3 & 4 \\\\ \\hline f & 6 & 8 & 5 & 4 & 2 \\end{array}$",
+          "hint": "Find $\\sum f_{i}x_{i}$, then divide by the total frequency.",
+          "options": [
+            {
+              "text": "$\\bar{x} = 7.6$",
+              "correct": false
+            },
+            {
+              "text": "$\\bar{x} = 1.52$",
+              "correct": true
+            },
+            {
+              "text": "$\\bar{x} = 2$",
+              "correct": false
+            },
+            {
+              "text": "$\\bar{x} = 1$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sum f_{i}x_{i} = 0 + 8 + 10 + 12 + 8 = 38$ and $n = 25$, so $\\bar{x} = 1.52$. Dividing $38$ by the $5$ columns gives $7.6$, which is wrong.",
+          "verify": {
+            "kind": "exact",
+            "truth": "avg([0, 1, 2, 3, 4], [6, 8, 5, 4, 2])"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-seventh-run",
+          "prompt": "Lena's first $6$ runs this month have a mean of $5.5$ km. After her $7$th run, the mean of all seven is $6$ km. How far was her $7$th run, in km?",
+          "hint": "Turn each mean into a total, using total $= n \\times \\bar{x}$.",
+          "answer": {
+            "value": 9,
+            "tolerance": 0
+          },
+          "explain": "The totals are $7 \\times 6 = 42$ km and $6 \\times 5.5 = 33$ km, so the $7$th run was $42 - 33 = 9$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "7*6 - 6*Rational(11, 2)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "grouped",
+      "heading": "Grouped data: estimated mean and modal class",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sometimes you only know which [[class-interval|class interval]] each value lies in. Then you can only estimate the mean."
+        },
+        {
+          "type": "text",
+          "text": "Treat every value in a class as if it sat at the class's mid-interval value: $\\frac{a + b}{2}$ for the class $a \\le x < b$."
+        },
+        {
+          "type": "text",
+          "text": "Use the booklet formula with these as the $x_{i}$. The result is an estimate, because the actual values are unknown."
+        },
+        {
+          "type": "definition",
+          "term": "Modal class",
+          "statement": "For grouped data with equal class widths, the [[modal-class|modal class]] is the class with the highest frequency.",
+          "plain": "The most crowded class."
+        },
+        {
+          "type": "example",
+          "id": "ex-bank-waits",
+          "question": "A bank timed how long, $t$ minutes, $40$ customers waited. $\\begin{array}{c|c} t & f \\\\ \\hline 0 \\le t < 5 & 7 \\\\ 5 \\le t < 10 & 14 \\\\ 10 \\le t < 15 & 11 \\\\ 15 \\le t < 20 & 6 \\\\ 20 \\le t < 25 & 2 \\end{array}$ (a) Write down the modal class. (b) Find an estimate of the mean waiting time. (c) Explain why your answer to (b) is an estimate.",
+          "steps": [
+            "(a) The classes all have width $5$, and the highest frequency is $14$. So the modal class is $5 \\le t < 10$.",
+            "(b) The mid-interval values are $2.5, 7.5, 12.5, 17.5, 22.5$.",
+            "$\\sum f_{i}x_{i} = 7 \\times 2.5 + 14 \\times 7.5 + 11 \\times 12.5 + 6 \\times 17.5 + 2 \\times 22.5 = 410$, so the estimate is $\\frac{410}{40} = 10.25$ minutes.",
+            "(c) Only the class of each wait is known, so each wait is replaced by the middle of its class."
+          ],
+          "answer": "$\\bar{x} = 10.25\\text{ min}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "avg([Rational(5, 2), Rational(15, 2), Rational(25, 2), Rational(35, 2), Rational(45, 2)], [7, 14, 11, 6, 2])"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Using a class boundary, such as $5$ or $10$, as the value for a class. Use the mid-interval value, here $7.5$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sunflower-gdc",
+          "question": "The heights, $h$ cm, of $90$ sunflowers in a trial field are shown. $\\begin{array}{c|c} h & f \\\\ \\hline 100 \\le h < 120 & 6 \\\\ 120 \\le h < 140 & 15 \\\\ 140 \\le h < 160 & 28 \\\\ 160 \\le h < 180 & 25 \\\\ 180 \\le h < 200 & 16 \\end{array}$ Use your calculator to find an estimate of the mean height. Give your answer to 3 s.f.",
+          "steps": [
+            "Write down the lists you enter: mid-interval values $110, 130, 150, 170, 190$ and frequencies $6, 15, 28, 25, 16$. That line earns the method mark.",
+            "Run one-variable statistics with the frequency list attached. Check that $n = 90$: if it shows $5$, the frequencies are missing.",
+            "Read $\\bar{x} = 156.666\\ldots$, and round only now: about $157$ cm.",
+            "Interpret: the mean height of the sunflowers in the trial is estimated at about $157$ cm, inside the modal class, $140 \\le h < 160$."
+          ],
+          "answer": "$\\bar{x} \\approx 157\\text{ cm}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "avg([110, 130, 150, 170, 190], [6, 15, 28, 25, 16])",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-grouped-midpoints",
+          "values": {
+            "midpoints": "110, 130, 150, 170, 190",
+            "frequencies": "6, 15, 28, 25, 16"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cycling-estimate",
+          "prompt": "The distances, $d$ km, cycled by $25$ commuters are grouped as $0 \\le d < 6$: $7$; $6 \\le d < 12$: $10$; $12 \\le d < 18$: $8$. Find an estimate of the mean distance, to 3 s.f.",
+          "hint": "Use the mid-interval values $3$, $9$ and $15$.",
+          "answer": {
+            "value": 9.24,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{7 \\times 3 + 10 \\times 9 + 8 \\times 15}{25} = \\frac{231}{25} = 9.24$ km.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "avg([3, 9, 15], [7, 10, 8])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-puzzle-modal",
+          "prompt": "What is the modal class of these puzzle times, $t$ seconds? $\\begin{array}{c|c} t & f \\\\ \\hline 20 \\le t < 30 & 8 \\\\ 30 \\le t < 40 & 14 \\\\ 40 \\le t < 50 & 11 \\\\ 50 \\le t < 60 & 7 \\end{array}$",
+          "hint": "The answer is a class, not a single number.",
+          "options": [
+            {
+              "text": "$40 \\le t < 50$",
+              "correct": false
+            },
+            {
+              "text": "$30 \\le t < 40$",
+              "correct": true
+            },
+            {
+              "text": "$50 \\le t < 60$",
+              "correct": false
+            }
+          ],
+          "explain": "The highest frequency, $14$, is in $30 \\le t < 40$. The modal class depends on frequency, not on how large the values are. Give the class, not the frequency $14$ or the mid-interval value $35$.",
+          "verify": {
+            "kind": "inequality",
+            "truth": "And(t >= 30, t < 40)",
+            "var": "t"
+          }
+        }
+      ]
+    },
+    {
+      "id": "quartiles",
+      "heading": "Quartiles and the IQR",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A measure of dispersion says how spread out the data are. The [[range-of-a-data-set|range]] is the simplest, but one extreme value can change it a lot."
+        },
+        {
+          "type": "text",
+          "text": "The [[quartile|quartiles]] cut the ordered data into four roughly equal parts: about a quarter of the values lie below the lower quartile $Q_{1}$, and about three quarters below the upper quartile $Q_{3}$."
+        },
+        {
+          "type": "text",
+          "text": "1. To find the quartiles by hand, put the data in order and find the median."
+        },
+        {
+          "type": "text",
+          "text": "2. Split the data into a lower half and an upper half. When $n$ is odd, leave the median out of both halves."
+        },
+        {
+          "type": "text",
+          "text": "3. $Q_{1}$ is the median of the lower half, and $Q_{3}$ is the median of the upper half."
+        },
+        {
+          "type": "text",
+          "text": "The [[interquartile-range|interquartile range]] (IQR) is the spread of the middle half of the data, so a few extreme values have little effect on it."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": false
+        },
+        {
+          "type": "example",
+          "id": "ex-plank-quartiles",
+          "question": "Eleven students held a plank for as long as they could. Their times, in seconds, were $58, 73, 96, 64, 112, 81, 104, 69, 91, 107, 86$. (a) Find $Q_{1}$, $Q_{3}$ and the IQR. (b) Another student keeps the median in both halves. What IQR does she get?",
+          "steps": [
+            "(a) In order: $58, 64, 69, 73, 81, 86, 91, 96, 104, 107, 112$. The median is the $6$th value, $86$; leave it out of both halves.",
+            "Lower half $58, 64, 69, 73, 81$, so $Q_{1} = 69$. Upper half $91, 96, 104, 107, 112$, so $Q_{3} = 104$.",
+            "$\\mathrm{IQR} = 104 - 69 = 35$ seconds.",
+            "(b) Keeping $86$, the halves have $6$ values each: $Q_{1} = \\frac{69 + 73}{2} = 71$ and $Q_{3} = \\frac{96 + 104}{2} = 100$, so her IQR is $29$ seconds.",
+            "Both are correct for their method. Your GDC uses the method in (a)."
+          ],
+          "answer": "$Q_{1} = 69, \\; Q_{3} = 104, \\; \\mathrm{IQR} = 35$",
+          "verify": {
+            "kind": "list",
+            "truth": "[quartile1([58, 73, 96, 64, 112, 81, 104, 69, 91, 107, 86]), quartile3([58, 73, 96, 64, 112, 81, 104, 69, 91, 107, 86]), quartile3([58, 73, 96, 64, 112, 81, 104, 69, 91, 107, 86]) - quartile1([58, 73, 96, 64, 112, 81, 104, 69, 91, 107, 86])]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Several methods for quartiles are in use, so a by-hand quartile and a technology quartile can differ slightly. Each is right for its method."
+        },
+        {
+          "type": "text",
+          "text": "In the exam, find quartiles of [[discrete-data|discrete data]] with your GDC. In their usual settings, the three models in these notes leave the median out when $n$ is odd, as in (a)."
+        },
+        {
+          "type": "example",
+          "id": "ex-books-gdc",
+          "question": "The numbers of books, $x$, that $45$ students read last month are shown. $\\begin{array}{c|ccccccc} x & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\\\ \\hline f & 5 & 9 & 11 & 8 & 6 & 4 & 2 \\end{array}$ (a) Use your calculator to find $Q_{1}$, $Q_{3}$ and the IQR. (b) Interpret the IQR.",
+          "steps": [
+            "(a) Enter $0$ to $6$ in one list and the frequencies in another. Run one-variable statistics and check that $n = 45$.",
+            "Scroll down to read $Q_{1} = 1$ and $Q_{3} = 4$, so $\\mathrm{IQR} = 4 - 1 = 3$ books.",
+            "Check by counting: the lower half is the first $22$ values, and its $11$th and $12$th values are both $1$.",
+            "(b) The middle half of the students read between $1$ and $4$ books: a spread of $3$ books."
+          ],
+          "answer": "$Q_{1} = 1, \\; Q_{3} = 4, \\; \\mathrm{IQR} = 3$",
+          "verify": {
+            "kind": "list",
+            "truth": "[quartile1([0, 1, 2, 3, 4, 5, 6], [5, 9, 11, 8, 6, 4, 2]), quartile3([0, 1, 2, 3, 4, 5, 6], [5, 9, 11, 8, 6, 4, 2]), quartile3([0, 1, 2, 3, 4, 5, 6], [5, 9, 11, 8, 6, 4, 2]) - quartile1([0, 1, 2, 3, 4, 5, 6], [5, 9, 11, 8, 6, 4, 2])]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable-frequency",
+          "values": {
+            "values": "0, 1, 2, 3, 4, 5, 6",
+            "frequencies": "5, 9, 11, 8, 6, 4, 2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the range when asked for the IQR. Subtract the quartiles, not the smallest value from the largest."
+        },
+        {
+          "type": "check",
+          "id": "check-walk-iqr",
+          "prompt": "Eight friends took $11, 19, 23, 26, 28, 33, 38, 44$ minutes to walk to school. Work out the interquartile range of these times, in minutes.",
+          "hint": "Each half has $4$ values. Find the median of each half.",
+          "answer": {
+            "value": 14.5,
+            "tolerance": 0.05
+          },
+          "explain": "$Q_{1} = \\frac{19 + 23}{2} = 21$ and $Q_{3} = \\frac{33 + 38}{2} = 35.5$, so $\\mathrm{IQR} = 35.5 - 21 = 14.5$ minutes.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "quartile3([11, 19, 23, 26, 28, 33, 38, 44]) - quartile1([11, 19, 23, 26, 28, 33, 38, 44])",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parcel-quartile",
+          "prompt": "Seven parcels weigh $3, 6, 8, 10, 15, 21, 24$ kg. Omar works out $Q_{1}$ by hand, keeping the median in both halves, and gets $7$ kg. His GDC gives $Q_{1} = 6$ kg. Which statement is correct?",
+          "hint": "Find the lower half twice: once with the median $10$, once without.",
+          "options": [
+            {
+              "text": "The GDC is wrong, so Q1 is 7",
+              "correct": false
+            },
+            {
+              "text": "Omar made an arithmetic slip, so Q1 is 6",
+              "correct": false
+            },
+            {
+              "text": "They use different methods, and each value is right for its method",
+              "correct": true
+            }
+          ],
+          "explain": "With the median, the lower half is $3, 6, 8, 10$, so $Q_{1} = 7$. Without it, the lower half is $3, 6, 8$, so $Q_{1} = 6$. Both methods are in use.",
+          "verify": {
+            "kind": "choice",
+            "truth": "They use different methods, and each value is right for its method"
+          }
+        }
+      ]
+    },
+    {
+      "id": "standard-deviation",
+      "heading": "Standard deviation and variance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The IQR uses only the quartiles. The standard deviation uses every value: it measures how far the values typically lie from the mean."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-two-cities",
+          "alt": "Two dot plots on one temperature scale from 20 to 40 degrees Celsius. City A has five dots close together at 27, 29, 30, 31 and 33. City B has five dots spread out at 21, 24, 30, 36 and 39. A dashed line marks the mean, 30, of both cities.",
+          "caption": "Both cities have mean $30$ °C. City B's temperatures lie further from the mean, so its standard deviation is larger."
+        },
+        {
+          "type": "definition",
+          "term": "Standard deviation and variance",
+          "statement": "The [[standard-deviation|standard deviation]] $\\sigma$ measures the typical distance of the data values from the mean. The [[variance|variance]] is its square, $\\sigma^{2}$.",
+          "plain": "A small standard deviation means the values sit close to the mean."
+        },
+        {
+          "type": "text",
+          "text": "In the exam you find $\\sigma$ with your GDC only. One small case by hand shows what it measures: the variance is the mean squared distance from the mean, $\\sigma^{2} = \\frac{\\sum (x - \\bar{x})^{2}}{n}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sleep-by-hand",
+          "question": "Kai slept $6, 8, 7, 9, 5$ hours on five nights. Find the variance and standard deviation by hand.",
+          "steps": [
+            "Mean: $\\bar{x} = \\frac{35}{5} = 7$ hours.",
+            "Distances from the mean: $-1, 1, 0, 2, -2$. They add up to $0$, so square them first.",
+            "Squares: $1, 1, 0, 4, 4$, total $10$. So $\\sigma^{2} = \\frac{10}{5} = 2$.",
+            "$\\sigma = \\sqrt{2} = 1.414\\ldots \\approx 1.41$ hours: a typical night is about $1.4$ hours from the mean."
+          ],
+          "answer": "$\\sigma^{2} = 2, \\; \\sigma \\approx 1.41$",
+          "verify": {
+            "kind": "list",
+            "truth": "[sdpop([6, 8, 7, 9, 5])**2, sdpop([6, 8, 7, 9, 5])]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "text",
+          "text": "Your GDC shows two standard deviations. For the standard deviation of a data set, use $\\sigma_{x}$, which divides by $n$ as above. Ignore $s_{x}$ (or $S_{x}$), which divides by $n - 1$."
+        },
+        {
+          "type": "hlNote",
+          "text": "At HL, $s_{n-1}^{2}$, which divides by $n - 1$, is used as an unbiased estimate of a population's variance from a sample.",
+          "lesson": "4.14"
+        },
+        {
+          "type": "example",
+          "id": "ex-fun-run-gdc",
+          "question": "Eight friends' times, in minutes, for a charity fun run were $36, 44, 28, 40, 47, 33, 38, 42$. Use your calculator to find (a) the mean, (b) the standard deviation and (c) the variance of the times. (d) Interpret the standard deviation.",
+          "steps": [
+            "Enter the times in a list and run one-variable statistics. Check that $n = 8$.",
+            "(a) $\\bar{x} = 38.5$ minutes.",
+            "(b) $\\sigma_{x} = 5.744\\ldots$, so $\\sigma \\approx 5.74$ minutes. Keep the full value for (c).",
+            "(c) $\\sigma^{2} = (5.744\\ldots)^{2} = 33$ minutes². Squaring the rounded $5.74$ would give $32.9$ instead.",
+            "(d) The friends' times typically lie about $5.7$ minutes from the mean of $38.5$ minutes."
+          ],
+          "answer": "$\\bar{x} = 38.5, \\; \\sigma \\approx 5.74, \\; \\sigma^{2} = 33$",
+          "verify": {
+            "kind": "list",
+            "truth": "[avg([36, 44, 28, 40, 47, 33, 38, 42]), sdpop([36, 44, 28, 40, 47, 33, 38, 42]), sdpop([36, 44, 28, 40, 47, 33, 38, 42])**2]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable",
+          "values": {
+            "values": "36, 44, 28, 40, 47, 33, 38, 42"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Quoting $s_{x}$ from the GDC. The standard deviation of a data set is $\\sigma_{x}$; mark schemes usually give no accuracy mark for $s_{x}$, which is for an unbiased estimate of a population (HL)."
+        },
+        {
+          "type": "check",
+          "id": "check-leaf-sd",
+          "prompt": "A gardener measures the $4$ leaves on a seedling: $4, 7, 9, 12$ cm. Find the standard deviation of the leaf lengths with your GDC.",
+          "hint": "Use the GDC value that divides by $n$.",
+          "options": [
+            {
+              "text": "$\\sigma \\approx 3.37$",
+              "correct": false
+            },
+            {
+              "text": "$\\sigma \\approx 2.92$",
+              "correct": true
+            },
+            {
+              "text": "$\\sigma = 8.5$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma_{x} = 2.915\\ldots \\approx 2.92$. The value $3.37$ is $s_{x}$, and $8.5$ is the variance.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "sdpop([4, 7, 9, 12])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sunflower-sd",
+          "prompt": "Use your calculator to estimate the standard deviation of the $90$ sunflower heights from the grouped data section, to 3 s.f.",
+          "hint": "Enter the mid-interval values with their frequencies, then read $\\sigma_{x}$.",
+          "answer": {
+            "value": 22.9,
+            "tolerance": 0.05
+          },
+          "explain": "$\\sigma_{x} = 22.90\\ldots \\approx 22.9$ cm. Like the mean, it is only an estimate.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sdpop([110, 130, 150, 170, 190], [6, 15, 28, 25, 16])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-variance-from-sd",
+          "prompt": "A data set has standard deviation $1.75$. Find its variance, to 3 s.f.",
+          "hint": "Square the standard deviation.",
+          "answer": {
+            "value": 3.06,
+            "tolerance": 0.005
+          },
+          "explain": "$1.75^{2} = 3.0625 \\approx 3.06$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(175, 100)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bakery-consistent",
+          "prompt": "Bakery P's loaves have mean mass $802$ g and standard deviation $4.1$ g. Bakery Q's have mean $806$ g and standard deviation $9.6$ g. Which statement is correct?",
+          "hint": "A smaller standard deviation means the masses are less spread out.",
+          "options": [
+            {
+              "text": "Bakery P's loaves are heavier on average and more consistent",
+              "correct": false
+            },
+            {
+              "text": "Bakery Q's loaves are heavier on average and more consistent",
+              "correct": false
+            },
+            {
+              "text": "Bakery Q's loaves are heavier on average, but Bakery P's are more consistent",
+              "correct": true
+            }
+          ],
+          "explain": "Q's higher mean means heavier loaves on average. P's smaller standard deviation means its masses vary less.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Bakery Q's loaves are heavier on average, but Bakery P's are more consistent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "changes",
+      "heading": "Adding to or scaling every value",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Add $3$ to every value. The [[mean|mean]] moves up by $3$, but the gaps between values don't change, so neither does the [[standard-deviation|standard deviation]]."
+        },
+        {
+          "type": "text",
+          "text": "Double every value instead. Every value and every gap doubles, so the mean and standard deviation both double."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-shift-and-stretch",
+          "alt": "Three dot plots on one scale from 0 to 13. The original data 2, 3, 5 and 6 have mean 4. Adding 3 gives 5, 6, 8 and 9 with mean 7: the same pattern slid right. Doubling gives 4, 6, 10 and 12 with mean 8: the pattern stretched to twice the width.",
+          "caption": "Adding $3$ slides the data, so only the mean changes. Doubling stretches it, so the mean and the spread both double."
+        },
+        {
+          "type": "result",
+          "statement": "If every value $x$ becomes $ax + b$, where $a$ and $b$ are constants, the new mean is $a\\bar{x} + b$ and the new standard deviation is $\\lvert a\\rvert\\sigma$. The new variance is $a^{2}\\sigma^{2}$.",
+          "why": "Adding $b$ slides the data without changing any gap; multiplying by $a$ stretches every distance from the mean by $\\lvert a\\rvert$."
+        },
+        {
+          "type": "text",
+          "text": "So subtracting $3$ from every value lowers the mean by $3$ and leaves $\\sigma$ unchanged. The median changes like the mean, and so do the quartiles when $a > 0$; the IQR and range change like $\\sigma$."
+        },
+        {
+          "type": "example",
+          "id": "ex-golf-par",
+          "question": "In a tournament, a golfer's round scores have mean $76.4$ strokes and standard deviation $3.8$ strokes. Each score is rewritten relative to par by subtracting $72$. Find the mean and the standard deviation of the new scores.",
+          "steps": [
+            "Every score has $72$ subtracted: $x \\to x - 72$.",
+            "Mean: $76.4 - 72 = 4.4$, so the golfer averages $4.4$ strokes over par.",
+            "Standard deviation: subtracting a constant doesn't change any gap, so $\\sigma$ stays $3.8$."
+          ],
+          "answer": "$\\bar{x} = 4.4, \\; \\sigma = 3.8$",
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(764, 10) - 72, 1*Rational(38, 10)]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-price-conversion",
+          "question": "An online shop's jackets have mean price €$128.50$ and standard deviation €$20.50$. For US buyers, each price is multiplied by $1.08$ to convert it to dollars, then a \\$$15$ delivery charge is added. Find the mean and the standard deviation of the US prices.",
+          "steps": [
+            "Each price $x$ becomes $1.08x + 15$.",
+            "Mean: $1.08 \\times 128.50 + 15 = 153.78$ dollars.",
+            "Standard deviation: the $+15$ has no effect, so $\\sigma = 1.08 \\times 20.50 = 22.14$ dollars.",
+            "Adding $15$ to $\\sigma$ too would give $37.14$, which is wrong."
+          ],
+          "answer": "$\\bar{x} = 153.78, \\; \\sigma = 22.14$",
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(108, 100)*Rational(25700, 200) + 15, Rational(108, 100)*Rational(2050, 100)]",
+            "dp": 2
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the constant to the standard deviation too. Adding or subtracting shifts the data and leaves $\\sigma$ unchanged; only the multiplier affects it."
+        },
+        {
+          "type": "check",
+          "id": "check-double-sd",
+          "prompt": "A data set has standard deviation $3.5$. Every value is doubled. Find the new standard deviation.",
+          "hint": "Doubling every value doubles every distance from the mean.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$2 \\times 3.5 = 7$: the standard deviation doubles too.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*Rational(35, 10)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-battery-packs-variance",
+          "prompt": "A shop sells batteries in packs of $3$. The number of packs it sells each day has variance $1.44$. Find the variance of the number of batteries it sells each day.",
+          "hint": "Each day's number of batteries is $3$ times its number of packs. Find the standard deviation first, then multiply it by $3$.",
+          "options": [
+            {
+              "text": "$4.32$",
+              "correct": false
+            },
+            {
+              "text": "$1.44$",
+              "correct": false
+            },
+            {
+              "text": "$12.96$",
+              "correct": true
+            },
+            {
+              "text": "$4.44$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sigma$ goes from $1.2$ packs to $3.6$ batteries, so the variance goes from $1.44$ to $3.6^{2} = 12.96$: it is multiplied by $3^{2}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3**2*Rational(144, 100)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scale-error",
+          "prompt": "A gym's scale read $0.4$ kg too heavy for every member. The recorded masses have mean $71.3$ kg and standard deviation $8.2$ kg. What are the correct mean and standard deviation?",
+          "hint": "Every recorded mass must have $0.4$ subtracted.",
+          "options": [
+            {
+              "text": "$\\bar{x} = 70.9, \\; \\sigma = 8.2$",
+              "correct": true
+            },
+            {
+              "text": "$\\bar{x} = 70.9, \\; \\sigma = 7.8$",
+              "correct": false
+            },
+            {
+              "text": "$\\bar{x} = 71.3, \\; \\sigma = 7.8$",
+              "correct": false
+            }
+          ],
+          "explain": "Subtracting $0.4$ lowers the mean to $70.9$ kg. It shifts every mass equally, so the standard deviation stays $8.2$ kg.",
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(713, 10) - Rational(4, 10), 1*Rational(82, 10)]",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\bar{x} = \\frac{\\sum_{i=1}^{k} f_{i}x_{i}}{n}, \\quad \\text{where } n = \\sum_{i=1}^{k} f_{i}",
+          "tag": "booklet",
+          "bookletId": "bk-4-3-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Median: the $\\frac{n+1}{2}$th value in order; for even $n$, the mean of the middle two. Mode: the most frequent value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Grouped data: estimate the mean with mid-interval values $\\frac{a+b}{2}$. With equal class widths, the modal class is the class with the highest frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{IQR} = Q_{3} - Q_{1}",
+          "tag": "booklet",
+          "bookletId": "bk-4-2-iqr",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Quartiles of discrete data: use the GDC. Methods differ, so a by-hand value can differ from the GDC's.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Standard deviation of a data set: GDC only, using $\\sigma_{x}$, not $s_{x}$. Variance $= \\sigma^{2}$: square the unrounded value.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Every value $x \\to ax + b$: mean $\\to a\\bar{x} + b$, standard deviation $\\to \\lvert a\\rvert\\sigma$, variance $\\to a^{2}\\sigma^{2}$. Adding a constant leaves $\\sigma$ unchanged.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Quoting $s_{x}$ from the GDC as the standard deviation of a data set. Use $\\sigma_{x}$, which divides by $n$.",
+    "Dividing $\\sum f_{i}x_{i}$ by the number of columns or classes. Divide by the total frequency $n$.",
+    "Leaving the frequency list off on the GDC. Check that it shows the total frequency as $n$.",
+    "Adding the constant to the standard deviation. Under $x \\to ax + b$, $\\sigma$ becomes $\\lvert a\\rvert\\sigma$; the $b$ has no effect.",
+    "Squaring a rounded standard deviation to get the variance. Square the GDC's full value.",
+    "Interpreting a standard deviation without mentioning spread. Say how spread out or consistent the values are, in context."
+  ],
+  "examTips": [
+    "Write down the mode or modal class: no working needed. For Find the mean, show $\\frac{\\sum f_{i}x_{i}}{n}$ with numbers in, or your GDC lists, for the method mark.",
+    "Interpret a standard deviation by comparing spread in context, such as less variation in waiting times. Comparing averages alone earns no mark.",
+    "Explain why a grouped mean is an estimate: the actual values in each class are unknown, so mid-interval values stand in for them."
+  ],
+  "readingMinutes": 31
+}

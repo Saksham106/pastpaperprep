@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.14",
+  "slug": "linear-combinations-and-unbiased-estimates",
+  "title": "Linear combinations and unbiased estimates",
+  "level": "AHL",
+  "topic": 4,
+  "summary": "Scaling, shifting and adding [[random-variable|random variables]] changes their [[mean|mean]] and spread in predictable ways. For a [[linear-combination-of-random-variables|linear combination]], [[expected-value|expected values]] always add. For independent $X$ and $Y$, $\\mathrm{Var}(aX \\pm bY) = a^{2}\\mathrm{Var}(X) + b^{2}\\mathrm{Var}(Y)$, even for a difference. From a [[random-sample|random sample]], $\\bar{x}$ and $s_{n-1}^{2}$ are [[unbiased-estimate|unbiased estimates]] of the [[population|population]] mean and [[variance|variance]].",
+  "goals": [
+    {
+      "text": "Find the mean and variance of $aX + b$ from those of $X$, and say what a change of scale or a fixed amount does to each.",
+      "bullets": [
+        "4.14-b1"
+      ]
+    },
+    {
+      "text": "Find the expected value of a linear combination of several random variables, such as a total or a difference.",
+      "bullets": [
+        "4.14-b2"
+      ]
+    },
+    {
+      "text": "Find the variance of a linear combination of independent random variables, and tell a total of $n$ separate items from $n$ times one item.",
+      "bullets": [
+        "4.14-b3",
+        "4.14-b2"
+      ]
+    },
+    {
+      "text": "Use $\\bar{x}$ as an unbiased estimate of $\\mu$ and $s_{n-1}^{2}$ as an unbiased estimate of $\\sigma^{2}$, from raw data, a frequency table or a given $s_{n}$.",
+      "bullets": [
+        "4.14-b4",
+        "4.14-b5"
+      ]
+    },
+    {
+      "text": "Explain what unbiased means; seeing why $\\mathrm{E}(\\bar{X}) = \\mu$ helps understanding but is not examined.",
+      "bullets": [
+        "4.14-b6",
+        "4.14-b4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "4.1",
+    "4.3",
+    "4.6",
+    "4.7",
+    "4.8"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "linear combination of random variables",
+    "E(aX + b) and Var(aX + b)",
+    "variance of a sum of random variables",
+    "Var(X - Y)",
+    "unbiased estimator",
+    "sample variance n - 1"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ev-table",
+      "prompt": "A random variable $X$ takes the values $0$, $1$ and $2$ with probabilities $0.5$, $0.3$ and $0.2$. Find $\\mathrm{E}(X)$.",
+      "hint": "Multiply each value by its probability, then add.",
+      "answer": {
+        "value": 0.7,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{E}(X) = 0(0.5) + 1(0.3) + 2(0.2) = 0.7$. Revise it in {{lesson:4.7}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0*Rational(5, 10) + 1*Rational(3, 10) + 2*Rational(2, 10)",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-binomial-variance",
+      "prompt": "$X \\sim \\mathrm{B}(30, 0.2)$. Find $\\mathrm{Var}(X)$.",
+      "hint": "The variance of $\\mathrm{B}(n, p)$ is $np(1 - p)$.",
+      "answer": {
+        "value": 4.8,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{Var}(X) = 30 \\times 0.2 \\times 0.8 = 4.8$. Revise it in {{lesson:4.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "30*Rational(2, 10)*(1 - Rational(2, 10))",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sd-data",
+      "prompt": "Find the [[standard-deviation|standard deviation]] of the data $3, 5, 5, 7$, dividing by $n$ as in the formula you learned. Give your answer to 3 s.f.",
+      "hint": "Find the mean, square each distance from it, average those squares, then take the square root.",
+      "answer": {
+        "value": 1.41,
+        "tolerance": 0.005
+      },
+      "explain": "The mean is $5$. The squared distances are $4, 0, 0, 4$, with mean $\\frac{8}{4} = 2$, so the standard deviation is $\\sqrt{2} \\approx 1.41$. Revise it in {{lesson:4.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "sdpop([3, 5, 5, 7])",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "linear-transformation",
+      "heading": "Scaling and shifting one random variable",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.7}} you found the expected value of a random variable. Often you need a new variable built from it, such as a count turned into money. If you know the mean and spread of $X$, you can write down those of $aX + b$ straight away."
+        },
+        {
+          "type": "definition",
+          "term": "Variance of a random variable",
+          "statement": "The [[variance-of-a-random-variable|variance]] of a random variable $X$ with mean $\\mu = \\mathrm{E}(X)$ is $\\mathrm{Var}(X) = \\mathrm{E}\\left((X - \\mu)^{2}\\right)$, the expected squared distance of $X$ from its mean. Its square root is the standard deviation $\\sigma$.",
+          "plain": "The variance measures how far the values of X typically land from the mean, in squared units."
+        },
+        {
+          "type": "text",
+          "text": "In an exam $\\mathrm{Var}(X)$ is given, or comes from a known distribution, such as $np(1 - p)$ for $\\mathrm{B}(n, p)$. You won't work it out from the definition."
+        },
+        {
+          "type": "text",
+          "text": "Multiplying by $a$ stretches every distance from the mean by $\\lvert a\\rvert$, so every squared distance by $a^{2}$. Adding $b$ slides every value along together: the mean moves, the spread does not."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transformation-mean"
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(aX + b) = a^{2}\\,\\mathrm{Var}(X)",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transformation-variance"
+        },
+        {
+          "type": "text",
+          "text": "Both rules are in the formula booklet, for any constants $a$ and $b$. The square root of the second gives the standard deviation, which is never negative."
+        },
+        {
+          "type": "formula",
+          "tex": "\\sigma_{aX + b} = \\lvert a\\rvert\\,\\sigma_{X}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-lt-fahrenheit",
+          "question": "The daily maximum temperature $T$ °C in a city in July has $\\mathrm{E}(T) = 24$ and standard deviation $3.5$ °C. In degrees Fahrenheit the temperature is $F = 1.8T + 32$. Find $\\mathrm{E}(F)$ and $\\mathrm{Var}(F)$.",
+          "steps": [
+            "Match $F = 1.8T + 32$ to $aT + b$: $a = 1.8$ and $b = 32$.",
+            "Mean: $\\mathrm{E}(F) = 1.8 \\times 24 + 32 = 43.2 + 32 = 75.2$.",
+            "The variance of $T$ is the standard deviation squared: $\\mathrm{Var}(T) = 3.5^{2} = 12.25$.",
+            "Variance: $\\mathrm{Var}(F) = 1.8^{2} \\times 12.25 = 3.24 \\times 12.25 = 39.69$. The $32$ plays no part.",
+            "Check: the standard deviation of $F$ is $\\sqrt{39.69} = 6.3 = 1.8 \\times 3.5$, as $\\lvert a\\rvert\\sigma$ says."
+          ],
+          "answer": "$\\mathrm{E}(F) = 75.2, \\; \\mathrm{Var}(F) = 39.69$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[Rational(18, 10)*24 + 32, Rational(18, 10)**2*Rational(35, 10)**2]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lt-quiz-guessing",
+          "question": "A test has $20$ multiple-choice questions with $4$ options each. A student guesses every answer, so the number correct is $X \\sim \\mathrm{B}(20, 0.25)$. Each correct answer scores $4$ marks and each wrong answer loses $1$ mark. Find the expected score and its standard deviation, and comment on whether the penalty stops guessing from paying off.",
+          "steps": [
+            "Write the score $S$ in terms of $X$. There are $20 - X$ wrong answers, so $S = 4X - (20 - X) = 5X - 20$.",
+            "From the binomial distribution: $\\mathrm{E}(X) = 20 \\times 0.25 = 5$ and $\\mathrm{Var}(X) = 20 \\times 0.25 \\times 0.75 = 3.75$.",
+            "Mean: $\\mathrm{E}(S) = 5 \\times 5 - 20 = 5$.",
+            "Variance: $\\mathrm{Var}(S) = 5^{2} \\times 3.75 = 93.75$, so the standard deviation is $\\sigma_{S} = \\sqrt{93.75} = 9.682\\ldots$",
+            "Comment: in the long run, pure guessing still averages $+5$ marks, so this penalty does not remove the benefit. The large standard deviation means any one attempt could score well below or above $5$."
+          ],
+          "answer": "$\\mathrm{E}(S) = 5, \\; \\sigma_{S} \\approx 9.68$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[5*(20*Rational(1, 4)) - 20, sqrt(5**2*20*Rational(1, 4)*Rational(3, 4))]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the variance by $a$ instead of $a^{2}$, or adding $b$ to it. $\\mathrm{Var}(5X - 20) = 25\\,\\mathrm{Var}(X)$: a fixed amount never changes the spread."
+        },
+        {
+          "type": "check",
+          "id": "check-lt-sd-negative",
+          "prompt": "$X$ has standard deviation $4$. Find the standard deviation of $Y = 3 - 2X$.",
+          "hint": "Here $a = -2$. Find $\\mathrm{Var}(Y)$ first, then take the square root.",
+          "options": [
+            {
+              "text": "$8$",
+              "correct": true
+            },
+            {
+              "text": "$-8$",
+              "correct": false
+            },
+            {
+              "text": "$16$",
+              "correct": false
+            },
+            {
+              "text": "$64$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Var}(Y) = (-2)^{2} \\times 4^{2} = 64$, so the standard deviation is $8$. It can't be negative, and $64$ is the variance, not the standard deviation.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((-2)**2*4**2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lt-cafe-profit",
+          "prompt": "A café's daily number of customers $C$ has mean $140$ and variance $196$. Its daily profit is $P = 4.5C - 300$ dollars. Find the standard deviation of $P$, in dollars.",
+          "hint": "Square $4.5$ when you scale the variance. The $300$ doesn't matter.",
+          "answer": {
+            "value": 63,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{Var}(P) = 4.5^{2} \\times 196 = 3969$, so the standard deviation is $\\sqrt{3969} = 63$ dollars. Equivalently, $4.5 \\times \\sqrt{196} = 4.5 \\times 14 = 63$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(Rational(9, 2)**2*196)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lt-taxi-fare",
+          "prompt": "A taxi trip's distance $X$ km has standard deviation $2.4$ km. The fare is $1.8X + 3.5$ dollars. The company raises the fixed starting charge from $3.50$ to $5.00$ dollars. What happens to the standard deviation of the fare?",
+          "hint": "Does adding the same amount to every fare spread the fares out?",
+          "options": [
+            {
+              "text": "It stays the same",
+              "correct": true
+            },
+            {
+              "text": "It rises by 1.50 dollars",
+              "correct": false
+            },
+            {
+              "text": "It rises by 2.70 dollars",
+              "correct": false
+            }
+          ],
+          "explain": "Every fare rises by the same $1.50$ dollars, so the mean rises by $1.50$ but the spread is unchanged: it stays $1.8 \\times 2.4 = 4.32$ dollars.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It stays the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "combination-mean",
+      "heading": "Expected value of a linear combination",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Linear combination of random variables",
+          "statement": "For random variables $X_{1}, X_{2}, \\dots, X_{n}$ and constants $a_{1}, a_{2}, \\dots, a_{n}$, the [[linear-combination-of-random-variables|linear combination]] $a_{1}X_{1} + a_{2}X_{2} + \\dots + a_{n}X_{n}$ is a new random variable. A coefficient can be negative, as in $X - Y$, and a constant can be added.",
+          "plain": "Scale each random quantity by a fixed number, then add the results."
+        },
+        {
+          "type": "text",
+          "text": "Averages behave as you would hope: each mean is scaled by its coefficient, and the means add."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}\\mathrm{E}(X_{1}) \\pm a_{2}\\mathrm{E}(X_{2}) \\pm \\dots \\pm a_{n}\\mathrm{E}(X_{n})",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-combination-mean"
+        },
+        {
+          "type": "text",
+          "text": "This is in the formula booklet. It holds for any random variables, independent or not. A constant added to the combination is added to its mean, as with $aX + b$."
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-relay",
+          "question": "Four swimmers each swim one leg of a relay. Their times have means $31.4$, $30.8$, $32.1$ and $29.9$ seconds. Find the expected total time $T$ for the relay.",
+          "steps": [
+            "The total is $T = X_{1} + X_{2} + X_{3} + X_{4}$, with every coefficient $1$.",
+            "Add the means: $\\mathrm{E}(T) = 31.4 + 30.8 + 32.1 + 29.9 = 124.2$.",
+            "A mean needs no independence, so this holds even if the swimmers affect each other."
+          ],
+          "answer": "$\\mathrm{E}(T) = 124.2\\text{ s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(314, 10) + Rational(308, 10) + Rational(321, 10) + Rational(299, 10)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-market-stall",
+          "question": "At a market stall, the daily number of jars of honey sold $H$ has $\\mathrm{E}(H) = 35$, and the daily number of candles sold $C$ has $\\mathrm{E}(C) = 18$. Each jar makes $6$ dollars profit and each candle $9$ dollars, and the stall costs $120$ dollars a day. Find the expected daily profit, and comment on the owner's claim that the stall makes about $250$ dollars every day.",
+          "steps": [
+            "Define the profit: $P = 6H + 9C - 120$.",
+            "Use the rule: $\\mathrm{E}(P) = 6\\mathrm{E}(H) + 9\\mathrm{E}(C) - 120$.",
+            "Substitute: $\\mathrm{E}(P) = 6 \\times 35 + 9 \\times 18 - 120 = 210 + 162 - 120 = 252$.",
+            "Comment: $252$ dollars is a long-run average over many days. It says nothing about the spread, so the profit on a given day may be far from $250$ dollars."
+          ],
+          "answer": "$\\mathrm{E}(P) = 252$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6*35 + 9*18 - 120"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mean-combo",
+          "prompt": "$\\mathrm{E}(X) = 10$ and $\\mathrm{E}(Y) = 4$. Find $\\mathrm{E}(2X - 3Y + 5)$.",
+          "hint": "Scale each mean by its coefficient, keep the signs, then add the constant.",
+          "options": [
+            {
+              "text": "$13$",
+              "correct": true
+            },
+            {
+              "text": "$37$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            }
+          ],
+          "explain": "$2(10) - 3(4) + 5 = 20 - 12 + 5 = 13$. Adding $3 \\times 4$ gives $37$; dropping the $+5$ gives $8$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*10 - 3*4 + 5"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mean-difference",
+          "prompt": "Mia's time $M$ minutes for a $5$ km run has $\\mathrm{E}(M) = 26.5$. Jo's time $J$ minutes has $\\mathrm{E}(J) = 24.8$. Find $\\mathrm{E}(M - J)$.",
+          "hint": "A difference is a linear combination with coefficients $1$ and $-1$.",
+          "answer": {
+            "value": 1.7,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{E}(M - J) = 26.5 - 24.8 = 1.7$. On average, Mia takes $1.7$ minutes longer than Jo.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(265, 10) - Rational(248, 10)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "combination-variance",
+      "heading": "Variance of a linear combination",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Spread is different. Each independent variable brings its own uncertainty, so the variances add, even for a difference: the gap between two uncertain times is more uncertain than either time."
+        },
+        {
+          "type": "text",
+          "text": "Independent means knowing one variable's value tells you nothing about the others, as for [[independent-events|independent events]]. In a question, it is an assumption to state."
+        },
+        {
+          "type": "result",
+          "statement": "If $X_{1}, X_{2}, \\dots, X_{n}$ are independent random variables, the variance of $a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}$ is $a_{1}^{2}\\,\\mathrm{Var}(X_{1}) + a_{2}^{2}\\,\\mathrm{Var}(X_{2}) + \\dots + a_{n}^{2}\\,\\mathrm{Var}(X_{n})$. Every term is added, whatever the sign in front of the variable.",
+          "why": "Each coefficient scales its variance by its square, as for $aX + b$, and a minus sign becomes $(-1)^{2} = 1$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(a_{1}X_{1} \\pm a_{2}X_{2} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}^{2}\\,\\mathrm{Var}(X_{1}) + a_{2}^{2}\\,\\mathrm{Var}(X_{2}) + \\dots + a_{n}^{2}\\,\\mathrm{Var}(X_{n})",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-combination-variance"
+        },
+        {
+          "type": "text",
+          "text": "The booklet gives this for independent variables. Add variances, never standard deviations: find the standard deviation last, as a square root."
+        },
+        {
+          "type": "example",
+          "id": "ex-var-commute",
+          "question": "Ravi walks to a bus stop, then rides the bus to school. His walking time $W$ has mean $12$ minutes and standard deviation $2$ minutes. The bus time $B$ has mean $25$ minutes and standard deviation $3$ minutes. $W$ and $B$ are independent. Find the mean and the standard deviation of his total journey time $T = W + B$.",
+          "steps": [
+            "Mean: $\\mathrm{E}(T) = 12 + 25 = 37$ minutes.",
+            "Square each standard deviation to get a variance: $\\mathrm{Var}(W) = 4$ and $\\mathrm{Var}(B) = 9$.",
+            "$W$ and $B$ are independent, so the variances add: $\\mathrm{Var}(T) = 4 + 9 = 13$.",
+            "Standard deviation: $\\sigma_{T} = \\sqrt{13} = 3.605\\ldots$ minutes. Adding the standard deviations would give $5$, which is too big."
+          ],
+          "answer": "$\\mathrm{E}(T) = 37, \\; \\sigma_{T} \\approx 3.61$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[12 + 25, sqrt(2**2 + 3**2)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-var-coffee-cup",
+          "question": "A machine pours $C$ ml of coffee into a cup that holds $K$ ml. $C$ has mean $182$ ml and standard deviation $4$ ml. $K$ has mean $200$ ml and standard deviation $3$ ml, independent of $C$. Let $D = K - C$ be the space left in the cup. Find $\\mathrm{E}(D)$ and $\\mathrm{Var}(D)$, and interpret them.",
+          "steps": [
+            "Mean: $\\mathrm{E}(D) = \\mathrm{E}(K) - \\mathrm{E}(C) = 200 - 182 = 18$.",
+            "Variance: $D = 1K + (-1)C$, so $\\mathrm{Var}(D) = 1^{2} \\times 3^{2} + (-1)^{2} \\times 4^{2} = 9 + 16 = 25$.",
+            "So the standard deviation of $D$ is $\\sqrt{25} = 5$ ml.",
+            "Interpret: on average $18$ ml of space is left, give or take about $5$ ml. The cup overflows when $D < 0$, which is $3.6$ standard deviations below the mean. If the amounts are roughly normal, that is very rare."
+          ],
+          "answer": "$\\mathrm{E}(D) = 18, \\; \\mathrm{Var}(D) = 25$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[200 - 182, 3**2 + 4**2]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "If $K$ and $C$ are also normally distributed, then so is $D$, and you can find $\\mathrm{P}(D < 0)$ on your GDC. That step is in {{lesson:4.15}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting variances for a difference. $\\mathrm{Var}(K - C) = \\mathrm{Var}(K) + \\mathrm{Var}(C)$ for independent $K$ and $C$, never $\\mathrm{Var}(K) - \\mathrm{Var}(C)$."
+        },
+        {
+          "type": "check",
+          "id": "check-var-3x-2y",
+          "prompt": "$X$ and $Y$ are independent, with $\\mathrm{Var}(X) = 5$ and $\\mathrm{Var}(Y) = 7$. Find $\\mathrm{Var}(3X - 2Y)$.",
+          "hint": "Square each coefficient, and add both terms.",
+          "options": [
+            {
+              "text": "$73$",
+              "correct": true
+            },
+            {
+              "text": "$17$",
+              "correct": false
+            },
+            {
+              "text": "$29$",
+              "correct": false
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            }
+          ],
+          "explain": "$3^{2} \\times 5 + 2^{2} \\times 7 = 45 + 28 = 73$. Subtracting gives $17$; not squaring the coefficients gives $29$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3**2*5 + (-2)**2*7"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-var-bakery",
+          "prompt": "A bakery sells $L$ loaves and $Q$ cakes a day, independently, with $\\mathrm{Var}(L) = 36$ and $\\mathrm{Var}(Q) = 16$. Daily takings are $R = 2.5L + 4Q$ dollars. Find the standard deviation of $R$. Give your answer to 3 s.f.",
+          "hint": "Find $\\mathrm{Var}(R)$ with squared coefficients, then take the square root.",
+          "answer": {
+            "value": 21.9,
+            "tolerance": 0.05
+          },
+          "explain": "$\\mathrm{Var}(R) = 2.5^{2} \\times 36 + 4^{2} \\times 16 = 225 + 256 = 481$, so the standard deviation is $\\sqrt{481} \\approx 21.9$ dollars.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(Rational(5, 2)**2*36 + 4**2*16)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-var-independence",
+          "prompt": "A shop finds the variance of the total mass of a pair of shoes by adding the variance of the left shoe's mass to the variance of the right shoe's mass. Why is this doubtful?",
+          "hint": "Think about what the mass of one shoe tells you about the other.",
+          "options": [
+            {
+              "text": "The two masses are not independent: a heavy left shoe usually comes with a heavy right one",
+              "correct": true
+            },
+            {
+              "text": "Variances can only be added for a difference, not a sum",
+              "correct": false
+            },
+            {
+              "text": "The standard deviations should be added instead",
+              "correct": false
+            }
+          ],
+          "explain": "The variance rule needs independent variables. Shoes in a pair are made to match, so their masses rise and fall together, and the true variance of the total is larger than the sum.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The two masses are not independent: a heavy left shoe usually comes with a heavy right one"
+          }
+        }
+      ]
+    },
+    {
+      "id": "repeated-items",
+      "heading": "A total of n items or n times one item",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A box of $12$ eggs holds $12$ different eggs, so its total mass is $X_{1} + X_{2} + \\dots + X_{12}$. That is not $12X$, one egg's mass multiplied by $12$. Both have the same mean but different variances."
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(X_{1} + \\dots + X_{n}) = n\\mu, \\quad \\mathrm{Var}(X_{1} + \\dots + X_{n}) = n\\sigma^{2} \\quad \\text{for independent } X_{i}, \\text{ each with mean } \\mu \\text{ and variance } \\sigma^{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Compare $\\mathrm{Var}(nX) = n^{2}\\sigma^{2}$. Separate items vary independently, so heavy and light ones partly balance out; one item scaled by $n$ has nothing to balance it."
+        },
+        {
+          "type": "example",
+          "id": "ex-rep-eggs",
+          "question": "The masses of a supermarket's eggs have mean $62$ g and standard deviation $4$ g. A box holds $12$ eggs, chosen independently. Find the standard deviation of the total mass of eggs in a box.",
+          "steps": [
+            "Let $M = X_{1} + X_{2} + \\dots + X_{12}$, with each $X_{i}$ an egg's mass.",
+            "The eggs are independent, so $\\mathrm{Var}(M) = 12 \\times 4^{2} = 192$.",
+            "Standard deviation: $\\sqrt{192} = 13.85\\ldots$ g.",
+            "Interpret: a box's total mass has mean $12 \\times 62 = 744$ g and typically lies within about $14$ g of it. Heavy and light eggs partly cancel, so $12X$, with standard deviation $12 \\times 4 = 48$ g, would overstate the spread."
+          ],
+          "answer": "$\\sigma_{M} \\approx 13.9\\text{ g}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(12*4**2)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rep-delivery",
+          "question": "A courier's route has $5$ stops. The time spent at each stop has mean $4$ minutes and standard deviation $1.5$ minutes. The total driving time $D$ has mean $38$ minutes and standard deviation $6$ minutes. All times are independent. Find the mean and standard deviation of the total route time $R$.",
+          "steps": [
+            "Define $R = T_{1} + T_{2} + T_{3} + T_{4} + T_{5} + D$, where $T_{i}$ is the time at stop $i$.",
+            "Mean: $\\mathrm{E}(R) = 5 \\times 4 + 38 = 58$ minutes.",
+            "Variance: $\\mathrm{Var}(R) = 5 \\times 1.5^{2} + 6^{2} = 11.25 + 36 = 47.25$.",
+            "Standard deviation: $\\sigma_{R} = \\sqrt{47.25} = 6.873\\ldots$ minutes.",
+            "Writing $5T + D$ instead would give $25 \\times 1.5^{2} + 36 = 92.25$ and $9.60$ minutes, which loses the marks."
+          ],
+          "answer": "$\\mathrm{E}(R) = 58, \\; \\sigma_{R} \\approx 6.87$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[5*4 + 38, sqrt(5*Rational(3, 2)**2 + 6**2)]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "The [[mean|mean]] of a random [[sample|sample]], with independent $X_{i}$, is a linear combination too: $\\bar{X} = \\frac{1}{n}(X_{1} + \\dots + X_{n})$. The rules give $\\mathrm{E}(\\bar{X}) = \\frac{1}{n} \\times n\\mu = \\mu$ and $\\mathrm{Var}(\\bar{X}) = \\frac{1}{n^{2}} \\times n\\sigma^{2} = \\frac{\\sigma^{2}}{n}$. You will meet $\\bar{X}$ again in {{lesson:4.15}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $nX$ when $n$ separate items are added. Ask whether the items are different (add $n$ independent variables: variance $n\\sigma^{2}$) or one amount is scaled (variance $n^{2}\\sigma^{2}$)."
+        },
+        {
+          "type": "check",
+          "id": "check-rep-parcels",
+          "prompt": "The mass of a parcel has variance $2.5$ kg². Find the variance of the total mass of $4$ independent parcels.",
+          "hint": "Four different parcels: add four variances.",
+          "options": [
+            {
+              "text": "$10$",
+              "correct": true
+            },
+            {
+              "text": "$40$",
+              "correct": false
+            },
+            {
+              "text": "$2.5$",
+              "correct": false
+            },
+            {
+              "text": "$0.625$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\mathrm{Var}(X_{1} + X_{2} + X_{3} + X_{4}) = 4 \\times 2.5 = 10$ kg². The value $40 = 4^{2} \\times 2.5$ is $\\mathrm{Var}(4X)$, one parcel scaled.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4*Rational(5, 2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rep-playlist",
+          "prompt": "Song lengths on a playlist have standard deviation $0.6$ minutes. Find the standard deviation of the total length of $9$ songs chosen independently.",
+          "hint": "Add $9$ variances, then take the square root.",
+          "answer": {
+            "value": 1.8,
+            "tolerance": 0
+          },
+          "explain": "$\\mathrm{Var} = 9 \\times 0.6^{2} = 3.24$, so the standard deviation is $\\sqrt{3.24} = 1.8$ minutes. That is $\\sqrt{9} = 3$ times one song's, not $9$ times.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(9*Rational(6, 10)**2)",
+            "dp": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "unbiased-estimates",
+      "heading": "Unbiased estimates of the mean and variance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In practice you rarely know a [[population|population]]'s mean $\\mu$ or variance $\\sigma^{2}$. You take a [[random-sample|random sample]] and estimate them. A different sample would give a different estimate."
+        },
+        {
+          "type": "definition",
+          "term": "Unbiased estimate",
+          "statement": "An estimate of a population parameter is [[unbiased-estimate|unbiased]] if its expected value, over all possible random samples of the same size, equals that parameter.",
+          "plain": "Averaged over many samples it lands on the true value: it doesn't systematically overestimate or underestimate."
+        },
+        {
+          "type": "text",
+          "text": "The sample mean $\\bar{x} = \\frac{\\sum x_{i}}{n}$ is an unbiased estimate of $\\mu$. The last section showed why: $\\mathrm{E}(\\bar{X}) = \\mu$. That demonstration helps understanding but is not examined."
+        },
+        {
+          "type": "text",
+          "text": "In {{lesson:4.3}} you divided by $n$; call that $s_{n}^{2}$. Distances are measured from $\\bar{x}$, the centre of the same sample, so they come out a little small. On average, $s_{n}^{2}$ underestimates $\\sigma^{2}$."
+        },
+        {
+          "type": "text",
+          "text": "Dividing by $n - 1$ instead makes the estimate slightly larger, which exactly removes the bias. Showing that $\\mathrm{E}(s_{n-1}^{2}) = \\sigma^{2}$ is not examined."
+        },
+        {
+          "type": "formula",
+          "tex": "s_{n-1}^{2} = \\frac{n}{n-1}\\,s_{n}^{2}",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-unbiased-variance"
+        },
+        {
+          "type": "formula",
+          "tex": "s_{n-1}^{2} = \\frac{\\sum_{i=1}^{k} f_{i}(x_{i} - \\bar{x})^{2}}{n - 1}, \\quad \\text{where } n = \\sum_{i=1}^{k} f_{i}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The first form is in the booklet: use it when you are given $s_{n}$. In the second, the $k$ distinct values $x_{i}$ have frequencies $f_{i}$; for raw data every $f_{i} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Your GDC gives both. On the TI-84, Sx is $s_{n-1}$ and $\\sigma$x is $s_{n}$. The TI-Nspire shows sx := sn-1x and σx := σnx, and the Casio shows sx and σx. Square Sx for the unbiased estimate of the variance."
+        },
+        {
+          "type": "example",
+          "id": "ex-unb-cars",
+          "question": "A random sample of $40$ households in a town gives the number of cars per household: $0$ cars ($6$ households), $1$ car ($15$), $2$ cars ($12$), $3$ cars ($5$) and $4$ cars ($2$). Use your GDC to find unbiased estimates of the mean and the variance of the number of cars per household in the town. Give the variance to 3 s.f.",
+          "steps": [
+            "Enter the values $0, 1, 2, 3, 4$ and the frequencies $6, 15, 12, 5, 2$, and run one-variable statistics with the frequency list.",
+            "Check the GDC's $n$ is $40$, the total frequency.",
+            "Unbiased estimate of $\\mu$: $\\bar{x} = \\frac{0 + 15 + 24 + 15 + 8}{40} = \\frac{62}{40} = 1.55$.",
+            "Read Sx $= 1.0609\\ldots$ and square the stored value: $s_{n-1}^{2} = 1.12564\\ldots$",
+            "By hand, $\\sum f_{i}(x_{i} - 1.55)^{2} = 43.9$, and $\\frac{43.9}{39} = 1.12564\\ldots$, which agrees."
+          ],
+          "answer": "$\\bar{x} = 1.55, \\; s_{n-1}^{2} \\approx 1.13$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "[avg([0, 1, 2, 3, 4], [6, 15, 12, 5, 2]), sdsample([0, 1, 2, 3, 4], [6, 15, 12, 5, 2])**2]",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "stats-one-variable-frequency",
+          "values": {
+            "values": "0, 1, 2, 3, 4",
+            "frequencies": "6, 15, 12, 5, 2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-unb-moths",
+          "question": "A biologist measures the wingspans of a random sample of $25$ moths. She reports a standard deviation of $0.45$ cm, found by dividing by $n$. Find an unbiased estimate of the variance of the wingspans of all moths of this species, and comment on the size of the correction.",
+          "steps": [
+            "The reported value is $s_{n} = 0.45$, so $s_{n}^{2} = 0.2025$.",
+            "Use the booklet formula: $s_{n-1}^{2} = \\frac{25}{24} \\times 0.2025 = 0.2109375$.",
+            "Units: a variance of lengths in cm is in cm².",
+            "Comment: the factor $\\frac{25}{24}$ raises the estimate by about $4\\%$. For larger samples $\\frac{n}{n-1}$ is closer to $1$, so the correction matters less."
+          ],
+          "answer": "$s_{n-1}^{2} \\approx 0.211\\text{ cm}^{2}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(25, 24)*Rational(45, 100)**2",
+            "sf": 3
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading $\\sigma$x (that is $s_{n}$) from the GDC when the question asks for an unbiased estimate. Use Sx, which is $s_{n-1}$, and square it if the variance is asked for."
+        },
+        {
+          "type": "check",
+          "id": "check-unb-convert",
+          "prompt": "A random sample of $10$ values has $s_{n}^{2} = 7.2$. Find the unbiased estimate of the population variance.",
+          "hint": "Multiply by $\\frac{n}{n-1}$.",
+          "answer": {
+            "value": 8,
+            "tolerance": 0
+          },
+          "explain": "$s_{n-1}^{2} = \\frac{10}{9} \\times 7.2 = 8$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(10, 9)*Rational(72, 10)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unb-raw",
+          "prompt": "A random sample of waiting times, in minutes, is $12, 15, 11, 18, 14$. Find the unbiased estimate of the population variance, $s_{n-1}^{2}$.",
+          "hint": "Find $\\bar{x}$, add the squared distances from it, then divide by $n - 1 = 4$.",
+          "answer": {
+            "value": 7.5,
+            "tolerance": 0
+          },
+          "explain": "$\\bar{x} = 14$. The squared distances are $4, 1, 9, 16, 0$, which add to $30$. So $s_{n-1}^{2} = \\frac{30}{4} = 7.5$ min².",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sdsample([12, 15, 11, 18, 14])**2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unb-meaning",
+          "prompt": "$s_{n-1}^{2}$ is an unbiased estimate of $\\sigma^{2}$. What does this mean?",
+          "hint": "Think about many different samples, not just one.",
+          "options": [
+            {
+              "text": "Averaged over all random samples of that size, it equals the population variance",
+              "correct": true
+            },
+            {
+              "text": "It equals the population variance for every sample",
+              "correct": false
+            },
+            {
+              "text": "It is always larger than the population variance",
+              "correct": false
+            }
+          ],
+          "explain": "Any one sample's estimate can be too high or too low. Unbiased means there is no systematic error: the long-run average of the estimates is $\\sigma^{2}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Averaged over all random samples of that size, it equals the population variance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\mathrm{E}(aX + b) = a\\mathrm{E}(X) + b",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transformation-mean",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\mathrm{Var}(aX + b) = a^{2}\\,\\mathrm{Var}(X)",
+          "tag": "booklet",
+          "bookletId": "bk-4-14-linear-transformation-variance",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The standard deviation of $aX + b$ is $\\lvert a\\rvert\\sigma$. Adding a constant moves the mean but not the spread.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Expected values add for any random variables, independent or not: $\\mathrm{E}(a_{1}X_{1} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}\\mathrm{E}(X_{1}) \\pm \\dots \\pm a_{n}\\mathrm{E}(X_{n})$.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Only for independent $X_{1}, \\dots, X_{n}$: $\\mathrm{Var}(a_{1}X_{1} \\pm \\dots \\pm a_{n}X_{n}) = a_{1}^{2}\\mathrm{Var}(X_{1}) + \\dots + a_{n}^{2}\\mathrm{Var}(X_{n})$. Every term is added, even for a difference. Add variances, never standard deviations.",
+          "tag": "booklet",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The total of $n$ independent items, each with mean $\\mu$ and variance $\\sigma^{2}$, has mean $n\\mu$ and variance $n\\sigma^{2}$. One item scaled by $n$, $nX$, has variance $n^{2}\\sigma^{2}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From a random sample, $\\bar{x}$ is an unbiased estimate of $\\mu$ and $s_{n-1}^{2} = \\frac{n}{n-1}s_{n}^{2}$ is an unbiased estimate of $\\sigma^{2}$. On the GDC, $s_{n-1}$ is Sx (sx on the Casio and Nspire).",
+          "tag": "booklet",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding standard deviations. Independent variables with standard deviations $2$ and $3$ have a sum with standard deviation $\\sqrt{4 + 9} \\approx 3.61$, not $5$.",
+    "Subtracting variances for a difference. For independent $X$ and $Y$, $\\mathrm{Var}(X - Y) = \\mathrm{Var}(X) + \\mathrm{Var}(Y)$.",
+    "Writing $nX$ for the total of $n$ separate independent items. Their total has variance $n\\sigma^{2}$; $nX$ wrongly gives $n^{2}\\sigma^{2}$.",
+    "Forgetting to square the coefficient, or letting the constant change the variance. $\\mathrm{Var}(5X - 20) = 25\\,\\mathrm{Var}(X)$: the $-20$ drops out.",
+    "Giving $s_{n}$ (the GDC's $\\sigma$x), or a standard deviation, when an unbiased estimate of the variance is asked for. Square Sx."
+  ],
+  "examTips": [
+    "Find: define the combination first, such as $T = T_{1} + \\dots + T_{5} + D$, then write the variance line, such as $5 \\times 1.5^{2} + 6^{2}$. That line earns the method mark even if the arithmetic slips.",
+    "State an assumption: for the variance of a sum or difference, the assumption is independence, said in context, such as one stop's time not affecting another's.",
+    "Write down an unbiased estimate of the population variance: give $s_{n-1}^{2}$, the square of the GDC's Sx, to 3 s.f. Don't give the standard deviation when the variance is asked for."
+  ],
+  "readingMinutes": 30
+}

@@ -1,0 +1,645 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.4",
+  "slug": "key-features-of-graphs",
+  "title": "Key features of graphs",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A graph's key features are its intercepts, highest and lowest points, symmetry and [[asymptote|asymptotes]]. Your GDC finds each one, and where two graphs meet. The marks come from writing down what you solved and saying what it means in context.",
+  "goals": [
+    {
+      "text": "Find intercepts and zeros with your GDC, rejecting any outside the domain.",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Find [[local-maximum|local maximum]] and minimum points, greatest and least values, and a parabola's vertex and [[axis-of-symmetry|axis of symmetry]].",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Write down vertical and horizontal asymptotes and interpret them in a model.",
+      "bullets": [
+        "2.4-b1"
+      ]
+    },
+    {
+      "text": "Find and interpret every point where two graphs intersect, with your GDC.",
+      "bullets": [
+        "2.4-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.1",
+    "2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "x and y intercepts",
+    "zeros of a function on a GDC",
+    "local maximum and minimum",
+    "vertical and horizontal asymptotes",
+    "point of intersection of two graphs",
+    "break-even point graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-line-y-intercept",
+      "prompt": "Where does the line $y = 4 - 0.5x$ cross the $y$-axis?",
+      "hint": "Every point on the $y$-axis has $x = 0$.",
+      "options": [
+        {
+          "text": "$(0, 4)$",
+          "correct": true
+        },
+        {
+          "text": "$(8, 0)$",
+          "correct": false
+        },
+        {
+          "text": "$(0, -0.5)$",
+          "correct": false
+        }
+      ],
+      "explain": "At $x = 0$, $y = 4$. The point $(8, 0)$ is where it crosses the $x$-axis. Revise it in {{lesson:2.1}}.",
+      "verify": {
+        "kind": "point",
+        "truth": "(0, 4 - 0.5*0)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gdc-quadratic",
+      "prompt": "Use your GDC to solve $x^{2} - 5x + 2 = 0$. Give the larger solution to 3 s.f.",
+      "hint": "Use the polynomial [[root|root]] finder with coefficients $1, -5, 2$.",
+      "answer": {
+        "value": 4.56,
+        "tolerance": 0.005
+      },
+      "explain": "The solutions are $x = 4.5615\\ldots$ and $x = 0.4384\\ldots$ Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(5 + sqrt(5**2 - 4*2))/2",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "intercepts",
+      "heading": "Intercepts and zeros",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The graph of $y = f(x)$ meets the $y$-axis where $x = 0$, at the [[y-intercept|y-intercept]] $(0, f(0))$. It meets the $x$-axis where $f(x) = 0$. Those $x$-values are the [[zero-of-a-function|zeros]] of $f$."
+        },
+        {
+          "type": "formula",
+          "tex": "y\\text{-intercept: } (0,\\ f(0)) \\qquad x\\text{-intercepts: } (a,\\ 0) \\text{ where } f(a) = 0",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "A model has a domain. A zero outside it is not part of the answer, so check each one."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-frost-zeros",
+          "alt": "Graph of temperature T against time t from 0 to 12 hours. The curve starts at (0, 2.8), falls through (2, 0), reaches a lowest point near t equals 8 below zero, and rises again to t equals 12. A dashed continuation beyond t equals 12 reaches (14, 0), marked with a hollow circle as outside the domain.",
+          "caption": "The model holds for $0 \\le t \\le 12$, so the zero at $t = 14$ is rejected."
+        },
+        {
+          "type": "example",
+          "id": "ex-frost-zeros",
+          "question": "The temperature, $T\\,^{\\circ}\\mathrm{C}$, $t$ hours after 8 pm is modelled by $T(t) = 0.1t^{2} - 1.6t + 2.8$, for $0 \\le t \\le 12$. (a) Write down the $T$-intercept and interpret it. (b) Find the zeros of $T$ and interpret them.",
+          "steps": [
+            "(a) $T(0) = 2.8$, so the intercept is $(0, 2.8)$: at 8 pm it is $2.8\\,^{\\circ}\\mathrm{C}$.",
+            "(b) Solve $0.1t^{2} - 1.6t + 2.8 = 0$ on the GDC: $t = 2$ or $t = 14$.",
+            "$t = 14$ is outside $0 \\le t \\le 12$, so reject it.",
+            "The temperature falls to $0\\,^{\\circ}\\mathrm{C}$ at 10 pm, when frost can start to form."
+          ],
+          "answer": "$t = 2$",
+          "verify": {
+            "kind": "exact",
+            "truth": "solve(Eq(0.1*t**2 - 1.6*t + 2.8, 0), t)[0]"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-advert-zeros",
+          "question": "A company's monthly profit, $P$ thousand dollars, when it spends $x$ thousand dollars on advertising is $P(x) = 40\\ln x - 2x - 60$, for $1 \\le x \\le 60$. Use your GDC to find the zeros of $P$, to 3 s.f., and interpret them.",
+          "steps": [
+            "Write down the equation: $40\\ln x - 2x - 60 = 0$. Graph $y = 40\\ln x - 2x - 60$ with $1 \\le x \\le 60$, $-70 \\le y \\le 30$.",
+            "It crosses the $x$-axis twice. The zero tool gives $x = 6.0712\\ldots$ and $x = 47.005\\ldots$, both in the domain.",
+            "The company breaks even when it spends about $6070$ or $47\\,000$ dollars. Between these it makes a profit."
+          ],
+          "answer": "$x \\approx 6.07 \\text{ or } x \\approx 47.0$",
+          "verify": {
+            "kind": "list",
+            "truth": "[nsolve(40*log(x) - 2*x - 60, x, 6), nsolve(40*log(x) - 2*x - 60, x, 47)]",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-zeros",
+          "values": {
+            "function": "40ln(X)-2X-60"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tank-zero-meaning",
+          "prompt": "The depth of water in a tank, $d$ cm, $t$ minutes after a valve opens is $d(t) = 0.05t^{2} - 4t + 80$, for $0 \\le t \\le 40$. What does its zero, $t = 40$, mean?",
+          "hint": "A zero is where $d = 0$.",
+          "options": [
+            {
+              "text": "the tank is empty 40 minutes after the valve opens",
+              "correct": true
+            },
+            {
+              "text": "the water is 40 cm deep when the valve opens",
+              "correct": false
+            },
+            {
+              "text": "the water level falls by 40 cm every minute",
+              "correct": false
+            }
+          ],
+          "explain": "$d(40) = 80 - 160 + 80 = 0$: no water is left after $40$ minutes. The starting depth is $d(0) = 80$ cm.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the tank is empty 40 minutes after the valve opens"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-freezer-zero",
+          "prompt": "A freezer's temperature, $T\\,^{\\circ}\\mathrm{C}$, $t$ hours after it is switched on is $T(t) = 20 - 9\\ln(t + 1)$. Use your GDC to find when it reaches $0\\,^{\\circ}\\mathrm{C}$, in hours to 3 s.f.",
+          "hint": "Graph $y = 20 - 9\\ln(x + 1)$ and use the zero tool.",
+          "answer": {
+            "value": 8.23,
+            "tolerance": 0.005
+          },
+          "explain": "The zero is $t = 8.2278\\ldots$, so after about $8.23$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "exp(Rational(20, 9)) - 1",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "max-min",
+      "heading": "Maximum and minimum points, vertex and symmetry",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Read a graph left to right like a walk over hills. A hilltop is a local maximum point and a valley bottom is a [[local-minimum|local minimum]] point. The GDC's maximum and minimum tools find them."
+        },
+        {
+          "type": "definition",
+          "term": "maximum value",
+          "statement": "The maximum value of $f$ on its domain is the greatest value $f(x)$ takes there. The minimum value is the least.",
+          "plain": "The height of the highest point on the whole graph."
+        },
+        {
+          "type": "text",
+          "text": "If the domain has end points, the graph may be higher there than at any local maximum. Work out the end values too."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-drone-height",
+          "alt": "Graph of height h against time t from 0 to 6. The curve starts at (0, 5), rises to a local maximum at (2, 25), dips to a local minimum at (4, 21), then rises steeply to (6, 41). The points (0, 5) and (6, 41) are labelled least and greatest.",
+          "caption": "The greatest value is at an end point, not at the local maximum."
+        },
+        {
+          "type": "example",
+          "id": "ex-drone-extremes",
+          "question": "A drone's height above the ground, $h$ m, $t$ minutes after it takes off from a roof is $h(t) = t^{3} - 9t^{2} + 24t + 5$, for $0 \\le t \\le 6$. (a) Use your GDC to find the local maximum and minimum points. (b) Find the drone's greatest height.",
+          "steps": [
+            "(a) Graph it with $0 \\le x \\le 6$, $0 \\le y \\le 45$. The maximum tool gives $(2, 25)$ and the minimum tool $(4, 21)$.",
+            "So after 2 minutes the drone is $25$ m up and starts to descend. After 4 minutes it climbs again from $21$ m.",
+            "(b) End points: $h(0) = 5$ and $h(6) = 216 - 324 + 144 + 5 = 41$.",
+            "$41 > 25$, so the greatest height is at $t = 6$."
+          ],
+          "answer": "$h(6) = 41\\text{ m}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "6**3 - 9*6**2 + 24*6 + 5"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-drug-maximum",
+          "question": "The concentration of a medicine in the blood, $C$ mg/L, $t$ hours after a tablet is $C(t) = 15t\\mathrm{e}^{-0.4t}$, for $t \\ge 0$. Use your GDC to find the maximum concentration, to 3 s.f., and when it happens.",
+          "steps": [
+            "Graph $y = 15x\\mathrm{e}^{-0.4x}$ with $0 \\le x \\le 15$, $0 \\le y \\le 16$. It rises, peaks, then falls slowly.",
+            "The maximum tool gives $x = 2.5$, $y = 13.795\\ldots$",
+            "The concentration peaks at about $13.8$ mg/L, $2.5$ hours after the tablet."
+          ],
+          "answer": "$C(2.5) \\approx 13.8\\text{ mg/L}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "15*(1/0.4)*exp(-0.4*(1/0.4))",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-max-min",
+          "values": {
+            "function": "15Xe^(-0.4X)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $(2.5, 13.8)$ when the maximum value is asked for. The value is the $y$-coordinate, $13.8$ mg/L."
+        },
+        {
+          "type": "text",
+          "text": "A parabola's one turning point is its [[vertex-of-a-parabola|vertex]]: a minimum if it opens upwards, a maximum if it opens downwards. Folding a graph along an [[axis-of-symmetry|axis of symmetry]] makes the halves match. A parabola's axis is the vertical line through its vertex."
+        },
+        {
+          "type": "result",
+          "statement": "If a parabola has zeros $p$ and $q$, its axis of symmetry is $x = \\frac{p + q}{2}$, and its vertex lies on it.",
+          "why": "Folding along the axis swaps the two zeros, so it is halfway between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-arch-vertex",
+          "question": "A footbridge arch is modelled by $y = -0.08x^{2} + 1.6x$, where $y$ m is its height $x$ m from one bank. (a) Find the axis of symmetry and the vertex. (b) A lamp hangs from the arch $4$ m from the bank. Where else is the arch at the same height?",
+          "steps": [
+            "(a) $-0.08x(x - 20) = 0$ gives zeros $x = 0$ and $x = 20$. The axis is $x = \\frac{0 + 20}{2} = 10$.",
+            "At $x = 10$, $y = -8 + 16 = 8$. The vertex is $(10, 8)$: the arch is highest, $8$ m, mid-span.",
+            "(b) $x = 4$ is $6$ m left of the axis. By symmetry, $x = 16$ m gives the same height."
+          ],
+          "answer": "$(10, 8)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((0 + 20)/2, -0.08*((0 + 20)/2)**2 + 1.6*((0 + 20)/2))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-park-maximum",
+          "prompt": "The number of visitors in a theme park, $N$ hundred, $t$ hours after 10 am is $N(t) = t^{3} - 6t^{2} + 9t + 2$, for $0 \\le t \\le 5$. Its local maximum is at $(1, 6)$. Find the greatest number of visitors in these 5 hours.",
+          "hint": "Compare the local maximum with $N(0)$ and $N(5)$.",
+          "options": [
+            {
+              "text": "$2200$",
+              "correct": true
+            },
+            {
+              "text": "$600$",
+              "correct": false
+            },
+            {
+              "text": "$200$",
+              "correct": false
+            }
+          ],
+          "explain": "$N(5) = 125 - 150 + 45 + 2 = 22$ beats $N(1) = 6$ and $N(0) = 2$. So $2200$ visitors, at 3 pm.",
+          "verify": {
+            "kind": "exact",
+            "truth": "100*Max(0**3 - 6*0**2 + 9*0 + 2, 1**3 - 6*1**2 + 9*1 + 2, 5**3 - 6*5**2 + 9*5 + 2)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-axis",
+          "prompt": "A ball follows a parabolic path. It is at the same height $4$ m and $18$ m from where it was thrown. Which line is the path's axis of symmetry?",
+          "hint": "Points at the same height are the same distance from the axis.",
+          "options": [
+            {
+              "text": "$x = 11$",
+              "correct": true
+            },
+            {
+              "text": "$x = 7$",
+              "correct": false
+            },
+            {
+              "text": "$x = 14$",
+              "correct": false
+            },
+            {
+              "text": "$y = 11$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{4 + 18}{2} = 11$, so $x = 11$: the ball is highest $11$ m out. Half the gap, $7$, is a distance, not a position.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, (4 + 18)/2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "asymptotes",
+      "heading": "Vertical and horizontal asymptotes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Take $f(x) = \\frac{2x + 5}{x - 3}$. $f(3)$ does not exist, and $f(3.01) = 1102$: the graph shoots up beside $x = 3$. Far right, $f(1000) = 2.011\\ldots$: it flattens towards $y = 2$."
+        },
+        {
+          "type": "figure",
+          "id": "2-4-rational-asymptotes",
+          "alt": "Graph of y equals 2x plus 5 over x minus 3. It has two separate branches. Dashed lines show the vertical line x equals 3 and the horizontal line y equals 2. Each branch bends to run alongside both dashed lines, getting closer and closer to them.",
+          "caption": "Both branches approach the dashed asymptotes $x = 3$ and $y = 2$."
+        },
+        {
+          "type": "definition",
+          "term": "asymptote",
+          "statement": "An asymptote is a straight line that a graph gets closer and closer to as $x$ or $y$ grows without limit, positive or negative.",
+          "plain": "A line the curve hugs as it heads off the screen."
+        },
+        {
+          "type": "text",
+          "text": "A vertical asymptote $x = a$: $f(x)$ increases or decreases without limit as $x$ gets close to $a$. Look for a denominator that is $0$ there while the numerator is not, or the edge of a logarithm's domain."
+        },
+        {
+          "type": "text",
+          "text": "A horizontal asymptote $y = b$: $f(x)$ gets closer and closer to $b$ as $x \\to \\infty$ or $x \\to -\\infty$ ($x$ grows without limit). The graph may still cross it at some finite $x$."
+        },
+        {
+          "type": "text",
+          "text": "On a GDC, a branch running off the screen or levelling out suggests an asymptote. Confirm it in the table."
+        },
+        {
+          "type": "example",
+          "id": "ex-typing-asymptote",
+          "question": "A student's typing speed, $W$ words per minute, after $t$ weeks of practice is $W(t) = 85 - 55\\mathrm{e}^{-0.2t}$, for $t \\ge 0$. (a) Write down the horizontal asymptote and interpret it. (b) Write down the [[range|range]] of $W$.",
+          "steps": [
+            "(a) As $t$ grows, $\\mathrm{e}^{-0.2t}$ gets closer and closer to $0$, so $W$ approaches $85$. The asymptote is $W = 85$.",
+            "The speed approaches $85$ words per minute but, in the model, never reaches it.",
+            "(b) $W(0) = 85 - 55 = 30$, and $55\\mathrm{e}^{-0.2t} > 0$ always, so $30 \\le W < 85$. The inequality at $85$ is strict."
+          ],
+          "answer": "$W = 85$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(W, limit(85 - 55*exp(-0.2*t), t, oo))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-average-cost",
+          "question": "A bakery has fixed costs of $600$ dollars a day and spends $4$ dollars on ingredients per cake. Its average cost per cake, $C$ dollars, for $n$ cakes a day is $C(n) = \\frac{600 + 4n}{n}$, $n > 0$. (a) Write down both asymptotes. (b) Interpret the horizontal one.",
+          "steps": [
+            "(a) The denominator is $0$ at $n = 0$ and the numerator is $600$ there, so $C$ grows without limit: vertical asymptote $n = 0$.",
+            "$C(n) = 4 + \\frac{600}{n}$, and $\\frac{600}{n}$ shrinks towards $0$ as $n$ grows. The table confirms it: $C(1000) = 4.6$, $C(5000) = 4.12$. Horizontal asymptote $C = 4$.",
+            "(b) As more cakes share the fixed costs, the average cost falls towards the $4$ dollar ingredient cost, but never reaches it."
+          ],
+          "answer": "$C = 4$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(C, limit((600 + 4*n)/n, n, oo))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "(600+4X)/X",
+            "start": 1000,
+            "step": 1000,
+            "end": 5000
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Asked why a model never reaches a value, give the mathematical reason: name the asymptote, such as \"horizontal asymptote at $W = 85$\". A reason from the context alone may not earn the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-pizza-asymptote",
+          "prompt": "A pizza's temperature, $T\\,^{\\circ}\\mathrm{C}$, $t$ minutes after it goes into an oven is $T(t) = 220 - 200(0.8)^{t}$. What is the horizontal asymptote of the graph?",
+          "hint": "What does $(0.8)^{t}$ approach as $t$ grows?",
+          "options": [
+            {
+              "text": "$T = 220$",
+              "correct": true
+            },
+            {
+              "text": "$T = 20$",
+              "correct": false
+            },
+            {
+              "text": "$T = 200$",
+              "correct": false
+            },
+            {
+              "text": "$T = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "$(0.8)^{t} \\to 0$, so $T \\to 220$, the oven's temperature. $T = 20$ is the start, $T(0)$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(T, limit(220 - 200*Rational(4, 5)**t, t, oo))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-log-vertical",
+          "prompt": "Which line is a vertical asymptote of the graph of $y = 3\\ln(x - 2) + 5$, for $x > 2$?",
+          "hint": "Where does the input of $\\ln$ reach $0$?",
+          "options": [
+            {
+              "text": "$x = 2$",
+              "correct": true
+            },
+            {
+              "text": "$x = -2$",
+              "correct": false
+            },
+            {
+              "text": "$y = 5$",
+              "correct": false
+            },
+            {
+              "text": "$x = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "As $x$ gets close to $2$, $\\ln(x - 2)$ heads down without limit, so $x = 2$. There is no horizontal asymptote: the graph keeps rising.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, solve(x - 2, x)[0])"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intersections",
+      "heading": "Where two graphs meet",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A point where two graphs cross lies on both. In a model it is where two quantities are equal: revenue and cost, or two populations."
+        },
+        {
+          "type": "result",
+          "statement": "The graphs of $y = f(x)$ and $y = g(x)$ meet at $x = a$ exactly when $f(a) = g(a)$. Each solution gives a point $(a, f(a))$.",
+          "why": "At a shared point, both equations give the same $y$."
+        },
+        {
+          "type": "example",
+          "id": "ex-break-even",
+          "question": "A workshop makes $x$ chairs a week. Its weekly revenue is $R(x) = 50x - 0.5x^{2}$ dollars and its weekly cost is $C(x) = 10x + 600$ dollars. Find where the graphs of $R$ and $C$ meet, and interpret the result.",
+          "steps": [
+            "Write down the equation: $50x - 0.5x^{2} = 10x + 600$.",
+            "Graph both and use the intersect tool on each crossing: $(20, 800)$ and $(60, 1200)$.",
+            "Check: $0.5x^{2} - 40x + 600 = 0$ gives $(x - 20)(x - 60) = 0$.",
+            "The workshop breaks even at $20$ and $60$ chairs a week, and makes a profit between them."
+          ],
+          "answer": "$x = 20 \\text{ or } x = 60$",
+          "verify": {
+            "kind": "list",
+            "truth": "solve(Eq(50*x - 0.5*x**2, 10*x + 600), x)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-towns-intersect",
+          "question": "Town A's population $t$ years from now is $A(t) = 12\\,000(1.03)^{t}$. Town B's is $B(t) = 18\\,000 - 250t$. Use your GDC to find when they are equal, and that population, to 3 s.f.",
+          "steps": [
+            "Write down the equation: $12\\,000(1.03)^{t} = 18\\,000 - 250t$.",
+            "Graph both with $0 \\le x \\le 20$, $10\\,000 \\le y \\le 20\\,000$. A rises and B falls, so they cross once.",
+            "The intersect tool gives $x = 9.1299\\ldots$, $y = 15\\,717.5\\ldots$",
+            "After about $9.13$ years both towns have about $15\\,700$ people. After that, A is larger."
+          ],
+          "answer": "$t \\approx 9.13$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "nsolve(12000*1.03**t - (18000 - 250*t), t, 9)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "12000*1.03^X",
+            "function2": "18000-250X"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Answer in the form asked: \"solve $f(x) = g(x)$\" wants the $x$-values; \"find the coordinates\" wants each point $(x, y)$."
+        },
+        {
+          "type": "check",
+          "id": "check-bacteria-food",
+          "prompt": "A bacteria population is $P = 2.4\\mathrm{e}^{0.15t}$ thousand cells, and the food supply feeds $F = 8 + 0.3t$ thousand cells, $t$ hours after a test starts. Use your GDC to find when, for $t \\ge 0$, $P = F$. Give your answer to 3 s.f.",
+          "hint": "Graph $y = 2.4\\mathrm{e}^{0.15x}$ and $y = 8 + 0.3x$ with $0 \\le x \\le 15$, then intersect.",
+          "answer": {
+            "value": 10.2,
+            "tolerance": 0.05
+          },
+          "explain": "They cross at $t = 10.182\\ldots$ After about $10.2$ hours there are more cells than the food can feed.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "nsolve(2.4*exp(0.15*t) - (8 + 0.3*t), t, 10)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-intersections",
+          "prompt": "How many points of intersection do the graphs of $y = x^{3} - 4x$ and $y = x + 1$ have?",
+          "hint": "Graph both with $-4 \\le x \\le 4$ and count the crossings.",
+          "options": [
+            {
+              "text": "$3$",
+              "correct": true
+            },
+            {
+              "text": "$1$",
+              "correct": false
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            }
+          ],
+          "explain": "The line crosses the cubic near $x = -2.13$, $x = -0.20$ and $x = 2.33$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Poly(x**3 - 4*x - (x + 1), x).count_roots()"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Zeros of $f$: the solutions of $f(x) = 0$, the $x$-coordinates of the [[x-intercept|x-intercepts]]. In a model, reject any outside the domain.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For a graph with no breaks on $a \\le x \\le b$, the greatest and least values are among the local maximum and minimum values, $f(a)$ and $f(b)$: compare them all.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A parabola with zeros $p$ and $q$ has axis of symmetry $x = \\frac{p + q}{2}$, and its vertex lies on it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vertical asymptote $x = a$: $f(x)$ increases or decreases without limit as $x$ gets close to $a$. Horizontal asymptote $y = b$: $f(x)$ gets closer and closer to $b$ as $x \\to \\infty$ or $x \\to -\\infty$. Write each as an equation.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Intersections of $y = f(x)$ and $y = g(x)$: solve $f(x) = g(x)$ with the GDC's intersect tool on every crossing, then find each $y$ from the unrounded $x$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving an asymptote as a number. It is a line, so write its equation, such as $W = 85$.",
+    "Writing $W \\le 85$ for a value the graph only approaches. The inequality is strict: $W < 85$.",
+    "Taking a local maximum as the greatest value on a restricted domain. Compare it with the end values.",
+    "Missing a zero or an intersection, or keeping one outside the domain. Zoom out, count every crossing, then check each against the domain."
+  ],
+  "examTips": [
+    "On a GDC question, write down the equation you solve or the [[function|functions]] you graph. A bare answer earns marks only if it is exactly right.",
+    "\"Write down\" a feature needs no working, but the form matters: coordinates for a point, an equation for a line.",
+    "\"Interpret\" means saying what the feature is in context, with units: \"the tank is empty after 40 minutes\", not \"$t = 40$\"."
+  ],
+  "readingMinutes": 24
+}

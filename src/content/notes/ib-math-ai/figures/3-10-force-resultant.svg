@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="15 40 230 230" role="img" aria-labelledby="t">
+  <title id="t">Three force arrows drawn head to tail. F1 goes 140 right and 60 up. F2 starts at the head of F1 and goes 50 left and 85 up. F3 starts at the head of F2 and goes 35 left and 110 down. A thicker arrow R goes straight from the start of F1 to the head of F3: 55 right and 35 up.</title>
+  <line x1="40.0" y1="250.0" x2="222.0" y2="172.0" stroke="var(--t1-ink)" stroke-width="2.2"/><path d="M215.4,179.5 L222.0,172.0 L212.0,171.5" fill="none" stroke="var(--t1-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="222.0" y1="172.0" x2="157.0" y2="61.5" stroke="var(--t3-ink)" stroke-width="2.2"/><path d="M165.3,67.1 L157.0,61.5 L157.8,71.5" fill="none" stroke="var(--t3-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="157.0" y1="61.5" x2="111.5" y2="204.5" stroke="var(--t5-ink)" stroke-width="2.2"/><path d="M110.1,194.6 L111.5,204.5 L118.4,197.2" fill="none" stroke="var(--t5-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+  <line x1="40.0" y1="250.0" x2="111.5" y2="204.5" stroke="currentColor" stroke-width="2.8"/><path d="M106.2,213.0 L111.5,204.5 L101.6,205.7" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+  <circle cx="40.0" cy="250.0" r="3.5" fill="currentColor"/>
+  <g font-size="15" font-family="inherit" font-weight="bold">
+    <text x="144.0" y="226.6" fill="var(--t1-ink)">F₁</text>
+    <text x="198.6" y="109.6" fill="var(--t3-ink)">F₂</text>
+    <text x="99.8" y="125.2" fill="var(--t5-ink)">F₃</text>
+    <text x="68.6" y="211.0" fill="currentColor">R</text>
+  </g>
+</svg>

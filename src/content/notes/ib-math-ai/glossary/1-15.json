@@ -1,0 +1,26 @@
+[
+  {
+    "id": "eigenvalue",
+    "term": "eigenvalue",
+    "definition": "A number $\\lambda$ such that $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$ for some non-zero vector $\\boldsymbol{v}$, where $A$ is a square matrix; the eigenvalues are the solutions of $\\det(A - \\lambda I) = 0$.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "eigenvector",
+    "term": "eigenvector",
+    "definition": "A non-zero vector $\\boldsymbol{v}$ with $A\\boldsymbol{v} = \\lambda\\boldsymbol{v}$ for a square matrix $A$ and some number $\\lambda$, so the matrix only stretches, shrinks or flips it; any non-zero multiple of it is also an eigenvector for the same $\\lambda$, and the zero vector never counts.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "characteristic-polynomial",
+    "term": "characteristic polynomial",
+    "definition": "For a $2 \\times 2$ matrix $A$, the quadratic $\\det(A - \\lambda I)$ in $\\lambda$, whose roots are the eigenvalues of $A$.",
+    "lesson": "1.15"
+  },
+  {
+    "id": "diagonalization",
+    "term": "diagonalization",
+    "definition": "Writing a square matrix as $M = PDP^{-1}$, with eigenvectors of $M$ as the columns of $P$ and the matching eigenvalues, in the same order, on the diagonal of $D$ (zeros elsewhere), so that $M^{n} = PD^{n}P^{-1}$; in IB AI it is done only for $2 \\times 2$ matrices with two different real eigenvalues.",
+    "lesson": "1.15"
+  }
+]

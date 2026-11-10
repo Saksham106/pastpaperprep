@@ -1,0 +1,32 @@
+[
+  {
+    "id": "antiderivative",
+    "term": "antiderivative",
+    "definition": "A function $F$ whose derivative is $f$, so $F'(x) = f(x)$; on an interval, any two antiderivatives of $f$ differ only by a constant.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "indefinite-integral",
+    "term": "indefinite integral",
+    "definition": "The family of all antiderivatives of $f$, written $\\int f(x)\\,\\mathrm{d}x = F(x) + C$; for a power, $\\int x^{n}\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1} + C$ only when $n \\neq -1$.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "constant-of-integration",
+    "term": "constant of integration",
+    "definition": "The $+\\,C$ at the end of an indefinite integral, there because any constant differentiates to $0$; on a domain with no breaks, one known point on the curve fixes its value.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "boundary-condition",
+    "term": "boundary condition",
+    "definition": "A known pair of values, such as $y = 10$ when $x = 1$, substituted into the integrated function (not the derivative) to find the constant of integration.",
+    "lesson": "5.5"
+  },
+  {
+    "id": "definite-integral",
+    "term": "definite integral",
+    "definition": "The number $\\int_{a}^{b} f(x)\\,\\mathrm{d}x$, found from $f$ between the limits $x = a$ and $x = b$; with $a < b$, it equals the area between the curve and the $x$-axis only when $f(x) \\ge 0$ throughout, because parts below the axis count as negative.",
+    "lesson": "5.5"
+  }
+]

@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "1.11",
+  "slug": "infinite-geometric-series",
+  "title": "Infinite geometric series",
+  "level": "AHL",
+  "topic": 1,
+  "summary": "Some [[geometric-series|geometric series]] go on for ever, yet their running totals settle on one number, the [[sum-to-infinity|sum to infinity]]. It exists when $\\lvert r\\rvert < 1$, and then $S_{\\infty} = \\frac{u_{1}}{1 - r}$. You use it for long-run totals, for the [[limit|limit]] a model never passes, and for [[fractal|fractals]] and repeated games.",
+  "goals": [
+    {
+      "text": "Explain why partial sums settle on a [[limit|limit]] only when $\\lvert r\\rvert < 1$.",
+      "bullets": [
+        "1.11-b1",
+        "1.11-b2"
+      ]
+    },
+    {
+      "text": "Find the [[sum-to-infinity|sum to infinity]], or work back from it to $u_{1}$ or $r$.",
+      "bullets": [
+        "1.11-b1"
+      ]
+    },
+    {
+      "text": "Use it for long-run totals and limits in a model, find when a total passes a value, and comment on the model.",
+      "bullets": [
+        "1.11-b1"
+      ]
+    },
+    {
+      "text": "Use it for the area of a [[fractal|fractal]] and for repeated rounds in a Markov chain.",
+      "bullets": [
+        "1.11-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "sum to infinity",
+    "infinite geometric series",
+    "S infinity formula",
+    "total can never exceed",
+    "long-run total of a geometric model",
+    "fractal area series"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-geo-sum-four",
+      "prompt": "Find the sum of the first $4$ terms of the geometric series $64 + 16 + 4 + \\dots$",
+      "hint": "Here $r = \\frac{16}{64} = 0.25$. Use the $S_{n}$ formula, or write out four terms and add.",
+      "answer": {
+        "value": 85,
+        "tolerance": 0
+      },
+      "explain": "The terms are $64, 16, 4, 1$, so $S_{4} = 85$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "64*(1 - Rational(1, 4)**4)/(1 - Rational(1, 4))",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-power-limit",
+      "prompt": "Work out $0.7^{n}$ for $n = 5$, $10$ and $20$ on your GDC. As $n$ gets larger and larger, which value does $0.7^{n}$ get closer to?",
+      "hint": "Look at the trend in your three values.",
+      "options": [
+        {
+          "text": "$0$",
+          "correct": true
+        },
+        {
+          "text": "$0.7$",
+          "correct": false
+        },
+        {
+          "text": "$1$",
+          "correct": false
+        }
+      ],
+      "explain": "$0.7^{5} = 0.168\\ldots$, $0.7^{10} = 0.0282\\ldots$, $0.7^{20} = 0.000797\\ldots$ The limit is $0$, though no power equals $0$. Revise it in {{lesson:5.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "limit(Rational(7, 10)**n, n, oo)"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "sum",
+      "heading": "Adding for ever: the sum to infinity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Eat half a cake, then half of what is left, and so on. Your running totals are $0.5$, $0.75$, $0.875$, … of the cake. You never pass $1$ cake, so the endless sum $\\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\dots$ is finite."
+        },
+        {
+          "type": "text",
+          "text": "These totals $S_{1}, S_{2}, S_{3}, \\dots$ are called partial sums. As in {{lesson:5.1}}, they have a [[limit|limit]]: they get closer and closer to $1$. We write $\\lim_{n \\to \\infty} S_{n} = 1$."
+        },
+        {
+          "type": "text",
+          "text": "Why do they settle? In {{lesson:1.3}} you met $S_{n} = \\frac{u_{1}(1 - r^{n})}{1 - r}$. When $-1 < r < 1$, $r^{n}$ gets closer and closer to $0$ as $n$ grows. So $S_{n}$ gets closer and closer to $\\frac{u_{1}}{1 - r}$."
+        },
+        {
+          "type": "definition",
+          "term": "sum to infinity",
+          "statement": "The sum to infinity $S_{\\infty}$ of a geometric series is the limit of its partial sums: $S_{\\infty} = \\lim_{n \\to \\infty} S_{n}$. It exists only when $\\lvert r\\rvert < 1$.",
+          "plain": "It is the total the running sums settle on."
+        },
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-11-geom-infinite",
+          "cheatSheet": false
+        },
+        {
+          "type": "text",
+          "text": "It's in the formula booklet. You must check the condition: $\\lvert r\\rvert < 1$ means $-1 < r < 1$. Otherwise the terms never shrink in size, so the totals never settle and there is no sum to infinity."
+        },
+        {
+          "type": "text",
+          "text": "For $5 + 6 + 7.2 + \\dots$ ($r = 1.2$) the totals grow without limit. The formula's $\\frac{5}{1 - 1.2} = -25$ means nothing."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-total",
+          "question": "A pendulum's bob travels $48$ cm on its first swing, and each swing is $85\\%$ as long as the one before. Find the total distance the model predicts, and interpret it.",
+          "steps": [
+            "The swing lengths form a [[geometric-sequence|geometric sequence]] with $u_{1} = 48$ and $r = 0.85$. As $\\lvert r\\rvert < 1$, the sum to infinity exists.",
+            "Substitute into the formula: $S_{\\infty} = \\frac{48}{1 - 0.85} = \\frac{48}{0.15} = 320$ cm.",
+            "See the limit in a GDC table of $S_{n} = \\frac{48(1 - 0.85^{n})}{0.15}$: $S_{10} = 257.0\\ldots$, $S_{20} = 307.5\\ldots$, $S_{40} = 319.5\\ldots$ cm.",
+            "Interpret: however long it swings, the bob travels less than $320$ cm in total. A real pendulum stops, so $320$ cm is an upper limit."
+          ],
+          "answer": "$S_{\\infty} = 320\\text{ cm}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "48/(1 - Rational(85, 100))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-table",
+          "values": {
+            "function": "48(1-0.85^X)/0.15",
+            "start": 10,
+            "step": 10,
+            "end": 40
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-11-partial-sums",
+          "alt": "Graph of the total distance S n against the number of swings n, from 1 to 20. The points start at 48, rise steeply at first and then level off, getting closer and closer to a dashed horizontal line at 320 without reaching it. Labelled points: 48.0 at n equals 1, 178.0 at n equals 5 and 257.0 at n equals 10.",
+          "caption": "The partial sums of $48 + 40.8 + 34.68 + \\dots$ approach $S_{\\infty} = 320$ but never reach it."
+        },
+        {
+          "type": "check",
+          "id": "check-sum-direct",
+          "prompt": "Find the sum to infinity of $72 + 54 + 40.5 + \\dots$",
+          "hint": "Find $r$ by dividing the second term by the first, then check $\\lvert r\\rvert < 1$.",
+          "answer": {
+            "value": 288,
+            "tolerance": 0
+          },
+          "explain": "$r = \\frac{54}{72} = 0.75$, so $S_{\\infty} = \\frac{72}{1 - 0.75} = \\frac{72}{0.25} = 288$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "72/(1 - Rational(54, 72))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-sum",
+          "prompt": "Does the geometric series $6 - 9 + 13.5 - \\dots$ have a sum to infinity?",
+          "hint": "Work out the ratio, keeping its sign, then look at its size.",
+          "options": [
+            {
+              "text": "No, because the size of the ratio is more than one",
+              "correct": true
+            },
+            {
+              "text": "Yes, because the signs alternate and cancel out",
+              "correct": false
+            },
+            {
+              "text": "Yes, because the ratio is negative",
+              "correct": false
+            }
+          ],
+          "explain": "$r = \\frac{-9}{6} = -1.5$ and $\\lvert -1.5\\rvert > 1$, so the totals $6, -3, 10.5, \\dots$ swing ever more wildly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "No, because the size of the ratio is more than one"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Know two of $S_{\\infty}$, $u_{1}$ and $r$, and the formula gives the third. Any $r$ you find needs $\\lvert r\\rvert < 1$ and must fit the context."
+        },
+        {
+          "type": "example",
+          "id": "ex-donations-first-week",
+          "question": "A charity models weekly donations to an appeal as a geometric sequence. The first two weeks raise $32000$ dollars between them. The model predicts that the appeal will raise $50000$ dollars in the long run. Find the amount raised in the first week.",
+          "steps": [
+            "Write both facts as equations: $u_{1} + u_{1}r = 32000$ and $\\frac{u_{1}}{1 - r} = 50000$.",
+            "From the second, $u_{1} = 50000(1 - r)$. Substitute into the first: $50000(1 - r)(1 + r) = 32000$.",
+            "Since $(1 - r)(1 + r) = 1 - r^{2}$, this gives $1 - r^{2} = 0.64$, so $r^{2} = 0.36$ and $r = 0.6$ or $r = -0.6$.",
+            "Both have $\\lvert r\\rvert < 1$. But $r = -0.6$ would make week $2$'s donations negative, which is impossible. So $r = 0.6$.",
+            "Then $u_{1} = 50000(1 - 0.6) = 20000$ dollars. Check: $20000 + 20000 \\times 0.6 = 32000$."
+          ],
+          "answer": "$u_{1} = 20000\\text{ dollars}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "50000*(1 - sqrt(1 - Rational(32000, 50000)))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Keeping every ratio you find. For a sum to infinity, reject any $r$ with $\\lvert r\\rvert \\ge 1$, and any the context rules out, and write down why."
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Modelling with a sum to infinity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a model, $S_{\\infty}$ is the long-run total. When every term is positive, the total approaches it but never passes it. To find when a total passes a value, use $S_{n}$ on your GDC."
+        },
+        {
+          "type": "example",
+          "id": "ex-puppy-weight",
+          "question": "A puppy weighs $3.2$ kg. Next month it gains $1.5$ kg, and a vet models each later month's gain as $75\\%$ of the month before. Find the weight the model says the puppy will never exceed, and comment on the model.",
+          "steps": [
+            "The monthly gains form a geometric sequence: $u_{1} = 1.5$ and $r = 0.75$, with $\\lvert r\\rvert < 1$.",
+            "Total of all future gains: $S_{\\infty} = \\frac{1.5}{1 - 0.75} = \\frac{1.5}{0.25} = 6$ kg.",
+            "Add the starting weight: $3.2 + 6 = 9.2$ kg. The model's weight approaches $9.2$ kg but never reaches it.",
+            "Comment: $9.2$ kg is a sensible adult weight, but real gains won't follow the $75\\%$ rule exactly."
+          ],
+          "answer": "$\\text{maximum weight} = 9.2\\text{ kg}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(32, 10) + Rational(15, 10)/(1 - Rational(75, 100))"
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Giving $6$ kg as the answer. $S_{\\infty}$ is the total of the gains only: add the starting weight of $3.2$ kg."
+        },
+        {
+          "type": "example",
+          "id": "ex-app-downloads",
+          "question": "A new app is downloaded $2400$ times in its first week. Each later week, new downloads are $90\\%$ of the week before. Use your GDC to find the week in which total downloads first pass $20000$.",
+          "steps": [
+            "The weekly downloads are geometric with $u_{1} = 2400$ and $r = 0.9$. Check $20000$ can be reached: $S_{\\infty} = \\frac{2400}{1 - 0.9} = 24000 > 20000$.",
+            "The total after $n$ weeks is $S_{n} = \\frac{2400(1 - 0.9^{n})}{1 - 0.9} = 24000(1 - 0.9^{n})$. Write down the inequality you solve: $24000(1 - 0.9^{n}) > 20000$.",
+            "Graph $y = 24000(1 - 0.9^{x})$ and $y = 20000$. They intersect at $x = 17.005\\ldots$",
+            "Test the whole numbers either side: $S_{17} = 19997.4\\ldots$, just short, and $S_{18} = 20397.7\\ldots$, which passes $20000$.",
+            "So the total passes $20000$ in week $18$. The model also says the total never reaches $24000$."
+          ],
+          "answer": "$n = 18$",
+          "verify": {
+            "kind": "exact",
+            "truth": "ceiling(log(1 - Rational(20000, 24000))/log(Rational(9, 10)))"
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "graph-intersection",
+          "values": {
+            "function1": "24000(1-0.9^X)",
+            "function2": "20000"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oil-total",
+          "prompt": "An oil well produces $50000$ barrels in its first year. Each year it produces $88\\%$ of the year before. Find the total the model predicts the well will ever produce. Give your answer to 3 significant figures.",
+          "hint": "Here $u_{1} = 50000$ and $r = 0.88$, so $1 - r = 0.12$.",
+          "answer": {
+            "value": 417000,
+            "tolerance": 500
+          },
+          "explain": "$S_{\\infty} = \\frac{50000}{1 - 0.88} = 416666.6\\ldots$, which is $417000$ barrels to 3 s.f.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "50000/(1 - Rational(88, 100))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oil-comment",
+          "prompt": "Which is the best comment on the well model's total?",
+          "hint": "What happens when a well's yearly output becomes tiny?",
+          "options": [
+            {
+              "text": "It is too high: a real well closes once its output stops paying",
+              "correct": true
+            },
+            {
+              "text": "It is exact, because the formula adds every year",
+              "correct": false
+            },
+            {
+              "text": "It is too low, because the well produces for ever",
+              "correct": false
+            }
+          ],
+          "explain": "A real well stops after finitely many years, and every term is positive, so its total is less than $S_{\\infty}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It is too high: a real well closes once its output stops paying"
+          }
+        }
+      ]
+    },
+    {
+      "id": "links",
+      "heading": "Fractals and Markov chains",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[fractal|fractal]] is built by applying the same transformations again and again, as in {{lesson:3.9}}. If each stage adds a fixed fraction of what the stage before added, those amounts are geometric. When that fraction is less than $1$, $S_{\\infty}$ gives the total added, and the starting size plus $S_{\\infty}$ is the size of the finished fractal."
+        },
+        {
+          "type": "figure",
+          "id": "1-11-koch-stages",
+          "alt": "Three shapes side by side. Stage 0 is an equilateral triangle. Stage 1 has a smaller equilateral triangle stuck on the middle third of each edge, making a six-pointed star. Stage 2 has an even smaller triangle on the middle third of each of the star's twelve edges, so the outline looks like a snowflake.",
+          "caption": "The first three stages of the Koch snowflake."
+        },
+        {
+          "type": "example",
+          "id": "ex-snowflake-area",
+          "question": "A Koch snowflake starts as an equilateral triangle of area $45\\text{ cm}^{2}$. Stage $1$ adds $3$ small triangles, each with area $\\frac{1}{9}$ of the original. Every later stage adds $4$ times as many triangles as the stage before, each with $\\frac{1}{9}$ of the area of the previous stage's triangles. Find the total area of the finished snowflake.",
+          "steps": [
+            "Stage $1$ adds $3 \\times \\frac{45}{9} = 15\\text{ cm}^{2}$.",
+            "Each later stage adds $4 \\times \\frac{1}{9} = \\frac{4}{9}$ of the area the stage before added. So the added areas $15, \\frac{20}{3}, \\frac{80}{27}, \\dots$ are geometric with $r = \\frac{4}{9}$.",
+            "Since $\\lvert r\\rvert < 1$, sum them for ever: $S_{\\infty} = \\frac{15}{1 - \\frac{4}{9}} = \\frac{15}{\\frac{5}{9}} = 27\\text{ cm}^{2}$.",
+            "Add the starting triangle: $45 + 27 = 72\\text{ cm}^{2}$.",
+            "Interpret: infinitely many stages give an area only $1.6$ times the triangle's."
+          ],
+          "answer": "$A = 72\\text{ cm}^{2}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "45 + (3*Rational(45, 9))/(1 - Rational(4, 9))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-koch-perimeter",
+          "prompt": "Each Koch stage replaces every edge by $4$ edges, each $\\frac{1}{3}$ as long. What happens to the perimeter?",
+          "hint": "What is the perimeter multiplied by at each stage? Compare it with $1$.",
+          "options": [
+            {
+              "text": "It grows without limit",
+              "correct": true
+            },
+            {
+              "text": "It approaches a finite limit, like the area",
+              "correct": false
+            },
+            {
+              "text": "It stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "Each stage multiplies the perimeter by $4 \\times \\frac{1}{3} = \\frac{4}{3} > 1$, so it grows without limit. The snowflake has a finite area but no finite perimeter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It grows without limit"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-matrix-copies",
+          "prompt": "A design starts with a rectangle of area $30\\text{ cm}^{2}$. A matrix with determinant $0.6$ maps it to a copy, then maps each copy to a new one, for ever. With no overlaps, find the total area of the rectangle and all its copies, in $\\text{cm}^{2}$.",
+          "hint": "Area of image $= \\lvert\\det\\rvert \\times$ area of object, so each copy has $0.6$ times the area of the one before.",
+          "answer": {
+            "value": 75,
+            "tolerance": 0
+          },
+          "explain": "The areas $30, 18, 10.8, \\dots$ are geometric with $r = 0.6$, so the total is $\\frac{30}{1 - 0.6} = 75\\text{ cm}^{2}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "30/(1 - Rational(6, 10))",
+            "sf": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a Markov chain ({{lesson:4.19}}), the next step depends only on the current state. If a process returns to a state with probability $p$ each round, it returns for $k$ rounds in a row with probability $p^{k}$: a geometric sequence."
+        },
+        {
+          "type": "example",
+          "id": "ex-free-throw-game",
+          "question": "Ana and Ben take turns at a basketball free throw, Ana first. Ana scores with probability $0.3$ and Ben with $0.4$, independently each time. The first to score wins. Find the probability that Ana wins.",
+          "steps": [
+            "A round returns to the state 'Ana to throw' only if both miss: probability $0.7 \\times 0.6 = 0.42$.",
+            "Ana wins on her first throw with probability $0.3$, on her second with $0.42 \\times 0.3$, on her third with $0.42^{2} \\times 0.3$, and so on.",
+            "This is geometric with $u_{1} = 0.3$ and $r = 0.42$, and $\\lvert r\\rvert < 1$. So $\\mathrm{P}(\\text{Ana wins}) = \\frac{0.3}{1 - 0.42} = \\frac{0.3}{0.58} = 0.51724\\ldots$",
+            "Interpret: going first more than makes up for Ben's better aim."
+          ],
+          "answer": "$\\mathrm{P}(\\text{Ana wins}) \\approx 0.517$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(3, 10)/(1 - Rational(7, 10)*Rational(6, 10))",
+            "sf": 3
+          },
+          "video": null,
+          "check": {
+            "type": "check",
+            "id": "check-ben-wins",
+            "prompt": "For the same game, find the probability that Ben wins. Give your answer to 3 significant figures.",
+            "hint": "Ben wins round $1$ if Ana misses and he scores. Each later round needs another two misses first.",
+            "answer": {
+              "value": 0.483,
+              "tolerance": 0.0005
+            },
+            "explain": "$\\frac{0.7 \\times 0.4}{1 - 0.42} = \\frac{0.28}{0.58} = 0.48275\\ldots$ Check: this plus $0.51724\\ldots$ is $1$, so someone is sure to win.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "Rational(7, 10)*Rational(4, 10)/(1 - Rational(7, 10)*Rational(6, 10))",
+              "sf": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "S_{\\infty} = \\frac{u_{1}}{1 - r}, \\quad \\lvert r\\rvert < 1",
+          "tag": "booklet",
+          "bookletId": "bk-1-11-geom-infinite",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A geometric series has a sum to infinity only when $-1 < r < 1$. Then $S_{\\infty} = \\lim_{n \\to \\infty} S_{n}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Working back from $S_{\\infty}$ can give two ratios. Reject any with $\\lvert r\\rvert \\ge 1$, and any the context rules out, and say why.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A starting amount plus increases with ratio $0 < r < 1$ never exceeds the starting amount plus $S_{\\infty}$ of the increases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Least $n$ for a total of positive terms to pass a target: if $0 < r < 1$, first check the target is below $S_{\\infty}$, or it is never passed. Then solve $S_{n} > \\text{target}$ on the GDC, test the whole numbers either side and give the first that works.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Fractals: positive amounts added stage by stage with ratio $\\lvert r\\rvert < 1$ have a finite total; with $r \\ge 1$, like the Koch perimeter's $\\frac{4}{3}$, they grow without limit.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting a large $n$, or $\\infty$, into $S_{n}$ for the most a total can be. Use $S_{\\infty} = \\frac{u_{1}}{1 - r}$ and show the substitution.",
+    "Forgetting the starting amount: the puppy's limit is $3.2$ kg plus $S_{\\infty}$ of the gains.",
+    "Using the formula when $\\lvert r\\rvert \\ge 1$. A [[series|series]] such as $5 + 6 + 7.2 + \\dots$ has no sum to infinity.",
+    "Rounding the crossing point $n = 17.005\\ldots$ down. Test $S_{17}$ and $S_{18}$, and give $18$.",
+    "A limitation that ignores the context. Say what breaks the fixed ratio, such as the process stopping."
+  ],
+  "examTips": [
+    "Find the value a total of positive terms with $0 < r < 1$ never exceeds: write $\\frac{u_{1}}{1 - r}$ with the numbers in, add any starting amount, and give units.",
+    "Determine whether a total of positive terms with $0 < r < 1$ reaches a target: it does only if the target is less than $S_{\\infty}$. Compare them, then answer in words, in context.",
+    "Justify a rejected ratio: say $\\lvert r\\rvert \\ge 1$ gives no sum to infinity, or say why the context rules it out."
+  ],
+  "readingMinutes": 19
+}

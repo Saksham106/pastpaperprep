@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 300" role="img" aria-labelledby="t" font-family="sans-serif" font-size="12">
+<title id="t">Scatter diagram of customers per day against distance from the station in kilometres for eight cafes. The points fall from about 310 customers at 0.2 km to about 120 customers at 3.6 km, lying close to a straight line.</title>
+<line x1="60.0" y1="30" x2="60.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="60.0" y1="250" x2="60.0" y2="255" stroke="currentColor"/>
+<text x="60.0" y="268" text-anchor="middle" fill="currentColor">0</text>
+<line x1="155.0" y1="30" x2="155.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="155.0" y1="250" x2="155.0" y2="255" stroke="currentColor"/>
+<text x="155.0" y="268" text-anchor="middle" fill="currentColor">1</text>
+<line x1="250.0" y1="30" x2="250.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="250.0" y1="250" x2="250.0" y2="255" stroke="currentColor"/>
+<text x="250.0" y="268" text-anchor="middle" fill="currentColor">2</text>
+<line x1="345.0" y1="30" x2="345.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="345.0" y1="250" x2="345.0" y2="255" stroke="currentColor"/>
+<text x="345.0" y="268" text-anchor="middle" fill="currentColor">3</text>
+<line x1="440.0" y1="30" x2="440.0" y2="250" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="440.0" y1="250" x2="440.0" y2="255" stroke="currentColor"/>
+<text x="440.0" y="268" text-anchor="middle" fill="currentColor">4</text>
+<line x1="60" y1="250.0" x2="440" y2="250.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="250.0" x2="60" y2="250.0" stroke="currentColor"/>
+<text x="52" y="254.0" text-anchor="end" fill="currentColor">0</text>
+<line x1="60" y1="218.6" x2="440" y2="218.6" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="218.6" x2="60" y2="218.6" stroke="currentColor"/>
+<text x="52" y="222.6" text-anchor="end" fill="currentColor">50</text>
+<line x1="60" y1="187.1" x2="440" y2="187.1" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="187.1" x2="60" y2="187.1" stroke="currentColor"/>
+<text x="52" y="191.1" text-anchor="end" fill="currentColor">100</text>
+<line x1="60" y1="155.7" x2="440" y2="155.7" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="155.7" x2="60" y2="155.7" stroke="currentColor"/>
+<text x="52" y="159.7" text-anchor="end" fill="currentColor">150</text>
+<line x1="60" y1="124.3" x2="440" y2="124.3" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="124.3" x2="60" y2="124.3" stroke="currentColor"/>
+<text x="52" y="128.3" text-anchor="end" fill="currentColor">200</text>
+<line x1="60" y1="92.9" x2="440" y2="92.9" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="92.9" x2="60" y2="92.9" stroke="currentColor"/>
+<text x="52" y="96.9" text-anchor="end" fill="currentColor">250</text>
+<line x1="60" y1="61.4" x2="440" y2="61.4" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="61.4" x2="60" y2="61.4" stroke="currentColor"/>
+<text x="52" y="65.4" text-anchor="end" fill="currentColor">300</text>
+<line x1="60" y1="30.0" x2="440" y2="30.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="30.0" x2="60" y2="30.0" stroke="currentColor"/>
+<text x="52" y="34.0" text-anchor="end" fill="currentColor">350</text>
+<line x1="60" y1="250" x2="440" y2="250" stroke="currentColor"/>
+<line x1="60" y1="30" x2="60" y2="250" stroke="currentColor"/>
+<text x="440" y="286" text-anchor="end" fill="currentColor">distance from station x (km)</text>
+<text x="64" y="20" fill="currentColor">customers per day y</text>
+<circle cx="79.0" cy="55.1" r="4" fill="var(--t2-ink)"/>
+<circle cx="107.5" cy="71.5" r="4" fill="var(--t2-ink)"/>
+<circle cx="145.5" cy="85.3" r="4" fill="var(--t2-ink)"/>
+<circle cx="183.5" cy="111.1" r="4" fill="var(--t2-ink)"/>
+<circle cx="231.0" cy="121.1" r="4" fill="var(--t2-ink)"/>
+<circle cx="288.0" cy="144.4" r="4" fill="var(--t2-ink)"/>
+<circle cx="345.0" cy="155.7" r="4" fill="var(--t2-ink)"/>
+<circle cx="402.0" cy="175.2" r="4" fill="var(--t2-ink)"/>
+</svg>

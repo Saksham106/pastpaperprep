@@ -1,0 +1,8 @@
+[
+  {
+    "id": "second-order-differential-equation",
+    "term": "second-order differential equation",
+    "definition": "A differential equation whose highest derivative is a second derivative, such as $\\frac{\\mathrm{d}^{2}x}{\\mathrm{d}t^{2}} = f\\left(x, \\frac{\\mathrm{d}x}{\\mathrm{d}t}, t\\right)$; putting $y = \\frac{\\mathrm{d}x}{\\mathrm{d}t}$ turns it into the coupled first-order equations $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = y$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = f(x, y, t)$.",
+    "lesson": "5.18"
+  }
+]

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 265" role="img" aria-labelledby="t">
+  <title id="t">A circle with centre O and radius r. Rays from O mark angles measured anticlockwise from the right-hand radius: 0 or 2 pi radians (0 or 360 degrees) to the right, pi over 2 (90 degrees) straight up, pi (180 degrees) to the left and 3 pi over 2 (270 degrees) straight down. A shaded slice near the start has an angle of 1 radian, about 57.3 degrees, and its curved edge, drawn thick, is labelled arc equals r.</title>
+  <path d="M180,140 L270,140 A90,90 0 0,0 228.6,64.3 Z" fill="var(--t2-ink)" fill-opacity="0.18" stroke="none"/>
+  <circle cx="180" cy="140" r="90" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.7">
+    <line x1="180" y1="140" x2="180" y2="50"/>
+    <line x1="180" y1="140" x2="90" y2="140"/>
+    <line x1="180" y1="140" x2="180" y2="230"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <line x1="180" y1="140" x2="270" y2="140"/>
+    <line x1="180" y1="140" x2="228.6" y2="64.3"/>
+  </g>
+  <path d="M270,140 A90,90 0 0,0 228.6,64.3" fill="none" stroke="var(--t2-ink)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M198,140 A18,18 0 0,0 189.7,124.9" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <circle cx="180" cy="140" r="2.5" fill="currentColor"/>
+  <g font-family="inherit" fill="currentColor" font-size="14">
+    <text x="166" y="158">O</text>
+    <text x="276" y="138">0 or 2π</text>
+    <text x="276" y="155">(0° or 360°)</text>
+    <text x="146" y="40">π/2 (90°)</text>
+    <text x="84" y="145" text-anchor="end">π (180°)</text>
+    <text x="142" y="252">3π/2 (270°)</text>
+    <text x="206" y="112">1 rad</text>
+    <text x="204" y="129">≈ 57.3°</text>
+  </g>
+  <g font-family="inherit" fill="var(--t2-ink)" font-size="14">
+    <text x="258" y="92">arc = r</text>
+  </g>
+  <g font-family="inherit" fill="currentColor" font-size="16" font-style="italic">
+    <text x="222" y="157">r</text>
+  </g>
+</svg>

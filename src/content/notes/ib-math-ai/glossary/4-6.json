@@ -1,0 +1,44 @@
+[
+  {
+    "id": "venn-diagram",
+    "term": "Venn diagram",
+    "definition": "A picture of a sample space as a rectangle, with each event drawn as a circle inside it; where circles overlap, the outcomes belong to both events.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "tree-diagram",
+    "term": "tree diagram",
+    "definition": "A diagram with one set of branches for each stage of an experiment, where the branches from each point add up to $1$; you multiply along a path and add across paths, and a later branch can carry a probability that depends on the earlier one.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "union-of-events",
+    "term": "union of events",
+    "definition": "The event $A \\cup B$, read \"$A$ or $B$\": at least one of $A$ and $B$ happens, including when both happen.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "mutually-exclusive-events",
+    "term": "mutually exclusive events",
+    "definition": "Events that cannot both happen, so $\\mathrm{P}(A \\cap B) = 0$; this is not the same as being independent.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "conditional-probability",
+    "term": "conditional probability",
+    "definition": "The probability of $A$ given that $B$ has happened, written $\\mathrm{P}(A \\mid B)$ and equal to $\\frac{\\mathrm{P}(A \\cap B)}{\\mathrm{P}(B)}$, where $\\mathrm{P}(B) > 0$.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "independent-events",
+    "term": "independent events",
+    "definition": "Events where one happening does not change the probability of the other, so $\\mathrm{P}(A \\cap B) = \\mathrm{P}(A)\\,\\mathrm{P}(B)$; two mutually exclusive events that each have a non-zero probability are never independent.",
+    "lesson": "4.6"
+  },
+  {
+    "id": "without-replacement",
+    "term": "without replacement",
+    "definition": "Choosing items one after another without putting each one back, so the total, and the probabilities for the next pick, change after every pick.",
+    "lesson": "4.6"
+  }
+]

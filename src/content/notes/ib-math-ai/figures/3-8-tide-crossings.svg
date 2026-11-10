@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 260" role="img" aria-labelledby="t" font-family="sans-serif" font-size="12">
+  <title id="t">Graph of water depth d against time t from 0 to 12 hours. The curve starts at 7.7 m, falls to 2.5 m at t = 6 and rises back to 7.7 m at t = 12. The horizontal line d = 6.5 crosses it twice, near t = 1.91 and t = 10.1. The curve is above the line before the first crossing and after the second.</title>
+  <line x1="50" y1="220" x2="420" y2="220" stroke="currentColor" stroke-width="1.3"/>
+  <line x1="50" y1="220" x2="50" y2="30" stroke="currentColor" stroke-width="1.3"/>
+  <g stroke="currentColor" stroke-width="1">
+    <line x1="140" y1="220" x2="140" y2="225"/><line x1="230" y1="220" x2="230" y2="225"/>
+    <line x1="320" y1="220" x2="320" y2="225"/><line x1="410" y1="220" x2="410" y2="225"/>
+    <line x1="45" y1="120" x2="50" y2="120"/><line x1="45" y1="60" x2="50" y2="60"/><line x1="45" y1="180" x2="50" y2="180"/>
+  </g>
+  <g fill="currentColor" text-anchor="middle">
+    <text x="50" y="238">0</text><text x="140" y="238">3</text><text x="230" y="238">6</text>
+    <text x="320" y="238">9</text><text x="410" y="238">12</text>
+    <text x="235" y="255">t (hours after midnight)</text>
+  </g>
+  <g fill="currentColor" text-anchor="end">
+    <text x="41" y="184">2</text><text x="41" y="124">5</text><text x="41" y="64">8</text>
+    <text x="58" y="22" text-anchor="start">d (m)</text>
+  </g>
+  <rect x="50" y="34" width="57.4" height="186" fill="var(--t2-ink)" opacity="0.12"/>
+  <rect x="352.6" y="34" width="57.4" height="186" fill="var(--t2-ink)" opacity="0.12"/>
+  <path d="M50.0 66.0 L56.0 66.3 L62.0 67.1 L68.0 68.5 L74.0 70.5 L80.0 73.0 L86.0 75.9 L92.0 79.4 L98.0 83.2 L104.0 87.4 L110.0 92.0 L116.0 96.8 L122.0 101.9 L128.0 107.2 L134.0 112.6 L140.0 118.0 L146.0 123.4 L152.0 128.8 L158.0 134.1 L164.0 139.2 L170.0 144.0 L176.0 148.6 L182.0 152.8 L188.0 156.6 L194.0 160.1 L200.0 163.0 L206.0 165.5 L212.0 167.5 L218.0 168.9 L224.0 169.7 L230.0 170.0 L236.0 169.7 L242.0 168.9 L248.0 167.5 L254.0 165.5 L260.0 163.0 L266.0 160.1 L272.0 156.6 L278.0 152.8 L284.0 148.6 L290.0 144.0 L296.0 139.2 L302.0 134.1 L308.0 128.8 L314.0 123.4 L320.0 118.0 L326.0 112.6 L332.0 107.2 L338.0 101.9 L344.0 96.8 L350.0 92.0 L356.0 87.4 L362.0 83.2 L368.0 79.4 L374.0 75.9 L380.0 73.0 L386.0 70.5 L392.0 68.5 L398.0 67.1 L404.0 66.3 L410.0 66.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+  <line x1="50" y1="90" x2="420" y2="90" stroke="var(--t5-ink)" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="418" y="84" text-anchor="end" fill="var(--t5-ink)">d = 6.5</text>
+  <g stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3">
+    <line x1="107.4" y1="90" x2="107.4" y2="220"/><line x1="352.6" y1="90" x2="352.6" y2="220"/>
+  </g>
+  <circle cx="107.4" cy="90" r="4" fill="var(--t5-ink)"/>
+  <circle cx="352.6" cy="90" r="4" fill="var(--t5-ink)"/>
+  <g fill="var(--muted)" text-anchor="middle">
+    <text x="107.4" y="212">1.91</text><text x="352.6" y="212">10.1</text>
+  </g>
+</svg>

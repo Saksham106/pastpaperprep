@@ -1,0 +1,8 @@
+[
+  {
+    "id": "spearmans-rank-correlation-coefficient",
+    "term": "Spearman's rank correlation coefficient",
+    "definition": "The number $r_s$, with $-1 \\le r_s \\le 1$, found by calculating Pearson's $r$ on the ranks of the data (tied values each take the mean of the ranks they share); it measures how strongly one variable always rises, or always falls, as the other rises, straight-line or curved, and is less affected by outliers than Pearson's $r$.",
+    "lesson": "4.10"
+  }
+]

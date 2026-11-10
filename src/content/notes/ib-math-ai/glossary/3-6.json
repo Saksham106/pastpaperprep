@@ -1,0 +1,44 @@
+[
+  {
+    "id": "voronoi-diagram",
+    "term": "Voronoi diagram",
+    "definition": "A division of a region into cells, one for each site, where each cell holds the points that are closer to its site than to any other site.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "site",
+    "term": "site",
+    "definition": "One of the given points a Voronoi diagram is built from, such as a shop or a weather station; each site has its own cell.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-cell",
+    "term": "cell (Voronoi diagram)",
+    "definition": "The region of all points closer to one site than to any other site; its edges lie on perpendicular bisectors of that site and its neighbouring sites.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-edge",
+    "term": "edge (Voronoi diagram)",
+    "definition": "A boundary between two neighbouring cells; it lies on the perpendicular bisector of their two sites, so every point on it is the same distance from both.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "voronoi-vertex",
+    "term": "vertex (Voronoi diagram)",
+    "definition": "A point where three or more edges meet; it is the same distance from the sites of all the cells that meet there, and no site is closer to it.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "nearest-neighbour-interpolation",
+    "term": "nearest neighbour interpolation",
+    "definition": "Estimating a quantity at a point as the value at its nearest site, so every point in a Voronoi cell gets the value of that cell's site.",
+    "lesson": "3.6"
+  },
+  {
+    "id": "toxic-waste-dump-problem",
+    "term": "toxic waste dump problem",
+    "definition": "Finding the point in a region whose distance to the nearest site is as large as possible; in IB exams the answer is always at a Voronoi vertex where three edges meet.",
+    "lesson": "3.6"
+  }
+]

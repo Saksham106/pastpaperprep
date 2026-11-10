@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 230" role="img" aria-labelledby="tmuseum-rooms">
+  <title id="tmuseum-rooms">An undirected graph with four vertices A, B, C and D. Edges: A to B, A to C, B to C and C to D.</title>
+  <line x1="60.0" y1="50.0" x2="60.0" y2="190.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="60.0" y1="50.0" x2="200.0" y2="120.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="60.0" y1="190.0" x2="200.0" y2="120.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="200.0" y1="120.0" x2="340.0" y2="120.0" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="60" cy="50" r="5" fill="currentColor"/>
+  <text x="46" y="44" font-size="14" text-anchor="middle" fill="currentColor">A</text>
+  <circle cx="60" cy="190" r="5" fill="currentColor"/>
+  <text x="46" y="206" font-size="14" text-anchor="middle" fill="currentColor">B</text>
+  <circle cx="200" cy="120" r="5" fill="currentColor"/>
+  <text x="200" y="104" font-size="14" text-anchor="middle" fill="currentColor">C</text>
+  <circle cx="340" cy="120" r="5" fill="currentColor"/>
+  <text x="354" y="112" font-size="14" text-anchor="middle" fill="currentColor">D</text>
+</svg>

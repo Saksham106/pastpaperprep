@@ -1,0 +1,745 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "5.17",
+  "slug": "phase-portraits-for-coupled-equations",
+  "title": "Phase portraits for coupled equations",
+  "level": "AHL",
+  "topic": 5,
+  "summary": "A [[phase-portrait|phase portrait]] shows where a pair of linear [[coupled-differential-equations|coupled differential equations]] takes every starting point. The [[eigenvalue|eigenvalues]] of the system's [[matrix|matrix]] set the picture: paths in or out, spirals, ellipses or a [[saddle-point|saddle point]]. You use it to predict long-term behaviour, such as whether a population settles or dies out.",
+  "goals": [
+    {
+      "text": "Write a linear system in matrix form, find velocities and [[trajectory|trajectory]] gradients, and find its [[equilibrium-point|equilibrium point]].",
+      "bullets": [
+        "5.17-b1",
+        "5.17-b3"
+      ]
+    },
+    {
+      "text": "Find the exact solution when the eigenvalues are real and distinct.",
+      "bullets": [
+        "5.17-b4"
+      ]
+    },
+    {
+      "text": "Decide from the eigenvalues whether solutions move in or out, spiral, form ellipses, or meet a saddle point.",
+      "bullets": [
+        "5.17-b2"
+      ]
+    },
+    {
+      "text": "Sketch phase portraits with [[eigenvector|eigenvector]] lines, arrows and a trajectory in every region.",
+      "bullets": [
+        "5.17-b1",
+        "5.17-b3"
+      ]
+    },
+    {
+      "text": "Interpret a phase portrait in context: stable populations, which species dies out, and the long-term behaviour.",
+      "bullets": [
+        "5.17-b2",
+        "5.17-b3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.12",
+    "1.14",
+    "1.15",
+    "3.10",
+    "5.14",
+    "5.15",
+    "5.16"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "synonyms": [
+    "phase portrait",
+    "phase plane",
+    "coupled differential equations eigenvalues",
+    "saddle point differential equations",
+    "spiral phase portrait",
+    "system of linear differential equations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-eigenvalues-2x2",
+      "prompt": "Find the eigenvalues of $\\begin{pmatrix}4 & 1\\\\ 2 & 3\\end{pmatrix}$.",
+      "hint": "Solve $\\det\\begin{pmatrix}4 - \\lambda & 1\\\\ 2 & 3 - \\lambda\\end{pmatrix} = 0$.",
+      "options": [
+        {
+          "text": "$2, 5$",
+          "correct": true
+        },
+        {
+          "text": "$-2, -5$",
+          "correct": false
+        },
+        {
+          "text": "$3, 4$",
+          "correct": false
+        }
+      ],
+      "explain": "$(4 - \\lambda)(3 - \\lambda) - 2 = \\lambda^{2} - 7\\lambda + 10 = (\\lambda - 2)(\\lambda - 5) = 0$. The diagonal entries $4$ and $3$ are not the eigenvalues here. Revise it in {{lesson:1.15}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve((Matrix([[4, 1], [2, 3]]) - x*eye(2)).det(), x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-complex-quadratic",
+      "prompt": "Solve $\\lambda^{2} + 2\\lambda + 5 = 0$.",
+      "hint": "Use the quadratic formula. The discriminant is negative, and $\\sqrt{-16} = 4\\mathrm{i}$.",
+      "options": [
+        {
+          "text": "$-1 \\pm 2\\mathrm{i}$",
+          "correct": true
+        },
+        {
+          "text": "$1 \\pm 2\\mathrm{i}$",
+          "correct": false
+        },
+        {
+          "text": "$-1 \\pm 4\\mathrm{i}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\lambda = \\frac{-2 \\pm \\sqrt{4 - 20}}{2} = \\frac{-2 \\pm 4\\mathrm{i}}{2} = -1 \\pm 2\\mathrm{i}$. Divide both parts by $2$. Revise it in {{lesson:1.12}}.",
+      "verify": {
+        "kind": "list",
+        "truth": "solve(x**2 + 2*x + 5, x)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-coupled-rate",
+      "prompt": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 3x - y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = x + 2y$. Find $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ when $x = 2$ and $y = 5$.",
+      "hint": "Substitute both values into the second equation.",
+      "answer": {
+        "value": 12,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2 + 2(5) = 12$. Revise it in {{lesson:5.16}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2 + 2*5",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "phase-plane",
+      "heading": "Linear systems and the phase plane",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.16}} you stepped coupled differential equations forward with Euler's method. Here every rate is a fixed mix of $x$ and $y$, so the system is linear. Time is $t$, and $a$, $b$, $c$, $d$ are constants:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\begin{pmatrix}\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}\\\\[6pt] \\dfrac{\\mathrm{d}y}{\\mathrm{d}t}\\end{pmatrix} = \\begin{pmatrix}a & b\\\\ c & d\\end{pmatrix}\\begin{pmatrix}x\\\\ y\\end{pmatrix}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This is the pair $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ written with a matrix. Call the matrix $M$. Its eigenvalues and eigenvectors decide how every solution behaves."
+        },
+        {
+          "type": "definition",
+          "term": "Phase portrait",
+          "statement": "A [[trajectory|trajectory]] is the path a solution $(x(t), y(t))$ traces in the $(x, y)$ plane as $t$ increases. A [[phase-portrait|phase portrait]] shows several trajectories, with arrows for the direction of motion.",
+          "plain": "A map of where the system goes from each starting point. Time is not one of the axes."
+        },
+        {
+          "type": "text",
+          "text": "At any point, the two equations give the velocity [[vector|vector]] $\\begin{pmatrix}\\mathrm{d}x/\\mathrm{d}t\\\\ \\mathrm{d}y/\\mathrm{d}t\\end{pmatrix}$. It is tangent to the trajectory and points the way it moves. Its gradient is the gradient of the trajectory:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "Equilibrium point",
+          "statement": "An [[equilibrium-point|equilibrium point]] is a point where $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ at the same time. A solution that starts there stays there.",
+          "plain": "A balance point where nothing changes."
+        },
+        {
+          "type": "result",
+          "statement": "For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ with non-zero eigenvalues, the origin is the only equilibrium point.",
+          "why": "$0$ is not an eigenvalue, so $\\det M = \\det(M - 0I) \\neq 0$. Then $M\\begin{pmatrix}x\\\\ y\\end{pmatrix} = \\begin{pmatrix}0\\\\ 0\\end{pmatrix}$ has only the solution $x = y = 0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-velocity-at-point",
+          "question": "For the system $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 2x - 3y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = x + 4y$, find the velocity vector at $(1, 2)$. Describe which way the trajectory through $(1, 2)$ is moving.",
+          "steps": [
+            "Substitute $x = 1$, $y = 2$: $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 2(1) - 3(2) = -4$.",
+            "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 1 + 4(2) = 9$.",
+            "So the velocity vector is $\\begin{pmatrix}-4\\\\ 9\\end{pmatrix}$.",
+            "$x$ is decreasing and $y$ is increasing, so the trajectory moves left and up. It is steeper than $45^{\\circ}$, because $9 > 4$."
+          ],
+          "answer": "$\\begin{pmatrix}-4\\\\9\\end{pmatrix}$",
+          "check": {
+            "type": "check",
+            "id": "check-velocity-other-point",
+            "prompt": "Now you try: for the same system, which way does the trajectory through $(-1, 1)$ move?",
+            "hint": "Find the signs of $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(-1, 1)$.",
+            "options": [
+              {
+                "text": "left and up",
+                "correct": true
+              },
+              {
+                "text": "right and down",
+                "correct": false
+              },
+              {
+                "text": "left and down",
+                "correct": false
+              }
+            ],
+            "explain": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -2 - 3 = -5 < 0$, so $x$ decreases. $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -1 + 4 = 3 > 0$, so $y$ increases: left and up.",
+            "verify": {
+              "kind": "choice",
+              "truth": "left and up"
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "vector",
+            "truth": "[2*1 - 3*2, 1 + 4*2]"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rooms-gradient",
+          "question": "The heating in two connected rooms, A and B, is switched off. Let $x$ and $y$ be how many $^{\\circ}\\text{C}$ rooms A and B are above the outside temperature, $t$ hours later. A model is $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -0.3x + 0.1y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.2x - 0.4y$. At one moment $x = 10$ and $y = 4$. Find $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$, and interpret them. Then find the gradient of the trajectory at $(10, 4)$.",
+          "steps": [
+            "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -0.3(10) + 0.1(4) = -2.6$.",
+            "$\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.2(10) - 0.4(4) = 0.4$.",
+            "Interpret: room A is cooling at $2.6\\,^{\\circ}\\text{C}$ per hour. Room B is warming at $0.4\\,^{\\circ}\\text{C}$ per hour, because heat flows into it from the warmer room A.",
+            "Gradient: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{0.4}{-2.6} = -0.153846\\ldots$"
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} \\approx -0.154$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(0.2*10 - 0.4*4)/(-0.3*10 + 0.1*4)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equilibrium-point",
+          "prompt": "Which point is an equilibrium point of $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 5x - 2y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 3x + y$?",
+          "hint": "Both rates must be $0$ at the same point.",
+          "options": [
+            {
+              "text": "$(0, 0)$",
+              "correct": true
+            },
+            {
+              "text": "$(2, 5)$",
+              "correct": false
+            },
+            {
+              "text": "$(1, -3)$",
+              "correct": false
+            }
+          ],
+          "explain": "At $(2, 5)$, $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0$ but $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 11$. At $(1, -3)$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0$ but $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 11$. Only $(0, 0)$ makes both zero.",
+          "verify": {
+            "kind": "point",
+            "truth": "Matrix([[5, -2], [3, 1]]).solve(Matrix([0, 0]))"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rooms-gradient",
+          "prompt": "For the two-room model, find the gradient of the trajectory at $(6, 9)$. Give your answer to 3 s.f.",
+          "hint": "Find both rates first, then divide $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ by $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$.",
+          "answer": {
+            "value": 2.67,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -1.8 + 0.9 = -0.9$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 1.2 - 3.6 = -2.4$, so $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{-2.4}{-0.9} = 2.67$. Both rates are negative: both rooms are cooling.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.2*6 - 0.4*9)/(-0.3*6 + 0.1*9)",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-eigenvalues",
+      "heading": "Real eigenvalues: straight lines and exact solutions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Start a solution on the line through the origin in the direction of an eigenvector $\\boldsymbol{p}$, with eigenvalue $\\lambda$. Then $M\\boldsymbol{p} = \\lambda\\boldsymbol{p}$, so the velocity points along that same line. The solution never leaves the line."
+        },
+        {
+          "type": "text",
+          "text": "If $\\lambda < 0$, it moves along the line towards the origin. If $\\lambda > 0$, it moves away. So each eigenvector line is made of straight-line trajectories."
+        },
+        {
+          "type": "text",
+          "text": "Every other solution is a mix of the two straight-line motions. When the eigenvalues $\\lambda_1$ and $\\lambda_2$ are real and distinct, with eigenvectors $\\boldsymbol{p}_1$ and $\\boldsymbol{p}_2$, the exact solution is:"
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-coupled-exact"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\boldsymbol{x} = \\begin{pmatrix}x\\\\ y\\end{pmatrix}$, and $A$ and $B$ are constants. At $t = 0$ both exponentials are $1$, so the starting point gives $A\\boldsymbol{p}_1 + B\\boldsymbol{p}_2$. This formula is in the booklet. You only need exact solutions when the eigenvalues are real and distinct."
+        },
+        {
+          "type": "result",
+          "statement": "For real distinct eigenvalues: if both are negative, every solution moves towards the origin as $t$ increases. If both are positive, every solution except the origin itself moves away from it.",
+          "why": "Each term has a factor $\\mathrm{e}^{\\lambda t}$, which tends to $0$ when $\\lambda < 0$ and grows without limit when $\\lambda > 0$."
+        },
+        {
+          "type": "definition",
+          "term": "Stable equilibrium",
+          "statement": "An equilibrium point is a [[stable-equilibrium|stable equilibrium]] if all nearby solutions move towards it. For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$, the origin is stable when both eigenvalues are negative, or complex with negative [[real-part|real part]].",
+          "plain": "Nudge the system and it returns to the balance point."
+        },
+        {
+          "type": "text",
+          "text": "To sketch the portrait when both eigenvalues have the same sign:"
+        },
+        {
+          "type": "text",
+          "text": "1. Draw both eigenvector lines through the origin."
+        },
+        {
+          "type": "text",
+          "text": "2. Put arrows on them: towards the origin for a negative eigenvalue, away for a positive one."
+        },
+        {
+          "type": "text",
+          "text": "3. Draw curved trajectories between the lines. Near the origin they run alongside the line whose eigenvalue is closer to $0$, because that term changes most slowly. With both eigenvalues positive, far from the origin they turn parallel to the other line."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-node",
+          "alt": "Phase portrait with every trajectory moving into the origin. The line y equals x and the line y equals minus 2x are drawn through the origin, with arrows pointing inwards on both. Curved trajectories start near the edges, bend towards the line y equals x and enter the origin along it.",
+          "caption": "The two-room model: eigenvalues $-0.2$ on $y = x$ and $-0.5$ on $y = -2x$. Curves enter the origin along $y = x$, the line of the eigenvalue closer to $0$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rooms-exact",
+          "question": "For the two-room model $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -0.3x + 0.1y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.2x - 0.4y$, room A starts $12\\,^{\\circ}\\text{C}$ and room B $3\\,^{\\circ}\\text{C}$ above the outside temperature. Find the eigenvalues and eigenvectors, write down the [[general-solution|general solution]], and find $A$ and $B$. Describe what happens in the long term.",
+          "steps": [
+            "Characteristic equation: $(-0.3 - \\lambda)(-0.4 - \\lambda) - (0.1)(0.2) = \\lambda^{2} + 0.7\\lambda + 0.1 = 0$, so $\\lambda = -0.2$ or $\\lambda = -0.5$.",
+            "For $\\lambda = -0.2$: $-0.1x + 0.1y = 0$, so $y = x$ and $\\boldsymbol{p}_1 = \\begin{pmatrix}1\\\\ 1\\end{pmatrix}$. For $\\lambda = -0.5$: $0.2x + 0.1y = 0$, so $y = -2x$ and $\\boldsymbol{p}_2 = \\begin{pmatrix}1\\\\ -2\\end{pmatrix}$.",
+            "General solution: $\\begin{pmatrix}x\\\\ y\\end{pmatrix} = A\\mathrm{e}^{-0.2t}\\begin{pmatrix}1\\\\ 1\\end{pmatrix} + B\\mathrm{e}^{-0.5t}\\begin{pmatrix}1\\\\ -2\\end{pmatrix}$.",
+            "At $t = 0$: $A + B = 12$ and $A - 2B = 3$. Subtracting gives $3B = 9$, so $B = 3$ and $A = 9$.",
+            "So $x = 9\\mathrm{e}^{-0.2t} + 3\\mathrm{e}^{-0.5t}$ and $y = 9\\mathrm{e}^{-0.2t} - 6\\mathrm{e}^{-0.5t}$. Check: $x(0) = 12$ and $y(0) = 3$.",
+            "Interpret: both eigenvalues are negative, so both rooms cool to the outside temperature. The $\\mathrm{e}^{-0.5t}$ term dies away first, so later on both rooms are about the same amount above outside."
+          ],
+          "answer": "$A = 9, \\; B = 3$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "solve([A + B - 12, A - 2*B - 3], [A, B])"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "matrix-eigen",
+          "values": {}
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-2",
+          "values": {
+            "a1": 1,
+            "b1": 1,
+            "c1": 12,
+            "a2": 1,
+            "b2": -2,
+            "c2": 3
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-weed-spread",
+          "question": "A weed spreads in two neighbouring fields. Let $x$ and $y$ be the areas it covers, in $\\text{m}^{2}$, in each field after $t$ months. A model is $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0.3x + 0.1y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.1x + 0.3y$. Use the eigenvalues to describe the long-term behaviour, and comment on the model.",
+          "steps": [
+            "$(0.3 - \\lambda)^{2} - 0.01 = 0$, so $0.3 - \\lambda = \\pm 0.1$ and $\\lambda = 0.2$ or $\\lambda = 0.4$.",
+            "For $\\lambda = 0.4$: $-0.1x + 0.1y = 0$, so $\\boldsymbol{p} = \\begin{pmatrix}1\\\\ 1\\end{pmatrix}$. For $\\lambda = 0.2$: $0.1x + 0.1y = 0$, so $\\boldsymbol{p} = \\begin{pmatrix}1\\\\ -1\\end{pmatrix}$.",
+            "Both eigenvalues are positive, so every solution moves away from the origin: the areas grow without limit.",
+            "The $\\mathrm{e}^{0.4t}$ term grows fastest. Its coefficient is $\\frac{x(0) + y(0)}{2} > 0$, since both areas are positive. So the trajectory turns parallel to $y = x$: in the long term the ratio of the two areas tends to $1 : 1$.",
+            "Comment: a field has a fixed area, so growth must slow. The model only works in the short term."
+          ],
+          "answer": "Both eigenvalues, $0.2$ and $0.4$, are positive, so the weed areas grow without limit, tending to the ratio 1 : 1.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Both eigenvalues are positive: the areas grow without limit, in the ratio 1 : 1.",
+            "requires": [
+              "positive",
+              "without limit",
+              "1 : 1"
+            ],
+            "forbids": [
+              "towards the origin"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-classify-negative",
+          "prompt": "Describe the long-term behaviour of $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -2x + y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = x - 2y$.",
+          "hint": "Find the eigenvalues from $(-2 - \\lambda)^{2} - 1 = 0$, then look at their signs.",
+          "options": [
+            {
+              "text": "All solutions move towards the origin",
+              "correct": true
+            },
+            {
+              "text": "All solutions move away from the origin",
+              "correct": false
+            },
+            {
+              "text": "The origin is a saddle point",
+              "correct": false
+            }
+          ],
+          "explain": "$-2 - \\lambda = \\pm 1$, so $\\lambda = -1$ or $\\lambda = -3$. Both are negative, so the origin is a stable equilibrium.",
+          "verify": {
+            "kind": "choice",
+            "truth": "All solutions move towards the origin"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-find-A",
+          "prompt": "$\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -3x + y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2x - 2y$ has eigenvalues $-1$ and $-4$, with eigenvectors $\\begin{pmatrix}1\\\\ 2\\end{pmatrix}$ and $\\begin{pmatrix}1\\\\ -1\\end{pmatrix}$. The solution is $\\boldsymbol{x} = A\\mathrm{e}^{-t}\\begin{pmatrix}1\\\\ 2\\end{pmatrix} + B\\mathrm{e}^{-4t}\\begin{pmatrix}1\\\\ -1\\end{pmatrix}$. It starts at $(5, 4)$. Find $A$.",
+          "hint": "Put $t = 0$ and write one equation for $x$ and one for $y$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$A + B = 5$ and $2A - B = 4$. Adding gives $3A = 9$, so $A = 3$ (and $B = 2$).",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(5 + 4)/3",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "saddle",
+      "heading": "Real eigenvalues of opposite signs: saddle points",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Now let one eigenvalue be negative and the other positive. Solutions on the negative eigenvalue's line move in to the origin. Solutions on the positive one's line move out."
+        },
+        {
+          "type": "definition",
+          "term": "Saddle point",
+          "statement": "When the eigenvalues are real with opposite signs, the origin is a [[saddle-point|saddle point]]. Trajectories come in alongside the eigenvector line of the negative eigenvalue and leave alongside the line of the positive one.",
+          "plain": "A balance point you can only reach along one exact line."
+        },
+        {
+          "type": "text",
+          "text": "Any other solution has both terms. The negative eigenvalue's term dies away and the positive one takes over. So the trajectory comes in, turns near the origin and leaves. A saddle point is unstable: a tiny nudge off the incoming line and the solution leaves."
+        },
+        {
+          "type": "text",
+          "text": "To sketch it, draw both eigenvector lines with arrows, then one trajectory in each of the four regions."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-saddle",
+          "alt": "Saddle point at the origin. The line y equals x has arrows pointing away from the origin. The line y equals minus four thirds x has arrows pointing towards the origin. In each of the four regions between the lines, curved trajectories come in alongside the incoming line, turn near the origin and leave alongside the line y equals x.",
+          "caption": "Eigenvalues $5$ on $y = x$ (out) and $-2$ on $y = -\\frac{4}{3}x$ (in): a saddle point."
+        },
+        {
+          "type": "example",
+          "id": "ex-saddle-lines",
+          "question": "For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 2x + 3y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 4x + y$, find the eigenvalues and eigenvectors. Use them to describe the phase portrait.",
+          "steps": [
+            "$\\det\\begin{pmatrix}2 - \\lambda & 3\\\\ 4 & 1 - \\lambda\\end{pmatrix} = (2 - \\lambda)(1 - \\lambda) - 12 = \\lambda^{2} - 3\\lambda - 10 = 0$.",
+            "$(\\lambda - 5)(\\lambda + 2) = 0$, so $\\lambda = 5$ or $\\lambda = -2$: real with opposite signs, so the origin is a saddle point.",
+            "For $\\lambda = 5$: $-3x + 3y = 0$, so $\\begin{pmatrix}1\\\\ 1\\end{pmatrix}$, the line $y = x$. For $\\lambda = -2$: $4x + 3y = 0$, so $\\begin{pmatrix}3\\\\ -4\\end{pmatrix}$, the line $y = -\\frac{4}{3}x$.",
+            "Sketch: arrows away from the origin on $y = x$ and towards it on $y = -\\frac{4}{3}x$. In each region, curves come in alongside $y = -\\frac{4}{3}x$ and leave alongside $y = x$, as in the figure."
+          ],
+          "answer": "$\\lambda = -2 \\text{ or } \\lambda = 5$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "solve((Matrix([[2, 3], [4, 1]]) - x*eye(2)).det(), x)"
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-polynomial-roots",
+          "values": {
+            "degree": 2,
+            "coefficients": "1, -3, -10"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a population model the phase portrait only uses $x \\ge 0$ and $y \\ge 0$. A trajectory that reaches an axis means one population has reached $0$: that species dies out."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-competing-species",
+          "alt": "First-quadrant phase portrait for two competing species, x and y in thousands. The line y equals x is drawn with arrows pointing towards the origin. Trajectories starting above the line curve up and to the left and reach the y-axis, so species X dies out. Trajectories starting below the line curve down and to the right and reach the x-axis, so species Y dies out.",
+          "caption": "Two competing species: the incoming line $y = x$ splits the portrait into two outcomes."
+        },
+        {
+          "type": "example",
+          "id": "ex-competing-species",
+          "question": "Two species of beetle, X and Y, compete for food on an island. Their populations, in thousands, after $t$ years are $x$ and $y$, with $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0.1x - 0.3y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -0.3x + 0.1y$. At first $x = 4.5$ and $y = 5$. Use the phase portrait to decide which species dies out. What would happen if both started at $5$ thousand?",
+          "steps": [
+            "$(0.1 - \\lambda)^{2} - 0.09 = 0$, so $0.1 - \\lambda = \\pm 0.3$: $\\lambda = -0.2$ or $\\lambda = 0.4$. Opposite signs, so the origin is a saddle point.",
+            "For $\\lambda = -0.2$: $0.3x - 0.3y = 0$, so the incoming line is $y = x$. For $\\lambda = 0.4$: $-0.3x - 0.3y = 0$, so the outgoing direction is $\\begin{pmatrix}1\\\\ -1\\end{pmatrix}$.",
+            "The start $(4.5, 5)$ is above $y = x$. Writing $\\begin{pmatrix}4.5\\\\ 5\\end{pmatrix} = A\\begin{pmatrix}1\\\\ 1\\end{pmatrix} + B\\begin{pmatrix}1\\\\ -1\\end{pmatrix}$ gives $A = 4.75$ and $B = -0.25$.",
+            "$B < 0$, so the growing term $-0.25\\mathrm{e}^{0.4t}\\begin{pmatrix}1\\\\ -1\\end{pmatrix}$ makes $x$ fall and $y$ rise. The trajectory reaches the $y$-axis: species X dies out and Y survives.",
+            "From $(5, 5)$, exactly on the incoming line, both decline towards $0$ together. This is unstable: any small difference grows, and the smaller species dies out."
+          ],
+          "answer": "Species X dies out and species Y survives.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "The start is above the incoming line y = x, so X dies out and Y survives.",
+            "requires": [
+              "X dies out",
+              [
+                "Y survives",
+                "Y grows"
+              ]
+            ],
+            "forbids": [
+              "Y dies out"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-saddle-classify",
+          "prompt": "Which describes the phase portrait of $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = x + 2y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 4x - y$?",
+          "hint": "Find the eigenvalues first. What are their signs?",
+          "options": [
+            {
+              "text": "The origin is a saddle point",
+              "correct": true
+            },
+            {
+              "text": "All solutions move towards the origin",
+              "correct": false
+            },
+            {
+              "text": "The solutions form ellipses around the origin",
+              "correct": false
+            }
+          ],
+          "explain": "$(1 - \\lambda)(-1 - \\lambda) - 8 = \\lambda^{2} - 9 = 0$, so $\\lambda = 3$ or $\\lambda = -3$. Real with opposite signs gives a saddle point. Ellipses need imaginary eigenvalues, not real ones.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The origin is a saddle point"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-incoming-gradient",
+          "prompt": "The system $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = x + y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 4x - 2y$ has a saddle point at the origin. Trajectories come in alongside the line $y = kx$. Find $k$.",
+          "hint": "Find the negative eigenvalue, then solve $(M - \\lambda I)\\boldsymbol{p} = \\boldsymbol{0}$ for its eigenvector.",
+          "answer": {
+            "value": -4,
+            "tolerance": 0
+          },
+          "explain": "$\\lambda^{2} + \\lambda - 6 = 0$ gives $\\lambda = 2$ or $\\lambda = -3$. For $\\lambda = -3$: $4x + y = 0$, so the incoming line is $y = -4x$ and $k = -4$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(((1 - 2) - sqrt((1 - 2)**2 - 4*(1*(-2) - 1*4)))/2 - 1)/1",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "complex-eigenvalues",
+      "heading": "Complex eigenvalues: spirals and ellipses",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "If the characteristic equation has a negative discriminant, the eigenvalues are complex: $\\lambda = \\alpha \\pm \\beta\\mathrm{i}$ with $\\beta \\neq 0$. There are no real eigenvector lines, so no trajectory is straight. Every trajectory turns around the origin."
+        },
+        {
+          "type": "result",
+          "statement": "Complex eigenvalues $\\alpha \\pm \\beta\\mathrm{i}$ with $\\alpha \\neq 0$ give spirals: inwards to the origin if $\\alpha < 0$, outwards if $\\alpha > 0$. Imaginary eigenvalues $\\pm\\beta\\mathrm{i}$ give closed circles or ellipses around the origin.",
+          "why": "The real part $\\alpha$ makes the size of the solution change like $\\mathrm{e}^{\\alpha t}$. The [[imaginary-part|imaginary part]] $\\beta$ makes it rotate."
+        },
+        {
+          "type": "text",
+          "text": "The eigenvalues don't tell you which way the paths turn. Substitute a point, such as $(1, 0)$. If $\\frac{\\mathrm{d}y}{\\mathrm{d}t} > 0$ there, the path crosses the positive $x$-axis going up, so the motion is anticlockwise. If $\\frac{\\mathrm{d}y}{\\mathrm{d}t} < 0$, it is clockwise."
+        },
+        {
+          "type": "figure",
+          "id": "5-17-spiral-ellipse",
+          "alt": "Two phase portraits side by side. Left, eigenvalues minus 0.2 plus or minus 0.5i: trajectories start on the x-axis and spiral anticlockwise into the origin. Right, eigenvalues plus or minus root 3 i: two closed ellipses centred on the origin, tilted, each traced anticlockwise.",
+          "caption": "Left: real part $-0.2 < 0$, a spiral inwards. Right: real part $0$, closed ellipses."
+        },
+        {
+          "type": "example",
+          "id": "ex-rabbits-foxes",
+          "question": "In a [[predator-prey-model|predator–prey model]], $x$ and $y$ are how far, in hundreds, the numbers of rabbits and foxes are above their balance levels after $t$ years. The model is $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -0.2x - 0.5y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.5x - 0.2y$. Find the eigenvalues, describe the trajectories, and interpret them.",
+          "steps": [
+            "$(-0.2 - \\lambda)^{2} + 0.25 = 0$, which is $\\lambda^{2} + 0.4\\lambda + 0.29 = 0$.",
+            "$\\lambda = \\frac{-0.4 \\pm \\sqrt{0.16 - 1.16}}{2} = \\frac{-0.4 \\pm \\mathrm{i}}{2} = -0.2 \\pm 0.5\\mathrm{i}$.",
+            "Complex with negative real part: the trajectories spiral in towards the origin.",
+            "At $(1, 0)$: $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.5 > 0$, so the spiral is anticlockwise.",
+            "Interpret: the numbers swing above and below their balance levels, rabbits first, then foxes. Each swing is smaller, and both settle at their balance levels, a stable equilibrium."
+          ],
+          "answer": "$\\lambda = -0.2 \\pm 0.5\\mathrm{i}$",
+          "video": null,
+          "verify": {
+            "kind": "list",
+            "truth": "solve((Matrix([[-0.2, -0.5], [0.5, -0.2]]) - x*eye(2)).det(), x)"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ellipse-direction",
+          "question": "For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = x - 4y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = x - y$, show that the eigenvalues are imaginary. Describe the trajectory through $(2, 0)$ and find its gradient there.",
+          "steps": [
+            "$(1 - \\lambda)(-1 - \\lambda) + 4 = \\lambda^{2} + 3 = 0$, so $\\lambda = \\pm\\sqrt{3}\\,\\mathrm{i}$. The real part is $0$: the eigenvalues are imaginary.",
+            "So the trajectory through $(2, 0)$ is a closed ellipse around the origin.",
+            "At $(2, 0)$: $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 2$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2$. $y$ is increasing on the positive $x$-axis, so the motion is anticlockwise.",
+            "Gradient: $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{2}{2} = 1$, so the path crosses the $x$-axis at $45^{\\circ}$: the ellipse is tilted.",
+            "Interpret: the solution returns to $(2, 0)$ and repeats forever. It never settles and never grows."
+          ],
+          "answer": "$\\frac{\\mathrm{d}y}{\\mathrm{d}x} = 1$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(2 - 0)/(2 - 4*0)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spiral-direction",
+          "prompt": "The system $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = -x + 3y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -2x - y$ has eigenvalues $-1 \\pm \\sqrt{6}\\,\\mathrm{i}$. Which describes its trajectories?",
+          "hint": "Use the real part for in or out. Use $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ at $(1, 0)$ for the direction.",
+          "options": [
+            {
+              "text": "clockwise spiral towards the origin",
+              "correct": true
+            },
+            {
+              "text": "anticlockwise spiral towards the origin",
+              "correct": false
+            },
+            {
+              "text": "clockwise spiral away from the origin",
+              "correct": false
+            },
+            {
+              "text": "clockwise ellipse around the origin",
+              "correct": false
+            }
+          ],
+          "explain": "The real part $-1$ is negative, so the spiral goes inwards. At $(1, 0)$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = -2 < 0$, so it turns clockwise. An ellipse would need a real part of $0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "clockwise spiral towards the origin"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-real-part",
+          "prompt": "The eigenvalues of $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = 0.3x - y$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 2x + 0.1y$ are complex. Find their real part.",
+          "hint": "The characteristic equation is $\\lambda^{2} - 0.4\\lambda + 2.03 = 0$. Use the quadratic formula.",
+          "answer": {
+            "value": 0.2,
+            "tolerance": 0.0005
+          },
+          "explain": "$\\lambda = \\frac{0.4 \\pm \\sqrt{0.16 - 8.12}}{2}$, so the real part is $\\frac{0.4}{2} = 0.2$. It is positive, so the trajectories spiral outwards.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.3 + 0.1)/2",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$ with non-zero eigenvalues, the only equilibrium point is the origin. A trajectory's gradient is $\\frac{\\mathrm{d}y}{\\mathrm{d}x} = \\frac{\\mathrm{d}y/\\mathrm{d}t}{\\mathrm{d}x/\\mathrm{d}t}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "\\boldsymbol{x} = A\\mathrm{e}^{\\lambda_{1}t}\\boldsymbol{p}_{1} + B\\mathrm{e}^{\\lambda_{2}t}\\boldsymbol{p}_{2}\\quad\\text{(real distinct eigenvalues)}",
+          "tag": "booklet",
+          "bookletId": "bk-5-17-coupled-exact",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Real eigenvalues: each eigenvector line through the origin holds straight-line trajectories, moving in for a negative eigenvalue and out for a positive one.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $\\frac{\\mathrm{d}x}{\\mathrm{d}t} = ax + by$, $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = cx + dy$, the origin is a stable equilibrium, with every solution heading into it, when both eigenvalues are negative or have a negative real part. When both are positive or have a positive real part, every solution except the origin itself heads away.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Real eigenvalues of opposite signs: the origin is a saddle point. Trajectories come in alongside the negative eigenvalue's line and leave alongside the positive one's.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Complex eigenvalues $\\alpha \\pm \\beta\\mathrm{i}$ ($\\alpha, \\beta \\neq 0$) give spirals. Imaginary eigenvalues $\\pm\\beta\\mathrm{i}$ ($\\beta \\neq 0$) give closed circles or ellipses. In both cases the motion is anticlockwise if $\\frac{\\mathrm{d}y}{\\mathrm{d}t} > 0$ at $(1, 0)$, clockwise if $\\frac{\\mathrm{d}y}{\\mathrm{d}t} < 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Checking only one rate for an equilibrium point. Both $\\frac{\\mathrm{d}x}{\\mathrm{d}t}$ and $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$ must be $0$ at the same point.",
+    "Leaving the arrows off the eigenvector lines, or pointing them the wrong way. In for a negative eigenvalue, out for a positive one.",
+    "Guessing which way a spiral or ellipse turns. Substitute a point such as $(1, 0)$ and use the sign of $\\frac{\\mathrm{d}y}{\\mathrm{d}t}$.",
+    "Calling every complex case an ellipse. A non-zero real part gives a spiral; only a real part of $0$ gives closed paths.",
+    "Pairing $\\mathrm{e}^{\\lambda_1 t}$ with the eigenvector of $\\lambda_2$ in the exact solution. Keep each eigenvalue with its own eigenvector.",
+    "Stopping at the eigenvalues when the question asks you to interpret. Say what happens to the quantities in context, such as which species dies out."
+  ],
+  "examTips": [
+    "Sketch a phase portrait: draw both eigenvector lines through the origin, put arrows on them, and draw at least one trajectory with an arrow in every region.",
+    "Justify with reference to the eigenvalues: say whether they are real or complex and give the sign of the real part. Then name the behaviour. For a direction, show the substitution, such as $\\frac{\\mathrm{d}y}{\\mathrm{d}t} = 0.5 > 0$ at $(1, 0)$.",
+    "Find the eigenvalues: write $\\det(M - \\lambda I) = 0$ and the quadratic before the values. The set-up earns the method mark even when the GDC finds the roots.",
+    "Hence write down the general solution: use the booklet form with your own eigenvalues and eigenvectors. Any non-zero multiple of an eigenvector is accepted."
+  ],
+  "readingMinutes": 27
+}

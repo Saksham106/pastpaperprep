@@ -1,0 +1,20 @@
+[
+  {
+    "id": "unit-circle",
+    "term": "unit circle",
+    "definition": "The circle of radius $1$ centred at the origin; the point on it at angle $\\theta$ anticlockwise from the positive $x$-axis is $(\\cos\\theta, \\sin\\theta)$, which defines sine and cosine for any angle.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "pythagorean-identity",
+    "term": "Pythagorean identity",
+    "definition": "The identity $\\cos^{2}\\theta + \\sin^{2}\\theta = 1$, true for every angle $\\theta$, which is Pythagoras' theorem for a point on the unit circle.",
+    "lesson": "3.8"
+  },
+  {
+    "id": "ambiguous-case",
+    "term": "ambiguous case",
+    "definition": "When you know two sides of a triangle and an angle not between them, the sine rule can give both an acute and an obtuse angle, so two, one or no triangles may fit; keep each angle whose sum with the known angle is less than $180^{\\circ}$.",
+    "lesson": "3.8"
+  }
+]

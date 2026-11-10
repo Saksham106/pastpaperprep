@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="t">
+  <title id="t">Venn diagram of 150 commuters. A rectangle labelled U, total 150, holds two overlapping circles, B for owns a bike on the left and C for owns a car on the right. Bike only holds 58, the overlap holds 26, car only holds 31, and 35 lie outside both circles.</title>
+  <rect x="10" y="10" width="400" height="240" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="165" cy="128" r="88" fill="var(--t1-ink)" fill-opacity="0.12" stroke="var(--t1-ink)" stroke-width="2"/>
+  <circle cx="255" cy="128" r="88" fill="var(--t2-ink)" fill-opacity="0.12" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g font-family="inherit" font-size="15">
+    <text x="24" y="34" fill="currentColor">U (150)</text>
+    <text x="70" y="62" fill="var(--t1-ink)" font-weight="bold">B (bike)</text>
+    <text x="290" y="62" fill="var(--t2-ink)" font-weight="bold">C (car)</text>
+  </g>
+  <g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle">
+    <text x="125" y="134">58</text>
+    <text x="210" y="134">26</text>
+    <text x="295" y="134">31</text>
+    <text x="370" y="236">35</text>
+  </g>
+</svg>

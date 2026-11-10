@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 280" role="img" aria-labelledby="t" font-family="sans-serif" font-size="12">
+<title id="t">Scatter diagram of fuel use in litres per 100 kilometres against speed in kilometres per hour. The five points form a U shape: 8.2 at 40, 6.1 at 60, a lowest value of 5.4 at 80, then 6.1 at 100 and 8.2 at 120. A dashed curve joins them.</title>
+<line x1="98.0" y1="30" x2="98.0" y2="230" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="98.0" y1="230" x2="98.0" y2="235" stroke="currentColor"/>
+<text x="98.0" y="248" text-anchor="middle" fill="currentColor">40</text>
+<line x1="174.0" y1="30" x2="174.0" y2="230" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="174.0" y1="230" x2="174.0" y2="235" stroke="currentColor"/>
+<text x="174.0" y="248" text-anchor="middle" fill="currentColor">60</text>
+<line x1="250.0" y1="30" x2="250.0" y2="230" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="250.0" y1="230" x2="250.0" y2="235" stroke="currentColor"/>
+<text x="250.0" y="248" text-anchor="middle" fill="currentColor">80</text>
+<line x1="326.0" y1="30" x2="326.0" y2="230" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="326.0" y1="230" x2="326.0" y2="235" stroke="currentColor"/>
+<text x="326.0" y="248" text-anchor="middle" fill="currentColor">100</text>
+<line x1="402.0" y1="30" x2="402.0" y2="230" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="402.0" y1="230" x2="402.0" y2="235" stroke="currentColor"/>
+<text x="402.0" y="248" text-anchor="middle" fill="currentColor">120</text>
+<line x1="60" y1="230.0" x2="440" y2="230.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="230.0" x2="60" y2="230.0" stroke="currentColor"/>
+<text x="52" y="234.0" text-anchor="end" fill="currentColor">4</text>
+<line x1="60" y1="190.0" x2="440" y2="190.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="190.0" x2="60" y2="190.0" stroke="currentColor"/>
+<text x="52" y="194.0" text-anchor="end" fill="currentColor">5</text>
+<line x1="60" y1="150.0" x2="440" y2="150.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="150.0" x2="60" y2="150.0" stroke="currentColor"/>
+<text x="52" y="154.0" text-anchor="end" fill="currentColor">6</text>
+<line x1="60" y1="110.0" x2="440" y2="110.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="110.0" x2="60" y2="110.0" stroke="currentColor"/>
+<text x="52" y="114.0" text-anchor="end" fill="currentColor">7</text>
+<line x1="60" y1="70.0" x2="440" y2="70.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="70.0" x2="60" y2="70.0" stroke="currentColor"/>
+<text x="52" y="74.0" text-anchor="end" fill="currentColor">8</text>
+<line x1="60" y1="30.0" x2="440" y2="30.0" stroke="var(--muted)" stroke-width="0.5"/>
+<line x1="55" y1="30.0" x2="60" y2="30.0" stroke="currentColor"/>
+<text x="52" y="34.0" text-anchor="end" fill="currentColor">9</text>
+<line x1="60" y1="230" x2="440" y2="230" stroke="currentColor"/>
+<line x1="60" y1="30" x2="60" y2="230" stroke="currentColor"/>
+<text x="440" y="266" text-anchor="end" fill="currentColor">speed x (km/h)</text>
+<text x="64" y="20" fill="currentColor">fuel use y (litres per 100 km)</text>
+<polyline points="90.4,50.5 98.0,62.0 105.6,72.9 113.2,83.3 120.8,93.1 128.4,102.3 136.0,111.0 143.6,119.1 151.2,126.7 158.8,133.7 166.4,140.1 174.0,146.0 181.6,151.3 189.2,156.1 196.8,160.3 204.4,163.9 212.0,167.0 219.6,169.5 227.2,171.5 234.8,172.9 242.4,173.7 250.0,174.0 257.6,173.7 265.2,172.9 272.8,171.5 280.4,169.5 288.0,167.0 295.6,163.9 303.2,160.3 310.8,156.1 318.4,151.3 326.0,146.0 333.6,140.1 341.2,133.7 348.8,126.7 356.4,119.1 364.0,111.0 371.6,102.3 379.2,93.1 386.8,83.3 394.4,72.9 402.0,62.0 409.6,50.5" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="98.0" cy="62.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="174.0" cy="146.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="250.0" cy="174.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="326.0" cy="146.0" r="4" fill="var(--t2-ink)"/>
+<circle cx="402.0" cy="62.0" r="4" fill="var(--t2-ink)"/>
+</svg>

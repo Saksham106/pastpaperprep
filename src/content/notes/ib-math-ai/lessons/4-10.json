@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "4.10",
+  "slug": "spearmans-rank-correlation",
+  "title": "Spearman's rank correlation",
+  "level": "SL",
+  "topic": 4,
+  "summary": "[[spearmans-rank-correlation-coefficient|Spearman's rank correlation coefficient]], $r_s$, measures how well two rankings agree. You rank each variable, then your GDC finds $r_s$ from the ranks. Use it when the data are ranks, when the link is curved but always rising or always falling, or when an [[outlier|outlier]] would distort Pearson's $r$.",
+  "goals": [
+    {
+      "text": "Rank a set of data, giving tied values the mean of the ranks they share.",
+      "bullets": [
+        "4.10-b1"
+      ]
+    },
+    {
+      "text": "Find [[spearmans-rank-correlation-coefficient|Spearman's rank correlation coefficient]] $r_s$ on your GDC from the ranks, with no formula or proof needed, and interpret it in context.",
+      "bullets": [
+        "4.10-b1",
+        "4.10-b3"
+      ]
+    },
+    {
+      "text": "Choose between Pearson's $r$ (straight-line links only) and $r_s$ (any link that always rises or always falls).",
+      "bullets": [
+        "4.10-b2"
+      ]
+    },
+    {
+      "text": "Explain why an [[outlier|outlier]] changes $r_s$ less than it changes $r$.",
+      "bullets": [
+        "4.10-b2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.2",
+    "4.4"
+  ],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "spearman rank correlation",
+    "rank correlation coefficient",
+    "tied ranks",
+    "spearman vs pearson",
+    "monotonic relationship",
+    "r_s"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-median-even",
+      "prompt": "Find the [[median|median]] of $4$, $9$, $11$ and $15$.",
+      "hint": "With an even number of values, take the mean of the middle two.",
+      "answer": {
+        "value": 10,
+        "tolerance": 0
+      },
+      "explain": "The middle two are $9$ and $11$, and $\\frac{9 + 11}{2} = 10$. Tied ranks use the same idea. Revise it in {{lesson:4.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "med([4, 9, 11, 15])",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-r-curve",
+      "prompt": "Points on a [[scatter-diagram|scatter diagram]] follow a clear U-shaped curve, and $r = 0.04$. What can you conclude?",
+      "hint": "What kind of [[correlation|correlation]] does $r$ measure?",
+      "options": [
+        {
+          "text": "There is almost no linear correlation",
+          "correct": true
+        },
+        {
+          "text": "The two variables are not related",
+          "correct": false
+        },
+        {
+          "text": "There is strong positive correlation",
+          "correct": false
+        }
+      ],
+      "explain": "$r$ measures closeness to a straight line only. The variables are clearly related, just not linearly. Revise it in {{lesson:4.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "There is almost no linear correlation"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-upper-fence",
+      "prompt": "A data set has $Q_1 = 20$ and $Q_3 = 28$. Find the value above which a data point is an outlier.",
+      "hint": "Use $Q_3 + 1.5 \\times \\mathrm{IQR}$.",
+      "answer": {
+        "value": 40,
+        "tolerance": 0
+      },
+      "explain": "$\\mathrm{IQR} = 28 - 20 = 8$, so the fence is $28 + 1.5 \\times 8 = 40$. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "28 + Rational(3, 2)*(28 - 20)",
+        "sf": 3
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "ranks",
+      "heading": "Ranking data and tied ranks",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two judges place seven cakes in order. There are no measurements, only positions: 1st, 2nd, 3rd and so on. To see whether the judges agree, you compare their rankings."
+        },
+        {
+          "type": "text",
+          "text": "Measured data can be ranked too. Put the values in order and number them $1, 2, 3, \\ldots$ Rank $1$ can be the smallest or the largest value, but rank both variables the same way."
+        },
+        {
+          "type": "result",
+          "statement": "Equal values are tied. Each tied value gets the mean of the ranks they would take up between them.",
+          "why": "Neither value deserves the higher rank, so they share the ranks equally, and the ranks still add up to $1 + 2 + \\cdots + n$."
+        },
+        {
+          "type": "example",
+          "id": "ex-rank-batteries",
+          "question": "Six phones last these times, in hours, on one charge: $11.5$, $9.0$, $14.0$, $9.0$, $12.5$, $10.0$. Rank the times, with rank $1$ for the shortest.",
+          "steps": [
+            "Put them in order: $9.0, 9.0, 10.0, 11.5, 12.5, 14.0$.",
+            "The two $9.0$s would take ranks $1$ and $2$. Each gets $\\frac{1 + 2}{2} = 1.5$.",
+            "Then $10.0$ is rank $3$, $11.5$ is $4$, $12.5$ is $5$ and $14.0$ is $6$.",
+            "Write each rank under its phone, in the original order: $4, 1.5, 6, 1.5, 5, 3$.",
+            "Check: $4 + 1.5 + 6 + 1.5 + 5 + 3 = 21 = 1 + 2 + 3 + 4 + 5 + 6$."
+          ],
+          "answer": "In the original order, the ranks are 4, 1.5, 6, 1.5, 5, 3.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ranks 4, 1.5, 6, 1.5, 5, 3 in the original order",
+            "requires": [
+              "4, 1.5, 6, 1.5, 5, 3",
+              "original order"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rank-films",
+          "question": "Eight films have these average ratings: $7.2$, $8.1$, $6.5$, $7.2$, $9.0$, $7.2$, $5.8$, $8.1$. Rank them, with rank $1$ for the highest rating.",
+          "steps": [
+            "Order from highest: $9.0, 8.1, 8.1, 7.2, 7.2, 7.2, 6.5, 5.8$.",
+            "$9.0$ is rank $1$. The two $8.1$s take ranks $2$ and $3$, so each gets $2.5$.",
+            "The three $7.2$s take ranks $4$, $5$ and $6$, so each gets $\\frac{4 + 5 + 6}{3} = 5$.",
+            "Then $6.5$ is rank $7$ and $5.8$ is rank $8$.",
+            "In the original order: $5, 2.5, 7, 5, 1, 5, 8, 2.5$. They add up to $36 = 1 + 2 + \\cdots + 8$."
+          ],
+          "answer": "In the original order, the ranks are 5, 2.5, 7, 5, 1, 5, 8, 2.5.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ranks 5, 2.5, 7, 5, 1, 5, 8, 2.5 in the original order",
+            "requires": [
+              "5, 2.5, 7, 5, 1, 5, 8, 2.5",
+              "original order"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving tied values different ranks, such as $2$ and $3$, or both the lower rank. They share the mean: $2.5$ each."
+        },
+        {
+          "type": "check",
+          "id": "check-tie-three",
+          "prompt": "Five hotel reviews score $3$, $7$, $7$, $7$ and $10$. With rank $1$ for the lowest score, what rank does each $7$ get?",
+          "hint": "The three $7$s take up ranks $2$, $3$ and $4$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{2 + 3 + 4}{3} = 3$, so each $7$ has rank $3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "Rational(2 + 3 + 4, 3)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tie-largest",
+          "prompt": "Five cyclists ride $40$, $55$, $55$, $61$ and $70$ km. With rank $1$ for the longest distance, what rank does each $55$ get?",
+          "hint": "Count down from $70$. Which two ranks do the $55$s take up?",
+          "options": [
+            {
+              "text": "$3.5$",
+              "correct": true
+            },
+            {
+              "text": "$2.5$",
+              "correct": false
+            },
+            {
+              "text": "$3$",
+              "correct": false
+            },
+            {
+              "text": "$4$",
+              "correct": false
+            }
+          ],
+          "explain": "$70$ is rank $1$ and $61$ is rank $2$. The $55$s take ranks $3$ and $4$, so each gets $3.5$. Ranking from the shortest would give $2.5$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(3 + 4, 2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "spearman",
+      "heading": "Finding Spearman's coefficient",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "Spearman's rank correlation coefficient",
+          "statement": "[[spearmans-rank-correlation-coefficient|Spearman's rank correlation coefficient]], $r_s$, is Pearson's correlation coefficient calculated from the ranks of the data instead of the values.",
+          "plain": "One number for how closely two rankings agree."
+        },
+        {
+          "type": "formula",
+          "tex": "-1 \\le r_s \\le 1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$r_s = 1$ means the two rankings are identical: as one variable increases, the other always increases. $r_s = -1$ means one ranking is the exact reverse of the other. A value near $0$ means the rankings show no clear agreement."
+        },
+        {
+          "type": "text",
+          "text": "Find $r_s$ with your GDC. You don't need a formula for it, or a proof. Some books give a shortcut formula; it is only exact when there are no ties, so use the GDC."
+        },
+        {
+          "type": "text",
+          "text": "1. Rank each variable separately, both in the same direction, averaging tied ranks."
+        },
+        {
+          "type": "text",
+          "text": "2. Enter the two lists of ranks and run linear regression. The $r$ it shows is $r_s$."
+        },
+        {
+          "type": "example",
+          "id": "ex-judges-cakes",
+          "question": "Two judges rank seven cakes, A to G, with rank $1$ for the best. Judge P: A $3$, B $1$, C $4$, D $2$, E $6$, F $5$, G $7$. Judge Q: A $2$, B $1$, C $5$, D $3$, E $7$, F $4$, G $6$. (a) Find $r_s$. (b) Interpret it in context.",
+          "steps": [
+            "(a) The data are already ranks, with no ties. Enter P's ranks $3, 1, 4, 2, 6, 5, 7$ in one list and Q's ranks $2, 1, 5, 3, 7, 4, 6$ in another.",
+            "Run linear regression on the two lists: $r = 0.892857\\ldots$, so $r_s \\approx 0.893$.",
+            "(b) $r_s$ is positive and close to $1$: strong agreement. Cakes one judge rated highly, the other judge tended to rate highly too."
+          ],
+          "answer": "$r_s \\approx 0.893$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "spearman([3, 1, 4, 2, 6, 5, 7], [2, 1, 5, 3, 7, 4, 6])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-critics-reversed",
+          "prompt": "Two food critics rank the same nine restaurants, and $r_s = -0.94$. Which statement is correct?",
+          "hint": "The sign says whether the rankings agree or are reversed.",
+          "options": [
+            {
+              "text": "The critics' rankings are almost exactly reversed",
+              "correct": true
+            },
+            {
+              "text": "The critics mostly agree",
+              "correct": false
+            },
+            {
+              "text": "There is almost no link between the rankings",
+              "correct": false
+            }
+          ],
+          "explain": "$-0.94$ is close to $-1$: restaurants one critic ranks near the top, the other ranks near the bottom.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The critics' rankings are almost exactly reversed"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-swimmers-rs",
+          "question": "A coach records, for eight swimmers, the hours trained per week $x$ and their best $100$ m time $y$ seconds. $x$: $6, 9, 4, 12, 9, 7, 10, 5$. $y$: $69.8, 66.8, 73.5, 67.9, 68.4, 70.3, 64.1, 72.6$. (a) Rank both variables, with rank $1$ for the smallest. (b) Use your GDC to find $r_s$. (c) Interpret $r_s$ in context.",
+          "steps": [
+            "(a) Hours: the two $9$s take ranks $5$ and $6$, so each gets $5.5$. Hours ranks: $3, 5.5, 1, 8, 5.5, 4, 7, 2$.",
+            "Times have no ties. Time ranks: $5, 2, 8, 3, 4, 6, 1, 7$.",
+            "(b) Enter the two lists of ranks and run linear regression: $r = -0.886243\\ldots$, so $r_s \\approx -0.886$.",
+            "(c) Strong negative: swimmers who train more hours tend to have lower times, so they tend to be faster."
+          ],
+          "answer": "$r_s \\approx -0.886$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "spearman([6, 9, 4, 12, 9, 7, 10, 5], [69.8, 66.8, 73.5, 67.9, 68.4, 70.3, 64.1, 72.6])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "spearman-rank",
+          "values": {
+            "xRanks": "3, 5.5, 1, 8, 5.5, 4, 7, 2",
+            "yRanks": "5, 2, 8, 3, 4, 6, 1, 7"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Calculate $r_s$: write the table of ranks before the value. Correct rows of ranks can earn marks even if the final value slips."
+        },
+        {
+          "type": "mistake",
+          "text": "Running the regression on the raw data. That gives Pearson's $r$, not $r_s$: the lists must hold the ranks."
+        },
+        {
+          "type": "check",
+          "id": "check-swimmers-flip",
+          "prompt": "For the swimmers, a student ranks hours with $1$ for the fewest, but times with $1$ for the slowest. What value of $r_s$ does the student get?",
+          "hint": "Reversing one ranking turns agreement into disagreement.",
+          "options": [
+            {
+              "text": "$r_s \\approx 0.886$",
+              "correct": true
+            },
+            {
+              "text": "$r_s \\approx -0.886$",
+              "correct": false
+            },
+            {
+              "text": "$r_s = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "Reversing one variable's ranks changes the sign of $r_s$ but not its size. Rank both variables the same way.",
+          "verify": {
+            "kind": "rounded",
+            "truth": "-spearman([6, 9, 4, 12, 9, 7, 10, 5], [69.8, 66.8, 73.5, 67.9, 68.4, 70.3, 64.1, 72.6])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plants-rs",
+          "prompt": "Five plants have heights $12, 15, 9, 20, 17$ cm and $30, 41, 28, 39, 45$ leaves. Find $r_s$, to 3 s.f.",
+          "hint": "Height ranks: $2, 3, 1, 5, 4$. Now rank the leaves, then use the GDC.",
+          "answer": {
+            "value": 0.7,
+            "tolerance": 0.0005
+          },
+          "explain": "Leaf ranks: $2, 4, 1, 3, 5$. Regression on the two lists of ranks gives $r_s = 0.700$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "spearman([12, 15, 9, 20, 17], [30, 41, 28, 39, 45])",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Pearson or Spearman?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[pearsons-product-moment-correlation-coefficient|Pearson's correlation coefficient]] $r$ measures how close the points are to a straight line. Some links are clearly curved, yet one variable still always rises as the other rises."
+        },
+        {
+          "type": "definition",
+          "term": "Monotonic relationship",
+          "statement": "A relationship is monotonic if, as one variable increases, the other always increases, or always decreases. It never changes direction.",
+          "plain": "Always going up, or always going down, though not necessarily in a straight line."
+        },
+        {
+          "type": "result",
+          "statement": "Pearson's $r$ measures only a linear relationship: $r = \\pm 1$ only when the points lie on a straight line. Spearman's $r_s$ measures any monotonic relationship: $r_s = \\pm 1$ whenever one variable always increases, or always decreases, as the other increases.",
+          "why": "Ranking keeps only the order of the values. Points that always rise get matching ranks, however curved they are."
+        },
+        {
+          "type": "example",
+          "id": "ex-mould-curve",
+          "question": "The area of a patch of mould is measured on days $1$ to $6$: $3, 5, 9, 16, 30, 55$ cm². (a) Find $r$ and $r_s$. (b) Which describes the relationship better? Give a reason.",
+          "steps": [
+            "(a) Linear regression on the data: $r = 0.919722\\ldots \\approx 0.920$.",
+            "The area rises every day, so the area ranks are $1, 2, 3, 4, 5, 6$, the same as the day ranks. So $r_s = 1$.",
+            "(b) The points curve upwards (diagram below), so a straight line is a poor fit. $r_s$ is better: it shows the area always increases with time."
+          ],
+          "answer": "$r_s = 1$",
+          "check": {
+            "type": "check",
+            "id": "check-mould-r",
+            "prompt": "Now you try: use your GDC to confirm Pearson's $r$ for the mould data, to 3 s.f.",
+            "hint": "Days in the first list, areas in the second, then linear regression.",
+            "answer": {
+              "value": 0.92,
+              "tolerance": 0.0005
+            },
+            "explain": "$r = 0.919722\\ldots \\approx 0.920$: strong, but not $1$, because the points curve.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "pearson([1, 2, 3, 4, 5, 6], [3, 5, 9, 16, 30, 55])",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "spearman([1, 2, 3, 4, 5, 6], [3, 5, 9, 16, 30, 55])"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-10-mould-curve",
+          "alt": "Scatter diagram of mould area in square centimetres against day, for days 1 to 6. The six points rise more and more steeply along a curve: 3, 5, 9, 16, 30 and 55. A dashed straight regression line runs through them; the middle points lie below it and the end points above it.",
+          "caption": "Always rising, so $r_s = 1$. Not a straight line, so $r < 1$."
+        },
+        {
+          "type": "text",
+          "text": "Ranks also limit the effect of an [[outlier|outlier]]. However extreme a value is, its rank can only be the top or bottom one. So $r_s$ is less sensitive to outliers than $r$."
+        },
+        {
+          "type": "example",
+          "id": "ex-delivery-outlier",
+          "question": "A delivery app records the distance $x$ km and the delivery time $y$ minutes for eight orders. $x$: $1.5, 3, 4.5, 6, 7.5, 9, 10.5, 12$. $y$: $17, 29, 24, 31, 87, 37, 39, 44$. One order was held up by a road closure. (a) Use your GDC to find $r_s$. (b) Explain why $r_s$ describes the trend better than $r$.",
+          "steps": [
+            "(a) Rank both: $x$ is already in order, so its ranks are $1$ to $8$. Time ranks: $1, 3, 2, 4, 8, 5, 6, 7$.",
+            "Regression on the two lists of ranks: $r_s = 0.833333\\ldots \\approx 0.833$.",
+            "(b) Regression on the raw data gives $r = 0.455245\\ldots \\approx 0.455$: only moderate. Yet seven of the points lie close to a rising line.",
+            "The $87$-minute order is an outlier (diagram below), and it drags $r$ down. In the ranks it just becomes rank $8$, so $r_s$ still shows a strong positive trend: longer distances tend to take longer.",
+            "Without that order, $r = 0.950$ and $r_s = 0.964$. The outlier moved $r$ far more than $r_s$."
+          ],
+          "answer": "$r_s \\approx 0.833$",
+          "check": {
+            "type": "check",
+            "id": "check-delivery-r",
+            "prompt": "Now you try: use your GDC to find Pearson's $r$ for all eight orders, to 3 s.f.",
+            "hint": "Distances in the first list, times in the second, then linear regression.",
+            "answer": {
+              "value": 0.455,
+              "tolerance": 0.0005
+            },
+            "explain": "$r = 0.455245\\ldots \\approx 0.455$, far below $r_s$, because of the one outlier.",
+            "verify": {
+              "kind": "numeric",
+              "truth": "pearson([1.5, 3, 4.5, 6, 7.5, 9, 10.5, 12], [17, 29, 24, 31, 87, 37, 39, 44])",
+              "sf": 3
+            }
+          },
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "spearman([1.5, 3, 4.5, 6, 7.5, 9, 10.5, 12], [17, 29, 24, 31, 87, 37, 39, 44])",
+            "sf": 3
+          }
+        },
+        {
+          "type": "calculator",
+          "snippet": "regression-linear",
+          "values": {
+            "xValues": "1.5, 3, 4.5, 6, 7.5, 9, 10.5, 12",
+            "yValues": "17, 29, 24, 31, 87, 37, 39, 44"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-10-delivery-outlier",
+          "alt": "Scatter diagram of delivery time in minutes against distance in kilometres for eight orders. Seven points rise steadily from 17 minutes at 1.5 kilometres to 44 minutes at 12 kilometres. One point, 87 minutes at 7.5 kilometres, sits far above the rest and is circled as an outlier.",
+          "caption": "One outlier pulls $r$ down to $0.455$; $r_s$ stays at $0.833$."
+        },
+        {
+          "type": "text",
+          "text": "Spearman's has limits too. It ignores how far apart the values are, only their order. A link that rises then falls can give both $r$ and $r_s$ near $0$. And neither coefficient shows that one variable causes the other."
+        },
+        {
+          "type": "check",
+          "id": "check-which-coefficient",
+          "prompt": "The points on a scatter diagram rise steeply at first, then more and more slowly, but never fall. There are no outliers. Which statement is true?",
+          "hint": "Is the pattern straight? Does it ever change direction?",
+          "options": [
+            {
+              "text": "Spearman's suits it, as the link is monotonic but not linear",
+              "correct": true
+            },
+            {
+              "text": "Pearson's suits it, as y always increases",
+              "correct": false
+            },
+            {
+              "text": "Neither suits it, as the points are curved",
+              "correct": false
+            }
+          ],
+          "explain": "The points always rise, so the link is monotonic. They curve, so Pearson's $r$ understates it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Spearman's suits it, as the link is monotonic but not linear"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mistyped-time",
+          "prompt": "In the swimmers' data, the fastest time, $64.1$ s, is mistyped as $54.1$ s. What happens to $r_s$?",
+          "hint": "Does the mistyped time change any rank?",
+          "options": [
+            {
+              "text": "It does not change",
+              "correct": true
+            },
+            {
+              "text": "It moves closer to -1",
+              "correct": false
+            },
+            {
+              "text": "It moves closer to 0",
+              "correct": false
+            }
+          ],
+          "explain": "$54.1$ s is still the fastest time, so it keeps rank $1$. The ranks are unchanged, so $r_s$ is unchanged, though $r$ would change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "It does not change"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Suggest why Spearman's suits the data: name the feature you can see, such as a curved but always rising pattern, an outlier, or data that are already ranks."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Rank each variable separately, both in the same direction. Tied values each get the mean of the ranks they share.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$r_s$ is Pearson's $r$ calculated on the ranks. On the GDC: enter the two lists of ranks, run linear regression, read $r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$-1 \\le r_s \\le 1$. $r_s = 1$: the rankings are identical. $r_s = -1$: one is the exact reverse of the other.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pearson's $r$ measures only linear correlation. $r_s$ measures any monotonic relationship, straight or curved.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$r_s$ is less sensitive to outliers than $r$: an extreme value can only take the top or bottom rank.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A link that rises then falls can give $r$ and $r_s$ near $0$, and neither coefficient shows causation.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving tied values different ranks, such as $2$ and $3$. Tied values share the mean of their ranks: $2.5$ each.",
+    "Ranking one variable from the smallest and the other from the largest. That flips the sign of $r_s$, so rank both the same way.",
+    "Running linear regression on the raw values. That gives Pearson's $r$; for $r_s$ the lists must hold the ranks.",
+    "Copying ranks from a table that lists items in finishing order. Write each item's rank under that item before you enter the lists.",
+    "Calling $r_s$ a measure of linear correlation. It measures how well the rankings agree: a monotonic trend.",
+    "Rounding too early or too far, such as $0.83$ for $0.8333\\ldots$. Give $r_s$ to 3 s.f."
+  ],
+  "examTips": [
+    "Interpret $r_s$: give its strength and direction, then say what it means for the variables in context, such as \"cakes one judge ranked highly, the other ranked highly too\".",
+    "Comment on whether a claim is supported: give a reason based on the value of $r_s$, then your conclusion. A conclusion with no reason earns no marks.",
+    "If the question gives a table of strengths for $r_s$, use its words (\"moderate\", \"strong\") in your answer."
+  ],
+  "readingMinutes": 21
+}

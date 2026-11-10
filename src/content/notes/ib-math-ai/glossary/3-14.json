@@ -1,0 +1,74 @@
+[
+  {
+    "id": "graph",
+    "term": "graph (graph theory)",
+    "definition": "A set of vertices joined by edges; only which vertices are joined matters, not where they are drawn or how long the edges look.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "graph-vertex",
+    "term": "vertex (graph theory)",
+    "definition": "One of the points of a graph, also called a node, which edges join to other vertices.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "graph-edge",
+    "term": "edge (graph theory)",
+    "definition": "A line in a graph joining two vertices, or joining a vertex to itself, in which case it is called a loop.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "degree-of-a-vertex",
+    "term": "degree of a vertex",
+    "definition": "The number of edge ends at a vertex, with a loop counting twice; in any graph the degrees add up to twice the number of edges.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "simple-graph",
+    "term": "simple graph",
+    "definition": "A graph with no loops and no multiple edges, so each pair of vertices is joined by at most one edge.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "complete-graph",
+    "term": "complete graph",
+    "definition": "A simple graph in which every pair of vertices is joined by an edge; the complete graph $K_n$ on $n$ vertices has $\\frac{n(n-1)}{2}$ edges.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "weighted-graph",
+    "term": "weighted graph",
+    "definition": "A graph with a number, called a weight, on each edge, standing for something such as a distance, time or cost.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "connected-graph",
+    "term": "connected graph",
+    "definition": "A graph in which you can travel along edges from any vertex to any other vertex.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "strongly-connected-graph",
+    "term": "strongly connected graph",
+    "definition": "A directed graph in which you can travel from every vertex to every other vertex following the directions of the edges.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "directed-graph",
+    "term": "directed graph",
+    "definition": "A graph in which each edge has a direction, shown by an arrow, and is travelled only that way; a vertex's in-degree counts edges coming in and its out-degree counts edges going out.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "subgraph",
+    "term": "subgraph",
+    "definition": "A graph made from some of the vertices and edges of another graph, in which every chosen edge keeps both of its end vertices.",
+    "lesson": "3.14"
+  },
+  {
+    "id": "tree",
+    "term": "tree",
+    "definition": "A connected graph with no cycles; a tree with $n$ vertices has $n - 1$ edges.",
+    "lesson": "3.14"
+  }
+]

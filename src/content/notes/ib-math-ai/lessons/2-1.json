@@ -1,0 +1,789 @@
+{
+  "schemaVersion": 1,
+  "edition": "ib-math-ai-2021",
+  "item": "2.1",
+  "slug": "straight-line-equations",
+  "title": "Straight-line equations",
+  "level": "SL",
+  "topic": 2,
+  "summary": "A straight line is fixed by its [[gradient|gradient]] and one point on it. You'll write lines in three forms, find where they cross the axes, and use gradients to spot parallel and [[perpendicular-lines|perpendicular lines]]. In a model the gradient is a rate of change; on a road or ramp it measures steepness.",
+  "goals": [
+    {
+      "text": "Find the [[gradient|gradient]] of a line from two points, and say what it means in context, with units.",
+      "bullets": [
+        "2.1-b2"
+      ]
+    },
+    {
+      "text": "Write a line in [[gradient-intercept-form|gradient-intercept]], [[general-form-of-a-line|general]] or [[point-gradient-form|point-gradient]] form, and convert between them.",
+      "bullets": [
+        "2.1-b1"
+      ]
+    },
+    {
+      "text": "Find where a line crosses the axes, and interpret the gradient and intercepts of a linear model.",
+      "bullets": [
+        "2.1-b2"
+      ]
+    },
+    {
+      "text": "Use $m_{1} = m_{2}$ for parallel lines and $m_{1} \\times m_{2} = -1$ for perpendicular lines.",
+      "bullets": [
+        "2.1-b3"
+      ]
+    },
+    {
+      "text": "Calculate the gradient of a real incline such as a road, ramp or bridge.",
+      "bullets": [
+        "2.1-b4"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2"
+  ],
+  "synonyms": [
+    "equation of a straight line",
+    "y = mx + c",
+    "slope of a line",
+    "perpendicular gradient",
+    "x and y intercepts",
+    "percentage gradient of a road"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-make-y-subject",
+      "prompt": "Make $y$ the subject of $6x + 3y = 12$.",
+      "hint": "Subtract $6x$ from both sides, then divide every term by $3$.",
+      "options": [
+        {
+          "text": "$y = -2x + 4$",
+          "correct": true
+        },
+        {
+          "text": "$y = 2x + 4$",
+          "correct": false
+        },
+        {
+          "text": "$y = -2x + 12$",
+          "correct": false
+        },
+        {
+          "text": "$y = -6x + 12$",
+          "correct": false
+        }
+      ],
+      "explain": "$3y = 12 - 6x$. Dividing every term by $3$ gives $y = -2x + 4$. Divide the $12$ as well as the $x$ term.",
+      "verify": {
+        "kind": "equation",
+        "truth": "Eq(6*x + 3*y, 12)"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-negative-fraction",
+      "prompt": "Work out $\\dfrac{-7 - 2}{5 - (-1)}$.",
+      "hint": "Subtracting a negative is the same as adding: $5 - (-1) = 5 + 1$.",
+      "options": [
+        {
+          "text": "$-\\tfrac{3}{2}$",
+          "correct": true
+        },
+        {
+          "text": "$-\\tfrac{9}{4}$",
+          "correct": false
+        },
+        {
+          "text": "$-\\tfrac{5}{6}$",
+          "correct": false
+        },
+        {
+          "text": "$\\tfrac{3}{2}$",
+          "correct": false
+        }
+      ],
+      "explain": "The top is $-9$ and the bottom is $6$, so the value is $-\\frac{9}{6} = -\\frac{3}{2}$. Careful sign work like this is most of finding a gradient.",
+      "verify": {
+        "kind": "exact",
+        "truth": "(-7 - 2)/(5 - (-1))"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "gradient",
+      "heading": "The gradient of a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A rainwater tank drains steadily, losing the same volume every minute, so its graph against time is a straight line. That fixed rate of change is the line's [[gradient|gradient]], written $m$."
+        },
+        {
+          "type": "text",
+          "text": "Between any two points on a line, the change in $y$ (the rise) divided by the change in $x$ (the run) is the same."
+        },
+        {
+          "type": "definition",
+          "term": "gradient",
+          "statement": "The gradient of the line through $(x_{1}, y_{1})$ and $(x_{2}, y_{2})$, where $x_{1} \\neq x_{2}$, is the change in $y$ divided by the change in $x$.",
+          "plain": "How far the line goes up for each one unit you move to the right."
+        },
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient"
+        },
+        {
+          "type": "text",
+          "text": "This formula is in the formula booklet. Subtract in the same order on the top and the bottom: point 2 minus point 1 both times."
+        },
+        {
+          "type": "text",
+          "text": "If $m > 0$ the line rises from left to right. If $m < 0$ it falls. A bigger $\\lvert m\\rvert$ means a steeper line."
+        },
+        {
+          "type": "text",
+          "text": "In a model, the gradient is a rate. Its units are the units of $y$ per unit of $x$, such as litres per minute or dollars per kilometre."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-tank",
+          "question": "A rainwater tank is emptied at a constant rate. After $4$ minutes it holds $610$ litres, and after $10$ minutes it holds $385$ litres. (a) Find the gradient of the graph of volume against time. (b) Interpret the gradient in context.",
+          "steps": [
+            "Write each reading as (time, volume): $(4, 610)$ and $(10, 385)$.",
+            "Rise: $385 - 610 = -225$ litres. Run: $10 - 4 = 6$ minutes.",
+            "(a) $m = \\frac{-225}{6} = -37.5$ litres per minute.",
+            "(b) The tank loses $37.5$ litres of water every minute. The minus sign is the word \"loses\"."
+          ],
+          "answer": "$m = -37.5\\text{ litres per minute}$",
+          "verify": {
+            "kind": "exact",
+            "truth": "(385 - 610)/(10 - 4)"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-point-on-path",
+          "question": "On a park map, a straight cycle path passes through $\\text{A}(-4, 7)$ and $\\text{B}(6, 2)$. The point $\\text{C}(12, k)$ is also on the path. Find $k$.",
+          "steps": [
+            "Gradient from A and B: $m = \\frac{2 - 7}{6 - (-4)} = \\frac{-5}{10} = -0.5$.",
+            "C is on the same straight path, so the gradient from B to C is also $-0.5$: $\\frac{k - 2}{12 - 6} = -0.5$.",
+            "Multiply both sides by $6$: $k - 2 = -3$, so $k = -1$.",
+            "Check from A to C: $\\frac{-1 - 7}{12 - (-4)} = \\frac{-8}{16} = -0.5$. It matches."
+          ],
+          "answer": "$k = -1$",
+          "verify": {
+            "kind": "exact",
+            "truth": "2 + (2 - 7)/(6 - (-4))*(12 - 6)"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-two-points",
+          "prompt": "Find the gradient of the line through $(-3, -2)$ and $(5, 4)$.",
+          "hint": "Rise is the change in $y$; run is the change in $x$. Watch the double negatives.",
+          "options": [
+            {
+              "text": "$\\tfrac{3}{4}$",
+              "correct": true
+            },
+            {
+              "text": "$\\tfrac{4}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{3}{4}$",
+              "correct": false
+            },
+            {
+              "text": "$\\tfrac{1}{4}$",
+              "correct": false
+            }
+          ],
+          "explain": "Rise $= 4 - (-2) = 6$ and run $= 5 - (-3) = 8$, so $m = \\frac{6}{8} = \\frac{3}{4}$. $\\frac{4}{3}$ is run over rise.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(4 - (-2))/(5 - (-3))"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A horizontal line has no rise, so $m = 0$ and its equation is $y = c$. A vertical line has no run, so its gradient is undefined. Its equation is $x = h$, where $h$ is the $x$-value every point shares."
+        },
+        {
+          "type": "check",
+          "id": "check-vertical-fence",
+          "prompt": "On a site plan, two fence posts stand at $(-2, 3)$ and $(-2, 11)$. Find the equation of the straight fence through them.",
+          "hint": "Look at the $x$-coordinates. What stays the same along this line?",
+          "options": [
+            {
+              "text": "$x = -2$",
+              "correct": true
+            },
+            {
+              "text": "$y = -2$",
+              "correct": false
+            },
+            {
+              "text": "$y = x + 5$",
+              "correct": false
+            },
+            {
+              "text": "$y = 3$",
+              "correct": false
+            }
+          ],
+          "explain": "Both posts have $x = -2$, so the run is $0$ and the fence is vertical: $x = -2$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(x, -2)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "heading": "Three forms of a line",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A line is fixed once you know its [[gradient|gradient]] and one point on it. Each of the three forms below stores that information in its own way."
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms"
+        },
+        {
+          "type": "text",
+          "text": "All three are in the formula booklet. You need to know what each one shows."
+        },
+        {
+          "type": "text",
+          "text": "1. [[gradient-intercept-form|Gradient-intercept form]], $y = mx + c$. The gradient is $m$, and the line crosses the $y$-axis at $(0, c)$."
+        },
+        {
+          "type": "text",
+          "text": "2. [[general-form-of-a-line|General form]], $ax + by + d = 0$. Every term is on one side. Questions often ask for $a$, $b$ and $d$ to be integers."
+        },
+        {
+          "type": "text",
+          "text": "3. [[point-gradient-form|Point-gradient form]], $y - y_{1} = m(x - x_{1})$. Put in the gradient and any one point $(x_{1}, y_{1})$ on the line. It is the quickest form to write down."
+        },
+        {
+          "type": "text",
+          "text": "To convert, rearrange. From the general form, make $y$ the subject: $6x + 4y - 20 = 0$ gives $4y = -6x + 20$, so $y = -1.5x + 5$."
+        },
+        {
+          "type": "text",
+          "text": "So for $ax + by + d = 0$ with $b \\neq 0$, the gradient is $-\\frac{a}{b}$. If $b = 0$ the line is vertical, such as $x - 3 = 0$. Of the three forms, only the general form can describe a vertical line."
+        },
+        {
+          "type": "example",
+          "id": "ex-plumber-point-gradient",
+          "question": "A plumber charges a fixed call-out fee plus $45$ dollars per hour. A $2.5$-hour job costs $142.50$ dollars. Let $y$ be the cost in dollars of a job lasting $x$ hours. (a) Write down the equation of the line in point-gradient form. (b) Write it in the form $y = mx + c$, and interpret $c$.",
+          "steps": [
+            "The hourly rate is the gradient, so $m = 45$. The job gives the point $(2.5, 142.5)$ on the line.",
+            "(a) $y - 142.5 = 45(x - 2.5)$.",
+            "(b) Expand the bracket: $y - 142.5 = 45x - 112.5$. Add $142.5$ to both sides: $y = 45x + 30$.",
+            "$c = 30$ is the cost when $x = 0$: the call-out fee is $30$ dollars, paid before any work is done."
+          ],
+          "answer": "$y = 45x + 30$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 142.5, 45*(x - 2.5))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-two-points-general-form",
+          "question": "Find the equation of the line through $\\text{A}(1, -4)$ and $\\text{B}(7, 5)$. Give it in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "steps": [
+            "Gradient first: $m = \\frac{5 - (-4)}{7 - 1} = \\frac{9}{6} = \\frac{3}{2}$.",
+            "Use A in point-gradient form: $y + 4 = \\frac{3}{2}(x - 1)$.",
+            "Multiply both sides by $2$ to clear the fraction: $2y + 8 = 3x - 3$.",
+            "Move every term to one side: $3x - 2y - 11 = 0$.",
+            "Check with B: $3(7) - 2(5) - 11 = 21 - 10 - 11 = 0$. B is on the line too."
+          ],
+          "answer": "$3x - 2y - 11 = 0$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (-4), (5 - (-4))/(7 - 1)*(x - 1))"
+          },
+          "video": null
+        },
+        {
+          "type": "check",
+          "id": "check-to-general-form",
+          "prompt": "Write $y = \\frac{2}{5}x - 3$ in the form $ax + by + d = 0$, where $a, b, d \\in \\mathbb{Z}$.",
+          "hint": "Multiply every term by $5$ first, then move everything to one side.",
+          "options": [
+            {
+              "text": "$2x - 5y - 15 = 0$",
+              "correct": true
+            },
+            {
+              "text": "$2x - 5y - 3 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$2x + 5y - 15 = 0$",
+              "correct": false
+            },
+            {
+              "text": "$2x - 5y + 15 = 0$",
+              "correct": false
+            }
+          ],
+          "explain": "Multiplying every term by $5$ gives $5y = 2x - 15$, so $2x - 5y - 15 = 0$. Forgetting to multiply the $-3$ by $5$ gives $2x - 5y - 3 = 0$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y, 2*x/5 - 3)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-write-point-gradient",
+          "prompt": "Write down the equation of the line through $(4, -9)$ with gradient $-2$, in point-gradient form.",
+          "hint": "Use $y - y_{1} = m(x - x_{1})$ with $x_{1} = 4$ and $y_{1} = -9$.",
+          "options": [
+            {
+              "text": "$y + 9 = -2(x - 4)$",
+              "correct": true
+            },
+            {
+              "text": "$y - 9 = -2(x - 4)$",
+              "correct": false
+            },
+            {
+              "text": "$y + 9 = -2(x + 4)$",
+              "correct": false
+            },
+            {
+              "text": "$y - 4 = -2(x + 9)$",
+              "correct": false
+            }
+          ],
+          "explain": "$y - (-9) = -2(x - 4)$, which is $y + 9 = -2(x - 4)$. Subtracting $-9$ gives $+ 9$, and $x_{1} = 4$ gives $x - 4$.",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - (-9), -2*(x - 4))"
+          }
+        }
+      ]
+    },
+    {
+      "id": "intercepts-models",
+      "heading": "Intercepts and linear models",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[y-intercept|y-intercept]] is where a line meets the $y$-axis, so put $x = 0$. The [[x-intercept|x-intercept]] is where it meets the $x$-axis, so put $y = 0$."
+        },
+        {
+          "type": "text",
+          "text": "In a model, the [[gradient|gradient]] is the rate of change. The $y$-intercept is the value when $x = 0$, such as a starting amount or a fixed charge. The $x$-intercept is often when something runs out."
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-hire-intercepts",
+          "question": "A cycling club spends exactly $80$ dollars on bike hire. E-bikes cost $8$ dollars an hour and standard bikes $5$ dollars an hour. With $x$ hours of e-bike hire and $y$ hours of standard bike hire, $8x + 5y - 80 = 0$. (a) Find both intercepts and interpret them. (b) Find the gradient and interpret it.",
+          "steps": [
+            "(a) $x$-intercept: put $y = 0$. Then $8x - 80 = 0$, so $x = 10$, the point $(10, 0)$. The club can hire e-bikes for $10$ hours if it hires no standard bikes.",
+            "$y$-intercept: put $x = 0$. Then $5y - 80 = 0$, so $y = 16$, the point $(0, 16)$. That is $16$ hours of standard bikes and no e-bikes.",
+            "(b) Make $y$ the subject: $5y = -8x + 80$, so $y = -1.6x + 16$ and $m = -1.6$.",
+            "Each extra hour of e-bike hire means $1.6$ fewer hours of standard bike hire."
+          ],
+          "answer": "$m = -1.6$",
+          "verify": {
+            "kind": "exact",
+            "truth": "-8/5"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-glacier-model",
+          "question": "A glacier was $7.34$ km long in 2005 and $6.51$ km long in 2019. A linear model $L = mt + c$ gives its length, $L$ km, $t$ years after 2000. (a) Find $m$ and interpret it. (b) Find the model, with values to 3 s.f. (c) Use the model to estimate the length in 2030. (d) Comment on using the model for the year 2150.",
+          "steps": [
+            "The data give the points $(5, 7.34)$ and $(19, 6.51)$. (a) $m = \\frac{6.51 - 7.34}{19 - 5} = \\frac{-0.83}{14} = -0.059285\\ldots$ km per year. Store it; don't round yet.",
+            "The glacier gets about $0.0593$ km (about $59$ m) shorter each year.",
+            "(b) Substitute $(5, 7.34)$: $7.34 = -0.059285\\ldots \\times 5 + c$, so $c = 7.636428\\ldots$ The model is $L = -0.0593t + 7.64$.",
+            "(c) 2030 is $t = 30$: $L = -0.059285\\ldots \\times 30 + 7.636428\\ldots = 5.857\\ldots$ km. Use the stored values, not the rounded ones.",
+            "(d) 2150 is $t = 150$, where the model gives $L = -1.256\\ldots$ km, a negative length. The glacier can't keep shrinking at a steady rate, so the model is not valid that far ahead."
+          ],
+          "answer": "$L \\approx 5.86\\text{ km}$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "7.34 + (6.51 - 7.34)/(19 - 5)*(30 - 5)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "examTip",
+          "text": "\"Interpret\" needs the context and units: \"the glacier gets about 59 m shorter each year\", not \"the gradient is negative\". When you compare two linear models, comment on both the gradients and the intercepts."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the intercepts. On the $x$-axis it is $y$ that is zero, so put $y = 0$ to find the $x$-intercept."
+        },
+        {
+          "type": "check",
+          "id": "check-battery-flat",
+          "prompt": "A phone's battery charge, $B$ %, after $t$ hours of streaming video is modelled by $B = 92 - 14.5t$. Find how many hours of streaming the model allows before the battery is flat. Give your answer to 3 s.f.",
+          "hint": "The battery is flat when $B = 0$. This is the $t$-intercept.",
+          "answer": {
+            "value": 6.34,
+            "tolerance": 0.005
+          },
+          "explain": "$0 = 92 - 14.5t$, so $t = \\frac{92}{14.5} = 6.344\\ldots \\approx 6.34$ hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "92/14.5",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-temperature-gradient",
+          "prompt": "The air temperature, $T\\,^{\\circ}\\mathrm{C}$, at a height of $h$ km above a town is modelled by $T = 18 - 6.5h$. What does $-6.5$ represent?",
+          "hint": "Which number changes $T$ when $h$ goes up by $1$? Check the units of $h$.",
+          "options": [
+            {
+              "text": "The temperature falls by 6.5 °C for each kilometre of height gained",
+              "correct": true
+            },
+            {
+              "text": "The temperature in the town is -6.5 °C",
+              "correct": false
+            },
+            {
+              "text": "The temperature falls by 6.5 °C for each metre of height gained",
+              "correct": false
+            }
+          ],
+          "explain": "$-6.5$ is the gradient, the rate of change. $h$ is in kilometres, so it is per kilometre, not per metre. The town's temperature is the intercept, $18\\,^{\\circ}\\mathrm{C}$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The temperature falls by 6.5 °C for each kilometre of height gained"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallel-perpendicular",
+      "heading": "Parallel and perpendicular lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Parallel lines never meet, so they must climb at the same rate. Two non-vertical lines are parallel when their [[gradient|gradients]] are equal."
+        },
+        {
+          "type": "text",
+          "text": "[[perpendicular-lines|Perpendicular lines]] meet at a right angle. Turn a line's rise-and-run triangle through $90^{\\circ}$. The rise and the run swap places, and one of them changes sign."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-perpendicular-turn",
+          "alt": "Two lines crossing at a right angle. The first rises to the right with gradient three quarters, shown by a triangle that goes 4 across and 3 up. The second falls to the right with gradient minus four thirds, shown by the same triangle turned through a right angle, which goes 3 across and 4 down.",
+          "caption": "Turning the triangle through $90^{\\circ}$ turns gradient $\\frac{3}{4}$ into $-\\frac{4}{3}$."
+        },
+        {
+          "type": "result",
+          "statement": "Two non-vertical lines with gradients $m_{1}$ and $m_{2}$ are parallel (or the same line) if $m_{1} = m_{2}$, and perpendicular if $m_{1} \\times m_{2} = -1$.",
+          "why": "For $m \\neq 0$, turning a run of $1$ and a rise of $m$ through $90^{\\circ}$ gives a run of $m$ and a fall of $1$. The new gradient is $-\\frac{1}{m}$, and $m \\times \\left(-\\frac{1}{m}\\right) = -1$."
+        },
+        {
+          "type": "formula",
+          "tex": "m_{1} = m_{2} \\qquad m_{1} \\times m_{2} = -1",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So a perpendicular gradient is the negative reciprocal: flip the fraction and change its sign. $\\frac{3}{4}$ becomes $-\\frac{4}{3}$, and $-5$ becomes $\\frac{1}{5}$."
+        },
+        {
+          "type": "text",
+          "text": "The product rule needs both gradients to exist. A horizontal line ($m = 0$) and a vertical line are perpendicular, even though $0$ has no reciprocal."
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-road",
+          "question": "On a map, with units in km, a railway follows the line $2x - 5y + 15 = 0$. A new road will run parallel to the railway through a village at $\\text{V}(10, 1)$. Find the equation of the road in the form $y = mx + c$.",
+          "steps": [
+            "Railway gradient: $5y = 2x + 15$, so $y = 0.4x + 3$ and $m = 0.4$.",
+            "Parallel lines share a gradient, so the road also has $m = 0.4$.",
+            "Point-gradient form through V: $y - 1 = 0.4(x - 10) = 0.4x - 4$.",
+            "Add $1$: $y = 0.4x - 3$. Check: $0.4(10) - 3 = 1$. The $y$-intercepts differ ($3$ and $-3$), so the road and the railway never meet."
+          ],
+          "answer": "$y = 0.4x - 3$",
+          "verify": {
+            "kind": "equation",
+            "truth": "Eq(y - 1, -2/(-5)*(x - 10))"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-paths-right-angle-gdc",
+          "question": "In a park plan, with units of $10$ m, path A follows $y = 1.6x - 2.3$. Path B starts at a fountain at $\\text{F}(8, 3)$ and meets path A at right angles, at the point M. Use your calculator to find the coordinates of M. Give your answers to 3 s.f.",
+          "steps": [
+            "Path A has gradient $1.6$, so path B has gradient $-\\frac{1}{1.6} = -0.625$. Check: $1.6 \\times (-0.625) = -1$.",
+            "Path B through F: $y - 3 = -0.625(x - 8)$, so $y = -0.625x + 8$.",
+            "Write both lines in the solver's layout: $1.6x - y = 2.3$ and $0.625x + y = 8$. Writing these down earns the method marks.",
+            "The calculator gives $x = 4.6292\\ldots$ and $y = 5.1067\\ldots$ Round only at the end.",
+            "Check: $-0.625 \\times 4.6292\\ldots + 8 = 5.1067\\ldots$, so M is on path B too."
+          ],
+          "answer": "$\\text{M} \\approx (4.63, 5.11)$",
+          "verify": {
+            "kind": "point",
+            "truth": "((3 + 8/1.6 + 2.3)/(1.6 + 1/1.6), 1.6*(3 + 8/1.6 + 2.3)/(1.6 + 1/1.6) - 2.3)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "calculator",
+          "snippet": "solve-simultaneous-2",
+          "values": {
+            "a1": 1.6,
+            "b1": -1,
+            "c1": 2.3,
+            "a2": 0.625,
+            "b2": 1,
+            "c2": 8
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Flipping the gradient but keeping its sign. The perpendicular to gradient $\\frac{3}{4}$ has gradient $-\\frac{4}{3}$, not $\\frac{4}{3}$. Multiply the two gradients: you must get $-1$."
+        },
+        {
+          "type": "check",
+          "id": "check-pipe-perpendicular",
+          "prompt": "On a site plan, a straight wall follows $3x + 7y - 2 = 0$. A drain pipe leaves the wall at right angles. Find the gradient of the pipe.",
+          "hint": "Make $y$ the subject to find the wall's gradient. Then flip it and change its sign.",
+          "options": [
+            {
+              "text": "$\\tfrac{7}{3}$",
+              "correct": true
+            },
+            {
+              "text": "$-\\tfrac{7}{3}$",
+              "correct": false
+            },
+            {
+              "text": "$-\\tfrac{3}{7}$",
+              "correct": false
+            },
+            {
+              "text": "$\\tfrac{3}{7}$",
+              "correct": false
+            }
+          ],
+          "explain": "$7y = -3x + 2$, so the wall has gradient $-\\frac{3}{7}$. The pipe's gradient is $\\frac{7}{3}$, since $-\\frac{3}{7} \\times \\frac{7}{3} = -1$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "-1/(-3/7)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-taxi-fares",
+          "prompt": "Two taxi firms charge $C = 2.2d + 4$ and $C = 2.2d + 6.5$ dollars for a trip of $d$ km. Which statement is true?",
+          "hint": "Compare the gradients first. What do equal gradients mean for the two graphs?",
+          "options": [
+            {
+              "text": "The second firm always costs 2.5 dollars more, because the lines are parallel",
+              "correct": true
+            },
+            {
+              "text": "The firms charge the same for a trip of 2.5 km",
+              "correct": false
+            },
+            {
+              "text": "The second firm charges more per kilometre",
+              "correct": false
+            }
+          ],
+          "explain": "Both gradients are $2.2$, so the lines are parallel and never meet. The gap stays at $6.5 - 4 = 2.5$ dollars for every trip.",
+          "verify": {
+            "kind": "choice",
+            "truth": "The second firm always costs 2.5 dollars more, because the lines are parallel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-gradients",
+      "heading": "Gradients of real slopes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Engineers describe the steepness of roads, ramps and bridges by their [[gradient|gradient]]. It is the same idea: vertical rise divided by horizontal distance."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-road-slope",
+          "alt": "A sloping road drawn as the long side of a right-angled triangle. The bottom side is the horizontal distance, or run, and the upright side is the vertical rise. The gradient is the vertical rise divided by the horizontal distance, not by the length along the road.",
+          "caption": "The length along the road is the hypotenuse, not the run."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\text{vertical rise}}{\\text{horizontal distance}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Road signs often give a gradient as a percentage. A $10\\%$ gradient rises $10$ m for every $100$ m across, so $m = 0.1$."
+        },
+        {
+          "type": "text",
+          "text": "Ramps are often described as \"1 in 12\". That means a rise of $1$ for every $12$ across, so $m = \\frac{1}{12}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-guideline",
+          "question": "A ramp to a school entrance rises $0.72$ m over a horizontal distance of $9$ m. A building guideline says a ramp must be no steeper than 1 in 12. (a) Find the gradient as a decimal and as a percentage. (b) Does the ramp meet the guideline?",
+          "steps": [
+            "(a) $m = \\frac{0.72}{9} = 0.08$, which is an $8\\%$ gradient.",
+            "(b) 1 in 12 is a gradient of $\\frac{1}{12} = 0.0833\\ldots$",
+            "$0.08 < 0.0833\\ldots$, so the ramp is less steep than the limit. It meets the guideline."
+          ],
+          "answer": "$m = 0.08$",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.72/9"
+          },
+          "video": null
+        },
+        {
+          "type": "example",
+          "id": "ex-mountain-road-gradient",
+          "question": "A straight mountain road climbs from $1240$ m to $1395$ m above sea level. Its length, measured along the road, is $2.3$ km. Find the gradient of the road. Give your answer to 3 s.f.",
+          "steps": [
+            "Rise: $1395 - 1240 = 155$ m. Use metres throughout: $2.3$ km $= 2300$ m.",
+            "The $2300$ m is along the slope, so it is the hypotenuse, as in the figure. Find the horizontal distance by Pythagoras (prior learning): $\\sqrt{2300^{2} - 155^{2}} = 2294.77\\ldots$ m.",
+            "Gradient $= \\frac{155}{2294.77\\ldots} = 0.067545\\ldots$",
+            "So $m \\approx 0.0675$, about a $6.75\\%$ gradient. Dividing by $2300$ instead would give $0.0674$, which is wrong."
+          ],
+          "answer": "$m \\approx 0.0675$",
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1395 - 1240)/sqrt(2300**2 - (1395 - 1240)**2)",
+            "sf": 3
+          },
+          "video": null
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing by the length along the slope. The gradient uses the horizontal distance. If you are given the slope length, find the horizontal distance with Pythagoras first."
+        },
+        {
+          "type": "check",
+          "id": "check-bridge-deck-percent",
+          "prompt": "A straight bridge deck is $14.2$ m above the river at one end and $16.0$ m above it at the other. The ends are $120$ m apart horizontally. Find the gradient of the deck as a percentage.",
+          "hint": "Find the rise first, then divide by the horizontal distance and multiply by $100$.",
+          "answer": {
+            "value": 1.5,
+            "tolerance": 0
+          },
+          "explain": "Rise $= 16.0 - 14.2 = 1.8$ m, so $m = \\frac{1.8}{120} = 0.015$, a $1.5\\%$ gradient.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(16.0 - 14.2)/120*100",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-road-sign-climb",
+          "prompt": "A straight road has a constant gradient of $8\\%$. It climbs $150$ m. Find the horizontal distance it covers, in metres.",
+          "hint": "Turn the percentage into a gradient. Then horizontal distance $=$ rise $\\div$ gradient.",
+          "answer": {
+            "value": 1875,
+            "tolerance": 0
+          },
+          "explain": "$m = 0.08$, so the horizontal distance is $150 \\div 0.08 = 1875$ m. Dividing by $8$ instead of $0.08$ is a common slip.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "150/(8/100)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "m = \\frac{y_{2} - y_{1}}{x_{2} - x_{1}}",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-gradient",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "y = mx + c; \\quad ax + by + d = 0; \\quad y - y_{1} = m(x - x_{1})",
+          "tag": "booklet",
+          "bookletId": "bk-2-1-line-forms",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For $ax + by + d = 0$ with $b \\neq 0$, the gradient is $-\\frac{a}{b}$. Make $y$ the subject to see it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Horizontal lines are $y = c$, with $m = 0$. Vertical lines are $x = h$: the gradient is undefined, so they have no $y = mx + c$ form.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "$y$-intercept: put $x = 0$. $x$-intercept: put $y = 0$. In a linear model the gradient is a rate (units of $y$ per unit of $x$) and the $y$-intercept is the value when $x = 0$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Two non-vertical lines are parallel (or the same line) if $m_{1} = m_{2}$, and perpendicular if $m_{1} \\times m_{2} = -1$: flip the gradient and change its sign. A horizontal and a vertical line are perpendicular.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Real slopes: gradient $=$ vertical rise $\\div$ horizontal distance, not the length along the slope. A $p\\%$ gradient means $m = \\frac{p}{100}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting in a different order on the top and the bottom, such as $\\frac{y_{2} - y_{1}}{x_{1} - x_{2}}$. That flips the sign of the gradient. Take point 2 minus point 1 in both places.",
+    "Reading the gradient of $ax + by + d = 0$ as $a$. Make $y$ the subject first: the gradient is $-\\frac{a}{b}$.",
+    "Only flipping, or only changing the sign, for a perpendicular gradient. Do both, then check that the product is $-1$.",
+    "Giving an expression such as $0.4x - 3$ as the equation, or cutting values short. Write $y = 0.4x - 3$, with values exact or to 3 s.f.",
+    "Interpreting a gradient with no units or context. Say what changes, by how much, per unit: \"the tank loses 37.5 litres per minute\"."
+  ],
+  "examTips": [
+    "\"Write down the gradient\" needs no working when the line is in the form $y = mx + c$. From the general form, show the rearrangement first.",
+    "If a question asks for the form $y = mx + c$, point-gradient form alone loses the final mark. Rearrange it.",
+    "When you use your GDC, write down the equations you put into it, then give the coordinates to 3 s.f. Keep stored values; never retype rounded ones."
+  ],
+  "readingMinutes": 29
+}

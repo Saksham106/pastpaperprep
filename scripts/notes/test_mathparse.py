@@ -533,6 +533,24 @@ def test_numeric_reading_tolerance():
     fails(lambda: vk.check({"kind": "numeric", "truth": "7*8", "dp": 0}, 56, tolerance=2), AssertionError)
 
 
+def test_parse_matrices_reads_the_whole_expression():
+    """#483 review: matrix sidecars read only the pmatrix bodies, so a scalar outside (or a stray + C) went unchecked."""
+    from sympy import Matrix, Rational, Symbol
+    from sympy import simplify
+    read = lambda tex: [m.applyfunc(simplify) for _, m in mp.parse_matrices(tex)]
+    inv = r"\begin{pmatrix}-1 & \frac{3}{2} \\ 2 & -\frac{5}{2}\end{pmatrix}"
+    assert read(inv) == [Matrix([[-1, Rational(3, 2)], [2, Rational(-5, 2)]])]
+    assert read(r"A^{-1} = \frac{1}{2}" + inv) == [Rational(1, 2) * read(inv)[0]]
+    assert read(r"-\frac{1}{2}\begin{pmatrix}2 & -3 \\ -4 & 5\end{pmatrix}") == read(inv)
+    assert read(r"0\begin{pmatrix}1 \\ -1\end{pmatrix}") == [Matrix([[0], [0]])]
+    assert read(r"AB = \begin{pmatrix}1\end{pmatrix}, BA = -\begin{pmatrix}2\end{pmatrix}") == [Matrix([[1]]), Matrix([[-2]])]
+    assert read(r"\lambda = 2: \begin{pmatrix}1 \\ 0\end{pmatrix},\; \lambda = 3: \begin{pmatrix}1 \\ 1\end{pmatrix}") == [Matrix([[1], [0]]), Matrix([[1], [1]])]
+    assert read(r"\begin{pmatrix}-1 + C\end{pmatrix}") == [Matrix([[Symbol("C") - 1]])]  # + C is kept, never stripped
+    for stray in (r"\begin{pmatrix}1\end{pmatrix} + C", r"\begin{pmatrix}1\end{pmatrix} \times 2", r"\begin{pmatrix}1\end{pmatrix} k, \begin{pmatrix}2\end{pmatrix}"):
+        fails(lambda: mp.parse_matrices(stray), ValueError)
+    fails(lambda: mp.parse_matrices("x = 3"), ValueError)
+
+
 if __name__ == "__main__":
     failed = 0
     tests = [(name, fn) for name, fn in sorted(globals().items()) if name.startswith("test_") and callable(fn)]
