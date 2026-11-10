@@ -31,6 +31,10 @@
       "SL": 66,
       "HL": 62
     },
+    "Energy sources, production and transmission": {
+      "SL": 40,
+      "HL": 33
+    },
     "Rigid body and rotational mechanics": {
       "SL": 27,
       "HL": 42
@@ -70,6 +74,10 @@
     "Interference, diffraction, polarization and resolution": {
       "SL": 51,
       "HL": 129
+    },
+    "Optics and imaging systems": {
+      "SL": 70,
+      "HL": 95
     },
     "Standing waves, resonance and Doppler effect": {
       "SL": 44,
@@ -126,20 +134,24 @@
     "Graphs, data processing and modelling": {
       "SL": 26,
       "HL": 21
+    },
+    "Experimental design, investigation and evaluation": {
+      "SL": 20,
+      "HL": 16
     }
   },
   "topics": {
     "1": {
-      "SL": 339,
-      "HL": 486
+      "SL": 379,
+      "HL": 519
     },
     "2": {
       "SL": 296,
       "HL": 323
     },
     "3": {
-      "SL": 190,
-      "HL": 343
+      "SL": 259,
+      "HL": 432
     },
     "4": {
       "SL": 170,
@@ -150,8 +162,8 @@
       "HL": 350
     },
     "6": {
-      "SL": 82,
-      "HL": 62
+      "SL": 93,
+      "HL": 70
     }
   },
   "parents": {
@@ -160,6 +172,7 @@
     "Momentum, impulse and collisions": "Mechanics and motion",
     "Circular motion and gravitation": "Mechanics and motion",
     "Work, energy and power": "Mechanics and motion",
+    "Energy sources, production and transmission": "Thermal and energy systems",
     "Rigid body and rotational mechanics": "Mechanics and motion",
     "Special relativity and spacetime": "Relativity, astrophysics and cosmology",
     "Thermal concepts and energy transfer": "Thermal and energy systems",
@@ -170,6 +183,7 @@
     "Oscillations and simple harmonic motion": "Waves, optics and imaging",
     "Wave model and characteristics": "Waves, optics and imaging",
     "Interference, diffraction, polarization and resolution": "Waves, optics and imaging",
+    "Optics and imaging systems": "Waves, optics and imaging",
     "Standing waves, resonance and Doppler effect": "Waves, optics and imaging",
     "Electric charge, fields, potential and energy": "Electricity, circuits and electromagnetism",
     "Magnetic fields, forces and motion": "Electricity, circuits and electromagnetism",
@@ -183,6 +197,7 @@
     "Measurements, units and dimensions": "Foundations, measurement and data",
     "Vectors, scalars and representation": "Foundations, measurement and data",
     "Uncertainty, error and significant figures": "Foundations, measurement and data",
-    "Graphs, data processing and modelling": "Foundations, measurement and data"
+    "Graphs, data processing and modelling": "Foundations, measurement and data",
+    "Experimental design, investigation and evaluation": "Foundations, measurement and data"
   }
 }
