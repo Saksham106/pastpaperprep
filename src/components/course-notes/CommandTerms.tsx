@@ -1,7 +1,7 @@
 import "katex/dist/katex.min.css";
 import Link from "next/link";
 import type { Course } from "@/lib/course-notes/course";
-import { renderInlineHtml } from "@/lib/course-notes/render";
+import { MathHtml } from "./MathHtml";
 import styles from "./cheatsheet.module.css";
 
 export function CommandTerms({ course }: { course: Course }) {
@@ -18,7 +18,7 @@ export function CommandTerms({ course }: { course: Course }) {
           {terms.map((entry) => (
             <div key={entry.id} id={entry.id} className={styles.entry} data-term={entry.id}>
               <dt>{entry.term}</dt>
-              <dd dangerouslySetInnerHTML={{ __html: renderInlineHtml(entry.definition) }} />
+              <MathHtml as="dd" text={entry.definition} />
             </div>
           ))}
         </dl>

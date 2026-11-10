@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { renderInlineHtml } from "@/lib/course-notes/render";
 import { calculatorSteps } from "@/lib/course-notes/calculators";
 import type { Block, CalculatorSnippets, CheckBlock, GlossaryTerm } from "@/lib/course-notes/types";
 import { CalculatorSteps } from "./CalculatorSteps";
@@ -9,6 +8,7 @@ import { ExampleSteps } from "./ExampleSteps";
 import { FORMULA_TAG_LABEL, FormulaBlock } from "./FormulaBlock";
 import { INTERACTIVES } from "./interactives/registry";
 import { Inline, type LessonHref } from "./Inline";
+import { MathHtml } from "./MathHtml";
 import styles from "./course-notes.module.css";
 
 export type BlocksProps = {
@@ -36,7 +36,7 @@ export function Blocks({ blocks, glossary, lessonHref, figures = {}, extensionOn
       id={block.id}
       prompt={inline(block.prompt)}
       hint={block.hint ? inline(block.hint) : undefined}
-      options={block.options?.map((o) => ({ content: <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(o.text) }} />, correct: o.correct }))}
+      options={block.options?.map((o) => ({ content: <MathHtml text={o.text} />, correct: o.correct }))}
       answer={block.answer}
       explain={inline(block.explain)}
     />

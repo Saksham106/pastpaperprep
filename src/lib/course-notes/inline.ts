@@ -45,3 +45,9 @@ export function parseInline(text: string): InlineNode[] {
   for (const node of nodes) if (node.kind === "text" && /\[\[|\{\{/.test(node.value)) throw new Error(`Malformed markup near "${node.value.match(/(\[\[|\{\{).{0,20}/)?.[0]}"`);
   return nodes;
 }
+
+/** Href for each `{{lesson:x}}` in `text`, for rendering it outside the server (undefined when there are none). */
+export function lessonLinks(text: string, lessonHref: (item: string) => string): Record<string, string> | undefined {
+  const items = parseInline(text).flatMap((node) => (node.kind === "lesson" ? [node.item] : []));
+  return items.length ? Object.fromEntries(items.map((item) => [item, lessonHref(item)])) : undefined;
+}

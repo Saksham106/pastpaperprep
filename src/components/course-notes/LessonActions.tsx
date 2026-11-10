@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { prevNext, type Neighbour } from "@/lib/course-notes/neighbours";
 import type { PracticeInfo } from "@/lib/course-notes/practice";
 import type { ViewLevel } from "@/lib/course-notes/types";
 import { useNotesLevel } from "./LevelSwitch";
@@ -54,7 +55,7 @@ export function PractiseBand({ practice, bankPrefix }: { practice: PracticeInfo;
   );
 }
 
-export type Neighbour = { item: string; title: string; href: string; level: string };
+export type { Neighbour };
 
 export const REPORT_ISSUES = [
   { issue: "maths_error", label: "A mistake in the notes" },
@@ -99,11 +100,7 @@ export function LessonFooter({ item, lessons }: { item: string; lessons: Neighbo
   const { levels } = useCourse();
   const { understood, mark, unmark } = useNotesProgress();
   const done = understood.has(item);
-  // Extension lessons (AA: AHL) are skipped in the base view.
-  const visible = lessons.filter((lesson) => lesson.item === item || level === "extension" || lesson.level === levels.base);
-  const at = visible.findIndex((lesson) => lesson.item === item);
-  const prev = at > 0 ? visible[at - 1] : undefined;
-  const next = at >= 0 ? visible[at + 1] : undefined;
+  const { prev, next } = prevNext(lessons, item, levels.base, level === "extension");
   return (
     <footer className={styles.lFoot}>
       <button type="button" className={`${styles.btn} ${styles.got}`} aria-pressed={done} onClick={() => {

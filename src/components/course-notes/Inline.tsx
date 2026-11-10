@@ -2,9 +2,9 @@ import "katex/dist/katex.min.css";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { parseInline } from "@/lib/course-notes/inline";
-import { renderInlineHtml, renderTex } from "@/lib/course-notes/render";
 import type { GlossaryTerm as Term } from "@/lib/course-notes/types";
 import { GlossaryTerm } from "./GlossaryTerm";
+import { MathHtml } from "./MathHtml";
 
 export type LessonHref = (item: string) => string;
 
@@ -18,7 +18,7 @@ export function Inline({ text, glossary, lessonHref }: { text: string; glossary:
           case "text":
             return node.value;
           case "math":
-            return <span key={i} dangerouslySetInnerHTML={{ __html: renderTex(node.tex, false) }} />;
+            return <MathHtml key={i} tex={node.tex} />;
           case "lesson":
             return (
               <Link key={i} href={lessonHref(node.item)}>
@@ -33,7 +33,7 @@ export function Inline({ text, glossary, lessonHref }: { text: string; glossary:
                 key={i}
                 id={term.id}
                 label={node.label}
-                definition={renderInlineHtml(term.definition)}
+                definition={term.definition}
                 lessonItem={term.lesson}
                 lessonHref={lessonHref(term.lesson)}
               />
