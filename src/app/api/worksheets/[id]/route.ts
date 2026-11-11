@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { isPlainRecord, withPrivateNoStore } from "@/lib/private-response";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
-import { loadBankQuestions } from "@/lib/question-loader";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet, withCurrentQuestionIds } from "@/lib/worksheets";
@@ -50,6 +49,8 @@ async function handlePATCH(request: Request, context: { params: Promise<{ id: st
     const access = await fetchAccessEntitlements(client as never, userId);
     if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
     if (!hasBankAccess(definition.bank, access.rows as never)) return NextResponse.json({ error: "A current bank subscription is required" }, { status: 403 });
+    // Loaded lazily: its import cost only belongs on edits that change questions (see ../route.ts).
+    const { loadBankQuestions } = await import("@/lib/question-loader");
     const canonical = new Set((await loadBankQuestions(definition.bank)).map((question) => question.id));
     if (definition.questionIds.some((questionId) => !canonical.has(questionId))) return NextResponse.json({ error: "One or more questions are no longer available" }, { status: 400 });
   }

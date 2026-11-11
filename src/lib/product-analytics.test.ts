@@ -84,7 +84,8 @@ describe("PostHog product analytics", () => {
       advanced_disable_feature_flags: true,
       capture_exceptions: false,
     }));
-    expect(posthog.init.mock.calls[0]?.[1]).not.toHaveProperty("capture_performance");
+    // Only attribution is set here: the PostHog project setting still decides whether Web Vitals run.
+    expect(posthog.init.mock.calls[0]?.[1]).toHaveProperty("capture_performance", { web_vitals_attribution: ["CLS", "INP", "LCP"] });
     expect(posthog.init.mock.calls[0]?.[1]).toHaveProperty("cookieless_mode", "always");
     expect(posthog.init.mock.calls[0]?.[1]).not.toHaveProperty("session_recording");
   });

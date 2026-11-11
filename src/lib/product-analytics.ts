@@ -56,6 +56,9 @@ function loadClient() {
           advanced_disable_flags: false,
           advanced_disable_feature_flags: true,
           capture_exceptions: false,
+          // Name the element behind each layout shift (largestShiftTarget is a CSS selector);
+          // the SDK default attributes only INP and LCP. Web Vitals stay on the project setting.
+          capture_performance: { web_vitals_attribution: ["CLS", "INP", "LCP"] },
           before_send: event => {
             if (!canCapture()) return null;
             const scrubbed = sanitizeAnalyticsEvent(event);
