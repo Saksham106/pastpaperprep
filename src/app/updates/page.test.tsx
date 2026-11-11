@@ -1,4 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import UpdatesPage from "@/app/updates/page";
 import { BANK_CATALOG } from "@/lib/catalog";
@@ -17,7 +19,8 @@ describe("Updates page", () => {
     const slugs = new Set<string>(BANK_CATALOG.map((bank) => bank.slug));
     for (const href of UPDATES.flatMap((update) => hrefs(update.links))) {
       const slug = href.match(/^\/banks\/([^/]+)/)?.[1];
-      if (slug) expect(slugs.has(slug), href).toBe(true);
+      if (slug && href.endsWith("/exam-style")) expect(existsSync(join(process.cwd(), "src/app", href, "page.tsx")), href).toBe(true);
+      else if (slug) expect(slugs.has(slug), href).toBe(true);
     }
   });
 
@@ -44,8 +47,8 @@ describe("Updates page", () => {
   it("makes a row with one link clickable through its title, and keeps several links separate", () => {
     render(<UpdatesPage />);
     const log = screen.getByRole("region", { name: "All updates" });
-    expect(within(log).getByRole("link", { name: "Additional Maths 2022 and 2023 explanations" })).toHaveAttribute("href", "/banks/igcse-additional");
-    expect(within(log).queryByRole("link", { name: "IB Chemistry, Biology and Economics 2021–2023" })).toBeNull();
+    expect(within(log).getByRole("link", { name: "IB Maths AI course notes" })).toHaveAttribute("href", "/revision-notes/ib-math-ai");
+    expect(within(log).queryByRole("link", { name: "Every question now explained" })).toBeNull();
     expect(within(log).getAllByRole("link", { name: "Biology HL" })[0]).toHaveAttribute("href", "/banks/ib-biology-hl");
   });
 
