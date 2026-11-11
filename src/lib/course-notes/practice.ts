@@ -7,6 +7,7 @@ import retrieval0580Json from "@/data/igcse-0580-section-retrieval-v3.json";
 import type { PracticeConfig } from "./config";
 import { isExtension, lessonPath, type Course } from "./course";
 import { GROUPS as GROUP_LIST, type Group } from "./groups";
+import { inlineToPlainText } from "./plain-text";
 import { subtopicPracticeFile, subtopicPracticeHref } from "./subtopic-practice";
 import type { PerView, ViewLevel } from "./types";
 
@@ -202,7 +203,7 @@ const stageLesson = (course: Course, item: string): StageLesson | undefined => {
   const entry = course.items.items.find((candidate) => candidate.item === item);
   if (!entry) return undefined;
   const lesson = course.lessons.find((candidate) => candidate.item === item);
-  return { item: entry.item, name: lesson?.title ?? entry.name, level: entry.level, ...(lesson ? { href: lessonPath(course, lesson), summary: lesson.summary } : {}) };
+  return { item: entry.item, name: lesson?.title ?? entry.name, level: entry.level, ...(lesson ? { href: lessonPath(course, lesson), summary: inlineToPlainText(lesson.summary) } : {}) };
 };
 
 /**

@@ -30,9 +30,10 @@ export function ExampleSteps({ id, question, steps, answer, check }: Props) {
         <span id={questionId}>{question}</span>
       </div>
       <p className={styles.try}>Try it first, then reveal one step at a time.</p>
+      {/* Every step is in the HTML so search engines read the whole solution; steps not yet revealed stay hidden. */}
       <ol className={styles.steps}>
-        {all.slice(0, shown).map((step, i) => (
-          <li key={i} className={i === all.length - 1 ? styles.ans : undefined}>
+        {all.map((step, i) => (
+          <li key={i} className={i === all.length - 1 ? styles.ans : undefined} hidden={i >= shown}>
             {step}
           </li>
         ))}
