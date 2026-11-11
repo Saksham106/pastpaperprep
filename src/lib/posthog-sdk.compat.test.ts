@@ -29,4 +29,21 @@ describe("installed PostHog exception API", () => {
     expect(exceptionEvents[0]?.event).toBe("$exception");
     expect(exceptionEvents[0]?.properties?.$exception_list).toBeDefined();
   });
+
+  it("adds CLS attribution without switching Web Vitals on locally", () => {
+    const client = posthog.init("phc_sdk_compatibility_test", {
+      api_host: "https://us.i.posthog.com",
+      defaults: "2026-05-30",
+      cookieless_mode: "always",
+      persistence: "memory",
+      disable_cookie: true,
+      disable_session_recording: true,
+      advanced_disable_flags: true,
+      capture_performance: { web_vitals_attribution: ["CLS", "INP", "LCP"] },
+    }, "web-vitals-compat-test");
+    const webVitals = (client as unknown as { webVitalsAutocapture?: { attributionMetrics: string[]; isEnabled: boolean } }).webVitalsAutocapture;
+    expect(webVitals?.attributionMetrics).toEqual(["CLS", "INP", "LCP"]);
+    // No remote config has arrived, so the project setting has not enabled it yet.
+    expect(webVitals?.isEnabled).toBe(false);
+  });
 });

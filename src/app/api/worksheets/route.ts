@@ -2,11 +2,17 @@ import { NextResponse } from "next/server";
 import { isPlainRecord, withPrivateNoStore } from "@/lib/private-response";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
-import { getBank } from "@/lib/banks";
-import { loadBankQuestions } from "@/lib/question-loader";
+import { getBank, type BankSlug } from "@/lib/banks";
 import { hasBankAccess } from "@/lib/access";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { validateWorksheet, withCurrentQuestionIds } from "@/lib/worksheets";
+
+// The loader evaluates every bank's normalization code on import; only saves need it, and a
+// static import made every cold start (listing included) pay several seconds for it.
+async function loadQuestions(bank: BankSlug) {
+  const { loadBankQuestions } = await import("@/lib/question-loader");
+  return loadBankQuestions(bank);
+}
 
 async function identity() {
   const client = await createClient();
@@ -17,9 +23,12 @@ async function identity() {
 async function handleGET() {
   const { client, userId } = await identity();
   if (!userId) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
-  const access = await fetchAccessEntitlements(client as never, userId);
+  // Independent reads: run them together.
+  const [access, { data, error }] = await Promise.all([
+    fetchAccessEntitlements(client as never, userId),
+    client.from("saved_worksheets").select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").eq("user_id", userId).order("updated_at", { ascending: false }),
+  ]);
   if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
-  const { data, error } = await client.from("saved_worksheets").select("id,bank_slug,title,question_ids,content_mode,revision,created_at,updated_at").eq("user_id", userId).order("updated_at", { ascending: false });
   if (error) return NextResponse.json({ error: "Worksheets unavailable" }, { status: 503 });
   return NextResponse.json({ worksheets: (data ?? []).filter((worksheet) => hasBankAccess(worksheet.bank_slug, access.rows as never)).map(withCurrentQuestionIds) });
 }
@@ -37,7 +46,7 @@ async function handlePOST(request: Request) {
   if (!userId) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
   const bank = getBank(definition.bank);
   if (!bank) return NextResponse.json({ error: "Invalid bank" }, { status: 400 });
-  const [access, questions] = await Promise.all([fetchAccessEntitlements(client as never, userId), loadBankQuestions(definition.bank)]);
+  const [access, questions] = await Promise.all([fetchAccessEntitlements(client as never, userId), loadQuestions(definition.bank)]);
   if (access.error) return NextResponse.json({ error: "Access could not be verified" }, { status: 503 });
   if (!hasBankAccess(definition.bank, access.rows as never)) return NextResponse.json({ error: "A current bank subscription is required" }, { status: 403 });
   const canonical = new Set(questions.map((question) => question.id));
