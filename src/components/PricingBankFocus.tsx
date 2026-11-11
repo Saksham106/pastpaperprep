@@ -83,7 +83,7 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
             ? <><button className="button primary" type="button" disabled>{label}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></>
             : authenticated
               ? <CheckoutButton interval={interval} productId={productId} label={label} />
-              : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{label}</Link>}
+              : <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{label}</Link>}
           <p className="plan-assurance">Secure checkout · Cancel any time</p>
         </div>
         {otherBanks.length ? <div className="pricing-bank-focus-more">

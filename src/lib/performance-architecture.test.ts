@@ -69,6 +69,13 @@ describe("serverless performance boundaries", () => {
     expect(css).toContain(":root[data-pricing-intent] .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro) { visibility: hidden;");
   });
 
+  it("does not viewport-prefetch the per-request /login page from pricing", () => {
+    // /login renders per request with no loading.tsx, so a prefetch runs its function and keeps nothing.
+    for (const file of ["src/components/BillingActions.tsx", "src/components/PricingBankFocus.tsx", "src/components/PricingContent.tsx"]) {
+      for (const link of source(file).match(/<Link\b[^>]*\/login[^>]*>/g) ?? []) expect(link, file).toContain("prefetch={false}");
+    }
+  });
+
   it("keeps the cacheable free asset route out of session middleware", () => {
     const api = config.matcher.at(-1)!;
     const pattern = new RegExp(`^${api.replace("/api/", "\\/api\\/")}$`);

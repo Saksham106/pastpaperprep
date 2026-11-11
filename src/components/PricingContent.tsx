@@ -329,7 +329,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <h2 id="pricing-referral-heading">Refer friends. Get plan credit.</h2>
             <p>Eligible referrals can earn a month of credit toward a paid plan after review.</p>
           </div>
-          <Link className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
+          <Link prefetch={false} className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
         </section> : null}
 
         {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">
