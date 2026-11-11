@@ -7,17 +7,17 @@ const SYMBOLS: Record<string, string> = {
   lambda: "λ", mu: "μ", nu: "ν", xi: "ξ", pi: "π", rho: "ρ", sigma: "σ", tau: "τ", upsilon: "υ", phi: "φ", varphi: "φ", chi: "χ", psi: "ψ", omega: "ω",
   Gamma: "Γ", Delta: "Δ", Theta: "Θ", Lambda: "Λ", Xi: "Ξ", Pi: "Π", Sigma: "Σ", Phi: "Φ", Psi: "Ψ", Omega: "Ω",
   times: "×", div: "÷", pm: "±", mp: "∓", cdot: "·", le: "≤", leq: "≤", leqslant: "≤", ge: "≥", geq: "≥", geqslant: "≥", ne: "≠", neq: "≠",
-  approx: "≈", equiv: "≡", sim: "~", infty: "∞", circ: "°", ominus: "°", dots: "…", ldots: "…", cdots: "⋯", int: "∫", sum: "Σ", prod: "Π",
+  approx: "≈", equiv: "≡", sim: "~", infty: "∞", circ: "∘", ominus: "°", dots: "…", ldots: "…", cdots: "⋯", int: "∫", sum: "Σ", prod: "Π",
   to: "→", rightarrow: "→", leftarrow: "←", rightleftharpoons: "⇌", in: "∈", mid: "|", lvert: "|", rvert: "|", vert: "|", partial: "∂", nabla: "∇", angle: "∠",
   degree: "°", prime: "′", "%": "%", "$": "$", "&": "&", "#": "#", "{": "{", "}": "}", "_": "_",
 };
 /** Marks a character that drops the spaces before it, such as a closing |. */
 const HUG_LEFT = "\u0000";
-const OPERATORS = new Set(["times", "div", "pm", "mp", "cdot", "le", "leq", "leqslant", "ge", "geq", "geqslant", "ne", "neq", "approx", "equiv", "sim", "to", "rightarrow", "leftarrow", "rightleftharpoons", "in", "mid"]);
+const OPERATORS = new Set(["circ", "times", "div", "pm", "mp", "cdot", "le", "leq", "leqslant", "ge", "geq", "geqslant", "ne", "neq", "approx", "equiv", "sim", "to", "rightarrow", "leftarrow", "rightleftharpoons", "in", "mid"]);
 const FUNCTIONS = new Set(["sin", "cos", "tan", "sec", "csc", "cot", "arcsin", "arccos", "arctan", "sinh", "cosh", "tanh", "ln", "log", "exp", "det", "lim", "max", "min"]);
 const WRAPPERS = new Set(["text", "mathrm", "mathbf", "boldsymbol", "mathit", "textbf", "textit", "operatorname", "mathbb", "mathcal", "vec", "overrightarrow", "hat", "widehat", "pu"]);
 const DROPPED = new Set(["left", "right", "displaystyle", "big", "Big", "bigl", "bigr", "quad", "qquad", "limits"]);
-const SUP: Record<string, string> = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "+": "⁺", "-": "⁻", "−": "⁻", "=": "⁼", "(": "⁽", ")": "⁾", n: "ⁿ", i: "ⁱ", x: "ˣ", "°": "°" };
+const SUP: Record<string, string> = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "+": "⁺", "-": "⁻", "−": "⁻", "=": "⁼", "(": "⁽", ")": "⁾", n: "ⁿ", i: "ⁱ", x: "ˣ", "°": "°", "∘": "°" };
 const SUB: Record<string, string> = { "0": "₀", "1": "₁", "2": "₂", "3": "₃", "4": "₄", "5": "₅", "6": "₆", "7": "₇", "8": "₈", "9": "₉", "+": "₊", "-": "₋", "=": "₌", "(": "₍", ")": "₎", a: "ₐ", e: "ₑ", o: "ₒ", x: "ₓ", h: "ₕ", k: "ₖ", l: "ₗ", m: "ₘ", n: "ₙ", p: "ₚ", s: "ₛ", t: "ₜ", i: "ᵢ", j: "ⱼ", r: "ᵣ", u: "ᵤ", v: "ᵥ" };
 
 const script = (text: string, map: Record<string, string>, mark: string) => {

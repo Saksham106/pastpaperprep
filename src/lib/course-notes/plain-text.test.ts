@@ -16,7 +16,19 @@ describe("texToText", () => {
     ["\\log_{a}x", "logₐx"],
     ["8^{\\frac{2}{3}}", "8^(2/3)"],
     ["\\sqrt{x^2 + y^2}", "√(x² + y²)"],
+    ["(f \\circ g)(x) = f(g(x))", "(f ∘ g)(x) = f(g(x))"],
+    ["90^{\\circ}", "90°"],
+    ["45^\\circ", "45°"],
   ])("%s → %s", (tex, text) => expect(texToText(tex)).toBe(text));
+});
+
+describe("lesson summaries with a circle", () => {
+  const summary = (file: string) => JSON.parse(readFileSync(path.join(process.cwd(), "src/content/notes", file), "utf8")).summary as string;
+  it.each(["ib-math-aa/lessons/2-5.json", "ib-math-ai/lessons/2-7.json"])("%s keeps composition as ∘, not a degree sign", (file) => {
+    const text = inlineToPlainText(summary(file));
+    expect(text).toContain("(f ∘ g)(x)");
+    expect(text).not.toContain("°");
+  });
 });
 
 describe("inlineToPlainText", () => {
