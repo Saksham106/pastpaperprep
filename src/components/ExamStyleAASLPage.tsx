@@ -28,7 +28,7 @@ export async function ExamStyleAASLPage() {
         <span className="exam-style-auth-icon" aria-hidden="true"><LockKey weight="bold" /></span>
         <p className="eyebrow">Free account required</p><h2 id="exam-style-auth-heading">Sign in to view this practice</h2>
         <p>Create a free account or sign in to open the practice sets and worked solutions.</p>
-        <Link className="button primary" href={`/login?next=${encodeURIComponent(RETURN_PATH)}`}>Sign in or create an account</Link>
+        <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent(RETURN_PATH)}`}>Sign in or create an account</Link>
       </section>}
     </div></div>
   );
