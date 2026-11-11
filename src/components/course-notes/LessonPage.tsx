@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { isExtension, lessonPath, topicPath, type Course } from "@/lib/course-notes/course";
+import { footerLessons } from "@/lib/course-notes/neighbours";
 import { lessonPractice } from "@/lib/course-notes/practice";
-import { renderTex } from "@/lib/course-notes/render";
 import type { Lesson } from "@/lib/course-notes/types";
 import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { Blocks } from "./Blocks";
@@ -10,6 +10,7 @@ import { Inline } from "./Inline";
 import { LessonFooter, PractiseBand } from "./LessonActions";
 import { LessonRail, type RailSection } from "./LessonRail";
 import { LessonShell } from "./LessonShell";
+import { MathHtml } from "./MathHtml";
 import styles from "./course-notes.module.css";
 
 
@@ -47,7 +48,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
     seen.add(key);
     const ext = blockExt(section, block);
     if (block.type === "fact") return [{ tag: block.tag, ext, node: inline(block.text) }];
-    if (block.type === "formula") return [{ tag: block.tag, ext, node: <span dangerouslySetInnerHTML={{ __html: renderTex(block.tex, true) }} /> }];
+    if (block.type === "formula") return [{ tag: block.tag, ext, node: <MathHtml tex={block.tex} display /> }];
     return [];
   });
   const takeawaysExt = takeaways.length > 0 && takeaways.every((entry) => entry.ext);
@@ -72,7 +73,8 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
     ...(practice ? [{ id: "practise", title: "Practise" }] : []),
   ];
 
-  const neighbours = course.lessons.map((entry) => ({ item: entry.item, title: entry.title, href: lessonPath(course, entry), level: entry.level }));
+  // The footer picks prev/next for the student's level in the browser; send it only the lessons it can pick.
+  const neighbours = footerLessons(course.lessons, lesson.item, levels.base).map((entry) => ({ item: entry.item, title: entry.title, href: lessonPath(course, entry), level: entry.level }));
 
   return (
     <LessonShell topic={lesson.topic} lesson={lesson.item}>
