@@ -12,6 +12,7 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { publicBankIndexUrl } from "@/lib/question-index";
 import { captureServerException } from "@/lib/server-error-tracking";
 import { createClient } from "@/lib/supabase/server";
+import { buildPaperLoginPath, buildPaperPath } from "@/lib/worksheet-build-links";
 
 export const metadata: Metadata = { title: "Build a paper", robots: { index: false, follow: false } };
 
@@ -31,7 +32,7 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   const userId = data?.claims?.sub;
-  if (typeof userId !== "string") redirect(`/login?next=${encodeURIComponent(`/worksheets/build${requestedBank ? `?bank=${requestedBank}` : ""}`)}`);
+  if (typeof userId !== "string") redirect(buildPaperLoginPath(requestedBank));
   const access = await fetchAccessEntitlements(supabase as never, userId);
   if (access.error) {
     if (isFutureIssuedJwtError(access.error)) {
@@ -39,7 +40,7 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
         route: "/worksheets/build", route_type: "render", stage: "entitlement",
         storage_provider: "supabase", error_code: "PGRST303", user_id: userId,
       });
-      return <AccessReadRecovery retryPath={requestedBank ? `/worksheets/build?bank=${requestedBank}` : "/worksheets/build"} />;
+      return <AccessReadRecovery retryPath={buildPaperPath(requestedBank)} />;
     }
     throw access.error;
   }

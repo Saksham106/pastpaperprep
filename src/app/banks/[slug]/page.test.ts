@@ -51,8 +51,17 @@ describe("bank route fail-closed behaviour", () => {
   });
   it("links each bank to the paper builder with the bank preselected", () => {
     const source = readFileSync(join(process.cwd(), "src/app/banks/[slug]/page.tsx"), "utf8");
-    expect(source).toContain("href={`/worksheets/build?bank=${slug}`}");
+    expect(source).toContain("data-signed-in-only href={buildPaperPath(slug)}");
     expect(source).toContain(">Build a paper</IntentPrefetchLink>");
+  });
+
+  it("sends signed-out visitors straight to sign-in instead of through the builder's redirect", () => {
+    // A client navigation that lands on the builder's server redirect crashed iOS Safari (React #482).
+    const source = readFileSync(join(process.cwd(), "src/app/banks/[slug]/page.tsx"), "utf8");
+    expect(source).toContain("data-signed-out-only href={buildPaperLoginPath(slug)}");
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toContain(":root:not([data-session]) [data-signed-in-only] { display: none; }");
+    expect(css).toContain(":root[data-session] [data-signed-out-only] { display: none; }");
   });
 
   it("keeps the hero to title, stats and actions: no restated description or extra paragraphs", () => {

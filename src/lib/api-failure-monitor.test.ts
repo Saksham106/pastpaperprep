@@ -67,6 +67,52 @@ describe("installApiFailureMonitor", () => {
     expect(trackProductEvent).not.toHaveBeenCalled();
   });
 
+  it("reports a burst of network failures on one route once, then again after the window", async () => {
+    vi.useFakeTimers();
+    try {
+      original.mockRejectedValue(new TypeError("Failed to fetch"));
+      await Promise.all(Array.from({ length: 20 }, () => target.fetch("/api/assets/free?bank=igcse&id=q1").catch(() => null)));
+      expect(trackProductEvent).toHaveBeenCalledOnce();
+      await target.fetch("/api/assets/sign").catch(() => null);
+      expect(trackProductEvent).toHaveBeenCalledTimes(2);
+      vi.advanceTimersByTime(30_001);
+      await target.fetch("/api/assets/free?bank=igcse&id=q2").catch(() => null);
+      expect(trackProductEvent).toHaveBeenCalledTimes(3);
+    } finally { vi.useRealTimers(); }
+  });
+
+  it("still reports every server error in a burst", async () => {
+    original.mockImplementation(async () => new Response(null, { status: 503 }));
+    await Promise.all([target.fetch("/api/assets/free"), target.fetch("/api/assets/free")]);
+    expect(trackProductEvent).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignores network failures while the page unloads, is hidden or the device is offline", async () => {
+    const listeners = new Map<string, () => void>();
+    const page = { visibilityState: "visible" };
+    const net = { onLine: true };
+    const quiet = {
+      fetch: original, location: window.location, document: page, navigator: net,
+      addEventListener: (type: string, listener: () => void) => listeners.set(type, listener),
+    };
+    installApiFailureMonitor(quiet as unknown as Window);
+    original.mockRejectedValue(new TypeError("Failed to fetch"));
+
+    listeners.get("pagehide")?.();
+    await quiet.fetch("/api/assets/free").catch(() => null);
+    listeners.get("pageshow")?.();
+    page.visibilityState = "hidden";
+    await quiet.fetch("/api/worksheets").catch(() => null);
+    page.visibilityState = "visible";
+    net.onLine = false;
+    await quiet.fetch("/api/study-state").catch(() => null);
+    expect(trackProductEvent).not.toHaveBeenCalled();
+
+    net.onLine = true;
+    await quiet.fetch("/api/study-state").catch(() => null);
+    expect(trackProductEvent).toHaveBeenCalledWith("api_request_failed", expect.objectContaining({ route: "/api/study-state", outcome: "network_error" }));
+  });
+
   it("links the failure to the signed-in account id", async () => {
     browserAccountId.mockReturnValueOnce("7f1b6a2e-0000-4000-8000-000000000000");
     original.mockResolvedValue(new Response(null, { status: 500 }));

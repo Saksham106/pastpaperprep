@@ -43,7 +43,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error), `react_mismatch?` (`text`/`html` for React #418), plus the browser context below |
-| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
+| `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`; network failures are skipped while the page unloads, is hidden or offline, and sent once per route per 30 s) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
 | `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
 | `home_search` | landing-page search box (Enter or a result) | `found`, `kind` (paper, topic, topics, papers, none), `intent` |

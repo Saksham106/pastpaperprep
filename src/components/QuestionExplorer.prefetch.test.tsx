@@ -41,6 +41,7 @@ describe("practice page prefetch", () => {
 
   it("defers the bank hero's paper-builder link until intent", () => {
     const page = readFileSync("src/app/banks/[slug]/page.tsx", "utf8");
-    expect(page).toMatch(/<IntentPrefetchLink className="button secondary bank-hero-build" href=\{`\/worksheets\/build\?bank=\$\{slug\}`\}>/);
+    expect(page).toContain('<IntentPrefetchLink className="button secondary bank-hero-build" data-signed-in-only href={buildPaperPath(slug)}>');
+    expect(page).toContain('<IntentPrefetchLink className="button secondary bank-hero-build" data-signed-out-only href={buildPaperLoginPath(slug)}>');
   });
 });
