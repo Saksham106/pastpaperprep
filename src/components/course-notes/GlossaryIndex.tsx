@@ -2,7 +2,8 @@ import "katex/dist/katex.min.css";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { lessonPath, type Course } from "@/lib/course-notes/course";
-import { renderInlineHtml } from "@/lib/course-notes/render";
+import { lessonLinks } from "@/lib/course-notes/inline";
+import { MathHtml } from "./MathHtml";
 import styles from "./cheatsheet.module.css";
 
 const byTerm = (a: { term: string }, b: { term: string }) => a.term.localeCompare(b.term, "en", { sensitivity: "base" });
@@ -37,7 +38,7 @@ export function GlossaryIndex({ course }: { course: Course }) {
                 <div key={entry.id} id={entry.id} className={styles.entry} data-term={entry.id}>
                   <dt>{entry.term}</dt>
                   <dd>
-                    <span dangerouslySetInnerHTML={{ __html: renderInlineHtml(entry.definition, { lessonHref }) }} />
+                    <MathHtml text={entry.definition} links={lessonLinks(entry.definition, lessonHref)} />
                     <span className={styles.taught} data-taught>
                       {lesson ? <>Taught in <Link href={lessonPath(course, lesson)}>{lesson.item} {lesson.title}</Link></> : `Taught in ${entry.lesson} ${syllabusNames.get(entry.lesson) ?? ""}`.trim()}
                     </span>

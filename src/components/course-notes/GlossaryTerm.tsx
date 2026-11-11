@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { MathHtml } from "./MathHtml";
 import { useNotesContext } from "./notes-context";
 import { trackGlossaryOpen } from "./track";
 import styles from "./course-notes.module.css";
@@ -8,7 +9,7 @@ import styles from "./course-notes.module.css";
 type Props = {
   id: string;
   label: string;
-  /** Pre-rendered HTML (KaTeX already applied on the server). */
+  /** Inline text (`$tex$` and all); rendered when the pop-up opens. */
   definition: string;
   lessonItem: string;
   lessonHref: string;
@@ -50,7 +51,7 @@ export function GlossaryTerm({ id, label, definition, lessonItem, lessonHref }: 
       {open ? (
         <span id={popId} role="dialog" aria-label={label} className={styles.pop}>
           <b>{label}</b>
-          <span dangerouslySetInnerHTML={{ __html: definition }} />
+          <MathHtml text={definition} />
           <Link href={lessonHref}>Learn it in {lessonItem} →</Link>
         </span>
       ) : null}

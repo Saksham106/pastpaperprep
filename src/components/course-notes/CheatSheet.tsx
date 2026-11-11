@@ -3,18 +3,19 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { isExtension, lessonPath, type Course } from "@/lib/course-notes/course";
 import { sheetTopics, type SheetRow } from "@/lib/course-notes/cheatsheet";
-import { renderInlineHtml, renderTex } from "@/lib/course-notes/render";
+import { lessonLinks } from "@/lib/course-notes/inline";
 import { CheatSheetFrame } from "./CheatSheetFrame";
+import { MathHtml } from "./MathHtml";
 import styles from "./cheatsheet.module.css";
 
-/** `topic` limits the sheet to one topic; omitted means the whole course. All maths is rendered here, on the server. */
+/** `topic` limits the sheet to one topic; omitted means the whole course. Maths renders into the HTML on the server (see MathHtml). */
 export function CheatSheet({ course, topic }: { course: Course; topic?: Course["topics"][number] }) {
   const base = `/revision-notes/${course.slug}`;
   const lessonHref = (item: string) => {
     const lesson = course.lessons.find((entry) => entry.item === item);
     return lesson ? lessonPath(course, lesson) : base;
   };
-  const html = (row: SheetRow) => (row.kind === "formula" ? renderTex(row.value, false) : renderInlineHtml(row.value, { lessonHref }));
+  const math = (row: SheetRow) => (row.kind === "formula" ? <MathHtml tex={row.value} /> : <MathHtml text={row.value} links={lessonLinks(row.value, lessonHref)} />);
   const topics = sheetTopics(course, topic);
   // The sheet title is an h2. The course sheet adds an h3 per topic, so its blocks are h4; a topic sheet goes straight to h3.
   const BlockHeading = topic ? "h3" : "h4";
@@ -43,7 +44,7 @@ export function CheatSheet({ course, topic }: { course: Course; topic?: Course["
                   <BlockHeading>{block.href ? <Link href={block.href}>{heading}</Link> : heading}</BlockHeading>
                   {block.rows.map((row, i) => (
                     <div key={i} className={styles.row} data-row={row.kind} data-ahl={row.extension ? "" : undefined}>
-                      <span dangerouslySetInnerHTML={{ __html: html(row) }} />
+                      {math(row)}
                       <span className={`${styles.tg} ${row.tag === "booklet" ? styles.tgB : styles.tgL}`}>{row.tag === "booklet" ? "BOOKLET" : "LEARN"}</span>
                     </div>
                   ))}
