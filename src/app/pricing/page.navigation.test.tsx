@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { pricingTestUrl, renderPricingPage, routeAccountRequestsToHandler, setSignedIn } from "./pricing-page-harness";
@@ -54,6 +54,26 @@ describe("pricing for an existing customer", () => {
     renderPricingPage();
     expect(await screen.findByText(/grant, not a billed subscription/i)).toBeInTheDocument();
     expect(screen.queryByRole("region", { name: "Change your current subscription" })).not.toBeInTheDocument();
+  });
+
+  it("never shows an earlier session's plan after signing out and back in within the tab", async () => {
+    renderPricingPage();
+    expect(await screen.findByRole("region", { name: "Change your current subscription" })).toBeInTheDocument();
+
+    setSignedIn(false);
+    act(() => { window.dispatchEvent(new Event("ppp:session-change")); });
+    expect(screen.queryByRole("region", { name: "Change your current subscription" })).not.toBeInTheDocument();
+
+    let release!: () => void;
+    mocks.fetchAccessEntitlements.mockReturnValue(new Promise((resolve) => { release = () => resolve({ rows: [], error: null }); }));
+    setSignedIn(true);
+    act(() => { window.dispatchEvent(new Event("ppp:session-change")); });
+    // The new session's plan is still loading: neither the old subscriber view nor checkout shows.
+    expect(document.querySelector(".pricing-account-pending")).toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Change your current subscription" })).not.toBeInTheDocument();
+    await waitFor(() => expect(mocks.fetchAccessEntitlements).toHaveBeenCalledTimes(2));
+    release();
+    expect(await screen.findByText(/^Free$/)).toBeInTheDocument();
   });
 
   it("renders the signed-out page for anonymous visitors without any account request", async () => {

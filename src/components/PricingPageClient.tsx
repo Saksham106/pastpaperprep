@@ -20,8 +20,12 @@ const readSessionCookie = () => documentHasSupabaseAuthCookie(document.cookie);
 function usePricingAccount(): { state: AccountState; retry: () => void } {
   const hasSession = useSyncExternalStore(subscribeToSessionChanges, readSessionCookie, () => false);
   const [attempt, setAttempt] = useState(0);
+  // Every sign-in or sign-out starts a new generation, so a result fetched for an earlier
+  // session (another account, before a sign-out in this tab) is never shown again.
+  const [session, setSession] = useState({ hasSession, generation: 0 });
+  if (session.hasSession !== hasSession) setSession({ hasSession, generation: session.generation + 1 });
   const [result, setResult] = useState<{ key: string; state: AccountState } | null>(null);
-  const key = `${hasSession}:${attempt}`;
+  const key = `${hasSession}:${session.generation}:${attempt}`;
   useEffect(() => {
     if (!hasSession) return;
     let active = true;
