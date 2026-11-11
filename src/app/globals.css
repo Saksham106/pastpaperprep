@@ -2447,3 +2447,4 @@ main { min-height: 72vh; }
 .about-audience .testimonial-card { margin-top: 22px; }
 .access-upgrade-dialog .testimonial-inline { margin: 2px auto 18px; }
 :root[data-session] [data-signed-out-only] { display: none; }
+:root:not([data-session]) [data-signed-in-only] { display: none; }

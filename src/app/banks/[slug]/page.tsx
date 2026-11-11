@@ -23,6 +23,7 @@ import { bankFacts } from "@/lib/quick-facts";
 import { QuickFacts } from "@/components/QuickFacts";
 import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
 import { freeQuestionYears, hasFreeTier } from "@/lib/access";
+import { buildPaperLoginPath, buildPaperPath } from "@/lib/worksheet-build-links";
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getAvailableBanks().map(({ slug }) => ({ slug })); }
@@ -129,7 +130,9 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
             <p className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong></span>{updated ? <span>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></span> : null}</p>
             <div className="bank-hero-actions">
               {fullPapers ? <Link className="button secondary" href={`/past-papers/${subjectSlugForBank(slug)}`}>Full past papers</Link> : null}
-              <IntentPrefetchLink className="button secondary bank-hero-build" href={`/worksheets/build?bank=${slug}`}>Build a paper</IntentPrefetchLink>
+              {/* The <head> session hint shows one of these before paint; signed-out visitors skip the builder's sign-in redirect. */}
+              <IntentPrefetchLink className="button secondary bank-hero-build" data-signed-in-only href={buildPaperPath(slug)}>Build a paper</IntentPrefetchLink>
+              <IntentPrefetchLink className="button secondary bank-hero-build" data-signed-out-only href={buildPaperLoginPath(slug)}>Build a paper</IntentPrefetchLink>
             </div>
           </div>
           <Testimonial testimonial={bankTestimonial(slug)} variant="inline" signedOutOnly />

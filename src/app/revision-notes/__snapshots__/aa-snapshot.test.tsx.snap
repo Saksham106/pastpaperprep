@@ -6,8 +6,8 @@ exports[`live AA pages are unchanged > course home, topic, lesson, cheat sheets,
   "commandTerms": "10154:00ab6ee209048b89",
   "glossary": "758969:28057782866c3f54",
   "home": "31988:31ee6b8301412fa7",
-  "lesson": "339901:20e27c9266a201dc",
-  "topic": "25404:f4e43843a9ea89e9",
+  "lesson": "587470:1aa5de9e4b95351d",
+  "topic": "24340:9e9eafb329c9a58c",
   "topicCheatSheet": "609556:7e0bf6b61942bf2c",
 }
 `;
@@ -138,7 +138,7 @@ exports[`live AA pages are unchanged > metadata is the same 1`] = `
     "alternates": {
       "canonical": "/revision-notes/ib-math-aa/calculus/5-16-integration-by-substitution-and-parts",
     },
-    "description": "Two methods take you past the standard integrals. A given substitution rewrites a hard integral in a new variable, even when the derivative of the inside isn't there. [[integration-by-parts|Integration by parts]] reverses the product rule, so you can integrate products such as $x\\cos(3x)$ and single functions such as $\\ln x$.",
+    "description": "Two methods take you past the standard integrals. A given substitution rewrites a hard integral in a new variable, even when the derivative of the inside…",
     "openGraph": {
       "images": [
         {

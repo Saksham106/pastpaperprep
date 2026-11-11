@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { getVisibleCourse, lessonPath } from "@/lib/course-notes/course";
+import { inlineToPlainText } from "@/lib/course-notes/plain-text";
 import { SITE_URL, lessonMeta } from "@/lib/course-notes/seo";
 import { LessonPage } from "../LessonPage";
 import { withCourse, type LessonParams } from "./shared";
@@ -34,7 +35,7 @@ export function courseLessonRoute(slug: string) {
       const { course, lesson } = hit;
       return (
         <>
-          <JsonLd data={{ "@context": "https://schema.org", "@type": "LearningResource", name: lesson.title, description: lesson.summary, url: `${SITE_URL}${lessonPath(course, lesson)}`, educationalLevel: course.copy.educationalLevel, learningResourceType: "Course notes", timeRequired: `PT${lesson.readingMinutes}M`, author: { "@type": "Organization", name: "PastPaperPrep" } }} />
+          <JsonLd data={{ "@context": "https://schema.org", "@type": "LearningResource", name: lesson.title, description: inlineToPlainText(lesson.summary), url: `${SITE_URL}${lessonPath(course, lesson)}`, educationalLevel: course.copy.educationalLevel, learningResourceType: "Course notes", timeRequired: `PT${lesson.readingMinutes}M`, author: { "@type": "Organization", name: "PastPaperPrep" } }} />
           {withCourse(course, <LessonPage course={course} lesson={lesson} />)}
         </>
       );

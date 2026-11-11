@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { socialPreview } from "@/lib/seo";
 import { lessonPath, topicPath, type Course } from "./course";
+import { fitMetaDescription, inlineToPlainText } from "./plain-text";
 import type { Lesson } from "./types";
 
 export const SITE_URL = "https://pastpaperprep.com";
@@ -30,7 +31,7 @@ export const topicMeta = (course: Course, topic: Course["topics"][number]) =>
   courseMeta(fitTitle(topic.name, ` | ${course.name} Notes`), `${course.name} notes on ${topic.name.toLowerCase()}: every lesson, with worked examples and checks.`, topicPath(course, topic.n));
 
 export const lessonMeta = (course: Course, lesson: Lesson) =>
-  courseMeta(fitTitle(lesson.title, ` | ${course.name} Notes`), lesson.summary, lessonPath(course, lesson), "article");
+  courseMeta(fitTitle(lesson.title, ` | ${course.name} Notes`), fitMetaDescription(inlineToPlainText(lesson.summary)), lessonPath(course, lesson), "article");
 
 export const cheatSheetMeta = (course: Course, topic?: Course["topics"][number]) =>
   courseMeta(

@@ -3,6 +3,7 @@ import { resetPersistedStoresForTests } from "./persisted-store";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { isValidElement, type ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
+import { renderToString } from "react-dom/server";
 import type { Block, GlossaryTerm as Term, Lesson } from "@/lib/course-notes/types";
 import { Inline } from "./Inline";
 import { Blocks } from "./Blocks";
@@ -80,15 +81,25 @@ describe("ExampleSteps", () => {
     check: <p>check by differentiating</p>,
   };
 
+  const revealed = (text: string) => !screen.getByText(text).closest("li")!.hidden;
+
+  it("puts every step and the answer in the server HTML, hiding all but the first", () => {
+    const html = renderToString(<ExampleSteps {...props} />);
+    expect(html).toContain("step two");
+    expect(html).toContain("the answer");
+    expect(html.match(/<li[^>]*hidden/g)).toHaveLength(2);
+    expect(html).not.toContain("check by differentiating");
+  });
+
   it("shows one step, then everything after Show all, and holds back the check until the end", async () => {
     const user = userEvent.setup();
     render(<ExampleSteps {...props} />);
-    expect(screen.getByText("step one")).toBeTruthy();
-    expect(screen.queryByText("step two")).toBeNull();
+    expect(revealed("step one")).toBe(true);
+    expect(revealed("step two")).toBe(false);
     expect(screen.queryByText("check by differentiating")).toBeNull();
     await user.click(screen.getByRole("button", { name: "Show all" }));
-    expect(screen.getByText("step two")).toBeTruthy();
-    expect(screen.getByText("the answer")).toBeTruthy();
+    expect(revealed("step two")).toBe(true);
+    expect(revealed("the answer")).toBe(true);
     expect(screen.getByText("check by differentiating")).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Show next step" })).toBeNull();
   });
@@ -97,11 +108,11 @@ describe("ExampleSteps", () => {
     const user = userEvent.setup();
     render(<ExampleSteps {...props} />);
     await user.click(screen.getByRole("button", { name: "Show next step" }));
-    expect(screen.getByText("step two")).toBeTruthy();
-    expect(screen.queryByText("the answer")).toBeNull();
+    expect(revealed("step two")).toBe(true);
+    expect(revealed("the answer")).toBe(false);
     expect(screen.queryByText("check by differentiating")).toBeNull();
     await user.click(screen.getByRole("button", { name: "Show next step" }));
-    expect(screen.getByText("the answer")).toBeTruthy();
+    expect(revealed("the answer")).toBe(true);
     expect(screen.getByText("check by differentiating")).toBeTruthy();
   });
 });
@@ -232,8 +243,8 @@ describe("Blocks", () => {
       },
     ];
     render(<Blocks blocks={blocks} glossary={[]} lessonHref={lessonHref} />);
-    expect(screen.getByText("first")).toBeTruthy();
-    expect(screen.queryByText("second")).toBeNull();
+    expect(screen.getByText("first").closest("li")!.hidden).toBe(false);
+    expect(screen.getByText("second").closest("li")!.hidden).toBe(true);
     expect(screen.queryByText("Check?")).toBeNull();
   });
 });
