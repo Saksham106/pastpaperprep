@@ -1,5 +1,6 @@
-// Bank subtopics a lesson also teaches (`alsoPractises`): the bank links each one to that lesson, the lesson's practise
-// band lists it, and labels no 2025-syllabus lesson teaches (old option topics) stay unlinked.
+// Bank subtopics a lesson also teaches (`alsoPractises`): the bank links each one to that lesson, and the lesson's practise
+// band lists it. Labels that are mostly old option content stay unlinked on purpose: a few of their questions overlap a
+// current lesson, but no one lesson teaches the label as a whole.
 import { describe, expect, it } from "vitest";
 import { getCourse, lessonPath } from "./course";
 import { notesLinksForBank } from "./group-lessons";
@@ -39,7 +40,7 @@ describe.each(cases)("$slug also-practised subtopics", ({ slug, linked, unlinked
     }
   });
 
-  it("leaves old-syllabus option labels unlinked", () => {
+  it("keeps deliberately deferred labels unlinked", () => {
     for (const label of unlinked) {
       expect(hl[label], label).toBeUndefined();
       expect(sl[label], label).toBeUndefined();
