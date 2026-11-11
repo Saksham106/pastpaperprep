@@ -45,7 +45,8 @@ jobs:
   # Cheap, node-free check that every course lesson's published maths passes SymPy.
   notes-math:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Every lesson of every course: 5–9 minutes with five courses, so 10 was cutting off slower runners.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
