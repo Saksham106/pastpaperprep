@@ -59,6 +59,10 @@
       "SL": 89,
       "HL": 103
     },
+    "Acid deposition": {
+      "SL": 16,
+      "HL": 14
+    },
     "Oxidation states and half-equations": {
       "SL": 82,
       "HL": 74
@@ -111,6 +115,10 @@
       "SL": 39,
       "HL": 57
     },
+    "Dynamic equilibrium": {
+      "SL": 3,
+      "HL": 5
+    },
     "Le Chatelier's principle": {
       "SL": 40,
       "HL": 40
@@ -135,6 +143,10 @@
       "SL": 15,
       "HL": 55
     },
+    "Redox titration and corrosion": {
+      "SL": 6,
+      "HL": 10
+    },
     "Electrochemical cells and potentials": {
       "SL": 34,
       "HL": 74
@@ -150,6 +162,10 @@
     "Experimental design, safety and evaluation": {
       "SL": 48,
       "HL": 51
+    },
+    "Analytical techniques": {
+      "SL": 33,
+      "HL": 49
     },
     "Uncertainty and error": {
       "SL": 55,
@@ -170,24 +186,24 @@
       "HL": 489
     },
     "3": {
-      "SL": 323,
-      "HL": 551
+      "SL": 335,
+      "HL": 564
     },
     "4": {
       "SL": 206,
       "HL": 308
     },
     "5": {
-      "SL": 325,
-      "HL": 423
+      "SL": 327,
+      "HL": 426
     },
     "6": {
-      "SL": 407,
-      "HL": 634
+      "SL": 410,
+      "HL": 641
     },
     "7": {
-      "SL": 111,
-      "HL": 109
+      "SL": 129,
+      "HL": 141
     }
   },
   "parents": {
@@ -203,6 +219,7 @@
     "Mass spectrometry, IR, NMR and chromatography": "Organic chemistry and molecular analysis",
     "Polymers, materials, alloys and nanotechnology": "Bonding, structure and materials",
     "Periodic table and trends": "Atomic structure and periodicity",
+    "Acid deposition": "Acids and bases",
     "Oxidation states and half-equations": "Redox and electrochemistry",
     "Transition elements and complexes": "Atomic structure and periodicity",
     "Functional groups and reactions": "Organic chemistry and molecular analysis",
@@ -216,16 +233,19 @@
     "Energy profiles and catalysts": "Kinetics",
     "Rate laws, orders, Arrhenius and mechanisms": "Kinetics",
     "Equilibrium constants and reaction quotient": "Equilibrium",
+    "Dynamic equilibrium": "Equilibrium",
     "Le Chatelier's principle": "Equilibrium",
     "Equilibrium calculations and composition": "Equilibrium",
     "Acid-base theories": "Acids and bases",
     "pH, strong and weak acids and bases, Ka and Kb": "Acids and bases",
     "Buffers and salt hydrolysis": "Acids and bases",
     "Titrations, curves and indicators": "Acids and bases",
+    "Redox titration and corrosion": "Redox and electrochemistry",
     "Electrochemical cells and potentials": "Redox and electrochemistry",
     "Electrolysis, batteries and fuel cells": "Redox and electrochemistry",
     "Synthesis and mechanisms": "Organic chemistry and molecular analysis",
     "Experimental design, safety and evaluation": "Measurement, data and practical work",
+    "Analytical techniques": "Measurement, data and practical work",
     "Uncertainty and error": "Measurement, data and practical work",
     "Graphical and data processing": "Measurement, data and practical work"
   }
