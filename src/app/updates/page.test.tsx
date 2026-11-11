@@ -64,8 +64,8 @@ describe("Updates page", () => {
     expect(container.querySelector('a[href^="/past-papers"]')).toBeNull();
   });
 
-  it("advertises the newest updates from the last month", () => {
-    const notable = UPDATES;
+  it("advertises the newest headline updates from the last month, skipping fixes", () => {
+    const notable = UPDATES.filter((update) => update.tag !== "Improvement");
     const after = (days: number) => new Date(new Date(`${notable[0].date}T12:00:00Z`).getTime() + days * 86_400_000);
     const news = recentNews(3, after(1));
     expect(news.map(({ title }) => title)).toEqual(notable.slice(0, 3).map(({ title }) => title));
