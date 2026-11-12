@@ -45,12 +45,35 @@ describe("serverless performance boundaries", () => {
       "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
       "/account/:path*",
       "/dashboard/:path*",
-      "/pricing",
+      // /pricing is CDN-served; only the dev-only preview fence stays in the proxy.
       "/pricing/preview",
       "/login",
       "/auth/:path*",
       "/api/((?!assets/free$).*)",
     ]);
+  });
+
+  it("serves /pricing from the CDN and reads signed-in plan state in the browser", () => {
+    const page = source("src/app/pricing/page.tsx");
+    expect(page).toContain('export const dynamic = "error"');
+    expect(page).not.toContain('from "next/headers"');
+    expect(page).not.toContain('from "@/lib/supabase/server"');
+    expect(page).not.toMatch(/searchParams[?]?:/);
+    expect(page).not.toContain("await searchParams");
+    expect(config.matcher).not.toContain("/pricing");
+    expect(source("src/components/PricingPageClient.tsx")).toContain('fetch("/api/pricing/account"');
+    expect(source("src/app/api/pricing/account/route.ts")).toContain('"Cache-Control": "private, no-store, max-age=0"');
+    // The signed-out CDN default is hidden before first paint when the browser will show something else.
+    const css = source("src/app/globals.css");
+    expect(css).toContain(":root[data-session] .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro),");
+    expect(css).toContain(":root[data-pricing-intent] .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro) { visibility: hidden;");
+  });
+
+  it("does not viewport-prefetch the per-request /login page from pricing", () => {
+    // /login renders per request with no loading.tsx, so a prefetch runs its function and keeps nothing.
+    for (const file of ["src/components/BillingActions.tsx", "src/components/PricingBankFocus.tsx", "src/components/PricingContent.tsx"]) {
+      for (const link of source(file).match(/<Link\b[^>]*\/login[^>]*>/g) ?? []) expect(link, file).toContain("prefetch={false}");
+    }
   });
 
   it("keeps the cacheable free asset route out of session middleware", () => {

@@ -1,15 +1,8 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { PricingContent } from "@/components/PricingContent";
-import { isUpgradePlacement } from "@/lib/upgrade-copy";
-import { hasBankAccess, type AccessEntitlement, type ProductId } from "@/lib/access";
-import { hasComplimentaryAllAccess } from "@/lib/complimentary-access";
-import { getBillingBanks, getEntitlementBanks, type BankSlug } from "@/lib/banks";
-import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
+import { PricingPageClient } from "@/components/PricingPageClient";
+import { getBillingBanks } from "@/lib/banks";
+import { PRICING_INTENT_HINT_SCRIPT } from "@/lib/pricing-intent";
 import { socialPreview } from "@/lib/seo";
-import { createClient } from "@/lib/supabase/server";
-import { isFutureIssuedJwtError } from "@/lib/access-recovery";
-import { captureServerException } from "@/lib/server-error-tracking";
 import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 
 export const metadata: Metadata = {
@@ -25,91 +18,15 @@ export const metadata: Metadata = {
   },
 };
 
-const PURCHASABLE_PRODUCTS: readonly ProductId[] = [
-  "bank_igcse", "bank_igcse_additional", "bank_ib_hl", "bank_ib_sl", "bank_ib_ai_hl", "bank_ib_ai_sl",
-  "bank_ib_chemistry_hl", "bank_ib_chemistry_sl", "bank_ib_physics_hl", "bank_ib_physics_sl", "bank_ib_biology_hl", "bank_ib_biology_sl", "bank_igcse_biology_0610", "bank_igcse_economics_0455", "bank_igcse_chemistry_0620", "bank_igcse_physics_0625", "bank_igcse_coordinated_sciences_0654", "bank_igcse_computer_science_0478", "bank_ib_computer_science_hl", "bank_ib_computer_science_sl", "bundle_igcse", "bundle_ib_aa", "bundle_ib_ai", "bundle_ib_chemistry", "bundle_ib_physics", "bundle_ib_biology", "bundle_all", "bundle_custom",
-];
+// Served from the CDN: no cookies, headers or searchParams here. The URL's selection and the
+// signed-in plan state are applied in the browser (PricingPageClient, /api/pricing/account).
+// "error" fails the build if a request-time API is ever reintroduced.
+export const dynamic = "error";
 
-function purchaseBanks(value: string | undefined): BankSlug[] | undefined {
-  if (!value) return undefined;
-  const ids = value.split(",");
-  const billingBanks = getBillingBanks();
-  const selected = ids.filter((id, index) => ids.indexOf(id) === index && billingBanks.some((bank) => bank.slug === id));
-  return selected.length ? selected as BankSlug[] : undefined;
-}
-
-function purchaseProduct(value: string | undefined): ProductId | undefined {
-  return PURCHASABLE_PRODUCTS.find((productId) => productId === value);
-}
-
-export default async function PricingPage({ searchParams }: { searchParams: Promise<{ interval?: string; product?: string; banks?: string; plan?: string; from?: string; checkout?: string }> }) {
-  const params = await searchParams;
-  const billingBanks = getBillingBanks();
-  const supabase = await createClient();
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
-  let hasPaidAccess = false;
-  let ownedBankIds: BankSlug[] = [];
-  let currentPlanNames: string[] = [];
-  let currentPlanProductIds: ProductId[] = [];
-  let complimentaryAccess = false;
-  let manualAccess = false;
-  let activeStripeAccess = false;
-
-  if (userId) {
-    const result = await fetchAccessEntitlements(supabase as never, userId);
-    if (result.error) {
-      // PostgREST 14.5 can retain a stale JWT validation clock. Its PGRST303
-      // may outlast the bounded read retry; never guess the subscriber's access
-      // or offer checkout when the access lookup could not be completed.
-      if (isFutureIssuedJwtError(result.error)) {
-        captureServerException(new Error("Access verification failed"), {
-          route: "/pricing", route_type: "render", stage: "entitlement",
-          storage_provider: "supabase", error_code: "PGRST303", user_id: userId,
-        });
-        return <div className="public-surface"><section className="auth-page shell"><div className="auth-card" role="alert">
-          <p className="eyebrow">Access check delayed</p>
-          <h1>We couldn&apos;t check your access.</h1>
-          <p>Your account hasn&apos;t changed. Please try again in a moment.</p>
-          <Link className="button primary" href="/pricing">Try again</Link>
-        </div></section></div>;
-      }
-      throw result.error;
-    }
-    const entitlements = result.rows as (AccessEntitlement & { source?: string; products?: { name?: string } | { name?: string }[] | null })[];
-    ownedBankIds = billingBanks.filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
-    hasPaidAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
-    const currentEntitlements = entitlements.filter((row) => billingBanks.some(({ slug }) => hasBankAccess(slug, [row])));
-    manualAccess = currentEntitlements.some((row) => row.source === "manual");
-    activeStripeAccess = currentEntitlements.some((row) => row.source === "stripe");
-    currentPlanProductIds = currentEntitlements.map(({ productId }) => productId);
-    // A manual All Access grant remains complimentary when stale/expired Stripe rows
-    // are present, but a separately active Stripe entitlement remains billable.
-    complimentaryAccess = hasPaidAccess && hasComplimentaryAllAccess(entitlements) && !activeStripeAccess;
-    currentPlanNames = Array.from(new Set(currentEntitlements.flatMap((row) => {
-      const product = Array.isArray(row.products) ? row.products[0] : row.products;
-      return product?.name ? [product.name] : [];
-    })));
-  }
-
+export default function PricingPage() {
   const updated = lastUpdated();
-  const hasExplicitAddonIntent = Boolean(purchaseProduct(params.product) || purchaseBanks(params.banks)?.length);
-  return <PricingContent
-    authenticated={Boolean(userId)}
-    hasPaidAccess={hasPaidAccess}
-    addOnIntent={hasExplicitAddonIntent}
-    ownedBankIds={ownedBankIds}
-    currentPlanNames={currentPlanNames}
-    currentPlanProductIds={currentPlanProductIds}
-    complimentaryAccess={complimentaryAccess}
-    manualAccess={!activeStripeAccess && manualAccess}
-    initialInterval={params.interval === "annual" ? "annual" : "monthly"}
-    initialLifetimeSelected={params.plan === "lifetime"}
-    initialProductId={purchaseProduct(params.product)}
-    initialBankIds={purchaseBanks(params.banks)}
-    availableBanks={billingBanks}
-    source={isUpgradePlacement(params.from) ? params.from : undefined}
-    checkoutStatus={params.checkout === "cancelled" ? "cancelled" : undefined}
-    updated={updated ? { date: updated, label: formatUpdateDate(updated) } : undefined}
-  />;
+  return <>
+    <script dangerouslySetInnerHTML={{ __html: PRICING_INTENT_HINT_SCRIPT }} />
+    <PricingPageClient availableBanks={getBillingBanks()} updated={updated ? { date: updated, label: formatUpdateDate(updated) } : undefined} />
+  </>;
 }

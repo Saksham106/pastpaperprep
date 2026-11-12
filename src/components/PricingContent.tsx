@@ -79,7 +79,7 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
   return <div className="pricing-bank-table-wrap"><table className="pricing-bank-table" aria-label="Question bank coverage"><thead><tr><th scope="col">Question bank</th><th scope="col">Questions</th><th scope="col">Papers</th><th scope="col">Coverage</th><th scope="col"><span className="sr-only">Preview</span></th></tr></thead><tbody>{banks.map((bank) => { const tone = courseToneForBank(bank); const free = hasFreeTier(bank.slug); return <tr className={`course-tone-${tone}`} data-pricing-bank={bank.slug} data-has-free-tier={free ? "true" : undefined} key={bank.slug}><th scope="row"><div className="pricing-bank-name"><CourseIcon tone={tone} /><div><span>{bank.qualification}</span><strong>{bank.shortName}</strong></div></div></th><td data-label="Questions">{bank.questionCount.toLocaleString("en-US")}</td><td data-label="Papers">{bank.paperCount}</td><td data-label="Coverage">{bank.years}</td><td className="pricing-bank-preview">{free ? <Link href={bankEntryHref(bank.slug)} aria-label={`Preview ${bank.shortName}`}>Preview</Link> : <span className="pricing-bank-no-preview" aria-hidden="true">-</span>}</td></tr>; })}</tbody></table></div>;
 }
 
-export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus, updated }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled"; updated?: { date: string; label: string } }) {
+export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus, updated, staticFallback = false }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled"; updated?: { date: string; label: string }; /** The CDN's signed-out HTML, replaced in the browser before it is interactive. */ staticFallback?: boolean }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
   // Client navigation (e.g. the "add another subject" chips) changes these props without
@@ -124,7 +124,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
   const initialCustomBankIds = initialBankIds ?? (initialBankId ? [initialBankId] : undefined);
   const funnelReportedRef = useRef(false);
   useEffect(() => {
-    if (funnelReportedRef.current) return;
+    // The CDN fallback is never the page a visitor uses; the browser's own render reports the view.
+    if (funnelReportedRef.current || staticFallback) return;
     funnelReportedRef.current = true;
     trackProductEvent("pricing_view", {
       ...(initialProductId ? { product: initialProductId } : {}),
@@ -267,7 +268,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
   return (
     <div className="public-surface">
-      <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`}>
+      <section ref={pricingPageRef} className={`simple-page pricing-page shell${lifetimeSelected ? " pricing-page-lifetime" : ""}`} data-pricing-fallback={staticFallback ? "true" : undefined}>
         <header className="pricing-recurring-intro" aria-label="Pricing plans">
           <h1>Invest in your future.</h1>
           <p>Start free. A plan unlocks the latest papers and every mark scheme.</p>
@@ -328,7 +329,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             <h2 id="pricing-referral-heading">Refer friends. Get plan credit.</h2>
             <p>Eligible referrals can earn a month of credit toward a paid plan after review.</p>
           </div>
-          <Link className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
+          <Link prefetch={false} className="button secondary" href={authenticated ? "/account/referrals" : "/login?next=/account/referrals"}>See referral rewards <span aria-hidden="true">↗</span></Link>
         </section> : null}
 
         {!hasPaidAccess ? <section className="pricing-faq" aria-labelledby="pricing-faq-heading">

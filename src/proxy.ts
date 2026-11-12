@@ -37,7 +37,8 @@ export const config = {
     "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
     "/account/:path*",
     "/dashboard/:path*",
-    "/pricing",
+    // /pricing itself is CDN-served and reads the session through /api/pricing/account;
+    // a proxy match would put a function in front of every cache hit.
     "/pricing/preview",
     "/login",
     "/auth/:path*",

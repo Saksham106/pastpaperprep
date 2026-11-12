@@ -2232,6 +2232,15 @@ main { min-height: 72vh; }
 .pricing-page { position: relative; display: flow-root; isolation: isolate; }
 .pricing-page.pricing-page-lifetime::before { content: ""; position: absolute; z-index: 0; top: 0; left: calc(50% - 50vw); width: 100vw; height: var(--lifetime-scene-height, 820px); pointer-events: none; background: #eee6d7 url('/artwork/lifetime-philosopher-cathedral.webp') center top / cover no-repeat; }
 .pricing-page > * { position: relative; z-index: 1; }
+/* /pricing's CDN HTML is the signed-out default. When the browser will show a session's plan or the
+   URL's selection instead, keep the default out of sight so nothing visibly swaps or moves. */
+:root[data-session] .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro),
+:root[data-pricing-intent] .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro) { visibility: hidden; }
+/* Signed-out visitors only: if the page script never runs, show the default plans rather than a
+   blank page. A session never sees the signed-out offer in place of its own plan. */
+:root[data-pricing-intent]:not([data-session]) .pricing-page[data-pricing-fallback] > :not(.pricing-recurring-intro) { animation: pricing-fallback-reveal 0s linear 6s forwards; }
+@keyframes pricing-fallback-reveal { to { visibility: visible; } }
+.pricing-page > .pricing-account-pending { min-height: 100vh; }
 .pricing-page.pricing-page-lifetime .pricing-recurring-intro h1 { color: #172337; }
 .pricing-page.pricing-page-lifetime .pricing-recurring-intro p { color: #465262; }
 .pricing-page .pricing-opening-lifetime .lifetime-scenic,

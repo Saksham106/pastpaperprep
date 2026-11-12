@@ -254,7 +254,7 @@ export function CheckoutButton({
         {pending ? "Opening checkout…" : label ?? `Choose ${interval}`}
       </button>
       {needsLogin ? (
-        <Link href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}${customBankQuery}`)}`}>
+        <Link prefetch={false} href={`/login?next=${encodeURIComponent(`/pricing?interval=${interval}&product=${productId}${customBankQuery}`)}`}>
           Sign in to continue
         </Link>
       ) : null}
@@ -293,7 +293,7 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
   if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Access is already active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
   if (eligibility === "payment_issue") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><CheckoutErrorNotice error={copyForCheckoutError("PAYMENT_ISSUE")} navigate={navigate} /></div>;
   if (eligibility === "billing_support" || eligibility === "error") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><p className="custom-bundle-selection-note">We couldn’t safely verify this billing arrangement. Manage billing or contact support before purchasing.</p></div>;
-  if (!authenticated) return <Link className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
+  if (!authenticated) return <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {
     if (pending) return;
     setPending(true); setError(null);
@@ -308,7 +308,7 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
     } catch { setError(responseStatus === undefined ? NETWORK_ERROR_COPY : checkoutErrorCopy(responseStatus, {})); }
     finally { setPending(false); }
   }
-  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{eligibility === "conversion_eligible" ? <p className="custom-bundle-selection-note">After this payment is verified, your current subscription renewals stop. No automatic credit or refund for prepaid time.</p> : null}{needsLogin ? <Link href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <CheckoutErrorNotice error={error} navigate={navigate} /> : null}</div>;
+  return <div className="billing-actions"><button className="button primary" type="button" disabled={pending} onClick={start}>{pending ? "Opening secure checkout…" : "Unlock lifetime access"}</button>{eligibility === "conversion_eligible" ? <p className="custom-bundle-selection-note">After this payment is verified, your current subscription renewals stop. No automatic credit or refund for prepaid time.</p> : null}{needsLogin ? <Link prefetch={false} href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Sign in to continue</Link> : null}{error ? <CheckoutErrorNotice error={error} navigate={navigate} /> : null}</div>;
 }
 
 export function CheckoutButtons({ productId, navigate = defaultNavigate }: { productId: ProductId; navigate?: Navigate }) {
@@ -355,7 +355,7 @@ export function PlanCheckout({
           {hasPaidAccess ? <><p className="custom-bundle-selection-note">This starts a separate All Access subscription. Your existing subscription keeps renewing unless you cancel it in Manage billing.</p><label className="custom-bundle-selection-note"><input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledged(event.target.checked)} /> I understand my existing subscriptions keep renewing alongside this new All Access subscription.</label></> : null}
           {hasPaidAccess && !acknowledged ? null : <CheckoutButton interval={interval} productId={productId} label={hasPaidAccess ? ctaLabel : undefined} acknowledgeSeparateSubscription={hasPaidAccess && acknowledged} />}
         </>
-        : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{ctaLabel}</Link>}
+        : <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId })}>{ctaLabel}</Link>}
     </div>
   );
 }
@@ -475,7 +475,7 @@ export function CustomBundleCheckout({
           ? mode === "single"
             ? singleProductId ? <CheckoutButton interval={interval} productId={singleProductId} label={resolvedCtaLabel} /> : null
             : <CheckoutButton interval={interval} productId="bundle_custom" selectedBankIds={bankSelection} label={resolvedCtaLabel} acknowledgeSeparateSubscription={hasPaidAccess && acknowledged} />
-          : <Link className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId: mode === "single" ? singleProductId ?? "single_bank" : "bundle_custom", bankCount: bankSelection.length })}>{resolvedCtaLabel}</Link>}
+          : <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent(pricingReturn)}`} onClick={() => trackProductEvent("checkout_auth_required", { interval, productId: mode === "single" ? singleProductId ?? "single_bank" : "bundle_custom", bankCount: bankSelection.length })}>{resolvedCtaLabel}</Link>}
         </>}
       </> : null}
     </div>

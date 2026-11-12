@@ -18,7 +18,7 @@ export type BrowserErrorContext = {
 };
 
 // What our layout, next-themes and scroll locks put on <html> and <body>; anything else came from outside.
-const OWN_ROOT_ATTRIBUTES = new Set(["lang", "class", "style", "data-theme", "data-session", "data-build-revision"]);
+const OWN_ROOT_ATTRIBUTES = new Set(["lang", "class", "style", "data-theme", "data-session", "data-pricing-intent", "data-build-revision"]);
 // Custom elements Next renders itself.
 const OWN_ELEMENTS = new Set(["NEXT-ROUTE-ANNOUNCER", "NEXTJS-PORTAL"]);
 const MAX_FOREIGN_ELEMENTS = 50;
