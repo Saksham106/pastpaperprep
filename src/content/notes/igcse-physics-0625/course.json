@@ -24,6 +24,7 @@
     }
   },
   "gate": {
+    "physics": true,
     "sidecars": "scripts/notes/sidecars/igcse-physics-0625",
     "packs": "course-notes-0625/packs",
     "glossaryPlan": "course-notes-0625/glossary-plan.json"
@@ -42,12 +43,40 @@
     "bankPhrase": "in the 0625 {level} papers"
   },
   "topics": [
-    { "n": 1, "slug": "motion-forces-and-energy", "name": "Motion, forces and energy" },
-    { "n": 2, "slug": "thermal-physics", "name": "Thermal physics" },
-    { "n": 3, "slug": "waves", "name": "Waves" },
-    { "n": 4, "slug": "electricity-and-magnetism", "name": "Electricity and magnetism" },
-    { "n": 5, "slug": "nuclear-physics", "name": "Nuclear physics" },
-    { "n": 6, "slug": "space-physics", "name": "Space physics" },
-    { "n": 7, "slug": "experimental-skills", "name": "Experimental skills" }
+    {
+      "n": 1,
+      "slug": "motion-forces-and-energy",
+      "name": "Motion, forces and energy"
+    },
+    {
+      "n": 2,
+      "slug": "thermal-physics",
+      "name": "Thermal physics"
+    },
+    {
+      "n": 3,
+      "slug": "waves",
+      "name": "Waves"
+    },
+    {
+      "n": 4,
+      "slug": "electricity-and-magnetism",
+      "name": "Electricity and magnetism"
+    },
+    {
+      "n": 5,
+      "slug": "nuclear-physics",
+      "name": "Nuclear physics"
+    },
+    {
+      "n": 6,
+      "slug": "space-physics",
+      "name": "Space physics"
+    },
+    {
+      "n": 7,
+      "slug": "experimental-skills",
+      "name": "Experimental skills"
+    }
   ]
 }

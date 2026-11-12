@@ -53,9 +53,11 @@ export type CourseConfig = {
   practice: PracticeConfig;
   /**
    * Lesson gate inputs: the sidecar folder (repo-relative), the source-pack folder and the glossary plan (both
-   * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from.
+   * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from. `physics` /
+   * `chemistry` give check-math.py the science names (phys_data.py, chem_data.py) for a course whose edition does not
+   * start "ib-physics" / "ib-chemistry".
    */
-  gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[] };
+  gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[]; physics?: boolean; chemistry?: boolean };
   /** Calculator models, in tab order; every calculator block gives steps for exactly these ids. None: no calculator blocks. */
   calculators: CalculatorModel[];
   copy: CourseCopy;
