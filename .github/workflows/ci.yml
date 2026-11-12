@@ -64,7 +64,7 @@ jobs:
             files=(src/content/notes/"$course"/lessons/*.json)
             for file in "${files[@]}"; do
               name=$(basename "$file" .json)
-              item="${name/-/.}"
+              item="${name//-/.}"
               out=$(python scripts/notes/check-math.py --course "$course" "$item") || fail=1
               echo "== $course $item"; echo "$out"
               if grep -q '^FAIL' <<<"$out"; then fail=1; fi

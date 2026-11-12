@@ -9,12 +9,13 @@ import type { CourseLevels, PerView } from "./types";
  *   extension view, where `{item}` is the lesson's item ("C{item}" for 1.1 is "C1.1").
  * - `bank-subtopics`: each item names one bank subtopic label (`practice` in the items file); a lesson practises it in
  *   the base level's bank in the base view and the extension level's bank in the extension view. Counts come from
- *   src/data/notes-practice/<course>.json (`npm run generate:notes-practice`).
+ *   src/data/notes-practice/<course>.json (`npm run generate:notes-practice`). `routes` (IGCSE: one bank for both levels)
+ *   names each level's Core / Extended route, so a level's links and counts open only that route's questions.
  */
 export type PracticeConfig =
   | { kind: "aa-items" }
   | { kind: "official-codes"; source: "igcse-0580-section-retrieval-v3"; refPrefix: string; codes: PerView<string> }
-  | { kind: "bank-subtopics" };
+  | { kind: "bank-subtopics"; routes?: Record<string, "core" | "extended"> };
 
 /** Words that differ per course. Everything else is built from `name` and the level labels. */
 export type CourseCopy = {

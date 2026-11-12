@@ -5,9 +5,10 @@ import ibMathAaJson from "@/content/notes/ib-math-aa/course.json";
 import ibMathAiJson from "@/content/notes/ib-math-ai/course.json";
 import ibPhysicsJson from "@/content/notes/ib-physics/course.json";
 import igcseMaths0580Json from "@/content/notes/igcse-maths-0580/course.json";
+import igcsePhysics0625Json from "@/content/notes/igcse-physics-0625/course.json";
 
 /** Every course's slug and publish flag (the JSON objects themselves, so tests can flip `published`). */
-export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson, igcseMaths0580Json, ibChemistryJson, ibPhysicsJson, ibMathAiJson];
+export const COURSE_FLAGS: readonly { slug: string; published: boolean }[] = [ibMathAaJson, igcseMaths0580Json, ibChemistryJson, ibPhysicsJson, ibMathAiJson, igcsePhysics0625Json];
 
 /** The IB Maths AA notes, linked from the footer and the IB hub. */
 export const NOTES_INDEX_HREF = `/revision-notes/${ibMathAaJson.slug}`;

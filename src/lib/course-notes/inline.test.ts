@@ -13,6 +13,9 @@ describe("parseInline", () => {
       { kind: "text", value: "." },
     ]);
   });
+  it("reads a three-level item (IGCSE Physics 1.5.1)", () => {
+    expect(parseInline("see {{lesson:1.5.1}}")).toEqual([{ kind: "text", value: "see " }, { kind: "lesson", item: "1.5.1" }]);
+  });
   it("keeps an escaped dollar as text", () => {
     expect(parseInline("Costs \\$5 and $y$")).toEqual([{ kind: "text", value: "Costs $5 and " }, { kind: "math", tex: "y" }]);
   });

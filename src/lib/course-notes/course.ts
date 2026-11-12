@@ -44,7 +44,7 @@ export const coursePath = (course: Pick<Course, "slug">): string => `/revision-n
 
 export const topicPath = (course: Course, topic: number): string => `${coursePath(course)}/${topicSlug(course, topic)}`;
 
-export const lessonPath = (course: Course, lesson: Lesson): string => `${topicPath(course, lesson.topic)}/${lesson.item.replace(".", "-")}-${lesson.slug}`;
+export const lessonPath = (course: Course, lesson: Lesson): string => `${topicPath(course, lesson.topic)}/${lesson.item.replaceAll(".", "-")}-${lesson.slug}`;
 
 export const isCourseVisible = (course: Course): boolean => isVisibleWhen(course.published);
 

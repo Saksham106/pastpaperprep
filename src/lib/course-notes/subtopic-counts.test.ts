@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { hasFreeTier } from "@/lib/access";
+import { matchesCourseRoute } from "@/lib/course-route";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import type { BankSlug } from "@/lib/banks";
 import { parseExplorerState } from "@/lib/explorer-state";
@@ -26,6 +27,7 @@ function loadIndex(bank: string) {
 describe.each(COURSES.filter((course) => course.practice.kind === "bank-subtopics").map((course) => [course.slug, course] as const))("%s practice by bank subtopic", (slug, course) => {
   const file = subtopicPracticeFile(course);
   const levels = [course.levels.labels.base, course.levels.labels.extension];
+  const routes = course.practice.kind === "bank-subtopics" ? course.practice.routes : undefined;
 
   it("every item names a practice label, and the generated file is up to date (npm run generate:notes-practice)", async () => {
     for (const entry of course.items.items) expect(entry.practice?.trim(), entry.item).toBeTruthy();
@@ -61,7 +63,10 @@ describe.each(COURSES.filter((course) => course.practice.kind === "bank-subtopic
         expect(state.freeOnly, entry.item).toBe(false);
         expect(state.filters.subtopics, entry.item).toEqual([entry.practice]);
         expect(Object.keys(state.filters), entry.item).toEqual(["subtopics"]);
-        const shown = filterQuestions(indexes[bank], { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).length;
+        // A routed link (IGCSE Core / Extended) keeps only that route's questions, as the explorer does.
+        expect(state.courseRoute, entry.item).toBe(routes?.[course.levels.labels[view]] ?? "all");
+        const routed = indexes[bank].filter((question) => matchesCourseRoute(question.syllabusRoute, state.courseRoute));
+        const shown = filterQuestions(routed, { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).length;
         if (shown !== practice.counts[view]) mismatches.push(`${entry.item} ${view}: link ${shown} vs advertised ${practice.counts[view]}`);
       }
       expect(mismatches).toEqual([]);
