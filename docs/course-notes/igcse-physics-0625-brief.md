@@ -103,10 +103,10 @@ Each example and check carries `"verify": { "kind": …, "truth": …, …option
 - **Originality.** Invent every example and check from scratch, with different objects, contexts and numbers from every pack question. A lint fails any block that shares 3 or more numbers, at least 2 of them not round, with one part of a pack question, and any 8-word run copied from the pack (syllabus statements included).
 - **Glossary links.** The first prose use of every planned term you own or use must be a `[[id|label]]` link; `validate-lesson.mjs --fix` adds missing ones. Link to terms other items own; never define them.
 - **Prerequisites:** start from the pack's `prerequisites`.
-- **Reading time and examples.**
-  - Run `validate-lesson.mjs --fix`: it sets `readingMinutes`.
-  - Every teaching section has **two worked examples** plus its checks (one example may sit in an Extended part). Most lessons need at least one calculation example per section where the section has an equation; descriptive statements need an explanation example.
-  - Bands by statements: 1–3 → 10–18 min, 4–8 → 15–25, 9+ → 20–30. A lesson over its band is fine when the extra time is worked examples. Never cut an example to fit; cut repetition.
+- **Sections, examples and reading time.** The pilot's first lessons ran 36–46 minutes, against 20–30 for earlier courses: too long for a 14–16-year-old. Keep lessons focused:
+  - **Group related statements into few teaching sections:** 1–3 statements → 2–3 sections; 4–8 → 3–4; 9+ → 4–6. A section per statement is too many.
+  - **Worked examples:** two in a section that teaches a calculation or a question type the papers ask often; one in a short descriptive section. Every section still has at least one check.
+  - **Length:** run `validate-lesson.mjs --fix` (it sets `readingMinutes`). Aim for 15–25 minutes up to 8 statements and 20–30 for 9+, with the Core path (what a Core student sees) under 25 minutes. Never more than 35 minutes in all. If you're over, merge sections and cut repetition and wordy prose first; then drop the weaker of two similar examples, never the only example of a question type.
 - **Interactives:** none for this course.
 - **Mistakes and exam tips.**
   - Ground mistakes in the pack's mistakes and the misconceptions below, rewritten.
@@ -142,7 +142,7 @@ Read the lesson blind, against the pack, `review-errata.md` and this brief. Work
 5. **Teaching.** A stuck 14-year-old could follow it. Checks are worth doing and their hints help. Figures match the text and alt text.
 6. **Originality:** no pack set-up, object-and-number combination or syllabus wording reused.
 
-Run `validate-lesson.mjs`, then probe one example or multiple-choice id with a wrong answer: `check-math.py --course igcse-physics-0625 --verify <item> <id> '<wrong tex>'` must FAIL.
+Run `validate-lesson.mjs`, then probe one example or multiple-choice id with a wrong answer: `../../../research/aa-course-notes/.venv/bin/python scripts/notes/check-math.py --course igcse-physics-0625 --verify <item> <id> '<wrong tex>'` must FAIL (the system `python3` has no SymPy).
 
 **You fix minors yourself.** Edit only this item's lesson, glossary and figure files, re-run `validate-lesson.mjs` until it passes, and list each fix. **Don't fix criticals.** Report them with the correct physics; a fixer will act on them.
 
