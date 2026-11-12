@@ -18,7 +18,7 @@ export default async function WorksheetsPage() {
     <section className="worksheet-build-panel" aria-labelledby="worksheet-build-title">
       <span className="worksheet-build-icon" aria-hidden="true" />
       <div><h2 id="worksheet-build-title">Build a paper</h2><p>A printable mock from any bank, with its mark scheme.</p></div>
-      <Link className="button primary" href="/worksheets/build">Start building <span aria-hidden="true">→</span></Link>
+      <Link prefetch={false} className="button primary" href="/worksheets/build">Start building <span aria-hidden="true">→</span></Link>
     </section>
     <WorksheetList bankLabels={bankLabels} />
   </div>;

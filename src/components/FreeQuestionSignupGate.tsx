@@ -47,7 +47,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
       </p>
       <Testimonial testimonial={SIGNUP_GATE_TESTIMONIAL} variant="inline" />
       <div className="free-question-gate-actions">
-        <Link className="button primary" href={signupHref} onClick={() => trackProductEvent("free_gate_signup_click", eventProperties)}>
+        <Link prefetch={false} className="button primary" href={signupHref} onClick={() => trackProductEvent("free_gate_signup_click", eventProperties)}>
           Create free account
         </Link>
         <Link className="button secondary" href={plansHref} onClick={() => trackUpgrade("click", bankSlug, "signup_gate")}>
@@ -55,7 +55,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
         </Link>
         <p className="free-question-gate-account-link">
           <span>Already have an account?</span>{" "}
-          <Link className="free-question-gate-signin" href={signinHref} onClick={() => trackProductEvent("free_gate_signin_click", eventProperties)}>
+          <Link prefetch={false} className="free-question-gate-signin" href={signinHref} onClick={() => trackProductEvent("free_gate_signin_click", eventProperties)}>
             Sign in
           </Link>
         </p>

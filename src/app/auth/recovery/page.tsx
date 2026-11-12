@@ -30,7 +30,7 @@ export default async function RecoveryPage({ searchParams }: { searchParams: Pro
         ) : (
           <>
             <p>This reset link is incomplete or no longer valid.</p>
-            <Link className="button primary" href="/login">Request a new reset link</Link>
+            <Link prefetch={false} className="button primary" href="/login">Request a new reset link</Link>
           </>
         )}
       </div>

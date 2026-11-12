@@ -25,7 +25,7 @@ export async function ExamStyleCoursePage({ course, title, description }: { cour
         {authenticated ? <ExamStyleWorksheetLibrary worksheets={courseInfo.worksheets} /> : (
           <section className="exam-style-auth-gate" aria-labelledby="exam-style-auth-heading">
             <span className="exam-style-auth-icon" aria-hidden="true"><LockKey weight="bold" /></span><p className="eyebrow">Free account required</p><h2 id="exam-style-auth-heading">Sign in to view this practice</h2>
-            <p>{subjectWide ? "Create a free account or sign in to open the revision notes, topic slides and activities, and exam-style/data-response practice." : "Create a free account or sign in to open the practice sets and worked solutions."}</p><Link className="button primary" href={`/login?next=${encodeURIComponent(returnPath)}`}>Sign in or create an account</Link>
+            <p>{subjectWide ? "Create a free account or sign in to open the revision notes, topic slides and activities, and exam-style/data-response practice." : "Create a free account or sign in to open the practice sets and worked solutions."}</p><Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent(returnPath)}`}>Sign in or create an account</Link>
           </section>
         )}
       </div>

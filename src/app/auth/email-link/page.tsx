@@ -48,7 +48,7 @@ export default async function EmailLinkPage({ searchParams }: { searchParams: Pr
         ) : (
           <>
             <p>This sign-in link is incomplete or no longer valid.</p>
-            <Link className="button primary" href="/login">Request a new sign-in link</Link>
+            <Link prefetch={false} className="button primary" href="/login">Request a new sign-in link</Link>
           </>
         )}
       </div>

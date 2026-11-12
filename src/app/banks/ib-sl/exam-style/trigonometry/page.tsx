@@ -40,7 +40,7 @@ export default async function TrigonometryExamStylePage() {
             <p className="eyebrow">Free account required</p>
             <h2 id="exam-style-auth-heading">Sign in to view this practice</h2>
             <p>Create a free account or sign in to open the practice sets and worked solutions.</p>
-            <Link className="button primary" href={loginHref}>Sign in or create an account</Link>
+            <Link prefetch={false} className="button primary" href={loginHref}>Sign in or create an account</Link>
           </section>
         )}
       </div>
