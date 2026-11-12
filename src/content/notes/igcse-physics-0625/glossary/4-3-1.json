@@ -1,0 +1,44 @@
+[
+  {
+    "id": "variable-resistor",
+    "term": "variable resistor",
+    "definition": "TODO: Resistor whose resistance can be changed, to control current",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "thermistor",
+    "term": "thermistor",
+    "definition": "TODO: Component whose resistance changes with temperature; NTC resistance falls as temperature rises",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "light-dependent-resistor",
+    "term": "light-dependent resistor",
+    "definition": "TODO: LDR; resistance falls as light intensity increases",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "relay",
+    "term": "relay",
+    "definition": "TODO: Switch operated by an electromagnet so a small current controls a large one",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "fuse",
+    "term": "fuse",
+    "definition": "TODO: Thin wire that melts if current is too high, breaking the circuit",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "potential-divider",
+    "term": "potential divider",
+    "definition": "TODO: Two resistors in series sharing the supply p.d. in proportion to resistance",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "light-emitting-diode",
+    "term": "light-emitting diode",
+    "definition": "TODO: LED; diode that gives out light when current flows",
+    "lesson": "4.3.1"
+  }
+]

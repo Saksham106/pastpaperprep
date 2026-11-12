@@ -1,0 +1,26 @@
+[
+  {
+    "id": "series-circuit",
+    "term": "series circuit",
+    "definition": "TODO: Components in one loop; same current everywhere, p.d. shared",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "parallel-circuit",
+    "term": "parallel circuit",
+    "definition": "TODO: Components on separate branches; branch currents add to source current, p.d. same across each",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "combined-resistance",
+    "term": "combined resistance",
+    "definition": "TODO: Series: R = R1 + R2; parallel combined resistance is less than the smallest branch",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "junction",
+    "term": "junction",
+    "definition": "TODO: Point where wires meet; current into a junction equals current out (conservation of charge)",
+    "lesson": "4.3.2"
+  }
+]

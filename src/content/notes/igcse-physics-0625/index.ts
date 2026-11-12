@@ -5,6 +5,68 @@ import type { CalculatorSnippets, CheatSheetFile, CommandTerm, GlossaryTerm, Ite
 import courseJson from "./course.json";
 import itemsJson from "@/content/notes/igcse-physics-0625/items.json";
 import commandTermsJson from "./command-terms.json";
+import glossary_1_1 from "./glossary/1-1.json";
+import glossary_1_2 from "./glossary/1-2.json";
+import glossary_1_3 from "./glossary/1-3.json";
+import glossary_1_4 from "./glossary/1-4.json";
+import glossary_1_5_1 from "./glossary/1-5-1.json";
+import glossary_1_5_2 from "./glossary/1-5-2.json";
+import glossary_1_5_3 from "./glossary/1-5-3.json";
+import glossary_1_6 from "./glossary/1-6.json";
+import glossary_1_7_1 from "./glossary/1-7-1.json";
+import glossary_1_7_2 from "./glossary/1-7-2.json";
+import glossary_1_7_3 from "./glossary/1-7-3.json";
+import glossary_1_7_4 from "./glossary/1-7-4.json";
+import glossary_1_8 from "./glossary/1-8.json";
+import glossary_2_1_1 from "./glossary/2-1-1.json";
+import glossary_2_1_2 from "./glossary/2-1-2.json";
+import glossary_2_1_3 from "./glossary/2-1-3.json";
+import glossary_2_2_1 from "./glossary/2-2-1.json";
+import glossary_2_2_2 from "./glossary/2-2-2.json";
+import glossary_2_2_3 from "./glossary/2-2-3.json";
+import glossary_2_3_1 from "./glossary/2-3-1.json";
+import glossary_2_3_2 from "./glossary/2-3-2.json";
+import glossary_2_3_3 from "./glossary/2-3-3.json";
+import glossary_2_3_4 from "./glossary/2-3-4.json";
+import glossary_3_1 from "./glossary/3-1.json";
+import glossary_3_2_1 from "./glossary/3-2-1.json";
+import glossary_3_2_2 from "./glossary/3-2-2.json";
+import glossary_3_2_3 from "./glossary/3-2-3.json";
+import glossary_3_2_4 from "./glossary/3-2-4.json";
+import glossary_3_3 from "./glossary/3-3.json";
+import glossary_3_4 from "./glossary/3-4.json";
+import glossary_4_1 from "./glossary/4-1.json";
+import glossary_4_2_1 from "./glossary/4-2-1.json";
+import glossary_4_2_2 from "./glossary/4-2-2.json";
+import glossary_4_2_3 from "./glossary/4-2-3.json";
+import glossary_4_2_4 from "./glossary/4-2-4.json";
+import glossary_4_2_5 from "./glossary/4-2-5.json";
+import glossary_4_3_1 from "./glossary/4-3-1.json";
+import glossary_4_3_2 from "./glossary/4-3-2.json";
+import glossary_4_3_3 from "./glossary/4-3-3.json";
+import glossary_4_4 from "./glossary/4-4.json";
+import glossary_4_5_1 from "./glossary/4-5-1.json";
+import glossary_4_5_2 from "./glossary/4-5-2.json";
+import glossary_4_5_3 from "./glossary/4-5-3.json";
+import glossary_4_5_4 from "./glossary/4-5-4.json";
+import glossary_4_5_5 from "./glossary/4-5-5.json";
+import glossary_4_5_6 from "./glossary/4-5-6.json";
+import glossary_5_1_1 from "./glossary/5-1-1.json";
+import glossary_5_1_2 from "./glossary/5-1-2.json";
+import glossary_5_2_1 from "./glossary/5-2-1.json";
+import glossary_5_2_2 from "./glossary/5-2-2.json";
+import glossary_5_2_3 from "./glossary/5-2-3.json";
+import glossary_5_2_4 from "./glossary/5-2-4.json";
+import glossary_5_2_5 from "./glossary/5-2-5.json";
+import glossary_6_1_1 from "./glossary/6-1-1.json";
+import glossary_6_1_2 from "./glossary/6-1-2.json";
+import glossary_6_2_1 from "./glossary/6-2-1.json";
+import glossary_6_2_2 from "./glossary/6-2-2.json";
+import glossary_6_2_3 from "./glossary/6-2-3.json";
+import glossary_7_1 from "./glossary/7-1.json";
+import glossary_7_2 from "./glossary/7-2.json";
+import glossary_7_3 from "./glossary/7-3.json";
+import glossary_7_4 from "./glossary/7-4.json";
 
 export const course = courseJson as CourseConfig;
 
@@ -16,7 +78,7 @@ export const calculatorSnippets: CalculatorSnippets = {};
 
 export const lessons = [] as unknown as Lesson[];
 
-export const glossary: GlossaryTerm[] = mergeGlossary({ });
+export const glossary: GlossaryTerm[] = mergeGlossary({ "1-1": glossary_1_1 as GlossaryTerm[], "1-2": glossary_1_2 as GlossaryTerm[], "1-3": glossary_1_3 as GlossaryTerm[], "1-4": glossary_1_4 as GlossaryTerm[], "1-5-1": glossary_1_5_1 as GlossaryTerm[], "1-5-2": glossary_1_5_2 as GlossaryTerm[], "1-5-3": glossary_1_5_3 as GlossaryTerm[], "1-6": glossary_1_6 as GlossaryTerm[], "1-7-1": glossary_1_7_1 as GlossaryTerm[], "1-7-2": glossary_1_7_2 as GlossaryTerm[], "1-7-3": glossary_1_7_3 as GlossaryTerm[], "1-7-4": glossary_1_7_4 as GlossaryTerm[], "1-8": glossary_1_8 as GlossaryTerm[], "2-1-1": glossary_2_1_1 as GlossaryTerm[], "2-1-2": glossary_2_1_2 as GlossaryTerm[], "2-1-3": glossary_2_1_3 as GlossaryTerm[], "2-2-1": glossary_2_2_1 as GlossaryTerm[], "2-2-2": glossary_2_2_2 as GlossaryTerm[], "2-2-3": glossary_2_2_3 as GlossaryTerm[], "2-3-1": glossary_2_3_1 as GlossaryTerm[], "2-3-2": glossary_2_3_2 as GlossaryTerm[], "2-3-3": glossary_2_3_3 as GlossaryTerm[], "2-3-4": glossary_2_3_4 as GlossaryTerm[], "3-1": glossary_3_1 as GlossaryTerm[], "3-2-1": glossary_3_2_1 as GlossaryTerm[], "3-2-2": glossary_3_2_2 as GlossaryTerm[], "3-2-3": glossary_3_2_3 as GlossaryTerm[], "3-2-4": glossary_3_2_4 as GlossaryTerm[], "3-3": glossary_3_3 as GlossaryTerm[], "3-4": glossary_3_4 as GlossaryTerm[], "4-1": glossary_4_1 as GlossaryTerm[], "4-2-1": glossary_4_2_1 as GlossaryTerm[], "4-2-2": glossary_4_2_2 as GlossaryTerm[], "4-2-3": glossary_4_2_3 as GlossaryTerm[], "4-2-4": glossary_4_2_4 as GlossaryTerm[], "4-2-5": glossary_4_2_5 as GlossaryTerm[], "4-3-1": glossary_4_3_1 as GlossaryTerm[], "4-3-2": glossary_4_3_2 as GlossaryTerm[], "4-3-3": glossary_4_3_3 as GlossaryTerm[], "4-4": glossary_4_4 as GlossaryTerm[], "4-5-1": glossary_4_5_1 as GlossaryTerm[], "4-5-2": glossary_4_5_2 as GlossaryTerm[], "4-5-3": glossary_4_5_3 as GlossaryTerm[], "4-5-4": glossary_4_5_4 as GlossaryTerm[], "4-5-5": glossary_4_5_5 as GlossaryTerm[], "4-5-6": glossary_4_5_6 as GlossaryTerm[], "5-1-1": glossary_5_1_1 as GlossaryTerm[], "5-1-2": glossary_5_1_2 as GlossaryTerm[], "5-2-1": glossary_5_2_1 as GlossaryTerm[], "5-2-2": glossary_5_2_2 as GlossaryTerm[], "5-2-3": glossary_5_2_3 as GlossaryTerm[], "5-2-4": glossary_5_2_4 as GlossaryTerm[], "5-2-5": glossary_5_2_5 as GlossaryTerm[], "6-1-1": glossary_6_1_1 as GlossaryTerm[], "6-1-2": glossary_6_1_2 as GlossaryTerm[], "6-2-1": glossary_6_2_1 as GlossaryTerm[], "6-2-2": glossary_6_2_2 as GlossaryTerm[], "6-2-3": glossary_6_2_3 as GlossaryTerm[], "7-1": glossary_7_1 as GlossaryTerm[], "7-2": glossary_7_2 as GlossaryTerm[], "7-3": glossary_7_3 as GlossaryTerm[], "7-4": glossary_7_4 as GlossaryTerm[] });
 
 export const cheatSheets: Record<string, CheatSheetFile> = { };
 

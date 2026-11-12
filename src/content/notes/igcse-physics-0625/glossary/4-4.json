@@ -1,0 +1,32 @@
+[
+  {
+    "id": "live-wire",
+    "term": "live wire",
+    "definition": "TODO: Carries alternating p.d. (about 230 V) relative to earth; switches and fuses must be in the live wire",
+    "lesson": "4.4"
+  },
+  {
+    "id": "neutral-wire",
+    "term": "neutral wire",
+    "definition": "TODO: Completes the circuit; at about 0 V",
+    "lesson": "4.4"
+  },
+  {
+    "id": "earth-wire",
+    "term": "earth wire",
+    "definition": "TODO: Safety wire to the metal casing; carries current to ground if live touches it",
+    "lesson": "4.4"
+  },
+  {
+    "id": "trip-switch",
+    "term": "trip switch",
+    "definition": "TODO: Circuit breaker that opens automatically when current is too high; can be reset",
+    "lesson": "4.4"
+  },
+  {
+    "id": "double-insulation",
+    "term": "double insulation",
+    "definition": "TODO: Casing non-conducting so no earth wire is needed",
+    "lesson": "4.4"
+  }
+]
