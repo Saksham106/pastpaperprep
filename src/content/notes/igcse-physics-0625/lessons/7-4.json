@@ -1,0 +1,845 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "7.4",
+  "slug": "graphs-conclusions-and-evaluation",
+  "title": "Graphs, conclusions and evaluation",
+  "level": "Core",
+  "topic": 7,
+  "summary": "After the readings come the marks for using them: calculating, plotting a graph with a [[best-fit-line|best-fit line]], reading a [[gradient|gradient]] or intercept, and writing a conclusion backed by numbers. Then you judge the experiment and suggest improvements.",
+  "goals": [
+    {
+      "text": "Process readings with a calculator, and plot a graph with labelled axes, a good scale and a [[best-fit-line|best-fit line]].",
+      "bullets": [
+        "7.4-1",
+        "7.4-2"
+      ]
+    },
+    {
+      "text": "Find a gradient or an intercept from a graph, using [[interpolation|interpolation]] and [[extrapolation|extrapolation]].",
+      "bullets": [
+        "7.4-3"
+      ]
+    },
+    {
+      "text": "Write a conclusion that quotes the data, and decide whether two results are equal within ±10%.",
+      "bullets": [
+        "7.4-4",
+        "7.4-6"
+      ]
+    },
+    {
+      "text": "Spot an [[anomaly|anomaly]], tell random from [[systematic-error|systematic error]], and say why a conclusion may be uncertain.",
+      "bullets": [
+        "7.4-5",
+        "7.4-8"
+      ]
+    },
+    {
+      "text": "Evaluate a method, including its [[control-variable|control variables]], and suggest useful improvements.",
+      "bullets": [
+        "7.4-7",
+        "7.4-9"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "7.2",
+    "7.3"
+  ],
+  "papers": [
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "line of best fit",
+    "gradient and intercept from a graph",
+    "anomalous results",
+    "random and systematic error",
+    "within the limits of experimental accuracy",
+    "suggest an improvement to the experiment"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-gradient-distance-time",
+      "prompt": "A distance–time graph is a straight line from the origin to $(40\\ \\text{s}, 120\\ \\text{m})$. What is its gradient, in m/s?",
+      "hint": "Gradient = change in distance ÷ change in time.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{120}{40} = 3\\ \\text{m/s}$: the speed. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(120 - 0)/(40 - 0)",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-independent-variable",
+      "prompt": "A student changes the length of a pendulum and times its swings. Which is the [[independent-variable|independent variable]]?",
+      "hint": "It is the one the student chooses to change.",
+      "options": [
+        {
+          "text": "the length of the pendulum",
+          "correct": true
+        },
+        {
+          "text": "the time for the swings",
+          "correct": false
+        },
+        {
+          "text": "the mass of the pendulum bob",
+          "correct": false
+        },
+        {
+          "text": "the temperature of the room",
+          "correct": false
+        }
+      ],
+      "explain": "She changes the length. The time is what she measures: the [[dependent-variable|dependent variable]]. Revise it in {{lesson:7.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the length of the pendulum"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ammeter-zero-error",
+      "prompt": "An ammeter reads $0.02\\ \\text{A}$ before the switch is closed. With the switch closed it reads $0.36\\ \\text{A}$. What is the true current, in A?",
+      "hint": "It should read zero with no current.",
+      "answer": {
+        "value": 0.34,
+        "tolerance": 0.005
+      },
+      "explain": "This is a [[zero-error|zero error]], so subtract it: $0.36 - 0.02 = 0.34\\ \\text{A}$. Revise it in {{lesson:7.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.36 - 0.02",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "processing-and-plotting",
+      "heading": "Processing data and plotting graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Readings often need a calculation first, such as a mean or $R = \\frac{V}{I}$."
+        },
+        {
+          "type": "text",
+          "text": "Give calculated values to 2 or 3 significant figures, no more than the least precise reading. Give a mean to its readings' decimal places."
+        },
+        {
+          "type": "example",
+          "id": "ex-resistance-from-meters",
+          "question": "A student reads $2.6\\ \\text{V}$ on the voltmeter and $0.38\\ \\text{A}$ on the ammeter. Calculate the resistance of the lamp, to a suitable number of significant figures.",
+          "steps": [
+            "$R = \\frac{V}{I} = \\frac{2.6}{0.38} = 6.842…$",
+            "Both readings have 2 significant figures, so give 2."
+          ],
+          "answer": "$R \\approx 6.8\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.6/0.38",
+            "sf": 2,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-fall-time",
+          "question": "A student times a ball rolling down a long slope three times: $2.47\\ \\text{s}$, $2.53\\ \\text{s}$ and $2.41\\ \\text{s}$. Calculate the mean time.",
+          "steps": [
+            "Add the readings and divide by 3: $\\frac{2.47 + 2.53 + 2.41}{3} = \\frac{7.41}{3} = 2.47\\ \\text{s}$.",
+            "The readings have 2 decimal places, so the mean does too."
+          ],
+          "answer": "$t = 2.47\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(2.47 + 2.53 + 2.41)/3",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A good graph has five features. 1. Each axis labelled quantity / unit, such as current / A."
+        },
+        {
+          "type": "text",
+          "text": "2. A scale where the points fill more than half the grid each way. 3. An easy scale, such as 1, 2 or 5 (or 0.5, 20…) per large square, never 3 or 7."
+        },
+        {
+          "type": "text",
+          "text": "4. Each point plotted to within half a small square. 5. One best-fit line."
+        },
+        {
+          "type": "definition",
+          "term": "best-fit line",
+          "statement": "A best-fit line is a single thin straight line, or smooth curve, that follows the trend of the plotted points, with the points spread evenly on both sides of it.",
+          "plain": "The one line that best matches all the points together."
+        },
+        {
+          "type": "text",
+          "text": "It needn't pass through every point or the origin. Rule it if the trend is straight; otherwise draw a smooth curve."
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing dot to dot, or a thick line. Draw one thin line with the points spread evenly about it."
+        },
+        {
+          "type": "check",
+          "id": "check-best-scale",
+          "prompt": "Loads go from 0 to $4.6\\ \\text{N}$ on a grid 10 large squares tall. Which scale is best?",
+          "hint": "The largest value must fit, and the points should fill more than half the grid.",
+          "options": [
+            {
+              "text": "0.5 N per large square",
+              "correct": true
+            },
+            {
+              "text": "1 N per large square",
+              "correct": false
+            },
+            {
+              "text": "0.4 N per large square",
+              "correct": false
+            },
+            {
+              "text": "0.6 N per large square",
+              "correct": false
+            }
+          ],
+          "explain": "0.5 N per square reaches 5 N, so every load fits and fills over 9 squares. 1 N fills under half; 0.4 N runs out at 4 N; 0.6 N is awkward.",
+          "verify": {
+            "kind": "choice",
+            "truth": "0.5 N per large square"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trolley-speed",
+          "prompt": "A trolley travels $1.50\\ \\text{m}$ in $2.37\\ \\text{s}$. What is its average speed, in m/s, to 3 significant figures?",
+          "hint": "Speed = distance ÷ time.",
+          "answer": {
+            "value": 0.633,
+            "tolerance": 0.0005
+          },
+          "explain": "$v = \\frac{1.50}{2.37} = 0.6329… \\approx 0.633\\ \\text{m/s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.50/2.37",
+            "sf": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading-graphs",
+      "heading": "Gradients, intercepts and reading values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Reading a value between your plotted points is [[interpolation|interpolation]]. Extending the line beyond them, for example back to an axis, is [[extrapolation|extrapolation]]. Always read from the line, not from one point."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-gradient-triangle",
+          "alt": "Speed-time graph for a trolley. Time in seconds from 0 to 3.5 is on the horizontal axis, with small squares of 0.1 seconds. Speed in metres per second from 0 to 1.8 is on the vertical axis, with small squares of 0.1 metres per second. Six crosses at times 0.5, 1.0, 1.5, 2.0, 2.5 and 3.0 seconds have speeds 0.63, 0.79, 0.98, 1.14, 1.33 and 1.50 metres per second. A straight best-fit line passes close to all of them, and a dashed extension of it meets the speed axis at 0.45 metres per second, labelled intercept. A large right-angled triangle under the line has corners on the line at 0.40 seconds, 0.59 metres per second and at 3.40 seconds, 1.64 metres per second. Its horizontal side is labelled 3.00 s and its vertical side 1.05 m/s.",
+          "caption": "A trolley rolling down a slope: a gradient triangle and an intercept."
+        },
+        {
+          "type": "text",
+          "text": "To find a [[gradient|gradient]], draw a triangle covering more than half the line. A big triangle keeps reading errors small."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\text{change in } y}{\\text{change in } x}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A gradient's unit is the $y$ unit ÷ the $x$ unit. The intercept, where the line crosses the $y$-axis, has the $y$ unit."
+        },
+        {
+          "type": "example",
+          "id": "ex-trolley-gradient",
+          "question": "Use the graph above. Determine the gradient, and say what it tells you.",
+          "steps": [
+            "Take two points on the line, far apart: $(0.40\\ \\text{s}, 0.59\\ \\text{m/s})$ and $(3.40\\ \\text{s}, 1.64\\ \\text{m/s})$.",
+            "$\\text{gradient} = \\frac{1.64 - 0.59}{3.40 - 0.40} = \\frac{1.05}{3.00} = 0.35$, in (m/s) ÷ s, which is $\\text{m/s}^2$.",
+            "The gradient of a speed–time graph is the acceleration."
+          ],
+          "answer": "$a = 0.35\\ \\text{m/s}^2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1.64 - 0.59)/(3.40 - 0.40)",
+            "unit": "m/s^2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-trolley-intercept",
+          "question": "The first reading was taken at $0.5\\ \\text{s}$. Use the graph to find the trolley's speed at $t = 0$.",
+          "steps": [
+            "$t = 0$ is outside the readings, so extrapolate: extend the line back to the speed axis.",
+            "It meets the axis at $0.45\\ \\text{m/s}$, the intercept.",
+            "Check: $0.59 - 0.35 \\times 0.40 = 0.45$. The trolley was already moving when timing started."
+          ],
+          "answer": "$v = 0.45\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.59 - 0.40*(1.64 - 0.59)/(3.40 - 0.40)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a small triangle, or table values that sit off the line. Use a large triangle with both corners on the line."
+        },
+        {
+          "type": "check",
+          "id": "check-interpolate-speed",
+          "prompt": "Read from the graph above: what is the trolley's speed at $t = 2.2\\ \\text{s}$, in m/s?",
+          "hint": "Go up from 2.2 s to the line, then across to the speed axis.",
+          "answer": {
+            "value": 1.22,
+            "tolerance": 0.02
+          },
+          "explain": "About $1.22\\ \\text{m/s}$ (check: $0.45 + 0.35 \\times 2.2 = 1.22$). This is interpolation: 2.2 s lies between the plotted points.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.59 + (2.2 - 0.40)*(1.64 - 0.59)/(3.40 - 0.40)",
+            "dp": 2,
+            "reading": true,
+            "maxTolerance": 0.03
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gradient-unit",
+          "prompt": "A graph has extension / cm on the $y$-axis and load / N on the $x$-axis. What is the unit of its gradient?",
+          "hint": "Divide the $y$ unit by the $x$ unit.",
+          "options": [
+            {
+              "text": "centimetres per newton",
+              "correct": true
+            },
+            {
+              "text": "newtons per centimetre",
+              "correct": false
+            },
+            {
+              "text": "newton centimetres",
+              "correct": false
+            },
+            {
+              "text": "it has no unit",
+              "correct": false
+            }
+          ],
+          "explain": "Gradient = change in $y$ ÷ change in $x$, so cm ÷ N.",
+          "verify": {
+            "kind": "choice",
+            "truth": "centimetres per newton"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conclusions",
+      "heading": "Conclusions and the ±10% rule",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A conclusion answers the experiment's question, then gives the evidence from the graph or table."
+        },
+        {
+          "type": "text",
+          "text": "Be as exact as the data allow. A straight line is a linear relationship. Directly proportional needs a straight line through the origin."
+        },
+        {
+          "type": "example",
+          "id": "ex-trolley-proportional",
+          "question": "From the trolley graph, a student concludes that speed is directly proportional to time. Explain whether the graph supports this.",
+          "steps": [
+            "Check both conditions, straight and through the origin, and quote the graph."
+          ],
+          "answer": "No. The graph is a straight line, but it does not pass through the origin: it meets the speed axis at $0.45\\ \\text{m/s}$. So the speed increases steadily with time but is not directly proportional to it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "straight line but does not pass through the origin (intercept 0.45 m/s), so not directly proportional",
+            "requires": [
+              [
+                "straight line"
+              ],
+              [
+                "does not pass through the origin",
+                "not through the origin"
+              ],
+              [
+                "0.45m/s"
+              ],
+              [
+                "not directly proportional"
+              ]
+            ],
+            "forbids": [
+              "because the line goes up",
+              "is directly proportional to the time"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Real readings never agree exactly. At IGCSE, two results agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less."
+        },
+        {
+          "type": "text",
+          "text": "Find the difference, then give it as a percentage of one value: the value predicted by theory, if there is one. Then say whether they agree, quoting both values."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-mass",
+          "question": "A student predicts that a pendulum's swing time doesn't depend on the mass of the bob. She measures $1.42\\ \\text{s}$ with a light bob and $1.47\\ \\text{s}$ with a heavy one. Comment on whether her results support the prediction.",
+          "steps": [
+            "Difference: $1.47 - 1.42 = 0.05\\ \\text{s}$, and $\\frac{0.05}{1.47} \\times 100 \\approx 3\\%$.",
+            "Compare with 10%, then state the conclusion with both values."
+          ],
+          "answer": "Yes, the results support the prediction. The times $1.42\\ \\text{s}$ and $1.47\\ \\text{s}$ differ by about 3%, which is less than 10%. So they agree within the limits of experimental accuracy, even though the mass changed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "difference about 3%, less than 10%, so the times agree within experimental accuracy; supports the prediction",
+            "requires": [
+              [
+                "support"
+              ],
+              [
+                "1.42s"
+              ],
+              [
+                "1.47s"
+              ],
+              [
+                "3%"
+              ],
+              [
+                "less than 10%"
+              ],
+              [
+                "within the limits of experimental accuracy"
+              ]
+            ],
+            "forbids": [
+              "exactly equal",
+              "the times are different"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying \"no, because the numbers are different\". Compare the difference with 10% first."
+        },
+        {
+          "type": "check",
+          "id": "check-percent-difference",
+          "prompt": "Two methods give the focal length of a lens as $9.6\\ \\text{cm}$ and $10.9\\ \\text{cm}$. What is the difference as a percentage of $10.9\\ \\text{cm}$, to 2 significant figures?",
+          "hint": "Difference ÷ 10.9, then × 100.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{10.9 - 9.6}{10.9} \\times 100 = 11.9… \\approx 12\\%$. That is over 10%, so the values don't agree within experimental accuracy.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(10.9 - 9.6)/10.9*100",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-within-accuracy",
+          "prompt": "Two density values for the same metal differ by 4%. Which conclusion is best?",
+          "hint": "Compare 4% with the ±10% rule.",
+          "options": [
+            {
+              "text": "they agree within experimental accuracy",
+              "correct": true
+            },
+            {
+              "text": "they are different, because they are not the same",
+              "correct": false
+            },
+            {
+              "text": "they are exactly equal",
+              "correct": false
+            },
+            {
+              "text": "no conclusion is possible",
+              "correct": false
+            }
+          ],
+          "explain": "4% is less than 10%, so they agree within experimental accuracy, though not exactly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they agree within experimental accuracy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "anomalies-and-errors",
+      "heading": "Anomalies, errors and uncertainty",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "anomaly",
+          "statement": "An anomaly is a result that lies well outside the general pattern of the other results: much higher or much lower than expected.",
+          "plain": "The odd one out."
+        },
+        {
+          "type": "figure",
+          "id": "7-4-anomaly",
+          "alt": "Graph of current against potential difference for a resistor. P.d. in volts from 0 to 3.0 is on the horizontal axis, with small squares of 0.1 volts. Current in amperes from 0 to 0.70 is on the vertical axis, with small squares of 0.02 amperes. Crosses at 0.5, 1.0, 1.5, 2.0, 2.5 and 3.0 volts have currents 0.10, 0.21, 0.32, 0.52, 0.52 and 0.63 amperes. The point at 2.0 volts and 0.52 amperes is circled and labelled anomaly: it lies well above the line through the others. A straight best-fit line passes through the origin and close to the other five points, ignoring the circled point.",
+          "caption": "One reading doesn't fit the pattern. The best-fit line ignores it."
+        },
+        {
+          "type": "text",
+          "text": "Check an anomaly by repeating that reading. If you can't, leave it out of the mean or best-fit line, circle it, and say so."
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-without-anomaly",
+          "question": "A toy car's times down a ramp are $3.12\\ \\text{s}$, $3.08\\ \\text{s}$, $3.71\\ \\text{s}$ and $3.15\\ \\text{s}$. Identify the anomaly, then calculate a mean to 3 significant figures.",
+          "steps": [
+            "$3.71\\ \\text{s}$ is far from the other three, so it is the anomaly.",
+            "Leave it out: $\\frac{3.12 + 3.08 + 3.15}{3} = \\frac{9.35}{3} = 3.116…\\ \\text{s}$, then round."
+          ],
+          "answer": "$t \\approx 3.12\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(3.12 + 3.08 + 3.15)/3",
+            "sf": 3,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Measurement error is the difference between a measured value and the true value. It comes in two kinds."
+        },
+        {
+          "type": "definition",
+          "term": "random error",
+          "statement": "A random error makes repeated readings scatter unpredictably, some above and some below the true value.",
+          "plain": "Readings that wobble about."
+        },
+        {
+          "type": "text",
+          "text": "Causes include hand timing with a stopwatch, or a flickering reading. Repeating and taking a mean reduces their effect."
+        },
+        {
+          "type": "definition",
+          "term": "systematic error",
+          "statement": "A systematic error shifts every reading in the same direction, often by the same amount.",
+          "plain": "Every reading is wrong in the same way."
+        },
+        {
+          "type": "text",
+          "text": "A [[zero-error|zero error]] is the classic cause. Repeats don't help, because every repeat is shifted too. Correct the readings or the instrument instead."
+        },
+        {
+          "type": "example",
+          "id": "ex-thermometer-systematic",
+          "question": "In melting ice at $0\\ \\text{°C}$, a thermometer reads $2\\ \\text{°C}$. Assume it reads $2\\ \\text{°C}$ too high at every temperature. Explain what type of error this causes and how to deal with it.",
+          "steps": [
+            "Is every reading wrong the same way, or do they scatter?"
+          ],
+          "answer": "This is a systematic error: every reading is $2\\ \\text{°C}$ too high. Repeating and taking a mean does not remove it, because every repeat is too high by the same amount. Subtract $2\\ \\text{°C}$ from each reading.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "systematic error; every reading 2 °C too high; repeats don't remove it; subtract 2 °C from each reading",
+            "requires": [
+              [
+                "systematic error"
+              ],
+              [
+                "every reading"
+              ],
+              [
+                "too high"
+              ],
+              [
+                "does not remove it"
+              ],
+              [
+                "subtract"
+              ]
+            ],
+            "forbids": [
+              "random error",
+              "repeat and take a mean to remove it"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A conclusion carries more [[uncertainty|uncertainty]] with few readings, a small [[range|range]], widely scattered points, or values close to the 10% limit."
+        },
+        {
+          "type": "check",
+          "id": "check-scatter-error",
+          "prompt": "Three readings of the same time are $2.31\\ \\text{s}$, $2.45\\ \\text{s}$ and $2.38\\ \\text{s}$. What does the scatter show?",
+          "hint": "They go up and down, not all one way.",
+          "options": [
+            {
+              "text": "random error",
+              "correct": true
+            },
+            {
+              "text": "systematic error",
+              "correct": false
+            },
+            {
+              "text": "a zero error",
+              "correct": false
+            },
+            {
+              "text": "an anomaly",
+              "correct": false
+            }
+          ],
+          "explain": "They scatter both ways: random error. None is far enough out to be an anomaly, and a zero error would shift all of them the same way.",
+          "verify": {
+            "kind": "choice",
+            "truth": "random error"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reduce-random",
+          "prompt": "Which of these reduces the effect of random error?",
+          "hint": "Random errors go both ways.",
+          "options": [
+            {
+              "text": "repeating the readings and calculating a mean",
+              "correct": true
+            },
+            {
+              "text": "subtracting the zero error from every reading",
+              "correct": false
+            },
+            {
+              "text": "drawing the best-fit line through the origin",
+              "correct": false
+            },
+            {
+              "text": "giving the answer to more significant figures",
+              "correct": false
+            }
+          ],
+          "explain": "Readings scatter up and down, so a mean is closer to the true value. Subtracting a zero error fixes a systematic error.",
+          "verify": {
+            "kind": "choice",
+            "truth": "repeating the readings and calculating a mean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "evaluating-and-improving",
+      "heading": "Evaluating and improving an experiment",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To evaluate a method, ask: was it a fair test? If a [[control-variable|control variable]] changed, the results can't show the effect of the independent variable alone."
+        },
+        {
+          "type": "text",
+          "text": "Then find the biggest source of error. A good improvement is specific and says how it helps."
+        },
+        {
+          "type": "text",
+          "text": "Common ones: repeat and calculate a mean; more readings over a wider range; time many swings and divide; light gates instead of a stopwatch; smaller scale divisions."
+        },
+        {
+          "type": "example",
+          "id": "ex-twenty-swings",
+          "question": "A student times 20 complete swings of a pendulum and gets $31.4\\ \\text{s}$. Calculate the time for one swing, and explain why timing 20 swings is better than timing one.",
+          "steps": [
+            "One swing: $\\frac{31.4}{20} = 1.57\\ \\text{s}$.",
+            "Reaction time adds perhaps $0.2\\ \\text{s}$ to a hand-timed reading. Over 20 swings, that is only about $0.01\\ \\text{s}$ per swing."
+          ],
+          "answer": "$T = 1.57\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "31.4/20",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-ramp-improvements",
+          "question": "A student lets a toy car roll down a ramp from any point on it. She times it with a hand-held stopwatch, once for each ramp height. Suggest two improvements and say how each helps.",
+          "steps": [
+            "Look for a control variable that changed, then for the largest measurement error."
+          ],
+          "answer": "Release the car from the same marked start line each time, so the distance travelled is a control variable. Use light gates connected to a timer instead of a hand-held stopwatch, so reaction time doesn't affect the times.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same marked start line keeps distance constant (control variable); light gates remove reaction time",
+            "requires": [
+              [
+                "same marked start line"
+              ],
+              [
+                "control variable"
+              ],
+              [
+                "light gates"
+              ],
+              [
+                "reaction time"
+              ]
+            ],
+            "forbids": [
+              "be more careful",
+              "better equipment"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"be more careful\" or just \"repeat it\". Name the exact change, such as \"repeat and calculate a mean\"."
+        },
+        {
+          "type": "check",
+          "id": "check-spring-oscillation",
+          "prompt": "A mass on a spring makes 10 complete up-and-down oscillations in $8.6\\ \\text{s}$. What is the time for one oscillation, in s?",
+          "hint": "Divide the total time by the number of oscillations.",
+          "answer": {
+            "value": 0.86,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{8.6}{10} = 0.86\\ \\text{s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "8.6/10",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-fair-test",
+          "prompt": "A student tests how a wire's length affects its resistance, using thin wire for short lengths and thick wire for long ones. What is wrong?",
+          "hint": "Which variable should have stayed the same?",
+          "options": [
+            {
+              "text": "the thickness of the wire is not kept constant",
+              "correct": true
+            },
+            {
+              "text": "she should use only one length",
+              "correct": false
+            },
+            {
+              "text": "the resistance should be kept constant",
+              "correct": false
+            },
+            {
+              "text": "nothing is wrong",
+              "correct": false
+            }
+          ],
+          "explain": "Thickness also affects resistance, so it must stay constant. It changed with the length: not a fair test.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the thickness of the wire is not kept constant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Graphs: axes labelled quantity / unit, an easy scale filling over half the grid, one thin best-fit line or smooth curve."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{gradient} = \\frac{\\text{change in } y}{\\text{change in } x}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Gradient: use a triangle covering over half the line, corners on the line. Unit = $y$ unit ÷ $x$ unit."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Directly proportional: a straight line through the origin. A straight line that misses the origin is linear but not proportional."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Two results agree within experimental accuracy if their difference is 10% or less of one of them (the predicted value, if there is one)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Random error scatters readings both ways: repeat and take a mean to reduce its effect. Systematic error, such as a zero error, shifts every reading the same way: correct the readings or the instrument."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Anomaly: repeat it if you can; otherwise leave it out of the mean and best-fit line, and say so."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Improvements are specific and say how they help: repeat and take a mean, a wider range, time many oscillations, light gates."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing dot to dot or a thick line. Draw one thin best-fit line.",
+    "Calling a line proportional \"because it goes up\". It must be straight and pass through the origin.",
+    "Saying two results differ because the numbers aren't identical. Compare the difference with 10%.",
+    "Writing \"repeat it\" without \"calculate a mean\", or \"be more careful\". Name the change and how it helps."
+  ],
+  "examTips": [
+    "\"Plot\": each point within half a small square, axes labelled quantity / unit.",
+    "\"Determine\" a gradient: show the triangle and write down the readings used.",
+    "\"Comment\" on agreement: quote both values, compare the difference with 10%, then conclude.",
+    "\"Suggest\" an improvement: name the change and what it improves."
+  ],
+  "readingMinutes": 26
+}

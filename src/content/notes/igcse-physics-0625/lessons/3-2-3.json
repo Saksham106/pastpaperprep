@@ -1,0 +1,697 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.2.3",
+  "slug": "thin-lenses",
+  "title": "Thin lenses",
+  "level": "Core",
+  "topic": 3,
+  "summary": "A [[converging-lens|converging lens]] brings rays together; a [[diverging-lens|diverging lens]] spreads them apart. Learn the lens terms, ray diagrams and how to describe an image. Extended adds the [[magnifying-glass|magnifying glass]] and glasses.",
+  "goals": [
+    {
+      "text": "Describe what a thin converging lens and a thin diverging lens do to a parallel beam, using the terms [[principal-axis|principal axis]], [[principal-focus|principal focus]] and [[focal-length|focal length]].",
+      "bullets": [
+        "3.2.3-1",
+        "3.2.3-2"
+      ]
+    },
+    {
+      "text": "Draw a ray diagram for the [[real-image|real image]] formed by a converging lens, and use it to find where the image is and how big it is.",
+      "bullets": [
+        "3.2.3-3"
+      ]
+    },
+    {
+      "text": "Describe any image as enlarged, same size or diminished; upright or inverted; and real or virtual.",
+      "bullets": [
+        "3.2.3-4"
+      ]
+    },
+    {
+      "text": "Explain how a [[virtual-image|virtual image]] forms and why it never appears on a screen.",
+      "bullets": [
+        "3.2.3-5"
+      ]
+    },
+    {
+      "text": "Draw a ray diagram for the virtual image formed by a converging lens, and describe how one lens works as a magnifying glass.",
+      "bullets": [
+        "3.2.3-6",
+        "3.2.3-7"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how a converging lens corrects long sight and a diverging lens corrects short sight.",
+      "bullets": [
+        "3.2.3-8"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "3.2.1",
+    "3.2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "converging and diverging lenses",
+    "lens ray diagrams",
+    "focal length of a lens",
+    "real and virtual images",
+    "magnifying glass",
+    "glasses for short and long sight"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-why-refraction",
+      "prompt": "Light passes at an angle from air into glass and changes direction. What causes the change in direction?",
+      "hint": "Think about what happens to the speed of light at the boundary.",
+      "options": [
+        {
+          "text": "the light changes speed at the boundary",
+          "correct": true
+        },
+        {
+          "text": "the light reflects off the glass surface",
+          "correct": false
+        },
+        {
+          "text": "the frequency of the light changes",
+          "correct": false
+        },
+        {
+          "text": "the light spreads out through a narrow gap",
+          "correct": false
+        }
+      ],
+      "explain": "Light is slower in glass than in air, so it changes direction at the boundary: [[refraction|refraction]]. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the light changes speed at the boundary"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mirror-image",
+      "prompt": "The image you see in a flat (plane) mirror is virtual. What does that tell you?",
+      "hint": "Ask whether any light actually reaches the place behind the mirror where the image seems to be.",
+      "options": [
+        {
+          "text": "it cannot be formed on a screen",
+          "correct": true
+        },
+        {
+          "text": "it is upside down",
+          "correct": false
+        },
+        {
+          "text": "it is smaller than the object",
+          "correct": false
+        },
+        {
+          "text": "light really meets behind the mirror",
+          "correct": false
+        }
+      ],
+      "explain": "No light goes behind a mirror, so a screen there shows nothing. Revise it in {{lesson:3.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it cannot be formed on a screen"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "parallel-beam",
+      "heading": "Lenses and a parallel beam",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A lens is curved glass or clear plastic. Light changes speed as it enters and leaves, so a ray meeting the surface at an angle changes direction: [[refraction|refraction]]. For a thin lens, draw each ray bending once, at the centre line."
+        },
+        {
+          "type": "text",
+          "text": "A [[converging-lens|converging lens]] is thicker in the middle than at the edges. A [[diverging-lens|diverging lens]] is thinner in the middle."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-3-parallel-beams",
+          "alt": "Two diagrams side by side. Left: four rays travel parallel to a horizontal principal axis into a converging lens, which is thicker in the middle. After the lens, every ray bends towards the axis and they all pass through one point on the axis, labelled F, then spread out again. The distance from the lens to F is labelled focal length f. Right: the same four parallel rays enter a diverging lens, which is thinner in the middle. After the lens they bend away from the axis and spread out. Dashed lines trace each ray backwards to one point on the axis on the side the light came from, labelled F. The distance from F to the lens is labelled focal length f.",
+          "caption": "A converging lens brings a parallel beam to a point. A diverging lens spreads it out so it seems to come from a point."
+        },
+        {
+          "type": "text",
+          "text": "A beam parallel to the [[principal-axis|principal axis]] bends towards the axis in a converging lens. Every ray passes through one point, the [[principal-focus|principal focus]] F, then spreads out again. A diverging lens bends the rays away from the axis. Traced back (dashed), they seem to come from F on the side the light came from."
+        },
+        {
+          "type": "definition",
+          "term": "principal axis",
+          "statement": "The line that passes through the centre of a lens at right angles to the lens.",
+          "plain": "The straight line the lens is centred on."
+        },
+        {
+          "type": "definition",
+          "term": "principal focus (focal point)",
+          "statement": "For a converging lens: the point on the principal axis where rays that arrive parallel to the principal axis meet after passing through the lens. For a diverging lens: the point on the principal axis that such rays appear to come from after passing through the lens.",
+          "plain": "Where a parallel beam meets, or seems to come from."
+        },
+        {
+          "type": "definition",
+          "term": "focal length",
+          "statement": "The distance from the centre of a lens to its principal focus.",
+          "plain": "How far from the lens a parallel beam is focused."
+        },
+        {
+          "type": "text",
+          "text": "[[focal-length|Focal length]] has the symbol $f$, in $\\text{cm}$ or $\\text{m}$. A lens has a principal focus on each side, both $f$ from the centre."
+        },
+        {
+          "type": "example",
+          "id": "ex-beam-converging",
+          "question": "A beam of light travels parallel to the principal axis towards a thin converging lens. Describe what happens to the beam as it passes through the lens and beyond.",
+          "steps": [
+            "Say why the rays change direction, which way they bend, where they meet and what happens after that point."
+          ],
+          "answer": "The rays refract as they enter and leave the lens. Each ray bends towards the principal axis, so the beam converges. All the rays pass through one point on the principal axis, called the principal focus. Beyond the principal focus the rays spread apart again.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rays refract; bend towards the principal axis; converge; meet at the principal focus; spread apart beyond it",
+            "requires": [
+              [
+                "refract",
+                "refracts",
+                "refraction"
+              ],
+              "towards the principal axis",
+              [
+                "converges",
+                "converge"
+              ],
+              "principal focus",
+              [
+                "spread apart",
+                "spread out",
+                "diverge"
+              ]
+            ],
+            "forbids": [
+              "reflect",
+              "reflects",
+              "away from the principal axis"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-beam-focal-length",
+          "question": "A student points a converging lens at a window on the far side of a large hall. She moves a screen until a sharp image of the window appears on it. On the metre rule, the centre of the lens is at the $20.0\\ \\text{cm}$ mark and the screen is at the $37.5\\ \\text{cm}$ mark. Calculate the focal length of the lens.",
+          "steps": [
+            "Rays from the distant window reach the lens almost parallel, so they are focused at the principal focus.",
+            "So the screen is at F, and the focal length is the distance from the centre of the lens to the screen.",
+            "$f = 37.5 - 20.0 = 17.5\\ \\text{cm}$",
+            "This is an estimate: the window is not infinitely far away, so its image is very slightly beyond F."
+          ],
+          "answer": "$f = 17.5\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "37.5 - 20.0",
+            "sf": 3,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-beam-diverging",
+          "prompt": "A beam of light parallel to the principal axis passes through a thin diverging lens. What happens to the rays after the lens?",
+          "hint": "Does a diverging lens bring rays together or spread them apart?",
+          "options": [
+            {
+              "text": "they spread out as if from the principal focus on the side the light came from",
+              "correct": true
+            },
+            {
+              "text": "they meet at the principal focus on the far side of the lens",
+              "correct": false
+            },
+            {
+              "text": "they carry on parallel to the principal axis",
+              "correct": false
+            },
+            {
+              "text": "they reflect back towards where they came from",
+              "correct": false
+            }
+          ],
+          "explain": "A diverging lens bends each ray away from the axis. Meeting at F on the far side is what a converging lens does.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they spread out as if from the principal focus on the side the light came from"
+          }
+        }
+      ]
+    },
+    {
+      "id": "real-image",
+      "heading": "Ray diagrams and describing images",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A converging lens brings the rays from one point of an object together again at one point of the image. So two rays from the object's tip find the image's tip. Three are easy to draw:"
+        },
+        {
+          "type": "text",
+          "text": "1. A ray parallel to the principal axis bends through F on the far side."
+        },
+        {
+          "type": "text",
+          "text": "2. A ray through the middle of the lens goes straight on."
+        },
+        {
+          "type": "text",
+          "text": "3. A ray through F on the object's side leaves parallel to the axis."
+        },
+        {
+          "type": "text",
+          "text": "Stand the object on the axis as an upright arrow. Rule two rays from its tip, with arrows, until they cross. The image is an arrow from the axis to the crossing point. For large distances, draw to scale and convert your measurements back."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-3-real-image",
+          "alt": "Ray diagram for a converging lens drawn to scale. Points F and 2F are marked on the principal axis on both sides of the lens. An upright object arrow stands on the axis between F and 2F on the left. Three rays leave the tip of the object. The first travels parallel to the axis, bends at the lens and passes through F on the right. The second passes straight through the centre of the lens. The third passes through F on the left, then travels parallel to the axis after the lens. All three meet below the axis beyond 2F on the right, where an image arrow points downwards from the axis. The image is larger than the object. A note says the focal length is 4.0 cm, the object is 6.0 cm from the lens and the image is 12 cm from the lens.",
+          "caption": "All three rays cross at the tip of the image. Two are enough."
+        },
+        {
+          "type": "example",
+          "id": "ex-real-height",
+          "question": "A converging lens has a focal length of $8.0\\ \\text{cm}$. An object $4.0\\ \\text{cm}$ tall stands on the principal axis $24\\ \\text{cm}$ from the lens. Using a scale drawing, find the height of the image.",
+          "steps": [
+            "Choose a scale: $1\\ \\text{cm}$ on the drawing represents $4\\ \\text{cm}$. So F is $2.0\\ \\text{cm}$ from the lens on the drawing, the object is $6.0\\ \\text{cm}$ from the lens and $1.0\\ \\text{cm}$ tall.",
+            "From the tip of the object, rule a ray parallel to the axis that bends through F on the far side, and a second ray through the middle of the lens, which does not bend.",
+            "The rays cross $3.0\\ \\text{cm}$ beyond the lens on the drawing, $0.50\\ \\text{cm}$ below the axis.",
+            "Convert with the scale: image height $= 0.50 \\times 4 = 2.0\\ \\text{cm}$, and image distance $= 3.0 \\times 4 = 12\\ \\text{cm}$.",
+            "Check: the object is beyond $2F$ ($16\\ \\text{cm}$), so the image should be diminished. It is."
+          ],
+          "answer": "$\\text{image height} \\approx 2.0\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "4.0*(1/(1/8.0 - 1/24))/24",
+            "sf": 2,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Describe an image with one word from each pair, comparing it with the object: enlarged, same size or diminished; upright or inverted; real or virtual."
+        },
+        {
+          "type": "definition",
+          "term": "real image",
+          "statement": "An image formed where rays of light actually meet. It can be formed on a screen.",
+          "plain": "Light really gets there, so a screen shows it."
+        },
+        {
+          "type": "text",
+          "text": "A [[real-image|real image]] from one converging lens is always inverted. A [[virtual-image|virtual image]] forms when rays leave a lens or mirror spreading apart. Traced back (dashed), they seem to come from one point. No light reaches it, so a screen there shows nothing. A diverging lens on its own always gives a virtual image."
+        },
+        {
+          "type": "text",
+          "text": "For a converging lens, the image depends on the object's position (2F is twice the focal length from the lens):"
+        },
+        {
+          "type": "text",
+          "text": "Very far away: image at F; real, inverted, diminished."
+        },
+        {
+          "type": "text",
+          "text": "Beyond 2F: image between F and 2F; real, inverted, diminished."
+        },
+        {
+          "type": "text",
+          "text": "At 2F: image at 2F; real, inverted, same size."
+        },
+        {
+          "type": "text",
+          "text": "Between F and 2F: image beyond 2F; real, inverted, enlarged."
+        },
+        {
+          "type": "text",
+          "text": "At F: the rays leave parallel, so no image forms."
+        },
+        {
+          "type": "text",
+          "text": "Between F and the lens: image on the object's side; virtual, upright, enlarged.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-projector",
+          "question": "A converging lens projects a sharp picture of a small, brightly lit slide onto a wall. The picture on the wall is much bigger than the slide. Describe the image, and explain how you know it is real.",
+          "steps": [
+            "Use one word from each pair, and back up \"real\" with what the rays do."
+          ],
+          "answer": "The image is real, because it is formed on the wall, so rays of light actually meet there. It is inverted, because a real image formed by one converging lens is upside down. It is enlarged, because the picture is bigger than the slide.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "real (rays actually meet on the wall), inverted, enlarged",
+            "requires": [
+              "real",
+              "inverted",
+              "enlarged",
+              [
+                "rays of light actually meet",
+                "rays actually meet"
+              ]
+            ],
+            "forbids": [
+              "virtual",
+              "upright",
+              "diminished"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-describe-2f",
+          "prompt": "An object stands $20\\ \\text{cm}$ from a converging lens of focal length $10\\ \\text{cm}$. Which describes the image?",
+          "hint": "How many focal lengths away is the object?",
+          "options": [
+            {
+              "text": "real, inverted and the same size",
+              "correct": true
+            },
+            {
+              "text": "real, upright and the same size",
+              "correct": false
+            },
+            {
+              "text": "real, inverted and diminished",
+              "correct": false
+            },
+            {
+              "text": "virtual, upright and enlarged",
+              "correct": false
+            }
+          ],
+          "explain": "$20\\ \\text{cm}$ is twice the focal length, so the object is at 2F and the image is at 2F on the other side: real, inverted, same size.",
+          "verify": {
+            "kind": "choice",
+            "truth": "real, inverted and the same size"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-describe-screen",
+          "prompt": "Which statement about a virtual image is correct?",
+          "hint": "Where do the rays really go?",
+          "options": [
+            {
+              "text": "rays only appear to come from it, so it cannot be formed on a screen",
+              "correct": true
+            },
+            {
+              "text": "rays actually meet there, so it can be formed on a screen",
+              "correct": false
+            },
+            {
+              "text": "it is always inverted",
+              "correct": false
+            },
+            {
+              "text": "it is always smaller than the object",
+              "correct": false
+            }
+          ],
+          "explain": "No light reaches a virtual image; spreading rays only seem to come from it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "rays only appear to come from it, so it cannot be formed on a screen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "magnifying-glass",
+      "heading": "Virtual images and the magnifying glass",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With the object closer than F, the rays leave a converging lens still spreading apart. Draw two rays from the tip as before, then extend them backwards as dashed lines. They cross on the object's side, at the tip of the virtual image."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-3-magnifying-glass",
+          "alt": "Ray diagram for a converging lens with F marked on both sides. A small upright object arrow stands on the axis, between the lens and the F on its left. One ray from its tip travels parallel to the axis, bends at the lens and passes through the right-hand F. A second ray passes straight through the centre of the lens. After the lens the two rays spread apart towards the right, where a label shows the eye looking through the lens. Dashed lines extend both rays backwards to the left, where they meet above the axis, beyond the left-hand F. A dashed, upright arrow there, much taller than the object, is labelled virtual image.",
+          "caption": "The rays never meet. They only seem to come from the dashed, upright image behind the object."
+        },
+        {
+          "type": "example",
+          "id": "ex-virtual-scale",
+          "question": "An object $2.0\\ \\text{cm}$ tall stands on the principal axis, $6.0\\ \\text{cm}$ from a converging lens of focal length $10\\ \\text{cm}$. Use a ray diagram to find the distance of the image from the lens, and describe the image.",
+          "steps": [
+            "The object is nearer the lens than F is, so expect a virtual image.",
+            "From the tip, rule a ray parallel to the axis that bends through F on the far side, and one through the middle, which does not bend. They spread apart after the lens.",
+            "Extend both rays backwards as dashed lines. They cross on the object's side, about $15\\ \\text{cm}$ from the lens and about $5.0\\ \\text{cm}$ above the axis.",
+            "The image is virtual (the rays only seem to come from it), upright and enlarged."
+          ],
+          "answer": "$\\text{image distance} \\approx 15\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "-1/(1/10 - 1/6.0)",
+            "sf": 2,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "text",
+          "text": "This is how a [[magnifying-glass|magnifying glass]] works."
+        },
+        {
+          "type": "example",
+          "id": "ex-virtual-magnifier",
+          "question": "A jeweller uses a single lens to look closely at a tiny scratch on a ring. Describe how the lens is used as a magnifying glass, and describe the image the jeweller sees.",
+          "steps": [
+            "Say which kind of lens, where the ring goes, where the eye goes, and use one word from each image pair."
+          ],
+          "answer": "The jeweller uses a converging lens, with the ring nearer to the lens than F, so its distance from the lens is less than the focal length. The jeweller looks through the lens from the other side. The rays leaving the lens diverge, so they seem to come from further away. The image is virtual, upright and enlarged.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "converging lens; object closer than the principal focus; look through the lens; image virtual, upright, enlarged",
+            "requires": [
+              "converging lens",
+              [
+                "nearer to the lens than F",
+                "less than the focal length"
+              ],
+              [
+                "looks through the lens",
+                "look through the lens"
+              ],
+              "virtual",
+              "upright",
+              "enlarged"
+            ],
+            "forbids": [
+              "diverging lens",
+              "inverted",
+              "real image",
+              "diminished"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-virtual-position",
+          "prompt": "You want to use a converging lens to magnify a small stamp. Where must the stamp be?",
+          "hint": "Which object position gives rays that are still spreading apart after the lens?",
+          "options": [
+            {
+              "text": "between the lens and its principal focus",
+              "correct": true
+            },
+            {
+              "text": "between F and 2F",
+              "correct": false
+            },
+            {
+              "text": "exactly at 2F",
+              "correct": false
+            },
+            {
+              "text": "further from the lens than 2F",
+              "correct": false
+            }
+          ],
+          "explain": "Only an object closer than F gives diverging rays and a virtual, upright, enlarged image. Further out, the image is real and inverted.",
+          "verify": {
+            "kind": "choice",
+            "truth": "between the lens and its principal focus"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eyesight",
+      "heading": "Correcting short and long sight",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your eye's converging lens focuses light onto the retina at the back of the eye. You see clearly only when the image lands on the retina."
+        },
+        {
+          "type": "text",
+          "text": "[[short-sightedness|Short-sightedness]]: distant objects look blurred. The eye bends light too much, so their rays meet in front of the retina. A diverging lens in front of the eye spreads the rays slightly, so the eye focuses them on the retina."
+        },
+        {
+          "type": "text",
+          "text": "[[long-sightedness|Long-sightedness]]: near objects look blurred. The eye does not bend light enough, so their rays would meet behind the retina. A converging lens in front of the eye converges the rays first, so the eye focuses them on the retina."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-3-eye-correction",
+          "alt": "Four diagrams of an eye, drawn as a circle with a small lens at the front and the retina marked at the back. Top left, short sight: parallel rays from a distant object pass through the eye's lens and meet at a point inside the eye, in front of the retina, then spread out again before reaching it. Top right, short sight corrected: a diverging lens in front of the eye spreads the parallel rays slightly, and the eye then brings them to a point exactly on the retina. Bottom left, long sight: rays spreading from a near object reach the retina before they meet; dashed lines show they would meet at a point behind the retina. Bottom right, long sight corrected: a converging lens in front of the eye bends the rays towards each other, and the eye then brings them to a point exactly on the retina.",
+          "caption": "Short sight: the focus is too far forward, so spread the rays first. Long sight: the focus is too far back, so converge the rays first."
+        },
+        {
+          "type": "example",
+          "id": "ex-eye-short",
+          "question": "Amira can read a book clearly but cannot read a bus number until the bus is close. Name her eye defect and explain how a lens corrects it.",
+          "steps": [
+            "Distant objects are blurred, so start from where her eye focuses rays from a distant object."
+          ],
+          "answer": "Amira is short-sighted. Her eye focuses rays from a distant object in front of the retina, so the image on the retina is blurred. A diverging lens in front of her eye corrects this. It spreads the rays out slightly before they enter the eye. Her eye then brings them to a focus on the retina, so she sees the bus number clearly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "short-sighted; image in front of the retina; diverging lens spreads the rays; focus on the retina",
+            "requires": [
+              "short-sighted",
+              "in front of the retina",
+              "diverging lens",
+              [
+                "spreads the rays out",
+                "spreads the rays",
+                "diverge"
+              ],
+              "on the retina"
+            ],
+            "forbids": [
+              "converging lens",
+              "behind the retina"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Swapping the lenses: short sight needs a diverging lens, long sight a converging lens."
+        },
+        {
+          "type": "check",
+          "id": "check-eye-long",
+          "prompt": "Without glasses, a long-sighted person looks at a near object. Where would rays from the object come to a focus?",
+          "hint": "Long-sighted people see distant things clearly but not near ones.",
+          "options": [
+            {
+              "text": "behind the retina",
+              "correct": true
+            },
+            {
+              "text": "in front of the retina",
+              "correct": false
+            },
+            {
+              "text": "exactly on the retina",
+              "correct": false
+            },
+            {
+              "text": "at the lens of the eye",
+              "correct": false
+            }
+          ],
+          "explain": "A long-sighted eye does not bend rays from a near object enough, so they would meet behind the retina.",
+          "verify": {
+            "kind": "choice",
+            "truth": "behind the retina"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Converging lens: rays parallel to the principal axis meet at the principal focus F. Diverging lens: they spread out as if from F on the incoming side.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Principal axis: the line through the centre of a lens at $90^\\circ$ to it. Focal length $f$: the distance from the centre of the lens to F.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ray rules for a converging lens: parallel to the axis → through F beyond the lens; through the middle → straight on; through F on the object's side → parallel to the axis.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Describe an image with one word from each pair: enlarged, same size or diminished; upright or inverted; real or virtual.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Real image: rays actually meet, so a screen can show it. Virtual image: spreading rays only seem to come from it, so no screen can.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Magnifying glass: a converging lens with the object closer than F gives a virtual, upright, enlarged image.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Short sight (focus in front of the retina): diverging lens. Long sight (focus behind the retina): converging lens.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Treating the lens-to-image distance as the focal length. They are equal only for a very distant object.",
+    "Calling an image on a screen virtual or upright. Rays really meet there, so it is real and, from one converging lens, inverted.",
+    "Drawing a real image arrow pointing up or floating off the axis. For an upright object on the axis, it points down from the axis.",
+    "Saying \"diminished\" for an object between F and 2F. Only an object beyond 2F gives a diminished image."
+  ],
+  "examTips": [
+    "Ray diagrams: use a ruler, add arrows in the direction of the light, and continue each ray until it meets the other. Draw virtual rays and images dashed.",
+    "Describe an image with all three words (size, which way up, real or virtual); leaving one out can lose a mark.",
+    "Practical (Paper 5 or 6): estimate $f$ by focusing a distant object onto a screen and measuring from the centre of the lens to the screen."
+  ],
+  "readingMinutes": 24
+}

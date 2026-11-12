@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="t223ev">
+  <title id="t223ev">A container of liquid with particles drawn as circles, close together. Two fast particles have left the surface and move up into the air, with long arrows. A slower particle at the surface has a short arrow and is pulled back by its neighbours. The particles left in the liquid have a lower average kinetic energy</title>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="110,150 110,350 400,350 400,150"/>
+  </g>
+  <line x1="110" y1="190" x2="400" y2="190" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <rect x="111" y="190" width="288" height="159" fill="var(--t3-ink)" fill-opacity="0.12"/>
+  <g fill="var(--t3-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1">
+    <circle cx="135" cy="205" r="10"/><circle cx="160" cy="210" r="10"/><circle cx="187" cy="203" r="10"/><circle cx="213" cy="211" r="10"/>
+    <circle cx="240" cy="204" r="10"/><circle cx="292" cy="210" r="10"/><circle cx="318" cy="203" r="10"/>
+    <circle cx="345" cy="209" r="10"/><circle cx="372" cy="204" r="10"/>
+    <circle cx="140" cy="235" r="10"/><circle cx="168" cy="240" r="10"/><circle cx="196" cy="232" r="10"/><circle cx="224" cy="240" r="10"/>
+    <circle cx="252" cy="233" r="10"/><circle cx="280" cy="240" r="10"/><circle cx="308" cy="234" r="10"/><circle cx="336" cy="240" r="10"/>
+    <circle cx="364" cy="233" r="10"/>
+    <circle cx="135" cy="268" r="10"/><circle cx="163" cy="272" r="10"/><circle cx="191" cy="264" r="10"/><circle cx="219" cy="271" r="10"/>
+    <circle cx="247" cy="265" r="10"/><circle cx="275" cy="272" r="10"/><circle cx="303" cy="265" r="10"/><circle cx="331" cy="272" r="10"/>
+    <circle cx="359" cy="265" r="10"/><circle cx="381" cy="280" r="10"/>
+    <circle cx="140" cy="300" r="10"/><circle cx="168" cy="304" r="10"/><circle cx="196" cy="297" r="10"/><circle cx="224" cy="303" r="10"/>
+    <circle cx="252" cy="297" r="10"/><circle cx="280" cy="304" r="10"/><circle cx="308" cy="297" r="10"/><circle cx="336" cy="304" r="10"/>
+    <circle cx="364" cy="300" r="10"/>
+    <circle cx="135" cy="330" r="10"/><circle cx="163" cy="334" r="10"/><circle cx="191" cy="328" r="10"/><circle cx="219" cy="335" r="10"/>
+    <circle cx="247" cy="329" r="10"/><circle cx="275" cy="335" r="10"/><circle cx="303" cy="328" r="10"/><circle cx="331" cy="335" r="10"/>
+    <circle cx="359" cy="329" r="10"/><circle cx="383" cy="334" r="10"/>
+  </g>
+  <g fill="var(--t5-ink)" stroke="currentColor" stroke-width="1">
+    <circle cx="200" cy="110" r="10"/>
+    <circle cx="330" cy="80" r="10"/>
+  </g>
+  <circle cx="266" cy="200" r="10" fill="var(--t1-ink)" stroke="currentColor" stroke-width="1"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="194" y1="100" x2="170" y2="45"/>
+    <polyline points="166,59 169,43 179,55"/>
+    <line x1="336" y1="70" x2="362" y2="20"/>
+    <polyline points="352,30 363,18 365,34"/>
+    <line x1="266" y1="189" x2="266" y2="166"/>
+    <polyline points="260,174 266,164 272,174"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="420" y="60">fast particles escape</text>
+    <text x="420" y="76">from the surface</text>
+    <text x="420" y="150">slower particle:</text>
+    <text x="420" y="166">attractions pull it back</text>
+    <text x="420" y="270">particles left behind:</text>
+    <text x="420" y="286">lower average kinetic</text>
+    <text x="420" y="302">energy, so the liquid cools</text>
+    <text x="40" y="194" fill="var(--muted)">surface</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="415" y1="64" x2="372" y2="74"/>
+    <line x1="415" y1="160" x2="280" y2="196"/>
+    <line x1="415" y1="282" x2="392" y2="282"/>
+  </g>
+</svg>

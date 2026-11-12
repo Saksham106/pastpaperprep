@@ -2,67 +2,67 @@
   {
     "id": "force",
     "term": "force",
-    "definition": "TODO: A push or pull, measured in N; a vector; may change size, shape, speed or direction",
+    "definition": "A push or a pull on an object, measured in newtons (N); it has a direction as well as a size, and it can change an object's size, shape, speed or direction of motion.",
     "lesson": "1.5.1"
   },
   {
     "id": "resultant-force",
     "term": "resultant force",
-    "definition": "TODO: Single force with the same effect as all forces acting; zero means constant velocity or at rest",
+    "definition": "The single force that has the same effect as all the forces acting on an object together; when it is zero, the object stays at rest or moves at a constant speed in a straight line.",
     "lesson": "1.5.1"
   },
   {
     "id": "elastic",
     "term": "elastic",
-    "definition": "TODO: Material that returns to its original size and shape when the force is removed",
+    "definition": "Describes an object that goes back to its original size and shape when the force on it is removed.",
     "lesson": "1.5.1"
   },
   {
     "id": "load-extension-graph",
     "term": "load-extension graph",
-    "definition": "TODO: Plot of extension against load for a spring or wire; straight line through origin up to the limit of proportionality",
+    "definition": "A graph of the load on a stretched object, such as a spring, against its extension; while the extension is directly proportional to the load, it is a straight line through the origin.",
     "lesson": "1.5.1"
   },
   {
     "id": "spring-constant",
     "term": "spring constant",
-    "definition": "TODO: Force per unit extension, k = F/x, in N/m; stiffer spring has a larger k",
+    "definition": "The force per unit extension of a spring, $k = \\frac{F}{x}$, in N/m or N/cm; it is constant only up to the limit of proportionality, and a stiffer spring has a larger $k$.",
     "lesson": "1.5.1"
   },
   {
     "id": "limit-of-proportionality",
     "term": "limit of proportionality",
-    "definition": "TODO: Point beyond which extension is no longer directly proportional to load; elastic limit not required",
+    "definition": "The point on a load-extension graph beyond which the extension is no longer directly proportional to the load; the straight line through the origin ends there.",
     "lesson": "1.5.1"
   },
   {
     "id": "newton-s-first-law",
     "term": "Newton's first law",
-    "definition": "TODO: Object stays at rest or moves at constant speed in a straight line unless acted on by a resultant force",
+    "definition": "An object stays at rest, or keeps moving at a constant speed in a straight line, unless a resultant force acts on it.",
     "lesson": "1.5.1"
   },
   {
     "id": "friction",
     "term": "friction",
-    "definition": "TODO: Force between two surfaces that opposes motion and produces heating",
+    "definition": "A force between two surfaces that touch, which can oppose their motion over each other and heats them when they rub.",
     "lesson": "1.5.1"
   },
   {
     "id": "drag",
     "term": "drag",
-    "definition": "TODO: Frictional force on an object moving through a liquid or gas; opposes motion and rises with speed",
+    "definition": "Friction on an object moving through a liquid or a gas, such as air resistance; it acts against the motion and gets bigger as the speed increases.",
     "lesson": "1.5.1"
   },
   {
     "id": "circular-motion",
     "term": "circular motion",
-    "definition": "TODO: Motion in a circle needs a resultant force perpendicular to the motion, towards the centre; the speed can stay constant while the velocity changes",
+    "definition": "Motion along a circular path; at a constant speed it needs a resultant force perpendicular to the motion, towards the centre, which changes the direction of the velocity but not the speed.",
     "lesson": "1.5.1"
   },
   {
     "id": "newton-s-second-law",
     "term": "Newton's second law",
-    "definition": "TODO: F = ma; force and acceleration are in the same direction",
+    "definition": "The resultant force on an object equals its mass times its acceleration, $F = ma$, and the acceleration is in the same direction as the resultant force.",
     "lesson": "1.5.1"
   }
 ]
