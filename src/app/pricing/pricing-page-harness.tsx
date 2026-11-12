@@ -12,6 +12,12 @@ import PricingPage from "./page";
 export const pricingTestUrl = { search: "", prerender: false };
 export const SESSION_COOKIE = "sb-project-auth-token=base64-eyJ9";
 
+/** A session cookie whose decoded owner is `userId`, as Supabase SSR writes it (base64- JSON). */
+export function setSessionFor(userId: string, accessToken = "x") {
+  const value = btoa(JSON.stringify({ access_token: accessToken, user: { id: userId } })).replace(/=+$/, "");
+  document.cookie = `sb-project-auth-token=base64-${value}; path=/`;
+}
+
 export function setSignedIn(signedIn: boolean) {
   document.cookie = signedIn ? `${SESSION_COOKIE}; path=/` : "sb-project-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 }

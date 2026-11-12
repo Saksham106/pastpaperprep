@@ -6,26 +6,30 @@ import { PricingContent } from "@/components/PricingContent";
 import type { Bank } from "@/lib/banks";
 import { parsePricingAccount, SIGNED_OUT_PRICING_ACCOUNT, type PricingAccount } from "@/lib/pricing-account";
 import { parsePricingIntent } from "@/lib/pricing-intent";
-import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
+import { sessionLifecycleOwner } from "@/lib/member-session-cache";
+import { subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
 
 type Props = { availableBanks: readonly Bank[]; updated?: { date: string; label: string } };
 type AccountState = { status: "loading" } | { status: "ready"; account: PricingAccount } | { status: "delayed" } | { status: "failed" };
 
-const readSessionCookie = () => documentHasSupabaseAuthCookie(document.cookie);
+// Changes on sign-in, sign-out and account switches (also with no signed-out moment in between,
+// e.g. another tab replacing the session), but not on the hourly token refresh. The decoded owner
+// only invalidates what this page shows; /api/pricing/account authorizes from the session itself.
+const readSessionOwner = () => sessionLifecycleOwner(document.cookie);
+const SERVER_OWNER = "signed-out:server";
 
 /**
  * Reads the signed-in plan state after the CDN-served page loads. Visitors without a session
  * cookie never call the API. The result only chooses what to display; checkout re-verifies.
  */
 function usePricingAccount(): { state: AccountState; retry: () => void } {
-  const hasSession = useSyncExternalStore(subscribeToSessionChanges, readSessionCookie, () => false);
+  const owner = useSyncExternalStore(subscribeToSessionChanges, readSessionOwner, () => SERVER_OWNER);
+  const hasSession = !owner.startsWith("signed-out:");
   const [attempt, setAttempt] = useState(0);
-  // Every sign-in or sign-out starts a new generation, so a result fetched for an earlier
-  // session (another account, before a sign-out in this tab) is never shown again.
-  const [session, setSession] = useState({ hasSession, generation: 0 });
-  if (session.hasSession !== hasSession) setSession({ hasSession, generation: session.generation + 1 });
   const [result, setResult] = useState<{ key: string; state: AccountState } | null>(null);
-  const key = `${hasSession}:${session.generation}:${attempt}`;
+  // A result is shown only for the owner and attempt that requested it; a new owner shows
+  // loading until its own response arrives.
+  const key = `${owner}|${attempt}`;
   useEffect(() => {
     if (!hasSession) return;
     let active = true;
@@ -37,9 +41,15 @@ function usePricingAccount(): { state: AccountState; retry: () => void } {
         return account ? { status: "ready", account } as const : { status: "failed" } as const;
       })
       .catch(() => ({ status: "failed" }) as const)
-      .then((state) => { if (active) setResult({ key, state }); });
+      .then((state) => {
+        if (!active) return; // The owner changed or the page left before the response arrived.
+        // The cookie can change before any session event reaches this page: drop the response
+        // and re-render, which reads the new owner and requests its own plan.
+        if (readSessionOwner() !== owner) setResult({ key: "", state: { status: "loading" } });
+        else setResult({ key, state });
+      });
     return () => { active = false; };
-  }, [hasSession, key]);
+  }, [hasSession, owner, key]);
   const retry = useCallback(() => setAttempt((value) => value + 1), []);
   if (!hasSession) return { state: { status: "ready", account: SIGNED_OUT_PRICING_ACCOUNT }, retry };
   return { state: result?.key === key ? result.state : { status: "loading" }, retry };
