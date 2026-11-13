@@ -198,11 +198,11 @@
         },
         {
           "type": "examTip",
-          "text": "Draw your construction lines on the graph (background ignored): across from half the starting value, then down to the time axis. You can start from any point on the curve, not only $t = 0$."
+          "text": "Draw your construction lines on the graph (background ignored): across from half the starting value, then down to the time axis. You can start from any point on the curve: the half-life is the time you reach half its value minus the starting time."
         },
         {
           "type": "mistake",
-          "text": "Halving the time axis, or giving a count rate as the half-life. Halve the value on the vertical axis; the half-life is the time you read off."
+          "text": "Halving the time axis, or giving a count rate as the half-life. Halve the value on the vertical axis; the half-life is the time between the two points, so subtract the starting time unless you began at $t = 0$."
         },
         {
           "type": "check",
@@ -646,7 +646,7 @@
         },
         {
           "type": "fact",
-          "text": "From a decay curve (background ignored): halve the count rate, go across to the curve, then straight down to read the time. Check with a second halving.",
+          "text": "From a decay curve (background ignored): halve the count rate at a starting time, go across to the curve, then straight down to read the time. Half-life = that time − the starting time. Check with a second halving.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -669,7 +669,7 @@
   ],
   "mistakes": [
     "Taking the first number of the halving chain as one half-life. Count the arrows in the halving chain, not the numbers.",
-    "Halving the time instead of the count rate on a decay curve. Halve the vertical value and read the time it happens.",
+    "Halving the time instead of the count rate on a decay curve. Halve the vertical value; the half-life is the time taken to get there from your starting point.",
     "Drawing the decay as a straight line to zero, as if everything decays in two half-lives. The amount halves each time, so the curve flattens and never quite reaches zero.",
     "Thinking a bigger sample has a longer half-life. Half-life is the same for any amount of the isotope.",
     "Extended: halving a reading that still includes background. Subtract the background first, halve, then add it back if the question asks for the measured reading."

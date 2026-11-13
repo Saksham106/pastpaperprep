@@ -36,6 +36,10 @@ Add a line whenever a review finds a new class of error. Each line is the genera
 25. **Standalone lines in a two-tier course carry their tier.** Exam tips, mistakes and glossary definitions in a Core lesson that use Supplement content (an Extended equation, experiment or rule) must be marked Extended, or say "(Extended: …)" inside a Core glossary entry; otherwise Core students see content they are not taught (0625: 2.2.2, 2.2.3, 2.3.3, 4.2.x glossary).
 26. **Diagrams use the board's own symbol sheet.** Check every circuit figure against it, symbol by symbol: writers drew a generator as a circle (it is a square with G), a home-made relay, a fuse with no wire through it (the resistor symbol) and cells where the question says "d.c. supply" (0625 4.3.1, 4.4, 4.5.x). Render the symbol page (`pdfplumber` `page.to_image()` works without poppler).
 
+27. **Tier applies to recalled numbers too.** A Supplement-only value (0625: the speed of light, a light-year in metres) on a Core surface is either flagged Extended or framed as given data; this includes glossary entries and "Learn this" lines (0625 3.4, 6.2.2).
+28. **A check's key must follow from what the question states.** A hotter motor or lamp does not prove it wastes more energy (cooling is unstated); state the wasted energy or the input instead (0625 1.7.3).
+29. **A reading taken from a non-zero start is a difference.** Half-life from any point on a decay curve is the later time minus the starting time, in the method, tip, mistake and takeaway lines alike (0625 5.2.4).
+
 ## Rules for the answer gate
 
 17. **Every new answer kind gets mutation tests before it ships.** Each review of a new gate found 3–4 holes: containment instead of equivalence, sample points instead of proof, a zero factor accepted, denominator exclusions dropped, `+ C` erased, an isomer accepted by composition (AA, 0580, Chemistry).

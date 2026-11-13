@@ -80,7 +80,7 @@ Name the paper style where it helps ("a Paper 1/2 multiple-choice question", "Pa
 ## Equations, data and accuracy
 
 - **No formula sheet.** Students must recall every equation the syllabus says to "recall and use". Tag those formulas `learn` (never `booklet`), and flag each one for the cheat sheet **once**, where it is taught or in the takeaways, not both. Write each equation the way the syllabus writes it (e.g. $\rho = \frac{m}{V}$, $p = mv$, $R = \frac{V}{I}$), then rearrange.
-- **Values students should know:** $g \approx 9.8\ \text{m/s}^2$ (papers also print it), speed of light $3.0 \times 10^8\ \text{m/s}$, speed of sound in air about 330–350 m/s, $-273\ °\text{C}$ = 0 K. Everything else comes from the question. In `verify.truth` you may use the physics names in `phys_data.py` (`g`, `c`) and the degree helpers `sind` / `cosd` / `tand` / `asind` / `acosd` / `atand`.
+- **Values students should know:** $g \approx 9.8\ \text{m/s}^2$ (papers also print it), speed of light $3.0 \times 10^8\ \text{m/s}$ (Extended recall only: on Core paths present it as data the question gives), speed of sound in air about 330–350 m/s, $-273\ °\text{C}$ = 0 K. Everything else comes from the question. In `verify.truth` you may use the physics names in `phys_data.py` (`g`, `c`) and the degree helpers `sind` / `cosd` / `tand` / `asind` / `acosd` / `atand`.
 - **Calculators** are allowed in every paper. No keystroke blocks for this course.
 - **Accuracy:**
   - answers to the precision the data justify, usually 2 or 3 significant figures, never more than the least precise datum;

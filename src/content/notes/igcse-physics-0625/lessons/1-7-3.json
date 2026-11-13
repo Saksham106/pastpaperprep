@@ -630,7 +630,7 @@
         {
           "type": "example",
           "id": "ex-lamp-efficiency",
-          "question": "A filament lamp and an LED lamp give out the same amount of light each second. The filament lamp gets very hot; the LED lamp stays cool. Explain which lamp is more efficient.",
+          "question": "A filament lamp and an LED lamp give out the same amount of light each second. The filament lamp transfers much more energy to its surroundings as thermal energy than the LED lamp does. Explain which lamp is more efficient.",
           "steps": [
             "Compare the useful output first, then where the rest of the input goes."
           ],
@@ -658,8 +658,8 @@
         {
           "type": "check",
           "id": "check-hotter-motor",
-          "prompt": "Motors P and Q do the same useful work in the same time. Motor P gets much hotter than motor Q. Which statement is correct?",
-          "hint": "The useful output is the same. Which motor wastes more?",
+          "prompt": "Motors P and Q do the same useful work in the same time. Motor P wastes more energy as thermal energy than motor Q. Which statement is correct?",
+          "hint": "The useful output is the same. Which motor needs the larger input?",
           "options": [
             {
               "text": "motor Q is more efficient",
@@ -674,7 +674,7 @@
               "correct": false
             }
           ],
-          "explain": "P wastes more energy as thermal energy, so it needs a larger input for the same useful output. A smaller fraction of its input is useful.",
+          "explain": "P wastes more energy as thermal energy, so it needs a larger input for the same useful output. A smaller fraction of its input is useful. A motor's temperature alone would not tell you this: how hot it gets also depends on how well it cools.",
           "verify": {
             "kind": "choice",
             "truth": "motor Q is more efficient"
